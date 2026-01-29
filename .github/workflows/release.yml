@@ -117,36 +117,7 @@ jobs:
         with:
           name: ${{ steps.version.outputs.version }}
           body: |
-            ## Quick Install
-
-            ### macOS / Linux
-            ```bash
-            curl -fsSL https://raw.githubusercontent.com/IntelligentElectron/universal-netlist/main/install.sh | bash
-            ```
-
-            ### Windows (PowerShell)
-            ```powershell
-            irm https://raw.githubusercontent.com/IntelligentElectron/universal-netlist/main/install.ps1 | iex
-            ```
-
-            ## Claude Desktop Extension
-
-            Download `universal-netlist.mcpb` and install via:
-            1. Open Claude Desktop → Settings → Extensions
-            2. Click **Advanced settings**
-            3. Click **Install Extension...** and select the `.mcpb` file
-
-            > **Note:** The .mcpb includes the Apple Silicon (arm64) macOS binary. Intel Mac users should use the CLI install method above.
-
-            ## Binaries
-
-            | Platform | Binary |
-            |----------|--------|
-            | macOS (Apple Silicon) | `universal-netlist-darwin-arm64` |
-            | macOS (Intel) | `universal-netlist-darwin-x64` |
-            | Linux (ARM64) | `universal-netlist-linux-arm64` |
-            | Linux (x64) | `universal-netlist-linux-x64` |
-            | Windows (x64) | `universal-netlist-windows-x64.exe` |
+            See [Setup Instructions](https://github.com/IntelligentElectron/universal-netlist#quick-install) for installation and configuration.
 
             ## Checksums
 
