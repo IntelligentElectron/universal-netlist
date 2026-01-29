@@ -3,7 +3,7 @@
   "manifest_version": "0.3",
   "name": "universal-netlist",
   "display_name": "Universal Netlist",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Query EDA netlists and trace circuit connectivity for schematic design reviews",
   "long_description": "The Universal Netlist MCP Server gives AI agents the power to understand and analyze your electrical schematics. Query components, trace signal paths through XNETs, and perform comprehensive design reviews through natural conversations.\n\nSupports Cadence (CIS, HDL) and Altium Designer formats.",
   "author": {
