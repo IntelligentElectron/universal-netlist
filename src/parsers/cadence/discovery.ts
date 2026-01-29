@@ -144,7 +144,7 @@ const normalizeForComparison = (p: string): string => {
 
 /**
  * Check if a directory is a descendant of (or equal to) another directory.
- * Uses proper path boundary checking to avoid false matches like "test_design_1" matching "test_design_2".
+ * Uses proper path boundary checking to avoid false matches like "test_design_1" matching "test_design_1_v2".
  * Case-insensitive on Windows.
  */
 const isDescendantOrEqual = (childDir: string, parentDir: string): boolean => {
@@ -200,53 +200,76 @@ const scoreDatSetMatch = (
 };
 
 /**
- * Match dat sets to designs using subtree-scoped matching.
- * A dat set belongs to a design if it's in the same directory or any subdirectory.
+ * A candidate pairing of a design with a dat set.
+ */
+interface MatchCandidate {
+  designPath: string;
+  datSet: DatFileSet;
+  score: number;
+}
+
+/**
+ * Match dat sets to designs using global score-based assignment.
+ * This ensures deterministic results regardless of readdir order.
+ *
+ * Algorithm:
+ * 1. Build all valid (design, datSet, score) pairs
+ * 2. Sort globally by score (desc), then by paths for determinism
+ * 3. Assign greedily from highest score, skipping already-assigned pairs
  */
 const matchDatSetsToDesigns = (
   designFiles: string[],
   datSets: DatFileSet[],
 ): Map<string, DatFileSet | null> => {
   const assignments = new Map<string, DatFileSet | null>();
-  const usedDatSets = new Set<string>();
 
   // Initialize all designs with null
   for (const designPath of designFiles) {
     assignments.set(designPath, null);
   }
 
-  // For each design, find matching dat sets in its subtree
+  // Build all valid candidate pairings
+  const candidates: MatchCandidate[] = [];
   for (const designPath of designFiles) {
     const designDir = path.dirname(designPath);
     const designName = path.basename(designPath, path.extname(designPath));
 
-    // Find dat sets that are descendants of (or in) this design's directory
-    const candidates = datSets.filter(
-      (ds) =>
-        !usedDatSets.has(ds.directory) &&
-        isDescendantOrEqual(ds.directory, designDir),
-    );
+    for (const datSet of datSets) {
+      if (isDescendantOrEqual(datSet.directory, designDir)) {
+        candidates.push({
+          designPath,
+          datSet,
+          score: scoreDatSetMatch(designDir, designName, datSet),
+        });
+      }
+    }
+  }
 
-    if (candidates.length === 0) {
+  // Sort by score (descending), then by paths for determinism
+  candidates.sort((a, b) => {
+    if (b.score !== a.score) return b.score - a.score;
+    // Tiebreaker: sort by design path, then dat directory
+    if (a.designPath !== b.designPath) {
+      return a.designPath.localeCompare(b.designPath);
+    }
+    return a.datSet.directory.localeCompare(b.datSet.directory);
+  });
+
+  // Assign greedily from highest score
+  const usedDatSets = new Set<string>();
+  const assignedDesigns = new Set<string>();
+
+  for (const candidate of candidates) {
+    if (
+      assignedDesigns.has(candidate.designPath) ||
+      usedDatSets.has(candidate.datSet.directory)
+    ) {
       continue;
     }
 
-    let matchedSet: DatFileSet;
-
-    if (candidates.length === 1) {
-      matchedSet = candidates[0];
-    } else {
-      // Multiple candidates - score and pick best
-      const scored = candidates.map((ds) => ({
-        datSet: ds,
-        score: scoreDatSetMatch(designDir, designName, ds),
-      }));
-      scored.sort((a, b) => b.score - a.score);
-      matchedSet = scored[0].datSet;
-    }
-
-    assignments.set(designPath, matchedSet);
-    usedDatSets.add(matchedSet.directory);
+    assignments.set(candidate.designPath, candidate.datSet);
+    assignedDesigns.add(candidate.designPath);
+    usedDatSets.add(candidate.datSet.directory);
   }
 
   return assignments;
