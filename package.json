@@ -1,0 +1,62 @@
+{
+  "name": "universal-netlist",
+  "version": "0.0.1",
+  "description": "MCP server for netlist parsing and circuit analysis",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "universal-netlist": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint \"src/**/*.ts\"",
+    "lint:fix": "eslint \"src/**/*.ts\" --fix",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf dist bin",
+    "compile": "bun build --compile --minify src/index.ts --outfile bin/universal-netlist",
+    "compile:darwin-arm64": "bun build --compile --minify --target=bun-darwin-arm64 src/index.ts --outfile bin/universal-netlist-darwin-arm64",
+    "compile:darwin-x64": "bun build --compile --minify --target=bun-darwin-x64 src/index.ts --outfile bin/universal-netlist-darwin-x64",
+    "compile:linux-arm64": "bun build --compile --minify --target=bun-linux-arm64 src/index.ts --outfile bin/universal-netlist-linux-arm64",
+    "compile:linux-x64": "bun build --compile --minify --target=bun-linux-x64 src/index.ts --outfile bin/universal-netlist-linux-x64",
+    "compile:windows-x64": "bun build --compile --minify --target=bun-windows-x64 src/index.ts --outfile bin/universal-netlist-windows-x64.exe",
+    "compile:all": "npm run compile:darwin-arm64 && npm run compile:darwin-x64 && npm run compile:linux-arm64 && npm run compile:linux-x64 && npm run compile:windows-x64"
+  },
+  "keywords": [
+    "mcp",
+    "netlist",
+    "circuit",
+    "cadence",
+    "altium",
+    "eda"
+  ],
+  "author": "Valentino Zegna <valentino.zegna@gmail.com> (https://github.com/IntelligentElectron)",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IntelligentElectron/universal-netlist.git"
+  },
+  "bugs": {
+    "url": "https://github.com/IntelligentElectron/universal-netlist/issues"
+  },
+  "homepage": "https://github.com/IntelligentElectron/universal-netlist#readme",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.25.2",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.21",
+    "eslint": "^9.18.0",
+    "tsx": "^4.19.4",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.53.0",
+    "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

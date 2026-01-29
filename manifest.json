@@ -1,0 +1,90 @@
+{
+  "$schema": "https://raw.githubusercontent.com/modelcontextprotocol/mcpb/main/mcpb-manifest.schema.json",
+  "manifest_version": "0.3",
+  "name": "universal-netlist",
+  "display_name": "Universal Netlist",
+  "version": "0.0.1",
+  "description": "Query EDA netlists and trace circuit connectivity for schematic design reviews",
+  "long_description": "The Universal Netlist MCP Server gives AI agents the power to understand and analyze your electrical schematics. Query components, trace signal paths through XNETs, and perform comprehensive design reviews through natural conversations.\n\nSupports Cadence (CIS, HDL) and Altium Designer formats.",
+  "author": {
+    "name": "IntelligentElectron",
+    "url": "https://github.com/IntelligentElectron"
+  },
+  "icon": "icon.png",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IntelligentElectron/universal-netlist"
+  },
+  "homepage": "https://github.com/IntelligentElectron/universal-netlist",
+  "documentation": "https://github.com/IntelligentElectron/universal-netlist/tree/main/docs",
+  "keywords": [
+    "netlist",
+    "circuit",
+    "EDA",
+    "PCB",
+    "schematic",
+    "Cadence",
+    "Altium",
+    "electronics",
+    "design review"
+  ],
+  "server": {
+    "type": "binary",
+    "entry_point": "server/universal-netlist",
+    "mcp_config": {
+      "command": "${__dirname}/server/universal-netlist"
+    }
+  },
+  "compatibility": {
+    "claude_desktop": ">=1.0.0",
+    "platforms": ["darwin", "win32"]
+  },
+  "tools_generated": true,
+  "tools": [
+    {
+      "name": "list_designs",
+      "description": "List all design projects in a directory"
+    },
+    {
+      "name": "list_components",
+      "description": "List components of a specific type in a design"
+    },
+    {
+      "name": "list_nets",
+      "description": "List all net names in a design"
+    },
+    {
+      "name": "search_nets",
+      "description": "Search for nets matching a regex pattern"
+    },
+    {
+      "name": "search_components_by_refdes",
+      "description": "Search for components by reference designator pattern"
+    },
+    {
+      "name": "search_components_by_mpn",
+      "description": "Search for components by manufacturer part number"
+    },
+    {
+      "name": "search_components_by_description",
+      "description": "Search for components by description pattern"
+    },
+    {
+      "name": "query_component",
+      "description": "Get full component details including all pin connections"
+    },
+    {
+      "name": "query_xnet_by_net_name",
+      "description": "Trace XNET connectivity starting from a net name"
+    },
+    {
+      "name": "query_xnet_by_pin_name",
+      "description": "Trace XNET connectivity starting from a component pin"
+    },
+    {
+      "name": "export_cadence_netlist",
+      "description": "Export Cadence schematic to Allegro PCB format (Windows only)"
+    }
+  ]
+}
