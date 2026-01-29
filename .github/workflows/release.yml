@@ -9,35 +9,12 @@ permissions:
   contents: write
 
 jobs:
-  build:
-    strategy:
-      matrix:
-        include:
-          - os: macos-latest
-            target: bun-darwin-arm64
-            binary: universal-netlist-darwin-arm64
-            sign: true
-          - os: macos-latest
-            target: bun-darwin-x64
-            binary: universal-netlist-darwin-x64
-            sign: true
-          - os: ubuntu-latest
-            target: bun-linux-arm64
-            binary: universal-netlist-linux-arm64
-            sign: false
-          - os: ubuntu-latest
-            target: bun-linux-x64
-            binary: universal-netlist-linux-x64
-            sign: false
-          - os: ubuntu-latest
-            target: bun-windows-x64
-            binary: universal-netlist-windows-x64.exe
-            sign: false
-
-    runs-on: ${{ matrix.os }}
+  build-and-release:
+    runs-on: macos-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
@@ -47,13 +24,16 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Build binary
+      - name: Build all platforms
         run: |
           mkdir -p bin
-          bun build --compile --minify --target=${{ matrix.target }} src/index.ts --outfile bin/${{ matrix.binary }}
+          bun build --compile --minify --target=bun-darwin-arm64 src/index.ts --outfile bin/universal-netlist-darwin-arm64
+          bun build --compile --minify --target=bun-darwin-x64 src/index.ts --outfile bin/universal-netlist-darwin-x64
+          bun build --compile --minify --target=bun-linux-arm64 src/index.ts --outfile bin/universal-netlist-linux-arm64
+          bun build --compile --minify --target=bun-linux-x64 src/index.ts --outfile bin/universal-netlist-linux-x64
+          bun build --compile --minify --target=bun-windows-x64 src/index.ts --outfile bin/universal-netlist-windows-x64.exe
 
-      - name: Import Apple certificates
-        if: matrix.sign
+      - name: Import Apple certificate
         env:
           APPLE_CERTIFICATE_BASE64: ${{ secrets.APPLE_CERTIFICATE_BASE64 }}
           APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
@@ -62,87 +42,71 @@ jobs:
           KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
           KEYCHAIN_PASSWORD=$(openssl rand -base64 32)
 
-          # Decode certificate
-          echo "$APPLE_CERTIFICATE_BASE64" | base64 --decode > $RUNNER_TEMP/certificate.p12
-
-          # Create keychain
-          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
-          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
-          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
 
           # Import certificate
-          security import $RUNNER_TEMP/certificate.p12 -P "$APPLE_CERTIFICATE_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
-          security set-key-partition-list -S apple-tool:,apple: -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
-          security list-keychain -d user -s $KEYCHAIN_PATH
+          echo "$APPLE_CERTIFICATE_BASE64" | base64 --decode > $RUNNER_TEMP/certificate.p12
+          security import $RUNNER_TEMP/certificate.p12 -P "$APPLE_CERTIFICATE_PASSWORD" -A -t cert -f pkcs12 -k "$KEYCHAIN_PATH"
+          security list-keychain -d user -s "$KEYCHAIN_PATH"
 
-      - name: Sign macOS binary
-        if: matrix.sign
+          # Allow codesign to access the key
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+
+      - name: Sign macOS binaries
         env:
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
-          codesign --force --options runtime --entitlements entitlements.plist \
-            --sign "Developer ID Application: Valentino Zegna Baruffa ($APPLE_TEAM_ID)" \
-            bin/${{ matrix.binary }}
+          cd bin
 
-      - name: Notarize macOS binary
-        if: matrix.sign
+          # Sign both macOS binaries with JIT entitlements (required for Bun runtime)
+          codesign --force --options runtime --entitlements ../entitlements.plist --sign "Developer ID Application: Valentino Zegna Baruffa ($APPLE_TEAM_ID)" universal-netlist-darwin-arm64
+          codesign --force --options runtime --entitlements ../entitlements.plist --sign "Developer ID Application: Valentino Zegna Baruffa ($APPLE_TEAM_ID)" universal-netlist-darwin-x64
+
+          # Verify signatures
+          codesign --verify --verbose universal-netlist-darwin-arm64
+          codesign --verify --verbose universal-netlist-darwin-x64
+
+      - name: Notarize macOS binaries
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_APP_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
-          # Create ZIP for notarization
           cd bin
-          zip ${{ matrix.binary }}.zip ${{ matrix.binary }}
 
-          # Submit for notarization and wait
-          xcrun notarytool submit ${{ matrix.binary }}.zip \
+          # Create ZIP files for notarization
+          zip universal-netlist-darwin-arm64.zip universal-netlist-darwin-arm64
+          zip universal-netlist-darwin-x64.zip universal-netlist-darwin-x64
+
+          # Notarize ARM64
+          xcrun notarytool submit universal-netlist-darwin-arm64.zip \
             --apple-id "$APPLE_ID" \
             --password "$APPLE_APP_PASSWORD" \
             --team-id "$APPLE_TEAM_ID" \
             --wait
 
-          # Clean up zip (we upload the raw binary)
-          rm ${{ matrix.binary }}.zip
+          # Notarize x64
+          xcrun notarytool submit universal-netlist-darwin-x64.zip \
+            --apple-id "$APPLE_ID" \
+            --password "$APPLE_APP_PASSWORD" \
+            --team-id "$APPLE_TEAM_ID" \
+            --wait
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ matrix.binary }}
-          path: bin/${{ matrix.binary }}
-
-  release:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Download all artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: binaries
-
-      - name: Move binaries to release directory
-        run: |
-          mkdir -p release
-          find binaries -type f -exec mv {} release/ \;
-          ls -la release/
+          # Clean up zips
+          rm *.zip
 
       - name: Generate checksums
         run: |
-          cd release
-          sha256sum * > checksums.txt
+          cd bin
+          shasum -a 256 universal-netlist-* > checksums.txt
           cat checksums.txt
-
-      - uses: actions/checkout@v4
-        with:
-          sparse-checkout: |
-            manifest.json
-            scripts/build-mcpb.sh
 
       - name: Build .mcpb desktop extension
         run: |
           chmod +x scripts/build-mcpb.sh
-          RELEASE_DIR=$PWD/release OUTPUT_DIR=$PWD/release scripts/build-mcpb.sh ${GITHUB_REF#refs/tags/v}
+          RELEASE_DIR=$PWD/bin OUTPUT_DIR=$PWD/bin scripts/build-mcpb.sh ${GITHUB_REF#refs/tags/v}
 
       - name: Get version from tag
         id: version
@@ -188,7 +152,13 @@ jobs:
 
             See `checksums.txt` for SHA256 checksums.
           files: |
-            release/*
+            bin/universal-netlist-darwin-arm64
+            bin/universal-netlist-darwin-x64
+            bin/universal-netlist-linux-arm64
+            bin/universal-netlist-linux-x64
+            bin/universal-netlist-windows-x64.exe
+            bin/checksums.txt
+            bin/universal-netlist.mcpb
           draft: false
           prerelease: false
         env:
