@@ -34,5 +34,6 @@ coverage/
 *.tmp
 *.temp
 
-# Private files
+# Private files and plans
 private/
+plans/
