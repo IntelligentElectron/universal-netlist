@@ -58,7 +58,6 @@ We recommend the [Claude Desktop app](https://claude.ai/download) for its simpli
 5. In the **Extension Developer** section, click **Install Extension...**
 6. Navigate to your install directory and select `universal-netlist.mcpb`:
    - **macOS**: `~/Library/Application Support/universal-netlist/universal-netlist.mcpb`
-   - **Linux**: `~/.local/share/universal-netlist/universal-netlist.mcpb`
    - **Windows**: `%LOCALAPPDATA%\universal-netlist\universal-netlist.mcpb`
 
 The extension will be available immediately in your conversations.
