@@ -102,10 +102,7 @@ jobs:
             --team-id "$APPLE_TEAM_ID" \
             --wait
 
-          # Staple the ticket to the binary
-          xcrun stapler staple ${{ matrix.binary }}
-
-          # Remove the zip file
+          # Clean up zip (we upload the raw binary)
           rm ${{ matrix.binary }}.zip
 
       - name: Upload artifact
