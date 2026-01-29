@@ -117,7 +117,7 @@ jobs:
         with:
           name: ${{ steps.version.outputs.version }}
           body: |
-            See [Setup Instructions](https://github.com/IntelligentElectron/universal-netlist#quick-install) for installation and configuration.
+            See [Setup Instructions](https://github.com/IntelligentElectron/universal-netlist?tab=readme-ov-file#connect-the-mcp-with-your-favorite-ai-tool) for installation and configuration.
 
             ## Checksums
 

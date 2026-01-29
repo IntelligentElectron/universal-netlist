@@ -50,6 +50,16 @@ const main = async (): Promise<void> => {
     return;
   }
 
+  // If running in a TTY (interactive terminal), show help instead of starting server
+  if (process.stdin.isTTY) {
+    console.log("This is an MCP server that communicates via stdio.");
+    console.log("It should be run by an MCP client (e.g., Claude Desktop), not directly.\n");
+    console.log("For setup instructions, see:");
+    console.log("  https://github.com/IntelligentElectron/universal-netlist?tab=readme-ov-file#connect-the-mcp-with-your-favorite-ai-tool\n");
+    console.log("Run with --help for available options.");
+    return;
+  }
+
   // Auto-update on startup (unless --no-update flag is present)
   if (!args.includes("--no-update")) {
     const updated = await autoUpdate();
