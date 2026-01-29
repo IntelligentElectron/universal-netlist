@@ -1,0 +1,21 @@
+{
+  "nets": {
+    "ANT": {
+      "A1": [
+        "1",
+        "2"
+      ]
+    }
+  },
+  "components": {
+    "A1": {
+      "mpn": "N.A.",
+      "description": "NFC Antenna Listener-6",
+      "pins": {
+        "1": "ANT",
+        "2": "ANT"
+      },
+      "value": "NFC_ANT_Listener-6"
+    }
+  }
+}

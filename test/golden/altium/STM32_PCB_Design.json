@@ -1,0 +1,1113 @@
+{
+  "nets": {
+    "+3V3": {
+      "U2": [
+        "1",
+        "9",
+        "24",
+        "36",
+        "48"
+      ],
+      "C9": [
+        "2"
+      ],
+      "C10": [
+        "2"
+      ],
+      "C11": [
+        "2"
+      ],
+      "C12": [
+        "2"
+      ],
+      "C13": [
+        "2"
+      ],
+      "C14": [
+        "2"
+      ],
+      "R5": [
+        "2"
+      ],
+      "U3": [
+        "8",
+        "13"
+      ],
+      "C8": [
+        "2"
+      ],
+      "C6": [
+        "2"
+      ],
+      "U1": [
+        "2",
+        "4"
+      ],
+      "C4": [
+        "1"
+      ],
+      "D1": [
+        "2"
+      ],
+      "R2": [
+        "2"
+      ],
+      "R3": [
+        "2"
+      ],
+      "J3": [
+        "1"
+      ],
+      "J2": [
+        "1"
+      ]
+    },
+    "MCU OSC IN": {
+      "U2": [
+        "5"
+      ],
+      "X1": [
+        "1"
+      ],
+      "C17": [
+        "2"
+      ]
+    },
+    "MCU OSC OUT": {
+      "U2": [
+        "6"
+      ],
+      "R6": [
+        "1"
+      ]
+    },
+    "MCU_NRST": {
+      "U2": [
+        "7"
+      ],
+      "C16": [
+        "2"
+      ],
+      "R5": [
+        "1"
+      ],
+      "J3": [
+        "3"
+      ]
+    },
+    "GND": {
+      "U2": [
+        "8",
+        "23",
+        "35",
+        "47",
+        "49"
+      ],
+      "X1": [
+        "2",
+        "4"
+      ],
+      "C9": [
+        "1"
+      ],
+      "C10": [
+        "1"
+      ],
+      "C11": [
+        "1"
+      ],
+      "C12": [
+        "1"
+      ],
+      "C13": [
+        "1"
+      ],
+      "C14": [
+        "1"
+      ],
+      "C15": [
+        "1"
+      ],
+      "C16": [
+        "1"
+      ],
+      "R7": [
+        "1"
+      ],
+      "C17": [
+        "1"
+      ],
+      "C18": [
+        "1"
+      ],
+      "U3": [
+        "1",
+        "9",
+        "11",
+        "18",
+        "25"
+      ],
+      "C8": [
+        "1"
+      ],
+      "C5": [
+        "1"
+      ],
+      "C6": [
+        "1"
+      ],
+      "C7": [
+        "1"
+      ],
+      "J1": [
+        "5"
+      ],
+      "U1": [
+        "1"
+      ],
+      "C1": [
+        "1"
+      ],
+      "C2": [
+        "1"
+      ],
+      "C3": [
+        "2"
+      ],
+      "C4": [
+        "2"
+      ],
+      "R1": [
+        "1"
+      ],
+      "R4": [
+        "2"
+      ],
+      "J3": [
+        "5"
+      ],
+      "J2": [
+        "6"
+      ]
+    },
+    "MCU_PA4": {
+      "U2": [
+        "14"
+      ],
+      "J2": [
+        "2"
+      ]
+    },
+    "MCU_PA5": {
+      "U2": [
+        "15"
+      ],
+      "J2": [
+        "3"
+      ]
+    },
+    "MCU_PA6": {
+      "U2": [
+        "16"
+      ],
+      "J2": [
+        "4"
+      ]
+    },
+    "MCU_PA7": {
+      "U2": [
+        "17"
+      ],
+      "J2": [
+        "5"
+      ]
+    },
+    "MCU_VCAP1": {
+      "U2": [
+        "22"
+      ],
+      "C15": [
+        "2"
+      ]
+    },
+    "MCU_LED_A": {
+      "U2": [
+        "26"
+      ],
+      "D2": [
+        "2"
+      ]
+    },
+    "USB_D_N": {
+      "U2": [
+        "32"
+      ],
+      "J1": [
+        "2"
+      ]
+    },
+    "USB_D_P": {
+      "U2": [
+        "33"
+      ],
+      "J1": [
+        "3"
+      ]
+    },
+    "MCU_SWDIO": {
+      "U2": [
+        "34"
+      ],
+      "J3": [
+        "2"
+      ]
+    },
+    "MCU_SCLK": {
+      "U2": [
+        "37"
+      ],
+      "J3": [
+        "4"
+      ]
+    },
+    "MCU_SWO": {
+      "U2": [
+        "39"
+      ],
+      "J3": [
+        "6"
+      ]
+    },
+    "IMU _SCL": {
+      "U2": [
+        "42"
+      ],
+      "U3": [
+        "23"
+      ],
+      "R2": [
+        "1"
+      ]
+    },
+    "IMU _SDA": {
+      "U2": [
+        "43"
+      ],
+      "U3": [
+        "24"
+      ],
+      "R3": [
+        "1"
+      ]
+    },
+    "MCU_BOOT0": {
+      "U2": [
+        "44"
+      ],
+      "R7": [
+        "2"
+      ]
+    },
+    "IMU INT": {
+      "U2": [
+        "45"
+      ],
+      "U3": [
+        "12"
+      ]
+    },
+    "XTAL IN": {
+      "X1": [
+        "3"
+      ],
+      "C18": [
+        "2"
+      ],
+      "R6": [
+        "2"
+      ]
+    },
+    "IMU REGOUT": {
+      "U3": [
+        "10"
+      ],
+      "C5": [
+        "2"
+      ]
+    },
+    "IMU CPOUT": {
+      "U3": [
+        "20"
+      ],
+      "C7": [
+        "2"
+      ]
+    },
+    "VBUS": {
+      "J1": [
+        "1"
+      ],
+      "FB1": [
+        "1"
+      ],
+      "C1": [
+        "2"
+      ]
+    },
+    "+5V": {
+      "U1": [
+        "3"
+      ],
+      "FB1": [
+        "2"
+      ],
+      "C2": [
+        "2"
+      ],
+      "C3": [
+        "1"
+      ]
+    },
+    "LED_P_K": {
+      "D1": [
+        "1"
+      ],
+      "R1": [
+        "2"
+      ]
+    },
+    "MCU_LED_K": {
+      "D2": [
+        "1"
+      ],
+      "R4": [
+        "1"
+      ]
+    }
+  },
+  "components": {
+    "U2": {
+      "description": "ARM Cortex-M4 32-bit MCU+FPU, 512 KB Flash, 128 KB RAM, 36 I/Os, 48-Pin UFQFPN, -40 to 85 degC, Tray",
+      "pins": {
+        "1": {
+          "name": "VBAT",
+          "net": "+3V3"
+        },
+        "2": {
+          "name": "PC13-ANTI_TAMP",
+          "net": ""
+        },
+        "3": {
+          "name": "PC14-OSC32_IN",
+          "net": ""
+        },
+        "4": {
+          "name": "PC15-OSC32_OUT",
+          "net": ""
+        },
+        "5": {
+          "name": "PH0-OSC_IN",
+          "net": "MCU OSC IN"
+        },
+        "6": {
+          "name": "PH1-OSC_OUT",
+          "net": "MCU OSC OUT"
+        },
+        "7": {
+          "name": "NRST",
+          "net": "MCU_NRST"
+        },
+        "8": {
+          "name": "VSSA",
+          "net": "GND"
+        },
+        "9": {
+          "name": "VREF+",
+          "net": "+3V3"
+        },
+        "10": {
+          "name": "PA0-WKUP",
+          "net": ""
+        },
+        "11": {
+          "name": "PA1",
+          "net": ""
+        },
+        "12": {
+          "name": "PA2",
+          "net": ""
+        },
+        "13": {
+          "name": "PA3",
+          "net": ""
+        },
+        "14": {
+          "name": "PA4",
+          "net": "MCU_PA4"
+        },
+        "15": {
+          "name": "PA5",
+          "net": "MCU_PA5"
+        },
+        "16": {
+          "name": "PA6",
+          "net": "MCU_PA6"
+        },
+        "17": {
+          "name": "PA7",
+          "net": "MCU_PA7"
+        },
+        "18": {
+          "name": "PB0",
+          "net": ""
+        },
+        "19": {
+          "name": "PB1",
+          "net": ""
+        },
+        "20": {
+          "name": "PB2",
+          "net": ""
+        },
+        "21": {
+          "name": "PB10",
+          "net": ""
+        },
+        "22": {
+          "name": "VCAP1",
+          "net": "MCU_VCAP1"
+        },
+        "23": {
+          "name": "VSS",
+          "net": "GND"
+        },
+        "24": {
+          "name": "VDD",
+          "net": "+3V3"
+        },
+        "25": {
+          "name": "PB12",
+          "net": ""
+        },
+        "26": {
+          "name": "PB13",
+          "net": "MCU_LED_A"
+        },
+        "27": {
+          "name": "PB14",
+          "net": ""
+        },
+        "28": {
+          "name": "PB15",
+          "net": ""
+        },
+        "29": {
+          "name": "PA8",
+          "net": ""
+        },
+        "30": {
+          "name": "PA9",
+          "net": ""
+        },
+        "31": {
+          "name": "PA10",
+          "net": ""
+        },
+        "32": {
+          "name": "PA11",
+          "net": "USB_D_N"
+        },
+        "33": {
+          "name": "PA12",
+          "net": "USB_D_P"
+        },
+        "34": {
+          "name": "PA13",
+          "net": "MCU_SWDIO"
+        },
+        "35": {
+          "name": "VSS",
+          "net": "GND"
+        },
+        "36": {
+          "name": "VDD",
+          "net": "+3V3"
+        },
+        "37": {
+          "name": "PA14",
+          "net": "MCU_SCLK"
+        },
+        "38": {
+          "name": "PA15",
+          "net": ""
+        },
+        "39": {
+          "name": "PB3",
+          "net": "MCU_SWO"
+        },
+        "40": {
+          "name": "PB4",
+          "net": ""
+        },
+        "41": {
+          "name": "PB5",
+          "net": ""
+        },
+        "42": {
+          "name": "PB6",
+          "net": "IMU _SCL"
+        },
+        "43": {
+          "name": "PB7",
+          "net": "IMU _SDA"
+        },
+        "44": {
+          "name": "BOOT0",
+          "net": "MCU_BOOT0"
+        },
+        "45": {
+          "name": "PB8",
+          "net": "IMU INT"
+        },
+        "46": {
+          "name": "PB9",
+          "net": ""
+        },
+        "47": {
+          "name": "VSS",
+          "net": "GND"
+        },
+        "48": {
+          "name": "VDD",
+          "net": "+3V3"
+        },
+        "49": {
+          "name": "EP",
+          "net": "GND"
+        }
+      },
+      "comment": "STM32F411CEU6"
+    },
+    "X1": {
+      "description": "MHz Range Crystal, 24 MHz, -40 to 85 degC, 4-Pin SMD, RoHS, Tape and Reel",
+      "pins": {
+        "1": {
+          "name": "X1",
+          "net": "MCU OSC IN"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "3": {
+          "name": "X2",
+          "net": "XTAL IN"
+        },
+        "4": {
+          "name": "GND",
+          "net": "GND"
+        }
+      },
+      "comment": "TSX-3225 24.0000MF15X-AC3"
+    },
+    "C9": {
+      "mpn": "GRM155R71C104KA88D",
+      "description": "CAP CER 0.1UF 16V X7R 0402",
+      "pins": {
+        "1": "GND",
+        "2": "+3V3"
+      },
+      "comment": "2.2u",
+      "value": "0.10�F"
+    },
+    "C10": {
+      "mpn": "GRM155R71C104KA88D",
+      "description": "CAP CER 0.1UF 16V X7R 0402",
+      "pins": {
+        "1": "GND",
+        "2": "+3V3"
+      },
+      "comment": "100n",
+      "value": "0.10�F"
+    },
+    "C11": {
+      "mpn": "GRM155R71C104KA88D",
+      "description": "CAP CER 0.1UF 16V X7R 0402",
+      "pins": {
+        "1": "GND",
+        "2": "+3V3"
+      },
+      "comment": "100n",
+      "value": "0.10�F"
+    },
+    "C12": {
+      "mpn": "GRM155R71C104KA88D",
+      "description": "CAP CER 0.1UF 16V X7R 0402",
+      "pins": {
+        "1": "GND",
+        "2": "+3V3"
+      },
+      "comment": "100n",
+      "value": "0.10�F"
+    },
+    "C13": {
+      "mpn": "GRM155R71C104KA88D",
+      "description": "CAP CER 0.1UF 16V X7R 0402",
+      "pins": {
+        "1": "GND",
+        "2": "+3V3"
+      },
+      "comment": "100n",
+      "value": "0.10�F"
+    },
+    "C14": {
+      "mpn": "GRM155R71C104KA88D",
+      "description": "CAP CER 0.1UF 16V X7R 0402",
+      "pins": {
+        "1": "GND",
+        "2": "+3V3"
+      },
+      "comment": "100n",
+      "value": "0.10�F"
+    },
+    "C15": {
+      "mpn": "GRM155R71C104KA88D",
+      "description": "CAP CER 0.1UF 16V X7R 0402",
+      "pins": {
+        "1": "GND",
+        "2": "MCU_VCAP1"
+      },
+      "comment": "2.2u",
+      "value": "0.10�F"
+    },
+    "C16": {
+      "mpn": "GRM155R71C104KA88D",
+      "description": "CAP CER 0.1UF 16V X7R 0402",
+      "pins": {
+        "1": "GND",
+        "2": "MCU_NRST"
+      },
+      "comment": "100n",
+      "value": "0.10�F"
+    },
+    "R7": {
+      "description": "RES Thick Film, 0O, 0.063W, 0402",
+      "pins": {
+        "1": "GND",
+        "2": "MCU_BOOT0"
+      },
+      "comment": "10k"
+    },
+    "R5": {
+      "description": "RES Thick Film, 0O, 0.063W, 0402",
+      "pins": {
+        "1": "MCU_NRST",
+        "2": "+3V3"
+      },
+      "comment": "10k"
+    },
+    "C17": {
+      "mpn": "GRM155R71C104KA88D",
+      "description": "CAP CER 0.1UF 16V X7R 0402",
+      "pins": {
+        "1": "GND",
+        "2": "MCU OSC IN"
+      },
+      "comment": "10p",
+      "value": "0.10�F"
+    },
+    "C18": {
+      "mpn": "GRM155R71C104KA88D",
+      "description": "CAP CER 0.1UF 16V X7R 0402",
+      "pins": {
+        "1": "GND",
+        "2": "XTAL IN"
+      },
+      "comment": "10p",
+      "value": "0.10�F"
+    },
+    "R6": {
+      "description": "RES Thick Film, 0O, 0.063W, 0402",
+      "pins": {
+        "1": "MCU OSC OUT",
+        "2": "XTAL IN"
+      },
+      "comment": "0R"
+    },
+    "U3": {
+      "description": "3-Axis Gyroscope, Accelerometer and a Digital Motion Processor(TM) (DMP), 2.375 to 3.46 V, -40 to 85 degC, 24-Pin QFN, RoHS, Tape and Reel",
+      "pins": {
+        "1": {
+          "name": "CLKIN",
+          "net": "GND"
+        },
+        "2": {
+          "name": "NC",
+          "net": ""
+        },
+        "3": {
+          "name": "NC",
+          "net": ""
+        },
+        "4": {
+          "name": "NC",
+          "net": ""
+        },
+        "5": {
+          "name": "NC",
+          "net": ""
+        },
+        "6": {
+          "name": "AUX_DA",
+          "net": ""
+        },
+        "7": {
+          "name": "AUX_CL",
+          "net": ""
+        },
+        "8": {
+          "name": "VLOGIC",
+          "net": "+3V3"
+        },
+        "9": {
+          "name": "AD0",
+          "net": "GND"
+        },
+        "10": {
+          "name": "REGOUT",
+          "net": "IMU REGOUT"
+        },
+        "11": {
+          "name": "FSYNC",
+          "net": "GND"
+        },
+        "12": {
+          "name": "INT",
+          "net": "IMU INT"
+        },
+        "13": {
+          "name": "VDD",
+          "net": "+3V3"
+        },
+        "14": {
+          "name": "NC",
+          "net": ""
+        },
+        "15": {
+          "name": "NC",
+          "net": ""
+        },
+        "16": {
+          "name": "NC",
+          "net": ""
+        },
+        "17": {
+          "name": "NC",
+          "net": ""
+        },
+        "18": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "19": {
+          "name": "RESV",
+          "net": ""
+        },
+        "20": {
+          "name": "CPOUT",
+          "net": "IMU CPOUT"
+        },
+        "21": {
+          "name": "RESV",
+          "net": ""
+        },
+        "22": {
+          "name": "CLKOUT",
+          "net": ""
+        },
+        "23": {
+          "name": "SCL",
+          "net": "IMU _SCL"
+        },
+        "24": {
+          "name": "SDA",
+          "net": "IMU _SDA"
+        },
+        "25": {
+          "name": "EP",
+          "net": "GND"
+        }
+      },
+      "comment": "MPU-6050"
+    },
+    "C8": {
+      "mpn": "GRM155R71C104KA88D",
+      "description": "CAP CER 0.1UF 16V X7R 0402",
+      "pins": {
+        "1": "GND",
+        "2": "+3V3"
+      },
+      "comment": "100n",
+      "value": "0.10�F"
+    },
+    "C5": {
+      "mpn": "GRM155R71C104KA88D",
+      "description": "CAP CER 0.1UF 16V X7R 0402",
+      "pins": {
+        "1": "GND",
+        "2": "IMU REGOUT"
+      },
+      "comment": "100n",
+      "value": "0.10�F"
+    },
+    "C6": {
+      "mpn": "GRM155R71C104KA88D",
+      "description": "CAP CER 0.1UF 16V X7R 0402",
+      "pins": {
+        "1": "GND",
+        "2": "+3V3"
+      },
+      "comment": "10n",
+      "value": "0.10�F"
+    },
+    "C7": {
+      "mpn": "GRM155R71C104KA88D",
+      "description": "CAP CER 0.1UF 16V X7R 0402",
+      "pins": {
+        "1": "GND",
+        "2": "IMU CPOUT"
+      },
+      "comment": "2.2n",
+      "value": "0.10�F"
+    },
+    "J1": {
+      "mpn": "473460001",
+      "description": "CONN RCPT USB2.0 MICRO B SMD R/A",
+      "pins": {
+        "1": {
+          "name": "VBUS",
+          "net": "VBUS"
+        },
+        "2": {
+          "name": "D-",
+          "net": "USB_D_N"
+        },
+        "3": {
+          "name": "D+",
+          "net": "USB_D_P"
+        },
+        "4": {
+          "name": "ID",
+          "net": ""
+        },
+        "5": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "6": {
+          "name": "MNT 1",
+          "net": ""
+        },
+        "7": {
+          "name": "MNT 2",
+          "net": ""
+        },
+        "8": {
+          "name": "MNT 3",
+          "net": ""
+        },
+        "9": {
+          "name": "MNT 4",
+          "net": ""
+        },
+        "10": {
+          "name": "MNT 5",
+          "net": ""
+        },
+        "11": {
+          "name": "MNT 6",
+          "net": ""
+        }
+      },
+      "comment": "473460001"
+    },
+    "U1": {
+      "mpn": "AMS1117-3.3",
+      "description": "LDO Voltage Regulators 1A, 3.3V",
+      "pins": {
+        "1": {
+          "name": "Ground",
+          "net": "GND"
+        },
+        "2": {
+          "name": "VOUT",
+          "net": "+3V3"
+        },
+        "3": {
+          "name": "VIN",
+          "net": "+5V"
+        },
+        "4": {
+          "name": "VOUT",
+          "net": "+3V3"
+        }
+      },
+      "comment": "AMS1117-3.3"
+    },
+    "FB1": {
+      "description": "Chip Ferrite Bead, 0603, 5O @ 100MHz, 0.05O, 25%, 800mA",
+      "pins": {
+        "1": "VBUS",
+        "2": "+5V"
+      },
+      "comment": "120R"
+    },
+    "C1": {
+      "mpn": "GRM155R71C104KA88D",
+      "description": "CAP CER 0.1UF 16V X7R 0402",
+      "pins": {
+        "1": "GND",
+        "2": "VBUS"
+      },
+      "comment": "2.2u",
+      "value": "0.10�F"
+    },
+    "C2": {
+      "mpn": "GRM155R71C104KA88D",
+      "description": "CAP CER 0.1UF 16V X7R 0402",
+      "pins": {
+        "1": "GND",
+        "2": "+5V"
+      },
+      "comment": "2.2u",
+      "value": "0.10�F"
+    },
+    "C3": {
+      "description": "General Purpose Ceramic Capacitor, 0805, 100nF, 10%, X7R, 0.15, 50V",
+      "pins": {
+        "1": "+5V",
+        "2": "GND"
+      },
+      "comment": "22u"
+    },
+    "C4": {
+      "description": "General Purpose Ceramic Capacitor, 0805, 100nF, 10%, X7R, 0.15, 50V",
+      "pins": {
+        "1": "+3V3",
+        "2": "GND"
+      },
+      "comment": "22u"
+    },
+    "D1": {
+      "description": "LED YELLOW/GREEN CLEAR 1006 SMD",
+      "pins": {
+        "1": {
+          "name": "C",
+          "net": "LED_P_K"
+        },
+        "2": {
+          "name": "A",
+          "net": "+3V3"
+        }
+      },
+      "comment": "SML-P11MTT86"
+    },
+    "R1": {
+      "description": "RES Thick Film, 0O, 0.063W, 0402",
+      "pins": {
+        "1": "GND",
+        "2": "LED_P_K"
+      },
+      "comment": "1k"
+    },
+    "D2": {
+      "description": "LED RED CLEAR 1006 SMD",
+      "pins": {
+        "1": {
+          "name": "C",
+          "net": "MCU_LED_K"
+        },
+        "2": {
+          "name": "A",
+          "net": "MCU_LED_A"
+        }
+      },
+      "comment": "SML-P11UTT86"
+    },
+    "R4": {
+      "description": "RES Thick Film, 0O, 0.063W, 0402",
+      "pins": {
+        "1": "MCU_LED_K",
+        "2": "GND"
+      },
+      "comment": "1k"
+    },
+    "R2": {
+      "description": "RES Thick Film, 0O, 0.063W, 0402",
+      "pins": {
+        "1": "IMU _SCL",
+        "2": "+3V3"
+      },
+      "comment": "2.2k"
+    },
+    "R3": {
+      "description": "RES Thick Film, 0O, 0.063W, 0402",
+      "pins": {
+        "1": "IMU _SDA",
+        "2": "+3V3"
+      },
+      "comment": "2.2k"
+    },
+    "J3": {
+      "description": "Cortex® Plug-Of-Nails™ Adapter Cable",
+      "pins": {
+        "1": {
+          "name": "VCC",
+          "net": "+3V3"
+        },
+        "2": {
+          "name": "TMS",
+          "net": "MCU_SWDIO"
+        },
+        "3": {
+          "name": "R\\E\\S\\E\\T\\\\",
+          "net": "MCU_NRST"
+        },
+        "4": {
+          "name": "TCK",
+          "net": "MCU_SCLK"
+        },
+        "5": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "6": {
+          "name": "TDO",
+          "net": "MCU_SWO"
+        }
+      },
+      "comment": "TC2030-CTX",
+      "value": "*"
+    },
+    "J2": {
+      "description": "CONN HEADER SMD R/A 6POS 1.25MM",
+      "pins": {
+        "1": "+3V3",
+        "2": "MCU_PA4",
+        "3": "MCU_PA5",
+        "4": "MCU_PA6",
+        "5": "MCU_PA7",
+        "6": "GND",
+        "7": {
+          "name": "MNT 1",
+          "net": ""
+        },
+        "8": {
+          "name": "MNT 2",
+          "net": ""
+        }
+      },
+      "comment": "SM06B-GHS-TB(LF)(SN)"
+    }
+  }
+}

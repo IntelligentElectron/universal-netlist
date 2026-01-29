@@ -1,0 +1,198 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - os: macos-latest
+            target: bun-darwin-arm64
+            binary: universal-netlist-darwin-arm64
+            sign: true
+          - os: macos-latest
+            target: bun-darwin-x64
+            binary: universal-netlist-darwin-x64
+            sign: true
+          - os: ubuntu-latest
+            target: bun-linux-arm64
+            binary: universal-netlist-linux-arm64
+            sign: false
+          - os: ubuntu-latest
+            target: bun-linux-x64
+            binary: universal-netlist-linux-x64
+            sign: false
+          - os: ubuntu-latest
+            target: bun-windows-x64
+            binary: universal-netlist-windows-x64.exe
+            sign: false
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Build binary
+        run: |
+          mkdir -p bin
+          bun build --compile --minify --target=${{ matrix.target }} src/index.ts --outfile bin/${{ matrix.binary }}
+
+      - name: Import Apple certificates
+        if: matrix.sign
+        env:
+          APPLE_CERTIFICATE_BASE64: ${{ secrets.APPLE_CERTIFICATE_BASE64 }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+        run: |
+          # Create temporary keychain
+          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+          KEYCHAIN_PASSWORD=$(openssl rand -base64 32)
+
+          # Decode certificate
+          echo "$APPLE_CERTIFICATE_BASE64" | base64 --decode > $RUNNER_TEMP/certificate.p12
+
+          # Create keychain
+          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+
+          # Import certificate
+          security import $RUNNER_TEMP/certificate.p12 -P "$APPLE_CERTIFICATE_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          security set-key-partition-list -S apple-tool:,apple: -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security list-keychain -d user -s $KEYCHAIN_PATH
+
+      - name: Sign macOS binary
+        if: matrix.sign
+        env:
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          codesign --force --options runtime --entitlements entitlements.plist \
+            --sign "Developer ID Application: Valentino Zegna ($APPLE_TEAM_ID)" \
+            bin/${{ matrix.binary }}
+
+      - name: Notarize macOS binary
+        if: matrix.sign
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_APP_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          # Create ZIP for notarization
+          cd bin
+          zip ${{ matrix.binary }}.zip ${{ matrix.binary }}
+
+          # Submit for notarization and wait
+          xcrun notarytool submit ${{ matrix.binary }}.zip \
+            --apple-id "$APPLE_ID" \
+            --password "$APPLE_APP_PASSWORD" \
+            --team-id "$APPLE_TEAM_ID" \
+            --wait
+
+          # Staple the ticket to the binary
+          xcrun stapler staple ${{ matrix.binary }}
+
+          # Remove the zip file
+          rm ${{ matrix.binary }}.zip
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.binary }}
+          path: bin/${{ matrix.binary }}
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: binaries
+
+      - name: Move binaries to release directory
+        run: |
+          mkdir -p release
+          find binaries -type f -exec mv {} release/ \;
+          ls -la release/
+
+      - name: Generate checksums
+        run: |
+          cd release
+          sha256sum * > checksums.txt
+          cat checksums.txt
+
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            manifest.json
+            scripts/build-mcpb.sh
+
+      - name: Build .mcpb desktop extension
+        run: |
+          chmod +x scripts/build-mcpb.sh
+          RELEASE_DIR=$PWD/release OUTPUT_DIR=$PWD/release scripts/build-mcpb.sh ${GITHUB_REF#refs/tags/v}
+
+      - name: Get version from tag
+        id: version
+        run: echo "version=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: ${{ steps.version.outputs.version }}
+          body: |
+            ## Quick Install
+
+            ### macOS / Linux
+            ```bash
+            curl -fsSL https://raw.githubusercontent.com/IntelligentElectron/universal-netlist/main/install.sh | bash
+            ```
+
+            ### Windows (PowerShell)
+            ```powershell
+            irm https://raw.githubusercontent.com/IntelligentElectron/universal-netlist/main/install.ps1 | iex
+            ```
+
+            ## Claude Desktop Extension
+
+            Download `universal-netlist.mcpb` and install via:
+            1. Open Claude Desktop → Settings → Extensions
+            2. Click **Advanced settings**
+            3. Click **Install Extension...** and select the `.mcpb` file
+
+            > **Note:** The .mcpb includes the Apple Silicon (arm64) macOS binary. Intel Mac users should use the CLI install method above.
+
+            ## Binaries
+
+            | Platform | Binary |
+            |----------|--------|
+            | macOS (Apple Silicon) | `universal-netlist-darwin-arm64` |
+            | macOS (Intel) | `universal-netlist-darwin-x64` |
+            | Linux (ARM64) | `universal-netlist-linux-arm64` |
+            | Linux (x64) | `universal-netlist-linux-x64` |
+            | Windows (x64) | `universal-netlist-windows-x64.exe` |
+
+            ## Checksums
+
+            See `checksums.txt` for SHA256 checksums.
+          files: |
+            release/*
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
