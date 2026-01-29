@@ -6,4 +6,4 @@
 	url = https://github.com/akhilaprabodha/Altium-STM32-PCB
 [submodule "test/fixtures/cadence/BeagleBone-Black"]
 	path = test/fixtures/cadence/BeagleBone-Black
-	url = https://github.com/beagleboard/beaglebone-black
+	url = https://github.com/valentinozegna/beaglebone-black

@@ -9,6 +9,7 @@
     "universal-netlist": "./dist/index.js"
   },
   "scripts": {
+    "setup": "git submodule update --init --recursive",
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "tsx src/index.ts",

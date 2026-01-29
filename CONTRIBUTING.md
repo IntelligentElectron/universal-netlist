@@ -16,12 +16,20 @@ This project is maintained by:
 
 ### Development Setup
 
-1. Fork and clone the repository:
+1. Fork and clone the repository (including test fixtures):
 
    ```bash
-   git clone https://github.com/YOUR_USERNAME/universal-netlist.git
+   git clone --recurse-submodules https://github.com/YOUR_USERNAME/universal-netlist.git
    cd universal-netlist
    ```
+
+   If you already cloned without `--recurse-submodules`, fetch the test fixtures:
+
+   ```bash
+   git submodule update --init --recursive
+   ```
+
+   Or after installing dependencies: `npm run setup`
 
 2. Install dependencies:
 
@@ -45,7 +53,21 @@ This project is maintained by:
 
 - `src/` - Main source code
 - `src/parsers/` - Format-specific parsers (Cadence, Altium)
+- `test/fixtures/` - Test fixture designs (git submodules)
+- `test/golden/` - Golden reference outputs for regression testing
 - `docs/` - API documentation
+
+### Test Fixtures
+
+Test fixtures are stored as git submodules pointing to open-source hardware projects:
+
+| Fixture | Source |
+|---------|--------|
+| `test/fixtures/altium/LimeSDR-USB` | [myriadrf/LimeSDR-USB](https://github.com/myriadrf/LimeSDR-USB) |
+| `test/fixtures/altium/Altium-STM32-PCB` | [akhilaprabodha/Altium-STM32-PCB](https://github.com/akhilaprabodha/Altium-STM32-PCB) |
+| `test/fixtures/cadence/BeagleBone-Black` | [beagleboard/beaglebone-black](https://github.com/beagleboard/beaglebone-black) |
+
+The `nRF52840-Development-Kit` fixture is included inline as it's a minimal test case.
 
 ## Development Workflow
 
