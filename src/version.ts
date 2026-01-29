@@ -3,7 +3,7 @@
  */
 
 /** Current version of the server. */
-export const VERSION = "0.0.2";
+export const VERSION = "0.0.3";
 
 /** GitHub repository in format owner/repo. */
 export const GITHUB_REPO = "IntelligentElectron/universal-netlist";
