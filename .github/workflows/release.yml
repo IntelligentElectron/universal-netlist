@@ -81,7 +81,7 @@ jobs:
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
           codesign --force --options runtime --entitlements entitlements.plist \
-            --sign "Developer ID Application: Valentino Zegna ($APPLE_TEAM_ID)" \
+            --sign "Developer ID Application: Valentino Zegna Baruffa ($APPLE_TEAM_ID)" \
             bin/${{ matrix.binary }}
 
       - name: Notarize macOS binary
