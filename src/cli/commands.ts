@@ -41,7 +41,6 @@ INSTALLATION:
 
 ENVIRONMENT:
   UNIVERSAL_NETLIST_MCP_NO_UPDATE=1    Disable auto-updates
-  UNIVERSAL_NETLIST_MCP_OUTPUT_FORMAT  Output format: json, json-minified, yaml
 
 MORE INFO:
   https://github.com/${GITHUB_REPO}

@@ -46,6 +46,13 @@ esac
 
 NEW_VERSION="${MAJOR}.${MINOR}.${PATCH}"
 
+# Check CHANGELOG.md has an entry for the new version
+if ! grep -q "## \[$NEW_VERSION\]" CHANGELOG.md; then
+  echo "Error: CHANGELOG.md does not have an entry for version $NEW_VERSION"
+  echo "Please add release notes before running the release script."
+  exit 1
+fi
+
 echo "📦 Releasing universal-netlist"
 echo "   ${CURRENT_VERSION} → ${NEW_VERSION}"
 echo ""
