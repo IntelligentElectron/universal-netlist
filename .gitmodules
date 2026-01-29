@@ -1,0 +1,9 @@
+[submodule "test/fixtures/altium/LimeSDR-USB"]
+	path = test/fixtures/altium/LimeSDR-USB
+	url = https://github.com/myriadrf/LimeSDR-USB
+[submodule "test/fixtures/altium/Altium-STM32-PCB"]
+	path = test/fixtures/altium/Altium-STM32-PCB
+	url = https://github.com/akhilaprabodha/Altium-STM32-PCB
+[submodule "test/fixtures/cadence/BeagleBone-Black"]
+	path = test/fixtures/cadence/BeagleBone-Black
+	url = https://github.com/beagleboard/beaglebone-black
