@@ -36,12 +36,13 @@ jobs:
 
       - name: Build all platforms
         run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
           mkdir -p bin
-          bun build --compile --minify --target=bun-darwin-arm64 src/index.ts --outfile bin/universal-netlist-darwin-arm64
-          bun build --compile --minify --target=bun-darwin-x64 src/index.ts --outfile bin/universal-netlist-darwin-x64
-          bun build --compile --minify --target=bun-linux-arm64 src/index.ts --outfile bin/universal-netlist-linux-arm64
-          bun build --compile --minify --target=bun-linux-x64 src/index.ts --outfile bin/universal-netlist-linux-x64
-          bun build --compile --minify --target=bun-windows-x64 src/index.ts --outfile bin/universal-netlist-windows-x64.exe
+          bun build --compile --minify --target=bun-darwin-arm64 --define BUILD_VERSION="\"$VERSION\"" src/index.ts --outfile bin/universal-netlist-darwin-arm64
+          bun build --compile --minify --target=bun-darwin-x64 --define BUILD_VERSION="\"$VERSION\"" src/index.ts --outfile bin/universal-netlist-darwin-x64
+          bun build --compile --minify --target=bun-linux-arm64 --define BUILD_VERSION="\"$VERSION\"" src/index.ts --outfile bin/universal-netlist-linux-arm64
+          bun build --compile --minify --target=bun-linux-x64 --define BUILD_VERSION="\"$VERSION\"" src/index.ts --outfile bin/universal-netlist-linux-x64
+          bun build --compile --minify --target=bun-windows-x64 --define BUILD_VERSION="\"$VERSION\"" src/index.ts --outfile bin/universal-netlist-windows-x64.exe
 
       - name: Import Apple certificate
         env:
