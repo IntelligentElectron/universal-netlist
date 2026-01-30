@@ -118,3 +118,8 @@ npm run test:watch                 # Watch mode
 - **Release** (`release.yml`): Triggered by `v*` tags - builds binaries, signs macOS, publishes npm
 
 npm publishing uses OIDC trusted publishing (configured on npmjs.com) - no tokens required.
+
+### npm OIDC Gotchas
+
+- Do NOT use `registry-url` with `actions/setup-node` - it creates a `.npmrc` with an auth token placeholder that breaks OIDC
+- OIDC requires npm 11.5.1+ (Node 22 ships with older npm, so we explicitly upgrade)
