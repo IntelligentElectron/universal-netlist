@@ -1,6 +1,6 @@
 # Universal Netlist MCP Server
 
-The **Universal MCP Server** gives AI agents the power to understand and analyze your electrical schematics, for powerful and comprehensive design reviews through natural conversations.
+The **Universal Netlist MCP Server** gives AI agents the power to understand and analyze your electrical schematics, for powerful and comprehensive design reviews through natural conversations.
 
 It is compatible with Altium and Cadence, with plans to integrate more EDAs in the future. Note that you must already own a license of these EDAs to unleash the full capabilities of this MCP server.
 
