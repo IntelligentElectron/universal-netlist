@@ -26,6 +26,22 @@ curl -fsSL https://raw.githubusercontent.com/IntelligentElectron/universal-netli
 irm https://raw.githubusercontent.com/IntelligentElectron/universal-netlist/main/install.ps1 | iex
 ```
 
+## Install via npm
+
+```bash
+npm install -g universal-netlist
+```
+
+Or use with npx (no installation required):
+
+```bash
+npx universal-netlist --help
+```
+
+**Note**: Requires Node.js 20+. For standalone binary, use install scripts above.
+
+---
+
 The installer downloads two files:
 
 1. **Binary** - For CLI usage and manual MCP client configuration
@@ -68,19 +84,27 @@ As an alternative, the Universal Netlist MCP Server can be connected to any MCP-
 
 #### Claude Code
 
-**macOS:**
+**Using npm global install (simplest):**
+
+```bash
+claude mcp add universal-netlist -- universal-netlist
+```
+
+**Using standalone binary:**
+
+macOS:
 
 ```bash
 claude mcp add universal-netlist -- ~/Library/Application\ Support/universal-netlist/bin/universal-netlist
 ```
 
-**Linux:**
+Linux:
 
 ```bash
 claude mcp add universal-netlist -- ~/.local/share/universal-netlist/bin/universal-netlist
 ```
 
-**Windows:**
+Windows:
 
 ```cmd
 claude mcp add universal-netlist -- %LOCALAPPDATA%\universal-netlist\bin\universal-netlist.exe

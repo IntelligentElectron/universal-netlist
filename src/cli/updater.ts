@@ -45,6 +45,15 @@ export interface UpdateResult {
 }
 
 /**
+ * Detect if running as an npm global install or via npx.
+ * npm installs run from node_modules, not as compiled binaries.
+ */
+export const isNpmInstall = (): boolean => {
+  const scriptPath = process.argv[1];
+  return scriptPath?.includes("node_modules") ?? false;
+};
+
+/**
  * Get the platform-specific binary name.
  */
 const getPlatformBinaryName = (): string => {
@@ -355,6 +364,11 @@ export const reexec = (): never => {
 export const autoUpdate = async (): Promise<boolean> => {
   // Check if updates are disabled
   if (process.env.UNIVERSAL_NETLIST_MCP_NO_UPDATE === "1") {
+    return false;
+  }
+
+  // Skip auto-update for npm installs - use npm update instead
+  if (isNpmInstall()) {
     return false;
   }
 

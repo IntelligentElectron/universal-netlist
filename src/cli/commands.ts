@@ -5,7 +5,7 @@
 import { unlinkSync, existsSync } from "node:fs";
 import { dirname } from "node:path";
 import { VERSION, GITHUB_REPO, BINARY_NAME } from "../version.js";
-import { checkForUpdate, performUpdate } from "./updater.js";
+import { checkForUpdate, performUpdate, isNpmInstall } from "./updater.js";
 import { confirm } from "./prompts.js";
 import { removeFromPath } from "./shell.js";
 
@@ -51,8 +51,32 @@ MORE INFO:
 /**
  * Handle --update command.
  * Checks for updates and installs if available.
+ * For npm installs, directs users to use npm update instead.
  */
 export const handleUpdateCommand = async (): Promise<void> => {
+  // For npm installs, provide npm-specific update instructions
+  if (isNpmInstall()) {
+    console.log(`Checking for updates...`);
+
+    const check = await checkForUpdate();
+
+    if (check.error) {
+      console.error(`Error checking for updates: ${check.error}`);
+      process.exit(1);
+    }
+
+    if (!check.updateAvailable) {
+      console.log(`Already at latest version (${VERSION})`);
+      return;
+    }
+
+    console.log(`Update available: ${VERSION} -> ${check.latestVersion}`);
+    console.log("");
+    console.log("To update, run:");
+    console.log("  npm update -g universal-netlist");
+    return;
+  }
+
   console.log(`Checking for updates...`);
 
   const check = await checkForUpdate();
