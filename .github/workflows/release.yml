@@ -180,7 +180,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          registry-url: 'https://registry.npmjs.org'
+          # NOTE: Do NOT add registry-url here - it creates a .npmrc with
+          # auth token placeholder that interferes with OIDC authentication
+
+      - name: Update npm to latest (OIDC requires npm 11.5.1+)
+        run: npm install -g npm@latest
+
+      - name: Verify npm version
+        run: npm --version
 
       - name: Install dependencies
         run: npm ci

@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.8] - 2026-01-29
+
+### Fixed
+
+- Fix npm OIDC publishing by removing `registry-url` from setup-node (was creating auth token placeholder that interfered with OIDC)
+- Explicitly upgrade npm to latest version for reliable OIDC support
+
 ## [0.0.7] - 2026-01-29
 
 ### Fixed
@@ -78,6 +85,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `query_xnet_by_pin_name` - Trace connectivity from a pin
 - `export_cadence_netlist` - Export to Allegro format
 
+[0.0.8]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.8
 [0.0.7]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.7
 [0.0.6]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.6
 [0.0.5]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.5
