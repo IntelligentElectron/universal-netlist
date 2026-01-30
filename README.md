@@ -1,6 +1,6 @@
 # Universal Netlist MCP Server
 
-The **Universal Netlist MCP Server** gives AI agents the power to understand and analyze your electrical schematics, for powerful and comprehensive design reviews through natural conversations.
+The **Universal Netlist MCP Server** gives AI agents the tools to understand and analyze your electrical schematics, for powerful and comprehensive design reviews through natural conversations.
 
 It is compatible with Altium and Cadence, with plans to integrate more EDAs in the future. Note that you must already own a license of these EDAs to unleash the full capabilities of this MCP server.
 
@@ -12,7 +12,7 @@ It is compatible with Altium and Cadence, with plans to integrate more EDAs in t
 | Cadence HDL | `.cpm` | Cadence HDL schematic designs |
 | Altium Designer | `.PrjPcb` | Altium Designer PCB projects |
 
-## Quick Install
+## Native Install (Recommended)
 
 **macOS / Linux:**
 
@@ -26,21 +26,10 @@ curl -fsSL https://raw.githubusercontent.com/IntelligentElectron/universal-netli
 irm https://raw.githubusercontent.com/IntelligentElectron/universal-netlist/main/install.ps1 | iex
 ```
 
-## Install via npm
-
-```bash
-npm install -g universal-netlist
-```
-
-Or use with npx (no installation required):
-
-```bash
-npx universal-netlist --help
-```
-
-**Note**: Requires Node.js 20+. For standalone binary, use install scripts above.
-
----
+Why use the native installer:
+- **No dependencies** — standalone binary, no Node.js required
+- **Auto-updates** — checks for updates on startup
+- **Signed binaries** — macOS binaries are notarized by Apple
 
 The installer downloads two files:
 
@@ -53,12 +42,34 @@ The installer downloads two files:
 | Linux | `~/.local/share/universal-netlist/` |
 | Windows | `%LOCALAPPDATA%\universal-netlist\` |
 
-## Update
+### Update
 
 The server checks for updates on startup. To update manually:
 
 ```bash
 universal-netlist --update
+```
+
+## Alternative: Install via npm
+
+For developers who prefer npm:
+
+```bash
+npm install -g universal-netlist
+```
+
+Or use with npx (no installation required):
+
+```bash
+npx universal-netlist --help
+```
+
+Requires Node.js 20+.
+
+To update:
+
+```bash
+npm update -g universal-netlist
 ```
 
 ## Connect the MCP with your favorite AI tool
@@ -67,7 +78,7 @@ universal-netlist --update
 
 We recommend the [Claude Desktop app](https://claude.ai/download) for its simplicity, great features, and access to Anthropic's powerful Claude models.
 
-1. Run the installer above (it downloads both the binary and `.mcpb` extension)
+1. Install via [Native Installer](#native-install-recommended) method
 2. Open Claude Desktop and go to **Settings** (gear icon)
 3. Under **Desktop app**, click **Extensions**
 4. Click **Advanced settings**
@@ -82,7 +93,8 @@ The extension will be available immediately in your conversations.
 
 As an alternative, the Universal Netlist MCP Server can be connected to any MCP-compatible AI tool. Below are configuration examples for popular options.
 
-#### Claude Code
+<details>
+<summary><strong>Claude Code</strong></summary>
 
 **Using npm global install (simplest):**
 
@@ -110,7 +122,10 @@ Windows:
 claude mcp add universal-netlist -- %LOCALAPPDATA%\universal-netlist\bin\universal-netlist.exe
 ```
 
-#### VS Code (GitHub Copilot)
+</details>
+
+<details>
+<summary><strong>VS Code (GitHub Copilot)</strong></summary>
 
 Add to `.vscode/mcp.json` in your project.
 
@@ -155,7 +170,10 @@ Add to `.vscode/mcp.json` in your project.
 
 Then enable in **Configure Tools** (click the tools icon in Copilot chat).
 
-#### Gemini CLI
+</details>
+
+<details>
+<summary><strong>Gemini CLI</strong></summary>
 
 Add to `~/.gemini/settings.json` (global) or `.gemini/settings.json` (project).
 
@@ -194,6 +212,8 @@ Add to `~/.gemini/settings.json` (global) or `.gemini/settings.json` (project).
   }
 }
 ```
+
+</details>
 
 ## Supported Platforms
 
