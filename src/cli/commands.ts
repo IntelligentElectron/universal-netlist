@@ -2,7 +2,7 @@
  * CLI command handlers for --version, --help, --update, and --uninstall.
  */
 
-import { unlinkSync, existsSync } from "node:fs";
+import { existsSync, rmSync } from "node:fs";
 import { dirname } from "node:path";
 import { VERSION, GITHUB_REPO, BINARY_NAME } from "../version.js";
 import { checkForUpdate, performUpdate, isNpmInstall } from "./updater.js";
@@ -150,14 +150,14 @@ export const handleUninstallCommand = async (): Promise<void> => {
     console.log(`Modified: ${modifiedFiles.join(", ")}`);
   }
 
-  // Remove binary
-  console.log(`Removing binary: ${binaryPath}`);
-  if (existsSync(binaryPath)) {
+  // Remove install directory
+  console.log(`Removing install directory: ${installDir}`);
+  if (existsSync(installDir)) {
     try {
-      unlinkSync(binaryPath);
+      rmSync(installDir, { recursive: true });
     } catch (error) {
       console.error(
-        `Failed to remove binary: ${error instanceof Error ? error.message : error}`,
+        `Failed to remove directory: ${error instanceof Error ? error.message : error}`,
       );
       console.log("You may need to remove it manually.");
     }
@@ -165,5 +165,4 @@ export const handleUninstallCommand = async (): Promise<void> => {
 
   console.log("");
   console.log(`${BINARY_NAME} has been uninstalled.`);
-  console.log(`You may also want to remove: ${installDir}`);
 };
