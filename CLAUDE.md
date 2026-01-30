@@ -32,6 +32,18 @@ npm run test:watch   # Run tests in watch mode
 npm run type-check && npm run lint && npm test
 ```
 
+### Releasing
+
+1. Update `CHANGELOG.md` with new version section
+2. Commit changelog: `git commit -am "Add vX.Y.Z changelog"`
+3. Bump version: `npm version patch -m "v%s"`
+4. Push: `git push && git push origin vX.Y.Z`
+
+The release workflow automatically:
+- Builds signed binaries for all platforms
+- Creates GitHub Release with binaries
+- Publishes to npm via OIDC (no tokens)
+
 ## Project Structure
 
 ```bash
@@ -99,3 +111,10 @@ npm test                           # Run all tests
 npm test -- src/service.test.ts    # Run specific file
 npm run test:watch                 # Watch mode
 ```
+
+## CI/CD
+
+- **CI** (`ci.yml`): Runs on every push - type-check, lint, test
+- **Release** (`release.yml`): Triggered by `v*` tags - builds binaries, signs macOS, publishes npm
+
+npm publishing uses OIDC trusted publishing (configured on npmjs.com) - no tokens required.
