@@ -1,5 +1,5 @@
 {
-  "name": "universal-netlist",
+  "name": "@intelligentelectron/universal-netlist",
   "version": "0.0.12",
   "description": "MCP server for netlist parsing and circuit analysis",
   "type": "module",

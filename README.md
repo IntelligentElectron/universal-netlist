@@ -55,13 +55,13 @@ universal-netlist --update
 For developers who prefer npm:
 
 ```bash
-npm install -g universal-netlist
+npm install -g @intelligentelectron/universal-netlist
 ```
 
 Or use with npx (no installation required):
 
 ```bash
-npx universal-netlist --help
+npx @intelligentelectron/universal-netlist --help
 ```
 
 Requires Node.js 20+.
@@ -69,7 +69,7 @@ Requires Node.js 20+.
 To update:
 
 ```bash
-npm update -g universal-netlist
+npm update -g @intelligentelectron/universal-netlist
 ```
 
 ## Connect the MCP with your favorite AI tool
