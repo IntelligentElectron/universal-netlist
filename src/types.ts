@@ -10,8 +10,7 @@ import type { AltiumDiscoveredDesign } from "./parsers/altium/discovery.js";
  * Compact single-element arrays to scalar values for token savings.
  * Returns the single element if array has length 1, otherwise returns the array.
  */
-export const compactArray = <T>(arr: T[]): T | T[] =>
-  arr.length === 1 ? arr[0] : arr;
+export const compactArray = <T>(arr: T[]): T | T[] => (arr.length === 1 ? arr[0] : arr);
 
 /**
  * Net connections from netlist
@@ -36,7 +35,7 @@ export type PinEntry = string | { name: string; net: string };
 export const createPinEntry = (
   pinNumber: string,
   pinName: string | undefined,
-  netName: string,
+  netName: string
 ): PinEntry => {
   const normalizedName = pinName?.trim();
   if (normalizedName && normalizedName !== pinNumber) {
@@ -234,6 +233,14 @@ export const isErrorResult = (result: unknown): result is ErrorResult =>
   Boolean(result && typeof (result as ErrorResult).error === "string");
 
 /**
+ * Options for design discovery.
+ */
+export interface DiscoverDesignsOptions {
+  /** Maximum directory depth to recurse (0 = root only, undefined = unlimited) */
+  maxDepth?: number;
+}
+
+/**
  * Handler interface for EDA project format plugins.
  * Each EDA tool (Cadence, Altium, KiCad, etc.) implements this interface.
  */
@@ -248,7 +255,7 @@ export interface EDAProjectFormatHandler {
   canHandle(filePath: string): boolean;
 
   /** Discover all designs of this format in a directory */
-  discoverDesigns(rootDir: string): Promise<DiscoveredDesign[]>;
+  discoverDesigns(rootDir: string, options?: DiscoverDesignsOptions): Promise<DiscoveredDesign[]>;
 
   /** Parse a design file into the unified ParsedNetlist format */
   parse(designPath: string): Promise<ParsedNetlist>;

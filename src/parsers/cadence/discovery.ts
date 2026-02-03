@@ -28,11 +28,7 @@ export interface CadenceDiscoveredDesign {
 }
 
 /** Required .dat files for a complete netlist export */
-const REQUIRED_DAT_FILES = [
-  "pstxnet.dat",
-  "pstxprt.dat",
-  "pstchip.dat",
-] as const;
+const REQUIRED_DAT_FILES = ["pstxnet.dat", "pstxprt.dat", "pstchip.dat"] as const;
 
 interface CadenceDatFiles {
   pstxnet: string | null;
@@ -52,23 +48,23 @@ interface DatFileSet {
 
 /**
  * Walk directory tree to find Cadence design files and complete .dat file sets.
+ *
+ * @param rootDir - Root directory to start searching from
+ * @param maxDepth - Maximum directory depth to recurse (0 = root only, undefined = unlimited)
  */
 const walkForCadenceFiles = async (
   rootDir: string,
+  maxDepth?: number
 ): Promise<{ designFiles: string[]; datSets: DatFileSet[] }> => {
   const designFiles: string[] = [];
   const datFilesByDir = new Map<string, Map<string, string>>();
 
-  const walk = async (currentDir: string): Promise<void> => {
+  const walk = async (currentDir: string, depth: number): Promise<void> => {
     let entries;
     try {
       entries = await readdir(currentDir, { withFileTypes: true });
     } catch (error) {
-      if (
-        !(error instanceof Error) ||
-        !("code" in error) ||
-        error.code !== "EACCES"
-      ) {
+      if (!(error instanceof Error) || !("code" in error) || error.code !== "EACCES") {
         throw error;
       }
       return;
@@ -77,7 +73,9 @@ const walkForCadenceFiles = async (
     for (const entry of entries) {
       const fullPath = path.join(currentDir, entry.name);
       if (entry.isDirectory()) {
-        await walk(fullPath);
+        if (maxDepth === undefined || depth < maxDepth) {
+          await walk(fullPath, depth + 1);
+        }
         continue;
       }
 
@@ -87,18 +85,14 @@ const walkForCadenceFiles = async (
       const baseName = entry.name.toLowerCase();
 
       // Collect design files
-      if (
-        CADENCE_EXTENSIONS.includes(ext as (typeof CADENCE_EXTENSIONS)[number])
-      ) {
+      if (CADENCE_EXTENSIONS.includes(ext as (typeof CADENCE_EXTENSIONS)[number])) {
         designFiles.push(fullPath);
       }
 
       // Collect .dat files grouped by directory
       if (
         ext === ".dat" &&
-        REQUIRED_DAT_FILES.includes(
-          baseName as (typeof REQUIRED_DAT_FILES)[number],
-        )
+        REQUIRED_DAT_FILES.includes(baseName as (typeof REQUIRED_DAT_FILES)[number])
       ) {
         if (!datFilesByDir.has(currentDir)) {
           datFilesByDir.set(currentDir, new Map());
@@ -108,7 +102,7 @@ const walkForCadenceFiles = async (
     }
   };
 
-  await walk(rootDir);
+  await walk(rootDir, 0);
 
   // Convert to complete DatFileSets (only directories with all 3 required files)
   const datSets: DatFileSet[] = [];
@@ -135,9 +129,7 @@ const normalizeForComparison = (p: string): string => {
   // On Windows, path.normalize converts / to \
   // On Unix, we must manually convert \ to / since path.normalize doesn't
   const normalized =
-    process.platform === "win32"
-      ? path.normalize(p)
-      : path.normalize(p.replace(/\\/g, "/"));
+    process.platform === "win32" ? path.normalize(p) : path.normalize(p.replace(/\\/g, "/"));
   // Windows is case-insensitive, Unix is case-sensitive
   return process.platform === "win32" ? normalized.toLowerCase() : normalized;
 };
@@ -163,10 +155,7 @@ const isDescendantOrEqual = (childDir: string, parentDir: string): boolean => {
  * Check if design name appears as an exact directory component in a relative path.
  * Case-insensitive matching.
  */
-const designNameInRelativePath = (
-  relPath: string,
-  designName: string,
-): boolean => {
+const designNameInRelativePath = (relPath: string, designName: string): boolean => {
   if (relPath === "" || relPath === ".") return false;
   const components = relPath.split(path.sep);
   const lowerName = designName.toLowerCase();
@@ -176,11 +165,7 @@ const designNameInRelativePath = (
 /**
  * Score a dat set candidate for a design. Higher score = better match.
  */
-const scoreDatSetMatch = (
-  designDir: string,
-  designName: string,
-  datSet: DatFileSet,
-): number => {
+const scoreDatSetMatch = (designDir: string, designName: string, datSet: DatFileSet): number => {
   let score = 0;
 
   // Get relative path from design directory to dat set
@@ -219,7 +204,7 @@ interface MatchCandidate {
  */
 const matchDatSetsToDesigns = (
   designFiles: string[],
-  datSets: DatFileSet[],
+  datSets: DatFileSet[]
 ): Map<string, DatFileSet | null> => {
   const assignments = new Map<string, DatFileSet | null>();
 
@@ -260,10 +245,7 @@ const matchDatSetsToDesigns = (
   const assignedDesigns = new Set<string>();
 
   for (const candidate of candidates) {
-    if (
-      assignedDesigns.has(candidate.designPath) ||
-      usedDatSets.has(candidate.datSet.directory)
-    ) {
+    if (assignedDesigns.has(candidate.designPath) || usedDatSets.has(candidate.datSet.directory)) {
       continue;
     }
 
@@ -289,13 +271,17 @@ const normalizeSeparators = (p: string): string => {
 /**
  * Discover Cadence designs in a directory.
  * Uses subtree-scoped matching to associate .dat files with designs.
+ *
+ * @param rootDir - Root directory to search
+ * @param options - Discovery options (maxDepth)
  */
 export const discoverCadenceDesigns = async (
   rootDir: string,
+  options?: { maxDepth?: number }
 ): Promise<CadenceDiscoveredDesign[]> => {
   // Normalize separators before resolving to handle cross-platform paths
   const absoluteRootDir = path.resolve(normalizeSeparators(rootDir));
-  const { designFiles, datSets } = await walkForCadenceFiles(absoluteRootDir);
+  const { designFiles, datSets } = await walkForCadenceFiles(absoluteRootDir, options?.maxDepth);
 
   // Match dat sets to designs
   const assignments = matchDatSetsToDesigns(designFiles, datSets);
@@ -326,8 +312,7 @@ export const discoverCadenceDesigns = async (
     };
 
     if (!matchedDatSet) {
-      design.error =
-        "Netlist files not exported. Run export_cadence_netlist to generate them.";
+      design.error = "Netlist files not exported. Run export_cadence_netlist to generate them.";
     }
 
     designs.push(design);
@@ -340,23 +325,16 @@ export const discoverCadenceDesigns = async (
  * Find Cadence .dat files for a specific design file.
  * Searches in the design's directory and all subdirectories.
  */
-export const findCadenceDatFiles = async (
-  designFilePath: string,
-): Promise<CadenceDatFiles> => {
+export const findCadenceDatFiles = async (designFilePath: string): Promise<CadenceDatFiles> => {
   // Normalize separators before processing to handle cross-platform paths
   const normalizedPath = normalizeSeparators(designFilePath);
   const designDir = path.dirname(normalizedPath);
-  const designName = path.basename(
-    normalizedPath,
-    path.extname(normalizedPath),
-  );
+  const designName = path.basename(normalizedPath, path.extname(normalizedPath));
 
   const { datSets } = await walkForCadenceFiles(designDir);
 
   // Find dat sets in this design's subtree
-  const candidates = datSets.filter((ds) =>
-    isDescendantOrEqual(ds.directory, designDir),
-  );
+  const candidates = datSets.filter((ds) => isDescendantOrEqual(ds.directory, designDir));
 
   if (candidates.length === 0) {
     return { pstxnet: null, pstxprt: null, pstchip: null };
@@ -387,9 +365,7 @@ export const findCadenceDatFiles = async (
  */
 export const isCadenceFile = (filePath: string): boolean => {
   const ext = path.extname(filePath).toLowerCase();
-  return CADENCE_EXTENSIONS.includes(
-    ext as (typeof CADENCE_EXTENSIONS)[number],
-  );
+  return CADENCE_EXTENSIONS.includes(ext as (typeof CADENCE_EXTENSIONS)[number]);
 };
 
 /** Cadence file extensions */

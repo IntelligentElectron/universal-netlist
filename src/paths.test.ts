@@ -152,7 +152,7 @@ describe("toRelativePath", () => {
 });
 
 // =============================================================================
-// listDesigns — relative output
+// listDesigns — relative output (paths relative to search directory)
 // =============================================================================
 
 describe("listDesigns output paths", () => {
@@ -160,7 +160,7 @@ describe("listDesigns output paths", () => {
     vi.spyOn(process, "cwd").mockReturnValue("C:\\repo");
   });
 
-  it("returns relative path when on the same drive", async () => {
+  it("returns path relative to search directory (defaults to CWD)", async () => {
     vi.mocked(parsers.discoverDesigns).mockResolvedValue([
       {
         name: "Board",
@@ -175,6 +175,24 @@ describe("listDesigns output paths", () => {
     expect(Array.isArray(result)).toBe(true);
     const designPath = (result as Array<{ path: string }>)[0]?.path;
     expect(designPath).toBe("projects\\Board\\Board.PrjPcb");
+    expect(path.isAbsolute(designPath)).toBe(false);
+  });
+
+  it("returns path relative to explicit search path", async () => {
+    vi.mocked(parsers.discoverDesigns).mockResolvedValue([
+      {
+        name: "Board",
+        sourcePath: "C:\\repo\\projects\\Board\\Board.PrjPcb",
+        format: "altium",
+        schdocPaths: [],
+      },
+    ]);
+
+    const result = await listDesigns("C:\\repo\\projects");
+
+    expect(Array.isArray(result)).toBe(true);
+    const designPath = (result as Array<{ path: string }>)[0]?.path;
+    expect(designPath).toBe("Board\\Board.PrjPcb");
     expect(path.isAbsolute(designPath)).toBe(false);
   });
 
@@ -194,6 +212,79 @@ describe("listDesigns output paths", () => {
     const designPath = (result as Array<{ path: string }>)[0]?.path;
     expect(designPath).toBe("D:\\projects\\Board\\Board.PrjPcb");
     expect(path.isAbsolute(designPath)).toBe(true);
+  });
+});
+
+// =============================================================================
+// listDesigns — max_depth and max_results
+// =============================================================================
+
+describe("listDesigns max_depth", () => {
+  it("passes maxDepth to discoverDesigns", async () => {
+    vi.mocked(parsers.discoverDesigns).mockResolvedValue([]);
+
+    await listDesigns(undefined, ".*", 3);
+
+    expect(parsers.discoverDesigns).toHaveBeenCalledWith(expect.any(String), { maxDepth: 3 });
+  });
+
+  it("passes undefined maxDepth when not specified", async () => {
+    vi.mocked(parsers.discoverDesigns).mockResolvedValue([]);
+
+    await listDesigns();
+
+    expect(parsers.discoverDesigns).toHaveBeenCalledWith(expect.any(String), {
+      maxDepth: undefined,
+    });
+  });
+});
+
+describe("listDesigns max_results", () => {
+  beforeEach(() => {
+    vi.spyOn(process, "cwd").mockReturnValue("C:\\repo");
+    vi.mocked(parsers.discoverDesigns).mockResolvedValue([
+      {
+        name: "A",
+        sourcePath: "C:\\repo\\A\\A.dsn",
+        format: "cadence-cis",
+        datFiles: { pstxnet: null, pstxprt: null, pstchip: null },
+      },
+      {
+        name: "B",
+        sourcePath: "C:\\repo\\B\\B.dsn",
+        format: "cadence-cis",
+        datFiles: { pstxnet: null, pstxprt: null, pstchip: null },
+      },
+      {
+        name: "C",
+        sourcePath: "C:\\repo\\C\\C.dsn",
+        format: "cadence-cis",
+        datFiles: { pstxnet: null, pstxprt: null, pstchip: null },
+      },
+    ]);
+  });
+
+  it("limits results when max_results is set", async () => {
+    const result = await listDesigns(undefined, ".*", undefined, 2);
+
+    expect(Array.isArray(result)).toBe(true);
+    expect((result as Array<{ name: string }>).length).toBe(2);
+    expect((result as Array<{ name: string }>)[0].name).toBe("A");
+    expect((result as Array<{ name: string }>)[1].name).toBe("B");
+  });
+
+  it("returns all results when max_results is not set", async () => {
+    const result = await listDesigns();
+
+    expect(Array.isArray(result)).toBe(true);
+    expect((result as Array<{ name: string }>).length).toBe(3);
+  });
+
+  it("returns all results when max_results exceeds count", async () => {
+    const result = await listDesigns(undefined, ".*", undefined, 10);
+
+    expect(Array.isArray(result)).toBe(true);
+    expect((result as Array<{ name: string }>).length).toBe(3);
   });
 });
 

@@ -8,13 +8,18 @@
  * 3. Import and register the handler here
  */
 
-import type { DiscoveredDesign, ParsedNetlist, EDAProjectFormatHandler } from '../types.js';
-import { cadenceHandler } from './cadence/index.js';
-import { altiumHandler } from './altium/index.js';
+import type {
+  DiscoveredDesign,
+  DiscoverDesignsOptions,
+  ParsedNetlist,
+  EDAProjectFormatHandler,
+} from "../types.js";
+import { cadenceHandler } from "./cadence/index.js";
+import { altiumHandler } from "./altium/index.js";
 
 // Re-export handlers for direct access
-export { cadenceHandler } from './cadence/index.js';
-export { altiumHandler } from './altium/index.js';
+export { cadenceHandler } from "./cadence/index.js";
+export { altiumHandler } from "./altium/index.js";
 
 /**
  * Registry of all supported EDA project format handlers.
@@ -31,8 +36,11 @@ export const findHandler = (filePath: string): EDAProjectFormatHandler | undefin
 /**
  * Discover all designs of all supported formats in a directory.
  */
-export const discoverDesigns = async (rootDir: string): Promise<DiscoveredDesign[]> => {
-  const results = await Promise.all(handlers.map((h) => h.discoverDesigns(rootDir)));
+export const discoverDesigns = async (
+  rootDir: string,
+  options?: DiscoverDesignsOptions
+): Promise<DiscoveredDesign[]> => {
+  const results = await Promise.all(handlers.map((h) => h.discoverDesigns(rootDir, options)));
   return results.flat().sort((a, b) => a.name.localeCompare(b.name));
 };
 
@@ -55,5 +63,4 @@ export const getHandlers = (): readonly EDAProjectFormatHandler[] => handlers;
 /**
  * Get all supported file extensions across all handlers.
  */
-export const getSupportedExtensions = (): string[] =>
-  handlers.flatMap((h) => [...h.extensions]);
+export const getSupportedExtensions = (): string[] => handlers.flatMap((h) => [...h.extensions]);

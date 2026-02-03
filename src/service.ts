@@ -345,10 +345,14 @@ const aggregateCircuitByMpn = (
  *
  * @param searchPath - Path to search (defaults to current working directory)
  * @param pattern - Regex pattern to filter design names
+ * @param maxDepth - Maximum directory depth to recurse (0 = search path only, undefined = unlimited)
+ * @param maxResults - Maximum number of designs to return (undefined = unlimited)
  */
 export const listDesigns = async (
   searchPath?: string,
-  pattern = ".*"
+  pattern = ".*",
+  maxDepth?: number,
+  maxResults?: number
 ): Promise<Array<{ name: string; path: string; error?: string }> | ErrorResult> => {
   const resolvedPath = resolvePath(searchPath ?? ".");
 
@@ -359,14 +363,30 @@ export const listDesigns = async (
     return { error: `Invalid regex pattern '${pattern}'` };
   }
 
-  const designs = await discoverDesigns(resolvedPath);
-  return designs
-    .filter((design) => regex.test(design.name))
-    .map((design) => ({
-      name: design.name,
-      path: toRelativePath(design.sourcePath),
-      error: design.error,
-    }));
+  const designs = await discoverDesigns(resolvedPath, { maxDepth });
+  let filtered = designs.filter((design) => regex.test(design.name));
+  if (maxResults !== undefined && filtered.length > maxResults) {
+    filtered = filtered.slice(0, maxResults);
+  }
+  return filtered.map((design) => ({
+    name: design.name,
+    path: toSearchRelativePath(design.sourcePath, resolvedPath),
+    error: design.error,
+  }));
+};
+
+/**
+ * Convert an absolute path to a clean path relative to the search directory.
+ * Returns absolute path if the target is not within the search directory
+ * (e.g., different drive on Windows, or parent directory traversal).
+ */
+const toSearchRelativePath = (absolutePath: string, searchDir: string): string => {
+  const rel = path.relative(searchDir, absolutePath);
+  // If relative path requires ".." traversal or is absolute (cross-drive on Windows), use absolute
+  if (rel.startsWith("..") || path.isAbsolute(rel)) {
+    return absolutePath;
+  }
+  return rel;
 };
 
 /**
