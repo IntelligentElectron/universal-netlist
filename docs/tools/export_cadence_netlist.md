@@ -12,7 +12,7 @@ Generates Allegro-compatible netlist files from Cadence schematics using the `ps
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `design` | string | Yes | Absolute path to `.DSN` schematic file |
+| `design` | string | Yes | Path to `.DSN` schematic file |
 
 ## Response Schema
 
@@ -28,7 +28,7 @@ Generates Allegro-compatible netlist files from Cadence schematics using the `ps
     },
     "outputDir": {
       "type": "string",
-      "description": "Directory where output files were written"
+      "description": "Directory where output files were written (relative to CWD; absolute if on a different Windows drive)"
     },
     "log": {
       "type": "string",
@@ -73,7 +73,7 @@ Call:
 {
   "tool": "export_cadence_netlist",
   "arguments": {
-    "design": "C:/Projects/MyBoard/Schematics/MyBoard.DSN"
+    "design": "Schematics/MyBoard.DSN"
   }
 }
 ```
@@ -82,7 +82,7 @@ Response (success):
 ```json
 {
   "success": true,
-  "outputDir": "C:/Projects/MyBoard/Schematics/Allegro",
+  "outputDir": "Schematics/Allegro",
   "cadenceVersion": "17.4",
   "generatedFiles": [
     "pstchip.dat",

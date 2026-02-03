@@ -47,7 +47,7 @@ Supports Cadence (CIS, HDL) and Altium Designer formats.
 - DNS (Do Not Stuff) components are excluded by default; use \`include_dns=true\` to include them
 - \`query_xnet_*\` traces through series components; \`circuit_hash\` identifies unique topologies
 - \`query_xnet_*\` stops traversal at power/ground nets; use \`skip_types\` to reduce noise on rails
-- All design paths should be absolute paths
+- Design paths are relative to the working directory (absolute paths also accepted)
 
 ## Error Handling
 
@@ -111,7 +111,7 @@ export const createServer = (): McpServer => {
         path: z
           .string()
           .optional()
-          .describe("Absolute path to directory to search for designs"),
+          .describe("Path to directory to search for designs"),
         pattern: z
           .string()
           .optional()
@@ -135,7 +135,7 @@ export const createServer = (): McpServer => {
         design: z
           .string()
           .describe(
-            "Absolute path to design file (e.g., /path/to/Design.PrjPcb)",
+            "Path to design file (e.g., ./Design.PrjPcb)",
           ),
         type: z.string().describe("Component prefix: U, C, R, L, etc."),
         include_dns: z
@@ -159,7 +159,7 @@ export const createServer = (): McpServer => {
     {
       description: "List all net names in a design",
       inputSchema: {
-        design: z.string().describe("Absolute path to design file"),
+        design: z.string().describe("Path to design file"),
       },
     },
     async ({ design }) => {
@@ -177,7 +177,7 @@ export const createServer = (): McpServer => {
       description: "Search for nets matching a regex pattern",
       inputSchema: {
         pattern: z.string().describe("Regex pattern"),
-        design: z.string().describe("Absolute path to design file"),
+        design: z.string().describe("Path to design file"),
       },
     },
     async ({ pattern, design }) => {
@@ -195,7 +195,7 @@ export const createServer = (): McpServer => {
       description: "Search for components by refdes pattern",
       inputSchema: {
         pattern: z.string().describe("Regex pattern for refdes"),
-        design: z.string().describe("Absolute path to design file"),
+        design: z.string().describe("Path to design file"),
         include_dns: z
           .boolean()
           .optional()
@@ -223,7 +223,7 @@ export const createServer = (): McpServer => {
         "Search for components by MPN (Manufacturer Part Number) pattern",
       inputSchema: {
         pattern: z.string().describe("Regex pattern for MPN"),
-        design: z.string().describe("Absolute path to design file"),
+        design: z.string().describe("Path to design file"),
         include_dns: z
           .boolean()
           .optional()
@@ -246,7 +246,7 @@ export const createServer = (): McpServer => {
       description: "Search for components by description pattern",
       inputSchema: {
         pattern: z.string().describe("Regex pattern for description"),
-        design: z.string().describe("Absolute path to design file"),
+        design: z.string().describe("Path to design file"),
         include_dns: z
           .boolean()
           .optional()
@@ -272,7 +272,7 @@ export const createServer = (): McpServer => {
     {
       description: "Get full XNET (Extended Net) connectivity for a net",
       inputSchema: {
-        design: z.string().describe("Absolute path to design file"),
+        design: z.string().describe("Path to design file"),
         net_name: z.string().describe("Exact net name"),
         skip_types: z
           .array(z.string())
@@ -304,7 +304,7 @@ export const createServer = (): McpServer => {
     {
       description: "Get full XNET connectivity starting from a component pin",
       inputSchema: {
-        design: z.string().describe("Absolute path to design file"),
+        design: z.string().describe("Path to design file"),
         pin_name: z
           .string()
           .describe("Pin spec: REFDES.PIN (e.g., U2.10, U1.A5)"),
@@ -338,7 +338,7 @@ export const createServer = (): McpServer => {
     {
       description: "Get full component details including all pin connections",
       inputSchema: {
-        design: z.string().describe("Absolute path to design file"),
+        design: z.string().describe("Path to design file"),
         refdes: z.string().describe("Component reference designator"),
       },
     },
@@ -357,7 +357,7 @@ export const createServer = (): McpServer => {
       description:
         "Export Cadence schematic netlist to Allegro PCB format. Windows only. Requires Cadence SPB installation.",
       inputSchema: {
-        design: z.string().describe("Absolute path to .DSN schematic file"),
+        design: z.string().describe("Path to .DSN schematic file"),
       },
     },
     async ({ design }) => {

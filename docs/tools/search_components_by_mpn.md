@@ -11,7 +11,7 @@ Searches components using a regex pattern against MPN values. Useful for finding
 | Parameter | Type | Required | Default | Description |
 |-----------|------|----------|---------|-------------|
 | `pattern` | string | Yes | - | Regex pattern for MPN (case-insensitive) |
-| `design` | string | Yes | - | Absolute path to design file |
+| `design` | string | Yes | - | Path to design file |
 | `include_dns` | boolean | No | `false` | Include DNS components |
 
 ## Response Schema
@@ -37,7 +37,7 @@ Call:
   "tool": "search_components_by_mpn",
   "arguments": {
     "pattern": "TPS62",
-    "design": "/Users/eng/projects/PowerBoard/PowerBoard.PrjPcb"
+    "design": "PowerBoard/PowerBoard.PrjPcb"
   }
 }
 ```

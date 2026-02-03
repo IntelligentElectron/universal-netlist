@@ -11,7 +11,7 @@ Searches all net names in a design using a regular expression pattern. Useful fo
 | Parameter | Type | Required | Default | Description |
 |-----------|------|----------|---------|-------------|
 | `pattern` | string | Yes | - | Regex pattern to match against net names |
-| `design` | string | Yes | - | Absolute path to design file |
+| `design` | string | Yes | - | Path to design file |
 
 ## Response Schema
 
@@ -48,7 +48,7 @@ Call:
   "tool": "search_nets",
   "arguments": {
     "pattern": "I2C",
-    "design": "/Users/eng/projects/PowerBoard/PowerBoard.PrjPcb"
+    "design": "PowerBoard/PowerBoard.PrjPcb"
   }
 }
 ```

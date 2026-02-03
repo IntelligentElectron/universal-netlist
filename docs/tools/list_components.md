@@ -10,7 +10,7 @@ Lists all components matching a reference designator prefix (e.g., `U` for ICs, 
 
 | Parameter | Type | Required | Default | Description |
 |-----------|------|----------|---------|-------------|
-| `design` | string | Yes | - | Absolute path to design file (e.g., `/path/to/Design.PrjPcb`) |
+| `design` | string | Yes | - | Path to design file (e.g., `./Design.PrjPcb`) |
 | `type` | string | Yes | - | Component prefix: `U`, `C`, `R`, `L`, `J`, `D`, `Q`, etc. |
 | `include_dns` | boolean | No | `false` | Include DNS (Do Not Stuff) components |
 
@@ -33,7 +33,7 @@ Call:
 {
   "tool": "list_components",
   "arguments": {
-    "design": "/Users/eng/projects/PowerBoard/PowerBoard.PrjPcb",
+    "design": "PowerBoard/PowerBoard.PrjPcb",
     "type": "U"
   }
 }

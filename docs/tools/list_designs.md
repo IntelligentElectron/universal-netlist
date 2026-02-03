@@ -10,7 +10,7 @@ Discovers Cadence and Altium design files by scanning the specified directory re
 
 | Parameter | Type | Required | Default | Description |
 |-----------|------|----------|---------|-------------|
-| `path` | string | No | Current working directory | Absolute path to directory to search |
+| `path` | string | No | Current working directory | Path to directory to search |
 | `pattern` | string | No | `".*"` | Regex pattern to filter design names |
 
 ## Response Schema
@@ -30,7 +30,7 @@ Returns an array of design info objects:
       },
       "path": {
         "type": "string",
-        "description": "Absolute path to design file"
+        "description": "Relative path to design file"
       },
       "error": {
         "type": "string",
@@ -51,7 +51,7 @@ Call:
 {
   "tool": "list_designs",
   "arguments": {
-    "path": "/Users/eng/projects"
+    "path": "."
   }
 }
 ```
@@ -61,15 +61,15 @@ Response:
 [
   {
     "name": "PowerBoard",
-    "path": "/Users/eng/projects/PowerBoard/PowerBoard.PrjPcb"
+    "path": "PowerBoard/PowerBoard.PrjPcb"
   },
   {
     "name": "MainBoard",
-    "path": "/Users/eng/projects/MainBoard/schematic.dsn"
+    "path": "MainBoard/schematic.dsn"
   },
   {
     "name": "AudioModule",
-    "path": "/Users/eng/projects/AudioModule/design.cpm",
+    "path": "AudioModule/design.cpm",
     "error": "Missing pstxnet.dat file"
   }
 ]
@@ -84,7 +84,7 @@ Response:
 
 ## Notes
 
-- The `path` field in results is always an absolute path that can be passed directly to other tools
+- The `path` field in results is a relative path from the working directory that can be passed directly to other tools (on Windows, paths on a different drive than CWD remain absolute)
 - Designs with missing netlist files will include an `error` field explaining what's needed
 - For Cadence designs without `.dat` files, run `export_cadence_netlist` to generate them
 - The `pattern` parameter filters on the design `name`, not the full path

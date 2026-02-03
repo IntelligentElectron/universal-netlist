@@ -10,7 +10,7 @@ Traces circuit connectivity starting from a net name, traversing through series 
 
 | Parameter | Type | Required | Default | Description |
 |-----------|------|----------|---------|-------------|
-| `design` | string | Yes | - | Absolute path to design file |
+| `design` | string | Yes | - | Path to design file |
 | `net_name` | string | Yes | - | Exact net name to start from |
 | `skip_types` | string[] | No | `[]` | Component prefixes to exclude (e.g., `["C", "L"]`) |
 | `include_dns` | boolean | No | `false` | Include DNS components |
@@ -45,7 +45,7 @@ Call:
 {
   "tool": "query_xnet_by_net_name",
   "arguments": {
-    "design": "/Users/eng/projects/PowerBoard/PowerBoard.PrjPcb",
+    "design": "PowerBoard/PowerBoard.PrjPcb",
     "net_name": "I2C_SDA"
   }
 }

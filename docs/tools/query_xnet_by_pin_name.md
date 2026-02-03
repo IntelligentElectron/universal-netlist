@@ -10,7 +10,7 @@ Traces circuit connectivity starting from a specific component pin, traversing t
 
 | Parameter | Type | Required | Default | Description |
 |-----------|------|----------|---------|-------------|
-| `design` | string | Yes | - | Absolute path to design file |
+| `design` | string | Yes | - | Path to design file |
 | `pin_name` | string | Yes | - | Pin spec in `REFDES.PIN` format (e.g., `U2.10`, `U1.A5`) |
 | `skip_types` | string[] | No | `[]` | Component prefixes to exclude |
 | `include_dns` | boolean | No | `false` | Include DNS components |
@@ -46,7 +46,7 @@ Call:
 {
   "tool": "query_xnet_by_pin_name",
   "arguments": {
-    "design": "/Users/eng/projects/PowerBoard/PowerBoard.PrjPcb",
+    "design": "PowerBoard/PowerBoard.PrjPcb",
     "pin_name": "U5.PA9"
   }
 }

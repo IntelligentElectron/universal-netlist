@@ -11,7 +11,7 @@ Searches components using a regex pattern against reference designators. Compone
 | Parameter | Type | Required | Default | Description |
 |-----------|------|----------|---------|-------------|
 | `pattern` | string | Yes | - | Regex pattern for refdes (case-insensitive) |
-| `design` | string | Yes | - | Absolute path to design file |
+| `design` | string | Yes | - | Path to design file |
 | `include_dns` | boolean | No | `false` | Include DNS components |
 
 ## Response Schema
@@ -37,7 +37,7 @@ Call:
   "tool": "search_components_by_refdes",
   "arguments": {
     "pattern": "RS.*",
-    "design": "/Users/eng/projects/PowerBoard/PowerBoard.PrjPcb"
+    "design": "PowerBoard/PowerBoard.PrjPcb"
   }
 }
 ```

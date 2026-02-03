@@ -46,7 +46,7 @@ The schema captures identification (MPN, description) but not electrical specifi
 
 Once configured, you can ask your AI assistant questions like:
 
-- "Find all designs in /path/to/projects"
+- "Find all designs in the current directory"
 - "List all the capacitors in MyDesign.PrjPcb"
 - "What nets contain 'USB' in their name?"
 - "Show me the pin connections for U15"

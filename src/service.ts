@@ -1,8 +1,8 @@
 /**
  * Netlist Service
  *
- * Query methods for Cadence and Altium netlists using absolute paths.
- * All methods take an absolute path to the design FILE as input.
+ * Query methods for Cadence and Altium netlists.
+ * All methods take a path to the design file as input (relative or absolute).
  */
 
 import { exec } from "child_process";
@@ -10,32 +10,7 @@ import * as fs from "fs";
 import path from "path";
 import { promisify } from "util";
 import { discoverDesigns, findHandler, parseDesign } from "./parsers/index.js";
-
-// =============================================================================
-// Path Normalization
-// =============================================================================
-
-/**
- * Normalize a file path to use native separators.
- * This ensures paths work correctly regardless of whether forward or
- * backward slashes are provided (important for cross-platform compatibility).
- *
- * On Windows, path.normalize() converts / to \
- * On Unix, we must manually convert \ to / since path.normalize() doesn't
- * (backslash is a valid filename character on Unix, but agents often send
- * Windows-style paths regardless of platform).
- *
- * Examples:
- *   Windows: "C:/Users/foo/bar" -> "C:\\Users\\foo\\bar"
- *   Unix: "\\Users\\foo\\bar" -> "/Users/foo/bar"
- */
-const normalizePath = (inputPath: string): string => {
-  if (process.platform === "win32") {
-    return path.normalize(inputPath);
-  }
-  // On Unix, convert backslashes to forward slashes before normalizing
-  return path.normalize(inputPath.replace(/\\/g, "/"));
-};
+import { resolvePath, toRelativePath } from "./paths.js";
 
 import {
   naturalSort,
@@ -92,13 +67,11 @@ const normalizeUnconnectedPins = (netlist: ParsedNetlist): void => {
 };
 
 /**
- * Load netlist from an absolute design file path.
+ * Load netlist from a design file path.
  * Delegates to the appropriate handler based on file extension.
  */
-export const loadNetlist = async (
-  designPath: string,
-): Promise<ParsedNetlist | ErrorResult> => {
-  const normalizedPath = normalizePath(designPath);
+export const loadNetlist = async (designPath: string): Promise<ParsedNetlist | ErrorResult> => {
+  const normalizedPath = resolvePath(designPath);
   const handler = findHandler(normalizedPath);
   if (!handler) {
     const ext = path.extname(normalizedPath);
@@ -112,8 +85,7 @@ export const loadNetlist = async (
     normalizeUnconnectedPins(parsed);
     return parsed;
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "Unknown error occurred";
+    const message = error instanceof Error ? error.message : "Unknown error occurred";
     return { error: message };
   }
 };
@@ -130,7 +102,7 @@ const MPN_MISSING_NOTE =
  */
 const groupComponentsByMpn = (
   entries: Array<[string, ComponentDetails[string]]>,
-  includeDns: boolean,
+  includeDns: boolean
 ): ComponentGroup[] => {
   const groups = new Map<
     string,
@@ -213,7 +185,7 @@ const groupComponentsByMpn = (
  * Aggregate circuit components by MPN for compact output.
  */
 const aggregateCircuitByMpn = (
-  components: CircuitComponent[],
+  components: CircuitComponent[]
 ): AggregatedCircuitResult["components_by_mpn"] => {
   const groups = new Map<
     string,
@@ -271,9 +243,7 @@ const aggregateCircuitByMpn = (
       groups.get(groupKey)!.value = value;
     }
 
-    const orientationKey = comp.connections
-      .map((p) => `${p.pins.join(",")}:${p.net}`)
-      .join("|");
+    const orientationKey = comp.connections.map((p) => `${p.pins.join(",")}:${p.net}`).join("|");
     const group = groups.get(groupKey)!;
 
     if (!group.orientations.has(orientationKey)) {
@@ -291,15 +261,14 @@ const aggregateCircuitByMpn = (
     }
   }
 
-  const compactConnections = (
-    connections: Array<{ net: string; pins: string[] }>,
-  ) => connections.map((c) => ({ net: c.net, pins: compactArray(c.pins) }));
+  const compactConnections = (connections: Array<{ net: string; pins: string[] }>) =>
+    connections.map((c) => ({ net: c.net, pins: compactArray(c.pins) }));
 
   const result: AggregatedComponent[] = [];
 
   for (const group of groups.values()) {
     const orientationsList = Array.from(group.orientations.values()).sort(
-      (a, b) => b.count - a.count,
+      (a, b) => b.count - a.count
     );
 
     const totalCount = orientationsList.reduce((sum, o) => sum + o.count, 0);
@@ -326,12 +295,8 @@ const aggregateCircuitByMpn = (
     }
 
     if (orientationsList.length === 1) {
-      aggregated.refdes = compactArray(
-        orientationsList[0].refdes.sort(naturalSort),
-      );
-      aggregated.connections = compactConnections(
-        orientationsList[0].connections,
-      );
+      aggregated.refdes = compactArray(orientationsList[0].refdes.sort(naturalSort));
+      aggregated.connections = compactConnections(orientationsList[0].connections);
     } else {
       aggregated.orientations = orientationsList.map((o) => ({
         count: o.count,
@@ -378,16 +343,14 @@ const aggregateCircuitByMpn = (
 /**
  * List all designs in a directory.
  *
- * @param searchPath - Absolute path to search (defaults to CWD)
+ * @param searchPath - Path to search (defaults to current working directory)
  * @param pattern - Regex pattern to filter design names
  */
 export const listDesigns = async (
   searchPath?: string,
-  pattern = ".*",
-): Promise<
-  Array<{ name: string; path: string; error?: string }> | ErrorResult
-> => {
-  const resolvedPath = normalizePath(searchPath ?? process.cwd());
+  pattern = ".*"
+): Promise<Array<{ name: string; path: string; error?: string }> | ErrorResult> => {
+  const resolvedPath = resolvePath(searchPath ?? ".");
 
   let regex: RegExp;
   try {
@@ -401,7 +364,7 @@ export const listDesigns = async (
     .filter((design) => regex.test(design.name))
     .map((design) => ({
       name: design.name,
-      path: design.sourcePath,
+      path: toRelativePath(design.sourcePath),
       error: design.error,
     }));
 };
@@ -409,14 +372,14 @@ export const listDesigns = async (
 /**
  * List components of a specific type in a design.
  *
- * @param design - Absolute path to design file
+ * @param design - Path to design file
  * @param type - Component type prefix (e.g., "U", "R", "C")
  * @param includeDns - Include DNS (Do Not Stuff) components
  */
 export const listComponents = async (
   design: string,
   type: string,
-  includeDns = false,
+  includeDns = false
 ): Promise<ListComponentsResult | ErrorResult> => {
   const netlist = await loadNetlist(design);
   if (isErrorResult(netlist)) {
@@ -429,16 +392,12 @@ export const listComponents = async (
   }
 
   const entries = Object.entries(netlist.components).filter(([refdes]) =>
-    matchesRefdesType(refdes, prefix),
+    matchesRefdesType(refdes, prefix)
   );
 
   if (entries.length === 0) {
     const availablePrefixes = Array.from(
-      new Set(
-        Object.keys(netlist.components)
-          .filter(isValidRefdes)
-          .map(getRefdesPrefix),
-      ),
+      new Set(Object.keys(netlist.components).filter(isValidRefdes).map(getRefdesPrefix))
     ).sort((a, b) => a.localeCompare(b));
 
     const designName = path.basename(design, path.extname(design));
@@ -455,11 +414,9 @@ export const listComponents = async (
 /**
  * List all nets within a design.
  *
- * @param design - Absolute path to design file
+ * @param design - Path to design file
  */
-export const listNets = async (
-  design: string,
-): Promise<ListNetsResult | ErrorResult> => {
+export const listNets = async (design: string): Promise<ListNetsResult | ErrorResult> => {
   const netlist = await loadNetlist(design);
   if (isErrorResult(netlist)) {
     return netlist;
@@ -473,11 +430,11 @@ export const listNets = async (
  * Search nets by regex pattern.
  *
  * @param pattern - Regex pattern
- * @param design - Absolute path to design file
+ * @param design - Path to design file
  */
 export const searchNets = async (
   pattern: string,
-  design: string,
+  design: string
 ): Promise<SearchNetsResult | ErrorResult> => {
   let regex: RegExp;
   try {
@@ -509,13 +466,13 @@ export const searchNets = async (
  * Search components by refdes pattern.
  *
  * @param pattern - Regex pattern
- * @param design - Absolute path to design file
+ * @param design - Path to design file
  * @param includeDns - Include DNS components
  */
 export const searchComponentsByRefdes = async (
   pattern: string,
   design: string,
-  includeDns = false,
+  includeDns = false
 ): Promise<SearchComponentsResult | ErrorResult> => {
   // TODO: Support (?i) inline flag for case-insensitive matching
   let regex: RegExp;
@@ -531,9 +488,7 @@ export const searchComponentsByRefdes = async (
   }
 
   const designName = path.basename(design, path.extname(design));
-  const entries = Object.entries(netlist.components).filter(([refdes]) =>
-    regex.test(refdes),
-  );
+  const entries = Object.entries(netlist.components).filter(([refdes]) => regex.test(refdes));
 
   const grouped = groupComponentsByMpn(entries, includeDns);
 
@@ -551,13 +506,13 @@ export const searchComponentsByRefdes = async (
  * Search components by MPN pattern.
  *
  * @param pattern - Regex pattern
- * @param design - Absolute path to design file
+ * @param design - Path to design file
  * @param includeDns - Include DNS components
  */
 export const searchComponentsByMpn = async (
   pattern: string,
   design: string,
-  includeDns = false,
+  includeDns = false
 ): Promise<SearchComponentsResult | ErrorResult> => {
   // TODO: Support (?i) inline flag for case-insensitive matching
   let regex: RegExp;
@@ -575,9 +530,7 @@ export const searchComponentsByMpn = async (
   const designName = path.basename(design, path.extname(design));
   const allComponents = Object.entries(netlist.components);
   const componentsWithMpn = allComponents.filter(([, c]) => c.mpn?.trim());
-  const entries = componentsWithMpn.filter(([, component]) =>
-    regex.test(component.mpn!),
-  );
+  const entries = componentsWithMpn.filter(([, component]) => regex.test(component.mpn!));
 
   const grouped = groupComponentsByMpn(entries, includeDns);
 
@@ -585,9 +538,7 @@ export const searchComponentsByMpn = async (
   if (componentsWithMpn.length === 0) {
     return {
       results: { [designName]: [] },
-      notes: [
-        "This netlist has no MPN data. Ask user for BOM or schematic PDF",
-      ],
+      notes: ["This netlist has no MPN data. Ask user for BOM or schematic PDF"],
     };
   }
 
@@ -608,13 +559,13 @@ export const searchComponentsByMpn = async (
  * Search components by description pattern.
  *
  * @param pattern - Regex pattern
- * @param design - Absolute path to design file
+ * @param design - Path to design file
  * @param includeDns - Include DNS components
  */
 export const searchComponentsByDescription = async (
   pattern: string,
   design: string,
-  includeDns = false,
+  includeDns = false
 ): Promise<SearchComponentsResult | ErrorResult> => {
   // TODO: Support (?i) inline flag for case-insensitive matching
   let regex: RegExp;
@@ -631,11 +582,9 @@ export const searchComponentsByDescription = async (
 
   const designName = path.basename(design, path.extname(design));
   const allComponents = Object.entries(netlist.components);
-  const componentsWithDescription = allComponents.filter(([, c]) =>
-    c.description?.trim(),
-  );
+  const componentsWithDescription = allComponents.filter(([, c]) => c.description?.trim());
   const entries = componentsWithDescription.filter(([, component]) =>
-    regex.test(component.description!),
+    regex.test(component.description!)
   );
 
   const grouped = groupComponentsByMpn(entries, includeDns);
@@ -644,9 +593,7 @@ export const searchComponentsByDescription = async (
   if (componentsWithDescription.length === 0) {
     return {
       results: { [designName]: [] },
-      notes: [
-        "This netlist has no description data. Ask user for BOM or schematic PDF",
-      ],
+      notes: ["This netlist has no description data. Ask user for BOM or schematic PDF"],
     };
   }
 
@@ -666,12 +613,12 @@ export const searchComponentsByDescription = async (
 /**
  * Query component details by reference designator.
  *
- * @param design - Absolute path to design file
+ * @param design - Path to design file
  * @param refdes - Component reference designator
  */
 export const queryComponent = async (
   design: string,
-  refdes: string,
+  refdes: string
 ): Promise<QueryComponentResult | ErrorResult> => {
   const netlist = await loadNetlist(design);
   if (isErrorResult(netlist)) {
@@ -680,7 +627,7 @@ export const queryComponent = async (
 
   const targetRefdes = refdes.trim();
   const componentEntry = Object.entries(netlist.components).find(
-    ([key]) => key.toLowerCase() === targetRefdes.toLowerCase(),
+    ([key]) => key.toLowerCase() === targetRefdes.toLowerCase()
   );
 
   if (!componentEntry) {
@@ -722,7 +669,7 @@ export const queryComponent = async (
 /**
  * Query circuit starting from a net name.
  *
- * @param design - Absolute path to design file
+ * @param design - Path to design file
  * @param netName - Net name
  * @param skipTypes - Component types to skip
  * @param includeDns - Include DNS components
@@ -731,7 +678,7 @@ export const queryXnetByNetName = async (
   design: string,
   netName: string,
   skipTypes: string[] = [],
-  includeDns = false,
+  includeDns = false
 ): Promise<AggregatedCircuitResult | ErrorResult> => {
   const netlist = await loadNetlist(design);
   if (isErrorResult(netlist)) {
@@ -780,7 +727,7 @@ export const queryXnetByNetName = async (
 /**
  * Query circuit starting from a component pin.
  *
- * @param design - Absolute path to design file
+ * @param design - Path to design file
  * @param pinSpec - Pin specification in "REFDES.PIN" format
  * @param skipTypes - Component types to skip
  * @param includeDns - Include DNS components
@@ -789,7 +736,7 @@ export const queryXnetByPinName = async (
   design: string,
   pinSpec: string,
   skipTypes: string[] = [],
-  includeDns = false,
+  includeDns = false
 ): Promise<AggregatedCircuitResult | ErrorResult> => {
   const netlist = await loadNetlist(design);
   if (isErrorResult(netlist)) {
@@ -805,7 +752,7 @@ export const queryXnetByPinName = async (
 
   const [refdesInput, pinInput] = parts;
   const refdesEntry = Object.entries(netlist.components).find(
-    ([refdes]) => refdes.toLowerCase() === refdesInput.trim().toLowerCase(),
+    ([refdes]) => refdes.toLowerCase() === refdesInput.trim().toLowerCase()
   );
 
   if (!refdesEntry) {
@@ -817,7 +764,7 @@ export const queryXnetByPinName = async (
 
   const [resolvedRefdes, component] = refdesEntry;
   const pinKey = Object.keys(component.pins).find(
-    (pin) => pin.toLowerCase() === pinInput.trim().toLowerCase(),
+    (pin) => pin.toLowerCase() === pinInput.trim().toLowerCase()
   );
 
   if (!pinKey) {
@@ -895,7 +842,7 @@ const toBashPath = (winPath: string): string =>
  * @returns Array of detected Cadence installations, sorted by version descending
  */
 export const detectCadenceVersions = async (
-  cadenceBase = "C:/Cadence",
+  cadenceBase = "C:/Cadence"
 ): Promise<CadenceInstall[]> => {
   const installs: CadenceInstall[] = [];
 
@@ -940,11 +887,11 @@ export const getLatestCadence = async (): Promise<CadenceInstall | null> => {
  * Export Cadence schematic netlist to Allegro PCB format.
  * Uses the pstswp utility from Cadence SPB installation.
  *
- * @param dsnPath - Absolute path to .DSN schematic file
+ * @param dsnPath - Path to .DSN schematic file
  * @returns Export result with output directory and generated files, or error
  */
 export const exportCadenceNetlist = async (
-  dsnPath: string,
+  dsnPath: string
 ): Promise<ExportNetlistResult | ErrorResult> => {
   // Platform check
   if (process.platform !== "win32") {
@@ -963,7 +910,8 @@ export const exportCadenceNetlist = async (
     };
   }
 
-  const dsnDir = path.dirname(dsnPath);
+  const resolvedDsnPath = resolvePath(dsnPath);
+  const dsnDir = path.dirname(resolvedDsnPath);
   const dsnFile = path.basename(dsnPath);
   const outputDir = path.join(dsnDir, "Allegro");
 
@@ -991,7 +939,7 @@ export const exportCadenceNetlist = async (
 
     return {
       success: true,
-      outputDir,
+      outputDir: toRelativePath(outputDir),
       log: (stdout + stderr).trim() || undefined,
       cadenceVersion: cadence.version,
       generatedFiles,

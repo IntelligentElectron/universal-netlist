@@ -10,7 +10,7 @@ Returns detailed information about a specific component, including MPN, descript
 
 | Parameter | Type | Required | Default | Description |
 |-----------|------|----------|---------|-------------|
-| `design` | string | Yes | - | Absolute path to design file |
+| `design` | string | Yes | - | Path to design file |
 | `refdes` | string | Yes | - | Component reference designator (e.g., `U1`, `R10`) |
 
 ## Response Schema
@@ -42,7 +42,7 @@ Call:
 {
   "tool": "query_component",
   "arguments": {
-    "design": "/Users/eng/projects/PowerBoard/PowerBoard.PrjPcb",
+    "design": "PowerBoard/PowerBoard.PrjPcb",
     "refdes": "U1"
   }
 }

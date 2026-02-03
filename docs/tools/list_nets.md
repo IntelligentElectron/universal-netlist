@@ -10,7 +10,7 @@ Returns all net names defined in the design, sorted alphabetically. Use this to 
 
 | Parameter | Type | Required | Default | Description |
 |-----------|------|----------|---------|-------------|
-| `design` | string | Yes | - | Absolute path to design file |
+| `design` | string | Yes | - | Path to design file |
 
 ## Response Schema
 
@@ -38,7 +38,7 @@ Call:
 {
   "tool": "list_nets",
   "arguments": {
-    "design": "/Users/eng/projects/PowerBoard/PowerBoard.PrjPcb"
+    "design": "PowerBoard/PowerBoard.PrjPcb"
   }
 }
 ```
