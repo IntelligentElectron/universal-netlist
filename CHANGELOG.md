@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.14] - 2026-02-04
+
+### Added
+
+- `list_designs`: add `max_depth` parameter to limit directory recursion depth ([#2](https://github.com/IntelligentElectron/universal-netlist/issues/2))
+- `list_designs`: add `max_results` parameter to cap returned designs (default: 50)
+- Claude Code GitHub Actions workflows for automated PR review
+
+### Fixed
+
+- `list_designs`: return absolute paths instead of confusing `..\..\` relative paths ([#2](https://github.com/IntelligentElectron/universal-netlist/issues/2))
+- `list_designs`: return structured error instead of crashing on nonexistent or invalid paths
+
 ## [0.0.13] - 2026-02-03
 
 ### Changed
@@ -122,6 +135,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `query_xnet_by_pin_name` - Trace connectivity from a pin
 - `export_cadence_netlist` - Export to Allegro format
 
+[0.0.14]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.14
+[0.0.13]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.13
+[0.0.12]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.12
+[0.0.11]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.11
+[0.0.10]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.10
 [0.0.9]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.9
 [0.0.8]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.8
 [0.0.7]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.7
