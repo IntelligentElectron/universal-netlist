@@ -52,14 +52,18 @@ interface DatFileSet {
 
 /**
  * Walk directory tree to find Cadence design files and complete .dat file sets.
+ *
+ * @param rootDir - Root directory to search
+ * @param maxDepth - Maximum recursion depth (0 = root only). Omit for unlimited.
  */
 const walkForCadenceFiles = async (
   rootDir: string,
+  maxDepth?: number,
 ): Promise<{ designFiles: string[]; datSets: DatFileSet[] }> => {
   const designFiles: string[] = [];
   const datFilesByDir = new Map<string, Map<string, string>>();
 
-  const walk = async (currentDir: string): Promise<void> => {
+  const walk = async (currentDir: string, depth: number): Promise<void> => {
     let entries;
     try {
       entries = await readdir(currentDir, { withFileTypes: true });
@@ -77,7 +81,9 @@ const walkForCadenceFiles = async (
     for (const entry of entries) {
       const fullPath = path.join(currentDir, entry.name);
       if (entry.isDirectory()) {
-        await walk(fullPath);
+        if (maxDepth === undefined || depth < maxDepth) {
+          await walk(fullPath, depth + 1);
+        }
         continue;
       }
 
@@ -108,7 +114,7 @@ const walkForCadenceFiles = async (
     }
   };
 
-  await walk(rootDir);
+  await walk(rootDir, 0);
 
   // Convert to complete DatFileSets (only directories with all 3 required files)
   const datSets: DatFileSet[] = [];
@@ -292,10 +298,11 @@ const normalizeSeparators = (p: string): string => {
  */
 export const discoverCadenceDesigns = async (
   rootDir: string,
+  options?: { maxDepth?: number },
 ): Promise<CadenceDiscoveredDesign[]> => {
   // Normalize separators before resolving to handle cross-platform paths
   const absoluteRootDir = path.resolve(normalizeSeparators(rootDir));
-  const { designFiles, datSets } = await walkForCadenceFiles(absoluteRootDir);
+  const { designFiles, datSets } = await walkForCadenceFiles(absoluteRootDir, options?.maxDepth);
 
   // Match dat sets to designs
   const assignments = matchDatSetsToDesigns(designFiles, datSets);

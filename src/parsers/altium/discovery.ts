@@ -94,14 +94,18 @@ const readProjectSchDocs = async (projectPath: string): Promise<string[]> => {
 
 /**
  * Walk directory tree to find Altium-related files.
+ *
+ * @param rootDir - Root directory to search
+ * @param maxDepth - Maximum recursion depth (0 = root only). Omit for unlimited.
  */
 const walkForAltiumFiles = async (
   rootDir: string,
+  maxDepth?: number,
 ): Promise<{ projects: string[]; schdocs: string[] }> => {
   const projects: string[] = [];
   const schdocs: string[] = [];
 
-  const walk = async (currentDir: string): Promise<void> => {
+  const walk = async (currentDir: string, depth: number): Promise<void> => {
     let entries;
     try {
       entries = await readdir(currentDir, { withFileTypes: true });
@@ -119,7 +123,9 @@ const walkForAltiumFiles = async (
     for (const entry of entries) {
       const fullPath = path.join(currentDir, entry.name);
       if (entry.isDirectory()) {
-        await walk(fullPath);
+        if (maxDepth === undefined || depth < maxDepth) {
+          await walk(fullPath, depth + 1);
+        }
         continue;
       }
 
@@ -137,7 +143,7 @@ const walkForAltiumFiles = async (
     }
   };
 
-  await walk(rootDir);
+  await walk(rootDir, 0);
   return { projects, schdocs };
 };
 
@@ -161,9 +167,10 @@ const fallbackProjectSchDocs = (
  */
 export const discoverAltiumDesigns = async (
   rootDir: string,
+  options?: { maxDepth?: number },
 ): Promise<AltiumDiscoveredDesign[]> => {
   const absoluteRootDir = path.resolve(rootDir);
-  const { projects, schdocs } = await walkForAltiumFiles(absoluteRootDir);
+  const { projects, schdocs } = await walkForAltiumFiles(absoluteRootDir, options?.maxDepth);
 
   const designs: AltiumDiscoveredDesign[] = [];
 

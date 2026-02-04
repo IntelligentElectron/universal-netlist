@@ -10,7 +10,7 @@ import * as fs from "fs";
 import path from "path";
 import { promisify } from "util";
 import { discoverDesigns, findHandler, parseDesign } from "./parsers/index.js";
-import { resolvePath, toRelativePath } from "./paths.js";
+import { resolvePath } from "./paths.js";
 
 import {
   naturalSort,
@@ -341,15 +341,22 @@ const aggregateCircuitByMpn = (
 // =============================================================================
 
 /**
+ * Options for listDesigns.
+ */
+export interface ListDesignsOptions {
+  searchPath?: string;
+  pattern?: string;
+  maxDepth?: number;
+  maxResults?: number;
+}
+
+/**
  * List all designs in a directory.
- *
- * @param searchPath - Path to search (defaults to current working directory)
- * @param pattern - Regex pattern to filter design names
  */
 export const listDesigns = async (
-  searchPath?: string,
-  pattern = ".*"
+  options: ListDesignsOptions = {}
 ): Promise<Array<{ name: string; path: string; error?: string }> | ErrorResult> => {
+  const { searchPath, pattern = ".*", maxDepth, maxResults = 50 } = options;
   const resolvedPath = resolvePath(searchPath ?? ".");
 
   let regex: RegExp;
@@ -359,14 +366,21 @@ export const listDesigns = async (
     return { error: `Invalid regex pattern '${pattern}'` };
   }
 
-  const designs = await discoverDesigns(resolvedPath);
-  return designs
-    .filter((design) => regex.test(design.name))
-    .map((design) => ({
-      name: design.name,
-      path: toRelativePath(design.sourcePath),
-      error: design.error,
-    }));
+  let designs;
+  try {
+    designs = await discoverDesigns(resolvedPath, { maxDepth });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Unknown error occurred";
+    return { error: `Failed to search '${resolvedPath}': ${message}` };
+  }
+
+  const filtered = designs.filter((design) => regex.test(design.name));
+  const limited = filtered.slice(0, maxResults);
+  return limited.map((design) => ({
+    name: design.name,
+    path: design.sourcePath,
+    error: design.error,
+  }));
 };
 
 /**
@@ -939,7 +953,7 @@ export const exportCadenceNetlist = async (
 
     return {
       success: true,
-      outputDir: toRelativePath(outputDir),
+      outputDir,
       log: (stdout + stderr).trim() || undefined,
       cadenceVersion: cadence.version,
       generatedFiles,
