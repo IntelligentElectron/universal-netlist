@@ -1,8 +1,7 @@
 /**
  * Path resolution utilities.
  *
- * Converts between relative and absolute paths for tool input/output.
- * Relative paths are resolved against the current working directory.
+ * Resolves relative paths against the current working directory.
  */
 
 import path from "path";
@@ -28,14 +27,3 @@ export const resolvePath = (inputPath: string): string => {
   // On Unix, convert backslashes to forward slashes before normalizing
   return path.resolve(path.normalize(inputPath.replace(/\\/g, "/")));
 };
-
-/**
- * Convert an absolute path to a path relative to the current working directory.
- *
- * On Windows, when the target is on a different drive than CWD,
- * `path.relative()` returns an absolute path since no relative
- * representation exists. This is a known limitation — the absolute
- * path is returned as-is in that case.
- */
-export const toRelativePath = (absolutePath: string): string =>
-  path.relative(process.cwd(), absolutePath);

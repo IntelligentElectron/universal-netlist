@@ -140,6 +140,65 @@ describe("discoverDesigns", () => {
     });
   });
 
+  describe("maxDepth", () => {
+    it("should find designs at depth 0 (root only)", async () => {
+      // Design file directly in testDir
+      await writeFile(join(testDir, "root.DSN"), "");
+
+      // Design file one level deep — should NOT be found
+      const subDir = join(testDir, "sub");
+      await mkdir(subDir, { recursive: true });
+      await writeFile(join(subDir, "nested.DSN"), "");
+
+      const designs = await discoverDesigns(testDir, { maxDepth: 0 });
+      expect(designs).toHaveLength(1);
+      expect(designs[0].name).toBe("root");
+    });
+
+    it("should find designs up to depth 1", async () => {
+      await writeFile(join(testDir, "root.DSN"), "");
+
+      const subDir = join(testDir, "sub");
+      await mkdir(subDir, { recursive: true });
+      await writeFile(join(subDir, "shallow.DSN"), "");
+
+      const deepDir = join(subDir, "deep");
+      await mkdir(deepDir, { recursive: true });
+      await writeFile(join(deepDir, "deep.DSN"), "");
+
+      const designs = await discoverDesigns(testDir, { maxDepth: 1 });
+      const names = designs.map((d) => d.name).sort();
+      expect(names).toEqual(["root", "shallow"]);
+    });
+
+    it("should find all designs when maxDepth is omitted", async () => {
+      await writeFile(join(testDir, "root.DSN"), "");
+
+      const deepDir = join(testDir, "a", "b", "c");
+      await mkdir(deepDir, { recursive: true });
+      await writeFile(join(deepDir, "deep.DSN"), "");
+
+      const designs = await discoverDesigns(testDir);
+      expect(designs).toHaveLength(2);
+    });
+
+    it("should respect maxDepth for Altium projects", async () => {
+      // Project at depth 1 — should be found with maxDepth: 1
+      const projectDir = join(testDir, "project");
+      await mkdir(projectDir, { recursive: true });
+      await writeFile(join(projectDir, "board.PrjPcb"), "");
+
+      // Project at depth 2 — should NOT be found with maxDepth: 1
+      const deepDir = join(testDir, "a", "b");
+      await mkdir(deepDir, { recursive: true });
+      await writeFile(join(deepDir, "deep.PrjPcb"), "");
+
+      const designs = await discoverDesigns(testDir, { maxDepth: 1 });
+      expect(designs).toHaveLength(1);
+      expect(designs[0].name).toBe("board");
+    });
+  });
+
   describe("Multiple formats", () => {
     it("should discover both Cadence and Altium designs", async () => {
       // Cadence design

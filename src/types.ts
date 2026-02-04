@@ -234,6 +234,14 @@ export const isErrorResult = (result: unknown): result is ErrorResult =>
   Boolean(result && typeof (result as ErrorResult).error === "string");
 
 /**
+ * Options for design discovery.
+ */
+export interface DiscoverDesignsOptions {
+  /** Maximum directory recursion depth (0 = no recursion). Omit for unlimited. */
+  maxDepth?: number;
+}
+
+/**
  * Handler interface for EDA project format plugins.
  * Each EDA tool (Cadence, Altium, KiCad, etc.) implements this interface.
  */
@@ -248,7 +256,7 @@ export interface EDAProjectFormatHandler {
   canHandle(filePath: string): boolean;
 
   /** Discover all designs of this format in a directory */
-  discoverDesigns(rootDir: string): Promise<DiscoveredDesign[]>;
+  discoverDesigns(rootDir: string, options?: DiscoverDesignsOptions): Promise<DiscoveredDesign[]>;
 
   /** Parse a design file into the unified ParsedNetlist format */
   parse(designPath: string): Promise<ParsedNetlist>;

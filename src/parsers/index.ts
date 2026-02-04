@@ -8,7 +8,7 @@
  * 3. Import and register the handler here
  */
 
-import type { DiscoveredDesign, ParsedNetlist, EDAProjectFormatHandler } from '../types.js';
+import type { DiscoveredDesign, DiscoverDesignsOptions, ParsedNetlist, EDAProjectFormatHandler } from '../types.js';
 import { cadenceHandler } from './cadence/index.js';
 import { altiumHandler } from './altium/index.js';
 
@@ -31,8 +31,8 @@ export const findHandler = (filePath: string): EDAProjectFormatHandler | undefin
 /**
  * Discover all designs of all supported formats in a directory.
  */
-export const discoverDesigns = async (rootDir: string): Promise<DiscoveredDesign[]> => {
-  const results = await Promise.all(handlers.map((h) => h.discoverDesigns(rootDir)));
+export const discoverDesigns = async (rootDir: string, options?: DiscoverDesignsOptions): Promise<DiscoveredDesign[]> => {
+  const results = await Promise.all(handlers.map((h) => h.discoverDesigns(rootDir, options)));
   return results.flat().sort((a, b) => a.name.localeCompare(b.name));
 };
 

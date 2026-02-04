@@ -116,10 +116,30 @@ export const createServer = (): McpServer => {
           .string()
           .optional()
           .describe("Regex pattern to filter design names"),
+        max_depth: z
+          .number()
+          .int()
+          .min(0)
+          .optional()
+          .describe(
+            "Max directory recursion depth (0 = no recursion). Omit for unlimited.",
+          ),
+        max_results: z
+          .number()
+          .int()
+          .min(1)
+          .optional()
+          .default(50)
+          .describe("Max designs to return. Default: 50."),
       },
     },
-    async ({ path, pattern }) => {
-      const result = await listDesigns(path, pattern);
+    async ({ path, pattern, max_depth, max_results }) => {
+      const result = await listDesigns({
+        searchPath: path,
+        pattern,
+        maxDepth: max_depth,
+        maxResults: max_results,
+      });
       return formatResult(result);
     },
   );
