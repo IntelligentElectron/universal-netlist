@@ -34,12 +34,22 @@ npm run type-check && npm run lint && npm test
 
 ### Releasing
 
-1. Update `CHANGELOG.md` with new version section
-2. Commit changelog: `git commit -am "Add vX.Y.Z changelog"`
-3. Bump version: `npm version patch -m "v%s"`
-4. Push: `git push && git push origin vX.Y.Z`
+Branch protection requires releases to go through a PR:
 
-The release workflow automatically:
+1. `git checkout -b release/vX.Y.Z`
+2. Update `CHANGELOG.md` with new version section
+3. `git commit -am "Add vX.Y.Z changelog"`
+4. `npm version patch -m "v%s"` (bumps `package.json`, creates commit)
+5. Push branch and open PR: `git push -u origin release/vX.Y.Z && gh pr create`
+6. Merge the PR
+7. Tag the merge commit and push:
+   ```bash
+   git checkout main && git pull
+   git tag vX.Y.Z
+   git push origin vX.Y.Z
+   ```
+
+The tag push triggers the release workflow, which automatically:
 - Builds signed binaries for all platforms
 - Creates GitHub Release with binaries
 - Publishes to npm via OIDC (no tokens)
