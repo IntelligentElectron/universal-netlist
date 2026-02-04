@@ -366,7 +366,14 @@ export const listDesigns = async (
     return { error: `Invalid regex pattern '${pattern}'` };
   }
 
-  const designs = await discoverDesigns(resolvedPath, { maxDepth });
+  let designs;
+  try {
+    designs = await discoverDesigns(resolvedPath, { maxDepth });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Unknown error occurred";
+    return { error: `Failed to search '${resolvedPath}': ${message}` };
+  }
+
   const filtered = designs.filter((design) => regex.test(design.name));
   const limited = filtered.slice(0, maxResults);
   return limited.map((design) => ({

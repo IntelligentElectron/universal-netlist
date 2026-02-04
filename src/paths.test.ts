@@ -235,6 +235,40 @@ describe("listDesigns error passthrough", () => {
 });
 
 // =============================================================================
+// listDesigns — filesystem errors
+// =============================================================================
+
+describe("listDesigns filesystem errors", () => {
+  it("returns error for nonexistent path", async () => {
+    vi.mocked(parsers.discoverDesigns).mockRejectedValue(
+      Object.assign(new Error("ENOENT: no such file or directory, scandir 'C:\\nonexistent'"), {
+        code: "ENOENT",
+      }),
+    );
+
+    const result = await listDesigns({ searchPath: "C:\\nonexistent" });
+
+    expect(Array.isArray(result)).toBe(false);
+    expect((result as { error: string }).error).toContain("Failed to search");
+    expect((result as { error: string }).error).toContain("ENOENT");
+  });
+
+  it("returns error when path is a file", async () => {
+    vi.mocked(parsers.discoverDesigns).mockRejectedValue(
+      Object.assign(new Error("ENOTDIR: not a directory, scandir 'C:\\file.txt'"), {
+        code: "ENOTDIR",
+      }),
+    );
+
+    const result = await listDesigns({ searchPath: "C:\\file.txt" });
+
+    expect(Array.isArray(result)).toBe(false);
+    expect((result as { error: string }).error).toContain("Failed to search");
+    expect((result as { error: string }).error).toContain("ENOTDIR");
+  });
+});
+
+// =============================================================================
 // listDesigns — maxResults
 // =============================================================================
 
