@@ -74,11 +74,11 @@ npm update -g @intelligentelectron/universal-netlist
 
 ## Connect the MCP with your favorite AI tool
 
-### Claude Desktop (Recommended)
+After installing the MCP with one of the methods above, you can connect it to your AI agent of choice.
 
-We recommend the [Claude Desktop app](https://claude.ai/download) for its simplicity, great features, and access to Anthropic's powerful Claude models.
+### Claude Desktop
 
-1. Install via [Native Installer](#native-install-recommended) method
+1. Download the [Claude Desktop app](https://claude.ai/download)
 2. Open Claude Desktop and go to **Settings** (gear icon)
 3. Under **Desktop app**, click **Extensions**
 4. Click **Advanced settings**
@@ -89,131 +89,48 @@ We recommend the [Claude Desktop app](https://claude.ai/download) for its simpli
 
 The extension will be available immediately in your conversations.
 
-### Other AI Tools
+### Claude Code
 
-As an alternative, the Universal Netlist MCP Server can be connected to any MCP-compatible AI tool. Below are configuration examples for popular options.
-
-<details>
-<summary><strong>Claude Code</strong></summary>
-
-**Using npm global install (simplest):**
+Install [Claude Code](https://docs.anthropic.com/en/docs/claude-code), then run:
 
 ```bash
-claude mcp add universal-netlist -- universal-netlist
+claude mcp add --scope user universal-netlist -- universal-netlist
 ```
 
-**Using standalone binary:**
+### OpenAI Codex
 
-macOS:
+Install [OpenAI Codex](https://developers.openai.com/codex/cli/), then run:
 
 ```bash
-claude mcp add universal-netlist -- ~/Library/Application\ Support/universal-netlist/bin/universal-netlist
+codex mcp add universal-netlist -- universal-netlist
 ```
 
-Linux:
+### Gemini CLI
+
+Install [Gemini CLI](https://geminicli.com/docs/get-started/installation/), then run:
 
 ```bash
-claude mcp add universal-netlist -- ~/.local/share/universal-netlist/bin/universal-netlist
+gemini mcp add --scope user universal-netlist universal-netlist
 ```
 
-Windows:
+### VS Code (GitHub Copilot)
 
-```cmd
-claude mcp add universal-netlist -- %LOCALAPPDATA%\universal-netlist\bin\universal-netlist.exe
-```
+Download [VS Code](https://code.visualstudio.com/)
 
-</details>
-
-<details>
-<summary><strong>VS Code (GitHub Copilot)</strong></summary>
-
-Add to `.vscode/mcp.json` in your project.
-
-**macOS:**
+Add to `.vscode/mcp.json` in your project:
 
 ```json
 {
   "servers": {
     "universal-netlist": {
       "type": "stdio",
-      "command": "/Users/YOUR_USERNAME/Library/Application Support/universal-netlist/bin/universal-netlist"
+      "command": "universal-netlist"
     }
   }
 }
 ```
 
-**Linux:**
-
-```json
-{
-  "servers": {
-    "universal-netlist": {
-      "type": "stdio",
-      "command": "/home/YOUR_USERNAME/.local/share/universal-netlist/bin/universal-netlist"
-    }
-  }
-}
-```
-
-**Windows:**
-
-```json
-{
-  "servers": {
-    "universal-netlist": {
-      "type": "stdio",
-      "command": "C:\\Users\\YOUR_USERNAME\\AppData\\Local\\universal-netlist\\bin\\universal-netlist.exe"
-    }
-  }
-}
-```
-
-Then enable in **Configure Tools** (click the tools icon in Copilot chat).
-
-</details>
-
-<details>
-<summary><strong>Gemini CLI</strong></summary>
-
-Add to `~/.gemini/settings.json` (global) or `.gemini/settings.json` (project).
-
-**macOS:**
-
-```json
-{
-  "mcpServers": {
-    "universal-netlist": {
-      "command": "/Users/YOUR_USERNAME/Library/Application Support/universal-netlist/bin/universal-netlist"
-    }
-  }
-}
-```
-
-**Linux:**
-
-```json
-{
-  "mcpServers": {
-    "universal-netlist": {
-      "command": "/home/YOUR_USERNAME/.local/share/universal-netlist/bin/universal-netlist"
-    }
-  }
-}
-```
-
-**Windows:**
-
-```json
-{
-  "mcpServers": {
-    "universal-netlist": {
-      "command": "C:\\Users\\YOUR_USERNAME\\AppData\\Local\\universal-netlist\\bin\\universal-netlist.exe"
-    }
-  }
-}
-```
-
-</details>
+Then enable it in **Configure Tools** (click the tools icon in Copilot chat).
 
 ## Supported Platforms
 
