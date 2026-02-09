@@ -57,7 +57,9 @@ detect_platform() {
     esac
 
     # Return platform string
-    if [ "$os" = "windows" ]; then
+    if [ "$os" = "darwin" ]; then
+        echo "${BINARY_NAME}-darwin-universal"
+    elif [ "$os" = "windows" ]; then
         echo "${BINARY_NAME}-${os}-${arch}.exe"
     else
         echo "${BINARY_NAME}-${os}-${arch}"
@@ -191,6 +193,10 @@ main() {
     default_install_dir=$(get_default_install_dir)
     local install_dir="${UNIVERSAL_NETLIST_INSTALL_DIR:-$default_install_dir}"
     local version="${UNIVERSAL_NETLIST_VERSION:-}"
+
+    # Create installation directory early, before any network calls
+    mkdir -p "$install_dir/bin"
+
     local platform
     local download_url
     local mcpb_url
@@ -219,8 +225,6 @@ main() {
     mcpb_url="https://github.com/${REPO}/releases/download/${version}/${MCPB_NAME}"
     checksum_url="https://github.com/${REPO}/releases/download/${version}/checksums.txt"
 
-    # Create installation directory
-    mkdir -p "$install_dir/bin"
     info "Install directory: $install_dir"
 
     # Download binary

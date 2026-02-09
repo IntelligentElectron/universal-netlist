@@ -37,27 +37,15 @@ sed "s/\"version\": \"[^\"]*\"/\"version\": \"${VERSION}\"/" "$PROJECT_DIR/manif
 
 RELEASE_DIR="${RELEASE_DIR:-$PROJECT_DIR/release}"
 
-# Select macOS binary (prefer arm64 for Apple Silicon, most common on modern Macs)
-# Can be overridden with MACOS_ARCH=x64 environment variable
-if [ "${MACOS_ARCH:-arm64}" = "x64" ]; then
-    MACOS_BINARY="universal-netlist-darwin-x64"
-else
-    MACOS_BINARY="universal-netlist-darwin-arm64"
-fi
-
-# Copy macOS binary (use arch-appropriate binary as the main one)
-if [ -f "$RELEASE_DIR/$MACOS_BINARY" ]; then
-    cp "$RELEASE_DIR/$MACOS_BINARY" "$BUNDLE_DIR/server/universal-netlist"
+# Copy macOS binary - prefer universal for broad compatibility
+if [ -f "$RELEASE_DIR/universal-netlist-darwin-universal" ]; then
+    cp "$RELEASE_DIR/universal-netlist-darwin-universal" "$BUNDLE_DIR/server/universal-netlist"
     chmod +x "$BUNDLE_DIR/server/universal-netlist"
-    echo "  ✓ Added macOS binary ($MACOS_BINARY)"
+    echo "  ✓ Added macOS universal binary (arm64 + x64)"
 elif [ -f "$RELEASE_DIR/universal-netlist-darwin-arm64" ]; then
     cp "$RELEASE_DIR/universal-netlist-darwin-arm64" "$BUNDLE_DIR/server/universal-netlist"
     chmod +x "$BUNDLE_DIR/server/universal-netlist"
-    echo "  ✓ Added macOS binary (darwin-arm64)"
-elif [ -f "$RELEASE_DIR/universal-netlist-darwin-x64" ]; then
-    cp "$RELEASE_DIR/universal-netlist-darwin-x64" "$BUNDLE_DIR/server/universal-netlist"
-    chmod +x "$BUNDLE_DIR/server/universal-netlist"
-    echo "  ✓ Added macOS binary (darwin-x64)"
+    echo "  ⚠ Fallback: added macOS arm64-only binary (universal not available)"
 fi
 
 # Copy Windows binary
