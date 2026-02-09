@@ -136,8 +136,7 @@ Then enable it in **Configure Tools** (click the tools icon in Copilot chat).
 
 | Platform | Binary |
 |----------|--------|
-| macOS (Intel) | `universal-netlist-darwin-x64` |
-| macOS (Apple Silicon) | `universal-netlist-darwin-arm64` |
+| macOS (Universal) | `universal-netlist-darwin-universal` |
 | Linux (x64) | `universal-netlist-linux-x64` |
 | Linux (ARM64) | `universal-netlist-linux-arm64` |
 | Windows (x64) | `universal-netlist-windows-x64.exe` |
