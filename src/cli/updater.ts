@@ -61,13 +61,9 @@ const getPlatformBinaryName = (): string => {
   const arch = process.arch;
 
   if (platform === "darwin") {
-    return arch === "arm64"
-      ? `${BINARY_NAME}-darwin-arm64`
-      : `${BINARY_NAME}-darwin-x64`;
+    return `${BINARY_NAME}-darwin-universal`;
   } else if (platform === "linux") {
-    return arch === "arm64"
-      ? `${BINARY_NAME}-linux-arm64`
-      : `${BINARY_NAME}-linux-x64`;
+    return arch === "arm64" ? `${BINARY_NAME}-linux-arm64` : `${BINARY_NAME}-linux-x64`;
   } else if (platform === "win32") {
     return `${BINARY_NAME}-windows-x64.exe`;
   }
@@ -120,9 +116,7 @@ const fetchLatestRelease = async (): Promise<GitHubRelease> => {
     if (response.status === 404) {
       throw new Error("No releases found");
     }
-    throw new Error(
-      `GitHub API error: ${response.status} ${response.statusText}`,
-    );
+    throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
   }
 
   return response.json() as Promise<GitHubRelease>;
@@ -174,9 +168,7 @@ const downloadFile = async (url: string, destPath: string): Promise<void> => {
   });
 
   if (!response.ok) {
-    throw new Error(
-      `Download failed: ${response.status} ${response.statusText}`,
-    );
+    throw new Error(`Download failed: ${response.status} ${response.statusText}`);
   }
 
   const fileStream = createWriteStream(destPath);
@@ -257,7 +249,7 @@ const cleanupOldBackups = (currentPath: string): void => {
  */
 export const performUpdate = async (
   downloadUrl: string,
-  newVersion: string,
+  newVersion: string
 ): Promise<UpdateResult> => {
   const currentPath = getCurrentExecutablePath();
   const tempPath = join(tmpdir(), `${BINARY_NAME}-update-${Date.now()}`);
@@ -384,9 +376,7 @@ export const autoUpdate = async (): Promise<boolean> => {
   }
 
   // Log update to stderr (MCP uses stdio, so stdout is reserved)
-  console.error(
-    `[universal-netlist] Updating from ${VERSION} to ${check.latestVersion}...`,
-  );
+  console.error(`[universal-netlist] Updating from ${VERSION} to ${check.latestVersion}...`);
 
   const result = await performUpdate(check.downloadUrl, check.latestVersion);
 
