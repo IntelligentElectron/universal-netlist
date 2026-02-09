@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.15] - 2026-02-09
+
+### Fixed
+
+- Fix installation on Intel Macs: ship macOS universal binary (arm64 + x64) via `lipo`
+- Fix `install.sh` creating install directory after network calls (confusing errors on failure)
+- Fix auto-updater requesting arch-specific macOS binary names instead of universal
+
+### Changed
+
+- `.mcpb` Claude Desktop extension now contains a universal macOS binary
+- Release workflow signs and notarizes a single universal binary instead of two arch-specific ones
+- `install.sh` downloads `darwin-universal` on macOS regardless of architecture
+
 ## [0.0.14] - 2026-02-04
 
 ### Added
@@ -135,6 +149,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `query_xnet_by_pin_name` - Trace connectivity from a pin
 - `export_cadence_netlist` - Export to Allegro format
 
+[0.0.15]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.15
 [0.0.14]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.14
 [0.0.13]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.13
 [0.0.12]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.12
