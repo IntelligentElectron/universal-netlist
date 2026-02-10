@@ -50,11 +50,13 @@ vi.mock("fs", async () => {
         if (normalized.includes("cadence")) {
           return ["SPB_17.4"];
         }
-        if (normalized.includes("allegro")) {
+        if (normalized.endsWith("allegro")) {
           return ["pstchip.dat", "pstxnet.dat", "pstxprt.dat"];
         }
-        return [];
+        // Schematic directory: contains DSN file and Allegro output folder
+        return ["Board.dsn", "Allegro"];
       }),
+      mkdir: vi.fn(async () => undefined),
     },
   };
 });
@@ -160,7 +162,7 @@ describe("listDesigns searchPath and pattern", () => {
 
     expect(parsers.discoverDesigns).toHaveBeenCalledWith(
       "C:\\projects\\sub\\dir",
-      expect.any(Object),
+      expect.any(Object)
     );
   });
 
@@ -169,10 +171,7 @@ describe("listDesigns searchPath and pattern", () => {
 
     await listDesigns();
 
-    expect(parsers.discoverDesigns).toHaveBeenCalledWith(
-      "C:\\projects",
-      expect.any(Object),
-    );
+    expect(parsers.discoverDesigns).toHaveBeenCalledWith("C:\\projects", expect.any(Object));
   });
 
   it("filters designs by pattern", async () => {
@@ -243,7 +242,7 @@ describe("listDesigns filesystem errors", () => {
     vi.mocked(parsers.discoverDesigns).mockRejectedValue(
       Object.assign(new Error("ENOENT: no such file or directory, scandir 'C:\\nonexistent'"), {
         code: "ENOENT",
-      }),
+      })
     );
 
     const result = await listDesigns({ searchPath: "C:\\nonexistent" });
@@ -257,7 +256,7 @@ describe("listDesigns filesystem errors", () => {
     vi.mocked(parsers.discoverDesigns).mockRejectedValue(
       Object.assign(new Error("ENOTDIR: not a directory, scandir 'C:\\file.txt'"), {
         code: "ENOTDIR",
-      }),
+      })
     );
 
     const result = await listDesigns({ searchPath: "C:\\file.txt" });
@@ -319,10 +318,7 @@ describe("listDesigns maxDepth", () => {
 
     await listDesigns({ maxDepth: 2 });
 
-    expect(parsers.discoverDesigns).toHaveBeenCalledWith(
-      expect.any(String),
-      { maxDepth: 2 },
-    );
+    expect(parsers.discoverDesigns).toHaveBeenCalledWith(expect.any(String), { maxDepth: 2 });
   });
 
   it("passes undefined maxDepth when omitted", async () => {
@@ -330,10 +326,9 @@ describe("listDesigns maxDepth", () => {
 
     await listDesigns();
 
-    expect(parsers.discoverDesigns).toHaveBeenCalledWith(
-      expect.any(String),
-      { maxDepth: undefined },
-    );
+    expect(parsers.discoverDesigns).toHaveBeenCalledWith(expect.any(String), {
+      maxDepth: undefined,
+    });
   });
 });
 

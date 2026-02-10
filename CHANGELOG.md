@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.16] - 2026-02-10
+
+### Fixed
+
+- Fix `export_cadence_netlist` to reuse existing `Allegro/` or `allegro/` output directory instead of always creating `Allegro/`
+
+### Changed
+
+- Extract `resolveAllegroDir` for Allegro output directory resolution
+- Clean up test formatting and remove redundant spy restores
+
 ## [0.0.15] - 2026-02-09
 
 ### Fixed
