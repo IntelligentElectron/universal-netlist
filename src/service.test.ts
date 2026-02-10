@@ -2,30 +2,20 @@
  * Service Unit Tests - MPN handling and notes
  */
 
-import {
-  describe,
-  it,
-  expect,
-  vi,
-  beforeAll,
-  afterAll,
-  beforeEach,
-} from "vitest";
+import { describe, it, expect, vi, beforeAll, afterAll, afterEach, beforeEach } from "vitest";
 import {
   MPN_MISSING_NOTE,
   groupComponentsByMpn,
   aggregateCircuitByMpn,
   detectCadenceVersions,
   exportCadenceNetlist,
+  resolveAllegroDir,
 } from "./service.js";
-import type {
-  ComponentDetails,
-  CircuitComponent,
-  ErrorResult,
-  ParsedNetlist,
-} from "./types.js";
+import type { ComponentDetails, CircuitComponent, ErrorResult, ParsedNetlist } from "./types.js";
 import * as parsersModule from "./parsers/index.js";
 import * as fs from "fs";
+import * as path from "path";
+import * as os from "os";
 
 /**
  * Helper to check if result is an error.
@@ -46,9 +36,7 @@ describe("groupComponentsByMpn", () => {
     const components: ComponentDetails = {
       U1: { pins: { "1": "VCC", "2": "GND" } },
     };
-    const entries = Object.entries(components) as Array<
-      [string, ComponentDetails[string]]
-    >;
+    const entries = Object.entries(components) as Array<[string, ComponentDetails[string]]>;
 
     const result = groupComponentsByMpn(entries, false);
 
@@ -63,9 +51,7 @@ describe("groupComponentsByMpn", () => {
     const components: ComponentDetails = {
       U1: { mpn: "TPS62088", pins: { "1": "VCC", "2": "GND" } },
     };
-    const entries = Object.entries(components) as Array<
-      [string, ComponentDetails[string]]
-    >;
+    const entries = Object.entries(components) as Array<[string, ComponentDetails[string]]>;
 
     const result = groupComponentsByMpn(entries, false);
 
@@ -78,9 +64,7 @@ describe("groupComponentsByMpn", () => {
     const components: ComponentDetails = {
       U1: { mpn: "", pins: { "1": "VCC", "2": "GND" } },
     };
-    const entries = Object.entries(components) as Array<
-      [string, ComponentDetails[string]]
-    >;
+    const entries = Object.entries(components) as Array<[string, ComponentDetails[string]]>;
 
     const result = groupComponentsByMpn(entries, false);
 
@@ -93,9 +77,7 @@ describe("groupComponentsByMpn", () => {
     const components: ComponentDetails = {
       U1: { mpn: "   ", pins: { "1": "VCC", "2": "GND" } },
     };
-    const entries = Object.entries(components) as Array<
-      [string, ComponentDetails[string]]
-    >;
+    const entries = Object.entries(components) as Array<[string, ComponentDetails[string]]>;
 
     const result = groupComponentsByMpn(entries, false);
 
@@ -117,9 +99,7 @@ describe("groupComponentsByMpn", () => {
         pins: { "1": "NET2", "2": "GND" },
       },
     };
-    const entries = Object.entries(components) as Array<
-      [string, ComponentDetails[string]]
-    >;
+    const entries = Object.entries(components) as Array<[string, ComponentDetails[string]]>;
 
     const result = groupComponentsByMpn(entries, false);
 
@@ -133,9 +113,7 @@ describe("groupComponentsByMpn", () => {
     const components: ComponentDetails = {
       C1: { mpn: "CAP_0603", value: "10uF", pins: { "1": "VCC", "2": "GND" } },
     };
-    const entries = Object.entries(components) as Array<
-      [string, ComponentDetails[string]]
-    >;
+    const entries = Object.entries(components) as Array<[string, ComponentDetails[string]]>;
 
     const result = groupComponentsByMpn(entries, false);
 
@@ -147,9 +125,7 @@ describe("groupComponentsByMpn", () => {
     const components: ComponentDetails = {
       U1: { mpn: "TPS62088", pins: { "1": "VCC", "2": "GND" } },
     };
-    const entries = Object.entries(components) as Array<
-      [string, ComponentDetails[string]]
-    >;
+    const entries = Object.entries(components) as Array<[string, ComponentDetails[string]]>;
 
     const result = groupComponentsByMpn(entries, false);
 
@@ -166,9 +142,7 @@ describe("groupComponentsByMpn", () => {
         pins: { "1": "VCC", "2": "GND" },
       },
     };
-    const entries = Object.entries(components) as Array<
-      [string, ComponentDetails[string]]
-    >;
+    const entries = Object.entries(components) as Array<[string, ComponentDetails[string]]>;
 
     const result = groupComponentsByMpn(entries, true);
 
@@ -180,9 +154,7 @@ describe("groupComponentsByMpn", () => {
     const components: ComponentDetails = {
       C1: { mpn: "CAP_0603", pins: { "1": "VCC", "2": "GND" } },
     };
-    const entries = Object.entries(components) as Array<
-      [string, ComponentDetails[string]]
-    >;
+    const entries = Object.entries(components) as Array<[string, ComponentDetails[string]]>;
 
     const result = groupComponentsByMpn(entries, false);
 
@@ -195,9 +167,7 @@ describe("groupComponentsByMpn", () => {
       U1: { description: "IC", pins: { "1": "VCC" } },
       U2: { description: "IC", pins: { "1": "VCC" } },
     };
-    const entries = Object.entries(components) as Array<
-      [string, ComponentDetails[string]]
-    >;
+    const entries = Object.entries(components) as Array<[string, ComponentDetails[string]]>;
 
     const result = groupComponentsByMpn(entries, false);
 
@@ -540,7 +510,7 @@ describe("detectCadenceVersions", () => {
 
   it("returns empty array when cadence directory does not exist", async () => {
     vi.spyOn(fs.promises, "readdir").mockRejectedValue(
-      new Error("ENOENT: no such file or directory"),
+      new Error("ENOENT: no such file or directory")
     );
 
     const versions = await detectCadenceVersions("/nonexistent/path");
@@ -581,5 +551,56 @@ describe("detectCadenceVersions", () => {
     // Without Cadence installed, no versions will be returned
     // But we've verified the readdir was called with our mock data
     expect(Array.isArray(versions)).toBe(true);
+  });
+});
+
+describe("resolveAllegroDir", () => {
+  let tmpDir: string;
+
+  const cleanup = async (dir: string) => {
+    await fs.promises.rm(dir, { recursive: true, force: true });
+  };
+
+  beforeEach(async () => {
+    vi.restoreAllMocks();
+    tmpDir = await fs.promises.mkdtemp(path.join(os.tmpdir(), "netlist-test-"));
+  });
+
+  afterEach(async () => {
+    await cleanup(tmpDir);
+  });
+
+  it("uses existing Allegro/ directory", async () => {
+    await fs.promises.mkdir(path.join(tmpDir, "Allegro"));
+    const result = await resolveAllegroDir(tmpDir);
+    expect(result.dirName).toBe("Allegro");
+    expect(result.outputDir).toBe(path.join(tmpDir, "Allegro"));
+  });
+
+  it("uses existing allegro/ directory", async () => {
+    await fs.promises.mkdir(path.join(tmpDir, "allegro"));
+    const result = await resolveAllegroDir(tmpDir);
+    expect(result.dirName).toBe("allegro");
+    expect(result.outputDir).toBe(path.join(tmpDir, "allegro"));
+  });
+
+  it("prefers Allegro/ over allegro/ when both exist", async () => {
+    // On case-insensitive FS (macOS), both dirs can't coexist.
+    // Use a mock to simulate case-sensitive FS behavior.
+    vi.spyOn(fs.promises, "readdir")
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .mockResolvedValueOnce(["Allegro", "allegro"] as any);
+    vi.spyOn(fs.promises, "mkdir").mockResolvedValueOnce(undefined);
+
+    const result = await resolveAllegroDir(tmpDir);
+    expect(result.dirName).toBe("Allegro");
+  });
+
+  it("creates allegro/ when neither exists", async () => {
+    const result = await resolveAllegroDir(tmpDir);
+    expect(result.dirName).toBe("allegro");
+    expect(result.outputDir).toBe(path.join(tmpDir, "allegro"));
+    const stat = await fs.promises.stat(result.outputDir);
+    expect(stat.isDirectory()).toBe(true);
   });
 });

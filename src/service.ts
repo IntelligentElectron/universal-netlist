@@ -898,6 +898,30 @@ export const getLatestCadence = async (): Promise<CadenceInstall | null> => {
 };
 
 /**
+ * Resolve the Allegro output directory for netlist export.
+ * Uses an existing Allegro/ or allegro/ directory if present, otherwise creates allegro/.
+ */
+export const resolveAllegroDir = async (
+  dsnDir: string
+): Promise<{ outputDir: string; dirName: string }> => {
+  let dirName = "allegro";
+  try {
+    const entries = await fs.promises.readdir(dsnDir);
+    for (const candidate of ["Allegro", "allegro"]) {
+      if (entries.includes(candidate)) {
+        dirName = candidate;
+        break;
+      }
+    }
+  } catch {
+    // parent doesn't exist or can't be read
+  }
+  const outputDir = path.join(dsnDir, dirName);
+  await fs.promises.mkdir(outputDir, { recursive: true });
+  return { outputDir, dirName };
+};
+
+/**
  * Export Cadence schematic netlist to Allegro PCB format.
  * Uses the pstswp utility from Cadence SPB installation.
  *
@@ -927,14 +951,14 @@ export const exportCadenceNetlist = async (
   const resolvedDsnPath = resolvePath(dsnPath);
   const dsnDir = path.dirname(resolvedDsnPath);
   const dsnFile = path.basename(dsnPath);
-  const outputDir = path.join(dsnDir, "Allegro");
+  const { outputDir, dirName: outputDirName } = await resolveAllegroDir(dsnDir);
 
   // Convert to bash paths for command execution (GitBash compatibility)
   const bashDsnDir = toBashPath(dsnDir);
   const pstswp = toBashPath(cadence.pstswp);
   const config = toBashPath(cadence.config);
 
-  const command = `cd "${bashDsnDir}" && "${pstswp}" -pst -d "${dsnFile}" -n "Allegro" -c "${config}" -v 3 -l 255 -j "PCB Footprint"`;
+  const command = `cd "${bashDsnDir}" && "${pstswp}" -pst -d "${dsnFile}" -n "${outputDirName}" -c "${config}" -v 3 -l 255 -j "PCB Footprint"`;
 
   try {
     const { stdout, stderr } = await execAsync(command, {
