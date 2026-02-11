@@ -160,6 +160,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `query_xnet_by_pin_name` - Trace connectivity from a pin
 - `export_cadence_netlist` - Export to Allegro format
 
+[0.0.16]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.16
 [0.0.15]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.15
 [0.0.14]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.14
 [0.0.13]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.13

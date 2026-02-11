@@ -110,6 +110,6 @@ Response (success):
 
 - Cadence SPB is auto-detected from `C:/Cadence` (e.g., `C:/Cadence/SPB_17.4`)
 - When multiple versions are installed, the latest version is used
-- Output files are written to an `Allegro` subdirectory next to the schematic
+- Output files are written to an `Allegro/` or `allegro/` subdirectory next to the schematic (reuses whichever exists; creates `allegro/` if neither is present)
 - The export uses pstswp flags: `-pst -v 3 -l 255 -j "PCB Footprint"`
 - Timeout is set to 2 minutes for large designs
