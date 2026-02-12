@@ -73,9 +73,7 @@ Use \`export_cadence_netlist\` to generate Allegro-compatible netlist files from
 /**
  * Format a result as MCP tool response content.
  */
-const formatResult = (
-  result: unknown,
-): { content: { type: "text"; text: string }[] } => ({
+const formatResult = (result: unknown): { content: { type: "text"; text: string }[] } => ({
   content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
 });
 
@@ -97,7 +95,7 @@ export const createServer = (): McpServer => {
         tools: {},
       },
       instructions: SERVER_INSTRUCTIONS,
-    },
+    }
   );
 
   // -------------------------------------------------------------------------
@@ -108,22 +106,14 @@ export const createServer = (): McpServer => {
     {
       description: "List all design projects in the given directory",
       inputSchema: {
-        path: z
-          .string()
-          .optional()
-          .describe("Path to directory to search for designs"),
-        pattern: z
-          .string()
-          .optional()
-          .describe("Regex pattern to filter design names"),
+        path: z.string().optional().describe("Path to directory to search for designs"),
+        pattern: z.string().optional().describe("Regex pattern to filter design names"),
         max_depth: z
           .number()
           .int()
           .min(0)
           .optional()
-          .describe(
-            "Max directory recursion depth (0 = no recursion). Omit for unlimited.",
-          ),
+          .describe("Max directory recursion depth (0 = no recursion). Omit for unlimited."),
         max_results: z
           .number()
           .int()
@@ -141,7 +131,7 @@ export const createServer = (): McpServer => {
         maxResults: max_results,
       });
       return formatResult(result);
-    },
+    }
   );
 
   // -------------------------------------------------------------------------
@@ -152,11 +142,7 @@ export const createServer = (): McpServer => {
     {
       description: "List components of a specific type in a design",
       inputSchema: {
-        design: z
-          .string()
-          .describe(
-            "Path to design file (e.g., ./Design.PrjPcb)",
-          ),
+        design: z.string().describe("Path to design file (e.g., ./Design.PrjPcb)"),
         type: z.string().describe("Component prefix: U, C, R, L, etc."),
         include_dns: z
           .boolean()
@@ -168,7 +154,7 @@ export const createServer = (): McpServer => {
     async ({ design, type, include_dns }) => {
       const result = await listComponents(design, type, include_dns);
       return formatResult(result);
-    },
+    }
   );
 
   // -------------------------------------------------------------------------
@@ -185,7 +171,7 @@ export const createServer = (): McpServer => {
     async ({ design }) => {
       const result = await listNets(design);
       return formatResult(result);
-    },
+    }
   );
 
   // -------------------------------------------------------------------------
@@ -203,7 +189,7 @@ export const createServer = (): McpServer => {
     async ({ pattern, design }) => {
       const result = await searchNets(pattern, design);
       return formatResult(result);
-    },
+    }
   );
 
   // -------------------------------------------------------------------------
@@ -216,21 +202,13 @@ export const createServer = (): McpServer => {
       inputSchema: {
         pattern: z.string().describe("Regex pattern for refdes"),
         design: z.string().describe("Path to design file"),
-        include_dns: z
-          .boolean()
-          .optional()
-          .default(false)
-          .describe("Include DNS components"),
+        include_dns: z.boolean().optional().default(false).describe("Include DNS components"),
       },
     },
     async ({ pattern, design, include_dns }) => {
-      const result = await searchComponentsByRefdes(
-        pattern,
-        design,
-        include_dns,
-      );
+      const result = await searchComponentsByRefdes(pattern, design, include_dns);
       return formatResult(result);
-    },
+    }
   );
 
   // -------------------------------------------------------------------------
@@ -239,22 +217,17 @@ export const createServer = (): McpServer => {
   server.registerTool(
     "search_components_by_mpn",
     {
-      description:
-        "Search for components by MPN (Manufacturer Part Number) pattern",
+      description: "Search for components by MPN (Manufacturer Part Number) pattern",
       inputSchema: {
         pattern: z.string().describe("Regex pattern for MPN"),
         design: z.string().describe("Path to design file"),
-        include_dns: z
-          .boolean()
-          .optional()
-          .default(false)
-          .describe("Include DNS components"),
+        include_dns: z.boolean().optional().default(false).describe("Include DNS components"),
       },
     },
     async ({ pattern, design, include_dns }) => {
       const result = await searchComponentsByMpn(pattern, design, include_dns);
       return formatResult(result);
-    },
+    }
   );
 
   // -------------------------------------------------------------------------
@@ -267,21 +240,13 @@ export const createServer = (): McpServer => {
       inputSchema: {
         pattern: z.string().describe("Regex pattern for description"),
         design: z.string().describe("Path to design file"),
-        include_dns: z
-          .boolean()
-          .optional()
-          .default(false)
-          .describe("Include DNS components"),
+        include_dns: z.boolean().optional().default(false).describe("Include DNS components"),
       },
     },
     async ({ pattern, design, include_dns }) => {
-      const result = await searchComponentsByDescription(
-        pattern,
-        design,
-        include_dns,
-      );
+      const result = await searchComponentsByDescription(pattern, design, include_dns);
       return formatResult(result);
-    },
+    }
   );
 
   // -------------------------------------------------------------------------
@@ -298,22 +263,13 @@ export const createServer = (): McpServer => {
           .array(z.string())
           .optional()
           .describe("Component prefixes to exclude (e.g., ['C', 'L'])"),
-        include_dns: z
-          .boolean()
-          .optional()
-          .default(false)
-          .describe("Include DNS components"),
+        include_dns: z.boolean().optional().default(false).describe("Include DNS components"),
       },
     },
     async ({ design, net_name, skip_types, include_dns }) => {
-      const result = await queryXnetByNetName(
-        design,
-        net_name,
-        skip_types,
-        include_dns,
-      );
+      const result = await queryXnetByNetName(design, net_name, skip_types, include_dns);
       return formatResult(result);
-    },
+    }
   );
 
   // -------------------------------------------------------------------------
@@ -325,29 +281,15 @@ export const createServer = (): McpServer => {
       description: "Get full XNET connectivity starting from a component pin",
       inputSchema: {
         design: z.string().describe("Path to design file"),
-        pin_name: z
-          .string()
-          .describe("Pin spec: REFDES.PIN (e.g., U2.10, U1.A5)"),
-        skip_types: z
-          .array(z.string())
-          .optional()
-          .describe("Component prefixes to exclude"),
-        include_dns: z
-          .boolean()
-          .optional()
-          .default(false)
-          .describe("Include DNS components"),
+        pin_name: z.string().describe("Pin spec: REFDES.PIN (e.g., U2.10, U1.A5)"),
+        skip_types: z.array(z.string()).optional().describe("Component prefixes to exclude"),
+        include_dns: z.boolean().optional().default(false).describe("Include DNS components"),
       },
     },
     async ({ design, pin_name, skip_types, include_dns }) => {
-      const result = await queryXnetByPinName(
-        design,
-        pin_name,
-        skip_types,
-        include_dns,
-      );
+      const result = await queryXnetByPinName(design, pin_name, skip_types, include_dns);
       return formatResult(result);
-    },
+    }
   );
 
   // -------------------------------------------------------------------------
@@ -365,7 +307,7 @@ export const createServer = (): McpServer => {
     async ({ design, refdes }) => {
       const result = await queryComponent(design, refdes);
       return formatResult(result);
-    },
+    }
   );
 
   // -------------------------------------------------------------------------
@@ -375,7 +317,7 @@ export const createServer = (): McpServer => {
     "export_cadence_netlist",
     {
       description:
-        "Export Cadence schematic netlist to Allegro PCB format. Windows only. Requires Cadence SPB installation.",
+        "Export Cadence schematic netlist to Allegro PCB format. Windows only. Requires Cadence SPB installation. Calls are queued internally so it is safe to call in parallel for multiple designs, but serialize calls if you encounter license or timeout errors. DSN lock files are handled automatically.",
       inputSchema: {
         design: z.string().describe("Path to .DSN schematic file"),
       },
@@ -383,7 +325,7 @@ export const createServer = (): McpServer => {
     async ({ design }) => {
       const result = await exportCadenceNetlist(design);
       return formatResult(result);
-    },
+    }
   );
 
   return server;
