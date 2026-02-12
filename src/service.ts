@@ -7,6 +7,7 @@
 
 import { exec } from "child_process";
 import * as fs from "fs";
+import { tmpdir } from "os";
 import path from "path";
 import { promisify } from "util";
 import { discoverDesigns, findHandler, parseDesign } from "./parsers/index.js";
@@ -922,6 +923,35 @@ export const resolveAllegroDir = async (
 };
 
 /**
+ * Temporarily relocate a .DSNlck lock file so pstswp can proceed.
+ * Returns the temporary path if relocated, or undefined if no lock file exists.
+ */
+export const relocateLockFile = async (dsnPath: string): Promise<string | undefined> => {
+  const lockPath = dsnPath.replace(/\.DSN$/i, ".DSNlck");
+  try {
+    await fs.promises.access(lockPath);
+  } catch {
+    return undefined;
+  }
+  const tempPath = path.join(tmpdir(), `${path.basename(lockPath)}.${Date.now()}`);
+  await fs.promises.rename(lockPath, tempPath);
+  return tempPath;
+};
+
+/**
+ * Restore a previously relocated .DSNlck lock file.
+ * Logs a warning if restoration fails (e.g. temp file was cleaned up).
+ */
+export const restoreLockFile = async (dsnPath: string, tempPath: string): Promise<void> => {
+  const lockPath = dsnPath.replace(/\.DSN$/i, ".DSNlck");
+  try {
+    await fs.promises.rename(tempPath, lockPath);
+  } catch {
+    console.warn(`Failed to restore lock file. Temporary location: ${tempPath}`);
+  }
+};
+
+/**
  * Export Cadence schematic netlist to Allegro PCB format.
  * Uses the pstswp utility from Cadence SPB installation.
  *
@@ -952,6 +982,9 @@ export const exportCadenceNetlist = async (
   const dsnDir = path.dirname(resolvedDsnPath);
   const dsnFile = path.basename(dsnPath);
   const { outputDir, dirName: outputDirName } = await resolveAllegroDir(dsnDir);
+
+  // Temporarily relocate .DSNlck lock file if present (stale locks block pstswp)
+  const lockTempPath = await relocateLockFile(resolvedDsnPath);
 
   // Convert to bash paths for command execution (GitBash compatibility)
   const bashDsnDir = toBashPath(dsnDir);
@@ -988,9 +1021,16 @@ export const exportCadenceNetlist = async (
       stdout?: string;
       stderr?: string;
     };
+    const lockNote = lockTempPath
+      ? ` A .DSNlck lock file was found and temporarily relocated — this is often the cause of pstswp failures.`
+      : "";
     return {
-      error: `Cadence pstswp failed: ${execError.message ?? "Unknown error"}`,
+      error: `Cadence pstswp failed: ${execError.message ?? "Unknown error"}${lockNote}`,
     };
+  } finally {
+    if (lockTempPath) {
+      await restoreLockFile(resolvedDsnPath, lockTempPath);
+    }
   }
 };
 

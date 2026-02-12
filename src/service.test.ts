@@ -9,6 +9,8 @@ import {
   aggregateCircuitByMpn,
   detectCadenceVersions,
   exportCadenceNetlist,
+  relocateLockFile,
+  restoreLockFile,
   resolveAllegroDir,
 } from "./service.js";
 import type { ComponentDetails, CircuitComponent, ErrorResult, ParsedNetlist } from "./types.js";
@@ -500,6 +502,97 @@ describe("exportCadenceNetlist", () => {
       expect((result as ErrorResult).error).toContain("Windows");
       expect((result as ErrorResult).error).toContain("pstswp");
     }
+  });
+});
+
+describe("relocateLockFile", () => {
+  let tmpDir: string;
+
+  beforeEach(async () => {
+    tmpDir = await fs.promises.mkdtemp(path.join(os.tmpdir(), "lock-test-"));
+  });
+
+  afterEach(async () => {
+    await fs.promises.rm(tmpDir, { recursive: true, force: true });
+  });
+
+  it("returns undefined when no lock file exists", async () => {
+    const dsnPath = path.join(tmpDir, "design.DSN");
+    await fs.promises.writeFile(dsnPath, "");
+
+    const result = await relocateLockFile(dsnPath);
+
+    expect(result).toBeUndefined();
+  });
+
+  it("moves lock file to temp dir and returns temp path", async () => {
+    const dsnPath = path.join(tmpDir, "design.DSN");
+    const lockPath = path.join(tmpDir, "design.DSNlck");
+    await fs.promises.writeFile(dsnPath, "");
+    await fs.promises.writeFile(lockPath, "lock-content");
+
+    const tempPath = await relocateLockFile(dsnPath);
+
+    expect(tempPath).toBeDefined();
+    // Lock file should no longer exist at original location
+    await expect(fs.promises.access(lockPath)).rejects.toThrow();
+    // Lock file content should be at temp location
+    const content = await fs.promises.readFile(tempPath!, "utf-8");
+    expect(content).toBe("lock-content");
+
+    // Cleanup temp file
+    await fs.promises.unlink(tempPath!);
+  });
+
+  it("handles case-insensitive .dsn extension", async () => {
+    const dsnPath = path.join(tmpDir, "design.dsn");
+    const lockPath = path.join(tmpDir, "design.DSNlck");
+    await fs.promises.writeFile(dsnPath, "");
+    await fs.promises.writeFile(lockPath, "lock");
+
+    const tempPath = await relocateLockFile(dsnPath);
+
+    expect(tempPath).toBeDefined();
+    await expect(fs.promises.access(lockPath)).rejects.toThrow();
+
+    await fs.promises.unlink(tempPath!);
+  });
+});
+
+describe("restoreLockFile", () => {
+  let tmpDir: string;
+
+  beforeEach(async () => {
+    tmpDir = await fs.promises.mkdtemp(path.join(os.tmpdir(), "lock-test-"));
+  });
+
+  afterEach(async () => {
+    await fs.promises.rm(tmpDir, { recursive: true, force: true });
+  });
+
+  it("restores lock file from temp path to original location", async () => {
+    const dsnPath = path.join(tmpDir, "design.DSN");
+    const lockPath = path.join(tmpDir, "design.DSNlck");
+    const tempPath = path.join(tmpDir, "design.DSNlck.temp");
+    await fs.promises.writeFile(tempPath, "lock-content");
+
+    await restoreLockFile(dsnPath, tempPath);
+
+    const content = await fs.promises.readFile(lockPath, "utf-8");
+    expect(content).toBe("lock-content");
+    // Temp file should no longer exist
+    await expect(fs.promises.access(tempPath)).rejects.toThrow();
+  });
+
+  it("warns but does not throw when temp file is missing", async () => {
+    const dsnPath = path.join(tmpDir, "design.DSN");
+    const tempPath = path.join(tmpDir, "nonexistent.tmp");
+    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+
+    await restoreLockFile(dsnPath, tempPath);
+
+    expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining("Failed to restore lock file"));
+    warnSpy.mockRestore();
   });
 });
 
