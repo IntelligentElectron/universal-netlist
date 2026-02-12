@@ -104,6 +104,7 @@ Response:
 ## Notes
 
 - Pattern matching is **case-insensitive**
+- Inline flags like `(?i)` are accepted (matching is already case-insensitive by default)
 - Only searches components that have MPN data
 - If a design has no MPN data at all, `notes` will suggest asking for a BOM
 - Components without MPN cannot be found with this tool; use `search_components_by_refdes` instead

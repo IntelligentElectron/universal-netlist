@@ -105,6 +105,7 @@ Response:
 ## Notes
 
 - Pattern matching is **case-insensitive**
+- Inline flags like `(?i)` are accepted (matching is already case-insensitive by default)
 - Only searches components that have description data
 - If a design has no description data, `notes` will suggest asking for a BOM
 - Descriptions typically include package size, value, and function
