@@ -10,6 +10,7 @@ import * as fs from "fs";
 import { tmpdir } from "os";
 import path from "path";
 import { promisify } from "util";
+import { createMutex } from "./async-mutex.js";
 import { discoverDesigns, findHandler, parseDesign } from "./parsers/index.js";
 import { resolvePath } from "./paths.js";
 
@@ -42,6 +43,9 @@ import {
   type CadenceInstall,
   type ExportNetlistResult,
 } from "./types.js";
+
+// Serialize pstswp invocations to prevent concurrent Cadence license conflicts
+const serializePstswp = createMutex();
 
 // =============================================================================
 // Design Loading
@@ -994,55 +998,57 @@ export const exportCadenceNetlist = async (
   const dsnFile = path.basename(dsnPath);
   const { outputDir, dirName: outputDirName } = await resolveAllegroDir(dsnDir);
 
-  // Temporarily relocate .DSNlck lock file if present (stale locks block pstswp)
-  const lockTempPath = await relocateLockFile(resolvedDsnPath);
+  return serializePstswp(async () => {
+    // Temporarily relocate .DSNlck lock file if present (stale locks block pstswp)
+    const lockTempPath = await relocateLockFile(resolvedDsnPath);
 
-  // Convert to bash paths for command execution (GitBash compatibility)
-  const bashDsnDir = toBashPath(dsnDir);
-  const pstswp = toBashPath(cadence.pstswp);
-  const config = toBashPath(cadence.config);
+    // Convert to bash paths for command execution (GitBash compatibility)
+    const bashDsnDir = toBashPath(dsnDir);
+    const pstswp = toBashPath(cadence.pstswp);
+    const config = toBashPath(cadence.config);
 
-  const command = `cd "${bashDsnDir}" && "${pstswp}" -pst -d "${dsnFile}" -n "${outputDirName}" -c "${config}" -v 3 -l 255 -j "PCB Footprint"`;
+    const command = `cd "${bashDsnDir}" && "${pstswp}" -pst -d "${dsnFile}" -n "${outputDirName}" -c "${config}" -v 3 -l 255 -j "PCB Footprint"`;
 
-  try {
-    const { stdout, stderr } = await execAsync(command, {
-      shell: "bash",
-      timeout: 120000,
-    });
-
-    // List generated files
-    let generatedFiles: string[] | undefined;
     try {
-      const files = await fs.promises.readdir(outputDir);
-      generatedFiles = files.sort();
-    } catch {
-      // Output directory may not exist if export failed silently
-    }
+      const { stdout, stderr } = await execAsync(command, {
+        shell: "bash",
+        timeout: 120000,
+      });
 
-    return {
-      success: true,
-      outputDir,
-      log: (stdout + stderr).trim() || undefined,
-      cadenceVersion: cadence.version,
-      generatedFiles,
-    };
-  } catch (err: unknown) {
-    const execError = err as {
-      message?: string;
-      stdout?: string;
-      stderr?: string;
-    };
-    const lockNote = lockTempPath
-      ? ` A .DSNlck lock file was found and temporarily relocated — this is often the cause of pstswp failures.`
-      : "";
-    return {
-      error: `Cadence pstswp failed: ${execError.message ?? "Unknown error"}${lockNote}`,
-    };
-  } finally {
-    if (lockTempPath) {
-      await restoreLockFile(resolvedDsnPath, lockTempPath);
+      // List generated files
+      let generatedFiles: string[] | undefined;
+      try {
+        const files = await fs.promises.readdir(outputDir);
+        generatedFiles = files.sort();
+      } catch {
+        // Output directory may not exist if export failed silently
+      }
+
+      return {
+        success: true,
+        outputDir,
+        log: (stdout + stderr).trim() || undefined,
+        cadenceVersion: cadence.version,
+        generatedFiles,
+      };
+    } catch (err: unknown) {
+      const execError = err as {
+        message?: string;
+        stdout?: string;
+        stderr?: string;
+      };
+      const lockNote = lockTempPath
+        ? ` A .DSNlck lock file was found and temporarily relocated — this is often the cause of pstswp failures.`
+        : "";
+      return {
+        error: `Cadence pstswp failed: ${execError.message ?? "Unknown error"}${lockNote}`,
+      };
+    } finally {
+      if (lockTempPath) {
+        await restoreLockFile(resolvedDsnPath, lockTempPath);
+      }
     }
-  }
+  });
 };
 
 // =============================================================================

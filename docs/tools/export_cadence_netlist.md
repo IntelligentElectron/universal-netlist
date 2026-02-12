@@ -113,3 +113,5 @@ Response (success):
 - Output files are written to an `Allegro/` or `allegro/` subdirectory next to the schematic (reuses whichever exists; creates `allegro/` if neither is present)
 - The export uses pstswp flags: `-pst -v 3 -l 255 -j "PCB Footprint"`
 - Timeout is set to 2 minutes for large designs
+- Concurrent calls are queued and run one at a time to avoid Cadence license conflicts
+- `.DSNlck` lock files are automatically relocated during export and restored afterward
