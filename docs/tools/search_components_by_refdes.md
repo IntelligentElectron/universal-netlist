@@ -89,6 +89,7 @@ Response:
 ## Notes
 
 - Pattern matching is **case-insensitive** (unlike `search_nets`)
+- Inline flags like `(?i)` are accepted (matching is already case-insensitive by default)
 - Results are grouped by MPN for compactness
 - Components without MPN are listed individually with a `notes` field
 - Single-element arrays are compacted to scalar strings

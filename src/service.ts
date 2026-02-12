@@ -338,6 +338,35 @@ const aggregateCircuitByMpn = (
 };
 
 // =============================================================================
+// Regex Helpers
+// =============================================================================
+
+/**
+ * Parse PCRE-style inline flags from a regex pattern and convert to JS RegExp flags.
+ * Supports (?i), (?m), (?s), (?u) and combinations like (?im) at the start of the pattern.
+ */
+const parseRegexPattern = (
+  pattern: string,
+  defaultFlags = ""
+): { regex: RegExp } | { error: string } => {
+  let flags = defaultFlags;
+  let cleanPattern = pattern;
+
+  const inlineFlagMatch = cleanPattern.match(/^\(\?([imsu]+)\)/);
+  if (inlineFlagMatch) {
+    cleanPattern = cleanPattern.slice(inlineFlagMatch[0].length);
+    const allFlags = new Set([...flags, ...inlineFlagMatch[1]]);
+    flags = [...allFlags].filter((f) => "gimsuvy".includes(f)).join("");
+  }
+
+  try {
+    return { regex: new RegExp(cleanPattern, flags) };
+  } catch {
+    return { error: `Invalid regex pattern '${pattern}'` };
+  }
+};
+
+// =============================================================================
 // Public API
 // =============================================================================
 
@@ -360,12 +389,9 @@ export const listDesigns = async (
   const { searchPath, pattern = ".*", maxDepth, maxResults = 50 } = options;
   const resolvedPath = resolvePath(searchPath ?? ".");
 
-  let regex: RegExp;
-  try {
-    regex = new RegExp(pattern);
-  } catch {
-    return { error: `Invalid regex pattern '${pattern}'` };
-  }
+  const parsed = parseRegexPattern(pattern);
+  if ("error" in parsed) return parsed;
+  const regex = parsed.regex;
 
   let designs;
   try {
@@ -451,12 +477,9 @@ export const searchNets = async (
   pattern: string,
   design: string
 ): Promise<SearchNetsResult | ErrorResult> => {
-  let regex: RegExp;
-  try {
-    regex = new RegExp(pattern);
-  } catch {
-    return { error: `Invalid regex pattern '${pattern}'` };
-  }
+  const parsed = parseRegexPattern(pattern);
+  if ("error" in parsed) return parsed;
+  const regex = parsed.regex;
 
   const netlist = await loadNetlist(design);
   if (isErrorResult(netlist)) {
@@ -489,13 +512,9 @@ export const searchComponentsByRefdes = async (
   design: string,
   includeDns = false
 ): Promise<SearchComponentsResult | ErrorResult> => {
-  // TODO: Support (?i) inline flag for case-insensitive matching
-  let regex: RegExp;
-  try {
-    regex = new RegExp(pattern, "i");
-  } catch {
-    return { error: `Invalid regex pattern '${pattern}'` };
-  }
+  const parsed = parseRegexPattern(pattern, "i");
+  if ("error" in parsed) return parsed;
+  const regex = parsed.regex;
 
   const netlist = await loadNetlist(design);
   if (isErrorResult(netlist)) {
@@ -529,13 +548,9 @@ export const searchComponentsByMpn = async (
   design: string,
   includeDns = false
 ): Promise<SearchComponentsResult | ErrorResult> => {
-  // TODO: Support (?i) inline flag for case-insensitive matching
-  let regex: RegExp;
-  try {
-    regex = new RegExp(pattern, "i");
-  } catch {
-    return { error: `Invalid regex pattern '${pattern}'` };
-  }
+  const parsed = parseRegexPattern(pattern, "i");
+  if ("error" in parsed) return parsed;
+  const regex = parsed.regex;
 
   const netlist = await loadNetlist(design);
   if (isErrorResult(netlist)) {
@@ -582,13 +597,9 @@ export const searchComponentsByDescription = async (
   design: string,
   includeDns = false
 ): Promise<SearchComponentsResult | ErrorResult> => {
-  // TODO: Support (?i) inline flag for case-insensitive matching
-  let regex: RegExp;
-  try {
-    regex = new RegExp(pattern, "i");
-  } catch {
-    return { error: `Invalid regex pattern '${pattern}'` };
-  }
+  const parsed = parseRegexPattern(pattern, "i");
+  if ("error" in parsed) return parsed;
+  const regex = parsed.regex;
 
   const netlist = await loadNetlist(design);
   if (isErrorResult(netlist)) {
@@ -1042,4 +1053,4 @@ export const exportCadenceNetlist = async (
  * Internal exports for testing purposes only.
  * @internal
  */
-export { MPN_MISSING_NOTE, groupComponentsByMpn, aggregateCircuitByMpn };
+export { MPN_MISSING_NOTE, groupComponentsByMpn, aggregateCircuitByMpn, parseRegexPattern };

@@ -93,10 +93,12 @@ Response:
 | `_[PN]$` | Nets ending with "_P" or "_N" (differential pairs) |
 | `SPI.*MOSI` | SPI MOSI signals |
 | `CLK\|CLOCK` | Nets containing "CLK" or "CLOCK" |
+| `(?i)vdd` | Case-insensitive: matches "VDD", "vdd", "Vdd" |
 
 ## Notes
 
-- Pattern matching is case-sensitive
+- Pattern matching is case-sensitive by default
+- Inline flags like `(?i)` are supported for case-insensitive matching
 - Results are sorted alphabetically
 - The design name (without extension) is used as the results key
 - Empty results include a `notes` field explaining the empty match
