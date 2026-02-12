@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.17] - 2026-02-12
+
+### Fixed
+
+- Fix `export_cadence_netlist` failing silently when `.DSNlck` lock files are present ([#15](https://github.com/IntelligentElectron/universal-netlist/issues/15))
+- Fix search tools rejecting `(?i)` and other PCRE-style inline regex flags ([#14](https://github.com/IntelligentElectron/universal-netlist/issues/14))
+
 ## [0.0.16] - 2026-02-10
 
 ### Fixed
