@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.18] - 2026-02-12
+
+### Fixed
+
+- Serialize `export_cadence_netlist` calls to prevent concurrent Cadence license conflicts
+
 ## [0.0.17] - 2026-02-12
 
 ### Fixed
@@ -167,6 +173,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `query_xnet_by_pin_name` - Trace connectivity from a pin
 - `export_cadence_netlist` - Export to Allegro format
 
+[0.0.18]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.18
+[0.0.17]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.17
 [0.0.16]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.16
 [0.0.15]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.15
 [0.0.14]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.14
