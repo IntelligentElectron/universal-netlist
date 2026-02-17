@@ -2,15 +2,14 @@
 
 The **Universal Netlist MCP Server** gives AI agents the tools to understand and analyze your electrical schematics, for powerful and comprehensive design reviews through natural conversations.
 
-It is compatible with Altium and Cadence, with plans to integrate more EDAs in the future. Note that you must already own a license of these EDAs to unleash the full capabilities of this MCP server.
+It is compatible with Cadence and Altium, with plans to integrate more EDAs in the future. Note that you must already own a license of these EDAs to unleash the full capabilities of this MCP server.
 
 ## Supported Formats
 
-| Format | Extension | Description |
-|--------|-----------|-------------|
-| Cadence CIS | `.dsn` | Cadence Capture CIS schematic designs |
-| Cadence HDL | `.cpm` | Cadence HDL schematic designs |
-| Altium Designer | `.PrjPcb` | Altium Designer PCB projects |
+| Format | Input Files | Description |
+|--------|------------|-------------|
+| Cadence (CIS / HDL) | `.dat` netlist files | Exported Allegro netlist files (`pstxnet.dat`, `pstxprt.dat`, `pstchip.dat`) from Cadence Capture CIS or HDL designs |
+| Altium Designer | `.SchDoc` | Altium schematic documents (discovered via `.PrjPcb` project files) |
 
 ## Native Install (Recommended)
 
