@@ -1051,6 +1051,27 @@ export const exportCadenceNetlist = async (
   });
 };
 
+// Re-export types that appear in public API signatures
+export type {
+  ParsedNetlist,
+  ErrorResult,
+  ListComponentsResult,
+  ListNetsResult,
+  SearchComponentsResult,
+  SearchNetsResult,
+  QueryComponentResult,
+  AggregatedCircuitResult,
+  CadenceInstall,
+  ExportNetlistResult,
+  ComponentGroup,
+  AggregatedComponent,
+  ComponentDetails,
+  CircuitComponent,
+  PinEntry,
+} from "./types.js";
+
+export { isErrorResult } from "./types.js";
+
 // =============================================================================
 // Test Exports
 // =============================================================================
