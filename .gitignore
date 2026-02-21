@@ -39,3 +39,4 @@ coverage/
 # Private files and plans
 private/
 plans/
+.plans/
