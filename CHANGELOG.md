@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.19] - 2026-02-21
+
+### Added
+
+- Subpath exports for library consumers (`./service`, `./types`) ([#23](https://github.com/IntelligentElectron/universal-netlist/pull/23))
+
+### Changed
+
+- Clarify supported file formats in documentation — show actual input files instead of project file types ([#22](https://github.com/IntelligentElectron/universal-netlist/pull/22))
+- Add `.plans/` to `.gitignore`
+
 ## [0.0.18] - 2026-02-12
 
 ### Fixed
@@ -173,6 +184,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `query_xnet_by_pin_name` - Trace connectivity from a pin
 - `export_cadence_netlist` - Export to Allegro format
 
+[0.0.19]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.19
 [0.0.18]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.18
 [0.0.17]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.17
 [0.0.16]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.16
