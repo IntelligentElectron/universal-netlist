@@ -2,7 +2,7 @@
  * Auto-updater for universal-netlist server.
  *
  * Checks GitHub Releases for newer versions and self-updates on startup.
- * Can be disabled via UNIVERSAL_NETLIST_MCP_NO_UPDATE=1 environment variable.
+ * Always runs on startup for compiled binaries. Skipped for npm installs.
  */
 
 import {
@@ -354,11 +354,6 @@ export const reexec = (): never => {
  * @returns true if an update was applied and process should restart
  */
 export const autoUpdate = async (): Promise<boolean> => {
-  // Check if updates are disabled
-  if (process.env.UNIVERSAL_NETLIST_MCP_NO_UPDATE === "1") {
-    return false;
-  }
-
   // Skip auto-update for npm installs - use npm update instead
   if (isNpmInstall()) {
     return false;

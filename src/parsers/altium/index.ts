@@ -12,19 +12,10 @@
  * - net-list: Nets with connected devices
  */
 
-import type {
-  ParsedNetlist,
-  NetConnections,
-  ComponentDetails,
-  PinEntry,
-} from "../../types.js";
+import path from "path";
+import type { ParsedNetlist, NetConnections, ComponentDetails, PinEntry } from "../../types.js";
 import { createPinEntry } from "../../types.js";
-import type {
-  AltiumSchematic,
-  AltiumNet,
-  AltiumRecord,
-  OutputFormat,
-} from "./types.js";
+import type { AltiumSchematic, AltiumNet, AltiumRecord, OutputFormat } from "./types.js";
 import {
   RECORD_TYPES,
   RECORD_TYPE_NAMES,
@@ -33,22 +24,12 @@ import {
 } from "./types.js";
 import { OleReader, readOleStream } from "./ole-reader.js";
 import { parseRecords, findRecords } from "./record-parser.js";
-import {
-  buildHierarchy,
-  getPartsList,
-  flattenHierarchy,
-  findRecordByIndex,
-} from "./hierarchy.js";
+import { buildHierarchy, getPartsList, flattenHierarchy, findRecordByIndex } from "./hierarchy.js";
 import { extractNets, determineNetList } from "./net-extractor.js";
 
 // Re-export types and utilities for external use
 export type { AltiumSchematic, AltiumNet, AltiumRecord, OutputFormat };
-export {
-  RECORD_TYPES,
-  RECORD_TYPE_NAMES,
-  PIN_ELECTRICAL_TYPES,
-  POWER_PORT_STYLES,
-};
+export { RECORD_TYPES, RECORD_TYPE_NAMES, PIN_ELECTRICAL_TYPES, POWER_PORT_STYLES };
 export { OleReader };
 export { parseRecords, findRecords };
 export { buildHierarchy, getPartsList, flattenHierarchy };
@@ -60,35 +41,22 @@ export * from "./schemas.js";
 /**
  * Get component designator from a pin's parent.
  */
-const getDesignatorFromPin = (
-  pin: AltiumRecord,
-  schematic: AltiumSchematic,
-): string | null => {
+const getDesignatorFromPin = (pin: AltiumRecord, schematic: AltiumSchematic): string | null => {
   // Look up the parent component using OwnerIndex
   const ownerIndexValue = pin.OwnerIndex ?? pin.OWNERINDEX;
-  if (
-    ownerIndexValue !== undefined &&
-    ownerIndexValue !== null &&
-    ownerIndexValue !== ""
-  ) {
+  if (ownerIndexValue !== undefined && ownerIndexValue !== null && ownerIndexValue !== "") {
     const ownerIndex = parseInt(String(ownerIndexValue), 10);
     const parent = findRecordByIndex(schematic, ownerIndex);
 
     if (parent?.children) {
       // Find the designator child (RECORD=34 with Text field)
-      const designatorChild = parent.children.find(
-        (c) => c.RECORD === RECORD_TYPES.DESIGNATOR,
-      );
+      const designatorChild = parent.children.find((c) => c.RECORD === RECORD_TYPES.DESIGNATOR);
       const designatorText =
         designatorChild?.Text ??
         designatorChild?.TEXT ??
         designatorChild?.Name ??
         designatorChild?.NAME;
-      if (
-        designatorText !== undefined &&
-        designatorText !== null &&
-        designatorText !== ""
-      ) {
+      if (designatorText !== undefined && designatorText !== null && designatorText !== "") {
         return String(designatorText);
       }
     }
@@ -105,18 +73,10 @@ const getDesignatorFromPin = (
  */
 const getPinNumber = (pin: AltiumRecord): string | null => {
   // Try Designator first (pin number)
-  if (
-    pin.Designator !== undefined &&
-    pin.Designator !== null &&
-    pin.Designator !== ""
-  ) {
+  if (pin.Designator !== undefined && pin.Designator !== null && pin.Designator !== "") {
     return String(pin.Designator);
   }
-  if (
-    pin.DESIGNATOR !== undefined &&
-    pin.DESIGNATOR !== null &&
-    pin.DESIGNATOR !== ""
-  ) {
+  if (pin.DESIGNATOR !== undefined && pin.DESIGNATOR !== null && pin.DESIGNATOR !== "") {
     return String(pin.DESIGNATOR);
   }
   // Fallback to Name (pin function name)
@@ -135,20 +95,13 @@ const getPinNumber = (pin: AltiumRecord): string | null => {
  *
  * Transform: AltiumNet[] -> { netName: { refdes: [pinNumbers] } }
  */
-const convertNets = (
-  nets: AltiumNet[],
-  schematic: AltiumSchematic,
-): NetConnections => {
+const convertNets = (nets: AltiumNet[], schematic: AltiumSchematic): NetConnections => {
   const result: NetConnections = {};
   let unnamedNetCounter = 1;
 
   for (const net of nets) {
-    const pinDevices = net.devices.filter(
-      (device) => device.RECORD === RECORD_TYPES.PIN,
-    );
-    const hasNonPinDevices = net.devices.some(
-      (device) => device.RECORD !== RECORD_TYPES.PIN,
-    );
+    const pinDevices = net.devices.filter((device) => device.RECORD === RECORD_TYPES.PIN);
+    const hasNonPinDevices = net.devices.some((device) => device.RECORD !== RECORD_TYPES.PIN);
 
     if (pinDevices.length === 1 && !hasNonPinDevices) {
       continue;
@@ -192,10 +145,7 @@ const convertNets = (
  * The nets structure is: { netName: { refdes: [pinNumbers] } }
  * We need to reverse this to populate: components[refdes].pins[pin] = netName
  */
-const populatePinNets = (
-  components: ComponentDetails,
-  nets: NetConnections,
-): void => {
+const populatePinNets = (components: ComponentDetails, nets: NetConnections): void => {
   for (const [netName, connections] of Object.entries(nets)) {
     for (const [refdes, pins] of Object.entries(connections)) {
       const component = components[refdes];
@@ -219,7 +169,7 @@ const populatePinNets = (
 
 const resolveComment = (
   comment: string | undefined,
-  parameters: Record<string, string>,
+  parameters: Record<string, string>
 ): string | undefined => {
   if (!comment) {
     return undefined;
@@ -247,10 +197,7 @@ const resolveComment = (
   return trimmed;
 };
 
-const pinMatchesCurrentPart = (
-  pin: AltiumRecord,
-  part: AltiumRecord,
-): boolean => {
+const pinMatchesCurrentPart = (pin: AltiumRecord, part: AltiumRecord): boolean => {
   const partId = part.CURRENTPARTID ?? part.CurrentPartId ?? part.CurrentPartID;
   const pinPartId = pin.OwnerPartId ?? pin.OWNERPARTID;
   if (
@@ -278,9 +225,7 @@ const getPinName = (pin: AltiumRecord): string | undefined => {
 /**
  * Extract component details from a hierarchical schematic.
  */
-export const extractComponents = (
-  schematic: AltiumSchematic,
-): ComponentDetails => {
+export const extractComponents = (schematic: AltiumSchematic): ComponentDetails => {
   const components: ComponentDetails = {};
 
   // Get all parts (RECORD=1)
@@ -290,19 +235,13 @@ export const extractComponents = (
     // Designator is in a child record with RECORD=34 and Text field
     let refdes: string | undefined;
     if (part.children) {
-      const designatorChild = part.children.find(
-        (c) => c.RECORD === RECORD_TYPES.DESIGNATOR,
-      );
+      const designatorChild = part.children.find((c) => c.RECORD === RECORD_TYPES.DESIGNATOR);
       const designatorText =
         designatorChild?.Text ??
         designatorChild?.TEXT ??
         designatorChild?.Name ??
         designatorChild?.NAME;
-      if (
-        designatorText !== undefined &&
-        designatorText !== null &&
-        designatorText !== ""
-      ) {
+      if (designatorText !== undefined && designatorText !== null && designatorText !== "") {
         refdes = String(designatorText);
       }
     }
@@ -417,9 +356,7 @@ export const extractComponents = (
  *
  * This is the main entry point for integration with NetlistService.
  */
-export const parseAltium = async (
-  schdocPath: string,
-): Promise<ParsedNetlist> => {
+export const parseAltium = async (schdocPath: string): Promise<ParsedNetlist> => {
   // 1. Read OLE file and extract FileHeader stream
   const buffer = readOleStream(schdocPath);
 
@@ -450,11 +387,8 @@ export const parseAltium = async (
  */
 export const parse = (
   schdocPath: string,
-  format: OutputFormat = "all-hierarchy",
-):
-  | AltiumSchematic
-  | { records: AltiumRecord[] }
-  | (AltiumSchematic & { nets: AltiumNet[] }) => {
+  format: OutputFormat = "all-hierarchy"
+): AltiumSchematic | { records: AltiumRecord[] } | (AltiumSchematic & { nets: AltiumNet[] }) => {
   // Read and parse the file
   const buffer = readOleStream(schdocPath);
   const schematic = parseRecords(buffer);
@@ -488,18 +422,12 @@ import {
 } from "./discovery.js";
 import type { EDAProjectFormatHandler } from "../../types.js";
 
-export {
-  discoverAltiumDesigns,
-  findAltiumSchDocs,
-  isAltiumFile,
-} from "./discovery.js";
+export { discoverAltiumDesigns, findAltiumSchDocs, isAltiumFile } from "./discovery.js";
 
 /**
  * Parse an Altium project by parsing all its SchDoc files and merging the results.
  */
-const parseAltiumProject = async (
-  projectPath: string,
-): Promise<ParsedNetlist> => {
+const parseAltiumProject = async (projectPath: string): Promise<ParsedNetlist> => {
   const schdocPaths = await findAltiumSchDocs(projectPath);
 
   if (schdocPaths.length === 0) {
@@ -525,9 +453,7 @@ const parseAltiumProject = async (
           const existing = allNets[netName][refdes];
           const existingArray = Array.isArray(existing) ? existing : [existing];
           const newPins = Array.isArray(pins) ? pins : [pins];
-          allNets[netName][refdes] = [
-            ...new Set([...existingArray, ...newPins]),
-          ];
+          allNets[netName][refdes] = [...new Set([...existingArray, ...newPins])];
         }
       }
     }
@@ -558,5 +484,11 @@ export const altiumHandler: EDAProjectFormatHandler = {
 
   discoverDesigns: discoverAltiumDesigns,
 
-  parse: parseAltiumProject,
+  parse: async (designPath: string): Promise<ParsedNetlist> => {
+    const ext = path.extname(designPath).toLowerCase();
+    if (ext === ".schdoc") {
+      return parseAltium(designPath);
+    }
+    return parseAltiumProject(designPath);
+  },
 };

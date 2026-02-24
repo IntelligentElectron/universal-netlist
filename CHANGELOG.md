@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.20] - 2026-02-24
+
+### Added
+
+- Discover standalone `.SchDoc` files when no `.PrjPcb` project file is present ([#26](https://github.com/IntelligentElectron/universal-netlist/issues/26))
+- `.mcp.json` for local MCP server development with `npx tsx`
+
+### Changed
+
+- Remove `--no-update` flag and `UNIVERSAL_NETLIST_MCP_NO_UPDATE` env var; auto-update is always enabled
+- Remove confirmation prompt from `--update` command; updates proceed immediately
+
+### Fixed
+
+- Reject overly broad search patterns that match all items, directing users to `list_nets` or `list_components` instead ([#27](https://github.com/IntelligentElectron/universal-netlist/issues/27))
+
 ## [0.0.19] - 2026-02-21
 
 ### Added
@@ -183,23 +199,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `query_xnet_by_net_name` - Trace connectivity from a net
 - `query_xnet_by_pin_name` - Trace connectivity from a pin
 - `export_cadence_netlist` - Export to Allegro format
-
-[0.0.19]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.19
-[0.0.18]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.18
-[0.0.17]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.17
-[0.0.16]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.16
-[0.0.15]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.15
-[0.0.14]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.14
-[0.0.13]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.13
-[0.0.12]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.12
-[0.0.11]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.11
-[0.0.10]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.10
-[0.0.9]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.9
-[0.0.8]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.8
-[0.0.7]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.7
-[0.0.6]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.6
-[0.0.5]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.5
-[0.0.4]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.4
-[0.0.3]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.3
-[0.0.2]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.2
-[0.0.1]: https://github.com/IntelligentElectron/universal-netlist/releases/tag/v0.0.1
