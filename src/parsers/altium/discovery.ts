@@ -6,7 +6,7 @@
 import { open, readFile, readdir } from "fs/promises";
 import path from "path";
 
-const ALTIUM_EXTENSIONS = [".prjpcb"] as const;
+const ALTIUM_EXTENSIONS = [".prjpcb", ".schdoc"] as const;
 
 /**
  * Altium-specific discovered design with schematic document paths.
@@ -74,10 +74,7 @@ const readProjectSchDocs = async (projectPath: string): Promise<string[]> => {
     }
 
     // Skip absolute paths from the project file
-    if (
-      path.win32.isAbsolute(normalized) ||
-      path.posix.isAbsolute(normalized)
-    ) {
+    if (path.win32.isAbsolute(normalized) || path.posix.isAbsolute(normalized)) {
       continue;
     }
 
@@ -100,7 +97,7 @@ const readProjectSchDocs = async (projectPath: string): Promise<string[]> => {
  */
 const walkForAltiumFiles = async (
   rootDir: string,
-  maxDepth?: number,
+  maxDepth?: number
 ): Promise<{ projects: string[]; schdocs: string[] }> => {
   const projects: string[] = [];
   const schdocs: string[] = [];
@@ -110,11 +107,7 @@ const walkForAltiumFiles = async (
     try {
       entries = await readdir(currentDir, { withFileTypes: true });
     } catch (error) {
-      if (
-        !(error instanceof Error) ||
-        !("code" in error) ||
-        error.code !== "EACCES"
-      ) {
+      if (!(error instanceof Error) || !("code" in error) || error.code !== "EACCES") {
         throw error;
       }
       return;
@@ -150,10 +143,7 @@ const walkForAltiumFiles = async (
 /**
  * Fallback: find SchDoc files in the project directory if none found in project file.
  */
-const fallbackProjectSchDocs = (
-  projectDir: string,
-  schdocs: string[],
-): string[] => {
+const fallbackProjectSchDocs = (projectDir: string, schdocs: string[]): string[] => {
   const candidates = schdocs.filter((schdoc) => {
     const schdocDir = path.dirname(schdoc);
     return schdocDir === projectDir || schdoc.startsWith(projectDir + path.sep);
@@ -167,12 +157,13 @@ const fallbackProjectSchDocs = (
  */
 export const discoverAltiumDesigns = async (
   rootDir: string,
-  options?: { maxDepth?: number },
+  options?: { maxDepth?: number }
 ): Promise<AltiumDiscoveredDesign[]> => {
   const absoluteRootDir = path.resolve(rootDir);
   const { projects, schdocs } = await walkForAltiumFiles(absoluteRootDir, options?.maxDepth);
 
   const designs: AltiumDiscoveredDesign[] = [];
+  const claimedSchDocs = new Set<string>();
 
   for (const projectPath of projects) {
     const name = path.basename(projectPath, path.extname(projectPath));
@@ -181,6 +172,10 @@ export const discoverAltiumDesigns = async (
     if (schdocPaths.length === 0) {
       const projectDir = path.dirname(projectPath);
       schdocPaths = fallbackProjectSchDocs(projectDir, schdocs);
+    }
+
+    for (const s of schdocPaths) {
+      claimedSchDocs.add(s);
     }
 
     const design: AltiumDiscoveredDesign = {
@@ -197,15 +192,27 @@ export const discoverAltiumDesigns = async (
     designs.push(design);
   }
 
+  // Create entries for orphaned SchDoc files not claimed by any project
+  for (const schdocPath of schdocs) {
+    if (claimedSchDocs.has(schdocPath)) continue;
+
+    designs.push({
+      name: path.basename(schdocPath, path.extname(schdocPath)),
+      format: "altium",
+      sourcePath: schdocPath,
+      schdocPaths: [schdocPath],
+      error:
+        "Standalone schematic (no .PrjPcb project file found). Multi-sheet designs may be incomplete.",
+    });
+  }
+
   return designs;
 };
 
 /**
  * Find SchDoc files for a specific Altium project file.
  */
-export const findAltiumSchDocs = async (
-  projectPath: string,
-): Promise<string[]> => {
+export const findAltiumSchDocs = async (projectPath: string): Promise<string[]> => {
   const schdocPaths = await readProjectSchDocs(projectPath);
 
   if (schdocPaths.length === 0) {

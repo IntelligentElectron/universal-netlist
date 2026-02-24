@@ -8,6 +8,10 @@ import {
   groupComponentsByMpn,
   aggregateCircuitByMpn,
   parseRegexPattern,
+  searchNets,
+  searchComponentsByRefdes,
+  searchComponentsByMpn,
+  searchComponentsByDescription,
   detectCadenceVersions,
   exportCadenceNetlist,
   relocateLockFile,
@@ -794,5 +798,160 @@ describe("resolveAllegroDir", () => {
     expect(result.outputDir).toBe(path.join(tmpDir, "allegro"));
     const stat = await fs.promises.stat(result.outputDir);
     expect(stat.isDirectory()).toBe(true);
+  });
+});
+
+describe("searchNets - case insensitive by default", () => {
+  beforeEach(() => {
+    const mockNetlist: ParsedNetlist = {
+      nets: {
+        VDD_1V8: { U1: "1" },
+        VDD_3V3: { U2: "1" },
+        GND: { U1: "2", U2: "2" },
+      },
+      components: {
+        U1: { pins: { "1": "VDD_1V8", "2": "GND" } },
+        U2: { pins: { "1": "VDD_3V3", "2": "GND" } },
+      },
+    };
+    vi.spyOn(parsersModule, "parseDesign").mockResolvedValue(mockNetlist);
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it("lowercase pattern matches uppercase net names", async () => {
+    const result = await searchNets("vdd", "/mock/design.dsn");
+    expect(isErrorResult(result)).toBe(false);
+    if (!isErrorResult(result)) {
+      const nets = Object.values(result.results).flat();
+      expect(nets).toContain("VDD_1V8");
+      expect(nets).toContain("VDD_3V3");
+    }
+  });
+
+  it("uppercase pattern still works", async () => {
+    const result = await searchNets("VDD", "/mock/design.dsn");
+    expect(isErrorResult(result)).toBe(false);
+    if (!isErrorResult(result)) {
+      const nets = Object.values(result.results).flat();
+      expect(nets).toContain("VDD_1V8");
+      expect(nets).toContain("VDD_3V3");
+    }
+  });
+
+  it("explicit (?i) flag also works", async () => {
+    const result = await searchNets("(?i)gnd", "/mock/design.dsn");
+    expect(isErrorResult(result)).toBe(false);
+    if (!isErrorResult(result)) {
+      const nets = Object.values(result.results).flat();
+      expect(nets).toContain("GND");
+    }
+  });
+});
+
+describe("search tools - broad pattern rejection", () => {
+  const mockNetlist: ParsedNetlist = {
+    nets: {
+      VDD_1V8: { U1: "1" },
+      GND: { U1: "2", R1: "2" },
+      SIG_A: { R1: "1" },
+    },
+    components: {
+      U1: {
+        mpn: "TPS62088",
+        description: "Buck Converter",
+        pins: { "1": "VDD_1V8", "2": "GND" },
+      },
+      R1: {
+        mpn: "RC0402FR-0710KL",
+        description: "10K Resistor",
+        pins: { "1": "SIG_A", "2": "GND" },
+      },
+    },
+  };
+
+  beforeEach(() => {
+    vi.spyOn(parsersModule, "findHandler").mockReturnValue({
+      name: "mock",
+      extensions: [".dsn"],
+      canHandle: () => true,
+      discoverDesigns: vi.fn(),
+      parse: vi.fn(),
+    });
+    vi.spyOn(parsersModule, "parseDesign").mockResolvedValue(mockNetlist);
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  describe("searchNets", () => {
+    it("rejects .* pattern that matches all nets", async () => {
+      const result = await searchNets(".*", "/mock/design.dsn");
+      expect(isErrorResult(result)).toBe(true);
+      expect((result as ErrorResult).error).toContain("list_nets");
+      expect((result as ErrorResult).error).toContain("all 3 items");
+    });
+
+    it("rejects .+ pattern that matches all nets", async () => {
+      const result = await searchNets(".+", "/mock/design.dsn");
+      expect(isErrorResult(result)).toBe(true);
+      expect((result as ErrorResult).error).toContain("list_nets");
+    });
+
+    it("rejects ^ pattern that matches all nets", async () => {
+      const result = await searchNets("^", "/mock/design.dsn");
+      expect(isErrorResult(result)).toBe(true);
+      expect((result as ErrorResult).error).toContain("list_nets");
+    });
+
+    it("allows specific pattern that matches subset", async () => {
+      const result = await searchNets("VDD", "/mock/design.dsn");
+      expect(isErrorResult(result)).toBe(false);
+    });
+  });
+
+  describe("searchComponentsByRefdes", () => {
+    it("rejects .* pattern that matches all components", async () => {
+      const result = await searchComponentsByRefdes(".*", "/mock/design.dsn");
+      expect(isErrorResult(result)).toBe(true);
+      expect((result as ErrorResult).error).toContain("list_components");
+      expect((result as ErrorResult).error).toContain("all 2 items");
+    });
+
+    it("allows specific pattern that matches subset", async () => {
+      const result = await searchComponentsByRefdes("^U", "/mock/design.dsn");
+      expect(isErrorResult(result)).toBe(false);
+    });
+  });
+
+  describe("searchComponentsByMpn", () => {
+    it("rejects .* pattern that matches all components with MPN", async () => {
+      const result = await searchComponentsByMpn(".*", "/mock/design.dsn");
+      expect(isErrorResult(result)).toBe(true);
+      expect((result as ErrorResult).error).toContain("list_components");
+      expect((result as ErrorResult).error).toContain("all 2 items");
+    });
+
+    it("allows specific pattern that matches subset", async () => {
+      const result = await searchComponentsByMpn("TPS", "/mock/design.dsn");
+      expect(isErrorResult(result)).toBe(false);
+    });
+  });
+
+  describe("searchComponentsByDescription", () => {
+    it("rejects .* pattern that matches all components with description", async () => {
+      const result = await searchComponentsByDescription(".*", "/mock/design.dsn");
+      expect(isErrorResult(result)).toBe(true);
+      expect((result as ErrorResult).error).toContain("list_components");
+      expect((result as ErrorResult).error).toContain("all 2 items");
+    });
+
+    it("allows specific pattern that matches subset", async () => {
+      const result = await searchComponentsByDescription("Buck", "/mock/design.dsn");
+      expect(isErrorResult(result)).toBe(false);
+    });
   });
 });

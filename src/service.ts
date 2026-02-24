@@ -81,7 +81,7 @@ export const loadNetlist = async (designPath: string): Promise<ParsedNetlist | E
   if (!handler) {
     const ext = path.extname(normalizedPath);
     return {
-      error: `Unsupported design file format '${ext}'. Supported: .dsn, .cpm (Cadence), .PrjPcb (Altium)`,
+      error: `Unsupported design file format '${ext}'. Supported: .dsn, .cpm (Cadence), .PrjPcb, .SchDoc (Altium)`,
     };
   }
 
@@ -370,6 +370,18 @@ const parseRegexPattern = (
   }
 };
 
+/**
+ * Return an error when a search pattern matches every item in the dataset.
+ * This prevents wildcard patterns (e.g. `.*`) from dumping the full list.
+ */
+const tooManyMatchesError = (
+  pattern: string,
+  matchCount: number,
+  toolSuggestion: string
+): ErrorResult => ({
+  error: `Pattern '${pattern}' matched all ${matchCount} items. Use ${toolSuggestion} to retrieve the full list, or use a more specific pattern.`,
+});
+
 // =============================================================================
 // Public API
 // =============================================================================
@@ -481,7 +493,7 @@ export const searchNets = async (
   pattern: string,
   design: string
 ): Promise<SearchNetsResult | ErrorResult> => {
-  const parsed = parseRegexPattern(pattern);
+  const parsed = parseRegexPattern(pattern, "i");
   if ("error" in parsed) return parsed;
   const regex = parsed.regex;
 
@@ -491,7 +503,13 @@ export const searchNets = async (
   }
 
   const designName = path.basename(design, path.extname(design));
-  const nets = Object.keys(netlist.nets).filter((net) => regex.test(net));
+  const allNets = Object.keys(netlist.nets);
+  const nets = allNets.filter((net) => regex.test(net));
+
+  if (nets.length > 0 && nets.length === allNets.length) {
+    return tooManyMatchesError(pattern, nets.length, "list_nets");
+  }
+
   const sorted = nets.sort((a, b) => a.localeCompare(b));
 
   if (sorted.length === 0) {
@@ -526,7 +544,12 @@ export const searchComponentsByRefdes = async (
   }
 
   const designName = path.basename(design, path.extname(design));
-  const entries = Object.entries(netlist.components).filter(([refdes]) => regex.test(refdes));
+  const allEntries = Object.entries(netlist.components);
+  const entries = allEntries.filter(([refdes]) => regex.test(refdes));
+
+  if (entries.length > 0 && entries.length === allEntries.length) {
+    return tooManyMatchesError(pattern, entries.length, "list_components");
+  }
 
   const grouped = groupComponentsByMpn(entries, includeDns);
 
@@ -566,8 +589,6 @@ export const searchComponentsByMpn = async (
   const componentsWithMpn = allComponents.filter(([, c]) => c.mpn?.trim());
   const entries = componentsWithMpn.filter(([, component]) => regex.test(component.mpn!));
 
-  const grouped = groupComponentsByMpn(entries, includeDns);
-
   // Case 1: No MPN data exists at all
   if (componentsWithMpn.length === 0) {
     return {
@@ -575,6 +596,12 @@ export const searchComponentsByMpn = async (
       notes: ["This netlist has no MPN data. Ask user for BOM or schematic PDF"],
     };
   }
+
+  if (entries.length > 0 && entries.length === componentsWithMpn.length) {
+    return tooManyMatchesError(pattern, entries.length, "list_components");
+  }
+
+  const grouped = groupComponentsByMpn(entries, includeDns);
 
   // Case 2: MPN data exists but pattern didn't match
   if (grouped.length === 0) {
@@ -617,8 +644,6 @@ export const searchComponentsByDescription = async (
     regex.test(component.description!)
   );
 
-  const grouped = groupComponentsByMpn(entries, includeDns);
-
   // Case 1: No description data exists at all
   if (componentsWithDescription.length === 0) {
     return {
@@ -626,6 +651,12 @@ export const searchComponentsByDescription = async (
       notes: ["This netlist has no description data. Ask user for BOM or schematic PDF"],
     };
   }
+
+  if (entries.length > 0 && entries.length === componentsWithDescription.length) {
+    return tooManyMatchesError(pattern, entries.length, "list_components");
+  }
+
+  const grouped = groupComponentsByMpn(entries, includeDns);
 
   // Case 2: Description data exists but pattern didn't match
   if (grouped.length === 0) {
