@@ -34,17 +34,13 @@ OPTIONS:
   --help, -h       Show this help message
   --update         Check for and install updates
   --uninstall      Remove binary and PATH entries
-  --no-update      Disable auto-update check on startup
 
 INSTALLATION:
   curl -fsSL https://raw.githubusercontent.com/${GITHUB_REPO}/main/install.sh | bash
 
-ENVIRONMENT:
-  UNIVERSAL_NETLIST_MCP_NO_UPDATE=1    Disable auto-updates
-
 MORE INFO:
   https://github.com/${GITHUB_REPO}
-`.trim(),
+`.trim()
   );
 };
 
@@ -98,12 +94,6 @@ export const handleUpdateCommand = async (): Promise<void> => {
     process.exit(1);
   }
 
-  const confirmed = await confirm("Install update?");
-  if (!confirmed) {
-    console.log("Update cancelled");
-    return;
-  }
-
   console.log("Downloading update...");
   const result = await performUpdate(check.downloadUrl, check.latestVersion!);
 
@@ -131,9 +121,7 @@ const getCurrentExecutablePath = (): string => {
  * Removes the binary and PATH entries from shell rc files.
  */
 export const handleUninstallCommand = async (): Promise<void> => {
-  const confirmed = await confirm(
-    `This will remove ${BINARY_NAME} from your system. Continue?`,
-  );
+  const confirmed = await confirm(`This will remove ${BINARY_NAME} from your system. Continue?`);
   if (!confirmed) {
     console.log("Uninstall cancelled");
     return;
@@ -157,7 +145,7 @@ export const handleUninstallCommand = async (): Promise<void> => {
       rmSync(installDir, { recursive: true });
     } catch (error) {
       console.error(
-        `Failed to remove directory: ${error instanceof Error ? error.message : error}`,
+        `Failed to remove directory: ${error instanceof Error ? error.message : error}`
       );
       console.log("You may need to remove it manually.");
     }
