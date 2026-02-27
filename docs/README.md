@@ -29,17 +29,17 @@ The schema captures identification (MPN, description) but not electrical specifi
 
 | Tool | Description |
 |------|-------------|
-| `list_designs` | Find design projects in a directory |
-| `list_components` | List components by type (U, R, C, etc.) |
-| `list_nets` | List all nets in a design |
-| `search_nets` | Search nets by pattern |
-| `search_components_by_refdes` | Search components by reference designator |
-| `search_components_by_mpn` | Search components by part number |
-| `search_components_by_description` | Search components by description |
-| `query_component` | Get component details with all pin connections |
-| `query_xnet_by_net_name` | Trace circuit connectivity from a net |
-| `query_xnet_by_pin_name` | Trace circuit connectivity from a component pin |
-| `export_cadence_netlist` | Export Cadence schematic to Allegro format (Windows) |
+| [`list_designs`](tools/list_designs.md) | Find design projects in a directory |
+| [`list_components`](tools/list_components.md) | List components by type (U, R, C, etc.) |
+| [`list_nets`](tools/list_nets.md) | List all nets in a design |
+| [`search_nets`](tools/search_nets.md) | Search nets by pattern |
+| [`search_components_by_refdes`](tools/search_components_by_refdes.md) | Search components by reference designator |
+| [`search_components_by_mpn`](tools/search_components_by_mpn.md) | Search components by part number |
+| [`search_components_by_description`](tools/search_components_by_description.md) | Search components by description |
+| [`query_component`](tools/query_component.md) | Get component details with all pin connections |
+| [`query_xnet_by_net_name`](tools/query_xnet_by_net_name.md) | Trace circuit connectivity from a net |
+| [`query_xnet_by_pin_name`](tools/query_xnet_by_pin_name.md) | Trace circuit connectivity from a component pin |
+| [`export_cadence_netlist`](tools/export_cadence_netlist.md) | Export Cadence schematic to Allegro format (Windows) |
 
 ## Example Queries
 
