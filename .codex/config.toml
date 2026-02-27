@@ -1,0 +1,4 @@
+[mcp_servers.universal-netlist]
+command = "npx"
+args = ["tsx", "src/index.ts"]
+cwd = "/Users/valentino/Developer/IntelligentElectron/universal-netlist"
