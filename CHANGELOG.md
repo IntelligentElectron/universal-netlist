@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.21] - 2026-02-27
+
+### Added
+
+- Local JSONL telemetry for usage analytics: records session info (user, machine, version) and tool call events (tool name, args, duration, success) to a local `telemetry.jsonl` file
+- `--export-telemetry` CLI flag to export telemetry as a zip archive for sharing
+
 ## [0.0.20] - 2026-02-24
 
 ### Added
