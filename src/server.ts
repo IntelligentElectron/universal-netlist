@@ -5,10 +5,12 @@
  * Supports Cadence (CIS, HDL) and Altium Designer formats.
  */
 
+import crypto from "node:crypto";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 import { VERSION } from "./version.js";
+import { initTelemetry, withTelemetry } from "./telemetry.js";
 import {
   listDesigns,
   listComponents,
@@ -127,7 +129,7 @@ export const createServer = (): McpServer => {
           .describe("Max designs to return. Default: 50."),
       },
     },
-    async ({ path, pattern, max_depth, max_results }) => {
+    withTelemetry("list_designs", async ({ path, pattern, max_depth, max_results }) => {
       const result = await listDesigns({
         searchPath: path,
         pattern,
@@ -135,7 +137,7 @@ export const createServer = (): McpServer => {
         maxResults: max_results,
       });
       return formatResult(result);
-    }
+    })
   );
 
   // -------------------------------------------------------------------------
@@ -156,10 +158,10 @@ export const createServer = (): McpServer => {
           .describe("Include DNS (Do Not Stuff) components"),
       },
     },
-    async ({ design, type, include_dns }) => {
+    withTelemetry("list_components", async ({ design, type, include_dns }) => {
       const result = await listComponents(design, type, include_dns);
       return formatResult(result);
-    }
+    })
   );
 
   // -------------------------------------------------------------------------
@@ -174,10 +176,10 @@ export const createServer = (): McpServer => {
         design: z.string().describe("Path to design file"),
       },
     },
-    async ({ design }) => {
+    withTelemetry("list_nets", async ({ design }) => {
       const result = await listNets(design);
       return formatResult(result);
-    }
+    })
   );
 
   // -------------------------------------------------------------------------
@@ -193,10 +195,10 @@ export const createServer = (): McpServer => {
         design: z.string().describe("Path to design file"),
       },
     },
-    async ({ pattern, design }) => {
+    withTelemetry("search_nets", async ({ pattern, design }) => {
       const result = await searchNets(pattern, design);
       return formatResult(result);
-    }
+    })
   );
 
   // -------------------------------------------------------------------------
@@ -213,10 +215,10 @@ export const createServer = (): McpServer => {
         include_dns: z.boolean().optional().default(false).describe("Include DNS components"),
       },
     },
-    async ({ pattern, design, include_dns }) => {
+    withTelemetry("search_components_by_refdes", async ({ pattern, design, include_dns }) => {
       const result = await searchComponentsByRefdes(pattern, design, include_dns);
       return formatResult(result);
-    }
+    })
   );
 
   // -------------------------------------------------------------------------
@@ -233,10 +235,10 @@ export const createServer = (): McpServer => {
         include_dns: z.boolean().optional().default(false).describe("Include DNS components"),
       },
     },
-    async ({ pattern, design, include_dns }) => {
+    withTelemetry("search_components_by_mpn", async ({ pattern, design, include_dns }) => {
       const result = await searchComponentsByMpn(pattern, design, include_dns);
       return formatResult(result);
-    }
+    })
   );
 
   // -------------------------------------------------------------------------
@@ -253,10 +255,10 @@ export const createServer = (): McpServer => {
         include_dns: z.boolean().optional().default(false).describe("Include DNS components"),
       },
     },
-    async ({ pattern, design, include_dns }) => {
+    withTelemetry("search_components_by_description", async ({ pattern, design, include_dns }) => {
       const result = await searchComponentsByDescription(pattern, design, include_dns);
       return formatResult(result);
-    }
+    })
   );
 
   // -------------------------------------------------------------------------
@@ -277,10 +279,13 @@ export const createServer = (): McpServer => {
         include_dns: z.boolean().optional().default(false).describe("Include DNS components"),
       },
     },
-    async ({ design, net_name, skip_types, include_dns }) => {
-      const result = await queryXnetByNetName(design, net_name, skip_types, include_dns);
-      return formatResult(result);
-    }
+    withTelemetry(
+      "query_xnet_by_net_name",
+      async ({ design, net_name, skip_types, include_dns }) => {
+        const result = await queryXnetByNetName(design, net_name, skip_types, include_dns);
+        return formatResult(result);
+      }
+    )
   );
 
   // -------------------------------------------------------------------------
@@ -298,10 +303,13 @@ export const createServer = (): McpServer => {
         include_dns: z.boolean().optional().default(false).describe("Include DNS components"),
       },
     },
-    async ({ design, pin_name, skip_types, include_dns }) => {
-      const result = await queryXnetByPinName(design, pin_name, skip_types, include_dns);
-      return formatResult(result);
-    }
+    withTelemetry(
+      "query_xnet_by_pin_name",
+      async ({ design, pin_name, skip_types, include_dns }) => {
+        const result = await queryXnetByPinName(design, pin_name, skip_types, include_dns);
+        return formatResult(result);
+      }
+    )
   );
 
   // -------------------------------------------------------------------------
@@ -317,10 +325,10 @@ export const createServer = (): McpServer => {
         refdes: z.string().describe("Component reference designator"),
       },
     },
-    async ({ design, refdes }) => {
+    withTelemetry("query_component", async ({ design, refdes }) => {
       const result = await queryComponent(design, refdes);
       return formatResult(result);
-    }
+    })
   );
 
   // -------------------------------------------------------------------------
@@ -335,10 +343,10 @@ export const createServer = (): McpServer => {
         design: z.string().describe("Path to .DSN schematic file"),
       },
     },
-    async ({ design }) => {
+    withTelemetry("export_cadence_netlist", async ({ design }) => {
       const result = await exportCadenceNetlist(design);
       return formatResult(result);
-    }
+    })
   );
 
   return server;
@@ -348,6 +356,7 @@ export const createServer = (): McpServer => {
  * Run the MCP server with stdio transport.
  */
 export const runServer = async (): Promise<void> => {
+  initTelemetry(crypto.randomUUID());
   const server = createServer();
   const transport = new StdioServerTransport();
   await server.connect(transport);

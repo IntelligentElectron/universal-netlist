@@ -18,6 +18,7 @@ import {
   printHelp,
   handleUpdateCommand,
   handleUninstallCommand,
+  handleExportTelemetryCommand,
 } from "./cli/commands.js";
 import { autoUpdate, reexec } from "./cli/updater.js";
 import { runServer } from "./server.js";
@@ -46,6 +47,12 @@ const main = async (): Promise<void> => {
   // Handle --uninstall
   if (args.includes("--uninstall")) {
     await handleUninstallCommand();
+    return;
+  }
+
+  // Handle --export-telemetry
+  if (args.includes("--export-telemetry")) {
+    await handleExportTelemetryCommand();
     return;
   }
 
