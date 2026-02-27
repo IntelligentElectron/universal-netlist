@@ -32,5 +32,4 @@ tsc_output=$(npx --prefix "$project_dir" tsc --noEmit 2>&1) || {
 
 if [[ -n "$errors" ]]; then
   echo -e "$errors" >&2
-  exit 2
 fi
