@@ -44,7 +44,12 @@ describe("Parser Golden Output", async () => {
     }
 
     for (const designFile of designFiles) {
-      const projectName = path.basename(designFile, path.extname(designFile));
+      // For dat-only Cadence designs, use the fixture directory name instead of "pstxnet"
+      const baseName = path.basename(designFile);
+      const projectName =
+        baseName.toLowerCase() === "pstxnet.dat"
+          ? fixture.name
+          : path.basename(designFile, path.extname(designFile));
 
       describe(`${fixture.format}/${projectName}`, () => {
         it("should match golden output", async () => {
@@ -53,7 +58,7 @@ describe("Parser Golden Output", async () => {
           if (!golden) {
             throw new Error(
               `Missing golden output for ${fixture.format}/${projectName}. ` +
-                `Generate it with: npx tsx scripts/gen-golden.ts ${fixture.format} ${projectName} "${designFile}"`,
+                `Generate it with: npx tsx scripts/gen-golden.ts ${fixture.format} ${projectName} "${designFile}"`
             );
           }
 

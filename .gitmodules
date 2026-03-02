@@ -7,3 +7,9 @@
 [submodule "test/fixtures/cadence/BeagleBone-Black"]
 	path = test/fixtures/cadence/BeagleBone-Black
 	url = https://github.com/valentinozegna/beaglebone-black
+[submodule "test/fixtures/cadence/BeagleBone-Black-barebone"]
+	path = test/fixtures/cadence/BeagleBone-Black-barebone
+	url = https://github.com/valentinozegna/beaglebone-black-barebone
+[submodule "test/fixtures/cadence/BeagleBone-Black-copy"]
+	path = test/fixtures/cadence/BeagleBone-Black-copy
+	url = https://github.com/valentinozegna/beaglebone-black-copy

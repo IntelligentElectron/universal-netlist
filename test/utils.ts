@@ -54,7 +54,7 @@ export const listAllFixtures = async (): Promise<Fixture[]> => {
  */
 export const loadGolden = async (
   format: Format,
-  designName: string,
+  designName: string
 ): Promise<ParsedNetlist | null> => {
   const goldenPath = path.join(GOLDEN_DIR, format, `${designName}.json`);
 
@@ -72,7 +72,7 @@ export const loadGolden = async (
 export const saveGolden = async (
   format: Format,
   designName: string,
-  data: ParsedNetlist,
+  data: ParsedNetlist
 ): Promise<void> => {
   const goldenDir = path.join(GOLDEN_DIR, format);
   await fs.mkdir(goldenDir, { recursive: true });
@@ -87,6 +87,7 @@ export const saveGolden = async (
 const findDesignFilesRecursive = async (
   dir: string,
   extensions: string[],
+  filenames: string[] = []
 ): Promise<string[]> => {
   const results: string[] = [];
   const entries = await fs.readdir(dir, { withFileTypes: true });
@@ -94,11 +95,15 @@ const findDesignFilesRecursive = async (
   for (const entry of entries) {
     const fullPath = path.join(dir, entry.name);
     if (entry.isDirectory()) {
-      const nested = await findDesignFilesRecursive(fullPath, extensions);
+      const nested = await findDesignFilesRecursive(fullPath, extensions, filenames);
       results.push(...nested);
     } else if (entry.isFile()) {
       const ext = path.extname(entry.name).toLowerCase();
-      if (extensions.some((e) => e.toLowerCase() === ext)) {
+      const name = entry.name.toLowerCase();
+      if (
+        extensions.some((e) => e.toLowerCase() === ext) ||
+        filenames.some((f) => f.toLowerCase() === name)
+      ) {
         results.push(fullPath);
       }
     }
@@ -109,16 +114,20 @@ const findDesignFilesRecursive = async (
 
 /**
  * Find all design files within a fixture directory (recursively).
- * For Cadence: looks for .dsn or .cpm files
+ * For Cadence: looks for .dsn or .cpm files, falling back to pstxnet.dat for dat-only fixtures
  * For Altium: looks for .PrjPcb files
  */
 export const findDesignFiles = async (fixture: Fixture): Promise<string[]> => {
-  const extensions =
-    fixture.format === "cadence"
-      ? [".dsn", ".cpm"]
-      : [".prjpcb"];
+  const extensions = fixture.format === "cadence" ? [".dsn", ".cpm"] : [".prjpcb"];
 
-  return findDesignFilesRecursive(fixture.path, extensions);
+  const results = await findDesignFilesRecursive(fixture.path, extensions);
+
+  // For Cadence: fall back to pstxnet.dat if no schematic files found
+  if (results.length === 0 && fixture.format === "cadence") {
+    return findDesignFilesRecursive(fixture.path, [], ["pstxnet.dat"]);
+  }
+
+  return results;
 };
 
 /**
