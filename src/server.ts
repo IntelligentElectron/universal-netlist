@@ -36,6 +36,7 @@ This server provides tools to query EDA netlists for circuit design review.
 
 Supported formats:
 - **Cadence CIS/HDL**: Reads exported Allegro netlist files: pstxnet.dat, pstxprt.dat, pstchip.dat. Use \`export_cadence_netlist\` to generate these from .DSN schematics.
+- **Cadence dat-only**: Directories containing only .dat files (no .DSN schematic) are also discovered. The design path will be the pstxnet.dat file.
 - **Altium Designer**: Reads .SchDoc schematic documents within .PrjPcb projects.
 
 ## Workflow Guidance
@@ -110,7 +111,7 @@ export const createServer = (): McpServer => {
     "list_designs",
     {
       description:
-        "List all design projects in the given directory. Returns absolute paths to schematic files (.DSN for Cadence, .SchDoc/.PrjPcb for Altium). Always use this tool to discover designs instead of searching the filesystem manually. Each result may include an error field; notably, Cadence designs that have not been exported will show this error, and all queries against them will fail until you run export_cadence_netlist.",
+        "List all design projects in the given directory. Returns absolute paths to schematic files (.DSN for Cadence, .SchDoc/.PrjPcb for Altium). Also discovers Cadence designs that only have exported .dat files (no .DSN schematic); these return a pstxnet.dat path instead. Always use this tool to discover designs instead of searching the filesystem manually. Each result may include an error field; notably, Cadence designs that have not been exported will show this error, and all queries against them will fail until you run export_cadence_netlist.",
       inputSchema: {
         path: z.string().optional().describe("Path to directory to search for designs"),
         pattern: z.string().optional().describe("Regex pattern to filter design names"),
@@ -149,7 +150,7 @@ export const createServer = (): McpServer => {
       description:
         'List components of a specific type in a design. The type prefix is case-insensitive, so "u" matches U1, U2, etc. Components are grouped by MPN for compact output. If no components match, the error lists the available prefixes in the design.',
       inputSchema: {
-        design: z.string().describe("Path to design file (e.g., ./Design.PrjPcb)"),
+        design: z.string().describe("Path to design file, as returned by list_designs"),
         type: z.string().describe("Component prefix: U, C, R, L, etc."),
         include_dns: z
           .boolean()

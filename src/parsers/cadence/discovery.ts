@@ -1,14 +1,18 @@
 /**
  * Cadence design discovery module.
- * Finds Cadence CIS (.dsn) and HDL (.cpm) designs with their .dat netlist files.
+ * Finds Cadence CIS (.dsn), HDL (.cpm), and dat-only designs with their .dat netlist files.
  *
  * Uses subtree-scoped matching: .dat files are matched to the design whose directory
  * contains them (same directory or any subdirectory). This handles arbitrary folder
  * structures since users can export netlists to any directory they choose.
+ *
+ * Unmatched .dat trios (no parent .DSN/.cpm) become standalone cadence-dat designs
+ * with pstxnet.dat as the design path and names extracted from ROOT_DRAWING in pstxprt.dat.
  */
 
-import { readdir } from "fs/promises";
+import { readdir, readFile } from "fs/promises";
 import path from "path";
+import { createHash } from "crypto";
 
 const CADENCE_EXTENSIONS = [".dsn", ".cpm"] as const;
 
@@ -18,7 +22,7 @@ const CADENCE_EXTENSIONS = [".dsn", ".cpm"] as const;
 export interface CadenceDiscoveredDesign {
   name: string;
   sourcePath: string;
-  format: "cadence-cis" | "cadence-hdl";
+  format: "cadence-cis" | "cadence-hdl" | "cadence-dat";
   datFiles: {
     pstxnet: string | null;
     pstxprt: string | null;
@@ -28,11 +32,7 @@ export interface CadenceDiscoveredDesign {
 }
 
 /** Required .dat files for a complete netlist export */
-const REQUIRED_DAT_FILES = [
-  "pstxnet.dat",
-  "pstxprt.dat",
-  "pstchip.dat",
-] as const;
+const REQUIRED_DAT_FILES = ["pstxnet.dat", "pstxprt.dat", "pstchip.dat"] as const;
 
 interface CadenceDatFiles {
   pstxnet: string | null;
@@ -58,7 +58,7 @@ interface DatFileSet {
  */
 const walkForCadenceFiles = async (
   rootDir: string,
-  maxDepth?: number,
+  maxDepth?: number
 ): Promise<{ designFiles: string[]; datSets: DatFileSet[] }> => {
   const designFiles: string[] = [];
   const datFilesByDir = new Map<string, Map<string, string>>();
@@ -68,11 +68,7 @@ const walkForCadenceFiles = async (
     try {
       entries = await readdir(currentDir, { withFileTypes: true });
     } catch (error) {
-      if (
-        !(error instanceof Error) ||
-        !("code" in error) ||
-        error.code !== "EACCES"
-      ) {
+      if (!(error instanceof Error) || !("code" in error) || error.code !== "EACCES") {
         throw error;
       }
       return;
@@ -93,18 +89,14 @@ const walkForCadenceFiles = async (
       const baseName = entry.name.toLowerCase();
 
       // Collect design files
-      if (
-        CADENCE_EXTENSIONS.includes(ext as (typeof CADENCE_EXTENSIONS)[number])
-      ) {
+      if (CADENCE_EXTENSIONS.includes(ext as (typeof CADENCE_EXTENSIONS)[number])) {
         designFiles.push(fullPath);
       }
 
       // Collect .dat files grouped by directory
       if (
         ext === ".dat" &&
-        REQUIRED_DAT_FILES.includes(
-          baseName as (typeof REQUIRED_DAT_FILES)[number],
-        )
+        REQUIRED_DAT_FILES.includes(baseName as (typeof REQUIRED_DAT_FILES)[number])
       ) {
         if (!datFilesByDir.has(currentDir)) {
           datFilesByDir.set(currentDir, new Map());
@@ -141,9 +133,7 @@ const normalizeForComparison = (p: string): string => {
   // On Windows, path.normalize converts / to \
   // On Unix, we must manually convert \ to / since path.normalize doesn't
   const normalized =
-    process.platform === "win32"
-      ? path.normalize(p)
-      : path.normalize(p.replace(/\\/g, "/"));
+    process.platform === "win32" ? path.normalize(p) : path.normalize(p.replace(/\\/g, "/"));
   // Windows is case-insensitive, Unix is case-sensitive
   return process.platform === "win32" ? normalized.toLowerCase() : normalized;
 };
@@ -169,10 +159,7 @@ const isDescendantOrEqual = (childDir: string, parentDir: string): boolean => {
  * Check if design name appears as an exact directory component in a relative path.
  * Case-insensitive matching.
  */
-const designNameInRelativePath = (
-  relPath: string,
-  designName: string,
-): boolean => {
+const designNameInRelativePath = (relPath: string, designName: string): boolean => {
   if (relPath === "" || relPath === ".") return false;
   const components = relPath.split(path.sep);
   const lowerName = designName.toLowerCase();
@@ -182,11 +169,7 @@ const designNameInRelativePath = (
 /**
  * Score a dat set candidate for a design. Higher score = better match.
  */
-const scoreDatSetMatch = (
-  designDir: string,
-  designName: string,
-  datSet: DatFileSet,
-): number => {
+const scoreDatSetMatch = (designDir: string, designName: string, datSet: DatFileSet): number => {
   let score = 0;
 
   // Get relative path from design directory to dat set
@@ -225,7 +208,7 @@ interface MatchCandidate {
  */
 const matchDatSetsToDesigns = (
   designFiles: string[],
-  datSets: DatFileSet[],
+  datSets: DatFileSet[]
 ): Map<string, DatFileSet | null> => {
   const assignments = new Map<string, DatFileSet | null>();
 
@@ -266,10 +249,7 @@ const matchDatSetsToDesigns = (
   const assignedDesigns = new Set<string>();
 
   for (const candidate of candidates) {
-    if (
-      assignedDesigns.has(candidate.designPath) ||
-      usedDatSets.has(candidate.datSet.directory)
-    ) {
+    if (assignedDesigns.has(candidate.designPath) || usedDatSets.has(candidate.datSet.directory)) {
       continue;
     }
 
@@ -293,12 +273,88 @@ const normalizeSeparators = (p: string): string => {
 };
 
 /**
+ * Extract ROOT_DRAWING name from pstxprt.dat DIRECTIVES header.
+ * Returns null if ROOT_DRAWING is not found.
+ */
+const extractRootDrawing = async (pstxprtPath: string): Promise<string | null> => {
+  const content = await readFile(pstxprtPath, "utf-8");
+  const match = content.match(/ROOT_DRAWING='([^']+)'/);
+  return match ? match[1] : null;
+};
+
+/**
+ * Generate a short deterministic hash suffix from a path.
+ * Used to disambiguate dat-only designs with the same name.
+ */
+const shortPathHash = (p: string): string =>
+  createHash("sha256").update(p).digest("hex").slice(0, 4);
+
+/**
+ * Collect the set of dat directories consumed by DSN/CPM design assignments.
+ */
+const consumedDirectories = (assignments: Map<string, DatFileSet | null>): Set<string> => {
+  const dirs = new Set<string>();
+  for (const datSet of assignments.values()) {
+    if (datSet) dirs.add(datSet.directory);
+  }
+  return dirs;
+};
+
+/**
+ * Build standalone cadence-dat designs from unmatched dat trios.
+ * Extracts design names from ROOT_DRAWING in pstxprt.dat, falling back to
+ * the containing folder name. Disambiguates duplicate names with a hash suffix.
+ */
+const buildStandaloneDesigns = async (
+  datSets: DatFileSet[],
+  consumedDatDirs: Set<string>
+): Promise<CadenceDiscoveredDesign[]> => {
+  const unmatchedSets = datSets.filter((ds) => !consumedDatDirs.has(ds.directory));
+
+  if (unmatchedSets.length === 0) return [];
+
+  // Extract names for all unmatched sets
+  const nameEntries = await Promise.all(
+    unmatchedSets.map(async (ds) => {
+      const rootDrawing = await extractRootDrawing(ds.pstxprt);
+      const name = rootDrawing ?? path.basename(ds.directory);
+      return { datSet: ds, name };
+    })
+  );
+
+  // Detect duplicate names and disambiguate
+  const nameCounts = new Map<string, number>();
+  for (const entry of nameEntries) {
+    nameCounts.set(entry.name, (nameCounts.get(entry.name) ?? 0) + 1);
+  }
+
+  return nameEntries.map((entry) => {
+    const finalName =
+      nameCounts.get(entry.name)! > 1
+        ? `${entry.name}_${shortPathHash(entry.datSet.directory)}`
+        : entry.name;
+
+    return {
+      name: finalName,
+      format: "cadence-dat" as const,
+      sourcePath: entry.datSet.pstxnet,
+      datFiles: {
+        pstxnet: entry.datSet.pstxnet,
+        pstxprt: entry.datSet.pstxprt,
+        pstchip: entry.datSet.pstchip,
+      },
+    };
+  });
+};
+
+/**
  * Discover Cadence designs in a directory.
- * Uses subtree-scoped matching to associate .dat files with designs.
+ * Uses subtree-scoped matching to associate .dat files with DSN/CPM designs.
+ * Unmatched dat trios (no parent DSN/CPM) become standalone cadence-dat designs.
  */
 export const discoverCadenceDesigns = async (
   rootDir: string,
-  options?: { maxDepth?: number },
+  options?: { maxDepth?: number }
 ): Promise<CadenceDiscoveredDesign[]> => {
   // Normalize separators before resolving to handle cross-platform paths
   const absoluteRootDir = path.resolve(normalizeSeparators(rootDir));
@@ -333,12 +389,15 @@ export const discoverCadenceDesigns = async (
     };
 
     if (!matchedDatSet) {
-      design.error =
-        "Netlist files not exported. Run export_cadence_netlist to generate them.";
+      design.error = "Netlist files not exported. Run export_cadence_netlist to generate them.";
     }
 
     designs.push(design);
   }
+
+  // Append standalone designs from unmatched dat trios
+  const standalones = await buildStandaloneDesigns(datSets, consumedDirectories(assignments));
+  designs.push(...standalones);
 
   return designs;
 };
@@ -347,23 +406,16 @@ export const discoverCadenceDesigns = async (
  * Find Cadence .dat files for a specific design file.
  * Searches in the design's directory and all subdirectories.
  */
-export const findCadenceDatFiles = async (
-  designFilePath: string,
-): Promise<CadenceDatFiles> => {
+export const findCadenceDatFiles = async (designFilePath: string): Promise<CadenceDatFiles> => {
   // Normalize separators before processing to handle cross-platform paths
   const normalizedPath = normalizeSeparators(designFilePath);
   const designDir = path.dirname(normalizedPath);
-  const designName = path.basename(
-    normalizedPath,
-    path.extname(normalizedPath),
-  );
+  const designName = path.basename(normalizedPath, path.extname(normalizedPath));
 
   const { datSets } = await walkForCadenceFiles(designDir);
 
   // Find dat sets in this design's subtree
-  const candidates = datSets.filter((ds) =>
-    isDescendantOrEqual(ds.directory, designDir),
-  );
+  const candidates = datSets.filter((ds) => isDescendantOrEqual(ds.directory, designDir));
 
   if (candidates.length === 0) {
     return { pstxnet: null, pstxprt: null, pstchip: null };
@@ -394,9 +446,11 @@ export const findCadenceDatFiles = async (
  */
 export const isCadenceFile = (filePath: string): boolean => {
   const ext = path.extname(filePath).toLowerCase();
-  return CADENCE_EXTENSIONS.includes(
-    ext as (typeof CADENCE_EXTENSIONS)[number],
-  );
+  if (CADENCE_EXTENSIONS.includes(ext as (typeof CADENCE_EXTENSIONS)[number])) {
+    return true;
+  }
+  // Also recognize pstxnet.dat as a Cadence dat-only design path
+  return path.basename(filePath).toLowerCase() === "pstxnet.dat";
 };
 
 /** Cadence file extensions */

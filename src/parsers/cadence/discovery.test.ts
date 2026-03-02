@@ -12,18 +12,22 @@
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import { writeFile, mkdir, rm } from "fs/promises";
 import { join } from "path";
-import { discoverCadenceDesigns, findCadenceDatFiles } from "./discovery.js";
+import { discoverCadenceDesigns, findCadenceDatFiles, isCadenceFile } from "./discovery.js";
 
 describe("Cadence Discovery - Subtree Scoped Matching", () => {
   const testDir = join(__dirname, "__test-cadence-discovery__");
 
   /**
    * Helper to create a complete .dat file set in a directory.
+   * Optionally accepts a ROOT_DRAWING name to embed in pstxprt.dat DIRECTIVES.
    */
-  async function createDatFiles(dir: string): Promise<void> {
+  async function createDatFiles(dir: string, rootDrawing?: string): Promise<void> {
     await mkdir(dir, { recursive: true });
     await writeFile(join(dir, "pstxnet.dat"), "test-content");
-    await writeFile(join(dir, "pstxprt.dat"), "test-content");
+    const pstxprtContent = rootDrawing
+      ? `DIRECTIVES\n ROOT_DRAWING='${rootDrawing}';\nEND_DIRECTIVES;\n`
+      : "test-content";
+    await writeFile(join(dir, "pstxprt.dat"), pstxprtContent);
     await writeFile(join(dir, "pstchip.dat"), "test-content");
   }
 
@@ -67,15 +71,9 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
         format: "cadence-cis",
         sourcePath: join(projectDir, "Design.DSN"),
       });
-      expect(designs[0].datFiles?.pstxnet).toBe(
-        join(projectDir, "pstxnet.dat"),
-      );
-      expect(designs[0].datFiles?.pstxprt).toBe(
-        join(projectDir, "pstxprt.dat"),
-      );
-      expect(designs[0].datFiles?.pstchip).toBe(
-        join(projectDir, "pstchip.dat"),
-      );
+      expect(designs[0].datFiles?.pstxnet).toBe(join(projectDir, "pstxnet.dat"));
+      expect(designs[0].datFiles?.pstxprt).toBe(join(projectDir, "pstxprt.dat"));
+      expect(designs[0].datFiles?.pstchip).toBe(join(projectDir, "pstchip.dat"));
       expect(designs[0].error).toBeUndefined();
     });
 
@@ -95,9 +93,7 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
 
       expect(designs).toHaveLength(1);
       expect(designs[0].name).toBe("BEAGLEBONEBLK_C");
-      expect(designs[0].datFiles?.pstxnet).toBe(
-        join(projectDir, "allegro", "pstxnet.dat"),
-      );
+      expect(designs[0].datFiles?.pstxnet).toBe(join(projectDir, "allegro", "pstxnet.dat"));
       expect(designs[0].error).toBeUndefined();
     });
 
@@ -113,9 +109,7 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
       //             └── pstchip.dat
       const projectDir = join(testDir, "project");
       await createDesign(join(projectDir, "test_design_1.cpm"));
-      await createDatFiles(
-        join(projectDir, "worklib", "test_design_1", "packaged"),
-      );
+      await createDatFiles(join(projectDir, "worklib", "test_design_1", "packaged"));
 
       const designs = await discoverCadenceDesigns(testDir);
 
@@ -123,7 +117,7 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
       expect(designs[0].name).toBe("test_design_1");
       expect(designs[0].format).toBe("cadence-hdl");
       expect(designs[0].datFiles?.pstxnet).toBe(
-        join(projectDir, "worklib", "test_design_1", "packaged", "pstxnet.dat"),
+        join(projectDir, "worklib", "test_design_1", "packaged", "pstxnet.dat")
       );
       expect(designs[0].error).toBeUndefined();
     });
@@ -141,16 +135,14 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
       //                 └── pstchip.dat
       const projectDir = join(testDir, "project");
       await createDesign(join(projectDir, "board.DSN"));
-      await createDatFiles(
-        join(projectDir, "output", "netlist", "cadence", "v1"),
-      );
+      await createDatFiles(join(projectDir, "output", "netlist", "cadence", "v1"));
 
       const designs = await discoverCadenceDesigns(testDir);
 
       expect(designs).toHaveLength(1);
       expect(designs[0].name).toBe("board");
       expect(designs[0].datFiles?.pstxnet).toBe(
-        join(projectDir, "output", "netlist", "cadence", "v1", "pstxnet.dat"),
+        join(projectDir, "output", "netlist", "cadence", "v1", "pstxnet.dat")
       );
       expect(designs[0].error).toBeUndefined();
     });
@@ -307,12 +299,8 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
       const projectDir = join(testDir, "project");
       await createDesign(join(projectDir, "test_design_1.cpm"));
       await createDesign(join(projectDir, "test_design_1_v2.cpm"));
-      await createDatFiles(
-        join(projectDir, "worklib", "test_design_1", "packaged"),
-      );
-      await createDatFiles(
-        join(projectDir, "worklib", "test_design_1_v2", "packaged"),
-      );
+      await createDatFiles(join(projectDir, "worklib", "test_design_1", "packaged"));
+      await createDatFiles(join(projectDir, "worklib", "test_design_1_v2", "packaged"));
 
       const designs = await discoverCadenceDesigns(testDir);
 
@@ -325,11 +313,9 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
       expect(design1V2).toBeDefined();
 
       // Each should match by name
-      expect(design1!.datFiles?.pstxnet).toContain(
-        join("worklib", "test_design_1", "packaged"),
-      );
+      expect(design1!.datFiles?.pstxnet).toContain(join("worklib", "test_design_1", "packaged"));
       expect(design1V2!.datFiles?.pstxnet).toContain(
-        join("worklib", "test_design_1_v2", "packaged"),
+        join("worklib", "test_design_1_v2", "packaged")
       );
 
       expect(design1!.error).toBeUndefined();
@@ -359,12 +345,8 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
       const designA = designs.find((d) => d.name === "mock_design_a");
       const designB = designs.find((d) => d.name === "mock_design_b");
 
-      expect(designA!.datFiles?.pstxnet).toContain(
-        join("output", "mock_design_a"),
-      );
-      expect(designB!.datFiles?.pstxnet).toContain(
-        join("output", "mock_design_b"),
-      );
+      expect(designA!.datFiles?.pstxnet).toContain(join("output", "mock_design_a"));
+      expect(designB!.datFiles?.pstxnet).toContain(join("output", "mock_design_b"));
     });
 
     it("should assign single .dat set to best matching design when only one exists", async () => {
@@ -379,9 +361,7 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
       const projectDir = join(testDir, "project");
       await createDesign(join(projectDir, "test_design_1.cpm"));
       await createDesign(join(projectDir, "test_design_1_v2.cpm"));
-      await createDatFiles(
-        join(projectDir, "worklib", "test_design_1", "packaged"),
-      );
+      await createDatFiles(join(projectDir, "worklib", "test_design_1", "packaged"));
 
       const designs = await discoverCadenceDesigns(testDir);
 
@@ -443,12 +423,8 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
       const projectDir = join(testDir, "test_design_1"); // Project folder named "test_design_1"
       await createDesign(join(projectDir, "test_design_1.cpm"));
       await createDesign(join(projectDir, "test_design_1_v2.cpm"));
-      await createDatFiles(
-        join(projectDir, "worklib", "test_design_1", "packaged"),
-      );
-      await createDatFiles(
-        join(projectDir, "test_design_1_v2", "test_design_1_v2", "packaged"),
-      );
+      await createDatFiles(join(projectDir, "worklib", "test_design_1", "packaged"));
+      await createDatFiles(join(projectDir, "test_design_1_v2", "test_design_1_v2", "packaged"));
 
       const designs = await discoverCadenceDesigns(testDir);
 
@@ -461,14 +437,12 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
       expect(design1V2).toBeDefined();
 
       // test_design_1.cpm should match worklib/test_design_1/packaged (relative path contains "test_design_1")
-      expect(design1!.datFiles?.pstxnet).toContain(
-        join("worklib", "test_design_1", "packaged"),
-      );
+      expect(design1!.datFiles?.pstxnet).toContain(join("worklib", "test_design_1", "packaged"));
       expect(design1!.error).toBeUndefined();
 
       // test_design_1_v2.cpm should match test_design_1_v2/test_design_1_v2/packaged (relative path contains "test_design_1_v2")
       expect(design1V2!.datFiles?.pstxnet).toContain(
-        join("test_design_1_v2", "test_design_1_v2", "packaged"),
+        join("test_design_1_v2", "test_design_1_v2", "packaged")
       );
       expect(design1V2!.error).toBeUndefined();
     });
@@ -509,14 +483,27 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
       expect(designs[0].error).toBeDefined();
     });
 
-    it("should ignore orphan .dat files with no design", async () => {
+    it("should discover orphan .dat files as standalone cadence-dat design", async () => {
       // .dat files exist but no design file
       const orphanDir = join(testDir, "orphan");
-      await createDatFiles(orphanDir);
+      await mkdir(orphanDir, { recursive: true });
+      await writeFile(join(orphanDir, "pstxnet.dat"), "test-content");
+      await writeFile(
+        join(orphanDir, "pstxprt.dat"),
+        "DIRECTIVES\n ROOT_DRAWING='MY_BOARD';\nEND_DIRECTIVES;\n"
+      );
+      await writeFile(join(orphanDir, "pstchip.dat"), "test-content");
 
       const designs = await discoverCadenceDesigns(testDir);
 
-      expect(designs).toHaveLength(0);
+      expect(designs).toHaveLength(1);
+      expect(designs[0]).toMatchObject({
+        name: "MY_BOARD",
+        format: "cadence-dat",
+        sourcePath: join(orphanDir, "pstxnet.dat"),
+      });
+      expect(designs[0].datFiles.pstxnet).toBe(join(orphanDir, "pstxnet.dat"));
+      expect(designs[0].error).toBeUndefined();
     });
 
     it("should handle CASE INSENSITIVE design name matching in paths", async () => {
@@ -645,9 +632,7 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
 
       expect(designs).toHaveLength(1);
       expect(designs[0].name).toBe("BEAGLEBONEBLK_C3");
-      expect(designs[0].datFiles?.pstxnet).toContain(
-        join("ALLEGRO", "allegro"),
-      );
+      expect(designs[0].datFiles?.pstxnet).toContain(join("ALLEGRO", "allegro"));
       expect(designs[0].error).toBeUndefined();
     });
 
@@ -655,18 +640,14 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
       // Exact structure from test_design_1 project
       const projectDir = join(testDir, "test_design_1");
       await createDesign(join(projectDir, "test_design_1.cpm"));
-      await createDatFiles(
-        join(projectDir, "worklib", "test_design_1", "packaged"),
-      );
+      await createDatFiles(join(projectDir, "worklib", "test_design_1", "packaged"));
 
       const designs = await discoverCadenceDesigns(testDir);
 
       expect(designs).toHaveLength(1);
       expect(designs[0].name).toBe("test_design_1");
       expect(designs[0].format).toBe("cadence-hdl");
-      expect(designs[0].datFiles?.pstxnet).toContain(
-        join("worklib", "test_design_1", "packaged"),
-      );
+      expect(designs[0].datFiles?.pstxnet).toContain(join("worklib", "test_design_1", "packaged"));
       expect(designs[0].error).toBeUndefined();
     });
   });
@@ -706,6 +687,128 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
       const datFiles = await findCadenceDatFiles(designPath);
 
       expect(datFiles.pstxnet).toBe(join(projectDir, "pstxnet.dat"));
+    });
+  });
+
+  describe("Dat-Only Standalone Designs", () => {
+    it("should NOT produce standalone when dat set is matched to a .DSN", async () => {
+      const projectDir = join(testDir, "project");
+      await createDesign(join(projectDir, "board.DSN"));
+      await createDatFiles(join(projectDir, "allegro"), "BOARD_DESIGN");
+
+      const designs = await discoverCadenceDesigns(testDir);
+
+      expect(designs).toHaveLength(1);
+      expect(designs[0].format).toBe("cadence-cis");
+      expect(designs[0].name).toBe("board");
+      // No cadence-dat design should appear
+      expect(designs.filter((d) => d.format === "cadence-dat")).toHaveLength(0);
+    });
+
+    it("should create standalone alongside DSN-matched designs (mixed scenario)", async () => {
+      // One project with DSN + dat, another with only dat
+      const projectA = join(testDir, "projectA");
+      await createDesign(join(projectA, "DesignA.DSN"));
+      await createDatFiles(join(projectA, "output"), "DESIGN_A");
+
+      const orphanDir = join(testDir, "orphan");
+      await createDatFiles(orphanDir, "ORPHAN_BOARD");
+
+      const designs = await discoverCadenceDesigns(testDir);
+
+      expect(designs).toHaveLength(2);
+
+      const dsnDesign = designs.find((d) => d.format === "cadence-cis");
+      const datDesign = designs.find((d) => d.format === "cadence-dat");
+
+      expect(dsnDesign).toBeDefined();
+      expect(dsnDesign!.name).toBe("DesignA");
+
+      expect(datDesign).toBeDefined();
+      expect(datDesign!.name).toBe("ORPHAN_BOARD");
+      expect(datDesign!.sourcePath).toBe(join(orphanDir, "pstxnet.dat"));
+    });
+
+    it("should extract design name from ROOT_DRAWING in pstxprt.dat", async () => {
+      const datDir = join(testDir, "some_folder");
+      await createDatFiles(datDir, "BEAGLEBONEBLK_C");
+
+      const designs = await discoverCadenceDesigns(testDir);
+
+      expect(designs).toHaveLength(1);
+      expect(designs[0].name).toBe("BEAGLEBONEBLK_C");
+      expect(designs[0].format).toBe("cadence-dat");
+    });
+
+    it("should ignore incomplete orphan dat sets (2 of 3 files, no DSN)", async () => {
+      const orphanDir = join(testDir, "incomplete");
+      await mkdir(orphanDir, { recursive: true });
+      await writeFile(join(orphanDir, "pstxnet.dat"), "test-content");
+      await writeFile(join(orphanDir, "pstxprt.dat"), "test-content");
+      // Missing pstchip.dat, no DSN either
+
+      const designs = await discoverCadenceDesigns(testDir);
+
+      expect(designs).toHaveLength(0);
+    });
+
+    it("should fallback to folder name when ROOT_DRAWING is absent", async () => {
+      const datDir = join(testDir, "my_board_v2");
+      await createDatFiles(datDir); // no rootDrawing => pstxprt has no ROOT_DRAWING
+
+      const designs = await discoverCadenceDesigns(testDir);
+
+      expect(designs).toHaveLength(1);
+      expect(designs[0].name).toBe("my_board_v2");
+      expect(designs[0].format).toBe("cadence-dat");
+    });
+
+    it("should disambiguate when multiple dat trios share the same name", async () => {
+      // Two separate directories, both with ROOT_DRAWING='SAME_NAME'
+      const dirA = join(testDir, "locationA", "Allegro");
+      const dirB = join(testDir, "locationB", "Allegro");
+      await createDatFiles(dirA, "SAME_NAME");
+      await createDatFiles(dirB, "SAME_NAME");
+
+      const designs = await discoverCadenceDesigns(testDir);
+
+      expect(designs).toHaveLength(2);
+      // Both should be cadence-dat
+      expect(designs.every((d) => d.format === "cadence-dat")).toBe(true);
+      // Names should be unique (disambiguated with hash suffix)
+      expect(designs[0].name).not.toBe(designs[1].name);
+      // Both should start with SAME_NAME
+      expect(designs[0].name).toMatch(/^SAME_NAME_[0-9a-f]{4}$/);
+      expect(designs[1].name).toMatch(/^SAME_NAME_[0-9a-f]{4}$/);
+    });
+  });
+
+  describe("isCadenceFile", () => {
+    it("should recognize .DSN files", () => {
+      expect(isCadenceFile("/path/to/Design.DSN")).toBe(true);
+      expect(isCadenceFile("/path/to/design.dsn")).toBe(true);
+    });
+
+    it("should recognize .cpm files", () => {
+      expect(isCadenceFile("/path/to/design.cpm")).toBe(true);
+      expect(isCadenceFile("/path/to/DESIGN.CPM")).toBe(true);
+    });
+
+    it("should recognize pstxnet.dat", () => {
+      expect(isCadenceFile("/path/to/pstxnet.dat")).toBe(true);
+      expect(isCadenceFile("/path/to/PSTXNET.DAT")).toBe(true);
+      expect(isCadenceFile("/some/dir/Pstxnet.Dat")).toBe(true);
+    });
+
+    it("should reject other .dat files", () => {
+      expect(isCadenceFile("/path/to/pstxprt.dat")).toBe(false);
+      expect(isCadenceFile("/path/to/pstchip.dat")).toBe(false);
+      expect(isCadenceFile("/path/to/other.dat")).toBe(false);
+    });
+
+    it("should reject unrelated extensions", () => {
+      expect(isCadenceFile("/path/to/design.txt")).toBe(false);
+      expect(isCadenceFile("/path/to/design.SchDoc")).toBe(false);
     });
   });
 });
