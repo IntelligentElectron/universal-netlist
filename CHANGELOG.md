@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.22] - 2026-03-02
+
+### Added
+
+- Discover Cadence designs that only have exported `.dat` files (no `.DSN` schematic) ([#38](https://github.com/IntelligentElectron/universal-netlist/pull/38))
+
+### Changed
+
+- Omit `mpn` key from JSON output when MPN data is missing instead of emitting `"mpn": null` ([#39](https://github.com/IntelligentElectron/universal-netlist/pull/39))
+
 ## [0.0.21] - 2026-02-27
 
 ### Added
