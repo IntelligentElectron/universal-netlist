@@ -25,11 +25,8 @@ Used in `list_components` and `search_components_by_*` results. Groups component
       "description": "Number of components in group"
     },
     "mpn": {
-      "oneOf": [
-        { "type": "string" },
-        { "type": "null" }
-      ],
-      "description": "Manufacturer Part Number (null if missing)"
+      "type": "string",
+      "description": "Manufacturer Part Number (omitted if missing)"
     },
     "description": {
       "type": "string",
@@ -53,7 +50,7 @@ Used in `list_components` and `search_components_by_*` results. Groups component
       "description": "Informational notes (e.g., missing MPN warning)"
     }
   },
-  "required": ["refdes", "count", "mpn"]
+  "required": ["refdes", "count"]
 }
 ```
 
@@ -79,10 +76,8 @@ Used in `query_xnet_*` results. Groups components by MPN with orientation tracki
   "type": "object",
   "properties": {
     "mpn": {
-      "oneOf": [
-        { "type": "string" },
-        { "type": "null" }
-      ]
+      "type": "string",
+      "description": "Manufacturer Part Number (omitted if missing)"
     },
     "description": { "type": "string" },
     "comment": { "type": "string" },
@@ -114,7 +109,7 @@ Used in `query_xnet_*` results. Groups components by MPN with orientation tracki
       "items": { "type": "string" }
     }
   },
-  "required": ["mpn", "total_count"]
+  "required": ["total_count"]
 }
 ```
 

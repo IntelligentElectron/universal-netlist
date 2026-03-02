@@ -5,11 +5,7 @@
 
 import { createHash } from "crypto";
 import { getPinNet } from "./types.js";
-import type {
-  NetConnections,
-  ComponentDetails,
-  CircuitComponent,
-} from "./types.js";
+import type { NetConnections, ComponentDetails, CircuitComponent } from "./types.js";
 
 // Regex patterns for net classification
 const GROUND_NET_PATTERN = /^(GND|VSS|AGND|DGND|PGND|SGND|CGND)$/i;
@@ -23,20 +19,17 @@ const DNS_PATTERN =
 /**
  * Check if a net name matches the ground pattern.
  */
-export const isGroundNet = (netName: string): boolean =>
-  GROUND_NET_PATTERN.test(netName);
+export const isGroundNet = (netName: string): boolean => GROUND_NET_PATTERN.test(netName);
 
 /**
  * Check if a net name matches the power pattern.
  */
-export const isPowerNet = (netName: string): boolean =>
-  POWER_NET_PATTERN.test(netName);
+export const isPowerNet = (netName: string): boolean => POWER_NET_PATTERN.test(netName);
 
 /**
  * Check if a net name matches the stop pattern (power or ground).
  */
-export const isStopNet = (netName: string): boolean =>
-  STOP_NET_PATTERN.test(netName);
+export const isStopNet = (netName: string): boolean => STOP_NET_PATTERN.test(netName);
 
 /**
  * Determine if a component is a traversable passive (R/RS, L, C, FB).
@@ -57,8 +50,7 @@ export const isPassive = (refdes: string): boolean => {
  * Check if a string is a valid refdes (letters followed by alphanumerics).
  * Filters out Cadence instance paths like "@DESIGN.SHEET:INS123@PART".
  */
-export const isValidRefdes = (refdes: string): boolean =>
-  /^[A-Z][A-Z0-9_]*$/i.test(refdes);
+export const isValidRefdes = (refdes: string): boolean => /^[A-Z][A-Z0-9_]*$/i.test(refdes);
 
 /**
  * Extract a refdes prefix (letters only).
@@ -131,9 +123,7 @@ export const computeCircuitHash = (components: CircuitComponent[]): string => {
     return "0".repeat(16);
   }
 
-  const sortedComponents = [...components].sort((a, b) =>
-    naturalSort(a.refdes, b.refdes),
-  );
+  const sortedComponents = [...components].sort((a, b) => naturalSort(a.refdes, b.refdes));
 
   const canonicalForm = sortedComponents.map((comp) => ({
     refdes: comp.refdes,
@@ -155,7 +145,7 @@ interface FlatCircuitEntry {
   refdes: string;
   pin: string;
   net: string;
-  mpn?: string | null;
+  mpn?: string;
   description?: string;
   comment?: string;
   value?: string;
@@ -181,13 +171,13 @@ export interface TraversalOptions {
 const groupCircuitPins = (
   flat: FlatCircuitEntry[],
   visitedNets: string[],
-  skipped: Record<string, number>,
+  skipped: Record<string, number>
 ): TraversalResult => {
   const byRefdes = new Map<
     string,
     {
       refdes: string;
-      mpn?: string | null;
+      mpn?: string;
       description?: string;
       comment?: string;
       value?: string;
@@ -260,15 +250,13 @@ export const traverseCircuitFromNet = (
   startNet: string,
   nets: NetConnections,
   components: ComponentDetails,
-  options: TraversalOptions = {},
+  options: TraversalOptions = {}
 ): TraversalResult => {
   if (!startNet || !nets[startNet]) {
     return { components: [], visited_nets: [], skipped: {} };
   }
 
-  const skipTypes = (options.skipTypes ?? []).map((type) =>
-    type.trim().toUpperCase(),
-  );
+  const skipTypes = (options.skipTypes ?? []).map((type) => type.trim().toUpperCase());
   const includeDns = options.includeDns ?? false;
   const skipped: Record<string, number> = {};
   const skippedComponents = new Set<string>();
@@ -276,7 +264,7 @@ export const traverseCircuitFromNet = (
   const shouldSkipComponent = (
     refdes: string,
     _component: ComponentDetails[string] | undefined,
-    isDns: boolean,
+    isDns: boolean
   ): boolean => {
     if (!includeDns && isDns) {
       return true;
@@ -373,9 +361,7 @@ export const traverseCircuitFromNet = (
                 hasPassiveToFollow = true;
               } else {
                 const pinsOnNet = otherNetConns[otherRefdes];
-                const pinsArray = Array.isArray(pinsOnNet)
-                  ? pinsOnNet
-                  : [pinsOnNet];
+                const pinsArray = Array.isArray(pinsOnNet) ? pinsOnNet : [pinsOnNet];
                 for (const activePin of pinsArray) {
                   const activePinId = `${otherRefdes}:${activePin}`;
                   if (!visitedPins.has(activePinId)) {

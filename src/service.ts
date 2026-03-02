@@ -112,7 +112,7 @@ const groupComponentsByMpn = (
   const groups = new Map<
     string,
     {
-      mpn: string | null;
+      mpn?: string;
       description?: string;
       comment?: string;
       value?: string;
@@ -128,7 +128,7 @@ const groupComponentsByMpn = (
       continue;
     }
 
-    const mpnTrimmed = component.mpn?.trim() || null;
+    const mpnTrimmed = component.mpn?.trim() || undefined;
     const descriptionValue = component.description?.trim() || undefined;
     const commentValue = component.comment?.trim() || undefined;
     const valueValue = component.value?.trim() || undefined;
@@ -138,7 +138,7 @@ const groupComponentsByMpn = (
 
     if (!groups.has(groupKey)) {
       groups.set(groupKey, {
-        mpn: mpnTrimmed,
+        ...(mpnTrimmed && { mpn: mpnTrimmed }),
         description: descriptionValue,
         comment: commentValue,
         value: valueValue,
@@ -156,10 +156,13 @@ const groupComponentsByMpn = (
   return Array.from(groups.values())
     .map((group) => {
       const entry: ComponentGroup = {
-        mpn: group.mpn,
         count: group.refdes.length,
         refdes: compactArray(group.refdes.sort(naturalSort)),
       };
+
+      if (group.mpn !== undefined) {
+        entry.mpn = group.mpn;
+      }
 
       if (group.description !== undefined) {
         entry.description = group.description;
@@ -195,7 +198,7 @@ const aggregateCircuitByMpn = (
   const groups = new Map<
     string,
     {
-      mpn: string | null;
+      mpn?: string;
       description?: string;
       comment?: string;
       value?: string;
@@ -215,7 +218,7 @@ const aggregateCircuitByMpn = (
   const unaggregatable: typeof components = [];
 
   for (const comp of components) {
-    const mpn = comp.mpn?.trim() || null;
+    const mpn = comp.mpn?.trim() || undefined;
     const description = comp.description?.trim() || "";
     const value = comp.value?.trim() || undefined;
     const dnsFlag = comp.dns ? true : undefined;
@@ -236,7 +239,7 @@ const aggregateCircuitByMpn = (
 
     if (!groups.has(groupKey)) {
       groups.set(groupKey, {
-        mpn,
+        ...(mpn && { mpn }),
         description: description || undefined,
         comment: comp.comment,
         value,
@@ -279,9 +282,12 @@ const aggregateCircuitByMpn = (
     const totalCount = orientationsList.reduce((sum, o) => sum + o.count, 0);
 
     const aggregated: AggregatedComponent = {
-      mpn: group.mpn,
       total_count: totalCount,
     };
+
+    if (group.mpn !== undefined) {
+      aggregated.mpn = group.mpn;
+    }
 
     if (group.description !== undefined) {
       aggregated.description = group.description;
@@ -316,7 +322,6 @@ const aggregateCircuitByMpn = (
   for (const comp of unaggregatable) {
     const unagg: AggregatedComponent = {
       refdes: comp.refdes,
-      mpn: null,
       notes: [MPN_MISSING_NOTE],
       total_count: 1,
       connections: compactConnections(comp.connections),
@@ -699,14 +704,17 @@ export const queryComponent = async (
   }
 
   const [resolvedRefdes, component] = componentEntry;
-  const mpn = component.mpn?.trim() || null;
+  const mpn = component.mpn?.trim() || undefined;
   const dns = isDnsComponent(component);
 
   const result: QueryComponentResult = {
     refdes: resolvedRefdes,
-    mpn,
     pins: component.pins,
   };
+
+  if (mpn !== undefined) {
+    result.mpn = mpn;
+  }
 
   if (component.description !== undefined) {
     result.description = component.description;
