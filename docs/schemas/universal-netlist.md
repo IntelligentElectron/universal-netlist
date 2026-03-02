@@ -119,11 +119,8 @@ Maps reference designators to component information including pin-to-net mapping
     "type": "object",
     "properties": {
       "mpn": {
-        "oneOf": [
-          { "type": "string" },
-          { "type": "null" }
-        ],
-        "description": "Manufacturer Part Number"
+        "type": "string",
+        "description": "Manufacturer Part Number (omitted if missing)"
       },
       "description": {
         "type": "string",

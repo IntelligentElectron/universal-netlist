@@ -39,7 +39,7 @@ describe("MPN_MISSING_NOTE", () => {
 });
 
 describe("groupComponentsByMpn", () => {
-  it("should set mpn to null and add notes when MPN is missing", () => {
+  it("should omit mpn and add notes when MPN is missing", () => {
     const components: ComponentDetails = {
       U1: { pins: { "1": "VCC", "2": "GND" } },
     };
@@ -48,7 +48,7 @@ describe("groupComponentsByMpn", () => {
     const result = groupComponentsByMpn(entries, false);
 
     expect(result).toHaveLength(1);
-    expect(result[0].mpn).toBeNull();
+    expect(result[0].mpn).toBeUndefined();
     expect(result[0].notes).toBeDefined();
     expect(result[0].notes).toContain(MPN_MISSING_NOTE);
     expect(result[0].refdes).toBe("U1");
@@ -67,7 +67,7 @@ describe("groupComponentsByMpn", () => {
     expect(result[0].notes).toBeUndefined();
   });
 
-  it("should set mpn to null when MPN is empty string", () => {
+  it("should omit mpn when MPN is empty string", () => {
     const components: ComponentDetails = {
       U1: { mpn: "", pins: { "1": "VCC", "2": "GND" } },
     };
@@ -76,11 +76,11 @@ describe("groupComponentsByMpn", () => {
     const result = groupComponentsByMpn(entries, false);
 
     expect(result).toHaveLength(1);
-    expect(result[0].mpn).toBeNull();
+    expect(result[0].mpn).toBeUndefined();
     expect(result[0].notes).toContain(MPN_MISSING_NOTE);
   });
 
-  it("should set mpn to null when MPN is whitespace only", () => {
+  it("should omit mpn when MPN is whitespace only", () => {
     const components: ComponentDetails = {
       U1: { mpn: "   ", pins: { "1": "VCC", "2": "GND" } },
     };
@@ -89,7 +89,7 @@ describe("groupComponentsByMpn", () => {
     const result = groupComponentsByMpn(entries, false);
 
     expect(result).toHaveLength(1);
-    expect(result[0].mpn).toBeNull();
+    expect(result[0].mpn).toBeUndefined();
     expect(result[0].notes).toContain(MPN_MISSING_NOTE);
   });
 
@@ -179,13 +179,13 @@ describe("groupComponentsByMpn", () => {
     const result = groupComponentsByMpn(entries, false);
 
     expect(result).toHaveLength(2);
-    expect(result.every((r) => r.mpn === null)).toBe(true);
+    expect(result.every((r) => r.mpn === undefined)).toBe(true);
     expect(result.every((r) => r.notes?.includes(MPN_MISSING_NOTE))).toBe(true);
   });
 });
 
 describe("aggregateCircuitByMpn", () => {
-  it("should set mpn to null and add notes for components without MPN", () => {
+  it("should omit mpn and add notes for components without MPN", () => {
     const components: CircuitComponent[] = [
       {
         refdes: "U1",
@@ -200,7 +200,7 @@ describe("aggregateCircuitByMpn", () => {
     const result = aggregateCircuitByMpn(components);
 
     expect(result).toHaveLength(1);
-    expect(result[0].mpn).toBeNull();
+    expect(result[0].mpn).toBeUndefined();
     expect(result[0].notes).toBeDefined();
     expect(result[0].notes).toContain(MPN_MISSING_NOTE);
   });
@@ -239,12 +239,12 @@ describe("aggregateCircuitByMpn", () => {
     const result = aggregateCircuitByMpn(components);
 
     expect(result).toHaveLength(1);
-    expect(result[0].mpn).toBeNull();
+    expect(result[0].mpn).toBeUndefined();
     expect(result[0].notes).toContain(MPN_MISSING_NOTE);
     expect(result[0].refdes).toBe("X1");
   });
 
-  it("should set mpn to null when MPN is empty string", () => {
+  it("should omit mpn when MPN is empty string", () => {
     const components: CircuitComponent[] = [
       {
         refdes: "U1",
@@ -257,7 +257,7 @@ describe("aggregateCircuitByMpn", () => {
     const result = aggregateCircuitByMpn(components);
 
     expect(result).toHaveLength(1);
-    expect(result[0].mpn).toBeNull();
+    expect(result[0].mpn).toBeUndefined();
     expect(result[0].notes).toContain(MPN_MISSING_NOTE);
   });
 

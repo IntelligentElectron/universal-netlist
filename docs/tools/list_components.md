@@ -56,7 +56,6 @@ Response:
       "refdes": "U5"
     },
     {
-      "mpn": null,
       "description": "IC GENERIC",
       "count": 1,
       "refdes": "U3",
@@ -78,7 +77,7 @@ Response:
 - The `type` parameter is case-insensitive (`u` and `U` both work)
 - Components are grouped by MPN; components without MPN are listed individually
 - Single-element `refdes` arrays are compacted to strings
-- Components with `mpn: null` include a `notes` field suggesting next steps
+- Components without MPN include a `notes` field suggesting next steps
 - Use `include_dns: true` to see DNS components (marked with `dns: true`)
 
 ## See Also

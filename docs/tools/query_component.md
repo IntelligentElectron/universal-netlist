@@ -20,7 +20,7 @@ Returns component details with pin-to-net mappings using [`PinEntry`](../schemas
 ```json
 {
   "refdes": "string",
-  "mpn": "string | null",
+  "mpn": "string",              // optional
   "description": "string",       // optional
   "comment": "string",           // optional
   "value": "string",             // optional
@@ -85,7 +85,6 @@ Response:
 ```json
 {
   "refdes": "C5",
-  "mpn": null,
   "description": "CAP CER 10UF 0402",
   "value": "10uF",
   "pins": {
@@ -121,5 +120,5 @@ Pins use two formats:
 
 - Reference designator lookup is **case-insensitive** (`u1` matches `U1`)
 - The `NC` net indicates an unconnected pin (No Connect)
-- Components with `mpn: null` include a `notes` field
+- Components without MPN omit the `mpn` field and include a `notes` field
 - Pin numbers are string keys (may be alphanumeric like `A1`, `B2` for BGAs)

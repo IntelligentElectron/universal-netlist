@@ -3,8 +3,8 @@
  * Extracts component details (MPN, description)
  */
 
-import { readFile } from 'fs/promises';
-import type { ComponentDetails } from '../../types.js';
+import { readFile } from "fs/promises";
+import type { ComponentDetails } from "../../types.js";
 
 /**
  * Result from parsing pstxprt.dat
@@ -21,7 +21,7 @@ export interface PstxprtResult {
  * Returns both components and a partNames map for cross-referencing.
  */
 export const parsePstxprt = async (filePath: string): Promise<PstxprtResult> => {
-  const content = await readFile(filePath, 'utf-8');
+  const content = await readFile(filePath, "utf-8");
   return parsePstxprtContent(content);
 };
 
@@ -29,7 +29,7 @@ export const parsePstxprt = async (filePath: string): Promise<PstxprtResult> => 
  * Parse pstxprt file content (pure function for testing).
  */
 export const parsePstxprtContent = (content: string): PstxprtResult => {
-  const lines = content.split('\n').map((line) => line.trim());
+  const lines = content.split("\n").map((line) => line.trim());
 
   const componentDetails: ComponentDetails = {};
   const partNames = new Map<string, string>();
@@ -42,10 +42,12 @@ export const parsePstxprtContent = (content: string): PstxprtResult => {
       const component: ComponentDetails[string] = { pins: {} };
 
       // MPN: use MFGR_PN if available, otherwise fall back to part name string
-      const mpn = currentProperties['MFGR_PN'] || currentPartName || null;
-      component.mpn = mpn;
+      const mpn = currentProperties["MFGR_PN"] || currentPartName || undefined;
+      if (mpn) {
+        component.mpn = mpn;
+      }
 
-      const description = currentProperties['DESCR'];
+      const description = currentProperties["DESCR"];
       if (description) {
         component.description = description;
       }
@@ -61,29 +63,29 @@ export const parsePstxprtContent = (content: string): PstxprtResult => {
 
   for (const line of lines) {
     // PART_NAME alone is a section header; PART_NAME='...' is a property
-    if (line === 'PART_NAME') {
+    if (line === "PART_NAME") {
       saveCurrentComponent();
       currentRefdes = null;
       currentPartName = null;
       currentProperties = {};
     } else if (currentRefdes === null && line) {
       // Component line ends with ':' or ':;'
-      if (line.includes(' ') && (line.endsWith(':') || line.endsWith(':;'))) {
+      if (line.includes(" ") && (line.endsWith(":") || line.endsWith(":;"))) {
         const match = line.match(/^(\S+)\s+'([^']+)'/);
         if (match) {
           currentRefdes = match[1];
           currentPartName = match[2];
         } else {
-          const [refdes] = line.split(' ', 1);
+          const [refdes] = line.split(" ", 1);
           currentRefdes = refdes;
         }
       }
-    } else if (line.includes('=')) {
-      const [key, ...valueParts] = line.split('=');
+    } else if (line.includes("=")) {
+      const [key, ...valueParts] = line.split("=");
       const value = valueParts
-        .join('=')
+        .join("=")
         .trim()
-        .replace(/^['"]|['";,]+$/g, '');
+        .replace(/^['"]|['";,]+$/g, "");
       currentProperties[key.trim()] = value;
     }
   }

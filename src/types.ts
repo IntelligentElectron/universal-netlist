@@ -10,8 +10,7 @@ import type { AltiumDiscoveredDesign } from "./parsers/altium/discovery.js";
  * Compact single-element arrays to scalar values for token savings.
  * Returns the single element if array has length 1, otherwise returns the array.
  */
-export const compactArray = <T>(arr: T[]): T | T[] =>
-  arr.length === 1 ? arr[0] : arr;
+export const compactArray = <T>(arr: T[]): T | T[] => (arr.length === 1 ? arr[0] : arr);
 
 /**
  * Net connections from netlist
@@ -36,7 +35,7 @@ export type PinEntry = string | { name: string; net: string };
 export const createPinEntry = (
   pinNumber: string,
   pinName: string | undefined,
-  netName: string,
+  netName: string
 ): PinEntry => {
   const normalizedName = pinName?.trim();
   if (normalizedName && normalizedName !== pinNumber) {
@@ -56,7 +55,7 @@ export const getPinNet = (entry: PinEntry): string =>
  */
 export interface ComponentDetails {
   [refdes: string]: {
-    mpn?: string | null;
+    mpn?: string;
     description?: string;
     comment?: string;
     value?: string;
@@ -78,7 +77,7 @@ export interface ParsedNetlist {
 export interface CircuitComponent {
   refdes: string;
   type?: string;
-  mpn?: string | null;
+  mpn?: string;
   description?: string;
   comment?: string;
   value?: string;
@@ -126,7 +125,7 @@ export interface OrientationVariant {
  * Aggregated component group (grouped by MPN or description)
  */
 export interface AggregatedComponent {
-  mpn: string | null;
+  mpn?: string;
   description?: string;
   comment?: string;
   value?: string;
@@ -175,7 +174,7 @@ export interface DesignInfo {
 export interface ComponentGroup {
   refdes: string | string[];
   count: number;
-  mpn: string | null;
+  mpn?: string;
   description?: string;
   comment?: string;
   value?: string;
@@ -218,7 +217,7 @@ export interface SearchNetsResult {
  */
 export interface QueryComponentResult {
   refdes: string;
-  mpn: string | null;
+  mpn?: string;
   description?: string;
   comment?: string;
   value?: string;
