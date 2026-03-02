@@ -439,7 +439,15 @@ describe("parseRegexPattern", () => {
 
   it("does not strip scoped group (?i:...)", () => {
     const result = parseRegexPattern("(?i:foo)bar");
-    expect("error" in result).toBe(true);
+    // On Node v25+ the scoped modifier (?i:...) is valid RegExp syntax.
+    // On older engines it throws. Either way, the prefix must NOT be stripped.
+    if ("regex" in result) {
+      expect(result.regex.source).toContain("(?i:foo)");
+      expect(result.regex.test("FOObar")).toBe(true);
+      expect(result.regex.test("fooBAR")).toBe(false);
+    } else {
+      expect(result.error).toContain("Invalid regex pattern");
+    }
   });
 
   it("returns error for invalid regex after flag stripping", () => {
