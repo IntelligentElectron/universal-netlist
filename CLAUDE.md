@@ -50,16 +50,15 @@ npm run type-check && npm run lint && npm test
 
 ### Releasing
 
-Branch protection requires releases to go through a PR:
+Include version bump and changelog in the feature PR itself (no separate release PR):
 
-1. `git checkout -b release/vX.Y.Z`
-2. Update `CHANGELOG.md` with new version section
-3. `git commit -am "Add vX.Y.Z changelog"`
-4. `npm version patch --no-git-tag-version` (bumps `package.json` only, no tag)
-5. `git commit -am "vX.Y.Z"`
-6. Push branch and open PR: `git push -u origin release/vX.Y.Z && gh pr create`
-7. Merge the PR
-8. Tag the merge commit and push:
+1. Before pushing your feature branch, add the release commits:
+   - Update `CHANGELOG.md` with new version section
+   - `git commit -am "Add vX.Y.Z changelog"`
+   - `npm version patch --no-git-tag-version` (bumps `package.json` only, no tag)
+   - `git commit -am "vX.Y.Z"`
+2. Push branch and open PR as usual
+3. After merge, tag the merge commit and push:
 
    ```bash
    git checkout main && git pull
@@ -67,7 +66,7 @@ Branch protection requires releases to go through a PR:
    git push origin vX.Y.Z
    ```
 
-   **Note:** Do NOT use `npm version` without `--no-git-tag-version` — it creates a local git tag that points to the release branch commit, not the merge commit on main. The tag must be created manually on the merge commit.
+   **Note:** Do NOT use `npm version` without `--no-git-tag-version` -- it creates a local git tag that points to the feature branch commit, not the merge commit on main. The tag must be created manually on the merge commit.
 
 The tag push triggers the release workflow, which automatically:
 - Builds signed binaries for all platforms
