@@ -43,5 +43,6 @@ telemetry-*.zip
 
 # Private files and plans
 private/
+references/
 plans/
 .plans/

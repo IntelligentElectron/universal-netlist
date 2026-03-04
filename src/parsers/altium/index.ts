@@ -22,7 +22,7 @@ import {
   PIN_ELECTRICAL_TYPES,
   POWER_PORT_STYLES,
 } from "./types.js";
-import { OleReader, readOleStream } from "./ole-reader.js";
+import { OleReader, readOleStream } from "../ole-reader/ole-reader.js";
 import { parseRecords, findRecords } from "./record-parser.js";
 import { buildHierarchy, getPartsList, flattenHierarchy, findRecordByIndex } from "./hierarchy.js";
 import { extractNets, determineNetList } from "./net-extractor.js";
