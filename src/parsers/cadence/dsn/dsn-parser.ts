@@ -100,11 +100,11 @@ function parsePage(buffer: Buffer): PageData {
     skipT0x35(reader);
   }
 
-  // Net name/ID table
+  // Net name/ID table (uppercased to match Cadence Allegro export convention)
   const lenNetTable = reader.readUint16();
   const netTable = new Map<number, string>();
   for (let i = 0; i < lenNetTable; i++) {
-    const netName = reader.readStringLenZeroTerm();
+    const netName = reader.readStringLenZeroTerm().toUpperCase();
     const netId = reader.readUint32();
     netTable.set(netId, netName);
   }
@@ -234,7 +234,7 @@ function buildNetConnectivity(pages: PageData[]): {
 
       // Primary: get net name from wire aliases
       if (wire.aliases.length > 0) {
-        netName = wire.aliases[0].name;
+        netName = wire.aliases[0].name.toUpperCase();
       }
 
       // Fallback: get net name from page net table using wire ID
@@ -253,19 +253,19 @@ function buildNetConnectivity(pages: PageData[]): {
     // Add global (power symbol) coordinates -> net name
     for (const global of page.globals) {
       const key = `${global.locX},${global.locY}`;
-      coordToNet.set(key, global.name);
+      coordToNet.set(key, global.name.toUpperCase());
     }
 
     // Add port coordinates -> net name
     for (const port of page.ports) {
       const key = `${port.locX},${port.locY}`;
-      coordToNet.set(key, port.name);
+      coordToNet.set(key, port.name.toUpperCase());
     }
 
     // Add off-page connector coordinates -> net name
     for (const opc of page.offPageConnectors) {
       const key = `${opc.locX},${opc.locY}`;
-      coordToNet.set(key, opc.name);
+      coordToNet.set(key, opc.name.toUpperCase());
     }
   }
 

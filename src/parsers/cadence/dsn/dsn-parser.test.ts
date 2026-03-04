@@ -122,7 +122,6 @@ describe.skipIf(!hasDsnFixture || !hasDatFixtures)("DSN vs DAT comparison", () =
     const dsnNets = new Set(Object.keys(dsnResult.nets));
     const datNets = new Set(Object.keys(datRaw.nets));
 
-    // DSN parser should find most of the same nets
     const commonNets = [...dsnNets].filter((n) => datNets.has(n));
     const coverage = commonNets.length / datNets.size;
 
