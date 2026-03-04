@@ -1,11 +1,12 @@
 /**
- * DSN Parser Tests - Phase 1b: CFBF container exploration
+ * DSN Parser Tests
  */
 
 import { describe, it, expect } from "vitest";
 import { existsSync } from "fs";
 import { join } from "path";
 import { OleReader } from "../../ole-reader/ole-reader.js";
+import { parseDsnFile } from "./dsn-parser.js";
 
 const DSN_FIXTURE = join(
   __dirname,
@@ -79,8 +80,28 @@ describe.skipIf(!hasDsnFixture)("DSN CFBF Container", () => {
   it("should log container structure for inspection", () => {
     const ole = new OleReader(DSN_FIXTURE);
     const tree = ole.getDirectoryTree();
-    // Just verify it produces output; useful for manual inspection
     expect(tree.length).toBeGreaterThan(0);
     console.log("\n--- DSN Container Structure ---\n" + tree + "\n");
+  });
+});
+
+describe.skipIf(!hasDsnFixture)("DSN Parser", () => {
+  it("should parse DSN file into ParsedNetlist", () => {
+    const result = parseDsnFile(DSN_FIXTURE);
+
+    expect(result).toBeDefined();
+    expect(result.nets).toBeDefined();
+    expect(result.components).toBeDefined();
+
+    const netNames = Object.keys(result.nets);
+    const componentNames = Object.keys(result.components);
+
+    console.log(`\nParsed ${netNames.length} nets, ${componentNames.length} components`);
+    console.log("Sample nets:", netNames.slice(0, 10));
+    console.log("Sample components:", componentNames.slice(0, 10));
+
+    // Should find some nets and components
+    expect(netNames.length).toBeGreaterThan(0);
+    expect(componentNames.length).toBeGreaterThan(0);
   });
 });
