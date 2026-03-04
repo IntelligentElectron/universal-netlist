@@ -14,6 +14,7 @@ import {
   isCadenceFile,
   CADENCE_EXTENSIONS,
 } from "./discovery.js";
+import { parseDsnFile } from "./dsn/dsn-parser.js";
 import { isValidRefdes } from "../../circuit-traversal.js";
 import {
   createPinEntry,
@@ -22,18 +23,11 @@ import {
   type EDAProjectFormatHandler,
 } from "../../types.js";
 
-export {
-  discoverCadenceDesigns,
-  findCadenceDatFiles,
-  isCadenceFile,
-} from "./discovery.js";
+export { discoverCadenceDesigns, findCadenceDatFiles, isCadenceFile } from "./discovery.js";
+export { parseDsnFile } from "./dsn/dsn-parser.js";
 export { parsePstxnet, parsePstxnetContent } from "./pstxnet-parser.js";
 export { parsePstxprt, parsePstxprtContent } from "./pstxprt-parser.js";
-export {
-  parsePstchip,
-  parsePstchipContent,
-  type ChipPart,
-} from "./pstchip-parser.js";
+export { parsePstchip, parsePstchipContent, type ChipPart } from "./pstchip-parser.js";
 
 export interface CadenceFilePaths {
   pstxnetPath: string;
@@ -57,9 +51,7 @@ export interface CadenceRawNetlist extends ParsedNetlist {
 /**
  * Build a lookup of part name -> pin number -> pin name from pstchip data.
  */
-const buildPinNameMaps = (
-  chips: ChipPart[],
-): Map<string, Map<string, string>> => {
+const buildPinNameMaps = (chips: ChipPart[]): Map<string, Map<string, string>> => {
   const pinNameMaps = new Map<string, Map<string, string>>();
 
   for (const chip of chips) {
@@ -101,7 +93,7 @@ export const buildCadencePinMap = (
   nets: ParsedNetlist["nets"],
   components: ComponentDetails,
   chips: ChipPart[],
-  partNames: Map<string, string>,
+  partNames: Map<string, string>
 ): void => {
   const pinNameMaps = buildPinNameMaps(chips);
   const valueMap = buildValueMap(chips);
@@ -146,9 +138,7 @@ export const buildCadencePinMap = (
  * Takes absolute paths to the .dat files.
  * Returns partNames for use in post-processing (pin mapping, value extraction).
  */
-export const parseCadence = async (
-  paths: CadenceFilePaths,
-): Promise<CadenceRawNetlist> => {
+export const parseCadence = async (paths: CadenceFilePaths): Promise<CadenceRawNetlist> => {
   const nets = await parsePstxnet(paths.pstxnetPath);
   const { components, partNames } = await parsePstxprt(paths.pstxprtPath);
 
@@ -167,33 +157,36 @@ export const parseCadence = async (
 
 /**
  * Parse a Cadence design file by finding its .dat files and parsing them.
- * Includes all Cadence-specific post-processing (pin mapping, value extraction).
+ * Falls back to direct DSN binary parsing when .dat files are not available.
  */
-const parseCadenceDesign = async (
-  designPath: string,
-): Promise<ParsedNetlist> => {
+const parseCadenceDesign = async (designPath: string): Promise<ParsedNetlist> => {
   const datFiles = await findCadenceDatFiles(designPath);
 
-  if (!datFiles.pstxnet || !datFiles.pstxprt || !datFiles.pstchip) {
-    throw new Error(
-      `Missing netlist files for ${path.basename(designPath)}. Run export_cadence_netlist to generate them.`,
-    );
+  // Prefer .dat files when available (richer data: pin names, MPN, values)
+  if (datFiles.pstxnet && datFiles.pstxprt) {
+    const raw = await parseCadence({
+      pstxnetPath: datFiles.pstxnet,
+      pstxprtPath: datFiles.pstxprt,
+      pstchipPath: datFiles.pstchip ?? undefined,
+    });
+
+    buildCadencePinMap(raw.nets, raw.components, raw.chips, raw.partNames);
+
+    return {
+      nets: raw.nets,
+      components: raw.components,
+    };
   }
 
-  const raw = await parseCadence({
-    pstxnetPath: datFiles.pstxnet,
-    pstxprtPath: datFiles.pstxprt,
-    pstchipPath: datFiles.pstchip,
-  });
+  // Fall back to direct DSN binary parsing (no .dat export needed)
+  const ext = path.extname(designPath).toLowerCase();
+  if (ext === ".dsn") {
+    return parseDsnFile(designPath);
+  }
 
-  // Apply Cadence-specific pin mapping with names from pstchip.dat
-  buildCadencePinMap(raw.nets, raw.components, raw.chips, raw.partNames);
-
-  // Return clean ParsedNetlist without internal chips/partNames
-  return {
-    nets: raw.nets,
-    components: raw.components,
-  };
+  throw new Error(
+    `Missing netlist files for ${path.basename(designPath)}. Run export_cadence_netlist to generate them.`
+  );
 };
 
 /**

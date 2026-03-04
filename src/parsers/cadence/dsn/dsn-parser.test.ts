@@ -7,13 +7,16 @@ import { existsSync } from "fs";
 import { join } from "path";
 import { OleReader } from "../../ole-reader/ole-reader.js";
 import { parseDsnFile } from "./dsn-parser.js";
+import { parseCadence, buildCadencePinMap } from "../index.js";
 
-const DSN_FIXTURE = join(
-  __dirname,
-  "../../../../test/fixtures/cadence/BeagleBone-Black/ALLEGRO/BEAGLEBONEBLK_C3.DSN"
-);
+const FIXTURE_DIR = join(__dirname, "../../../../test/fixtures/cadence/BeagleBone-Black/ALLEGRO");
+const DSN_FIXTURE = join(FIXTURE_DIR, "BEAGLEBONEBLK_C3.DSN");
+const PSTXNET_FIXTURE = join(FIXTURE_DIR, "pstxnet.dat");
+const PSTXPRT_FIXTURE = join(FIXTURE_DIR, "pstxprt.dat");
+const PSTCHIP_FIXTURE = join(FIXTURE_DIR, "pstchip.dat");
 
 const hasDsnFixture = existsSync(DSN_FIXTURE);
+const hasDatFixtures = existsSync(PSTXNET_FIXTURE) && existsSync(PSTXPRT_FIXTURE);
 
 describe.skipIf(!hasDsnFixture)("DSN CFBF Container", () => {
   it("should open DSN file as OLE container", () => {
@@ -100,8 +103,58 @@ describe.skipIf(!hasDsnFixture)("DSN Parser", () => {
     console.log("Sample nets:", netNames.slice(0, 10));
     console.log("Sample components:", componentNames.slice(0, 10));
 
-    // Should find some nets and components
     expect(netNames.length).toBeGreaterThan(0);
     expect(componentNames.length).toBeGreaterThan(0);
+  });
+});
+
+describe.skipIf(!hasDsnFixture || !hasDatFixtures)("DSN vs DAT comparison", () => {
+  it("should find the same net names as the DAT parser", async () => {
+    const dsnResult = parseDsnFile(DSN_FIXTURE);
+
+    const datRaw = await parseCadence({
+      pstxnetPath: PSTXNET_FIXTURE,
+      pstxprtPath: PSTXPRT_FIXTURE,
+      pstchipPath: PSTCHIP_FIXTURE,
+    });
+    buildCadencePinMap(datRaw.nets, datRaw.components, datRaw.chips, datRaw.partNames);
+
+    const dsnNets = new Set(Object.keys(dsnResult.nets));
+    const datNets = new Set(Object.keys(datRaw.nets));
+
+    // DSN parser should find most of the same nets
+    const commonNets = [...dsnNets].filter((n) => datNets.has(n));
+    const coverage = commonNets.length / datNets.size;
+
+    console.log(`\nDAT nets: ${datNets.size}, DSN nets: ${dsnNets.size}`);
+    console.log(`Common nets: ${commonNets.length} (${(coverage * 100).toFixed(1)}% coverage)`);
+
+    // Expect at least 50% net coverage (coordinate matching is imperfect)
+    expect(coverage).toBeGreaterThan(0.5);
+  });
+
+  it("should find the same component refdes as the DAT parser", async () => {
+    const dsnResult = parseDsnFile(DSN_FIXTURE);
+
+    const datRaw = await parseCadence({
+      pstxnetPath: PSTXNET_FIXTURE,
+      pstxprtPath: PSTXPRT_FIXTURE,
+      pstchipPath: PSTCHIP_FIXTURE,
+    });
+    buildCadencePinMap(datRaw.nets, datRaw.components, datRaw.chips, datRaw.partNames);
+
+    const dsnComponents = new Set(Object.keys(dsnResult.components));
+    const datComponents = new Set(Object.keys(datRaw.components));
+
+    const commonComponents = [...dsnComponents].filter((c) => datComponents.has(c));
+    const coverage = commonComponents.length / datComponents.size;
+
+    console.log(`\nDAT components: ${datComponents.size}, DSN components: ${dsnComponents.size}`);
+    console.log(
+      `Common components: ${commonComponents.length} (${(coverage * 100).toFixed(1)}% coverage)`
+    );
+
+    // Expect at least 50% component coverage
+    expect(coverage).toBeGreaterThan(0.5);
   });
 });
