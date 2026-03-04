@@ -1,0 +1,346 @@
+/**
+ * DSN Structure Parsers - Netlist-critical types
+ *
+ * Port of OpenOrCadParser structure parsers.
+ * Each parser reads prefixes, preamble, fields, and checkpoints.
+ */
+
+import { BinaryReader } from "./binary-reader.js";
+import { StructureType } from "./structure-types.js";
+import { FutureDataList, autoReadPrefixes, readPreamble, skipStructure } from "./generic-parser.js";
+
+// --- Parsed structure types ---
+
+export interface SymbolDisplayProp {
+  nameIdx: number;
+  x: number;
+  y: number;
+  textFontIdx: number;
+  rotation: number;
+  propColor: number;
+}
+
+export interface Alias {
+  locX: number;
+  locY: number;
+  name: string;
+}
+
+export interface Wire {
+  id: number;
+  startX: number;
+  startY: number;
+  endX: number;
+  endY: number;
+  aliases: Alias[];
+}
+
+export interface T0x10 {
+  pointX: number;
+  pointY: number;
+  symbolDisplayProps: SymbolDisplayProp[];
+}
+
+export interface PlacedInstance {
+  pkgName: string;
+  reference: string;
+  sourcePackage: string;
+  locX: number;
+  locY: number;
+  symbolDisplayProps: SymbolDisplayProp[];
+  t0x10s: T0x10[];
+}
+
+export interface GraphicInst {
+  name: string;
+  dbId: number;
+  locX: number;
+  locY: number;
+  symbolDisplayProps: SymbolDisplayProp[];
+}
+
+export interface Device {
+  unitRef: string;
+  refDes: string;
+  pinMap: (string | null)[];
+}
+
+export interface Package {
+  name: string;
+  refDes: string;
+  pcbFootprint: string;
+  devices: Device[];
+}
+
+// --- Parser functions ---
+
+export function parseSymbolDisplayProp(reader: BinaryReader): SymbolDisplayProp {
+  const futureData = new FutureDataList(reader);
+  autoReadPrefixes(reader, futureData, StructureType.SymbolDisplayProp);
+  readPreamble(reader);
+  futureData.checkpoint();
+
+  const nameIdx = reader.readUint32();
+  const x = reader.readInt16();
+  const y = reader.readInt16();
+
+  const rotFontBitField = reader.readUint16();
+  const textFontIdx = rotFontBitField & 0x3fff;
+  const rotation = rotFontBitField >> 14;
+
+  const propColor = reader.readUint8();
+  reader.skip(2); // visibility
+  reader.skip(1); // assumed 0x00
+
+  futureData.checkpoint();
+  futureData.sanitizeCheckpoints();
+
+  return { nameIdx, x, y, textFontIdx, rotation, propColor };
+}
+
+export function parseAlias(reader: BinaryReader): Alias {
+  const futureData = new FutureDataList(reader);
+  autoReadPrefixes(reader, futureData, StructureType.Alias);
+  readPreamble(reader);
+  futureData.checkpoint();
+
+  const locX = reader.readInt32();
+  const locY = reader.readInt32();
+  reader.skip(4); // color
+  reader.skip(4); // rotation
+  reader.skip(4); // textFontIdx
+  const name = reader.readStringLenZeroTerm();
+
+  futureData.checkpoint();
+  futureData.sanitizeCheckpoints();
+
+  return { locX, locY, name };
+}
+
+export function parseWire(reader: BinaryReader): Wire {
+  const futureData = new FutureDataList(reader);
+  autoReadPrefixes(reader, futureData); // accepts WireScalar or WireBus
+  readPreamble(reader);
+  futureData.checkpoint();
+
+  reader.skip(4); // unknown
+  const id = reader.readUint32();
+  reader.skip(4); // color
+  const startX = reader.readInt32();
+  const startY = reader.readInt32();
+  const endX = reader.readInt32();
+  const endY = reader.readInt32();
+  reader.skip(1); // unknown
+
+  const lenAliases = reader.readUint16();
+  const aliases: Alias[] = [];
+  for (let i = 0; i < lenAliases; i++) {
+    aliases.push(parseAlias(reader));
+  }
+
+  const lenSymbolDisplayProps = reader.readUint16();
+  for (let i = 0; i < lenSymbolDisplayProps; i++) {
+    parseSymbolDisplayProp(reader); // read but don't store
+  }
+
+  reader.skip(4); // lineWidth
+  reader.skip(4); // lineStyle
+
+  futureData.checkpoint();
+  futureData.sanitizeCheckpoints();
+
+  return { id, startX, startY, endX, endY, aliases };
+}
+
+export function parseT0x10(reader: BinaryReader): T0x10 {
+  const futureData = new FutureDataList(reader);
+  autoReadPrefixes(reader, futureData, StructureType.T0x10);
+  readPreamble(reader);
+  futureData.checkpoint();
+
+  reader.skip(2); // sth
+  const pointX = reader.readInt16();
+  const pointY = reader.readInt16();
+  reader.skip(4); // maybeId
+  reader.skip(4); // unknownInt
+
+  const lenSymbolDisplayProps = reader.readUint16();
+  const symbolDisplayProps: SymbolDisplayProp[] = [];
+  for (let i = 0; i < lenSymbolDisplayProps; i++) {
+    symbolDisplayProps.push(parseSymbolDisplayProp(reader));
+  }
+
+  futureData.checkpoint();
+  futureData.sanitizeCheckpoints();
+
+  return { pointX, pointY, symbolDisplayProps };
+}
+
+export function parsePlacedInstance(reader: BinaryReader): PlacedInstance {
+  const futureData = new FutureDataList(reader);
+  autoReadPrefixes(reader, futureData, StructureType.PlacedInstance);
+  readPreamble(reader);
+  futureData.checkpoint();
+
+  reader.skip(8); // unknown
+  const pkgName = reader.readStringLenZeroTerm();
+  reader.skip(4); // dbId
+  reader.skip(8); // unknown
+  const locX = reader.readInt16();
+  const locY = reader.readInt16();
+  reader.skip(4); // unknown
+
+  const lenSymbolDisplayProps = reader.readUint16();
+  const symbolDisplayProps: SymbolDisplayProp[] = [];
+  for (let i = 0; i < lenSymbolDisplayProps; i++) {
+    symbolDisplayProps.push(parseSymbolDisplayProp(reader));
+  }
+
+  reader.skip(1); // unknown
+  futureData.checkpoint();
+
+  const reference = reader.readStringLenZeroTerm();
+  reader.skip(14); // unknown
+
+  const lenT0x10s = reader.readUint16();
+  const t0x10s: T0x10[] = [];
+  for (let i = 0; i < lenT0x10s; i++) {
+    t0x10s.push(parseT0x10(reader));
+  }
+
+  futureData.checkpoint();
+
+  const sourcePackage = reader.readStringLenZeroTerm();
+  reader.skip(2); // unknown
+
+  futureData.checkpoint();
+  futureData.sanitizeCheckpoints();
+
+  return { pkgName, reference, sourcePackage, locX, locY, symbolDisplayProps, t0x10s };
+}
+
+/**
+ * Parse StructGraphicInst (base for Global, Port, OffPageConnector).
+ * Note: Y coordinates are read before X in this structure.
+ */
+function parseGraphicInstBase(reader: BinaryReader, futureData: FutureDataList): GraphicInst {
+  readPreamble(reader);
+  futureData.checkpoint();
+
+  reader.skip(8); // unknown
+  const name = reader.readStringLenZeroTerm();
+  const dbId = reader.readUint32();
+
+  // Y before X!
+  const locY = reader.readInt16();
+  const locX = reader.readInt16();
+  reader.skip(2); // y2
+  reader.skip(2); // x2
+  reader.skip(2); // x1
+  reader.skip(2); // y1
+  reader.skip(1); // color (uint8)
+  reader.skip(1); // unknown
+  reader.skip(1); // unknown (probably structure ID)
+  reader.skip(1); // unknown
+
+  const lenSymbolDisplayProps = reader.readUint16();
+  const symbolDisplayProps: SymbolDisplayProp[] = [];
+  for (let i = 0; i < lenSymbolDisplayProps; i++) {
+    symbolDisplayProps.push(parseSymbolDisplayProp(reader));
+  }
+
+  const unknownFlag = reader.readUint8();
+  if (unknownFlag === 0x02) {
+    // StructSthInPages0 - skip it
+    skipStructure(reader);
+  }
+  // Other flags (0x21, 0x22, 0x23, 0x40, 0x4b): do nothing
+
+  futureData.checkpoint();
+
+  return { name, dbId, locX, locY, symbolDisplayProps };
+}
+
+export function parseGlobal(reader: BinaryReader): GraphicInst {
+  const futureData = new FutureDataList(reader);
+  autoReadPrefixes(reader, futureData, StructureType.Global);
+  const inst = parseGraphicInstBase(reader, futureData);
+  futureData.sanitizeCheckpoints();
+  return inst;
+}
+
+export function parsePort(reader: BinaryReader): GraphicInst {
+  const futureData = new FutureDataList(reader);
+  autoReadPrefixes(reader, futureData, StructureType.Port);
+  const inst = parseGraphicInstBase(reader, futureData);
+  reader.skip(9); // unknown (Port-specific)
+  futureData.checkpoint();
+  futureData.sanitizeCheckpoints();
+  return inst;
+}
+
+export function parseOffPageConnector(reader: BinaryReader): GraphicInst {
+  const futureData = new FutureDataList(reader);
+  autoReadPrefixes(reader, futureData, StructureType.OffPageConnector);
+  const inst = parseGraphicInstBase(reader, futureData);
+  futureData.sanitizeCheckpoints();
+  return inst;
+}
+
+export function parseDevice(reader: BinaryReader): Device {
+  const futureData = new FutureDataList(reader);
+  autoReadPrefixes(reader, futureData, StructureType.Device);
+  readPreamble(reader);
+  futureData.checkpoint();
+
+  const unitRef = reader.readStringLenZeroTerm();
+  const refDes = reader.readStringLenZeroTerm();
+
+  const pinCount = reader.readUint16();
+  const pinMap: (string | null)[] = [];
+
+  for (let i = 0; i < pinCount; i++) {
+    const strLen = reader.readInt16();
+    if (strLen === -1) {
+      pinMap.push(null);
+      continue;
+    }
+    // Put back the 2 bytes we just read (they're the string length)
+    reader.seek(reader.tell() - 2);
+    const pinName = reader.readStringLenZeroTerm();
+    reader.skip(1); // bitMapPinGrpCfg (pinIgnore + pinGroup)
+    pinMap.push(pinName);
+  }
+
+  futureData.checkpoint();
+  futureData.sanitizeCheckpoints();
+
+  return { unitRef, refDes, pinMap };
+}
+
+export function parsePackage(reader: BinaryReader): Package {
+  const futureData = new FutureDataList(reader);
+  autoReadPrefixes(reader, futureData, StructureType.Package);
+  readPreamble(reader);
+  futureData.checkpoint();
+
+  const name = reader.readStringLenZeroTerm();
+  reader.readStringLenZeroTerm(); // sourceLibrary (skip)
+
+  futureData.checkpoint();
+
+  const refDes = reader.readStringLenZeroTerm();
+  reader.readStringLenZeroTerm(); // unknownStr1 (skip)
+  const pcbFootprint = reader.readStringLenZeroTerm();
+
+  const lenDevices = reader.readUint16();
+  const devices: Device[] = [];
+  for (let i = 0; i < lenDevices; i++) {
+    devices.push(parseDevice(reader));
+  }
+
+  futureData.checkpoint();
+  futureData.sanitizeCheckpoints();
+
+  return { name, refDes, pcbFootprint, devices };
+}
