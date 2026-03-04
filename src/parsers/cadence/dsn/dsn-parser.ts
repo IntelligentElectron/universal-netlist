@@ -211,97 +211,128 @@ function parseLibraryStrLst(buffer: Buffer): string[] {
 // --- Netlist Assembly ---
 
 /**
- * Build pin-to-net mapping using geometric coordinate matching.
+ * Build pin-to-net mapping using T0x10 net IDs with coordinate-based name resolution.
  *
- * Strategy: Each wire has start/end coordinates and aliases (net names).
- * Each PlacedInstance has T0x10 pin instances with coordinates.
- * Globals have coordinates and names (power net names).
- * A pin connects to a net when its coordinates match a wire endpoint.
+ * Strategy: Each T0x10 pin instance has a netId (Cadence database net object ID).
+ * Pins sharing the same netId are on the same net. The net name is resolved by:
+ * 1. Matching pin coordinates to wire endpoints/globals/ports (for named nets)
+ * 2. Synthesizing N{netId} for unnamed nets (matching Cadence's convention)
  *
- * We also build a coordinate-to-net lookup from all wire endpoints.
+ * This replaces pure coordinate matching, which suffered from cross-page
+ * coordinate collisions and couldn't handle unnamed wires.
  */
 function buildNetConnectivity(pages: PageData[]): {
   nets: NetConnections;
   componentPins: Map<string, Map<string, string>>;
 } {
-  // Build coordinate -> net name mapping from all wires
-  const coordToNet = new Map<string, string>();
+  // Build per-page coordinate -> net name maps (page-scoped to avoid collisions)
+  const pageCoordMaps: Map<string, string>[] = [];
 
-  // Also track wire ID -> net name from both aliases and net table
   for (const page of pages) {
+    const coordToNet = new Map<string, string>();
+
     for (const wire of page.wires) {
       let netName: string | undefined;
 
-      // Primary: get net name from wire aliases
       if (wire.aliases.length > 0) {
         netName = wire.aliases[0].name.toUpperCase();
       }
 
-      // Fallback: get net name from page net table using wire ID
       if (!netName) {
         netName = page.netTable.get(wire.id);
       }
 
       if (netName) {
-        const startKey = `${wire.startX},${wire.startY}`;
-        const endKey = `${wire.endX},${wire.endY}`;
-        coordToNet.set(startKey, netName);
-        coordToNet.set(endKey, netName);
+        coordToNet.set(`${wire.startX},${wire.startY}`, netName);
+        coordToNet.set(`${wire.endX},${wire.endY}`, netName);
       }
     }
 
-    // Add global (power symbol) coordinates -> net name
     for (const global of page.globals) {
-      const key = `${global.locX},${global.locY}`;
-      coordToNet.set(key, global.name.toUpperCase());
+      coordToNet.set(`${global.locX},${global.locY}`, global.name.toUpperCase());
     }
 
-    // Add port coordinates -> net name
     for (const port of page.ports) {
-      const key = `${port.locX},${port.locY}`;
-      coordToNet.set(key, port.name.toUpperCase());
+      coordToNet.set(`${port.locX},${port.locY}`, port.name.toUpperCase());
     }
 
-    // Add off-page connector coordinates -> net name
     for (const opc of page.offPageConnectors) {
-      const key = `${opc.locX},${opc.locY}`;
-      coordToNet.set(key, opc.name.toUpperCase());
+      coordToNet.set(`${opc.locX},${opc.locY}`, opc.name.toUpperCase());
     }
+
+    pageCoordMaps.push(coordToNet);
   }
 
-  // Now match pin coordinates to nets
-  const nets: NetConnections = {};
-  const componentPins = new Map<string, Map<string, string>>();
+  // Collect all pins with their netId and coordinate-resolved name
+  interface PinInfo {
+    refdes: string;
+    pinIdx: number;
+    netId: number;
+    coordNet?: string;
+  }
 
-  for (const page of pages) {
+  const allPins: PinInfo[] = [];
+
+  for (let pageIdx = 0; pageIdx < pages.length; pageIdx++) {
+    const page = pages[pageIdx];
+    const coordToNet = pageCoordMaps[pageIdx];
+
     for (const inst of page.placedInstances) {
       const refdes = inst.reference;
       if (!refdes || !isValidRefdes(refdes)) continue;
 
       for (let pinIdx = 0; pinIdx < inst.t0x10s.length; pinIdx++) {
         const pin = inst.t0x10s[pinIdx];
-        const pinKey = `${pin.pointX},${pin.pointY}`;
-        const netName = coordToNet.get(pinKey);
-
-        if (netName) {
-          const pinNumber = String(pinIdx + 1);
-
-          // Add to nets
-          if (!nets[netName]) nets[netName] = {};
-          const existing = nets[netName][refdes];
-          if (!existing) {
-            nets[netName][refdes] = pinNumber;
-          } else if (Array.isArray(existing)) {
-            if (!existing.includes(pinNumber)) existing.push(pinNumber);
-          } else if (existing !== pinNumber) {
-            nets[netName][refdes] = [existing, pinNumber];
-          }
-
-          // Track pin -> net for component building
-          if (!componentPins.has(refdes)) componentPins.set(refdes, new Map());
-          componentPins.get(refdes)!.set(pinNumber, netName);
-        }
+        const coordNet = coordToNet.get(`${pin.pointX},${pin.pointY}`);
+        allPins.push({ refdes, pinIdx, netId: pin.netId, coordNet });
       }
+    }
+  }
+
+  // Group pins by netId
+  const netIdGroups = new Map<number, PinInfo[]>();
+  for (const pin of allPins) {
+    if (!netIdGroups.has(pin.netId)) netIdGroups.set(pin.netId, []);
+    netIdGroups.get(pin.netId)!.push(pin);
+  }
+
+  // Resolve net name for each netId group
+  const nets: NetConnections = {};
+  const componentPins = new Map<string, Map<string, string>>();
+
+  for (const [netId, groupPins] of netIdGroups) {
+    // Collect coordinate-matched names, pick most common
+    const nameCounts = new Map<string, number>();
+    for (const pin of groupPins) {
+      if (pin.coordNet) {
+        nameCounts.set(pin.coordNet, (nameCounts.get(pin.coordNet) || 0) + 1);
+      }
+    }
+
+    let netName: string;
+    if (nameCounts.size > 0) {
+      netName = [...nameCounts.entries()].sort((a, b) => b[1] - a[1])[0][0];
+    } else {
+      // No coordinate match; synthesize N{netId}
+      netName = `N${netId}`;
+    }
+
+    // Build net connections
+    for (const pin of groupPins) {
+      const pinNumber = String(pin.pinIdx + 1);
+
+      if (!nets[netName]) nets[netName] = {};
+      const existing = nets[netName][pin.refdes];
+      if (!existing) {
+        nets[netName][pin.refdes] = pinNumber;
+      } else if (Array.isArray(existing)) {
+        if (!existing.includes(pinNumber)) existing.push(pinNumber);
+      } else if (existing !== pinNumber) {
+        nets[netName][pin.refdes] = [existing, pinNumber];
+      }
+
+      if (!componentPins.has(pin.refdes)) componentPins.set(pin.refdes, new Map());
+      componentPins.get(pin.refdes)!.set(pinNumber, netName);
     }
   }
 

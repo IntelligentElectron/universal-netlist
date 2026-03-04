@@ -73,6 +73,10 @@ The tag push triggers the release workflow, which automatically:
 - Creates GitHub Release with binaries
 - Publishes to npm via OIDC (no tokens)
 
+## Scripts
+
+Developer and agent utility scripts for golden file generation, DSN parser coverage analysis, and binary inspection. See [scripts/AGENTS.md](scripts/AGENTS.md) for usage.
+
 ## Testing
 
 Tests are colocated with source files (e.g., `service.test.ts`). Run with:

@@ -38,6 +38,7 @@ export interface Wire {
 export interface T0x10 {
   pointX: number;
   pointY: number;
+  netId: number;
   symbolDisplayProps: SymbolDisplayProp[];
 }
 
@@ -161,7 +162,7 @@ export function parseT0x10(reader: BinaryReader): T0x10 {
   reader.skip(2); // sth
   const pointX = reader.readInt16();
   const pointY = reader.readInt16();
-  reader.skip(4); // maybeId
+  const netId = reader.readUint32();
   reader.skip(4); // unknownInt
 
   const lenSymbolDisplayProps = reader.readUint16();
@@ -173,7 +174,7 @@ export function parseT0x10(reader: BinaryReader): T0x10 {
   futureData.checkpoint();
   futureData.sanitizeCheckpoints();
 
-  return { pointX, pointY, symbolDisplayProps };
+  return { pointX, pointY, netId, symbolDisplayProps };
 }
 
 export function parsePlacedInstance(reader: BinaryReader): PlacedInstance {
