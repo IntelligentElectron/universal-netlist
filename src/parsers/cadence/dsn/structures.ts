@@ -58,7 +58,16 @@ export interface GraphicInst {
   dbId: number;
   locX: number;
   locY: number;
+  /** Bounding box: x1, y1 (lower-left) to x2, y2 (upper-right) */
+  x1: number;
+  y1: number;
+  x2: number;
+  y2: number;
+  /** Pairing ID from the 8 unknown bytes (first uint32). Used for OPC cross-page matching. */
+  pairingId: number;
   symbolDisplayProps: SymbolDisplayProp[];
+  /** Short prefix property name→value index pairs (strLst indices). */
+  propPairs: Map<number, number>;
 }
 
 export interface Device {
@@ -225,21 +234,27 @@ export function parsePlacedInstance(reader: BinaryReader): PlacedInstance {
  * Parse StructGraphicInst (base for Global, Port, OffPageConnector).
  * Note: Y coordinates are read before X in this structure.
  */
-function parseGraphicInstBase(reader: BinaryReader, futureData: FutureDataList): GraphicInst {
+function parseGraphicInstBase(
+  reader: BinaryReader,
+  futureData: FutureDataList,
+  propPairs: Map<number, number>
+): GraphicInst {
   readPreamble(reader);
   futureData.checkpoint();
 
-  reader.skip(8); // unknown
+  // 8 unknown bytes: first uint32 is the pairing ID (used for OPC matching)
+  const pairingId = reader.readUint32();
+  reader.skip(4); // second uint32 (constant per design)
   const name = reader.readStringLenZeroTerm();
   const dbId = reader.readUint32();
 
   // Y before X!
   const locY = reader.readInt16();
   const locX = reader.readInt16();
-  reader.skip(2); // y2
-  reader.skip(2); // x2
-  reader.skip(2); // x1
-  reader.skip(2); // y1
+  const y2 = reader.readInt16();
+  const x2 = reader.readInt16();
+  const x1 = reader.readInt16();
+  const y1 = reader.readInt16();
   reader.skip(1); // color (uint8)
   reader.skip(1); // unknown
   reader.skip(1); // unknown (probably structure ID)
@@ -260,21 +275,23 @@ function parseGraphicInstBase(reader: BinaryReader, futureData: FutureDataList):
 
   futureData.checkpoint();
 
-  return { name, dbId, locX, locY, symbolDisplayProps };
+  return { name, dbId, locX, locY, x1, y1, x2, y2, pairingId, symbolDisplayProps, propPairs };
 }
 
 export function parseGlobal(reader: BinaryReader): GraphicInst {
   const futureData = new FutureDataList(reader);
-  autoReadPrefixes(reader, futureData, StructureType.Global);
-  const inst = parseGraphicInstBase(reader, futureData);
+  const propPairs = new Map<number, number>();
+  autoReadPrefixes(reader, futureData, StructureType.Global, propPairs);
+  const inst = parseGraphicInstBase(reader, futureData, propPairs);
   futureData.sanitizeCheckpoints();
   return inst;
 }
 
 export function parsePort(reader: BinaryReader): GraphicInst {
   const futureData = new FutureDataList(reader);
-  autoReadPrefixes(reader, futureData, StructureType.Port);
-  const inst = parseGraphicInstBase(reader, futureData);
+  const propPairs = new Map<number, number>();
+  autoReadPrefixes(reader, futureData, StructureType.Port, propPairs);
+  const inst = parseGraphicInstBase(reader, futureData, propPairs);
   reader.skip(9); // unknown (Port-specific)
   futureData.checkpoint();
   futureData.sanitizeCheckpoints();
@@ -283,8 +300,9 @@ export function parsePort(reader: BinaryReader): GraphicInst {
 
 export function parseOffPageConnector(reader: BinaryReader): GraphicInst {
   const futureData = new FutureDataList(reader);
-  autoReadPrefixes(reader, futureData, StructureType.OffPageConnector);
-  const inst = parseGraphicInstBase(reader, futureData);
+  const propPairs = new Map<number, number>();
+  autoReadPrefixes(reader, futureData, StructureType.OffPageConnector, propPairs);
+  const inst = parseGraphicInstBase(reader, futureData, propPairs);
   futureData.sanitizeCheckpoints();
   return inst;
 }

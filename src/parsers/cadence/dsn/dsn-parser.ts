@@ -58,7 +58,7 @@ function skipT0x35(reader: BinaryReader): void {
 
 interface PageData {
   name: string;
-  netTable: Map<number, string>;
+  netTable: Map<number, string[]>;
   wires: Wire[];
   placedInstances: PlacedInstance[];
   ports: GraphicInst[];
@@ -100,13 +100,20 @@ function parsePage(buffer: Buffer): PageData {
     skipT0x35(reader);
   }
 
-  // Net name/ID table (uppercased to match Cadence Allegro export convention)
+  // Net name/ID table (uppercased to match Cadence Allegro export convention).
+  // Multiple names can map to the same netId (e.g., "VOLUP" and "GPIO2"),
+  // so we store all names per netId to let hierarchy preference resolve ties.
   const lenNetTable = reader.readUint16();
-  const netTable = new Map<number, string>();
+  const netTable = new Map<number, string[]>();
   for (let i = 0; i < lenNetTable; i++) {
     const netName = reader.readStringLenZeroTerm().toUpperCase();
     const netId = reader.readUint32();
-    netTable.set(netId, netName);
+    const existing = netTable.get(netId);
+    if (existing) {
+      existing.push(netName);
+    } else {
+      netTable.set(netId, [netName]);
+    }
   }
 
   // Wires
@@ -196,13 +203,24 @@ function parseLibraryStrLst(buffer: Buffer): string[] {
   // PageSettings
   reader.skip(PAGE_SETTINGS_SIZE);
 
-  // String list: uint16 or uint32 length depending on version
-  // Try uint16 first (most common)
-  const strLstLen = reader.readUint16();
+  // String list: try uint16 count first, fall back to uint32 if parsing fails.
+  // Some DSN versions use a uint32 count field.
+  const countOffset = reader.tell();
+  let strLstLen = reader.readUint16();
   const strLst: string[] = [];
 
-  for (let i = 0; i < strLstLen; i++) {
-    strLst.push(reader.readStringLenZeroTerm());
+  try {
+    for (let i = 0; i < strLstLen; i++) {
+      strLst.push(reader.readStringLenZeroTerm());
+    }
+  } catch {
+    // uint16 count failed; retry with uint32 (the extra 2 bytes were part of the count)
+    strLst.length = 0;
+    reader.seek(countOffset);
+    strLstLen = reader.readUint32();
+    for (let i = 0; i < strLstLen; i++) {
+      strLst.push(reader.readStringLenZeroTerm());
+    }
   }
 
   return strLst;
@@ -293,23 +311,95 @@ function addPinToNet(
  * Global/port/OPC symbols are NOT used for naming: their `.name` field is the
  * schematic symbol type (e.g. "VCC_BAR", "GND_SIGNAL"), not the net name.
  * They are registered in the Union-Find for connectivity only.
+ *
+ * When canonicalNetNames is provided (from the Hierarchy stream), hierarchy
+ * names take priority over non-hierarchy names. This resolves cross-page
+ * aliases (e.g., wire alias "PWRSEL" + table "GPIO8" on the same wire;
+ * hierarchy contains "PWRSEL", so it wins).
  */
-function buildPageCoordMap(page: PageData): Map<string, string> {
+function buildPageCoordMap(
+  page: PageData,
+  canonicalNetNames: Set<string>,
+  strLst: string[]
+): Map<string, string> {
   const uf = new CoordUnionFind();
 
-  // Connect wire endpoints into groups
+  // Connect wire endpoints into groups.
+  // Union both endpoints of each segment, AND union all segments sharing
+  // the same wire.id (net identifier). Without the wireId union, disjoint
+  // segments on the same logical net stay in separate groups and may get
+  // different names (e.g., GPIO8 vs PWRSEL on wireId 13341777).
+  const wireIdRep = new Map<number, string>(); // first coordinate per wireId
   for (const wire of page.wires) {
     const s = `${wire.startX},${wire.startY}`;
     const e = `${wire.endX},${wire.endY}`;
     uf.find(s);
     uf.find(e);
     uf.union(s, e);
+
+    const rep = wireIdRep.get(wire.id);
+    if (rep) {
+      uf.union(rep, s);
+    } else {
+      wireIdRep.set(wire.id, s);
+    }
   }
 
-  // Register global/port/OPC coordinates (connectivity only, not naming)
+  // Register global/port coordinates (connectivity only, not naming)
   for (const global of page.globals) uf.find(`${global.locX},${global.locY}`);
   for (const port of page.ports) uf.find(`${port.locX},${port.locY}`);
-  for (const opc of page.offPageConnectors) uf.find(`${opc.locX},${opc.locY}`);
+
+  // OPC connectivity: match each OPC to its wire connection point.
+  // The connection point is at one of 3 candidate positions:
+  //   1. Right edge midpoint: (maxX, midY)
+  //   2. Left edge midpoint: (minX, midY)
+  //   3. locX, locY (sometimes coincides with a corner)
+  // Only checking specific points (not all edge points) avoids false unions
+  // when OPC bboxes overlap vertically on dense schematics.
+  const allWireCoords = new Set<string>();
+  for (const wire of page.wires) {
+    allWireCoords.add(`${wire.startX},${wire.startY}`);
+    allWireCoords.add(`${wire.endX},${wire.endY}`);
+  }
+
+  const opcPairRep = new Map<number, string>(); // pairingId -> representative coord
+  for (const opc of page.offPageConnectors) {
+    const minX = Math.min(opc.x1, opc.x2);
+    const maxX = Math.max(opc.x1, opc.x2);
+    const minY = Math.min(opc.y1, opc.y2);
+    const maxY = Math.max(opc.y1, opc.y2);
+    const midX = Math.round((minX + maxX) / 2);
+    const midY = Math.round((minY + maxY) / 2);
+
+    // Find the OPC's wire connection point among candidates.
+    // OPCs can be horizontal (wire on left/right edge) or vertical
+    // (wire on top/bottom edge), so check all 4 edge midpoints.
+    const candidates = [
+      `${maxX},${midY}`, // right edge midpoint
+      `${minX},${midY}`, // left edge midpoint
+      `${midX},${maxY}`, // bottom edge midpoint (vertical OPCs)
+      `${midX},${minY}`, // top edge midpoint (vertical OPCs)
+      `${opc.locX},${opc.locY}`, // loc (sometimes at bbox corner)
+    ];
+
+    const opcKey = `opc:${opc.pairingId}:${opc.dbId}`;
+    uf.find(opcKey);
+
+    for (const coord of candidates) {
+      if (allWireCoords.has(coord)) {
+        uf.union(opcKey, coord);
+        break; // use first match only
+      }
+    }
+
+    // Union OPC pairs sharing the same pairingId
+    const rep = opcPairRep.get(opc.pairingId);
+    if (rep) {
+      uf.union(rep, opcKey);
+    } else {
+      opcPairRep.set(opc.pairingId, opcKey);
+    }
+  }
 
   // Collect all candidate names and minimum segmentId per coordinate
   const wireNames = new Map<string, Set<string>>();
@@ -328,13 +418,15 @@ function buildPageCoordMap(page: PageData): Map<string, string> {
       wireNames.get(e)!.add(name);
     }
 
-    // Net table entry
-    const tableName = page.netTable.get(wire.id);
-    if (tableName) {
+    // Net table entries (multiple names may map to the same wireId)
+    const tableNames = page.netTable.get(wire.id);
+    if (tableNames) {
       if (!wireNames.has(s)) wireNames.set(s, new Set());
       if (!wireNames.has(e)) wireNames.set(e, new Set());
-      wireNames.get(s)!.add(tableName);
-      wireNames.get(e)!.add(tableName);
+      for (const tn of tableNames) {
+        wireNames.get(s)!.add(tn);
+        wireNames.get(e)!.add(tn);
+      }
     }
 
     // Track minimum segmentId for auto-generated naming
@@ -342,6 +434,23 @@ function buildPageCoordMap(page: PageData): Map<string, string> {
     if (curS === undefined || wire.segmentId < curS) coordMinSegId.set(s, wire.segmentId);
     const curE = coordMinSegId.get(e);
     if (curE === undefined || wire.segmentId < curE) coordMinSegId.set(e, wire.segmentId);
+  }
+
+  // Register OPC user-assigned labels as net name candidates.
+  // The label (e.g., "VOLUP") is stored in the short prefix propPairs,
+  // where each SymbolDisplayProp's nameIdx maps to a valueIdx in strLst.
+  for (const opc of page.offPageConnectors) {
+    if (opc.propPairs.size === 0 || opc.symbolDisplayProps.length === 0) continue;
+    const opcKey = `opc:${opc.pairingId}:${opc.dbId}`;
+    for (const sdp of opc.symbolDisplayProps) {
+      const valueIdx = opc.propPairs.get(sdp.nameIdx);
+      if (valueIdx === undefined) continue;
+      const label = strLst[valueIdx];
+      if (!label) continue;
+      const upperLabel = label.toUpperCase();
+      if (!wireNames.has(opcKey)) wireNames.set(opcKey, new Set());
+      wireNames.get(opcKey)!.add(upperLabel);
+    }
   }
 
   // Resolve one canonical name per connected wire group
@@ -355,7 +464,9 @@ function buildPageCoordMap(page: PageData): Map<string, string> {
 
     let canonicalName: string;
     if (allNames.size > 0) {
-      canonicalName = [...allNames].sort()[0];
+      // Prefer names that appear in the hierarchy (canonical cross-page names)
+      const hierMatches = [...allNames].filter((n) => canonicalNetNames.has(n));
+      canonicalName = hierMatches.length > 0 ? hierMatches.sort()[0] : [...allNames].sort()[0];
     } else {
       // Unnamed wire group: use minimum segmentId (matches Cadence DAT export)
       let minSegId = Infinity;
@@ -405,11 +516,15 @@ function collectPins(pages: PageData[], pageCoordMaps: Map<string, string>[]): P
  *
  * - netId=0 pins without a coordinate match are mapped to "NC" (no-connect).
  * - netId=0xFFFFFFFF pins are skipped (sentinel).
- * - Remaining pins are grouped by netId; the most common coordNet in each
- *   group becomes the net name, falling back to N{netId} when no coordinate
- *   match exists.
+ * - Remaining pins are grouped by netId; the net name is resolved by:
+ *   1. Prefer a coordNet that appears in the canonical hierarchy names
+ *   2. Fall back to majority vote among coordNets
+ *   3. Fall back to N{netId}
  */
-function assembleNets(allPins: PinInfo[]): {
+function assembleNets(
+  allPins: PinInfo[],
+  canonicalNetNames: Set<string>
+): {
   nets: NetConnections;
   componentPins: Map<string, Map<string, string>>;
 } {
@@ -423,6 +538,14 @@ function assembleNets(allPins: PinInfo[]): {
     addPinToNet(nets, componentPins, "NC", pin.refdes, pin.pinIdx);
   }
 
+  // Sentinel pins (0xFFFFFFFF) with a coordNet are physically connected
+  // via wires but lack an explicit net assignment in the DSN. Group them
+  // by coordNet so they form proper unnamed nets.
+  for (const pin of allPins) {
+    if (pin.netId !== 0xffffffff || !pin.coordNet) continue;
+    addPinToNet(nets, componentPins, pin.coordNet, pin.refdes, pin.pinIdx);
+  }
+
   // Group non-sentinel pins by netId
   const netIdGroups = new Map<number, PinInfo[]>();
   for (const pin of allPins) {
@@ -431,7 +554,7 @@ function assembleNets(allPins: PinInfo[]): {
     netIdGroups.get(pin.netId)!.push(pin);
   }
 
-  // Resolve net name per group: majority vote on coordNet, fallback to N{netId}
+  // Resolve net name per group
   for (const [netId, groupPins] of netIdGroups) {
     const nameCounts = new Map<string, number>();
     for (const pin of groupPins) {
@@ -440,10 +563,19 @@ function assembleNets(allPins: PinInfo[]): {
       }
     }
 
-    const netName =
-      nameCounts.size > 0
-        ? [...nameCounts.entries()].sort((a, b) => b[1] - a[1])[0][0]
-        : `N${netId}`;
+    let netName: string;
+    if (nameCounts.size > 0) {
+      // Prefer canonical hierarchy name if available
+      const canonicalMatch = [...nameCounts.keys()].find((n) => canonicalNetNames.has(n));
+      if (canonicalMatch) {
+        netName = canonicalMatch;
+      } else {
+        // Fall back to majority vote
+        netName = [...nameCounts.entries()].sort((a, b) => b[1] - a[1])[0][0];
+      }
+    } else {
+      netName = `N${netId}`;
+    }
 
     for (const pin of groupPins) {
       addPinToNet(nets, componentPins, netName, pin.refdes, pin.pinIdx);
@@ -453,14 +585,72 @@ function assembleNets(allPins: PinInfo[]): {
   return { nets, componentPins };
 }
 
+/**
+ * Build cross-page OPC name equivalences.
+ *
+ * When the same OPC pairingId appears on multiple pages (or twice on
+ * the same page), the resolved net names on each side may differ. If
+ * one resolves to a canonical hierarchy name and the other to a local
+ * alias, the alias should map to the canonical name.
+ */
+function buildOpcNameMap(
+  pages: PageData[],
+  pageCoordMaps: Map<string, string>[],
+  canonicalNetNames: Set<string>
+): Map<string, string> {
+  const opcIdToNames = new Map<number, Set<string>>();
+
+  for (let i = 0; i < pages.length; i++) {
+    const coordMap = pageCoordMaps[i];
+    for (const opc of pages[i].offPageConnectors) {
+      const opcKey = `opc:${opc.pairingId}:${opc.dbId}`;
+      const netName = coordMap.get(opcKey);
+      if (!netName) continue;
+      if (!opcIdToNames.has(opc.pairingId)) opcIdToNames.set(opc.pairingId, new Set());
+      opcIdToNames.get(opc.pairingId)!.add(netName);
+    }
+  }
+
+  const nameMap = new Map<string, string>();
+  for (const [, names] of opcIdToNames) {
+    if (names.size <= 1) continue;
+    const hierNames = [...names].filter((n) => canonicalNetNames.has(n));
+    if (hierNames.length === 0) continue;
+    const canonical = hierNames.sort()[0];
+    for (const name of names) {
+      if (name !== canonical && !canonicalNetNames.has(name)) {
+        nameMap.set(name, canonical);
+      }
+    }
+  }
+
+  return nameMap;
+}
+
 /** Build pin-to-net mapping from parsed page data. */
-function buildNetConnectivity(pages: PageData[]): {
+function buildNetConnectivity(
+  pages: PageData[],
+  canonicalNetNames: Set<string>,
+  strLst: string[]
+): {
   nets: NetConnections;
   componentPins: Map<string, Map<string, string>>;
 } {
-  const pageCoordMaps = pages.map(buildPageCoordMap);
+  const pageCoordMaps = pages.map((page) => buildPageCoordMap(page, canonicalNetNames, strLst));
+
+  // Apply cross-page OPC name equivalences
+  const opcNameMap = buildOpcNameMap(pages, pageCoordMaps, canonicalNetNames);
+  if (opcNameMap.size > 0) {
+    for (const coordMap of pageCoordMaps) {
+      for (const [coord, name] of coordMap) {
+        const mapped = opcNameMap.get(name);
+        if (mapped) coordMap.set(coord, mapped);
+      }
+    }
+  }
+
   const allPins = collectPins(pages, pageCoordMaps);
-  return assembleNets(allPins);
+  return assembleNets(allPins, canonicalNetNames);
 }
 
 /**
@@ -534,6 +724,49 @@ function buildComponents(
   return components;
 }
 
+/**
+ * Parse the Hierarchy stream to extract the canonical flat net name list.
+ *
+ * The Hierarchy stream contains the authoritative net names for the design,
+ * resolving cross-page aliases (e.g., GPIO8 on one page becomes PWRSEL in
+ * the canonical list when connected via off-page connectors).
+ *
+ * Record format per net: 24 bytes metadata + uint16 nameLength + name + null
+ */
+function parseHierarchyNetNames(buffer: Buffer): Set<string> {
+  const names = new Set<string>();
+  const reader = new BinaryReader(buffer);
+
+  // Header: type(1) + structLength(4) + zeros(4)
+  reader.skip(9);
+
+  // View name: uint16 length + string + null
+  const viewNameLen = reader.readUint16();
+  reader.skip(viewNameLen + 1);
+
+  // Scan forward to find first 0x43 marker (start of net records)
+  while (reader.tell() < buffer.length - 2) {
+    if (reader.readUint8() === 0x43) {
+      reader.seek(reader.tell() - 3);
+      break;
+    }
+  }
+  const netCount = reader.readUint16();
+
+  for (let i = 0; i < netCount; i++) {
+    reader.skip(24); // fixed metadata
+    const nameLen = reader.readUint16();
+    reader.skip(nameLen + 1); // name + null
+    const name = buffer
+      .subarray(reader.tell() - nameLen - 1, reader.tell() - 1)
+      .toString("ascii")
+      .toUpperCase();
+    names.add(name);
+  }
+
+  return names;
+}
+
 // --- Public API ---
 
 /**
@@ -555,6 +788,20 @@ export function parseDsnFile(dsnPath: string): ParsedNetlist {
     }
   }
 
+  // Parse Hierarchy stream for canonical net names
+  const hierEntry = entries.find(
+    (e) => /^Views\/.*\/Hierarchy\/Hierarchy$/.test(e.path) && e.entry.type === 2
+  );
+  let canonicalNetNames = new Set<string>();
+  if (hierEntry) {
+    try {
+      const hierBuffer = ole.readStreamByPath(hierEntry.path);
+      canonicalNetNames = parseHierarchyNetNames(hierBuffer);
+    } catch {
+      // Hierarchy parsing is best-effort; continue without it
+    }
+  }
+
   // Parse all Page streams
   const pageEntries = entries.filter(
     (e) => /^Views\/.*\/Pages\//.test(e.path) && e.entry.type === 2
@@ -572,7 +819,7 @@ export function parseDsnFile(dsnPath: string): ParsedNetlist {
   const packages = new Map<string, Package>();
 
   // Build netlist from parsed data
-  const { nets, componentPins } = buildNetConnectivity(pages);
+  const { nets, componentPins } = buildNetConnectivity(pages, canonicalNetNames, strLst);
   const components = buildComponents(pages, packages, strLst, componentPins);
 
   return { nets, components };

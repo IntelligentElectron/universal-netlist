@@ -100,17 +100,26 @@ function readSinglePrefix(reader: BinaryReader): [StructureType, number] {
 
 /**
  * Read a single short prefix: 1 byte type + 2 byte size + optional name/value pairs.
- * Returns the structure type.
+ * Returns the structure type. Optionally captures property name→value index pairs.
  */
-function readSinglePrefixShort(reader: BinaryReader): StructureType {
+function readSinglePrefixShort(
+  reader: BinaryReader,
+  propPairs?: Map<number, number>
+): StructureType {
   const typeId = reader.readUint8() as StructureType;
   const size = reader.readInt16();
 
   if (size >= 0) {
-    // Skip name/value mapping pairs (each is 4+4 = 8 bytes)
-    reader.skip(size * 8);
+    if (propPairs) {
+      for (let i = 0; i < size; i++) {
+        const nameIdx = reader.readUint32();
+        const valueIdx = reader.readUint32();
+        propPairs.set(nameIdx, valueIdx);
+      }
+    } else {
+      reader.skip(size * 8);
+    }
   }
-  // size < 0 (typically -1): no additional data
 
   return typeId;
 }
@@ -122,7 +131,8 @@ function readSinglePrefixShort(reader: BinaryReader): StructureType {
 function readPrefixes(
   reader: BinaryReader,
   count: number,
-  futureData: FutureDataList
+  futureData: FutureDataList,
+  propPairs?: Map<number, number>
 ): StructureType {
   if (count === 0) {
     throw new Error("Prefix count must be > 0");
@@ -135,7 +145,7 @@ function readPrefixes(
 
     if (i === count - 1) {
       // Last prefix is short
-      const typeId = readSinglePrefixShort(reader);
+      const typeId = readSinglePrefixShort(reader, propPairs);
       if (firstType === undefined) firstType = typeId;
       if (typeId !== firstType) {
         throw new Error(
@@ -165,7 +175,8 @@ function readPrefixes(
 export function autoReadPrefixes(
   reader: BinaryReader,
   futureData: FutureDataList,
-  expectedType?: StructureType
+  expectedType?: StructureType,
+  propPairs?: Map<number, number>
 ): StructureType {
   const startOffset = reader.tell();
 
@@ -175,7 +186,7 @@ export function autoReadPrefixes(
       readPrefixes(reader, prefixCount, tmpFutureData);
       // Success, reset and do it for real
       reader.seek(startOffset);
-      const structType = readPrefixes(reader, prefixCount, futureData);
+      const structType = readPrefixes(reader, prefixCount, futureData, propPairs);
 
       if (expectedType !== undefined && structType !== expectedType) {
         throw new Error(
