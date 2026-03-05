@@ -1,15 +1,26 @@
 /**
  * DSN Inspector
  *
- * Inspect internal DSN structures for debugging: wire graphs, T0x10 net IDs,
- * coordinate matching, and per-component pin analysis.
+ * Single tool for inspecting all internal DSN structures: OLE streams, hierarchy,
+ * net tables, wire graphs, pins, symbols, and coordinate matching.
  *
  * Usage:
- *   npx tsx scripts/dsn-inspect.ts <dsn-file> summary         # Wire/pin statistics
- *   npx tsx scripts/dsn-inspect.ts <dsn-file> component U11    # Pin details for a component
- *   npx tsx scripts/dsn-inspect.ts <dsn-file> net HDMI_1V8     # All pins on a net
- *   npx tsx scripts/dsn-inspect.ts <dsn-file> netid 21667305   # Trace a T0x10 netId
- *   npx tsx scripts/dsn-inspect.ts <dsn-file> unnamed          # List unnamed wire groups
+ *   npx tsx scripts/dsn-inspect.ts <dsn-file> <command> [args...]
+ *
+ * Commands:
+ *   summary                        Wire/pin statistics
+ *   component <REFDES>             Pin details for a component
+ *   net <NET_NAME>                 All pins on a net
+ *   netid <ID>                     Trace a T0x10 netId
+ *   unnamed                        List unnamed wire groups
+ *   nettable [filter]              Per-page net table entries
+ *   symbols [page]                 Ports, globals, OPCs with full detail
+ *   wire <page> <name-regex>       Search wires by name pattern
+ *   wiretrace <page> <x> <y>       Trace wire connectivity via union-find
+ *   conflicts                      Wire alias vs net table discrepancies
+ *   hierarchy                      Hierarchy stream net names and IDs
+ *   streams                        List all OLE container streams
+ *   stream <path> [offset] [len]   Hex dump of a specific OLE stream
  */
 
 import { OleReader } from "../src/parsers/ole-reader/ole-reader.js";
@@ -221,7 +232,7 @@ function collectPages(dsnPath: string): PageInfo[] {
 }
 
 // ---------------------------------------------------------------------------
-// Commands
+// Page-level commands
 // ---------------------------------------------------------------------------
 
 function cmdSummary(pages: PageInfo[]) {
@@ -268,7 +279,6 @@ function cmdSummary(pages: PageInfo[]) {
 function cmdComponent(pages: PageInfo[], refdesFilter: string) {
   console.log(`\n=== Component: ${refdesFilter} ===\n`);
 
-  // Build netId -> resolved name map
   const netIdNames = new Map<number, string>();
   for (const page of pages) {
     for (const pin of page.pins) {
@@ -304,7 +314,6 @@ function cmdNet(pages: PageInfo[], netNameFilter: string) {
   const upper = netNameFilter.toUpperCase();
   console.log(`\n=== Net: ${upper} ===\n`);
 
-  // Find all pins whose coordinate resolves to this net
   for (const page of pages) {
     const matching = page.pins.filter((p) => p.coordNet === upper);
     if (matching.length === 0) continue;
@@ -315,7 +324,6 @@ function cmdNet(pages: PageInfo[], netNameFilter: string) {
     }
   }
 
-  // Also find wires with this net name
   console.log(`\nWires:`);
   for (const page of pages) {
     for (const w of page.wires) {
@@ -369,7 +377,6 @@ function cmdUnnamed(pages: PageInfo[]) {
 
     if (unnamedWires.length === 0) continue;
 
-    // Group by wire ID
     const groups = new Map<number, Wire[]>();
     for (const w of unnamedWires) {
       if (!groups.has(w.id)) groups.set(w.id, []);
@@ -381,7 +388,6 @@ function cmdUnnamed(pages: PageInfo[]) {
       const coords = wires.map((w) => `(${w.startX},${w.startY})-(${w.endX},${w.endY})`);
       console.log(`  wireId=${wireId}: ${coords.join(", ")}`);
 
-      // Check if any pin connects at these wire endpoints
       for (const w of wires) {
         for (const pin of page.pins) {
           if (
@@ -399,6 +405,330 @@ function cmdUnnamed(pages: PageInfo[]) {
   }
 }
 
+function cmdNettable(pages: PageInfo[], filter?: string) {
+  const upper = filter?.toUpperCase();
+
+  for (const page of pages) {
+    const entries: { name: string; id: number; wireCount: number }[] = [];
+    for (const [id, name] of page.netTable) {
+      if (upper && !name.includes(upper)) continue;
+      const wireCount = page.wires.filter((w) => w.id === id).length;
+      entries.push({ name, id, wireCount });
+    }
+
+    if (entries.length === 0) continue;
+
+    console.log(`\n=== ${page.name} (${entries.length} entries) ===`);
+    for (const e of entries) {
+      console.log(`  "${e.name}" -> netId=${e.id} (0x${e.id.toString(16)}) wires=${e.wireCount}`);
+    }
+  }
+}
+
+function cmdSymbols(pages: PageInfo[], pageFilter?: string) {
+  for (const page of pages) {
+    if (pageFilter && !page.name.includes(pageFilter)) continue;
+
+    const hasContent =
+      page.ports.length > 0 || page.globals.length > 0 || page.offPageConnectors.length > 0;
+    if (!hasContent) continue;
+
+    console.log(`\n=== ${page.name} ===`);
+
+    if (page.ports.length > 0) {
+      console.log(`  Ports (${page.ports.length}):`);
+      for (const p of page.ports) {
+        console.log(
+          `    "${p.name}" at (${p.locX},${p.locY}) dbId=${p.dbId} pairingId=${p.pairingId} bbox=(${p.x1},${p.y1})-(${p.x2},${p.y2})`
+        );
+      }
+    }
+
+    if (page.globals.length > 0) {
+      console.log(`  Globals (${page.globals.length}):`);
+      for (const g of page.globals) {
+        console.log(
+          `    "${g.name}" at (${g.locX},${g.locY}) dbId=${g.dbId} pairingId=${g.pairingId} bbox=(${g.x1},${g.y1})-(${g.x2},${g.y2})`
+        );
+      }
+    }
+
+    if (page.offPageConnectors.length > 0) {
+      console.log(`  OffPageConnectors (${page.offPageConnectors.length}):`);
+      for (const o of page.offPageConnectors) {
+        console.log(
+          `    "${o.name}" at (${o.locX},${o.locY}) dbId=${o.dbId} pairingId=${o.pairingId} bbox=(${o.x1},${o.y1})-(${o.x2},${o.y2})`
+        );
+      }
+    }
+  }
+}
+
+function cmdWire(pages: PageInfo[], pageFilter: string, pattern: string) {
+  const namePattern = new RegExp(pattern, "i");
+
+  for (const page of pages) {
+    if (pageFilter && !page.name.includes(pageFilter)) continue;
+
+    const matches: string[] = [];
+    for (const w of page.wires) {
+      const aliasNames = w.aliases.map((a) => a.name.toUpperCase());
+      const tableName = page.netTable.get(w.id);
+      const allNames = [...aliasNames, ...(tableName ? [tableName] : [])];
+      if (allNames.some((n) => namePattern.test(n))) {
+        matches.push(
+          `  segId=${w.segmentId} wireId=${w.id} (${w.startX},${w.startY})-(${w.endX},${w.endY}) aliases=[${aliasNames.join(",")}] table=${tableName || "-"}`
+        );
+      }
+    }
+
+    if (matches.length > 0) {
+      console.log(`\n=== ${page.name} === (${matches.length} matches)`);
+      for (const m of matches) console.log(m);
+    }
+  }
+}
+
+function cmdWiretrace(pages: PageInfo[], pageFilter: string, targetX: number, targetY: number) {
+  for (const page of pages) {
+    if (!page.name.includes(pageFilter)) continue;
+
+    // Union-find
+    const parent = new Map<string, string>();
+    function find(x: string): string {
+      if (!parent.has(x)) parent.set(x, x);
+      let root = x;
+      while (parent.get(root) !== root) root = parent.get(root)!;
+      let curr = x;
+      while (curr !== root) {
+        const next = parent.get(curr)!;
+        parent.set(curr, root);
+        curr = next;
+      }
+      return root;
+    }
+    function union(a: string, b: string) {
+      const ra = find(a);
+      const rb = find(b);
+      if (ra !== rb) parent.set(ra, rb);
+    }
+
+    for (const w of page.wires) {
+      const s = `${w.startX},${w.startY}`;
+      const e = `${w.endX},${w.endY}`;
+      find(s);
+      find(e);
+      union(s, e);
+    }
+
+    const targetKey = `${targetX},${targetY}`;
+    if (!parent.has(targetKey)) {
+      console.log(`\n=== ${page.name} ===`);
+      console.log(`  No wire at (${targetX},${targetY})`);
+      continue;
+    }
+
+    const targetRoot = find(targetKey);
+    const groupWires = page.wires.filter((w) => {
+      const s = `${w.startX},${w.startY}`;
+      const e = `${w.endX},${w.endY}`;
+      return find(s) === targetRoot || find(e) === targetRoot;
+    });
+
+    console.log(`\n=== ${page.name} === (${page.wires.length} wires)`);
+    console.log(`  Target: (${targetX},${targetY}) -> root: ${targetRoot}`);
+    console.log(`  Group contains ${groupWires.length} wire segments:`);
+
+    for (const w of groupWires) {
+      const aliasNames = w.aliases.map((a) => a.name.toUpperCase());
+      const tableName = page.netTable.get(w.id);
+      const nameInfo: string[] = [];
+      if (aliasNames.length > 0) nameInfo.push(`aliases=[${aliasNames.join(",")}]`);
+      if (tableName) nameInfo.push(`table="${tableName}"`);
+      console.log(
+        `    id=${w.id} (${w.startX},${w.startY})-(${w.endX},${w.endY}) ${nameInfo.join(" ")}`
+      );
+    }
+
+    const groupCoords = new Set<string>();
+    for (const key of parent.keys()) {
+      if (find(key) === targetRoot) groupCoords.add(key);
+    }
+    console.log(`  Group coordinates: ${groupCoords.size}`);
+
+    const names = new Set<string>();
+    for (const w of groupWires) {
+      for (const a of w.aliases) names.add(a.name.toUpperCase());
+      const tn = page.netTable.get(w.id);
+      if (tn) names.add(tn);
+    }
+    console.log(`  Names: ${[...names].join(", ")}`);
+  }
+}
+
+function cmdConflicts(pages: PageInfo[]) {
+  let totalConflicts = 0;
+  let totalAliasOnly = 0;
+  let totalTableOnly = 0;
+
+  for (const page of pages) {
+    const wireIds = new Set<number>();
+    const conflicts: string[] = [];
+    const aliasOnly: string[] = [];
+    const tableOnly: string[] = [];
+
+    for (const w of page.wires) {
+      wireIds.add(w.id);
+      const aliasName = w.aliases.length > 0 ? w.aliases[0].name.toUpperCase() : undefined;
+      const tableName = page.netTable.get(w.id);
+
+      if (aliasName && tableName && aliasName !== tableName) {
+        conflicts.push(`  wireId=${w.id}: alias="${aliasName}" table="${tableName}"`);
+      } else if (aliasName && !tableName) {
+        aliasOnly.push(`  wireId=${w.id}: alias="${aliasName}" (no table entry)`);
+      }
+    }
+
+    for (const [id, name] of page.netTable) {
+      if (!wireIds.has(id)) {
+        tableOnly.push(`  wireId=${id}: table="${name}" (no wire found)`);
+      }
+    }
+
+    totalConflicts += conflicts.length;
+    totalAliasOnly += aliasOnly.length;
+    totalTableOnly += tableOnly.length;
+
+    if (conflicts.length === 0 && aliasOnly.length === 0 && tableOnly.length === 0) continue;
+
+    console.log(`\n=== ${page.name} ===`);
+    console.log(`Net table: ${page.netTable.size} entries, Wires: ${wireIds.size}`);
+    if (conflicts.length > 0) {
+      console.log(`\nConflicts (alias != table):`);
+      for (const c of conflicts) console.log(c);
+    }
+    if (aliasOnly.length > 0 && aliasOnly.length <= 20) {
+      console.log(`\nAlias-only (no table entry):`);
+      for (const a of aliasOnly) console.log(a);
+    } else if (aliasOnly.length > 20) {
+      console.log(`\nAlias-only: ${aliasOnly.length} wires (too many to show)`);
+    }
+    if (tableOnly.length > 0) {
+      console.log(`\nTable-only (no wire found):`);
+      for (const t of tableOnly) console.log(t);
+    }
+  }
+
+  console.log(`\n=== Summary ===`);
+  console.log(`Conflicts: ${totalConflicts}`);
+  console.log(`Alias-only: ${totalAliasOnly}`);
+  console.log(`Table-only: ${totalTableOnly}`);
+}
+
+// ---------------------------------------------------------------------------
+// OLE-level commands (no page parsing needed)
+// ---------------------------------------------------------------------------
+
+function cmdStreams(dsnPath: string) {
+  const ole = new OleReader(dsnPath);
+  for (const e of ole.listAllEntries()) {
+    const type = e.entry.type === 2 ? "STREAM" : "DIR   ";
+    const size = e.entry.type === 2 ? ` (${e.entry.size} bytes)` : "";
+    console.log(`${type} ${e.path}${size}`);
+  }
+}
+
+function cmdStream(dsnPath: string, streamPath: string, offset: number, length: number) {
+  const ole = new OleReader(dsnPath);
+  const buf = ole.readStreamByPath(streamPath);
+  console.log(`Stream: ${streamPath} (${buf.length} bytes)\n`);
+
+  const end = Math.min(offset + length, buf.length);
+  const slice = buf.subarray(offset, end);
+
+  for (let i = 0; i < slice.length; i += 16) {
+    const hex: string[] = [];
+    const ascii: string[] = [];
+    for (let j = 0; j < 16 && i + j < slice.length; j++) {
+      const b = slice[i + j];
+      hex.push(b.toString(16).padStart(2, "0"));
+      ascii.push(b >= 32 && b < 127 ? String.fromCharCode(b) : ".");
+    }
+    console.log(
+      `${(offset + i).toString(16).padStart(6, "0")}  ${hex.join(" ").padEnd(48)}  ${ascii.join("")}`
+    );
+  }
+
+  console.log("\n--- Strings ---");
+  let str = "";
+  let strStart = offset;
+  for (let i = offset; i < end; i++) {
+    const b = buf[i];
+    if (b >= 32 && b < 127) {
+      if (str === "") strStart = i;
+      str += String.fromCharCode(b);
+    } else {
+      if (str.length >= 3) console.log(`  @${strStart.toString(16)}: "${str}"`);
+      str = "";
+    }
+  }
+  if (str.length >= 3) console.log(`  @${strStart.toString(16)}: "${str}"`);
+}
+
+function cmdHierarchy(dsnPath: string) {
+  const ole = new OleReader(dsnPath);
+  const entries = ole.listAllEntries();
+  const hierEntry = entries.find(
+    (e) => /^Views\/.*\/Hierarchy\/Hierarchy$/.test(e.path) && e.entry.type === 2
+  );
+  if (!hierEntry) {
+    console.error("No Hierarchy stream found");
+    return;
+  }
+
+  const buf = ole.readStreamByPath(hierEntry.path);
+  const r = new BinaryReader(buf);
+
+  // Header
+  r.skip(1); // type byte (0x42)
+  r.skip(4); // struct length
+  r.skip(4); // zeros
+
+  // View name
+  const viewNameLen = r.readUint16();
+  const viewNameBytes = Buffer.alloc(viewNameLen);
+  for (let i = 0; i < viewNameLen; i++) viewNameBytes[i] = r.readUint8();
+  r.skip(1); // null terminator
+  const viewName = viewNameBytes.toString("ascii");
+  console.log(`View: "${viewName}"`);
+
+  // Scan forward to find the 0x43 marker, then back up for the count
+  while (r.tell() < buf.length - 2 && r.readUint8() !== 0x43) {
+    // scan forward
+  }
+  r.seek(r.tell() - 3);
+  const netCount = r.readUint16();
+  console.log(`Net count: ${netCount}\n`);
+
+  console.log("Idx  HierID      HierID(hex)  Name");
+  console.log("---  ----------  -----------  ----");
+  for (let i = 0; i < netCount; i++) {
+    r.skip(9); // 0x43 marker + 8 bytes
+    r.skip(4); // second 0x43 marker + 3 bytes
+    r.skip(4); // some ID
+    r.skip(3); // zeros
+    const hierNodeId = r.readUint32();
+    const nameLen = r.readUint16();
+    const nameBytes = Buffer.alloc(nameLen);
+    for (let j = 0; j < nameLen; j++) nameBytes[j] = r.readUint8();
+    r.skip(1); // null
+    const name = nameBytes.toString("ascii");
+    console.log(
+      `${String(i).padStart(3)}  ${String(hierNodeId).padStart(10)}  0x${hierNodeId.toString(16).padStart(8, "0")}  ${name}`
+    );
+  }
+}
+
 // ---------------------------------------------------------------------------
 // Entry point
 // ---------------------------------------------------------------------------
@@ -406,16 +736,44 @@ function cmdUnnamed(pages: PageInfo[]) {
 const args = process.argv.slice(2);
 
 if (args.length < 2) {
-  console.log("Usage:");
-  console.log("  npx tsx scripts/dsn-inspect.ts <dsn-file> summary");
-  console.log("  npx tsx scripts/dsn-inspect.ts <dsn-file> component <REFDES>");
-  console.log("  npx tsx scripts/dsn-inspect.ts <dsn-file> net <NET_NAME>");
-  console.log("  npx tsx scripts/dsn-inspect.ts <dsn-file> netid <ID>");
-  console.log("  npx tsx scripts/dsn-inspect.ts <dsn-file> unnamed");
+  console.log("Usage: npx tsx scripts/dsn-inspect.ts <dsn-file> <command> [args...]\n");
+  console.log("Page-level commands:");
+  console.log("  summary                        Wire/pin statistics");
+  console.log("  component <REFDES>             Pin details for a component");
+  console.log("  net <NET_NAME>                 All pins on a net");
+  console.log("  netid <ID>                     Trace a T0x10 netId");
+  console.log("  unnamed                        List unnamed wire groups");
+  console.log("  nettable [filter]              Per-page net table entries");
+  console.log("  symbols [page]                 Ports, globals, OPCs with full detail");
+  console.log("  wire <page> <name-regex>       Search wires by name pattern");
+  console.log("  wiretrace <page> <x> <y>       Trace wire connectivity via union-find");
+  console.log("  conflicts                      Wire alias vs net table discrepancies");
+  console.log("\nOLE-level commands:");
+  console.log("  hierarchy                      Hierarchy stream net names and IDs");
+  console.log("  streams                        List all OLE container streams");
+  console.log("  stream <path> [offset] [len]   Hex dump of a specific OLE stream");
   process.exit(1);
 }
 
 const [dsnPath, command, ...rest] = args;
+
+// OLE-level commands (skip page parsing)
+if (command === "streams") {
+  cmdStreams(dsnPath);
+  process.exit(0);
+} else if (command === "stream") {
+  if (!rest[0]) {
+    console.error("Missing stream path. Use 'streams' to list available streams.");
+    process.exit(1);
+  }
+  cmdStream(dsnPath, rest[0], parseInt(rest[1] || "0"), parseInt(rest[2] || "500"));
+  process.exit(0);
+} else if (command === "hierarchy") {
+  cmdHierarchy(dsnPath);
+  process.exit(0);
+}
+
+// Page-level commands
 const pages = collectPages(dsnPath);
 
 switch (command) {
@@ -445,6 +803,29 @@ switch (command) {
     break;
   case "unnamed":
     cmdUnnamed(pages);
+    break;
+  case "nettable":
+    cmdNettable(pages, rest[0]);
+    break;
+  case "symbols":
+    cmdSymbols(pages, rest[0]);
+    break;
+  case "wire":
+    if (!rest[1]) {
+      console.error("Usage: wire <page-substring> <name-regex>");
+      process.exit(1);
+    }
+    cmdWire(pages, rest[0], rest[1]);
+    break;
+  case "wiretrace":
+    if (!rest[0] || isNaN(parseInt(rest[1])) || isNaN(parseInt(rest[2]))) {
+      console.error("Usage: wiretrace <page-substring> <x> <y>");
+      process.exit(1);
+    }
+    cmdWiretrace(pages, rest[0], parseInt(rest[1]), parseInt(rest[2]));
+    break;
+  case "conflicts":
+    cmdConflicts(pages);
     break;
   default:
     console.error(`Unknown command: ${command}`);

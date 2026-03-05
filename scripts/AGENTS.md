@@ -49,12 +49,6 @@ npx tsx scripts/dsn-gap-analysis.ts <golden-name>
 
 Run without arguments to see available golden files.
 
-Example:
-
-```bash
-npx tsx scripts/dsn-gap-analysis.ts BEAGLEBONEBLK_C3
-```
-
 Report sections:
 - **Refdes accuracy**: Per-net refdes match rate on common nets, with mismatch details
 - **Missing nets**: Nets in golden but not in DSN, grouped by category
@@ -63,70 +57,25 @@ Report sections:
 - **Stolen refs**: Golden nets missing a refdes, showing which extra DSN net captured it
 - **Summary**: Coverage percentage with missing/extra breakdowns by category
 
-## dsn-check-ports.ts
-
-Compare wire aliases against net table entries for all pages in a DSN file. Reports conflicts (alias != table name for the same wire), alias-only wires, and table-only entries. Useful for understanding net name resolution discrepancies.
-
-```bash
-npx tsx scripts/dsn-check-ports.ts <dsn-file>
-```
-
-Example:
-
-```bash
-npx tsx scripts/dsn-check-ports.ts test/fixtures/cadence/BeagleBone-Black/ALLEGRO/BEAGLEBONEBLK_C3.DSN
-```
-
-## dsn-wire-trace.ts
-
-Trace wire connectivity for a specific coordinate on a page. Builds a Union-Find from all wire endpoints, then shows every wire segment in the same connected group, their aliases and net table entries, and all coordinates in the group. Useful for debugging wire graph name propagation.
-
-```bash
-npx tsx scripts/dsn-wire-trace.ts <dsn-file> <page-substring> <x> <y>
-```
-
-Example:
-
-```bash
-npx tsx scripts/dsn-wire-trace.ts test/fixtures/cadence/BeagleBone-Black/ALLEGRO/BEAGLEBONEBLK_C3.DSN P03 400 410
-```
-
-## dsn-find-wire.ts
-
-Search for wires matching a name pattern on a specific page (or all pages). Shows ALL aliases on each wire (not just the first), net table entries, and coordinates. Useful for finding wires with multiple aliases or verifying name resolution.
-
-```bash
-npx tsx scripts/dsn-find-wire.ts <dsn-file> <page-substring> <name-regex>
-```
-
-The page-substring filters pages (empty string matches all). The name-regex is matched case-insensitively against all aliases and the net table entry.
-
-Examples:
-
-```bash
-npx tsx scripts/dsn-find-wire.ts test/fixtures/cadence/BeagleBoard-xM/SCH/BeagleBoard-xM_ORCAD.DSN P10 USBDM
-npx tsx scripts/dsn-find-wire.ts test/fixtures/cadence/BeagleBone-Black/ALLEGRO/BEAGLEBONEBLK_C3.DSN "" OSC
-```
-
 ## dsn-inspect.ts
 
-Low-level inspector for DSN binary internals. Useful for debugging specific parsing issues, tracing net connectivity, and understanding the CFBF container contents.
+Single tool for inspecting all internal DSN binary structures. Covers OLE container, hierarchy stream, page-level data (wires, pins, net tables, symbols), and wire connectivity tracing.
 
 ```bash
-npx tsx scripts/dsn-inspect.ts <dsn-file> <command> [args]
+npx tsx scripts/dsn-inspect.ts <dsn-file> <command> [args...]
 ```
 
-Commands:
+### Page-level commands
 
-### summary
+#### summary
 
 Wire and pin statistics, page list, coordinate match rates.
 
 ```bash
-npx tsx scripts/dsn-inspect.ts test/fixtures/cadence/BeagleBone-Black/ALLEGRO/BEAGLEBONEBLK_C3.DSN summary
+npx tsx scripts/dsn-inspect.ts <dsn-file> summary
 ```
 
-### component \<REFDES\>
+#### component \<REFDES\>
 
 All pins for a component with T0x10 index, coordinates, netId, coordinate-resolved net name, and final resolved net name. Shows disagreements between coordinate and netId resolution.
 
@@ -134,7 +83,7 @@ All pins for a component with T0x10 index, coordinates, netId, coordinate-resolv
 npx tsx scripts/dsn-inspect.ts <dsn-file> component U11
 ```
 
-### net \<NET_NAME\>
+#### net \<NET_NAME\>
 
 All pins and wires on a named net. Shows which components connect and the wire segments.
 
@@ -142,7 +91,7 @@ All pins and wires on a named net. Shows which components connect and the wire s
 npx tsx scripts/dsn-inspect.ts <dsn-file> net HDMI_1V8
 ```
 
-### netid \<ID\>
+#### netid \<ID\>
 
 Trace a T0x10 netId (Cadence database net object ID) across all pages. Shows all pins sharing that ID and how the net name is resolved.
 
@@ -150,10 +99,82 @@ Trace a T0x10 netId (Cadence database net object ID) across all pages. Shows all
 npx tsx scripts/dsn-inspect.ts <dsn-file> netid 21667305
 ```
 
-### unnamed
+#### unnamed
 
 List all unnamed wire groups (wires without an alias or net table entry), grouped by wire ID. Shows which pins connect at wire endpoints.
 
 ```bash
 npx tsx scripts/dsn-inspect.ts <dsn-file> unnamed
+```
+
+#### nettable [filter]
+
+Per-page net table entries with wire counts. Optional filter matches net names (case-insensitive substring).
+
+```bash
+npx tsx scripts/dsn-inspect.ts <dsn-file> nettable          # All entries
+npx tsx scripts/dsn-inspect.ts <dsn-file> nettable I2C       # Filter by name
+```
+
+#### symbols [page]
+
+Ports, globals, and off-page connectors with full detail: coordinates, dbId, pairingId, bounding box. Optional page filter (substring match).
+
+```bash
+npx tsx scripts/dsn-inspect.ts <dsn-file> symbols            # All pages
+npx tsx scripts/dsn-inspect.ts <dsn-file> symbols P10         # Filter by page
+```
+
+#### wire \<page\> \<name-regex\>
+
+Search wires by name pattern on a specific page (or all pages with empty string). Matches case-insensitively against all aliases and net table entries. Shows segmentId, wireId, coordinates, aliases, and table name.
+
+```bash
+npx tsx scripts/dsn-inspect.ts <dsn-file> wire P10 HDMI
+npx tsx scripts/dsn-inspect.ts <dsn-file> wire "" OSC         # Search all pages
+```
+
+#### wiretrace \<page\> \<x\> \<y\>
+
+Trace wire connectivity from a coordinate using union-find. Shows all wire segments in the connected group, their names, and all coordinates in the group.
+
+```bash
+npx tsx scripts/dsn-inspect.ts <dsn-file> wiretrace P03 400 410
+```
+
+#### conflicts
+
+Compare wire aliases against net table entries for all pages. Reports conflicts (alias != table name for the same wire), alias-only wires, and table-only entries (net table entry with no matching wire).
+
+```bash
+npx tsx scripts/dsn-inspect.ts <dsn-file> conflicts
+```
+
+### OLE-level commands
+
+These commands do not parse page data (faster execution).
+
+#### hierarchy
+
+Hierarchy stream net names with hierarchy node IDs. Shows canonical net list used for cross-page name resolution.
+
+```bash
+npx tsx scripts/dsn-inspect.ts <dsn-file> hierarchy
+```
+
+#### streams
+
+List all CFBF streams and directories in the OLE container with sizes.
+
+```bash
+npx tsx scripts/dsn-inspect.ts <dsn-file> streams
+```
+
+#### stream \<path\> [offset] [length]
+
+Hex dump of a specific OLE stream with ASCII sidebar and string extraction. Defaults to first 500 bytes.
+
+```bash
+npx tsx scripts/dsn-inspect.ts <dsn-file> stream "Views/BeagleBoneBlack/Hierarchy/Hierarchy"
+npx tsx scripts/dsn-inspect.ts <dsn-file> stream Cache 1000 256
 ```

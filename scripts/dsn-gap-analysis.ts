@@ -182,7 +182,10 @@ if (extraNets.length > 0) {
 
     // Find golden nets that contain ALL the same refdes
     const candidates: string[] = [];
-    for (const [gNet, gConns] of Object.entries(golden.nets) as [string, Record<string, any>][]) {
+    for (const [gNet, gConns] of Object.entries(golden.nets) as [
+      string,
+      Record<string, string[]>,
+    ][]) {
       const gRefs = new Set(Object.keys(gConns));
       if (dsnRefs.length > 0 && dsnRefs.every((r) => gRefs.has(r))) {
         candidates.push(gNet);
@@ -234,7 +237,10 @@ if (namedExtra.length > 0) {
 
     let bestNet = "";
     let bestOverlap = 0;
-    for (const [gNet, gConns] of Object.entries(golden.nets) as [string, Record<string, any>][]) {
+    for (const [gNet, gConns] of Object.entries(golden.nets) as [
+      string,
+      Record<string, string[]>,
+    ][]) {
       const overlap = Object.keys(gConns).filter((r) => dsnRefs.has(r)).length;
       if (overlap > bestOverlap) {
         bestOverlap = overlap;

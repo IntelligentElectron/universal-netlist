@@ -111,8 +111,8 @@ for (const dsnFile of dsnFiles) {
 
   try {
     results.push(analyze(dsnFile, goldenFile));
-  } catch (e: any) {
-    console.error(`ERROR parsing ${projectName}: ${e.message}`);
+  } catch (e: unknown) {
+    console.error(`ERROR parsing ${projectName}: ${e instanceof Error ? e.message : e}`);
   }
 }
 
