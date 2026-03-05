@@ -99,7 +99,6 @@ for (const pe of pageEntries) {
     if (unknownFlag === 0x02) skipStructure(r);
 
     gfd.checkpoint();
-    gfd.sanitizeCheckpoints();
 
     r.skip(5); // post-global skip
 

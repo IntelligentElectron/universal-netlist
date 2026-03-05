@@ -67,7 +67,6 @@ function parseT0x10Full(reader: BinaryReader) {
   }
 
   futureData.checkpoint();
-  futureData.sanitizeCheckpoints();
 
   return { pointX, pointY, netId, sth };
 }
@@ -186,7 +185,6 @@ function collectPages(dsnPath: string): PageInfo[] {
       r.readStringLenZeroTerm(); // sourcePackage
       r.skip(2);
       instFd.checkpoint();
-      instFd.sanitizeCheckpoints();
     }
 
     const lp = r.readUint16();

@@ -105,7 +105,6 @@ for (const pe of pageEntries) {
     r.skip(4); // lineStyle
 
     wfd.checkpoint();
-    wfd.sanitizeCheckpoints();
 
     const tableName = netTable.get(wireId);
     const allNames = [...aliasNames, ...(tableName ? [tableName] : [])];
