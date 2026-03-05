@@ -317,11 +317,7 @@ function addPinToNet(
  * aliases (e.g., wire alias "PWRSEL" + table "GPIO8" on the same wire;
  * hierarchy contains "PWRSEL", so it wins).
  */
-function buildPageCoordMap(
-  page: PageData,
-  canonicalNetNames: Set<string>,
-  strLst: string[]
-): Map<string, string> {
+function buildPageCoordMap(page: PageData, canonicalNetNames: Set<string>): Map<string, string> {
   const uf = new CoordUnionFind();
 
   // Connect wire endpoints into groups.
@@ -434,23 +430,6 @@ function buildPageCoordMap(
     if (curS === undefined || wire.segmentId < curS) coordMinSegId.set(s, wire.segmentId);
     const curE = coordMinSegId.get(e);
     if (curE === undefined || wire.segmentId < curE) coordMinSegId.set(e, wire.segmentId);
-  }
-
-  // Register OPC user-assigned labels as net name candidates.
-  // The label (e.g., "VOLUP") is stored in the short prefix propPairs,
-  // where each SymbolDisplayProp's nameIdx maps to a valueIdx in strLst.
-  for (const opc of page.offPageConnectors) {
-    if (opc.propPairs.size === 0 || opc.symbolDisplayProps.length === 0) continue;
-    const opcKey = `opc:${opc.pairingId}:${opc.dbId}`;
-    for (const sdp of opc.symbolDisplayProps) {
-      const valueIdx = opc.propPairs.get(sdp.nameIdx);
-      if (valueIdx === undefined) continue;
-      const label = strLst[valueIdx];
-      if (!label) continue;
-      const upperLabel = label.toUpperCase();
-      if (!wireNames.has(opcKey)) wireNames.set(opcKey, new Set());
-      wireNames.get(opcKey)!.add(upperLabel);
-    }
   }
 
   // Resolve one canonical name per connected wire group
@@ -630,13 +609,12 @@ function buildOpcNameMap(
 /** Build pin-to-net mapping from parsed page data. */
 function buildNetConnectivity(
   pages: PageData[],
-  canonicalNetNames: Set<string>,
-  strLst: string[]
+  canonicalNetNames: Set<string>
 ): {
   nets: NetConnections;
   componentPins: Map<string, Map<string, string>>;
 } {
-  const pageCoordMaps = pages.map((page) => buildPageCoordMap(page, canonicalNetNames, strLst));
+  const pageCoordMaps = pages.map((page) => buildPageCoordMap(page, canonicalNetNames));
 
   // Apply cross-page OPC name equivalences
   const opcNameMap = buildOpcNameMap(pages, pageCoordMaps, canonicalNetNames);
@@ -819,7 +797,7 @@ export function parseDsnFile(dsnPath: string): ParsedNetlist {
   const packages = new Map<string, Package>();
 
   // Build netlist from parsed data
-  const { nets, componentPins } = buildNetConnectivity(pages, canonicalNetNames, strLst);
+  const { nets, componentPins } = buildNetConnectivity(pages, canonicalNetNames);
   const components = buildComponents(pages, packages, strLst, componentPins);
 
   return { nets, components };

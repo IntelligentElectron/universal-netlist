@@ -66,8 +66,6 @@ export interface GraphicInst {
   /** Pairing ID from the 8 unknown bytes (first uint32). Used for OPC cross-page matching. */
   pairingId: number;
   symbolDisplayProps: SymbolDisplayProp[];
-  /** Short prefix property name→value index pairs (strLst indices). */
-  propPairs: Map<number, number>;
 }
 
 export interface Device {
@@ -234,11 +232,7 @@ export function parsePlacedInstance(reader: BinaryReader): PlacedInstance {
  * Parse StructGraphicInst (base for Global, Port, OffPageConnector).
  * Note: Y coordinates are read before X in this structure.
  */
-function parseGraphicInstBase(
-  reader: BinaryReader,
-  futureData: FutureDataList,
-  propPairs: Map<number, number>
-): GraphicInst {
+function parseGraphicInstBase(reader: BinaryReader, futureData: FutureDataList): GraphicInst {
   readPreamble(reader);
   futureData.checkpoint();
 
@@ -275,23 +269,21 @@ function parseGraphicInstBase(
 
   futureData.checkpoint();
 
-  return { name, dbId, locX, locY, x1, y1, x2, y2, pairingId, symbolDisplayProps, propPairs };
+  return { name, dbId, locX, locY, x1, y1, x2, y2, pairingId, symbolDisplayProps };
 }
 
 export function parseGlobal(reader: BinaryReader): GraphicInst {
   const futureData = new FutureDataList(reader);
-  const propPairs = new Map<number, number>();
-  autoReadPrefixes(reader, futureData, StructureType.Global, propPairs);
-  const inst = parseGraphicInstBase(reader, futureData, propPairs);
+  autoReadPrefixes(reader, futureData, StructureType.Global);
+  const inst = parseGraphicInstBase(reader, futureData);
   futureData.sanitizeCheckpoints();
   return inst;
 }
 
 export function parsePort(reader: BinaryReader): GraphicInst {
   const futureData = new FutureDataList(reader);
-  const propPairs = new Map<number, number>();
-  autoReadPrefixes(reader, futureData, StructureType.Port, propPairs);
-  const inst = parseGraphicInstBase(reader, futureData, propPairs);
+  autoReadPrefixes(reader, futureData, StructureType.Port);
+  const inst = parseGraphicInstBase(reader, futureData);
   reader.skip(9); // unknown (Port-specific)
   futureData.checkpoint();
   futureData.sanitizeCheckpoints();
@@ -300,9 +292,8 @@ export function parsePort(reader: BinaryReader): GraphicInst {
 
 export function parseOffPageConnector(reader: BinaryReader): GraphicInst {
   const futureData = new FutureDataList(reader);
-  const propPairs = new Map<number, number>();
-  autoReadPrefixes(reader, futureData, StructureType.OffPageConnector, propPairs);
-  const inst = parseGraphicInstBase(reader, futureData, propPairs);
+  autoReadPrefixes(reader, futureData, StructureType.OffPageConnector);
+  const inst = parseGraphicInstBase(reader, futureData);
   futureData.sanitizeCheckpoints();
   return inst;
 }
