@@ -140,10 +140,15 @@ describe.skipIf(!hasDsnFixture || !hasDatFixtures)("DSN vs DAT comparison", () =
       pstxprtPath: PSTXPRT_FIXTURE,
       pstchipPath: PSTCHIP_FIXTURE,
     });
-    buildCadencePinMap(datRaw.nets, datRaw.components, datRaw.chips, datRaw.partNames);
+    const datEnriched = buildCadencePinMap(
+      datRaw.nets,
+      datRaw.components,
+      datRaw.chips,
+      datRaw.partNames
+    );
 
     const dsnComponents = new Set(Object.keys(dsnResult.components));
-    const datComponents = new Set(Object.keys(datRaw.components));
+    const datComponents = new Set(Object.keys(datEnriched));
 
     const commonComponents = [...dsnComponents].filter((c) => datComponents.has(c));
     const coverage = commonComponents.length / datComponents.size;

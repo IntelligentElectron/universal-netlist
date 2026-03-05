@@ -85,18 +85,24 @@ const buildValueMap = (chips: ChipPart[]): Map<string, string> => {
 };
 
 /**
- * Build pin mappings for Cadence netlists.
- * Uses partNames map for cross-referencing with pstchip.dat.
- * Also extracts VALUE from pstchip.dat and sets it on components.
+ * Enrich components with pin mappings and values from pstchip data.
+ * Returns a new ComponentDetails with pins populated from net connections
+ * and pin names/values cross-referenced from pstchip.dat.
  */
 export const buildCadencePinMap = (
   nets: ParsedNetlist["nets"],
   components: ComponentDetails,
   chips: ChipPart[],
   partNames: Map<string, string>
-): void => {
+): ComponentDetails => {
   const pinNameMaps = buildPinNameMaps(chips);
   const valueMap = buildValueMap(chips);
+
+  // Shallow-copy components so we don't mutate the input
+  const result: ComponentDetails = {};
+  for (const [refdes, comp] of Object.entries(components)) {
+    result[refdes] = { ...comp, pins: { ...comp.pins } };
+  }
 
   for (const [netName, netConnections] of Object.entries(nets)) {
     for (const [refdes, pins] of Object.entries(netConnections)) {
@@ -104,11 +110,11 @@ export const buildCadencePinMap = (
       if (!isValidRefdes(refdes)) {
         continue;
       }
-      if (!components[refdes]) {
-        components[refdes] = { pins: {} };
+      if (!result[refdes]) {
+        result[refdes] = { pins: {} };
       }
 
-      const component = components[refdes];
+      const component = result[refdes];
       const partName = partNames.get(refdes);
 
       // Set value from pstchip.dat if not already set
@@ -127,6 +133,8 @@ export const buildCadencePinMap = (
       }
     }
   }
+
+  return result;
 };
 
 // =============================================================================
@@ -170,11 +178,11 @@ const parseCadenceDesign = async (designPath: string): Promise<ParsedNetlist> =>
       pstchipPath: datFiles.pstchip ?? undefined,
     });
 
-    buildCadencePinMap(raw.nets, raw.components, raw.chips, raw.partNames);
+    const components = buildCadencePinMap(raw.nets, raw.components, raw.chips, raw.partNames);
 
     return {
       nets: raw.nets,
-      components: raw.components,
+      components,
     };
   }
 
