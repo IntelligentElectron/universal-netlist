@@ -100,3 +100,7 @@ npm publishing uses OIDC trusted publishing (configured on npmjs.com) - no token
 - OIDC requires npm 11.5.1+ (Node 22 ships with older npm, so we explicitly upgrade)
 - Use `npm install` instead of `npm ci` - npm 11.x has stricter lock file validation that fails with cross-platform optional deps (esbuild, rollup)
 - Never commit any lockfile (`bun.lock`, `package-lock.json`) - vitest/rollup have cross-platform optional deps
+
+## Git Guidelines
+
+See the `release` skill (`.claude/skills/release.md`) for commit, push, PR, and release workflows.

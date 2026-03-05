@@ -4,7 +4,7 @@
  */
 
 import { readFile } from "fs/promises";
-import type { ComponentDetails } from "../../types.js";
+import type { ComponentDetails } from "../../../types.js";
 
 /**
  * Result from parsing pstxprt.dat

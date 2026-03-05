@@ -4,10 +4,10 @@
  */
 
 import path from "path";
-import { parsePstxnet } from "./pstxnet-parser.js";
-import { parsePstxprt } from "./pstxprt-parser.js";
-import { parsePstchip } from "./pstchip-parser.js";
-import type { ChipPart } from "./pstchip-parser.js";
+import { parsePstxnet } from "./dat/pstxnet-parser.js";
+import { parsePstxprt } from "./dat/pstxprt-parser.js";
+import { parsePstchip } from "./dat/pstchip-parser.js";
+import type { ChipPart } from "./dat/pstchip-parser.js";
 import {
   discoverCadenceDesigns,
   findCadenceDatFiles,
@@ -25,9 +25,9 @@ import {
 
 export { discoverCadenceDesigns, findCadenceDatFiles, isCadenceFile } from "./discovery.js";
 export { parseDsnFile } from "./dsn/dsn-parser.js";
-export { parsePstxnet, parsePstxnetContent } from "./pstxnet-parser.js";
-export { parsePstxprt, parsePstxprtContent } from "./pstxprt-parser.js";
-export { parsePstchip, parsePstchipContent, type ChipPart } from "./pstchip-parser.js";
+export { parsePstxnet, parsePstxnetContent } from "./dat/pstxnet-parser.js";
+export { parsePstxprt, parsePstxprtContent } from "./dat/pstxprt-parser.js";
+export { parsePstchip, parsePstchipContent, type ChipPart } from "./dat/pstchip-parser.js";
 
 export interface CadenceFilePaths {
   pstxnetPath: string;
