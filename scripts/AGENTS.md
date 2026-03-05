@@ -57,6 +57,16 @@ Report sections:
 - **Stolen refs**: Golden nets missing a refdes, showing which extra DSN net captured it
 - **Summary**: Coverage percentage with missing/extra breakdowns by category
 
+## verify-pin-numbers.ts
+
+Compare DSN parser pin numbers against DAT golden files for all Cadence fixtures. Reports per-fixture pin number match rate and shows mismatch examples.
+
+```bash
+npx tsx scripts/verify-pin-numbers.ts
+```
+
+Useful for validating Package stream pin map resolution. Fixtures without Package streams use sequential pin numbering (1, 2, 3...) which may not match DAT golden when physical pin numbers differ.
+
 ## dsn-inspect.ts
 
 Single tool for inspecting all internal DSN binary structures. Covers OLE container, hierarchy stream, page-level data (wires, pins, net tables, symbols), and wire connectivity tracing.

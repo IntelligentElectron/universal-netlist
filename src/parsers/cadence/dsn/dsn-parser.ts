@@ -16,8 +16,8 @@ import {
   parseGlobal,
   parsePort,
   parseOffPageConnector,
+  parsePackage,
 } from "./structures.js";
-import { createPinEntry } from "../../../types.js";
 import type { ParsedNetlist, NetConnections, ComponentDetails } from "../../../types.js";
 import { isValidRefdes } from "../../../circuit-traversal.js";
 
@@ -55,6 +55,26 @@ function skipT0x35(reader: BinaryReader): void {
 }
 
 // --- Stream Parsers ---
+
+/**
+ * Parse a Package OLE stream into a Package structure.
+ *
+ * Layout: uint16 lenPartCells → [PartCell + LibraryParts]... → Package.
+ * PartCell and LibraryPart are skippable structures; the Package at the
+ * end contains Device entries with pinMap data.
+ */
+function parsePackageStream(buffer: Buffer): Package {
+  const reader = new BinaryReader(buffer);
+  const lenPartCells = reader.readUint16();
+  for (let i = 0; i < lenPartCells; i++) {
+    skipStructure(reader); // PartCell
+    const lenLibraryParts = reader.readUint16();
+    for (let j = 0; j < lenLibraryParts; j++) {
+      skipStructure(reader); // LibraryPart
+    }
+  }
+  return parsePackage(reader);
+}
 
 interface PageData {
   name: string;
@@ -200,9 +220,8 @@ function addPinToNet(
   componentPins: Map<string, Map<string, string>>,
   netName: string,
   refdes: string,
-  pinIdx: number
+  pinNumber: string
 ): void {
-  const pinNumber = String(pinIdx + 1);
   if (!nets[netName]) nets[netName] = {};
   const existing = nets[netName][refdes];
   if (!existing) {
@@ -387,15 +406,38 @@ function buildPageCoordMap(page: PageData, canonicalNetNames: Set<string>): Map<
 
 interface PinInfo {
   refdes: string;
-  pinIdx: number;
+  pinNumber: string;
   netId: number;
   pageIdx: number;
   coord: string; // "x,y"
   coordNet?: string;
 }
 
+/**
+ * Resolve a T0x10 pin index to a physical pin number using package pin map data.
+ *
+ * For components with a matching Package entry, the Device.pinMap maps
+ * T0x10 index → physical pin number (e.g., index 0 → pin "8" for a QFN).
+ * For components without Package data, falls back to sequential numbering.
+ */
+function resolvePinNumber(
+  pinIdx: number,
+  inst: PlacedInstance,
+  pinMaps: Map<string, (string | null)[]>
+): string {
+  const pinMap = pinMaps.get(inst.sourcePackage);
+  if (pinMap && pinIdx < pinMap.length && pinMap[pinIdx] !== null) {
+    return pinMap[pinIdx]!;
+  }
+  return String(pinIdx + 1);
+}
+
 /** Collect all component pins across pages with their coordinate-resolved net names. */
-function collectPins(pages: PageData[], pageCoordMaps: Map<string, string>[]): PinInfo[] {
+function collectPins(
+  pages: PageData[],
+  pageCoordMaps: Map<string, string>[],
+  pinMaps: Map<string, (string | null)[]>
+): PinInfo[] {
   const pins: PinInfo[] = [];
   for (let i = 0; i < pages.length; i++) {
     const coordToNet = pageCoordMaps[i];
@@ -406,7 +448,8 @@ function collectPins(pages: PageData[], pageCoordMaps: Map<string, string>[]): P
         const pin = inst.t0x10s[pinIdx];
         const coord = `${pin.pointX},${pin.pointY}`;
         const coordNet = coordToNet.get(coord);
-        pins.push({ refdes, pinIdx, netId: pin.netId, pageIdx: i, coord, coordNet });
+        const pinNumber = resolvePinNumber(pinIdx, inst, pinMaps);
+        pins.push({ refdes, pinNumber, netId: pin.netId, pageIdx: i, coord, coordNet });
       }
     }
   }
@@ -592,12 +635,12 @@ function assembleNets(
 
   // 1. No-connect pins
   for (const pin of noConnect) {
-    addPinToNet(nets, componentPins, "NC", pin.refdes, pin.pinIdx);
+    addPinToNet(nets, componentPins, "NC", pin.refdes, pin.pinNumber);
   }
 
   // 2. Sentinel pins connected via wires
   for (const pin of sentinelWired) {
-    addPinToNet(nets, componentPins, pin.coordNet!, pin.refdes, pin.pinIdx);
+    addPinToNet(nets, componentPins, pin.coordNet!, pin.refdes, pin.pinNumber);
   }
 
   // 3. Normal pins: resolve names, disambiguate cross-page duplicates, assign
@@ -610,7 +653,7 @@ function assembleNets(
   for (const [netId, pins] of netIdGroups) {
     const netName = netIdToName.get(netId)!;
     for (const pin of pins) {
-      addPinToNet(nets, componentPins, netName, pin.refdes, pin.pinIdx);
+      addPinToNet(nets, componentPins, netName, pin.refdes, pin.pinNumber);
     }
   }
 
@@ -622,7 +665,7 @@ function assembleNets(
   );
   for (const { netName, pins } of wirelessNets) {
     for (const pin of pins) {
-      addPinToNet(nets, componentPins, netName, pin.refdes, pin.pinIdx);
+      addPinToNet(nets, componentPins, netName, pin.refdes, pin.pinNumber);
     }
   }
 
@@ -674,7 +717,8 @@ function buildOpcNameMap(
 /** Build pin-to-net mapping from parsed page data. */
 function buildNetConnectivity(
   pages: PageData[],
-  canonicalNetNames: Set<string>
+  canonicalNetNames: Set<string>,
+  pinMaps: Map<string, (string | null)[]>
 ): {
   nets: NetConnections;
   componentPins: Map<string, Map<string, string>>;
@@ -695,16 +739,19 @@ function buildNetConnectivity(
         })
       : pageCoordMaps;
 
-  const allPins = collectPins(pages, resolvedCoordMaps);
+  const allPins = collectPins(pages, resolvedCoordMaps, pinMaps);
   return assembleNets(allPins, canonicalNetNames);
 }
 
 /**
- * Build components from PlacedInstances and Packages.
+ * Build components from PlacedInstances and Package pin map data.
+ *
+ * For components with a matching pin map, pins use physical pin numbers
+ * and include pin names (e.g., { name: "SDA", net: "I2C_SDA" }).
+ * For components without pin map data, pins use the connectivity map directly.
  */
 function buildComponents(
   pages: PageData[],
-  packages: Map<string, Package>,
   componentPins: Map<string, Map<string, string>>
 ): ComponentDetails {
   const components: ComponentDetails = {};
@@ -715,33 +762,18 @@ function buildComponents(
       if (!refdes || !isValidRefdes(refdes)) continue;
       if (components[refdes]) continue; // already processed
 
-      const pkg = packages.get(inst.pkgName);
       const pinNets = componentPins.get(refdes);
       const pins: Record<string, import("../../../types.js").PinEntry> = {};
 
-      if (pkg) {
-        // Find the device matching this refdes
-        for (const device of pkg.devices) {
-          if (device.refDes === refdes || device.refDes === pkg.refDes) {
-            for (let i = 0; i < device.pinMap.length; i++) {
-              const pinName = device.pinMap[i];
-              if (pinName === null) continue;
-              const pinNumber = String(i + 1);
-              const netName = pinNets?.get(pinNumber) ?? "";
-              pins[pinNumber] = createPinEntry(pinNumber, pinName, netName);
-            }
-          }
-        }
-      }
-
-      // If no package data, still populate pins from connectivity
-      if (Object.keys(pins).length === 0 && pinNets) {
+      // Pin numbers are already resolved (physical or sequential) during
+      // collectPins via resolvePinNumber. Just populate from connectivity.
+      if (pinNets) {
         for (const [pinNumber, netName] of pinNets) {
           pins[pinNumber] = netName;
         }
       }
 
-      components[refdes] = { pins };
+      components[refdes] = { mpn: inst.sourcePackage, pins };
     }
   }
 
@@ -825,11 +857,50 @@ export function parseDsnFile(dsnPath: string): ParsedNetlist {
     pages.push(parsePage(pageBuffer));
   }
 
-  const packages = new Map<string, Package>();
+  // Parse Package streams for pin mapping data.
+  // Each Package stream contains Device entries with pinMap arrays that map
+  // T0x10 index → physical pin number/name. We index by sourcePackage
+  // for lookup during pin resolution.
+  const pinMaps = new Map<string, (string | null)[]>();
+  const pkgStreamEntries = entries.filter(
+    (e) =>
+      /^Packages\//.test(e.path) && e.entry.type === 2 && !e.path.includes("_pDboPackage_Copy_")
+  );
+
+  for (const pkgEntry of pkgStreamEntries) {
+    try {
+      const pkgBuffer = ole.readStreamByPath(pkgEntry.path);
+      const pkg = parsePackageStream(pkgBuffer);
+      const streamName = pkgEntry.path.replace("Packages/", "");
+
+      // Index pin maps by sourcePackage for pin number resolution.
+      // For single-device packages, the sourcePackage key is the stream
+      // name stripped of the trailing _N suffix. For multi-device (multi-unit)
+      // packages, each device gets its own entry keyed by streamName + unitRef.
+      const baseName = streamName.replace(/_\d+$/, "");
+      if (pkg.devices.length === 1) {
+        if (!pinMaps.has(baseName)) {
+          pinMaps.set(baseName, pkg.devices[0].pinMap);
+        }
+        // Also store by exact stream name for direct matches
+        pinMaps.set(streamName, pkg.devices[0].pinMap);
+      } else {
+        // Multi-unit: store per unit (sourcePackage is the base without unit suffix)
+        for (const device of pkg.devices) {
+          const unitKey = baseName + device.unitRef;
+          if (!pinMaps.has(unitKey)) {
+            pinMaps.set(unitKey, device.pinMap);
+          }
+        }
+      }
+    } catch {
+      // Package parsing is best-effort; skip malformed streams
+    }
+  }
 
   // Build netlist from parsed data
-  const { nets, componentPins } = buildNetConnectivity(pages, canonicalNetNames);
-  const components = buildComponents(pages, packages, componentPins);
+  const { nets, componentPins } = buildNetConnectivity(pages, canonicalNetNames, pinMaps);
+  const components = buildComponents(pages, componentPins);
 
   return { nets, components };
 }
