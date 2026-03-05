@@ -425,11 +425,64 @@ function resolvePinNumber(
   inst: PlacedInstance,
   pinMaps: Map<string, (string | null)[]>
 ): string {
-  const pinMap = pinMaps.get(inst.sourcePackage);
+  const pinMap = findPinMap(inst, pinMaps);
   if (pinMap && pinIdx < pinMap.length && pinMap[pinIdx] !== null) {
     return pinMap[pinIdx]!;
   }
   return String(pinIdx + 1);
+}
+
+/**
+ * Extract the unit reference letter from a multi-unit PlacedInstance.
+ * pkgName format: "DP_HDMI_CONNA.Normal" → unitRef "A"
+ * Cadence sometimes doubles the letter: "OMAP_CBPAA.Normal" → "AA",
+ * but the pinMap key uses single letter "A", so we return both forms.
+ */
+function extractUnitRef(inst: PlacedInstance): string | undefined {
+  if (!inst.pkgName.startsWith(inst.sourcePackage)) return undefined;
+  const suffix = inst.pkgName.slice(inst.sourcePackage.length);
+  const dotIdx = suffix.indexOf(".");
+  const raw = dotIdx >= 0 ? suffix.slice(0, dotIdx) : suffix;
+  return raw || undefined;
+}
+
+/**
+ * Find the pin map for a PlacedInstance, trying multiple matching strategies:
+ * 1. Direct sourcePackage match
+ * 2. Multi-unit: sourcePackage + unitRef extracted from pkgName
+ * 3. Normalized match: expand version-like suffixes with ".0"
+ */
+function findPinMap(
+  inst: PlacedInstance,
+  pinMaps: Map<string, (string | null)[]>
+): (string | null)[] | undefined {
+  const unitRef = extractUnitRef(inst);
+
+  // Try each base name candidate (original, then normalized)
+  const candidates = [inst.sourcePackage];
+  const normalized = inst.sourcePackage.replace(/_(\d+)_/g, "_$1.0_");
+  if (normalized !== inst.sourcePackage) candidates.push(normalized);
+
+  for (const base of candidates) {
+    // Direct match (single-device packages)
+    const direct = pinMaps.get(base);
+    if (direct) return direct;
+
+    // Multi-unit: try base + unitRef
+    if (unitRef) {
+      const unitMatch = pinMaps.get(base + unitRef);
+      if (unitMatch) return unitMatch;
+
+      // Cadence doubles unit letters in pkgName (e.g., "AA") but pinMap
+      // keys use single letter ("A"). Try the first character.
+      if (unitRef.length >= 2 && unitRef[0] === unitRef[1]) {
+        const singleMatch = pinMaps.get(base + unitRef[0]);
+        if (singleMatch) return singleMatch;
+      }
+    }
+  }
+
+  return undefined;
 }
 
 /** Collect all component pins across pages with their coordinate-resolved net names. */
