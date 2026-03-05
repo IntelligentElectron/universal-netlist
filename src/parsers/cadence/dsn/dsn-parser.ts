@@ -221,87 +221,218 @@ function parseLibraryStrLst(buffer: Buffer): string[] {
  * This replaces pure coordinate matching, which suffered from cross-page
  * coordinate collisions and couldn't handle unnamed wires.
  */
-function buildNetConnectivity(pages: PageData[]): {
-  nets: NetConnections;
-  componentPins: Map<string, Map<string, string>>;
-} {
-  // Build per-page coordinate -> net name maps (page-scoped to avoid collisions)
-  const pageCoordMaps: Map<string, string>[] = [];
+/**
+ * Simple Union-Find for grouping connected wire endpoints by coordinate.
+ */
+class CoordUnionFind {
+  private parent = new Map<string, string>();
 
-  for (const page of pages) {
-    const coordToNet = new Map<string, string>();
-
-    for (const wire of page.wires) {
-      let netName: string | undefined;
-
-      if (wire.aliases.length > 0) {
-        netName = wire.aliases[0].name.toUpperCase();
-      }
-
-      if (!netName) {
-        netName = page.netTable.get(wire.id);
-      }
-
-      if (netName) {
-        coordToNet.set(`${wire.startX},${wire.startY}`, netName);
-        coordToNet.set(`${wire.endX},${wire.endY}`, netName);
-      }
+  find(x: string): string {
+    if (!this.parent.has(x)) this.parent.set(x, x);
+    let root = x;
+    while (this.parent.get(root) !== root) root = this.parent.get(root)!;
+    let curr = x;
+    while (curr !== root) {
+      const next = this.parent.get(curr)!;
+      this.parent.set(curr, root);
+      curr = next;
     }
-
-    for (const global of page.globals) {
-      coordToNet.set(`${global.locX},${global.locY}`, global.name.toUpperCase());
-    }
-
-    for (const port of page.ports) {
-      coordToNet.set(`${port.locX},${port.locY}`, port.name.toUpperCase());
-    }
-
-    for (const opc of page.offPageConnectors) {
-      coordToNet.set(`${opc.locX},${opc.locY}`, opc.name.toUpperCase());
-    }
-
-    pageCoordMaps.push(coordToNet);
+    return root;
   }
 
-  // Collect all pins with their netId and coordinate-resolved name
-  interface PinInfo {
-    refdes: string;
-    pinIdx: number;
-    netId: number;
-    coordNet?: string;
+  union(a: string, b: string): void {
+    const ra = this.find(a);
+    const rb = this.find(b);
+    if (ra !== rb) this.parent.set(ra, rb);
   }
 
-  const allPins: PinInfo[] = [];
+  groups(): Map<string, string[]> {
+    const result = new Map<string, string[]>();
+    for (const key of this.parent.keys()) {
+      const root = this.find(key);
+      if (!result.has(root)) result.set(root, []);
+      result.get(root)!.push(key);
+    }
+    return result;
+  }
+}
 
-  for (let pageIdx = 0; pageIdx < pages.length; pageIdx++) {
-    const page = pages[pageIdx];
-    const coordToNet = pageCoordMaps[pageIdx];
+function addPinToNet(
+  nets: NetConnections,
+  componentPins: Map<string, Map<string, string>>,
+  netName: string,
+  refdes: string,
+  pinIdx: number
+): void {
+  const pinNumber = String(pinIdx + 1);
+  if (!nets[netName]) nets[netName] = {};
+  const existing = nets[netName][refdes];
+  if (!existing) {
+    nets[netName][refdes] = pinNumber;
+  } else if (Array.isArray(existing)) {
+    if (!existing.includes(pinNumber)) existing.push(pinNumber);
+  } else if (existing !== pinNumber) {
+    nets[netName][refdes] = [existing, pinNumber];
+  }
+  if (!componentPins.has(refdes)) componentPins.set(refdes, new Map());
+  componentPins.get(refdes)!.set(pinNumber, netName);
+}
 
-    for (const inst of page.placedInstances) {
+/**
+ * Build a coordinate -> net name map for a single page using wire graph connectivity.
+ *
+ * Wire endpoints are grouped via Union-Find so a net name on any wire in a
+ * connected group propagates to all endpoints. Name resolution rules:
+ *
+ * 1. All wire aliases and net table entries are collected as candidates.
+ * 2. When a group has multiple candidate names, the alphabetically first name
+ *    wins (matches Cadence CIS export behavior).
+ * 3. Unnamed groups get a synthesized N{minSegmentId} name, matching the
+ *    auto-generated naming convention in Cadence's DAT export.
+ *
+ * Global/port/OPC symbols are NOT used for naming: their `.name` field is the
+ * schematic symbol type (e.g. "VCC_BAR", "GND_SIGNAL"), not the net name.
+ * They are registered in the Union-Find for connectivity only.
+ */
+function buildPageCoordMap(page: PageData): Map<string, string> {
+  const uf = new CoordUnionFind();
+
+  // Connect wire endpoints into groups
+  for (const wire of page.wires) {
+    const s = `${wire.startX},${wire.startY}`;
+    const e = `${wire.endX},${wire.endY}`;
+    uf.find(s);
+    uf.find(e);
+    uf.union(s, e);
+  }
+
+  // Register global/port/OPC coordinates (connectivity only, not naming)
+  for (const global of page.globals) uf.find(`${global.locX},${global.locY}`);
+  for (const port of page.ports) uf.find(`${port.locX},${port.locY}`);
+  for (const opc of page.offPageConnectors) uf.find(`${opc.locX},${opc.locY}`);
+
+  // Collect all candidate names and minimum segmentId per coordinate
+  const wireNames = new Map<string, Set<string>>();
+  const coordMinSegId = new Map<string, number>();
+
+  for (const wire of page.wires) {
+    const s = `${wire.startX},${wire.startY}`;
+    const e = `${wire.endX},${wire.endY}`;
+
+    // Aliases
+    for (const alias of wire.aliases) {
+      const name = alias.name.toUpperCase();
+      if (!wireNames.has(s)) wireNames.set(s, new Set());
+      if (!wireNames.has(e)) wireNames.set(e, new Set());
+      wireNames.get(s)!.add(name);
+      wireNames.get(e)!.add(name);
+    }
+
+    // Net table entry
+    const tableName = page.netTable.get(wire.id);
+    if (tableName) {
+      if (!wireNames.has(s)) wireNames.set(s, new Set());
+      if (!wireNames.has(e)) wireNames.set(e, new Set());
+      wireNames.get(s)!.add(tableName);
+      wireNames.get(e)!.add(tableName);
+    }
+
+    // Track minimum segmentId for auto-generated naming
+    const curS = coordMinSegId.get(s);
+    if (curS === undefined || wire.segmentId < curS) coordMinSegId.set(s, wire.segmentId);
+    const curE = coordMinSegId.get(e);
+    if (curE === undefined || wire.segmentId < curE) coordMinSegId.set(e, wire.segmentId);
+  }
+
+  // Resolve one canonical name per connected wire group
+  const coordToNet = new Map<string, string>();
+  for (const [, members] of uf.groups()) {
+    const allNames = new Set<string>();
+    for (const m of members) {
+      const names = wireNames.get(m);
+      if (names) for (const n of names) allNames.add(n);
+    }
+
+    let canonicalName: string;
+    if (allNames.size > 0) {
+      canonicalName = [...allNames].sort()[0];
+    } else {
+      // Unnamed wire group: use minimum segmentId (matches Cadence DAT export)
+      let minSegId = Infinity;
+      for (const m of members) {
+        const segId = coordMinSegId.get(m);
+        if (segId !== undefined && segId < minSegId) minSegId = segId;
+      }
+      if (minSegId === Infinity) continue;
+      canonicalName = `N${minSegId}`;
+    }
+
+    for (const m of members) {
+      coordToNet.set(m, canonicalName);
+    }
+  }
+
+  return coordToNet;
+}
+
+interface PinInfo {
+  refdes: string;
+  pinIdx: number;
+  netId: number;
+  coordNet?: string;
+}
+
+/** Collect all component pins across pages with their coordinate-resolved net names. */
+function collectPins(pages: PageData[], pageCoordMaps: Map<string, string>[]): PinInfo[] {
+  const pins: PinInfo[] = [];
+  for (let i = 0; i < pages.length; i++) {
+    const coordToNet = pageCoordMaps[i];
+    for (const inst of pages[i].placedInstances) {
       const refdes = inst.reference;
       if (!refdes || !isValidRefdes(refdes)) continue;
-
       for (let pinIdx = 0; pinIdx < inst.t0x10s.length; pinIdx++) {
         const pin = inst.t0x10s[pinIdx];
         const coordNet = coordToNet.get(`${pin.pointX},${pin.pointY}`);
-        allPins.push({ refdes, pinIdx, netId: pin.netId, coordNet });
+        pins.push({ refdes, pinIdx, netId: pin.netId, coordNet });
       }
     }
   }
+  return pins;
+}
 
-  // Group pins by netId
+/**
+ * Assemble nets from collected pins.
+ *
+ * - netId=0 pins without a coordinate match are mapped to "NC" (no-connect).
+ * - netId=0xFFFFFFFF pins are skipped (sentinel).
+ * - Remaining pins are grouped by netId; the most common coordNet in each
+ *   group becomes the net name, falling back to N{netId} when no coordinate
+ *   match exists.
+ */
+function assembleNets(allPins: PinInfo[]): {
+  nets: NetConnections;
+  componentPins: Map<string, Map<string, string>>;
+} {
+  const nets: NetConnections = {};
+  const componentPins = new Map<string, Map<string, string>>();
+
+  // netId=0: unconnected pins -> NC
+  for (const pin of allPins) {
+    if (pin.netId !== 0) continue;
+    if (pin.coordNet) continue;
+    addPinToNet(nets, componentPins, "NC", pin.refdes, pin.pinIdx);
+  }
+
+  // Group non-sentinel pins by netId
   const netIdGroups = new Map<number, PinInfo[]>();
   for (const pin of allPins) {
+    if (pin.netId === 0 || pin.netId === 0xffffffff) continue;
     if (!netIdGroups.has(pin.netId)) netIdGroups.set(pin.netId, []);
     netIdGroups.get(pin.netId)!.push(pin);
   }
 
-  // Resolve net name for each netId group
-  const nets: NetConnections = {};
-  const componentPins = new Map<string, Map<string, string>>();
-
+  // Resolve net name per group: majority vote on coordNet, fallback to N{netId}
   for (const [netId, groupPins] of netIdGroups) {
-    // Collect coordinate-matched names, pick most common
     const nameCounts = new Map<string, number>();
     for (const pin of groupPins) {
       if (pin.coordNet) {
@@ -309,34 +440,27 @@ function buildNetConnectivity(pages: PageData[]): {
       }
     }
 
-    let netName: string;
-    if (nameCounts.size > 0) {
-      netName = [...nameCounts.entries()].sort((a, b) => b[1] - a[1])[0][0];
-    } else {
-      // No coordinate match; synthesize N{netId}
-      netName = `N${netId}`;
-    }
+    const netName =
+      nameCounts.size > 0
+        ? [...nameCounts.entries()].sort((a, b) => b[1] - a[1])[0][0]
+        : `N${netId}`;
 
-    // Build net connections
     for (const pin of groupPins) {
-      const pinNumber = String(pin.pinIdx + 1);
-
-      if (!nets[netName]) nets[netName] = {};
-      const existing = nets[netName][pin.refdes];
-      if (!existing) {
-        nets[netName][pin.refdes] = pinNumber;
-      } else if (Array.isArray(existing)) {
-        if (!existing.includes(pinNumber)) existing.push(pinNumber);
-      } else if (existing !== pinNumber) {
-        nets[netName][pin.refdes] = [existing, pinNumber];
-      }
-
-      if (!componentPins.has(pin.refdes)) componentPins.set(pin.refdes, new Map());
-      componentPins.get(pin.refdes)!.set(pinNumber, netName);
+      addPinToNet(nets, componentPins, netName, pin.refdes, pin.pinIdx);
     }
   }
 
   return { nets, componentPins };
+}
+
+/** Build pin-to-net mapping from parsed page data. */
+function buildNetConnectivity(pages: PageData[]): {
+  nets: NetConnections;
+  componentPins: Map<string, Map<string, string>>;
+} {
+  const pageCoordMaps = pages.map(buildPageCoordMap);
+  const allPins = collectPins(pages, pageCoordMaps);
+  return assembleNets(allPins);
 }
 
 /**

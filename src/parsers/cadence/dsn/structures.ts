@@ -27,6 +27,7 @@ export interface Alias {
 }
 
 export interface Wire {
+  segmentId: number;
   id: number;
   startX: number;
   startY: number;
@@ -124,7 +125,7 @@ export function parseWire(reader: BinaryReader): Wire {
   readPreamble(reader);
   futureData.checkpoint();
 
-  reader.skip(4); // unknown
+  const segmentId = reader.readUint32();
   const id = reader.readUint32();
   reader.skip(4); // color
   const startX = reader.readInt32();
@@ -150,7 +151,7 @@ export function parseWire(reader: BinaryReader): Wire {
   futureData.checkpoint();
   futureData.sanitizeCheckpoints();
 
-  return { id, startX, startY, endX, endY, aliases };
+  return { segmentId, id, startX, startY, endX, endY, aliases };
 }
 
 export function parseT0x10(reader: BinaryReader): T0x10 {

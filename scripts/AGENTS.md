@@ -37,6 +37,77 @@ Summary mode prints a table with net/component counts and coverage percentages. 
 
 Aggregate stats at the bottom show total coverage across all fixtures and a missing-by-category breakdown.
 
+## dsn-gap-analysis.ts
+
+Deep-dive into gaps between DSN parser output and a DAT golden file for a single fixture. Categorizes every missing and extra net, maps extra nets to their likely golden counterpart via refdes Jaccard similarity, identifies schematic-to-PCB net renames, and traces "stolen" refs (refdes that moved from a golden net to an extra DSN net).
+
+```bash
+npx tsx scripts/dsn-gap-analysis.ts <golden-name>
+```
+
+- `golden-name`: name of the golden JSON file (without extension), e.g. `BEAGLEBONEBLK_C3`
+
+Run without arguments to see available golden files.
+
+Example:
+
+```bash
+npx tsx scripts/dsn-gap-analysis.ts BEAGLEBONEBLK_C3
+```
+
+Report sections:
+- **Refdes accuracy**: Per-net refdes match rate on common nets, with mismatch details
+- **Missing nets**: Nets in golden but not in DSN, grouped by category
+- **Extra net mapping**: Each extra DSN net mapped to its likely golden counterpart
+- **Schematic vs PCB renames**: Extra named nets that are schematic-side aliases for golden PCB net names
+- **Stolen refs**: Golden nets missing a refdes, showing which extra DSN net captured it
+- **Summary**: Coverage percentage with missing/extra breakdowns by category
+
+## dsn-check-ports.ts
+
+Compare wire aliases against net table entries for all pages in a DSN file. Reports conflicts (alias != table name for the same wire), alias-only wires, and table-only entries. Useful for understanding net name resolution discrepancies.
+
+```bash
+npx tsx scripts/dsn-check-ports.ts <dsn-file>
+```
+
+Example:
+
+```bash
+npx tsx scripts/dsn-check-ports.ts test/fixtures/cadence/BeagleBone-Black/ALLEGRO/BEAGLEBONEBLK_C3.DSN
+```
+
+## dsn-wire-trace.ts
+
+Trace wire connectivity for a specific coordinate on a page. Builds a Union-Find from all wire endpoints, then shows every wire segment in the same connected group, their aliases and net table entries, and all coordinates in the group. Useful for debugging wire graph name propagation.
+
+```bash
+npx tsx scripts/dsn-wire-trace.ts <dsn-file> <page-substring> <x> <y>
+```
+
+Example:
+
+```bash
+npx tsx scripts/dsn-wire-trace.ts test/fixtures/cadence/BeagleBone-Black/ALLEGRO/BEAGLEBONEBLK_C3.DSN P03 400 410
+```
+
+## dsn-find-wire.ts
+
+Search for wires matching a name pattern on a specific page (or all pages). Shows ALL aliases on each wire (not just the first), net table entries, and coordinates. Useful for finding wires with multiple aliases or verifying name resolution.
+
+```bash
+npx tsx scripts/dsn-find-wire.ts <dsn-file> <page-substring> <name-regex>
+```
+
+The page-substring filters pages (empty string matches all). The name-regex is matched case-insensitively against all aliases and the net table entry.
+
+Examples:
+
+```bash
+npx tsx scripts/dsn-find-wire.ts test/fixtures/cadence/BeagleBoard-xM/SCH/BeagleBoard-xM_ORCAD.DSN P10 USBDM
+npx tsx scripts/dsn-find-wire.ts test/fixtures/cadence/BeagleBone-Black/ALLEGRO/BEAGLEBONEBLK_C3.DSN "" OSC
+```
+
 ## dsn-inspect.ts
 
 Low-level inspector for DSN binary internals. Useful for debugging specific parsing issues, tracing net connectivity, and understanding the CFBF container contents.
