@@ -55,18 +55,6 @@ export class FutureDataList {
   }
 
   /**
-   * Verify all FutureData entries were matched by checkpoints.
-   */
-  sanitizeCheckpoints(): void {
-    for (const item of this.items) {
-      if (!item.parsed) {
-        // Skip to the expected end instead of throwing
-        // This provides resilience for partially-understood structures
-      }
-    }
-  }
-
-  /**
    * Skip to the end of the structure based on the maximum stop offset.
    * Used for error recovery and skipping unknown structures.
    */

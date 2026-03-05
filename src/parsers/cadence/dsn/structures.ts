@@ -102,7 +102,6 @@ export function parseSymbolDisplayProp(reader: BinaryReader): SymbolDisplayProp 
   reader.skip(1); // assumed 0x00
 
   futureData.checkpoint();
-  futureData.sanitizeCheckpoints();
 
   return { nameIdx, x, y, textFontIdx, rotation, propColor };
 }
@@ -121,7 +120,6 @@ export function parseAlias(reader: BinaryReader): Alias {
   const name = reader.readStringLenZeroTerm();
 
   futureData.checkpoint();
-  futureData.sanitizeCheckpoints();
 
   return { locX, locY, name };
 }
@@ -156,7 +154,6 @@ export function parseWire(reader: BinaryReader): Wire {
   reader.skip(4); // lineStyle
 
   futureData.checkpoint();
-  futureData.sanitizeCheckpoints();
 
   return { segmentId, id, startX, startY, endX, endY, aliases };
 }
@@ -180,7 +177,6 @@ export function parseT0x10(reader: BinaryReader): T0x10 {
   }
 
   futureData.checkpoint();
-  futureData.sanitizeCheckpoints();
 
   return { pointX, pointY, netId, symbolDisplayProps };
 }
@@ -223,7 +219,6 @@ export function parsePlacedInstance(reader: BinaryReader): PlacedInstance {
   reader.skip(2); // unknown
 
   futureData.checkpoint();
-  futureData.sanitizeCheckpoints();
 
   return { pkgName, reference, sourcePackage, locX, locY, symbolDisplayProps, t0x10s };
 }
@@ -276,7 +271,7 @@ export function parseGlobal(reader: BinaryReader): GraphicInst {
   const futureData = new FutureDataList(reader);
   autoReadPrefixes(reader, futureData, StructureType.Global);
   const inst = parseGraphicInstBase(reader, futureData);
-  futureData.sanitizeCheckpoints();
+
   return inst;
 }
 
@@ -286,7 +281,7 @@ export function parsePort(reader: BinaryReader): GraphicInst {
   const inst = parseGraphicInstBase(reader, futureData);
   reader.skip(9); // unknown (Port-specific)
   futureData.checkpoint();
-  futureData.sanitizeCheckpoints();
+
   return inst;
 }
 
@@ -294,7 +289,7 @@ export function parseOffPageConnector(reader: BinaryReader): GraphicInst {
   const futureData = new FutureDataList(reader);
   autoReadPrefixes(reader, futureData, StructureType.OffPageConnector);
   const inst = parseGraphicInstBase(reader, futureData);
-  futureData.sanitizeCheckpoints();
+
   return inst;
 }
 
@@ -324,7 +319,6 @@ export function parseDevice(reader: BinaryReader): Device {
   }
 
   futureData.checkpoint();
-  futureData.sanitizeCheckpoints();
 
   return { unitRef, refDes, pinMap };
 }
@@ -351,7 +345,6 @@ export function parsePackage(reader: BinaryReader): Package {
   }
 
   futureData.checkpoint();
-  futureData.sanitizeCheckpoints();
 
   return { name, refDes, pcbFootprint, devices };
 }

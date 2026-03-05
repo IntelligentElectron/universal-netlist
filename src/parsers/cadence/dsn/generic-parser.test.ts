@@ -111,9 +111,6 @@ describe("GenericParser", () => {
 
       reader.seek(59);
       fdl.checkpoint(); // Should match
-
-      // sanitize should not throw
-      expect(() => fdl.sanitizeCheckpoints()).not.toThrow();
     });
 
     it("should skip to end of structure", () => {
