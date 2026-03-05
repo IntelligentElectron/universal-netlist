@@ -164,32 +164,27 @@ export const parseCadence = async (paths: CadenceFilePaths): Promise<CadenceRawN
 };
 
 /**
- * Parse a Cadence design file by finding its .dat files and parsing them.
- * Falls back to direct DSN binary parsing when .dat files are not available.
+ * Parse a Cadence design file.
+ * Routes on file extension: .dsn → DSN binary parser, .dat → DAT parser.
  */
 const parseCadenceDesign = async (designPath: string): Promise<ParsedNetlist> => {
-  const datFiles = await findCadenceDatFiles(designPath);
+  const ext = path.extname(designPath).toLowerCase();
 
-  // Prefer .dat files when available (richer data: pin names, MPN, values)
+  // DSN binary parsing (preferred path)
+  if (ext === ".dsn") {
+    return parseDsnFile(designPath);
+  }
+
+  // DAT file parsing (fallback, or dat-only designs)
+  const datFiles = await findCadenceDatFiles(designPath);
   if (datFiles.pstxnet && datFiles.pstxprt) {
     const raw = await parseCadence({
       pstxnetPath: datFiles.pstxnet,
       pstxprtPath: datFiles.pstxprt,
       pstchipPath: datFiles.pstchip ?? undefined,
     });
-
     const components = buildCadencePinMap(raw.nets, raw.components, raw.chips, raw.partNames);
-
-    return {
-      nets: raw.nets,
-      components,
-    };
-  }
-
-  // Fall back to direct DSN binary parsing (no .dat export needed)
-  const ext = path.extname(designPath).toLowerCase();
-  if (ext === ".dsn") {
-    return parseDsnFile(designPath);
+    return { nets: raw.nets, components };
   }
 
   throw new Error(

@@ -13,10 +13,26 @@
 
 import path from "node:path";
 import { describe, it, expect } from "vitest";
-import { listAllFixtures, loadGolden, findDesignFiles } from "../utils.js";
+import { listAllFixtures, loadGolden, findDesignFiles, findDsnFiles } from "../utils.js";
 import { parseDesign } from "../../src/parsers/index.js";
+import { findCadenceDatFiles } from "../../src/parsers/cadence/discovery.js";
 import { parseDsnFile } from "../../src/parsers/cadence/dsn/dsn-parser.js";
 import type { ParsedNetlist } from "../../src/types.js";
+
+/**
+ * Resolve the DAT parsing path for a Cadence design file.
+ * Golden files are always generated from DAT output (gold standard).
+ * For .dsn files with available DAT exports, returns the pstxnet.dat path.
+ * Otherwise returns the original design file path.
+ */
+const resolveGoldenParsePath = async (designFile: string): Promise<string> => {
+  const ext = path.extname(designFile).toLowerCase();
+  if (ext === ".dsn") {
+    const datFiles = await findCadenceDatFiles(designFile);
+    if (datFiles.pstxnet) return datFiles.pstxnet;
+  }
+  return designFile;
+};
 
 describe("Golden Reference Tests", () => {
   it("should pass when no fixtures are present", async () => {
@@ -64,7 +80,8 @@ describe("Parser Golden Output", async () => {
             );
           }
 
-          const actual = await parseDesign(designFile);
+          const parsePath = await resolveGoldenParsePath(designFile);
+          const actual = await parseDesign(parsePath);
 
           expect(actual).toEqual(golden);
         });
@@ -86,9 +103,9 @@ describe("DSN Parser Coverage vs DAT Golden", async () => {
 
   for (const fixture of fixtures) {
     if (fixture.format !== "cadence") continue;
-    const designFiles = await findDesignFiles(fixture);
-    for (const designFile of designFiles) {
-      if (!designFile.toLowerCase().endsWith(".dsn")) continue;
+    // Find .dsn files directly (findDesignFiles prefers DAT for golden tests)
+    const dsnFiles = await findDsnFiles(fixture);
+    for (const designFile of dsnFiles) {
       const projectName = path.basename(designFile, path.extname(designFile));
       const golden = await loadGolden("cadence", projectName);
       if (golden) {

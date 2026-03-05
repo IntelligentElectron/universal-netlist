@@ -235,14 +235,10 @@ describe("cadenceHandler", () => {
     await fs.rm(tempDir, { recursive: true, force: true });
   });
 
-  it("should return ParsedNetlist without partNames", async () => {
-    // Create design directory structure
-    const designDir = path.join(tempDir, "TestDesign");
-    const workDir = path.join(designDir, "worklib", "design", "physical");
-    await fs.mkdir(workDir, { recursive: true });
-
-    // Create .dsn file to be discovered
-    await fs.writeFile(path.join(designDir, "test.dsn"), "");
+  it("should return ParsedNetlist without partNames via DAT path", async () => {
+    // Create design directory structure with .dat files
+    const datDir = path.join(tempDir, "TestDesign");
+    await fs.mkdir(datDir, { recursive: true });
 
     // Create minimal pstxnet.dat (Cadence format)
     const pstxnetContent = `
@@ -254,7 +250,7 @@ NET_NAME
 'GND'
 NODE_NAME U1 2
 `;
-    await fs.writeFile(path.join(workDir, "pstxnet.dat"), pstxnetContent);
+    await fs.writeFile(path.join(datDir, "pstxnet.dat"), pstxnetContent);
 
     // Create minimal pstxprt.dat (Cadence format)
     const pstxprtContent = `
@@ -262,7 +258,7 @@ PART_NAME
 U1 'IC_CHIP':
 DESCR='Test IC';
 `;
-    await fs.writeFile(path.join(workDir, "pstxprt.dat"), pstxprtContent);
+    await fs.writeFile(path.join(datDir, "pstxprt.dat"), pstxprtContent);
 
     // Create minimal pstchip.dat (Cadence format)
     const pstchipContent = `
@@ -278,10 +274,10 @@ end_pin;
 body
 VALUE='TestValue';
 `;
-    await fs.writeFile(path.join(workDir, "pstchip.dat"), pstchipContent);
+    await fs.writeFile(path.join(datDir, "pstchip.dat"), pstchipContent);
 
-    // Parse using the handler
-    const result = await cadenceHandler.parse(path.join(designDir, "test.dsn"));
+    // Parse using the handler with a .dat path (DAT fallback route)
+    const result = await cadenceHandler.parse(path.join(datDir, "pstxnet.dat"));
 
     // Verify result does NOT have internal properties (clean ParsedNetlist)
     expect("partNames" in result).toBe(false);
