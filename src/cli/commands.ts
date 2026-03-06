@@ -2,10 +2,11 @@
  * CLI command handlers for --version, --help, --update, --uninstall, and --export-telemetry.
  */
 
-import { existsSync, rmSync } from "node:fs";
-import { dirname } from "node:path";
+import { existsSync, rmSync, writeFileSync } from "node:fs";
+import { basename, dirname, extname, resolve } from "node:path";
 import { VERSION, GITHUB_REPO, BINARY_NAME } from "../version.js";
 import { exportTelemetry } from "../telemetry.js";
+import { parseDesign } from "../parsers/index.js";
 import { checkForUpdate, performUpdate, isNpmInstall } from "./updater.js";
 import { confirm } from "./prompts.js";
 import { removeFromPath } from "./shell.js";
@@ -169,4 +170,22 @@ export const handleExportTelemetryCommand = async (): Promise<void> => {
     console.error(error instanceof Error ? error.message : String(error));
     process.exit(1);
   }
+};
+
+/**
+ * Handle --export-json command.
+ * Parses a design file and writes the universal netlist JSON to cwd.
+ */
+export const handleExportJsonCommand = async (designPath?: string): Promise<void> => {
+  if (!designPath) {
+    console.error("Usage: universal-netlist --export-json <path>");
+    process.exit(1);
+  }
+
+  const absolutePath = resolve(designPath);
+  const result = await parseDesign(absolutePath);
+  const name = basename(absolutePath, extname(absolutePath));
+  const outFile = resolve(`${name}.json`);
+  writeFileSync(outFile, JSON.stringify(result, null, 2) + "\n");
+  console.log(outFile);
 };

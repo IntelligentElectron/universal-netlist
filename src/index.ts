@@ -19,6 +19,7 @@ import {
   handleUpdateCommand,
   handleUninstallCommand,
   handleExportTelemetryCommand,
+  handleExportJsonCommand,
 } from "./cli/commands.js";
 import { autoUpdate, reexec } from "./cli/updater.js";
 import { runServer } from "./server.js";
@@ -53,6 +54,13 @@ const main = async (): Promise<void> => {
   // Handle --export-telemetry
   if (args.includes("--export-telemetry")) {
     await handleExportTelemetryCommand();
+    return;
+  }
+
+  // Handle --export-json <path>
+  if (args.includes("--export-json")) {
+    const idx = args.indexOf("--export-json");
+    await handleExportJsonCommand(args[idx + 1]);
     return;
   }
 
