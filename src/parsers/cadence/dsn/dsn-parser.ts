@@ -221,9 +221,58 @@ function parseCacheStream(
         skipStructure(reader);
       }
     } catch {
-      // Metadata parsing failed; can't continue sequentially
-      break;
+      // Metadata parsing failed; fall through to brute-force scan for
+      // remaining Package and LibraryPart structures via preamble magic.
+      scanForStructures(reader, buffer, pinMaps, cachedParts);
+      return;
     }
+  }
+}
+
+/**
+ * Brute-force scan the Cache buffer for Package and LibraryPart structures
+ * by locating preamble magic bytes (FF E4 5C 39).
+ *
+ * When sequential metadata parsing fails, this recovers remaining structures.
+ * For each preamble magic occurrence, checks if 3 bytes earlier is a valid
+ * short prefix for Package (0x1F) or LibraryPart (0x18), and attempts to
+ * parse the structure.
+ */
+function scanForStructures(
+  reader: BinaryReader,
+  buffer: Buffer,
+  pinMaps: Map<string, (string | null)[]>,
+  cachedParts: Map<string, CachedLibraryPart>
+): void {
+  const MAGIC = Buffer.from([0xff, 0xe4, 0x5c, 0x39]);
+  let pos = reader.tell();
+
+  while (pos < buffer.length - 10) {
+    const magicIdx = buffer.indexOf(MAGIC, pos);
+    if (magicIdx < 3) break;
+
+    // A short prefix is 3 bytes (type + int16 size) before the preamble.
+    const prefixStart = magicIdx - 3;
+    const typeByte = buffer[prefixStart];
+
+    if (typeByte === StructureType.Package || typeByte === StructureType.LibraryPart) {
+      reader.seek(prefixStart);
+      try {
+        if (typeByte === StructureType.Package) {
+          const pkg = parsePackage(reader);
+          indexCachePackage(pkg, pinMaps);
+        } else {
+          const lp = parseLibraryPart(reader);
+          indexCacheLibraryPart(lp, cachedParts);
+        }
+        pos = reader.tell();
+        continue;
+      } catch {
+        // Not a valid structure; skip past this magic occurrence
+      }
+    }
+
+    pos = magicIdx + 1;
   }
 }
 
@@ -667,6 +716,13 @@ function findPinMap(
         if (singleMatch) return singleMatch;
       }
     }
+
+    // Multi-unit fallback: pkgName has no unit suffix (e.g., "RPAK_10_8RES.Normal")
+    // but pinMaps has per-unit keys (e.g., "RPAK_10_8RESA"). Try unit "A" as default.
+    if (!unitRef) {
+      const unitAMatch = pinMaps.get(base + "A");
+      if (unitAMatch) return unitAMatch;
+    }
   }
 
   return undefined;
@@ -985,6 +1041,53 @@ function buildNetConnectivity(
 /** Property name keys recognized as MPN fields in prefix properties. */
 const MPN_KEYS = new Set(["Part Number", "PART_NUMBER", "MPN", "Manufacturer PN"]);
 
+/** DNS markers that Cadence embeds in value strings. */
+const DNS_MARKERS = /(?:,\s*(?:DNI|DNM|DNP|DNS|NC)|(?:DNI|DNM|DNP|DNS),\s*|_NC$)/gi;
+
+/**
+ * Strip DNS (Do Not Stuff) markers from component values.
+ * Cadence sometimes embeds "DNI", "DNP", "DNM", or "_NC" in the value field
+ * (e.g., "10K,DNI", "DNI,0", "10K_NC"), but the DAT export strips them.
+ */
+function cleanDnsFromValue(value: string): string {
+  const cleaned = value.replace(DNS_MARKERS, "").trim();
+  return cleaned || value;
+}
+
+/**
+ * Find the CachedLibraryPart for a PlacedInstance, trying multiple key strategies:
+ * 1. Exact pkgName match
+ * 2. sourcePackage + ".Normal" (when pkgName has unit suffix like "FOO_0A.Normal")
+ * 3. Suffix-stripped sourcePackage + ".Normal"
+ */
+function findCachedPart(
+  inst: PlacedInstance,
+  cachedParts: Map<string, CachedLibraryPart>
+): CachedLibraryPart | undefined {
+  const direct = cachedParts.get(inst.pkgName);
+  if (direct) return direct;
+
+  // Try sourcePackage.Normal (e.g., pkgName="IC_RF_CC1310F128RGZT_VQFN48A.Normal"
+  // but cachedPart is keyed as "IC_RF_CC1310F128RGZT_VQFN48.Normal")
+  const dotIdx = inst.pkgName.indexOf(".");
+  const variant = dotIdx >= 0 ? inst.pkgName.substring(dotIdx) : ".Normal";
+  const spKey = inst.sourcePackage + variant;
+  if (spKey !== inst.pkgName) {
+    const spMatch = cachedParts.get(spKey);
+    if (spMatch) return spMatch;
+  }
+
+  // Try stripped sourcePackage (remove trailing _N)
+  const stripped = inst.sourcePackage.replace(/_\d+$/, "");
+  if (stripped !== inst.sourcePackage) {
+    const strippedKey = stripped + variant;
+    const strippedMatch = cachedParts.get(strippedKey);
+    if (strippedMatch) return strippedMatch;
+  }
+
+  return undefined;
+}
+
 /**
  * Build components from PlacedInstances, enriched with MPN, value, and pin names.
  */
@@ -1008,7 +1111,7 @@ function buildComponents(
         const existing = components[refdes];
         const pinNets = componentPins.get(refdes);
         if (pinNets) {
-          const cachedPart = cachedParts.get(inst.pkgName);
+          const unitCachedPart = findCachedPart(inst, cachedParts);
           const pinNumToIndex = new Map<string, number>();
           for (const t0x10 of inst.t0x10s) {
             if (t0x10.pinIndex > 0) {
@@ -1018,10 +1121,10 @@ function buildComponents(
           for (const [pinNumber, netName] of pinNets) {
             if (existing.pins[pinNumber]) continue;
             let pinName: string | undefined;
-            if (cachedPart) {
+            if (unitCachedPart) {
               const idx = pinNumToIndex.get(pinNumber);
-              if (idx !== undefined && idx - 1 < cachedPart.pinNames.length) {
-                pinName = cachedPart.pinNames[idx - 1];
+              if (idx !== undefined && idx - 1 < unitCachedPart.pinNames.length) {
+                pinName = unitCachedPart.pinNames[idx - 1]?.toUpperCase();
               }
             }
             existing.pins[pinNumber] = createPinEntry(pinNumber, pinName, netName);
@@ -1060,14 +1163,16 @@ function buildComponents(
       }
       // Source C: cached library part default value
       if (!value) {
-        const cached = cachedParts.get(inst.pkgName);
+        const cached = findCachedPart(inst, cachedParts);
         if (cached?.defaultValue) value = cached.defaultValue;
       }
+      // Strip DNS markers from values (e.g., "10K,DNI" -> "10K", "DNI,0" -> "0")
+      if (value) value = cleanDnsFromValue(value);
 
       // Build pins with names from cached library parts
       const pinNets = componentPins.get(refdes);
       const pins: Record<string, import("../../../types.js").PinEntry> = {};
-      const cachedPart = cachedParts.get(inst.pkgName);
+      const cachedPart = findCachedPart(inst, cachedParts);
 
       if (pinNets) {
         // Build pinNumber -> pinIndex map for pin name lookup
@@ -1083,7 +1188,7 @@ function buildComponents(
           if (cachedPart) {
             const idx = pinNumToIndex.get(pinNumber);
             if (idx !== undefined && idx - 1 < cachedPart.pinNames.length) {
-              pinName = cachedPart.pinNames[idx - 1];
+              pinName = cachedPart.pinNames[idx - 1]?.toUpperCase();
             }
           }
           pins[pinNumber] = createPinEntry(pinNumber, pinName, netName);
@@ -1094,7 +1199,35 @@ function buildComponents(
     }
   }
 
+  // Post-process: disambiguate duplicate pin names across all components.
+  // Multi-unit components have pins merged from multiple PlacedInstances,
+  // so disambiguation must happen after all units are collected.
+  disambiguatePinNames(components);
+
   return components;
+}
+
+/**
+ * Disambiguate duplicate pin names within each component by appending #pinNum.
+ * Matches Cadence DAT export behavior (e.g., GND appears on pins 10 and 11
+ * becomes GND#10 and GND#11).
+ */
+function disambiguatePinNames(components: ComponentDetails): void {
+  for (const comp of Object.values(components)) {
+    // Count occurrences of each pin name
+    const nameCounts = new Map<string, number>();
+    for (const [, entry] of Object.entries(comp.pins)) {
+      const name = typeof entry === "string" ? undefined : entry.name;
+      if (name) nameCounts.set(name, (nameCounts.get(name) || 0) + 1);
+    }
+
+    // Append #pinNum to duplicates
+    for (const [pinNum, entry] of Object.entries(comp.pins)) {
+      if (typeof entry !== "string" && nameCounts.get(entry.name)! > 1) {
+        comp.pins[pinNum] = { name: `${entry.name}#${pinNum}`, net: entry.net };
+      }
+    }
+  }
 }
 
 /**

@@ -65,7 +65,7 @@ Root Entry/
 | `Views/{name}/Pages/{page}` | Components, wires, nets, aliases per page | Fully parsed |
 | `Views/{name}/Hierarchy/Hierarchy` | Canonical flat net name list | Partially parsed |
 | `Packages/{name}` | Package + Device[] + LibraryPart[] | Fully parsed |
-| `Cache` | LibraryPart + Package definitions for all components | Scanned for Packages only |
+| `Cache` | LibraryPart + Package definitions for all components | Parsed (Packages + LibraryParts) |
 | `CIS/` | CIS database connection info | Not parsed |
 
 ### Stream discovery
@@ -783,13 +783,21 @@ Structure types found in Cache: symbols (0x21, 0x23, 0x40, 0x4b), PartCell (0x06
 
 ### 10.3 Parsing Strategy
 
-The Cache MUST be parsed sequentially. Brute-force byte scanning fails because entries have variable-length metadata that can only be navigated by reading from the beginning.
+We use a **hybrid sequential + recovery** approach:
+
+1. **Sequential parsing** from byte 0, navigating variable-length metadata per entry. This is the primary strategy and handles the majority of entries.
+
+2. **Brute-force preamble recovery** when sequential parsing fails mid-stream (e.g., due to unrecognized metadata variants). The scanner searches the remaining buffer for the 4-byte preamble magic (`FF E4 5C 39`) and checks whether 3 bytes before each match is a valid Package (0x1F) or LibraryPart (0x18) short prefix type byte. If so, it attempts to parse the structure from that offset.
+
+This hybrid approach is necessary because some designs have Cache entries with metadata format variants that cause sequential parsing to break partway through. For example, LAUNCHXL-CC1310 fails at entry 12 (offset ~43929) with a string encoding error. The recovery scanner picks up remaining Package structures that the sequential parser missed.
 
 We extract two structure types:
 - **Package** (0x1F): Device pinMap arrays for pin number resolution
 - **LibraryPart** (0x18): SymbolPin names for pin name enrichment
 
 All other structure types are skipped via `skipStructure()`.
+
+**Limitation**: Some designs (e.g., LAUNCHXL-CC1310, CutiePi) contain **no LibraryPart (0x18) structures** in their Cache stream at all. Pin names for generic components (LED, RESISTOR, test pads) in these designs are only available in the CIS database, which we do not parse.
 
 ### 10.4 Priority
 
@@ -835,26 +843,43 @@ If no pin map is found, `pinIndex` itself is used as the pin number string (fall
 
 ### 11.2 Pin Name Resolution
 
-**Confidence: VERIFIED (mechanism), LOW (coverage)**
+**Confidence: VERIFIED**
 
 ```
 T0x10.pinIndex  -->  LibraryPart.symbolPins[pinIndex - 1].name  -->  pin name
 ```
 
-LibraryParts are looked up by `PlacedInstance.pkgName`. Coverage is low because passive components (resistors, capacitors) typically have pin names that equal their pin numbers ("1", "2"), which doesn't match the DAT export's functional names.
+LibraryParts are looked up by `PlacedInstance.pkgName` using dedicated matching logic (`findCachedPart`):
+
+1. **Direct match**: `pkgName` equals a cached LibraryPart key
+2. **sourcePackage + variant**: `sourcePackage` + variant suffix from `pkgName` (e.g., `.Normal`)
+3. **Stripped sourcePackage + variant**: strip trailing `_\d+` from `sourcePackage`, then add variant
+
+Cache LibraryPart names include a numeric suffix from the Package stream they originated in (e.g., `RES_0.Normal` for `RES.Normal`). The indexer strips this `/_\d+(?=\.)/ ` pattern when building the lookup map.
+
+**Post-processing:**
+
+1. **Uppercasing**: All pin names are uppercased to match Cadence DAT export convention (DSN stores mixed case, DAT is all-uppercase).
+
+2. **Duplicate disambiguation**: When multiple pins on the same component share the same name (e.g., multiple GND pins), the DAT export appends `#pinNum` to disambiguate. Our parser replicates this: if pin names within a component are not unique, each duplicate gets `#` appended (e.g., `GND#10`, `GND#11`). Pins with unique names are left unchanged.
+
+3. **Name-equals-number stripping**: When a pin's functional name equals its pin number (common for passives like resistors and capacitors), the name is treated as absent. This matches DAT behavior where such pins have no separate name field.
 
 ### 11.3 Package Key Matching
 
 **Confidence: VERIFIED**
 
-`PlacedInstance.sourcePackage` identifies which Package provides the pin map, but the name doesn't always match directly. We try four strategies in order:
+`PlacedInstance.sourcePackage` identifies which Package provides the pin map, but the name doesn't always match directly. We try five strategies in order:
 
 1. **Direct match**: `sourcePackage` equals a Package name
 2. **Multi-unit**: `sourcePackage` + unit letter (extracted from `pkgName` suffix)
 3. **Normalized**: expand `_N_` to `_N.0_` in sourcePackage (version-like suffixes)
 4. **Stripped**: remove trailing `_\d+` from sourcePackage
+5. **Unit "A" fallback**: `sourcePackage` + "A" (for multi-unit packages where pkgName lacks a unit suffix)
 
 For multi-unit matching, `pkgName` format is `{sourcePackage}{unitLetter}.Normal` (e.g., `OMAP_CBP_1AA.Normal`). Cadence sometimes doubles the unit letter ("AA"), but the Device `unitRef` uses a single letter ("A").
+
+Strategy 5 handles cases like `RPAK_10_8RES` where the Cache indexes the pinMap under `RPAK_10_8RESA` through `RPAK_10_8RESH` (8 units), but the PlacedInstance has `pkgName="RPAK_10_8RES.Normal"` with no unit suffix. Trying unit "A" picks up the first unit's pinMap as a fallback.
 
 ### 11.4 Net Name Resolution
 
@@ -930,7 +955,7 @@ Each unknown area in the format is mapped to its impact on parser coverage:
 |-----------|------|-----------------|
 | Prefix count auto-detection (try 10..1) | Low | Parse failure on individual structure |
 | T0x10.sth encoding (< 32768 vs >= 32768) | Low | Wrong pin index, wrong pin number |
-| Cache entry metadata probing (tryRead heuristic) | Medium | Could misparse entry boundary, losing remaining entries |
+| Cache entry metadata probing (tryRead heuristic) | Medium | Could misparse entry boundary; mitigated by brute-force preamble recovery (section 10.3) |
 | Hierarchy 0x43 scan | Medium | Wrong net count, corrupt net names |
 | PageSettings = 156 bytes | Low | Parse offset error for everything after it |
 | LOGFONTA = 60 bytes | Low | Wrong strLst offset, corrupt string table |
@@ -945,24 +970,32 @@ Current aggregate coverage (10 designs):
 |--------|----------|----------|
 | Nets | 100.0% | None |
 | Components | 100.0% | None |
-| Value | 99.0% | BeagleBoard-xM missing 62 values |
-| PinNum | 98.3% | Minor gaps in LAUNCHXL-CC1310, reServer designs |
-| PinName | 85.9% | Passives have name=number (not a mismatch); LAUNCHXL/CutiePi gaps |
+| Value | 99.9% | BeagleBoard-xM missing 4 values |
+| PinNum | 99.1% | Minor gaps in BBxM (wire connectivity), reServer designs |
+| PinName | 96.0% | LAUNCHXL/CutiePi have no LibraryParts in Cache (hard limit) |
 
 Per-design breakdown:
 
 | Design | PinNum | PinName | Value | Bottleneck |
 |--------|--------|---------|-------|------------|
-| BeagleBoard-xM | 94.7% | 91.7% | 90.9% | Value encoding |
-| BB-Black | 99.3% | 98.4% | 100.0% | Minor residual |
-| CutiePi | 97.9% | 55.4% | 92.6% | Pin name gaps |
-| CC13xx | 100.0% | 94.1% | 100.0% | Near-complete |
-| LAUNCHXL-CC1310 | 89.6% | 31.6% | 100.0% | Pin number + name gaps |
-| reComputer J201 | 100.0% | 93.0% | 100.0% | Near-complete |
-| reComputer J202 | 100.0% | 90.5% | 100.0% | Near-complete |
-| reComputer J401 | 100.0% | 90.6% | 100.0% | Near-complete |
-| reServer J401 | 99.0% | 94.2% | 100.0% | Near-complete |
-| reServer J2032 | 95.8% | 61.8% | 100.0% | Pin number + name gaps |
+| BeagleBoard-xM | 94.7% | 100.0% | 99.1% | PinNum: wire connectivity gaps |
+| BB-Black | 99.3% | 100.0% | 100.0% | Near-complete |
+| CutiePi | 98.9% | 56.2% | 100.0% | PinName: no LibraryParts in Cache |
+| CC13xx | 100.0% | 100.0% | 100.0% | Complete |
+| LAUNCHXL-CC1310 | 99.4% | 42.1% | 100.0% | PinName: no LibraryParts in Cache |
+| reComputer J201 | 100.0% | 100.0% | 100.0% | Complete |
+| reComputer J202 | 100.0% | 100.0% | 100.0% | Complete |
+| reComputer J401 | 100.0% | 100.0% | 100.0% | Complete |
+| reServer J401 | 99.0% | 100.0% | 100.0% | Near-complete |
+| reServer J2032 | 99.5% | 100.0% | 100.0% | Near-complete |
+
+**Remaining gap categories:**
+
+1. **PinNum (BBxM 94.7%)**: These are wire connectivity gaps, not pinMap issues. The pinMaps exist and are correct, but some pins have coordinates that don't match any wire endpoint, so they fail to resolve to a net and are excluded.
+
+2. **PinName (LAUNCHXL 42.1%, CutiePi 56.2%)**: These designs store **no LibraryPart structures** in their Cache stream. Pin names for generic components (LED, RESISTOR, test pads) exist only in the CIS database. This is a hard limitation unless CIS parsing is added.
+
+3. **Value (BBxM 99.1%)**: 4 components still missing values. The PlacedInstance has 10 unknown bytes between `part_value_idx` and `len_t0x10s` that could encode a secondary value reference or CIS database link.
 
 ### 12.6 DNS (Do Not Stuff) detection
 
@@ -970,8 +1003,30 @@ Not implemented in the DSN parser. Some designs mark DNS via:
 - Structured property in prefix (detectable but not checked)
 - Graphical text on schematic only (invisible to any binary parser)
 
-### 12.7 Reference material
+### 12.7 DNS markers in value strings
 
-- [OpenOrCadParser](https://github.com/Werni2A/OpenOrCadParser) - C++ reference implementation
-- `.plans/DSN-binary-structure/` - 19 annotated reference photos of the format documentation
-- `.plans/DSN-binary-structure/DSN_Binary_Structure.md` - Older working notes (superseded by this document)
+**Confidence: OBSERVED**
+
+Some Cadence designs embed DNS/NC markers directly in component value strings (e.g., `100nF,DNI`, `10K_NC`). The parser strips these markers to produce clean values. Recognized patterns:
+
+- Comma-separated: `,DNI`, `,DNP`, `,DNM`, `,DNS`, `,NC`
+- Prefix comma: `DNI,`, `DNP,`, `DNM,`, `DNS,`
+- Suffix: `_NC`
+
+Matching is case-insensitive. This cleanup improved BBxM value coverage from 90.9% to 99.1%.
+
+### 12.8 Reference material
+
+- [OpenOrCadParser](https://github.com/Werni2A/OpenOrCadParser) - C++ reference implementation (local copy at `references/OpenOrCadParser/`, gitignored)
+- `docs/dsn.xsd` - Cadence DSN XML schema (structure/field reference, gitignored)
+
+Key C++ source files for cross-referencing unknown bytes or new structure types:
+
+| C++ Source | Our Port | Purpose |
+|---|---|---|
+| `src/GenericParser.cpp` | `dsn/generic-parser.ts` | Prefix chain, preamble, checkpoint system |
+| `src/Streams/StreamPage.cpp` | `dsn/dsn-parser.ts` (parsePage) | Page stream top-level layout |
+| `src/Streams/StreamCache.cpp` | `dsn/dsn-parser.ts` (parseCacheStream) | Cache entry metadata format |
+| `src/Streams/StreamPackage.cpp` | `dsn/dsn-parser.ts` (parsePackageStream) | Package stream layout |
+| `src/Streams/StreamLibrary.cpp` | `dsn/library-parser.ts` | Library stream / strLst |
+| `src/Structures/` | `dsn/structures.ts` | All structure parsers |

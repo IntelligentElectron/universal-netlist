@@ -29,6 +29,7 @@ opencode.json
 # OS
 .DS_Store
 Thumbs.db
+*.xsd
 
 # Test coverage
 coverage/

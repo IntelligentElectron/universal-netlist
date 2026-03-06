@@ -101,6 +101,22 @@ npm publishing uses OIDC trusted publishing (configured on npmjs.com) - no token
 - Use `npm install` instead of `npm ci` - npm 11.x has stricter lock file validation that fails with cross-platform optional deps (esbuild, rollup)
 - Never commit any lockfile (`bun.lock`, `package-lock.json`) - vitest/rollup have cross-platform optional deps
 
+## DSN Parser Reference
+
+When working on the Cadence DSN binary parser (`src/parsers/cadence/dsn/`):
+
+- **Format spec**: `docs/dsn-format.md` is the authoritative reference for the binary format
+- **C++ reference**: `references/OpenOrCadParser/` (gitignored, local only) contains the C++ source we ported from. Key files:
+  - `src/Streams/StreamCache.cpp` - Cache stream parsing
+  - `src/Streams/StreamPage.cpp` - Page stream parsing
+  - `src/Streams/StreamPackage.cpp` - Package stream parsing
+  - `src/Structures/` - All structure parsers (PlacedInstance, T0x10, Wire, etc.)
+  - `src/GenericParser.cpp` - Prefix chain / preamble system
+- **Cadence schemas**: `docs/dsn.xsd`, `docs/olb.xsd` - XSD schemas for structure/field reference
+- **Coverage scripts**: `scripts/dsn-coverage-report.ts`, `scripts/dsn-inspect.ts` (see `scripts/AGENTS.md`)
+
+Always consult `docs/dsn-format.md` first. When the format doc is insufficient (unknown bytes, new structure types), cross-reference the C++ source in `references/OpenOrCadParser/`.
+
 ## Git Guidelines
 
 See the `release` skill (`.claude/skills/release.md`) for commit, push, PR, and release workflows.
