@@ -860,7 +860,8 @@ function collectPins(
   pinMaps: Map<string, (string | null)[]>,
   deviceUnitRefs: Map<string, string[]>,
   deviceIndexMap: Map<number, number>,
-  globalPairingNets: Map<number, string>
+  globalPairingNets: Map<number, string>,
+  opcPairingNets: Map<number, string>
 ): PinInfo[] {
   const pins: PinInfo[] = [];
   for (let i = 0; i < pages.length; i++) {
@@ -890,6 +891,30 @@ function collectPins(
               pin.pointY <= maxY
             ) {
               coordNet = globalPairingNets.get(sym.pairingId);
+              if (coordNet) break;
+            }
+          }
+        }
+
+        // Fallback: sentinel pins at OPC connection points (direct pin-to-OPC,
+        // no wire). Match by checking if the pin coordinate equals an OPC edge
+        // midpoint, then resolve via the OPC's pairingId from other pages.
+        if (!coordNet && pin.netId === 0xffffffff) {
+          for (const opc of pages[i].offPageConnectors) {
+            const minX = Math.min(opc.x1, opc.x2);
+            const maxX = Math.max(opc.x1, opc.x2);
+            const minY = Math.min(opc.y1, opc.y2);
+            const maxY = Math.max(opc.y1, opc.y2);
+            const midX = Math.round((minX + maxX) / 2);
+            const midY = Math.round((minY + maxY) / 2);
+            if (
+              coord === `${maxX},${midY}` ||
+              coord === `${minX},${midY}` ||
+              coord === `${midX},${maxY}` ||
+              coord === `${midX},${minY}` ||
+              coord === `${opc.locX},${opc.locY}`
+            ) {
+              coordNet = opcPairingNets.get(opc.pairingId);
               if (coordNet) break;
             }
           }
@@ -1206,13 +1231,27 @@ function buildNetConnectivity(
     }
   }
 
+  // Build pairingId -> net name map from OPCs connected to wires on other pages.
+  // Used as fallback for pins directly overlapping an OPC with no wire.
+  const opcPairingNets = new Map<number, string>();
+  for (let i = 0; i < pages.length; i++) {
+    const coordMap = resolvedCoordMaps[i];
+    for (const opc of pages[i].offPageConnectors) {
+      if (opcPairingNets.has(opc.pairingId)) continue;
+      const opcKey = `opc:${opc.pairingId}:${opc.dbId}`;
+      const net = coordMap.get(opcKey);
+      if (net) opcPairingNets.set(opc.pairingId, net);
+    }
+  }
+
   const allPins = collectPins(
     pages,
     resolvedCoordMaps,
     pinMaps,
     deviceUnitRefs,
     deviceIndexMap,
-    globalPairingNets
+    globalPairingNets,
+    opcPairingNets
   );
   return assembleNets(allPins, canonicalNetNames);
 }
