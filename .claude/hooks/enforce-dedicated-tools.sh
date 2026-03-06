@@ -63,17 +63,19 @@ while IFS= read -r statement; do
   first_segments+="$first_seg"$'\n'
 done < <(echo "$cmd" | sed 's/&&/\n/g; s/||/\n/g; s/;/\n/g')
 
-# Scan only the first pipeline segment of each statement
+# Check only the first non-flag, non-empty word of each segment (the command name)
 while IFS= read -r segment; do
   for word in $segment; do
     clean=$(sanitize "$word")
     if [[ -z "$clean" ]]; then
       continue
     fi
+    # Found the command name; check it and move to next segment
     if [[ -n "${BLOCKED[$clean]+x}" ]]; then
       echo "BLOCKED: '$clean' is not allowed in Bash. ${BLOCKED[$clean]}" >&2
       exit 2
     fi
+    break
   done
 done <<< "$first_segments"
 
