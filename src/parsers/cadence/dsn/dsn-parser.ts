@@ -898,7 +898,7 @@ function collectPins(
 
         // Fallback: sentinel pins at OPC connection points (direct pin-to-OPC,
         // no wire). Match by checking if the pin coordinate equals an OPC edge
-        // midpoint, then resolve via the OPC's pairingId from other pages.
+        // midpoint, then resolve the net name via strLst[pairingId].
         if (!coordNet && pin.netId === 0xffffffff) {
           for (const opc of pages[i].offPageConnectors) {
             const minX = Math.min(opc.x1, opc.x2);
