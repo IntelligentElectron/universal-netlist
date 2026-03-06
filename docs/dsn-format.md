@@ -480,13 +480,15 @@ The `sth` field encodes a 1-based logical pin index:
 
 This encoding is from the OpenOrCadParser reference and confirmed to produce correct pin mappings in all tested designs. However, the semantic meaning of the high-bit flag is not fully understood. Our parser treats both cases identically for pin map lookup.
 
-#### net_id semantics (VERIFIED)
+#### net_id semantics (REVISED)
 
 - `net_id > 0 && net_id < 0xFFFFFFFF`: Normal net. Groups pins belonging to the same electrical net across a page. Maps to the page net table.
-- `net_id == 0`: No-connect pin (pin is not wired to anything).
-- `net_id == 0xFFFFFFFF`: Sentinel value. The pin's net is determined by its physical coordinate overlapping a wire endpoint or another pin.
+- `net_id == 0`: Pin has no Cadence DB net object assigned. This does NOT necessarily mean no-connect; the pin may still be connected via wire geometry (coordinate overlap). NC is determined by `sth` bit 15, not by `net_id`.
+- `net_id == 0xFFFFFFFF`: Sentinel value. The pin's net is determined by its physical coordinate overlapping a wire endpoint, a Global/Port symbol bbox, or an OffPageConnector edge midpoint.
 
 **IMPORTANT**: `net_id` values are NOT the same as `Wire.id` values. They are in different Cadence DB object ID spaces. The correspondence between pin netId and wire id is established indirectly through the net name table (both reference the same logical net, but via different IDs).
+
+**NOTE on sth bit 15**: The `sth` field encodes both the pin index and a no-connect flag. When `sth >= 32768`, bit 15 is set, indicating the pin is no-connect. The pin index is `65536 - sth` in this case. Our parser currently uses `net_id == 0` without `coordNet` as a proxy for NC detection, which works for 99.8%+ of pins but is not the correct mechanism.
 
 ### 7.8 GraphicInst (Global, Port, OffPageConnector)
 
@@ -498,8 +500,8 @@ Global (type 0x25), Port (type 0x17), and OffPageConnector (type 0x26) share a c
 PREFIXES (type varies)
 PREAMBLE (optional)
 BODY:
-    uint32    pairing_id       # first of "8 unknown bytes"; used for OPC cross-page matching
-    4 bytes   unknown          # second uint32 (constant per design)
+    uint32    name_str_idx     # strLst index for net name (e.g., "LOL", "VCC_3V3")
+    uint32    lib_str_idx      # strLst index for source library path (e.g., "CAPSYM.OLB")
     string    name             # symbol type name, e.g. "VCC_BAR", "GND_SIGNAL"
     uint32    db_id
     int16     loc_y            # NOTE: Y before X!
@@ -521,11 +523,13 @@ BODY:
 
 After each Port, Global, or OffPageConnector record, there are **5 unknown bytes** that are not part of the structure itself. These are read separately in the page parser.
 
-**VERIFIED**: The `pairing_id` field (first uint32 of the "8 unknown bytes") is used to match OffPageConnector pairs across pages. OPCs sharing the same `pairing_id` are electrically connected.
+**VERIFIED**: The `name_str_idx` field is a `uint32` index into the Library stream's `strLst`. For OPCs, it resolves to the net name (e.g., "LOL", "HDMI_CEC"). For Globals/Ports, it resolves to the power/ground net name (e.g., "VCC_3V3", "GND"). OPCs sharing the same `name_str_idx` represent the same net across pages.
+
+**VERIFIED**: The `lib_str_idx` field is a `uint32` index into the Library stream's `strLst`, resolving to the source library path (e.g., `C:\CADENCE\SPB_16.6\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB`).
 
 **VERIFIED**: Y coordinates are read before X in this structure (confirmed by matching pin coordinates to wire endpoints in real designs).
 
-**OBSERVED**: The `name` field is the schematic symbol type (e.g., "VCC_BAR"), NOT the net name. Net names come from wire connectivity, not from Global/Port/OPC name fields.
+**VERIFIED**: The `name` field is the schematic symbol type (e.g., "VCC_BAR", "OFFPAGELEFT-R"), NOT the net name. The net name is obtained via `strLst[name_str_idx]`.
 
 ### 7.9 SymbolDisplayProp (type 0x27)
 
@@ -902,8 +906,11 @@ This resolved the primary PinNum gap for BeagleBoard-xM (RP1-RP7 resistor packs,
 3. Net names come from: wire aliases (labels) and the page net table
 4. When a group has multiple candidate names, hierarchy-canonical names take priority
 5. Unnamed wire groups get `N{minSegmentId}` names
-6. Cross-page nets connected via OffPageConnectors are resolved by pairing ID
+6. Cross-page nets connected via OffPageConnectors are resolved by `name_str_idx` (strLst index for net name; OPCs with the same index share the same net)
 7. Duplicate net names across pages are disambiguated using hierarchy suffixed names
+8. Global/Port symbols connected to wires propagate their net via `name_str_idx` to other pages where the same symbol overlaps a pin bbox (no wire needed)
+9. Wire body point-on-segment matching: a pin whose coordinate falls on a horizontal/vertical wire segment (not just the endpoints) is unioned with that wire
+10. OPC net name resolution: OPC net names are resolved via `strLst[name_str_idx]`. Pins at an OPC's bbox edge midpoint are assigned this net name, even when the OPC has no wire connection on that page
 
 ### 11.5 Multi-Unit Component Merging
 
@@ -927,7 +934,9 @@ Each unknown area in the format is mapped to its impact on parser coverage:
 | **T0x10 unknown_int** (section 7.7.1) | 4 per pin | None | None | None |
 | **Page tail after OPCs** (section 7) | Variable | None | None | None |
 
-**PlacedInstance 10 unknown bytes** are the only area with possible coverage impact. BeagleBoard-xM is missing 62 values; these bytes sit between `part_value_idx` and `len_t0x10s` and could encode a secondary value reference or CIS database link.
+**PlacedInstance 10 unknown bytes** are the only area with possible coverage impact for Value. BeagleBoard-xM is missing 62 values; these bytes sit between `part_value_idx` and `len_t0x10s` and could encode a secondary value reference or CIS database link.
+
+**Port/Global/OPC 5 trailing bytes** remain undecoded but have no coverage impact. The OPC net name is resolved via `strLst[name_str_idx]` (section 7.8), not from the trailing bytes.
 
 ### 12.2 What we don't parse at all
 

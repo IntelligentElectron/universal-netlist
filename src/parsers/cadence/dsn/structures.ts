@@ -73,7 +73,7 @@ export interface GraphicInst {
   y1: number;
   x2: number;
   y2: number;
-  /** Pairing ID from the 8 unknown bytes (first uint32). Used for OPC cross-page matching. */
+  /** strLst index for the net name (first uint32 of body). OPCs with the same index share the same net. */
   pairingId: number;
   symbolDisplayProps: SymbolDisplayProp[];
 }
@@ -258,9 +258,10 @@ function parseGraphicInstBase(reader: BinaryReader, futureData: FutureDataList):
   readPreamble(reader);
   futureData.checkpoint();
 
-  // 8 unknown bytes: first uint32 is the pairing ID (used for OPC matching)
+  // First uint32: strLst index for net name (e.g., "LOL", "VCC_3V3")
+  // Second uint32: strLst index for source library path (e.g., "CAPSYM.OLB")
   const pairingId = reader.readUint32();
-  reader.skip(4); // second uint32 (constant per design)
+  reader.skip(4); // libStrIdx (not used)
   const name = reader.readStringLenZeroTerm();
   const dbId = reader.readUint32();
 

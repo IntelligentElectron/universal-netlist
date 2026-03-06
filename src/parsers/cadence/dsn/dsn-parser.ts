@@ -1196,7 +1196,8 @@ function buildNetConnectivity(
   canonicalNetNames: Set<string>,
   pinMaps: Map<string, (string | null)[]>,
   deviceUnitRefs: Map<string, string[]>,
-  deviceIndexMap: Map<number, number>
+  deviceIndexMap: Map<number, number>,
+  strLst: string[]
 ): {
   nets: NetConnections;
   componentPins: Map<string, Map<string, string>>;
@@ -1231,13 +1232,20 @@ function buildNetConnectivity(
     }
   }
 
-  // Build pairingId -> net name map from OPCs connected to wires on other pages.
-  // Used as fallback for pins directly overlapping an OPC with no wire.
+  // Build pairingId -> net name map from OPCs.
+  // Primary: resolve from Library strLst (pairingId is a strLst index for the net name).
+  // Fallback: resolve from wire connections on other pages (for designs without strLst).
   const opcPairingNets = new Map<number, string>();
   for (let i = 0; i < pages.length; i++) {
     const coordMap = resolvedCoordMaps[i];
     for (const opc of pages[i].offPageConnectors) {
       if (opcPairingNets.has(opc.pairingId)) continue;
+      // Try strLst first (always correct when available)
+      if (opc.pairingId < strLst.length && strLst[opc.pairingId]) {
+        opcPairingNets.set(opc.pairingId, strLst[opc.pairingId].toUpperCase());
+        continue;
+      }
+      // Fallback: wire-based resolution
       const opcKey = `opc:${opc.pairingId}:${opc.dbId}`;
       const net = coordMap.get(opcKey);
       if (net) opcPairingNets.set(opc.pairingId, net);
@@ -1633,7 +1641,8 @@ export function parseDsnFile(dsnPath: string): ParsedNetlist {
     canonicalNetNames,
     pinMaps,
     deviceUnitRefs,
-    deviceIndexMap
+    deviceIndexMap,
+    strLst
   );
   const components = buildComponents(
     pages,
