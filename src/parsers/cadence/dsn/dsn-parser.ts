@@ -103,6 +103,53 @@ function parsePackageStream(buffer: Buffer): PackageStreamResult {
   return { pkg: parsePackage(reader), libraryParts };
 }
 
+/**
+ * Scan the Cache stream for Package/Device structures and add their pinMaps
+ * as fallback entries (only for keys not already present from Packages/ streams).
+ *
+ * The Cache contains Package definitions for all components in the design,
+ * embedded at various offsets. We scan for valid Package prefix headers and
+ * attempt to parse each one.
+ */
+function parseCachePackages(buffer: Buffer, pinMaps: Map<string, (string | null)[]>): void {
+  const reader = new BinaryReader(buffer);
+  const pkgType = StructureType.Package;
+
+  for (let i = 0; i < buffer.length - 20; i++) {
+    if (buffer[i] !== pkgType) continue;
+
+    reader.seek(i);
+    try {
+      const pkg = parsePackage(reader);
+      // Validate: reasonable name and device count
+      if (!pkg.name || pkg.name.length === 0 || pkg.name.length > 200) continue;
+      if (pkg.devices.length === 0 || pkg.devices.length > 50) continue;
+      const firstDev = pkg.devices[0];
+      if (firstDev.pinMap.length === 0 || firstDev.pinMap.length > 1000) continue;
+
+      // Index with same key convention as Packages/ streams
+      const baseName = pkg.name.replace(/_\d+$/, "");
+      if (pkg.devices.length === 1) {
+        if (!pinMaps.has(baseName)) pinMaps.set(baseName, firstDev.pinMap);
+        if (!pinMaps.has(pkg.name)) pinMaps.set(pkg.name, firstDev.pinMap);
+      } else {
+        for (const dev of pkg.devices) {
+          const baseKey = baseName + dev.unitRef;
+          if (!pinMaps.has(baseKey)) pinMaps.set(baseKey, dev.pinMap);
+          if (pkg.name !== baseName) {
+            const nameKey = pkg.name + dev.unitRef;
+            if (!pinMaps.has(nameKey)) pinMaps.set(nameKey, dev.pinMap);
+          }
+        }
+      }
+
+      i = reader.tell() - 1; // Skip past parsed structure
+    } catch {
+      // Not a valid Package at this offset
+    }
+  }
+}
+
 interface PageData {
   name: string;
   netTable: Map<number, string[]>;
@@ -479,6 +526,7 @@ function extractUnitRef(inst: PlacedInstance): string | undefined {
  * 1. Direct sourcePackage match
  * 2. Multi-unit: sourcePackage + unitRef extracted from pkgName
  * 3. Normalized match: expand version-like suffixes with ".0"
+ * 4. Stripped match: remove trailing _N suffix from sourcePackage
  */
 function findPinMap(
   inst: PlacedInstance,
@@ -486,10 +534,12 @@ function findPinMap(
 ): (string | null)[] | undefined {
   const unitRef = extractUnitRef(inst);
 
-  // Try each base name candidate (original, then normalized)
+  // Try each base name candidate (original, then normalized, then stripped)
   const candidates = [inst.sourcePackage];
   const normalized = inst.sourcePackage.replace(/_(\d+)_/g, "_$1.0_");
   if (normalized !== inst.sourcePackage) candidates.push(normalized);
+  const stripped = inst.sourcePackage.replace(/_\d+$/, "");
+  if (stripped !== inst.sourcePackage) candidates.push(stripped);
 
   for (const base of candidates) {
     // Direct match (single-device packages)
@@ -842,7 +892,34 @@ function buildComponents(
     for (const inst of page.placedInstances) {
       const refdes = inst.reference;
       if (!refdes || !isValidRefdes(refdes)) continue;
-      if (components[refdes]) continue;
+
+      // For multi-unit components (same refdes, multiple PlacedInstances),
+      // merge pins from each unit into the existing component entry.
+      if (components[refdes]) {
+        const existing = components[refdes];
+        const pinNets = componentPins.get(refdes);
+        if (pinNets) {
+          const cachedPart = cachedParts.get(inst.pkgName);
+          const pinNumToIndex = new Map<string, number>();
+          for (const t0x10 of inst.t0x10s) {
+            if (t0x10.pinIndex > 0) {
+              pinNumToIndex.set(resolvePinNumber(t0x10, inst, pinMaps), t0x10.pinIndex);
+            }
+          }
+          for (const [pinNumber, netName] of pinNets) {
+            if (existing.pins[pinNumber]) continue;
+            let pinName: string | undefined;
+            if (cachedPart) {
+              const idx = pinNumToIndex.get(pinNumber);
+              if (idx !== undefined && idx - 1 < cachedPart.pinNames.length) {
+                pinName = cachedPart.pinNames[idx - 1];
+              }
+            }
+            existing.pins[pinNumber] = createPinEntry(pinNumber, pinName, netName);
+          }
+        }
+        continue;
+      }
 
       // Resolve MPN from prefix properties, fallback to sourcePackage
       let mpn: string | undefined;
@@ -1017,11 +1094,18 @@ export function parseDsnFile(dsnPath: string): ParsedNetlist {
         // Also store by exact stream name for direct matches
         pinMaps.set(streamName, pkg.devices[0].pinMap);
       } else {
-        // Multi-unit: store per unit (sourcePackage is the base without unit suffix)
+        // Multi-unit: store per unit keyed by both baseName and streamName
+        // so findPinMap can match either sourcePackage form.
         for (const device of pkg.devices) {
-          const unitKey = baseName + device.unitRef;
-          if (!pinMaps.has(unitKey)) {
-            pinMaps.set(unitKey, device.pinMap);
+          const baseKey = baseName + device.unitRef;
+          if (!pinMaps.has(baseKey)) {
+            pinMaps.set(baseKey, device.pinMap);
+          }
+          if (streamName !== baseName) {
+            const streamKey = streamName + device.unitRef;
+            if (!pinMaps.has(streamKey)) {
+              pinMaps.set(streamKey, device.pinMap);
+            }
           }
         }
       }
@@ -1040,6 +1124,19 @@ export function parseDsnFile(dsnPath: string): ParsedNetlist {
       }
     } catch {
       // Package parsing is best-effort; skip malformed streams
+    }
+  }
+
+  // Parse Cache stream as fallback source for pin maps.
+  // The Cache stream contains Package/Device structures for all components,
+  // not just those with dedicated Packages/ streams.
+  const cacheEntry = entries.find((e) => e.path === "Cache" && e.entry.type === 2);
+  if (cacheEntry) {
+    try {
+      const cacheBuf = ole.readStreamByPath(cacheEntry.path);
+      parseCachePackages(cacheBuf, pinMaps);
+    } catch {
+      // Cache parsing is best-effort
     }
   }
 
