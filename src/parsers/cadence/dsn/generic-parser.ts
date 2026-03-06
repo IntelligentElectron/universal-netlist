@@ -9,6 +9,9 @@
 import { BinaryReader } from "./binary-reader.js";
 import { StructureType, structureTypeName } from "./structure-types.js";
 
+/** A (name_idx, val_idx) pair from the short prefix, indexing into the Library strLst. */
+export type PrefixPropertyPair = readonly [nameIdx: number, valIdx: number];
+
 // Preamble magic bytes
 const PREAMBLE_MAGIC = [0xff, 0xe4, 0x5c, 0x39];
 
@@ -73,6 +76,28 @@ export class FutureDataList {
     if (this.items.length === 0) return this.reader.tell();
     return Math.max(...this.items.map((i) => i.absStopOffset));
   }
+
+  /**
+   * Skip to the nearest unvisited stop offset at or beyond the current position.
+   * Marks the matching entry as parsed. Returns true if a boundary was found.
+   */
+  skipToNextBoundary(): boolean {
+    const pos = this.reader.tell();
+    let nearest: FutureData | undefined;
+    for (const item of this.items) {
+      if (!item.parsed && item.absStopOffset >= pos) {
+        if (!nearest || item.absStopOffset < nearest.absStopOffset) {
+          nearest = item;
+        }
+      }
+    }
+    if (!nearest) return false;
+    if (nearest.absStopOffset > pos) {
+      this.reader.skip(nearest.absStopOffset - pos);
+    }
+    nearest.parsed = true;
+    return true;
+  }
 }
 
 /**
@@ -87,47 +112,57 @@ function readSinglePrefix(reader: BinaryReader): [StructureType, number] {
 }
 
 /**
- * Read a single short prefix: 1 byte type + 2 byte size + size*8 data bytes.
- * Returns the structure type.
+ * Read a single short prefix: 1 byte type + 2 byte size + size*(uint32,uint32) pairs.
+ * The pairs are (name_idx, val_idx) into the Library strLst string table.
  */
-function readSinglePrefixShort(reader: BinaryReader): StructureType {
+function readSinglePrefixShort(reader: BinaryReader): {
+  typeId: StructureType;
+  properties: PrefixPropertyPair[];
+} {
   const typeId = reader.readUint8() as StructureType;
   const size = reader.readInt16();
+  const properties: PrefixPropertyPair[] = [];
 
   if (size >= 0) {
-    reader.skip(size * 8);
+    for (let i = 0; i < size; i++) {
+      const nameIdx = reader.readUint32();
+      const valIdx = reader.readUint32();
+      properties.push([nameIdx, valIdx]);
+    }
   }
 
-  return typeId;
+  return { typeId, properties };
 }
 
 /**
  * Read a known number of prefixes. First N-1 are long, last is short.
- * All must share the same type ID.
+ * All must share the same type ID. Returns the type and property pairs from the short prefix.
  */
 function readPrefixes(
   reader: BinaryReader,
   count: number,
   futureData: FutureDataList
-): StructureType {
+): { structType: StructureType; properties: PrefixPropertyPair[] } {
   if (count === 0) {
     throw new Error("Prefix count must be > 0");
   }
 
   let firstType: StructureType | undefined;
+  let properties: PrefixPropertyPair[] = [];
 
   for (let i = 0; i < count; i++) {
     const preambleOffset = reader.tell();
 
     if (i === count - 1) {
       // Last prefix is short
-      const typeId = readSinglePrefixShort(reader);
-      if (firstType === undefined) firstType = typeId;
-      if (typeId !== firstType) {
+      const result = readSinglePrefixShort(reader);
+      if (firstType === undefined) firstType = result.typeId;
+      if (result.typeId !== firstType) {
         throw new Error(
-          `Prefix type mismatch: expected ${structureTypeName[firstType] ?? firstType}, got ${structureTypeName[typeId] ?? typeId}`
+          `Prefix type mismatch: expected ${structureTypeName[firstType] ?? firstType}, got ${structureTypeName[result.typeId] ?? result.typeId}`
         );
       }
+      properties = result.properties;
     } else {
       // Long prefix
       const [typeId, byteOffset] = readSinglePrefix(reader);
@@ -141,18 +176,19 @@ function readPrefixes(
     }
   }
 
-  return firstType!;
+  return { structType: firstType!, properties };
 }
 
 /**
  * Auto-detect the number of prefixes by trying counts from 10 down to 1.
  * The first count that parses without error wins.
+ * Returns the structure type and any property pairs from the short prefix.
  */
 export function autoReadPrefixes(
   reader: BinaryReader,
   futureData: FutureDataList,
   expectedType?: StructureType
-): StructureType {
+): { structType: StructureType; properties: PrefixPropertyPair[] } {
   const startOffset = reader.tell();
 
   for (let prefixCount = 10; prefixCount >= 1; prefixCount--) {
@@ -161,15 +197,15 @@ export function autoReadPrefixes(
       readPrefixes(reader, prefixCount, tmpFutureData);
       // Success, reset and do it for real
       reader.seek(startOffset);
-      const structType = readPrefixes(reader, prefixCount, futureData);
+      const result = readPrefixes(reader, prefixCount, futureData);
 
-      if (expectedType !== undefined && structType !== expectedType) {
+      if (expectedType !== undefined && result.structType !== expectedType) {
         throw new Error(
-          `Expected structure type ${structureTypeName[expectedType] ?? expectedType}, got ${structureTypeName[structType] ?? structType}`
+          `Expected structure type ${structureTypeName[expectedType] ?? expectedType}, got ${structureTypeName[result.structType] ?? result.structType}`
         );
       }
 
-      return structType;
+      return result;
     } catch {
       reader.seek(startOffset);
     }

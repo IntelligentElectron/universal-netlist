@@ -2,17 +2,18 @@
  * DSN Coverage Report
  *
  * Compares DSN parser output against DAT golden files for all Cadence fixtures.
- * Reports net and component coverage, missing/extra nets, and categorizes gaps.
+ * Reports net/component coverage, field-level parity (Value, PinNum, PinName, MPN),
+ * and categorizes gaps.
  *
  * Usage:
- *   npx tsx scripts/dsn-coverage-report.ts                    # All fixtures
+ *   npx tsx scripts/dsn-coverage-report.ts                    # All fixtures (summary)
  *   npx tsx scripts/dsn-coverage-report.ts BEAGLEBONEBLK_C3   # Single fixture (verbose)
  */
 
 import fs from "fs";
 import path from "path";
 import { parseDsnFile } from "../src/parsers/cadence/dsn/dsn-parser.js";
-import type { ParsedNetlist } from "../src/types.js";
+import type { ParsedNetlist, PinEntry } from "../src/types.js";
 
 const fixturesDir = "test/fixtures/cadence";
 const goldenDir = "test/golden/cadence";
@@ -38,6 +39,22 @@ function categorizeNet(name: string): string {
   return "named";
 }
 
+const getPinName = (entry: PinEntry): string | undefined =>
+  typeof entry === "string" ? undefined : entry.name;
+
+const pct = (n: number, d: number) => (d > 0 ? ((n / d) * 100).toFixed(1) + "%" : "N/A");
+
+// ---------------------------------------------------------------------------
+// Analysis
+// ---------------------------------------------------------------------------
+
+interface FieldStats {
+  match: number;
+  total: number;
+  hasDsn: number;
+  mismatches: string[];
+}
+
 interface CoverageResult {
   projectName: string;
   goldenNetCount: number;
@@ -50,6 +67,10 @@ interface CoverageResult {
   compCoverage: number;
   missingNets: { name: string; category: string; connections: Record<string, unknown> }[];
   extraNets: { name: string; category: string }[];
+  mpn: FieldStats;
+  value: FieldStats;
+  pinNum: FieldStats;
+  pinName: FieldStats;
 }
 
 function analyze(dsnPath: string, goldenPath: string): CoverageResult {
@@ -63,19 +84,60 @@ function analyze(dsnPath: string, goldenPath: string): CoverageResult {
 
   const goldenComps = new Set(Object.keys(golden.components));
   const dsnComps = new Set(Object.keys(dsn.components));
-  const commonComps = [...dsnComps].filter((c) => goldenComps.has(c));
+  const commonCompKeys = [...dsnComps].filter((c) => goldenComps.has(c));
 
   const missingNets = [...goldenNets]
     .filter((n) => !dsnNets.has(n))
-    .map((name) => ({
-      name,
-      category: categorizeNet(name),
-      connections: golden.nets[name],
-    }));
+    .map((name) => ({ name, category: categorizeNet(name), connections: golden.nets[name] }));
 
   const extraNets = [...dsnNets]
     .filter((n) => !goldenNets.has(n))
     .map((name) => ({ name, category: categorizeNet(name) }));
+
+  // Field-level stats
+  const mpn: FieldStats = { match: 0, total: 0, hasDsn: 0, mismatches: [] };
+  const value: FieldStats = { match: 0, total: 0, hasDsn: 0, mismatches: [] };
+  const pinNum: FieldStats = { match: 0, total: 0, hasDsn: 0, mismatches: [] };
+  const pinName: FieldStats = { match: 0, total: 0, hasDsn: 0, mismatches: [] };
+
+  for (const ref of commonCompKeys) {
+    const gc = golden.components[ref];
+    const dc = dsn.components[ref];
+
+    if (gc.mpn) {
+      mpn.total++;
+      if (dc.mpn) mpn.hasDsn++;
+      if (dc.mpn === gc.mpn) mpn.match++;
+      else if (dc.mpn) mpn.mismatches.push(`${ref}: golden="${gc.mpn}" dsn="${dc.mpn}"`);
+    }
+
+    if (gc.value) {
+      value.total++;
+      if (dc.value) value.hasDsn++;
+      if (dc.value === gc.value) value.match++;
+      else if (dc.value) value.mismatches.push(`${ref}: golden="${gc.value}" dsn="${dc.value}"`);
+    }
+
+    const goldenPins = gc.pins || {};
+    const dsnPins = dc.pins || {};
+    for (const pin of Object.keys(goldenPins)) {
+      const gp = goldenPins[pin];
+      const dp = dsnPins[pin];
+
+      pinNum.total++;
+      if (dp) pinNum.match++;
+
+      const gpName = getPinName(gp);
+      const dpName = dp ? getPinName(dp) : undefined;
+      if (gpName) {
+        pinName.total++;
+        if (dpName) pinName.hasDsn++;
+        if (dpName === gpName) pinName.match++;
+        else if (dpName)
+          pinName.mismatches.push(`${ref}.${pin}: golden="${gpName}" dsn="${dpName}"`);
+      }
+    }
+  }
 
   return {
     projectName,
@@ -85,10 +147,14 @@ function analyze(dsnPath: string, goldenPath: string): CoverageResult {
     netCoverage: goldenNets.size > 0 ? commonNets.length / goldenNets.size : 1,
     goldenCompCount: goldenComps.size,
     dsnCompCount: dsnComps.size,
-    commonComps: commonComps.length,
-    compCoverage: goldenComps.size > 0 ? commonComps.length / goldenComps.size : 1,
+    commonComps: commonCompKeys.length,
+    compCoverage: goldenComps.size > 0 ? commonCompKeys.length / goldenComps.size : 1,
     missingNets,
     extraNets,
+    mpn,
+    value,
+    pinNum,
+    pinName,
   };
 }
 
@@ -123,46 +189,87 @@ for (const dsnFile of dsnFiles) {
 console.log("\n=== DSN vs DAT Golden Coverage Report ===\n");
 console.log(
   "Design".padEnd(50) +
-    "Nets (golden/dsn/common)".padEnd(28) +
-    "Net%".padEnd(8) +
-    "Comps (golden/dsn/common)".padEnd(28) +
-    "Comp%"
+    "Nets".padEnd(8) +
+    "Comps".padEnd(8) +
+    "Value".padEnd(8) +
+    "PinNum".padEnd(8) +
+    "PinName".padEnd(8) +
+    "MPN"
 );
-console.log("-".repeat(122));
+console.log("-".repeat(98));
 
 for (const r of results) {
-  const netCol = `${r.goldenNetCount}/${r.dsnNetCount}/${r.commonNets}`;
-  const compCol = `${r.goldenCompCount}/${r.dsnCompCount}/${r.commonComps}`;
   console.log(
-    `${r.projectName.padEnd(50)}${netCol.padEnd(28)}${(r.netCoverage * 100).toFixed(1).padStart(5)}%  ${compCol.padEnd(28)}${(r.compCoverage * 100).toFixed(1).padStart(5)}%`
+    r.projectName.padEnd(50) +
+      pct(r.commonNets, r.goldenNetCount).padEnd(8) +
+      pct(r.commonComps, r.goldenCompCount).padEnd(8) +
+      pct(r.value.match, r.value.total).padEnd(8) +
+      pct(r.pinNum.match, r.pinNum.total).padEnd(8) +
+      pct(r.pinName.match, r.pinName.total).padEnd(8) +
+      `${r.mpn.hasDsn}/${r.mpn.total}`
   );
 }
 
 // ---------------------------------------------------------------------------
-// Detailed per-design breakdown (verbose mode or single fixture)
+// Detailed per-design breakdown (verbose mode)
 // ---------------------------------------------------------------------------
 
 if (verbose) {
   for (const r of results) {
     console.log(`\n${"=".repeat(80)}`);
-    console.log(`${r.projectName}`);
+    console.log(r.projectName);
     console.log(`${"=".repeat(80)}`);
 
+    console.log(`\nField coverage:`);
+    console.log(
+      `  Value:   ${r.value.match}/${r.value.total} exact (${pct(r.value.match, r.value.total)}), ${r.value.hasDsn} have DSN value`
+    );
+    console.log(
+      `  PinNum:  ${r.pinNum.match}/${r.pinNum.total} (${pct(r.pinNum.match, r.pinNum.total)})`
+    );
+    console.log(
+      `  PinName: ${r.pinName.match}/${r.pinName.total} exact (${pct(r.pinName.match, r.pinName.total)}), ${r.pinName.hasDsn} have DSN value`
+    );
+    console.log(
+      `  MPN:     ${r.mpn.match}/${r.mpn.total} exact (${pct(r.mpn.match, r.mpn.total)}), ${r.mpn.hasDsn} have DSN value`
+    );
+
+    if (r.value.mismatches.length > 0) {
+      console.log(`\n  Value mismatches (${r.value.mismatches.length}):`);
+      for (const m of r.value.mismatches.slice(0, 10)) console.log(`    ${m}`);
+      if (r.value.mismatches.length > 10)
+        console.log(`    ... and ${r.value.mismatches.length - 10} more`);
+    }
+
+    if (r.pinName.mismatches.length > 0) {
+      console.log(`\n  PinName mismatches (${r.pinName.mismatches.length}):`);
+      for (const m of r.pinName.mismatches.slice(0, 10)) console.log(`    ${m}`);
+      if (r.pinName.mismatches.length > 10)
+        console.log(`    ... and ${r.pinName.mismatches.length - 10} more`);
+    }
+
+    if (r.mpn.mismatches.length > 0) {
+      console.log(`\n  MPN mismatches (${r.mpn.mismatches.length}):`);
+      for (const m of r.mpn.mismatches.slice(0, 10)) console.log(`    ${m}`);
+      if (r.mpn.mismatches.length > 10)
+        console.log(`    ... and ${r.mpn.mismatches.length - 10} more`);
+    }
+
     if (r.missingNets.length > 0) {
-      // Group missing nets by category
       const byCategory = new Map<string, typeof r.missingNets>();
       for (const net of r.missingNets) {
         if (!byCategory.has(net.category)) byCategory.set(net.category, []);
         byCategory.get(net.category)!.push(net);
       }
 
-      console.log(`\nMissing nets (${r.missingNets.length}):`);
+      console.log(`\n  Missing nets (${r.missingNets.length}):`);
       for (const [category, nets] of byCategory) {
-        console.log(`\n  [${category}] (${nets.length}):`);
+        console.log(`\n    [${category}] (${nets.length}):`);
         for (const net of nets) {
-          const refdesCount = Object.keys(net.connections).length;
           const refdesStr = Object.keys(net.connections).join(", ");
-          console.log(`    ${net.name} -> ${refdesCount} components: ${refdesStr}`);
+          console.log(
+            `      ${net.name} -> ${Object.keys(net.connections).length} components: ${refdesStr}`
+          );
         }
       }
     }
@@ -174,18 +281,16 @@ if (verbose) {
         byCategory.get(net.category)!.push(net);
       }
 
-      console.log(`\nExtra nets (${r.extraNets.length}):`);
+      console.log(`\n  Extra nets (${r.extraNets.length}):`);
       for (const [category, nets] of byCategory) {
-        console.log(`\n  [${category}] (${nets.length}):`);
-        for (const net of nets.slice(0, 20)) {
-          console.log(`    ${net.name}`);
-        }
-        if (nets.length > 20) console.log(`    ... and ${nets.length - 20} more`);
+        console.log(`\n    [${category}] (${nets.length}):`);
+        for (const net of nets.slice(0, 20)) console.log(`      ${net.name}`);
+        if (nets.length > 20) console.log(`      ... and ${nets.length - 20} more`);
       }
     }
 
     if (r.missingNets.length === 0 && r.extraNets.length === 0) {
-      console.log("\n  Perfect parity!");
+      console.log("\n  Perfect net parity!");
     }
   }
 }
@@ -195,29 +300,56 @@ if (verbose) {
 // ---------------------------------------------------------------------------
 
 if (results.length > 1) {
-  const totalGoldenNets = results.reduce((s, r) => s + r.goldenNetCount, 0);
-  const totalCommonNets = results.reduce((s, r) => s + r.commonNets, 0);
-  const totalMissing = results.reduce((s, r) => s + r.missingNets.length, 0);
-  const totalExtra = results.reduce((s, r) => s + r.extraNets.length, 0);
+  const sum = (fn: (r: CoverageResult) => number) => results.reduce((s, r) => s + fn(r), 0);
 
-  // Category breakdown across all fixtures
-  const allMissing = results.flatMap((r) => r.missingNets);
-  const missingByCategory = new Map<string, number>();
-  for (const net of allMissing) {
-    missingByCategory.set(net.category, (missingByCategory.get(net.category) || 0) + 1);
-  }
-
-  console.log(`\n${"=".repeat(80)}`);
+  console.log(`\n${"=".repeat(98)}`);
   console.log("AGGREGATE");
-  console.log(`${"=".repeat(80)}`);
-  console.log(`Total golden nets: ${totalGoldenNets}`);
+  console.log(`${"=".repeat(98)}`);
   console.log(
-    `Total common nets: ${totalCommonNets} (${((totalCommonNets / totalGoldenNets) * 100).toFixed(1)}%)`
+    `Nets:    ${sum((r) => r.commonNets)}/${sum((r) => r.goldenNetCount)} (${pct(
+      sum((r) => r.commonNets),
+      sum((r) => r.goldenNetCount)
+    )})`
   );
-  console.log(`Total missing: ${totalMissing}`);
-  console.log(`Total extra: ${totalExtra}`);
-  console.log(`\nMissing by category:`);
-  for (const [cat, count] of [...missingByCategory.entries()].sort((a, b) => b[1] - a[1])) {
-    console.log(`  ${cat}: ${count}`);
+  console.log(
+    `Comps:   ${sum((r) => r.commonComps)}/${sum((r) => r.goldenCompCount)} (${pct(
+      sum((r) => r.commonComps),
+      sum((r) => r.goldenCompCount)
+    )})`
+  );
+  console.log(
+    `Value:   ${sum((r) => r.value.match)}/${sum((r) => r.value.total)} (${pct(
+      sum((r) => r.value.match),
+      sum((r) => r.value.total)
+    )})`
+  );
+  console.log(
+    `PinNum:  ${sum((r) => r.pinNum.match)}/${sum((r) => r.pinNum.total)} (${pct(
+      sum((r) => r.pinNum.match),
+      sum((r) => r.pinNum.total)
+    )})`
+  );
+  console.log(
+    `PinName: ${sum((r) => r.pinName.match)}/${sum((r) => r.pinName.total)} (${pct(
+      sum((r) => r.pinName.match),
+      sum((r) => r.pinName.total)
+    )})`
+  );
+  console.log(
+    `MPN:     ${sum((r) => r.mpn.hasDsn)}/${sum((r) => r.mpn.total)} have DSN value (${sum((r) => r.mpn.match)} exact match)`
+  );
+
+  const totalMissing = sum((r) => r.missingNets.length);
+  const totalExtra = sum((r) => r.extraNets.length);
+  if (totalMissing > 0 || totalExtra > 0) {
+    console.log(`\nMissing nets: ${totalMissing}, Extra nets: ${totalExtra}`);
+    const allMissing = results.flatMap((r) => r.missingNets);
+    const missingByCategory = new Map<string, number>();
+    for (const net of allMissing) {
+      missingByCategory.set(net.category, (missingByCategory.get(net.category) || 0) + 1);
+    }
+    for (const [cat, count] of [...missingByCategory.entries()].sort((a, b) => b[1] - a[1])) {
+      console.log(`  ${cat}: ${count}`);
+    }
   }
 }

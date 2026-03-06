@@ -35,9 +35,11 @@ npx tsx scripts/dsn-coverage-report.ts                    # All fixtures, summar
 npx tsx scripts/dsn-coverage-report.ts BEAGLEBONEBLK_C3   # Single fixture, verbose breakdown
 ```
 
-Summary mode prints a table with net/component counts and coverage percentages. Single-fixture mode adds per-net detail: missing nets grouped by category (auto-generated, named, no-connect, bus-range), extra nets, and the golden connections for each missing net.
+Summary mode prints a table with net/component coverage and field-level parity (Value, PinNum, PinName, MPN) for each fixture. The MPN column shows `hasDsn/total` since DSN extracts real part numbers while DAT golden uses composite format, so exact match is not meaningful.
 
-Aggregate stats at the bottom show total coverage across all fixtures and a missing-by-category breakdown.
+Single-fixture (verbose) mode adds field mismatch examples, missing nets grouped by category (auto-generated, named, no-connect, bus-range), and extra nets.
+
+Aggregate stats at the bottom show totals across all fixtures.
 
 ## dsn-gap-analysis.ts
 

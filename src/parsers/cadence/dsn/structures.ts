@@ -7,7 +7,13 @@
 
 import { BinaryReader } from "./binary-reader.js";
 import { StructureType } from "./structure-types.js";
-import { FutureDataList, autoReadPrefixes, readPreamble, skipStructure } from "./generic-parser.js";
+import {
+  FutureDataList,
+  autoReadPrefixes,
+  readPreamble,
+  skipStructure,
+  type PrefixPropertyPair,
+} from "./generic-parser.js";
 
 // --- Parsed structure types ---
 
@@ -37,6 +43,7 @@ export interface Wire {
 }
 
 export interface T0x10 {
+  pinIndex: number; // 1-based logical pin index for pinMap lookup
   pointX: number;
   pointY: number;
   netId: number;
@@ -45,8 +52,11 @@ export interface T0x10 {
 
 export interface PlacedInstance {
   pkgName: string;
+  dbId: number;
   reference: string;
   sourcePackage: string;
+  partValueIdx: number;
+  prefixProperties: PrefixPropertyPair[];
   locX: number;
   locY: number;
   symbolDisplayProps: SymbolDisplayProp[];
@@ -164,7 +174,8 @@ export function parseT0x10(reader: BinaryReader): T0x10 {
   readPreamble(reader);
   futureData.checkpoint();
 
-  reader.skip(2); // sth
+  const sth = reader.readUint16();
+  const pinIndex = sth < 32768 ? sth : 65536 - sth;
   const pointX = reader.readInt16();
   const pointY = reader.readInt16();
   const netId = reader.readUint32();
@@ -178,18 +189,22 @@ export function parseT0x10(reader: BinaryReader): T0x10 {
 
   futureData.checkpoint();
 
-  return { pointX, pointY, netId, symbolDisplayProps };
+  return { pinIndex, pointX, pointY, netId, symbolDisplayProps };
 }
 
 export function parsePlacedInstance(reader: BinaryReader): PlacedInstance {
   const futureData = new FutureDataList(reader);
-  autoReadPrefixes(reader, futureData, StructureType.PlacedInstance);
+  const { properties: prefixProperties } = autoReadPrefixes(
+    reader,
+    futureData,
+    StructureType.PlacedInstance
+  );
   readPreamble(reader);
   futureData.checkpoint();
 
   reader.skip(8); // unknown
   const pkgName = reader.readStringLenZeroTerm();
-  reader.skip(4); // dbId
+  const dbId = reader.readUint32();
   reader.skip(8); // unknown
   const locX = reader.readInt16();
   const locY = reader.readInt16();
@@ -205,7 +220,8 @@ export function parsePlacedInstance(reader: BinaryReader): PlacedInstance {
   futureData.checkpoint();
 
   const reference = reader.readStringLenZeroTerm();
-  reader.skip(14); // unknown
+  const partValueIdx = reader.readUint32();
+  reader.skip(10); // unknown
 
   const lenT0x10s = reader.readUint16();
   const t0x10s: T0x10[] = [];
@@ -220,7 +236,18 @@ export function parsePlacedInstance(reader: BinaryReader): PlacedInstance {
 
   futureData.checkpoint();
 
-  return { pkgName, reference, sourcePackage, locX, locY, symbolDisplayProps, t0x10s };
+  return {
+    pkgName,
+    dbId,
+    reference,
+    sourcePackage,
+    partValueIdx,
+    prefixProperties,
+    locX,
+    locY,
+    symbolDisplayProps,
+    t0x10s,
+  };
 }
 
 /**
@@ -347,4 +374,85 @@ export function parsePackage(reader: BinaryReader): Package {
   futureData.checkpoint();
 
   return { name, refDes, pcbFootprint, devices };
+}
+
+// --- Cache stream structures ---
+
+export interface SymbolPin {
+  name: string;
+}
+
+export function parseSymbolPin(reader: BinaryReader): SymbolPin {
+  const futureData = new FutureDataList(reader);
+  autoReadPrefixes(reader, futureData); // accepts SymbolPinScalar (0x1A) or SymbolPinBus (0x1B)
+  readPreamble(reader);
+  futureData.checkpoint();
+
+  const name = reader.readStringLenZeroTerm();
+  // start_x(4) + start_y(4) + hotpt_x(4) + hotpt_y(4) + pin_shape(2) + unknown(2) + port_type(4) + unknown(4)
+  reader.skip(28);
+
+  const lenSymbolDisplayProps = reader.readUint16();
+  for (let i = 0; i < lenSymbolDisplayProps; i++) {
+    parseSymbolDisplayProp(reader);
+  }
+
+  futureData.checkpoint();
+
+  return { name };
+}
+
+export interface LibraryPart {
+  name: string;
+  pinNames: string[];
+  defaultValue?: string;
+}
+
+export function parseLibraryPart(reader: BinaryReader): LibraryPart {
+  const futureData = new FutureDataList(reader);
+  autoReadPrefixes(reader, futureData, StructureType.LibraryPart);
+  readPreamble(reader);
+  futureData.checkpoint();
+
+  const name = reader.readStringLenZeroTerm();
+  reader.readStringLenZeroTerm(); // sourceLibrary
+
+  futureData.checkpoint();
+
+  reader.skip(4); // unknown
+
+  // Skip primitives (graphical shapes: Line, Rect, Arc, etc.)
+  // Primitives use a non-standard format, so skip to the next checkpoint boundary
+  reader.readUint16(); // lenPrimitives (consumed but not iterated)
+  futureData.skipToNextBoundary();
+
+  const lenSymbolPins = reader.readUint16();
+  const pinNames: string[] = [];
+  for (let i = 0; i < lenSymbolPins; i++) {
+    const pin = parseSymbolPin(reader);
+    pinNames.push(pin.name);
+  }
+
+  const lenSdps = reader.readUint16();
+  for (let i = 0; i < lenSdps; i++) {
+    parseSymbolDisplayProp(reader);
+  }
+
+  futureData.checkpoint();
+
+  // Try reading optional GeneralProperties block
+  let defaultValue: string | undefined;
+  try {
+    reader.readStringLenZeroTerm(); // impl_path
+    reader.readStringLenZeroTerm(); // impl
+    reader.readStringLenZeroTerm(); // ref_des
+    const partValue = reader.readStringLenZeroTerm(); // part_value
+    if (partValue) defaultValue = partValue;
+    reader.skip(2); // properties bitfield + padding
+    futureData.checkpoint();
+  } catch {
+    // GeneralProperties is optional
+  }
+
+  return { name, pinNames, defaultValue };
 }

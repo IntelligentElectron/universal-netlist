@@ -39,9 +39,9 @@ describe("GenericParser", () => {
 
       const reader = new BinaryReader(buf);
       const futureData = new FutureDataList(reader);
-      const type = autoReadPrefixes(reader, futureData);
+      const { structType } = autoReadPrefixes(reader, futureData);
 
-      expect(type).toBe(StructureType.Alias);
+      expect(structType).toBe(StructureType.Alias);
       expect(reader.tell()).toBe(3);
     });
 
@@ -57,9 +57,9 @@ describe("GenericParser", () => {
 
       const reader = new BinaryReader(buf);
       const futureData = new FutureDataList(reader);
-      const type = autoReadPrefixes(reader, futureData);
+      const { structType } = autoReadPrefixes(reader, futureData);
 
-      expect(type).toBe(StructureType.PlacedInstance);
+      expect(structType).toBe(StructureType.PlacedInstance);
       expect(reader.tell()).toBe(12);
     });
 

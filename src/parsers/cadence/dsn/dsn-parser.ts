@@ -9,7 +9,14 @@ import { OleReader } from "../../ole-reader/ole-reader.js";
 import { BinaryReader } from "./binary-reader.js";
 import { StructureType } from "./structure-types.js";
 import { FutureDataList, autoReadPrefixes, readPreamble, skipStructure } from "./generic-parser.js";
-import type { Wire, PlacedInstance, GraphicInst, Package } from "./structures.js";
+import type {
+  Wire,
+  PlacedInstance,
+  GraphicInst,
+  Package,
+  T0x10,
+  LibraryPart,
+} from "./structures.js";
 import {
   parseWire,
   parsePlacedInstance,
@@ -17,9 +24,17 @@ import {
   parsePort,
   parseOffPageConnector,
   parsePackage,
+  parseLibraryPart,
 } from "./structures.js";
 import type { ParsedNetlist, NetConnections, ComponentDetails } from "../../../types.js";
+import { createPinEntry } from "../../../types.js";
 import { isValidRefdes } from "../../../circuit-traversal.js";
+import { parseLibraryStrLst } from "./library-parser.js";
+
+interface CachedLibraryPart {
+  pinNames: string[];
+  defaultValue?: string;
+}
 
 // PageSettings is a fixed-size block of 156 bytes
 const PAGE_SETTINGS_SIZE = 156;
@@ -56,24 +71,36 @@ function skipT0x35(reader: BinaryReader): void {
 
 // --- Stream Parsers ---
 
+interface PackageStreamResult {
+  pkg: Package;
+  libraryParts: LibraryPart[];
+}
+
 /**
- * Parse a Package OLE stream into a Package structure.
+ * Parse a Package OLE stream into a Package structure and LibraryParts.
  *
  * Layout: uint16 lenPartCells → [PartCell + LibraryParts]... → Package.
- * PartCell and LibraryPart are skippable structures; the Package at the
- * end contains Device entries with pinMap data.
+ * LibraryParts contain SymbolPin names used for pin name enrichment.
  */
-function parsePackageStream(buffer: Buffer): Package {
+function parsePackageStream(buffer: Buffer): PackageStreamResult {
   const reader = new BinaryReader(buffer);
+  const libraryParts: LibraryPart[] = [];
   const lenPartCells = reader.readUint16();
   for (let i = 0; i < lenPartCells; i++) {
     skipStructure(reader); // PartCell
     const lenLibraryParts = reader.readUint16();
     for (let j = 0; j < lenLibraryParts; j++) {
-      skipStructure(reader); // LibraryPart
+      const pos = reader.tell();
+      try {
+        libraryParts.push(parseLibraryPart(reader));
+      } catch {
+        // Fall back to skipping if parsing fails
+        reader.seek(pos);
+        skipStructure(reader);
+      }
     }
   }
-  return parsePackage(reader);
+  return { pkg: parsePackage(reader), libraryParts };
 }
 
 interface PageData {
@@ -414,22 +441,23 @@ interface PinInfo {
 }
 
 /**
- * Resolve a T0x10 pin index to a physical pin number using package pin map data.
+ * Resolve a T0x10 pin to a physical pin number using package pin map data.
  *
- * For components with a matching Package entry, the Device.pinMap maps
- * T0x10 index → physical pin number (e.g., index 0 → pin "8" for a QFN).
- * For components without Package data, falls back to sequential numbering.
+ * Uses T0x10.pinIndex (1-based logical pin index from the binary) to look up
+ * the physical pin number in the Device.pinMap array.
+ * Falls back to the pinIndex value itself if no pin map is available.
  */
 function resolvePinNumber(
-  pinIdx: number,
+  pin: T0x10,
   inst: PlacedInstance,
   pinMaps: Map<string, (string | null)[]>
 ): string {
+  if (pin.pinIndex <= 0) return String(pin.pinIndex || 1);
   const pinMap = findPinMap(inst, pinMaps);
-  if (pinMap && pinIdx < pinMap.length && pinMap[pinIdx] !== null) {
-    return pinMap[pinIdx]!;
+  if (pinMap && pin.pinIndex - 1 < pinMap.length && pinMap[pin.pinIndex - 1] !== null) {
+    return pinMap[pin.pinIndex - 1]!;
   }
-  return String(pinIdx + 1);
+  return String(pin.pinIndex);
 }
 
 /**
@@ -497,11 +525,10 @@ function collectPins(
     for (const inst of pages[i].placedInstances) {
       const refdes = inst.reference;
       if (!refdes || !isValidRefdes(refdes)) continue;
-      for (let pinIdx = 0; pinIdx < inst.t0x10s.length; pinIdx++) {
-        const pin = inst.t0x10s[pinIdx];
+      for (const pin of inst.t0x10s) {
         const coord = `${pin.pointX},${pin.pointY}`;
         const coordNet = coordToNet.get(coord);
-        const pinNumber = resolvePinNumber(pinIdx, inst, pinMaps);
+        const pinNumber = resolvePinNumber(pin, inst, pinMaps);
         pins.push({ refdes, pinNumber, netId: pin.netId, pageIdx: i, coord, coordNet });
       }
     }
@@ -796,16 +823,18 @@ function buildNetConnectivity(
   return assembleNets(allPins, canonicalNetNames);
 }
 
+/** Property name keys recognized as MPN fields in prefix properties. */
+const MPN_KEYS = new Set(["Part Number", "PART_NUMBER", "MPN", "Manufacturer PN"]);
+
 /**
- * Build components from PlacedInstances and Package pin map data.
- *
- * For components with a matching pin map, pins use physical pin numbers
- * and include pin names (e.g., { name: "SDA", net: "I2C_SDA" }).
- * For components without pin map data, pins use the connectivity map directly.
+ * Build components from PlacedInstances, enriched with MPN, value, and pin names.
  */
 function buildComponents(
   pages: PageData[],
-  componentPins: Map<string, Map<string, string>>
+  componentPins: Map<string, Map<string, string>>,
+  strLst: string[],
+  cachedParts: Map<string, CachedLibraryPart>,
+  pinMaps: Map<string, (string | null)[]>
 ): ComponentDetails {
   const components: ComponentDetails = {};
 
@@ -813,20 +842,69 @@ function buildComponents(
     for (const inst of page.placedInstances) {
       const refdes = inst.reference;
       if (!refdes || !isValidRefdes(refdes)) continue;
-      if (components[refdes]) continue; // already processed
+      if (components[refdes]) continue;
 
+      // Resolve MPN from prefix properties, fallback to sourcePackage
+      let mpn: string | undefined;
+      for (const [nameIdx, valIdx] of inst.prefixProperties) {
+        if (nameIdx < strLst.length && MPN_KEYS.has(strLst[nameIdx])) {
+          if (valIdx < strLst.length && strLst[valIdx]) {
+            mpn = strLst[valIdx];
+            break;
+          }
+        }
+      }
+      if (!mpn) mpn = inst.sourcePackage;
+
+      // Resolve value (3-source priority)
+      let value: string | undefined;
+      // Source A: prefix property with key "Value"
+      for (const [nameIdx, valIdx] of inst.prefixProperties) {
+        if (nameIdx < strLst.length && strLst[nameIdx] === "Value") {
+          if (valIdx < strLst.length && strLst[valIdx]) {
+            value = strLst[valIdx];
+            break;
+          }
+        }
+      }
+      // Source B: partValueIdx in PlacedInstance body
+      if (!value && inst.partValueIdx > 0 && inst.partValueIdx < strLst.length) {
+        const v = strLst[inst.partValueIdx];
+        if (v) value = v;
+      }
+      // Source C: cached library part default value
+      if (!value) {
+        const cached = cachedParts.get(inst.pkgName);
+        if (cached?.defaultValue) value = cached.defaultValue;
+      }
+
+      // Build pins with names from cached library parts
       const pinNets = componentPins.get(refdes);
       const pins: Record<string, import("../../../types.js").PinEntry> = {};
+      const cachedPart = cachedParts.get(inst.pkgName);
 
-      // Pin numbers are already resolved (physical or sequential) during
-      // collectPins via resolvePinNumber. Just populate from connectivity.
       if (pinNets) {
+        // Build pinNumber -> pinIndex map for pin name lookup
+        const pinNumToIndex = new Map<string, number>();
+        for (const t0x10 of inst.t0x10s) {
+          if (t0x10.pinIndex > 0) {
+            pinNumToIndex.set(resolvePinNumber(t0x10, inst, pinMaps), t0x10.pinIndex);
+          }
+        }
+
         for (const [pinNumber, netName] of pinNets) {
-          pins[pinNumber] = netName;
+          let pinName: string | undefined;
+          if (cachedPart) {
+            const idx = pinNumToIndex.get(pinNumber);
+            if (idx !== undefined && idx - 1 < cachedPart.pinNames.length) {
+              pinName = cachedPart.pinNames[idx - 1];
+            }
+          }
+          pins[pinNumber] = createPinEntry(pinNumber, pinName, netName);
         }
       }
 
-      components[refdes] = { mpn: inst.sourcePackage, pins };
+      components[refdes] = { mpn, value, pins };
     }
   }
 
@@ -915,6 +993,7 @@ export function parseDsnFile(dsnPath: string): ParsedNetlist {
   // T0x10 index → physical pin number/name. We index by sourcePackage
   // for lookup during pin resolution.
   const pinMaps = new Map<string, (string | null)[]>();
+  const cachedParts = new Map<string, CachedLibraryPart>();
   const pkgStreamEntries = entries.filter(
     (e) =>
       /^Packages\//.test(e.path) && e.entry.type === 2 && !e.path.includes("_pDboPackage_Copy_")
@@ -923,7 +1002,7 @@ export function parseDsnFile(dsnPath: string): ParsedNetlist {
   for (const pkgEntry of pkgStreamEntries) {
     try {
       const pkgBuffer = ole.readStreamByPath(pkgEntry.path);
-      const pkg = parsePackageStream(pkgBuffer);
+      const { pkg, libraryParts } = parsePackageStream(pkgBuffer);
       const streamName = pkgEntry.path.replace("Packages/", "");
 
       // Index pin maps by sourcePackage for pin number resolution.
@@ -946,14 +1025,41 @@ export function parseDsnFile(dsnPath: string): ParsedNetlist {
           }
         }
       }
+
+      // Index LibraryPart pin names and default values.
+      // Key by both the original LP name and the suffix-stripped form,
+      // since LP names include a Package stream suffix (e.g., "RES_0.Normal")
+      // but PlacedInstance.pkgName uses the base name (e.g., "RES.Normal").
+      for (const lp of libraryParts) {
+        const entry = { pinNames: lp.pinNames, defaultValue: lp.defaultValue };
+        if (!cachedParts.has(lp.name)) cachedParts.set(lp.name, entry);
+        const stripped = lp.name.replace(/_\d+(?=\.)/, "");
+        if (stripped !== lp.name && !cachedParts.has(stripped)) {
+          cachedParts.set(stripped, entry);
+        }
+      }
     } catch {
       // Package parsing is best-effort; skip malformed streams
     }
   }
 
+  // Parse Library stream for strLst string table
+  let strLst: string[] = [];
+  const libEntry = entries.find(
+    (e) => (e.path === "Library" || e.path.endsWith("/Library")) && e.entry.type === 2
+  );
+  if (libEntry) {
+    try {
+      const libBuffer = ole.readStreamByPath(libEntry.path);
+      strLst = parseLibraryStrLst(libBuffer);
+    } catch {
+      // Library parsing is best-effort
+    }
+  }
+
   // Build netlist from parsed data
   const { nets, componentPins } = buildNetConnectivity(pages, canonicalNetNames, pinMaps);
-  const components = buildComponents(pages, componentPins);
+  const components = buildComponents(pages, componentPins, strLst, cachedParts, pinMaps);
 
   return { nets, components };
 }
