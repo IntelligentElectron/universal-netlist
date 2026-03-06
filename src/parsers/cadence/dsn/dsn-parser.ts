@@ -104,49 +104,158 @@ function parsePackageStream(buffer: Buffer): PackageStreamResult {
 }
 
 /**
- * Scan the Cache stream for Package/Device structures and add their pinMaps
- * as fallback entries (only for keys not already present from Packages/ streams).
+ * Parse the Cache stream sequentially, extracting Package (pin maps) and
+ * LibraryPart (pin names) structures.
  *
- * The Cache contains Package definitions for all components in the design,
- * embedded at various offsets. We scan for valid Package prefix headers and
- * attempt to parse each one.
+ * The Cache contains all component definitions in a sequential format:
+ * 4-byte header, then entries with variable-length metadata, twin IDs,
+ * a structure type uint16, and a standard prefix-chain + body structure.
+ *
+ * Reference: OpenOrCadParser StreamCache.cpp
  */
-function parseCachePackages(buffer: Buffer, pinMaps: Map<string, (string | null)[]>): void {
+function parseCacheStream(
+  buffer: Buffer,
+  pinMaps: Map<string, (string | null)[]>,
+  cachedParts: Map<string, CachedLibraryPart>
+): void {
   const reader = new BinaryReader(buffer);
-  const pkgType = StructureType.Package;
 
-  for (let i = 0; i < buffer.length - 20; i++) {
-    if (buffer[i] !== pkgType) continue;
-
-    reader.seek(i);
+  /** Probe: run fn, always reset position. Returns true if fn succeeded. */
+  function tryRead(fn: () => void): boolean {
+    const saved = reader.tell();
     try {
-      const pkg = parsePackage(reader);
-      // Validate: reasonable name and device count
-      if (!pkg.name || pkg.name.length === 0 || pkg.name.length > 200) continue;
-      if (pkg.devices.length === 0 || pkg.devices.length > 50) continue;
-      const firstDev = pkg.devices[0];
-      if (firstDev.pinMap.length === 0 || firstDev.pinMap.length > 1000) continue;
+      fn();
+    } catch {
+      reader.seek(saved);
+      return false;
+    }
+    reader.seek(saved);
+    return true;
+  }
 
-      // Index with same key convention as Packages/ streams
-      const baseName = pkg.name.replace(/_\d+$/, "");
-      if (pkg.devices.length === 1) {
-        if (!pinMaps.has(baseName)) pinMaps.set(baseName, firstDev.pinMap);
-        if (!pinMaps.has(pkg.name)) pinMaps.set(pkg.name, firstDev.pinMap);
-      } else {
-        for (const dev of pkg.devices) {
-          const baseKey = baseName + dev.unitRef;
-          if (!pinMaps.has(baseKey)) pinMaps.set(baseKey, dev.pinMap);
-          if (pkg.name !== baseName) {
-            const nameKey = pkg.name + dev.unitRef;
-            if (!pinMaps.has(nameKey)) pinMaps.set(nameKey, dev.pinMap);
-          }
+  // Empty cache: <= 10 bytes
+  if (buffer.length <= 10) return;
+
+  // Header: 2 zero bytes + 2 unknown bytes
+  reader.skip(4);
+
+  while (!reader.isEof()) {
+    try {
+      // Variable-length metadata: probe to detect format variant.
+      // Variant 1: string follows immediately (name directly)
+      // Variant 2: 2 unknown + 3-char refDes string + 2 unknown, then name
+      // Variant 3: 2 unknown bytes, then name
+      const hasStrNow = tryRead(() => reader.readStringLenZeroTerm());
+
+      if (!hasStrNow) {
+        const hasStrAfter8 = tryRead(() => {
+          reader.skip(8);
+          reader.readStringLenZeroTerm();
+        });
+
+        if (hasStrAfter8) {
+          reader.skip(2); // unknown
+          reader.readStringLenZeroTerm(); // refDes-like descriptor ("LED", "VDC", etc.)
         }
+
+        reader.skip(2); // unknown
       }
 
-      i = reader.tell() - 1; // Skip past parsed structure
+      reader.readStringLenZeroTerm(); // entry name
+
+      // Twin ID check: peek 8 bytes
+      const ids = reader.peek(8);
+      const id0 = ids.readUInt32LE(0);
+      const id1 = ids.readUInt32LE(4);
+
+      if (id0 !== id1) {
+        // Sub-loop: package names + source library references
+        let someVal: number;
+        do {
+          someVal = reader.readUint16();
+          if (reader.isEof()) return;
+
+          // Check: exactly 1 byte left? Skip it and exit.
+          const isLastByte = tryRead(() => {
+            reader.skip(1);
+            if (!reader.isEof()) throw new Error();
+          });
+          if (isLastByte) {
+            reader.skip(1);
+            return;
+          }
+
+          // Check: can we read a string directly, or are there 2 mystery bytes first?
+          if (!tryRead(() => reader.readStringLenZeroTerm())) {
+            reader.skip(2);
+          }
+
+          reader.readStringLenZeroTerm(); // package name or source library
+        } while (someVal === 0);
+
+        if (reader.isEof()) return;
+      }
+
+      // Twin IDs
+      reader.readUint32(); // someId0
+      reader.readUint32(); // someId1
+
+      // Structure type (uint16; low byte matches prefix chain type byte)
+      const structType = reader.readUint16();
+
+      // Parse or skip the structure
+      const structStart = reader.tell();
+      try {
+        if (structType === StructureType.Package) {
+          const pkg = parsePackage(reader);
+          indexCachePackage(pkg, pinMaps);
+        } else if (structType === StructureType.LibraryPart) {
+          const lp = parseLibraryPart(reader);
+          indexCacheLibraryPart(lp, cachedParts);
+        } else {
+          skipStructure(reader);
+        }
+      } catch {
+        // Structure parsing failed; skip via prefix chain
+        reader.seek(structStart);
+        skipStructure(reader);
+      }
     } catch {
-      // Not a valid Package at this offset
+      // Metadata parsing failed; can't continue sequentially
+      break;
     }
+  }
+}
+
+/** Index a Cache Package's pin maps (fallback; doesn't override existing entries). */
+function indexCachePackage(pkg: Package, pinMaps: Map<string, (string | null)[]>): void {
+  if (!pkg.name || pkg.devices.length === 0) return;
+  const firstDev = pkg.devices[0];
+  if (firstDev.pinMap.length === 0) return;
+
+  const baseName = pkg.name.replace(/_\d+$/, "");
+  if (pkg.devices.length === 1) {
+    if (!pinMaps.has(baseName)) pinMaps.set(baseName, firstDev.pinMap);
+    if (!pinMaps.has(pkg.name)) pinMaps.set(pkg.name, firstDev.pinMap);
+  } else {
+    for (const dev of pkg.devices) {
+      const baseKey = baseName + dev.unitRef;
+      if (!pinMaps.has(baseKey)) pinMaps.set(baseKey, dev.pinMap);
+      if (pkg.name !== baseName) {
+        const nameKey = pkg.name + dev.unitRef;
+        if (!pinMaps.has(nameKey)) pinMaps.set(nameKey, dev.pinMap);
+      }
+    }
+  }
+}
+
+/** Index a Cache LibraryPart's pin names (fallback; doesn't override existing entries). */
+function indexCacheLibraryPart(lp: LibraryPart, cachedParts: Map<string, CachedLibraryPart>): void {
+  const entry: CachedLibraryPart = { pinNames: lp.pinNames, defaultValue: lp.defaultValue };
+  if (!cachedParts.has(lp.name)) cachedParts.set(lp.name, entry);
+  const stripped = lp.name.replace(/_\d+(?=\.)/, "");
+  if (stripped !== lp.name && !cachedParts.has(stripped)) {
+    cachedParts.set(stripped, entry);
   }
 }
 
@@ -1127,14 +1236,14 @@ export function parseDsnFile(dsnPath: string): ParsedNetlist {
     }
   }
 
-  // Parse Cache stream as fallback source for pin maps.
-  // The Cache stream contains Package/Device structures for all components,
-  // not just those with dedicated Packages/ streams.
+  // Parse Cache stream as fallback for pin maps and library parts.
+  // The Cache contains Package/Device structures (for pin number mapping) and
+  // LibraryPart structures (for pin names) for all components in the design.
   const cacheEntry = entries.find((e) => e.path === "Cache" && e.entry.type === 2);
   if (cacheEntry) {
     try {
       const cacheBuf = ole.readStreamByPath(cacheEntry.path);
-      parseCachePackages(cacheBuf, pinMaps);
+      parseCacheStream(cacheBuf, pinMaps, cachedParts);
     } catch {
       // Cache parsing is best-effort
     }

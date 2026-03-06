@@ -132,6 +132,9 @@ export class BinaryReader {
    */
   readStringLenZeroTerm(): string {
     const len = this.readUint16();
+    if (len > 400) {
+      throw new Error(`String length ${len} exceeds limit of 400 at offset ${this.pos - 2}`);
+    }
     if (len === 0) {
       // Empty string: just a null terminator
       const b = this.readUint8();
