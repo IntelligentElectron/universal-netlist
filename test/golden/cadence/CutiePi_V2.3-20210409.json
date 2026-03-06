@@ -4929,8 +4929,9 @@
         "1": "3V3",
         "2": "N1478289"
       },
-      "mpn": "RES_0_R0402_DISCRETE_10K_NC",
-      "value": "10K_NC"
+      "dns": true,
+      "mpn": "RES_0_R0402_DISCRETE_10K",
+      "value": "10K"
     },
     "R120": {
       "pins": {
@@ -4971,8 +4972,9 @@
           "net": "N12951060"
         }
       },
-      "mpn": "RES_R0402_DISCRETE_0_NC_",
-      "value": "0_NC"
+      "dns": true,
+      "mpn": "RES_R0402_DISCRETE_0",
+      "value": "0"
     },
     "R123": {
       "pins": {
@@ -4985,8 +4987,9 @@
           "net": "N12951086"
         }
       },
-      "mpn": "RES_R0402_DISCRETE_0_NC_",
-      "value": "0_NC"
+      "dns": true,
+      "mpn": "RES_R0402_DISCRETE_0",
+      "value": "0"
     },
     "R124": {
       "pins": {
@@ -5031,8 +5034,9 @@
         "1": "HDMI_CEC",
         "2": "CM_3V3"
       },
-      "mpn": "RES_1005_100K_R0402_10K_NC",
-      "value": "10K_NC"
+      "dns": true,
+      "mpn": "RES_1005_100K_R0402_10K",
+      "value": "10K"
     },
     "R16": {
       "pins": {
@@ -5087,8 +5091,9 @@
         "1": "N12396095",
         "2": "MCU_3V3"
       },
-      "mpn": "R_0402_22R/5%_R0402_10K_NC",
-      "value": "10K_NC"
+      "dns": true,
+      "mpn": "R_0402_22R/5%_R0402_10K",
+      "value": "10K"
     },
     "R3041": {
       "pins": {
@@ -5211,8 +5216,9 @@
         "1": "GND",
         "2": "AMP_SHUTDOWN"
       },
-      "mpn": "RES_1005_100K_R0402_10K_NC",
-      "value": "10K_NC"
+      "dns": true,
+      "mpn": "RES_1005_100K_R0402_10K",
+      "value": "10K"
     },
     "R3062": {
       "pins": {
@@ -5233,8 +5239,9 @@
           "net": "GND"
         }
       },
-      "mpn": "RES_R0603_DISCRETE_3.3_NC_",
-      "value": "3.3_NC"
+      "dns": true,
+      "mpn": "RES_R0603_DISCRETE_3.3",
+      "value": "3.3"
     },
     "R3064": {
       "pins": {
@@ -5481,8 +5488,9 @@
           "net": "N12951358"
         }
       },
-      "mpn": "RES_R0402_DISCRETE_10K_NC_",
-      "value": "10K_NC"
+      "dns": true,
+      "mpn": "RES_R0402_DISCRETE_10K",
+      "value": "10K"
     },
     "R3102": {
       "pins": {
@@ -5715,8 +5723,9 @@
           "net": "VBAT_AD_C"
         }
       },
-      "mpn": "RES_R0402_DISCRETE_0_NC_",
-      "value": "0_NC"
+      "dns": true,
+      "mpn": "RES_R0402_DISCRETE_0",
+      "value": "0"
     },
     "R3155": {
       "pins": {
@@ -5729,8 +5738,9 @@
           "net": "USB5V_AD_C"
         }
       },
-      "mpn": "RES_R0402_DISCRETE_0_NC_",
-      "value": "0_NC"
+      "dns": true,
+      "mpn": "RES_R0402_DISCRETE_0",
+      "value": "0"
     },
     "R3156": {
       "pins": {
@@ -5793,8 +5803,9 @@
           "net": "USBS_DN"
         }
       },
-      "mpn": "RES_R0402_DISCRETE_0_NC_",
-      "value": "0_NC"
+      "dns": true,
+      "mpn": "RES_R0402_DISCRETE_0",
+      "value": "0"
     },
     "R3162": {
       "pins": {
@@ -5807,8 +5818,9 @@
           "net": "USBS_DP"
         }
       },
-      "mpn": "RES_R0402_DISCRETE_0_NC_",
-      "value": "0_NC"
+      "dns": true,
+      "mpn": "RES_R0402_DISCRETE_0",
+      "value": "0"
     },
     "R3163": {
       "pins": {
@@ -5865,8 +5877,9 @@
           "net": "GYRO_INT"
         }
       },
-      "mpn": "RES_R0402_DISCRETE_10K_NC_",
-      "value": "10K_NC"
+      "dns": true,
+      "mpn": "RES_R0402_DISCRETE_10K",
+      "value": "10K"
     },
     "R3168": {
       "pins": {
@@ -5903,8 +5916,9 @@
         "1": "PWRSEL",
         "2": "REG3V3"
       },
-      "mpn": "RES_1005_100K_R0402_10K_NC",
-      "value": "10K_NC"
+      "dns": true,
+      "mpn": "RES_1005_100K_R0402_10K",
+      "value": "10K"
     },
     "R3174": {
       "pins": {
@@ -5939,8 +5953,9 @@
         "1": "MODE",
         "2": "REG3V3"
       },
-      "mpn": "RES_1005_100K_R0402_10K_NC",
-      "value": "10K_NC"
+      "dns": true,
+      "mpn": "RES_1005_100K_R0402_10K",
+      "value": "10K"
     },
     "R3177": {
       "pins": {
@@ -5971,8 +5986,9 @@
         "1": "TEST",
         "2": "REG3V3"
       },
-      "mpn": "RES_1005_100K_R0402_10K_NC",
-      "value": "10K_NC"
+      "dns": true,
+      "mpn": "RES_1005_100K_R0402_10K",
+      "value": "10K"
     },
     "R3181": {
       "pins": {
@@ -5987,8 +6003,9 @@
         "1": "MSEL",
         "2": "REG3V3"
       },
-      "mpn": "RES_1005_100K_R0402_10K_NC",
-      "value": "10K_NC"
+      "dns": true,
+      "mpn": "RES_1005_100K_R0402_10K",
+      "value": "10K"
     },
     "R3183": {
       "pins": {
@@ -6199,8 +6216,9 @@
           "net": "GPIO25"
         }
       },
-      "mpn": "RES_R0402_DISCRETE_0_NC_",
-      "value": "0_NC"
+      "dns": true,
+      "mpn": "RES_R0402_DISCRETE_0",
+      "value": "0"
     },
     "R3199": {
       "pins": {
@@ -6213,8 +6231,9 @@
           "net": "N13279315"
         }
       },
-      "mpn": "RES_R0402_DISCRETE_0_NC_",
-      "value": "0_NC"
+      "dns": true,
+      "mpn": "RES_R0402_DISCRETE_0",
+      "value": "0"
     },
     "R3200": {
       "pins": {
@@ -6241,8 +6260,9 @@
           "net": "GPIO16"
         }
       },
-      "mpn": "RES_R0402_DISCRETE_0_NC_",
-      "value": "0_NC"
+      "dns": true,
+      "mpn": "RES_R0402_DISCRETE_0",
+      "value": "0"
     },
     "R368": {
       "pins": {
@@ -6339,8 +6359,9 @@
           "net": "N12720829"
         }
       },
-      "mpn": "RES_R0402_DISCRETE_10K_NC_",
-      "value": "10K_NC"
+      "dns": true,
+      "mpn": "RES_R0402_DISCRETE_10K",
+      "value": "10K"
     },
     "R88": {
       "pins": {
@@ -7649,8 +7670,9 @@
         "3": "OSC_IN",
         "4": "GND"
       },
-      "mpn": "X_0_XTAL_3225_25M_A_IC_25M_NC",
-      "value": "25M_NC"
+      "dns": true,
+      "mpn": "X_0_XTAL_3225_25M_A_IC_25M",
+      "value": "25M"
     }
   }
 }

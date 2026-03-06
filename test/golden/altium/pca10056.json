@@ -4135,12 +4135,12 @@
     },
     "C10": {
       "mpn": "N.A.",
-      "description": "Not mounted",
       "pins": {
         "1": "GND",
         "2": "DEC4_6"
       },
-      "value": "N.C."
+      "value": "N.C.",
+      "dns": true
     },
     "C18": {
       "mpn": "N.A.",
@@ -4198,12 +4198,12 @@
     },
     "C9": {
       "mpn": "N.A.",
-      "description": "Not mounted",
       "pins": {
         "1": "NetC9_1",
         "2": "GND"
       },
-      "value": "N.C."
+      "value": "N.C.",
+      "dns": true
     },
     "C12": {
       "mpn": "N.A.",
@@ -4216,12 +4216,12 @@
     },
     "C13": {
       "mpn": "N.A.",
-      "description": "Not mounted",
       "pins": {
         "1": "NetC13_1",
         "2": "GND"
       },
-      "value": "N.C."
+      "value": "N.C.",
+      "dns": true
     },
     "C19": {
       "mpn": "N.A.",
@@ -4345,12 +4345,12 @@
     },
     "C22": {
       "mpn": "N.A.",
-      "description": "Not mounted",
       "pins": {
         "1": "RF",
         "2": "GND"
       },
-      "value": "N.C."
+      "value": "N.C.",
+      "dns": true
     },
     "SB23": {
       "mpn": "N.A.",
@@ -4477,21 +4477,21 @@
     },
     "C51": {
       "mpn": "N.A.",
-      "description": "Not mounted",
       "pins": {
         "1": "GND",
         "2": "P0.26"
       },
-      "value": "N.C."
+      "value": "N.C.",
+      "dns": true
     },
     "C52": {
       "mpn": "N.A.",
-      "description": "Not mounted",
       "pins": {
         "1": "GND",
         "2": "P0.27"
       },
-      "value": "N.C."
+      "value": "N.C.",
+      "dns": true
     },
     "SB21": {
       "mpn": "N.A.",
@@ -4570,21 +4570,21 @@
     },
     "R43": {
       "mpn": "N.A.",
-      "description": "Not mounted",
       "pins": {
         "1": "NetR43_1",
         "2": "P0.09/NFC1"
       },
-      "value": "N.C."
+      "value": "N.C.",
+      "dns": true
     },
     "R45": {
       "mpn": "N.A.",
-      "description": "Not mounted",
       "pins": {
         "1": "NetR45_1",
         "2": "P0.10/NFC2"
       },
-      "value": "N.C."
+      "value": "N.C.",
+      "dns": true
     },
     "L3": {
       "mpn": "LQG15HS15NJ02D",
@@ -4606,12 +4606,12 @@
     },
     "R10": {
       "mpn": "N.A.",
-      "description": "Not mounted",
       "pins": {
         "1": "VCOM_CTS",
         "2": "GND"
       },
-      "value": "N.C."
+      "value": "N.C.",
+      "dns": true
     },
     "R16": {
       "mpn": "N.A.",
@@ -6157,12 +6157,12 @@
     },
     "R54": {
       "mpn": "N.A.",
-      "description": "Not mounted",
       "pins": {
         "1": "BOOT/RESET",
         "2": "VDD"
       },
-      "value": "N.C."
+      "value": "N.C.",
+      "dns": true
     },
     "TP22": {
       "mpn": "N.A.",
@@ -8320,12 +8320,12 @@
     },
     "R90": {
       "mpn": "N.A.",
-      "description": "Not mounted",
       "pins": {
         "1": "VDD_nRF'",
         "2": "VDD_nRF"
       },
-      "value": "N.C."
+      "value": "N.C.",
+      "dns": true
     },
     "SB40": {
       "mpn": "N.A.",
@@ -8353,12 +8353,12 @@
     },
     "R91": {
       "mpn": "N.A.",
-      "description": "Not mounted",
       "pins": {
         "1": "VDD_HV'",
         "2": "VDD_HV"
       },
-      "value": "N.C."
+      "value": "N.C.",
+      "dns": true
     },
     "SB41": {
       "mpn": "N.A.",
@@ -8668,12 +8668,12 @@
     },
     "C96": {
       "mpn": "N.A.",
-      "description": "Not mounted",
       "pins": {
         "1": "GND",
         "2": "V5V"
       },
-      "value": "N.C."
+      "value": "N.C.",
+      "dns": true
     }
   }
 }

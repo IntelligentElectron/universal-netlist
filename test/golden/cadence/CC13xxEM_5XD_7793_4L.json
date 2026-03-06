@@ -580,7 +580,8 @@
         "1": "N501473",
         "2": "N501143"
       },
-      "mpn": "CAPACITOR_CAPC1005X60N_DNM_0402_CAPC1005X60L,CAPC1005X60M",
+      "dns": true,
+      "mpn": "CAPACITOR_CAPC1005X60N,CAPC1005X60M",
       "value": "DNM_0402"
     },
     "C17": {
@@ -644,7 +645,8 @@
         "1": "N310061",
         "2": "GND"
       },
-      "mpn": "CAPACITOR_CAPC1005X60L_DNM_CAPC1005X60L,CAPC1005X60M",
+      "dns": true,
+      "mpn": "CAPACITOR_CAPC1005X60L,CAPC1005X60M",
       "value": "DNM"
     },
     "C25": {
@@ -652,7 +654,8 @@
         "1": "N310119",
         "2": "GND"
       },
-      "mpn": "CAPACITOR_CAPC1005X60L_DNM_CAPC1005X60L,CAPC1005X60M",
+      "dns": true,
+      "mpn": "CAPACITOR_CAPC1005X60L,CAPC1005X60M",
       "value": "DNM"
     },
     "C3": {
@@ -893,7 +896,8 @@
         "1": "JTAG_TDI",
         "2": "DIO_6/JTAG_TDI"
       },
-      "mpn": "RESISTOR_RESC1005X40L_DNM_RESC1005X40L,RESC1005X40M",
+      "dns": true,
+      "mpn": "RESISTOR_RESC1005X40L,RESC1005X40M",
       "value": "DNM"
     },
     "R4": {
@@ -901,7 +905,8 @@
         "1": "JTAG_TDO",
         "2": "DIO_5/JTAG_TDO"
       },
-      "mpn": "RESISTOR_RESC1005X40L_DNM_RESC1005X40L,RESC1005X40M",
+      "dns": true,
+      "mpn": "RESISTOR_RESC1005X40L,RESC1005X40M",
       "value": "DNM"
     },
     "R5": {

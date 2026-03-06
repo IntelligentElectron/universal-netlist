@@ -1928,7 +1928,8 @@
         "1": "N1450387",
         "2": "GND"
       },
-      "mpn": "CAPACITOR_CAPC1005X60B2N_DNM",
+      "dns": true,
+      "mpn": "CAPACITOR_CAPC1005X60B2N",
       "value": "DNM"
     },
     "C3": {
@@ -2168,7 +2169,8 @@
         "1": "N1013977",
         "2": "GND"
       },
-      "mpn": "CAPACITOR_CAPC1005X60B2N_DNM_0402",
+      "dns": true,
+      "mpn": "CAPACITOR_CAPC1005X60B2N",
       "value": "DNM_0402"
     },
     "C59": {
@@ -2796,7 +2798,8 @@
         "1": "USB_ID",
         "2": "N950235"
       },
-      "mpn": "RESISTOR_RESC1005X40B2N_DNM",
+      "dns": true,
+      "mpn": "RESISTOR_RESC1005X40B2N",
       "value": "DNM"
     },
     "R2": {
@@ -2820,7 +2823,8 @@
         "1": "N949215",
         "2": "GND"
       },
-      "mpn": "RESISTOR_RESC1005X40B2N_DNM",
+      "dns": true,
+      "mpn": "RESISTOR_RESC1005X40B2N",
       "value": "DNM"
     },
     "R22": {
@@ -2940,7 +2944,8 @@
         "1": "N1176544",
         "2": "CC1310_TMS"
       },
-      "mpn": "RESISTOR_RESC1608X55N_DNM_RESC1608X55L,RESC1608X55M",
+      "dns": true,
+      "mpn": "RESISTOR_RESC1608X55N,RESC1608X55M",
       "value": "DNM"
     },
     "R47": {
@@ -2948,7 +2953,8 @@
         "1": "N1176548",
         "2": "CC1310_TCK"
       },
-      "mpn": "RESISTOR_RESC1608X55N_DNM_RESC1608X55L,RESC1608X55M",
+      "dns": true,
+      "mpn": "RESISTOR_RESC1608X55N,RESC1608X55M",
       "value": "DNM"
     },
     "R48": {
@@ -2956,7 +2962,8 @@
         "1": "N1176568",
         "2": "DIO16_TDO"
       },
-      "mpn": "RESISTOR_RESC1608X55N_DNM_RESC1608X55L,RESC1608X55M",
+      "dns": true,
+      "mpn": "RESISTOR_RESC1608X55N,RESC1608X55M",
       "value": "DNM"
     },
     "R49": {
@@ -2964,7 +2971,8 @@
         "1": "N1177007",
         "2": "DIO17_TDI"
       },
-      "mpn": "RESISTOR_RESC1608X55N_DNM_RESC1608X55L,RESC1608X55M",
+      "dns": true,
+      "mpn": "RESISTOR_RESC1608X55N,RESC1608X55M",
       "value": "DNM"
     },
     "R51": {
@@ -2972,7 +2980,8 @@
         "1": "LP_RESET",
         "2": "CC1310_RESET"
       },
-      "mpn": "RESISTOR_RESC1608X55N_DNM_RESC1608X55L,RESC1608X55M",
+      "dns": true,
+      "mpn": "RESISTOR_RESC1608X55N,RESC1608X55M",
       "value": "DNM"
     },
     "R52": {
@@ -3020,7 +3029,8 @@
         "1": "N1442334",
         "2": "CC1310_VDD"
       },
-      "mpn": "RESISTOR_RESC1005X40B2N_DNM",
+      "dns": true,
+      "mpn": "RESISTOR_RESC1005X40B2N",
       "value": "DNM"
     },
     "R60": {
@@ -3028,7 +3038,8 @@
         "1": "N1442341",
         "2": "CC1310_VDD"
       },
-      "mpn": "RESISTOR_RESC1005X40B2N_DNM",
+      "dns": true,
+      "mpn": "RESISTOR_RESC1005X40B2N",
       "value": "DNM"
     },
     "R61": {

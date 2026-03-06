@@ -14,7 +14,7 @@ const POWER_NET_PATTERN =
 const STOP_NET_PATTERN =
   /^(GND|VSS|AGND|DGND|PGND|SGND|CGND|VCC\w*|VDD\w*|VIN\w*|VOUT\w*|VBAT\w*|VBUS\w*|VSYS\w*|PWR_\w+|RAIL_\w+|PP\w*|PN\w*|LD_PP\w*|LD_PN\w*|[+-]?\d+V\d*\w*|[+-].+)$/i;
 const DNS_PATTERN =
-  /(?:^|[_,\s])(DNS|DNP|DNF|DNI|NF)(?:$|[_,\s])|DO\s*NOT\s*(STUFF|POPULATE|INSTALL|FIT)|NOT\s*(POPULATED|FITTED)|NO\s*POP/i;
+  /(?:^|[_,\s])(DNS|DNP|DNF|DNI|DNM|NF|NC)(?:$|[_,\s])|DO\s*NOT\s*(STUFF|POPULATE|INSTALL|FIT|MOUNT)|NOT\s*(POPULATED|FITTED|CONNECTED|MOUNTED)|NO\s*POP/i;
 
 /**
  * Check if a net name matches the ground pattern.
@@ -92,8 +92,8 @@ export const stripDnsMarkers = (str: string): string | undefined => {
   const tokens = str.split(",").reduce<string[]>((acc, raw) => {
     const token = raw.trim();
     if (!token) return acc;
-    // Strip trailing _DNS/_DNI/_DNP/_DNF/_NF suffix first
-    const cleaned = token.replace(/[_\s](DNS|DNP|DNF|DNI|NF)$/i, "");
+    // Strip _DNS/_DNI/_DNP/_DNF/_DNM/_NF/_NC and anything after it
+    const cleaned = token.replace(/[_\s](DNS|DNP|DNF|DNI|DNM|NF|NC)([_\s].*)?$/i, "");
     // Drop the token entirely if nothing remains or it's a standalone marker
     if (!cleaned || DNS_PATTERN.test(cleaned)) return acc;
     acc.push(cleaned);
