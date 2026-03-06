@@ -52,6 +52,7 @@ interface FieldStats {
   match: number;
   total: number;
   hasDsn: number;
+  caseMatch: number; // matches after uppercasing both sides (but not exact)
   mismatches: string[];
 }
 
@@ -95,10 +96,10 @@ function analyze(dsnPath: string, goldenPath: string): CoverageResult {
     .map((name) => ({ name, category: categorizeNet(name) }));
 
   // Field-level stats
-  const mpn: FieldStats = { match: 0, total: 0, hasDsn: 0, mismatches: [] };
-  const value: FieldStats = { match: 0, total: 0, hasDsn: 0, mismatches: [] };
-  const pinNum: FieldStats = { match: 0, total: 0, hasDsn: 0, mismatches: [] };
-  const pinName: FieldStats = { match: 0, total: 0, hasDsn: 0, mismatches: [] };
+  const mpn: FieldStats = { match: 0, total: 0, hasDsn: 0, caseMatch: 0, mismatches: [] };
+  const value: FieldStats = { match: 0, total: 0, hasDsn: 0, caseMatch: 0, mismatches: [] };
+  const pinNum: FieldStats = { match: 0, total: 0, hasDsn: 0, caseMatch: 0, mismatches: [] };
+  const pinName: FieldStats = { match: 0, total: 0, hasDsn: 0, caseMatch: 0, mismatches: [] };
 
   for (const ref of commonCompKeys) {
     const gc = golden.components[ref];
@@ -115,7 +116,10 @@ function analyze(dsnPath: string, goldenPath: string): CoverageResult {
       value.total++;
       if (dc.value) value.hasDsn++;
       if (dc.value === gc.value) value.match++;
-      else if (dc.value) value.mismatches.push(`${ref}: golden="${gc.value}" dsn="${dc.value}"`);
+      else if (dc.value && dc.value.toUpperCase() === gc.value.toUpperCase()) {
+        value.match++;
+        value.caseMatch++;
+      } else if (dc.value) value.mismatches.push(`${ref}: golden="${gc.value}" dsn="${dc.value}"`);
     }
 
     const goldenPins = gc.pins || {};
@@ -221,8 +225,9 @@ if (verbose) {
     console.log(`${"=".repeat(80)}`);
 
     console.log(`\nField coverage:`);
+    const valueCaseNote = r.value.caseMatch > 0 ? `, ${r.value.caseMatch} case-transformed` : "";
     console.log(
-      `  Value:   ${r.value.match}/${r.value.total} exact (${pct(r.value.match, r.value.total)}), ${r.value.hasDsn} have DSN value`
+      `  Value:   ${r.value.match}/${r.value.total} match (${pct(r.value.match, r.value.total)}), ${r.value.hasDsn} have DSN value${valueCaseNote}`
     );
     console.log(
       `  PinNum:  ${r.pinNum.match}/${r.pinNum.total} (${pct(r.pinNum.match, r.pinNum.total)})`
@@ -317,11 +322,13 @@ if (results.length > 1) {
       sum((r) => r.goldenCompCount)
     )})`
   );
+  const totalCaseMatch = sum((r) => r.value.caseMatch);
+  const valueCaseNote = totalCaseMatch > 0 ? ` [${totalCaseMatch} case-transformed]` : "";
   console.log(
     `Value:   ${sum((r) => r.value.match)}/${sum((r) => r.value.total)} (${pct(
       sum((r) => r.value.match),
       sum((r) => r.value.total)
-    )})`
+    )})${valueCaseNote}`
   );
   console.log(
     `PinNum:  ${sum((r) => r.pinNum.match)}/${sum((r) => r.pinNum.total)} (${pct(
