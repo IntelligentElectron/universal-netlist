@@ -146,6 +146,7 @@ describe("groupComponentsByMpn", () => {
       C1: {
         mpn: "DNS",
         description: "Do Not Stuff cap",
+        dns: true,
         pins: { "1": "VCC", "2": "GND" },
       },
     };

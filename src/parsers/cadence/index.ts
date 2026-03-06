@@ -15,7 +15,7 @@ import {
   CADENCE_EXTENSIONS,
 } from "./discovery.js";
 import { parseDsnFile } from "./dsn/dsn-parser.js";
-import { isValidRefdes } from "../../circuit-traversal.js";
+import { isValidRefdes, stripDnsMarkers } from "../../circuit-traversal.js";
 import {
   createPinEntry,
   type ParsedNetlist,
@@ -119,9 +119,9 @@ export const buildCadencePinMap = (
 
       // Set value from pstchip.dat if not already set
       if (partName && !component.value) {
-        const value = valueMap.get(partName);
-        if (value) {
-          component.value = value;
+        const rawValue = valueMap.get(partName);
+        if (rawValue) {
+          component.value = component.dns ? (stripDnsMarkers(rawValue) ?? rawValue) : rawValue;
         }
       }
 

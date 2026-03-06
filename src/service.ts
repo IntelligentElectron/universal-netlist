@@ -18,7 +18,6 @@ import {
   naturalSort,
   traverseCircuitFromNet,
   computeCircuitHash,
-  isDnsComponent,
   matchesRefdesType,
   getRefdesPrefix,
   isValidRefdes,
@@ -123,7 +122,7 @@ const groupComponentsByMpn = (
   >();
 
   for (const [refdes, component] of entries) {
-    const dns = isDnsComponent(component);
+    const dns = component.dns ?? false;
     if (!includeDns && dns) {
       continue;
     }
@@ -705,7 +704,7 @@ export const queryComponent = async (
 
   const [resolvedRefdes, component] = componentEntry;
   const mpn = component.mpn?.trim() || undefined;
-  const dns = isDnsComponent(component);
+  const dns = component.dns ?? false;
 
   const result: QueryComponentResult = {
     refdes: resolvedRefdes,

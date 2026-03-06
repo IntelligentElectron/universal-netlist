@@ -8,11 +8,13 @@ Generate golden JSON fixtures from parsed design files. Golden files are the ref
 
 ```bash
 npx tsx scripts/gen-golden.ts <format> <name> <path>
+npx tsx scripts/gen-golden.ts --all
 ```
 
 - `format`: `cadence` or `altium`
 - `name`: output file name (without extension)
 - `path`: path to the design file (.DSN, .PrjPcb, or pstxnet.dat)
+- `--all`: regenerate all golden files from discovered fixtures
 
 Example:
 

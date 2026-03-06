@@ -14,7 +14,7 @@ const POWER_NET_PATTERN =
 const STOP_NET_PATTERN =
   /^(GND|VSS|AGND|DGND|PGND|SGND|CGND|VCC\w*|VDD\w*|VIN\w*|VOUT\w*|VBAT\w*|VBUS\w*|VSYS\w*|PWR_\w+|RAIL_\w+|PP\w*|PN\w*|LD_PP\w*|LD_PN\w*|[+-]?\d+V\d*\w*|[+-].+)$/i;
 const DNS_PATTERN =
-  /\b(DNS|DNP|DNF|DNI)\b|DO\s*NOT\s*(STUFF|POPULATE|INSTALL)|NOT\s*POPULATED|NO\s*POP/i;
+  /(?:^|[_,\s])(DNS|DNP|DNF|DNI|NF)(?:$|[_,\s])|DO\s*NOT\s*(STUFF|POPULATE|INSTALL|FIT)|NOT\s*(POPULATED|FITTED)|NO\s*POP/i;
 
 /**
  * Check if a net name matches the ground pattern.
@@ -80,6 +80,26 @@ export const isDnsComponent = (component?: {
   if (!component) return false;
   const haystack = `${component.mpn ?? ""} ${component.description ?? ""} ${component.comment ?? ""}`;
   return DNS_PATTERN.test(haystack);
+};
+
+/**
+ * Strip DNS marker tokens from a comma-separated string.
+ * Removes tokens matching DNS_PATTERN entirely, and strips trailing
+ * `_DNS`, `_DNI`, `_DNP`, `_DNF` suffixes from remaining tokens.
+ * Returns undefined if the result is empty.
+ */
+export const stripDnsMarkers = (str: string): string | undefined => {
+  const tokens = str.split(",").reduce<string[]>((acc, raw) => {
+    const token = raw.trim();
+    if (!token) return acc;
+    // Strip trailing _DNS/_DNI/_DNP/_DNF/_NF suffix first
+    const cleaned = token.replace(/[_\s](DNS|DNP|DNF|DNI|NF)$/i, "");
+    // Drop the token entirely if nothing remains or it's a standalone marker
+    if (!cleaned || DNS_PATTERN.test(cleaned)) return acc;
+    acc.push(cleaned);
+    return acc;
+  }, []);
+  return tokens.length > 0 ? tokens.join(",") : undefined;
 };
 
 /**
@@ -295,7 +315,7 @@ export const traverseCircuitFromNet = (
     for (const [refdes, pins] of Object.entries(netConnections)) {
       const comp = components[refdes];
 
-      const dns = isDnsComponent(comp);
+      const dns = comp?.dns ?? false;
       if (shouldSkipComponent(refdes, comp, dns)) {
         continue;
       }
@@ -351,7 +371,7 @@ export const traverseCircuitFromNet = (
             for (const [otherRefdes] of Object.entries(otherNetConns)) {
               const otherComp = components[otherRefdes];
 
-              const otherDns = isDnsComponent(otherComp);
+              const otherDns = otherComp?.dns ?? false;
               if (shouldSkipComponent(otherRefdes, otherComp, otherDns)) {
                 continue;
               }

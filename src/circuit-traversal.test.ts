@@ -9,6 +9,8 @@ import {
   isStopNet,
   isPassive,
   isValidRefdes,
+  isDnsComponent,
+  stripDnsMarkers,
   naturalSort,
   traverseCircuitFromNet,
   computeCircuitHash,
@@ -212,11 +214,9 @@ describe("isValidRefdes", () => {
   });
 
   it("should reject Cadence instance paths", () => {
-    expect(
-      isValidRefdes(
-        "@BEAGLEBONEBLK_C.BEAGLEBONEBLACK(SCH_1):INS21415196@LAN8710",
-      ),
-    ).toBe(false);
+    expect(isValidRefdes("@BEAGLEBONEBLK_C.BEAGLEBONEBLACK(SCH_1):INS21415196@LAN8710")).toBe(
+      false
+    );
     expect(isValidRefdes("'@DESIGN.SHEET:INS123@PART'")).toBe(false);
   });
 
@@ -580,23 +580,94 @@ describe("computeCircuitHash", () => {
       },
     ];
 
-    expect(computeCircuitHash(components1)).toBe(
-      computeCircuitHash(components2),
-    );
+    expect(computeCircuitHash(components1)).toBe(computeCircuitHash(components2));
   });
 
   it("should return different hash for different circuits", () => {
-    const circuit1 = [
-      { refdes: "R1", mpn: "10k", connections: [{ net: "A", pins: ["1"] }] },
-    ];
-    const circuit2 = [
-      { refdes: "R1", mpn: "20k", connections: [{ net: "A", pins: ["1"] }] },
-    ];
+    const circuit1 = [{ refdes: "R1", mpn: "10k", connections: [{ net: "A", pins: ["1"] }] }];
+    const circuit2 = [{ refdes: "R1", mpn: "20k", connections: [{ net: "A", pins: ["1"] }] }];
 
     expect(computeCircuitHash(circuit1)).not.toBe(computeCircuitHash(circuit2));
   });
 
   it("should return zero hash for empty components", () => {
     expect(computeCircuitHash([])).toBe("0000000000000000");
+  });
+});
+
+describe("isDnsComponent", () => {
+  it("should detect DNS, DNI, DNP, DNF in mpn", () => {
+    expect(isDnsComponent({ mpn: "DNS" })).toBe(true);
+    expect(isDnsComponent({ mpn: "DNI" })).toBe(true);
+    expect(isDnsComponent({ mpn: "DNP" })).toBe(true);
+    expect(isDnsComponent({ mpn: "DNF" })).toBe(true);
+  });
+
+  it("should detect DNS markers in description", () => {
+    expect(isDnsComponent({ description: "Do Not Stuff" })).toBe(true);
+    expect(isDnsComponent({ description: "NOT POPULATED" })).toBe(true);
+    expect(isDnsComponent({ description: "DO NOT INSTALL" })).toBe(true);
+  });
+
+  it("should detect DNS markers in comment", () => {
+    expect(isDnsComponent({ comment: "DNI" })).toBe(true);
+    expect(isDnsComponent({ comment: "NO POP" })).toBe(true);
+  });
+
+  it("should be case-insensitive", () => {
+    expect(isDnsComponent({ mpn: "dns" })).toBe(true);
+    expect(isDnsComponent({ mpn: "Dni" })).toBe(true);
+    expect(isDnsComponent({ description: "do not stuff" })).toBe(true);
+  });
+
+  it("should detect DNI embedded in comma-separated values", () => {
+    expect(isDnsComponent({ mpn: "CAP_100PF,DNI" })).toBe(true);
+    expect(isDnsComponent({ mpn: "DNI,10K" })).toBe(true);
+  });
+
+  it("should not detect DNS in normal component names", () => {
+    expect(isDnsComponent({ mpn: "STM32F411" })).toBe(false);
+    expect(isDnsComponent({ mpn: "10K" })).toBe(false);
+    expect(isDnsComponent({})).toBe(false);
+    expect(isDnsComponent(undefined)).toBe(false);
+  });
+});
+
+describe("stripDnsMarkers", () => {
+  it("should remove leading DNS token", () => {
+    expect(stripDnsMarkers("DNI,10K")).toBe("10K");
+  });
+
+  it("should remove trailing DNS token", () => {
+    expect(stripDnsMarkers("10K,DNI")).toBe("10K");
+  });
+
+  it("should remove middle DNS token", () => {
+    expect(stripDnsMarkers("0.1uF,DNI,10V")).toBe("0.1uF,10V");
+  });
+
+  it("should return undefined for solo DNS token", () => {
+    expect(stripDnsMarkers("DNI")).toBeUndefined();
+    expect(stripDnsMarkers("DNS")).toBeUndefined();
+    expect(stripDnsMarkers("DNP")).toBeUndefined();
+    expect(stripDnsMarkers("DNF")).toBeUndefined();
+  });
+
+  it("should strip trailing underscore suffix", () => {
+    expect(stripDnsMarkers("RES_10K_0402_R402-25RD_DNI")).toBe("RES_10K_0402_R402-25RD");
+  });
+
+  it("should handle whitespace around tokens", () => {
+    expect(stripDnsMarkers("15pF , DNI")).toBe("15pF");
+  });
+
+  it("should handle case-insensitive markers", () => {
+    expect(stripDnsMarkers("10K,dni")).toBe("10K");
+    expect(stripDnsMarkers("PART_Dni")).toBe("PART");
+  });
+
+  it("should preserve non-DNS content unchanged", () => {
+    expect(stripDnsMarkers("10K,1%")).toBe("10K,1%");
+    expect(stripDnsMarkers("CAP_0603")).toBe("CAP_0603");
   });
 });

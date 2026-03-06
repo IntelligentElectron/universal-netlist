@@ -59,6 +59,7 @@ export interface ComponentDetails {
     description?: string;
     comment?: string;
     value?: string;
+    dns?: boolean;
     pins: Record<string, PinEntry>;
   };
 }

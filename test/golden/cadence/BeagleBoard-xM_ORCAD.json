@@ -6410,16 +6410,18 @@
         "1": "VBAT",
         "2": "GND"
       },
-      "mpn": "CAP_0402_0.1UF_X5R_10V_C402-25_DNI,0.1UF,10V",
-      "value": "DNI,0.1uF,10V"
+      "dns": true,
+      "mpn": "CAP_0402_0.1UF_X5R_10V_C402-25,0.1UF,10V",
+      "value": "0.1uF,10V"
     },
     "C142": {
       "pins": {
         "1": "VBAT",
         "2": "GND"
       },
-      "mpn": "CAP_0805_10UF_CER_6.3V_C0805_DNI,10UF,CER,0805,6.3V",
-      "value": "DNI,10uF,CER,0805,6.3V"
+      "dns": true,
+      "mpn": "CAP_0805_10UF_CER_6.3V_C0805,10UF,CER,0805,6.3V",
+      "value": "10uF,CER,0805,6.3V"
     },
     "C143": {
       "pins": {
@@ -6952,32 +6954,36 @@
         "1": "RXP",
         "2": "GND"
       },
-      "mpn": "CAP_0402_100PF_COG_50V_C402-25_100PF,DNI",
-      "value": "100pF,DNI"
+      "dns": true,
+      "mpn": "CAP_0402_100PF_COG_50V_C402-25_100PF",
+      "value": "100pF"
     },
     "C201": {
       "pins": {
         "1": "RXN",
         "2": "GND"
       },
-      "mpn": "CAP_0402_100PF_COG_50V_C402-25_100PF,DNI",
-      "value": "100pF,DNI"
+      "dns": true,
+      "mpn": "CAP_0402_100PF_COG_50V_C402-25_100PF",
+      "value": "100pF"
     },
     "C202": {
       "pins": {
         "1": "TXP",
         "2": "GND"
       },
-      "mpn": "CAP_0402_100PF_COG_50V_C402-25_100PF,DNI",
-      "value": "100pF,DNI"
+      "dns": true,
+      "mpn": "CAP_0402_100PF_COG_50V_C402-25_100PF",
+      "value": "100pF"
     },
     "C203": {
       "pins": {
         "1": "TXN",
         "2": "GND"
       },
-      "mpn": "CAP_0402_100PF_COG_50V_C402-25_100PF,DNI",
-      "value": "100pF,DNI"
+      "dns": true,
+      "mpn": "CAP_0402_100PF_COG_50V_C402-25_100PF",
+      "value": "100pF"
     },
     "C204": {
       "pins": {
@@ -7016,8 +7022,9 @@
         "1": "3320_NC",
         "2": "GND"
       },
-      "mpn": "CAP_0402_0.1UF_X5R_10V_C402-25_0.1UF,10V,DNI",
-      "value": "0.1uF,10V,DNI"
+      "dns": true,
+      "mpn": "CAP_0402_0.1UF_X5R_10V_C402-25_0.1UF,10V",
+      "value": "0.1uF,10V"
     },
     "C21": {
       "pins": {
@@ -7632,8 +7639,9 @@
         "1": "TV_VREF",
         "2": "GND"
       },
-      "mpn": "CAP_0402_0.1UF_X5R_10V_C402-25_0.1UF,10V,DNI",
-      "value": "0.1uF,10V,DNI"
+      "dns": true,
+      "mpn": "CAP_0402_0.1UF_X5R_10V_C402-25_0.1UF,10V",
+      "value": "0.1uF,10V"
     },
     "C90": {
       "pins": {
@@ -8875,8 +8883,9 @@
         "1": "VBUS_5V0",
         "2": "NUSB_PWR"
       },
-      "mpn": "RES_10K_0402_R402-25RD_10K,DNI",
-      "value": "10K,DNI"
+      "dns": true,
+      "mpn": "RES_10K_0402_R402-25RD_10K",
+      "value": "10K"
     },
     "R110": {
       "pins": {
@@ -8979,8 +8988,9 @@
         "1": "CLKOUT",
         "2": "GND"
       },
-      "mpn": "RES_0_0603_R603-35X45_0,0603,DNI",
-      "value": "0,0603,DNI"
+      "dns": true,
+      "mpn": "RES_0_0603_R603-35X45_0,0603",
+      "value": "0,0603"
     },
     "R123": {
       "pins": {
@@ -9011,16 +9021,18 @@
         "1": "SYS_BOOT2",
         "2": "VIO_1V8"
       },
-      "mpn": "RES_10K_0402_R402-25RD_10K,DNI",
-      "value": "10K,DNI"
+      "dns": true,
+      "mpn": "RES_10K_0402_R402-25RD_10K",
+      "value": "10K"
     },
     "R127": {
       "pins": {
         "1": "DSS_D20",
         "2": "VIO_1V8"
       },
-      "mpn": "RES_10K_0402_R402-25RD_10K,DNI",
-      "value": "10K,DNI"
+      "dns": true,
+      "mpn": "RES_10K_0402_R402-25RD_10K",
+      "value": "10K"
     },
     "R128": {
       "pins": {
@@ -9091,8 +9103,9 @@
         "1": "DSS_D19",
         "2": "GND"
       },
-      "mpn": "RES_10K_0402_R402-25RD_DNI,10K",
-      "value": "DNI,10K"
+      "dns": true,
+      "mpn": "RES_10K_0402_R402-25RD,10K",
+      "value": "10K"
     },
     "R14": {
       "pins": {
@@ -9123,24 +9136,27 @@
         "1": "DSS_D21",
         "2": "GND"
       },
-      "mpn": "RES_10K_0402_R402-25RD_DNI,10K",
-      "value": "DNI,10K"
+      "dns": true,
+      "mpn": "RES_10K_0402_R402-25RD,10K",
+      "value": "10K"
     },
     "R143": {
       "pins": {
         "1": "DSS_D23",
         "2": "GND"
       },
-      "mpn": "RES_10K_0402_R402-25RD_DNI,10K",
-      "value": "DNI,10K"
+      "dns": true,
+      "mpn": "RES_10K_0402_R402-25RD,10K",
+      "value": "10K"
     },
     "R145": {
       "pins": {
         "1": "USER_SW",
         "2": "VIO_1V8"
       },
-      "mpn": "RES_10K_0402_R402-25RD_DNI,10K",
-      "value": "DNI,10K"
+      "dns": true,
+      "mpn": "RES_10K_0402_R402-25RD,10K",
+      "value": "10K"
     },
     "R146": {
       "pins": {
@@ -9155,16 +9171,18 @@
         "1": "N18763702",
         "2": "GND"
       },
-      "mpn": "RES_10K_0402_R402-25RD_0,DNI",
-      "value": "0,DNI"
+      "dns": true,
+      "mpn": "RES_10K_0402_R402-25RD_0",
+      "value": "0"
     },
     "R148": {
       "pins": {
         "1": "USER_SW",
         "2": "DSS_D22"
       },
-      "mpn": "RES_10K_0402_R402-25RD_0,DNI",
-      "value": "0,DNI"
+      "dns": true,
+      "mpn": "RES_10K_0402_R402-25RD_0",
+      "value": "0"
     },
     "R149": {
       "pins": {
@@ -9195,23 +9213,26 @@
         "1": "N21663316",
         "2": "DC_5V"
       },
-      "mpn": "RES_0_0402_R402-25RD_DNI,0",
-      "value": "DNI,0"
+      "dns": true,
+      "mpn": "RES_0_0402_R402-25RD,0",
+      "value": "0"
     },
     "R155": {
       "pins": {
         "1": "VIO_1V8",
         "2": "I2C2_SCL"
       },
-      "mpn": "RES_4.7K_0402_R402-25RD_4.7K,DNI",
-      "value": "4.7K,DNI"
+      "dns": true,
+      "mpn": "RES_4.7K_0402_R402-25RD_4.7K",
+      "value": "4.7K"
     },
     "R156": {
       "pins": {
         "1": "N27930577",
         "2": "NHUB_RESET"
       },
-      "mpn": "RES_0_0402_R402-25RD_DNI",
+      "dns": true,
+      "mpn": "RES_0_0402_R402-25RD",
       "value": "DNI"
     },
     "R157": {
@@ -9227,8 +9248,9 @@
         "1": "N27971192",
         "2": "DC_5V"
       },
-      "mpn": "RES_10K_0402_R402-25RD_0,DNI",
-      "value": "0,DNI"
+      "dns": true,
+      "mpn": "RES_10K_0402_R402-25RD_0",
+      "value": "0"
     },
     "R159": {
       "pins": {
@@ -9251,8 +9273,9 @@
         "1": "VIO_1V8",
         "2": "I2C2_SDA"
       },
-      "mpn": "RES_4.7K_0402_R402-25RD_4.7K,DNI",
-      "value": "4.7K,DNI"
+      "dns": true,
+      "mpn": "RES_4.7K_0402_R402-25RD_4.7K",
+      "value": "4.7K"
     },
     "R17": {
       "pins": {
@@ -9299,7 +9322,8 @@
         "1": "ID_1",
         "2": "GND"
       },
-      "mpn": "RES_10K_0402_R402-25RD_DNI",
+      "dns": true,
+      "mpn": "RES_10K_0402_R402-25RD",
       "value": "DNI"
     },
     "R23": {
@@ -9411,8 +9435,9 @@
         "1": "DSS_D18",
         "2": "VIO_1V8"
       },
-      "mpn": "RES_10K_0402_R402-25RD_DNI,10K",
-      "value": "DNI,10K"
+      "dns": true,
+      "mpn": "RES_10K_0402_R402-25RD,10K",
+      "value": "10K"
     },
     "R37": {
       "pins": {
@@ -9475,24 +9500,27 @@
         "1": "POP_TQ_TEMP_S",
         "2": "POP_TEMP"
       },
-      "mpn": "RES_0_0402_R402-25RD_0,DNI",
-      "value": "0,DNI"
+      "dns": true,
+      "mpn": "RES_0_0402_R402-25RD_0",
+      "value": "0"
     },
     "R45": {
       "pins": {
         "1": "POP_INT1_FT",
         "2": "NC"
       },
-      "mpn": "RES_0_0402_R402-25RD_0,DNI",
-      "value": "0,DNI"
+      "dns": true,
+      "mpn": "RES_0_0402_R402-25RD_0",
+      "value": "0"
     },
     "R46": {
       "pins": {
         "1": "POP_INT0_FT",
         "2": "NC"
       },
-      "mpn": "RES_0_0402_R402-25RD_0,DNI",
-      "value": "0,DNI"
+      "dns": true,
+      "mpn": "RES_0_0402_R402-25RD_0",
+      "value": "0"
     },
     "R47": {
       "pins": {
@@ -9667,32 +9695,36 @@
         "1": "MEM_1V8",
         "2": "MEM_BOOST"
       },
-      "mpn": "RES_0_0603_R603-35X45_0,0603,DNI",
-      "value": "0,0603,DNI"
+      "dns": true,
+      "mpn": "RES_0_0603_R603-35X45_0,0603",
+      "value": "0,0603"
     },
     "R69": {
       "pins": {
         "1": "MEM_1V8",
         "2": "MEM_BOOST"
       },
-      "mpn": "RES_0_0603_R603-35X45_0,0603,DNI",
-      "value": "0,0603,DNI"
+      "dns": true,
+      "mpn": "RES_0_0603_R603-35X45_0,0603",
+      "value": "0,0603"
     },
     "R70": {
       "pins": {
         "1": "MEM_BOOST",
         "2": "MEM_ADJ"
       },
-      "mpn": "RES_0_0603_R402-25RD_DNI,56.2K,1%",
-      "value": "DNI,56.2K,1%"
+      "dns": true,
+      "mpn": "RES_0_0603_R402-25RD,56.2K,1%",
+      "value": "56.2K,1%"
     },
     "R71": {
       "pins": {
         "1": "MEM_ADJ",
         "2": "GND"
       },
-      "mpn": "RES_0_0603_R402-25RD_DNI,115K,1%",
-      "value": "DNI,115K,1%"
+      "dns": true,
+      "mpn": "RES_0_0603_R402-25RD,115K,1%",
+      "value": "115K,1%"
     },
     "R72": {
       "pins": {
@@ -9755,8 +9787,9 @@
         "1": "RS232_TX1",
         "2": "232_PIN3"
       },
-      "mpn": "RES_0_0402_R402-25RD_0,DNI",
-      "value": "0,DNI"
+      "dns": true,
+      "mpn": "RES_0_0402_R402-25RD_0",
+      "value": "0"
     },
     "R8": {
       "pins": {
@@ -9771,8 +9804,9 @@
         "1": "RS232_RX1",
         "2": "232_PIN2"
       },
-      "mpn": "RES_0_0402_R402-25RD_0,DNI",
-      "value": "0,DNI"
+      "dns": true,
+      "mpn": "RES_0_0402_R402-25RD_0",
+      "value": "0"
     },
     "R81": {
       "pins": {
@@ -9899,24 +9933,27 @@
         "1": "AUX_3V3",
         "2": "DK3"
       },
-      "mpn": "RES_0_0402_R402-25RD_RES_0_0402,DNI",
-      "value": "RES_0_0402,DNI"
+      "dns": true,
+      "mpn": "RES_0_0402_R402-25RD_RES_0_0402",
+      "value": "RES_0_0402"
     },
     "R96": {
       "pins": {
         "1": "AUX_3V3",
         "2": "DK2"
       },
-      "mpn": "RES_0_0402_R402-25RD_RES_0_0402,DNI",
-      "value": "RES_0_0402,DNI"
+      "dns": true,
+      "mpn": "RES_0_0402_R402-25RD_RES_0_0402",
+      "value": "RES_0_0402"
     },
     "R97": {
       "pins": {
         "1": "AUX_3V3",
         "2": "DK1"
       },
-      "mpn": "RES_0_0402_R402-25RD_RES_0_0402,DNI",
-      "value": "RES_0_0402,DNI"
+      "dns": true,
+      "mpn": "RES_0_0402_R402-25RD_RES_0_0402",
+      "value": "RES_0_0402"
     },
     "R98": {
       "pins": {
@@ -9931,8 +9968,9 @@
         "1": "USB33_VBUS",
         "2": "HUB_3V3"
       },
-      "mpn": "RES_10K_0402_R402-25RD_10K,DNI",
-      "value": "10K,DNI"
+      "dns": true,
+      "mpn": "RES_10K_0402_R402-25RD_10K",
+      "value": "10K"
     },
     "RP1": {
       "pins": {

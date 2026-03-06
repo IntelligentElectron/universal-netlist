@@ -4,6 +4,7 @@
  */
 
 import { readFile } from "fs/promises";
+import { isDnsComponent, stripDnsMarkers } from "../../../circuit-traversal.js";
 import type { ComponentDetails } from "../../../types.js";
 
 /**
@@ -42,14 +43,22 @@ export const parsePstxprtContent = (content: string): PstxprtResult => {
       const component: ComponentDetails[string] = { pins: {} };
 
       // MPN: use MFGR_PN if available, otherwise fall back to part name string
-      const mpn = currentProperties["MFGR_PN"] || currentPartName || undefined;
-      if (mpn) {
-        component.mpn = mpn;
-      }
+      let mpn = currentProperties["MFGR_PN"] || currentPartName || undefined;
 
       const description = currentProperties["DESCR"];
       if (description) {
         component.description = description;
+      }
+
+      // Detect DNS before stripping markers (needs original values)
+      const dns = isDnsComponent({ mpn, description });
+      if (dns) {
+        component.dns = true;
+        if (mpn) mpn = stripDnsMarkers(mpn);
+      }
+
+      if (mpn) {
+        component.mpn = mpn;
       }
 
       componentDetails[currentRefdes] = component;

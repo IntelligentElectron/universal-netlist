@@ -5,14 +5,14 @@
  * component properties like descriptions and manufacturer part numbers.
  */
 
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { writeFile, mkdir, rm } from 'fs/promises';
-import { join } from 'path';
-import { parsePstxprt } from './pstxprt-parser.js';
+import { describe, it, expect, beforeEach, afterEach } from "vitest";
+import { writeFile, mkdir, rm } from "fs/promises";
+import { join } from "path";
+import { parsePstxprt } from "./pstxprt-parser.js";
 
-describe('parsePstxprt', () => {
-  const testDir = join(__dirname, '__test-pstxprt__');
-  const testFile = join(testDir, 'test.pstxprt.dat');
+describe("parsePstxprt", () => {
+  const testDir = join(__dirname, "__test-pstxprt__");
+  const testFile = join(testDir, "test.pstxprt.dat");
 
   beforeEach(async () => {
     await mkdir(testDir, { recursive: true });
@@ -22,11 +22,11 @@ describe('parsePstxprt', () => {
     try {
       await rm(testDir, { recursive: true, force: true, maxRetries: 3 });
     } catch (error) {
-      console.warn('Test cleanup warning:', error);
+      console.warn("Test cleanup warning:", error);
     }
   });
 
-  it('should parse component with description only (mpn falls back to part name)', async () => {
+  it("should parse component with description only (mpn falls back to part name)", async () => {
     const content = `
 PART_NAME
 U1 'IC_PACKAGE':
@@ -41,21 +41,21 @@ DESCR='Resistor 10K';
 
     expect(components).toEqual({
       U1: {
-        mpn: 'IC_PACKAGE', // Falls back to part name when MFGR_PN is missing
-        description: 'Microcontroller Unit',
+        mpn: "IC_PACKAGE", // Falls back to part name when MFGR_PN is missing
+        description: "Microcontroller Unit",
         pins: {},
       },
       R1: {
-        mpn: 'RES_0603', // Falls back to part name when MFGR_PN is missing
-        description: 'Resistor 10K',
+        mpn: "RES_0603", // Falls back to part name when MFGR_PN is missing
+        description: "Resistor 10K",
         pins: {},
       },
     });
-    expect(partNames.get('U1')).toBe('IC_PACKAGE');
-    expect(partNames.get('R1')).toBe('RES_0603');
+    expect(partNames.get("U1")).toBe("IC_PACKAGE");
+    expect(partNames.get("R1")).toBe("RES_0603");
   });
 
-  it('should parse component with MPN', async () => {
+  it("should parse component with MPN", async () => {
     const content = `
 PART_NAME
 U5 'IC_CHIP':
@@ -68,22 +68,22 @@ DESCR='ARM Cortex-M3 MCU';
 
     expect(components).toEqual({
       U5: {
-        mpn: 'STM32F103',
-        description: 'ARM Cortex-M3 MCU',
+        mpn: "STM32F103",
+        description: "ARM Cortex-M3 MCU",
         pins: {},
       },
     });
-    expect(partNames.get('U5')).toBe('IC_CHIP');
+    expect(partNames.get("U5")).toBe("IC_CHIP");
   });
 
-  it('should handle empty file', async () => {
-    await writeFile(testFile, '');
+  it("should handle empty file", async () => {
+    await writeFile(testFile, "");
     const { components, partNames } = await parsePstxprt(testFile);
     expect(components).toEqual({});
     expect(partNames.size).toBe(0);
   });
 
-  it('should handle component with no properties (mpn falls back to part name)', async () => {
+  it("should handle component with no properties (mpn falls back to part name)", async () => {
     const content = `
 PART_NAME
 C1 'CAP_0805':
@@ -94,14 +94,14 @@ C1 'CAP_0805':
 
     expect(components).toEqual({
       C1: {
-        mpn: 'CAP_0805', // Falls back to part name when MFGR_PN is missing
+        mpn: "CAP_0805", // Falls back to part name when MFGR_PN is missing
         pins: {},
       },
     });
-    expect(partNames.get('C1')).toBe('CAP_0805');
+    expect(partNames.get("C1")).toBe("CAP_0805");
   });
 
-  it('should handle properties with special characters', async () => {
+  it("should handle properties with special characters", async () => {
     const content = `
 PART_NAME
 U10 'MODULE_BGA':
@@ -114,15 +114,15 @@ MFGR_PN='TUSB320HAIRWBR';
 
     expect(components).toEqual({
       U10: {
-        mpn: 'TUSB320HAIRWBR',
-        description: 'USB Type-C Controller (Rev. A)',
+        mpn: "TUSB320HAIRWBR",
+        description: "USB Type-C Controller (Rev. A)",
         pins: {},
       },
     });
-    expect(partNames.get('U10')).toBe('MODULE_BGA');
+    expect(partNames.get("U10")).toBe("MODULE_BGA");
   });
 
-  it('should fall back to part name string when MFGR_PN is missing', async () => {
+  it("should fall back to part name string when MFGR_PN is missing", async () => {
     const content = `
 PART_NAME
 C1 'CAP_10UF_Y5V_10V_10%_0805':
@@ -134,15 +134,15 @@ DESCR='CAP, CER, 10UF';
 
     expect(components).toEqual({
       C1: {
-        mpn: 'CAP_10UF_Y5V_10V_10%_0805',
-        description: 'CAP, CER, 10UF',
+        mpn: "CAP_10UF_Y5V_10V_10%_0805",
+        description: "CAP, CER, 10UF",
         pins: {},
       },
     });
-    expect(partNames.get('C1')).toBe('CAP_10UF_Y5V_10V_10%_0805');
+    expect(partNames.get("C1")).toBe("CAP_10UF_Y5V_10V_10%_0805");
   });
 
-  it('should prefer MFGR_PN over part name string when both exist', async () => {
+  it("should prefer MFGR_PN over part name string when both exist", async () => {
     const content = `
 PART_NAME
 U1 'TPS65217_QFN':
@@ -155,16 +155,34 @@ DESCR='Power Management IC';
 
     expect(components).toEqual({
       U1: {
-        mpn: 'TPS65217CRSLR',
-        description: 'Power Management IC',
+        mpn: "TPS65217CRSLR",
+        description: "Power Management IC",
         pins: {},
       },
     });
     // partNames still stores the Cadence part name for cross-referencing
-    expect(partNames.get('U1')).toBe('TPS65217_QFN');
+    expect(partNames.get("U1")).toBe("TPS65217_QFN");
   });
 
-  it('should handle component lines ending with :; (HDL format)', async () => {
+  it("should detect DNS and strip DNI markers from part name", async () => {
+    const content = `
+PART_NAME
+C137 'CAP_0402_100PF_COG_50V_402_15PF,DNI':
+DESCR='CAP, CER, 100PF';
+`;
+
+    await writeFile(testFile, content);
+    const { components } = await parsePstxprt(testFile);
+
+    expect(components["C137"]).toEqual({
+      mpn: "CAP_0402_100PF_COG_50V_402_15PF",
+      description: "CAP, CER, 100PF",
+      dns: true,
+      pins: {},
+    });
+  });
+
+  it("should handle component lines ending with :; (HDL format)", async () => {
     // Real format from BeagleBone Black pstxprt.dat
     const content = `
 PART_NAME
@@ -186,15 +204,15 @@ SECTION_NUMBER 1
     await writeFile(testFile, content);
     const { components, partNames } = await parsePstxprt(testFile);
 
-    expect(components['C1']).toEqual({
-      mpn: 'CAP_10UF_Y5V_10V_10%_0805_805_10UF,10V',
+    expect(components["C1"]).toEqual({
+      mpn: "CAP_10UF_Y5V_10V_10%_0805_805_10UF,10V",
       pins: {},
     });
-    expect(components['U2']).toEqual({
-      mpn: 'PWR_TPS65217_2_U_48_RSL_TPS65217C',
+    expect(components["U2"]).toEqual({
+      mpn: "PWR_TPS65217_2_U_48_RSL_TPS65217C",
       pins: {},
     });
-    expect(partNames.get('C1')).toBe('CAP_10UF_Y5V_10V_10%_0805_805_10UF,10V');
-    expect(partNames.get('U2')).toBe('PWR_TPS65217_2_U_48_RSL_TPS65217C');
+    expect(partNames.get("C1")).toBe("CAP_10UF_Y5V_10V_10%_0805_805_10UF,10V");
+    expect(partNames.get("U2")).toBe("PWR_TPS65217_2_U_48_RSL_TPS65217C");
   });
 });
