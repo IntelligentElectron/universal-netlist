@@ -1,6 +1,14 @@
 /**
  * Parser for Cadence .pstxprt.dat files
  * Extracts component details (MPN, description)
+ *
+ * Limitation: DNS/DNP/DNM detection relies on structured markers in part names,
+ * MFGR_PN, DESCR, or VALUE fields. Some Cadence designs use graphical-only
+ * text annotations on the schematic (e.g., "DNP" or "DNM" placed as plain text
+ * near the component symbol). These annotations are not exported to DAT files
+ * and are invisible to this parser. Known affected designs: OSHW-Jetson-Series
+ * (graphical DNP), LAUNCHXL-CC1310 (graphical DNM on R13, A1, MH1-5, P8),
+ * BeagleBoard-xM (graphical DNI on RP1, RP5).
  */
 
 import { readFile } from "fs/promises";

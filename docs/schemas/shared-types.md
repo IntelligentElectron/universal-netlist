@@ -389,27 +389,32 @@ This applies to:
 
 ## DNS Detection
 
-Components are marked as DNS (Do Not Stuff) when any of their MPN, description, or comment fields match these markers (case-insensitive):
+Components are marked as DNS (Do Not Stuff) at parse time when any of their MPN, description, comment, or value fields match these markers (case-insensitive). Altium designs also check the "Assembly Info" component parameter.
 
 **Acronyms:**
 - `DNS` - Do Not Stuff
 - `DNP` - Do Not Populate
 - `DNF` - Do Not Fit
 - `DNI` - Do Not Install
+- `DNM` - Do Not Mount
+- `NF` - Not Fitted
+- `NC` - Not Connected (when used as a component marker, not a pin designation)
 
 **Phrases:**
-- `DO NOT STUFF`
-- `DO NOT POPULATE`
-- `DO NOT INSTALL`
-- `NOT POPULATED`
+- `DO NOT STUFF`, `DO NOT POPULATE`, `DO NOT INSTALL`, `DO NOT FIT`, `DO NOT MOUNT`
+- `NOT POPULATED`, `NOT FITTED`, `NOT CONNECTED`, `NOT MOUNTED`
 - `NO POP`
 
 **Regex pattern (for reference):**
 ```regex
-/\b(DNS|DNP|DNF|DNI)\b|DO\s*NOT\s*(STUFF|POPULATE|INSTALL)|NOT\s*POPULATED|NO\s*POP/i
+/(?:^|[_,\s])(DNS|DNP|DNF|DNI|DNM|NF|NC)(?:$|[_,\s])|DO\s*NOT\s*(STUFF|POPULATE|INSTALL|FIT|MOUNT)|NOT\s*(POPULATED|FITTED|CONNECTED|MOUNTED)|NO\s*POP/i
 ```
 
+When DNS is detected, marker tokens are stripped from MPN and value fields (e.g., `"10K,DNI"` becomes `"10K"`).
+
 DNS components are excluded by default. Use `include_dns: true` to include them.
+
+**Limitation (Cadence DAT parser):** Some designs use graphical-only text annotations (e.g., "DNP" or "DNM" placed as schematic text near a component) with no corresponding structured property in the DAT export. These are invisible to the parser.
 
 ## Power/Ground Stop Nets
 
