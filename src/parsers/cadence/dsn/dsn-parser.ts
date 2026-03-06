@@ -116,7 +116,8 @@ function parsePackageStream(buffer: Buffer): PackageStreamResult {
 function parseCacheStream(
   buffer: Buffer,
   pinMaps: Map<string, (string | null)[]>,
-  cachedParts: Map<string, CachedLibraryPart>
+  cachedParts: Map<string, CachedLibraryPart>,
+  deviceUnitRefs: Map<string, string[]>
 ): void {
   const reader = new BinaryReader(buffer);
 
@@ -208,7 +209,7 @@ function parseCacheStream(
       try {
         if (structType === StructureType.Package) {
           const pkg = parsePackage(reader);
-          indexCachePackage(pkg, pinMaps);
+          indexCachePackage(pkg, pinMaps, deviceUnitRefs);
         } else if (structType === StructureType.LibraryPart) {
           const lp = parseLibraryPart(reader);
           indexCacheLibraryPart(lp, cachedParts);
@@ -223,7 +224,7 @@ function parseCacheStream(
     } catch {
       // Metadata parsing failed; fall through to brute-force scan for
       // remaining Package and LibraryPart structures via preamble magic.
-      scanForStructures(reader, buffer, pinMaps, cachedParts);
+      scanForStructures(reader, buffer, pinMaps, cachedParts, deviceUnitRefs);
       return;
     }
   }
@@ -242,7 +243,8 @@ function scanForStructures(
   reader: BinaryReader,
   buffer: Buffer,
   pinMaps: Map<string, (string | null)[]>,
-  cachedParts: Map<string, CachedLibraryPart>
+  cachedParts: Map<string, CachedLibraryPart>,
+  deviceUnitRefs: Map<string, string[]>
 ): void {
   const MAGIC = Buffer.from([0xff, 0xe4, 0x5c, 0x39]);
   let pos = reader.tell();
@@ -260,7 +262,7 @@ function scanForStructures(
       try {
         if (typeByte === StructureType.Package) {
           const pkg = parsePackage(reader);
-          indexCachePackage(pkg, pinMaps);
+          indexCachePackage(pkg, pinMaps, deviceUnitRefs);
         } else {
           const lp = parseLibraryPart(reader);
           indexCacheLibraryPart(lp, cachedParts);
@@ -277,7 +279,11 @@ function scanForStructures(
 }
 
 /** Index a Cache Package's pin maps (fallback; doesn't override existing entries). */
-function indexCachePackage(pkg: Package, pinMaps: Map<string, (string | null)[]>): void {
+function indexCachePackage(
+  pkg: Package,
+  pinMaps: Map<string, (string | null)[]>,
+  deviceUnitRefs: Map<string, string[]>
+): void {
   if (!pkg.name || pkg.devices.length === 0) return;
   const firstDev = pkg.devices[0];
   if (firstDev.pinMap.length === 0) return;
@@ -287,6 +293,8 @@ function indexCachePackage(pkg: Package, pinMaps: Map<string, (string | null)[]>
     if (!pinMaps.has(baseName)) pinMaps.set(baseName, firstDev.pinMap);
     if (!pinMaps.has(pkg.name)) pinMaps.set(pkg.name, firstDev.pinMap);
   } else {
+    const unitRefs = pkg.devices.map((d) => d.unitRef);
+    if (!deviceUnitRefs.has(baseName)) deviceUnitRefs.set(baseName, unitRefs);
     for (const dev of pkg.devices) {
       const baseKey = baseName + dev.unitRef;
       if (!pinMaps.has(baseKey)) pinMaps.set(baseKey, dev.pinMap);
@@ -655,10 +663,12 @@ interface PinInfo {
 function resolvePinNumber(
   pin: T0x10,
   inst: PlacedInstance,
-  pinMaps: Map<string, (string | null)[]>
+  pinMaps: Map<string, (string | null)[]>,
+  deviceUnitRefs: Map<string, string[]>,
+  deviceIndex?: number
 ): string {
   if (pin.pinIndex <= 0) return String(pin.pinIndex || 1);
-  const pinMap = findPinMap(inst, pinMaps);
+  const pinMap = findPinMap(inst, pinMaps, deviceUnitRefs, deviceIndex);
   if (pinMap && pin.pinIndex - 1 < pinMap.length && pinMap[pin.pinIndex - 1] !== null) {
     return pinMap[pin.pinIndex - 1]!;
   }
@@ -680,15 +690,50 @@ function extractUnitRef(inst: PlacedInstance): string | undefined {
 }
 
 /**
+ * Build a map from PlacedInstance dbId to positional device index for
+ * multi-section components (e.g., resistor packs, transistor arrays).
+ *
+ * When multiple PlacedInstances share the same (refdes, pkgName) and have no
+ * unit suffix in pkgName, Cadence assigns Devices positionally by dbId order.
+ * This function detects those groups and assigns 0-based indices.
+ */
+function buildDeviceIndexMap(pages: PageData[]): Map<number, number> {
+  const groups = new Map<string, PlacedInstance[]>();
+  for (const page of pages) {
+    for (const inst of page.placedInstances) {
+      if (!inst.reference || !isValidRefdes(inst.reference)) continue;
+      if (extractUnitRef(inst)) continue; // already has unit suffix
+      const key = `${inst.reference}\0${inst.pkgName}`;
+      const group = groups.get(key);
+      if (group) group.push(inst);
+      else groups.set(key, [inst]);
+    }
+  }
+
+  const result = new Map<number, number>();
+  for (const [, group] of groups) {
+    if (group.length <= 1) continue;
+    group.sort((a, b) => a.dbId - b.dbId);
+    for (let i = 0; i < group.length; i++) {
+      result.set(group[i].dbId, i);
+    }
+  }
+  return result;
+}
+
+/**
  * Find the pin map for a PlacedInstance, trying multiple matching strategies:
  * 1. Direct sourcePackage match
  * 2. Multi-unit: sourcePackage + unitRef extracted from pkgName
- * 3. Normalized match: expand version-like suffixes with ".0"
- * 4. Stripped match: remove trailing _N suffix from sourcePackage
+ * 3. Positional device assignment for multi-section components (no unit suffix)
+ * 4. Normalized match: expand version-like suffixes with ".0"
+ * 5. Stripped match: remove trailing _N suffix from sourcePackage
  */
 function findPinMap(
   inst: PlacedInstance,
-  pinMaps: Map<string, (string | null)[]>
+  pinMaps: Map<string, (string | null)[]>,
+  deviceUnitRefs: Map<string, string[]>,
+  deviceIndex?: number
 ): (string | null)[] | undefined {
   const unitRef = extractUnitRef(inst);
 
@@ -717,9 +762,17 @@ function findPinMap(
       }
     }
 
-    // Multi-unit fallback: pkgName has no unit suffix (e.g., "RPAK_10_8RES.Normal")
-    // but pinMaps has per-unit keys (e.g., "RPAK_10_8RESA"). Try unit "A" as default.
-    if (!unitRef) {
+    // Positional assignment: use deviceIndex to select correct device
+    if (!unitRef && deviceIndex !== undefined) {
+      const unitRefs = deviceUnitRefs.get(base);
+      if (unitRefs && deviceIndex < unitRefs.length) {
+        const match = pinMaps.get(base + unitRefs[deviceIndex]);
+        if (match) return match;
+      }
+    }
+
+    // Single-instance fallback (no positional info): try unit "A"
+    if (!unitRef && deviceIndex === undefined) {
       const unitAMatch = pinMaps.get(base + "A");
       if (unitAMatch) return unitAMatch;
     }
@@ -732,7 +785,9 @@ function findPinMap(
 function collectPins(
   pages: PageData[],
   pageCoordMaps: Map<string, string>[],
-  pinMaps: Map<string, (string | null)[]>
+  pinMaps: Map<string, (string | null)[]>,
+  deviceUnitRefs: Map<string, string[]>,
+  deviceIndexMap: Map<number, number>
 ): PinInfo[] {
   const pins: PinInfo[] = [];
   for (let i = 0; i < pages.length; i++) {
@@ -740,10 +795,11 @@ function collectPins(
     for (const inst of pages[i].placedInstances) {
       const refdes = inst.reference;
       if (!refdes || !isValidRefdes(refdes)) continue;
+      const deviceIndex = deviceIndexMap.get(inst.dbId);
       for (const pin of inst.t0x10s) {
         const coord = `${pin.pointX},${pin.pointY}`;
         const coordNet = coordToNet.get(coord);
-        const pinNumber = resolvePinNumber(pin, inst, pinMaps);
+        const pinNumber = resolvePinNumber(pin, inst, pinMaps, deviceUnitRefs, deviceIndex);
         pins.push({ refdes, pinNumber, netId: pin.netId, pageIdx: i, coord, coordNet });
       }
     }
@@ -1013,7 +1069,9 @@ function buildOpcNameMap(
 function buildNetConnectivity(
   pages: PageData[],
   canonicalNetNames: Set<string>,
-  pinMaps: Map<string, (string | null)[]>
+  pinMaps: Map<string, (string | null)[]>,
+  deviceUnitRefs: Map<string, string[]>,
+  deviceIndexMap: Map<number, number>
 ): {
   nets: NetConnections;
   componentPins: Map<string, Map<string, string>>;
@@ -1034,7 +1092,7 @@ function buildNetConnectivity(
         })
       : pageCoordMaps;
 
-  const allPins = collectPins(pages, resolvedCoordMaps, pinMaps);
+  const allPins = collectPins(pages, resolvedCoordMaps, pinMaps, deviceUnitRefs, deviceIndexMap);
   return assembleNets(allPins, canonicalNetNames);
 }
 
@@ -1096,7 +1154,9 @@ function buildComponents(
   componentPins: Map<string, Map<string, string>>,
   strLst: string[],
   cachedParts: Map<string, CachedLibraryPart>,
-  pinMaps: Map<string, (string | null)[]>
+  pinMaps: Map<string, (string | null)[]>,
+  deviceUnitRefs: Map<string, string[]>,
+  deviceIndexMap: Map<number, number>
 ): ComponentDetails {
   const components: ComponentDetails = {};
 
@@ -1104,6 +1164,7 @@ function buildComponents(
     for (const inst of page.placedInstances) {
       const refdes = inst.reference;
       if (!refdes || !isValidRefdes(refdes)) continue;
+      const deviceIndex = deviceIndexMap.get(inst.dbId);
 
       // For multi-unit components (same refdes, multiple PlacedInstances),
       // merge pins from each unit into the existing component entry.
@@ -1115,7 +1176,10 @@ function buildComponents(
           const pinNumToIndex = new Map<string, number>();
           for (const t0x10 of inst.t0x10s) {
             if (t0x10.pinIndex > 0) {
-              pinNumToIndex.set(resolvePinNumber(t0x10, inst, pinMaps), t0x10.pinIndex);
+              pinNumToIndex.set(
+                resolvePinNumber(t0x10, inst, pinMaps, deviceUnitRefs, deviceIndex),
+                t0x10.pinIndex
+              );
             }
           }
           for (const [pinNumber, netName] of pinNets) {
@@ -1179,7 +1243,10 @@ function buildComponents(
         const pinNumToIndex = new Map<string, number>();
         for (const t0x10 of inst.t0x10s) {
           if (t0x10.pinIndex > 0) {
-            pinNumToIndex.set(resolvePinNumber(t0x10, inst, pinMaps), t0x10.pinIndex);
+            pinNumToIndex.set(
+              resolvePinNumber(t0x10, inst, pinMaps, deviceUnitRefs, deviceIndex),
+              t0x10.pinIndex
+            );
           }
         }
 
@@ -1312,6 +1379,7 @@ export function parseDsnFile(dsnPath: string): ParsedNetlist {
   // T0x10 index → physical pin number/name. We index by sourcePackage
   // for lookup during pin resolution.
   const pinMaps = new Map<string, (string | null)[]>();
+  const deviceUnitRefs = new Map<string, string[]>();
   const cachedParts = new Map<string, CachedLibraryPart>();
   const pkgStreamEntries = entries.filter(
     (e) =>
@@ -1338,6 +1406,8 @@ export function parseDsnFile(dsnPath: string): ParsedNetlist {
       } else {
         // Multi-unit: store per unit keyed by both baseName and streamName
         // so findPinMap can match either sourcePackage form.
+        const unitRefs = pkg.devices.map((d) => d.unitRef);
+        if (!deviceUnitRefs.has(baseName)) deviceUnitRefs.set(baseName, unitRefs);
         for (const device of pkg.devices) {
           const baseKey = baseName + device.unitRef;
           if (!pinMaps.has(baseKey)) {
@@ -1376,7 +1446,7 @@ export function parseDsnFile(dsnPath: string): ParsedNetlist {
   if (cacheEntry) {
     try {
       const cacheBuf = ole.readStreamByPath(cacheEntry.path);
-      parseCacheStream(cacheBuf, pinMaps, cachedParts);
+      parseCacheStream(cacheBuf, pinMaps, cachedParts, deviceUnitRefs);
     } catch {
       // Cache parsing is best-effort
     }
@@ -1397,8 +1467,23 @@ export function parseDsnFile(dsnPath: string): ParsedNetlist {
   }
 
   // Build netlist from parsed data
-  const { nets, componentPins } = buildNetConnectivity(pages, canonicalNetNames, pinMaps);
-  const components = buildComponents(pages, componentPins, strLst, cachedParts, pinMaps);
+  const deviceIndexMap = buildDeviceIndexMap(pages);
+  const { nets, componentPins } = buildNetConnectivity(
+    pages,
+    canonicalNetNames,
+    pinMaps,
+    deviceUnitRefs,
+    deviceIndexMap
+  );
+  const components = buildComponents(
+    pages,
+    componentPins,
+    strLst,
+    cachedParts,
+    pinMaps,
+    deviceUnitRefs,
+    deviceIndexMap
+  );
 
   return { nets, components };
 }

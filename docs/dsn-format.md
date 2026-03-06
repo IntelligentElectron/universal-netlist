@@ -873,13 +873,25 @@ Cache LibraryPart names include a numeric suffix from the Package stream they or
 
 1. **Direct match**: `sourcePackage` equals a Package name
 2. **Multi-unit**: `sourcePackage` + unit letter (extracted from `pkgName` suffix)
-3. **Normalized**: expand `_N_` to `_N.0_` in sourcePackage (version-like suffixes)
-4. **Stripped**: remove trailing `_\d+` from sourcePackage
-5. **Unit "A" fallback**: `sourcePackage` + "A" (for multi-unit packages where pkgName lacks a unit suffix)
+3. **Positional device assignment**: for multi-section components with no unit suffix (see below)
+4. **Normalized**: expand `_N_` to `_N.0_` in sourcePackage (version-like suffixes)
+5. **Stripped**: remove trailing `_\d+` from sourcePackage
+6. **Unit "A" fallback**: `sourcePackage` + "A" (only for single-instance components where no positional index exists)
 
 For multi-unit matching, `pkgName` format is `{sourcePackage}{unitLetter}.Normal` (e.g., `OMAP_CBP_1AA.Normal`). Cadence sometimes doubles the unit letter ("AA"), but the Device `unitRef` uses a single letter ("A").
 
-Strategy 5 handles cases like `RPAK_10_8RES` where the Cache indexes the pinMap under `RPAK_10_8RESA` through `RPAK_10_8RESH` (8 units), but the PlacedInstance has `pkgName="RPAK_10_8RES.Normal"` with no unit suffix. Trying unit "A" picks up the first unit's pinMap as a fallback.
+#### Positional device assignment (strategy 3)
+
+Multi-section components like resistor packs (e.g., RP1 with package `RPAK_10_8RES`, 8 sections, 16 physical pins) have multiple PlacedInstances sharing the same `(refdes, pkgName)` with no unit suffix in `pkgName`. When `extractUnitRef()` returns `undefined` for a group of >1 instances, Cadence assigns Devices **positionally by `dbId` order**.
+
+The parser builds a `deviceIndexMap` (`Map<dbId, index>`) by:
+1. Grouping PlacedInstances by `(reference, pkgName)` across all pages
+2. Skipping instances where `extractUnitRef()` returns a value (already distinguished)
+3. For groups with >1 instance: sorting by `dbId` ascending, assigning 0-based positional index
+
+A parallel `deviceUnitRefs` map (`Map<pkgBaseName, unitRef[]>`) stores the ordered Device unit reference letters from Package structures. During `findPinMap`, the positional index selects the correct Device: `pinMaps.get(base + unitRefs[deviceIndex])`.
+
+This resolved the primary PinNum gap for BeagleBoard-xM (RP1-RP7 resistor packs, Q1-Q2 transistor arrays).
 
 ### 11.4 Net Name Resolution
 
@@ -970,32 +982,30 @@ Current aggregate coverage (10 designs):
 |--------|----------|----------|
 | Nets | 100.0% | None |
 | Components | 100.0% | None |
-| Value | 99.9% | BeagleBoard-xM missing 4 values |
-| PinNum | 99.1% | Minor gaps in BBxM (wire connectivity), reServer designs |
+| Value | 100.0% | None |
+| PinNum | 99.8% | Minor gaps in BBxM, CutiePi, LAUNCHXL |
 | PinName | 96.0% | LAUNCHXL/CutiePi have no LibraryParts in Cache (hard limit) |
 
 Per-design breakdown:
 
 | Design | PinNum | PinName | Value | Bottleneck |
 |--------|--------|---------|-------|------------|
-| BeagleBoard-xM | 94.7% | 100.0% | 99.1% | PinNum: wire connectivity gaps |
-| BB-Black | 99.3% | 100.0% | 100.0% | Near-complete |
+| BeagleBoard-xM | 98.9% | 100.0% | 100.0% | PinNum: DNS components with graphical-only annotations |
+| BB-Black | 99.7% | 100.0% | 100.0% | Near-complete |
 | CutiePi | 98.9% | 56.2% | 100.0% | PinName: no LibraryParts in Cache |
 | CC13xx | 100.0% | 100.0% | 100.0% | Complete |
 | LAUNCHXL-CC1310 | 99.4% | 42.1% | 100.0% | PinName: no LibraryParts in Cache |
 | reComputer J201 | 100.0% | 100.0% | 100.0% | Complete |
 | reComputer J202 | 100.0% | 100.0% | 100.0% | Complete |
 | reComputer J401 | 100.0% | 100.0% | 100.0% | Complete |
-| reServer J401 | 99.0% | 100.0% | 100.0% | Near-complete |
-| reServer J2032 | 99.5% | 100.0% | 100.0% | Near-complete |
+| reServer J401 | 100.0% | 100.0% | 100.0% | Complete |
+| reServer J2032 | 100.0% | 100.0% | 100.0% | Complete |
 
 **Remaining gap categories:**
 
-1. **PinNum (BBxM 94.7%)**: These are wire connectivity gaps, not pinMap issues. The pinMaps exist and are correct, but some pins have coordinates that don't match any wire endpoint, so they fail to resolve to a net and are excluded.
+1. **PinNum (BBxM 98.9%, CutiePi 98.9%)**: Remaining gaps are primarily DNS (Do Not Stuff) components with graphical-only annotations (e.g., BBxM RP1/RP5 with "DNI" text on schematic but no structured property). These components are excluded from DAT export but present in DSN, causing pin count mismatches in the comparison.
 
 2. **PinName (LAUNCHXL 42.1%, CutiePi 56.2%)**: These designs store **no LibraryPart structures** in their Cache stream. Pin names for generic components (LED, RESISTOR, test pads) exist only in the CIS database. This is a hard limitation unless CIS parsing is added.
-
-3. **Value (BBxM 99.1%)**: 4 components still missing values. The PlacedInstance has 10 unknown bytes between `part_value_idx` and `len_t0x10s` that could encode a secondary value reference or CIS database link.
 
 ### 12.6 DNS (Do Not Stuff) detection
 
