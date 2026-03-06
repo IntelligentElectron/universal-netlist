@@ -444,6 +444,10 @@ class CoordUnionFind {
     if (ra !== rb) this.parent.set(ra, rb);
   }
 
+  has(x: string): boolean {
+    return this.parent.has(x);
+  }
+
   groups(): Map<string, string[]> {
     const result = new Map<string, string[]>();
     for (const key of this.parent.keys()) {
@@ -573,6 +577,74 @@ function buildPageCoordMap(page: PageData, canonicalNetNames: Set<string>): Map<
       uf.union(rep, opcKey);
     } else {
       opcPairRep.set(opc.pairingId, opcKey);
+    }
+  }
+
+  // Connect global/port symbols to the wire graph.
+  // A global's locXY is its placement origin, which often differs from its
+  // electrical pin position. If any wire endpoint falls within the symbol's
+  // bounding box, the symbol is connected to that wire.
+  for (const sym of [...page.globals, ...page.ports]) {
+    const symKey = `${sym.locX},${sym.locY}`;
+    const minX = Math.min(sym.x1, sym.x2);
+    const maxX = Math.max(sym.x1, sym.x2);
+    const minY = Math.min(sym.y1, sym.y2);
+    const maxY = Math.max(sym.y1, sym.y2);
+    for (const coord of allWireCoords) {
+      const [cx, cy] = coord.split(",").map(Number);
+      if (cx >= minX && cx <= maxX && cy >= minY && cy <= maxY) {
+        uf.union(symKey, coord);
+        break;
+      }
+    }
+  }
+
+  // Connect component pin coordinates to globals and wire bodies.
+  // Sentinel pins (netId=0xFFFFFFFF) on power/ground symbols have coordinates
+  // inside the global's bbox but not at any wire endpoint. Match them via
+  // bbox containment (for globals) and point-on-segment (for wire bodies).
+  for (const inst of page.placedInstances) {
+    for (const pin of inst.t0x10s) {
+      const coord = `${pin.pointX},${pin.pointY}`;
+      if (allWireCoords.has(coord)) continue; // already connected via wire endpoint
+
+      // Check global/port bbox containment
+      for (const sym of [...page.globals, ...page.ports]) {
+        const minX = Math.min(sym.x1, sym.x2);
+        const maxX = Math.max(sym.x1, sym.x2);
+        const minY = Math.min(sym.y1, sym.y2);
+        const maxY = Math.max(sym.y1, sym.y2);
+        if (pin.pointX >= minX && pin.pointX <= maxX && pin.pointY >= minY && pin.pointY <= maxY) {
+          uf.find(coord);
+          uf.union(coord, `${sym.locX},${sym.locY}`);
+          break;
+        }
+      }
+
+      // Check wire body: point on axis-aligned segment (not at an endpoint)
+      if (!uf.has(coord)) {
+        for (const wire of page.wires) {
+          const sx = wire.startX,
+            sy = wire.startY,
+            ex = wire.endX,
+            ey = wire.endY;
+          const onHorizontal =
+            sy === ey &&
+            pin.pointY === sy &&
+            pin.pointX >= Math.min(sx, ex) &&
+            pin.pointX <= Math.max(sx, ex);
+          const onVertical =
+            sx === ex &&
+            pin.pointX === sx &&
+            pin.pointY >= Math.min(sy, ey) &&
+            pin.pointY <= Math.max(sy, ey);
+          if (onHorizontal || onVertical) {
+            uf.find(coord);
+            uf.union(coord, `${sx},${sy}`);
+            break;
+          }
+        }
+      }
     }
   }
 
@@ -787,7 +859,8 @@ function collectPins(
   pageCoordMaps: Map<string, string>[],
   pinMaps: Map<string, (string | null)[]>,
   deviceUnitRefs: Map<string, string[]>,
-  deviceIndexMap: Map<number, number>
+  deviceIndexMap: Map<number, number>,
+  globalPairingNets: Map<number, string>
 ): PinInfo[] {
   const pins: PinInfo[] = [];
   for (let i = 0; i < pages.length; i++) {
@@ -798,7 +871,30 @@ function collectPins(
       const deviceIndex = deviceIndexMap.get(inst.dbId);
       for (const pin of inst.t0x10s) {
         const coord = `${pin.pointX},${pin.pointY}`;
-        const coordNet = coordToNet.get(coord);
+        let coordNet = coordToNet.get(coord);
+
+        // Fallback: sentinel pins overlapping global/port power symbols.
+        // These pins connect to power nets via the symbol, not via wires.
+        // Match by checking if the pin coordinate falls within a symbol's
+        // bounding box, then resolve the net via the symbol's pairingId.
+        if (!coordNet && pin.netId === 0xffffffff) {
+          for (const sym of [...pages[i].globals, ...pages[i].ports]) {
+            const minX = Math.min(sym.x1, sym.x2);
+            const maxX = Math.max(sym.x1, sym.x2);
+            const minY = Math.min(sym.y1, sym.y2);
+            const maxY = Math.max(sym.y1, sym.y2);
+            if (
+              pin.pointX >= minX &&
+              pin.pointX <= maxX &&
+              pin.pointY >= minY &&
+              pin.pointY <= maxY
+            ) {
+              coordNet = globalPairingNets.get(sym.pairingId);
+              if (coordNet) break;
+            }
+          }
+        }
+
         const pinNumber = resolvePinNumber(pin, inst, pinMaps, deviceUnitRefs, deviceIndex);
         pins.push({ refdes, pinNumber, netId: pin.netId, pageIdx: i, coord, coordNet });
       }
@@ -912,7 +1008,11 @@ function classifyPins(allPins: PinInfo[]): {
 
   for (const pin of allPins) {
     if (pin.netId === 0) {
-      if (!pin.coordNet) noConnect.push(pin);
+      if (pin.coordNet) {
+        sentinelWired.push(pin); // connected via wire geometry despite no netId
+      } else {
+        noConnect.push(pin);
+      }
     } else if (pin.netId === 0xffffffff) {
       if (pin.coordNet) {
         sentinelWired.push(pin);
@@ -1092,7 +1192,28 @@ function buildNetConnectivity(
         })
       : pageCoordMaps;
 
-  const allPins = collectPins(pages, resolvedCoordMaps, pinMaps, deviceUnitRefs, deviceIndexMap);
+  // Build pairingId -> net name map from global/port symbols connected to wires.
+  // Used as fallback for sentinel pins that overlap power/ground symbols but
+  // have no direct wire connection. PairingId groups all instances of the same
+  // power symbol (e.g., all GND_SIGNAL globals share one pairingId).
+  const globalPairingNets = new Map<number, string>();
+  for (let i = 0; i < pages.length; i++) {
+    const coordMap = resolvedCoordMaps[i];
+    for (const sym of [...pages[i].globals, ...pages[i].ports]) {
+      if (globalPairingNets.has(sym.pairingId)) continue;
+      const net = coordMap.get(`${sym.locX},${sym.locY}`);
+      if (net) globalPairingNets.set(sym.pairingId, net);
+    }
+  }
+
+  const allPins = collectPins(
+    pages,
+    resolvedCoordMaps,
+    pinMaps,
+    deviceUnitRefs,
+    deviceIndexMap,
+    globalPairingNets
+  );
   return assembleNets(allPins, canonicalNetNames);
 }
 
