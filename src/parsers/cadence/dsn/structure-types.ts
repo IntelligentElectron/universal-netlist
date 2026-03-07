@@ -37,6 +37,17 @@ export enum StructureType {
   NetGroup = 103,
 }
 
+export interface CachedLibraryPart {
+  pinNames: string[];
+  defaultValue?: string;
+}
+
+export interface PinMapData {
+  pinMaps: Map<string, (string | null)[]>;
+  cachePinMaps: Map<string, (string | null)[]>;
+  deviceUnitRefs: Map<string, string[]>;
+}
+
 export const structureTypeName: Partial<Record<StructureType, string>> = {
   [StructureType.Page]: "Page",
   [StructureType.PlacedInstance]: "PlacedInstance",

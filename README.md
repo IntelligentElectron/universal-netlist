@@ -156,6 +156,13 @@ This project is hosted on GitHub under the [IntelligentElectron](https://github.
 
 Universal Netlist MCP Server and the universal netlist open standard are original works by Valentino Zegna.
 
+## Acknowledgments
+
+The Cadence DSN binary parser is a TypeScript port of
+[OpenOrCadParser](https://github.com/Werni2A/OpenOrCadParser) by Dominik
+Wernberger. Their work reverse-engineering the OrCAD binary format made
+direct schematic parsing possible.
+
 ## License
 
 Apache License 2.0 - see [LICENSE](LICENSE)
