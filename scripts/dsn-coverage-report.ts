@@ -130,6 +130,10 @@ function analyze(dsnPath: string, goldenPath: string): CoverageResult {
 
       pinNum.total++;
       if (dp) pinNum.match++;
+      else {
+        const dsnPinKeys = Object.keys(dsnPins);
+        pinNum.mismatches.push(`${ref}.${pin} missing (DSN pins: [${dsnPinKeys.join(",")}])`);
+      }
 
       const gpName = getPinName(gp);
       const dpName = dp ? getPinName(dp) : undefined;
@@ -244,6 +248,13 @@ if (verbose) {
       for (const m of r.value.mismatches.slice(0, 10)) console.log(`    ${m}`);
       if (r.value.mismatches.length > 10)
         console.log(`    ... and ${r.value.mismatches.length - 10} more`);
+    }
+
+    if (r.pinNum.mismatches.length > 0) {
+      console.log(`\n  PinNum missing (${r.pinNum.mismatches.length}):`);
+      for (const m of r.pinNum.mismatches.slice(0, 10)) console.log(`    ${m}`);
+      if (r.pinNum.mismatches.length > 10)
+        console.log(`    ... and ${r.pinNum.mismatches.length - 10} more`);
     }
 
     if (r.pinName.mismatches.length > 0) {

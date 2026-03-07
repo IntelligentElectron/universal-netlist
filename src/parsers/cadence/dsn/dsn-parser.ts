@@ -116,6 +116,7 @@ function parsePackageStream(buffer: Buffer): PackageStreamResult {
 function parseCacheStream(
   buffer: Buffer,
   pinMaps: Map<string, (string | null)[]>,
+  cachePinMaps: Map<string, (string | null)[]>,
   cachedParts: Map<string, CachedLibraryPart>,
   deviceUnitRefs: Map<string, string[]>
 ): void {
@@ -209,7 +210,7 @@ function parseCacheStream(
       try {
         if (structType === StructureType.Package) {
           const pkg = parsePackage(reader);
-          indexCachePackage(pkg, pinMaps, deviceUnitRefs);
+          indexCachePackage(pkg, pinMaps, cachePinMaps, deviceUnitRefs);
         } else if (structType === StructureType.LibraryPart) {
           const lp = parseLibraryPart(reader);
           indexCacheLibraryPart(lp, cachedParts);
@@ -224,7 +225,7 @@ function parseCacheStream(
     } catch {
       // Metadata parsing failed; fall through to brute-force scan for
       // remaining Package and LibraryPart structures via preamble magic.
-      scanForStructures(reader, buffer, pinMaps, cachedParts, deviceUnitRefs);
+      scanForStructures(reader, buffer, pinMaps, cachePinMaps, cachedParts, deviceUnitRefs);
       return;
     }
   }
@@ -243,6 +244,7 @@ function scanForStructures(
   reader: BinaryReader,
   buffer: Buffer,
   pinMaps: Map<string, (string | null)[]>,
+  cachePinMaps: Map<string, (string | null)[]>,
   cachedParts: Map<string, CachedLibraryPart>,
   deviceUnitRefs: Map<string, string[]>
 ): void {
@@ -262,7 +264,7 @@ function scanForStructures(
       try {
         if (typeByte === StructureType.Package) {
           const pkg = parsePackage(reader);
-          indexCachePackage(pkg, pinMaps, deviceUnitRefs);
+          indexCachePackage(pkg, pinMaps, cachePinMaps, deviceUnitRefs);
         } else {
           const lp = parseLibraryPart(reader);
           indexCacheLibraryPart(lp, cachedParts);
@@ -282,6 +284,7 @@ function scanForStructures(
 function indexCachePackage(
   pkg: Package,
   pinMaps: Map<string, (string | null)[]>,
+  cachePinMaps: Map<string, (string | null)[]>,
   deviceUnitRefs: Map<string, string[]>
 ): void {
   if (!pkg.name || pkg.devices.length === 0) return;
@@ -292,15 +295,22 @@ function indexCachePackage(
   if (pkg.devices.length === 1) {
     if (!pinMaps.has(baseName)) pinMaps.set(baseName, firstDev.pinMap);
     if (!pinMaps.has(pkg.name)) pinMaps.set(pkg.name, firstDev.pinMap);
+    // Always store in cachePinMaps for fallback when Packages/ pinMap
+    // has more entries than the schematic symbol (e.g., physical package
+    // pads that aren't exposed on the schematic).
+    if (!cachePinMaps.has(baseName)) cachePinMaps.set(baseName, firstDev.pinMap);
+    if (!cachePinMaps.has(pkg.name)) cachePinMaps.set(pkg.name, firstDev.pinMap);
   } else {
     const unitRefs = pkg.devices.map((d) => d.unitRef);
     if (!deviceUnitRefs.has(baseName)) deviceUnitRefs.set(baseName, unitRefs);
     for (const dev of pkg.devices) {
       const baseKey = baseName + dev.unitRef;
       if (!pinMaps.has(baseKey)) pinMaps.set(baseKey, dev.pinMap);
+      if (!cachePinMaps.has(baseKey)) cachePinMaps.set(baseKey, dev.pinMap);
       if (pkg.name !== baseName) {
         const nameKey = pkg.name + dev.unitRef;
         if (!pinMaps.has(nameKey)) pinMaps.set(nameKey, dev.pinMap);
+        if (!cachePinMaps.has(nameKey)) cachePinMaps.set(nameKey, dev.pinMap);
       }
     }
   }
@@ -736,12 +746,29 @@ function resolvePinNumber(
   pin: T0x10,
   inst: PlacedInstance,
   pinMaps: Map<string, (string | null)[]>,
+  cachePinMaps: Map<string, (string | null)[]>,
   deviceUnitRefs: Map<string, string[]>,
   deviceIndex?: number
 ): string {
   if (pin.pinIndex <= 0) return String(pin.pinIndex || 1);
   const pinMap = findPinMap(inst, pinMaps, deviceUnitRefs, deviceIndex);
   if (pinMap && pin.pinIndex - 1 < pinMap.length && pinMap[pin.pinIndex - 1] !== null) {
+    // When the Packages/ pinMap has more entries than the instance has T0x10
+    // records, the physical package has pads not exposed on the schematic
+    // symbol (e.g., a 2-pin crystal in a 4-pad package). In that case, the
+    // Cache stream's pinMap reflects the schematic-level mapping and should
+    // be preferred.
+    if (pinMap.length > inst.t0x10s.length) {
+      const cacheMap = findPinMap(inst, cachePinMaps, deviceUnitRefs, deviceIndex);
+      if (
+        cacheMap &&
+        cacheMap.length <= inst.t0x10s.length &&
+        pin.pinIndex - 1 < cacheMap.length &&
+        cacheMap[pin.pinIndex - 1] !== null
+      ) {
+        return cacheMap[pin.pinIndex - 1]!;
+      }
+    }
     return pinMap[pin.pinIndex - 1]!;
   }
   return String(pin.pinIndex);
@@ -858,6 +885,7 @@ function collectPins(
   pages: PageData[],
   pageCoordMaps: Map<string, string>[],
   pinMaps: Map<string, (string | null)[]>,
+  cachePinMaps: Map<string, (string | null)[]>,
   deviceUnitRefs: Map<string, string[]>,
   deviceIndexMap: Map<number, number>,
   globalPairingNets: Map<number, string>,
@@ -920,7 +948,14 @@ function collectPins(
           }
         }
 
-        const pinNumber = resolvePinNumber(pin, inst, pinMaps, deviceUnitRefs, deviceIndex);
+        const pinNumber = resolvePinNumber(
+          pin,
+          inst,
+          pinMaps,
+          cachePinMaps,
+          deviceUnitRefs,
+          deviceIndex
+        );
         pins.push({ refdes, pinNumber, netId: pin.netId, pageIdx: i, coord, coordNet });
       }
     }
@@ -1195,6 +1230,7 @@ function buildNetConnectivity(
   pages: PageData[],
   canonicalNetNames: Set<string>,
   pinMaps: Map<string, (string | null)[]>,
+  cachePinMaps: Map<string, (string | null)[]>,
   deviceUnitRefs: Map<string, string[]>,
   deviceIndexMap: Map<number, number>,
   strLst: string[]
@@ -1256,6 +1292,7 @@ function buildNetConnectivity(
     pages,
     resolvedCoordMaps,
     pinMaps,
+    cachePinMaps,
     deviceUnitRefs,
     deviceIndexMap,
     globalPairingNets,
@@ -1323,6 +1360,7 @@ function buildComponents(
   strLst: string[],
   cachedParts: Map<string, CachedLibraryPart>,
   pinMaps: Map<string, (string | null)[]>,
+  cachePinMaps: Map<string, (string | null)[]>,
   deviceUnitRefs: Map<string, string[]>,
   deviceIndexMap: Map<number, number>
 ): ComponentDetails {
@@ -1345,7 +1383,7 @@ function buildComponents(
           for (const t0x10 of inst.t0x10s) {
             if (t0x10.pinIndex > 0) {
               pinNumToIndex.set(
-                resolvePinNumber(t0x10, inst, pinMaps, deviceUnitRefs, deviceIndex),
+                resolvePinNumber(t0x10, inst, pinMaps, cachePinMaps, deviceUnitRefs, deviceIndex),
                 t0x10.pinIndex
               );
             }
@@ -1412,7 +1450,7 @@ function buildComponents(
         for (const t0x10 of inst.t0x10s) {
           if (t0x10.pinIndex > 0) {
             pinNumToIndex.set(
-              resolvePinNumber(t0x10, inst, pinMaps, deviceUnitRefs, deviceIndex),
+              resolvePinNumber(t0x10, inst, pinMaps, cachePinMaps, deviceUnitRefs, deviceIndex),
               t0x10.pinIndex
             );
           }
@@ -1547,6 +1585,7 @@ export function parseDsnFile(dsnPath: string): ParsedNetlist {
   // T0x10 index → physical pin number/name. We index by sourcePackage
   // for lookup during pin resolution.
   const pinMaps = new Map<string, (string | null)[]>();
+  const cachePinMaps = new Map<string, (string | null)[]>();
   const deviceUnitRefs = new Map<string, string[]>();
   const cachedParts = new Map<string, CachedLibraryPart>();
   const pkgStreamEntries = entries.filter(
@@ -1614,7 +1653,7 @@ export function parseDsnFile(dsnPath: string): ParsedNetlist {
   if (cacheEntry) {
     try {
       const cacheBuf = ole.readStreamByPath(cacheEntry.path);
-      parseCacheStream(cacheBuf, pinMaps, cachedParts, deviceUnitRefs);
+      parseCacheStream(cacheBuf, pinMaps, cachePinMaps, cachedParts, deviceUnitRefs);
     } catch {
       // Cache parsing is best-effort
     }
@@ -1640,6 +1679,7 @@ export function parseDsnFile(dsnPath: string): ParsedNetlist {
     pages,
     canonicalNetNames,
     pinMaps,
+    cachePinMaps,
     deviceUnitRefs,
     deviceIndexMap,
     strLst
@@ -1650,6 +1690,7 @@ export function parseDsnFile(dsnPath: string): ParsedNetlist {
     strLst,
     cachedParts,
     pinMaps,
+    cachePinMaps,
     deviceUnitRefs,
     deviceIndexMap
   );

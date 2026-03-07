@@ -644,7 +644,7 @@ BODY:
     For each pin:
         Peek int16 at current position:
         if == -1 (0xFFFF):
-            read 2 bytes, push null (empty/unused pin slot)
+            read 2 bytes, SKIP (no entry in pin_map)
         else:
             string    pin_name     # e.g. "1", "A5", "GND"
             uint8     pin_config   (bitfield):
@@ -653,7 +653,9 @@ BODY:
     -- checkpoint --
 ```
 
-The `pin_map` array maps logical pin index to physical pin designator. Index 0 corresponds to logical pin 1 (T0x10.pinIndex = 1).
+The `pin_map` array maps logical pin index to physical pin designator. Index 0 corresponds to logical pin 1 (T0x10.pinIndex = 1). Entries with `strLen == -1` are **skipped** (not included in `pin_map`), so `pin_map` is a dense array of only the pins exposed on the schematic symbol. The C++ reference implementation (`StructDevice.cpp`) confirms this: it `continue`s past `-1` entries without appending to the vector.
+
+**Important**: The `Packages/` stream and the Cache stream may contain **different** Device definitions for the same component. When a physical package has more pads than the schematic symbol exposes (e.g., a 2-pin crystal in a 4-pad package), the `Packages/` stream may list all physical pads as valid entries (no `-1` skips), producing a `pin_map` with more entries than T0x10 records. The Cache stream's Device definition reflects the schematic-level mapping and will have the correct number of entries matching the T0x10 count.
 
 ### 9.3 LibraryPart (type 0x18)
 
@@ -805,7 +807,9 @@ All other structure types are skipped via `skipStructure()`.
 
 ### 10.4 Priority
 
-When both `Packages/` streams and Cache provide data for the same component, `Packages/` streams take priority. The Cache is only used as a fallback for components not covered by dedicated streams.
+When both `Packages/` streams and Cache provide data for the same component, `Packages/` streams take priority for pin map resolution. The Cache is used as fallback for components not covered by dedicated streams.
+
+**Exception**: When the `Packages/` stream `pin_map` has more entries than the instance's T0x10 count (physical pads exceed schematic pins), the Cache stream's `pin_map` is preferred. This occurs when a physical package has pads not exposed on the schematic symbol (e.g., ground case pads on a crystal). The Cache version reflects the schematic-level pin mapping and matches the T0x10 count.
 
 ### 10.5 Packages Directory Stream
 
@@ -844,6 +848,14 @@ T0x10.pinIndex  -->  Device.pinMap[pinIndex - 1]  -->  physical pin number
 For example, if T0x10.sth = 5 and Device.pinMap[4] = "A5", the physical pin is "A5".
 
 If no pin map is found, `pinIndex` itself is used as the pin number string (fallback).
+
+**Cache fallback for physical-vs-schematic mismatch**: When the `Packages/` stream Device has more `pin_map` entries than the instance's T0x10 count, the parser falls back to the Cache stream's Device for that component. The Cache version stores only the schematic-level pins, so its `pin_map` length matches the T0x10 count and `pinMap[pinIndex - 1]` resolves correctly.
+
+Example: XTAL-CM200S (4-pad crystal, 2 schematic pins):
+- `Packages/` pin_map: `["1", "3", "2", "4"]` (4 entries, all physical pads)
+- Cache pin_map: `["1", "2"]` (2 entries, schematic pins only)
+- T0x10 records: 2 (pinIndex 1 and 2)
+- Resolution uses Cache: pinIndex 1 -> "1", pinIndex 2 -> "2"
 
 ### 11.2 Pin Name Resolution
 

@@ -103,19 +103,31 @@ npm publishing uses OIDC trusted publishing (configured on npmjs.com) - no token
 
 ## DSN Parser Reference
 
-When working on the Cadence DSN binary parser (`src/parsers/cadence/dsn/`):
+**MANDATORY**: Before modifying ANY file under `src/parsers/cadence/dsn/`, you MUST read the corresponding C++ reference implementation in `references/OpenOrCadParser/`. This directory is gitignored but accessible to all agent tools (Glob, Grep, Read). Do not skip this step. The C++ source is the ground truth for how the binary format works, and our TypeScript is a port of it.
 
-- **Format spec**: `docs/dsn-format.md` is the authoritative reference for the binary format
-- **C++ reference**: `references/OpenOrCadParser/` (gitignored, local only) contains the C++ source we ported from. Key files:
-  - `src/Streams/StreamCache.cpp` - Cache stream parsing
-  - `src/Streams/StreamPage.cpp` - Page stream parsing
-  - `src/Streams/StreamPackage.cpp` - Package stream parsing
-  - `src/Structures/` - All structure parsers (PlacedInstance, T0x10, Wire, etc.)
-  - `src/GenericParser.cpp` - Prefix chain / preamble system
-- **Cadence schemas**: `docs/dsn.xsd`, `docs/olb.xsd` - XSD schemas for structure/field reference
+### Reference workflow
+
+1. **Read `docs/dsn-format.md`** for the binary format spec
+2. **Read the corresponding C++ file** in `references/OpenOrCadParser/` before writing any code
+3. Cross-reference `docs/dsn.xsd` / `docs/olb.xsd` for structure/field names if needed
+
+### C++ reference mapping
+
+The TypeScript files in `src/parsers/cadence/dsn/` map to C++ files in `references/OpenOrCadParser/`:
+
+| TypeScript | C++ reference (read this FIRST) |
+|---|---|
+| `cache-parser.ts` | `src/Streams/StreamCache.cpp` |
+| `page-parser.ts` | `src/Streams/StreamPage.cpp` |
+| `package-parser.ts` | `src/Streams/StreamPackage.cpp` |
+| `library-parser.ts` | `src/Streams/StreamLibrary.cpp` |
+| Any structure parsing | `src/Structures/` (e.g., `StructPlacedInstance.cpp`, `StructT0x10.cpp`, `StructWire.cpp`) |
+| Prefix/preamble logic | `src/GenericParser.cpp` |
+
+### Additional resources
+
+- **Cadence schemas**: `docs/dsn.xsd`, `docs/olb.xsd`
 - **Coverage scripts**: `scripts/dsn-coverage-report.ts`, `scripts/dsn-inspect.ts` (see `scripts/AGENTS.md`)
-
-Always consult `docs/dsn-format.md` first. When the format doc is insufficient (unknown bytes, new structure types), cross-reference the C++ source in `references/OpenOrCadParser/`.
 
 ## Git Guidelines
 
