@@ -11,8 +11,8 @@
       "default": "./dist/index.js"
     },
     "./service": {
-      "types": "./dist/service.d.ts",
-      "default": "./dist/service.js"
+      "types": "./dist/service/index.d.ts",
+      "default": "./dist/service/index.js"
     },
     "./types": {
       "types": "./dist/types.d.ts",

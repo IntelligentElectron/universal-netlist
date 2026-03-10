@@ -15,7 +15,7 @@ import {
   parseCadence,
   buildCadencePinMap,
 } from "../parsers/cadence/index.js";
-import { exportCadenceNetlist } from "../service.js";
+import { exportCadenceNetlist } from "../service/index.js";
 import { isErrorResult } from "../types.js";
 import { analyzeCoverage, formatCoverageReport, type CoverageResult } from "../coverage.js";
 import { checkForUpdate, performUpdate, isNpmInstall } from "./updater.js";

@@ -72,8 +72,8 @@ vi.mock("./parsers/index.js", () => ({
 // =============================================================================
 
 let resolvePath: typeof import("./paths.js").resolvePath;
-let listDesigns: typeof import("./service.js").listDesigns;
-let exportCadenceNetlist: typeof import("./service.js").exportCadenceNetlist;
+let listDesigns: typeof import("./service/index.js").listDesigns;
+let exportCadenceNetlist: typeof import("./service/index.js").exportCadenceNetlist;
 let parsers: typeof import("./parsers/index.js");
 let path: typeof import("path");
 
@@ -87,7 +87,7 @@ beforeAll(async () => {
   path = await import("path");
   ({ resolvePath } = await import("./paths.js"));
   parsers = await import("./parsers/index.js");
-  ({ listDesigns, exportCadenceNetlist } = await import("./service.js"));
+  ({ listDesigns, exportCadenceNetlist } = await import("./service/index.js"));
 });
 
 beforeEach(() => {

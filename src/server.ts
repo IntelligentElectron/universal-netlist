@@ -23,7 +23,7 @@ import {
   queryXnetByNetName,
   queryXnetByPinName,
   exportCadenceNetlist,
-} from "./service.js";
+} from "./service/index.js";
 import {
   SERVER_INSTRUCTIONS,
   LIST_DESIGNS_DESCRIPTION,
