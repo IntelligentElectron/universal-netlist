@@ -430,6 +430,14 @@ export function parseLibraryPart(reader: BinaryReader): LibraryPart {
   const lenSymbolPins = reader.readUint16();
   const pinNames: string[] = [];
   for (let i = 0; i < lenSymbolPins; i++) {
+    // C++ reference: 0x00 byte marks a "convert view" pin placeholder.
+    // Skip the marker and push empty string to maintain index alignment
+    // for T0x10.pinIndex lookups in component-builder.ts.
+    if (reader.peek(1)[0] === 0x00) {
+      reader.skip(1);
+      pinNames.push("");
+      continue;
+    }
     const pin = parseSymbolPin(reader);
     pinNames.push(pin.name);
   }
