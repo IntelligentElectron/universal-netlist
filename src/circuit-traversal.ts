@@ -34,17 +34,9 @@ export const isStopNet = (netName: string): boolean => STOP_NET_PATTERN.test(net
 /**
  * Determine if a component is a traversable passive (R/RS, L, C, FB).
  */
-export const isPassive = (refdes: string): boolean => {
-  const refdesUpper = refdes.toUpperCase();
-  return (
-    refdesUpper.startsWith("RS") ||
-    refdesUpper.startsWith("R") ||
-    refdesUpper.startsWith("FR") ||
-    refdesUpper.startsWith("L") ||
-    refdesUpper.startsWith("C") ||
-    refdesUpper.startsWith("FB")
-  );
-};
+const PASSIVE_PREFIXES = new Set(["RS", "R", "FR", "L", "C", "FB"]);
+
+export const isPassive = (refdes: string): boolean => PASSIVE_PREFIXES.has(getRefdesPrefix(refdes));
 
 /**
  * Check if a string is a valid refdes (letters followed by alphanumerics).
@@ -63,11 +55,8 @@ export const getRefdesPrefix = (refdes: string): string => {
 /**
  * Check if a refdes matches a prefix filter.
  */
-export const matchesRefdesType = (refdes: string, type: string): boolean => {
-  const refdesUpper = refdes.toUpperCase();
-  const typeUpper = type.toUpperCase();
-  return refdesUpper.startsWith(typeUpper);
-};
+export const matchesRefdesType = (refdes: string, type: string): boolean =>
+  getRefdesPrefix(refdes) === type.toUpperCase();
 
 /**
  * Detect Do Not Stuff components using common markers.
@@ -290,8 +279,8 @@ export const traverseCircuitFromNet = (
       return true;
     }
 
-    const refdesUpper = refdes.toUpperCase();
-    const matchedType = skipTypes.find((type) => refdesUpper.startsWith(type));
+    const prefix = getRefdesPrefix(refdes);
+    const matchedType = skipTypes.find((type) => prefix === type);
     if (matchedType) {
       if (!skippedComponents.has(refdes)) {
         skippedComponents.add(refdes);

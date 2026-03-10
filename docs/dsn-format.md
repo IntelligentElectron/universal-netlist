@@ -474,11 +474,11 @@ BODY:
 
 #### sth encoding (HEURISTIC)
 
-The `sth` field encodes a 1-based logical pin index:
+The `sth` field encodes both a 1-based logical pin index and a no-connect flag:
 - If `sth < 32768`: `pin_index = sth`
-- If `sth >= 32768`: `pin_index = 65536 - sth` (pin is marked NC in some contexts)
+- If `sth >= 32768`: bit 15 is set (no-connect flag), `pin_index = 65536 - sth`
 
-This encoding is from the OpenOrCadParser reference and confirmed to produce correct pin mappings in all tested designs. However, the semantic meaning of the high-bit flag is not fully understood. Our parser treats both cases identically for pin map lookup.
+This encoding is from the OpenOrCadParser reference and confirmed to produce correct pin mappings in all tested designs. Our parser currently uses `net_id == 0` without `coordNet` as a proxy for NC detection, which works for 99.8%+ of pins but is not the correct mechanism. Both cases are treated identically for pin map lookup.
 
 #### net_id semantics (REVISED)
 
@@ -487,8 +487,6 @@ This encoding is from the OpenOrCadParser reference and confirmed to produce cor
 - `net_id == 0xFFFFFFFF`: Sentinel value. The pin's net is determined by its physical coordinate overlapping a wire endpoint, a Global/Port symbol bbox, or an OffPageConnector edge midpoint.
 
 **IMPORTANT**: `net_id` values are NOT the same as `Wire.id` values. They are in different Cadence DB object ID spaces. The correspondence between pin netId and wire id is established indirectly through the net name table (both reference the same logical net, but via different IDs).
-
-**NOTE on sth bit 15**: The `sth` field encodes both the pin index and a no-connect flag. When `sth >= 32768`, bit 15 is set, indicating the pin is no-connect. The pin index is `65536 - sth` in this case. Our parser currently uses `net_id == 0` without `coordNet` as a proxy for NC detection, which works for 99.8%+ of pins but is not the correct mechanism.
 
 ### 7.8 GraphicInst (Global, Port, OffPageConnector)
 
@@ -502,7 +500,7 @@ PREAMBLE (optional)
 BODY:
     uint32    name_str_idx     # strLst index for net name (e.g., "LOL", "VCC_3V3")
     uint32    lib_str_idx      # strLst index for source library path (e.g., "CAPSYM.OLB")
-    string    name             # symbol type name, e.g. "VCC_BAR", "GND_SIGNAL"
+    string    name             # symbol type name (NOT the net name), e.g. "VCC_BAR", "GND_SIGNAL"
     uint32    db_id
     int16     loc_y            # NOTE: Y before X!
     int16     loc_x
@@ -523,13 +521,7 @@ BODY:
 
 After each Port, Global, or OffPageConnector record, there are **5 unknown bytes** that are not part of the structure itself. These are read separately in the page parser.
 
-**VERIFIED**: The `name_str_idx` field is a `uint32` index into the Library stream's `strLst`. For OPCs, it resolves to the net name (e.g., "LOL", "HDMI_CEC"). For Globals/Ports, it resolves to the power/ground net name (e.g., "VCC_3V3", "GND"). OPCs sharing the same `name_str_idx` represent the same net across pages.
-
-**VERIFIED**: The `lib_str_idx` field is a `uint32` index into the Library stream's `strLst`, resolving to the source library path (e.g., `C:\CADENCE\SPB_16.6\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB`).
-
-**VERIFIED**: Y coordinates are read before X in this structure (confirmed by matching pin coordinates to wire endpoints in real designs).
-
-**VERIFIED**: The `name` field is the schematic symbol type (e.g., "VCC_BAR", "OFFPAGELEFT-R"), NOT the net name. The net name is obtained via `strLst[name_str_idx]`.
+**VERIFIED**: OPCs sharing the same `name_str_idx` represent the same net across pages. For Globals/Ports, `name_str_idx` resolves to the power/ground net name (e.g., "VCC_3V3", "GND").
 
 ### 7.9 SymbolDisplayProp (type 0x27)
 
@@ -655,7 +647,7 @@ BODY:
 
 The `pin_map` array maps logical pin index to physical pin designator. Index 0 corresponds to logical pin 1 (T0x10.pinIndex = 1). Entries with `strLen == -1` are **skipped** (not included in `pin_map`), so `pin_map` is a dense array of only the pins exposed on the schematic symbol. The C++ reference implementation (`StructDevice.cpp`) confirms this: it `continue`s past `-1` entries without appending to the vector.
 
-**Important**: The `Packages/` stream and the Cache stream may contain **different** Device definitions for the same component. When a physical package has more pads than the schematic symbol exposes (e.g., a 2-pin crystal in a 4-pad package), the `Packages/` stream may list all physical pads as valid entries (no `-1` skips), producing a `pin_map` with more entries than T0x10 records. The Cache stream's Device definition reflects the schematic-level mapping and will have the correct number of entries matching the T0x10 count.
+**Important**: The `Packages/` stream and the Cache stream may contain **different** Device definitions for the same component. See [section 11.1](#111-pin-number-resolution) for Cache fallback when pin counts differ.
 
 ### 9.3 LibraryPart (type 0x18)
 
@@ -809,7 +801,7 @@ All other structure types are skipped via `skipStructure()`.
 
 When both `Packages/` streams and Cache provide data for the same component, `Packages/` streams take priority for pin map resolution. The Cache is used as fallback for components not covered by dedicated streams.
 
-**Exception**: When the `Packages/` stream `pin_map` has more entries than the instance's T0x10 count (physical pads exceed schematic pins), the Cache stream's `pin_map` is preferred. This occurs when a physical package has pads not exposed on the schematic symbol (e.g., ground case pads on a crystal). The Cache version reflects the schematic-level pin mapping and matches the T0x10 count.
+**Exception**: When the `Packages/` stream `pin_map` has more entries than the instance's T0x10 count, the Cache stream's `pin_map` is preferred. See [section 11.1](#111-pin-number-resolution) for details and an example.
 
 ### 10.5 Packages Directory Stream
 
@@ -918,11 +910,10 @@ This resolved the primary PinNum gap for BeagleBoard-xM (RP1-RP7 resistor packs,
 3. Net names come from: wire aliases (labels) and the page net table
 4. When a group has multiple candidate names, hierarchy-canonical names take priority
 5. Unnamed wire groups get `N{minSegmentId}` names
-6. Cross-page nets connected via OffPageConnectors are resolved by `name_str_idx` (strLst index for net name; OPCs with the same index share the same net)
+6. Cross-page nets connected via OffPageConnectors are resolved by `strLst[name_str_idx]` (OPCs with the same index share the same net). Pins at an OPC's bbox edge midpoint are assigned this net name, even when the OPC has no wire connection on that page
 7. Duplicate net names across pages are disambiguated using hierarchy suffixed names
 8. Global/Port symbols connected to wires propagate their net via `name_str_idx` to other pages where the same symbol overlaps a pin bbox (no wire needed)
 9. Wire body point-on-segment matching: a pin whose coordinate falls on a horizontal/vertical wire segment (not just the endpoints) is unioned with that wire
-10. OPC net name resolution: OPC net names are resolved via `strLst[name_str_idx]`. Pins at an OPC's bbox edge midpoint are assigned this net name, even when the OPC has no wire connection on that page
 
 ### 11.5 Multi-Unit Component Merging
 
@@ -940,15 +931,11 @@ Each unknown area in the format is mapped to its impact on parser coverage:
 
 | Unknown area | Size per occurrence | Impact on PinNum | Impact on PinName | Impact on Value |
 |---|---|---|---|---|
-| **PlacedInstance 10 unknown bytes** (section 7.7) | 10 per component | None | None | **POSSIBLE** (BB-xM 62 missing) |
+| **PlacedInstance 10 unknown bytes** (section 7.7) | 10 per component | None | None | **POSSIBLE** (BB-xM 62 missing; could encode secondary value reference or CIS link) |
 | **Port/Global/OPC 5 trailing bytes** (section 7.8) | 5 per symbol | None | None | None |
 | **Hierarchy 24-byte metadata** (section 8) | 24 per net | None | None | None |
 | **T0x10 unknown_int** (section 7.7.1) | 4 per pin | None | None | None |
 | **Page tail after OPCs** (section 7) | Variable | None | None | None |
-
-**PlacedInstance 10 unknown bytes** are the only area with possible coverage impact for Value. BeagleBoard-xM is missing 62 values; these bytes sit between `part_value_idx` and `len_t0x10s` and could encode a secondary value reference or CIS database link.
-
-**Port/Global/OPC 5 trailing bytes** remain undecoded but have no coverage impact. The OPC net name is resolved via `strLst[name_str_idx]` (section 7.8), not from the trailing bytes.
 
 ### 12.2 What we don't parse at all
 
@@ -1026,7 +1013,7 @@ Per-design breakdown:
 
 1. **PinNum (BBxM 98.9%, CutiePi 98.9%)**: Remaining gaps are primarily DNS (Do Not Stuff) components with graphical-only annotations (e.g., BBxM RP1/RP5 with "DNI" text on schematic but no structured property). These components are excluded from DAT export but present in DSN, causing pin count mismatches in the comparison.
 
-2. **PinName (LAUNCHXL 42.1%, CutiePi 56.2%)**: These designs store **no LibraryPart structures** in their Cache stream. Pin names for generic components (LED, RESISTOR, test pads) exist only in the CIS database. This is a hard limitation unless CIS parsing is added.
+2. **PinName (LAUNCHXL 42.1%, CutiePi 56.2%)**: No LibraryParts in Cache (see [section 10.3](#103-parsing-strategy)). This is a hard limitation unless CIS parsing is added.
 
 ### 12.6 DNS (Do Not Stuff) detection
 

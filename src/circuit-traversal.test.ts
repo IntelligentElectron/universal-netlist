@@ -11,6 +11,7 @@ import {
   isValidRefdes,
   isDnsComponent,
   stripDnsMarkers,
+  matchesRefdesType,
   naturalSort,
   traverseCircuitFromNet,
   computeCircuitHash,
@@ -196,6 +197,13 @@ describe("isPassive", () => {
     expect(isPassive("D1")).toBe(false);
     expect(isPassive("D10")).toBe(false);
   });
+
+  it("should not match prefixes that merely start with a passive letter", () => {
+    expect(isPassive("LED1")).toBe(false);
+    expect(isPassive("CON1")).toBe(false);
+    expect(isPassive("CR1")).toBe(false);
+    expect(isPassive("RT1")).toBe(false);
+  });
 });
 
 describe("isValidRefdes", () => {
@@ -230,6 +238,26 @@ describe("isValidRefdes", () => {
   it("should reject empty or numeric-only strings", () => {
     expect(isValidRefdes("")).toBe(false);
     expect(isValidRefdes("123")).toBe(false);
+  });
+});
+
+describe("matchesRefdesType", () => {
+  it("should match exact prefix", () => {
+    expect(matchesRefdesType("R1", "R")).toBe(true);
+    expect(matchesRefdesType("FB1", "FB")).toBe(true);
+    expect(matchesRefdesType("C100", "C")).toBe(true);
+  });
+
+  it("should not match when type is a substring of the prefix", () => {
+    expect(matchesRefdesType("LED1", "L")).toBe(false);
+    expect(matchesRefdesType("CON1", "C")).toBe(false);
+    expect(matchesRefdesType("FB1", "F")).toBe(false);
+  });
+
+  it("should be case-insensitive", () => {
+    expect(matchesRefdesType("r1", "R")).toBe(true);
+    expect(matchesRefdesType("R1", "r")).toBe(true);
+    expect(matchesRefdesType("fb1", "FB")).toBe(true);
   });
 });
 

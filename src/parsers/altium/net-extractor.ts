@@ -5,15 +5,18 @@
  * wires, pins, power ports, and net labels.
  */
 
-import type { AltiumRecord, AltiumSchematic, AltiumNet } from './types.js';
-import { RECORD_TYPES } from './types.js';
-import { findAllConnectedComponents } from './connectivity.js';
-import { findRecordByIndex } from './hierarchy.js';
+import type { AltiumRecord, AltiumSchematic, AltiumNet } from "./types.js";
+import { RECORD_TYPES } from "./types.js";
+import { findAllConnectedComponents } from "./connectivity.js";
+import { findRecordByIndex } from "./hierarchy.js";
 
 const COORDINATE_SCALE = 10000;
 
+const unescapeAltiumOverbar = (name: string): string =>
+  name.includes("\\") ? name.replace(/\\/g, "") : name;
+
 const toNumber = (value: unknown): number => {
-  if (value === undefined || value === null || value === '') {
+  if (value === undefined || value === null || value === "") {
     return 0;
   }
   const parsed = Number(value);
@@ -26,7 +29,7 @@ const scaledCoordinate = (base: unknown, frac: unknown): number => {
 
 const pinMatchesCurrentPart = (pin: AltiumRecord, schematic: AltiumSchematic): boolean => {
   const ownerIndexValue = pin.OwnerIndex ?? pin.OWNERINDEX;
-  if (ownerIndexValue === undefined || ownerIndexValue === null || ownerIndexValue === '') {
+  if (ownerIndexValue === undefined || ownerIndexValue === null || ownerIndexValue === "") {
     return true;
   }
 
@@ -41,10 +44,10 @@ const pinMatchesCurrentPart = (pin: AltiumRecord, schematic: AltiumSchematic): b
   if (
     parentPartId === undefined ||
     parentPartId === null ||
-    parentPartId === '' ||
+    parentPartId === "" ||
     pinPartId === undefined ||
     pinPartId === null ||
-    pinPartId === ''
+    pinPartId === ""
   ) {
     return true;
   }
@@ -93,19 +96,19 @@ const findConnectableDevices = (schematic: AltiumSchematic): AltiumRecord[] => {
  */
 const calculatePinCoordinates = (device: AltiumRecord): void => {
   const locationX = scaledCoordinate(
-    device['Location.X'] ?? device['LOCATION.X'],
-    device['Location.X_Frac'] ?? device['LOCATION.X_FRAC']
+    device["Location.X"] ?? device["LOCATION.X"],
+    device["Location.X_Frac"] ?? device["LOCATION.X_FRAC"]
   );
   const locationY = scaledCoordinate(
-    device['Location.Y'] ?? device['LOCATION.Y'],
-    device['Location.Y_Frac'] ?? device['LOCATION.Y_FRAC']
+    device["Location.Y"] ?? device["LOCATION.Y"],
+    device["Location.Y_Frac"] ?? device["LOCATION.Y_FRAC"]
   );
   const pinLength = scaledCoordinate(
-    device['PinLength'] ?? device['PINLENGTH'],
-    device['PinLength_Frac'] ?? device['PINLENGTH_FRAC']
+    device["PinLength"] ?? device["PINLENGTH"],
+    device["PinLength_Frac"] ?? device["PINLENGTH_FRAC"]
   );
   const pinConglomerate = parseInt(
-    String(device['PinConglomerate'] || device['PINCONGLOMERATE'] || '0'),
+    String(device["PinConglomerate"] || device["PINCONGLOMERATE"] || "0"),
     10
   );
 
@@ -163,12 +166,12 @@ const calculateWireCoordinates = (device: AltiumRecord): void => {
  */
 const calculateSimpleCoordinates = (device: AltiumRecord): void => {
   const x = scaledCoordinate(
-    device['Location.X'] ?? device['LOCATION.X'],
-    device['Location.X_Frac'] ?? device['LOCATION.X_FRAC']
+    device["Location.X"] ?? device["LOCATION.X"],
+    device["Location.X_Frac"] ?? device["LOCATION.X_FRAC"]
   );
   const y = scaledCoordinate(
-    device['Location.Y'] ?? device['LOCATION.Y'],
-    device['Location.Y_Frac'] ?? device['LOCATION.Y_FRAC']
+    device["Location.Y"] ?? device["LOCATION.Y"],
+    device["Location.Y_Frac"] ?? device["LOCATION.Y_FRAC"]
   );
   device.coords = [[x, y]];
 };
@@ -193,11 +196,11 @@ const calculateDeviceCoordinates = (device: AltiumRecord): void => {
 
 const getPinNumber = (device: AltiumRecord): string | null => {
   const designator = device.Designator ?? device.DESIGNATOR;
-  if (designator !== undefined && designator !== null && designator !== '') {
+  if (designator !== undefined && designator !== null && designator !== "") {
     return String(designator);
   }
   const name = device.Name ?? device.NAME;
-  if (name !== undefined && name !== null && name !== '') {
+  if (name !== undefined && name !== null && name !== "") {
     return String(name);
   }
   return null;
@@ -205,7 +208,7 @@ const getPinNumber = (device: AltiumRecord): string | null => {
 
 const getRefdesForPin = (device: AltiumRecord, schematic: AltiumSchematic): string | null => {
   const ownerIndexValue = device.OwnerIndex ?? device.OWNERINDEX;
-  if (ownerIndexValue === undefined || ownerIndexValue === null || ownerIndexValue === '') {
+  if (ownerIndexValue === undefined || ownerIndexValue === null || ownerIndexValue === "") {
     return null;
   }
 
@@ -221,7 +224,7 @@ const getRefdesForPin = (device: AltiumRecord, schematic: AltiumSchematic): stri
       continue;
     }
     const textValue = child.Text ?? child.TEXT ?? child.Name ?? child.NAME;
-    if (textValue !== undefined && textValue !== null && textValue !== '') {
+    if (textValue !== undefined && textValue !== null && textValue !== "") {
       return String(textValue);
     }
   }
@@ -243,7 +246,10 @@ const comparePinNumbers = (a: string, b: string): number => {
   return a.localeCompare(b);
 };
 
-const collectPinCandidates = (net: AltiumNet, schematic: AltiumSchematic): Map<string, string[]> => {
+const collectPinCandidates = (
+  net: AltiumNet,
+  schematic: AltiumSchematic
+): Map<string, string[]> => {
   const refdesPins = new Map<string, string[]>();
 
   for (const device of net.devices) {
@@ -283,8 +289,8 @@ const assignNetName = (net: AltiumNet, schematic: AltiumSchematic): void => {
       (device.Text !== undefined || device.TEXT !== undefined)
     ) {
       const textValue = device.Text ?? device.TEXT;
-      if (textValue !== undefined && textValue !== null && textValue !== '') {
-        net.name = String(textValue);
+      if (textValue !== undefined && textValue !== null && textValue !== "") {
+        net.name = unescapeAltiumOverbar(String(textValue));
         return;
       }
     }

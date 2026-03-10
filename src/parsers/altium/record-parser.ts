@@ -7,7 +7,7 @@
  * Based on the Python Altium-Schematic-Parser library parsing logic.
  */
 
-import type { AltiumRecord, AltiumSchematic } from './types.js';
+import type { AltiumRecord, AltiumSchematic } from "./types.js";
 
 /**
  * Split buffer by the 5-byte delimiter pattern.
@@ -54,17 +54,21 @@ const splitByDelimiter = (buffer: Buffer): Buffer[] => {
 const parseSegment = (segment: Buffer, index: number): AltiumRecord => {
   const record: AltiumRecord = { index };
 
-  // Convert to string, handling potential encoding issues
-  const str = segment.toString('utf-8');
+  // Altium uses Windows-1252 (single-byte) encoding, but some newer files
+  // contain UTF-8 multi-byte sequences. Try UTF-8 first; if it produces
+  // replacement characters (invalid bytes), fall back to latin1 which maps
+  // bytes 0x80-0xFF directly to their Unicode codepoints.
+  const utf8 = segment.toString("utf-8");
+  const str = utf8.includes("\uFFFD") ? segment.toString("latin1") : utf8;
 
   // Split by pipe character
-  const pairs = str.split('|');
+  const pairs = str.split("|");
 
   for (const pair of pairs) {
     if (!pair) continue;
 
     // Split by first equals sign only (value may contain '=')
-    const eqIndex = pair.indexOf('=');
+    const eqIndex = pair.indexOf("=");
     if (eqIndex === -1) continue;
 
     const key = pair.substring(0, eqIndex).trim();
@@ -108,8 +112,8 @@ export const parseRecords = (buffer: Buffer): AltiumSchematic => {
   }
 
   // Separate header records from other records
-  const header = datums.filter((d) => 'HEADER' in d);
-  const records = datums.filter((d) => 'RECORD' in d);
+  const header = datums.filter((d) => "HEADER" in d);
+  const records = datums.filter((d) => "RECORD" in d);
 
   return { header, records };
 };
