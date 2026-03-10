@@ -24,4 +24,4 @@
 	url = https://github.com/valentinozegna/cutiepi-board
 [submodule "test/fixtures/cadence/LAUNCHXL-CC1310"]
 	path = test/fixtures/cadence/LAUNCHXL-CC1310
-	url = https://github.com/peterkappelt/kHome
+	url = https://github.com/valentinozegna/kHome
