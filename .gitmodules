@@ -25,3 +25,6 @@
 [submodule "test/fixtures/cadence/LAUNCHXL-CC1310"]
 	path = test/fixtures/cadence/LAUNCHXL-CC1310
 	url = https://github.com/valentinozegna/kHome
+[submodule "test/fixtures/altium/aberrant-sound-module"]
+	path = test/fixtures/altium/aberrant-sound-module
+	url = https://github.com/valentinozegna/aberrant-sound-module
