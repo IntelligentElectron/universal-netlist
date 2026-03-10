@@ -31,6 +31,7 @@ export interface CoverageResult {
   compCoverage: number;
   missingNets: { name: string; category: string; connections: Record<string, unknown> }[];
   extraNets: { name: string; category: string }[];
+  renamedNets: number;
   mpn: FieldStats;
   value: FieldStats;
   description: FieldStats;
@@ -86,13 +87,53 @@ export const analyzeCoverage = (
   const dsnComps = new Set(Object.keys(dsn.components));
   const commonCompKeys = [...dsnComps].filter((c) => refComps.has(c));
 
-  const missingNets = [...refNets]
+  let missingNets = [...refNets]
     .filter((n) => !dsnNets.has(n))
     .map((name) => ({ name, category: categorizeNet(name), connections: reference.nets[name] }));
 
-  const extraNets = [...dsnNets]
+  let extraNets = [...dsnNets]
     .filter((n) => !refNets.has(n))
     .map((name) => ({ name, category: categorizeNet(name) }));
+
+  // Second pass: match unmatched nets by connectivity (pin-set signature).
+  // Handles whitespace-renamed nets: DSN preserves " SIGNAL_A" while DAT
+  // strips to "SIGNAL_A" or appends "_1" on collision.
+  const pinSetSignature = (connections: Record<string, string | string[]>): string => {
+    const pairs: string[] = [];
+    for (const [refdes, pins] of Object.entries(connections)) {
+      const pinList = Array.isArray(pins) ? pins : [pins];
+      for (const pin of pinList) pairs.push(`${refdes}.${pin}`);
+    }
+    return pairs.sort().join(",");
+  };
+
+  let renamedNets = 0;
+  if (missingNets.length > 0 && extraNets.length > 0) {
+    const extraBySignature = new Map<string, string>();
+    for (const extra of extraNets) {
+      const connections = dsn.nets[extra.name];
+      if (connections) {
+        const sig = pinSetSignature(connections);
+        if (sig) extraBySignature.set(sig, extra.name);
+      }
+    }
+
+    const matchedMissing = new Set<string>();
+    const matchedExtra = new Set<string>();
+    for (const missing of missingNets) {
+      const sig = pinSetSignature(missing.connections as Record<string, string | string[]>);
+      if (sig && extraBySignature.has(sig)) {
+        matchedMissing.add(missing.name);
+        matchedExtra.add(extraBySignature.get(sig)!);
+        renamedNets++;
+      }
+    }
+
+    if (renamedNets > 0) {
+      missingNets = missingNets.filter((n) => !matchedMissing.has(n.name));
+      extraNets = extraNets.filter((n) => !matchedExtra.has(n.name));
+    }
+  }
 
   const mpn = emptyFieldStats();
   const value = emptyFieldStats();
@@ -198,6 +239,7 @@ export const analyzeCoverage = (
     compCoverage: refComps.size > 0 ? commonCompKeys.length / refComps.size : 1,
     missingNets,
     extraNets,
+    renamedNets,
     mpn,
     value,
     description,
@@ -300,6 +342,11 @@ const formatVerboseDesignTerminal = (
     }
   };
 
+  if (r.renamedNets > 0) {
+    lines.push("");
+    lines.push(`  Renamed nets (matched by connectivity): ${r.renamedNets}`);
+  }
+
   formatNets("Missing nets", r.missingNets, true);
   formatNets("Extra nets", r.extraNets, false);
 
@@ -389,6 +436,11 @@ const formatVerboseDesignMarkdown = (
     }
   };
 
+  if (r.renamedNets > 0) {
+    lines.push("");
+    lines.push(`Renamed nets (matched by connectivity): ${r.renamedNets}`);
+  }
+
   formatNets("Missing nets", r.missingNets, true);
   formatNets("Extra nets", r.extraNets, false);
 
@@ -473,6 +525,11 @@ const formatAggregateTerminal = (results: CoverageResult[], lines: string[]): vo
     );
   }
 
+  const totalRenamed = sum((r) => r.renamedNets);
+  if (totalRenamed > 0) {
+    lines.push(`Renamed: ${totalRenamed} (matched by connectivity)`);
+  }
+
   const totalMissing = sum((r) => r.missingNets.length);
   const totalExtra = sum((r) => r.extraNets.length);
   if (totalMissing > 0 || totalExtra > 0) {
@@ -530,6 +587,12 @@ const formatAggregateMarkdown = (results: CoverageResult[], lines: string[]): vo
   lines.push("| --- | ---: | ---: | ---: | --- |");
   for (const [field, match, total, notes] of rows) {
     lines.push(`| ${field} | ${match} | ${total} | ${pct(match, total)} | ${notes} |`);
+  }
+
+  const totalRenamed = sum((r) => r.renamedNets);
+  if (totalRenamed > 0) {
+    lines.push("");
+    lines.push(`Renamed nets (matched by connectivity): ${totalRenamed}`);
   }
 
   const totalMissing = sum((r) => r.missingNets.length);
