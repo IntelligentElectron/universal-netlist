@@ -2,17 +2,17 @@
  * Altium Parser Tests
  */
 
-import { describe, it, expect } from 'vitest';
-import { extractComponents } from './index.js';
-import { parseRecords } from './record-parser.js';
-import { buildHierarchy, getPartsList, findRecordByIndex } from './hierarchy.js';
-import { isConnected, findConnectedDevices } from './connectivity.js';
-import { RECORD_TYPES } from './types.js';
-import type { AltiumRecord, AltiumSchematic } from './types.js';
+import { describe, it, expect } from "vitest";
+import { extractComponents } from "./index.js";
+import { parseRecords } from "./record-parser.js";
+import { buildHierarchy, getPartsList, findRecordByIndex } from "./hierarchy.js";
+import { isConnected, findConnectedDevices } from "./connectivity.js";
+import { RECORD_TYPES } from "./types.js";
+import type { AltiumRecord, AltiumSchematic } from "./types.js";
 
-describe('Record Parser', () => {
-  describe('parseRecords', () => {
-    it('should parse simple key-value pairs', () => {
+describe("Record Parser", () => {
+  describe("parseRecords", () => {
+    it("should parse simple key-value pairs", () => {
       // Simulate a minimal Altium record buffer
       // Format: 5 bytes prefix + records + 1 byte suffix
       // Each record separated by XXX\x00\x00| pattern
@@ -20,7 +20,7 @@ describe('Record Parser', () => {
       const suffix = Buffer.alloc(1);
 
       // Simple record: RECORD=1|Designator=U1|
-      const recordData = Buffer.from('RECORD=1|Designator=U1|');
+      const recordData = Buffer.from("RECORD=1|Designator=U1|");
 
       const buffer = Buffer.concat([prefix, recordData, suffix]);
       const result = parseRecords(buffer);
@@ -29,14 +29,57 @@ describe('Record Parser', () => {
       expect(result.header).toBeDefined();
     });
 
-    it('should separate header from records', () => {
+    it("should decode Windows-1252 characters via latin1", () => {
+      const prefix = Buffer.alloc(5);
+      const suffix = Buffer.alloc(1);
+
+      // 0xB1 = ±, 0xB5 = µ, 0xB0 = °
+      const segment = Buffer.from([
+        // DESC=±10% µF 90°
+        0x44,
+        0x45,
+        0x53,
+        0x43,
+        0x3d, // DESC=
+        0xb1,
+        0x31,
+        0x30,
+        0x25,
+        0x20, // ±10%
+        0xb5,
+        0x46,
+        0x20, // µF
+        0x39,
+        0x30,
+        0xb0, // 90°
+        0x7c, // |
+        0x52,
+        0x45,
+        0x43,
+        0x4f,
+        0x52,
+        0x44,
+        0x3d,
+        0x31, // RECORD=1
+        0x7c, // |
+      ]);
+
+      const buffer = Buffer.concat([prefix, segment, suffix]);
+      const result = parseRecords(buffer);
+
+      const record = result.records[0];
+      expect(record).toBeDefined();
+      expect(record.DESC).toBe("±10% µF 90°");
+    });
+
+    it("should separate header from records", () => {
       const prefix = Buffer.alloc(5);
       const suffix = Buffer.alloc(1);
 
       // Header has HEADER key, records have RECORD key
-      const headerData = Buffer.from('HEADER=Schematic|VERSION=1.0|');
+      const headerData = Buffer.from("HEADER=Schematic|VERSION=1.0|");
       const delimiter = Buffer.from([0x00, 0x00, 0x00, 0x00, 0x00, 0x7c]); // XXX\x00\x00|
-      const recordData = Buffer.from('RECORD=1|Designator=U1|');
+      const recordData = Buffer.from("RECORD=1|Designator=U1|");
 
       const buffer = Buffer.concat([prefix, headerData, delimiter, recordData, suffix]);
 
@@ -48,15 +91,15 @@ describe('Record Parser', () => {
   });
 });
 
-describe('Hierarchy Builder', () => {
-  describe('buildHierarchy', () => {
-    it('should establish parent-child relationships via OwnerIndex', () => {
+describe("Hierarchy Builder", () => {
+  describe("buildHierarchy", () => {
+    it("should establish parent-child relationships via OwnerIndex", () => {
       const schematic: AltiumSchematic = {
         header: [],
         records: [
-          { index: 0, RECORD: '1', Designator: 'U1' } as AltiumRecord,
-          { index: 1, RECORD: '2', OwnerIndex: '0', Name: 'PIN1' } as AltiumRecord,
-          { index: 2, RECORD: '2', OwnerIndex: '0', Name: 'PIN2' } as AltiumRecord,
+          { index: 0, RECORD: "1", Designator: "U1" } as AltiumRecord,
+          { index: 1, RECORD: "2", OwnerIndex: "0", Name: "PIN1" } as AltiumRecord,
+          { index: 2, RECORD: "2", OwnerIndex: "0", Name: "PIN2" } as AltiumRecord,
         ],
       };
 
@@ -68,13 +111,13 @@ describe('Hierarchy Builder', () => {
       expect(result.records[0].children?.length).toBe(2);
     });
 
-    it('should establish parent-child relationships via OWNERINDEX', () => {
+    it("should establish parent-child relationships via OWNERINDEX", () => {
       const schematic: AltiumSchematic = {
         header: [],
         records: [
-          { index: 0, RECORD: '1', Designator: 'U1' } as AltiumRecord,
-          { index: 1, RECORD: '2', OWNERINDEX: '0', Name: 'PIN1' } as AltiumRecord,
-          { index: 2, RECORD: '2', OWNERINDEX: '0', Name: 'PIN2' } as AltiumRecord,
+          { index: 0, RECORD: "1", Designator: "U1" } as AltiumRecord,
+          { index: 1, RECORD: "2", OWNERINDEX: "0", Name: "PIN1" } as AltiumRecord,
+          { index: 2, RECORD: "2", OWNERINDEX: "0", Name: "PIN2" } as AltiumRecord,
         ],
       };
 
@@ -85,12 +128,12 @@ describe('Hierarchy Builder', () => {
       expect(result.records[0].children?.length).toBe(2);
     });
 
-    it('should handle records without OWNERINDEX as roots', () => {
+    it("should handle records without OWNERINDEX as roots", () => {
       const schematic: AltiumSchematic = {
         header: [],
         records: [
-          { index: 0, RECORD: '1' } as AltiumRecord,
-          { index: 1, RECORD: '1' } as AltiumRecord,
+          { index: 0, RECORD: "1" } as AltiumRecord,
+          { index: 1, RECORD: "1" } as AltiumRecord,
         ],
       };
 
@@ -100,37 +143,37 @@ describe('Hierarchy Builder', () => {
     });
   });
 
-  describe('getPartsList', () => {
-    it('should filter for RECORD=1 only', () => {
+  describe("getPartsList", () => {
+    it("should filter for RECORD=1 only", () => {
       const schematic: AltiumSchematic = {
         header: [],
         records: [
-          { index: 0, RECORD: '1', Designator: 'U1' } as AltiumRecord,
-          { index: 1, RECORD: '2' } as AltiumRecord,
-          { index: 2, RECORD: '1', Designator: 'R1' } as AltiumRecord,
-          { index: 3, RECORD: '27' } as AltiumRecord,
+          { index: 0, RECORD: "1", Designator: "U1" } as AltiumRecord,
+          { index: 1, RECORD: "2" } as AltiumRecord,
+          { index: 2, RECORD: "1", Designator: "R1" } as AltiumRecord,
+          { index: 3, RECORD: "27" } as AltiumRecord,
         ],
       };
 
       const parts = getPartsList(schematic);
 
       expect(parts.length).toBe(2);
-      expect(parts[0].Designator).toBe('U1');
-      expect(parts[1].Designator).toBe('R1');
+      expect(parts[0].Designator).toBe("U1");
+      expect(parts[1].Designator).toBe("R1");
     });
   });
 
-  describe('findRecordByIndex', () => {
-    it('should find records in nested hierarchy', () => {
+  describe("findRecordByIndex", () => {
+    it("should find records in nested hierarchy", () => {
       const schematic: AltiumSchematic = {
         header: [],
         records: [
           {
             index: 0,
-            RECORD: '1',
+            RECORD: "1",
             children: [
-              { index: 1, RECORD: '2' } as AltiumRecord,
-              { index: 2, RECORD: '2' } as AltiumRecord,
+              { index: 1, RECORD: "2" } as AltiumRecord,
+              { index: 2, RECORD: "2" } as AltiumRecord,
             ],
           } as AltiumRecord,
         ],
@@ -142,10 +185,10 @@ describe('Hierarchy Builder', () => {
       expect(found?.index).toBe(1);
     });
 
-    it('should return undefined for non-existent index', () => {
+    it("should return undefined for non-existent index", () => {
       const schematic: AltiumSchematic = {
         header: [],
-        records: [{ index: 0, RECORD: '1' } as AltiumRecord],
+        records: [{ index: 0, RECORD: "1" } as AltiumRecord],
       };
 
       const found = findRecordByIndex(schematic, 999);
@@ -155,8 +198,8 @@ describe('Hierarchy Builder', () => {
   });
 });
 
-describe('Component Extraction', () => {
-  it('should drop comment when it resolves to the same Value', () => {
+describe("Component Extraction", () => {
+  it("should drop comment when it resolves to the same Value", () => {
     const schematic: AltiumSchematic = {
       header: [],
       records: [
@@ -167,19 +210,19 @@ describe('Component Extraction', () => {
             {
               index: 1,
               RECORD: RECORD_TYPES.DESIGNATOR,
-              Text: 'C6',
+              Text: "C6",
             } as AltiumRecord,
             {
               index: 2,
               RECORD: RECORD_TYPES.PARAMETER,
-              Name: 'Comment',
-              Text: '=Value',
+              Name: "Comment",
+              Text: "=Value",
             } as AltiumRecord,
             {
               index: 3,
               RECORD: RECORD_TYPES.PARAMETER,
-              Name: 'Value',
-              Text: '4.7uF',
+              Name: "Value",
+              Text: "4.7uF",
             } as AltiumRecord,
           ],
         } as AltiumRecord,
@@ -190,11 +233,11 @@ describe('Component Extraction', () => {
     const c6 = components.C6;
 
     expect(c6).toBeDefined();
-    expect(c6?.value).toBe('4.7uF');
-    expect(Object.prototype.hasOwnProperty.call(c6 ?? {}, 'comment')).toBe(false);
+    expect(c6?.value).toBe("4.7uF");
+    expect(Object.prototype.hasOwnProperty.call(c6 ?? {}, "comment")).toBe(false);
   });
 
-  it('should keep comment distinct from value when both are present', () => {
+  it("should keep comment distinct from value when both are present", () => {
     const schematic: AltiumSchematic = {
       header: [],
       records: [
@@ -205,19 +248,19 @@ describe('Component Extraction', () => {
             {
               index: 1,
               RECORD: RECORD_TYPES.DESIGNATOR,
-              Text: 'U2',
+              Text: "U2",
             } as AltiumRecord,
             {
               index: 2,
               RECORD: RECORD_TYPES.PARAMETER,
-              Name: 'Comment',
-              Text: 'CYUSB3014-BZXC',
+              Name: "Comment",
+              Text: "CYUSB3014-BZXC",
             } as AltiumRecord,
             {
               index: 3,
               RECORD: RECORD_TYPES.PARAMETER,
-              Name: 'Value',
-              Text: '100nF',
+              Name: "Value",
+              Text: "100nF",
             } as AltiumRecord,
           ],
         } as AltiumRecord,
@@ -228,15 +271,15 @@ describe('Component Extraction', () => {
     const u2 = components.U2;
 
     expect(u2).toBeDefined();
-    expect(u2?.comment).toBe('CYUSB3014-BZXC');
-    expect(u2?.value).toBe('100nF');
-    expect(Object.prototype.hasOwnProperty.call(u2 ?? {}, 'comment')).toBe(true);
+    expect(u2?.comment).toBe("CYUSB3014-BZXC");
+    expect(u2?.value).toBe("100nF");
+    expect(Object.prototype.hasOwnProperty.call(u2 ?? {}, "comment")).toBe(true);
   });
 });
 
-describe('Connectivity', () => {
-  describe('isConnected', () => {
-    it('should detect connected wires by coordinate overlap', () => {
+describe("Connectivity", () => {
+  describe("isConnected", () => {
+    it("should detect connected wires by coordinate overlap", () => {
       const wireA: AltiumRecord = {
         index: 0,
         RECORD: RECORD_TYPES.WIRE,
@@ -258,7 +301,7 @@ describe('Connectivity', () => {
       expect(isConnected(wireA, wireB)).toBe(true);
     });
 
-    it('should detect disconnected wires', () => {
+    it("should detect disconnected wires", () => {
       const wireA: AltiumRecord = {
         index: 0,
         RECORD: RECORD_TYPES.WIRE,
@@ -280,7 +323,7 @@ describe('Connectivity', () => {
       expect(isConnected(wireA, wireB)).toBe(false);
     });
 
-    it('should detect pin connected to wire', () => {
+    it("should detect pin connected to wire", () => {
       const wire: AltiumRecord = {
         index: 0,
         RECORD: RECORD_TYPES.WIRE,
@@ -299,54 +342,54 @@ describe('Connectivity', () => {
       expect(isConnected(wire, pin)).toBe(true);
     });
 
-    it('should connect power ports with same Text', () => {
+    it("should connect power ports with same Text", () => {
       const port1: AltiumRecord = {
         index: 0,
         RECORD: RECORD_TYPES.POWER_PORT,
-        Text: 'VCC',
+        Text: "VCC",
         coords: [[0, 0]],
       };
 
       const port2: AltiumRecord = {
         index: 1,
         RECORD: RECORD_TYPES.POWER_PORT,
-        Text: 'VCC',
+        Text: "VCC",
         coords: [[1000, 1000]], // Far apart
       };
 
       expect(isConnected(port1, port2)).toBe(true);
     });
 
-    it('should connect power ports with same TEXT', () => {
+    it("should connect power ports with same TEXT", () => {
       const port1: AltiumRecord = {
         index: 0,
         RECORD: RECORD_TYPES.POWER_PORT,
-        TEXT: 'VCC',
+        TEXT: "VCC",
         coords: [[0, 0]],
       };
 
       const port2: AltiumRecord = {
         index: 1,
         RECORD: RECORD_TYPES.POWER_PORT,
-        TEXT: 'VCC',
+        TEXT: "VCC",
         coords: [[1000, 1000]],
       };
 
       expect(isConnected(port1, port2)).toBe(true);
     });
 
-    it('should not connect power ports with different Text', () => {
+    it("should not connect power ports with different Text", () => {
       const port1: AltiumRecord = {
         index: 0,
         RECORD: RECORD_TYPES.POWER_PORT,
-        Text: 'VCC',
+        Text: "VCC",
         coords: [[0, 0]],
       };
 
       const port2: AltiumRecord = {
         index: 1,
         RECORD: RECORD_TYPES.POWER_PORT,
-        Text: 'GND',
+        Text: "GND",
         coords: [[0, 0]], // Same location
       };
 
@@ -355,18 +398,18 @@ describe('Connectivity', () => {
       expect(isConnected(port1, port2)).toBe(true);
     });
 
-    it('should connect net labels with same Text globally', () => {
+    it("should connect net labels with same Text globally", () => {
       const label1: AltiumRecord = {
         index: 0,
         RECORD: RECORD_TYPES.NET_LABEL,
-        Text: 'IMU_SCL',
+        Text: "IMU_SCL",
         coords: [[0, 0]],
       };
 
       const label2: AltiumRecord = {
         index: 1,
         RECORD: RECORD_TYPES.NET_LABEL,
-        Text: 'IMU_SCL',
+        Text: "IMU_SCL",
         coords: [[1000, 1000]], // Far apart
       };
 
@@ -374,18 +417,18 @@ describe('Connectivity', () => {
       expect(isConnected(label1, label2)).toBe(true);
     });
 
-    it('should not connect net labels with different Text unless by location', () => {
+    it("should not connect net labels with different Text unless by location", () => {
       const label1: AltiumRecord = {
         index: 0,
         RECORD: RECORD_TYPES.NET_LABEL,
-        Text: 'IMU_SCL',
+        Text: "IMU_SCL",
         coords: [[0, 0]],
       };
 
       const label2: AltiumRecord = {
         index: 1,
         RECORD: RECORD_TYPES.NET_LABEL,
-        Text: 'IMU_SDA',
+        Text: "IMU_SDA",
         coords: [[1000, 1000]], // Far apart, different text
       };
 
@@ -393,8 +436,8 @@ describe('Connectivity', () => {
     });
   });
 
-  describe('findConnectedDevices', () => {
-    it('should find all devices in a connected chain', () => {
+  describe("findConnectedDevices", () => {
+    it("should find all devices in a connected chain", () => {
       const wire1: AltiumRecord = {
         index: 0,
         RECORD: RECORD_TYPES.WIRE,
@@ -426,7 +469,7 @@ describe('Connectivity', () => {
       expect(connected.map((d) => d.index).sort()).toEqual([0, 1, 2]);
     });
 
-    it('should not include disconnected devices', () => {
+    it("should not include disconnected devices", () => {
       const wire1: AltiumRecord = {
         index: 0,
         RECORD: RECORD_TYPES.WIRE,
@@ -454,13 +497,13 @@ describe('Connectivity', () => {
   });
 });
 
-describe('RECORD_TYPES', () => {
-  it('should define all expected record types', () => {
-    expect(RECORD_TYPES.COMPONENT).toBe('1');
-    expect(RECORD_TYPES.PIN).toBe('2');
-    expect(RECORD_TYPES.POWER_PORT).toBe('17');
-    expect(RECORD_TYPES.NET_LABEL).toBe('25');
-    expect(RECORD_TYPES.WIRE).toBe('27');
-    expect(RECORD_TYPES.DESIGNATOR).toBe('34');
+describe("RECORD_TYPES", () => {
+  it("should define all expected record types", () => {
+    expect(RECORD_TYPES.COMPONENT).toBe("1");
+    expect(RECORD_TYPES.PIN).toBe("2");
+    expect(RECORD_TYPES.POWER_PORT).toBe("17");
+    expect(RECORD_TYPES.NET_LABEL).toBe("25");
+    expect(RECORD_TYPES.WIRE).toBe("27");
+    expect(RECORD_TYPES.DESIGNATOR).toBe("34");
   });
 });

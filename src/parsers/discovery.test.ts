@@ -56,13 +56,13 @@ describe("discoverDesigns", () => {
       });
     });
 
-    it("should mark Cadence designs with missing dat files", async () => {
+    it("should not error for DSN design without dat files", async () => {
       await writeFile(join(testDir, "board.DSN"), "");
 
       const designs = await discoverDesigns(testDir);
       expect(designs).toHaveLength(1);
       expect(designs[0].name).toBe("board");
-      expect(designs[0].error).toBeDefined();
+      expect(designs[0].error).toBeUndefined();
     });
   });
 
@@ -80,7 +80,7 @@ describe("discoverDesigns", () => {
           "DocumentPath=Schematics\\sheet1.SchDoc",
           "[Document2]",
           "DocumentPath=Schematics\\sheet2.SchDoc",
-        ].join("\n"),
+        ].join("\n")
       );
       await writeOleSchDoc(join(schematicsDir, "sheet1.SchDoc"));
       await writeOleSchDoc(join(schematicsDir, "sheet2.SchDoc"));
@@ -107,13 +107,10 @@ describe("discoverDesigns", () => {
 
       await writeFile(
         join(projectDir, "board.PrjPcb"),
-        ["[Document1]", "DocumentPath=Schematics\\sheet1.SchDoc"].join("\n"),
+        ["[Document1]", "DocumentPath=Schematics\\sheet1.SchDoc"].join("\n")
       );
       // Write a text-based SchDoc (not OLE format)
-      await writeFile(
-        join(schematicsDir, "sheet1.SchDoc"),
-        "|HEADER=Protel for Windows - Sch|",
-      );
+      await writeFile(join(schematicsDir, "sheet1.SchDoc"), "|HEADER=Protel for Windows - Sch|");
 
       const designs = await discoverDesigns(testDir);
       expect(designs).toHaveLength(1);
@@ -126,7 +123,7 @@ describe("discoverDesigns", () => {
 
       await writeFile(
         join(projectDir, "board.PrjPcb"),
-        ["[Document1]", "DocumentPath=Sheet1.SchDoc"].join("\n"),
+        ["[Document1]", "DocumentPath=Sheet1.SchDoc"].join("\n")
       );
       await writeOleSchDoc(join(projectDir, "board.SchDoc"));
 
@@ -134,9 +131,7 @@ describe("discoverDesigns", () => {
       expect(designs).toHaveLength(1);
       expect(designs[0].error).toBeUndefined();
       const altiumDesign = designs[0] as AltiumDiscoveredDesign;
-      expect(altiumDesign.schdocPaths).toEqual([
-        join(projectDir, "board.SchDoc"),
-      ]);
+      expect(altiumDesign.schdocPaths).toEqual([join(projectDir, "board.SchDoc")]);
     });
   });
 
@@ -215,7 +210,7 @@ describe("discoverDesigns", () => {
       await mkdir(altiumDir, { recursive: true });
       await writeFile(
         join(altiumDir, "altium_board.PrjPcb"),
-        ["[Document1]", "DocumentPath=main.SchDoc"].join("\n"),
+        ["[Document1]", "DocumentPath=main.SchDoc"].join("\n")
       );
       await writeOleSchDoc(join(altiumDir, "main.SchDoc"));
 

@@ -23,54 +23,21 @@ import {
   queryXnetByNetName,
   queryXnetByPinName,
   exportCadenceNetlist,
-} from "./service.js";
-
-// =============================================================================
-// Server Instructions
-// =============================================================================
-
-const SERVER_INSTRUCTIONS = `
-# Netlist MCP Server
-
-This server provides tools to query EDA netlists for circuit design review.
-
-Supported formats:
-- **Cadence CIS/HDL**: Reads exported Allegro netlist files: pstxnet.dat, pstxprt.dat, pstchip.dat. Use \`export_cadence_netlist\` to generate these from .DSN schematics.
-- **Cadence dat-only**: Directories containing only .dat files (no .DSN schematic) are also discovered. The design path will be the pstxnet.dat file.
-- **Altium Designer**: Reads .SchDoc schematic documents within .PrjPcb projects.
-
-## Workflow Guidance
-
-1. Use \`list_designs\` first to discover available projects in a directory
-2. Use \`search_nets\` with regex patterns before querying specific nets
-3. Use \`search_components_by_*\` to find components by refdes, MPN, or description
-4. Use \`query_xnet_by_net_name\` or \`query_xnet_by_pin_name\` to trace signal paths
-5. For token optimization, use \`skip_types=['C','L']\` to skip series passives on power rails
-
-## Tool Usage Tips
-
-- Pin names use REFDES.PIN format (e.g., U1.A5, R10.1)
-- DNS (Do Not Stuff) components are excluded by default; use \`include_dns=true\` to include them
-- \`query_xnet_*\` traces through series components; \`circuit_hash\` identifies unique topologies
-- \`query_xnet_*\` stops traversal at power/ground nets; use \`skip_types\` to reduce noise on rails
-- Design paths are relative to the working directory (absolute paths also accepted)
-
-## Error Handling
-
-Results with an \`error\` field indicate a problem:
-- Design not found: Check available designs with \`list_designs\`
-- Net not found: Use \`search_nets\` to find available nets
-- Component not found: Use \`search_components_by_refdes\` to find available components
-- Missing netlist files: Run \`export_cadence_netlist\` to generate .dat files
-
-## Netlist Export (Windows Only)
-
-Use \`export_cadence_netlist\` to generate Allegro-compatible netlist files from Cadence schematics.
-- Requires Cadence SPB installation (auto-detected from C:/Cadence)
-- Uses the latest installed version by default
-- Output directory: \`{schematic_dir}/Allegro/\`
-- Returns error on non-Windows platforms
-`.trim();
+} from "./service/index.js";
+import {
+  SERVER_INSTRUCTIONS,
+  LIST_DESIGNS_DESCRIPTION,
+  LIST_COMPONENTS_DESCRIPTION,
+  LIST_NETS_DESCRIPTION,
+  SEARCH_NETS_DESCRIPTION,
+  SEARCH_COMPONENTS_BY_REFDES_DESCRIPTION,
+  SEARCH_COMPONENTS_BY_MPN_DESCRIPTION,
+  SEARCH_COMPONENTS_BY_DESCRIPTION_DESCRIPTION,
+  QUERY_XNET_BY_NET_NAME_DESCRIPTION,
+  QUERY_XNET_BY_PIN_NAME_DESCRIPTION,
+  QUERY_COMPONENT_DESCRIPTION,
+  EXPORT_CADENCE_NETLIST_DESCRIPTION,
+} from "./descriptions.js";
 
 // =============================================================================
 // Helper Functions
@@ -110,8 +77,7 @@ export const createServer = (): McpServer => {
   server.registerTool(
     "list_designs",
     {
-      description:
-        "List all design projects in the given directory. Returns absolute paths to schematic files (.DSN for Cadence, .SchDoc/.PrjPcb for Altium). Also discovers Cadence designs that only have exported .dat files (no .DSN schematic); these return a pstxnet.dat path instead. Always use this tool to discover designs instead of searching the filesystem manually. Each result may include an error field; notably, Cadence designs that have not been exported will show this error, and all queries against them will fail until you run export_cadence_netlist.",
+      description: LIST_DESIGNS_DESCRIPTION,
       inputSchema: {
         path: z.string().optional().describe("Path to directory to search for designs"),
         pattern: z.string().optional().describe("Regex pattern to filter design names"),
@@ -147,8 +113,7 @@ export const createServer = (): McpServer => {
   server.registerTool(
     "list_components",
     {
-      description:
-        'List components of a specific type in a design. The type prefix is case-insensitive, so "u" matches U1, U2, etc. Components are grouped by MPN for compact output. If no components match, the error lists the available prefixes in the design.',
+      description: LIST_COMPONENTS_DESCRIPTION,
       inputSchema: {
         design: z.string().describe("Path to design file, as returned by list_designs"),
         type: z.string().describe("Component prefix: U, C, R, L, etc."),
@@ -171,8 +136,7 @@ export const createServer = (): McpServer => {
   server.registerTool(
     "list_nets",
     {
-      description:
-        "List all net names in a design, sorted alphabetically. The result can be large. Prefer search_nets for targeted queries.",
+      description: LIST_NETS_DESCRIPTION,
       inputSchema: {
         design: z.string().describe("Path to design file"),
       },
@@ -189,8 +153,7 @@ export const createServer = (): McpServer => {
   server.registerTool(
     "search_nets",
     {
-      description:
-        "Search for nets matching a regex pattern. Matching is case-insensitive by default. Returns sorted results keyed by design name, with a notes field when nothing matches. Rejects patterns that match all items; use list_nets for full results.",
+      description: SEARCH_NETS_DESCRIPTION,
       inputSchema: {
         pattern: z.string().describe("Regex pattern"),
         design: z.string().describe("Path to design file"),
@@ -208,8 +171,7 @@ export const createServer = (): McpServer => {
   server.registerTool(
     "search_components_by_refdes",
     {
-      description:
-        "Search for components by refdes pattern. Matching is case-insensitive. Results are grouped by MPN for compact output, with a notes field when nothing matches. Rejects patterns that match all items; use list_components for full results.",
+      description: SEARCH_COMPONENTS_BY_REFDES_DESCRIPTION,
       inputSchema: {
         pattern: z.string().describe("Regex pattern for refdes"),
         design: z.string().describe("Path to design file"),
@@ -228,8 +190,7 @@ export const createServer = (): McpServer => {
   server.registerTool(
     "search_components_by_mpn",
     {
-      description:
-        "Search for components by MPN (Manufacturer Part Number) pattern. Not all netlists include MPN data; if unavailable, fall back to search_components_by_refdes or search_components_by_description, or ask the user for a BOM. Rejects patterns that match all items; use list_components for full results.",
+      description: SEARCH_COMPONENTS_BY_MPN_DESCRIPTION,
       inputSchema: {
         pattern: z.string().describe("Regex pattern for MPN"),
         design: z.string().describe("Path to design file"),
@@ -248,8 +209,7 @@ export const createServer = (): McpServer => {
   server.registerTool(
     "search_components_by_description",
     {
-      description:
-        "Search for components by description pattern. Not all netlists include description data; if unavailable, fall back to search_components_by_refdes or search_components_by_mpn, or ask the user for a BOM. Rejects patterns that match all items; use list_components for full results.",
+      description: SEARCH_COMPONENTS_BY_DESCRIPTION_DESCRIPTION,
       inputSchema: {
         pattern: z.string().describe("Regex pattern for description"),
         design: z.string().describe("Path to design file"),
@@ -268,8 +228,7 @@ export const createServer = (): McpServer => {
   server.registerTool(
     "query_xnet_by_net_name",
     {
-      description:
-        "Get full XNET (Extended Net) connectivity for a net. Rejects ground nets (GND, AGND, DGND, etc.) with an error.",
+      description: QUERY_XNET_BY_NET_NAME_DESCRIPTION,
       inputSchema: {
         design: z.string().describe("Path to design file"),
         net_name: z.string().describe("Exact net name"),
@@ -295,8 +254,7 @@ export const createServer = (): McpServer => {
   server.registerTool(
     "query_xnet_by_pin_name",
     {
-      description:
-        "Get full XNET connectivity starting from a component pin. Rejects pins connected to ground nets (GND, AGND, DGND, etc.) with an error.",
+      description: QUERY_XNET_BY_PIN_NAME_DESCRIPTION,
       inputSchema: {
         design: z.string().describe("Path to design file"),
         pin_name: z.string().describe("Pin spec: REFDES.PIN (e.g., U2.10, U1.A5)"),
@@ -319,8 +277,7 @@ export const createServer = (): McpServer => {
   server.registerTool(
     "query_component",
     {
-      description:
-        "Get full component details including all pin connections. Refdes lookup is case-insensitive. Returns MPN, description, value, and pin-to-net mappings when available. Errors include guidance and suggestions.",
+      description: QUERY_COMPONENT_DESCRIPTION,
       inputSchema: {
         design: z.string().describe("Path to design file"),
         refdes: z.string().describe("Component reference designator"),
@@ -338,8 +295,7 @@ export const createServer = (): McpServer => {
   server.registerTool(
     "export_cadence_netlist",
     {
-      description:
-        "Export Cadence schematic netlist to Allegro PCB format. Windows only. Requires Cadence SPB installation. Calls are queued internally so it is safe to call in parallel for multiple designs, but serialize calls if you encounter license or timeout errors. DSN lock files are handled automatically.",
+      description: EXPORT_CADENCE_NETLIST_DESCRIPTION,
       inputSchema: {
         design: z.string().describe("Path to .DSN schematic file"),
       },

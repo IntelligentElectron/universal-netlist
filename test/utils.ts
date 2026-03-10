@@ -131,6 +131,12 @@ export const findDesignFiles = async (fixture: Fixture): Promise<string[]> => {
 };
 
 /**
+ * Find .dsn files within a Cadence fixture directory (for DSN coverage tests).
+ */
+export const findDsnFiles = async (fixture: Fixture): Promise<string[]> =>
+  findDesignFilesRecursive(fixture.path, [".dsn"]);
+
+/**
  * Find a design file within a fixture directory.
  * Returns the first design file found (for backwards compatibility).
  */

@@ -1834,7 +1834,7 @@
         "8"
       ]
     },
-    "n\\R\\F\\_\\O\\N\\L\\Y\\": {
+    "nRF_ONLY": {
       "U6": [
         "5"
       ],
@@ -1848,7 +1848,7 @@
         "1"
       ]
     },
-    "I\\F\\_\\O\\F\\F\\": {
+    "IF_OFF": {
       "U6": [
         "13",
         "2",
@@ -1992,7 +1992,7 @@
         "2"
       ]
     },
-    "U\\A\\R\\T\\_\\F\\C\\_\\O\\F\\F\\": {
+    "UART_FC_OFF": {
       "U5": [
         "2"
       ],
@@ -3709,7 +3709,7 @@
     },
     "C23": {
       "mpn": "N.A.",
-      "description": "Capacitor, NP0, �0.1pF",
+      "description": "Capacitor, NP0, ±0.1pF",
       "pins": {
         "1": "ANT",
         "2": "GND"
@@ -4040,7 +4040,7 @@
     },
     "X1": {
       "mpn": "MP12308",
-      "description": "XTAL SMD 2016, 32MHz, Cl=8pF, Tol: �10ppm, Stab: �15ppm, -30�C ~ 85�C, ESR: 50ohm max",
+      "description": "XTAL SMD 2016, 32MHz, Cl=8pF, Tol: ±10ppm, Stab: ±15ppm, -30°C ~ 85°C, ESR: 50ohm max",
       "pins": {
         "1": {
           "name": "inp",
@@ -4063,7 +4063,7 @@
     },
     "C1": {
       "mpn": "N.A.",
-      "description": "Capacitor, NP0, �2%",
+      "description": "Capacitor, NP0, ±2%",
       "pins": {
         "1": "XC1",
         "2": "GND"
@@ -4072,7 +4072,7 @@
     },
     "C2": {
       "mpn": "N.A.",
-      "description": "Capacitor, NP0, �2%",
+      "description": "Capacitor, NP0, ±2%",
       "pins": {
         "1": "XC2",
         "2": "GND"
@@ -4081,7 +4081,7 @@
     },
     "C11": {
       "mpn": "N.A.",
-      "description": "Capacitor, NP0, �5%",
+      "description": "Capacitor, NP0, ±5%",
       "pins": {
         "1": "DEC3",
         "2": "GND"
@@ -4090,7 +4090,7 @@
     },
     "C5": {
       "mpn": "N.A.",
-      "description": "Capacitor, X7R, �10%",
+      "description": "Capacitor, X7R, ±10%",
       "pins": {
         "1": "DEC1",
         "2": "GND"
@@ -4099,34 +4099,34 @@
     },
     "C20": {
       "mpn": "CL10B475KQ8NQNC",
-      "description": "Capacitor, X7R, �10%, 6.3V",
+      "description": "Capacitor, X7R, ±10%, 6.3V",
       "pins": {
         "1": "NetC20_1",
         "2": "GND"
       },
-      "value": "4.7�F"
+      "value": "4.7µF"
     },
     "L2": {
       "mpn": "MLZ1608M100WTD25",
-      "description": "Inductor, 250mA, �20%, 1.05ohm. -55�C ~ 125�C",
+      "description": "Inductor, 250mA, ±20%, 1.05ohm. -55°C ~ 125°C",
       "pins": {
         "1": "NetL2_1",
         "2": "NetL2_2"
       },
-      "value": "10�H"
+      "value": "10µH"
     },
     "C15": {
       "mpn": "N.A.",
-      "description": "Capacitor, X7R, �10%",
+      "description": "Capacitor, X7R, ±10%",
       "pins": {
         "1": "GND",
         "2": "DEC4_6"
       },
-      "value": "1.0�F"
+      "value": "1.0µF"
     },
     "C3": {
       "mpn": "N.A.",
-      "description": "Capacitor, NP0, �5%",
+      "description": "Capacitor, NP0, ±5%",
       "pins": {
         "1": "GND",
         "2": "NetC3_2"
@@ -4135,16 +4135,16 @@
     },
     "C10": {
       "mpn": "N.A.",
-      "description": "Not mounted",
       "pins": {
         "1": "GND",
         "2": "DEC4_6"
       },
-      "value": "N.C."
+      "value": "N.C.",
+      "dns": true
     },
     "C18": {
       "mpn": "N.A.",
-      "description": "Capacitor, NP0, �2%",
+      "description": "Capacitor, NP0, ±2%",
       "pins": {
         "1": "GND",
         "2": "NetC18_2"
@@ -4153,7 +4153,7 @@
     },
     "C17": {
       "mpn": "N.A.",
-      "description": "Capacitor, NP0, �2%",
+      "description": "Capacitor, NP0, ±2%",
       "pins": {
         "1": "GND",
         "2": "NetC17_2"
@@ -4162,16 +4162,16 @@
     },
     "L4": {
       "mpn": "MLZ1608M100WTD25",
-      "description": "Inductor, 250mA, �20%, 1.05ohm. -55�C ~ 125�C",
+      "description": "Inductor, 250mA, ±20%, 1.05ohm. -55°C ~ 125°C",
       "pins": {
         "1": "VDD_nRF",
         "2": "NetL4_2"
       },
-      "value": "10�H"
+      "value": "10µH"
     },
     "C7": {
       "mpn": "N.A.",
-      "description": "Capacitor, X7R, �10%",
+      "description": "Capacitor, X7R, ±10%",
       "pins": {
         "1": "VDD_nRF",
         "2": "GND"
@@ -4180,16 +4180,16 @@
     },
     "C21": {
       "mpn": "N.A.",
-      "description": "Capacitor, X7S, �10%, 10V",
+      "description": "Capacitor, X7S, ±10%, 10V",
       "pins": {
         "1": "VBUS_nRF",
         "2": "GND"
       },
-      "value": "4.7�F"
+      "value": "4.7µF"
     },
     "C8": {
       "mpn": "N.A.",
-      "description": "Capacitor, X7R, �10%",
+      "description": "Capacitor, X7R, ±10%",
       "pins": {
         "1": "VDD_nRF",
         "2": "GND"
@@ -4198,16 +4198,16 @@
     },
     "C9": {
       "mpn": "N.A.",
-      "description": "Not mounted",
       "pins": {
         "1": "NetC9_1",
         "2": "GND"
       },
-      "value": "N.C."
+      "value": "N.C.",
+      "dns": true
     },
     "C12": {
       "mpn": "N.A.",
-      "description": "Capacitor, X7R, �10%",
+      "description": "Capacitor, X7R, ±10%",
       "pins": {
         "1": "VDD_nRF",
         "2": "GND"
@@ -4216,25 +4216,25 @@
     },
     "C13": {
       "mpn": "N.A.",
-      "description": "Not mounted",
       "pins": {
         "1": "NetC13_1",
         "2": "GND"
       },
-      "value": "N.C."
+      "value": "N.C.",
+      "dns": true
     },
     "C19": {
       "mpn": "N.A.",
-      "description": "Capacitor, X7S, �10%, 10V",
+      "description": "Capacitor, X7S, ±10%, 10V",
       "pins": {
         "1": "VDD_HV",
         "2": "GND"
       },
-      "value": "4.7�F"
+      "value": "4.7µF"
     },
     "C4": {
       "mpn": "N.A.",
-      "description": "Capacitor, C0G, �0.05pF, 50V",
+      "description": "Capacitor, C0G, ±0.05pF, 50V",
       "pins": {
         "1": "GND",
         "2": "RF"
@@ -4243,25 +4243,25 @@
     },
     "C14": {
       "mpn": "N.A.",
-      "description": "Capacitor, X7R, �10%",
+      "description": "Capacitor, X7R, ±10%",
       "pins": {
         "1": "VDD_nRF",
         "2": "GND"
       },
-      "value": "1.0�F"
+      "value": "1.0µF"
     },
     "C6": {
       "mpn": "CL10B475KQ8NQNC",
-      "description": "Capacitor, X7R, �10%, 6.3V",
+      "description": "Capacitor, X7R, ±10%, 6.3V",
       "pins": {
         "1": "VDD_nRF",
         "2": "GND"
       },
-      "value": "4.7�F"
+      "value": "4.7µF"
     },
     "C16": {
       "mpn": "N.A.",
-      "description": "Capacitor, X7R, �10%, 25V",
+      "description": "Capacitor, X7R, ±10%, 25V",
       "pins": {
         "1": "DEC4_6",
         "2": "GND"
@@ -4330,7 +4330,7 @@
     },
     "X2": {
       "mpn": "NX3215SA-32.768K-STD-MUA-9",
-      "description": "XTAL SMD 3215, 32.768kHz, 9pF, �20ppm",
+      "description": "XTAL SMD 3215, 32.768kHz, 9pF, ±20ppm",
       "pins": {
         "1": {
           "name": "inp",
@@ -4345,12 +4345,12 @@
     },
     "C22": {
       "mpn": "N.A.",
-      "description": "Not mounted",
       "pins": {
         "1": "RF",
         "2": "GND"
       },
-      "value": "N.C."
+      "value": "N.C.",
+      "dns": true
     },
     "SB23": {
       "mpn": "N.A.",
@@ -4459,7 +4459,7 @@
     },
     "R1": {
       "mpn": "N.A.",
-      "description": "Resistor, �5%, 0.05W",
+      "description": "Resistor, ±5%, 0.05W",
       "pins": {
         "1": "SDA",
         "2": "P0.26"
@@ -4468,7 +4468,7 @@
     },
     "R2": {
       "mpn": "N.A.",
-      "description": "Resistor, �5%, 0.05W",
+      "description": "Resistor, ±5%, 0.05W",
       "pins": {
         "1": "SCL",
         "2": "P0.27"
@@ -4477,21 +4477,21 @@
     },
     "C51": {
       "mpn": "N.A.",
-      "description": "Not mounted",
       "pins": {
         "1": "GND",
         "2": "P0.26"
       },
-      "value": "N.C."
+      "value": "N.C.",
+      "dns": true
     },
     "C52": {
       "mpn": "N.A.",
-      "description": "Not mounted",
       "pins": {
         "1": "GND",
         "2": "P0.27"
       },
-      "value": "N.C."
+      "value": "N.C.",
+      "dns": true
     },
     "SB21": {
       "mpn": "N.A.",
@@ -4570,25 +4570,25 @@
     },
     "R43": {
       "mpn": "N.A.",
-      "description": "Not mounted",
       "pins": {
         "1": "NetR43_1",
         "2": "P0.09/NFC1"
       },
-      "value": "N.C."
+      "value": "N.C.",
+      "dns": true
     },
     "R45": {
       "mpn": "N.A.",
-      "description": "Not mounted",
       "pins": {
         "1": "NetR45_1",
         "2": "P0.10/NFC2"
       },
-      "value": "N.C."
+      "value": "N.C.",
+      "dns": true
     },
     "L3": {
       "mpn": "LQG15HS15NJ02D",
-      "description": "Inductor, 450mA, �5%,  0.32ohm",
+      "description": "Inductor, 450mA, ±5%,  0.32ohm",
       "pins": {
         "1": "DEC4_6",
         "2": "NetL2_1"
@@ -4597,7 +4597,7 @@
     },
     "L1": {
       "mpn": "LQG15HS4N7B02D",
-      "description": "Inductor, 700mA, �0.1nH, 160mR LQG",
+      "description": "Inductor, 700mA, ±0.1nH, 160mR LQG",
       "pins": {
         "1": "NetC3_2",
         "2": "RF"
@@ -4606,16 +4606,16 @@
     },
     "R10": {
       "mpn": "N.A.",
-      "description": "Not mounted",
       "pins": {
         "1": "VCOM_CTS",
         "2": "GND"
       },
-      "value": "N.C."
+      "value": "N.C.",
+      "dns": true
     },
     "R16": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "SWD1_IO",
         "2": "NetR16_2"
@@ -4624,7 +4624,7 @@
     },
     "R20": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "NetQ3_1",
         "2": "GND"
@@ -4633,7 +4633,7 @@
     },
     "R17": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "SWD1_CLK",
         "2": "NetR17_2"
@@ -4642,7 +4642,7 @@
     },
     "R18": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "SWD1_SWO",
         "2": "NetR18_2"
@@ -4651,7 +4651,7 @@
     },
     "R19": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "SWD1_RESET",
         "2": "NetR19_2"
@@ -4660,7 +4660,7 @@
     },
     "R11": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "SWD0_IO",
         "2": "NetR11_2"
@@ -4669,7 +4669,7 @@
     },
     "R12": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "SWD0_CLK",
         "2": "NetR12_2"
@@ -4678,7 +4678,7 @@
     },
     "R14": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "SWD0_SWO",
         "2": "NetR14_2"
@@ -4687,7 +4687,7 @@
     },
     "R15": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "SWD0_RESET",
         "2": "NetR15_2"
@@ -4715,7 +4715,7 @@
     },
     "C30": {
       "mpn": "N.A.",
-      "description": "Capacitor, X7R, �10%, 10V",
+      "description": "Capacitor, X7R, ±10%, 10V",
       "pins": {
         "1": "NetC29_2",
         "2": "GND"
@@ -4724,7 +4724,7 @@
     },
     "C39": {
       "mpn": "N.A.",
-      "description": "Capacitor, X5R, �10%",
+      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "NetC39_1",
         "2": "GND"
@@ -4733,7 +4733,7 @@
     },
     "C31": {
       "mpn": "N.A.",
-      "description": "Capacitor, X5R, �10%",
+      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "VDD_IMCU",
         "2": "GND"
@@ -4742,7 +4742,7 @@
     },
     "C32": {
       "mpn": "N.A.",
-      "description": "Capacitor, X5R, �10%",
+      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "VDD_IMCU",
         "2": "GND"
@@ -4751,25 +4751,25 @@
     },
     "C37": {
       "mpn": "N.A.",
-      "description": "Capacitor, X7S, �10%, 10V",
+      "description": "Capacitor, X7S, ±10%, 10V",
       "pins": {
         "1": "NetC37_1",
         "2": "GND"
       },
-      "value": "4.7�F"
+      "value": "4.7µF"
     },
     "C38": {
       "mpn": "CL10B475KQ8NQNC",
-      "description": "Capacitor, X7R, �10%, 6.3V",
+      "description": "Capacitor, X7R, ±10%, 6.3V",
       "pins": {
         "1": "NetC38_1",
         "2": "GND"
       },
-      "value": "4.7�F"
+      "value": "4.7µF"
     },
     "C33": {
       "mpn": "N.A.",
-      "description": "Capacitor, X5R, �10%",
+      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "VDD_IMCU",
         "2": "GND"
@@ -4778,7 +4778,7 @@
     },
     "C34": {
       "mpn": "N.A.",
-      "description": "Capacitor, X5R, �10%",
+      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "VDD_IMCU",
         "2": "GND"
@@ -4787,7 +4787,7 @@
     },
     "C24": {
       "mpn": "N.A.",
-      "description": "Capacitor, X5R, �10%",
+      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "VDD_IMCU",
         "2": "GND"
@@ -4915,7 +4915,7 @@
     },
     "C25": {
       "mpn": "N.A.",
-      "description": "Capacitor, X5R, �10%",
+      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "VDD_IMCU",
         "2": "GND"
@@ -4924,7 +4924,7 @@
     },
     "C26": {
       "mpn": "N.A.",
-      "description": "Capacitor, X5R, �10%",
+      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "VDD_IMCU",
         "2": "GND"
@@ -4933,7 +4933,7 @@
     },
     "C27": {
       "mpn": "N.A.",
-      "description": "Capacitor, X5R, �10%",
+      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "VDD_IMCU",
         "2": "GND"
@@ -4942,7 +4942,7 @@
     },
     "R13": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "VBUS_IMCU",
         "2": "NetC37_1"
@@ -4951,7 +4951,7 @@
     },
     "R9": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "NetR9_1",
         "2": "GND"
@@ -4960,7 +4960,7 @@
     },
     "X3": {
       "mpn": "MP12308",
-      "description": "XTAL SMD 2016, 32MHz, Cl=8pF, Tol: �10ppm, Stab: �15ppm, -30�C ~ 85�C, ESR: 50ohm max",
+      "description": "XTAL SMD 2016, 32MHz, Cl=8pF, Tol: ±10ppm, Stab: ±15ppm, -30°C ~ 85°C, ESR: 50ohm max",
       "pins": {
         "1": {
           "name": "inp",
@@ -5000,7 +5000,7 @@
     },
     "R8": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "IMCU_RESET",
         "2": "VDD_IMCU"
@@ -5013,7 +5013,7 @@
       "pins": {
         "1": "IMCU_RESET"
       },
-      "value": "�1.5mm,SMD"
+      "value": "Ø1.5mm,SMD"
     },
     "TP49": {
       "mpn": "N.A.",
@@ -5021,7 +5021,7 @@
       "pins": {
         "1": "IMCU_SWDIO"
       },
-      "value": "�1.5mm,SMD"
+      "value": "Ø1.5mm,SMD"
     },
     "TP51": {
       "mpn": "N.A.",
@@ -5029,7 +5029,7 @@
       "pins": {
         "1": "IMCU_SWDCLK"
       },
-      "value": "�1.5mm,SMD"
+      "value": "Ø1.5mm,SMD"
     },
     "TP48": {
       "mpn": "N.A.",
@@ -5037,11 +5037,11 @@
       "pins": {
         "1": "VDD_IMCU"
       },
-      "value": "�1.5mm,SMD"
+      "value": "Ø1.5mm,SMD"
     },
     "LED5": {
       "mpn": "VS 25C7M5",
-      "description": "LED, Green, 0603, 573nm, Vf=2.0V, 24mcd, - 40 to +85�C",
+      "description": "LED, Green, 0603, 573nm, Vf=2.0V, 24mcd, - 40 to +85°C",
       "pins": {
         "1": {
           "name": "C",
@@ -5056,7 +5056,7 @@
     },
     "R7": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "NetLED5_2",
         "2": "VBUS_IMCU"
@@ -5084,48 +5084,48 @@
     },
     "C28": {
       "mpn": "N.A.",
-      "description": "Capacitor, X5R, �10%, 6.3V",
+      "description": "Capacitor, X5R, ±10%, 6.3V",
       "pins": {
         "1": "VDD_IMCU",
         "2": "GND"
       },
-      "value": "1.0�F"
+      "value": "1.0µF"
     },
     "C29": {
       "mpn": "N.A.",
-      "description": "Capacitor, X5R, �10%, 6.3V",
+      "description": "Capacitor, X5R, ±10%, 6.3V",
       "pins": {
         "1": "GND",
         "2": "NetC29_2"
       },
-      "value": "1.0�F"
+      "value": "1.0µF"
     },
     "C35": {
       "mpn": "N.A.",
-      "description": "Capacitor, X5R, �10%, 6.3V",
+      "description": "Capacitor, X5R, ±10%, 6.3V",
       "pins": {
         "1": "GND",
         "2": "VDD_IMCU"
       },
-      "value": "1.0�F"
+      "value": "1.0µF"
     },
     "C36": {
       "mpn": "N.A.",
-      "description": "Capacitor, X5R, �10%, 6.3V",
+      "description": "Capacitor, X5R, ±10%, 6.3V",
       "pins": {
         "1": "GND",
         "2": "NetC36_2"
       },
-      "value": "1.0�F"
+      "value": "1.0µF"
     },
     "C40": {
       "mpn": "N.A.",
-      "description": "Capacitor, X5R, �10%, 6.3V",
+      "description": "Capacitor, X5R, ±10%, 6.3V",
       "pins": {
         "1": "GND",
         "2": "NetC40_2"
       },
-      "value": "1.0�F"
+      "value": "1.0µF"
     },
     "TP3": {
       "mpn": "N.A.",
@@ -5133,7 +5133,7 @@
       "pins": {
         "1": "VCOM_RTS"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "TP2": {
       "mpn": "N.A.",
@@ -5141,7 +5141,7 @@
       "pins": {
         "1": "VCOM_RxD"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "TP4": {
       "mpn": "N.A.",
@@ -5149,7 +5149,7 @@
       "pins": {
         "1": "VCOM_TxD"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "TP1": {
       "mpn": "N.A.",
@@ -5157,7 +5157,7 @@
       "pins": {
         "1": "VCOM_CTS"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "SB51": {
       "mpn": "N.A.",
@@ -5229,7 +5229,7 @@
         },
         "2": {
           "name": "IN 1-2",
-          "net": "I\\F\\_\\O\\F\\F\\"
+          "net": "IF_OFF"
         },
         "3": {
           "name": "NO2",
@@ -5241,7 +5241,7 @@
         },
         "5": {
           "name": "NC2",
-          "net": "n\\R\\F\\_\\O\\N\\L\\Y\\"
+          "net": "nRF_ONLY"
         },
         "6": {
           "name": "GND",
@@ -5261,7 +5261,7 @@
         },
         "10": {
           "name": "IN 3-4",
-          "net": "I\\F\\_\\O\\F\\F\\"
+          "net": "IF_OFF"
         },
         "11": {
           "name": "NO4",
@@ -5273,7 +5273,7 @@
         },
         "13": {
           "name": "NC4",
-          "net": "I\\F\\_\\O\\F\\F\\"
+          "net": "IF_OFF"
         },
         "14": {
           "name": "VCC",
@@ -5292,7 +5292,7 @@
     },
     "C45": {
       "mpn": "N.A.",
-      "description": "Capacitor, X5R, �10%",
+      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "GND",
         "2": "VDD"
@@ -5309,7 +5309,7 @@
         },
         "2": {
           "name": "IN 1-2",
-          "net": "U\\A\\R\\T\\_\\F\\C\\_\\O\\F\\F\\"
+          "net": "UART_FC_OFF"
         },
         "3": {
           "name": "NO2",
@@ -5341,7 +5341,7 @@
         },
         "10": {
           "name": "IN 3-4",
-          "net": "I\\F\\_\\O\\F\\F\\"
+          "net": "IF_OFF"
         },
         "11": {
           "name": "NO4",
@@ -5353,7 +5353,7 @@
         },
         "13": {
           "name": "NC4",
-          "net": "I\\F\\_\\O\\F\\F\\"
+          "net": "IF_OFF"
         },
         "14": {
           "name": "VCC",
@@ -5380,7 +5380,7 @@
         },
         "2": {
           "name": "IN 1-2",
-          "net": "I\\F\\_\\O\\F\\F\\"
+          "net": "IF_OFF"
         },
         "3": {
           "name": "NO2",
@@ -5443,7 +5443,7 @@
     },
     "C42": {
       "mpn": "N.A.",
-      "description": "Capacitor, X5R, �10%",
+      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "GND",
         "2": "VDD"
@@ -5452,7 +5452,7 @@
     },
     "C48": {
       "mpn": "N.A.",
-      "description": "Capacitor, X5R, �10%",
+      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "GND",
         "2": "VDD"
@@ -5532,7 +5532,7 @@
     },
     "C50": {
       "mpn": "N.A.",
-      "description": "Capacitor, X5R, �10%",
+      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "GND",
         "2": "VDD"
@@ -5560,7 +5560,7 @@
     },
     "R48": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "NetLED2_2",
         "2": "VDD_PER"
@@ -5569,7 +5569,7 @@
     },
     "R47": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "NetLED1_2",
         "2": "VDD_PER"
@@ -5593,7 +5593,7 @@
     },
     "R50": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "NetLED3_2",
         "2": "VDD_PER"
@@ -5617,7 +5617,7 @@
     },
     "R51": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "NetLED4_2",
         "2": "VDD_PER"
@@ -5656,7 +5656,7 @@
     },
     "LED1": {
       "mpn": "VS 25C7M5",
-      "description": "LED, Green, 0603, 573nm, Vf=2.0V, 24mcd, - 40 to +85�C",
+      "description": "LED, Green, 0603, 573nm, Vf=2.0V, 24mcd, - 40 to +85°C",
       "pins": {
         "1": {
           "name": "C",
@@ -5671,7 +5671,7 @@
     },
     "LED2": {
       "mpn": "VS 25C7M5",
-      "description": "LED, Green, 0603, 573nm, Vf=2.0V, 24mcd, - 40 to +85�C",
+      "description": "LED, Green, 0603, 573nm, Vf=2.0V, 24mcd, - 40 to +85°C",
       "pins": {
         "1": {
           "name": "C",
@@ -5686,7 +5686,7 @@
     },
     "LED3": {
       "mpn": "VS 25C7M5",
-      "description": "LED, Green, 0603, 573nm, Vf=2.0V, 24mcd, - 40 to +85�C",
+      "description": "LED, Green, 0603, 573nm, Vf=2.0V, 24mcd, - 40 to +85°C",
       "pins": {
         "1": {
           "name": "C",
@@ -5701,7 +5701,7 @@
     },
     "LED4": {
       "mpn": "VS 25C7M5",
-      "description": "LED, Green, 0603, 573nm, Vf=2.0V, 24mcd, - 40 to +85�C",
+      "description": "LED, Green, 0603, 573nm, Vf=2.0V, 24mcd, - 40 to +85°C",
       "pins": {
         "1": {
           "name": "C",
@@ -5739,7 +5739,7 @@
         },
         "2": {
           "name": "COM-1",
-          "net": "I\\F\\_\\O\\F\\F\\"
+          "net": "IF_OFF"
         },
         "3": {
           "name": "N.C-1",
@@ -5789,7 +5789,7 @@
         },
         "B2": {
           "name": "CTRL",
-          "net": "n\\R\\F\\_\\O\\N\\L\\Y\\"
+          "net": "nRF_ONLY"
         },
         "B1": {
           "name": "GND",
@@ -5800,7 +5800,7 @@
     },
     "R41": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "VDD",
         "2": "NetQ40_5"
@@ -5809,7 +5809,7 @@
     },
     "R40": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "VBUS",
         "2": "GND"
@@ -5951,7 +5951,7 @@
     },
     "C49": {
       "mpn": "N.A.",
-      "description": "Capacitor, X5R, �10%",
+      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "GND",
         "2": "NetC49_2"
@@ -5960,7 +5960,7 @@
     },
     "R46": {
       "mpn": "N.A.",
-      "description": "Resistor, �5%, 0.063W",
+      "description": "Resistor, ±5%, 0.063W",
       "pins": {
         "1": "NFC2",
         "2": "P0.10/NFC2"
@@ -5969,7 +5969,7 @@
     },
     "R44": {
       "mpn": "N.A.",
-      "description": "Resistor, �5%, 0.063W",
+      "description": "Resistor, ±5%, 0.063W",
       "pins": {
         "1": "NFC1",
         "2": "P0.09/NFC1"
@@ -5978,7 +5978,7 @@
     },
     "C46": {
       "mpn": "N.A.",
-      "description": "Capacitor, C0G, �5%, 50V",
+      "description": "Capacitor, C0G, ±5%, 50V",
       "pins": {
         "1": "NFC1",
         "2": "GND"
@@ -5987,7 +5987,7 @@
     },
     "C47": {
       "mpn": "N.A.",
-      "description": "Capacitor, C0G, �5%, 50V",
+      "description": "Capacitor, C0G, ±5%, 50V",
       "pins": {
         "1": "GND",
         "2": "NFC2"
@@ -6085,7 +6085,7 @@
     },
     "R26": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "USB_DETECT",
         "2": "GND"
@@ -6094,7 +6094,7 @@
     },
     "R52": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "VDD",
         "2": "NetR52_2"
@@ -6103,7 +6103,7 @@
     },
     "R53": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "VDD",
         "2": "NetR53_2"
@@ -6157,26 +6157,26 @@
     },
     "R54": {
       "mpn": "N.A.",
-      "description": "Not mounted",
       "pins": {
         "1": "BOOT/RESET",
         "2": "VDD"
       },
-      "value": "N.C."
+      "value": "N.C.",
+      "dns": true
     },
     "TP22": {
       "mpn": "N.A.",
       "description": "1.0mm circular SMD testpad",
       "pins": {
-        "1": "n\\R\\F\\_\\O\\N\\L\\Y\\"
+        "1": "nRF_ONLY"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "R3": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
-        "1": "n\\R\\F\\_\\O\\N\\L\\Y\\",
+        "1": "nRF_ONLY",
         "2": "NetR3_2"
       },
       "value": "10k"
@@ -6187,11 +6187,11 @@
       "pins": {
         "1": "TRACE_SW"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "R4": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "TRACE_SW",
         "2": "NetR4_2"
@@ -6204,7 +6204,7 @@
       "pins": {
         "1": "BUTTON2"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "TP20": {
       "mpn": "N.A.",
@@ -6212,7 +6212,7 @@
       "pins": {
         "1": "BUTTON1"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "Q40": {
       "mpn": "PMCPB5530X,115",
@@ -6242,7 +6242,7 @@
       "pins": {
         "1": "SWD3_IO"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "TP6": {
       "mpn": "N.A.",
@@ -6250,7 +6250,7 @@
       "pins": {
         "1": "SWD3_CLK"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "TP7": {
       "mpn": "N.A.",
@@ -6258,7 +6258,7 @@
       "pins": {
         "1": "SWD3_RESET"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "SB54": {
       "mpn": "N.A.",
@@ -6326,7 +6326,7 @@
       "pins": {
         "1": "SWD3_SWO"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "SW11": {
       "mpn": "CJS-1200TA",
@@ -6334,11 +6334,11 @@
       "pins": {
         "1": {
           "name": "N.C",
-          "net": "I\\F\\_\\O\\F\\F\\"
+          "net": "IF_OFF"
         },
         "2": {
           "name": "COM",
-          "net": "U\\A\\R\\T\\_\\F\\C\\_\\O\\F\\F\\"
+          "net": "UART_FC_OFF"
         },
         "3": {
           "name": "N.O",
@@ -6492,7 +6492,7 @@
     },
     "C67": {
       "mpn": "N.A.",
-      "description": "Capacitor, X7R, �10%, 10V",
+      "description": "Capacitor, X7R, ±10%, 10V",
       "pins": {
         "1": "GND",
         "2": "NetC67_2"
@@ -6528,16 +6528,16 @@
       "pins": {
         "1": "GND"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "C64": {
       "mpn": "N.A.",
-      "description": "Capacitor, X5R, �20%",
+      "description": "Capacitor, X5R, ±20%",
       "pins": {
         "1": "GND",
         "2": "NetC63_1"
       },
-      "value": "10�F"
+      "value": "10µF"
     },
     "TP11": {
       "mpn": "N.A.",
@@ -6545,11 +6545,11 @@
       "pins": {
         "1": "NetC63_1"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "C65": {
       "mpn": "N.A.",
-      "description": "Capacitor, X5R, �10%",
+      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "GND",
         "2": "NetC63_1"
@@ -6562,7 +6562,7 @@
       "pins": {
         "1": "NetD61_3"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "TP10": {
       "mpn": "N.A.",
@@ -6570,7 +6570,7 @@
       "pins": {
         "1": "NetD61_2"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "SB32": {
       "mpn": "N.A.",
@@ -6604,7 +6604,7 @@
     },
     "R68": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "NetR68_1",
         "2": "VDD"
@@ -6617,7 +6617,7 @@
       "pins": {
         "1": "NetR68_1"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "J2": {
       "mpn": "AJU55-BS2111-L",
@@ -6763,7 +6763,7 @@
     },
     "C66": {
       "mpn": "N.A.",
-      "description": "Capacitor, X7R, �10%, 10V",
+      "description": "Capacitor, X7R, ±10%, 10V",
       "pins": {
         "1": "GND",
         "2": "NetC66_2"
@@ -6864,16 +6864,16 @@
     },
     "C61": {
       "mpn": "N.A.",
-      "description": "Capacitor, X5R, �20%",
+      "description": "Capacitor, X5R, ±20%",
       "pins": {
         "1": "GND",
         "2": "NetC60_2"
       },
-      "value": "10�F"
+      "value": "10µF"
     },
     "C62": {
       "mpn": "N.A.",
-      "description": "Capacitor, X5R, �10%",
+      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "GND",
         "2": "NetC60_2"
@@ -6900,7 +6900,7 @@
     },
     "C60": {
       "mpn": "N.A.",
-      "description": "Capacitor, X7R, �10%",
+      "description": "Capacitor, X7R, ±10%",
       "pins": {
         "1": "GND",
         "2": "NetC60_2"
@@ -6936,7 +6936,7 @@
     },
     "C63": {
       "mpn": "N.A.",
-      "description": "Capacitor, X7R, �10%",
+      "description": "Capacitor, X7R, ±10%",
       "pins": {
         "1": "NetC63_1",
         "2": "GND"
@@ -6958,7 +6958,7 @@
       "pins": {
         "1": "NetD60_2"
       },
-      "value": "�1.5mm,SMD"
+      "value": "Ø1.5mm,SMD"
     },
     "TP14": {
       "mpn": "N.A.",
@@ -6966,7 +6966,7 @@
       "pins": {
         "1": "NetD60_3"
       },
-      "value": "�1.5mm,SMD"
+      "value": "Ø1.5mm,SMD"
     },
     "TP18": {
       "mpn": "N.A.",
@@ -6974,7 +6974,7 @@
       "pins": {
         "1": "NetJ5_4"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "TP17": {
       "mpn": "N.A.",
@@ -6982,7 +6982,7 @@
       "pins": {
         "1": "NetJ5_2"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "TP31": {
       "mpn": "N.A.",
@@ -6990,11 +6990,11 @@
       "pins": {
         "1": "VLi-Ion"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "C69": {
       "mpn": "N.A.",
-      "description": "Capacitor, X5R, �10%",
+      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "GND",
         "2": "VBUS"
@@ -7003,7 +7003,7 @@
     },
     "C68": {
       "mpn": "N.A.",
-      "description": "Capacitor, X5R, �10%",
+      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "GND",
         "2": "VBUS_nRF'"
@@ -7031,7 +7031,7 @@
       "pins": {
         "1": "NetFB62_1"
       },
-      "value": "�1.5mm,SMD"
+      "value": "Ø1.5mm,SMD"
     },
     "TP15": {
       "mpn": "N.A.",
@@ -7039,7 +7039,7 @@
       "pins": {
         "1": "NetC60_2"
       },
-      "value": "�1.5mm,SMD"
+      "value": "Ø1.5mm,SMD"
     },
     "SB60": {
       "mpn": "N.A.",
@@ -7077,7 +7077,7 @@
       "pins": {
         "1": "NetP14_2"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "TP43": {
       "mpn": "N.A.",
@@ -7085,7 +7085,7 @@
       "pins": {
         "1": "NetP14_4"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "TP44": {
       "mpn": "N.A.",
@@ -7093,7 +7093,7 @@
       "pins": {
         "1": "NetP14_6"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "TP45": {
       "mpn": "N.A.",
@@ -7101,7 +7101,7 @@
       "pins": {
         "1": "NetP14_8"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "TP46": {
       "mpn": "N.A.",
@@ -7109,7 +7109,7 @@
       "pins": {
         "1": "NetP14_10"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "TP47": {
       "mpn": "N.A.",
@@ -7117,11 +7117,11 @@
       "pins": {
         "1": "NetP14_12"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "R63": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "GND",
         "2": "NetC67_2"
@@ -7130,7 +7130,7 @@
     },
     "R62": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "GND",
         "2": "NetC66_2"
@@ -7139,7 +7139,7 @@
     },
     "R69": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "GND",
         "2": "NetP20_13"
@@ -7352,7 +7352,7 @@
       "pins": {
         "1": "VSENSE_SW_OUT"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "TP40": {
       "mpn": "N.A.",
@@ -7434,7 +7434,7 @@
     },
     "R86": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "VSUPPLY",
         "2": "VREG_EN_INV"
@@ -7527,7 +7527,7 @@
     },
     "C85": {
       "mpn": "N.A.",
-      "description": "Capacitor, X5R, �10%",
+      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "GND",
         "2": "V5V"
@@ -7559,7 +7559,7 @@
     },
     "R88": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "VDD_nRF_SENSE",
         "2": "GND"
@@ -7610,7 +7610,7 @@
     },
     "R87": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "VSUPPLY",
         "2": "VSUPPLY_EN"
@@ -7619,7 +7619,7 @@
     },
     "R89": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "VSUPPLY",
         "2": "VEXT_EN_INV"
@@ -7628,7 +7628,7 @@
     },
     "D81": {
       "mpn": "NSR0620P2T5G",
-      "description": "20V schottky barrier diode, Vf 350 mV @ 100 mA, Ir 2.0 �A @ 10 V, If 500 mA",
+      "description": "20V schottky barrier diode, Vf 350 mV @ 100 mA, Ir 2.0 µA @ 10 V, If 500 mA",
       "pins": {
         "1": {
           "name": "C",
@@ -7643,7 +7643,7 @@
     },
     "D80": {
       "mpn": "NSR0620P2T5G",
-      "description": "20V schottky barrier diode, Vf 350 mV @ 100 mA, Ir 2.0 �A @ 10 V, If 500 mA",
+      "description": "20V schottky barrier diode, Vf 350 mV @ 100 mA, Ir 2.0 µA @ 10 V, If 500 mA",
       "pins": {
         "1": {
           "name": "C",
@@ -7658,7 +7658,7 @@
     },
     "D82": {
       "mpn": "NSR0620P2T5G",
-      "description": "20V schottky barrier diode, Vf 350 mV @ 100 mA, Ir 2.0 �A @ 10 V, If 500 mA",
+      "description": "20V schottky barrier diode, Vf 350 mV @ 100 mA, Ir 2.0 µA @ 10 V, If 500 mA",
       "pins": {
         "1": {
           "name": "C",
@@ -7673,25 +7673,25 @@
     },
     "C80": {
       "mpn": "CL10A106MA8NRNC",
-      "description": "Capacitor, X5R, �20%, 25V",
+      "description": "Capacitor, X5R, ±20%, 25V",
       "pins": {
         "1": "GND",
         "2": "VBOOST_SRC"
       },
-      "value": "10�F"
+      "value": "10µF"
     },
     "C82": {
       "mpn": "CL10A106MA8NRNC",
-      "description": "Capacitor, X5R, �20%, 25V",
+      "description": "Capacitor, X5R, ±20%, 25V",
       "pins": {
         "1": "GND",
         "2": "V5V"
       },
-      "value": "10�F"
+      "value": "10µF"
     },
     "R84": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "GND",
         "2": "NetC87_1"
@@ -7700,7 +7700,7 @@
     },
     "R82": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "NetC87_1",
         "2": "VREG"
@@ -7714,25 +7714,25 @@
         "1": "NetL81_1",
         "2": "VREG"
       },
-      "value": "4.7�H"
+      "value": "4.7µH"
     },
     "C88": {
       "mpn": "CL10A106MA8NRNC",
-      "description": "Capacitor, X5R, �20%, 25V",
+      "description": "Capacitor, X5R, ±20%, 25V",
       "pins": {
         "1": "GND",
         "2": "VREG"
       },
-      "value": "10�F"
+      "value": "10µF"
     },
     "C86": {
       "mpn": "N.A.",
-      "description": "Capacitor, X5R, �10%, 16V",
+      "description": "Capacitor, X5R, ±10%, 16V",
       "pins": {
         "1": "GND",
         "2": "NetC86_2"
       },
-      "value": "4.7�F"
+      "value": "4.7µF"
     },
     "U11": {
       "mpn": "XC9236D08CER-G",
@@ -7771,7 +7771,7 @@
     },
     "C87": {
       "mpn": "N.A.",
-      "description": "Capacitor, NP0, �5%, 25V",
+      "description": "Capacitor, NP0, ±5%, 25V",
       "pins": {
         "1": "NetC87_1",
         "2": "VREG"
@@ -7780,7 +7780,7 @@
     },
     "D83": {
       "mpn": "NSR0620P2T5G",
-      "description": "20V schottky barrier diode, Vf 350 mV @ 100 mA, Ir 2.0 �A @ 10 V, If 500 mA",
+      "description": "20V schottky barrier diode, Vf 350 mV @ 100 mA, Ir 2.0 µA @ 10 V, If 500 mA",
       "pins": {
         "1": {
           "name": "C",
@@ -7852,7 +7852,7 @@
     },
     "R83": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "V5V",
         "2": "VREG_EN"
@@ -7861,7 +7861,7 @@
     },
     "R85": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "VREG_EN",
         "2": "GND"
@@ -7870,7 +7870,7 @@
     },
     "C89": {
       "mpn": "N.A.",
-      "description": "Capacitor, X5R, �10%",
+      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "GND",
         "2": "VSUPPLY"
@@ -7879,7 +7879,7 @@
     },
     "C90": {
       "mpn": "N.A.",
-      "description": "Capacitor, X5R, �10%",
+      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "GND",
         "2": "VSUPPLY"
@@ -7888,12 +7888,12 @@
     },
     "C83": {
       "mpn": "CL10A106MA8NRNC",
-      "description": "Capacitor, X5R, �20%, 25V",
+      "description": "Capacitor, X5R, ±20%, 25V",
       "pins": {
         "1": "GND",
         "2": "V5V"
       },
-      "value": "10�F"
+      "value": "10µF"
     },
     "SB39": {
       "mpn": "N.A.",
@@ -8066,7 +8066,7 @@
     },
     "C93": {
       "mpn": "N.A.",
-      "description": "Capacitor, X5R, �10%",
+      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "GND",
         "2": "VSUPPLY"
@@ -8075,7 +8075,7 @@
     },
     "R92": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "VEXT",
         "2": "GND"
@@ -8084,7 +8084,7 @@
     },
     "D84": {
       "mpn": "LS14",
-      "description": "Diode Schottky Vf=0.45, Vr=40V, If=1A, Ir=1�A",
+      "description": "Diode Schottky Vf=0.45, Vr=40V, If=1A, Ir=1µA",
       "pins": {
         "1": {
           "name": "C",
@@ -8118,7 +8118,7 @@
     },
     "R93": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "V5V",
         "2": "NetQ83_3"
@@ -8127,7 +8127,7 @@
     },
     "R94": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "NetQ83_1",
         "2": "GND"
@@ -8140,7 +8140,7 @@
       "pins": {
         "1": "NetP21_2"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "TP26": {
       "mpn": "N.A.",
@@ -8148,7 +8148,7 @@
       "pins": {
         "1": "VBAT"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "TP33": {
       "mpn": "N.A.",
@@ -8156,7 +8156,7 @@
       "pins": {
         "1": "VDD_nRF_SENSE"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "TP34": {
       "mpn": "N.A.",
@@ -8164,7 +8164,7 @@
       "pins": {
         "1": "NetQ80_3"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "TP32": {
       "mpn": "N.A.",
@@ -8172,7 +8172,7 @@
       "pins": {
         "1": "VBOOST_SRC'"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "TP35": {
       "mpn": "N.A.",
@@ -8180,7 +8180,7 @@
       "pins": {
         "1": "VDD_IMCU"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "TP28": {
       "mpn": "N.A.",
@@ -8188,7 +8188,7 @@
       "pins": {
         "1": "VBOOST_SRC"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "TP36": {
       "mpn": "N.A.",
@@ -8196,7 +8196,7 @@
       "pins": {
         "1": "V5V"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "TP29": {
       "mpn": "N.A.",
@@ -8204,7 +8204,7 @@
       "pins": {
         "1": "VSUPPLY"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "SB58": {
       "mpn": "N.A.",
@@ -8223,7 +8223,7 @@
     },
     "R96": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "VSUPPLY",
         "2": "NetQ84_5"
@@ -8232,7 +8232,7 @@
     },
     "R95": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "VBAT",
         "2": "NetR95_2"
@@ -8241,7 +8241,7 @@
     },
     "C94": {
       "mpn": "N.A.",
-      "description": "Capacitor, X5R, �10%",
+      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "GND",
         "2": "VSUPPLY"
@@ -8320,12 +8320,12 @@
     },
     "R90": {
       "mpn": "N.A.",
-      "description": "Not mounted",
       "pins": {
         "1": "VDD_nRF'",
         "2": "VDD_nRF"
       },
-      "value": "N.C."
+      "value": "N.C.",
+      "dns": true
     },
     "SB40": {
       "mpn": "N.A.",
@@ -8353,12 +8353,12 @@
     },
     "R91": {
       "mpn": "N.A.",
-      "description": "Not mounted",
       "pins": {
         "1": "VDD_HV'",
         "2": "VDD_HV"
       },
-      "value": "N.C."
+      "value": "N.C.",
+      "dns": true
     },
     "SB41": {
       "mpn": "N.A.",
@@ -8386,12 +8386,12 @@
     },
     "C92": {
       "mpn": "N.A.",
-      "description": "Capacitor, X7R, �10%",
+      "description": "Capacitor, X7R, ±10%",
       "pins": {
         "1": "GND",
         "2": "NetC92_2"
       },
-      "value": "1.0�F"
+      "value": "1.0µF"
     },
     "SB81": {
       "mpn": "N.A.",
@@ -8410,12 +8410,12 @@
     },
     "C91": {
       "mpn": "N.A.",
-      "description": "Capacitor, X7R, �10%",
+      "description": "Capacitor, X7R, ±10%",
       "pins": {
         "1": "GND",
         "2": "VBUS_nRF'"
       },
-      "value": "1.0�F"
+      "value": "1.0µF"
     },
     "SB80": {
       "mpn": "N.A.",
@@ -8438,7 +8438,7 @@
       "pins": {
         "1": "NetR98_1"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "TP24": {
       "mpn": "N.A.",
@@ -8446,7 +8446,7 @@
       "pins": {
         "1": "VDD_nRF"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "TP25": {
       "mpn": "N.A.",
@@ -8454,7 +8454,7 @@
       "pins": {
         "1": "VDD_HV"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "TP37": {
       "mpn": "N.A.",
@@ -8462,7 +8462,7 @@
       "pins": {
         "1": "VDD"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "TP39": {
       "mpn": "N.A.",
@@ -8470,11 +8470,11 @@
       "pins": {
         "1": "GND"
       },
-      "value": "�1.0mm,SMD"
+      "value": "Ø1.0mm,SMD"
     },
     "R97": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "VBUS_nRF'",
         "2": "NetR97_2"
@@ -8483,7 +8483,7 @@
     },
     "R98": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "NetR98_1",
         "2": "VBUS_nRF"
@@ -8501,7 +8501,7 @@
     },
     "R99": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "VDD_nRF_SENSE",
         "2": "VIO_REF"
@@ -8551,7 +8551,7 @@
     },
     "R6": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "NetQ1_3",
         "2": "VDD_nRF_SENSE"
@@ -8560,7 +8560,7 @@
     },
     "C53": {
       "mpn": "N.A.",
-      "description": "Capacitor, X7R, �10%",
+      "description": "Capacitor, X7R, ±10%",
       "pins": {
         "1": "GND",
         "2": "NetC53_2"
@@ -8569,7 +8569,7 @@
     },
     "R5": {
       "mpn": "N.A.",
-      "description": "Resistor, �1%, 0.05W",
+      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "VDD_nRF_SENSE",
         "2": "NetC53_2"
@@ -8659,21 +8659,21 @@
     },
     "L80": {
       "mpn": "VLS3012HBX-4R7M-N",
-      "description": "4.7�H Shielded Wirewound Inductor 2.23A 201 mOhm Max Nonstandard",
+      "description": "4.7µH Shielded Wirewound Inductor 2.23A 201 mOhm Max Nonstandard",
       "pins": {
         "1": "VBOOST_SRC",
         "2": "NetL80_2"
       },
-      "value": "4.7�H"
+      "value": "4.7µH"
     },
     "C96": {
       "mpn": "N.A.",
-      "description": "Not mounted",
       "pins": {
         "1": "GND",
         "2": "V5V"
       },
-      "value": "N.C."
+      "value": "N.C.",
+      "dns": true
     }
   }
 }

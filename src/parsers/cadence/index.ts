@@ -4,17 +4,18 @@
  */
 
 import path from "path";
-import { parsePstxnet } from "./pstxnet-parser.js";
-import { parsePstxprt } from "./pstxprt-parser.js";
-import { parsePstchip } from "./pstchip-parser.js";
-import type { ChipPart } from "./pstchip-parser.js";
+import { parsePstxnet } from "./dat/pstxnet-parser.js";
+import { parsePstxprt } from "./dat/pstxprt-parser.js";
+import { parsePstchip } from "./dat/pstchip-parser.js";
+import type { ChipPart } from "./dat/pstchip-parser.js";
 import {
   discoverCadenceDesigns,
   findCadenceDatFiles,
   isCadenceFile,
   CADENCE_EXTENSIONS,
 } from "./discovery.js";
-import { isValidRefdes } from "../../circuit-traversal.js";
+import { parseDsnFile } from "./dsn/dsn-parser.js";
+import { isValidRefdes, stripDnsMarkers } from "../../circuit-traversal.js";
 import {
   createPinEntry,
   type ParsedNetlist,
@@ -22,18 +23,11 @@ import {
   type EDAProjectFormatHandler,
 } from "../../types.js";
 
-export {
-  discoverCadenceDesigns,
-  findCadenceDatFiles,
-  isCadenceFile,
-} from "./discovery.js";
-export { parsePstxnet, parsePstxnetContent } from "./pstxnet-parser.js";
-export { parsePstxprt, parsePstxprtContent } from "./pstxprt-parser.js";
-export {
-  parsePstchip,
-  parsePstchipContent,
-  type ChipPart,
-} from "./pstchip-parser.js";
+export { discoverCadenceDesigns, findCadenceDatFiles, isCadenceFile } from "./discovery.js";
+export { parseDsnFile } from "./dsn/dsn-parser.js";
+export { parsePstxnet, parsePstxnetContent } from "./dat/pstxnet-parser.js";
+export { parsePstxprt, parsePstxprtContent } from "./dat/pstxprt-parser.js";
+export { parsePstchip, parsePstchipContent, type ChipPart } from "./dat/pstchip-parser.js";
 
 export interface CadenceFilePaths {
   pstxnetPath: string;
@@ -57,9 +51,7 @@ export interface CadenceRawNetlist extends ParsedNetlist {
 /**
  * Build a lookup of part name -> pin number -> pin name from pstchip data.
  */
-const buildPinNameMaps = (
-  chips: ChipPart[],
-): Map<string, Map<string, string>> => {
+const buildPinNameMaps = (chips: ChipPart[]): Map<string, Map<string, string>> => {
   const pinNameMaps = new Map<string, Map<string, string>>();
 
   for (const chip of chips) {
@@ -93,18 +85,24 @@ const buildValueMap = (chips: ChipPart[]): Map<string, string> => {
 };
 
 /**
- * Build pin mappings for Cadence netlists.
- * Uses partNames map for cross-referencing with pstchip.dat.
- * Also extracts VALUE from pstchip.dat and sets it on components.
+ * Enrich components with pin mappings and values from pstchip data.
+ * Returns a new ComponentDetails with pins populated from net connections
+ * and pin names/values cross-referenced from pstchip.dat.
  */
 export const buildCadencePinMap = (
   nets: ParsedNetlist["nets"],
   components: ComponentDetails,
   chips: ChipPart[],
-  partNames: Map<string, string>,
-): void => {
+  partNames: Map<string, string>
+): ComponentDetails => {
   const pinNameMaps = buildPinNameMaps(chips);
   const valueMap = buildValueMap(chips);
+
+  // Shallow-copy components so we don't mutate the input
+  const result: ComponentDetails = {};
+  for (const [refdes, comp] of Object.entries(components)) {
+    result[refdes] = { ...comp, pins: { ...comp.pins } };
+  }
 
   for (const [netName, netConnections] of Object.entries(nets)) {
     for (const [refdes, pins] of Object.entries(netConnections)) {
@@ -112,18 +110,18 @@ export const buildCadencePinMap = (
       if (!isValidRefdes(refdes)) {
         continue;
       }
-      if (!components[refdes]) {
-        components[refdes] = { pins: {} };
+      if (!result[refdes]) {
+        result[refdes] = { pins: {} };
       }
 
-      const component = components[refdes];
+      const component = result[refdes];
       const partName = partNames.get(refdes);
 
       // Set value from pstchip.dat if not already set
       if (partName && !component.value) {
-        const value = valueMap.get(partName);
-        if (value) {
-          component.value = value;
+        const rawValue = valueMap.get(partName);
+        if (rawValue) {
+          component.value = component.dns ? (stripDnsMarkers(rawValue) ?? rawValue) : rawValue;
         }
       }
 
@@ -135,6 +133,8 @@ export const buildCadencePinMap = (
       }
     }
   }
+
+  return result;
 };
 
 // =============================================================================
@@ -146,9 +146,7 @@ export const buildCadencePinMap = (
  * Takes absolute paths to the .dat files.
  * Returns partNames for use in post-processing (pin mapping, value extraction).
  */
-export const parseCadence = async (
-  paths: CadenceFilePaths,
-): Promise<CadenceRawNetlist> => {
+export const parseCadence = async (paths: CadenceFilePaths): Promise<CadenceRawNetlist> => {
   const nets = await parsePstxnet(paths.pstxnetPath);
   const { components, partNames } = await parsePstxprt(paths.pstxprtPath);
 
@@ -166,34 +164,32 @@ export const parseCadence = async (
 };
 
 /**
- * Parse a Cadence design file by finding its .dat files and parsing them.
- * Includes all Cadence-specific post-processing (pin mapping, value extraction).
+ * Parse a Cadence design file.
+ * Routes on file extension: .dsn → DSN binary parser, .dat → DAT parser.
  */
-const parseCadenceDesign = async (
-  designPath: string,
-): Promise<ParsedNetlist> => {
-  const datFiles = await findCadenceDatFiles(designPath);
+const parseCadenceDesign = async (designPath: string): Promise<ParsedNetlist> => {
+  const ext = path.extname(designPath).toLowerCase();
 
-  if (!datFiles.pstxnet || !datFiles.pstxprt || !datFiles.pstchip) {
-    throw new Error(
-      `Missing netlist files for ${path.basename(designPath)}. Run export_cadence_netlist to generate them.`,
-    );
+  // DSN binary parsing (fallback when .dat files unavailable)
+  if (ext === ".dsn") {
+    return parseDsnFile(designPath);
   }
 
-  const raw = await parseCadence({
-    pstxnetPath: datFiles.pstxnet,
-    pstxprtPath: datFiles.pstxprt,
-    pstchipPath: datFiles.pstchip,
-  });
+  // DAT file parsing (fallback, or dat-only designs)
+  const datFiles = await findCadenceDatFiles(designPath);
+  if (datFiles.pstxnet && datFiles.pstxprt) {
+    const raw = await parseCadence({
+      pstxnetPath: datFiles.pstxnet,
+      pstxprtPath: datFiles.pstxprt,
+      pstchipPath: datFiles.pstchip ?? undefined,
+    });
+    const components = buildCadencePinMap(raw.nets, raw.components, raw.chips, raw.partNames);
+    return { nets: raw.nets, components };
+  }
 
-  // Apply Cadence-specific pin mapping with names from pstchip.dat
-  buildCadencePinMap(raw.nets, raw.components, raw.chips, raw.partNames);
-
-  // Return clean ParsedNetlist without internal chips/partNames
-  return {
-    nets: raw.nets,
-    components: raw.components,
-  };
+  throw new Error(
+    `Missing netlist files for ${path.basename(designPath)}. Run export_cadence_netlist to generate them.`
+  );
 };
 
 /**

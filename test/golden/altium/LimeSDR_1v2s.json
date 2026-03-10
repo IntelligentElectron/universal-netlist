@@ -9206,7 +9206,8 @@
         "1": "TXRF1_1AB_N",
         "2": "TXRF1_1AB_P"
       },
-      "value": "0.5pF"
+      "value": "0.5pF",
+      "dns": true
     },
     "MN23": {
       "mpn": "GRM1555C1HR80BA01D",
@@ -9228,7 +9229,8 @@
         "1": "TXRF1_2AB_P",
         "2": "TXRF1_2AB_N"
       },
-      "value": "1pF"
+      "value": "1pF",
+      "dns": true
     },
     "T1": {
       "pins": {
@@ -9245,7 +9247,8 @@
         "1": "RXRF1_HBB_N",
         "2": "RXRF1_HBB_P"
       },
-      "value": "0.5pF"
+      "value": "0.5pF",
+      "dns": true
     },
     "C18": {
       "pins": {
@@ -9665,7 +9668,8 @@
         "1": "TXRF2_1AB_N",
         "2": "TXRF2_1AB_P"
       },
-      "value": "0.5pF"
+      "value": "0.5pF",
+      "dns": true
     },
     "MN29": {
       "mpn": "GRM1555C1HR80BA01D",
@@ -9695,7 +9699,8 @@
         "1": "TXRF2_2AB_P",
         "2": "TXRF2_2AB_N"
       },
-      "value": "1pF"
+      "value": "1pF",
+      "dns": true
     },
     "MN15": {
       "mpn": "04025U2R0BAT2A",
@@ -9796,7 +9801,8 @@
         "1": "RXRF2_HBB_N",
         "2": "RXRF2_HBB_P"
       },
-      "value": "0.5pF"
+      "value": "0.5pF",
+      "dns": true
     },
     "MN54": {
       "pins": {
@@ -10758,7 +10764,8 @@
         "2": "NetC59_1"
       },
       "comment": "Ferrite",
-      "value": "600R@100MHz"
+      "value": "600R@100MHz",
+      "dns": true
     },
     "FR25": {
       "pins": {
@@ -10766,7 +10773,8 @@
         "2": "VCC1P25_LMS"
       },
       "comment": "Ferrite",
-      "value": "600R@100MHz"
+      "value": "600R@100MHz",
+      "dns": true
     },
     "R16": {
       "pins": {
@@ -11315,21 +11323,24 @@
         "1": "MSEL1",
         "2": "GND"
       },
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R175": {
       "pins": {
         "1": "VCC2P5A",
         "2": "MSEL2"
       },
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R179": {
       "pins": {
         "1": "VCC2P5A",
         "2": "MSEL3"
       },
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R168": {
       "pins": {
@@ -11364,7 +11375,8 @@
         "1": "VCC2P5A",
         "2": "MSEL0"
       },
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "IC32": {
       "pins": {
@@ -11440,7 +11452,8 @@
         "1": "NetIC32_1",
         "2": "EXP_AS_SS"
       },
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R181": {
       "pins": {
@@ -11476,7 +11489,8 @@
         "1": "VCC_INT",
         "2": "NetJ18_2"
       },
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R186": {
       "pins": {
@@ -12291,7 +12305,8 @@
         "1": "GND",
         "2": "VCC3P3"
       },
-      "value": "100uF, 6.3V"
+      "value": "100uF,6.3V",
+      "dns": true
     },
     "C323": {
       "pins": {
@@ -12335,14 +12350,16 @@
         "1": "NetJ19_1",
         "2": "VCC3P3"
       },
-      "comment": "FAN"
+      "comment": "FAN",
+      "dns": true
     },
     "R185": {
       "pins": {
         "1": "FAN_CTRL",
         "2": "GND"
       },
-      "value": "10k, 1%"
+      "value": "10k,1%",
+      "dns": true
     },
     "C304": {
       "mpn": "GRM155R71C104KA88D",
@@ -13746,14 +13763,16 @@
         "1": "NetJ12_10",
         "2": "FX3_RST"
       },
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R84": {
       "pins": {
         "1": "FX3_JTAG_TRST",
         "2": "NetJ12_10"
       },
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "IC6": {
       "pins": {
@@ -14284,7 +14303,8 @@
         "1": "VCC1P8_FX3",
         "2": "FX3_PMODE1"
       },
-      "value": "10k, 1%"
+      "value": "10k,1%",
+      "dns": true
     },
     "R77": {
       "pins": {
@@ -14298,7 +14318,8 @@
         "1": "VCC1P8_FX3",
         "2": "FX3_INT"
       },
-      "value": "10k, 1%"
+      "value": "10k,1%",
+      "dns": true
     },
     "R83": {
       "pins": {
@@ -14347,7 +14368,8 @@
         "1": "FX3_SPI_MISO",
         "2": "NetR71_2"
       },
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R73": {
       "pins": {
@@ -14452,7 +14474,8 @@
         "1": "FX3_OTG_ID",
         "2": "GND"
       },
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "FR42": {
       "pins": {
@@ -14735,7 +14758,8 @@
         "1": "VCC3P3_CFX3",
         "2": "VCC3P3"
       },
-      "value": "600R, 2A"
+      "value": "600R,2A",
+      "dns": true
     },
     "FR38": {
       "pins": {
@@ -14770,7 +14794,8 @@
         "1": "VCC3P3_CFX3",
         "2": "VCC3P3_CLK"
       },
-      "value": "600R, 2A"
+      "value": "600R,2A",
+      "dns": true
     },
     "C155": {
       "pins": {
@@ -14827,7 +14852,8 @@
           "net": "NetR95_1"
         }
       },
-      "comment": "30.72 MHz"
+      "comment": "30.72 MHz",
+      "dns": true
     },
     "XT3": {
       "pins": {
@@ -14848,7 +14874,8 @@
           "net": "NetC186_2"
         }
       },
-      "comment": "TCXO 61.44MHz"
+      "comment": "TCXO 61.44MHz",
+      "dns": true
     },
     "XT4": {
       "pins": {
@@ -15028,7 +15055,8 @@
         "1": "NetC181_2",
         "2": "REF_CLK"
       },
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R95": {
       "pins": {
@@ -15049,28 +15077,32 @@
         "1": "NetIC14_1",
         "2": "NetR102_2"
       },
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R103": {
       "pins": {
         "1": "NetC181_2",
         "2": "NetIC14_5"
       },
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R104": {
       "pins": {
         "1": "NetC181_2",
         "2": "NetIC14_2"
       },
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R100": {
       "pins": {
         "1": "VCC3P3_CLK",
         "2": "NetC188_2"
       },
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "C192": {
       "pins": {
@@ -15292,7 +15324,8 @@
         "1": "FPGA_CLK_OUT",
         "2": "NetC181_2"
       },
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "C181": {
       "mpn": "GRM155R71C104KA88D",
@@ -15493,7 +15526,8 @@
         "1": "GND",
         "2": "NetC199_2"
       },
-      "value": "1uF, 10%"
+      "value": "1uF,10%",
+      "dns": true
     },
     "C200": {
       "mpn": "GRM155R71C104KA88D",
@@ -15705,7 +15739,8 @@
         "1": "NetC181_2",
         "2": "SI_CLK4"
       },
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "C223": {
       "mpn": "GRM155R71C104KA88D",
@@ -16782,7 +16817,8 @@
         "1": "VCC_INT",
         "2": "VCC5P0_USB"
       },
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "LEDS1": {
       "pins": {
@@ -16803,7 +16839,8 @@
           "net": "FPGA_LED2_R"
         }
       },
-      "comment": "2xLED standoff"
+      "comment": "2xLED standoff",
+      "dns": true
     },
     "LEDS2": {
       "pins": {
@@ -16824,7 +16861,8 @@
           "net": "GND"
         }
       },
-      "comment": "2xLED standoff"
+      "comment": "2xLED standoff",
+      "dns": true
     },
     "R126": {
       "pins": {
@@ -16875,7 +16913,8 @@
         "1": "VDIO_LMS_FPGA",
         "2": "VCC2P5"
       },
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "FR53": {
       "pins": {
@@ -16973,7 +17012,8 @@
         "2": "NetC237_1",
         "3": "VCC_INT"
       },
-      "comment": "Header 3x1 pin"
+      "comment": "Header 3x1 pin",
+      "dns": true
     },
     "VD1": {
       "pins": {
@@ -17068,7 +17108,8 @@
           "net": ""
         }
       },
-      "comment": "LED_RG"
+      "comment": "LED_RG",
+      "dns": true
     },
     "C280": {
       "mpn": "GRM188R61E106MA73D",
@@ -17135,7 +17176,8 @@
           "net": ""
         }
       },
-      "comment": "LED_RG"
+      "comment": "LED_RG",
+      "dns": true
     },
     "LED6": {
       "pins": {
@@ -17145,7 +17187,8 @@
           "net": ""
         }
       },
-      "comment": "LED_RG"
+      "comment": "LED_RG",
+      "dns": true
     },
     "LED7": {
       "pins": {
@@ -17155,7 +17198,8 @@
           "net": ""
         }
       },
-      "comment": "LED_RG"
+      "comment": "LED_RG",
+      "dns": true
     },
     "C277": {
       "pins": {
@@ -17323,7 +17367,8 @@
         "1": "NetC281_2",
         "2": "VCC_INT"
       },
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "IC18": {
       "pins": {
@@ -17431,7 +17476,8 @@
         "1": "VCC_INT",
         "2": "VCC_EXT"
       },
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R131": {
       "pins": {

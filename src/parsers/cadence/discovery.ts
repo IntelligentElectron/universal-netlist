@@ -388,10 +388,6 @@ export const discoverCadenceDesigns = async (
       datFiles,
     };
 
-    if (!matchedDatSet) {
-      design.error = "Netlist files not exported. Run export_cadence_netlist to generate them.";
-    }
-
     designs.push(design);
   }
 

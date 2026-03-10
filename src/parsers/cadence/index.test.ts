@@ -5,12 +5,7 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
-import {
-  buildCadencePinMap,
-  parseCadence,
-  cadenceHandler,
-  type ChipPart,
-} from "./index.js";
+import { buildCadencePinMap, parseCadence, cadenceHandler, type ChipPart } from "./index.js";
 import type { ComponentDetails, NetConnections } from "../../types.js";
 import fs from "fs/promises";
 import os from "os";
@@ -28,14 +23,12 @@ describe("buildCadencePinMap", () => {
       U1: { pins: {} },
     };
 
-    buildCadencePinMap(nets, components, [], new Map());
+    const result = buildCadencePinMap(nets, components, [], new Map());
 
     // Valid refdes should have pin added
-    expect(components["U1"].pins["1"]).toBeDefined();
+    expect(result["U1"].pins["1"]).toBeDefined();
     // Garbage instance path should NOT be added to components
-    expect(
-      components["@BEAGLEBONEBLK_C.BEAGLEBONEBLACK(SCH_1):INS21415196@LAN8710"],
-    ).toBeUndefined();
+    expect(result["@BEAGLEBONEBLK_C.BEAGLEBONEBLACK(SCH_1):INS21415196@LAN8710"]).toBeUndefined();
   });
 
   it("should create entries for valid refdes not in components map", () => {
@@ -49,14 +42,14 @@ describe("buildCadencePinMap", () => {
       U1: { pins: {}, mpn: "TPS62088" },
     };
 
-    buildCadencePinMap(nets, components, [], new Map());
+    const result = buildCadencePinMap(nets, components, [], new Map());
 
     // Valid refdes in components should have pin added
-    expect(components["U1"].pins["1"]).toBeDefined();
+    expect(result["U1"].pins["1"]).toBeDefined();
     // U2 should be created (valid refdes) but without MPN/description
-    expect(components["U2"]).toBeDefined();
-    expect(components["U2"].pins["1"]).toBeDefined();
-    expect(components["U2"].mpn).toBeUndefined();
+    expect(result["U2"]).toBeDefined();
+    expect(result["U2"].pins["1"]).toBeDefined();
+    expect(result["U2"].mpn).toBeUndefined();
   });
 
   it("should process valid refdes that exist in components", () => {
@@ -69,13 +62,13 @@ describe("buildCadencePinMap", () => {
       R1: { pins: {}, mpn: "10K" },
     };
 
-    buildCadencePinMap(nets, components, [], new Map());
+    const result = buildCadencePinMap(nets, components, [], new Map());
 
     // Both components should have their pins populated
-    expect(components["U1"].pins["1"]).toBeDefined();
-    expect(components["U1"].pins["2"]).toBeDefined();
-    expect(components["R1"].pins["1"]).toBeDefined();
-    expect(components["R1"].pins["2"]).toBeDefined();
+    expect(result["U1"].pins["1"]).toBeDefined();
+    expect(result["U1"].pins["2"]).toBeDefined();
+    expect(result["R1"].pins["1"]).toBeDefined();
+    expect(result["R1"].pins["2"]).toBeDefined();
   });
 
   it("should handle multiple pins on same net", () => {
@@ -86,11 +79,11 @@ describe("buildCadencePinMap", () => {
       U1: { pins: {} },
     };
 
-    buildCadencePinMap(nets, components, [], new Map());
+    const result = buildCadencePinMap(nets, components, [], new Map());
 
-    expect(components["U1"].pins["1"]).toBeDefined();
-    expect(components["U1"].pins["3"]).toBeDefined();
-    expect(components["U1"].pins["5"]).toBeDefined();
+    expect(result["U1"].pins["1"]).toBeDefined();
+    expect(result["U1"].pins["3"]).toBeDefined();
+    expect(result["U1"].pins["5"]).toBeDefined();
   });
 
   it("should map pin names from pstchip data", () => {
@@ -110,14 +103,14 @@ describe("buildCadencePinMap", () => {
     ];
     const partNames = new Map([["U1", "IC_PACKAGE"]]);
 
-    buildCadencePinMap(nets, components, chips, partNames);
+    const result = buildCadencePinMap(nets, components, chips, partNames);
 
     // Pin 1 should have name VIN from pstchip
-    const pin1 = components["U1"].pins["1"];
+    const pin1 = result["U1"].pins["1"];
     expect(pin1).toEqual({ name: "VIN", net: "VCC" });
 
     // Pin 2 should have name GND from pstchip
-    const pin2 = components["U1"].pins["2"];
+    const pin2 = result["U1"].pins["2"];
     expect(pin2).toEqual({ name: "GND", net: "GND" });
   });
 
@@ -138,9 +131,9 @@ describe("buildCadencePinMap", () => {
     ];
     const partNames = new Map([["C1", "CAP_0805"]]);
 
-    buildCadencePinMap(nets, components, chips, partNames);
+    const result = buildCadencePinMap(nets, components, chips, partNames);
 
-    expect(components["C1"].value).toBe("10uF");
+    expect(result["C1"].value).toBe("10uF");
   });
 
   it("should not overwrite existing value", () => {
@@ -159,9 +152,9 @@ describe("buildCadencePinMap", () => {
     ];
     const partNames = new Map([["C1", "CAP_0805"]]);
 
-    buildCadencePinMap(nets, components, chips, partNames);
+    const result = buildCadencePinMap(nets, components, chips, partNames);
 
-    expect(components["C1"].value).toBe("existing_value");
+    expect(result["C1"].value).toBe("existing_value");
   });
 
   it("should use simple string for pins without name mapping", () => {
@@ -173,10 +166,10 @@ describe("buildCadencePinMap", () => {
     };
 
     // No chips or partNames, so no pin name mapping
-    buildCadencePinMap(nets, components, [], new Map());
+    const result = buildCadencePinMap(nets, components, [], new Map());
 
     // Pin should be a simple string (net name) since no name mapping
-    expect(components["U1"].pins["1"]).toBe("VCC");
+    expect(result["U1"].pins["1"]).toBe("VCC");
   });
 });
 
@@ -242,14 +235,10 @@ describe("cadenceHandler", () => {
     await fs.rm(tempDir, { recursive: true, force: true });
   });
 
-  it("should return ParsedNetlist without partNames", async () => {
-    // Create design directory structure
-    const designDir = path.join(tempDir, "TestDesign");
-    const workDir = path.join(designDir, "worklib", "design", "physical");
-    await fs.mkdir(workDir, { recursive: true });
-
-    // Create .dsn file to be discovered
-    await fs.writeFile(path.join(designDir, "test.dsn"), "");
+  it("should return ParsedNetlist without partNames via DAT path", async () => {
+    // Create design directory structure with .dat files
+    const datDir = path.join(tempDir, "TestDesign");
+    await fs.mkdir(datDir, { recursive: true });
 
     // Create minimal pstxnet.dat (Cadence format)
     const pstxnetContent = `
@@ -261,7 +250,7 @@ NET_NAME
 'GND'
 NODE_NAME U1 2
 `;
-    await fs.writeFile(path.join(workDir, "pstxnet.dat"), pstxnetContent);
+    await fs.writeFile(path.join(datDir, "pstxnet.dat"), pstxnetContent);
 
     // Create minimal pstxprt.dat (Cadence format)
     const pstxprtContent = `
@@ -269,7 +258,7 @@ PART_NAME
 U1 'IC_CHIP':
 DESCR='Test IC';
 `;
-    await fs.writeFile(path.join(workDir, "pstxprt.dat"), pstxprtContent);
+    await fs.writeFile(path.join(datDir, "pstxprt.dat"), pstxprtContent);
 
     // Create minimal pstchip.dat (Cadence format)
     const pstchipContent = `
@@ -285,10 +274,10 @@ end_pin;
 body
 VALUE='TestValue';
 `;
-    await fs.writeFile(path.join(workDir, "pstchip.dat"), pstchipContent);
+    await fs.writeFile(path.join(datDir, "pstchip.dat"), pstchipContent);
 
-    // Parse using the handler
-    const result = await cadenceHandler.parse(path.join(designDir, "test.dsn"));
+    // Parse using the handler with a .dat path (DAT fallback route)
+    const result = await cadenceHandler.parse(path.join(datDir, "pstxnet.dat"));
 
     // Verify result does NOT have internal properties (clean ParsedNetlist)
     expect("partNames" in result).toBe(false);

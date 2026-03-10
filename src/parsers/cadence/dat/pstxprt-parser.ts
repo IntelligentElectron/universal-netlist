@@ -1,10 +1,19 @@
 /**
  * Parser for Cadence .pstxprt.dat files
  * Extracts component details (MPN, description)
+ *
+ * Limitation: DNS/DNP/DNM detection relies on structured markers in part names,
+ * MFGR_PN, DESCR, or VALUE fields. Some Cadence designs use graphical-only
+ * text annotations on the schematic (e.g., "DNP" or "DNM" placed as plain text
+ * near the component symbol). These annotations are not exported to DAT files
+ * and are invisible to this parser. Known affected designs: OSHW-Jetson-Series
+ * (graphical DNP), LAUNCHXL-CC1310 (graphical DNM on R13, A1, MH1-5, P8),
+ * BeagleBoard-xM (graphical DNI on RP1, RP5).
  */
 
 import { readFile } from "fs/promises";
-import type { ComponentDetails } from "../../types.js";
+import { isDnsComponent, stripDnsMarkers } from "../../../circuit-traversal.js";
+import type { ComponentDetails } from "../../../types.js";
 
 /**
  * Result from parsing pstxprt.dat
@@ -42,14 +51,22 @@ export const parsePstxprtContent = (content: string): PstxprtResult => {
       const component: ComponentDetails[string] = { pins: {} };
 
       // MPN: use MFGR_PN if available, otherwise fall back to part name string
-      const mpn = currentProperties["MFGR_PN"] || currentPartName || undefined;
-      if (mpn) {
-        component.mpn = mpn;
-      }
+      let mpn = currentProperties["MFGR_PN"] || currentPartName || undefined;
 
       const description = currentProperties["DESCR"];
       if (description) {
         component.description = description;
+      }
+
+      // Detect DNS before stripping markers (needs original values)
+      const dns = isDnsComponent({ mpn, description });
+      if (dns) {
+        component.dns = true;
+        if (mpn) mpn = stripDnsMarkers(mpn);
+      }
+
+      if (mpn) {
+        component.mpn = mpn;
       }
 
       componentDetails[currentRefdes] = component;

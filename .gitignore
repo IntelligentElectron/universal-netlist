@@ -29,6 +29,7 @@ opencode.json
 # OS
 .DS_Store
 Thumbs.db
+*.xsd
 
 # Test coverage
 coverage/
@@ -43,5 +44,7 @@ telemetry-*.zip
 
 # Private files and plans
 private/
+references/
 plans/
 .plans/
+tmp/

@@ -14,7 +14,7 @@ const POWER_NET_PATTERN =
 const STOP_NET_PATTERN =
   /^(GND|VSS|AGND|DGND|PGND|SGND|CGND|VCC\w*|VDD\w*|VIN\w*|VOUT\w*|VBAT\w*|VBUS\w*|VSYS\w*|PWR_\w+|RAIL_\w+|PP\w*|PN\w*|LD_PP\w*|LD_PN\w*|[+-]?\d+V\d*\w*|[+-].+)$/i;
 const DNS_PATTERN =
-  /\b(DNS|DNP|DNF|DNI)\b|DO\s*NOT\s*(STUFF|POPULATE|INSTALL)|NOT\s*POPULATED|NO\s*POP/i;
+  /(?:^|[_,\s])(DNS|DNP|DNF|DNI|DNM|NF|NC)(?:$|[_,\s])|DO\s*NOT\s*(STUFF|POPULATE|INSTALL|FIT|MOUNT)|NOT\s*(POPULATED|FITTED|CONNECTED|MOUNTED)|NO\s*POP/i;
 
 /**
  * Check if a net name matches the ground pattern.
@@ -34,17 +34,9 @@ export const isStopNet = (netName: string): boolean => STOP_NET_PATTERN.test(net
 /**
  * Determine if a component is a traversable passive (R/RS, L, C, FB).
  */
-export const isPassive = (refdes: string): boolean => {
-  const refdesUpper = refdes.toUpperCase();
-  return (
-    refdesUpper.startsWith("RS") ||
-    refdesUpper.startsWith("R") ||
-    refdesUpper.startsWith("FR") ||
-    refdesUpper.startsWith("L") ||
-    refdesUpper.startsWith("C") ||
-    refdesUpper.startsWith("FB")
-  );
-};
+const PASSIVE_PREFIXES = new Set(["RS", "R", "FR", "L", "C", "FB"]);
+
+export const isPassive = (refdes: string): boolean => PASSIVE_PREFIXES.has(getRefdesPrefix(refdes));
 
 /**
  * Check if a string is a valid refdes (letters followed by alphanumerics).
@@ -63,11 +55,8 @@ export const getRefdesPrefix = (refdes: string): string => {
 /**
  * Check if a refdes matches a prefix filter.
  */
-export const matchesRefdesType = (refdes: string, type: string): boolean => {
-  const refdesUpper = refdes.toUpperCase();
-  const typeUpper = type.toUpperCase();
-  return refdesUpper.startsWith(typeUpper);
-};
+export const matchesRefdesType = (refdes: string, type: string): boolean =>
+  getRefdesPrefix(refdes) === type.toUpperCase();
 
 /**
  * Detect Do Not Stuff components using common markers.
@@ -80,6 +69,26 @@ export const isDnsComponent = (component?: {
   if (!component) return false;
   const haystack = `${component.mpn ?? ""} ${component.description ?? ""} ${component.comment ?? ""}`;
   return DNS_PATTERN.test(haystack);
+};
+
+/**
+ * Strip DNS marker tokens from a comma-separated string.
+ * Removes tokens matching DNS_PATTERN entirely, and strips trailing
+ * `_DNS`, `_DNI`, `_DNP`, `_DNF` suffixes from remaining tokens.
+ * Returns undefined if the result is empty.
+ */
+export const stripDnsMarkers = (str: string): string | undefined => {
+  const tokens = str.split(",").reduce<string[]>((acc, raw) => {
+    const token = raw.trim();
+    if (!token) return acc;
+    // Strip _DNS/_DNI/_DNP/_DNF/_DNM/_NF/_NC and anything after it
+    const cleaned = token.replace(/[_\s](DNS|DNP|DNF|DNI|DNM|NF|NC)([_\s].*)?$/i, "");
+    // Drop the token entirely if nothing remains or it's a standalone marker
+    if (!cleaned || DNS_PATTERN.test(cleaned)) return acc;
+    acc.push(cleaned);
+    return acc;
+  }, []);
+  return tokens.length > 0 ? tokens.join(",") : undefined;
 };
 
 /**
@@ -270,8 +279,8 @@ export const traverseCircuitFromNet = (
       return true;
     }
 
-    const refdesUpper = refdes.toUpperCase();
-    const matchedType = skipTypes.find((type) => refdesUpper.startsWith(type));
+    const prefix = getRefdesPrefix(refdes);
+    const matchedType = skipTypes.find((type) => prefix === type);
     if (matchedType) {
       if (!skippedComponents.has(refdes)) {
         skippedComponents.add(refdes);
@@ -295,7 +304,7 @@ export const traverseCircuitFromNet = (
     for (const [refdes, pins] of Object.entries(netConnections)) {
       const comp = components[refdes];
 
-      const dns = isDnsComponent(comp);
+      const dns = comp?.dns ?? false;
       if (shouldSkipComponent(refdes, comp, dns)) {
         continue;
       }
@@ -351,7 +360,7 @@ export const traverseCircuitFromNet = (
             for (const [otherRefdes] of Object.entries(otherNetConns)) {
               const otherComp = components[otherRefdes];
 
-              const otherDns = isDnsComponent(otherComp);
+              const otherDns = otherComp?.dns ?? false;
               if (shouldSkipComponent(otherRefdes, otherComp, otherDns)) {
                 continue;
               }

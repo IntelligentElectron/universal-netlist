@@ -72,8 +72,8 @@ vi.mock("./parsers/index.js", () => ({
 // =============================================================================
 
 let resolvePath: typeof import("./paths.js").resolvePath;
-let listDesigns: typeof import("./service.js").listDesigns;
-let exportCadenceNetlist: typeof import("./service.js").exportCadenceNetlist;
+let listDesigns: typeof import("./service/index.js").listDesigns;
+let exportCadenceNetlist: typeof import("./service/index.js").exportCadenceNetlist;
 let parsers: typeof import("./parsers/index.js");
 let path: typeof import("path");
 
@@ -87,7 +87,7 @@ beforeAll(async () => {
   path = await import("path");
   ({ resolvePath } = await import("./paths.js"));
   parsers = await import("./parsers/index.js");
-  ({ listDesigns, exportCadenceNetlist } = await import("./service.js"));
+  ({ listDesigns, exportCadenceNetlist } = await import("./service/index.js"));
 });
 
 beforeEach(() => {
@@ -194,6 +194,52 @@ describe("listDesigns searchPath and pattern", () => {
     expect(Array.isArray(result)).toBe(false);
     expect(result).toHaveProperty("error");
     expect((result as { error: string }).error).toContain("Invalid regex pattern");
+  });
+});
+
+// =============================================================================
+// listDesigns — Cadence .dat path priority
+// =============================================================================
+
+describe("listDesigns Cadence path priority", () => {
+  it("returns pstxnet.dat as path and .DSN as source when .dat files exist", async () => {
+    vi.mocked(parsers.discoverDesigns).mockResolvedValue([
+      {
+        name: "Board",
+        sourcePath: "C:\\projects\\Board.DSN",
+        format: "cadence-cis",
+        datFiles: {
+          pstxnet: "C:\\projects\\Allegro\\pstxnet.dat",
+          pstxprt: "C:\\projects\\Allegro\\pstxprt.dat",
+          pstchip: "C:\\projects\\Allegro\\pstchip.dat",
+        },
+      },
+    ]);
+
+    const result = await listDesigns();
+
+    expect(Array.isArray(result)).toBe(true);
+    const design = (result as Array<{ path: string; source?: string }>)[0];
+    expect(design.path).toBe("C:\\projects\\Allegro\\pstxnet.dat");
+    expect(design.source).toBe("C:\\projects\\Board.DSN");
+  });
+
+  it("returns .DSN as path with no source when no .dat files exist", async () => {
+    vi.mocked(parsers.discoverDesigns).mockResolvedValue([
+      {
+        name: "Board",
+        sourcePath: "C:\\projects\\Board.DSN",
+        format: "cadence-cis",
+        datFiles: { pstxnet: null, pstxprt: null, pstchip: null },
+      },
+    ]);
+
+    const result = await listDesigns();
+
+    expect(Array.isArray(result)).toBe(true);
+    const design = (result as Array<{ path: string; source?: string }>)[0];
+    expect(design.path).toBe("C:\\projects\\Board.DSN");
+    expect(design.source).toBeUndefined();
   });
 });
 

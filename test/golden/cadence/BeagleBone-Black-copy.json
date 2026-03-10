@@ -5309,24 +5309,27 @@
         "1": "RXP",
         "2": "DGND"
       },
-      "mpn": "CAP_0402_100PF_COG_50V_402_15PF,DNI",
-      "value": "15pF,DNI"
+      "dns": true,
+      "mpn": "CAP_0402_100PF_COG_50V_402_15PF",
+      "value": "15pF"
     },
     "C138": {
       "pins": {
         "1": "RXN",
         "2": "DGND"
       },
-      "mpn": "CAP_0402_100PF_COG_50V_402_15PF,DNI",
-      "value": "15pF,DNI"
+      "dns": true,
+      "mpn": "CAP_0402_100PF_COG_50V_402_15PF",
+      "value": "15pF"
     },
     "C139": {
       "pins": {
         "1": "TXP",
         "2": "DGND"
       },
-      "mpn": "CAP_0402_100PF_COG_50V_402_15PF,DNI",
-      "value": "15pF,DNI"
+      "dns": true,
+      "mpn": "CAP_0402_100PF_COG_50V_402_15PF",
+      "value": "15pF"
     },
     "C14": {
       "pins": {
@@ -5341,8 +5344,9 @@
         "1": "TXN",
         "2": "DGND"
       },
-      "mpn": "CAP_0402_100PF_COG_50V_402_15PF,DNI",
-      "value": "15pF,DNI"
+      "dns": true,
+      "mpn": "CAP_0402_100PF_COG_50V_402_15PF",
+      "value": "15pF"
     },
     "C141": {
       "pins": {
@@ -6738,8 +6742,9 @@
           "net": "DGND"
         }
       },
-      "mpn": "HDR_10X2_CJTAG_0_HEADER10X2_SMD_CTI JTAG,DNI",
-      "value": "CTI JTAG,DNI"
+      "dns": true,
+      "mpn": "HDR_10X2_CJTAG_0_HEADER10X2_SMD_CTI JTAG",
+      "value": "CTI JTAG"
     },
     "P3": {
       "pins": {
@@ -7600,8 +7605,9 @@
         "1": "MII1_REFCLK",
         "2": "REFCLKO"
       },
-      "mpn": "100-1/10W-1%-0603_4_402_10,1%,DNI",
-      "value": "10,1%,DNI"
+      "dns": true,
+      "mpn": "100-1/10W-1%-0603_4_402_10,1%",
+      "value": "10,1%"
     },
     "R125": {
       "pins": {
@@ -7736,16 +7742,18 @@
         "1": "MII1_REFCLK",
         "2": "RCLKIN"
       },
-      "mpn": "RES_0_1/16W_1%_0402_402_0,1%,DNI",
-      "value": "0,1%,DNI"
+      "dns": true,
+      "mpn": "RES_0_1/16W_1%_0402_402_0,1%",
+      "value": "0,1%"
     },
     "R141": {
       "pins": {
         "1": "PHY_XTAL2",
         "2": "PHY_XTAL1"
       },
-      "mpn": "RES_1M_1/16W_1%_0402_402_1M,1%,DNI",
-      "value": "1M,1%,DNI"
+      "dns": true,
+      "mpn": "RES_1M_1/16W_1%_0402_402_1M,1%",
+      "value": "1M,1%"
     },
     "R142": {
       "pins": {
@@ -8176,8 +8184,9 @@
         "1": "VDD_3V3A",
         "2": "LCD_DATA15"
       },
-      "mpn": "RES_100K_1/16W_1%_0402_402_100K,1%,DNI",
-      "value": "100K,1%,DNI"
+      "dns": true,
+      "mpn": "RES_100K_1/16W_1%_0402_402_100K,1%",
+      "value": "100K,1%"
     },
     "R56": {
       "pins": {
@@ -8192,24 +8201,27 @@
         "1": "VDD_3V3A",
         "2": "LCD_DATA13"
       },
-      "mpn": "RES_100K_1/16W_1%_0402_402_100K,1%,DNI",
-      "value": "100K,1%,DNI"
+      "dns": true,
+      "mpn": "RES_100K_1/16W_1%_0402_402_100K,1%",
+      "value": "100K,1%"
     },
     "R58": {
       "pins": {
         "1": "VDD_3V3A",
         "2": "LCD_DATA12"
       },
-      "mpn": "RES_100K_1/16W_1%_0402_402_100K,1%,DNI",
-      "value": "100K,1%,DNI"
+      "dns": true,
+      "mpn": "RES_100K_1/16W_1%_0402_402_100K,1%",
+      "value": "100K,1%"
     },
     "R59": {
       "pins": {
         "1": "VDD_3V3A",
         "2": "LCD_DATA11"
       },
-      "mpn": "RES_100K_1/16W_1%_0402_402_100K,1%,DNI",
-      "value": "100K,1%,DNI"
+      "dns": true,
+      "mpn": "RES_100K_1/16W_1%_0402_402_100K,1%",
+      "value": "100K,1%"
     },
     "R6": {
       "pins": {
@@ -8224,40 +8236,45 @@
         "1": "VDD_3V3A",
         "2": "LCD_DATA10"
       },
-      "mpn": "RES_100K_1/16W_1%_0402_402_100K,1%,DNI",
-      "value": "100K,1%,DNI"
+      "dns": true,
+      "mpn": "RES_100K_1/16W_1%_0402_402_100K,1%",
+      "value": "100K,1%"
     },
     "R61": {
       "pins": {
         "1": "VDD_3V3A",
         "2": "LCD_DATA9"
       },
-      "mpn": "RES_100K_1/16W_1%_0402_402_100K,1%,DNI",
-      "value": "100K,1%,DNI"
+      "dns": true,
+      "mpn": "RES_100K_1/16W_1%_0402_402_100K,1%",
+      "value": "100K,1%"
     },
     "R62": {
       "pins": {
         "1": "VDD_3V3A",
         "2": "LCD_DATA8"
       },
-      "mpn": "RES_100K_1/16W_1%_0402_402_100K,1%,DNI",
-      "value": "100K,1%,DNI"
+      "dns": true,
+      "mpn": "RES_100K_1/16W_1%_0402_402_100K,1%",
+      "value": "100K,1%"
     },
     "R63": {
       "pins": {
         "1": "VDD_3V3A",
         "2": "LCD_DATA7"
       },
-      "mpn": "RES_100K_1/16W_1%_0402_402_100K,1%,DNI",
-      "value": "100K,1%,DNI"
+      "dns": true,
+      "mpn": "RES_100K_1/16W_1%_0402_402_100K,1%",
+      "value": "100K,1%"
     },
     "R64": {
       "pins": {
         "1": "VDD_3V3A",
         "2": "LCD_DATA6"
       },
-      "mpn": "RES_100K_1/16W_1%_0402_402_100K,1%,DNI",
-      "value": "100K,1%,DNI"
+      "dns": true,
+      "mpn": "RES_100K_1/16W_1%_0402_402_100K,1%",
+      "value": "100K,1%"
     },
     "R65": {
       "pins": {
@@ -8296,8 +8313,9 @@
         "1": "VDD_3V3A",
         "2": "LCD_DATA1"
       },
-      "mpn": "RES_100K_1/16W_1%_0402_402_100K,1%,DNI",
-      "value": "100K,1%,DNI"
+      "dns": true,
+      "mpn": "RES_100K_1/16W_1%_0402_402_100K,1%",
+      "value": "100K,1%"
     },
     "R7": {
       "pins": {
@@ -8312,8 +8330,9 @@
         "1": "VDD_3V3A",
         "2": "LCD_DATA0"
       },
-      "mpn": "RES_100K_1/16W_1%_0402_402_100K,1%,DNI",
-      "value": "100K,1%,DNI"
+      "dns": true,
+      "mpn": "RES_100K_1/16W_1%_0402_402_100K,1%",
+      "value": "100K,1%"
     },
     "R71": {
       "pins": {
@@ -8408,8 +8427,9 @@
         "1": "LCD_DATA14",
         "2": "DGND"
       },
-      "mpn": "RES_100K_1/16W_1%_0402_402_100K,1%,DNI",
-      "value": "100K,1%,DNI"
+      "dns": true,
+      "mpn": "RES_100K_1/16W_1%_0402_402_100K,1%",
+      "value": "100K,1%"
     },
     "R82": {
       "pins": {
@@ -8480,40 +8500,45 @@
         "1": "VDDS",
         "2": "VDD_1V8"
       },
-      "mpn": "RES_4.75K_1/16W_1%_0402_402_0,1%,DNI",
-      "value": "0,1%,DNI"
+      "dns": true,
+      "mpn": "RES_4.75K_1/16W_1%_0402_402_0,1%",
+      "value": "0,1%"
     },
     "R90": {
       "pins": {
         "1": "LCD_DATA5",
         "2": "DGND"
       },
-      "mpn": "RES_100K_1/16W_1%_0402_402_100K,1%,DNI",
-      "value": "100K,1%,DNI"
+      "dns": true,
+      "mpn": "RES_100K_1/16W_1%_0402_402_100K,1%",
+      "value": "100K,1%"
     },
     "R91": {
       "pins": {
         "1": "LCD_DATA4",
         "2": "DGND"
       },
-      "mpn": "RES_100K_1/16W_1%_0402_402_100K,1%,DNI",
-      "value": "100K,1%,DNI"
+      "dns": true,
+      "mpn": "RES_100K_1/16W_1%_0402_402_100K,1%",
+      "value": "100K,1%"
     },
     "R92": {
       "pins": {
         "1": "LCD_DATA3",
         "2": "DGND"
       },
-      "mpn": "RES_100K_1/16W_1%_0402_402_100K,1%,DNI",
-      "value": "100K,1%,DNI"
+      "dns": true,
+      "mpn": "RES_100K_1/16W_1%_0402_402_100K,1%",
+      "value": "100K,1%"
     },
     "R93": {
       "pins": {
         "1": "LCD_DATA2",
         "2": "DGND"
       },
-      "mpn": "RES_100K_1/16W_1%_0402_402_100K,1%,DNI",
-      "value": "100K,1%,DNI"
+      "dns": true,
+      "mpn": "RES_100K_1/16W_1%_0402_402_100K,1%",
+      "value": "100K,1%"
     },
     "R94": {
       "pins": {

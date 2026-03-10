@@ -5,6 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.0] - 2026-03-10
+
+### Added
+
+- DSN binary parser: complete parser for Cadence `.DSN` schematic files (CFBF/OLE container format), providing direct netlist extraction without requiring Cadence's exported `.dat` files. Achieves 100% pin number coverage and 96.1% pin name coverage across 9 test fixtures. Extracts nets, components, pin numbers, pin names, MPN, and Value fields directly from binary schematics.
+- DNS (Do Not Stuff) detection at parse time: strips DNI, NF, NC, DNM markers from component fields
+- `--export-json` CLI command for standalone netlist export (no MCP server required)
+- `--coverage` CLI command for DSN vs DAT parity analysis
+- Design descriptions extracted from Cadence project files in `list_designs`
+- DSN coverage tests and golden files for 9 Cadence fixtures (BeagleBoard-xM, BeagleBone-Black, CutiePi, LAUNCHXL-CC1310, OSHW-Jetson-Series x5)
+
+### Changed
+
+- `list_designs` prefers `.dat` path for Cadence designs when exported files exist; falls back to `.DSN` path otherwise
+- OleReader extracted to shared `parsers/ole-reader` module with hierarchical path support
+- DAT parsers reorganized into `dat/` subdirectory
+- DSN parser split from monolith into focused modules (`page-parser`, `cache-parser`, `package-parser`, `library-parser`, etc.)
+- `service.ts` split into `service/` modules
+- Developer scripts consolidated: 24 ad-hoc DSN debug scripts merged into `dsn-inspect.ts`
+
+### Fixed
+
+- Pin number resolution for multi-unit components and version suffix matching
+- `list_components` exact refdes prefix matching (e.g., `C` no longer matches `CON`, `L` no longer matches `LED`)
+- Altium parser encoding fallback: tries UTF-8 first, falls back to latin1 for Windows-1252 encoded files (fixes corrupted special characters)
+- Altium net names with overbar notation (e.g., `\V\C\C`) unescaped to plain text (`VCC`)
+
 ## [0.0.22] - 2026-03-02
 
 ### Added

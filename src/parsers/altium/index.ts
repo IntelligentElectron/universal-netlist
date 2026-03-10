@@ -15,6 +15,7 @@
 import path from "path";
 import type { ParsedNetlist, NetConnections, ComponentDetails, PinEntry } from "../../types.js";
 import { createPinEntry } from "../../types.js";
+import { isDnsComponent, stripDnsMarkers } from "../../circuit-traversal.js";
 import type { AltiumSchematic, AltiumNet, AltiumRecord, OutputFormat } from "./types.js";
 import {
   RECORD_TYPES,
@@ -22,7 +23,7 @@ import {
   PIN_ELECTRICAL_TYPES,
   POWER_PORT_STYLES,
 } from "./types.js";
-import { OleReader, readOleStream } from "./ole-reader.js";
+import { OleReader, readOleStream } from "../ole-reader/ole-reader.js";
 import { parseRecords, findRecords } from "./record-parser.js";
 import { buildHierarchy, getPartsList, flattenHierarchy, findRecordByIndex } from "./hierarchy.js";
 import { extractNets, determineNetList } from "./net-extractor.js";
@@ -343,6 +344,20 @@ export const extractComponents = (schematic: AltiumSchematic): ComponentDetails 
 
     if (value !== undefined) {
       component.value = value;
+    }
+
+    // Check assembly info parameter for NF/DNS markers (Altium stores these as RECORD=41 parameters)
+    const assemblyInfo = parameters["assembly info"];
+    if (
+      isDnsComponent({
+        ...component,
+        comment: [component.comment, assemblyInfo].filter(Boolean).join(" "),
+      })
+    ) {
+      component.dns = true;
+      if (component.mpn) component.mpn = stripDnsMarkers(component.mpn);
+      if (component.value) component.value = stripDnsMarkers(component.value);
+      if (component.description) component.description = stripDnsMarkers(component.description);
     }
 
     components[refdes] = component;

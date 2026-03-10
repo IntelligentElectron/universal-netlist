@@ -73,6 +73,10 @@ The tag push triggers the release workflow, which automatically:
 - Creates GitHub Release with binaries
 - Publishes to npm via OIDC (no tokens)
 
+## Scripts
+
+Developer and agent utility scripts for golden file generation, DSN parser coverage analysis, and binary inspection. See [scripts/AGENTS.md](scripts/AGENTS.md) for usage.
+
 ## Testing
 
 Tests are colocated with source files (e.g., `service.test.ts`). Run with:
@@ -96,3 +100,35 @@ npm publishing uses OIDC trusted publishing (configured on npmjs.com) - no token
 - OIDC requires npm 11.5.1+ (Node 22 ships with older npm, so we explicitly upgrade)
 - Use `npm install` instead of `npm ci` - npm 11.x has stricter lock file validation that fails with cross-platform optional deps (esbuild, rollup)
 - Never commit any lockfile (`bun.lock`, `package-lock.json`) - vitest/rollup have cross-platform optional deps
+
+## DSN Parser Reference
+
+**MANDATORY**: Before modifying ANY file under `src/parsers/cadence/dsn/`, you MUST read the corresponding C++ reference implementation in `references/OpenOrCadParser/`. This directory is gitignored but accessible to all agent tools (Glob, Grep, Read). Do not skip this step. The C++ source is the ground truth for how the binary format works, and our TypeScript is a port of it.
+
+### Reference workflow
+
+1. **Read `docs/dsn-format.md`** for the binary format spec
+2. **Read the corresponding C++ file** in `references/OpenOrCadParser/` before writing any code
+3. Cross-reference `docs/dsn.xsd` / `docs/olb.xsd` for structure/field names if needed
+
+### C++ reference mapping
+
+The TypeScript files in `src/parsers/cadence/dsn/` map to C++ files in `references/OpenOrCadParser/`:
+
+| TypeScript | C++ reference (read this FIRST) |
+|---|---|
+| `cache-parser.ts` | `src/Streams/StreamCache.cpp` |
+| `page-parser.ts` | `src/Streams/StreamPage.cpp` |
+| `package-parser.ts` | `src/Streams/StreamPackage.cpp` |
+| `library-parser.ts` | `src/Streams/StreamLibrary.cpp` |
+| Any structure parsing | `src/Structures/` (e.g., `StructPlacedInstance.cpp`, `StructT0x10.cpp`, `StructWire.cpp`) |
+| Prefix/preamble logic | `src/GenericParser.cpp` |
+
+### Additional resources
+
+- **Cadence schemas**: `docs/dsn.xsd`, `docs/olb.xsd`
+- **Coverage scripts**: `scripts/dsn-coverage-report.ts`, `scripts/dsn-inspect.ts` (see `scripts/AGENTS.md`)
+
+## Git Guidelines
+
+See the `release` skill (`.claude/skills/release.md`) for commit, push, PR, and release workflows.

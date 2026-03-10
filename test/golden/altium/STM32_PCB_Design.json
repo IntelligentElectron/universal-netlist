@@ -618,7 +618,7 @@
         "2": "+3V3"
       },
       "comment": "2.2u",
-      "value": "0.10�F"
+      "value": "0.10µF"
     },
     "C10": {
       "mpn": "GRM155R71C104KA88D",
@@ -628,7 +628,7 @@
         "2": "+3V3"
       },
       "comment": "100n",
-      "value": "0.10�F"
+      "value": "0.10µF"
     },
     "C11": {
       "mpn": "GRM155R71C104KA88D",
@@ -638,7 +638,7 @@
         "2": "+3V3"
       },
       "comment": "100n",
-      "value": "0.10�F"
+      "value": "0.10µF"
     },
     "C12": {
       "mpn": "GRM155R71C104KA88D",
@@ -648,7 +648,7 @@
         "2": "+3V3"
       },
       "comment": "100n",
-      "value": "0.10�F"
+      "value": "0.10µF"
     },
     "C13": {
       "mpn": "GRM155R71C104KA88D",
@@ -658,7 +658,7 @@
         "2": "+3V3"
       },
       "comment": "100n",
-      "value": "0.10�F"
+      "value": "0.10µF"
     },
     "C14": {
       "mpn": "GRM155R71C104KA88D",
@@ -668,7 +668,7 @@
         "2": "+3V3"
       },
       "comment": "100n",
-      "value": "0.10�F"
+      "value": "0.10µF"
     },
     "C15": {
       "mpn": "GRM155R71C104KA88D",
@@ -678,7 +678,7 @@
         "2": "MCU_VCAP1"
       },
       "comment": "2.2u",
-      "value": "0.10�F"
+      "value": "0.10µF"
     },
     "C16": {
       "mpn": "GRM155R71C104KA88D",
@@ -688,7 +688,7 @@
         "2": "MCU_NRST"
       },
       "comment": "100n",
-      "value": "0.10�F"
+      "value": "0.10µF"
     },
     "R7": {
       "description": "RES Thick Film, 0O, 0.063W, 0402",
@@ -714,7 +714,7 @@
         "2": "MCU OSC IN"
       },
       "comment": "10p",
-      "value": "0.10�F"
+      "value": "0.10µF"
     },
     "C18": {
       "mpn": "GRM155R71C104KA88D",
@@ -724,7 +724,7 @@
         "2": "XTAL IN"
       },
       "comment": "10p",
-      "value": "0.10�F"
+      "value": "0.10µF"
     },
     "R6": {
       "description": "RES Thick Film, 0O, 0.063W, 0402",
@@ -848,7 +848,7 @@
         "2": "+3V3"
       },
       "comment": "100n",
-      "value": "0.10�F"
+      "value": "0.10µF"
     },
     "C5": {
       "mpn": "GRM155R71C104KA88D",
@@ -858,7 +858,7 @@
         "2": "IMU REGOUT"
       },
       "comment": "100n",
-      "value": "0.10�F"
+      "value": "0.10µF"
     },
     "C6": {
       "mpn": "GRM155R71C104KA88D",
@@ -868,7 +868,7 @@
         "2": "+3V3"
       },
       "comment": "10n",
-      "value": "0.10�F"
+      "value": "0.10µF"
     },
     "C7": {
       "mpn": "GRM155R71C104KA88D",
@@ -878,7 +878,7 @@
         "2": "IMU CPOUT"
       },
       "comment": "2.2n",
-      "value": "0.10�F"
+      "value": "0.10µF"
     },
     "J1": {
       "mpn": "473460001",
@@ -970,7 +970,7 @@
         "2": "VBUS"
       },
       "comment": "2.2u",
-      "value": "0.10�F"
+      "value": "0.10µF"
     },
     "C2": {
       "mpn": "GRM155R71C104KA88D",
@@ -980,7 +980,7 @@
         "2": "+5V"
       },
       "comment": "2.2u",
-      "value": "0.10�F"
+      "value": "0.10µF"
     },
     "C3": {
       "description": "General Purpose Ceramic Capacitor, 0805, 100nF, 10%, X7R, 0.15, 50V",

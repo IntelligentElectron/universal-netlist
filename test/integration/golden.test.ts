@@ -13,8 +13,26 @@
 
 import path from "node:path";
 import { describe, it, expect } from "vitest";
-import { listAllFixtures, loadGolden, findDesignFiles } from "../utils.js";
+import { listAllFixtures, loadGolden, findDesignFiles, findDsnFiles } from "../utils.js";
 import { parseDesign } from "../../src/parsers/index.js";
+import { findCadenceDatFiles } from "../../src/parsers/cadence/discovery.js";
+import { parseDsnFile } from "../../src/parsers/cadence/dsn/dsn-parser.js";
+import type { ParsedNetlist } from "../../src/types.js";
+
+/**
+ * Resolve the DAT parsing path for a Cadence design file.
+ * Golden files are always generated from DAT output (gold standard).
+ * For .dsn files with available DAT exports, returns the pstxnet.dat path.
+ * Otherwise returns the original design file path.
+ */
+const resolveGoldenParsePath = async (designFile: string): Promise<string> => {
+  const ext = path.extname(designFile).toLowerCase();
+  if (ext === ".dsn") {
+    const datFiles = await findCadenceDatFiles(designFile);
+    if (datFiles.pstxnet) return datFiles.pstxnet;
+  }
+  return designFile;
+};
 
 describe("Golden Reference Tests", () => {
   it("should pass when no fixtures are present", async () => {
@@ -62,11 +80,74 @@ describe("Parser Golden Output", async () => {
             );
           }
 
-          const actual = await parseDesign(designFile);
+          const parsePath = await resolveGoldenParsePath(designFile);
+          const actual = await parseDesign(parsePath);
 
           expect(actual).toEqual(golden);
         });
       });
     }
+  }
+});
+
+/**
+ * DSN Parser Coverage - Compare direct DSN binary parsing against DAT golden output.
+ *
+ * For each Cadence .DSN fixture that has a golden JSON (from .dat parsing),
+ * parse the .DSN directly and measure net/component coverage.
+ */
+describe("DSN Parser Coverage vs DAT Golden", async () => {
+  const fixtures = await listAllFixtures();
+  const cadenceDsnFixtures: { designFile: string; projectName: string; golden: ParsedNetlist }[] =
+    [];
+
+  for (const fixture of fixtures) {
+    if (fixture.format !== "cadence") continue;
+    // Find .dsn files directly (findDesignFiles prefers DAT for golden tests)
+    const dsnFiles = await findDsnFiles(fixture);
+    for (const designFile of dsnFiles) {
+      const projectName = path.basename(designFile, path.extname(designFile));
+      const golden = await loadGolden("cadence", projectName);
+      if (golden) {
+        cadenceDsnFixtures.push({ designFile, projectName, golden });
+      }
+    }
+  }
+
+  if (cadenceDsnFixtures.length === 0) {
+    it.skip("no cadence DSN fixtures with golden files", () => {});
+    return;
+  }
+
+  for (const { designFile, projectName, golden } of cadenceDsnFixtures) {
+    describe(projectName, () => {
+      it("should have >50% net coverage", () => {
+        const dsn = parseDsnFile(designFile);
+        const dsnNets = new Set(Object.keys(dsn.nets));
+        const goldenNets = new Set(Object.keys(golden.nets));
+        const common = [...dsnNets].filter((n) => goldenNets.has(n));
+        const coverage = goldenNets.size > 0 ? common.length / goldenNets.size : 1;
+
+        console.log(
+          `[${projectName}] Nets: golden=${goldenNets.size} dsn=${dsnNets.size} common=${common.length} (${(coverage * 100).toFixed(1)}%)`
+        );
+
+        expect(coverage).toBeGreaterThan(0.5);
+      });
+
+      it("should have >50% component coverage", () => {
+        const dsn = parseDsnFile(designFile);
+        const dsnComponents = new Set(Object.keys(dsn.components));
+        const goldenComponents = new Set(Object.keys(golden.components));
+        const common = [...dsnComponents].filter((c) => goldenComponents.has(c));
+        const coverage = goldenComponents.size > 0 ? common.length / goldenComponents.size : 1;
+
+        console.log(
+          `[${projectName}] Components: golden=${goldenComponents.size} dsn=${dsnComponents.size} common=${common.length} (${(coverage * 100).toFixed(1)}%)`
+        );
+
+        expect(coverage).toBeGreaterThan(0.5);
+      });
+    });
   }
 });

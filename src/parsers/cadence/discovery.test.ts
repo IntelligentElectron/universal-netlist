@@ -221,7 +221,8 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
 
       // test_design_2 should NOT have test_design_1's .dat files
       expect(design2!.datFiles?.pstxnet).toBeNull();
-      expect(design2!.error).toBeDefined();
+      // No error — DSN parsing is the default path
+      expect(design2!.error).toBeUndefined();
     });
 
     it("should handle 5 projects like reference-designs folder", async () => {
@@ -376,7 +377,8 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
 
       // test_design_1_v2 should not have .dat files
       expect(design1V2!.datFiles?.pstxnet).toBeNull();
-      expect(design1V2!.error).toBeDefined();
+      // No error — DSN parsing is the default path
+      expect(design1V2!.error).toBeUndefined();
     });
 
     it("should use proximity when names dont match any candidate", async () => {
@@ -449,10 +451,10 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
   });
 
   describe("Edge Cases", () => {
-    it("should mark design as not exported when no .dat files exist", async () => {
+    it("should not error for DSN design without .dat files", async () => {
       const projectDir = join(testDir, "project");
       await createDesign(join(projectDir, "board.DSN"));
-      // No .dat files
+      // No .dat files — DSN parsing is the default, no error needed
 
       const designs = await discoverCadenceDesigns(testDir);
 
@@ -461,8 +463,7 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
       expect(designs[0].datFiles?.pstxnet).toBeNull();
       expect(designs[0].datFiles?.pstxprt).toBeNull();
       expect(designs[0].datFiles?.pstchip).toBeNull();
-      expect(designs[0].error).toBeDefined();
-      expect(designs[0].error).toContain("not exported");
+      expect(designs[0].error).toBeUndefined();
     });
 
     it("should ignore INCOMPLETE .dat file sets (missing required files)", async () => {
@@ -480,7 +481,8 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
 
       expect(designs).toHaveLength(1);
       expect(designs[0].datFiles?.pstxnet).toBeNull();
-      expect(designs[0].error).toBeDefined();
+      // No error — DSN parsing is the default path
+      expect(designs[0].error).toBeUndefined();
     });
 
     it("should discover orphan .dat files as standalone cadence-dat design", async () => {

@@ -8,7 +8,7 @@ The Universal Netlist MCP Server provides tools for querying electronic design n
 
 | Format | Input Files | Description |
 |--------|------------|-------------|
-| Cadence (CIS / HDL) | `.dat` netlist files | Exported Allegro netlist files (`pstxnet.dat`, `pstxprt.dat`, `pstchip.dat`) from Cadence Capture CIS or HDL designs |
+| Cadence (CIS / HDL) | `.dat` files (preferred) or `.DSN` (fallback) | Exported Allegro netlist files (`pstxnet.dat`, `pstxprt.dat`, `pstchip.dat`) are preferred. When unavailable, the `.DSN` binary schematic is parsed directly. |
 | Altium Designer | `.SchDoc` | Altium schematic documents (discovered via `.PrjPcb` project files) |
 
 ## Design Philosophy
