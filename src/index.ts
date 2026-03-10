@@ -20,6 +20,7 @@ import {
   handleUninstallCommand,
   handleExportTelemetryCommand,
   handleExportJsonCommand,
+  handleCoverageCommand,
 } from "./cli/commands.js";
 import { autoUpdate, reexec } from "./cli/updater.js";
 import { runServer } from "./server.js";
@@ -61,6 +62,16 @@ const main = async (): Promise<void> => {
   if (args.includes("--export-json")) {
     const idx = args.indexOf("--export-json");
     await handleExportJsonCommand(args[idx + 1]);
+    return;
+  }
+
+  // Handle --coverage [path] [--verbose]
+  if (args.includes("--coverage")) {
+    const idx = args.indexOf("--coverage");
+    const nextArg = args[idx + 1];
+    const searchPath = nextArg && !nextArg.startsWith("--") ? nextArg : undefined;
+    const verbose = args.includes("--verbose");
+    await handleCoverageCommand(searchPath, verbose);
     return;
   }
 
