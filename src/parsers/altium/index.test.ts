@@ -497,6 +497,62 @@ describe("Connectivity", () => {
   });
 });
 
+describe("Connectivity - PORT records", () => {
+  it("should connect PORTs with same Name globally", () => {
+    const port1: AltiumRecord = {
+      index: 0,
+      RECORD: RECORD_TYPES.PORT,
+      Name: "DOUT",
+      coords: [[0, 0]],
+    };
+
+    const port2: AltiumRecord = {
+      index: 1,
+      RECORD: RECORD_TYPES.PORT,
+      Name: "DOUT",
+      coords: [[2000, 2000]],
+    };
+
+    expect(isConnected(port1, port2)).toBe(true);
+  });
+
+  it("should not connect PORTs with different Name", () => {
+    const port1: AltiumRecord = {
+      index: 0,
+      RECORD: RECORD_TYPES.PORT,
+      Name: "DOUT",
+      coords: [[0, 0]],
+    };
+
+    const port2: AltiumRecord = {
+      index: 1,
+      RECORD: RECORD_TYPES.PORT,
+      Name: "DIN",
+      coords: [[2000, 2000]],
+    };
+
+    expect(isConnected(port1, port2)).toBe(false);
+  });
+
+  it("should connect PORT to NET_LABEL with same name", () => {
+    const port: AltiumRecord = {
+      index: 0,
+      RECORD: RECORD_TYPES.PORT,
+      Name: "CLK",
+      coords: [[0, 0]],
+    };
+
+    const label: AltiumRecord = {
+      index: 1,
+      RECORD: RECORD_TYPES.NET_LABEL,
+      Text: "CLK",
+      coords: [[2000, 2000]],
+    };
+
+    expect(isConnected(port, label)).toBe(true);
+  });
+});
+
 describe("RECORD_TYPES", () => {
   it("should define all expected record types", () => {
     expect(RECORD_TYPES.COMPONENT).toBe("1");

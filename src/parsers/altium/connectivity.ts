@@ -5,8 +5,8 @@
  * instead of O(n²) pairwise comparisons.
  */
 
-import type { AltiumRecord } from './types.js';
-import { RECORD_TYPES } from './types.js';
+import type { AltiumRecord } from "./types.js";
+import { RECORD_TYPES } from "./types.js";
 
 type Coordinate = [number, number];
 type LineSegment = [Coordinate, Coordinate];
@@ -228,19 +228,27 @@ export const isConnected = (deviceA: AltiumRecord, deviceB: AltiumRecord): boole
     }
   }
 
-  // Special case: power ports AND net labels with same Text are connected globally
+  // Special case: globally-named devices (power ports, net labels, ports)
+  // with the same name are connected globally.
+  // Note: SHEET_ENTRY is NOT globally-named; it connects via wires on the parent sheet.
+  // Multiple sheet symbols can have SHEET_ENTRIES with the same name connecting to
+  // different nets (e.g., multi-channel designs).
   const isGloballyNamedDevice = (d: AltiumRecord): boolean =>
-    d.RECORD === RECORD_TYPES.POWER_PORT || d.RECORD === RECORD_TYPES.NET_LABEL;
+    d.RECORD === RECORD_TYPES.POWER_PORT ||
+    d.RECORD === RECORD_TYPES.NET_LABEL ||
+    d.RECORD === RECORD_TYPES.PORT;
 
-  const deviceAText = deviceA.Text ?? deviceA.TEXT;
-  const deviceBText = deviceB.Text ?? deviceB.TEXT;
+  const getDeviceName = (d: AltiumRecord): unknown => d.Text ?? d.TEXT ?? d.Name ?? d.NAME;
+
+  const deviceAName = getDeviceName(deviceA);
+  const deviceBName = getDeviceName(deviceB);
 
   if (
     isGloballyNamedDevice(deviceA) &&
     isGloballyNamedDevice(deviceB) &&
-    deviceAText &&
-    deviceBText &&
-    deviceAText === deviceBText
+    deviceAName &&
+    deviceBName &&
+    deviceAName === deviceBName
   ) {
     return true;
   }
@@ -267,11 +275,16 @@ export const findAllConnectedComponents = (devices: AltiumRecord[]): AltiumRecor
     uf.find(d.index); // Initialize
   }
 
-  // Collect globally-named devices (power ports and net labels)
+  // Collect globally-named devices (power ports, net labels, ports)
+  const globalNamedTypes = new Set<string>([
+    RECORD_TYPES.POWER_PORT,
+    RECORD_TYPES.NET_LABEL,
+    RECORD_TYPES.PORT,
+  ]);
   const globalLabels = new Map<string, number[]>();
   for (const device of devices) {
-    if (device.RECORD === RECORD_TYPES.POWER_PORT || device.RECORD === RECORD_TYPES.NET_LABEL) {
-      const text = (device.Text ?? device.TEXT) as string | undefined;
+    if (device.RECORD && globalNamedTypes.has(device.RECORD)) {
+      const text = (device.Text ?? device.TEXT ?? device.Name ?? device.NAME) as string | undefined;
       if (text) {
         if (!globalLabels.has(text)) {
           globalLabels.set(text, []);

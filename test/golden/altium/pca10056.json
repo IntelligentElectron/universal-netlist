@@ -2000,10 +2000,19 @@
         "2"
       ]
     },
-    "NetU7_10": {
+    "SHIELD_DETECT": {
       "U7": [
         "13",
         "10"
+      ],
+      "SB33": [
+        "2"
+      ],
+      "R68": [
+        "1"
+      ],
+      "TP19": [
+        "1"
       ]
     },
     "NetSB42_1": {
@@ -2859,17 +2868,6 @@
       ],
       "J2": [
         "3"
-      ]
-    },
-    "NetR68_1": {
-      "SB33": [
-        "2"
-      ],
-      "R68": [
-        "1"
-      ],
-      "TP19": [
-        "1"
       ]
     },
     "NetFB63_1": {
@@ -5412,7 +5410,7 @@
         },
         "10": {
           "name": "IN 3-4",
-          "net": "NetU7_10"
+          "net": "SHIELD_DETECT"
         },
         "11": {
           "name": "NO4",
@@ -6597,7 +6595,7 @@
         },
         "2": {
           "name": "1",
-          "net": "NetR68_1"
+          "net": "SHIELD_DETECT"
         }
       },
       "value": "Solderbridge"
@@ -6606,7 +6604,7 @@
       "mpn": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "pins": {
-        "1": "NetR68_1",
+        "1": "SHIELD_DETECT",
         "2": "VDD"
       },
       "value": "1M0"
@@ -6615,7 +6613,7 @@
       "mpn": "N.A.",
       "description": "1.0mm circular SMD testpad",
       "pins": {
-        "1": "NetR68_1"
+        "1": "SHIELD_DETECT"
       },
       "value": "Ø1.0mm,SMD"
     },

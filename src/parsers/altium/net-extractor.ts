@@ -15,6 +15,20 @@ const COORDINATE_SCALE = 10000;
 const unescapeAltiumOverbar = (name: string): string =>
   name.includes("\\") ? name.replace(/\\/g, "") : name;
 
+/**
+ * Get the net name from a globally-named device.
+ *
+ * NET_LABEL and POWER_PORT use Text/TEXT.
+ * PORT and SHEET_ENTRY use Name/NAME.
+ */
+const getDeviceNetName = (device: AltiumRecord): string | undefined => {
+  for (const key of ["Text", "TEXT", "Name", "NAME"]) {
+    const val = device[key];
+    if (val !== undefined && val !== null && val !== "") return String(val);
+  }
+  return undefined;
+};
+
 const toNumber = (value: unknown): number => {
   if (value === undefined || value === null || value === "") {
     return 0;
@@ -67,6 +81,10 @@ const findConnectableDevices = (schematic: AltiumSchematic): AltiumRecord[] => {
     RECORD_TYPES.PIN,
     RECORD_TYPES.NET_LABEL,
     RECORD_TYPES.POWER_PORT,
+    RECORD_TYPES.PORT,
+    // Note: SHEET_ENTRY (16) is NOT included here. It uses DISTANCEFROMTOP relative to its
+    // parent SHEET_SYMBOL, not absolute Location.X/Y. Cross-sheet connectivity is handled
+    // by multi-channel expansion in parseAltiumProject() instead.
   ]);
 
   const collectDevices = (records: AltiumRecord[]): void => {
@@ -282,15 +300,17 @@ const collectPinCandidates = (
  * 3. Pin-derived name (Net<Refdes>_<Pin>) using the lowest refdes/pin in the net
  */
 const assignNetName = (net: AltiumNet, schematic: AltiumSchematic): void => {
-  // Try power ports and net labels first
+  // Try power ports, net labels, ports, and sheet entries first
+  const namingTypes = new Set<string>([
+    RECORD_TYPES.POWER_PORT,
+    RECORD_TYPES.NET_LABEL,
+    RECORD_TYPES.PORT,
+  ]);
   for (const device of net.devices) {
-    if (
-      (device.RECORD === RECORD_TYPES.POWER_PORT || device.RECORD === RECORD_TYPES.NET_LABEL) &&
-      (device.Text !== undefined || device.TEXT !== undefined)
-    ) {
-      const textValue = device.Text ?? device.TEXT;
-      if (textValue !== undefined && textValue !== null && textValue !== "") {
-        net.name = unescapeAltiumOverbar(String(textValue));
+    if (device.RECORD && namingTypes.has(device.RECORD)) {
+      const nameValue = getDeviceNetName(device);
+      if (nameValue) {
+        net.name = unescapeAltiumOverbar(nameValue);
         return;
       }
     }
@@ -354,6 +374,36 @@ export const extractNets = (schematic: AltiumSchematic): AltiumNet[] => {
   }
 
   return nets;
+};
+
+/**
+ * Metadata about net types, used for multi-channel expansion.
+ */
+export interface NetClassification {
+  /** Net names that contain PORT devices (cross-sheet signals) */
+  portNetNames: Set<string>;
+  /** Net names assigned by POWER_PORT devices (global power) */
+  powerNetNames: Set<string>;
+}
+
+/**
+ * Classify nets by their type (port, power, or local).
+ */
+export const classifyNets = (nets: AltiumNet[]): NetClassification => {
+  const portNetNames = new Set<string>();
+  const powerNetNames = new Set<string>();
+
+  for (const net of nets) {
+    if (!net.name) continue;
+
+    const hasPort = net.devices.some((d) => d.RECORD === RECORD_TYPES.PORT);
+    const hasPowerPort = net.devices.some((d) => d.RECORD === RECORD_TYPES.POWER_PORT);
+
+    if (hasPort) portNetNames.add(net.name);
+    if (hasPowerPort) powerNetNames.add(net.name);
+  }
+
+  return { portNetNames, powerNetNames };
 };
 
 /**
