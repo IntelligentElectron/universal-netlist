@@ -1036,7 +1036,7 @@ Matching is case-insensitive. This cleanup improved BBxM value coverage from 90.
 ### 12.8 Reference material
 
 - [OpenOrCadParser](https://github.com/Werni2A/OpenOrCadParser) - C++ reference implementation (local copy at `references/OpenOrCadParser/`, gitignored)
-- `docs/dsn.xsd` - Cadence DSN XML schema (structure/field reference, gitignored)
+
 
 Key C++ source files for cross-referencing unknown bytes or new structure types:
 

@@ -109,7 +109,7 @@ npm publishing uses OIDC trusted publishing (configured on npmjs.com) - no token
 
 1. **Read `docs/dsn-format.md`** for the binary format spec
 2. **Read the corresponding C++ file** in `references/OpenOrCadParser/` before writing any code
-3. Cross-reference `docs/dsn.xsd` / `docs/olb.xsd` for structure/field names if needed
+3. Cross-reference `docs/olb.xsd` for structure/field names if needed
 
 ### C++ reference mapping
 
@@ -126,7 +126,7 @@ The TypeScript files in `src/parsers/cadence/dsn/` map to C++ files in `referenc
 
 ### Additional resources
 
-- **Cadence schemas**: `docs/dsn.xsd`, `docs/olb.xsd`
+- **Cadence schemas**: `docs/olb.xsd`
 - **Coverage scripts**: `scripts/dsn-coverage-report.ts`, `scripts/dsn-inspect.ts` (see `scripts/AGENTS.md`)
 
 ## Git Guidelines
