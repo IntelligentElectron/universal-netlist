@@ -3,7 +3,7 @@ import * as fs from "fs";
 import { tmpdir } from "os";
 import path from "path";
 import { promisify } from "util";
-import { createMutex } from "../../async-mutex.js";
+import { createMutex } from "./async-mutex.js";
 import { resolvePath } from "../../paths.js";
 import type { CadenceInstall, ExportNetlistResult, ErrorResult } from "../../types.js";
 
