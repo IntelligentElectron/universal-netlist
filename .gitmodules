@@ -15,13 +15,13 @@
 	url = https://github.com/valentinozegna/beaglebone-black-copy
 [submodule "test/fixtures/cadence/OSHW-Jetson-Series"]
 	path = test/fixtures/cadence/OSHW-Jetson-Series
-	url = https://github.com/Seeed-Studio/OSHW-Jetson-Series
+	url = https://github.com/valentinozegna/OSHW-Jetson-Series
 [submodule "test/fixtures/cadence/BeagleBoard-xM"]
 	path = test/fixtures/cadence/BeagleBoard-xM
-	url = https://github.com/beagleboard/beagleboard-xm
+	url = https://github.com/valentinozegna/beagleboard-xm
 [submodule "test/fixtures/cadence/CutiePi"]
 	path = test/fixtures/cadence/CutiePi
-	url = https://github.com/cutiepi-io/cutiepi-board
+	url = https://github.com/valentinozegna/cutiepi-board
 [submodule "test/fixtures/cadence/LAUNCHXL-CC1310"]
 	path = test/fixtures/cadence/LAUNCHXL-CC1310
 	url = https://github.com/peterkappelt/kHome
