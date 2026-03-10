@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.2] - 2026-03-10
+
+### Added
+
+- Altium PORT cross-sheet connectivity: PORT records connect signals across sheet boundaries by name ([#44](https://github.com/IntelligentElectron/universal-netlist/issues/44))
+- Altium multi-channel expansion via PrjPCBStructure parsing: repeated sheets are expanded into N channel instances with renamed components and correctly classified nets ([#44](https://github.com/IntelligentElectron/universal-netlist/issues/44))
+- Altium bus notation expansion in SHEET_ENTRY classification for shared signal detection
+
+### Fixed
+
+- DSN parser: handle 0x00 skip marker in LibraryPart SymbolPin parsing, fixing pin name extraction for certain component libraries
+
 ## [0.1.1] - 2026-03-10
 
 ### Fixed

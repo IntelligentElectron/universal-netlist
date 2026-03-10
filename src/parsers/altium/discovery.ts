@@ -233,5 +233,22 @@ export const isAltiumFile = (filePath: string): boolean => {
   return ALTIUM_EXTENSIONS.includes(ext as (typeof ALTIUM_EXTENSIONS)[number]);
 };
 
+/**
+ * Find the PrjPCBStructure file alongside a project file.
+ * Returns the path if found, undefined otherwise.
+ */
+export const findStructureFile = async (projectPath: string): Promise<string | undefined> => {
+  const projectDir = path.dirname(projectPath);
+  const baseName = path.basename(projectPath, path.extname(projectPath));
+  const structurePath = path.join(projectDir, `${baseName}.PrjPCBStructure`);
+
+  try {
+    await readFile(structurePath, "utf-8");
+    return structurePath;
+  } catch {
+    return undefined;
+  }
+};
+
 /** Altium file extensions */
 export { ALTIUM_EXTENSIONS };

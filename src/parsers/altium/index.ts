@@ -26,7 +26,7 @@ import {
 import { OleReader, readOleStream } from "../ole-reader/ole-reader.js";
 import { parseRecords, findRecords } from "./record-parser.js";
 import { buildHierarchy, getPartsList, flattenHierarchy, findRecordByIndex } from "./hierarchy.js";
-import { extractNets, determineNetList } from "./net-extractor.js";
+import { extractNets, determineNetList, classifyNets } from "./net-extractor.js";
 
 // Re-export types and utilities for external use
 export type { AltiumSchematic, AltiumNet, AltiumRecord, OutputFormat };
@@ -432,15 +432,235 @@ export const parse = (
 import {
   discoverAltiumDesigns,
   findAltiumSchDocs,
+  findStructureFile,
   isAltiumFile,
   ALTIUM_EXTENSIONS,
 } from "./discovery.js";
+import { readFile } from "fs/promises";
 import type { EDAProjectFormatHandler } from "../../types.js";
+import { parseProjectStructure, findRepeatedSheets } from "./structure-parser.js";
+import type { SheetInstance } from "./structure-parser.js";
 
 export { discoverAltiumDesigns, findAltiumSchDocs, isAltiumFile } from "./discovery.js";
 
 /**
+ * Merge a ParsedNetlist into accumulator objects.
+ */
+const mergeResult = (
+  result: ParsedNetlist,
+  allNets: NetConnections,
+  allComponents: ComponentDetails
+): void => {
+  for (const [netName, connections] of Object.entries(result.nets)) {
+    if (!allNets[netName]) {
+      allNets[netName] = {};
+    }
+    for (const [refdes, pins] of Object.entries(connections)) {
+      if (!allNets[netName][refdes]) {
+        allNets[netName][refdes] = pins;
+      } else {
+        const existing = allNets[netName][refdes];
+        const existingArray = Array.isArray(existing) ? existing : [existing];
+        const newPins = Array.isArray(pins) ? pins : [pins];
+        allNets[netName][refdes] = [...new Set([...existingArray, ...newPins])];
+      }
+    }
+  }
+
+  for (const [refdes, component] of Object.entries(result.components)) {
+    if (!allComponents[refdes]) {
+      allComponents[refdes] = component;
+    }
+  }
+};
+
+/**
+ * Read the ChannelDesignatorFormatString from a PrjPcb file.
+ * Default: "$Component_$RoomName"
+ */
+const readChannelFormat = async (projectPath: string): Promise<string> => {
+  try {
+    const content = await readFile(projectPath, "utf-8");
+    for (const line of content.split(/\r?\n/)) {
+      const match = line.match(/^\s*ChannelDesignatorFormatString\s*=\s*(.+)$/i);
+      if (match) return match[1].trim();
+    }
+  } catch {
+    // fall through
+  }
+  return "$Component_$RoomName";
+};
+
+/**
+ * Apply channel designator format to a component refdes.
+ * E.g., format="$Component_$RoomName", component="DD12", room="AY1" → "DD12_AY1"
+ */
+const applyChannelFormat = (format: string, component: string, roomName: string): string =>
+  format.replace("$Component", component).replace("$RoomName", roomName);
+
+const unescapeAltiumOverbar = (name: string): string =>
+  name.includes("\\") ? name.replace(/\\/g, "") : name;
+
+/**
+ * Expand Altium bus notation into individual signal names.
+ * "AD[0..7]" → ["AD0", "AD1", ..., "AD7"]
+ * "C\\S\\[1..5]" → ["CS1", "CS2", ..., "CS5"]
+ * "BDIR" → ["BDIR"]
+ */
+const expandBusNotation = (name: string): string[] => {
+  const unescaped = unescapeAltiumOverbar(name);
+  const match = unescaped.match(/^(.+)\[(\d+)\.\.(\d+)\]$/);
+  if (!match) return [unescaped];
+
+  const prefix = match[1];
+  const start = parseInt(match[2], 10);
+  const end = parseInt(match[3], 10);
+  const result: string[] = [];
+  const step = start <= end ? 1 : -1;
+
+  for (let i = start; step > 0 ? i <= end : i >= end; i += step) {
+    result.push(`${prefix}${i}`);
+  }
+
+  return result;
+};
+
+interface SheetEntryClassification {
+  /** Signal names from Repeat() entries: per-channel */
+  repeatNames: Set<string>;
+  /** Signal names from non-Repeat entries: shared across channels */
+  sharedNames: Set<string>;
+}
+
+/**
+ * Classify SHEET_ENTRY records on the parent schematic for a given child file.
+ * Repeat() entries produce per-channel nets; others are shared.
+ * Bus notation (e.g., "AD[0..7]") is expanded into individual signals.
+ */
+const classifySheetEntries = (
+  parentSchematic: AltiumSchematic,
+  childFileName: string
+): SheetEntryClassification => {
+  const repeatNames = new Set<string>();
+  const sharedNames = new Set<string>();
+  const childBase = childFileName.toLowerCase();
+
+  for (const record of parentSchematic.records) {
+    if (record.RECORD !== RECORD_TYPES.SHEET_SYMBOL || !record.children) continue;
+
+    const fileNameChild = record.children.find((c) => c.RECORD === RECORD_TYPES.SHEET_FILE_NAME);
+    const fileText = fileNameChild?.Text ?? fileNameChild?.TEXT;
+    if (!fileText || String(fileText).toLowerCase() !== childBase) continue;
+
+    for (const child of record.children) {
+      if (child.RECORD !== RECORD_TYPES.SHEET_ENTRY) continue;
+      const rawName = String(child.Name ?? child.NAME ?? "");
+      const repeatMatch = rawName.match(/^Repeat\((.+)\)$/i);
+
+      if (repeatMatch) {
+        for (const signal of expandBusNotation(repeatMatch[1])) {
+          repeatNames.add(signal);
+        }
+      } else {
+        for (const signal of expandBusNotation(rawName)) {
+          sharedNames.add(signal);
+        }
+      }
+    }
+
+    break;
+  }
+
+  return { repeatNames, sharedNames };
+};
+
+/**
+ * Expand a parsed child sheet into multiple channel instances.
+ */
+const expandChannels = (
+  baseResult: ParsedNetlist,
+  baseNets: ReturnType<typeof extractNets>,
+  channels: SheetInstance[],
+  channelFormat: string,
+  entryClassification: SheetEntryClassification
+): ParsedNetlist => {
+  const netClassification = classifyNets(baseNets);
+  const allNets: NetConnections = {};
+  const allComponents: ComponentDetails = {};
+
+  for (const channel of channels) {
+    const roomName = channel.designator;
+
+    // Classify each net for this channel:
+    // 1. Power nets → global (keep name)
+    // 2. Shared SHEET_ENTRY signals → global (keep name)
+    // 3. Repeat SHEET_ENTRY signals → per-channel (suffix)
+    // 4. Other local nets → per-channel (suffix)
+    const netNameMap = new Map<string, string>();
+    for (const [netName] of Object.entries(baseResult.nets)) {
+      if (netClassification.powerNetNames.has(netName)) {
+        netNameMap.set(netName, netName);
+      } else if (entryClassification.sharedNames.has(netName)) {
+        netNameMap.set(netName, netName);
+      } else if (entryClassification.repeatNames.has(netName)) {
+        netNameMap.set(netName, `${netName}_${roomName}`);
+      } else {
+        // Local net with no SHEET_ENTRY match → per-channel
+        netNameMap.set(netName, `${netName}_${roomName}`);
+      }
+    }
+
+    // Expand nets with renamed refdes and net names
+    for (const [origNetName, connections] of Object.entries(baseResult.nets)) {
+      const expandedNetName = netNameMap.get(origNetName) ?? origNetName;
+
+      if (!allNets[expandedNetName]) {
+        allNets[expandedNetName] = {};
+      }
+
+      for (const [origRefdes, pins] of Object.entries(connections)) {
+        const expandedRefdes = applyChannelFormat(channelFormat, origRefdes, roomName);
+        if (!allNets[expandedNetName][expandedRefdes]) {
+          allNets[expandedNetName][expandedRefdes] = pins;
+        } else {
+          const existing = allNets[expandedNetName][expandedRefdes];
+          const existingArray = Array.isArray(existing) ? existing : [existing];
+          const newPins = Array.isArray(pins) ? pins : [pins];
+          allNets[expandedNetName][expandedRefdes] = [...new Set([...existingArray, ...newPins])];
+        }
+      }
+    }
+
+    // Expand components with renamed refdes and net references
+    for (const [origRefdes, component] of Object.entries(baseResult.components)) {
+      const expandedRefdes = applyChannelFormat(channelFormat, origRefdes, roomName);
+
+      // Deep-clone pins with mapped net names
+      const expandedPins: Record<string, PinEntry> = {};
+      for (const [pinNum, entry] of Object.entries(component.pins)) {
+        if (typeof entry === "string") {
+          expandedPins[pinNum] = netNameMap.get(entry) ?? entry;
+        } else {
+          expandedPins[pinNum] = {
+            ...entry,
+            net: netNameMap.get(entry.net) ?? entry.net,
+          };
+        }
+      }
+
+      allComponents[expandedRefdes] = {
+        ...component,
+        pins: expandedPins,
+      };
+    }
+  }
+
+  return { nets: allNets, components: allComponents };
+};
+
+/**
  * Parse an Altium project by parsing all its SchDoc files and merging the results.
+ * Supports multi-channel expansion via PrjPCBStructure.
  */
 const parseAltiumProject = async (projectPath: string): Promise<ParsedNetlist> => {
   const schdocPaths = await findAltiumSchDocs(projectPath);
@@ -449,35 +669,68 @@ const parseAltiumProject = async (projectPath: string): Promise<ParsedNetlist> =
     throw new Error(`No schematic documents found for project ${projectPath}`);
   }
 
-  // Parse all SchDoc files and merge results
+  // Check for multi-channel structure
+  const structurePath = await findStructureFile(projectPath);
+  let repeatedSheets = new Map<string, SheetInstance[]>();
+  let channelFormat = "$Component_$RoomName";
+  let parentSchematic: AltiumSchematic | undefined;
+
+  if (structurePath) {
+    const structureContent = await readFile(structurePath, "utf-8");
+    const structure = parseProjectStructure(structureContent);
+    repeatedSheets = findRepeatedSheets(structure);
+    channelFormat = await readChannelFormat(projectPath);
+
+    // Parse the top-level document to get SHEET_ENTRY Repeat() info
+    if (repeatedSheets.size > 0 && structure.topLevelDocument) {
+      const topLevelPath = path.resolve(
+        path.dirname(projectPath),
+        structure.topLevelDocument.replace(/\\/g, "/")
+      );
+      const buffer = readOleStream(topLevelPath);
+      const schematic = parseRecords(buffer);
+      parentSchematic = buildHierarchy(schematic);
+    }
+  }
+
   const allNets: NetConnections = {};
   const allComponents: ComponentDetails = {};
+  const expandedFiles = new Set<string>();
 
   for (const schdocPath of schdocPaths) {
-    const result = await parseAltium(schdocPath);
+    const schdocBase = path.basename(schdocPath).toLowerCase();
 
-    // Merge nets
-    for (const [netName, connections] of Object.entries(result.nets)) {
-      if (!allNets[netName]) {
-        allNets[netName] = {};
-      }
-      for (const [refdes, pins] of Object.entries(connections)) {
-        if (!allNets[netName][refdes]) {
-          allNets[netName][refdes] = pins;
-        } else {
-          const existing = allNets[netName][refdes];
-          const existingArray = Array.isArray(existing) ? existing : [existing];
-          const newPins = Array.isArray(pins) ? pins : [pins];
-          allNets[netName][refdes] = [...new Set([...existingArray, ...newPins])];
-        }
-      }
-    }
+    // Check if this file is a repeated (multi-channel) sheet
+    const channels = repeatedSheets.get(schdocBase);
+    if (channels && channels.length > 1 && parentSchematic) {
+      if (expandedFiles.has(schdocBase)) continue;
+      expandedFiles.add(schdocBase);
 
-    // Merge components
-    for (const [refdes, component] of Object.entries(result.components)) {
-      if (!allComponents[refdes]) {
-        allComponents[refdes] = component;
-      }
+      // Parse the child sheet once
+      const buffer = readOleStream(schdocPath);
+      const schematic = parseRecords(buffer);
+      const hierarchical = buildHierarchy(schematic);
+      const nets = extractNets(hierarchical);
+      const parsedNets = convertNets(nets, hierarchical);
+      const components = extractComponents(hierarchical);
+      populatePinNets(components, parsedNets);
+      const baseResult: ParsedNetlist = { nets: parsedNets, components };
+
+      // Classify SHEET_ENTRY records: Repeat() → per-channel, others → shared
+      const entryClassification = classifySheetEntries(parentSchematic, channels[0].fileName);
+
+      // Expand into N channel instances
+      const expanded = expandChannels(
+        baseResult,
+        nets,
+        channels,
+        channelFormat,
+        entryClassification
+      );
+      mergeResult(expanded, allNets, allComponents);
+    } else {
+      const result = await parseAltium(schdocPath);
+      mergeResult(result, allNets, allComponents);
     }
   }
 
