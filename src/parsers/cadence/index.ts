@@ -170,7 +170,7 @@ export const parseCadence = async (paths: CadenceFilePaths): Promise<CadenceRawN
 const parseCadenceDesign = async (designPath: string): Promise<ParsedNetlist> => {
   const ext = path.extname(designPath).toLowerCase();
 
-  // DSN binary parsing (preferred path)
+  // DSN binary parsing (fallback when .dat files unavailable)
   if (ext === ".dsn") {
     return parseDsnFile(designPath);
   }

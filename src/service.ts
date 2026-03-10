@@ -41,6 +41,7 @@ import {
   type QueryComponentResult,
   type CadenceInstall,
   type ExportNetlistResult,
+  type DiscoveredDesign,
 } from "./types.js";
 
 // Serialize pstswp invocations to prevent concurrent Cadence license conflicts
@@ -401,11 +402,28 @@ export interface ListDesignsOptions {
 }
 
 /**
+ * Build the path fields for a discovered design.
+ * For Cadence CIS/HDL with .dat files: path=pstxnet.dat (preferred), source=.DSN
+ * For Cadence CIS/HDL without .dat files: path=.DSN
+ * For all others: path=sourcePath
+ */
+const getDesignPaths = (design: DiscoveredDesign): { path: string; source?: string } => {
+  if (design.format === "cadence-cis" || design.format === "cadence-hdl") {
+    if (design.datFiles.pstxnet) {
+      return { path: design.datFiles.pstxnet, source: design.sourcePath };
+    }
+  }
+  return { path: design.sourcePath };
+};
+
+/**
  * List all designs in a directory.
  */
 export const listDesigns = async (
   options: ListDesignsOptions = {}
-): Promise<Array<{ name: string; path: string; error?: string }> | ErrorResult> => {
+): Promise<
+  Array<{ name: string; path: string; source?: string; error?: string }> | ErrorResult
+> => {
   const { searchPath, pattern = ".*", maxDepth, maxResults = 50 } = options;
   const resolvedPath = resolvePath(searchPath ?? ".");
 
@@ -425,7 +443,7 @@ export const listDesigns = async (
   const limited = filtered.slice(0, maxResults);
   return limited.map((design) => ({
     name: design.name,
-    path: design.sourcePath,
+    ...getDesignPaths(design),
     error: design.error,
   }));
 };
