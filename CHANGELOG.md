@@ -9,9 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Altium PORT (RECORD=18) cross-sheet connectivity: PORT records now act as globally-named connectable devices, connecting signals across sheet boundaries by name ([#44](https://github.com/IntelligentElectron/universal-netlist/issues/44))
-- Altium multi-channel expansion: repeated sheets (e.g., `Repeat(AY,1,3)`) are expanded into N channel instances with renamed components and correctly classified nets (per-channel vs shared), driven by PrjPCBStructure parsing ([#44](https://github.com/IntelligentElectron/universal-netlist/issues/44))
-- Altium bus notation expansion in SHEET_ENTRY classification (e.g., `AD[0..7]` expands to AD0-AD7 as shared signals)
+- Altium PORT cross-sheet connectivity: PORT records connect signals across sheet boundaries by name ([#44](https://github.com/IntelligentElectron/universal-netlist/issues/44))
+- Altium multi-channel expansion via PrjPCBStructure parsing: repeated sheets are expanded into N channel instances with renamed components and correctly classified nets ([#44](https://github.com/IntelligentElectron/universal-netlist/issues/44))
+- Altium bus notation expansion in SHEET_ENTRY classification for shared signal detection
 
 ### Fixed
 
