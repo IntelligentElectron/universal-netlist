@@ -1,30 +1,3 @@
-[submodule "test/fixtures/altium/LimeSDR-USB"]
-	path = test/fixtures/altium/LimeSDR-USB
-	url = https://github.com/myriadrf/LimeSDR-USB
-[submodule "test/fixtures/altium/Altium-STM32-PCB"]
-	path = test/fixtures/altium/Altium-STM32-PCB
-	url = https://github.com/akhilaprabodha/Altium-STM32-PCB
-[submodule "test/fixtures/cadence/BeagleBone-Black"]
-	path = test/fixtures/cadence/BeagleBone-Black
-	url = https://github.com/valentinozegna/beaglebone-black
-[submodule "test/fixtures/cadence/BeagleBone-Black-barebone"]
-	path = test/fixtures/cadence/BeagleBone-Black-barebone
-	url = https://github.com/valentinozegna/beaglebone-black-barebone
-[submodule "test/fixtures/cadence/BeagleBone-Black-copy"]
-	path = test/fixtures/cadence/BeagleBone-Black-copy
-	url = https://github.com/valentinozegna/beaglebone-black-copy
-[submodule "test/fixtures/cadence/OSHW-Jetson-Series"]
-	path = test/fixtures/cadence/OSHW-Jetson-Series
-	url = https://github.com/valentinozegna/OSHW-Jetson-Series
-[submodule "test/fixtures/cadence/BeagleBoard-xM"]
-	path = test/fixtures/cadence/BeagleBoard-xM
-	url = https://github.com/valentinozegna/beagleboard-xm
-[submodule "test/fixtures/cadence/CutiePi"]
-	path = test/fixtures/cadence/CutiePi
-	url = https://github.com/valentinozegna/cutiepi-board
-[submodule "test/fixtures/cadence/LAUNCHXL-CC1310"]
-	path = test/fixtures/cadence/LAUNCHXL-CC1310
-	url = https://github.com/valentinozegna/kHome
-[submodule "test/fixtures/altium/aberrant-sound-module"]
-	path = test/fixtures/altium/aberrant-sound-module
-	url = https://github.com/valentinozegna/aberrant-sound-module
+[submodule "test/fixtures"]
+	path = test/fixtures
+	url = https://github.com/IntelligentElectron/test-fixtures
