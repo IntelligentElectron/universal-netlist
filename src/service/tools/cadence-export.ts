@@ -13,15 +13,6 @@ const serializePstswp = createMutex();
 const execAsync = promisify(exec);
 
 /**
- * Convert Windows path to bash-compatible path for GitBash/WSL compatibility.
- * Example: C:\foo\bar -> /c/foo/bar
- */
-const toBashPath = (winPath: string): string =>
-  winPath
-    .replace(/\\/g, "/")
-    .replace(/^([A-Za-z]):/, (_, drive: string) => `/${drive.toLowerCase()}`);
-
-/**
  * Detect installed Cadence SPB versions from the standard installation directory.
  *
  * @param cadenceBase - Base Cadence installation directory (default: C:/Cadence)
@@ -158,16 +149,11 @@ export const exportCadenceNetlist = async (
     // Temporarily relocate .DSNlck lock file if present (stale locks block pstswp)
     const lockTempPath = await relocateLockFile(resolvedDsnPath);
 
-    // Convert to bash paths for command execution (GitBash compatibility)
-    const bashDsnDir = toBashPath(dsnDir);
-    const pstswp = toBashPath(cadence.pstswp);
-    const config = toBashPath(cadence.config);
-
-    const command = `cd "${bashDsnDir}" && "${pstswp}" -pst -d "${dsnFile}" -n "${outputDirName}" -c "${config}" -v 3 -l 255 -j "PCB Footprint"`;
+    const command = `cd /d "${dsnDir}" && "${cadence.pstswp}" -pst -d "${dsnFile}" -n "${outputDirName}" -c "${cadence.config}" -v 3 -l 255 -j "PCB Footprint"`;
 
     try {
       const { stdout, stderr } = await execAsync(command, {
-        shell: "bash",
+        shell: "cmd.exe",
         timeout: 120000,
       });
 
