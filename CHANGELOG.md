@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.3] - 2026-03-21
+
+### Fixed
+
+- Altium parser: add cross-product collinearity check to `pointOnSegment()`, preventing false net merges when diagonal wire bounding boxes overlap ([#54](https://github.com/IntelligentElectron/universal-netlist/issues/54))
+- Altium parser: clean up `undefined` keys (`mpn`, `description`) from component output
+- Cadence export: use `cmd.exe` instead of `bash` for `pstswp.exe` invocation, fixing failures on Windows systems without Git Bash ([#42](https://github.com/IntelligentElectron/universal-netlist/issues/42))
+
 ## [0.1.2] - 2026-03-10
 
 ### Added
