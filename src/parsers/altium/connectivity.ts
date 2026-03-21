@@ -180,6 +180,13 @@ const pointOnSegment = (point: Coordinate, segment: LineSegment): boolean => {
   const [p1, p2] = segment;
   const [px, py] = point;
 
+  // Cross product collinearity check: perpendicular distance must be within tolerance.
+  // Altium coordinates (10000 units/mil) can have small rounding errors (~2 units),
+  // so we use tolerance of 2 units (0.0002 mil). Squared form avoids sqrt.
+  const cross = (p2[0] - p1[0]) * (py - p1[1]) - (p2[1] - p1[1]) * (px - p1[0]);
+  const segLenSq = (p2[0] - p1[0]) ** 2 + (p2[1] - p1[1]) ** 2;
+  if (segLenSq > 0 && cross * cross > 4 * segLenSq) return false;
+
   const minX = Math.min(p1[0], p2[0]);
   const maxX = Math.max(p1[0], p2[0]);
   const minY = Math.min(p1[1], p2[1]);

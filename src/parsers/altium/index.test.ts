@@ -323,6 +323,28 @@ describe("Connectivity", () => {
       expect(isConnected(wireA, wireB)).toBe(false);
     });
 
+    it("should detect disconnected wires with overlapping bounding boxes", () => {
+      const wireA: AltiumRecord = {
+        index: 0,
+        RECORD: RECORD_TYPES.WIRE,
+        coords: [
+          [0, 0],
+          [100, 100],
+        ],
+      };
+
+      const wireB: AltiumRecord = {
+        index: 1,
+        RECORD: RECORD_TYPES.WIRE,
+        coords: [
+          [100, 0],
+          [0, 100],
+        ],
+      };
+
+      expect(isConnected(wireA, wireB)).toBe(false);
+    });
+
     it("should detect pin connected to wire", () => {
       const wire: AltiumRecord = {
         index: 0,
