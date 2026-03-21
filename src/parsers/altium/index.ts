@@ -333,10 +333,16 @@ export const extractComponents = (schematic: AltiumSchematic): ComponentDetails 
     }
 
     const component: ComponentDetails[string] = {
-      mpn,
-      description: extractedDescription,
       pins,
     };
+
+    if (mpn !== undefined) {
+      component.mpn = mpn;
+    }
+
+    if (extractedDescription !== undefined) {
+      component.description = extractedDescription;
+    }
 
     if (comment !== undefined) {
       component.comment = comment;
