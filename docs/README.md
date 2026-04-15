@@ -41,6 +41,10 @@ The schema captures identification (MPN, description) but not electrical specifi
 | [`query_xnet_by_pin_name`](tools/query_xnet_by_pin_name.md) | Trace circuit connectivity from a component pin |
 | [`export_cadence_netlist`](tools/export_cadence_netlist.md) | Export Cadence schematic to Allegro format (Windows) |
 
+## Schematic Authoring
+
+To get the most out of this MCP, follow the recommended [Net Naming Conventions](net-naming-conventions.md) when naming nets and marking DNS components in your schematics. Net names drive power/ground detection, circuit traversal stop behavior, and `search_nets` pattern matching.
+
 ## Example Queries
 
 Once configured, you can ask your AI assistant questions like:
