@@ -1,4 +1,4 @@
-import path from "path";
+import { getDesignName } from "../../paths.js";
 import { loadNetlist } from "../load-netlist.js";
 import { MPN_MISSING_NOTE } from "../component-grouping.js";
 import { isErrorResult, type QueryComponentResult, type ErrorResult } from "../../types.js";
@@ -24,7 +24,7 @@ export const queryComponent = async (
   );
 
   if (!componentEntry) {
-    const designName = path.basename(design, path.extname(design));
+    const designName = getDesignName(design);
     return {
       error: `Component '${refdes}' not found in design '${designName}'. Use list_components() or search_components_by_refdes() to find available components.`,
     };

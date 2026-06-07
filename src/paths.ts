@@ -27,3 +27,12 @@ export const resolvePath = (inputPath: string): string => {
   // On Unix, convert backslashes to forward slashes before normalizing
   return path.resolve(path.normalize(inputPath.replace(/\\/g, "/")));
 };
+
+/**
+ * Derive a human-readable design name from a design path by stripping the
+ * directory and file extension.
+ *
+ * Example: "/projects/board-rev-c/top.dsn" -> "top"
+ */
+export const getDesignName = (design: string): string =>
+  path.basename(design, path.extname(design));
