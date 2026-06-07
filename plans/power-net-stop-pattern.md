@@ -14,9 +14,10 @@ Change the power keyword patterns (VCC, VDD, VIN, VOUT, VBAT, VBUS, VSYS) from a
 
 Keep the other patterns (PP\w*, RAIL_\w+, PWR_\w+, voltage patterns like `+5V`) as-is since they work correctly with anchored matching.
 
-### File: `src/circuit-traversal.ts` (lines 10-15)
+### File: `src/circuit-traversal.ts` (lines 11-15)
 
-Change `POWER_NET_PATTERN` from:
+`POWER_NET_PATTERN` is defined at lines 12-13 and `STOP_NET_PATTERN` at
+lines 14-15. Change `POWER_NET_PATTERN` from:
 ```
 /^(VCC\w*|VDD\w*|VIN\w*|VOUT\w*|VBAT\w*|VBUS\w*|VSYS\w*|PWR_\w+|RAIL_\w+|PP\w*|PN\w*|LD_PP\w*|LD_PN\w*|[+-]?\d+V\d*\w*|[+-].+)$/i
 ```
@@ -40,9 +41,12 @@ Add tests for:
 - `isStopNet('CC1310_VDD')` returns true
 - Signal nets like `CC1310_TXD`, `USB_DP`, `DIO4_SCL` are NOT matched
 
-### File: `src/server.ts` (lines 271, 295)
+### File: `src/descriptions.ts` (lines 103, 107)
 
-Update tool descriptions for `query_xnet_by_net_name` and `query_xnet_by_pin_name` to mention that traversal stops at power nets too, not just ground.
+Update the `QUERY_XNET_BY_NET_NAME_DESCRIPTION` (line 103) and
+`QUERY_XNET_BY_PIN_NAME_DESCRIPTION` (line 107) constants to mention that
+traversal stops at power nets too, not just ground. (Tool descriptions were
+moved out of `src/server.ts` into `src/descriptions.ts` in v0.1.0.)
 
 ## Verification
 

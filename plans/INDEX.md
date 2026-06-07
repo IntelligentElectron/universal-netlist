@@ -3,6 +3,11 @@
 Living docs for upcoming or in-flight work, plus reference audits. Each
 entry lists status against the codebase as of the last review.
 
+> **Last reviewed: 2026-06-07.** File and line references in the Proposed
+> plans were refreshed for the post-0.1.0 layout (the monolithic
+> `src/service.ts` was split into `src/service/` per-tool modules, and tool
+> descriptions moved to `src/descriptions.ts`).
+
 | Plan | Topic | Status |
 |---|---|---|
 | [cloud-storage-readiness.md](./cloud-storage-readiness.md) | Decouple file I/O from parsers; add `Storage` interface + GCS adapter so `gs://` URIs work alongside local paths | Proposed |
