@@ -17,6 +17,7 @@ import { tmpdir } from "node:os";
 import { join, dirname, basename } from "node:path";
 import { spawn } from "node:child_process";
 import { VERSION, GITHUB_REPO, BINARY_NAME } from "../version.js";
+import { getCurrentExecutablePath } from "./executable.js";
 
 /** GitHub release information. */
 interface GitHubRelease {
@@ -196,20 +197,6 @@ const downloadFile = async (url: string, destPath: string): Promise<void> => {
 
     pump().catch(reject);
   });
-};
-
-/**
- * Get the path to the current executable.
- */
-const getCurrentExecutablePath = (): string => {
-  // For Bun-compiled binaries, process.execPath points to the binary itself
-  // For Node.js, process.argv[1] is the script path
-  if (process.execPath.includes("node") || process.execPath.includes("bun")) {
-    // Running via node/bun interpreter - use argv[1]
-    return process.argv[1];
-  }
-  // Compiled binary - use execPath
-  return process.execPath;
 };
 
 /**
