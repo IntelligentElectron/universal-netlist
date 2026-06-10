@@ -38,7 +38,7 @@ Use one of these exact names for ground nets:
 **Alternative styles that are also acceptable** (less preferred, but workable):
 
 - **Explicit voltage:** `+3V3`, `+5V`, `+12V`, `-12V`, `+1V8`. Self-documenting, but fragile in contexts that strip or reinterpret the leading sign.
-- **Functional rails:** `VCC`, `VCC_IO`, `VDD`, `VDD_CORE`, `VBAT`, `VBUS`, `VSYS`, `VIN`, `VOUT`. Familiar from datasheets, but they collide with IC pin names.
+- **Functional rails:** `VCC`, `VCC_IO`, `VDD`, `VDD_CORE`, `VBAT`, `VBUS`, `VSYS`, `VREG`, `VIN`, `VOUT`. Familiar from datasheets, but they collide with IC pin names.
 - **Explicit prefixes:** `PWR_3V3`, `PWR_12V`, `RAIL_5V`, `RAIL_ANALOG`. Verbose but unambiguous.
 
 ## Signal Naming Gotchas

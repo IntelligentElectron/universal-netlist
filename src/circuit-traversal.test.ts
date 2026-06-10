@@ -58,6 +58,13 @@ describe("isPowerNet", () => {
     expect(isPowerNet("vdd")).toBe(true);
   });
 
+  it("should match VREG* power nets", () => {
+    expect(isPowerNet("VREG")).toBe(true);
+    expect(isPowerNet("VREG_3V3")).toBe(true);
+    expect(isPowerNet("VREG1V8")).toBe(true);
+    expect(isPowerNet("vreg")).toBe(true);
+  });
+
   it("should match PP* power nets", () => {
     expect(isPowerNet("PP3V3")).toBe(true);
     expect(isPowerNet("PP1V8")).toBe(true);
@@ -114,6 +121,8 @@ describe("isStopNet", () => {
   it("should match power nets", () => {
     expect(isStopNet("VCC")).toBe(true);
     expect(isStopNet("VDD")).toBe(true);
+    expect(isStopNet("VREG")).toBe(true);
+    expect(isStopNet("VREG_3V3")).toBe(true);
     expect(isStopNet("PP3V3")).toBe(true);
     expect(isStopNet("3V3")).toBe(true);
   });
