@@ -7,12 +7,20 @@ import { createHash } from "crypto";
 import { getPinNet } from "./types.js";
 import type { NetConnections, ComponentDetails, CircuitComponent } from "./types.js";
 
-// Regex patterns for net classification
-const GROUND_NET_PATTERN = /^(GND|VSS|AGND|DGND|PGND|SGND|CGND)$/i;
-const POWER_NET_PATTERN =
-  /^(VCC\w*|VDD\w*|VIN\w*|VOUT\w*|VBAT\w*|VBUS\w*|VSYS\w*|VREG\w*|PWR_\w+|RAIL_\w+|PP\w*|PN\w*|LD_PP\w*|LD_PN\w*|[+-]?\d+V\d*\w*|[+-].+)$/i;
-const STOP_NET_PATTERN =
-  /^(GND|VSS|AGND|DGND|PGND|SGND|CGND|VCC\w*|VDD\w*|VIN\w*|VOUT\w*|VBAT\w*|VBUS\w*|VSYS\w*|VREG\w*|PWR_\w+|RAIL_\w+|PP\w*|PN\w*|LD_PP\w*|LD_PN\w*|[+-]?\d+V\d*\w*|[+-].+)$/i;
+// Regex patterns for net classification.
+// A "stop" net is any power or ground rail, so the three patterns below are
+// derived from these shared alternation fragments to keep them in sync — adding
+// a rail to POWER_NET_ALTERNATIVES automatically extends STOP_NET_PATTERN too.
+const GROUND_NET_ALTERNATIVES = "GND|VSS|AGND|DGND|PGND|SGND|CGND";
+const POWER_NET_ALTERNATIVES =
+  "VCC\\w*|VDD\\w*|VIN\\w*|VOUT\\w*|VBAT\\w*|VBUS\\w*|VSYS\\w*|VREG\\w*|PWR_\\w+|RAIL_\\w+|PP\\w*|PN\\w*|LD_PP\\w*|LD_PN\\w*|[+-]?\\d+V\\d*\\w*|[+-].+";
+
+const GROUND_NET_PATTERN = new RegExp(`^(${GROUND_NET_ALTERNATIVES})$`, "i");
+const POWER_NET_PATTERN = new RegExp(`^(${POWER_NET_ALTERNATIVES})$`, "i");
+const STOP_NET_PATTERN = new RegExp(
+  `^(${GROUND_NET_ALTERNATIVES}|${POWER_NET_ALTERNATIVES})$`,
+  "i"
+);
 const DNS_PATTERN =
   /(?:^|[_,\s])(DNS|DNP|DNF|DNI|DNM|NF|NC)(?:$|[_,\s])|DO\s*NOT\s*(STUFF|POPULATE|INSTALL|FIT|MOUNT)|NOT\s*(POPULATED|FITTED|CONNECTED|MOUNTED)|NO\s*POP/i;
 
