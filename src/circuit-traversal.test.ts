@@ -159,6 +159,71 @@ describe("isStopNet", () => {
   });
 });
 
+// Regression guard: STOP_NET_PATTERN is intended to be exactly the union of the
+// ground and power patterns. If the patterns ever drift (e.g. a rail is added to
+// POWER but not STOP), the invariant below breaks even when the targeted cases
+// above still pass.
+describe("stop-net invariant (STOP === GROUND ∪ POWER)", () => {
+  const sampleNets = [
+    // ground
+    "GND",
+    "VSS",
+    "AGND",
+    "DGND",
+    "PGND",
+    "SGND",
+    "CGND",
+    // power rails
+    "VCC",
+    "VCC_IO",
+    "VDD",
+    "VDD_CORE",
+    "VIN",
+    "VOUT",
+    "VBAT",
+    "VBUS",
+    "VSYS",
+    "VREG",
+    "VREG_3V3",
+    "PWR_3V3",
+    "RAIL_5V",
+    "PP3V3",
+    "PN5V",
+    "LD_PP1V8",
+    "LD_PN12V",
+    "3V3",
+    "5V",
+    "+12V",
+    "-15V",
+    "+VBAT",
+    "-VEE",
+    // non-rails (should be in neither set)
+    "I2C_SDA",
+    "SPI_CLK",
+    "SIGNAL",
+    "RESET_L",
+    "DATA_BUS",
+    "+",
+    "-",
+  ];
+
+  it.each(sampleNets)("isStopNet(%s) === isGroundNet || isPowerNet", (net) => {
+    expect(isStopNet(net)).toBe(isGroundNet(net) || isPowerNet(net));
+  });
+
+  it("every ground net is also a stop net", () => {
+    for (const net of ["GND", "VSS", "AGND", "DGND", "PGND", "SGND", "CGND"]) {
+      expect(isStopNet(net)).toBe(true);
+    }
+  });
+
+  it("every power net is also a stop net", () => {
+    for (const net of ["VCC", "VDD", "VREG", "VBUS", "PP3V3", "+3V3", "-12V"]) {
+      expect(isStopNet(net)).toBe(true);
+    }
+  });
+});
+
 describe("isPassive", () => {
   it("should identify resistors", () => {
     expect(isPassive("R1")).toBe(true);
