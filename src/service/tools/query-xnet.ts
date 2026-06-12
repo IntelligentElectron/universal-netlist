@@ -1,4 +1,4 @@
-import path from "path";
+import { getDesignName } from "../../paths.js";
 import { loadNetlist } from "../load-netlist.js";
 import { aggregateCircuitByMpn } from "../component-grouping.js";
 import {
@@ -36,7 +36,7 @@ export const queryXnetByNetName = async (
   const { nets, components } = netlist;
 
   if (!nets[netName]) {
-    const designName = path.basename(design, path.extname(design));
+    const designName = getDesignName(design);
     return {
       error: `Net '${netName}' not found in design '${designName}'. Use search_nets() to find available nets.`,
     };
@@ -104,7 +104,7 @@ export const queryXnetByPinName = async (
   );
 
   if (!refdesEntry) {
-    const designName = path.basename(design, path.extname(design));
+    const designName = getDesignName(design);
     return {
       error: `Component '${refdesInput}' not found in design '${designName}'. Use list_components() or search_components_by_refdes() to find available components.`,
     };

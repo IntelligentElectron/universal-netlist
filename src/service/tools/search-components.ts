@@ -1,4 +1,4 @@
-import path from "path";
+import { getDesignName } from "../../paths.js";
 import { loadNetlist } from "../load-netlist.js";
 import { groupComponentsByMpn } from "../component-grouping.js";
 import { parseRegexPattern, tooManyMatchesError } from "../regex-helpers.js";
@@ -25,7 +25,7 @@ export const searchComponentsByRefdes = async (
     return netlist;
   }
 
-  const designName = path.basename(design, path.extname(design));
+  const designName = getDesignName(design);
   const allEntries = Object.entries(netlist.components);
   const entries = allEntries.filter(([refdes]) => regex.test(refdes));
 
@@ -66,7 +66,7 @@ export const searchComponentsByMpn = async (
     return netlist;
   }
 
-  const designName = path.basename(design, path.extname(design));
+  const designName = getDesignName(design);
   const allComponents = Object.entries(netlist.components);
   const componentsWithMpn = allComponents.filter(([, c]) => c.mpn?.trim());
   const entries = componentsWithMpn.filter(([, component]) => regex.test(component.mpn!));
@@ -119,7 +119,7 @@ export const searchComponentsByDescription = async (
     return netlist;
   }
 
-  const designName = path.basename(design, path.extname(design));
+  const designName = getDesignName(design);
   const allComponents = Object.entries(netlist.components);
   const componentsWithDescription = allComponents.filter(([, c]) => c.description?.trim());
   const entries = componentsWithDescription.filter(([, component]) =>
