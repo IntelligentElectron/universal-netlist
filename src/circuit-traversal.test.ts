@@ -58,6 +58,13 @@ describe("isPowerNet", () => {
     expect(isPowerNet("vdd")).toBe(true);
   });
 
+  it("should match VREG* power nets", () => {
+    expect(isPowerNet("VREG")).toBe(true);
+    expect(isPowerNet("VREG_3V3")).toBe(true);
+    expect(isPowerNet("VREG1V8")).toBe(true);
+    expect(isPowerNet("vreg")).toBe(true);
+  });
+
   it("should match PP* power nets", () => {
     expect(isPowerNet("PP3V3")).toBe(true);
     expect(isPowerNet("PP1V8")).toBe(true);
@@ -114,6 +121,8 @@ describe("isStopNet", () => {
   it("should match power nets", () => {
     expect(isStopNet("VCC")).toBe(true);
     expect(isStopNet("VDD")).toBe(true);
+    expect(isStopNet("VREG")).toBe(true);
+    expect(isStopNet("VREG_3V3")).toBe(true);
     expect(isStopNet("PP3V3")).toBe(true);
     expect(isStopNet("3V3")).toBe(true);
   });
@@ -147,6 +156,71 @@ describe("isStopNet", () => {
   it("should not match standalone + or - (requires at least one more char)", () => {
     expect(isStopNet("+")).toBe(false);
     expect(isStopNet("-")).toBe(false);
+  });
+});
+
+// Regression guard: STOP_NET_PATTERN is intended to be exactly the union of the
+// ground and power patterns. If the patterns ever drift (e.g. a rail is added to
+// POWER but not STOP), the invariant below breaks even when the targeted cases
+// above still pass.
+describe("stop-net invariant (STOP === GROUND ∪ POWER)", () => {
+  const sampleNets = [
+    // ground
+    "GND",
+    "VSS",
+    "AGND",
+    "DGND",
+    "PGND",
+    "SGND",
+    "CGND",
+    // power rails
+    "VCC",
+    "VCC_IO",
+    "VDD",
+    "VDD_CORE",
+    "VIN",
+    "VOUT",
+    "VBAT",
+    "VBUS",
+    "VSYS",
+    "VREG",
+    "VREG_3V3",
+    "PWR_3V3",
+    "RAIL_5V",
+    "PP3V3",
+    "PN5V",
+    "LD_PP1V8",
+    "LD_PN12V",
+    "3V3",
+    "5V",
+    "+12V",
+    "-15V",
+    "+VBAT",
+    "-VEE",
+    // non-rails (should be in neither set)
+    "I2C_SDA",
+    "SPI_CLK",
+    "SIGNAL",
+    "RESET_L",
+    "DATA_BUS",
+    "+",
+    "-",
+  ];
+
+  it.each(sampleNets)("isStopNet(%s) === isGroundNet || isPowerNet", (net) => {
+    expect(isStopNet(net)).toBe(isGroundNet(net) || isPowerNet(net));
+  });
+
+  it("every ground net is also a stop net", () => {
+    for (const net of ["GND", "VSS", "AGND", "DGND", "PGND", "SGND", "CGND"]) {
+      expect(isStopNet(net)).toBe(true);
+    }
+  });
+
+  it("every power net is also a stop net", () => {
+    for (const net of ["VCC", "VDD", "VREG", "VBUS", "PP3V3", "+3V3", "-12V"]) {
+      expect(isStopNet(net)).toBe(true);
+    }
   });
 });
 
