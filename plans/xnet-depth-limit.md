@@ -30,11 +30,11 @@ Note: `max_depth_reached === max_depth` does NOT imply truncation. The traversal
 
 ### File 1: `src/circuit-traversal.ts`
 
-**`TraversalOptions`** (line 181-184): Add `maxDepth?: number` field.
+**`TraversalOptions`** (line 170): Add `maxDepth?: number` field.
 
-**`TraversalResult`** (line 175-179): Add `max_depth_reached: number` and `frontier_nets: Array<{ net: string; depth: number }>`.
+**`TraversalResult`** (line 164): Add `max_depth_reached: number` and `frontier_nets: Array<{ net: string; depth: number }>`.
 
-**`traverseCircuitFromNet`** (line 269-413):
+**`traverseCircuitFromNet`** (line 258):
 
 1. Read `maxDepth` from options, default to `5`.
 2. Change BFS queue from `string[]` to `Array<{ net: string; depth: number }>`. Seed with `{ net: startNet, depth: 0 }`.
@@ -46,20 +46,20 @@ Note: `max_depth_reached === max_depth` does NOT imply truncation. The traversal
 
 ### File 2: `src/types.ts`
 
-**`AggregatedCircuitResult`** (line 144-153): Add:
+**`AggregatedCircuitResult`** (line 144): Add:
 - `max_depth: number`
 - `max_depth_reached: number`
 - `frontier_nets?: Array<{ net: string; depth: number }>` (omit when empty)
 
-### File 3: `src/service.ts`
+### File 3: `src/service/tools/query-xnet.ts`
 
-**`queryXnetByNetName`** (line 745-793): Add `maxDepth: number` parameter. Pass to `traverseCircuitFromNet` via options. Forward `max_depth_reached`, `frontier_nets`, `max_depth` into the `AggregatedCircuitResult`.
+**`queryXnetByNetName`** (line 25): Add `maxDepth: number` parameter. Pass to `traverseCircuitFromNet` via options. Forward `max_depth_reached`, `frontier_nets`, `max_depth` into the `AggregatedCircuitResult`.
 
-**`queryXnetByPinName`** (line 803-889): Same changes.
+**`queryXnetByPinName`** (line 83): Same changes.
 
 ### File 4: `src/server.ts`
 
-**Both tool schemas** (lines 265-290 and 292-314): Add input parameter:
+**Both tool schemas** (`query_xnet_by_net_name` at lines 228-249 and `query_xnet_by_pin_name` at lines 254-272): Add input parameter:
 ```
 max_depth: z.number().int().min(0).optional()
   .describe("Max series-passive hops to traverse (0 = direct connections only, default 5)")
@@ -67,7 +67,11 @@ max_depth: z.number().int().min(0).optional()
 
 Pass `max_depth` through to the service function calls.
 
-Update tool descriptions to mention depth limiting and the response metadata (`max_depth_reached`, `frontier_nets`).
+Update the tool descriptions in `src/descriptions.ts`
+(`QUERY_XNET_BY_NET_NAME_DESCRIPTION` line 103, `QUERY_XNET_BY_PIN_NAME_DESCRIPTION`
+line 107) to mention depth limiting and the response metadata
+(`max_depth_reached`, `frontier_nets`). (Descriptions were moved out of
+`src/server.ts` into `src/descriptions.ts` in v0.1.0.)
 
 ### File 5: `src/circuit-traversal.test.ts`
 
