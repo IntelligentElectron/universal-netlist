@@ -15,6 +15,7 @@ entry lists status against the codebase as of the last review.
 | [xnet-depth-limit.md](./xnet-depth-limit.md) | Add `max_depth` parameter to `query_xnet_*` tools, plus `max_depth_reached` and `frontier_nets` response metadata | Proposed |
 | [power-net-stop-pattern.md](./power-net-stop-pattern.md) | Switch `POWER_NET_PATTERN` / `STOP_NET_PATTERN` keywords (VCC/VDD/VBAT/VBUS/VSYS) from anchored prefix to substring matching so prefixed rails like `CC1310_VDD` stop traversal | Proposed |
 | [relative_path.md](./relative_path.md) | Auto-discovery + ID-based design access: `list_designs` returns relative-path IDs that all other tools accept instead of absolute paths | Proposed |
+| [parser-quality-improvements.md](./parser-quality-improvements.md) | 10 quality gaps from the June 2026 full-fixture MCP stress test: solder-bridge traversal, Altium DNP detection, pstxnet design-name keying, DSN group value collapse, CP1251 decoding, hidden power pins, NC pseudo-net, error polish | Proposed |
 | [altium-visual-data.md](./altium-visual-data.md) | Extract non-electrical visual/drawing data (lines, polylines, junctions, sheet metadata, etc.) from `.SchDoc` for future schematic rendering | Proposed |
 | [dsn-parser-audit.md](./dsn-parser-audit.md) | Audit comparing our DSN TypeScript parser against the C++ `OpenOrCadParser` reference. Documents semantic extensions, gaps, and risks | Reference |
 
