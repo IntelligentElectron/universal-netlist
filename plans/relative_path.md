@@ -22,6 +22,22 @@ Found files:
   /Users/valentino/Developer/project-b/rev1/board.PrjPcb → id: "project-b/rev1/board"
   /Users/valentino/Developer/project-b/rev2/board.PrjPcb → id: "project-b/rev2/board"
 This ensures every design has a unique identifier.
+
+Implementation note (current layout, post-0.1.0)
+The pseudocode below predates the `service.ts` -> `src/service/` split and
+uses `.js` sketches. Map it onto the current structure when implementing:
+- The registry belongs in a new module (e.g. `src/service/registry.ts`),
+  not a root `registry.js`.
+- Path normalization already exists in `src/paths.ts` (`resolvePath`); reuse
+  it rather than re-resolving paths ad hoc.
+- The per-tool entrypoints live under `src/service/tools/*.ts` (e.g.
+  `query-component.ts`, `list-nets.ts`); add the `getDesignPath(id)` lookup
+  at the top of each. Design-name derivation is centralized in `src/paths.ts`
+  (`getDesignName`).
+- `computeDesignId`'s extension strip should match the formats we actually
+  support today (`.PrjPcb`, `.SchDoc`, `.dsn`, `.dat`). `.cpm` and
+  `.kicad_pro` from the original sketch are not currently parsed.
+
 Implementation Tasks
 Task 1: Add Design Registry
 Create an in-memory registry that maps design IDs to their full paths:
