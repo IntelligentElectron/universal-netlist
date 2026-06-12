@@ -1,4 +1,4 @@
-import path from "path";
+import { getDesignName } from "../../paths.js";
 import { loadNetlist } from "../load-netlist.js";
 import { groupComponentsByMpn } from "../component-grouping.js";
 import { matchesRefdesType, getRefdesPrefix, isValidRefdes } from "../../circuit-traversal.js";
@@ -35,7 +35,7 @@ export const listComponents = async (
       new Set(Object.keys(netlist.components).filter(isValidRefdes).map(getRefdesPrefix))
     ).sort((a, b) => a.localeCompare(b));
 
-    const designName = path.basename(design, path.extname(design));
+    const designName = getDesignName(design);
     return {
       error: `No components with prefix '${prefix}' found in design '${designName}'. Available prefixes: [${availablePrefixes.join(", ")}]`,
     };

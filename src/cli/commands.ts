@@ -21,6 +21,7 @@ import { analyzeCoverage, formatCoverageReport, type CoverageResult } from "../c
 import { checkForUpdate, performUpdate, isNpmInstall } from "./updater.js";
 import { confirm } from "./prompts.js";
 import { removeFromPath } from "./shell.js";
+import { getCurrentExecutablePath } from "./executable.js";
 
 /**
  * Print version information.
@@ -120,16 +121,6 @@ export const handleUpdateCommand = async (): Promise<void> => {
 
   console.log(`Updated from ${result.previousVersion} to ${result.newVersion}`);
   console.log("Please restart to use the new version.");
-};
-
-/**
- * Get the path to the current executable.
- */
-const getCurrentExecutablePath = (): string => {
-  if (process.execPath.includes("node") || process.execPath.includes("bun")) {
-    return process.argv[1];
-  }
-  return process.execPath;
 };
 
 /**

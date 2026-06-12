@@ -1,4 +1,4 @@
-import path from "path";
+import { getDesignName } from "../../paths.js";
 import { loadNetlist } from "../load-netlist.js";
 import { parseRegexPattern, tooManyMatchesError } from "../regex-helpers.js";
 import { isErrorResult, type SearchNetsResult, type ErrorResult } from "../../types.js";
@@ -22,7 +22,7 @@ export const searchNets = async (
     return netlist;
   }
 
-  const designName = path.basename(design, path.extname(design));
+  const designName = getDesignName(design);
   const allNets = Object.keys(netlist.nets);
   const nets = allNets.filter((net) => regex.test(net));
 

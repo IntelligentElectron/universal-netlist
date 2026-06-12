@@ -65,7 +65,11 @@ Implementation Steps
 1. Server Wiring
    - Register `run_erc` in `src/server.ts` with v1 input schema.
 2. Service Entrypoint
-   - Add `runErc(...)` in `src/service.ts`.
+   - Add `runErc(...)` as a new `src/service/tools/run-erc.ts` module and
+     export it from `src/service/index.ts`. (The monolithic `src/service.ts`
+     was split into `src/service/` per-tool modules in v0.1.0.)
+   - Register the tool description constant in `src/descriptions.ts` and wire
+     it into the schema in `src/server.ts`, following the existing tool pattern.
 3. ERC Engine Skeleton
    - Build shared scan context from parsed netlist.
    - Add rule runner framework (filtering via include/exclude lists).
