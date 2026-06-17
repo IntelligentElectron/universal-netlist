@@ -28,7 +28,7 @@ What actually happened.
 
 - OS: [e.g., macOS 14.0, Windows 11, Ubuntu 22.04]
 - Node.js version: [e.g., 20.10.0]
-- MCP Client: [e.g., Claude Code, Claude Desktop, VS Code]
+- MCP Client: [e.g., Claude Code, Claude Desktop]
 
 ## Netlist Format
 
