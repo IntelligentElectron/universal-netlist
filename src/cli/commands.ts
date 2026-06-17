@@ -6,7 +6,7 @@
 import { existsSync, rmSync, writeFileSync } from "node:fs";
 import { basename, dirname, extname, resolve } from "node:path";
 import { VERSION, GITHUB_REPO, BINARY_NAME } from "../version.js";
-import { exportTelemetry } from "../telemetry.js";
+import { exportTelemetry } from "../telemetry/index.js";
 import { parseDesign } from "../parsers/index.js";
 import {
   discoverCadenceDesigns,

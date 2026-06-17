@@ -17,7 +17,7 @@ import { tmpdir } from "node:os";
 import { join, dirname, basename } from "node:path";
 import { spawn } from "node:child_process";
 import { VERSION, GITHUB_REPO, BINARY_NAME } from "../version.js";
-import { getCurrentExecutablePath } from "./executable.js";
+import { getCurrentExecutablePath, isCompiledBinary } from "./executable.js";
 
 /** GitHub release information. */
 interface GitHubRelease {
@@ -341,6 +341,12 @@ export const reexec = (): never => {
  * @returns true if an update was applied and process should restart
  */
 export const autoUpdate = async (): Promise<boolean> => {
+  // Only the compiled standalone binary self-updates. Running from source
+  // (tsx/node) must never download a binary and re-exec into it.
+  if (!isCompiledBinary()) {
+    return false;
+  }
+
   // Skip auto-update for npm installs - use npm update instead
   if (isNpmInstall()) {
     return false;
