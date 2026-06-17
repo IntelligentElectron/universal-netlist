@@ -104,33 +104,6 @@ Install [OpenAI Codex](https://developers.openai.com/codex/cli/), then run:
 codex mcp add universal-netlist -- universal-netlist
 ```
 
-### Gemini CLI
-
-Install [Gemini CLI](https://geminicli.com/docs/get-started/installation/), then run:
-
-```bash
-gemini mcp add --scope user universal-netlist universal-netlist
-```
-
-### VS Code (GitHub Copilot)
-
-Download [VS Code](https://code.visualstudio.com/)
-
-Add to `.vscode/mcp.json` in your project:
-
-```json
-{
-  "servers": {
-    "universal-netlist": {
-      "type": "stdio",
-      "command": "universal-netlist"
-    }
-  }
-}
-```
-
-Then enable it in **Configure Tools** (click the tools icon in Copilot chat).
-
 ## Supported Platforms
 
 | Platform | Binary |
