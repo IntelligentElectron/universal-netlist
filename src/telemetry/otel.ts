@@ -63,14 +63,13 @@ const isConfigured = (): boolean => {
   // Opt in purely by pointing at an endpoint (general or any per-signal one).
   return Boolean(
     process.env.OTEL_EXPORTER_OTLP_ENDPOINT ||
-      process.env.OTEL_EXPORTER_OTLP_TRACES_ENDPOINT ||
-      process.env.OTEL_EXPORTER_OTLP_METRICS_ENDPOINT ||
-      process.env.OTEL_EXPORTER_OTLP_LOGS_ENDPOINT
+    process.env.OTEL_EXPORTER_OTLP_TRACES_ENDPOINT ||
+    process.env.OTEL_EXPORTER_OTLP_METRICS_ENDPOINT ||
+    process.env.OTEL_EXPORTER_OTLP_LOGS_ENDPOINT
   );
 };
 
-const isTruthy = (v: string | undefined): boolean =>
-  v === "1" || v?.toLowerCase() === "true";
+const isTruthy = (v: string | undefined): boolean => v === "1" || v?.toLowerCase() === "true";
 
 /** Write a diagnostic line to stderr only (never stdout, which carries MCP JSON-RPC). */
 const diagStderr = (msg: string): void => {
@@ -90,7 +89,10 @@ const diagStderr = (msg: string): void => {
  * No-op and zero overhead otherwise. Safe to call exactly once at startup;
  * never throws; a setup failure degrades to disabled telemetry.
  */
-export const initOtel = async (opts: { serviceName: string; serviceVersion: string }): Promise<void> => {
+export const initOtel = async (opts: {
+  serviceName: string;
+  serviceVersion: string;
+}): Promise<void> => {
   if (enabled || !isConfigured()) return;
 
   try {
@@ -163,9 +165,7 @@ const createExporters = async (): Promise<{
   metricExporter: PushMetricExporter;
   logExporter: LogRecordExporter;
 }> => {
-  const protocol = (
-    process.env.OTEL_EXPORTER_OTLP_PROTOCOL || "http/protobuf"
-  ).toLowerCase();
+  const protocol = (process.env.OTEL_EXPORTER_OTLP_PROTOCOL || "http/protobuf").toLowerCase();
 
   if (protocol === "grpc") {
     diagStderr("OTEL_EXPORTER_OTLP_PROTOCOL=grpc is not supported here; using http/protobuf");
@@ -246,7 +246,6 @@ export const shutdownOtel = async (): Promise<void> => {
   }
 };
 
-
 // =============================================================================
 // Per-tool-call instrumentation
 // =============================================================================
@@ -281,7 +280,13 @@ export const instrumentTool = async <R>(
       const result = await run();
 
       const isError = opts?.isErrorResult?.(result) ?? false;
-      finishSpan(span, toolName, isError ? "error" : "success", isError ? "tool_error" : undefined, Date.now() - start);
+      finishSpan(
+        span,
+        toolName,
+        isError ? "error" : "success",
+        isError ? "tool_error" : undefined,
+        Date.now() - start
+      );
       return result;
     } catch (err) {
       const errorType = err instanceof Error ? err.name : "Error";

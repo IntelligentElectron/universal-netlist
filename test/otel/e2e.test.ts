@@ -122,7 +122,9 @@ describe("OpenTelemetry end-to-end", () => {
 
       const calls = receiver.metrics().find((m) => m.name === "tool.calls")!;
       expect(
-        calls.points.some((p) => p.attributes.tool === "list_designs" && p.attributes.outcome === "success")
+        calls.points.some(
+          (p) => p.attributes.tool === "list_designs" && p.attributes.outcome === "success"
+        )
       ).toBe(true);
       expect(receiver.metrics().some((m) => m.name === "tool.duration")).toBe(true);
 
@@ -154,13 +156,17 @@ describe("OpenTelemetry end-to-end", () => {
       const got = await waitFor(() =>
         receiver
           .spans()
-          .some((s) => s.name === "tool/list_components" && s.attributes["tool.outcome"] === "error")
+          .some(
+            (s) => s.name === "tool/list_components" && s.attributes["tool.outcome"] === "error"
+          )
       );
       expect(got).toBe(true);
 
       const span = receiver
         .spans()
-        .find((s) => s.name === "tool/list_components" && s.attributes["tool.outcome"] === "error")!;
+        .find(
+          (s) => s.name === "tool/list_components" && s.attributes["tool.outcome"] === "error"
+        )!;
       expect(span.attributes["error.type"]).toBeDefined();
 
       await waitFor(() => receiver.metrics().some((m) => m.name === "tool.errors"));

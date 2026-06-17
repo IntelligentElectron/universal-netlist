@@ -46,8 +46,14 @@ const run = async (): Promise<void> => {
   const span = receiver.spans().find((s) => s.name === "tool/smoke_tool");
   console.log("binary exit code:", exitCode);
   console.log("span delivered:  ", Boolean(span), span?.attributes["tool.outcome"]);
-  console.log("metric delivered:", receiver.metrics().some((m) => m.name === "tool.calls"));
-  console.log("log delivered:   ", receiver.logs().some((l) => l.body === "tool/smoke_tool success"));
+  console.log(
+    "metric delivered:",
+    receiver.metrics().some((m) => m.name === "tool.calls")
+  );
+  console.log(
+    "log delivered:   ",
+    receiver.logs().some((l) => l.body === "tool/smoke_tool success")
+  );
 
   if (exitCode !== 0 || !ok) {
     console.error("FAIL: OTel did not work inside the bun-compiled binary");
