@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0] - 2026-06-17
+
+First stable release.
+
+### Added
+
+- OpenTelemetry instrumentation: every tool call emits a span (`tool/<tool_name>`), metrics (`tool.calls`, `tool.duration`, `tool.errors`), and a structured log correlated by trace/span id, exported to any OTLP-compatible backend purely via the standard `OTEL_*` environment variables. Disabled and zero-overhead unless an OTLP endpoint is configured ([#66](https://github.com/IntelligentElectron/universal-netlist/issues/66))
+- `enduser.id` resource attribute set from the host OS account name, attributing telemetry to the per-session user across traces, metrics, and logs
+- Opt-in raw tool-argument capture on spans via `OTEL_CAPTURE_TOOL_ARGS=1` (off by default)
+
+### Changed
+
+- Consolidated telemetry into `src/telemetry/`: local JSONL usage analytics (`local`) and OpenTelemetry (`otel`) behind a single barrel
+
+### Fixed
+
+- Self-update now runs only for the compiled standalone binary; running from source (tsx/node) no longer performs a GitHub update check or re-execs into a downloaded binary
+
 ## [0.1.4] - 2026-06-12
 
 ### Added

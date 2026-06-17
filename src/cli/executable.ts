@@ -16,3 +16,14 @@ export const getCurrentExecutablePath = (): string => {
   // Compiled binary - use execPath
   return process.execPath;
 };
+
+/**
+ * Whether the process is running as a Bun-compiled standalone binary.
+ *
+ * Running from source via the `node`/`bun`/`tsx` interpreter leaves
+ * `process.execPath` pointing at that interpreter; a compiled binary's
+ * `execPath` is the binary itself. Only the compiled binary should ever
+ * self-update.
+ */
+export const isCompiledBinary = (): boolean =>
+  !process.execPath.includes("node") && !process.execPath.includes("bun");

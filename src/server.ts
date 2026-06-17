@@ -10,7 +10,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 import { VERSION } from "./version.js";
-import { initTelemetry, withTelemetry } from "./telemetry.js";
+import { initTelemetry, withTelemetry, initOtel } from "./telemetry/index.js";
 import {
   listDesigns,
   listComponents,
@@ -314,6 +314,8 @@ export const createServer = (): McpServer => {
  */
 export const runServer = async (): Promise<void> => {
   initTelemetry(crypto.randomUUID());
+  // Opt-in OpenTelemetry (no-op unless OTEL_* env is configured).
+  await initOtel({ serviceName: "universal-netlist", serviceVersion: VERSION });
   const server = createServer();
   const transport = new StdioServerTransport();
   await server.connect(transport);

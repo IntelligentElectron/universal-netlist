@@ -13,7 +13,7 @@ import {
   logToolEvent,
   withTelemetry,
   exportTelemetry,
-} from "./telemetry.js";
+} from "./local.js";
 
 const testDir = mkdtempSync(join(tmpdir(), "telemetry-test-"));
 const testTelemetryPath = join(testDir, "telemetry.jsonl");

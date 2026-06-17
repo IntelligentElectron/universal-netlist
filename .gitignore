@@ -47,3 +47,6 @@ private/
 references/
 .plans/
 tmp/
+
+# Playwright artifacts
+.playwright*
