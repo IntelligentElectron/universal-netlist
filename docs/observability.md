@@ -1,6 +1,6 @@
 # Observability (OpenTelemetry)
 
-The server can emit [OpenTelemetry](https://opentelemetry.io/) **traces, metrics, and logs** for every tool call, so you can see which tools are used, how long they take, and what fails. It is vendor-neutral and speaks OTLP, so it works with any OTLP-compatible backend — an OpenTelemetry Collector, Jaeger, Tempo, Prometheus, Honeycomb, Datadog, or a managed cloud tracing service — letting you integrate your own Otel service without any code changes.
+The server can emit [OpenTelemetry](https://opentelemetry.io/) **traces, metrics, and logs** for every tool call, so you can see which tools are used, how long they take, and what fails. It is vendor-neutral and speaks OTLP, so it works with any OTLP-compatible backend — an OpenTelemetry Collector, Jaeger, Tempo, Prometheus, Honeycomb, Datadog, or a managed cloud tracing service — letting you integrate your own OTel service without any code changes.
 
 ## Overview
 
@@ -32,7 +32,7 @@ export OTEL_SERVICE_NAME=universal-netlist
 # then start the MCP server as usual; open http://localhost:16686 to view traces
 ```
 
-## Plug in your own Otel service
+## Plug in your own OTel service
 
 To export to your own backend or a managed provider:
 

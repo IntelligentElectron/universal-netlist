@@ -47,7 +47,7 @@ To get the most out of this MCP, follow the recommended [Net Naming Conventions]
 
 ## Observability
 
-The server can emit OpenTelemetry traces, metrics, and logs for every tool call, so you can integrate your own Otel service. It is disabled by default and configured entirely through standard `OTEL_*` environment variables. See [Observability (OpenTelemetry)](observability.md) for setup and the full list of emitted spans, metrics, and logs.
+The server can emit OpenTelemetry traces, metrics, and logs for every tool call, so you can integrate your own OTel service. It is disabled by default and configured entirely through standard `OTEL_*` environment variables. See [Observability (OpenTelemetry)](observability.md) for setup and the full list of emitted spans, metrics, and logs.
 
 ## Example Queries
 
