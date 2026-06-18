@@ -45,6 +45,10 @@ The schema captures identification (MPN, description) but not electrical specifi
 
 To get the most out of this MCP, follow the recommended [Net Naming Conventions](net-naming-conventions.md) when naming nets and marking DNS components in your schematics. Net names drive power/ground detection, circuit traversal stop behavior, and `search_nets` pattern matching.
 
+## Observability
+
+The server can emit OpenTelemetry traces, metrics, and logs for every tool call, so you can integrate your own Otel service. It is disabled by default and configured entirely through standard `OTEL_*` environment variables. See [Observability (OpenTelemetry)](observability.md) for setup and the full list of emitted spans, metrics, and logs.
+
 ## Example Queries
 
 Once configured, you can ask your AI assistant questions like:
