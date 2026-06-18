@@ -76,7 +76,7 @@ Only standard OpenTelemetry environment variables are used.
 | `OTEL_TRACES_SAMPLER` | Standard trace sampler configuration. |
 | `OTEL_BSP_SCHEDULE_DELAY` | Batch span processor export interval (ms). |
 | `OTEL_BLRP_SCHEDULE_DELAY` | Batch log record processor export interval (ms). |
-| `OTEL_METRIC_EXPORT_INTERVAL` | Metric export interval (ms). Default `60000`. |
+| `OTEL_METRIC_EXPORT_INTERVAL` | Metric export interval (ms). Default `60000`. Also drives the periodic metric flush used by the compiled Bun binaries, where the SDK's own timer doesn't fire. |
 
 One additional, clearly-scoped option is specific to this server:
 
@@ -132,7 +132,7 @@ All telemetry — traces, metrics, and logs alike — is tagged with:
 | `service.version` | The server version. |
 | `enduser.id` | The host OS account name of whoever is running the server, attributing usage to the per-session user. Best-effort; omitted if it can't be read. |
 
-> **Privacy note:** `enduser.id` is your host OS account name and is emitted unconditionally whenever telemetry is enabled, including to any third-party or managed backend you export to. If that is undesirable, leave telemetry disabled (the default).
+> **Privacy note:** `enduser.id` is your host OS account name. Whenever telemetry is enabled it is included in exported telemetry by default (best-effort — see above), including to any third-party or managed backend you export to. If that is undesirable, leave telemetry disabled (the default).
 
 ## Reliability
 
