@@ -119,7 +119,7 @@ The server can emit [OpenTelemetry](https://opentelemetry.io/) **traces, metrics
 
 Telemetry is **disabled by default** with zero overhead, and is enabled and configured entirely through the standard `OTEL_*` environment variables — no code changes.
 
-See **[docs/observability.md](docs/observability.md)** for setup, configuration, and the full list of emitted spans, metrics, and logs.
+See **[Observability (OpenTelemetry)](docs/observability.md)** for setup, configuration, and the full list of emitted spans, metrics, and logs.
 
 ## Documentation
 
