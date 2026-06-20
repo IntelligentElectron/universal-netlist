@@ -22,6 +22,10 @@ describe("kicadHandler", () => {
     expect(isKicadFile("/x/Board.kicad_pcb")).toBe(false);
     expect(isKicadFile("/x/Board.dsn")).toBe(false);
   });
+
+  it("throws a clear error when neither a .net export nor a root schematic exists", async () => {
+    await expect(parseKicadDesign("/no/such/dir/Phantom.kicad_pro")).rejects.toThrow(/No netlist/);
+  });
 });
 
 describe.skipIf(!hasFixtures)("kicadHandler against fixtures", () => {

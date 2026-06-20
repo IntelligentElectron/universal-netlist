@@ -37,7 +37,9 @@ export type { KicadDiscoveredDesign } from "./discovery.js";
 export const parseKicadDesign = async (designPath: string): Promise<ParsedNetlist> => {
   const ext = path.extname(designPath).toLowerCase();
 
-  // A caller may pass the resolved `.net` export directly.
+  // Direct-call path only: a caller may pass a resolved `.net` export straight
+  // in. `.net` is an internal artifact, so it is intentionally absent from
+  // KICAD_EXTENSIONS / `canHandle` and is never reached via discovery.
   if (ext === ".net") {
     return parseKicadNetlist(await readFile(designPath, "utf-8"));
   }

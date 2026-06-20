@@ -13,10 +13,10 @@
 
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
-import { access, mkdtemp, readFile, rm } from "node:fs/promises";
-import { constants } from "node:fs";
+import { mkdtemp, readFile, rm } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
+import { isExecutable } from "./fs-utils.js";
 
 const execFileAsync = promisify(execFile);
 
@@ -40,17 +40,6 @@ const PLATFORM_DEFAULTS: Record<string, string[]> = {
   linux: ["/usr/bin/kicad-cli", "/usr/local/bin/kicad-cli"],
 };
 
-// Checks X_OK (executable) — a kicad-cli candidate must be runnable. Note
-// discovery.ts has a same-named helper that checks R_OK (readable) instead.
-const fileExists = async (p: string): Promise<boolean> => {
-  try {
-    await access(p, constants.X_OK);
-    return true;
-  } catch {
-    return false;
-  }
-};
-
 /**
  * Resolve a usable `kicad-cli` command. Returns the first candidate that exists,
  * falling back to the bare name `kicad-cli` (resolved against PATH at exec time).
@@ -59,11 +48,11 @@ const fileExists = async (p: string): Promise<boolean> => {
 export const resolveKicadCli = async (): Promise<string | null> => {
   const override = process.env.KICAD_CLI_PATH;
   if (override) {
-    return (await fileExists(override)) ? override : null;
+    return (await isExecutable(override)) ? override : null;
   }
 
   for (const candidate of PLATFORM_DEFAULTS[process.platform] ?? []) {
-    if (await fileExists(candidate)) return candidate;
+    if (await isExecutable(candidate)) return candidate;
   }
 
   // Fall back to PATH lookup; execFile will error if it is not installed.

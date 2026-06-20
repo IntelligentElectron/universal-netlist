@@ -12,9 +12,9 @@
  * `rdimm-ddr4-tester/data-center-rdimm-ddr4-tester.kicad_pro`.)
  */
 
-import { readdir, access } from "node:fs/promises";
-import { constants } from "node:fs";
+import { readdir } from "node:fs/promises";
 import path from "node:path";
+import { isReadable } from "./fs-utils.js";
 
 /** Extensions a caller may hand directly to the KiCad handler. */
 export const KICAD_EXTENSIONS = [".kicad_pro", ".kicad_sch"] as const;
@@ -38,17 +38,6 @@ export interface KicadDiscoveredDesign {
   error?: string;
 }
 
-// Checks R_OK (readable) — discovered artifacts only need to be read. Note
-// cli.ts has a same-named helper that checks X_OK (executable) instead.
-const fileExists = async (p: string): Promise<boolean> => {
-  try {
-    await access(p, constants.R_OK);
-    return true;
-  } catch {
-    return false;
-  }
-};
-
 /**
  * Resolve the design artifacts for a KiCad path (a `.kicad_pro` or a root
  * `.kicad_sch`). Returns the project basename, the root schematic, and the
@@ -62,10 +51,10 @@ export const resolveKicadArtifacts = async (
   const base = path.basename(designPath, path.extname(designPath));
 
   const candidateSchematic = ext === ".kicad_sch" ? designPath : path.join(dir, `${base}.kicad_sch`);
-  const rootSchematic = (await fileExists(candidateSchematic)) ? candidateSchematic : null;
+  const rootSchematic = (await isReadable(candidateSchematic)) ? candidateSchematic : null;
 
   const candidateExport = path.join(dir, `${base}${NETLIST_EXT}`);
-  const netlistExport = (await fileExists(candidateExport)) ? candidateExport : null;
+  const netlistExport = (await isReadable(candidateExport)) ? candidateExport : null;
 
   return { name: base, rootSchematic, netlistExport };
 };
