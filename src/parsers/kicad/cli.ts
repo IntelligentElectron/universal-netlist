@@ -100,11 +100,16 @@ export const exportNetlist = async (rootSchematicPath: string): Promise<string> 
     return await readFile(outPath, "utf-8");
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    // execFile sets `killed` when it terminates the process on timeout.
-    const timedOut = typeof error === "object" && error !== null && "killed" in error && Boolean((error as { killed?: boolean }).killed);
+    // execFile sets `killed` when it terminates the process on timeout, and
+    // attaches the child's `stderr` (its own diagnostics) on any failure.
+    const isObj = typeof error === "object" && error !== null;
+    const timedOut = isObj && "killed" in error && Boolean((error as { killed?: boolean }).killed);
+    const stderr = isObj && "stderr" in error ? String((error as { stderr?: unknown }).stderr).trim() : "";
     const suffix = timedOut
       ? ` (timed out after ${timeout}ms; raise KICAD_CLI_TIMEOUT for very large designs)`
-      : "";
+      : stderr
+        ? `\nkicad-cli stderr: ${stderr}`
+        : "";
     throw new Error(`kicad-cli netlist export failed for ${rootSchematicPath}: ${message}${suffix}`);
   } finally {
     await rm(tmpDir, { recursive: true, force: true });

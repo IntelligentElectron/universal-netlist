@@ -115,4 +115,9 @@ describe("parseKicadNetlist", () => {
   it("throws when the input is not a netlist export", () => {
     expect(() => parseKicadNetlist('(kicad_sch (version 20231120))')).toThrow();
   });
+
+  it("throws when the export is missing the components or nets section", () => {
+    expect(() => parseKicadNetlist('(export (version "E") (nets))')).toThrow(/components/);
+    expect(() => parseKicadNetlist('(export (version "E") (components))')).toThrow(/nets/);
+  });
 });

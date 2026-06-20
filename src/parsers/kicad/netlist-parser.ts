@@ -149,6 +149,9 @@ export const parseKicadNetlist = (content: string): ParsedNetlist => {
 
   // --- Components ---------------------------------------------------------
   const componentsNode = childByTag(root, "components");
+  if (!componentsNode) {
+    throw new Error("Malformed KiCad netlist export: missing (components ...) section");
+  }
   for (const comp of childrenByTag(componentsNode, "comp")) {
     const refdes = childString(comp, "ref");
     if (!refdes) continue;
@@ -171,6 +174,9 @@ export const parseKicadNetlist = (content: string): ParsedNetlist => {
 
   // --- Nets + pin assignment ---------------------------------------------
   const netsNode = childByTag(root, "nets");
+  if (!netsNode) {
+    throw new Error("Malformed KiCad netlist export: missing (nets ...) section");
+  }
   for (const net of childrenByTag(netsNode, "net")) {
     const netName = childString(net, "name");
     if (!netName) continue;
