@@ -114,6 +114,9 @@ const isDnp = (comp: SExpr[]): boolean =>
  */
 const pinName = (pinfunction: string | undefined, pinNumber: string): string | undefined => {
   if (!pinfunction || pinfunction === "~") return undefined;
+  // Strip only a trailing `_<pinNumber>`. A pin number containing an underscore
+  // (e.g. "1_2") is non-standard; the length guard below still prevents
+  // stripping a name down to empty, and any over-strip is bounded to that quirk.
   const suffix = `_${pinNumber}`;
   if (pinfunction.endsWith(suffix) && pinfunction.length > suffix.length) {
     return pinfunction.slice(0, -suffix.length);

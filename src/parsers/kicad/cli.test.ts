@@ -1,5 +1,5 @@
 import { describe, it, expect, afterEach } from "vitest";
-import { resolveKicadCli } from "./cli.js";
+import { resolveKicadCli, isKicadCliAvailable } from "./cli.js";
 
 describe("resolveKicadCli", () => {
   const original = process.env.KICAD_CLI_PATH;
@@ -25,5 +25,23 @@ describe("resolveKicadCli", () => {
     // Either an existing platform-default binary path or the bare "kicad-cli".
     expect(typeof resolved).toBe("string");
     expect(resolved).not.toBe("");
+  });
+});
+
+describe("isKicadCliAvailable", () => {
+  const original = process.env.KICAD_CLI_PATH;
+  afterEach(() => {
+    if (original === undefined) delete process.env.KICAD_CLI_PATH;
+    else process.env.KICAD_CLI_PATH = original;
+  });
+
+  it("is true for an explicit, existing executable override", async () => {
+    process.env.KICAD_CLI_PATH = process.execPath;
+    expect(await isKicadCliAvailable()).toBe(true);
+  });
+
+  it("is false when the override does not resolve", async () => {
+    process.env.KICAD_CLI_PATH = "/nonexistent/path/to/kicad-cli";
+    expect(await isKicadCliAvailable()).toBe(false);
   });
 });

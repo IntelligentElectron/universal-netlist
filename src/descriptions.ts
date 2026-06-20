@@ -69,6 +69,8 @@ Returns the best available path for each design. \
 For Cadence with exported .dat files: path is pstxnet.dat (preferred), \
 source has the .DSN schematic. Without .dat files: path is the .DSN. \
 For Altium: path is the .PrjPcb. \
+For KiCad: path is the .kicad_pro; its netlist resolves automatically when queried \
+(a committed .net export if present, otherwise generated via kicad-cli), so no manual export is needed. \
 Always use this tool to discover designs instead of searching the filesystem manually.`;
 
 export const LIST_COMPONENTS_DESCRIPTION = `\
