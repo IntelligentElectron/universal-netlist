@@ -102,3 +102,4 @@ Response:
 - Results are sorted alphabetically
 - The design name (without extension) is used as the results key
 - Empty results include a `notes` field explaining the empty match
+- **KiCad**: nets declared inside a hierarchical sheet are sheet-path-prefixed (e.g. a `D0` data line on the Peripherals sheet is named `/Peripherals/D0`, not `/D0`). Prefer unanchored patterns like `D0` over `^/D0$` to avoid missing bussed or hierarchical nets

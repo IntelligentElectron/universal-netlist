@@ -10,6 +10,7 @@ The Universal Netlist MCP Server provides tools for querying electronic design n
 |--------|------------|-------------|
 | Cadence (CIS / HDL) | `.dat` files (preferred) or `.DSN` (fallback) | Exported Allegro netlist files (`pstxnet.dat`, `pstxprt.dat`, `pstchip.dat`) are preferred. When unavailable, the `.DSN` binary schematic is parsed directly. |
 | Altium Designer | `.SchDoc` | Altium schematic documents (discovered via `.PrjPcb` project files) |
+| KiCad | `.kicad_pro` (or root `.kicad_sch`) | A committed `kicadsexpr` netlist export (`.net`) beside the project is parsed directly (preferred). When unavailable, one is generated on demand via `kicad-cli` (requires KiCad installed; set `KICAD_CLI_PATH` for a non-standard location). |
 
 ## Design Philosophy
 
@@ -51,6 +52,7 @@ Once configured, you can ask your AI assistant questions like:
 
 - "Find all designs in the current directory"
 - "List all the capacitors in MyDesign.PrjPcb"
+- "List the op-amps in MyBoard.kicad_pro"
 - "What nets contain 'USB' in their name?"
 - "Show me the pin connections for U15"
 - "Trace the circuit connected to the VIN pin of U3"
