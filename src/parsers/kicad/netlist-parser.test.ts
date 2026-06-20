@@ -78,6 +78,20 @@ describe("parseKicadNetlist", () => {
     expect(result.components.U1.pins["4"]).toEqual({ name: "V-", net: "GND" });
   });
 
+  it("strips the suffix from overbar pinfunctions (~{...})", () => {
+    // KiCad encodes active-low names with overbars, e.g. ~{RESET} on pin 1 →
+    // pinfunction "~{RESET}_1". The "_1" suffix must strip, the overbar must stay.
+    const overbar = parseKicadNetlist(`
+(export
+  (components
+    (comp (ref "U9") (value "MCU")))
+  (nets
+    (net (code "1") (name "/~{RESET}")
+      (node (ref "U9") (pin "1") (pinfunction "~{RESET}_1")))))
+`);
+    expect(overbar.components.U9.pins["1"]).toEqual({ name: "~{RESET}", net: "/~{RESET}" });
+  });
+
   it("uses a plain net string when the pin name equals the pin number", () => {
     // TP1 pin 1, pinfunction "1_1" → name "1" == number → plain string.
     expect(result.components.TP1.pins["1"]).toBe("VOUT");

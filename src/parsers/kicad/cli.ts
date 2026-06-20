@@ -20,6 +20,15 @@ import path from "node:path";
 
 const execFileAsync = promisify(execFile);
 
+/** Default timeout (ms) for a kicad-cli export; override with KICAD_CLI_TIMEOUT. */
+const DEFAULT_EXPORT_TIMEOUT_MS = 120_000;
+
+/** Resolve the export timeout, falling back to the default for unset/invalid values. */
+const exportTimeoutMs = (): number => {
+  const parsed = Number(process.env.KICAD_CLI_TIMEOUT);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : DEFAULT_EXPORT_TIMEOUT_MS;
+};
+
 /** Per-platform default install locations for the kicad-cli binary. */
 const PLATFORM_DEFAULTS: Record<string, string[]> = {
   darwin: ["/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli"],
@@ -31,6 +40,8 @@ const PLATFORM_DEFAULTS: Record<string, string[]> = {
   linux: ["/usr/bin/kicad-cli", "/usr/local/bin/kicad-cli"],
 };
 
+// Checks X_OK (executable) — a kicad-cli candidate must be runnable. Note
+// discovery.ts has a same-named helper that checks R_OK (readable) instead.
 const fileExists = async (p: string): Promise<boolean> => {
   try {
     await access(p, constants.X_OK);
@@ -88,23 +99,24 @@ export const exportNetlist = async (rootSchematicPath: string): Promise<string> 
     );
   }
 
+  const timeout = exportTimeoutMs();
   const tmpDir = await mkdtemp(path.join(os.tmpdir(), "kicad-netlist-"));
   const outPath = path.join(tmpDir, "netlist.net");
   try {
-    await execFileAsync(cli, [
-      "sch",
-      "export",
-      "netlist",
-      "--format",
-      "kicadsexpr",
-      "-o",
-      outPath,
-      rootSchematicPath,
-    ]);
+    await execFileAsync(
+      cli,
+      ["sch", "export", "netlist", "--format", "kicadsexpr", "-o", outPath, rootSchematicPath],
+      { timeout }
+    );
     return await readFile(outPath, "utf-8");
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    throw new Error(`kicad-cli netlist export failed for ${rootSchematicPath}: ${message}`);
+    // execFile sets `killed` when it terminates the process on timeout.
+    const timedOut = typeof error === "object" && error !== null && "killed" in error && Boolean((error as { killed?: boolean }).killed);
+    const suffix = timedOut
+      ? ` (timed out after ${timeout}ms; raise KICAD_CLI_TIMEOUT for very large designs)`
+      : "";
+    throw new Error(`kicad-cli netlist export failed for ${rootSchematicPath}: ${message}${suffix}`);
   } finally {
     await rm(tmpDir, { recursive: true, force: true });
   }

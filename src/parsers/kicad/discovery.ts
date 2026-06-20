@@ -12,9 +12,9 @@
  * `rdimm-ddr4-tester/data-center-rdimm-ddr4-tester.kicad_pro`.)
  */
 
-import { readdir, access } from "fs/promises";
+import { readdir, access } from "node:fs/promises";
 import { constants } from "node:fs";
-import path from "path";
+import path from "node:path";
 
 /** Extensions a caller may hand directly to the KiCad handler. */
 export const KICAD_EXTENSIONS = [".kicad_pro", ".kicad_sch"] as const;
@@ -38,6 +38,8 @@ export interface KicadDiscoveredDesign {
   error?: string;
 }
 
+// Checks R_OK (readable) — discovered artifacts only need to be read. Note
+// cli.ts has a same-named helper that checks X_OK (executable) instead.
 const fileExists = async (p: string): Promise<boolean> => {
   try {
     await access(p, constants.R_OK);

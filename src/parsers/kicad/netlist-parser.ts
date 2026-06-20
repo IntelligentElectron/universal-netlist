@@ -181,12 +181,12 @@ export const parseKicadNetlist = (content: string): ParsedNetlist => {
       const pin = childString(node, "pin");
       if (!refdes || !pin) continue;
 
-      // Net → component pin membership (always an array, matching other parsers).
+      // Net → component pin membership. This builder only ever stores arrays
+      // (matching the other parsers), so the cast reflects an invariant of this
+      // loop, not a general guarantee of the NetConnections type.
       const pins = (membership[refdes] as string[] | undefined) ?? [];
-      if (Array.isArray(pins)) {
-        pins.push(pin);
-        membership[refdes] = pins;
-      }
+      pins.push(pin);
+      membership[refdes] = pins;
 
       // Component pin → net mapping, with the symbol pin name when meaningful.
       const component = components[refdes] ?? { pins: {} };
