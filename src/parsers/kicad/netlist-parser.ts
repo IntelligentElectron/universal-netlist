@@ -199,6 +199,9 @@ export const parseKicadNetlist = (content: string): ParsedNetlist => {
       membership[refdes] = pins;
 
       // Component pin → net mapping, with the symbol pin name when meaningful.
+      // A node may reference a refdes absent from (components) in a truncated or
+      // malformed export; we intentionally create a bare stub so the connection
+      // is not lost (it will simply have no value/mpn/description).
       const component = components[refdes] ?? { pins: {} };
       const name = pinName(childString(node, "pinfunction"), pin);
       component.pins[pin] = createPinEntry(pin, name, netName);

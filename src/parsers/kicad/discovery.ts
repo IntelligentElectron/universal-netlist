@@ -46,9 +46,11 @@ export interface KicadDiscoveredDesign {
 export const resolveKicadArtifacts = async (
   designPath: string
 ): Promise<{ name: string; rootSchematic: string | null; netlistExport: string | null }> => {
-  const ext = path.extname(designPath).toLowerCase();
+  const rawExt = path.extname(designPath);
+  const ext = rawExt.toLowerCase();
   const dir = path.dirname(designPath);
-  const base = path.basename(designPath, path.extname(designPath));
+  // Strip with the original-case extension so an uppercase ".KICAD_PRO" is removed.
+  const base = path.basename(designPath, rawExt);
 
   const candidateSchematic = ext === ".kicad_sch" ? designPath : path.join(dir, `${base}.kicad_sch`);
   const rootSchematic = (await isReadable(candidateSchematic)) ? candidateSchematic : null;
