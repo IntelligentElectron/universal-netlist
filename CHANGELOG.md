@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-06-19
+
+### Added
+
+- KiCad support: read a `.kicad_pro` project (or root `.kicad_sch`) and query its netlist like any other format. Discovery keys off `.kicad_pro`; a committed kicadsexpr export (`.net`) beside the project is parsed directly (keeping CI tool-free), otherwise one is generated on demand via `kicad-cli` (set `KICAD_CLI_PATH` for a non-standard install). Hierarchical sheets, buses, and global/hierarchical labels are resolved into flat net membership by kicad-cli. Validated against 10 curated golden fixtures spanning flat to depth-5 hierarchy across KiCad formats v6–v9
+
+### Changed
+
+- `search_nets` and the server instructions now note that KiCad nets declared inside a hierarchical sheet are sheet-path-prefixed (e.g. `/Peripherals/D0`, not `/D0`), so unanchored search patterns are preferred to avoid missing bussed/hierarchical nets
+
 ## [1.0.0] - 2026-06-17
 
 First stable release.
