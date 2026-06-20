@@ -80,7 +80,7 @@ DATA_0, DATA_1, ... DATA_31
 
 ## DNS (Do Not Stuff) Markers
 
-Components that should not be populated must be marked in a structured field so the BOM, assembly package, and any netlist reader know to skip them. Put the marker in the component's **MPN**, **value**, **description**, or **comment** field. Altium designs can also use the `Assembly Info` parameter.
+Components that should not be populated must be marked in a structured field so the BOM, assembly package, and any netlist reader know to skip them. Put the marker in the component's **MPN**, **value**, **description**, or **comment** field. Altium designs can also use the `Assembly Info` parameter. **KiCad** designs should use the symbol's built-in **"Do not populate"** flag (the native `dnp` property) rather than a text field; that flag is what the reader honors, and a separate field literally named `DNP` with a value is treated as an ordinary field, not a DNS marker.
 
 **Do not rely on graphical text annotations** placed next to the component on the sheet. Free-floating text has no structured relationship to the part and is invisible to anything that reads the exported netlist; the component will be treated as populated.
 

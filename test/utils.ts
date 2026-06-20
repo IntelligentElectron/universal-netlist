@@ -10,7 +10,7 @@ const TEST_DIR = path.dirname(new URL(import.meta.url).pathname);
 const FIXTURES_DIR = path.join(TEST_DIR, "fixtures");
 const GOLDEN_DIR = path.join(TEST_DIR, "golden");
 
-export type Format = "cadence" | "altium";
+export type Format = "cadence" | "altium" | "kicad";
 
 export interface Fixture {
   name: string;
@@ -43,7 +43,7 @@ export const listFixtures = async (format: Format): Promise<Fixture[]> => {
  * List all fixtures across all formats.
  */
 export const listAllFixtures = async (): Promise<Fixture[]> => {
-  const formats: Format[] = ["cadence", "altium"];
+  const formats: Format[] = ["cadence", "altium", "kicad"];
   const results = await Promise.all(formats.map(listFixtures));
   return results.flat();
 };
@@ -118,7 +118,12 @@ const findDesignFilesRecursive = async (
  * For Altium: looks for .PrjPcb files
  */
 export const findDesignFiles = async (fixture: Fixture): Promise<string[]> => {
-  const extensions = fixture.format === "cadence" ? [".dsn", ".cpm"] : [".prjpcb"];
+  const extensionsByFormat: Record<Format, string[]> = {
+    cadence: [".dsn", ".cpm"],
+    altium: [".prjpcb"],
+    kicad: [".kicad_pro"],
+  };
+  const extensions = extensionsByFormat[fixture.format];
 
   const results = await findDesignFilesRecursive(fixture.path, extensions);
 

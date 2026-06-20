@@ -11,16 +11,18 @@
 import type { DiscoveredDesign, DiscoverDesignsOptions, ParsedNetlist, EDAProjectFormatHandler } from '../types.js';
 import { cadenceHandler } from './cadence/index.js';
 import { altiumHandler } from './altium/index.js';
+import { kicadHandler } from './kicad/index.js';
 
 // Re-export handlers for direct access
 export { cadenceHandler } from './cadence/index.js';
 export { altiumHandler } from './altium/index.js';
+export { kicadHandler } from './kicad/index.js';
 
 /**
  * Registry of all supported EDA project format handlers.
  * Add new handlers here to support additional EDA tools.
  */
-const handlers: EDAProjectFormatHandler[] = [cadenceHandler, altiumHandler];
+const handlers: EDAProjectFormatHandler[] = [cadenceHandler, altiumHandler, kicadHandler];
 
 /**
  * Find a handler that can process the given file path.

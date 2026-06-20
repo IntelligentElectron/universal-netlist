@@ -15,6 +15,7 @@ This server provides tools to query EDA netlists for circuit design review.
 Supported formats:
 - **Cadence CIS/HDL**: Supports both exported .dat files (preferred) and .DSN binary schematics (fallback).
 - **Altium Designer**: Reads .SchDoc schematic documents associated to a .PrjPcb project file.
+- **KiCad**: Reads a .kicad_pro project (or root .kicad_sch). Prefers a committed kicadsexpr netlist export (.net) beside the project; otherwise generates one via kicad-cli (requires KiCad installed; set KICAD_CLI_PATH for a non-standard location). Nets declared inside a hierarchical sheet are sheet-path-prefixed (e.g. "/Peripherals/D0", not "/D0"); when using \`search_nets\`, prefer unanchored patterns so you do not miss bussed/hierarchical nets.
 
 ## Cadence Design Priority
 
@@ -25,6 +26,13 @@ Supported formats:
 When \`list_designs\` returns a .DSN path (no .dat files available):
 1. On Windows: run \`export_cadence_netlist\` with the .DSN path to generate .dat files, then re-run \`list_designs\`
 2. If export fails or on macOS/Linux: query using the .DSN path directly (DSN fallback parser)
+
+## KiCad Design Priority
+
+\`list_designs\` surfaces each \`.kicad_pro\` project. When you query a KiCad design the server resolves its netlist automatically; you do NOT need to export anything by hand:
+1. If a committed kicadsexpr export (\`<project>.net\`) sits beside the project, it is parsed directly (no KiCad install needed).
+2. Otherwise the server runs \`kicad-cli\` on the root \`.kicad_sch\` to generate one on demand (requires KiCad installed; set \`KICAD_CLI_PATH\` for a non-standard install location).
+3. If neither a committed \`.net\` nor a usable \`kicad-cli\` is available, the result has an \`error\` saying so.
 
 ## Workflow Guidance
 
@@ -61,6 +69,8 @@ Returns the best available path for each design. \
 For Cadence with exported .dat files: path is pstxnet.dat (preferred), \
 source has the .DSN schematic. Without .dat files: path is the .DSN. \
 For Altium: path is the .PrjPcb. \
+For KiCad: path is the .kicad_pro; its netlist resolves automatically when queried \
+(a committed .net export if present, otherwise generated via kicad-cli), so no manual export is needed. \
 Always use this tool to discover designs instead of searching the filesystem manually.`;
 
 export const LIST_COMPONENTS_DESCRIPTION = `\
@@ -78,6 +88,9 @@ Search for nets matching a regex pattern. \
 Matching is case-insensitive by default. \
 Returns sorted results keyed by design name, \
 with a notes field when nothing matches. \
+KiCad nets declared inside a hierarchical sheet are sheet-path-prefixed \
+(e.g. a "D0" data line on the Peripherals sheet is named "/Peripherals/D0", not "/D0"), \
+so prefer unanchored patterns like "D0" over "^/D0$" or you may miss bussed/hierarchical nets. \
 Rejects patterns that match all items; use list_nets for full results.`;
 
 export const SEARCH_COMPONENTS_BY_REFDES_DESCRIPTION = `\
