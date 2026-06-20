@@ -116,47 +116,11 @@ codex mcp add universal-netlist -- universal-netlist
 
 ## Observability (OpenTelemetry)
 
-The server can emit [OpenTelemetry](https://opentelemetry.io/) **traces, metrics, and logs** for every tool call, so you can see which tools are used, how long they take, and what fails. It is vendor-neutral: it works with any OTLP-compatible backend (an OpenTelemetry Collector, Jaeger, Tempo, Prometheus, Honeycomb, Datadog, a managed cloud tracing service, etc.).
+The server can emit [OpenTelemetry](https://opentelemetry.io/) **traces, metrics, and logs** for every tool call, so you can integrate your own OTel service and see which tools are used, how long they take, and what fails. It is vendor-neutral and works with any OTLP-compatible backend (an OpenTelemetry Collector, Jaeger, Tempo, Prometheus, Honeycomb, Datadog, a managed cloud tracing service, etc.).
 
-**Disabled by default.** Telemetry is a no-op with zero overhead unless you set an OTLP endpoint. Turn it on purely with the standard `OTEL_*` environment variables; no code changes and no bespoke config.
+Telemetry is **disabled by default** with zero overhead, and is enabled and configured entirely through the standard `OTEL_*` environment variables — no code changes.
 
-Each tool call emits:
-
-- a span `tool/<tool_name>` with `tool.name`, `tool.outcome` (`success`/`error`), `tool.duration_ms`, and `error.type` on failure;
-- metrics `tool.calls` (counter), `tool.duration` (ms histogram), and `tool.errors` (counter), labeled by `tool` and `outcome`;
-- a structured log record carrying the active trace/span IDs for trace-to-log correlation.
-
-All telemetry is tagged with `enduser.id`, the host OS account name of whoever is running the server, as a resource attribute (so it appears on traces, metrics, and logs). This attributes usage to the per-session user without any configuration.
-
-### Quick start with a local Collector / Jaeger
-
-Run an all-in-one Jaeger (which accepts OTLP and renders traces) and point the server at it:
-
-```bash
-docker run --rm -p 4318:4318 -p 16686:16686 jaegertracing/all-in-one:latest
-
-export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
-export OTEL_SERVICE_NAME=universal-netlist
-# then start the MCP server as usual; open http://localhost:16686 to view traces
-```
-
-### Configuration
-
-Only standard OpenTelemetry environment variables are used:
-
-| Variable | Purpose |
-|----------|---------|
-| `OTEL_EXPORTER_OTLP_ENDPOINT` | OTLP endpoint to export to. **Setting this enables telemetry.** |
-| `OTEL_EXPORTER_OTLP_HEADERS` | Headers for the exporter, e.g. `Authorization=Bearer <token>` for a managed backend. |
-| `OTEL_EXPORTER_OTLP_PROTOCOL` | `http/protobuf` (default) or `http/json`. `grpc` is not bundled in the standalone binaries and falls back to `http/protobuf`. |
-| `OTEL_SERVICE_NAME`, `OTEL_RESOURCE_ATTRIBUTES` | Resource identity. |
-| `OTEL_SDK_DISABLED`, `OTEL_TRACES_SAMPLER`, ... | Standard OTel SDK knobs. |
-
-Additional, clearly-scoped options:
-
-- `OTEL_CAPTURE_TOOL_ARGS=1`: also record raw tool arguments on the span (off by default; arguments may be sensitive).
-
-Telemetry never affects tool results: exporter failures, misconfiguration, or an unreachable backend degrade to "no telemetry", and pending data is flushed on shutdown.
+See **[Observability (OpenTelemetry)](docs/observability.md)** for setup, configuration, and the full list of emitted spans, metrics, and logs.
 
 ## Documentation
 
