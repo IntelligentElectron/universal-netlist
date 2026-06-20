@@ -1,0 +1,730 @@
+{
+  "nets": {
+    "+5V": {
+      "C1": [
+        "1"
+      ],
+      "P1": [
+        "2"
+      ],
+      "R5": [
+        "1"
+      ],
+      "TP1": [
+        "1"
+      ],
+      "U1": [
+        "15",
+        "16",
+        "17",
+        "18",
+        "2",
+        "23",
+        "25",
+        "28"
+      ],
+      "U2": [
+        "1"
+      ]
+    },
+    "/P1.SC": {
+      "P1": [
+        "1"
+      ],
+      "TP2": [
+        "1"
+      ],
+      "U1": [
+        "19"
+      ]
+    },
+    "/P1.SI": {
+      "P1": [
+        "3"
+      ],
+      "R1": [
+        "1"
+      ],
+      "TP3": [
+        "1"
+      ],
+      "U1": [
+        "6"
+      ]
+    },
+    "/P1.SO": {
+      "P1": [
+        "4"
+      ],
+      "TP4": [
+        "1"
+      ],
+      "U1": [
+        "10"
+      ]
+    },
+    "/P2.SC": {
+      "P2": [
+        "5"
+      ],
+      "TP6": [
+        "1"
+      ],
+      "U1": [
+        "20"
+      ]
+    },
+    "/P2.SI": {
+      "P2": [
+        "3"
+      ],
+      "R2": [
+        "1"
+      ],
+      "U1": [
+        "5"
+      ]
+    },
+    "/P2.SO": {
+      "P2": [
+        "2"
+      ],
+      "TP7": [
+        "1"
+      ],
+      "U1": [
+        "9"
+      ]
+    },
+    "/P3.SC": {
+      "P3": [
+        "5"
+      ],
+      "TP9": [
+        "1"
+      ],
+      "U1": [
+        "22"
+      ]
+    },
+    "/P3.SI": {
+      "P3": [
+        "3"
+      ],
+      "R3": [
+        "1"
+      ],
+      "U1": [
+        "4"
+      ]
+    },
+    "/P3.SO": {
+      "P3": [
+        "2"
+      ],
+      "TP8": [
+        "1"
+      ],
+      "U1": [
+        "8"
+      ]
+    },
+    "/P4.SC": {
+      "P4": [
+        "5"
+      ],
+      "TP11": [
+        "1"
+      ],
+      "U1": [
+        "21"
+      ]
+    },
+    "/P4.SI": {
+      "P4": [
+        "3"
+      ],
+      "R4": [
+        "1"
+      ],
+      "U1": [
+        "3"
+      ]
+    },
+    "/P4.SO": {
+      "P4": [
+        "2"
+      ],
+      "TP10": [
+        "1"
+      ],
+      "U1": [
+        "7"
+      ]
+    },
+    "/XI": {
+      "C4": [
+        "1"
+      ],
+      "R6": [
+        "1"
+      ],
+      "U1": [
+        "27"
+      ],
+      "X1": [
+        "1"
+      ]
+    },
+    "/XO": {
+      "C3": [
+        "1"
+      ],
+      "R6": [
+        "2"
+      ],
+      "U1": [
+        "26"
+      ],
+      "X1": [
+        "2"
+      ]
+    },
+    "/~{RESET}": {
+      "C2": [
+        "1"
+      ],
+      "R5": [
+        "2"
+      ],
+      "U1": [
+        "1"
+      ],
+      "U2": [
+        "3"
+      ]
+    },
+    "GND": {
+      "C1": [
+        "2"
+      ],
+      "C2": [
+        "2"
+      ],
+      "C3": [
+        "2"
+      ],
+      "C4": [
+        "2"
+      ],
+      "J1": [
+        "1"
+      ],
+      "P1": [
+        "5"
+      ],
+      "P2": [
+        "6",
+        "SH"
+      ],
+      "P3": [
+        "6",
+        "SH"
+      ],
+      "P4": [
+        "6",
+        "SH"
+      ],
+      "R1": [
+        "2"
+      ],
+      "R2": [
+        "2"
+      ],
+      "R3": [
+        "2"
+      ],
+      "R4": [
+        "2"
+      ],
+      "TP5": [
+        "1"
+      ],
+      "U1": [
+        "11",
+        "12",
+        "13",
+        "14"
+      ],
+      "U2": [
+        "2"
+      ]
+    },
+    "unconnected-(P2-SD-Pad4)": {
+      "P2": [
+        "4"
+      ]
+    },
+    "unconnected-(P2-VDD-Pad1)": {
+      "P2": [
+        "1"
+      ]
+    },
+    "unconnected-(P3-SD-Pad4)": {
+      "P3": [
+        "4"
+      ]
+    },
+    "unconnected-(P3-VDD-Pad1)": {
+      "P3": [
+        "1"
+      ]
+    },
+    "unconnected-(P4-SD-Pad4)": {
+      "P4": [
+        "4"
+      ]
+    },
+    "unconnected-(P4-VDD-Pad1)": {
+      "P4": [
+        "1"
+      ]
+    },
+    "unconnected-(U1-TCMP-Pad24)": {
+      "U1": [
+        "24"
+      ]
+    }
+  },
+  "components": {
+    "C1": {
+      "pins": {
+        "1": "+5V",
+        "2": "GND"
+      },
+      "value": "10u",
+      "description": "Polarized capacitor"
+    },
+    "C2": {
+      "pins": {
+        "1": "/~{RESET}",
+        "2": "GND"
+      },
+      "value": "100n",
+      "description": "Unpolarized capacitor"
+    },
+    "C3": {
+      "pins": {
+        "1": "/XO",
+        "2": "GND"
+      },
+      "value": "33p",
+      "description": "Unpolarized capacitor"
+    },
+    "C4": {
+      "pins": {
+        "1": "/XI",
+        "2": "GND"
+      },
+      "value": "33p",
+      "description": "Unpolarized capacitor"
+    },
+    "J1": {
+      "pins": {
+        "1": {
+          "name": "Pin_1",
+          "net": "GND"
+        }
+      },
+      "value": "Conn_01x01",
+      "description": "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+    },
+    "P1": {
+      "pins": {
+        "1": {
+          "name": "Pin_1",
+          "net": "/P1.SC"
+        },
+        "2": {
+          "name": "Pin_2",
+          "net": "+5V"
+        },
+        "3": {
+          "name": "Pin_3",
+          "net": "/P1.SI"
+        },
+        "4": {
+          "name": "Pin_4",
+          "net": "/P1.SO"
+        },
+        "5": {
+          "name": "Pin_5",
+          "net": "GND"
+        }
+      },
+      "value": "Conn_01x05",
+      "description": "Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)"
+    },
+    "P2": {
+      "pins": {
+        "1": {
+          "name": "VDD",
+          "net": "unconnected-(P2-VDD-Pad1)"
+        },
+        "2": {
+          "name": "SO",
+          "net": "/P2.SO"
+        },
+        "3": {
+          "name": "SI",
+          "net": "/P2.SI"
+        },
+        "4": {
+          "name": "SD",
+          "net": "unconnected-(P2-SD-Pad4)"
+        },
+        "5": {
+          "name": "SC",
+          "net": "/P2.SC"
+        },
+        "6": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "SH": "GND"
+      },
+      "value": "GameBoy_LinkPort",
+      "description": "Game Boy link port"
+    },
+    "P3": {
+      "pins": {
+        "1": {
+          "name": "VDD",
+          "net": "unconnected-(P3-VDD-Pad1)"
+        },
+        "2": {
+          "name": "SO",
+          "net": "/P3.SO"
+        },
+        "3": {
+          "name": "SI",
+          "net": "/P3.SI"
+        },
+        "4": {
+          "name": "SD",
+          "net": "unconnected-(P3-SD-Pad4)"
+        },
+        "5": {
+          "name": "SC",
+          "net": "/P3.SC"
+        },
+        "6": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "SH": "GND"
+      },
+      "value": "GameBoy_LinkPort",
+      "description": "Game Boy link port"
+    },
+    "P4": {
+      "pins": {
+        "1": {
+          "name": "VDD",
+          "net": "unconnected-(P4-VDD-Pad1)"
+        },
+        "2": {
+          "name": "SO",
+          "net": "/P4.SO"
+        },
+        "3": {
+          "name": "SI",
+          "net": "/P4.SI"
+        },
+        "4": {
+          "name": "SD",
+          "net": "unconnected-(P4-SD-Pad4)"
+        },
+        "5": {
+          "name": "SC",
+          "net": "/P4.SC"
+        },
+        "6": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "SH": "GND"
+      },
+      "value": "GameBoy_LinkPort",
+      "description": "Game Boy link port"
+    },
+    "R1": {
+      "pins": {
+        "1": "/P1.SI",
+        "2": "GND"
+      },
+      "value": "100k",
+      "description": "Resistor"
+    },
+    "R2": {
+      "pins": {
+        "1": "/P2.SI",
+        "2": "GND"
+      },
+      "value": "100k",
+      "description": "Resistor"
+    },
+    "R3": {
+      "pins": {
+        "1": "/P3.SI",
+        "2": "GND"
+      },
+      "value": "100k",
+      "description": "Resistor"
+    },
+    "R4": {
+      "pins": {
+        "1": "/P4.SI",
+        "2": "GND"
+      },
+      "value": "100k",
+      "description": "Resistor"
+    },
+    "R5": {
+      "pins": {
+        "1": "+5V",
+        "2": "/~{RESET}"
+      },
+      "value": "100k",
+      "description": "Resistor"
+    },
+    "R6": {
+      "pins": {
+        "1": "/XI",
+        "2": "/XO"
+      },
+      "value": "1M",
+      "description": "Resistor"
+    },
+    "TP1": {
+      "pins": {
+        "1": "+5V"
+      },
+      "value": "P1.+5V",
+      "description": "test point"
+    },
+    "TP2": {
+      "pins": {
+        "1": "/P1.SC"
+      },
+      "value": "P1.SC",
+      "description": "test point"
+    },
+    "TP3": {
+      "pins": {
+        "1": "/P1.SI"
+      },
+      "value": "P1.SI",
+      "description": "test point"
+    },
+    "TP4": {
+      "pins": {
+        "1": "/P1.SO"
+      },
+      "value": "P1.SO",
+      "description": "test point"
+    },
+    "TP5": {
+      "pins": {
+        "1": "GND"
+      },
+      "value": "P1.GND",
+      "description": "test point"
+    },
+    "TP6": {
+      "pins": {
+        "1": "/P2.SC"
+      },
+      "value": "P2.SC",
+      "description": "test point"
+    },
+    "TP7": {
+      "pins": {
+        "1": "/P2.SO"
+      },
+      "value": "P2.SO",
+      "description": "test point"
+    },
+    "TP8": {
+      "pins": {
+        "1": "/P3.SO"
+      },
+      "value": "P3.SO",
+      "description": "test point"
+    },
+    "TP9": {
+      "pins": {
+        "1": "/P3.SC"
+      },
+      "value": "P3.SC",
+      "description": "test point"
+    },
+    "TP10": {
+      "pins": {
+        "1": "/P4.SO"
+      },
+      "value": "P4.SO",
+      "description": "test point"
+    },
+    "TP11": {
+      "pins": {
+        "1": "/P4.SC"
+      },
+      "value": "P4.SC",
+      "description": "test point"
+    },
+    "U1": {
+      "pins": {
+        "1": {
+          "name": "~{RESET}",
+          "net": "/~{RESET}"
+        },
+        "2": {
+          "name": "~{IRQ}",
+          "net": "+5V"
+        },
+        "3": {
+          "name": "PA7",
+          "net": "/P4.SI"
+        },
+        "4": {
+          "name": "PA6",
+          "net": "/P3.SI"
+        },
+        "5": {
+          "name": "PA5",
+          "net": "/P2.SI"
+        },
+        "6": {
+          "name": "PA4",
+          "net": "/P1.SI"
+        },
+        "7": {
+          "name": "PA3",
+          "net": "/P4.SO"
+        },
+        "8": {
+          "name": "PA2",
+          "net": "/P3.SO"
+        },
+        "9": {
+          "name": "PA1",
+          "net": "/P2.SO"
+        },
+        "10": {
+          "name": "PA0",
+          "net": "/P1.SO"
+        },
+        "11": {
+          "name": "PB5/SDO",
+          "net": "GND"
+        },
+        "12": {
+          "name": "PB6/SDI",
+          "net": "GND"
+        },
+        "13": {
+          "name": "PB7/SCK",
+          "net": "GND"
+        },
+        "14": {
+          "name": "V_{SS}",
+          "net": "GND"
+        },
+        "15": {
+          "name": "PC7",
+          "net": "+5V"
+        },
+        "16": {
+          "name": "PC6",
+          "net": "+5V"
+        },
+        "17": {
+          "name": "PC5",
+          "net": "+5V"
+        },
+        "18": {
+          "name": "PC4",
+          "net": "+5V"
+        },
+        "19": {
+          "name": "PC3",
+          "net": "/P1.SC"
+        },
+        "20": {
+          "name": "PC2",
+          "net": "/P2.SC"
+        },
+        "21": {
+          "name": "PC1",
+          "net": "/P4.SC"
+        },
+        "22": {
+          "name": "PC0",
+          "net": "/P3.SC"
+        },
+        "23": {
+          "name": "PD5",
+          "net": "+5V"
+        },
+        "24": {
+          "name": "TCMP",
+          "net": "unconnected-(U1-TCMP-Pad24)"
+        },
+        "25": {
+          "name": "TCAP/PD7",
+          "net": "+5V"
+        },
+        "26": {
+          "name": "OSC2",
+          "net": "/XO"
+        },
+        "27": {
+          "name": "OSC1",
+          "net": "/XI"
+        },
+        "28": {
+          "name": "V_{DD}",
+          "net": "+5V"
+        }
+      },
+      "value": "402038"
+    },
+    "U2": {
+      "pins": {
+        "1": {
+          "name": "V_{CC}",
+          "net": "+5V"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "3": {
+          "name": "OUT",
+          "net": "/~{RESET}"
+        }
+      },
+      "value": "PST529G",
+      "description": "Reset supervisor, 3.3V threshold, TO-92"
+    },
+    "X1": {
+      "pins": {
+        "1": "/XI",
+        "2": "/XO"
+      },
+      "value": "3.0MHz",
+      "description": "Two pin crystal"
+    }
+  }
+}

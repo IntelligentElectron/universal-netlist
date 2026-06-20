@@ -5,6 +5,7 @@
 // Import format-specific discovered design types from their parsers
 import type { CadenceDiscoveredDesign } from "./parsers/cadence/discovery.js";
 import type { AltiumDiscoveredDesign } from "./parsers/altium/discovery.js";
+import type { KicadDiscoveredDesign } from "./parsers/kicad/discovery.js";
 
 /**
  * Compact single-element arrays to scalar values for token savings.
@@ -153,12 +154,15 @@ export interface AggregatedCircuitResult {
 }
 
 // Re-export format-specific discovered design types for consumers
-export type { CadenceDiscoveredDesign, AltiumDiscoveredDesign };
+export type { CadenceDiscoveredDesign, AltiumDiscoveredDesign, KicadDiscoveredDesign };
 
 /**
  * Discovered design metadata (discriminated union by format).
  */
-export type DiscoveredDesign = CadenceDiscoveredDesign | AltiumDiscoveredDesign;
+export type DiscoveredDesign =
+  | CadenceDiscoveredDesign
+  | AltiumDiscoveredDesign
+  | KicadDiscoveredDesign;
 
 /**
  * Design info returned from list_designs
