@@ -92,6 +92,19 @@ describe("parseKicadNetlist", () => {
     expect(overbar.components.U9.pins["1"]).toEqual({ name: "~{RESET}", net: "/~{RESET}" });
   });
 
+  it("treats a bare ~ pinfunction as unnamed (plain net string)", () => {
+    // KiCad emits (pinfunction "~") for an unnamed pin; it must not become a name.
+    const unnamed = parseKicadNetlist(`
+(export
+  (components
+    (comp (ref "R7") (value "1k")))
+  (nets
+    (net (code "1") (name "SIG")
+      (node (ref "R7") (pin "2") (pinfunction "~")))))
+`);
+    expect(unnamed.components.R7.pins["2"]).toBe("SIG");
+  });
+
   it("uses a plain net string when the pin name equals the pin number", () => {
     // TP1 pin 1, pinfunction "1_1" → name "1" == number → plain string.
     expect(result.components.TP1.pins["1"]).toBe("VOUT");

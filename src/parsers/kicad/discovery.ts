@@ -82,7 +82,10 @@ const walkForProjects = async (rootDir: string, maxDepth?: number): Promise<stri
     try {
       entries = await readdir(currentDir, { withFileTypes: true });
     } catch (error) {
-      if (!(error instanceof Error) || !("code" in error) || error.code !== "EACCES") {
+      // Skip unreadable, missing, or non-directory paths (e.g. permission denied,
+      // or a directory removed/replaced mid-walk by a concurrent change).
+      const skippable = new Set(["EACCES", "ENOENT", "ENOTDIR"]);
+      if (!(error instanceof Error) || !("code" in error) || !skippable.has(String(error.code))) {
         throw error;
       }
       return;

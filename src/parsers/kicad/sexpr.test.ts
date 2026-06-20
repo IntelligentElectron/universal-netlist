@@ -43,6 +43,10 @@ describe("parseSexpr", () => {
     expect(() => parseSexpr("(a (b)")).toThrow();
     expect(() => parseSexpr("(a))")).toThrow();
   });
+
+  it("throws on an unterminated quoted string (e.g. truncated file)", () => {
+    expect(() => parseSexpr('(value "abc')).toThrow(/unterminated/i);
+  });
 });
 
 describe("accessors", () => {

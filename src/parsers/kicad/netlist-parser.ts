@@ -110,9 +110,10 @@ const isDnp = (comp: SExpr[]): boolean =>
  * pinfunction as `<name>_<pinNumber>` (e.g. pin "15" named "PC7" → "PC7_15",
  * pin "1" named "1" → "1_1"). We strip the trailing `_<pinNumber>` to get the
  * symbol's pin name; `createPinEntry` then drops it when it equals the number.
+ * KiCad uses a bare "~" for an unnamed pin, which carries no meaning here.
  */
 const pinName = (pinfunction: string | undefined, pinNumber: string): string | undefined => {
-  if (!pinfunction) return undefined;
+  if (!pinfunction || pinfunction === "~") return undefined;
   const suffix = `_${pinNumber}`;
   if (pinfunction.endsWith(suffix) && pinfunction.length > suffix.length) {
     return pinfunction.slice(0, -suffix.length);

@@ -16,6 +16,9 @@
 
 export type SExpr = string | SExpr[];
 
+const isDelimiter = (ch: string): boolean =>
+  ch === "(" || ch === ")" || ch === '"' || ch === " " || ch === "\t" || ch === "\n" || ch === "\r";
+
 /**
  * Parse s-expression text into a list of top-level nodes.
  * A well-formed KiCad file has a single top-level list (e.g. `(export ...)`),
@@ -27,9 +30,6 @@ export const parseSexpr = (input: string): SExpr[] => {
   const stack: SExpr[][] = [top];
   let i = 0;
   const n = input.length;
-
-  const isDelimiter = (ch: string): boolean =>
-    ch === "(" || ch === ")" || ch === '"' || ch === " " || ch === "\t" || ch === "\n" || ch === "\r";
 
   while (i < n) {
     const ch = input[i];
@@ -63,6 +63,7 @@ export const parseSexpr = (input: string): SExpr[] => {
     if (ch === '"') {
       i++; // skip opening quote
       let str = "";
+      let closed = false;
       while (i < n) {
         const c = input[i];
         if (c === "\\") {
@@ -93,10 +94,14 @@ export const parseSexpr = (input: string): SExpr[] => {
         }
         if (c === '"') {
           i++; // skip closing quote
+          closed = true;
           break;
         }
         str += c;
         i++;
+      }
+      if (!closed) {
+        throw new Error("Unterminated string literal: unexpected end of input");
       }
       stack[stack.length - 1].push(str);
       continue;
