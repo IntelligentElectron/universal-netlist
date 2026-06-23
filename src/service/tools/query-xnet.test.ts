@@ -153,6 +153,8 @@ describe("queryXnetByPinName - ground net blocking", () => {
     expect(isErrorResult(result)).toBe(true);
     expect((result as ErrorResult).error).toContain("(ground)");
     expect((result as ErrorResult).error).toContain("cannot be queried");
+    // The offending net name must appear, so a future regression can't blame the wrong net.
+    expect((result as ErrorResult).error).toContain("GNDREF");
   });
 
   it("should allow non-ground pin queries", async () => {
