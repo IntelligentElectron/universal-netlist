@@ -12,7 +12,7 @@ entry lists status against the codebase as of the last review.
 |---|---|---|
 | [cloud-storage-readiness.md](./cloud-storage-readiness.md) | Decouple file I/O from parsers; add `Storage` interface + GCS adapter so `gs://` URIs work alongside local paths | Proposed |
 | [run_erc.md](./run_erc.md) | New `run_erc` MCP tool for net-level electrical rule checks (single_pin, testpoint_only, unnamed, testpoint_stub) | Proposed |
-| [xnet-depth-limit.md](./xnet-depth-limit.md) | Add `max_depth` parameter to `query_xnet_*` tools, plus `max_depth_reached` and `frontier_nets` response metadata | Proposed |
+| [xnet-depth-limit.md](./xnet-depth-limit.md) | Bound XNET output two ways: (A) `max_depth` parameter + `frontier_nets`/`max_depth_reached` metadata, and (B) automatic byte-budget output-size cap with graceful truncation. Both evaluated; recommend both | Proposed |
 | [power-net-stop-pattern.md](./power-net-stop-pattern.md) | Switch `POWER_NET_PATTERN` / `STOP_NET_PATTERN` keywords (VCC/VDD/VBAT/VBUS/VSYS) from anchored prefix to substring matching so prefixed rails like `CC1310_VDD` stop traversal | Proposed |
 | [relative_path.md](./relative_path.md) | Auto-discovery + ID-based design access: `list_designs` returns relative-path IDs that all other tools accept instead of absolute paths | Proposed |
 | [parser-quality-improvements.md](./parser-quality-improvements.md) | 10 quality gaps from the June 2026 full-fixture MCP stress test: solder-bridge traversal, Altium DNP detection, pstxnet design-name keying, DSN group value collapse, CP1251 decoding, hidden power pins, NC pseudo-net, error polish | Proposed |

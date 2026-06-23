@@ -11,6 +11,7 @@ import {
   isValidRefdes,
   isDnsComponent,
   stripDnsMarkers,
+  getRefdesPrefix,
   matchesRefdesType,
   naturalSort,
   traverseCircuitFromNet,
@@ -39,9 +40,27 @@ describe("isGroundNet", () => {
     expect(isGroundNet("dgnd")).toBe(true);
   });
 
+  it("should match suffixed ground names (KiCad GNDREF and friends)", () => {
+    expect(isGroundNet("GNDREF")).toBe(true); // KiCad's default global ground
+    expect(isGroundNet("gndref")).toBe(true);
+    expect(isGroundNet("GNDPWR")).toBe(true);
+    expect(isGroundNet("GNDD")).toBe(true);
+    expect(isGroundNet("GNDS")).toBe(true);
+    expect(isGroundNet("AGND1")).toBe(true);
+    expect(isGroundNet("VSSA")).toBe(true);
+  });
+
+  it("should match hierarchical (sheet-path-prefixed) ground nets", () => {
+    expect(isGroundNet("/GND")).toBe(true); // GND on the root sheet
+    expect(isGroundNet("/Power/AGND")).toBe(true); // AGND on a sub-sheet
+    expect(isGroundNet("/Analog/GNDREF")).toBe(true);
+  });
+
   it("should not match signal nets", () => {
-    expect(isGroundNet("SIG_GND")).toBe(false);
+    expect(isGroundNet("SIG_GND")).toBe(false); // suffix GND, not a global ground
     expect(isGroundNet("SIGNAL")).toBe(false);
+    expect(isGroundNet("GROUND_LOOP")).toBe(false); // starts with G-R-O, not GND
+    expect(isGroundNet("/Sheet/DATA")).toBe(false); // hierarchical signal
   });
 });
 
@@ -103,10 +122,16 @@ describe("isPowerNet", () => {
     expect(isPowerNet("-VBIAS")).toBe(true);
   });
 
+  it("should match hierarchical (sheet-path-prefixed) power rails", () => {
+    expect(isPowerNet("/+3V3")).toBe(true);
+    expect(isPowerNet("/Power/VCC")).toBe(true);
+  });
+
   it("should not match signal nets", () => {
     expect(isPowerNet("I2C_SDA")).toBe(false);
     expect(isPowerNet("SPI_CLK")).toBe(false);
     expect(isPowerNet("SIGNAL")).toBe(false);
+    expect(isPowerNet("/Sheet/I2C_SDA")).toBe(false); // hierarchical signal stays a signal
   });
 });
 
@@ -116,6 +141,15 @@ describe("isStopNet", () => {
     expect(isStopNet("VSS")).toBe(true);
     expect(isStopNet("AGND")).toBe(true);
     expect(isStopNet("DGND")).toBe(true);
+  });
+
+  it("should halt on suffixed and hierarchical ground nets", () => {
+    // These previously slipped through, so xnet traversal flooded the whole
+    // ground tree (token-limit blowups). They must now register as stop nets.
+    expect(isStopNet("GNDREF")).toBe(true);
+    expect(isStopNet("GNDPWR")).toBe(true);
+    expect(isStopNet("/GND")).toBe(true);
+    expect(isStopNet("/Power/GNDREF")).toBe(true);
   });
 
   it("should match power nets", () => {
@@ -313,6 +347,30 @@ describe("isValidRefdes", () => {
     expect(isValidRefdes("")).toBe(false);
     expect(isValidRefdes("123")).toBe(false);
   });
+
+  it("rejects unannotated refdes (annotation placeholder) — intentional", () => {
+    // The "?" placeholder fails whole-string validation by design. This guards
+    // the deliberate divergence from getRefdesPrefix: callers needing a prefix
+    // from a possibly-unannotated refdes must use getRefdesPrefix, not this.
+    // (Relaxing this would alter the Cadence parsers that depend on it.)
+    expect(isValidRefdes("C?")).toBe(false);
+    expect(isValidRefdes("PS?")).toBe(false);
+  });
+});
+
+describe("getRefdesPrefix", () => {
+  it("extracts the leading-letter prefix from annotated refdes", () => {
+    expect(getRefdesPrefix("U1")).toBe("U");
+    expect(getRefdesPrefix("R100")).toBe("R");
+    expect(getRefdesPrefix("FB3")).toBe("FB");
+    expect(getRefdesPrefix("U1_A")).toBe("U");
+  });
+
+  it("extracts the prefix from unannotated refdes (ignores the '?' placeholder)", () => {
+    expect(getRefdesPrefix("C?")).toBe("C");
+    expect(getRefdesPrefix("D?")).toBe("D");
+    expect(getRefdesPrefix("PS?")).toBe("PS");
+  });
 });
 
 describe("matchesRefdesType", () => {
@@ -320,6 +378,12 @@ describe("matchesRefdesType", () => {
     expect(matchesRefdesType("R1", "R")).toBe(true);
     expect(matchesRefdesType("FB1", "FB")).toBe(true);
     expect(matchesRefdesType("C100", "C")).toBe(true);
+  });
+
+  it("matches unannotated refdes by their letter prefix", () => {
+    expect(matchesRefdesType("C?", "C")).toBe(true);
+    expect(matchesRefdesType("D?", "D")).toBe(true);
+    expect(matchesRefdesType("PS?", "PS")).toBe(true);
   });
 
   it("should not match when type is a substring of the prefix", () => {

@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.1] - 2026-06-23
+
+### Fixed
+
+- The XNET tools (`query_xnet_by_net_name`, `query_xnet_by_pin_name`) now recognize suffixed and hierarchical ground nets. The ground guard previously matched a hardcoded exact list (`GND`, `VSS`, `AGND`, `DGND`, `PGND`, `SGND`, `CGND`), so KiCad's own default global ground `GNDREF` (and `GNDD`, `GNDS`, `GNDPWR`, …) plus sheet-path-prefixed grounds like `/GND` slipped through and the trace flooded the entire ground tree, overflowing the output token limit. Ground tokens now allow a trailing suffix and the sheet-path prefix is stripped before classification, so these nets are correctly rejected; a suffix-only signal-ground such as `SIG_GND` is still treated as a signal
+- `list_components` now reports the correct `Available prefixes` on designs with unannotated components. Refdes still carrying KiCad's `?` placeholder (e.g. `C?`, `D?`, `PS?`) were dropped from the suggestion list, so a query for an absent prefix on an otherwise-populated design wrongly reported `Available prefixes: []`. The list is now derived with the same prefix logic the matcher uses, so every suggested prefix resolves to real components
+
 ## [1.1.0] - 2026-06-19
 
 ### Added
