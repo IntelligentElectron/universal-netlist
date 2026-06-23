@@ -11,7 +11,15 @@ import type { NetConnections, ComponentDetails, CircuitComponent } from "./types
 // A "stop" net is any power or ground rail, so the three patterns below are
 // derived from these shared alternation fragments to keep them in sync — adding
 // a rail to POWER_NET_ALTERNATIVES automatically extends STOP_NET_PATTERN too.
-const GROUND_NET_ALTERNATIVES = "GND|VSS|AGND|DGND|PGND|SGND|CGND";
+// Ground tokens allow a trailing `\w*` so suffixed grounds are caught the same
+// way the power rails are (e.g. KiCad's default `GNDREF`, plus `GNDD`, `GNDS`,
+// `GNDPWR`, `AGND1`). The leading `^` anchor keeps this a prefix match, so a
+// signal-ground like `SIG_GND` is still NOT classified as ground.
+// Trade-off: because `\w` includes `_`, names like `GND_SENSE`/`GND_RETURN` now
+// classify as ground. This is intentional — such names are almost always real
+// ground domains (`GND_DIGITAL`, `GND_ANALOG`, `GND_CHASSIS`), and a missed
+// ground that floods traversal is far worse than a false positive here.
+const GROUND_NET_ALTERNATIVES = "GND\\w*|VSS\\w*|AGND\\w*|DGND\\w*|PGND\\w*|SGND\\w*|CGND\\w*";
 const POWER_NET_ALTERNATIVES =
   "VCC\\w*|VDD\\w*|VIN\\w*|VOUT\\w*|VBAT\\w*|VBUS\\w*|VSYS\\w*|VREG\\w*|PWR_\\w+|RAIL_\\w+|PP\\w*|PN\\w*|LD_PP\\w*|LD_PN\\w*|[+-]?\\d+V\\d*\\w*|[+-].+";
 
@@ -25,19 +33,34 @@ const DNS_PATTERN =
   /(?:^|[_,\s])(DNS|DNP|DNF|DNI|DNM|NF|NC)(?:$|[_,\s])|DO\s*NOT\s*(STUFF|POPULATE|INSTALL|FIT|MOUNT)|NOT\s*(POPULATED|FITTED|CONNECTED|MOUNTED)|NO\s*POP/i;
 
 /**
+ * KiCad prefixes nets declared in a sub-sheet with their sheet path
+ * (`/Sheet/GND`, or `/GND` for a net on the root sheet). Net classification
+ * keys off the base name, so reduce to the final path segment before matching;
+ * otherwise the leading slash defeats the `^`-anchored patterns and a ground
+ * like `/GND` is treated as an ordinary signal.
+ */
+const stripSheetPath = (netName: string): string => {
+  const slash = netName.lastIndexOf("/");
+  return slash === -1 ? netName : netName.slice(slash + 1);
+};
+
+/**
  * Check if a net name matches the ground pattern.
  */
-export const isGroundNet = (netName: string): boolean => GROUND_NET_PATTERN.test(netName);
+export const isGroundNet = (netName: string): boolean =>
+  GROUND_NET_PATTERN.test(stripSheetPath(netName));
 
 /**
  * Check if a net name matches the power pattern.
  */
-export const isPowerNet = (netName: string): boolean => POWER_NET_PATTERN.test(netName);
+export const isPowerNet = (netName: string): boolean =>
+  POWER_NET_PATTERN.test(stripSheetPath(netName));
 
 /**
  * Check if a net name matches the stop pattern (power or ground).
  */
-export const isStopNet = (netName: string): boolean => STOP_NET_PATTERN.test(netName);
+export const isStopNet = (netName: string): boolean =>
+  STOP_NET_PATTERN.test(stripSheetPath(netName));
 
 /**
  * Determine if a component is a traversable passive (R/RS, L, C, FB).

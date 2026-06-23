@@ -1,7 +1,7 @@
 import { getDesignName } from "../../paths.js";
 import { loadNetlist } from "../load-netlist.js";
 import { groupComponentsByMpn } from "../component-grouping.js";
-import { matchesRefdesType, getRefdesPrefix, isValidRefdes } from "../../circuit-traversal.js";
+import { matchesRefdesType, getRefdesPrefix } from "../../circuit-traversal.js";
 import { isErrorResult, type ListComponentsResult, type ErrorResult } from "../../types.js";
 
 /**
@@ -31,8 +31,16 @@ export const listComponents = async (
   );
 
   if (entries.length === 0) {
+    // Derive the suggestion list with the same prefix logic the matcher uses
+    // (getRefdesPrefix), so it can never contradict a query. Filtering to
+    // purely-alphabetic prefixes drops Cadence-path junk ("@DESIGN…") and
+    // numeric-only keys, while keeping unannotated refdes ("C?" -> "C").
     const availablePrefixes = Array.from(
-      new Set(Object.keys(netlist.components).filter(isValidRefdes).map(getRefdesPrefix))
+      new Set(
+        Object.keys(netlist.components)
+          .map(getRefdesPrefix)
+          .filter((p) => /^[A-Z]+$/.test(p))
+      )
     ).sort((a, b) => a.localeCompare(b));
 
     const designName = getDesignName(design);
