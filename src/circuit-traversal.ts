@@ -15,6 +15,10 @@ import type { NetConnections, ComponentDetails, CircuitComponent } from "./types
 // way the power rails are (e.g. KiCad's default `GNDREF`, plus `GNDD`, `GNDS`,
 // `GNDPWR`, `AGND1`). The leading `^` anchor keeps this a prefix match, so a
 // signal-ground like `SIG_GND` is still NOT classified as ground.
+// Trade-off: because `\w` includes `_`, names like `GND_SENSE`/`GND_RETURN` now
+// classify as ground. This is intentional — such names are almost always real
+// ground domains (`GND_DIGITAL`, `GND_ANALOG`, `GND_CHASSIS`), and a missed
+// ground that floods traversal is far worse than a false positive here.
 const GROUND_NET_ALTERNATIVES = "GND\\w*|VSS\\w*|AGND\\w*|DGND\\w*|PGND\\w*|SGND\\w*|CGND\\w*";
 const POWER_NET_ALTERNATIVES =
   "VCC\\w*|VDD\\w*|VIN\\w*|VOUT\\w*|VBAT\\w*|VBUS\\w*|VSYS\\w*|VREG\\w*|PWR_\\w+|RAIL_\\w+|PP\\w*|PN\\w*|LD_PP\\w*|LD_PN\\w*|[+-]?\\d+V\\d*\\w*|[+-].+";

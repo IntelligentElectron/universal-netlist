@@ -50,6 +50,14 @@ describe("isGroundNet", () => {
     expect(isGroundNet("VSSA")).toBe(true);
   });
 
+  it("should match underscore-suffixed ground domains (intentional)", () => {
+    // `\w` includes `_`, so GND_* names classify as ground. Almost always a real
+    // ground domain; a missed ground that floods traversal is worse than this.
+    expect(isGroundNet("GND_SENSE")).toBe(true);
+    expect(isGroundNet("GND_RETURN")).toBe(true);
+    expect(isGroundNet("GND_DIGITAL")).toBe(true);
+  });
+
   it("should match hierarchical (sheet-path-prefixed) ground nets", () => {
     expect(isGroundNet("/GND")).toBe(true); // GND on the root sheet
     expect(isGroundNet("/Power/AGND")).toBe(true); // AGND on a sub-sheet
