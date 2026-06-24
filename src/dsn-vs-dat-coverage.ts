@@ -6,6 +6,12 @@
  */
 
 import type { ParsedNetlist, PinEntry } from "./types.js";
+// categorizeNet now strips the sheet path before matching and recognizes KiCad
+// auto-name patterns, so a Cadence hierarchical net like /DESIGN/N123 classifies
+// as "auto-generated" (previously "named"). This can shift category counts in
+// the coverage report for hierarchical designs; it does not affect the
+// net/component coverage percentages, which match on names, not categories.
+import { categorizeNet } from "./net-categories.js";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -44,13 +50,6 @@ export interface CoverageResult {
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
-
-export const categorizeNet = (name: string): string => {
-  if (name === "NC") return "no-connect";
-  if (/^N\d+$/.test(name)) return "auto-generated";
-  if (/\[.*\.\.]/.test(name)) return "bus-range";
-  return "named";
-};
 
 const getPinName = (entry: PinEntry): string | undefined =>
   typeof entry === "string" ? undefined : entry.name;

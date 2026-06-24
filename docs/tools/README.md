@@ -12,4 +12,5 @@
 | [`query_component`](query_component.md) | Get full component details including all pin connections |
 | [`query_xnet_by_net_name`](query_xnet_by_net_name.md) | Get full XNET (Extended Net) connectivity for a net |
 | [`query_xnet_by_pin_name`](query_xnet_by_pin_name.md) | Get full XNET connectivity starting from a component pin |
+| [`run_erc`](run_erc.md) | Run electrical rule checks (ERC) on the netlist |
 | [`export_cadence_netlist`](export_cadence_netlist.md) | Export Cadence schematic netlist to Allegro PCB format (Windows only) |

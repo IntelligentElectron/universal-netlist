@@ -40,6 +40,7 @@ The schema captures identification (MPN, description) but not electrical specifi
 | [`query_component`](tools/query_component.md) | Get component details with all pin connections |
 | [`query_xnet_by_net_name`](tools/query_xnet_by_net_name.md) | Trace circuit connectivity from a net |
 | [`query_xnet_by_pin_name`](tools/query_xnet_by_pin_name.md) | Trace circuit connectivity from a component pin |
+| [`run_erc`](tools/run_erc.md) | Run electrical rule checks (ERC) on the netlist |
 | [`export_cadence_netlist`](tools/export_cadence_netlist.md) | Export Cadence schematic to Allegro format (Windows) |
 
 ## Schematic Authoring
