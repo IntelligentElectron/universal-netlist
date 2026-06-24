@@ -26,7 +26,7 @@ Test points are identified by the `TP` reference-designator prefix. "Functional 
 | `include_rules` | string[] | No | all | Run only these rule ids (e.g. `["net.single_pin"]`) |
 | `exclude_rules` | string[] | No | none | Skip these rule ids (applied after `include_rules`) |
 
-An unknown rule id in `include_rules` or `exclude_rules` returns an `ErrorResult` listing the valid ids, rather than silently checking nothing (which would look like a clean design).
+An unknown rule id in `include_rules` or `exclude_rules` returns an `ErrorResult` listing the valid ids, rather than silently checking nothing (which would look like a clean design). An empty `include_rules` array is likewise rejected: omit the field to run all rules.
 
 ## Response Schema
 
