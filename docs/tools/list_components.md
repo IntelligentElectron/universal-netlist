@@ -53,12 +53,12 @@ Response:
       "mpn": "STM32F401CCU6",
       "description": "IC MCU 32BIT 256KB FLASH 48UFQFPN",
       "count": 1,
-      "refdes": "U5"
+      "refdes": ["U5"]
     },
     {
       "description": "IC GENERIC",
       "count": 1,
-      "refdes": "U3",
+      "refdes": ["U3"],
       "notes": ["MPN not found in exported netlist data. Tell user to update symbol properties in library, or to point you to the BOM"]
     }
   ]
@@ -76,12 +76,10 @@ Response:
 
 - The `type` parameter is case-insensitive (`u` and `U` both work)
 - Components are grouped by MPN; components without MPN are listed individually
-- Single-element `refdes` arrays are compacted to strings
 - Components without MPN include a `notes` field suggesting next steps
 - Use `include_dns: true` to see DNS components (marked with `dns: true`)
 
 ## See Also
 
-- [Compact Array Behavior](../schemas/shared-types.md#compact-array-behavior) - How single-element arrays are compacted
 - [DNS Detection](../schemas/shared-types.md#dns-detection) - How DNS components are identified
 - [Notes Array](../schemas/shared-types.md#notes-array) - Meaning of notes field values

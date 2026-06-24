@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-06-24
+
+### Changed
+
+- Tool outputs now always represent multi-value fields as JSON arrays, even for a single element. The `refdes` field (`list_components`, `search_components_by_*`, `query_xnet_*`) and the connection `pins` field (`query_xnet_*`) previously collapsed a one-element list to a bare string; a single result is now `["U5"]` / `["1"]` rather than `"U5"` / `"1"`. This removes the string-or-array ambiguity so every consumer has one shape to parse. Note this is an output-shape change for existing consumers. (`query_component`'s own `refdes`, a single component designator, is unchanged.)
+
 ## [1.1.1] - 2026-06-23
 
 ### Fixed

@@ -57,7 +57,7 @@ Response:
         "mpn": "AP2112K-3.3TRG1",
         "description": "IC LDO REG 600MA SOT-23-5",
         "count": 1,
-        "refdes": "U15"
+        "refdes": ["U15"]
       }
     ]
   }

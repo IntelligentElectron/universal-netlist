@@ -1,6 +1,5 @@
 import { naturalSort } from "../circuit-traversal.js";
 import {
-  compactArray,
   type ComponentDetails,
   type CircuitComponent,
   type AggregatedCircuitResult,
@@ -66,7 +65,7 @@ export const groupComponentsByMpn = (
     .map((group) => {
       const entry: ComponentGroup = {
         count: group.refdes.length,
-        refdes: compactArray(group.refdes.sort(naturalSort)),
+        refdes: group.refdes.sort(naturalSort),
       };
 
       if (group.mpn !== undefined) {
@@ -178,9 +177,6 @@ export const aggregateCircuitByMpn = (
     }
   }
 
-  const compactConnections = (connections: Array<{ net: string; pins: string[] }>) =>
-    connections.map((c) => ({ net: c.net, pins: compactArray(c.pins) }));
-
   const result: AggregatedComponent[] = [];
 
   for (const group of groups.values()) {
@@ -215,13 +211,13 @@ export const aggregateCircuitByMpn = (
     }
 
     if (orientationsList.length === 1) {
-      aggregated.refdes = compactArray(orientationsList[0].refdes.sort(naturalSort));
-      aggregated.connections = compactConnections(orientationsList[0].connections);
+      aggregated.refdes = orientationsList[0].refdes.sort(naturalSort);
+      aggregated.connections = orientationsList[0].connections;
     } else {
       aggregated.orientations = orientationsList.map((o) => ({
         count: o.count,
-        refdes: compactArray(o.refdes.sort(naturalSort)),
-        connections: compactConnections(o.connections),
+        refdes: o.refdes.sort(naturalSort),
+        connections: o.connections,
       }));
     }
 
@@ -230,10 +226,10 @@ export const aggregateCircuitByMpn = (
 
   for (const comp of unaggregatable) {
     const unagg: AggregatedComponent = {
-      refdes: comp.refdes,
+      refdes: [comp.refdes],
       notes: [MPN_MISSING_NOTE],
       total_count: 1,
-      connections: compactConnections(comp.connections),
+      connections: comp.connections,
     };
 
     if (comp.description !== undefined) {

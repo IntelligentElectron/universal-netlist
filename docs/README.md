@@ -87,7 +87,6 @@ Error messages include actionable guidance (e.g., "Use list_components() to find
 
 Important behavioral documentation in [shared-types.md](schemas/shared-types.md):
 
-- [Compact Array Behavior](schemas/shared-types.md#compact-array-behavior) - Single-element arrays are compacted to scalars
 - [DNS Detection](schemas/shared-types.md#dns-detection) - How Do Not Stuff components are identified
 - [Power/Ground Stop Nets](schemas/shared-types.md#powerground-stop-nets) - Nets that stop circuit traversal
 - [Case Sensitivity](schemas/shared-types.md#case-sensitivity) - Which operations are case-sensitive

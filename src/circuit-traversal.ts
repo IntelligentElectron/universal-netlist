@@ -341,9 +341,8 @@ export const traverseCircuitFromNet = (
       }
 
       const dnsFlag = includeDns && dns ? true : undefined;
-      const pinArray = Array.isArray(pins) ? pins : [pins];
 
-      for (const pin of pinArray) {
+      for (const pin of pins) {
         const pinId = `${refdes}:${pin}`;
         if (visitedPins.has(pinId)) continue;
         visitedPins.add(pinId);
@@ -401,8 +400,7 @@ export const traverseCircuitFromNet = (
                 hasPassiveToFollow = true;
               } else {
                 const pinsOnNet = otherNetConns[otherRefdes];
-                const pinsArray = Array.isArray(pinsOnNet) ? pinsOnNet : [pinsOnNet];
-                for (const activePin of pinsArray) {
+                for (const activePin of pinsOnNet) {
                   const activePinId = `${otherRefdes}:${activePin}`;
                   if (!visitedPins.has(activePinId)) {
                     visitedPins.add(activePinId);

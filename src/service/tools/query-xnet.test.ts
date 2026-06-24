@@ -37,7 +37,7 @@ describe("queryXnetByNetName - ground net blocking", () => {
 
   it("should return error for GND net", async () => {
     const mockNetlist: ParsedNetlist = {
-      nets: { GND: { R1: "2" } },
+      nets: { GND: { R1: ["2"] } },
       components: { R1: { pins: { "1": "SIGNAL", "2": "GND" }, mpn: "10k" } },
     };
     vi.spyOn(parsersModule, "parseDesign").mockResolvedValue(mockNetlist);
@@ -51,7 +51,7 @@ describe("queryXnetByNetName - ground net blocking", () => {
 
   it("should return error for DGND net", async () => {
     const mockNetlist: ParsedNetlist = {
-      nets: { DGND: { U1: "1" } },
+      nets: { DGND: { U1: ["1"] } },
       components: { U1: { pins: { "1": "DGND" }, mpn: "IC" } },
     };
     vi.spyOn(parsersModule, "parseDesign").mockResolvedValue(mockNetlist);
@@ -67,7 +67,7 @@ describe("queryXnetByNetName - ground net blocking", () => {
     // Regression: GNDREF previously slipped the guard and the trace flooded the
     // whole ground tree, overflowing the token limit.
     const mockNetlist: ParsedNetlist = {
-      nets: { GNDREF: { U1: "1" } },
+      nets: { GNDREF: { U1: ["1"] } },
       components: { U1: { pins: { "1": "GNDREF" }, mpn: "IC" } },
     };
     vi.spyOn(parsersModule, "parseDesign").mockResolvedValue(mockNetlist);
@@ -81,7 +81,7 @@ describe("queryXnetByNetName - ground net blocking", () => {
 
   it("should return error for a hierarchical (sheet-path-prefixed) ground net", async () => {
     const mockNetlist: ParsedNetlist = {
-      nets: { "/GND": { U1: "1" } },
+      nets: { "/GND": { U1: ["1"] } },
       components: { U1: { pins: { "1": "/GND" }, mpn: "IC" } },
     };
     vi.spyOn(parsersModule, "parseDesign").mockResolvedValue(mockNetlist);
@@ -95,7 +95,7 @@ describe("queryXnetByNetName - ground net blocking", () => {
 
   it("should allow non-ground net queries", async () => {
     const mockNetlist: ParsedNetlist = {
-      nets: { SIGNAL: { R1: "1" }, GND: { R1: "2" } },
+      nets: { SIGNAL: { R1: ["1"] }, GND: { R1: ["2"] } },
       components: { R1: { pins: { "1": "SIGNAL", "2": "GND" }, mpn: "10k" } },
     };
     vi.spyOn(parsersModule, "parseDesign").mockResolvedValue(mockNetlist);
@@ -128,7 +128,7 @@ describe("queryXnetByPinName - ground net blocking", () => {
 
   it("should return error when pin is connected to GND", async () => {
     const mockNetlist: ParsedNetlist = {
-      nets: { GND: { R1: "2" }, SIGNAL: { R1: "1" } },
+      nets: { GND: { R1: ["2"] }, SIGNAL: { R1: ["1"] } },
       components: { R1: { pins: { "1": "SIGNAL", "2": "GND" }, mpn: "10k" } },
     };
     vi.spyOn(parsersModule, "parseDesign").mockResolvedValue(mockNetlist);
@@ -143,7 +143,7 @@ describe("queryXnetByPinName - ground net blocking", () => {
 
   it("should return error when pin is connected to GNDREF", async () => {
     const mockNetlist: ParsedNetlist = {
-      nets: { GNDREF: { R1: "2" }, SIGNAL: { R1: "1" } },
+      nets: { GNDREF: { R1: ["2"] }, SIGNAL: { R1: ["1"] } },
       components: { R1: { pins: { "1": "SIGNAL", "2": "GNDREF" }, mpn: "10k" } },
     };
     vi.spyOn(parsersModule, "parseDesign").mockResolvedValue(mockNetlist);
@@ -159,7 +159,7 @@ describe("queryXnetByPinName - ground net blocking", () => {
 
   it("should allow non-ground pin queries", async () => {
     const mockNetlist: ParsedNetlist = {
-      nets: { GND: { R1: "2" }, SIGNAL: { R1: "1" } },
+      nets: { GND: { R1: ["2"] }, SIGNAL: { R1: ["1"] } },
       components: { R1: { pins: { "1": "SIGNAL", "2": "GND" }, mpn: "10k" } },
     };
     vi.spyOn(parsersModule, "parseDesign").mockResolvedValue(mockNetlist);
@@ -171,7 +171,7 @@ describe("queryXnetByPinName - ground net blocking", () => {
 
   it("should still handle NC pins correctly", async () => {
     const mockNetlist: ParsedNetlist = {
-      nets: { NC: {}, SIGNAL: { U1: "2" } },
+      nets: { NC: {}, SIGNAL: { U1: ["2"] } },
       components: { U1: { pins: { "1": "NC", "2": "SIGNAL" }, mpn: "IC" } },
     };
     vi.spyOn(parsersModule, "parseDesign").mockResolvedValue(mockNetlist);
