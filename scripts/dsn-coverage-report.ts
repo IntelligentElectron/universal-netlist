@@ -11,7 +11,11 @@
 import fs from "fs";
 import path from "path";
 import { parseDsnFile } from "../src/parsers/cadence/dsn/dsn-parser.js";
-import { analyzeCoverage, formatCoverageReport, type CoverageResult } from "../src/coverage.js";
+import {
+  analyzeCoverage,
+  formatCoverageReport,
+  type CoverageResult,
+} from "../src/dsn-vs-dat-coverage.js";
 import type { ParsedNetlist } from "../src/types.js";
 
 const fixturesDir = "test/fixtures/cadence";

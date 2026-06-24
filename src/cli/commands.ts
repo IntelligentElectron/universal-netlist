@@ -17,7 +17,11 @@ import {
 } from "../parsers/cadence/index.js";
 import { exportCadenceNetlist } from "../service/index.js";
 import { isErrorResult } from "../types.js";
-import { analyzeCoverage, formatCoverageReport, type CoverageResult } from "../coverage.js";
+import {
+  analyzeCoverage,
+  formatCoverageReport,
+  type CoverageResult,
+} from "../dsn-vs-dat-coverage.js";
 import { checkForUpdate, performUpdate, isNpmInstall } from "./updater.js";
 import { confirm } from "./prompts.js";
 import { removeFromPath } from "./shell.js";

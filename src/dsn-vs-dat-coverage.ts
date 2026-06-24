@@ -6,6 +6,7 @@
  */
 
 import type { ParsedNetlist, PinEntry } from "./types.js";
+import { categorizeNet } from "./net-categories.js";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -44,13 +45,6 @@ export interface CoverageResult {
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
-
-export const categorizeNet = (name: string): string => {
-  if (name === "NC") return "no-connect";
-  if (/^N\d+$/.test(name)) return "auto-generated";
-  if (/\[.*\.\.]/.test(name)) return "bus-range";
-  return "named";
-};
 
 const getPinName = (entry: PinEntry): string | undefined =>
   typeof entry === "string" ? undefined : entry.name;

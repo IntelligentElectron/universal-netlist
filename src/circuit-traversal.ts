@@ -39,7 +39,7 @@ const DNS_PATTERN =
  * otherwise the leading slash defeats the `^`-anchored patterns and a ground
  * like `/GND` is treated as an ordinary signal.
  */
-const stripSheetPath = (netName: string): string => {
+export const stripSheetPath = (netName: string): string => {
   const slash = netName.lastIndexOf("/");
   return slash === -1 ? netName : netName.slice(slash + 1);
 };
@@ -68,6 +68,11 @@ export const isStopNet = (netName: string): boolean =>
 const PASSIVE_PREFIXES = new Set(["RS", "R", "FR", "L", "C", "FB"]);
 
 export const isPassive = (refdes: string): boolean => PASSIVE_PREFIXES.has(getRefdesPrefix(refdes));
+
+/**
+ * Determine if a component is a test point (refdes prefix TP), e.g. TP1, TP12.
+ */
+export const isTestpoint = (refdes: string): boolean => getRefdesPrefix(refdes) === "TP";
 
 /**
  * Check if a string is a valid refdes (letters followed by alphanumerics).

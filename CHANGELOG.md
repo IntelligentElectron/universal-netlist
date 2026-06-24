@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2026-06-24
+
+### Added
+
+- `run_erc` tool: deterministic electrical rule checks over a design's netlist, returning findings grouped by severity. Flags single-pin nets (`net.single_pin`), test-point-only nets (`net.testpoint_orphan`), test-point stubs (`net.testpoint_stub`), and auto-generated names on real multi-pin nets (`net.unnamed`). Supports `include_dns` and `include_rules`/`exclude_rules`; output is complete (never truncated) with endpoints in `REFDES.PIN` form. Unconnected pins without a no-connect symbol are intentionally not checked (parsers cannot distinguish them from intentional no-connects).
+
 ## [1.2.0] - 2026-06-24
 
 ### Changed

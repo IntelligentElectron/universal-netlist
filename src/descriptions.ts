@@ -136,3 +136,17 @@ for multiple designs, but serialize calls if you encounter \
 license or timeout errors. DSN lock files are handled automatically. \
 After a successful export, re-run \`list_designs\` \
 to get the updated pstxnet.dat path.`;
+
+export const RUN_ERC_DESCRIPTION = `\
+Run electrical rule checks (ERC) on a design's netlist and return findings grouped \
+by severity (\`errors\`, \`warnings\`) then rule id. Full output, never truncated. \
+Rules: \`net.single_pin\` (error: a net with one functional pin and no test point), \
+\`net.testpoint_orphan\` (error: a net touched only by test points), \
+\`net.testpoint_stub\` (warning: one functional pin plus test point(s)), \
+\`net.unnamed\` (warning: an auto-generated net name on a real 2+-pin net). \
+Test points are identified by the \`TP\` refdes prefix. Findings key each net to its \
+\`REFDES.PIN\` endpoints (always arrays); \`net.unnamed\` lists bare net names. \
+\`checked\` lists the rules that ran, so a rule absent from the findings found nothing. \
+Use \`include_rules\`/\`exclude_rules\` (rule ids) to scope the run and \`include_dns\` to \
+count Do-Not-Stuff parts. Unconnected pins without a no-connect symbol are NOT checked: \
+the parsers cannot reliably tell them apart from intentional no-connects.`;
