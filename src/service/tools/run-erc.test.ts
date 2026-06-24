@@ -144,6 +144,13 @@ describe("runErc rule selection", () => {
     expect((exc as { error: string }).error).toContain("net.bogus");
   });
 
+  it("returns an error for an empty include_rules rather than silently checking nothing", async () => {
+    mockNetlist(structuredClone(netlist));
+    const r = await runErc(DESIGN, { includeRules: [] });
+    expect(isErrorResult(r)).toBe(true);
+    expect((r as { error: string }).error).toContain("empty");
+  });
+
   it("an empty design still lists all rules in checked with no findings", async () => {
     const r = await erc({ nets: {}, components: {} });
     expect(r.checked).toEqual([

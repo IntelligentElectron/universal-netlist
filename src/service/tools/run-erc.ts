@@ -144,6 +144,13 @@ export const runErc = async (
   const inc = opts.includeRules;
   const exc = new Set(opts.excludeRules ?? []);
 
+  // An explicit empty include_rules is ambiguous (run all? run none?) and either
+  // silent choice misleads: "run none" reads as a clean design, "run all" defies a
+  // deliberate empty selection. Refuse to guess; omitting the field already means all.
+  if (inc && inc.length === 0) {
+    return { error: "include_rules was empty. Omit it to run all rules, or list the rule ids to run." };
+  }
+
   // Reject typo'd rule ids: otherwise include_rules: ["net.singel_pin"] yields
   // checked: [] with no findings, which an agent reads as "design is clean".
   const known = new Set(RULES.map((r) => r.id));
