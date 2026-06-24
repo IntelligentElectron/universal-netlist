@@ -26,6 +26,8 @@ Test points are identified by the `TP` reference-designator prefix. "Functional 
 | `include_rules` | string[] | No | all | Run only these rule ids (e.g. `["net.single_pin"]`) |
 | `exclude_rules` | string[] | No | none | Skip these rule ids (applied after `include_rules`) |
 
+An unknown rule id in `include_rules` or `exclude_rules` returns an `ErrorResult` listing the valid ids, rather than silently checking nothing (which would look like a clean design).
+
 ## Response Schema
 
 ```json
@@ -85,7 +87,7 @@ Clean design (every checked rule passed):
 ## Notes
 
 - Endpoints use the `REFDES.PIN` form, the same spec `query_xnet_by_pin_name` accepts, so a finding's endpoint can be fed straight back into a query.
-- Endpoint arrays are intentionally never collapsed to scalars (unlike other tools), so the shape is uniform for every finding.
+- Endpoint arrays are always arrays, even for a single endpoint, so the shape is uniform for every finding.
 - Unconnected pins without a no-connect symbol are **not** checked: the parsers cannot reliably distinguish them from intentional no-connects (KiCad omits unconnected pins entirely; Altium normalizes both to `NC`).
 - Test point detection is heuristic (the `TP` refdes prefix).
 
