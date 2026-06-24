@@ -65,19 +65,19 @@ Response:
       "description": "RES 22 OHM 1% 0402",
       "value": "22R",
       "total_count": 1,
-      "refdes": "R15",
+      ,
       "connections": [
-        { "net": "UART_TX", "pins": "1" },
-        { "net": "UART_TX_TERM", "pins": "2" }
+        { "net": "UART_TX", "pins": ["1"] },
+        { "net": "UART_TX_TERM", "pins": ["2"] }
       ]
     },
     {
       "mpn": "TPD2EUSB30DRTR",
       "description": "IC ESD PROT 2CH SOT-563",
       "total_count": 1,
-      "refdes": "D3",
+      ,
       "connections": [
-        { "net": "UART_TX_TERM", "pins": "1" },
+        { "net": "UART_TX_TERM", "pins": ["1"] },
         { "net": "GND", "pins": ["2", "4"] }
       ]
     }
@@ -160,4 +160,3 @@ The `pin_name` parameter uses `REFDES.PIN` format:
 
 - [Power/Ground Stop Nets](../schemas/shared-types.md#powerground-stop-nets) - Which nets stop circuit traversal
 - [AggregatedComponent Modes](../schemas/shared-types.md#single-vs-multiple-orientation-modes) - Single vs multiple orientation
-- [Compact Array Behavior](../schemas/shared-types.md#compact-array-behavior) - How single-element arrays are compacted

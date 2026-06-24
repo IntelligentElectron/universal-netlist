@@ -10,9 +10,9 @@ describe("searchNets - case insensitive by default", () => {
   beforeEach(() => {
     const mockNetlist: ParsedNetlist = {
       nets: {
-        VDD_1V8: { U1: "1" },
-        VDD_3V3: { U2: "1" },
-        GND: { U1: "2", U2: "2" },
+        VDD_1V8: { U1: ["1"] },
+        VDD_3V3: { U2: ["1"] },
+        GND: { U1: ["2"], U2: ["2"] },
       },
       components: {
         U1: { pins: { "1": "VDD_1V8", "2": "GND" } },
@@ -59,9 +59,9 @@ describe("searchNets - case insensitive by default", () => {
 describe("searchNets - broad pattern rejection", () => {
   const mockNetlist: ParsedNetlist = {
     nets: {
-      VDD_1V8: { U1: "1" },
-      GND: { U1: "2", R1: "2" },
-      SIG_A: { R1: "1" },
+      VDD_1V8: { U1: ["1"] },
+      GND: { U1: ["2"], R1: ["2"] },
+      SIG_A: { R1: ["1"] },
     },
     components: {
       U1: {

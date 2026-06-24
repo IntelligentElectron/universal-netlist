@@ -8,19 +8,12 @@ import type { AltiumDiscoveredDesign } from "./parsers/altium/discovery.js";
 import type { KicadDiscoveredDesign } from "./parsers/kicad/discovery.js";
 
 /**
- * Compact single-element arrays to scalar values for token savings.
- * Returns the single element if array has length 1, otherwise returns the array.
- */
-export const compactArray = <T>(arr: T[]): T | T[] => (arr.length === 1 ? arr[0] : arr);
-
-/**
  * Net connections from netlist
- * Format: { netName: { refdes: pinNumber(s) } }
- * Pin values can be a single string or array of strings
+ * Format: { netName: { refdes: pinNumbers } }
  */
 export interface NetConnections {
   [netName: string]: {
-    [refdes: string]: string | string[];
+    [refdes: string]: string[];
   };
 }
 
@@ -111,7 +104,7 @@ export interface ErrorResult {
  */
 export interface PinNetConnection {
   net: string;
-  pins: string | string[];
+  pins: string[];
 }
 
 /**
@@ -119,7 +112,7 @@ export interface PinNetConnection {
  */
 export interface OrientationVariant {
   count: number;
-  refdes: string | string[];
+  refdes: string[];
   connections: PinNetConnection[];
 }
 
@@ -133,7 +126,7 @@ export interface AggregatedComponent {
   value?: string;
   dns?: boolean;
   total_count: number;
-  refdes?: string | string[];
+  refdes?: string[];
   connections?: PinNetConnection[];
   orientations?: OrientationVariant[];
   notes?: string[];
@@ -177,7 +170,7 @@ export interface DesignInfo {
  * Component entry grouped by MPN for list/search results.
  */
 export interface ComponentGroup {
-  refdes: string | string[];
+  refdes: string[];
   count: number;
   mpn?: string;
   description?: string;

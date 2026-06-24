@@ -27,7 +27,7 @@ describe("groupComponentsByMpn", () => {
     expect(result[0].mpn).toBeUndefined();
     expect(result[0].notes).toBeDefined();
     expect(result[0].notes).toContain(MPN_MISSING_NOTE);
-    expect(result[0].refdes).toBe("U1");
+    expect(result[0].refdes).toEqual(["U1"]);
   });
 
   it("should set mpn to the value and omit notes when MPN is present", () => {
@@ -218,7 +218,7 @@ describe("aggregateCircuitByMpn", () => {
     expect(result).toHaveLength(1);
     expect(result[0].mpn).toBeUndefined();
     expect(result[0].notes).toContain(MPN_MISSING_NOTE);
-    expect(result[0].refdes).toBe("X1");
+    expect(result[0].refdes).toEqual(["X1"]);
   });
 
   it("should omit mpn when MPN is empty string", () => {

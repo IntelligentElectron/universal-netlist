@@ -59,11 +59,9 @@ function addPinToNet(
   if (!nets[netName]) nets[netName] = {};
   const existing = nets[netName][refdes];
   if (!existing) {
-    nets[netName][refdes] = pinNumber;
-  } else if (Array.isArray(existing)) {
-    if (!existing.includes(pinNumber)) existing.push(pinNumber);
-  } else if (existing !== pinNumber) {
-    nets[netName][refdes] = [existing, pinNumber];
+    nets[netName][refdes] = [pinNumber];
+  } else if (!existing.includes(pinNumber)) {
+    existing.push(pinNumber);
   }
   if (!componentPins.has(refdes)) componentPins.set(refdes, new Map());
   componentPins.get(refdes)!.set(pinNumber, netName);

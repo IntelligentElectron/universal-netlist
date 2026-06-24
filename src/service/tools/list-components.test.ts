@@ -28,7 +28,7 @@ describe("listComponents - available prefixes suggestion", () => {
   // The refdes still carry KiCad's "?" annotation placeholder (C?, D?, PS?).
   describe("unannotated-only design", () => {
     const netlist: ParsedNetlist = {
-      nets: { VPP: { "C?": "1", "D?": "2", "PS?": "3" }, GND: { "C?": "2" } },
+      nets: { VPP: { "C?": ["1"], "D?": ["2"], "PS?": ["3"] }, GND: { "C?": ["2"] } },
       components: {
         "C?": { value: "220uF", description: "Polarized capacitor", pins: { "1": "VPP", "2": "GND" } },
         "D?": { value: "PMEG6020ER", description: "Schottky diode", pins: { "2": "VPP" } },
@@ -41,7 +41,7 @@ describe("listComponents - available prefixes suggestion", () => {
     it("matches an unannotated refdes by its letter prefix", async () => {
       const result = await listComponents(DESIGN, "C");
       expect(isErrorResult(result)).toBe(false);
-      const refdes = (result as ListComponentsResult).components.map((c) => c.refdes);
+      const refdes = (result as ListComponentsResult).components.flatMap((c) => c.refdes);
       expect(refdes).toContain("C?");
     });
 
@@ -56,7 +56,7 @@ describe("listComponents - available prefixes suggestion", () => {
 
   it("dedupes and sorts prefixes across annotated and unannotated refdes", async () => {
     mockParse({
-      nets: { N1: { U1: "1" } },
+      nets: { N1: { U1: ["1"] } },
       components: {
         U1: { pins: { "1": "N1" } },
         "C?": { pins: { "1": "N1" } },
@@ -70,7 +70,7 @@ describe("listComponents - available prefixes suggestion", () => {
 
   it("excludes Cadence-path and numeric-only keys from the suggestion list", async () => {
     mockParse({
-      nets: { N1: { U1: "1" } },
+      nets: { N1: { U1: ["1"] } },
       components: {
         U1: { pins: { "1": "N1" } },
         "@DESIGN.SH:INS1@PART": { pins: { "1": "N1" } },
@@ -91,11 +91,11 @@ describe("listComponents - available prefixes suggestion", () => {
 
   it("returns grouped components for an annotated design (happy path)", async () => {
     mockParse({
-      nets: { VDD: { U1: "1" } },
+      nets: { VDD: { U1: ["1"] } },
       components: { U1: { mpn: "TPS62088", description: "Buck Converter", pins: { "1": "VDD" } } },
     });
     const result = await listComponents(DESIGN, "U");
     expect(isErrorResult(result)).toBe(false);
-    expect((result as ListComponentsResult).components.map((c) => c.refdes)).toContain("U1");
+    expect((result as ListComponentsResult).components.flatMap((c) => c.refdes)).toContain("U1");
   });
 });

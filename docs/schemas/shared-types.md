@@ -14,11 +14,9 @@ Used in `list_components` and `search_components_by_*` results. Groups component
   "type": "object",
   "properties": {
     "refdes": {
-      "oneOf": [
-        { "type": "string" },
-        { "type": "array", "items": { "type": "string" } }
-      ],
-      "description": "Single refdes or array (compacted)"
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Component reference designators"
     },
     "count": {
       "type": "integer",
@@ -88,10 +86,8 @@ Used in `query_xnet_*` results. Groups components by MPN with orientation tracki
       "description": "Total components with this MPN"
     },
     "refdes": {
-      "oneOf": [
-        { "type": "string" },
-        { "type": "array", "items": { "type": "string" } }
-      ],
+      "type": "array",
+      "items": { "type": "string" },
       "description": "Present when single orientation"
     },
     "connections": {
@@ -123,8 +119,8 @@ Used in `query_xnet_*` results. Groups components by MPN with orientation tracki
   "total_count": 2,
   "refdes": ["R10", "R11"],
   "connections": [
-    { "net": "PP3V3", "pins": "1" },
-    { "net": "I2C_SDA", "pins": "2" }
+    { "net": "PP3V3", "pins": ["1"] },
+    { "net": "I2C_SDA", "pins": ["2"] }
   ]
 }
 ```
@@ -142,16 +138,16 @@ Used in `query_xnet_*` results. Groups components by MPN with orientation tracki
       "count": 2,
       "refdes": ["R1", "R2"],
       "connections": [
-        { "net": "PP3V3", "pins": "1" },
-        { "net": "GPIO_A", "pins": "2" }
+        { "net": "PP3V3", "pins": ["1"] },
+        { "net": "GPIO_A", "pins": ["2"] }
       ]
     },
     {
       "count": 2,
       "refdes": ["R3", "R4"],
       "connections": [
-        { "net": "GPIO_B", "pins": "1" },
-        { "net": "PP3V3", "pins": "2" }
+        { "net": "GPIO_B", "pins": ["1"] },
+        { "net": "PP3V3", "pins": ["2"] }
       ]
     }
   ]
@@ -174,7 +170,7 @@ When all components share the same orientation, `total_count` equals the implici
 `AggregatedComponent` has two mutually exclusive modes based on whether components share the same pin-to-net wiring:
 
 **Single orientation mode** (all components wired identically):
-- `refdes`: present (string or array)
+- `refdes`: present (array of strings)
 - `connections`: present (array of `PinNetConnection`)
 - `orientations`: absent
 
@@ -199,11 +195,9 @@ Represents pin-to-net connections in circuit traversal results.
       "description": "Connected net name"
     },
     "pins": {
-      "oneOf": [
-        { "type": "string" },
-        { "type": "array", "items": { "type": "string" } }
-      ],
-      "description": "Pin numbers (compacted)"
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Pin numbers on this net"
     }
   },
   "required": ["net", "pins"]
@@ -214,7 +208,7 @@ Represents pin-to-net connections in circuit traversal results.
 
 ```json
 // Single pin
-{ "net": "PP3V3", "pins": "1" }
+{ "net": "PP3V3", "pins": ["1"] }
 
 // Multiple pins on same net
 { "net": "GND", "pins": ["2", "4", "6"] }
@@ -234,10 +228,8 @@ Tracks different orientations/polarities for 2-pin components.
       "description": "Number of components with this orientation"
     },
     "refdes": {
-      "oneOf": [
-        { "type": "string" },
-        { "type": "array", "items": { "type": "string" } }
-      ]
+      "type": "array",
+      "items": { "type": "string" }
     },
     "connections": {
       "type": "array",
@@ -255,8 +247,8 @@ Tracks different orientations/polarities for 2-pin components.
   "count": 3,
   "refdes": ["R1", "R2", "R3"],
   "connections": [
-    { "net": "PP3V3", "pins": "1" },
-    { "net": "EN_SIGNAL", "pins": "2" }
+    { "net": "PP3V3", "pins": ["1"] },
+    { "net": "EN_SIGNAL", "pins": ["2"] }
   ]
 }
 ```
@@ -323,19 +315,19 @@ Response type for `query_xnet_by_net_name` and `query_xnet_by_pin_name`.
       "description": "RES 4.7K OHM 1% 0402",
       "value": "4.7k",
       "total_count": 1,
-      "refdes": "R10",
+      "refdes": ["R10"],
       "connections": [
-        { "net": "PP3V3", "pins": "1" },
-        { "net": "I2C_SDA", "pins": "2" }
+        { "net": "PP3V3", "pins": ["1"] },
+        { "net": "I2C_SDA", "pins": ["2"] }
       ]
     },
     {
       "mpn": "TPS62840DLCR",
       "description": "IC REG BUCK 750MA",
       "total_count": 1,
-      "refdes": "U5",
+      "refdes": ["U5"],
       "connections": [
-        { "net": "I2C_SDA", "pins": "3" }
+        { "net": "I2C_SDA", "pins": ["3"] }
       ]
     }
   ],
@@ -370,22 +362,6 @@ All tools may return an error result instead of the expected response.
   "error": "Component 'U99' not found in design 'PowerBoard'. Use list_components() to find available components."
 }
 ```
-
-## Compact Array Behavior
-
-To reduce token usage, single-element arrays are compacted to scalar values:
-
-```json
-// Array with multiple elements: preserved as array
-["R1", "R2", "R3"]
-
-// Array with single element: compacted to scalar
-"R1"  // instead of ["R1"]
-```
-
-This applies to:
-- `refdes` fields in `ComponentGroup` and `AggregatedComponent`
-- `pins` fields in `PinNetConnection`
 
 ## DNS Detection
 

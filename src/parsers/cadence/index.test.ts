@@ -15,8 +15,8 @@ describe("buildCadencePinMap", () => {
   it("should skip garbage Cadence instance paths", () => {
     const nets: NetConnections = {
       VCC: {
-        U1: "1",
-        "@BEAGLEBONEBLK_C.BEAGLEBONEBLACK(SCH_1):INS21415196@LAN8710": "2",
+        U1: ["1"],
+        "@BEAGLEBONEBLK_C.BEAGLEBONEBLACK(SCH_1):INS21415196@LAN8710": ["2"],
       },
     };
     const components: ComponentDetails = {
@@ -34,8 +34,8 @@ describe("buildCadencePinMap", () => {
   it("should create entries for valid refdes not in components map", () => {
     const nets: NetConnections = {
       VCC: {
-        U1: "1",
-        U2: "1", // Not in pstxprt components, but valid refdes
+        U1: ["1"],
+        U2: ["1"], // Not in pstxprt components, but valid refdes
       },
     };
     const components: ComponentDetails = {
@@ -54,8 +54,8 @@ describe("buildCadencePinMap", () => {
 
   it("should process valid refdes that exist in components", () => {
     const nets: NetConnections = {
-      VCC: { U1: "1", R1: "1" },
-      GND: { U1: "2", R1: "2" },
+      VCC: { U1: ["1"], R1: ["1"] },
+      GND: { U1: ["2"], R1: ["2"] },
     };
     const components: ComponentDetails = {
       U1: { pins: {}, mpn: "TPS62088" },
@@ -88,8 +88,8 @@ describe("buildCadencePinMap", () => {
 
   it("should map pin names from pstchip data", () => {
     const nets: NetConnections = {
-      VCC: { U1: "1" },
-      GND: { U1: "2" },
+      VCC: { U1: ["1"] },
+      GND: { U1: ["2"] },
     };
     const components: ComponentDetails = {
       U1: { pins: {} },
@@ -116,8 +116,8 @@ describe("buildCadencePinMap", () => {
 
   it("should extract VALUE from pstchip body_properties", () => {
     const nets: NetConnections = {
-      VCC: { C1: "1" },
-      GND: { C1: "2" },
+      VCC: { C1: ["1"] },
+      GND: { C1: ["2"] },
     };
     const components: ComponentDetails = {
       C1: { pins: {}, mpn: "CAP_0805" },
@@ -138,7 +138,7 @@ describe("buildCadencePinMap", () => {
 
   it("should not overwrite existing value", () => {
     const nets: NetConnections = {
-      VCC: { C1: "1" },
+      VCC: { C1: ["1"] },
     };
     const components: ComponentDetails = {
       C1: { pins: {}, value: "existing_value" },
@@ -159,7 +159,7 @@ describe("buildCadencePinMap", () => {
 
   it("should use simple string for pins without name mapping", () => {
     const nets: NetConnections = {
-      VCC: { U1: "1" },
+      VCC: { U1: ["1"] },
     };
     const components: ComponentDetails = {
       U1: { pins: {} },

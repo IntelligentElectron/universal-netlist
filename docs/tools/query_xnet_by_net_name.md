@@ -65,15 +65,15 @@ Response:
       "total_count": 2,
       "refdes": ["R10", "R11"],
       "connections": [
-        { "net": "PP3V3", "pins": "1" },
-        { "net": "I2C_SDA", "pins": "2" }
+        { "net": "PP3V3", "pins": ["1"] },
+        { "net": "I2C_SDA", "pins": ["2"] }
       ]
     },
     {
       "mpn": "STM32F401CCU6",
       "description": "IC MCU 32BIT 256KB FLASH 48UFQFPN",
       "total_count": 1,
-      "refdes": "U5",
+      ,
       "connections": [
         { "net": "I2C_SDA", "pins": ["41", "42"] }
       ]
@@ -147,12 +147,10 @@ Skipped components appear in the `skipped` field with counts.
 
 - Components are aggregated by MPN for compact output
 - 2-pin components with different orientations are tracked separately
-- Single-element arrays are compacted to scalar values
 - DNS components are excluded by default
 
 ## See Also
 
 - [Power/Ground Stop Nets](../schemas/shared-types.md#powerground-stop-nets) - Which nets stop circuit traversal
 - [AggregatedComponent Modes](../schemas/shared-types.md#single-vs-multiple-orientation-modes) - Single vs multiple orientation
-- [Compact Array Behavior](../schemas/shared-types.md#compact-array-behavior) - How single-element arrays are compacted
 - [DNS Detection](../schemas/shared-types.md#dns-detection) - How DNS components are identified

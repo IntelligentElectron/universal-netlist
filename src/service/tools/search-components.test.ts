@@ -13,9 +13,9 @@ const isErrorResult = (result: unknown): result is ErrorResult =>
 describe("search tools - broad pattern rejection", () => {
   const mockNetlist: ParsedNetlist = {
     nets: {
-      VDD_1V8: { U1: "1" },
-      GND: { U1: "2", R1: "2" },
-      SIG_A: { R1: "1" },
+      VDD_1V8: { U1: ["1"] },
+      GND: { U1: ["2"], R1: ["2"] },
+      SIG_A: { R1: ["1"] },
     },
     components: {
       U1: {

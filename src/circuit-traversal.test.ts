@@ -431,9 +431,9 @@ describe("traverseCircuitFromNet", () => {
   describe("stop net behavior", () => {
     it("should stop traversal at GND and not find components through it", () => {
       const nets: NetConnections = {
-        SIGNAL: { R1: "1" },
-        GND: { R1: "2", R2: "1", C1: "1" },
-        OTHER_SIGNAL: { R2: "2" },
+        SIGNAL: { R1: ["1"] },
+        GND: { R1: ["2"], R2: ["1"], C1: ["1"] },
+        OTHER_SIGNAL: { R2: ["2"] },
       };
       const components: ComponentDetails = {
         R1: { pins: { "1": "SIGNAL", "2": "GND" }, mpn: "10k" },
@@ -451,9 +451,9 @@ describe("traverseCircuitFromNet", () => {
 
     it("should stop traversal at VCC and not find components through it", () => {
       const nets: NetConnections = {
-        SIGNAL: { R1: "1" },
-        VCC: { R1: "2", R2: "1" },
-        OTHER_SIGNAL: { R2: "2" },
+        SIGNAL: { R1: ["1"] },
+        VCC: { R1: ["2"], R2: ["1"] },
+        OTHER_SIGNAL: { R2: ["2"] },
       };
       const components: ComponentDetails = {
         R1: { pins: { "1": "SIGNAL", "2": "VCC" }, mpn: "10k" },
@@ -470,9 +470,9 @@ describe("traverseCircuitFromNet", () => {
 
     it("should stop traversal at +3V3 power net", () => {
       const nets: NetConnections = {
-        SIGNAL: { R1: "1" },
-        "+3V3": { R1: "2", R2: "1" },
-        OTHER: { R2: "2" },
+        SIGNAL: { R1: ["1"] },
+        "+3V3": { R1: ["2"], R2: ["1"] },
+        OTHER: { R2: ["2"] },
       };
       const components: ComponentDetails = {
         R1: { pins: { "1": "SIGNAL", "2": "+3V3" }, mpn: "10k" },
@@ -490,9 +490,9 @@ describe("traverseCircuitFromNet", () => {
   describe("passive component traversal", () => {
     it("should traverse through passive components and show all their pins", () => {
       const nets: NetConnections = {
-        SIGNAL_A: { R1: "1" },
-        SIGNAL_B: { R1: "2", R2: "1" },
-        SIGNAL_C: { R2: "2" },
+        SIGNAL_A: { R1: ["1"] },
+        SIGNAL_B: { R1: ["2"], R2: ["1"] },
+        SIGNAL_C: { R2: ["2"] },
       };
       const components: ComponentDetails = {
         R1: { pins: { "1": "SIGNAL_A", "2": "SIGNAL_B" }, mpn: "10k" },
@@ -522,8 +522,8 @@ describe("traverseCircuitFromNet", () => {
 
     it("should traverse through capacitors", () => {
       const nets: NetConnections = {
-        SIGNAL: { C1: "1" },
-        FILTERED: { C1: "2" },
+        SIGNAL: { C1: ["1"] },
+        FILTERED: { C1: ["2"] },
       };
       const components: ComponentDetails = {
         C1: { pins: { "1": "SIGNAL", "2": "FILTERED" }, mpn: "100nF" },
@@ -537,8 +537,8 @@ describe("traverseCircuitFromNet", () => {
 
     it("should traverse through inductors", () => {
       const nets: NetConnections = {
-        SIGNAL: { L1: "1" },
-        FILTERED: { L1: "2" },
+        SIGNAL: { L1: ["1"] },
+        FILTERED: { L1: ["2"] },
       };
       const components: ComponentDetails = {
         L1: { pins: { "1": "SIGNAL", "2": "FILTERED" }, mpn: "10uH" },
@@ -552,8 +552,8 @@ describe("traverseCircuitFromNet", () => {
 
     it("should traverse through ferrite beads", () => {
       const nets: NetConnections = {
-        SIGNAL: { FB1: "1" },
-        FILTERED: { FB1: "2" },
+        SIGNAL: { FB1: ["1"] },
+        FILTERED: { FB1: ["2"] },
       };
       const components: ComponentDetails = {
         FB1: { pins: { "1": "SIGNAL", "2": "FILTERED" }, mpn: "600R@100MHz" },
@@ -569,10 +569,10 @@ describe("traverseCircuitFromNet", () => {
   describe("active component handling", () => {
     it("should only show relevant pins for active components (ICs)", () => {
       const nets: NetConnections = {
-        MY_SIGNAL: { U1: "5", R1: "1" },
-        GND: { U1: ["1", "10", "20"], R1: "2" },
+        MY_SIGNAL: { U1: ["5"], R1: ["1"] },
+        GND: { U1: ["1", "10", "20"], R1: ["2"] },
         VCC: { U1: ["2", "11"] },
-        OTHER_SIGNAL: { U1: "3" },
+        OTHER_SIGNAL: { U1: ["3"] },
       };
       const components: ComponentDetails = {
         U1: {
@@ -607,9 +607,9 @@ describe("traverseCircuitFromNet", () => {
 
     it("should not traverse through active components", () => {
       const nets: NetConnections = {
-        SIGNAL_A: { U1: "1" },
-        SIGNAL_B: { U1: "2", R1: "1" },
-        SIGNAL_C: { R1: "2" },
+        SIGNAL_A: { U1: ["1"] },
+        SIGNAL_B: { U1: ["2"], R1: ["1"] },
+        SIGNAL_C: { R1: ["2"] },
       };
       const components: ComponentDetails = {
         U1: { pins: { "1": "SIGNAL_A", "2": "SIGNAL_B" }, mpn: "IC" },
@@ -626,10 +626,10 @@ describe("traverseCircuitFromNet", () => {
 
     it("should find active components discovered through passive traversal", () => {
       const nets: NetConnections = {
-        SIGNAL: { R1: "1" },
-        NODE: { R1: "2", U1: "3" },
+        SIGNAL: { R1: ["1"] },
+        NODE: { R1: ["2"], U1: ["3"] },
         GND: { U1: ["1", "5"] },
-        VCC: { U1: "2" },
+        VCC: { U1: ["2"] },
       };
       const components: ComponentDetails = {
         R1: { pins: { "1": "SIGNAL", "2": "NODE" }, mpn: "10k" },
@@ -654,7 +654,7 @@ describe("traverseCircuitFromNet", () => {
 
   describe("edge cases", () => {
     it("should return empty result for non-existent net", () => {
-      const nets: NetConnections = { SIGNAL: { R1: "1" } };
+      const nets: NetConnections = { SIGNAL: { R1: ["1"] } };
       const components: ComponentDetails = {};
 
       const result = traverseCircuitFromNet("NONEXISTENT", nets, components);
@@ -673,7 +673,7 @@ describe("traverseCircuitFromNet", () => {
     it("should handle pins as string array", () => {
       const nets: NetConnections = {
         SIGNAL: { U1: ["1", "2", "3"] },
-        GND: { U1: "4" },
+        GND: { U1: ["4"] },
       };
       const components: ComponentDetails = {
         U1: {
@@ -695,8 +695,8 @@ describe("traverseCircuitFromNet", () => {
 
     it("should group multiple pins on same net together", () => {
       const nets: NetConnections = {
-        SIGNAL: { R1: "1" },
-        GND: { R1: "2" },
+        SIGNAL: { R1: ["1"] },
+        GND: { R1: ["2"] },
       };
       const components: ComponentDetails = {
         R1: { pins: { "1": "SIGNAL", "2": "GND" }, mpn: "10k" },

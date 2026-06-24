@@ -98,11 +98,10 @@ export const analyzeCoverage = (
   // Second pass: match unmatched nets by connectivity (pin-set signature).
   // Handles whitespace-renamed nets: DSN preserves " SIGNAL_A" while DAT
   // strips to "SIGNAL_A" or appends "_1" on collision.
-  const pinSetSignature = (connections: Record<string, string | string[]>): string => {
+  const pinSetSignature = (connections: Record<string, string[]>): string => {
     const pairs: string[] = [];
     for (const [refdes, pins] of Object.entries(connections)) {
-      const pinList = Array.isArray(pins) ? pins : [pins];
-      for (const pin of pinList) pairs.push(`${refdes}.${pin}`);
+      for (const pin of pins) pairs.push(`${refdes}.${pin}`);
     }
     return pairs.sort().join(",");
   };
@@ -121,7 +120,7 @@ export const analyzeCoverage = (
     const matchedMissing = new Set<string>();
     const matchedExtra = new Set<string>();
     for (const missing of missingNets) {
-      const sig = pinSetSignature(missing.connections as Record<string, string | string[]>);
+      const sig = pinSetSignature(missing.connections);
       if (sig && extraBySignature.has(sig)) {
         matchedMissing.add(missing.name);
         matchedExtra.add(extraBySignature.get(sig)!);
