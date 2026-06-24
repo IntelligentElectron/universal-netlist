@@ -148,5 +148,6 @@ Test points are identified by the \`TP\` refdes prefix. Findings key each net to
 \`REFDES.PIN\` endpoints (always arrays); \`net.unnamed\` lists bare net names. \
 \`checked\` lists the rules that ran, so a rule absent from the findings found nothing. \
 Use \`include_rules\`/\`exclude_rules\` (rule ids) to scope the run and \`include_dns\` to \
-count Do-Not-Stuff parts. Unconnected pins without a no-connect symbol are NOT checked: \
+count Do-Not-Stuff parts; an unknown rule id returns an error rather than silently \
+checking nothing. Unconnected pins without a no-connect symbol are NOT checked: \
 the parsers cannot reliably tell them apart from intentional no-connects.`;

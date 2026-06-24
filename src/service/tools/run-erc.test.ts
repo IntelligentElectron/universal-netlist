@@ -133,6 +133,17 @@ describe("runErc rule selection", () => {
     expect(r.errors).toBeUndefined();
   });
 
+  it("returns an error for an unknown rule id in include_rules or exclude_rules", async () => {
+    mockNetlist(structuredClone(netlist));
+    const inc = await runErc(DESIGN, { includeRules: ["net.singel_pin"] });
+    expect(isErrorResult(inc)).toBe(true);
+    expect((inc as { error: string }).error).toContain("net.singel_pin");
+
+    const exc = await runErc(DESIGN, { excludeRules: ["net.bogus"] });
+    expect(isErrorResult(exc)).toBe(true);
+    expect((exc as { error: string }).error).toContain("net.bogus");
+  });
+
   it("an empty design still lists all rules in checked with no findings", async () => {
     const r = await erc({ nets: {}, components: {} });
     expect(r.checked).toEqual([

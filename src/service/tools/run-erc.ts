@@ -20,6 +20,9 @@ export interface ErcResult {
   design: string;
   checked: string[];
   skipped?: Record<string, number>;
+  // Every value is { [net]: endpoints[] } EXCEPT net.unnamed, whose value is a
+  // bare net-name string[] (it has no endpoints). That one key is why these are
+  // unions rather than Record<string, Record<string, string[]>>.
   errors?: Record<string, Record<string, string[]> | string[]>;
   warnings?: Record<string, Record<string, string[]> | string[]>;
 }
@@ -140,6 +143,15 @@ export const runErc = async (
 
   const inc = opts.includeRules;
   const exc = new Set(opts.excludeRules ?? []);
+
+  // Reject typo'd rule ids: otherwise include_rules: ["net.singel_pin"] yields
+  // checked: [] with no findings, which an agent reads as "design is clean".
+  const known = new Set(RULES.map((r) => r.id));
+  const unknown = [...(inc ?? []), ...exc].filter((id) => !known.has(id));
+  if (unknown.length > 0) {
+    return { error: `Unknown rule id(s): ${unknown.join(", ")}. Valid ids: ${[...known].join(", ")}` };
+  }
+
   const selected = RULES.filter((r) => (!inc || inc.includes(r.id)) && !exc.has(r.id));
 
   const errors: Record<string, Record<string, string[]> | string[]> = {};
@@ -151,8 +163,8 @@ export const runErc = async (
     if (rule.shape === "arr") {
       bucket[rule.id] = findings.map((f) => f.net).sort(naturalSort);
     } else {
-      // Endpoint lists are ALWAYS arrays here, never compacted to scalars — the ERC
-      // contract mandates arrays even at length 1 (the opposite of compactArray elsewhere).
+      // Endpoint lists are ALWAYS arrays here, even at length 1. Do not "simplify"
+      // single-element endpoints to a bare string; the ERC contract is uniform arrays.
       const map: Record<string, string[]> = {};
       for (const f of [...findings].sort((a, b) => naturalSort(a.net, b.net))) {
         map[f.net] = f.endpoints ?? [];
