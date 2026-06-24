@@ -22,6 +22,7 @@ import {
   queryComponent,
   queryXnetByNetName,
   queryXnetByPinName,
+  runErc,
   exportCadenceNetlist,
 } from "./service/index.js";
 import {
@@ -36,6 +37,7 @@ import {
   QUERY_XNET_BY_NET_NAME_DESCRIPTION,
   QUERY_XNET_BY_PIN_NAME_DESCRIPTION,
   QUERY_COMPONENT_DESCRIPTION,
+  RUN_ERC_DESCRIPTION,
   EXPORT_CADENCE_NETLIST_DESCRIPTION,
 } from "./descriptions.js";
 
@@ -285,6 +287,37 @@ export const createServer = (): McpServer => {
     },
     withTelemetry("query_component", async ({ design, refdes }) => {
       const result = await queryComponent(design, refdes);
+      return formatResult(result);
+    })
+  );
+
+  // -------------------------------------------------------------------------
+  // Tool: run_erc
+  // -------------------------------------------------------------------------
+  server.registerTool(
+    "run_erc",
+    {
+      description: RUN_ERC_DESCRIPTION,
+      inputSchema: {
+        design: z.string().describe("Path to design file"),
+        include_dns: z
+          .boolean()
+          .optional()
+          .default(false)
+          .describe("Include DNS (Do Not Stuff) components in the checks"),
+        include_rules: z
+          .array(z.string())
+          .optional()
+          .describe("Only run these rule ids (e.g., ['net.single_pin']). Omit for all"),
+        exclude_rules: z.array(z.string()).optional().describe("Skip these rule ids"),
+      },
+    },
+    withTelemetry("run_erc", async ({ design, include_dns, include_rules, exclude_rules }) => {
+      const result = await runErc(design, {
+        includeDns: include_dns,
+        includeRules: include_rules,
+        excludeRules: exclude_rules,
+      });
       return formatResult(result);
     })
   );

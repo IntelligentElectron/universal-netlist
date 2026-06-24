@@ -10,6 +10,7 @@ export {
 } from "./tools/search-components.js";
 export { queryComponent } from "./tools/query-component.js";
 export { queryXnetByNetName, queryXnetByPinName } from "./tools/query-xnet.js";
+export { runErc, type ErcOptions, type ErcResult } from "./tools/run-erc.js";
 export {
   exportCadenceNetlist,
   detectCadenceVersions,

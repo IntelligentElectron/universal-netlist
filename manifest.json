@@ -83,6 +83,10 @@
       "description": "Trace XNET connectivity starting from a component pin"
     },
     {
+      "name": "run_erc",
+      "description": "Run electrical rule checks (ERC) on the netlist"
+    },
+    {
       "name": "export_cadence_netlist",
       "description": "Export Cadence schematic to Allegro PCB format (Windows only)"
     }
