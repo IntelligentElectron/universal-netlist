@@ -73,7 +73,7 @@ Response:
       "mpn": "STM32F401CCU6",
       "description": "IC MCU 32BIT 256KB FLASH 48UFQFPN",
       "total_count": 1,
-      ,
+      "refdes": ["U5"],
       "connections": [
         { "net": "I2C_SDA", "pins": ["41", "42"] }
       ]

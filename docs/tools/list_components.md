@@ -53,12 +53,12 @@ Response:
       "mpn": "STM32F401CCU6",
       "description": "IC MCU 32BIT 256KB FLASH 48UFQFPN",
       "count": 1,
-      
+      "refdes": ["U5"]
     },
     {
       "description": "IC GENERIC",
       "count": 1,
-      ,
+      "refdes": ["U3"],
       "notes": ["MPN not found in exported netlist data. Tell user to update symbol properties in library, or to point you to the BOM"]
     }
   ]

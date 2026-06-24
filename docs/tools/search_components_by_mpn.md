@@ -57,7 +57,7 @@ Response:
         "mpn": "TPS62088YFPR",
         "description": "IC REG BUCK ADJ 2A 12DSBGA",
         "count": 1,
-        
+        "refdes": ["U3"]
       }
     ]
   }

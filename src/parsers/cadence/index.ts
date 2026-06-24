@@ -126,8 +126,7 @@ export const buildCadencePinMap = (
       }
 
       const pinNameMap = partName ? pinNameMaps.get(partName) : undefined;
-      const pinArray = Array.isArray(pins) ? pins : [pins];
-      for (const pin of pinArray) {
+      for (const pin of pins) {
         const pinName = pinNameMap?.get(pin);
         component.pins[pin] = createPinEntry(pin, pinName, netName);
       }

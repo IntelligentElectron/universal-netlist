@@ -65,7 +65,7 @@ Response:
       "description": "RES 22 OHM 1% 0402",
       "value": "22R",
       "total_count": 1,
-      ,
+      "refdes": ["R15"],
       "connections": [
         { "net": "UART_TX", "pins": ["1"] },
         { "net": "UART_TX_TERM", "pins": ["2"] }
@@ -75,7 +75,7 @@ Response:
       "mpn": "TPD2EUSB30DRTR",
       "description": "IC ESD PROT 2CH SOT-563",
       "total_count": 1,
-      ,
+      "refdes": ["D3"],
       "connections": [
         { "net": "UART_TX_TERM", "pins": ["1"] },
         { "net": "GND", "pins": ["2", "4"] }
