@@ -226,7 +226,7 @@ The Library stream contains the global string table used by all prefix property 
 Offset  Size        Field
 ------  ----------  -----
 0x00    32          introduction       (null-term string in 32-byte buffer)
-                                       e.g. "OrCad Windows Design"
+                                       e.g. "OrCAD Windows Design"
 0x20    2           version_major      (uint16)
 0x22    2           version_minor      (uint16)
 0x24    4           create_date        (uint32, Unix timestamp)
@@ -432,7 +432,7 @@ BODY:
     8 bytes   unknown
     int16     loc_x
     int16     loc_y
-    4 bytes   unknown          # includes rotation (uint8) and mirror (uint8)
+    4 bytes   unknown          # rotation (uint8) + mirror (uint8) + 2 unknown; parser skips all 4
     uint16    len_symbol_display_props
               SymbolDisplayProp[] sub-records
     1 byte    unknown
@@ -451,6 +451,20 @@ BODY:
 **VERIFIED** fields: `pkg_name`, `db_id`, `loc_x`, `loc_y`, `reference`, `part_value_idx`, `source_package`, `t0x10s`, prefix properties.
 
 **UNKNOWN**: The 8 bytes at offset +0x00, the 8 bytes after `db_id`, the 4 bytes before `len_symbol_display_props` (includes rotation/mirror per the reference photos, but we don't extract them), the 1 byte after SDPs, and the 10 bytes after `part_value_idx`.
+
+#### User property resolution (MPN, Value)
+
+**Confidence: VERIFIED**
+
+User properties are the prefix `(name_idx, val_idx)` pairs (section 4.2). Resolution happens in `component-builder.ts`:
+
+- **MPN**: the pair whose name resolves to one of `"Part Number"`, `"PART_NUMBER"`, `"MPN"`, `"Manufacturer PN"` (`MPN_KEYS`). Falls back to `source_package` if none present.
+- **Value**: three sources, tried in priority order:
+  1. Prefix pair with name `"Value"` (primary)
+  2. `part_value_idx` in the body (fallback; the `uint32` above)
+  3. `part_value` in the LibraryPart's GeneralProperties (library default, section 9.3)
+
+  DNS markers embedded in the resolved value string are then stripped (section 12.7).
 
 ### 7.7.1 T0x10 - Pin Instance (type 0x10)
 
