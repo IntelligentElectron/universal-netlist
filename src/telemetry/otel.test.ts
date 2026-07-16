@@ -1,0 +1,114 @@
+/**
+ * OpenTelemetry per-call log record tests.
+ *
+ * The SDK is initialized against a closed local port, so telemetry is enabled
+ * but background exports fail fast and nothing leaves the machine. The global
+ * logger provider is then swapped for an in-memory capture, letting the tests
+ * assert on the exact log records `instrumentTool` emits.
+ */
+
+import { describe, it, expect, beforeAll, afterAll, beforeEach } from "vitest";
+import { userInfo } from "node:os";
+import { logs, type LogRecord, type LoggerProvider } from "@opentelemetry/api-logs";
+import { initOtel, instrumentTool, shutdownOtel } from "./otel.js";
+
+const captured: LogRecord[] = [];
+const captureProvider: LoggerProvider = {
+  getLogger: () => ({
+    emit: (record: LogRecord) => {
+      captured.push(record);
+    },
+    enabled: () => true,
+  }),
+};
+
+beforeAll(async () => {
+  process.env.OTEL_EXPORTER_OTLP_ENDPOINT = "http://127.0.0.1:1";
+  // Keep the batch exporters from firing (and failing) mid-test; shutdown
+  // still flushes once at the end.
+  process.env.OTEL_BSP_SCHEDULE_DELAY = "600000";
+  process.env.OTEL_BLRP_SCHEDULE_DELAY = "600000";
+  process.env.OTEL_METRIC_EXPORT_INTERVAL = "600000";
+  await initOtel({ serviceName: "otel-test", serviceVersion: "0.0.0" });
+  // Swap the SDK's registered global logger provider for the capture.
+  logs.disable();
+  logs.setGlobalLoggerProvider(captureProvider);
+});
+
+afterAll(async () => {
+  logs.disable();
+  delete process.env.OTEL_EXPORTER_OTLP_ENDPOINT;
+  delete process.env.OTEL_BSP_SCHEDULE_DELAY;
+  delete process.env.OTEL_BLRP_SCHEDULE_DELAY;
+  delete process.env.OTEL_METRIC_EXPORT_INTERVAL;
+  delete process.env.OTEL_CAPTURE_TOOL_ARGS;
+  await shutdownOtel();
+});
+
+beforeEach(() => {
+  captured.length = 0;
+  delete process.env.OTEL_CAPTURE_TOOL_ARGS;
+});
+
+const lastRecord = (): LogRecord => {
+  expect(captured).toHaveLength(1);
+  return captured[0];
+};
+
+describe("instrumentTool log records", () => {
+  it("emits one record per call with the standard attributes", async () => {
+    const result = await instrumentTool("demo_tool", { a: 1 }, async () => "ok");
+
+    expect(result).toBe("ok");
+    const record = lastRecord();
+    expect(record.body).toBe("tool/demo_tool success");
+    expect(record.severityText).toBe("INFO");
+    expect(record.attributes).toMatchObject({
+      "tool.name": "demo_tool",
+      "tool.outcome": "success",
+    });
+    expect(record.attributes?.["tool.duration_ms"]).toBeTypeOf("number");
+    expect(record.attributes?.trace_id).toBeTypeOf("string");
+    expect(record.attributes?.span_id).toBeTypeOf("string");
+  });
+
+  it("mirrors enduser.id onto the record", async () => {
+    await instrumentTool("demo_tool", {}, async () => "ok");
+
+    expect(lastRecord().attributes?.["enduser.id"]).toBe(userInfo().username);
+  });
+
+  it("captures tool.args on the record when OTEL_CAPTURE_TOOL_ARGS is set", async () => {
+    process.env.OTEL_CAPTURE_TOOL_ARGS = "1";
+    const args = { design: "board.kicad_pro", pattern: "^VCC" };
+
+    await instrumentTool("demo_tool", args, async () => "ok");
+
+    expect(lastRecord().attributes?.["tool.args"]).toBe(JSON.stringify(args));
+  });
+
+  it("omits tool.args when OTEL_CAPTURE_TOOL_ARGS is unset", async () => {
+    await instrumentTool("demo_tool", { design: "board.kicad_pro" }, async () => "ok");
+
+    expect(lastRecord().attributes ?? {}).not.toHaveProperty("tool.args");
+  });
+
+  it("keeps enduser.id and args on error records", async () => {
+    process.env.OTEL_CAPTURE_TOOL_ARGS = "true";
+
+    await expect(
+      instrumentTool("demo_tool", { a: 1 }, async () => {
+        throw new TypeError("boom");
+      })
+    ).rejects.toThrow("boom");
+
+    const record = lastRecord();
+    expect(record.severityText).toBe("ERROR");
+    expect(record.attributes).toMatchObject({
+      "tool.outcome": "error",
+      "error.type": "TypeError",
+      "enduser.id": userInfo().username,
+      "tool.args": JSON.stringify({ a: 1 }),
+    });
+  });
+});

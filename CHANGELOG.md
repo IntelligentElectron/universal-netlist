@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.0] - 2026-07-16
+
+### Added
+
+- The per-call OpenTelemetry log record now also carries `enduser.id` (mirroring the resource attribute) and, when `OTEL_CAPTURE_TOOL_ARGS` is enabled, `tool.args` (the same JSON already recorded on the span) as log-record attributes. Log/label-based backends index only log-record attributes (resource attributes are dropped and span attributes are never carried), so per-user and per-input analytics are now possible from logs alone. Args stay opt-in behind the existing `OTEL_CAPTURE_TOOL_ARGS` flag; `enduser.id` mirrors a value already exported on every signal (#82)
+
 ## [1.3.0] - 2026-06-24
 
 ### Added

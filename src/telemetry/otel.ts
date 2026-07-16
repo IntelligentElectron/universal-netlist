@@ -121,7 +121,8 @@ export const initOtel = async (opts: {
     // service.name from env wins; our value is only a fallback default.
     // enduser.id is the host OS account, attributing this per-session process to
     // whoever is running it. Set at the resource level so it tags traces,
-    // metrics, and logs alike.
+    // metrics, and logs alike; also mirrored onto each per-call log record's
+    // own attributes for log backends that drop resource attributes (emitLog).
     const resource = resourceFromAttributes({
       "service.name": process.env.OTEL_SERVICE_NAME || opts.serviceName,
       "service.version": opts.serviceVersion,
@@ -268,13 +269,14 @@ export const instrumentTool = async <R>(
   const tracer = trace.getTracer(INSTRUMENTATION_NAME);
   return tracer.startActiveSpan(`tool/${toolName}`, async (span) => {
     const start = Date.now();
+    // Full args, untruncated: tool-call arguments are inherently small.
+    // Serialized once, then attached to the span here and mirrored onto the
+    // per-call log record (span attributes never reach log-based backends).
+    const capturedArgs = isTruthy(process.env.OTEL_CAPTURE_TOOL_ARGS) ? safeJson(args) : undefined;
     try {
       safely(() => {
         span.setAttribute("tool.name", toolName);
-        if (isTruthy(process.env.OTEL_CAPTURE_TOOL_ARGS)) {
-          // Full args, untruncated: tool-call arguments are inherently small.
-          span.setAttribute("tool.args", safeJson(args));
-        }
+        if (capturedArgs !== undefined) span.setAttribute("tool.args", capturedArgs);
       });
 
       const result = await run();
@@ -285,13 +287,14 @@ export const instrumentTool = async <R>(
         toolName,
         isError ? "error" : "success",
         isError ? "tool_error" : undefined,
-        Date.now() - start
+        Date.now() - start,
+        capturedArgs
       );
       return result;
     } catch (err) {
       const errorType = err instanceof Error ? err.name : "Error";
       safely(() => span.recordException(err instanceof Error ? err : new Error(String(err))));
-      finishSpan(span, toolName, "error", errorType, Date.now() - start);
+      finishSpan(span, toolName, "error", errorType, Date.now() - start, capturedArgs);
       throw err;
     }
   });
@@ -302,7 +305,8 @@ const finishSpan = (
   toolName: string,
   outcome: "success" | "error",
   errorType: string | undefined,
-  durationMs: number
+  durationMs: number,
+  capturedArgs: string | undefined
 ): void => {
   safely(() => {
     span.setAttribute("tool.outcome", outcome);
@@ -321,17 +325,25 @@ const finishSpan = (
     }
   });
 
-  safely(() => emitLog(span, toolName, outcome, errorType, durationMs));
+  safely(() => emitLog(span, toolName, outcome, errorType, durationMs, capturedArgs));
 
   safely(() => span.end());
 };
 
+/**
+ * Emit the per-call log record. Log/label-based backends index only log-record
+ * attributes (resource attributes are dropped and span attributes are never
+ * carried), so `enduser.id` is mirrored here from the resource and the
+ * captured args from the span, keeping per-user and per-input analytics
+ * possible from logs alone.
+ */
 const emitLog = (
   span: Span,
   toolName: string,
   outcome: "success" | "error",
   errorType: string | undefined,
-  durationMs: number
+  durationMs: number,
+  capturedArgs: string | undefined
 ): void => {
   const sc = span.spanContext();
   const logger = logs.getLogger(INSTRUMENTATION_NAME);
@@ -344,6 +356,8 @@ const emitLog = (
       "tool.outcome": outcome,
       "tool.duration_ms": durationMs,
       ...(errorType ? { "error.type": errorType } : {}),
+      ...hostEnduser(),
+      ...(capturedArgs !== undefined ? { "tool.args": capturedArgs } : {}),
       // Explicit ids for trace-to-log correlation in addition to the record's
       // own trace context.
       trace_id: sc.traceId,
@@ -376,17 +390,23 @@ const getInstruments = (): Instruments => {
 // =============================================================================
 
 /**
- * The host OS account name as an `enduser.id` resource attribute, attributing
- * this per-session process to whoever runs it. Best-effort: returns an empty
- * object if the username can't be read, so telemetry setup never fails on it.
+ * The host OS account name as an `enduser.id` attribute, attributing this
+ * per-session process to whoever runs it. Used on the resource and mirrored
+ * onto each per-call log record, so it is cached after the first read.
+ * Best-effort: yields an empty object if the username can't be read, so
+ * telemetry never fails on it.
  */
+let enduserAttrs: Record<string, string> | undefined;
 const hostEnduser = (): Record<string, string> => {
-  try {
-    const name = userInfo().username;
-    return name ? { "enduser.id": name } : {};
-  } catch {
-    return {};
+  if (!enduserAttrs) {
+    try {
+      const name = userInfo().username;
+      enduserAttrs = name ? { "enduser.id": name } : {};
+    } catch {
+      enduserAttrs = {};
+    }
   }
+  return enduserAttrs;
 };
 
 /** Run a telemetry side effect, swallowing any error so it can't break a tool. */
