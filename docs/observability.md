@@ -82,7 +82,7 @@ One additional, clearly-scoped option is specific to this server:
 
 | Variable | Purpose |
 |----------|---------|
-| `OTEL_CAPTURE_TOOL_ARGS` | Set to `1`/`true` to also record raw tool arguments on the span as `tool.args`. Off by default, since arguments may be sensitive. |
+| `OTEL_CAPTURE_TOOL_ARGS` | Set to `1`/`true` to also record raw tool arguments as `tool.args`, on both the span and the per-call log record. Off by default, since arguments may be sensitive. |
 
 ## What gets emitted
 
@@ -120,7 +120,11 @@ One structured log record per call, with body `tool/<tool_name> <outcome>` and s
 | `tool.outcome` | `success` or `error`. |
 | `tool.duration_ms` | Duration in milliseconds. |
 | `error.type` | Present on failure. |
+| `enduser.id` | The host OS account name, mirroring the resource attribute below. Best-effort; omitted if it can't be read. |
+| `tool.args` | Full tool arguments as JSON, mirroring the span attribute. Only present when `OTEL_CAPTURE_TOOL_ARGS` is enabled. |
 | `trace_id`, `span_id` | The active trace/span IDs, for trace-to-log correlation. |
+
+Log/label-based backends typically index only log-record attributes (resource attributes are dropped and span attributes are never carried), so `enduser.id` and the captured arguments are set directly on each record to keep per-user and per-input analytics possible from logs alone.
 
 ### Resource attributes
 
