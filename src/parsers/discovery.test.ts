@@ -224,4 +224,54 @@ describe("discoverDesigns", () => {
       expect(altium).toBeDefined();
     });
   });
+
+  describe("macOS AppleDouble sidecars", () => {
+    it("should ignore ._* sidecar files next to real designs", async () => {
+      await writeFile(join(testDir, "board.DSN"), "");
+      // AppleDouble sidecars carry resource-fork/xattr metadata, not design data.
+      await writeFile(join(testDir, "._board.DSN"), Buffer.from([0x00, 0x05, 0x16, 0x07]));
+
+      // An orphan SchDoc becomes a standalone design, so an OLE-looking sidecar
+      // would show up as a phantom design named "._sheet" if it were not skipped.
+      await writeOleSchDoc(join(testDir, "sheet.SchDoc"));
+      await writeOleSchDoc(join(testDir, "._sheet.SchDoc"));
+
+      const designs = await discoverDesigns(testDir);
+      expect(designs.map((d) => d.name).sort()).toEqual(["board", "sheet"]);
+    });
+
+    it("should not descend into ._* sidecar directories", async () => {
+      const sidecarDir = join(testDir, "._project");
+      await mkdir(sidecarDir, { recursive: true });
+      await writeFile(join(sidecarDir, "phantom.DSN"), "");
+
+      const realDir = join(testDir, "project");
+      await mkdir(realDir, { recursive: true });
+      await writeFile(join(realDir, "real.DSN"), "");
+
+      const designs = await discoverDesigns(testDir);
+      expect(designs.map((d) => d.name)).toEqual(["real"]);
+    });
+
+    it("should ignore ._* sidecars of Cadence .dat files", async () => {
+      const designDir = join(testDir, "dat_only");
+      await mkdir(designDir, { recursive: true });
+      for (const name of ["pstxnet.dat", "pstxprt.dat", "pstchip.dat"]) {
+        await writeFile(join(designDir, name), "test");
+        await writeFile(join(designDir, `._${name}`), Buffer.from([0x00, 0x05, 0x16, 0x07]));
+      }
+
+      const designs = await discoverDesigns(testDir);
+      expect(designs).toHaveLength(1);
+      expect(designs[0].format).toBe("cadence-dat");
+    });
+
+    it("should ignore ._* sidecars of KiCad project files", async () => {
+      await writeFile(join(testDir, "proj.kicad_pro"), "{}");
+      await writeFile(join(testDir, "._proj.kicad_pro"), Buffer.from([0x00, 0x05, 0x16, 0x07]));
+
+      const designs = await discoverDesigns(testDir);
+      expect(designs.map((d) => d.name)).toEqual(["proj"]);
+    });
+  });
 });
