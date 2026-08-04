@@ -423,8 +423,9 @@ function disambiguateCrossPageNets(
     const suffixedHier: { suffix: number; fullName: string }[] = [];
     for (const hierName of canonicalNetNames) {
       if (hierName.startsWith(prefix)) {
-        const num = parseInt(hierName.substring(prefix.length));
-        if (!isNaN(num)) suffixedHier.push({ suffix: num, fullName: hierName });
+        const suffix = hierName.substring(prefix.length);
+        if (!/^\d+$/.test(suffix)) continue;
+        suffixedHier.push({ suffix: Number(suffix), fullName: hierName });
       }
     }
     if (suffixedHier.length === 0) continue;
