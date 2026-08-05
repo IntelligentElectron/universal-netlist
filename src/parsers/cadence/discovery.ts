@@ -75,6 +75,10 @@ const walkForCadenceFiles = async (
     }
 
     for (const entry of entries) {
+      // macOS writes AppleDouble sidecars (`._name`) beside real files on network
+      // volumes (NFS/SMB). They are metadata, never designs — skip files and dirs alike.
+      if (entry.name.startsWith("._")) continue;
+
       const fullPath = path.join(currentDir, entry.name);
       if (entry.isDirectory()) {
         if (maxDepth === undefined || depth < maxDepth) {

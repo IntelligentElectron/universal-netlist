@@ -15,6 +15,7 @@ export default tseslint.config(
     },
   },
   {
-    ignores: ['dist/**', 'node_modules/**', '**/*.test.ts'],
+    // '**/._*' — AppleDouble sidecars macOS writes on network volumes; binary, not source.
+    ignores: ['dist/**', 'node_modules/**', '**/*.test.ts', '**/._*'],
   }
 );
