@@ -3,29 +3,29 @@ name: Claude Code Review
 on:
   pull_request:
     types: [opened, synchronize, ready_for_review, reopened]
-    # Optional: Only run on specific file changes
-    # paths:
-    #   - "src/**/*.ts"
-    #   - "src/**/*.tsx"
-    #   - "src/**/*.js"
-    #   - "src/**/*.jsx"
 
 jobs:
   claude-review:
-    # Optional: Filter by PR author
-    # if: |
-    #   github.event.pull_request.user.login == 'external-contributor' ||
-    #   github.event.pull_request.user.login == 'new-developer' ||
-    #   github.event.pull_request.author_association == 'FIRST_TIME_CONTRIBUTOR'
+    # Same-repo branches only. For a `pull_request` from a fork, GitHub withholds
+    # repository secrets (`CLAUDE_CODE_OAUTH_TOKEN` arrives empty) and downgrades the
+    # job to a read-only token, dropping the `id-token: write` requested below — the
+    # action then fails its OIDC exchange. Skipping keeps fork PRs green instead of
+    # red-for-infrastructure-reasons.
+    #
+    # To review a fork PR, comment `@claude` on it: claude.yml runs on `issue_comment`
+    # in base-repo context, where both the secret and OIDC are available.
+    if: github.event.pull_request.head.repo.full_name == github.repository
 
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      pull-requests: read
+      # write (not read): posting inline comments on the PR diff needs it.
+      pull-requests: write
       issues: read
       id-token: write
 
     steps:
+      # The review reads surrounding parser code and docs/, not just the diff.
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
@@ -36,19 +36,34 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          # Render a live progress checklist while the review runs.
+          track_progress: true
           prompt: |
-            Please review this pull request and provide feedback on:
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ github.event.pull_request.number }}
+
+            Review this pull request, focusing on:
             - Code quality and best practices
             - Potential bugs or issues
             - Performance considerations
             - Security concerns
             - Test coverage
 
-            Use the repository's CLAUDE.md for guidance on style and conventions. Be constructive and helpful in your feedback.
+            Use the repository's CLAUDE.md for guidance on style and conventions.
+            Be constructive and helpful.
 
-            Use `gh pr comment` with your Bash tool to leave your review as a comment on the PR.
+            HOW TO DELIVER THE REVIEW:
+            - For every specific, line-level issue, leave an INLINE comment anchored to
+              the exact file and line, using the
+              `mcp__github_inline_comment__create_inline_comment` tool. Keep each one
+              scoped to that single spot and suggest a concrete fix where you can.
+            - Then post ONE overall top-level summary comment with `gh pr comment`: a
+              short verdict, the themes you saw, and anything not tied to a single
+              line. Do not repeat the inline details there — link to them instead.
+            - If the PR looks clean, skip inline comments and say so in the summary.
+              Do not invent findings to look thorough.
 
-          # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
-          # or https://code.claude.com/docs/en/cli-reference for available options
-          claude_args: '--allowed-tools "Bash(gh issue view:*),Bash(gh search:*),Bash(gh issue list:*),Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*),Bash(gh pr list:*)"'
-
+          # Without an explicit allowlist the SDK denies every tool, so the review
+          # reads the diff, forms its findings, and is then blocked from posting them.
+          # Read-and-report only: nothing here writes to the repo.
+          claude_args: '--allowedTools "mcp__github_inline_comment__create_inline_comment,Read,Grep,Glob,Bash(gh pr view:*),Bash(gh pr diff:*),Bash(gh pr comment:*),Bash(gh pr list:*),Bash(gh issue view:*),Bash(gh issue list:*),Bash(gh search:*),Bash(git log:*),Bash(git diff:*),Bash(git show:*)"'
