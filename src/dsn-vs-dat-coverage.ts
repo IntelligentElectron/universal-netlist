@@ -25,12 +25,28 @@ export interface FieldStats {
   mismatches: string[];
 }
 
+/**
+ * Per-net connectivity agreement on nets present in both netlists.
+ *
+ * Net and component coverage match on names alone, so a net that survives with
+ * the wrong pins on it scores as covered. This metric compares the actual
+ * {refdes.pin} set of every common net, which is what a wrong-connectivity bug
+ * moves.
+ */
+export interface ConnectivityStats {
+  common: number;
+  exact: number;
+  differing: number;
+  mismatches: { net: string; referenceOnly: string[]; dsnOnly: string[] }[];
+}
+
 export interface CoverageResult {
   projectName: string;
   goldenNetCount: number;
   dsnNetCount: number;
   commonNets: number;
   netCoverage: number;
+  connectivity: ConnectivityStats;
   goldenCompCount: number;
   dsnCompCount: number;
   commonComps: number;
@@ -56,6 +72,49 @@ const getPinName = (entry: PinEntry): string | undefined =>
 
 export const pct = (n: number, d: number): string =>
   d > 0 ? ((n / d) * 100).toFixed(1) + "%" : "N/A";
+
+const pinRefs = (connections: Record<string, string[]> | undefined): Set<string> => {
+  const refs = new Set<string>();
+  for (const [refdes, pins] of Object.entries(connections ?? {})) {
+    for (const pin of pins) refs.add(`${refdes}.${pin}`);
+  }
+  return refs;
+};
+
+const pinSetSignature = (connections: Record<string, string[]> | undefined): string =>
+  [...pinRefs(connections)].sort().join(",");
+
+const compareConnectivity = (
+  commonNets: string[],
+  dsn: ParsedNetlist,
+  reference: ParsedNetlist,
+  mismatchLimit = 20
+): ConnectivityStats => {
+  const stats: ConnectivityStats = { common: commonNets.length, exact: 0, differing: 0, mismatches: [] };
+
+  for (const net of commonNets) {
+    const referenceRefs = pinRefs(reference.nets[net]);
+    const dsnRefs = pinRefs(dsn.nets[net]);
+    const same =
+      referenceRefs.size === dsnRefs.size && [...referenceRefs].every((ref) => dsnRefs.has(ref));
+
+    if (same) {
+      stats.exact++;
+      continue;
+    }
+
+    stats.differing++;
+    if (stats.mismatches.length < mismatchLimit) {
+      stats.mismatches.push({
+        net,
+        referenceOnly: [...referenceRefs].filter((ref) => !dsnRefs.has(ref)).sort(),
+        dsnOnly: [...dsnRefs].filter((ref) => !referenceRefs.has(ref)).sort(),
+      });
+    }
+  }
+
+  return stats;
+};
 
 // ---------------------------------------------------------------------------
 // Analysis
@@ -97,14 +156,6 @@ export const analyzeCoverage = (
   // Second pass: match unmatched nets by connectivity (pin-set signature).
   // Handles whitespace-renamed nets: DSN preserves " SIGNAL_A" while DAT
   // strips to "SIGNAL_A" or appends "_1" on collision.
-  const pinSetSignature = (connections: Record<string, string[]>): string => {
-    const pairs: string[] = [];
-    for (const [refdes, pins] of Object.entries(connections)) {
-      for (const pin of pins) pairs.push(`${refdes}.${pin}`);
-    }
-    return pairs.sort().join(",");
-  };
-
   let renamedNets = 0;
   if (missingNets.length > 0 && extraNets.length > 0) {
     const extraBySignature = new Map<string, string>();
@@ -231,6 +282,7 @@ export const analyzeCoverage = (
     dsnNetCount: dsnNets.size,
     commonNets: commonNets.length,
     netCoverage: refNets.size > 0 ? commonNets.length / refNets.size : 1,
+    connectivity: compareConnectivity(commonNets, dsn, reference),
     goldenCompCount: refComps.size,
     dsnCompCount: dsnComps.size,
     commonComps: commonCompKeys.length,
@@ -263,6 +315,23 @@ const formatVerboseDesignTerminal = (
   lines.push("=".repeat(80));
   lines.push(r.projectName);
   lines.push("=".repeat(80));
+
+  lines.push("");
+  lines.push(
+    `Connectivity: ${r.connectivity.exact}/${r.connectivity.common} common nets have identical pin sets (${pct(r.connectivity.exact, r.connectivity.common)})`
+  );
+  for (const mismatch of r.connectivity.mismatches) {
+    lines.push(`  ${mismatch.net}`);
+    if (mismatch.referenceOnly.length > 0) {
+      lines.push(`    reference-only: ${mismatch.referenceOnly.join(" ")}`);
+    }
+    if (mismatch.dsnOnly.length > 0) {
+      lines.push(`    dsn-only:       ${mismatch.dsnOnly.join(" ")}`);
+    }
+  }
+  if (r.connectivity.differing > r.connectivity.mismatches.length) {
+    lines.push(`  ... and ${r.connectivity.differing - r.connectivity.mismatches.length} more`);
+  }
 
   lines.push("");
   lines.push("Field coverage:");
@@ -462,6 +531,12 @@ const formatAggregateTerminal = (results: CoverageResult[], lines: string[]): vo
     )})`
   );
   lines.push(
+    `Conn:    ${sum((r) => r.connectivity.exact)}/${sum((r) => r.connectivity.common)} (${pct(
+      sum((r) => r.connectivity.exact),
+      sum((r) => r.connectivity.common)
+    )}) [${sum((r) => r.connectivity.differing)} nets with differing pin sets]`
+  );
+  lines.push(
     `Comps:   ${sum((r) => r.commonComps)}/${sum((r) => r.goldenCompCount)} (${pct(
       sum((r) => r.commonComps),
       sum((r) => r.goldenCompCount)
@@ -638,7 +713,7 @@ export const formatCoverageReport = (
 
   if (markdown) {
     // Pipe-delimited markdown table
-    const cols = ["Design", "Nets", "Comps", "Value", "MPN"];
+    const cols = ["Design", "Nets", "Conn", "Comps", "Value", "MPN"];
     if (hasDesc) cols.push("Desc");
     if (hasComment) cols.push("Comment");
     if (hasDns) cols.push("DNS");
@@ -651,6 +726,7 @@ export const formatCoverageReport = (
       const cells = [
         r.projectName,
         pct(r.commonNets, r.goldenNetCount),
+        pct(r.connectivity.exact, r.connectivity.common),
         pct(r.commonComps, r.goldenCompCount),
         pct(r.value.match, r.value.total),
         pct(r.mpn.match, r.mpn.total),
@@ -664,7 +740,12 @@ export const formatCoverageReport = (
   } else {
     // Padded plain-text table for terminal
     let header =
-      pad("Design", 50) + pad("Nets", 8) + pad("Comps", 8) + pad("Value", 8) + pad("MPN", 8);
+      pad("Design", 50) +
+      pad("Nets", 8) +
+      pad("Conn", 8) +
+      pad("Comps", 8) +
+      pad("Value", 8) +
+      pad("MPN", 8);
     if (hasDesc) header += pad("Desc", 8);
     if (hasComment) header += pad("Comment", 8);
     if (hasDns) header += pad("DNS", 8);
@@ -676,6 +757,7 @@ export const formatCoverageReport = (
       let row =
         pad(r.projectName, 50) +
         pad(pct(r.commonNets, r.goldenNetCount), 8) +
+        pad(pct(r.connectivity.exact, r.connectivity.common), 8) +
         pad(pct(r.commonComps, r.goldenCompCount), 8) +
         pad(pct(r.value.match, r.value.total), 8) +
         pad(pct(r.mpn.match, r.mpn.total), 8);

@@ -35,9 +35,11 @@ npx tsx scripts/dsn-coverage-report.ts                    # All fixtures, summar
 npx tsx scripts/dsn-coverage-report.ts BEAGLEBONEBLK_C3   # Single fixture, verbose breakdown
 ```
 
-Summary mode prints a table with net/component coverage and field-level parity (Value, PinNum, PinName, MPN) for each fixture. The MPN column shows `hasDsn/total` since DSN extracts real part numbers while DAT golden uses composite format, so exact match is not meaningful.
+Summary mode prints a table with net/component coverage, per-net connectivity agreement, and field-level parity (Value, PinNum, PinName, MPN) for each fixture. The MPN column shows `hasDsn/total` since DSN extracts real part numbers while DAT golden uses composite format, so exact match is not meaningful.
 
-Single-fixture (verbose) mode adds field mismatch examples, missing nets grouped by category (auto-generated, named, no-connect, bus-range), and extra nets.
+The `Nets` and `Comps` columns match on names, so a net that survives with the wrong pins on it still scores as covered. The `Conn` column is the one that catches that: for every net present in both netlists it compares the actual `{refdes.pin}` set, which is what a wrong-connectivity bug moves. A design reading `Nets 100%` / `Conn 82.7%` has every expected net present and pins on the wrong ones.
+
+Single-fixture (verbose) mode adds the differing nets with their reference-only and dsn-only pins, field mismatch examples, missing nets grouped by category (auto-generated, named, no-connect, bus-range), and extra nets.
 
 Aggregate stats at the bottom show totals across all fixtures.
 
