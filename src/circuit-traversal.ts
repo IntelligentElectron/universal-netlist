@@ -162,6 +162,15 @@ export const naturalSort = (a: string, b: string): number => {
 /**
  * Compute a stable hash for a circuit.
  * Components with the same XNET produce identical hashes regardless of query starting point.
+ *
+ * The canonical form covers connectivity only (refdes + per-net pin assignments).
+ * Display metadata is deliberately excluded so that the same physical circuit
+ * hashes identically no matter which backend parsed it: `mpn` is a best-effort,
+ * backend-dependent field (the .dat path reports the pstxprt `MFGR_PN` or a
+ * netlister part-name string truncated to 31 chars, while the .DSN path reports
+ * an MPN-ish property or the bare `sourcePackage` symbol name), so hashing it
+ * made every cross-backend comparison of an identical circuit mismatch. `value`
+ * was already excluded for the same reason.
  */
 export const computeCircuitHash = (components: CircuitComponent[]): string => {
   if (!components || components.length === 0) {
@@ -172,7 +181,6 @@ export const computeCircuitHash = (components: CircuitComponent[]): string => {
 
   const canonicalForm = sortedComponents.map((comp) => ({
     refdes: comp.refdes,
-    mpn: comp.mpn,
     connections: comp.connections
       .map((conn) => ({
         pins: [...conn.pins].sort(naturalSort),
