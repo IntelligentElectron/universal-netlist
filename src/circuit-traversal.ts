@@ -19,9 +19,17 @@ import type { NetConnections, ComponentDetails, CircuitComponent } from "./types
 // classify as ground. This is intentional — such names are almost always real
 // ground domains (`GND_DIGITAL`, `GND_ANALOG`, `GND_CHASSIS`), and a missed
 // ground that floods traversal is far worse than a false positive here.
+// Server/VR board rails are named `PVCCIN_CPU0`, `PVNN_TERM_CPU0`, `P3V3_AUX`,
+// `P12V`, `P1V8_BMC` — the `^` anchor means `VCC\w*` never sees past the leading
+// `P`, so all of these used to expand like ordinary signals and flood traversal
+// through their pull-ups. Same trade-off as `VCC\w*` catching `VCC_EN`: the
+// prefix-anchored `P\d+V\w*` also catches derived names like `P1V8_PG`. That is
+// accepted — a missed rail is far worse than a false positive, and the
+// structural pin-count guard (stopNetPinThreshold) is the primary defense here;
+// free-form rail names like `E610_P1V8` are beyond any regex.
 const GROUND_NET_ALTERNATIVES = "GND\\w*|VSS\\w*|AGND\\w*|DGND\\w*|PGND\\w*|SGND\\w*|CGND\\w*";
 const POWER_NET_ALTERNATIVES =
-  "VCC\\w*|VDD\\w*|VIN\\w*|VOUT\\w*|VBAT\\w*|VBUS\\w*|VSYS\\w*|VREG\\w*|PWR_\\w+|RAIL_\\w+|PP\\w*|PN\\w*|LD_PP\\w*|LD_PN\\w*|[+-]?\\d+V\\d*\\w*|[+-].+";
+  "VCC\\w*|VDD\\w*|VIN\\w*|VOUT\\w*|VBAT\\w*|VBUS\\w*|VSYS\\w*|VREG\\w*|PWR_\\w+|RAIL_\\w+|PP\\w*|PN\\w*|LD_PP\\w*|LD_PN\\w*|PVCC\\w*|PVNN\\w*|P\\d+V\\w*|[+-]?\\d+V\\d*\\w*|[+-].+";
 
 const GROUND_NET_PATTERN = new RegExp(`^(${GROUND_NET_ALTERNATIVES})$`, "i");
 const POWER_NET_PATTERN = new RegExp(`^(${POWER_NET_ALTERNATIVES})$`, "i");
@@ -214,7 +222,21 @@ export interface TraversalResult {
 export interface TraversalOptions {
   skipTypes?: string[];
   includeDns?: boolean;
+  /**
+   * Pin count above which a net is treated as a stop net regardless of its name.
+   * Rail naming is unbounded (`E610_P1V8`, board-house prefixes), so no pattern
+   * can enumerate it; hundreds of pins is instead a reliable structural
+   * signature of a power/ground/no-connect plane. Defaults to
+   * DEFAULT_STOP_NET_PIN_THRESHOLD; pass `Infinity` to disable the guard.
+   */
+  stopNetPinThreshold?: number;
 }
+
+/**
+ * Default for TraversalOptions.stopNetPinThreshold. Sits well above the fan-out
+ * of a real signal net and well below the pin count of any plane.
+ */
+const DEFAULT_STOP_NET_PIN_THRESHOLD = 40;
 
 /**
  * Group flat pin connections by component (refdes).
@@ -297,7 +319,8 @@ const groupCircuitPins = (
 /**
  * Traverse circuit from a starting net, following passive components.
  * Uses BFS to explore connections through R, L, C, FB components.
- * Stops at active components and power/ground nets.
+ * Stops at active components, power/ground nets, and nets with more pins than
+ * options.stopNetPinThreshold (unrecognized rails and planes).
  */
 export const traverseCircuitFromNet = (
   startNet: string,
@@ -311,6 +334,7 @@ export const traverseCircuitFromNet = (
 
   const skipTypes = (options.skipTypes ?? []).map((type) => type.trim().toUpperCase());
   const includeDns = options.includeDns ?? false;
+  const stopNetPinThreshold = options.stopNetPinThreshold ?? DEFAULT_STOP_NET_PIN_THRESHOLD;
   const skipped: Record<string, number> = {};
   const skippedComponents = new Set<string>();
 
@@ -335,6 +359,27 @@ export const traverseCircuitFromNet = (
 
     return false;
   };
+
+  // The same net is checked many times in one traversal, so count lazily and
+  // memoize per call.
+  const netPinCounts = new Map<string, number>();
+  const countNetPins = (netName: string): number => {
+    const cached = netPinCounts.get(netName);
+    if (cached !== undefined) return cached;
+    const count = Object.values(nets[netName] ?? {}).reduce((sum, pins) => sum + pins.length, 0);
+    netPinCounts.set(netName, count);
+    return count;
+  };
+
+  // Halt expansion at named rails, at the aggregated no-connect net, and at any
+  // net fat enough to be a plane whatever it is called — an unrecognized rail
+  // turns every pull-up on it into a pass-through and fuses the board into one
+  // supernet. Only reached for nets found *through* a passive, so the start net
+  // stays exempt: querying a rail explicitly should still expand it.
+  const shouldStopAtNet = (netName: string): boolean =>
+    isStopNet(netName) ||
+    stripSheetPath(netName).toUpperCase() === "NC" ||
+    countNetPins(netName) > stopNetPinThreshold;
 
   const visitedNets = new Set<string>([startNet]);
   const visitedPins = new Set<string>();
@@ -395,7 +440,7 @@ export const traverseCircuitFromNet = (
 
             visitedNets.add(otherNetName);
 
-            if (isStopNet(otherNetName)) continue;
+            if (shouldStopAtNet(otherNetName)) continue;
 
             const otherNetConns = nets[otherNetName] || {};
             let hasPassiveToFollow = false;
