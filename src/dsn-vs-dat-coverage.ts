@@ -87,8 +87,7 @@ const pinSetSignature = (connections: Record<string, string[]> | undefined): str
 const compareConnectivity = (
   commonNets: string[],
   dsn: ParsedNetlist,
-  reference: ParsedNetlist,
-  mismatchLimit = 20
+  reference: ParsedNetlist
 ): ConnectivityStats => {
   const stats: ConnectivityStats = { common: commonNets.length, exact: 0, differing: 0, mismatches: [] };
 
@@ -104,13 +103,11 @@ const compareConnectivity = (
     }
 
     stats.differing++;
-    if (stats.mismatches.length < mismatchLimit) {
-      stats.mismatches.push({
-        net,
-        referenceOnly: [...referenceRefs].filter((ref) => !dsnRefs.has(ref)).sort(),
-        dsnOnly: [...dsnRefs].filter((ref) => !referenceRefs.has(ref)).sort(),
-      });
-    }
+    stats.mismatches.push({
+      net,
+      referenceOnly: [...referenceRefs].filter((ref) => !dsnRefs.has(ref)).sort(),
+      dsnOnly: [...dsnRefs].filter((ref) => !referenceRefs.has(ref)).sort(),
+    });
   }
 
   return stats;
@@ -320,7 +317,8 @@ const formatVerboseDesignTerminal = (
   lines.push(
     `Connectivity: ${r.connectivity.exact}/${r.connectivity.common} common nets have identical pin sets (${pct(r.connectivity.exact, r.connectivity.common)})`
   );
-  for (const mismatch of r.connectivity.mismatches) {
+  const connLimit = truncate ? 10 : r.connectivity.mismatches.length;
+  for (const mismatch of r.connectivity.mismatches.slice(0, connLimit)) {
     lines.push(`  ${mismatch.net}`);
     if (mismatch.referenceOnly.length > 0) {
       lines.push(`    reference-only: ${mismatch.referenceOnly.join(" ")}`);
@@ -329,8 +327,8 @@ const formatVerboseDesignTerminal = (
       lines.push(`    dsn-only:       ${mismatch.dsnOnly.join(" ")}`);
     }
   }
-  if (r.connectivity.differing > r.connectivity.mismatches.length) {
-    lines.push(`  ... and ${r.connectivity.differing - r.connectivity.mismatches.length} more`);
+  if (r.connectivity.mismatches.length > connLimit) {
+    lines.push(`  ... and ${r.connectivity.mismatches.length - connLimit} more`);
   }
 
   lines.push("");
@@ -453,6 +451,25 @@ const formatVerboseDesignMarkdown = (
   lines.push("| --- | ---: | ---: | ---: | --- |");
   for (const [field, match, total, notes] of fieldRows) {
     lines.push(`| ${field} | ${match} | ${total} | ${pct(match, total)} | ${notes} |`);
+  }
+
+  lines.push("");
+  lines.push(
+    `### Connectivity: ${r.connectivity.exact}/${r.connectivity.common} common nets have identical pin sets (${pct(r.connectivity.exact, r.connectivity.common)})`
+  );
+  if (r.connectivity.mismatches.length > 0) {
+    lines.push("");
+    lines.push("| Net | Reference-only pins | DSN-only pins |");
+    lines.push("| --- | --- | --- |");
+    const connLimit = truncate ? 10 : r.connectivity.mismatches.length;
+    for (const mismatch of r.connectivity.mismatches.slice(0, connLimit)) {
+      lines.push(
+        `| ${mismatch.net} | ${mismatch.referenceOnly.join(" ") || "-"} | ${mismatch.dsnOnly.join(" ") || "-"} |`
+      );
+    }
+    if (r.connectivity.mismatches.length > connLimit) {
+      lines.push(`| ... and ${r.connectivity.mismatches.length - connLimit} more | | |`);
+    }
   }
 
   const formatMismatches = (label: string, items: string[]) => {

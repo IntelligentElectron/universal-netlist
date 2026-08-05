@@ -81,7 +81,7 @@ describe("connectivity comparison", () => {
     expect(result.connectivity.exact).toBe(1);
   });
 
-  it("caps stored mismatch examples but keeps the full differing count", () => {
+  it("stores every mismatch and truncates only at render time", () => {
     const nets: Record<string, Record<string, string[]>> = {};
     const wrong: Record<string, Record<string, string[]>> = {};
     for (let i = 0; i < 30; i++) {
@@ -92,7 +92,29 @@ describe("connectivity comparison", () => {
     const result = analyzeCoverage("many", netlist(wrong), netlist(nets));
 
     expect(result.connectivity.differing).toBe(30);
-    expect(result.connectivity.mismatches).toHaveLength(20);
+    expect(result.connectivity.mismatches).toHaveLength(30);
+
+    const truncated = formatCoverageReport([result], { verbose: true, truncate: true });
+    expect(truncated).toContain("... and 20 more");
+
+    const full = formatCoverageReport([result], { verbose: true, truncate: false });
+    expect(full).not.toContain("more");
+    expect(full).toContain("NET29");
+  });
+
+  it("includes the connectivity detail in the persisted markdown report", () => {
+    const reference = netlist({ DVI_DATA9: { RP3: ["13"] } });
+    const dsn = netlist({ DVI_DATA9: { RP3: ["12"] } });
+
+    const report = formatCoverageReport([analyzeCoverage("md", dsn, reference)], {
+      verbose: true,
+      truncate: false,
+      markdown: true,
+    });
+
+    expect(report).toContain("### Connectivity:");
+    expect(report).toContain("| Net | Reference-only pins | DSN-only pins |");
+    expect(report).toContain("| DVI_DATA9 | RP3.13 | RP3.12 |");
   });
 
   it("surfaces a Conn column and aggregate line in the report", () => {
