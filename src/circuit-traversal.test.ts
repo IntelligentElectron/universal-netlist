@@ -135,11 +135,41 @@ describe("isPowerNet", () => {
     expect(isPowerNet("/Power/VCC")).toBe(true);
   });
 
+  it("should match P<n>V* rails (P3V3_AUX / P12V style)", () => {
+    expect(isPowerNet("P3V3_AUX")).toBe(true);
+    expect(isPowerNet("P12V")).toBe(true);
+    expect(isPowerNet("P1V8_BMC")).toBe(true);
+    expect(isPowerNet("p5v_stby")).toBe(true);
+  });
+
+  it("should match PVCC*/PVNN* VR rails", () => {
+    expect(isPowerNet("PVCCIN_CPU0")).toBe(true);
+    expect(isPowerNet("PVCC_GT")).toBe(true);
+    expect(isPowerNet("PVNN_TERM_CPU0")).toBe(true);
+    expect(isPowerNet("pvnn_main")).toBe(true);
+  });
+
+  it("should match rail-derived names like P1V8_PG (accepted trade-off)", () => {
+    // Prefix-anchored, exactly like `VCC\w*` catching `VCC_EN`. A power-good
+    // signal misclassified as a rail costs one unexplored branch; a missed rail
+    // floods the whole board.
+    expect(isPowerNet("P1V8_PG")).toBe(true);
+  });
+
   it("should not match signal nets", () => {
     expect(isPowerNet("I2C_SDA")).toBe(false);
     expect(isPowerNet("SPI_CLK")).toBe(false);
     expect(isPowerNet("SIGNAL")).toBe(false);
     expect(isPowerNet("/Sheet/I2C_SDA")).toBe(false); // hierarchical signal stays a signal
+  });
+
+  it("should not match P-prefixed signals that are not rails", () => {
+    expect(isPowerNet("SPI2_FLASH_CS0_N")).toBe(false);
+    expect(isPowerNet("FM_CTRL_ENABLE_N")).toBe(false);
+    expect(isPowerNet("PWM_OUT")).toBe(false); // P not followed by digits+V
+    expect(isPowerNet("PCIE_TX3_P")).toBe(false); // no digit immediately after P
+    expect(isPowerNet("PERST_N")).toBe(false);
+    expect(isPowerNet("PWRGD_CPU0")).toBe(false); // PWR_ requires the underscore
   });
 });
 
@@ -187,12 +217,29 @@ describe("isStopNet", () => {
     expect(isStopNet("-15V")).toBe(true);
   });
 
+  it("should halt on server-board rail names", () => {
+    // These slipped through too, and unlike a ground they carry pull-ups on
+    // every pulled-up signal, so one query fused most of the board into a
+    // single supernet.
+    expect(isStopNet("P3V3_AUX")).toBe(true);
+    expect(isStopNet("P12V")).toBe(true);
+    expect(isStopNet("P1V8_BMC")).toBe(true);
+    expect(isStopNet("PVCCIN_CPU0")).toBe(true);
+    expect(isStopNet("PVNN_TERM_CPU0")).toBe(true);
+    expect(isStopNet("PVCC_GT")).toBe(true);
+    expect(isStopNet("/Power/P3V3_AUX")).toBe(true);
+  });
+
   it("should not match signal nets", () => {
     expect(isStopNet("I2C_SDA")).toBe(false);
     expect(isStopNet("SPI_CLK")).toBe(false);
     expect(isStopNet("SIGNAL")).toBe(false);
     expect(isStopNet("RESET_L")).toBe(false);
     expect(isStopNet("DATA_BUS")).toBe(false);
+    expect(isStopNet("SPI2_FLASH_CS0_N")).toBe(false);
+    expect(isStopNet("FM_CTRL_ENABLE_N")).toBe(false);
+    expect(isStopNet("PWM_OUT")).toBe(false);
+    expect(isStopNet("PCIE_TX3_P")).toBe(false);
   });
 
   it("should not match standalone + or - (requires at least one more char)", () => {
@@ -233,6 +280,10 @@ describe("stop-net invariant (STOP === GROUND ∪ POWER)", () => {
     "PN5V",
     "LD_PP1V8",
     "LD_PN12V",
+    "P3V3_AUX",
+    "P12V",
+    "PVCCIN_CPU0",
+    "PVNN_TERM_CPU0",
     "3V3",
     "5V",
     "+12V",
@@ -245,6 +296,8 @@ describe("stop-net invariant (STOP === GROUND ∪ POWER)", () => {
     "SIGNAL",
     "RESET_L",
     "DATA_BUS",
+    "PWM_OUT",
+    "PCIE_TX3_P",
     "+",
     "-",
   ];
@@ -487,6 +540,192 @@ describe("traverseCircuitFromNet", () => {
     });
   });
 
+  describe("structural stop-net guard (pin count)", () => {
+    /**
+     * A rail no pattern can recognize, carrying pull-ups onto unrelated signals
+     * plus bypass caps to ground. `pinCount` is the rail's total pin count.
+     * Entering through R0 must not leak onto FAR_SIGNAL_*.
+     */
+    const buildRailFixture = (
+      railName: string,
+      pinCount: number
+    ): { nets: NetConnections; components: ComponentDetails } => {
+      const nets: NetConnections = {
+        ENTRY_SIGNAL: { R0: ["1"], U1: ["1"] },
+        [railName]: { R0: ["2"] },
+      };
+      const components: ComponentDetails = {
+        U1: { pins: { "1": "ENTRY_SIGNAL" }, mpn: "IC" },
+        R0: { pins: { "1": "ENTRY_SIGNAL", "2": railName }, mpn: "10k" },
+      };
+
+      // Pull-ups: each becomes a pass-through onto another signal if the rail
+      // is expanded — this is the mechanism that fuses a board into a supernet.
+      for (let i = 1; i <= 3; i++) {
+        const farNet = `FAR_SIGNAL_${i}`;
+        nets[railName][`R${i}`] = ["1"];
+        nets[farNet] = { [`R${i}`]: ["2"], [`U${i + 1}`]: ["1"] };
+        components[`R${i}`] = { pins: { "1": railName, "2": farNet }, mpn: "10k" };
+        components[`U${i + 1}`] = { pins: { "1": farNet }, mpn: "FAR_IC" };
+      }
+
+      // Bypass caps to ground, bulking the rail out to `pinCount` pins.
+      const filler = pinCount - Object.values(nets[railName]).flat().length;
+      for (let i = 1; i <= filler; i++) {
+        nets[railName][`C${i}`] = ["1"];
+        components[`C${i}`] = { pins: { "1": railName, "2": "GND" }, mpn: "100nF" };
+      }
+
+      return { nets, components };
+    };
+
+    it("should stop at a fat rail whose name matches no pattern", () => {
+      const { nets, components } = buildRailFixture("E610_MYSTERY_RAIL", 41);
+      expect(isStopNet("E610_MYSTERY_RAIL")).toBe(false); // name alone would not stop it
+
+      const result = traverseCircuitFromNet("ENTRY_SIGNAL", nets, components);
+
+      const refdes = result.components.map((c) => c.refdes).sort(naturalSort);
+      expect(refdes).toEqual(["R0", "U1"]);
+      expect(result.visited_nets).toContain("E610_MYSTERY_RAIL");
+      expect(result.visited_nets).not.toContain("FAR_SIGNAL_1");
+      expect(result.visited_nets).not.toContain("FAR_SIGNAL_2");
+      expect(result.visited_nets).not.toContain("FAR_SIGNAL_3");
+    });
+
+    it("should expand the same rail when stopNetPinThreshold is raised", () => {
+      const { nets, components } = buildRailFixture("E610_MYSTERY_RAIL", 41);
+
+      const result = traverseCircuitFromNet("ENTRY_SIGNAL", nets, components, {
+        stopNetPinThreshold: 1000,
+      });
+
+      const refdes = result.components.map((c) => c.refdes);
+      expect(refdes).toContain("R1");
+      expect(refdes).toContain("U2");
+      expect(result.visited_nets).toContain("FAR_SIGNAL_1");
+    });
+
+    it("should expand a rail queried directly (start net is exempt)", () => {
+      // Upstream semantics: asking for a rail by name is an explicit request to
+      // see it, so the guard only applies to nets reached through a passive.
+      const { nets, components } = buildRailFixture("E610_MYSTERY_RAIL", 41);
+
+      const result = traverseCircuitFromNet("E610_MYSTERY_RAIL", nets, components);
+
+      const refdes = result.components.map((c) => c.refdes);
+      expect(refdes).toContain("U1");
+      expect(refdes).toContain("U2");
+      expect(result.visited_nets).toContain("ENTRY_SIGNAL");
+      expect(result.visited_nets).toContain("FAR_SIGNAL_1");
+    });
+
+    it("should honour a custom low threshold on a mid-size net", () => {
+      const nets: NetConnections = {
+        SIGNAL: { R1: ["1"] },
+        MID_NET: { R1: ["2"], R2: ["1"], U1: ["1", "2", "3", "4", "5", "6"] },
+        OTHER_SIGNAL: { R2: ["2"] },
+      };
+      const components: ComponentDetails = {
+        R1: { pins: { "1": "SIGNAL", "2": "MID_NET" }, mpn: "10k" },
+        R2: { pins: { "1": "MID_NET", "2": "OTHER_SIGNAL" }, mpn: "0" },
+        U1: {
+          pins: {
+            "1": "MID_NET",
+            "2": "MID_NET",
+            "3": "MID_NET",
+            "4": "MID_NET",
+            "5": "MID_NET",
+            "6": "MID_NET",
+          },
+          mpn: "IC",
+        },
+      };
+
+      // 8 pins: below the default threshold, so the net expands as a signal.
+      expect(traverseCircuitFromNet("SIGNAL", nets, components).visited_nets).toContain(
+        "OTHER_SIGNAL"
+      );
+
+      const guarded = traverseCircuitFromNet("SIGNAL", nets, components, {
+        stopNetPinThreshold: 5,
+      });
+      expect(guarded.visited_nets).toContain("MID_NET");
+      expect(guarded.visited_nets).not.toContain("OTHER_SIGNAL");
+    });
+
+    it("should not stop at ordinary signal nets under the threshold", () => {
+      const nets: NetConnections = {
+        SIGNAL_A: { R1: ["1"] },
+        SIGNAL_B: { R1: ["2"], R2: ["1"], U1: ["1"] },
+        SIGNAL_C: { R2: ["2"] },
+      };
+      const components: ComponentDetails = {
+        R1: { pins: { "1": "SIGNAL_A", "2": "SIGNAL_B" }, mpn: "10k" },
+        R2: { pins: { "1": "SIGNAL_B", "2": "SIGNAL_C" }, mpn: "0" },
+        U1: { pins: { "1": "SIGNAL_B" }, mpn: "IC" },
+      };
+
+      const result = traverseCircuitFromNet("SIGNAL_A", nets, components);
+
+      expect(result.visited_nets).toContain("SIGNAL_B");
+      expect(result.visited_nets).toContain("SIGNAL_C");
+    });
+  });
+
+  describe("no-connect nets", () => {
+    it("should stop at NC reached through a passive", () => {
+      const nets: NetConnections = {
+        SIGNAL: { R1: ["1"] },
+        NC: { R1: ["2"], R2: ["1"] },
+        OTHER_SIGNAL: { R2: ["2"] },
+      };
+      const components: ComponentDetails = {
+        R1: { pins: { "1": "SIGNAL", "2": "NC" }, mpn: "10k" },
+        R2: { pins: { "1": "NC", "2": "OTHER_SIGNAL" }, mpn: "10k" },
+      };
+
+      const result = traverseCircuitFromNet("SIGNAL", nets, components);
+
+      expect(result.components.length).toBe(1);
+      expect(result.components[0].refdes).toBe("R1");
+      expect(result.visited_nets).toContain("NC");
+      expect(result.visited_nets).not.toContain("OTHER_SIGNAL");
+    });
+
+    it("should stop at NC regardless of case or sheet path", () => {
+      const nets: NetConnections = {
+        SIGNAL: { R1: ["1"] },
+        "/Sheet/nc": { R1: ["2"], R2: ["1"] },
+        OTHER_SIGNAL: { R2: ["2"] },
+      };
+      const components: ComponentDetails = {
+        R1: { pins: { "1": "SIGNAL", "2": "/Sheet/nc" }, mpn: "10k" },
+        R2: { pins: { "1": "/Sheet/nc", "2": "OTHER_SIGNAL" }, mpn: "10k" },
+      };
+
+      const result = traverseCircuitFromNet("SIGNAL", nets, components);
+
+      expect(result.visited_nets).not.toContain("OTHER_SIGNAL");
+    });
+
+    it("should stop at a fat aggregated NC net", () => {
+      const nets: NetConnections = { SIGNAL: { R1: ["1"] }, NC: { R1: ["2"] } };
+      const components: ComponentDetails = {
+        R1: { pins: { "1": "SIGNAL", "2": "NC" }, mpn: "10k" },
+      };
+      for (let i = 1; i <= 60; i++) {
+        nets.NC[`U${i}`] = ["1"];
+        nets[`U${i}_SIG`] = { [`U${i}`]: ["2"] };
+        components[`U${i}`] = { pins: { "1": "NC", "2": `U${i}_SIG` }, mpn: "IC" };
+      }
+
+      const result = traverseCircuitFromNet("SIGNAL", nets, components);
+
+      expect(result.components.map((c) => c.refdes)).toEqual(["R1"]);
+    });
+  });
+
   describe("passive component traversal", () => {
     it("should traverse through passive components and show all their pins", () => {
       const nets: NetConnections = {
@@ -518,6 +757,59 @@ describe("traverseCircuitFromNet", () => {
       expect(result.visited_nets).toContain("SIGNAL_A");
       expect(result.visited_nets).toContain("SIGNAL_B");
       expect(result.visited_nets).toContain("SIGNAL_C");
+    });
+
+    it("should traverse a series 0R between two driven signals", () => {
+      const nets: NetConnections = {
+        DRIVER_OUT: { U1: ["1"], R1: ["1"] },
+        RECEIVER_IN: { R1: ["2"], U2: ["1"] },
+      };
+      const components: ComponentDetails = {
+        U1: { pins: { "1": "DRIVER_OUT" }, mpn: "DRIVER" },
+        R1: { pins: { "1": "DRIVER_OUT", "2": "RECEIVER_IN" }, mpn: "0" },
+        U2: { pins: { "1": "RECEIVER_IN" }, mpn: "RECEIVER" },
+      };
+
+      const result = traverseCircuitFromNet("DRIVER_OUT", nets, components);
+
+      expect(result.components.map((c) => c.refdes).sort(naturalSort)).toEqual(["R1", "U1", "U2"]);
+      expect(result.visited_nets).toContain("RECEIVER_IN");
+    });
+
+    it("should traverse a series ferrite bead between two driven signals", () => {
+      const nets: NetConnections = {
+        DRIVER_OUT: { U1: ["1"], FB1: ["1"] },
+        RECEIVER_IN: { FB1: ["2"], U2: ["1"] },
+      };
+      const components: ComponentDetails = {
+        U1: { pins: { "1": "DRIVER_OUT" }, mpn: "DRIVER" },
+        FB1: { pins: { "1": "DRIVER_OUT", "2": "RECEIVER_IN" }, mpn: "600R@100MHz" },
+        U2: { pins: { "1": "RECEIVER_IN" }, mpn: "RECEIVER" },
+      };
+
+      const result = traverseCircuitFromNet("DRIVER_OUT", nets, components);
+
+      expect(result.components.map((c) => c.refdes).sort(naturalSort)).toEqual(["FB1", "U1", "U2"]);
+      expect(result.visited_nets).toContain("RECEIVER_IN");
+    });
+
+    it("should traverse an AC-coupling series capacitor between two signals", () => {
+      // Series caps stay pass-throughs: the guard only rejects nets that are
+      // structurally planes, not the passive type.
+      const nets: NetConnections = {
+        TX_P: { U1: ["1"], C1: ["1"] },
+        TX_P_CONN: { C1: ["2"], J1: ["1"] },
+      };
+      const components: ComponentDetails = {
+        U1: { pins: { "1": "TX_P" }, mpn: "SERDES" },
+        C1: { pins: { "1": "TX_P", "2": "TX_P_CONN" }, mpn: "100nF" },
+        J1: { pins: { "1": "TX_P_CONN" }, mpn: "CONN" },
+      };
+
+      const result = traverseCircuitFromNet("TX_P", nets, components);
+
+      expect(result.components.map((c) => c.refdes).sort(naturalSort)).toEqual(["C1", "J1", "U1"]);
+      expect(result.visited_nets).toContain("TX_P_CONN");
     });
 
     it("should traverse through capacitors", () => {
@@ -759,9 +1051,66 @@ describe("computeCircuitHash", () => {
 
   it("should return different hash for different circuits", () => {
     const circuit1 = [{ refdes: "R1", mpn: "10k", connections: [{ net: "A", pins: ["1"] }] }];
-    const circuit2 = [{ refdes: "R1", mpn: "20k", connections: [{ net: "A", pins: ["1"] }] }];
+    const circuit2 = [{ refdes: "R1", mpn: "10k", connections: [{ net: "B", pins: ["1"] }] }];
 
     expect(computeCircuitHash(circuit1)).not.toBe(computeCircuitHash(circuit2));
+  });
+
+  it("should return different hash when a pin moves to another net", () => {
+    const circuit1 = [{ refdes: "R1", mpn: "10k", connections: [{ net: "A", pins: ["1", "2"] }] }];
+    const circuit2 = [
+      {
+        refdes: "R1",
+        mpn: "10k",
+        connections: [
+          { net: "A", pins: ["1"] },
+          { net: "B", pins: ["2"] },
+        ],
+      },
+    ];
+
+    expect(computeCircuitHash(circuit1)).not.toBe(computeCircuitHash(circuit2));
+  });
+
+  // mpn is backend-dependent -- the .dat path reports a netlister part-name
+  // string, the .DSN path the bare symbol name -- so hashing it made the same
+  // physical circuit mismatch across backends.
+  it("should ignore mpn so the same topology hashes equal across backends", () => {
+    const fromDat = [
+      {
+        refdes: "R1",
+        mpn: "RES_H_R0402_0R/0.05/0402_72E00*",
+        connections: [
+          { net: "A", pins: ["1"] },
+          { net: "B", pins: ["2"] },
+        ],
+      },
+      {
+        refdes: "U1",
+        mpn: "SOME_PART_NUMBER_TRUNCATED_AT_31",
+        connections: [{ net: "B", pins: ["W3"] }],
+      },
+    ];
+    const fromDsn = [
+      {
+        refdes: "R1",
+        mpn: "RES_H",
+        connections: [
+          { net: "A", pins: ["1"] },
+          { net: "B", pins: ["2"] },
+        ],
+      },
+      { refdes: "U1", mpn: "SYMBOL_NAME", connections: [{ net: "B", pins: ["W3"] }] },
+    ];
+
+    expect(computeCircuitHash(fromDat)).toBe(computeCircuitHash(fromDsn));
+  });
+
+  it("should ignore a missing mpn as well", () => {
+    const withMpn = [{ refdes: "R1", mpn: "10k", connections: [{ net: "A", pins: ["1"] }] }];
+    const withoutMpn = [{ refdes: "R1", connections: [{ net: "A", pins: ["1"] }] }];
+
+    expect(computeCircuitHash(withMpn)).toBe(computeCircuitHash(withoutMpn));
   });
 
   it("should return zero hash for empty components", () => {

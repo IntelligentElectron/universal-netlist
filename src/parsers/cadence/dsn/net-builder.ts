@@ -398,9 +398,26 @@ function collectPins(
  * and the page-local min pin IDs are allocated sequentially, so sorting by
  * either yields the same order.
  *
+ * A candidate is only a collision rename if it clears two gates, because a
+ * designer's own sibling net must never be mistaken for one:
+ *
+ * 1. The suffix must be entirely digits. A dbObjectId always is; `parseInt()`
+ *    alone is too lenient, since it stops at the first non-digit and reads a
+ *    rail-named sibling like `FOO_N_1V8` as suffix 1.
+ * 2. The name must not already be some wire group's resolved name. A collision
+ *    rename exists only in the hierarchy stream — it is never drawn as a wire
+ *    label — so a name a page actually resolved to cannot be one. This is what
+ *    catches an entirely-numeric family like `FOO_N_01/_02/_04`, which clears
+ *    gate 1 on its own.
+ *
+ * Without both, the two-pointer condition `suffix <= minNetId` is trivially
+ * true for such small suffixes, so every page group of the real `FOO_N` gets
+ * renamed into a sibling: the bare net vanishes and its pins are silently
+ * merged into unrelated real nets.
+ *
  * Mutates netIdToName in place to apply suffixed names.
  */
-function disambiguateCrossPageNets(
+export function disambiguateCrossPageNets(
   netIdToName: Map<number, string>,
   netIdGroups: Map<number, PinInfo[]>,
   canonicalNetNames: Set<string>
@@ -423,8 +440,14 @@ function disambiguateCrossPageNets(
     const suffixedHier: { suffix: number; fullName: string }[] = [];
     for (const hierName of canonicalNetNames) {
       if (hierName.startsWith(prefix)) {
-        const num = parseInt(hierName.substring(prefix.length));
-        if (!isNaN(num)) suffixedHier.push({ suffix: num, fullName: hierName });
+        // Claimed by a wire group => designer-authored sibling, not a rename.
+        if (nameToPageGroups.has(hierName)) continue;
+        const rawSuffix = hierName.substring(prefix.length);
+        // A dbObjectId is entirely digits. parseInt() alone is too lenient: it
+        // stops at the first non-digit, so a rail-named sibling like `_1V8`
+        // reads as suffix 1.
+        if (!/^\d+$/.test(rawSuffix)) continue;
+        suffixedHier.push({ suffix: parseInt(rawSuffix), fullName: hierName });
       }
     }
     if (suffixedHier.length === 0) continue;
