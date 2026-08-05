@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0] - 2026-08-05
+
+### Fixed
+
+- Cadence DSN cross-page net disambiguation no longer merges designer-authored sibling nets into one. A hierarchy name `<net>_<suffix>` is treated as a netlister collision rename only when the suffix is entirely digits and the name is not already some wire group's resolved name. Previously `parseInt()` stopped at the first non-digit, so a rail-suffixed sibling like `SIGNAL_1V8` read as suffix `1`, and an entirely-numeric family like `SIGNAL_01`/`_02` cleared the digit test outright; either way the bare net's pins were silently absorbed into unrelated nets (#85, #88)
+- XNET traversal stops at power rails whose names the stop-net regex did not recognize. `PVCC*`, `PVNN*`, and `P<n>V*` join the rail alternatives, `NC` is aligned with the existing query-xnet special case, and a configurable pin-count guard (`TraversalOptions.stopNetPinThreshold`, default 40) stops expansion at structurally rail-shaped nets regardless of name. An explicitly queried rail still expands. Previously every pull-up on such a rail acted as a pass-through and traversal fused much of the board into one false supernet (#84)
+- `circuit_hash` is now backend-invariant. The canonical form hashes connectivity only (`refdes`, pins, net) and no longer folds in `mpn`, which is a best-effort field populated differently by the `.dat` and `.DSN` paths, so an XNET that is pin-for-pin identical across backends hashed differently. Agreement between the two backends across the Cadence fixture corpus rises from 6.8% to 94.6% (#92)
+- Design discovery and test collection skip macOS AppleDouble (`._*`) sidecars. On network volumes these shadow every file, so `._board.DSN` surfaced in `list_designs` as a phantom design that failed to parse
+
+### Added
+
+- The DSN-vs-DAT coverage report gains a `Conn` column comparing the actual `{refdes.pin}` set of every net present in both netlists. Net and component coverage match on names alone, so a net that kept its name but lost pins to another net scored as fully covered; connectivity agreement is what a wrong-connectivity bug actually moves
+
 ## [1.4.0] - 2026-07-16
 
 ### Added
