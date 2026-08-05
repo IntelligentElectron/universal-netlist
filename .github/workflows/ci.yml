@@ -5,6 +5,12 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  # Required for the merge queue: a queued PR is built on a temporary
+  # `gh-readonly-queue/...` ref that fires `merge_group`, not `pull_request`.
+  # Without this the required `build` check never reports and every entry is
+  # ejected on timeout.
+  merge_group:
+    branches: [main]
 
 jobs:
   build:
