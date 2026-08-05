@@ -8,6 +8,7 @@ import { join } from "path";
 import { OleReader } from "../../ole-reader/ole-reader.js";
 import { parseDsnFile } from "./dsn-parser.js";
 import { parseCadence, buildCadencePinMap } from "../index.js";
+import { traverseCircuitFromNet, computeCircuitHash } from "../../../circuit-traversal.js";
 
 const FIXTURE_DIR = join(__dirname, "../../../../test/fixtures/cadence/BeagleBone-Black/ALLEGRO");
 const DSN_FIXTURE = join(FIXTURE_DIR, "BEAGLEBONEBLK_C3.DSN");
@@ -160,5 +161,59 @@ describe.skipIf(!hasDsnFixture || !hasDatFixtures)("DSN vs DAT comparison", () =
 
     // Expect at least 50% component coverage
     expect(coverage).toBeGreaterThan(0.5);
+  });
+
+  // circuit_hash used to fold in the backend-dependent `mpn`, so an XNET that is
+  // pin-for-pin identical on both paths still produced two different hashes.
+  // Any net whose traversal agrees across the two backends must agree on the
+  // hash too.
+  it("should produce backend-invariant circuit hashes for identical XNETs", async () => {
+    const dsnResult = parseDsnFile(DSN_FIXTURE);
+
+    const datRaw = await parseCadence({
+      pstxnetPath: PSTXNET_FIXTURE,
+      pstxprtPath: PSTXPRT_FIXTURE,
+      pstchipPath: PSTCHIP_FIXTURE,
+    });
+    const datComponents = buildCadencePinMap(
+      datRaw.nets,
+      datRaw.components,
+      datRaw.chips,
+      datRaw.partNames
+    );
+
+    const commonNets = Object.keys(datRaw.nets).filter((n) => dsnResult.nets[n]);
+    expect(commonNets.length).toBeGreaterThan(0);
+
+    const describeCircuit = (r: ReturnType<typeof traverseCircuitFromNet>): string =>
+      JSON.stringify(
+        [...r.components]
+          .map((c) => ({
+            refdes: c.refdes,
+            connections: [...c.connections]
+              .map((conn) => ({ net: conn.net, pins: [...conn.pins].sort() }))
+              .sort((a, b) => a.net.localeCompare(b.net)),
+          }))
+          .sort((a, b) => a.refdes.localeCompare(b.refdes))
+      );
+
+    let compared = 0;
+    for (const net of commonNets) {
+      const datCircuit = traverseCircuitFromNet(net, datRaw.nets, datComponents);
+      const dsnCircuit = traverseCircuitFromNet(net, dsnResult.nets, dsnResult.components);
+
+      // Only nets the two backends genuinely agree on are in scope here; net
+      // membership differences are what the coverage tests above measure.
+      if (describeCircuit(datCircuit) !== describeCircuit(dsnCircuit)) continue;
+
+      compared++;
+      expect(
+        computeCircuitHash(dsnCircuit.components),
+        `circuit_hash differs across backends for net ${net}`
+      ).toBe(computeCircuitHash(datCircuit.components));
+    }
+
+    console.log(`\nBackend-invariant hash check: ${compared} identical XNETs compared`);
+    expect(compared).toBeGreaterThan(0);
   });
 });

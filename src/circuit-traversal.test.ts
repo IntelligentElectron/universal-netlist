@@ -1051,9 +1051,66 @@ describe("computeCircuitHash", () => {
 
   it("should return different hash for different circuits", () => {
     const circuit1 = [{ refdes: "R1", mpn: "10k", connections: [{ net: "A", pins: ["1"] }] }];
-    const circuit2 = [{ refdes: "R1", mpn: "20k", connections: [{ net: "A", pins: ["1"] }] }];
+    const circuit2 = [{ refdes: "R1", mpn: "10k", connections: [{ net: "B", pins: ["1"] }] }];
 
     expect(computeCircuitHash(circuit1)).not.toBe(computeCircuitHash(circuit2));
+  });
+
+  it("should return different hash when a pin moves to another net", () => {
+    const circuit1 = [{ refdes: "R1", mpn: "10k", connections: [{ net: "A", pins: ["1", "2"] }] }];
+    const circuit2 = [
+      {
+        refdes: "R1",
+        mpn: "10k",
+        connections: [
+          { net: "A", pins: ["1"] },
+          { net: "B", pins: ["2"] },
+        ],
+      },
+    ];
+
+    expect(computeCircuitHash(circuit1)).not.toBe(computeCircuitHash(circuit2));
+  });
+
+  // mpn is backend-dependent -- the .dat path reports a netlister part-name
+  // string, the .DSN path the bare symbol name -- so hashing it made the same
+  // physical circuit mismatch across backends.
+  it("should ignore mpn so the same topology hashes equal across backends", () => {
+    const fromDat = [
+      {
+        refdes: "R1",
+        mpn: "RES_H_R0402_0R/0.05/0402_72E00*",
+        connections: [
+          { net: "A", pins: ["1"] },
+          { net: "B", pins: ["2"] },
+        ],
+      },
+      {
+        refdes: "U1",
+        mpn: "SOME_PART_NUMBER_TRUNCATED_AT_31",
+        connections: [{ net: "B", pins: ["W3"] }],
+      },
+    ];
+    const fromDsn = [
+      {
+        refdes: "R1",
+        mpn: "RES_H",
+        connections: [
+          { net: "A", pins: ["1"] },
+          { net: "B", pins: ["2"] },
+        ],
+      },
+      { refdes: "U1", mpn: "SYMBOL_NAME", connections: [{ net: "B", pins: ["W3"] }] },
+    ];
+
+    expect(computeCircuitHash(fromDat)).toBe(computeCircuitHash(fromDsn));
+  });
+
+  it("should ignore a missing mpn as well", () => {
+    const withMpn = [{ refdes: "R1", mpn: "10k", connections: [{ net: "A", pins: ["1"] }] }];
+    const withoutMpn = [{ refdes: "R1", connections: [{ net: "A", pins: ["1"] }] }];
+
+    expect(computeCircuitHash(withMpn)).toBe(computeCircuitHash(withoutMpn));
   });
 
   it("should return zero hash for empty components", () => {
