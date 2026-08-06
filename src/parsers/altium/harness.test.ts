@@ -200,3 +200,38 @@ describe("positionHarnessEntries", () => {
     expect(positionHarnessEntries(records)).toBe(0);
   });
 });
+
+describe("cross-sheet harness members", () => {
+  it("resolves the bundle a harness-typed sheet entry carries", () => {
+    // main.SchDoc's sheet entry CHANNEL is typed Channel_interface; the members
+    // below are what must cross the sheet boundary with it.
+    const definitions = parseHarnessDefinitions(HELIOS_CHANNEL_HARNESS);
+    const nested = new Map([["PGND", "PGND_Domain"]]);
+
+    const members = resolveHarnessMembers("Channel_interface", definitions, nested);
+    const leaves = members.map((m) => m.slice(m.lastIndexOf(".") + 1));
+
+    // Both the qualified path and the leaf name matter: the leaf is what a net
+    // inside the child sheet is actually called.
+    expect(leaves).toContain("OP_OUT");
+    expect(leaves).toContain("V_LASER");
+    expect(members).toContain("V_LASER_P");
+    expect(members).toContain("AGND");
+  });
+
+  it("carries nested members across the boundary too", () => {
+    // A one-level flatten would leave OP_OUT and V_LASER behind on the child
+    // sheet, where they would become per-channel nets connected to nothing.
+    const definitions = parseHarnessDefinitions(HELIOS_CHANNEL_HARNESS);
+    const flat = resolveHarnessMembers("Channel_interface", definitions);
+    const withNesting = resolveHarnessMembers(
+      "Channel_interface",
+      definitions,
+      new Map([["PGND", "PGND_Domain"]])
+    );
+
+    expect(flat).toContain("PGND");
+    expect(flat.some((m) => m.endsWith("OP_OUT"))).toBe(false);
+    expect(withNesting.some((m) => m.endsWith("OP_OUT"))).toBe(true);
+  });
+});
