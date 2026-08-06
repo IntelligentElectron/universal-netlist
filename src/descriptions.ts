@@ -134,6 +134,9 @@ Windows only. Requires Cadence SPB installation. \
 Calls are queued internally so it is safe to call in parallel \
 for multiple designs, but serialize calls if you encounter \
 license or timeout errors. DSN lock files are handled automatically. \
+Output goes to \`<design>_netlist/\` beside the .DSN, so several designs \
+in one folder no longer overwrite each other's netlist; a folder holding a \
+single design that already has an \`allegro/\` directory keeps using it. \
 After a successful export, re-run \`list_designs\` \
 to get the updated pstxnet.dat path.`;
 

@@ -323,6 +323,47 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
       expect(design1V2!.error).toBeUndefined();
     });
 
+    it("should attribute <design>_netlist directories to their own design", async () => {
+      // The layout export_cadence_netlist produces. BOARD_B's export sits one
+      // level closer than BOARD_A's, so proximity alone pairs both designs
+      // wrongly; only recognising the directory's name gets it right.
+      // project/
+      // ├── BOARD_A.DSN
+      // ├── BOARD_B.DSN
+      // ├── archive/BOARD_A_netlist/  *.dat
+      // └── BOARD_B_netlist/          *.dat
+      const projectDir = join(testDir, "project");
+      await createDesign(join(projectDir, "BOARD_A.DSN"));
+      await createDesign(join(projectDir, "BOARD_B.DSN"));
+      await createDatFiles(join(projectDir, "archive", "BOARD_A_netlist"));
+      await createDatFiles(join(projectDir, "BOARD_B_netlist"));
+
+      const designs = await discoverCadenceDesigns(testDir);
+
+      const a = designs.find((d) => d.name === "BOARD_A");
+      const b = designs.find((d) => d.name === "BOARD_B");
+
+      expect(a?.datFiles?.pstxnet).toContain(join("archive", "BOARD_A_netlist"));
+      expect(b?.datFiles?.pstxnet).toContain("BOARD_B_netlist");
+      // Neither export is left over as a standalone dat-only design.
+      expect(designs).toHaveLength(2);
+    });
+
+    it("should prefer a design's own _netlist directory over a shared allegro/", async () => {
+      // A folder mid-migration: the legacy shared directory still holds one
+      // design's stale export while the other has been re-exported.
+      const projectDir = join(testDir, "project");
+      await createDesign(join(projectDir, "BOARD_A.DSN"));
+      await createDesign(join(projectDir, "BOARD_B.DSN"));
+      await createDatFiles(join(projectDir, "allegro"));
+      await createDatFiles(join(projectDir, "BOARD_A_netlist"));
+
+      const designs = await discoverCadenceDesigns(testDir);
+
+      const a = designs.find((d) => d.name === "BOARD_A");
+      expect(a?.datFiles?.pstxnet).toContain("BOARD_A_netlist");
+    });
+
     it("should prefer name-matching over proximity when resolving conflicts", async () => {
       // Structure:
       // project/

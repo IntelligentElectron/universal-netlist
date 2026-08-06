@@ -15,7 +15,8 @@ export {
   exportCadenceNetlist,
   detectCadenceVersions,
   getLatestCadence,
-  resolveAllegroDir,
+  resolveExportDir,
+  netlistDirName,
   relocateLockFile,
   restoreLockFile,
 } from "./tools/cadence-export.js";

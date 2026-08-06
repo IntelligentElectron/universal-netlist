@@ -4,7 +4,8 @@ import {
   detectCadenceVersions,
   relocateLockFile,
   restoreLockFile,
-  resolveAllegroDir,
+  resolveExportDir,
+  netlistDirName,
 } from "./cadence-export.js";
 import type { ErrorResult } from "../../types.js";
 import * as fs from "fs";
@@ -156,11 +157,17 @@ describe("detectCadenceVersions", () => {
   });
 });
 
-describe("resolveAllegroDir", () => {
+describe("resolveExportDir", () => {
   let tmpDir: string;
 
   const cleanup = async (dir: string) => {
     await fs.promises.rm(dir, { recursive: true, force: true });
+  };
+
+  /** Create .DSN files in the temp dir and return the path of the first. */
+  const withDesigns = async (...names: string[]): Promise<string> => {
+    for (const name of names) await fs.promises.writeFile(path.join(tmpDir, name), "");
+    return path.join(tmpDir, names[0]);
   };
 
   beforeEach(async () => {
@@ -172,35 +179,72 @@ describe("resolveAllegroDir", () => {
     await cleanup(tmpDir);
   });
 
-  it("uses existing Allegro/ directory", async () => {
+  it("gives each design in a shared folder its own directory", async () => {
+    // The reported bug: pstswp writes pstxnet.dat under a fixed name, so two
+    // designs exporting to one directory leave only the second design's netlist.
+    const first = await withDesigns("BOARD_A.DSN", "BOARD_B.DSN");
+    const second = path.join(tmpDir, "BOARD_B.DSN");
+
+    const a = await resolveExportDir(first);
+    const b = await resolveExportDir(second);
+
+    expect(a.dirName).toBe("BOARD_A_netlist");
+    expect(b.dirName).toBe("BOARD_B_netlist");
+    expect(a.outputDir).not.toBe(b.outputDir);
+  });
+
+  it("separates designs even when the folder has a legacy Allegro/ directory", async () => {
+    // A shared Allegro/ is exactly what overwrote the files, so a second design
+    // in the folder must not keep using it.
     await fs.promises.mkdir(path.join(tmpDir, "Allegro"));
-    const result = await resolveAllegroDir(tmpDir);
+    const first = await withDesigns("BOARD_A.DSN", "BOARD_B.DSN");
+
+    expect((await resolveExportDir(first)).dirName).toBe("BOARD_A_netlist");
+  });
+
+  it("keeps using an existing Allegro/ for a folder with one design", async () => {
+    // An established layout a PCB editor or build script may point at.
+    await fs.promises.mkdir(path.join(tmpDir, "Allegro"));
+    const only = await withDesigns("BOARD.DSN");
+
+    const result = await resolveExportDir(only);
     expect(result.dirName).toBe("Allegro");
     expect(result.outputDir).toBe(path.join(tmpDir, "Allegro"));
   });
 
-  it("uses existing allegro/ directory", async () => {
+  it("keeps using an existing lowercase allegro/ for a folder with one design", async () => {
     await fs.promises.mkdir(path.join(tmpDir, "allegro"));
-    const result = await resolveAllegroDir(tmpDir);
-    expect(result.dirName).toBe("allegro");
-    expect(result.outputDir).toBe(path.join(tmpDir, "allegro"));
+    const only = await withDesigns("BOARD.DSN");
+
+    expect((await resolveExportDir(only)).dirName).toBe("allegro");
   });
 
   it("prefers Allegro/ over allegro/ when both exist", async () => {
-    vi.spyOn(fs.promises, "readdir")
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .mockResolvedValueOnce(["Allegro", "allegro"] as any);
-    vi.spyOn(fs.promises, "mkdir").mockResolvedValueOnce(undefined);
+    await fs.promises.mkdir(path.join(tmpDir, "Allegro"));
+    await fs.promises.mkdir(path.join(tmpDir, "allegro2"));
+    const only = await withDesigns("BOARD.DSN");
 
-    const result = await resolveAllegroDir(tmpDir);
-    expect(result.dirName).toBe("Allegro");
+    expect((await resolveExportDir(only)).dirName).toBe("Allegro");
   });
 
-  it("creates allegro/ when neither exists", async () => {
-    const result = await resolveAllegroDir(tmpDir);
-    expect(result.dirName).toBe("allegro");
-    expect(result.outputDir).toBe(path.join(tmpDir, "allegro"));
+  it("creates the per-design directory when no legacy directory exists", async () => {
+    const only = await withDesigns("BOARD.DSN");
+
+    const result = await resolveExportDir(only);
+    expect(result.dirName).toBe("BOARD_netlist");
+    expect(result.outputDir).toBe(path.join(tmpDir, "BOARD_netlist"));
     const stat = await fs.promises.stat(result.outputDir);
     expect(stat.isDirectory()).toBe(true);
+  });
+
+  it("counts designs case-insensitively", async () => {
+    const first = await withDesigns("BOARD_A.DSN", "board_b.dsn");
+    await fs.promises.mkdir(path.join(tmpDir, "allegro"));
+
+    expect((await resolveExportDir(first)).dirName).toBe("BOARD_A_netlist");
+  });
+
+  it("keeps the design's own spelling in the directory name", () => {
+    expect(netlistDirName("reServer J401 v1.1")).toBe("reServer J401 v1.1_netlist");
   });
 });

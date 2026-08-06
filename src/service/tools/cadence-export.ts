@@ -60,25 +60,44 @@ export const getLatestCadence = async (): Promise<CadenceInstall | null> => {
   return versions[0] ?? null;
 };
 
+/** Suffix for a per-design export directory: `<design>_netlist`. */
+export const NETLIST_DIR_SUFFIX = "_netlist";
+
+/** Name of the export directory belonging to a design. */
+export const netlistDirName = (designName: string): string =>
+  `${designName}${NETLIST_DIR_SUFFIX}`;
+
 /**
- * Resolve the Allegro output directory for netlist export.
- * Uses an existing Allegro/ or allegro/ directory if present, otherwise creates allegro/.
+ * Resolve the output directory for a design's netlist export.
+ *
+ * pstswp names its output files the same way for every design (`pstxnet.dat`,
+ * `pstxprt.dat`, `pstchip.dat`), so two designs exporting to one directory
+ * leave only the second design's netlist behind. Each design therefore gets
+ * `<design>_netlist/` of its own, which discovery recognises as belonging to
+ * that design.
+ *
+ * The exception is a folder holding a single design that already has an
+ * `Allegro/` or `allegro/` directory. That is an established project layout,
+ * often pointed at by a PCB editor or a build script, and it cannot collide
+ * with anything, so exports keep going there.
  */
-export const resolveAllegroDir = async (
-  dsnDir: string
+export const resolveExportDir = async (
+  dsnPath: string
 ): Promise<{ outputDir: string; dirName: string }> => {
-  let dirName = "allegro";
+  const dsnDir = path.dirname(dsnPath);
+  const designName = path.basename(dsnPath, path.extname(dsnPath));
+
+  let entries: string[] = [];
   try {
-    const entries = await fs.promises.readdir(dsnDir);
-    for (const candidate of ["Allegro", "allegro"]) {
-      if (entries.includes(candidate)) {
-        dirName = candidate;
-        break;
-      }
-    }
+    entries = await fs.promises.readdir(dsnDir);
   } catch {
-    // parent doesn't exist or can't be read
+    // Directory doesn't exist or can't be read; fall through to the per-design name.
   }
+
+  const designCount = entries.filter((e) => /\.dsn$/i.test(e)).length;
+  const legacyDir = ["Allegro", "allegro"].find((c) => entries.includes(c));
+
+  const dirName = legacyDir && designCount <= 1 ? legacyDir : netlistDirName(designName);
   const outputDir = path.join(dsnDir, dirName);
   await fs.promises.mkdir(outputDir, { recursive: true });
   return { outputDir, dirName };
@@ -143,7 +162,7 @@ export const exportCadenceNetlist = async (
   const resolvedDsnPath = resolvePath(dsnPath);
   const dsnDir = path.dirname(resolvedDsnPath);
   const dsnFile = path.basename(dsnPath);
-  const { outputDir, dirName: outputDirName } = await resolveAllegroDir(dsnDir);
+  const { outputDir, dirName: outputDirName } = await resolveExportDir(resolvedDsnPath);
 
   return serializePstswp(async () => {
     // Temporarily relocate .DSNlck lock file if present (stale locks block pstswp)

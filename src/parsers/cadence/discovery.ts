@@ -167,7 +167,13 @@ const designNameInRelativePath = (relPath: string, designName: string): boolean 
   if (relPath === "" || relPath === ".") return false;
   const components = relPath.split(path.sep);
   const lowerName = designName.toLowerCase();
-  return components.some((c) => c.toLowerCase() === lowerName);
+  // `<design>_netlist` is the directory `export_cadence_netlist` writes to, and
+  // it names the design as surely as a bare `<design>` component does.
+  const exported = `${lowerName}_netlist`;
+  return components.some((c) => {
+    const lower = c.toLowerCase();
+    return lower === lowerName || lower === exported;
+  });
 };
 
 /**
