@@ -9,7 +9,7 @@ import { OleReader } from "../../ole-reader/ole-reader.js";
 import type { ParsedNetlist } from "../../../types.js";
 import type { CachedLibraryPart, PinMapData } from "./structure-types.js";
 import { parsePage, parsePackageStream, parseHierarchyNetNames } from "./page-parser.js";
-import { parseCacheStream } from "./cache-parser.js";
+import { parseCacheStream, indexLibraryPart } from "./cache-parser.js";
 import { parseLibraryStrLst } from "./library-parser.js";
 import { buildDeviceIndexMap } from "./pin-resolver.js";
 import { buildNetConnectivity } from "./net-builder.js";
@@ -56,6 +56,8 @@ export function parseDsnFile(dsnPath: string): ParsedNetlist {
     cachePinIgnores: new Map(),
   };
   const cachedParts = new Map<string, CachedLibraryPart>();
+  // Keys a part claimed under its own name, which an alias must not displace.
+  const exactPartNames = new Set<string>();
   const pkgStreamEntries = entries.filter(
     (e) =>
       /^Packages\//.test(e.path) && e.entry.type === 2 && !e.path.includes("_pDboPackage_Copy_")
@@ -106,12 +108,7 @@ export function parseDsnFile(dsnPath: string): ParsedNetlist {
       // since LP names include a Package stream suffix (e.g., "RES_0.Normal")
       // but PlacedInstance.pkgName uses the base name (e.g., "RES.Normal").
       for (const lp of libraryParts) {
-        const entry: CachedLibraryPart = { pinNames: lp.pinNames, defaultValue: lp.defaultValue };
-        if (!cachedParts.has(lp.name)) cachedParts.set(lp.name, entry);
-        const stripped = lp.name.replace(/_\d+(?=\.)/, "");
-        if (stripped !== lp.name && !cachedParts.has(stripped)) {
-          cachedParts.set(stripped, entry);
-        }
+        indexLibraryPart(lp, cachedParts, exactPartNames);
       }
     } catch {
       // Package parsing is best-effort; skip malformed streams
@@ -125,7 +122,7 @@ export function parseDsnFile(dsnPath: string): ParsedNetlist {
   if (cacheEntry) {
     try {
       const cacheBuf = ole.readStreamByPath(cacheEntry.path);
-      parseCacheStream(cacheBuf, pmd, cachedParts);
+      parseCacheStream(cacheBuf, pmd, cachedParts, exactPartNames);
     } catch {
       // Cache parsing is best-effort
     }

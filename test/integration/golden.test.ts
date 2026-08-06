@@ -202,6 +202,37 @@ describe("DSN Parser Coverage vs DAT Golden", async () => {
         expect(invented).toEqual([]);
       });
 
+      /**
+       * Pin function names come from the Cache stream's LibraryPart records,
+       * a different path from the pin numbers, and nothing else here reads it.
+       * A design whose Cache walk recovered Packages but no LibraryParts still
+       * scored 100% on every other measure while reporting no pin names at all.
+       */
+      it.runIf(isOracle)("should give pins the same function names as the DAT export", () => {
+        const dsn = parseOnce(designFile);
+        const mismatches: string[] = [];
+        let compared = 0;
+
+        for (const [refdes, goldenComp] of Object.entries(golden.components)) {
+          const dsnComp = dsn.components[refdes];
+          if (!dsnComp) continue;
+          for (const [pinNumber, goldenPin] of Object.entries(goldenComp.pins ?? {})) {
+            const goldenName = typeof goldenPin === "string" ? undefined : goldenPin.name;
+            if (!goldenName) continue;
+            const dsnPin = dsnComp.pins?.[pinNumber];
+            if (dsnPin === undefined) continue;
+            compared++;
+            const dsnName = typeof dsnPin === "string" ? undefined : dsnPin.name;
+            if (dsnName !== goldenName && mismatches.length < 8) {
+              mismatches.push(`${refdes}.${pinNumber}: dat="${goldenName}" dsn="${dsnName ?? "<none>"}"`);
+            }
+          }
+        }
+
+        console.log(`[${projectName}] Pin names: compared=${compared} mismatched=${mismatches.length}`);
+        expect(mismatches).toEqual([]);
+      });
+
       it("should have >50% net coverage", () => {
         const dsn = parseOnce(designFile);
         const dsnNets = new Set(Object.keys(dsn.nets));
