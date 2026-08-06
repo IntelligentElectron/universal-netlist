@@ -23,7 +23,7 @@ import {
   PIN_ELECTRICAL_TYPES,
   POWER_PORT_STYLES,
 } from "./types.js";
-import { OleReader, readOleStream } from "../ole-reader/ole-reader.js";
+import { OleReader, readOleStream, readOptionalOleStream } from "../ole-reader/ole-reader.js";
 import { parseRecords, findRecords } from "./record-parser.js";
 import { buildHierarchy, getPartsList, flattenHierarchy, findRecordByIndex } from "./hierarchy.js";
 import { extractNets, determineNetList, classifyNets } from "./net-extractor.js";
@@ -35,6 +35,9 @@ export { OleReader };
 export { parseRecords, findRecords };
 export { buildHierarchy, getPartsList, flattenHierarchy };
 export { extractNets, determineNetList };
+
+/** OLE stream holding signal harness objects, absent unless the sheet uses harnesses. */
+const ALTIUM_ADDITIONAL_STREAM = "Additional";
 
 // Re-export schemas for validation
 export * from "./schemas.js";
@@ -373,6 +376,29 @@ export const extractComponents = (schematic: AltiumSchematic): ComponentDetails 
 };
 
 /**
+ * Parse a schematic's records from every stream that carries them.
+ *
+ * Most objects live in `FileHeader`, but signal harness objects (records
+ * 215-218) are written to a separate `Additional` stream. A document parsed from
+ * `FileHeader` alone has no harness connectors, entries or types in it at all, so
+ * any net reaching a harness simply ends there.
+ */
+export const readSchematicRecords = (schdocPath: string, headerBuffer: Buffer): AltiumSchematic => {
+  const schematic = parseRecords(headerBuffer);
+
+  const additional = readOptionalOleStream(schdocPath, ALTIUM_ADDITIONAL_STREAM);
+  if (!additional || additional.length === 0) return schematic;
+
+  const extra = parseRecords(additional);
+  if (extra.records.length === 0) return schematic;
+
+  return {
+    header: schematic.header,
+    records: [...schematic.records, ...extra.records],
+  };
+};
+
+/**
  * Parse Altium .SchDoc file into unified ParsedNetlist schema.
  *
  * This is the main entry point for integration with NetlistService.
@@ -382,7 +408,7 @@ export const parseAltium = async (schdocPath: string): Promise<ParsedNetlist> =>
   const buffer = readOleStream(schdocPath);
 
   // 2. Parse binary stream into records
-  const schematic = parseRecords(buffer);
+  const schematic = readSchematicRecords(schdocPath, buffer);
 
   // 3. Build hierarchy from flat records
   const hierarchical = buildHierarchy(schematic);
@@ -575,7 +601,8 @@ const channelAlpha = (channelIndex: number): string => {
  * Ordered longest-first: a plain `$Component` alternative listed before
  * `$ComponentPrefix` would match its prefix and leave a stray "Prefix" behind.
  */
-const CHANNEL_FORMAT_TOKEN = /\$(ComponentPrefix|ComponentIndex|ChannelIndex|ChannelAlpha|Component|RoomName)/g;
+const CHANNEL_FORMAT_TOKEN =
+  /\$(ComponentPrefix|ComponentIndex|ChannelIndex|ChannelAlpha|Component|RoomName)/g;
 
 /**
  * Apply a channel designator format to a component refdes.
@@ -740,7 +767,12 @@ const expandChannels = (
       }
 
       for (const [origRefdes, pins] of Object.entries(connections)) {
-        const expandedRefdes = applyChannelFormat(channelFormat, origRefdes, roomName, channelIndex);
+        const expandedRefdes = applyChannelFormat(
+          channelFormat,
+          origRefdes,
+          roomName,
+          channelIndex
+        );
         if (!allNets[expandedNetName][expandedRefdes]) {
           allNets[expandedNetName][expandedRefdes] = pins;
         } else {
@@ -814,7 +846,7 @@ const parseAltiumProject = async (projectPath: string): Promise<ParsedNetlist> =
         structure.topLevelDocument.replace(/\\/g, "/")
       );
       const buffer = readOleStream(topLevelPath);
-      const schematic = parseRecords(buffer);
+      const schematic = readSchematicRecords(topLevelPath, buffer);
       parentSchematic = buildHierarchy(schematic);
     }
   } else {
@@ -826,7 +858,9 @@ const parseAltiumProject = async (projectPath: string): Promise<ParsedNetlist> =
     for (const candidatePath of schdocPaths) {
       let hierarchical: AltiumSchematic;
       try {
-        hierarchical = buildHierarchy(parseRecords(readOleStream(candidatePath)));
+        hierarchical = buildHierarchy(
+          readSchematicRecords(candidatePath, readOleStream(candidatePath))
+        );
       } catch {
         continue;
       }
@@ -856,7 +890,7 @@ const parseAltiumProject = async (projectPath: string): Promise<ParsedNetlist> =
 
       // Parse the child sheet once
       const buffer = readOleStream(schdocPath);
-      const schematic = parseRecords(buffer);
+      const schematic = readSchematicRecords(schdocPath, buffer);
       const hierarchical = buildHierarchy(schematic);
       const nets = extractNets(hierarchical);
       const parsedNets = convertNets(nets, hierarchical);

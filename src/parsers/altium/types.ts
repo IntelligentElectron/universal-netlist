@@ -109,6 +109,18 @@ export const RECORD_TYPES = {
 
   // === Extended Objects (found in newer Altium versions) ===
   /** Hyperlink */
+  // === Signal Harness Objects ===
+  // These live in the `Additional` OLE stream, not `FileHeader`.
+  /** Harness connector: the box whose entries name the bundled signals */
+  HARNESS_CONNECTOR: "215",
+  /** Harness entry: one member signal of a harness, or a nested harness */
+  HARNESS_ENTRY: "216",
+  /** Harness type label naming the bundle (e.g. "Channel_interface") */
+  HARNESS_TYPE: "217",
+  /** Signal harness: the polyline carrying a bundle, behaves like a bus */
+  SIGNAL_HARNESS: "218",
+
+  /** Hyperlink */
   HYPERLINK: "226",
 } as const;
 
