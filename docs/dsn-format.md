@@ -444,13 +444,26 @@ BODY:
               T0x10[] sub-records (pin instances)
     -- checkpoint --
     string    source_package   # package name for pin map lookup
-    2 bytes   unknown
+    uint16    section_index    # 0-based section within a multi-section package
     -- checkpoint --
 ```
 
-**VERIFIED** fields: `pkg_name`, `db_id`, `loc_x`, `loc_y`, `reference`, `part_value_idx`, `source_package`, `t0x10s`, prefix properties.
+**VERIFIED** fields: `pkg_name`, `db_id`, `loc_x`, `loc_y`, `reference`, `part_value_idx`, `source_package`, `section_index`, `t0x10s`, prefix properties.
 
-**UNKNOWN**: The 8 bytes at offset +0x00, the 8 bytes after `db_id`, the 4 bytes before `len_symbol_display_props` (includes rotation/mirror per the reference photos, but we don't extract them), the 1 byte after SDPs, and the 10 bytes after `part_value_idx`.
+**UNKNOWN**: The 8 bytes at offset +0x00, the 8 bytes after `db_id` (a symbol bounding box: four int16 as x1, y1, x2, y2), the 4 bytes before `len_symbol_display_props` (includes rotation/mirror per the reference photos, but we don't extract them), the 1 byte after SDPs, and the 10 bytes after `part_value_idx`.
+
+##### section_index
+
+The `uint16` following `source_package` is the instance's 0-based section within a
+multi-section package. A single-section part carries `0`; the eight sections of a
+`RPAK_10_8RES` resistor pack carry `0`–`7`; a dual transistor carries `0` and `1`.
+
+The OpenOrCadParser reference treats these two bytes as unknown padding
+(`printUnknownData(2, ...)` at the end of `StructPlacedInstance::read`). The field was
+identified here by dumping every discarded byte block for the eight `RP3` instances of
+`BeagleBoard-xM_ORCAD` and correlating against the section order derived independently
+from that design's `pstxnet.dat` export: the field reads `0,1,2,...,7` in exactly that
+order. Verified across the Cadence fixture corpus — see section 11.2.
 
 #### User property resolution (MPN, Value)
 
@@ -902,18 +915,15 @@ Cache LibraryPart names include a numeric suffix from the Package stream they or
 
 For multi-unit matching, `pkgName` format is `{sourcePackage}{unitLetter}.Normal` (e.g., `OMAP_CBP_1AA.Normal`). Cadence sometimes doubles the unit letter ("AA"), but the Device `unitRef` uses a single letter ("A").
 
-#### Positional device assignment (strategy 3)
+#### Section-based device assignment (strategy 3)
 
-Multi-section components like resistor packs (e.g., RP1 with package `RPAK_10_8RES`, 8 sections, 16 physical pins) have multiple PlacedInstances sharing the same `(refdes, pkgName)` with no unit suffix in `pkgName`. When `extractUnitRef()` returns `undefined` for a group of >1 instances, Cadence assigns Devices **positionally by `dbId` order**.
+Multi-section components like resistor packs (e.g., RP1 with package `RPAK_10_8RES`, 8 sections, 16 physical pins) have multiple PlacedInstances sharing the same `(refdes, pkgName)` with no unit suffix in `pkgName`. Each such instance names its own Device through `PlacedInstance.section_index` (section 7.7).
 
-The parser builds a `deviceIndexMap` (`Map<dbId, index>`) by:
-1. Grouping PlacedInstances by `(reference, pkgName)` across all pages
-2. Skipping instances where `extractUnitRef()` returns a value (already distinguished)
-3. For groups with >1 instance: sorting by `dbId` ascending, assigning 0-based positional index
+The parser builds a `deviceIndexMap` (`Map<dbId, sectionIndex>`) over every instance whose `extractUnitRef()` returns `undefined`; instances with a unit suffix resolve by that suffix instead. A parallel `deviceUnitRefs` map (`Map<pkgBaseName, unitRef[]>`) stores the ordered Device unit reference letters from Package structures, and `findPinMap` selects the Device with `pinMaps.get(base + unitRefs[sectionIndex])`.
 
-A parallel `deviceUnitRefs` map (`Map<pkgBaseName, unitRef[]>`) stores the ordered Device unit reference letters from Package structures. During `findPinMap`, the positional index selects the correct Device: `pinMaps.get(base + unitRefs[deviceIndex])`.
+This replaced an earlier heuristic that sorted each `(refdes, pkgName)` group by `dbId` and assigned positional indices. `dbId` order is *not* section order: on `BeagleBoard-xM_ORCAD` the eight `RP3` sections are allocated with adjacent pairs transposed, so six of its sixteen pins attached to the wrong nets. Because the nets and the pin numbers were each individually valid, net and component coverage stayed at 100% and `verify-pin-numbers.ts` reported 100% — only a per-net `{refdes.pin}` comparison against the DAT export exposed it.
 
-This resolved the primary PinNum gap for BeagleBoard-xM (RP1-RP7 resistor packs, Q1-Q2 transistor arrays).
+Measured over the Cadence fixture corpus, nets whose pin set disagrees with the DAT reference fell from **79 to 24** (98.4% → 99.5%), with no design regressing. Geometric orderings were tested as alternatives to `dbId` and every one was worse (`locY` 81, `locX` 103, descending variants 131 and 139).
 
 ### 11.4 Net Name Resolution
 
