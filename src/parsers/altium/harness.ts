@@ -121,3 +121,65 @@ export const collectNestedHarnessTypes = (
   }
   return nested;
 };
+
+/**
+ * Grid units per `DistanceFromTop` step on a harness connector.
+ *
+ * Derived from pulp-bio/HELIOS-R: its connector sits at Location.Y=670 with
+ * entries at DistanceFromTop 1, 2, 9, 10 and 13, and the five wires that land on
+ * it end at y = 660, 650, 580, 570 and 540 — exactly Location.Y - n * 10.
+ */
+const HARNESS_ENTRY_PITCH = 10;
+
+/** Connector side whose geometry is verified against a real design. */
+const HARNESS_SIDE_ENTRIES_LEFT = "1";
+
+interface PositionedRecord {
+  RECORD?: string;
+  Name?: string;
+  DistanceFromTop?: string;
+  "Location.X"?: string;
+  "Location.Y"?: string;
+  XSize?: string;
+  HarnessConnectorSide?: string;
+}
+
+/**
+ * Give every harness entry the coordinate at which wires meet it.
+ *
+ * Entries carry only a `DistanceFromTop` and inherit their position from the
+ * harness connector that owns them. `OwnerIndex` is present on some entries and
+ * absent on others, so ownership is taken from stream order: entries follow
+ * their connector.
+ *
+ * Only `HarnessConnectorSide=1` is positioned, because that is the arrangement
+ * confirmed against a real design. Entries on an unverified side are left
+ * without coordinates, so they simply do not participate in connectivity rather
+ * than inventing a connection that may not exist.
+ */
+export const positionHarnessEntries = (records: PositionedRecord[]): number => {
+  let connector: PositionedRecord | undefined;
+  let positioned = 0;
+
+  for (const record of records) {
+    if (record.RECORD === "215") {
+      connector = record;
+      continue;
+    }
+    if (record.RECORD !== "216" || !connector) continue;
+    if (connector.HarnessConnectorSide !== HARNESS_SIDE_ENTRIES_LEFT) continue;
+
+    const originX = Number(connector["Location.X"]);
+    const originY = Number(connector["Location.Y"]);
+    const distance = Number(record.DistanceFromTop);
+    if (!Number.isFinite(originX) || !Number.isFinite(originY) || !Number.isFinite(distance)) {
+      continue;
+    }
+
+    record["Location.X"] = String(originX);
+    record["Location.Y"] = String(originY - distance * HARNESS_ENTRY_PITCH);
+    positioned++;
+  }
+
+  return positioned;
+};
