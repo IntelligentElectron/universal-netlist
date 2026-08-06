@@ -1,11 +1,16 @@
 import { exec } from "child_process";
 import * as fs from "fs";
 import type { Dirent } from "fs";
-import { tmpdir } from "os";
 import path from "path";
 import { promisify } from "util";
 import { createMutex } from "./async-mutex.js";
-import { resolvePath, netlistDirName } from "../../paths.js";
+import {
+  resolvePath,
+  netlistDirName,
+  isNetlistDirFor,
+  getDesignName,
+  REQUIRED_DAT_FILES,
+} from "../../paths.js";
 import type { CadenceInstall, ExportNetlistResult, ErrorResult } from "../../types.js";
 
 // Serialize pstswp invocations to prevent concurrent Cadence license conflicts
@@ -77,9 +82,9 @@ export const getLatestCadence = async (): Promise<CadenceInstall | null> => {
  */
 export const resolveExportDir = async (
   dsnPath: string
-): Promise<{ outputDir: string; dirName: string }> => {
+): Promise<{ outputDir: string; dirName: string; created: boolean }> => {
   const dsnDir = path.dirname(dsnPath);
-  const designName = path.basename(dsnPath, path.extname(dsnPath));
+  const designName = getDesignName(dsnPath);
 
   let entries: Dirent[] = [];
   try {
@@ -97,14 +102,34 @@ export const resolveExportDir = async (
     (e) => !e.isDirectory() && !e.name.startsWith("._") && /\.(dsn|cpm)$/i.test(e.name)
   ).length;
 
-  const dirName =
-    designCount <= 1
-      ? ((await legacyExportDir(dsnDir, entries)) ?? netlistDirName(designName))
-      : netlistDirName(designName);
+  // An existing export directory is checked before the legacy one because that
+  // is the order discovery reads them in: `scoreDatSetMatch` ranks
+  // `<design>_netlist/` above a bare `allegro/` by the whole export bonus.
+  // Writing to `allegro/` while every reader reads `<design>_netlist/` reported
+  // success on each re-export and left every query answering from a netlist
+  // that had stopped updating.
+  const existingExportDir = entries.find(
+    (e) => !e.name.startsWith("._") && isNetlistDirFor(e.name, designName)
+  )?.name;
+
+  const dirName = cmdSafeDirName(
+    existingExportDir ??
+      (designCount <= 1
+        ? ((await legacyExportDir(dsnDir, entries)) ?? netlistDirName(designName))
+        : netlistDirName(designName))
+  );
 
   const outputDir = path.join(dsnDir, dirName);
-  await fs.promises.mkdir(outputDir, { recursive: true });
-  return { outputDir, dirName };
+  // Whether this run brought the directory into being decides whether a failed
+  // export may remove it again: nothing of the caller's can be inside a
+  // directory that did not exist a moment ago.
+  let created = false;
+  try {
+    created = (await fs.promises.mkdir(outputDir, { recursive: true })) !== undefined;
+  } catch (err: unknown) {
+    if ((err as NodeJS.ErrnoException)?.code !== "EEXIST") throw err;
+  }
+  return { outputDir, dirName, created };
 };
 
 /**
@@ -150,9 +175,6 @@ const legacyExportDir = async (dsnDir: string, entries: Dirent[]): Promise<strin
   return candidates[0];
 };
 
-/** The three files a netlist export must produce for any consumer to use it. */
-const REQUIRED_DAT_FILES = ["pstxnet.dat", "pstxprt.dat", "pstchip.dat"] as const;
-
 /** Modification time of each required .dat file present in a directory. */
 const datFileTimestamps = async (dir: string): Promise<Map<string, number>> => {
   const stamps = new Map<string, number>();
@@ -172,6 +194,17 @@ const datFileTimestamps = async (dir: string): Promise<Map<string, number>> => {
 /** pstswp at -v 3 -l 255 can emit megabytes; an error message carries the tail. */
 const truncateLog = (log: string): string => (log.length <= 2000 ? log : `...${log.slice(-2000)}`);
 
+/**
+ * A directory name cmd.exe will pass through to pstswp unchanged.
+ *
+ * The command runs through cmd.exe, which expands `%NAME%` inside double quotes.
+ * `%` is a legal character in a Windows filename, so a design called
+ * `BOARD%TEMP%.DSN` had its export directory created under one name and pstswp
+ * told to write to another. (`"` needs no handling: Windows does not allow it in
+ * a filename at all, which is what keeps the surrounding quotes intact.)
+ */
+const cmdSafeDirName = (dirName: string): string => dirName.replace(/%/g, "_");
+
 /** The lock file OrCAD Capture holds beside an open design, if this is a .DSN. */
 const lockFilePathFor = (dsnPath: string): string | undefined =>
   /\.DSN$/i.test(dsnPath) ? dsnPath.replace(/\.DSN$/i, ".DSNlck") : undefined;
@@ -185,8 +218,14 @@ const lockFilePathFor = (dsnPath: string): string | undefined =>
  * lock path WAS the design path, and this function moved the design itself into
  * the temp directory. `list_designs` hands out `pstxnet.dat` for a dat-only
  * design and the `.cpm` for an HDL one, so that was reachable by following the
- * documented workflow, and the restore is a cross-volume rename that fails on
- * the network shares these designs live on.
+ * documented workflow.
+ *
+ * The lock moves to a sibling name rather than to `tmpdir()`. These designs live
+ * on mapped and UNC shares, where a rename into the local temp directory crosses
+ * volumes and raises EXDEV, so no design on a share could be exported at all.
+ * A sibling rename stays on one filesystem, and if the process dies before the
+ * restore, what is left beside the design is an inert `.DSNlck.<ts>.bak` rather
+ * than a lock stranded in a directory the operating system may clear.
  */
 export const relocateLockFile = async (dsnPath: string): Promise<string | undefined> => {
   const lockPath = lockFilePathFor(dsnPath);
@@ -196,7 +235,7 @@ export const relocateLockFile = async (dsnPath: string): Promise<string | undefi
   } catch {
     return undefined;
   }
-  const tempPath = path.join(tmpdir(), `${path.basename(lockPath)}.${Date.now()}`);
+  const tempPath = `${lockPath}.${Date.now()}.bak`;
   await fs.promises.rename(lockPath, tempPath);
   return tempPath;
 };
@@ -261,8 +300,13 @@ export const exportCadenceNetlist = async (
   // raw MCP error and aborts the CLI's per-design loop entirely.
   let outputDir: string;
   let outputDirName: string;
+  let createdOutputDir = false;
   try {
-    ({ outputDir, dirName: outputDirName } = await resolveExportDir(resolvedDsnPath));
+    ({
+      outputDir,
+      dirName: outputDirName,
+      created: createdOutputDir,
+    } = await resolveExportDir(resolvedDsnPath));
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);
     return {
@@ -270,7 +314,7 @@ export const exportCadenceNetlist = async (
     };
   }
 
-  return serializePstswp(async () => {
+  const result = await serializePstswp(async () => {
     // Everything below the mutex reports failure as an ErrorResult. Relocating
     // the lock file is a rename that can fail on its own: the lock exists
     // because Capture holds the design open, and a rename to the temp directory
@@ -296,6 +340,13 @@ export const exportCadenceNetlist = async (
       const { stdout, stderr } = await execAsync(command, {
         shell: "cmd.exe",
         timeout: 120000,
+        // -v 3 -l 255 is the most verbose setting pstswp has, and on a large
+        // board it emits megabytes. Node's default cap is 1 MiB, and it does not
+        // detach the child at the cap, it kills it: the export died partway
+        // through writing the netlist and the failure was reported as Cadence's
+        // ("stdout maxBuffer length exceeded"), deterministically, on exactly the
+        // largest designs that most need the DAT path over the DSN fallback.
+        maxBuffer: 64 * 1024 * 1024,
       });
 
       // pstswp can exit cleanly having written nothing where we expect it, and
@@ -316,10 +367,16 @@ export const exportCadenceNetlist = async (
         return { error: `Could not read the export directory ${outputDir}: ${listError}` };
       }
 
+      // Strictly newer, not merely different: a file carrying an older stamp
+      // than before the run (a timestamp-preserving copy dropped in, a clock
+      // stepping back) is not something this run wrote.
       const after = await datFileTimestamps(outputDir);
-      const stale = REQUIRED_DAT_FILES.filter(
-        (f) => after.get(f) === undefined || after.get(f) === before.get(f)
-      );
+      const stale = REQUIRED_DAT_FILES.filter((f) => {
+        const now = after.get(f);
+        if (now === undefined) return true; // never written
+        const then = before.get(f);
+        return then !== undefined && now <= then;
+      });
       if (stale.length > 0) {
         const missing = REQUIRED_DAT_FILES.filter((f) => after.get(f) === undefined);
         return {
@@ -334,7 +391,12 @@ export const exportCadenceNetlist = async (
       return {
         success: true,
         outputDir,
-        log,
+        // Truncated on the way out, not only on the error path. server.ts
+        // JSON-stringifies this straight into the MCP text content, so an
+        // untruncated log put the whole of pstswp's most verbose output into the
+        // caller's context on every successful export, for a payload whose
+        // useful content is the output directory and three filenames.
+        log: log === undefined ? undefined : truncateLog(log),
         cadenceVersion: cadence.version,
         generatedFiles,
       };
@@ -356,4 +418,19 @@ export const exportCadenceNetlist = async (
       }
     }
   });
+
+  // A directory this run brought into being holds nothing but this run's output,
+  // so a failed export takes it away again. Left behind, a half-written trio
+  // outranks the intact netlist beside it by the whole export bonus, and every
+  // later query reads the truncated files with nothing reporting a problem.
+  if ("error" in result && createdOutputDir) {
+    try {
+      await fs.promises.rm(outputDir, { recursive: true, force: true });
+    } catch {
+      // Best effort: an empty or partial directory is not worth failing over,
+      // and the error already being returned is the more useful one.
+    }
+  }
+
+  return result;
 };

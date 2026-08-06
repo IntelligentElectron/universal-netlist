@@ -13,7 +13,7 @@
 import { readdir, readFile } from "fs/promises";
 import path from "path";
 import { createHash } from "crypto";
-import { isNetlistDirFor } from "../../paths.js";
+import { isNetlistDirFor, REQUIRED_DAT_FILES } from "../../paths.js";
 
 const CADENCE_EXTENSIONS = [".dsn", ".cpm"] as const;
 
@@ -31,9 +31,6 @@ export interface CadenceDiscoveredDesign {
   };
   error?: string;
 }
-
-/** Required .dat files for a complete netlist export */
-const REQUIRED_DAT_FILES = ["pstxnet.dat", "pstxprt.dat", "pstchip.dat"] as const;
 
 interface CadenceDatFiles {
   pstxnet: string | null;
@@ -160,10 +157,6 @@ const isDescendantOrEqual = (childDir: string, parentDir: string): boolean => {
   return normalizedChild.startsWith(parentWithSep);
 };
 
-/**
- * Check if design name appears as an exact directory component in a relative path.
- * Case-insensitive matching.
- */
 /** A path component naming the design outweighs any amount of distance. */
 const NAME_MATCH_BONUS = 1000;
 /**
@@ -217,12 +210,26 @@ const scoreDatSetMatch = (designDir: string, designName: string, datSet: DatFile
 };
 
 /**
+ * Order two paths by code unit.
+ *
+ * Not `localeCompare`: its collation follows the host locale, so which dat set a
+ * design gets changed with LANG (Czech sorts the digraph "ch" after "h", Danish
+ * orders "Allegro" against "allegro" the other way round from English), and Bun
+ * pins en-US while Node honours the environment, so CI cannot observe what the
+ * shipped binaries do. It is also not a total order: two distinct strings that
+ * differ only by a soft hyphen compare equal, and the sort then falls back to
+ * readdir order. Code-unit order is the same everywhere.
+ */
+const comparePaths = (a: string, b: string): number => (a < b ? -1 : a > b ? 1 : 0);
+
+/**
  * A candidate pairing of a design with a dat set.
  */
 interface MatchCandidate {
   designPath: string;
   datSet: DatFileSet;
   score: number;
+  match: NameMatch;
 }
 
 /**
@@ -237,7 +244,7 @@ interface MatchCandidate {
 const matchDatSetsToDesigns = (
   designFiles: string[],
   datSets: DatFileSet[]
-): Map<string, DatFileSet | null> => {
+): { assignments: Map<string, DatFileSet | null>; withheld: Map<string, string[]> } => {
   const assignments = new Map<string, DatFileSet | null>();
 
   // Initialize all designs with null
@@ -257,6 +264,7 @@ const matchDatSetsToDesigns = (
         designPath,
         datSet,
         score: scoreDatSetMatch(designDir, designName, datSet),
+        match: designNameInRelativePath(path.relative(designDir, datSet.directory), designName),
       });
     }
   }
@@ -286,32 +294,84 @@ const matchDatSetsToDesigns = (
       .map(([directory]) => directory)
   );
 
+  // Two designs can name one directory by different conventions and both be
+  // right: `X_netlist/` is where export_cadence_netlist puts design `X`, and it
+  // is also the directory named for a design called `X_netlist`. The export
+  // bonus outranks the bare name match unconditionally, so `X` took it and
+  // `X_netlist` was told it had no netlist. Nothing on disk settles which
+  // reading is correct, so neither design gets it.
+  for (const [directory, best] of bestByDatSet) {
+    if (best.designs.size !== 1) continue;
+    const claimant = [...best.designs][0];
+    const claim = candidates.find(
+      (c) => c.datSet.directory === directory && c.designPath === claimant
+    );
+    if (claim?.match !== "exported") continue;
+
+    const basename = path.basename(directory).toLowerCase();
+    const namesake = candidates.some(
+      (c) =>
+        c.datSet.directory === directory &&
+        c.designPath !== claimant &&
+        path.basename(c.designPath, path.extname(c.designPath)).toLowerCase() === basename
+    );
+    if (namesake) contested.add(directory);
+  }
+
   // Sort by score (descending), then by paths for determinism
   candidates.sort((a, b) => {
     if (b.score !== a.score) return b.score - a.score;
+
+    // `<design>_netlist/` is export_cadence_netlist's own convention and that
+    // tool only accepts a .DSN, so when a .DSN and a .cpm share a stem and
+    // therefore tie for it, it belongs to the design that produced it. Without
+    // this the CIS design that had just exported got nothing while its HDL
+    // namesake took the directory, and a caller following the documented loop
+    // (export, re-list, still no netlist) re-exported forever.
+    if (a.match === "exported" && b.match === "exported") {
+      const aIsDsn = path.extname(a.designPath).toLowerCase() === ".dsn";
+      const bIsDsn = path.extname(b.designPath).toLowerCase() === ".dsn";
+      if (aIsDsn !== bIsDsn) return aIsDsn ? -1 : 1;
+    }
+
     // Tiebreaker: sort by design path, then dat directory
     if (a.designPath !== b.designPath) {
-      return a.designPath.localeCompare(b.designPath);
+      return comparePaths(a.designPath, b.designPath);
     }
-    return a.datSet.directory.localeCompare(b.datSet.directory);
+    return comparePaths(a.datSet.directory, b.datSet.directory);
   });
 
   // Assign greedily from highest score
   const usedDatSets = new Set<string>();
   const assignedDesigns = new Set<string>();
 
+  // Which designs were refused which directories, so a withheld netlist can say
+  // so. Left silent, a design whose netlist was withheld looked byte for byte
+  // like one that had never been exported, and the advice for that (run
+  // export_cadence_netlist) does not help: exporting to its own directory does,
+  // and nothing said so.
+  const withheld = new Map<string, string[]>();
+
   for (const candidate of candidates) {
     if (assignedDesigns.has(candidate.designPath) || usedDatSets.has(candidate.datSet.directory)) {
       continue;
     }
-    if (contested.has(candidate.datSet.directory)) continue;
+    if (contested.has(candidate.datSet.directory)) {
+      const dirs = withheld.get(candidate.designPath) ?? [];
+      dirs.push(candidate.datSet.directory);
+      withheld.set(candidate.designPath, dirs);
+      continue;
+    }
 
     assignments.set(candidate.designPath, candidate.datSet);
     assignedDesigns.add(candidate.designPath);
     usedDatSets.add(candidate.datSet.directory);
   }
 
-  return assignments;
+  // A design that ended up with a directory of its own was never short of one.
+  for (const designPath of assignedDesigns) withheld.delete(designPath);
+
+  return { assignments, withheld };
 };
 
 /**
@@ -330,7 +390,18 @@ const normalizeSeparators = (p: string): string => {
  * Returns null if ROOT_DRAWING is not found.
  */
 const extractRootDrawing = async (pstxprtPath: string): Promise<string | null> => {
-  const content = await readFile(pstxprtPath, "utf-8");
+  // A name is a nicety; the walk already deliberately swallows EACCES to keep one
+  // unreadable directory from hiding a tree. An unguarded read here rejected the
+  // Promise.all above it, which rejected discoverCadenceDesigns, which rejected
+  // the Promise.all over the format handlers in parsers/index.ts: one ACL-locked
+  // or Cadence-held pstxprt.dat made every design of every format in the tree
+  // invisible, reported as a single "Failed to search" error.
+  let content: string;
+  try {
+    content = await readFile(pstxprtPath, "utf-8");
+  } catch {
+    return null;
+  }
   const match = content.match(/ROOT_DRAWING='([^']+)'/);
   return match ? match[1] : null;
 };
@@ -422,7 +493,7 @@ export const discoverCadenceDesigns = async (
   const { designFiles, datSets } = await walkForCadenceFiles(absoluteRootDir, options?.maxDepth);
 
   // Match dat sets to designs
-  const assignments = matchDatSetsToDesigns(designFiles, datSets);
+  const { assignments, withheld } = matchDatSetsToDesigns(designFiles, datSets);
 
   const designs: CadenceDiscoveredDesign[] = [];
 
@@ -449,6 +520,13 @@ export const discoverCadenceDesigns = async (
       datFiles,
     };
 
+    const refused = withheld.get(designPath);
+    if (refused && refused.length > 0) {
+      design.error =
+        `A netlist in ${refused.join(", ")} could belong to this design or to another one nearby, ` +
+        `so it is not attributed to either. Export ${name} to a directory of its own to resolve it.`;
+    }
+
     designs.push(design);
   }
 
@@ -471,7 +549,6 @@ export const findCadenceDatFiles = async (designFilePath: string): Promise<Caden
   // Normalize separators before processing to handle cross-platform paths
   const normalizedPath = normalizeSeparators(designFilePath);
   const designDir = path.dirname(normalizedPath);
-  const designName = path.basename(normalizedPath, path.extname(normalizedPath));
 
   const { designFiles, datSets } = await walkForCadenceFiles(designDir);
 
@@ -481,33 +558,113 @@ export const findCadenceDatFiles = async (designFilePath: string): Promise<Caden
     return { pstxnet: null, pstxprt: null, pstchip: null };
   }
 
+  const nothing: CadenceDatFiles = { pstxnet: null, pstxprt: null, pstchip: null };
+  const filesOf = (ds: DatFileSet): CadenceDatFiles => ({
+    pstxnet: ds.pstxnet,
+    pstxprt: ds.pstxprt,
+    pstchip: ds.pstchip,
+  });
+
   // Run the same assignment discoverCadenceDesigns runs, and read this design's
   // answer out of it. Re-deriving the choice here let the two disagree: this
   // function once returned a netlist for a design that list_designs had
   // correctly left unmatched, and every query then answered about that design
   // with a neighbour's circuit.
-  const self = designFiles.find((d) => normalizeSeparators(d) === normalizedPath);
+  //
+  // Same scope, same answer. The scopes are not always the same: this walk
+  // starts at the design's directory and is unbounded, while list_designs walks
+  // from the root it was given and honours max_depth. Queries arrive with the
+  // path list_designs handed out, which for a design that has a netlist is the
+  // pstxnet.dat itself and is resolved exactly below, so the two only diverge
+  // when a caller names a .cpm directly under a narrowed max_depth.
+  const self = findDesignFile(designFiles, normalizedPath);
   if (self) {
-    const assigned = matchDatSetsToDesigns(designFiles, datSets).get(self);
-    return assigned
-      ? { pstxnet: assigned.pstxnet, pstxprt: assigned.pstxprt, pstchip: assigned.pstchip }
-      : { pstxnet: null, pstxprt: null, pstchip: null };
+    const assigned = matchDatSetsToDesigns(designFiles, datSets).assignments.get(self);
+    if (!assigned) return nothing;
+    // The walk starts at this design's own directory, so a design sitting above
+    // it is invisible here while discoverCadenceDesigns, walking from the root
+    // the caller asked about, can see it and award the set to that one instead.
+    // Declining rather than guessing keeps the answer either right or absent.
+    const selfDir = path.dirname(self);
+    const selfName = path.basename(self, path.extname(self));
+    const outranked = await outrankedFromAbove(
+      assigned,
+      selfDir,
+      scoreDatSetMatch(selfDir, selfName, assigned)
+    );
+    return outranked ? nothing : filesOf(assigned);
   }
 
-  // The caller passed something the walk does not treat as a design file, such
-  // as a pstxnet.dat path. Fall back to scoring, with the assignment's ordering.
-  const scored = candidates.map((ds) => ({
-    datSet: ds,
-    score: scoreDatSetMatch(designDir, designName, ds),
-  }));
-  scored.sort((a, b) => b.score - a.score || a.datSet.directory.localeCompare(b.datSet.directory));
-  const best = scored[0].datSet;
+  // The caller named a dat file rather than a design: list_designs hands out
+  // pstxnet.dat for any design that has one, and that is the path queries then
+  // arrive with. Its own directory is the answer, and saying so directly avoids
+  // the scoring fallback that used to sit here, which could reach past it to a
+  // neighbouring directory and did not honour the contested rule.
+  const own = candidates.find(
+    (ds) => normalizeForComparison(ds.directory) === normalizeForComparison(designDir)
+  );
+  if (own) return filesOf(own);
 
-  return {
-    pstxnet: best.pstxnet,
-    pstxprt: best.pstxprt,
-    pstchip: best.pstchip,
-  };
+  // Not a design the walk recognises and not a dat directory. Naming a netlist
+  // here would be a guess, and a guess reads as an answer.
+  return nothing;
+};
+
+/**
+ * The walked design file the caller meant.
+ *
+ * Cadence writes `.DSN`; callers, agents and documentation all write `.dsn`, and
+ * on Windows and macOS both spellings name one file. Comparing exactly sent
+ * every case-mismatched path down the fallback branch, which answered with a
+ * neighbouring design's netlist and reported no error. The insensitive match is
+ * only accepted when it is unambiguous, so a case-sensitive volume holding two
+ * files that differ only in case declines instead of guessing.
+ */
+const findDesignFile = (designFiles: string[], normalizedPath: string): string | undefined => {
+  const wanted = normalizeForComparison(normalizedPath);
+  const exact = designFiles.find((d) => normalizeForComparison(d) === wanted);
+  if (exact) return exact;
+
+  const wantedLower = wanted.toLowerCase();
+  const insensitive = designFiles.filter(
+    (d) => normalizeForComparison(d).toLowerCase() === wantedLower
+  );
+  return insensitive.length === 1 ? insensitive[0] : undefined;
+};
+
+/**
+ * Does a design above this one claim this dat set more strongly?
+ *
+ * Only the directories on the way up are read, and only their own entries, so
+ * this costs one readdir per level rather than another tree walk.
+ */
+const outrankedFromAbove = async (
+  datSet: DatFileSet,
+  designDir: string,
+  ownScore: number
+): Promise<boolean> => {
+  let dir = path.dirname(designDir);
+  for (let level = 0; level < 32; level++) {
+    let entries;
+    try {
+      entries = await readdir(dir, { withFileTypes: true });
+    } catch {
+      break;
+    }
+
+    for (const entry of entries) {
+      if (!entry.isFile() || entry.name.startsWith("._")) continue;
+      const ext = path.extname(entry.name).toLowerCase();
+      if (!CADENCE_EXTENSIONS.includes(ext as (typeof CADENCE_EXTENSIONS)[number])) continue;
+      const rivalName = path.basename(entry.name, path.extname(entry.name));
+      if (scoreDatSetMatch(dir, rivalName, datSet) > ownScore) return true;
+    }
+
+    const parent = path.dirname(dir);
+    if (parent === dir) break;
+    dir = parent;
+  }
+  return false;
 };
 
 /**

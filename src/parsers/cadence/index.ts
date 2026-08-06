@@ -186,8 +186,12 @@ const parseCadenceDesign = async (designPath: string): Promise<ParsedNetlist> =>
     return { nets: raw.nets, components };
   }
 
+  // export_cadence_netlist drives pstswp, which needs the .DSN schematic, so
+  // naming it to an HDL design sent the caller to a tool that refuses the input.
   throw new Error(
-    `Missing netlist files for ${path.basename(designPath)}. Run export_cadence_netlist to generate them.`
+    ext === ".cpm"
+      ? `Missing netlist files for ${path.basename(designPath)}. Design Entry HDL writes them from Cadence: Tools → Create Netlist → PCB Editor format. export_cadence_netlist cannot do it, it drives pstswp, which needs a .DSN schematic.`
+      : `Missing netlist files for ${path.basename(designPath)}. Run export_cadence_netlist to generate them.`
   );
 };
 

@@ -5,7 +5,6 @@ import {
   relocateLockFile,
   restoreLockFile,
   resolveExportDir,
-  relocateLockFile,
 } from "./cadence-export.js";
 import type { ErrorResult } from "../../types.js";
 import { netlistDirName } from "../../paths.js";
@@ -48,7 +47,7 @@ describe("relocateLockFile", () => {
     expect(result).toBeUndefined();
   });
 
-  it("moves lock file to temp dir and returns temp path", async () => {
+  it("moves the lock file aside and returns where it went", async () => {
     const dsnPath = path.join(tmpDir, "design.DSN");
     const lockPath = path.join(tmpDir, "design.DSNlck");
     await fs.promises.writeFile(dsnPath, "");
@@ -60,6 +59,25 @@ describe("relocateLockFile", () => {
     await expect(fs.promises.access(lockPath)).rejects.toThrow();
     const content = await fs.promises.readFile(tempPath!, "utf-8");
     expect(content).toBe("lock-content");
+
+    await fs.promises.unlink(tempPath!);
+  });
+
+  it("keeps the relocated lock beside the design rather than in the temp directory", async () => {
+    // These designs live on mapped and UNC shares. A rename into tmpdir() crosses
+    // volumes there and raises EXDEV, which surfaced as "Close the design in
+    // Cadence and try again" for a design nobody had open, and no design on a
+    // share could be exported at all.
+    const dsnPath = path.join(tmpDir, "design.DSN");
+    await fs.promises.writeFile(dsnPath, "");
+    await fs.promises.writeFile(path.join(tmpDir, "design.DSNlck"), "lock");
+
+    const tempPath = await relocateLockFile(dsnPath);
+
+    expect(path.dirname(tempPath!)).toBe(tmpDir);
+    expect(tempPath!.startsWith(os.tmpdir() + path.sep)).toBe(
+      tmpDir.startsWith(os.tmpdir() + path.sep)
+    );
 
     await fs.promises.unlink(tempPath!);
   });
@@ -76,6 +94,33 @@ describe("relocateLockFile", () => {
     await expect(fs.promises.access(lockPath)).rejects.toThrow();
 
     await fs.promises.unlink(tempPath!);
+  });
+
+  it("moves the lock file aside for a .DSN without touching the design", async () => {
+    const design = path.join(tmpDir, "BOARD.DSN");
+    await fs.promises.writeFile(design, "design");
+    await fs.promises.writeFile(path.join(tmpDir, "BOARD.DSNlck"), "lock");
+
+    const moved = await relocateLockFile(design);
+
+    expect(moved).toBeDefined();
+    expect(path.basename(moved!)).toContain("BOARD.DSNlck");
+    expect(await fs.promises.readFile(design, "utf-8")).toBe("design");
+  });
+
+  it("never moves the design when the path is not a .DSN", async () => {
+    // `replace` returns the string unchanged when the pattern does not match, so
+    // the lock path WAS the design path and this moved the user's design into
+    // the temp directory. list_designs hands out pstxnet.dat for a dat-only
+    // design and the .cpm for an HDL one, so following the documented workflow
+    // reached it.
+    for (const name of ["BOARD.cpm", "pstxnet.dat", "BOARD.DSN.bak"]) {
+      const design = path.join(tmpDir, name);
+      await fs.promises.writeFile(design, "design");
+
+      expect(await relocateLockFile(design)).toBeUndefined();
+      expect(await fs.promises.readFile(design, "utf-8")).toBe("design");
+    }
   });
 });
 
@@ -221,6 +266,28 @@ describe("resolveExportDir", () => {
     expect((await resolveExportDir(first)).dirName).toBe("allegro");
   });
 
+  it("writes to an existing <design>_netlist even when a legacy allegro/ is there", async () => {
+    // Discovery ranks <design>_netlist/ above a bare allegro/ by the whole export
+    // bonus. Checking allegro/ first meant the exporter wrote to one directory
+    // while every reader read the other: each re-export reported success and
+    // every query kept answering from a netlist that had stopped updating.
+    await fs.promises.mkdir(path.join(tmpDir, "allegro"));
+    await fs.promises.mkdir(path.join(tmpDir, "BOARD_netlist"));
+    const only = await withDesigns("BOARD.DSN");
+
+    expect((await resolveExportDir(only)).dirName).toBe("BOARD_netlist");
+  });
+
+  it("reports whether the output directory already existed", async () => {
+    // A failed export may only remove a directory it brought into being: nothing
+    // of the caller's can be inside one that did not exist a moment ago, and a
+    // half-written trio left behind outranks the intact netlist beside it.
+    const only = await withDesigns("BOARD.DSN");
+
+    expect((await resolveExportDir(only)).created).toBe(true);
+    expect((await resolveExportDir(only)).created).toBe(false);
+  });
+
   it("keeps using an existing Allegro/ for a folder with one design", async () => {
     await fs.promises.mkdir(path.join(tmpDir, "Allegro"));
     const only = await withDesigns("BOARD.DSN");
@@ -237,16 +304,20 @@ describe("resolveExportDir", () => {
     expect((await resolveExportDir(only)).dirName).toBe("ALLEGRO");
   });
 
-  it("picks the allegro directory that already holds a netlist", async () => {
+  it("picks the allegro directory that already holds a netlist", async (ctx) => {
     // Several spellings can only coexist on a case-sensitive filesystem, which
     // macOS and Windows are not. Skipped rather than deleted, because Linux CI
     // is exactly where a share like this shows up.
+    //
+    // ctx.skip(), not a bare return: returning early reports a pass, so on the
+    // two platforms where the condition holds this read as covered while
+    // asserting nothing at all.
     await fs.promises.mkdir(path.join(tmpDir, "ALLEGRO"));
     const caseInsensitive = await fs.promises
       .access(path.join(tmpDir, "allegro"))
       .then(() => true)
       .catch(() => false);
-    if (caseInsensitive) return;
+    if (caseInsensitive) ctx.skip();
 
     await fs.promises.mkdir(path.join(tmpDir, "allegro"));
     await fs.promises.writeFile(path.join(tmpDir, "allegro", "pstxnet.dat"), "");
@@ -287,48 +358,6 @@ describe("resolveExportDir", () => {
 
   it("keeps the design's own spelling in the directory name", () => {
     expect(netlistDirName("reServer J401 v1.1")).toBe("reServer J401 v1.1_netlist");
-  });
-});
-
-describe("relocateLockFile", () => {
-  let tmpDir: string;
-
-  beforeEach(async () => {
-    vi.restoreAllMocks();
-    tmpDir = await fs.promises.mkdtemp(path.join(os.tmpdir(), "netlist-lock-"));
-  });
-
-  afterEach(async () => {
-    await fs.promises.rm(tmpDir, { recursive: true, force: true });
-  });
-
-  it("moves the lock file aside for a .DSN", async () => {
-    const design = path.join(tmpDir, "BOARD.DSN");
-    await fs.promises.writeFile(design, "design");
-    await fs.promises.writeFile(path.join(tmpDir, "BOARD.DSNlck"), "lock");
-
-    const moved = await relocateLockFile(design);
-
-    expect(moved).toBeDefined();
-    expect(path.basename(moved!)).toContain("BOARD.DSNlck");
-    // The design itself is untouched.
-    expect(await fs.promises.readFile(design, "utf-8")).toBe("design");
-  });
-
-  it("never moves the design when the path is not a .DSN", async () => {
-    // `replace` returns the string unchanged when the pattern does not match, so
-    // the lock path WAS the design path and this moved the user's design into
-    // the temp directory. list_designs hands out pstxnet.dat for a dat-only
-    // design and the .cpm for an HDL one, so following the documented workflow
-    // reached it, and the restore is a cross-volume rename that fails on the
-    // network shares these designs live on.
-    for (const name of ["BOARD.cpm", "pstxnet.dat", "BOARD.DSN.bak"]) {
-      const design = path.join(tmpDir, name);
-      await fs.promises.writeFile(design, "design");
-
-      expect(await relocateLockFile(design)).toBeUndefined();
-      expect(await fs.promises.readFile(design, "utf-8")).toBe("design");
-    }
   });
 });
 

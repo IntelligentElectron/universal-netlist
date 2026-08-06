@@ -54,3 +54,12 @@ export const netlistDirName = (designName: string): string => `${designName}${NE
 /** Does this directory name look like `<design>`'s export directory? */
 export const isNetlistDirFor = (dirName: string, designName: string): boolean =>
   dirName.toLowerCase() === netlistDirName(designName).toLowerCase();
+
+/**
+ * The three files a netlist export must produce for any consumer to use it.
+ *
+ * Here for the same reason as the suffix above: the exporter decides an export
+ * succeeded by finding them and discovery decides a directory holds a netlist by
+ * finding them, and a list retyped on each side agrees only by coincidence.
+ */
+export const REQUIRED_DAT_FILES = ["pstxnet.dat", "pstxprt.dat", "pstchip.dat"] as const;

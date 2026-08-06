@@ -4,13 +4,12 @@
  */
 
 import { existsSync, rmSync, writeFileSync } from "node:fs";
-import { basename, dirname, extname, resolve } from "node:path";
+import { basename, dirname, extname, join, resolve } from "node:path";
 import { VERSION, GITHUB_REPO, BINARY_NAME } from "../version.js";
 import { exportTelemetry } from "../telemetry/index.js";
 import { parseDesign } from "../parsers/index.js";
 import {
   discoverCadenceDesigns,
-  findCadenceDatFiles,
   parseDsnFile,
   parseCadence,
   buildCadencePinMap,
@@ -231,7 +230,14 @@ export const handleCoverageCommand = async (
       if (isErrorResult(exportResult)) {
         console.error(`  Export failed: ${exportResult.error}`);
       } else {
-        datFiles = await findCadenceDatFiles(design.sourcePath);
+        // The export already reports the directory it wrote, and it has verified
+        // all three files came from this run. Re-deriving the location instead
+        // could land on a different directory than the one just written.
+        datFiles = {
+          pstxnet: join(exportResult.outputDir, "pstxnet.dat"),
+          pstxprt: join(exportResult.outputDir, "pstxprt.dat"),
+          pstchip: join(exportResult.outputDir, "pstchip.dat"),
+        };
       }
     }
 

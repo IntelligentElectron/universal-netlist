@@ -10,7 +10,7 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
-import { writeFile, mkdir, rm } from "fs/promises";
+import { writeFile, mkdir, rm, chmod } from "fs/promises";
 import { join } from "path";
 import { discoverCadenceDesigns, findCadenceDatFiles, isCadenceFile } from "./discovery.js";
 
@@ -366,10 +366,126 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
 
       expect(a?.datFiles?.pstxnet).toContain("BOARD_A_netlist");
       expect(b?.datFiles?.pstxnet).toBeNull();
+      // A withheld netlist says so. Silent, it looked exactly like a design that
+      // had never been exported, whose remedy (run export_cadence_netlist) is
+      // not the remedy for this one.
+      expect(b?.error).toContain("allegro");
+      expect(a?.error).toBeUndefined();
+
       // findCadenceDatFiles must reach the same conclusion, or the query path
       // serves a circuit list_designs says the design does not have.
       const direct = await findCadenceDatFiles(join(projectDir, "BOARD_B.DSN"));
       expect(direct.pstxnet).toBeNull();
+    });
+
+    it("should answer for a design whichever case the extension is written in", async () => {
+      // Cadence writes .DSN; callers, agents and this project's own docs write
+      // .dsn, and on Windows and macOS both name one file. Comparing the two
+      // exactly sent every case-mismatched path down a fallback that scored the
+      // directories itself, which answered with a neighbour's netlist where one
+      // was reachable and with nothing where one was not.
+      const projectDir = join(testDir, "project");
+      await createDesign(join(projectDir, "BOARD.DSN"));
+      await createDatFiles(join(projectDir, "allegro"));
+
+      const upper = await findCadenceDatFiles(join(projectDir, "BOARD.DSN"));
+      const lower = await findCadenceDatFiles(join(projectDir, "BOARD.dsn"));
+
+      expect(upper.pstxnet).toContain("allegro");
+      expect(lower.pstxnet).toBe(upper.pstxnet);
+    });
+
+    it("should not let one unreadable pstxprt.dat hide the whole tree", async () => {
+      // The name in ROOT_DRAWING is a nicety, and reading it was unguarded inside
+      // a Promise.all: one ACL-locked or Cadence-held file rejected discovery,
+      // which rejected the Promise.all over every format handler, and a single
+      // "Failed to search" replaced every design of every format in the tree.
+      const projectDir = join(testDir, "project");
+      await createDesign(join(projectDir, "A.DSN"));
+      await createDesign(join(projectDir, "B.DSN"));
+      await createDatFiles(join(projectDir, "allegro"));
+      const locked = join(projectDir, "allegro", "pstxprt.dat");
+      await chmod(locked, 0o000);
+
+      try {
+        const designs = await discoverCadenceDesigns(testDir);
+        expect(designs.map((d) => d.name)).toEqual(expect.arrayContaining(["A", "B"]));
+      } finally {
+        await chmod(locked, 0o644);
+      }
+    });
+
+    it("should give a _netlist directory to the design that exports it", async () => {
+      // A .DSN and a .cpm sharing a stem resolve to one <stem>_netlist, and both
+      // score it identically. export_cadence_netlist only accepts a .DSN, so the
+      // directory is the CIS design's output; awarding it to the HDL namesake
+      // left the design that had just exported with nothing, and a caller
+      // following the documented loop re-exported forever.
+      //
+      // Both spellings, because path order alone decides this the moment the
+      // preference is absent, and which way it falls is an accident of where the
+      // extension's first letter sits relative to "c": upper-case .DSN happens
+      // to sort first and lower-case .dsn happens to sort second.
+      for (const [i, dsnName] of ["BOARD.DSN", "BOARD.dsn"].entries()) {
+        const projectDir = join(testDir, `project${i}`);
+        await createDesign(join(projectDir, dsnName));
+        await createDesign(join(projectDir, "BOARD.cpm"));
+        await createDatFiles(join(projectDir, "BOARD_netlist"), "BOARD");
+
+        const designs = (await discoverCadenceDesigns(projectDir)).filter((d) =>
+          d.sourcePath.includes(`project${i}`)
+        );
+
+        expect(designs.find((d) => d.format === "cadence-cis")?.datFiles?.pstxnet).toContain(
+          "BOARD_netlist"
+        );
+        expect(designs.find((d) => d.format === "cadence-hdl")?.datFiles?.pstxnet).toBeNull();
+      }
+    });
+
+    it("should not hand a design a netlist a design above it claims", async () => {
+      // findCadenceDatFiles walks from the design's own directory, so a rival in
+      // an ancestor directory is invisible to it while list_designs, walking from
+      // the root it was given, can see it. Answering anyway served INNER's every
+      // query from shared.DSN's circuit, with no error.
+      await createDesign(join(testDir, "shared.DSN"));
+      await createDesign(join(testDir, "inner", "INNER.DSN"));
+      await createDatFiles(join(testDir, "inner", "shared"), "SHARED");
+
+      const designs = await discoverCadenceDesigns(testDir);
+      expect(designs.find((d) => d.name === "shared")?.datFiles?.pstxnet).toContain("shared");
+      expect(designs.find((d) => d.name === "INNER")?.datFiles?.pstxnet).toBeNull();
+
+      const direct = await findCadenceDatFiles(join(testDir, "inner", "INNER.DSN"));
+      expect(direct.pstxnet).toBeNull();
+    });
+
+    it("should refuse a directory two designs name by different conventions", async () => {
+      // `X_netlist/` is where export_cadence_netlist puts design X, and it is
+      // also the directory named for a design called X_netlist. The export bonus
+      // outranks a bare name match unconditionally, so X took X_netlist's own
+      // directory and X_netlist was reported as having no netlist at all.
+      const projectDir = join(testDir, "project");
+      await createDesign(join(projectDir, "X.DSN"));
+      await createDesign(join(projectDir, "X_netlist.DSN"));
+      await createDatFiles(join(projectDir, "X_netlist"), "X");
+
+      const designs = await discoverCadenceDesigns(testDir);
+
+      expect(designs.find((d) => d.name === "X")?.datFiles?.pstxnet).toBeNull();
+      expect(designs.find((d) => d.name === "X_netlist")?.datFiles?.pstxnet).toBeNull();
+      expect(designs.find((d) => d.name === "X")?.error).toContain("X_netlist");
+    });
+
+    it("should resolve a pstxnet.dat path to its own directory", async () => {
+      // list_designs hands out the pstxnet.dat for any design that has one, so
+      // this is the path queries actually arrive with.
+      const projectDir = join(testDir, "project");
+      await createDesign(join(projectDir, "BOARD.DSN"));
+      await createDatFiles(join(projectDir, "allegro"));
+
+      const direct = await findCadenceDatFiles(join(projectDir, "allegro", "pstxnet.dat"));
+      expect(direct.pstxnet).toContain(join("allegro", "pstxnet.dat"));
     });
 
     it("should still match a shared directory when only one design can claim it", async () => {
@@ -410,25 +526,6 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
       // list_designs and findCadenceDatFiles must not disagree for one design.
       const direct = await findCadenceDatFiles(join(projectDir, "BOARD.DSN"));
       expect(direct.pstxnet).toBe(live?.datFiles?.pstxnet);
-    });
-
-    it("should prefer a design's own _netlist directory over a shared allegro/", async () => {
-      // A folder mid-migration: the legacy shared directory still holds one
-      // design's stale export while the other has been re-exported.
-      const projectDir = join(testDir, "project");
-      await createDesign(join(projectDir, "BOARD_A.DSN"));
-      await createDesign(join(projectDir, "BOARD_B.DSN"));
-      await createDatFiles(join(projectDir, "allegro"));
-      await createDatFiles(join(projectDir, "BOARD_A_netlist"));
-
-      const designs = await discoverCadenceDesigns(testDir);
-
-      const a = designs.find((d) => d.name === "BOARD_A");
-      const b = designs.find((d) => d.name === "BOARD_B");
-      expect(a?.datFiles?.pstxnet).toContain("BOARD_A_netlist");
-      // The other half of the same scenario: the stale shared directory is
-      // contested, so BOARD_B gets nothing rather than BOARD_A's circuit.
-      expect(b?.datFiles?.pstxnet).toBeNull();
     });
 
     it("should prefer name-matching over proximity when resolving conflicts", async () => {
