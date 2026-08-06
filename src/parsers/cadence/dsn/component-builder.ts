@@ -11,7 +11,7 @@ import { isValidRefdes } from "../../../circuit-traversal.js";
 import type { CachedLibraryPart, PinMapData } from "./structure-types.js";
 import type { PlacedInstance } from "./structures.js";
 import type { PageData } from "./page-parser.js";
-import { resolvePinNumber } from "./pin-resolver.js";
+import { resolvePinNumber, isPinIgnored } from "./pin-resolver.js";
 
 /** Property name keys recognized as MPN fields in prefix properties. */
 const MPN_KEYS = new Set(["Part Number", "PART_NUMBER", "MPN", "Manufacturer PN"]);
@@ -112,7 +112,7 @@ export function buildComponents(
           const unitCachedPart = findCachedPart(inst, cachedParts);
           const pinNumToIndex = new Map<string, number>();
           for (const t0x10 of inst.t0x10s) {
-            if (t0x10.pinIndex > 0) {
+            if (t0x10.pinIndex > 0 && !isPinIgnored(t0x10, inst, pmd, deviceIndex)) {
               pinNumToIndex.set(resolvePinNumber(t0x10, inst, pmd, deviceIndex), t0x10.pinIndex);
             }
           }
@@ -175,8 +175,11 @@ export function buildComponents(
       if (pinNets) {
         // Build pinNumber -> pinIndex map for pin name lookup
         const pinNumToIndex = new Map<string, number>();
+        // A pin the section has no pad for is absent from every net, so it must
+        // not claim a pin-number slot here either: it would relabel the real pin
+        // that shares that number with the ignored pin's function name.
         for (const t0x10 of inst.t0x10s) {
-          if (t0x10.pinIndex > 0) {
+          if (t0x10.pinIndex > 0 && !isPinIgnored(t0x10, inst, pmd, deviceIndex)) {
             pinNumToIndex.set(resolvePinNumber(t0x10, inst, pmd, deviceIndex), t0x10.pinIndex);
           }
         }

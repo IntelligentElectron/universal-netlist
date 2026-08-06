@@ -53,6 +53,7 @@ export function parseDsnFile(dsnPath: string): ParsedNetlist {
     cachePinMaps: new Map(),
     deviceUnitRefs: new Map(),
     pinIgnores: new Map(),
+    cachePinIgnores: new Map(),
   };
   const cachedParts = new Map<string, CachedLibraryPart>();
   const pkgStreamEntries = entries.filter(

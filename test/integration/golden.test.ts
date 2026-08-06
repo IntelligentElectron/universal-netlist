@@ -130,6 +130,26 @@ describe("DSN Parser Coverage vs DAT Golden", async () => {
     return;
   }
 
+  // The pin-level comparison below is gated on a fixture having a real
+  // pstxnet.dat. A gate that silently turns false everywhere reports as skipped,
+  // not failed, so the whole comparison could vanish behind a green run.
+  it("should have oracle-backed fixtures to compare against", () => {
+    const oracles = cadenceDsnFixtures.filter((f) => f.isOracle);
+    console.log(
+      `[cadence] oracle-backed fixtures: ${oracles.length} of ${cadenceDsnFixtures.length}`
+    );
+    expect(oracles.length).toBeGreaterThanOrEqual(10);
+  });
+
+  // One parse per design, shared by the three checks below. Each used to parse
+  // the same .DSN again, which tripled the cost of the slowest tests in the suite.
+  const parsed = new Map<string, ParsedNetlist>();
+  const parseOnce = (designFile: string): ParsedNetlist => {
+    let result = parsed.get(designFile);
+    if (!result) parsed.set(designFile, (result = parseDsnFile(designFile)));
+    return result;
+  };
+
   for (const { designFile, projectName, golden, isOracle } of cadenceDsnFixtures) {
     describe(projectName, () => {
       /**
@@ -148,7 +168,7 @@ describe("DSN Parser Coverage vs DAT Golden", async () => {
        * parser has a gap on it, and the failure names the nets that differ.
        */
       it.runIf(isOracle)("should place pins on the same nets as the DAT export", () => {
-        const dsn = parseDsnFile(designFile);
+        const dsn = parseOnce(designFile);
 
         const pinSet = (conns: Record<string, string[]> | undefined): Set<string> => {
           const pins = new Set<string>();
@@ -166,16 +186,24 @@ describe("DSN Parser Coverage vs DAT Golden", async () => {
         );
         const agreement = common.length > 0 ? (common.length - differing.length) / common.length : 1;
 
+        // `common` is an intersection, so a net the parser lost and a net it
+        // invented are both filtered out of it. Those are the two ways a net can
+        // go wrong without any pin set disagreeing, so they are asserted too.
+        const missing = Object.keys(golden.nets).filter((net) => !(net in dsn.nets));
+        const invented = Object.keys(dsn.nets).filter((net) => !(net in golden.nets));
+
         console.log(
-          `[${projectName}] Connectivity: common=${common.length} exact=${common.length - differing.length} differing=${differing.length} (${(agreement * 100).toFixed(2)}%)` +
+          `[${projectName}] Connectivity: common=${common.length} exact=${common.length - differing.length} differing=${differing.length} (${(agreement * 100).toFixed(2)}%) missing=${missing.length} invented=${invented.length}` +
             (differing.length > 0 ? ` -> ${differing.slice(0, 8).join(", ")}` : "")
         );
 
         expect(differing).toEqual([]);
+        expect(missing).toEqual([]);
+        expect(invented).toEqual([]);
       });
 
       it("should have >50% net coverage", () => {
-        const dsn = parseDsnFile(designFile);
+        const dsn = parseOnce(designFile);
         const dsnNets = new Set(Object.keys(dsn.nets));
         const goldenNets = new Set(Object.keys(golden.nets));
         const common = [...dsnNets].filter((n) => goldenNets.has(n));
@@ -189,7 +217,7 @@ describe("DSN Parser Coverage vs DAT Golden", async () => {
       });
 
       it("should have >50% component coverage", () => {
-        const dsn = parseDsnFile(designFile);
+        const dsn = parseOnce(designFile);
         const dsnComponents = new Set(Object.keys(dsn.components));
         const goldenComponents = new Set(Object.keys(golden.components));
         const common = [...dsnComponents].filter((c) => goldenComponents.has(c));

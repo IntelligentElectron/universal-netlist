@@ -35,12 +35,14 @@ const instance = (sourcePackage: string, pinCount: number, pkgName?: string): Pl
 const pinMapData = (
   pinMaps: Record<string, (string | null)[]>,
   cachePinMaps: Record<string, (string | null)[]> = {},
-  pinIgnores: Record<string, boolean[]> = {}
+  pinIgnores: Record<string, boolean[]> = {},
+  cachePinIgnores: Record<string, boolean[]> = {}
 ): PinMapData => ({
   pinMaps: new Map(Object.entries(pinMaps)),
   cachePinMaps: new Map(Object.entries(cachePinMaps)),
   deviceUnitRefs: new Map(),
   pinIgnores: new Map(Object.entries(pinIgnores)),
+  cachePinIgnores: new Map(Object.entries(cachePinIgnores)),
 });
 
 describe("resolvePinNumber", () => {
@@ -276,5 +278,53 @@ describe("isPinIgnored", () => {
 
     expect(isPinIgnored(pin(9), inst, pmd)).toBe(false);
     expect(isPinIgnored(pin(0), inst, pmd)).toBe(false);
+  });
+});
+
+describe("Pin Ignore flags follow the map that supplied the pin number", () => {
+  it("reads the Cache flags when the pin number came from the Cache map", () => {
+    // CutiePi's CON_HDMI_RA: 23-pin symbol, 20-entry package map, 23-entry Cache
+    // map. The number comes from the Cache, so the flag must too; indexing the
+    // 20-entry package flags with a Cache pin index reads a different pin.
+    const inst = instance("CON_HDMI_RA", 23);
+    const packageMap = Array.from({ length: 20 }, (_, i) => String(i + 1));
+    const cacheMap = Array.from({ length: 23 }, (_, i) => String(i + 1));
+    const pmd = pinMapData(
+      { CON_HDMI_RA: packageMap },
+      { CON_HDMI_RA: cacheMap },
+      // Package flags: pin 17 ignored. Cache flags: pin 17 kept, pin 23 ignored.
+      { CON_HDMI_RA: Array.from({ length: 20 }, (_, i) => i === 16) },
+      { CON_HDMI_RA: Array.from({ length: 23 }, (_, i) => i === 22) }
+    );
+
+    expect(isPinIgnored(pin(17), inst, pmd)).toBe(false);
+    expect(isPinIgnored(pin(23), inst, pmd)).toBe(true);
+  });
+
+  it("reads the package flags when the package map supplied the number", () => {
+    const inst = instance("PART", 3);
+    const pmd = pinMapData(
+      { PART: ["1", "2", "3"] },
+      { PART: ["1", "2"] },
+      { PART: [false, false, true] },
+      { PART: [true, false] }
+    );
+
+    expect(isPinIgnored(pin(3), inst, pmd)).toBe(true);
+    expect(isPinIgnored(pin(1), inst, pmd)).toBe(false);
+  });
+
+  it("uses the Cache flags for a part absent from the package stream", () => {
+    // The quad RJ45 that motivated Pin Ignore is Cache-only in its design.
+    const inst = { ...instance("RJ45", 3), pkgName: "RJ45-1.Normal" };
+    const pmd = pinMapData(
+      {},
+      { "RJ45-1": ["A1", "S1", "SS1"] },
+      {},
+      { "RJ45-1": [false, false, true] }
+    );
+
+    expect(isPinIgnored(pin(3), inst, pmd)).toBe(true);
+    expect(isPinIgnored(pin(2), inst, pmd)).toBe(false);
   });
 });

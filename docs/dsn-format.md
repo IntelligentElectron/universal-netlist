@@ -957,7 +957,7 @@ Measured over the Cadence fixture corpus, nets whose pin set disagrees with the 
 5. Unnamed wire groups get `N{minSegmentId}` names
 6. Cross-page nets connected via OffPageConnectors are resolved by `strLst[name_str_idx]` (OPCs with the same index share the same net). Pins at an OPC's bbox edge midpoint are assigned this net name, even when the OPC has no wire connection on that page
 7. Duplicate net names across pages are disambiguated using hierarchy suffixed names
-8. Global/Port symbols take their net name from `strLst[name_str_idx]`, the same field OPCs use. That name reaches pins on any page where the symbol's bbox overlaps a pin, with no wire needed. The symbol's own `name` field is the symbol *type* and must not be used: a symbol drawn as `VDD_1v8` may carry `CAM_CORE`, and two symbols both drawn as `VCC_BAR` carry `VDD_PLL1` and `VDD_PLL2`
+8. Global/Port symbols take their net name from `strLst[name_str_idx]`, the same field OPCs use. The symbol's own `name` field is the symbol *type* and must not be used: a symbol drawn as `VDD_1v8` may carry `CAM_CORE`, and two symbols both drawn as `VCC_BAR` carry `VDD_PLL1` and `VDD_PLL2`. The name is used for two things: steering the symbol to the one wire it belongs to (below), and naming a sentinel pin (`net_id == 0xFFFFFFFF`) that overlaps the symbol's bbox and that no wire coordinate resolved. Where the symbol does reach a wire, that wire group's resolved name wins, because `strLst[name_str_idx]` is occasionally a symbol type too: `pairingId` 17700 reads `GND_SIGNAL` on three Jetson carrier designs, a name absent from their DAT exports
 9. Wire body point-on-segment matching: a pin whose coordinate falls on a horizontal/vertical wire segment (not just the endpoints) is unioned with that wire
 
 #### Global/Port symbol attachment
@@ -979,10 +979,16 @@ Two rules keep that geometry from fusing unrelated nets:
   box that already carries its own `strLst[name_str_idx]` name. Failing that,
   only coordinates with no name of their own are eligible, nearest first.
 
-Measured over the Cadence fixture corpus, these two rules took nets whose pin set
-disagrees with the DAT reference from **24 to 4** (99.5% → 99.9%), with no design
-regressing. Nine of eleven designs match the DAT export exactly; the remaining
-four nets differ by pin numbering, not connectivity.
+The attachment is ranked by distance to the centre of the bounding box, not to
+`locX/locY`: that origin lies outside the symbol's own box for 1405 of the 3971
+symbols in the fixture corpus (35.4%), so it cannot anchor a ranking. A symbol
+whose own name is unknown, which is every symbol in a design whose Library stream
+failed to parse, keeps all in-box coordinates eligible rather than none.
+
+Measured over the Cadence fixture corpus, this rule plus the two pin-numbering
+rules in §11.1 took nets whose pin set disagrees with the DAT reference from
+**24 to 0**, with no design regressing. All 4936 nets across all 11 designs match
+the DAT export exactly, with no net missing and none invented.
 
 ### 11.5 Multi-Unit Component Merging
 

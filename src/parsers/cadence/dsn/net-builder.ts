@@ -68,6 +68,13 @@ export function symbolKey(sym: Pick<GraphicInst, "pairingId" | "dbId">): string 
   return `sym:${sym.pairingId}:${sym.dbId}`;
 }
 
+/** A wire endpoint with its coordinates already parsed. */
+export interface WirePoint {
+  coord: string;
+  x: number;
+  y: number;
+}
+
 /**
  * The single wire coordinate a global/port symbol is electrically attached to.
  *
@@ -76,53 +83,66 @@ export function symbolKey(sym: Pick<GraphicInst, "pairingId" | "dbId">): string 
  * rails drawn above and below. Picking whichever coordinate the iteration
  * reached first therefore attached symbols to their neighbours.
  *
- * `symbolNet` is the symbol's own net name, taken from the Library string list.
- * When it is known the choice is unambiguous: the attachment is the coordinate
- * whose wire already carries that name. Otherwise only coordinates with no name
- * of their own are eligible, since claiming an already-named wire would assert a
- * connection the drawing does not show. Among equals the origin wins, then the
- * nearest coordinate, so the result never depends on iteration order.
+ * `symbolNet` is the symbol's own net name, taken from the Library string list,
+ * and `namesOfGroup` gives the names already carried by the wire group a
+ * coordinate belongs to. Group names, not the labels sitting on that one
+ * coordinate: a rail is usually labelled once and the label may sit anywhere
+ * along it.
+ *
+ * When the symbol's name is known the choice is unambiguous, and a wire group
+ * that carries some other name is then excluded, since claiming it would assert
+ * a connection the drawing does not show. When the name is unknown, which is
+ * the case for a design whose string list did not parse, every coordinate in
+ * the box stays eligible rather than none.
+ *
+ * Ranking is by distance to the centre of the bounding box, tie-broken on the
+ * coordinate itself, so the result never depends on iteration order. The
+ * symbol's `locX/locY` is deliberately not the anchor: it is a placement
+ * origin that lies outside the symbol's own box for about a third of the
+ * symbols in the fixture corpus.
  */
 export function chooseSymbolAttachment(
-  sym: Pick<GraphicInst, "x1" | "y1" | "x2" | "y2" | "locX" | "locY">,
+  sym: Pick<GraphicInst, "x1" | "y1" | "x2" | "y2">,
   symbolNet: string | undefined,
-  wireCoords: Iterable<string>,
-  coordNames: Map<string, Set<string>>
+  wirePoints: Iterable<WirePoint>,
+  namesOfGroup: (coord: string) => ReadonlySet<string> | undefined
 ): string | undefined {
   const minX = Math.min(sym.x1, sym.x2);
   const maxX = Math.max(sym.x1, sym.x2);
   const minY = Math.min(sym.y1, sym.y2);
   const maxY = Math.max(sym.y1, sym.y2);
-  const origin = `${sym.locX},${sym.locY}`;
+  const centreX = (minX + maxX) / 2;
+  const centreY = (minY + maxY) / 2;
 
-  let named: string | undefined;
-  let unnamed: string | undefined;
-  let unnamedDist = Infinity;
+  let owned: string | undefined;
+  let ownedDist = Infinity;
+  let eligible: string | undefined;
+  let eligibleDist = Infinity;
 
-  for (const coord of wireCoords) {
-    const [cx, cy] = coord.split(",").map(Number);
-    if (cx < minX || cx > maxX || cy < minY || cy > maxY) continue;
+  for (const point of wirePoints) {
+    if (point.x < minX || point.x > maxX || point.y < minY || point.y > maxY) continue;
 
-    const names = coordNames.get(coord);
-    if (symbolNet && names?.has(symbolNet)) {
-      // The symbol's own name on the wire: exact, so nothing can beat it.
-      if (coord === origin) return coord;
-      if (!named) named = coord;
+    const names = namesOfGroup(point.coord);
+    const dist = Math.abs(point.x - centreX) + Math.abs(point.y - centreY);
+
+    if (symbolNet !== undefined && names?.has(symbolNet)) {
+      if (dist < ownedDist || (dist === ownedDist && point.coord < owned!)) {
+        owned = point.coord;
+        ownedDist = dist;
+      }
       continue;
     }
-    if (names && names.size > 0) continue; // some other net's wire
 
-    const dist = Math.abs(cx - sym.locX) + Math.abs(cy - sym.locY);
-    if (coord === origin) {
-      unnamed = coord;
-      unnamedDist = -1;
-    } else if (dist < unnamedDist || (dist === unnamedDist && coord < unnamed!)) {
-      unnamed = coord;
-      unnamedDist = dist;
+    // Excluded only when we know our own name and this group answers to another.
+    if (symbolNet !== undefined && names && names.size > 0) continue;
+
+    if (dist < eligibleDist || (dist === eligibleDist && point.coord < eligible!)) {
+      eligible = point.coord;
+      eligibleDist = dist;
     }
   }
 
-  return named ?? unnamed;
+  return owned ?? eligible;
 }
 
 function addPinToNet(
@@ -296,12 +316,40 @@ function buildPageCoordMap(
   // A symbol's locXY is its placement origin, which often differs from its
   // electrical pin position, so the wire it touches is found within its
   // bounding box. Each symbol attaches to exactly one coordinate.
+  //
+  // Coordinates are parsed once for the page rather than per symbol: a dense
+  // sheet has hundreds of symbols and hundreds of wire endpoints, and splitting
+  // every key for every symbol dominated the whole net-building phase.
+  const wirePoints: WirePoint[] = [];
+  for (const coord of allWireCoords) {
+    const comma = coord.indexOf(",");
+    wirePoints.push({
+      coord,
+      x: Number(coord.slice(0, comma)),
+      y: Number(coord.slice(comma + 1)),
+    });
+  }
+
+  // Names per wire group, not per coordinate. Every wire and OPC union has
+  // already run, so a group here is the final electrical group a symbol can
+  // join, and a rail labelled once at its far end is recognised along its
+  // whole length.
+  const groupNames = new Map<string, Set<string>>();
+  for (const [coord, names] of wireNames) {
+    const root = uf.find(coord);
+    let set = groupNames.get(root);
+    if (!set) groupNames.set(root, (set = new Set()));
+    for (const name of names) set.add(name);
+  }
+  const namesOfGroup = (coord: string): ReadonlySet<string> | undefined =>
+    groupNames.get(uf.find(coord));
+
   for (const sym of [...page.globals, ...page.ports]) {
     const attach = chooseSymbolAttachment(
       sym,
       symbolNets.get(sym.pairingId),
-      allWireCoords,
-      wireNames
+      wirePoints,
+      namesOfGroup
     );
     if (attach) uf.union(symbolKey(sym), attach);
   }
@@ -798,17 +846,25 @@ export function buildNetConnectivity(
   // have no direct wire connection. PairingId groups all instances of the same
   // power symbol (e.g., all GND_SIGNAL globals share one pairingId).
   //
-  // The string list is the authority, exactly as it is for off-page connectors
-  // below. Resolving through the symbol's wire connection instead let one page's
-  // misattached symbol name the pins of every other page sharing that pairingId.
-  const globalPairingNets = new Map<number, string>(symbolNets);
+  // Two sources, and they disagree in both directions. The wires are the drawing
+  // and win where they exist, because a string-list entry is sometimes the
+  // symbol type rather than a net: pairingId 17700 reads "GND_SIGNAL" on three
+  // Jetson carrier designs, a name that appears nowhere in their DAT exports.
+  // The string list covers what the wires cannot: a symbol that no wire reaches,
+  // where a resistor pin lands straight on the power port.
+  const wirePairingNets = new Map<number, string>();
   for (let i = 0; i < pages.length; i++) {
     const coordMap = resolvedCoordMaps[i];
     for (const sym of [...pages[i].globals, ...pages[i].ports]) {
-      if (globalPairingNets.has(sym.pairingId)) continue;
+      if (wirePairingNets.has(sym.pairingId)) continue;
       const net = coordMap.get(symbolKey(sym));
-      if (net) globalPairingNets.set(sym.pairingId, net);
+      if (net) wirePairingNets.set(sym.pairingId, net);
     }
+  }
+
+  const globalPairingNets = new Map<number, string>(wirePairingNets);
+  for (const [pairingId, name] of symbolNets) {
+    if (!globalPairingNets.has(pairingId)) globalPairingNets.set(pairingId, name);
   }
 
   // Build pairingId -> net name map from OPCs.
