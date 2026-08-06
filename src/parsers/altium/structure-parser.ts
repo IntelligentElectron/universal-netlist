@@ -74,6 +74,38 @@ export const parseProjectStructure = (content: string): ProjectStructure => {
 };
 
 /**
+ * A sheet symbol designator that instantiates a sheet once per channel.
+ *
+ * Altium writes the range with inconsistent spacing across real projects —
+ * `Repeat(AY,1,3)`, `Repeat(ideal_diode, 1, 2)`, `Repeat(CHAN, 1,9)` — so every
+ * separator tolerates surrounding whitespace.
+ */
+const REPEAT_SHEET_DESIGNATOR = /^Repeat\(\s*([^,)]+?)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i;
+
+/**
+ * Expand a `Repeat(name,start,end)` sheet symbol designator into one channel
+ * designator per instance: `Repeat(AY,1,3)` → `AY1`, `AY2`, `AY3`.
+ *
+ * Returns an empty array for anything that is not a repeat, or for a range that
+ * yields fewer than two channels — a single instance is not multi-channel.
+ */
+export const expandRepeatDesignator = (schDesignator: string): string[] => {
+  const match = schDesignator.trim().match(REPEAT_SHEET_DESIGNATOR);
+  if (!match) return [];
+
+  const [, base, startText, endText] = match;
+  const start = Number.parseInt(startText, 10);
+  const end = Number.parseInt(endText, 10);
+  if (!Number.isFinite(start) || !Number.isFinite(end) || end <= start) return [];
+
+  const designators: string[] = [];
+  for (let index = start; index <= end; index++) {
+    designators.push(`${base}${index}`);
+  }
+  return designators;
+};
+
+/**
  * Identify repeated (multi-channel) sheets.
  *
  * Returns a map from fileName to the list of channel designators.

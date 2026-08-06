@@ -444,7 +444,11 @@ import {
 } from "./discovery.js";
 import { readFile } from "fs/promises";
 import type { EDAProjectFormatHandler } from "../../types.js";
-import { parseProjectStructure, findRepeatedSheets } from "./structure-parser.js";
+import {
+  parseProjectStructure,
+  findRepeatedSheets,
+  expandRepeatDesignator,
+} from "./structure-parser.js";
 import type { SheetInstance } from "./structure-parser.js";
 
 export { discoverAltiumDesigns, findAltiumSchDocs, isAltiumFile } from "./discovery.js";
@@ -497,12 +501,122 @@ const readChannelFormat = async (projectPath: string): Promise<string> => {
   return "$Component_$RoomName";
 };
 
+const recordText = (record: AltiumRecord | undefined): string => {
+  const value = record?.Text ?? record?.TEXT ?? record?.Name ?? record?.NAME;
+  return value === undefined || value === null ? "" : String(value);
+};
+
 /**
- * Apply channel designator format to a component refdes.
- * E.g., format="$Component_$RoomName", component="DD12", room="AY1" → "DD12_AY1"
+ * Derive multi-channel sheets from a parsed schematic, for projects that ship no
+ * `.PrjPcbStructure`.
+ *
+ * A sheet symbol (RECORD=15) owns two children that matter here: its designator
+ * (RECORD=32) and the child document it instantiates (RECORD=33). When the
+ * designator is a `Repeat(...)` expression, that child document is one channel
+ * per repeat index.
+ *
+ * Altium only writes `.PrjPcbStructure` when a project has been compiled and the
+ * file is frequently not committed, so relying on it alone silently collapses
+ * every channel in such a project down to a single instance.
  */
-const applyChannelFormat = (format: string, component: string, roomName: string): string =>
-  format.replace("$Component", component).replace("$RoomName", roomName);
+export const findRepeatedSheetsInSchematic = (
+  schematic: AltiumSchematic,
+  sourceDocument: string
+): Map<string, SheetInstance[]> => {
+  const repeated = new Map<string, SheetInstance[]>();
+
+  for (const record of flattenHierarchy(schematic)) {
+    if (record.RECORD !== RECORD_TYPES.SHEET_SYMBOL) continue;
+
+    const children = record.children ?? [];
+    const schDesignator = recordText(
+      children.find((child) => child.RECORD === RECORD_TYPES.SHEET_NAME)
+    );
+    const fileName = recordText(
+      children.find((child) => child.RECORD === RECORD_TYPES.SHEET_FILE_NAME)
+    );
+    if (!fileName) continue;
+
+    const designators = expandRepeatDesignator(schDesignator);
+    if (designators.length === 0) continue;
+
+    repeated.set(
+      fileName.toLowerCase(),
+      designators.map((designator) => ({
+        sourceDocument,
+        designator,
+        schDesignator,
+        fileName,
+      }))
+    );
+  }
+
+  return repeated;
+};
+
+/**
+ * Render a 1-based channel number as Altium's alphabetic channel label:
+ * 1 → "A", 26 → "Z", 27 → "AA".
+ */
+const channelAlpha = (channelIndex: number): string => {
+  let n = Math.max(1, channelIndex);
+  let out = "";
+  while (n > 0) {
+    const rem = (n - 1) % 26;
+    out = String.fromCharCode(65 + rem) + out;
+    n = Math.floor((n - 1) / 26);
+  }
+  return out;
+};
+
+/**
+ * Tokens Altium substitutes into `ChannelDesignatorFormatString`.
+ *
+ * Ordered longest-first: a plain `$Component` alternative listed before
+ * `$ComponentPrefix` would match its prefix and leave a stray "Prefix" behind.
+ */
+const CHANNEL_FORMAT_TOKEN = /\$(ComponentPrefix|ComponentIndex|ChannelIndex|ChannelAlpha|Component|RoomName)/g;
+
+/**
+ * Apply a channel designator format to a component refdes.
+ *
+ * `$Component_$RoomName` with ("DD12", room "AY1") → "DD12_AY1"
+ * `$Component$ChannelAlpha` with ("R5", channel 2) → "R5B"
+ * `$ComponentPrefix_$ChannelIndex_$ComponentIndex` with ("R5", channel 3) → "R_3_5"
+ *
+ * An unrecognized token is left as written rather than dropped, so a format we
+ * do not model yet produces a visibly wrong designator instead of silently
+ * colliding with another channel's.
+ */
+export const applyChannelFormat = (
+  format: string,
+  component: string,
+  roomName: string,
+  channelIndex: number
+): string => {
+  const prefixMatch = component.match(/^([^0-9]*)([0-9].*)?$/);
+  const componentPrefix = prefixMatch?.[1] ?? component;
+  const componentIndex = prefixMatch?.[2] ?? "";
+
+  return format.replace(CHANNEL_FORMAT_TOKEN, (_match, token: string) => {
+    switch (token) {
+      case "Component":
+        return component;
+      case "ComponentPrefix":
+        return componentPrefix;
+      case "ComponentIndex":
+        return componentIndex;
+      case "RoomName":
+        return roomName;
+      case "ChannelIndex":
+        return String(channelIndex);
+      case "ChannelAlpha":
+        return channelAlpha(channelIndex);
+      default:
+        return _match;
+    }
+  });
+};
 
 const unescapeAltiumOverbar = (name: string): string =>
   name.includes("\\") ? name.replace(/\\/g, "") : name;
@@ -594,8 +708,9 @@ const expandChannels = (
   const allNets: NetConnections = {};
   const allComponents: ComponentDetails = {};
 
-  for (const channel of channels) {
+  for (const [channelOffset, channel] of channels.entries()) {
     const roomName = channel.designator;
+    const channelIndex = channelOffset + 1;
 
     // Classify each net for this channel:
     // 1. Power nets → global (keep name)
@@ -625,7 +740,7 @@ const expandChannels = (
       }
 
       for (const [origRefdes, pins] of Object.entries(connections)) {
-        const expandedRefdes = applyChannelFormat(channelFormat, origRefdes, roomName);
+        const expandedRefdes = applyChannelFormat(channelFormat, origRefdes, roomName, channelIndex);
         if (!allNets[expandedNetName][expandedRefdes]) {
           allNets[expandedNetName][expandedRefdes] = pins;
         } else {
@@ -639,7 +754,7 @@ const expandChannels = (
 
     // Expand components with renamed refdes and net references
     for (const [origRefdes, component] of Object.entries(baseResult.components)) {
-      const expandedRefdes = applyChannelFormat(channelFormat, origRefdes, roomName);
+      const expandedRefdes = applyChannelFormat(channelFormat, origRefdes, roomName, channelIndex);
 
       // Deep-clone pins with mapped net names
       const expandedPins: Record<string, PinEntry> = {};
@@ -681,6 +796,11 @@ const parseAltiumProject = async (projectPath: string): Promise<ParsedNetlist> =
   let channelFormat = "$Component_$RoomName";
   let parentSchematic: AltiumSchematic | undefined;
 
+  // Parent schematic per repeated child document. A project may repeat different
+  // sheets from different parents, and each expansion needs its own parent to
+  // classify that sheet symbol's entries.
+  const repeatParents = new Map<string, AltiumSchematic>();
+
   if (structurePath) {
     const structureContent = await readFile(structurePath, "utf-8");
     const structure = parseProjectStructure(structureContent);
@@ -697,6 +817,27 @@ const parseAltiumProject = async (projectPath: string): Promise<ParsedNetlist> =
       const schematic = parseRecords(buffer);
       parentSchematic = buildHierarchy(schematic);
     }
+  } else {
+    // No compiled structure file: recover the channels from the sheet symbols
+    // themselves. Any document may host a repeated sheet symbol, so scan them
+    // all and remember which parent declared each child.
+    channelFormat = await readChannelFormat(projectPath);
+
+    for (const candidatePath of schdocPaths) {
+      let hierarchical: AltiumSchematic;
+      try {
+        hierarchical = buildHierarchy(parseRecords(readOleStream(candidatePath)));
+      } catch {
+        continue;
+      }
+
+      const found = findRepeatedSheetsInSchematic(hierarchical, path.basename(candidatePath));
+      for (const [childFile, instances] of found) {
+        if (repeatedSheets.has(childFile)) continue;
+        repeatedSheets.set(childFile, instances);
+        repeatParents.set(childFile, hierarchical);
+      }
+    }
   }
 
   const allNets: NetConnections = {};
@@ -708,7 +849,8 @@ const parseAltiumProject = async (projectPath: string): Promise<ParsedNetlist> =
 
     // Check if this file is a repeated (multi-channel) sheet
     const channels = repeatedSheets.get(schdocBase);
-    if (channels && channels.length > 1 && parentSchematic) {
+    const channelParent = repeatParents.get(schdocBase) ?? parentSchematic;
+    if (channels && channels.length > 1 && channelParent) {
       if (expandedFiles.has(schdocBase)) continue;
       expandedFiles.add(schdocBase);
 
@@ -723,7 +865,7 @@ const parseAltiumProject = async (projectPath: string): Promise<ParsedNetlist> =
       const baseResult: ParsedNetlist = { nets: parsedNets, components };
 
       // Classify SHEET_ENTRY records: Repeat() → per-channel, others → shared
-      const entryClassification = classifySheetEntries(parentSchematic, channels[0].fileName);
+      const entryClassification = classifySheetEntries(channelParent, channels[0].fileName);
 
       // Expand into N channel instances
       const expanded = expandChannels(
