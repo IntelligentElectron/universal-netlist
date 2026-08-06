@@ -5,19 +5,66 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.5.0] - 2026-08-05
+## [1.5.0] - 2026-08-06
+
+This release brings Cadence `.DSN` parsing to exact agreement with Cadence's own
+netlist export across the whole fixture corpus, traces Altium designs through
+signal harnesses and multi-channel sheets, and stops several classes of silently
+wrong answer where a design was served another design's circuit.
 
 ### Fixed
 
-- Cadence DSN cross-page net disambiguation no longer merges designer-authored sibling nets into one. A hierarchy name `<net>_<suffix>` is treated as a netlister collision rename only when the suffix is entirely digits and the name is not already some wire group's resolved name. Previously `parseInt()` stopped at the first non-digit, so a rail-suffixed sibling like `SIGNAL_1V8` read as suffix `1`, and an entirely-numeric family like `SIGNAL_01`/`_02` cleared the digit test outright; either way the bare net's pins were silently absorbed into unrelated nets (#85, #88)
-- XNET traversal stops at power rails whose names the stop-net regex did not recognize. `PVCC*`, `PVNN*`, and `P<n>V*` join the rail alternatives, `NC` is aligned with the existing query-xnet special case, and a configurable pin-count guard (`TraversalOptions.stopNetPinThreshold`, default 40) stops expansion at structurally rail-shaped nets regardless of name. An explicitly queried rail still expands. Previously every pull-up on such a rail acted as a pass-through and traversal fused much of the board into one false supernet (#84)
-- `circuit_hash` is now backend-invariant. The canonical form hashes connectivity only (`refdes`, pins, net) and no longer folds in `mpn`, which is a best-effort field populated differently by the `.dat` and `.DSN` paths, so an XNET that is pin-for-pin identical across backends hashed differently. Agreement between the two backends across the Cadence fixture corpus rises from 6.8% to 94.6% (#92)
-- Design discovery and test collection skip macOS AppleDouble (`._*`) sidecars. On network volumes these shadow every file, so `._board.DSN` surfaced in `list_designs` as a phantom design that failed to parse
-- Cadence DSN multi-section parts (resistor packs, transistor arrays, multi-gate logic) resolve each section's pins from the section index stored in the file rather than from `dbId` ordering. `PlacedInstance` now decodes the `uint16` after `source_package`, which holds the 0-based section; `dbId` order is not section order, so on parts whose sections are not allocated in placement order the pins of one section were reported against another section's pin numbers. Nets whose pin set disagrees with the DAT export across the Cadence fixture corpus fall from 79 to 24 (#89)
+#### Cadence connectivity
+
+- Cadence DSN cross-page net disambiguation no longer merges designer-authored sibling nets into one. A hierarchy name `<net>_<suffix>` is treated as a netlister collision rename only when the suffix is entirely digits and the name is not already some wire group's resolved name. Previously `parseInt()` stopped at the first non-digit, so a rail-suffixed sibling like `SIGNAL_1V8` read as suffix `1`, and an entirely-numeric family like `SIGNAL_01`/`_02` cleared the digit test outright; either way the bare net's pins were silently absorbed into unrelated nets (#85, #88, PR #91)
+- Cadence DSN multi-section parts (resistor packs, transistor arrays, multi-gate logic) resolve each section's pins from the section index stored in the file rather than from `dbId` ordering. `PlacedInstance` now decodes the `uint16` after `source_package`, which holds the 0-based section; `dbId` order is not section order, so on parts whose sections are not allocated in placement order the pins of one section were reported against another section's pin numbers. Nets whose pin set disagrees with the DAT export across the Cadence fixture corpus fall from 79 to 24 (#89, PR #98)
+- Cadence `.DSN` designs now produce the same connectivity as Cadence's own netlist export on every test fixture, closing the remaining 24 disagreements: 4936 of 4936 nets across 11 designs. Power and ground symbols were keyed by placement origin, so neighbouring rails one grid step apart fused into a single net wherever their drawn symbol boxes overlapped; symbols are now attached to the wire group they actually touch, preferring the group that already carries the symbol's own net name. Pins that connect straight to a power port with no wire in between resolve through the design's string list. Pins a package section has no pad for (`pinIgnore`, bit 7 of the byte following each pin name in a Device pin map) are no longer reported as connected. Connector pin numbering follows the pin map that fits the placed symbol rather than the first map found, which had swapped adjacent signals on multi-map connectors (PR #108)
+- Cadence `.DSN` designs report pin function names for every component, up from 96.5%. The Cache stream's part records were located by assuming a fixed prefix length, so any record whose prefix carried property pairs was skipped and the design returned pin-to-net mappings with no function names at all; a part's own name also lost precedence to a stripped alias belonging to a different variant of the same base part (#50, PR #109)
+
+#### Cadence netlist export
+
+- `export_cadence_netlist` writes to `<design>_netlist/` beside the schematic, so several Cadence designs in one folder no longer overwrite each other's exported netlist. pstswp names its output the same way for every design, so two designs exporting to one directory left only the second design's netlist behind. A folder holding a single design that already has an `allegro/` directory keeps using it (#29, PR #110)
+- The exporter and design discovery now agree on which directory holds a design's netlist. They ranked the candidates in opposite orders, so an export could write to `allegro/` while every query read `<design>_netlist/`: each re-export reported success and every answer came from a netlist that had stopped updating (PR #110)
+- A `.DSN` and a `.cpm` sharing a stem no longer contend for one export directory in a way that leaves the design that produced it with nothing (PR #110)
+- `export_cadence_netlist` no longer moves the design file itself into the temporary directory when given a path that is not a `.DSN`. Deriving the lock-file path by substituting the extension returned the input unchanged for any other path, and `list_designs` hands out `pstxnet.dat` for a dat-only design and the `.cpm` for an HDL one, so the documented workflow reached it (PR #110)
+- The `.DSNlck` lock file is moved to a sibling name rather than into the system temporary directory. On the UNC and mapped shares these projects live on, that rename crossed volumes and failed with `EXDEV`, reported as advice to close a design nobody had open, and no design on a share could be exported at all (PR #110)
+- Large designs can be exported again. pstswp at the verbosity the exporter requests emits megabytes, while the child process ran under Node's 1 MiB output cap, which kills the child at the limit; the export died partway through writing the netlist and the failure was reported as Cadence's (PR #110)
+- A failed export no longer leaves a partially written netlist behind for later queries to read, and only removes a directory the failed run itself created (PR #110)
+- An export that Cadence reports as successful but that did not write all three `.dat` files, or left an earlier run's, is now reported as a failure instead of sending the caller to read stale or missing files (PR #110)
+
+#### Discovery
+
+- A design whose netlist cannot be told apart from a neighbour's is reported with no netlist and an explanation, rather than being served the neighbour's circuit. A shared export directory that two designs reach equally well, and that neither names, is attributed to neither (PR #110)
+- `list_designs` no longer fails for an entire directory tree when one `pstxprt.dat` cannot be read. A single ACL-locked or Cadence-held file made every design of every format, Cadence, Altium and KiCad alike, invisible behind one "Failed to search" error (PR #110)
+- Queries resolve the same netlist whichever case the `.DSN` extension is written in. Cadence writes `.DSN` and callers write `.dsn`, which name one file on Windows and macOS, and the mismatch could return a neighbouring design's netlist (PR #110)
+- Design discovery and test collection skip macOS AppleDouble (`._*`) sidecars. On network volumes these shadow every file, so `._board.DSN` surfaced in `list_designs` as a phantom design that failed to parse (PR #87)
+- Which netlist a design receives no longer depends on the host locale. Ordering used `localeCompare`, whose collation follows `LANG` and which reports two distinct paths as equal when they differ only by a soft hyphen (PR #110)
+
+#### Altium
+
+- Nets are traced through Altium signal harnesses. Harness objects live in a separate `Additional` OLE stream that was never read, so harness connectors, entries and types were absent from the parse entirely and any net reaching a harness ended there, leaving connected components reported as unconnected. Harness entries are now parsed, positioned and connected, and harness types, including nested ones, resolve to their member signals (#43, PRs #104, #105)
+- Altium signal harnesses connect across sheet boundaries. A harness-typed sheet entry carries its bundle's member signals into the child sheet, including members of nested harness types, so components joined by a harness across pages are reported as connected instead of as separate unconnected nets (#43, PR #106)
+- Altium multi-channel designs expand correctly regardless of the project's channel designator format, and no longer require a compiled `.PrjPcbStructure` to be committed. Previously only `$Component_$RoomName` projects that shipped a structure file expanded; every other configuration silently reported one channel, under-counting components and merging per-channel nets (#44, PR #102)
+
+#### Traversal
+
+- XNET traversal stops at power rails whose names the stop-net regex did not recognize. `PVCC*`, `PVNN*`, and `P<n>V*` join the rail alternatives, `NC` is aligned with the existing query-xnet special case, and a configurable pin-count guard (`TraversalOptions.stopNetPinThreshold`, default 40) stops expansion at structurally rail-shaped nets regardless of name. An explicitly queried rail still expands. Previously every pull-up on such a rail acted as a pass-through and traversal fused much of the board into one false supernet (#84, PR #86)
+- `circuit_hash` is now backend-invariant. The canonical form hashes connectivity only (`refdes`, pins, net) and no longer folds in `mpn`, which is a best-effort field populated differently by the `.dat` and `.DSN` paths, so an XNET that is pin-for-pin identical across backends hashed differently. Agreement between the two backends across the Cadence fixture corpus rises from 6.8% to 94.6% (#92, PR #93)
 
 ### Added
 
-- The DSN-vs-DAT coverage report gains a `Conn` column comparing the actual `{refdes.pin}` set of every net present in both netlists. Net and component coverage match on names alone, so a net that kept its name but lost pins to another net scored as fully covered; connectivity agreement is what a wrong-connectivity bug actually moves
+- The DSN-vs-DAT coverage report gains a `Conn` column comparing the actual `{refdes.pin}` set of every net present in both netlists. Net and component coverage match on names alone, so a net that kept its name but lost pins to another net scored as fully covered; connectivity agreement is what a wrong-connectivity bug actually moves (PR #95)
+- Golden-file tests assert connectivity, pin names, and the number of designs covered, against Cadence's own export where one exists. Coverage was measured on net and component names alone, and compared only the nets both sides had, so a net that lost pins to another net or went missing entirely could not fail a test (PR #108)
+- The Altium schematic file format is documented in `docs/altium-format.md`, including the record types, the `Additional` stream, and how harnesses and multi-channel sheets are represented (PR #103)
+
+### Changed
+
+- Type-checking and linting now cover test files. `tsconfig.check.json` and the ESLint config both excluded them, so `npm run type-check && npm run lint && npm test` passed on a test file TypeScript rejects outright (PR #110)
+
+### Thanks
+
+- [@Neil-Liao-TW](https://github.com/Neil-Liao-TW) reported the false-supernet traversal bug (#84), the cross-sheet false connectivity (#85), and the backend-dependent `circuit_hash` (#92), and contributed the fixes for all three plus the AppleDouble sidecar fix (PRs #86, #87, #91, #93). Three of this release's connectivity fixes are their work end to end, from diagnosis to patch.
+- [@WLaney](https://github.com/WLaney) reported that nets were not traced through Altium signal harnesses (#43) and that multi-channel designs were not expanded (#44). Both are the basis of this release's Altium work.
 
 ## [1.4.0] - 2026-07-16
 
