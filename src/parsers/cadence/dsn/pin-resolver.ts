@@ -84,12 +84,25 @@ export function findPinMap(
   return undefined;
 }
 
+const lookupPin = (
+  map: (string | null)[] | undefined,
+  pinIndex: number
+): string | undefined => {
+  if (!map || pinIndex - 1 >= map.length) return undefined;
+  return map[pinIndex - 1] ?? undefined;
+};
+
 /**
  * Resolve a T0x10 pin to a physical pin number using package pin map data.
  *
  * Uses T0x10.pinIndex (1-based logical pin index from the binary) to look up
- * the physical pin number in the Device.pinMap array.
- * Falls back to the pinIndex value itself if no pin map is available.
+ * the physical pin number in the Device.pinMap array, preferring the
+ * `Packages/` stream and falling back to the Cache stream.
+ *
+ * The pinIndex value itself is only used when neither stream maps it. That
+ * value is the symbol's pin record order, which equals the physical pin number
+ * only for parts whose symbol order matches their package numbering, so it is a
+ * last resort rather than a peer of the two maps.
  */
 export function resolvePinNumber(
   pin: T0x10,
@@ -99,7 +112,9 @@ export function resolvePinNumber(
 ): string {
   if (pin.pinIndex <= 0) return String(pin.pinIndex || 1);
   const pinMap = findPinMap(inst, pmd.pinMaps, pmd.deviceUnitRefs, deviceIndex);
-  if (pinMap && pin.pinIndex - 1 < pinMap.length && pinMap[pin.pinIndex - 1] !== null) {
+  const packagePin = lookupPin(pinMap, pin.pinIndex);
+
+  if (pinMap && packagePin !== undefined) {
     // When the Packages/ pinMap has more entries than the instance has T0x10
     // records, the physical package has pads not exposed on the schematic
     // symbol (e.g., a 2-pin crystal in a 4-pad package). In that case, the
@@ -107,17 +122,23 @@ export function resolvePinNumber(
     // be preferred.
     if (pinMap.length > inst.t0x10s.length) {
       const cacheMap = findPinMap(inst, pmd.cachePinMaps, pmd.deviceUnitRefs, deviceIndex);
-      if (
-        cacheMap &&
-        cacheMap.length <= inst.t0x10s.length &&
-        pin.pinIndex - 1 < cacheMap.length &&
-        cacheMap[pin.pinIndex - 1] !== null
-      ) {
-        return cacheMap[pin.pinIndex - 1]!;
+      const cachePin = lookupPin(cacheMap, pin.pinIndex);
+      if (cacheMap && cacheMap.length <= inst.t0x10s.length && cachePin !== undefined) {
+        return cachePin;
       }
     }
-    return pinMap[pin.pinIndex - 1]!;
+    return packagePin;
   }
+
+  // The Packages/ lookup missed entirely, or has no entry at this index. The
+  // Cache stream carries a schematic-level map for the same part, so consult it
+  // before falling back to the symbol record order.
+  const cachePin = lookupPin(
+    findPinMap(inst, pmd.cachePinMaps, pmd.deviceUnitRefs, deviceIndex),
+    pin.pinIndex
+  );
+  if (cachePin !== undefined) return cachePin;
+
   return String(pin.pinIndex);
 }
 
