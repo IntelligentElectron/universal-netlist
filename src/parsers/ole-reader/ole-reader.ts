@@ -453,3 +453,17 @@ export const readOleStream = (filePath: string, streamName = "FileHeader"): Buff
   const ole = new OleReader(filePath);
   return ole.readStream(streamName);
 };
+
+/**
+ * Read a stream that a document may not have, returning undefined instead of throwing.
+ *
+ * Altium keeps signal harness objects in an `Additional` stream that only exists in
+ * documents that use them, so its absence is the normal case rather than an error.
+ */
+export const readOptionalOleStream = (filePath: string, streamName: string): Buffer | undefined => {
+  try {
+    return new OleReader(filePath).readStream(streamName);
+  } catch {
+    return undefined;
+  }
+};
