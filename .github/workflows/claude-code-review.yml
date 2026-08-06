@@ -3,18 +3,29 @@ name: Claude Code Review
 on:
   pull_request:
     types: [opened, synchronize, ready_for_review, reopened]
+  # `claude-review` is a required check, and a required check must report on the
+  # merge queue's `merge_group` event or every queued PR waits for a result that
+  # never arrives and is ejected on timeout. The review itself already ran on the
+  # pull_request event, so the job below skips here — a skipped job still reports
+  # its check, which is what satisfies the requirement.
+  merge_group:
+    branches: [main]
 
 jobs:
   claude-review:
-    # Same-repo branches only. For a `pull_request` from a fork, GitHub withholds
-    # repository secrets (`CLAUDE_CODE_OAUTH_TOKEN` arrives empty) and downgrades the
-    # job to a read-only token, dropping the `id-token: write` requested below — the
-    # action then fails its OIDC exchange. Skipping keeps fork PRs green instead of
-    # red-for-infrastructure-reasons.
+    # Same-repo pull requests only.
+    #
+    # For a `pull_request` from a fork, GitHub withholds repository secrets
+    # (`CLAUDE_CODE_OAUTH_TOKEN` arrives empty) and downgrades the job to a read-only
+    # token, dropping the `id-token: write` requested below — the action then fails its
+    # OIDC exchange. For a `merge_group` event there is no pull_request payload at all.
+    # Both cases skip rather than fail, so the required check still reports.
     #
     # To review a fork PR, comment `@claude` on it: claude.yml runs on `issue_comment`
     # in base-repo context, where both the secret and OIDC are available.
-    if: github.event.pull_request.head.repo.full_name == github.repository
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.head.repo.full_name == github.repository
 
     runs-on: ubuntu-latest
     permissions:
