@@ -7,7 +7,7 @@ package-lock.json
 dist/
 build/
 bin/
-release/
+/release/
 *.tsbuildinfo
 
 # Logs
