@@ -27,7 +27,13 @@ import { OleReader, readOleStream, readOptionalOleStream } from "../ole-reader/o
 import { parseRecords, findRecords } from "./record-parser.js";
 import { buildHierarchy, getPartsList, flattenHierarchy, findRecordByIndex } from "./hierarchy.js";
 import { extractNets, determineNetList, classifyNets } from "./net-extractor.js";
-import { positionHarnessEntries } from "./harness.js";
+import {
+  positionHarnessEntries,
+  parseHarnessDefinitions,
+  resolveHarnessMembers,
+  collectNestedHarnessTypes,
+} from "./harness.js";
+import type { HarnessDefinitions } from "./harness.js";
 
 // Re-export types and utilities for external use
 export type { AltiumSchematic, AltiumNet, AltiumRecord, OutputFormat };
@@ -687,9 +693,27 @@ interface SheetEntryClassification {
  * Repeat() entries produce per-channel nets; others are shared.
  * Bus notation (e.g., "AD[0..7]") is expanded into individual signals.
  */
+/**
+ * Load the harness type definitions that apply to a schematic document.
+ *
+ * Membership is not stored in the `.SchDoc`; each document has a sibling
+ * `<name>.Harness` text file. A document that uses no harnesses has none, so a
+ * missing file is the normal case.
+ */
+const readHarnessDefinitions = async (schdocPath: string): Promise<HarnessDefinitions> => {
+  const sidecar = schdocPath.replace(/\.SchDoc$/i, ".Harness");
+  try {
+    return parseHarnessDefinitions(await readFile(sidecar, "utf-8"));
+  } catch {
+    return new Map();
+  }
+};
+
 const classifySheetEntries = (
   parentSchematic: AltiumSchematic,
-  childFileName: string
+  childFileName: string,
+  harnessDefinitions: HarnessDefinitions = new Map(),
+  nestedHarnessTypes: ReadonlyMap<string, string> = new Map()
 ): SheetEntryClassification => {
   const repeatNames = new Set<string>();
   const sharedNames = new Set<string>();
@@ -707,13 +731,30 @@ const classifySheetEntries = (
       const rawName = String(child.Name ?? child.NAME ?? "");
       const repeatMatch = rawName.match(/^Repeat\((.+)\)$/i);
 
-      if (repeatMatch) {
-        for (const signal of expandBusNotation(repeatMatch[1])) {
-          repeatNames.add(signal);
-        }
-      } else {
-        for (const signal of expandBusNotation(rawName)) {
-          sharedNames.add(signal);
+      const target = repeatMatch ? repeatNames : sharedNames;
+      const entryName = repeatMatch ? repeatMatch[1] : rawName;
+
+      for (const signal of expandBusNotation(entryName)) {
+        target.add(signal);
+      }
+
+      // A harness-typed entry carries a bundle, not one signal. Every member the
+      // bundle resolves to crosses the sheet boundary with it and is classified
+      // the same way, so a shared harness keeps its members shared rather than
+      // giving each channel a private copy that connects to nothing.
+      const harnessType = child.HarnessType;
+      if (harnessType) {
+        for (const member of resolveHarnessMembers(
+          String(harnessType),
+          harnessDefinitions,
+          nestedHarnessTypes
+        )) {
+          target.add(member);
+          // Members are qualified by the entry that reached them
+          // (PGND.OP_OUT); the leaf name is what a net inside the child sheet
+          // is actually called.
+          const leaf = member.slice(member.lastIndexOf(".") + 1);
+          if (leaf) target.add(leaf);
         }
       }
     }
@@ -835,6 +876,7 @@ const parseAltiumProject = async (projectPath: string): Promise<ParsedNetlist> =
   // sheets from different parents, and each expansion needs its own parent to
   // classify that sheet symbol's entries.
   const repeatParents = new Map<string, AltiumSchematic>();
+  const repeatParentPaths = new Map<string, string>();
 
   if (structurePath) {
     const structureContent = await readFile(structurePath, "utf-8");
@@ -851,6 +893,9 @@ const parseAltiumProject = async (projectPath: string): Promise<ParsedNetlist> =
       const buffer = readOleStream(topLevelPath);
       const schematic = readSchematicRecords(topLevelPath, buffer);
       parentSchematic = buildHierarchy(schematic);
+      for (const childFile of repeatedSheets.keys()) {
+        repeatParentPaths.set(childFile, topLevelPath);
+      }
     }
   } else {
     // No compiled structure file: recover the channels from the sheet symbols
@@ -873,6 +918,7 @@ const parseAltiumProject = async (projectPath: string): Promise<ParsedNetlist> =
         if (repeatedSheets.has(childFile)) continue;
         repeatedSheets.set(childFile, instances);
         repeatParents.set(childFile, hierarchical);
+        repeatParentPaths.set(childFile, candidatePath);
       }
     }
   }
@@ -902,7 +948,21 @@ const parseAltiumProject = async (projectPath: string): Promise<ParsedNetlist> =
       const baseResult: ParsedNetlist = { nets: parsedNets, components };
 
       // Classify SHEET_ENTRY records: Repeat() → per-channel, others → shared
-      const entryClassification = classifySheetEntries(channelParent, channels[0].fileName);
+      // The bundle definitions live beside the parent document, whose sheet
+      // entry declares the harness type; nesting is declared on the entry
+      // records of the parent schematic.
+      const parentDocument = repeatParentPaths.get(schdocBase);
+      const harnessDefinitions = parentDocument
+        ? await readHarnessDefinitions(parentDocument)
+        : new Map();
+      const nestedHarnessTypes = collectNestedHarnessTypes(channelParent.records as never);
+
+      const entryClassification = classifySheetEntries(
+        channelParent,
+        channels[0].fileName,
+        harnessDefinitions,
+        nestedHarnessTypes
+      );
 
       // Expand into N channel instances
       const expanded = expandChannels(
