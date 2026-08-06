@@ -28,7 +28,7 @@ Generates Allegro-compatible netlist files from Cadence schematics using the `ps
     },
     "outputDir": {
       "type": "string",
-      "description": "Directory where output files were written (relative to CWD; absolute if on a different Windows drive)"
+      "description": "Absolute path of the directory the netlist was written to"
     },
     "log": {
       "type": "string",
@@ -82,7 +82,7 @@ Response (success):
 ```json
 {
   "success": true,
-  "outputDir": "Schematics/Allegro",
+  "outputDir": "C:/repo/Schematics/MyBoard_netlist",
   "cadenceVersion": "17.4",
   "generatedFiles": [
     "pstchip.dat",
@@ -99,6 +99,13 @@ Response (success):
 }
 ```
 
+**Error (export produced an incomplete netlist):**
+```json
+{
+  "error": "Cadence pstswp reported success but did not write pstxprt.dat to C:/repo/Schematics/MyBoard_netlist. Check the log for the directory it actually used."
+}
+```
+
 **Error (missing Cadence installation):**
 ```json
 {
@@ -110,7 +117,10 @@ Response (success):
 
 - Cadence SPB is auto-detected from `C:/Cadence` (e.g., `C:/Cadence/SPB_17.4`)
 - When multiple versions are installed, the latest version is used
-- Output files are written to an `Allegro/` or `allegro/` subdirectory next to the schematic (reuses whichever exists; creates `allegro/` if neither is present)
+- Output files are written to a `<design>_netlist/` subdirectory next to the schematic, one per design, so several designs in the same folder each keep their own netlist
+- A folder holding a single design that already has an `allegro` directory (any case) keeps using it, since that layout is often what a PCB editor or build script reads
+- Both `.DSN` and `.cpm` designs count towards "a single design", because Design Entry HDL writes the same three filenames
+- The export reports an error rather than success when pstswp leaves no `pstxnet.dat` behind
 - The export uses pstswp flags: `-pst -v 3 -l 255 -j "PCB Footprint"`
 - Timeout is set to 2 minutes for large designs
 - Concurrent calls are queued and run one at a time to avoid Cadence license conflicts
