@@ -1,7 +1,13 @@
 import { describe, expect, it } from "vitest";
-import { resolvePinNumber, findPinMap, extractUnitRef } from "./pin-resolver.js";
+import {
+  resolvePinNumber,
+  findPinMap,
+  extractUnitRef,
+  buildDeviceIndexMap,
+} from "./pin-resolver.js";
 import type { PinMapData } from "./structure-types.js";
 import type { PlacedInstance, T0x10 } from "./structures.js";
+import type { PageData } from "./page-parser.js";
 
 const pin = (pinIndex: number): T0x10 => ({
   pinIndex,
@@ -22,6 +28,7 @@ const instance = (sourcePackage: string, pinCount: number, pkgName?: string): Pl
   locY: 0,
   symbolDisplayProps: [],
   t0x10s: Array.from({ length: pinCount }, (_, i) => pin(i + 1)),
+  sectionIndex: 0,
 });
 
 const pinMapData = (
@@ -106,6 +113,74 @@ describe("findPinMap", () => {
     const unitRefs = new Map<string, string[]>([["RPAK", ["A", "B"]]]);
 
     expect(findPinMap(inst, maps, unitRefs, 1)).toEqual(["2", "15"]);
+  });
+});
+
+describe("buildDeviceIndexMap", () => {
+  const placed = (
+    reference: string,
+    dbId: number,
+    sectionIndex: number,
+    pkgName?: string
+  ): PlacedInstance => ({
+    ...instance("RPAK_8RES", 2, pkgName),
+    reference,
+    dbId,
+    sectionIndex,
+  });
+
+  const page = (placedInstances: PlacedInstance[]): PageData =>
+    ({
+      name: "P1",
+      netTable: new Map(),
+      wires: [],
+      placedInstances,
+      ports: [],
+      globals: [],
+      offPageConnectors: [],
+    }) as PageData;
+
+  it("indexes each instance by its own section, not by dbId order", () => {
+    // dbId order and section order disagree: the sections were placed on the
+    // sheet in an order Cadence did not allocate dbIds in.
+    const map = buildDeviceIndexMap([
+      page([placed("RP3", 100, 0), placed("RP3", 108, 2), placed("RP3", 116, 1)]),
+    ]);
+
+    expect(map.get(100)).toBe(0);
+    expect(map.get(108)).toBe(2);
+    expect(map.get(116)).toBe(1);
+  });
+
+  it("indexes a lone placed section by its real section, not zero", () => {
+    const map = buildDeviceIndexMap([page([placed("RP9", 200, 5)])]);
+
+    expect(map.get(200)).toBe(5);
+  });
+
+  it("spans pages for one multi-section part", () => {
+    const map = buildDeviceIndexMap([
+      page([placed("RP1", 300, 0)]),
+      page([placed("RP1", 301, 3)]),
+    ]);
+
+    expect(map.get(300)).toBe(0);
+    expect(map.get(301)).toBe(3);
+  });
+
+  it("skips instances whose pkgName already carries a unit suffix", () => {
+    const map = buildDeviceIndexMap([
+      page([placed("U4", 400, 1, "RPAK_8RESB.Normal"), placed("U5", 401, 0)]),
+    ]);
+
+    expect(map.has(400)).toBe(false);
+    expect(map.get(401)).toBe(0);
+  });
+
+  it("skips instances without a usable refdes", () => {
+    const map = buildDeviceIndexMap([page([placed("", 500, 1), placed("?", 501, 1)])]);
+
+    expect(map.size).toBe(0);
   });
 });
 

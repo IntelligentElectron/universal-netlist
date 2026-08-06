@@ -61,6 +61,11 @@ export interface PlacedInstance {
   locY: number;
   symbolDisplayProps: SymbolDisplayProp[];
   t0x10s: T0x10[];
+  /**
+   * 0-based section (device) index within a multi-section package, read from
+   * the uint16 following sourcePackage. Single-section parts carry 0.
+   */
+  sectionIndex: number;
 }
 
 export interface GraphicInst {
@@ -232,7 +237,7 @@ export function parsePlacedInstance(reader: BinaryReader): PlacedInstance {
   futureData.checkpoint();
 
   const sourcePackage = reader.readStringLenZeroTerm();
-  reader.skip(2); // unknown
+  const sectionIndex = reader.readUint16();
 
   futureData.checkpoint();
 
@@ -247,6 +252,7 @@ export function parsePlacedInstance(reader: BinaryReader): PlacedInstance {
     locY,
     symbolDisplayProps,
     t0x10s,
+    sectionIndex,
   };
 }
 

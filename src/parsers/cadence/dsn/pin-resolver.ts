@@ -74,8 +74,9 @@ export function findPinMap(
       }
     }
 
-    // Single-instance fallback (no positional info): try unit "A"
-    if (!unitRef && deviceIndex === undefined) {
+    // Fallback: a package whose devices are not enumerated in deviceUnitRefs
+    // still has a single unit "A" entry to try.
+    if (!unitRef) {
       const unitAMatch = pinMaps.get(base + "A");
       if (unitAMatch) return unitAMatch;
     }
@@ -143,32 +144,20 @@ export function resolvePinNumber(
 }
 
 /**
- * Build a map from PlacedInstance dbId to positional device index for
- * multi-section components (e.g., resistor packs, transistor arrays).
+ * Map each PlacedInstance dbId to its 0-based section index within a
+ * multi-section package (resistor packs, transistor arrays, multi-gate logic).
  *
- * When multiple PlacedInstances share the same (refdes, pkgName) and have no
- * unit suffix in pkgName, Cadence assigns Devices positionally by dbId order.
- * This function detects those groups and assigns 0-based indices.
+ * The index is `PlacedInstance.sectionIndex`, read from the binary. Instances
+ * whose pkgName already carries a unit suffix are skipped: those resolve their
+ * Device by that suffix and never consult a positional index.
  */
 export function buildDeviceIndexMap(pages: PageData[]): Map<number, number> {
-  const groups = new Map<string, PlacedInstance[]>();
+  const result = new Map<number, number>();
   for (const page of pages) {
     for (const inst of page.placedInstances) {
       if (!inst.reference || !isValidRefdes(inst.reference)) continue;
-      if (extractUnitRef(inst)) continue; // already has unit suffix
-      const key = `${inst.reference}\0${inst.pkgName}`;
-      const group = groups.get(key);
-      if (group) group.push(inst);
-      else groups.set(key, [inst]);
-    }
-  }
-
-  const result = new Map<number, number>();
-  for (const [, group] of groups) {
-    if (group.length <= 1) continue;
-    group.sort((a, b) => a.dbId - b.dbId);
-    for (let i = 0; i < group.length; i++) {
-      result.set(group[i].dbId, i);
+      if (extractUnitRef(inst)) continue;
+      result.set(inst.dbId, inst.sectionIndex);
     }
   }
   return result;
