@@ -20,24 +20,51 @@ function indexCachePackage(pkg: import("./structures.js").Package, pmd: PinMapDa
 
   const baseName = pkg.name.replace(/_\d+$/, "");
   if (pkg.devices.length === 1) {
-    if (!pmd.pinMaps.has(baseName)) pmd.pinMaps.set(baseName, firstDev.pinMap);
-    if (!pmd.pinMaps.has(pkg.name)) pmd.pinMaps.set(pkg.name, firstDev.pinMap);
+    if (!pmd.pinMaps.has(baseName)) {
+      pmd.pinMaps.set(baseName, firstDev.pinMap);
+      pmd.pinIgnores.set(baseName, firstDev.pinIgnore);
+    }
+    if (!pmd.pinMaps.has(pkg.name)) {
+      pmd.pinMaps.set(pkg.name, firstDev.pinMap);
+      pmd.pinIgnores.set(pkg.name, firstDev.pinIgnore);
+    }
     // Always store in cachePinMaps for fallback when Packages/ pinMap
     // has more entries than the schematic symbol (e.g., physical package
     // pads that aren't exposed on the schematic).
-    if (!pmd.cachePinMaps.has(baseName)) pmd.cachePinMaps.set(baseName, firstDev.pinMap);
-    if (!pmd.cachePinMaps.has(pkg.name)) pmd.cachePinMaps.set(pkg.name, firstDev.pinMap);
+    // Guarded on cachePinMaps, the map these flags index, not on pinIgnores:
+    // a part present in both streams has its Packages/ flags stored already, and
+    // those index a different pin count.
+    if (!pmd.cachePinMaps.has(baseName)) {
+      pmd.cachePinMaps.set(baseName, firstDev.pinMap);
+      pmd.cachePinIgnores.set(baseName, firstDev.pinIgnore);
+    }
+    if (!pmd.cachePinMaps.has(pkg.name)) {
+      pmd.cachePinMaps.set(pkg.name, firstDev.pinMap);
+      pmd.cachePinIgnores.set(pkg.name, firstDev.pinIgnore);
+    }
   } else {
     const unitRefs = pkg.devices.map((d) => d.unitRef);
     if (!pmd.deviceUnitRefs.has(baseName)) pmd.deviceUnitRefs.set(baseName, unitRefs);
     for (const dev of pkg.devices) {
       const baseKey = baseName + dev.unitRef;
-      if (!pmd.pinMaps.has(baseKey)) pmd.pinMaps.set(baseKey, dev.pinMap);
-      if (!pmd.cachePinMaps.has(baseKey)) pmd.cachePinMaps.set(baseKey, dev.pinMap);
+      if (!pmd.pinMaps.has(baseKey)) {
+        pmd.pinMaps.set(baseKey, dev.pinMap);
+        pmd.pinIgnores.set(baseKey, dev.pinIgnore);
+      }
+      if (!pmd.cachePinMaps.has(baseKey)) {
+        pmd.cachePinMaps.set(baseKey, dev.pinMap);
+        pmd.cachePinIgnores.set(baseKey, dev.pinIgnore);
+      }
       if (pkg.name !== baseName) {
         const nameKey = pkg.name + dev.unitRef;
-        if (!pmd.pinMaps.has(nameKey)) pmd.pinMaps.set(nameKey, dev.pinMap);
-        if (!pmd.cachePinMaps.has(nameKey)) pmd.cachePinMaps.set(nameKey, dev.pinMap);
+        if (!pmd.pinMaps.has(nameKey)) {
+          pmd.pinMaps.set(nameKey, dev.pinMap);
+          pmd.pinIgnores.set(nameKey, dev.pinIgnore);
+        }
+        if (!pmd.cachePinMaps.has(nameKey)) {
+          pmd.cachePinMaps.set(nameKey, dev.pinMap);
+          pmd.cachePinIgnores.set(nameKey, dev.pinIgnore);
+        }
       }
     }
   }

@@ -11,6 +11,7 @@
 import fs from "fs";
 import path from "path";
 import { parseDsnFile } from "../src/parsers/cadence/dsn/dsn-parser.js";
+import { findCadenceDatFiles } from "../src/parsers/cadence/discovery.js";
 import {
   analyzeCoverage,
   formatCoverageReport,
@@ -36,6 +37,7 @@ const verbose = !!filterName;
 
 const dsnFiles = findDsnFiles(fixturesDir);
 const results: CoverageResult[] = [];
+const selfSnapshots: string[] = [];
 
 for (const dsnFile of dsnFiles) {
   const projectName = path.basename(dsnFile, path.extname(dsnFile));
@@ -43,6 +45,13 @@ for (const dsnFile of dsnFiles) {
 
   if (filterName && !projectName.includes(filterName)) continue;
   if (!fs.existsSync(goldenFile)) continue;
+
+  // gen-golden parses pstxnet.dat when one sits beside the design, and falls
+  // back to the .DSN when none does. A golden of the second kind is our own
+  // output, so measuring against it reports agreement with ourselves. Say so
+  // rather than let a stale snapshot read as a Cadence reference.
+  const datFiles = await findCadenceDatFiles(dsnFile);
+  if (!datFiles.pstxnet) selfSnapshots.push(projectName);
 
   try {
     const golden: ParsedNetlist = JSON.parse(fs.readFileSync(goldenFile, "utf-8"));
@@ -54,3 +63,12 @@ for (const dsnFile of dsnFiles) {
 }
 
 console.log(formatCoverageReport(results, { verbose }));
+
+if (selfSnapshots.length > 0) {
+  console.log(
+    `\nNOT MEASURED AGAINST CADENCE: ${selfSnapshots.join(", ")}\n` +
+      `  No pstxnet.dat beside the design, so the golden is a snapshot of this\n` +
+      `  parser's own output. Its numbers say the parser is self-consistent,\n` +
+      `  not that it is correct.`
+  );
+}
