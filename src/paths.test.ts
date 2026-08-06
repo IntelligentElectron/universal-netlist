@@ -64,9 +64,22 @@ vi.mock("fs", async () => {
         }));
       }),
       mkdir: vi.fn(async () => undefined),
+      // resolveExportDir confirms a candidate is a directory, and the export
+      // compares .dat timestamps before and after to tell a fresh netlist from
+      // a previous run's. A rising clock models a run that wrote all three.
+      stat: vi.fn(async (target: string) => {
+        const base = String(target).split(/[\\/]/).pop() ?? "";
+        return {
+          isDirectory: () => !base.includes("."),
+          isFile: () => base.includes("."),
+          mtimeMs: statClock++,
+        };
+      }),
     },
   };
 });
+
+let statClock = 1;
 
 vi.mock("./parsers/index.js", () => ({
   discoverDesigns: vi.fn(),

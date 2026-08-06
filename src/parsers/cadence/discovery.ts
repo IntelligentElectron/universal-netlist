@@ -164,6 +164,15 @@ const isDescendantOrEqual = (childDir: string, parentDir: string): boolean => {
  * Check if design name appears as an exact directory component in a relative path.
  * Case-insensitive matching.
  */
+/** A path component naming the design outweighs any amount of distance. */
+const NAME_MATCH_BONUS = 1000;
+/**
+ * The export directory outranks a bare name match by more than the depth
+ * penalty can erode, so a fresh export still wins from a directory or two
+ * deeper than a stale one carrying the same name.
+ */
+const EXPORT_DIR_BONUS = NAME_MATCH_BONUS + 100;
+
 type NameMatch = "none" | "named" | "exported";
 
 /**
@@ -198,25 +207,14 @@ const scoreDatSetMatch = (designDir: string, designName: string, datSet: DatFile
   // Bonus for design name appearing as a path component in the RELATIVE path
   // (not the absolute path, which might contain project folder names)
   const match = designNameInRelativePath(relPath, designName);
-  if (match === "exported") score += 1001;
-  else if (match === "named") score += 1000;
+  if (match === "exported") score += EXPORT_DIR_BONUS;
+  else if (match === "named") score += NAME_MATCH_BONUS;
 
   // Prefer closer paths (fewer directory levels between design and dat)
   score -= depth;
 
   return score;
 };
-
-/**
- * Does a dat set's `ROOT_DRAWING` identify this design?
- *
- * Cadence writes the design's own name, uppercased and cut at the first `.`,
- * so `CutiePi_V2.3-20210409` is recorded as `CUTIEPI_V2` and
- * `reComputer J401_V1.0` as `RECOMPUTER J401_V1`. Comparing the design name cut
- * the same way is what makes the two comparable.
- */
-const rootDrawingNames = (rootDrawing: string, designName: string): boolean =>
-  rootDrawing.toUpperCase() === designName.split(".")[0].toUpperCase();
 
 /**
  * A candidate pairing of a design with a dat set.
@@ -238,8 +236,7 @@ interface MatchCandidate {
  */
 const matchDatSetsToDesigns = (
   designFiles: string[],
-  datSets: DatFileSet[],
-  rootDrawings: Map<string, string> = new Map()
+  datSets: DatFileSet[]
 ): Map<string, DatFileSet | null> => {
   const assignments = new Map<string, DatFileSet | null>();
 
@@ -249,7 +246,6 @@ const matchDatSetsToDesigns = (
   }
 
   // Build all valid candidate pairings
-  const designNames = designFiles.map((d) => path.basename(d, path.extname(d)));
   const candidates: MatchCandidate[] = [];
   for (const designPath of designFiles) {
     const designDir = path.dirname(designPath);
@@ -257,20 +253,6 @@ const matchDatSetsToDesigns = (
 
     for (const datSet of datSets) {
       if (!isDescendantOrEqual(datSet.directory, designDir)) continue;
-      // Cadence records which design it generated a netlist from. When that
-      // says another design in scope, this set is not a candidate at all: a
-      // shared directory left over from before per-design exports would
-      // otherwise be handed to whichever sibling happened to be left over,
-      // and that sibling would answer every query with another design's
-      // circuit and no error to show for it.
-      const rootDrawing = rootDrawings.get(datSet.directory);
-      if (
-        rootDrawing !== undefined &&
-        !rootDrawingNames(rootDrawing, designName) &&
-        designNames.some((n) => rootDrawingNames(rootDrawing, n))
-      ) {
-        continue;
-      }
       candidates.push({
         designPath,
         datSet,
@@ -278,6 +260,31 @@ const matchDatSetsToDesigns = (
       });
     }
   }
+
+  // A dat set no design can claim by name, that two designs reach equally well,
+  // belongs to neither of them. Greedy assignment would hand it to whichever
+  // design sorted first, and the other would answer every query with that
+  // design's circuit and show no error for it. This is the shape a folder is
+  // left in mid-migration: one design re-exported to its own directory, the
+  // shared one they used to overwrite each other in now orphaned.
+  //
+  // Leaving it unassigned costs a fallback to parsing the schematic directly,
+  // which now reproduces the DAT export exactly, so the cost is time rather
+  // than fidelity.
+  const bestByDatSet = new Map<string, { score: number; designs: Set<string> }>();
+  for (const c of candidates) {
+    const seen = bestByDatSet.get(c.datSet.directory);
+    if (!seen || c.score > seen.score) {
+      bestByDatSet.set(c.datSet.directory, { score: c.score, designs: new Set([c.designPath]) });
+    } else if (c.score === seen.score) {
+      seen.designs.add(c.designPath);
+    }
+  }
+  const contested = new Set(
+    [...bestByDatSet.entries()]
+      .filter(([, best]) => best.score < NAME_MATCH_BONUS && best.designs.size > 1)
+      .map(([directory]) => directory)
+  );
 
   // Sort by score (descending), then by paths for determinism
   candidates.sort((a, b) => {
@@ -297,6 +304,7 @@ const matchDatSetsToDesigns = (
     if (assignedDesigns.has(candidate.designPath) || usedDatSets.has(candidate.datSet.directory)) {
       continue;
     }
+    if (contested.has(candidate.datSet.directory)) continue;
 
     assignments.set(candidate.designPath, candidate.datSet);
     assignedDesigns.add(candidate.designPath);
@@ -369,21 +377,23 @@ const buildStandaloneDesigns = async (
   );
 
   // Detect duplicate names and disambiguate
-  // A name is ambiguous if another leftover set answers to it, and equally if a
-  // real design already does: a shared directory orphaned by per-design exports
-  // records the design it came from, so it arrives here carrying that design's
-  // name and would otherwise appear twice in the listing with no way to tell
-  // the stale entry from the live one.
+  // A leftover set answers to the name Cadence recorded for it, which is often
+  // a live design's name. Compared case-insensitively because that name comes
+  // from ROOT_DRAWING, which Cadence always writes uppercase, while a design
+  // takes its name from the filename.
   const nameCounts = new Map<string, number>();
   for (const entry of nameEntries) {
-    nameCounts.set(entry.name, (nameCounts.get(entry.name) ?? 0) + 1);
+    const key = entry.name.toLowerCase();
+    nameCounts.set(key, (nameCounts.get(key) ?? 0) + 1);
   }
+  const taken = new Set([...takenNames].map((n) => n.toLowerCase()));
 
   return nameEntries.map((entry) => {
-    const ambiguous = nameCounts.get(entry.name)! > 1 || takenNames.has(entry.name);
-    const finalName = ambiguous
-      ? `${entry.name}_${shortPathHash(entry.datSet.directory)}`
-      : entry.name;
+    const key = entry.name.toLowerCase();
+    const finalName =
+      nameCounts.get(key)! > 1 || taken.has(key)
+        ? `${entry.name}_${shortPathHash(entry.datSet.directory)}`
+        : entry.name;
 
     return {
       name: finalName,
@@ -411,21 +421,8 @@ export const discoverCadenceDesigns = async (
   const absoluteRootDir = path.resolve(normalizeSeparators(rootDir));
   const { designFiles, datSets } = await walkForCadenceFiles(absoluteRootDir, options?.maxDepth);
 
-  // Which design each netlist was generated from, straight from Cadence.
-  const rootDrawings = new Map<string, string>();
-  await Promise.all(
-    datSets.map(async (ds) => {
-      try {
-        const name = await extractRootDrawing(ds.pstxprt);
-        if (name) rootDrawings.set(ds.directory, name);
-      } catch {
-        // Unreadable pstxprt just means no signal; matching falls back to paths.
-      }
-    })
-  );
-
   // Match dat sets to designs
-  const assignments = matchDatSetsToDesigns(designFiles, datSets, rootDrawings);
+  const assignments = matchDatSetsToDesigns(designFiles, datSets);
 
   const designs: CadenceDiscoveredDesign[] = [];
 
@@ -476,31 +473,34 @@ export const findCadenceDatFiles = async (designFilePath: string): Promise<Caden
   const designDir = path.dirname(normalizedPath);
   const designName = path.basename(normalizedPath, path.extname(normalizedPath));
 
-  const { datSets } = await walkForCadenceFiles(designDir);
+  const { designFiles, datSets } = await walkForCadenceFiles(designDir);
 
   // Find dat sets in this design's subtree
   const candidates = datSets.filter((ds) => isDescendantOrEqual(ds.directory, designDir));
-
   if (candidates.length === 0) {
     return { pstxnet: null, pstxprt: null, pstchip: null };
   }
 
-  // If multiple candidates, pick best by score
-  if (candidates.length === 1) {
-    const ds = candidates[0];
-    return { pstxnet: ds.pstxnet, pstxprt: ds.pstxprt, pstchip: ds.pstchip };
+  // Run the same assignment discoverCadenceDesigns runs, and read this design's
+  // answer out of it. Re-deriving the choice here let the two disagree: this
+  // function once returned a netlist for a design that list_designs had
+  // correctly left unmatched, and every query then answered about that design
+  // with a neighbour's circuit.
+  const self = designFiles.find((d) => normalizeSeparators(d) === normalizedPath);
+  if (self) {
+    const assigned = matchDatSetsToDesigns(designFiles, datSets).get(self);
+    return assigned
+      ? { pstxnet: assigned.pstxnet, pstxprt: assigned.pstxprt, pstchip: assigned.pstchip }
+      : { pstxnet: null, pstxprt: null, pstchip: null };
   }
 
+  // The caller passed something the walk does not treat as a design file, such
+  // as a pstxnet.dat path. Fall back to scoring, with the assignment's ordering.
   const scored = candidates.map((ds) => ({
     datSet: ds,
     score: scoreDatSetMatch(designDir, designName, ds),
   }));
-  // Same ordering as matchDatSetsToDesigns, so the two agree for one design.
-  // Without the tiebreak the winner of a tie came down to readdir order, and
-  // list_designs could report a different netlist than this function returned.
-  scored.sort(
-    (a, b) => b.score - a.score || a.datSet.directory.localeCompare(b.datSet.directory)
-  );
+  scored.sort((a, b) => b.score - a.score || a.datSet.directory.localeCompare(b.datSet.directory));
   const best = scored[0].datSet;
 
   return {

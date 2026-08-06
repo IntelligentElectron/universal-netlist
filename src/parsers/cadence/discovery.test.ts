@@ -349,27 +349,49 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
       expect(designs).toHaveLength(2);
     });
 
-    it("should not hand a design a netlist Cadence generated from another design", async () => {
-      // Mid-migration: BOARD_A has been re-exported and the shared allegro/ it
-      // used to share with BOARD_B is orphaned. BOARD_B has never been exported,
-      // so it must fall back to its own .DSN rather than silently answer every
-      // query with BOARD_A's circuit.
+    it("should leave a contested shared directory unassigned rather than guess", async () => {
+      // Mid-migration: BOARD_A has been re-exported and the shared allegro/ they
+      // used to overwrite each other in is orphaned. Nothing in the tree says
+      // whose it is, and BOARD_B has never been exported, so handing it over
+      // would make BOARD_B answer every query with BOARD_A's circuit.
       const projectDir = join(testDir, "project");
       await createDesign(join(projectDir, "BOARD_A.DSN"));
       await createDesign(join(projectDir, "BOARD_B.DSN"));
-      await createDatFiles(join(projectDir, "allegro"), "BOARD_A");
-      await createDatFiles(join(projectDir, "BOARD_A_netlist"), "BOARD_A");
+      await createDatFiles(join(projectDir, "allegro"));
+      await createDatFiles(join(projectDir, "BOARD_A_netlist"));
 
       const designs = await discoverCadenceDesigns(testDir);
-
       const a = designs.find((d) => d.name === "BOARD_A" && d.format === "cadence-cis");
       const b = designs.find((d) => d.name === "BOARD_B");
 
       expect(a?.datFiles?.pstxnet).toContain("BOARD_A_netlist");
       expect(b?.datFiles?.pstxnet).toBeNull();
-      // The orphan is still listed, under a name that cannot be mistaken for
-      // the live design.
-      expect(designs.some((d) => d.name === "BOARD_A" && d.format === "cadence-dat")).toBe(false);
+      // findCadenceDatFiles must reach the same conclusion, or the query path
+      // serves a circuit list_designs says the design does not have.
+      const direct = await findCadenceDatFiles(join(projectDir, "BOARD_B.DSN"));
+      expect(direct.pstxnet).toBeNull();
+    });
+
+    it("should still match a shared directory when only one design can claim it", async () => {
+      // One design, one unnamed directory: nothing is contested, so the ordinary
+      // proximity match still applies.
+      const projectDir = join(testDir, "project");
+      await createDesign(join(projectDir, "BOARD.DSN"));
+      await createDatFiles(join(projectDir, "allegro"));
+
+      const designs = await discoverCadenceDesigns(testDir);
+      expect(designs.find((d) => d.name === "BOARD")?.datFiles?.pstxnet).toContain("allegro");
+    });
+
+    it("should give a nested design its own directory over a distant sibling", async () => {
+      // Not a tie: the nested design is strictly closer, so it still wins.
+      await createDesign(join(testDir, "TOP.DSN"));
+      await createDesign(join(testDir, "sub", "NESTED.DSN"));
+      await createDatFiles(join(testDir, "sub", "allegro"));
+
+      const designs = await discoverCadenceDesigns(testDir);
+      expect(designs.find((d) => d.name === "NESTED")?.datFiles?.pstxnet).toContain("allegro");
+      expect(designs.find((d) => d.name === "TOP")?.datFiles?.pstxnet).toBeNull();
     });
 
     it("should prefer a fresh <design>_netlist over a stale directory with the same name", async () => {
@@ -402,7 +424,11 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
       const designs = await discoverCadenceDesigns(testDir);
 
       const a = designs.find((d) => d.name === "BOARD_A");
+      const b = designs.find((d) => d.name === "BOARD_B");
       expect(a?.datFiles?.pstxnet).toContain("BOARD_A_netlist");
+      // The other half of the same scenario: the stale shared directory is
+      // contested, so BOARD_B gets nothing rather than BOARD_A's circuit.
+      expect(b?.datFiles?.pstxnet).toBeNull();
     });
 
     it("should prefer name-matching over proximity when resolving conflicts", async () => {
@@ -463,13 +489,19 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
       expect(design1V2!.error).toBeUndefined();
     });
 
-    it("should use proximity when names dont match any candidate", async () => {
+    it("should not guess which of two equal designs owns a generically named directory", async () => {
       // Structure:
       // project/
       // ├── DesignA.cpm
       // ├── DesignB.cpm
-      // └── output/              <- generic name, no name match
+      // └── output/              <- generic name, names neither design
       //     └── *.dat
+      //
+      // This used to hand the set to whichever design sorted first, which is
+      // right half the time and silent when it is wrong: the loser's queries
+      // would answer with the winner's circuit. Nothing here says whose netlist
+      // it is, so neither design claims it and it is listed in its own right,
+      // where it stays queryable and visibly separate.
       const projectDir = join(testDir, "project");
       await createDesign(join(projectDir, "DesignA.cpm"));
       await createDesign(join(projectDir, "DesignB.cpm"));
@@ -477,14 +509,12 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
 
       const designs = await discoverCadenceDesigns(testDir);
 
-      expect(designs).toHaveLength(2);
-
-      // One should get the .dat files (first processed or by proximity)
-      const withDat = designs.filter((d) => d.datFiles?.pstxnet !== null);
-      const withoutDat = designs.filter((d) => d.datFiles?.pstxnet === null);
-
-      expect(withDat).toHaveLength(1);
-      expect(withoutDat).toHaveLength(1);
+      expect(designs.filter((d) => d.format !== "cadence-dat")).toHaveLength(2);
+      for (const d of designs.filter((d) => d.format !== "cadence-dat")) {
+        expect(d.datFiles?.pstxnet).toBeNull();
+      }
+      // The netlist itself is not lost.
+      expect(designs.filter((d) => d.format === "cadence-dat")).toHaveLength(1);
     });
 
     it("should NOT match based on project folder name in absolute path", async () => {

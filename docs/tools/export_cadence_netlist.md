@@ -28,7 +28,7 @@ Generates Allegro-compatible netlist files from Cadence schematics using the `ps
     },
     "outputDir": {
       "type": "string",
-      "description": "Directory where output files were written (relative to CWD; absolute if on a different Windows drive)"
+      "description": "Absolute path of the directory the netlist was written to"
     },
     "log": {
       "type": "string",
@@ -82,7 +82,7 @@ Response (success):
 ```json
 {
   "success": true,
-  "outputDir": "Schematics/Board_netlist",
+  "outputDir": "C:/repo/Schematics/MyBoard_netlist",
   "cadenceVersion": "17.4",
   "generatedFiles": [
     "pstchip.dat",
@@ -99,10 +99,10 @@ Response (success):
 }
 ```
 
-**Error (export produced no netlist):**
+**Error (export produced an incomplete netlist):**
 ```json
 {
-  "error": "Cadence pstswp reported success but wrote no netlist to C:/repo/Schematics/Board_netlist. Check the log for the directory it actually used."
+  "error": "Cadence pstswp reported success but did not write pstxprt.dat to C:/repo/Schematics/MyBoard_netlist. Check the log for the directory it actually used."
 }
 ```
 

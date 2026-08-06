@@ -49,8 +49,7 @@ export const getDesignName = (design: string): string =>
 export const NETLIST_DIR_SUFFIX = "_netlist";
 
 /** Name of the export directory belonging to a design. */
-export const netlistDirName = (designName: string): string =>
-  `${designName}${NETLIST_DIR_SUFFIX}`;
+export const netlistDirName = (designName: string): string => `${designName}${NETLIST_DIR_SUFFIX}`;
 
 /** Does this directory name look like `<design>`'s export directory? */
 export const isNetlistDirFor = (dirName: string, designName: string): boolean =>

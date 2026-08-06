@@ -5,6 +5,7 @@ import {
   relocateLockFile,
   restoreLockFile,
   resolveExportDir,
+  relocateLockFile,
 } from "./cadence-export.js";
 import type { ErrorResult } from "../../types.js";
 import { netlistDirName } from "../../paths.js";
@@ -286,5 +287,56 @@ describe("resolveExportDir", () => {
 
   it("keeps the design's own spelling in the directory name", () => {
     expect(netlistDirName("reServer J401 v1.1")).toBe("reServer J401 v1.1_netlist");
+  });
+});
+
+describe("relocateLockFile", () => {
+  let tmpDir: string;
+
+  beforeEach(async () => {
+    vi.restoreAllMocks();
+    tmpDir = await fs.promises.mkdtemp(path.join(os.tmpdir(), "netlist-lock-"));
+  });
+
+  afterEach(async () => {
+    await fs.promises.rm(tmpDir, { recursive: true, force: true });
+  });
+
+  it("moves the lock file aside for a .DSN", async () => {
+    const design = path.join(tmpDir, "BOARD.DSN");
+    await fs.promises.writeFile(design, "design");
+    await fs.promises.writeFile(path.join(tmpDir, "BOARD.DSNlck"), "lock");
+
+    const moved = await relocateLockFile(design);
+
+    expect(moved).toBeDefined();
+    expect(path.basename(moved!)).toContain("BOARD.DSNlck");
+    // The design itself is untouched.
+    expect(await fs.promises.readFile(design, "utf-8")).toBe("design");
+  });
+
+  it("never moves the design when the path is not a .DSN", async () => {
+    // `replace` returns the string unchanged when the pattern does not match, so
+    // the lock path WAS the design path and this moved the user's design into
+    // the temp directory. list_designs hands out pstxnet.dat for a dat-only
+    // design and the .cpm for an HDL one, so following the documented workflow
+    // reached it, and the restore is a cross-volume rename that fails on the
+    // network shares these designs live on.
+    for (const name of ["BOARD.cpm", "pstxnet.dat", "BOARD.DSN.bak"]) {
+      const design = path.join(tmpDir, name);
+      await fs.promises.writeFile(design, "design");
+
+      expect(await relocateLockFile(design)).toBeUndefined();
+      expect(await fs.promises.readFile(design, "utf-8")).toBe("design");
+    }
+  });
+});
+
+describe("exportCadenceNetlist input validation", () => {
+  it("refuses a path that is not a .DSN before touching the filesystem", async () => {
+    const result = await exportCadenceNetlist("/tmp/whatever/BOARD.cpm");
+
+    expect(result).toHaveProperty("error");
+    expect((result as ErrorResult).error).toContain(".DSN");
   });
 });

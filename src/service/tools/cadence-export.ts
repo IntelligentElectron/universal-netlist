@@ -94,11 +94,12 @@ export const resolveExportDir = async (
   // the collision this whole function exists to prevent. AppleDouble sidecars
   // (`._NAME.DSN`, written by macOS onto SMB and NFS shares) are not designs.
   const designCount = entries.filter(
-    (e) => e.isFile() && !e.name.startsWith("._") && /\.(dsn|cpm)$/i.test(e.name)
+    (e) => !e.isDirectory() && !e.name.startsWith("._") && /\.(dsn|cpm)$/i.test(e.name)
   ).length;
 
   const dirName =
-    designCount <= 1 ? ((await legacyExportDir(dsnDir, entries)) ?? netlistDirName(designName))
+    designCount <= 1
+      ? ((await legacyExportDir(dsnDir, entries)) ?? netlistDirName(designName))
       : netlistDirName(designName);
 
   const outputDir = path.join(dsnDir, dirName);
@@ -117,12 +118,27 @@ export const resolveExportDir = async (
  * kept reading the real one.
  */
 const legacyExportDir = async (dsnDir: string, entries: Dirent[]): Promise<string | undefined> => {
-  const candidates = entries
-    .filter((e) => e.isDirectory() && e.name.toLowerCase() === "allegro")
+  const named = entries
+    .filter((e) => e.name.toLowerCase() === "allegro")
     .map((e) => e.name)
     .sort();
+
+  // stat, not Dirent.isDirectory(): a symlink or a Windows directory junction
+  // reports false there, and pointing `allegro` at a shared netlist drop is a
+  // normal way to set up exactly the layout this branch exists to preserve.
+  const candidates: string[] = [];
+  for (const name of named) {
+    try {
+      if ((await fs.promises.stat(path.join(dsnDir, name))).isDirectory()) candidates.push(name);
+    } catch {
+      // Broken link or vanished entry; not a usable output directory.
+    }
+  }
   if (candidates.length <= 1) return candidates[0];
 
+  // Several spellings can only coexist on a case-sensitive filesystem. The one
+  // already holding a netlist is the live one; an empty stray would silently
+  // become the export target while consumers kept reading the real directory.
   for (const name of candidates) {
     try {
       await fs.promises.access(path.join(dsnDir, name, "pstxnet.dat"));
@@ -134,12 +150,47 @@ const legacyExportDir = async (dsnDir: string, entries: Dirent[]): Promise<strin
   return candidates[0];
 };
 
+/** The three files a netlist export must produce for any consumer to use it. */
+const REQUIRED_DAT_FILES = ["pstxnet.dat", "pstxprt.dat", "pstchip.dat"] as const;
+
+/** Modification time of each required .dat file present in a directory. */
+const datFileTimestamps = async (dir: string): Promise<Map<string, number>> => {
+  const stamps = new Map<string, number>();
+  await Promise.all(
+    REQUIRED_DAT_FILES.map(async (name) => {
+      try {
+        const st = await fs.promises.stat(path.join(dir, name));
+        stamps.set(name, st.mtimeMs);
+      } catch {
+        // Absent, which is what an unwritten file looks like.
+      }
+    })
+  );
+  return stamps;
+};
+
+/** pstswp at -v 3 -l 255 can emit megabytes; an error message carries the tail. */
+const truncateLog = (log: string): string => (log.length <= 2000 ? log : `...${log.slice(-2000)}`);
+
+/** The lock file OrCAD Capture holds beside an open design, if this is a .DSN. */
+const lockFilePathFor = (dsnPath: string): string | undefined =>
+  /\.DSN$/i.test(dsnPath) ? dsnPath.replace(/\.DSN$/i, ".DSNlck") : undefined;
+
 /**
  * Temporarily relocate a .DSNlck lock file so pstswp can proceed.
  * Returns the temporary path if relocated, or undefined if no lock file exists.
+ *
+ * The path must be checked for the .DSN extension first. `replace` returns the
+ * string unchanged when the pattern does not match, so for any other path the
+ * lock path WAS the design path, and this function moved the design itself into
+ * the temp directory. `list_designs` hands out `pstxnet.dat` for a dat-only
+ * design and the `.cpm` for an HDL one, so that was reachable by following the
+ * documented workflow, and the restore is a cross-volume rename that fails on
+ * the network shares these designs live on.
  */
 export const relocateLockFile = async (dsnPath: string): Promise<string | undefined> => {
-  const lockPath = dsnPath.replace(/\.DSN$/i, ".DSNlck");
+  const lockPath = lockFilePathFor(dsnPath);
+  if (!lockPath) return undefined;
   try {
     await fs.promises.access(lockPath);
   } catch {
@@ -155,7 +206,8 @@ export const relocateLockFile = async (dsnPath: string): Promise<string | undefi
  * Logs a warning if restoration fails (e.g. temp file was cleaned up).
  */
 export const restoreLockFile = async (dsnPath: string, tempPath: string): Promise<void> => {
-  const lockPath = dsnPath.replace(/\.DSN$/i, ".DSNlck");
+  const lockPath = lockFilePathFor(dsnPath);
+  if (!lockPath) return;
   try {
     await fs.promises.rename(tempPath, lockPath);
   } catch {
@@ -173,6 +225,15 @@ export const restoreLockFile = async (dsnPath: string, tempPath: string): Promis
 export const exportCadenceNetlist = async (
   dsnPath: string
 ): Promise<ExportNetlistResult | ErrorResult> => {
+  // Argument validation first: it does not depend on the platform, and every
+  // path below assumes a .DSN. pstswp needs the schematic, and the lock-file
+  // handling derives its path by substituting the .DSN extension.
+  if (!/\.DSN$/i.test(dsnPath)) {
+    return {
+      error: `export_cadence_netlist needs the .DSN schematic, not ${path.basename(dsnPath)}. For an HDL (.cpm) design, export from Cadence: Tools → Create Netlist → PCB Editor format.`,
+    };
+  }
+
   // Platform check
   if (process.platform !== "win32") {
     return {
@@ -210,8 +271,24 @@ export const exportCadenceNetlist = async (
   }
 
   return serializePstswp(async () => {
-    // Temporarily relocate .DSNlck lock file if present (stale locks block pstswp)
-    const lockTempPath = await relocateLockFile(resolvedDsnPath);
+    // Everything below the mutex reports failure as an ErrorResult. Relocating
+    // the lock file is a rename that can fail on its own: the lock exists
+    // because Capture holds the design open, and a rename to the temp directory
+    // crosses volumes whenever the project lives on a mapped or UNC share.
+    let lockTempPath: string | undefined;
+    try {
+      lockTempPath = await relocateLockFile(resolvedDsnPath);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      return {
+        error: `Could not move the .DSNlck lock file aside for ${dsnFile}: ${message}. Close the design in Cadence and try again.`,
+      };
+    }
+
+    // What was already in the output directory before this run. mkdir(recursive)
+    // reuses an existing directory and nothing clears it, so a previous run's
+    // netlist would otherwise make a run that wrote nothing look successful.
+    const before = await datFileTimestamps(outputDir);
 
     const command = `cd /d "${dsnDir}" && "${cadence.pstswp}" -pst -d "${dsnFile}" -n "${outputDirName}" -c "${cadence.config}" -v 3 -l 255 -j "PCB Footprint"`;
 
@@ -222,21 +299,35 @@ export const exportCadenceNetlist = async (
       });
 
       // pstswp can exit cleanly having written nothing where we expect it, and
-      // reporting success with an empty directory sends the caller to look for
-      // files that are not there. The netlist itself is the evidence.
+      // reporting success then sends the caller to read files that are missing,
+      // or worse, a previous run's. Every consumer needs the whole trio:
+      // discovery only forms a dat set when all three exist. So the evidence is
+      // all three present AND written by this run.
       let generatedFiles: string[] | undefined;
+      let listError: string | undefined;
       try {
         generatedFiles = (await fs.promises.readdir(outputDir)).sort();
-      } catch {
-        // Output directory may not exist if export failed silently
+      } catch (err: unknown) {
+        listError = err instanceof Error ? err.message : String(err);
       }
 
       const log = (stdout + stderr).trim() || undefined;
-      if (!generatedFiles?.some((f) => f.toLowerCase() === "pstxnet.dat")) {
+      if (listError !== undefined) {
+        return { error: `Could not read the export directory ${outputDir}: ${listError}` };
+      }
+
+      const after = await datFileTimestamps(outputDir);
+      const stale = REQUIRED_DAT_FILES.filter(
+        (f) => after.get(f) === undefined || after.get(f) === before.get(f)
+      );
+      if (stale.length > 0) {
+        const missing = REQUIRED_DAT_FILES.filter((f) => after.get(f) === undefined);
         return {
           error:
-            `Cadence pstswp reported success but wrote no netlist to ${outputDir}. ` +
-            `Check the log for the directory it actually used.${log ? ` Log: ${log}` : ""}`,
+            (missing.length > 0
+              ? `Cadence pstswp reported success but did not write ${missing.join(", ")} to ${outputDir}.`
+              : `Cadence pstswp reported success but left ${stale.join(", ")} in ${outputDir} unchanged, so the netlist there is from an earlier run.`) +
+            ` Check the log for the directory it actually used.${log ? ` Log: ${truncateLog(log)}` : ""}`,
         };
       }
 
