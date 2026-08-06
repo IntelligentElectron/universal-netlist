@@ -95,7 +95,9 @@ export const resolveExportDir = async (
   }
 
   const designCount = entries.filter((e) => /\.dsn$/i.test(e)).length;
-  const legacyDir = ["Allegro", "allegro"].find((c) => entries.includes(c));
+  // Matched case-insensitively and kept with its real spelling on disk: real
+  // projects ship Allegro/, allegro/ and ALLEGRO/ alike.
+  const legacyDir = entries.filter((e) => e.toLowerCase() === "allegro").sort()[0];
 
   const dirName = legacyDir && designCount <= 1 ? legacyDir : netlistDirName(designName);
   const outputDir = path.join(dsnDir, dirName);

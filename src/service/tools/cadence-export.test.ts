@@ -219,12 +219,21 @@ describe("resolveExportDir", () => {
     expect((await resolveExportDir(only)).dirName).toBe("allegro");
   });
 
-  it("prefers Allegro/ over allegro/ when both exist", async () => {
-    await fs.promises.mkdir(path.join(tmpDir, "Allegro"));
-    await fs.promises.mkdir(path.join(tmpDir, "allegro2"));
+  it("recognises an existing ALLEGRO/ whatever its case", async () => {
+    // Real projects ship Allegro/, allegro/ and ALLEGRO/ alike.
+    await fs.promises.mkdir(path.join(tmpDir, "ALLEGRO"));
     const only = await withDesigns("BOARD.DSN");
 
-    expect((await resolveExportDir(only)).dirName).toBe("Allegro");
+    const result = await resolveExportDir(only);
+    expect(result.dirName).toBe("ALLEGRO");
+    expect(result.outputDir).toBe(path.join(tmpDir, "ALLEGRO"));
+  });
+
+  it("does not mistake a similarly named directory for the legacy one", async () => {
+    await fs.promises.mkdir(path.join(tmpDir, "allegro_old"));
+    const only = await withDesigns("BOARD.DSN");
+
+    expect((await resolveExportDir(only)).dirName).toBe("BOARD_netlist");
   });
 
   it("creates the per-design directory when no legacy directory exists", async () => {
