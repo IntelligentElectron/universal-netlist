@@ -117,10 +117,17 @@ npm test              # Unit tests
    - Link any related issues
    - Describe what you changed and why
 
-5. **Code Review:**
+5. **Do not edit `CHANGELOG.md` or `package.json`:**
+   Release notes and version bumps are the maintainer's, collected into a separate release
+   PR. Both files append at the top, so editing them in a feature PR conflicts with every
+   other open PR. Instead, add a short `## Changelog` section to your PR description saying
+   what changes for a user — that text is what ends up in the release notes.
+
+6. **Code Review:**
    - Respond to feedback
    - Make requested changes
-   - Keep the PR updated with main
+   - A merge queue lands merged PRs, so you do not need to keep your branch up to date
+     with `main` yourself
 
 ## Reporting Issues
 

@@ -50,14 +50,20 @@ npm run type-check && npm run lint && npm test
 
 ### Releasing
 
-Include version bump and changelog in the feature PR itself (no separate release PR):
+The maintainer owns `CHANGELOG.md` and the version bump. Feature PRs carry code and
+tests only; they must NOT edit `CHANGELOG.md` or `package.json`.
 
-1. Before pushing your feature branch, add the release commits:
-   - Update `CHANGELOG.md` with new version section
-   - `git commit -am "Add vX.Y.Z changelog"`
-   - `npm version patch --no-git-tag-version` (bumps `package.json` only, no tag)
-   - `git commit -am "vX.Y.Z"`
-2. Push branch and open PR as usual
+Both files append at the top, so a bump in every feature PR makes each concurrent PR
+conflict with the last, and a contributor cannot know whether their change is a patch or
+a minor. Instead a PR describes its user-visible effect in a `## Changelog` section of the
+PR body, and the maintainer collects those into one release PR.
+
+1. Cut a release PR from `main` after the fixes for the release have merged:
+   - Update `CHANGELOG.md` with a new version section, written from the merged PRs' own
+     Changelog sections
+   - `npm version minor|patch --no-git-tag-version` (bumps `package.json` only, no tag)
+   - One commit, e.g. `chore: vX.Y.Z changelog`
+2. Open it as a normal PR and let the merge queue land it
 3. After merge, tag the merge commit and push:
 
    ```bash
