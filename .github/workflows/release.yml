@@ -4,6 +4,12 @@ on:
   push:
     tags:
       - 'v*'
+  # A tag push is a webhook delivery like any other, and when Actions throttles
+  # webhooks to recover from an incident those deliveries are dropped. The tag
+  # then exists with no release built from it, and nothing in this repo could
+  # start the run by hand, so the only way back was deleting and re-pushing a
+  # public tag. Dispatch this against the tag (not a branch) to run it manually.
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -15,6 +21,22 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      # Every version below is derived by stripping `refs/tags/v` off GITHUB_REF.
+      # Dispatched against a branch that strip is a no-op, so the version would
+      # silently become the ref itself; fail here instead, before anything is
+      # built, signed, released or published.
+      - name: Validate the ref is a version tag
+        run: |
+          case "$GITHUB_REF" in
+            refs/tags/v*)
+              echo "Releasing from $GITHUB_REF"
+              ;;
+            *)
+              echo "::error::Release must run on a v* tag, got $GITHUB_REF. Re-run this workflow with the tag as the ref."
+              exit 1
+              ;;
+          esac
 
       - name: Validate CHANGELOG has release notes
         run: |
