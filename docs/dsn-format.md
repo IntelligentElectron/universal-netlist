@@ -868,13 +868,34 @@ For example, if T0x10.sth = 5 and Device.pinMap[4] = "A5", the physical pin is "
 
 If no pin map is found, `pinIndex` itself is used as the pin number string (fallback).
 
-**Cache fallback for physical-vs-schematic mismatch**: When the `Packages/` stream Device has more `pin_map` entries than the instance's T0x10 count, the parser falls back to the Cache stream's Device for that component. The Cache version stores only the schematic-level pins, so its `pin_map` length matches the T0x10 count and `pinMap[pinIndex - 1]` resolves correctly.
+**Cache fallback for physical-vs-schematic mismatch**: The `Packages/` `pin_map` describes the physical package, whose pad count need not equal the symbol's pin count, and one package may serve symbols exposing different subsets of it. When the `Packages/` map length differs from the instance's T0x10 count, the parser consults the Cache stream's Device for that component, which stores the schematic-level pins. A Cache map whose length equals the T0x10 count settles the choice in either direction; otherwise only the longer-package case prefers the Cache.
+
+Selecting on length matters because a mismatched map is not merely short, it can be transposed. CutiePi's `CON_HDMI_RA` is a 23-pin symbol whose `Packages/` map has 20 entries with the 17th and 18th swapped (`..."16","18","17","19","20"`), so resolving through it reported HDMI SCL and SDA on each other's pins. The Cache map for the same part has exactly 23 entries in order.
 
 Example: XTAL-CM200S (4-pad crystal, 2 schematic pins):
 - `Packages/` pin_map: `["1", "3", "2", "4"]` (4 entries, all physical pads)
 - Cache pin_map: `["1", "2"]` (2 entries, schematic pins only)
 - T0x10 records: 2 (pinIndex 1 and 2)
 - Resolution uses Cache: pinIndex 1 -> "1", pinIndex 2 -> "2"
+
+#### Pin Ignore
+
+**Confidence: VERIFIED**
+
+Each pin name in a Device's `pin_map` is followed by one byte, `bitMapPinGrpCfg`: bit 7 is OrCAD's "Pin Ignore" property (Pin Properties -> Ignore) and bits 6..0 are the pin group.
+
+A section of a multi-section package that has no pad for one of the part's logical pins marks that pin ignored, and Cadence's netlist writer leaves it out. Such a pin must not appear in the netlist: reporting it invents a connection on a pad the part does not have.
+
+Example: `RJ45_1x4_LPJE104-0BENL`, a quad RJ45 whose fourth section has a second shield tab the other three lack.
+
+| Section | pin 13 | pin 14 | ignore(14) |
+|---|---|---|---|
+| 1 | `S1` | `SS1` | true |
+| 2 | `S2` | `SS2` | true |
+| 3 | `S3` | `SS3` | true |
+| 4 | `S4` | `S5` | false |
+
+The design's own `pstchip.dat` agrees, writing the second shield pin as `SHD2` with `PIN_NUMBER='(0,0,0,S5)'`: present only on the fourth section, `0` on the rest.
 
 ### 11.2 Pin Name Resolution
 

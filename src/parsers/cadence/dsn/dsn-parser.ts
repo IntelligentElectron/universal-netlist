@@ -52,6 +52,7 @@ export function parseDsnFile(dsnPath: string): ParsedNetlist {
     pinMaps: new Map(),
     cachePinMaps: new Map(),
     deviceUnitRefs: new Map(),
+    pinIgnores: new Map(),
   };
   const cachedParts = new Map<string, CachedLibraryPart>();
   const pkgStreamEntries = entries.filter(
@@ -73,9 +74,11 @@ export function parseDsnFile(dsnPath: string): ParsedNetlist {
       if (pkg.devices.length === 1) {
         if (!pmd.pinMaps.has(baseName)) {
           pmd.pinMaps.set(baseName, pkg.devices[0].pinMap);
+          pmd.pinIgnores.set(baseName, pkg.devices[0].pinIgnore);
         }
         // Also store by exact stream name for direct matches
         pmd.pinMaps.set(streamName, pkg.devices[0].pinMap);
+        pmd.pinIgnores.set(streamName, pkg.devices[0].pinIgnore);
       } else {
         // Multi-unit: store per unit keyed by both baseName and streamName
         // so findPinMap can match either sourcePackage form.
@@ -85,11 +88,13 @@ export function parseDsnFile(dsnPath: string): ParsedNetlist {
           const baseKey = baseName + device.unitRef;
           if (!pmd.pinMaps.has(baseKey)) {
             pmd.pinMaps.set(baseKey, device.pinMap);
+            pmd.pinIgnores.set(baseKey, device.pinIgnore);
           }
           if (streamName !== baseName) {
             const streamKey = streamName + device.unitRef;
             if (!pmd.pinMaps.has(streamKey)) {
               pmd.pinMaps.set(streamKey, device.pinMap);
+              pmd.pinIgnores.set(streamKey, device.pinIgnore);
             }
           }
         }

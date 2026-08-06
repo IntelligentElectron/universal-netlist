@@ -10,7 +10,7 @@ import { isValidRefdes } from "../../../circuit-traversal.js";
 import type { PinMapData } from "./structure-types.js";
 import type { GraphicInst } from "./structures.js";
 import type { PageData } from "./page-parser.js";
-import { resolvePinNumber } from "./pin-resolver.js";
+import { resolvePinNumber, isPinIgnored } from "./pin-resolver.js";
 
 /** Union-Find for grouping connected wire endpoints by coordinate. */
 class CoordUnionFind {
@@ -405,6 +405,10 @@ function collectPins(
       if (!refdes || !isValidRefdes(refdes)) continue;
       const deviceIndex = deviceIndexMap.get(inst.dbId);
       for (const pin of inst.t0x10s) {
+        // A pin this section of the package has no pad for is not a pin of the
+        // component; reporting it would invent a connection on a pad that does
+        // not exist. Cadence leaves such pins out of its own netlist.
+        if (isPinIgnored(pin, inst, pmd, deviceIndex)) continue;
         const coord = `${pin.pointX},${pin.pointY}`;
         let coordNet = coordToNet.get(coord);
 

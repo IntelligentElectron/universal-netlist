@@ -87,6 +87,16 @@ export interface Device {
   unitRef: string;
   refDes: string;
   pinMap: (string | null)[];
+  /**
+   * Per-pin "Pin Ignore" flag, bit 7 of the byte following each pin name
+   * (OrCAD's Pin Properties -> Ignore). Parallel to `pinMap`.
+   *
+   * A section of a multi-section package that has no pad for one of the part's
+   * logical pins marks that pin ignored. Cadence's own netlist writer drops it:
+   * a quad RJ45's `SHD2` pin exports as `PIN_NUMBER='(0,0,0,S5)'`, present only
+   * on the fourth section.
+   */
+  pinIgnore: boolean[];
 }
 
 export interface Package {
@@ -338,23 +348,27 @@ export function parseDevice(reader: BinaryReader): Device {
 
   const pinCount = reader.readUint16();
   const pinMap: (string | null)[] = [];
+  const pinIgnore: boolean[] = [];
 
   for (let i = 0; i < pinCount; i++) {
     const strLen = reader.readInt16();
     if (strLen === -1) {
       pinMap.push(null);
+      pinIgnore.push(false);
       continue;
     }
     // Put back the 2 bytes we just read (they're the string length)
     reader.seek(reader.tell() - 2);
     const pinName = reader.readStringLenZeroTerm();
-    reader.skip(1); // bitMapPinGrpCfg (pinIgnore + pinGroup)
+    // bitMapPinGrpCfg: bit 7 is Pin Ignore, bits 6..0 are the pin group
+    const bitMapPinGrpCfg = reader.readUint8();
     pinMap.push(pinName);
+    pinIgnore.push((bitMapPinGrpCfg & 0x80) !== 0);
   }
 
   futureData.checkpoint();
 
-  return { unitRef, refDes, pinMap };
+  return { unitRef, refDes, pinMap, pinIgnore };
 }
 
 export function parsePackage(reader: BinaryReader): Package {

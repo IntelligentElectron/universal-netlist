@@ -38,6 +38,21 @@ export function findPinMap(
   deviceUnitRefs: Map<string, string[]>,
   deviceIndex?: number
 ): (string | null)[] | undefined {
+  const key = findPinMapKey(inst, pinMaps, deviceUnitRefs, deviceIndex);
+  return key === undefined ? undefined : pinMaps.get(key);
+}
+
+/**
+ * The key under which this instance's pin map is stored, or undefined when no
+ * strategy matches. Resolving the key rather than the value lets a caller read
+ * the parallel `pinIgnores` entry for the same device.
+ */
+export function findPinMapKey(
+  inst: PlacedInstance,
+  pinMaps: Map<string, (string | null)[]>,
+  deviceUnitRefs: Map<string, string[]>,
+  deviceIndex?: number
+): string | undefined {
   const unitRef = extractUnitRef(inst);
 
   // Try each base name candidate (original, then normalized, then stripped)
@@ -49,40 +64,60 @@ export function findPinMap(
 
   for (const base of candidates) {
     // Direct match (single-device packages)
-    const direct = pinMaps.get(base);
-    if (direct) return direct;
+    if (pinMaps.has(base)) return base;
 
     // Multi-unit: try base + unitRef
     if (unitRef) {
-      const unitMatch = pinMaps.get(base + unitRef);
-      if (unitMatch) return unitMatch;
+      if (pinMaps.has(base + unitRef)) return base + unitRef;
 
       // Cadence doubles unit letters in pkgName (e.g., "AA") but pinMap
       // keys use single letter ("A"). Try the first character.
-      if (unitRef.length >= 2 && unitRef[0] === unitRef[1]) {
-        const singleMatch = pinMaps.get(base + unitRef[0]);
-        if (singleMatch) return singleMatch;
+      if (unitRef.length >= 2 && unitRef[0] === unitRef[1] && pinMaps.has(base + unitRef[0])) {
+        return base + unitRef[0];
       }
     }
 
     // Positional assignment: use deviceIndex to select correct device
     if (!unitRef && deviceIndex !== undefined) {
       const unitRefs = deviceUnitRefs.get(base);
-      if (unitRefs && deviceIndex < unitRefs.length) {
-        const match = pinMaps.get(base + unitRefs[deviceIndex]);
-        if (match) return match;
+      if (unitRefs && deviceIndex < unitRefs.length && pinMaps.has(base + unitRefs[deviceIndex])) {
+        return base + unitRefs[deviceIndex];
       }
     }
 
     // Fallback: a package whose devices are not enumerated in deviceUnitRefs
     // still has a single unit "A" entry to try.
-    if (!unitRef) {
-      const unitAMatch = pinMaps.get(base + "A");
-      if (unitAMatch) return unitAMatch;
-    }
+    if (!unitRef && pinMaps.has(base + "A")) return base + "A";
   }
 
   return undefined;
+}
+
+/**
+ * Whether this pin has no pad on this section of the package.
+ *
+ * A multi-section part whose sections do not all expose the same logical pins
+ * marks the absent ones "Pin Ignore" (see Device.pinIgnore). Cadence leaves such
+ * a pin out of the netlist: a quad RJ45's second shield pin exports as
+ * `PIN_NUMBER='(0,0,0,S5)'`, so only the fourth section has it. Reporting it
+ * would invent a connection on a pad the part does not have.
+ */
+export function isPinIgnored(
+  pin: T0x10,
+  inst: PlacedInstance,
+  pmd: PinMapData,
+  deviceIndex?: number
+): boolean {
+  if (pin.pinIndex <= 0) return false;
+
+  for (const maps of [pmd.pinMaps, pmd.cachePinMaps]) {
+    const key = findPinMapKey(inst, maps, pmd.deviceUnitRefs, deviceIndex);
+    if (key === undefined) continue;
+    const ignores = pmd.pinIgnores.get(key);
+    if (ignores && pin.pinIndex - 1 < ignores.length) return ignores[pin.pinIndex - 1];
+  }
+
+  return false;
 }
 
 const lookupPin = (
@@ -116,16 +151,25 @@ export function resolvePinNumber(
   const packagePin = lookupPin(pinMap, pin.pinIndex);
 
   if (pinMap && packagePin !== undefined) {
-    // When the Packages/ pinMap has more entries than the instance has T0x10
-    // records, the physical package has pads not exposed on the schematic
-    // symbol (e.g., a 2-pin crystal in a 4-pad package). In that case, the
-    // Cache stream's pinMap reflects the schematic-level mapping and should
-    // be preferred.
-    if (pinMap.length > inst.t0x10s.length) {
+    // The Packages/ pinMap describes the physical package, whose pad count need
+    // not match the schematic symbol's pin count: a 2-pin crystal may sit in a
+    // 4-pad package, and one package may serve symbols that expose different
+    // subsets of it. When the counts disagree, that map is not this symbol's,
+    // and the Cache stream's schematic-level map is preferred.
+    //
+    // A CutiePi HDMI connector shows what riding on the wrong map costs: its
+    // 23-pin symbol resolved through a 20-entry package map whose 17th and 18th
+    // entries are transposed, so SCL and SDA came out swapped.
+    if (pinMap.length !== inst.t0x10s.length) {
       const cacheMap = findPinMap(inst, pmd.cachePinMaps, pmd.deviceUnitRefs, deviceIndex);
       const cachePin = lookupPin(cacheMap, pin.pinIndex);
-      if (cacheMap && cacheMap.length <= inst.t0x10s.length && cachePin !== undefined) {
-        return cachePin;
+      if (cacheMap && cachePin !== undefined) {
+        // An exact count match settles it either way.
+        if (cacheMap.length === inst.t0x10s.length) return cachePin;
+        // Otherwise only the long-package case is known to favour the Cache.
+        if (pinMap.length > inst.t0x10s.length && cacheMap.length <= inst.t0x10s.length) {
+          return cachePin;
+        }
       }
     }
     return packagePin;

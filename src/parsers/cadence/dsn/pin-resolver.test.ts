@@ -4,6 +4,7 @@ import {
   findPinMap,
   extractUnitRef,
   buildDeviceIndexMap,
+  isPinIgnored,
 } from "./pin-resolver.js";
 import type { PinMapData } from "./structure-types.js";
 import type { PlacedInstance, T0x10 } from "./structures.js";
@@ -33,11 +34,13 @@ const instance = (sourcePackage: string, pinCount: number, pkgName?: string): Pl
 
 const pinMapData = (
   pinMaps: Record<string, (string | null)[]>,
-  cachePinMaps: Record<string, (string | null)[]> = {}
+  cachePinMaps: Record<string, (string | null)[]> = {},
+  pinIgnores: Record<string, boolean[]> = {}
 ): PinMapData => ({
   pinMaps: new Map(Object.entries(pinMaps)),
   cachePinMaps: new Map(Object.entries(cachePinMaps)),
   deviceUnitRefs: new Map(),
+  pinIgnores: new Map(Object.entries(pinIgnores)),
 });
 
 describe("resolvePinNumber", () => {
@@ -192,5 +195,86 @@ describe("extractUnitRef", () => {
 
   it("returns undefined when the instance has no unit suffix", () => {
     expect(extractUnitRef(instance("RES", 2))).toBeUndefined();
+  });
+});
+
+describe("pin map selection by symbol pin count", () => {
+  it("prefers the Cache map when the package map is shorter than the symbol", () => {
+    // CutiePi's HDMI connector: a 23-pin symbol, and a 20-entry package map that
+    // cannot describe it, whose 17th and 18th entries are transposed. Riding on
+    // it swapped SCL and SDA. The Cache map has exactly 23 entries.
+    const inst = instance("CON_HDMI_RA", 23);
+    const packageMap = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "18", "17", "19", "20"];
+    const cacheMap = Array.from({ length: 23 }, (_, i) => String(i + 1));
+    const pmd = pinMapData({ CON_HDMI_RA: packageMap }, { CON_HDMI_RA: cacheMap });
+
+    expect(resolvePinNumber(pin(17), inst, pmd)).toBe("17");
+    expect(resolvePinNumber(pin(18), inst, pmd)).toBe("18");
+  });
+
+  it("keeps using the package map when its length matches the symbol", () => {
+    // A transposition that the package map genuinely declares must survive: the
+    // symbol's pin order need not be the package's numbering.
+    const inst = instance("CON", 4);
+    const pmd = pinMapData({ CON: ["1", "2", "4", "3"] }, { CON: ["1", "2", "3", "4"] });
+
+    expect(resolvePinNumber(pin(3), inst, pmd)).toBe("4");
+    expect(resolvePinNumber(pin(4), inst, pmd)).toBe("3");
+  });
+
+  it("keeps the package map when neither map matches the symbol's pin count", () => {
+    const inst = instance("PART", 5);
+    const pmd = pinMapData({ PART: ["9", "8", "7"] }, { PART: ["1", "2"] });
+
+    expect(resolvePinNumber(pin(2), inst, pmd)).toBe("8");
+  });
+});
+
+describe("isPinIgnored", () => {
+  // A quad RJ45 whose sections do not all expose the same logical pins: the
+  // second shield pin exists only on the fourth, which Cadence exports as
+  // PIN_NUMBER='(0,0,0,S5)'. The DSN marks the absent ones "Pin Ignore".
+  const quadRj45 = (): PinMapData =>
+    pinMapData(
+      {
+        "RJ45-1": ["A1", "S1", "SS1"],
+        "RJ45-4": ["D1", "S4", "S5"],
+      },
+      {},
+      {
+        "RJ45-1": [false, false, true],
+        "RJ45-4": [false, false, false],
+      }
+    );
+
+  const section = (unitRef: string): PlacedInstance => ({
+    ...instance("RJ45", 3),
+    pkgName: `RJ45${unitRef}.Normal`,
+  });
+
+  it("reports a pin the section has no pad for", () => {
+    expect(isPinIgnored(pin(3), section("-1"), quadRj45())).toBe(true);
+  });
+
+  it("does not report the same logical pin on a section that has it", () => {
+    expect(isPinIgnored(pin(3), section("-4"), quadRj45())).toBe(false);
+  });
+
+  it("does not report pins the section does expose", () => {
+    expect(isPinIgnored(pin(1), section("-1"), quadRj45())).toBe(false);
+    expect(isPinIgnored(pin(2), section("-1"), quadRj45())).toBe(false);
+  });
+
+  it("reports nothing when the design records no flags", () => {
+    const inst = instance("RES", 2);
+    expect(isPinIgnored(pin(1), inst, pinMapData({ RES: ["1", "2"] }))).toBe(false);
+  });
+
+  it("reports nothing for a pin index outside the recorded flags", () => {
+    const inst = instance("RES", 2);
+    const pmd = pinMapData({ RES: ["1", "2"] }, {}, { RES: [false, false] });
+
+    expect(isPinIgnored(pin(9), inst, pmd)).toBe(false);
+    expect(isPinIgnored(pin(0), inst, pmd)).toBe(false);
   });
 });

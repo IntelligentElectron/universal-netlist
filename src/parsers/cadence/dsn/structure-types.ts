@@ -46,6 +46,13 @@ export interface PinMapData {
   pinMaps: Map<string, (string | null)[]>;
   cachePinMaps: Map<string, (string | null)[]>;
   deviceUnitRefs: Map<string, string[]>;
+  /**
+   * Per-pin "Pin Ignore" flags, parallel to the same key's entry in `pinMaps`
+   * and `cachePinMaps`. A section of a multi-section package that has no pad
+   * for one of the part's logical pins marks that pin ignored, and Cadence's
+   * netlist writer leaves it out.
+   */
+  pinIgnores: Map<string, boolean[]>;
 }
 
 export const structureTypeName: Partial<Record<StructureType, string>> = {

@@ -27,6 +27,8 @@ function indexCachePackage(pkg: import("./structures.js").Package, pmd: PinMapDa
     // pads that aren't exposed on the schematic).
     if (!pmd.cachePinMaps.has(baseName)) pmd.cachePinMaps.set(baseName, firstDev.pinMap);
     if (!pmd.cachePinMaps.has(pkg.name)) pmd.cachePinMaps.set(pkg.name, firstDev.pinMap);
+    if (!pmd.pinIgnores.has(baseName)) pmd.pinIgnores.set(baseName, firstDev.pinIgnore);
+    if (!pmd.pinIgnores.has(pkg.name)) pmd.pinIgnores.set(pkg.name, firstDev.pinIgnore);
   } else {
     const unitRefs = pkg.devices.map((d) => d.unitRef);
     if (!pmd.deviceUnitRefs.has(baseName)) pmd.deviceUnitRefs.set(baseName, unitRefs);
@@ -34,10 +36,12 @@ function indexCachePackage(pkg: import("./structures.js").Package, pmd: PinMapDa
       const baseKey = baseName + dev.unitRef;
       if (!pmd.pinMaps.has(baseKey)) pmd.pinMaps.set(baseKey, dev.pinMap);
       if (!pmd.cachePinMaps.has(baseKey)) pmd.cachePinMaps.set(baseKey, dev.pinMap);
+      if (!pmd.pinIgnores.has(baseKey)) pmd.pinIgnores.set(baseKey, dev.pinIgnore);
       if (pkg.name !== baseName) {
         const nameKey = pkg.name + dev.unitRef;
         if (!pmd.pinMaps.has(nameKey)) pmd.pinMaps.set(nameKey, dev.pinMap);
         if (!pmd.cachePinMaps.has(nameKey)) pmd.cachePinMaps.set(nameKey, dev.pinMap);
+        if (!pmd.pinIgnores.has(nameKey)) pmd.pinIgnores.set(nameKey, dev.pinIgnore);
       }
     }
   }

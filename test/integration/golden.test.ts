@@ -143,9 +143,9 @@ describe("DSN Parser Coverage vs DAT Golden", async () => {
        * from Cadence's own pstxnet.dat. Comparing our DSN output to a golden we
        * generated from that same DSN would agree with itself by construction.
        *
-       * The floor is a ratchet, not a target: every oracle-backed fixture is at
-       * 100% except two nets on `reServer industrial J401` and two on `CutiePi`,
-       * which differ by pin numbering rather than connectivity.
+       * Every oracle-backed fixture agrees exactly, so the bar is exact
+       * agreement. A new fixture that does not clear it is telling you the
+       * parser has a gap on it, and the failure names the nets that differ.
        */
       it.runIf(isOracle)("should place pins on the same nets as the DAT export", () => {
         const dsn = parseDsnFile(designFile);
@@ -171,7 +171,7 @@ describe("DSN Parser Coverage vs DAT Golden", async () => {
             (differing.length > 0 ? ` -> ${differing.slice(0, 8).join(", ")}` : "")
         );
 
-        expect(agreement).toBeGreaterThanOrEqual(0.99);
+        expect(differing).toEqual([]);
       });
 
       it("should have >50% net coverage", () => {
