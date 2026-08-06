@@ -936,8 +936,32 @@ Measured over the Cadence fixture corpus, nets whose pin set disagrees with the 
 5. Unnamed wire groups get `N{minSegmentId}` names
 6. Cross-page nets connected via OffPageConnectors are resolved by `strLst[name_str_idx]` (OPCs with the same index share the same net). Pins at an OPC's bbox edge midpoint are assigned this net name, even when the OPC has no wire connection on that page
 7. Duplicate net names across pages are disambiguated using hierarchy suffixed names
-8. Global/Port symbols connected to wires propagate their net via `name_str_idx` to other pages where the same symbol overlaps a pin bbox (no wire needed)
+8. Global/Port symbols take their net name from `strLst[name_str_idx]`, the same field OPCs use. That name reaches pins on any page where the symbol's bbox overlaps a pin, with no wire needed. The symbol's own `name` field is the symbol *type* and must not be used: a symbol drawn as `VDD_1v8` may carry `CAM_CORE`, and two symbols both drawn as `VCC_BAR` carry `VDD_PLL1` and `VDD_PLL2`
 9. Wire body point-on-segment matching: a pin whose coordinate falls on a horizontal/vertical wire segment (not just the endpoints) is unioned with that wire
+
+#### Global/Port symbol attachment
+
+**Confidence: VERIFIED**
+
+A power symbol has one pin, so it touches exactly one wire, but its drawn box is
+larger than that wire and its `locX/locY` is a placement origin rather than the
+electrical connection point. On a rail fan-out the rails sit one grid step apart
+while the boxes are two steps tall, so a symbol's box covers the rails above and
+below it, and its origin routinely lands on a *neighbouring* rail's endpoint.
+
+Two rules keep that geometry from fusing unrelated nets:
+
+- A symbol is keyed in the Union-Find by `sym:{name_str_idx}:{dbId}`, never by
+  its origin coordinate. Keying by origin made the symbol and whichever wire
+  ended there the same graph node.
+- A symbol performs at most one union, choosing the wire coordinate inside its
+  box that already carries its own `strLst[name_str_idx]` name. Failing that,
+  only coordinates with no name of their own are eligible, nearest first.
+
+Measured over the Cadence fixture corpus, these two rules took nets whose pin set
+disagrees with the DAT reference from **24 to 4** (99.5% → 99.9%), with no design
+regressing. Nine of eleven designs match the DAT export exactly; the remaining
+four nets differ by pin numbering, not connectivity.
 
 ### 11.5 Multi-Unit Component Merging
 

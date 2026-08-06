@@ -98,8 +98,13 @@ describe("Parser Golden Output", async () => {
  */
 describe("DSN Parser Coverage vs DAT Golden", async () => {
   const fixtures = await listAllFixtures();
-  const cadenceDsnFixtures: { designFile: string; projectName: string; golden: ParsedNetlist }[] =
-    [];
+  const cadenceDsnFixtures: {
+    designFile: string;
+    projectName: string;
+    golden: ParsedNetlist;
+    /** True when the golden came from pstxnet.dat rather than from our own DSN output. */
+    isOracle: boolean;
+  }[] = [];
 
   for (const fixture of fixtures) {
     if (fixture.format !== "cadence") continue;
@@ -109,7 +114,13 @@ describe("DSN Parser Coverage vs DAT Golden", async () => {
       const projectName = path.basename(designFile, path.extname(designFile));
       const golden = await loadGolden("cadence", projectName);
       if (golden) {
-        cadenceDsnFixtures.push({ designFile, projectName, golden });
+        const datFiles = await findCadenceDatFiles(designFile);
+        cadenceDsnFixtures.push({
+          designFile,
+          projectName,
+          golden,
+          isOracle: Boolean(datFiles.pstxnet),
+        });
       }
     }
   }
@@ -119,8 +130,50 @@ describe("DSN Parser Coverage vs DAT Golden", async () => {
     return;
   }
 
-  for (const { designFile, projectName, golden } of cadenceDsnFixtures) {
+  for (const { designFile, projectName, golden, isOracle } of cadenceDsnFixtures) {
     describe(projectName, () => {
+      /**
+       * Net and component coverage above count names only. A pin can sit on the
+       * wrong net while both names are present, so those two checks stay green
+       * through the failure that matters most: a power symbol whose drawn box
+       * overlaps a neighbouring rail used to pull that rail's pins onto its own
+       * net, and name coverage never moved.
+       *
+       * This compares the pins themselves, and only against a golden that came
+       * from Cadence's own pstxnet.dat. Comparing our DSN output to a golden we
+       * generated from that same DSN would agree with itself by construction.
+       *
+       * The floor is a ratchet, not a target: every oracle-backed fixture is at
+       * 100% except two nets on `reServer industrial J401` and two on `CutiePi`,
+       * which differ by pin numbering rather than connectivity.
+       */
+      it.runIf(isOracle)("should place pins on the same nets as the DAT export", () => {
+        const dsn = parseDsnFile(designFile);
+
+        const pinSet = (conns: Record<string, string[]> | undefined): Set<string> => {
+          const pins = new Set<string>();
+          for (const [refdes, numbers] of Object.entries(conns ?? {})) {
+            for (const number of numbers) pins.add(`${refdes}.${number}`);
+          }
+          return pins;
+        };
+        const sameSet = (a: Set<string>, b: Set<string>): boolean =>
+          a.size === b.size && [...a].every((pin) => b.has(pin));
+
+        const common = Object.keys(golden.nets).filter((net) => net in dsn.nets);
+        const differing = common.filter(
+          (net) => !sameSet(pinSet(golden.nets[net]), pinSet(dsn.nets[net]))
+        );
+        const agreement = common.length > 0 ? (common.length - differing.length) / common.length : 1;
+
+        console.log(
+          `[${projectName}] Connectivity: common=${common.length} exact=${common.length - differing.length} differing=${differing.length} (${(agreement * 100).toFixed(2)}%)` +
+            (differing.length > 0 ? ` -> ${differing.slice(0, 8).join(", ")}` : "")
+        );
+
+        expect(agreement).toBeGreaterThanOrEqual(0.99);
+      });
+
       it("should have >50% net coverage", () => {
         const dsn = parseDsnFile(designFile);
         const dsnNets = new Set(Object.keys(dsn.nets));

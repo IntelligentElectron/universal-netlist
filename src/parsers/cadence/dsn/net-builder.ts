@@ -8,6 +8,7 @@
 import type { NetConnections } from "../../../types.js";
 import { isValidRefdes } from "../../../circuit-traversal.js";
 import type { PinMapData } from "./structure-types.js";
+import type { GraphicInst } from "./structures.js";
 import type { PageData } from "./page-parser.js";
 import { resolvePinNumber } from "./pin-resolver.js";
 
@@ -47,6 +48,81 @@ class CoordUnionFind {
     }
     return result;
   }
+}
+
+/**
+ * Union-Find key for a global/port symbol.
+ *
+ * A symbol gets its own key rather than being addressed by its placement
+ * origin, because that origin frequently lands exactly on a wire endpoint that
+ * belongs to a *different* net. On a rail fan-out the symbols sit one grid step
+ * apart while each symbol's drawn box is two steps tall, so a symbol's origin
+ * routinely sits on the neighbouring rail. Keying by origin made the symbol and
+ * that neighbour the same graph node, and the symbol's own attachment then
+ * fused two unrelated rails into one net.
+ *
+ * With a key of its own a symbol performs at most one union, so it can join a
+ * wire group but never bridge two.
+ */
+export function symbolKey(sym: Pick<GraphicInst, "pairingId" | "dbId">): string {
+  return `sym:${sym.pairingId}:${sym.dbId}`;
+}
+
+/**
+ * The single wire coordinate a global/port symbol is electrically attached to.
+ *
+ * A power symbol has one pin, so exactly one wire may touch it, but its drawn
+ * bounding box covers more than that wire: on a rail fan-out it also covers the
+ * rails drawn above and below. Picking whichever coordinate the iteration
+ * reached first therefore attached symbols to their neighbours.
+ *
+ * `symbolNet` is the symbol's own net name, taken from the Library string list.
+ * When it is known the choice is unambiguous: the attachment is the coordinate
+ * whose wire already carries that name. Otherwise only coordinates with no name
+ * of their own are eligible, since claiming an already-named wire would assert a
+ * connection the drawing does not show. Among equals the origin wins, then the
+ * nearest coordinate, so the result never depends on iteration order.
+ */
+export function chooseSymbolAttachment(
+  sym: Pick<GraphicInst, "x1" | "y1" | "x2" | "y2" | "locX" | "locY">,
+  symbolNet: string | undefined,
+  wireCoords: Iterable<string>,
+  coordNames: Map<string, Set<string>>
+): string | undefined {
+  const minX = Math.min(sym.x1, sym.x2);
+  const maxX = Math.max(sym.x1, sym.x2);
+  const minY = Math.min(sym.y1, sym.y2);
+  const maxY = Math.max(sym.y1, sym.y2);
+  const origin = `${sym.locX},${sym.locY}`;
+
+  let named: string | undefined;
+  let unnamed: string | undefined;
+  let unnamedDist = Infinity;
+
+  for (const coord of wireCoords) {
+    const [cx, cy] = coord.split(",").map(Number);
+    if (cx < minX || cx > maxX || cy < minY || cy > maxY) continue;
+
+    const names = coordNames.get(coord);
+    if (symbolNet && names?.has(symbolNet)) {
+      // The symbol's own name on the wire: exact, so nothing can beat it.
+      if (coord === origin) return coord;
+      if (!named) named = coord;
+      continue;
+    }
+    if (names && names.size > 0) continue; // some other net's wire
+
+    const dist = Math.abs(cx - sym.locX) + Math.abs(cy - sym.locY);
+    if (coord === origin) {
+      unnamed = coord;
+      unnamedDist = -1;
+    } else if (dist < unnamedDist || (dist === unnamedDist && coord < unnamed!)) {
+      unnamed = coord;
+      unnamedDist = dist;
+    }
+  }
+
+  return named ?? unnamed;
 }
 
 function addPinToNet(
@@ -90,14 +166,20 @@ interface PinInfo {
  *
  * Global/port/OPC symbols are NOT used for naming: their `.name` field is the
  * schematic symbol type (e.g. "VCC_BAR", "GND_SIGNAL"), not the net name.
- * They are registered in the Union-Find for connectivity only.
+ * They are registered in the Union-Find for connectivity only. `symbolNets`
+ * carries their real net names, read from the Library string list, and steers
+ * each symbol to the one wire it belongs to (see chooseSymbolAttachment).
  *
  * When canonicalNetNames is provided (from the Hierarchy stream), hierarchy
  * names take priority over non-hierarchy names. This resolves cross-page
  * aliases (e.g., wire alias "PWRSEL" + table "GPIO8" on the same wire;
  * hierarchy contains "PWRSEL", so it wins).
  */
-function buildPageCoordMap(page: PageData, canonicalNetNames: Set<string>): Map<string, string> {
+function buildPageCoordMap(
+  page: PageData,
+  canonicalNetNames: Set<string>,
+  symbolNets: Map<number, string>
+): Map<string, string> {
   const uf = new CoordUnionFind();
 
   // Connect wire endpoints into groups.
@@ -121,9 +203,42 @@ function buildPageCoordMap(page: PageData, canonicalNetNames: Set<string>): Map<
     }
   }
 
-  // Register global/port coordinates (connectivity only, not naming)
-  for (const global of page.globals) uf.find(`${global.locX},${global.locY}`);
-  for (const port of page.ports) uf.find(`${port.locX},${port.locY}`);
+  // Register global/port symbols (connectivity only, not naming)
+  for (const sym of [...page.globals, ...page.ports]) uf.find(symbolKey(sym));
+
+  // Candidate names per coordinate, and the minimum segmentId for auto-naming.
+  // Built before the symbols are attached because the attachment rule reads it.
+  const wireNames = new Map<string, Set<string>>();
+  const coordMinSegId = new Map<string, number>();
+
+  for (const wire of page.wires) {
+    const s = `${wire.startX},${wire.startY}`;
+    const e = `${wire.endX},${wire.endY}`;
+
+    for (const alias of wire.aliases) {
+      const name = alias.name.toUpperCase();
+      if (!wireNames.has(s)) wireNames.set(s, new Set());
+      if (!wireNames.has(e)) wireNames.set(e, new Set());
+      wireNames.get(s)!.add(name);
+      wireNames.get(e)!.add(name);
+    }
+
+    // Net table entries (multiple names may map to the same wireId)
+    const tableNames = page.netTable.get(wire.id);
+    if (tableNames) {
+      if (!wireNames.has(s)) wireNames.set(s, new Set());
+      if (!wireNames.has(e)) wireNames.set(e, new Set());
+      for (const tn of tableNames) {
+        wireNames.get(s)!.add(tn);
+        wireNames.get(e)!.add(tn);
+      }
+    }
+
+    const curS = coordMinSegId.get(s);
+    if (curS === undefined || wire.segmentId < curS) coordMinSegId.set(s, wire.segmentId);
+    const curE = coordMinSegId.get(e);
+    if (curE === undefined || wire.segmentId < curE) coordMinSegId.set(e, wire.segmentId);
+  }
 
   // OPC connectivity: match each OPC to its wire connection point.
   // The connection point is at one of 3 candidate positions:
@@ -178,22 +293,17 @@ function buildPageCoordMap(page: PageData, canonicalNetNames: Set<string>): Map<
   }
 
   // Connect global/port symbols to the wire graph.
-  // A global's locXY is its placement origin, which often differs from its
-  // electrical pin position. If any wire endpoint falls within the symbol's
-  // bounding box, the symbol is connected to that wire.
+  // A symbol's locXY is its placement origin, which often differs from its
+  // electrical pin position, so the wire it touches is found within its
+  // bounding box. Each symbol attaches to exactly one coordinate.
   for (const sym of [...page.globals, ...page.ports]) {
-    const symKey = `${sym.locX},${sym.locY}`;
-    const minX = Math.min(sym.x1, sym.x2);
-    const maxX = Math.max(sym.x1, sym.x2);
-    const minY = Math.min(sym.y1, sym.y2);
-    const maxY = Math.max(sym.y1, sym.y2);
-    for (const coord of allWireCoords) {
-      const [cx, cy] = coord.split(",").map(Number);
-      if (cx >= minX && cx <= maxX && cy >= minY && cy <= maxY) {
-        uf.union(symKey, coord);
-        break;
-      }
-    }
+    const attach = chooseSymbolAttachment(
+      sym,
+      symbolNets.get(sym.pairingId),
+      allWireCoords,
+      wireNames
+    );
+    if (attach) uf.union(symbolKey(sym), attach);
   }
 
   // Connect component pin coordinates to globals and wire bodies.
@@ -213,7 +323,7 @@ function buildPageCoordMap(page: PageData, canonicalNetNames: Set<string>): Map<
         const maxY = Math.max(sym.y1, sym.y2);
         if (pin.pointX >= minX && pin.pointX <= maxX && pin.pointY >= minY && pin.pointY <= maxY) {
           uf.find(coord);
-          uf.union(coord, `${sym.locX},${sym.locY}`);
+          uf.union(coord, symbolKey(sym));
           break;
         }
       }
@@ -243,41 +353,6 @@ function buildPageCoordMap(page: PageData, canonicalNetNames: Set<string>): Map<
         }
       }
     }
-  }
-
-  // Collect all candidate names and minimum segmentId per coordinate
-  const wireNames = new Map<string, Set<string>>();
-  const coordMinSegId = new Map<string, number>();
-
-  for (const wire of page.wires) {
-    const s = `${wire.startX},${wire.startY}`;
-    const e = `${wire.endX},${wire.endY}`;
-
-    // Aliases
-    for (const alias of wire.aliases) {
-      const name = alias.name.toUpperCase();
-      if (!wireNames.has(s)) wireNames.set(s, new Set());
-      if (!wireNames.has(e)) wireNames.set(e, new Set());
-      wireNames.get(s)!.add(name);
-      wireNames.get(e)!.add(name);
-    }
-
-    // Net table entries (multiple names may map to the same wireId)
-    const tableNames = page.netTable.get(wire.id);
-    if (tableNames) {
-      if (!wireNames.has(s)) wireNames.set(s, new Set());
-      if (!wireNames.has(e)) wireNames.set(e, new Set());
-      for (const tn of tableNames) {
-        wireNames.get(s)!.add(tn);
-        wireNames.get(e)!.add(tn);
-      }
-    }
-
-    // Track minimum segmentId for auto-generated naming
-    const curS = coordMinSegId.get(s);
-    if (curS === undefined || wire.segmentId < curS) coordMinSegId.set(s, wire.segmentId);
-    const curE = coordMinSegId.get(e);
-    if (curE === undefined || wire.segmentId < curE) coordMinSegId.set(e, wire.segmentId);
   }
 
   // Resolve one canonical name per connected wire group
@@ -683,7 +758,22 @@ export function buildNetConnectivity(
   nets: NetConnections;
   componentPins: Map<string, Map<string, string>>;
 } {
-  const pageCoordMaps = pages.map((page) => buildPageCoordMap(page, canonicalNetNames));
+  // A global/port symbol's pairingId indexes the Library string list, which
+  // holds its net name. The symbol's own `name` field is the schematic symbol
+  // type and is not the net: a symbol drawn as `VDD_1v8` may carry `CAM_CORE`,
+  // and two symbols both drawn as `VCC_BAR` carry `VDD_PLL1` and `VDD_PLL2`.
+  const symbolNets = new Map<number, string>();
+  for (const page of pages) {
+    for (const sym of [...page.globals, ...page.ports]) {
+      if (symbolNets.has(sym.pairingId)) continue;
+      const name = strLst[sym.pairingId];
+      if (name) symbolNets.set(sym.pairingId, name.toUpperCase());
+    }
+  }
+
+  const pageCoordMaps = pages.map((page) =>
+    buildPageCoordMap(page, canonicalNetNames, symbolNets)
+  );
 
   // Apply cross-page OPC name equivalences (creates new maps to avoid mutation)
   const opcNameMap = buildOpcNameMap(pages, pageCoordMaps, canonicalNetNames);
@@ -699,16 +789,20 @@ export function buildNetConnectivity(
         })
       : pageCoordMaps;
 
-  // Build pairingId -> net name map from global/port symbols connected to wires.
+  // Build pairingId -> net name map from global/port symbols.
   // Used as fallback for sentinel pins that overlap power/ground symbols but
   // have no direct wire connection. PairingId groups all instances of the same
   // power symbol (e.g., all GND_SIGNAL globals share one pairingId).
-  const globalPairingNets = new Map<number, string>();
+  //
+  // The string list is the authority, exactly as it is for off-page connectors
+  // below. Resolving through the symbol's wire connection instead let one page's
+  // misattached symbol name the pins of every other page sharing that pairingId.
+  const globalPairingNets = new Map<number, string>(symbolNets);
   for (let i = 0; i < pages.length; i++) {
     const coordMap = resolvedCoordMaps[i];
     for (const sym of [...pages[i].globals, ...pages[i].ports]) {
       if (globalPairingNets.has(sym.pairingId)) continue;
-      const net = coordMap.get(`${sym.locX},${sym.locY}`);
+      const net = coordMap.get(symbolKey(sym));
       if (net) globalPairingNets.set(sym.pairingId, net);
     }
   }

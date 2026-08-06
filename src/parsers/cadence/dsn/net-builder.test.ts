@@ -3,7 +3,11 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { disambiguateCrossPageNets } from "./net-builder.js";
+import {
+  disambiguateCrossPageNets,
+  chooseSymbolAttachment,
+  symbolKey,
+} from "./net-builder.js";
 
 /**
  * Build the (netIdToName, netIdGroups) pair the disambiguator consumes.
@@ -157,5 +161,108 @@ describe("disambiguateCrossPageNets", () => {
 
     expect(result.get(21_000_000)).toBe("RESET_N");
     expect(result.get(22_000_000)).toBe("RESET_N");
+  });
+});
+
+/**
+ * A power symbol's drawn box is taller than the grid step between rails, so on
+ * a rail fan-out it covers its neighbours as well as its own wire. Every case
+ * here is measured geometry from a fixture, with the net names the design's
+ * pstxnet.dat reports.
+ */
+describe("chooseSymbolAttachment", () => {
+  /** Build the coordinate -> candidate-names index the chooser reads. */
+  const named = (entries: [coord: string, name: string][]): Map<string, Set<string>> =>
+    new Map(entries.map(([coord, name]) => [coord, new Set([name])]));
+
+  it("attaches to the wire carrying the symbol's own name, not the nearest one", () => {
+    // LAUNCHXL-CC1310 sheet 3: a USB_VBUS symbol whose box spans three rails one
+    // grid step apart. Its origin sits on the XDS_VCC rail, and the GND rail is
+    // also inside the box. Attaching to either fused two power nets: XDS_VCC's
+    // 12 pins landed on GND, which then won the group's name alphabetically.
+    const sym = { x1: 430, y1: 490, x2: 489, y2: 510, locX: 430, locY: 490 };
+    const coords = ["430,510", "430,500", "430,490"];
+    const names = named([
+      ["430,510", "GND"],
+      ["430,500", "USB_VBUS"],
+      ["430,490", "XDS_VCC"],
+    ]);
+
+    expect(chooseSymbolAttachment(sym, "USB_VBUS", coords, names)).toBe("430,500");
+  });
+
+  it("attaches to its own rail when the origin lies on the neighbouring one", () => {
+    // BeagleBoard-xM sheet 7: the VDD_PLL1 symbol's origin is one step below its
+    // own rail, exactly on VDD_PLL2's. Preferring the origin would move C120 and
+    // U7.J15 onto the wrong rail.
+    const sym = { x1: 1600, y1: 600, x2: 1656, y2: 620, locX: 1600, locY: 600 };
+    const coords = ["1600,600", "1600,610"];
+    const names = named([
+      ["1600,600", "VDD_PLL2"],
+      ["1600,610", "VDD_PLL1"],
+    ]);
+
+    expect(chooseSymbolAttachment(sym, "VDD_PLL1", coords, names)).toBe("1600,610");
+  });
+
+  it("never claims a wire that already carries a different net's name", () => {
+    // With no name of its own the symbol must stay unattached rather than pick a
+    // neighbour, because attaching asserts a connection the drawing lacks.
+    const sym = { x1: 1600, y1: 600, x2: 1656, y2: 620, locX: 1600, locY: 600 };
+    const names = named([
+      ["1600,600", "VDD_PLL2"],
+      ["1600,610", "VDD_PLL1"],
+    ]);
+
+    expect(chooseSymbolAttachment(sym, undefined, ["1600,600", "1600,610"], names)).toBeUndefined();
+    expect(chooseSymbolAttachment(sym, "CAM_IO", ["1600,600", "1600,610"], names)).toBeUndefined();
+  });
+
+  it("takes an unnamed wire in the box, preferring the origin", () => {
+    // A wire group named only through its symbol still has to be reached.
+    const sym = { x1: 100, y1: 200, x2: 160, y2: 220, locX: 100, locY: 210 };
+    const coords = ["100,200", "100,210", "100,220"];
+
+    expect(chooseSymbolAttachment(sym, "VCC", coords, new Map())).toBe("100,210");
+  });
+
+  it("takes the nearest unnamed wire when the origin is not on one", () => {
+    const sym = { x1: 100, y1: 200, x2: 160, y2: 260, locX: 100, locY: 250 };
+
+    expect(chooseSymbolAttachment(sym, "VCC", ["100,200", "100,240"], new Map())).toBe("100,240");
+  });
+
+  it("ignores wires outside the bounding box", () => {
+    const sym = { x1: 100, y1: 200, x2: 160, y2: 220, locX: 100, locY: 200 };
+    const names = named([["500,900", "VCC"]]);
+
+    expect(chooseSymbolAttachment(sym, "VCC", ["500,900"], names)).toBeUndefined();
+  });
+
+  it("is independent of the order the coordinates arrive in", () => {
+    const sym = { x1: 430, y1: 490, x2: 489, y2: 510, locX: 430, locY: 490 };
+    const names = named([
+      ["430,510", "GND"],
+      ["430,500", "USB_VBUS"],
+      ["430,490", "XDS_VCC"],
+    ]);
+    const forward = chooseSymbolAttachment(sym, "USB_VBUS", ["430,490", "430,500", "430,510"], names);
+    const reverse = chooseSymbolAttachment(sym, "USB_VBUS", ["430,510", "430,500", "430,490"], names);
+
+    expect(forward).toBe(reverse);
+  });
+});
+
+describe("symbolKey", () => {
+  it("keeps a symbol distinct from any wire coordinate", () => {
+    // Keying a symbol by its placement origin made it the same graph node as
+    // whatever wire happened to end there, which is how one symbol could fuse
+    // two rails. A key of its own makes that structurally impossible.
+    expect(symbolKey({ pairingId: 1681, dbId: 42 })).toBe("sym:1681:42");
+    expect(symbolKey({ pairingId: 1681, dbId: 42 })).not.toMatch(/^\d+,\d+$/);
+  });
+
+  it("separates two instances of the same power net", () => {
+    expect(symbolKey({ pairingId: 1681, dbId: 42 })).not.toBe(symbolKey({ pairingId: 1681, dbId: 43 }));
   });
 });
