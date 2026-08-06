@@ -1,5 +1,9 @@
 import { describe, it, expect } from "vitest";
-import { parseProjectStructure, findRepeatedSheets } from "./structure-parser.js";
+import {
+  parseProjectStructure,
+  findRepeatedSheets,
+  expandRepeatDesignator,
+} from "./structure-parser.js";
 
 describe("parseProjectStructure", () => {
   it("should parse TopLevelDocument", () => {
@@ -67,5 +71,39 @@ describe("findRepeatedSheets", () => {
     const repeated = findRepeatedSheets(structure);
 
     expect(repeated.size).toBe(0);
+  });
+});
+
+describe("expandRepeatDesignator", () => {
+  it("expands a repeat range into one designator per channel", () => {
+    expect(expandRepeatDesignator("Repeat(AY,1,3)")).toEqual(["AY1", "AY2", "AY3"]);
+  });
+
+  it("tolerates the spacing variants Altium writes in practice", () => {
+    // Observed verbatim in aberrant-sound-module, cube-sat-eps and HELIOS-R.
+    expect(expandRepeatDesignator("Repeat(AY,1,3)")).toEqual(["AY1", "AY2", "AY3"]);
+    expect(expandRepeatDesignator("Repeat(ideal_diode, 1, 2)")).toEqual([
+      "ideal_diode1",
+      "ideal_diode2",
+    ]);
+    expect(expandRepeatDesignator("Repeat(CHAN, 1,9)")).toHaveLength(9);
+    expect(expandRepeatDesignator("  Repeat(CH,1,4)  ")).toEqual(["CH1", "CH2", "CH3", "CH4"]);
+  });
+
+  it("starts from the declared index rather than assuming 1", () => {
+    expect(expandRepeatDesignator("Repeat(M,5,8)")).toEqual(["M5", "M6", "M7", "M8"]);
+  });
+
+  it("ignores a designator that is not a repeat", () => {
+    expect(expandRepeatDesignator("U_Power")).toEqual([]);
+    expect(expandRepeatDesignator("")).toEqual([]);
+    expect(expandRepeatDesignator("Repeat(CS)")).toEqual([]);
+  });
+
+  it("ignores a range that yields fewer than two channels", () => {
+    // A single instance is not multi-channel, and expanding it would rename a
+    // component that Altium leaves alone.
+    expect(expandRepeatDesignator("Repeat(X,1,1)")).toEqual([]);
+    expect(expandRepeatDesignator("Repeat(X,3,2)")).toEqual([]);
   });
 });
