@@ -70,13 +70,30 @@ function indexCachePackage(pkg: import("./structures.js").Package, pmd: PinMapDa
   }
 }
 
-/** Index a Cache LibraryPart's pin names (fallback; doesn't override existing entries). */
-function indexCacheLibraryPart(
-  lp: import("./structures.js").LibraryPart,
-  cachedParts: Map<string, CachedLibraryPart>
+/**
+ * Index a LibraryPart's pin names, under its own name and under the
+ * suffix-stripped form other instances refer to it by.
+ *
+ * A part's own name outranks a stripped form derived from a different variant.
+ * CutiePi holds both `RES_0.Normal`, whose pins are named "1" and "2", and
+ * `RES.Normal`, whose pins are named "A" and "B". `RES_0.Normal` strips to
+ * `RES.Normal`, so first-writer-wins gave every plain resistor in the design the
+ * numbering-as-names of the other variant, which is then discarded for matching
+ * the pin number. `exactNames` records which keys a part claimed under its own
+ * name so a later alias cannot displace it and an alias cannot outrank it.
+ */
+export function indexLibraryPart(
+  lp: { name: string; pinNames: string[]; defaultValue?: string },
+  cachedParts: Map<string, CachedLibraryPart>,
+  exactNames: Set<string>
 ): void {
   const entry: CachedLibraryPart = { pinNames: lp.pinNames, defaultValue: lp.defaultValue };
-  if (!cachedParts.has(lp.name)) cachedParts.set(lp.name, entry);
+
+  if (!exactNames.has(lp.name)) {
+    cachedParts.set(lp.name, entry);
+    exactNames.add(lp.name);
+  }
+
   const stripped = lp.name.replace(/_\d+(?=\.)/, "");
   if (stripped !== lp.name && !cachedParts.has(stripped)) {
     cachedParts.set(stripped, entry);
@@ -84,49 +101,78 @@ function indexCacheLibraryPart(
 }
 
 /**
- * Brute-force scan the Cache buffer for Package and LibraryPart structures
- * by locating preamble magic bytes (FF E4 5C 39).
+ * Brute-force scan the Cache buffer for Package and LibraryPart structures by
+ * locating preamble magic bytes (FF E4 5C 39).
  *
- * When sequential metadata parsing fails, this recovers remaining structures.
- * For each preamble magic occurrence, checks if 3 bytes earlier is a valid
- * short prefix for Package (0x1F) or LibraryPart (0x18), and attempts to
- * parse the structure.
+ * This runs when sequential metadata parsing gives up, which on some designs
+ * happens after a handful of entries, leaving the scan to recover everything
+ * else. Both structure kinds have to be found, because the Packages give pin
+ * numbers and the LibraryParts give pin function names.
+ *
+ * Walking back from the magic to the start of the record is the whole problem.
+ * A record is a chain of prefixes: zero or more long ones of 9 bytes, then a
+ * short one of `type(1) + int16 pairCount` followed by 8 bytes per
+ * (nameIdx, valIdx) pair. Assuming the short prefix sits exactly 3 bytes back
+ * only holds when it carries no pairs and nothing precedes it. Across the
+ * fixture corpus that is true for every Package, and for a minority of
+ * LibraryParts: LAUNCHXL-CC1310 has 45 of them and 13 fit that shape, so a
+ * design whose sequential parse failed early came out with pin numbers for
+ * every component and pin names for none.
+ *
+ * So the pair count is searched for, and then the chain start, and the parse
+ * itself decides: the prefix reader validates the chain, so a wrong guess
+ * throws and the next candidate is tried.
  */
 function scanForStructures(
   reader: BinaryReader,
   buffer: Buffer,
   pmd: PinMapData,
-  cachedParts: Map<string, CachedLibraryPart>
+  cachedParts: Map<string, CachedLibraryPart>,
+  exactNames: Set<string>
 ): void {
   const MAGIC = Buffer.from([0xff, 0xe4, 0x5c, 0x39]);
+  /** Widest (nameIdx, valIdx) list seen in a fixture is 19 pairs. */
+  const MAX_PAIRS = 64;
+  const MAX_LONG_PREFIXES = 10;
   let pos = reader.tell();
 
   while (pos < buffer.length - 10) {
     const magicIdx = buffer.indexOf(MAGIC, pos);
     if (magicIdx < 3) break;
+    let advanced = false;
 
-    // A short prefix is 3 bytes (type + int16 size) before the preamble.
-    const prefixStart = magicIdx - 3;
-    const typeByte = buffer[prefixStart];
+    for (let pairs = 0; pairs <= MAX_PAIRS && !advanced; pairs++) {
+      const shortAt = magicIdx - 3 - 8 * pairs;
+      if (shortAt < 0) break;
 
-    if (typeByte === StructureType.Package || typeByte === StructureType.LibraryPart) {
-      reader.seek(prefixStart);
-      try {
-        if (typeByte === StructureType.Package) {
-          const pkg = parsePackage(reader);
-          indexCachePackage(pkg, pmd);
-        } else {
-          const lp = parseLibraryPart(reader);
-          indexCacheLibraryPart(lp, cachedParts);
+      const typeByte = buffer[shortAt];
+      if (typeByte !== StructureType.Package && typeByte !== StructureType.LibraryPart) continue;
+      if (buffer.readInt16LE(shortAt + 1) !== pairs) continue;
+
+      // Every prefix in a chain repeats the type byte, so walk back in 9-byte
+      // steps while that holds and let the parse pick the real start.
+      for (let long = 0; long <= MAX_LONG_PREFIXES; long++) {
+        const structStart = shortAt - 9 * long;
+        if (structStart < 0) break;
+        if (long > 0 && buffer[structStart] !== typeByte) break;
+
+        reader.seek(structStart);
+        try {
+          if (typeByte === StructureType.Package) {
+            indexCachePackage(parsePackage(reader), pmd);
+          } else {
+            indexLibraryPart(parseLibraryPart(reader), cachedParts, exactNames);
+          }
+          pos = reader.tell();
+          advanced = true;
+          break;
+        } catch {
+          // Not the chain start; try one prefix further back.
         }
-        pos = reader.tell();
-        continue;
-      } catch {
-        // Not a valid structure; skip past this magic occurrence
       }
     }
 
-    pos = magicIdx + 1;
+    if (!advanced) pos = magicIdx + 1;
   }
 }
 
@@ -143,7 +189,8 @@ function scanForStructures(
 export function parseCacheStream(
   buffer: Buffer,
   pmd: PinMapData,
-  cachedParts: Map<string, CachedLibraryPart>
+  cachedParts: Map<string, CachedLibraryPart>,
+  exactNames: Set<string> = new Set()
 ): void {
   const reader = new BinaryReader(buffer);
 
@@ -238,7 +285,7 @@ export function parseCacheStream(
           indexCachePackage(pkg, pmd);
         } else if (structType === StructureType.LibraryPart) {
           const lp = parseLibraryPart(reader);
-          indexCacheLibraryPart(lp, cachedParts);
+          indexLibraryPart(lp, cachedParts, exactNames);
         } else {
           skipStructure(reader);
         }
@@ -250,7 +297,7 @@ export function parseCacheStream(
     } catch {
       // Metadata parsing failed; fall through to brute-force scan for
       // remaining Package and LibraryPart structures via preamble magic.
-      scanForStructures(reader, buffer, pmd, cachedParts);
+      scanForStructures(reader, buffer, pmd, cachedParts, exactNames);
       return;
     }
   }

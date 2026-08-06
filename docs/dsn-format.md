@@ -921,6 +921,30 @@ Cache LibraryPart names include a numeric suffix from the Package stream they or
 
 3. **Name-equals-number stripping**: When a pin's functional name equals its pin number (common for passives like resistors and capacitors), the name is treated as absent. This matches DAT behavior where such pins have no separate name field.
 
+
+#### Recovering LibraryParts from the Cache
+
+**Confidence: VERIFIED**
+
+Pin function names come from LibraryPart records, which the Cache stream carries alongside the Package records that give pin numbers. Two things decide whether a design gets names at all.
+
+**Finding the record.** The Cache is walked sequentially, and on some designs that walk gives up after a handful of entries; a brute-force scan for the preamble magic (`FF E4 5C 39`) then recovers the rest. Stepping back from the magic to the start of the record is the hard part, because a record is a prefix chain: zero or more long prefixes of 9 bytes, then a short prefix of `type(1) + int16 pairCount` followed by 8 bytes per (nameIdx, valIdx) pair.
+
+Assuming the short prefix sits exactly 3 bytes before the magic holds only when it carries no pairs and nothing precedes it. Across the fixture corpus that is true for **every** Package, and for a minority of LibraryParts:
+
+| Design | LibraryParts | with pairCount = 0 |
+|---|---|---|
+| LAUNCHXL-CC1310 | 45 | 13 |
+| CutiePi V2.3 | 57 | 17 |
+| reComputer Industrial J201 | 96 | 1 |
+| BeagleBoard-xM | 85 | 49 |
+
+So a design whose sequential walk failed early came out with pin numbers for every component and pin names for none: LAUNCHXL-CC1310 and CutiePi both yielded 0 LibraryParts while yielding 41 and 57 Packages. The scan now searches for the pair count and then for the chain start, letting the prefix reader validate each candidate.
+
+**Choosing between variants.** Instances refer to a part by a suffix-stripped name, so each part is registered under its own name and under `name.replace(/_\d+(?=\.)/, "")`. Two variants of one base part then compete for the stripped key, and a part's own name must outrank an alias derived from a different variant. CutiePi carries both `RES_0.Normal`, whose pins are named `1` and `2`, and `RES.Normal`, whose pins are named `A` and `B`; `RES_0.Normal` strips to `RES.Normal`, so first-writer-wins gave every plain resistor the other variant's numbering. Since a pin name equal to the pin number is dropped as carrying no information, those 75 components reported no pin names at all.
+
+With both fixed, pin function names match the DAT export on 8105 of 8105 pins across all 11 fixtures.
+
 ### 11.3 Package Key Matching
 
 **Confidence: VERIFIED**
