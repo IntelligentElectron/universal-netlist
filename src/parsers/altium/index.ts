@@ -27,6 +27,7 @@ import { OleReader, readOleStream, readOptionalOleStream } from "../ole-reader/o
 import { parseRecords, findRecords } from "./record-parser.js";
 import { buildHierarchy, getPartsList, flattenHierarchy, findRecordByIndex } from "./hierarchy.js";
 import { extractNets, determineNetList, classifyNets } from "./net-extractor.js";
+import { positionHarnessEntries } from "./harness.js";
 
 // Re-export types and utilities for external use
 export type { AltiumSchematic, AltiumNet, AltiumRecord, OutputFormat };
@@ -391,6 +392,8 @@ export const readSchematicRecords = (schdocPath: string, headerBuffer: Buffer): 
 
   const extra = parseRecords(additional);
   if (extra.records.length === 0) return schematic;
+
+  positionHarnessEntries(extra.records as never);
 
   return {
     header: schematic.header,

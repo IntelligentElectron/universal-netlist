@@ -82,6 +82,9 @@ const findConnectableDevices = (schematic: AltiumSchematic): AltiumRecord[] => {
     RECORD_TYPES.NET_LABEL,
     RECORD_TYPES.POWER_PORT,
     RECORD_TYPES.PORT,
+    // Harness entries are given a Location by positionHarnessEntries(); a wire
+    // landing on one joins the signal that entry names.
+    RECORD_TYPES.HARNESS_ENTRY,
     // Note: SHEET_ENTRY (16) is NOT included here. It uses DISTANCEFROMTOP relative to its
     // parent SHEET_SYMBOL, not absolute Location.X/Y. Cross-sheet connectivity is handled
     // by multi-channel expansion in parseAltiumProject() instead.
@@ -305,6 +308,7 @@ const assignNetName = (net: AltiumNet, schematic: AltiumSchematic): void => {
     RECORD_TYPES.POWER_PORT,
     RECORD_TYPES.NET_LABEL,
     RECORD_TYPES.PORT,
+    RECORD_TYPES.HARNESS_ENTRY,
   ]);
   for (const device of net.devices) {
     if (device.RECORD && namingTypes.has(device.RECORD)) {
