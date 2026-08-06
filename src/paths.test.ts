@@ -45,16 +45,23 @@ vi.mock("fs", async () => {
     existsSync: vi.fn(() => true),
     promises: {
       ...actual.promises,
-      readdir: vi.fn(async (target?: string) => {
+      readdir: vi.fn(async (target?: string, options?: { withFileTypes?: boolean }) => {
         const normalized = String(target ?? "").toLowerCase();
-        if (normalized.includes("cadence")) {
-          return ["SPB_17.4"];
-        }
-        if (normalized.endsWith("allegro")) {
-          return ["pstchip.dat", "pstxnet.dat", "pstxprt.dat"];
-        }
-        // Schematic directory: contains DSN file and Allegro output folder
-        return ["Board.dsn", "Allegro"];
+        const names = normalized.includes("cadence")
+          ? ["SPB_17.4"]
+          : normalized.endsWith("allegro")
+            ? ["pstchip.dat", "pstxnet.dat", "pstxprt.dat"]
+            : // Schematic directory: one DSN file and the Allegro output folder
+              ["Board.dsn", "Allegro"];
+
+        if (!options?.withFileTypes) return names;
+        // resolveExportDir needs to tell a directory from a file: a plain file
+        // named `allegro` must not be chosen as the output directory.
+        return names.map((name) => ({
+          name,
+          isFile: () => name.includes("."),
+          isDirectory: () => !name.includes("."),
+        }));
       }),
       mkdir: vi.fn(async () => undefined),
     },

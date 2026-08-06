@@ -36,3 +36,22 @@ export const resolvePath = (inputPath: string): string => {
  */
 export const getDesignName = (design: string): string =>
   path.basename(design, path.extname(design));
+
+/**
+ * Suffix of the directory `export_cadence_netlist` writes a design's netlist to.
+ *
+ * Lives here because the exporter that creates these directories and the
+ * discovery that has to recognise them sit in different layers, and `service`
+ * may import `parsers` but not the reverse. Retyping the literal in both left
+ * the writer and the reader agreeing only by coincidence: renaming it on one
+ * side would leave every new export unrecognised with nothing failing.
+ */
+export const NETLIST_DIR_SUFFIX = "_netlist";
+
+/** Name of the export directory belonging to a design. */
+export const netlistDirName = (designName: string): string =>
+  `${designName}${NETLIST_DIR_SUFFIX}`;
+
+/** Does this directory name look like `<design>`'s export directory? */
+export const isNetlistDirFor = (dirName: string, designName: string): boolean =>
+  dirName.toLowerCase() === netlistDirName(designName).toLowerCase();

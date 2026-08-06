@@ -1,10 +1,11 @@
 import { exec } from "child_process";
 import * as fs from "fs";
+import type { Dirent } from "fs";
 import { tmpdir } from "os";
 import path from "path";
 import { promisify } from "util";
 import { createMutex } from "./async-mutex.js";
-import { resolvePath } from "../../paths.js";
+import { resolvePath, netlistDirName } from "../../paths.js";
 import type { CadenceInstall, ExportNetlistResult, ErrorResult } from "../../types.js";
 
 // Serialize pstswp invocations to prevent concurrent Cadence license conflicts
@@ -60,13 +61,6 @@ export const getLatestCadence = async (): Promise<CadenceInstall | null> => {
   return versions[0] ?? null;
 };
 
-/** Suffix for a per-design export directory: `<design>_netlist`. */
-export const NETLIST_DIR_SUFFIX = "_netlist";
-
-/** Name of the export directory belonging to a design. */
-export const netlistDirName = (designName: string): string =>
-  `${designName}${NETLIST_DIR_SUFFIX}`;
-
 /**
  * Resolve the output directory for a design's netlist export.
  *
@@ -77,9 +71,9 @@ export const netlistDirName = (designName: string): string =>
  * that design.
  *
  * The exception is a folder holding a single design that already has an
- * `Allegro/` or `allegro/` directory. That is an established project layout,
- * often pointed at by a PCB editor or a build script, and it cannot collide
- * with anything, so exports keep going there.
+ * `allegro` directory. That is an established project layout, often pointed at
+ * by a PCB editor or a build script, and it cannot collide with anything, so
+ * exports keep going there.
  */
 export const resolveExportDir = async (
   dsnPath: string
@@ -87,22 +81,57 @@ export const resolveExportDir = async (
   const dsnDir = path.dirname(dsnPath);
   const designName = path.basename(dsnPath, path.extname(dsnPath));
 
-  let entries: string[] = [];
+  let entries: Dirent[] = [];
   try {
-    entries = await fs.promises.readdir(dsnDir);
+    entries = await fs.promises.readdir(dsnDir, { withFileTypes: true });
   } catch {
     // Directory doesn't exist or can't be read; fall through to the per-design name.
   }
 
-  const designCount = entries.filter((e) => /\.dsn$/i.test(e)).length;
-  // Matched case-insensitively and kept with its real spelling on disk: real
-  // projects ship Allegro/, allegro/ and ALLEGRO/ alike.
-  const legacyDir = entries.filter((e) => e.toLowerCase() === "allegro").sort()[0];
+  // Both Cadence design kinds count, because Design Entry HDL's netlister writes
+  // the same three filenames into the same directory that pstswp does. Counting
+  // only .dsn left a CIS design sharing `allegro/` with an HDL sibling, which is
+  // the collision this whole function exists to prevent. AppleDouble sidecars
+  // (`._NAME.DSN`, written by macOS onto SMB and NFS shares) are not designs.
+  const designCount = entries.filter(
+    (e) => e.isFile() && !e.name.startsWith("._") && /\.(dsn|cpm)$/i.test(e.name)
+  ).length;
 
-  const dirName = legacyDir && designCount <= 1 ? legacyDir : netlistDirName(designName);
+  const dirName =
+    designCount <= 1 ? ((await legacyExportDir(dsnDir, entries)) ?? netlistDirName(designName))
+      : netlistDirName(designName);
+
   const outputDir = path.join(dsnDir, dirName);
   await fs.promises.mkdir(outputDir, { recursive: true });
   return { outputDir, dirName };
+};
+
+/**
+ * An existing `allegro` directory beside the design, whatever its case.
+ *
+ * Real projects ship `Allegro/`, `allegro/` and `ALLEGRO/` alike. It must be a
+ * directory: a plain file of that name would otherwise be chosen and the mkdir
+ * would fail. When a case-sensitive filesystem holds more than one spelling,
+ * the one already holding a netlist is the live one; the rest are strays, and a
+ * stray empty directory would silently become the export target while consumers
+ * kept reading the real one.
+ */
+const legacyExportDir = async (dsnDir: string, entries: Dirent[]): Promise<string | undefined> => {
+  const candidates = entries
+    .filter((e) => e.isDirectory() && e.name.toLowerCase() === "allegro")
+    .map((e) => e.name)
+    .sort();
+  if (candidates.length <= 1) return candidates[0];
+
+  for (const name of candidates) {
+    try {
+      await fs.promises.access(path.join(dsnDir, name, "pstxnet.dat"));
+      return name;
+    } catch {
+      // Not this one.
+    }
+  }
+  return candidates[0];
 };
 
 /**
@@ -164,7 +193,21 @@ export const exportCadenceNetlist = async (
   const resolvedDsnPath = resolvePath(dsnPath);
   const dsnDir = path.dirname(resolvedDsnPath);
   const dsnFile = path.basename(dsnPath);
-  const { outputDir, dirName: outputDirName } = await resolveExportDir(resolvedDsnPath);
+
+  // Creating the directory can fail on its own (a read-only share, an ACL, a
+  // name already taken by something that is not a directory). This function
+  // promises an ErrorResult rather than a rejection: a rejection escapes as a
+  // raw MCP error and aborts the CLI's per-design loop entirely.
+  let outputDir: string;
+  let outputDirName: string;
+  try {
+    ({ outputDir, dirName: outputDirName } = await resolveExportDir(resolvedDsnPath));
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : String(err);
+    return {
+      error: `Could not create the netlist output directory beside ${dsnFile}: ${message}. Manual export: Open Cadence, then: Tools → Create Netlist → PCB Editor format.`,
+    };
+  }
 
   return serializePstswp(async () => {
     // Temporarily relocate .DSNlck lock file if present (stale locks block pstswp)
@@ -178,19 +221,29 @@ export const exportCadenceNetlist = async (
         timeout: 120000,
       });
 
-      // List generated files
+      // pstswp can exit cleanly having written nothing where we expect it, and
+      // reporting success with an empty directory sends the caller to look for
+      // files that are not there. The netlist itself is the evidence.
       let generatedFiles: string[] | undefined;
       try {
-        const files = await fs.promises.readdir(outputDir);
-        generatedFiles = files.sort();
+        generatedFiles = (await fs.promises.readdir(outputDir)).sort();
       } catch {
         // Output directory may not exist if export failed silently
+      }
+
+      const log = (stdout + stderr).trim() || undefined;
+      if (!generatedFiles?.some((f) => f.toLowerCase() === "pstxnet.dat")) {
+        return {
+          error:
+            `Cadence pstswp reported success but wrote no netlist to ${outputDir}. ` +
+            `Check the log for the directory it actually used.${log ? ` Log: ${log}` : ""}`,
+        };
       }
 
       return {
         success: true,
         outputDir,
-        log: (stdout + stderr).trim() || undefined,
+        log,
         cadenceVersion: cadence.version,
         generatedFiles,
       };

@@ -349,6 +349,47 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
       expect(designs).toHaveLength(2);
     });
 
+    it("should not hand a design a netlist Cadence generated from another design", async () => {
+      // Mid-migration: BOARD_A has been re-exported and the shared allegro/ it
+      // used to share with BOARD_B is orphaned. BOARD_B has never been exported,
+      // so it must fall back to its own .DSN rather than silently answer every
+      // query with BOARD_A's circuit.
+      const projectDir = join(testDir, "project");
+      await createDesign(join(projectDir, "BOARD_A.DSN"));
+      await createDesign(join(projectDir, "BOARD_B.DSN"));
+      await createDatFiles(join(projectDir, "allegro"), "BOARD_A");
+      await createDatFiles(join(projectDir, "BOARD_A_netlist"), "BOARD_A");
+
+      const designs = await discoverCadenceDesigns(testDir);
+
+      const a = designs.find((d) => d.name === "BOARD_A" && d.format === "cadence-cis");
+      const b = designs.find((d) => d.name === "BOARD_B");
+
+      expect(a?.datFiles?.pstxnet).toContain("BOARD_A_netlist");
+      expect(b?.datFiles?.pstxnet).toBeNull();
+      // The orphan is still listed, under a name that cannot be mistaken for
+      // the live design.
+      expect(designs.some((d) => d.name === "BOARD_A" && d.format === "cadence-dat")).toBe(false);
+    });
+
+    it("should prefer a fresh <design>_netlist over a stale directory with the same name", async () => {
+      // Both directories name the design, so nothing but the export convention
+      // distinguishes them; returning the stale one makes a successful export
+      // look like it did nothing.
+      const projectDir = join(testDir, "project");
+      await createDesign(join(projectDir, "BOARD.DSN"));
+      await createDatFiles(join(projectDir, "BOARD"), "BOARD");
+      await createDatFiles(join(projectDir, "BOARD_netlist"), "BOARD");
+
+      const designs = await discoverCadenceDesigns(testDir);
+      const live = designs.find((d) => d.format === "cadence-cis");
+
+      expect(live?.datFiles?.pstxnet).toContain("BOARD_netlist");
+      // list_designs and findCadenceDatFiles must not disagree for one design.
+      const direct = await findCadenceDatFiles(join(projectDir, "BOARD.DSN"));
+      expect(direct.pstxnet).toBe(live?.datFiles?.pstxnet);
+    });
+
     it("should prefer a design's own _netlist directory over a shared allegro/", async () => {
       // A folder mid-migration: the legacy shared directory still holds one
       // design's stale export while the other has been re-exported.

@@ -13,6 +13,7 @@
 import { readdir, readFile } from "fs/promises";
 import path from "path";
 import { createHash } from "crypto";
+import { isNetlistDirFor } from "../../paths.js";
 
 const CADENCE_EXTENSIONS = [".dsn", ".cpm"] as const;
 
@@ -163,17 +164,25 @@ const isDescendantOrEqual = (childDir: string, parentDir: string): boolean => {
  * Check if design name appears as an exact directory component in a relative path.
  * Case-insensitive matching.
  */
-const designNameInRelativePath = (relPath: string, designName: string): boolean => {
-  if (relPath === "" || relPath === ".") return false;
+type NameMatch = "none" | "named" | "exported";
+
+/**
+ * How a path names a design: as a bare `<design>` component, or as the
+ * `<design>_netlist` directory `export_cadence_netlist` writes to.
+ *
+ * The two are distinguished because they can both be present, and then one is
+ * a fresh export and the other is whatever was there before. Scoring the export
+ * higher means a successful export is not silently ignored in favour of a stale
+ * directory that happens to carry the design's name.
+ */
+const designNameInRelativePath = (relPath: string, designName: string): NameMatch => {
+  if (relPath === "" || relPath === ".") return "none";
   const components = relPath.split(path.sep);
   const lowerName = designName.toLowerCase();
-  // `<design>_netlist` is the directory `export_cadence_netlist` writes to, and
-  // it names the design as surely as a bare `<design>` component does.
-  const exported = `${lowerName}_netlist`;
-  return components.some((c) => {
-    const lower = c.toLowerCase();
-    return lower === lowerName || lower === exported;
-  });
+
+  if (components.some((c) => isNetlistDirFor(c, designName))) return "exported";
+  if (components.some((c) => c.toLowerCase() === lowerName)) return "named";
+  return "none";
 };
 
 /**
@@ -188,15 +197,26 @@ const scoreDatSetMatch = (designDir: string, designName: string, datSet: DatFile
 
   // Bonus for design name appearing as a path component in the RELATIVE path
   // (not the absolute path, which might contain project folder names)
-  if (designNameInRelativePath(relPath, designName)) {
-    score += 1000;
-  }
+  const match = designNameInRelativePath(relPath, designName);
+  if (match === "exported") score += 1001;
+  else if (match === "named") score += 1000;
 
   // Prefer closer paths (fewer directory levels between design and dat)
   score -= depth;
 
   return score;
 };
+
+/**
+ * Does a dat set's `ROOT_DRAWING` identify this design?
+ *
+ * Cadence writes the design's own name, uppercased and cut at the first `.`,
+ * so `CutiePi_V2.3-20210409` is recorded as `CUTIEPI_V2` and
+ * `reComputer J401_V1.0` as `RECOMPUTER J401_V1`. Comparing the design name cut
+ * the same way is what makes the two comparable.
+ */
+const rootDrawingNames = (rootDrawing: string, designName: string): boolean =>
+  rootDrawing.toUpperCase() === designName.split(".")[0].toUpperCase();
 
 /**
  * A candidate pairing of a design with a dat set.
@@ -218,7 +238,8 @@ interface MatchCandidate {
  */
 const matchDatSetsToDesigns = (
   designFiles: string[],
-  datSets: DatFileSet[]
+  datSets: DatFileSet[],
+  rootDrawings: Map<string, string> = new Map()
 ): Map<string, DatFileSet | null> => {
   const assignments = new Map<string, DatFileSet | null>();
 
@@ -228,19 +249,33 @@ const matchDatSetsToDesigns = (
   }
 
   // Build all valid candidate pairings
+  const designNames = designFiles.map((d) => path.basename(d, path.extname(d)));
   const candidates: MatchCandidate[] = [];
   for (const designPath of designFiles) {
     const designDir = path.dirname(designPath);
     const designName = path.basename(designPath, path.extname(designPath));
 
     for (const datSet of datSets) {
-      if (isDescendantOrEqual(datSet.directory, designDir)) {
-        candidates.push({
-          designPath,
-          datSet,
-          score: scoreDatSetMatch(designDir, designName, datSet),
-        });
+      if (!isDescendantOrEqual(datSet.directory, designDir)) continue;
+      // Cadence records which design it generated a netlist from. When that
+      // says another design in scope, this set is not a candidate at all: a
+      // shared directory left over from before per-design exports would
+      // otherwise be handed to whichever sibling happened to be left over,
+      // and that sibling would answer every query with another design's
+      // circuit and no error to show for it.
+      const rootDrawing = rootDrawings.get(datSet.directory);
+      if (
+        rootDrawing !== undefined &&
+        !rootDrawingNames(rootDrawing, designName) &&
+        designNames.some((n) => rootDrawingNames(rootDrawing, n))
+      ) {
+        continue;
       }
+      candidates.push({
+        designPath,
+        datSet,
+        score: scoreDatSetMatch(designDir, designName, datSet),
+      });
     }
   }
 
@@ -317,7 +352,8 @@ const consumedDirectories = (assignments: Map<string, DatFileSet | null>): Set<s
  */
 const buildStandaloneDesigns = async (
   datSets: DatFileSet[],
-  consumedDatDirs: Set<string>
+  consumedDatDirs: Set<string>,
+  takenNames: ReadonlySet<string> = new Set()
 ): Promise<CadenceDiscoveredDesign[]> => {
   const unmatchedSets = datSets.filter((ds) => !consumedDatDirs.has(ds.directory));
 
@@ -333,16 +369,21 @@ const buildStandaloneDesigns = async (
   );
 
   // Detect duplicate names and disambiguate
+  // A name is ambiguous if another leftover set answers to it, and equally if a
+  // real design already does: a shared directory orphaned by per-design exports
+  // records the design it came from, so it arrives here carrying that design's
+  // name and would otherwise appear twice in the listing with no way to tell
+  // the stale entry from the live one.
   const nameCounts = new Map<string, number>();
   for (const entry of nameEntries) {
     nameCounts.set(entry.name, (nameCounts.get(entry.name) ?? 0) + 1);
   }
 
   return nameEntries.map((entry) => {
-    const finalName =
-      nameCounts.get(entry.name)! > 1
-        ? `${entry.name}_${shortPathHash(entry.datSet.directory)}`
-        : entry.name;
+    const ambiguous = nameCounts.get(entry.name)! > 1 || takenNames.has(entry.name);
+    const finalName = ambiguous
+      ? `${entry.name}_${shortPathHash(entry.datSet.directory)}`
+      : entry.name;
 
     return {
       name: finalName,
@@ -370,8 +411,21 @@ export const discoverCadenceDesigns = async (
   const absoluteRootDir = path.resolve(normalizeSeparators(rootDir));
   const { designFiles, datSets } = await walkForCadenceFiles(absoluteRootDir, options?.maxDepth);
 
+  // Which design each netlist was generated from, straight from Cadence.
+  const rootDrawings = new Map<string, string>();
+  await Promise.all(
+    datSets.map(async (ds) => {
+      try {
+        const name = await extractRootDrawing(ds.pstxprt);
+        if (name) rootDrawings.set(ds.directory, name);
+      } catch {
+        // Unreadable pstxprt just means no signal; matching falls back to paths.
+      }
+    })
+  );
+
   // Match dat sets to designs
-  const assignments = matchDatSetsToDesigns(designFiles, datSets);
+  const assignments = matchDatSetsToDesigns(designFiles, datSets, rootDrawings);
 
   const designs: CadenceDiscoveredDesign[] = [];
 
@@ -402,7 +456,11 @@ export const discoverCadenceDesigns = async (
   }
 
   // Append standalone designs from unmatched dat trios
-  const standalones = await buildStandaloneDesigns(datSets, consumedDirectories(assignments));
+  const standalones = await buildStandaloneDesigns(
+    datSets,
+    consumedDirectories(assignments),
+    new Set(designs.map((d) => d.name))
+  );
   designs.push(...standalones);
 
   return designs;
@@ -437,7 +495,12 @@ export const findCadenceDatFiles = async (designFilePath: string): Promise<Caden
     datSet: ds,
     score: scoreDatSetMatch(designDir, designName, ds),
   }));
-  scored.sort((a, b) => b.score - a.score);
+  // Same ordering as matchDatSetsToDesigns, so the two agree for one design.
+  // Without the tiebreak the winner of a tie came down to readdir order, and
+  // list_designs could report a different netlist than this function returned.
+  scored.sort(
+    (a, b) => b.score - a.score || a.datSet.directory.localeCompare(b.datSet.directory)
+  );
   const best = scored[0].datSet;
 
   return {

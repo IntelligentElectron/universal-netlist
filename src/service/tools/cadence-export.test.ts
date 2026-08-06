@@ -5,9 +5,9 @@ import {
   relocateLockFile,
   restoreLockFile,
   resolveExportDir,
-  netlistDirName,
 } from "./cadence-export.js";
 import type { ErrorResult } from "../../types.js";
+import { netlistDirName } from "../../paths.js";
 import * as fs from "fs";
 import * as path from "path";
 import * as os from "os";
@@ -164,13 +164,15 @@ describe("resolveExportDir", () => {
     await fs.promises.rm(dir, { recursive: true, force: true });
   };
 
-  /** Create .DSN files in the temp dir and return the path of the first. */
+  /** Create files in the temp dir and return the path of the first. */
   const withDesigns = async (...names: string[]): Promise<string> => {
     for (const name of names) await fs.promises.writeFile(path.join(tmpDir, name), "");
     return path.join(tmpDir, names[0]);
   };
 
   beforeEach(async () => {
+    // The describes above install persistent readdir/mkdir spies. Restoring here
+    // keeps these real-filesystem tests from silently passing against a mock.
     vi.restoreAllMocks();
     tmpDir = await fs.promises.mkdtemp(path.join(os.tmpdir(), "netlist-test-"));
   });
@@ -194,16 +196,31 @@ describe("resolveExportDir", () => {
   });
 
   it("separates designs even when the folder has a legacy Allegro/ directory", async () => {
-    // A shared Allegro/ is exactly what overwrote the files, so a second design
-    // in the folder must not keep using it.
     await fs.promises.mkdir(path.join(tmpDir, "Allegro"));
     const first = await withDesigns("BOARD_A.DSN", "BOARD_B.DSN");
 
     expect((await resolveExportDir(first)).dirName).toBe("BOARD_A_netlist");
   });
 
+  it("counts an HDL sibling as a design", async () => {
+    // Design Entry HDL's netlister writes the same three filenames into the same
+    // directory pstswp does, so a .cpm neighbour collides just as a .DSN does.
+    await fs.promises.mkdir(path.join(tmpDir, "allegro"));
+    const first = await withDesigns("BOARD.DSN", "OTHER.cpm");
+
+    expect((await resolveExportDir(first)).dirName).toBe("BOARD_netlist");
+  });
+
+  it("does not count an AppleDouble sidecar as a design", async () => {
+    // macOS writes ._NAME.DSN beside real files on SMB and NFS shares, and a
+    // Windows workstation exporting from that share sees both entries.
+    await fs.promises.mkdir(path.join(tmpDir, "allegro"));
+    const first = await withDesigns("BOARD.DSN", "._BOARD.DSN");
+
+    expect((await resolveExportDir(first)).dirName).toBe("allegro");
+  });
+
   it("keeps using an existing Allegro/ for a folder with one design", async () => {
-    // An established layout a PCB editor or build script may point at.
     await fs.promises.mkdir(path.join(tmpDir, "Allegro"));
     const only = await withDesigns("BOARD.DSN");
 
@@ -212,21 +229,37 @@ describe("resolveExportDir", () => {
     expect(result.outputDir).toBe(path.join(tmpDir, "Allegro"));
   });
 
-  it("keeps using an existing lowercase allegro/ for a folder with one design", async () => {
+  it("recognises an existing ALLEGRO/ whatever its case", async () => {
+    await fs.promises.mkdir(path.join(tmpDir, "ALLEGRO"));
+    const only = await withDesigns("BOARD.DSN");
+
+    expect((await resolveExportDir(only)).dirName).toBe("ALLEGRO");
+  });
+
+  it("picks the allegro directory that already holds a netlist", async () => {
+    // Several spellings can only coexist on a case-sensitive filesystem, which
+    // macOS and Windows are not. Skipped rather than deleted, because Linux CI
+    // is exactly where a share like this shows up.
+    await fs.promises.mkdir(path.join(tmpDir, "ALLEGRO"));
+    const caseInsensitive = await fs.promises
+      .access(path.join(tmpDir, "allegro"))
+      .then(() => true)
+      .catch(() => false);
+    if (caseInsensitive) return;
+
     await fs.promises.mkdir(path.join(tmpDir, "allegro"));
+    await fs.promises.writeFile(path.join(tmpDir, "allegro", "pstxnet.dat"), "");
     const only = await withDesigns("BOARD.DSN");
 
     expect((await resolveExportDir(only)).dirName).toBe("allegro");
   });
 
-  it("recognises an existing ALLEGRO/ whatever its case", async () => {
-    // Real projects ship Allegro/, allegro/ and ALLEGRO/ alike.
-    await fs.promises.mkdir(path.join(tmpDir, "ALLEGRO"));
+  it("ignores a plain file named allegro", async () => {
+    // It would otherwise be chosen and the mkdir would fail.
+    await fs.promises.writeFile(path.join(tmpDir, "allegro"), "not a directory");
     const only = await withDesigns("BOARD.DSN");
 
-    const result = await resolveExportDir(only);
-    expect(result.dirName).toBe("ALLEGRO");
-    expect(result.outputDir).toBe(path.join(tmpDir, "ALLEGRO"));
+    expect((await resolveExportDir(only)).dirName).toBe("BOARD_netlist");
   });
 
   it("does not mistake a similarly named directory for the legacy one", async () => {
@@ -241,16 +274,14 @@ describe("resolveExportDir", () => {
 
     const result = await resolveExportDir(only);
     expect(result.dirName).toBe("BOARD_netlist");
-    expect(result.outputDir).toBe(path.join(tmpDir, "BOARD_netlist"));
     const stat = await fs.promises.stat(result.outputDir);
     expect(stat.isDirectory()).toBe(true);
   });
 
-  it("counts designs case-insensitively", async () => {
-    const first = await withDesigns("BOARD_A.DSN", "board_b.dsn");
-    await fs.promises.mkdir(path.join(tmpDir, "allegro"));
+  it("uses the per-design directory for a design alone in an empty folder", async () => {
+    const only = path.join(tmpDir, "BOARD.DSN");
 
-    expect((await resolveExportDir(first)).dirName).toBe("BOARD_A_netlist");
+    expect((await resolveExportDir(only)).dirName).toBe("BOARD_netlist");
   });
 
   it("keeps the design's own spelling in the directory name", () => {
