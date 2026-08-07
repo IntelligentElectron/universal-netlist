@@ -42,7 +42,7 @@ Our parser uses `OleReader` (in `src/parsers/ole-reader/`) to open the CFBF cont
 
 **Confidence: VERIFIED**
 
-The directory tree of a typical DSN file:
+The parts of the directory tree we read:
 
 ```
 Root Entry/
@@ -56,7 +56,6 @@ Root Entry/
         Hierarchy                  # Canonical net name list
   Packages/
     {PackageName}                  # Per-package: PartCell + LibraryPart[] + Package
-  CIS/                             # CIS database link info (not parsed)
 ```
 
 | Stream | Purpose | Parser Status |
@@ -66,7 +65,12 @@ Root Entry/
 | `Views/{name}/Hierarchy/Hierarchy` | Canonical flat net name list | Partially parsed |
 | `Packages/{name}` | Package + Device[] + LibraryPart[] | Fully parsed |
 | `Cache` | LibraryPart + Package definitions for all components | Parsed (Packages + LibraryParts) |
-| `CIS/` | CIS database connection info | Not parsed |
+
+That is a small part of what a `.DSN` actually holds. Surveying the top-level entries of all 11 Cadence fixtures, these appear in **every** design and none of them is read:
+
+`AdminData`, `Cells`, `Cells Directory`, `ExportBlocks`, `ExportBlocks Directory`, `Graphics`, `Graphics Directory`, `HSObjects`, `Packages Directory`, `Parts`, `Parts Directory`, `Symbols`, `Symbols Directory`, `Views Directory`
+
+And these appear in some designs only: `DsnStream` and `NetBundleMapData` (10 of 11), `BundleMapData` and `CIS` (7 of 11). `CIS` in particular is not a fixed feature of the format, so a design without it is normal rather than damaged.
 
 ### Stream discovery
 
@@ -85,7 +89,7 @@ We find streams by regex-matching paths from `ole.listAllEntries()`:
 
 **Confidence: VERIFIED**
 
-Most strings use length-prefixed, null-terminated encoding:
+Every string the DSN parsers read uses length-prefixed, null-terminated encoding:
 
 ```
 uint16   length       # byte count of string content (not including null)
@@ -93,9 +97,15 @@ char[]   content      # ASCII (or Latin-1 in Library strLst)
 uint8    0x00         # null terminator
 ```
 
-Special case: if `length == 0`, only the null terminator byte (0x00) is present.
+Special case: if `length == 0`, only the null terminator byte (0x00) is present. The reader checks that byte really is 0 and throws if it is not.
 
 The Library stream's `strLst` uses Latin-1 encoding. All other streams use ASCII.
+
+`BinaryReader` also carries two other forms ported from the C++ reference, `readStringZeroTerm` (null-terminated, no length prefix, 3500-char cap) and `readStringLenTerm` (length-prefixed, no terminator, 400-char cap). Neither is called by any DSN parser today.
+
+#### The 400-character cap is load-bearing
+
+`readStringLenZeroTerm` throws when the length prefix exceeds 400. That bound is not decoration: it is the mechanism that stops a mis-framed read from consuming the rest of a stream as one absurd string, and it is what actually ends the Cache stream's sequential walk on three fixtures. CutiePi gives up with a length of 17152 and reServer J2032 with 65312, at which point the brute-force scanner of section 10.3 takes over. A missing null terminator throws for the same purpose.
 
 ### 3.2 Integers
 
@@ -107,7 +117,19 @@ All little-endian: `uint8`, `int16`, `uint16`, `int32`, `uint32`. No 64-bit inte
 
 **Confidence: VERIFIED**
 
-Schematic coordinates are `int16` or `int32` depending on context. Pin and component locations use `int16`. Wire endpoints use `int32` (via Alias parsing).
+Schematic coordinates are `int16` or `int32` depending on context, and the width is a property of the structure, not of the coordinate:
+
+| Structure | Field | Width |
+|---|---|---|
+| PlacedInstance | `loc_x`, `loc_y` | `int16` |
+| T0x10 (pin) | `point_x`, `point_y` | `int16` |
+| GraphicInst (Global/Port/OPC) | `loc_x/y`, bbox `x1/y1/x2/y2` | `int16` |
+| SymbolDisplayProp | `x`, `y` | `int16` |
+| Wire | `start_x/y`, `end_x/y` | `int32` |
+| Alias | `loc_x`, `loc_y` | `int32` |
+| SymbolPin | `start_x/y`, `hotpt_x/y` | `int32` |
+
+Wire endpoints are read as `int32` in the Wire body itself. Alias is a separate structure that also uses `int32`; the two are independent.
 
 ---
 
@@ -124,10 +146,12 @@ Offset  Size  Field
 ------  ----  -----
 0x00    1     Structure type ID (uint8)
 0x01    4     Byte offset to end of enclosed data (uint32)
-0x05    4     Mirrors the byte offset (validation pair)
+0x05    4     Unknown (OBSERVED: always 0x00000000)
 ```
 
 The byte offset is relative to the position after the 9-byte header. It defines a "checkpoint boundary" used to validate parsing progress.
+
+The trailing four bytes are skipped, not read. They were zero in every one of the 242 `Packages/` streams across the fixture corpus, never a copy of the byte offset. OpenOrCadParser treats them the same way, as unknown data with a commented-out assertion that they are zero.
 
 ### 4.2 Short (Final) Prefix (3 + 8N bytes)
 
@@ -168,9 +192,12 @@ This serves as a separator between prefix data and the structure body. Not all s
 
 **Confidence: OBSERVED**
 
-Each long prefix's byte offset defines a checkpoint boundary. As the parser reads through the structure body, it periodically calls `checkpoint()` to verify the current file position matches an expected boundary. This enables:
-- Validation that parsing is on track
-- Error recovery via `skipToNextBoundary()` or `readRestOfStructure()`
+Each long prefix's byte offset defines a checkpoint boundary. As the parser reads through the structure body it calls `checkpoint()` at the points where a boundary is expected.
+
+`checkpoint()` is advisory, not a validator. It looks for an unparsed boundary whose stop offset equals the current position, marks it parsed if it finds one, and returns silently if it does not. It never throws, so a body that has drifted off the true layout is not caught here. What the boundaries actually buy is navigation:
+
+- `skipToNextBoundary()` jumps to the nearest unvisited boundary at or after the current position. This is a normal-path tool, not error recovery: it is how LibraryPart steps over the graphical primitives it cannot parse (section 9.3).
+- `readRestOfStructure()` jumps to the furthest boundary, which is how `skipStructure()` steps over a structure whose body we never decode.
 
 ---
 
@@ -178,45 +205,45 @@ Each long prefix's byte offset defines a checkpoint boundary. As the parser read
 
 **Confidence: VERIFIED (values from OpenOrCadParser, confirmed by parsing)**
 
-| ID (hex) | ID (dec) | Name | Purpose |
-|----------|----------|------|---------|
-| `0x02` | 2 | SthInPages0 | Unknown sub-structure in pages |
-| `0x06` | 6 | PartCell | Part cell in Package streams |
-| `0x0A` | 10 | Page | Page-level wrapper |
-| `0x0B` | 11 | PartInstance | Part instance (unused by us) |
-| `0x0D` | 13 | PlacedInstance | Component placed on schematic |
-| `0x10` | 16 | T0x10 | Pin instance on a placed component |
-| `0x14` | 20 | WireScalar | Single-signal wire |
-| `0x15` | 21 | WireBus | Bus wire |
-| `0x17` | 23 | Port | Port symbol |
-| `0x18` | 24 | LibraryPart | Library symbol definition |
-| `0x1A` | 26 | SymbolPinScalar | Individual symbol pin |
-| `0x1B` | 27 | SymbolPinBus | Bus-type symbol pin |
-| `0x1D` | 29 | BusEntry | Bus entry point |
-| `0x1F` | 31 | Package | Package definition |
-| `0x20` | 32 | Device | Device within a package |
-| `0x21` | 33 | GlobalSymbol | Global power symbol definition |
-| `0x22` | 34 | PortSymbol | Port symbol definition |
-| `0x23` | 35 | OffPageSymbol | Off-page connector symbol definition |
-| `0x25` | 37 | Global | Global power connector instance |
-| `0x26` | 38 | OffPageConnector | Off-page connector instance |
-| `0x27` | 39 | SymbolDisplayProp | Display property on a symbol |
-| `0x31` | 49 | Alias | Wire alias (net name label) |
-| `0x34` | 52 | T0x34 | Primitive graphics (line/shape) |
-| `0x35` | 53 | T0x35 | Primitive graphics (polyline/shape) |
-| `0x40` | 64 | TitleBlockSymbol | Title block symbol definition |
-| `0x41` | 65 | TitleBlock | Title block instance |
-| `0x4D` | 77 | ERCObject | Electrical rules check marker |
-| `0x62` | 98 | PinShapeSymbol | Pin shape symbol definition |
-| `0x67` | 103 | NetGroup | Net group |
+The full list is `src/parsers/cadence/dsn/structure-types.ts`, ported from `Enums/Structure.hpp`. The `Body` column says whether we decode the structure's body and keep anything from it. A `no` means the prefix chain is read and the body jumped over by `skipStructure()`. T0x34 and T0x35 are marked `walk`: they carry no prefix chain at all, so their fields are stepped through purely to advance the read position and every value is discarded.
 
-We only parse the **bolded** types in the table above (PlacedInstance, T0x10, Wire, Package, Device, LibraryPart, SymbolPin, Global, Port, OffPageConnector, SymbolDisplayProp, Alias). All others are skipped via `skipStructure()`.
+| ID (hex) | ID (dec) | Name | Purpose | Body |
+|----------|----------|------|---------|------|
+| `0x02` | 2 | SthInPages0 | Unknown sub-structure in pages | no |
+| `0x06` | 6 | PartCell | Part cell in Package streams | no |
+| `0x0A` | 10 | Page | Page-level wrapper | yes |
+| `0x0B` | 11 | PartInstance | Part instance (unused by us) | no |
+| `0x0D` | 13 | PlacedInstance | Component placed on schematic | yes |
+| `0x10` | 16 | T0x10 | Pin instance on a placed component | yes |
+| `0x14` | 20 | WireScalar | Single-signal wire | yes |
+| `0x15` | 21 | WireBus | Bus wire | yes |
+| `0x17` | 23 | Port | Port symbol | yes |
+| `0x18` | 24 | LibraryPart | Library symbol definition | yes |
+| `0x1A` | 26 | SymbolPinScalar | Individual symbol pin | yes |
+| `0x1B` | 27 | SymbolPinBus | Bus-type symbol pin | yes |
+| `0x1D` | 29 | BusEntry | Bus entry point | no |
+| `0x1F` | 31 | Package | Package definition | yes |
+| `0x20` | 32 | Device | Device within a package | yes |
+| `0x21` | 33 | GlobalSymbol | Global power symbol definition | no |
+| `0x22` | 34 | PortSymbol | Port symbol definition | no |
+| `0x23` | 35 | OffPageSymbol | Off-page connector symbol definition | no |
+| `0x25` | 37 | Global | Global power connector instance | yes |
+| `0x26` | 38 | OffPageConnector | Off-page connector instance | yes |
+| `0x27` | 39 | SymbolDisplayProp | Display property on a symbol | yes |
+| `0x31` | 49 | Alias | Wire alias (net name label) | yes |
+| `0x34` | 52 | T0x34 | Primitive graphics (line/shape) | walk |
+| `0x35` | 53 | T0x35 | Primitive graphics (polyline/shape) | walk |
+| `0x40` | 64 | TitleBlockSymbol | Title block symbol definition | no |
+| `0x41` | 65 | TitleBlock | Title block instance | no |
+| `0x4D` | 77 | ERCObject | Electrical rules check marker | no |
+| `0x62` | 98 | PinShapeSymbol | Pin shape symbol definition | no |
+| `0x67` | 103 | NetGroup | Net group | no |
 
 ---
 
 ## 6. Library Stream
 
-**Confidence: VERIFIED (header layout), OBSERVED (some_len always = 24)**
+**Confidence: VERIFIED (header layout), OBSERVED (`some_len` always = 24)**
 
 The Library stream contains the global string table used by all prefix property pairs.
 
@@ -234,7 +261,7 @@ Offset  Size        Field
 0x2C    4           0x00000000         (assumed padding)
 0x30    2           text_font_len      (uint16)
 ...     (text_font_len - 1) * 60      LOGFONTA structures
-...     2           some_len           (uint16, OBSERVED: always 24)
+...     2           some_len           (uint16, OBSERVED: 24 in all 11 fixtures)
 ...     some_len * 2                   some_data (uint16 each)
 ...     8           unknown
 ...     8 * string                     str_lst_part_field entries
@@ -274,7 +301,7 @@ We assume each LOGFONTA structure is exactly 60 bytes, matching the Windows LOGF
 
 ### UNKNOWN: str_lst_len width
 
-The OpenOrCadParser mentions that "version A" files use `uint16` for `str_lst_len` instead of `uint32`. Our parser always reads `uint32`. We haven't encountered a version A file.
+The OpenOrCadParser mentions that "version A" files use `uint16` for `str_lst_len` instead of `uint32`. Our parser always reads `uint32`. We haven't encountered a version A file: every fixture reads `introduction` = `"OrCAD Windows Design"` at version 3.2 or 3.3.
 
 ---
 
@@ -394,7 +421,7 @@ BODY:
 
 **VERIFIED**: `Wire.id` is the net identifier that connects to the page's net name table. All wire segments sharing the same `id` belong to the same logical net.
 
-**VERIFIED**: `Wire.segment_id` is unique per wire segment and is used to generate unnamed net names (`N{segment_id}`), matching Cadence DAT export behavior.
+**VERIFIED**: `Wire.segment_id` is unique per wire segment and is what names an unnamed net, matching Cadence DAT export behavior. A net is a group of segments, so the name is built from the smallest `segment_id` in the group, `N{minSegmentId}`, not from any one segment's own id (section 11.4).
 
 ### 7.6.1 Alias (type 0x31)
 
@@ -463,7 +490,7 @@ The OpenOrCadParser reference treats these two bytes as unknown padding
 identified here by dumping every discarded byte block for the eight `RP3` instances of
 `BeagleBoard-xM_ORCAD` and correlating against the section order derived independently
 from that design's `pstxnet.dat` export: the field reads `0,1,2,...,7` in exactly that
-order. Verified across the Cadence fixture corpus — see section 11.2.
+order. Verified across the Cadence fixture corpus — see section 11.3.
 
 #### User property resolution (MPN, Value)
 
@@ -505,13 +532,15 @@ The `sth` field encodes both a 1-based logical pin index and a no-connect flag:
 - If `sth < 32768`: `pin_index = sth`
 - If `sth >= 32768`: bit 15 is set (no-connect flag), `pin_index = 65536 - sth`
 
-This encoding is from the OpenOrCadParser reference and confirmed to produce correct pin mappings in all tested designs. Our parser currently uses `net_id == 0` without `coordNet` as a proxy for NC detection, which works for 99.8%+ of pins but is not the correct mechanism. Both cases are treated identically for pin map lookup.
+This encoding is from the OpenOrCadParser reference and confirmed to produce correct pin mappings in all tested designs. Both branches are treated identically for pin map lookup, and the parser keeps only `pin_index`; bit 15 is folded away by the subtraction and never surfaces as a flag.
+
+No-connect is therefore inferred, not read: a pin is called NC when `net_id == 0` and no wire, symbol or overlapping pin claims its coordinate. That is a proxy for bit 15 rather than the mechanism itself, but it reproduces the DAT export's pin sets exactly across the fixture corpus (section 12.5), so nothing currently distinguishes the two rules in practice.
 
 #### net_id semantics (REVISED)
 
 - `net_id > 0 && net_id < 0xFFFFFFFF`: Normal net. Groups pins belonging to the same electrical net across a page. Maps to the page net table.
-- `net_id == 0`: Pin has no Cadence DB net object assigned. This does NOT necessarily mean no-connect; the pin may still be connected via wire geometry (coordinate overlap). NC is determined by `sth` bit 15, not by `net_id`.
-- `net_id == 0xFFFFFFFF`: Sentinel value. The pin's net is determined by its physical coordinate overlapping a wire endpoint, a Global/Port symbol bbox, or an OffPageConnector edge midpoint.
+- `net_id == 0`: Pin has no Cadence DB net object assigned. This does NOT by itself mean no-connect; the pin may still be connected via wire geometry (coordinate overlap), and such a pin is treated as connected. In the format proper the no-connect marker is `sth` bit 15; the parser instead calls a pin NC when `net_id == 0` and geometry claims nothing, as described above.
+- `net_id == 0xFFFFFFFF`: Sentinel value. The pin's net is determined by its physical coordinate overlapping a wire endpoint, a wire body segment, a Global/Port symbol bbox, or one of an OffPageConnector's five match points (section 11.4).
 
 **IMPORTANT**: `net_id` values are NOT the same as `Wire.id` values. They are in different Cadence DB object ID spaces. The correspondence between pin netId and wire id is established indirectly through the net name table (both reference the same logical net, but via different IDs).
 
@@ -546,9 +575,13 @@ BODY:
     -- checkpoint --
 ```
 
+`unknown_flag` also takes the values 0x21, 0x22, 0x23, 0x40 and 0x4b, which are structure type IDs. Only 0x02 is acted on; the rest are consumed and ignored.
+
+A **Port** carries **9 further unknown bytes** after that checkpoint, which Global and OffPageConnector do not. Those bytes are inside the structure, unlike the five described next.
+
 After each Port, Global, or OffPageConnector record, there are **5 unknown bytes** that are not part of the structure itself. These are read separately in the page parser.
 
-**VERIFIED**: OPCs sharing the same `name_str_idx` represent the same net across pages. For Globals/Ports, `name_str_idx` resolves to the power/ground net name (e.g., "VCC_3V3", "GND").
+**VERIFIED**: OPCs sharing the same `name_str_idx` represent the same net across pages. For Globals/Ports, `name_str_idx` resolves to the power/ground net name (e.g., "VCC_3V3", "GND"). The parser calls this field `pairingId`, the name it goes by in section 11.4.
 
 ### 7.9 SymbolDisplayProp (type 0x27)
 
@@ -593,9 +626,9 @@ HEADER:
     uint16    view_name_length
     view_name_length bytes + 0x00   view_name
 
-SCAN FORWARD to find 0x43 marker byte
+SCAN FORWARD to the first 0x43 byte, then REWIND 2 bytes
 
-    uint16    net_count
+    uint16    net_count        # the two bytes immediately BEFORE the 0x43
 
 For each net:
     24 bytes  fixed metadata   (UNKNOWN contents)
@@ -603,7 +636,9 @@ For each net:
     name_length bytes + 0x00   net_name
 ```
 
-**HEURISTIC**: The "scan for 0x43" approach is fragile. We don't fully understand the header structure between the view name and the net records. The 0x43 byte happens to precede the net count in all tested designs, but this is pattern-matching, not spec-based parsing.
+Net names are uppercased on read, matching the page net table.
+
+**HEURISTIC**: The "scan for 0x43" approach is fragile. We don't fully understand the header structure between the view name and the net records. The 0x43 byte happens to sit two bytes after the net count in all tested designs, but this is pattern-matching, not spec-based parsing. The whole stream is best-effort: a throw anywhere in it leaves `canonicalNetNames` empty and the rest of the parse continues without hierarchy preference.
 
 **UNKNOWN**: The 24 bytes of "fixed metadata" per net record. These likely contain Cadence DB object IDs, net attributes, or cross-references, but we skip them entirely.
 
@@ -627,6 +662,8 @@ For each part cell:
 
 Package structure (type 0x1F, parsed)
 ```
+
+A LibraryPart that fails to parse is not fatal: the reader rewinds to where the structure began and steps over it with `skipStructure()`, so one unreadable symbol costs its pin names rather than the whole stream. The trailing Package is parsed without that guard, because losing it would lose the pin map the stream exists to provide.
 
 ### 9.1 Package (type 0x1F)
 
@@ -663,7 +700,7 @@ BODY:
     For each pin:
         Peek int16 at current position:
         if == -1 (0xFFFF):
-            read 2 bytes, SKIP (no entry in pin_map)
+            read 2 bytes, emit a null placeholder
         else:
             string    pin_name     # e.g. "1", "A5", "GND"
             uint8     pin_config   (bitfield):
@@ -672,7 +709,9 @@ BODY:
     -- checkpoint --
 ```
 
-The `pin_map` array maps logical pin index to physical pin designator. Index 0 corresponds to logical pin 1 (T0x10.pinIndex = 1). Entries with `strLen == -1` are **skipped** (not included in `pin_map`), so `pin_map` is a dense array of only the pins exposed on the schematic symbol. The C++ reference implementation (`StructDevice.cpp`) confirms this: it `continue`s past `-1` entries without appending to the vector.
+The `pin_map` array maps logical pin index to physical pin designator. Index 0 corresponds to logical pin 1 (T0x10.pinIndex = 1).
+
+**Divergence from the C++ reference**: `StructDevice.cpp` `continue`s past a `-1` entry without appending to its vector, producing a dense array. We push `null` instead, so `pin_map` always has exactly `pin_count` entries and index `pinIndex - 1` keeps meaning logical pin `pinIndex`. Dropping the entry would shift every pin after it by one. The parallel `pin_ignore` array is filled with `false` at the same position to stay aligned, and `resolvePinNumber` treats a `null` as "this map has no entry here" and tries the other stream.
 
 **Important**: The `Packages/` stream and the Cache stream may contain **different** Device definitions for the same component. See [section 11.1](#111-pin-number-resolution) for Cache fallback when pin counts differ.
 
@@ -694,7 +733,7 @@ BODY:
     ... graphical primitives (Line, Rect, Arc, etc.)
     -- checkpoint --           # <-- we skip to here via futureData.skipToNextBoundary()
     uint16    len_symbol_pins
-              SymbolPin[] sub-records
+              SymbolPin[] sub-records, or a bare 0x00 placeholder
     uint16    len_symbol_display_props
               SymbolDisplayProp[] sub-records
     -- checkpoint --
@@ -712,6 +751,12 @@ BODY:
 ```
 
 **HEURISTIC**: The graphical primitives inside LibraryPart use a non-standard format that we cannot parse reliably. We skip them by reading `len_primitives` and then calling `futureData.skipToNextBoundary()` to jump to the checkpoint after the primitives section. This works because the long prefix's byte offset defines where the primitives end.
+
+#### The 0x00 pin placeholder
+
+A slot in the SymbolPin array may hold a single `0x00` byte instead of a structure. Per the C++ reference this marks a "convert view" pin. The byte is consumed and an empty string pushed in that slot, because `pinNames[pinIndex - 1]` has to keep pointing at logical pin `pinIndex`; skipping the slot would shift every later pin name onto the wrong pin.
+
+The `GeneralProperties` block that follows is optional in the literal sense that the parser attempts it inside a `try` and keeps the LibraryPart it has already built if the read throws.
 
 ### 9.4 SymbolPin (type 0x1A / 0x1B)
 
@@ -746,13 +791,15 @@ BODY:
     -- checkpoint --
 ```
 
+Only `name` is kept. Everything from `start_x` through the second unknown block is stepped over as one 28-byte skip, so the field breakdown above is the reference layout rather than a description of what the parser decodes. The `pin_shape` bit meanings and the `port_type` enum come from OpenOrCadParser and are not independently confirmed here; nothing in the netlist path depends on them.
+
 ---
 
 ## 10. Cache Stream
 
 **Confidence: VERIFIED**
 
-The Cache stream contains ALL component definitions for the design: symbol definitions, LibraryParts (pin names), and Packages (pin maps). It is parsed sequentially from byte 0 to EOF.
+The Cache stream contains ALL component definitions for the design: symbol definitions, LibraryParts (pin names), and Packages (pin maps). It is parsed sequentially from the end of the 4-byte header to EOF, or until the walk throws and the scanner of section 10.3 takes over.
 
 Reference: `OpenOrCadParser/src/Streams/StreamCache.cpp`
 
@@ -763,7 +810,7 @@ uint16    0x0000           (2 zero bytes)
 uint16    unknown          (2 unknown bytes)
 ```
 
-Empty caches are exactly 10 zero bytes.
+A Cache of 10 bytes or fewer is treated as empty and skipped without reading the header.
 
 ### 10.2 Cache Entry Format
 
@@ -804,17 +851,28 @@ uint16    structure_type    // matches prefix chain type byte
 [PREFIX CHAIN + BODY]       // standard structure (autoReadPrefixes + body)
 ```
 
-Structure types found in Cache: symbols (0x21, 0x23, 0x40, 0x4b), PartCell (0x06), LibraryPart (0x18), Package (0x1F).
+Counting the `structure_type` of every entry the sequential walk reaches, across all 11 fixtures:
+
+| Type | Count | Name |
+|---|---|---|
+| `0x18` | 640 | LibraryPart |
+| `0x06` | 615 | PartCell |
+| `0x1F` | 521 | Package |
+| `0x4b` | 342 | **unidentified** — not in `structure-types.ts`, and the third most common thing in the stream |
+| `0x21` | 74 | GlobalSymbol |
+| `0x23` | 62 | OffPageSymbol |
+| `0x40` | 12 | TitleBlockSymbol |
+| `0x00`, `0x14` | 1 each | almost certainly the walk desynchronising just before it throws, not real entries |
+
+Only `0x18` and `0x1F` are decoded; everything else goes to `skipStructure()`, which is why `0x4b` costs nothing despite its frequency. The counts stop where the sequential walk stops, so on the five designs that fall back to the scanner they describe the head of the stream rather than all of it.
 
 ### 10.3 Parsing Strategy
 
 We use a **hybrid sequential + recovery** approach:
 
-1. **Sequential parsing** from byte 0, navigating variable-length metadata per entry. This is the primary strategy and handles the majority of entries.
+1. **Sequential parsing** from the end of the 4-byte header, navigating variable-length metadata per entry. This is the primary strategy and handles the majority of entries.
 
-2. **Brute-force preamble recovery** when sequential parsing fails mid-stream (e.g., due to unrecognized metadata variants). The scanner searches the remaining buffer for the 4-byte preamble magic (`FF E4 5C 39`) and checks whether 3 bytes before each match is a valid Package (0x1F) or LibraryPart (0x18) short prefix type byte. If so, it attempts to parse the structure from that offset.
-
-This hybrid approach is necessary because some designs have Cache entries with metadata format variants that cause sequential parsing to break partway through. For example, LAUNCHXL-CC1310 fails at entry 12 (offset ~43929) with a string encoding error. The recovery scanner picks up remaining Package structures that the sequential parser missed.
+2. **Brute-force preamble recovery** when sequential parsing throws. The scanner finds each 4-byte preamble magic (`FF E4 5C 39`) in the remaining buffer and works backwards to the start of the record that owns it.
 
 We extract two structure types:
 - **Package** (0x1F): Device pinMap arrays for pin number resolution
@@ -822,21 +880,68 @@ We extract two structure types:
 
 All other structure types are skipped via `skipStructure()`.
 
-**Limitation**: Some designs (e.g., LAUNCHXL-CC1310, CutiePi) contain **no LibraryPart (0x18) structures** in their Cache stream at all. Pin names for generic components (LED, RESISTOR, test pads) in these designs are only available in the CIS database, which we do not parse.
+#### Walking back from the magic
+
+The short prefix does not sit at a fixed distance before the preamble. It is `type(1) + int16 pairCount` followed by 8 bytes per (nameIdx, valIdx) pair, and it may be preceded by long prefixes of 9 bytes each. Assuming a fixed 3 bytes only holds for a record with no pairs and no long prefixes.
+
+So the scanner searches two nested distances. For each candidate pair count from 0 up to 64, it checks whether the byte at `magic - 3 - 8 * pairs` is `0x1F` or `0x18` and whether the `int16` after it equals that pair count. When both hold, it steps back in 9-byte strides for up to 10 long prefixes, requiring each stride to repeat the same type byte, and tries to parse from there. The prefix reader validates the chain, so a wrong guess throws and the next candidate is tried.
+
+Section 11.2 explains why this matters: a fixed 3-byte assumption finds every Package but only a minority of LibraryParts, which is how designs once ended up with pin numbers everywhere and pin names nowhere.
+
+#### Measured behaviour per design
+
+`seq entries` is how many entries the sequential walk completed before the scanner took over.
+
+| Design | Cache bytes | seq entries | scan ran | LibraryParts | Packages |
+|---|---|---|---|---|---|
+| BeagleBoard-xM | 315514 | 307 | no | 85 | 79 |
+| BB-Black | 282889 | 263 | no | 75 | 72 |
+| BB-Black (BeagleBoard) | 282889 | 263 | no | 75 | 72 |
+| CutiePi | 111506 | 11 | yes, at 4848 | 56 | 57 |
+| CC13xx | 32827 | 50 | no | 14 | 12 |
+| LAUNCHXL-CC1310 | 141722 | 12 | yes, at 43997 | 46 | 41 |
+| reComputer J201 | 588002 | 375 | no | 95 | 86 |
+| reComputer J202 | 491152 | 217 | no | 65 | 56 |
+| reComputer J401 | 500164 | 238 | yes, at 500162 | 65 | 57 |
+| reServer J401 | 787193 | 385 | yes, at 787191 | 96 | 87 |
+| reServer J2032 | 639194 | 151 | yes, at 616594 | 70 | 59 |
+
+Six designs walk the whole stream sequentially. Of the five that do not, two (`reComputer J401`, `reServer J401`) fail on the last two bytes, which is an end-of-stream artefact rather than a metadata variant. Only CutiePi, LAUNCHXL-CC1310 and reServer J2032 break genuinely mid-stream, and on those the scanner recovers the remainder.
+
+Every design now yields LibraryParts, including CutiePi and LAUNCHXL-CC1310, which is what carries pin function names to 100% in section 12.5.
 
 ### 10.4 Priority
 
 When both `Packages/` streams and Cache provide data for the same component, `Packages/` streams take priority for pin map resolution. The Cache is used as fallback for components not covered by dedicated streams.
 
-**Exception**: When the `Packages/` stream `pin_map` has more entries than the instance's T0x10 count, the Cache stream's `pin_map` is preferred. See [section 11.1](#111-pin-number-resolution) for details and an example.
+**"Fallback" undersells it.** A design need not ship `Packages/` streams at all, and the count bears no fixed relation to how many packages the design uses. Counting streams (after excluding `_pDboPackage_Copy_`) against `Packages Directory` entries:
+
+| Design | `Packages/` streams | Directory entries |
+|---|---|---|
+| BeagleBoard-xM | 161 | 161 |
+| BB-Black | **0** | 88 |
+| BB-Black (BeagleBoard) | **0** | 88 |
+| CutiePi | 67 | 67 |
+| CC13xx | 5 | 5 |
+| LAUNCHXL-CC1310 | 14 | 16 |
+| reComputer J201 / J202 / J401 | 11 | 99 |
+| reServer J401 | 11 | 99 |
+| reServer J2032 | 29 | 29 |
+
+Both BeagleBone-Black designs have a `Packages` storage with no streams inside it, so every pin number they report comes from the Cache, and the four Jetson carriers get roughly nine tenths of theirs from it. That is why the Cache recovery of section 10.3 matters as much as it does: on those designs it is not a fallback, it is the source.
+
+**Exception**: when the `Packages/` map's length disagrees with the instance's T0x10 count, the Cache map may win instead. A Cache map whose length equals the T0x10 count settles it; failing that, only a `Packages/` map longer than the symbol prefers the Cache. See [section 11.1](#111-pin-number-resolution) for details and an example.
 
 ### 10.5 Packages Directory Stream
 
 **Confidence: OBSERVED**
 
-A separate OLE stream named `Packages Directory` contains a list of all package names in the design. Each entry is:
+A separate OLE stream named `Packages Directory` contains a list of all package names in the design:
 
 ```
+6 bytes   stream header    (unknown; entries begin at offset 6)
+
+For each entry:
 string    package_name     (uint16 len + ASCII + 0x00)
 uint8     0x1F             (Package type marker)
 uint8     0x00
@@ -846,9 +951,11 @@ uint16    unknown_1        (observed: 0x0003)
 uint16    unknown_2        (observed: 0x0002)
 ```
 
-This directory lists all ~90 package types in BB-Black, but contains **no offsets** into the Cache stream. It confirms what packages should exist, but doesn't help find them.
+Starting the walk at offset 6 and requiring the `0x1F` marker after each name consumes every entry cleanly in all 11 fixtures, which is what confirms the entry layout. BB-Black lists 88 packages this way.
 
-Similarly, `Cells Directory`, `Parts Directory`, `Views Directory`, and `Symbols Directory` streams exist with analogous structures for their respective object types.
+The directory contains **no offsets** into the Cache stream. It confirms what packages should exist, but doesn't help find them, which is why section 10.3 has to scan for preamble magic instead of consulting it.
+
+Similarly, `Cells Directory`, `ExportBlocks Directory`, `Graphics Directory`, `Parts Directory`, `Symbols Directory` and `Views Directory` streams exist with analogous structures for their respective object types. All 11 fixtures carry all six, and none is read.
 
 ---
 
@@ -866,7 +973,7 @@ T0x10.pinIndex  -->  Device.pinMap[pinIndex - 1]  -->  physical pin number
 
 For example, if T0x10.sth = 5 and Device.pinMap[4] = "A5", the physical pin is "A5".
 
-If no pin map is found, `pinIndex` itself is used as the pin number string (fallback).
+When the selected map has no entry at that index, whether because no map matched or because the slot holds a `null` placeholder (section 9.2), the other stream's map is tried before giving up. Only if both come up empty is `pinIndex` itself used as the pin number string. That last value is the symbol's pin record order, which equals the physical pin number only for parts whose symbol order matches their package numbering, so it is a last resort and not a peer of the two maps.
 
 **Cache fallback for physical-vs-schematic mismatch**: The `Packages/` `pin_map` describes the physical package, whose pad count need not equal the symbol's pin count, and one package may serve symbols exposing different subsets of it. When the `Packages/` map length differs from the instance's T0x10 count, the parser consults the Cache stream's Device for that component, which stores the schematic-level pins. A Cache map whose length equals the T0x10 count settles the choice in either direction; otherwise only the longer-package case prefers the Cache.
 
@@ -932,12 +1039,14 @@ Pin function names come from LibraryPart records, which the Cache stream carries
 
 Assuming the short prefix sits exactly 3 bytes before the magic holds only when it carries no pairs and nothing precedes it. Across the fixture corpus that is true for **every** Package, and for a minority of LibraryParts:
 
-| Design | LibraryParts | with pairCount = 0 |
+| Design | LibraryParts surveyed | with pairCount = 0 |
 |---|---|---|
 | LAUNCHXL-CC1310 | 45 | 13 |
 | CutiePi V2.3 | 57 | 17 |
 | reComputer Industrial J201 | 96 | 1 |
 | BeagleBoard-xM | 85 | 49 |
+
+These are counts from the survey that motivated the fix, and sit within one or two of the recovery counts in [section 10.3](#103-parsing-strategy), which are what the current parser actually extracts.
 
 So a design whose sequential walk failed early came out with pin numbers for every component and pin names for none: LAUNCHXL-CC1310 and CutiePi both yielded 0 LibraryParts while yielding 41 and 57 Packages. The scan now searches for the pair count and then for the chain start, letting the prefix reader validate each candidate.
 
@@ -949,18 +1058,26 @@ With both fixed, pin function names match the DAT export on 8105 of 8105 pins ac
 
 **Confidence: VERIFIED**
 
-`PlacedInstance.sourcePackage` identifies which Package provides the pin map, but the name doesn't always match directly. We try five strategies in order:
+`PlacedInstance.sourcePackage` identifies which Package provides the pin map, but the name doesn't always match directly. The search is two nested loops, not one flat list.
 
-1. **Direct match**: `sourcePackage` equals a Package name
-2. **Multi-unit**: `sourcePackage` + unit letter (extracted from `pkgName` suffix)
-3. **Positional device assignment**: for multi-section components with no unit suffix (see below)
-4. **Normalized**: expand `_N_` to `_N.0_` in sourcePackage (version-like suffixes)
-5. **Stripped**: remove trailing `_\d+` from sourcePackage
-6. **Unit "A" fallback**: `sourcePackage` + "A" (only for single-instance components where no positional index exists)
+The **outer loop** walks three spellings of the base name, in order, stopping at the first that yields a key:
+
+1. `sourcePackage` as written
+2. **Normalized**: expand `_N_` to `_N.0_` (version-like suffixes)
+3. **Stripped**: remove a trailing `_\d+`
+
+The **inner loop** tries four ways to turn a base name into a key, in order:
+
+1. **Direct match**: the base name is itself a Package key
+2. **Multi-unit**: base + unit letter extracted from the `pkgName` suffix; if that letter is a doubled pair such as `AA`, its first character is tried as well
+3. **Positional device assignment**: for multi-section components with no unit suffix, base + the unit letter at `sectionIndex` (see below)
+4. **Unit "A" fallback**: base + `"A"`, for a package whose devices are not enumerated in `deviceUnitRefs`
 
 For multi-unit matching, `pkgName` format is `{sourcePackage}{unitLetter}.Normal` (e.g., `OMAP_CBP_1AA.Normal`). Cadence sometimes doubles the unit letter ("AA"), but the Device `unitRef` uses a single letter ("A").
 
-#### Section-based device assignment (strategy 3)
+Steps 3 and 4 apply only when no unit letter was extracted: an instance carrying a unit suffix resolves by that suffix or not at all.
+
+#### Section-based device assignment
 
 Multi-section components like resistor packs (e.g., RP1 with package `RPAK_10_8RES`, 8 sections, 16 physical pins) have multiple PlacedInstances sharing the same `(refdes, pkgName)` with no unit suffix in `pkgName`. Each such instance names its own Device through `PlacedInstance.section_index` (section 7.7).
 
@@ -977,9 +1094,9 @@ Measured over the Cadence fixture corpus, nets whose pin set disagrees with the 
 1. Wire endpoints are grouped by coordinate using Union-Find
 2. Wire segments sharing the same `Wire.id` are unioned (same logical net)
 3. Net names come from: wire aliases (labels) and the page net table
-4. When a group has multiple candidate names, hierarchy-canonical names take priority
+4. When a group has multiple candidate names, hierarchy-canonical names take priority, and the alphabetically first name wins within whichever set applies. Cadence's CIS export breaks the same tie the same way
 5. Unnamed wire groups get `N{minSegmentId}` names
-6. Cross-page nets connected via OffPageConnectors are resolved by `strLst[name_str_idx]` (OPCs with the same index share the same net). Pins at an OPC's bbox edge midpoint are assigned this net name, even when the OPC has no wire connection on that page
+6. Cross-page nets connected via OffPageConnectors are resolved by `strLst[name_str_idx]` (OPCs with the same index share the same net). A pin is matched to an OPC by testing its coordinate against five specific points: the four bbox edge midpoints (`maxX,midY`, `minX,midY`, `midX,maxY`, `midX,minY`) and the OPC's own `locX,locY`. Testing only those, rather than every point on the edges, is what stops OPC boxes that overlap vertically on a dense sheet from fusing unrelated nets. A pin matching any of them takes the OPC's net name even when the OPC has no wire connection on that page
 7. Duplicate net names across pages are disambiguated using hierarchy suffixed names
 8. Global/Port symbols take their net name from `strLst[name_str_idx]`, the same field OPCs use. The symbol's own `name` field is the symbol *type* and must not be used: a symbol drawn as `VDD_1v8` may carry `CAM_CORE`, and two symbols both drawn as `VCC_BAR` carry `VDD_PLL1` and `VDD_PLL2`. The name is used for two things: steering the symbol to the one wire it belongs to (below), and naming a sentinel pin (`net_id == 0xFFFFFFFF`) that overlaps the symbol's bbox and that no wire coordinate resolved. Where the symbol does reach a wire, that wire group's resolved name wins, because `strLst[name_str_idx]` is occasionally a symbol type too: `pairingId` 17700 reads `GND_SIGNAL` on three Jetson carrier designs, a name absent from their DAT exports
 9. Wire body point-on-segment matching: a pin whose coordinate falls on a horizontal/vertical wire segment (not just the endpoints) is unioned with that wire
@@ -1026,11 +1143,12 @@ Multi-unit components (e.g., quad op-amps) appear as multiple PlacedInstance rec
 
 ### 12.1 Coverage impact analysis
 
-Each unknown area in the format is mapped to its impact on parser coverage:
+Each unknown area in the format is mapped to its impact on parser coverage. PinNum, PinName and Value all read 100% against the DAT export (section 12.5), so none of these gaps costs anything measurable today; the table records what would be at stake if a design exercised them differently.
 
 | Unknown area | Size per occurrence | Impact on PinNum | Impact on PinName | Impact on Value |
 |---|---|---|---|---|
-| **PlacedInstance 10 unknown bytes** (section 7.7) | 10 per component | None | None | **POSSIBLE** (BB-xM 62 missing; could encode secondary value reference or CIS link) |
+| **PlacedInstance 10 unknown bytes** (section 7.7) | 10 per component | None | None | None observed; may encode a secondary value reference or CIS link |
+| **Port 9 trailing bytes** (section 7.8) | 9 per port | None | None | None |
 | **Port/Global/OPC 5 trailing bytes** (section 7.8) | 5 per symbol | None | None | None |
 | **Hierarchy 24-byte metadata** (section 8) | 24 per net | None | None | None |
 | **T0x10 unknown_int** (section 7.7.1) | 4 per pin | None | None | None |
@@ -1047,7 +1165,11 @@ Each unknown area in the format is mapped to its impact on parser coverage:
 | Graphical primitives | Shapes inside LibraryPart (lines, rects, arcs) |
 | Title block contents | Skipped entirely |
 | Page sections after OPCs | Everything after OffPageConnectors in the page stream |
-| Directory streams | `Packages Directory`, `Cells Directory`, etc. (section 10.5) |
+| Directory streams | All seven: `Packages`, `Cells`, `ExportBlocks`, `Graphics`, `Parts`, `Symbols`, `Views` Directory (section 10.5) |
+| Other top-level streams | `AdminData`, `Cells`, `ExportBlocks`, `Graphics`, `HSObjects`, `Parts`, `Symbols`, present in every fixture; `DsnStream`, `NetBundleMapData`, `BundleMapData` in some (section 2) |
+| Wire `color`, `line_width`, `line_style` | Read to advance position, discarded |
+| SymbolPin geometry and `port_type` | 28 bytes skipped; only `name` is kept (section 9.4) |
+| SymbolDisplayProp contents | Decoded field by field and attached to their parent structure, but nothing downstream of the parsers ever reads them; they exist only to advance the position correctly |
 
 ### 12.3 Unknown bytes in parsed structures
 
@@ -1062,6 +1184,7 @@ Each unknown area in the format is mapped to its impact on parser coverage:
 | T0x10 | After net_id | 4 | `unknown_int` |
 | GraphicInst | Second uint32 | 4 | Constant per design, purpose unknown |
 | GraphicInst | After bbox | 4 | color + 3 unknown bytes |
+| Port | End of structure | **9** | Port-specific; Global and OPC have no equivalent |
 | Port/Global/OPC | After each record | **5** | Not part of the structure; could contain net reference |
 | LibraryPart | After checkpoint 1 | 4 | Before len_primitives |
 | SymbolPin | After pin_shape | 2 | Unknown |
@@ -1079,46 +1202,57 @@ Each unknown area in the format is mapped to its impact on parser coverage:
 | PageSettings = 156 bytes | Low | Parse offset error for everything after it |
 | LOGFONTA = 60 bytes | Low | Wrong strLst offset, corrupt string table |
 | 5 unknown bytes after Port/Global/OPC | Medium | Parse offset error for subsequent records |
+| 9 unknown bytes at the end of a Port | Medium | Parse offset error for subsequent records |
 | some_len = 24 (Library stream) | Low | Wrong strLst offset |
+| Cache scan bounds (64 pairs, 10 long prefixes) | Low | A wider prefix chain goes unrecovered; the parse throws rather than misreads |
+| Wireless sentinel nets matched to hierarchy `N{n}` names by sort order | Medium | Pin-to-pin nets named after the wrong hierarchy entry |
 
-### 12.5 Coverage gaps vs DAT golden
+### 12.5 Coverage vs DAT golden
 
-Current aggregate coverage (10 designs):
+Reproduce with `npx tsx scripts/dsn-coverage-report.ts`. Aggregate over the 11 Cadence fixtures:
 
-| Metric | Coverage | Main gap |
-|--------|----------|----------|
-| Nets | 100.0% | None |
-| Components | 100.0% | None |
-| Value | 100.0% | None |
-| PinNum | 99.8% | Minor gaps in BBxM, CutiePi, LAUNCHXL |
-| PinName | 96.0% | LAUNCHXL/CutiePi have no LibraryParts in Cache (hard limit) |
+| Metric | Coverage | Notes |
+|--------|----------|-------|
+| Nets | 4936/4936 (100.0%) | every expected net present, none invented |
+| Conn | 4936/4936 (100.0%) | 0 nets with a differing `{refdes.pin}` set |
+| Components | 6774/6774 (100.0%) | |
+| Value | 6774/6774 (100.0%) | 4 case-transformed |
+| PinNum | 24001/24001 (100.0%) | |
+| PinName | 8105/8105 (100.0%) | |
+| MPN | 5870/6774 (86.7%) | 5456 substring; see below |
+| DNS | 0/76 (0.0%) | not implemented, section 12.6 |
 
-Per-design breakdown:
+`Nets` and `Comps` match on names alone, so a net that survives with the wrong pins on it still scores as covered. `Conn` is the column that catches that: for every net present in both netlists it compares the actual `{refdes.pin}` set. Both being at 100% is what makes the net numbers meaningful.
 
-| Design | PinNum | PinName | Value | Bottleneck |
-|--------|--------|---------|-------|------------|
-| BeagleBoard-xM | 98.9% | 100.0% | 100.0% | PinNum: DNS components with graphical-only annotations |
-| BB-Black | 99.7% | 100.0% | 100.0% | Near-complete |
-| CutiePi | 98.9% | 56.2% | 100.0% | PinName: no LibraryParts in Cache |
-| CC13xx | 100.0% | 100.0% | 100.0% | Complete |
-| LAUNCHXL-CC1310 | 99.4% | 42.1% | 100.0% | PinName: no LibraryParts in Cache |
-| reComputer J201 | 100.0% | 100.0% | 100.0% | Complete |
-| reComputer J202 | 100.0% | 100.0% | 100.0% | Complete |
-| reComputer J401 | 100.0% | 100.0% | 100.0% | Complete |
-| reServer J401 | 100.0% | 100.0% | 100.0% | Complete |
-| reServer J2032 | 100.0% | 100.0% | 100.0% | Complete |
+Per design, every one of the 11 fixtures reads 100.0% on Nets, Conn, Comps, Value, PinNum and PinName. The two columns that vary are MPN and DNS:
 
-**Remaining gap categories:**
+| Design | MPN | DNS |
+|--------|--------|--------|
+| BeagleBoard-xM | 98.6% | 0.0% |
+| BB-Black | 100.0% | n/a |
+| BB-Black (BeagleBoard) | 100.0% | n/a |
+| CutiePi | 96.6% | 0.0% |
+| CC13xx | 2.1% | 0.0% |
+| LAUNCHXL-CC1310 | 9.8% | 0.0% |
+| reComputer J201 | 100.0% | n/a |
+| reComputer J202 | 100.0% | n/a |
+| reComputer J401 | 100.0% | n/a |
+| reServer J401 | 95.6% | n/a |
+| reServer J2032 | 23.2% | n/a |
 
-1. **PinNum (BBxM 98.9%, CutiePi 98.9%)**: Remaining gaps are primarily DNS (Do Not Stuff) components with graphical-only annotations (e.g., BBxM RP1/RP5 with "DNI" text on schematic but no structured property). These components are excluded from DAT export but present in DSN, causing pin count mismatches in the comparison.
+**MPN is not a defect measure.** DSN extracts a real manufacturer part number from the prefix property pairs, while the DAT golden carries a composite string, so an exact match is not the goal and the low numbers on CC13xx and reServer J2032 reflect that difference in kind. The report counts a substring hit separately for this reason.
 
-2. **PinName (LAUNCHXL 42.1%, CutiePi 56.2%)**: No LibraryParts in Cache (see [section 10.3](#103-parsing-strategy)). This is a hard limitation unless CIS parsing is added.
+**BEAGLEBONEBLK_C3_BEAGLEBOARD is not measured against Cadence.** It ships no `pstxnet.dat`, so its golden is a snapshot of this parser's own output. Its 100% says the parser is self-consistent on that design, not that it is correct, and it should not be read as an eleventh independent confirmation.
 
 ### 12.6 DNS (Do Not Stuff) detection
 
-Not implemented in the DSN parser. Some designs mark DNS via:
+Not implemented in the DSN parser: no component it builds ever carries a `dns` flag, which is the 0/76 in section 12.5. The DAT path and the Altium path both set the flag, so the gap is specific to reading a `.DSN` directly.
+
+Some designs mark DNS via:
 - Structured property in prefix (detectable but not checked)
 - Graphical text on schematic only (invisible to any binary parser)
+
+Section 12.7 is a separate mechanism: it cleans a marker out of a value string, and does not set the flag.
 
 ### 12.7 DNS markers in value strings
 
@@ -1130,7 +1264,9 @@ Some Cadence designs embed DNS/NC markers directly in component value strings (e
 - Prefix comma: `DNI,`, `DNP,`, `DNM,`, `DNS,`
 - Suffix: `_NC`
 
-Matching is case-insensitive. This cleanup improved BBxM value coverage from 90.9% to 99.1%.
+Matching is case-insensitive. This is a DSN-specific regex in `component-builder.ts`, distinct from the shared `stripDnsMarkers()` that the Altium and KiCad paths use, which recognises a wider set (`DNF`, `NF`, and phrases such as "DO NOT POPULATE").
+
+The cleanup took BBxM value coverage from 90.9% to 99.1% when it landed; value now reads 100% on every fixture.
 
 ### 12.8 Reference material
 
@@ -1142,8 +1278,10 @@ Key C++ source files for cross-referencing unknown bytes or new structure types:
 | C++ Source | Our Port | Purpose |
 |---|---|---|
 | `src/GenericParser.cpp` | `dsn/generic-parser.ts` | Prefix chain, preamble, checkpoint system |
-| `src/Streams/StreamPage.cpp` | `dsn/dsn-parser.ts` (parsePage) | Page stream top-level layout |
-| `src/Streams/StreamCache.cpp` | `dsn/dsn-parser.ts` (parseCacheStream) | Cache entry metadata format |
-| `src/Streams/StreamPackage.cpp` | `dsn/dsn-parser.ts` (parsePackageStream) | Package stream layout |
+| `src/Streams/StreamPage.cpp` | `dsn/page-parser.ts` (`parsePage`) | Page stream top-level layout |
+| `src/Streams/StreamCache.cpp` | `dsn/cache-parser.ts` (`parseCacheStream`) | Cache entry metadata format |
+| `src/Streams/StreamPackage.cpp` | `dsn/page-parser.ts` (`parsePackageStream`) | Package stream layout |
 | `src/Streams/StreamLibrary.cpp` | `dsn/library-parser.ts` | Library stream / strLst |
 | `src/Structures/` | `dsn/structures.ts` | All structure parsers |
+
+`dsn/dsn-parser.ts` is the orchestrator that opens the container, discovers the streams and calls the above; `dsn/net-builder.ts`, `dsn/pin-resolver.ts` and `dsn/component-builder.ts` implement section 11 and have no C++ counterpart.
