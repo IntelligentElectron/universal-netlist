@@ -1,4 +1,4 @@
-#!/usr/bin/env npx tsx
+#!/usr/bin/env -S node --import tsx
 import path from "node:path";
 import { parseDesign } from "../src/parsers/index.js";
 import { findCadenceDatFiles } from "../src/parsers/cadence/discovery.js";
@@ -20,15 +20,18 @@ const resolveGoldenParsePath = async (designFile: string): Promise<string> => {
 /**
  * Generate golden for a single design.
  */
-const generateOne = async (format: Format, name: string, designPath: string): Promise<void> => {
+const generateOne = async (format: Format, name: string, designPath: string): Promise<boolean> => {
   const parsePath = await resolveGoldenParsePath(designPath);
   console.log(`Parsing: ${format}/${name}`);
   const result = await parseDesign(parsePath);
   console.log(
     `  Components: ${Object.keys(result.components).length}, Nets: ${Object.keys(result.nets).length}`
   );
-  await saveGolden(format, name, result);
-  console.log(`  Saved: test/golden/${format}/${name}.json`);
+  const written = await saveGolden(format, name, result);
+  console.log(
+    written ? `  Saved: test/golden/${format}/${name}.json` : `  Unchanged: ${format}/${name}`
+  );
+  return written;
 };
 
 /**
@@ -48,12 +51,15 @@ const generateAll = async (): Promise<void> => {
           ? fixture.name
           : path.basename(designFile, path.extname(designFile));
 
-      await generateOne(fixture.format, projectName, designFile);
-      count++;
+      if (await generateOne(fixture.format, projectName, designFile)) count++;
     }
   }
 
-  console.log(`\nRegenerated ${count} golden files.`);
+  console.log(
+    count === 0
+      ? "\nAll golden files already match; nothing rewritten."
+      : `\nRewrote ${count} golden file(s); the rest already matched.`
+  );
 };
 
 // CLI dispatch
@@ -66,8 +72,8 @@ if (args[0] === "--all") {
 
   if (!format || !name || !designPath) {
     console.error("Usage:");
-    console.error("  npx tsx scripts/gen-golden.ts <format> <name> <path>");
-    console.error("  npx tsx scripts/gen-golden.ts --all");
+    console.error("  npm run golden -- <format> <name> <path>");
+    console.error("  npm run golden -- --all");
     process.exit(1);
   }
 

@@ -1209,7 +1209,7 @@ Each unknown area in the format is mapped to its impact on parser coverage. PinN
 
 ### 12.5 Coverage vs DAT golden
 
-Reproduce with `npx tsx scripts/dsn-coverage-report.ts`. Aggregate over the 11 Cadence fixtures:
+Reproduce with `node --import tsx scripts/dsn-coverage-report.ts`. Aggregate over the 11 Cadence fixtures:
 
 | Metric | Coverage | Notes |
 |--------|----------|-------|

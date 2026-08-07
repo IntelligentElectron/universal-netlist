@@ -7,7 +7,7 @@
  * To add a new test fixture:
  * 1. Add design files to test/fixtures/{format}/{design-name}/
  * 2. Run `npm test` - the test will fail with "missing golden output"
- * 3. Generate golden output: npx tsx scripts/gen-golden.ts <format> <name> <path>
+ * 3. Generate golden output: npm run golden -- <format> <name> <path>
  * 4. Commit the golden JSON file to test/golden/{format}/{name}.json
  */
 
@@ -76,7 +76,7 @@ describe("Parser Golden Output", async () => {
           if (!golden) {
             throw new Error(
               `Missing golden output for ${fixture.format}/${projectName}. ` +
-                `Generate it with: npx tsx scripts/gen-golden.ts ${fixture.format} ${projectName} "${designFile}"`
+                `Generate it with: npm run golden -- ${fixture.format} ${projectName} "${designFile}"`
             );
           }
 

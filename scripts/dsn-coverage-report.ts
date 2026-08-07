@@ -4,8 +4,8 @@
  * Compares DSN parser output against DAT golden files for all Cadence fixtures.
  *
  * Usage:
- *   npx tsx scripts/dsn-coverage-report.ts                    # All fixtures (summary)
- *   npx tsx scripts/dsn-coverage-report.ts BEAGLEBONEBLK_C3   # Single fixture (verbose)
+ *   node --import tsx scripts/dsn-coverage-report.ts                    # All fixtures (summary)
+ *   node --import tsx scripts/dsn-coverage-report.ts BEAGLEBONEBLK_C3   # Single fixture (verbose)
  */
 
 import fs from "fs";

@@ -10,7 +10,22 @@
  */
 
 import { createServer, type Server } from "node:http";
-import { AddressInfo } from "node:net";
+import { AddressInfo, createServer as createSocketServer } from "node:net";
+
+/**
+ * Whether this machine lets a test open a loopback listener.
+ *
+ * These tests need one to stand a collector up in-process. A sandboxed shell
+ * often refuses with `EPERM`, and the failure surfaces as an unhandled error
+ * that takes the whole vitest run down with it rather than as a test result. So
+ * ask first, and let the suite skip itself with a reason when the answer is no.
+ */
+export const canListenOnLoopback = async (): Promise<boolean> =>
+  new Promise((resolve) => {
+    const probe = createSocketServer();
+    probe.once("error", () => resolve(false));
+    probe.listen(0, "127.0.0.1", () => probe.close(() => resolve(true)));
+  });
 
 /** A decoded OTLP attribute value (only the subset we assert on). */
 type AnyValue = {
@@ -78,7 +93,10 @@ export class OtlpReceiver {
         res.end("{}");
       });
     });
-    await new Promise<void>((resolve) => this.server!.listen(0, "127.0.0.1", resolve));
+    await new Promise<void>((resolve, reject) => {
+      this.server!.once("error", reject);
+      this.server!.listen(0, "127.0.0.1", resolve);
+    });
   }
 
   get port(): number {

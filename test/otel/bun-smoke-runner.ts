@@ -7,7 +7,7 @@
  *
  * Usage:
  *   bun build --compile test/otel/bun-entry.ts --outfile bin/otel-bun-smoke
- *   npx tsx test/otel/bun-smoke-runner.ts
+ *   node --import tsx test/otel/bun-smoke-runner.ts
  */
 import { spawn } from "node:child_process";
 import { join, dirname } from "node:path";

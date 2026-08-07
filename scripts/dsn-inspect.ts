@@ -5,7 +5,7 @@
  * net tables, wire graphs, pins, symbols, and coordinate matching.
  *
  * Usage:
- *   npx tsx scripts/dsn-inspect.ts <dsn-file> <command> [args...]
+ *   node --import tsx scripts/dsn-inspect.ts <dsn-file> <command> [args...]
  *
  * Commands:
  *   summary                        Wire/pin statistics
@@ -736,7 +736,7 @@ function cmdHierarchy(dsnPath: string) {
 const args = process.argv.slice(2);
 
 if (args.length < 2) {
-  console.log("Usage: npx tsx scripts/dsn-inspect.ts <dsn-file> <command> [args...]\n");
+  console.log("Usage: node --import tsx scripts/dsn-inspect.ts <dsn-file> <command> [args...]\n");
   console.log("Page-level commands:");
   console.log("  summary                        Wire/pin statistics");
   console.log("  component <REFDES>             Pin details for a component");

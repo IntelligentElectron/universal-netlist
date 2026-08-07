@@ -73,12 +73,42 @@ export const saveGolden = async (
   format: Format,
   designName: string,
   data: ParsedNetlist
-): Promise<void> => {
+): Promise<boolean> => {
   const goldenDir = path.join(GOLDEN_DIR, format);
   await fs.mkdir(goldenDir, { recursive: true });
 
+  // Only rewrite a golden whose content actually moved. The tests compare
+  // structurally, so a parser that reorders the keys it writes leaves every
+  // golden passing and every golden rewritten, burying the one design that
+  // changed under thousands of lines of key-order churn.
+  //
+  // The comparison is against the new data round-tripped through JSON, not the
+  // data itself: serializing drops a key whose value is `undefined`, so the two
+  // sides have to be compared in the form that reaches the file.
+  const serialized = JSON.stringify(data, null, 2) + "\n";
+  const existing = await loadGolden(format, designName);
+  if (existing && deepEqual(existing, JSON.parse(serialized))) return false;
+
   const goldenPath = path.join(goldenDir, `${designName}.json`);
-  await fs.writeFile(goldenPath, JSON.stringify(data, null, 2) + "\n", "utf-8");
+  await fs.writeFile(goldenPath, serialized, "utf-8");
+  return true;
+};
+
+/** Structural equality, key order and property order disregarded. */
+const deepEqual = (a: unknown, b: unknown): boolean => {
+  if (a === b) return true;
+  if (typeof a !== "object" || typeof b !== "object" || a === null || b === null) return false;
+
+  if (Array.isArray(a) || Array.isArray(b)) {
+    if (!Array.isArray(a) || !Array.isArray(b) || a.length !== b.length) return false;
+    return a.every((item, index) => deepEqual(item, b[index]));
+  }
+
+  const left = a as Record<string, unknown>;
+  const right = b as Record<string, unknown>;
+  const keys = Object.keys(left);
+  if (keys.length !== Object.keys(right).length) return false;
+  return keys.every((key) => key in right && deepEqual(left[key], right[key]));
 };
 
 /**

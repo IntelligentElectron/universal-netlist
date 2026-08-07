@@ -21,7 +21,7 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
-import { OtlpReceiver, waitFor } from "./otlp-receiver.js";
+import { OtlpReceiver, canListenOnLoopback, waitFor } from "./otlp-receiver.js";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const SERVER_ENTRY = join(HERE, "server-entry.ts");
@@ -67,7 +67,14 @@ const otelEnv = (receiver: OtlpReceiver, extra: Record<string, string> = {}) => 
   ...extra,
 });
 
-describe("OpenTelemetry end-to-end", () => {
+/**
+ * These tests stand a collector up on loopback, which a sandboxed shell may
+ * refuse. Skipping with a reason keeps `npm test` usable there, and CI, which
+ * can listen, still runs them.
+ */
+const loopbackAvailable = await canListenOnLoopback();
+
+describe.skipIf(!loopbackAvailable)("OpenTelemetry end-to-end", () => {
   let receiver: OtlpReceiver;
 
   beforeAll(async () => {
