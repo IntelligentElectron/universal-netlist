@@ -28,7 +28,10 @@ import { parseRecords, findRecords } from "./record-parser.js";
 import { buildHierarchy, getPartsList, flattenHierarchy, findRecordByIndex } from "./hierarchy.js";
 import { extractNets, determineNetList, classifyNets } from "./net-extractor.js";
 import {
-  positionHarnessEntries,
+  readHarnessConnectors,
+  assignHarnessSignals,
+  harnessSignalKey,
+  splitHarnessSignalKey,
   parseHarnessDefinitions,
   resolveHarnessMembers,
   collectNestedHarnessTypes,
@@ -142,8 +145,19 @@ const convertNets = (nets: AltiumNet[], schematic: AltiumSchematic): NetConnecti
     }
 
     // Only add net if it has pin connections
-    if (Object.keys(pinsByComponent).length > 0) {
+    if (Object.keys(pinsByComponent).length === 0) continue;
+
+    // Two connected groups can end up under one name — a harness member named
+    // by its entry alongside a net label of the same text, say. They are one
+    // net, so fold them together instead of letting the later one replace the
+    // earlier and drop its pins.
+    const existing = result[netName];
+    if (!existing) {
       result[netName] = pinsByComponent;
+      continue;
+    }
+    for (const [refdes, pins] of Object.entries(pinsByComponent)) {
+      existing[refdes] = [...new Set([...(existing[refdes] ?? []), ...pins])];
     }
   }
 
@@ -389,8 +403,16 @@ export const extractComponents = (schematic: AltiumSchematic): ComponentDetails 
  * 215-218) are written to a separate `Additional` stream. A document parsed from
  * `FileHeader` alone has no harness connectors, entries or types in it at all, so
  * any net reaching a harness simply ends there.
+ *
+ * The two streams number their records independently, and `buildHierarchy`
+ * renumbers the concatenation by position, so an `OwnerIndex` written in the
+ * `Additional` stream is shifted by the number of `FileHeader` records to keep
+ * pointing at the record it names.
  */
-export const readSchematicRecords = (schdocPath: string, headerBuffer: Buffer): AltiumSchematic => {
+export const readSchematicRecords = (
+  schdocPath: string,
+  headerBuffer: Buffer
+): AltiumSchematic & { bundleLinks?: string[][] } => {
   const schematic = parseRecords(headerBuffer);
 
   const additional = readOptionalOleStream(schdocPath, ALTIUM_ADDITIONAL_STREAM);
@@ -399,20 +421,80 @@ export const readSchematicRecords = (schdocPath: string, headerBuffer: Buffer): 
   const extra = parseRecords(additional);
   if (extra.records.length === 0) return schematic;
 
-  positionHarnessEntries(extra.records as never);
+  const connectors = readHarnessConnectors(extra.records as never);
+  const bundleLinks = assignHarnessSignals(connectors, {
+    records: schematic.records as never,
+    buses: extra.records.filter(
+      (record) => record.RECORD === RECORD_TYPES.SIGNAL_HARNESS
+    ) as never,
+    sheetKey: path.basename(schdocPath),
+  });
+
+  const ownerOffset = schematic.records.length;
+  for (const record of extra.records) {
+    const owner = record.OwnerIndex ?? record.OWNERINDEX;
+    if (owner === undefined || owner === null || owner === "") continue;
+    const ownerIndex = parseInt(String(owner), 10);
+    if (!Number.isFinite(ownerIndex)) continue;
+    record.OwnerIndex = String(ownerOffset + ownerIndex);
+    delete record.OWNERINDEX;
+  }
 
   return {
     header: schematic.header,
     records: [...schematic.records, ...extra.records],
+    bundleLinks,
   };
 };
 
 /**
- * Parse Altium .SchDoc file into unified ParsedNetlist schema.
+ * One document's netlist, plus which net carries each harness signal it draws.
  *
- * This is the main entry point for integration with NetlistService.
+ * A harness signal is keyed by its bundle and member name, and a bundle that
+ * leaves the sheet is named after the port it leaves through, so the same key
+ * names the same signal on every sheet the bundle reaches. That is what lets a
+ * harness be traced from one sheet to another, where geometry cannot reach.
  */
-export const parseAltium = async (schdocPath: string): Promise<ParsedNetlist> => {
+interface ParsedDocument {
+  netlist: ParsedNetlist;
+  /** Harness signal key -> the name of the net carrying it on this sheet. */
+  harnessSignals: Map<string, string>;
+  /** Net names that came from the design rather than being derived from a pin. */
+  designedNames: Set<string>;
+  /** Bundle names this sheet joins, each group being one bundle under many names. */
+  bundleLinks: string[][];
+}
+
+/**
+ * Collect, for each harness signal drawn on a sheet, the net that carries it.
+ *
+ * Only nets that survived into the netlist are reported: a signal whose net has
+ * no pins on this sheet connects nothing here.
+ */
+const collectHarnessSignals = (
+  nets: AltiumNet[],
+  parsedNets: NetConnections
+): Map<string, string> => {
+  const signals = new Map<string, string>();
+
+  for (const net of nets) {
+    if (!net.name || !parsedNets[net.name]) continue;
+    for (const device of net.devices) {
+      if (device.RECORD !== RECORD_TYPES.HARNESS_ENTRY) continue;
+      const signal = device.harnessSignal;
+      if (typeof signal === "string" && signal && !signals.has(signal)) {
+        signals.set(signal, net.name);
+      }
+    }
+  }
+
+  return signals;
+};
+
+/**
+ * Parse one Altium .SchDoc document.
+ */
+const parseAltiumDocument = (schdocPath: string): ParsedDocument => {
   // 1. Read OLE file and extract FileHeader stream
   const buffer = readOleStream(schdocPath);
 
@@ -432,11 +514,26 @@ export const parseAltium = async (schdocPath: string): Promise<ParsedNetlist> =>
   // 6. Populate component pin-to-net mappings from the nets data
   populatePinNets(components, parsedNets);
 
+  const designedNames = new Set<string>();
+  for (const net of nets) {
+    if (net.name && net.nameSource && net.nameSource !== "pin") designedNames.add(net.name);
+  }
+
   return {
-    nets: parsedNets,
-    components,
+    netlist: { nets: parsedNets, components },
+    harnessSignals: collectHarnessSignals(nets, parsedNets),
+    designedNames,
+    bundleLinks: schematic.bundleLinks ?? [],
   };
 };
+
+/**
+ * Parse Altium .SchDoc file into unified ParsedNetlist schema.
+ *
+ * This is the main entry point for integration with NetlistService.
+ */
+export const parseAltium = async (schdocPath: string): Promise<ParsedNetlist> =>
+  parseAltiumDocument(schdocPath).netlist;
 
 /**
  * Parse Altium file with a specific output format (matching Python API).
@@ -517,6 +614,141 @@ const mergeResult = (
       allComponents[refdes] = component;
     }
   }
+};
+
+/**
+ * Resolve the many names one bundle goes by into a single one.
+ *
+ * A bundle is identified by the port it leaves its sheet through, and that port
+ * is rarely called the same thing at both ends: a bulkhead sheet takes in
+ * `TRANSPONDER_POWER_UL` and passes on `TRANSPONDER_POWER`. The parent sheet is
+ * where the two are shown to be one bundle, by a harness line drawn between the
+ * sheet entries that name them.
+ *
+ * Names are matched across the project, as ports already are elsewhere in this
+ * parser, so two sheets that reuse one harness port name are read as sharing
+ * that bundle.
+ */
+const resolveBundleNames = (linkGroups: string[][]): Map<string, string> => {
+  const parent = new Map<string, string>();
+  const find = (name: string): string => {
+    const seen = parent.get(name);
+    if (seen === undefined) {
+      parent.set(name, name);
+      return name;
+    }
+    if (seen === name) return name;
+    const root = find(seen);
+    parent.set(name, root);
+    return root;
+  };
+
+  for (const group of linkGroups) {
+    for (const name of group) {
+      const rootA = find(group[0]);
+      const rootB = find(name);
+      if (rootA === rootB) continue;
+      // Keep the smaller name as the root so the choice is stable whatever
+      // order the documents were read in.
+      if (rootA < rootB) parent.set(rootB, rootA);
+      else parent.set(rootA, rootB);
+    }
+  }
+
+  const resolved = new Map<string, string>();
+  for (const name of parent.keys()) resolved.set(name, find(name));
+  return resolved;
+};
+
+/**
+ * Choose the name a group of merged nets keeps.
+ *
+ * A name the designer wrote — a label, a port, a power port — beats one the
+ * parser derived from a pin, because the derived name says nothing about the
+ * signal. Between two written names the one already on more pins wins, so a
+ * signal keeps the name most of the design calls it by. Ties go to the first in
+ * sort order, so the result does not depend on the order the documents happened
+ * to be read in.
+ */
+const canonicalNetName = (
+  names: Iterable<string>,
+  designed: ReadonlySet<string>,
+  allNets: NetConnections
+): string => {
+  const pinCount = (name: string): number =>
+    Object.values(allNets[name] ?? {}).reduce((total, pins) => total + pins.length, 0);
+
+  return [...names].sort((a, b) => {
+    const written = Number(designed.has(b)) - Number(designed.has(a));
+    if (written !== 0) return written;
+    const pins = pinCount(b) - pinCount(a);
+    if (pins !== 0) return pins;
+    return a < b ? -1 : a > b ? 1 : 0;
+  })[0];
+};
+
+/**
+ * Join the nets that a signal harness carries from one sheet to another.
+ *
+ * Within a sheet the two ends of a harness are already one net, because both
+ * entries carry the same signal key. Across sheets there is no geometry to join
+ * them: each sheet names its end after whatever label its own wires carry, and
+ * two different labels leave the ends looking like two nets. Matching the signal
+ * keys is what shows they are one, and the surviving name is the same on every
+ * sheet so that a component's pins agree with the netlist.
+ *
+ * Returns the renaming that was applied, empty when no harness spans sheets.
+ */
+const mergeHarnessSignalNets = (
+  allNets: NetConnections,
+  allComponents: ComponentDetails,
+  signalNets: Map<string, Set<string>>,
+  designedNames: ReadonlySet<string>
+): Map<string, string> => {
+  const renames = new Map<string, string>();
+
+  for (const netNames of signalNets.values()) {
+    if (netNames.size < 2) continue;
+    // A net already folded into another group joins that group's name, so a
+    // signal shared with a third sheet does not split it off again.
+    const resolved = new Set([...netNames].map((name) => renames.get(name) ?? name));
+    if (resolved.size < 2) continue;
+
+    const canonical = canonicalNetName(resolved, designedNames, allNets);
+    for (const [from, to] of renames) {
+      if (resolved.has(to)) renames.set(from, canonical);
+    }
+    for (const name of resolved) {
+      if (name !== canonical) renames.set(name, canonical);
+    }
+  }
+
+  if (renames.size === 0) return renames;
+
+  for (const [from, to] of renames) {
+    const connections = allNets[from];
+    if (!connections) continue;
+    delete allNets[from];
+
+    const target = (allNets[to] ??= {});
+    for (const [refdes, pins] of Object.entries(connections)) {
+      target[refdes] = [...new Set([...(target[refdes] ?? []), ...pins])];
+    }
+  }
+
+  for (const component of Object.values(allComponents)) {
+    for (const [pinNumber, entry] of Object.entries(component.pins)) {
+      if (typeof entry === "string") {
+        const renamed = renames.get(entry);
+        if (renamed) component.pins[pinNumber] = renamed;
+      } else {
+        const renamed = renames.get(entry.net);
+        if (renamed) entry.net = renamed;
+      }
+    }
+  }
+
+  return renames;
 };
 
 /**
@@ -926,6 +1158,10 @@ const parseAltiumProject = async (projectPath: string): Promise<ParsedNetlist> =
   const allNets: NetConnections = {};
   const allComponents: ComponentDetails = {};
   const expandedFiles = new Set<string>();
+  // Harness signal key -> every net name carrying it, across all sheets.
+  const signalNets = new Map<string, Set<string>>();
+  const designedNames = new Set<string>();
+  const bundleLinks: string[][] = [];
 
   for (const schdocPath of schdocPaths) {
     const schdocBase = path.basename(schdocPath).toLowerCase();
@@ -955,7 +1191,11 @@ const parseAltiumProject = async (projectPath: string): Promise<ParsedNetlist> =
       const harnessDefinitions = parentDocument
         ? await readHarnessDefinitions(parentDocument)
         : new Map();
-      const nestedHarnessTypes = collectNestedHarnessTypes(channelParent.records as never);
+      // Entries are nested under their connector once the parent's OwnerIndex
+      // values resolve, so the whole tree has to be walked to find them.
+      const nestedHarnessTypes = collectNestedHarnessTypes(
+        flattenHierarchy(channelParent) as never
+      );
 
       const entryClassification = classifySheetEntries(
         channelParent,
@@ -974,10 +1214,36 @@ const parseAltiumProject = async (projectPath: string): Promise<ParsedNetlist> =
       );
       mergeResult(expanded, allNets, allComponents);
     } else {
-      const result = await parseAltium(schdocPath);
-      mergeResult(result, allNets, allComponents);
+      const document = parseAltiumDocument(schdocPath);
+      mergeResult(document.netlist, allNets, allComponents);
+      for (const [signal, netName] of document.harnessSignals) {
+        const carriers = signalNets.get(signal) ?? new Set<string>();
+        carriers.add(netName);
+        signalNets.set(signal, carriers);
+      }
+      for (const name of document.designedNames) designedNames.add(name);
+      bundleLinks.push(...document.bundleLinks);
     }
   }
+
+  // One bundle is known by a different port name on each sheet it reaches, so
+  // fold every name onto the one the whole project agrees on before matching
+  // the signals up.
+  const bundleNames = resolveBundleNames(bundleLinks);
+  const resolvedSignalNets = new Map<string, Set<string>>();
+  for (const [signal, carriers] of signalNets) {
+    const { bundle, member } = splitHarnessSignalKey(signal);
+    const key = harnessSignalKey(bundleNames.get(bundle) ?? bundle, member);
+    const resolved = resolvedSignalNets.get(key) ?? new Set<string>();
+    for (const name of carriers) resolved.add(name);
+    resolvedSignalNets.set(key, resolved);
+  }
+
+  // Channel expansion renames a repeated sheet's nets per channel, so a harness
+  // signal collected from one would no longer name the net that carries it.
+  // Those sheets reach the rest of the design through their sheet entries,
+  // which classifySheetEntries already carries the bundle's members across.
+  mergeHarnessSignalNets(allNets, allComponents, resolvedSignalNets, designedNames);
 
   return {
     nets: allNets,

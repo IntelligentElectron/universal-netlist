@@ -39,7 +39,8 @@
       "REAR_LOOM_CONN": [
         "2",
         "44",
-        "50"
+        "50",
+        "23"
       ],
       "REAR_WHEEL_BULK": [
         "1",
@@ -52,6 +53,24 @@
         "3",
         "6",
         "9"
+      ],
+      "ECU_CONN_B": [
+        "26"
+      ],
+      "INLET_MANI_PRESSURE_CONN": [
+        "1"
+      ],
+      "THROTTLE_BODY_CONN": [
+        "3"
+      ],
+      "APPS_CONN2": [
+        "1"
+      ],
+      "FRONT_BR_PRES?": [
+        "1"
+      ],
+      "REAR_BR_PRES?": [
+        "1"
       ]
     },
     "BSPD_FAULT_n": {
@@ -76,6 +95,9 @@
       ],
       "REAR_LOOM_CONN": [
         "27"
+      ],
+      "THROTTLE_BODY_CONN": [
+        "5"
       ]
     },
     "PDM_GND": {
@@ -90,6 +112,12 @@
       ],
       "LAMBDA_SEN_CONN": [
         "1"
+      ],
+      "PDM_CONN_A": [
+        "28"
+      ],
+      "PDM_CONN_B": [
+        "22"
       ],
       "BRAKE_OT_CONN": [
         "2"
@@ -106,72 +134,20 @@
       ],
       "UNDERLEGS_BULKHEAD_CONN": [
         "2"
-      ]
-    },
-    "DRIVER_SWITCH_1": {
-      "STEERING_QUICK_CONN": [
+      ],
+      "IGNITION_CONN": [
+        "4"
+      ],
+      "FUEL_PUMP_CONN": [
+        "3",
+        "4"
+      ],
+      "INJECTOR_CONN": [
+        "4",
         "5"
       ],
-      "STEERING_BULKHEAD_CONN": [
-        "5"
-      ],
-      "ECU_CONN_D": [
-        "2"
-      ]
-    },
-    "DRIVER_SWITCH_2": {
-      "STEERING_QUICK_CONN": [
-        "6"
-      ],
-      "STEERING_BULKHEAD_CONN": [
-        "6"
-      ],
-      "ECU_CONN_D": [
-        "8"
-      ]
-    },
-    "DRIVER_SWITCH_3": {
-      "STEERING_QUICK_CONN": [
-        "7"
-      ],
-      "STEERING_BULKHEAD_CONN": [
-        "7"
-      ],
-      "ECU_CONN_D": [
-        "9"
-      ]
-    },
-    "DRIVER_SWITCH_4": {
-      "STEERING_QUICK_CONN": [
-        "8"
-      ],
-      "STEERING_BULKHEAD_CONN": [
-        "8"
-      ],
-      "ECU_CONN_D": [
-        "10"
-      ]
-    },
-    "KILL_SWITCH_IN": {
-      "KILL_SWITCH_CONN": [
+      "BRAKE_LIGHT_CONN": [
         "1"
-      ],
-      "DASH_BULKHEAD_CONN": [
-        "9"
-      ],
-      "PDM_CONN_A": [
-        "19"
-      ]
-    },
-    "GND": {
-      "KILL_SWITCH_CONN": [
-        "2"
-      ],
-      "KNOCK_CONN": [
-        "3"
-      ],
-      "TRANSPONDER_CONN": [
-        "2"
       ]
     },
     "FL_DAMPER_POT": {
@@ -242,6 +218,50 @@
         "5",
         "8",
         "11"
+      ],
+      "KILL_SWITCH_CONN": [
+        "2"
+      ],
+      "DATA_LOGGER_CONN": [
+        "7"
+      ],
+      "ECU_CONN_A": [
+        "24",
+        "25",
+        "32"
+      ],
+      "ECU_CONN_C": [
+        "10",
+        "11"
+      ],
+      "KNOCK_CONN": [
+        "3"
+      ],
+      "ENGINE_SPEED_CONN": [
+        "3"
+      ],
+      "ENGINE_CAM_SEN_CONN": [
+        "3"
+      ],
+      "INLET_MANI_PRESSURE_CONN": [
+        "3"
+      ],
+      "GEAR_SHIFT_ACT_CONN": [
+        "2",
+        "4"
+      ],
+      "TURBO_CONN": [
+        "2",
+        "4"
+      ],
+      "APPS_CONN2": [
+        "3"
+      ],
+      "FRONT_BR_PRES?": [
+        "3"
+      ],
+      "REAR_BR_PRES?": [
+        "3"
       ]
     },
     "FR_DAMPER_POT": {
@@ -279,11 +299,11 @@
       "LAMBDA_SEN_CONN": [
         "3"
       ],
-      "PDM_CAN_CONN": [
-        "1"
-      ],
       "REAR_LOOM_CONN": [
         "20"
+      ],
+      "PDM_CAN_CONN": [
+        "1"
       ]
     },
     "CAN_N": {
@@ -305,11 +325,55 @@
       "LAMBDA_SEN_CONN": [
         "2"
       ],
-      "PDM_CAN_CONN": [
-        "2"
-      ],
       "REAR_LOOM_CONN": [
         "22"
+      ],
+      "PDM_CAN_CONN": [
+        "2"
+      ]
+    },
+    "DRIVER_SWITCH_1": {
+      "STEERING_QUICK_CONN": [
+        "5"
+      ],
+      "STEERING_BULKHEAD_CONN": [
+        "5"
+      ],
+      "ECU_CONN_D": [
+        "2"
+      ]
+    },
+    "DRIVER_SWITCH_2": {
+      "STEERING_QUICK_CONN": [
+        "6"
+      ],
+      "STEERING_BULKHEAD_CONN": [
+        "6"
+      ],
+      "ECU_CONN_D": [
+        "8"
+      ]
+    },
+    "DRIVER_SWITCH_3": {
+      "STEERING_QUICK_CONN": [
+        "7"
+      ],
+      "STEERING_BULKHEAD_CONN": [
+        "7"
+      ],
+      "ECU_CONN_D": [
+        "9"
+      ]
+    },
+    "DRIVER_SWITCH_4": {
+      "STEERING_QUICK_CONN": [
+        "8"
+      ],
+      "STEERING_BULKHEAD_CONN": [
+        "8"
+      ],
+      "ECU_CONN_D": [
+        "10"
       ]
     },
     "PDM_CAN_GND": {
@@ -318,12 +382,17 @@
       ],
       "DASH_BULKHEAD_CONN": [
         "7"
+      ]
+    },
+    "KILL_SWITCH_IN": {
+      "KILL_SWITCH_CONN": [
+        "1"
+      ],
+      "DASH_BULKHEAD_CONN": [
+        "9"
       ],
       "PDM_CONN_A": [
-        "28"
-      ],
-      "PDM_CONN_B": [
-        "22"
+        "19"
       ]
     },
     "IGNITION_SWITCH_IN": {
@@ -359,20 +428,6 @@
       ],
       "UNDERLEGS_BULKHEAD_CONN": [
         "4"
-      ]
-    },
-    "VBATT-": {
-      "DATA_LOGGER_CONN": [
-        "7"
-      ],
-      "ECU_CONN_A": [
-        "24",
-        "25",
-        "32"
-      ],
-      "ECU_CONN_C": [
-        "10",
-        "11"
       ]
     },
     "DATA_LOGGER_VBATT": {
@@ -440,263 +495,6 @@
         "4"
       ]
     },
-    "INLET_AIR_TEMP": {
-      "ECU_CONN_D": [
-        "3"
-      ],
-      "REAR_LOOM_CONN": [
-        "5"
-      ]
-    },
-    "SEN_0V_A": {
-      "ECU_CONN_D": [
-        "15"
-      ],
-      "REAR_LOOM_CONN": [
-        "7"
-      ]
-    },
-    "COOLANT_TEMP": {
-      "ECU_CONN_A": [
-        "1"
-      ],
-      "REAR_LOOM_CONN": [
-        "9"
-      ]
-    },
-    "SEN_0V_C1": {
-      "ECU_CONN_A": [
-        "26"
-      ],
-      "REAR_LOOM_CONN": [
-        "11"
-      ]
-    },
-    "SEN_5V_B": {
-      "ECU_CONN_C": [
-        "9"
-      ],
-      "REAR_LOOM_CONN": [
-        "13"
-      ]
-    },
-    "SEN_0V_B": {
-      "ECU_CONN_D": [
-        "16"
-      ],
-      "REAR_LOOM_CONN": [
-        "17"
-      ]
-    },
-    "GEAR_SHIFT_ACTUATOR_PRESSURE": {
-      "ECU_CONN_C": [
-        "14"
-      ],
-      "REAR_LOOM_CONN": [
-        "15"
-      ]
-    },
-    "SEN_5V_A2": {
-      "ECU_CONN_C": [
-        "2"
-      ],
-      "PEDALBOX_BULKHEAD_CONN": [
-        "4"
-      ]
-    },
-    "SEN_0V_A1": {
-      "ECU_CONN_A": [
-        "34"
-      ],
-      "PEDALBOX_BULKHEAD_CONN": [
-        "6"
-      ]
-    },
-    "APPS_VOLTAGE1": {
-      "ECU_CONN_C": [
-        "15"
-      ],
-      "PEDALBOX_BULKHEAD_CONN": [
-        "5"
-      ]
-    },
-    "SEN_5V_C1": {
-      "ECU_CONN_A": [
-        "10"
-      ],
-      "REAR_LOOM_CONN": [
-        "31"
-      ]
-    },
-    "SEN_0V_B1": {
-      "ECU_CONN_A": [
-        "33"
-      ],
-      "REAR_LOOM_CONN": [
-        "35"
-      ]
-    },
-    "FUEL_COMP_VOLTAGE": {
-      "ECU_CONN_D": [
-        "11"
-      ],
-      "REAR_LOOM_CONN": [
-        "33"
-      ]
-    },
-    "CYLINDER_KNOCK": {
-      "ECU_CONN_D": [
-        "7"
-      ],
-      "REAR_LOOM_CONN": [
-        "1"
-      ]
-    },
-    "SEN_5V_C2": {
-      "ECU_CONN_A": [
-        "18"
-      ],
-      "REAR_LOOM_CONN": [
-        "43"
-      ]
-    },
-    "ENGINE_SPEED_IN": {
-      "ECU_CONN_D": [
-        "1"
-      ],
-      "REAR_LOOM_CONN": [
-        "45"
-      ]
-    },
-    "SEN_5V_B2": {
-      "ECU_CONN_A": [
-        "19"
-      ],
-      "REAR_LOOM_CONN": [
-        "37"
-      ]
-    },
-    "ENGINE_SYNC_CAM_IN": {
-      "ECU_CONN_D": [
-        "14"
-      ],
-      "REAR_LOOM_CONN": [
-        "39"
-      ]
-    },
-    "SEN_5V_A1": {
-      "ECU_CONN_B": [
-        "26"
-      ],
-      "REAR_LOOM_CONN": [
-        "23"
-      ]
-    },
-    "INLET_MAN_PRESS_SEN": {
-      "ECU_CONN_D": [
-        "22"
-      ],
-      "REAR_LOOM_CONN": [
-        "46"
-      ]
-    },
-    "TB_MOTOR+": {
-      "ECU_CONN_C": [
-        "1"
-      ],
-      "REAR_LOOM_CONN": [
-        "25"
-      ]
-    },
-    "TB_MOTOR-": {
-      "ECU_CONN_C": [
-        "18"
-      ],
-      "REAR_LOOM_CONN": [
-        "19"
-      ]
-    },
-    "TPS_TRACKING_VOLTAGE": {
-      "ECU_CONN_C": [
-        "17"
-      ],
-      "REAR_LOOM_CONN": [
-        "29"
-      ]
-    },
-    "SEN_0V_C2": {
-      "ECU_CONN_A": [
-        "27"
-      ],
-      "REAR_LOOM_CONN": [
-        "21"
-      ]
-    },
-    "GEAR_SHIFT_UP_CTRL": {
-      "ECU_CONN_C": [
-        "32"
-      ],
-      "REAR_LOOM_CONN": [
-        "36"
-      ]
-    },
-    "GEAR_SHIFT_DOWN_CTRL": {
-      "ECU_CONN_C": [
-        "33"
-      ],
-      "REAR_LOOM_CONN": [
-        "40"
-      ]
-    },
-    "TURBO_ACT_BYP": {
-      "ECU_CONN_C": [
-        "34"
-      ],
-      "REAR_LOOM_CONN": [
-        "28"
-      ]
-    },
-    "BOOST_ACT_OUT": {
-      "ECU_CONN_B": [
-        "21"
-      ],
-      "REAR_LOOM_CONN": [
-        "32"
-      ]
-    },
-    "APPS_VOLTAGE2": {
-      "ECU_CONN_B": [
-        "16"
-      ],
-      "PEDALBOX_BULKHEAD_CONN": [
-        "2"
-      ]
-    },
-    "GEAR_POS_SIG": {
-      "ECU_CONN_D": [
-        "21"
-      ],
-      "GEAR_POS_CONN": [
-        "2"
-      ],
-      "PDM_CONN_B": [
-        "24"
-      ],
-      "REAR_LOOM_CONN": [
-        "4"
-      ]
-    },
-    "FUEL_PRES_SEN": {
-      "ECU_CONN_C": [
-        "25"
-      ],
-      "FUEL_PRES_CONN": [
-        "2"
-      ],
-      "REAR_LOOM_CONN": [
-        "16"
-      ]
-    },
     "OIL_PRESSURE_SWITCH": {
       "ECU_CONN_A": [
         "2"
@@ -706,6 +504,72 @@
       ],
       "REAR_LOOM_CONN": [
         "3"
+      ]
+    },
+    "COOLANT_TEMP": {
+      "ECU_CONN_A": [
+        "1"
+      ],
+      "REAR_LOOM_CONN": [
+        "9"
+      ],
+      "COOLANT_TEMP_CONN": [
+        "1"
+      ]
+    },
+    "SEN_5V_C1": {
+      "ECU_CONN_A": [
+        "10"
+      ],
+      "REAR_LOOM_CONN": [
+        "31"
+      ],
+      "FUEL_COMP_SEN_CONN": [
+        "1"
+      ]
+    },
+    "SEN_5V_C2": {
+      "ECU_CONN_A": [
+        "18"
+      ],
+      "REAR_LOOM_CONN": [
+        "43"
+      ],
+      "ENGINE_SPEED_CONN": [
+        "1"
+      ]
+    },
+    "SEN_5V_B2": {
+      "ECU_CONN_A": [
+        "19"
+      ],
+      "REAR_LOOM_CONN": [
+        "37"
+      ],
+      "ENGINE_CAM_SEN_CONN": [
+        "1"
+      ]
+    },
+    "SEN_0V_C1": {
+      "ECU_CONN_A": [
+        "26"
+      ],
+      "REAR_LOOM_CONN": [
+        "11"
+      ],
+      "COOLANT_TEMP_CONN": [
+        "2"
+      ]
+    },
+    "SEN_0V_C2": {
+      "ECU_CONN_A": [
+        "27"
+      ],
+      "REAR_LOOM_CONN": [
+        "21"
+      ],
+      "THROTTLE_BODY_CONN": [
+        "2"
       ]
     },
     "ECU_CAN2_P": {
@@ -722,6 +586,28 @@
       ],
       "ECU_CAN_CONNECTOR": [
         "2"
+      ]
+    },
+    "SEN_0V_B1": {
+      "ECU_CONN_A": [
+        "33"
+      ],
+      "REAR_LOOM_CONN": [
+        "35"
+      ],
+      "FUEL_COMP_SEN_CONN": [
+        "3"
+      ]
+    },
+    "SEN_0V_A1": {
+      "ECU_CONN_A": [
+        "34"
+      ],
+      "PEDALBOX_BULKHEAD_CONN": [
+        "6"
+      ],
+      "APPS_CONN1": [
+        "3"
       ]
     },
     "WHEEL_SPEED_FL": {
@@ -762,6 +648,9 @@
       ],
       "PEDALBOX_BULKHEAD_CONN": [
         "11"
+      ],
+      "FRONT_BR_PRES?": [
+        "2"
       ]
     },
     "REAR_BR_PRES": {
@@ -770,6 +659,9 @@
       ],
       "PEDALBOX_BULKHEAD_CONN": [
         "14"
+      ],
+      "REAR_BR_PRES?": [
+        "2"
       ]
     },
     "ECU_VBATT": {
@@ -789,6 +681,17 @@
         "13"
       ]
     },
+    "APPS_VOLTAGE2": {
+      "ECU_CONN_B": [
+        "16"
+      ],
+      "PEDALBOX_BULKHEAD_CONN": [
+        "2"
+      ],
+      "APPS_CONN2": [
+        "2"
+      ]
+    },
     "NetECU_CONN_B_17": {
       "ECU_CONN_B": [
         "17"
@@ -799,12 +702,103 @@
         "18"
       ]
     },
+    "BOOST_ACT_OUT": {
+      "ECU_CONN_B": [
+        "21"
+      ],
+      "REAR_LOOM_CONN": [
+        "32"
+      ],
+      "TURBO_CONN": [
+        "3"
+      ]
+    },
+    "SEN_5V_A2": {
+      "ECU_CONN_C": [
+        "2"
+      ],
+      "PEDALBOX_BULKHEAD_CONN": [
+        "4"
+      ],
+      "APPS_CONN1": [
+        "1"
+      ]
+    },
+    "TB_MOTOR+": {
+      "ECU_CONN_C": [
+        "1"
+      ],
+      "REAR_LOOM_CONN": [
+        "25"
+      ],
+      "THROTTLE_BODY_CONN": [
+        "4"
+      ]
+    },
     "IGNITION_CTRL_OUT": {
       "ECU_CONN_C": [
         "4"
       ],
       "REAR_LOOM_CONN": [
         "15"
+      ],
+      "IGNITION_CONN": [
+        "3"
+      ]
+    },
+    "SEN_5V_B": {
+      "ECU_CONN_C": [
+        "9"
+      ],
+      "REAR_LOOM_CONN": [
+        "13"
+      ],
+      "GEAR_SHIFT_ACT_PRESSURE_CONN": [
+        "1"
+      ]
+    },
+    "GEAR_SHIFT_ACTUATOR_PRESSURE": {
+      "ECU_CONN_C": [
+        "14"
+      ],
+      "REAR_LOOM_CONN": [
+        "15"
+      ],
+      "GEAR_SHIFT_ACT_PRESSURE_CONN": [
+        "2"
+      ]
+    },
+    "APPS_VOLTAGE1": {
+      "ECU_CONN_C": [
+        "15"
+      ],
+      "PEDALBOX_BULKHEAD_CONN": [
+        "5"
+      ],
+      "APPS_CONN1": [
+        "2"
+      ]
+    },
+    "TPS_TRACKING_VOLTAGE": {
+      "ECU_CONN_C": [
+        "17"
+      ],
+      "REAR_LOOM_CONN": [
+        "29"
+      ],
+      "THROTTLE_BODY_CONN": [
+        "6"
+      ]
+    },
+    "TB_MOTOR-": {
+      "ECU_CONN_C": [
+        "18"
+      ],
+      "REAR_LOOM_CONN": [
+        "19"
+      ],
+      "THROTTLE_BODY_CONN": [
+        "1"
       ]
     },
     "INJECTOR_CTRL_OUT": {
@@ -813,11 +807,160 @@
       ],
       "REAR_LOOM_CONN": [
         "5"
+      ],
+      "INJECTOR_CONN": [
+        "3"
+      ]
+    },
+    "FUEL_PRES_SEN": {
+      "ECU_CONN_C": [
+        "25"
+      ],
+      "FUEL_PRES_CONN": [
+        "2"
+      ],
+      "REAR_LOOM_CONN": [
+        "16"
+      ]
+    },
+    "GEAR_SHIFT_UP_CTRL": {
+      "ECU_CONN_C": [
+        "32"
+      ],
+      "REAR_LOOM_CONN": [
+        "36"
+      ],
+      "GEAR_SHIFT_ACT_CONN": [
+        "1"
+      ]
+    },
+    "GEAR_SHIFT_DOWN_CTRL": {
+      "ECU_CONN_C": [
+        "33"
+      ],
+      "REAR_LOOM_CONN": [
+        "40"
+      ],
+      "GEAR_SHIFT_ACT_CONN": [
+        "3"
+      ]
+    },
+    "TURBO_ACT_BYP": {
+      "ECU_CONN_C": [
+        "34"
+      ],
+      "REAR_LOOM_CONN": [
+        "28"
+      ],
+      "TURBO_CONN": [
+        "1"
+      ]
+    },
+    "ENGINE_SPEED_IN": {
+      "ECU_CONN_D": [
+        "1"
+      ],
+      "REAR_LOOM_CONN": [
+        "45"
+      ],
+      "ENGINE_SPEED_CONN": [
+        "2"
+      ]
+    },
+    "INLET_AIR_TEMP": {
+      "ECU_CONN_D": [
+        "3"
+      ],
+      "REAR_LOOM_CONN": [
+        "5"
+      ],
+      "INLET_TEMP_CONN": [
+        "1"
+      ]
+    },
+    "CYLINDER_KNOCK": {
+      "ECU_CONN_D": [
+        "7"
+      ],
+      "REAR_LOOM_CONN": [
+        "1"
+      ],
+      "KNOCK_CONN": [
+        "2"
+      ]
+    },
+    "FUEL_COMP_VOLTAGE": {
+      "ECU_CONN_D": [
+        "11"
+      ],
+      "REAR_LOOM_CONN": [
+        "33"
+      ],
+      "FUEL_COMP_SEN_CONN": [
+        "2"
+      ]
+    },
+    "ENGINE_SYNC_CAM_IN": {
+      "ECU_CONN_D": [
+        "14"
+      ],
+      "REAR_LOOM_CONN": [
+        "39"
+      ],
+      "ENGINE_CAM_SEN_CONN": [
+        "2"
+      ]
+    },
+    "SEN_0V_A": {
+      "ECU_CONN_D": [
+        "15"
+      ],
+      "REAR_LOOM_CONN": [
+        "7"
+      ],
+      "INLET_TEMP_CONN": [
+        "2"
+      ]
+    },
+    "SEN_0V_B": {
+      "ECU_CONN_D": [
+        "16"
+      ],
+      "REAR_LOOM_CONN": [
+        "17"
+      ],
+      "GEAR_SHIFT_ACT_PRESSURE_CONN": [
+        "3"
       ]
     },
     "SEN_6V3": {
       "ECU_CONN_D": [
         "19"
+      ]
+    },
+    "GEAR_POS_SIG": {
+      "ECU_CONN_D": [
+        "21"
+      ],
+      "GEAR_POS_CONN": [
+        "2"
+      ],
+      "PDM_CONN_B": [
+        "24"
+      ],
+      "REAR_LOOM_CONN": [
+        "4"
+      ]
+    },
+    "INLET_MAN_PRESS_SEN": {
+      "ECU_CONN_D": [
+        "22"
+      ],
+      "REAR_LOOM_CONN": [
+        "46"
+      ],
+      "INLET_MANI_PRESSURE_CONN": [
+        "2"
       ]
     },
     "ECU_ETH_TX_P": {
@@ -850,112 +993,6 @@
       ],
       "ECU_ETH_CONN": [
         "4"
-      ]
-    },
-    "ANALOG_1K_PULLUP_IN": {
-      "INLET_TEMP_CONN": [
-        "1"
-      ]
-    },
-    "SEN_0V": {
-      "INLET_TEMP_CONN": [
-        "2"
-      ],
-      "APPS_CONN1": [
-        "3"
-      ]
-    },
-    "SEN_5V": {
-      "INLET_MANI_PRESSURE_CONN": [
-        "1"
-      ],
-      "APPS_CONN1": [
-        "1"
-      ]
-    },
-    "SIGNAL": {
-      "INLET_MANI_PRESSURE_CONN": [
-        "2"
-      ]
-    },
-    "SIGNAL_CTRL": {
-      "KNOCK_CONN": [
-        "2"
-      ]
-    },
-    "SHIFT_UP_CTRL": {
-      "GEAR_SHIFT_ACT_CONN": [
-        "1"
-      ]
-    },
-    "SHIFT_DOWN_CTRL": {
-      "GEAR_SHIFT_ACT_CONN": [
-        "3"
-      ]
-    },
-    "SHIFT_UP_CTRL_GND": {
-      "GEAR_SHIFT_ACT_CONN": [
-        "2"
-      ]
-    },
-    "SHIFT_DOWN_CTRL_GND": {
-      "GEAR_SHIFT_ACT_CONN": [
-        "4"
-      ]
-    },
-    "POWER1": {
-      "INJECTOR_CONN": [
-        "1"
-      ]
-    },
-    "CTRL": {
-      "INJECTOR_CONN": [
-        "3"
-      ]
-    },
-    "GND1": {
-      "INJECTOR_CONN": [
-        "4"
-      ]
-    },
-    "GND2": {
-      "INJECTOR_CONN": [
-        "5"
-      ]
-    },
-    "POWER2": {
-      "INJECTOR_CONN": [
-        "2"
-      ]
-    },
-    "NetTHROTTLE_BODY_CONN_1": {
-      "THROTTLE_BODY_CONN": [
-        "1"
-      ]
-    },
-    "NetTHROTTLE_BODY_CONN_2": {
-      "THROTTLE_BODY_CONN": [
-        "2"
-      ]
-    },
-    "NetTHROTTLE_BODY_CONN_3": {
-      "THROTTLE_BODY_CONN": [
-        "3"
-      ]
-    },
-    "NetTHROTTLE_BODY_CONN_4": {
-      "THROTTLE_BODY_CONN": [
-        "4"
-      ]
-    },
-    "NetTHROTTLE_BODY_CONN_5": {
-      "THROTTLE_BODY_CONN": [
-        "5"
-      ]
-    },
-    "NetTHROTTLE_BODY_CONN_6": {
-      "THROTTLE_BODY_CONN": [
-        "6"
       ]
     },
     "NetRL_DAMP_CONN_1": {
@@ -1031,36 +1068,6 @@
         "3"
       ]
     },
-    "NetTURBO_CONN_1": {
-      "TURBO_CONN": [
-        "1"
-      ]
-    },
-    "NetTURBO_CONN_2": {
-      "TURBO_CONN": [
-        "2"
-      ]
-    },
-    "NetTURBO_CONN_3": {
-      "TURBO_CONN": [
-        "3"
-      ]
-    },
-    "NetTURBO_CONN_4": {
-      "TURBO_CONN": [
-        "4"
-      ]
-    },
-    "NetBRAKE_LIGHT_CONN_1": {
-      "BRAKE_LIGHT_CONN": [
-        "1"
-      ]
-    },
-    "NetBRAKE_LIGHT_CONN_2": {
-      "BRAKE_LIGHT_CONN": [
-        "2"
-      ]
-    },
     "FAN_POWER": {
       "FAN_CONN": [
         "2"
@@ -1092,6 +1099,10 @@
       "REAR_LOOM_CONN": [
         "11",
         "13"
+      ],
+      "IGNITION_CONN": [
+        "1",
+        "2"
       ]
     },
     "FUEL_PUMP_POWER": {
@@ -1102,6 +1113,10 @@
       "REAR_LOOM_CONN": [
         "21",
         "23"
+      ],
+      "FUEL_PUMP_CONN": [
+        "1",
+        "2"
       ]
     },
     "FUEL_INJECTOR_POWER": {
@@ -1110,6 +1125,10 @@
       ],
       "REAR_LOOM_CONN": [
         "1"
+      ],
+      "INJECTOR_CONN": [
+        "1",
+        "2"
       ]
     },
     "TRANSPONDER_POWER": {
@@ -1131,6 +1150,9 @@
       ],
       "REAR_WHEEL_BULK": [
         "13"
+      ],
+      "BRAKE_LIGHT_CONN": [
+        "2"
       ]
     },
     "THROTTLE_BODY_POTI+": {
@@ -1188,49 +1210,12 @@
         "2"
       ]
     },
-    "APPS2_VOLTAGE": {
-      "APPS_CONN2": [
-        "2"
-      ]
-    },
-    "APPS1_VOLTAGE": {
-      "APPS_CONN1": [
-        "2"
-      ]
-    },
-    "NetFRONT_BR_PRES?_1": {
-      "FRONT_BR_PRES?": [
-        "1"
-      ]
-    },
-    "NetFRONT_BR_PRES?_2": {
-      "FRONT_BR_PRES?": [
-        "2"
-      ]
-    },
-    "NetFRONT_BR_PRES?_3": {
-      "FRONT_BR_PRES?": [
-        "3"
-      ]
-    },
-    "NetREAR_BR_PRES?_1": {
-      "REAR_BR_PRES?": [
-        "1"
-      ]
-    },
-    "NetREAR_BR_PRES?_2": {
-      "REAR_BR_PRES?": [
-        "2"
-      ]
-    },
-    "NetREAR_BR_PRES?_3": {
-      "REAR_BR_PRES?": [
-        "3"
-      ]
-    },
     "IGNITION_SEN_0V": {
       "REAR_LOOM_CONN": [
         "29"
+      ],
+      "IGNITION_CONN": [
+        "5"
       ]
     },
     "VIN": {
@@ -1244,9 +1229,14 @@
         "2"
       ]
     },
-    "PWR": {
+    "NetTRANSPONDER_CONN_1": {
       "TRANSPONDER_CONN": [
         "1"
+      ]
+    },
+    "NetTRANSPONDER_CONN_2": {
+      "TRANSPONDER_CONN": [
+        "2"
       ]
     },
     "NetWHEEL_SPEED_FL_CONN_1": {
@@ -1339,7 +1329,7 @@
     "KILL_SWITCH_CONN": {
       "pins": {
         "1": "KILL_SWITCH_IN",
-        "2": "GND"
+        "2": "SIG_GND"
       },
       "description": "Header, 2-Pin",
       "comment": "Header 2"
@@ -1384,7 +1374,7 @@
         "4": "",
         "5": "",
         "6": "",
-        "7": "VBATT-",
+        "7": "SIG_GND",
         "8": "DATA_LOGGER_VBATT",
         "9": "",
         "10": "",
@@ -1521,15 +1511,15 @@
         "21": "",
         "22": "",
         "23": "",
-        "24": "VBATT-",
-        "25": "VBATT-",
+        "24": "SIG_GND",
+        "25": "SIG_GND",
         "26": "SEN_0V_C1",
         "27": "SEN_0V_C2",
         "28": "",
         "29": "",
         "30": "ECU_CAN2_P",
         "31": "ECU_CAN2_N",
-        "32": "VBATT-",
+        "32": "SIG_GND",
         "33": "SEN_0V_B1",
         "34": "SEN_0V_A1"
       },
@@ -1563,7 +1553,7 @@
         "23": "",
         "24": "",
         "25": "",
-        "26": "SEN_5V_A1",
+        "26": "VCC5V",
         "27": "",
         "28": "",
         "29": "",
@@ -1587,8 +1577,8 @@
         "7": "",
         "8": "",
         "9": "SEN_5V_B",
-        "10": "VBATT-",
-        "11": "VBATT-",
+        "10": "SIG_GND",
+        "11": "SIG_GND",
         "12": "",
         "13": "",
         "14": "GEAR_SHIFT_ACTUATOR_PRESSURE",
@@ -1684,73 +1674,73 @@
     },
     "INLET_TEMP_CONN": {
       "pins": {
-        "1": "ANALOG_1K_PULLUP_IN",
-        "2": "SEN_0V"
+        "1": "INLET_AIR_TEMP",
+        "2": "SEN_0V_A"
       },
       "description": "Header, 2-Pin",
       "comment": "Header 2"
     },
     "COOLANT_TEMP_CONN": {
       "pins": {
-        "1": "",
-        "2": ""
+        "1": "COOLANT_TEMP",
+        "2": "SEN_0V_C1"
       },
       "description": "Header, 2-Pin",
       "comment": "Header 2"
     },
     "GEAR_SHIFT_ACT_PRESSURE_CONN": {
       "pins": {
-        "1": "",
-        "2": "",
-        "3": ""
+        "1": "SEN_5V_B",
+        "2": "GEAR_SHIFT_ACTUATOR_PRESSURE",
+        "3": "SEN_0V_B"
       },
       "description": "Header, 3-Pin",
       "comment": "Header 3"
     },
     "ENGINE_SPEED_CONN": {
       "pins": {
-        "1": "",
-        "2": "",
-        "3": ""
+        "1": "SEN_5V_C2",
+        "2": "ENGINE_SPEED_IN",
+        "3": "SIG_GND"
       },
       "description": "Header, 3-Pin",
       "comment": "Header 3"
     },
     "ENGINE_CAM_SEN_CONN": {
       "pins": {
-        "1": "",
-        "2": "",
-        "3": ""
+        "1": "SEN_5V_B2",
+        "2": "ENGINE_SYNC_CAM_IN",
+        "3": "SIG_GND"
       },
       "description": "Header, 3-Pin",
       "comment": "Header 3"
     },
     "INLET_MANI_PRESSURE_CONN": {
       "pins": {
-        "1": "SEN_5V",
-        "2": "SIGNAL",
-        "3": ""
+        "1": "VCC5V",
+        "2": "INLET_MAN_PRESS_SEN",
+        "3": "SIG_GND"
       },
       "description": "Header, 3-Pin",
       "comment": "Header 3"
     },
     "FUEL_COMP_SEN_CONN": {
       "pins": {
-        "1": "",
-        "2": "",
-        "3": ""
+        "1": "SEN_5V_C1",
+        "2": "FUEL_COMP_VOLTAGE",
+        "3": "SEN_0V_B1"
       },
       "description": "Header, 3-Pin",
       "comment": "Header 3"
     },
     "THROTTLE_BODY_CONN": {
       "pins": {
-        "1": "NetTHROTTLE_BODY_CONN_1",
-        "2": "NetTHROTTLE_BODY_CONN_2",
-        "3": "NetTHROTTLE_BODY_CONN_3",
-        "4": "NetTHROTTLE_BODY_CONN_4",
-        "5": "NetTHROTTLE_BODY_CONN_5",
-        "6": "NetTHROTTLE_BODY_CONN_6"
+        "1": "TB_MOTOR-",
+        "2": "SEN_0V_C2",
+        "3": "VCC5V",
+        "4": "TB_MOTOR+",
+        "5": "TPS_VOLTAGE",
+        "6": "TPS_TRACKING_VOLTAGE"
       },
       "description": "Header, 6-Pin",
       "comment": "Header 6"
@@ -1802,21 +1792,21 @@
     },
     "GEAR_SHIFT_ACT_CONN": {
       "pins": {
-        "1": "SHIFT_UP_CTRL",
-        "2": "SHIFT_UP_CTRL_GND",
-        "3": "SHIFT_DOWN_CTRL",
-        "4": "SHIFT_DOWN_CTRL_GND"
+        "1": "GEAR_SHIFT_UP_CTRL",
+        "2": "SIG_GND",
+        "3": "GEAR_SHIFT_DOWN_CTRL",
+        "4": "SIG_GND"
       },
       "description": "Header, 4-Pin",
       "comment": "Header 4"
     },
     "IGNITION_CONN": {
       "pins": {
-        "1": "",
-        "2": "",
-        "3": "",
-        "4": "",
-        "5": "",
+        "1": "IGNITION_COIL_POWER",
+        "2": "IGNITION_COIL_POWER",
+        "3": "IGNITION_CTRL_OUT",
+        "4": "PDM_GND",
+        "5": "IGNITION_SEN_0V",
         "6": ""
       },
       "description": "Header, 6-Pin",
@@ -1824,31 +1814,31 @@
     },
     "TURBO_CONN": {
       "pins": {
-        "1": "NetTURBO_CONN_1",
-        "2": "NetTURBO_CONN_2",
-        "3": "NetTURBO_CONN_3",
-        "4": "NetTURBO_CONN_4"
+        "1": "TURBO_ACT_BYP",
+        "2": "SIG_GND",
+        "3": "BOOST_ACT_OUT",
+        "4": "SIG_GND"
       },
       "description": "Header, 4-Pin",
       "comment": "Header 4"
     },
     "FUEL_PUMP_CONN": {
       "pins": {
-        "1": "",
-        "2": "",
-        "3": "",
-        "4": ""
+        "1": "FUEL_PUMP_POWER",
+        "2": "FUEL_PUMP_POWER",
+        "3": "PDM_GND",
+        "4": "PDM_GND"
       },
       "description": "Header, 4-Pin",
       "comment": "Header 4"
     },
     "INJECTOR_CONN": {
       "pins": {
-        "1": "POWER1",
-        "2": "POWER2",
-        "3": "CTRL",
-        "4": "GND1",
-        "5": "GND2",
+        "1": "FUEL_INJECTOR_POWER",
+        "2": "FUEL_INJECTOR_POWER",
+        "3": "INJECTOR_CTRL_OUT",
+        "4": "PDM_GND",
+        "5": "PDM_GND",
         "6": ""
       },
       "description": "Header, 6-Pin",
@@ -1856,8 +1846,8 @@
     },
     "BRAKE_LIGHT_CONN": {
       "pins": {
-        "1": "NetBRAKE_LIGHT_CONN_1",
-        "2": "NetBRAKE_LIGHT_CONN_2"
+        "1": "PDM_GND",
+        "2": "BRAKE_LIGHT"
       },
       "description": "Header, 2-Pin",
       "comment": "Header 2"
@@ -1865,8 +1855,8 @@
     "KNOCK_CONN": {
       "pins": {
         "1": "",
-        "2": "SIGNAL_CTRL",
-        "3": "GND"
+        "2": "CYLINDER_KNOCK",
+        "3": "SIG_GND"
       },
       "description": "Header, 3-Pin",
       "comment": "Header 3"
@@ -1952,7 +1942,7 @@
         "25": "",
         "26": "",
         "27": "IGNITION_SWITCH_IN",
-        "28": "PDM_CAN_GND",
+        "28": "PDM_GND",
         "29": "",
         "30": "",
         "31": "",
@@ -1986,7 +1976,7 @@
         "19": "",
         "20": "BSPD_FAULT_n",
         "21": "BRAKE_OT_n",
-        "22": "PDM_CAN_GND",
+        "22": "PDM_GND",
         "23": "",
         "24": "GEAR_POS_SIG",
         "25": "PDM_CAN_N",
@@ -2046,9 +2036,9 @@
     },
     "APPS_CONN1": {
       "pins": {
-        "1": "SEN_5V",
-        "2": "APPS1_VOLTAGE",
-        "3": "SEN_0V"
+        "1": "SEN_5V_A2",
+        "2": "APPS_VOLTAGE1",
+        "3": "SEN_0V_A1"
       },
       "description": "Header, 3-Pin",
       "comment": "Header 3"
@@ -2070,27 +2060,27 @@
     },
     "APPS_CONN2": {
       "pins": {
-        "1": "",
-        "2": "APPS2_VOLTAGE",
-        "3": ""
+        "1": "VCC5V",
+        "2": "APPS_VOLTAGE2",
+        "3": "SIG_GND"
       },
       "description": "Header, 3-Pin",
       "comment": "Header 3"
     },
     "FRONT_BR_PRES?": {
       "pins": {
-        "1": "NetFRONT_BR_PRES?_1",
-        "2": "NetFRONT_BR_PRES?_2",
-        "3": "NetFRONT_BR_PRES?_3"
+        "1": "VCC5V",
+        "2": "FRONT_BR_PRES",
+        "3": "SIG_GND"
       },
       "description": "Header, 3-Pin",
       "comment": "Header 3"
     },
     "REAR_BR_PRES?": {
       "pins": {
-        "1": "NetREAR_BR_PRES?_1",
-        "2": "NetREAR_BR_PRES?_2",
-        "3": "NetREAR_BR_PRES?_3"
+        "1": "VCC5V",
+        "2": "REAR_BR_PRES",
+        "3": "SIG_GND"
       },
       "description": "Header, 3-Pin",
       "comment": "Header 3"
@@ -2113,17 +2103,17 @@
         "14": "SIG_GND",
         "15": "IGNITION_CTRL_OUT",
         "16": "FUEL_PRES_SEN",
-        "17": "PDM_GND",
+        "17": "SEN_0V_B",
         "18": "PDM_GND",
-        "19": "PDM_GND",
+        "19": "TB_MOTOR-",
         "20": "CAN_P",
         "21": "FUEL_PUMP_POWER",
         "22": "CAN_N",
         "23": "FUEL_PUMP_POWER",
         "24": "LAMBDA_LTC_POWER",
-        "25": "PDM_GND",
+        "25": "TB_MOTOR+",
         "26": "",
-        "27": "PDM_GND",
+        "27": "TPS_VOLTAGE",
         "28": "TURBO_ACT_BYP",
         "29": "IGNITION_SEN_0V",
         "30": "SIG_GND",
@@ -2175,8 +2165,8 @@
     },
     "TRANSPONDER_CONN": {
       "pins": {
-        "1": "PWR",
-        "2": "GND"
+        "1": "NetTRANSPONDER_CONN_1",
+        "2": "NetTRANSPONDER_CONN_2"
       },
       "description": "Header, 2-Pin",
       "comment": "Header 2"

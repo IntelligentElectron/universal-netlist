@@ -266,7 +266,12 @@
       ]
     },
     "CS_AY1": {
+      "DD5": [
+        "15"
+      ],
       "DD8": [
+        "10",
+        "9",
         "8"
       ],
       "R2": [
@@ -285,6 +290,9 @@
       ]
     },
     "CS_AY3": {
+      "DD5": [
+        "13"
+      ],
       "DD6": [
         "6"
       ],
@@ -301,7 +309,11 @@
       ]
     },
     "CS_AY2": {
+      "DD5": [
+        "11"
+      ],
       "DD6": [
+        "11",
         "8"
       ],
       "DD12_AY2": [
@@ -438,14 +450,19 @@
       ]
     },
     "DIN": {
+      "DD7": [
+        "13",
+        "2",
+        "1"
+      ],
       "DD8": [
+        "11",
         "13",
         "12",
         "4"
       ],
-      "DD7": [
-        "2",
-        "1"
+      "R3": [
+        "2"
       ]
     },
     "+5": {
@@ -621,11 +638,15 @@
       "P2": [
         "38"
       ],
+      "DD1": [
+        "3",
+        "17"
+      ],
+      "DR1": [
+        "3"
+      ],
       "P1": [
         "B18"
-      ],
-      "DD1": [
-        "17"
       ]
     },
     "NetDD4_2": {
@@ -649,11 +670,15 @@
       "P2": [
         "44"
       ],
+      "DD3": [
+        "8",
+        "12"
+      ],
+      "DR2": [
+        "8"
+      ],
       "P1": [
         "A20"
-      ],
-      "DD3": [
-        "12"
       ]
     },
     "AD2": {
@@ -672,11 +697,15 @@
       "P2": [
         "46"
       ],
+      "DD3": [
+        "7",
+        "13"
+      ],
+      "DR2": [
+        "7"
+      ],
       "P1": [
         "B20"
-      ],
-      "DD3": [
-        "13"
       ]
     },
     "DOUT": {
@@ -742,11 +771,15 @@
       "P2": [
         "50"
       ],
+      "DD3": [
+        "5",
+        "15"
+      ],
+      "DR2": [
+        "5"
+      ],
       "P1": [
         "B21"
-      ],
-      "DD3": [
-        "15"
       ]
     },
     "AD1": {
@@ -762,11 +795,15 @@
       "P2": [
         "48"
       ],
+      "DD3": [
+        "6",
+        "14"
+      ],
+      "DR2": [
+        "6"
+      ],
       "P1": [
         "A21"
-      ],
-      "DD3": [
-        "14"
       ]
     },
     "AD4": {
@@ -782,11 +819,15 @@
       "P2": [
         "30"
       ],
+      "DD1": [
+        "7",
+        "13"
+      ],
+      "DR1": [
+        "7"
+      ],
       "P1": [
         "B16"
-      ],
-      "DD1": [
-        "13"
       ]
     },
     "AD5": {
@@ -802,11 +843,15 @@
       "P2": [
         "28"
       ],
+      "DD1": [
+        "8",
+        "12"
+      ],
+      "DR1": [
+        "8"
+      ],
       "P1": [
         "A16"
-      ],
-      "DD1": [
-        "12"
       ]
     },
     "AD6": {
@@ -822,11 +867,15 @@
       "P2": [
         "34"
       ],
+      "DD1": [
+        "5",
+        "15"
+      ],
+      "DR1": [
+        "5"
+      ],
       "P1": [
         "B17"
-      ],
-      "DD1": [
-        "15"
       ]
     },
     "AD7": {
@@ -842,11 +891,15 @@
       "P2": [
         "32"
       ],
+      "DD1": [
+        "6",
+        "14"
+      ],
+      "DR1": [
+        "6"
+      ],
       "P1": [
         "A17"
-      ],
-      "DD1": [
-        "14"
       ]
     },
     "L_AY1": {
@@ -1018,29 +1071,41 @@
       "P2": [
         "26"
       ],
+      "DD1": [
+        "9",
+        "11"
+      ],
+      "DR1": [
+        "9"
+      ],
       "P1": [
         "A2"
-      ],
-      "DD1": [
-        "11"
       ]
     },
     "AD9": {
       "P2": [
         "36"
       ],
+      "DD1": [
+        "4",
+        "16"
+      ],
+      "DR1": [
+        "4"
+      ],
       "P1": [
         "A18"
-      ],
-      "DD1": [
-        "16"
       ]
     },
     "AD11": {
       "P2": [
         "40"
       ],
+      "P1": [
+        "A19"
+      ],
       "DD1": [
+        "18",
         "2"
       ],
       "DR1": [
@@ -1051,44 +1116,60 @@
       "P2": [
         "42"
       ],
+      "DD3": [
+        "9",
+        "11"
+      ],
+      "DR2": [
+        "9"
+      ],
       "P1": [
         "B19"
-      ],
-      "DD3": [
-        "11"
       ]
     },
     "AD13": {
       "P2": [
         "52"
       ],
+      "DD3": [
+        "4",
+        "16"
+      ],
+      "DR2": [
+        "4"
+      ],
       "P1": [
         "A22"
-      ],
-      "DD3": [
-        "16"
       ]
     },
     "AD12": {
       "P2": [
         "54"
       ],
+      "DD3": [
+        "3",
+        "17"
+      ],
+      "DR2": [
+        "3"
+      ],
       "P1": [
         "B22"
-      ],
-      "DD3": [
-        "17"
       ]
     },
     "AD14": {
       "P2": [
         "56"
       ],
+      "DD3": [
+        "2",
+        "18"
+      ],
+      "DR2": [
+        "2"
+      ],
       "P1": [
         "B23"
-      ],
-      "DD3": [
-        "18"
       ]
     },
     "NetC38_2": {
@@ -1353,7 +1434,6 @@
   },
   "components": {
     "DD5": {
-      "description": "ÈÄ7 3 to 8 DEMUX",
       "pins": {
         "1": "A3",
         "2": "A2",
@@ -1391,7 +1471,7 @@
         },
         "11": {
           "name": "Y\\4\\",
-          "net": ""
+          "net": "CS_AY2"
         },
         "12": {
           "name": "Y\\3\\",
@@ -1399,7 +1479,7 @@
         },
         "13": {
           "name": "Y\\2\\",
-          "net": ""
+          "net": "CS_AY3"
         },
         "14": {
           "name": "Y\\1\\",
@@ -1407,18 +1487,18 @@
         },
         "15": {
           "name": "Y\\0\\",
-          "net": ""
+          "net": "CS_AY1"
         },
         "16": {
           "name": "+5",
           "net": ""
         }
       },
+      "description": "ÈÄ7 3 to 8 DEMUX",
       "comment": "74x138",
       "value": "*"
     },
     "DD9": {
-      "description": "ËÀ2 8NAND",
       "pins": {
         "1": "",
         "2": "A4",
@@ -1438,11 +1518,11 @@
           "net": ""
         }
       },
+      "description": "ËÀ2 8NAND",
       "comment": "74x30",
       "value": "*"
     },
     "DD6": {
-      "description": "ËÅ4 3x3NOR",
       "pins": {
         "2": "A8",
         "3": "NetDD6_3",
@@ -1456,18 +1536,18 @@
         "8": "CS_AY2",
         "9": "",
         "10": "",
-        "11": "",
+        "11": "CS_AY2",
         "12": "ADDR_DT",
         "14": {
           "name": "+5V",
           "net": ""
         }
       },
+      "description": "ËÅ4 3x3NOR",
       "comment": "74x27",
       "value": "*"
     },
     "DD7": {
-      "description": "ËÈ1 4x2AND",
       "pins": {
         "1": "DIN",
         "2": "DIN",
@@ -1483,11 +1563,13 @@
         "9": "DINOUT",
         "10": "WTBT",
         "12": "ADDR_DT",
+        "13": "DIN",
         "14": {
           "name": "+5V",
           "net": ""
         }
       },
+      "description": "ËÈ1 4x2AND",
       "comment": "74x08",
       "value": "*"
     },
@@ -1499,7 +1581,6 @@
       "comment": "2.2K"
     },
     "DD4": {
-      "description": "ÈÐ22 transparent latch",
       "pins": {
         "1": {
           "name": "E\\O\\",
@@ -1582,11 +1663,11 @@
           "net": ""
         }
       },
+      "description": "ÈÐ22 transparent latch",
       "comment": "74x573",
       "value": "*"
     },
     "DD10": {
-      "description": "ÈÐ22 transparent latch",
       "pins": {
         "1": {
           "name": "E\\O\\",
@@ -1669,11 +1750,11 @@
           "net": ""
         }
       },
+      "description": "ÈÐ22 transparent latch",
       "comment": "74x573",
       "value": "*"
     },
     "DD8": {
-      "description": "ËÀ13 4x2NAND O.C.",
       "pins": {
         "1": "DLDIO",
         "2": "ADDR_DT",
@@ -1686,6 +1767,9 @@
           "net": ""
         },
         "8": "CS_AY1",
+        "9": "CS_AY1",
+        "10": "CS_AY1",
+        "11": "DIN",
         "12": "DIN",
         "13": "DIN",
         "14": {
@@ -1693,18 +1777,18 @@
           "net": ""
         }
       },
+      "description": "ËÀ13 4x2NAND O.C.",
       "comment": "74x38",
       "value": "*"
     },
     "R3": {
       "pins": {
         "1": "+5",
-        "2": ""
+        "2": "DIN"
       },
       "comment": "2.2K"
     },
     "DD11": {
-      "description": "ÈÅ19",
       "pins": {
         "1": "NetDD11_1",
         "2": "GND",
@@ -1734,15 +1818,16 @@
           "net": "GND"
         }
       },
+      "description": "ÈÅ19",
       "comment": "74x393",
       "value": "*"
     },
     "C14": {
-      "description": "Murata ceramic capacitor",
       "pins": {
         "1": "GND",
         "2": "SYNC"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "200"
     },
     "G1": {
@@ -1764,99 +1849,99 @@
       "comment": "CXO"
     },
     "C9": {
-      "description": "Murata ceramic capacitor",
       "pins": {
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "0.1u"
     },
     "C10": {
-      "description": "Murata ceramic capacitor",
       "pins": {
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "4.7u"
     },
     "C11": {
-      "description": "Murata ceramic capacitor",
       "pins": {
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "0.1u"
     },
     "C12": {
-      "description": "Murata ceramic capacitor",
       "pins": {
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "4.7u"
     },
     "C15": {
-      "description": "Murata ceramic capacitor",
       "pins": {
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "0.1u"
     },
     "C16": {
-      "description": "Murata ceramic capacitor",
       "pins": {
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "4.7u"
     },
     "C18": {
-      "description": "Murata ceramic capacitor",
       "pins": {
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "0.1u"
     },
     "C19": {
-      "description": "Murata ceramic capacitor",
       "pins": {
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "4.7u"
     },
     "C20": {
-      "description": "Murata ceramic capacitor",
       "pins": {
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "0.1u"
     },
     "C21": {
-      "description": "Murata ceramic capacitor",
       "pins": {
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "4.7u"
     },
     "C22": {
-      "description": "Murata ceramic capacitor",
       "pins": {
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "0.1u"
     },
     "C23": {
-      "description": "Murata ceramic capacitor",
       "pins": {
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "4.7u"
     },
     "VD1": {
@@ -1867,11 +1952,11 @@
       "comment": "D9B"
     },
     "C13": {
-      "description": "Murata ceramic capacitor",
       "pins": {
         "1": "GND",
         "2": "DLDIO"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "62"
     },
     "R14": {
@@ -1882,51 +1967,51 @@
       "comment": "10K"
     },
     "C40": {
-      "description": "Murata ceramic capacitor",
       "pins": {
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "0.1u"
     },
     "C41": {
-      "description": "Murata ceramic capacitor",
       "pins": {
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "4.7u"
     },
     "C42": {
-      "description": "Murata ceramic capacitor",
       "pins": {
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "0.1u"
     },
     "C43": {
-      "description": "Murata ceramic capacitor",
       "pins": {
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "4.7u"
     },
     "C44": {
-      "description": "Murata ceramic capacitor",
       "pins": {
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "0.1u"
     },
     "C45": {
-      "description": "Murata ceramic capacitor",
       "pins": {
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "4.7u"
     },
     "R2": {
@@ -2914,7 +2999,7 @@
         },
         "A19": {
           "name": "A\\D\\1\\1\\",
-          "net": ""
+          "net": "AD11"
         },
         "A20": {
           "name": "A\\D\\3\\",
@@ -2952,31 +3037,31 @@
         },
         "3": {
           "name": "1",
-          "net": ""
+          "net": "AD8"
         },
         "4": {
           "name": "2",
-          "net": ""
+          "net": "AD9"
         },
         "5": {
           "name": "3",
-          "net": ""
+          "net": "AD6"
         },
         "6": {
           "name": "4",
-          "net": ""
+          "net": "AD7"
         },
         "7": {
           "name": "5",
-          "net": ""
+          "net": "AD4"
         },
         "8": {
           "name": "6",
-          "net": ""
+          "net": "AD5"
         },
         "9": {
           "name": "7",
-          "net": ""
+          "net": "AD15"
         },
         "10": {
           "name": "GND",
@@ -3012,7 +3097,7 @@
         },
         "18": {
           "name": "0",
-          "net": ""
+          "net": "AD11"
         },
         "19": {
           "name": "E\\O\\",
@@ -3034,35 +3119,35 @@
         },
         "2": {
           "name": "0",
-          "net": ""
+          "net": "AD14"
         },
         "3": {
           "name": "1",
-          "net": ""
+          "net": "AD12"
         },
         "4": {
           "name": "2",
-          "net": ""
+          "net": "AD13"
         },
         "5": {
           "name": "3",
-          "net": ""
+          "net": "AD0"
         },
         "6": {
           "name": "4",
-          "net": ""
+          "net": "AD1"
         },
         "7": {
           "name": "5",
-          "net": ""
+          "net": "AD2"
         },
         "8": {
           "name": "6",
-          "net": ""
+          "net": "AD3"
         },
         "9": {
           "name": "7",
-          "net": ""
+          "net": "AD10"
         },
         "10": {
           "name": "GND",
@@ -3177,14 +3262,14 @@
     "DR2": {
       "pins": {
         "1": "+5",
-        "2": "",
-        "3": "",
-        "4": "",
-        "5": "",
-        "6": "",
-        "7": "",
-        "8": "",
-        "9": ""
+        "2": "AD14",
+        "3": "AD12",
+        "4": "AD13",
+        "5": "AD0",
+        "6": "AD1",
+        "7": "AD2",
+        "8": "AD3",
+        "9": "AD10"
       },
       "comment": "RNA8"
     },
@@ -3192,13 +3277,13 @@
       "pins": {
         "1": "+5",
         "2": "AD11",
-        "3": "",
-        "4": "",
-        "5": "",
-        "6": "",
-        "7": "",
-        "8": "",
-        "9": ""
+        "3": "AD8",
+        "4": "AD9",
+        "5": "AD6",
+        "6": "AD7",
+        "7": "AD4",
+        "8": "AD5",
+        "9": "AD15"
       },
       "comment": "RNA8"
     },

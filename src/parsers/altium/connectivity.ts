@@ -235,6 +235,17 @@ export const isConnected = (deviceA: AltiumRecord, deviceB: AltiumRecord): boole
     }
   }
 
+  // Harness entries carrying the same signal of the same bundle are the two ends
+  // of one net, however the wires reaching them are labelled.
+  if (
+    deviceA.RECORD === RECORD_TYPES.HARNESS_ENTRY &&
+    deviceB.RECORD === RECORD_TYPES.HARNESS_ENTRY &&
+    typeof deviceA.harnessSignal === "string" &&
+    deviceA.harnessSignal === deviceB.harnessSignal
+  ) {
+    return true;
+  }
+
   // Special case: globally-named devices (power ports, net labels, ports)
   // with the same name are connected globally.
   // Note: SHEET_ENTRY is NOT globally-named; it connects via wires on the parent sheet.
@@ -301,6 +312,20 @@ export const findAllConnectedComponents = (devices: AltiumRecord[]): AltiumRecor
     }
   }
 
+  // Collect harness entries by the signal they carry. Two entries of one bundle
+  // named alike are the same net wherever they are drawn, so a wire label that
+  // differs from one end of the harness to the other does not split it.
+  const harnessSignals = new Map<string, number[]>();
+  for (const device of devices) {
+    if (device.RECORD !== RECORD_TYPES.HARNESS_ENTRY) continue;
+    const signal = device.harnessSignal;
+    if (typeof signal !== "string" || !signal) continue;
+    if (!harnessSignals.has(signal)) {
+      harnessSignals.set(signal, []);
+    }
+    harnessSignals.get(signal)!.push(device.index);
+  }
+
   // Union devices sharing exact coordinates
   for (const deviceIndices of spatialIndex.getPointToDevices().values()) {
     if (deviceIndices.length > 1) {
@@ -324,6 +349,16 @@ export const findAllConnectedComponents = (devices: AltiumRecord[]): AltiumRecor
 
   // Union globally-named devices (power ports/net labels with same text)
   for (const indices of globalLabels.values()) {
+    if (indices.length > 1) {
+      const first = indices[0];
+      for (let i = 1; i < indices.length; i++) {
+        uf.union(first, indices[i]);
+      }
+    }
+  }
+
+  // Union the harness entries that carry one signal
+  for (const indices of harnessSignals.values()) {
     if (indices.length > 1) {
       const first = indices[0];
       for (let i = 1; i < indices.length; i++) {
