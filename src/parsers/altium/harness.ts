@@ -231,7 +231,9 @@ const entryDistanceFromTop = (entry: HarnessRecord): number =>
  * pulp-bio/HELIOS-R and qfsae/pcb: each lands exactly on a wire end.
  */
 const entriesOnRightEdge = (connector: HarnessRecord, entry: HarnessRecord): boolean =>
-  entry.Side === SIDE_FLAG || connector.HarnessConnectorSide !== SIDE_FLAG;
+  entry.Side !== undefined
+    ? entry.Side === SIDE_FLAG
+    : connector.HarnessConnectorSide !== SIDE_FLAG;
 
 /**
  * Read the harness connectors of a sheet, giving every entry the coordinate at
@@ -242,9 +244,10 @@ const entriesOnRightEdge = (connector: HarnessRecord, entry: HarnessRecord): boo
  * present on some entries and absent on others, so ownership is taken from
  * stream order: entries follow their connector.
  *
- * An entry whose connector has no coordinates is left unpositioned, and the net
- * extractor skips it, rather than being placed at the origin where every other
- * such entry would appear to touch it.
+ * A connector that carries no coordinates is passed over altogether, entries and
+ * all. Read as written it would sit at the origin, where its outgoing connection
+ * could be taken for any harness line or port that happens to reach that point,
+ * and a bundle identity drawn from there travels across the whole project.
  */
 export const readHarnessConnectors = (records: HarnessRecord[]): HarnessConnector[] => {
   const connectors: HarnessConnector[] = [];
@@ -252,6 +255,9 @@ export const readHarnessConnectors = (records: HarnessRecord[]): HarnessConnecto
 
   for (const record of records) {
     if (record.RECORD === "215") {
+      current = undefined;
+      if (record["Location.X"] === undefined || record["Location.Y"] === undefined) continue;
+
       const originX = scaled(record["Location.X"], record["Location.X_Frac"]);
       const originY = scaled(record["Location.Y"], record["Location.Y_Frac"]);
       const width = scaled(record.XSize, undefined);
@@ -276,8 +282,6 @@ export const readHarnessConnectors = (records: HarnessRecord[]): HarnessConnecto
     const connector = current.connector;
     const originX = scaled(connector["Location.X"], connector["Location.X_Frac"]);
     const originY = scaled(connector["Location.Y"], connector["Location.Y_Frac"]);
-    if (connector["Location.X"] === undefined || connector["Location.Y"] === undefined) continue;
-
     const width = entriesOnRightEdge(connector, record) ? scaled(connector.XSize, undefined) : 0;
     setScaledLocation(
       record,
@@ -342,6 +346,16 @@ const portEnds = (port: HarnessRecord): Point[] => {
 };
 
 /**
+ * Sides a sheet entry can be drawn on, of which only two are placed here.
+ *
+ * `Side` counts round the sheet symbol: 0 left, 1 right, 2 top, 3 bottom. All 44
+ * harness-typed sheet entries in the fixture corpus are on a vertical edge; the
+ * seven on a horizontal one carry no `HarnessType`, so the geometry a top or
+ * bottom entry uses has not been seen and is not guessed at.
+ */
+const SHEET_ENTRY_VERTICAL_SIDES = new Set([undefined, "0", "1"]);
+
+/**
  * Where a sheet entry meets a harness line on the parent sheet.
  *
  * A sheet entry is placed the way a harness entry is: it inherits its position
@@ -349,8 +363,13 @@ const portEnds = (port: HarnessRecord): Point[] => {
  * that symbol's top edge, and takes the left edge unless `Side` puts it on the
  * right. Verified against all 44 harness-typed sheet entries in qfsae/pcb and
  * pulp-bio/HELIOS-R, each of which lands exactly on a harness line vertex.
+ *
+ * An entry on the top or bottom edge has no known position and returns none, so
+ * it joins no bundle rather than being placed somewhere it may not be.
  */
-const sheetEntryLocation = (symbol: HarnessRecord, entry: HarnessRecord): Point => {
+const sheetEntryLocation = (symbol: HarnessRecord, entry: HarnessRecord): Point | undefined => {
+  if (!SHEET_ENTRY_VERTICAL_SIDES.has(entry.Side)) return undefined;
+
   const [originX, originY] = recordLocation(symbol);
   const width = entry.Side === SIDE_FLAG ? scaled(symbol.XSize, undefined) : 0;
   return [
@@ -526,8 +545,9 @@ export const assignHarnessSignals = (
     // harness line are two names for one bundle.
     if (record.RECORD === "16" && record.HarnessType && symbol) {
       const name = record.Name ?? record.Text;
-      if (!name) continue;
-      const node = lineAt(sheetEntryLocation(symbol, record));
+      const location = name ? sheetEntryLocation(symbol, record) : undefined;
+      if (!name || !location) continue;
+      const node = lineAt(location);
       if (node !== undefined) nameAt(node, String(name));
     }
   }

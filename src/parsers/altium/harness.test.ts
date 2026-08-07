@@ -227,16 +227,16 @@ describe("readHarnessConnectors", () => {
     expect(records[3]["Location.Y"]).toBe("780");
   });
 
-  it("leaves an entry unpositioned when its connector has no coordinates", () => {
-    // Better to contribute no connectivity than to place it at the origin,
-    // where every other unplaceable entry would appear to touch it.
+  it("passes over a connector that has no coordinates", () => {
+    // Read as written it would sit at the origin, where its entries would all
+    // appear to touch each other and its outgoing connection could be taken for
+    // any harness line reaching that point.
     const records: HarnessRecord[] = [
       { RECORD: "215", XSize: "50" },
       { RECORD: "216", Name: "X", DistanceFromTop: "1" },
     ];
 
-    readHarnessConnectors(records);
-
+    expect(readHarnessConnectors(records)).toEqual([]);
     expect(records[1]["Location.Y"]).toBeUndefined();
   });
 
@@ -373,6 +373,27 @@ describe("assignHarnessSignals", () => {
     });
 
     expect(links).toEqual([["TRANSPONDER_POWER_UL", "TRANSPONDER_POWER"]]);
+  });
+
+  it("ignores a harness sheet entry on an edge whose geometry is unknown", () => {
+    // Side counts round the symbol: 0 left, 1 right, 2 top, 3 bottom. No
+    // harness-typed entry on a horizontal edge has been seen, so one is left out
+    // rather than placed where a vertical entry would go.
+    // ON_TOP would land on the same line vertex as ON_LEFT if it were placed as
+    // a left-edge entry, so its absence from the link is the whole assertion.
+    const links = assignHarnessSignals([], {
+      records: [
+        { RECORD: "15", ...at(520, 630), XSize: "370" },
+        { RECORD: "16", Name: "ON_TOP", Side: "2", DistanceFromTop: "2", HarnessType: "P" },
+        { RECORD: "16", Name: "ON_LEFT", DistanceFromTop: "2", HarnessType: "P" },
+        { RECORD: "15", ...at(450, 720), XSize: "80" },
+        { RECORD: "16", Name: "ON_RIGHT", Side: "1", DistanceFromTop: "2", HarnessType: "P" },
+      ],
+      buses: [harnessLine(520, 610, 530, 700)],
+      sheetKey: "TOP.SchDoc",
+    });
+
+    expect(links).toEqual([["ON_LEFT", "ON_RIGHT"]]);
   });
 
   it("leaves a connector that reaches no harness line or port alone", () => {
