@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.1] - 2026-08-07
+
+Altium signal harnesses were only bridging nets by coincidence. A harness entry
+named the net it touched, so the two ends of a harness agreed only where the
+entry name and both wire labels happened to be the same word, and half of all
+harness entries were never placed on the sheet at all. This release reads the
+harness the way Altium describes it, as a container that carries nets rather
+than one that names them.
+
+### Fixed
+
+- Altium nets are traced through a signal harness by the bundle it carries, so a net keeps its identity when the wires either side of the harness are labelled differently, whether the two ends are on one sheet or on different ones. A bundle is identified by the harness-typed port its connector reaches, or by the signal harness line it meets, and entries of one bundle sharing a name are one net. A bundle known by a different port name at each end, as a bulkhead sheet gives it, is reconciled from the harness line the parent sheet draws between the two sheet entries naming it (#115, PR #118)
+- Altium harness entries drawn on the right-hand edge of a connector are now placed. Which edge the entries sit on is written two ways, `HarnessConnectorSide=1` on the connector or `Side=1` on each entry, and only the first was read, so 62 of the 115 connectors in the fixture corpus contributed no connectivity whatsoever. Entries at a fractional `DistanceFromTop` are placed exactly rather than half a grid step out. Together the rules put 364 of the 365 entries across two harness designs exactly on the end of a wire (PR #118)
+- Altium harness entries no longer name the nets they touch. An entry name is unique only inside its own harness, so a design drawing one sensor harness per sensor had every sensor's `SIGNAL` collapse under one name. The one case Altium documents is kept: a net label placed on the signal harness line names the harness, and the nets it carries become `<label>.<entry>` (PR #118)
+- Altium harness entries that cannot be placed no longer collapse onto the origin, where every one of them appeared to touch every other. A connector with no coordinates, and a harness sheet entry on a top or bottom edge whose geometry has not been confirmed against a real design, are passed over rather than guessed at (PR #118)
+- Two Altium nets sharing a name on one sheet are merged instead of the second replacing the first and silently dropping its pins. On `aberrant_sound_module` this restores 41 pin connections that the netlist had simply left out (PR #118)
+- `OwnerIndex` written in a `.SchDoc`'s `Additional` stream numbers that stream's own records, so it is rebased when the two record lists are joined. Harness entries now nest under their connector instead of under an unrelated `FileHeader` record (PR #118)
+
+### Documentation
+
+- `docs/altium-format.md` covers the harness entry placement rules for both connector arrangements, the fixed-point `DistanceFromTop`, how a bundle is identified and named, and how one crosses a sheet boundary (PR #118)
+
 ## [1.5.0] - 2026-08-06
 
 This release brings Cadence `.DSN` parsing to exact agreement with Cadence's own
