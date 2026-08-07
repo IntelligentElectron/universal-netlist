@@ -129,15 +129,23 @@ jobs:
               --jq '[.comments[] | select(.author.login == "claude") | .body]')
             count=$(printf '%s' "$bodies" | jq 'length')
             unticked=$(printf '%s' "$bodies" | jq -r '.[]' | grep -cE '^- \[ \]' || true)
+            # The action rewrites its tracking comment in place and stamps it
+            # with its own run time when it is done, so this marker says the run
+            # reached the end rather than dying partway.
+            finished=$(printf '%s' "$bodies" | jq -r '.[]' | grep -cE '^\*\*Claude finished' || true)
 
             if [ "$count" -eq 0 ]; then
               reason="The review posted no comment at all."
             elif [ "$unticked" -gt 0 ]; then
               reason="The review exited with $unticked unfinished todo item(s), so it did not complete."
-            elif [ "$count" -lt 2 ]; then
-              reason="The review left a progress comment but never posted a summary."
+            elif [ "$count" -lt 2 ] && [ "$finished" -eq 0 ]; then
+              # A review with findings posts its summary separately from the
+              # tracking comment, so two comments is the usual shape. One is
+              # equally valid when the PR needed no inline comments at all, and
+              # requiring two failed exactly the PRs that were clean.
+              reason="The review left a progress comment but never finished."
             else
-              echo "Review completed: $count comments, no unticked todos."
+              echo "Review completed: $count comment(s), no unticked todos."
               exit 0
             fi
 
