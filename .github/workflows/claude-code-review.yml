@@ -38,7 +38,7 @@ jobs:
     steps:
       # The review reads surrounding parser code and docs/, not just the diff.
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 1
 
