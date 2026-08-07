@@ -77,4 +77,57 @@ jobs:
           # Without an explicit allowlist the SDK denies every tool, so the review
           # reads the diff, forms its findings, and is then blocked from posting them.
           # Read-and-report only: nothing here writes to the repo.
-          claude_args: '--allowedTools "mcp__github_inline_comment__create_inline_comment,Read,Grep,Glob,Bash(gh pr view:*),Bash(gh pr diff:*),Bash(gh pr comment:*),Bash(gh pr list:*),Bash(gh issue view:*),Bash(gh issue list:*),Bash(gh search:*),Bash(git log:*),Bash(git diff:*),Bash(git show:*)"'
+          #
+          # `Task` is allowed because the review sometimes plans to fan out to
+          # fact-checking sub-agents. Without it that plan dead-ends: on PR #114 the
+          # run burned 26 turns against 19 permission denials, then gave up and
+          # posted nothing while still exiting 0. It is a fallback path, not the
+          # usual one — PR #116 reviewed the same way inline with 4 denials — but a
+          # denied tool should not be able to cost a whole review.
+          claude_args: '--allowedTools "Task,mcp__github_inline_comment__create_inline_comment,Read,Grep,Glob,Bash(gh pr view:*),Bash(gh pr diff:*),Bash(gh pr comment:*),Bash(gh pr list:*),Bash(gh issue view:*),Bash(gh issue list:*),Bash(gh search:*),Bash(git log:*),Bash(git diff:*),Bash(git show:*)"'
+
+      # The action reports success whenever the CLI exits 0, and it exits 0 even
+      # when the review abandoned its plan and posted nothing. PR #114 passed
+      # exactly that way: five of six todos unticked, no summary comment, no inline
+      # comments, green check. A required check that can pass without reviewing is
+      # not a gate, so assert the review finished before letting the job succeed.
+      #
+      # `track_progress` renders the plan as a checklist and ticks items off as they
+      # complete, which makes a leftover `- [ ]` the direct signal that the run
+      # stopped early. A healthy run also leaves a separate summary comment, so
+      # requiring both catches a tracker that was tidied without a review behind it.
+      - name: Assert the review actually ran
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+
+          # Comments are posted while the action runs, but the list endpoint can lag
+          # a moment behind the last write. Retry rather than fail a required check
+          # on propagation timing; a genuinely dead run stays dead across all tries.
+          for attempt in 1 2 3 4 5; do
+            reason=""
+            bodies=$(gh pr view "$PR_NUMBER" --json comments \
+              --jq '[.comments[] | select(.author.login == "claude") | .body]')
+            count=$(printf '%s' "$bodies" | jq 'length')
+            unticked=$(printf '%s' "$bodies" | jq -r '.[]' | grep -cE '^- \[ \]' || true)
+
+            if [ "$count" -eq 0 ]; then
+              reason="The review posted no comment at all."
+            elif [ "$unticked" -gt 0 ]; then
+              reason="The review exited with $unticked unfinished todo item(s), so it did not complete."
+            elif [ "$count" -lt 2 ]; then
+              reason="The review left a progress comment but never posted a summary."
+            else
+              echo "Review completed: $count comments, no unticked todos."
+              exit 0
+            fi
+
+            echo "attempt $attempt/5: $reason"
+            [ "$attempt" -lt 5 ] && sleep 10
+          done
+
+          echo "::error::$reason"
+          printf '%s' "$bodies" | jq -r '.[]' | grep -E '^- \[ \]' || true
+          exit 1
