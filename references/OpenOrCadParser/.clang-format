@@ -1,0 +1,38 @@
+---
+Language: Cpp
+AccessModifierOffset: -4
+AlignAfterOpenBracket: DontAlign
+AlignArrayOfStructures: Left
+AlignConsecutiveAssignments:
+  Enabled: true
+  AcrossEmptyLines: false
+  AcrossComments: true
+AllowShortBlocksOnASingleLine: Never
+AllowShortEnumsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: None
+BraceWrapping:
+  AfterNamespace: true
+  BeforeWhile: true
+BreakAfterAttributes: Always
+BreakBeforeBraces: Allman
+ColumnLimit: 120
+FixNamespaceComments: true
+IncludeBlocks: Preserve
+IndentWidth: 4
+IndentCaseBlocks: true
+IndentCaseLabels: true
+InsertBraces: true
+PackConstructorInitializers: Never
+PointerAlignment: Left
+ReferenceAlignment: Left
+SeparateDefinitionBlocks: Always
+SortIncludes: CaseSensitive
+SpaceBeforeParens: Custom
+SpaceBeforeParensOptions:
+  AfterControlStatements: false
+  AfterFunctionDefinitionName: false
+SpaceBeforeRangeBasedForLoopColon: true
+SpacesInAngles: Never
+SpacesInParentheses: false
+Standard: c++20
+UseTab: Never

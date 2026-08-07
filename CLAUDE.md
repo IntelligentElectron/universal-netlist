@@ -109,7 +109,9 @@ npm publishing uses OIDC trusted publishing (configured on npmjs.com) - no token
 
 ## DSN Parser Reference
 
-**MANDATORY**: Before modifying ANY file under `src/parsers/cadence/dsn/`, you MUST read the corresponding C++ reference implementation in `references/OpenOrCadParser/`. This directory is gitignored but accessible to all agent tools (Glob, Grep, Read). Do not skip this step. The C++ source is the ground truth for how the binary format works, and our TypeScript is a port of it.
+**MANDATORY**: Before modifying ANY file under `src/parsers/cadence/dsn/`, you MUST read the corresponding C++ reference implementation in `references/OpenOrCadParser/`. Do not skip this step. The C++ source is the ground truth for how the binary format works, and our TypeScript is a port of it.
+
+The reference is vendored into this repository, so it is present after a plain `git clone` with no submodule init and no network fetch, in CI and sandboxes as much as locally. It is an unmodified copy of upstream's final commit before the project was archived; see [references/README.md](references/README.md) for provenance and licence. Treat it as read-only — never edit it to match our behaviour. Where our port intentionally diverges, that belongs in `docs/dsn-format.md`.
 
 ### Reference workflow
 

@@ -1,0 +1,8 @@
+__pycache__
+.vscode/
+*.bin
+*.log
+build/
+test/designs
+test/src/generated_tests
+vcpkg_installed

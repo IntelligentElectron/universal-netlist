@@ -7,3 +7,9 @@ This product includes code derived from OpenOrCadParser
 (https://github.com/Werni2A/OpenOrCadParser)
 Copyright (c) 2021 Dominik Wernberger
 Licensed under the MIT License
+
+An unmodified copy of OpenOrCadParser is redistributed in this repository at
+references/OpenOrCadParser/, pinned to upstream commit be0a83ac1193, for
+reference only. It is not compiled, linked, executed, or published. That copy
+remains under the MIT License; its licence text is retained in place at
+references/OpenOrCadParser/LICENSE. See references/README.md for provenance.
