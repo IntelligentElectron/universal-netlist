@@ -156,28 +156,47 @@ the whole bundle between objects, and behaves like a bus for connectivity purpos
 ### Entries inherit their position from the connector
 
 An entry carries no coordinate of its own, only a `DistanceFromTop`, so nothing lands on it
-until it is given one. `positionHarnessEntries()` places each entry at the connector's
-`Location.X`, and at `Location.Y - DistanceFromTop * 10`.
+until it is given one. `readHarnessConnectors()` places each entry at
+
+```
+x = Location.X + (entry on the right edge ? XSize : 0)
+y = Location.Y - (DistanceFromTop + DistanceFromTop_Frac1 / 1e6) * 10
+```
 
 That pitch of 10 grid units comes from `HELIOS-R`'s main sheet: its connector sits at
 `Location.Y=670` with entries at `DistanceFromTop` 1, 2, 9, 10 and 13, and the five wires that
-land on it end at y = 660, 650, 580, 570 and 540 — exactly `Location.Y - n * 10`.
+land on it end at y = 660, 650, 580, 570 and 540 — exactly `Location.Y - n * 10`. The step
+count is fixed-point: `channel.SchDoc` writes `DistanceFromTop=1 | DistanceFromTop_Frac1=500000`
+for an entry whose wire ends 15 units below the top, so 500000 is half a step. An entry on the
+top edge writes no whole part at all.
+
+Which edge the entries sit on is written twice, from opposite ends, and never both at once:
+
+| Written | Entries | Bundle leaves from |
+|---|---|---|
+| `HarnessConnectorSide=1` on the connector | left edge | right edge |
+| `Side=1` on each entry | right edge | left edge |
+
+The two forms split the fixture corpus almost evenly — 53 of 115 connectors declare
+`HarnessConnectorSide`, the other 62 mark their entries instead — so reading only one of them
+leaves half the harness entries of a design unplaced. Together the rules put 364 of the 365
+entries in `qfsae/pcb` and `pulp-bio/HELIOS-R` exactly on the end of a wire.
 
 Ownership is taken from stream order, an entry belonging to the connector that precedes it,
 for two reasons. `OwnerIndex` is often simply absent: across the two harness fixtures 330 of
 365 entries carry it and 35 do not, and all five entries of the `HELIOS-R` main sheet are in
 the second group. And where it is present it numbers the `Additional` stream's own record
-list, which stops meaning anything once those records are appended to `FileHeader`'s. So
-positioning runs on the `Additional` records alone, before the two lists are joined.
+list, so it is rebased by the number of `FileHeader` records when the two lists are joined.
+Positioning runs on the `Additional` records alone, before that join.
 
-Only `HarnessConnectorSide=1` is positioned, that being the arrangement confirmed against a
-real design; 53 of the 115 connectors in the fixture corpus declare it and the remaining 62
-omit the field. An entry on an unconfirmed side is left without coordinates, so it takes no
-part in connectivity rather than inventing a connection that may not exist.
+An entry whose connector has no coordinates at all is left unpositioned, and the net extractor
+skips it: placed at the origin instead, every such entry in a document would appear to touch
+every other.
 
-Once positioned, an entry is a connectable device like a wire or a pin, and also a naming
-device: a net reaching an entry takes that entry's `Name`, ranked alongside power ports, net
-labels and ports in `assignNetName()`.
+The bundle leaves the connector from the opposite edge, at
+`Location.Y - PrimaryConnectionPosition` — note the plain units here, not the entries' grid
+steps. That point meets either a signal harness line or a harness-typed port; all 115
+connectors in the corpus attach at one or the other.
 
 ### Harness type definitions live outside the `.SchDoc`
 
@@ -209,8 +228,42 @@ entry's type to its members and classifies every member the same way the entry i
 classified, so a shared harness keeps its members shared instead of handing each channel a
 private copy that connects to nothing.
 
-The `PORT` side of the same boundary is read as a plain named port; its `HarnessType` is
-recorded in the file but not yet consulted.
+A harness-typed sheet entry is also placed the way a harness entry is, inheriting position
+from the sheet symbol (`RECORD=15`) that precedes it in the stream, taking the left edge
+unless `Side=1` puts it on the right, and sitting `DistanceFromTop` grid steps below the
+symbol's top. All 44 of them in the corpus land exactly on a harness line vertex.
+
+### Which nets a harness carries, and what they are called
+
+Altium is explicit that these objects resolve connectivity and do not name it: the harness
+type and its entries are "names of the containers that carry the nets, not the names of the
+nets themselves". Two consequences follow, and both matter.
+
+A member name is unique only inside its own bundle. `qfsae/pcb` draws one `3WIRE_PSG_SENSOR`
+harness per sensor, each with an entry called `SIGNAL`; naming nets after entries would put
+every sensor's signal on one net. So a bundle is identified by what its connector's outgoing
+connection reaches:
+
+- a **harness-typed port** — the bundle takes that port's name, which is global, so the sheet
+  on the other side arrives at the same identity;
+- a **signal harness line** — everything meeting that line is one bundle, and connectors,
+  ports and sheet entries on it share an identity;
+- neither — the bundle is local to its sheet and identified by the sheet.
+
+Entries of one bundle sharing a name are then one net, whatever the wires reaching them are
+labelled, which is the whole point of the mechanism. Where the two ends are on different
+sheets the nets are matched by the same identity after both sheets are parsed
+(`mergeHarnessSignalNets()`), and the surviving name is the one the designer wrote, preferring
+whichever is already on more pins.
+
+One bundle is rarely called the same thing at both ends — a bulkhead sheet takes in
+`TRANSPONDER_POWER_UL` and passes on `TRANSPONDER_POWER`. The parent sheet is where they are
+shown to be one bundle, by a harness line drawn between the two sheet entries that name them;
+`resolveBundleNames()` folds such names together across the project.
+
+The exception to harness objects not naming nets is a **net label placed on the signal harness
+line**. That names the harness, and every net it carries is then called
+`<harness label>.<entry name>` in place of the wire's own label.
 
 ### Harness types nest
 
@@ -244,11 +297,22 @@ stops at the repeat rather than recursing forever.
 
 ### Scope
 
-Within a sheet, positioned harness entries join nets by geometry on every design.
+Within a sheet, positioned harness entries join nets by geometry, and entries carrying one
+signal of one bundle join whatever the wires are labelled.
 
-Across a sheet boundary, member resolution runs only where a repeated sheet is expanded into
-channels. A single-instance sheet reached through a harness-typed sheet entry is parsed and
-merged like any other sheet, without its bundle being expanded into member signals.
+Across a sheet boundary, a bundle is followed by matching signal identities between documents,
+including through a harness line drawn on a parent sheet between two sheet entries. Bundle
+names are matched project-wide, as ports already are elsewhere in this parser, so two sheets
+that reuse a harness port name are read as sharing that bundle.
+
+Repeated sheets are the exception: channel expansion renames a repeated sheet's nets per
+channel, so signals collected there would no longer name the nets carrying them. Those sheets
+reach the rest of the design through `classifySheetEntries()`, which carries the bundle's
+members across instead.
+
+The nesting relationship is read from the entry records, but a nested bundle is not yet given
+its own identity: its members resolve as names, and its connectivity depends on the enclosing
+bundle.
 
 ### Designs used for testing
 

@@ -690,6 +690,15 @@
     "P1.10": {
       "U1": [
         "A20"
+      ],
+      "P16": [
+        "2"
+      ],
+      "P10": [
+        "1"
+      ],
+      "P4": [
+        "1"
       ]
     },
     "P0.00/XL1": {
@@ -717,6 +726,18 @@
     "P0.28/AIN4": {
       "U1": [
         "B11"
+      ],
+      "P14": [
+        "6"
+      ],
+      "TP44": [
+        "1"
+      ],
+      "P2": [
+        "3"
+      ],
+      "P8": [
+        "3"
       ]
     },
     "NetL2_2": {
@@ -758,11 +779,29 @@
     "P1.01": {
       "U1": [
         "Y23"
+      ],
+      "P15": [
+        "2"
+      ],
+      "P9": [
+        "1"
+      ],
+      "P3": [
+        "1"
       ]
     },
     "D_N": {
       "U1": [
         "AD4"
+      ],
+      "J3": [
+        "2"
+      ],
+      "D60": [
+        "2"
+      ],
+      "TP13": [
+        "1"
       ]
     },
     "P0.19": {
@@ -832,6 +871,15 @@
     "D_P": {
       "U1": [
         "AD6"
+      ],
+      "J3": [
+        "3"
+      ],
+      "D60": [
+        "3"
+      ],
+      "TP14": [
+        "1"
       ]
     },
     "P0.20": {
@@ -884,6 +932,9 @@
       ],
       "SW3": [
         "2"
+      ],
+      "P24": [
+        "14"
       ]
     },
     "P0.09/NFC1": {
@@ -900,6 +951,12 @@
     "P1.09": {
       "U1": [
         "R1"
+      ],
+      "P25": [
+        "20"
+      ],
+      "P24": [
+        "17"
       ]
     },
     "P0.25": {
@@ -908,6 +965,9 @@
       ],
       "SW4": [
         "2"
+      ],
+      "P24": [
+        "15"
       ]
     },
     "P1.00": {
@@ -921,7 +981,11 @@
         "6"
       ],
       "P25": [
-        "6"
+        "6",
+        "14"
+      ],
+      "P24": [
+        "16"
       ]
     },
     "P0.26": {
@@ -952,6 +1016,18 @@
       ],
       "U8": [
         "15"
+      ],
+      "P14": [
+        "4"
+      ],
+      "TP43": [
+        "1"
+      ],
+      "P2": [
+        "2"
+      ],
+      "P8": [
+        "2"
       ]
     },
     "P0.05/AIN3": {
@@ -960,6 +1036,15 @@
       ],
       "SB51": [
         "1"
+      ],
+      "P17": [
+        "6"
+      ],
+      "P12": [
+        "3"
+      ],
+      "P6": [
+        "3"
       ]
     },
     "P0.06": {
@@ -968,6 +1053,15 @@
       ],
       "SB53": [
         "1"
+      ],
+      "P17": [
+        "8"
+      ],
+      "P12": [
+        "4"
+      ],
+      "P6": [
+        "4"
       ]
     },
     "P0.07": {
@@ -976,6 +1070,18 @@
       ],
       "U8": [
         "1"
+      ],
+      "P25": [
+        "12"
+      ],
+      "P17": [
+        "10"
+      ],
+      "P12": [
+        "5"
+      ],
+      "P6": [
+        "5"
       ]
     },
     "P0.08": {
@@ -984,6 +1090,15 @@
       ],
       "SB52": [
         "1"
+      ],
+      "P17": [
+        "12"
+      ],
+      "P12": [
+        "6"
+      ],
+      "P6": [
+        "6"
       ]
     },
     "P1.08": {
@@ -992,6 +1107,15 @@
       ],
       "U8": [
         "7"
+      ],
+      "P15": [
+        "16"
+      ],
+      "P9": [
+        "8"
+      ],
+      "P3": [
+        "8"
       ]
     },
     "P0.13": {
@@ -1000,6 +1124,9 @@
       ],
       "SB5": [
         "1"
+      ],
+      "P24": [
+        "3"
       ]
     },
     "P0.14": {
@@ -1008,6 +1135,9 @@
       ],
       "SB6": [
         "1"
+      ],
+      "P24": [
+        "4"
       ]
     },
     "P0.15": {
@@ -1016,6 +1146,9 @@
       ],
       "SB7": [
         "1"
+      ],
+      "P24": [
+        "5"
       ]
     },
     "P0.16": {
@@ -1024,6 +1157,9 @@
       ],
       "SB8": [
         "1"
+      ],
+      "P24": [
+        "6"
       ]
     },
     "P0.11": {
@@ -1032,6 +1168,12 @@
       ],
       "U8": [
         "5"
+      ],
+      "P25": [
+        "18"
+      ],
+      "P24": [
+        "1"
       ]
     },
     "P0.12": {
@@ -1040,6 +1182,12 @@
       ],
       "U8": [
         "9"
+      ],
+      "P25": [
+        "16"
+      ],
+      "P24": [
+        "2"
       ]
     },
     "P0.17": {
@@ -1074,6 +1222,9 @@
       ],
       "P25": [
         "10"
+      ],
+      "P24": [
+        "8"
       ]
     },
     "NetC9_1": {
@@ -1098,51 +1249,153 @@
     "P0.03/AIN1": {
       "U1": [
         "B13"
+      ],
+      "P14": [
+        "2"
+      ],
+      "TP42": [
+        "1"
+      ],
+      "P2": [
+        "1"
+      ],
+      "P8": [
+        "1"
       ]
     },
     "P0.02/AIN0": {
       "U1": [
         "A12"
+      ],
+      "P16": [
+        "16"
+      ],
+      "P10": [
+        "8"
+      ],
+      "P4": [
+        "8"
       ]
     },
     "P0.29/AIN5": {
       "U1": [
         "A10"
+      ],
+      "P14": [
+        "8"
+      ],
+      "TP45": [
+        "1"
+      ],
+      "P2": [
+        "4"
+      ],
+      "P8": [
+        "4"
       ]
     },
     "P0.30/AIN6": {
       "U1": [
         "B9"
+      ],
+      "P14": [
+        "10"
+      ],
+      "TP46": [
+        "1"
+      ],
+      "P2": [
+        "5"
+      ],
+      "P8": [
+        "5"
       ]
     },
     "P0.31/AIN7": {
       "U1": [
         "A8"
+      ],
+      "P14": [
+        "12"
+      ],
+      "TP47": [
+        "1"
+      ],
+      "P2": [
+        "6"
+      ],
+      "P8": [
+        "6"
       ]
     },
     "P1.02": {
       "U1": [
         "W24"
+      ],
+      "P15": [
+        "4"
+      ],
+      "P9": [
+        "2"
+      ],
+      "P3": [
+        "2"
       ]
     },
     "P1.03": {
       "U1": [
         "V23"
+      ],
+      "P15": [
+        "6"
+      ],
+      "P9": [
+        "3"
+      ],
+      "P3": [
+        "3"
       ]
     },
     "P1.04": {
       "U1": [
         "U24"
+      ],
+      "P15": [
+        "8"
+      ],
+      "P9": [
+        "4"
+      ],
+      "P3": [
+        "4"
       ]
     },
     "P1.05": {
       "U1": [
         "T23"
+      ],
+      "P15": [
+        "10"
+      ],
+      "P9": [
+        "5"
+      ],
+      "P3": [
+        "5"
       ]
     },
     "P1.06": {
       "U1": [
         "R24"
+      ],
+      "P15": [
+        "12"
+      ],
+      "P9": [
+        "6"
+      ],
+      "P3": [
+        "6"
       ]
     },
     "P1.07": {
@@ -1151,31 +1404,103 @@
       ],
       "U8": [
         "3"
+      ],
+      "P15": [
+        "14"
+      ],
+      "P9": [
+        "7"
+      ],
+      "P3": [
+        "7"
       ]
     },
     "P1.11": {
       "U1": [
         "B19"
+      ],
+      "P16": [
+        "4"
+      ],
+      "P10": [
+        "2"
+      ],
+      "P4": [
+        "2"
       ]
     },
     "P1.12": {
       "U1": [
         "B17"
+      ],
+      "P16": [
+        "6"
+      ],
+      "P10": [
+        "3"
+      ],
+      "P4": [
+        "3"
       ]
     },
     "P1.13": {
       "U1": [
         "A16"
+      ],
+      "P11": [
+        "4"
+      ],
+      "P16": [
+        "8"
+      ],
+      "P5": [
+        "4"
+      ],
+      "P10": [
+        "4"
+      ],
+      "P4": [
+        "4"
       ]
     },
     "P1.14": {
       "U1": [
         "B15"
+      ],
+      "P11": [
+        "1"
+      ],
+      "P16": [
+        "10"
+      ],
+      "P5": [
+        "1"
+      ],
+      "P10": [
+        "5"
+      ],
+      "P4": [
+        "5"
       ]
     },
     "P1.15": {
       "U1": [
         "A14"
+      ],
+      "P11": [
+        "3"
+      ],
+      "P16": [
+        "12"
+      ],
+      "P5": [
+        "3"
+      ],
+      "P10": [
+        "6"
+      ],
+      "P4": [
+        "6"
       ]
     },
     "NetC13_1": {
@@ -1219,46 +1544,77 @@
     "P0.01": {
       "SB3": [
         "2"
+      ],
+      "P17": [
+        "4"
+      ],
+      "P12": [
+        "2"
+      ],
+      "P6": [
+        "2"
       ]
     },
     "P0.00": {
       "SB4": [
         "2"
-      ]
-    },
-    "NetSB23_2": {
-      "SB23": [
+      ],
+      "P17": [
         "2"
+      ],
+      "P12": [
+        "1"
+      ],
+      "P6": [
+        "1"
       ]
     },
     "NetSB15_2": {
       "SB15": [
         "2"
+      ],
+      "U3": [
+        "3"
       ]
     },
     "NetSB11_2": {
       "SB11": [
         "2"
+      ],
+      "U3": [
+        "6"
       ]
     },
     "NetSB12_2": {
       "SB12": [
         "2"
+      ],
+      "U3": [
+        "5"
       ]
     },
     "NetSB13_2": {
       "SB13": [
         "2"
+      ],
+      "U3": [
+        "1"
       ]
     },
     "NetSB14_2": {
       "SB14": [
+        "2"
+      ],
+      "U3": [
         "2"
       ]
     },
     "NetSB10_2": {
       "SB10": [
         "2"
+      ],
+      "U3": [
+        "7"
       ]
     },
     "SDA": {
@@ -1267,6 +1623,15 @@
       ],
       "U7": [
         "8"
+      ],
+      "P16": [
+        "18"
+      ],
+      "P10": [
+        "9"
+      ],
+      "P4": [
+        "9"
       ]
     },
     "SCL": {
@@ -1275,41 +1640,15 @@
       ],
       "U7": [
         "12"
-      ]
-    },
-    "NetSB21_2": {
-      "SB21": [
-        "2"
-      ]
-    },
-    "NetSB22_2": {
-      "SB22": [
-        "2"
-      ]
-    },
-    "NetSB24_2": {
-      "SB24": [
-        "2"
-      ]
-    },
-    "NetSB20_2": {
-      "SB20": [
-        "2"
-      ]
-    },
-    "NetSB25_2": {
-      "SB25": [
-        "2"
-      ]
-    },
-    "NetR43_1": {
-      "R43": [
-        "1"
-      ]
-    },
-    "NetR45_1": {
-      "R45": [
-        "1"
+      ],
+      "P16": [
+        "20"
+      ],
+      "P10": [
+        "10"
+      ],
+      "P4": [
+        "10"
       ]
     },
     "VCOM_CTS": {
@@ -1372,11 +1711,6 @@
         "AK30"
       ]
     },
-    "NetR16_2": {
-      "R16": [
-        "2"
-      ]
-    },
     "SWD1_CLK": {
       "R17": [
         "1"
@@ -1393,14 +1727,6 @@
         "AK24"
       ]
     },
-    "NetQ3_1": {
-      "R20": [
-        "1"
-      ],
-      "Q3": [
-        "1"
-      ]
-    },
     "SWD1_SWO": {
       "R18": [
         "1"
@@ -1415,21 +1741,6 @@
       ],
       "U2": [
         "AK22"
-      ]
-    },
-    "NetR17_2": {
-      "R17": [
-        "2"
-      ]
-    },
-    "NetR18_2": {
-      "R18": [
-        "2"
-      ]
-    },
-    "NetR19_2": {
-      "R19": [
-        "2"
       ]
     },
     "SWD3_IO": {
@@ -1484,11 +1795,6 @@
         "B16"
       ]
     },
-    "NetR11_2": {
-      "R11": [
-        "2"
-      ]
-    },
     "SWD0_CLK": {
       "R12": [
         "1"
@@ -1521,29 +1827,32 @@
         "3"
       ]
     },
-    "NetR12_2": {
-      "R12": [
-        "2"
-      ]
-    },
-    "NetR14_2": {
-      "R14": [
-        "2"
-      ]
-    },
-    "NetR15_2": {
-      "R15": [
-        "2"
-      ]
-    },
     "IMCU_N": {
       "U2": [
         "B4"
+      ],
+      "D61": [
+        "2"
+      ],
+      "TP10": [
+        "1"
+      ],
+      "J2": [
+        "2"
       ]
     },
     "IMCU_P": {
       "U2": [
         "B2"
+      ],
+      "D61": [
+        "3"
+      ],
+      "TP9": [
+        "1"
+      ],
+      "J2": [
+        "3"
       ]
     },
     "NetC29_2": {
@@ -2272,6 +2581,12 @@
       ],
       "C47": [
         "2"
+      ],
+      "J5": [
+        "4"
+      ],
+      "TP18": [
+        "1"
       ]
     },
     "NFC1": {
@@ -2279,6 +2594,12 @@
         "1"
       ],
       "C46": [
+        "1"
+      ],
+      "J5": [
+        "2"
+      ],
+      "TP17": [
         "1"
       ]
     },
@@ -2406,57 +2727,6 @@
         "8"
       ]
     },
-    "NetP10_5": {
-      "P11": [
-        "1"
-      ],
-      "P16": [
-        "10"
-      ],
-      "P5": [
-        "1"
-      ],
-      "P10": [
-        "5"
-      ],
-      "P4": [
-        "5"
-      ]
-    },
-    "NetP10_6": {
-      "P11": [
-        "3"
-      ],
-      "P16": [
-        "12"
-      ],
-      "P5": [
-        "3"
-      ],
-      "P10": [
-        "6"
-      ],
-      "P4": [
-        "6"
-      ]
-    },
-    "NetP10_4": {
-      "P11": [
-        "4"
-      ],
-      "P16": [
-        "8"
-      ],
-      "P5": [
-        "4"
-      ],
-      "P10": [
-        "4"
-      ],
-      "P4": [
-        "4"
-      ]
-    },
     "NetP11_6": {
       "P11": [
         "6"
@@ -2471,299 +2741,6 @@
         "6"
       ]
     },
-    "NetP14_2": {
-      "P14": [
-        "2"
-      ],
-      "TP42": [
-        "1"
-      ],
-      "P2": [
-        "1"
-      ],
-      "P8": [
-        "1"
-      ]
-    },
-    "NetP14_4": {
-      "P14": [
-        "4"
-      ],
-      "TP43": [
-        "1"
-      ],
-      "P2": [
-        "2"
-      ],
-      "P8": [
-        "2"
-      ]
-    },
-    "NetP14_8": {
-      "P14": [
-        "8"
-      ],
-      "TP45": [
-        "1"
-      ],
-      "P2": [
-        "4"
-      ],
-      "P8": [
-        "4"
-      ]
-    },
-    "NetP14_10": {
-      "P14": [
-        "10"
-      ],
-      "TP46": [
-        "1"
-      ],
-      "P2": [
-        "5"
-      ],
-      "P8": [
-        "5"
-      ]
-    },
-    "NetP14_12": {
-      "P14": [
-        "12"
-      ],
-      "TP47": [
-        "1"
-      ],
-      "P2": [
-        "6"
-      ],
-      "P8": [
-        "6"
-      ]
-    },
-    "NetP14_6": {
-      "P14": [
-        "6"
-      ],
-      "TP44": [
-        "1"
-      ],
-      "P2": [
-        "3"
-      ],
-      "P8": [
-        "3"
-      ]
-    },
-    "NetP15_2": {
-      "P15": [
-        "2"
-      ],
-      "P9": [
-        "1"
-      ],
-      "P3": [
-        "1"
-      ]
-    },
-    "NetP15_4": {
-      "P15": [
-        "4"
-      ],
-      "P9": [
-        "2"
-      ],
-      "P3": [
-        "2"
-      ]
-    },
-    "NetP15_8": {
-      "P15": [
-        "8"
-      ],
-      "P9": [
-        "4"
-      ],
-      "P3": [
-        "4"
-      ]
-    },
-    "NetP15_10": {
-      "P15": [
-        "10"
-      ],
-      "P9": [
-        "5"
-      ],
-      "P3": [
-        "5"
-      ]
-    },
-    "NetP15_12": {
-      "P15": [
-        "12"
-      ],
-      "P9": [
-        "6"
-      ],
-      "P3": [
-        "6"
-      ]
-    },
-    "NetP15_14": {
-      "P15": [
-        "14"
-      ],
-      "P9": [
-        "7"
-      ],
-      "P3": [
-        "7"
-      ]
-    },
-    "NetP15_6": {
-      "P15": [
-        "6"
-      ],
-      "P9": [
-        "3"
-      ],
-      "P3": [
-        "3"
-      ]
-    },
-    "NetP15_16": {
-      "P15": [
-        "16"
-      ],
-      "P9": [
-        "8"
-      ],
-      "P3": [
-        "8"
-      ]
-    },
-    "NetP10_1": {
-      "P16": [
-        "2"
-      ],
-      "P10": [
-        "1"
-      ],
-      "P4": [
-        "1"
-      ]
-    },
-    "NetP10_2": {
-      "P16": [
-        "4"
-      ],
-      "P10": [
-        "2"
-      ],
-      "P4": [
-        "2"
-      ]
-    },
-    "NetP10_3": {
-      "P16": [
-        "6"
-      ],
-      "P10": [
-        "3"
-      ],
-      "P4": [
-        "3"
-      ]
-    },
-    "NetP10_8": {
-      "P16": [
-        "16"
-      ],
-      "P10": [
-        "8"
-      ],
-      "P4": [
-        "8"
-      ]
-    },
-    "NetP10_9": {
-      "P16": [
-        "18"
-      ],
-      "P10": [
-        "9"
-      ],
-      "P4": [
-        "9"
-      ]
-    },
-    "NetP10_10": {
-      "P16": [
-        "20"
-      ],
-      "P10": [
-        "10"
-      ],
-      "P4": [
-        "10"
-      ]
-    },
-    "NetP12_1": {
-      "P17": [
-        "2"
-      ],
-      "P12": [
-        "1"
-      ],
-      "P6": [
-        "1"
-      ]
-    },
-    "NetP12_2": {
-      "P17": [
-        "4"
-      ],
-      "P12": [
-        "2"
-      ],
-      "P6": [
-        "2"
-      ]
-    },
-    "NetP12_4": {
-      "P17": [
-        "8"
-      ],
-      "P12": [
-        "4"
-      ],
-      "P6": [
-        "4"
-      ]
-    },
-    "NetP12_5": {
-      "P17": [
-        "10"
-      ],
-      "P12": [
-        "5"
-      ],
-      "P6": [
-        "5"
-      ]
-    },
-    "NetP12_6": {
-      "P17": [
-        "12"
-      ],
-      "P12": [
-        "6"
-      ],
-      "P6": [
-        "6"
-      ]
-    },
     "NetP12_7": {
       "P17": [
         "14"
@@ -2773,17 +2750,9 @@
       ],
       "P6": [
         "7"
-      ]
-    },
-    "NetP12_3": {
-      "P17": [
-        "6"
       ],
-      "P12": [
-        "3"
-      ],
-      "P6": [
-        "3"
+      "R43": [
+        "1"
       ]
     },
     "NetP12_8": {
@@ -2795,6 +2764,9 @@
       ],
       "P6": [
         "8"
+      ],
+      "R45": [
+        "1"
       ]
     },
     "VDBG": {
@@ -2825,17 +2797,6 @@
         "2"
       ]
     },
-    "NetD61_2": {
-      "D61": [
-        "2"
-      ],
-      "TP10": [
-        "1"
-      ],
-      "J2": [
-        "2"
-      ]
-    },
     "NetC63_1": {
       "D61": [
         "4"
@@ -2857,17 +2818,6 @@
       ],
       "C63": [
         "1"
-      ]
-    },
-    "NetD61_3": {
-      "D61": [
-        "3"
-      ],
-      "TP9": [
-        "1"
-      ],
-      "J2": [
-        "3"
       ]
     },
     "NetFB63_1": {
@@ -2892,62 +2842,81 @@
     "NetP19_2": {
       "P19": [
         "2"
+      ],
+      "R11": [
+        "2"
       ]
     },
     "NetP19_4": {
       "P19": [
         "4"
+      ],
+      "R12": [
+        "2"
       ]
     },
     "NetP19_10": {
       "P19": [
         "10"
+      ],
+      "R15": [
+        "2"
       ]
     },
     "NetP19_6": {
       "P19": [
         "6"
-      ]
-    },
-    "NetP25_12": {
-      "P25": [
-        "12"
-      ]
-    },
-    "NetP25_14": {
-      "P25": [
-        "14"
-      ]
-    },
-    "NetP25_16": {
-      "P25": [
-        "16"
-      ]
-    },
-    "NetP25_18": {
-      "P25": [
-        "18"
-      ]
-    },
-    "NetP25_20": {
-      "P25": [
-        "20"
-      ]
-    },
-    "NetJ5_2": {
-      "J5": [
+      ],
+      "R14": [
         "2"
-      ],
-      "TP17": [
-        "1"
       ]
     },
-    "NetJ5_4": {
-      "J5": [
-        "4"
+    "NetP24_7": {
+      "P24": [
+        "7"
       ],
-      "TP18": [
-        "1"
+      "SB23": [
+        "2"
+      ]
+    },
+    "NetP24_9": {
+      "P24": [
+        "9"
+      ],
+      "SB21": [
+        "2"
+      ]
+    },
+    "NetP24_10": {
+      "P24": [
+        "10"
+      ],
+      "SB22": [
+        "2"
+      ]
+    },
+    "NetP24_11": {
+      "P24": [
+        "11"
+      ],
+      "SB24": [
+        "2"
+      ]
+    },
+    "NetP24_12": {
+      "P24": [
+        "12"
+      ],
+      "SB25": [
+        "2"
+      ]
+    },
+    "NetP24_13": {
+      "P24": [
+        "13"
+      ],
+      "SB20": [
+        "2"
       ]
     },
     "NetC66_2": {
@@ -2984,28 +2953,6 @@
         "2"
       ],
       "TP15": [
-        "1"
-      ]
-    },
-    "NetD60_2": {
-      "J3": [
-        "2"
-      ],
-      "D60": [
-        "2"
-      ],
-      "TP13": [
-        "1"
-      ]
-    },
-    "NetD60_3": {
-      "J3": [
-        "3"
-      ],
-      "D60": [
-        "3"
-      ],
-      "TP14": [
         "1"
       ]
     },
@@ -3089,6 +3036,12 @@
       ],
       "P20": [
         "3"
+      ],
+      "R20": [
+        "1"
+      ],
+      "Q3": [
+        "1"
       ]
     },
     "NetP20_4": {
@@ -3097,6 +3050,9 @@
       ],
       "P20": [
         "4"
+      ],
+      "R16": [
+        "2"
       ]
     },
     "NetP20_5": {
@@ -3105,6 +3061,9 @@
       ],
       "P20": [
         "5"
+      ],
+      "R17": [
+        "2"
       ]
     },
     "NetP20_6": {
@@ -3113,6 +3072,9 @@
       ],
       "P20": [
         "6"
+      ],
+      "R18": [
+        "2"
       ]
     },
     "NetP20_7": {
@@ -3121,6 +3083,9 @@
       ],
       "P20": [
         "7"
+      ],
+      "R19": [
+        "2"
       ]
     },
     "NetP20_8": {
@@ -3692,31 +3657,29 @@
   },
   "components": {
     "Fid1": {
+      "pins": {},
       "mpn": "N.A.",
       "description": "Fiducial Mark",
-      "pins": {},
       "comment": "Fiducial mark",
       "value": "N.A."
     },
     "Fid2": {
+      "pins": {},
       "mpn": "N.A.",
       "description": "Fiducial Mark",
-      "pins": {},
       "comment": "Fiducial mark",
       "value": "N.A."
     },
     "C23": {
-      "mpn": "N.A.",
-      "description": "Capacitor, NP0, ±0.1pF",
       "pins": {
         "1": "ANT",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, NP0, ±0.1pF",
       "value": "1.2pF"
     },
     "J1": {
-      "mpn": "MM8130-2600",
-      "description": "Coaxial Connector with Switch",
       "pins": {
         "1": {
           "name": "IN",
@@ -3731,11 +3694,11 @@
           "net": "ANT"
         }
       },
+      "mpn": "MM8130-2600",
+      "description": "Coaxial Connector with Switch",
       "value": "MM8130-2600"
     },
     "U1": {
-      "mpn": "nRF52840-QIAAF0",
-      "description": "Multi-protocol Bluetooth Low Energy, IEEE 802.15.4, ANT and 2.4GHz proprietary system-on-chip",
       "pins": {
         "74": {
           "name": "GND",
@@ -4034,11 +3997,11 @@
           "net": "NetC13_1"
         }
       },
+      "mpn": "nRF52840-QIAAF0",
+      "description": "Multi-protocol Bluetooth Low Energy, IEEE 802.15.4, ANT and 2.4GHz proprietary system-on-chip",
       "value": "nRF52840-QIAA"
     },
     "X1": {
-      "mpn": "MP12308",
-      "description": "XTAL SMD 2016, 32MHz, Cl=8pF, Tol: ±10ppm, Stab: ±15ppm, -30°C ~ 85°C, ESR: 50ohm max",
       "pins": {
         "1": {
           "name": "inp",
@@ -4057,218 +4020,218 @@
           "net": ""
         }
       },
+      "mpn": "MP12308",
+      "description": "XTAL SMD 2016, 32MHz, Cl=8pF, Tol: ±10ppm, Stab: ±15ppm, -30°C ~ 85°C, ESR: 50ohm max",
       "value": "32MHz"
     },
     "C1": {
-      "mpn": "N.A.",
-      "description": "Capacitor, NP0, ±2%",
       "pins": {
         "1": "XC1",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, NP0, ±2%",
       "value": "12pF"
     },
     "C2": {
-      "mpn": "N.A.",
-      "description": "Capacitor, NP0, ±2%",
       "pins": {
         "1": "XC2",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, NP0, ±2%",
       "value": "12pF"
     },
     "C11": {
-      "mpn": "N.A.",
-      "description": "Capacitor, NP0, ±5%",
       "pins": {
         "1": "DEC3",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, NP0, ±5%",
       "value": "100pF"
     },
     "C5": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X7R, ±10%",
       "pins": {
         "1": "DEC1",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X7R, ±10%",
       "value": "100nF"
     },
     "C20": {
-      "mpn": "CL10B475KQ8NQNC",
-      "description": "Capacitor, X7R, ±10%, 6.3V",
       "pins": {
         "1": "NetC20_1",
         "2": "GND"
       },
+      "mpn": "CL10B475KQ8NQNC",
+      "description": "Capacitor, X7R, ±10%, 6.3V",
       "value": "4.7µF"
     },
     "L2": {
-      "mpn": "MLZ1608M100WTD25",
-      "description": "Inductor, 250mA, ±20%, 1.05ohm. -55°C ~ 125°C",
       "pins": {
         "1": "NetL2_1",
         "2": "NetL2_2"
       },
+      "mpn": "MLZ1608M100WTD25",
+      "description": "Inductor, 250mA, ±20%, 1.05ohm. -55°C ~ 125°C",
       "value": "10µH"
     },
     "C15": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X7R, ±10%",
       "pins": {
         "1": "GND",
         "2": "DEC4_6"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X7R, ±10%",
       "value": "1.0µF"
     },
     "C3": {
-      "mpn": "N.A.",
-      "description": "Capacitor, NP0, ±5%",
       "pins": {
         "1": "GND",
         "2": "NetC3_2"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, NP0, ±5%",
       "value": "0.8pF"
     },
     "C10": {
-      "mpn": "N.A.",
       "pins": {
         "1": "GND",
         "2": "DEC4_6"
       },
+      "mpn": "N.A.",
       "value": "N.C.",
       "dns": true
     },
     "C18": {
-      "mpn": "N.A.",
-      "description": "Capacitor, NP0, ±2%",
       "pins": {
         "1": "GND",
         "2": "NetC18_2"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, NP0, ±2%",
       "value": "12pF"
     },
     "C17": {
-      "mpn": "N.A.",
-      "description": "Capacitor, NP0, ±2%",
       "pins": {
         "1": "GND",
         "2": "NetC17_2"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, NP0, ±2%",
       "value": "12pF"
     },
     "L4": {
-      "mpn": "MLZ1608M100WTD25",
-      "description": "Inductor, 250mA, ±20%, 1.05ohm. -55°C ~ 125°C",
       "pins": {
         "1": "VDD_nRF",
         "2": "NetL4_2"
       },
+      "mpn": "MLZ1608M100WTD25",
+      "description": "Inductor, 250mA, ±20%, 1.05ohm. -55°C ~ 125°C",
       "value": "10µH"
     },
     "C7": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X7R, ±10%",
       "pins": {
         "1": "VDD_nRF",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X7R, ±10%",
       "value": "100nF"
     },
     "C21": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X7S, ±10%, 10V",
       "pins": {
         "1": "VBUS_nRF",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X7S, ±10%, 10V",
       "value": "4.7µF"
     },
     "C8": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X7R, ±10%",
       "pins": {
         "1": "VDD_nRF",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X7R, ±10%",
       "value": "100nF"
     },
     "C9": {
-      "mpn": "N.A.",
       "pins": {
         "1": "NetC9_1",
         "2": "GND"
       },
+      "mpn": "N.A.",
       "value": "N.C.",
       "dns": true
     },
     "C12": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X7R, ±10%",
       "pins": {
         "1": "VDD_nRF",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X7R, ±10%",
       "value": "100nF"
     },
     "C13": {
-      "mpn": "N.A.",
       "pins": {
         "1": "NetC13_1",
         "2": "GND"
       },
+      "mpn": "N.A.",
       "value": "N.C.",
       "dns": true
     },
     "C19": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X7S, ±10%, 10V",
       "pins": {
         "1": "VDD_HV",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X7S, ±10%, 10V",
       "value": "4.7µF"
     },
     "C4": {
-      "mpn": "N.A.",
-      "description": "Capacitor, C0G, ±0.05pF, 50V",
       "pins": {
         "1": "GND",
         "2": "RF"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, C0G, ±0.05pF, 50V",
       "value": "0.5pF"
     },
     "C14": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X7R, ±10%",
       "pins": {
         "1": "VDD_nRF",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X7R, ±10%",
       "value": "1.0µF"
     },
     "C6": {
-      "mpn": "CL10B475KQ8NQNC",
-      "description": "Capacitor, X7R, ±10%, 6.3V",
       "pins": {
         "1": "VDD_nRF",
         "2": "GND"
       },
+      "mpn": "CL10B475KQ8NQNC",
+      "description": "Capacitor, X7R, ±10%, 6.3V",
       "value": "4.7µF"
     },
     "C16": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X7R, ±10%, 25V",
       "pins": {
         "1": "DEC4_6",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X7R, ±10%, 25V",
       "value": "47nF"
     },
     "SB3": {
-      "mpn": "N.A.",
-      "description": "Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -4279,11 +4242,11 @@
           "net": "P0.01"
         }
       },
+      "mpn": "N.A.",
+      "description": "Solderbridge",
       "value": "Solderbridge"
     },
     "SB4": {
-      "mpn": "N.A.",
-      "description": "Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -4294,11 +4257,11 @@
           "net": "P0.00"
         }
       },
+      "mpn": "N.A.",
+      "description": "Solderbridge",
       "value": "Solderbridge"
     },
     "SB1": {
-      "mpn": "N.A.",
-      "description": "Shorted Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -4309,11 +4272,11 @@
           "net": "P0.01/XL2"
         }
       },
+      "mpn": "N.A.",
+      "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
     "SB2": {
-      "mpn": "N.A.",
-      "description": "Shorted Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -4324,11 +4287,11 @@
           "net": "P0.00/XL1"
         }
       },
+      "mpn": "N.A.",
+      "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
     "X2": {
-      "mpn": "NX3215SA-32.768K-STD-MUA-9",
-      "description": "XTAL SMD 3215, 32.768kHz, 9pF, ±20ppm",
       "pins": {
         "1": {
           "name": "inp",
@@ -4339,20 +4302,20 @@
           "net": "NetC18_2"
         }
       },
+      "mpn": "NX3215SA-32.768K-STD-MUA-9",
+      "description": "XTAL SMD 3215, 32.768kHz, 9pF, ±20ppm",
       "value": "32.768kHz"
     },
     "C22": {
-      "mpn": "N.A.",
       "pins": {
         "1": "RF",
         "2": "GND"
       },
+      "mpn": "N.A.",
       "value": "N.C.",
       "dns": true
     },
     "SB23": {
-      "mpn": "N.A.",
-      "description": "Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -4360,14 +4323,14 @@
         },
         "2": {
           "name": "1",
-          "net": "NetSB23_2"
+          "net": "NetP24_7"
         }
       },
+      "mpn": "N.A.",
+      "description": "Solderbridge",
       "value": "Solderbridge"
     },
     "SB15": {
-      "mpn": "N.A.",
-      "description": "Shorted Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -4378,11 +4341,11 @@
           "net": "NetSB15_2"
         }
       },
+      "mpn": "N.A.",
+      "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
     "SB11": {
-      "mpn": "N.A.",
-      "description": "Shorted Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -4393,11 +4356,11 @@
           "net": "NetSB11_2"
         }
       },
+      "mpn": "N.A.",
+      "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
     "SB12": {
-      "mpn": "N.A.",
-      "description": "Shorted Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -4408,11 +4371,11 @@
           "net": "NetSB12_2"
         }
       },
+      "mpn": "N.A.",
+      "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
     "SB13": {
-      "mpn": "N.A.",
-      "description": "Shorted Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -4423,11 +4386,11 @@
           "net": "NetSB13_2"
         }
       },
+      "mpn": "N.A.",
+      "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
     "SB14": {
-      "mpn": "N.A.",
-      "description": "Shorted Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -4438,11 +4401,11 @@
           "net": "NetSB14_2"
         }
       },
+      "mpn": "N.A.",
+      "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
     "SB10": {
-      "mpn": "N.A.",
-      "description": "Shorted Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -4453,47 +4416,47 @@
           "net": "NetSB10_2"
         }
       },
+      "mpn": "N.A.",
+      "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
     "R1": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±5%, 0.05W",
       "pins": {
         "1": "SDA",
         "2": "P0.26"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±5%, 0.05W",
       "value": "0R"
     },
     "R2": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±5%, 0.05W",
       "pins": {
         "1": "SCL",
         "2": "P0.27"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±5%, 0.05W",
       "value": "0R"
     },
     "C51": {
-      "mpn": "N.A.",
       "pins": {
         "1": "GND",
         "2": "P0.26"
       },
+      "mpn": "N.A.",
       "value": "N.C.",
       "dns": true
     },
     "C52": {
-      "mpn": "N.A.",
       "pins": {
         "1": "GND",
         "2": "P0.27"
       },
+      "mpn": "N.A.",
       "value": "N.C.",
       "dns": true
     },
     "SB21": {
-      "mpn": "N.A.",
-      "description": "Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -4501,14 +4464,14 @@
         },
         "2": {
           "name": "1",
-          "net": "NetSB21_2"
+          "net": "NetP24_9"
         }
       },
+      "mpn": "N.A.",
+      "description": "Solderbridge",
       "value": "Solderbridge"
     },
     "SB22": {
-      "mpn": "N.A.",
-      "description": "Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -4516,14 +4479,14 @@
         },
         "2": {
           "name": "1",
-          "net": "NetSB22_2"
+          "net": "NetP24_10"
         }
       },
+      "mpn": "N.A.",
+      "description": "Solderbridge",
       "value": "Solderbridge"
     },
     "SB24": {
-      "mpn": "N.A.",
-      "description": "Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -4531,14 +4494,14 @@
         },
         "2": {
           "name": "1",
-          "net": "NetSB24_2"
+          "net": "NetP24_11"
         }
       },
+      "mpn": "N.A.",
+      "description": "Solderbridge",
       "value": "Solderbridge"
     },
     "SB20": {
-      "mpn": "N.A.",
-      "description": "Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -4546,14 +4509,14 @@
         },
         "2": {
           "name": "1",
-          "net": "NetSB20_2"
+          "net": "NetP24_13"
         }
       },
+      "mpn": "N.A.",
+      "description": "Solderbridge",
       "value": "Solderbridge"
     },
     "SB25": {
-      "mpn": "N.A.",
-      "description": "Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -4561,144 +4524,144 @@
         },
         "2": {
           "name": "1",
-          "net": "NetSB25_2"
+          "net": "NetP24_12"
         }
       },
+      "mpn": "N.A.",
+      "description": "Solderbridge",
       "value": "Solderbridge"
     },
     "R43": {
-      "mpn": "N.A.",
       "pins": {
-        "1": "NetR43_1",
+        "1": "NetP12_7",
         "2": "P0.09/NFC1"
       },
+      "mpn": "N.A.",
       "value": "N.C.",
       "dns": true
     },
     "R45": {
-      "mpn": "N.A.",
       "pins": {
-        "1": "NetR45_1",
+        "1": "NetP12_8",
         "2": "P0.10/NFC2"
       },
+      "mpn": "N.A.",
       "value": "N.C.",
       "dns": true
     },
     "L3": {
-      "mpn": "LQG15HS15NJ02D",
-      "description": "Inductor, 450mA, ±5%,  0.32ohm",
       "pins": {
         "1": "DEC4_6",
         "2": "NetL2_1"
       },
+      "mpn": "LQG15HS15NJ02D",
+      "description": "Inductor, 450mA, ±5%,  0.32ohm",
       "value": "15nH"
     },
     "L1": {
-      "mpn": "LQG15HS4N7B02D",
-      "description": "Inductor, 700mA, ±0.1nH, 160mR LQG",
       "pins": {
         "1": "NetC3_2",
         "2": "RF"
       },
+      "mpn": "LQG15HS4N7B02D",
+      "description": "Inductor, 700mA, ±0.1nH, 160mR LQG",
       "value": "4.7nH"
     },
     "R10": {
-      "mpn": "N.A.",
       "pins": {
         "1": "VCOM_CTS",
         "2": "GND"
       },
+      "mpn": "N.A.",
       "value": "N.C.",
       "dns": true
     },
     "R16": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "SWD1_IO",
-        "2": "NetR16_2"
+        "2": "NetP20_4"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "150R"
     },
     "R20": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
-        "1": "NetQ3_1",
+        "1": "NetP20_3",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "1M0"
     },
     "R17": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "SWD1_CLK",
-        "2": "NetR17_2"
+        "2": "NetP20_5"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "150R"
     },
     "R18": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "SWD1_SWO",
-        "2": "NetR18_2"
+        "2": "NetP20_6"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "150R"
     },
     "R19": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "SWD1_RESET",
-        "2": "NetR19_2"
+        "2": "NetP20_7"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "150R"
     },
     "R11": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "SWD0_IO",
-        "2": "NetR11_2"
+        "2": "NetP19_2"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "150R"
     },
     "R12": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "SWD0_CLK",
-        "2": "NetR12_2"
+        "2": "NetP19_4"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "150R"
     },
     "R14": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "SWD0_SWO",
-        "2": "NetR14_2"
+        "2": "NetP19_6"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "150R"
     },
     "R15": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "SWD0_RESET",
-        "2": "NetR15_2"
+        "2": "NetP19_10"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "150R"
     },
     "Q3": {
-      "mpn": "RV2C010UNT2L",
-      "description": "N-Channel MOSFET, 20V, 1A, 470mOhm, 400mW",
       "pins": {
         "1": {
           "name": "G",
-          "net": "NetQ3_1"
+          "net": "NetP20_3"
         },
         "2": {
           "name": "S",
@@ -4709,92 +4672,92 @@
           "net": "SWD1_SEL"
         }
       },
+      "mpn": "RV2C010UNT2L",
+      "description": "N-Channel MOSFET, 20V, 1A, 470mOhm, 400mW",
       "value": "RV2C010UNT2L"
     },
     "C30": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X7R, ±10%, 10V",
       "pins": {
         "1": "NetC29_2",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X7R, ±10%, 10V",
       "value": "2.2nF"
     },
     "C39": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "NetC39_1",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
     "C31": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "VDD_IMCU",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
     "C32": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "VDD_IMCU",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
     "C37": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X7S, ±10%, 10V",
       "pins": {
         "1": "NetC37_1",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X7S, ±10%, 10V",
       "value": "4.7µF"
     },
     "C38": {
-      "mpn": "CL10B475KQ8NQNC",
-      "description": "Capacitor, X7R, ±10%, 6.3V",
       "pins": {
         "1": "NetC38_1",
         "2": "GND"
       },
+      "mpn": "CL10B475KQ8NQNC",
+      "description": "Capacitor, X7R, ±10%, 6.3V",
       "value": "4.7µF"
     },
     "C33": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "VDD_IMCU",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
     "C34": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "VDD_IMCU",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
     "C24": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "VDD_IMCU",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
     "U2": {
-      "mpn": "nRF5340-QKAAD0",
-      "description": "Multi-protocol Bluetooth Low Energy, IEEE 802.15.4, ANT and 2.4GHz proprietary system-on-chip",
       "pins": {
         "104": {
           "name": "VSS_PAD",
@@ -4909,56 +4872,56 @@
         "AC31": "IMCU_RESET",
         "AL29": "IMCU_LED"
       },
+      "mpn": "nRF5340-QKAAD0",
+      "description": "Multi-protocol Bluetooth Low Energy, IEEE 802.15.4, ANT and 2.4GHz proprietary system-on-chip",
       "value": "nRF5340-QKAA"
     },
     "C25": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "VDD_IMCU",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
     "C26": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "VDD_IMCU",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
     "C27": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "VDD_IMCU",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
     "R13": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "VBUS_IMCU",
         "2": "NetC37_1"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "2R2"
     },
     "R9": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "NetR9_1",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "49.9R"
     },
     "X3": {
-      "mpn": "MP12308",
-      "description": "XTAL SMD 2016, 32MHz, Cl=8pF, Tol: ±10ppm, Stab: ±15ppm, -30°C ~ 85°C, ESR: 50ohm max",
       "pins": {
         "1": {
           "name": "inp",
@@ -4977,11 +4940,11 @@
           "net": ""
         }
       },
+      "mpn": "MP12308",
+      "description": "XTAL SMD 2016, 32MHz, Cl=8pF, Tol: ±10ppm, Stab: ±15ppm, -30°C ~ 85°C, ESR: 50ohm max",
       "value": "32MHz"
     },
     "J4": {
-      "mpn": "TC2050-IDC-NLFP",
-      "description": "CBL PLUG-OF-NAILS 10-PIN",
       "pins": {
         "1": "VDD_IMCU",
         "2": "IMCU_SWDIO",
@@ -4994,52 +4957,52 @@
         "9": "",
         "10": "IMCU_RESET"
       },
+      "mpn": "TC2050-IDC-NLFP",
+      "description": "CBL PLUG-OF-NAILS 10-PIN",
       "value": "TC2050-IDC"
     },
     "R8": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "IMCU_RESET",
         "2": "VDD_IMCU"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "100k"
     },
     "TP50": {
-      "mpn": "N.A.",
-      "description": "1.5mm circular SMD testpad",
       "pins": {
         "1": "IMCU_RESET"
       },
+      "mpn": "N.A.",
+      "description": "1.5mm circular SMD testpad",
       "value": "Ø1.5mm,SMD"
     },
     "TP49": {
-      "mpn": "N.A.",
-      "description": "1.5mm circular SMD testpad",
       "pins": {
         "1": "IMCU_SWDIO"
       },
+      "mpn": "N.A.",
+      "description": "1.5mm circular SMD testpad",
       "value": "Ø1.5mm,SMD"
     },
     "TP51": {
-      "mpn": "N.A.",
-      "description": "1.5mm circular SMD testpad",
       "pins": {
         "1": "IMCU_SWDCLK"
       },
+      "mpn": "N.A.",
+      "description": "1.5mm circular SMD testpad",
       "value": "Ø1.5mm,SMD"
     },
     "TP48": {
-      "mpn": "N.A.",
-      "description": "1.5mm circular SMD testpad",
       "pins": {
         "1": "VDD_IMCU"
       },
+      "mpn": "N.A.",
+      "description": "1.5mm circular SMD testpad",
       "value": "Ø1.5mm,SMD"
     },
     "LED5": {
-      "mpn": "VS 25C7M5",
-      "description": "LED, Green, 0603, 573nm, Vf=2.0V, 24mcd, - 40 to +85°C",
       "pins": {
         "1": {
           "name": "C",
@@ -5050,20 +5013,20 @@
           "net": "NetLED5_2"
         }
       },
+      "mpn": "VS 25C7M5",
+      "description": "LED, Green, 0603, 573nm, Vf=2.0V, 24mcd, - 40 to +85°C",
       "value": "L0603G"
     },
     "R7": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "NetLED5_2",
         "2": "VBUS_IMCU"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "560R"
     },
     "Q2": {
-      "mpn": "RV2C010UNT2L",
-      "description": "N-Channel MOSFET, 20V, 1A, 470mOhm, 400mW",
       "pins": {
         "1": {
           "name": "G",
@@ -5078,88 +5041,88 @@
           "net": "NetLED5_1"
         }
       },
+      "mpn": "RV2C010UNT2L",
+      "description": "N-Channel MOSFET, 20V, 1A, 470mOhm, 400mW",
       "value": "RV2C010UNT2L"
     },
     "C28": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X5R, ±10%, 6.3V",
       "pins": {
         "1": "VDD_IMCU",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X5R, ±10%, 6.3V",
       "value": "1.0µF"
     },
     "C29": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X5R, ±10%, 6.3V",
       "pins": {
         "1": "GND",
         "2": "NetC29_2"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X5R, ±10%, 6.3V",
       "value": "1.0µF"
     },
     "C35": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X5R, ±10%, 6.3V",
       "pins": {
         "1": "GND",
         "2": "VDD_IMCU"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X5R, ±10%, 6.3V",
       "value": "1.0µF"
     },
     "C36": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X5R, ±10%, 6.3V",
       "pins": {
         "1": "GND",
         "2": "NetC36_2"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X5R, ±10%, 6.3V",
       "value": "1.0µF"
     },
     "C40": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X5R, ±10%, 6.3V",
       "pins": {
         "1": "GND",
         "2": "NetC40_2"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X5R, ±10%, 6.3V",
       "value": "1.0µF"
     },
     "TP3": {
-      "mpn": "N.A.",
-      "description": "1.0mm circular SMD testpad",
       "pins": {
         "1": "VCOM_RTS"
       },
+      "mpn": "N.A.",
+      "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
     "TP2": {
-      "mpn": "N.A.",
-      "description": "1.0mm circular SMD testpad",
       "pins": {
         "1": "VCOM_RxD"
       },
+      "mpn": "N.A.",
+      "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
     "TP4": {
-      "mpn": "N.A.",
-      "description": "1.0mm circular SMD testpad",
       "pins": {
         "1": "VCOM_TxD"
       },
+      "mpn": "N.A.",
+      "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
     "TP1": {
-      "mpn": "N.A.",
-      "description": "1.0mm circular SMD testpad",
       "pins": {
         "1": "VCOM_CTS"
       },
+      "mpn": "N.A.",
+      "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
     "SB51": {
-      "mpn": "N.A.",
-      "description": "Shorted Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -5170,11 +5133,11 @@
           "net": "NetSB51_2"
         }
       },
+      "mpn": "N.A.",
+      "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
     "SB53": {
-      "mpn": "N.A.",
-      "description": "Shorted Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -5185,11 +5148,11 @@
           "net": "NetSB53_2"
         }
       },
+      "mpn": "N.A.",
+      "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
     "SB50": {
-      "mpn": "N.A.",
-      "description": "Shorted Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -5200,11 +5163,11 @@
           "net": "NetSB50_2"
         }
       },
+      "mpn": "N.A.",
+      "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
     "SB52": {
-      "mpn": "N.A.",
-      "description": "Shorted Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -5215,11 +5178,11 @@
           "net": "NetSB52_2"
         }
       },
+      "mpn": "N.A.",
+      "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
     "U6": {
-      "mpn": "FSA2466UMX",
-      "description": "Data / Audio Low-Voltage Dual DPDT Analog Switch",
       "pins": {
         "1": {
           "name": "NC1",
@@ -5286,20 +5249,20 @@
           "net": "NetSB54_2"
         }
       },
+      "mpn": "FSA2466UMX",
+      "description": "Data / Audio Low-Voltage Dual DPDT Analog Switch",
       "value": "FSA2466UMX"
     },
     "C45": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "GND",
         "2": "VDD"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
     "U5": {
-      "mpn": "FSA2466UMX",
-      "description": "Data / Audio Low-Voltage Dual DPDT Analog Switch",
       "pins": {
         "1": {
           "name": "NC1",
@@ -5366,11 +5329,11 @@
           "net": "VCOM_RTS"
         }
       },
+      "mpn": "FSA2466UMX",
+      "description": "Data / Audio Low-Voltage Dual DPDT Analog Switch",
       "value": "FSA2466UMX"
     },
     "U7": {
-      "mpn": "FSA2466UMX",
-      "description": "Data / Audio Low-Voltage Dual DPDT Analog Switch",
       "pins": {
         "1": {
           "name": "NC1",
@@ -5437,29 +5400,29 @@
           "net": "BOOT/RESET"
         }
       },
+      "mpn": "FSA2466UMX",
+      "description": "Data / Audio Low-Voltage Dual DPDT Analog Switch",
       "value": "FSA2466UMX"
     },
     "C42": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "GND",
         "2": "VDD"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
     "C48": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "GND",
         "2": "VDD"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
     "U8": {
-      "mpn": "FSA2466UMX",
-      "description": "Data / Audio Low-Voltage Dual DPDT Analog Switch",
       "pins": {
         "1": {
           "name": "NC1",
@@ -5526,20 +5489,20 @@
           "net": "CTS"
         }
       },
+      "mpn": "FSA2466UMX",
+      "description": "Data / Audio Low-Voltage Dual DPDT Analog Switch",
       "value": "FSA2466UMX"
     },
     "C50": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "GND",
         "2": "VDD"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
     "SW7": {
-      "mpn": "CJS-1200TA",
-      "description": "SMD slide Switch (ON-ON)",
       "pins": {
         "1": {
           "name": "N.C",
@@ -5554,29 +5517,29 @@
           "net": "VDD"
         }
       },
+      "mpn": "CJS-1200TA",
+      "description": "SMD slide Switch (ON-ON)",
       "value": "Switch"
     },
     "R48": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "NetLED2_2",
         "2": "VDD_PER"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "220R"
     },
     "R47": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "NetLED1_2",
         "2": "VDD_PER"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "220R"
     },
     "SB6": {
-      "mpn": "N.A.",
-      "description": "Shorted Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -5587,20 +5550,20 @@
           "net": "NetLED2_1"
         }
       },
+      "mpn": "N.A.",
+      "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
     "R50": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "NetLED3_2",
         "2": "VDD_PER"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "220R"
     },
     "SB7": {
-      "mpn": "N.A.",
-      "description": "Shorted Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -5611,20 +5574,20 @@
           "net": "NetLED3_1"
         }
       },
+      "mpn": "N.A.",
+      "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
     "R51": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "NetLED4_2",
         "2": "VDD_PER"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "220R"
     },
     "SB8": {
-      "mpn": "N.A.",
-      "description": "Shorted Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -5635,11 +5598,11 @@
           "net": "NetLED4_1"
         }
       },
+      "mpn": "N.A.",
+      "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
     "SB5": {
-      "mpn": "N.A.",
-      "description": "Shorted Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -5650,11 +5613,11 @@
           "net": "NetLED1_1"
         }
       },
+      "mpn": "N.A.",
+      "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
     "LED1": {
-      "mpn": "VS 25C7M5",
-      "description": "LED, Green, 0603, 573nm, Vf=2.0V, 24mcd, - 40 to +85°C",
       "pins": {
         "1": {
           "name": "C",
@@ -5665,11 +5628,11 @@
           "net": "NetLED1_2"
         }
       },
+      "mpn": "VS 25C7M5",
+      "description": "LED, Green, 0603, 573nm, Vf=2.0V, 24mcd, - 40 to +85°C",
       "value": "L0603G"
     },
     "LED2": {
-      "mpn": "VS 25C7M5",
-      "description": "LED, Green, 0603, 573nm, Vf=2.0V, 24mcd, - 40 to +85°C",
       "pins": {
         "1": {
           "name": "C",
@@ -5680,11 +5643,11 @@
           "net": "NetLED2_2"
         }
       },
+      "mpn": "VS 25C7M5",
+      "description": "LED, Green, 0603, 573nm, Vf=2.0V, 24mcd, - 40 to +85°C",
       "value": "L0603G"
     },
     "LED3": {
-      "mpn": "VS 25C7M5",
-      "description": "LED, Green, 0603, 573nm, Vf=2.0V, 24mcd, - 40 to +85°C",
       "pins": {
         "1": {
           "name": "C",
@@ -5695,11 +5658,11 @@
           "net": "NetLED3_2"
         }
       },
+      "mpn": "VS 25C7M5",
+      "description": "LED, Green, 0603, 573nm, Vf=2.0V, 24mcd, - 40 to +85°C",
       "value": "L0603G"
     },
     "LED4": {
-      "mpn": "VS 25C7M5",
-      "description": "LED, Green, 0603, 573nm, Vf=2.0V, 24mcd, - 40 to +85°C",
       "pins": {
         "1": {
           "name": "C",
@@ -5710,11 +5673,11 @@
           "net": "NetLED4_2"
         }
       },
+      "mpn": "VS 25C7M5",
+      "description": "LED, Green, 0603, 573nm, Vf=2.0V, 24mcd, - 40 to +85°C",
       "value": "L0603G"
     },
     "SW5": {
-      "mpn": "TS604VM1-025BR-R",
-      "description": "Tactile Switch, SPNO, SMD, 160gf, 6.2x6.3x2.5mm",
       "pins": {
         "1": {
           "name": "N.O",
@@ -5725,11 +5688,11 @@
           "net": "BOOT/RESET"
         }
       },
+      "mpn": "TS604VM1-025BR-R",
+      "description": "Tactile Switch, SPNO, SMD, 160gf, 6.2x6.3x2.5mm",
       "value": "PB SW"
     },
     "SW6": {
-      "mpn": "MKH-22D14-G2-B",
-      "description": "Slide Switch DPDT",
       "pins": {
         "1": {
           "name": "N.O-1",
@@ -5756,11 +5719,11 @@
           "net": "VDD"
         }
       },
+      "mpn": "MKH-22D14-G2-B",
+      "description": "Slide Switch DPDT",
       "value": "MKH-22D14-G2-B"
     },
     "SB9": {
-      "mpn": "N.A.",
-      "description": "Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -5771,11 +5734,11 @@
           "net": "VDD_PER"
         }
       },
+      "mpn": "N.A.",
+      "description": "Solderbridge",
       "value": "Solderbridge"
     },
     "U4": {
-      "mpn": "TCK106AG,LF",
-      "description": "1.0 A Load Switch IC with Slew Rate Control Driver in Ultra Small Package",
       "pins": {
         "A2": {
           "name": "VIN",
@@ -5794,29 +5757,29 @@
           "net": "GND"
         }
       },
+      "mpn": "TCK106AG,LF",
+      "description": "1.0 A Load Switch IC with Slew Rate Control Driver in Ultra Small Package",
       "value": "TCK106AG"
     },
     "R41": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "VDD",
         "2": "NetQ40_5"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "1M0"
     },
     "R40": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "VBUS",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "150k"
     },
     "SB31": {
-      "mpn": "N.A.",
-      "description": "Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -5827,11 +5790,11 @@
           "net": "USB_DETECT"
         }
       },
+      "mpn": "N.A.",
+      "description": "Solderbridge",
       "value": "Solderbridge"
     },
     "SB46": {
-      "mpn": "N.A.",
-      "description": "Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -5842,11 +5805,11 @@
           "net": "NetSB46_2"
         }
       },
+      "mpn": "N.A.",
+      "description": "Solderbridge",
       "value": "Solderbridge"
     },
     "SB45": {
-      "mpn": "N.A.",
-      "description": "Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -5857,11 +5820,11 @@
           "net": "P0.18/RESET"
         }
       },
+      "mpn": "N.A.",
+      "description": "Solderbridge",
       "value": "Solderbridge"
     },
     "SB42": {
-      "mpn": "N.A.",
-      "description": "Shorted Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -5872,11 +5835,11 @@
           "net": "P0.18/RESET"
         }
       },
+      "mpn": "N.A.",
+      "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
     "SB43": {
-      "mpn": "N.A.",
-      "description": "Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -5887,11 +5850,11 @@
           "net": "NetSB43_2"
         }
       },
+      "mpn": "N.A.",
+      "description": "Solderbridge",
       "value": "Solderbridge"
     },
     "SB44": {
-      "mpn": "N.A.",
-      "description": "Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -5902,23 +5865,23 @@
           "net": "P0.18/RESET"
         }
       },
+      "mpn": "N.A.",
+      "description": "Solderbridge",
       "value": "Solderbridge"
     },
     "U3": {
-      "mpn": "MX25R6435FZNIL0",
-      "description": "Ultra low power, 64M-bit, serial multi I/O flash memory",
       "pins": {
         "1": {
           "name": "C\\S\\",
-          "net": ""
+          "net": "NetSB13_2"
         },
         "2": {
           "name": "SIO1/SO",
-          "net": ""
+          "net": "NetSB14_2"
         },
         "3": {
           "name": "SIO2/W\\P\\",
-          "net": ""
+          "net": "NetSB15_2"
         },
         "4": {
           "name": "GND",
@@ -5926,15 +5889,15 @@
         },
         "5": {
           "name": "SIO0/SI",
-          "net": ""
+          "net": "NetSB12_2"
         },
         "6": {
           "name": "SCLK",
-          "net": ""
+          "net": "NetSB11_2"
         },
         "7": {
           "name": "SIO3/R\\E\\S\\E\\T\\",
-          "net": ""
+          "net": "NetSB10_2"
         },
         "8": {
           "name": "VCC",
@@ -5945,56 +5908,56 @@
           "net": "GND"
         }
       },
+      "mpn": "MX25R6435FZNIL0",
+      "description": "Ultra low power, 64M-bit, serial multi I/O flash memory",
       "value": "MX25R6435F"
     },
     "C49": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "GND",
         "2": "NetC49_2"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
     "R46": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±5%, 0.063W",
       "pins": {
         "1": "NFC2",
         "2": "P0.10/NFC2"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±5%, 0.063W",
       "value": "0R"
     },
     "R44": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±5%, 0.063W",
       "pins": {
         "1": "NFC1",
         "2": "P0.09/NFC1"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±5%, 0.063W",
       "value": "0R"
     },
     "C46": {
-      "mpn": "N.A.",
-      "description": "Capacitor, C0G, ±5%, 50V",
       "pins": {
         "1": "NFC1",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, C0G, ±5%, 50V",
       "value": "300pF"
     },
     "C47": {
-      "mpn": "N.A.",
-      "description": "Capacitor, C0G, ±5%, 50V",
       "pins": {
         "1": "GND",
         "2": "NFC2"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, C0G, ±5%, 50V",
       "value": "300pF"
     },
     "SW1": {
-      "mpn": "TS604VM1-025BR-R",
-      "description": "Tactile Switch, SPNO, SMD, 160gf, 6.2x6.3x2.5mm",
       "pins": {
         "1": {
           "name": "N.O",
@@ -6005,11 +5968,11 @@
           "net": "BUTTON1"
         }
       },
+      "mpn": "TS604VM1-025BR-R",
+      "description": "Tactile Switch, SPNO, SMD, 160gf, 6.2x6.3x2.5mm",
       "value": "PB SW"
     },
     "SW2": {
-      "mpn": "TS604VM1-025BR-R",
-      "description": "Tactile Switch, SPNO, SMD, 160gf, 6.2x6.3x2.5mm",
       "pins": {
         "1": {
           "name": "N.O",
@@ -6020,11 +5983,11 @@
           "net": "BUTTON2"
         }
       },
+      "mpn": "TS604VM1-025BR-R",
+      "description": "Tactile Switch, SPNO, SMD, 160gf, 6.2x6.3x2.5mm",
       "value": "PB SW"
     },
     "SW3": {
-      "mpn": "TS604VM1-025BR-R",
-      "description": "Tactile Switch, SPNO, SMD, 160gf, 6.2x6.3x2.5mm",
       "pins": {
         "1": {
           "name": "N.O",
@@ -6035,11 +5998,11 @@
           "net": "P0.24"
         }
       },
+      "mpn": "TS604VM1-025BR-R",
+      "description": "Tactile Switch, SPNO, SMD, 160gf, 6.2x6.3x2.5mm",
       "value": "PB SW"
     },
     "SW4": {
-      "mpn": "TS604VM1-025BR-R",
-      "description": "Tactile Switch, SPNO, SMD, 160gf, 6.2x6.3x2.5mm",
       "pins": {
         "1": {
           "name": "N.O",
@@ -6050,11 +6013,11 @@
           "net": "P0.25"
         }
       },
+      "mpn": "TS604VM1-025BR-R",
+      "description": "Tactile Switch, SPNO, SMD, 160gf, 6.2x6.3x2.5mm",
       "value": "PB SW"
     },
     "U19": {
-      "mpn": "TS27L2IPT",
-      "description": "Precision very low power CMOS dual operational amplifier",
       "pins": {
         "5": {
           "name": "IN2+",
@@ -6069,48 +6032,48 @@
           "net": "NetP28_3"
         }
       },
+      "mpn": "TS27L2IPT",
+      "description": "Precision very low power CMOS dual operational amplifier",
       "value": "TS27L2IPT"
     },
     "P28": {
-      "mpn": "N.A.",
-      "description": "Pin List 1x3, 2.54mm (100mil)",
       "pins": {
         "1": "NetP28_1",
         "2": "NetP28_2",
         "3": "NetP28_3"
       },
+      "mpn": "N.A.",
+      "description": "Pin List 1x3, 2.54mm (100mil)",
       "value": "Pin List 1x3"
     },
     "R26": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "USB_DETECT",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "47k"
     },
     "R52": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "VDD",
         "2": "NetR52_2"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "4k7"
     },
     "R53": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "VDD",
         "2": "NetR53_2"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "4k7"
     },
     "SB17": {
-      "mpn": "N.A.",
-      "description": "Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -6121,11 +6084,11 @@
           "net": "NetC49_2"
         }
       },
+      "mpn": "N.A.",
+      "description": "Solderbridge",
       "value": "Solderbridge"
     },
     "SB16": {
-      "mpn": "N.A.",
-      "description": "Shorted Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -6136,11 +6099,11 @@
           "net": "NetC49_2"
         }
       },
+      "mpn": "N.A.",
+      "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
     "SB18": {
-      "mpn": "N.A.",
-      "description": "Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -6151,70 +6114,70 @@
           "net": "NetC49_2"
         }
       },
+      "mpn": "N.A.",
+      "description": "Solderbridge",
       "value": "Solderbridge"
     },
     "R54": {
-      "mpn": "N.A.",
       "pins": {
         "1": "BOOT/RESET",
         "2": "VDD"
       },
+      "mpn": "N.A.",
       "value": "N.C.",
       "dns": true
     },
     "TP22": {
-      "mpn": "N.A.",
-      "description": "1.0mm circular SMD testpad",
       "pins": {
         "1": "nRF_ONLY"
       },
+      "mpn": "N.A.",
+      "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
     "R3": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "nRF_ONLY",
         "2": "NetR3_2"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "10k"
     },
     "TP23": {
-      "mpn": "N.A.",
-      "description": "1.0mm circular SMD testpad",
       "pins": {
         "1": "TRACE_SW"
       },
+      "mpn": "N.A.",
+      "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
     "R4": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "TRACE_SW",
         "2": "NetR4_2"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "10k"
     },
     "TP21": {
-      "mpn": "N.A.",
-      "description": "1.0mm circular SMD testpad",
       "pins": {
         "1": "BUTTON2"
       },
+      "mpn": "N.A.",
+      "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
     "TP20": {
-      "mpn": "N.A.",
-      "description": "1.0mm circular SMD testpad",
       "pins": {
         "1": "BUTTON1"
       },
+      "mpn": "N.A.",
+      "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
     "Q40": {
-      "mpn": "PMCPB5530X,115",
-      "description": "Mosfet Array N and P-Channel 20V 4A (Ta), 3.4A (Ta) 490mW Surface Mount 6-HUSON-EP (2x2)",
       "pins": {
         "1": "GND",
         "2": "VBUS",
@@ -6232,35 +6195,35 @@
         },
         "6": "NetQ40_5"
       },
+      "mpn": "PMCPB5530X,115",
+      "description": "Mosfet Array N and P-Channel 20V 4A (Ta), 3.4A (Ta) 490mW Surface Mount 6-HUSON-EP (2x2)",
       "value": "PMCPB5530"
     },
     "TP5": {
-      "mpn": "N.A.",
-      "description": "1.0mm circular SMD testpad",
       "pins": {
         "1": "SWD3_IO"
       },
+      "mpn": "N.A.",
+      "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
     "TP6": {
-      "mpn": "N.A.",
-      "description": "1.0mm circular SMD testpad",
       "pins": {
         "1": "SWD3_CLK"
       },
+      "mpn": "N.A.",
+      "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
     "TP7": {
-      "mpn": "N.A.",
-      "description": "1.0mm circular SMD testpad",
       "pins": {
         "1": "SWD3_RESET"
       },
+      "mpn": "N.A.",
+      "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
     "SB54": {
-      "mpn": "N.A.",
-      "description": "Shorted Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -6271,11 +6234,11 @@
           "net": "NetSB54_2"
         }
       },
+      "mpn": "N.A.",
+      "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
     "SB55": {
-      "mpn": "N.A.",
-      "description": "Shorted Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -6286,11 +6249,11 @@
           "net": "NetSB55_2"
         }
       },
+      "mpn": "N.A.",
+      "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
     "SB57": {
-      "mpn": "N.A.",
-      "description": "Shorted Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -6301,11 +6264,11 @@
           "net": "NetSB57_2"
         }
       },
+      "mpn": "N.A.",
+      "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
     "SB56": {
-      "mpn": "N.A.",
-      "description": "Shorted Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -6316,19 +6279,19 @@
           "net": "NetSB56_2"
         }
       },
+      "mpn": "N.A.",
+      "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
     "TP8": {
-      "mpn": "N.A.",
-      "description": "1.0mm circular SMD testpad",
       "pins": {
         "1": "SWD3_SWO"
       },
+      "mpn": "N.A.",
+      "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
     "SW11": {
-      "mpn": "CJS-1200TA",
-      "description": "SMD slide Switch (ON-ON)",
       "pins": {
         "1": {
           "name": "N.C",
@@ -6343,11 +6306,11 @@
           "net": "GND"
         }
       },
+      "mpn": "CJS-1200TA",
+      "description": "SMD slide Switch (ON-ON)",
       "value": "Switch"
     },
     "P7": {
-      "mpn": "1125-1108S0M116CR04",
-      "description": "Pin List 1x8, 2.54mm (100mil), SMD",
       "pins": {
         "1": "VIO",
         "2": "VIO",
@@ -6358,93 +6321,93 @@
         "7": "GND",
         "8": "VIN"
       },
+      "mpn": "1125-1108S0M116CR04",
+      "description": "Pin List 1x8, 2.54mm (100mil), SMD",
       "value": "Pin List 1x8"
     },
     "P11": {
-      "mpn": "2171-203MS0CUNR3",
-      "description": "Socket 2x3, 2.54mm (100mil), SMD",
       "pins": {
-        "1": "NetP10_5",
+        "1": "P1.14",
         "2": "V5V",
-        "3": "NetP10_6",
-        "4": "NetP10_4",
+        "3": "P1.15",
+        "4": "P1.13",
         "5": "RESET_PIN",
         "6": "NetP11_6"
       },
+      "mpn": "2171-203MS0CUNR3",
+      "description": "Socket 2x3, 2.54mm (100mil), SMD",
       "value": "Socket 2x3"
     },
     "P14": {
-      "mpn": "N.A.",
-      "description": "Pin Header 2x6, 2.54mm (100mil)",
       "pins": {
         "1": "GND",
-        "2": "NetP14_2",
+        "2": "P0.03/AIN1",
         "3": "GND",
-        "4": "NetP14_4",
+        "4": "P0.04/AIN2",
         "5": "GND",
-        "6": "NetP14_6",
+        "6": "P0.28/AIN4",
         "7": "GND",
-        "8": "NetP14_8",
+        "8": "P0.29/AIN5",
         "9": "GND",
-        "10": "NetP14_10",
+        "10": "P0.30/AIN6",
         "11": "GND",
-        "12": "NetP14_12"
+        "12": "P0.31/AIN7"
       },
+      "mpn": "N.A.",
+      "description": "Pin Header 2x6, 2.54mm (100mil)",
       "value": "Pin Header 2x6"
     },
     "P15": {
-      "mpn": "N.A.",
-      "description": "Pin Header 2x8, 2.54mm (100mil)",
       "pins": {
         "1": "GND",
-        "2": "NetP15_2",
+        "2": "P1.01",
         "3": "GND",
-        "4": "NetP15_4",
+        "4": "P1.02",
         "5": "GND",
-        "6": "NetP15_6",
+        "6": "P1.03",
         "7": "GND",
-        "8": "NetP15_8",
+        "8": "P1.04",
         "9": "GND",
-        "10": "NetP15_10",
+        "10": "P1.05",
         "11": "GND",
-        "12": "NetP15_12",
+        "12": "P1.06",
         "13": "GND",
-        "14": "NetP15_14",
+        "14": "P1.07",
         "15": "GND",
-        "16": "NetP15_16"
+        "16": "P1.08"
       },
+      "mpn": "N.A.",
+      "description": "Pin Header 2x8, 2.54mm (100mil)",
       "value": "Pin Header 2x8"
     },
     "P16": {
-      "mpn": "N.A.",
-      "description": "Pin Header 2x10, 2.54mm (100mil)",
       "pins": {
         "1": "GND",
-        "2": "NetP10_1",
+        "2": "P1.10",
         "3": "GND",
-        "4": "NetP10_2",
+        "4": "P1.11",
         "5": "GND",
-        "6": "NetP10_3",
+        "6": "P1.12",
         "7": "GND",
-        "8": "NetP10_4",
+        "8": "P1.13",
         "9": "GND",
-        "10": "NetP10_5",
+        "10": "P1.14",
         "11": "GND",
-        "12": "NetP10_6",
+        "12": "P1.15",
         "13": "GND",
         "14": "GND",
         "15": "GND",
-        "16": "NetP10_8",
+        "16": "P0.02/AIN0",
         "17": "GND",
-        "18": "NetP10_9",
+        "18": "SDA",
         "19": "GND",
-        "20": "NetP10_10"
+        "20": "SCL"
       },
+      "mpn": "N.A.",
+      "description": "Pin Header 2x10, 2.54mm (100mil)",
       "value": "Pin Header 2x10"
     },
     "P13": {
-      "mpn": "N.A.",
-      "description": "Pin Header 2x8, 2.54mm (100mil)",
       "pins": {
         "1": "GND",
         "2": "GND",
@@ -6463,43 +6426,43 @@
         "15": "GND",
         "16": "VIN"
       },
+      "mpn": "N.A.",
+      "description": "Pin Header 2x8, 2.54mm (100mil)",
       "value": "Pin Header 2x8"
     },
     "P17": {
-      "mpn": "N.A.",
-      "description": "Pin Header 2x8, 2.54mm (100mil)",
       "pins": {
         "1": "GND",
-        "2": "NetP12_1",
+        "2": "P0.00",
         "3": "GND",
-        "4": "NetP12_2",
+        "4": "P0.01",
         "5": "GND",
-        "6": "NetP12_3",
+        "6": "P0.05/AIN3",
         "7": "GND",
-        "8": "NetP12_4",
+        "8": "P0.06",
         "9": "GND",
-        "10": "NetP12_5",
+        "10": "P0.07",
         "11": "GND",
-        "12": "NetP12_6",
+        "12": "P0.08",
         "13": "GND",
         "14": "NetP12_7",
         "15": "GND",
         "16": "NetP12_8"
       },
+      "mpn": "N.A.",
+      "description": "Pin Header 2x8, 2.54mm (100mil)",
       "value": "Pin Header 2x8"
     },
     "C67": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X7R, ±10%, 10V",
       "pins": {
         "1": "GND",
         "2": "NetC67_2"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X7R, ±10%, 10V",
       "value": "4.7nF"
     },
     "D61": {
-      "mpn": "PRTR5V0U2X",
-      "description": "Ultra low capacitance double rail-to-rail ESD protection diode",
       "pins": {
         "1": {
           "name": "GND",
@@ -6507,72 +6470,72 @@
         },
         "2": {
           "name": "IO1",
-          "net": "NetD61_2"
+          "net": "IMCU_N"
         },
         "3": {
           "name": "IO2",
-          "net": "NetD61_3"
+          "net": "IMCU_P"
         },
         "4": {
           "name": "VCC",
           "net": "NetC63_1"
         }
       },
+      "mpn": "PRTR5V0U2X",
+      "description": "Ultra low capacitance double rail-to-rail ESD protection diode",
       "value": "PRTR5V0U2X"
     },
     "TP12": {
-      "mpn": "N.A.",
-      "description": "1.0mm circular SMD testpad",
       "pins": {
         "1": "GND"
       },
+      "mpn": "N.A.",
+      "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
     "C64": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X5R, ±20%",
       "pins": {
         "1": "GND",
         "2": "NetC63_1"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X5R, ±20%",
       "value": "10µF"
     },
     "TP11": {
-      "mpn": "N.A.",
-      "description": "1.0mm circular SMD testpad",
       "pins": {
         "1": "NetC63_1"
       },
+      "mpn": "N.A.",
+      "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
     "C65": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "GND",
         "2": "NetC63_1"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
     "TP9": {
+      "pins": {
+        "1": "IMCU_P"
+      },
       "mpn": "N.A.",
       "description": "1.0mm circular SMD testpad",
-      "pins": {
-        "1": "NetD61_3"
-      },
       "value": "Ø1.0mm,SMD"
     },
     "TP10": {
+      "pins": {
+        "1": "IMCU_N"
+      },
       "mpn": "N.A.",
       "description": "1.0mm circular SMD testpad",
-      "pins": {
-        "1": "NetD61_2"
-      },
       "value": "Ø1.0mm,SMD"
     },
     "SB32": {
-      "mpn": "N.A.",
-      "description": "Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -6583,11 +6546,11 @@
           "net": "NetP11_6"
         }
       },
+      "mpn": "N.A.",
+      "description": "Solderbridge",
       "value": "Solderbridge"
     },
     "SB33": {
-      "mpn": "N.A.",
-      "description": "Shorted Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -6598,28 +6561,28 @@
           "net": "SHIELD_DETECT"
         }
       },
+      "mpn": "N.A.",
+      "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
     "R68": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "SHIELD_DETECT",
         "2": "VDD"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "1M0"
     },
     "TP19": {
-      "mpn": "N.A.",
-      "description": "1.0mm circular SMD testpad",
       "pins": {
         "1": "SHIELD_DETECT"
       },
+      "mpn": "N.A.",
+      "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
     "J2": {
-      "mpn": "AJU55-BS2111-L",
-      "description": "MicroUSB-B-SMT",
       "pins": {
         "1": {
           "name": "VBUS",
@@ -6627,11 +6590,11 @@
         },
         "2": {
           "name": "D-",
-          "net": "NetD61_2"
+          "net": "IMCU_N"
         },
         "3": {
           "name": "D+",
-          "net": "NetD61_3"
+          "net": "IMCU_P"
         },
         "4": {
           "name": "ID",
@@ -6646,24 +6609,24 @@
           "net": "NetC67_2"
         }
       },
+      "mpn": "AJU55-BS2111-L",
+      "description": "MicroUSB-B-SMT",
       "value": "MicroUSB-B"
     },
     "P5": {
-      "mpn": "1125-1203S0M116CR03",
-      "description": "Pin Header 2x3, 2.54mm (100mil) SMD",
       "pins": {
-        "1": "NetP10_5",
+        "1": "P1.14",
         "2": "V5V",
-        "3": "NetP10_6",
-        "4": "NetP10_4",
+        "3": "P1.15",
+        "4": "P1.13",
         "5": "RESET_PIN",
         "6": "NetP11_6"
       },
+      "mpn": "1125-1203S0M116CR03",
+      "description": "Pin Header 2x3, 2.54mm (100mil) SMD",
       "value": "Pin Hdr 2x3"
     },
     "P18": {
-      "mpn": "3132-10MS0BK00R5",
-      "description": "Pin Header 2x5, 1.27mm (50mil), SMD, Keying Shroud",
       "pins": {
         "1": "VDBG",
         "2": "SWDIO",
@@ -6676,11 +6639,11 @@
         "9": "GND",
         "10": "P0.18/RESET"
       },
+      "mpn": "3132-10MS0BK00R5",
+      "description": "Pin Header 2x5, 1.27mm (50mil), SMD, Keying Shroud",
       "value": "Pin Header 2x5, 1.27mm"
     },
     "P19": {
-      "mpn": "3132-10MS0BK00R5",
-      "description": "Pin Header 2x5, 1.27mm (50mil), SMD, Keying Shroud",
       "pins": {
         "1": "NetP19_1",
         "2": "NetP19_2",
@@ -6693,36 +6656,36 @@
         "9": "",
         "10": "NetP19_10"
       },
+      "mpn": "3132-10MS0BK00R5",
+      "description": "Pin Header 2x5, 1.27mm (50mil), SMD, Keying Shroud",
       "value": "Pin Header 2x5, 1.27mm"
     },
     "P24": {
-      "mpn": "2171-209MS0CUNR3",
-      "description": "Socket 2x9, 2.54mm (100mil), SMD",
       "pins": {
-        "1": "",
-        "2": "",
-        "3": "",
-        "4": "",
-        "5": "",
-        "6": "",
-        "7": "",
-        "8": "",
-        "9": "",
-        "10": "",
-        "11": "",
-        "12": "",
-        "13": "",
-        "14": "",
-        "15": "",
-        "16": "",
-        "17": "",
+        "1": "P0.11",
+        "2": "P0.12",
+        "3": "P0.13",
+        "4": "P0.14",
+        "5": "P0.15",
+        "6": "P0.16",
+        "7": "NetP24_7",
+        "8": "P0.18/RESET",
+        "9": "NetP24_9",
+        "10": "NetP24_10",
+        "11": "NetP24_11",
+        "12": "NetP24_12",
+        "13": "NetP24_13",
+        "14": "P0.24",
+        "15": "P0.25",
+        "16": "P1.00",
+        "17": "P1.09",
         "18": "GND"
       },
+      "mpn": "2171-209MS0CUNR3",
+      "description": "Socket 2x9, 2.54mm (100mil), SMD",
       "value": "Socket 2x9"
     },
     "P25": {
-      "mpn": "3132-20MS0BK00R1",
-      "description": "Pin Header 2x10, 1.27mm (50mil), SMD, Keying Shroud",
       "pins": {
         "1": "VDBG",
         "2": "SWDIO",
@@ -6735,42 +6698,42 @@
         "9": "GND",
         "10": "P0.18/RESET",
         "11": "",
-        "12": "NetP25_12",
+        "12": "P0.07",
         "13": "",
-        "14": "NetP25_14",
+        "14": "P1.00",
         "15": "GND",
-        "16": "NetP25_16",
+        "16": "P0.12",
         "17": "GND",
-        "18": "NetP25_18",
+        "18": "P0.11",
         "19": "GND",
-        "20": "NetP25_20"
+        "20": "P1.09"
       },
+      "mpn": "3132-20MS0BK00R1",
+      "description": "Pin Header 2x10, 1.27mm (50mil), SMD, Keying Shroud",
       "value": "Pin Header 2x10, 1.27mm"
     },
     "J5": {
-      "mpn": "5141-05RZDNWR03",
-      "description": "0.5mm FPC, 5P,Right Angle SMT,Double Contact,H=1.2mm,White, Tin plated",
       "pins": {
         "1": "",
-        "2": "NetJ5_2",
+        "2": "NFC1",
         "3": "",
-        "4": "NetJ5_4",
+        "4": "NFC2",
         "5": ""
       },
+      "mpn": "5141-05RZDNWR03",
+      "description": "0.5mm FPC, 5P,Right Angle SMT,Double Contact,H=1.2mm,White, Tin plated",
       "value": "FPC 0.5mm RA SMD"
     },
     "C66": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X7R, ±10%, 10V",
       "pins": {
         "1": "GND",
         "2": "NetC66_2"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X7R, ±10%, 10V",
       "value": "4.7nF"
     },
     "J3": {
-      "mpn": "AJU55-BS2111-L",
-      "description": "MicroUSB-B-SMT",
       "pins": {
         "1": {
           "name": "VBUS",
@@ -6778,11 +6741,11 @@
         },
         "2": {
           "name": "D-",
-          "net": "NetD60_2"
+          "net": "D_N"
         },
         "3": {
           "name": "D+",
-          "net": "NetD60_3"
+          "net": "D_P"
         },
         "4": {
           "name": "ID",
@@ -6797,29 +6760,29 @@
           "net": "NetC66_2"
         }
       },
+      "mpn": "AJU55-BS2111-L",
+      "description": "MicroUSB-B-SMT",
       "value": "MicroUSB-B"
     },
     "J6": {
-      "mpn": "SM02B-SRSS-TB(LF)(SN)",
-      "description": "1.0mm pitch connector side entry SMD",
       "pins": {
         "1": "GND",
         "2": "VLi-Ion"
       },
+      "mpn": "SM02B-SRSS-TB(LF)(SN)",
+      "description": "1.0mm pitch connector side entry SMD",
       "value": "HDR-2, 1mm"
     },
     "P27": {
-      "mpn": "N.A.",
-      "description": "Pin List 1x2, 2.54mm (100mil)",
       "pins": {
         "1": "GND",
         "2": "VLi-Ion"
       },
+      "mpn": "N.A.",
+      "description": "Pin List 1x2, 2.54mm (100mil)",
       "value": "Pin List 1x2"
     },
     "P26": {
-      "mpn": "2171-113MS0CUNR1",
-      "description": "Socket 1x13, 2.54mm (100mil), SMD",
       "pins": {
         "1": "VDD_nRF",
         "2": "VDD_nRF'",
@@ -6835,11 +6798,11 @@
         "12": "VIO_REF",
         "13": "NetP20_13"
       },
+      "mpn": "2171-113MS0CUNR1",
+      "description": "Socket 1x13, 2.54mm (100mil), SMD",
       "value": "Socket 1x13"
     },
     "D60": {
-      "mpn": "PRTR5V0U2X",
-      "description": "Ultra low capacitance double rail-to-rail ESD protection diode",
       "pins": {
         "1": {
           "name": "GND",
@@ -6847,170 +6810,170 @@
         },
         "2": {
           "name": "IO1",
-          "net": "NetD60_2"
+          "net": "D_N"
         },
         "3": {
           "name": "IO2",
-          "net": "NetD60_3"
+          "net": "D_P"
         },
         "4": {
           "name": "VCC",
           "net": "NetC60_2"
         }
       },
+      "mpn": "PRTR5V0U2X",
+      "description": "Ultra low capacitance double rail-to-rail ESD protection diode",
       "value": "PRTR5V0U2X"
     },
     "C61": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X5R, ±20%",
       "pins": {
         "1": "GND",
         "2": "NetC60_2"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X5R, ±20%",
       "value": "10µF"
     },
     "C62": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "GND",
         "2": "NetC60_2"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
     "FB64": {
-      "mpn": "BLM15AG121SN1D",
-      "description": "Ferrite Bead, 120 Ohm @ 100MHz, 500mA, 250 mOhm Max",
       "pins": {
         "1": "NetC66_2",
         "2": "GND"
       },
+      "mpn": "BLM15AG121SN1D",
+      "description": "Ferrite Bead, 120 Ohm @ 100MHz, 500mA, 250 mOhm Max",
       "value": "120R/0.55A"
     },
     "FB60": {
-      "mpn": "BLM15AG121SN1D",
-      "description": "Ferrite Bead, 120 Ohm @ 100MHz, 500mA, 250 mOhm Max",
       "pins": {
         "1": "NetC60_2",
         "2": "VBUS_nRF'"
       },
+      "mpn": "BLM15AG121SN1D",
+      "description": "Ferrite Bead, 120 Ohm @ 100MHz, 500mA, 250 mOhm Max",
       "value": "120R/0.55A"
     },
     "C60": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X7R, ±10%",
       "pins": {
         "1": "GND",
         "2": "NetC60_2"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X7R, ±10%",
       "value": "10nF"
     },
     "FB62": {
-      "mpn": "BLM15AG121SN1D",
-      "description": "Ferrite Bead, 120 Ohm @ 100MHz, 500mA, 250 mOhm Max",
       "pins": {
         "1": "NetFB62_1",
         "2": "GND"
       },
+      "mpn": "BLM15AG121SN1D",
+      "description": "Ferrite Bead, 120 Ohm @ 100MHz, 500mA, 250 mOhm Max",
       "value": "120R/0.55A"
     },
     "FB63": {
-      "mpn": "BLM15AG121SN1D",
-      "description": "Ferrite Bead, 120 Ohm @ 100MHz, 500mA, 250 mOhm Max",
       "pins": {
         "1": "NetFB63_1",
         "2": "GND"
       },
+      "mpn": "BLM15AG121SN1D",
+      "description": "Ferrite Bead, 120 Ohm @ 100MHz, 500mA, 250 mOhm Max",
       "value": "120R/0.55A"
     },
     "FB61": {
-      "mpn": "BLM15AG121SN1D",
-      "description": "Ferrite Bead, 120 Ohm @ 100MHz, 500mA, 250 mOhm Max",
       "pins": {
         "1": "NetC63_1",
         "2": "VBUS"
       },
+      "mpn": "BLM15AG121SN1D",
+      "description": "Ferrite Bead, 120 Ohm @ 100MHz, 500mA, 250 mOhm Max",
       "value": "120R/0.55A"
     },
     "C63": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X7R, ±10%",
       "pins": {
         "1": "NetC63_1",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X7R, ±10%",
       "value": "10nF"
     },
     "FB65": {
-      "mpn": "BLM15AG121SN1D",
-      "description": "Ferrite Bead, 120 Ohm @ 100MHz, 500mA, 250 mOhm Max",
       "pins": {
         "1": "NetC67_2",
         "2": "GND"
       },
+      "mpn": "BLM15AG121SN1D",
+      "description": "Ferrite Bead, 120 Ohm @ 100MHz, 500mA, 250 mOhm Max",
       "value": "120R/0.55A"
     },
     "TP13": {
+      "pins": {
+        "1": "D_N"
+      },
       "mpn": "N.A.",
       "description": "1.5mm circular SMD testpad",
-      "pins": {
-        "1": "NetD60_2"
-      },
       "value": "Ø1.5mm,SMD"
     },
     "TP14": {
+      "pins": {
+        "1": "D_P"
+      },
       "mpn": "N.A.",
       "description": "1.5mm circular SMD testpad",
-      "pins": {
-        "1": "NetD60_3"
-      },
       "value": "Ø1.5mm,SMD"
     },
     "TP18": {
+      "pins": {
+        "1": "NFC2"
+      },
       "mpn": "N.A.",
       "description": "1.0mm circular SMD testpad",
-      "pins": {
-        "1": "NetJ5_4"
-      },
       "value": "Ø1.0mm,SMD"
     },
     "TP17": {
+      "pins": {
+        "1": "NFC1"
+      },
       "mpn": "N.A.",
       "description": "1.0mm circular SMD testpad",
-      "pins": {
-        "1": "NetJ5_2"
-      },
       "value": "Ø1.0mm,SMD"
     },
     "TP31": {
-      "mpn": "N.A.",
-      "description": "1.0mm circular SMD testpad",
       "pins": {
         "1": "VLi-Ion"
       },
+      "mpn": "N.A.",
+      "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
     "C69": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "GND",
         "2": "VBUS"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
     "C68": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "GND",
         "2": "VBUS_nRF'"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
     "SB47": {
-      "mpn": "N.A.",
-      "description": "Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -7021,27 +6984,27 @@
           "net": "NetP19_1"
         }
       },
+      "mpn": "N.A.",
+      "description": "Solderbridge",
       "value": "Solderbridge"
     },
     "TP16": {
-      "mpn": "N.A.",
-      "description": "1.5mm circular SMD testpad",
       "pins": {
         "1": "NetFB62_1"
       },
+      "mpn": "N.A.",
+      "description": "1.5mm circular SMD testpad",
       "value": "Ø1.5mm,SMD"
     },
     "TP15": {
-      "mpn": "N.A.",
-      "description": "1.5mm circular SMD testpad",
       "pins": {
         "1": "NetC60_2"
       },
+      "mpn": "N.A.",
+      "description": "1.5mm circular SMD testpad",
       "value": "Ø1.5mm,SMD"
     },
     "SB60": {
-      "mpn": "N.A.",
-      "description": "Shorted Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -7052,11 +7015,11 @@
           "net": "VDD_nRF'"
         }
       },
+      "mpn": "N.A.",
+      "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
     "SB59": {
-      "mpn": "N.A.",
-      "description": "Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -7067,86 +7030,86 @@
           "net": "VDD"
         }
       },
+      "mpn": "N.A.",
+      "description": "Solderbridge",
       "value": "Solderbridge"
     },
     "TP42": {
+      "pins": {
+        "1": "P0.03/AIN1"
+      },
       "mpn": "N.A.",
       "description": "1.0mm circular SMD testpad",
-      "pins": {
-        "1": "NetP14_2"
-      },
       "value": "Ø1.0mm,SMD"
     },
     "TP43": {
+      "pins": {
+        "1": "P0.04/AIN2"
+      },
       "mpn": "N.A.",
       "description": "1.0mm circular SMD testpad",
-      "pins": {
-        "1": "NetP14_4"
-      },
       "value": "Ø1.0mm,SMD"
     },
     "TP44": {
+      "pins": {
+        "1": "P0.28/AIN4"
+      },
       "mpn": "N.A.",
       "description": "1.0mm circular SMD testpad",
-      "pins": {
-        "1": "NetP14_6"
-      },
       "value": "Ø1.0mm,SMD"
     },
     "TP45": {
+      "pins": {
+        "1": "P0.29/AIN5"
+      },
       "mpn": "N.A.",
       "description": "1.0mm circular SMD testpad",
-      "pins": {
-        "1": "NetP14_8"
-      },
       "value": "Ø1.0mm,SMD"
     },
     "TP46": {
+      "pins": {
+        "1": "P0.30/AIN6"
+      },
       "mpn": "N.A.",
       "description": "1.0mm circular SMD testpad",
-      "pins": {
-        "1": "NetP14_10"
-      },
       "value": "Ø1.0mm,SMD"
     },
     "TP47": {
+      "pins": {
+        "1": "P0.31/AIN7"
+      },
       "mpn": "N.A.",
       "description": "1.0mm circular SMD testpad",
-      "pins": {
-        "1": "NetP14_12"
-      },
       "value": "Ø1.0mm,SMD"
     },
     "R63": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "GND",
         "2": "NetC67_2"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "1M0"
     },
     "R62": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "GND",
         "2": "NetC66_2"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "1M0"
     },
     "R69": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "GND",
         "2": "NetP20_13"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "866R"
     },
     "SB19": {
-      "mpn": "N.A.",
-      "description": "Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -7157,11 +7120,11 @@
           "net": "VIO_REF"
         }
       },
+      "mpn": "N.A.",
+      "description": "Solderbridge",
       "value": "Solderbridge"
     },
     "P1": {
-      "mpn": "2171-108MS0CUNR3",
-      "description": "Socket 1x8, 2.54mm (100mil), SMD",
       "pins": {
         "1": "VIO",
         "2": "VIO",
@@ -7172,131 +7135,131 @@
         "7": "GND",
         "8": "VIN"
       },
+      "mpn": "2171-108MS0CUNR3",
+      "description": "Socket 1x8, 2.54mm (100mil), SMD",
       "value": "Socket 1x8"
     },
     "P2": {
+      "pins": {
+        "1": "P0.03/AIN1",
+        "2": "P0.04/AIN2",
+        "3": "P0.28/AIN4",
+        "4": "P0.29/AIN5",
+        "5": "P0.30/AIN6",
+        "6": "P0.31/AIN7"
+      },
       "mpn": "2171-106MS0CUNR3",
       "description": "Socket 1x6, 2.54mm (100mil), SMD",
-      "pins": {
-        "1": "NetP14_2",
-        "2": "NetP14_4",
-        "3": "NetP14_6",
-        "4": "NetP14_8",
-        "5": "NetP14_10",
-        "6": "NetP14_12"
-      },
       "value": "Socket 1x6"
     },
     "P8": {
+      "pins": {
+        "1": "P0.03/AIN1",
+        "2": "P0.04/AIN2",
+        "3": "P0.28/AIN4",
+        "4": "P0.29/AIN5",
+        "5": "P0.30/AIN6",
+        "6": "P0.31/AIN7"
+      },
       "mpn": "1125-1106S0M116R2",
       "description": "Pin List 1x6, 2.54mm (100mil), SMD",
-      "pins": {
-        "1": "NetP14_2",
-        "2": "NetP14_4",
-        "3": "NetP14_6",
-        "4": "NetP14_8",
-        "5": "NetP14_10",
-        "6": "NetP14_12"
-      },
       "value": "Pin List 1x6"
     },
     "P9": {
+      "pins": {
+        "1": "P1.01",
+        "2": "P1.02",
+        "3": "P1.03",
+        "4": "P1.04",
+        "5": "P1.05",
+        "6": "P1.06",
+        "7": "P1.07",
+        "8": "P1.08"
+      },
       "mpn": "1125-1108S0M116CR04",
       "description": "Pin List 1x8, 2.54mm (100mil), SMD",
-      "pins": {
-        "1": "NetP15_2",
-        "2": "NetP15_4",
-        "3": "NetP15_6",
-        "4": "NetP15_8",
-        "5": "NetP15_10",
-        "6": "NetP15_12",
-        "7": "NetP15_14",
-        "8": "NetP15_16"
-      },
       "value": "Pin List 1x8"
     },
     "P3": {
+      "pins": {
+        "1": "P1.01",
+        "2": "P1.02",
+        "3": "P1.03",
+        "4": "P1.04",
+        "5": "P1.05",
+        "6": "P1.06",
+        "7": "P1.07",
+        "8": "P1.08"
+      },
       "mpn": "2171-108MS0CUNR3",
       "description": "Socket 1x8, 2.54mm (100mil), SMD",
-      "pins": {
-        "1": "NetP15_2",
-        "2": "NetP15_4",
-        "3": "NetP15_6",
-        "4": "NetP15_8",
-        "5": "NetP15_10",
-        "6": "NetP15_12",
-        "7": "NetP15_14",
-        "8": "NetP15_16"
-      },
       "value": "Socket 1x8"
     },
     "P10": {
+      "pins": {
+        "1": "P1.10",
+        "2": "P1.11",
+        "3": "P1.12",
+        "4": "P1.13",
+        "5": "P1.14",
+        "6": "P1.15",
+        "7": "GND",
+        "8": "P0.02/AIN0",
+        "9": "SDA",
+        "10": "SCL"
+      },
       "mpn": "1125-1110S0M116R2",
       "description": "Pin List 1x10, 2.54mm (100mil), SMD",
-      "pins": {
-        "1": "NetP10_1",
-        "2": "NetP10_2",
-        "3": "NetP10_3",
-        "4": "NetP10_4",
-        "5": "NetP10_5",
-        "6": "NetP10_6",
-        "7": "GND",
-        "8": "NetP10_8",
-        "9": "NetP10_9",
-        "10": "NetP10_10"
-      },
       "value": "Pin List 1x10"
     },
     "P4": {
+      "pins": {
+        "1": "P1.10",
+        "2": "P1.11",
+        "3": "P1.12",
+        "4": "P1.13",
+        "5": "P1.14",
+        "6": "P1.15",
+        "7": "GND",
+        "8": "P0.02/AIN0",
+        "9": "SDA",
+        "10": "SCL"
+      },
       "mpn": "2171-110MS0CUNR3",
       "description": "Socket 1x10, 2.54mm (100mil), SMD",
-      "pins": {
-        "1": "NetP10_1",
-        "2": "NetP10_2",
-        "3": "NetP10_3",
-        "4": "NetP10_4",
-        "5": "NetP10_5",
-        "6": "NetP10_6",
-        "7": "GND",
-        "8": "NetP10_8",
-        "9": "NetP10_9",
-        "10": "NetP10_10"
-      },
       "value": "Socket 1x10"
     },
     "P12": {
-      "mpn": "1125-1108S0M116CR04",
-      "description": "Pin List 1x8, 2.54mm (100mil), SMD",
       "pins": {
-        "1": "NetP12_1",
-        "2": "NetP12_2",
-        "3": "NetP12_3",
-        "4": "NetP12_4",
-        "5": "NetP12_5",
-        "6": "NetP12_6",
+        "1": "P0.00",
+        "2": "P0.01",
+        "3": "P0.05/AIN3",
+        "4": "P0.06",
+        "5": "P0.07",
+        "6": "P0.08",
         "7": "NetP12_7",
         "8": "NetP12_8"
       },
+      "mpn": "1125-1108S0M116CR04",
+      "description": "Pin List 1x8, 2.54mm (100mil), SMD",
       "value": "Pin List 1x8"
     },
     "P6": {
-      "mpn": "2171-108MS0CUNR3",
-      "description": "Socket 1x8, 2.54mm (100mil), SMD",
       "pins": {
-        "1": "NetP12_1",
-        "2": "NetP12_2",
-        "3": "NetP12_3",
-        "4": "NetP12_4",
-        "5": "NetP12_5",
-        "6": "NetP12_6",
+        "1": "P0.00",
+        "2": "P0.01",
+        "3": "P0.05/AIN3",
+        "4": "P0.06",
+        "5": "P0.07",
+        "6": "P0.08",
         "7": "NetP12_7",
         "8": "NetP12_8"
       },
+      "mpn": "2171-108MS0CUNR3",
+      "description": "Socket 1x8, 2.54mm (100mil), SMD",
       "value": "Socket 1x8"
     },
     "P20": {
-      "mpn": "1125-1113S0M116CR04",
-      "description": "Pin List 1x13, 2.54mm (100mil), SMD",
       "pins": {
         "1": "VDD_nRF",
         "2": "VDD_nRF'",
@@ -7312,11 +7275,11 @@
         "12": "VIO_REF",
         "13": "NetP20_13"
       },
+      "mpn": "1125-1113S0M116CR04",
+      "description": "Pin List 1x13, 2.54mm (100mil), SMD",
       "value": "Pin List 1x13"
     },
     "SB34": {
-      "mpn": "N.A.",
-      "description": "Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -7327,11 +7290,11 @@
           "net": "VREG"
         }
       },
+      "mpn": "N.A.",
+      "description": "Solderbridge",
       "value": "Solderbridge"
     },
     "SB36": {
-      "mpn": "N.A.",
-      "description": "Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -7342,35 +7305,35 @@
           "net": "VEXT"
         }
       },
+      "mpn": "N.A.",
+      "description": "Solderbridge",
       "value": "Solderbridge"
     },
     "TP30": {
-      "mpn": "N.A.",
-      "description": "1.0mm circular SMD testpad",
       "pins": {
         "1": "VSENSE_SW_OUT"
       },
+      "mpn": "N.A.",
+      "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
     "TP40": {
-      "mpn": "N.A.",
-      "description": "Testpoint, through hole",
       "pins": {
         "1": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Testpoint, through hole",
       "value": "TP"
     },
     "TP41": {
-      "mpn": "N.A.",
-      "description": "Testpoint, through hole",
       "pins": {
         "1": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Testpoint, through hole",
       "value": "TP"
     },
     "SW8": {
-      "mpn": "MKH-22D14-G2-B",
-      "description": "Slide Switch DPDT",
       "pins": {
         "1": {
           "name": "N.O-1",
@@ -7397,20 +7360,20 @@
           "net": "VBOOST_SRC"
         }
       },
+      "mpn": "MKH-22D14-G2-B",
+      "description": "Slide Switch DPDT",
       "value": "MKH-22D14-G2-B"
     },
     "P21": {
-      "mpn": "1125B-1102S0Z135CR06",
-      "description": "Pin List 1x2, 2.54mm (100mil), Right Angled, SMD",
       "pins": {
         "1": "GND",
         "2": "NetP21_2"
       },
+      "mpn": "1125B-1102S0Z135CR06",
+      "description": "Pin List 1x2, 2.54mm (100mil), Right Angled, SMD",
       "value": "Pin List 1x2, Angled"
     },
     "Q81": {
-      "mpn": "TSM250N02DCQ RFG",
-      "description": "Dual N Ch MOFET, 5.8A, 55mOhm max, 620mW",
       "pins": {
         "1": "GND",
         "2": "VREG_EN",
@@ -7428,20 +7391,20 @@
         },
         "6": "VREG_EN_INV"
       },
+      "mpn": "TSM250N02DCQ RFG",
+      "description": "Dual N Ch MOFET, 5.8A, 55mOhm max, 620mW",
       "value": "TSM250N02DCQ RFG"
     },
     "R86": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "VSUPPLY",
         "2": "VREG_EN_INV"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "1M0"
     },
     "U15": {
-      "mpn": "TCK106AG,LF",
-      "description": "1.0 A Load Switch IC with Slew Rate Control Driver in Ultra Small Package",
       "pins": {
         "A2": {
           "name": "VIN",
@@ -7460,11 +7423,11 @@
           "net": "GND"
         }
       },
+      "mpn": "TCK106AG,LF",
+      "description": "1.0 A Load Switch IC with Slew Rate Control Driver in Ultra Small Package",
       "value": "TCK106AG"
     },
     "U14": {
-      "mpn": "TCK106AG,LF",
-      "description": "1.0 A Load Switch IC with Slew Rate Control Driver in Ultra Small Package",
       "pins": {
         "A2": {
           "name": "VIN",
@@ -7483,11 +7446,11 @@
           "net": "GND"
         }
       },
+      "mpn": "TCK106AG,LF",
+      "description": "1.0 A Load Switch IC with Slew Rate Control Driver in Ultra Small Package",
       "value": "TCK106AG"
     },
     "U13": {
-      "mpn": "TCK106AG,LF",
-      "description": "1.0 A Load Switch IC with Slew Rate Control Driver in Ultra Small Package",
       "pins": {
         "A2": {
           "name": "VIN",
@@ -7506,11 +7469,11 @@
           "net": "GND"
         }
       },
+      "mpn": "TCK106AG,LF",
+      "description": "1.0 A Load Switch IC with Slew Rate Control Driver in Ultra Small Package",
       "value": "TCK106AG"
     },
     "SB38": {
-      "mpn": "N.A.",
-      "description": "Shorted Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -7521,20 +7484,20 @@
           "net": "VDD"
         }
       },
+      "mpn": "N.A.",
+      "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
     "C85": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "GND",
         "2": "V5V"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
     "U16": {
-      "mpn": "TCK106AG,LF",
-      "description": "1.0 A Load Switch IC with Slew Rate Control Driver in Ultra Small Package",
       "pins": {
         "A2": {
           "name": "VIN",
@@ -7553,20 +7516,20 @@
           "net": "GND"
         }
       },
+      "mpn": "TCK106AG,LF",
+      "description": "1.0 A Load Switch IC with Slew Rate Control Driver in Ultra Small Package",
       "value": "TCK106AG"
     },
     "R88": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "VDD_nRF_SENSE",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "10M"
     },
     "U17": {
-      "mpn": "TCK106AG,LF",
-      "description": "1.0 A Load Switch IC with Slew Rate Control Driver in Ultra Small Package",
       "pins": {
         "A2": {
           "name": "VIN",
@@ -7585,11 +7548,11 @@
           "net": "GND"
         }
       },
+      "mpn": "TCK106AG,LF",
+      "description": "1.0 A Load Switch IC with Slew Rate Control Driver in Ultra Small Package",
       "value": "TCK106AG"
     },
     "Q82": {
-      "mpn": "RV2C010UNT2L",
-      "description": "N-Channel MOSFET, 20V, 1A, 470mOhm, 400mW",
       "pins": {
         "1": {
           "name": "G",
@@ -7604,29 +7567,29 @@
           "net": "VSUPPLY_EN"
         }
       },
+      "mpn": "RV2C010UNT2L",
+      "description": "N-Channel MOSFET, 20V, 1A, 470mOhm, 400mW",
       "value": "RV2C010UNT2L"
     },
     "R87": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "VSUPPLY",
         "2": "VSUPPLY_EN"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "1M0"
     },
     "R89": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "VSUPPLY",
         "2": "VEXT_EN_INV"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "1M0"
     },
     "D81": {
-      "mpn": "NSR0620P2T5G",
-      "description": "20V schottky barrier diode, Vf 350 mV @ 100 mA, Ir 2.0 µA @ 10 V, If 500 mA",
       "pins": {
         "1": {
           "name": "C",
@@ -7637,11 +7600,11 @@
           "net": "VBUS_nRF'"
         }
       },
+      "mpn": "NSR0620P2T5G",
+      "description": "20V schottky barrier diode, Vf 350 mV @ 100 mA, Ir 2.0 µA @ 10 V, If 500 mA",
       "value": "NSR0620P2T5G"
     },
     "D80": {
-      "mpn": "NSR0620P2T5G",
-      "description": "20V schottky barrier diode, Vf 350 mV @ 100 mA, Ir 2.0 µA @ 10 V, If 500 mA",
       "pins": {
         "1": {
           "name": "C",
@@ -7652,11 +7615,11 @@
           "net": "VBUS"
         }
       },
+      "mpn": "NSR0620P2T5G",
+      "description": "20V schottky barrier diode, Vf 350 mV @ 100 mA, Ir 2.0 µA @ 10 V, If 500 mA",
       "value": "NSR0620P2T5G"
     },
     "D82": {
-      "mpn": "NSR0620P2T5G",
-      "description": "20V schottky barrier diode, Vf 350 mV @ 100 mA, Ir 2.0 µA @ 10 V, If 500 mA",
       "pins": {
         "1": {
           "name": "C",
@@ -7667,74 +7630,74 @@
           "net": "VLi-Ion"
         }
       },
+      "mpn": "NSR0620P2T5G",
+      "description": "20V schottky barrier diode, Vf 350 mV @ 100 mA, Ir 2.0 µA @ 10 V, If 500 mA",
       "value": "NSR0620P2T5G"
     },
     "C80": {
-      "mpn": "CL10A106MA8NRNC",
-      "description": "Capacitor, X5R, ±20%, 25V",
       "pins": {
         "1": "GND",
         "2": "VBOOST_SRC"
       },
+      "mpn": "CL10A106MA8NRNC",
+      "description": "Capacitor, X5R, ±20%, 25V",
       "value": "10µF"
     },
     "C82": {
-      "mpn": "CL10A106MA8NRNC",
-      "description": "Capacitor, X5R, ±20%, 25V",
       "pins": {
         "1": "GND",
         "2": "V5V"
       },
+      "mpn": "CL10A106MA8NRNC",
+      "description": "Capacitor, X5R, ±20%, 25V",
       "value": "10µF"
     },
     "R84": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "GND",
         "2": "NetC87_1"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "120k"
     },
     "R82": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "NetC87_1",
         "2": "VREG"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "330k"
     },
     "L81": {
-      "mpn": "NR3015T4R7M",
-      "description": "Ferrite Inductor, Shielded, 1,04A, 144mOhm",
       "pins": {
         "1": "NetL81_1",
         "2": "VREG"
       },
+      "mpn": "NR3015T4R7M",
+      "description": "Ferrite Inductor, Shielded, 1,04A, 144mOhm",
       "value": "4.7µH"
     },
     "C88": {
-      "mpn": "CL10A106MA8NRNC",
-      "description": "Capacitor, X5R, ±20%, 25V",
       "pins": {
         "1": "GND",
         "2": "VREG"
       },
+      "mpn": "CL10A106MA8NRNC",
+      "description": "Capacitor, X5R, ±20%, 25V",
       "value": "10µF"
     },
     "C86": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X5R, ±10%, 16V",
       "pins": {
         "1": "GND",
         "2": "NetC86_2"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X5R, ±10%, 16V",
       "value": "4.7µF"
     },
     "U11": {
-      "mpn": "XC9236D08CER-G",
-      "description": "600mA Driver Transistor Built-In, Synchronous Step-Down DC/DC Converters",
       "pins": {
         "1": {
           "name": "LX",
@@ -7765,20 +7728,20 @@
           "net": ""
         }
       },
+      "mpn": "XC9236D08CER-G",
+      "description": "600mA Driver Transistor Built-In, Synchronous Step-Down DC/DC Converters",
       "value": "XC9236"
     },
     "C87": {
-      "mpn": "N.A.",
-      "description": "Capacitor, NP0, ±5%, 25V",
       "pins": {
         "1": "NetC87_1",
         "2": "VREG"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, NP0, ±5%, 25V",
       "value": "150pF"
     },
     "D83": {
-      "mpn": "NSR0620P2T5G",
-      "description": "20V schottky barrier diode, Vf 350 mV @ 100 mA, Ir 2.0 µA @ 10 V, If 500 mA",
       "pins": {
         "1": {
           "name": "C",
@@ -7789,11 +7752,11 @@
           "net": "VIN3-5V"
         }
       },
+      "mpn": "NSR0620P2T5G",
+      "description": "20V schottky barrier diode, Vf 350 mV @ 100 mA, Ir 2.0 µA @ 10 V, If 500 mA",
       "value": "NSR0620P2T5G"
     },
     "Q80": {
-      "mpn": "FCX690BTA",
-      "description": "45V NPN high gain power transistor",
       "pins": {
         "1": {
           "name": "B",
@@ -7808,11 +7771,11 @@
           "net": "NetQ80_3"
         }
       },
+      "mpn": "FCX690BTA",
+      "description": "45V NPN high gain power transistor",
       "value": "FCX690BTA"
     },
     "SB37": {
-      "mpn": "N.A.",
-      "description": "Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -7823,11 +7786,11 @@
           "net": "VDD"
         }
       },
+      "mpn": "N.A.",
+      "description": "Solderbridge",
       "value": "Solderbridge"
     },
     "U18": {
-      "mpn": "TCK106AG,LF",
-      "description": "1.0 A Load Switch IC with Slew Rate Control Driver in Ultra Small Package",
       "pins": {
         "A2": {
           "name": "VIN",
@@ -7846,56 +7809,56 @@
           "net": "GND"
         }
       },
+      "mpn": "TCK106AG,LF",
+      "description": "1.0 A Load Switch IC with Slew Rate Control Driver in Ultra Small Package",
       "value": "TCK106AG"
     },
     "R83": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "V5V",
         "2": "VREG_EN"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "820k"
     },
     "R85": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "VREG_EN",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "470k"
     },
     "C89": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "GND",
         "2": "VSUPPLY"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
     "C90": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "GND",
         "2": "VSUPPLY"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
     "C83": {
-      "mpn": "CL10A106MA8NRNC",
-      "description": "Capacitor, X5R, ±20%, 25V",
       "pins": {
         "1": "GND",
         "2": "V5V"
       },
+      "mpn": "CL10A106MA8NRNC",
+      "description": "Capacitor, X5R, ±20%, 25V",
       "value": "10µF"
     },
     "SB39": {
-      "mpn": "N.A.",
-      "description": "Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -7906,11 +7869,11 @@
           "net": "VSUPPLY"
         }
       },
+      "mpn": "N.A.",
+      "description": "Solderbridge",
       "value": "Solderbridge"
     },
     "SW10": {
-      "mpn": "CAS-220TA",
-      "description": "Slide Switch DPDT J Hook",
       "pins": {
         "1": {
           "name": "N.O-1",
@@ -7937,11 +7900,11 @@
           "net": "VDD"
         }
       },
+      "mpn": "CAS-220TA",
+      "description": "Slide Switch DPDT J Hook",
       "value": "CAS-220TA"
     },
     "SB48": {
-      "mpn": "N.A.",
-      "description": "Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -7952,11 +7915,11 @@
           "net": "VBUS"
         }
       },
+      "mpn": "N.A.",
+      "description": "Solderbridge",
       "value": "Solderbridge"
     },
     "U24": {
-      "mpn": "TCK106AG,LF",
-      "description": "1.0 A Load Switch IC with Slew Rate Control Driver in Ultra Small Package",
       "pins": {
         "A2": {
           "name": "VIN",
@@ -7975,11 +7938,11 @@
           "net": "GND"
         }
       },
+      "mpn": "TCK106AG,LF",
+      "description": "1.0 A Load Switch IC with Slew Rate Control Driver in Ultra Small Package",
       "value": "TCK106AG"
     },
     "U25": {
-      "mpn": "74LVC1G08GW",
-      "description": "Single 2-Input AND Gate",
       "pins": {
         "1": {
           "name": "A",
@@ -8002,11 +7965,11 @@
           "net": "VSUPPLY"
         }
       },
+      "mpn": "74LVC1G08GW",
+      "description": "Single 2-Input AND Gate",
       "value": "74LVC1G08"
     },
     "U21": {
-      "mpn": "74LVC1G11GW",
-      "description": "Single 3-input AND gate",
       "pins": {
         "1": {
           "name": "A",
@@ -8033,11 +7996,11 @@
           "net": "VEXT_EN_INV"
         }
       },
+      "mpn": "74LVC1G11GW",
+      "description": "Single 3-input AND gate",
       "value": "74LVC1G11"
     },
     "U20": {
-      "mpn": "74LVC1G08GW",
-      "description": "Single 2-Input AND Gate",
       "pins": {
         "1": {
           "name": "A",
@@ -8060,29 +8023,29 @@
           "net": "VSUPPLY"
         }
       },
+      "mpn": "74LVC1G08GW",
+      "description": "Single 2-Input AND Gate",
       "value": "74LVC1G08"
     },
     "C93": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "GND",
         "2": "VSUPPLY"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
     "R92": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "VEXT",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "10M"
     },
     "D84": {
-      "mpn": "LS14",
-      "description": "Diode Schottky Vf=0.45, Vr=40V, If=1A, Ir=1µA",
       "pins": {
         "1": {
           "name": "C",
@@ -8093,11 +8056,11 @@
           "net": "V5V"
         }
       },
+      "mpn": "LS14",
+      "description": "Diode Schottky Vf=0.45, Vr=40V, If=1A, Ir=1µA",
       "value": "LS14"
     },
     "Q83": {
-      "mpn": "RV2C010UNT2L",
-      "description": "N-Channel MOSFET, 20V, 1A, 470mOhm, 400mW",
       "pins": {
         "1": {
           "name": "G",
@@ -8112,101 +8075,101 @@
           "net": "NetQ83_3"
         }
       },
+      "mpn": "RV2C010UNT2L",
+      "description": "N-Channel MOSFET, 20V, 1A, 470mOhm, 400mW",
       "value": "RV2C010UNT2L"
     },
     "R93": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "V5V",
         "2": "NetQ83_3"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "1k"
     },
     "R94": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "NetQ83_1",
         "2": "GND"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "10M"
     },
     "TP27": {
-      "mpn": "N.A.",
-      "description": "1.0mm circular SMD testpad",
       "pins": {
         "1": "NetP21_2"
       },
+      "mpn": "N.A.",
+      "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
     "TP26": {
-      "mpn": "N.A.",
-      "description": "1.0mm circular SMD testpad",
       "pins": {
         "1": "VBAT"
       },
+      "mpn": "N.A.",
+      "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
     "TP33": {
-      "mpn": "N.A.",
-      "description": "1.0mm circular SMD testpad",
       "pins": {
         "1": "VDD_nRF_SENSE"
       },
+      "mpn": "N.A.",
+      "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
     "TP34": {
-      "mpn": "N.A.",
-      "description": "1.0mm circular SMD testpad",
       "pins": {
         "1": "NetQ80_3"
       },
+      "mpn": "N.A.",
+      "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
     "TP32": {
-      "mpn": "N.A.",
-      "description": "1.0mm circular SMD testpad",
       "pins": {
         "1": "VBOOST_SRC'"
       },
+      "mpn": "N.A.",
+      "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
     "TP35": {
-      "mpn": "N.A.",
-      "description": "1.0mm circular SMD testpad",
       "pins": {
         "1": "VDD_IMCU"
       },
+      "mpn": "N.A.",
+      "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
     "TP28": {
-      "mpn": "N.A.",
-      "description": "1.0mm circular SMD testpad",
       "pins": {
         "1": "VBOOST_SRC"
       },
+      "mpn": "N.A.",
+      "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
     "TP36": {
-      "mpn": "N.A.",
-      "description": "1.0mm circular SMD testpad",
       "pins": {
         "1": "V5V"
       },
+      "mpn": "N.A.",
+      "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
     "TP29": {
-      "mpn": "N.A.",
-      "description": "1.0mm circular SMD testpad",
       "pins": {
         "1": "VSUPPLY"
       },
+      "mpn": "N.A.",
+      "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
     "SB58": {
-      "mpn": "N.A.",
-      "description": "Shorted Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -8217,38 +8180,38 @@
           "net": "NetSB58_2"
         }
       },
+      "mpn": "N.A.",
+      "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
     "R96": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "VSUPPLY",
         "2": "NetQ84_5"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "1M0"
     },
     "R95": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "VBAT",
         "2": "NetR95_2"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "100k"
     },
     "C94": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X5R, ±10%",
       "pins": {
         "1": "GND",
         "2": "VSUPPLY"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
     "U26": {
-      "mpn": "74LVC1G11GW",
-      "description": "Single 3-input AND gate",
       "pins": {
         "1": {
           "name": "A",
@@ -8275,11 +8238,11 @@
           "net": "VEXT_EN_INV"
         }
       },
+      "mpn": "74LVC1G11GW",
+      "description": "Single 3-input AND gate",
       "value": "74LVC1G11"
     },
     "SW9": {
-      "mpn": "JS203011JCQN",
-      "description": "Slide Switch DP3T 300mA 6V",
       "pins": {
         "1": {
           "name": "N.O",
@@ -8314,20 +8277,20 @@
           "net": "NetR97_2"
         }
       },
+      "mpn": "JS203011JCQN",
+      "description": "Slide Switch DP3T 300mA 6V",
       "value": "JS203011JCQN"
     },
     "R90": {
-      "mpn": "N.A.",
       "pins": {
         "1": "VDD_nRF'",
         "2": "VDD_nRF"
       },
+      "mpn": "N.A.",
       "value": "N.C.",
       "dns": true
     },
     "SB40": {
-      "mpn": "N.A.",
-      "description": "Shorted Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -8338,29 +8301,29 @@
           "net": "VDD_nRF'"
         }
       },
+      "mpn": "N.A.",
+      "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
     "P22": {
-      "mpn": "1125B-1102S0Z135CR06",
-      "description": "Pin List 1x2, 2.54mm (100mil), Right Angled, SMD",
       "pins": {
         "1": "VDD_nRF",
         "2": "VDD_nRF'"
       },
+      "mpn": "1125B-1102S0Z135CR06",
+      "description": "Pin List 1x2, 2.54mm (100mil), Right Angled, SMD",
       "value": "Pin List 1x2, Angled"
     },
     "R91": {
-      "mpn": "N.A.",
       "pins": {
         "1": "VDD_HV'",
         "2": "VDD_HV"
       },
+      "mpn": "N.A.",
       "value": "N.C.",
       "dns": true
     },
     "SB41": {
-      "mpn": "N.A.",
-      "description": "Shorted Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -8371,29 +8334,29 @@
           "net": "VDD_HV'"
         }
       },
+      "mpn": "N.A.",
+      "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
     "P23": {
-      "mpn": "1125B-1102S0Z135CR06",
-      "description": "Pin List 1x2, 2.54mm (100mil), Right Angled, SMD",
       "pins": {
         "1": "VDD_HV",
         "2": "VDD_HV'"
       },
+      "mpn": "1125B-1102S0Z135CR06",
+      "description": "Pin List 1x2, 2.54mm (100mil), Right Angled, SMD",
       "value": "Pin List 1x2, Angled"
     },
     "C92": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X7R, ±10%",
       "pins": {
         "1": "GND",
         "2": "NetC92_2"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X7R, ±10%",
       "value": "1.0µF"
     },
     "SB81": {
-      "mpn": "N.A.",
-      "description": "Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -8404,20 +8367,20 @@
           "net": "NetC92_2"
         }
       },
+      "mpn": "N.A.",
+      "description": "Solderbridge",
       "value": "Solderbridge"
     },
     "C91": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X7R, ±10%",
       "pins": {
         "1": "GND",
         "2": "VBUS_nRF'"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X7R, ±10%",
       "value": "1.0µF"
     },
     "SB80": {
-      "mpn": "N.A.",
-      "description": "Solderbridge",
       "pins": {
         "1": {
           "name": "0",
@@ -8428,87 +8391,87 @@
           "net": "VBUS_nRF'"
         }
       },
+      "mpn": "N.A.",
+      "description": "Solderbridge",
       "value": "Solderbridge"
     },
     "TP38": {
-      "mpn": "N.A.",
-      "description": "1.0mm circular SMD testpad",
       "pins": {
         "1": "NetR98_1"
       },
+      "mpn": "N.A.",
+      "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
     "TP24": {
-      "mpn": "N.A.",
-      "description": "1.0mm circular SMD testpad",
       "pins": {
         "1": "VDD_nRF"
       },
+      "mpn": "N.A.",
+      "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
     "TP25": {
-      "mpn": "N.A.",
-      "description": "1.0mm circular SMD testpad",
       "pins": {
         "1": "VDD_HV"
       },
+      "mpn": "N.A.",
+      "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
     "TP37": {
-      "mpn": "N.A.",
-      "description": "1.0mm circular SMD testpad",
       "pins": {
         "1": "VDD"
       },
+      "mpn": "N.A.",
+      "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
     "TP39": {
-      "mpn": "N.A.",
-      "description": "1.0mm circular SMD testpad",
       "pins": {
         "1": "GND"
       },
+      "mpn": "N.A.",
+      "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
     "R97": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "VBUS_nRF'",
         "2": "NetR97_2"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "4R7"
     },
     "R98": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "NetR98_1",
         "2": "VBUS_nRF"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "4R7"
     },
     "Bat1": {
-      "mpn": "L-KLS5-CR2032-23-B1",
-      "description": "Bat Holder CR2032 SMD",
       "pins": {
         "1": "VBAT",
         "2": "GND"
       },
+      "mpn": "L-KLS5-CR2032-23-B1",
+      "description": "Bat Holder CR2032 SMD",
       "value": "Bat Holder CR2032"
     },
     "R99": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "VDD_nRF_SENSE",
         "2": "VIO_REF"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "10k"
     },
     "Q84": {
-      "mpn": "PMCPB5530X,115",
-      "description": "Mosfet Array N and P-Channel 20V 4A (Ta), 3.4A (Ta) 490mW Surface Mount 6-HUSON-EP (2x2)",
       "pins": {
         "1": "GND",
         "2": "NetQ84_2",
@@ -8526,11 +8489,11 @@
         },
         "6": "NetQ84_5"
       },
+      "mpn": "PMCPB5530X,115",
+      "description": "Mosfet Array N and P-Channel 20V 4A (Ta), 3.4A (Ta) 490mW Surface Mount 6-HUSON-EP (2x2)",
       "value": "PMCPB5530"
     },
     "Q1": {
-      "mpn": "RV2C010UNT2L",
-      "description": "N-Channel MOSFET, 20V, 1A, 470mOhm, 400mW",
       "pins": {
         "1": {
           "name": "G",
@@ -8545,38 +8508,38 @@
           "net": "NetQ1_3"
         }
       },
+      "mpn": "RV2C010UNT2L",
+      "description": "N-Channel MOSFET, 20V, 1A, 470mOhm, 400mW",
       "value": "RV2C010UNT2L"
     },
     "R6": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "NetQ1_3",
         "2": "VDD_nRF_SENSE"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "47k"
     },
     "C53": {
-      "mpn": "N.A.",
-      "description": "Capacitor, X7R, ±10%",
       "pins": {
         "1": "GND",
         "2": "NetC53_2"
       },
+      "mpn": "N.A.",
+      "description": "Capacitor, X7R, ±10%",
       "value": "10nF"
     },
     "R5": {
-      "mpn": "N.A.",
-      "description": "Resistor, ±1%, 0.05W",
       "pins": {
         "1": "VDD_nRF_SENSE",
         "2": "NetC53_2"
       },
+      "mpn": "N.A.",
+      "description": "Resistor, ±1%, 0.05W",
       "value": "10M"
     },
     "U9": {
-      "mpn": "TCK106AG,LF",
-      "description": "1.0 A Load Switch IC with Slew Rate Control Driver in Ultra Small Package",
       "pins": {
         "A2": {
           "name": "VIN",
@@ -8595,11 +8558,11 @@
           "net": "GND"
         }
       },
+      "mpn": "TCK106AG,LF",
+      "description": "1.0 A Load Switch IC with Slew Rate Control Driver in Ultra Small Package",
       "value": "TCK106AG"
     },
     "U10": {
-      "mpn": "TCK106AG,LF",
-      "description": "1.0 A Load Switch IC with Slew Rate Control Driver in Ultra Small Package",
       "pins": {
         "A2": {
           "name": "VIN",
@@ -8618,11 +8581,11 @@
           "net": "GND"
         }
       },
+      "mpn": "TCK106AG,LF",
+      "description": "1.0 A Load Switch IC with Slew Rate Control Driver in Ultra Small Package",
       "value": "TCK106AG"
     },
     "U12": {
-      "mpn": "XC9148A50CER-G",
-      "description": "1.4A Driver Transistor Built-In, Multi Functional Step-Up DC/DC Converter",
       "pins": {
         "1": {
           "name": "BAT",
@@ -8653,23 +8616,25 @@
           "net": "GND"
         }
       },
+      "mpn": "XC9148A50CER-G",
+      "description": "1.4A Driver Transistor Built-In, Multi Functional Step-Up DC/DC Converter",
       "value": "XC9148"
     },
     "L80": {
-      "mpn": "VLS3012HBX-4R7M-N",
-      "description": "4.7µH Shielded Wirewound Inductor 2.23A 201 mOhm Max Nonstandard",
       "pins": {
         "1": "VBOOST_SRC",
         "2": "NetL80_2"
       },
+      "mpn": "VLS3012HBX-4R7M-N",
+      "description": "4.7µH Shielded Wirewound Inductor 2.23A 201 mOhm Max Nonstandard",
       "value": "4.7µH"
     },
     "C96": {
-      "mpn": "N.A.",
       "pins": {
         "1": "GND",
         "2": "V5V"
       },
+      "mpn": "N.A.",
       "value": "N.C.",
       "dns": true
     }

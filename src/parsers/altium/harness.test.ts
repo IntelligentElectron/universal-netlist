@@ -3,8 +3,11 @@ import {
   parseHarnessDefinitions,
   resolveHarnessMembers,
   collectNestedHarnessTypes,
-  positionHarnessEntries,
+  readHarnessConnectors,
+  assignHarnessSignals,
+  harnessSignalKey,
 } from "./harness.js";
+import type { HarnessRecord } from "./harness.js";
 
 /**
  * The sample definitions are the verbatim contents of
@@ -134,11 +137,11 @@ describe("collectNestedHarnessTypes", () => {
   });
 });
 
-describe("positionHarnessEntries", () => {
+describe("readHarnessConnectors", () => {
   it("places entries on the connector's left edge at the verified pitch", () => {
     // Geometry taken from pulp-bio/HELIOS-R main.SchDoc, where the five wires
     // landing on this connector end at y = 660, 650, 580, 570 and 540.
-    const records = [
+    const records: HarnessRecord[] = [
       {
         RECORD: "215",
         "Location.X": "410",
@@ -153,7 +156,10 @@ describe("positionHarnessEntries", () => {
       { RECORD: "216", Name: "VDD5_A", DistanceFromTop: "13" },
     ];
 
-    expect(positionHarnessEntries(records)).toBe(5);
+    const connectors = readHarnessConnectors(records);
+
+    expect(connectors).toHaveLength(1);
+    expect(connectors[0].entries).toHaveLength(5);
     expect(records.map((r) => r["Location.Y"]).slice(1)).toEqual([
       "660",
       "650",
@@ -164,17 +170,56 @@ describe("positionHarnessEntries", () => {
     expect(records[1]["Location.X"]).toBe("410");
   });
 
+  it("places entries on the right edge when the entry says so", () => {
+    // qfsae/pcb DASH_BULKHEAD.SchDoc: the connector writes no
+    // HarnessConnectorSide and each entry carries Side=1, which is the same
+    // arrangement mirrored. Its four wires end at x = 330.
+    const records: HarnessRecord[] = [
+      { RECORD: "215", "Location.X": "230", "Location.Y": "250", XSize: "100" },
+      { RECORD: "216", Name: "DRIVER_SWITCH_1", Side: "1", DistanceFromTop: "1" },
+      { RECORD: "216", Name: "DRIVER_SWITCH_2", Side: "1", DistanceFromTop: "2" },
+    ];
+
+    readHarnessConnectors(records);
+
+    expect(records[1]["Location.X"]).toBe("330");
+    expect(records[1]["Location.Y"]).toBe("240");
+    expect(records[2]["Location.Y"]).toBe("230");
+  });
+
+  it("reads a fractional distance from the top", () => {
+    // HELIOS-R channel.SchDoc puts an entry half a step down, and its wire ends
+    // at y = 450 rather than 455.
+    const records: HarnessRecord[] = [
+      { RECORD: "215", "Location.X": "815", "Location.Y": "465", XSize: "70" },
+      {
+        RECORD: "216",
+        Name: "V_LASER",
+        Side: "1",
+        DistanceFromTop: "1",
+        DistanceFromTop_Frac1: "500000",
+      },
+      // An entry on the top edge writes no whole part at all.
+      { RECORD: "216", Name: "PGND", Side: "1", DistanceFromTop_Frac1: "500000" },
+    ];
+
+    readHarnessConnectors(records);
+
+    expect(records[1]["Location.Y"]).toBe("450");
+    expect(records[2]["Location.Y"]).toBe("460");
+  });
+
   it("assigns entries to the most recent connector, not by OwnerIndex", () => {
     // OwnerIndex is present on some entries and absent on others in real files,
     // so stream order is what links an entry to its connector.
-    const records = [
+    const records: HarnessRecord[] = [
       { RECORD: "215", "Location.X": "100", "Location.Y": "500", HarnessConnectorSide: "1" },
       { RECORD: "216", Name: "A", DistanceFromTop: "1" },
       { RECORD: "215", "Location.X": "300", "Location.Y": "800", HarnessConnectorSide: "1" },
       { RECORD: "216", Name: "B", DistanceFromTop: "2" },
     ];
 
-    positionHarnessEntries(records);
+    readHarnessConnectors(records);
 
     expect(records[1]["Location.X"]).toBe("100");
     expect(records[1]["Location.Y"]).toBe("490");
@@ -182,22 +227,188 @@ describe("positionHarnessEntries", () => {
     expect(records[3]["Location.Y"]).toBe("780");
   });
 
-  it("leaves entries on an unverified connector side unpositioned", () => {
-    // Better to contribute no connectivity than to invent a connection whose
-    // geometry has not been confirmed against a real design.
-    const records = [
-      { RECORD: "215", "Location.X": "10", "Location.Y": "20", HarnessConnectorSide: "2" },
+  it("passes over a connector that has no coordinates", () => {
+    // Read as written it would sit at the origin, where its entries would all
+    // appear to touch each other and its outgoing connection could be taken for
+    // any harness line reaching that point.
+    const records: HarnessRecord[] = [
+      { RECORD: "215", XSize: "50" },
       { RECORD: "216", Name: "X", DistanceFromTop: "1" },
     ];
 
-    expect(positionHarnessEntries(records)).toBe(0);
+    expect(readHarnessConnectors(records)).toEqual([]);
     expect(records[1]["Location.Y"]).toBeUndefined();
   });
 
   it("ignores an entry with no preceding connector", () => {
-    const records = [{ RECORD: "216", Name: "orphan", DistanceFromTop: "1" }];
+    const records: HarnessRecord[] = [{ RECORD: "216", Name: "orphan", DistanceFromTop: "1" }];
 
-    expect(positionHarnessEntries(records)).toBe(0);
+    expect(readHarnessConnectors(records)).toEqual([]);
+  });
+
+  it("puts the bundle's outgoing connection on the edge opposite the entries", () => {
+    // HELIOS-R channel.SchDoc: this connector's harness line runs from (760,400).
+    const records: HarnessRecord[] = [
+      {
+        RECORD: "215",
+        "Location.X": "690",
+        "Location.Y": "430",
+        XSize: "70",
+        PrimaryConnectionPosition: "30",
+        HarnessConnectorSide: "1",
+      },
+    ];
+
+    expect(readHarnessConnectors(records)[0].primary).toEqual([760 * 10000, 400 * 10000]);
+  });
+});
+
+describe("assignHarnessSignals", () => {
+  const at = (x: number, y: number) => ({ "Location.X": String(x), "Location.Y": String(y) });
+
+  /** Two connectors of one type, wired to each other by a harness line. */
+  const bundlePair = (): HarnessRecord[] => [
+    // Bundles: entries on the left, line leaves from the right at (760,400).
+    {
+      RECORD: "215",
+      ...at(690, 430),
+      XSize: "70",
+      PrimaryConnectionPosition: "30",
+      HarnessConnectorSide: "1",
+    },
+    { RECORD: "216", Name: "OP_OUT", DistanceFromTop: "1" },
+    // Unbundles: line arrives at the left (815,400), entries on the right.
+    { RECORD: "215", ...at(815, 465), XSize: "70", PrimaryConnectionPosition: "65" },
+    { RECORD: "216", Name: "OP_OUT", Side: "1", DistanceFromTop: "1" },
+  ];
+
+  const harnessLine = (x1: number, y1: number, x2: number, y2: number): HarnessRecord => ({
+    RECORD: "218",
+    LocationCount: "2",
+    X1: String(x1),
+    Y1: String(y1),
+    X2: String(x2),
+    Y2: String(y2),
+  });
+
+  it("gives both ends of a harness line the same signal", () => {
+    const records = bundlePair();
+    const connectors = readHarnessConnectors(records);
+
+    assignHarnessSignals(connectors, {
+      records: [],
+      buses: [harnessLine(760, 400, 815, 400)],
+      sheetKey: "channel.SchDoc",
+    });
+
+    expect(records[1].harnessSignal).toBeDefined();
+    expect(records[3].harnessSignal).toBe(records[1].harnessSignal);
+  });
+
+  it("keeps two harnesses of the same type apart", () => {
+    // qfsae/pcb draws one 3WIRE_PSG_SENSOR harness per sensor, each entry named
+    // SIGNAL. Only the port they leave through tells them apart.
+    const records: HarnessRecord[] = [
+      { RECORD: "215", ...at(240, 180), XSize: "60", PrimaryConnectionPosition: "20" },
+      { RECORD: "216", Name: "SIGNAL", Side: "1", DistanceFromTop: "2" },
+      { RECORD: "215", ...at(240, 120), XSize: "60", PrimaryConnectionPosition: "20" },
+      { RECORD: "216", Name: "SIGNAL", Side: "1", DistanceFromTop: "2" },
+    ];
+    const connectors = readHarnessConnectors(records);
+
+    assignHarnessSignals(connectors, {
+      records: [
+        { RECORD: "18", Name: "FL_DAMPER_POT", ...at(80, 160), Width: "160", HarnessType: "S" },
+        { RECORD: "18", Name: "FR_DAMPER_POT", ...at(80, 100), Width: "160", HarnessType: "S" },
+      ],
+      buses: [],
+      sheetKey: "DASH_BULKHEAD.SchDoc",
+    });
+
+    expect(records[1].harnessSignal).toBe(harnessSignalKey("FL_DAMPER_POT", "SIGNAL"));
+    expect(records[3].harnessSignal).toBe(harnessSignalKey("FR_DAMPER_POT", "SIGNAL"));
+  });
+
+  it("names the nets of a labelled harness after the label and the entry", () => {
+    // Altium: "the net is named based on the Net Label placed on the Signal
+    // Harness line + the Harness Entry".
+    const records = bundlePair();
+    const connectors = readHarnessConnectors(records);
+
+    assignHarnessSignals(connectors, {
+      records: [{ RECORD: "25", Text: "HARD", ...at(790, 400) }],
+      buses: [harnessLine(760, 400, 815, 400)],
+      sheetKey: "channel.SchDoc",
+    });
+
+    expect(records[1].harnessNetName).toBe("HARD.OP_OUT");
+    expect(records[3].harnessNetName).toBe("HARD.OP_OUT");
+  });
+
+  it("leaves an unlabelled harness with no net name of its own", () => {
+    const records = bundlePair();
+    const connectors = readHarnessConnectors(records);
+
+    assignHarnessSignals(connectors, {
+      records: [],
+      buses: [harnessLine(760, 400, 815, 400)],
+      sheetKey: "channel.SchDoc",
+    });
+
+    expect(records[1].harnessNetName).toBeUndefined();
+  });
+
+  it("reports the sheet entries a harness line joins as one bundle", () => {
+    // qfsae/pcb TOP.SchDoc joins a bulkhead's bundle to the sheet that feeds it,
+    // where the same bundle goes by a different port name.
+    const links = assignHarnessSignals([], {
+      records: [
+        { RECORD: "15", ...at(520, 630), XSize: "370" },
+        { RECORD: "16", Name: "TRANSPONDER_POWER_UL", DistanceFromTop: "2", HarnessType: "P" },
+        { RECORD: "15", ...at(310, 730), XSize: "220" },
+        { RECORD: "16", Name: "TRANSPONDER_POWER", Side: "1", DistanceFromTop: "3", HarnessType: "P" },
+      ],
+      buses: [harnessLine(520, 610, 530, 700)],
+      sheetKey: "TOP.SchDoc",
+    });
+
+    expect(links).toEqual([["TRANSPONDER_POWER_UL", "TRANSPONDER_POWER"]]);
+  });
+
+  it("ignores a harness sheet entry on an edge whose geometry is unknown", () => {
+    // Side counts round the symbol: 0 left, 1 right, 2 top, 3 bottom. No
+    // harness-typed entry on a horizontal edge has been seen, so one is left out
+    // rather than placed where a vertical entry would go.
+    // ON_TOP would land on the same line vertex as ON_LEFT if it were placed as
+    // a left-edge entry, so its absence from the link is the whole assertion.
+    const links = assignHarnessSignals([], {
+      records: [
+        { RECORD: "15", ...at(520, 630), XSize: "370" },
+        { RECORD: "16", Name: "ON_TOP", Side: "2", DistanceFromTop: "2", HarnessType: "P" },
+        { RECORD: "16", Name: "ON_LEFT", DistanceFromTop: "2", HarnessType: "P" },
+        { RECORD: "15", ...at(450, 720), XSize: "80" },
+        { RECORD: "16", Name: "ON_RIGHT", Side: "1", DistanceFromTop: "2", HarnessType: "P" },
+      ],
+      buses: [harnessLine(520, 610, 530, 700)],
+      sheetKey: "TOP.SchDoc",
+    });
+
+    expect(links).toEqual([["ON_LEFT", "ON_RIGHT"]]);
+  });
+
+  it("leaves a connector that reaches no harness line or port alone", () => {
+    const records: HarnessRecord[] = [
+      { RECORD: "215", ...at(10, 20), XSize: "50", PrimaryConnectionPosition: "5" },
+      { RECORD: "216", Name: "X", Side: "1", DistanceFromTop: "1" },
+    ];
+
+    assignHarnessSignals(readHarnessConnectors(records), {
+      records: [],
+      buses: [],
+      sheetKey: "lonely.SchDoc",
+    });
+
+    expect(records[1].harnessSignal).toBeUndefined();
   });
 });
 

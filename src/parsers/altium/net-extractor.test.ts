@@ -479,3 +479,113 @@ describe("determineNetList", () => {
     expect(Array.isArray(result.nets)).toBe(true);
   });
 });
+
+describe("signal harnesses", () => {
+  /**
+   * The topology of issue #115: two components joined through a harness, with a
+   * different net label on the wire at each end.
+   *
+   *   U1.1 --[FROM_U1]-- (entry SIG) [connector] ==harness== [connector] (entry SIG) --[TO_U2]-- U2.1
+   */
+  const harnessJoinedComponents = (leftLabel: string, rightLabel: string): AltiumSchematic => {
+    const component = (index: number, refdes: string, x: number): AltiumRecord =>
+      ({
+        index,
+        RECORD: RECORD_TYPES.COMPONENT,
+        children: [
+          {
+            index: index + 1,
+            RECORD: RECORD_TYPES.PIN,
+            Designator: "1",
+            "Location.X": String(x),
+            "Location.Y": "100",
+            PinLength: "0",
+            PinConglomerate: "0",
+          } as AltiumRecord,
+          { index: index + 2, RECORD: RECORD_TYPES.DESIGNATOR, Text: refdes } as AltiumRecord,
+        ],
+      }) as AltiumRecord;
+
+    return {
+      header: [],
+      records: [
+        component(0, "U1", 100),
+        component(3, "U2", 500),
+        // U1's wire runs into the left connector's entry at x = 200.
+        { index: 6, RECORD: RECORD_TYPES.WIRE, X1: "100", Y1: "100", X2: "200", Y2: "100" },
+        { index: 7, RECORD: RECORD_TYPES.NET_LABEL, Text: leftLabel, "Location.X": "150", "Location.Y": "100" },
+        // U2's wire runs into the right connector's entry at x = 400.
+        { index: 8, RECORD: RECORD_TYPES.WIRE, X1: "400", Y1: "100", X2: "500", Y2: "100" },
+        { index: 9, RECORD: RECORD_TYPES.NET_LABEL, Text: rightLabel, "Location.X": "450", "Location.Y": "100" },
+        // Both entries carry the same signal of the same bundle, as
+        // assignHarnessSignals would have marked them.
+        {
+          index: 10,
+          RECORD: RECORD_TYPES.HARNESS_ENTRY,
+          Name: "SIG",
+          "Location.X": "200",
+          "Location.Y": "100",
+          harnessSignal: "BUNDLE.SIG",
+        },
+        {
+          index: 11,
+          RECORD: RECORD_TYPES.HARNESS_ENTRY,
+          Name: "SIG",
+          "Location.X": "400",
+          "Location.Y": "100",
+          harnessSignal: "BUNDLE.SIG",
+        },
+      ] as AltiumRecord[],
+    };
+  };
+
+  const refdesOf = (schematic: AltiumSchematic, net: { devices: AltiumRecord[] }): string[] =>
+    net.devices
+      .filter((device) => device.RECORD === RECORD_TYPES.PIN)
+      .map((pin) => {
+        const owner = schematic.records.find((record) =>
+          record.children?.some((child) => child.index === pin.index)
+        );
+        const designator = owner?.children?.find((c) => c.RECORD === RECORD_TYPES.DESIGNATOR);
+        return String(designator?.Text);
+      })
+      .sort();
+
+  it("joins the two ends of a harness whose wires are labelled differently", () => {
+    const schematic = harnessJoinedComponents("FROM_U1", "TO_U2");
+
+    const joined = extractNets(schematic).filter((net) => refdesOf(schematic, net).length === 2);
+
+    expect(joined).toHaveLength(1);
+    expect(refdesOf(schematic, joined[0])).toEqual(["U1", "U2"]);
+  });
+
+  it("names such a net from a wire label, never from the harness entry", () => {
+    // A harness entry names a member of a bundle, not the net, so "SIG" must not
+    // become a net name: it is only unique within its own harness.
+    const schematic = harnessJoinedComponents("FROM_U1", "TO_U2");
+
+    const names = extractNets(schematic).map((net) => net.name);
+
+    expect(names).toContain("FROM_U1");
+    expect(names).not.toContain("SIG");
+  });
+
+  it("skips a harness entry that was never positioned", () => {
+    // Two unpositioned entries would otherwise both sit at the origin and look
+    // like one point, wiring unrelated nets together.
+    const schematic = harnessJoinedComponents("FROM_U1", "TO_U2");
+    for (const record of schematic.records) {
+      if (record.RECORD !== RECORD_TYPES.HARNESS_ENTRY) continue;
+      delete record["Location.X"];
+      delete record["Location.Y"];
+    }
+
+    const nets = extractNets(schematic);
+
+    expect(nets.every((net) => refdesOf(schematic, net).length <= 1)).toBe(true);
+    expect(nets.some((net) => net.devices.some((d) => d.RECORD === RECORD_TYPES.HARNESS_ENTRY))).toBe(
+      false
+    );
+  });
+});

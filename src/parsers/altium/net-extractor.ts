@@ -95,6 +95,12 @@ const findConnectableDevices = (schematic: AltiumSchematic): AltiumRecord[] => {
       if (record.RECORD === RECORD_TYPES.PIN && !pinMatchesCurrentPart(record, schematic)) {
         continue;
       }
+      // An entry whose connector had no coordinates was never positioned. Leaving
+      // it out keeps it from sitting at the origin, where every other such entry
+      // would appear to touch it.
+      if (record.RECORD === RECORD_TYPES.HARNESS_ENTRY && record["Location.X"] === undefined) {
+        continue;
+      }
       if (record.RECORD && connectableTypes.has(record.RECORD)) {
         devices.push(record);
       }
@@ -295,26 +301,61 @@ const collectPinCandidates = (
 };
 
 /**
+ * Naming devices, strongest claim on the net's name first.
+ *
+ * A power port names a global net and outranks everything. A labelled signal
+ * harness comes next: Altium replaces the wire's own label with
+ * `<harness label>.<entry name>` for every net the harness carries. Otherwise
+ * the net label the designer wrote on the wire wins, ahead of a port, which
+ * only names the signal where it crosses a sheet boundary.
+ *
+ * A harness entry never names a net. Its name belongs to a member of a bundle,
+ * not to the net, so it is only unique within its harness: naming nets after
+ * entries would put every sensor's `SIGNAL` under one name.
+ */
+const NAMING_PRIORITY: readonly { type: string; source: NonNullable<AltiumNet["nameSource"]> }[] = [
+  { type: RECORD_TYPES.POWER_PORT, source: "power" },
+  { type: RECORD_TYPES.HARNESS_ENTRY, source: "harness" },
+  { type: RECORD_TYPES.NET_LABEL, source: "label" },
+  { type: RECORD_TYPES.PORT, source: "port" },
+];
+
+/**
+ * The name a device claims for its net, or undefined when it claims none.
+ *
+ * A harness entry claims one only where the harness line it belongs to carries
+ * a net label, which is the case Altium names from.
+ */
+const claimedNetName = (device: AltiumRecord): string | undefined => {
+  if (device.RECORD === RECORD_TYPES.HARNESS_ENTRY) {
+    const harnessNetName = device.harnessNetName;
+    return typeof harnessNetName === "string" && harnessNetName ? harnessNetName : undefined;
+  }
+  return getDeviceNetName(device);
+};
+
+/**
  * Assign a name to a net.
  *
  * Priority:
  * 1. Power port TEXT value
- * 2. Net label TEXT value
- * 3. Pin-derived name (Net<Refdes>_<Pin>) using the lowest refdes/pin in the net
+ * 2. Labelled harness: <net label on the harness line>.<harness entry name>
+ * 3. Net label TEXT value
+ * 4. Port NAME value
+ * 5. Pin-derived name (Net<Refdes>_<Pin>) using the lowest refdes/pin in the net
+ *
+ * Where a net carries two names of the same rank — two net labels either side of
+ * a harness, say — the first in the device order wins, which is the order the
+ * records appear in the file.
  */
 const assignNetName = (net: AltiumNet, schematic: AltiumSchematic): void => {
-  // Try power ports, net labels, ports, and sheet entries first
-  const namingTypes = new Set<string>([
-    RECORD_TYPES.POWER_PORT,
-    RECORD_TYPES.NET_LABEL,
-    RECORD_TYPES.PORT,
-    RECORD_TYPES.HARNESS_ENTRY,
-  ]);
-  for (const device of net.devices) {
-    if (device.RECORD && namingTypes.has(device.RECORD)) {
-      const nameValue = getDeviceNetName(device);
+  for (const naming of NAMING_PRIORITY) {
+    for (const device of net.devices) {
+      if (device.RECORD !== naming.type) continue;
+      const nameValue = claimedNetName(device);
       if (nameValue) {
         net.name = unescapeAltiumOverbar(nameValue);
+        net.nameSource = naming.source;
         return;
       }
     }
@@ -335,6 +376,7 @@ const assignNetName = (net: AltiumNet, schematic: AltiumSchematic): void => {
   pinNumbers.sort(comparePinNumbers);
   const selectedPin = pinNumbers[0];
   net.name = `Net${selectedRefdes}_${selectedPin}`;
+  net.nameSource = "pin";
 };
 
 /**
