@@ -1,0 +1,8 @@
+# Vendored third-party reference source (see references/README.md).
+# Keeps it out of GitHub's language statistics, so the repo is not reported as
+# majority C++, and collapses it by default in pull request diffs.
+#
+# Deliberately NOT `-diff`: the tree is supposed to stay byte-for-byte upstream,
+# so on the rare occasion something in it does change, that change must be
+# readable in review rather than shown as an opaque binary blob.
+references/OpenOrCadParser/** linguist-vendored

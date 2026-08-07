@@ -1,0 +1,19 @@
+{
+  "name": "openorcadparser",
+  "version": "0.1.0",
+  "dependencies": [
+    "boost-program-options",
+    "catch2",
+    "compoundfilereader",
+    "fmt",
+    "magic-enum",
+    "nameof",
+    "spdlog",
+    "tinyxml2",
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    }
+  ],
+  "builtin-baseline": "4d9c5616fe02f0f9d253a11c94f9f582b91115ee"
+}

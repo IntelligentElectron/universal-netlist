@@ -1,0 +1,7 @@
+dist/
+node_modules/
+tmp/
+
+# Vendored upstream source is kept byte-for-byte identical to its origin
+# (see references/README.md). Reformatting it would break that guarantee.
+references/OpenOrCadParser/
