@@ -48,6 +48,21 @@ macOS binaries require code signing with `entitlements.plist` (for Bun JIT) and 
 npm run type-check && npm run lint && npm test
 ```
 
+### Running under a sandbox
+
+Two things fail for want of a socket rather than because anything is wrong:
+
+- The `npx tsx` CLI opens an IPC socket under `$TMPDIR` and dies with
+  `EPERM ... .pipe` before the script runs. Use the loader form instead,
+  `node --import tsx <file>`, or the `npm run script --` / `npm run golden`
+  aliases. See [scripts/AGENTS.md](scripts/AGENTS.md).
+- The OpenTelemetry end-to-end tests stand a collector up on loopback. Where
+  that is refused they skip themselves rather than failing the run, so
+  `npm test` stays usable and the pre-commit hook passes. CI runs them for real.
+
+`git` and `gh` need the network and the keychain, so run them unsandboxed;
+`gh` otherwise fails TLS verification with `x509: OSStatus -26276`.
+
 ### Releasing
 
 The maintainer owns `CHANGELOG.md` and the version bump. Feature PRs carry code and
@@ -68,11 +83,15 @@ PR body, and the maintainer collects those into one release PR.
 
    ```bash
    git checkout main && git pull
-   git tag vX.Y.Z
-   git push origin vX.Y.Z
+   scripts/tag-release.sh
    ```
 
-   **Note:** Do NOT use `npm version` without `--no-git-tag-version` -- it creates a local git tag that points to the feature branch commit, not the merge commit on main. The tag must be created manually on the merge commit.
+   The script tags the version in `package.json` and refuses if anything about
+   the state is wrong: not on `main`, a dirty tree, local `main` behind
+   `origin/main` (which would tag the wrong commit), no changelog section for
+   the version, or a tag that already exists. Pass `--yes` to skip the prompt.
+
+   **Note:** Do NOT use `npm version` without `--no-git-tag-version` -- it creates a local git tag that points to the feature branch commit, not the merge commit on main. The tag must be created on the merge commit, which is what the script checks for.
 
 The tag push triggers the release workflow, which automatically:
 - Builds signed binaries for all platforms

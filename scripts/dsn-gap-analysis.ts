@@ -7,11 +7,11 @@
  * net renames.
  *
  * Usage:
- *   npx tsx scripts/dsn-gap-analysis.ts <golden-name>
+ *   node --import tsx scripts/dsn-gap-analysis.ts <golden-name>
  *
  * Example:
- *   npx tsx scripts/dsn-gap-analysis.ts BEAGLEBONEBLK_C3
- *   npx tsx scripts/dsn-gap-analysis.ts reServer_industrial_J401_Carrier_Board_v11
+ *   node --import tsx scripts/dsn-gap-analysis.ts BEAGLEBONEBLK_C3
+ *   node --import tsx scripts/dsn-gap-analysis.ts reServer_industrial_J401_Carrier_Board_v11
  */
 
 import fs from "fs";
@@ -48,7 +48,7 @@ const goldenDir = "test/golden/cadence";
 
 const filterName = process.argv[2];
 if (!filterName) {
-  console.error("Usage: npx tsx scripts/dsn-gap-analysis.ts <golden-name>");
+  console.error("Usage: node --import tsx scripts/dsn-gap-analysis.ts <golden-name>");
   console.error("\nAvailable golden files:");
   for (const f of fs
     .readdirSync(goldenDir)

@@ -1,7 +1,7 @@
 /**
  * Explore Package streams in DSN files to validate parsing approach.
  *
- * Usage: npx tsx scripts/explore-packages.ts
+ * Usage: node --import tsx scripts/explore-packages.ts
  */
 
 import fs from "fs";
