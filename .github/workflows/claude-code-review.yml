@@ -103,6 +103,23 @@ jobs:
         run: |
           set -euo pipefail
 
+          # claude-code-action refuses to run when its own workflow file on the PR
+          # branch differs from the copy on the default branch, so a PR cannot
+          # rewrite the workflow to exfiltrate secrets and have the action honour
+          # it. That skip exits 0 having posted nothing, which is indistinguishable
+          # from an abandoned review by comment inspection alone — so detect it
+          # here rather than failing a PR for a deliberate safety measure.
+          #
+          # Uses the files API, not `gh pr diff --name-only`: the latter returns
+          # HTTP 406 once a diff exceeds 20000 lines, which a vendoring PR like
+          # #116 does easily.
+          if gh api "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}/files" --paginate \
+               --jq '.[].filename' \
+             | grep -qx '.github/workflows/claude-code-review.yml'; then
+            echo "::notice::This PR edits claude-code-review.yml, so the action self-skipped for workflow validation and no review ran. Review it by hand before merging."
+            exit 0
+          fi
+
           # Comments are posted while the action runs, but the list endpoint can lag
           # a moment behind the last write. Retry rather than fail a required check
           # on propagation timing; a genuinely dead run stays dead across all tries.
