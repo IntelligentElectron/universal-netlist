@@ -53,7 +53,7 @@ This project is maintained by:
 
 - `src/` - Main source code
 - `src/parsers/` - Format-specific parsers (Cadence, Altium, KiCad)
-- `test/fixtures/` - Test fixture designs (git submodules)
+- `test/fixtures/` - Test fixture designs (git submodule)
 - `test/golden/` - Golden reference outputs for regression testing
 - `docs/` - API documentation
 
