@@ -2,7 +2,7 @@
 
 The **Universal Netlist MCP Server** gives AI agents the tools to understand and analyze your electrical schematics, for powerful and comprehensive design reviews through natural conversations.
 
-It is compatible with Cadence, Altium, and KiCad, with plans to integrate more EDAs in the future. It reads your design files directly: Cadence `.DSN` and Altium `.SchDoc` schematics are parsed natively on macOS, Linux, and Windows, with no EDA installation and no EDA license required. KiCad projects are read from a committed `.net` export where one is present, and otherwise through the free `kicad-cli`.
+It is compatible with Cadence, Altium, and KiCad, with plans to integrate more EDAs in the future. It reads your design files directly on macOS, Linux, and Windows, with no Cadence or Altium installation and no EDA license required.
 
 ## Supported Formats
 
