@@ -53,6 +53,7 @@
     "circuit",
     "cadence",
     "altium",
+    "kicad",
     "eda"
   ],
   "author": "Valentino Zegna <valentino.zegna@gmail.com> (https://github.com/IntelligentElectron)",

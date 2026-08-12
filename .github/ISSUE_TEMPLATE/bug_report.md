@@ -35,6 +35,7 @@ What actually happened.
 - [ ] Cadence CIS (.dsn)
 - [ ] Cadence HDL (.cpm)
 - [ ] Altium Designer (.PrjPcb)
+- [ ] KiCad (.kicad_pro)
 
 ## Additional Context
 

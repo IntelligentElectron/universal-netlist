@@ -52,22 +52,17 @@ This project is maintained by:
 ### Project Structure
 
 - `src/` - Main source code
-- `src/parsers/` - Format-specific parsers (Cadence, Altium)
+- `src/parsers/` - Format-specific parsers (Cadence, Altium, KiCad)
 - `test/fixtures/` - Test fixture designs (git submodules)
 - `test/golden/` - Golden reference outputs for regression testing
 - `docs/` - API documentation
 
 ### Test Fixtures
 
-Test fixtures are stored as git submodules pointing to open-source hardware projects:
-
-| Fixture | Source |
-|---------|--------|
-| `test/fixtures/altium/LimeSDR-USB` | [myriadrf/LimeSDR-USB](https://github.com/myriadrf/LimeSDR-USB) |
-| `test/fixtures/altium/Altium-STM32-PCB` | [akhilaprabodha/Altium-STM32-PCB](https://github.com/akhilaprabodha/Altium-STM32-PCB) |
-| `test/fixtures/cadence/BeagleBone-Black` | [beagleboard/beaglebone-black](https://github.com/beagleboard/beaglebone-black) |
-
-The `nRF52840-Development-Kit` fixture is included inline as it's a minimal test case.
+`test/fixtures` is a git submodule of
+[IntelligentElectron/test-fixtures](https://github.com/IntelligentElectron/test-fixtures),
+a curated corpus of open-source hardware designs covering Altium, Cadence, and KiCad.
+Its `NOTICE.md` records the upstream source, license, and copyright of every fixture.
 
 ## Development Workflow
 

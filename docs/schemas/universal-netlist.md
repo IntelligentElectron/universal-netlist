@@ -1,6 +1,6 @@
 # Universal Netlist Schema
 
-This document defines the **Universal Netlist Schema** - the core data model that represents netlists from any supported EDA format (Cadence CIS, Cadence HDL, Altium Designer). All parsers convert format-specific data into this unified representation.
+This document defines the **Universal Netlist Schema** - the core data model that represents netlists from any supported EDA format (Cadence CIS, Cadence HDL, Altium Designer, KiCad). All parsers convert format-specific data into this unified representation.
 
 ## Overview
 
@@ -223,12 +223,20 @@ Represents a pin-to-net connection. Uses a string for simple pins, or an object 
 - Component properties come from `pstxprt.dat`
 - Net connections come from `pstxnet.dat`
 - Pin names extracted from `pstchip.dat`
+- Without `.dat` files, all three come from the `.DSN` binary schematic directly
 
 ### Altium Designer
 
 - Component properties parsed from `.SchDoc` XML
 - Net connections derived from wire/junction analysis
 - Pin names come from component library definitions
+
+### KiCad
+
+- Component properties come from each `comp` record's `value`, `description`, and MPN-style fields
+- Net connections come from the `nets` section of the resolved `kicadsexpr` export
+- Pin names come from the `node` entries' `pinfunction`
+- Nets declared inside a hierarchical sheet carry the sheet path in their name (e.g. `/Peripherals/D0`)
 
 ## Design Decisions
 
