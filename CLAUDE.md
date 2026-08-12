@@ -2,7 +2,7 @@
 
 ## Overview
 
-MCP server for querying EDA netlists and tracing circuit connectivity. Supports Cadence (CIS, HDL) and Altium Designer formats.
+MCP server for querying EDA netlists and tracing circuit connectivity. Supports Cadence (CIS, HDL), Altium Designer, and KiCad formats.
 
 ## Development
 
