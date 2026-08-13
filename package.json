@@ -97,6 +97,7 @@
   "files": [
     "dist",
     "README.md",
+    "PRIVACY.md",
     "LICENSE",
     "NOTICE",
     "CHANGELOG.md"

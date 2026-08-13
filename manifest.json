@@ -18,6 +18,10 @@
   },
   "homepage": "https://github.com/IntelligentElectron/universal-netlist",
   "documentation": "https://github.com/IntelligentElectron/universal-netlist/tree/main/docs",
+  "support": "https://github.com/IntelligentElectron/universal-netlist/issues",
+  "privacy_policies": [
+    "https://github.com/IntelligentElectron/universal-netlist/blob/main/PRIVACY.md"
+  ],
   "keywords": [
     "netlist",
     "circuit",

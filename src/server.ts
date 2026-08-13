@@ -57,6 +57,34 @@ const formatResult = (result: unknown): { content: { type: "text"; text: string 
 // =============================================================================
 
 /**
+ * Tool annotations.
+ *
+ * Every tool declares whether it can write, so a client can decide what needs
+ * the user's confirmation. Read-only tools may run without one; a tool that
+ * touches the disk always prompts.
+ *
+ * `openWorldHint` is false throughout: every tool operates on the design files
+ * already on this machine, not on an open-ended set of external entities.
+ */
+const READ_ONLY = {
+  readOnlyHint: true,
+  destructiveHint: false,
+  idempotentHint: true,
+  openWorldHint: false,
+} as const;
+
+/**
+ * `export_cadence_netlist` runs Cadence's own exporter, which writes a netlist
+ * directory beside the schematic and overwrites an earlier export in place.
+ */
+const WRITES_TO_DISK = {
+  readOnlyHint: false,
+  destructiveHint: true,
+  idempotentHint: false,
+  openWorldHint: false,
+} as const;
+
+/**
  * Create and configure the MCP server.
  */
 export const createServer = (): McpServer => {
@@ -79,7 +107,9 @@ export const createServer = (): McpServer => {
   server.registerTool(
     "list_designs",
     {
+      title: "List designs",
       description: LIST_DESIGNS_DESCRIPTION,
+      annotations: READ_ONLY,
       inputSchema: {
         path: z.string().optional().describe("Path to directory to search for designs"),
         pattern: z.string().optional().describe("Regex pattern to filter design names"),
@@ -115,7 +145,9 @@ export const createServer = (): McpServer => {
   server.registerTool(
     "list_components",
     {
+      title: "List components",
       description: LIST_COMPONENTS_DESCRIPTION,
+      annotations: READ_ONLY,
       inputSchema: {
         design: z.string().describe("Path to design file, as returned by list_designs"),
         type: z.string().describe("Component prefix: U, C, R, L, etc."),
@@ -138,7 +170,9 @@ export const createServer = (): McpServer => {
   server.registerTool(
     "list_nets",
     {
+      title: "List nets",
       description: LIST_NETS_DESCRIPTION,
+      annotations: READ_ONLY,
       inputSchema: {
         design: z.string().describe("Path to design file"),
       },
@@ -155,7 +189,9 @@ export const createServer = (): McpServer => {
   server.registerTool(
     "search_nets",
     {
+      title: "Search nets",
       description: SEARCH_NETS_DESCRIPTION,
+      annotations: READ_ONLY,
       inputSchema: {
         pattern: z.string().describe("Regex pattern"),
         design: z.string().describe("Path to design file"),
@@ -173,7 +209,9 @@ export const createServer = (): McpServer => {
   server.registerTool(
     "search_components_by_refdes",
     {
+      title: "Search components by refdes",
       description: SEARCH_COMPONENTS_BY_REFDES_DESCRIPTION,
+      annotations: READ_ONLY,
       inputSchema: {
         pattern: z.string().describe("Regex pattern for refdes"),
         design: z.string().describe("Path to design file"),
@@ -192,7 +230,9 @@ export const createServer = (): McpServer => {
   server.registerTool(
     "search_components_by_mpn",
     {
+      title: "Search components by MPN",
       description: SEARCH_COMPONENTS_BY_MPN_DESCRIPTION,
+      annotations: READ_ONLY,
       inputSchema: {
         pattern: z.string().describe("Regex pattern for MPN"),
         design: z.string().describe("Path to design file"),
@@ -211,7 +251,9 @@ export const createServer = (): McpServer => {
   server.registerTool(
     "search_components_by_description",
     {
+      title: "Search components by description",
       description: SEARCH_COMPONENTS_BY_DESCRIPTION_DESCRIPTION,
+      annotations: READ_ONLY,
       inputSchema: {
         pattern: z.string().describe("Regex pattern for description"),
         design: z.string().describe("Path to design file"),
@@ -230,7 +272,9 @@ export const createServer = (): McpServer => {
   server.registerTool(
     "query_xnet_by_net_name",
     {
+      title: "Trace XNET from a net",
       description: QUERY_XNET_BY_NET_NAME_DESCRIPTION,
+      annotations: READ_ONLY,
       inputSchema: {
         design: z.string().describe("Path to design file"),
         net_name: z.string().describe("Exact net name"),
@@ -256,7 +300,9 @@ export const createServer = (): McpServer => {
   server.registerTool(
     "query_xnet_by_pin_name",
     {
+      title: "Trace XNET from a pin",
       description: QUERY_XNET_BY_PIN_NAME_DESCRIPTION,
+      annotations: READ_ONLY,
       inputSchema: {
         design: z.string().describe("Path to design file"),
         pin_name: z.string().describe("Pin spec: REFDES.PIN (e.g., U2.10, U1.A5)"),
@@ -279,7 +325,9 @@ export const createServer = (): McpServer => {
   server.registerTool(
     "query_component",
     {
+      title: "Get component details",
       description: QUERY_COMPONENT_DESCRIPTION,
+      annotations: READ_ONLY,
       inputSchema: {
         design: z.string().describe("Path to design file"),
         refdes: z.string().describe("Component reference designator"),
@@ -297,7 +345,9 @@ export const createServer = (): McpServer => {
   server.registerTool(
     "run_erc",
     {
+      title: "Run electrical rule checks",
       description: RUN_ERC_DESCRIPTION,
+      annotations: READ_ONLY,
       inputSchema: {
         design: z.string().describe("Path to design file"),
         include_dns: z
@@ -328,7 +378,9 @@ export const createServer = (): McpServer => {
   server.registerTool(
     "export_cadence_netlist",
     {
+      title: "Export Cadence netlist",
       description: EXPORT_CADENCE_NETLIST_DESCRIPTION,
+      annotations: WRITES_TO_DISK,
       inputSchema: {
         design: z.string().describe("Path to .DSN schematic file"),
       },
