@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.2] - 2026-08-12
+
+Every tool now says what it is and what it can do. A title, and whether calling
+it writes anything: clients read those annotations to decide what needs your
+confirmation, so the eleven tools that only read a design run without
+interrupting you, and the one that writes to disk always asks first. The server
+also ships a privacy policy, which is what a local extension is required to
+carry, and what anyone pointing this at a confidential schematic ought to read.
+
+### Added
+
+- Every tool carries a `title` and MCP annotations. The eleven query tools and `run_erc` declare `readOnlyHint`, so a client may run them without a per-call confirmation; `export_cadence_netlist` declares `destructiveHint`, because it runs Cadence's exporter and writes a netlist directory over any earlier one, so it always prompts. `openWorldHint` is false throughout: these tools read the design files already on the machine rather than an open-ended set of external services. `src/server.test.ts` asserts the metadata over a real client connection, so a tool registered without a title or a hint fails the build (PR #125)
+- `PRIVACY.md`, linked from `manifest.json`'s `privacy_policies` and summarised in the README. It covers what the server reads, what it retains (nothing), and the two network calls it can make: the standalone binary's update check against the GitHub releases API, and OpenTelemetry, which stays off unless you point `OTEL_*` at your own backend. Neither carries design data. It is explicit that query results reach your MCP client and that client's model provider, which is the part that matters for a confidential design (PR #125)
+- `manifest.json` gains a `support` URL, and `PRIVACY.md` ships with the npm package (PR #125)
+
+### Documentation
+
+- The README, docs, and extension manifest describe the server as it is today. KiCad joins Cadence and Altium in every format list, Cadence `.DSN` schematics are documented as read natively, and the claim that Cadence and Altium users need their own EDA licence is gone: no EDA installation and no EDA licence are required to read a design, and the optional `export_cadence_netlist` remains Windows plus Cadence SPB. The unsupported-format error in `docs/tools/list_nets.md` matches the one the code returns, `CONTRIBUTING.md` points at the `test-fixtures` submodule that replaced the three per-design ones, and the schema doc gains the KiCad field mapping (PRs #122, #123)
+- The README intro no longer repeats the per-format detail the Supported Formats table gives directly below it, and the "no EDA installation" claim is scoped to Cadence and Altium, since a KiCad project without a committed `.net` export uses the free `kicad-cli` (PR #124)
+
 ## [1.5.1] - 2026-08-07
 
 Altium signal harnesses were only bridging nets by coincidence. A harness entry
