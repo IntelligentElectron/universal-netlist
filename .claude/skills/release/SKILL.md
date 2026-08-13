@@ -89,13 +89,24 @@ what is missing instead of merging it.
 
 ## Releases
 
-Tagging is the one step that is NOT automatic: the tag push publishes to npm and cuts a
-public GitHub Release, so it is the maintainer's call. Ask before tagging; merge freely.
+The tag push publishes to npm and cuts a public GitHub Release, and it cannot be taken
+back cleanly, so it needs the user to have actually asked for a release.
+
+Once they have, it is asked and answered: tag it. "Release 1.5.2", "ship it", or "take
+this all the way" is the green light, and a second confirmation afterwards only parks
+finished work. `scripts/tag-release.sh --yes` skips the interactive prompt, which a
+non-interactive session cannot answer anyway; the script still refuses a wrong state,
+which is the check that actually protects the release.
+
+Absent that ask, do not infer one. Cut the release PR, merge it, say that the tag is the
+remaining step, and stop there.
 
 1. Ensure `main` is clean and all checks pass
 2. Ensure `CHANGELOG.md` covers every change in the release. Feature PRs do not edit it
    (see CLAUDE.md), so collect their `## Changelog` sections into the version section first
-3. Create and push the tag: `git tag vX.Y.Z && git push origin vX.Y.Z`
+3. Create and push the tag with `scripts/tag-release.sh` (add `--yes` when the session
+   cannot answer its prompt). Never tag by hand: `git tag` skips every state check, and
+   tagging the wrong commit is the mistake the script exists to prevent
 4. Monitor CI: `gh run list` and `gh run view`
 
 ## Pre-commit Hooks
