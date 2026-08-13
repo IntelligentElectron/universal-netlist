@@ -65,13 +65,20 @@ Two things fail for want of a socket rather than because anything is wrong:
 
 ### Releasing
 
-The maintainer owns `CHANGELOG.md` and the version bump. Feature PRs carry code and
-tests only; they must NOT edit `CHANGELOG.md` or `package.json`.
+`CHANGELOG.md` and the version bump belong to the release PR, never to a feature PR.
+Feature PRs carry code and tests only; they must NOT edit `CHANGELOG.md` or
+`package.json`.
 
 Both files append at the top, so a bump in every feature PR makes each concurrent PR
 conflict with the last, and a contributor cannot know whether their change is a patch or
 a minor. Instead a PR describes its user-visible effect in a `## Changelog` section of the
-PR body, and the maintainer collects those into one release PR.
+PR body, and those get collected into one release PR.
+
+Cutting that release PR is ordinary work: an agent asked to release, or asked to carry
+something through to a release, writes the changelog section and bumps the version
+without checking back first. The version number is the one judgment call worth stating
+out loud — say which bump you chose and why, so a disagreement surfaces before the tag
+rather than after it.
 
 1. Cut a release PR from `main` after the fixes for the release have merged:
    - Update `CHANGELOG.md` with a new version section, written from the merged PRs' own
