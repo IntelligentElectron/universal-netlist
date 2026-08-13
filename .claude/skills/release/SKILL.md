@@ -104,7 +104,9 @@ remaining step, and stop there.
 1. Ensure `main` is clean and all checks pass
 2. Ensure `CHANGELOG.md` covers every change in the release. Feature PRs do not edit it
    (see CLAUDE.md), so collect their `## Changelog` sections into the version section first
-3. Create and push the tag: `git tag vX.Y.Z && git push origin vX.Y.Z`
+3. Create and push the tag with `scripts/tag-release.sh` (add `--yes` when the session
+   cannot answer its prompt). Never tag by hand: `git tag` skips every state check, and
+   tagging the wrong commit is the mistake the script exists to prevent
 4. Monitor CI: `gh run list` and `gh run view`
 
 ## Pre-commit Hooks
