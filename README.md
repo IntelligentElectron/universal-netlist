@@ -128,6 +128,23 @@ See [docs/](docs/README.md) for API documentation and response schemas.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines.
 
+## Privacy Policy
+
+The server runs on your machine and collects nothing. It reads the design files
+you point it at, holds them in memory for the life of a query, and sends nothing
+to the author, who operates no service and no backend.
+
+Your design data does reach your MCP client and that client's model provider,
+because that is how you get an answer. Treat querying a confidential schematic
+the way you would treat pasting it into that assistant's chat window.
+
+The only network calls the server makes are an update check against the GitHub
+releases API, on the standalone binary alone, and OpenTelemetry, which is off
+unless you point `OTEL_*` at your own backend. Neither carries design data.
+
+See [PRIVACY.md](PRIVACY.md) for the full policy, including what telemetry
+contains when you enable it and which tool writes to disk.
+
 ---
 
 ## About
