@@ -639,4 +639,8 @@ describe("naming a net after one of its pins", () => {
   it("breaks a tie on what follows the number", () => {
     expect(nameOf([["R5B", "1"], ["R5A", "2"]])).toBe("NetR5A_2");
   });
+
+  it("sorts a designator carrying no number ahead of the same prefix numbered", () => {
+    expect(nameOf([["JP1", "1"], ["JP", "2"]])).toBe("NetJP_2");
+  });
 });
