@@ -13,15 +13,26 @@
 #            `github` self-updates from GitHub Releases; use `packaged`
 #            for a build a package manager owns.
 #
+# Environment:
+#   VERSION  Version baked into the binary, default the one in package.json.
+#            Held to A-Za-z0-9 and . + _ ~ : -, the characters a version is
+#            written with, so it cannot break out of the string it compiles
+#            into and leave a binary reporting some truncation of itself.
+#
 # Examples:
 #   ./scripts/build-binary.sh bun-linux-x64 bin/universal-netlist-linux-x64
 #   ./scripts/build-binary.sh host bin/universal-netlist packaged
+#   VERSION=1.5.2-3 ./scripts/build-binary.sh host bin/universal-netlist packaged
 #
 # This compiles and nothing else: no git, no network, no signing, no
 # publishing, no reading GITHUB_REF. The version comes from package.json,
 # which is the single source of it — the release workflow validates the tag
 # against package.json rather than deriving a version from the tag, so a
-# build outside a tag push produces the same binary CI would.
+# build outside a tag push produces the same binary CI would. $VERSION is the
+# one way to say otherwise, for a downstream packager stamping its own.
+#
+# Bun is the whole toolchain this needs. An image holding just the version in
+# `.bun-version` builds this.
 
 set -euo pipefail
 
@@ -54,7 +65,35 @@ esac
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 
-VERSION="$(node -p "require('$PROJECT_DIR/package.json').version")"
+# A downstream packager stamping its own string (`1.5.2-3`, a snapshot date, a
+# commit-derived name) sets $VERSION rather than patching a tracked file. Here
+# `:-` rather than `-`, unlike the channel above: an unset caller variable falls
+# back to a true upstream version, which is the behaviour every existing caller
+# already has, where the same slip on the channel would arm self-update.
+#
+# Bun reads package.json because the compile below needs Bun anyway. Reading it
+# with Node made a build fail on `node: command not found` in an environment
+# that had installed every toolchain this repo declares.
+#
+# The path travels in the environment rather than inside the snippet: spliced
+# into the source, a checkout under a directory whose name holds a quote, which
+# any name-shaped `O'Brien` gives you, ends the string literal early and the
+# build dies on a JS syntax error naming neither the path nor the reason.
+VERSION="${VERSION:-$(PACKAGE_JSON="$PROJECT_DIR/package.json" bun -e "console.log(require(process.env.PACKAGE_JSON).version)")}"
+
+# --define substitutes this as raw source text rather than as an escaped string,
+# so a `"` in it closes the literal early and the rest is dropped: `1.0.0", "x":
+# "y` compiled clean and reported 1.0.0, and a leading space compiled a version
+# with a space in it. Both produce the binary reporting a version nobody
+# released that the channel check above exists to stop, so hold this to the
+# characters versions are actually written with. `+` and `~` stay in for build
+# metadata and for a Debian-style `1.5.2~rc1`.
+case "$VERSION" in
+    "" | *[!A-Za-z0-9.+_~:-]*)
+        echo "Invalid version: '$VERSION' (allowed: A-Za-z0-9 and . + _ ~ : -)" >&2
+        exit 1
+        ;;
+esac
 
 mkdir -p "$(dirname "$OUTFILE")"
 
