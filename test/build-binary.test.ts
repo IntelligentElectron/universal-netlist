@@ -17,7 +17,8 @@
 import { describe, it, expect } from "vitest";
 import { spawnSync } from "node:child_process";
 import path from "node:path";
-import { readFileSync } from "node:fs";
+import { mkdtempSync, readFileSync, rmSync, symlinkSync } from "node:fs";
+import { tmpdir } from "node:os";
 
 const TEST_DIR = path.dirname(new URL(import.meta.url).pathname);
 const PROJECT_DIR = path.join(TEST_DIR, "..");
@@ -113,17 +114,43 @@ describe("build-binary.sh version resolution", () => {
     expect(stdout).toContain("version=0.0.0-snapshot");
   });
 
+  /** The version the fallback is expected to find. */
+  const packageVersion = (): string =>
+    (
+      JSON.parse(readFileSync(path.join(PROJECT_DIR, "package.json"), "utf-8")) as {
+        version: string;
+      }
+    ).version;
+
   it.skipIf(!nodeFreePath)("falls back to package.json with Bun alone, no Node installed", () => {
-    const { version } = JSON.parse(
-      readFileSync(path.join(PROJECT_DIR, "package.json"), "utf-8")
-    ) as { version: string };
     const result = spawnSync("bash", [SCRIPT, BAD_TARGET, "/dev/null"], {
       encoding: "utf-8",
       env: { ...withoutVersion(), PATH: nodeFreePath as string },
     });
 
-    expect(result.stdout).toContain(`version=${version}`);
+    expect(result.stdout).toContain(`version=${packageVersion()}`);
     expect(result.stderr).not.toContain("node: command not found");
+  });
+
+  it.skipIf(!hasBun)("falls back from a checkout path that holds a quote", () => {
+    // The path reaches Bun in the environment rather than spliced into the
+    // snippet. Spliced, a quote in it ends the string literal early and the
+    // build dies on a JS syntax error naming neither the path nor the reason;
+    // any name-shaped directory, `O'Brien`, is enough to do it.
+    const dir = mkdtempSync(path.join(tmpdir(), "build-binary-"));
+    try {
+      const checkout = path.join(dir, "o'brien");
+      symlinkSync(PROJECT_DIR, checkout);
+      const result = spawnSync(
+        "bash",
+        [path.join(checkout, "scripts", "build-binary.sh"), BAD_TARGET, "/dev/null"],
+        { encoding: "utf-8", env: withoutVersion() }
+      );
+
+      expect(result.stdout).toContain(`version=${packageVersion()}`);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
   });
 
   // `--define` substitutes the version as raw source text, so a `"` closes the

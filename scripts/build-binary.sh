@@ -74,7 +74,12 @@ PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 # Bun reads package.json because the compile below needs Bun anyway. Reading it
 # with Node made a build fail on `node: command not found` in an environment
 # that had installed every toolchain this repo declares.
-VERSION="${VERSION:-$(bun -e "console.log(require('$PROJECT_DIR/package.json').version)")}"
+#
+# The path travels in the environment rather than inside the snippet: spliced
+# into the source, a checkout under a directory whose name holds a quote, which
+# any name-shaped `O'Brien` gives you, ends the string literal early and the
+# build dies on a JS syntax error naming neither the path nor the reason.
+VERSION="${VERSION:-$(PACKAGE_JSON="$PROJECT_DIR/package.json" bun -e "console.log(require(process.env.PACKAGE_JSON).version)")}"
 
 # --define substitutes this as raw source text rather than as an escaped string,
 # so a `"` in it closes the literal early and the rest is dropped: `1.0.0", "x":
