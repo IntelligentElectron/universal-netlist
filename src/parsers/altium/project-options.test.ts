@@ -13,7 +13,6 @@ describe("parseProjectOptions", () => {
   it("reads a scope the project names outright", () => {
     expect(parseProjectOptions(design("HierarchyMode=3")).scope).toBe("global");
     expect(parseProjectOptions(design("HierarchyMode=2")).scope).toBe("hierarchical");
-    expect(parseProjectOptions(design("HierarchyMode=1")).scope).toBe("flat");
     // `4` is read as Hierarchical: the solarcar-bms board numbers that
     // project's sheet-local labels but leaves GND and CHASSIS bare, so its
     // power ports are global and it cannot be Strict Hierarchical.
@@ -24,7 +23,10 @@ describe("parseProjectOptions", () => {
     expect(parseProjectOptions(design("HierarchyMode=0")).scope).toBeUndefined();
   });
 
-  it("reads a mode it does not know as Automatic rather than guessing", () => {
+  it("reads a mode no design has demonstrated as Automatic rather than guessing", () => {
+    // Automatic resolves the scope from the design's own shape, which is
+    // evidence; a guessed constant would be wrong everywhere at once.
+    expect(parseProjectOptions(design("HierarchyMode=1")).scope).toBeUndefined();
     expect(parseProjectOptions(design("HierarchyMode=97")).scope).toBeUndefined();
   });
 

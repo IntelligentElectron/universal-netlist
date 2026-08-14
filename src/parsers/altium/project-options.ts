@@ -40,21 +40,29 @@ export interface AltiumProjectOptions {
 }
 
 /**
- * `HierarchyMode` values, in the order the Net Identifier Scope drop-down
- * lists them. `0` is Automatic, which is the default and by far the most
- * common value; a project that names a scope outright has been changed by hand.
+ * What each `HierarchyMode` means, as far as designs have shown. `0` is
+ * Automatic, the default and by far the most common; a project naming a scope
+ * outright has been changed by hand.
  *
- * The mapping is corroborated by the fixtures: the LimeSDR-USB boards record
- * `3` and are drawn with no sheet symbols and no ports at all, so their sheets
- * can only be joined by matching net labels, which is Global; the nRF52840
- * development kit records `2` and is drawn as a full parent/child hierarchy.
+ * This began as the order the Net Identifier Scope drop-down lists them, which
+ * turned out to be wrong: `4` was read as Strict Hierarchical on that basis
+ * until a board contradicted it. So only values a design has actually
+ * demonstrated are mapped here, and each entry says what demonstrates it.
  *
- * A value outside this table is read as Automatic, so a mode we have not seen
- * is resolved from the shape of the design rather than guessed at.
+ * A value not in this table is read as Automatic, which resolves the scope from
+ * the shape of the design. That is deliberately preferred to guessing: a guess
+ * is fixed and wrong everywhere, where the design's own shape is evidence.
  */
 const HIERARCHY_MODE_SCOPE: Readonly<Record<string, NetIdentifierScope>> = {
-  "1": "flat",
+  // The nRF52840 development kit and MiSKo3 record `2` and are drawn as full
+  // parent/child hierarchies; MiSKo3's board numbers its sheet-local labels and
+  // leaves `GND` bare, which is Hierarchical exactly.
   "2": "hierarchical",
+  // The LimeSDR-USB boards record `3` and are drawn with no sheet symbols and
+  // no ports at all, so nothing but matching net labels can be joining their
+  // sheets, which is Global. Note none of them enables
+  // `AppendSheetNumberToLocalNets`, so no board yet confirms this one the way
+  // MiSKo3 and solarcar-bms confirm `2` and `4`.
   "3": "global",
   // `4` was read as Strict Hierarchical until a board said otherwise. The
   // solarcar-bms fixture records it and numbers its sheet-local signals, so its
