@@ -1,9 +1,9 @@
 import { describe, it, expect } from "vitest";
 import { kicadHandler, parseKicadDesign } from "./index.js";
 import { discoverKicadDesigns, isKicadFile } from "./discovery.js";
-import { fixture, hasFixtures } from "../../../test/utils.js";
+import { fixturePath, hasFixtures } from "../../../test/utils.js";
 
-const KICAD_FIXTURES = fixture("kicad");
+const KICAD_FIXTURES = fixturePath("kicad");
 
 describe("kicadHandler", () => {
   it("declares the kicad name and project extensions", () => {
