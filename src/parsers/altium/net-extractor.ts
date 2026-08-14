@@ -404,6 +404,7 @@ export const assignNetName = (net: AltiumNet, schematic: AltiumSchematic): void 
   const selectedPin = pinNumbers[0];
   net.name = `Net${selectedRefdes}_${selectedPin}`;
   net.nameSource = "pin";
+  net.pinNameSource = { refdes: selectedRefdes, pin: selectedPin };
 };
 
 /**

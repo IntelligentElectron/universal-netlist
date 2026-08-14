@@ -1013,8 +1013,6 @@ const expandBusNotation = (name: string): string[] => {
 };
 
 interface SheetEntryClassification {
-  /** Signal names from Repeat() entries: per-channel */
-  repeatNames: Set<string>;
   /** Signal names from non-Repeat entries: shared across channels */
   sharedNames: Set<string>;
 }
@@ -1046,7 +1044,6 @@ const classifySheetEntries = (
   harnessDefinitions: HarnessDefinitions = new Map(),
   nestedHarnessTypes: ReadonlyMap<string, string> = new Map()
 ): SheetEntryClassification => {
-  const repeatNames = new Set<string>();
   const sharedNames = new Set<string>();
   const childBase = childFileName.toLowerCase();
 
@@ -1060,13 +1057,13 @@ const classifySheetEntries = (
     for (const child of record.children) {
       if (child.RECORD !== RECORD_TYPES.SHEET_ENTRY) continue;
       const rawName = String(child.Name ?? child.NAME ?? "");
-      const repeatMatch = rawName.match(/^Repeat\((.+)\)$/i);
+      // A `Repeat()` entry gives each channel its own copy of the signal, which
+      // is what a net the parent never reaches gets anyway, so it is simply not
+      // collected here. Only what the channels share has to be named.
+      if (/^Repeat\((.+)\)$/i.test(rawName)) continue;
 
-      const target = repeatMatch ? repeatNames : sharedNames;
-      const entryName = repeatMatch ? repeatMatch[1] : rawName;
-
-      for (const signal of expandBusNotation(entryName)) {
-        target.add(signal);
+      for (const signal of expandBusNotation(rawName)) {
+        sharedNames.add(signal);
       }
 
       // A harness-typed entry carries a bundle, not one signal. Every member the
@@ -1080,12 +1077,12 @@ const classifySheetEntries = (
           harnessDefinitions,
           nestedHarnessTypes
         )) {
-          target.add(member);
+          sharedNames.add(member);
           // Members are qualified by the entry that reached them
           // (PGND.OP_OUT); the leaf name is what a net inside the child sheet
           // is actually called.
           const leaf = member.slice(member.lastIndexOf(".") + 1);
-          if (leaf) target.add(leaf);
+          if (leaf) sharedNames.add(leaf);
         }
       }
     }
@@ -1093,7 +1090,78 @@ const classifySheetEntries = (
     break;
   }
 
-  return { repeatNames, sharedNames };
+  return { sharedNames };
+};
+
+/**
+ * The pin each auto-named net was named after, keyed by the name it produced.
+ *
+ * A net the designer never named is called after its lowest pin, and on a
+ * repeated sheet that name has to be rebuilt for every channel, so the pieces
+ * it was built from are carried alongside it.
+ */
+const collectPinNamedNets = (nets: AltiumNet[]): Map<string, { refdes: string; pin: string }> => {
+  const pinNamed = new Map<string, { refdes: string; pin: string }>();
+  for (const net of nets) {
+    if (net.name && net.nameSource === "pin" && net.pinNameSource) {
+      pinNamed.set(net.name, net.pinNameSource);
+    }
+  }
+  return pinNamed;
+};
+
+/** What a repeated sheet's nets are, as the channel naming rule needs to see them. */
+export interface ChannelNetScope {
+  /** Nets named by a power port, which name one supply across the whole project. */
+  powerNetNames: ReadonlySet<string>;
+  /** Sheet entry signals shared by every channel. */
+  sharedNames: ReadonlySet<string>;
+  /** The pin each auto-named net was named after, keyed by that name. */
+  pinNamed: ReadonlyMap<string, { refdes: string; pin: string }>;
+}
+
+/**
+ * What one channel calls each of the repeated sheet's nets.
+ *
+ * A repeated sheet is drawn once and placed several times, so most of its nets
+ * exist once per channel and need a name that says which. What reaches across
+ * the channels keeps the one name: a supply, and any sheet entry signal the
+ * parent wired to all of them.
+ *
+ * A net the designer never named is called after one of its pins, and the
+ * channel has already renamed the part that pin sits on. Altium expands the
+ * designator first and builds the name from the result, so the channel lands
+ * inside the name rather than after it: `NetDD12_AY1_1`, where appending would
+ * give `NetDD12_1_AY1`. Rebuilding it around the expanded designator makes it
+ * unique per channel by itself, which is what the suffix is for elsewhere.
+ *
+ * A `Repeat()` sheet entry signal needs no branch of its own: it is per-channel,
+ * which is what a net the parent never reaches gets anyway.
+ */
+export const planChannelNetNames = (
+  netNames: Iterable<string>,
+  scope: ChannelNetScope,
+  roomName: string,
+  channelIndex: number,
+  channelFormat: string
+): Map<string, string> => {
+  const netNameMap = new Map<string, string>();
+  for (const netName of netNames) {
+    const pinName = scope.pinNamed.get(netName);
+    if (scope.powerNetNames.has(netName)) {
+      netNameMap.set(netName, netName);
+    } else if (scope.sharedNames.has(netName)) {
+      netNameMap.set(netName, netName);
+    } else if (pinName) {
+      const expanded = applyChannelFormat(channelFormat, pinName.refdes, roomName, channelIndex);
+      netNameMap.set(netName, `Net${expanded}_${pinName.pin}`);
+    } else {
+      // A `Repeat()` sheet entry signal, or a local net the parent never reaches
+      // at all. Either way it belongs to this channel alone.
+      netNameMap.set(netName, `${netName}_${roomName}`);
+    }
+  }
+  return netNameMap;
 };
 
 /**
@@ -1107,6 +1175,11 @@ const expandChannels = (
   entryClassification: SheetEntryClassification
 ): ParsedNetlist => {
   const netClassification = classifyNets(baseNets);
+  const scope: ChannelNetScope = {
+    powerNetNames: netClassification.powerNetNames,
+    sharedNames: entryClassification.sharedNames,
+    pinNamed: collectPinNamedNets(baseNets),
+  };
   const allNets: NetConnections = {};
   const allComponents: ComponentDetails = {};
 
@@ -1114,24 +1187,13 @@ const expandChannels = (
     const roomName = channel.designator;
     const channelIndex = channelOffset + 1;
 
-    // Classify each net for this channel:
-    // 1. Power nets → global (keep name)
-    // 2. Shared SHEET_ENTRY signals → global (keep name)
-    // 3. Repeat SHEET_ENTRY signals → per-channel (suffix)
-    // 4. Other local nets → per-channel (suffix)
-    const netNameMap = new Map<string, string>();
-    for (const [netName] of Object.entries(baseResult.nets)) {
-      if (netClassification.powerNetNames.has(netName)) {
-        netNameMap.set(netName, netName);
-      } else if (entryClassification.sharedNames.has(netName)) {
-        netNameMap.set(netName, netName);
-      } else if (entryClassification.repeatNames.has(netName)) {
-        netNameMap.set(netName, `${netName}_${roomName}`);
-      } else {
-        // Local net with no SHEET_ENTRY match → per-channel
-        netNameMap.set(netName, `${netName}_${roomName}`);
-      }
-    }
+    const netNameMap = planChannelNetNames(
+      Object.keys(baseResult.nets),
+      scope,
+      roomName,
+      channelIndex,
+      channelFormat
+    );
 
     // Expand nets with renamed refdes and net names
     for (const [origNetName, connections] of Object.entries(baseResult.nets)) {

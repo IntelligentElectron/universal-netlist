@@ -242,23 +242,23 @@
         "18"
       ]
     },
-    "NetJ4_2_G_CHAN1": {
+    "NetJ4_CHAN1_2_G": {
       "J4_CHAN1": [
         "2_G"
       ]
     },
-    "NetJ4_4_G_CHAN1": {
+    "NetJ4_CHAN1_4_G": {
       "J4_CHAN1": [
         "4_G"
       ]
     },
-    "NetJ4_8_G_CHAN1": {
+    "NetJ4_CHAN1_8_G": {
       "J4_CHAN1": [
         "8_G",
         "AGND_G"
       ]
     },
-    "NetJ4_9_G_CHAN1": {
+    "NetJ4_CHAN1_9_G": {
       "J4_CHAN1": [
         "9_G"
       ]
@@ -329,23 +329,23 @@
         "6"
       ]
     },
-    "NetJ4_2_G_CHAN2": {
+    "NetJ4_CHAN2_2_G": {
       "J4_CHAN2": [
         "2_G"
       ]
     },
-    "NetJ4_4_G_CHAN2": {
+    "NetJ4_CHAN2_4_G": {
       "J4_CHAN2": [
         "4_G"
       ]
     },
-    "NetJ4_8_G_CHAN2": {
+    "NetJ4_CHAN2_8_G": {
       "J4_CHAN2": [
         "8_G",
         "AGND_G"
       ]
     },
-    "NetJ4_9_G_CHAN2": {
+    "NetJ4_CHAN2_9_G": {
       "J4_CHAN2": [
         "9_G"
       ]
@@ -416,23 +416,23 @@
         "6"
       ]
     },
-    "NetJ4_2_G_CHAN3": {
+    "NetJ4_CHAN3_2_G": {
       "J4_CHAN3": [
         "2_G"
       ]
     },
-    "NetJ4_4_G_CHAN3": {
+    "NetJ4_CHAN3_4_G": {
       "J4_CHAN3": [
         "4_G"
       ]
     },
-    "NetJ4_8_G_CHAN3": {
+    "NetJ4_CHAN3_8_G": {
       "J4_CHAN3": [
         "8_G",
         "AGND_G"
       ]
     },
-    "NetJ4_9_G_CHAN3": {
+    "NetJ4_CHAN3_9_G": {
       "J4_CHAN3": [
         "9_G"
       ]
@@ -503,23 +503,23 @@
         "6"
       ]
     },
-    "NetJ4_2_G_CHAN4": {
+    "NetJ4_CHAN4_2_G": {
       "J4_CHAN4": [
         "2_G"
       ]
     },
-    "NetJ4_4_G_CHAN4": {
+    "NetJ4_CHAN4_4_G": {
       "J4_CHAN4": [
         "4_G"
       ]
     },
-    "NetJ4_8_G_CHAN4": {
+    "NetJ4_CHAN4_8_G": {
       "J4_CHAN4": [
         "8_G",
         "AGND_G"
       ]
     },
-    "NetJ4_9_G_CHAN4": {
+    "NetJ4_CHAN4_9_G": {
       "J4_CHAN4": [
         "9_G"
       ]
@@ -590,23 +590,23 @@
         "6"
       ]
     },
-    "NetJ4_2_G_CHAN5": {
+    "NetJ4_CHAN5_2_G": {
       "J4_CHAN5": [
         "2_G"
       ]
     },
-    "NetJ4_4_G_CHAN5": {
+    "NetJ4_CHAN5_4_G": {
       "J4_CHAN5": [
         "4_G"
       ]
     },
-    "NetJ4_8_G_CHAN5": {
+    "NetJ4_CHAN5_8_G": {
       "J4_CHAN5": [
         "8_G",
         "AGND_G"
       ]
     },
-    "NetJ4_9_G_CHAN5": {
+    "NetJ4_CHAN5_9_G": {
       "J4_CHAN5": [
         "9_G"
       ]
@@ -677,23 +677,23 @@
         "6"
       ]
     },
-    "NetJ4_2_G_CHAN6": {
+    "NetJ4_CHAN6_2_G": {
       "J4_CHAN6": [
         "2_G"
       ]
     },
-    "NetJ4_4_G_CHAN6": {
+    "NetJ4_CHAN6_4_G": {
       "J4_CHAN6": [
         "4_G"
       ]
     },
-    "NetJ4_8_G_CHAN6": {
+    "NetJ4_CHAN6_8_G": {
       "J4_CHAN6": [
         "8_G",
         "AGND_G"
       ]
     },
-    "NetJ4_9_G_CHAN6": {
+    "NetJ4_CHAN6_9_G": {
       "J4_CHAN6": [
         "9_G"
       ]
@@ -764,23 +764,23 @@
         "6"
       ]
     },
-    "NetJ4_2_G_CHAN7": {
+    "NetJ4_CHAN7_2_G": {
       "J4_CHAN7": [
         "2_G"
       ]
     },
-    "NetJ4_4_G_CHAN7": {
+    "NetJ4_CHAN7_4_G": {
       "J4_CHAN7": [
         "4_G"
       ]
     },
-    "NetJ4_8_G_CHAN7": {
+    "NetJ4_CHAN7_8_G": {
       "J4_CHAN7": [
         "8_G",
         "AGND_G"
       ]
     },
-    "NetJ4_9_G_CHAN7": {
+    "NetJ4_CHAN7_9_G": {
       "J4_CHAN7": [
         "9_G"
       ]
@@ -851,23 +851,23 @@
         "6"
       ]
     },
-    "NetJ4_2_G_CHAN8": {
+    "NetJ4_CHAN8_2_G": {
       "J4_CHAN8": [
         "2_G"
       ]
     },
-    "NetJ4_4_G_CHAN8": {
+    "NetJ4_CHAN8_4_G": {
       "J4_CHAN8": [
         "4_G"
       ]
     },
-    "NetJ4_8_G_CHAN8": {
+    "NetJ4_CHAN8_8_G": {
       "J4_CHAN8": [
         "8_G",
         "AGND_G"
       ]
     },
-    "NetJ4_9_G_CHAN8": {
+    "NetJ4_CHAN8_9_G": {
       "J4_CHAN8": [
         "9_G"
       ]
@@ -938,23 +938,23 @@
         "6"
       ]
     },
-    "NetJ4_2_G_CHAN9": {
+    "NetJ4_CHAN9_2_G": {
       "J4_CHAN9": [
         "2_G"
       ]
     },
-    "NetJ4_4_G_CHAN9": {
+    "NetJ4_CHAN9_4_G": {
       "J4_CHAN9": [
         "4_G"
       ]
     },
-    "NetJ4_8_G_CHAN9": {
+    "NetJ4_CHAN9_8_G": {
       "J4_CHAN9": [
         "8_G",
         "AGND_G"
       ]
     },
-    "NetJ4_9_G_CHAN9": {
+    "NetJ4_CHAN9_9_G": {
       "J4_CHAN9": [
         "9_G"
       ]
@@ -1227,18 +1227,18 @@
           "net": "_TEMP_CHAN1"
         },
         "1_G": "PGND",
-        "2_G": "NetJ4_2_G_CHAN1",
+        "2_G": "NetJ4_CHAN1_2_G",
         "3_G": "PGND",
-        "4_G": "NetJ4_4_G_CHAN1",
+        "4_G": "NetJ4_CHAN1_4_G",
         "5_G": "",
         "6_G": "",
         "7_G": "",
-        "8_G": "NetJ4_8_G_CHAN1",
-        "9_G": "NetJ4_9_G_CHAN1",
+        "8_G": "NetJ4_CHAN1_8_G",
+        "9_G": "NetJ4_CHAN1_9_G",
         "10_G": "",
         "11_G": "",
         "AGND": "AGND",
-        "AGND_G": "NetJ4_8_G_CHAN1",
+        "AGND_G": "NetJ4_CHAN1_8_G",
         "PGND": "PGND"
       },
       "description": "footprint LD driver",
@@ -1369,18 +1369,18 @@
           "net": "_TEMP_CHAN2"
         },
         "1_G": "PGND",
-        "2_G": "NetJ4_2_G_CHAN2",
+        "2_G": "NetJ4_CHAN2_2_G",
         "3_G": "PGND",
-        "4_G": "NetJ4_4_G_CHAN2",
+        "4_G": "NetJ4_CHAN2_4_G",
         "5_G": "",
         "6_G": "",
         "7_G": "",
-        "8_G": "NetJ4_8_G_CHAN2",
-        "9_G": "NetJ4_9_G_CHAN2",
+        "8_G": "NetJ4_CHAN2_8_G",
+        "9_G": "NetJ4_CHAN2_9_G",
         "10_G": "",
         "11_G": "",
         "AGND": "AGND",
-        "AGND_G": "NetJ4_8_G_CHAN2",
+        "AGND_G": "NetJ4_CHAN2_8_G",
         "PGND": "PGND"
       },
       "description": "footprint LD driver",
@@ -1511,18 +1511,18 @@
           "net": "_TEMP_CHAN3"
         },
         "1_G": "PGND",
-        "2_G": "NetJ4_2_G_CHAN3",
+        "2_G": "NetJ4_CHAN3_2_G",
         "3_G": "PGND",
-        "4_G": "NetJ4_4_G_CHAN3",
+        "4_G": "NetJ4_CHAN3_4_G",
         "5_G": "",
         "6_G": "",
         "7_G": "",
-        "8_G": "NetJ4_8_G_CHAN3",
-        "9_G": "NetJ4_9_G_CHAN3",
+        "8_G": "NetJ4_CHAN3_8_G",
+        "9_G": "NetJ4_CHAN3_9_G",
         "10_G": "",
         "11_G": "",
         "AGND": "AGND",
-        "AGND_G": "NetJ4_8_G_CHAN3",
+        "AGND_G": "NetJ4_CHAN3_8_G",
         "PGND": "PGND"
       },
       "description": "footprint LD driver",
@@ -1653,18 +1653,18 @@
           "net": "_TEMP_CHAN4"
         },
         "1_G": "PGND",
-        "2_G": "NetJ4_2_G_CHAN4",
+        "2_G": "NetJ4_CHAN4_2_G",
         "3_G": "PGND",
-        "4_G": "NetJ4_4_G_CHAN4",
+        "4_G": "NetJ4_CHAN4_4_G",
         "5_G": "",
         "6_G": "",
         "7_G": "",
-        "8_G": "NetJ4_8_G_CHAN4",
-        "9_G": "NetJ4_9_G_CHAN4",
+        "8_G": "NetJ4_CHAN4_8_G",
+        "9_G": "NetJ4_CHAN4_9_G",
         "10_G": "",
         "11_G": "",
         "AGND": "AGND",
-        "AGND_G": "NetJ4_8_G_CHAN4",
+        "AGND_G": "NetJ4_CHAN4_8_G",
         "PGND": "PGND"
       },
       "description": "footprint LD driver",
@@ -1795,18 +1795,18 @@
           "net": "_TEMP_CHAN5"
         },
         "1_G": "PGND",
-        "2_G": "NetJ4_2_G_CHAN5",
+        "2_G": "NetJ4_CHAN5_2_G",
         "3_G": "PGND",
-        "4_G": "NetJ4_4_G_CHAN5",
+        "4_G": "NetJ4_CHAN5_4_G",
         "5_G": "",
         "6_G": "",
         "7_G": "",
-        "8_G": "NetJ4_8_G_CHAN5",
-        "9_G": "NetJ4_9_G_CHAN5",
+        "8_G": "NetJ4_CHAN5_8_G",
+        "9_G": "NetJ4_CHAN5_9_G",
         "10_G": "",
         "11_G": "",
         "AGND": "AGND",
-        "AGND_G": "NetJ4_8_G_CHAN5",
+        "AGND_G": "NetJ4_CHAN5_8_G",
         "PGND": "PGND"
       },
       "description": "footprint LD driver",
@@ -1937,18 +1937,18 @@
           "net": "_TEMP_CHAN6"
         },
         "1_G": "PGND",
-        "2_G": "NetJ4_2_G_CHAN6",
+        "2_G": "NetJ4_CHAN6_2_G",
         "3_G": "PGND",
-        "4_G": "NetJ4_4_G_CHAN6",
+        "4_G": "NetJ4_CHAN6_4_G",
         "5_G": "",
         "6_G": "",
         "7_G": "",
-        "8_G": "NetJ4_8_G_CHAN6",
-        "9_G": "NetJ4_9_G_CHAN6",
+        "8_G": "NetJ4_CHAN6_8_G",
+        "9_G": "NetJ4_CHAN6_9_G",
         "10_G": "",
         "11_G": "",
         "AGND": "AGND",
-        "AGND_G": "NetJ4_8_G_CHAN6",
+        "AGND_G": "NetJ4_CHAN6_8_G",
         "PGND": "PGND"
       },
       "description": "footprint LD driver",
@@ -2079,18 +2079,18 @@
           "net": "_TEMP_CHAN7"
         },
         "1_G": "PGND",
-        "2_G": "NetJ4_2_G_CHAN7",
+        "2_G": "NetJ4_CHAN7_2_G",
         "3_G": "PGND",
-        "4_G": "NetJ4_4_G_CHAN7",
+        "4_G": "NetJ4_CHAN7_4_G",
         "5_G": "",
         "6_G": "",
         "7_G": "",
-        "8_G": "NetJ4_8_G_CHAN7",
-        "9_G": "NetJ4_9_G_CHAN7",
+        "8_G": "NetJ4_CHAN7_8_G",
+        "9_G": "NetJ4_CHAN7_9_G",
         "10_G": "",
         "11_G": "",
         "AGND": "AGND",
-        "AGND_G": "NetJ4_8_G_CHAN7",
+        "AGND_G": "NetJ4_CHAN7_8_G",
         "PGND": "PGND"
       },
       "description": "footprint LD driver",
@@ -2221,18 +2221,18 @@
           "net": "_TEMP_CHAN8"
         },
         "1_G": "PGND",
-        "2_G": "NetJ4_2_G_CHAN8",
+        "2_G": "NetJ4_CHAN8_2_G",
         "3_G": "PGND",
-        "4_G": "NetJ4_4_G_CHAN8",
+        "4_G": "NetJ4_CHAN8_4_G",
         "5_G": "",
         "6_G": "",
         "7_G": "",
-        "8_G": "NetJ4_8_G_CHAN8",
-        "9_G": "NetJ4_9_G_CHAN8",
+        "8_G": "NetJ4_CHAN8_8_G",
+        "9_G": "NetJ4_CHAN8_9_G",
         "10_G": "",
         "11_G": "",
         "AGND": "AGND",
-        "AGND_G": "NetJ4_8_G_CHAN8",
+        "AGND_G": "NetJ4_CHAN8_8_G",
         "PGND": "PGND"
       },
       "description": "footprint LD driver",
@@ -2363,18 +2363,18 @@
           "net": "_TEMP_CHAN9"
         },
         "1_G": "PGND",
-        "2_G": "NetJ4_2_G_CHAN9",
+        "2_G": "NetJ4_CHAN9_2_G",
         "3_G": "PGND",
-        "4_G": "NetJ4_4_G_CHAN9",
+        "4_G": "NetJ4_CHAN9_4_G",
         "5_G": "",
         "6_G": "",
         "7_G": "",
-        "8_G": "NetJ4_8_G_CHAN9",
-        "9_G": "NetJ4_9_G_CHAN9",
+        "8_G": "NetJ4_CHAN9_8_G",
+        "9_G": "NetJ4_CHAN9_9_G",
         "10_G": "",
         "11_G": "",
         "AGND": "AGND",
-        "AGND_G": "NetJ4_8_G_CHAN9",
+        "AGND_G": "NetJ4_CHAN9_8_G",
         "PGND": "PGND"
       },
       "description": "footprint LD driver",

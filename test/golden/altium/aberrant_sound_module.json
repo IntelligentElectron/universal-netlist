@@ -918,7 +918,7 @@
         "1"
       ]
     },
-    "NetDD12_5_AY1": {
+    "NetDD12_AY1_5": {
       "R4_AY1": [
         "2"
       ],
@@ -926,7 +926,7 @@
         "5"
       ]
     },
-    "NetDD12_4_AY1": {
+    "NetDD12_AY1_4": {
       "R5_AY1": [
         "2"
       ],
@@ -937,7 +937,7 @@
         "4"
       ]
     },
-    "NetDD12_1_AY1": {
+    "NetDD12_AY1_1": {
       "R7_AY1": [
         "2"
       ],
@@ -961,7 +961,7 @@
         "1"
       ]
     },
-    "NetDD12_5_AY2": {
+    "NetDD12_AY2_5": {
       "R4_AY2": [
         "2"
       ],
@@ -969,7 +969,7 @@
         "5"
       ]
     },
-    "NetDD12_4_AY2": {
+    "NetDD12_AY2_4": {
       "R5_AY2": [
         "2"
       ],
@@ -980,7 +980,7 @@
         "4"
       ]
     },
-    "NetDD12_1_AY2": {
+    "NetDD12_AY2_1": {
       "R7_AY2": [
         "2"
       ],
@@ -1004,7 +1004,7 @@
         "1"
       ]
     },
-    "NetDD12_5_AY3": {
+    "NetDD12_AY3_5": {
       "R4_AY3": [
         "2"
       ],
@@ -1012,7 +1012,7 @@
         "5"
       ]
     },
-    "NetDD12_4_AY3": {
+    "NetDD12_AY3_4": {
       "R5_AY3": [
         "2"
       ],
@@ -1023,7 +1023,7 @@
         "4"
       ]
     },
-    "NetDD12_1_AY3": {
+    "NetDD12_AY3_1": {
       "R7_AY3": [
         "2"
       ],
@@ -2028,28 +2028,28 @@
     "R4_AY1": {
       "pins": {
         "1": "L_AY1",
-        "2": "NetDD12_5_AY1"
+        "2": "NetDD12_AY1_5"
       },
       "comment": "1K"
     },
     "R5_AY1": {
       "pins": {
         "1": "L_AY1",
-        "2": "NetDD12_4_AY1"
+        "2": "NetDD12_AY1_4"
       },
       "comment": "2.2K"
     },
     "R6_AY1": {
       "pins": {
         "1": "R_AY1",
-        "2": "NetDD12_4_AY1"
+        "2": "NetDD12_AY1_4"
       },
       "comment": "2.2K"
     },
     "R7_AY1": {
       "pins": {
         "1": "R_AY1",
-        "2": "NetDD12_1_AY1"
+        "2": "NetDD12_AY1_1"
       },
       "comment": "1K"
     },
@@ -2064,7 +2064,7 @@
       "pins": {
         "1": {
           "name": "CH C",
-          "net": "NetDD12_1_AY1"
+          "net": "NetDD12_AY1_1"
         },
         "2": {
           "name": "TST1",
@@ -2076,11 +2076,11 @@
         },
         "4": {
           "name": "CH B",
-          "net": "NetDD12_4_AY1"
+          "net": "NetDD12_AY1_4"
         },
         "5": {
           "name": "CH A",
-          "net": "NetDD12_5_AY1"
+          "net": "NetDD12_AY1_5"
         },
         "6": {
           "name": "Vss",
@@ -2195,28 +2195,28 @@
     "R4_AY2": {
       "pins": {
         "1": "L_AY2",
-        "2": "NetDD12_5_AY2"
+        "2": "NetDD12_AY2_5"
       },
       "comment": "1K"
     },
     "R5_AY2": {
       "pins": {
         "1": "L_AY2",
-        "2": "NetDD12_4_AY2"
+        "2": "NetDD12_AY2_4"
       },
       "comment": "2.2K"
     },
     "R6_AY2": {
       "pins": {
         "1": "R_AY2",
-        "2": "NetDD12_4_AY2"
+        "2": "NetDD12_AY2_4"
       },
       "comment": "2.2K"
     },
     "R7_AY2": {
       "pins": {
         "1": "R_AY2",
-        "2": "NetDD12_1_AY2"
+        "2": "NetDD12_AY2_1"
       },
       "comment": "1K"
     },
@@ -2231,7 +2231,7 @@
       "pins": {
         "1": {
           "name": "CH C",
-          "net": "NetDD12_1_AY2"
+          "net": "NetDD12_AY2_1"
         },
         "2": {
           "name": "TST1",
@@ -2243,11 +2243,11 @@
         },
         "4": {
           "name": "CH B",
-          "net": "NetDD12_4_AY2"
+          "net": "NetDD12_AY2_4"
         },
         "5": {
           "name": "CH A",
-          "net": "NetDD12_5_AY2"
+          "net": "NetDD12_AY2_5"
         },
         "6": {
           "name": "Vss",
@@ -2362,28 +2362,28 @@
     "R4_AY3": {
       "pins": {
         "1": "L_AY3",
-        "2": "NetDD12_5_AY3"
+        "2": "NetDD12_AY3_5"
       },
       "comment": "1K"
     },
     "R5_AY3": {
       "pins": {
         "1": "L_AY3",
-        "2": "NetDD12_4_AY3"
+        "2": "NetDD12_AY3_4"
       },
       "comment": "2.2K"
     },
     "R6_AY3": {
       "pins": {
         "1": "R_AY3",
-        "2": "NetDD12_4_AY3"
+        "2": "NetDD12_AY3_4"
       },
       "comment": "2.2K"
     },
     "R7_AY3": {
       "pins": {
         "1": "R_AY3",
-        "2": "NetDD12_1_AY3"
+        "2": "NetDD12_AY3_1"
       },
       "comment": "1K"
     },
@@ -2398,7 +2398,7 @@
       "pins": {
         "1": {
           "name": "CH C",
-          "net": "NetDD12_1_AY3"
+          "net": "NetDD12_AY3_1"
         },
         "2": {
           "name": "TST1",
@@ -2410,11 +2410,11 @@
         },
         "4": {
           "name": "CH B",
-          "net": "NetDD12_4_AY3"
+          "net": "NetDD12_AY3_4"
         },
         "5": {
           "name": "CH A",
-          "net": "NetDD12_5_AY3"
+          "net": "NetDD12_AY3_5"
         },
         "6": {
           "name": "Vss",

@@ -344,7 +344,7 @@
         "2"
       ]
     },
-    "NetC400_1_ideal_diode1": {
+    "NetC400A_1": {
       "U400A": [
         "1"
       ],
@@ -368,7 +368,7 @@
         "4"
       ]
     },
-    "NetC400_1_ideal_diode2": {
+    "NetC400B_1": {
       "U400B": [
         "1"
       ],
@@ -509,7 +509,7 @@
         "24"
       ]
     },
-    "NetU300_23_MPPT_charger1": {
+    "NetU300A_23": {
       "U300A": [
         "23"
       ]
@@ -549,7 +549,7 @@
         "2"
       ]
     },
-    "NetR302_1_MPPT_charger1": {
+    "NetR302A_1": {
       "U300A": [
         "1"
       ],
@@ -685,7 +685,7 @@
         "24"
       ]
     },
-    "NetU300_23_MPPT_charger2": {
+    "NetU300B_23": {
       "U300B": [
         "23"
       ]
@@ -725,7 +725,7 @@
         "2"
       ]
     },
-    "NetR302_1_MPPT_charger2": {
+    "NetR302B_1": {
       "U300B": [
         "1"
       ],
@@ -1476,7 +1476,7 @@
       "pins": {
         "1": {
           "name": "VIN",
-          "net": "NetC400_1_ideal_diode1"
+          "net": "NetC400A_1"
         },
         "2": {
           "name": "GND",
@@ -1528,7 +1528,7 @@
         },
         "3": {
           "name": "D",
-          "net": "NetC400_1_ideal_diode1"
+          "net": "NetC400A_1"
         }
       },
       "description": "MOSFET P-CH 30V 45A SOP Advance",
@@ -1536,7 +1536,7 @@
     },
     "C400A": {
       "pins": {
-        "1": "NetC400_1_ideal_diode1",
+        "1": "NetC400A_1",
         "2": "GND"
       },
       "description": "CAP 0.1 µF, X5R or X7R ceramic",
@@ -1546,7 +1546,7 @@
       "pins": {
         "1": {
           "name": "VIN",
-          "net": "NetC400_1_ideal_diode2"
+          "net": "NetC400B_1"
         },
         "2": {
           "name": "GND",
@@ -1598,7 +1598,7 @@
         },
         "3": {
           "name": "D",
-          "net": "NetC400_1_ideal_diode2"
+          "net": "NetC400B_1"
         }
       },
       "description": "MOSFET P-CH 30V 45A SOP Advance",
@@ -1606,7 +1606,7 @@
     },
     "C400B": {
       "pins": {
-        "1": "NetC400_1_ideal_diode2",
+        "1": "NetC400B_1",
         "2": "GND"
       },
       "description": "CAP 0.1 µF, X5R or X7R ceramic",
@@ -1799,7 +1799,7 @@
       "pins": {
         "1": {
           "name": "SYNC",
-          "net": "NetR302_1_MPPT_charger1"
+          "net": "NetR302A_1"
         },
         "2": {
           "name": "TR/SS",
@@ -1887,7 +1887,7 @@
         },
         "23": {
           "name": "IMON",
-          "net": "NetU300_23_MPPT_charger1"
+          "net": "NetU300A_23"
         },
         "24": {
           "name": "ICTRL",
@@ -2070,7 +2070,7 @@
     },
     "R302A": {
       "pins": {
-        "1": "NetR302_1_MPPT_charger1",
+        "1": "NetR302A_1",
         "2": "INTVcc_MPPT_charger1"
       },
       "description": "10K 0.1W 5% 0603 (1608 Metric)  SMD",
@@ -2088,7 +2088,7 @@
       "pins": {
         "1": {
           "name": "SYNC",
-          "net": "NetR302_1_MPPT_charger2"
+          "net": "NetR302B_1"
         },
         "2": {
           "name": "TR/SS",
@@ -2176,7 +2176,7 @@
         },
         "23": {
           "name": "IMON",
-          "net": "NetU300_23_MPPT_charger2"
+          "net": "NetU300B_23"
         },
         "24": {
           "name": "ICTRL",
@@ -2359,7 +2359,7 @@
     },
     "R302B": {
       "pins": {
-        "1": "NetR302_1_MPPT_charger2",
+        "1": "NetR302B_1",
         "2": "INTVcc_MPPT_charger2"
       },
       "description": "10K 0.1W 5% 0603 (1608 Metric)  SMD",
