@@ -9,15 +9,16 @@ import { OleReader } from "../../ole-reader/ole-reader.js";
 import { parseDsnFile } from "./dsn-parser.js";
 import { parseCadence, buildCadencePinMap } from "../index.js";
 import { traverseCircuitFromNet, computeCircuitHash } from "../../../circuit-traversal.js";
+import { fixture, hasFixtures } from "../../../../test/utils.js";
 
-const FIXTURE_DIR = join(__dirname, "../../../../test/fixtures/cadence/BeagleBone-Black/ALLEGRO");
+const FIXTURE_DIR = fixture("cadence", "BeagleBone-Black", "ALLEGRO");
 const DSN_FIXTURE = join(FIXTURE_DIR, "BEAGLEBONEBLK_C3.DSN");
 const PSTXNET_FIXTURE = join(FIXTURE_DIR, "pstxnet.dat");
 const PSTXPRT_FIXTURE = join(FIXTURE_DIR, "pstxprt.dat");
 const PSTCHIP_FIXTURE = join(FIXTURE_DIR, "pstchip.dat");
 
-const hasDsnFixture = existsSync(DSN_FIXTURE);
-const hasDatFixtures = existsSync(PSTXNET_FIXTURE) && existsSync(PSTXPRT_FIXTURE);
+const hasDsnFixture = hasFixtures && existsSync(DSN_FIXTURE);
+const hasDatFixtures = hasFixtures && existsSync(PSTXNET_FIXTURE) && existsSync(PSTXPRT_FIXTURE);
 
 describe.skipIf(!hasDsnFixture)("DSN CFBF Container", () => {
   it("should open DSN file as OLE container", () => {

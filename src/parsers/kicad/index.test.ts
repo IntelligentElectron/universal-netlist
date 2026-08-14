@@ -1,13 +1,9 @@
 import { describe, it, expect } from "vitest";
-import path from "node:path";
-import { existsSync } from "node:fs";
-import { fileURLToPath } from "node:url";
 import { kicadHandler, parseKicadDesign } from "./index.js";
 import { discoverKicadDesigns, isKicadFile } from "./discovery.js";
+import { fixture, hasFixtures } from "../../../test/utils.js";
 
-const HERE = path.dirname(fileURLToPath(import.meta.url));
-const KICAD_FIXTURES = path.resolve(HERE, "../../../test/fixtures/kicad");
-const hasFixtures = existsSync(path.join(KICAD_FIXTURES, "gameboy-DMG-QLA-01"));
+const KICAD_FIXTURES = fixture("kicad");
 
 describe("kicadHandler", () => {
   it("declares the kicad name and project extensions", () => {

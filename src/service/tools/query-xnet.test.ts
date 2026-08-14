@@ -1,19 +1,16 @@
 import { describe, it, expect, vi, beforeAll, afterAll } from "vitest";
-import path from "node:path";
 import { existsSync } from "node:fs";
-import { fileURLToPath } from "node:url";
 import type { ParsedNetlist, ErrorResult } from "../../types.js";
 import * as parsersModule from "../../parsers/index.js";
+import { fixture, hasFixtures } from "../../../test/utils.js";
 
 const isErrorResult = (result: unknown): result is ErrorResult =>
   typeof result === "object" && result !== null && "error" in result;
 
-const HERE = path.dirname(fileURLToPath(import.meta.url));
-const KICAD_FIXTURES = path.resolve(HERE, "../../../test/fixtures/kicad");
 // OpenMD's committed .net declares its ground as the hierarchical "/GND", so it
 // parses without kicad-cli and exercises the real classify+reject path in CI.
-const OPENMD = path.join(KICAD_FIXTURES, "openmd-motordriver", "OpenMD.kicad_pro");
-const hasOpenMd = existsSync(OPENMD);
+const OPENMD = fixture("kicad", "openmd-motordriver", "OpenMD.kicad_pro");
+const hasOpenMd = hasFixtures && existsSync(OPENMD);
 
 describe("queryXnetByNetName - ground net blocking", () => {
   let queryXnetByNetName: typeof import("./query-xnet.js").queryXnetByNetName;
