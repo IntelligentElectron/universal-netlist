@@ -56,6 +56,16 @@ REMOTE=$(git rev-parse origin/main)
 grep -q "## \[${VERSION}\]" CHANGELOG.md || \
   fail "CHANGELOG.md has no ## [${VERSION}] section. Write the release notes first."
 
+# `npm version` writes the version to package-lock.json as well, so the two agree
+# whenever the bump was made with it. Editing package.json by hand leaves the
+# lockfile a version behind, and nothing downstream says so: `npm ci` compares
+# dependencies and ignores the root version, so CI passes and the release ships
+# with a lockfile describing the version before it. This is the only check on it.
+# (bun.lock records the root's name and no version, so there is nothing to check.)
+LOCK_VERSION=$(node -p 'require("./package-lock.json").version')
+[ "$LOCK_VERSION" = "$VERSION" ] || \
+  fail "package-lock.json is at $LOCK_VERSION, not $VERSION. Run 'npm install --package-lock-only' and commit it."
+
 git rev-parse -q --verify "refs/tags/${TAG}" >/dev/null && \
   fail "tag ${TAG} already exists locally. Delete it, or pick another version."
 git ls-remote --exit-code --tags origin "refs/tags/${TAG}" >/dev/null 2>&1 && \
