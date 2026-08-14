@@ -59,12 +59,17 @@ export interface SheetNetScope {
 }
 
 /**
- * Work out, for every sheet, which of its nets have to be renamed to keep them
- * apart from a same-named net on another sheet.
+ * Work out, for every sheet, which of its nets carry the sheet's number.
  *
- * Only a name genuinely claimed by two or more sheets is taken apart. One sheet
- * claiming a name is the ordinary case and keeps the bare name, which is what
- * keeps this from renaming most of a project.
+ * Altium suffixes a sheet-local net whether or not another sheet happens to
+ * reuse the name: the MiSKo3 board carries `VBAT_8` for a `VBAT` label drawn on
+ * sheet 8 alone. So the suffix follows from the net being the sheet's own, not
+ * from a collision, and a name two sheets do reuse is separated as a
+ * consequence rather than as a special case.
+ *
+ * Only a net a designer named is suffixed. A net named after one of its own
+ * pins, `NetC3_1`, is already unique across the board because the refdes is,
+ * and Altium leaves those alone: every board read for this carries them bare.
  *
  * Returns one rename map per sheet, in the order the sheets were given.
  */
@@ -72,16 +77,11 @@ export const planLocalNetRenames = (
   sheets: readonly SheetNetScope[],
   scope: NetIdentifierScope
 ): Map<string, string>[] => {
-  const sheetsClaiming = new Map<string, number>();
   // Every name the project already uses, on any sheet. A suffixed name that
   // collides with one of these is a name the design gave to something else.
   const namesInUse = new Set<string>();
   for (const sheet of sheets) {
-    for (const [netName, kinds] of sheet.netIdentifiers) {
-      namesInUse.add(netName);
-      if (!isSheetBound(kinds, scope)) continue;
-      sheetsClaiming.set(netName, (sheetsClaiming.get(netName) ?? 0) + 1);
-    }
+    for (const netName of sheet.netIdentifiers.keys()) namesInUse.add(netName);
   }
 
   return sheets.map((sheet) => {
@@ -90,7 +90,10 @@ export const planLocalNetRenames = (
 
     for (const [netName, kinds] of sheet.netIdentifiers) {
       if (!isSheetBound(kinds, scope)) continue;
-      if ((sheetsClaiming.get(netName) ?? 0) < 2) continue;
+      // A name the designer wrote, rather than one derived from a pin. A power
+      // port counts: where the scope makes it local, the supply it names is
+      // this sheet's own and is numbered with the rest.
+      if (!kinds.label && !kinds.powerPort) continue;
 
       // Some sheet may already draw a net actually called `SCL_2`. Folding the
       // renamed net into it would invent a connection that the design does not
