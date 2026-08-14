@@ -2,7 +2,8 @@
  * Auto-updater for universal-netlist server.
  *
  * Checks GitHub Releases for newer versions and self-updates on startup.
- * Always runs on startup for compiled binaries. Skipped for npm installs.
+ * Runs on startup for compiled binaries built on the `github` channel.
+ * Skipped for npm installs and for packaged builds (see ../build-flags.ts).
  */
 
 import {
@@ -17,6 +18,7 @@ import { tmpdir } from "node:os";
 import { join, dirname, basename } from "node:path";
 import { spawn } from "node:child_process";
 import { VERSION, GITHUB_REPO, BINARY_NAME } from "../version.js";
+import { SELF_UPDATE_ENABLED } from "../build-flags.js";
 import { getCurrentExecutablePath, isCompiledBinary } from "./executable.js";
 
 /** GitHub release information. */
@@ -341,6 +343,13 @@ export const reexec = (): never => {
  * @returns true if an update was applied and process should restart
  */
 export const autoUpdate = async (): Promise<boolean> => {
+  // A packaged build does not own its own file: the package manager that
+  // installed it does. Replacing it in place would break that manager's view
+  // of what is installed, and often fails outright on a read-only prefix.
+  if (!SELF_UPDATE_ENABLED) {
+    return false;
+  }
+
   // Only the compiled standalone binary self-updates. Running from source
   // (tsx/node) must never download a binary and re-exec into it.
   if (!isCompiledBinary()) {

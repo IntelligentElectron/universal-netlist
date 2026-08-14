@@ -55,3 +55,29 @@ describe("autoUpdate self-update guard", () => {
     expect(fetchSpy).toHaveBeenCalledTimes(1);
   });
 });
+
+describe("autoUpdate on a packaged build", () => {
+  afterEach(() => {
+    vi.doUnmock("../build-flags.js");
+    vi.resetModules();
+  });
+
+  it("returns false and performs no network call even as the compiled binary", async () => {
+    // Every other guard is satisfied: this is the compiled binary, installed
+    // outside node_modules. Only the build channel stops it.
+    const bin = "/opt/homebrew/bin/universal-netlist";
+    setExecPath(bin);
+    process.argv[1] = bin;
+    const fetchSpy = vi.fn();
+    vi.stubGlobal("fetch", fetchSpy);
+
+    vi.doMock("../build-flags.js", () => ({ CHANNEL: "packaged", SELF_UPDATE_ENABLED: false }));
+    vi.resetModules();
+    const { autoUpdate: packagedAutoUpdate } = await import("./updater.js");
+
+    const updated = await packagedAutoUpdate();
+
+    expect(updated).toBe(false);
+    expect(fetchSpy).not.toHaveBeenCalled();
+  });
+});

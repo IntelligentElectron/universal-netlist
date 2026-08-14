@@ -6,6 +6,7 @@
 import { existsSync, rmSync, writeFileSync } from "node:fs";
 import { basename, dirname, extname, join, resolve } from "node:path";
 import { VERSION, GITHUB_REPO, BINARY_NAME } from "../version.js";
+import { SELF_UPDATE_ENABLED } from "../build-flags.js";
 import { exportTelemetry } from "../telemetry/index.js";
 import { parseDesign } from "../parsers/index.js";
 import {
@@ -37,6 +38,12 @@ export const printVersion = (): void => {
  * Print help message.
  */
 export const printHelp = (): void => {
+  // A packaged build was installed by a package manager, so the install line
+  // that applies to it is that manager's, not this repo's install.sh.
+  const installation = SELF_UPDATE_ENABLED
+    ? `  curl -fsSL https://raw.githubusercontent.com/${GITHUB_REPO}/main/install.sh | bash`
+    : `  Installed and updated by your package manager.`;
+
   console.log(
     `
 ${BINARY_NAME} v${VERSION}
@@ -56,7 +63,7 @@ OPTIONS:
   --verbose            Show per-design field mismatch breakdowns (with --coverage)
 
 INSTALLATION:
-  curl -fsSL https://raw.githubusercontent.com/${GITHUB_REPO}/main/install.sh | bash
+${installation}
 
 MORE INFO:
   https://github.com/${GITHUB_REPO}
@@ -70,6 +77,14 @@ MORE INFO:
  * For npm installs, directs users to use npm update instead.
  */
 export const handleUpdateCommand = async (): Promise<void> => {
+  // A packaged build's file belongs to the package manager that installed it,
+  // so the update belongs there too.
+  if (!SELF_UPDATE_ENABLED) {
+    console.log(`${BINARY_NAME} v${VERSION} was installed by a package manager.`);
+    console.log("Update it the way you installed it.");
+    return;
+  }
+
   // For npm installs, provide npm-specific update instructions
   if (isNpmInstall()) {
     console.log(`Checking for updates...`);
@@ -131,6 +146,14 @@ export const handleUpdateCommand = async (): Promise<void> => {
  * Removes the binary and PATH entries from shell rc files.
  */
 export const handleUninstallCommand = async (): Promise<void> => {
+  // Deleting a packaged install directory would leave the package manager
+  // believing it is still installed, so leave the files where they are.
+  if (!SELF_UPDATE_ENABLED) {
+    console.log(`${BINARY_NAME} v${VERSION} was installed by a package manager.`);
+    console.log("Remove it the way you installed it.");
+    return;
+  }
+
   const confirmed = await confirm(`This will remove ${BINARY_NAME} from your system. Continue?`);
   if (!confirmed) {
     console.log("Uninstall cancelled");
