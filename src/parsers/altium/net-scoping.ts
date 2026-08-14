@@ -132,7 +132,9 @@ export const planLocalNetRenames = (
     sheets.forEach((sheet, index) => {
       if (index !== claimant) {
         const kinds = sheet.netIdentifiers.get(netName);
-        if (kinds && isSheetBound(kinds, scope)) return;
+        // A sheet that never draws the name has nothing to rename, and one
+        // drawing its own sheet-bound net under it has a different net.
+        if (!kinds || isSheetBound(kinds, scope)) return;
       }
       renames[index].set(netName, `${netName}_${number}`);
     });
