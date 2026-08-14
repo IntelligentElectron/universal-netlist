@@ -27,13 +27,29 @@ set -euo pipefail
 
 TARGET="${1:-}"
 OUTFILE="${2:-}"
-CHANNEL="${3:-github}"
+# `-` rather than `:-`: an omitted third argument means "the default channel",
+# but one passed as an empty string means the caller meant to name a channel and
+# their variable was unset. Defaulting that to `github` is how a packaged build
+# ends up self-updating in a prefix it does not own, so let it fail below.
+CHANNEL="${3-github}"
 
 if [ -z "$TARGET" ] || [ -z "$OUTFILE" ]; then
     echo "Usage: $0 <target> <outfile> [channel]" >&2
     echo "  e.g. $0 bun-linux-x64 bin/universal-netlist-linux-x64" >&2
     exit 1
 fi
+
+# Only `github` turns self-update on, so any other spelling — `packagd`, an
+# empty string, tomorrow's channel name — produces a binary with self-update
+# silently off. Reject it here, where the typo was made, rather than shipping a
+# quietly degraded build that nothing downstream can tell apart from a good one.
+case "$CHANNEL" in
+    github | packaged) ;;
+    *)
+        echo "Unknown channel: $CHANNEL (expected 'github' or 'packaged')" >&2
+        exit 1
+        ;;
+esac
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
