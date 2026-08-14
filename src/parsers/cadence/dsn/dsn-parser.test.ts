@@ -9,9 +9,9 @@ import { OleReader } from "../../ole-reader/ole-reader.js";
 import { parseDsnFile } from "./dsn-parser.js";
 import { parseCadence, buildCadencePinMap } from "../index.js";
 import { traverseCircuitFromNet, computeCircuitHash } from "../../../circuit-traversal.js";
-import { fixture, hasFixtures } from "../../../../test/utils.js";
+import { fixturePath, hasFixtures } from "../../../../test/utils.js";
 
-const FIXTURE_DIR = fixture("cadence", "BeagleBone-Black", "ALLEGRO");
+const FIXTURE_DIR = fixturePath("cadence", "BeagleBone-Black", "ALLEGRO");
 const DSN_FIXTURE = join(FIXTURE_DIR, "BEAGLEBONEBLK_C3.DSN");
 const PSTXNET_FIXTURE = join(FIXTURE_DIR, "pstxnet.dat");
 const PSTXPRT_FIXTURE = join(FIXTURE_DIR, "pstxprt.dat");

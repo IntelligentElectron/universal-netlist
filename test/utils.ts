@@ -24,10 +24,10 @@ export const FIXTURES = FIXTURES_DIR;
  * Resolve a path inside the fixtures submodule.
  *
  * ```ts
- * const OPENMD = fixture("kicad", "openmd-motordriver", "OpenMD.kicad_pro");
+ * const OPENMD = fixturePath("kicad", "openmd-motordriver", "OpenMD.kicad_pro");
  * ```
  */
-export const fixture = (...segments: string[]): string => path.join(FIXTURES, ...segments);
+export const fixturePath = (...segments: string[]): string => path.join(FIXTURES, ...segments);
 
 /**
  * Whether the fixtures submodule is checked out.
