@@ -15,6 +15,9 @@
 #
 # Environment:
 #   VERSION  Version baked into the binary, default the one in package.json.
+#            Held to A-Za-z0-9 and . + _ ~ : -, the characters a version is
+#            written with, so it cannot break out of the string it compiles
+#            into and leave a binary reporting some truncation of itself.
 #
 # Examples:
 #   ./scripts/build-binary.sh bun-linux-x64 bin/universal-netlist-linux-x64
@@ -72,6 +75,20 @@ PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 # with Node made a build fail on `node: command not found` in an environment
 # that had installed every toolchain this repo declares.
 VERSION="${VERSION:-$(bun -e "console.log(require('$PROJECT_DIR/package.json').version)")}"
+
+# --define substitutes this as raw source text rather than as an escaped string,
+# so a `"` in it closes the literal early and the rest is dropped: `1.0.0", "x":
+# "y` compiled clean and reported 1.0.0, and a leading space compiled a version
+# with a space in it. Both produce the binary reporting a version nobody
+# released that the channel check above exists to stop, so hold this to the
+# characters versions are actually written with. `+` and `~` stay in for build
+# metadata and for a Debian-style `1.5.2~rc1`.
+case "$VERSION" in
+    "" | *[!A-Za-z0-9.+_~:-]*)
+        echo "Invalid version: '$VERSION' (allowed: A-Za-z0-9 and . + _ ~ : -)" >&2
+        exit 1
+        ;;
+esac
 
 mkdir -p "$(dirname "$OUTFILE")"
 

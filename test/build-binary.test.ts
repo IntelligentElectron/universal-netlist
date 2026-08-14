@@ -126,6 +126,38 @@ describe("build-binary.sh version resolution", () => {
     expect(result.stderr).not.toContain("node: command not found");
   });
 
+  // `--define` substitutes the version as raw source text, so a `"` closes the
+  // string literal early and Bun compiles the truncated remainder without
+  // complaint: `1.0.0", "X": "y` built clean and reported 1.0.0. A version the
+  // caller never asked for, in a binary nothing downstream can tell apart from
+  // a good one, which is the defect the channel check exists to stop.
+  it.each([
+    ["a quote, which truncated the version silently", '1.0.0", "X": "y'],
+    ["a trailing backslash", "1.0.0\\"],
+    ["a leading space", " 1.5.2"],
+    ["a newline", "1.5.2\nevil"],
+  ])("rejects a version carrying %s", (_label, version) => {
+    const { status, stderr } = runWithEnv({ VERSION: version }, BAD_TARGET, "/dev/null");
+
+    expect(status).toBe(1);
+    expect(stderr).toContain("Invalid version:");
+  });
+
+  // The formats a downstream packager actually stamps. Rejecting one of these
+  // would send them back to patching package.json, which is what #144 asked to
+  // stop doing.
+  it.each([
+    ["plain semver", "1.5.2"],
+    ["a packager revision", "1.5.2-3"],
+    ["build metadata", "1.5.2+2026.08.14"],
+    ["a Debian pre-release", "1.5.2~rc1"],
+    ["a Debian epoch", "1:1.5.2"],
+  ])("accepts %s", (_label, version) => {
+    const { stdout } = runWithEnv({ VERSION: version }, BAD_TARGET, "/dev/null");
+
+    expect(stdout).toContain(`version=${version}`);
+  });
+
   it.skipIf(!hasBun)("falls back rather than baking an empty version", () => {
     // `VERSION=$SOME_UNSET_VAR` reaches the script as an empty string. A true
     // upstream version is the right answer there; `version=` is not one.

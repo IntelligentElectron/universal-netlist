@@ -74,6 +74,11 @@ wants instead of patching a tracked file:
 VERSION=1.5.2-3 scripts/build-binary.sh bun-linux-x64 bin/universal-netlist-linux-x64 packaged
 ```
 
+It is held to the characters a version is written with (`A-Za-z0-9` and `. + _ ~ : -`),
+which covers semver, build metadata and a Debian-style `1.5.2~rc1`. The version compiles
+in as raw source text, so anything else is rejected rather than left to truncate itself
+into a binary reporting a version nobody released.
+
 Bun is the only toolchain the script needs, reading that default version included, so a
 container holding just the Bun in `.bun-version` builds this.
 
