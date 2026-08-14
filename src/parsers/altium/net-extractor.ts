@@ -273,6 +273,33 @@ const comparePinNumbers = (a: string, b: string): number => {
   return a.localeCompare(b);
 };
 
+/**
+ * Order two designators the way a designer reads them.
+ *
+ * A designator is a prefix and a number, and the number counts: R9 comes before
+ * R11. Compared as text it does not, because "1" sorts before "9", and the net
+ * Altium calls `NetR9_2` would be named after R11 instead. Anything after the
+ * number, as in the `R5A` of a multi-part symbol, breaks the tie last.
+ */
+const compareRefdes = (a: string, b: string): number => {
+  const split = /^([^0-9]*)(\d+)?(.*)$/;
+  const [, aPrefix = "", aDigits, aRest = ""] = a.match(split) ?? [];
+  const [, bPrefix = "", bDigits, bRest = ""] = b.match(split) ?? [];
+
+  if (aPrefix !== bPrefix) return aPrefix.localeCompare(bPrefix);
+
+  // A bare prefix sorts ahead of the same prefix carrying a number.
+  if (aDigits === undefined || bDigits === undefined) {
+    if (aDigits === bDigits) return aRest.localeCompare(bRest);
+    return aDigits === undefined ? -1 : 1;
+  }
+
+  const byNumber = Number.parseInt(aDigits, 10) - Number.parseInt(bDigits, 10);
+  if (byNumber !== 0) return byNumber;
+
+  return aRest.localeCompare(bRest);
+};
+
 const collectPinCandidates = (
   net: AltiumNet,
   schematic: AltiumSchematic
@@ -348,7 +375,7 @@ const claimedNetName = (device: AltiumRecord): string | undefined => {
  * a harness, say — the first in the device order wins, which is the order the
  * records appear in the file.
  */
-const assignNetName = (net: AltiumNet, schematic: AltiumSchematic): void => {
+export const assignNetName = (net: AltiumNet, schematic: AltiumSchematic): void => {
   for (const naming of NAMING_PRIORITY) {
     for (const device of net.devices) {
       if (device.RECORD !== naming.type) continue;
@@ -366,7 +393,7 @@ const assignNetName = (net: AltiumNet, schematic: AltiumSchematic): void => {
     return;
   }
 
-  const sortedRefdes = Array.from(refdesPins.keys()).sort((a, b) => a.localeCompare(b));
+  const sortedRefdes = Array.from(refdesPins.keys()).sort(compareRefdes);
   const selectedRefdes = sortedRefdes[0];
   const pinNumbers = refdesPins.get(selectedRefdes);
   if (!pinNumbers || pinNumbers.length === 0) {

@@ -8,7 +8,7 @@
         "1"
       ]
     },
-    "NetR11_1": {
+    "NetR9_2": {
       "U2": [
         "1"
       ],
@@ -361,7 +361,7 @@
         "2"
       ]
     },
-    "NetC10_2": {
+    "NetC9_2": {
       "D3": [
         "2"
       ],
@@ -1291,7 +1291,7 @@
       "pins": {
         "1": {
           "name": "FB",
-          "net": "NetR11_1"
+          "net": "NetR9_2"
         },
         "2": {
           "name": "COMP",
@@ -1325,7 +1325,7 @@
     "R9": {
       "pins": {
         "1": "49V2",
-        "2": "NetR11_1"
+        "2": "NetR9_2"
       },
       "mpn": "RT0603DRE07390KL",
       "description": "390 kOhms ±0.5% 0.1W, 1/10W Chip Resistor 0603 (1608 Metric) Thin Film \r\n",
@@ -1333,7 +1333,7 @@
     },
     "R11": {
       "pins": {
-        "1": "NetR11_1",
+        "1": "NetR9_2",
         "2": "GND"
       },
       "description": "RES SMD 10K OHM 1% 1/10W 0603",
@@ -1360,7 +1360,7 @@
     "D3": {
       "pins": {
         "1": "NetC8_2",
-        "2": "NetC10_2"
+        "2": "NetC9_2"
       },
       "mpn": "SL110PL-TP",
       "description": "DIODE SCHOTTKY 100V 1A SOD123FL",
@@ -1368,7 +1368,7 @@
     },
     "D4": {
       "pins": {
-        "1": "NetC10_2",
+        "1": "NetC9_2",
         "2": "NetC8_1"
       },
       "mpn": "SL110PL-TP",
@@ -1387,7 +1387,7 @@
     "C9": {
       "pins": {
         "1": "49V2",
-        "2": "NetC10_2"
+        "2": "NetC9_2"
       },
       "description": "2.2µF ±20% 100V Ceramic Capacitor X7R 1206 (3216 Metric)",
       "comment": "CAP CER 2.2UF 100V ±20% X7R 1206"
@@ -1395,14 +1395,14 @@
     "C10": {
       "pins": {
         "1": "49V2",
-        "2": "NetC10_2"
+        "2": "NetC9_2"
       },
       "description": "2.2µF ±20% 100V Ceramic Capacitor X7R 1206 (3216 Metric)",
       "comment": "CAP CER 2.2UF 100V ±20% X7R 1206"
     },
     "C15": {
       "pins": {
-        "1": "NetC10_2",
+        "1": "NetC9_2",
         "2": "GND"
       },
       "description": "2.2µF ±20% 100V Ceramic Capacitor X7R 1206 (3216 Metric)",
@@ -1410,7 +1410,7 @@
     },
     "C16": {
       "pins": {
-        "1": "NetC10_2",
+        "1": "NetC9_2",
         "2": "GND"
       },
       "description": "2.2µF ±20% 100V Ceramic Capacitor X7R 1206 (3216 Metric)",
