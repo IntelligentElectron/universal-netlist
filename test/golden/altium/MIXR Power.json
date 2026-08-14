@@ -8,17 +8,6 @@
         "1"
       ]
     },
-    "49V2_EN": {
-      "U2": [
-        "5"
-      ],
-      "Q1": [
-        "3"
-      ],
-      "R14": [
-        "1"
-      ]
-    },
     "NetR11_1": {
       "U2": [
         "1"
@@ -500,6 +489,17 @@
     },
     "NetR13_1": {
       "R13": [
+        "1"
+      ]
+    },
+    "49V2_EN_7": {
+      "U2": [
+        "5"
+      ],
+      "Q1": [
+        "3"
+      ],
+      "R14": [
         "1"
       ]
     },
@@ -1153,22 +1153,6 @@
         "1"
       ]
     },
-    "USB_CC1": {
-      "P1": [
-        "A5"
-      ],
-      "R2": [
-        "1"
-      ]
-    },
-    "USB_CC2": {
-      "P1": [
-        "B5"
-      ],
-      "R1": [
-        "1"
-      ]
-    },
     "NetD1_1": {
       "P1": [
         "A6",
@@ -1228,6 +1212,22 @@
         "7"
       ]
     },
+    "USB_CC1_3": {
+      "P1": [
+        "A5"
+      ],
+      "R2": [
+        "1"
+      ]
+    },
+    "USB_CC2_3": {
+      "P1": [
+        "B5"
+      ],
+      "R1": [
+        "1"
+      ]
+    },
     "ESP32_PWR_PE_GP3_nBAT_CHG_EN": {
       "U5": [
         "12"
@@ -1242,15 +1242,6 @@
       ],
       "R19": [
         "2"
-      ]
-    },
-    "ESP32_PWR_PE_GP7_DEBUG_LEG": {
-      "U5": [
-        "16"
-      ],
-      "R18": [
-        "10",
-        "9"
       ]
     },
     "ESP32_PWR_PE_GP2_49V2_REG_EN": {
@@ -1284,6 +1275,15 @@
       "LED1": [
         "1"
       ]
+    },
+    "ESP32_PWR_PE_GP7_DEBUG_LEG_8": {
+      "U5": [
+        "16"
+      ],
+      "R18": [
+        "10",
+        "9"
+      ]
     }
   },
   "components": {
@@ -1307,7 +1307,7 @@
         },
         "5": {
           "name": "CTRL",
-          "net": "49V2_EN"
+          "net": "49V2_EN_7"
         },
         "6": {
           "name": "VIN",
@@ -1606,7 +1606,7 @@
         },
         "3": {
           "name": "D",
-          "net": "49V2_EN"
+          "net": "49V2_EN_7"
         }
       },
       "mpn": "DMP3099L-7",
@@ -1643,7 +1643,7 @@
     },
     "R14": {
       "pins": {
-        "1": "49V2_EN",
+        "1": "49V2_EN_7",
         "2": "GND"
       },
       "mpn": "RC0402FR-07162KL",
@@ -2744,11 +2744,11 @@
         },
         "A5": {
           "name": "CC1",
-          "net": "USB_CC1"
+          "net": "USB_CC1_3"
         },
         "B5": {
           "name": "CC2",
-          "net": "USB_CC2"
+          "net": "USB_CC2_3"
         },
         "A6": {
           "name": "DP1",
@@ -2886,7 +2886,7 @@
     },
     "R1": {
       "pins": {
-        "1": "USB_CC2",
+        "1": "USB_CC2_3",
         "2": "GND"
       },
       "mpn": "RMCF0402FT5K10",
@@ -2895,7 +2895,7 @@
     },
     "R2": {
       "pins": {
-        "1": "USB_CC1",
+        "1": "USB_CC1_3",
         "2": "GND"
       },
       "mpn": "RMCF0402FT5K10",
@@ -2966,7 +2966,7 @@
         "13": "ESP32_PWR_PE_GP4_BAT_GAUGE_ALRT",
         "14": "ESP32_PWR_PE_GP5_BAT_CHG_nPG",
         "15": "ESP32_PWR_PE_GP6_BAT_CHG_STATUS",
-        "16": "ESP32_PWR_PE_GP7_DEBUG_LEG",
+        "16": "ESP32_PWR_PE_GP7_DEBUG_LEG_8",
         "17": "GND",
         "18": "3V3",
         "19": {
@@ -3009,8 +3009,8 @@
         "6": "3V3",
         "7": "NetLED1_1",
         "8": "NetLED1_1",
-        "9": "ESP32_PWR_PE_GP7_DEBUG_LEG",
-        "10": "ESP32_PWR_PE_GP7_DEBUG_LEG",
+        "9": "ESP32_PWR_PE_GP7_DEBUG_LEG_8",
+        "10": "ESP32_PWR_PE_GP7_DEBUG_LEG_8",
         "11": "ESP32_PWR_PE_GP6_BAT_CHG_STATUS",
         "12": "ESP32_PWR_PE_GP5_BAT_CHG_nPG",
         "13": "ESP32_PWR_PE_GP4_BAT_GAUGE_ALRT",

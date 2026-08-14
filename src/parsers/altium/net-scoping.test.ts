@@ -60,13 +60,21 @@ describe("planLocalNetRenames", () => {
     expect(plans[1].get("SCL")).toBe("SCL_2");
   });
 
-  it("leaves a name only one sheet claims alone", () => {
+  it("numbers a sheet's own net even where no other sheet reuses the name", () => {
+    // Altium suffixes because the net is the sheet's own, not because it
+    // collides: the MiSKo3 board carries `VBAT_8` for a label drawn on sheet 8
+    // alone.
     const plans = planLocalNetRenames(
-      [sheet("1", { SCL: { label: true } }), sheet("2", { SDA: { label: true } })],
+      [sheet("8", { VBAT: { label: true } }), sheet("2", { SDA: { label: true } })],
       "hierarchical"
     );
+    expect(plans[0].get("VBAT")).toBe("VBAT_8");
+    expect(plans[1].get("SDA")).toBe("SDA_2");
+  });
+
+  it("leaves a net named after one of its own pins alone, being unique already", () => {
+    const plans = planLocalNetRenames([sheet("3", { NetC3_1: {} })], "hierarchical");
     expect(plans[0].size).toBe(0);
-    expect(plans[1].size).toBe(0);
   });
 
   it("leaves a name shared through ports alone, because it is one net", () => {
