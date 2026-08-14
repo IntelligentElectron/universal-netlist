@@ -48,13 +48,24 @@ npm run compile:darwin-universal  # Add the lipo'd macOS universal binary (macOS
 
 ### Binary Compilation
 
-Uses Bun to compile TypeScript into standalone executables:
+Uses Bun to compile TypeScript into standalone executables. One script does it, and it
+is the same one `release.yml` and the `compile:*` npm scripts call, so a release binary
+can be reproduced locally:
 
 ```bash
-bun build src/index.ts --compile --minify --target=bun-<platform> --outfile=bin/<name>-<platform>
+scripts/build-binary.sh <target> <outfile> [channel]
+
+scripts/build-binary.sh bun-linux-x64 bin/universal-netlist-linux-x64
+scripts/build-binary.sh host bin/universal-netlist
 ```
 
-Platforms: `darwin-arm64`, `darwin-x64`, `linux-arm64`, `linux-x64`, `windows-x64`
+Targets: `bun-darwin-arm64`, `bun-darwin-x64`, `bun-linux-arm64`, `bun-linux-x64`,
+`bun-windows-x64`, plus `host` for the machine running the script.
+
+The script compiles and nothing else — no git, no network, no signing, no publishing,
+no `GITHUB_REF`. The version it bakes in comes from `package.json`, which is the single
+source of it; the release workflow validates the tag against `package.json` rather than
+deriving a version from the tag.
 
 Bun cross-compiles every one of those targets from any host, so `compile:all` builds the
 five per-arch binaries anywhere. The macOS universal binary is a separate step,
