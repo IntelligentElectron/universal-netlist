@@ -1,11 +1,10 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
-import path from "node:path";
 import { existsSync } from "node:fs";
-import { fileURLToPath } from "node:url";
 import type { ParsedNetlist } from "../../types.js";
 import { isErrorResult } from "../../types.js";
 import * as parsersModule from "../../parsers/index.js";
 import { runErc, type ErcResult } from "./run-erc.js";
+import { fixture, hasFixtures } from "../../../test/utils.js";
 
 const DESIGN = "/mock/design.dsn";
 
@@ -168,9 +167,8 @@ describe("runErc rule selection", () => {
 // Integration against a real committed KiCad .net (no kicad-cli, no mocks). This design
 // naturally exercises 3 of the 4 rules; net.testpoint_orphan has no fixture (clean designs
 // don't leave nets with only test points), so it is covered by the mock tests above.
-const HERE = path.dirname(fileURLToPath(import.meta.url));
-const FIXTURES = path.resolve(HERE, "../../../test/fixtures/kicad");
-const RDIMM = path.join(FIXTURES, "rdimm-ddr4-tester", "data-center-rdimm-ddr4-tester.kicad_pro");
+const RDIMM = fixture("kicad", "rdimm-ddr4-tester", "data-center-rdimm-ddr4-tester.kicad_pro");
+const hasRdimm = hasFixtures && existsSync(RDIMM);
 
 const nonEmptyMap = (v: unknown): Record<string, string[]> => {
   expect(v).toBeDefined();
@@ -180,7 +178,7 @@ const nonEmptyMap = (v: unknown): Record<string, string[]> => {
   return map;
 };
 
-describe.skipIf(!existsSync(RDIMM))("runErc integration (rdimm-ddr4-tester)", () => {
+describe.skipIf(!hasRdimm)("runErc integration (rdimm-ddr4-tester)", () => {
   it("evaluates the rules against a real design and emits well-formed findings", async () => {
     const result = await runErc(RDIMM);
     expect(isErrorResult(result)).toBe(false);

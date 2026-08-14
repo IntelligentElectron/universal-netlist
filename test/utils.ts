@@ -3,12 +3,44 @@
  */
 
 import fs from "node:fs/promises";
+import { existsSync } from "node:fs";
 import path from "node:path";
 import type { ParsedNetlist } from "../src/types.js";
 
 const TEST_DIR = path.dirname(new URL(import.meta.url).pathname);
 const FIXTURES_DIR = path.join(TEST_DIR, "fixtures");
 const GOLDEN_DIR = path.join(TEST_DIR, "golden");
+
+/**
+ * Root of the `test/fixtures` submodule.
+ *
+ * The submodule is absent from source tarballs, shallow or non-recursive
+ * clones, vendored copies, and anything installed from a packed archive, so
+ * every fixture path is built from here and guarded by {@link hasFixtures}.
+ */
+export const FIXTURES = FIXTURES_DIR;
+
+/**
+ * Resolve a path inside the fixtures submodule.
+ *
+ * ```ts
+ * const OPENMD = fixture("kicad", "openmd-motordriver", "OpenMD.kicad_pro");
+ * ```
+ */
+export const fixture = (...segments: string[]): string => path.join(FIXTURES, ...segments);
+
+/**
+ * Whether the fixtures submodule is checked out.
+ *
+ * `git` leaves an empty directory where an uninitialized submodule sits, so the
+ * presence of a format directory inside it is what distinguishes "fetched" from
+ * "declared". Suites that need fixture designs guard on this:
+ *
+ * ```ts
+ * describe.skipIf(!hasFixtures)("kicad parser", () => { ... });
+ * ```
+ */
+export const hasFixtures = existsSync(path.join(FIXTURES_DIR, "kicad"));
 
 export type Format = "cadence" | "altium" | "kicad";
 
