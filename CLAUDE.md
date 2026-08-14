@@ -67,6 +67,16 @@ no `GITHUB_REF`. The version it bakes in comes from `package.json`, which is the
 source of it; the release workflow validates the tag against `package.json` rather than
 deriving a version from the tag.
 
+`VERSION` overrides that, which is what a downstream packager stamping its own string
+wants instead of patching a tracked file:
+
+```bash
+VERSION=1.5.2-3 scripts/build-binary.sh bun-linux-x64 bin/universal-netlist-linux-x64 packaged
+```
+
+Bun is the only toolchain the script needs, reading that default version included, so a
+container holding just the Bun in `.bun-version` builds this.
+
 The third argument is the build channel, baked in as `BUILD_CHANNEL` (see
 [src/build-flags.ts](src/build-flags.ts)):
 
