@@ -1013,8 +1013,6 @@ const expandBusNotation = (name: string): string[] => {
 };
 
 interface SheetEntryClassification {
-  /** Signal names from Repeat() entries: per-channel */
-  repeatNames: Set<string>;
   /** Signal names from non-Repeat entries: shared across channels */
   sharedNames: Set<string>;
 }
@@ -1046,7 +1044,6 @@ const classifySheetEntries = (
   harnessDefinitions: HarnessDefinitions = new Map(),
   nestedHarnessTypes: ReadonlyMap<string, string> = new Map()
 ): SheetEntryClassification => {
-  const repeatNames = new Set<string>();
   const sharedNames = new Set<string>();
   const childBase = childFileName.toLowerCase();
 
@@ -1060,13 +1057,13 @@ const classifySheetEntries = (
     for (const child of record.children) {
       if (child.RECORD !== RECORD_TYPES.SHEET_ENTRY) continue;
       const rawName = String(child.Name ?? child.NAME ?? "");
-      const repeatMatch = rawName.match(/^Repeat\((.+)\)$/i);
+      // A `Repeat()` entry gives each channel its own copy of the signal, which
+      // is what a net the parent never reaches gets anyway, so it is simply not
+      // collected here. Only what the channels share has to be named.
+      if (/^Repeat\((.+)\)$/i.test(rawName)) continue;
 
-      const target = repeatMatch ? repeatNames : sharedNames;
-      const entryName = repeatMatch ? repeatMatch[1] : rawName;
-
-      for (const signal of expandBusNotation(entryName)) {
-        target.add(signal);
+      for (const signal of expandBusNotation(rawName)) {
+        sharedNames.add(signal);
       }
 
       // A harness-typed entry carries a bundle, not one signal. Every member the
@@ -1080,12 +1077,12 @@ const classifySheetEntries = (
           harnessDefinitions,
           nestedHarnessTypes
         )) {
-          target.add(member);
+          sharedNames.add(member);
           // Members are qualified by the entry that reached them
           // (PGND.OP_OUT); the leaf name is what a net inside the child sheet
           // is actually called.
           const leaf = member.slice(member.lastIndexOf(".") + 1);
-          if (leaf) target.add(leaf);
+          if (leaf) sharedNames.add(leaf);
         }
       }
     }
@@ -1093,7 +1090,7 @@ const classifySheetEntries = (
     break;
   }
 
-  return { repeatNames, sharedNames };
+  return { sharedNames };
 };
 
 /**
