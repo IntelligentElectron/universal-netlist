@@ -27,7 +27,8 @@ npm run lint         # ESLint
 npm run lint:fix     # ESLint with auto-fix
 npm test             # Run tests with Vitest
 npm run test:watch   # Run tests in watch mode
-npm run compile:all  # Build all platform binaries
+npm run compile:all  # Build the five per-arch binaries (any host)
+npm run compile:darwin-universal  # Add the lipo'd macOS universal binary (macOS only)
 ```
 
 ### Binary Compilation
@@ -39,6 +40,12 @@ bun build src/index.ts --compile --minify --target=bun-<platform> --outfile=bin/
 ```
 
 Platforms: `darwin-arm64`, `darwin-x64`, `linux-arm64`, `linux-x64`, `windows-x64`
+
+Bun cross-compiles every one of those targets from any host, so `compile:all` builds the
+five per-arch binaries anywhere. The macOS universal binary is a separate step,
+`compile:darwin-universal`, because `lipo` exists only on macOS; keeping it out of
+`compile:all` is what lets a Linux host build the per-arch artifacts. `release.yml` runs
+on macOS and produces both.
 
 macOS binaries require code signing with `entitlements.plist` (for Bun JIT) and Apple notarization.
 
