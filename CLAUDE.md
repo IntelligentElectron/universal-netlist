@@ -16,6 +16,21 @@ npm run dev
 
 **Note:** Test fixtures are git submodules. Run `npm run setup` after clone.
 
+### Dependencies
+
+Both lockfiles are committed: `bun.lock` is the tree the release build installs,
+`package-lock.json` the tree CI and the npm publish job install. A dependency change
+regenerates both in the same commit:
+
+```bash
+bun install                      # updates bun.lock
+npm install --package-lock-only  # updates package-lock.json
+```
+
+CI installs with `npm ci` and the release workflow with `bun install --frozen-lockfile`,
+so a lockfile that disagrees with `package.json` fails the run instead of quietly
+re-resolving the `^` ranges into a tree the tests never saw.
+
 ### Commands
 
 ```bash
@@ -130,8 +145,7 @@ npm publishing uses OIDC trusted publishing (configured on npmjs.com) - no token
 
 - Do NOT use `registry-url` with `actions/setup-node` - it creates a `.npmrc` with an auth token placeholder that breaks OIDC
 - OIDC requires npm 11.5.1+ (Node 22 ships with older npm, so we explicitly upgrade)
-- Use `npm install` instead of `npm ci` - npm 11.x has stricter lock file validation that fails with cross-platform optional deps (esbuild, rollup)
-- Never commit any lockfile (`bun.lock`, `package-lock.json`) - vitest/rollup have cross-platform optional deps
+- `npm ci` installs from `package-lock.json`, which records the optional platform packages (esbuild, rollup) for every os/cpu, not only the host that generated it. A lockfile written on macOS therefore installs on the Linux runner; regenerate it with `npm install --package-lock-only` so nothing platform-specific is pruned out of it
 
 ## DSN Parser Reference
 

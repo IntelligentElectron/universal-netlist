@@ -31,10 +31,18 @@ This project is maintained by:
 
    Or after installing dependencies: `npm run setup`
 
-2. Install dependencies:
+2. Install dependencies from the committed lockfile:
 
    ```bash
-   npm install
+   npm ci
+   ```
+
+   Both `package-lock.json` and `bun.lock` are committed, and a PR that changes
+   `package.json` dependencies regenerates both:
+
+   ```bash
+   bun install                      # updates bun.lock
+   npm install --package-lock-only  # updates package-lock.json
    ```
 
 3. Run the development server:
