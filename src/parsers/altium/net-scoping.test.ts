@@ -221,3 +221,129 @@ describe("planLocalNetRenames collision guard", () => {
     expect(plans[1].get("SCL")).toBe("SCL_2");
   });
 });
+
+/**
+ * Every case here is the shape solarcar-bms draws, and the expected numbers are
+ * the ones its own `bms_mainboard-1_1.PcbDoc` carries.
+ */
+describe("planLocalNetRenames on harness members", () => {
+  it("numbers a member after the sheet labelling its bundle, not its own sheet", () => {
+    // `USART2` is labelled on the top sheet; the member labels are all on
+    // sheet 2 with the pins. The board reads `USART2.TX_1`.
+    const plans = planLocalNetRenames(
+      [
+        sheet("1", { USART2: { label: true } }),
+        sheet("2", { "USART2.TX": { label: true, harness: true } }),
+      ],
+      "hierarchical"
+    );
+    expect(plans[1].get("USART2.TX")).toBe("USART2.TX_1");
+  });
+
+  it("gives both ends of the harness the same name, so they still merge", () => {
+    const plans = planLocalNetRenames(
+      [
+        sheet("1", { USART2: { label: true }, "USART2.TX": { harness: true } }),
+        sheet("2", { "USART2.TX": { label: true, harness: true } }),
+      ],
+      "hierarchical"
+    );
+    expect(plans[0].get("USART2.TX")).toBe("USART2.TX_1");
+    expect(plans[1].get("USART2.TX")).toBe("USART2.TX_1");
+  });
+
+  it("follows the bundle's label even where the bundle runs into a sheet symbol", () => {
+    // `MCU_RMII` is labelled on the top sheet and wired straight into a sheet
+    // symbol, so it is not sheet-bound and claims nothing. Its members are
+    // still numbered after it.
+    const plans = planLocalNetRenames(
+      [
+        sheet("1", { MCU_RMII: { label: true, portOrEntry: true } }),
+        sheet("2", { "MCU_RMII.TXD0": { label: true, harness: true } }),
+      ],
+      "hierarchical"
+    );
+    expect(plans[1].get("MCU_RMII.TXD0")).toBe("MCU_RMII.TXD0_1");
+  });
+
+  it("leaves a member alone when its bundle is labelled on two numbered sheets", () => {
+    const plans = planLocalNetRenames(
+      [
+        sheet("1", { SPI: { label: true } }),
+        sheet("2", { SPI: { label: true } }),
+        sheet("3", { "SPI.SCK": { label: true, harness: true } }),
+      ],
+      "hierarchical"
+    );
+    expect(plans[2].has("SPI.SCK")).toBe(false);
+  });
+
+  it("leaves a member alone when its bundle is labelled on no numbered sheet", () => {
+    // The `CAN1_MDI` bundle is drawn on sheets with no SheetNumber, and its
+    // members are bare on the board.
+    const plans = planLocalNetRenames(
+      [
+        sheet(undefined, { CAN1_MDI: { label: true } }),
+        sheet("2", { "CAN1_MDI._P": { label: true, harness: true } }),
+      ],
+      "hierarchical"
+    );
+    expect(plans[1].has("CAN1_MDI._P")).toBe(false);
+  });
+
+  it("numbers a member after its bundle rather than after its own sheet's claim", () => {
+    // The member's own label would claim sheet 2 if it were not a harness
+    // member. The bundle's sheet wins, on every sheet carrying the name.
+    const plans = planLocalNetRenames(
+      [
+        sheet("1", { SWD: { label: true } }),
+        sheet("2", { "SWD.SWO": { label: true, harness: true } }),
+      ],
+      "hierarchical"
+    );
+    expect(plans[1].get("SWD.SWO")).toBe("SWD.SWO_1");
+  });
+
+  it("leaves a plain label on the same sheet numbered after that sheet", () => {
+    // `USART3_TX` has no dot and no harness, so it stays sheet-numbered while
+    // `USART2.TX` beside it follows its bundle. The board carries both.
+    const plans = planLocalNetRenames(
+      [
+        sheet("1", { USART2: { label: true } }),
+        sheet("2", {
+          "USART2.TX": { label: true, harness: true },
+          USART3_TX: { label: true },
+        }),
+      ],
+      "hierarchical"
+    );
+    expect(plans[1].get("USART2.TX")).toBe("USART2.TX_1");
+    expect(plans[1].get("USART3_TX")).toBe("USART3_TX_2");
+  });
+
+  it("leaves a member alone when the suffixed name is already a net", () => {
+    const plans = planLocalNetRenames(
+      [
+        sheet("1", { SPI4: { label: true } }),
+        sheet("2", { "SPI4.SCK": { label: true, harness: true } }),
+        sheet("3", { "SPI4.SCK_1": { label: true, portOrEntry: true } }),
+      ],
+      "hierarchical"
+    );
+    expect(plans[1].has("SPI4.SCK")).toBe(false);
+  });
+
+  it("ignores a harness net whose name holds no bundle to look up", () => {
+    // No dot, so there is no bundle to read out of the name. The label on
+    // sheet 1 runs into a sheet symbol, so it claims nothing either, which
+    // leaves nothing to number this by.
+    const plans = planLocalNetRenames(
+      [
+        sheet("1", { PGND: { label: true, portOrEntry: true } }),
+        sheet("2", { PGND: { harness: true } }),
+      ],
+      "hierarchical"
+    );
+    expect(plans[1].has("PGND")).toBe(false);
+  });
+});

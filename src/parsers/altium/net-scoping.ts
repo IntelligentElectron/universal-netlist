@@ -110,6 +110,49 @@ export const planLocalNetRenames = (
   });
 
   const renames = sheets.map(() => new Map<string, string>());
+
+  // Which numbered sheet writes each name as a net label.
+  //
+  // This asks less than the claim above. A bundle's wire almost always runs
+  // into a sheet symbol, so the bundle is rarely sheet-bound and rarely claims
+  // anything; the label is still what says whose bundle it is.
+  const labelledOn = new Map<string, Set<string>>();
+  for (const sheet of sheets) {
+    if (!sheet.sheetNumber) continue;
+    for (const [netName, kinds] of sheet.netIdentifiers) {
+      if (!kinds.label) continue;
+      const numbers = labelledOn.get(netName) ?? new Set<string>();
+      numbers.add(sheet.sheetNumber);
+      labelledOn.set(netName, numbers);
+    }
+  }
+
+  // A harness member is numbered after its bundle, not after itself.
+  //
+  // Altium builds a member's name as `<the harness wire's net label>.<member>`,
+  // so the text before the first dot names the bundle net, and the sheet that
+  // labels the bundle is the sheet the member is numbered after. On
+  // solarcar-bms every member label is drawn on sheet 2 and every member reads
+  // `_1`, the sheet its bundle is labelled on.
+  //
+  // The bundle is read back out of the member's name rather than from the
+  // harness signal key, because the key holds the name the local port gives the
+  // bundle: `MCU_RMII.RXD1` is keyed under the port `RMII`, and it is the label
+  // `MCU_RMII` that the number follows.
+  const memberNumbers = new Map<string, string>();
+  for (const sheet of sheets) {
+    for (const [netName, kinds] of sheet.netIdentifiers) {
+      if (!kinds.harness) continue;
+      const dot = netName.indexOf(".");
+      if (dot <= 0) continue;
+      // A bundle labelled on two numbered sheets says nothing about where its
+      // members belong, and one labelled on none gives no number at all.
+      const on = labelledOn.get(netName.slice(0, dot));
+      if (on?.size !== 1) continue;
+      memberNumbers.set(netName, [...on][0]);
+    }
+  }
+
   for (const [netName, claimants] of claims) {
     if (claimants.length > 1) {
       // Several sheets each drew their own net under this name, so each keeps
@@ -136,6 +179,17 @@ export const planLocalNetRenames = (
         // drawing its own sheet-bound net under it has a different net.
         if (!kinds || isSheetBound(kinds, scope)) return;
       }
+      renames[index].set(netName, `${netName}_${number}`);
+    });
+  }
+
+  // The bundle's number is applied last, and on every sheet carrying the member,
+  // so it settles any name a sheet's own label also claimed and the two ends of
+  // the harness still merge under one name.
+  for (const [netName, number] of memberNumbers) {
+    if (namesInUse.has(`${netName}_${number}`)) continue;
+    sheets.forEach((sheet, index) => {
+      if (!sheet.netIdentifiers.has(netName)) return;
       renames[index].set(netName, `${netName}_${number}`);
     });
   }
