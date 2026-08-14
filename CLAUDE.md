@@ -73,6 +73,17 @@ five per-arch binaries anywhere. The macOS universal binary is a separate step,
 `compile:all` is what lets a Linux host build the per-arch artifacts. `release.yml` runs
 on macOS and produces both.
 
+`--compile` embeds the Bun runtime in the output, so the Bun version is part of what
+ships. `.bun-version` records the version release builds use; the release workflow reads
+it, and a build that wants to reproduce a release matches it:
+
+```bash
+curl -fsSL https://bun.sh/install | bash -s "bun-v$(cat .bun-version)"
+```
+
+Bumping it is its own PR, so a Bun upgrade is visible in history next to the release it
+first shipped in.
+
 macOS binaries require code signing with `entitlements.plist` (for Bun JIT) and Apple notarization.
 
 ### Before Committing

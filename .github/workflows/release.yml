@@ -62,10 +62,16 @@ jobs:
           fi
           echo "Tag matches package.json version $PKG_VERSION"
 
+      # `bun build --compile` embeds the Bun runtime in the binary, so the Bun
+      # version is part of what ships. On `latest` the contents of a release
+      # depended on whichever Bun was current the day the workflow ran, and two
+      # builds of the same tag months apart differed with no change in this
+      # repo. The version lives in `.bun-version` so a downstream build can
+      # match it; bump it in its own PR.
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
-          bun-version: latest
+          bun-version-file: .bun-version
 
       # The binaries a release ships are compiled against this tree, so it has
       # to be the locked one: `--frozen-lockfile` fails the release rather than
