@@ -72,6 +72,30 @@ describe("planLocalNetRenames", () => {
     expect(plans[1].get("SDA")).toBe("SDA_2");
   });
 
+  it("carries the number to the sheet holding the pins, reached through a port", () => {
+    // A signal labelled on the top sheet and wired into a sheet entry keeps its
+    // pins on the child, where the same net arrives named by a port. One sheet
+    // named it, so both sides take the number or they stop merging.
+    const plans = planLocalNetRenames(
+      [
+        sheet("1", { LVB_DIV: { label: true } }),
+        sheet(undefined, { LVB_DIV: { portOrEntry: true } }),
+      ],
+      "hierarchical"
+    );
+    expect(plans[0].get("LVB_DIV")).toBe("LVB_DIV_1");
+    expect(plans[1].get("LVB_DIV")).toBe("LVB_DIV_1");
+  });
+
+  it("does not carry the number onto another sheet's own net of the same name", () => {
+    const plans = planLocalNetRenames(
+      [sheet("1", { SCL: { label: true } }), sheet(undefined, { SCL: { label: true } })],
+      "hierarchical"
+    );
+    expect(plans[0].get("SCL")).toBe("SCL_1");
+    expect(plans[1].has("SCL")).toBe(false);
+  });
+
   it("leaves a net named after one of its own pins alone, being unique already", () => {
     const plans = planLocalNetRenames([sheet("3", { NetC3_1: {} })], "hierarchical");
     expect(plans[0].size).toBe(0);

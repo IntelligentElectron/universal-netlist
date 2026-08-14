@@ -532,14 +532,15 @@ const readDesignShape = (schematic: AltiumSchematic): DesignShape => {
 };
 
 /** Record, per net name, which identifier kinds the sheet draws on it. */
-const collectNetIdentifiers = (
-  nets: AltiumNet[],
-  parsedNets: NetConnections
-): Map<string, NetIdentifierKinds> => {
+const collectNetIdentifiers = (nets: AltiumNet[]): Map<string, NetIdentifierKinds> => {
   const identifiers = new Map<string, NetIdentifierKinds>();
 
   for (const net of nets) {
-    if (!net.name || !parsedNets[net.name]) continue;
+    // A named net is recorded even when it carried no pins of its own and so
+    // never reached the netlist. A signal labelled on a parent sheet and wired
+    // straight into a sheet entry looks exactly like that: the pins are on the
+    // child sheet, but the name, and the sheet it belongs to, are here.
+    if (!net.name) continue;
     const kinds = identifiers.get(net.name) ?? noNetIdentifiers();
     for (const device of net.devices) {
       if (device.RECORD === RECORD_TYPES.PORT || device.RECORD === RECORD_TYPES.SHEET_ENTRY) {
@@ -622,7 +623,7 @@ const parseAltiumDocument = (schdocPath: string): ParsedDocument => {
     harnessSignals: collectHarnessSignals(nets, parsedNets),
     designedNames,
     bundleLinks: schematic.bundleLinks ?? [],
-    netIdentifiers: collectNetIdentifiers(nets, parsedNets),
+    netIdentifiers: collectNetIdentifiers(nets),
     sheetNumber: readSheetNumber(hierarchical),
     hasSheetEntries,
     hasPorts,

@@ -14,7 +14,10 @@ describe("parseProjectOptions", () => {
     expect(parseProjectOptions(design("HierarchyMode=3")).scope).toBe("global");
     expect(parseProjectOptions(design("HierarchyMode=2")).scope).toBe("hierarchical");
     expect(parseProjectOptions(design("HierarchyMode=1")).scope).toBe("flat");
-    expect(parseProjectOptions(design("HierarchyMode=4")).scope).toBe("strict-hierarchical");
+    // `4` is read as Hierarchical: the solarcar-bms board numbers that
+    // project's sheet-local labels but leaves GND and CHASSIS bare, so its
+    // power ports are global and it cannot be Strict Hierarchical.
+    expect(parseProjectOptions(design("HierarchyMode=4")).scope).toBe("hierarchical");
   });
 
   it("leaves the scope open on Automatic, which is the Altium default", () => {
