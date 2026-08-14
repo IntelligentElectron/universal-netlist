@@ -48,6 +48,20 @@ jobs:
           fi
           echo "Found release notes for version $VERSION"
 
+      # package.json is the single source of the version the binaries carry, so
+      # a tag that disagrees with it would ship a binary reporting one version
+      # under a release named another. Catch it here, next to the changelog
+      # check, before anything is built.
+      - name: Validate the tag matches package.json
+        run: |
+          TAG_VERSION=${GITHUB_REF#refs/tags/v}
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          if [ "$TAG_VERSION" != "$PKG_VERSION" ]; then
+            echo "::error::Tag v$TAG_VERSION does not match package.json version $PKG_VERSION. Bump package.json (or retag) so the two agree."
+            exit 1
+          fi
+          echo "Tag matches package.json version $PKG_VERSION"
+
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
@@ -59,15 +73,17 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
+      # One entry point, shared with `npm run compile:*` and with any downstream
+      # build, so a release binary can be reproduced outside this workflow. The
+      # script takes its version from package.json, which the tag was validated
+      # against above.
       - name: Build all platforms
         run: |
-          VERSION=${GITHUB_REF#refs/tags/v}
-          mkdir -p bin
-          bun build --compile --minify --target=bun-darwin-arm64 --define BUILD_VERSION="\"$VERSION\"" src/index.ts --outfile bin/universal-netlist-darwin-arm64
-          bun build --compile --minify --target=bun-darwin-x64 --define BUILD_VERSION="\"$VERSION\"" src/index.ts --outfile bin/universal-netlist-darwin-x64
-          bun build --compile --minify --target=bun-linux-arm64 --define BUILD_VERSION="\"$VERSION\"" src/index.ts --outfile bin/universal-netlist-linux-arm64
-          bun build --compile --minify --target=bun-linux-x64 --define BUILD_VERSION="\"$VERSION\"" src/index.ts --outfile bin/universal-netlist-linux-x64
-          bun build --compile --minify --target=bun-windows-x64 --define BUILD_VERSION="\"$VERSION\"" src/index.ts --outfile bin/universal-netlist-windows-x64.exe
+          chmod +x scripts/build-binary.sh
+          for target in darwin-arm64 darwin-x64 linux-arm64 linux-x64; do
+            scripts/build-binary.sh "bun-$target" "bin/universal-netlist-$target"
+          done
+          scripts/build-binary.sh bun-windows-x64 bin/universal-netlist-windows-x64.exe
 
       - name: Import Apple certificate
         env:
