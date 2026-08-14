@@ -56,7 +56,13 @@ const HIERARCHY_MODE_SCOPE: Readonly<Record<string, NetIdentifierScope>> = {
   "1": "flat",
   "2": "hierarchical",
   "3": "global",
-  "4": "strict-hierarchical",
+  // `4` was read as Strict Hierarchical until a board said otherwise. The
+  // solarcar-bms fixture records it and numbers its sheet-local signals, so its
+  // labels are certainly scoped to a sheet; but its board carries `GND`,
+  // `CHASSIS` and `LVB` unnumbered, so its power ports are just as certainly
+  // global, which Strict Hierarchical would not allow. It is read as
+  // Hierarchical until a design turns up that localizes its power nets.
+  "4": "hierarchical",
 };
 
 export const DEFAULT_CHANNEL_FORMAT = "$Component_$RoomName";

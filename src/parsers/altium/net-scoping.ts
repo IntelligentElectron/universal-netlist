@@ -84,10 +84,10 @@ export const planLocalNetRenames = (
     for (const netName of sheet.netIdentifiers.keys()) namesInUse.add(netName);
   }
 
-  return sheets.map((sheet) => {
-    const renames = new Map<string, string>();
-    if (!sheet.sheetNumber) return renames;
-
+  // Which sheets claim each name as their own, and under what number.
+  const claims = new Map<string, { sheet: number; number: string }[]>();
+  sheets.forEach((sheet, index) => {
+    if (!sheet.sheetNumber) return;
     for (const [netName, kinds] of sheet.netIdentifiers) {
       if (!isSheetBound(kinds, scope)) continue;
       // A name the designer wrote, rather than one derived from a pin. A power
@@ -101,13 +101,46 @@ export const planLocalNetRenames = (
       // is left alone and the nets merge as they always have. The whole project
       // is checked, not just this sheet: the nets are merged by name afterwards,
       // so a collision with any other sheet's net lands just as wrongly.
-      const suffixed = `${netName}_${sheet.sheetNumber}`;
-      if (namesInUse.has(suffixed)) continue;
+      if (namesInUse.has(`${netName}_${sheet.sheetNumber}`)) continue;
 
-      renames.set(netName, suffixed);
+      const claimants = claims.get(netName) ?? [];
+      claimants.push({ sheet: index, number: sheet.sheetNumber });
+      claims.set(netName, claimants);
     }
-    return renames;
   });
+
+  const renames = sheets.map(() => new Map<string, string>());
+  for (const [netName, claimants] of claims) {
+    if (claimants.length > 1) {
+      // Several sheets each drew their own net under this name, so each keeps
+      // its own number and they stay apart.
+      for (const { sheet, number } of claimants) {
+        renames[sheet].set(netName, `${netName}_${number}`);
+      }
+      continue;
+    }
+
+    // One sheet named it, so the name is that sheet's. The pins may well be on
+    // another sheet entirely, reached through a sheet entry, so the rename has
+    // to follow the net there or the two stop merging.
+    //
+    // It follows only where the other sheet's net of that name carries the
+    // signal onward, through a port or a harness. A sheet drawing its own
+    // sheet-bound net under the same name has a different net, and renaming it
+    // would connect two things the design keeps apart.
+    const { sheet: claimant, number } = claimants[0];
+    sheets.forEach((sheet, index) => {
+      if (index !== claimant) {
+        const kinds = sheet.netIdentifiers.get(netName);
+        // A sheet that never draws the name has nothing to rename, and one
+        // drawing its own sheet-bound net under it has a different net.
+        if (!kinds || isSheetBound(kinds, scope)) return;
+      }
+      renames[index].set(netName, `${netName}_${number}`);
+    });
+  }
+
+  return renames;
 };
 
 /** Apply a rename map to a netlist, folding pins and component pin references with it. */
