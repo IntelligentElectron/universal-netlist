@@ -243,6 +243,14 @@ export interface AltiumNet {
   name: string | null;
   /** Which kind of object the name came from; "pin" means the parser derived it */
   nameSource?: "power" | "harness" | "label" | "port" | "pin";
+  /**
+   * The pin the name was derived from, present only when `nameSource` is `pin`.
+   *
+   * The name reads `Net<refdes>_<pin>`, and a repeated sheet has to rebuild it
+   * around the designator that channel gives the part, so the pieces are kept
+   * rather than recovered from the string: a refdes may itself contain `_`.
+   */
+  pinNameSource?: { refdes: string; pin: string };
   /** All devices connected to this net */
   devices: AltiumRecord[];
 }
