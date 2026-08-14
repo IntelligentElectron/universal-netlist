@@ -348,7 +348,31 @@ describe("planLocalNetRenames on harness members", () => {
   });
 });
 
-describe("planLocalNetRenames on harness members under Global", () => {
+describe("planLocalNetRenames on harness members under other scopes", () => {
+  it("numbers a member under Flat, where a label is still local to its sheet", () => {
+    // Flat differs from Hierarchical in how ports reach across sheets, not in
+    // what a label means, so the bundle still belongs to the sheet labelling it.
+    const plans = planLocalNetRenames(
+      [
+        sheet("1", { USART2: { label: true } }),
+        sheet("2", { "USART2.TX": { label: true, harness: true } }),
+      ],
+      "flat"
+    );
+    expect(plans[1].get("USART2.TX")).toBe("USART2.TX_1");
+  });
+
+  it("numbers a member under Strict Hierarchical too", () => {
+    const plans = planLocalNetRenames(
+      [
+        sheet("1", { USART2: { label: true } }),
+        sheet("2", { "USART2.TX": { label: true, harness: true } }),
+      ],
+      "strict-hierarchical"
+    );
+    expect(plans[1].get("USART2.TX")).toBe("USART2.TX_1");
+  });
+
   it("leaves a member alone, because under Global the bundle's label is not a sheet's", () => {
     // Global is the one scope where a label reaches every sheet, so nothing a
     // label names is sheet-local — the bundle included.
