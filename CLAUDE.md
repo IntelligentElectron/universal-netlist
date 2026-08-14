@@ -155,8 +155,18 @@ rather than after it.
 1. Cut a release PR from `main` after the fixes for the release have merged:
    - Update `CHANGELOG.md` with a new version section, written from the merged PRs' own
      Changelog sections
-   - `npm version minor|patch --no-git-tag-version` (bumps `package.json` only, no tag)
+   - `npm version minor|patch --no-git-tag-version` (writes the version, creates no tag)
    - One commit, e.g. `chore: vX.Y.Z changelog`
+
+   That command writes the version to **both `package.json` and `package-lock.json`**,
+   which is why the release commit carries three files rather than two. `bun.lock`
+   records the workspace root's name and no version, so it stays put.
+
+   Run the command rather than editing `package.json` by hand. A hand-edit leaves the
+   lockfile a version behind, and nothing downstream notices: `npm ci` compares
+   dependencies and ignores the root version entirely, so CI passes, `npm publish` takes
+   its version from `package.json` and is correct, and the lockfile just drifts.
+   `tag-release.sh` refuses on the mismatch, which is the only thing that catches it.
 2. Open it as a normal PR and let the merge queue land it
 3. After merge, tag the merge commit and push:
 
@@ -168,7 +178,8 @@ rather than after it.
    The script tags the version in `package.json` and refuses if anything about
    the state is wrong: not on `main`, a dirty tree, local `main` behind
    `origin/main` (which would tag the wrong commit), no changelog section for
-   the version, or a tag that already exists. Pass `--yes` to skip the prompt.
+   the version, a lockfile recording a different version, or a tag that already
+   exists. Pass `--yes` to skip the prompt.
 
    **Note:** Do NOT use `npm version` without `--no-git-tag-version` -- it creates a local git tag that points to the feature branch commit, not the merge commit on main. The tag must be created on the merge commit, which is what the script checks for.
 
