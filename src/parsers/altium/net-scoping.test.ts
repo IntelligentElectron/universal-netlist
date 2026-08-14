@@ -347,3 +347,19 @@ describe("planLocalNetRenames on harness members", () => {
     expect(plans[1].has("PGND")).toBe(false);
   });
 });
+
+describe("planLocalNetRenames on harness members under Global", () => {
+  it("leaves a member alone, because under Global the bundle's label is not a sheet's", () => {
+    // Global is the one scope where a label reaches every sheet, so nothing a
+    // label names is sheet-local — the bundle included.
+    const plans = planLocalNetRenames(
+      [
+        sheet("1", { USART2: { label: true } }),
+        sheet("2", { "USART2.TX": { label: true, harness: true } }),
+      ],
+      "global"
+    );
+    expect(plans[0].size).toBe(0);
+    expect(plans[1].size).toBe(0);
+  });
+});

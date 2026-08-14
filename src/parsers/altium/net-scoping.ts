@@ -116,8 +116,13 @@ export const planLocalNetRenames = (
   // This asks less than the claim above. A bundle's wire almost always runs
   // into a sheet symbol, so the bundle is rarely sheet-bound and rarely claims
   // anything; the label is still what says whose bundle it is.
+  //
+  // Under Global a label names one net across the whole project, so a bundle's
+  // label says nothing about which sheet the bundle belongs to and there is
+  // nothing sheet-local to tell apart. The members are left alone for the same
+  // reason plain labels are.
   const labelledOn = new Map<string, Set<string>>();
-  for (const sheet of sheets) {
+  for (const sheet of netLabelsAreGlobal(scope) ? [] : sheets) {
     if (!sheet.sheetNumber) continue;
     for (const [netName, kinds] of sheet.netIdentifiers) {
       if (!kinds.label) continue;
