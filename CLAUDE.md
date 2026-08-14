@@ -67,6 +67,19 @@ no `GITHUB_REF`. The version it bakes in comes from `package.json`, which is the
 source of it; the release workflow validates the tag against `package.json` rather than
 deriving a version from the tag.
 
+The third argument is the build channel, baked in as `BUILD_CHANNEL` (see
+[src/build-flags.ts](src/build-flags.ts)):
+
+- `github` (default): the binary `install.sh` puts in place. It owns its own file, so it
+  self-updates on startup, `--update` replaces it, and `--uninstall` removes it.
+- `packaged`: a binary a package manager owns (Homebrew, nix, a distro package, a
+  vendored copy). Startup self-update is off, and `--update` / `--uninstall` explain that
+  the install is managed elsewhere instead of modifying it. Build one with:
+
+  ```bash
+  scripts/build-binary.sh bun-linux-x64 bin/universal-netlist-linux-x64 packaged
+  ```
+
 Bun cross-compiles every one of those targets from any host, so `compile:all` builds the
 five per-arch binaries anywhere. The macOS universal binary is a separate step,
 `compile:darwin-universal`, because `lipo` exists only on macOS; keeping it out of

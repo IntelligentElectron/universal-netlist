@@ -23,6 +23,7 @@ import {
   handleCoverageCommand,
 } from "./cli/commands.js";
 import { autoUpdate, reexec } from "./cli/updater.js";
+import { SELF_UPDATE_ENABLED } from "./build-flags.js";
 import { runServer } from "./server.js";
 
 const main = async (): Promise<void> => {
@@ -87,10 +88,12 @@ const main = async (): Promise<void> => {
     return;
   }
 
-  // Auto-update on startup
-  const updated = await autoUpdate();
-  if (updated) {
-    reexec();
+  // Auto-update on startup. A packaged build never touches its own file.
+  if (SELF_UPDATE_ENABLED) {
+    const updated = await autoUpdate();
+    if (updated) {
+      reexec();
+    }
   }
 
   await runServer();
