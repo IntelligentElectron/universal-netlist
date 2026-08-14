@@ -5,6 +5,41 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.3] - 2026-08-14
+
+An Altium net now carries the name and the reach the board gives it. A net that
+never leaves its sheet is that sheet's own and is numbered after it, a net named
+after one of its pins is named after the pin Altium picks, and a repeated sheet
+or a signal harness names its nets the way the board writes them. Every rule
+here was settled against a board's own `PcbDoc` netlist rather than inferred
+from the schematic alone, and the numbers below are that comparison.
+
+### Fixed
+
+#### Altium net scoping
+
+- A `.PrjPcb`'s `[Design]` block is read for `HierarchyMode`, which gives the project's Net Identifier Scope, and a net carrying no port, sheet entry, power port or harness belongs to the sheet it is drawn on. Every sheet's nets were previously merged into one map keyed by name alone, so two sheets that each labelled a wire `SCL` became one net. Where the project sets `AppendSheetNumberToLocalNets`, such a net now carries its sheet number the way Altium writes it to the board. `Automatic` resolves as Altium resolves it: sheet entries give Hierarchical, ports alone give Flat, neither gives Global. Over-merged nets measured against three independent boards: MiSKo3 10 to 0, A7-Minima 33 to 3, ZXEvoPro 163 to 34 (#128, PRs #143, #146)
+- A sheet-local net is numbered for being its sheet's own, not for colliding with another sheet's. The MiSKo3 board carries `VBAT_8` for a label drawn on sheet 8 alone, so a name two sheets reuse is separated as a consequence of the rule rather than as a special case (PR #146)
+- A net named after one of its own pins is left bare. `NetC3_1` is already unique across a board because the refdes is, and every board read for this carries those unnumbered. Numbering them took `mixr-power` from 6 unmatched board nets to 57 (PR #146)
+- A net named on a parent sheet and wired straight into a sheet entry keeps its pins on the child sheet, so the parent's pinless copy was dropped and the sheet that named the net never registered its claim. Named nets are now recorded whether or not they reached the netlist, and the name follows the net onto every sheet carrying it onward through a port or harness. Nets emitted bare where the board numbers them: A7-Minima 3 to 0, ZXEvoPro 34 to 22, solarcar-bms 37 to 35 (#148, PR #151)
+- A harness member is numbered after the sheet whose net label names its bundle, which is the sheet Altium numbers it after, rather than going out with no number at all. Altium builds a member's name as `<the bundle's net label>.<member>`, so the bundle is read back out of the member's own name. On the solarcar-bms board 40 of 44 member names are numbered this way, none after the member's own sheet, and board agreement rises from 56.6% to 61.8% (#153, PR #156)
+- `HierarchyMode` maps only the values a design has demonstrated. `1` was mapped to Flat on the reasoning that the table follows the Net Identifier Scope drop-down, a premise `solarcar-bms` disproved for `4`; it now falls through to `Automatic`, which reads the scope from what the design actually draws. No design in the corpus records `1`, so no output changes (PR #152)
+
+#### Altium net naming
+
+- Designators are ordered by their number when a net is named after one of its pins, so `R9` precedes `R11` and the net Altium calls `NetR9_2` is no longer named `NetR11_1`. The sort compared designators as text, which only shows once a design has ten or more of a prefix. Agreement on auto-generated names: mixr-power 96.1% to 100.0%, pca10056 96.1% to 99.0%, LimeSDR-USB_1v4 98.4% to 98.8% (#149, PR #150)
+- A multi-channel design names an auto-named net from the channel's expanded designator, placing the channel inside the name as `NetDD12_AY1_5` rather than after it as `NetDD12_5_AY1`. Altium expands the designator before it names the net, so the channel lands within. On `aberrant-sound-module`, agreement on auto-generated names goes from 65.4% to 100.0% and overall agreement from 88.5% to 97.9% (#154, PR #155)
+
+### Added
+
+- `scripts/build-binary.sh <target> <outfile> packaged` builds a binary with self-update disabled, for installs a package manager owns: no startup update check, and `--update` and `--uninstall` explain that the install is managed externally instead of modifying it. Release builds are unaffected, and an unknown channel is rejected rather than quietly compiling one of these (PRs #140, #142)
+- `npm run compile:all` builds the five per-arch binaries on any host; the macOS universal binary has its own `npm run compile:darwin-universal` (PR #138)
+- `VERSION=<string> scripts/build-binary.sh ...` stamps a version without editing `package.json`, which is what a downstream packager building `1.5.2-3` or a snapshot wants. Building the binary now needs only Bun, not an undeclared Node install (PR #145)
+
+### Changed
+
+- Release binaries are reproducible from the tree: they are compiled with a pinned Bun version rather than whichever was latest at build time, built by `scripts/build-binary.sh` so anyone can reproduce one locally, and dependencies install from committed lockfiles rather than re-resolving per run (PRs #135, #136, #139)
+
 ## [1.5.2] - 2026-08-12
 
 Every tool now says what it is and what it can do. A title, and whether calling
