@@ -2706,7 +2706,7 @@
         "1"
       ]
     },
-    "NetMN11_2": {
+    "NetMN9_1": {
       "MN11": [
         "2"
       ],
@@ -9597,35 +9597,35 @@
       "value": "10k, 1%"
     },
     "R9": {
-      "mpn": "RC1005F49R9CS",
       "pins": {
         "1": "NetIC1_D28",
         "2": "FPGA_SPI0_LMS_SS"
       },
+      "mpn": "RC1005F49R9CS",
       "value": "49.9R, 1%"
     },
     "R6": {
-      "mpn": "RC1005F49R9CS",
       "pins": {
         "1": "NetC1_1",
         "2": ""
       },
+      "mpn": "RC1005F49R9CS",
       "value": "49.9R, 1%"
     },
     "R7": {
-      "mpn": "RC1005F49R9CS",
       "pins": {
         "1": "NetIC1_F30",
         "2": ""
       },
+      "mpn": "RC1005F49R9CS",
       "value": "49.9R, 1%"
     },
     "R8": {
-      "mpn": "RC1005F49R9CS",
       "pins": {
         "1": "NetIC1_F28",
         "2": ""
       },
+      "mpn": "RC1005F49R9CS",
       "value": "49.9R, 1%"
     },
     "R10": {
@@ -9753,11 +9753,11 @@
       "dns": true
     },
     "MN13": {
-      "mpn": "GRM1555C1HR80BA01D",
       "pins": {
         "1": "NetMN13_1",
         "2": "TXRF1_2AB_P"
       },
+      "mpn": "GRM1555C1HR80BA01D",
       "value": "0.8pF"
     },
     "MN14": {
@@ -9801,35 +9801,35 @@
       "value": "8.2nH, 5%"
     },
     "MN17": {
-      "mpn": "GRM1555C1H511JA01D",
       "pins": {
         "1": "RXRF1_LBB_P",
         "2": "RXRF1_LAB_P"
       },
+      "mpn": "GRM1555C1H511JA01D",
       "value": "510pF"
     },
     "MN19": {
-      "mpn": "GRM1555C1H1R2CA01D",
       "pins": {
         "1": "RXRF1_LAB_N",
         "2": "RXRF1_LAB_P"
       },
+      "mpn": "GRM1555C1H1R2CA01D",
       "value": "1.2pF"
     },
     "C14": {
-      "mpn": "C1005C0G1H471J050BA",
       "pins": {
         "1": "NetC14_1",
         "2": "NetC14_2"
       },
+      "mpn": "C1005C0G1H471J050BA",
       "value": "470pF, 50V"
     },
     "C23": {
-      "mpn": "C1005C0G1H471J050BA",
       "pins": {
         "1": "NetC23_1",
         "2": "NetC23_2"
       },
+      "mpn": "C1005C0G1H471J050BA",
       "value": "470pF, 50V"
     },
     "MN26": {
@@ -9878,35 +9878,35 @@
       "comment": "TCM1-63AX+"
     },
     "C4": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "GND",
         "2": "VCC1P8_LMS"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C5": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "GND",
         "2": "VCC1P8_LMS"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C8": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "GND",
         "2": "VCC1P8_LMS"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C7": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "GND",
         "2": "VCC1P8_LMS"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "MN15": {
@@ -9917,19 +9917,19 @@
       "value": "0.5pF"
     },
     "MN16": {
-      "mpn": "GRM1555C1HR80BA01D",
       "pins": {
         "1": "TXRF1_2BB_N",
         "2": "TXRF1_2AB_N"
       },
+      "mpn": "GRM1555C1HR80BA01D",
       "value": "0.8pF"
     },
     "MN20": {
-      "mpn": "GRM1555C1H511JA01D",
       "pins": {
         "1": "RXRF1_LBB_N",
         "2": "RXRF1_LAB_N"
       },
+      "mpn": "GRM1555C1H511JA01D",
       "value": "510pF"
     },
     "MN23": {
@@ -9940,27 +9940,27 @@
       "value": "1pF"
     },
     "MN21": {
-      "mpn": "04025U2R0BAT2A",
       "pins": {
         "1": "RXRF1_HBB_P",
         "2": "RXRF1_HAB_P"
       },
+      "mpn": "04025U2R0BAT2A",
       "value": "2pF"
     },
     "MN24": {
-      "mpn": "04025U2R0BAT2A",
       "pins": {
         "1": "RXRF1_HBB_N",
         "2": "RXRF1_HAB_N"
       },
+      "mpn": "04025U2R0BAT2A",
       "value": "2pF"
     },
     "MN27": {
-      "mpn": "GRM1555C1HR80BA01D",
       "pins": {
         "1": "RXRF1_WAB_P",
         "2": "RXRF1_WAB_N"
       },
+      "mpn": "GRM1555C1HR80BA01D",
       "value": "0.8pF"
     },
     "MN25": {
@@ -10032,7 +10032,7 @@
     "MN11": {
       "pins": {
         "1": "TXRF1_2AB_N",
-        "2": "NetMN11_2"
+        "2": "NetMN9_1"
       },
       "value": "8.2nH, 5%"
     },
@@ -10052,65 +10052,65 @@
     },
     "MN9": {
       "pins": {
-        "1": "NetMN11_2",
+        "1": "NetMN9_1",
         "2": "VCC1P8_LMS"
       },
       "value": "0uH (0R)"
     },
     "MN1": {
-      "mpn": "MLF2012C101KT000",
       "pins": {
         "1": "NetMN1_1",
         "2": "VCC1P8_LMS"
       },
+      "mpn": "MLF2012C101KT000",
       "value": "100uH"
     },
     "MN4": {
-      "mpn": "0402HP-47NXJLU",
       "pins": {
         "1": "TXRF1_1AB_P",
         "2": "NetMN2_1"
       },
+      "mpn": "0402HP-47NXJLU",
       "value": "47nH"
     },
     "MN2": {
-      "mpn": "MLF2012C101KT000",
       "pins": {
         "1": "NetMN2_1",
         "2": "VCC1P8_LMS"
       },
+      "mpn": "MLF2012C101KT000",
       "value": "100uH"
     },
     "MN3": {
-      "mpn": "0402HP-47NXJLU",
       "pins": {
         "1": "TXRF1_1AB_N",
         "2": "NetMN1_1"
       },
+      "mpn": "0402HP-47NXJLU",
       "value": "47nH"
     },
     "MN7": {
-      "mpn": "04025U2R0BAT2A",
       "pins": {
         "1": "TXRF1_1BB_N",
         "2": "TXRF1_1BB_P"
       },
+      "mpn": "04025U2R0BAT2A",
       "value": "2pF"
     },
     "MN8": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "TXRF1_1AB_N",
         "2": "TXRF1_1BB_N"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "MN5": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "TXRF1_1BB_P",
         "2": "TXRF1_1AB_P"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "IC4": {
@@ -10143,11 +10143,11 @@
       "comment": "SKY13323"
     },
     "RA2": {
-      "mpn": "RC0402FR-072K49L",
       "pins": {
         "1": "NetC13_2",
         "2": "NetC16_1"
       },
+      "mpn": "RC0402FR-072K49L",
       "value": "2.49k, 1%"
     },
     "C11": {
@@ -10165,19 +10165,19 @@
       "value": "47pF"
     },
     "RA3": {
-      "mpn": "RC1005F49R9CS",
       "pins": {
         "1": "GND",
         "2": "NetC13_2"
       },
+      "mpn": "RC1005F49R9CS",
       "value": "49.9R, 1%"
     },
     "RA4": {
-      "mpn": "RC1005F49R9CS",
       "pins": {
         "1": "GND",
         "2": "NetC16_1"
       },
+      "mpn": "RC1005F49R9CS",
       "value": "49.9R, 1%"
     },
     "IC5": {
@@ -10385,19 +10385,19 @@
       "value": "100pF, 50V"
     },
     "RA1": {
-      "mpn": "CRCW0402560RFKED",
       "pins": {
         "1": "NetC16_1",
         "2": "NetRA1_2"
       },
+      "mpn": "CRCW0402560RFKED",
       "comment": "560R, 1%"
     },
     "C6": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "NetC6_1",
         "2": "NetC6_2"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "MN39": {
@@ -10415,35 +10415,35 @@
       "value": "8.2nH, 5%"
     },
     "MN29": {
-      "mpn": "MLF2012C101KT000",
       "pins": {
         "1": "NetMN29_1",
         "2": "VCC1P8_LMS"
       },
+      "mpn": "MLF2012C101KT000",
       "value": "100uH"
     },
     "MN30": {
-      "mpn": "MLF2012C101KT000",
       "pins": {
         "1": "NetMN30_1",
         "2": "VCC1P8_LMS"
       },
+      "mpn": "MLF2012C101KT000",
       "value": "100uH"
     },
     "C34": {
-      "mpn": "C1005C0G1H471J050BA",
       "pins": {
         "1": "NetC34_1",
         "2": "NetC34_2"
       },
+      "mpn": "C1005C0G1H471J050BA",
       "value": "470pF, 50V"
     },
     "C43": {
-      "mpn": "C1005C0G1H471J050BA",
       "pins": {
         "1": "NetC43_1",
         "2": "NetC43_2"
       },
+      "mpn": "C1005C0G1H471J050BA",
       "value": "470pF, 50V"
     },
     "T6": {
@@ -10495,43 +10495,43 @@
       "comment": "TCM1-63AX+"
     },
     "C27": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "GND",
         "2": "VCC1P8_LMS"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C28": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "GND",
         "2": "VCC1P8_LMS"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C26": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "NetC26_1",
         "2": "NetC26_2"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C24": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "GND",
         "2": "VCC1P8_LMS"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C25": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "GND",
         "2": "VCC1P8_LMS"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "MN38": {
@@ -10557,11 +10557,11 @@
       "dns": true
     },
     "MN41": {
-      "mpn": "GRM1555C1HR80BA01D",
       "pins": {
         "1": "TXRF2_2BB_P",
         "2": "TXRF2_2AB_P"
       },
+      "mpn": "GRM1555C1HR80BA01D",
       "value": "0.8pF"
     },
     "MN43": {
@@ -10572,11 +10572,11 @@
       "value": "0.5pF"
     },
     "MN44": {
-      "mpn": "GRM1555C1HR80BA01D",
       "pins": {
         "1": "TXRF2_2BB_N",
         "2": "TXRF2_2AB_N"
       },
+      "mpn": "GRM1555C1HR80BA01D",
       "value": "0.8pF"
     },
     "MN42": {
@@ -10588,51 +10588,51 @@
       "dns": true
     },
     "MN35": {
-      "mpn": "04025U2R0BAT2A",
       "pins": {
         "1": "TXRF2_1BB_N",
         "2": "TXRF2_1BB_P"
       },
+      "mpn": "04025U2R0BAT2A",
       "value": "2pF"
     },
     "MN32": {
-      "mpn": "0402HP-47NXJLU",
       "pins": {
         "1": "TXRF2_1AB_P",
         "2": "NetMN30_1"
       },
+      "mpn": "0402HP-47NXJLU",
       "value": "47nH"
     },
     "MN36": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "TXRF2_1AB_N",
         "2": "TXRF2_1BB_N"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "MN33": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "TXRF2_1BB_P",
         "2": "TXRF2_1AB_P"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "MN31": {
-      "mpn": "0402HP-47NXJLU",
       "pins": {
         "1": "TXRF2_1AB_N",
         "2": "NetMN29_1"
       },
+      "mpn": "0402HP-47NXJLU",
       "value": "47nH"
     },
     "MN48": {
-      "mpn": "GRM1555C1H511JA01D",
       "pins": {
         "1": "RXRF2_LBB_N",
         "2": "RXRF2_LAB_N"
       },
+      "mpn": "GRM1555C1H511JA01D",
       "value": "510pF"
     },
     "MN46": {
@@ -10643,19 +10643,19 @@
       "value": "8.2nH, 5%"
     },
     "MN45": {
-      "mpn": "GRM1555C1H511JA01D",
       "pins": {
         "1": "RXRF2_LBB_P",
         "2": "RXRF2_LAB_P"
       },
+      "mpn": "GRM1555C1H511JA01D",
       "value": "510pF"
     },
     "MN47": {
-      "mpn": "GRM1555C1H1R2CA01D",
       "pins": {
         "1": "RXRF2_LAB_N",
         "2": "RXRF2_LAB_P"
       },
+      "mpn": "GRM1555C1H1R2CA01D",
       "value": "1.2pF"
     },
     "MN51": {
@@ -10666,19 +10666,19 @@
       "value": "1pF"
     },
     "MN49": {
-      "mpn": "04025U2R0BAT2A",
       "pins": {
         "1": "RXRF2_HBB_P",
         "2": "RXRF2_HAB_P"
       },
+      "mpn": "04025U2R0BAT2A",
       "value": "2pF"
     },
     "MN52": {
-      "mpn": "04025U2R0BAT2A",
       "pins": {
         "1": "RXRF2_HBB_N",
         "2": "RXRF2_HAB_N"
       },
+      "mpn": "04025U2R0BAT2A",
       "value": "2pF"
     },
     "MN50": {
@@ -10697,11 +10697,11 @@
       "value": "10nH, 5%"
     },
     "MN55": {
-      "mpn": "GRM1555C1HR80BA01D",
       "pins": {
         "1": "RXRF2_WAB_P",
         "2": "RXRF2_WAB_N"
       },
+      "mpn": "GRM1555C1HR80BA01D",
       "value": "0.8pF"
     },
     "MN53": {
@@ -10820,11 +10820,11 @@
       "comment": "SKY13323"
     },
     "RA6": {
-      "mpn": "RC0402FR-072K49L",
       "pins": {
         "1": "NetC33_2",
         "2": "NetC36_1"
       },
+      "mpn": "RC0402FR-072K49L",
       "value": "2.49k, 1%"
     },
     "C31": {
@@ -10842,19 +10842,19 @@
       "value": "47pF"
     },
     "RA7": {
-      "mpn": "RC1005F49R9CS",
       "pins": {
         "1": "GND",
         "2": "NetC33_2"
       },
+      "mpn": "RC1005F49R9CS",
       "value": "49.9R, 1%"
     },
     "RA8": {
-      "mpn": "RC1005F49R9CS",
       "pins": {
         "1": "GND",
         "2": "NetC36_1"
       },
+      "mpn": "RC1005F49R9CS",
       "value": "49.9R, 1%"
     },
     "IC7": {
@@ -11049,11 +11049,11 @@
       "value": "100pF, 50V"
     },
     "RA5": {
-      "mpn": "CRCW0402560RFKED",
       "pins": {
         "1": "NetC36_1",
         "2": "NetRA5_2"
       },
+      "mpn": "CRCW0402560RFKED",
       "comment": "560R, 1%"
     },
     "C50": {
@@ -11715,27 +11715,27 @@
       "value": "1uF, 20%"
     },
     "R33": {
-      "mpn": "ERJ-1GEF10R0C",
       "pins": {
         "1": "NetC74_1",
         "2": "VCC1P8_LMS"
       },
+      "mpn": "ERJ-1GEF10R0C",
       "value": "10R"
     },
     "R39": {
-      "mpn": "ERJ-1GEF10R0C",
       "pins": {
         "1": "NetC87_1",
         "2": "VCC1P25_LMS"
       },
+      "mpn": "ERJ-1GEF10R0C",
       "value": "10R"
     },
     "R41": {
-      "mpn": "ERJ-1GEF10R0C",
       "pins": {
         "1": "VCC1P8_LMS",
         "2": "NetC98_1"
       },
+      "mpn": "ERJ-1GEF10R0C",
       "value": "10R"
     },
     "FR32": {
@@ -11753,11 +11753,11 @@
       "value": "1uF, 20%"
     },
     "R40": {
-      "mpn": "ERJ-1GEF10R0C",
       "pins": {
         "1": "VCC1P25_LMS",
         "2": "NetC96_1"
       },
+      "mpn": "ERJ-1GEF10R0C",
       "value": "10R"
     },
     "C74": {
@@ -12152,115 +12152,115 @@
       "comment": "EP4CE40F23C8N"
     },
     "C107": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VREF_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C108": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VREF_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C109": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VREF_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C110": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VREF_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C111": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VREF_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C112": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VREF_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C113": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VREF_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C114": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VREF_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C106": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VREF_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C105": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VREF_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C104": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VREF_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C103": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VREF_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "R46": {
-      "mpn": "RC1005F49R9CS",
       "pins": {
         "1": "NetIC8_AA19",
         "2": "VCC1P8"
       },
+      "mpn": "RC1005F49R9CS",
       "value": "49.9R, 1%"
     },
     "R47": {
-      "mpn": "RC1005F49R9CS",
       "pins": {
         "1": "GND",
         "2": "NetIC8_AA19"
       },
+      "mpn": "RC1005F49R9CS",
       "value": "49.9R, 1%"
     },
     "R45": {
@@ -12387,11 +12387,11 @@
       "comment": "M25P16"
     },
     "C147": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC3P3",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "R53": {
@@ -12583,587 +12583,587 @@
       "value": "100K"
     },
     "C217": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C218": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C219": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C220": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C213": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C214": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C215": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C216": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C209": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C210": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C211": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C212": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C207": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C208": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C199": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C200": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C201": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C202": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C195": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C196": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C197": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C198": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C191": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C192": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C193": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C194": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C189": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C190": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C203": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2D_FPGA",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C204": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2D_FPGA",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C205": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2D_FPGA",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C206": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2D_FPGA",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C149": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC2P5A_FPGA",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C150": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC2P5A_FPGA",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C151": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC2P5A_FPGA",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C152": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC2P5A_FPGA",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C167": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC3P3",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C168": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC3P3",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C169": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC3P3",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C170": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC3P3",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C172": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C173": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C174": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C175": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C176": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C171": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C178": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C179": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C180": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C181": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C182": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C177": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C184": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C185": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C186": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C187": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C188": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C183": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C155": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VDIO_LMS_FPGA",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C156": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VDIO_LMS_FPGA",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C157": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VDIO_LMS_FPGA",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C158": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VDIO_LMS_FPGA",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C159": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VDIO_LMS_FPGA",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C154": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VDIO_LMS_FPGA",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C153": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VDIO_LMS_FPGA",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C162": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VDIO_LMS_FPGA",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C163": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VDIO_LMS_FPGA",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C164": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VDIO_LMS_FPGA",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C165": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VDIO_LMS_FPGA",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C166": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VDIO_LMS_FPGA",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C161": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VDIO_LMS_FPGA",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C160": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VDIO_LMS_FPGA",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C148": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC3P3",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "R62": {
@@ -13188,11 +13188,11 @@
       "value": "600R, 2A"
     },
     "C124": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2D_FPGA",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "FR37": {
@@ -13210,19 +13210,19 @@
       "value": "100uF, 6.3V"
     },
     "C136": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC2P5A_FPGA",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C119": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C121": {
@@ -13261,19 +13261,19 @@
       "value": "1uF, 10V"
     },
     "C120": {
-      "mpn": "GRM31CR60G227ME11L",
       "pins": {
         "1": "GND",
         "2": "VCC1P2D_FPGA"
       },
+      "mpn": "GRM31CR60G227ME11L",
       "value": "220uF, 4V"
     },
     "C115": {
-      "mpn": "GRM31CR60G227ME11L",
       "pins": {
         "1": "GND",
         "2": "VCC1P2"
       },
+      "mpn": "GRM31CR60G227ME11L",
       "value": "220uF, 4V"
     },
     "C127": {
@@ -13284,11 +13284,11 @@
       "value": "100uF, 6.3V"
     },
     "C131": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C128": {
@@ -13313,11 +13313,11 @@
       "value": "100uF, 6.3V"
     },
     "C141": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VDIO_LMS_FPGA",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C138": {
@@ -13343,11 +13343,11 @@
       "dns": true
     },
     "C146": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC3P3",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C143": {
@@ -13388,11 +13388,11 @@
       "value": "10k, 1%"
     },
     "C125": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC3P3",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "R58": {
@@ -13418,11 +13418,11 @@
       "dns": true
     },
     "C126": {
-      "mpn": "GRM31CR60G227ME11L",
       "pins": {
         "1": "GND",
         "2": "VCC1P8"
       },
+      "mpn": "GRM31CR60G227ME11L",
       "value": "220uF, 4V"
     },
     "J14": {
@@ -13447,51 +13447,51 @@
       "value": "10uF, 6.3V"
     },
     "C139": {
-      "mpn": "GRM155R60J475ME87D",
       "pins": {
         "1": "GND",
         "2": "VDIO_LMS_FPGA"
       },
+      "mpn": "GRM155R60J475ME87D",
       "value": "4.7uF, 6.3V"
     },
     "C129": {
-      "mpn": "GRM155R60J475ME87D",
       "pins": {
         "1": "GND",
         "2": "VCC1P8"
       },
+      "mpn": "GRM155R60J475ME87D",
       "value": "4.7uF, 6.3V"
     },
     "C117": {
-      "mpn": "GRM155R60J475ME87D",
       "pins": {
         "1": "GND",
         "2": "VCC1P2"
       },
+      "mpn": "GRM155R60J475ME87D",
       "value": "4.7uF, 6.3V"
     },
     "C122": {
-      "mpn": "GRM155R60J475ME87D",
       "pins": {
         "1": "GND",
         "2": "VCC1P2D_FPGA"
       },
+      "mpn": "GRM155R60J475ME87D",
       "value": "4.7uF, 6.3V"
     },
     "C134": {
-      "mpn": "GRM155R60J475ME87D",
       "pins": {
         "1": "GND",
         "2": "VCC2P5A_FPGA"
       },
+      "mpn": "GRM155R60J475ME87D",
       "value": "4.7uF, 6.3V"
     },
     "C144": {
-      "mpn": "GRM155R60J475ME87D",
       "pins": {
         "1": "GND",
         "2": "VCC3P3"
       },
+      "mpn": "GRM155R60J475ME87D",
       "value": "4.7uF, 6.3V"
     },
     "R75": {
@@ -13594,11 +13594,11 @@
       "value": "0.1uF"
     },
     "C243": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "R76": {
@@ -13616,11 +13616,11 @@
       "value": "100R, 1%"
     },
     "C244": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VREF_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "IC11": {
@@ -14038,11 +14038,11 @@
       "value": "100R, 1%"
     },
     "C269": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VREF_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "R86": {
@@ -14060,35 +14060,35 @@
       "value": "100R, 1%"
     },
     "C222": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C221": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C223": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C224": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C242": {
@@ -14099,139 +14099,139 @@
       "value": "1uF, 10V"
     },
     "C227": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C226": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C228": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C229": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C233": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C232": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C234": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C235": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C237": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C236": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C238": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C239": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C268": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C247": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C246": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C248": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C249": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C267": {
@@ -14242,99 +14242,99 @@
       "value": "1uF, 10V"
     },
     "C252": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C251": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C253": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C254": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C258": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C257": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C259": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C260": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C262": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C261": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C263": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C264": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "R77": {
@@ -14457,27 +14457,27 @@
       "value": "10uF, 6.3V"
     },
     "C245": {
-      "mpn": "GRM31CR60G227ME11L",
       "pins": {
         "1": "GND",
         "2": "VCC1P8_DDR2"
       },
+      "mpn": "GRM31CR60G227ME11L",
       "value": "220uF, 4V"
     },
     "C241": {
-      "mpn": "GRM155R60J475ME87D",
       "pins": {
         "1": "GND",
         "2": "VCC1P8_DDR2"
       },
+      "mpn": "GRM155R60J475ME87D",
       "value": "4.7uF, 6.3V"
     },
     "C266": {
-      "mpn": "GRM155R60J475ME87D",
       "pins": {
         "1": "GND",
         "2": "VCC1P8_DDR2"
       },
+      "mpn": "GRM155R60J475ME87D",
       "value": "4.7uF, 6.3V"
     },
     "IC13": {
@@ -14901,27 +14901,27 @@
       "value": "1uF, 16V"
     },
     "C271": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "FX3_USB_SSTX_IC_P",
         "2": "FX3_USB_SSTX_P"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C270": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "FX3_USB_SSTX_N",
         "2": "FX3_USB_SSTX_IC_N"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C274": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "NetC274_1",
         "2": "FX3_GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "NT1": {
@@ -15042,11 +15042,11 @@
       "value": "22R"
     },
     "C278": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "FX3_RST",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "IC15": {
@@ -15122,11 +15122,11 @@
       "value": "4K7"
     },
     "C276": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC3P3",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "R93": {
@@ -15144,7 +15144,6 @@
       "value": "200R, 1%"
     },
     "IC16": {
-      "mpn": "LM75BTP,147",
       "pins": {
         "1": {
           "name": "SDA",
@@ -15179,14 +15178,15 @@
           "net": "VCC3P3"
         }
       },
+      "mpn": "LM75BTP,147",
       "comment": "LM75"
     },
     "C280": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC3P3",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "J16": {
@@ -15272,7 +15272,6 @@
       "value": "22R"
     },
     "IC17": {
-      "mpn": "MAX7322ATE+",
       "pins": {
         "1": {
           "name": "AD2",
@@ -15343,6 +15342,7 @@
           "net": "GND"
         }
       },
+      "mpn": "MAX7322ATE+",
       "comment": "MAX7322"
     },
     "IC19": {
@@ -15416,19 +15416,19 @@
       "dns": true
     },
     "C282": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC3P3",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C281": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC3P3",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "R134": {
@@ -15460,11 +15460,11 @@
       "value": "0R"
     },
     "C279": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC3P3",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "R135": {
@@ -15589,11 +15589,11 @@
       "value": "10k, 1%"
     },
     "C272": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC5P0_USB",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "R110": {
@@ -15713,67 +15713,67 @@
       "value": "10nF, 10%"
     },
     "C306": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VDD_FX3",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C307": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VDD_FX3",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C305": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VDD_FX3",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C308": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VDD_FX3",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C309": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VDD_FX3",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C310": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VDD_FX3",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C311": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VDD_FX3",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C312": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VDD_FX3",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C314": {
@@ -15826,19 +15826,19 @@
       "value": "10nF, 10%"
     },
     "C284": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_FX3",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C285": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_FX3",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C286": {
@@ -15856,11 +15856,11 @@
       "value": "10nF, 10%"
     },
     "C288": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8_FX3",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C289": {
@@ -15871,11 +15871,11 @@
       "value": "10nF, 10%"
     },
     "C291": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC3P3_FX3",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C292": {
@@ -15886,11 +15886,11 @@
       "value": "10nF, 10%"
     },
     "C293": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC3P3_FX3",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C294": {
@@ -15901,11 +15901,11 @@
       "value": "10nF, 10%"
     },
     "C299": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "NetC298_2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C298": {
@@ -15916,27 +15916,27 @@
       "value": "22uF, 10V"
     },
     "C300": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "NetC300_1",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C302": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "NetC302_1",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C296": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC_CFX3",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C297": {
@@ -16514,76 +16514,76 @@
       "dns": true
     },
     "C322": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "NetC321_2",
         "2": "NetC322_2"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C321": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "NetC321_1",
         "2": "NetC321_2"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C323": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "GND",
         "2": "NetC323_2"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C328": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "GND",
         "2": "NetC328_2"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF,16V",
       "dns": true
     },
     "C327": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "GND",
         "2": "NetC326_2"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C330": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "GND",
         "2": "VDIO_LMS_LMK"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C352": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "NetC351_2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C345": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "GND",
         "2": "VCC3P3_CLK"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C346": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "GND",
         "2": "NetC346_2"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C324": {
@@ -16652,19 +16652,19 @@
       "comment": "AD5601BKSZ-REEL7"
     },
     "C360": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC3P3_CLK",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C359": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC3P3_CLK",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "R157": {
@@ -16690,11 +16690,11 @@
       "dns": true
     },
     "C342": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "NetC342_1",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C326": {
@@ -16858,27 +16858,27 @@
       "dns": true
     },
     "C365": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C364": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C366": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC1P8",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "R161": {
@@ -16903,51 +16903,51 @@
       "value": "10k, 1%"
     },
     "R163": {
-      "mpn": "RC1005F49R9CS",
       "pins": {
         "1": "FPGA_SPI1_SCLK",
         "2": "NetC361_2"
       },
+      "mpn": "RC1005F49R9CS",
       "value": "49.9R, 1%"
     },
     "R165": {
-      "mpn": "RC1005F49R9CS",
       "pins": {
         "1": "FPGA_SPI1_ADF_SS",
         "2": "NetIC23_14"
       },
+      "mpn": "RC1005F49R9CS",
       "value": "49.9R, 1%"
     },
     "R164": {
-      "mpn": "RC1005F49R9CS",
       "pins": {
         "1": "FPGA_SPI1_MOSI",
         "2": "NetIC23_13"
       },
+      "mpn": "RC1005F49R9CS",
       "value": "49.9R, 1%"
     },
     "R159": {
-      "mpn": "RC1005F49R9CS",
       "pins": {
         "1": "GND",
         "2": "NetC353_1"
       },
+      "mpn": "RC1005F49R9CS",
       "value": "49.9R, 1%"
     },
     "R152": {
-      "mpn": "RC1005F49R9CS",
       "pins": {
         "1": "GND",
         "2": "NetC343_2"
       },
+      "mpn": "RC1005F49R9CS",
       "value": "49.9R, 1%"
     },
     "R140": {
-      "mpn": "RC1005F49R9CS",
       "pins": {
         "1": "GND",
         "2": "NetC321_2"
       },
+      "mpn": "RC1005F49R9CS",
       "value": "49.9R, 1%"
     },
     "R155": {
@@ -16973,11 +16973,11 @@
       "value": "100pF, 50V"
     },
     "C335": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "GND",
         "2": "VCC3P3_LMK"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C334": {
@@ -17009,11 +17009,11 @@
       "value": "100pF, 50V"
     },
     "C338": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "GND",
         "2": "+1.8V_DIG_LMK"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C333": {
@@ -17109,11 +17109,11 @@
       "value": "600R, 2A"
     },
     "R183": {
-      "mpn": "ERJ-2GEJ104X",
       "pins": {
         "1": "NetIC27_22",
         "2": "GND"
       },
+      "mpn": "ERJ-2GEJ104X",
       "value": "100k, 5%"
     },
     "C388": {
@@ -17124,7 +17124,6 @@
       "value": "1uF, 10V"
     },
     "IC27": {
-      "mpn": "ADP2386ACPZN-R7",
       "pins": {
         "1": {
           "name": "COMP",
@@ -17231,14 +17230,15 @@
           "net": "NetC378_2"
         }
       },
+      "mpn": "ADP2386ACPZN-R7",
       "comment": "ADP2386"
     },
     "C378": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "NetC378_1",
         "2": "NetC378_2"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "R184": {
@@ -17407,11 +17407,11 @@
       "comment": "ADP2386"
     },
     "C399": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "NetC399_1",
         "2": "NetC399_2"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "L2": {
@@ -17513,7 +17513,6 @@
       "value": "1uF, 10V"
     },
     "IC35": {
-      "mpn": "LP38503TS-ADJ/NOPB",
       "pins": {
         "1": {
           "name": "NC",
@@ -17536,6 +17535,7 @@
           "net": "NetIC35_5"
         }
       },
+      "mpn": "LP38503TS-ADJ/NOPB",
       "comment": "LP38503TS"
     },
     "C416": {
@@ -17658,12 +17658,12 @@
       "value": "0R"
     },
     "J20": {
-      "description": "Mating Diameter: 1.30mm ID (0.051\"), 3.50mm OD (0.138\")",
       "pins": {
         "1": "NetC373_1",
         "2": "GND",
         "3": "GND"
       },
+      "description": "Mating Diameter: 1.30mm ID (0.051\"), 3.50mm OD (0.138\")",
       "comment": "Mating Diameter: 1.30mm ID (0.051\"), 3.50mm OD (0.138\")"
     },
     "R167": {
@@ -17733,11 +17733,11 @@
       "value": "100R, 1%"
     },
     "C395": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VREF_DDR2",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C380": {
@@ -17748,11 +17748,11 @@
       "value": "1uF, 10V"
     },
     "C381": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VDIO_LMS",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "R176": {
@@ -17785,11 +17785,11 @@
       "value": "600R, 2A"
     },
     "C418": {
-      "mpn": "GRM155R60J475ME87D",
       "pins": {
         "1": "GND",
         "2": "NetC418_2"
       },
+      "mpn": "GRM155R60J475ME87D",
       "value": "4.7uF, 6.3V"
     },
     "IC25": {
@@ -17862,29 +17862,29 @@
       "comment": "FPF3042"
     },
     "J21": {
-      "description": "Header,3-pin",
       "pins": {
         "1": "GND",
         "2": "NetC373_1",
         "3": "VCC_INT"
       },
+      "description": "Header,3-pin",
       "comment": "Header 3x1 pin",
       "dns": true
     },
     "VD1": {
-      "description": "Diode Schottky SMD SOD-523F",
       "pins": {
         "A": "NetC373_1",
         "K": "VCC_EXT"
       },
+      "description": "Diode Schottky SMD SOD-523F",
       "comment": "SK36A"
     },
     "C374": {
-      "mpn": "GRM188R61E106MA73D",
       "pins": {
         "1": "GND",
         "2": "VCC_EXT"
       },
+      "mpn": "GRM188R61E106MA73D",
       "value": "10uF, 25V"
     },
     "C375": {
@@ -17902,59 +17902,59 @@
       "value": "249R, 1%"
     },
     "C379": {
-      "mpn": "GRM188R61E106MA73D",
       "pins": {
         "1": "GND",
         "2": "VCC_INT"
       },
+      "mpn": "GRM188R61E106MA73D",
       "value": "10uF, 25V"
     },
     "C400": {
-      "mpn": "GRM188R61E106MA73D",
       "pins": {
         "1": "GND",
         "2": "VCC_INT"
       },
+      "mpn": "GRM188R61E106MA73D",
       "value": "10uF, 25V"
     },
     "C367": {
-      "mpn": "GRM188R61E106MA73D",
       "pins": {
         "1": "GND",
         "2": "NetC367_2"
       },
+      "mpn": "GRM188R61E106MA73D",
       "value": "10uF, 25V"
     },
     "C368": {
-      "mpn": "GRM188R61E106MA73D",
       "pins": {
         "1": "GND",
         "2": "VCC_INT"
       },
+      "mpn": "GRM188R61E106MA73D",
       "value": "10uF, 25V"
     },
     "C369": {
-      "mpn": "GRM188R61E106MA73D",
       "pins": {
         "1": "GND",
         "2": "VCC_INT"
       },
+      "mpn": "GRM188R61E106MA73D",
       "value": "10uF, 25V"
     },
     "C370": {
-      "mpn": "GRM188R61E106MA73D",
       "pins": {
         "1": "GND",
         "2": "VCC_INT"
       },
+      "mpn": "GRM188R61E106MA73D",
       "value": "10uF, 25V"
     },
     "C371": {
-      "mpn": "GRM188R61E106MA73D",
       "pins": {
         "1": "GND",
         "2": "VCC_INT"
       },
+      "mpn": "GRM188R61E106MA73D",
       "value": "10uF, 25V"
     },
     "LED3": {
@@ -17969,11 +17969,11 @@
       "dns": true
     },
     "C420": {
-      "mpn": "GRM188R61E106MA73D",
       "pins": {
         "1": "GND",
         "2": "NetC420_2"
       },
+      "mpn": "GRM188R61E106MA73D",
       "value": "10uF, 25V"
     },
     "C385": {
@@ -17991,19 +17991,19 @@
       "value": "100uF, 6.3V"
     },
     "C406": {
-      "mpn": "GRM31CR60G227ME11L",
       "pins": {
         "1": "GND",
         "2": "VCC1P2"
       },
+      "mpn": "GRM31CR60G227ME11L",
       "value": "220uF, 4V"
     },
     "C407": {
-      "mpn": "GRM31CR60G227ME11L",
       "pins": {
         "1": "GND",
         "2": "VCC1P2"
       },
+      "mpn": "GRM31CR60G227ME11L",
       "value": "220uF, 4V"
     },
     "R195": {
@@ -18111,11 +18111,11 @@
       "value": "10uF, 6.3V"
     },
     "C421": {
-      "mpn": "GRM188R61E106MA73D",
       "pins": {
         "1": "GND",
         "2": "NetC421_2"
       },
+      "mpn": "GRM188R61E106MA73D",
       "value": "10uF, 25V"
     },
     "R186": {
@@ -18162,19 +18162,19 @@
       "dns": true
     },
     "C373": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "NetC373_1",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "C372": {
-      "mpn": "GRM155R71C104KA88D",
       "pins": {
         "1": "VCC_INT",
         "2": "GND"
       },
+      "mpn": "GRM155R71C104KA88D",
       "value": "100nF, 16V"
     },
     "R166": {
@@ -18210,35 +18210,34 @@
       "comment": "Fiducial"
     },
     "MECH1": {
-      "description": "STANDOFF M/F MET 5MM HEX 10MM L",
       "pins": {
         "MH1": "GND"
       },
+      "description": "STANDOFF M/F MET 5MM HEX 10MM L",
       "comment": "# pcs."
     },
     "MECH2": {
-      "description": "STANDOFF M/F MET 5MM HEX 10MM L",
       "pins": {
         "MH1": "GND"
       },
+      "description": "STANDOFF M/F MET 5MM HEX 10MM L",
       "comment": "# pcs."
     },
     "MECH3": {
-      "description": "STANDOFF M/F MET 5MM HEX 10MM L",
       "pins": {
         "MH1": "GND"
       },
+      "description": "STANDOFF M/F MET 5MM HEX 10MM L",
       "comment": "# pcs."
     },
     "MECH4": {
-      "description": "STANDOFF M/F MET 5MM HEX 10MM L",
       "pins": {
         "MH1": "GND"
       },
+      "description": "STANDOFF M/F MET 5MM HEX 10MM L",
       "comment": "# pcs."
     },
     "IC32": {
-      "mpn": "AP7361-FGE-7",
       "pins": {
         "1": {
           "name": "OUT",
@@ -18277,6 +18276,7 @@
           "net": "GND"
         }
       },
+      "mpn": "AP7361-FGE-7",
       "comment": "AP7361-FGE"
     },
     "R193": {
@@ -18294,7 +18294,6 @@
       "value": "806R, 1%"
     },
     "IC34": {
-      "mpn": "AP7361-FGE-7",
       "pins": {
         "1": {
           "name": "OUT",
@@ -18333,6 +18332,7 @@
           "net": "GND"
         }
       },
+      "mpn": "AP7361-FGE-7",
       "comment": "AP7361-FGE"
     },
     "R203": {
@@ -18350,7 +18350,6 @@
       "value": "806R, 1%"
     },
     "IC28": {
-      "mpn": "AP7361-FGE-7",
       "pins": {
         "1": {
           "name": "OUT",
@@ -18389,6 +18388,7 @@
           "net": "GND"
         }
       },
+      "mpn": "AP7361-FGE-7",
       "comment": "AP7361-FGE"
     },
     "R179": {
@@ -18406,7 +18406,6 @@
       "value": "806R, 1%"
     },
     "IC30": {
-      "mpn": "AP7361-FGE-7",
       "pins": {
         "1": {
           "name": "OUT",
@@ -18445,14 +18444,15 @@
           "net": "GND"
         }
       },
+      "mpn": "AP7361-FGE-7",
       "comment": "AP7361-FGE"
     },
     "R189": {
-      "mpn": "RC0402FR-07750RL",
       "pins": {
         "1": "NetC398_2",
         "2": "NetIC30_3"
       },
+      "mpn": "RC0402FR-07750RL",
       "value": "750R, 1%"
     },
     "R190": {
@@ -18463,7 +18463,6 @@
       "value": "1k, 1%"
     },
     "IC33": {
-      "mpn": "AP7361-FGE-7",
       "pins": {
         "1": {
           "name": "OUT",
@@ -18502,14 +18501,15 @@
           "net": "GND"
         }
       },
+      "mpn": "AP7361-FGE-7",
       "comment": "AP7361-FGE"
     },
     "R194": {
-      "mpn": "CRCW0402560RFKED",
       "pins": {
         "1": "NetIC33_3",
         "2": "NetC405_2"
       },
+      "mpn": "CRCW0402560RFKED",
       "comment": "560R, 1%"
     },
     "R198": {
@@ -18520,7 +18520,6 @@
       "value": "1k, 1%"
     },
     "IC26": {
-      "mpn": "AP7361-FGE-7",
       "pins": {
         "1": {
           "name": "OUT",
@@ -18559,6 +18558,7 @@
           "net": "GND"
         }
       },
+      "mpn": "AP7361-FGE-7",
       "comment": "AP7361-FGE"
     },
     "R174": {
@@ -18598,11 +18598,11 @@
       "value": "10uF, 6.3V"
     },
     "C419": {
-      "mpn": "GRM188R61E106MA73D",
       "pins": {
         "1": "GND",
         "2": "VCC_INT"
       },
+      "mpn": "GRM188R61E106MA73D",
       "value": "10uF, 25V"
     },
     "C417": {
@@ -18613,107 +18613,107 @@
       "value": "10uF, 6.3V"
     },
     "C409": {
-      "mpn": "GRM155R60J475ME87D",
       "pins": {
         "1": "GND",
         "2": "VCC3P3"
       },
+      "mpn": "GRM155R60J475ME87D",
       "value": "4.7uF, 6.3V"
     },
     "C401": {
-      "mpn": "GRM155R60J475ME87D",
       "pins": {
         "1": "GND",
         "2": "VCC3P3"
       },
+      "mpn": "GRM155R60J475ME87D",
       "value": "4.7uF, 6.3V"
     },
     "C404": {
-      "mpn": "GRM155R60J475ME87D",
       "pins": {
         "1": "GND",
         "2": "NetC404_2"
       },
+      "mpn": "GRM155R60J475ME87D",
       "value": "4.7uF, 6.3V"
     },
     "C397": {
-      "mpn": "GRM155R60J475ME87D",
       "pins": {
         "1": "GND",
         "2": "NetC397_2"
       },
+      "mpn": "GRM155R60J475ME87D",
       "value": "4.7uF, 6.3V"
     },
     "C383": {
-      "mpn": "GRM155R60J475ME87D",
       "pins": {
         "1": "GND",
         "2": "NetC383_2"
       },
+      "mpn": "GRM155R60J475ME87D",
       "value": "4.7uF, 6.3V"
     },
     "C376": {
-      "mpn": "GRM155R60J475ME87D",
       "pins": {
         "1": "GND",
         "2": "VCC3P3"
       },
+      "mpn": "GRM155R60J475ME87D",
       "value": "4.7uF, 6.3V"
     },
     "C377": {
-      "mpn": "GRM155R60J475ME87D",
       "pins": {
         "1": "GND",
         "2": "NetC377_2"
       },
+      "mpn": "GRM155R60J475ME87D",
       "value": "4.7uF, 6.3V"
     },
     "C384": {
-      "mpn": "GRM155R60J475ME87D",
       "pins": {
         "1": "GND",
         "2": "NetC384_2"
       },
+      "mpn": "GRM155R60J475ME87D",
       "value": "4.7uF, 6.3V"
     },
     "C398": {
-      "mpn": "GRM155R60J475ME87D",
       "pins": {
         "1": "GND",
         "2": "NetC398_2"
       },
+      "mpn": "GRM155R60J475ME87D",
       "value": "4.7uF, 6.3V"
     },
     "C405": {
-      "mpn": "GRM155R60J475ME87D",
       "pins": {
         "1": "GND",
         "2": "NetC405_2"
       },
+      "mpn": "GRM155R60J475ME87D",
       "value": "4.7uF, 6.3V"
     },
     "C410": {
-      "mpn": "GRM155R60J475ME87D",
       "pins": {
         "1": "GND",
         "2": "NetC410_2"
       },
+      "mpn": "GRM155R60J475ME87D",
       "value": "4.7uF, 6.3V"
     },
     "C402": {
-      "mpn": "GRM155R60J475ME87D",
       "pins": {
         "1": "GND",
         "2": "NetC402_2"
       },
+      "mpn": "GRM155R60J475ME87D",
       "value": "4.7uF, 6.3V"
     },
     "C414": {
-      "mpn": "GRM155R60J475ME87D",
       "pins": {
         "1": "GND",
         "2": "VCC3P3"
       },
+      "mpn": "GRM155R60J475ME87D",
       "value": "4.7uF, 6.3V"
     },
     "R169": {
