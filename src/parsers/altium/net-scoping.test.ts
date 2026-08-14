@@ -172,3 +172,20 @@ describe("applyNetRenames", () => {
     expect(parsed).toEqual(netlist());
   });
 });
+
+describe("planLocalNetRenames collision guard", () => {
+  it("leaves the name alone when another sheet already draws the suffixed net", () => {
+    // Sheet 5 draws a net genuinely named `SCL_1`. Renaming sheet 1's local
+    // `SCL` to `SCL_1` would merge into it once the sheets are merged by name.
+    const plans = planLocalNetRenames(
+      [
+        sheet("1", { SCL: { label: true } }),
+        sheet("2", { SCL: { label: true } }),
+        sheet("5", { SCL_1: { label: true, portOrEntry: true } }),
+      ],
+      "hierarchical"
+    );
+    expect(plans[0].has("SCL")).toBe(false);
+    expect(plans[1].get("SCL")).toBe("SCL_2");
+  });
+});

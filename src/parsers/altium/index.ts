@@ -485,12 +485,22 @@ interface ParsedDocument {
  * Number Schematic Sheets has none, and Altium leaves such a sheet's local
  * nets unsuffixed.
  */
-const readSheetNumber = (schematic: AltiumSchematic): string | undefined => {
-  // Only the document's own parameters, which sit at the root of the hierarchy.
-  // A component's properties are parameter records too, nested under the part,
-  // so walking the flattened tree would let a part carrying its own
-  // `SheetNumber` parameter stand in for the sheet's.
+export const readSheetNumber = (schematic: AltiumSchematic): string | undefined => {
+  // Document scope only. A component's properties are parameter records too, so
+  // walking the whole tree would let a part carrying its own `SheetNumber`
+  // parameter stand in for the sheet's. Which records count as document scope
+  // varies with how the file was written: the parameters sit at the root of the
+  // hierarchy, or hang off the SHEET record that carries the document's own
+  // settings, so both are read and nothing deeper is.
+  const documentScoped: AltiumRecord[] = [];
   for (const record of schematic.records) {
+    documentScoped.push(record);
+    if (record.RECORD === RECORD_TYPES.SHEET && record.children) {
+      documentScoped.push(...record.children);
+    }
+  }
+
+  for (const record of documentScoped) {
     if (record.RECORD !== RECORD_TYPES.PARAMETER) continue;
     const name = record.Name ?? record.NAME;
     if (name === undefined || name === null || String(name).toLowerCase() !== "sheetnumber") {

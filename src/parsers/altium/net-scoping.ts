@@ -73,8 +73,12 @@ export const planLocalNetRenames = (
   scope: NetIdentifierScope
 ): Map<string, string>[] => {
   const sheetsClaiming = new Map<string, number>();
+  // Every name the project already uses, on any sheet. A suffixed name that
+  // collides with one of these is a name the design gave to something else.
+  const namesInUse = new Set<string>();
   for (const sheet of sheets) {
     for (const [netName, kinds] of sheet.netIdentifiers) {
+      namesInUse.add(netName);
       if (!isSheetBound(kinds, scope)) continue;
       sheetsClaiming.set(netName, (sheetsClaiming.get(netName) ?? 0) + 1);
     }
@@ -88,12 +92,14 @@ export const planLocalNetRenames = (
       if (!isSheetBound(kinds, scope)) continue;
       if ((sheetsClaiming.get(netName) ?? 0) < 2) continue;
 
-      // A sheet may already draw a net actually called `SCL_2`. Folding the
+      // Some sheet may already draw a net actually called `SCL_2`. Folding the
       // renamed net into it would invent a connection that the design does not
       // make, which is the very fault this pass exists to remove, so the name
-      // is left alone and the nets merge as they always have.
+      // is left alone and the nets merge as they always have. The whole project
+      // is checked, not just this sheet: the nets are merged by name afterwards,
+      // so a collision with any other sheet's net lands just as wrongly.
       const suffixed = `${netName}_${sheet.sheetNumber}`;
-      if (sheet.netIdentifiers.has(suffixed)) continue;
+      if (namesInUse.has(suffixed)) continue;
 
       renames.set(netName, suffixed);
     }
