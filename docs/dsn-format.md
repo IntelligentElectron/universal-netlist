@@ -1097,11 +1097,19 @@ nothing missing and nothing extra:
 
 `A1 C24 C58 FIDU1`–`FIDU6 MH1`–`MH5 P8 R13 R19 R21 R46`–`R49 R51 R59 R60`
 
-Eleven of them were already flagged by the marker detection the DAT path runs;
-the other fourteen are generic parts whose value says nothing, and those are the
-ones this reads. Across the corpus the store adds 25 unstuffed parts on
-LAUNCHXL-CC1310, 77 on reServer J2032 and 289 on reServer J401, and changes
-nothing on the eight designs that declare no variants.
+Eleven of them also carry a marker in their value and are found without the store
+(section 13.6); the other fourteen are generic parts whose value says nothing, and
+those the store alone accounts for. What each design's groups resolve to:
+
+| Design | Resolved by the store | Of those, found by a marker too | Store alone |
+|--------|-----------------------|---------------------------------|-------------|
+| LAUNCHXL-CC1310 | 25 | 11 | 14 |
+| reServer J2032 | 77 | 0 | 77 |
+| reServer J401 | 291 | 0 | 291 |
+
+The eight designs that declare no variant are unchanged by it. On `reServer J401`
+the netlist path reports 289 of the 291: `J2_TB2` and `J17_TB1` are drawn on the
+schematic but absent from the DAT export, so that path has no component to flag.
 
 ---
 
