@@ -64,8 +64,9 @@ The type is the refdes prefix, matched whole and case-insensitively: "u" gives U
 U2 but NOT USB1, whose prefix is USB, and "tp" gives the test points. Asking for a \
 partial prefix returns nothing rather than everything starting with it, so if a part you \
 expected is missing, look for it under its own prefix. \
-Components are grouped by MPN for compact output, and a group whose parts carry no MPN \
-says so in its notes. \
+Identical components are grouped for compact output: parts share a group only when their \
+MPN, description, comment and value all agree, so every field a group reports is true of \
+every part in it. A group whose parts carry no MPN says so in its notes. \
 If no components match, the error lists every prefix the design does have.`;
 
 export const LIST_NETS_DESCRIPTION = `\
@@ -84,8 +85,9 @@ Rejects patterns that match all items; use list_nets for full results.`;
 
 export const SEARCH_COMPONENTS_BY_REFDES_DESCRIPTION = `\
 Search for components by refdes pattern. Matching is case-insensitive. \
-Results are grouped by MPN for compact output, \
-with a notes field when nothing matches. \
+Identical components are grouped for compact output, on MPN, description, comment and \
+value together, so every field a group reports is true of every part in it. \
+A notes field is returned when nothing matches. \
 Rejects patterns that match all items; use list_components for full results.`;
 
 export const SEARCH_COMPONENTS_BY_MPN_DESCRIPTION = `\
@@ -106,8 +108,12 @@ export const QUERY_XNET_BY_NET_NAME_DESCRIPTION = `\
 Get full XNET (Extended Net) connectivity for a net. \
 Traces through series components, so the result is the whole electrical node rather \
 than the one net; \`circuit_hash\` identifies unique topologies. Traversal stops at \
-power and ground nets. \`skip_types\` leaves series passives out, and \
-\`skip_types=['C','L']\` on a power rail is the cheapest way to cut a large result down. \
+power and ground nets, recognised by name (VCC*, VDD*, 3V3, GND*, VSS*, ...) or by \
+carrying more than 40 pins. A rail named outside that, such as VDIO_LMS, is traversed \
+like a signal, so a query that pulls up to one returns its whole pull-up network; \
+\`visited_nets\` names every net the result crossed, which is where to look when a \
+result is broader than expected. \`skip_types\` leaves series passives out, and \
+\`skip_types=['C','L','R']\` is the cheapest way to cut such a result down. \
 Rejects ground nets (GND, AGND, DGND, etc.) with an error. \
 If the net is not found, \`search_nets\` finds the name.`;
 
@@ -115,8 +121,11 @@ export const QUERY_XNET_BY_PIN_NAME_DESCRIPTION = `\
 Get full XNET connectivity starting from a component pin, named REFDES.PIN \
 (e.g. U1.A5, R10.1). Traces through series components, so the result is the whole \
 electrical node; \`circuit_hash\` identifies unique topologies. Traversal stops at power \
-and ground nets, and \`skip_types\` leaves series passives out, such as \
-\`skip_types=['C','L']\` on a rail. \
+and ground nets, recognised by name (VCC*, VDD*, 3V3, GND*, VSS*, ...) or by carrying \
+more than 40 pins; a rail named outside that is traversed like a signal, and \
+\`visited_nets\` names every net the result crossed. \`skip_types\` leaves series \
+passives out, such as \`skip_types=['C','L','R']\` to cut a broad result down. \
+A pin on no net reads as the net \`NC\` and returns an empty result. \
 Rejects pins connected to ground nets (GND, AGND, DGND, etc.) with an error.`;
 
 export const QUERY_COMPONENT_DESCRIPTION = `\
@@ -155,7 +164,8 @@ Rules: \`net.single_pin\` (error: a net with one functional pin and no test poin
 \`net.unnamed\` (warning: an auto-generated net name on a real 2+-pin net). \
 Test points are identified by the \`TP\` refdes prefix. Findings key each net to its \
 \`REFDES.PIN\` endpoints (always arrays); \`net.unnamed\` lists bare net names. \
-\`checked\` lists the rules that ran, so a rule absent from the findings found nothing. \
+\`checked\` lists the rules that ran, so a rule absent from the findings found nothing, \
+and \`skipped\` counts the parts left out of the run, such as Do-Not-Stuff ones. \
 Use \`include_rules\`/\`exclude_rules\` (rule ids) to scope the run and \`include_dns\` to \
 count Do-Not-Stuff parts; an unknown rule id returns an error rather than silently \
 checking nothing. Unconnected pins without a no-connect symbol are NOT checked: \

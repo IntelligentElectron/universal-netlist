@@ -345,3 +345,102 @@ describe("aggregateCircuitByMpn", () => {
     expect("description" in result[0]).toBe(false);
   });
 });
+
+/**
+ * A group speaks for every part in it.
+ *
+ * Grouping used to key on MPN alone and keep whichever member arrived first,
+ * so a design that gives every resistor the MPN `R` and every capacitor `CC`
+ * — which the OSHW Jetson carriers do, and which `N.A.` placeholders do on
+ * other boards — collapsed into one group reporting one value for all of them.
+ * `list_components(type: "R")` on reComputer J202 answered a single group of
+ * 271 resistors valued `5.1R`, and R1 is `0R`.
+ */
+describe("groups only merge parts the group's own fields describe", () => {
+  const entriesOf = (components: ComponentDetails) =>
+    Object.entries(components) as Array<[string, ComponentDetails[string]]>;
+
+  it("keeps parts apart when a shared MPN covers different values", () => {
+    const result = groupComponentsByMpn(
+      entriesOf({
+        R1: { mpn: "R", value: "0R", pins: {} },
+        R2: { mpn: "R", value: "5.1K", pins: {} },
+        R3: { mpn: "R", value: "5.1K", pins: {} },
+      }),
+      false
+    );
+
+    expect(result).toHaveLength(2);
+    const byValue = Object.fromEntries(result.map((g) => [g.value, g.refdes]));
+    expect(byValue["0R"]).toEqual(["R1"]);
+    expect(byValue["5.1K"]).toEqual(["R2", "R3"]);
+  });
+
+  it("keeps a resistor and a capacitor apart when both carry a placeholder MPN", () => {
+    const result = groupComponentsByMpn(
+      entriesOf({
+        C1: { mpn: "N.A.", description: "Capacitor, NP0", value: "12pF", pins: {} },
+        R1: { mpn: "N.A.", description: "Resistor, 0.05W", value: "0R", pins: {} },
+      }),
+      false
+    );
+
+    expect(result).toHaveLength(2);
+    for (const group of result) {
+      expect(group.refdes).toHaveLength(1);
+    }
+    const capacitor = result.find((g) => g.refdes[0] === "C1");
+    expect(capacitor?.description).toBe("Capacitor, NP0");
+    expect(capacitor?.value).toBe("12pF");
+  });
+
+  it("still merges parts that agree, which is what the grouping is for", () => {
+    const result = groupComponentsByMpn(
+      entriesOf({
+        C1: { mpn: "CL10A225KP8NNNC", description: "CAP CER 2.2UF", value: "2.2uF", pins: {} },
+        C2: { mpn: "CL10A225KP8NNNC", description: "CAP CER 2.2UF", value: "2.2uF", pins: {} },
+      }),
+      false
+    );
+
+    expect(result).toHaveLength(1);
+    expect(result[0].count).toBe(2);
+    expect(result[0].refdes).toEqual(["C1", "C2"]);
+  });
+
+  it("does not let a part with no value stand in for one that has a value", () => {
+    const result = groupComponentsByMpn(
+      entriesOf({
+        R1: { mpn: "R", pins: {} },
+        R2: { mpn: "R", value: "10K", pins: {} },
+      }),
+      false
+    );
+
+    expect(result).toHaveLength(2);
+    expect(result.find((g) => g.refdes[0] === "R1")?.value).toBeUndefined();
+    expect(result.find((g) => g.refdes[0] === "R2")?.value).toBe("10K");
+  });
+
+  it("keeps xnet aggregation apart the same way", () => {
+    const components: CircuitComponent[] = [
+      {
+        refdes: "R1",
+        mpn: "R",
+        value: "0R",
+        connections: [{ net: "A", pins: ["1"] }, { net: "B", pins: ["2"] }],
+      },
+      {
+        refdes: "R2",
+        mpn: "R",
+        value: "10K",
+        connections: [{ net: "A", pins: ["1"] }, { net: "B", pins: ["2"] }],
+      },
+    ];
+
+    const result = aggregateCircuitByMpn(components);
+
+    expect(result).toHaveLength(2);
+    expect(result.map((g) => g.value).sort()).toEqual(["0R", "10K"]);
+  });
+});

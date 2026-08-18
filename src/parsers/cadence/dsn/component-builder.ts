@@ -7,7 +7,7 @@
 
 import type { ComponentDetails } from "../../../types.js";
 import { createPinEntry, type PinEntry } from "../../../types.js";
-import { isValidRefdes, hasDnsMarker } from "../../../circuit-traversal.js";
+import { isValidRefdes, hasDnsValueMarker } from "../../../circuit-traversal.js";
 import type { CachedLibraryPart, PinMapData } from "./structure-types.js";
 import type { PlacedInstance } from "./structures.js";
 import type { PageData } from "./page-parser.js";
@@ -168,7 +168,7 @@ export function buildComponents(
       // stuffed, and cleaning it out of the value erases it, so read it first.
       let dns = false;
       if (value) {
-        dns = hasDnsMarker(value);
+        dns = hasDnsValueMarker(value);
         value = cleanDnsFromValue(value);
       }
 
