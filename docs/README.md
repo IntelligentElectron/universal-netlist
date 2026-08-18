@@ -89,6 +89,7 @@ Error messages include actionable guidance (e.g., "Use list_components() to find
 Important behavioral documentation in [shared-types.md](schemas/shared-types.md):
 
 - [DNS Detection](schemas/shared-types.md#dns-detection) - How Do Not Stuff components are identified
+- [How Cadence Records Do Not Install](cadence-dni.md) - The two mechanisms a Cadence design uses, and why one of them never reaches the exported netlist
 - [Power/Ground Stop Nets](schemas/shared-types.md#powerground-stop-nets) - Nets that stop circuit traversal
 - [Case Sensitivity](schemas/shared-types.md#case-sensitivity) - Which operations are case-sensitive
 - [Notes Array](schemas/shared-types.md#notes-array) - Meaning of informational notes in responses

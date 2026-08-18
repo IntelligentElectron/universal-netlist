@@ -396,7 +396,7 @@ DNS components are excluded by default. Use `include_dns: true` to include them.
 
 **Limitation (Cadence DAT parser):** Some designs use graphical-only text annotations (e.g., "DNP" or "DNM" placed as schematic text near a component) with no corresponding structured property in the DAT export. These are invisible to the parser.
 
-Both Cadence paths read both sources, so a design answers the same whether the query names its `.DSN` or the `pstxnet.dat` beside it. The golden suite asserts that agreement on every fixture design that has both.
+Both Cadence paths read both sources, so a design answers the same whether the query names its `.DSN` or the `pstxnet.dat` beside it. The golden suite asserts that agreement on every fixture design that has both. See [How Cadence Records Do Not Install](../cadence-dni.md) for the two mechanisms and what each leaves on disk.
 
 ## Power/Ground Stop Nets
 

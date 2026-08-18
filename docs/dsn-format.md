@@ -740,7 +740,7 @@ The `pin_map` array maps logical pin index to physical pin designator. Index 0 c
 
 **Divergence from the C++ reference**: `StructDevice.cpp` `continue`s past a `-1` entry without appending to its vector, producing a dense array. We push `null` instead, so `pin_map` always has exactly `pin_count` entries and index `pinIndex - 1` keeps meaning logical pin `pinIndex`. Dropping the entry would shift every pin after it by one. The parallel `pin_ignore` array is filled with `false` at the same position to stay aligned, and `resolvePinNumber` treats a `null` as "this map has no entry here" and tries the other stream.
 
-**Important**: The `Packages/` stream and the Cache stream may contain **different** Device definitions for the same component. See [section 12.1](#111-pin-number-resolution) for Cache fallback when pin counts differ.
+**Important**: The `Packages/` stream and the Cache stream may contain **different** Device definitions for the same component. See [section 12.1](#121-pin-number-resolution) for Cache fallback when pin counts differ.
 
 ### 9.3 LibraryPart (type 0x18)
 
@@ -957,7 +957,7 @@ When both `Packages/` streams and Cache provide data for the same component, `Pa
 
 Both BeagleBone-Black designs have a `Packages` storage with no streams inside it, so every pin number they report comes from the Cache, and the four Jetson carriers get roughly nine tenths of theirs from it. That is why the Cache recovery of section 10.3 matters as much as it does: on those designs it is not a fallback, it is the source.
 
-**Exception**: when the `Packages/` map's length disagrees with the instance's T0x10 count, the Cache map may win instead. A Cache map whose length equals the T0x10 count settles it; failing that, only a `Packages/` map longer than the symbol prefers the Cache. See [section 12.1](#111-pin-number-resolution) for details and an example.
+**Exception**: when the `Packages/` map's length disagrees with the instance's T0x10 count, the Cache map may win instead. A Cache map whose length equals the T0x10 count settles it; failing that, only a `Packages/` map longer than the symbol prefers the Cache. See [section 12.1](#121-pin-number-resolution) for details and an example.
 
 ### 10.5 Packages Directory Stream
 
@@ -996,6 +996,10 @@ alternate BOM leaves off the board keeps an ordinary `VALUE` in `pstchip.dat` an
 both of its `NODE_NAME`s in `pstxnet.dat`, so neither the DAT path's marker
 detection (section 13.7) nor anything on the schematic distinguishes it from a
 part that is stuffed.
+
+> This section is the byte layout. For how Cadence records Do Not Install overall,
+> which of the two mechanisms a design is using, and why a netlist handed on its own
+> cannot carry this one, see [How Cadence Records Do Not Install](cadence-dni.md).
 
 The storage is present in 7 of the 11 Cadence fixtures and holds an actual group in
 3 of them; the other 4 carry an empty store, which is what a design that has never
@@ -1411,6 +1415,10 @@ every oracle design and asserts they agree, over 6360 components.
 
 What no binary parser can see is a marker that was never written into the design:
 graphical text placed near a component on the schematic, with no property behind it.
+
+The two mechanisms, what each leaves on disk, and what a design should ship so a
+reader can see its Do Not Install are described in
+[How Cadence Records Do Not Install](cadence-dni.md).
 
 ### 13.7 DNS markers in value strings
 
