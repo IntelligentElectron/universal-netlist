@@ -187,27 +187,36 @@ export function hasVariantGroups(entries: OleDirectoryPath[]): boolean {
   });
 }
 
+
+/** The view's Hierarchy stream, which holds the occurrence records. */
+function readHierarchy(ole: OleReader, entries: OleDirectoryPath[]): Buffer {
+  const entry = entries.find(
+    (e) => /^Views\/.*\/Hierarchy\/Hierarchy$/.test(e.path) && e.entry.type === 2
+  );
+  if (!entry) throw new Error("No Hierarchy stream");
+  return ole.readStreamByPath(entry.path);
+}
+
 /**
  * Read the refdes a design's variants leave unstuffed.
  *
  * Returns an empty set for a design that declares no variants, which is the
  * common case and costs only the directory scan the caller has already done.
+ *
+ * Pass `hierarchy` where the stream has already been read: the .DSN path reads
+ * it for the canonical net names and there is no reason to read it twice.
  */
 export function readVariantDns(
   ole: OleReader,
   entries: OleDirectoryPath[],
-  refdesByDbId: Map<number, string>
+  refdesByDbId: Map<number, string>,
+  hierarchy?: Buffer
 ): Set<string> {
   if (!hasVariantGroups(entries)) return new Set();
 
-  const hierarchyEntry = entries.find(
-    (e) => /^Views\/.*\/Hierarchy\/Hierarchy$/.test(e.path) && e.entry.type === 2
-  );
-  if (!hierarchyEntry) return new Set();
-
   let occurrenceDbIds: Map<number, number>;
   try {
-    occurrenceDbIds = buildOccurrenceDbIds(ole.readStreamByPath(hierarchyEntry.path));
+    occurrenceDbIds = buildOccurrenceDbIds(hierarchy ?? readHierarchy(ole, entries));
   } catch {
     return new Set();
   }

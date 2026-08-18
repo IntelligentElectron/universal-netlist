@@ -27,10 +27,12 @@ export function parseDsnFile(dsnPath: string): ParsedNetlist {
     (e) => /^Views\/.*\/Hierarchy\/Hierarchy$/.test(e.path) && e.entry.type === 2
   );
   let canonicalNetNames = new Set<string>();
+  // Held for the variant store, which reads the same stream for its occurrences.
+  let hierarchyBuffer: Buffer | undefined;
   if (hierEntry) {
     try {
-      const hierBuffer = ole.readStreamByPath(hierEntry.path);
-      canonicalNetNames = parseHierarchyNetNames(hierBuffer);
+      hierarchyBuffer = ole.readStreamByPath(hierEntry.path);
+      canonicalNetNames = parseHierarchyNetNames(hierarchyBuffer);
     } catch {
       // Hierarchy parsing is best-effort; continue without it
     }
@@ -164,7 +166,10 @@ export function parseDsnFile(dsnPath: string): ParsedNetlist {
 
   // A design's variants carry their own Do Not Stuff set, which the values the
   // components were built from say nothing about.
-  applyVariantDns(components, readVariantDns(ole, entries, buildRefdesByDbId(pages)));
+  applyVariantDns(
+    components,
+    readVariantDns(ole, entries, buildRefdesByDbId(pages), hierarchyBuffer)
+  );
 
   return { nets, components };
 }

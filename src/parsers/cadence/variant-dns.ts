@@ -27,6 +27,28 @@ const samePath = (a: string, b: string): boolean =>
   normalizeForComparison(a) === normalizeForComparison(b);
 
 /**
+ * Stamp the directories the lookup reads, so the answer outlives them by nothing.
+ *
+ * A directory's mtime moves when a name is added, removed or renamed in it,
+ * which is every way its set of `.DSN` files can change: an export lands beside
+ * the netlist, a branch switch swaps the schematic out, a second one arrives and
+ * makes the answer ambiguous. Keying the lookup on it means a server running for
+ * a week does not keep answering from the layout it saw first.
+ */
+async function directoryStamp(...dirs: string[]): Promise<string> {
+  const stamps = await Promise.all(
+    dirs.map(async (dir) => {
+      try {
+        return String((await fs.stat(dir)).mtimeMs);
+      } catch {
+        return "-";
+      }
+    })
+  );
+  return stamps.join(":");
+}
+
+/**
  * The .DSN a netlist directory belongs to.
  *
  * Cadence exports the triad into a subdirectory of the schematic's own
@@ -39,11 +61,13 @@ const samePath = (a: string, b: string): boolean =>
  */
 async function findDesignFile(pstxnetPath: string): Promise<string | null> {
   const datDir = path.dirname(pstxnetPath);
-  const cached = designFileCache.get(datDir);
+  const parentDir = path.dirname(datDir);
+  const cacheKey = `${normalizeForComparison(datDir)}:${await directoryStamp(datDir, parentDir)}`;
+  const cached = designFileCache.get(cacheKey);
   if (cached !== undefined) return cached;
 
   let answer: string | null = null;
-  for (const dir of [datDir, path.dirname(datDir)]) {
+  for (const dir of [datDir, parentDir]) {
     let names: string[];
     try {
       names = await fs.readdir(dir);
@@ -65,7 +89,7 @@ async function findDesignFile(pstxnetPath: string): Promise<string | null> {
     break;
   }
 
-  designFileCache.set(datDir, answer);
+  designFileCache.set(cacheKey, answer);
   return answer;
 }
 
