@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.4] - 2026-08-18
+
+A Cadence design records Do Not Install two ways, and this release reads both.
+A marker written into a part's value travels with it into every file the design
+exports. A CIS variant does not: it is held in the schematic's own database and
+reaches the BOM alone, leaving the part indistinguishable from a stuffed one in
+the exported netlist. Each of the two parse paths could see one of them, so the
+same board answered differently depending on which file a query named. Both now
+read both, and the numbers below are measured against a board's own
+CIS-generated BOM, which is the only independent statement of what gets built.
+
+### Added
+
+- The parts a CIS variant leaves off the board are read from the schematic's `CIS/VariantStore` and reported as Do Not Stuff. Such a part keeps an ordinary `VALUE` in `pstchip.dat`, an ordinary part name in `pstxprt.dat` and both of its `NODE_NAME`s in `pstxnet.dat`, so no marker names it and no amount of reading the exported netlist finds it. Measured against `LAUNCHXL-CC1310`'s own CIS-generated BOM, the 25 part references it writes with Quantity 0 are exactly the 25 now reported, none missing and none invented, where 11 were reported before; `reServer J2032` reports 77 and `reServer J401` 291, not one of which any marker names. The store is read whether a query names the `.DSN` or the `pstxnet.dat` beside it, so `include_dns`, `list_components` and ERC's `skipped.dns` give the same answer on either path. The eight designs in the corpus that declare no variant are unchanged (#159, PR #160)
+
+### Fixed
+
+- A `.DSN` read on its own now flags a part whose own value carries a Do Not Install marker. The value was being stripped of `DNI`, `DNM` or `_NC` with nothing recording what the marker said, so a design answered differently depending on which of its files a query named: 65 parts across BeagleBoard-xM, CutiePi and CC13xx were flagged through the netlist and not through the schematic. The marker is now read before the value is cleaned, with the matcher the DAT and Altium paths already share. DSN coverage against the DAT golden goes from 391/456 to 456/456, and the golden suite asserts the two paths agree on the flag across 6360 components (PR #160)
+
+### Documentation
+
+- [How Cadence Records Do Not Install](docs/cadence-dni.md) is a new page describing both mechanisms, what each leaves on disk, and why a netlist handed on without its schematic cannot carry the second. `docs/dsn-format.md` links to it and keeps the byte layout: the variant store's encoding, the occurrence numbering and how it joins to a refdes, and why `BOMPartData` is decoded but deliberately not read. Two things the format reference leaves open are settled there: the Hierarchy stream's "24 bytes of fixed metadata" per net record are the record's own framing, and type 66 (`SthInHierarchy1`), which OpenOrCadParser marks unidentified, is the part occurrence that pairs an occurrence id with an instance (PR #160)
+
 ## [1.5.3] - 2026-08-14
 
 An Altium net now carries the name and the reach the board gives it. A net that
