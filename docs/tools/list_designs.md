@@ -36,6 +36,10 @@ Returns an array of design info objects:
         "type": "string",
         "description": "Best available path to query this design"
       },
+      "source": {
+        "type": "string",
+        "description": "Schematic source path (same as path for a Cadence design, which is read from its schematic)"
+      },
       "netlist": {
         "type": "string",
         "description": "Exported netlist path (present for a Cadence design with a pstxnet.dat beside it)"
@@ -74,6 +78,7 @@ Response:
   {
     "name": "MainBoard",
     "path": "MainBoard/schematic.DSN",
+    "source": "MainBoard/schematic.DSN",
     "netlist": "MainBoard/Allegro/pstxnet.dat"
   },
   {
@@ -93,6 +98,7 @@ Response:
 ## Notes
 
 - `path` is always the recommended path to pass to other tools
+- `source` names the schematic, which is what it has always named. It now holds what `path` holds, and is kept rather than dropped for being redundant
 - `netlist` is present only for a Cadence design with an exported `pstxnet.dat` beside it. Reading it is supported and agrees with the schematic on Do Not Stuff, because the schematic's variant data is read alongside it, but it is a snapshot of the design at export time rather than the design
 - Generating a netlist is not a step towards querying a Cadence design. Every tool reads the `.DSN` directly, on every platform
 - For KiCad designs, `path` is the `.kicad_pro`; the netlist is resolved automatically when queried (committed `.net` export if present, otherwise generated via `kicad-cli`), so no manual export step is needed

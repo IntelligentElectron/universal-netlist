@@ -23,11 +23,21 @@ export interface ListDesignsOptions {
  *
  * Where a netlist has been exported beside it, its `pstxnet.dat` is reported as
  * `netlist`, so a caller that wants it can still name it.
+ *
+ * `source` keeps naming the schematic, which is what it has always named. It now
+ * holds what `path` holds, and is kept rather than dropped for being redundant:
+ * a caller reading it is asking for the schematic and still gets it.
  */
-export const getDesignPaths = (design: DiscoveredDesign): { path: string; netlist?: string } => {
+export const getDesignPaths = (
+  design: DiscoveredDesign
+): { path: string; source?: string; netlist?: string } => {
   if (design.format === "cadence-cis" || design.format === "cadence-hdl") {
     if (design.datFiles.pstxnet) {
-      return { path: design.sourcePath, netlist: design.datFiles.pstxnet };
+      return {
+        path: design.sourcePath,
+        source: design.sourcePath,
+        netlist: design.datFiles.pstxnet,
+      };
     }
   }
   return { path: design.sourcePath };
@@ -39,7 +49,8 @@ export const getDesignPaths = (design: DiscoveredDesign): { path: string; netlis
 export const listDesigns = async (
   options: ListDesignsOptions = {}
 ): Promise<
-  Array<{ name: string; path: string; netlist?: string; error?: string }> | ErrorResult
+  | Array<{ name: string; path: string; source?: string; netlist?: string; error?: string }>
+  | ErrorResult
 > => {
   const { searchPath, pattern = ".*", maxDepth, maxResults = 50 } = options;
   const resolvedPath = resolvePath(searchPath ?? ".");
