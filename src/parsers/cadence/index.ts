@@ -16,6 +16,7 @@ import {
 } from "./discovery.js";
 import { parseDsnFile } from "./dsn/dsn-parser.js";
 import { isValidRefdes, stripDnsMarkers } from "../../circuit-traversal.js";
+import { readDatVariantDns } from "./variant-dns.js";
 import {
   createPinEntry,
   type ParsedNetlist,
@@ -183,6 +184,14 @@ const parseCadenceDesign = async (designPath: string): Promise<ParsedNetlist> =>
       pstchipPath: datFiles.pstchip ?? undefined,
     });
     const components = buildCadencePinMap(raw.nets, raw.components, raw.chips, raw.partNames);
+
+    // The triad says nothing about a part a variant unstuffs, so the flag comes
+    // from the schematic beside it.
+    for (const refdes of await readDatVariantDns(datFiles.pstxnet)) {
+      const component = components[refdes];
+      if (component) component.dns = true;
+    }
+
     return { nets: raw.nets, components };
   }
 

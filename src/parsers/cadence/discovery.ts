@@ -131,7 +131,7 @@ const walkForCadenceFiles = async (
  * - Converts to native separators (handles both / and \ regardless of platform)
  * - Lowercases on Windows (case-insensitive filesystem)
  */
-const normalizeForComparison = (p: string): string => {
+export const normalizeForComparison = (p: string): string => {
   // On Windows, path.normalize converts / to \
   // On Unix, we must manually convert \ to / since path.normalize doesn't
   const normalized =

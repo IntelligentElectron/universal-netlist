@@ -7,7 +7,7 @@
 
 import type { ComponentDetails } from "../../../types.js";
 import { createPinEntry, type PinEntry } from "../../../types.js";
-import { isValidRefdes } from "../../../circuit-traversal.js";
+import { isValidRefdes, hasDnsMarker } from "../../../circuit-traversal.js";
 import type { CachedLibraryPart, PinMapData } from "./structure-types.js";
 import type { PlacedInstance } from "./structures.js";
 import type { PageData } from "./page-parser.js";
@@ -164,8 +164,13 @@ export function buildComponents(
         const cached = findCachedPart(inst, cachedParts);
         if (cached?.defaultValue) value = cached.defaultValue;
       }
-      // Strip DNS markers from values (e.g., "10K,DNI" -> "10K", "DNI,0" -> "0")
-      if (value) value = cleanDnsFromValue(value);
+      // The marker is the only thing on the schematic that says a part is not
+      // stuffed, and cleaning it out of the value erases it, so read it first.
+      let dns = false;
+      if (value) {
+        dns = hasDnsMarker(value);
+        value = cleanDnsFromValue(value);
+      }
 
       // Build pins with names from cached library parts
       const pinNets = componentPins.get(refdes);
@@ -197,6 +202,7 @@ export function buildComponents(
       }
 
       components[refdes] = { mpn, value, pins };
+      if (dns) components[refdes].dns = true;
     }
   }
 
