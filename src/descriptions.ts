@@ -62,7 +62,7 @@ Results with an \`error\` field indicate a problem:
 - Design not found: Check available designs with \`list_designs\`
 - Net not found: Use \`search_nets\` to find available nets
 - Component not found: Use \`search_components_by_refdes\` to find available components
-- Missing netlist files: a Cadence design is read from its .DSN, so a missing .dat triad is not an error to fix. If the design path was a pstxnet.dat, re-run \`list_designs\` and use the .DSN it reports
+- Missing netlist files: for a CIS design there is nothing to fix. It is read from its .DSN, which is what \`list_designs\` returns as \`path\`; if the path you used was a pstxnet.dat, re-run \`list_designs\` and use the .DSN. An HDL (.cpm) design has no .DSN and does need a netlist, but \`export_cadence_netlist\` cannot write one: it drives pstswp, which needs a schematic. Those are written from Cadence, Tools → Create Netlist → PCB Editor format
 `.trim();
 
 // =============================================================================

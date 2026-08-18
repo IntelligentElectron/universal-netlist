@@ -222,7 +222,7 @@ describe("listDesigns searchPath and pattern", () => {
 // =============================================================================
 
 describe("listDesigns Cadence path priority", () => {
-  it("returns pstxnet.dat as path and .DSN as source when .dat files exist", async () => {
+  it("returns .DSN as path and pstxnet.dat as netlist when .dat files exist", async () => {
     vi.mocked(parsers.discoverDesigns).mockResolvedValue([
       {
         name: "Board",
@@ -244,7 +244,7 @@ describe("listDesigns Cadence path priority", () => {
     expect(design.netlist).toBe("C:\\projects\\Allegro\\pstxnet.dat");
   });
 
-  it("returns .DSN as path with no source when no .dat files exist", async () => {
+  it("returns .DSN as path with no netlist when no .dat files exist", async () => {
     vi.mocked(parsers.discoverDesigns).mockResolvedValue([
       {
         name: "Board",
