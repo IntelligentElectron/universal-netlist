@@ -62,7 +62,7 @@ Results with an \`error\` field indicate a problem:
 - Design not found: Check available designs with \`list_designs\`
 - Net not found: Use \`search_nets\` to find available nets
 - Component not found: Use \`search_components_by_refdes\` to find available components
-- Missing netlist files: Run \`export_cadence_netlist\` to generate .dat files
+- Missing netlist files: a Cadence design is read from its .DSN, so a missing .dat triad is not an error to fix. If the design path was a pstxnet.dat, re-run \`list_designs\` and use the .DSN it reports
 `.trim();
 
 // =============================================================================
