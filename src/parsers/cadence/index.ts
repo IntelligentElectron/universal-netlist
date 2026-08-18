@@ -170,12 +170,12 @@ export const parseCadence = async (paths: CadenceFilePaths): Promise<CadenceRawN
 const parseCadenceDesign = async (designPath: string): Promise<ParsedNetlist> => {
   const ext = path.extname(designPath).toLowerCase();
 
-  // DSN binary parsing (fallback when .dat files unavailable)
+  // The schematic itself, which is the path list_designs hands out.
   if (ext === ".dsn") {
     return parseDsnFile(designPath);
   }
 
-  // DAT file parsing (fallback, or dat-only designs)
+  // An exported netlist, either named directly or as a dat-only design.
   const datFiles = await findCadenceDatFiles(designPath);
   if (datFiles.pstxnet && datFiles.pstxprt) {
     const raw = await parseCadence({
@@ -195,12 +195,14 @@ const parseCadenceDesign = async (designPath: string): Promise<ParsedNetlist> =>
     return { nets: raw.nets, components };
   }
 
-  // export_cadence_netlist drives pstswp, which needs the .DSN schematic, so
-  // naming it to an HDL design sent the caller to a tool that refuses the input.
+  // A CIS design is read from its schematic, so reaching here means the caller
+  // named an incomplete triad and the schematic is the way out. An HDL design
+  // has no schematic to fall back to, and export_cadence_netlist drives pstswp,
+  // which needs one, so sending it there is sending it to a refusal.
   throw new Error(
     ext === ".cpm"
       ? `Missing netlist files for ${path.basename(designPath)}. Design Entry HDL writes them from Cadence: Tools → Create Netlist → PCB Editor format. export_cadence_netlist cannot do it, it drives pstswp, which needs a .DSN schematic.`
-      : `Missing netlist files for ${path.basename(designPath)}. Run export_cadence_netlist to generate them.`
+      : `Missing netlist files for ${path.basename(designPath)}. Query the .DSN schematic instead, which list_designs returns as the design's path.`
   );
 };
 

@@ -345,7 +345,7 @@ export const exportCadenceNetlist = async (
         // detach the child at the cap, it kills it: the export died partway
         // through writing the netlist and the failure was reported as Cadence's
         // ("stdout maxBuffer length exceeded"), deterministically, on exactly the
-        // largest designs that most need the DAT path over the DSN fallback.
+        // largest designs, whose exports are the ones worth having.
         maxBuffer: 64 * 1024 * 1024,
       });
 

@@ -276,9 +276,8 @@ const matchDatSetsToDesigns = (
   // left in mid-migration: one design re-exported to its own directory, the
   // shared one they used to overwrite each other in now orphaned.
   //
-  // Leaving it unassigned costs a fallback to parsing the schematic directly,
-  // which now reproduces the DAT export exactly, so the cost is time rather
-  // than fidelity.
+  // Leaving it unassigned costs nothing but time: the schematic is read
+  // directly, and it reproduces the DAT export exactly.
   const bestByDatSet = new Map<string, { score: number; designs: Set<string> }>();
   for (const c of candidates) {
     const seen = bestByDatSet.get(c.datSet.directory);

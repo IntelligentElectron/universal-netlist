@@ -1,5 +1,7 @@
 # export_cadence_netlist
 
+> **Deprecated.** This tool is kept for backward compatibility and will eventually be removed. It is not needed to query a Cadence design: every tool reads the `.DSN` schematic directly, which is what `list_designs` returns as `path`. Reach for it only when the exported netlist files are themselves what you want, such as handing them to Allegro.
+
 Export Cadence schematic netlist to Allegro PCB format.
 
 ## Description
@@ -125,4 +127,4 @@ Response (success):
 - Timeout is set to 2 minutes for large designs
 - Concurrent calls are queued and run one at a time to avoid Cadence license conflicts
 - `.DSNlck` lock files are automatically relocated during export and restored afterward
-- After a successful export, re-run `list_designs` to get the updated `pstxnet.dat` path
+- After a successful export, the netlist sits beside the design. `list_designs` keeps reporting the `.DSN`, which is what to query

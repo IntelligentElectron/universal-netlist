@@ -13,50 +13,22 @@ export const SERVER_INSTRUCTIONS = `
 This server provides tools to query EDA netlists for circuit design review.
 
 Supported formats:
-- **Cadence CIS/HDL**: Supports both exported .dat files (preferred) and .DSN binary schematics (fallback).
-- **Altium Designer**: Reads .SchDoc schematic documents associated to a .PrjPcb project file.
-- **KiCad**: Reads a .kicad_pro project (or root .kicad_sch). Prefers a committed kicadsexpr netlist export (.net) beside the project; otherwise generates one via kicad-cli (requires KiCad installed; set KICAD_CLI_PATH for a non-standard location). Nets declared inside a hierarchical sheet are sheet-path-prefixed (e.g. "/Peripherals/D0", not "/D0"); when using \`search_nets\`, prefer unanchored patterns so you do not miss bussed/hierarchical nets.
+- **Cadence CIS/HDL**: .DSN binary schematics, which is what to read. Exported .dat netlist files (pstxnet.dat, pstxprt.dat, pstchip.dat) are a fallback, for a design that ships without its schematic.
+- **Altium Designer**: .SchDoc schematic documents, discovered through their .PrjPcb project.
+- **KiCad**: .kicad_pro projects, or a root .kicad_sch.
 
-## Cadence Design Priority
+## Example Workflow
 
-\`list_designs\` returns the best available path for each Cadence design:
-- If exported .dat files exist: returns pstxnet.dat path (preferred, more complete data)
-- If no .dat files exist: returns the .DSN path
+1. \`list_designs\` first: it finds the designs and gives you the path to query
+2. \`search_nets\` and \`search_components_by_*\` to find things by pattern
+3. \`query_component\` and \`query_xnet_*\` for detail and connectivity
+4. \`run_erc\` for electrical rule checks
 
-When \`list_designs\` returns a .DSN path (no .dat files available):
-1. On Windows: run \`export_cadence_netlist\` with the .DSN path to generate .dat files, then re-run \`list_designs\`
-2. If export fails or on macOS/Linux: query using the .DSN path directly (DSN fallback parser)
+## Conventions
 
-## KiCad Design Priority
-
-\`list_designs\` surfaces each \`.kicad_pro\` project. When you query a KiCad design the server resolves its netlist automatically; you do NOT need to export anything by hand:
-1. If a committed kicadsexpr export (\`<project>.net\`) sits beside the project, it is parsed directly (no KiCad install needed).
-2. Otherwise the server runs \`kicad-cli\` on the root \`.kicad_sch\` to generate one on demand (requires KiCad installed; set \`KICAD_CLI_PATH\` for a non-standard install location).
-3. If neither a committed \`.net\` nor a usable \`kicad-cli\` is available, the result has an \`error\` saying so.
-
-## Workflow Guidance
-
-1. Use \`list_designs\` first to discover available projects in a directory
-2. Use \`search_nets\` with regex patterns before querying specific nets
-3. Use \`search_components_by_*\` to find components by refdes, MPN, or description
-4. Use \`query_xnet_by_net_name\` or \`query_xnet_by_pin_name\` to trace signal paths
-5. For token optimization, use \`skip_types=['C','L']\` to skip series passives on power rails
-
-## Tool Usage Tips
-
-- Pin names use REFDES.PIN format (e.g., U1.A5, R10.1)
-- DNS (Do Not Stuff) components are excluded by default; use \`include_dns=true\` to include them
-- \`query_xnet_*\` traces through series components; \`circuit_hash\` identifies unique topologies
-- \`query_xnet_*\` stops traversal at power/ground nets; use \`skip_types\` to reduce noise on rails
-- Design paths are relative to the working directory (absolute paths also accepted)
-
-## Error Handling
-
-Results with an \`error\` field indicate a problem:
-- Design not found: Check available designs with \`list_designs\`
-- Net not found: Use \`search_nets\` to find available nets
-- Component not found: Use \`search_components_by_refdes\` to find available components
-- Missing netlist files: Run \`export_cadence_netlist\` to generate .dat files
+- Design paths are relative to the working directory; absolute paths are also accepted
+- DNS (Do Not Stuff) components are left out of results, and the tools that can include them take \`include_dns=true\`
+- A result carrying an \`error\` field failed, and the message names the tool that finds the value you wanted
 `.trim();
 
 // =============================================================================
@@ -64,20 +36,37 @@ Results with an \`error\` field indicate a problem:
 // =============================================================================
 
 export const LIST_DESIGNS_DESCRIPTION = `\
-List all design projects in the given directory. \
-Returns the best available path for each design. \
-For Cadence with exported .dat files: path is pstxnet.dat (preferred), \
-source has the .DSN schematic. Without .dat files: path is the .DSN. \
-For Altium: path is the .PrjPcb. \
-For KiCad: path is the .kicad_pro; its netlist resolves automatically when queried \
-(a committed .net export if present, otherwise generated via kicad-cli), so no manual export is needed. \
-Always use this tool to discover designs instead of searching the filesystem manually.`;
+List all design projects in the given directory, one path each: a .DSN, a .PrjPcb, a \
+.kicad_pro, or the netlist of a design that is only a netlist. That path is the design, \
+and it is what every other tool takes. \
+Always use this tool to discover designs instead of searching the filesystem manually.
+
+Cadence: the path is the .DSN schematic. It is the design as it stands, and it carries \
+what an exported netlist cannot: a part a CIS variant leaves off the board is written to \
+the .dat triad exactly like a part that is stuffed, with an ordinary value and all of its \
+connections, so nothing in those files marks it. Reading a .DSN takes longer than reading \
+a triad, which is the cost of reading the design rather than a summary of it.
+
+If a query reports missing netlist files: a CIS design has nothing to fix, re-run this \
+tool and use the .DSN it reports. An HDL (.cpm) design has no .DSN and does need a \
+netlist, which \`export_cadence_netlist\` cannot write; those are written from Cadence, \
+Tools → Create Netlist → PCB Editor format.
+
+KiCad: the path is the .kicad_pro, and its netlist resolves automatically when queried, so \
+nothing needs exporting by hand. A committed kicadsexpr export (<project>.net) beside the \
+project is parsed directly, needing no KiCad install; otherwise kicad-cli generates one on \
+demand (requires KiCad installed; set KICAD_CLI_PATH for a non-standard location). If \
+neither is available the result carries an \`error\` saying so.`;
 
 export const LIST_COMPONENTS_DESCRIPTION = `\
 List components of a specific type in a design. \
-The type prefix is case-insensitive, so "u" matches U1, U2, etc. \
-Components are grouped by MPN for compact output. \
-If no components match, the error lists the available prefixes in the design.`;
+The type is the refdes prefix, matched whole and case-insensitively: "u" gives U1 and \
+U2 but NOT USB1, whose prefix is USB, and "tp" gives the test points. Asking for a \
+partial prefix returns nothing rather than everything starting with it, so if a part you \
+expected is missing, look for it under its own prefix. \
+Components are grouped by MPN for compact output, and a group whose parts carry no MPN \
+says so in its notes. \
+If no components match, the error lists every prefix the design does have.`;
 
 export const LIST_NETS_DESCRIPTION = `\
 List all net names in a design, sorted alphabetically. \
@@ -115,21 +104,38 @@ Rejects patterns that match all items; use list_components for full results.`;
 
 export const QUERY_XNET_BY_NET_NAME_DESCRIPTION = `\
 Get full XNET (Extended Net) connectivity for a net. \
-Rejects ground nets (GND, AGND, DGND, etc.) with an error.`;
+Traces through series components, so the result is the whole electrical node rather \
+than the one net; \`circuit_hash\` identifies unique topologies. Traversal stops at \
+power and ground nets. \`skip_types\` leaves series passives out, and \
+\`skip_types=['C','L']\` on a power rail is the cheapest way to cut a large result down. \
+Rejects ground nets (GND, AGND, DGND, etc.) with an error. \
+If the net is not found, \`search_nets\` finds the name.`;
 
 export const QUERY_XNET_BY_PIN_NAME_DESCRIPTION = `\
-Get full XNET connectivity starting from a component pin. \
-Rejects pins connected to ground nets (GND, AGND, DGND, etc.) \
-with an error.`;
+Get full XNET connectivity starting from a component pin, named REFDES.PIN \
+(e.g. U1.A5, R10.1). Traces through series components, so the result is the whole \
+electrical node; \`circuit_hash\` identifies unique topologies. Traversal stops at power \
+and ground nets, and \`skip_types\` leaves series passives out, such as \
+\`skip_types=['C','L']\` on a rail. \
+Rejects pins connected to ground nets (GND, AGND, DGND, etc.) with an error.`;
 
 export const QUERY_COMPONENT_DESCRIPTION = `\
 Get full component details including all pin connections. \
 Refdes lookup is case-insensitive. \
 Returns MPN, description, value, and pin-to-net mappings when available. \
-Errors include guidance and suggestions.`;
+Each pin maps to its net name, or to {name, net} where the pin has a function name that \
+differs from its number. A pin on no net reads as the net "NC", which is a marker rather \
+than a net you can look up. \
+If the refdes is not found, \`search_components_by_refdes\` finds it; \
+errors include guidance and suggestions.`;
 
 export const EXPORT_CADENCE_NETLIST_DESCRIPTION = `\
-Export Cadence schematic netlist to Allegro PCB format. \
+DEPRECATED. This tool is kept for backward compatibility and will eventually be \
+removed. You do not need it to query a Cadence design: every tool reads the .DSN \
+schematic directly, which is what \`list_designs\` returns as \`path\`. Call it only \
+when the exported netlist files are themselves the goal, such as handing them to \
+Allegro. Do not call it to make a design queryable. \
+Exports a Cadence schematic netlist to Allegro PCB format. \
 Windows only. Requires Cadence SPB installation. \
 Calls are queued internally so it is safe to call in parallel \
 for multiple designs, but serialize calls if you encounter \
@@ -137,8 +143,8 @@ license or timeout errors. DSN lock files are handled automatically. \
 Output goes to \`<design>_netlist/\` beside the .DSN, so several designs \
 in one folder no longer overwrite each other's netlist; a folder holding a \
 single design that already has an \`allegro/\` directory keeps using it. \
-After a successful export, re-run \`list_designs\` \
-to get the updated pstxnet.dat path.`;
+After a successful export the netlist sits beside the design; \
+\`list_designs\` keeps reporting the .DSN, which is what to query.`;
 
 export const RUN_ERC_DESCRIPTION = `\
 Run electrical rule checks (ERC) on a design's netlist and return findings grouped \

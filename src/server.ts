@@ -378,7 +378,7 @@ export const createServer = (): McpServer => {
   server.registerTool(
     "export_cadence_netlist",
     {
-      title: "Export Cadence netlist",
+      title: "Export Cadence netlist (deprecated)",
       description: EXPORT_CADENCE_NETLIST_DESCRIPTION,
       annotations: WRITES_TO_DISK,
       inputSchema: {

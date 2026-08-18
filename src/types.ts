@@ -59,7 +59,12 @@ export interface ComponentDetails {
 }
 
 /**
- * Parsed netlist data cached in memory
+ * A design's parsed netlist.
+ *
+ * Built by `loadNetlist` for the tool call that asked for it and discarded when
+ * that call returns: nothing here is held between calls, so every tool call
+ * reads and parses the design again. This said "cached in memory", which it has
+ * never been, and reading a design is the cost of every query as a result.
  */
 export interface ParsedNetlist {
   nets: NetConnections;

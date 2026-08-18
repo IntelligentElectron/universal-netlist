@@ -93,7 +93,7 @@
     },
     {
       "name": "export_cadence_netlist",
-      "description": "Export Cadence schematic to Allegro PCB format (Windows only)"
+      "description": "DEPRECATED, kept for backward compatibility: export Cadence schematic to Allegro PCB format (Windows only). Not needed to query a design."
     }
   ]
 }

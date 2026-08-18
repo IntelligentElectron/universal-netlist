@@ -450,3 +450,4 @@ Different operations have different case sensitivity behaviors:
 - `search_nets("USB")` matches `USB_DP` but not `usb_dp`
 - `search_components_by_refdes("u1")` matches `U1`, `u1`, and `U1A`
 - `query_component("u15")` finds component `U15`
+- `list_components("u")` returns `U1` and `U15` but not `USB1`: the type is the whole prefix, not a leading substring

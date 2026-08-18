@@ -1,7 +1,7 @@
 import { discoverDesigns } from "../../parsers/index.js";
 import { resolvePath } from "../../paths.js";
 import { parseRegexPattern } from "../regex-helpers.js";
-import type { ErrorResult, DiscoveredDesign } from "../../types.js";
+import type { ErrorResult, DesignInfo } from "../../types.js";
 
 /**
  * Options for listDesigns.
@@ -14,28 +14,11 @@ export interface ListDesignsOptions {
 }
 
 /**
- * Build the path fields for a discovered design.
- * For Cadence CIS/HDL with .dat files: path=pstxnet.dat (preferred), source=.DSN
- * For Cadence CIS/HDL without .dat files: path=.DSN
- * For all others: path=sourcePath
- */
-export const getDesignPaths = (design: DiscoveredDesign): { path: string; source?: string } => {
-  if (design.format === "cadence-cis" || design.format === "cadence-hdl") {
-    if (design.datFiles.pstxnet) {
-      return { path: design.datFiles.pstxnet, source: design.sourcePath };
-    }
-  }
-  return { path: design.sourcePath };
-};
-
-/**
  * List all designs in a directory.
  */
 export const listDesigns = async (
   options: ListDesignsOptions = {}
-): Promise<
-  Array<{ name: string; path: string; source?: string; error?: string }> | ErrorResult
-> => {
+): Promise<DesignInfo[] | ErrorResult> => {
   const { searchPath, pattern = ".*", maxDepth, maxResults = 50 } = options;
   const resolvedPath = resolvePath(searchPath ?? ".");
 
@@ -55,7 +38,9 @@ export const listDesigns = async (
   const limited = filtered.slice(0, maxResults);
   return limited.map((design) => ({
     name: design.name,
-    ...getDesignPaths(design),
+    // The design's own file: a .DSN, a .PrjPcb, a .kicad_pro, or the netlist of
+    // a design that is only a netlist. One path, which is the one to query.
+    path: design.sourcePath,
     error: design.error,
   }));
 };
