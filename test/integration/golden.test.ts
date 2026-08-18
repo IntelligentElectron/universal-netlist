@@ -233,6 +233,35 @@ describe("DSN Parser Coverage vs DAT Golden", async () => {
         expect(mismatches).toEqual([]);
       });
 
+      /**
+       * Do Not Stuff reaches a design by two roads that meet nowhere else: a
+       * marker written into a part's value, and the CIS variant store in the
+       * schematic. The DAT export carries the first and not the second, a `.DSN`
+       * read on its own carries the second and, until the marker was read out of
+       * the value it was being cleaned from, not the first. Whichever path a
+       * query takes, it is the same board, so the answer has to be the same:
+       * the two disagreed on 65 parts across three designs before this ran.
+       */
+      it.runIf(isOracle)("should mark the same components Do Not Stuff as the DAT export", () => {
+        const dsn = parseOnce(designFile);
+        const disagreements: string[] = [];
+        let compared = 0;
+
+        for (const [refdes, goldenComp] of Object.entries(golden.components)) {
+          const dsnComp = dsn.components[refdes];
+          if (!dsnComp) continue;
+          compared++;
+          const fromDat = goldenComp.dns === true;
+          const fromDsn = dsnComp.dns === true;
+          if (fromDat !== fromDsn && disagreements.length < 8) {
+            disagreements.push(`${refdes}: dat=${fromDat} dsn=${fromDsn}`);
+          }
+        }
+
+        console.log(`[${projectName}] DNS: compared=${compared} disagreed=${disagreements.length}`);
+        expect(disagreements).toEqual([]);
+      });
+
       it("should have >50% net coverage", () => {
         const dsn = parseOnce(designFile);
         const dsnNets = new Set(Object.keys(dsn.nets));

@@ -1362,7 +1362,7 @@ Reproduce with `node --import tsx scripts/dsn-coverage-report.ts`. Aggregate ove
 | PinNum | 24001/24001 (100.0%) | |
 | PinName | 8105/8105 (100.0%) | |
 | MPN | 5870/6774 (86.7%) | 5456 substring; see below |
-| DNS | 391/456 (85.7%) | variant store read, markers not; section 13.6 |
+| DNS | 456/456 (100.0%) | both sources read; section 13.6 |
 
 `Nets` and `Comps` match on names alone, so a net that survives with the wrong pins on it still scores as covered. `Conn` is the column that catches that: for every net present in both netlists it compares the actual `{refdes.pin}` set. Both being at 100% is what makes the net numbers meaningful.
 
@@ -1370,11 +1370,11 @@ Per design, every one of the 11 fixtures reads 100.0% on Nets, Conn, Comps, Valu
 
 | Design | MPN | DNS |
 |--------|--------|--------|
-| BeagleBoard-xM | 98.6% | 0.0% |
+| BeagleBoard-xM | 98.6% | 100.0% |
 | BB-Black | 100.0% | n/a |
 | BB-Black (BeagleBoard) | 100.0% | n/a |
-| CutiePi | 96.6% | 0.0% |
-| CC13xx | 2.1% | 0.0% |
+| CutiePi | 96.6% | 100.0% |
+| CC13xx | 2.1% | 100.0% |
 | LAUNCHXL-CC1310 | 9.8% | 100.0% |
 | reComputer J201 | 100.0% | n/a |
 | reComputer J202 | 100.0% | n/a |
@@ -1382,8 +1382,9 @@ Per design, every one of the 11 fixtures reads 100.0% on Nets, Conn, Comps, Valu
 | reServer J401 | 95.6% | 100.0% |
 | reServer J2032 | 23.2% | 100.0% |
 
-The three designs at 100% are the three that declare a variant (section 11). The
-65 unread flags are all marker-based: BeagleBoard-xM 38, CutiePi 22, CC13xx 5.
+MPN is the only column that varies. DNS reads 100.0% on every design that has one,
+from both of its sources: the marker a part's value carries, and the variant store
+(section 11).
 
 **MPN is not a defect measure.** DSN extracts a real manufacturer part number from the prefix property pairs, while the DAT golden carries a composite string, so an exact match is not the goal and the low numbers on CC13xx and reServer J2032 reflect that difference in kind. The report counts a substring hit separately for this reason.
 
@@ -1391,22 +1392,25 @@ The three designs at 100% are the three that declare a variant (section 11). The
 
 ### 13.6 DNS (Do Not Stuff) detection
 
-Partially implemented. The `dns` flag is set for every part a design's variants leave
-off the board, read from the CIS variant store (section 11), which is the 391/456 in
-section 13.5. That is the whole flag on the three fixtures declaring a variant.
+**Confidence: VERIFIED**
 
-What a `.DSN` read directly still misses is the marker-based set the DAT path finds by
-reading `pstxprt.dat` part names: 65 parts across BeagleBoard-xM, CutiePi and CC13xx.
-A query normally arrives at the DAT path for these designs, since `list_designs` hands
-out `pstxnet.dat` wherever one exists, so the gap shows up only when a `.DSN` is read
-on its own. Both sets are needed to answer for a design carrying both, and no fixture
-does.
+Implemented, from both of the sources a Cadence design records it in:
 
-Some designs mark DNS via:
-- Structured property in prefix (detectable but not checked)
-- Graphical text on schematic only (invisible to any binary parser)
+- the marker a part's own value carries (`DNI`, `10K,DNI`, `DNM_0402`, `10K_NC`), read
+  with the same shared matcher the DAT and Altium paths use, before section 13.7 cleans
+  it out of the value
+- the CIS variant store (section 11), for the parts a variant leaves off the board,
+  which carry no marker anywhere
 
-Section 13.7 is a separate mechanism: it cleans a marker out of a value string, and does not set the flag.
+Reading the marker closed a divergence between the two paths. The value was being
+stripped of its marker without the flag ever being set, so the same board answered
+differently depending on whether a query named the `.DSN` or the `pstxnet.dat` beside
+it: 65 parts across BeagleBoard-xM (38), CutiePi (22) and CC13xx (5) were flagged by
+one path and not the other. `test/integration/golden.test.ts` now compares the two on
+every oracle design and asserts they agree, over 6360 components.
+
+What no binary parser can see is a marker that was never written into the design:
+graphical text placed near a component on the schematic, with no property behind it.
 
 ### 13.7 DNS markers in value strings
 

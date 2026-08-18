@@ -103,6 +103,11 @@ export const matchesRefdesType = (refdes: string, type: string): boolean =>
   getRefdesPrefix(refdes) === type.toUpperCase();
 
 /**
+ * Whether a string carries a Do Not Stuff marker.
+ */
+export const hasDnsMarker = (text: string): boolean => DNS_PATTERN.test(text);
+
+/**
  * Detect Do Not Stuff components using common markers.
  */
 export const isDnsComponent = (component?: {
@@ -112,7 +117,7 @@ export const isDnsComponent = (component?: {
 }): boolean => {
   if (!component) return false;
   const haystack = `${component.mpn ?? ""} ${component.description ?? ""} ${component.comment ?? ""}`;
-  return DNS_PATTERN.test(haystack);
+  return hasDnsMarker(haystack);
 };
 
 /**
