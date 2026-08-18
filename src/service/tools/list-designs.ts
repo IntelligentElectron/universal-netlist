@@ -15,14 +15,19 @@ export interface ListDesignsOptions {
 
 /**
  * Build the path fields for a discovered design.
- * For Cadence CIS/HDL with .dat files: path=pstxnet.dat (preferred), source=.DSN
- * For Cadence CIS/HDL without .dat files: path=.DSN
- * For all others: path=sourcePath
+ *
+ * `path` is the design's own file, which for Cadence is the `.DSN` schematic.
+ * It is the design as it stands, and it carries what an exported netlist cannot:
+ * a part left off the board by a CIS variant is written to the `.dat` triad
+ * exactly like a part that is stuffed.
+ *
+ * Where a netlist has been exported beside it, its `pstxnet.dat` is reported as
+ * `netlist`, so a caller that wants it can still name it.
  */
-export const getDesignPaths = (design: DiscoveredDesign): { path: string; source?: string } => {
+export const getDesignPaths = (design: DiscoveredDesign): { path: string; netlist?: string } => {
   if (design.format === "cadence-cis" || design.format === "cadence-hdl") {
     if (design.datFiles.pstxnet) {
-      return { path: design.datFiles.pstxnet, source: design.sourcePath };
+      return { path: design.sourcePath, netlist: design.datFiles.pstxnet };
     }
   }
   return { path: design.sourcePath };
@@ -34,7 +39,7 @@ export const getDesignPaths = (design: DiscoveredDesign): { path: string; source
 export const listDesigns = async (
   options: ListDesignsOptions = {}
 ): Promise<
-  Array<{ name: string; path: string; source?: string; error?: string }> | ErrorResult
+  Array<{ name: string; path: string; netlist?: string; error?: string }> | ErrorResult
 > => {
   const { searchPath, pattern = ".*", maxDepth, maxResults = 50 } = options;
   const resolvedPath = resolvePath(searchPath ?? ".");

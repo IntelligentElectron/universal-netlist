@@ -8,7 +8,7 @@ It is compatible with Cadence, Altium, and KiCad, with plans to integrate more E
 
 | Format | Input Files | Description |
 |--------|------------|-------------|
-| Cadence (CIS / HDL) | `.DSN` schematic, or `.dat` netlist files | The `.DSN` binary schematic is parsed natively. Exported Allegro netlist files (`pstxnet.dat`, `pstxprt.dat`, `pstchip.dat`) are preferred where they sit beside the design. Do Not Stuff includes the parts a CIS variant leaves off the board, read from the schematic's variant store, so the count agrees with the alternate BOM CIS generates (`*_bom_alts.xlsx`) rather than with the netlist files alone |
+| Cadence (CIS / HDL) | `.DSN` schematic (preferred), or `.dat` netlist files | The `.DSN` binary schematic is parsed natively and is what `list_designs` hands you. Exported Allegro netlist files (`pstxnet.dat`, `pstxprt.dat`, `pstchip.dat`) are also readable. Do Not Stuff includes the parts a CIS variant leaves off the board, read from the schematic, so the count agrees with the alternate BOM CIS generates (`*_bom_alts.xlsx`) rather than with the netlist files alone |
 | Altium Designer | `.SchDoc` | Altium schematic documents (discovered via `.PrjPcb` project files) |
 | KiCad | `.kicad_pro` (or root `.kicad_sch`) | Reads a resolved `kicadsexpr` netlist export: a committed `.net` beside the project if present, otherwise generated on demand via `kicad-cli` (requires KiCad installed; set `KICAD_CLI_PATH` for a non-standard location) |
 

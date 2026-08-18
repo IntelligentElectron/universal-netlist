@@ -6,7 +6,7 @@ List all design projects in a directory.
 
 Discovers Cadence, Altium, and KiCad design files by scanning the specified directory recursively. Returns the best available path for each design. Use this tool first to find available projects before querying them.
 
-For Cadence designs with exported `.dat` files, `path` points to `pstxnet.dat` (preferred, more complete data) and `source` provides the `.DSN` schematic path. Without `.dat` files, `path` is the `.DSN` directly. For Altium, `path` is the `.PrjPcb`. For KiCad, `path` is the `.kicad_pro` project (discovery keys off `.kicad_pro`, even when the directory name differs from the project basename).
+For Cadence designs, `path` is the `.DSN` schematic, which is what you should query: it is the design as it stands, and a part a CIS variant leaves off the board is written to the `.dat` triad exactly like a stuffed one. Where a netlist has been exported beside the design, `netlist` gives its `pstxnet.dat`. For Altium, `path` is the `.PrjPcb`. For KiCad, `path` is the `.kicad_pro` project (discovery keys off `.kicad_pro`, even when the directory name differs from the project basename).
 
 ## Input Parameters
 
@@ -36,9 +36,9 @@ Returns an array of design info objects:
         "type": "string",
         "description": "Best available path to query this design"
       },
-      "source": {
+      "netlist": {
         "type": "string",
-        "description": "Schematic source path (present when path differs from source, e.g. Cadence with .dat files)"
+        "description": "Exported netlist path (present for a Cadence design with a pstxnet.dat beside it)"
       },
       "error": {
         "type": "string",
@@ -73,8 +73,8 @@ Response:
   },
   {
     "name": "MainBoard",
-    "path": "MainBoard/Allegro/pstxnet.dat",
-    "source": "MainBoard/schematic.DSN"
+    "path": "MainBoard/schematic.DSN",
+    "netlist": "MainBoard/Allegro/pstxnet.dat"
   },
   {
     "name": "AudioModule",
@@ -93,7 +93,7 @@ Response:
 ## Notes
 
 - `path` is always the recommended path to pass to other tools
-- `source` is present only when `path` differs from the schematic source (i.e., Cadence designs with exported `.dat` files)
-- For Cadence designs where `path` is a `.DSN`: on Windows, run `export_cadence_netlist` to generate `.dat` files, then re-run `list_designs` to get the updated `pstxnet.dat` path; on macOS/Linux, query using the `.DSN` path directly (DSN fallback parser)
+- `netlist` is present only for a Cadence design with an exported `pstxnet.dat` beside it. Reading it is supported and agrees with the schematic on Do Not Stuff, because the schematic's variant data is read alongside it, but it is a snapshot of the design at export time rather than the design
+- Generating a netlist is not a step towards querying a Cadence design. Every tool reads the `.DSN` directly, on every platform
 - For KiCad designs, `path` is the `.kicad_pro`; the netlist is resolved automatically when queried (committed `.net` export if present, otherwise generated via `kicad-cli`), so no manual export step is needed
 - The `pattern` parameter filters on the design `name`, not the full path

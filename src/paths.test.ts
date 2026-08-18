@@ -239,9 +239,9 @@ describe("listDesigns Cadence path priority", () => {
     const result = await listDesigns();
 
     expect(Array.isArray(result)).toBe(true);
-    const design = (result as Array<{ path: string; source?: string }>)[0];
-    expect(design.path).toBe("C:\\projects\\Allegro\\pstxnet.dat");
-    expect(design.source).toBe("C:\\projects\\Board.DSN");
+    const design = (result as Array<{ path: string; netlist?: string }>)[0];
+    expect(design.path).toBe("C:\\projects\\Board.DSN");
+    expect(design.netlist).toBe("C:\\projects\\Allegro\\pstxnet.dat");
   });
 
   it("returns .DSN as path with no source when no .dat files exist", async () => {
@@ -257,9 +257,9 @@ describe("listDesigns Cadence path priority", () => {
     const result = await listDesigns();
 
     expect(Array.isArray(result)).toBe(true);
-    const design = (result as Array<{ path: string; source?: string }>)[0];
+    const design = (result as Array<{ path: string; netlist?: string }>)[0];
     expect(design.path).toBe("C:\\projects\\Board.DSN");
-    expect(design.source).toBeUndefined();
+    expect(design.netlist).toBeUndefined();
   });
 });
 

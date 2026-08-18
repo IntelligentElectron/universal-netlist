@@ -170,12 +170,12 @@ export const parseCadence = async (paths: CadenceFilePaths): Promise<CadenceRawN
 const parseCadenceDesign = async (designPath: string): Promise<ParsedNetlist> => {
   const ext = path.extname(designPath).toLowerCase();
 
-  // DSN binary parsing (fallback when .dat files unavailable)
+  // The schematic itself, which is the path list_designs hands out.
   if (ext === ".dsn") {
     return parseDsnFile(designPath);
   }
 
-  // DAT file parsing (fallback, or dat-only designs)
+  // An exported netlist, either named directly or as a dat-only design.
   const datFiles = await findCadenceDatFiles(designPath);
   if (datFiles.pstxnet && datFiles.pstxprt) {
     const raw = await parseCadence({

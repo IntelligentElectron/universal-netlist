@@ -13,19 +13,25 @@ export const SERVER_INSTRUCTIONS = `
 This server provides tools to query EDA netlists for circuit design review.
 
 Supported formats:
-- **Cadence CIS/HDL**: Supports both exported .dat files (preferred) and .DSN binary schematics (fallback).
+- **Cadence CIS/HDL**: Reads the .DSN binary schematic directly (preferred). Exported .dat netlist files (pstxnet.dat, pstxprt.dat, pstchip.dat) are also readable.
 - **Altium Designer**: Reads .SchDoc schematic documents associated to a .PrjPcb project file.
 - **KiCad**: Reads a .kicad_pro project (or root .kicad_sch). Prefers a committed kicadsexpr netlist export (.net) beside the project; otherwise generates one via kicad-cli (requires KiCad installed; set KICAD_CLI_PATH for a non-standard location). Nets declared inside a hierarchical sheet are sheet-path-prefixed (e.g. "/Peripherals/D0", not "/D0"); when using \`search_nets\`, prefer unanchored patterns so you do not miss bussed/hierarchical nets.
 
 ## Cadence Design Priority
 
-\`list_designs\` returns the best available path for each Cadence design:
-- If exported .dat files exist: returns pstxnet.dat path (preferred, more complete data)
-- If no .dat files exist: returns the .DSN path
+\`list_designs\` returns the .DSN schematic as \`path\` for every Cadence design.
+**Query the .DSN.** It is the design as it stands, and it carries what an exported
+netlist cannot: a part a CIS variant leaves off the board is written to the .dat
+triad exactly like a part that is stuffed, with an ordinary value and all of its
+connections, so nothing in those files marks it.
 
-When \`list_designs\` returns a .DSN path (no .dat files available):
-1. On Windows: run \`export_cadence_netlist\` with the .DSN path to generate .dat files, then re-run \`list_designs\`
-2. If export fails or on macOS/Linux: query using the .DSN path directly (DSN fallback parser)
+Where a netlist has been exported beside the design, its pstxnet.dat is reported
+as \`netlist\`. Reading it is supported and answers alike for Do Not Stuff, since
+the schematic's variant data is read alongside it, but it is a snapshot taken when
+it was exported rather than the design itself. Prefer \`path\`.
+
+Reading a .DSN takes longer than reading an exported netlist, which is the cost of
+reading the design rather than a summary of it.
 
 ## KiCad Design Priority
 
@@ -65,9 +71,9 @@ Results with an \`error\` field indicate a problem:
 
 export const LIST_DESIGNS_DESCRIPTION = `\
 List all design projects in the given directory. \
-Returns the best available path for each design. \
-For Cadence with exported .dat files: path is pstxnet.dat (preferred), \
-source has the .DSN schematic. Without .dat files: path is the .DSN. \
+Returns the path to query for each design. \
+For Cadence: path is the .DSN schematic, which is what you should query; \
+where a netlist has been exported beside it, netlist has that pstxnet.dat. \
 For Altium: path is the .PrjPcb. \
 For KiCad: path is the .kicad_pro; its netlist resolves automatically when queried \
 (a committed .net export if present, otherwise generated via kicad-cli), so no manual export is needed. \
@@ -129,7 +135,12 @@ Returns MPN, description, value, and pin-to-net mappings when available. \
 Errors include guidance and suggestions.`;
 
 export const EXPORT_CADENCE_NETLIST_DESCRIPTION = `\
-Export Cadence schematic netlist to Allegro PCB format. \
+DEPRECATED. This tool is kept for backward compatibility and will eventually be \
+removed. You do not need it to query a Cadence design: every tool reads the .DSN \
+schematic directly, which is what \`list_designs\` returns as \`path\`. Call it only \
+when the exported netlist files are themselves the goal, such as handing them to \
+Allegro. Do not call it to make a design queryable. \
+Exports a Cadence schematic netlist to Allegro PCB format. \
 Windows only. Requires Cadence SPB installation. \
 Calls are queued internally so it is safe to call in parallel \
 for multiple designs, but serialize calls if you encounter \
@@ -138,7 +149,7 @@ Output goes to \`<design>_netlist/\` beside the .DSN, so several designs \
 in one folder no longer overwrite each other's netlist; a folder holding a \
 single design that already has an \`allegro/\` directory keeps using it. \
 After a successful export, re-run \`list_designs\` \
-to get the updated pstxnet.dat path.`;
+to see the netlist beside the design.`;
 
 export const RUN_ERC_DESCRIPTION = `\
 Run electrical rule checks (ERC) on a design's netlist and return findings grouped \

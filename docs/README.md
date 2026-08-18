@@ -8,7 +8,7 @@ The Universal Netlist MCP Server provides tools for querying electronic design n
 
 | Format | Input Files | Description |
 |--------|------------|-------------|
-| Cadence (CIS / HDL) | `.dat` files (preferred) or `.DSN` (fallback) | Exported Allegro netlist files (`pstxnet.dat`, `pstxprt.dat`, `pstchip.dat`) are preferred. When unavailable, the `.DSN` binary schematic is parsed directly. |
+| Cadence (CIS / HDL) | `.DSN` schematic (preferred), or `.dat` netlist files | The `.DSN` binary schematic is parsed directly and is what `list_designs` returns. Exported Allegro netlist files (`pstxnet.dat`, `pstxprt.dat`, `pstchip.dat`) are also readable, though a part a CIS variant leaves off the board is written to them exactly like a stuffed one. |
 | Altium Designer | `.SchDoc` | Altium schematic documents (discovered via `.PrjPcb` project files) |
 | KiCad | `.kicad_pro` (or root `.kicad_sch`) | A committed `kicadsexpr` netlist export (`.net`) beside the project is parsed directly (preferred). When unavailable, one is generated on demand via `kicad-cli` (requires KiCad installed; set `KICAD_CLI_PATH` for a non-standard location). |
 
@@ -41,7 +41,7 @@ The schema captures identification (MPN, description) but not electrical specifi
 | [`query_xnet_by_net_name`](tools/query_xnet_by_net_name.md) | Trace circuit connectivity from a net |
 | [`query_xnet_by_pin_name`](tools/query_xnet_by_pin_name.md) | Trace circuit connectivity from a component pin |
 | [`run_erc`](tools/run_erc.md) | Run electrical rule checks (ERC) on the netlist |
-| [`export_cadence_netlist`](tools/export_cadence_netlist.md) | Export Cadence schematic to Allegro format (Windows) |
+| [`export_cadence_netlist`](tools/export_cadence_netlist.md) | Deprecated. Export Cadence schematic to Allegro format (Windows); not needed to query a design |
 
 ## Schematic Authoring
 
