@@ -13,11 +13,11 @@ export const SERVER_INSTRUCTIONS = `
 This server provides tools to query EDA netlists for circuit design review.
 
 Supported formats:
-- **Cadence CIS/HDL**: .DSN binary schematics, and exported .dat netlist files (pstxnet.dat, pstxprt.dat, pstchip.dat).
+- **Cadence CIS/HDL**: .DSN binary schematics, which is what to read. Exported .dat netlist files (pstxnet.dat, pstxprt.dat, pstchip.dat) are a fallback, for a design that ships without its schematic.
 - **Altium Designer**: .SchDoc schematic documents, discovered through their .PrjPcb project.
 - **KiCad**: .kicad_pro projects, or a root .kicad_sch.
 
-## Workflow
+## Example Workflow
 
 1. \`list_designs\` first: it finds the designs and gives you the path to query
 2. \`search_nets\` and \`search_components_by_*\` to find things by pattern
@@ -60,9 +60,13 @@ neither is available the result carries an \`error\` saying so.`;
 
 export const LIST_COMPONENTS_DESCRIPTION = `\
 List components of a specific type in a design. \
-The type prefix is case-insensitive, so "u" matches U1, U2, etc. \
-Components are grouped by MPN for compact output. \
-If no components match, the error lists the available prefixes in the design.`;
+The type is the refdes prefix, matched whole and case-insensitively: "u" gives U1 and \
+U2 but NOT USB1, whose prefix is USB, and "tp" gives the test points. Asking for a \
+partial prefix returns nothing rather than everything starting with it, so if a part you \
+expected is missing, look for it under its own prefix. \
+Components are grouped by MPN for compact output, and a group whose parts carry no MPN \
+says so in its notes. \
+If no components match, the error lists every prefix the design does have.`;
 
 export const LIST_NETS_DESCRIPTION = `\
 List all net names in a design, sorted alphabetically. \
@@ -119,6 +123,9 @@ export const QUERY_COMPONENT_DESCRIPTION = `\
 Get full component details including all pin connections. \
 Refdes lookup is case-insensitive. \
 Returns MPN, description, value, and pin-to-net mappings when available. \
+Each pin maps to its net name, or to {name, net} where the pin has a function name that \
+differs from its number. A pin on no net reads as the net "NC", which is a marker rather \
+than a net you can look up. \
 If the refdes is not found, \`search_components_by_refdes\` finds it; \
 errors include guidance and suggestions.`;
 
