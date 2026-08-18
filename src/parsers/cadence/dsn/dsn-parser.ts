@@ -6,14 +6,16 @@
  */
 
 import { OleReader } from "../../ole-reader/ole-reader.js";
-import type { ParsedNetlist } from "../../../types.js";
+import type { ComponentDetails, ParsedNetlist } from "../../../types.js";
 import type { CachedLibraryPart, PinMapData } from "./structure-types.js";
 import { parsePage, parsePackageStream, parseHierarchyNetNames } from "./page-parser.js";
+import type { PageData } from "./page-parser.js";
 import { parseCacheStream, indexLibraryPart } from "./cache-parser.js";
 import { parseLibraryStrLst } from "./library-parser.js";
 import { buildDeviceIndexMap } from "./pin-resolver.js";
 import { buildNetConnectivity } from "./net-builder.js";
 import { buildComponents } from "./component-builder.js";
+import { readVariantDns } from "./variant-store.js";
 
 /** Parse a .DSN file into a ParsedNetlist. */
 export function parseDsnFile(dsnPath: string): ParsedNetlist {
@@ -160,5 +162,28 @@ export function parseDsnFile(dsnPath: string): ParsedNetlist {
     deviceIndexMap
   );
 
+  // A design's variants carry their own Do Not Stuff set, which the values the
+  // components were built from say nothing about.
+  applyVariantDns(components, readVariantDns(ole, entries, buildRefdesByDbId(pages)));
+
   return { nets, components };
+}
+
+/** Index the placed instances by dbId, which is what an occurrence names. */
+function buildRefdesByDbId(pages: PageData[]): Map<number, string> {
+  const refdesByDbId = new Map<number, string>();
+  for (const page of pages) {
+    for (const inst of page.placedInstances) {
+      if (inst.reference) refdesByDbId.set(inst.dbId, inst.reference);
+    }
+  }
+  return refdesByDbId;
+}
+
+/** Mark the components a variant leaves off the board. */
+function applyVariantDns(components: ComponentDetails, dnsRefdes: Set<string>): void {
+  for (const refdes of dnsRefdes) {
+    const component = components[refdes];
+    if (component) component.dns = true;
+  }
 }

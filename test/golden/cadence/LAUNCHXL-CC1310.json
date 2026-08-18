@@ -1825,7 +1825,8 @@
         "1": "N1013977"
       },
       "mpn": "ANTENNA_PCB_ANTENNA_DN024N_DISCRETE_868MHZ/2440MHZ",
-      "value": "868MHz/2440MHz"
+      "value": "868MHz/2440MHz",
+      "dns": true
     },
     "C11": {
       "pins": {
@@ -2362,42 +2363,48 @@
         "1": "NC"
       },
       "mpn": "FIDMARK_FID127X142_FIDU_1.27MM",
-      "value": "FIDU_1.27mm"
+      "value": "FIDU_1.27mm",
+      "dns": true
     },
     "FIDU2": {
       "pins": {
         "1": "NC"
       },
       "mpn": "FIDMARK_FID127X142_FIDU_1.27MM",
-      "value": "FIDU_1.27mm"
+      "value": "FIDU_1.27mm",
+      "dns": true
     },
     "FIDU3": {
       "pins": {
         "1": "NC"
       },
       "mpn": "FIDMARK_FID127X142_FIDU_1.27MM",
-      "value": "FIDU_1.27mm"
+      "value": "FIDU_1.27mm",
+      "dns": true
     },
     "FIDU4": {
       "pins": {
         "1": "NC"
       },
       "mpn": "FIDMARK_FID127X142_FIDU_1.27MM",
-      "value": "FIDU_1.27mm"
+      "value": "FIDU_1.27mm",
+      "dns": true
     },
     "FIDU5": {
       "pins": {
         "1": "NC"
       },
       "mpn": "FIDMARK_FID127X142_FIDU_1.27MM",
-      "value": "FIDU_1.27mm"
+      "value": "FIDU_1.27mm",
+      "dns": true
     },
     "FIDU6": {
       "pins": {
         "1": "NC"
       },
       "mpn": "FIDMARK_FID127X142_FIDU_1.27MM",
-      "value": "FIDU_1.27mm"
+      "value": "FIDU_1.27mm",
+      "dns": true
     },
     "FL1": {
       "pins": {
@@ -2546,35 +2553,40 @@
         "1": "NC"
       },
       "mpn": "HOLE_NPL_MTG320_HOLE_3.2MM_NPL",
-      "value": "HOLE_3.2mm_NPL"
+      "value": "HOLE_3.2mm_NPL",
+      "dns": true
     },
     "MH2": {
       "pins": {
         "1": "NC"
       },
       "mpn": "HOLE_NPL_MTG320_HOLE_3.2MM_NPL",
-      "value": "HOLE_3.2mm_NPL"
+      "value": "HOLE_3.2mm_NPL",
+      "dns": true
     },
     "MH3": {
       "pins": {
         "1": "GND"
       },
       "mpn": "HOLE_PTH_MTG320_380_HOLE_3.2MM_PTH",
-      "value": "HOLE_3.2mm_PTH"
+      "value": "HOLE_3.2mm_PTH",
+      "dns": true
     },
     "MH4": {
       "pins": {
         "1": "GND"
       },
       "mpn": "HOLE_PTH_MTG320_380_HOLE_3.2MM_PTH",
-      "value": "HOLE_3.2mm_PTH"
+      "value": "HOLE_3.2mm_PTH",
+      "dns": true
     },
     "MH5": {
       "pins": {
         "1": "GND"
       },
       "mpn": "HOLE_PTH_MTG110_170_HOLE_1.1MM_PTH",
-      "value": "HOLE_1.1mm_PTH"
+      "value": "HOLE_1.1mm_PTH",
+      "dns": true
     },
     "P1": {
       "pins": {
@@ -2727,7 +2739,8 @@
         }
       },
       "mpn": "CONN_IDC_TC2050-IDC-NL_TAGCONNECT_TC2050IDCNLN_TC2050-IDC-NL_TAGCONNECT_TC2050IDCNLL,TAGCONNECT_TC2050IDCNLM",
-      "value": "TC2050-IDC-NL"
+      "value": "TC2050-IDC-NL",
+      "dns": true
     },
     "R1": {
       "pins": {
@@ -2759,7 +2772,8 @@
         "2": "N1456638"
       },
       "mpn": "RESISTOR_RESC1005X40B2N_0",
-      "value": "0"
+      "value": "0",
+      "dns": true
     },
     "R14": {
       "pins": {

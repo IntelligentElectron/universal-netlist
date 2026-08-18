@@ -16361,7 +16361,8 @@
         "2": "SENSE-_DC2"
       },
       "mpn": "CC_C0402_33PF",
-      "value": "33pF"
+      "value": "33pF",
+      "dns": true
     },
     "C119": {
       "pins": {
@@ -16369,7 +16370,8 @@
         "2": "GND"
       },
       "mpn": "CC_C0402_10NF",
-      "value": "10nF"
+      "value": "10nF",
+      "dns": true
     },
     "C12": {
       "pins": {
@@ -16417,7 +16419,8 @@
         "2": "FB_0.8V_DC1"
       },
       "mpn": "CC_C0402_150PF",
-      "value": "150pF"
+      "value": "150pF",
+      "dns": true
     },
     "C125": {
       "pins": {
@@ -16433,7 +16436,8 @@
         "2": "GND"
       },
       "mpn": "CC_C0402_10NF",
-      "value": "10nF"
+      "value": "10nF",
+      "dns": true
     },
     "C127": {
       "pins": {
@@ -16481,7 +16485,8 @@
         "2": "FB_0.8V_DC2"
       },
       "mpn": "CC_C0402_150PF",
-      "value": "150pF"
+      "value": "150pF",
+      "dns": true
     },
     "C132": {
       "pins": {
@@ -16489,7 +16494,8 @@
         "2": "GND"
       },
       "mpn": "CC_C0402_1UF",
-      "value": "1uF"
+      "value": "1uF",
+      "dns": true
     },
     "C133": {
       "pins": {
@@ -16505,7 +16511,8 @@
         "2": "GND"
       },
       "mpn": "CC_C0402_10NF",
-      "value": "10nF"
+      "value": "10nF",
+      "dns": true
     },
     "C135": {
       "pins": {
@@ -16513,7 +16520,8 @@
         "2": "GND"
       },
       "mpn": "CC_C0402_10NF",
-      "value": "10nF"
+      "value": "10nF",
+      "dns": true
     },
     "C136": {
       "pins": {
@@ -16537,7 +16545,8 @@
         "2": "GND"
       },
       "mpn": "CC_C4532_2.2NF",
-      "value": "2.2nF"
+      "value": "2.2nF",
+      "dns": true
     },
     "C139": {
       "pins": {
@@ -16569,7 +16578,8 @@
         "2": "SENSE-_DC1"
       },
       "mpn": "CC_C0402_33PF",
-      "value": "33pF"
+      "value": "33pF",
+      "dns": true
     },
     "C142": {
       "pins": {
@@ -16705,7 +16715,8 @@
         "2": "GND"
       },
       "mpn": "CC_C0603_10UF",
-      "value": "10uF"
+      "value": "10uF",
+      "dns": true
     },
     "C158": {
       "pins": {
@@ -16729,7 +16740,8 @@
         "2": "GND"
       },
       "mpn": "CC_C4532_2.2NF",
-      "value": "2.2nF"
+      "value": "2.2nF",
+      "dns": true
     },
     "C160": {
       "pins": {
@@ -16953,7 +16965,8 @@
         "2": "HDMI_TXC_CON_LC_N"
       },
       "mpn": "CC_C0402_0.7PF",
-      "value": "0.7pF"
+      "value": "0.7pF",
+      "dns": true
     },
     "C186": {
       "pins": {
@@ -16961,7 +16974,8 @@
         "2": "HDMI_TXD1_CON_LC_N"
       },
       "mpn": "CC_C0402_0.7PF",
-      "value": "0.7pF"
+      "value": "0.7pF",
+      "dns": true
     },
     "C187": {
       "pins": {
@@ -16969,7 +16983,8 @@
         "2": "HDMI_TXD0_CON_LC_N"
       },
       "mpn": "CC_C0402_0.7PF",
-      "value": "0.7pF"
+      "value": "0.7pF",
+      "dns": true
     },
     "C188": {
       "pins": {
@@ -16977,7 +16992,8 @@
         "2": "HDMI_TXD2_CON_LC_N"
       },
       "mpn": "CC_C0402_0.7PF",
-      "value": "0.7pF"
+      "value": "0.7pF",
+      "dns": true
     },
     "C189": {
       "pins": {
@@ -16985,7 +17001,8 @@
         "2": "HDMI_TXD1_CON_R_N"
       },
       "mpn": "CC_C0402_0.7PF",
-      "value": "0.7pF"
+      "value": "0.7pF",
+      "dns": true
     },
     "C19": {
       "pins": {
@@ -17001,7 +17018,8 @@
         "2": "HDMI_TXD0_CON_R_N"
       },
       "mpn": "CC_C0402_0.7PF",
-      "value": "0.7pF"
+      "value": "0.7pF",
+      "dns": true
     },
     "C191": {
       "pins": {
@@ -17009,7 +17027,8 @@
         "2": "HDMI_TXC_CON_R_N"
       },
       "mpn": "CC_C0402_0.7PF",
-      "value": "0.7pF"
+      "value": "0.7pF",
+      "dns": true
     },
     "C192": {
       "pins": {
@@ -17017,7 +17036,8 @@
         "2": "HDMI_TXD2_CON_R_N"
       },
       "mpn": "CC_C0402_0.7PF",
-      "value": "0.7pF"
+      "value": "0.7pF",
+      "dns": true
     },
     "C193": {
       "pins": {
@@ -17113,7 +17133,8 @@
         "2": "GND"
       },
       "mpn": "CC_C0603_4.7UF",
-      "value": "4.7uF"
+      "value": "4.7uF",
+      "dns": true
     },
     "C203": {
       "pins": {
@@ -17473,7 +17494,8 @@
         "2": "GND_SHD2"
       },
       "mpn": "CC_C1206_1NF",
-      "value": "1nF"
+      "value": "1nF",
+      "dns": true
     },
     "C244": {
       "pins": {
@@ -17521,7 +17543,8 @@
         "2": "GND"
       },
       "mpn": "CC_C0402_10NF",
-      "value": "10nF"
+      "value": "10nF",
+      "dns": true
     },
     "C25": {
       "pins": {
@@ -17633,7 +17656,8 @@
         "2": "GND_SHD1"
       },
       "mpn": "CC_C4532_2.2NF",
-      "value": "2.2nF"
+      "value": "2.2nF",
+      "dns": true
     },
     "C264": {
       "pins": {
@@ -17873,7 +17897,8 @@
         "2": "GND"
       },
       "mpn": "CC_C0402_100NF",
-      "value": "100nF"
+      "value": "100nF",
+      "dns": true
     },
     "C294": {
       "pins": {
@@ -17969,7 +17994,8 @@
         "2": "GND"
       },
       "mpn": "CC_C0402_100NF",
-      "value": "100nF"
+      "value": "100nF",
+      "dns": true
     },
     "C31": {
       "pins": {
@@ -18713,7 +18739,8 @@
         "2": "GND"
       },
       "mpn": "CC_C0402_10PF",
-      "value": "10pF"
+      "value": "10pF",
+      "dns": true
     },
     "C398": {
       "pins": {
@@ -18721,7 +18748,8 @@
         "2": "GND"
       },
       "mpn": "CC_C0402_10PF",
-      "value": "10pF"
+      "value": "10pF",
+      "dns": true
     },
     "C399": {
       "pins": {
@@ -18729,7 +18757,8 @@
         "2": "GND"
       },
       "mpn": "CC_C0402_10PF",
-      "value": "10pF"
+      "value": "10pF",
+      "dns": true
     },
     "C4": {
       "pins": {
@@ -18745,7 +18774,8 @@
         "2": "GND"
       },
       "mpn": "CC_C0402_1UF",
-      "value": "1uF"
+      "value": "1uF",
+      "dns": true
     },
     "C400": {
       "pins": {
@@ -19137,7 +19167,8 @@
         "2": "GND"
       },
       "mpn": "CC_C0603_10UF",
-      "value": "10uF"
+      "value": "10uF",
+      "dns": true
     },
     "C446": {
       "pins": {
@@ -19457,7 +19488,8 @@
         "2": "GND"
       },
       "mpn": "CC_C0603_10UF",
-      "value": "10uF"
+      "value": "10uF",
+      "dns": true
     },
     "C483": {
       "pins": {
@@ -19785,7 +19817,8 @@
         "2": "GND_ISO"
       },
       "mpn": "CC_C1206_1NF",
-      "value": "1nF"
+      "value": "1nF",
+      "dns": true
     },
     "C520": {
       "pins": {
@@ -19809,7 +19842,8 @@
         "2": "GND"
       },
       "mpn": "CC_C0603_10UF",
-      "value": "10uF"
+      "value": "10uF",
+      "dns": true
     },
     "C523": {
       "pins": {
@@ -20313,7 +20347,8 @@
         "2": "VOUT_5V"
       },
       "mpn": "CC_C1206_1NF",
-      "value": "1nF"
+      "value": "1nF",
+      "dns": true
     },
     "C6": {
       "pins": {
@@ -20727,7 +20762,8 @@
         }
       },
       "mpn": "DIODE TVS_SOD_123_3.3V",
-      "value": "3.3V"
+      "value": "3.3V",
+      "dns": true
     },
     "D12": {
       "pins": {
@@ -20741,7 +20777,8 @@
         }
       },
       "mpn": "DIODE TVS_SOD_123_3.3V",
-      "value": "3.3V"
+      "value": "3.3V",
+      "dns": true
     },
     "D13": {
       "pins": {
@@ -20755,7 +20792,8 @@
         }
       },
       "mpn": "DIODE TVS_SOD_123_3.3V",
-      "value": "3.3V"
+      "value": "3.3V",
+      "dns": true
     },
     "D14": {
       "pins": {
@@ -20769,7 +20807,8 @@
         }
       },
       "mpn": "DIODE TVS_SOD_123_3.3V",
-      "value": "3.3V"
+      "value": "3.3V",
+      "dns": true
     },
     "D15": {
       "pins": {
@@ -20839,7 +20878,8 @@
         }
       },
       "mpn": "D_SCHOTTKY_SOD_323_PMEG3010CEJ",
-      "value": "PMEG3010CEJ"
+      "value": "PMEG3010CEJ",
+      "dns": true
     },
     "D2": {
       "pins": {
@@ -20848,7 +20888,8 @@
         "3": "GND_ISO"
       },
       "mpn": "DIODE TVS BI-DIR DUAL_SOT23_SM712-02HTG",
-      "value": "SM712-02HTG"
+      "value": "SM712-02HTG",
+      "dns": true
     },
     "D20": {
       "pins": {
@@ -21004,7 +21045,8 @@
         }
       },
       "mpn": "DIODE TVS_SOD_123_3.3V",
-      "value": "3.3V"
+      "value": "3.3V",
+      "dns": true
     },
     "D34": {
       "pins": {
@@ -21112,7 +21154,8 @@
         }
       },
       "mpn": "D_SCHOTTKY_SOD_323_PMEG3010CEJ",
-      "value": "PMEG3010CEJ"
+      "value": "PMEG3010CEJ",
+      "dns": true
     },
     "D42": {
       "pins": {
@@ -21604,7 +21647,8 @@
         }
       },
       "mpn": "D_SCHOTTKY_SOD_323_PMEG3010CEJ",
-      "value": "PMEG3010CEJ"
+      "value": "PMEG3010CEJ",
+      "dns": true
     },
     "D95": {
       "pins": {
@@ -21988,7 +22032,8 @@
         "2": "DCJ_IN"
       },
       "mpn": "GDT_2P_GDT2P_5D6_8_3X5_5X8_3MM_2RP090M-8-S",
-      "value": "2RP090M-8-S"
+      "value": "2RP090M-8-S",
+      "dns": true
     },
     "J1": {
       "pins": {
@@ -22795,7 +22840,8 @@
         "2": "GND"
       },
       "mpn": "HEADER 1X2_HEADER2P_2D54_DIP_HEADER 1X2 2.54MM",
-      "value": "Header 1x2 2.54mm"
+      "value": "Header 1x2 2.54mm",
+      "dns": true
     },
     "J27": {
       "pins": {
@@ -23851,7 +23897,8 @@
         "4": "HUB_HSD3_N"
       },
       "mpn": "CL_L2012_90R",
-      "value": "90R"
+      "value": "90R",
+      "dns": true
     },
     "L10": {
       "pins": {
@@ -23943,7 +23990,8 @@
         "4": "HUB_SSRX3_P"
       },
       "mpn": "CL_L2012_90R",
-      "value": "90R"
+      "value": "90R",
+      "dns": true
     },
     "L20": {
       "pins": {
@@ -24035,7 +24083,8 @@
         "4": "M2B_PCIE_HSD4_N"
       },
       "mpn": "CL_L2012_90R",
-      "value": "90R"
+      "value": "90R",
+      "dns": true
     },
     "L3": {
       "pins": {
@@ -24045,7 +24094,8 @@
         "4": "HUB_SSTX3_C_P"
       },
       "mpn": "CL_L2012_90R",
-      "value": "90R"
+      "value": "90R",
+      "dns": true
     },
     "L30": {
       "pins": {
@@ -24087,7 +24137,8 @@
         "4": "HUB_HSD4_N"
       },
       "mpn": "CL_L2012_90R",
-      "value": "90R"
+      "value": "90R",
+      "dns": true
     },
     "L38": {
       "pins": {
@@ -24097,7 +24148,8 @@
         "4": "HUB_SSRX4_P"
       },
       "mpn": "CL_L2012_90R",
-      "value": "90R"
+      "value": "90R",
+      "dns": true
     },
     "L39": {
       "pins": {
@@ -24107,7 +24159,8 @@
         "4": "HUB_SSTX4_C_P"
       },
       "mpn": "CL_L2012_90R",
-      "value": "90R"
+      "value": "90R",
+      "dns": true
     },
     "L4": {
       "pins": {
@@ -24117,7 +24170,8 @@
         "4": "HUB_SSRX2_P"
       },
       "mpn": "CL_L2012_90R",
-      "value": "90R"
+      "value": "90R",
+      "dns": true
     },
     "L40": {
       "pins": {
@@ -24143,7 +24197,8 @@
         "4": "HUB_SSRX1_P"
       },
       "mpn": "CL_L2012_90R",
-      "value": "90R"
+      "value": "90R",
+      "dns": true
     },
     "L6": {
       "pins": {
@@ -24153,7 +24208,8 @@
         "4": "HUB_HSD1_N"
       },
       "mpn": "CL_L2012_90R",
-      "value": "90R"
+      "value": "90R",
+      "dns": true
     },
     "L7": {
       "pins": {
@@ -24163,7 +24219,8 @@
         "4": "HUB_HSD2_N"
       },
       "mpn": "CL_L2012_90R",
-      "value": "90R"
+      "value": "90R",
+      "dns": true
     },
     "L8": {
       "pins": {
@@ -24173,7 +24230,8 @@
         "4": "HUB_SSTX1_C_P"
       },
       "mpn": "CL_L2012_90R",
-      "value": "90R"
+      "value": "90R",
+      "dns": true
     },
     "L9": {
       "pins": {
@@ -24183,7 +24241,8 @@
         "4": "HUB_SSTX2_C_P"
       },
       "mpn": "CL_L2012_90R",
-      "value": "90R"
+      "value": "90R",
+      "dns": true
     },
     "LED1": {
       "pins": {
@@ -24271,7 +24330,8 @@
         }
       },
       "mpn": "MHOLE_PTH_3_3MM_6D8_DISCRETE_HOLE 3.3MM",
-      "value": "Hole 3.3MM"
+      "value": "Hole 3.3MM",
+      "dns": true
     },
     "MH10": {
       "pins": {
@@ -24321,7 +24381,8 @@
         }
       },
       "mpn": "MHOLE_PTH_3_3MM_6D8_DISCRETE_HOLE 3.3MM",
-      "value": "Hole 3.3MM"
+      "value": "Hole 3.3MM",
+      "dns": true
     },
     "MH15": {
       "pins": {
@@ -24331,7 +24392,8 @@
         }
       },
       "mpn": "MHOLE_PTH_3_3MM_6D8_DISCRETE_HOLE 3.3MM",
-      "value": "Hole 3.3MM"
+      "value": "Hole 3.3MM",
+      "dns": true
     },
     "MH16": {
       "pins": {
@@ -24351,7 +24413,8 @@
         }
       },
       "mpn": "MHOLE_PTH_3_3MM_6D8_DISCRETE_HOLE 3.3MM",
-      "value": "Hole 3.3MM"
+      "value": "Hole 3.3MM",
+      "dns": true
     },
     "MH3": {
       "pins": {
@@ -24401,7 +24464,8 @@
         }
       },
       "mpn": "MHOLE_PTH_3_3MM_6D8_DISCRETE_HOLE 3.3MM",
-      "value": "Hole 3.3MM"
+      "value": "Hole 3.3MM",
+      "dns": true
     },
     "MH8": {
       "pins": {
@@ -24411,7 +24475,8 @@
         }
       },
       "mpn": "MHOLE_PTH_3_3MM_6D8_DISCRETE_HOLE 3.3MM",
-      "value": "Hole 3.3MM"
+      "value": "Hole 3.3MM",
+      "dns": true
     },
     "MH9": {
       "pins": {
@@ -25551,7 +25616,8 @@
         "2": "BUCK_3V3_PG"
       },
       "mpn": "R_R0402_10K",
-      "value": "10K"
+      "value": "10K",
+      "dns": true
     },
     "R103": {
       "pins": {
@@ -25575,7 +25641,8 @@
         "2": "VDD_1V8_FB"
       },
       "mpn": "R_R0402_100K",
-      "value": "100K"
+      "value": "100K",
+      "dns": true
     },
     "R106": {
       "pins": {
@@ -25583,7 +25650,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_44.2K",
-      "value": "44.2K"
+      "value": "44.2K",
+      "dns": true
     },
     "R107": {
       "pins": {
@@ -25623,7 +25691,8 @@
         "2": "BUCK_3V3_PG"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R111": {
       "pins": {
@@ -25679,7 +25748,8 @@
         "2": "3V3_MCU"
       },
       "mpn": "R_R0402_10K",
-      "value": "10K"
+      "value": "10K",
+      "dns": true
     },
     "R118": {
       "pins": {
@@ -25759,7 +25829,8 @@
         "2": "FORCE_OFF*"
       },
       "mpn": "R_R0402_10K",
-      "value": "10K"
+      "value": "10K",
+      "dns": true
     },
     "R127": {
       "pins": {
@@ -25783,7 +25854,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R13": {
       "pins": {
@@ -25815,7 +25887,8 @@
         "2": "ADC0"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R133": {
       "pins": {
@@ -25831,7 +25904,8 @@
         "2": "I2C2_SCL"
       },
       "mpn": "R_R0402_47K",
-      "value": "47K"
+      "value": "47K",
+      "dns": true
     },
     "R135": {
       "pins": {
@@ -25871,7 +25945,8 @@
         "2": "ADC2"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R14": {
       "pins": {
@@ -25895,7 +25970,8 @@
         "2": "BUCK_3V3_EN"
       },
       "mpn": "R_R0402_100K",
-      "value": "100K"
+      "value": "100K",
+      "dns": true
     },
     "R142": {
       "pins": {
@@ -25911,7 +25987,8 @@
         "2": "I2C2_SDA"
       },
       "mpn": "R_R0402_47K",
-      "value": "47K"
+      "value": "47K",
+      "dns": true
     },
     "R144": {
       "pins": {
@@ -25983,7 +26060,8 @@
         "2": "3V3_MCU_FB"
       },
       "mpn": "R_R0402_100K",
-      "value": "100K"
+      "value": "100K",
+      "dns": true
     },
     "R152": {
       "pins": {
@@ -26103,7 +26181,8 @@
         "2": "N28389375"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R166": {
       "pins": {
@@ -26127,7 +26206,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_20K",
-      "value": "20K"
+      "value": "20K",
+      "dns": true
     },
     "R169": {
       "pins": {
@@ -26191,7 +26271,8 @@
         "2": "QSPI_CSN"
       },
       "mpn": "R_R0402_10K",
-      "value": "10K"
+      "value": "10K",
+      "dns": true
     },
     "R176": {
       "pins": {
@@ -26199,7 +26280,8 @@
         "2": "VCC1_5V_DC2"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R177": {
       "pins": {
@@ -26223,7 +26305,8 @@
         "2": "CCM/AAM_DC2"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R18": {
       "pins": {
@@ -26231,7 +26314,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_1M",
-      "value": "1M"
+      "value": "1M",
+      "dns": true
     },
     "R180": {
       "pins": {
@@ -26271,7 +26355,8 @@
         "2": "N28391801"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R185": {
       "pins": {
@@ -26295,7 +26380,8 @@
         "2": "CCM/AAM_DC1"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R188": {
       "pins": {
@@ -26311,7 +26397,8 @@
         "2": "3V3_LDO_EN"
       },
       "mpn": "R_R0402_10K",
-      "value": "10K"
+      "value": "10K",
+      "dns": true
     },
     "R19": {
       "pins": {
@@ -26359,7 +26446,8 @@
         "2": "VCC1_5V_DC1"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R195": {
       "pins": {
@@ -26439,7 +26527,8 @@
         "2": "SPI0_IRQ_LS"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R203": {
       "pins": {
@@ -26447,7 +26536,8 @@
         "2": "I2C1_SCL"
       },
       "mpn": "R_R0402_47K",
-      "value": "47K"
+      "value": "47K",
+      "dns": true
     },
     "R204": {
       "pins": {
@@ -26455,7 +26545,8 @@
         "2": "I2C1_SDA"
       },
       "mpn": "R_R0402_47K",
-      "value": "47K"
+      "value": "47K",
+      "dns": true
     },
     "R205": {
       "pins": {
@@ -26463,7 +26554,8 @@
         "2": "I2C0_SCL"
       },
       "mpn": "R_R0402_47K",
-      "value": "47K"
+      "value": "47K",
+      "dns": true
     },
     "R206": {
       "pins": {
@@ -26471,7 +26563,8 @@
         "2": "I2C0_SDA"
       },
       "mpn": "R_R0402_47K",
-      "value": "47K"
+      "value": "47K",
+      "dns": true
     },
     "R207": {
       "pins": {
@@ -26487,7 +26580,8 @@
         "2": "N28850075"
       },
       "mpn": "R_R0402_10K",
-      "value": "10K"
+      "value": "10K",
+      "dns": true
     },
     "R209": {
       "pins": {
@@ -26511,7 +26605,8 @@
         "2": "N28849706"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R211": {
       "pins": {
@@ -26551,7 +26646,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R216": {
       "pins": {
@@ -26559,7 +26655,8 @@
         "2": "I2C2_M2M_SDA"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R217": {
       "pins": {
@@ -26567,7 +26664,8 @@
         "2": "PCIE0_RST"
       },
       "mpn": "R_R0402_47K",
-      "value": "47K"
+      "value": "47K",
+      "dns": true
     },
     "R218": {
       "pins": {
@@ -26599,7 +26697,8 @@
         "2": "I2C2_M2M_SCL"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R221": {
       "pins": {
@@ -26647,7 +26746,8 @@
         "2": "GND"
       },
       "mpn": "R_R1206_7MR",
-      "value": "7mR"
+      "value": "7mR",
+      "dns": true
     },
     "R227": {
       "pins": {
@@ -26695,7 +26795,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_10K",
-      "value": "10K"
+      "value": "10K",
+      "dns": true
     },
     "R232": {
       "pins": {
@@ -26751,7 +26852,8 @@
         "2": "N29727171"
       },
       "mpn": "R_R1206_7MR",
-      "value": "7mR"
+      "value": "7mR",
+      "dns": true
     },
     "R239": {
       "pins": {
@@ -27143,7 +27245,8 @@
         "2": "GND_RS232/422/485"
       },
       "mpn": "R_R0603_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R283": {
       "pins": {
@@ -27159,7 +27262,8 @@
         "2": "TYPE C_UART_5V"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R285": {
       "pins": {
@@ -27167,7 +27271,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_10K",
-      "value": "10K"
+      "value": "10K",
+      "dns": true
     },
     "R286": {
       "pins": {
@@ -27175,7 +27280,8 @@
         "2": "VBUSDET"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R287": {
       "pins": {
@@ -27223,7 +27329,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_47K",
-      "value": "47K"
+      "value": "47K",
+      "dns": true
     },
     "R292": {
       "pins": {
@@ -27247,7 +27354,8 @@
         "2": "W_DISABLE1#_3V3"
       },
       "mpn": "R_R0402_47K",
-      "value": "47K"
+      "value": "47K",
+      "dns": true
     },
     "R295": {
       "pins": {
@@ -27343,7 +27451,8 @@
         "2": "5V_RS232/422/485"
       },
       "mpn": "R_R0603_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R305": {
       "pins": {
@@ -27447,7 +27556,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_100K",
-      "value": "100K"
+      "value": "100K",
+      "dns": true
     },
     "R317": {
       "pins": {
@@ -27455,7 +27565,8 @@
         "2": "N29118590"
       },
       "mpn": "R_R0402_100K",
-      "value": "100K"
+      "value": "100K",
+      "dns": true
     },
     "R318": {
       "pins": {
@@ -27527,7 +27638,8 @@
         "2": "1302_RST"
       },
       "mpn": "R_R0402_100K",
-      "value": "100K"
+      "value": "100K",
+      "dns": true
     },
     "R326": {
       "pins": {
@@ -27607,7 +27719,8 @@
         "2": "VDD_1V8_5V"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R335": {
       "pins": {
@@ -27751,7 +27864,8 @@
         "2": "UART1_TXD_LS"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R351": {
       "pins": {
@@ -27759,7 +27873,8 @@
         "2": "UART1_RTS_LS"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R352": {
       "pins": {
@@ -27767,7 +27882,8 @@
         "2": "UART1_RXD_LS"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R353": {
       "pins": {
@@ -27775,7 +27891,8 @@
         "2": "UART1_CTS_LS"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R354": {
       "pins": {
@@ -27895,7 +28012,8 @@
         "2": "BBAT_CONN"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R368": {
       "pins": {
@@ -27959,7 +28077,8 @@
         "2": "GND"
       },
       "mpn": "R_R1206_1M",
-      "value": "1M"
+      "value": "1M",
+      "dns": true
     },
     "R375": {
       "pins": {
@@ -27983,7 +28102,8 @@
         "2": "DCIN_SENSE"
       },
       "mpn": "R_R0402_147K",
-      "value": "147K"
+      "value": "147K",
+      "dns": true
     },
     "R378": {
       "pins": {
@@ -27991,7 +28111,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_61.9K",
-      "value": "61.9K"
+      "value": "61.9K",
+      "dns": true
     },
     "R379": {
       "pins": {
@@ -27999,7 +28120,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R38": {
       "pins": {
@@ -28047,7 +28169,8 @@
         "2": "I2C0_A1"
       },
       "mpn": "R_R0402_10K",
-      "value": "10K"
+      "value": "10K",
+      "dns": true
     },
     "R385": {
       "pins": {
@@ -28055,7 +28178,8 @@
         "2": "I2C0_A2"
       },
       "mpn": "R_R0402_10K",
-      "value": "10K"
+      "value": "10K",
+      "dns": true
     },
     "R386": {
       "pins": {
@@ -28071,7 +28195,8 @@
         "2": "GND"
       },
       "mpn": "R_R1206_1M",
-      "value": "1M"
+      "value": "1M",
+      "dns": true
     },
     "R388": {
       "pins": {
@@ -28143,7 +28268,8 @@
         "2": "HUB_SPI_MISO"
       },
       "mpn": "R_R0402_10K",
-      "value": "10K"
+      "value": "10K",
+      "dns": true
     },
     "R396": {
       "pins": {
@@ -28175,7 +28301,8 @@
         "2": "N28376840"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R4": {
       "pins": {
@@ -28239,7 +28366,8 @@
         "2": "VDD_DO"
       },
       "mpn": "R_R0603_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R406": {
       "pins": {
@@ -28255,7 +28383,8 @@
         "2": "GND_DO"
       },
       "mpn": "R_R1206_7MR",
-      "value": "7mR"
+      "value": "7mR",
+      "dns": true
     },
     "R408": {
       "pins": {
@@ -28295,7 +28424,8 @@
         "2": "GND_SHD2"
       },
       "mpn": "R_R1206_1M",
-      "value": "1M"
+      "value": "1M",
+      "dns": true
     },
     "R412": {
       "pins": {
@@ -28343,7 +28473,8 @@
         "2": "3V3_USB_SWITCH"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R418": {
       "pins": {
@@ -28359,7 +28490,8 @@
         "2": "3V3_LS_VCC"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R42": {
       "pins": {
@@ -28415,7 +28547,8 @@
         "2": "N31557350"
       },
       "mpn": "R_R0402_10K",
-      "value": "10K"
+      "value": "10K",
+      "dns": true
     },
     "R426": {
       "pins": {
@@ -28471,7 +28604,8 @@
         "2": "N30659137"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R432": {
       "pins": {
@@ -28479,7 +28613,8 @@
         "2": "VDD_TPM"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R433": {
       "pins": {
@@ -28511,7 +28646,8 @@
         "2": "N31123275"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R437": {
       "pins": {
@@ -28535,7 +28671,8 @@
         "2": "SPI0_CS0_LS"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R44": {
       "pins": {
@@ -28551,7 +28688,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_1M",
-      "value": "1M"
+      "value": "1M",
+      "dns": true
     },
     "R441": {
       "pins": {
@@ -28751,7 +28889,8 @@
         "2": "TEST3"
       },
       "mpn": "R_R0402_5.1K",
-      "value": "5.1K"
+      "value": "5.1K",
+      "dns": true
     },
     "R464": {
       "pins": {
@@ -28767,7 +28906,8 @@
         "2": "VC1_EN"
       },
       "mpn": "R_R0402_5.1K",
-      "value": "5.1K"
+      "value": "5.1K",
+      "dns": true
     },
     "R466": {
       "pins": {
@@ -28783,7 +28923,8 @@
         "2": "TEST4"
       },
       "mpn": "R_R0402_5.1K",
-      "value": "5.1K"
+      "value": "5.1K",
+      "dns": true
     },
     "R468": {
       "pins": {
@@ -28799,7 +28940,8 @@
         "2": "RXPOLINV_DIS"
       },
       "mpn": "R_R0402_5.1K",
-      "value": "5.1K"
+      "value": "5.1K",
+      "dns": true
     },
     "R47": {
       "pins": {
@@ -28823,7 +28965,8 @@
         "2": "TEST5"
       },
       "mpn": "R_R0402_5.1K",
-      "value": "5.1K"
+      "value": "5.1K",
+      "dns": true
     },
     "R472": {
       "pins": {
@@ -28839,7 +28982,8 @@
         "2": "PWR_SAV"
       },
       "mpn": "R_R0402_5.1K",
-      "value": "5.1K"
+      "value": "5.1K",
+      "dns": true
     },
     "R474": {
       "pins": {
@@ -28855,7 +28999,8 @@
         "2": "SCAN_EN"
       },
       "mpn": "R_R0402_5.1K",
-      "value": "5.1K"
+      "value": "5.1K",
+      "dns": true
     },
     "R476": {
       "pins": {
@@ -28871,7 +29016,8 @@
         "2": "TEST6"
       },
       "mpn": "R_R0402_5.1K",
-      "value": "5.1K"
+      "value": "5.1K",
+      "dns": true
     },
     "R478": {
       "pins": {
@@ -28911,7 +29057,8 @@
         "2": "PL_512B"
       },
       "mpn": "R_R0402_5.1K",
-      "value": "5.1K"
+      "value": "5.1K",
+      "dns": true
     },
     "R482": {
       "pins": {
@@ -28927,7 +29074,8 @@
         "2": "CLKBUF_FD"
       },
       "mpn": "R_R0402_5.1K",
-      "value": "5.1K"
+      "value": "5.1K",
+      "dns": true
     },
     "R484": {
       "pins": {
@@ -28967,7 +29115,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_330R",
-      "value": "330R"
+      "value": "330R",
+      "dns": true
     },
     "R489": {
       "pins": {
@@ -28991,7 +29140,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_330R",
-      "value": "330R"
+      "value": "330R",
+      "dns": true
     },
     "R491": {
       "pins": {
@@ -28999,7 +29149,8 @@
         "2": "SLOT_IMP1"
       },
       "mpn": "R_R0402_5.1K",
-      "value": "5.1K"
+      "value": "5.1K",
+      "dns": true
     },
     "R492": {
       "pins": {
@@ -29015,7 +29166,8 @@
         "2": "SLOT_IMP2"
       },
       "mpn": "R_R0402_5.1K",
-      "value": "5.1K"
+      "value": "5.1K",
+      "dns": true
     },
     "R494": {
       "pins": {
@@ -29031,7 +29183,8 @@
         "2": "SLOT_IMP3"
       },
       "mpn": "R_R0402_5.1K",
-      "value": "5.1K"
+      "value": "5.1K",
+      "dns": true
     },
     "R496": {
       "pins": {
@@ -29047,7 +29200,8 @@
         "2": "GPIO0_21859572"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R498": {
       "pins": {
@@ -29055,7 +29209,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R499": {
       "pins": {
@@ -29063,7 +29218,8 @@
         "2": "GPIO1_21859569"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R5": {
       "pins": {
@@ -29071,7 +29227,8 @@
         "2": "LED1_CTRL"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R50": {
       "pins": {
@@ -29087,7 +29244,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R501": {
       "pins": {
@@ -29111,7 +29269,8 @@
         "2": "GPIO2_21859566"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R504": {
       "pins": {
@@ -29119,7 +29278,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R505": {
       "pins": {
@@ -29127,7 +29287,8 @@
         "2": "GPIO3"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R506": {
       "pins": {
@@ -29135,7 +29296,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R507": {
       "pins": {
@@ -29143,7 +29305,8 @@
         "2": "GPIO4"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R508": {
       "pins": {
@@ -29151,7 +29314,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R509": {
       "pins": {
@@ -29159,7 +29323,8 @@
         "2": "GPIO5"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R51": {
       "pins": {
@@ -29175,7 +29340,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R511": {
       "pins": {
@@ -29183,7 +29349,8 @@
         "2": "GPIO6"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R512": {
       "pins": {
@@ -29191,7 +29358,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R513": {
       "pins": {
@@ -29199,7 +29367,8 @@
         "2": "GPIO7"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R514": {
       "pins": {
@@ -29207,7 +29376,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R515": {
       "pins": {
@@ -29255,7 +29425,8 @@
         "2": "VDD_3V3_SYS"
       },
       "mpn": "R_R0402_10K",
-      "value": "10K"
+      "value": "10K",
+      "dns": true
     },
     "R520": {
       "pins": {
@@ -29439,7 +29610,8 @@
         "2": "N31551983"
       },
       "mpn": "R_R0402_10K",
-      "value": "10K"
+      "value": "10K",
+      "dns": true
     },
     "R541": {
       "pins": {
@@ -29487,7 +29659,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R547": {
       "pins": {
@@ -29495,7 +29668,8 @@
         "2": "N31551981"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R548": {
       "pins": {
@@ -29519,7 +29693,8 @@
         "2": "HUB_RST"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R550": {
       "pins": {
@@ -29583,7 +29758,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_10K",
-      "value": "10K"
+      "value": "10K",
+      "dns": true
     },
     "R558": {
       "pins": {
@@ -29695,7 +29871,8 @@
         "2": "HUB_RST"
       },
       "mpn": "R_R0402_10K",
-      "value": "10K"
+      "value": "10K",
+      "dns": true
     },
     "R570": {
       "pins": {
@@ -29711,7 +29888,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R572": {
       "pins": {
@@ -29719,7 +29897,8 @@
         "2": "N31557348"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R573": {
       "pins": {
@@ -29807,7 +29986,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_10K",
-      "value": "10K"
+      "value": "10K",
+      "dns": true
     },
     "R583": {
       "pins": {
@@ -29863,7 +30043,8 @@
         "2": "N31559980"
       },
       "mpn": "R_R0402_10K",
-      "value": "10K"
+      "value": "10K",
+      "dns": true
     },
     "R59": {
       "pins": {
@@ -29919,7 +30100,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R596": {
       "pins": {
@@ -29927,7 +30109,8 @@
         "2": "N31559978"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R597": {
       "pins": {
@@ -29967,7 +30150,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_100K",
-      "value": "100K"
+      "value": "100K",
+      "dns": true
     },
     "R600": {
       "pins": {
@@ -30023,7 +30207,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_10K",
-      "value": "10K"
+      "value": "10K",
+      "dns": true
     },
     "R607": {
       "pins": {
@@ -30055,7 +30240,8 @@
         "2": "HUB_SPI_MOSI"
       },
       "mpn": "R_R0402_10K",
-      "value": "10K"
+      "value": "10K",
+      "dns": true
     },
     "R610": {
       "pins": {
@@ -30079,7 +30265,8 @@
         "2": "GND_SHD1"
       },
       "mpn": "R_R1206_1M",
-      "value": "1M"
+      "value": "1M",
+      "dns": true
     },
     "R613": {
       "pins": {
@@ -30151,7 +30338,8 @@
         "2": "N30018883"
       },
       "mpn": "R_R0402_0R",
-      "value": "0R"
+      "value": "0R",
+      "dns": true
     },
     "R64": {
       "pins": {
@@ -30191,7 +30379,8 @@
         "2": "GND_ISO"
       },
       "mpn": "R_R0805_510R",
-      "value": "510R"
+      "value": "510R",
+      "dns": true
     },
     "R69": {
       "pins": {
@@ -30199,7 +30388,8 @@
         "2": "HUB_SPI_CE"
       },
       "mpn": "R_R0402_10K",
-      "value": "10K"
+      "value": "10K",
+      "dns": true
     },
     "R7": {
       "pins": {
@@ -30327,7 +30517,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_10K",
-      "value": "10K"
+      "value": "10K",
+      "dns": true
     },
     "R84": {
       "pins": {
@@ -30343,7 +30534,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_10K",
-      "value": "10K"
+      "value": "10K",
+      "dns": true
     },
     "R86": {
       "pins": {
@@ -30359,7 +30551,8 @@
         "2": "BMCU_POWER_EN"
       },
       "mpn": "R_R0402_10K",
-      "value": "10K"
+      "value": "10K",
+      "dns": true
     },
     "R88": {
       "pins": {
@@ -30367,7 +30560,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_10K",
-      "value": "10K"
+      "value": "10K",
+      "dns": true
     },
     "R89": {
       "pins": {
@@ -30431,7 +30625,8 @@
         "2": "I2C2_SDA"
       },
       "mpn": "R_R0402_47K",
-      "value": "47K"
+      "value": "47K",
+      "dns": true
     },
     "R96": {
       "pins": {
@@ -30455,7 +30650,8 @@
         "2": "GND"
       },
       "mpn": "R_R0402_10K",
-      "value": "10K"
+      "value": "10K",
+      "dns": true
     },
     "R99": {
       "pins": {
@@ -30463,7 +30659,8 @@
         "2": "I2C2_SCL"
       },
       "mpn": "R_R0402_47K",
-      "value": "47K"
+      "value": "47K",
+      "dns": true
     },
     "SW1": {
       "pins": {
@@ -31027,7 +31224,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP10": {
       "pins": {
@@ -31037,7 +31235,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP11": {
       "pins": {
@@ -31047,7 +31246,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP12": {
       "pins": {
@@ -31057,7 +31257,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP13": {
       "pins": {
@@ -31067,7 +31268,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP14": {
       "pins": {
@@ -31077,7 +31279,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP15": {
       "pins": {
@@ -31087,7 +31290,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP16": {
       "pins": {
@@ -31097,7 +31301,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP17": {
       "pins": {
@@ -31107,7 +31312,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP18": {
       "pins": {
@@ -31117,7 +31323,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP19": {
       "pins": {
@@ -31127,7 +31334,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP2": {
       "pins": {
@@ -31137,7 +31345,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP20": {
       "pins": {
@@ -31147,7 +31356,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP21": {
       "pins": {
@@ -31157,7 +31367,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP22": {
       "pins": {
@@ -31167,7 +31378,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP23": {
       "pins": {
@@ -31177,7 +31389,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP24": {
       "pins": {
@@ -31187,7 +31400,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP25": {
       "pins": {
@@ -31197,7 +31411,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP26": {
       "pins": {
@@ -31207,7 +31422,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP27": {
       "pins": {
@@ -31217,7 +31433,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP28": {
       "pins": {
@@ -31227,7 +31444,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP29": {
       "pins": {
@@ -31237,7 +31455,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP3": {
       "pins": {
@@ -31247,7 +31466,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP30": {
       "pins": {
@@ -31257,7 +31477,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP31": {
       "pins": {
@@ -31267,7 +31488,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP32": {
       "pins": {
@@ -31277,7 +31499,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP33": {
       "pins": {
@@ -31287,7 +31510,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP34": {
       "pins": {
@@ -31297,7 +31521,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP35": {
       "pins": {
@@ -31307,7 +31532,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP36": {
       "pins": {
@@ -31317,7 +31543,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP37": {
       "pins": {
@@ -31327,7 +31554,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP38": {
       "pins": {
@@ -31337,7 +31565,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP39": {
       "pins": {
@@ -31347,7 +31576,8 @@
         }
       },
       "mpn": "TEST POINT_TP30C_SMD_DISCRETE_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP4": {
       "pins": {
@@ -31357,7 +31587,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP40": {
       "pins": {
@@ -31367,7 +31598,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP41": {
       "pins": {
@@ -31377,7 +31609,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP42": {
       "pins": {
@@ -31387,7 +31620,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP43": {
       "pins": {
@@ -31397,7 +31631,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP44": {
       "pins": {
@@ -31407,7 +31642,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP45": {
       "pins": {
@@ -31417,7 +31653,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP46": {
       "pins": {
@@ -31427,7 +31664,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP47": {
       "pins": {
@@ -31437,7 +31675,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP48": {
       "pins": {
@@ -31447,7 +31686,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP49": {
       "pins": {
@@ -31457,7 +31697,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP5": {
       "pins": {
@@ -31467,7 +31708,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP50": {
       "pins": {
@@ -31477,7 +31719,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP51": {
       "pins": {
@@ -31487,7 +31730,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP52": {
       "pins": {
@@ -31497,7 +31741,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP53": {
       "pins": {
@@ -31507,7 +31752,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP54": {
       "pins": {
@@ -31517,7 +31763,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP55": {
       "pins": {
@@ -31527,7 +31774,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP56": {
       "pins": {
@@ -31537,7 +31785,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP57": {
       "pins": {
@@ -31547,7 +31796,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP58": {
       "pins": {
@@ -31557,7 +31807,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP59": {
       "pins": {
@@ -31567,7 +31818,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP6": {
       "pins": {
@@ -31577,7 +31829,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP60": {
       "pins": {
@@ -31587,7 +31840,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP61": {
       "pins": {
@@ -31597,7 +31851,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP62": {
       "pins": {
@@ -31607,7 +31862,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP63": {
       "pins": {
@@ -31617,7 +31873,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP64": {
       "pins": {
@@ -31627,7 +31884,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP65": {
       "pins": {
@@ -31637,7 +31895,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP66": {
       "pins": {
@@ -31647,7 +31906,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP67": {
       "pins": {
@@ -31657,7 +31917,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP68": {
       "pins": {
@@ -31667,7 +31928,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP69": {
       "pins": {
@@ -31677,7 +31939,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP7": {
       "pins": {
@@ -31687,7 +31950,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP70": {
       "pins": {
@@ -31697,7 +31961,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP71": {
       "pins": {
@@ -31707,7 +31972,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP72": {
       "pins": {
@@ -31717,7 +31983,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP73": {
       "pins": {
@@ -31727,7 +31994,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP74": {
       "pins": {
@@ -31737,7 +32005,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP75": {
       "pins": {
@@ -31747,7 +32016,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP76": {
       "pins": {
@@ -31757,7 +32027,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP77": {
       "pins": {
@@ -31767,7 +32038,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP78": {
       "pins": {
@@ -31777,7 +32049,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP79": {
       "pins": {
@@ -31787,7 +32060,8 @@
         }
       },
       "mpn": "TEST POINT_TP60C_SMD_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP8": {
       "pins": {
@@ -31797,7 +32071,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "TP9": {
       "pins": {
@@ -31807,7 +32082,8 @@
         }
       },
       "mpn": "TEST POINT_TP28C8D_TEST POINT",
-      "value": "Test Point"
+      "value": "Test Point",
+      "dns": true
     },
     "U1": {
       "pins": {
@@ -31893,7 +32169,8 @@
         }
       },
       "mpn": "QSPI_8P_SOIC8_1D27_4_9X3_9MM_GD25Q40ETIGR",
-      "value": "GD25Q40ETIGR"
+      "value": "GD25Q40ETIGR",
+      "dns": true
     },
     "U12": {
       "pins": {
@@ -31935,7 +32212,8 @@
         }
       },
       "mpn": "QSPI_9P_USON8_0D5_3X2X0_6MM_GD25Q40EEIGR",
-      "value": "GD25Q40EEIGR"
+      "value": "GD25Q40EEIGR",
+      "dns": true
     },
     "U13": {
       "pins": {
@@ -32041,7 +32319,8 @@
         }
       },
       "mpn": "EEPROM_8+1P_UDFN8_0D5_2X3X0_6MM_CAT24C02VP2IGT3A",
-      "value": "CAT24C02VP2IGT3A"
+      "value": "CAT24C02VP2IGT3A",
+      "dns": true
     },
     "U16": {
       "pins": {
@@ -32604,7 +32883,8 @@
         }
       },
       "mpn": "QSPI_9P_USON8_0D5_3X2X0_6MM_GD25Q40EEIGR",
-      "value": "GD25Q40EEIGR"
+      "value": "GD25Q40EEIGR",
+      "dns": true
     },
     "U28": {
       "pins": {
@@ -33059,7 +33339,8 @@
         }
       },
       "mpn": "93LC66AT-I/OT_SOT23_6_93LC66AT-I/OT",
-      "value": "93LC66AT-I/OT"
+      "value": "93LC66AT-I/OT",
+      "dns": true
     },
     "U38": {
       "pins": {
@@ -33819,7 +34100,8 @@
         }
       },
       "mpn": "NCP301LSN20T1_SOT23-5_NCP301LSN20T1G",
-      "value": "NCP301LSN20T1G"
+      "value": "NCP301LSN20T1G",
+      "dns": true
     },
     "U5": {
       "pins": {
@@ -33981,7 +34263,8 @@
         }
       },
       "mpn": "93LC66AT-I/OT_SOT23_6_93LC66AT-I/OT",
-      "value": "93LC66AT-I/OT"
+      "value": "93LC66AT-I/OT",
+      "dns": true
     },
     "U53": {
       "pins": {
@@ -34007,7 +34290,8 @@
         }
       },
       "mpn": "SN74LVC1G07DCK_SOT23-5_SN74LV1T125DBVR",
-      "value": "SN74LV1T125DBVR"
+      "value": "SN74LV1T125DBVR",
+      "dns": true
     },
     "U54": {
       "pins": {
@@ -34143,7 +34427,8 @@
         }
       },
       "mpn": "93LC66AT-I/OT_SOT23_6_93LC66AT-I/OT",
-      "value": "93LC66AT-I/OT"
+      "value": "93LC66AT-I/OT",
+      "dns": true
     },
     "U56": {
       "pins": {
@@ -34251,7 +34536,8 @@
         }
       },
       "mpn": "TXB0104PW_TSSOP14_0D65_5X4D4X1D2MM_TXB0104PWR",
-      "value": "TXB0104PWR"
+      "value": "TXB0104PWR",
+      "dns": true
     },
     "U59": {
       "pins": {
@@ -34654,7 +34940,8 @@
         }
       },
       "mpn": "MEM_24LC32_SOT23-5_SOT23-5_FT24C32A-ELRT",
-      "value": "FT24C32A-ELRT"
+      "value": "FT24C32A-ELRT",
+      "dns": true
     },
     "U66": {
       "pins": {
@@ -35039,7 +35326,8 @@
         }
       },
       "mpn": "93LC66AT-I/OT_SOT23_6_93LC66AT-I/OT",
-      "value": "93LC66AT-I/OT"
+      "value": "93LC66AT-I/OT",
+      "dns": true
     },
     "U73": {
       "pins": {
@@ -35169,7 +35457,8 @@
         }
       },
       "mpn": "QSPI_8P_SOIC8_1D27_4_9X3_9MM_IC_GD25Q40ETIGR",
-      "value": "GD25Q40ETIGR"
+      "value": "GD25Q40ETIGR",
+      "dns": true
     },
     "U76": {
       "pins": {

@@ -21,8 +21,9 @@ Each section marks its confidence level:
 8. [Hierarchy Stream](#8-hierarchy-stream)
 9. [Package Streams](#9-package-streams)
 10. [Cache Stream](#10-cache-stream)
-11. [Netlist Assembly Logic](#11-netlist-assembly-logic)
-12. [Known Gaps and Limitations](#12-known-gaps-and-limitations)
+11. [CIS Variant Store](#11-cis-variant-store)
+12. [Netlist Assembly Logic](#12-netlist-assembly-logic)
+13. [Known Gaps and Limitations](#13-known-gaps-and-limitations)
 
 ---
 
@@ -53,9 +54,13 @@ Root Entry/
       Pages/
         {PageName}                 # One stream per schematic page
       Hierarchy/
-        Hierarchy                  # Canonical net name list
+        Hierarchy                  # Canonical net name list + occurrence -> dbId
   Packages/
     {PackageName}                  # Per-package: PartCell + LibraryPart[] + Package
+  CIS/
+    VariantStore/
+      Groups/
+        {Group}/{Group}            # Occurrences a variant leaves off the board
 ```
 
 | Stream | Purpose | Parser Status |
@@ -65,12 +70,13 @@ Root Entry/
 | `Views/{name}/Hierarchy/Hierarchy` | Canonical flat net name list | Partially parsed |
 | `Packages/{name}` | Package + Device[] + LibraryPart[] | Fully parsed |
 | `Cache` | LibraryPart + Package definitions for all components | Parsed (Packages + LibraryParts) |
+| `CIS/VariantStore/Groups/{g}/{g}` | Do Not Stuff set a variant declares | Fully parsed (section 11) |
 
 That is a small part of what a `.DSN` actually holds. Surveying the top-level entries of all 11 Cadence fixtures, these appear in **every** design and none of them is read:
 
 `AdminData`, `Cells`, `Cells Directory`, `ExportBlocks`, `ExportBlocks Directory`, `Graphics`, `Graphics Directory`, `HSObjects`, `Packages Directory`, `Parts`, `Parts Directory`, `Symbols`, `Symbols Directory`, `Views Directory`
 
-And these appear in some designs only: `DsnStream` and `NetBundleMapData` (10 of 11), `BundleMapData` and `CIS` (7 of 11). `CIS` in particular is not a fixed feature of the format, so a design without it is normal rather than damaged.
+And these appear in some designs only: `DsnStream` and `NetBundleMapData` (10 of 11), `BundleMapData` and `CIS` (7 of 11). `CIS` in particular is not a fixed feature of the format, so a design without it is normal rather than damaged. Of the 7 that carry it, 3 declare an actual variant group; the variant store is read for the Do Not Stuff set it holds (section 11), and the rest of `CIS` is not.
 
 ### Stream discovery
 
@@ -421,7 +427,7 @@ BODY:
 
 **VERIFIED**: `Wire.id` is the net identifier that connects to the page's net name table. All wire segments sharing the same `id` belong to the same logical net.
 
-**VERIFIED**: `Wire.segment_id` is unique per wire segment and is what names an unnamed net, matching Cadence DAT export behavior. A net is a group of segments, so the name is built from the smallest `segment_id` in the group, `N{minSegmentId}`, not from any one segment's own id (section 11.4).
+**VERIFIED**: `Wire.segment_id` is unique per wire segment and is what names an unnamed net, matching Cadence DAT export behavior. A net is a group of segments, so the name is built from the smallest `segment_id` in the group, `N{minSegmentId}`, not from any one segment's own id (section 12.4).
 
 ### 7.6.1 Alias (type 0x31)
 
@@ -490,7 +496,7 @@ The OpenOrCadParser reference treats these two bytes as unknown padding
 identified here by dumping every discarded byte block for the eight `RP3` instances of
 `BeagleBoard-xM_ORCAD` and correlating against the section order derived independently
 from that design's `pstxnet.dat` export: the field reads `0,1,2,...,7` in exactly that
-order. Verified across the Cadence fixture corpus — see section 11.3.
+order. Verified across the Cadence fixture corpus — see section 12.3.
 
 #### User property resolution (MPN, Value)
 
@@ -504,7 +510,7 @@ User properties are the prefix `(name_idx, val_idx)` pairs (section 4.2). Resolu
   2. `part_value_idx` in the body (fallback; the `uint32` above)
   3. `part_value` in the LibraryPart's GeneralProperties (library default, section 9.3)
 
-  DNS markers embedded in the resolved value string are then stripped (section 12.7).
+  DNS markers embedded in the resolved value string are then stripped (section 13.7).
 
 ### 7.7.1 T0x10 - Pin Instance (type 0x10)
 
@@ -534,13 +540,13 @@ The `sth` field encodes both a 1-based logical pin index and a no-connect flag:
 
 This encoding is from the OpenOrCadParser reference and confirmed to produce correct pin mappings in all tested designs. Both branches are treated identically for pin map lookup, and the parser keeps only `pin_index`; bit 15 is folded away by the subtraction and never surfaces as a flag.
 
-No-connect is therefore inferred, not read: a pin is called NC when `net_id == 0` and no wire, symbol or overlapping pin claims its coordinate. That is a proxy for bit 15 rather than the mechanism itself, but it reproduces the DAT export's pin sets exactly across the fixture corpus (section 12.5), so nothing currently distinguishes the two rules in practice.
+No-connect is therefore inferred, not read: a pin is called NC when `net_id == 0` and no wire, symbol or overlapping pin claims its coordinate. That is a proxy for bit 15 rather than the mechanism itself, but it reproduces the DAT export's pin sets exactly across the fixture corpus (section 13.5), so nothing currently distinguishes the two rules in practice.
 
 #### net_id semantics (REVISED)
 
 - `net_id > 0 && net_id < 0xFFFFFFFF`: Normal net. Groups pins belonging to the same electrical net across a page. Maps to the page net table.
 - `net_id == 0`: Pin has no Cadence DB net object assigned. This does NOT by itself mean no-connect; the pin may still be connected via wire geometry (coordinate overlap), and such a pin is treated as connected. In the format proper the no-connect marker is `sth` bit 15; the parser instead calls a pin NC when `net_id == 0` and geometry claims nothing, as described above.
-- `net_id == 0xFFFFFFFF`: Sentinel value. The pin's net is determined by its physical coordinate overlapping a wire endpoint, a wire body segment, a Global/Port symbol bbox, or one of an OffPageConnector's five match points (section 11.4).
+- `net_id == 0xFFFFFFFF`: Sentinel value. The pin's net is determined by its physical coordinate overlapping a wire endpoint, a wire body segment, a Global/Port symbol bbox, or one of an OffPageConnector's five match points (section 12.4).
 
 **IMPORTANT**: `net_id` values are NOT the same as `Wire.id` values. They are in different Cadence DB object ID spaces. The correspondence between pin netId and wire id is established indirectly through the net name table (both reference the same logical net, but via different IDs).
 
@@ -581,7 +587,7 @@ A **Port** carries **9 further unknown bytes** after that checkpoint, which Glob
 
 After each Port, Global, or OffPageConnector record, there are **5 unknown bytes** that are not part of the structure itself. These are read separately in the page parser.
 
-**VERIFIED**: OPCs sharing the same `name_str_idx` represent the same net across pages. For Globals/Ports, `name_str_idx` resolves to the power/ground net name (e.g., "VCC_3V3", "GND"). The parser calls this field `pairingId`, the name it goes by in section 11.4.
+**VERIFIED**: OPCs sharing the same `name_str_idx` represent the same net across pages. For Globals/Ports, `name_str_idx` resolves to the power/ground net name (e.g., "VCC_3V3", "GND"). The parser calls this field `pairingId`, the name it goes by in section 12.4.
 
 ### 7.9 SymbolDisplayProp (type 0x27)
 
@@ -640,7 +646,28 @@ Net names are uppercased on read, matching the page net table.
 
 **HEURISTIC**: The "scan for 0x43" approach is fragile. We don't fully understand the header structure between the view name and the net records. The 0x43 byte happens to sit two bytes after the net count in all tested designs, but this is pattern-matching, not spec-based parsing. The whole stream is best-effort: a throw anywhere in it leaves `canonicalNetNames` empty and the rest of the parse continues without hierarchy preference.
 
-**UNKNOWN**: The 24 bytes of "fixed metadata" per net record. These likely contain Cadence DB object IDs, net attributes, or cross-references, but we skip them entirely.
+**The 24 bytes of "fixed metadata" per net record** are the record's own framing.
+Each is a structure in the ordinary sense of section 4: a type byte, its prefix, then
+the preamble `FF E4 5C 39` and the uint32 length of its trailing data (zero here),
+then the record body. For a net record the body opens with a uint32 dbId, which is
+what OpenOrCadParser's `StreamHierarchy` documents for `NetDbIdMapping` (type 67),
+and the name follows it. The sequential parser above skips the framing rather than
+reading it; the variant store reads it directly, anchoring on the preamble:
+
+```
+    1 byte    type              # 66 SthInHierarchy1, 67 NetDbIdMapping
+    2 bytes   zeros
+    4 bytes   FF E4 5C 39       # preamble magic
+    uint32    trailing_length   # 0 in every Hierarchy record observed
+    uint32    body[0]
+    uint32    body[1]           # type 66 only
+```
+
+**Type 66 (`SthInHierarchy1`) is the part occurrence**, which OpenOrCadParser leaves
+unidentified. Its body is `{occurrence id, dbId}`, pairing a CIS variant occurrence
+with the `PlacedInstance` it stands for. On all 11 Cadence fixtures the count of
+type 66 records equals the design's placed-instance count exactly, and every dbId
+they name belongs to that design. Section 11.2 is what uses this.
 
 ---
 
@@ -713,7 +740,7 @@ The `pin_map` array maps logical pin index to physical pin designator. Index 0 c
 
 **Divergence from the C++ reference**: `StructDevice.cpp` `continue`s past a `-1` entry without appending to its vector, producing a dense array. We push `null` instead, so `pin_map` always has exactly `pin_count` entries and index `pinIndex - 1` keeps meaning logical pin `pinIndex`. Dropping the entry would shift every pin after it by one. The parallel `pin_ignore` array is filled with `false` at the same position to stay aligned, and `resolvePinNumber` treats a `null` as "this map has no entry here" and tries the other stream.
 
-**Important**: The `Packages/` stream and the Cache stream may contain **different** Device definitions for the same component. See [section 11.1](#111-pin-number-resolution) for Cache fallback when pin counts differ.
+**Important**: The `Packages/` stream and the Cache stream may contain **different** Device definitions for the same component. See [section 12.1](#111-pin-number-resolution) for Cache fallback when pin counts differ.
 
 ### 9.3 LibraryPart (type 0x18)
 
@@ -886,7 +913,7 @@ The short prefix does not sit at a fixed distance before the preamble. It is `ty
 
 So the scanner searches two nested distances. For each candidate pair count from 0 up to 64, it checks whether the byte at `magic - 3 - 8 * pairs` is `0x1F` or `0x18` and whether the `int16` after it equals that pair count. When both hold, it steps back in 9-byte strides for up to 10 long prefixes, requiring each stride to repeat the same type byte, and tries to parse from there. The prefix reader validates the chain, so a wrong guess throws and the next candidate is tried.
 
-Section 11.2 explains why this matters: a fixed 3-byte assumption finds every Package but only a minority of LibraryParts, which is how designs once ended up with pin numbers everywhere and pin names nowhere.
+Section 12.2 explains why this matters: a fixed 3-byte assumption finds every Package but only a minority of LibraryParts, which is how designs once ended up with pin numbers everywhere and pin names nowhere.
 
 #### Measured behaviour per design
 
@@ -908,7 +935,7 @@ Section 11.2 explains why this matters: a fixed 3-byte assumption finds every Pa
 
 Six designs walk the whole stream sequentially. Of the five that do not, two (`reComputer J401`, `reServer J401`) fail on the last two bytes, which is an end-of-stream artefact rather than a metadata variant. Only CutiePi, LAUNCHXL-CC1310 and reServer J2032 break genuinely mid-stream, and on those the scanner recovers the remainder.
 
-Every design now yields LibraryParts, including CutiePi and LAUNCHXL-CC1310, which is what carries pin function names to 100% in section 12.5.
+Every design now yields LibraryParts, including CutiePi and LAUNCHXL-CC1310, which is what carries pin function names to 100% in section 13.5.
 
 ### 10.4 Priority
 
@@ -930,7 +957,7 @@ When both `Packages/` streams and Cache provide data for the same component, `Pa
 
 Both BeagleBone-Black designs have a `Packages` storage with no streams inside it, so every pin number they report comes from the Cache, and the four Jetson carriers get roughly nine tenths of theirs from it. That is why the Cache recovery of section 10.3 matters as much as it does: on those designs it is not a fallback, it is the source.
 
-**Exception**: when the `Packages/` map's length disagrees with the instance's T0x10 count, the Cache map may win instead. A Cache map whose length equals the T0x10 count settles it; failing that, only a `Packages/` map longer than the symbol prefers the Cache. See [section 11.1](#111-pin-number-resolution) for details and an example.
+**Exception**: when the `Packages/` map's length disagrees with the instance's T0x10 count, the Cache map may win instead. A Cache map whose length equals the T0x10 count settles it; failing that, only a `Packages/` map longer than the symbol prefers the Cache. See [section 12.1](#111-pin-number-resolution) for details and an example.
 
 ### 10.5 Packages Directory Stream
 
@@ -959,11 +986,126 @@ Similarly, `Cells Directory`, `ExportBlocks Directory`, `Graphics Directory`, `P
 
 ---
 
-## 11. Netlist Assembly Logic
+## 11. CIS Variant Store
+
+**Confidence: VERIFIED**
+
+OrCAD Capture CIS records design variants under `CIS/VariantStore`. This is where a
+variant's Do Not Stuff set lives, and it is the only place it lives: a part an
+alternate BOM leaves off the board keeps an ordinary `VALUE` in `pstchip.dat` and
+both of its `NODE_NAME`s in `pstxnet.dat`, so neither the DAT path's marker
+detection (section 13.7) nor anything on the schematic distinguishes it from a
+part that is stuffed.
+
+The storage is present in 7 of the 11 Cadence fixtures and holds an actual group in
+3 of them; the other 4 carry an empty store, which is what a design that has never
+declared a variant writes.
+
+```
+CIS/
+  VariantStore/
+    VariantNames                          # variant, group and bom-<variant> names
+    Groups/
+      GroupsDataStream                    # index of group names
+      {Group}/
+        {Group}                           # the group's occurrence list
+        UpdateStorageGroupDataStream      # edit log, not the member list
+    BOM/
+      BOMDataStream
+      {Variant}/
+        BOMPartData                       # per-variant part data (not read, see below)
+        BOMAmbugity                       # Cadence's spelling
+```
+
+| Stream | Purpose | Parser Status |
+|--------|---------|---------------|
+| `CIS/VariantStore/Groups/{g}/{g}` | Occurrences the group names, and their stuff state | Fully parsed |
+| `CIS/VariantStore/VariantNames` | Variant and group names | Parsed (not yet surfaced) |
+| `CIS/VariantStore/BOM/{v}/BOMPartData` | Per-variant part data | Not read |
+
+### 11.1 Group stream
+
+```
+    uint32    payload_length     # the payload's own byte count, not a magic
+    payload_length bytes         # latin1 text, fields separated by 0xB0
+```
+
+Every occurrence is written `{id}~{state}`:
+
+| Token | Meaning |
+|-------|---------|
+| leading token, no `~` | A flag (`0` or `1`); not an occurrence |
+| `{id}~0` | The group leaves this occurrence off the board |
+| `{id}~1` | The group puts it on |
+| empty | Section separator; occurrences continue after it |
+
+A group either unstuffs its members or stuffs them, and the name says which:
+`DNP` and `DNM` write `~0` throughout, while the feature groups a design switches
+between (`RF`, `XDS`, `DebuggerIF`, `Peripherals`) write `~1` throughout. No part
+is named by two groups in any fixture. The state is what the parser reads rather
+than the group name, so a `BOM_IGNORE` or `DNI` group is handled without being
+enumerated; a state other than `0` or `1` has never been observed and is ignored
+rather than guessed at.
+
+`reServer J2032` writes its `DNP` group in two sections, so the empty token is
+read through rather than treated as the end of the list.
+
+### 11.2 Occurrence ids and the join to a refdes
+
+The ids are a numbering of their own. They are **not** the `dbId` a
+`PlacedInstance` carries (section 7.7) and **not** the `INSnnn` of a PST
+`C_PATH`; searching a `.DSN` for a PST `INSnnn` value as a uint32 finds nothing.
+
+They resolve through the Hierarchy stream (section 8), whose part occurrence
+records pair one with the `dbId` of the instance it stands for. The refdes then
+comes from that instance:
+
+```
+occurrence id  --Hierarchy type 66-->  dbId  --PlacedInstance-->  refdes
+```
+
+Reading it costs parsing the page streams, which is the schematic's whole cost.
+The DAT path therefore holds the resolved set for the `.DSN` that produced it and
+recomputes it when that file changes, so a query pays it once rather than per call.
+
+### 11.3 What BOMPartData is not
+
+`BOMPartData` is `uint32 payload_length`, then latin1 text split on `0xF9`, whose
+first token is an entry count and whose remainder are ids. It is **not** the
+variant's stuffed list and is not read:
+
+| Design | Ids | Resolve to an occurrence | Includes parts the DNP/DNM group unstuffs |
+|--------|-----|--------------------------|-------------------------------------------|
+| LAUNCHXL-CC1310 | 140 | 139 | yes (`MH5`, `R46`–`R49`, `R51`) |
+| reServer J401 | 1541 | 1434 | — |
+| reServer J2032 | 30 | 0 | — |
+
+Its ids are not always in the occurrence numbering at all, and where they do
+resolve they include parts the design does not stuff, so reading it as a stuffed
+list would contradict the group that says otherwise.
+
+### 11.4 Measured against a board's own BOM
+
+`LAUNCHXL-CC1310` ships `LAUNCHXL-CC1310_1_3_0_BOM.xlsx`, generated by CIS from
+these variants. Twenty-five of its part references carry Part Number `DNM` and
+Quantity 0, and the `DNM` group resolves to exactly those twenty-five, with
+nothing missing and nothing extra:
+
+`A1 C24 C58 FIDU1`–`FIDU6 MH1`–`MH5 P8 R13 R19 R21 R46`–`R49 R51 R59 R60`
+
+Eleven of them were already flagged by the marker detection the DAT path runs;
+the other fourteen are generic parts whose value says nothing, and those are the
+ones this reads. Across the corpus the store adds 25 unstuffed parts on
+LAUNCHXL-CC1310, 77 on reServer J2032 and 289 on reServer J401, and changes
+nothing on the eight designs that declare no variants.
+
+---
+
+## 12. Netlist Assembly Logic
 
 This section describes how the parser combines data from all streams into a netlist. This is application logic, not file format, but it's tightly coupled to format understanding.
 
-### 11.1 Pin Number Resolution
+### 12.1 Pin Number Resolution
 
 **Confidence: VERIFIED**
 
@@ -1004,7 +1146,7 @@ Example: `RJ45_1x4_LPJE104-0BENL`, a quad RJ45 whose fourth section has a second
 
 The design's own `pstchip.dat` agrees, writing the second shield pin as `SHD2` with `PIN_NUMBER='(0,0,0,S5)'`: present only on the fourth section, `0` on the rest.
 
-### 11.2 Pin Name Resolution
+### 12.2 Pin Name Resolution
 
 **Confidence: VERIFIED**
 
@@ -1054,7 +1196,7 @@ So a design whose sequential walk failed early came out with pin numbers for eve
 
 With both fixed, pin function names match the DAT export on 8105 of 8105 pins across all 11 fixtures.
 
-### 11.3 Package Key Matching
+### 12.3 Package Key Matching
 
 **Confidence: VERIFIED**
 
@@ -1087,7 +1229,7 @@ This replaced an earlier heuristic that sorted each `(refdes, pkgName)` group by
 
 Measured over the Cadence fixture corpus, nets whose pin set disagrees with the DAT reference fell from **79 to 24** (98.4% → 99.5%), with no design regressing. Geometric orderings were tested as alternatives to `dbId` and every one was worse (`locY` 81, `locX` 103, descending variants 131 and 139).
 
-### 11.4 Net Name Resolution
+### 12.4 Net Name Resolution
 
 **Confidence: VERIFIED**
 
@@ -1131,7 +1273,7 @@ rules in §11.1 took nets whose pin set disagrees with the DAT reference from
 **24 to 0**, with no design regressing. All 4936 nets across all 11 designs match
 the DAT export exactly, with no net missing and none invented.
 
-### 11.5 Multi-Unit Component Merging
+### 12.5 Multi-Unit Component Merging
 
 **Confidence: VERIFIED**
 
@@ -1139,11 +1281,11 @@ Multi-unit components (e.g., quad op-amps) appear as multiple PlacedInstance rec
 
 ---
 
-## 12. Known Gaps and Limitations
+## 13. Known Gaps and Limitations
 
-### 12.1 Coverage impact analysis
+### 13.1 Coverage impact analysis
 
-Each unknown area in the format is mapped to its impact on parser coverage. PinNum, PinName and Value all read 100% against the DAT export (section 12.5), so none of these gaps costs anything measurable today; the table records what would be at stake if a design exercised them differently.
+Each unknown area in the format is mapped to its impact on parser coverage. PinNum, PinName and Value all read 100% against the DAT export (section 13.5), so none of these gaps costs anything measurable today; the table records what would be at stake if a design exercised them differently.
 
 | Unknown area | Size per occurrence | Impact on PinNum | Impact on PinName | Impact on Value |
 |---|---|---|---|---|
@@ -1154,7 +1296,7 @@ Each unknown area in the format is mapped to its impact on parser coverage. PinN
 | **T0x10 unknown_int** (section 7.7.1) | 4 per pin | None | None | None |
 | **Page tail after OPCs** (section 7) | Variable | None | None | None |
 
-### 12.2 What we don't parse at all
+### 13.2 What we don't parse at all
 
 | Area | Description |
 |------|-------------|
@@ -1171,7 +1313,7 @@ Each unknown area in the format is mapped to its impact on parser coverage. PinN
 | SymbolPin geometry and `port_type` | 28 bytes skipped; only `name` is kept (section 9.4) |
 | SymbolDisplayProp contents | Decoded field by field and attached to their parent structure, but nothing downstream of the parsers ever reads them; they exist only to advance the position correctly |
 
-### 12.3 Unknown bytes in parsed structures
+### 13.3 Unknown bytes in parsed structures
 
 | Structure | Location | Bytes | Notes |
 |-----------|----------|-------|-------|
@@ -1191,7 +1333,7 @@ Each unknown area in the format is mapped to its impact on parser coverage. PinN
 | SymbolPin | After port_type | 4 | Unknown |
 | Hierarchy net record | Per record | **24** | Fixed metadata; may contain DB object IDs |
 
-### 12.4 Heuristics that could break
+### 13.4 Heuristics that could break
 
 | Heuristic | Risk | Impact if wrong |
 |-----------|------|-----------------|
@@ -1207,7 +1349,7 @@ Each unknown area in the format is mapped to its impact on parser coverage. PinN
 | Cache scan bounds (64 pairs, 10 long prefixes) | Low | A wider prefix chain goes unrecovered; the parse throws rather than misreads |
 | Wireless sentinel nets matched to hierarchy `N{n}` names by sort order | Medium | Pin-to-pin nets named after the wrong hierarchy entry |
 
-### 12.5 Coverage vs DAT golden
+### 13.5 Coverage vs DAT golden
 
 Reproduce with `node --import tsx scripts/dsn-coverage-report.ts`. Aggregate over the 11 Cadence fixtures:
 
@@ -1220,7 +1362,7 @@ Reproduce with `node --import tsx scripts/dsn-coverage-report.ts`. Aggregate ove
 | PinNum | 24001/24001 (100.0%) | |
 | PinName | 8105/8105 (100.0%) | |
 | MPN | 5870/6774 (86.7%) | 5456 substring; see below |
-| DNS | 0/76 (0.0%) | not implemented, section 12.6 |
+| DNS | 391/456 (85.7%) | variant store read, markers not; section 13.6 |
 
 `Nets` and `Comps` match on names alone, so a net that survives with the wrong pins on it still scores as covered. `Conn` is the column that catches that: for every net present in both netlists it compares the actual `{refdes.pin}` set. Both being at 100% is what makes the net numbers meaningful.
 
@@ -1233,28 +1375,40 @@ Per design, every one of the 11 fixtures reads 100.0% on Nets, Conn, Comps, Valu
 | BB-Black (BeagleBoard) | 100.0% | n/a |
 | CutiePi | 96.6% | 0.0% |
 | CC13xx | 2.1% | 0.0% |
-| LAUNCHXL-CC1310 | 9.8% | 0.0% |
+| LAUNCHXL-CC1310 | 9.8% | 100.0% |
 | reComputer J201 | 100.0% | n/a |
 | reComputer J202 | 100.0% | n/a |
 | reComputer J401 | 100.0% | n/a |
-| reServer J401 | 95.6% | n/a |
-| reServer J2032 | 23.2% | n/a |
+| reServer J401 | 95.6% | 100.0% |
+| reServer J2032 | 23.2% | 100.0% |
+
+The three designs at 100% are the three that declare a variant (section 11). The
+65 unread flags are all marker-based: BeagleBoard-xM 38, CutiePi 22, CC13xx 5.
 
 **MPN is not a defect measure.** DSN extracts a real manufacturer part number from the prefix property pairs, while the DAT golden carries a composite string, so an exact match is not the goal and the low numbers on CC13xx and reServer J2032 reflect that difference in kind. The report counts a substring hit separately for this reason.
 
 **BEAGLEBONEBLK_C3_BEAGLEBOARD is not measured against Cadence.** It ships no `pstxnet.dat`, so its golden is a snapshot of this parser's own output. Its 100% says the parser is self-consistent on that design, not that it is correct, and it should not be read as an eleventh independent confirmation.
 
-### 12.6 DNS (Do Not Stuff) detection
+### 13.6 DNS (Do Not Stuff) detection
 
-Not implemented in the DSN parser: no component it builds ever carries a `dns` flag, which is the 0/76 in section 12.5. The DAT path and the Altium path both set the flag, so the gap is specific to reading a `.DSN` directly.
+Partially implemented. The `dns` flag is set for every part a design's variants leave
+off the board, read from the CIS variant store (section 11), which is the 391/456 in
+section 13.5. That is the whole flag on the three fixtures declaring a variant.
+
+What a `.DSN` read directly still misses is the marker-based set the DAT path finds by
+reading `pstxprt.dat` part names: 65 parts across BeagleBoard-xM, CutiePi and CC13xx.
+A query normally arrives at the DAT path for these designs, since `list_designs` hands
+out `pstxnet.dat` wherever one exists, so the gap shows up only when a `.DSN` is read
+on its own. Both sets are needed to answer for a design carrying both, and no fixture
+does.
 
 Some designs mark DNS via:
 - Structured property in prefix (detectable but not checked)
 - Graphical text on schematic only (invisible to any binary parser)
 
-Section 12.7 is a separate mechanism: it cleans a marker out of a value string, and does not set the flag.
+Section 13.7 is a separate mechanism: it cleans a marker out of a value string, and does not set the flag.
 
-### 12.7 DNS markers in value strings
+### 13.7 DNS markers in value strings
 
 **Confidence: OBSERVED**
 
@@ -1268,7 +1422,7 @@ Matching is case-insensitive. This is a DSN-specific regex in `component-builder
 
 The cleanup took BBxM value coverage from 90.9% to 99.1% when it landed; value now reads 100% on every fixture.
 
-### 12.8 Reference material
+### 13.8 Reference material
 
 - [OpenOrCadParser](https://github.com/Werni2A/OpenOrCadParser) - C++ reference implementation (local copy at `references/OpenOrCadParser/`, gitignored)
 
@@ -1284,4 +1438,4 @@ Key C++ source files for cross-referencing unknown bytes or new structure types:
 | `src/Streams/StreamLibrary.cpp` | `dsn/library-parser.ts` | Library stream / strLst |
 | `src/Structures/` | `dsn/structures.ts` | All structure parsers |
 
-`dsn/dsn-parser.ts` is the orchestrator that opens the container, discovers the streams and calls the above; `dsn/net-builder.ts`, `dsn/pin-resolver.ts` and `dsn/component-builder.ts` implement section 11 and have no C++ counterpart.
+`dsn/dsn-parser.ts` is the orchestrator that opens the container, discovers the streams and calls the above; `dsn/net-builder.ts`, `dsn/pin-resolver.ts` and `dsn/component-builder.ts` implement section 12 and have no C++ counterpart.
