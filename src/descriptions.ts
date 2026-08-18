@@ -64,8 +64,9 @@ The type is the refdes prefix, matched whole and case-insensitively: "u" gives U
 U2 but NOT USB1, whose prefix is USB, and "tp" gives the test points. Asking for a \
 partial prefix returns nothing rather than everything starting with it, so if a part you \
 expected is missing, look for it under its own prefix. \
-Components are grouped by MPN for compact output, and a group whose parts carry no MPN \
-says so in its notes. \
+Identical components are grouped for compact output: parts share a group only when their \
+MPN, description, comment and value all agree, so every field a group reports is true of \
+every part in it. A group whose parts carry no MPN says so in its notes. \
 If no components match, the error lists every prefix the design does have.`;
 
 export const LIST_NETS_DESCRIPTION = `\
@@ -84,8 +85,9 @@ Rejects patterns that match all items; use list_nets for full results.`;
 
 export const SEARCH_COMPONENTS_BY_REFDES_DESCRIPTION = `\
 Search for components by refdes pattern. Matching is case-insensitive. \
-Results are grouped by MPN for compact output, \
-with a notes field when nothing matches. \
+Identical components are grouped for compact output, on MPN, description, comment and \
+value together, so every field a group reports is true of every part in it. \
+A notes field is returned when nothing matches. \
 Rejects patterns that match all items; use list_components for full results.`;
 
 export const SEARCH_COMPONENTS_BY_MPN_DESCRIPTION = `\

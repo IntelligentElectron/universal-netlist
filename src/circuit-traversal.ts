@@ -107,6 +107,20 @@ export const matchesRefdesType = (refdes: string, type: string): boolean =>
  */
 export const hasDnsMarker = (text: string): boolean => DNS_PATTERN.test(text);
 
+// A value field is where units live, and `NF` is the one marker token that is
+// also a unit: a value writes nanofarads far more often than "no fit", and
+// `2.2 nF` carries a delimited `nF` that would otherwise unstuff a fitted
+// capacitor. It is the only token dropped here. `NC` stays, because a Cadence
+// value writes `10K_NC` to mean the part is off the board, which is why
+// `cleanDnsFromValue` has always stripped that suffix.
+const DNS_VALUE_PATTERN =
+  /(?:^|[_,\s])(DNS|DNP|DNF|DNI|DNM|NC)(?:$|[_,\s])|DO\s*NOT\s*(STUFF|POPULATE|INSTALL|FIT|MOUNT)|NOT\s*(POPULATED|FITTED|CONNECTED|MOUNTED)|NO\s*POP/i;
+
+/**
+ * Whether a component's value carries a Do Not Stuff marker.
+ */
+export const hasDnsValueMarker = (text: string): boolean => DNS_VALUE_PATTERN.test(text);
+
 /**
  * Detect Do Not Stuff components using common markers.
  */

@@ -640,3 +640,48 @@ describe("readSheetNumber", () => {
     expect(readSheetNumber(schematic)).toBe("2");
   });
 });
+
+/**
+ * Altium designs conventionally mark a part Do Not Populate by writing the
+ * marker into Value and leaving every other field ordinary — a resistor whose
+ * Value reads `DNP`. That field was not read, so those parts were reported as
+ * stuffed; the temperatureSensor fixture carries two of them.
+ */
+describe("Do Not Stuff written into Value", () => {
+  const withValue = (designator: string, value: string): AltiumSchematic => ({
+    header: [],
+    records: [
+      {
+        index: 0,
+        RECORD: RECORD_TYPES.COMPONENT,
+        children: [
+          { index: 1, RECORD: RECORD_TYPES.DESIGNATOR, Text: designator } as AltiumRecord,
+          {
+            index: 2,
+            RECORD: RECORD_TYPES.PARAMETER,
+            Name: "Value",
+            Text: value,
+          } as AltiumRecord,
+        ],
+      } as AltiumRecord,
+    ],
+  });
+
+  it("marks a part whose Value is DNP", () => {
+    expect(extractComponents(withValue("R1", "DNP")).R1?.dns).toBe(true);
+  });
+
+  it("marks a part whose Value carries the marker beside the value", () => {
+    expect(extractComponents(withValue("R2", "10K, DNP")).R2?.dns).toBe(true);
+  });
+
+  it("leaves a capacitor whose value is written in nanofarads alone", () => {
+    // `2.2 nF` puts a delimited `nF` in the value, which the marker test used
+    // to read as "no fit" and would have unstuffed a fitted capacitor.
+    expect(extractComponents(withValue("C1", "2.2 nF")).C1?.dns).toBeUndefined();
+  });
+
+  it("leaves an ordinary value alone", () => {
+    expect(extractComponents(withValue("R3", "10K")).R3?.dns).toBeUndefined();
+  });
+});

@@ -15,7 +15,7 @@
 import path from "path";
 import type { ParsedNetlist, NetConnections, ComponentDetails, PinEntry } from "../../types.js";
 import { createPinEntry } from "../../types.js";
-import { isDnsComponent, stripDnsMarkers } from "../../circuit-traversal.js";
+import { isDnsComponent, hasDnsValueMarker, stripDnsMarkers } from "../../circuit-traversal.js";
 import type { AltiumSchematic, AltiumNet, AltiumRecord, OutputFormat } from "./types.js";
 import {
   RECORD_TYPES,
@@ -382,11 +382,15 @@ export const extractComponents = (schematic: AltiumSchematic): ComponentDetails 
 
     // Check assembly info parameter for NF/DNS markers (Altium stores these as RECORD=41 parameters)
     const assemblyInfo = parameters["assembly info"];
+    // Altium designs conventionally write the marker into Value — a resistor
+    // reading `DNP` and nothing else — so that field is read too, against the
+    // marker set that leaves out the token a value writes as a unit.
     if (
       isDnsComponent({
         ...component,
         comment: [component.comment, assemblyInfo].filter(Boolean).join(" "),
-      })
+      }) ||
+      hasDnsValueMarker(component.value ?? "")
     ) {
       component.dns = true;
       if (component.mpn) component.mpn = stripDnsMarkers(component.mpn);

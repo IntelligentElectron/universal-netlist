@@ -41,8 +41,20 @@ export const groupComponentsByMpn = (
     const commentValue = component.comment?.trim() || undefined;
     const valueValue = component.value?.trim() || undefined;
 
+    // A group speaks for every part in it, so parts only share one when the
+    // fields it reports are the same. Keying on MPN alone merged parts that a
+    // design gives a shared placeholder MPN — `R` for every resistor, `CC` for
+    // every capacitor, `N.A.` for anything unassigned — and the group then
+    // reported the first member's value for all of them, answering 5.1R for
+    // 271 resistors of which the first was 0R.
     const keyBase = mpnTrimmed ? `mpn:${mpnTrimmed}` : `refdes:${refdes}`;
-    const groupKey = `${keyBase}||dns:${dns ? "1" : "0"}`;
+    const groupKey = [
+      keyBase,
+      `desc:${descriptionValue ?? ""}`,
+      `comment:${commentValue ?? ""}`,
+      `value:${valueValue ?? ""}`,
+      `dns:${dns ? "1" : "0"}`,
+    ].join("||");
 
     if (!groups.has(groupKey)) {
       groups.set(groupKey, {
@@ -54,8 +66,6 @@ export const groupComponentsByMpn = (
         notes: mpnTrimmed ? undefined : [MPN_MISSING_NOTE],
         refdes: [],
       });
-    } else if (valueValue && !groups.get(groupKey)!.value) {
-      groups.get(groupKey)!.value = valueValue;
     }
 
     groups.get(groupKey)!.refdes.push(refdes);
@@ -143,7 +153,16 @@ export const aggregateCircuitByMpn = (
 
     const nets = comp.connections.map((p) => p.net);
     const netPair = [...nets].sort().join("|");
-    const groupKey = `${aggregationKey}||${netPair}||dns:${dnsFlag ? "1" : "0"}`;
+    // Same rule as groupComponentsByMpn: the reported fields join the key, so a
+    // shared placeholder MPN cannot make one part's value stand for another's.
+    const groupKey = [
+      aggregationKey,
+      netPair,
+      `desc:${description}`,
+      `comment:${comp.comment ?? ""}`,
+      `value:${value ?? ""}`,
+      `dns:${dnsFlag ? "1" : "0"}`,
+    ].join("||");
 
     if (!groups.has(groupKey)) {
       groups.set(groupKey, {
@@ -155,8 +174,6 @@ export const aggregateCircuitByMpn = (
         notes: mpn ? undefined : [MPN_MISSING_NOTE],
         orientations: new Map(),
       });
-    } else if (value && !groups.get(groupKey)!.value) {
-      groups.get(groupKey)!.value = value;
     }
 
     const orientationKey = comp.connections.map((p) => `${p.pins.join(",")}:${p.net}`).join("|");
