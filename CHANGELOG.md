@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.0] - 2026-08-18
+
+Two things about what the tools hand back. A Cadence query now names the
+schematic rather than a netlist exported from it, because the schematic is the
+design as it stands and carries what the export cannot. And a group of
+components now speaks only for the parts it actually describes. Grouping keyed
+on MPN alone, so a design that gives every resistor the same placeholder MPN
+answered with a single group whose one value stood for hundreds of physically
+different parts. Every tool here was exercised against all 40 fixtures across
+Cadence, Altium and KiCad over a real MCP connection, which is how that was
+found.
+
+### Changed
+
+- `list_designs` returns one path per design, the design's own file: a `.DSN`, a `.PrjPcb`, a `.kicad_pro`, or the netlist of a design that is only a netlist. For a Cadence design with an exported triad beside it, `path` was the `pstxnet.dat` and the schematic was reported separately as `source`; `path` is now the `.DSN` and `source` is gone. The schematic is the design as it stands, and it carries what an exported netlist cannot: a part a CIS variant leaves off the board is written to the triad exactly like a part that is stuffed. Reading a `.DSN` takes longer than reading a triad, and nothing is held between tool calls, so that cost lands on each query (PR #162)
+- `export_cadence_netlist` is deprecated. It stays for backward compatibility and still writes a netlist for Allegro, which is the reason to call it, and it is no longer a step towards querying a design. The instruction to run it and re-run `list_designs` before querying is gone (PR #162)
+- Tool detail moved out of the server instructions and into the descriptions of the tools it belongs to, so a tool carries its own gotchas: the whole-prefix rule on `list_components`, the sheet-path prefixing of KiCad hierarchical nets on `search_nets`, the `NC` marker on `query_component` (PR #162)
+- `query_xnet_by_net_name` and `query_xnet_by_pin_name` said traversal stops at power and ground nets without saying which nets those are. They now name both tests, the rail name pattern and carrying more than 40 pins, and say that a rail named outside them is traversed like a signal. LimeSDR's `VDIO_LMS` is a 22-pin rail matching neither, so a query on `LMS_TXEN` crosses its pull-up and returns 31 components across 15 nets. `visited_nets` is where that breadth is visible, and `skip_types` now names `R` alongside `C` and `L`, since the passive that opens a rail like this is a pull-up resistor. `run_erc`'s `skipped` counts are documented too (PR #163)
+
+### Fixed
+
+- Component grouping reported one part's value and description for every part sharing its MPN. A design that gives every resistor the MPN `R` and every capacitor `CC`, which the OSHW Jetson carriers do, collapsed into a single group: `list_components(type: "R")` on reComputer J202 answered one group of 271 resistors valued `5.1R`, where R1 is `0R` and R2 is `5.1K`. Placeholder MPNs do the same elsewhere, with `N.A.` on pca10056 putting a resistor and a capacitor in one group described as a 12pF ceramic. Parts now share a group only when MPN, description, comment and value all agree, so every field a group reports is true of every part in it, and those 271 resistors become 30 groups. Across six designs from all three vendors this was 73 mixed groups hiding 347 distinct value and description combinations. Affects `list_components`, `search_components_by_*`, `query_xnet_by_net_name` and `query_xnet_by_pin_name` (PR #163)
+- Altium parts marked Do Not Populate by writing the marker into their Value field, which is the usual convention, were reported as stuffed and counted in every result that leaves Do Not Stuff out (PR #163)
+- A value written with a space before its unit, such as `2.2 nF`, could be read as a "no fit" marker and reported Do Not Stuff. Value fields are now read against a marker set that leaves out `NF`, the one token that is also a unit. `NC` stays, because a Cadence value writes `10K_NC` to mean the part is off the board (PR #163)
+- `ParsedNetlist` no longer claims to be cached in memory. Nothing is held between tool calls: every call reads and parses the design again (PR #162)
+
 ## [1.5.4] - 2026-08-18
 
 A Cadence design records Do Not Install two ways, and this release reads both.
