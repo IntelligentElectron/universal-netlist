@@ -36,28 +36,23 @@ Supported formats:
 // =============================================================================
 
 export const LIST_DESIGNS_DESCRIPTION = `\
-List all design projects in the given directory, with the path to query for each. \
+List all design projects in the given directory, one path each: a .DSN, a .PrjPcb, a \
+.kicad_pro, or the netlist of a design that is only a netlist. That path is the design, \
+and it is what every other tool takes. \
 Always use this tool to discover designs instead of searching the filesystem manually.
 
-Cadence: \`path\` is the .DSN schematic, and that is what to query. It is the design as \
-it stands, and it carries what an exported netlist cannot: a part a CIS variant leaves \
-off the board is written to the .dat triad exactly like a part that is stuffed, with an \
-ordinary value and all of its connections, so nothing in those files marks it. Where a \
-netlist has been exported beside the design, its pstxnet.dat is reported as \`netlist\`; \
-reading that is supported and agrees on Do Not Stuff, because the schematic is read \
-alongside it, but it is a snapshot taken when it was exported rather than the design. \
-Reading a .DSN takes longer, which is the cost of reading the design rather than a \
-summary of it. A design that has only a netlist reports it as \`path\`, there being no \
-schematic to prefer.
+Cadence: the path is the .DSN schematic. It is the design as it stands, and it carries \
+what an exported netlist cannot: a part a CIS variant leaves off the board is written to \
+the .dat triad exactly like a part that is stuffed, with an ordinary value and all of its \
+connections, so nothing in those files marks it. Reading a .DSN takes longer than reading \
+a triad, which is the cost of reading the design rather than a summary of it.
 
 If a query reports missing netlist files: a CIS design has nothing to fix, re-run this \
 tool and use the .DSN it reports. An HDL (.cpm) design has no .DSN and does need a \
 netlist, which \`export_cadence_netlist\` cannot write; those are written from Cadence, \
 Tools → Create Netlist → PCB Editor format.
 
-Altium: \`path\` is the .PrjPcb.
-
-KiCad: \`path\` is the .kicad_pro, and its netlist resolves automatically when queried, so \
+KiCad: the path is the .kicad_pro, and its netlist resolves automatically when queried, so \
 nothing needs exporting by hand. A committed kicadsexpr export (<project>.net) beside the \
 project is parsed directly, needing no KiCad install; otherwise kicad-cli generates one on \
 demand (requires KiCad installed; set KICAD_CLI_PATH for a non-standard location). If \
@@ -141,8 +136,8 @@ license or timeout errors. DSN lock files are handled automatically. \
 Output goes to \`<design>_netlist/\` beside the .DSN, so several designs \
 in one folder no longer overwrite each other's netlist; a folder holding a \
 single design that already has an \`allegro/\` directory keeps using it. \
-After a successful export, re-run \`list_designs\` \
-to see the netlist beside the design.`;
+After a successful export the netlist sits beside the design; \
+\`list_designs\` keeps reporting the .DSN, which is what to query.`;
 
 export const RUN_ERC_DESCRIPTION = `\
 Run electrical rule checks (ERC) on a design's netlist and return findings grouped \

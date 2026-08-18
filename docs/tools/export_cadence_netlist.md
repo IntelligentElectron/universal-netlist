@@ -127,4 +127,4 @@ Response (success):
 - Timeout is set to 2 minutes for large designs
 - Concurrent calls are queued and run one at a time to avoid Cadence license conflicts
 - `.DSNlck` lock files are automatically relocated during export and restored afterward
-- After a successful export, re-run `list_designs` to see the netlist beside the design. For a CIS design `path` stays the `.DSN`, which is what to query; the exported netlist is reported as `netlist`
+- After a successful export, the netlist sits beside the design. `list_designs` keeps reporting the `.DSN`, which is what to query

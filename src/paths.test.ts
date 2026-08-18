@@ -222,7 +222,7 @@ describe("listDesigns searchPath and pattern", () => {
 // =============================================================================
 
 describe("listDesigns Cadence path priority", () => {
-  it("returns .DSN as path and source, and pstxnet.dat as netlist, when .dat files exist", async () => {
+  it("returns the .DSN as the one path when .dat files exist beside it", async () => {
     vi.mocked(parsers.discoverDesigns).mockResolvedValue([
       {
         name: "Board",
@@ -239,14 +239,14 @@ describe("listDesigns Cadence path priority", () => {
     const result = await listDesigns();
 
     expect(Array.isArray(result)).toBe(true);
-    const design = (result as Array<{ path: string; source?: string; netlist?: string }>)[0];
+    const design = (result as Array<{ path: string }>)[0];
     expect(design.path).toBe("C:\\projects\\Board.DSN");
-    expect(design.netlist).toBe("C:\\projects\\Allegro\\pstxnet.dat");
-    // source has always named the schematic, and still does.
-    expect(design.source).toBe("C:\\projects\\Board.DSN");
+    // One path, and it is the design. The netlist beside it is not reported.
+    expect(design).not.toHaveProperty("source");
+    expect(design).not.toHaveProperty("netlist");
   });
 
-  it("returns .DSN as path with no netlist when no .dat files exist", async () => {
+  it("returns the .DSN as the one path when no .dat files exist", async () => {
     vi.mocked(parsers.discoverDesigns).mockResolvedValue([
       {
         name: "Board",
@@ -259,9 +259,8 @@ describe("listDesigns Cadence path priority", () => {
     const result = await listDesigns();
 
     expect(Array.isArray(result)).toBe(true);
-    const design = (result as Array<{ path: string; source?: string; netlist?: string }>)[0];
+    const design = (result as Array<{ path: string }>)[0];
     expect(design.path).toBe("C:\\projects\\Board.DSN");
-    expect(design.netlist).toBeUndefined();
   });
 });
 
