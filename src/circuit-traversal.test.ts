@@ -16,6 +16,7 @@ import {
   naturalSort,
   traverseCircuitFromNet,
   computeCircuitHash,
+  hasDnsValueMarker,
 } from "./circuit-traversal.js";
 import type { NetConnections, ComponentDetails } from "./types.js";
 
@@ -1192,5 +1193,42 @@ describe("stripDnsMarkers", () => {
   it("should preserve non-DNS content unchanged", () => {
     expect(stripDnsMarkers("10K,1%")).toBe("10K,1%");
     expect(stripDnsMarkers("CAP_0603")).toBe("CAP_0603");
+  });
+});
+
+/**
+ * The marker test a value field is read with.
+ *
+ * A value carries units, and `NF` is the one marker token that is also one.
+ * `isDnsComponent` reads mpn, description and comment, where `NF` genuinely
+ * means "no fit"; a value writes nanofarads, and reading it with the same set
+ * would unstuff a fitted capacitor whose value is written `2.2 nF`. Both the
+ * Cadence `.DSN` path and the Altium parser read values through this.
+ */
+describe("hasDnsValueMarker", () => {
+  it("reads the markers a value writes to mean Do Not Stuff", () => {
+    for (const value of ["DNP", "DNS", "DNI", "DNM", "10K,DNI", "DNM_0402", "10K_NC", "NC"]) {
+      expect(hasDnsValueMarker(value)).toBe(true);
+    }
+  });
+
+  it("reads the phrases spelled out", () => {
+    for (const value of ["DO NOT STUFF", "Do Not Populate", "NOT FITTED", "NO POP"]) {
+      expect(hasDnsValueMarker(value)).toBe(true);
+    }
+  });
+
+  it("leaves a capacitance written with a space before the unit alone", () => {
+    // The delimited `nF` here is what `isDnsComponent` reads as "no fit".
+    for (const value of ["2.2 nF", "1 nF", "10 NF", "4.7 nf"]) {
+      expect(isDnsComponent({ mpn: value })).toBe(true);
+      expect(hasDnsValueMarker(value)).toBe(false);
+    }
+  });
+
+  it("leaves ordinary values alone", () => {
+    for (const value of ["100nF", "10K", "0R", "1uF", "4.7uH", "5.1K"]) {
+      expect(hasDnsValueMarker(value)).toBe(false);
+    }
   });
 });
