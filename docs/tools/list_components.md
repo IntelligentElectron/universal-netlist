@@ -4,14 +4,16 @@ List components of a specific type in a design.
 
 ## Description
 
-Lists all components matching a reference designator prefix (e.g., `U` for ICs, `R` for resistors). Components are grouped by MPN for compact output.
+Lists the components whose reference designator prefix is exactly `type` (e.g., `U` for ICs, `R` for resistors). Components are grouped by MPN for compact output.
+
+The prefix is matched whole, not as a leading substring: `U` returns `U1` and `U2` but **not** `USB1`, whose prefix is `USB`. A partial prefix therefore returns nothing rather than everything beneath it, so a part that seems to be missing is usually filed under a prefix of its own. The error for an unmatched type lists every prefix the design actually has.
 
 ## Input Parameters
 
 | Parameter | Type | Required | Default | Description |
 |-----------|------|----------|---------|-------------|
 | `design` | string | Yes | - | Path to design file (e.g., `./Design.PrjPcb`) |
-| `type` | string | Yes | - | Component prefix: `U`, `C`, `R`, `L`, `J`, `D`, `Q`, etc. |
+| `type` | string | Yes | - | Whole refdes prefix: `U`, `C`, `R`, `L`, `J`, `D`, `Q`, `TP`, `USB`, etc. |
 | `include_dns` | boolean | No | `false` | Include DNS (Do Not Stuff) components |
 
 ## Response Schema
@@ -75,6 +77,7 @@ Response:
 ## Notes
 
 - The `type` parameter is case-insensitive (`u` and `U` both work)
+- `type` matches the whole prefix, so `U` does not return `USB1`, and `TP` returns the test points. Query each prefix you need, or read the list the unmatched-type error gives you
 - Components are grouped by MPN; components without MPN are listed individually
 - Components without MPN include a `notes` field suggesting next steps
 - Use `include_dns: true` to see DNS components (marked with `dns: true`)
