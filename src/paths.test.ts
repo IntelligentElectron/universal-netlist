@@ -153,9 +153,15 @@ describe("resolvePath", () => {
 
 // Forward slashes throughout: the win32 path module accepts them as separators
 // and the posix one does not accept backslashes, so these read the same on
-// either host. `process.platform` is mocked to win32 above and has no bearing
-// here, since getDesignName never reads it.
+// either host. The platform and working directory the surrounding suite sets up
+// for the Windows path tests are replaced here, since getDesignName resolves
+// relative paths and a Windows-shaped cwd makes those unreadable.
 describe("getDesignName", () => {
+  beforeEach(() => {
+    definePlatform("linux");
+    vi.spyOn(process, "cwd").mockReturnValue("/work/BeagleBone-Black-copy");
+  });
+
   it("strips the directory and extension", () => {
     expect(getDesignName("/projects/board-rev-c/top.dsn")).toBe("top");
     expect(getDesignName("/projects/Board.PrjPcb")).toBe("Board");
@@ -199,6 +205,31 @@ describe("getDesignName", () => {
 
   it("leaves an unrelated .dat named after its file", () => {
     expect(getDesignName("/fixtures/cadence/Board/netlist.dat")).toBe("netlist");
+  });
+
+  // Resolving is what makes these work. Read as typed, a bare filename has "."
+  // for a directory and would be named ".", which is worse than the "pstxnet"
+  // this replaces; resolved, it is a file in the working directory and takes
+  // that directory's name.
+  it("names a relative path after the directory it resolves to", () => {
+    expect(getDesignName("pstxnet.dat")).toBe("BeagleBone-Black-copy");
+    expect(getDesignName("./pstxnet.dat")).toBe("BeagleBone-Black-copy");
+    expect(getDesignName("../BeagleBone-Black-copy/pstxnet.dat")).toBe("BeagleBone-Black-copy");
+  });
+
+  it("names a relative non-triad path after its own file", () => {
+    expect(getDesignName("Board.DSN")).toBe("Board");
+    expect(getDesignName("./sub/Board.DSN")).toBe("Board");
+  });
+
+  // Agents send Windows-style paths whatever the host, which is what resolvePath
+  // exists to absorb. Read as typed on a Unix host, none of this is a separator
+  // and the whole string is the name.
+  it("reads a Windows-style path on a Unix host", () => {
+    expect(getDesignName("C:\\fixtures\\BeagleBone-Black-copy\\pstxnet.dat")).toBe(
+      "BeagleBone-Black-copy"
+    );
+    expect(getDesignName("C:\\fixtures\\Board.DSN")).toBe("Board");
   });
 
   // There is no directory to be named after, and an empty name is worse than

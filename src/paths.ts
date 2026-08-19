@@ -43,14 +43,21 @@ export const resolvePath = (inputPath: string): string => {
  * Example: "/projects/BeagleBone-Black-copy/pstxnet.dat" -> "BeagleBone-Black-copy"
  */
 export const getDesignName = (design: string): string => {
-  const base = path.basename(design);
+  // Resolved the same way `loadNetlist` resolves it, so the name describes the
+  // file that was actually read rather than whatever string the caller typed.
+  // A bare filename, a relative path and a Windows-style path on a Unix host all
+  // reach the same design, and this makes all three name it the same way.
+  const resolved = resolvePath(design);
+  const base = path.basename(resolved);
   if (REQUIRED_DAT_FILES.includes(base.toLowerCase() as (typeof REQUIRED_DAT_FILES)[number])) {
-    // A .dat sitting at the root of a filesystem has no directory to be named
-    // after, and an empty name is worse than the one this replaces.
-    const parent = path.basename(path.dirname(design));
+    // Resolving first is what makes one guard enough here: an absolute path's
+    // directory is either a real directory or the root, so `.` and `..` cannot
+    // reach this. The root has no name to give, and an empty one is worse than
+    // the name it replaces.
+    const parent = path.basename(path.dirname(resolved));
     if (parent) return parent;
   }
-  return path.basename(design, path.extname(design));
+  return path.basename(resolved, path.extname(resolved));
 };
 
 /**
