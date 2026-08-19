@@ -447,7 +447,21 @@ describe("listDesigns search root", () => {
 
     const result = await listDesigns();
 
-    expect(notesOf(result).join(" ")).toContain("No path was given");
+    expect(notesOf(result).join(" ")).toContain("No directory was named");
+  });
+
+  // `path` is an optional string, so a caller can send it empty. That is not a
+  // directory, and it reaches the working directory by the same route an absent
+  // argument does, so it earns the same note rather than passing for a choice.
+  it("treats a blank path as no path", async () => {
+    vi.mocked(parsers.discoverDesigns).mockResolvedValue([]);
+
+    for (const blank of ["", "   ", "\t"]) {
+      const result = await listDesigns({ searchPath: blank });
+
+      expect((result as { root: string }).root).toBe("C:\\projects");
+      expect(notesOf(result).join(" ")).toContain("No directory was named");
+    }
   });
 
   it("says nothing about the working directory when a path is given", async () => {
@@ -455,7 +469,7 @@ describe("listDesigns search root", () => {
 
     const result = await listDesigns({ searchPath: "sub\\dir" });
 
-    expect(notesOf(result).join(" ")).not.toContain("No path was given");
+    expect(notesOf(result).join(" ")).not.toContain("No directory was named");
   });
 });
 

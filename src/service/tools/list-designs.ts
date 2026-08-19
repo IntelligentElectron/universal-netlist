@@ -20,7 +20,14 @@ export const listDesigns = async (
   options: ListDesignsOptions = {}
 ): Promise<ListDesignsResult | ErrorResult> => {
   const { searchPath, pattern = ".*", maxDepth, maxResults = 50 } = options;
-  const resolvedPath = resolvePath(searchPath ?? ".");
+  // A blank string is not a directory, and it reaches the working directory by
+  // the same route an absent argument does: `path.normalize("")` is ".". Treated
+  // as a path it would resolve to that default while skipping the note saying
+  // so, which is the silent fallback this function reports. The untrimmed string
+  // is what gets resolved, so a directory whose name really does carry spaces
+  // still resolves to itself.
+  const requestedPath = searchPath?.trim() ? searchPath : undefined;
+  const resolvedPath = resolvePath(requestedPath ?? ".");
 
   const parsed = parseRegexPattern(pattern);
   if ("error" in parsed) return parsed;
@@ -44,9 +51,9 @@ export const listDesigns = async (
   // arrives here as no path at all and searches the same default. Both return
   // real designs from a directory nobody asked about, which is indistinguishable
   // from a correct answer unless the result says where it looked.
-  if (searchPath === undefined) {
+  if (requestedPath === undefined) {
     notes.push(
-      `No path was given, so the search ran in the server's working directory. ` +
+      `No directory was named, so the search ran in the server's working directory. ` +
         `That is where the server was launched, which is not necessarily where you are. ` +
         `Pass 'path' to search a directory you choose.`
     );

@@ -42,12 +42,12 @@ and it is what every other tool takes. \
 Always use this tool to discover designs instead of searching the filesystem manually.
 
 The result names the directory it searched in \`root\`, and reading it is worth the \
-glance: \`path\` is optional, and omitting it searches the server's working directory, \
-which is where the server was launched and not necessarily where you are. An argument \
-the schema does not define is dropped before it arrives, so a misspelled \`path\` \
-behaves exactly like an omitted one. Either way the answer is a list of real designs \
-from a directory nobody asked about, and \`root\` is what distinguishes it from a \
-correct one. A result cut short by \`max_results\` says so in its notes.
+glance: \`path\` is optional, and omitting it or leaving it blank searches the server's \
+working directory, which is where the server was launched and not necessarily where you \
+are. An argument the schema does not define is dropped before it arrives, so a \
+misspelled \`path\` behaves exactly like an omitted one. Each of those returns a list of \
+real designs from a directory nobody asked about, and \`root\` is what tells it apart \
+from a correct answer. A result cut short by \`max_results\` says so in its notes.
 
 Cadence: the path is the .DSN schematic. It is the design as it stands, and it carries \
 what an exported netlist cannot: a part a CIS variant leaves off the board is written to \
