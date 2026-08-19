@@ -110,7 +110,7 @@ export const createServer = (): McpServer => {
       title: "List designs",
       description: LIST_DESIGNS_DESCRIPTION,
       annotations: READ_ONLY,
-      inputSchema: {
+      inputSchema: z.strictObject({
         path: z.string().optional().describe("Path to directory to search for designs"),
         pattern: z.string().optional().describe("Regex pattern to filter design names"),
         max_depth: z
@@ -126,7 +126,7 @@ export const createServer = (): McpServer => {
           .optional()
           .default(50)
           .describe("Max designs to return. Default: 50."),
-      },
+      }),
     },
     withTelemetry("list_designs", async ({ path, pattern, max_depth, max_results }) => {
       const result = await listDesigns({
@@ -148,7 +148,7 @@ export const createServer = (): McpServer => {
       title: "List components",
       description: LIST_COMPONENTS_DESCRIPTION,
       annotations: READ_ONLY,
-      inputSchema: {
+      inputSchema: z.strictObject({
         design: z.string().describe("Path to design file, as returned by list_designs"),
         type: z.string().describe("Component prefix: U, C, R, L, etc."),
         include_dns: z
@@ -156,7 +156,7 @@ export const createServer = (): McpServer => {
           .optional()
           .default(false)
           .describe("Include DNS (Do Not Stuff) components"),
-      },
+      }),
     },
     withTelemetry("list_components", async ({ design, type, include_dns }) => {
       const result = await listComponents(design, type, include_dns);
@@ -173,9 +173,9 @@ export const createServer = (): McpServer => {
       title: "List nets",
       description: LIST_NETS_DESCRIPTION,
       annotations: READ_ONLY,
-      inputSchema: {
+      inputSchema: z.strictObject({
         design: z.string().describe("Path to design file"),
-      },
+      }),
     },
     withTelemetry("list_nets", async ({ design }) => {
       const result = await listNets(design);
@@ -192,10 +192,10 @@ export const createServer = (): McpServer => {
       title: "Search nets",
       description: SEARCH_NETS_DESCRIPTION,
       annotations: READ_ONLY,
-      inputSchema: {
+      inputSchema: z.strictObject({
         pattern: z.string().describe("Regex pattern"),
         design: z.string().describe("Path to design file"),
-      },
+      }),
     },
     withTelemetry("search_nets", async ({ pattern, design }) => {
       const result = await searchNets(pattern, design);
@@ -212,11 +212,11 @@ export const createServer = (): McpServer => {
       title: "Search components by refdes",
       description: SEARCH_COMPONENTS_BY_REFDES_DESCRIPTION,
       annotations: READ_ONLY,
-      inputSchema: {
+      inputSchema: z.strictObject({
         pattern: z.string().describe("Regex pattern for refdes"),
         design: z.string().describe("Path to design file"),
         include_dns: z.boolean().optional().default(false).describe("Include DNS components"),
-      },
+      }),
     },
     withTelemetry("search_components_by_refdes", async ({ pattern, design, include_dns }) => {
       const result = await searchComponentsByRefdes(pattern, design, include_dns);
@@ -233,11 +233,11 @@ export const createServer = (): McpServer => {
       title: "Search components by MPN",
       description: SEARCH_COMPONENTS_BY_MPN_DESCRIPTION,
       annotations: READ_ONLY,
-      inputSchema: {
+      inputSchema: z.strictObject({
         pattern: z.string().describe("Regex pattern for MPN"),
         design: z.string().describe("Path to design file"),
         include_dns: z.boolean().optional().default(false).describe("Include DNS components"),
-      },
+      }),
     },
     withTelemetry("search_components_by_mpn", async ({ pattern, design, include_dns }) => {
       const result = await searchComponentsByMpn(pattern, design, include_dns);
@@ -254,11 +254,11 @@ export const createServer = (): McpServer => {
       title: "Search components by description",
       description: SEARCH_COMPONENTS_BY_DESCRIPTION_DESCRIPTION,
       annotations: READ_ONLY,
-      inputSchema: {
+      inputSchema: z.strictObject({
         pattern: z.string().describe("Regex pattern for description"),
         design: z.string().describe("Path to design file"),
         include_dns: z.boolean().optional().default(false).describe("Include DNS components"),
-      },
+      }),
     },
     withTelemetry("search_components_by_description", async ({ pattern, design, include_dns }) => {
       const result = await searchComponentsByDescription(pattern, design, include_dns);
@@ -275,7 +275,7 @@ export const createServer = (): McpServer => {
       title: "Trace XNET from a net",
       description: QUERY_XNET_BY_NET_NAME_DESCRIPTION,
       annotations: READ_ONLY,
-      inputSchema: {
+      inputSchema: z.strictObject({
         design: z.string().describe("Path to design file"),
         net_name: z.string().describe("Exact net name"),
         skip_types: z
@@ -283,7 +283,7 @@ export const createServer = (): McpServer => {
           .optional()
           .describe("Component prefixes to exclude (e.g., ['C', 'L'])"),
         include_dns: z.boolean().optional().default(false).describe("Include DNS components"),
-      },
+      }),
     },
     withTelemetry(
       "query_xnet_by_net_name",
@@ -303,12 +303,12 @@ export const createServer = (): McpServer => {
       title: "Trace XNET from a pin",
       description: QUERY_XNET_BY_PIN_NAME_DESCRIPTION,
       annotations: READ_ONLY,
-      inputSchema: {
+      inputSchema: z.strictObject({
         design: z.string().describe("Path to design file"),
         pin_name: z.string().describe("Pin spec: REFDES.PIN (e.g., U2.10, U1.A5)"),
         skip_types: z.array(z.string()).optional().describe("Component prefixes to exclude"),
         include_dns: z.boolean().optional().default(false).describe("Include DNS components"),
-      },
+      }),
     },
     withTelemetry(
       "query_xnet_by_pin_name",
@@ -328,10 +328,10 @@ export const createServer = (): McpServer => {
       title: "Get component details",
       description: QUERY_COMPONENT_DESCRIPTION,
       annotations: READ_ONLY,
-      inputSchema: {
+      inputSchema: z.strictObject({
         design: z.string().describe("Path to design file"),
         refdes: z.string().describe("Component reference designator"),
-      },
+      }),
     },
     withTelemetry("query_component", async ({ design, refdes }) => {
       const result = await queryComponent(design, refdes);
@@ -348,7 +348,7 @@ export const createServer = (): McpServer => {
       title: "Run electrical rule checks",
       description: RUN_ERC_DESCRIPTION,
       annotations: READ_ONLY,
-      inputSchema: {
+      inputSchema: z.strictObject({
         design: z.string().describe("Path to design file"),
         include_dns: z
           .boolean()
@@ -360,7 +360,7 @@ export const createServer = (): McpServer => {
           .optional()
           .describe("Only run these rule ids (e.g., ['net.single_pin']). Omit for all"),
         exclude_rules: z.array(z.string()).optional().describe("Skip these rule ids"),
-      },
+      }),
     },
     withTelemetry("run_erc", async ({ design, include_dns, include_rules, exclude_rules }) => {
       const result = await runErc(design, {
@@ -381,9 +381,9 @@ export const createServer = (): McpServer => {
       title: "Export Cadence netlist (deprecated)",
       description: EXPORT_CADENCE_NETLIST_DESCRIPTION,
       annotations: WRITES_TO_DISK,
-      inputSchema: {
+      inputSchema: z.strictObject({
         design: z.string().describe("Path to .DSN schematic file"),
-      },
+      }),
     },
     withTelemetry("export_cadence_netlist", async ({ design }) => {
       const result = await exportCadenceNetlist(design);
