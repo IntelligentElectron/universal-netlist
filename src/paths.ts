@@ -33,9 +33,25 @@ export const resolvePath = (inputPath: string): string => {
  * directory and file extension.
  *
  * Example: "/projects/board-rev-c/top.dsn" -> "top"
+ *
+ * A design that is only a netlist is addressed by one of its three .dat files,
+ * which every such design names identically, so stripping the extension called
+ * all of them "pstxnet" and two side by side answered to the same name. Their
+ * directory holds the identity instead: discovery collects a triad per
+ * directory, so a directory contains at most one of these designs.
+ *
+ * Example: "/projects/BeagleBone-Black-copy/pstxnet.dat" -> "BeagleBone-Black-copy"
  */
-export const getDesignName = (design: string): string =>
-  path.basename(design, path.extname(design));
+export const getDesignName = (design: string): string => {
+  const base = path.basename(design);
+  if (REQUIRED_DAT_FILES.includes(base.toLowerCase() as (typeof REQUIRED_DAT_FILES)[number])) {
+    // A .dat sitting at the root of a filesystem has no directory to be named
+    // after, and an empty name is worse than the one this replaces.
+    const parent = path.basename(path.dirname(design));
+    if (parent) return parent;
+  }
+  return path.basename(design, path.extname(design));
+};
 
 /**
  * Suffix of the directory `export_cadence_netlist` writes a design's netlist to.
