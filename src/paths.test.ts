@@ -92,6 +92,7 @@ vi.mock("./parsers/index.js", () => ({
 // =============================================================================
 
 let resolvePath: typeof import("./paths.js").resolvePath;
+let getDesignName: typeof import("./paths.js").getDesignName;
 let listDesigns: typeof import("./service/index.js").listDesigns;
 let exportCadenceNetlist: typeof import("./service/index.js").exportCadenceNetlist;
 let parsers: typeof import("./parsers/index.js");
@@ -105,7 +106,7 @@ const definePlatform = (value: string) => {
 
 beforeAll(async () => {
   path = await import("path");
-  ({ resolvePath } = await import("./paths.js"));
+  ({ resolvePath, getDesignName } = await import("./paths.js"));
   parsers = await import("./parsers/index.js");
   ({ listDesigns, exportCadenceNetlist } = await import("./service/index.js"));
 });
@@ -143,6 +144,98 @@ describe("resolvePath", () => {
 
   it("normalizes forward slashes to backslashes", () => {
     expect(resolvePath("sub/dir/design.dsn")).toBe("C:\\projects\\sub\\dir\\design.dsn");
+  });
+});
+
+// =============================================================================
+// getDesignName
+// =============================================================================
+
+// Forward slashes throughout: the win32 path module accepts them as separators
+// and the posix one does not accept backslashes, so these read the same on
+// either host. The platform and working directory the surrounding suite sets up
+// for the Windows path tests are replaced here, since getDesignName resolves
+// relative paths and a Windows-shaped cwd makes those unreadable.
+describe("getDesignName", () => {
+  beforeEach(() => {
+    definePlatform("linux");
+    vi.spyOn(process, "cwd").mockReturnValue("/work/BeagleBone-Black-copy");
+  });
+
+  it("strips the directory and extension", () => {
+    expect(getDesignName("/projects/board-rev-c/top.dsn")).toBe("top");
+    expect(getDesignName("/projects/Board.PrjPcb")).toBe("Board");
+    expect(getDesignName("/projects/Board.kicad_pro")).toBe("Board");
+  });
+
+  it("keeps a name that contains dots", () => {
+    expect(getDesignName("/projects/CutiePi_V2.3-20210409.DSN")).toBe("CutiePi_V2.3-20210409");
+  });
+
+  // A design that is only a netlist is addressed by a file every such design
+  // names identically, so stripping the extension gave all of them the name
+  // "pstxnet" and two of them side by side were indistinguishable in a result.
+  it("names a netlist-only design after its directory", () => {
+    expect(getDesignName("/fixtures/cadence/BeagleBone-Black-copy/pstxnet.dat")).toBe(
+      "BeagleBone-Black-copy"
+    );
+    expect(getDesignName("/fixtures/cadence/BeagleBone-Black-barebone/pstxnet.dat")).toBe(
+      "BeagleBone-Black-barebone"
+    );
+  });
+
+  it("distinguishes two netlist-only designs", () => {
+    const first = getDesignName("/fixtures/cadence/BeagleBone-Black-copy/pstxnet.dat");
+    const second = getDesignName("/fixtures/cadence/BeagleBone-Black-barebone/pstxnet.dat");
+    expect(first).not.toBe(second);
+  });
+
+  it("names a design after its directory for any file of the triad", () => {
+    for (const file of ["pstxnet.dat", "pstxprt.dat", "pstchip.dat"]) {
+      expect(getDesignName(`/fixtures/cadence/Board/${file}`)).toBe("Board");
+    }
+  });
+
+  // Cadence writes these lowercase, and a Windows filesystem hands back whatever
+  // case it was stored in.
+  it("recognises the triad whatever its case", () => {
+    expect(getDesignName("/fixtures/cadence/Board/PSTXNET.DAT")).toBe("Board");
+    expect(getDesignName("/fixtures/cadence/Board/PstXNet.Dat")).toBe("Board");
+  });
+
+  it("leaves an unrelated .dat named after its file", () => {
+    expect(getDesignName("/fixtures/cadence/Board/netlist.dat")).toBe("netlist");
+  });
+
+  // Resolving is what makes these work. Read as typed, a bare filename has "."
+  // for a directory and would be named ".", which is worse than the "pstxnet"
+  // this replaces; resolved, it is a file in the working directory and takes
+  // that directory's name.
+  it("names a relative path after the directory it resolves to", () => {
+    expect(getDesignName("pstxnet.dat")).toBe("BeagleBone-Black-copy");
+    expect(getDesignName("./pstxnet.dat")).toBe("BeagleBone-Black-copy");
+    expect(getDesignName("../BeagleBone-Black-copy/pstxnet.dat")).toBe("BeagleBone-Black-copy");
+  });
+
+  it("names a relative non-triad path after its own file", () => {
+    expect(getDesignName("Board.DSN")).toBe("Board");
+    expect(getDesignName("./sub/Board.DSN")).toBe("Board");
+  });
+
+  // Agents send Windows-style paths whatever the host, which is what resolvePath
+  // exists to absorb. Read as typed on a Unix host, none of this is a separator
+  // and the whole string is the name.
+  it("reads a Windows-style path on a Unix host", () => {
+    expect(getDesignName("C:\\fixtures\\BeagleBone-Black-copy\\pstxnet.dat")).toBe(
+      "BeagleBone-Black-copy"
+    );
+    expect(getDesignName("C:\\fixtures\\Board.DSN")).toBe("Board");
+  });
+
+  // There is no directory to be named after, and an empty name is worse than
+  // the one this replaces.
+  it("falls back to the filename for a triad file at the filesystem root", () => {
+    expect(getDesignName("/pstxnet.dat")).toBe("pstxnet");
   });
 });
 

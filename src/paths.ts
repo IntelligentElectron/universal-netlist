@@ -33,9 +33,32 @@ export const resolvePath = (inputPath: string): string => {
  * directory and file extension.
  *
  * Example: "/projects/board-rev-c/top.dsn" -> "top"
+ *
+ * A design that is only a netlist is addressed by one of its three .dat files,
+ * which every such design names identically, so stripping the extension called
+ * all of them "pstxnet" and two side by side answered to the same name. Their
+ * directory holds the identity instead: discovery collects a triad per
+ * directory, so a directory contains at most one of these designs.
+ *
+ * Example: "/projects/BeagleBone-Black-copy/pstxnet.dat" -> "BeagleBone-Black-copy"
  */
-export const getDesignName = (design: string): string =>
-  path.basename(design, path.extname(design));
+export const getDesignName = (design: string): string => {
+  // Resolved the same way `loadNetlist` resolves it, so the name describes the
+  // file that was actually read rather than whatever string the caller typed.
+  // A bare filename, a relative path and a Windows-style path on a Unix host all
+  // reach the same design, and this makes all three name it the same way.
+  const resolved = resolvePath(design);
+  const base = path.basename(resolved);
+  if (REQUIRED_DAT_FILES.includes(base.toLowerCase() as (typeof REQUIRED_DAT_FILES)[number])) {
+    // Resolving first is what makes one guard enough here: an absolute path's
+    // directory is either a real directory or the root, so `.` and `..` cannot
+    // reach this. The root has no name to give, and an empty one is worse than
+    // the name it replaces.
+    const parent = path.basename(path.dirname(resolved));
+    if (parent) return parent;
+  }
+  return path.basename(resolved, path.extname(resolved));
+};
 
 /**
  * Suffix of the directory `export_cadence_netlist` writes a design's netlist to.
