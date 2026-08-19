@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.1] - 2026-08-18
+
+Three ways a tool could answer the wrong question and look right doing it. A
+search given a directory name it did not recognise searched the one the server
+was launched in and returned real designs from it. A design that ships without
+its schematic answered to `pstxnet` rather than to its own name, so two of them
+side by side were the same design as far as any result showed. And an argument
+whose name was slightly wrong was dropped before the tool saw it, which turned
+a typo into a default: `list_designs` given `search_path` walked 41,105 designs
+to answer a question about fourteen, and `run_erc` given `rules` ran every rule
+and reported that as the selection. Each returned a well-formed result with
+nothing in it to check. Every tool was exercised against all 40 fixtures across
+Cadence, Altium and KiCad over a real MCP connection, which is how the first was
+found and how the third was found twice.
+
+### Changed
+
+- A tool refuses an argument its schema does not define instead of dropping it. Every tool declared its inputs as a plain shape, which is parsed by an object that strips what it does not recognise, so a misspelled argument arrived as no argument at all. Where that argument was optional the tool ran its default: `list_designs` given `search_path` instead of `path` searched the server's working directory, and `run_erc` given `rules` instead of `include_rules` ran all four rules and reported that as the selection. Misspelling a required argument always failed loudly, and correct calls are unaffected. Each tool's published schema now carries `additionalProperties: false`, so a client is told the tool is closed to arguments it does not define (PR #167)
+- `list_designs` returns `{ root, designs }` in place of a bare list. `root` is the directory the search actually ran in, which is the one thing a caller cannot check from the designs alone. A result cut short by `max_results` now says so, with the number found alongside the number shown (PR #165)
+- `@modelcontextprotocol/sdk` moves to 1.30.0 and `zod` to 4.4.3, since the argument handling above lives in the SDK's Zod compatibility layer (PR #167)
+
+### Fixed
+
+- A Cadence design that ships without its schematic is queried through its exported netlist, and every result for one came back keyed `pstxnet` rather than named after the design. Every such design names its three `.dat` files identically, so all of them shared that one key and two placed side by side were indistinguishable, which is exactly the comparison this server exists for. Each is now named after its directory, which holds at most one exported netlist. Affects `search_nets`, `search_components_by_*`, `list_components`, `query_component` and `query_xnet_*` (PR #166)
+- `list_designs` gave no sign when no directory was named and the search fell back to the server's working directory, which is where the server was launched rather than where the caller is. It says so now, and says the same for a `path` left blank, which reached that default by the same route (PR #165)
+
 ## [1.6.0] - 2026-08-18
 
 Two things about what the tools hand back. A Cadence query now names the
