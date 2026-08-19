@@ -172,6 +172,21 @@ export interface DesignInfo {
 }
 
 /**
+ * Result from listDesigns.
+ *
+ * `root` is the absolute directory the search actually ran in. It is reported on
+ * every result because the search root is the one thing a caller cannot check
+ * from the designs alone: a mistyped or omitted `path` falls back to the
+ * server's working directory and returns a list of real designs from somewhere
+ * else entirely, which reads exactly like a correct answer.
+ */
+export interface ListDesignsResult {
+  root: string;
+  designs: DesignInfo[];
+  notes?: string[];
+}
+
+/**
  * Component entry grouped by MPN for list/search results.
  */
 export interface ComponentGroup {

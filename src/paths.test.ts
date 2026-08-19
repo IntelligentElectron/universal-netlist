@@ -150,6 +150,17 @@ describe("resolvePath", () => {
 // listDesigns — absolute output paths
 // =============================================================================
 
+/**
+ * The designs of a successful result.
+ *
+ * A result carries the search root alongside them, so a test that wants the
+ * designs unwraps rather than indexing the result itself.
+ */
+const designsOf = (result: unknown): Array<{ name: string; path: string; error?: string }> => {
+  expect(result).toHaveProperty("designs");
+  return (result as { designs: Array<{ name: string; path: string; error?: string }> }).designs;
+};
+
 describe("listDesigns output paths", () => {
   it("returns absolute paths", async () => {
     vi.mocked(parsers.discoverDesigns).mockResolvedValue([
@@ -163,8 +174,7 @@ describe("listDesigns output paths", () => {
 
     const result = await listDesigns();
 
-    expect(Array.isArray(result)).toBe(true);
-    const designPath = (result as Array<{ path: string }>)[0]?.path;
+    const designPath = designsOf(result)[0]?.path;
     expect(designPath).toBe("C:\\projects\\Board\\Board.PrjPcb");
     expect(path.isAbsolute(designPath)).toBe(true);
   });
@@ -203,15 +213,13 @@ describe("listDesigns searchPath and pattern", () => {
 
     const result = await listDesigns({ pattern: "^Alpha" });
 
-    expect(Array.isArray(result)).toBe(true);
-    const names = (result as Array<{ name: string }>).map((d) => d.name);
+    const names = designsOf(result).map((d) => d.name);
     expect(names).toEqual(["Alpha", "AlphaV2"]);
   });
 
   it("returns error for invalid regex pattern", async () => {
     const result = await listDesigns({ pattern: "[invalid" });
 
-    expect(Array.isArray(result)).toBe(false);
     expect(result).toHaveProperty("error");
     expect((result as { error: string }).error).toContain("Invalid regex pattern");
   });
@@ -238,8 +246,7 @@ describe("listDesigns Cadence path priority", () => {
 
     const result = await listDesigns();
 
-    expect(Array.isArray(result)).toBe(true);
-    const design = (result as Array<{ path: string }>)[0];
+    const design = designsOf(result)[0];
     expect(design.path).toBe("C:\\projects\\Board.DSN");
     // One path, and it is the design. The netlist beside it is not reported.
     expect(design).not.toHaveProperty("source");
@@ -258,8 +265,7 @@ describe("listDesigns Cadence path priority", () => {
 
     const result = await listDesigns();
 
-    expect(Array.isArray(result)).toBe(true);
-    const design = (result as Array<{ path: string }>)[0];
+    const design = designsOf(result)[0];
     expect(design.path).toBe("C:\\projects\\Board.DSN");
   });
 });
@@ -282,8 +288,7 @@ describe("listDesigns error passthrough", () => {
 
     const result = await listDesigns();
 
-    expect(Array.isArray(result)).toBe(true);
-    const design = (result as Array<{ name: string; error?: string }>)[0];
+    const design = designsOf(result)[0];
     expect(design.error).toBe("Netlist files not exported.");
   });
 
@@ -294,8 +299,7 @@ describe("listDesigns error passthrough", () => {
 
     const result = await listDesigns();
 
-    expect(Array.isArray(result)).toBe(true);
-    const design = (result as Array<{ name: string; error?: string }>)[0];
+    const design = designsOf(result)[0];
     expect(design.error).toBeUndefined();
   });
 });
@@ -314,7 +318,6 @@ describe("listDesigns filesystem errors", () => {
 
     const result = await listDesigns({ searchPath: "C:\\nonexistent" });
 
-    expect(Array.isArray(result)).toBe(false);
     expect((result as { error: string }).error).toContain("Failed to search");
     expect((result as { error: string }).error).toContain("ENOENT");
   });
@@ -328,7 +331,6 @@ describe("listDesigns filesystem errors", () => {
 
     const result = await listDesigns({ searchPath: "C:\\file.txt" });
 
-    expect(Array.isArray(result)).toBe(false);
     expect((result as { error: string }).error).toContain("Failed to search");
     expect((result as { error: string }).error).toContain("ENOTDIR");
   });
@@ -352,8 +354,7 @@ describe("listDesigns maxResults", () => {
 
     const result = await listDesigns();
 
-    expect(Array.isArray(result)).toBe(true);
-    expect((result as unknown[]).length).toBe(50);
+    expect(designsOf(result).length).toBe(50);
   });
 
   it("respects custom maxResults", async () => {
@@ -361,8 +362,7 @@ describe("listDesigns maxResults", () => {
 
     const result = await listDesigns({ maxResults: 10 });
 
-    expect(Array.isArray(result)).toBe(true);
-    expect((result as unknown[]).length).toBe(10);
+    expect(designsOf(result).length).toBe(10);
   });
 
   it("returns all results when fewer than maxResults", async () => {
@@ -370,8 +370,7 @@ describe("listDesigns maxResults", () => {
 
     const result = await listDesigns({ maxResults: 10 });
 
-    expect(Array.isArray(result)).toBe(true);
-    expect((result as unknown[]).length).toBe(3);
+    expect(designsOf(result).length).toBe(3);
   });
 });
 
@@ -413,5 +412,105 @@ describe("exportCadenceNetlist output paths", () => {
 
     expect(result.outputDir).toBe("C:\\repo\\schem\\Allegro");
     expect(path.isAbsolute(result.outputDir)).toBe(true);
+  });
+});
+
+// =============================================================================
+// listDesigns — search root and notes
+// =============================================================================
+
+describe("listDesigns search root", () => {
+  const notesOf = (result: unknown): string[] => (result as { notes?: string[] }).notes ?? [];
+
+  it("reports the resolved directory it searched", async () => {
+    vi.mocked(parsers.discoverDesigns).mockResolvedValue([]);
+
+    const result = await listDesigns({ searchPath: "sub\\dir" });
+
+    expect((result as { root: string }).root).toBe("C:\\projects\\sub\\dir");
+  });
+
+  it("reports the working directory as the root when no path is given", async () => {
+    vi.mocked(parsers.discoverDesigns).mockResolvedValue([]);
+
+    const result = await listDesigns();
+
+    expect((result as { root: string }).root).toBe("C:\\projects");
+  });
+
+  // The failure this guards is a search that answers from a directory nobody
+  // asked about: an unrecognised argument is dropped before it reaches the tool,
+  // so a misspelled path arrives as no path and quietly searches the default.
+  // Real designs come back and nothing about them looks wrong.
+  it("notes that the search fell back to the working directory", async () => {
+    vi.mocked(parsers.discoverDesigns).mockResolvedValue([]);
+
+    const result = await listDesigns();
+
+    expect(notesOf(result).join(" ")).toContain("No directory was named");
+  });
+
+  // `path` is an optional string, so a caller can send it empty. That is not a
+  // directory, and it reaches the working directory by the same route an absent
+  // argument does, so it earns the same note rather than passing for a choice.
+  it("treats a blank path as no path", async () => {
+    vi.mocked(parsers.discoverDesigns).mockResolvedValue([]);
+
+    for (const blank of ["", "   ", "\t"]) {
+      const result = await listDesigns({ searchPath: blank });
+
+      expect((result as { root: string }).root).toBe("C:\\projects");
+      expect(notesOf(result).join(" ")).toContain("No directory was named");
+    }
+  });
+
+  it("says nothing about the working directory when a path is given", async () => {
+    vi.mocked(parsers.discoverDesigns).mockResolvedValue([]);
+
+    const result = await listDesigns({ searchPath: "sub\\dir" });
+
+    expect(notesOf(result).join(" ")).not.toContain("No directory was named");
+  });
+});
+
+describe("listDesigns truncation notes", () => {
+  const makeDesigns = (count: number) =>
+    Array.from({ length: count }, (_, i) => ({
+      name: `Design${i}`,
+      sourcePath: `C:\\projects\\Design${i}\\Design${i}.PrjPcb`,
+      format: "altium" as const,
+      schdocPaths: [],
+    }));
+
+  const notesOf = (result: unknown): string[] => (result as { notes?: string[] }).notes ?? [];
+
+  it("says how many designs were left out", async () => {
+    vi.mocked(parsers.discoverDesigns).mockResolvedValue(makeDesigns(100));
+
+    const result = await listDesigns({ searchPath: "sub", maxResults: 10 });
+
+    expect(notesOf(result).join(" ")).toContain("Showing 10 of 100 designs");
+  });
+
+  // The count is of designs that matched the pattern, not of everything found,
+  // so a filtered search reports what the filter left rather than what the walk
+  // saw.
+  it("counts what the pattern matched, not what the walk found", async () => {
+    vi.mocked(parsers.discoverDesigns).mockResolvedValue([
+      ...makeDesigns(40),
+      { name: "Other", sourcePath: "C:\\Other.PrjPcb", format: "altium" as const, schdocPaths: [] },
+    ]);
+
+    const result = await listDesigns({ searchPath: "sub", pattern: "^Design", maxResults: 10 });
+
+    expect(notesOf(result).join(" ")).toContain("Showing 10 of 40 designs");
+  });
+
+  it("says nothing when every design fits", async () => {
+    vi.mocked(parsers.discoverDesigns).mockResolvedValue(makeDesigns(3));
+
+    const result = await listDesigns({ searchPath: "sub", maxResults: 10 });
+
+    expect(notesOf(result)).toEqual([]);
   });
 });
