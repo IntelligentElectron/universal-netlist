@@ -8,7 +8,7 @@ It is compatible with Cadence, Altium, and KiCad, with plans to integrate more E
 
 | Format | Input Files | Description |
 |--------|------------|-------------|
-| Cadence (CIS / HDL) | `.DSN` schematic (preferred), or `.dat` netlist files | The `.DSN` binary schematic is parsed natively and is what `list_designs` hands you. Exported Allegro netlist files (`pstxnet.dat`, `pstxprt.dat`, `pstchip.dat`) are also readable. Do Not Stuff includes the parts a CIS variant leaves off the board, read from the schematic, so the count agrees with the alternate BOM CIS generates (`*_bom_alts.xlsx`) rather than with the netlist files alone |
+| Cadence (CIS / HDL) | `.DSN` schematic (preferred), or `.dat` netlist files | The `.DSN` binary schematic is parsed natively and is what `list_designs` returns. Exported Allegro netlist files (`pstxnet.dat`, `pstxprt.dat`, `pstchip.dat`) are also readable. Do Not Stuff detection reads the schematic and includes parts that a CIS variant leaves off the board, so the DNS count matches the alternate BOM that CIS generates (`*_bom_alts.xlsx`); the netlist files alone do not carry this information |
 | Altium Designer | `.SchDoc` | Altium schematic documents (discovered via `.PrjPcb` project files) |
 | KiCad | `.kicad_pro` (or root `.kicad_sch`) | Reads a resolved `kicadsexpr` netlist export: a committed `.net` beside the project if present, otherwise generated on demand via `kicad-cli` (requires KiCad installed; set `KICAD_CLI_PATH` for a non-standard location) |
 
@@ -130,17 +130,18 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines.
 
 ## Privacy Policy
 
-The server runs on your machine and collects nothing. It reads the design files
-you point it at, holds them in memory for the life of a query, and sends nothing
-to the author, who operates no service and no backend.
+The server runs on your machine and collects no data. It reads the design files
+you point it at, holds them in memory for the duration of a query, and sends
+nothing to the author. The author operates no service and no backend.
 
 Your design data does reach your MCP client and that client's model provider,
-because that is how you get an answer. Treat querying a confidential schematic
-the way you would treat pasting it into that assistant's chat window.
+since the model needs it to answer your question. Treat querying a confidential
+schematic the same way you would treat pasting it into that assistant's chat
+window.
 
-The only network calls the server makes are an update check against the GitHub
-releases API, on the standalone binary alone, and OpenTelemetry, which is off
-unless you point `OTEL_*` at your own backend. Neither carries design data.
+The server makes only two kinds of network call: an update check against the
+GitHub releases API (standalone binary only), and OpenTelemetry export, which is
+off unless you point `OTEL_*` at your own backend. Neither carries design data.
 
 See [PRIVACY.md](PRIVACY.md) for the full policy, including what telemetry
 contains when you enable it and which tool writes to disk.
