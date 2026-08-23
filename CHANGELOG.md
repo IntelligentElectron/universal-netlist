@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.1] - 2026-08-23
+
+Every command is now a word as well as a flag: `universal-netlist update` and
+`universal-netlist --update` are the same call, `upgrade` is another name for
+`update`, and the help is laid out as options and commands, the way a
+command-line tool reads.
+
+### Added
+
+- CLI: every command is accepted as a word as well as a flag, and `upgrade` is an alias of `update`. `update`, `uninstall`, `export-telemetry`, `coverage [path]`, `version`, `help` and `verbose` each work with or without the leading dashes; the value after `export-json` is always a path, and the token after `coverage` is a path unless it is a command word. The README and the install scripts show the word form (PR #175)
+
+- CLI: `export-json` is a documented command: `universal-netlist export-json <design> [output.json]` writes the design's netlist in the Universal Netlist schema, to `<design>.json` in the working directory or to the given path. The written file is itself a design every tool reads, so an export round-trips, and takes an optional output path (PR #176)
+
+- Docs: the binary's command line has its own page, `docs/cli.md`: every command with usage, output, and exit behaviour, linked from the README and the docs index (PR #177)
+- Docs: the README is trimmed to the high level; format details, CLI usage, and the privacy policy live in `docs/` and `PRIVACY.md` (PR #178)
+
+### Changed
+
+- CLI: `help` lists options (`-v, --version`, `-h, --help`, `--verbose`) and commands (`update|upgrade`, `uninstall`, `export-telemetry`, `coverage`) separately, and names every supported format; it still said Cadence and Altium (PR #175)
+
 ## [1.7.0] - 2026-08-23
 
 The Universal Netlist is now an input as well as an output. A `.json` file in
