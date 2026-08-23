@@ -2,9 +2,10 @@
  * Command-line argument normalization.
  *
  * Every command is accepted both as a word and as a flag: `universal-netlist
- * update` and `universal-netlist --update` are the same call. The rest of the
- * program reads the flag form, so this turns the word form into it before
- * anything else looks at the arguments.
+ * update` and `universal-netlist --update` are the same call, and so is
+ * `upgrade`, an alias of `update`. The rest of the program reads the flag form
+ * of the command's own name, so this rewrites every other spelling into it
+ * before anything else looks at the arguments.
  *
  * A command that takes a value does not have that value rewritten: the path
  * after `export-json` is always a path, and the token after `coverage` is a
@@ -26,14 +27,25 @@ export const COMMANDS = [
 
 const COMMAND_SET = new Set<string>(COMMANDS);
 
+/** Other spellings of a command, each rewritten to the command it names. */
+export const ALIASES: Record<string, (typeof COMMANDS)[number]> = {
+  upgrade: "update",
+};
+
 /** Commands followed by a value. `required` means the next token is always the value. */
 const TAKES_VALUE: Record<string, "required" | "optional"> = {
   "export-json": "required",
   coverage: "optional",
 };
 
-const isCommandToken = (token: string): boolean =>
-  COMMAND_SET.has(token) || (token.startsWith("--") && COMMAND_SET.has(token.slice(2)));
+/** The command a token names, as a word, or undefined when it names none. */
+const commandOf = (token: string): string | undefined => {
+  const word = token.startsWith("--") ? token.slice(2) : token;
+  if (COMMAND_SET.has(word)) return word;
+  return ALIASES[word];
+};
+
+const isCommandToken = (token: string): boolean => commandOf(token) !== undefined;
 
 /**
  * Rewrite command words to their flag form. Anything that is not a command
@@ -51,13 +63,11 @@ export const normalizeCliArgs = (args: readonly string[]): string[] => {
     }
     valueFor = undefined;
 
-    if (COMMAND_SET.has(token)) {
-      out.push(`--${token}`);
-      valueFor = TAKES_VALUE[token];
+    const command = commandOf(token);
+    if (command !== undefined) {
+      out.push(`--${command}`);
+      valueFor = TAKES_VALUE[command];
       continue;
-    }
-    if (token.startsWith("--") && COMMAND_SET.has(token.slice(2))) {
-      valueFor = TAKES_VALUE[token.slice(2)];
     }
     out.push(token);
   }

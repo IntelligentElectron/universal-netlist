@@ -9,7 +9,7 @@
  * Commands (each also accepted as a flag, `update` and `--update` alike):
  *   version, -v        Print version and exit
  *   help, -h           Show help
- *   update             Check for and install updates
+ *   update|upgrade     Check for and install updates
  *   uninstall          Remove binary and PATH entries
  *   export-telemetry   Export telemetry data as a zip file
  *   coverage [path]    Compare DSN parser output against DAT netlist exports

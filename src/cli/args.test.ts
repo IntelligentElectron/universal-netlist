@@ -8,6 +8,11 @@ describe("normalizeCliArgs", () => {
     }
   });
 
+  it("reads upgrade as update, as a word and as a flag", () => {
+    expect(normalizeCliArgs(["upgrade"])).toEqual(["--update"]);
+    expect(normalizeCliArgs(["--upgrade"])).toEqual(["--update"]);
+  });
+
   it("leaves the flag form and short flags alone", () => {
     expect(normalizeCliArgs(["--update"])).toEqual(["--update"]);
     expect(normalizeCliArgs(["-v"])).toEqual(["-v"]);

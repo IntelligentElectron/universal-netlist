@@ -59,7 +59,7 @@ Options:
   --verbose            Show per-design field mismatch breakdowns (with coverage)
 
 Commands:
-  update               Check for updates and install if available
+  update|upgrade       Check for updates and install if available
   uninstall            Remove the binary and its PATH entries
   export-telemetry     Export telemetry data as a zip file
   coverage [path]      Compare DSN parser output against DAT netlist exports
