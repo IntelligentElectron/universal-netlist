@@ -48,7 +48,7 @@ The installer downloads two files:
 The server checks for updates on startup. To update manually:
 
 ```bash
-universal-netlist --update
+universal-netlist update
 ```
 
 ## Alternative: Install via npm
@@ -62,7 +62,7 @@ npm install -g @intelligentelectron/universal-netlist
 Or use with npx (no installation required):
 
 ```bash
-npx @intelligentelectron/universal-netlist --help
+npx @intelligentelectron/universal-netlist help
 ```
 
 Requires Node.js 20+.

@@ -6,11 +6,13 @@
  * Run with: npx tsx src/index.ts
  * Or after build: node dist/index.js
  *
- * CLI flags:
- *   --version, -v    Print version and exit
- *   --help, -h       Show help
- *   --update         Check for and install updates
- *   --uninstall      Remove binary and PATH entries
+ * Commands (each also accepted as a flag, `update` and `--update` alike):
+ *   version, -v        Print version and exit
+ *   help, -h           Show help
+ *   update|upgrade     Check for and install updates
+ *   uninstall          Remove binary and PATH entries
+ *   export-telemetry   Export telemetry data as a zip file
+ *   coverage [path]    Compare DSN parser output against DAT netlist exports
  */
 
 import {
@@ -23,11 +25,14 @@ import {
   handleCoverageCommand,
 } from "./cli/commands.js";
 import { autoUpdate, reexec } from "./cli/updater.js";
+import { normalizeCliArgs } from "./cli/args.js";
 import { SELF_UPDATE_ENABLED } from "./build-flags.js";
 import { runServer } from "./server.js";
 
 const main = async (): Promise<void> => {
-  const args = process.argv.slice(2);
+  // `update` and `--update` are the same command; the word form is rewritten
+  // to the flag form here so the checks below read one spelling.
+  const args = normalizeCliArgs(process.argv.slice(2));
 
   // Handle --version / -v
   if (args.includes("--version") || args.includes("-v")) {
@@ -84,7 +89,7 @@ const main = async (): Promise<void> => {
     console.log(
       "  https://github.com/IntelligentElectron/universal-netlist?tab=readme-ov-file#connect-the-mcp-with-your-favorite-ai-tool\n"
     );
-    console.log("Run with --help for available options.");
+    console.log("Run `universal-netlist help` for available commands.");
     return;
   }
 

@@ -48,24 +48,26 @@ export const printHelp = (): void => {
     `
 ${BINARY_NAME} v${VERSION}
 
-MCP server for querying EDA netlists. Supports Cadence and Altium Designer formats.
+Usage: ${BINARY_NAME} [options] [command]
 
-USAGE:
-  ${BINARY_NAME} [OPTIONS]
+MCP server for querying EDA netlists: Cadence, Altium Designer, KiCad, and Universal Netlist JSON.
+Run with no command to start the server over stdio.
 
-OPTIONS:
-  --version, -v        Print version and exit
-  --help, -h           Show this help message
-  --update             Check for and install updates
-  --uninstall          Remove binary and PATH entries
-  --export-telemetry   Export telemetry data as a zip file
-  --coverage [path]    Compare DSN parser output against DAT netlist exports
-  --verbose            Show per-design field mismatch breakdowns (with --coverage)
+Options:
+  -v, --version        Output the version number
+  -h, --help           Display help for command
+  --verbose            Show per-design field mismatch breakdowns (with coverage)
 
-INSTALLATION:
+Commands:
+  update|upgrade       Check for updates and install if available
+  uninstall            Remove the binary and its PATH entries
+  export-telemetry     Export telemetry data as a zip file
+  coverage [path]      Compare DSN parser output against DAT netlist exports
+
+Installation:
 ${installation}
 
-MORE INFO:
+More info:
   https://github.com/${GITHUB_REPO}
 `.trim()
   );
@@ -208,7 +210,7 @@ export const handleExportTelemetryCommand = async (): Promise<void> => {
  */
 export const handleExportJsonCommand = async (designPath?: string): Promise<void> => {
   if (!designPath) {
-    console.error("Usage: universal-netlist --export-json <path>");
+    console.error("Usage: universal-netlist export-json <path>");
     process.exit(1);
   }
 
