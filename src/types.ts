@@ -212,6 +212,7 @@ export interface ComponentGroup {
  */
 export interface ListComponentsResult {
   components: ComponentGroup[];
+  notes?: string[];
 }
 
 /**

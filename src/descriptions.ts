@@ -76,7 +76,9 @@ expected is missing, look for it under its own prefix. \
 Identical components are grouped for compact output: parts share a group only when their \
 MPN, description, comment and value all agree, so every field a group reports is true of \
 every part in it. A group whose parts carry no MPN says so in its notes. \
-If no components match, the error lists every prefix the design does have.`;
+If no components match, the error lists the prefixes the same query would return, and \
+names apart any prefix whose components are all DNS. A prefix whose components are all \
+DNS returns an empty list with a note saying so; pass include_dns=true to list them.`;
 
 export const LIST_NETS_DESCRIPTION = `\
 List all net names in a design, sorted alphabetically. \
