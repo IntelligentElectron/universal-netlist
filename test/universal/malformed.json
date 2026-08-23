@@ -1,0 +1,1 @@
+{ "nets": { "GND": { "U1": ["1"] } }, "components": { "U1": { "pins": { "1": "GND" } }

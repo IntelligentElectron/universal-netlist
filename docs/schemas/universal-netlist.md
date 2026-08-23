@@ -257,3 +257,18 @@ The `PinEntry` union type balances information density with token efficiency:
 - **Object format**: Used for ICs where pin names (VIN, EN, SW) provide semantic meaning
 
 This reduces output size by ~30% for typical designs while preserving important pin name information.
+
+## Loading a Universal Netlist file
+
+A `.json` file in this schema is itself a design: `list_designs` discovers it, and every tool accepts its path. `--export-json` writes this format, so an exported design round-trips.
+
+The file is validated on load, because the EDA parsers build a consistent netlist by construction and a file may have been written or edited by anyone. A file is refused, naming the first defect, when:
+
+- the top level is not an object with `nets` and `components` objects, or carries any other key
+- a component has no `pins` object, a text field (`mpn`, `description`, `comment`, `value`) that is not a string, or a `dns` that is not a boolean
+- a pin entry is neither a net name nor an object with exactly `name` and `net`
+- a net member is neither a pin number nor an array of pin numbers, is empty, or lists the same pin twice
+- a net lists a component or a pin that is not declared, or a pin whose component entry puts it on a different net
+- a component pin names a net that is not declared, or one that does not list that pin
+
+A pin whose net is `""` is unconnected: it belongs to no net, and the server reports it as `NC`. Component fields outside the schema are dropped. A net member written as one pin number string is read as a one-element array.
