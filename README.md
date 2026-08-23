@@ -8,10 +8,10 @@ It is compatible with Cadence, Altium, and KiCad, with plans to integrate more E
 
 | Format | Input Files | Description |
 |--------|------------|-------------|
-| Cadence (CIS / HDL) | `.DSN` schematic (preferred), or `.dat` netlist files | The `.DSN` binary schematic is parsed natively and is what `list_designs` returns. Exported Allegro netlist files (`pstxnet.dat`, `pstxprt.dat`, `pstchip.dat`) are also readable. Do Not Stuff detection reads the schematic and includes parts that a CIS variant leaves off the board, so the DNS count matches the alternate BOM that CIS generates (`*_bom_alts.xlsx`); the netlist files alone do not carry this information |
-| Altium Designer | `.SchDoc` | Altium schematic documents (discovered via `.PrjPcb` project files) |
-| KiCad | `.kicad_pro` (or root `.kicad_sch`) | Reads a resolved `kicadsexpr` netlist export: a committed `.net` beside the project if present, otherwise generated on demand via `kicad-cli` (requires KiCad installed; set `KICAD_CLI_PATH` for a non-standard location) |
-| Universal Netlist | `.json` | A file in the [Universal Netlist schema](docs/schemas/universal-netlist.md), the format every parser above converts into. It is validated on load (`nets` and `components` must be exact inverses) and then served by every tool like any other design |
+| Cadence (CIS / HDL) | `.DSN` schematic (preferred), or `.dat` netlist files | Reads the `.DSN` binary schematic directly; exported Allegro netlist files are also readable |
+| Altium Designer | `.SchDoc` | Altium schematic documents, discovered via `.PrjPcb` project files |
+| KiCad | `.kicad_pro` (or root `.kicad_sch`) | Reads a committed `.net` export beside the project, or generates one via `kicad-cli` |
+| Universal Netlist | `.json` | The server's own [netlist format](docs/schemas/universal-netlist.md), read like any other design |
 
 ## Native Install (Recommended)
 
@@ -51,14 +51,6 @@ The server checks for updates on startup. To update manually:
 universal-netlist update
 ```
 
-### Export a design to JSON
-
-```bash
-universal-netlist export-json MyBoard.kicad_pro          # writes ./MyBoard.json
-universal-netlist export-json MyBoard.DSN out/board.json
-```
-
-Writes the design's netlist in the [Universal Netlist schema](docs/schemas/universal-netlist.md). The written file is itself a design: `list_designs` finds it and every tool reads it, so an export is a snapshot you can query, diff, or hand to another tool. The command line is documented in [docs/cli.md](docs/cli.md).
 
 ## Alternative: Install via npm
 
@@ -140,23 +132,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines.
 
 ## Privacy Policy
 
-The server runs on your machine and collects no data. It reads the design files
-you point it at, holds them in memory for the duration of a query, and sends
-nothing to the author. The author operates no service and no backend.
-
-Your design data does reach your MCP client and that client's model provider,
-since the model needs it to answer your question. Treat querying a confidential
-schematic the same way you would treat pasting it into that assistant's chat
-window.
-
-The server makes only two kinds of network call: an update check against the
-GitHub releases API (standalone binary only), and OpenTelemetry export, which is
-off unless you point `OTEL_*` at your own backend. Neither carries design data.
-
-See [PRIVACY.md](PRIVACY.md) for the full policy, including what telemetry
-contains when you enable it and which tool writes to disk.
-
----
+The server runs on your machine and collects no data. The full policy is [PRIVACY.md](PRIVACY.md).
 
 ## About
 
