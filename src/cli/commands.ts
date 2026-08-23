@@ -51,7 +51,8 @@ ${BINARY_NAME} v${VERSION}
 Usage: ${BINARY_NAME} [options] [command]
 
 MCP server for querying EDA netlists: Cadence, Altium Designer, KiCad, and Universal Netlist JSON.
-Run with no command to start the server over stdio.
+An MCP client runs the binary with no command and speaks to it over stdio; the commands
+below are what you run by hand.
 
 Options:
   -v, --version        Output the version number
