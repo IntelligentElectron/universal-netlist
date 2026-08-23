@@ -1,6 +1,6 @@
 # Command Line
 
-The `universal-netlist` binary is an MCP server: run with no command, it serves the [tools](README.md) over stdio and is meant to be started by an MCP client. Everything else it can do is a command. Every command is accepted as a word (`universal-netlist update`) and as a flag (`universal-netlist --update`); the pages below use the word form.
+The `universal-netlist` binary is an MCP server: an MCP client runs it with no command and speaks to it over stdio. Run by hand with no command, it prints how to set that up instead of serving. Everything else it can do is a command. Every command is accepted as a word (`universal-netlist update`) and as a flag (`universal-netlist --update`); the pages below use the word form.
 
 ```
 Usage: universal-netlist [options] [command]
