@@ -260,7 +260,7 @@ This reduces output size by ~30% for typical designs while preserving important 
 
 ## Loading a Universal Netlist file
 
-A `.json` file in this schema is itself a design: `list_designs` discovers it, and every tool accepts its path. `--export-json` writes this format, so an exported design round-trips.
+A `.json` file in this schema is itself a design: `list_designs` discovers it, and every tool accepts its path. `universal-netlist export-json <design> [output.json]` writes this format, so an exported design round-trips.
 
 The file is validated on load, because the EDA parsers build a consistent netlist by construction and a file may have been written or edited by anyone. A file is refused, naming the first defect, when:
 
