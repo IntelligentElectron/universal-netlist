@@ -1,0 +1,6 @@
+{
+  "name": "not-a-design",
+  "version": "1.0.0",
+  "nets": "this string is not a map of nets",
+  "components": ["and this is not a map of components"]
+}

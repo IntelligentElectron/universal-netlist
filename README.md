@@ -11,6 +11,7 @@ It is compatible with Cadence, Altium, and KiCad, with plans to integrate more E
 | Cadence (CIS / HDL) | `.DSN` schematic (preferred), or `.dat` netlist files | The `.DSN` binary schematic is parsed natively and is what `list_designs` returns. Exported Allegro netlist files (`pstxnet.dat`, `pstxprt.dat`, `pstchip.dat`) are also readable. Do Not Stuff detection reads the schematic and includes parts that a CIS variant leaves off the board, so the DNS count matches the alternate BOM that CIS generates (`*_bom_alts.xlsx`); the netlist files alone do not carry this information |
 | Altium Designer | `.SchDoc` | Altium schematic documents (discovered via `.PrjPcb` project files) |
 | KiCad | `.kicad_pro` (or root `.kicad_sch`) | Reads a resolved `kicadsexpr` netlist export: a committed `.net` beside the project if present, otherwise generated on demand via `kicad-cli` (requires KiCad installed; set `KICAD_CLI_PATH` for a non-standard location) |
+| Universal Netlist | `.json` | A file in the [Universal Netlist schema](docs/schemas/universal-netlist.md), the format every parser above converts into. It is validated on load (`nets` and `components` must be exact inverses) and then served by every tool like any other design |
 
 ## Native Install (Recommended)
 

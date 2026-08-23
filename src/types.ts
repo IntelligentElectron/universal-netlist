@@ -6,6 +6,7 @@
 import type { CadenceDiscoveredDesign } from "./parsers/cadence/discovery.js";
 import type { AltiumDiscoveredDesign } from "./parsers/altium/discovery.js";
 import type { KicadDiscoveredDesign } from "./parsers/kicad/discovery.js";
+import type { UniversalDiscoveredDesign } from "./parsers/universal/discovery.js";
 
 /**
  * Net connections from netlist
@@ -152,7 +153,12 @@ export interface AggregatedCircuitResult {
 }
 
 // Re-export format-specific discovered design types for consumers
-export type { CadenceDiscoveredDesign, AltiumDiscoveredDesign, KicadDiscoveredDesign };
+export type {
+  CadenceDiscoveredDesign,
+  AltiumDiscoveredDesign,
+  KicadDiscoveredDesign,
+  UniversalDiscoveredDesign,
+};
 
 /**
  * Discovered design metadata (discriminated union by format).
@@ -160,7 +166,8 @@ export type { CadenceDiscoveredDesign, AltiumDiscoveredDesign, KicadDiscoveredDe
 export type DiscoveredDesign =
   | CadenceDiscoveredDesign
   | AltiumDiscoveredDesign
-  | KicadDiscoveredDesign;
+  | KicadDiscoveredDesign
+  | UniversalDiscoveredDesign;
 
 /**
  * Design info returned from list_designs
