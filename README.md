@@ -58,7 +58,7 @@ universal-netlist export-json MyBoard.kicad_pro          # writes ./MyBoard.json
 universal-netlist export-json MyBoard.DSN out/board.json
 ```
 
-Writes the design's netlist in the [Universal Netlist schema](docs/schemas/universal-netlist.md). The written file is itself a design: `list_designs` finds it and every tool reads it, so an export is a snapshot you can query, diff, or hand to another tool.
+Writes the design's netlist in the [Universal Netlist schema](docs/schemas/universal-netlist.md). The written file is itself a design: `list_designs` finds it and every tool reads it, so an export is a snapshot you can query, diff, or hand to another tool. The command line is documented in [docs/cli.md](docs/cli.md).
 
 ## Alternative: Install via npm
 
@@ -134,7 +134,7 @@ See **[Observability (OpenTelemetry)](docs/observability.md)** for setup, config
 
 ## Documentation
 
-See [docs/](docs/README.md) for API documentation and response schemas.
+See [docs/](docs/README.md) for API documentation and response schemas, and [docs/cli.md](docs/cli.md) for the binary's command line.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines.
 
