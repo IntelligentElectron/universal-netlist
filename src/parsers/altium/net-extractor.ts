@@ -9,6 +9,7 @@ import type { AltiumRecord, AltiumSchematic, AltiumNet } from "./types.js";
 import { RECORD_TYPES } from "./types.js";
 import { findAllConnectedComponents } from "./connectivity.js";
 import { findRecordByIndex } from "./hierarchy.js";
+import { duplicateInstanceIndices, pinBelongsToInstance } from "./part-pins.js";
 
 const COORDINATE_SCALE = 10000;
 
@@ -41,7 +42,16 @@ const scaledCoordinate = (base: unknown, frac: unknown): number => {
   return Math.round(toNumber(base) * COORDINATE_SCALE + toNumber(frac));
 };
 
-const pinMatchesCurrentPart = (pin: AltiumRecord, schematic: AltiumSchematic): boolean => {
+/**
+ * Whether a pin record is a connection point: it belongs to the part and
+ * display mode its instance draws, and that instance is not a duplicate
+ * designator (see part-pins.ts). A pin with no owner is kept.
+ */
+const pinIsLive = (
+  pin: AltiumRecord,
+  schematic: AltiumSchematic,
+  duplicates: ReadonlySet<number>
+): boolean => {
   const ownerIndexValue = pin.OwnerIndex ?? pin.OWNERINDEX;
   if (ownerIndexValue === undefined || ownerIndexValue === null || ownerIndexValue === "") {
     return true;
@@ -52,21 +62,8 @@ const pinMatchesCurrentPart = (pin: AltiumRecord, schematic: AltiumSchematic): b
   if (!parent) {
     return true;
   }
-
-  const parentPartId = parent.CURRENTPARTID ?? parent.CurrentPartId ?? parent.CurrentPartID;
-  const pinPartId = pin.OwnerPartId ?? pin.OWNERPARTID;
-  if (
-    parentPartId === undefined ||
-    parentPartId === null ||
-    parentPartId === "" ||
-    pinPartId === undefined ||
-    pinPartId === null ||
-    pinPartId === ""
-  ) {
-    return true;
-  }
-
-  return String(parentPartId) === String(pinPartId);
+  if (duplicates.has(parent.index)) return false;
+  return pinBelongsToInstance(pin, parent);
 };
 
 /**
@@ -76,6 +73,7 @@ const pinMatchesCurrentPart = (pin: AltiumRecord, schematic: AltiumSchematic): b
  */
 const findConnectableDevices = (schematic: AltiumSchematic): AltiumRecord[] => {
   const devices: AltiumRecord[] = [];
+  const duplicates = duplicateInstanceIndices(schematic);
   const connectableTypes = new Set<string>([
     RECORD_TYPES.WIRE,
     RECORD_TYPES.PIN,
@@ -92,7 +90,7 @@ const findConnectableDevices = (schematic: AltiumSchematic): AltiumRecord[] => {
 
   const collectDevices = (records: AltiumRecord[]): void => {
     for (const record of records) {
-      if (record.RECORD === RECORD_TYPES.PIN && !pinMatchesCurrentPart(record, schematic)) {
+      if (record.RECORD === RECORD_TYPES.PIN && !pinIsLive(record, schematic, duplicates)) {
         continue;
       }
       // An entry whose connector had no coordinates was never positioned. Leaving

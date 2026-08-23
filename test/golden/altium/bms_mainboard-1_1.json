@@ -6790,7 +6790,10 @@
   "components": {
     "U3": {
       "pins": {
-        "1": "NetC40_1",
+        "1": {
+          "name": "AVDD",
+          "net": "NetC40_1"
+        },
         "2": {
           "name": "CH0+",
           "net": "CH0._P"
@@ -6839,20 +6842,66 @@
           "name": "CH5+",
           "net": "CH0._P"
         },
-        "14": "NetC37_1",
-        "15": "NetC37_2",
-        "16": "NetC37_2",
-        "17": "NetC34_2",
-        "18": "NetR75_1",
-        "20": "NetC34_2",
-        "21": "NetC36_1",
-        "22": "NetC35_1",
-        "23": "NetU3_23",
-        "24": "SPI2.SCK_1",
-        "25": "NetR74_1",
-        "26": "SPI2.MOSI_1",
-        "27": "NetC34_1",
-        "28": "NetC39_1"
+        "14": {
+          "name": "REFIN+/OUT",
+          "net": "NetC37_1"
+        },
+        "15": {
+          "name": "REFIN-",
+          "net": "NetC37_2"
+        },
+        "16": {
+          "name": "AGND",
+          "net": "NetC37_2"
+        },
+        "17": {
+          "name": "DGND",
+          "net": "NetC34_2"
+        },
+        "18": {
+          "name": "D\\R\\",
+          "net": "NetR75_1"
+        },
+        "19": {
+          "name": "NC",
+          "net": ""
+        },
+        "20": {
+          "name": "DGND",
+          "net": "NetC34_2"
+        },
+        "21": {
+          "name": "OSC1/CLKI",
+          "net": "NetC36_1"
+        },
+        "22": {
+          "name": "OSC2",
+          "net": "NetC35_1"
+        },
+        "23": {
+          "name": "C\\S\\",
+          "net": "NetU3_23"
+        },
+        "24": {
+          "name": "SCK",
+          "net": "SPI2.SCK_1"
+        },
+        "25": {
+          "name": "SDO",
+          "net": "NetR74_1"
+        },
+        "26": {
+          "name": "SDI",
+          "net": "SPI2.MOSI_1"
+        },
+        "27": {
+          "name": "R\\E\\S\\E\\T\\",
+          "net": "NetC34_1"
+        },
+        "28": {
+          "name": "DVDD",
+          "net": "NetC39_1"
+        }
       },
       "mpn": "MCP3913BA1-E/SS",
       "description": "6 Channel AFE 16, 24 Bit 28-SSOP"
@@ -7195,15 +7244,42 @@
     },
     "U22": {
       "pins": {
-        "1": "NetC173_1",
-        "2": "NetC171_2",
-        "3": "NetC171_1",
-        "4": "NetR288_1",
-        "5": "NetR289_1",
-        "6": "NetC171_2",
-        "7": "NetC171_2",
-        "8": "NetC171_2",
-        "9": "NetC171_2",
+        "1": {
+          "name": "DVDD",
+          "net": "NetC173_1"
+        },
+        "2": {
+          "name": "nFAULT",
+          "net": "NetC171_2"
+        },
+        "3": {
+          "name": "VIO",
+          "net": "NetC171_1"
+        },
+        "4": {
+          "name": "MOSI/RX",
+          "net": "NetR288_1"
+        },
+        "5": {
+          "name": "MISO/TX",
+          "net": "NetR289_1"
+        },
+        "6": {
+          "name": "SCLK",
+          "net": "NetC171_2"
+        },
+        "7": {
+          "name": "nCS",
+          "net": "NetC171_2"
+        },
+        "8": {
+          "name": "nUART/SPI",
+          "net": "NetC171_2"
+        },
+        "9": {
+          "name": "GND",
+          "net": "NetC171_2"
+        },
         "10": {
           "name": "COMLP",
           "net": "NetC178_1"
@@ -7220,9 +7296,18 @@
           "name": "COMHP",
           "net": "NetC178_1"
         },
-        "14": "NetC172_1",
-        "15": "NetC172_1",
-        "16": "NetC172_1"
+        "14": {
+          "name": "CVDD",
+          "net": "NetC172_1"
+        },
+        "15": {
+          "name": "BAT",
+          "net": "NetC172_1"
+        },
+        "16": {
+          "name": "INH",
+          "net": "NetC172_1"
+        }
       },
       "mpn": "BQ79600PWRQ1",
       "description": "Automotive SPI/UART communication interface functional-safety compliant with automatic host wakeup"
@@ -7535,6 +7620,10 @@
         "6": "GND",
         "7": "NetJ13_7",
         "8": "GND",
+        "9": "",
+        "10": "",
+        "11": "",
+        "12": "",
         "13": "NetJ13_13",
         "14": "GND",
         "15": "NetJ13_15",
@@ -8314,35 +8403,98 @@
           "name": "INH",
           "net": ""
         },
-        "2": "NetR192_1",
-        "3": "NetR131_1",
-        "4": "NetR125_1",
-        "5": "NetR123_1",
-        "6": "NetR121_1",
-        "7": "NetR103_1",
+        "2": {
+          "name": "COL",
+          "net": "NetR192_1"
+        },
+        "3": {
+          "name": "TXD3",
+          "net": "NetR131_1"
+        },
+        "4": {
+          "name": "TXD2",
+          "net": "NetR125_1"
+        },
+        "5": {
+          "name": "TXD1",
+          "net": "NetR123_1"
+        },
+        "6": {
+          "name": "TXD0",
+          "net": "NetR121_1"
+        },
+        "7": {
+          "name": "TXEN",
+          "net": "NetR103_1"
+        },
         "8": {
           "name": "VDDP",
           "net": "3P3"
         },
-        "9": "NetR152_1",
-        "10": "NetC77_1",
-        "11": "NetR120_1",
-        "12": "NetR190_1",
-        "13": "SMI.MDC_1",
-        "14": "NetR159_1",
-        "15": "NetR191_1",
-        "16": "NetR151_1",
-        "17": "NetR150_1",
+        "9": {
+          "name": "GPIO0",
+          "net": "NetR152_1"
+        },
+        "10": {
+          "name": "RESET_N",
+          "net": "NetC77_1"
+        },
+        "11": {
+          "name": "TXER/ACMA",
+          "net": "NetR120_1"
+        },
+        "12": {
+          "name": "TXCLK/RXPI",
+          "net": "NetR190_1"
+        },
+        "13": {
+          "name": "MDC",
+          "net": "SMI.MDC_1"
+        },
+        "14": {
+          "name": "MDIO",
+          "net": "NetR159_1"
+        },
+        "15": {
+          "name": "CRS/PHYAD4",
+          "net": "NetR191_1"
+        },
+        "16": {
+          "name": "RXD0/PHYAD2",
+          "net": "NetR151_1"
+        },
+        "17": {
+          "name": "RXCLK/SMCLK/WAKE_OUT",
+          "net": "NetR150_1"
+        },
         "18": {
           "name": "VDDP",
           "net": "3P3"
         },
-        "19": "NetR153_1",
-        "20": "NetR149_1",
-        "21": "NetR172_1",
-        "22": "NetR147_2",
-        "23": "NetR157_1",
-        "24": "NetR158_1",
+        "19": {
+          "name": "RXD1/PHYAD3",
+          "net": "NetR153_1"
+        },
+        "20": {
+          "name": "RXDV/CRSDV/PHYAD1",
+          "net": "NetR149_1"
+        },
+        "21": {
+          "name": "RXER/PHYAD0",
+          "net": "NetR172_1"
+        },
+        "22": {
+          "name": "IRQ_N",
+          "net": "NetR147_2"
+        },
+        "23": {
+          "name": "RXD2/MODE0",
+          "net": "NetR157_1"
+        },
+        "24": {
+          "name": "RXD3/MODE1",
+          "net": "NetR158_1"
+        },
         "25": {
           "name": "VDDAU",
           "net": "NetC91_1"
@@ -8351,14 +8503,26 @@
           "name": "RBIAS",
           "net": "NetR242_1"
         },
-        "27": "NetC79_1",
-        "28": "NetR154_1",
+        "27": {
+          "name": "XTI/REFCLKIN",
+          "net": "NetC79_1"
+        },
+        "28": {
+          "name": "XTO",
+          "net": "NetR154_1"
+        },
         "29": {
           "name": "VDDA",
           "net": "NetC91_1"
         },
-        "30": "TRX_P",
-        "31": "TRX_N",
+        "30": {
+          "name": "TRXP",
+          "net": "TRX_P"
+        },
+        "31": {
+          "name": "TRXN",
+          "net": "TRX_N"
+        },
         "32": {
           "name": "WAKE_IN",
           "net": "GND"
@@ -8717,11 +8881,26 @@
     },
     "U11": {
       "pins": {
-        "1": "P1_MDI_PHY.TX_P",
-        "2": "P1_MDI_PHY.TX_N",
-        "3": "NetC119_1",
-        "4": "P1_MDI_PHY.RX_P",
-        "5": "P1_MDI_PHY.RX_N",
+        "1": {
+          "name": "TX1P",
+          "net": "P1_MDI_PHY.TX_P"
+        },
+        "2": {
+          "name": "TX1M",
+          "net": "P1_MDI_PHY.TX_N"
+        },
+        "3": {
+          "name": "AVDDL",
+          "net": "NetC119_1"
+        },
+        "4": {
+          "name": "RX1P",
+          "net": "P1_MDI_PHY.RX_P"
+        },
+        "5": {
+          "name": "RX1M",
+          "net": "P1_MDI_PHY.RX_N"
+        },
         "6": {
           "name": "NC",
           "net": ""
@@ -8738,13 +8917,34 @@
           "name": "NC",
           "net": ""
         },
-        "10": "NetC104_1",
-        "11": "1P2",
-        "12": "P1_MDI_PHY.TX_P",
-        "13": "P1_MDI_PHY.TX_N",
-        "14": "NetC119_1",
-        "15": "P1_MDI_PHY.RX_P",
-        "16": "P1_MDI_PHY.RX_N",
+        "10": {
+          "name": "AVDDH",
+          "net": "NetC104_1"
+        },
+        "11": {
+          "name": "DVDDL",
+          "net": "1P2"
+        },
+        "12": {
+          "name": "TX2P",
+          "net": "P1_MDI_PHY.TX_P"
+        },
+        "13": {
+          "name": "TX2M",
+          "net": "P1_MDI_PHY.TX_N"
+        },
+        "14": {
+          "name": "AVDDL",
+          "net": "NetC119_1"
+        },
+        "15": {
+          "name": "RX2P",
+          "net": "P1_MDI_PHY.RX_P"
+        },
+        "16": {
+          "name": "RX2M",
+          "net": "P1_MDI_PHY.RX_N"
+        },
         "17": {
           "name": "NC",
           "net": ""
@@ -8753,7 +8953,10 @@
           "name": "NC",
           "net": ""
         },
-        "19": "NetC119_1",
+        "19": {
+          "name": "AVDDL",
+          "net": "NetC119_1"
+        },
         "20": {
           "name": "NC",
           "net": ""
@@ -8762,12 +8965,30 @@
           "name": "NC",
           "net": ""
         },
-        "22": "NetC104_1",
-        "23": "1P2",
-        "24": "P1_MDI_PHY.TX_P",
-        "25": "P1_MDI_PHY.TX_N",
-        "26": "P1_MDI_PHY.RX_P",
-        "27": "P1_MDI_PHY.RX_N",
+        "22": {
+          "name": "AVDDH",
+          "net": "NetC104_1"
+        },
+        "23": {
+          "name": "DVDDL",
+          "net": "1P2"
+        },
+        "24": {
+          "name": "TX3P",
+          "net": "P1_MDI_PHY.TX_P"
+        },
+        "25": {
+          "name": "TX3M",
+          "net": "P1_MDI_PHY.TX_N"
+        },
+        "26": {
+          "name": "RX3P",
+          "net": "P1_MDI_PHY.RX_P"
+        },
+        "27": {
+          "name": "RX3M",
+          "net": "P1_MDI_PHY.RX_N"
+        },
         "28": {
           "name": "NC",
           "net": ""
@@ -8776,7 +8997,10 @@
           "name": "NC",
           "net": ""
         },
-        "30": "NetC119_1",
+        "30": {
+          "name": "AVDDL",
+          "net": "NetC119_1"
+        },
         "31": {
           "name": "NC",
           "net": ""
@@ -8785,12 +9009,30 @@
           "name": "NC",
           "net": ""
         },
-        "33": "NetC104_1",
-        "34": "TX4_P",
-        "35": "TX4_N",
-        "36": "NetC119_1",
-        "37": "RX4_P",
-        "38": "RX4_N",
+        "33": {
+          "name": "AVDDH",
+          "net": "NetC104_1"
+        },
+        "34": {
+          "name": "TX4P",
+          "net": "TX4_P"
+        },
+        "35": {
+          "name": "TX4M",
+          "net": "TX4_N"
+        },
+        "36": {
+          "name": "AVDDL",
+          "net": "NetC119_1"
+        },
+        "37": {
+          "name": "RX4P",
+          "net": "RX4_P"
+        },
+        "38": {
+          "name": "RX4M",
+          "net": "RX4_N"
+        },
         "39": {
           "name": "NC",
           "net": ""
@@ -8799,7 +9041,10 @@
           "name": "NC",
           "net": ""
         },
-        "41": "NetC119_1",
+        "41": {
+          "name": "AVDDL",
+          "net": "NetC119_1"
+        },
         "42": {
           "name": "NC",
           "net": ""
@@ -8808,67 +9053,298 @@
           "name": "NC",
           "net": ""
         },
-        "44": "NetC104_1",
-        "45": "1P2",
-        "46": "GND",
-        "47": "GND",
-        "49": "MCU_RMII.TX_EN_1",
-        "54": "MCU_RMII.TXD1_1",
-        "55": "MCU_RMII.TXD0_1",
-        "56": "1P2",
-        "57": "NetR173_2",
-        "58": "NetR174_2",
-        "61": "3P3",
-        "63": "NetR179_2",
-        "64": "NetR178_2",
-        "65": "NetR175_2",
-        "66": "NetR150_2",
-        "67": "NetR149_2",
-        "68": "NetR172_2",
-        "69": "NetR192_2",
-        "70": "NetR158_2",
-        "71": "NetR146_2",
-        "72": "NetR153_2",
-        "73": "NetR151_2",
-        "74": "1P2",
-        "75": "NetR190_2",
-        "76": "NetR103_2",
-        "77": "3P3",
-        "78": "NetR120_2",
-        "79": "NetR191_2",
-        "80": "NetR131_2",
-        "81": "NetR125_2",
-        "82": "NetR123_2",
-        "83": "NetR121_2",
-        "84": "GND",
-        "85": "LED4_0",
-        "86": "LED4_1",
-        "87": "1P2",
-        "88": "LED3_0",
-        "89": "LED3_1",
-        "90": "TIMEPULSE_1",
-        "91": "LED2_0",
-        "92": "LED2_1",
-        "94": "NetR286_1",
-        "95": "NetR285_2",
-        "96": "NetC137_1",
-        "97": "NetR134_1",
-        "98": "SPI2.MOSI_1",
-        "99": "3P3",
-        "100": "NetU11_100",
-        "101": "SPI2.SCK_1",
-        "104": "1P2",
-        "105": "LED1_0",
-        "106": "LED1_1",
-        "107": "GND",
+        "44": {
+          "name": "AVDDH",
+          "net": "NetC104_1"
+        },
+        "45": {
+          "name": "DVDDL",
+          "net": "1P2"
+        },
+        "46": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "47": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "48": {
+          "name": "TX CLK6/REFCLKI6",
+          "net": ""
+        },
+        "49": {
+          "name": "TX EN6/TX CTL6",
+          "net": "MCU_RMII.TX_EN_1"
+        },
+        "50": {
+          "name": "TX ER6",
+          "net": ""
+        },
+        "51": {
+          "name": "COL6",
+          "net": ""
+        },
+        "52": {
+          "name": "TXD6 3",
+          "net": ""
+        },
+        "53": {
+          "name": "TXD6 2",
+          "net": ""
+        },
+        "54": {
+          "name": "TXD6 1",
+          "net": "MCU_RMII.TXD1_1"
+        },
+        "55": {
+          "name": "TXD6 0",
+          "net": "MCU_RMII.TXD0_1"
+        },
+        "56": {
+          "name": "DVDDL",
+          "net": "1P2"
+        },
+        "57": {
+          "name": "RX CLK6/REFCLKO6",
+          "net": "NetR173_2"
+        },
+        "58": {
+          "name": "RX DV6/CRS DV6/RX CTL6",
+          "net": "NetR174_2"
+        },
+        "59": {
+          "name": "RX ER6",
+          "net": ""
+        },
+        "60": {
+          "name": "CRS6",
+          "net": ""
+        },
+        "61": {
+          "name": "VDDIO",
+          "net": "3P3"
+        },
+        "62": {
+          "name": "RXD6 3",
+          "net": ""
+        },
+        "63": {
+          "name": "RXD6 2",
+          "net": "NetR179_2"
+        },
+        "64": {
+          "name": "RXD6 1",
+          "net": "NetR178_2"
+        },
+        "65": {
+          "name": "RXD6 0",
+          "net": "NetR175_2"
+        },
+        "66": {
+          "name": "TX CLK7/REFCLKI7",
+          "net": "NetR150_2"
+        },
+        "67": {
+          "name": "TX EN7/TX CTL7",
+          "net": "NetR149_2"
+        },
+        "68": {
+          "name": "TX ER7",
+          "net": "NetR172_2"
+        },
+        "69": {
+          "name": "COL7",
+          "net": "NetR192_2"
+        },
+        "70": {
+          "name": "TXD7 3",
+          "net": "NetR158_2"
+        },
+        "71": {
+          "name": "TXD7 2",
+          "net": "NetR146_2"
+        },
+        "72": {
+          "name": "TXD7 1",
+          "net": "NetR153_2"
+        },
+        "73": {
+          "name": "TXD7 0",
+          "net": "NetR151_2"
+        },
+        "74": {
+          "name": "DVDDL",
+          "net": "1P2"
+        },
+        "75": {
+          "name": "RX CLK7/REFCLKO7",
+          "net": "NetR190_2"
+        },
+        "76": {
+          "name": "RX DV7/CRS DV7/RX CTL7",
+          "net": "NetR103_2"
+        },
+        "77": {
+          "name": "VDDIO",
+          "net": "3P3"
+        },
+        "78": {
+          "name": "RX ER7",
+          "net": "NetR120_2"
+        },
+        "79": {
+          "name": "CRS7",
+          "net": "NetR191_2"
+        },
+        "80": {
+          "name": "RXD7 3",
+          "net": "NetR131_2"
+        },
+        "81": {
+          "name": "RXD7 2",
+          "net": "NetR125_2"
+        },
+        "82": {
+          "name": "RXD7 1",
+          "net": "NetR123_2"
+        },
+        "83": {
+          "name": "RXD7 0",
+          "net": "NetR121_2"
+        },
+        "84": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "85": {
+          "name": "LED4 0",
+          "net": "LED4_0"
+        },
+        "86": {
+          "name": "LED4 1",
+          "net": "LED4_1"
+        },
+        "87": {
+          "name": "DVDDL",
+          "net": "1P2"
+        },
+        "88": {
+          "name": "LED3 0",
+          "net": "LED3_0"
+        },
+        "89": {
+          "name": "LED3 1",
+          "net": "LED3_1"
+        },
+        "90": {
+          "name": "GPIO 1",
+          "net": "TIMEPULSE_1"
+        },
+        "91": {
+          "name": "LED2 0",
+          "net": "LED2_0"
+        },
+        "92": {
+          "name": "LED2 1",
+          "net": "LED2_1"
+        },
+        "93": {
+          "name": "nPME",
+          "net": ""
+        },
+        "94": {
+          "name": "nINTRP",
+          "net": "NetR286_1"
+        },
+        "95": {
+          "name": "SYNCLKO",
+          "net": "NetR285_2"
+        },
+        "96": {
+          "name": "nRESET",
+          "net": "NetC137_1"
+        },
+        "97": {
+          "name": "SDO",
+          "net": "NetR134_1"
+        },
+        "98": {
+          "name": "SDI/SDA/MDIO",
+          "net": "SPI2.MOSI_1"
+        },
+        "99": {
+          "name": "VDDIO",
+          "net": "3P3"
+        },
+        "100": {
+          "name": "nCS",
+          "net": "NetU11_100"
+        },
+        "101": {
+          "name": "SCL/MDC",
+          "net": "SPI2.SCK_1"
+        },
+        "102": {
+          "name": "LED5 0",
+          "net": ""
+        },
+        "103": {
+          "name": "LED5 1",
+          "net": ""
+        },
+        "104": {
+          "name": "DVDDL",
+          "net": "1P2"
+        },
+        "105": {
+          "name": "LED1 0",
+          "net": "LED1_0"
+        },
+        "106": {
+          "name": "LED1 1",
+          "net": "LED1_1"
+        },
+        "107": {
+          "name": "GND",
+          "net": "GND"
+        },
         "108": {
           "name": "NC",
           "net": ""
         },
-        "109": "GND",
-        "110": "1P2",
-        "111": "NetC104_1",
-        "114": "NetC119_1",
+        "109": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "110": {
+          "name": "DVDDL",
+          "net": "1P2"
+        },
+        "111": {
+          "name": "AVDDH",
+          "net": "NetC104_1"
+        },
+        "112": {
+          "name": "TX5P",
+          "net": ""
+        },
+        "113": {
+          "name": "TX5M",
+          "net": ""
+        },
+        "114": {
+          "name": "AVDDL",
+          "net": "NetC119_1"
+        },
+        "115": {
+          "name": "RX5P",
+          "net": ""
+        },
+        "116": {
+          "name": "RX5M",
+          "net": ""
+        },
         "117": {
           "name": "NC",
           "net": ""
@@ -8877,7 +9353,10 @@
           "name": "NC",
           "net": ""
         },
-        "119": "NetC119_1",
+        "119": {
+          "name": "AVDDL",
+          "net": "NetC119_1"
+        },
         "120": {
           "name": "NC",
           "net": ""
@@ -8886,14 +9365,38 @@
           "name": "NC",
           "net": ""
         },
-        "122": "NetC104_1",
-        "123": "GND",
-        "124": "NetC119_1",
-        "125": "NetR186_1",
-        "126": "NetC135_1",
-        "127": "NetR189_1",
-        "128": "NetC104_1",
-        "EP": "GND"
+        "122": {
+          "name": "AVDDH",
+          "net": "NetC104_1"
+        },
+        "123": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "124": {
+          "name": "AVDDL",
+          "net": "NetC119_1"
+        },
+        "125": {
+          "name": "XO",
+          "net": "NetR186_1"
+        },
+        "126": {
+          "name": "XI",
+          "net": "NetC135_1"
+        },
+        "127": {
+          "name": "ISET",
+          "net": "NetR189_1"
+        },
+        "128": {
+          "name": "AVDDH",
+          "net": "NetC104_1"
+        },
+        "EP": {
+          "name": "GND",
+          "net": "GND"
+        }
       },
       "mpn": "KSZ8567RTXV-VAO",
       "description": "Automotive Ethernet Switch 7 Port 10Mbps/100Mbps 128-Pin TQFP EP Tray"
@@ -9361,12 +9864,54 @@
     },
     "J8": {
       "pins": {
-        "4": "RX4_P",
-        "5": "RX4_N",
-        "6": "NetC70_1",
-        "10": "TX4_N",
-        "11": "TX4_P",
-        "12": "NetC133_1",
+        "1": {
+          "name": "TRCT3",
+          "net": ""
+        },
+        "2": {
+          "name": "TRD3-",
+          "net": ""
+        },
+        "3": {
+          "name": "TRD3+",
+          "net": ""
+        },
+        "4": {
+          "name": "TRD2+",
+          "net": "RX4_P"
+        },
+        "5": {
+          "name": "TRD2-",
+          "net": "RX4_N"
+        },
+        "6": {
+          "name": "TRCT2",
+          "net": "NetC70_1"
+        },
+        "7": {
+          "name": "TRCT4",
+          "net": ""
+        },
+        "8": {
+          "name": "TRD4+",
+          "net": ""
+        },
+        "9": {
+          "name": "TRD4-",
+          "net": ""
+        },
+        "10": {
+          "name": "TRD1-",
+          "net": "TX4_N"
+        },
+        "11": {
+          "name": "TRD1+",
+          "net": "TX4_P"
+        },
+        "12": {
+          "name": "TRCT1",
+          "net": "NetC133_1"
+        },
         "13": {
           "name": "VC12",
           "net": ""
@@ -9561,12 +10106,18 @@
     },
     "U17": {
       "pins": {
-        "1": "NetU17_1",
+        "1": {
+          "name": "WAKEUP",
+          "net": "NetU17_1"
+        },
         "2": {
           "name": "RESERVED",
           "net": ""
         },
-        "3": "NetR96_1",
+        "3": {
+          "name": "1PPS",
+          "net": "NetR96_1"
+        },
         "4": {
           "name": "RESERVED",
           "net": ""
@@ -9579,14 +10130,38 @@
           "name": "RESERVED",
           "net": ""
         },
-        "7": "NetC165_1",
-        "8": "NetU17_8",
-        "9": "NetQ6_4",
-        "10": "NetC100_2",
-        "11": "GNSS_RF",
-        "12": "NetC100_2",
-        "13": "NetC100_2",
-        "14": "NetR248_2",
+        "7": {
+          "name": "VDD_EXT",
+          "net": "NetC165_1"
+        },
+        "8": {
+          "name": "RESET_N",
+          "net": "NetU17_8"
+        },
+        "9": {
+          "name": "VDD_RF",
+          "net": "NetQ6_4"
+        },
+        "10": {
+          "name": "GND",
+          "net": "NetC100_2"
+        },
+        "11": {
+          "name": "RF_IN",
+          "net": "GNSS_RF"
+        },
+        "12": {
+          "name": "GND",
+          "net": "NetC100_2"
+        },
+        "13": {
+          "name": "GND",
+          "net": "NetC100_2"
+        },
+        "14": {
+          "name": "ANT_ON",
+          "net": "NetR248_2"
+        },
         "15": {
           "name": "RESERVED",
           "net": ""
@@ -9607,11 +10182,26 @@
           "name": "RESERVED",
           "net": ""
         },
-        "20": "NetR244_1",
-        "21": "NetD39_1",
-        "22": "NetC100_1",
-        "23": "NetC164_1",
-        "24": "NetC100_2"
+        "20": {
+          "name": "TXD1",
+          "net": "NetR244_1"
+        },
+        "21": {
+          "name": "RXD1",
+          "net": "NetD39_1"
+        },
+        "22": {
+          "name": "V_BCKP",
+          "net": "NetC100_1"
+        },
+        "23": {
+          "name": "VCC",
+          "net": "NetC164_1"
+        },
+        "24": {
+          "name": "GND",
+          "net": "NetC100_2"
+        }
       },
       "mpn": "LC29HEAMD",
       "description": "Rf Txrx Module Navigation SMD"
@@ -11320,6 +11910,890 @@
     },
     "U1": {
       "pins": {
+        "L2": {
+          "name": "WKUP / PA0",
+          "net": "PA0_TIM2-CH1"
+        },
+        "L4": {
+          "name": "PA1",
+          "net": "PA1_REFCLK"
+        },
+        "M3": {
+          "name": "PA2",
+          "net": "SMI.MDIO_1"
+        },
+        "M4": {
+          "name": "PA3",
+          "net": "PA3_ADCx-INP15"
+        },
+        "N3": {
+          "name": "PA4",
+          "net": "NetR8_1"
+        },
+        "P2": {
+          "name": "PA5",
+          "net": "NetR12_1"
+        },
+        "R2": {
+          "name": "PA6",
+          "net": "PA6_ADCx-INP3"
+        },
+        "P3": {
+          "name": "PA7",
+          "net": "MCU_RMII.CRS_DV_1"
+        },
+        "G11": {
+          "name": "PA8",
+          "net": "NetR11_2"
+        },
+        "G13": {
+          "name": "PA9",
+          "net": ""
+        },
+        "F13": {
+          "name": "PA10",
+          "net": ""
+        },
+        "F15": {
+          "name": "PA11",
+          "net": "USB_DFP1._N_1"
+        },
+        "F14": {
+          "name": "PA12",
+          "net": "USB_DFP1._P_1"
+        },
+        "F12": {
+          "name": "JTMS / SWDIO / PA13",
+          "net": "SWD.SWDIO_1"
+        },
+        "C15": {
+          "name": "JTCK / SWCLK / PA14",
+          "net": "SWD.SWCLK_1"
+        },
+        "C13": {
+          "name": "JTDI / PA15",
+          "net": ""
+        },
+        "R3": {
+          "name": "PB0",
+          "net": "NetC169_1"
+        },
+        "L6": {
+          "name": "PB1",
+          "net": ""
+        },
+        "P4": {
+          "name": "PB2",
+          "net": ""
+        },
+        "B7": {
+          "name": "JTDO / SWO / PB3",
+          "net": "SWD.SWO_1"
+        },
+        "C7": {
+          "name": "nJTRST / PB4",
+          "net": ""
+        },
+        "E7": {
+          "name": "PB5",
+          "net": ""
+        },
+        "E8": {
+          "name": "PB6",
+          "net": "NetR36_2"
+        },
+        "A6": {
+          "name": "PB7",
+          "net": "NetR35_2"
+        },
+        "C6": {
+          "name": "PB8",
+          "net": "FDCAN1.RX_1"
+        },
+        "A5": {
+          "name": "PB9",
+          "net": "NetR1_2"
+        },
+        "M10": {
+          "name": "PB10",
+          "net": "USART3_TX_2"
+        },
+        "P11": {
+          "name": "PB11",
+          "net": "USART3_RX_2"
+        },
+        "P14": {
+          "name": "PB12",
+          "net": "NetR40_2"
+        },
+        "N13": {
+          "name": "PB13",
+          "net": "NetR33_2"
+        },
+        "K11": {
+          "name": "PB14",
+          "net": ""
+        },
+        "M13": {
+          "name": "PB15",
+          "net": "NetR41_2"
+        },
+        "L1": {
+          "name": "PC0",
+          "net": ""
+        },
+        "K2": {
+          "name": "PC1",
+          "net": "NetR95_2"
+        },
+        "M1": {
+          "name": "PC2",
+          "net": ""
+        },
+        "M2": {
+          "name": "PC3",
+          "net": "PC3_ADCx-INP13"
+        },
+        "N4": {
+          "name": "PC4",
+          "net": "MCU_RMII.RXD0_1"
+        },
+        "M5": {
+          "name": "PC5",
+          "net": "MCU_RMII.RXD1_1"
+        },
+        "J15": {
+          "name": "PC6",
+          "net": "NetR31_2"
+        },
+        "H14": {
+          "name": "PC7",
+          "net": "NetR34_2"
+        },
+        "H13": {
+          "name": "PC8",
+          "net": "NetR47_2"
+        },
+        "G14": {
+          "name": "PC9",
+          "net": "NetR48_2"
+        },
+        "D12": {
+          "name": "PC10",
+          "net": "NetR49_2"
+        },
+        "B14": {
+          "name": "PC11",
+          "net": "NetR50_2"
+        },
+        "B15": {
+          "name": "PC12",
+          "net": "NetR51_2"
+        },
+        "C3": {
+          "name": "PC13",
+          "net": ""
+        },
+        "D2": {
+          "name": "OSC32_IN / PC14",
+          "net": "NetC17_1"
+        },
+        "D1": {
+          "name": "OSC32_OUT / PC15",
+          "net": "NetR55_1"
+        },
+        "E10": {
+          "name": "PD0",
+          "net": ""
+        },
+        "C12": {
+          "name": "PD1",
+          "net": ""
+        },
+        "D11": {
+          "name": "PD2",
+          "net": "NetR2_2"
+        },
+        "A14": {
+          "name": "PD3",
+          "net": "PD3_EXTI3"
+        },
+        "B13": {
+          "name": "PD4",
+          "net": "PD4_EXTI4"
+        },
+        "B12": {
+          "name": "PD5",
+          "net": "NetR294_2"
+        },
+        "A10": {
+          "name": "PD6",
+          "net": "USART2.RX_1"
+        },
+        "C9": {
+          "name": "PD7",
+          "net": ""
+        },
+        "L12": {
+          "name": "PD8",
+          "net": ""
+        },
+        "P15": {
+          "name": "PD9",
+          "net": "FDCAN1.RX_1"
+        },
+        "N14": {
+          "name": "PD10",
+          "net": ""
+        },
+        "N15": {
+          "name": "PD11",
+          "net": ""
+        },
+        "M14": {
+          "name": "PD12",
+          "net": "NetR15_2"
+        },
+        "L13": {
+          "name": "PD13",
+          "net": "NetR16_2"
+        },
+        "J11": {
+          "name": "PD14",
+          "net": "NetR17_2"
+        },
+        "K12": {
+          "name": "PD15",
+          "net": ""
+        },
+        "D6": {
+          "name": "PE0",
+          "net": "UART8.RX_1"
+        },
+        "B5": {
+          "name": "PE1",
+          "net": "NetR21_2"
+        },
+        "B3": {
+          "name": "PE2",
+          "net": "NetR6_2"
+        },
+        "D5": {
+          "name": "PE3",
+          "net": "PE3"
+        },
+        "C4": {
+          "name": "PE4",
+          "net": ""
+        },
+        "D4": {
+          "name": "PE5",
+          "net": ""
+        },
+        "F6": {
+          "name": "PE6",
+          "net": ""
+        },
+        "L8": {
+          "name": "PE7",
+          "net": "UART7.RX_1"
+        },
+        "M8": {
+          "name": "PE8",
+          "net": "NetR37_2"
+        },
+        "N8": {
+          "name": "PE9",
+          "net": ""
+        },
+        "M9": {
+          "name": "PE10",
+          "net": "NetR28_2"
+        },
+        "R10": {
+          "name": "PE11",
+          "net": "NetR29_2"
+        },
+        "L9": {
+          "name": "PE12",
+          "net": "NetR25_2"
+        },
+        "P10": {
+          "name": "PE13",
+          "net": "SPI4.MISO_1"
+        },
+        "N10": {
+          "name": "PE14",
+          "net": "NetR43_2"
+        },
+        "R11": {
+          "name": "PE15",
+          "net": "PE15_EXTI15"
+        },
+        "E1": {
+          "name": "PF0",
+          "net": ""
+        },
+        "G4": {
+          "name": "PF1",
+          "net": ""
+        },
+        "F2": {
+          "name": "PF2",
+          "net": ""
+        },
+        "H5": {
+          "name": "PF3",
+          "net": ""
+        },
+        "G1": {
+          "name": "PF4",
+          "net": ""
+        },
+        "H4": {
+          "name": "PF5",
+          "net": ""
+        },
+        "H3": {
+          "name": "PF6",
+          "net": "NetR258_2"
+        },
+        "H2": {
+          "name": "PF7",
+          "net": "NetR27_2"
+        },
+        "H1": {
+          "name": "PF8",
+          "net": "SPI5.MISO_1"
+        },
+        "J4": {
+          "name": "PF9",
+          "net": "NetR7_2"
+        },
+        "K1": {
+          "name": "PF10",
+          "net": ""
+        },
+        "L7": {
+          "name": "PF11",
+          "net": ""
+        },
+        "P6": {
+          "name": "PF12",
+          "net": ""
+        },
+        "R6": {
+          "name": "PF13",
+          "net": ""
+        },
+        "M7": {
+          "name": "PF14",
+          "net": "NetR5_2"
+        },
+        "N7": {
+          "name": "PF15",
+          "net": "NetR4_2"
+        },
+        "P7": {
+          "name": "PG0",
+          "net": ""
+        },
+        "R7": {
+          "name": "PG1",
+          "net": ""
+        },
+        "L15": {
+          "name": "PG2",
+          "net": "PG2"
+        },
+        "J12": {
+          "name": "PG3",
+          "net": "PG3"
+        },
+        "K14": {
+          "name": "PG4",
+          "net": "PG4"
+        },
+        "K15": {
+          "name": "PG5",
+          "net": "PG5"
+        },
+        "J13": {
+          "name": "PG6",
+          "net": ""
+        },
+        "H11": {
+          "name": "PG7",
+          "net": ""
+        },
+        "J14": {
+          "name": "PG8",
+          "net": "NetR18_2"
+        },
+        "B9": {
+          "name": "PG9",
+          "net": ""
+        },
+        "A9": {
+          "name": "PG10",
+          "net": ""
+        },
+        "D8": {
+          "name": "PG11",
+          "net": "NetR38_2"
+        },
+        "C8": {
+          "name": "PG12",
+          "net": "SPI2.MISO_1"
+        },
+        "B8": {
+          "name": "PG13",
+          "net": "NetR19_2"
+        },
+        "A8": {
+          "name": "PG14",
+          "net": "NetR23_2"
+        },
+        "A7": {
+          "name": "PG15",
+          "net": ""
+        },
+        "J1": {
+          "name": "OSC_IN / PH0",
+          "net": "OSC_IN_2"
+        },
+        "N1": {
+          "name": "PH2",
+          "net": "NetR259_2"
+        },
+        "N2": {
+          "name": "PH3",
+          "net": "NetR99_2"
+        },
+        "P1": {
+          "name": "PH4",
+          "net": ""
+        },
+        "K6": {
+          "name": "PH5",
+          "net": ""
+        },
+        "N11": {
+          "name": "PH6",
+          "net": "PH6_TIM12-CH1"
+        },
+        "M11": {
+          "name": "PH7",
+          "net": ""
+        },
+        "N12": {
+          "name": "PH8",
+          "net": ""
+        },
+        "P13": {
+          "name": "PH9",
+          "net": "PH9_TIM12-CH2"
+        },
+        "K10": {
+          "name": "PH10",
+          "net": ""
+        },
+        "M12": {
+          "name": "PH11",
+          "net": ""
+        },
+        "R14": {
+          "name": "PH12",
+          "net": ""
+        },
+        "E15": {
+          "name": "PH13",
+          "net": "NetR260_2"
+        },
+        "E14": {
+          "name": "PH14",
+          "net": "NetR262_2"
+        },
+        "E13": {
+          "name": "PH15",
+          "net": "NetR261_2"
+        },
+        "J2": {
+          "name": "OSC_OUT / PH1",
+          "net": "OSC_OUT_2"
+        },
+        "E12": {
+          "name": "PI0",
+          "net": ""
+        },
+        "D15": {
+          "name": "PI1",
+          "net": "NetR3_2"
+        },
+        "F10": {
+          "name": "PI2",
+          "net": "SPI2.MISO_1"
+        },
+        "D14": {
+          "name": "PI3",
+          "net": "NetR44_2"
+        },
+        "C5": {
+          "name": "PI4",
+          "net": ""
+        },
+        "A4": {
+          "name": "PI5",
+          "net": "LED0_2"
+        },
+        "A3": {
+          "name": "PI6",
+          "net": "LED1_2"
+        },
+        "B4": {
+          "name": "PI7",
+          "net": "LED2_2"
+        },
+        "E4": {
+          "name": "PI8",
+          "net": ""
+        },
+        "E2": {
+          "name": "PI9",
+          "net": ""
+        },
+        "C1": {
+          "name": "PI10",
+          "net": ""
+        },
+        "F3": {
+          "name": "PI11",
+          "net": ""
+        },
+        "F1": {
+          "name": "PI12",
+          "net": ""
+        },
+        "G3": {
+          "name": "PI13",
+          "net": ""
+        },
+        "G2": {
+          "name": "PI14",
+          "net": ""
+        },
+        "N5": {
+          "name": "PI15",
+          "net": ""
+        },
+        "R4": {
+          "name": "PJ0",
+          "net": "NetR45_2"
+        },
+        "M6": {
+          "name": "PJ1",
+          "net": "NetR287_2"
+        },
+        "P5": {
+          "name": "PJ2",
+          "net": "PJ2"
+        },
+        "R5": {
+          "name": "PJ3",
+          "net": ""
+        },
+        "N6": {
+          "name": "PJ4",
+          "net": ""
+        },
+        "P8": {
+          "name": "PJ5",
+          "net": ""
+        },
+        "R8": {
+          "name": "PJ6",
+          "net": ""
+        },
+        "R9": {
+          "name": "PJ7",
+          "net": "PJ7_TIM5-CH1"
+        },
+        "P9": {
+          "name": "PJ8",
+          "net": ""
+        },
+        "N9": {
+          "name": "PJ9",
+          "net": ""
+        },
+        "D13": {
+          "name": "PJ10",
+          "net": ""
+        },
+        "C14": {
+          "name": "PJ11",
+          "net": ""
+        },
+        "A13": {
+          "name": "PJ12",
+          "net": ""
+        },
+        "C11": {
+          "name": "PJ13",
+          "net": "PJ13_EXTI13"
+        },
+        "D10": {
+          "name": "PJ14",
+          "net": ""
+        },
+        "E9": {
+          "name": "PJ15",
+          "net": ""
+        },
+        "M15": {
+          "name": "PK0",
+          "net": ""
+        },
+        "L14": {
+          "name": "PK1",
+          "net": ""
+        },
+        "K13": {
+          "name": "PK2",
+          "net": ""
+        },
+        "A12": {
+          "name": "PK3",
+          "net": ""
+        },
+        "B11": {
+          "name": "PK4",
+          "net": ""
+        },
+        "C10": {
+          "name": "PK5",
+          "net": "DIP0_2"
+        },
+        "A11": {
+          "name": "PK6",
+          "net": "DIP1_2"
+        },
+        "B10": {
+          "name": "PK7",
+          "net": "DIP2_2"
+        },
+        "D9": {
+          "name": "PK8",
+          "net": "DIP3_2"
+        },
+        "A2": {
+          "name": "PK9",
+          "net": "NetR53_2"
+        },
+        "B2": {
+          "name": "PK10",
+          "net": "NetR46_2"
+        },
+        "C2": {
+          "name": "PK11",
+          "net": "PK11_EXTI11"
+        },
+        "F5": {
+          "name": "PK12",
+          "net": ""
+        },
+        "B1": {
+          "name": "PK13",
+          "net": ""
+        },
+        "F4": {
+          "name": "PK14",
+          "net": ""
+        },
+        "G5": {
+          "name": "PK15",
+          "net": ""
+        },
+        "D3": {
+          "name": "VBAT",
+          "net": "VBAT"
+        },
+        "E6": {
+          "name": "VCAP2",
+          "net": "1P1_MCU"
+        },
+        "L10": {
+          "name": "VCAP1",
+          "net": "1P1_MCU"
+        },
+        "R12": {
+          "name": "VLXSMPS",
+          "net": "NetL5_1"
+        },
+        "F7": {
+          "name": "VDD",
+          "net": "3P3"
+        },
+        "F9": {
+          "name": "VDD",
+          "net": "3P3"
+        },
+        "G6": {
+          "name": "VDD",
+          "net": "3P3"
+        },
+        "G7": {
+          "name": "VDD",
+          "net": "3P3"
+        },
+        "G9": {
+          "name": "VDD",
+          "net": "3P3"
+        },
+        "G10": {
+          "name": "VDD",
+          "net": "3P3"
+        },
+        "J6": {
+          "name": "VDD",
+          "net": "3P3"
+        },
+        "J7": {
+          "name": "VDD",
+          "net": "3P3"
+        },
+        "J9": {
+          "name": "VDD",
+          "net": "3P3"
+        },
+        "J10": {
+          "name": "VDD",
+          "net": "3P3"
+        },
+        "K7": {
+          "name": "VDD",
+          "net": "3P3"
+        },
+        "K9": {
+          "name": "VDD",
+          "net": "3P3"
+        },
+        "H12": {
+          "name": "VDD11USB",
+          "net": "1P1_MCU"
+        },
+        "L3": {
+          "name": "VDDA",
+          "net": "NetC67_1"
+        },
+        "D7": {
+          "name": "VDDIO2",
+          "net": "3P3"
+        },
+        "R13": {
+          "name": "VDDSMPS",
+          "net": "3P3"
+        },
+        "F11": {
+          "name": "VDDUSB",
+          "net": "3P3"
+        },
+        "K4": {
+          "name": "VREFM",
+          "net": "GND"
+        },
+        "K5": {
+          "name": "VREFP",
+          "net": "NetC68_1"
+        },
+        "A1": {
+          "name": "VSS",
+          "net": "GND"
+        },
+        "A15": {
+          "name": "VSS",
+          "net": "GND"
+        },
+        "E3": {
+          "name": "VSS",
+          "net": "GND"
+        },
+        "E5": {
+          "name": "VSS",
+          "net": "GND"
+        },
+        "E11": {
+          "name": "VSS",
+          "net": "GND"
+        },
+        "F8": {
+          "name": "VSS",
+          "net": "GND"
+        },
+        "G8": {
+          "name": "VSS",
+          "net": "GND"
+        },
+        "H6": {
+          "name": "VSS",
+          "net": "GND"
+        },
+        "H7": {
+          "name": "VSS",
+          "net": "GND"
+        },
+        "H8": {
+          "name": "VSS",
+          "net": "GND"
+        },
+        "H9": {
+          "name": "VSS",
+          "net": "GND"
+        },
+        "H10": {
+          "name": "VSS",
+          "net": "GND"
+        },
+        "J3": {
+          "name": "VSS",
+          "net": "GND"
+        },
+        "J8": {
+          "name": "VSS",
+          "net": "GND"
+        },
+        "K8": {
+          "name": "VSS",
+          "net": "GND"
+        },
+        "L5": {
+          "name": "VSS",
+          "net": "GND"
+        },
+        "L11": {
+          "name": "VSS",
+          "net": "GND"
+        },
+        "R1": {
+          "name": "VSS",
+          "net": "GND"
+        },
+        "R15": {
+          "name": "VSS",
+          "net": "GND"
+        },
+        "K3": {
+          "name": "VSSA",
+          "net": "GND"
+        },
+        "P12": {
+          "name": "VSSSMPS",
+          "net": "GND"
+        },
+        "G12": {
+          "name": "VSSUSB",
+          "net": "GND"
+        },
         "B6": {
           "name": "BOOT0",
           "net": "BOOT0_2"
@@ -11335,152 +12809,7 @@
         "G15": {
           "name": "OTG_HS_DP",
           "net": ""
-        },
-        "K4": "GND",
-        "A1": "GND",
-        "A15": "GND",
-        "E3": "GND",
-        "E5": "GND",
-        "E11": "GND",
-        "F8": "GND",
-        "G8": "GND",
-        "H6": "GND",
-        "H7": "GND",
-        "H8": "GND",
-        "H9": "GND",
-        "H10": "GND",
-        "J3": "GND",
-        "J8": "GND",
-        "K8": "GND",
-        "L5": "GND",
-        "L11": "GND",
-        "R1": "GND",
-        "R15": "GND",
-        "K3": "GND",
-        "P12": "GND",
-        "G12": "GND",
-        "J1": "OSC_IN_2",
-        "J2": "OSC_OUT_2",
-        "F7": "3P3",
-        "F9": "3P3",
-        "G6": "3P3",
-        "G7": "3P3",
-        "G9": "3P3",
-        "G10": "3P3",
-        "J6": "3P3",
-        "J7": "3P3",
-        "J9": "3P3",
-        "J10": "3P3",
-        "K7": "3P3",
-        "K9": "3P3",
-        "D7": "3P3",
-        "R13": "3P3",
-        "F11": "3P3",
-        "A4": "LED0_2",
-        "A3": "LED1_2",
-        "B4": "LED2_2",
-        "P15": "FDCAN1.RX_1",
-        "D2": "NetC17_1",
-        "P10": "SPI4.MISO_1",
-        "C6": "FDCAN1.RX_1",
-        "D3": "VBAT",
-        "H1": "SPI5.MISO_1",
-        "D1": "NetR55_1",
-        "F12": "SWD.SWDIO_1",
-        "C15": "SWD.SWCLK_1",
-        "M5": "MCU_RMII.RXD1_1",
-        "N4": "MCU_RMII.RXD0_1",
-        "P3": "MCU_RMII.CRS_DV_1",
-        "M3": "SMI.MDIO_1",
-        "M13": "NetR41_2",
-        "P14": "NetR40_2",
-        "D8": "NetR38_2",
-        "H2": "NetR27_2",
-        "J11": "NetR17_2",
-        "N13": "NetR33_2",
-        "H13": "NetR47_2",
-        "G14": "NetR48_2",
-        "D12": "NetR49_2",
-        "B14": "NetR50_2",
-        "B15": "NetR51_2",
-        "B5": "NetR21_2",
-        "M9": "NetR28_2",
-        "L9": "NetR25_2",
-        "N10": "NetR43_2",
-        "R10": "NetR29_2",
-        "A5": "NetR1_2",
-        "D11": "NetR2_2",
-        "J4": "NetR7_2",
-        "M14": "NetR15_2",
-        "L13": "NetR16_2",
-        "F14": "USB_DFP1._P_1",
-        "F15": "USB_DFP1._N_1",
-        "B7": "SWD.SWO_1",
-        "L8": "UART7.RX_1",
-        "M8": "NetR37_2",
-        "M4": "PA3_ADCx-INP15",
-        "R2": "PA6_ADCx-INP3",
-        "C11": "PJ13_EXTI13",
-        "L2": "PA0_TIM2-CH1",
-        "R9": "PJ7_TIM5-CH1",
-        "F10": "SPI2.MISO_1",
-        "D6": "UART8.RX_1",
-        "J15": "NetR31_2",
-        "H14": "NetR34_2",
-        "A6": "NetR35_2",
-        "E8": "NetR36_2",
-        "D14": "NetR44_2",
-        "D15": "NetR3_2",
-        "C10": "DIP0_2",
-        "A11": "DIP1_2",
-        "B10": "DIP2_2",
-        "D9": "DIP3_2",
-        "L3": "NetC67_1",
-        "K5": "NetC68_1",
-        "R3": "NetC169_1",
-        "N3": "NetR8_1",
-        "P2": "NetR12_1",
-        "E15": "NetR260_2",
-        "E13": "NetR261_2",
-        "E14": "NetR262_2",
-        "R4": "NetR45_2",
-        "N11": "PH6_TIM12-CH1",
-        "N1": "NetR259_2",
-        "R11": "PE15_EXTI15",
-        "C8": "SPI2.MISO_1",
-        "H3": "NetR258_2",
-        "N7": "NetR4_2",
-        "M7": "NetR5_2",
-        "L15": "PG2",
-        "J12": "PG3",
-        "K15": "PG5",
-        "K14": "PG4",
-        "B2": "NetR46_2",
-        "C2": "PK11_EXTI11",
-        "A2": "NetR53_2",
-        "D5": "PE3",
-        "B3": "NetR6_2",
-        "J14": "NetR18_2",
-        "B8": "NetR19_2",
-        "A8": "NetR23_2",
-        "A14": "PD3_EXTI3",
-        "B13": "PD4_EXTI4",
-        "P11": "USART3_RX_2",
-        "M10": "USART3_TX_2",
-        "P13": "PH9_TIM12-CH2",
-        "P5": "PJ2",
-        "M6": "NetR287_2",
-        "A10": "USART2.RX_1",
-        "B12": "NetR294_2",
-        "K2": "NetR95_2",
-        "N2": "NetR99_2",
-        "M2": "PC3_ADCx-INP13",
-        "L4": "PA1_REFCLK",
-        "G11": "NetR11_2",
-        "E6": "1P1_MCU",
-        "L10": "1P1_MCU",
-        "H12": "1P1_MCU",
-        "R12": "NetL5_1"
+        }
       },
       "mpn": "STM32H5F5LJH7Q",
       "description": "ARM® Cortex®-M33F STM32H5 Microcontroller IC 32-Bit 250MHz 4MB (4M x 8) FLASH 225-TFBGA (13x13)"
@@ -11682,18 +13011,54 @@
     },
     "U2": {
       "pins": {
-        "1": "NetR69_1",
-        "2": "NetC20_2",
-        "3": "NetC20_2",
-        "4": "NetC20_2",
-        "5": "3P3",
-        "6": "NetR71_1",
-        "7": "NetR73_2",
-        "8": "NetC32_1",
-        "9": "NetC26_1",
-        "10": "NetC26_2",
-        "11": "NetC20_2",
-        "12": "5P0",
+        "1": {
+          "name": "EN3",
+          "net": "NetR69_1"
+        },
+        "2": {
+          "name": "SDA",
+          "net": "NetC20_2"
+        },
+        "3": {
+          "name": "SCL",
+          "net": "NetC20_2"
+        },
+        "4": {
+          "name": "AGND",
+          "net": "NetC20_2"
+        },
+        "5": {
+          "name": "VOUT2",
+          "net": "3P3"
+        },
+        "6": {
+          "name": "FB2",
+          "net": "NetR71_1"
+        },
+        "7": {
+          "name": "COMP2",
+          "net": "NetR73_2"
+        },
+        "8": {
+          "name": "SS2",
+          "net": "NetC32_1"
+        },
+        "9": {
+          "name": "BST2",
+          "net": "NetC26_1"
+        },
+        "10": {
+          "name": "LX2",
+          "net": "NetC26_2"
+        },
+        "11": {
+          "name": "PGND2",
+          "net": "NetC20_2"
+        },
+        "12": {
+          "name": "PVIN2",
+          "net": "5P0"
+        },
         "13": {
           "name": "PVIN3",
           "net": "5P0"
@@ -11722,19 +13087,62 @@
           "name": "FB3",
           "net": "NetR86_1"
         },
-        "21": "NetR64_2",
-        "22": "NetR60_1",
-        "23": "NetR65_2",
-        "24": "NetC24_1",
-        "25": "NetC19_1",
-        "26": "NetC19_2",
-        "27": "NetC20_2",
-        "28": "NetC20_1",
-        "29": "NetC20_1",
-        "30": "NetC21_1",
-        "31": "NetD3_2",
-        "32": "NetR69_1",
-        "EP": "NetC20_2"
+        "20": {
+          "name": "PGOOD",
+          "net": ""
+        },
+        "21": {
+          "name": "ROSC",
+          "net": "NetR64_2"
+        },
+        "22": {
+          "name": "FB1",
+          "net": "NetR60_1"
+        },
+        "23": {
+          "name": "COMP1",
+          "net": "NetR65_2"
+        },
+        "24": {
+          "name": "SS1",
+          "net": "NetC24_1"
+        },
+        "25": {
+          "name": "BST1",
+          "net": "NetC19_1"
+        },
+        "26": {
+          "name": "LX1",
+          "net": "NetC19_2"
+        },
+        "27": {
+          "name": "PGND1",
+          "net": "NetC20_2"
+        },
+        "28": {
+          "name": "PVIN1",
+          "net": "NetC20_1"
+        },
+        "29": {
+          "name": "VIN",
+          "net": "NetC20_1"
+        },
+        "30": {
+          "name": "V7V",
+          "net": "NetC21_1"
+        },
+        "31": {
+          "name": "EN1",
+          "net": "NetD3_2"
+        },
+        "32": {
+          "name": "EN2",
+          "net": "NetR69_1"
+        },
+        "EP": {
+          "name": "PAD",
+          "net": "NetC20_2"
+        }
       },
       "mpn": "TPS65263QRHBRQ1",
       "description": "Switching Regulator, Current-mode, 3A, 2300kHz Switching Freq-Max, PQCC32"
@@ -12367,43 +13775,198 @@
     },
     "U12": {
       "pins": {
-        "1": "3P3",
-        "2": "NetR215_1",
-        "3": "NetR216_1",
-        "5": "OSC_IN",
-        "6": "OSC_OUT",
+        "1": {
+          "name": "VBAT",
+          "net": "3P3"
+        },
+        "2": {
+          "name": "PC13",
+          "net": "NetR215_1"
+        },
+        "3": {
+          "name": "OSC32_IN / PC14",
+          "net": "NetR216_1"
+        },
+        "4": {
+          "name": "OSC32_OUT / PC15",
+          "net": ""
+        },
+        "5": {
+          "name": "OSC_IN / PD0",
+          "net": "OSC_IN"
+        },
+        "6": {
+          "name": "OSC_OUT / PD1",
+          "net": "OSC_OUT"
+        },
         "7": {
           "name": "NRST",
           "net": "NetC147_1"
         },
-        "8": "GND",
-        "9": "MCU_VDDA",
-        "10": "NetC138_2",
-        "12": "NetR196_2",
-        "13": "STLINK_RX",
-        "15": "NetR197_2",
-        "18": "STLINK_nTRST",
-        "23": "GND",
-        "24": "3P3",
-        "25": "NetR212_2",
-        "26": "NetR213_2",
-        "27": "NetR214_2",
-        "30": "NetR198_2",
-        "31": "STLINK_SWO",
-        "32": "USB_DFP1._N_1",
-        "33": "USB_DFP1._P_1",
-        "34": "NetR206_1",
-        "35": "GND",
-        "36": "3P3",
-        "37": "NetR207_1",
-        "38": "NetR202_2",
-        "39": "NetR208_1",
+        "8": {
+          "name": "VSSA",
+          "net": "GND"
+        },
+        "9": {
+          "name": "VDDA",
+          "net": "MCU_VDDA"
+        },
+        "10": {
+          "name": "WKUP / PA0",
+          "net": "NetC138_2"
+        },
+        "11": {
+          "name": "PA1",
+          "net": ""
+        },
+        "12": {
+          "name": "PA2",
+          "net": "NetR196_2"
+        },
+        "13": {
+          "name": "PA3",
+          "net": "STLINK_RX"
+        },
+        "14": {
+          "name": "PA4",
+          "net": ""
+        },
+        "15": {
+          "name": "PA5",
+          "net": "NetR197_2"
+        },
+        "16": {
+          "name": "PA6",
+          "net": ""
+        },
+        "17": {
+          "name": "PA7",
+          "net": ""
+        },
+        "18": {
+          "name": "PB0",
+          "net": "STLINK_nTRST"
+        },
+        "19": {
+          "name": "PB1",
+          "net": ""
+        },
+        "20": {
+          "name": "BOOT1 / PB2",
+          "net": ""
+        },
+        "21": {
+          "name": "PB10",
+          "net": ""
+        },
+        "22": {
+          "name": "PB11",
+          "net": ""
+        },
+        "23": {
+          "name": "VSS",
+          "net": "GND"
+        },
+        "24": {
+          "name": "VDD",
+          "net": "3P3"
+        },
+        "25": {
+          "name": "PB12",
+          "net": "NetR212_2"
+        },
+        "26": {
+          "name": "PB13",
+          "net": "NetR213_2"
+        },
+        "27": {
+          "name": "PB14",
+          "net": "NetR214_2"
+        },
+        "28": {
+          "name": "PB15",
+          "net": ""
+        },
+        "29": {
+          "name": "PA8",
+          "net": ""
+        },
+        "30": {
+          "name": "PA9",
+          "net": "NetR198_2"
+        },
+        "31": {
+          "name": "PA10",
+          "net": "STLINK_SWO"
+        },
+        "32": {
+          "name": "PA11",
+          "net": "USB_DFP1._N_1"
+        },
+        "33": {
+          "name": "PA12",
+          "net": "USB_DFP1._P_1"
+        },
+        "34": {
+          "name": "JTMS / SWDIO / PA13",
+          "net": "NetR206_1"
+        },
+        "35": {
+          "name": "VSS",
+          "net": "GND"
+        },
+        "36": {
+          "name": "VDD",
+          "net": "3P3"
+        },
+        "37": {
+          "name": "JTCK / SWCLK / PA14",
+          "net": "NetR207_1"
+        },
+        "38": {
+          "name": "JTDI / PA15",
+          "net": "NetR202_2"
+        },
+        "39": {
+          "name": "JTDO / SWO / PB3",
+          "net": "NetR208_1"
+        },
+        "40": {
+          "name": "nJTRST / PB4",
+          "net": ""
+        },
+        "41": {
+          "name": "PB5",
+          "net": ""
+        },
+        "42": {
+          "name": "PB6",
+          "net": ""
+        },
+        "43": {
+          "name": "PB7",
+          "net": ""
+        },
         "44": {
           "name": "BOOT0",
           "net": "NetR211_1"
         },
-        "47": "GND",
-        "48": "3P3"
+        "45": {
+          "name": "PB8",
+          "net": ""
+        },
+        "46": {
+          "name": "PB9",
+          "net": ""
+        },
+        "47": {
+          "name": "VSS",
+          "net": "GND"
+        },
+        "48": {
+          "name": "VDD",
+          "net": "3P3"
+        }
       },
       "mpn": "STM32F103CBT6",
       "description": "ARM Cortex-M3 STM32 F1 Microcontroller 32-Bit 72MHz 128kB FLASH LQFP48 STM32F103CBT6"
@@ -13289,24 +14852,56 @@
     },
     "U19": {
       "pins": {
-        "1": "USB_DFP1._N_1",
-        "2": "USB_DFP1._P_1",
-        "3": "USB_DFP1._N_1",
-        "4": "USB_DFP1._P_1",
+        "1": {
+          "name": "SWAP_USBDN1_DM/PRT_DIS_M1",
+          "net": "USB_DFP1._N_1"
+        },
+        "2": {
+          "name": "SWAP_USBDN1_DP/PRT_DIS_P1",
+          "net": "USB_DFP1._P_1"
+        },
+        "3": {
+          "name": "USBDN2_DM/PRT_DIS_M2",
+          "net": "USB_DFP1._N_1"
+        },
+        "4": {
+          "name": "USBDN2_DP/PRT_DIS_P2",
+          "net": "USB_DFP1._P_1"
+        },
         "5": {
           "name": "NC",
           "net": ""
         },
-        "6": "NetR256_2",
-        "7": "NetR255_2",
-        "8": "NetR273_2",
-        "9": "NetR274_2",
+        "6": {
+          "name": "USBDN3_DM/PRT_DIS_M3",
+          "net": "NetR256_2"
+        },
+        "7": {
+          "name": "USBDN3_DP/PRT_DIS_P3",
+          "net": "NetR255_2"
+        },
+        "8": {
+          "name": "USBDN4_DM/PRT_DIS_M4",
+          "net": "NetR273_2"
+        },
+        "9": {
+          "name": "USBDN4_DP/PRT_DIS_P4",
+          "net": "NetR274_2"
+        },
         "10": {
           "name": "VDDA33",
           "net": "NetC190_1"
         },
         "11": {
           "name": "LED0/FLEX_IN",
+          "net": ""
+        },
+        "12": {
+          "name": "PRTPWR1/PRTCTL1/BC_EN1",
+          "net": ""
+        },
+        "13": {
+          "name": "O\\C\\S\\1\\",
           "net": ""
         },
         "14": {
@@ -13317,8 +14912,30 @@
           "name": "VDD33",
           "net": "NetC193_1"
         },
-        "18": "NetR257_1",
-        "20": "NetR276_1",
+        "16": {
+          "name": "PRTPWR2/PRTCTL2/BC_EN2",
+          "net": ""
+        },
+        "17": {
+          "name": "O\\C\\S\\2\\",
+          "net": ""
+        },
+        "18": {
+          "name": "PRTPWR3/PRTCTL3/BC_EN3",
+          "net": "NetR257_1"
+        },
+        "19": {
+          "name": "UART_RX/O\\C\\S\\3\\",
+          "net": ""
+        },
+        "20": {
+          "name": "PRTPWR4/PRTCTL4/BC_EN4",
+          "net": "NetR276_1"
+        },
+        "21": {
+          "name": "UART_TX/O\\C\\S\\4\\",
+          "net": ""
+        },
         "22": {
           "name": "SDA/SMBDATA/NON_REM1",
           "net": "NetR271_2"
@@ -13339,7 +14956,10 @@
           "name": "R\\E\\S\\E\\T\\",
           "net": "NetR269_2"
         },
-        "27": "NetR267_2",
+        "27": {
+          "name": "VBUS_DET",
+          "net": "NetR267_2"
+        },
         "28": {
           "name": "SUSP_IND/LOCAL_PWR/NON_REM0",
           "net": "NetR270_2"
@@ -13348,8 +14968,14 @@
           "name": "VDDA33",
           "net": "NetC190_1"
         },
-        "30": "USB_DFP1._N_1",
-        "31": "USB_DFP1._P_1",
+        "30": {
+          "name": "FLEX_USBUP_DM",
+          "net": "USB_DFP1._N_1"
+        },
+        "31": {
+          "name": "FLEX_USBUP_DP",
+          "net": "USB_DFP1._P_1"
+        },
         "32": {
           "name": "XTAL2",
           "net": "NetR275_2"

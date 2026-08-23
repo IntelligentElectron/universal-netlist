@@ -314,6 +314,18 @@ The nesting relationship is read from the entry records, but a nested bundle is 
 its own identity: its members resolve as names, and its connectivity depends on the enclosing
 bundle.
 
+## Component instances
+
+A component record (RECORD=1) is one drawn instance of one part of a library component, and not every pin written under it is a connection point. `src/parsers/altium/part-pins.ts` decides which are, and both the net extraction and the component extraction read it, so the two indices of the netlist are built from the same pins.
+
+**Multi-part components.** A multi-part component (a dual op-amp, a resistor array, an FPGA split into banks) writes every part's pins under every instance, with `OwnerPartId` on the pin and `CURRENTPARTID` on the instance saying which part that instance draws. Only the drawn part's pins connect. The instances of one component, on one sheet or across sheets, are merged into one component: the union of their pins, the first instance's entry where both declare a pin, and the first instance's fields with gaps filled from the others. A part drawn on no sheet still has its pins declared, unconnected.
+
+**Display modes.** A component with alternate display modes writes one pin set per mode, at the coordinates of that mode's graphic, with `OwnerPartDisplayMode` on the pin and `DISPLAYMODE` on the instance (both unwritten for the default mode, 0). Only the drawn mode's pins connect. The other modes' pins sit wherever their graphic would put them, which can be on another net's wire; a header drawn in its default mode used to have the alternate mode's pins land on the GND rail.
+
+**Duplicate designators.** Two instances with the same designator and the same part are a duplicate designator, which Altium's compiler reports as an error. One physical part cannot have one pin on two nets, so the first instance in document order is the part, and later instances, on the same sheet or a later one, are ignored: their pins connect nothing and their fields are not read. A wire that reached only an ignored instance's pin keeps the rest of its members, or becomes a single-pin net that `run_erc` reports. Unannotated parts (designator `X?`) repeated across sheets fall under this rule.
+
+After every document is merged, `reconcileNetlist` removes any net listing that the component map contradicts, so the output always passes the Universal Netlist reader's inverse check.
+
 ### Designs used for testing
 
 Two of the surveyed designs are vendored into `test/fixtures/altium/`, with record counts as

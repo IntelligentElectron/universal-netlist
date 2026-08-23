@@ -442,9 +442,6 @@
       ],
       "U4": [
         "4"
-      ],
-      "TH_TP?": [
-        "TH_TP"
       ]
     },
     "48V_SW": {
@@ -584,9 +581,6 @@
       "R37": [
         "1"
       ],
-      "TH_TP?": [
-        "TH_TP"
-      ],
       "P2": [
         "14"
       ]
@@ -660,9 +654,6 @@
       "R30": [
         "1"
       ],
-      "TH_TP?": [
-        "TH_TP"
-      ],
       "P2": [
         "15",
         "16"
@@ -706,9 +697,6 @@
       ],
       "R33": [
         "1"
-      ],
-      "TH_TP?": [
-        "TH_TP"
       ],
       "P2": [
         "12"
@@ -1663,7 +1651,7 @@
       "pins": {
         "TH_TP": {
           "name": "1",
-          "net": "48V"
+          "net": "49V2"
         }
       },
       "comment": "Thru Test Point"
@@ -2160,9 +2148,18 @@
           "name": "G",
           "net": "NetQ3_2"
         },
-        "3": "+5V_SW",
-        "4": "+5V",
-        "5": "NetQ3_5",
+        "3": {
+          "name": "D",
+          "net": "+5V_SW"
+        },
+        "4": {
+          "name": "S",
+          "net": "+5V"
+        },
+        "5": {
+          "name": "G2",
+          "net": "NetQ3_5"
+        },
         "6": {
           "name": "D",
           "net": "NetQ3_5"
@@ -2191,9 +2188,18 @@
           "name": "G",
           "net": "NetQ4_2"
         },
-        "3": "3V3_SW",
-        "4": "3V3",
-        "5": "NetQ4_5",
+        "3": {
+          "name": "D",
+          "net": "3V3_SW"
+        },
+        "4": {
+          "name": "S",
+          "net": "3V3"
+        },
+        "5": {
+          "name": "G2",
+          "net": "NetQ4_5"
+        },
         "6": {
           "name": "D",
           "net": "NetQ4_5"
@@ -2959,16 +2965,46 @@
           "name": "NC",
           "net": ""
         },
-        "9": "ESP32_PWR_PE_GP0_nSW_EN",
-        "10": "ESP32_PWR_PE_GP1_PHANTOM_PWR_EN",
-        "11": "ESP32_PWR_PE_GP2_49V2_REG_EN",
-        "12": "ESP32_PWR_PE_GP3_nBAT_CHG_EN",
-        "13": "ESP32_PWR_PE_GP4_BAT_GAUGE_ALRT",
-        "14": "ESP32_PWR_PE_GP5_BAT_CHG_nPG",
-        "15": "ESP32_PWR_PE_GP6_BAT_CHG_STATUS",
-        "16": "ESP32_PWR_PE_GP7_DEBUG_LEG_8",
-        "17": "GND",
-        "18": "3V3",
+        "9": {
+          "name": "GP0",
+          "net": "ESP32_PWR_PE_GP0_nSW_EN"
+        },
+        "10": {
+          "name": "GP1",
+          "net": "ESP32_PWR_PE_GP1_PHANTOM_PWR_EN"
+        },
+        "11": {
+          "name": "GP2",
+          "net": "ESP32_PWR_PE_GP2_49V2_REG_EN"
+        },
+        "12": {
+          "name": "GP3",
+          "net": "ESP32_PWR_PE_GP3_nBAT_CHG_EN"
+        },
+        "13": {
+          "name": "GP4",
+          "net": "ESP32_PWR_PE_GP4_BAT_GAUGE_ALRT"
+        },
+        "14": {
+          "name": "GP5",
+          "net": "ESP32_PWR_PE_GP5_BAT_CHG_nPG"
+        },
+        "15": {
+          "name": "GP6",
+          "net": "ESP32_PWR_PE_GP6_BAT_CHG_STATUS"
+        },
+        "16": {
+          "name": "GP7",
+          "net": "ESP32_PWR_PE_GP7_DEBUG_LEG_8"
+        },
+        "17": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "18": {
+          "name": "VDD",
+          "net": "3V3"
+        },
         "19": {
           "name": "SCL",
           "net": "NetU5_19"
@@ -2977,7 +3013,10 @@
           "name": "SDA",
           "net": "NetU5_20"
         },
-        "21": "GND"
+        "21": {
+          "name": "PAD (GND)",
+          "net": "GND"
+        }
       },
       "description": "I/O Expander 8 I²C 1.7MHz 20-QFN-EP (4x4) \r\n",
       "comment": "MCP23008"

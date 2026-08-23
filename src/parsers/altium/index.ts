@@ -27,6 +27,7 @@ import { OleReader, readOleStream, readOptionalOleStream } from "../ole-reader/o
 import { parseRecords, findRecords } from "./record-parser.js";
 import { buildHierarchy, getPartsList, flattenHierarchy, findRecordByIndex } from "./hierarchy.js";
 import { extractNets, determineNetList, classifyNets } from "./net-extractor.js";
+import { duplicateInstanceIndices, pinBelongsToInstance } from "./part-pins.js";
 import {
   readHarnessConnectors,
   assignHarnessSignals,
@@ -184,14 +185,79 @@ const populatePinNets = (components: ComponentDetails, nets: NetConnections): vo
 
       for (const pin of pins) {
         const entry = component.pins[pin];
-        if (typeof entry === "string") {
+        if (entry === undefined) {
           component.pins[pin] = netName;
-        } else if (entry) {
+        } else if (typeof entry === "string") {
+          if (entry === "") component.pins[pin] = netName;
+        } else if (entry.net === "") {
           entry.net = netName;
-        } else {
-          component.pins[pin] = netName;
         }
       }
+    }
+  }
+};
+
+/**
+ * Fold one component record into another that carries the same designator:
+ * the union of their pins, the first record's entry where both declare a pin,
+ * and the first record's fields with gaps filled from the second.
+ */
+const mergeComponentInto = (
+  target: ComponentDetails[string],
+  source: ComponentDetails[string]
+): void => {
+  for (const [pin, entry] of Object.entries(source.pins)) {
+    if (target.pins[pin] === undefined) target.pins[pin] = entry;
+  }
+  for (const field of ["mpn", "description", "comment", "value"] as const) {
+    if (target[field] === undefined && source[field] !== undefined) target[field] = source[field];
+  }
+  if (source.dns && !target.dns) target.dns = true;
+};
+
+const pinNet = (entry: PinEntry): string => (typeof entry === "string" ? entry : entry.net);
+
+/**
+ * Make `nets` and `components` exact inverses, with `components` as the
+ * authority on where a pin is.
+ *
+ * Each document's two indices agree when it is parsed, and merging documents
+ * keeps the first reading of a pin (see `mergeResult`). What can still disagree
+ * is a later document's net listing a pin the first document already placed:
+ * the same designator on two sheets, which is a duplicate designator unless the
+ * part ids differ. Such a listing is removed here, a net left with no pins is
+ * dropped, and a pin a component places on a net that does not list it is
+ * added. The result passes the Universal Netlist reader's inverse check.
+ */
+const reconcileNetlist = ({ nets, components }: ParsedNetlist): void => {
+  for (const [netName, connections] of Object.entries(nets)) {
+    for (const [refdes, pins] of Object.entries(connections)) {
+      const component = components[refdes];
+      if (!component) {
+        delete connections[refdes];
+        continue;
+      }
+      const kept = pins.filter((pin) => {
+        const entry = component.pins[pin];
+        if (entry === undefined) {
+          component.pins[pin] = netName;
+          return true;
+        }
+        return pinNet(entry) === netName;
+      });
+      if (kept.length > 0) connections[refdes] = kept;
+      else delete connections[refdes];
+    }
+    if (Object.keys(connections).length === 0) delete nets[netName];
+  }
+
+  for (const [refdes, component] of Object.entries(components)) {
+    for (const [pin, entry] of Object.entries(component.pins)) {
+      const netName = pinNet(entry);
+      if (netName === "") continue;
+      const connections = (nets[netName] ??= {});
+      const listed = (connections[refdes] ??= []);
+      if (!listed.includes(pin)) listed.push(pin);
     }
   }
 };
@@ -226,23 +292,6 @@ const resolveComment = (
   return trimmed;
 };
 
-const pinMatchesCurrentPart = (pin: AltiumRecord, part: AltiumRecord): boolean => {
-  const partId = part.CURRENTPARTID ?? part.CurrentPartId ?? part.CurrentPartID;
-  const pinPartId = pin.OwnerPartId ?? pin.OWNERPARTID;
-  if (
-    partId === undefined ||
-    partId === null ||
-    partId === "" ||
-    pinPartId === undefined ||
-    pinPartId === null ||
-    pinPartId === ""
-  ) {
-    return true;
-  }
-
-  return String(partId) === String(pinPartId);
-};
-
 const getPinName = (pin: AltiumRecord): string | undefined => {
   const name = pin.Name ?? pin.NAME;
   if (name !== undefined && name !== null && name !== "") {
@@ -259,8 +308,13 @@ export const extractComponents = (schematic: AltiumSchematic): ComponentDetails 
 
   // Get all parts (RECORD=1)
   const parts = getPartsList(schematic);
+  const duplicates = duplicateInstanceIndices(schematic);
 
   for (const part of parts) {
+    // A second instance of the same designator and part is a duplicate
+    // designator; the first instance is the part (see part-pins.ts).
+    if (duplicates.has(part.index)) continue;
+
     // Designator is in a child record with RECORD=34 and Text field
     let refdes: string | undefined;
     if (part.children) {
@@ -347,7 +401,7 @@ export const extractComponents = (schematic: AltiumSchematic): ComponentDetails 
     if (part.children) {
       for (const child of part.children) {
         if (child.RECORD === RECORD_TYPES.PIN) {
-          if (!pinMatchesCurrentPart(child, part)) {
+          if (!pinBelongsToInstance(child, part)) {
             continue;
           }
           const pinNum = getPinNumber(child);
@@ -398,7 +452,11 @@ export const extractComponents = (schematic: AltiumSchematic): ComponentDetails 
       if (component.description) component.description = stripDnsMarkers(component.description);
     }
 
-    components[refdes] = component;
+    // A multi-part component is drawn as one instance per part, each with its
+    // own pins and the same designator: one component, the union of its pins.
+    const existing = components[refdes];
+    if (existing) mergeComponentInto(existing, component);
+    else components[refdes] = component;
   }
 
   return components;
@@ -614,6 +672,7 @@ const parseAltiumDocument = (schdocPath: string): ParsedDocument => {
 
   // 6. Populate component pin-to-net mappings from the nets data
   populatePinNets(components, parsedNets);
+  reconcileNetlist({ nets: parsedNets, components });
 
   const designedNames = new Set<string>();
   for (const net of nets) {
@@ -716,10 +775,14 @@ const mergeResult = (
     }
   }
 
+  // The same designator on two sheets is one multi-part component when the
+  // sheets draw different parts of it, and a duplicate designator when they do
+  // not. Either way the first sheet's reading of a pin stands, and
+  // `reconcileNetlist` removes the later sheet's listing of that pin.
   for (const [refdes, component] of Object.entries(result.components)) {
-    if (!allComponents[refdes]) {
-      allComponents[refdes] = component;
-    }
+    const existing = allComponents[refdes];
+    if (existing) mergeComponentInto(existing, component);
+    else allComponents[refdes] = component;
   }
 };
 
@@ -1357,6 +1420,7 @@ const parseAltiumProject = async (projectPath: string): Promise<ParsedNetlist> =
       const components = extractComponents(hierarchical);
       populatePinNets(components, parsedNets);
       const baseResult: ParsedNetlist = { nets: parsedNets, components };
+      reconcileNetlist(baseResult);
 
       // Classify SHEET_ENTRY records: Repeat() → per-channel, others → shared
       // The bundle definitions live beside the parent document, whose sheet
@@ -1468,10 +1532,9 @@ const parseAltiumProject = async (projectPath: string): Promise<ParsedNetlist> =
   // which classifySheetEntries already carries the bundle's members across.
   mergeHarnessSignalNets(allNets, allComponents, resolvedSignalNets, designedNames);
 
-  return {
-    nets: allNets,
-    components: allComponents,
-  };
+  const netlist: ParsedNetlist = { nets: allNets, components: allComponents };
+  reconcileNetlist(netlist);
+  return netlist;
 };
 
 /**

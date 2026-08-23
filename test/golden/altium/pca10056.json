@@ -259,19 +259,13 @@
       ],
       "P15": [
         "1",
-        "2",
         "3",
-        "4",
         "5",
-        "8",
         "7",
-        "14",
-        "13",
-        "6",
-        "15",
-        "16",
         "9",
-        "11"
+        "11",
+        "13",
+        "15"
       ],
       "P16": [
         "1",
@@ -288,30 +282,21 @@
       ],
       "P13": [
         "1",
-        "2",
         "3",
-        "4",
         "5",
-        "8",
         "7",
-        "14",
-        "13",
-        "6",
-        "15",
-        "16",
         "9",
         "12",
-        "11"
+        "11",
+        "14",
+        "13",
+        "15"
       ],
       "P17": [
         "1",
-        "2",
         "3",
-        "4",
         "5",
-        "8",
         "7",
-        "6",
         "9",
         "11",
         "13",
@@ -2143,28 +2128,12 @@
         "8"
       ]
     },
-    "nRF_ONLY": {
-      "U6": [
-        "5"
-      ],
-      "U4": [
-        "B2"
-      ],
-      "TP22": [
-        "1"
-      ],
-      "R3": [
-        "1"
-      ]
-    },
     "IF_OFF": {
       "U6": [
-        "13",
         "2",
         "10"
       ],
       "U5": [
-        "13",
         "10"
       ],
       "U7": [
@@ -2309,21 +2278,6 @@
         "2"
       ]
     },
-    "SHIELD_DETECT": {
-      "U7": [
-        "13",
-        "10"
-      ],
-      "SB33": [
-        "2"
-      ],
-      "R68": [
-        "1"
-      ],
-      "TP19": [
-        "1"
-      ]
-    },
     "NetSB42_1": {
       "U7": [
         "1"
@@ -2367,6 +2321,20 @@
         "2"
       ]
     },
+    "SHIELD_DETECT": {
+      "U7": [
+        "10"
+      ],
+      "SB33": [
+        "2"
+      ],
+      "R68": [
+        "1"
+      ],
+      "TP19": [
+        "1"
+      ]
+    },
     "NetR53_2": {
       "U7": [
         "13"
@@ -2399,7 +2367,6 @@
     },
     "TRACE_SW": {
       "U8": [
-        "13",
         "2",
         "10"
       ],
@@ -2549,6 +2516,17 @@
         "2"
       ]
     },
+    "nRF_ONLY": {
+      "U4": [
+        "B2"
+      ],
+      "TP22": [
+        "1"
+      ],
+      "R3": [
+        "1"
+      ]
+    },
     "NetQ40_5": {
       "R41": [
         "2"
@@ -2605,8 +2583,7 @@
     },
     "NetP28_1": {
       "U19": [
-        "5",
-        "6"
+        "5"
       ],
       "P28": [
         "1"
@@ -2614,8 +2591,7 @@
     },
     "NetP28_2": {
       "U19": [
-        "6",
-        "5"
+        "6"
       ],
       "P28": [
         "2"
@@ -3412,24 +3388,8 @@
         "4"
       ]
     },
-    "NetQ80_3": {
-      "U19": [
-        "3",
-        "2"
-      ],
-      "U16": [
-        "A1"
-      ],
-      "Q80": [
-        "3"
-      ],
-      "TP34": [
-        "1"
-      ]
-    },
     "VDD_nRF_SENSE": {
       "U19": [
-        "2",
         "3"
       ],
       "R88": [
@@ -3452,6 +3412,20 @@
         "2"
       ],
       "R5": [
+        "1"
+      ]
+    },
+    "NetQ80_3": {
+      "U19": [
+        "2"
+      ],
+      "U16": [
+        "A1"
+      ],
+      "Q80": [
+        "3"
+      ],
+      "TP34": [
         "1"
       ]
     },
@@ -4763,6 +4737,338 @@
           "name": "VSS_PAD",
           "net": "GND"
         },
+        "AJ31": {
+          "name": "VDD",
+          "net": "VDD_IMCU"
+        },
+        "G31": {
+          "name": "DECRF",
+          "net": "NetC29_2"
+        },
+        "N31": {
+          "name": "VDD",
+          "net": "VDD_IMCU"
+        },
+        "AL11": {
+          "name": "VDD",
+          "net": "VDD_IMCU"
+        },
+        "A21": {
+          "name": "DCC",
+          "net": ""
+        },
+        "J1": {
+          "name": "DCCH",
+          "net": ""
+        },
+        "A5": {
+          "name": "VBUS",
+          "net": "NetC37_1"
+        },
+        "B6": {
+          "name": "DECUSB",
+          "net": "NetC38_1"
+        },
+        "AL25": {
+          "name": "VDD",
+          "net": "VDD_IMCU"
+        },
+        "A27": {
+          "name": "DECR",
+          "net": "NetC29_2"
+        },
+        "B10": {
+          "name": "DCCD",
+          "net": ""
+        },
+        "A15": {
+          "name": "DECD",
+          "net": "NetC36_2"
+        },
+        "AL17": {
+          "name": "VDD",
+          "net": "VDD_IMCU"
+        },
+        "A13": {
+          "name": "DECA",
+          "net": "NetC40_2"
+        },
+        "A23": {
+          "name": "DECN",
+          "net": "NetC39_1"
+        },
+        "L1": {
+          "name": "VDD",
+          "net": "VDD_IMCU"
+        },
+        "E1": {
+          "name": "VDDH",
+          "net": "VDD_IMCU"
+        },
+        "U1": {
+          "name": "VDD",
+          "net": "VDD_IMCU"
+        },
+        "C1": {
+          "name": "VDD",
+          "net": "VDD_IMCU"
+        },
+        "E31": {
+          "name": "VDD",
+          "net": "VDD_IMCU"
+        },
+        "AL7": {
+          "name": "VDD",
+          "net": "VDD_IMCU"
+        },
+        "AL3": {
+          "name": "VDD",
+          "net": "VDD_IMCU"
+        },
+        "AC1": {
+          "name": "VDD",
+          "net": "VDD_IMCU"
+        },
+        "A19": {
+          "name": "VDD",
+          "net": "VDD_IMCU"
+        },
+        "B8": {
+          "name": "VDD",
+          "net": "VDD_IMCU"
+        },
+        "AG1": {
+          "name": "VDD",
+          "net": "VDD_IMCU"
+        },
+        "B28": {
+          "name": "VDD",
+          "net": "VDD_IMCU"
+        },
+        "L31": {
+          "name": "ANT",
+          "net": "NetR9_1"
+        },
+        "C31": {
+          "name": "XC1",
+          "net": "NetU2_C31"
+        },
+        "B30": {
+          "name": "XC2",
+          "net": "NetU2_B30"
+        },
+        "W31": {
+          "name": "SWDCLK",
+          "net": "IMCU_SWDCLK"
+        },
+        "AA31": {
+          "name": "SWDIO",
+          "net": "IMCU_SWDIO"
+        },
+        "B4": {
+          "name": "D-",
+          "net": "IMCU_N"
+        },
+        "B2": {
+          "name": "D+",
+          "net": "IMCU_P"
+        },
+        "AC31": {
+          "name": "R\\E\\S\\E\\T\\",
+          "net": "IMCU_RESET"
+        },
+        "N1": {
+          "name": "P0.00/XL1",
+          "net": "SWD3_IO"
+        },
+        "R1": {
+          "name": "P0.01/XL2",
+          "net": "SWD3_CLK"
+        },
+        "AL29": {
+          "name": "P0.26/AIN5",
+          "net": "IMCU_LED"
+        },
+        "AK30": {
+          "name": "P0.27/AIN6",
+          "net": "SWD1_IO"
+        },
+        "AB2": {
+          "name": "P0.06/AIN2",
+          "net": ""
+        },
+        "AH2": {
+          "name": "P0.08/TRACEDATA[3]",
+          "net": ""
+        },
+        "AL9": {
+          "name": "P0.16/QSPI[3]",
+          "net": "VCOM_CTS"
+        },
+        "W1": {
+          "name": "P0.02/NFC1",
+          "net": "SWD3_SWO"
+        },
+        "AK16": {
+          "name": "P0.20",
+          "net": ""
+        },
+        "V2": {
+          "name": "P0.04/AIN0",
+          "net": ""
+        },
+        "Y2": {
+          "name": "P0.05/AIN1",
+          "net": ""
+        },
+        "AK18": {
+          "name": "P0.22",
+          "net": ""
+        },
+        "AK20": {
+          "name": "P0.23",
+          "net": ""
+        },
+        "AL27": {
+          "name": "P0.24",
+          "net": "IMCU_BOOT"
+        },
+        "AK28": {
+          "name": "P0.25/AIN4",
+          "net": "SWD1_CLK"
+        },
+        "AL13": {
+          "name": "P0.19",
+          "net": ""
+        },
+        "AK12": {
+          "name": "P0.17/QSPI_CLK",
+          "net": ""
+        },
+        "AA1": {
+          "name": "P0.03/NFC2",
+          "net": "SWD3_RESET"
+        },
+        "AK14": {
+          "name": "P0.18/QSPI_CS",
+          "net": ""
+        },
+        "AD2": {
+          "name": "P0.07/AIN3",
+          "net": ""
+        },
+        "AJ1": {
+          "name": "P0.09/TRACEDATA[2]",
+          "net": ""
+        },
+        "AK4": {
+          "name": "P0.11/TRACEDATA[0]",
+          "net": ""
+        },
+        "AK6": {
+          "name": "P0.12/TRACECLK",
+          "net": ""
+        },
+        "AL5": {
+          "name": "P0.13/QSPI[0]",
+          "net": "VCOM_RTS"
+        },
+        "AK8": {
+          "name": "P0.14/QSPI[1]",
+          "net": ""
+        },
+        "AK10": {
+          "name": "P0.15/QSPI[2]",
+          "net": ""
+        },
+        "AL15": {
+          "name": "P0.21",
+          "net": ""
+        },
+        "AE31": {
+          "name": "P0.28/AIN7",
+          "net": ""
+        },
+        "B24": {
+          "name": "P0.30",
+          "net": "SWD0_SEL"
+        },
+        "B22": {
+          "name": "P0.31",
+          "net": "SWD0_RESET"
+        },
+        "U31": {
+          "name": "P0.29",
+          "net": "VCOM_TxD"
+        },
+        "AK2": {
+          "name": "P0.10/TRACEDATA[1]",
+          "net": ""
+        },
+        "B20": {
+          "name": "P1.11",
+          "net": "SWD0_SWO"
+        },
+        "R31": {
+          "name": "P1.10",
+          "net": ""
+        },
+        "AK26": {
+          "name": "P1.09",
+          "net": "SWD1_SWO"
+        },
+        "P2": {
+          "name": "P1.01",
+          "net": ""
+        },
+        "AE1": {
+          "name": "P1.02/TWI",
+          "net": ""
+        },
+        "AF2": {
+          "name": "P1.03/TWI",
+          "net": ""
+        },
+        "AL21": {
+          "name": "P1.06",
+          "net": ""
+        },
+        "AK24": {
+          "name": "P1.07",
+          "net": "SWD1_RESET"
+        },
+        "AL23": {
+          "name": "P1.08",
+          "net": ""
+        },
+        "B18": {
+          "name": "P1.12",
+          "net": "SWD0_CLK"
+        },
+        "A17": {
+          "name": "P1.13",
+          "net": ""
+        },
+        "B16": {
+          "name": "P1.14",
+          "net": "SWD0_IO"
+        },
+        "B14": {
+          "name": "P1.15",
+          "net": ""
+        },
+        "M2": {
+          "name": "P1.00",
+          "net": ""
+        },
+        "AK22": {
+          "name": "P1.05",
+          "net": "SWD1_SEL"
+        },
+        "AL19": {
+          "name": "P1.04",
+          "net": "VCOM_RxD"
+        },
         "G1": {
           "name": "N.C.",
           "net": "GND"
@@ -4818,59 +5124,7 @@
         "AL31": {
           "name": "N.C.",
           "net": ""
-        },
-        "AL9": "VCOM_CTS",
-        "AL5": "VCOM_RTS",
-        "AL19": "VCOM_RxD",
-        "U31": "VCOM_TxD",
-        "AL27": "IMCU_BOOT",
-        "AK30": "SWD1_IO",
-        "AK28": "SWD1_CLK",
-        "AK24": "SWD1_RESET",
-        "AK26": "SWD1_SWO",
-        "AK22": "SWD1_SEL",
-        "N1": "SWD3_IO",
-        "R1": "SWD3_CLK",
-        "AA1": "SWD3_RESET",
-        "W1": "SWD3_SWO",
-        "B16": "SWD0_IO",
-        "B18": "SWD0_CLK",
-        "B22": "SWD0_RESET",
-        "B20": "SWD0_SWO",
-        "B24": "SWD0_SEL",
-        "B4": "IMCU_N",
-        "B2": "IMCU_P",
-        "G31": "NetC29_2",
-        "A27": "NetC29_2",
-        "A23": "NetC39_1",
-        "AJ31": "VDD_IMCU",
-        "N31": "VDD_IMCU",
-        "AL11": "VDD_IMCU",
-        "AL25": "VDD_IMCU",
-        "AL17": "VDD_IMCU",
-        "L1": "VDD_IMCU",
-        "E1": "VDD_IMCU",
-        "U1": "VDD_IMCU",
-        "C1": "VDD_IMCU",
-        "E31": "VDD_IMCU",
-        "AL7": "VDD_IMCU",
-        "AL3": "VDD_IMCU",
-        "AC1": "VDD_IMCU",
-        "A19": "VDD_IMCU",
-        "B8": "VDD_IMCU",
-        "AG1": "VDD_IMCU",
-        "B28": "VDD_IMCU",
-        "A5": "NetC37_1",
-        "B6": "NetC38_1",
-        "A15": "NetC36_2",
-        "A13": "NetC40_2",
-        "L31": "NetR9_1",
-        "C31": "NetU2_C31",
-        "B30": "NetU2_B30",
-        "W31": "IMCU_SWDCLK",
-        "AA31": "IMCU_SWDIO",
-        "AC31": "IMCU_RESET",
-        "AL29": "IMCU_LED"
+        }
       },
       "mpn": "nRF5340-QKAAD0",
       "description": "Multi-protocol Bluetooth Low Energy, IEEE 802.15.4, ANT and 2.4GHz proprietary system-on-chip",
@@ -5202,7 +5456,7 @@
         },
         "5": {
           "name": "NC2",
-          "net": "nRF_ONLY"
+          "net": ""
         },
         "6": {
           "name": "GND",
@@ -5234,7 +5488,7 @@
         },
         "13": {
           "name": "NC4",
-          "net": "IF_OFF"
+          "net": ""
         },
         "14": {
           "name": "VCC",
@@ -5314,7 +5568,7 @@
         },
         "13": {
           "name": "NC4",
-          "net": "IF_OFF"
+          "net": ""
         },
         "14": {
           "name": "VCC",
@@ -5474,7 +5728,7 @@
         },
         "13": {
           "name": "NC4",
-          "net": "TRACE_SW"
+          "net": ""
         },
         "14": {
           "name": "VCC",
@@ -6019,9 +6273,25 @@
     },
     "U19": {
       "pins": {
+        "1": {
+          "name": "OUT1",
+          "net": "NetQ80_1"
+        },
+        "2": {
+          "name": "IN1-",
+          "net": "NetQ80_3"
+        },
+        "3": {
+          "name": "IN1+",
+          "net": "VDD_nRF_SENSE"
+        },
+        "4": {
+          "name": "V-",
+          "net": "GND"
+        },
         "5": {
           "name": "IN2+",
-          "net": "NetP28_2"
+          "net": "NetP28_1"
         },
         "6": {
           "name": "IN2-",
@@ -6030,6 +6300,10 @@
         "7": {
           "name": "OUT2",
           "net": "NetP28_3"
+        },
+        "8": {
+          "name": "V+",
+          "net": "V5V"
         }
       },
       "mpn": "TS27L2IPT",
@@ -6179,8 +6453,14 @@
     },
     "Q40": {
       "pins": {
-        "1": "GND",
-        "2": "VBUS",
+        "1": {
+          "name": "S1",
+          "net": "GND"
+        },
+        "2": {
+          "name": "G1",
+          "net": "VBUS"
+        },
         "3": {
           "name": "D2",
           "net": "USB_DETECT"
@@ -6193,7 +6473,10 @@
           "name": "G2",
           "net": "NetQ40_5"
         },
-        "6": "NetQ40_5"
+        "6": {
+          "name": "D1",
+          "net": "NetQ40_5"
+        }
       },
       "mpn": "PMCPB5530X,115",
       "description": "Mosfet Array N and P-Channel 20V 4A (Ta), 3.4A (Ta) 490mW Surface Mount 6-HUSON-EP (2x2)",
@@ -6410,13 +6693,13 @@
     "P13": {
       "pins": {
         "1": "GND",
-        "2": "GND",
+        "2": "VIO",
         "3": "GND",
-        "4": "GND",
+        "4": "VIO",
         "5": "GND",
-        "6": "GND",
+        "6": "RESET_PIN",
         "7": "GND",
-        "8": "GND",
+        "8": "VIO",
         "9": "GND",
         "10": "V5V",
         "11": "GND",
@@ -7375,8 +7658,14 @@
     },
     "Q81": {
       "pins": {
-        "1": "GND",
-        "2": "VREG_EN",
+        "1": {
+          "name": "S1",
+          "net": "GND"
+        },
+        "2": {
+          "name": "G1",
+          "net": "VREG_EN"
+        },
         "3": {
           "name": "D2",
           "net": "VEXT_EN_INV"
@@ -7389,7 +7678,10 @@
           "name": "G2",
           "net": "VEXT_EN"
         },
-        "6": "VREG_EN_INV"
+        "6": {
+          "name": "D1",
+          "net": "VREG_EN_INV"
+        }
       },
       "mpn": "TSM250N02DCQ RFG",
       "description": "Dual N Ch MOFET, 5.8A, 55mOhm max, 620mW",
@@ -8473,8 +8765,14 @@
     },
     "Q84": {
       "pins": {
-        "1": "GND",
-        "2": "NetQ84_2",
+        "1": {
+          "name": "S1",
+          "net": "GND"
+        },
+        "2": {
+          "name": "G1",
+          "net": "NetQ84_2"
+        },
         "3": {
           "name": "D2",
           "net": "NetQ84_3"
@@ -8487,7 +8785,10 @@
           "name": "G2",
           "net": "NetQ84_5"
         },
-        "6": "NetQ84_5"
+        "6": {
+          "name": "D1",
+          "net": "NetQ84_5"
+        }
       },
       "mpn": "PMCPB5530X,115",
       "description": "Mosfet Array N and P-Channel 20V 4A (Ta), 3.4A (Ta) 490mW Surface Mount 6-HUSON-EP (2x2)",
