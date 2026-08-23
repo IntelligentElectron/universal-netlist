@@ -6,9 +6,6 @@
       ],
       "R2": [
         "2"
-      ],
-      "ECU_CAN_CONNECTOR?": [
-        "1"
       ]
     },
     "VCC5V": {
@@ -124,13 +121,7 @@
       ],
       "REAR_LOOM_CONN": [
         "10",
-        "18",
-        "7",
-        "9",
-        "17",
-        "19",
-        "25",
-        "27"
+        "18"
       ],
       "UNDERLEGS_BULKHEAD_CONN": [
         "2"
@@ -301,9 +292,6 @@
       ],
       "REAR_LOOM_CONN": [
         "20"
-      ],
-      "PDM_CAN_CONN": [
-        "1"
       ]
     },
     "CAN_N": {
@@ -327,9 +315,6 @@
       ],
       "REAR_LOOM_CONN": [
         "22"
-      ],
-      "PDM_CAN_CONN": [
-        "2"
       ]
     },
     "DRIVER_SWITCH_1": {
@@ -738,12 +723,6 @@
     "IGNITION_CTRL_OUT": {
       "ECU_CONN_C": [
         "4"
-      ],
-      "REAR_LOOM_CONN": [
-        "15"
-      ],
-      "IGNITION_CONN": [
-        "3"
       ]
     },
     "SEN_5V_B": {
@@ -804,12 +783,6 @@
     "INJECTOR_CTRL_OUT": {
       "ECU_CONN_C": [
         "23"
-      ],
-      "REAR_LOOM_CONN": [
-        "5"
-      ],
-      "INJECTOR_CONN": [
-        "3"
       ]
     },
     "FUEL_PRES_SEN": {
@@ -1068,6 +1041,51 @@
         "3"
       ]
     },
+    "NetIGNITION_CONN_1": {
+      "IGNITION_CONN": [
+        "1"
+      ]
+    },
+    "NetIGNITION_CONN_2": {
+      "IGNITION_CONN": [
+        "2"
+      ]
+    },
+    "NetIGNITION_CONN_3": {
+      "IGNITION_CONN": [
+        "3"
+      ]
+    },
+    "NetIGNITION_CONN_5": {
+      "IGNITION_CONN": [
+        "5"
+      ]
+    },
+    "NetFUEL_PUMP_CONN_1": {
+      "FUEL_PUMP_CONN": [
+        "1"
+      ]
+    },
+    "NetFUEL_PUMP_CONN_2": {
+      "FUEL_PUMP_CONN": [
+        "2"
+      ]
+    },
+    "NetINJECTOR_CONN_1": {
+      "INJECTOR_CONN": [
+        "1"
+      ]
+    },
+    "NetINJECTOR_CONN_2": {
+      "INJECTOR_CONN": [
+        "2"
+      ]
+    },
+    "NetINJECTOR_CONN_3": {
+      "INJECTOR_CONN": [
+        "3"
+      ]
+    },
     "FAN_POWER": {
       "FAN_CONN": [
         "2"
@@ -1076,8 +1094,7 @@
         "2"
       ],
       "REAR_LOOM_CONN": [
-        "49",
-        "31"
+        "49"
       ]
     },
     "LAMBDA_LTC_POWER": {
@@ -1095,40 +1112,17 @@
       "PDM_CONN_A": [
         "1",
         "10"
-      ],
-      "REAR_LOOM_CONN": [
-        "11",
-        "13"
-      ],
-      "IGNITION_CONN": [
-        "1",
-        "2"
       ]
     },
     "FUEL_PUMP_POWER": {
       "PDM_CONN_A": [
         "3",
         "12"
-      ],
-      "REAR_LOOM_CONN": [
-        "21",
-        "23"
-      ],
-      "FUEL_PUMP_CONN": [
-        "1",
-        "2"
       ]
     },
     "FUEL_INJECTOR_POWER": {
       "PDM_CONN_A": [
         "4"
-      ],
-      "REAR_LOOM_CONN": [
-        "1"
-      ],
-      "INJECTOR_CONN": [
-        "1",
-        "2"
       ]
     },
     "TRANSPONDER_POWER": {
@@ -1207,25 +1201,6 @@
         "1"
       ],
       "R1": [
-        "2"
-      ]
-    },
-    "IGNITION_SEN_0V": {
-      "REAR_LOOM_CONN": [
-        "29"
-      ],
-      "IGNITION_CONN": [
-        "5"
-      ]
-    },
-    "VIN": {
-      "ECU_CAN_CONNECTOR?": [
-        "2"
-      ]
-    },
-    "NetECU_CAN_CONNECTOR?_1": {
-      "ECU_CAN_CONNECTOR?": [
-        "1",
         "2"
       ]
     },
@@ -1802,11 +1777,11 @@
     },
     "IGNITION_CONN": {
       "pins": {
-        "1": "IGNITION_COIL_POWER",
-        "2": "IGNITION_COIL_POWER",
-        "3": "IGNITION_CTRL_OUT",
+        "1": "NetIGNITION_CONN_1",
+        "2": "NetIGNITION_CONN_2",
+        "3": "NetIGNITION_CONN_3",
         "4": "PDM_GND",
-        "5": "IGNITION_SEN_0V",
+        "5": "NetIGNITION_CONN_5",
         "6": ""
       },
       "description": "Header, 6-Pin",
@@ -1824,8 +1799,8 @@
     },
     "FUEL_PUMP_CONN": {
       "pins": {
-        "1": "FUEL_PUMP_POWER",
-        "2": "FUEL_PUMP_POWER",
+        "1": "NetFUEL_PUMP_CONN_1",
+        "2": "NetFUEL_PUMP_CONN_2",
         "3": "PDM_GND",
         "4": "PDM_GND"
       },
@@ -1834,9 +1809,9 @@
     },
     "INJECTOR_CONN": {
       "pins": {
-        "1": "FUEL_INJECTOR_POWER",
-        "2": "FUEL_INJECTOR_POWER",
-        "3": "INJECTOR_CTRL_OUT",
+        "1": "NetINJECTOR_CONN_1",
+        "2": "NetINJECTOR_CONN_2",
+        "3": "NetINJECTOR_CONN_3",
         "4": "PDM_GND",
         "5": "PDM_GND",
         "6": ""
@@ -1995,8 +1970,8 @@
     },
     "PDM_CAN_CONN": {
       "pins": {
-        "1": "CAN_P",
-        "2": "CAN_N"
+        "1": "PDM_CAN_P",
+        "2": "PDM_CAN_N"
       },
       "description": "Header, 2-Pin",
       "comment": "Header 2"
@@ -2087,37 +2062,37 @@
     },
     "REAR_LOOM_CONN": {
       "pins": {
-        "1": "FUEL_INJECTOR_POWER",
+        "1": "CYLINDER_KNOCK",
         "2": "VCC5V",
         "3": "OIL_PRESSURE_SWITCH",
         "4": "GEAR_POS_SIG",
-        "5": "INJECTOR_CTRL_OUT",
+        "5": "INLET_AIR_TEMP",
         "6": "SIG_GND",
-        "7": "PDM_GND",
+        "7": "SEN_0V_A",
         "8": "",
-        "9": "PDM_GND",
+        "9": "COOLANT_TEMP",
         "10": "PDM_GND",
-        "11": "IGNITION_COIL_POWER",
+        "11": "SEN_0V_C1",
         "12": "",
-        "13": "IGNITION_COIL_POWER",
+        "13": "SEN_5V_B",
         "14": "SIG_GND",
-        "15": "IGNITION_CTRL_OUT",
+        "15": "GEAR_SHIFT_ACTUATOR_PRESSURE",
         "16": "FUEL_PRES_SEN",
         "17": "SEN_0V_B",
         "18": "PDM_GND",
         "19": "TB_MOTOR-",
         "20": "CAN_P",
-        "21": "FUEL_PUMP_POWER",
+        "21": "SEN_0V_C2",
         "22": "CAN_N",
-        "23": "FUEL_PUMP_POWER",
+        "23": "VCC5V",
         "24": "LAMBDA_LTC_POWER",
         "25": "TB_MOTOR+",
         "26": "",
         "27": "TPS_VOLTAGE",
         "28": "TURBO_ACT_BYP",
-        "29": "IGNITION_SEN_0V",
+        "29": "TPS_TRACKING_VOLTAGE",
         "30": "SIG_GND",
-        "31": "FAN_POWER",
+        "31": "SEN_5V_C1",
         "32": "BOOST_ACT_OUT",
         "33": "FUEL_COMP_VOLTAGE",
         "34": "SIG_GND",
@@ -2138,8 +2113,8 @@
         "49": "FAN_POWER",
         "50": "VCC5V"
       },
-      "description": "Header, 20-Pin, Dual row, Right Angle",
-      "comment": "Header 20X2H"
+      "description": "Header, 25-Pin, Dual row, Right Angle",
+      "comment": "Header 25X2H"
     },
     "REAR_WHEEL_BULK": {
       "pins": {

@@ -2544,16 +2544,46 @@
           "name": "VBAT",
           "net": "3,3V"
         },
-        "2": "USER_BUTTON_0",
-        "3": "USER_BUTTON_1",
-        "4": "PC15",
-        "5": "OSC_IN",
-        "6": "OSC_OUT",
-        "7": "NRST",
-        "8": "PC0",
-        "9": "NetU200_9",
-        "10": "NetU200_10",
-        "11": "NetU200_11",
+        "2": {
+          "name": "PC13",
+          "net": "USER_BUTTON_0"
+        },
+        "3": {
+          "name": "PC14-OSC32_IN(PC14)",
+          "net": "USER_BUTTON_1"
+        },
+        "4": {
+          "name": "PC15-OSC32_OUT(PC15)",
+          "net": "PC15"
+        },
+        "5": {
+          "name": "PH0-OSC_IN(PH0)",
+          "net": "OSC_IN"
+        },
+        "6": {
+          "name": "PH1-OSC_OUT(PH1)",
+          "net": "OSC_OUT"
+        },
+        "7": {
+          "name": "NRST",
+          "net": "NRST"
+        },
+        "8": {
+          "name": "PC0",
+          "net": "PC0"
+        },
+        "9": {
+          "name": "PC1",
+          "net": "NetU200_9"
+        },
+        "10": {
+          "name": "PC2",
+          "net": "NetU200_10"
+        },
+        "11": {
+          "name": "PC3",
+          "net": "NetU200_11"
+        },
         "12": {
           "name": "VSSA",
           "net": "GND"
@@ -2562,10 +2592,22 @@
           "name": "VDDA",
           "net": "3,3VDDA"
         },
-        "14": "PA0",
-        "15": "VBAT1_DIV",
-        "16": "VBAT2_DIV",
-        "17": "PA3",
+        "14": {
+          "name": "PA0-WKUP(PA0)",
+          "net": "PA0"
+        },
+        "15": {
+          "name": "PA1",
+          "net": "VBAT1_DIV"
+        },
+        "16": {
+          "name": "PA2",
+          "net": "VBAT2_DIV"
+        },
+        "17": {
+          "name": "PA3",
+          "net": "PA3"
+        },
         "18": {
           "name": "VSS",
           "net": "GND"
@@ -2574,55 +2616,178 @@
           "name": "VDD",
           "net": "3,3V"
         },
-        "20": "PA4",
-        "21": "PA5",
-        "22": "PA6",
-        "23": "PA7",
-        "24": "NetU200_24",
-        "25": "NetU200_25",
-        "26": "PB0",
-        "27": "PG_5V",
-        "28": "MODE_5V",
-        "29": "TX",
-        "30": "RX",
-        "31": "VCAP_1",
+        "20": {
+          "name": "PA4",
+          "net": "PA4"
+        },
+        "21": {
+          "name": "PA5",
+          "net": "PA5"
+        },
+        "22": {
+          "name": "PA6",
+          "net": "PA6"
+        },
+        "23": {
+          "name": "PA7",
+          "net": "PA7"
+        },
+        "24": {
+          "name": "PC4",
+          "net": "NetU200_24"
+        },
+        "25": {
+          "name": "PC5",
+          "net": "NetU200_25"
+        },
+        "26": {
+          "name": "PB0",
+          "net": "PB0"
+        },
+        "27": {
+          "name": "PB1",
+          "net": "PG_5V"
+        },
+        "28": {
+          "name": "PB2-BOOT1(PB2)",
+          "net": "MODE_5V"
+        },
+        "29": {
+          "name": "PB10",
+          "net": "TX"
+        },
+        "30": {
+          "name": "PB11",
+          "net": "RX"
+        },
+        "31": {
+          "name": "VCAP_1",
+          "net": "VCAP_1"
+        },
         "32": {
           "name": "VDD",
           "net": "3,3V"
         },
-        "33": "PB12",
-        "34": "PWR_SW_2",
-        "35": "PWR_SW_1",
-        "36": "PB15",
-        "37": "PC6",
-        "38": "PC7",
-        "39": "PC8",
-        "40": "PC9",
-        "41": "PA8",
-        "42": "PA9",
-        "43": "PA10",
-        "44": "PA11",
-        "45": "PA12",
-        "46": "SWDIO",
-        "47": "VCAP_2",
+        "33": {
+          "name": "PB12",
+          "net": "PB12"
+        },
+        "34": {
+          "name": "PB13",
+          "net": "PWR_SW_2"
+        },
+        "35": {
+          "name": "PB14",
+          "net": "PWR_SW_1"
+        },
+        "36": {
+          "name": "PB15",
+          "net": "PB15"
+        },
+        "37": {
+          "name": "PC6",
+          "net": "PC6"
+        },
+        "38": {
+          "name": "PC7",
+          "net": "PC7"
+        },
+        "39": {
+          "name": "PC8",
+          "net": "PC8"
+        },
+        "40": {
+          "name": "PC9",
+          "net": "PC9"
+        },
+        "41": {
+          "name": "PA8",
+          "net": "PA8"
+        },
+        "42": {
+          "name": "PA9",
+          "net": "PA9"
+        },
+        "43": {
+          "name": "PA10",
+          "net": "PA10"
+        },
+        "44": {
+          "name": "PA11",
+          "net": "PA11"
+        },
+        "45": {
+          "name": "PA12",
+          "net": "PA12"
+        },
+        "46": {
+          "name": "PA13(JTMS-SWDIO)",
+          "net": "SWDIO"
+        },
+        "47": {
+          "name": "VCAP_2",
+          "net": "VCAP_2"
+        },
         "48": {
           "name": "VDD",
           "net": "3,3V"
         },
-        "49": "SWCLK",
-        "50": "PA15",
-        "51": "PC10",
-        "52": "PC11",
-        "53": "PC12",
-        "54": "USER_LED",
-        "55": "PB3",
-        "56": "PB4",
-        "57": "PB5",
-        "58": "PG_CHRGR1",
-        "59": "PG_CHRGR2",
-        "60": "BOOT0",
-        "61": "PB8",
-        "62": "PB9",
+        "49": {
+          "name": "PA14(JTCK-SWCLK)",
+          "net": "SWCLK"
+        },
+        "50": {
+          "name": "PA15(JTDI)",
+          "net": "PA15"
+        },
+        "51": {
+          "name": "PC10",
+          "net": "PC10"
+        },
+        "52": {
+          "name": "PC11",
+          "net": "PC11"
+        },
+        "53": {
+          "name": "PC12",
+          "net": "PC12"
+        },
+        "54": {
+          "name": "PD2",
+          "net": "USER_LED"
+        },
+        "55": {
+          "name": "PB3(JTDO/TRACESWO)",
+          "net": "PB3"
+        },
+        "56": {
+          "name": "PB4(NJTRST)",
+          "net": "PB4"
+        },
+        "57": {
+          "name": "PB5",
+          "net": "PB5"
+        },
+        "58": {
+          "name": "PB6",
+          "net": "PG_CHRGR1"
+        },
+        "59": {
+          "name": "PB7",
+          "net": "PG_CHRGR2"
+        },
+        "60": {
+          "name": "BOOT0",
+          "net": "BOOT0"
+        },
+        "61": {
+          "name": "PB8",
+          "net": "PB8"
+        },
+        "62": {
+          "name": "PB9",
+          "net": "PB9"
+        },
         "63": {
           "name": "VSS",
           "net": "GND"

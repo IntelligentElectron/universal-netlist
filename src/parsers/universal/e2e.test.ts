@@ -140,57 +140,28 @@ describe("a Universal Netlist file as a design", () => {
   });
 });
 
-/**
- * Golden files the Altium parser writes with `nets` and `components` in
- * disagreement. The reader is right to refuse them: each one lists a pin under
- * a net that the component map puts elsewhere or does not declare, so the two
- * indices answer the same question differently. They are listed here, with the
- * defect the reader names, so the gap is visible. Fixing the parser shrinks this
- * list, and the test below fails if an entry stops failing.
- */
-const KNOWN_INCONSISTENT_GOLDENS: Record<string, string> = {
-  "altium/LimeSDR-USB_1v4.json": "net 'LMS_MCLK2' lists IC8.B11, but IC8 declares no pin 'B11'",
-  "altium/LimeSDR-USB_1v4s.json": "net 'LMS_MCLK2' lists IC8.B11, but IC8 declares no pin 'B11'",
-  "altium/LimeSDR_1v2.json": "net 'LMS_MCLK2' lists IC31.B11, but IC31 declares no pin 'B11'",
-  "altium/LimeSDR_1v2s.json": "net 'LMS_MCLK2' lists IC31.B11, but IC31 declares no pin 'B11'",
-  "altium/MIXR Power.json": "net '49V2' lists TH_TP?.TH_TP, but TH_TP?.TH_TP is on '48V'",
-  "altium/Microphone-Boards.json": "net 'GND' lists C4A.2, but C4A.2 is on '3V3'",
-  "altium/pca10056.json": "net 'GND' lists P15.2, but P15.2 is on 'P1.01'",
-  "altium/q23-harness.json": "net 'VBATT' lists ECU_CAN_CONNECTOR?.1, but ECU_CAN_CONNECTOR?.1 is on 'CAN_P'",
-};
-
 describe("every golden file is a Universal Netlist", () => {
-  const goldens = async (): Promise<Array<{ key: string; filePath: string }>> => {
-    const out: Array<{ key: string; filePath: string }> = [];
+  const goldens = async (): Promise<Array<{ filePath: string }>> => {
+    const out: Array<{ filePath: string }> = [];
     const formats = await readdir(GOLDEN, { withFileTypes: true });
     for (const format of formats.filter((f) => f.isDirectory())) {
       const dir = path.join(GOLDEN, format.name);
       for (const file of (await readdir(dir)).filter((f) => f.endsWith(".json"))) {
-        out.push({ key: `${format.name}/${file}`, filePath: path.join(dir, file) });
+        out.push({ filePath: path.join(dir, file) });
       }
     }
     return out;
   };
 
-  it("loads unchanged through the handler, except the known inconsistent ones", async () => {
+  it("loads unchanged through the handler", async () => {
     let count = 0;
-    for (const { key, filePath } of await goldens()) {
-      if (key in KNOWN_INCONSISTENT_GOLDENS) continue;
+    for (const { filePath } of await goldens()) {
       const loaded = await parseUniversalDesign(filePath);
       const raw = JSON.parse(await readFile(filePath, "utf-8"));
       expect(loaded, filePath).toEqual(raw);
       count += 1;
     }
     expect(count).toBeGreaterThan(0);
-  });
-
-  it("still refuses each known inconsistent golden for the reason listed", async () => {
-    const keys = (await goldens()).map((g) => g.key);
-    for (const [key, reason] of Object.entries(KNOWN_INCONSISTENT_GOLDENS)) {
-      expect(keys, key).toContain(key);
-      const filePath = path.join(GOLDEN, key);
-      await expect(parseUniversalDesign(filePath), key).rejects.toThrowError(reason);
-    }
   });
 });
 
