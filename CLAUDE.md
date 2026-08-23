@@ -18,18 +18,18 @@ npm run dev
 
 ### Dependencies
 
-Both lockfiles are committed: `bun.lock` is the tree the release build installs,
-`package-lock.json` the tree CI and the npm publish job install. A dependency change
-regenerates both in the same commit:
+Both lockfiles are committed. The release build installs from `bun.lock`; CI and the
+npm publish job install from `package-lock.json`. When you change a dependency,
+regenerate both lockfiles in the same commit:
 
 ```bash
 bun install                      # updates bun.lock
 npm install --package-lock-only  # updates package-lock.json
 ```
 
-CI installs with `npm ci` and the release workflow with `bun install --frozen-lockfile`,
-so a lockfile that disagrees with `package.json` fails the run instead of quietly
-re-resolving the `^` ranges into a tree the tests never saw.
+CI installs with `npm ci` and the release workflow with `bun install --frozen-lockfile`.
+Both fail if the lockfile does not match `package.json`, so an out-of-date lockfile is
+caught instead of being silently re-resolved.
 
 ### Commands
 
@@ -48,9 +48,9 @@ npm run compile:darwin-universal  # Add the lipo'd macOS universal binary (macOS
 
 ### Binary Compilation
 
-Uses Bun to compile TypeScript into standalone executables. One script does it, and it
-is the same one `release.yml` and the `compile:*` npm scripts call, so a release binary
-can be reproduced locally:
+Bun compiles the TypeScript into standalone executables. One script does this, and
+`release.yml` and the `compile:*` npm scripts all call it, so you can reproduce a
+release binary locally:
 
 ```bash
 scripts/build-binary.sh <target> <outfile> [channel]
@@ -62,55 +62,54 @@ scripts/build-binary.sh host bin/universal-netlist
 Targets: `bun-darwin-arm64`, `bun-darwin-x64`, `bun-linux-arm64`, `bun-linux-x64`,
 `bun-windows-x64`, plus `host` for the machine running the script.
 
-The script compiles and nothing else — no git, no network, no signing, no publishing,
-no `GITHUB_REF`. The version it bakes in comes from `package.json`, which is the single
-source of it; the release workflow validates the tag against `package.json` rather than
-deriving a version from the tag.
+The script only compiles. It does not use git, the network, signing, publishing, or
+`GITHUB_REF`. The version it bakes in comes from `package.json`, which is the single
+source of the version. The release workflow validates the git tag against `package.json`;
+it does not derive the version from the tag.
 
-`VERSION` overrides that, which is what a downstream packager stamping its own string
-wants instead of patching a tracked file:
+The `VERSION` environment variable overrides that. This is for downstream packagers who
+want to stamp their own version string without editing a tracked file:
 
 ```bash
 VERSION=1.5.2-3 scripts/build-binary.sh bun-linux-x64 bin/universal-netlist-linux-x64 packaged
 ```
 
-It is held to the characters a version is written with (`A-Za-z0-9` and `. + _ ~ : -`),
-which covers semver, build metadata and a Debian-style `1.5.2~rc1`. The version compiles
-in as raw source text, so anything else is rejected rather than left to truncate itself
-into a binary reporting a version nobody released.
+`VERSION` may contain only `A-Za-z0-9` and `. + _ ~ : -`. This covers semver, build
+metadata, and Debian-style versions such as `1.5.2~rc1`. The version is compiled in as
+raw source text, so any other character is rejected.
 
-Bun is the only toolchain the script needs, reading that default version included, so a
-container holding just the Bun in `.bun-version` builds this.
+Bun is the only toolchain the script needs, including for reading the default version.
+A container with only the Bun version listed in `.bun-version` can build this.
 
 The third argument is the build channel, baked in as `BUILD_CHANNEL` (see
 [src/build-flags.ts](src/build-flags.ts)):
 
-- `github` (default): the binary `install.sh` puts in place. It owns its own file, so it
-  self-updates on startup, `--update` replaces it, and `--uninstall` removes it.
-- `packaged`: a binary a package manager owns (Homebrew, nix, a distro package, a
-  vendored copy). Startup self-update is off, and `--update` / `--uninstall` explain that
-  the install is managed elsewhere instead of modifying it. Build one with:
+- `github` (default): the binary that `install.sh` installs. It manages its own file:
+  it self-updates on startup, `--update` replaces it, and `--uninstall` removes it.
+- `packaged`: a binary managed by a package manager (Homebrew, nix, a distro package, a
+  vendored copy). Startup self-update is off, and `--update` / `--uninstall` print a
+  message saying the install is managed elsewhere instead of modifying it. Build one with:
 
   ```bash
   scripts/build-binary.sh bun-linux-x64 bin/universal-netlist-linux-x64 packaged
   ```
 
-Bun cross-compiles every one of those targets from any host, so `compile:all` builds the
-five per-arch binaries anywhere. The macOS universal binary is a separate step,
-`compile:darwin-universal`, because `lipo` exists only on macOS; keeping it out of
-`compile:all` is what lets a Linux host build the per-arch artifacts. `release.yml` runs
-on macOS and produces both.
+Bun cross-compiles all of these targets from any host, so `compile:all` builds the five
+per-arch binaries on any machine. The macOS universal binary is a separate step,
+`compile:darwin-universal`, because `lipo` only exists on macOS. Keeping it out of
+`compile:all` lets a Linux host build the per-arch binaries. `release.yml` runs on macOS
+and produces both.
 
-`--compile` embeds the Bun runtime in the output, so the Bun version is part of what
-ships. `.bun-version` records the version release builds use; the release workflow reads
-it, and a build that wants to reproduce a release matches it:
+`--compile` embeds the Bun runtime in the output, so the Bun version is part of the
+shipped binary. `.bun-version` records the Bun version used for release builds. The
+release workflow reads it, and to reproduce a release locally, install the same version:
 
 ```bash
 curl -fsSL https://bun.sh/install | bash -s "bun-v$(cat .bun-version)"
 ```
 
-Bumping it is its own PR, so a Bun upgrade is visible in history next to the release it
-first shipped in.
+Bump `.bun-version` in its own PR, so the Bun upgrade is visible in history next to the
+first release that shipped with it.
 
 macOS binaries require code signing with `entitlements.plist` (for Bun JIT) and Apple notarization.
 
@@ -122,51 +121,52 @@ npm run type-check && npm run lint && npm test
 
 ### Running under a sandbox
 
-Two things fail for want of a socket rather than because anything is wrong:
+Two things fail in the sandbox because they cannot open a socket, not because of a bug:
 
-- The `npx tsx` CLI opens an IPC socket under `$TMPDIR` and dies with
+- The `npx tsx` CLI opens an IPC socket under `$TMPDIR` and exits with
   `EPERM ... .pipe` before the script runs. Use the loader form instead,
   `node --import tsx <file>`, or the `npm run script --` / `npm run golden`
   aliases. See [scripts/AGENTS.md](scripts/AGENTS.md).
-- The OpenTelemetry end-to-end tests stand a collector up on loopback. Where
-  that is refused they skip themselves rather than failing the run, so
-  `npm test` stays usable and the pre-commit hook passes. CI runs them for real.
+- The OpenTelemetry end-to-end tests start a collector on loopback. If the
+  sandbox refuses that, the tests skip themselves instead of failing, so
+  `npm test` still works and the pre-commit hook passes. CI runs them for real.
 
-`git` and `gh` need the network and the keychain, so run them unsandboxed;
-`gh` otherwise fails TLS verification with `x509: OSStatus -26276`.
+`git` and `gh` need the network and the keychain, so run them unsandboxed.
+Otherwise `gh` fails TLS verification with `x509: OSStatus -26276`.
 
 ### Releasing
 
-`CHANGELOG.md` and the version bump belong to the release PR, never to a feature PR.
-Feature PRs carry code and tests only; they must NOT edit `CHANGELOG.md` or
+`CHANGELOG.md` and the version bump belong in the release PR, never in a feature PR.
+Feature PRs contain code and tests only. They must NOT edit `CHANGELOG.md` or
 `package.json`.
 
-Both files append at the top, so a bump in every feature PR makes each concurrent PR
-conflict with the last, and a contributor cannot know whether their change is a patch or
-a minor. Instead a PR describes its user-visible effect in a `## Changelog` section of the
-PR body, and those get collected into one release PR.
+Reason: both files append at the top, so if every feature PR bumped them, each
+concurrent PR would conflict with the previous one, and a contributor cannot know
+whether their change is a patch or a minor. Instead, each PR describes its user-visible
+effect in a `## Changelog` section of the PR body. Those sections are collected into one
+release PR.
 
-Cutting that release PR is ordinary work: an agent asked to release, or asked to carry
-something through to a release, writes the changelog section and bumps the version
-without checking back first. The version number is the one judgment call worth stating
-out loud — say which bump you chose and why, so a disagreement surfaces before the tag
-rather than after it.
+Cutting the release PR is ordinary work. An agent asked to release, or to carry a change
+through to a release, writes the changelog section and bumps the version without asking
+first. The version number is the one judgment call to state explicitly: say which bump
+you chose and why, so any disagreement surfaces before the tag is pushed.
 
 1. Cut a release PR from `main` after the fixes for the release have merged:
-   - Update `CHANGELOG.md` with a new version section, written from the merged PRs' own
+   - Update `CHANGELOG.md` with a new version section, written from the merged PRs'
      Changelog sections
    - `npm version minor|patch --no-git-tag-version` (writes the version, creates no tag)
    - One commit, e.g. `chore: vX.Y.Z changelog`
 
    That command writes the version to **both `package.json` and `package-lock.json`**,
-   which is why the release commit carries three files rather than two. `bun.lock`
-   records the workspace root's name and no version, so it stays put.
+   so the release commit carries three files rather than two. `bun.lock` records the
+   workspace root's name and no version, so it does not change.
 
-   Run the command rather than editing `package.json` by hand. A hand-edit leaves the
-   lockfile a version behind, and nothing downstream notices: `npm ci` compares
-   dependencies and ignores the root version entirely, so CI passes, `npm publish` takes
-   its version from `package.json` and is correct, and the lockfile just drifts.
-   `tag-release.sh` refuses on the mismatch, which is the only thing that catches it.
+   Run the command instead of editing `package.json` by hand. A hand-edit leaves
+   `package-lock.json` one version behind, and nothing downstream notices: `npm ci`
+   compares dependencies and ignores the root version, so CI passes; `npm publish` reads
+   the version from `package.json`, so the publish is correct; the lockfile is simply
+   wrong. `tag-release.sh` refuses on the mismatch, and it is the only check that catches
+   it.
 2. Open it as a normal PR and let the merge queue land it
 3. After merge, tag the merge commit and push:
 
@@ -175,13 +175,12 @@ rather than after it.
    scripts/tag-release.sh
    ```
 
-   The script tags the version in `package.json` and refuses if anything about
-   the state is wrong: not on `main`, a dirty tree, local `main` behind
-   `origin/main` (which would tag the wrong commit), no changelog section for
-   the version, a lockfile recording a different version, or a tag that already
-   exists. Pass `--yes` to skip the prompt.
+   The script tags the version in `package.json`. It refuses to run if: you are not on
+   `main`, the tree is dirty, local `main` is behind `origin/main` (which would tag the
+   wrong commit), `CHANGELOG.md` has no section for the version, the lockfile records a
+   different version, or the tag already exists. Pass `--yes` to skip the prompt.
 
-   **Note:** Do NOT use `npm version` without `--no-git-tag-version` -- it creates a local git tag that points to the feature branch commit, not the merge commit on main. The tag must be created on the merge commit, which is what the script checks for.
+   **Note:** Do NOT use `npm version` without `--no-git-tag-version`. It creates a local git tag that points to the feature branch commit, not the merge commit on main. The tag must be created on the merge commit, which is what the script checks for.
 
 The tag push triggers the release workflow, which automatically:
 - Builds signed binaries for all platforms
@@ -213,13 +212,13 @@ npm publishing uses OIDC trusted publishing (configured on npmjs.com) - no token
 
 - Do NOT use `registry-url` with `actions/setup-node` - it creates a `.npmrc` with an auth token placeholder that breaks OIDC
 - OIDC requires npm 11.5.1+ (Node 22 ships with older npm, so we explicitly upgrade)
-- `npm ci` installs from `package-lock.json`, which records the optional platform packages (esbuild, rollup) for every os/cpu, not only the host that generated it. A lockfile written on macOS therefore installs on the Linux runner; regenerate it with `npm install --package-lock-only` so nothing platform-specific is pruned out of it
+- `npm ci` installs from `package-lock.json`, which records the optional platform packages (esbuild, rollup) for every os/cpu, not only for the host that generated it. A lockfile written on macOS therefore installs correctly on the Linux runner. Regenerate it with `npm install --package-lock-only` so nothing platform-specific is pruned from it
 
 ## DSN Parser Reference
 
 **MANDATORY**: Before modifying ANY file under `src/parsers/cadence/dsn/`, you MUST read the corresponding C++ reference implementation in `references/OpenOrCadParser/`. Do not skip this step. The C++ source is the ground truth for how the binary format works, and our TypeScript is a port of it.
 
-The reference is vendored into this repository, so it is present after a plain `git clone` with no submodule init and no network fetch, in CI and sandboxes as much as locally. It is an unmodified copy of upstream's final commit before the project was archived; see [references/README.md](references/README.md) for provenance and licence. Treat it as read-only — never edit it to match our behaviour. Where our port intentionally diverges, that belongs in `docs/dsn-format.md`.
+The reference is vendored into this repository, so it is present after a plain `git clone` with no submodule init and no network fetch, in CI and sandboxes as much as locally. It is an unmodified copy of upstream's final commit before the project was archived; see [references/README.md](references/README.md) for provenance and licence. Treat it as read-only: never edit it to match our behaviour. Where our port intentionally diverges, that belongs in `docs/dsn-format.md`.
 
 ### Reference workflow
 
