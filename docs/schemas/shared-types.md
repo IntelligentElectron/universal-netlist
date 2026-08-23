@@ -430,6 +430,7 @@ The `notes` field provides contextual information:
 |------|---------|
 | `"MPN not found in exported netlist data..."` | Component lacks MPN; suggest user provide BOM |
 | `"No nets matched pattern '...'"` | Search returned empty results |
+| `"All N components with prefix '...' ... are DNS ..."` | `list_components` found the prefix, but every part under it is DNS; pass `include_dns: true` |
 | `"This netlist has no MPN data..."` | Design has no MPN information |
 
 ## Case Sensitivity
