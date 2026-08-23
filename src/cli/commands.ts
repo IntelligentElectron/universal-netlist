@@ -62,6 +62,8 @@ Commands:
   update|upgrade       Check for updates and install if available
   uninstall            Remove the binary and its PATH entries
   export-telemetry     Export telemetry data as a zip file
+  export-json <design> [out]
+                       Write a design's netlist as Universal Netlist JSON
   coverage [path]      Compare DSN parser output against DAT netlist exports
 
 Installation:
@@ -205,19 +207,32 @@ export const handleExportTelemetryCommand = async (): Promise<void> => {
 };
 
 /**
- * Handle --export-json command.
- * Parses a design file and writes the universal netlist JSON to cwd.
+ * Handle the export-json command.
+ *
+ * Parses a design file and writes its netlist as Universal Netlist JSON
+ * (docs/schemas/universal-netlist.md), to `<design>.json` in the working
+ * directory or to the given output path. The written file is itself a design
+ * every tool reads.
  */
-export const handleExportJsonCommand = async (designPath?: string): Promise<void> => {
+export const handleExportJsonCommand = async (
+  designPath?: string,
+  outPath?: string
+): Promise<void> => {
   if (!designPath) {
-    console.error("Usage: universal-netlist export-json <path>");
+    console.error("Usage: universal-netlist export-json <design> [output.json]");
     process.exit(1);
   }
 
   const absolutePath = resolve(designPath);
-  const result = await parseDesign(absolutePath);
+  let result;
+  try {
+    result = await parseDesign(absolutePath);
+  } catch (error) {
+    console.error(error instanceof Error ? error.message : String(error));
+    process.exit(1);
+  }
   const name = basename(absolutePath, extname(absolutePath));
-  const outFile = resolve(`${name}.json`);
+  const outFile = resolve(outPath ?? `${name}.json`);
   writeFileSync(outFile, JSON.stringify(result, null, 2) + "\n");
   console.log(outFile);
 };
