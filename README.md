@@ -51,8 +51,6 @@ The server checks for updates on startup. To update manually:
 universal-netlist update
 ```
 
-Every command is also accepted as a flag (`universal-netlist --update`).
-
 ## Alternative: Install via npm
 
 For developers who prefer npm:

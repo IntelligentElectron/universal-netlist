@@ -64,8 +64,6 @@ Commands:
   export-telemetry     Export telemetry data as a zip file
   coverage [path]      Compare DSN parser output against DAT netlist exports
 
-Every command is also accepted as a flag: \`${BINARY_NAME} --update\` is \`${BINARY_NAME} update\`.
-
 Installation:
 ${installation}
 
