@@ -5,6 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.0] - 2026-08-23
+
+The Universal Netlist is now an input as well as an output. A `.json` file in
+the schema every parser converts into is a design: `list_designs` finds it,
+every tool reads it, and what `--export-json` writes round-trips. The file is
+validated on load, because the parsers build a consistent netlist by
+construction and a file may have been written or edited by anyone. Running that
+validation over the repository's own golden files found that 8 of the 38, all
+Altium, contradicted themselves: a pin listed under one net in `nets` while
+`components` put it on another, or on no declared pin at all. Three Altium
+parser defects were behind that, and they are fixed in the same release. Every
+fixture design of every format, 40 in all, now parses into a netlist whose two
+indices agree, and the tests hold it there. Separately, `list_components` stops
+suggesting prefixes it would then return nothing for (#169).
+
+### Added
+
+- Universal Netlist JSON files (`.json`, the schema in `docs/schemas/universal-netlist.md`) are designs. `list_designs` discovers them, every tool accepts their path, and `--export-json` output round-trips. A file is refused, naming the first defect, when `nets` and `components` are not exact inverses or a refdes or pin does not resolve; a file in the right shape that fails validation is listed by `list_designs` with its `error`. Fixtures live in `test/universal/` so the handler's tests run without the fixtures submodule (PR #171)
+
+### Fixed
+
+- `list_components`: the unmatched-type error suggests only the prefixes the same query would return, and names apart those whose components are all DNS, with the argument that reaches them. It used to build the list from every component, DNS included, so it could point at a prefix that then came back empty. A prefix that exists but is entirely DNS now returns an empty list with a note saying how many parts were left out and that `include_dns=true` lists them, instead of a bare empty list that read as "none" (#169, PR #173)
+- Altium: pins of a component's other display modes no longer connect. They sit where the alternate graphic would draw them, which can be on another net's wire, so a header drawn in its default mode had the alternate mode's pins on GND, and a capacitor whose alternate mode swaps its pins sat on GND and 3V3 at once (PR #172)
+- Altium: a multi-part component drawn on several sheets keeps every part's pins. Only the first sheet's instance was kept, so an FPGA split over three sheets declared 157 of its 484 pins while every net listed all of them (PR #172)
+- Altium: a duplicate designator (two instances of the same part, or an unannotated `X?` repeated across sheets) keeps its first instance in document order; the others connect nothing. Their instances used to be merged pin by pin with the last write winning, which put one pin on several nets (PR #172)
+- Altium: `nets` and `components` always agree. A final pass removes any net listing the component map contradicts, so a design reads the same from either index, and every Altium fixture project is validated that way in the tests (PR #172)
+
 ## [1.6.1] - 2026-08-18
 
 Three ways a tool could answer the wrong question and look right doing it. A
