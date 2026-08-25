@@ -10,6 +10,7 @@ export enum StructureType {
   PartCell = 6,
   Page = 10,
   PartInstance = 11,
+  DrawnInstance = 12,
   PlacedInstance = 13,
   T0x10 = 16,
   WireScalar = 20,
@@ -63,6 +64,7 @@ export interface PinMapData {
 
 export const structureTypeName: Partial<Record<StructureType, string>> = {
   [StructureType.Page]: "Page",
+  [StructureType.DrawnInstance]: "DrawnInstance",
   [StructureType.PlacedInstance]: "PlacedInstance",
   [StructureType.T0x10]: "T0x10",
   [StructureType.WireScalar]: "WireScalar",

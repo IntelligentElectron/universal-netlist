@@ -219,6 +219,7 @@ The full list is `src/parsers/cadence/dsn/structure-types.ts`, ported from `Enum
 | `0x06` | 6 | PartCell | Part cell in Package streams | no |
 | `0x0A` | 10 | Page | Page-level wrapper | yes |
 | `0x0B` | 11 | PartInstance | Part instance (unused by us) | no |
+| `0x0C` | 12 | DrawnInstance | Hierarchical drawn page instance | no |
 | `0x0D` | 13 | PlacedInstance | Component placed on schematic | yes |
 | `0x10` | 16 | T0x10 | Pin instance on a placed component | yes |
 | `0x14` | 20 | WireScalar | Single-signal wire | yes |
@@ -335,9 +336,9 @@ uint16    len_net_table
 uint16    len_wires
           Wire[] sub-records (see 7.6)
 uint16    len_placed_instances
-          PlacedInstance[] sub-records (see 7.7)
+          DrawnInstance or PlacedInstance sub-records (see 7.7)
 uint16    len_ports
-          Port[] sub-records + 5 unknown bytes each (see 7.8)
+          Port[] sub-records (see 7.8)
 uint16    len_globals
           Global[] sub-records + 5 unknown bytes each (see 7.8)
 uint16    len_off_page_connectors
@@ -552,7 +553,7 @@ No-connect is therefore inferred, not read: a pin is called NC when `net_id == 0
 
 ### 7.8 GraphicInst (Global, Port, OffPageConnector)
 
-**Confidence: VERIFIED (layout), OBSERVED (5 trailing bytes)**
+**Confidence: VERIFIED (layout), OBSERVED (5 trailing bytes on Global/OPC)**
 
 Global (type 0x25), Port (type 0x17), and OffPageConnector (type 0x26) share a common base structure:
 
@@ -585,7 +586,7 @@ BODY:
 
 A **Port** carries **9 further unknown bytes** after that checkpoint, which Global and OffPageConnector do not. Those bytes are inside the structure, unlike the five described next.
 
-After each Port, Global, or OffPageConnector record, there are **5 unknown bytes** that are not part of the structure itself. These are read separately in the page parser.
+After each Global or OffPageConnector record, there are **5 unknown bytes** that are not part of the structure itself. These are read separately in the page parser. Ports do not carry this outer five-byte trailer; their only trailing unknown data is the nine bytes inside the Port structure.
 
 **VERIFIED**: OPCs sharing the same `name_str_idx` represent the same net across pages. For Globals/Ports, `name_str_idx` resolves to the power/ground net name (e.g., "VCC_3V3", "GND"). The parser calls this field `pairingId`, the name it goes by in section 12.4.
 
@@ -1303,7 +1304,7 @@ Each unknown area in the format is mapped to its impact on parser coverage. PinN
 |---|---|---|---|---|
 | **PlacedInstance 10 unknown bytes** (section 7.7) | 10 per component | None | None | None observed; may encode a secondary value reference or CIS link |
 | **Port 9 trailing bytes** (section 7.8) | 9 per port | None | None | None |
-| **Port/Global/OPC 5 trailing bytes** (section 7.8) | 5 per symbol | None | None | None |
+| **Global/OPC 5 trailing bytes** (section 7.8) | 5 per symbol | None | None | None |
 | **Hierarchy 24-byte metadata** (section 8) | 24 per net | None | None | None |
 | **T0x10 unknown_int** (section 7.7.1) | 4 per pin | None | None | None |
 | **Page tail after OPCs** (section 7) | Variable | None | None | None |
@@ -1316,6 +1317,7 @@ Each unknown area in the format is mapped to its impact on parser coverage. PinN
 | Bus entries | Bus connection points |
 | Bus wires | Wire type 0x15 is accepted but buses aren't traced |
 | CIS streams | CIS database link information |
+| DrawnInstance bodies | Hierarchical page instances are skipped via their prefix boundaries |
 | Graphical primitives | Shapes inside LibraryPart (lines, rects, arcs) |
 | Title block contents | Skipped entirely |
 | Page sections after OPCs | Everything after OffPageConnectors in the page stream |
@@ -1339,7 +1341,7 @@ Each unknown area in the format is mapped to its impact on parser coverage. PinN
 | GraphicInst | Second uint32 | 4 | Constant per design, purpose unknown |
 | GraphicInst | After bbox | 4 | color + 3 unknown bytes |
 | Port | End of structure | **9** | Port-specific; Global and OPC have no equivalent |
-| Port/Global/OPC | After each record | **5** | Not part of the structure; could contain net reference |
+| Global/OPC | After each record | **5** | Not part of the structure; could contain net reference |
 | LibraryPart | After checkpoint 1 | 4 | Before len_primitives |
 | SymbolPin | After pin_shape | 2 | Unknown |
 | SymbolPin | After port_type | 4 | Unknown |
@@ -1355,7 +1357,7 @@ Each unknown area in the format is mapped to its impact on parser coverage. PinN
 | Hierarchy 0x43 scan | Medium | Wrong net count, corrupt net names |
 | PageSettings = 156 bytes | Low | Parse offset error for everything after it |
 | LOGFONTA = 60 bytes | Low | Wrong strLst offset, corrupt string table |
-| 5 unknown bytes after Port/Global/OPC | Medium | Parse offset error for subsequent records |
+| 5 unknown bytes after Global/OPC | Medium | Parse offset error for subsequent records |
 | 9 unknown bytes at the end of a Port | Medium | Parse offset error for subsequent records |
 | some_len = 24 (Library stream) | Low | Wrong strLst offset |
 | Cache scan bounds (64 pairs, 10 long prefixes) | Low | A wider prefix chain goes unrecovered; the parse throws rather than misreads |
