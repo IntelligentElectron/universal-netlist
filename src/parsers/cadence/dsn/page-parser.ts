@@ -123,6 +123,13 @@ export function parsePage(buffer: Buffer): PageData {
   const lenPlacedInstances = reader.readUint16();
   const placedInstances: PlacedInstance[] = [];
   for (let i = 0; i < lenPlacedInstances; i++) {
+    // Hierarchical pages may interleave DrawnInstance records with the
+    // component-bearing PlacedInstances. OpenOrCadParser reads this list
+    // generically and skips DrawnInstance because its body is unimplemented.
+    if (reader.peek(1)[0] === StructureType.DrawnInstance) {
+      skipStructure(reader);
+      continue;
+    }
     placedInstances.push(parsePlacedInstance(reader));
   }
 
@@ -131,7 +138,6 @@ export function parsePage(buffer: Buffer): PageData {
   const ports: GraphicInst[] = [];
   for (let i = 0; i < lenPorts; i++) {
     ports.push(parsePort(reader));
-    reader.skip(5); // 5 unknown bytes after each Port
   }
 
   // Globals
