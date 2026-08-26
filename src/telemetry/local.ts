@@ -160,7 +160,7 @@ export const withTelemetry = <T extends Record<string, unknown>, R>(
         toolName,
         args as Record<string, unknown>,
         () => handler(args),
-        { isErrorResult: isErrorContent }
+        { isErrorResult: isErrorContent, getErrorMessage: getErrorContentMessage }
       );
       // Detect error results (objects with an "error" field in the text content)
       if (isErrorContent(result)) {
@@ -246,13 +246,19 @@ const getUserName = (): string => {
  * Check if a tool result contains an error by inspecting the MCP content structure.
  */
 const isErrorContent = (result: unknown): boolean => {
-  if (typeof result !== "object" || result === null) return false;
+  return getErrorContentMessage(result) !== undefined;
+};
+
+/** Read the human-facing message from a formatted MCP error result. */
+const getErrorContentMessage = (result: unknown): string | undefined => {
+  if (typeof result !== "object" || result === null) return undefined;
   const r = result as { content?: Array<{ text?: string }> };
-  if (!Array.isArray(r.content) || r.content.length === 0) return false;
+  if (!Array.isArray(r.content) || r.content.length === 0) return undefined;
   try {
-    const parsed = JSON.parse(r.content[0].text ?? "");
-    return typeof parsed === "object" && parsed !== null && "error" in parsed;
+    const parsed: unknown = JSON.parse(r.content[0].text ?? "");
+    if (typeof parsed !== "object" || parsed === null || !("error" in parsed)) return undefined;
+    return typeof parsed.error === "string" ? parsed.error : undefined;
   } catch {
-    return false;
+    return undefined;
   }
 };

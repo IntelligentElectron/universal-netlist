@@ -107,8 +107,49 @@ describe("instrumentTool log records", () => {
     expect(record.attributes).toMatchObject({
       "tool.outcome": "error",
       "error.type": "TypeError",
+      "error.message": "boom",
       "enduser.id": userInfo().username,
       "tool.args": JSON.stringify({ a: 1 }),
     });
+  });
+
+  it("captures the message from an MCP error result", async () => {
+    const errorResult = {
+      content: [{ type: "text", text: JSON.stringify({ error: "Design file not found" }) }],
+    };
+
+    const result = await instrumentTool("demo_tool", {}, async () => errorResult, {
+      isErrorResult: () => true,
+      getErrorMessage: (value) => JSON.parse(value.content[0].text).error,
+    });
+
+    expect(result).toBe(errorResult);
+    expect(lastRecord().attributes).toMatchObject({
+      "tool.outcome": "error",
+      "error.type": "tool_error",
+      "error.message": "Design file not found",
+    });
+  });
+
+  it("omits error attributes from successful calls", async () => {
+    await instrumentTool("demo_tool", {}, async () => "ok");
+
+    expect(lastRecord().attributes ?? {}).not.toHaveProperty("error.type");
+    expect(lastRecord().attributes ?? {}).not.toHaveProperty("error.message");
+  });
+
+  it("truncates long error messages", async () => {
+    const message = "x".repeat(3000);
+
+    await expect(
+      instrumentTool("demo_tool", {}, async () => {
+        throw new Error(message);
+      })
+    ).rejects.toThrow(message);
+
+    const capturedMessage = lastRecord().attributes?.["error.message"];
+    expect(capturedMessage).toBeTypeOf("string");
+    expect(capturedMessage).toHaveLength(2048);
+    expect(capturedMessage).toMatch(/\u2026$/);
   });
 });

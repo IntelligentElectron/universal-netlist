@@ -25,6 +25,7 @@ import type { PushMetricExporter } from "@opentelemetry/sdk-metrics";
 import type { LogRecordExporter } from "@opentelemetry/sdk-logs";
 
 const INSTRUMENTATION_NAME = "@intelligentelectron/mcp";
+const MAX_ERROR_MESSAGE_LENGTH = 2048;
 
 // =============================================================================
 // Module state
@@ -262,7 +263,10 @@ export const instrumentTool = async <R>(
   toolName: string,
   args: Record<string, unknown>,
   run: () => Promise<R>,
-  opts?: { isErrorResult?: (result: R) => boolean }
+  opts?: {
+    isErrorResult?: (result: R) => boolean;
+    getErrorMessage?: (result: R) => string | undefined;
+  }
 ): Promise<R> => {
   if (!enabled) return run();
 
@@ -282,11 +286,15 @@ export const instrumentTool = async <R>(
       const result = await run();
 
       const isError = opts?.isErrorResult?.(result) ?? false;
+      const errorMessage = isError
+        ? normalizeErrorMessage(opts?.getErrorMessage?.(result))
+        : undefined;
       finishSpan(
         span,
         toolName,
         isError ? "error" : "success",
         isError ? "tool_error" : undefined,
+        errorMessage,
         Date.now() - start,
         capturedArgs
       );
@@ -294,7 +302,15 @@ export const instrumentTool = async <R>(
     } catch (err) {
       const errorType = err instanceof Error ? err.name : "Error";
       safely(() => span.recordException(err instanceof Error ? err : new Error(String(err))));
-      finishSpan(span, toolName, "error", errorType, Date.now() - start, capturedArgs);
+      finishSpan(
+        span,
+        toolName,
+        "error",
+        errorType,
+        normalizeErrorMessage(describeError(err)),
+        Date.now() - start,
+        capturedArgs
+      );
       throw err;
     }
   });
@@ -305,6 +321,7 @@ const finishSpan = (
   toolName: string,
   outcome: "success" | "error",
   errorType: string | undefined,
+  errorMessage: string | undefined,
   durationMs: number,
   capturedArgs: string | undefined
 ): void => {
@@ -325,7 +342,7 @@ const finishSpan = (
     }
   });
 
-  safely(() => emitLog(span, toolName, outcome, errorType, durationMs, capturedArgs));
+  safely(() => emitLog(span, toolName, outcome, errorType, errorMessage, durationMs, capturedArgs));
 
   safely(() => span.end());
 };
@@ -334,14 +351,15 @@ const finishSpan = (
  * Emit the per-call log record. Log/label-based backends index only log-record
  * attributes (resource attributes are dropped and span attributes are never
  * carried), so `enduser.id` is mirrored here from the resource and the
- * captured args from the span, keeping per-user and per-input analytics
- * possible from logs alone.
+ * captured args from the span are mirrored here. Failure messages are attached
+ * here as well, keeping errors actionable from logs alone.
  */
 const emitLog = (
   span: Span,
   toolName: string,
   outcome: "success" | "error",
   errorType: string | undefined,
+  errorMessage: string | undefined,
   durationMs: number,
   capturedArgs: string | undefined
 ): void => {
@@ -356,6 +374,7 @@ const emitLog = (
       "tool.outcome": outcome,
       "tool.duration_ms": durationMs,
       ...(errorType ? { "error.type": errorType } : {}),
+      ...(errorMessage ? { "error.message": errorMessage } : {}),
       ...hostEnduser(),
       ...(capturedArgs !== undefined ? { "tool.args": capturedArgs } : {}),
       // Explicit ids for trace-to-log correlation in addition to the record's
@@ -427,3 +446,11 @@ const safeJson = (value: unknown): string => {
 };
 
 const describeError = (err: unknown): string => (err instanceof Error ? err.message : String(err));
+
+/** Keep error log attributes useful without allowing an unbounded record. */
+const normalizeErrorMessage = (message: string | undefined): string | undefined => {
+  if (!message) return undefined;
+  return message.length > MAX_ERROR_MESSAGE_LENGTH
+    ? `${message.slice(0, MAX_ERROR_MESSAGE_LENGTH - 1)}\u2026`
+    : message;
+};

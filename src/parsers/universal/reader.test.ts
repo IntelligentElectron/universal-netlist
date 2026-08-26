@@ -1,5 +1,9 @@
 import { describe, it, expect } from "vitest";
-import { parseUniversalNetlist, validateUniversalNetlist, UniversalNetlistError } from "./reader.js";
+import {
+  parseUniversalNetlist,
+  validateUniversalNetlist,
+  UniversalNetlistError,
+} from "./reader.js";
 
 const valid = () => ({
   nets: {
@@ -10,7 +14,12 @@ const valid = () => ({
     U1: {
       mpn: "PART-1",
       description: "IC",
-      pins: { "1": { name: "VIN", net: "VCC" }, "2": "GND", "3": { name: "EP", net: "GND" }, "4": "" },
+      pins: {
+        "1": { name: "VIN", net: "VCC" },
+        "2": "GND",
+        "3": { name: "EP", net: "GND" },
+        "4": "",
+      },
     },
     C1: { value: "1uF", dns: true, pins: { "1": "VCC", "2": "GND" } },
   },
@@ -24,13 +33,25 @@ const rejects = (raw: unknown, fragment: string): void => {
 describe("validateUniversalNetlist", () => {
   it("accepts a consistent netlist and keeps its fields", () => {
     const netlist = validateUniversalNetlist(valid());
-    expect(netlist.nets).toEqual({ VCC: { U1: ["1"], C1: ["1"] }, GND: { U1: ["2", "3"], C1: ["2"] } });
+    expect(netlist.nets).toEqual({
+      VCC: { U1: ["1"], C1: ["1"] },
+      GND: { U1: ["2", "3"], C1: ["2"] },
+    });
     expect(netlist.components.U1).toEqual({
       mpn: "PART-1",
       description: "IC",
-      pins: { "1": { name: "VIN", net: "VCC" }, "2": "GND", "3": { name: "EP", net: "GND" }, "4": "" },
+      pins: {
+        "1": { name: "VIN", net: "VCC" },
+        "2": "GND",
+        "3": { name: "EP", net: "GND" },
+        "4": "",
+      },
     });
-    expect(netlist.components.C1).toEqual({ value: "1uF", dns: true, pins: { "1": "VCC", "2": "GND" } });
+    expect(netlist.components.C1).toEqual({
+      value: "1uF",
+      dns: true,
+      pins: { "1": "VCC", "2": "GND" },
+    });
   });
 
   it("reads a single pin number string as a one-element array", () => {
@@ -81,7 +102,11 @@ describe("validateUniversalNetlist", () => {
     (raw.components.U1.pins as Record<string, unknown>)["2"] = { name: "GND" };
     rejects(raw, "pin U1.2 must be a net name or an object with exactly `name` and `net`");
     const extra = valid();
-    (extra.components.U1.pins as Record<string, unknown>)["2"] = { name: "GND", net: "GND", type: "power" };
+    (extra.components.U1.pins as Record<string, unknown>)["2"] = {
+      name: "GND",
+      net: "GND",
+      type: "power",
+    };
     rejects(extra, "pin U1.2 must be a net name");
   });
 
@@ -144,7 +169,9 @@ describe("validateUniversalNetlist", () => {
 
 describe("parseUniversalNetlist", () => {
   it("names the file in a JSON syntax error", () => {
-    expect(() => parseUniversalNetlist("{ nope", "x.json")).toThrowError(/^x\.json: not valid JSON/);
+    expect(() => parseUniversalNetlist("{ nope", "x.json")).toThrowError(
+      /^x\.json: not valid JSON/
+    );
   });
 
   it("parses valid text", () => {

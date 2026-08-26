@@ -64,6 +64,7 @@ when you enable it the data goes **to the endpoint you configure**, which is
 your own observability backend. It is never sent to the author. What it contains:
 
 - Tool names, durations, and success or failure
+- Human-readable failure messages, which can contain file paths or fragments of tool input
 - `enduser.id`, your host operating system account name
 - Tool arguments, **only** if you additionally set `OTEL_CAPTURE_TOOL_ARGS`.
   These include the file paths and search patterns you passed.

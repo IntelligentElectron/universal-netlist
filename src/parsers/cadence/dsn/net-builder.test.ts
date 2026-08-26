@@ -3,11 +3,7 @@
  */
 
 import { describe, it, expect } from "vitest";
-import {
-  disambiguateCrossPageNets,
-  chooseSymbolAttachment,
-  symbolKey,
-} from "./net-builder.js";
+import { disambiguateCrossPageNets, chooseSymbolAttachment, symbolKey } from "./net-builder.js";
 
 /**
  * Build the (netIdToName, netIdGroups) pair the disambiguator consumes.
@@ -249,8 +245,7 @@ describe("chooseSymbolAttachment", () => {
     // A rail is labelled once and the label may sit at its far end, so the
     // coordinate inside the symbol's box often carries no label itself.
     const sym = { x1: 100, y1: 200, x2: 160, y2: 220 };
-    const named = (coord: string) =>
-      coord === "100,210" ? new Set(["VCC"]) : new Set(["OTHER"]);
+    const named = (coord: string) => (coord === "100,210" ? new Set(["VCC"]) : new Set(["OTHER"]));
 
     expect(chooseSymbolAttachment(sym, "VCC", points(["100,200", "100,210"]), named)).toBe(
       "100,210"
@@ -306,6 +301,8 @@ describe("symbolKey", () => {
   });
 
   it("separates two instances of the same power net", () => {
-    expect(symbolKey({ pairingId: 1681, dbId: 42 })).not.toBe(symbolKey({ pairingId: 1681, dbId: 43 }));
+    expect(symbolKey({ pairingId: 1681, dbId: 42 })).not.toBe(
+      symbolKey({ pairingId: 1681, dbId: 43 })
+    );
   });
 });

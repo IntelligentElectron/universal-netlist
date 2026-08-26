@@ -163,11 +163,7 @@ describe("planLocalNetRenames", () => {
       ],
       "hierarchical"
     );
-    expect(plans.map((p) => p.get("I3C1_SCL"))).toEqual([
-      "I3C1_SCL_3",
-      "I3C1_SCL_4",
-      "I3C1_SCL_7",
-    ]);
+    expect(plans.map((p) => p.get("I3C1_SCL"))).toEqual(["I3C1_SCL_3", "I3C1_SCL_4", "I3C1_SCL_7"]);
   });
 });
 

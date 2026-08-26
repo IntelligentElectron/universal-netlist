@@ -164,10 +164,7 @@ describe("buildDeviceIndexMap", () => {
   });
 
   it("spans pages for one multi-section part", () => {
-    const map = buildDeviceIndexMap([
-      page([placed("RP1", 300, 0)]),
-      page([placed("RP1", 301, 3)]),
-    ]);
+    const map = buildDeviceIndexMap([page([placed("RP1", 300, 0)]), page([placed("RP1", 301, 3)])]);
 
     expect(map.get(300)).toBe(0);
     expect(map.get(301)).toBe(3);
@@ -206,7 +203,28 @@ describe("pin map selection by symbol pin count", () => {
     // cannot describe it, whose 17th and 18th entries are transposed. Riding on
     // it swapped SCL and SDA. The Cache map has exactly 23 entries.
     const inst = instance("CON_HDMI_RA", 23);
-    const packageMap = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "18", "17", "19", "20"];
+    const packageMap = [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "18",
+      "17",
+      "19",
+      "20",
+    ];
     const cacheMap = Array.from({ length: 23 }, (_, i) => String(i + 1));
     const pmd = pinMapData({ CON_HDMI_RA: packageMap }, { CON_HDMI_RA: cacheMap });
 

@@ -823,9 +823,7 @@ export function buildNetConnectivity(
     }
   }
 
-  const pageCoordMaps = pages.map((page) =>
-    buildPageCoordMap(page, canonicalNetNames, symbolNets)
-  );
+  const pageCoordMaps = pages.map((page) => buildPageCoordMap(page, canonicalNetNames, symbolNets));
 
   // Apply cross-page OPC name equivalences (creates new maps to avoid mutation)
   const opcNameMap = buildOpcNameMap(pages, pageCoordMaps, canonicalNetNames);

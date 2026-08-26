@@ -52,7 +52,8 @@ export const resolveKicadArtifacts = async (
   // Strip with the original-case extension so an uppercase ".KICAD_PRO" is removed.
   const base = path.basename(designPath, rawExt);
 
-  const candidateSchematic = ext === ".kicad_sch" ? designPath : path.join(dir, `${base}.kicad_sch`);
+  const candidateSchematic =
+    ext === ".kicad_sch" ? designPath : path.join(dir, `${base}.kicad_sch`);
   const rootSchematic = (await isReadable(candidateSchematic)) ? candidateSchematic : null;
 
   const candidateExport = path.join(dir, `${base}${NETLIST_EXT}`);

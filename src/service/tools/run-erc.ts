@@ -148,7 +148,9 @@ export const runErc = async (
   // silent choice misleads: "run none" reads as a clean design, "run all" defies a
   // deliberate empty selection. Refuse to guess; omitting the field already means all.
   if (inc && inc.length === 0) {
-    return { error: "include_rules was empty. Omit it to run all rules, or list the rule ids to run." };
+    return {
+      error: "include_rules was empty. Omit it to run all rules, or list the rule ids to run.",
+    };
   }
 
   // Reject typo'd rule ids: otherwise include_rules: ["net.singel_pin"] yields
@@ -156,7 +158,9 @@ export const runErc = async (
   const known = new Set(RULES.map((r) => r.id));
   const unknown = [...(inc ?? []), ...exc].filter((id) => !known.has(id));
   if (unknown.length > 0) {
-    return { error: `Unknown rule id(s): ${unknown.join(", ")}. Valid ids: ${[...known].join(", ")}` };
+    return {
+      error: `Unknown rule id(s): ${unknown.join(", ")}. Valid ids: ${[...known].join(", ")}`,
+    };
   }
 
   const selected = RULES.filter((r) => (!inc || inc.includes(r.id)) && !exc.has(r.id));
