@@ -44,9 +44,10 @@ describe("handleExportJsonCommand", () => {
 
     const expected = path.join(await realpath(dir), "demo-board.netlist.json");
     expect(log).toHaveBeenCalledWith(expected);
-    expect(JSON.parse(await readFile(path.join(dir, "demo-board.netlist.json"), "utf-8")).components.U1.mpn).toBe(
-      "REG-3V3-SOT23"
-    );
+    expect(
+      JSON.parse(await readFile(path.join(dir, "demo-board.netlist.json"), "utf-8")).components.U1
+        .mpn
+    ).toBe("REG-3V3-SOT23");
   });
 
   it("exits with the usage line when no design is given", async () => {
@@ -56,7 +57,9 @@ describe("handleExportJsonCommand", () => {
     });
 
     await expect(handleExportJsonCommand()).rejects.toThrow("exit");
-    expect(error).toHaveBeenCalledWith("Usage: universal-netlist export-json <design> [output.json]");
+    expect(error).toHaveBeenCalledWith(
+      "Usage: universal-netlist export-json <design> [output.json]"
+    );
     expect(exit).toHaveBeenCalledWith(1);
   });
 

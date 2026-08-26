@@ -128,12 +128,16 @@ describe("a Universal Netlist file as a design", () => {
   });
 
   it("a tool on a .json that is not a netlist says so", async () => {
-    const result = (await call("run_erc", { design: path.join(UNIVERSAL, "not-a-netlist.json") })) as {
+    const result = (await call("run_erc", {
+      design: path.join(UNIVERSAL, "not-a-netlist.json"),
+    })) as {
       error?: string;
     };
     expect(result.error).toContain("not-a-netlist.json: not a Universal Netlist");
 
-    const malformed = (await call("run_erc", { design: path.join(UNIVERSAL, "malformed.json") })) as {
+    const malformed = (await call("run_erc", {
+      design: path.join(UNIVERSAL, "malformed.json"),
+    })) as {
       error?: string;
     };
     expect(malformed.error).toContain("malformed.json: not valid JSON");
@@ -204,8 +208,8 @@ describe.skipIf(!hasFixtures)("a KiCad design exported to JSON answers like its 
   it("query_xnet_by_net_name", async () => {
     const nets = (await call("list_nets", { design: source })) as { nets: string[] };
     const net = nets.nets.find((n) => !/^(GND|\+|VCC|VDD)/.test(n)) ?? nets.nets[0];
-    expect(strip(await call("query_xnet_by_net_name", { design: exported, net_name: net }))).toEqual(
-      strip(await call("query_xnet_by_net_name", { design: source, net_name: net }))
-    );
+    expect(
+      strip(await call("query_xnet_by_net_name", { design: exported, net_name: net }))
+    ).toEqual(strip(await call("query_xnet_by_net_name", { design: source, net_name: net })));
   });
 });

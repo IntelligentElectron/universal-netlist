@@ -49,9 +49,7 @@ describe("applyChannelFormat", () => {
   });
 
   it("substitutes every occurrence, not just the first", () => {
-    expect(applyChannelFormat("$Component_$RoomName_$RoomName", "R1", "CH2", 2)).toBe(
-      "R1_CH2_CH2"
-    );
+    expect(applyChannelFormat("$Component_$RoomName_$RoomName", "R1", "CH2", 2)).toBe("R1_CH2_CH2");
   });
 
   it("rolls the alphabetic label past Z", () => {

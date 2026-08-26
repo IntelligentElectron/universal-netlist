@@ -187,7 +187,6 @@ export function hasVariantGroups(entries: OleDirectoryPath[]): boolean {
   });
 }
 
-
 /** The view's Hierarchy stream, which holds the occurrence records. */
 function readHierarchy(ole: OleReader, entries: OleDirectoryPath[]): Buffer {
   const entry = entries.find(

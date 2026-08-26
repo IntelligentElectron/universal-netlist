@@ -51,12 +51,16 @@ export const validateUniversalNetlist = (raw: unknown, source = "netlist"): Pars
   };
 
   if (!hasUniversalShape(raw)) {
-    fail("not a Universal Netlist: the top level must be an object with `nets` and `components` objects");
+    fail(
+      "not a Universal Netlist: the top level must be an object with `nets` and `components` objects"
+    );
   }
   const root = raw as { nets: Record<string, unknown>; components: Record<string, unknown> };
   for (const key of Object.keys(root)) {
     if (!TOP_LEVEL_KEYS.has(key)) {
-      fail(`unexpected top-level key '${key}'; a Universal Netlist has only \`nets\` and \`components\``);
+      fail(
+        `unexpected top-level key '${key}'; a Universal Netlist has only \`nets\` and \`components\``
+      );
     }
   }
 
@@ -88,7 +92,9 @@ export const validateUniversalNetlist = (raw: unknown, source = "netlist"): Pars
       ) {
         pins[pin] = { name: entry.name, net: entry.net };
       } else {
-        fail(`pin ${refdes}.${pin} must be a net name or an object with exactly \`name\` and \`net\``);
+        fail(
+          `pin ${refdes}.${pin} must be a net name or an object with exactly \`name\` and \`net\``
+        );
       }
     }
 
@@ -113,7 +119,9 @@ export const validateUniversalNetlist = (raw: unknown, source = "netlist"): Pars
           ? [value]
           : Array.isArray(value) && value.every((p) => typeof p === "string")
             ? (value as string[])
-            : fail(`net '${net}' member '${refdes}' must be a pin number or an array of pin numbers`);
+            : fail(
+                `net '${net}' member '${refdes}' must be a pin number or an array of pin numbers`
+              );
       if (list.length === 0) fail(`net '${net}' lists ${refdes} with no pins`);
       if (list.some((p) => !p)) fail(`net '${net}' lists ${refdes} with an empty pin number`);
       const seen = new Set<string>();
@@ -130,7 +138,8 @@ export const validateUniversalNetlist = (raw: unknown, source = "netlist"): Pars
   for (const [net, members] of Object.entries(nets)) {
     for (const [refdes, value] of Object.entries(members)) {
       const component = components[refdes];
-      if (!component) fail(`net '${net}' lists ${refdes}, but no component '${refdes}' is declared`);
+      if (!component)
+        fail(`net '${net}' lists ${refdes}, but no component '${refdes}' is declared`);
       for (const pin of value) {
         const entry = component.pins[pin];
         if (entry === undefined) {

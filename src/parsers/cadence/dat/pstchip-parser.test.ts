@@ -5,14 +5,14 @@
  * chip definitions with pin name to pin number mappings.
  */
 
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { writeFile, mkdir, rm } from 'fs/promises';
-import { join } from 'path';
-import { parsePstchip } from './pstchip-parser.js';
+import { describe, it, expect, beforeEach, afterEach } from "vitest";
+import { writeFile, mkdir, rm } from "fs/promises";
+import { join } from "path";
+import { parsePstchip } from "./pstchip-parser.js";
 
-describe('parsePstchip', () => {
-  const testDir = join(__dirname, '__test-pstchip__');
-  const testFile = join(testDir, 'test.pstchip.dat');
+describe("parsePstchip", () => {
+  const testDir = join(__dirname, "__test-pstchip__");
+  const testFile = join(testDir, "test.pstchip.dat");
 
   beforeEach(async () => {
     await mkdir(testDir, { recursive: true });
@@ -22,11 +22,11 @@ describe('parsePstchip', () => {
     try {
       await rm(testDir, { recursive: true, force: true, maxRetries: 3 });
     } catch (error) {
-      console.warn('Test cleanup warning:', error);
+      console.warn("Test cleanup warning:", error);
     }
   });
 
-  it('should parse part with pins and body properties', async () => {
+  it("should parse part with pins and body properties", async () => {
     const content = `
 primitive 'IC_PACKAGE'
 pin
@@ -47,19 +47,19 @@ WIDTH='10mm';
 
     expect(result).toHaveLength(1);
     expect(result[0]).toEqual({
-      part_name: 'IC_PACKAGE',
+      part_name: "IC_PACKAGE",
       pins: {
-        A1: '1',
-        B2: '2',
+        A1: "1",
+        B2: "2",
       },
       body_properties: {
-        HEIGHT: '1.5mm',
-        WIDTH: '10mm',
+        HEIGHT: "1.5mm",
+        WIDTH: "10mm",
       },
     });
   });
 
-  it('should parse multiple parts in one file', async () => {
+  it("should parse multiple parts in one file", async () => {
     const content = `
 primitive 'PART_A'
 pin
@@ -83,24 +83,24 @@ TYPE='CONNECTOR';
 
     expect(result).toHaveLength(2);
     expect(result[0]).toEqual({
-      part_name: 'PART_A',
-      pins: { PIN1: '1' },
-      body_properties: { TYPE: 'IC' },
+      part_name: "PART_A",
+      pins: { PIN1: "1" },
+      body_properties: { TYPE: "IC" },
     });
     expect(result[1]).toEqual({
-      part_name: 'PART_B',
-      pins: { GND: '99' },
-      body_properties: { TYPE: 'CONNECTOR' },
+      part_name: "PART_B",
+      pins: { GND: "99" },
+      body_properties: { TYPE: "CONNECTOR" },
     });
   });
 
-  it('should handle empty file', async () => {
-    await writeFile(testFile, '');
+  it("should handle empty file", async () => {
+    await writeFile(testFile, "");
     const result = await parsePstchip(testFile);
     expect(result).toEqual([]);
   });
 
-  it('should handle part with no pins or body properties', async () => {
+  it("should handle part with no pins or body properties", async () => {
     const content = `
 primitive 'SIMPLE_PART'
 `;
@@ -110,14 +110,14 @@ primitive 'SIMPLE_PART'
 
     expect(result).toEqual([
       {
-        part_name: 'SIMPLE_PART',
+        part_name: "SIMPLE_PART",
         pins: {},
         body_properties: {},
       },
     ]);
   });
 
-  it('should handle special characters in pin names', async () => {
+  it("should handle special characters in pin names", async () => {
     const content = `
 primitive 'COMPLEX_PART'
 pin
@@ -139,9 +139,9 @@ end_pin;
 
     expect(result).toHaveLength(1);
     expect(result[0].pins).toEqual({
-      'USB_D+': '5',
-      'USB_D-': '6',
-      '~RESET': '12',
+      "USB_D+": "5",
+      "USB_D-": "6",
+      "~RESET": "12",
     });
   });
 });

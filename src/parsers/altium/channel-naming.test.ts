@@ -34,9 +34,9 @@ describe("planChannelNetNames", () => {
       pinNamed: new Map([["NetU1_3", { refdes: "U1", pin: "3" }]]),
     };
 
-    expect(planChannelNetNames(["NetU1_3"], scope, "MP34DT05TR2", 2, "$Component$ChannelAlpha")).toEqual(
-      new Map([["NetU1_3", "NetU1B_3"]])
-    );
+    expect(
+      planChannelNetNames(["NetU1_3"], scope, "MP34DT05TR2", 2, "$Component$ChannelAlpha")
+    ).toEqual(new Map([["NetU1_3", "NetU1B_3"]]));
   });
 
   it("keeps a pin number that contains an underscore intact (qfsae-harness)", () => {
@@ -63,7 +63,9 @@ describe("planChannelNetNames", () => {
   it("leaves a shared sheet entry signal alone, and suffixes an unshared one", () => {
     const scope: ChannelNetScope = { ...emptyScope(), sharedNames: new Set(["RESET"]) };
 
-    expect(planChannelNetNames(["RESET", "AUDIO_OUT"], scope, "AY2", 2, "$Component_$RoomName")).toEqual(
+    expect(
+      planChannelNetNames(["RESET", "AUDIO_OUT"], scope, "AY2", 2, "$Component_$RoomName")
+    ).toEqual(
       new Map([
         ["RESET", "RESET"],
         ["AUDIO_OUT", "AUDIO_OUT_AY2"],
@@ -92,7 +94,8 @@ describe("planChannelNetNames", () => {
     };
 
     const names = ["AY1", "AY2", "AY3"].map(
-      (room, i) => planChannelNetNames(["NetR4_2"], scope, room, i + 1, "$Component_$RoomName").get("NetR4_2")!
+      (room, i) =>
+        planChannelNetNames(["NetR4_2"], scope, room, i + 1, "$Component_$RoomName").get("NetR4_2")!
     );
     expect(new Set(names).size).toBe(3);
     expect(names).toEqual(["NetR4_AY1_2", "NetR4_AY2_2", "NetR4_AY3_2"]);

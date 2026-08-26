@@ -5,7 +5,7 @@
  * using the OwnerIndex property to establish parent-child relationships.
  */
 
-import type { AltiumRecord, AltiumSchematic } from './types.js';
+import type { AltiumRecord, AltiumSchematic } from "./types.js";
 
 /**
  * Build hierarchy from flat record list.
@@ -28,7 +28,7 @@ export const buildHierarchy = (schematic: AltiumSchematic): AltiumSchematic => {
   for (const current of recordsCopy) {
     const ownerIndexStr = current.OwnerIndex ?? current.OWNERINDEX;
 
-    if (ownerIndexStr === undefined || ownerIndexStr === null || ownerIndexStr === '') {
+    if (ownerIndexStr === undefined || ownerIndexStr === null || ownerIndexStr === "") {
       // No owner - this is a root record
       hierarchy.push(current);
     } else {
@@ -83,7 +83,7 @@ export const flattenHierarchy = (schematic: AltiumSchematic): AltiumRecord[] => 
  * Filters for RECORD="1" which represents components/parts.
  */
 export const getPartsList = (schematic: AltiumSchematic): AltiumRecord[] => {
-  return schematic.records.filter((r) => r.RECORD === '1');
+  return schematic.records.filter((r) => r.RECORD === "1");
 };
 
 /**

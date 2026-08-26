@@ -120,11 +120,12 @@ One structured log record per call, with body `tool/<tool_name> <outcome>` and s
 | `tool.outcome` | `success` or `error`. |
 | `tool.duration_ms` | Duration in milliseconds. |
 | `error.type` | Present on failure. |
+| `error.message` | Human-readable failure message, present on failure when available and truncated to 2,048 characters. For MCP error results, this is the result's `error` field. |
 | `enduser.id` | The host OS account name, mirroring the resource attribute below. Best-effort; omitted if it can't be read. |
 | `tool.args` | Full tool arguments as JSON, mirroring the span attribute. Only present when `OTEL_CAPTURE_TOOL_ARGS` is enabled. |
 | `trace_id`, `span_id` | The active trace/span IDs, for trace-to-log correlation. |
 
-Log/label-based backends typically index only log-record attributes (resource attributes are dropped and span attributes are never carried), so `enduser.id` and the captured arguments are set directly on each record to keep per-user and per-input analytics possible from logs alone.
+Log/label-based backends typically index only log-record attributes (resource attributes are dropped and span attributes are never carried), so `enduser.id`, failure messages, and captured arguments are set directly on each record to keep per-user, error, and per-input analytics possible from logs alone. Failure messages can contain file paths or fragments of tool input; they are exported whenever telemetry is enabled.
 
 ### Resource attributes
 

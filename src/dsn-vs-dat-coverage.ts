@@ -89,7 +89,12 @@ const compareConnectivity = (
   dsn: ParsedNetlist,
   reference: ParsedNetlist
 ): ConnectivityStats => {
-  const stats: ConnectivityStats = { common: commonNets.length, exact: 0, differing: 0, mismatches: [] };
+  const stats: ConnectivityStats = {
+    common: commonNets.length,
+    exact: 0,
+    differing: 0,
+    mismatches: [],
+  };
 
   for (const net of commonNets) {
     const referenceRefs = pinRefs(reference.nets[net]);

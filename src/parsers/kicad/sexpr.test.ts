@@ -3,17 +3,17 @@ import { parseSexpr, tag, childByTag, childrenByTag, childString, hasChild } fro
 
 describe("parseSexpr", () => {
   it("parses a simple list", () => {
-    expect(parseSexpr("(ref \"C1\")")).toEqual([["ref", "C1"]]);
+    expect(parseSexpr('(ref "C1")')).toEqual([["ref", "C1"]]);
   });
 
   it("parses nested lists and bare atoms", () => {
-    expect(parseSexpr("(comp (ref \"R1\") (value \"10k\"))")).toEqual([
+    expect(parseSexpr('(comp (ref "R1") (value "10k"))')).toEqual([
       ["comp", ["ref", "R1"], ["value", "10k"]],
     ]);
   });
 
   it("treats the head as a bare atom and quoted args as strings", () => {
-    const [node] = parseSexpr('(pin passive line)');
+    const [node] = parseSexpr("(pin passive line)");
     expect(node).toEqual(["pin", "passive", "line"]);
   });
 
@@ -36,7 +36,7 @@ describe("parseSexpr", () => {
   });
 
   it("tolerates extra whitespace and newlines", () => {
-    expect(parseSexpr("(a\n\t(b  \"c\")\n)")).toEqual([["a", ["b", "c"]]]);
+    expect(parseSexpr('(a\n\t(b  "c")\n)')).toEqual([["a", ["b", "c"]]]);
   });
 
   it("throws on unbalanced parentheses", () => {

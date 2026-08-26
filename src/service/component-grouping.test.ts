@@ -428,13 +428,19 @@ describe("groups only merge parts the group's own fields describe", () => {
         refdes: "R1",
         mpn: "R",
         value: "0R",
-        connections: [{ net: "A", pins: ["1"] }, { net: "B", pins: ["2"] }],
+        connections: [
+          { net: "A", pins: ["1"] },
+          { net: "B", pins: ["2"] },
+        ],
       },
       {
         refdes: "R2",
         mpn: "R",
         value: "10K",
-        connections: [{ net: "A", pins: ["1"] }, { net: "B", pins: ["2"] }],
+        connections: [
+          { net: "A", pins: ["1"] },
+          { net: "B", pins: ["2"] },
+        ],
       },
     ];
 

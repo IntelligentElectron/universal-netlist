@@ -8,23 +8,33 @@
  * 3. Import and register the handler here
  */
 
-import type { DiscoveredDesign, DiscoverDesignsOptions, ParsedNetlist, EDAProjectFormatHandler } from '../types.js';
-import { cadenceHandler } from './cadence/index.js';
-import { altiumHandler } from './altium/index.js';
-import { kicadHandler } from './kicad/index.js';
-import { universalHandler } from './universal/index.js';
+import type {
+  DiscoveredDesign,
+  DiscoverDesignsOptions,
+  ParsedNetlist,
+  EDAProjectFormatHandler,
+} from "../types.js";
+import { cadenceHandler } from "./cadence/index.js";
+import { altiumHandler } from "./altium/index.js";
+import { kicadHandler } from "./kicad/index.js";
+import { universalHandler } from "./universal/index.js";
 
 // Re-export handlers for direct access
-export { cadenceHandler } from './cadence/index.js';
-export { altiumHandler } from './altium/index.js';
-export { kicadHandler } from './kicad/index.js';
-export { universalHandler } from './universal/index.js';
+export { cadenceHandler } from "./cadence/index.js";
+export { altiumHandler } from "./altium/index.js";
+export { kicadHandler } from "./kicad/index.js";
+export { universalHandler } from "./universal/index.js";
 
 /**
  * Registry of all supported EDA project format handlers.
  * Add new handlers here to support additional EDA tools.
  */
-const handlers: EDAProjectFormatHandler[] = [cadenceHandler, altiumHandler, kicadHandler, universalHandler];
+const handlers: EDAProjectFormatHandler[] = [
+  cadenceHandler,
+  altiumHandler,
+  kicadHandler,
+  universalHandler,
+];
 
 /**
  * Find a handler that can process the given file path.
@@ -35,7 +45,10 @@ export const findHandler = (filePath: string): EDAProjectFormatHandler | undefin
 /**
  * Discover all designs of all supported formats in a directory.
  */
-export const discoverDesigns = async (rootDir: string, options?: DiscoverDesignsOptions): Promise<DiscoveredDesign[]> => {
+export const discoverDesigns = async (
+  rootDir: string,
+  options?: DiscoverDesignsOptions
+): Promise<DiscoveredDesign[]> => {
   const results = await Promise.all(handlers.map((h) => h.discoverDesigns(rootDir, options)));
   return results.flat().sort((a, b) => a.name.localeCompare(b.name));
 };
@@ -59,5 +72,4 @@ export const getHandlers = (): readonly EDAProjectFormatHandler[] => handlers;
 /**
  * Get all supported file extensions across all handlers.
  */
-export const getSupportedExtensions = (): string[] =>
-  handlers.flatMap((h) => [...h.extensions]);
+export const getSupportedExtensions = (): string[] => handlers.flatMap((h) => [...h.extensions]);

@@ -50,7 +50,8 @@ export const listComponents = async (
       else dnsOnly.add(candidate);
     }
     for (const candidate of stuffed) dnsOnly.delete(candidate);
-    const sorted = (set: Set<string>): string => [...set].sort((a, b) => a.localeCompare(b)).join(", ");
+    const sorted = (set: Set<string>): string =>
+      [...set].sort((a, b) => a.localeCompare(b)).join(", ");
 
     const dnsClause =
       dnsOnly.size > 0

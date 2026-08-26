@@ -490,9 +490,7 @@ export const readSchematicRecords = (
   const connectors = readHarnessConnectors(extra.records as never);
   const bundleLinks = assignHarnessSignals(connectors, {
     records: schematic.records as never,
-    buses: extra.records.filter(
-      (record) => record.RECORD === RECORD_TYPES.SIGNAL_HARNESS
-    ) as never,
+    buses: extra.records.filter((record) => record.RECORD === RECORD_TYPES.SIGNAL_HARNESS) as never,
     sheetKey: path.basename(schdocPath),
   });
 

@@ -30,7 +30,11 @@ describe("listComponents - available prefixes suggestion", () => {
     const netlist: ParsedNetlist = {
       nets: { VPP: { "C?": ["1"], "D?": ["2"], "PS?": ["3"] }, GND: { "C?": ["2"] } },
       components: {
-        "C?": { value: "220uF", description: "Polarized capacitor", pins: { "1": "VPP", "2": "GND" } },
+        "C?": {
+          value: "220uF",
+          description: "Polarized capacitor",
+          pins: { "1": "VPP", "2": "GND" },
+        },
         "D?": { value: "PMEG6020ER", description: "Schottky diode", pins: { "2": "VPP" } },
         "PS?": { value: "ROF-78E3.3", pins: { "3": "VPP" } },
       },

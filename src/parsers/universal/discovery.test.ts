@@ -36,9 +36,7 @@ describe("discoverUniversalDesigns", () => {
 
     const broken = designs.find((d) => d.name === "pin-on-other-net")!;
     expect(broken.sourcePath).toBe(path.join(UNIVERSAL, "broken", "pin-on-other-net.json"));
-    expect(broken.error).toBe(
-      "pin-on-other-net.json: net 'VCC' lists C1.1, but C1.1 is on 'GND'"
-    );
+    expect(broken.error).toBe("pin-on-other-net.json: net 'VCC' lists C1.1, but C1.1 is on 'GND'");
   });
 
   it("honours maxDepth", async () => {
@@ -49,7 +47,10 @@ describe("discoverUniversalDesigns", () => {
   it("does not walk node_modules or dot-directories", async () => {
     const root = await mkdtemp(path.join(os.tmpdir(), "universal-discovery-"));
     try {
-      const netlist = JSON.stringify({ nets: { N: { U1: ["1"] } }, components: { U1: { pins: { "1": "N" } } } });
+      const netlist = JSON.stringify({
+        nets: { N: { U1: ["1"] } },
+        components: { U1: { pins: { "1": "N" } } },
+      });
       await mkdir(path.join(root, "node_modules", "pkg"), { recursive: true });
       await mkdir(path.join(root, ".cache"), { recursive: true });
       await mkdir(path.join(root, "designs"), { recursive: true });

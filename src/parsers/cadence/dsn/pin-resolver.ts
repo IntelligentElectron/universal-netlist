@@ -93,10 +93,7 @@ export function findPinMapKey(
   return undefined;
 }
 
-const lookupPin = (
-  map: (string | null)[] | undefined,
-  pinIndex: number
-): string | undefined => {
+const lookupPin = (map: (string | null)[] | undefined, pinIndex: number): string | undefined => {
   if (!map || pinIndex - 1 >= map.length) return undefined;
   return map[pinIndex - 1] ?? undefined;
 };

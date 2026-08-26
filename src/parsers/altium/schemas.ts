@@ -5,8 +5,8 @@
  * to the ParsedNetlist format.
  */
 
-import { z } from 'zod';
-import { RECORD_TYPES } from './types.js';
+import { z } from "zod";
+import { RECORD_TYPES } from "./types.js";
 
 // =============================================================================
 // Base Record Schemas
@@ -26,16 +26,16 @@ export const AltiumRecordBaseSchema = z.object({
  * Location coordinates schema
  */
 export const LocationSchema = z.object({
-  'Location.X': z.union([z.string(), z.number()]).optional(),
-  'Location.Y': z.union([z.string(), z.number()]).optional(),
+  "Location.X": z.union([z.string(), z.number()]).optional(),
+  "Location.Y": z.union([z.string(), z.number()]).optional(),
 });
 
 /**
  * Corner coordinates schema (for rectangles, etc.)
  */
 export const CornerSchema = z.object({
-  'Corner.X': z.union([z.string(), z.number()]).optional(),
-  'Corner.Y': z.union([z.string(), z.number()]).optional(),
+  "Corner.X": z.union([z.string(), z.number()]).optional(),
+  "Corner.Y": z.union([z.string(), z.number()]).optional(),
 });
 
 // =============================================================================
@@ -79,7 +79,7 @@ export const PinRecordSchema = AltiumRecordBaseSchema.extend({
  */
 export const DesignatorRecordSchema = AltiumRecordBaseSchema.extend({
   RECORD: z.literal(RECORD_TYPES.DESIGNATOR),
-  Name: z.literal('Designator').optional(),
+  Name: z.literal("Designator").optional(),
   Text: z.string(),
   FontID: z.union([z.string(), z.number()]).optional(),
   Color: z.union([z.string(), z.number()]).optional(),

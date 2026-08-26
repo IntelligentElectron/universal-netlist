@@ -219,8 +219,7 @@ const setScaledLocation = (record: HarnessRecord, x: number, y: number): void =>
  * the top edge itself.
  */
 const entryDistanceFromTop = (entry: HarnessRecord): number =>
-  toNumber(entry.DistanceFromTop) +
-  toNumber(entry.DistanceFromTop_Frac1) / DISTANCE_FRACTION_SCALE;
+  toNumber(entry.DistanceFromTop) + toNumber(entry.DistanceFromTop_Frac1) / DISTANCE_FRACTION_SCALE;
 
 /**
  * Whether a connector's entries are drawn on its right edge rather than its left.

@@ -514,10 +514,22 @@ describe("signal harnesses", () => {
         component(3, "U2", 500),
         // U1's wire runs into the left connector's entry at x = 200.
         { index: 6, RECORD: RECORD_TYPES.WIRE, X1: "100", Y1: "100", X2: "200", Y2: "100" },
-        { index: 7, RECORD: RECORD_TYPES.NET_LABEL, Text: leftLabel, "Location.X": "150", "Location.Y": "100" },
+        {
+          index: 7,
+          RECORD: RECORD_TYPES.NET_LABEL,
+          Text: leftLabel,
+          "Location.X": "150",
+          "Location.Y": "100",
+        },
         // U2's wire runs into the right connector's entry at x = 400.
         { index: 8, RECORD: RECORD_TYPES.WIRE, X1: "400", Y1: "100", X2: "500", Y2: "100" },
-        { index: 9, RECORD: RECORD_TYPES.NET_LABEL, Text: rightLabel, "Location.X": "450", "Location.Y": "100" },
+        {
+          index: 9,
+          RECORD: RECORD_TYPES.NET_LABEL,
+          Text: rightLabel,
+          "Location.X": "450",
+          "Location.Y": "100",
+        },
         // Both entries carry the same signal of the same bundle, as
         // assignHarnessSignals would have marked them.
         {
@@ -585,9 +597,9 @@ describe("signal harnesses", () => {
     const nets = extractNets(schematic);
 
     expect(nets.every((net) => refdesOf(schematic, net).length <= 1)).toBe(true);
-    expect(nets.some((net) => net.devices.some((d) => d.RECORD === RECORD_TYPES.HARNESS_ENTRY))).toBe(
-      false
-    );
+    expect(
+      nets.some((net) => net.devices.some((d) => d.RECORD === RECORD_TYPES.HARNESS_ENTRY))
+    ).toBe(false);
   });
 });
 
@@ -628,19 +640,44 @@ describe("naming a net after one of its pins", () => {
   it("counts the designator's number rather than reading it as text", () => {
     // R9 comes before R11; sorted as text it would not, and the net would be
     // named after R11. Altium calls this net NetR9_2.
-    expect(nameOf([["R11", "1"], ["R9", "2"]])).toBe("NetR9_2");
-    expect(nameOf([["C10", "2"], ["C9", "2"]])).toBe("NetC9_2");
+    expect(
+      nameOf([
+        ["R11", "1"],
+        ["R9", "2"],
+      ])
+    ).toBe("NetR9_2");
+    expect(
+      nameOf([
+        ["C10", "2"],
+        ["C9", "2"],
+      ])
+    ).toBe("NetC9_2");
   });
 
   it("still orders different prefixes alphabetically", () => {
-    expect(nameOf([["U2", "1"], ["C9", "2"]])).toBe("NetC9_2");
+    expect(
+      nameOf([
+        ["U2", "1"],
+        ["C9", "2"],
+      ])
+    ).toBe("NetC9_2");
   });
 
   it("breaks a tie on what follows the number", () => {
-    expect(nameOf([["R5B", "1"], ["R5A", "2"]])).toBe("NetR5A_2");
+    expect(
+      nameOf([
+        ["R5B", "1"],
+        ["R5A", "2"],
+      ])
+    ).toBe("NetR5A_2");
   });
 
   it("sorts a designator carrying no number ahead of the same prefix numbered", () => {
-    expect(nameOf([["JP1", "1"], ["JP", "2"]])).toBe("NetJP_2");
+    expect(
+      nameOf([
+        ["JP1", "1"],
+        ["JP", "2"],
+      ])
+    ).toBe("NetJP_2");
   });
 });

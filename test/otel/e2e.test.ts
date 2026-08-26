@@ -9,6 +9,7 @@
  *   - tool.calls / tool.duration / tool.errors metrics
  *   - structured log correlated by trace/span id
  *   - log-record attributes mirror enduser.id and, opt-in, tool.args (issue #82)
+ *   - error logs carry the failure message from a fixture-backed MCP result (issue #184)
  *   - failure path: outcome=error, tool result still returned
  *   - exporter unreachable: tool calls still succeed
  *   - flush on shutdown
@@ -26,6 +27,8 @@ import { OtlpReceiver, canListenOnLoopback, waitFor } from "./otlp-receiver.js";
 const HERE = dirname(fileURLToPath(import.meta.url));
 const SERVER_ENTRY = join(HERE, "server-entry.ts");
 const REPO_ROOT = join(HERE, "..", "..");
+const BROKEN_DESIGN = join(REPO_ROOT, "test", "universal", "broken", "pin-on-other-net.json");
+const BROKEN_DESIGN_ERROR = "pin-on-other-net.json: net 'VCC' lists C1.1, but C1.1 is on 'GND'";
 const TEST_TIMEOUT = 30_000;
 
 /** A scratch telemetry path so the JSONL logger never touches the real install dir. */
@@ -147,6 +150,7 @@ describe.skipIf(!loopbackAvailable)("OpenTelemetry end-to-end", () => {
       // Args are opt-in and were not requested here.
       expect(log.attributes["tool.args"]).toBeUndefined();
       expect(span.attributes["tool.args"]).toBeUndefined();
+      expect(log.attributes["error.message"]).toBeUndefined();
     },
     TEST_TIMEOUT
   );
@@ -194,30 +198,43 @@ describe.skipIf(!loopbackAvailable)("OpenTelemetry end-to-end", () => {
       let toolReturned = false;
       await withServer(otelEnv(receiver), async (client) => {
         const res: any = await client.callTool({
-          name: "list_components",
-          arguments: { design: "/nonexistent/does-not-exist.dsn", type: "U" },
+          name: "run_erc",
+          arguments: { design: BROKEN_DESIGN },
         });
         // The call resolves (telemetry did not break it); it reports a failure.
         toolReturned = true;
-        expect(res).toBeDefined();
+        expect(JSON.parse(res.content?.[0]?.text ?? "{}").error).toBe(BROKEN_DESIGN_ERROR);
       });
       expect(toolReturned).toBe(true);
 
-      const got = await waitFor(() =>
-        receiver
-          .spans()
-          .some(
-            (s) => s.name === "tool/list_components" && s.attributes["tool.outcome"] === "error"
-          )
+      const got = await waitFor(
+        () =>
+          receiver
+            .spans()
+            .some((s) => s.name === "tool/run_erc" && s.attributes["tool.outcome"] === "error") &&
+          receiver
+            .logs()
+            .some(
+              (l) =>
+                l.body === "tool/run_erc error" &&
+                l.attributes["error.message"] === BROKEN_DESIGN_ERROR
+            )
       );
       expect(got).toBe(true);
 
       const span = receiver
         .spans()
-        .find(
-          (s) => s.name === "tool/list_components" && s.attributes["tool.outcome"] === "error"
-        )!;
+        .find((s) => s.name === "tool/run_erc" && s.attributes["tool.outcome"] === "error")!;
       expect(span.attributes["error.type"]).toBeDefined();
+
+      const log = receiver
+        .logs()
+        .find(
+          (l) =>
+            l.body === "tool/run_erc error" && l.attributes["error.message"] === BROKEN_DESIGN_ERROR
+        )!;
+      expect(log.attributes["error.type"]).toBe("tool_error");
+      expect(log.attributes["error.message"]).toBe(BROKEN_DESIGN_ERROR);
 
       await waitFor(() => receiver.metrics().some((m) => m.name === "tool.errors"));
       expect(receiver.metrics().some((m) => m.name === "tool.errors")).toBe(true);
