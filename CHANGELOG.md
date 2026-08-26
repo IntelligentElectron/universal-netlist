@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.4] - 2026-08-26
+
+### Added
+
+- Development: repository skills are exposed to Codex through `.agents/skills`, a relative symlink to the canonical `.claude/skills` directory (PR #187)
+
+### Changed
+
+- OpenTelemetry `error.type` is now a stable, groupable category for both thrown errors and returned MCP error results. The closed vocabulary is `invalid_argument`, `not_found`, `permission_denied`, `resource_exhausted`, `cancelled`, `timeout`, `unavailable`, and `internal`; thrown exception names remain available separately as `error.class`. The same category is emitted on spans, structured logs, and the `tool.errors.error_type` metric label (#188, PR #189)
+
+### Fixed
+
+- Cadence DSN files containing consecutive Port records or hierarchical DrawnInstance records now parse without losing stream alignment or rejecting the mixed instance array. Thank you to [@RuneSorensen](https://github.com/RuneSorensen) for the careful reference analysis, fix, and regression tests. We independently verified the change against 69 real Cadence designs: it fixes 9 previously failing designs, including `fenlogic/multio`, which now parses as 65 components and 147 nets (#182, PR #183)
+
 ## [1.7.3] - 2026-08-26
 
 ### Fixed
