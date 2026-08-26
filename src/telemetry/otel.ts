@@ -445,7 +445,13 @@ const safeJson = (value: unknown): string => {
   }
 };
 
-const describeError = (err: unknown): string => (err instanceof Error ? err.message : String(err));
+const describeError = (err: unknown): string => {
+  try {
+    return err instanceof Error ? err.message : String(err);
+  } catch {
+    return "Unknown error";
+  }
+};
 
 /** Keep error log attributes useful without allowing an unbounded record. */
 const normalizeErrorMessage = (message: string | undefined): string | undefined => {

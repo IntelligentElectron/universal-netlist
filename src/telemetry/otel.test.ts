@@ -152,4 +152,20 @@ describe("instrumentTool log records", () => {
     expect(capturedMessage).toHaveLength(2048);
     expect(capturedMessage).toMatch(/\u2026$/);
   });
+
+  it("preserves a thrown value that cannot be converted to a string", async () => {
+    const thrown = Object.create(null);
+
+    await expect(
+      instrumentTool("demo_tool", {}, async () => {
+        throw thrown;
+      })
+    ).rejects.toBe(thrown);
+
+    expect(lastRecord().attributes).toMatchObject({
+      "tool.outcome": "error",
+      "error.type": "Error",
+      "error.message": "Unknown error",
+    });
+  });
 });
