@@ -106,7 +106,8 @@ describe("instrumentTool log records", () => {
     expect(record.severityText).toBe("ERROR");
     expect(record.attributes).toMatchObject({
       "tool.outcome": "error",
-      "error.type": "TypeError",
+      "error.type": "internal",
+      "error.class": "TypeError",
       "error.message": "boom",
       "enduser.id": userInfo().username,
       "tool.args": JSON.stringify({ a: 1 }),
@@ -126,15 +127,40 @@ describe("instrumentTool log records", () => {
     expect(result).toBe(errorResult);
     expect(lastRecord().attributes).toMatchObject({
       "tool.outcome": "error",
-      "error.type": "tool_error",
+      "error.type": "not_found",
       "error.message": "Design file not found",
     });
+  });
+
+  it("gives thrown and returned not-found failures the same category", async () => {
+    await expect(
+      instrumentTool("thrown_tool", {}, async () => {
+        throw new Error("Design file not found");
+      })
+    ).rejects.toThrow("Design file not found");
+
+    const errorResult = {
+      content: [{ type: "text", text: JSON.stringify({ error: "Design file not found" }) }],
+    };
+    await instrumentTool("returned_tool", {}, async () => errorResult, {
+      isErrorResult: () => true,
+      getErrorMessage: (value) => JSON.parse(value.content[0].text).error,
+    });
+
+    expect(captured).toHaveLength(2);
+    expect(captured[0].attributes).toMatchObject({
+      "error.type": "not_found",
+      "error.class": "Error",
+    });
+    expect(captured[1].attributes).toMatchObject({ "error.type": "not_found" });
+    expect(captured[1].attributes ?? {}).not.toHaveProperty("error.class");
   });
 
   it("omits error attributes from successful calls", async () => {
     await instrumentTool("demo_tool", {}, async () => "ok");
 
     expect(lastRecord().attributes ?? {}).not.toHaveProperty("error.type");
+    expect(lastRecord().attributes ?? {}).not.toHaveProperty("error.class");
     expect(lastRecord().attributes ?? {}).not.toHaveProperty("error.message");
   });
 
@@ -164,8 +190,9 @@ describe("instrumentTool log records", () => {
 
     expect(lastRecord().attributes).toMatchObject({
       "tool.outcome": "error",
-      "error.type": "Error",
+      "error.type": "internal",
       "error.message": "Unknown error",
     });
+    expect(lastRecord().attributes ?? {}).not.toHaveProperty("error.class");
   });
 });

@@ -23,6 +23,7 @@ import { logs, SeverityNumber } from "@opentelemetry/api-logs";
 import type { SpanExporter } from "@opentelemetry/sdk-trace-base";
 import type { PushMetricExporter } from "@opentelemetry/sdk-metrics";
 import type { LogRecordExporter } from "@opentelemetry/sdk-logs";
+import { classifyToolError, getErrorClass, type ToolErrorType } from "./error-category.js";
 
 const INSTRUMENTATION_NAME = "@intelligentelectron/mcp";
 const MAX_ERROR_MESSAGE_LENGTH = 2048;
@@ -286,27 +287,26 @@ export const instrumentTool = async <R>(
       const result = await run();
 
       const isError = opts?.isErrorResult?.(result) ?? false;
-      const errorMessage = isError
-        ? normalizeErrorMessage(opts?.getErrorMessage?.(result))
-        : undefined;
+      const resultErrorMessage = isError ? opts?.getErrorMessage?.(result) : undefined;
       finishSpan(
         span,
         toolName,
         isError ? "error" : "success",
-        isError ? "tool_error" : undefined,
-        errorMessage,
+        isError ? classifyToolError(resultErrorMessage) : undefined,
+        undefined,
+        normalizeErrorMessage(resultErrorMessage),
         Date.now() - start,
         capturedArgs
       );
       return result;
     } catch (err) {
-      const errorType = err instanceof Error ? err.name : "Error";
       safely(() => span.recordException(err instanceof Error ? err : new Error(String(err))));
       finishSpan(
         span,
         toolName,
         "error",
-        errorType,
+        classifyToolError(err),
+        getErrorClass(err),
         normalizeErrorMessage(describeError(err)),
         Date.now() - start,
         capturedArgs
@@ -320,7 +320,8 @@ const finishSpan = (
   span: Span,
   toolName: string,
   outcome: "success" | "error",
-  errorType: string | undefined,
+  errorType: ToolErrorType | undefined,
+  errorClass: string | undefined,
   errorMessage: string | undefined,
   durationMs: number,
   capturedArgs: string | undefined
@@ -329,6 +330,7 @@ const finishSpan = (
     span.setAttribute("tool.outcome", outcome);
     span.setAttribute("tool.duration_ms", durationMs);
     if (errorType) span.setAttribute("error.type", errorType);
+    if (errorClass) span.setAttribute("error.class", errorClass);
     span.setStatus({ code: outcome === "error" ? SpanStatusCode.ERROR : SpanStatusCode.OK });
   });
 
@@ -342,7 +344,9 @@ const finishSpan = (
     }
   });
 
-  safely(() => emitLog(span, toolName, outcome, errorType, errorMessage, durationMs, capturedArgs));
+  safely(() =>
+    emitLog(span, toolName, outcome, errorType, errorClass, errorMessage, durationMs, capturedArgs)
+  );
 
   safely(() => span.end());
 };
@@ -358,7 +362,8 @@ const emitLog = (
   span: Span,
   toolName: string,
   outcome: "success" | "error",
-  errorType: string | undefined,
+  errorType: ToolErrorType | undefined,
+  errorClass: string | undefined,
   errorMessage: string | undefined,
   durationMs: number,
   capturedArgs: string | undefined
@@ -374,6 +379,7 @@ const emitLog = (
       "tool.outcome": outcome,
       "tool.duration_ms": durationMs,
       ...(errorType ? { "error.type": errorType } : {}),
+      ...(errorClass ? { "error.class": errorClass } : {}),
       ...(errorMessage ? { "error.message": errorMessage } : {}),
       ...hostEnduser(),
       ...(capturedArgs !== undefined ? { "tool.args": capturedArgs } : {}),

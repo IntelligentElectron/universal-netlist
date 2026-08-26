@@ -225,7 +225,7 @@ describe.skipIf(!loopbackAvailable)("OpenTelemetry end-to-end", () => {
       const span = receiver
         .spans()
         .find((s) => s.name === "tool/run_erc" && s.attributes["tool.outcome"] === "error")!;
-      expect(span.attributes["error.type"]).toBeDefined();
+      expect(span.attributes["error.type"]).toBe("invalid_argument");
 
       const log = receiver
         .logs()
@@ -233,11 +233,16 @@ describe.skipIf(!loopbackAvailable)("OpenTelemetry end-to-end", () => {
           (l) =>
             l.body === "tool/run_erc error" && l.attributes["error.message"] === BROKEN_DESIGN_ERROR
         )!;
-      expect(log.attributes["error.type"]).toBe("tool_error");
+      expect(log.attributes["error.type"]).toBe("invalid_argument");
       expect(log.attributes["error.message"]).toBe(BROKEN_DESIGN_ERROR);
 
       await waitFor(() => receiver.metrics().some((m) => m.name === "tool.errors"));
-      expect(receiver.metrics().some((m) => m.name === "tool.errors")).toBe(true);
+      const errors = receiver.metrics().find((m) => m.name === "tool.errors")!;
+      expect(
+        errors.points.some(
+          (p) => p.attributes.tool === "run_erc" && p.attributes.error_type === "invalid_argument"
+        )
+      ).toBe(true);
     },
     TEST_TIMEOUT
   );
