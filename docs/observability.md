@@ -97,7 +97,8 @@ One span per call, named `tool/<tool_name>`.
 | `tool.name` | The tool that was invoked. |
 | `tool.outcome` | `success` or `error`. |
 | `tool.duration_ms` | Wall-clock duration of the call in milliseconds. |
-| `error.type` | Present on failure; the error class name (or `tool_error` for an error result). |
+| `error.type` | Stable failure category from the closed set below. Present on failure. |
+| `error.class` | Runtime exception class, present only when the handler throws an `Error`. Intended for debugging, not grouping. |
 | `tool.args` | Full tool arguments as JSON. Only present when `OTEL_CAPTURE_TOOL_ARGS` is enabled. |
 
 The span status is set to `ERROR` on failure and `OK` otherwise; exceptions are recorded on the span.
@@ -110,6 +111,22 @@ The span status is set to `ERROR` on failure and `OK` otherwise; exceptions are 
 | `tool.duration` | Histogram | ms | `tool`, `outcome` |
 | `tool.errors` | Counter | — | `tool`, `error_type` |
 
+`error.type` and the `tool.errors.error_type` label use this closed vocabulary:
+
+| Value | Meaning |
+|-------|---------|
+| `invalid_argument` | The request, selection, or supplied design data is invalid or unsupported. |
+| `not_found` | A requested file, design, component, net, pin, or other resource does not exist. |
+| `permission_denied` | Access was refused by the operating system or an upstream service. |
+| `resource_exhausted` | A size, memory, storage, file-descriptor, or output-buffer limit was reached. |
+| `cancelled` | The operation was cancelled or aborted. |
+| `timeout` | The operation exceeded its time limit or deadline. |
+| `unavailable` | A required service, platform, installation, network, or external tool is unavailable. |
+| `internal` | The failure does not match another category and should be investigated as an implementation or classification gap. |
+
+The same classifier is applied to thrown errors and returned MCP error results. These
+values are telemetry API: changing or renaming one requires an explicit changelog entry.
+
 ### Logs
 
 One structured log record per call, with body `tool/<tool_name> <outcome>` and severity `INFO` on success or `ERROR` on failure. Each record carries:
@@ -119,7 +136,8 @@ One structured log record per call, with body `tool/<tool_name> <outcome>` and s
 | `tool.name` | The tool that was invoked. |
 | `tool.outcome` | `success` or `error`. |
 | `tool.duration_ms` | Duration in milliseconds. |
-| `error.type` | Present on failure. |
+| `error.type` | Stable failure category from the closed set above. Present on failure. |
+| `error.class` | Runtime exception class, present only for thrown `Error` values. |
 | `error.message` | Human-readable failure message, present on failure when available and truncated to 2,048 characters. For MCP error results, this is the result's `error` field. |
 | `enduser.id` | The host OS account name, mirroring the resource attribute below. Best-effort; omitted if it can't be read. |
 | `tool.args` | Full tool arguments as JSON, mirroring the span attribute. Only present when `OTEL_CAPTURE_TOOL_ARGS` is enabled. |
