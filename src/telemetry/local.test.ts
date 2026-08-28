@@ -148,6 +148,21 @@ describe("withTelemetry", () => {
     expect(toolEvent.success).toBe(false);
   });
 
+  it("logs success=false for MCP validation error results", async () => {
+    const handler = withTelemetry("list_designs", async (_args: Record<string, unknown>) => ({
+      isError: true,
+      content: [{ type: "text" as const, text: 'Unrecognized key: "search_path"' }],
+    }));
+
+    await handler({ search_path: "/tmp" });
+
+    const lines = readFileSync(testTelemetryPath, "utf-8").trim().split("\n");
+    const toolEvent = JSON.parse(lines[lines.length - 1]);
+    expect(toolEvent.tool).toBe("list_designs");
+    expect(toolEvent.args).toEqual({ search_path: "/tmp" });
+    expect(toolEvent.success).toBe(false);
+  });
+
   it("logs success=false and re-throws on handler exceptions", async () => {
     const handler = withTelemetry("failing_tool", async (_args: Record<string, unknown>) => {
       throw new Error("boom");

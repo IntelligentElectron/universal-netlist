@@ -10,6 +10,7 @@
  *   - structured log correlated by trace/span id
  *   - log-record attributes mirror enduser.id and, opt-in, tool.args (issue #82)
  *   - error logs carry the failure message from a fixture-backed MCP result (issue #184)
+ *   - SDK input-schema rejections are counted and classified (issue #191)
  *   - failure path: outcome=error, tool result still returned
  *   - exporter unreachable: tool calls still succeed
  *   - flush on shutdown
@@ -241,6 +242,80 @@ describe.skipIf(!loopbackAvailable)("OpenTelemetry end-to-end", () => {
       expect(
         errors.points.some(
           (p) => p.attributes.tool === "run_erc" && p.attributes.error_type === "invalid_argument"
+        )
+      ).toBe(true);
+    },
+    TEST_TIMEOUT
+  );
+
+  test(
+    "input-schema rejection: SDK failure emits the complete error telemetry shape",
+    async () => {
+      await withServer(otelEnv(receiver), async (client) => {
+        const res: any = await client.callTool({
+          name: "list_designs",
+          arguments: { search_path: "/tmp" },
+        });
+        expect(res.isError).toBe(true);
+        expect(res.content?.[0]?.text ?? "").toContain('Unrecognized key: "search_path"');
+      });
+
+      const got = await waitFor(
+        () =>
+          receiver.spans().some(
+            (s) =>
+              s.name === "tool/list_designs" &&
+              s.attributes["tool.outcome"] === "error" &&
+              s.attributes["error.type"] === "invalid_argument"
+          ) &&
+          receiver.logs().some(
+            (l) =>
+              l.body === "tool/list_designs error" &&
+              String(l.attributes["error.message"]).includes("search_path")
+          )
+      );
+      expect(got).toBe(true);
+
+      const rejectionSpans = receiver
+        .spans()
+        .filter(
+          (s) =>
+            s.name === "tool/list_designs" && s.attributes["tool.outcome"] === "error"
+        );
+      expect(rejectionSpans).toHaveLength(1);
+      const span = rejectionSpans[0];
+      expect(span.attributes["error.type"]).toBe("invalid_argument");
+      expect(typeof span.attributes["tool.duration_ms"]).toBe("number");
+
+      const rejectionLogs = receiver
+        .logs()
+        .filter((l) => l.body === "tool/list_designs error");
+      expect(rejectionLogs).toHaveLength(1);
+      const log = rejectionLogs[0];
+      expect(log.attributes["error.type"]).toBe("invalid_argument");
+      expect(log.attributes["error.message"]).toContain("search_path");
+
+      const hasMetricPoint = (
+        name: string,
+        matches: (attributes: Record<string, string | number | boolean>) => boolean
+      ): boolean =>
+        receiver
+          .metrics()
+          .filter((metric) => metric.name === name)
+          .some((metric) => metric.points.some((point) => matches(point.attributes)));
+
+      expect(
+        await waitFor(
+          () =>
+            hasMetricPoint(
+              "tool.calls",
+              (attrs) => attrs.tool === "list_designs" && attrs.outcome === "error"
+            ) &&
+            hasMetricPoint(
+              "tool.errors",
+              (attrs) =>
+                attrs.tool === "list_designs" && attrs.error_type === "invalid_argument"
+            )
         )
       ).toBe(true);
     },

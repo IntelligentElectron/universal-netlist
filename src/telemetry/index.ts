@@ -8,4 +8,5 @@
  * Import telemetry from this barrel rather than the individual modules.
  */
 export * from "./local.js";
+export * from "./mcp.js";
 export * from "./otel.js";

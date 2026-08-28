@@ -10,7 +10,12 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 import { VERSION } from "./version.js";
-import { initTelemetry, withTelemetry, initOtel } from "./telemetry/index.js";
+import {
+  initTelemetry,
+  withTelemetry,
+  instrumentMcpToolCalls,
+  initOtel,
+} from "./telemetry/index.js";
 import {
   listDesigns,
   listComponents,
@@ -100,6 +105,10 @@ export const createServer = (): McpServer => {
       instructions: SERVER_INSTRUCTIONS,
     }
   );
+
+  // Wrap the complete SDK tools/call path so schema rejections are measured
+  // before the SDK has a chance to return without invoking a tool handler.
+  instrumentMcpToolCalls(server);
 
   // -------------------------------------------------------------------------
   // Tool: list_designs
