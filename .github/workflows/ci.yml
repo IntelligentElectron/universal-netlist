@@ -1,16 +1,21 @@
 name: CI
 
 on:
-  push:
-    branches: [main]
   pull_request:
     branches: [main]
-  # Required for the merge queue: a queued PR is built on a temporary
-  # `gh-readonly-queue/...` ref that fires `merge_group`, not `pull_request`.
-  # Without this the required `build` check never reports and every entry is
-  # ejected on timeout.
-  merge_group:
-    branches: [main]
+  workflow_call:
+    inputs:
+      release_tag:
+        description: Version tag to stamp into the npm package, such as v1.8.0
+        required: false
+        type: string
+        default: ''
+
+# A new push makes an older run for the same PR irrelevant. Cancelling it saves
+# minutes while still leaving the newest commit as the required `build` check.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -27,10 +32,14 @@ jobs:
           node-version: '22'
           cache: npm
 
-      # `npm ci` installs the committed tree exactly and fails when
-      # `package-lock.json` and `package.json` disagree, so a dependency bump
-      # that was never locked stops here instead of resolving differently on
-      # every run.
+      # A release tag is the source of the published version. Stamp it only in
+      # this disposable checkout; main stays at an unmistakable dev version.
+      - name: Stamp release version
+        if: inputs.release_tag != ''
+        env:
+          RELEASE_TAG: ${{ inputs.release_tag }}
+        run: npm version "${RELEASE_TAG#v}" --no-git-tag-version --allow-same-version --ignore-scripts
+
       - name: Install dependencies
         run: npm ci
 
@@ -45,3 +54,20 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      # The release job publishes this exact CI-built tarball instead of doing
+      # another npm install and build on a second runner.
+      - name: Pack npm release
+        if: inputs.release_tag != ''
+        run: |
+          mkdir npm-package
+          npm pack --pack-destination npm-package --ignore-scripts
+
+      - name: Save npm release
+        if: inputs.release_tag != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-package
+          path: npm-package/*.tgz
+          if-no-files-found: error
+          retention-days: 1
