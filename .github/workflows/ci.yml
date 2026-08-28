@@ -68,7 +68,7 @@ jobs:
 
       - name: Save npm release
         if: inputs.release_tag != ''
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: npm-package
           path: npm-package/*.tgz
