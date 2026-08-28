@@ -102,8 +102,8 @@ The server is a professional engineering tool and is not directed at children.
 
 ## Changes
 
-Material changes to this policy will be recorded in `CHANGELOG.md` and in this
-file's effective date. The current version always lives at
+Material changes to this policy will be recorded in the GitHub Release notes and in
+this file's effective date. The current version always lives at
 <https://github.com/IntelligentElectron/universal-netlist/blob/main/PRIVACY.md>.
 
 ## Contact

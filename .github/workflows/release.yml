@@ -4,88 +4,64 @@ on:
   push:
     tags:
       - 'v*'
-  # A tag push is a webhook delivery like any other, and when Actions throttles
-  # webhooks to recover from an incident those deliveries are dropped. The tag
-  # then exists with no release built from it, and nothing in this repo could
-  # start the run by hand, so the only way back was deleting and re-pushing a
-  # public tag. Dispatch this against the tag (not a branch) to run it manually.
+  # Re-run a dropped tag webhook against the tag without deleting a public tag.
   workflow_dispatch:
 
-permissions:
-  contents: write
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
-  build-and-release:
+  # Releases must pass the same required checks as pull requests. This call also
+  # builds the npm tarball that the release job publishes unchanged.
+  ci:
+    uses: ./.github/workflows/ci.yml
+    with:
+      release_tag: ${{ github.ref_name }}
+
+  release:
+    needs: ci
     runs-on: macos-latest
+    permissions:
+      contents: write
+      id-token: write
 
     steps:
       - name: Checkout
         uses: actions/checkout@v7
 
-      # Every version below is derived by stripping `refs/tags/v` off GITHUB_REF.
-      # Dispatched against a branch that strip is a no-op, so the version would
-      # silently become the ref itself; fail here instead, before anything is
-      # built, signed, released or published.
-      - name: Validate the ref is a version tag
+      - name: Validate release tag
+        id: version
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+          REF_TYPE: ${{ github.ref_type }}
         run: |
-          case "$GITHUB_REF" in
-            refs/tags/v*)
-              echo "Releasing from $GITHUB_REF"
-              ;;
-            *)
-              echo "::error::Release must run on a v* tag, got $GITHUB_REF. Re-run this workflow with the tag as the ref."
-              exit 1
-              ;;
-          esac
-
-      - name: Validate CHANGELOG has release notes
-        run: |
-          VERSION=${GITHUB_REF#refs/tags/v}
-          if ! grep -q "## \[$VERSION\]" CHANGELOG.md; then
-            echo "::error::No release notes found in CHANGELOG.md for version $VERSION"
-            echo "Add a section like '## [$VERSION] - $(date +%Y-%m-%d)' to CHANGELOG.md"
+          if [ "$REF_TYPE" != tag ]; then
+            echo "::error::Release must run against a version tag, got $GITHUB_REF."
             exit 1
           fi
-          echo "Found release notes for version $VERSION"
 
-      # package.json is the single source of the version the binaries carry, so
-      # a tag that disagrees with it would ship a binary reporting one version
-      # under a release named another. Catch it here, next to the changelog
-      # check, before anything is built.
-      - name: Validate the tag matches package.json
-        run: |
-          TAG_VERSION=${GITHUB_REF#refs/tags/v}
-          PKG_VERSION=$(node -p "require('./package.json').version")
-          if [ "$TAG_VERSION" != "$PKG_VERSION" ]; then
-            echo "::error::Tag v$TAG_VERSION does not match package.json version $PKG_VERSION. Bump package.json (or retag) so the two agree."
+          VERSION=${RELEASE_TAG#v}
+          if ! [[ "$VERSION" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$ ]]; then
+            echo "::error::$RELEASE_TAG is not a semantic version tag such as v1.8.0."
             exit 1
           fi
-          echo "Tag matches package.json version $PKG_VERSION"
 
-      # `bun build --compile` embeds the Bun runtime in the binary, so the Bun
-      # version is part of what ships. On `latest` the contents of a release
-      # depended on whichever Bun was current the day the workflow ran, and two
-      # builds of the same tag months apart differed with no change in this
-      # repo. The version lives in `.bun-version` so a downstream build can
-      # match it; bump it in its own PR.
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Releasing $RELEASE_TAG"
+
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
           bun-version-file: .bun-version
 
-      # The binaries a release ships are compiled against this tree, so it has
-      # to be the locked one: `--frozen-lockfile` fails the release rather than
-      # re-resolving `^` ranges into something the tests never ran against.
-      - name: Install dependencies
+      - name: Install locked binary dependencies
         run: bun install --frozen-lockfile
 
-      # One entry point, shared with `npm run compile:*` and with any downstream
-      # build, so a release binary can be reproduced outside this workflow. The
-      # script takes its version from package.json, which the tag was validated
-      # against above.
       - name: Build all platforms
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
         run: |
-          chmod +x scripts/build-binary.sh
           for target in darwin-arm64 darwin-x64 linux-arm64 linux-x64; do
             scripts/build-binary.sh "bun-$target" "bin/universal-netlist-$target"
           done
@@ -96,20 +72,15 @@ jobs:
           APPLE_CERTIFICATE_BASE64: ${{ secrets.APPLE_CERTIFICATE_BASE64 }}
           APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
         run: |
-          # Create temporary keychain
           KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
           KEYCHAIN_PASSWORD=$(openssl rand -base64 32)
 
           security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
           security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
           security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
-
-          # Import certificate
-          echo "$APPLE_CERTIFICATE_BASE64" | base64 --decode > $RUNNER_TEMP/certificate.p12
-          security import $RUNNER_TEMP/certificate.p12 -P "$APPLE_CERTIFICATE_PASSWORD" -A -t cert -f pkcs12 -k "$KEYCHAIN_PATH"
+          echo "$APPLE_CERTIFICATE_BASE64" | base64 --decode > "$RUNNER_TEMP/certificate.p12"
+          security import "$RUNNER_TEMP/certificate.p12" -P "$APPLE_CERTIFICATE_PASSWORD" -A -t cert -f pkcs12 -k "$KEYCHAIN_PATH"
           security list-keychain -d user -s "$KEYCHAIN_PATH"
-
-          # Allow codesign to access the key
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
 
       - name: Create macOS universal binary
@@ -157,44 +128,42 @@ jobs:
           cat checksums.txt
 
       - name: Build .mcpb desktop extension
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: RELEASE_DIR=$PWD/bin OUTPUT_DIR=$PWD/bin scripts/build-mcpb.sh "$VERSION"
+
+      - name: Download CI-built npm package
+        uses: actions/download-artifact@v4
+        with:
+          name: npm-package
+          path: npm-package
+
+      - name: Setup npm trusted publishing
+        uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+
+      - name: Update npm for OIDC
+        run: npm install -g npm@latest
+
+      # Publishing is idempotent so a retry can finish the GitHub Release after
+      # npm succeeded without failing because that immutable version exists.
+      - name: Publish to npm
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
         run: |
-          chmod +x scripts/build-mcpb.sh
-          RELEASE_DIR=$PWD/bin OUTPUT_DIR=$PWD/bin scripts/build-mcpb.sh ${GITHUB_REF#refs/tags/v}
-
-      - name: Get version from tag
-        id: version
-        run: echo "version=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
-
-      - name: Extract release notes from CHANGELOG
-        id: changelog
-        run: |
-          VERSION=${GITHUB_REF#refs/tags/v}
-          # Extract section between current version header and next version header (or EOF)
-          NOTES=$(awk -v ver="$VERSION" '
-            /^## \[/ { if (found) exit; if ($0 ~ "\\[" ver "\\]") found=1; next }
-            /^\[.*\]:/ { exit }
-            found { print }
-          ' CHANGELOG.md)
-
-          # Use delimiter for multiline output
-          echo "notes<<EOF" >> $GITHUB_OUTPUT
-          echo "$NOTES" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          PACKAGE_NAME=$(node -p "require('./package.json').name")
+          if npm view "$PACKAGE_NAME@$VERSION" version >/dev/null 2>&1; then
+            echo "$PACKAGE_NAME@$VERSION is already published; continuing."
+          else
+            npm publish npm-package/*.tgz --provenance --access public --ignore-scripts
+          fi
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3
         with:
-          name: ${{ steps.version.outputs.version }}
-          body: |
-            ${{ steps.changelog.outputs.notes }}
-
-            ## Installation
-
-            See [Setup Instructions](https://github.com/IntelligentElectron/universal-netlist?tab=readme-ov-file#connect-the-mcp-with-your-favorite-ai-tool) for installation and configuration.
-
-            ## Checksums
-
-            See `checksums.txt` for SHA256 checksums.
+          name: ${{ github.ref_name }}
+          generate_release_notes: true
           files: |
             bin/universal-netlist-darwin-universal
             bin/universal-netlist-darwin-arm64
@@ -205,40 +174,4 @@ jobs:
             bin/checksums.txt
             bin/universal-netlist.mcpb
           draft: false
-          prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  publish-npm:
-    runs-on: ubuntu-latest
-    needs: build-and-release
-    permissions:
-      contents: read
-      id-token: write  # Required for OIDC trusted publishing
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v7
-        with:
-          node-version: '22'
-          # NOTE: Do NOT add registry-url here - it creates a .npmrc with
-          # auth token placeholder that interferes with OIDC authentication
-          cache: npm
-
-      - name: Update npm to latest (OIDC requires npm 11.5.1+)
-        run: npm install -g npm@latest
-
-      - name: Verify npm version
-        run: npm --version
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build
-        run: npm run build
-
-      - name: Publish to npm
-        run: npm publish --provenance --access public --ignore-scripts
+          prerelease: ${{ contains(steps.version.outputs.version, '-') }}

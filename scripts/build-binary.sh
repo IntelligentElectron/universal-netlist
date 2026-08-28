@@ -25,11 +25,9 @@
 #   VERSION=1.5.2-3 ./scripts/build-binary.sh host bin/universal-netlist packaged
 #
 # This compiles and nothing else: no git, no network, no signing, no
-# publishing, no reading GITHUB_REF. The version comes from package.json,
-# which is the single source of it — the release workflow validates the tag
-# against package.json rather than deriving a version from the tag, so a
-# build outside a tag push produces the same binary CI would. $VERSION is the
-# one way to say otherwise, for a downstream packager stamping its own.
+# publishing, no reading GITHUB_REF. A local build defaults to package.json.
+# The release workflow and downstream packagers pass $VERSION explicitly; for
+# official releases that value comes from the version tag.
 #
 # Bun is the whole toolchain this needs. An image holding just the version in
 # `.bun-version` builds this.
@@ -68,8 +66,8 @@ PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 # A downstream packager stamping its own string (`1.5.2-3`, a snapshot date, a
 # commit-derived name) sets $VERSION rather than patching a tracked file. Here
 # `:-` rather than `-`, unlike the channel above: an unset caller variable falls
-# back to a true upstream version, which is the behaviour every existing caller
-# already has, where the same slip on the channel would arm self-update.
+# back to the package's development version, where the same slip on the channel
+# would arm self-update.
 #
 # Bun reads package.json because the compile below needs Bun anyway. Reading it
 # with Node made a build fail on `node: command not found` in an environment

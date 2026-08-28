@@ -18,8 +18,9 @@ npm run dev
 
 ### Dependencies
 
-Both lockfiles are committed. The release build installs from `bun.lock`; CI and the
-npm publish job install from `package-lock.json`. When you change a dependency,
+Both lockfiles are committed. Binary packaging installs from `bun.lock`; CI installs
+from `package-lock.json` and produces the npm tarball that is later published unchanged.
+When you change a dependency,
 regenerate both lockfiles in the same commit:
 
 ```bash
@@ -27,7 +28,7 @@ bun install                      # updates bun.lock
 npm install --package-lock-only  # updates package-lock.json
 ```
 
-CI installs with `npm ci` and the release workflow with `bun install --frozen-lockfile`.
+CI installs with `npm ci` and binary packaging with `bun install --frozen-lockfile`.
 Both fail if the lockfile does not match `package.json`, so an out-of-date lockfile is
 caught instead of being silently re-resolved.
 
@@ -63,9 +64,9 @@ Targets: `bun-darwin-arm64`, `bun-darwin-x64`, `bun-linux-arm64`, `bun-linux-x64
 `bun-windows-x64`, plus `host` for the machine running the script.
 
 The script only compiles. It does not use git, the network, signing, publishing, or
-`GITHUB_REF`. The version it bakes in comes from `package.json`, which is the single
-source of the version. The release workflow validates the git tag against `package.json`;
-it does not derive the version from the tag.
+`GITHUB_REF`. Locally, the version it bakes in comes from `package.json`. A release passes
+the version tag through `VERSION`, making the tag the single source for every shipped
+artifact without committing release-only version changes to `main`.
 
 The `VERSION` environment variable overrides that. This is for downstream packagers who
 want to stamp their own version string without editing a tracked file:
@@ -136,56 +137,32 @@ Otherwise `gh` fails TLS verification with `x509: OSStatus -26276`.
 
 ### Releasing
 
-`CHANGELOG.md` and the version bump belong in the release PR, never in a feature PR.
-Feature PRs contain code and tests only. They must NOT edit `CHANGELOG.md` or
-`package.json`.
+There is no release PR. Feature PRs contain the code, tests, and documentation users
+need. Give each PR a user-facing title and description; GitHub uses the merged PRs to
+generate release notes. Do not edit `CHANGELOG.md` or bump the development version.
 
-Reason: both files append at the top, so if every feature PR bumped them, each
-concurrent PR would conflict with the previous one, and a contributor cannot know
-whether their change is a patch or a minor. Instead, each PR describes its user-visible
-effect in a `## Changelog` section of the PR body. Those sections are collected into one
-release PR.
+After the intended changes have merged, choose the semantic version bump explicitly,
+then tag the current `main` commit:
 
-Cutting the release PR is ordinary work. An agent asked to release, or to carry a change
-through to a release, writes the changelog section and bumps the version without asking
-first. The version number is the one judgment call to state explicitly: say which bump
-you chose and why, so any disagreement surfaces before the tag is pushed.
+```bash
+git checkout main && git pull
+scripts/tag-release.sh 1.8.0
+```
 
-1. Cut a release PR from `main` after the fixes for the release have merged:
-   - Update `CHANGELOG.md` with a new version section, written from the merged PRs'
-     Changelog sections
-   - `npm version minor|patch --no-git-tag-version` (writes the version, creates no tag)
-   - One commit, e.g. `chore: vX.Y.Z changelog`
+The script refuses to run off `main`, with a dirty or stale tree, for a malformed
+semantic version, or for an existing tag. Pass `--yes` to skip the prompt. The tag is the
+release version; CI stamps it into the npm package and binaries only in the disposable
+runner checkout.
 
-   That command writes the version to **both `package.json` and `package-lock.json`**,
-   so the release commit carries three files rather than two. `bun.lock` records the
-   workspace root's name and no version, so it does not change.
+The tag triggers one release workflow, which automatically:
 
-   Run the command instead of editing `package.json` by hand. A hand-edit leaves
-   `package-lock.json` one version behind, and nothing downstream notices: `npm ci`
-   compares dependencies and ignores the root version, so CI passes; `npm publish` reads
-   the version from `package.json`, so the publish is correct; the lockfile is simply
-   wrong. `tag-release.sh` refuses on the mismatch, and it is the only check that catches
-   it.
-2. Open it as a normal PR and let the merge queue land it
-3. After merge, tag the merge commit and push:
+- Runs the same type check, lint, tests, and TypeScript build required on PRs
+- Packs the npm tarball once and publishes that exact CI artifact via OIDC
+- Builds, signs, and notarizes the standalone binaries
+- Generates release notes from merged PRs and creates the GitHub Release
 
-   ```bash
-   git checkout main && git pull
-   scripts/tag-release.sh
-   ```
-
-   The script tags the version in `package.json`. It refuses to run if: you are not on
-   `main`, the tree is dirty, local `main` is behind `origin/main` (which would tag the
-   wrong commit), `CHANGELOG.md` has no section for the version, the lockfile records a
-   different version, or the tag already exists. Pass `--yes` to skip the prompt.
-
-   **Note:** Do NOT use `npm version` without `--no-git-tag-version`. It creates a local git tag that points to the feature branch commit, not the merge commit on main. The tag must be created on the merge commit, which is what the script checks for.
-
-The tag push triggers the release workflow, which automatically:
-- Builds signed binaries for all platforms
-- Creates GitHub Release with binaries
-- Publishes to npm via OIDC (no tokens)
+`CHANGELOG.md` is the historical changelog through v1.7.4. New changelogs live with the
+GitHub Releases generated by the tag workflow.
 
 ## Scripts
 
@@ -203,8 +180,9 @@ npm run test:watch                 # Watch mode
 
 ## CI/CD
 
-- **CI** (`ci.yml`): Runs on every push - type-check, lint, test
-- **Release** (`release.yml`): Triggered by `v*` tags - builds binaries, signs macOS, publishes npm
+- **CI** (`ci.yml`): One required PR run — type-check, lint, test, build
+- **Release** (`release.yml`): One `v*` tag run — calls CI, then signs/releases binaries
+  and publishes the CI-built npm tarball
 
 npm publishing uses OIDC trusted publishing (configured on npmjs.com) - no tokens required.
 
