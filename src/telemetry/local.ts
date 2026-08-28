@@ -11,6 +11,7 @@ import { userInfo, hostname, platform, arch, release } from "node:os";
 import { execSync } from "node:child_process";
 import { VERSION } from "../version.js";
 import { instrumentTool } from "./otel.js";
+import { markToolHandlerInstrumented } from "./request-context.js";
 
 // =============================================================================
 // Types
@@ -151,6 +152,7 @@ export const withTelemetry = <T extends Record<string, unknown>, R>(
   handler: ToolHandler<T, R>
 ): ToolHandler<T, R> => {
   return async (args: T): Promise<R> => {
+    markToolHandlerInstrumented();
     const start = Date.now();
     let success = true;
     try {
@@ -162,7 +164,8 @@ export const withTelemetry = <T extends Record<string, unknown>, R>(
         () => handler(args),
         { isErrorResult: isErrorContent, getErrorMessage: getErrorContentMessage }
       );
-      // Detect error results (objects with an "error" field in the text content)
+      // Detect both application error content and MCP `isError` results created
+      // by the SDK for validation/dispatch failures.
       if (isErrorContent(result)) {
         success = false;
       }
@@ -252,8 +255,9 @@ const isErrorContent = (result: unknown): boolean => {
 /** Read the human-facing message from a formatted MCP error result. */
 const getErrorContentMessage = (result: unknown): string | undefined => {
   if (typeof result !== "object" || result === null) return undefined;
-  const r = result as { content?: Array<{ text?: string }> };
+  const r = result as { content?: Array<{ text?: string }>; isError?: boolean };
   if (!Array.isArray(r.content) || r.content.length === 0) return undefined;
+  if (r.isError === true) return r.content[0].text || "Tool call failed";
   try {
     const parsed: unknown = JSON.parse(r.content[0].text ?? "");
     if (typeof parsed !== "object" || parsed === null || !("error" in parsed)) return undefined;

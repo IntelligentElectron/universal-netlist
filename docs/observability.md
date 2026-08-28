@@ -7,6 +7,7 @@ The server can emit [OpenTelemetry](https://opentelemetry.io/) **traces, metrics
 - **Disabled by default.** Telemetry is a no-op with zero overhead unless you point it at an OTLP endpoint. The heavy SDK packages are not imported until telemetry is configured; only the lightweight OpenTelemetry API stubs are always present, and they are no-ops when telemetry is off.
 - **Configured purely through standard `OTEL_*` environment variables.** No bespoke config and no code changes.
 - **Never affects tool results.** Every span, metric, and log operation is wrapped so that an exporter fault, misconfiguration, or unreachable backend degrades to "no telemetry" rather than an error. Pending data is flushed on shutdown.
+- **Starts at the MCP request boundary.** Calls rejected by a tool's input schema are instrumented even though the SDK never invokes the tool handler. They are counted as `invalid_argument` failures, and their validation message identifies the offending argument.
 - **stdio-safe.** The MCP stdio transport owns stdout, so all diagnostics are written to stderr only; no console/stdout exporter is ever used.
 
 ## Enabling and disabling
@@ -86,7 +87,8 @@ One additional, clearly-scoped option is specific to this server:
 
 ## What gets emitted
 
-Each tool call produces a span, three metric updates, and one log record.
+Each tool call produces a span, three metric updates, and one log record. An input-schema
+rejection has the same telemetry shape as any other failed call, including duration.
 
 ### Spans
 
