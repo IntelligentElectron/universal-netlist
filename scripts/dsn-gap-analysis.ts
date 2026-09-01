@@ -17,6 +17,7 @@
 import fs from "fs";
 import path from "path";
 import { parseDsnFile } from "../src/parsers/cadence/dsn/dsn-parser.js";
+import { parseUniversalNetlist } from "../src/parsers/universal/reader.js";
 import type { ParsedNetlist } from "../src/types.js";
 
 // ---------------------------------------------------------------------------
@@ -52,14 +53,14 @@ if (!filterName) {
   console.error("\nAvailable golden files:");
   for (const f of fs
     .readdirSync(goldenDir)
-    .filter((f) => f.endsWith(".json"))
+    .filter((f) => f.endsWith(".netlist.json"))
     .sort()) {
-    console.error(`  ${path.basename(f, ".json")}`);
+    console.error(`  ${path.basename(f, ".netlist.json")}`);
   }
   process.exit(1);
 }
 
-const goldenPath = path.join(goldenDir, `${filterName}.json`);
+const goldenPath = path.join(goldenDir, `${filterName}.netlist.json`);
 if (!fs.existsSync(goldenPath)) {
   console.error(`Golden file not found: ${goldenPath}`);
   process.exit(1);
@@ -76,7 +77,10 @@ if (!dsnPath) {
 // Parse
 // ---------------------------------------------------------------------------
 
-const golden: ParsedNetlist = JSON.parse(fs.readFileSync(goldenPath, "utf-8"));
+const golden: ParsedNetlist = parseUniversalNetlist(
+  fs.readFileSync(goldenPath, "utf-8"),
+  path.basename(goldenPath)
+);
 const dsn = parseDsnFile(dsnPath);
 
 const goldenNets = new Set(Object.keys(golden.nets));

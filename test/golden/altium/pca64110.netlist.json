@@ -1,0 +1,33 @@
+{
+  "universalNetlistSchemaVersion": 1,
+  "metadata": {
+    "generatedAt": "2026-09-01T21:46:11.294Z",
+    "netlistHash": "sha256:712bcd9df1b8877b041bb2bee8425b05ee50202968a6bbc74d2983562a4dfd67",
+    "origin": {
+      "type": "vendor",
+      "source": {
+        "vendor": "Altium",
+        "fileType": ".prjpcb"
+      }
+    }
+  },
+  "nets": {
+    "ANT": {
+      "A1": [
+        "1",
+        "2"
+      ]
+    }
+  },
+  "components": {
+    "A1": {
+      "pins": {
+        "1": "ANT",
+        "2": "ANT"
+      },
+      "mpn": "N.A.",
+      "description": "NFC Antenna Listener-6",
+      "value": "NFC_ANT_Listener-6"
+    }
+  }
+}

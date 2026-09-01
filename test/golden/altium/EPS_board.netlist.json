@@ -1,0 +1,3126 @@
+{
+  "universalNetlistSchemaVersion": 1,
+  "metadata": {
+    "generatedAt": "2026-09-01T21:46:10.734Z",
+    "netlistHash": "sha256:6dabc21c58e7ec74b680b8fba9948cb71599fedc02e82f696dceffe4deb5d3f1",
+    "origin": {
+      "type": "vendor",
+      "source": {
+        "vendor": "Altium",
+        "fileType": ".prjpcb"
+      }
+    }
+  },
+  "nets": {
+    "GND": {
+      "R503": [
+        "1"
+      ],
+      "U500": [
+        "2",
+        "15"
+      ],
+      "C500": [
+        "2"
+      ],
+      "C505": [
+        "2"
+      ],
+      "C501": [
+        "2"
+      ],
+      "C502": [
+        "2"
+      ],
+      "C503": [
+        "2"
+      ],
+      "C504": [
+        "2"
+      ],
+      "U400A": [
+        "3",
+        "2"
+      ],
+      "C401A": [
+        "1"
+      ],
+      "C400A": [
+        "2"
+      ],
+      "U400B": [
+        "3",
+        "2"
+      ],
+      "C401B": [
+        "1"
+      ],
+      "C400B": [
+        "2"
+      ],
+      "J600": [
+        "6",
+        "9",
+        "14",
+        "20",
+        "25",
+        "30",
+        "34",
+        "39"
+      ],
+      "U300A": [
+        "9",
+        "10",
+        "11",
+        "12",
+        "25",
+        "7",
+        "8"
+      ],
+      "R305A": [
+        "1"
+      ],
+      "R304A": [
+        "1"
+      ],
+      "C306A": [
+        "2"
+      ],
+      "R306A": [
+        "1"
+      ],
+      "J300A": [
+        "N"
+      ],
+      "J301A": [
+        "N"
+      ],
+      "C301A": [
+        "1"
+      ],
+      "C304A": [
+        "1"
+      ],
+      "C305A": [
+        "1"
+      ],
+      "U300B": [
+        "9",
+        "10",
+        "11",
+        "12",
+        "25",
+        "7",
+        "8"
+      ],
+      "R305B": [
+        "1"
+      ],
+      "R304B": [
+        "1"
+      ],
+      "C306B": [
+        "2"
+      ],
+      "R306B": [
+        "1"
+      ],
+      "J300B": [
+        "N"
+      ],
+      "J301B": [
+        "N"
+      ],
+      "C301B": [
+        "1"
+      ],
+      "C304B": [
+        "1"
+      ],
+      "C305B": [
+        "1"
+      ],
+      "J700": [
+        "6"
+      ],
+      "R705": [
+        "1"
+      ],
+      "R706": [
+        "1"
+      ],
+      "Q701": [
+        "2"
+      ],
+      "R703": [
+        "1"
+      ],
+      "Q700": [
+        "2"
+      ],
+      "R701": [
+        "1"
+      ],
+      "R704": [
+        "1"
+      ],
+      "U200": [
+        "12",
+        "18",
+        "63"
+      ],
+      "C212": [
+        "2"
+      ],
+      "C213": [
+        "2"
+      ],
+      "C210": [
+        "2"
+      ],
+      "C211": [
+        "2"
+      ],
+      "C200": [
+        "2"
+      ],
+      "C206": [
+        "2"
+      ],
+      "SW200": [
+        "2",
+        "3",
+        "4"
+      ],
+      "SW201": [
+        "2",
+        "3",
+        "4"
+      ],
+      "SW202": [
+        "2",
+        "3",
+        "4"
+      ],
+      "R210": [
+        "1"
+      ],
+      "P200": [
+        "5",
+        "6"
+      ],
+      "Y200": [
+        "2",
+        "4"
+      ],
+      "R202": [
+        "1"
+      ],
+      "R203": [
+        "1"
+      ],
+      "C201": [
+        "2"
+      ],
+      "C202": [
+        "2"
+      ],
+      "C203": [
+        "2"
+      ],
+      "C204": [
+        "2"
+      ],
+      "C205": [
+        "2"
+      ],
+      "C207": [
+        "2"
+      ],
+      "C208": [
+        "2"
+      ],
+      "C209": [
+        "2"
+      ]
+    },
+    "VOUT": {
+      "R501": [
+        "2"
+      ],
+      "U500": [
+        "4",
+        "5"
+      ],
+      "C502": [
+        "1"
+      ],
+      "C503": [
+        "1"
+      ],
+      "C504": [
+        "1"
+      ],
+      "U400A": [
+        "6"
+      ],
+      "C401A": [
+        "2"
+      ],
+      "Q400A": [
+        "1"
+      ],
+      "U400B": [
+        "6"
+      ],
+      "C401B": [
+        "2"
+      ],
+      "Q400B": [
+        "1"
+      ]
+    },
+    "FB_TPS_": {
+      "R501": [
+        "1"
+      ],
+      "R503": [
+        "2"
+      ],
+      "U500": [
+        "3"
+      ]
+    },
+    "NetC500_1": {
+      "U500": [
+        "10",
+        "11"
+      ],
+      "C500": [
+        "1"
+      ],
+      "C501": [
+        "1"
+      ]
+    },
+    "VINA_TPS_": {
+      "U500": [
+        "1"
+      ],
+      "C505": [
+        "1"
+      ],
+      "R502": [
+        "1"
+      ],
+      "R500": [
+        "1"
+      ]
+    },
+    "NetR502_2": {
+      "U500": [
+        "12"
+      ],
+      "R502": [
+        "2"
+      ]
+    },
+    "L1": {
+      "U500": [
+        "8",
+        "9"
+      ],
+      "L500": [
+        "1"
+      ]
+    },
+    "L2": {
+      "U500": [
+        "6",
+        "7"
+      ],
+      "L500": [
+        "2"
+      ]
+    },
+    "PG": {
+      "U500": [
+        "14"
+      ]
+    },
+    "NetR500_2": {
+      "U500": [
+        "13"
+      ],
+      "R500": [
+        "2"
+      ]
+    },
+    "NetC400A_1": {
+      "U400A": [
+        "1"
+      ],
+      "Q400A": [
+        "3"
+      ],
+      "C400A": [
+        "1"
+      ]
+    },
+    "G_OR__ideal_diode1": {
+      "U400A": [
+        "5"
+      ],
+      "Q400A": [
+        "2"
+      ]
+    },
+    "STAT__ideal_diode1": {
+      "U400A": [
+        "4"
+      ]
+    },
+    "NetC400B_1": {
+      "U400B": [
+        "1"
+      ],
+      "Q400B": [
+        "3"
+      ],
+      "C400B": [
+        "1"
+      ]
+    },
+    "G_OR__ideal_diode2": {
+      "U400B": [
+        "5"
+      ],
+      "Q400B": [
+        "2"
+      ]
+    },
+    "STAT__ideal_diode2": {
+      "U400B": [
+        "4"
+      ]
+    },
+    "5V": {
+      "J600": [
+        "2",
+        "4"
+      ],
+      "D702": [
+        "2"
+      ],
+      "TP701": [
+        "1"
+      ]
+    },
+    "NetJ600_41": {
+      "J600": [
+        "41"
+      ]
+    },
+    "NetJ600_42": {
+      "J600": [
+        "42"
+      ]
+    },
+    "NetJ600_44": {
+      "J600": [
+        "44"
+      ]
+    },
+    "NetJ600_43": {
+      "J600": [
+        "43"
+      ]
+    },
+    "INTVcc_MPPT_charger1": {
+      "U300A": [
+        "17"
+      ],
+      "C306A": [
+        "1"
+      ],
+      "R302A": [
+        "2"
+      ]
+    },
+    "VSOLAR__MPPT_charger1": {
+      "U300A": [
+        "5",
+        "6"
+      ],
+      "R301A": [
+        "2"
+      ],
+      "J300A": [
+        "P"
+      ],
+      "NT300A": [
+        "1"
+      ],
+      "C301A": [
+        "2"
+      ]
+    },
+    "SW_MPPT_charger1": {
+      "U300A": [
+        "13",
+        "14",
+        "15"
+      ],
+      "C300A": [
+        "2"
+      ],
+      "L300A": [
+        "1"
+      ]
+    },
+    "BIAS_MPPT_charger1": {
+      "U300A": [
+        "18"
+      ],
+      "NT302A": [
+        "1"
+      ]
+    },
+    "BST_MPPT_charger1": {
+      "U300A": [
+        "16"
+      ],
+      "C300A": [
+        "1"
+      ]
+    },
+    "EN_MPPT_charger1": {
+      "U300A": [
+        "4"
+      ],
+      "NT300A": [
+        "2"
+      ]
+    },
+    "FB_MPPT_charger1": {
+      "U300A": [
+        "20"
+      ],
+      "R306A": [
+        "2"
+      ],
+      "R303A": [
+        "1"
+      ],
+      "C303A": [
+        "2"
+      ]
+    },
+    "ICTRL_MPPT_charger1": {
+      "U300A": [
+        "24"
+      ]
+    },
+    "NetU300A_23": {
+      "U300A": [
+        "23"
+      ]
+    },
+    "ISN_MPPT_charger1": {
+      "U300A": [
+        "22"
+      ],
+      "NT301A": [
+        "1"
+      ]
+    },
+    "ISP_MPPT_charger1": {
+      "U300A": [
+        "21"
+      ],
+      "C302A": [
+        "1"
+      ],
+      "L300A": [
+        "2"
+      ],
+      "R300A": [
+        "1"
+      ]
+    },
+    "PG_MPPT_charger1": {
+      "U300A": [
+        "19"
+      ]
+    },
+    "RT_MPPT_charger1": {
+      "U300A": [
+        "3"
+      ],
+      "R305A": [
+        "2"
+      ]
+    },
+    "NetR302A_1": {
+      "U300A": [
+        "1"
+      ],
+      "R302A": [
+        "1"
+      ]
+    },
+    "TR/SS_MPPT_charger1": {
+      "U300A": [
+        "2"
+      ],
+      "R304A": [
+        "2"
+      ],
+      "R301A": [
+        "1"
+      ]
+    },
+    "VBAT_MPPT_charger1": {
+      "R303A": [
+        "2"
+      ],
+      "C302A": [
+        "2"
+      ],
+      "C303A": [
+        "1"
+      ],
+      "NT302A": [
+        "2"
+      ],
+      "NT301A": [
+        "2"
+      ],
+      "J301A": [
+        "P"
+      ],
+      "R300A": [
+        "2"
+      ],
+      "C304A": [
+        "2"
+      ],
+      "C305A": [
+        "2"
+      ],
+      "TP300A": [
+        "1"
+      ]
+    },
+    "INTVcc_MPPT_charger2": {
+      "U300B": [
+        "17"
+      ],
+      "C306B": [
+        "1"
+      ],
+      "R302B": [
+        "2"
+      ]
+    },
+    "VSOLAR__MPPT_charger2": {
+      "U300B": [
+        "5",
+        "6"
+      ],
+      "R301B": [
+        "2"
+      ],
+      "J300B": [
+        "P"
+      ],
+      "NT300B": [
+        "1"
+      ],
+      "C301B": [
+        "2"
+      ]
+    },
+    "SW_MPPT_charger2": {
+      "U300B": [
+        "13",
+        "14",
+        "15"
+      ],
+      "C300B": [
+        "2"
+      ],
+      "L300B": [
+        "1"
+      ]
+    },
+    "BIAS_MPPT_charger2": {
+      "U300B": [
+        "18"
+      ],
+      "NT302B": [
+        "1"
+      ]
+    },
+    "BST_MPPT_charger2": {
+      "U300B": [
+        "16"
+      ],
+      "C300B": [
+        "1"
+      ]
+    },
+    "EN_MPPT_charger2": {
+      "U300B": [
+        "4"
+      ],
+      "NT300B": [
+        "2"
+      ]
+    },
+    "FB_MPPT_charger2": {
+      "U300B": [
+        "20"
+      ],
+      "R306B": [
+        "2"
+      ],
+      "R303B": [
+        "1"
+      ],
+      "C303B": [
+        "2"
+      ]
+    },
+    "ICTRL_MPPT_charger2": {
+      "U300B": [
+        "24"
+      ]
+    },
+    "NetU300B_23": {
+      "U300B": [
+        "23"
+      ]
+    },
+    "ISN_MPPT_charger2": {
+      "U300B": [
+        "22"
+      ],
+      "NT301B": [
+        "1"
+      ]
+    },
+    "ISP_MPPT_charger2": {
+      "U300B": [
+        "21"
+      ],
+      "C302B": [
+        "1"
+      ],
+      "L300B": [
+        "2"
+      ],
+      "R300B": [
+        "1"
+      ]
+    },
+    "PG_MPPT_charger2": {
+      "U300B": [
+        "19"
+      ]
+    },
+    "RT_MPPT_charger2": {
+      "U300B": [
+        "3"
+      ],
+      "R305B": [
+        "2"
+      ]
+    },
+    "NetR302B_1": {
+      "U300B": [
+        "1"
+      ],
+      "R302B": [
+        "1"
+      ]
+    },
+    "TR/SS_MPPT_charger2": {
+      "U300B": [
+        "2"
+      ],
+      "R304B": [
+        "2"
+      ],
+      "R301B": [
+        "1"
+      ]
+    },
+    "VBAT_MPPT_charger2": {
+      "R303B": [
+        "2"
+      ],
+      "C302B": [
+        "2"
+      ],
+      "C303B": [
+        "1"
+      ],
+      "NT302B": [
+        "2"
+      ],
+      "NT301B": [
+        "2"
+      ],
+      "J301B": [
+        "P"
+      ],
+      "R300B": [
+        "2"
+      ],
+      "C304B": [
+        "2"
+      ],
+      "C305B": [
+        "2"
+      ],
+      "TP300B": [
+        "1"
+      ]
+    },
+    "NetJ700_1": {
+      "J700": [
+        "1"
+      ]
+    },
+    "VBUS": {
+      "J700": [
+        "2",
+        "4"
+      ]
+    },
+    "POWER_O2": {
+      "J700": [
+        "3"
+      ],
+      "Q701": [
+        "3"
+      ]
+    },
+    "POWER_O1": {
+      "J700": [
+        "5"
+      ],
+      "Q700": [
+        "3"
+      ]
+    },
+    "3,3V": {
+      "D701": [
+        "2"
+      ],
+      "TP700": [
+        "1"
+      ],
+      "U200": [
+        "1",
+        "19",
+        "32",
+        "48",
+        "64"
+      ],
+      "L200": [
+        "1"
+      ],
+      "C200": [
+        "1"
+      ],
+      "C201": [
+        "1"
+      ],
+      "C202": [
+        "1"
+      ],
+      "C203": [
+        "1"
+      ],
+      "C204": [
+        "1"
+      ],
+      "C205": [
+        "1"
+      ],
+      "R204": [
+        "2"
+      ],
+      "R205": [
+        "2"
+      ],
+      "R206": [
+        "2"
+      ]
+    },
+    "C_LED3V3": {
+      "D701": [
+        "1"
+      ],
+      "R705": [
+        "2"
+      ]
+    },
+    "C_LED5V": {
+      "D702": [
+        "1"
+      ],
+      "R706": [
+        "2"
+      ]
+    },
+    "G2": {
+      "Q701": [
+        "1"
+      ],
+      "R702": [
+        "1"
+      ]
+    },
+    "NetR702_2": {
+      "R703": [
+        "2"
+      ],
+      "R702": [
+        "2"
+      ]
+    },
+    "G1": {
+      "Q700": [
+        "1"
+      ],
+      "R700": [
+        "1"
+      ]
+    },
+    "NetR700_2": {
+      "R701": [
+        "2"
+      ],
+      "R700": [
+        "2"
+      ]
+    },
+    "NetD700_2": {
+      "D700": [
+        "2"
+      ]
+    },
+    "C_LED_USR": {
+      "D700": [
+        "1"
+      ],
+      "R704": [
+        "2"
+      ]
+    },
+    "PA0": {
+      "U200": [
+        "14"
+      ]
+    },
+    "VBAT1_DIV": {
+      "U200": [
+        "15"
+      ],
+      "R202": [
+        "2"
+      ],
+      "R200": [
+        "1"
+      ]
+    },
+    "VBAT2_DIV": {
+      "U200": [
+        "16"
+      ],
+      "R203": [
+        "2"
+      ],
+      "R201": [
+        "1"
+      ]
+    },
+    "PA3": {
+      "U200": [
+        "17"
+      ]
+    },
+    "PA4": {
+      "U200": [
+        "20"
+      ]
+    },
+    "PA5": {
+      "U200": [
+        "21"
+      ]
+    },
+    "PA6": {
+      "U200": [
+        "22"
+      ]
+    },
+    "PA7": {
+      "U200": [
+        "23"
+      ]
+    },
+    "PB0": {
+      "U200": [
+        "26"
+      ]
+    },
+    "PG_5V": {
+      "U200": [
+        "27"
+      ]
+    },
+    "MODE_5V": {
+      "U200": [
+        "28"
+      ]
+    },
+    "TX": {
+      "U200": [
+        "29"
+      ]
+    },
+    "RX": {
+      "U200": [
+        "30"
+      ]
+    },
+    "PB12": {
+      "U200": [
+        "33"
+      ]
+    },
+    "PWR_SW_2": {
+      "U200": [
+        "34"
+      ]
+    },
+    "PWR_SW_1": {
+      "U200": [
+        "35"
+      ]
+    },
+    "PB15": {
+      "U200": [
+        "36"
+      ]
+    },
+    "PA8": {
+      "U200": [
+        "41"
+      ]
+    },
+    "PA9": {
+      "U200": [
+        "42"
+      ]
+    },
+    "PA10": {
+      "U200": [
+        "43"
+      ]
+    },
+    "PA11": {
+      "U200": [
+        "44"
+      ]
+    },
+    "PA12": {
+      "U200": [
+        "45"
+      ]
+    },
+    "SWDIO": {
+      "U200": [
+        "46"
+      ],
+      "P200": [
+        "4"
+      ]
+    },
+    "SWCLK": {
+      "U200": [
+        "49"
+      ],
+      "P200": [
+        "2"
+      ]
+    },
+    "PA15": {
+      "U200": [
+        "50"
+      ]
+    },
+    "PB3": {
+      "U200": [
+        "55"
+      ]
+    },
+    "PB4": {
+      "U200": [
+        "56"
+      ]
+    },
+    "PB5": {
+      "U200": [
+        "57"
+      ]
+    },
+    "PG_CHRGR1": {
+      "U200": [
+        "58"
+      ]
+    },
+    "PG_CHRGR2": {
+      "U200": [
+        "59"
+      ]
+    },
+    "PB8": {
+      "U200": [
+        "61"
+      ]
+    },
+    "PB9": {
+      "U200": [
+        "62"
+      ]
+    },
+    "USER_BUTTON_0": {
+      "U200": [
+        "2"
+      ],
+      "SW201": [
+        "1"
+      ],
+      "R208": [
+        "1"
+      ]
+    },
+    "USER_BUTTON_1": {
+      "U200": [
+        "3"
+      ],
+      "SW202": [
+        "1"
+      ],
+      "R209": [
+        "1"
+      ]
+    },
+    "PC15": {
+      "U200": [
+        "4"
+      ]
+    },
+    "PC0": {
+      "U200": [
+        "8"
+      ]
+    },
+    "NetU200_9": {
+      "U200": [
+        "9"
+      ]
+    },
+    "NetU200_10": {
+      "U200": [
+        "10"
+      ]
+    },
+    "NetU200_11": {
+      "U200": [
+        "11"
+      ]
+    },
+    "NetU200_24": {
+      "U200": [
+        "24"
+      ]
+    },
+    "NetU200_25": {
+      "U200": [
+        "25"
+      ]
+    },
+    "PC6": {
+      "U200": [
+        "37"
+      ]
+    },
+    "PC7": {
+      "U200": [
+        "38"
+      ]
+    },
+    "PC8": {
+      "U200": [
+        "39"
+      ]
+    },
+    "PC9": {
+      "U200": [
+        "40"
+      ]
+    },
+    "PC10": {
+      "U200": [
+        "51"
+      ]
+    },
+    "PC11": {
+      "U200": [
+        "52"
+      ]
+    },
+    "PC12": {
+      "U200": [
+        "53"
+      ]
+    },
+    "USER_LED": {
+      "U200": [
+        "54"
+      ]
+    },
+    "OSC_IN": {
+      "U200": [
+        "5"
+      ],
+      "C211": [
+        "1"
+      ],
+      "Y200": [
+        "3"
+      ]
+    },
+    "OSC_OUT": {
+      "U200": [
+        "6"
+      ],
+      "C210": [
+        "1"
+      ],
+      "Y200": [
+        "1"
+      ]
+    },
+    "NRST": {
+      "U200": [
+        "7"
+      ],
+      "SW200": [
+        "1"
+      ],
+      "R207": [
+        "1"
+      ],
+      "P200": [
+        "1"
+      ]
+    },
+    "VCAP_1": {
+      "U200": [
+        "31"
+      ],
+      "C213": [
+        "1"
+      ]
+    },
+    "VCAP_2": {
+      "U200": [
+        "47"
+      ],
+      "C212": [
+        "1"
+      ]
+    },
+    "BOOT0": {
+      "U200": [
+        "60"
+      ],
+      "R210": [
+        "2"
+      ]
+    },
+    "3,3VDDA": {
+      "U200": [
+        "13"
+      ],
+      "L200": [
+        "2"
+      ],
+      "C206": [
+        "1"
+      ]
+    },
+    "NRST_NDB": {
+      "R207": [
+        "2"
+      ],
+      "R204": [
+        "1"
+      ],
+      "C207": [
+        "1"
+      ]
+    },
+    "3,3V_STLINK": {
+      "P200": [
+        "7",
+        "8"
+      ]
+    },
+    "5V_STLINK": {
+      "P200": [
+        "9",
+        "10"
+      ]
+    },
+    "NetR200_2": {
+      "R200": [
+        "2"
+      ]
+    },
+    "NetR201_2": {
+      "R201": [
+        "2"
+      ]
+    },
+    "USRB0_NDB": {
+      "R205": [
+        "1"
+      ],
+      "C208": [
+        "1"
+      ],
+      "R208": [
+        "2"
+      ]
+    },
+    "USRB1_NDB": {
+      "R206": [
+        "1"
+      ],
+      "C209": [
+        "1"
+      ],
+      "R209": [
+        "2"
+      ]
+    }
+  },
+  "components": {
+    "R501": {
+      "pins": {
+        "1": "FB_TPS_",
+        "2": "VOUT"
+      },
+      "description": "1M 0.1W 1% 0603  SMD",
+      "comment": "1M",
+      "value": "1000000.00 Ohm"
+    },
+    "R503": {
+      "pins": {
+        "1": "GND",
+        "2": "FB_TPS_"
+      },
+      "description": "180k/110k 0.1W 1% 0603 (1608 Metric)  SMD",
+      "comment": "180k/110k",
+      "value": "18000/110000 Ohm"
+    },
+    "U500": {
+      "pins": {
+        "1": {
+          "name": "VINA",
+          "net": "VINA_TPS_"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "3": {
+          "name": "FB",
+          "net": "FB_TPS_"
+        },
+        "4": {
+          "name": "VOUT",
+          "net": "VOUT"
+        },
+        "5": {
+          "name": "VOUT",
+          "net": "VOUT"
+        },
+        "6": {
+          "name": "L2",
+          "net": "L2"
+        },
+        "7": {
+          "name": "L2",
+          "net": "L2"
+        },
+        "8": {
+          "name": "L1",
+          "net": "L1"
+        },
+        "9": {
+          "name": "L1",
+          "net": "L1"
+        },
+        "10": {
+          "name": "VIN",
+          "net": "NetC500_1"
+        },
+        "11": {
+          "name": "VIN",
+          "net": "NetC500_1"
+        },
+        "12": {
+          "name": "EN",
+          "net": "NetR502_2"
+        },
+        "13": {
+          "name": "PS/SYNC",
+          "net": "NetR500_2"
+        },
+        "14": {
+          "name": "PG",
+          "net": "PG"
+        },
+        "15": {
+          "name": "PGND",
+          "net": "GND"
+        }
+      },
+      "mpn": "TPS63020DSJT",
+      "description": "IC REG BCK BST ADJ 3.5A 14VSON",
+      "comment": "TPS63020DSJT"
+    },
+    "L500": {
+      "pins": {
+        "1": "L1",
+        "2": "L2"
+      },
+      "mpn": "XFL4020-152ML",
+      "description": "XFL4020-152ML\r\n1.5uH 4.6A 15.8m? 20%",
+      "comment": "1u5"
+    },
+    "C500": {
+      "pins": {
+        "1": "NetC500_1",
+        "2": "GND"
+      },
+      "description": "CAP 10 µF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J106ME84D",
+      "comment": "10u"
+    },
+    "C505": {
+      "pins": {
+        "1": "VINA_TPS_",
+        "2": "GND"
+      },
+      "description": "CAP 0.1 µF, X5R or X7R ceramic",
+      "comment": "100n"
+    },
+    "R502": {
+      "pins": {
+        "1": "VINA_TPS_",
+        "2": "NetR502_2"
+      },
+      "description": "10k 0.1W 5% 0603 SMD",
+      "comment": "10k",
+      "value": "10000.00 Ohm"
+    },
+    "R500": {
+      "pins": {
+        "1": "VINA_TPS_",
+        "2": "NetR500_2"
+      },
+      "description": "10k 0.1W 5% 0603 SMD",
+      "comment": "10k",
+      "value": "10000.00 Ohm"
+    },
+    "C501": {
+      "pins": {
+        "1": "NetC500_1",
+        "2": "GND"
+      },
+      "description": "CAP 10 µF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J106ME84D",
+      "comment": "10u"
+    },
+    "C502": {
+      "pins": {
+        "1": "VOUT",
+        "2": "GND"
+      },
+      "description": "CAP 22 µF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J226MEAOL",
+      "comment": "22u"
+    },
+    "C503": {
+      "pins": {
+        "1": "VOUT",
+        "2": "GND"
+      },
+      "description": "CAP 22 µF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J226MEAOL",
+      "comment": "22u"
+    },
+    "C504": {
+      "pins": {
+        "1": "VOUT",
+        "2": "GND"
+      },
+      "description": "CAP 22 µF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J226MEAOL",
+      "comment": "22u"
+    },
+    "U400A": {
+      "pins": {
+        "1": {
+          "name": "VIN",
+          "net": "NetC400A_1"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "3": {
+          "name": "CTL",
+          "net": "GND"
+        },
+        "4": {
+          "name": "STAT",
+          "net": "STAT__ideal_diode1"
+        },
+        "5": {
+          "name": "GATE",
+          "net": "G_OR__ideal_diode1"
+        },
+        "6": {
+          "name": "SENSE",
+          "net": "VOUT"
+        }
+      },
+      "description": "IC OR CTRLR SRC SELECT TSOT23-6",
+      "comment": "LTC4412ES6"
+    },
+    "C401A": {
+      "pins": {
+        "1": {
+          "name": "C",
+          "net": "GND"
+        },
+        "2": {
+          "name": "A",
+          "net": "VOUT"
+        }
+      },
+      "description": "CAP TANT 22UF 10% 6.3V 1411",
+      "comment": "22u"
+    },
+    "Q400A": {
+      "pins": {
+        "1": {
+          "name": "S",
+          "net": "VOUT"
+        },
+        "2": {
+          "name": "G",
+          "net": "G_OR__ideal_diode1"
+        },
+        "3": {
+          "name": "D",
+          "net": "NetC400A_1"
+        }
+      },
+      "description": "MOSFET P-CH 30V 45A SOP Advance",
+      "comment": "TPCA8120"
+    },
+    "C400A": {
+      "pins": {
+        "1": "NetC400A_1",
+        "2": "GND"
+      },
+      "description": "CAP 0.1 µF, X5R or X7R ceramic",
+      "comment": "100n"
+    },
+    "U400B": {
+      "pins": {
+        "1": {
+          "name": "VIN",
+          "net": "NetC400B_1"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "3": {
+          "name": "CTL",
+          "net": "GND"
+        },
+        "4": {
+          "name": "STAT",
+          "net": "STAT__ideal_diode2"
+        },
+        "5": {
+          "name": "GATE",
+          "net": "G_OR__ideal_diode2"
+        },
+        "6": {
+          "name": "SENSE",
+          "net": "VOUT"
+        }
+      },
+      "description": "IC OR CTRLR SRC SELECT TSOT23-6",
+      "comment": "LTC4412ES6"
+    },
+    "C401B": {
+      "pins": {
+        "1": {
+          "name": "C",
+          "net": "GND"
+        },
+        "2": {
+          "name": "A",
+          "net": "VOUT"
+        }
+      },
+      "description": "CAP TANT 22UF 10% 6.3V 1411",
+      "comment": "22u"
+    },
+    "Q400B": {
+      "pins": {
+        "1": {
+          "name": "S",
+          "net": "VOUT"
+        },
+        "2": {
+          "name": "G",
+          "net": "G_OR__ideal_diode2"
+        },
+        "3": {
+          "name": "D",
+          "net": "NetC400B_1"
+        }
+      },
+      "description": "MOSFET P-CH 30V 45A SOP Advance",
+      "comment": "TPCA8120"
+    },
+    "C400B": {
+      "pins": {
+        "1": "NetC400B_1",
+        "2": "GND"
+      },
+      "description": "CAP 0.1 µF, X5R or X7R ceramic",
+      "comment": "100n"
+    },
+    "J600": {
+      "pins": {
+        "1": {
+          "name": "+3V3",
+          "net": ""
+        },
+        "2": {
+          "name": "+5V",
+          "net": "5V"
+        },
+        "3": {
+          "name": "GPIO2 (I2C SDA)",
+          "net": ""
+        },
+        "4": {
+          "name": "+5V",
+          "net": "5V"
+        },
+        "5": {
+          "name": "GPIO3 (I2C SCL)",
+          "net": ""
+        },
+        "6": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "7": {
+          "name": "GPIO4",
+          "net": ""
+        },
+        "8": {
+          "name": "UART0 TX",
+          "net": ""
+        },
+        "9": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "10": {
+          "name": "UART0 RX",
+          "net": ""
+        },
+        "11": {
+          "name": "GPIO17",
+          "net": ""
+        },
+        "12": {
+          "name": "GPIO18",
+          "net": ""
+        },
+        "13": {
+          "name": "GPIO27",
+          "net": ""
+        },
+        "14": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "15": {
+          "name": "GPIO22",
+          "net": ""
+        },
+        "16": {
+          "name": "GPIO23",
+          "net": ""
+        },
+        "17": {
+          "name": "+3V3",
+          "net": ""
+        },
+        "18": {
+          "name": "GPIO24",
+          "net": ""
+        },
+        "19": {
+          "name": "GPIO10 (SPI0 MOSI)",
+          "net": ""
+        },
+        "20": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "21": {
+          "name": "GPIO9 (SPI0 MISO)",
+          "net": ""
+        },
+        "22": {
+          "name": "GPIO25",
+          "net": ""
+        },
+        "23": {
+          "name": "GPIO11 (SPI0 SCLK)",
+          "net": ""
+        },
+        "24": {
+          "name": "GPIO8 (SPI0 CS0)",
+          "net": ""
+        },
+        "25": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "26": {
+          "name": "GPIO7 (SPI0 CS1)",
+          "net": ""
+        },
+        "27": {
+          "name": "RSVD",
+          "net": ""
+        },
+        "28": {
+          "name": "RSVD",
+          "net": ""
+        },
+        "29": {
+          "name": "GPIO5",
+          "net": ""
+        },
+        "30": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "31": {
+          "name": "GPIO6",
+          "net": ""
+        },
+        "32": {
+          "name": "GPIO12",
+          "net": ""
+        },
+        "33": {
+          "name": "GPIO13",
+          "net": ""
+        },
+        "34": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "35": {
+          "name": "GPIO19 (SPI1 MISO)",
+          "net": ""
+        },
+        "36": {
+          "name": "GPIO16 (SPI1 CS0)",
+          "net": ""
+        },
+        "37": {
+          "name": "GPIO26",
+          "net": ""
+        },
+        "38": {
+          "name": "GPIO20 (SPI1 MOSI)",
+          "net": ""
+        },
+        "39": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "40": {
+          "name": "GPIO21 (SPI1 SCLK)",
+          "net": ""
+        },
+        "41": {
+          "name": "ADCS_3V3",
+          "net": "NetJ600_41"
+        },
+        "42": {
+          "name": "LORA_3V3",
+          "net": "NetJ600_42"
+        },
+        "43": {
+          "name": "UART_EPS_RX",
+          "net": "NetJ600_43"
+        },
+        "44": {
+          "name": "UART_EPS_TX",
+          "net": "NetJ600_44"
+        }
+      },
+      "mpn": "PRT-14017",
+      "description": "GPIO Header for Raspberry Pi A+/B+/Pi 2/Pi 3 - 2x20 + 4 Cubesat pins",
+      "comment": "RPI GPIO Connector + 4 Cubesat pins"
+    },
+    "U300A": {
+      "pins": {
+        "1": {
+          "name": "SYNC",
+          "net": "NetR302A_1"
+        },
+        "2": {
+          "name": "TR/SS",
+          "net": "TR/SS_MPPT_charger1"
+        },
+        "3": {
+          "name": "RT",
+          "net": "RT_MPPT_charger1"
+        },
+        "4": {
+          "name": "EN/UV",
+          "net": "EN_MPPT_charger1"
+        },
+        "5": {
+          "name": "VIN",
+          "net": "VSOLAR__MPPT_charger1"
+        },
+        "6": {
+          "name": "VIN",
+          "net": "VSOLAR__MPPT_charger1"
+        },
+        "7": {
+          "name": "PGND",
+          "net": "GND"
+        },
+        "8": {
+          "name": "PGND",
+          "net": "GND"
+        },
+        "9": {
+          "name": "NC",
+          "net": "GND"
+        },
+        "10": {
+          "name": "NC",
+          "net": "GND"
+        },
+        "11": {
+          "name": "NC",
+          "net": "GND"
+        },
+        "12": {
+          "name": "NC",
+          "net": "GND"
+        },
+        "13": {
+          "name": "SW",
+          "net": "SW_MPPT_charger1"
+        },
+        "14": {
+          "name": "SW",
+          "net": "SW_MPPT_charger1"
+        },
+        "15": {
+          "name": "SW",
+          "net": "SW_MPPT_charger1"
+        },
+        "16": {
+          "name": "BST",
+          "net": "BST_MPPT_charger1"
+        },
+        "17": {
+          "name": "INTVCC",
+          "net": "INTVcc_MPPT_charger1"
+        },
+        "18": {
+          "name": "BIAS",
+          "net": "BIAS_MPPT_charger1"
+        },
+        "19": {
+          "name": "PG",
+          "net": "PG_MPPT_charger1"
+        },
+        "20": {
+          "name": "FB",
+          "net": "FB_MPPT_charger1"
+        },
+        "21": {
+          "name": "ISP",
+          "net": "ISP_MPPT_charger1"
+        },
+        "22": {
+          "name": "ISN",
+          "net": "ISN_MPPT_charger1"
+        },
+        "23": {
+          "name": "IMON",
+          "net": "NetU300A_23"
+        },
+        "24": {
+          "name": "ICTRL",
+          "net": "ICTRL_MPPT_charger1"
+        },
+        "25": {
+          "name": "GND",
+          "net": "GND"
+        }
+      },
+      "description": "IC REG BUCK ADJ 2.5A 24QFN",
+      "comment": "LT8611EUDD"
+    },
+    "R305A": {
+      "pins": {
+        "1": "GND",
+        "2": "RT_MPPT_charger1"
+      },
+      "description": "2K 0.1W 5% 0603 (1608 Metric)  SMD",
+      "comment": "60k4",
+      "value": "2000.00 Ohm"
+    },
+    "R304A": {
+      "pins": {
+        "1": "GND",
+        "2": "TR/SS_MPPT_charger1"
+      },
+      "description": "2K 0.1W 5% 0603 (1608 Metric)  SMD",
+      "comment": "10k?",
+      "value": "2000.00 Ohm"
+    },
+    "R301A": {
+      "pins": {
+        "1": "TR/SS_MPPT_charger1",
+        "2": "VSOLAR__MPPT_charger1"
+      },
+      "description": "2K 0.1W 5% 0603 (1608 Metric)  SMD",
+      "comment": "10k?",
+      "value": "2000.00 Ohm"
+    },
+    "C300A": {
+      "pins": {
+        "1": "BST_MPPT_charger1",
+        "2": "SW_MPPT_charger1"
+      },
+      "mpn": "C0603C104K5RACTU",
+      "description": "CAP CER 50V X7R 0603",
+      "comment": "100n",
+      "value": "0.10 µF"
+    },
+    "C306A": {
+      "pins": {
+        "1": "INTVcc_MPPT_charger1",
+        "2": "GND"
+      },
+      "mpn": "C0603C104K5RACTU",
+      "description": "CAP CER 50V X7R 0603\r\nLOW ESR!",
+      "comment": "1u",
+      "value": "0.10 µF"
+    },
+    "R306A": {
+      "pins": {
+        "1": "GND",
+        "2": "FB_MPPT_charger1"
+      },
+      "description": "309k 0.1W 1% 0603 SMD",
+      "comment": "309k",
+      "value": "309000.00 Ohm"
+    },
+    "R303A": {
+      "pins": {
+        "1": "FB_MPPT_charger1",
+        "2": "VBAT_MPPT_charger1"
+      },
+      "description": "1M 0.1W 1% 0603 SMD",
+      "comment": "1M",
+      "value": "1000000.00 Ohm"
+    },
+    "C302A": {
+      "pins": {
+        "1": "ISP_MPPT_charger1",
+        "2": "VBAT_MPPT_charger1"
+      },
+      "mpn": "C0603C104K5RACTU",
+      "description": "CAP CER 50V X7R 0603",
+      "comment": "1u",
+      "value": "0.10 µF"
+    },
+    "C303A": {
+      "pins": {
+        "1": "VBAT_MPPT_charger1",
+        "2": "FB_MPPT_charger1"
+      },
+      "mpn": "C0603C104K5RACTU",
+      "description": "CAP CER 50V X7R 0603",
+      "comment": "10p",
+      "value": "0.10 µF"
+    },
+    "J300A": {
+      "pins": {
+        "P": "VSOLAR__MPPT_charger1",
+        "N": "GND"
+      },
+      "description": "Socket; DC supply; XT30; male; PIN: 2; on PCBs; THT; Colour: yellow",
+      "comment": "XT30PW-M",
+      "value": "*"
+    },
+    "NT302A": {
+      "pins": {
+        "1": "BIAS_MPPT_charger1",
+        "2": "VBAT_MPPT_charger1"
+      },
+      "description": "Net tie",
+      "comment": "NetTie"
+    },
+    "NT300A": {
+      "pins": {
+        "1": "VSOLAR__MPPT_charger1",
+        "2": "EN_MPPT_charger1"
+      },
+      "description": "Net tie",
+      "comment": "NetTie"
+    },
+    "NT301A": {
+      "pins": {
+        "1": "ISN_MPPT_charger1",
+        "2": "VBAT_MPPT_charger1"
+      },
+      "description": "Net tie",
+      "comment": "NetTie"
+    },
+    "J301A": {
+      "pins": {
+        "P": "VBAT_MPPT_charger1",
+        "N": "GND"
+      },
+      "description": "Socket; DC supply; XT30; male; PIN: 2; on PCBs; THT; Colour: yellow",
+      "comment": "XT30PW-M",
+      "value": "*"
+    },
+    "L300A": {
+      "pins": {
+        "1": "SW_MPPT_charger1",
+        "2": "ISP_MPPT_charger1"
+      },
+      "description": "74438367100 Power Inductor, 10Uh, Shielded, 4.8A Rohs Compliant: Yes",
+      "comment": "10u"
+    },
+    "R300A": {
+      "pins": {
+        "1": "ISP_MPPT_charger1",
+        "2": "VBAT_MPPT_charger1"
+      },
+      "description": "Thick Film Chip Resistors 0805 0.025? 0.125W 1% 100ppm/°C",
+      "comment": "0.025R"
+    },
+    "C301A": {
+      "pins": {
+        "1": "GND",
+        "2": "VSOLAR__MPPT_charger1"
+      },
+      "description": "CAP, Ceramic, 0.1 uF, +/- 10%, 50 V, -55 to 125 degC, 1206 (3216 Metric), RoHS, Tape and Reel",
+      "comment": "10u"
+    },
+    "C304A": {
+      "pins": {
+        "1": "GND",
+        "2": "VBAT_MPPT_charger1"
+      },
+      "description": "CAP, Ceramic, 0.1 uF, +/- 10%, 50 V, -55 to 125 degC, 1206 (3216 Metric), RoHS, Tape and Reel",
+      "comment": "22u"
+    },
+    "C305A": {
+      "pins": {
+        "1": "GND",
+        "2": "VBAT_MPPT_charger1"
+      },
+      "description": "CAP, Ceramic, 0.1 uF, +/- 10%, 50 V, -55 to 125 degC, 1206 (3216 Metric), RoHS, Tape and Reel",
+      "comment": "22u"
+    },
+    "R302A": {
+      "pins": {
+        "1": "NetR302A_1",
+        "2": "INTVcc_MPPT_charger1"
+      },
+      "description": "10K 0.1W 5% 0603 (1608 Metric)  SMD",
+      "comment": "10k",
+      "value": "2000.00 Ohm"
+    },
+    "TP300A": {
+      "pins": {
+        "1": "VBAT_MPPT_charger1"
+      },
+      "description": "SMD test point",
+      "comment": "TestPoint"
+    },
+    "U300B": {
+      "pins": {
+        "1": {
+          "name": "SYNC",
+          "net": "NetR302B_1"
+        },
+        "2": {
+          "name": "TR/SS",
+          "net": "TR/SS_MPPT_charger2"
+        },
+        "3": {
+          "name": "RT",
+          "net": "RT_MPPT_charger2"
+        },
+        "4": {
+          "name": "EN/UV",
+          "net": "EN_MPPT_charger2"
+        },
+        "5": {
+          "name": "VIN",
+          "net": "VSOLAR__MPPT_charger2"
+        },
+        "6": {
+          "name": "VIN",
+          "net": "VSOLAR__MPPT_charger2"
+        },
+        "7": {
+          "name": "PGND",
+          "net": "GND"
+        },
+        "8": {
+          "name": "PGND",
+          "net": "GND"
+        },
+        "9": {
+          "name": "NC",
+          "net": "GND"
+        },
+        "10": {
+          "name": "NC",
+          "net": "GND"
+        },
+        "11": {
+          "name": "NC",
+          "net": "GND"
+        },
+        "12": {
+          "name": "NC",
+          "net": "GND"
+        },
+        "13": {
+          "name": "SW",
+          "net": "SW_MPPT_charger2"
+        },
+        "14": {
+          "name": "SW",
+          "net": "SW_MPPT_charger2"
+        },
+        "15": {
+          "name": "SW",
+          "net": "SW_MPPT_charger2"
+        },
+        "16": {
+          "name": "BST",
+          "net": "BST_MPPT_charger2"
+        },
+        "17": {
+          "name": "INTVCC",
+          "net": "INTVcc_MPPT_charger2"
+        },
+        "18": {
+          "name": "BIAS",
+          "net": "BIAS_MPPT_charger2"
+        },
+        "19": {
+          "name": "PG",
+          "net": "PG_MPPT_charger2"
+        },
+        "20": {
+          "name": "FB",
+          "net": "FB_MPPT_charger2"
+        },
+        "21": {
+          "name": "ISP",
+          "net": "ISP_MPPT_charger2"
+        },
+        "22": {
+          "name": "ISN",
+          "net": "ISN_MPPT_charger2"
+        },
+        "23": {
+          "name": "IMON",
+          "net": "NetU300B_23"
+        },
+        "24": {
+          "name": "ICTRL",
+          "net": "ICTRL_MPPT_charger2"
+        },
+        "25": {
+          "name": "GND",
+          "net": "GND"
+        }
+      },
+      "description": "IC REG BUCK ADJ 2.5A 24QFN",
+      "comment": "LT8611EUDD"
+    },
+    "R305B": {
+      "pins": {
+        "1": "GND",
+        "2": "RT_MPPT_charger2"
+      },
+      "description": "2K 0.1W 5% 0603 (1608 Metric)  SMD",
+      "comment": "60k4",
+      "value": "2000.00 Ohm"
+    },
+    "R304B": {
+      "pins": {
+        "1": "GND",
+        "2": "TR/SS_MPPT_charger2"
+      },
+      "description": "2K 0.1W 5% 0603 (1608 Metric)  SMD",
+      "comment": "10k?",
+      "value": "2000.00 Ohm"
+    },
+    "R301B": {
+      "pins": {
+        "1": "TR/SS_MPPT_charger2",
+        "2": "VSOLAR__MPPT_charger2"
+      },
+      "description": "2K 0.1W 5% 0603 (1608 Metric)  SMD",
+      "comment": "10k?",
+      "value": "2000.00 Ohm"
+    },
+    "C300B": {
+      "pins": {
+        "1": "BST_MPPT_charger2",
+        "2": "SW_MPPT_charger2"
+      },
+      "mpn": "C0603C104K5RACTU",
+      "description": "CAP CER 50V X7R 0603",
+      "comment": "100n",
+      "value": "0.10 µF"
+    },
+    "C306B": {
+      "pins": {
+        "1": "INTVcc_MPPT_charger2",
+        "2": "GND"
+      },
+      "mpn": "C0603C104K5RACTU",
+      "description": "CAP CER 50V X7R 0603\r\nLOW ESR!",
+      "comment": "1u",
+      "value": "0.10 µF"
+    },
+    "R306B": {
+      "pins": {
+        "1": "GND",
+        "2": "FB_MPPT_charger2"
+      },
+      "description": "309k 0.1W 1% 0603 SMD",
+      "comment": "309k",
+      "value": "309000.00 Ohm"
+    },
+    "R303B": {
+      "pins": {
+        "1": "FB_MPPT_charger2",
+        "2": "VBAT_MPPT_charger2"
+      },
+      "description": "1M 0.1W 1% 0603 SMD",
+      "comment": "1M",
+      "value": "1000000.00 Ohm"
+    },
+    "C302B": {
+      "pins": {
+        "1": "ISP_MPPT_charger2",
+        "2": "VBAT_MPPT_charger2"
+      },
+      "mpn": "C0603C104K5RACTU",
+      "description": "CAP CER 50V X7R 0603",
+      "comment": "1u",
+      "value": "0.10 µF"
+    },
+    "C303B": {
+      "pins": {
+        "1": "VBAT_MPPT_charger2",
+        "2": "FB_MPPT_charger2"
+      },
+      "mpn": "C0603C104K5RACTU",
+      "description": "CAP CER 50V X7R 0603",
+      "comment": "10p",
+      "value": "0.10 µF"
+    },
+    "J300B": {
+      "pins": {
+        "P": "VSOLAR__MPPT_charger2",
+        "N": "GND"
+      },
+      "description": "Socket; DC supply; XT30; male; PIN: 2; on PCBs; THT; Colour: yellow",
+      "comment": "XT30PW-M",
+      "value": "*"
+    },
+    "NT302B": {
+      "pins": {
+        "1": "BIAS_MPPT_charger2",
+        "2": "VBAT_MPPT_charger2"
+      },
+      "description": "Net tie",
+      "comment": "NetTie"
+    },
+    "NT300B": {
+      "pins": {
+        "1": "VSOLAR__MPPT_charger2",
+        "2": "EN_MPPT_charger2"
+      },
+      "description": "Net tie",
+      "comment": "NetTie"
+    },
+    "NT301B": {
+      "pins": {
+        "1": "ISN_MPPT_charger2",
+        "2": "VBAT_MPPT_charger2"
+      },
+      "description": "Net tie",
+      "comment": "NetTie"
+    },
+    "J301B": {
+      "pins": {
+        "P": "VBAT_MPPT_charger2",
+        "N": "GND"
+      },
+      "description": "Socket; DC supply; XT30; male; PIN: 2; on PCBs; THT; Colour: yellow",
+      "comment": "XT30PW-M",
+      "value": "*"
+    },
+    "L300B": {
+      "pins": {
+        "1": "SW_MPPT_charger2",
+        "2": "ISP_MPPT_charger2"
+      },
+      "description": "74438367100 Power Inductor, 10Uh, Shielded, 4.8A Rohs Compliant: Yes",
+      "comment": "10u"
+    },
+    "R300B": {
+      "pins": {
+        "1": "ISP_MPPT_charger2",
+        "2": "VBAT_MPPT_charger2"
+      },
+      "description": "Thick Film Chip Resistors 0805 0.025? 0.125W 1% 100ppm/°C",
+      "comment": "0.025R"
+    },
+    "C301B": {
+      "pins": {
+        "1": "GND",
+        "2": "VSOLAR__MPPT_charger2"
+      },
+      "description": "CAP, Ceramic, 0.1 uF, +/- 10%, 50 V, -55 to 125 degC, 1206 (3216 Metric), RoHS, Tape and Reel",
+      "comment": "10u"
+    },
+    "C304B": {
+      "pins": {
+        "1": "GND",
+        "2": "VBAT_MPPT_charger2"
+      },
+      "description": "CAP, Ceramic, 0.1 uF, +/- 10%, 50 V, -55 to 125 degC, 1206 (3216 Metric), RoHS, Tape and Reel",
+      "comment": "22u"
+    },
+    "C305B": {
+      "pins": {
+        "1": "GND",
+        "2": "VBAT_MPPT_charger2"
+      },
+      "description": "CAP, Ceramic, 0.1 uF, +/- 10%, 50 V, -55 to 125 degC, 1206 (3216 Metric), RoHS, Tape and Reel",
+      "comment": "22u"
+    },
+    "R302B": {
+      "pins": {
+        "1": "NetR302B_1",
+        "2": "INTVcc_MPPT_charger2"
+      },
+      "description": "10K 0.1W 5% 0603 (1608 Metric)  SMD",
+      "comment": "10k",
+      "value": "2000.00 Ohm"
+    },
+    "TP300B": {
+      "pins": {
+        "1": "VBAT_MPPT_charger2"
+      },
+      "description": "SMD test point",
+      "comment": "TestPoint"
+    },
+    "J700": {
+      "pins": {
+        "1": "NetJ700_1",
+        "2": "VBUS",
+        "3": "POWER_O2",
+        "4": "VBUS",
+        "5": "POWER_O1",
+        "6": "GND"
+      },
+      "description": "CONN HEADER R/A 6POS 2.5MM",
+      "comment": "S6B-XH-A (LF)(SN)"
+    },
+    "D701": {
+      "pins": {
+        "1": {
+          "name": "K",
+          "net": "C_LED3V3"
+        },
+        "2": {
+          "name": "A",
+          "net": "3,3V"
+        }
+      },
+      "comment": "LED"
+    },
+    "R705": {
+      "pins": {
+        "1": "GND",
+        "2": "C_LED3V3"
+      },
+      "description": "1k 0.1W 5% 0603 (1608 Metric)  SMD",
+      "comment": "1k",
+      "value": "1000.00 Ohm"
+    },
+    "D702": {
+      "pins": {
+        "1": {
+          "name": "K",
+          "net": "C_LED5V"
+        },
+        "2": {
+          "name": "A",
+          "net": "5V"
+        }
+      },
+      "comment": "LED"
+    },
+    "R706": {
+      "pins": {
+        "1": "GND",
+        "2": "C_LED5V"
+      },
+      "description": "2k2 0.1W 5% 0603 SMD",
+      "comment": "2k2",
+      "value": "2200.00 Ohm"
+    },
+    "Q701": {
+      "pins": {
+        "1": {
+          "name": "G",
+          "net": "G2"
+        },
+        "2": {
+          "name": "S",
+          "net": "GND"
+        },
+        "3": {
+          "name": "D",
+          "net": "POWER_O2"
+        }
+      },
+      "description": "N-channel Enhancement Mode Field-Effect Transistor; 5.8A/30V",
+      "comment": "AO3400"
+    },
+    "R703": {
+      "pins": {
+        "1": "GND",
+        "2": "NetR702_2"
+      },
+      "description": "10k 0.1W 5% 0603 SMD",
+      "comment": "10k",
+      "value": "2000.00 Ohm"
+    },
+    "R702": {
+      "pins": {
+        "1": "G2",
+        "2": "NetR702_2"
+      },
+      "description": "100R 0.1W 5% 0603 SMD",
+      "comment": "100R",
+      "value": "100.00 Ohm"
+    },
+    "Q700": {
+      "pins": {
+        "1": {
+          "name": "G",
+          "net": "G1"
+        },
+        "2": {
+          "name": "S",
+          "net": "GND"
+        },
+        "3": {
+          "name": "D",
+          "net": "POWER_O1"
+        }
+      },
+      "description": "N-channel Enhancement Mode Field-Effect Transistor; 5.8A/30V",
+      "comment": "AO3400"
+    },
+    "R701": {
+      "pins": {
+        "1": "GND",
+        "2": "NetR700_2"
+      },
+      "description": "10k 0.1W 5% 0603 SMD",
+      "comment": "10k",
+      "value": "2000.00 Ohm"
+    },
+    "R700": {
+      "pins": {
+        "1": "G1",
+        "2": "NetR700_2"
+      },
+      "description": "100R 0.1W 5% 0603 SMD",
+      "comment": "100R",
+      "value": "100.00 Ohm"
+    },
+    "D700": {
+      "pins": {
+        "1": {
+          "name": "K",
+          "net": "C_LED_USR"
+        },
+        "2": {
+          "name": "A",
+          "net": "NetD700_2"
+        }
+      },
+      "description": "Green LED",
+      "comment": "LED"
+    },
+    "R704": {
+      "pins": {
+        "1": "GND",
+        "2": "C_LED_USR"
+      },
+      "description": "1K 0.1W 5% 0603 SMD",
+      "comment": "1k",
+      "value": "1000.00 Ohm"
+    },
+    "TP700": {
+      "pins": {
+        "1": "3,3V"
+      },
+      "description": "SMD test point",
+      "comment": "TestPoint"
+    },
+    "TP701": {
+      "pins": {
+        "1": "5V"
+      },
+      "description": "SMD test point",
+      "comment": "TestPoint"
+    },
+    "U200": {
+      "pins": {
+        "1": {
+          "name": "VBAT",
+          "net": "3,3V"
+        },
+        "2": {
+          "name": "PC13",
+          "net": "USER_BUTTON_0"
+        },
+        "3": {
+          "name": "PC14-OSC32_IN(PC14)",
+          "net": "USER_BUTTON_1"
+        },
+        "4": {
+          "name": "PC15-OSC32_OUT(PC15)",
+          "net": "PC15"
+        },
+        "5": {
+          "name": "PH0-OSC_IN(PH0)",
+          "net": "OSC_IN"
+        },
+        "6": {
+          "name": "PH1-OSC_OUT(PH1)",
+          "net": "OSC_OUT"
+        },
+        "7": {
+          "name": "NRST",
+          "net": "NRST"
+        },
+        "8": {
+          "name": "PC0",
+          "net": "PC0"
+        },
+        "9": {
+          "name": "PC1",
+          "net": "NetU200_9"
+        },
+        "10": {
+          "name": "PC2",
+          "net": "NetU200_10"
+        },
+        "11": {
+          "name": "PC3",
+          "net": "NetU200_11"
+        },
+        "12": {
+          "name": "VSSA",
+          "net": "GND"
+        },
+        "13": {
+          "name": "VDDA",
+          "net": "3,3VDDA"
+        },
+        "14": {
+          "name": "PA0-WKUP(PA0)",
+          "net": "PA0"
+        },
+        "15": {
+          "name": "PA1",
+          "net": "VBAT1_DIV"
+        },
+        "16": {
+          "name": "PA2",
+          "net": "VBAT2_DIV"
+        },
+        "17": {
+          "name": "PA3",
+          "net": "PA3"
+        },
+        "18": {
+          "name": "VSS",
+          "net": "GND"
+        },
+        "19": {
+          "name": "VDD",
+          "net": "3,3V"
+        },
+        "20": {
+          "name": "PA4",
+          "net": "PA4"
+        },
+        "21": {
+          "name": "PA5",
+          "net": "PA5"
+        },
+        "22": {
+          "name": "PA6",
+          "net": "PA6"
+        },
+        "23": {
+          "name": "PA7",
+          "net": "PA7"
+        },
+        "24": {
+          "name": "PC4",
+          "net": "NetU200_24"
+        },
+        "25": {
+          "name": "PC5",
+          "net": "NetU200_25"
+        },
+        "26": {
+          "name": "PB0",
+          "net": "PB0"
+        },
+        "27": {
+          "name": "PB1",
+          "net": "PG_5V"
+        },
+        "28": {
+          "name": "PB2-BOOT1(PB2)",
+          "net": "MODE_5V"
+        },
+        "29": {
+          "name": "PB10",
+          "net": "TX"
+        },
+        "30": {
+          "name": "PB11",
+          "net": "RX"
+        },
+        "31": {
+          "name": "VCAP_1",
+          "net": "VCAP_1"
+        },
+        "32": {
+          "name": "VDD",
+          "net": "3,3V"
+        },
+        "33": {
+          "name": "PB12",
+          "net": "PB12"
+        },
+        "34": {
+          "name": "PB13",
+          "net": "PWR_SW_2"
+        },
+        "35": {
+          "name": "PB14",
+          "net": "PWR_SW_1"
+        },
+        "36": {
+          "name": "PB15",
+          "net": "PB15"
+        },
+        "37": {
+          "name": "PC6",
+          "net": "PC6"
+        },
+        "38": {
+          "name": "PC7",
+          "net": "PC7"
+        },
+        "39": {
+          "name": "PC8",
+          "net": "PC8"
+        },
+        "40": {
+          "name": "PC9",
+          "net": "PC9"
+        },
+        "41": {
+          "name": "PA8",
+          "net": "PA8"
+        },
+        "42": {
+          "name": "PA9",
+          "net": "PA9"
+        },
+        "43": {
+          "name": "PA10",
+          "net": "PA10"
+        },
+        "44": {
+          "name": "PA11",
+          "net": "PA11"
+        },
+        "45": {
+          "name": "PA12",
+          "net": "PA12"
+        },
+        "46": {
+          "name": "PA13(JTMS-SWDIO)",
+          "net": "SWDIO"
+        },
+        "47": {
+          "name": "VCAP_2",
+          "net": "VCAP_2"
+        },
+        "48": {
+          "name": "VDD",
+          "net": "3,3V"
+        },
+        "49": {
+          "name": "PA14(JTCK-SWCLK)",
+          "net": "SWCLK"
+        },
+        "50": {
+          "name": "PA15(JTDI)",
+          "net": "PA15"
+        },
+        "51": {
+          "name": "PC10",
+          "net": "PC10"
+        },
+        "52": {
+          "name": "PC11",
+          "net": "PC11"
+        },
+        "53": {
+          "name": "PC12",
+          "net": "PC12"
+        },
+        "54": {
+          "name": "PD2",
+          "net": "USER_LED"
+        },
+        "55": {
+          "name": "PB3(JTDO/TRACESWO)",
+          "net": "PB3"
+        },
+        "56": {
+          "name": "PB4(NJTRST)",
+          "net": "PB4"
+        },
+        "57": {
+          "name": "PB5",
+          "net": "PB5"
+        },
+        "58": {
+          "name": "PB6",
+          "net": "PG_CHRGR1"
+        },
+        "59": {
+          "name": "PB7",
+          "net": "PG_CHRGR2"
+        },
+        "60": {
+          "name": "BOOT0",
+          "net": "BOOT0"
+        },
+        "61": {
+          "name": "PB8",
+          "net": "PB8"
+        },
+        "62": {
+          "name": "PB9",
+          "net": "PB9"
+        },
+        "63": {
+          "name": "VSS",
+          "net": "GND"
+        },
+        "64": {
+          "name": "VDD",
+          "net": "3,3V"
+        }
+      },
+      "description": "ARM Cortex-M4 32-bit MCU+FPU, 210 DMIPS, 1024 kB Flash, 192 kB Internal RAM, 51 I/Os, 64-pin LQFP, -40 to 85 degC, Tray",
+      "comment": "STM32F405RGT6"
+    },
+    "C212": {
+      "pins": {
+        "1": "VCAP_2",
+        "2": "GND"
+      },
+      "mpn": "C0603C104K5RACTU",
+      "description": "CAP CER 50V X7R 0603",
+      "comment": "2u2",
+      "value": "0.10 µF"
+    },
+    "C213": {
+      "pins": {
+        "1": "VCAP_1",
+        "2": "GND"
+      },
+      "mpn": "C0603C104K5RACTU",
+      "description": "CAP CER 50V X7R 0603",
+      "comment": "2u2",
+      "value": "0.10 µF"
+    },
+    "C210": {
+      "pins": {
+        "1": "OSC_OUT",
+        "2": "GND"
+      },
+      "mpn": "C0603C104K5RACTU",
+      "description": "CAP CER 50V X7R 0603",
+      "comment": "20p",
+      "value": "0.10 µF"
+    },
+    "C211": {
+      "pins": {
+        "1": "OSC_IN",
+        "2": "GND"
+      },
+      "mpn": "C0603C104K5RACTU",
+      "description": "CAP CER 50V X7R 0603",
+      "comment": "20p",
+      "value": "0.10 µF"
+    },
+    "L200": {
+      "pins": {
+        "1": "3,3V",
+        "2": "3,3VDDA"
+      },
+      "description": "Multilayer Type Inductor for General Circuits, 0805 (2012), 0.22µH, 10%, 0.38?, 250mA",
+      "comment": "4u7"
+    },
+    "C200": {
+      "pins": {
+        "1": "3,3V",
+        "2": "GND"
+      },
+      "mpn": "C0603C104K5RACTU",
+      "description": "CAP CER 0.1UF 50V X7R 0603",
+      "comment": "4u7",
+      "value": "0.10 µF"
+    },
+    "C206": {
+      "pins": {
+        "1": "3,3VDDA",
+        "2": "GND"
+      },
+      "mpn": "C0603C104K5RACTU",
+      "description": "CAP CER 0.1UF 50V X7R 0603",
+      "comment": "1u",
+      "value": "0.10 µF"
+    },
+    "SW200": {
+      "pins": {
+        "1": "NRST",
+        "2": "GND",
+        "3": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "4": {
+          "name": "GND",
+          "net": "GND"
+        }
+      },
+      "description": "SWITCH TACTILE SPST-NO 0.05A 24V",
+      "comment": "B3F-3122"
+    },
+    "R207": {
+      "pins": {
+        "1": "NRST",
+        "2": "NRST_NDB"
+      },
+      "description": "100R 0.1W 5% 0603  SMD",
+      "comment": "100R",
+      "value": "100.00 Ohm"
+    },
+    "SW201": {
+      "pins": {
+        "1": "USER_BUTTON_0",
+        "2": "GND",
+        "3": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "4": {
+          "name": "GND",
+          "net": "GND"
+        }
+      },
+      "description": "SWITCH TACTILE SPST-NO 0.05A 24V",
+      "comment": "B3F-3122"
+    },
+    "SW202": {
+      "pins": {
+        "1": "USER_BUTTON_1",
+        "2": "GND",
+        "3": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "4": {
+          "name": "GND",
+          "net": "GND"
+        }
+      },
+      "description": "SWITCH TACTILE SPST-NO 0.05A 24V",
+      "comment": "B3F-3122"
+    },
+    "R210": {
+      "pins": {
+        "1": "GND",
+        "2": "BOOT0"
+      },
+      "description": "10k 0.1W 5% 0603 SMD",
+      "comment": "10k",
+      "value": "10000.00 Ohm"
+    },
+    "P200": {
+      "pins": {
+        "1": "NRST",
+        "2": "SWCLK",
+        "3": "",
+        "4": "SWDIO",
+        "5": "GND",
+        "6": "GND",
+        "7": "3,3V_STLINK",
+        "8": "3,3V_STLINK",
+        "9": "5V_STLINK",
+        "10": "5V_STLINK"
+      },
+      "comment": "61201021721"
+    },
+    "Y200": {
+      "pins": {
+        "1": "OSC_OUT",
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "3": "OSC_IN",
+        "4": {
+          "name": "GND",
+          "net": "GND"
+        }
+      },
+      "description": "Crystal oscillator 8MHz",
+      "comment": "8MHz"
+    },
+    "R202": {
+      "pins": {
+        "1": "GND",
+        "2": "VBAT1_DIV"
+      },
+      "description": "33k 0.1W 5% 0603 SMD",
+      "comment": "33k",
+      "value": "33000.00 Ohm"
+    },
+    "R200": {
+      "pins": {
+        "1": "VBAT1_DIV",
+        "2": "NetR200_2"
+      },
+      "description": "10k 0.1W 5% 0603 SMD",
+      "comment": "10k",
+      "value": "10000.00 Ohm"
+    },
+    "R203": {
+      "pins": {
+        "1": "GND",
+        "2": "VBAT2_DIV"
+      },
+      "description": "33k 0.1W 5% 0603 SMD",
+      "comment": "33k",
+      "value": "33000.00 Ohm"
+    },
+    "R201": {
+      "pins": {
+        "1": "VBAT2_DIV",
+        "2": "NetR201_2"
+      },
+      "description": "10k 0.1W 5% 0603  SMD",
+      "comment": "10k",
+      "value": "10000.00 Ohm"
+    },
+    "C201": {
+      "pins": {
+        "1": "3,3V",
+        "2": "GND"
+      },
+      "description": "CAP 0.1 µF, X5R or X7R ceramic",
+      "comment": "100n"
+    },
+    "C202": {
+      "pins": {
+        "1": "3,3V",
+        "2": "GND"
+      },
+      "description": "CAP 0.1 µF, X5R or X7R ceramic",
+      "comment": "100n"
+    },
+    "C203": {
+      "pins": {
+        "1": "3,3V",
+        "2": "GND"
+      },
+      "description": "CAP 0.1 µF, X5R or X7R ceramic",
+      "comment": "100n"
+    },
+    "C204": {
+      "pins": {
+        "1": "3,3V",
+        "2": "GND"
+      },
+      "description": "CAP 0.1 µF, X5R or X7R ceramic",
+      "comment": "100n"
+    },
+    "C205": {
+      "pins": {
+        "1": "3,3V",
+        "2": "GND"
+      },
+      "description": "CAP 0.1 µF, X5R or X7R ceramic",
+      "comment": "100n"
+    },
+    "R204": {
+      "pins": {
+        "1": "NRST_NDB",
+        "2": "3,3V"
+      },
+      "description": "10k 0.1W 5% 0603 SMD",
+      "comment": "10k",
+      "value": "10000.00 Ohm"
+    },
+    "R205": {
+      "pins": {
+        "1": "USRB0_NDB",
+        "2": "3,3V"
+      },
+      "description": "10k 0.1W 5% 0603 SMD",
+      "comment": "10k",
+      "value": "10000.00 Ohm"
+    },
+    "R206": {
+      "pins": {
+        "1": "USRB1_NDB",
+        "2": "3,3V"
+      },
+      "description": "10k 0.1W 5% 0603 SMD",
+      "comment": "10k",
+      "value": "10000.00 Ohm"
+    },
+    "C207": {
+      "pins": {
+        "1": "NRST_NDB",
+        "2": "GND"
+      },
+      "description": "CAP 0.1 µF, ceramic",
+      "comment": "100n"
+    },
+    "C208": {
+      "pins": {
+        "1": "USRB0_NDB",
+        "2": "GND"
+      },
+      "description": "CAP 0.1 µF, ceramic",
+      "comment": "100n"
+    },
+    "C209": {
+      "pins": {
+        "1": "USRB1_NDB",
+        "2": "GND"
+      },
+      "description": "CAP 0.1 µF, ceramic",
+      "comment": "100n"
+    },
+    "R208": {
+      "pins": {
+        "1": "USER_BUTTON_0",
+        "2": "USRB0_NDB"
+      },
+      "description": "100R 0.1W 5% 0603  SMD",
+      "comment": "100R",
+      "value": "100.00 Ohm"
+    },
+    "R209": {
+      "pins": {
+        "1": "USER_BUTTON_1",
+        "2": "USRB1_NDB"
+      },
+      "description": "100R 0.1W 5% 0603  SMD",
+      "comment": "100R",
+      "value": "100.00 Ohm"
+    }
+  }
+}

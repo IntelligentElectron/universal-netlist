@@ -1,0 +1,4210 @@
+{
+  "universalNetlistSchemaVersion": 1,
+  "metadata": {
+    "generatedAt": "2026-09-01T21:46:12.188Z",
+    "netlistHash": "sha256:849c26eca97ddbb844688b1526a60f6d6866d5f393fbb4eed498862369379487",
+    "origin": {
+      "type": "vendor",
+      "source": {
+        "vendor": "KiCad",
+        "fileType": ".kicad_pro"
+      }
+    }
+  },
+  "nets": {
+    "/A": {
+      "D7": [
+        "1"
+      ],
+      "J5": [
+        "1"
+      ],
+      "R16": [
+        "1"
+      ],
+      "R23": [
+        "2"
+      ],
+      "R24": [
+        "1"
+      ]
+    },
+    "/AH": {
+      "D27": [
+        "1"
+      ],
+      "Q4": [
+        "1"
+      ],
+      "R3": [
+        "2"
+      ],
+      "R4": [
+        "2"
+      ]
+    },
+    "/AL": {
+      "D30": [
+        "1"
+      ],
+      "Q1": [
+        "1"
+      ],
+      "R1": [
+        "2"
+      ],
+      "R2": [
+        "1"
+      ]
+    },
+    "/B": {
+      "D8": [
+        "1"
+      ],
+      "J6": [
+        "1"
+      ],
+      "R18": [
+        "1"
+      ],
+      "R26": [
+        "2"
+      ],
+      "R27": [
+        "1"
+      ]
+    },
+    "/BH": {
+      "D28": [
+        "1"
+      ],
+      "Q5": [
+        "1"
+      ],
+      "R8": [
+        "2"
+      ],
+      "R9": [
+        "2"
+      ]
+    },
+    "/BL": {
+      "D31": [
+        "1"
+      ],
+      "Q2": [
+        "1"
+      ],
+      "R6": [
+        "2"
+      ],
+      "R7": [
+        "1"
+      ]
+    },
+    "/C": {
+      "D9": [
+        "1"
+      ],
+      "J7": [
+        "1"
+      ],
+      "R20": [
+        "1"
+      ],
+      "R29": [
+        "2"
+      ],
+      "R30": [
+        "1"
+      ]
+    },
+    "/CH": {
+      "D29": [
+        "1"
+      ],
+      "Q6": [
+        "1"
+      ],
+      "R13": [
+        "2"
+      ],
+      "R14": [
+        "2"
+      ]
+    },
+    "/CL": {
+      "D32": [
+        "1"
+      ],
+      "Q3": [
+        "1"
+      ],
+      "R11": [
+        "2"
+      ],
+      "R12": [
+        "1"
+      ]
+    },
+    "/DRV_TEMP_SENSE": {
+      "C77": [
+        "1"
+      ],
+      "J3": [
+        "6"
+      ],
+      "R34": [
+        "2"
+      ],
+      "TH1": [
+        "1"
+      ]
+    },
+    "/ENABLE": {
+      "J2": [
+        "1"
+      ],
+      "U4": [
+        "3"
+      ]
+    },
+    "/GND": {
+      "C1": [
+        "2"
+      ],
+      "C10": [
+        "2"
+      ],
+      "C100": [
+        "2"
+      ],
+      "C101": [
+        "2"
+      ],
+      "C102": [
+        "2"
+      ],
+      "C103": [
+        "2"
+      ],
+      "C104": [
+        "2"
+      ],
+      "C105": [
+        "2"
+      ],
+      "C106": [
+        "2"
+      ],
+      "C107": [
+        "2"
+      ],
+      "C108": [
+        "2"
+      ],
+      "C109": [
+        "2"
+      ],
+      "C11": [
+        "2"
+      ],
+      "C110": [
+        "2"
+      ],
+      "C111": [
+        "2"
+      ],
+      "C112": [
+        "2"
+      ],
+      "C113": [
+        "2"
+      ],
+      "C114": [
+        "2"
+      ],
+      "C115": [
+        "2"
+      ],
+      "C116": [
+        "2"
+      ],
+      "C117": [
+        "2"
+      ],
+      "C118": [
+        "2"
+      ],
+      "C119": [
+        "2"
+      ],
+      "C12": [
+        "2"
+      ],
+      "C120": [
+        "2"
+      ],
+      "C121": [
+        "2"
+      ],
+      "C122": [
+        "2"
+      ],
+      "C123": [
+        "2"
+      ],
+      "C13": [
+        "2"
+      ],
+      "C14": [
+        "2"
+      ],
+      "C15": [
+        "2"
+      ],
+      "C16": [
+        "2"
+      ],
+      "C17": [
+        "2"
+      ],
+      "C18": [
+        "2"
+      ],
+      "C19": [
+        "2"
+      ],
+      "C2": [
+        "2"
+      ],
+      "C20": [
+        "2"
+      ],
+      "C21": [
+        "2"
+      ],
+      "C22": [
+        "2"
+      ],
+      "C23": [
+        "2"
+      ],
+      "C24": [
+        "2"
+      ],
+      "C25": [
+        "2"
+      ],
+      "C26": [
+        "2"
+      ],
+      "C27": [
+        "2"
+      ],
+      "C28": [
+        "2"
+      ],
+      "C29": [
+        "2"
+      ],
+      "C3": [
+        "2"
+      ],
+      "C30": [
+        "2"
+      ],
+      "C31": [
+        "2"
+      ],
+      "C32": [
+        "2"
+      ],
+      "C33": [
+        "2"
+      ],
+      "C34": [
+        "2"
+      ],
+      "C35": [
+        "2"
+      ],
+      "C36": [
+        "2"
+      ],
+      "C37": [
+        "2"
+      ],
+      "C38": [
+        "2"
+      ],
+      "C4": [
+        "2"
+      ],
+      "C40": [
+        "2"
+      ],
+      "C41": [
+        "2"
+      ],
+      "C43": [
+        "2"
+      ],
+      "C44": [
+        "2"
+      ],
+      "C46": [
+        "2"
+      ],
+      "C47": [
+        "2"
+      ],
+      "C48": [
+        "2"
+      ],
+      "C5": [
+        "2"
+      ],
+      "C50": [
+        "2"
+      ],
+      "C51": [
+        "2"
+      ],
+      "C52": [
+        "2"
+      ],
+      "C53": [
+        "2"
+      ],
+      "C55": [
+        "2"
+      ],
+      "C57": [
+        "2"
+      ],
+      "C58": [
+        "2"
+      ],
+      "C6": [
+        "2"
+      ],
+      "C60": [
+        "2"
+      ],
+      "C62": [
+        "2"
+      ],
+      "C63": [
+        "2"
+      ],
+      "C64": [
+        "2"
+      ],
+      "C65": [
+        "2"
+      ],
+      "C67": [
+        "2"
+      ],
+      "C68": [
+        "2"
+      ],
+      "C69": [
+        "2"
+      ],
+      "C7": [
+        "2"
+      ],
+      "C70": [
+        "2"
+      ],
+      "C71": [
+        "2"
+      ],
+      "C72": [
+        "2"
+      ],
+      "C73": [
+        "2"
+      ],
+      "C74": [
+        "2"
+      ],
+      "C75": [
+        "2"
+      ],
+      "C77": [
+        "2"
+      ],
+      "C78": [
+        "2"
+      ],
+      "C79": [
+        "2"
+      ],
+      "C8": [
+        "2"
+      ],
+      "C80": [
+        "2"
+      ],
+      "C81": [
+        "2"
+      ],
+      "C82": [
+        "2"
+      ],
+      "C83": [
+        "2"
+      ],
+      "C84": [
+        "2"
+      ],
+      "C85": [
+        "2"
+      ],
+      "C86": [
+        "2"
+      ],
+      "C87": [
+        "2"
+      ],
+      "C88": [
+        "2"
+      ],
+      "C89": [
+        "2"
+      ],
+      "C9": [
+        "2"
+      ],
+      "C90": [
+        "2"
+      ],
+      "C91": [
+        "2"
+      ],
+      "C93": [
+        "2"
+      ],
+      "C94": [
+        "2"
+      ],
+      "C95": [
+        "2"
+      ],
+      "C96": [
+        "2"
+      ],
+      "C97": [
+        "2"
+      ],
+      "C98": [
+        "2"
+      ],
+      "C99": [
+        "2"
+      ],
+      "D12": [
+        "1"
+      ],
+      "D13": [
+        "1"
+      ],
+      "D14": [
+        "1"
+      ],
+      "D15": [
+        "1"
+      ],
+      "D16": [
+        "1"
+      ],
+      "D17": [
+        "1"
+      ],
+      "D18": [
+        "2"
+      ],
+      "D19": [
+        "2"
+      ],
+      "D30": [
+        "2"
+      ],
+      "D31": [
+        "2"
+      ],
+      "D32": [
+        "2"
+      ],
+      "D7": [
+        "2"
+      ],
+      "D8": [
+        "2"
+      ],
+      "D9": [
+        "2"
+      ],
+      "H1": [
+        "1"
+      ],
+      "H2": [
+        "1"
+      ],
+      "H3": [
+        "1"
+      ],
+      "H4": [
+        "1"
+      ],
+      "H5": [
+        "1"
+      ],
+      "H6": [
+        "1"
+      ],
+      "H7": [
+        "1"
+      ],
+      "J1": [
+        "1"
+      ],
+      "J2": [
+        "8",
+        "MP"
+      ],
+      "J3": [
+        "12",
+        "7",
+        "MP"
+      ],
+      "Q1": [
+        "2",
+        "4",
+        "6"
+      ],
+      "Q2": [
+        "2",
+        "4",
+        "6"
+      ],
+      "Q3": [
+        "2",
+        "4",
+        "6"
+      ],
+      "R10": [
+        "2"
+      ],
+      "R15": [
+        "2"
+      ],
+      "R17": [
+        "2"
+      ],
+      "R19": [
+        "2"
+      ],
+      "R21": [
+        "2"
+      ],
+      "R31": [
+        "2"
+      ],
+      "TH1": [
+        "2"
+      ],
+      "U1": [
+        "A2"
+      ],
+      "U10": [
+        "2",
+        "3",
+        "4"
+      ],
+      "U2": [
+        "A2"
+      ],
+      "U3": [
+        "A2"
+      ],
+      "U4": [
+        "1",
+        "9"
+      ],
+      "U5": [
+        "2"
+      ],
+      "U6": [
+        "2"
+      ],
+      "U7": [
+        "2"
+      ],
+      "U8": [
+        "2",
+        "3",
+        "4"
+      ],
+      "U9": [
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    "/INPUT.AH": {
+      "D12": [
+        "2"
+      ],
+      "J2": [
+        "3"
+      ],
+      "U1": [
+        "B4"
+      ]
+    },
+    "/INPUT.AL": {
+      "D15": [
+        "2"
+      ],
+      "J2": [
+        "2"
+      ],
+      "U1": [
+        "A4"
+      ]
+    },
+    "/INPUT.BH": {
+      "D13": [
+        "2"
+      ],
+      "J2": [
+        "5"
+      ],
+      "U2": [
+        "B4"
+      ]
+    },
+    "/INPUT.BL": {
+      "D16": [
+        "2"
+      ],
+      "J2": [
+        "4"
+      ],
+      "U2": [
+        "A4"
+      ]
+    },
+    "/INPUT.CH": {
+      "D14": [
+        "2"
+      ],
+      "J2": [
+        "7"
+      ],
+      "U3": [
+        "B4"
+      ]
+    },
+    "/INPUT.CL": {
+      "D17": [
+        "2"
+      ],
+      "J2": [
+        "6"
+      ],
+      "U3": [
+        "A4"
+      ]
+    },
+    "/I_SENSE.A": {
+      "J3": [
+        "3"
+      ],
+      "U8": [
+        "5"
+      ]
+    },
+    "/I_SENSE.B": {
+      "J3": [
+        "4"
+      ],
+      "U9": [
+        "5"
+      ]
+    },
+    "/I_SENSE.C": {
+      "J3": [
+        "5"
+      ],
+      "U10": [
+        "5"
+      ]
+    },
+    "/Phase Current Sensors/Current Sense A/V+": {
+      "C49": [
+        "1"
+      ],
+      "R22": [
+        "2"
+      ],
+      "U8": [
+        "8"
+      ]
+    },
+    "/Phase Current Sensors/Current Sense A/V-": {
+      "C49": [
+        "2"
+      ],
+      "R24": [
+        "2"
+      ],
+      "U8": [
+        "1"
+      ]
+    },
+    "/Phase Current Sensors/Current Sense B/V+": {
+      "C54": [
+        "1"
+      ],
+      "R25": [
+        "2"
+      ],
+      "U9": [
+        "8"
+      ]
+    },
+    "/Phase Current Sensors/Current Sense B/V-": {
+      "C54": [
+        "2"
+      ],
+      "R27": [
+        "2"
+      ],
+      "U9": [
+        "1"
+      ]
+    },
+    "/Phase Current Sensors/Current Sense C/V+": {
+      "C59": [
+        "1"
+      ],
+      "R28": [
+        "2"
+      ],
+      "U10": [
+        "8"
+      ]
+    },
+    "/Phase Current Sensors/Current Sense C/V-": {
+      "C59": [
+        "2"
+      ],
+      "R30": [
+        "2"
+      ],
+      "U10": [
+        "1"
+      ]
+    },
+    "/Predriver Voltage Supply/FB": {
+      "C92": [
+        "2"
+      ],
+      "R10": [
+        "1"
+      ],
+      "R5": [
+        "2"
+      ],
+      "U4": [
+        "5"
+      ]
+    },
+    "/Predriver Voltage Supply/SW": {
+      "C76": [
+        "2"
+      ],
+      "L1": [
+        "1"
+      ],
+      "U4": [
+        "8"
+      ]
+    },
+    "/Predrivers/Gate Driver A/BOOT": {
+      "C39": [
+        "1"
+      ],
+      "U1": [
+        "D3"
+      ]
+    },
+    "/Predrivers/Gate Driver A/LGH": {
+      "R1": [
+        "1"
+      ],
+      "U1": [
+        "B1"
+      ]
+    },
+    "/Predrivers/Gate Driver A/LGL": {
+      "R2": [
+        "2"
+      ],
+      "U1": [
+        "A1"
+      ]
+    },
+    "/Predrivers/Gate Driver A/UGH": {
+      "R4": [
+        "1"
+      ],
+      "U1": [
+        "D2"
+      ]
+    },
+    "/Predrivers/Gate Driver A/UGL": {
+      "R3": [
+        "1"
+      ],
+      "U1": [
+        "D1"
+      ]
+    },
+    "/Predrivers/Gate Driver B/BOOT": {
+      "C42": [
+        "1"
+      ],
+      "U2": [
+        "D3"
+      ]
+    },
+    "/Predrivers/Gate Driver B/LGH": {
+      "R6": [
+        "1"
+      ],
+      "U2": [
+        "B1"
+      ]
+    },
+    "/Predrivers/Gate Driver B/LGL": {
+      "R7": [
+        "2"
+      ],
+      "U2": [
+        "A1"
+      ]
+    },
+    "/Predrivers/Gate Driver B/UGH": {
+      "R9": [
+        "1"
+      ],
+      "U2": [
+        "D2"
+      ]
+    },
+    "/Predrivers/Gate Driver B/UGL": {
+      "R8": [
+        "1"
+      ],
+      "U2": [
+        "D1"
+      ]
+    },
+    "/Predrivers/Gate Driver C/BOOT": {
+      "C45": [
+        "1"
+      ],
+      "U3": [
+        "D3"
+      ]
+    },
+    "/Predrivers/Gate Driver C/LGH": {
+      "R11": [
+        "1"
+      ],
+      "U3": [
+        "B1"
+      ]
+    },
+    "/Predrivers/Gate Driver C/LGL": {
+      "R12": [
+        "2"
+      ],
+      "U3": [
+        "A1"
+      ]
+    },
+    "/Predrivers/Gate Driver C/UGH": {
+      "R14": [
+        "1"
+      ],
+      "U3": [
+        "D2"
+      ]
+    },
+    "/Predrivers/Gate Driver C/UGL": {
+      "R13": [
+        "1"
+      ],
+      "U3": [
+        "D1"
+      ]
+    },
+    "/SW.A": {
+      "C39": [
+        "2"
+      ],
+      "C56": [
+        "2"
+      ],
+      "D27": [
+        "2"
+      ],
+      "Q1": [
+        "3",
+        "5",
+        "7"
+      ],
+      "Q4": [
+        "2",
+        "4",
+        "6"
+      ],
+      "R22": [
+        "1"
+      ],
+      "R23": [
+        "1"
+      ],
+      "R41": [
+        "1"
+      ],
+      "U1": [
+        "C1",
+        "D4"
+      ]
+    },
+    "/SW.B": {
+      "C42": [
+        "2"
+      ],
+      "C61": [
+        "2"
+      ],
+      "D28": [
+        "2"
+      ],
+      "Q2": [
+        "3",
+        "5",
+        "7"
+      ],
+      "Q5": [
+        "2",
+        "4",
+        "6"
+      ],
+      "R25": [
+        "1"
+      ],
+      "R26": [
+        "1"
+      ],
+      "R42": [
+        "1"
+      ],
+      "U2": [
+        "C1",
+        "D4"
+      ]
+    },
+    "/SW.C": {
+      "C45": [
+        "2"
+      ],
+      "C66": [
+        "2"
+      ],
+      "D29": [
+        "2"
+      ],
+      "Q3": [
+        "3",
+        "5",
+        "7"
+      ],
+      "Q6": [
+        "2",
+        "4",
+        "6"
+      ],
+      "R28": [
+        "1"
+      ],
+      "R29": [
+        "1"
+      ],
+      "R43": [
+        "1"
+      ],
+      "U3": [
+        "C1",
+        "D4"
+      ]
+    },
+    "/V_SENSE": {
+      "C63": [
+        "1"
+      ],
+      "J3": [
+        "2"
+      ],
+      "R31": [
+        "1"
+      ],
+      "R32": [
+        "2"
+      ]
+    },
+    "/V_SENSE.A": {
+      "J3": [
+        "8"
+      ],
+      "U5": [
+        "3",
+        "4"
+      ]
+    },
+    "/V_SENSE.B": {
+      "J3": [
+        "9"
+      ],
+      "U6": [
+        "3",
+        "4"
+      ]
+    },
+    "/V_SENSE.C": {
+      "J3": [
+        "10"
+      ],
+      "U7": [
+        "3",
+        "4"
+      ]
+    },
+    "/V_{ANA}": {
+      "C47": [
+        "1"
+      ],
+      "C52": [
+        "1"
+      ],
+      "C57": [
+        "1"
+      ],
+      "C95": [
+        "1"
+      ],
+      "C96": [
+        "1"
+      ],
+      "C97": [
+        "1"
+      ],
+      "J3": [
+        "1"
+      ],
+      "R34": [
+        "1"
+      ],
+      "U10": [
+        "6",
+        "7"
+      ],
+      "U5": [
+        "5"
+      ],
+      "U6": [
+        "5"
+      ],
+      "U7": [
+        "5"
+      ],
+      "U8": [
+        "6",
+        "7"
+      ],
+      "U9": [
+        "6",
+        "7"
+      ]
+    },
+    "/V_{DRV}": {
+      "C11": [
+        "1"
+      ],
+      "C37": [
+        "1"
+      ],
+      "C38": [
+        "1"
+      ],
+      "C40": [
+        "1"
+      ],
+      "C41": [
+        "1"
+      ],
+      "C43": [
+        "1"
+      ],
+      "C44": [
+        "1"
+      ],
+      "C64": [
+        "1"
+      ],
+      "C65": [
+        "1"
+      ],
+      "C90": [
+        "1"
+      ],
+      "C92": [
+        "1"
+      ],
+      "D18": [
+        "1"
+      ],
+      "L1": [
+        "2"
+      ],
+      "R5": [
+        "1"
+      ],
+      "U1": [
+        "A3"
+      ],
+      "U2": [
+        "A3"
+      ],
+      "U3": [
+        "A3"
+      ]
+    },
+    "/V_{MOTOR}": {
+      "C1": [
+        "1"
+      ],
+      "C10": [
+        "1"
+      ],
+      "C100": [
+        "1"
+      ],
+      "C101": [
+        "1"
+      ],
+      "C102": [
+        "1"
+      ],
+      "C103": [
+        "1"
+      ],
+      "C104": [
+        "1"
+      ],
+      "C105": [
+        "1"
+      ],
+      "C106": [
+        "1"
+      ],
+      "C107": [
+        "1"
+      ],
+      "C108": [
+        "1"
+      ],
+      "C109": [
+        "1"
+      ],
+      "C110": [
+        "1"
+      ],
+      "C111": [
+        "1"
+      ],
+      "C112": [
+        "1"
+      ],
+      "C113": [
+        "1"
+      ],
+      "C114": [
+        "1"
+      ],
+      "C115": [
+        "1"
+      ],
+      "C116": [
+        "1"
+      ],
+      "C117": [
+        "1"
+      ],
+      "C118": [
+        "1"
+      ],
+      "C119": [
+        "1"
+      ],
+      "C12": [
+        "1"
+      ],
+      "C120": [
+        "1"
+      ],
+      "C121": [
+        "1"
+      ],
+      "C122": [
+        "1"
+      ],
+      "C123": [
+        "1"
+      ],
+      "C13": [
+        "1"
+      ],
+      "C14": [
+        "1"
+      ],
+      "C15": [
+        "1"
+      ],
+      "C16": [
+        "1"
+      ],
+      "C17": [
+        "1"
+      ],
+      "C18": [
+        "1"
+      ],
+      "C19": [
+        "1"
+      ],
+      "C2": [
+        "1"
+      ],
+      "C20": [
+        "1"
+      ],
+      "C21": [
+        "1"
+      ],
+      "C22": [
+        "1"
+      ],
+      "C23": [
+        "1"
+      ],
+      "C24": [
+        "1"
+      ],
+      "C25": [
+        "1"
+      ],
+      "C26": [
+        "1"
+      ],
+      "C27": [
+        "1"
+      ],
+      "C28": [
+        "1"
+      ],
+      "C29": [
+        "1"
+      ],
+      "C3": [
+        "1"
+      ],
+      "C30": [
+        "1"
+      ],
+      "C31": [
+        "1"
+      ],
+      "C32": [
+        "1"
+      ],
+      "C33": [
+        "1"
+      ],
+      "C34": [
+        "1"
+      ],
+      "C35": [
+        "1"
+      ],
+      "C36": [
+        "1"
+      ],
+      "C4": [
+        "1"
+      ],
+      "C46": [
+        "1"
+      ],
+      "C48": [
+        "1"
+      ],
+      "C5": [
+        "1"
+      ],
+      "C50": [
+        "1"
+      ],
+      "C51": [
+        "1"
+      ],
+      "C53": [
+        "1"
+      ],
+      "C55": [
+        "1"
+      ],
+      "C58": [
+        "1"
+      ],
+      "C6": [
+        "1"
+      ],
+      "C60": [
+        "1"
+      ],
+      "C62": [
+        "1"
+      ],
+      "C7": [
+        "1"
+      ],
+      "C70": [
+        "1"
+      ],
+      "C71": [
+        "1"
+      ],
+      "C72": [
+        "1"
+      ],
+      "C73": [
+        "1"
+      ],
+      "C74": [
+        "1"
+      ],
+      "C75": [
+        "1"
+      ],
+      "C78": [
+        "1"
+      ],
+      "C79": [
+        "1"
+      ],
+      "C8": [
+        "1"
+      ],
+      "C80": [
+        "1"
+      ],
+      "C81": [
+        "1"
+      ],
+      "C82": [
+        "1"
+      ],
+      "C86": [
+        "1"
+      ],
+      "C87": [
+        "1"
+      ],
+      "C88": [
+        "1"
+      ],
+      "C89": [
+        "1"
+      ],
+      "C9": [
+        "1"
+      ],
+      "C91": [
+        "1"
+      ],
+      "C93": [
+        "1"
+      ],
+      "C94": [
+        "1"
+      ],
+      "C98": [
+        "1"
+      ],
+      "C99": [
+        "1"
+      ],
+      "D19": [
+        "1"
+      ],
+      "J8": [
+        "1"
+      ],
+      "Q4": [
+        "3",
+        "5",
+        "7"
+      ],
+      "Q5": [
+        "3",
+        "5",
+        "7"
+      ],
+      "Q6": [
+        "3",
+        "5",
+        "7"
+      ],
+      "R32": [
+        "1"
+      ],
+      "R38": [
+        "1"
+      ],
+      "R39": [
+        "1"
+      ],
+      "R40": [
+        "1"
+      ],
+      "U4": [
+        "2"
+      ]
+    },
+    "Net-(C56-Pad1)": {
+      "C56": [
+        "1"
+      ],
+      "R38": [
+        "2"
+      ]
+    },
+    "Net-(C61-Pad1)": {
+      "C61": [
+        "1"
+      ],
+      "R39": [
+        "2"
+      ]
+    },
+    "Net-(C66-Pad1)": {
+      "C66": [
+        "1"
+      ],
+      "R40": [
+        "2"
+      ]
+    },
+    "Net-(C83-Pad1)": {
+      "C83": [
+        "1"
+      ],
+      "R41": [
+        "2"
+      ]
+    },
+    "Net-(C84-Pad1)": {
+      "C84": [
+        "1"
+      ],
+      "R42": [
+        "2"
+      ]
+    },
+    "Net-(C85-Pad1)": {
+      "C85": [
+        "1"
+      ],
+      "R43": [
+        "2"
+      ]
+    },
+    "Net-(U4-BST)": {
+      "C76": [
+        "1"
+      ],
+      "U4": [
+        "7"
+      ]
+    },
+    "Net-(U4-RON)": {
+      "R15": [
+        "1"
+      ],
+      "U4": [
+        "4"
+      ]
+    },
+    "Net-(U5-+)": {
+      "C67": [
+        "1"
+      ],
+      "R16": [
+        "2"
+      ],
+      "R17": [
+        "1"
+      ],
+      "U5": [
+        "1"
+      ]
+    },
+    "Net-(U6-+)": {
+      "C68": [
+        "1"
+      ],
+      "R18": [
+        "2"
+      ],
+      "R19": [
+        "1"
+      ],
+      "U6": [
+        "1"
+      ]
+    },
+    "Net-(U7-+)": {
+      "C69": [
+        "1"
+      ],
+      "R20": [
+        "2"
+      ],
+      "R21": [
+        "1"
+      ],
+      "U7": [
+        "1"
+      ]
+    },
+    "unconnected-(J3-Pin_11-Pad11)": {
+      "J3": [
+        "11"
+      ]
+    },
+    "unconnected-(U1-NC-PadC4)": {
+      "U1": [
+        "C4"
+      ]
+    },
+    "unconnected-(U2-NC-PadC4)": {
+      "U2": [
+        "C4"
+      ]
+    },
+    "unconnected-(U3-NC-PadC4)": {
+      "U3": [
+        "C4"
+      ]
+    },
+    "unconnected-(U4-PGOOD-Pad6)": {
+      "U4": [
+        "6"
+      ]
+    }
+  },
+  "components": {
+    "C63": {
+      "pins": {
+        "1": "/V_SENSE",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor"
+    },
+    "C77": {
+      "pins": {
+        "1": "/DRV_TEMP_SENSE",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor"
+    },
+    "FID1": {
+      "pins": {},
+      "value": "Fiducial",
+      "description": "Fiducial Marker",
+      "mpn": "N/A"
+    },
+    "FID2": {
+      "pins": {},
+      "value": "Fiducial",
+      "description": "Fiducial Marker",
+      "mpn": "N/A"
+    },
+    "FID3": {
+      "pins": {},
+      "value": "Fiducial",
+      "description": "Fiducial Marker",
+      "mpn": "N/A"
+    },
+    "FID4": {
+      "pins": {},
+      "value": "Fiducial",
+      "description": "Fiducial Marker",
+      "mpn": "N/A"
+    },
+    "FID5": {
+      "pins": {},
+      "value": "Fiducial",
+      "description": "Fiducial Marker",
+      "mpn": "N/A"
+    },
+    "FID6": {
+      "pins": {},
+      "value": "Fiducial",
+      "description": "Fiducial Marker",
+      "mpn": "N/A"
+    },
+    "H1": {
+      "pins": {
+        "1": "/GND"
+      },
+      "value": "M3",
+      "description": "Mounting Hole with connection",
+      "mpn": "N/A"
+    },
+    "H2": {
+      "pins": {
+        "1": "/GND"
+      },
+      "value": "M3",
+      "description": "Mounting Hole with connection",
+      "mpn": "N/A"
+    },
+    "H3": {
+      "pins": {
+        "1": "/GND"
+      },
+      "value": "M3",
+      "description": "Mounting Hole with connection",
+      "mpn": "N/A"
+    },
+    "H4": {
+      "pins": {
+        "1": "/GND"
+      },
+      "value": "M3",
+      "description": "Mounting Hole with connection",
+      "mpn": "N/A"
+    },
+    "H5": {
+      "pins": {
+        "1": "/GND"
+      },
+      "value": "M2",
+      "description": "Mounting Hole with connection",
+      "mpn": "N/A"
+    },
+    "H6": {
+      "pins": {
+        "1": "/GND"
+      },
+      "value": "M2",
+      "description": "Mounting Hole with connection",
+      "mpn": "N/A"
+    },
+    "H7": {
+      "pins": {
+        "1": "/GND"
+      },
+      "value": "M2",
+      "description": "Mounting Hole with connection",
+      "mpn": "N/A"
+    },
+    "J1": {
+      "pins": {
+        "1": {
+          "name": "Pin_1",
+          "net": "/GND"
+        }
+      },
+      "value": "GND",
+      "description": "Generic screw terminal, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)",
+      "mpn": "AMT0440005TH0000G"
+    },
+    "J2": {
+      "pins": {
+        "1": {
+          "name": "Pin_1",
+          "net": "/ENABLE"
+        },
+        "2": {
+          "name": "Pin_2",
+          "net": "/INPUT.AL"
+        },
+        "3": {
+          "name": "Pin_3",
+          "net": "/INPUT.AH"
+        },
+        "4": {
+          "name": "Pin_4",
+          "net": "/INPUT.BL"
+        },
+        "5": {
+          "name": "Pin_5",
+          "net": "/INPUT.BH"
+        },
+        "6": {
+          "name": "Pin_6",
+          "net": "/INPUT.CL"
+        },
+        "7": {
+          "name": "Pin_7",
+          "net": "/INPUT.CH"
+        },
+        "8": {
+          "name": "Pin_8",
+          "net": "/GND"
+        },
+        "MP": {
+          "name": "MountPin",
+          "net": "/GND"
+        }
+      },
+      "value": "Digital",
+      "description": "Generic connectable mounting pin connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)",
+      "mpn": "SM08B-SRSS-TB(LF)(SN)"
+    },
+    "J3": {
+      "pins": {
+        "1": {
+          "name": "Pin_1",
+          "net": "/V_{ANA}"
+        },
+        "2": {
+          "name": "Pin_2",
+          "net": "/V_SENSE"
+        },
+        "3": {
+          "name": "Pin_3",
+          "net": "/I_SENSE.A"
+        },
+        "4": {
+          "name": "Pin_4",
+          "net": "/I_SENSE.B"
+        },
+        "5": {
+          "name": "Pin_5",
+          "net": "/I_SENSE.C"
+        },
+        "6": {
+          "name": "Pin_6",
+          "net": "/DRV_TEMP_SENSE"
+        },
+        "7": {
+          "name": "Pin_7",
+          "net": "/GND"
+        },
+        "8": {
+          "name": "Pin_8",
+          "net": "/V_SENSE.A"
+        },
+        "9": {
+          "name": "Pin_9",
+          "net": "/V_SENSE.B"
+        },
+        "10": {
+          "name": "Pin_10",
+          "net": "/V_SENSE.C"
+        },
+        "11": {
+          "name": "Pin_11",
+          "net": "unconnected-(J3-Pin_11-Pad11)"
+        },
+        "12": {
+          "name": "Pin_12",
+          "net": "/GND"
+        },
+        "MP": {
+          "name": "MountPin",
+          "net": "/GND"
+        }
+      },
+      "value": "Analog",
+      "description": "Generic connectable mounting pin connector, single row, 01x12, script generated (kicad-library-utils/schlib/autogen/connector/)",
+      "mpn": "SM12B-SRSS-TB(LF)(SN)"
+    },
+    "J5": {
+      "pins": {
+        "1": {
+          "name": "Pin_1",
+          "net": "/A"
+        }
+      },
+      "value": "A",
+      "description": "Generic screw terminal, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)",
+      "mpn": "AMT0440005TH0000G"
+    },
+    "J6": {
+      "pins": {
+        "1": {
+          "name": "Pin_1",
+          "net": "/B"
+        }
+      },
+      "value": "B",
+      "description": "Generic screw terminal, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)",
+      "mpn": "AMT0440005TH0000G"
+    },
+    "J7": {
+      "pins": {
+        "1": {
+          "name": "Pin_1",
+          "net": "/C"
+        }
+      },
+      "value": "C",
+      "description": "Generic screw terminal, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)",
+      "mpn": "AMT0440005TH0000G"
+    },
+    "J8": {
+      "pins": {
+        "1": {
+          "name": "Pin_1",
+          "net": "/V_{MOTOR}"
+        }
+      },
+      "value": "V_{MOTOR}",
+      "description": "Generic screw terminal, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)",
+      "mpn": "AMT0440005TH0000G"
+    },
+    "R31": {
+      "pins": {
+        "1": "/V_SENSE",
+        "2": "/GND"
+      },
+      "value": "10k",
+      "description": "Resistor, US symbol",
+      "mpn": "SCR0603J10K"
+    },
+    "R32": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/V_SENSE"
+      },
+      "value": "240k",
+      "description": "Resistor, US symbol",
+      "mpn": "RTT03304JTP"
+    },
+    "R34": {
+      "pins": {
+        "1": "/V_{ANA}",
+        "2": "/DRV_TEMP_SENSE"
+      },
+      "value": "10k",
+      "description": "Resistor, US symbol",
+      "mpn": "SCR0603J10K"
+    },
+    "SYM1": {
+      "pins": {},
+      "value": "Logo_Open_Hardware_Large",
+      "description": "Open Hardware logo, large",
+      "mpn": "N/A"
+    },
+    "TH1": {
+      "pins": {
+        "1": "/DRV_TEMP_SENSE",
+        "2": "/GND"
+      },
+      "value": "10k NTC",
+      "description": "Temperature dependent resistor, negative temperature coefficient, US symbol",
+      "mpn": "KNTC0603/10KJ3950"
+    },
+    "C2": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C3": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C6": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C7": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C8": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C9": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C12": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C15": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C18": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C19": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C21": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C23": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C24": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C26": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C27": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C78": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C79": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C80": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C81": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C82": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C86": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C87": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C88": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C89": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C91": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C93": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C94": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C98": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C99": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C100": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C101": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C102": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C103": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C104": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C105": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C106": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C107": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C108": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C67": {
+      "pins": {
+        "1": "Net-(U5-+)",
+        "2": "/GND"
+      },
+      "value": "10nF",
+      "description": "Unpolarized capacitor, small symbol",
+      "mpn": "CSA0603X7R103K500JT"
+    },
+    "C68": {
+      "pins": {
+        "1": "Net-(U6-+)",
+        "2": "/GND"
+      },
+      "value": "10nF",
+      "description": "Unpolarized capacitor, small symbol",
+      "mpn": "CSA0603X7R103K500JT"
+    },
+    "C69": {
+      "pins": {
+        "1": "Net-(U7-+)",
+        "2": "/GND"
+      },
+      "value": "10nF",
+      "description": "Unpolarized capacitor, small symbol",
+      "mpn": "CSA0603X7R103K500JT"
+    },
+    "C95": {
+      "pins": {
+        "1": "/V_{ANA}",
+        "2": "/GND"
+      },
+      "value": "10nF",
+      "description": "Unpolarized capacitor, small symbol",
+      "mpn": "CSA0603X7R103K500JT"
+    },
+    "C96": {
+      "pins": {
+        "1": "/V_{ANA}",
+        "2": "/GND"
+      },
+      "value": "10nF",
+      "description": "Unpolarized capacitor, small symbol",
+      "mpn": "CSA0603X7R103K500JT"
+    },
+    "C97": {
+      "pins": {
+        "1": "/V_{ANA}",
+        "2": "/GND"
+      },
+      "value": "10nF",
+      "description": "Unpolarized capacitor, small symbol",
+      "mpn": "CSA0603X7R103K500JT"
+    },
+    "R16": {
+      "pins": {
+        "1": "/A",
+        "2": "Net-(U5-+)"
+      },
+      "value": "240k",
+      "description": "Resistor, US symbol",
+      "mpn": "RTT03304JTP"
+    },
+    "R17": {
+      "pins": {
+        "1": "Net-(U5-+)",
+        "2": "/GND"
+      },
+      "value": "10k",
+      "description": "Resistor, US symbol",
+      "mpn": "SCR0603J10K"
+    },
+    "R18": {
+      "pins": {
+        "1": "/B",
+        "2": "Net-(U6-+)"
+      },
+      "value": "240k",
+      "description": "Resistor, US symbol",
+      "mpn": "RTT03304JTP"
+    },
+    "R19": {
+      "pins": {
+        "1": "Net-(U6-+)",
+        "2": "/GND"
+      },
+      "value": "10k",
+      "description": "Resistor, US symbol",
+      "mpn": "SCR0603J10K"
+    },
+    "R20": {
+      "pins": {
+        "1": "/C",
+        "2": "Net-(U7-+)"
+      },
+      "value": "240k",
+      "description": "Resistor, US symbol",
+      "mpn": "RTT03304JTP"
+    },
+    "R21": {
+      "pins": {
+        "1": "Net-(U7-+)",
+        "2": "/GND"
+      },
+      "value": "10k",
+      "description": "Resistor, US symbol",
+      "mpn": "SCR0603J10K"
+    },
+    "U5": {
+      "pins": {
+        "1": {
+          "name": "+",
+          "net": "Net-(U5-+)"
+        },
+        "2": {
+          "name": "V-",
+          "net": "/GND"
+        },
+        "3": {
+          "name": "-",
+          "net": "/V_SENSE.A"
+        },
+        "4": "/V_SENSE.A",
+        "5": {
+          "name": "V+",
+          "net": "/V_{ANA}"
+        }
+      },
+      "value": "OPA310xDCK",
+      "description": "High output current, Rail-to-Rail Input/Output, 3MHz GBW, Operational Amplifiers, integrated RFI/EMI filter, 1.5V to 5.5V supply, SC-70-5"
+    },
+    "U6": {
+      "pins": {
+        "1": {
+          "name": "+",
+          "net": "Net-(U6-+)"
+        },
+        "2": {
+          "name": "V-",
+          "net": "/GND"
+        },
+        "3": {
+          "name": "-",
+          "net": "/V_SENSE.B"
+        },
+        "4": "/V_SENSE.B",
+        "5": {
+          "name": "V+",
+          "net": "/V_{ANA}"
+        }
+      },
+      "value": "OPA310xDCK",
+      "description": "High output current, Rail-to-Rail Input/Output, 3MHz GBW, Operational Amplifiers, integrated RFI/EMI filter, 1.5V to 5.5V supply, SC-70-5"
+    },
+    "U7": {
+      "pins": {
+        "1": {
+          "name": "+",
+          "net": "Net-(U7-+)"
+        },
+        "2": {
+          "name": "V-",
+          "net": "/GND"
+        },
+        "3": {
+          "name": "-",
+          "net": "/V_SENSE.C"
+        },
+        "4": "/V_SENSE.C",
+        "5": {
+          "name": "V+",
+          "net": "/V_{ANA}"
+        }
+      },
+      "value": "OPA310xDCK",
+      "description": "High output current, Rail-to-Rail Input/Output, 3MHz GBW, Operational Amplifiers, integrated RFI/EMI filter, 1.5V to 5.5V supply, SC-70-5"
+    },
+    "C1": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "FS32X475K101EGG"
+    },
+    "C11": {
+      "pins": {
+        "1": "/V_{DRV}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C62": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C64": {
+      "pins": {
+        "1": "/V_{DRV}",
+        "2": "/GND"
+      },
+      "value": "4.7uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "V475M0603X5R6R3NDT"
+    },
+    "C65": {
+      "pins": {
+        "1": "/V_{DRV}",
+        "2": "/GND"
+      },
+      "value": "4.7uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "V475M0603X5R6R3NDT"
+    },
+    "C76": {
+      "pins": {
+        "1": "Net-(U4-BST)",
+        "2": "/Predriver Voltage Supply/SW"
+      },
+      "value": "2.2nF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C90": {
+      "pins": {
+        "1": "/V_{DRV}",
+        "2": "/GND"
+      },
+      "value": "4.7uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "V475M0603X5R6R3NDT"
+    },
+    "C92": {
+      "pins": {
+        "1": "/V_{DRV}",
+        "2": "/Predriver Voltage Supply/FB"
+      },
+      "value": "20pF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "D18": {
+      "pins": {
+        "1": {
+          "name": "K",
+          "net": "/V_{DRV}"
+        },
+        "2": {
+          "name": "A",
+          "net": "/GND"
+        }
+      },
+      "value": "6V",
+      "description": "Zener diode, filled shape",
+      "mpn": "MMSZ5233BS-7-F"
+    },
+    "D19": {
+      "pins": {
+        "1": {
+          "name": "K",
+          "net": "/V_{MOTOR}"
+        },
+        "2": {
+          "name": "A",
+          "net": "/GND"
+        }
+      },
+      "value": "100V",
+      "description": "Zener diode, filled shape",
+      "mpn": "SZ4582"
+    },
+    "L1": {
+      "pins": {
+        "1": "/Predriver Voltage Supply/SW",
+        "2": "/V_{DRV}"
+      },
+      "value": "68uH",
+      "description": "Inductor",
+      "mpn": "HPC 3012BMV-220M"
+    },
+    "R5": {
+      "pins": {
+        "1": "/V_{DRV}",
+        "2": "/Predriver Voltage Supply/FB"
+      },
+      "value": "240k",
+      "description": "Resistor, small US symbol"
+    },
+    "R10": {
+      "pins": {
+        "1": "/Predriver Voltage Supply/FB",
+        "2": "/GND"
+      },
+      "value": "72k",
+      "description": "Resistor, small US symbol"
+    },
+    "R15": {
+      "pins": {
+        "1": "Net-(U4-RON)",
+        "2": "/GND"
+      },
+      "value": "27k",
+      "description": "Resistor, small US symbol"
+    },
+    "U4": {
+      "pins": {
+        "1": {
+          "name": "GND",
+          "net": "/GND"
+        },
+        "2": {
+          "name": "VIN",
+          "net": "/V_{MOTOR}"
+        },
+        "3": {
+          "name": "EN/UVLO",
+          "net": "/ENABLE"
+        },
+        "4": {
+          "name": "RON",
+          "net": "Net-(U4-RON)"
+        },
+        "5": {
+          "name": "FB",
+          "net": "/Predriver Voltage Supply/FB"
+        },
+        "6": {
+          "name": "PGOOD",
+          "net": "unconnected-(U4-PGOOD-Pad6)"
+        },
+        "7": {
+          "name": "BST",
+          "net": "Net-(U4-BST)"
+        },
+        "8": {
+          "name": "SW",
+          "net": "/Predriver Voltage Supply/SW"
+        },
+        "9": {
+          "name": "EP",
+          "net": "/GND"
+        }
+      },
+      "value": "LM5164DDA",
+      "description": "1A synchronous buck converter with ultra-low IQ, 6V - 100V input, adjustable output voltage, HSOP-8"
+    },
+    "C4": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C5": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C14": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C20": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C22": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C28": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor"
+    },
+    "C30": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C32": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor"
+    },
+    "C46": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C48": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C56": {
+      "pins": {
+        "1": "Net-(C56-Pad1)",
+        "2": "/SW.A"
+      },
+      "value": "C",
+      "description": "Unpolarized capacitor",
+      "mpn": "N/A",
+      "dns": true
+    },
+    "C73": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C83": {
+      "pins": {
+        "1": "Net-(C83-Pad1)",
+        "2": "/GND"
+      },
+      "value": "C",
+      "description": "Unpolarized capacitor",
+      "mpn": "N/A",
+      "dns": true
+    },
+    "C109": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C112": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C115": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C118": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C121": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "D27": {
+      "pins": {
+        "1": {
+          "name": "K",
+          "net": "/AH"
+        },
+        "2": {
+          "name": "A",
+          "net": "/SW.A"
+        }
+      },
+      "value": "6V",
+      "description": "Zener diode, small symbol, filled shape",
+      "mpn": "MMSZ5233BS-7-F"
+    },
+    "D30": {
+      "pins": {
+        "1": {
+          "name": "K",
+          "net": "/AL"
+        },
+        "2": {
+          "name": "A",
+          "net": "/GND"
+        }
+      },
+      "value": "6V",
+      "description": "Zener diode, small symbol, filled shape",
+      "mpn": "MMSZ5233BS-7-F"
+    },
+    "Q1": {
+      "pins": {
+        "1": {
+          "name": "G",
+          "net": "/AL"
+        },
+        "2": {
+          "name": "S",
+          "net": "/GND"
+        },
+        "3": {
+          "name": "D",
+          "net": "/SW.A"
+        },
+        "4": {
+          "name": "S",
+          "net": "/GND"
+        },
+        "5": {
+          "name": "D",
+          "net": "/SW.A"
+        },
+        "6": {
+          "name": "S",
+          "net": "/GND"
+        },
+        "7": {
+          "name": "D",
+          "net": "/SW.A"
+        }
+      },
+      "value": "EPC2361",
+      "description": "100V 101A 1.0mE",
+      "mpn": "EPC2302"
+    },
+    "Q4": {
+      "pins": {
+        "1": {
+          "name": "G",
+          "net": "/AH"
+        },
+        "2": {
+          "name": "S",
+          "net": "/SW.A"
+        },
+        "3": {
+          "name": "D",
+          "net": "/V_{MOTOR}"
+        },
+        "4": {
+          "name": "S",
+          "net": "/SW.A"
+        },
+        "5": {
+          "name": "D",
+          "net": "/V_{MOTOR}"
+        },
+        "6": {
+          "name": "S",
+          "net": "/SW.A"
+        },
+        "7": {
+          "name": "D",
+          "net": "/V_{MOTOR}"
+        }
+      },
+      "value": "EPC2361",
+      "description": "100V 101A 1.0mE",
+      "mpn": "EPC2361"
+    },
+    "R38": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "Net-(C56-Pad1)"
+      },
+      "value": "R",
+      "description": "Resistor, US symbol",
+      "mpn": "N/A",
+      "dns": true
+    },
+    "R41": {
+      "pins": {
+        "1": "/SW.A",
+        "2": "Net-(C83-Pad1)"
+      },
+      "value": "R",
+      "description": "Resistor, US symbol",
+      "mpn": "N/A",
+      "dns": true
+    },
+    "C10": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C16": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C25": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C29": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor"
+    },
+    "C33": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C34": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor"
+    },
+    "C50": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C51": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C53": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C61": {
+      "pins": {
+        "1": "Net-(C61-Pad1)",
+        "2": "/SW.B"
+      },
+      "value": "C",
+      "description": "Unpolarized capacitor",
+      "mpn": "N/A",
+      "dns": true
+    },
+    "C70": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C74": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C84": {
+      "pins": {
+        "1": "Net-(C84-Pad1)",
+        "2": "/GND"
+      },
+      "value": "C",
+      "description": "Unpolarized capacitor",
+      "mpn": "N/A",
+      "dns": true
+    },
+    "C110": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C113": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C116": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C119": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C122": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "D28": {
+      "pins": {
+        "1": {
+          "name": "K",
+          "net": "/BH"
+        },
+        "2": {
+          "name": "A",
+          "net": "/SW.B"
+        }
+      },
+      "value": "6V",
+      "description": "Zener diode, small symbol, filled shape",
+      "mpn": "MMSZ5233BS-7-F"
+    },
+    "D31": {
+      "pins": {
+        "1": {
+          "name": "K",
+          "net": "/BL"
+        },
+        "2": {
+          "name": "A",
+          "net": "/GND"
+        }
+      },
+      "value": "6V",
+      "description": "Zener diode, small symbol, filled shape",
+      "mpn": "MMSZ5233BS-7-F"
+    },
+    "Q2": {
+      "pins": {
+        "1": {
+          "name": "G",
+          "net": "/BL"
+        },
+        "2": {
+          "name": "S",
+          "net": "/GND"
+        },
+        "3": {
+          "name": "D",
+          "net": "/SW.B"
+        },
+        "4": {
+          "name": "S",
+          "net": "/GND"
+        },
+        "5": {
+          "name": "D",
+          "net": "/SW.B"
+        },
+        "6": {
+          "name": "S",
+          "net": "/GND"
+        },
+        "7": {
+          "name": "D",
+          "net": "/SW.B"
+        }
+      },
+      "value": "EPC2361",
+      "description": "100V 101A 1.0mE",
+      "mpn": "EPC2302"
+    },
+    "Q5": {
+      "pins": {
+        "1": {
+          "name": "G",
+          "net": "/BH"
+        },
+        "2": {
+          "name": "S",
+          "net": "/SW.B"
+        },
+        "3": {
+          "name": "D",
+          "net": "/V_{MOTOR}"
+        },
+        "4": {
+          "name": "S",
+          "net": "/SW.B"
+        },
+        "5": {
+          "name": "D",
+          "net": "/V_{MOTOR}"
+        },
+        "6": {
+          "name": "S",
+          "net": "/SW.B"
+        },
+        "7": {
+          "name": "D",
+          "net": "/V_{MOTOR}"
+        }
+      },
+      "value": "EPC2361",
+      "description": "100V 101A 1.0mE",
+      "mpn": "EPC2361"
+    },
+    "R39": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "Net-(C61-Pad1)"
+      },
+      "value": "R",
+      "description": "Resistor, US symbol",
+      "mpn": "N/A",
+      "dns": true
+    },
+    "R42": {
+      "pins": {
+        "1": "/SW.B",
+        "2": "Net-(C84-Pad1)"
+      },
+      "value": "R",
+      "description": "Resistor, US symbol",
+      "mpn": "N/A",
+      "dns": true
+    },
+    "C13": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C17": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C31": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor"
+    },
+    "C35": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "10uF",
+      "description": "Unpolarized capacitor"
+    },
+    "C36": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C55": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C58": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C60": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C66": {
+      "pins": {
+        "1": "Net-(C66-Pad1)",
+        "2": "/SW.C"
+      },
+      "value": "C",
+      "description": "Unpolarized capacitor",
+      "mpn": "N/A",
+      "dns": true
+    },
+    "C71": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C72": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C75": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C85": {
+      "pins": {
+        "1": "Net-(C85-Pad1)",
+        "2": "/GND"
+      },
+      "value": "C",
+      "description": "Unpolarized capacitor",
+      "mpn": "N/A",
+      "dns": true
+    },
+    "C111": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C114": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C117": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C120": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "C123": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K101JT"
+    },
+    "D29": {
+      "pins": {
+        "1": {
+          "name": "K",
+          "net": "/CH"
+        },
+        "2": {
+          "name": "A",
+          "net": "/SW.C"
+        }
+      },
+      "value": "6V",
+      "description": "Zener diode, small symbol, filled shape",
+      "mpn": "MMSZ5233BS-7-F"
+    },
+    "D32": {
+      "pins": {
+        "1": {
+          "name": "K",
+          "net": "/CL"
+        },
+        "2": {
+          "name": "A",
+          "net": "/GND"
+        }
+      },
+      "value": "6V",
+      "description": "Zener diode, small symbol, filled shape",
+      "mpn": "MMSZ5233BS-7-F"
+    },
+    "Q3": {
+      "pins": {
+        "1": {
+          "name": "G",
+          "net": "/CL"
+        },
+        "2": {
+          "name": "S",
+          "net": "/GND"
+        },
+        "3": {
+          "name": "D",
+          "net": "/SW.C"
+        },
+        "4": {
+          "name": "S",
+          "net": "/GND"
+        },
+        "5": {
+          "name": "D",
+          "net": "/SW.C"
+        },
+        "6": {
+          "name": "S",
+          "net": "/GND"
+        },
+        "7": {
+          "name": "D",
+          "net": "/SW.C"
+        }
+      },
+      "value": "EPC2361",
+      "description": "100V 101A 1.0mE",
+      "mpn": "EPC2302"
+    },
+    "Q6": {
+      "pins": {
+        "1": {
+          "name": "G",
+          "net": "/CH"
+        },
+        "2": {
+          "name": "S",
+          "net": "/SW.C"
+        },
+        "3": {
+          "name": "D",
+          "net": "/V_{MOTOR}"
+        },
+        "4": {
+          "name": "S",
+          "net": "/SW.C"
+        },
+        "5": {
+          "name": "D",
+          "net": "/V_{MOTOR}"
+        },
+        "6": {
+          "name": "S",
+          "net": "/SW.C"
+        },
+        "7": {
+          "name": "D",
+          "net": "/V_{MOTOR}"
+        }
+      },
+      "value": "EPC2361",
+      "description": "100V 101A 1.0mE",
+      "mpn": "EPC2361"
+    },
+    "R40": {
+      "pins": {
+        "1": "/V_{MOTOR}",
+        "2": "Net-(C66-Pad1)"
+      },
+      "value": "R",
+      "description": "Resistor, US symbol",
+      "mpn": "N/A",
+      "dns": true
+    },
+    "R43": {
+      "pins": {
+        "1": "/SW.C",
+        "2": "Net-(C85-Pad1)"
+      },
+      "value": "R",
+      "description": "Resistor, US symbol",
+      "mpn": "N/A",
+      "dns": true
+    },
+    "C37": {
+      "pins": {
+        "1": "/V_{DRV}",
+        "2": "/GND"
+      },
+      "value": "4.7uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "V475M0603X5R6R3NDT"
+    },
+    "C38": {
+      "pins": {
+        "1": "/V_{DRV}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K500JT"
+    },
+    "C39": {
+      "pins": {
+        "1": "/Predrivers/Gate Driver A/BOOT",
+        "2": "/SW.A"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K500JT"
+    },
+    "D12": {
+      "pins": {
+        "1": {
+          "name": "A1",
+          "net": "/GND"
+        },
+        "2": {
+          "name": "A2",
+          "net": "/INPUT.AH"
+        }
+      },
+      "value": "5V",
+      "description": "Bidirectional transient-voltage-suppression diode, small symbol",
+      "mpn": "0603ESDA-05N"
+    },
+    "D15": {
+      "pins": {
+        "1": {
+          "name": "A1",
+          "net": "/GND"
+        },
+        "2": {
+          "name": "A2",
+          "net": "/INPUT.AL"
+        }
+      },
+      "value": "5V",
+      "description": "Bidirectional transient-voltage-suppression diode, small symbol",
+      "mpn": "0603ESDA-05N"
+    },
+    "R1": {
+      "pins": {
+        "1": "/Predrivers/Gate Driver A/LGH",
+        "2": "/AL"
+      },
+      "value": "1",
+      "description": "Resistor, US symbol",
+      "mpn": "FRC0603J1R0 TS"
+    },
+    "R2": {
+      "pins": {
+        "1": "/AL",
+        "2": "/Predrivers/Gate Driver A/LGL"
+      },
+      "value": "0",
+      "description": "Resistor, US symbol",
+      "mpn": "SCR0603J0R"
+    },
+    "R3": {
+      "pins": {
+        "1": "/Predrivers/Gate Driver A/UGL",
+        "2": "/AH"
+      },
+      "value": "0",
+      "description": "Resistor, US symbol",
+      "mpn": "SCR0603J0R"
+    },
+    "R4": {
+      "pins": {
+        "1": "/Predrivers/Gate Driver A/UGH",
+        "2": "/AH"
+      },
+      "value": "1",
+      "description": "Resistor, US symbol",
+      "mpn": "FRC0603J1R0 TS"
+    },
+    "U1": {
+      "pins": {
+        "A2": {
+          "name": "GND",
+          "net": "/GND"
+        },
+        "B4": {
+          "name": "HI",
+          "net": "/INPUT.AH"
+        },
+        "A4": {
+          "name": "LI",
+          "net": "/INPUT.AL"
+        },
+        "D3": {
+          "name": "BOOT",
+          "net": "/Predrivers/Gate Driver A/BOOT"
+        },
+        "B1": {
+          "name": "LGH",
+          "net": "/Predrivers/Gate Driver A/LGH"
+        },
+        "A1": {
+          "name": "LGL",
+          "net": "/Predrivers/Gate Driver A/LGL"
+        },
+        "D2": {
+          "name": "UGH",
+          "net": "/Predrivers/Gate Driver A/UGH"
+        },
+        "D1": {
+          "name": "UGL",
+          "net": "/Predrivers/Gate Driver A/UGL"
+        },
+        "C1": {
+          "name": "PHASE",
+          "net": "/SW.A"
+        },
+        "D4": {
+          "name": "PHASE",
+          "net": "/SW.A"
+        },
+        "A3": {
+          "name": "VCC",
+          "net": "/V_{DRV}"
+        },
+        "C4": {
+          "name": "NC",
+          "net": "unconnected-(U1-NC-PadC4)"
+        }
+      },
+      "value": "LM1205",
+      "mpn": "UP1966E"
+    },
+    "C40": {
+      "pins": {
+        "1": "/V_{DRV}",
+        "2": "/GND"
+      },
+      "value": "4.7uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "V475M0603X5R6R3NDT"
+    },
+    "C41": {
+      "pins": {
+        "1": "/V_{DRV}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K500JT"
+    },
+    "C42": {
+      "pins": {
+        "1": "/Predrivers/Gate Driver B/BOOT",
+        "2": "/SW.B"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K500JT"
+    },
+    "D13": {
+      "pins": {
+        "1": {
+          "name": "A1",
+          "net": "/GND"
+        },
+        "2": {
+          "name": "A2",
+          "net": "/INPUT.BH"
+        }
+      },
+      "value": "5V",
+      "description": "Bidirectional transient-voltage-suppression diode, small symbol",
+      "mpn": "0603ESDA-05N"
+    },
+    "D16": {
+      "pins": {
+        "1": {
+          "name": "A1",
+          "net": "/GND"
+        },
+        "2": {
+          "name": "A2",
+          "net": "/INPUT.BL"
+        }
+      },
+      "value": "5V",
+      "description": "Bidirectional transient-voltage-suppression diode, small symbol",
+      "mpn": "0603ESDA-05N"
+    },
+    "R6": {
+      "pins": {
+        "1": "/Predrivers/Gate Driver B/LGH",
+        "2": "/BL"
+      },
+      "value": "1",
+      "description": "Resistor, US symbol",
+      "mpn": "FRC0603J1R0 TS"
+    },
+    "R7": {
+      "pins": {
+        "1": "/BL",
+        "2": "/Predrivers/Gate Driver B/LGL"
+      },
+      "value": "0",
+      "description": "Resistor, US symbol",
+      "mpn": "SCR0603J0R"
+    },
+    "R8": {
+      "pins": {
+        "1": "/Predrivers/Gate Driver B/UGL",
+        "2": "/BH"
+      },
+      "value": "0",
+      "description": "Resistor, US symbol",
+      "mpn": "SCR0603J0R"
+    },
+    "R9": {
+      "pins": {
+        "1": "/Predrivers/Gate Driver B/UGH",
+        "2": "/BH"
+      },
+      "value": "1",
+      "description": "Resistor, US symbol",
+      "mpn": "FRC0603J1R0 TS"
+    },
+    "U2": {
+      "pins": {
+        "A2": {
+          "name": "GND",
+          "net": "/GND"
+        },
+        "B4": {
+          "name": "HI",
+          "net": "/INPUT.BH"
+        },
+        "A4": {
+          "name": "LI",
+          "net": "/INPUT.BL"
+        },
+        "D3": {
+          "name": "BOOT",
+          "net": "/Predrivers/Gate Driver B/BOOT"
+        },
+        "B1": {
+          "name": "LGH",
+          "net": "/Predrivers/Gate Driver B/LGH"
+        },
+        "A1": {
+          "name": "LGL",
+          "net": "/Predrivers/Gate Driver B/LGL"
+        },
+        "D2": {
+          "name": "UGH",
+          "net": "/Predrivers/Gate Driver B/UGH"
+        },
+        "D1": {
+          "name": "UGL",
+          "net": "/Predrivers/Gate Driver B/UGL"
+        },
+        "C1": {
+          "name": "PHASE",
+          "net": "/SW.B"
+        },
+        "D4": {
+          "name": "PHASE",
+          "net": "/SW.B"
+        },
+        "A3": {
+          "name": "VCC",
+          "net": "/V_{DRV}"
+        },
+        "C4": {
+          "name": "NC",
+          "net": "unconnected-(U2-NC-PadC4)"
+        }
+      },
+      "value": "LM1205",
+      "mpn": "UP1966E"
+    },
+    "C43": {
+      "pins": {
+        "1": "/V_{DRV}",
+        "2": "/GND"
+      },
+      "value": "4.7uF",
+      "description": "Unpolarized capacitor",
+      "mpn": "V475M0603X5R6R3NDT"
+    },
+    "C44": {
+      "pins": {
+        "1": "/V_{DRV}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K500JT"
+    },
+    "C45": {
+      "pins": {
+        "1": "/Predrivers/Gate Driver C/BOOT",
+        "2": "/SW.C"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor",
+      "mpn": "CGA0603X7R104K500JT"
+    },
+    "D14": {
+      "pins": {
+        "1": {
+          "name": "A1",
+          "net": "/GND"
+        },
+        "2": {
+          "name": "A2",
+          "net": "/INPUT.CH"
+        }
+      },
+      "value": "5V",
+      "description": "Bidirectional transient-voltage-suppression diode, small symbol",
+      "mpn": "0603ESDA-05N"
+    },
+    "D17": {
+      "pins": {
+        "1": {
+          "name": "A1",
+          "net": "/GND"
+        },
+        "2": {
+          "name": "A2",
+          "net": "/INPUT.CL"
+        }
+      },
+      "value": "5V",
+      "description": "Bidirectional transient-voltage-suppression diode, small symbol",
+      "mpn": "0603ESDA-05N"
+    },
+    "R11": {
+      "pins": {
+        "1": "/Predrivers/Gate Driver C/LGH",
+        "2": "/CL"
+      },
+      "value": "1",
+      "description": "Resistor, US symbol",
+      "mpn": "FRC0603J1R0 TS"
+    },
+    "R12": {
+      "pins": {
+        "1": "/CL",
+        "2": "/Predrivers/Gate Driver C/LGL"
+      },
+      "value": "0",
+      "description": "Resistor, US symbol",
+      "mpn": "SCR0603J0R"
+    },
+    "R13": {
+      "pins": {
+        "1": "/Predrivers/Gate Driver C/UGL",
+        "2": "/CH"
+      },
+      "value": "0",
+      "description": "Resistor, US symbol",
+      "mpn": "SCR0603J0R"
+    },
+    "R14": {
+      "pins": {
+        "1": "/Predrivers/Gate Driver C/UGH",
+        "2": "/CH"
+      },
+      "value": "1",
+      "description": "Resistor, US symbol",
+      "mpn": "FRC0603J1R0 TS"
+    },
+    "U3": {
+      "pins": {
+        "A2": {
+          "name": "GND",
+          "net": "/GND"
+        },
+        "B4": {
+          "name": "HI",
+          "net": "/INPUT.CH"
+        },
+        "A4": {
+          "name": "LI",
+          "net": "/INPUT.CL"
+        },
+        "D3": {
+          "name": "BOOT",
+          "net": "/Predrivers/Gate Driver C/BOOT"
+        },
+        "B1": {
+          "name": "LGH",
+          "net": "/Predrivers/Gate Driver C/LGH"
+        },
+        "A1": {
+          "name": "LGL",
+          "net": "/Predrivers/Gate Driver C/LGL"
+        },
+        "D2": {
+          "name": "UGH",
+          "net": "/Predrivers/Gate Driver C/UGH"
+        },
+        "D1": {
+          "name": "UGL",
+          "net": "/Predrivers/Gate Driver C/UGL"
+        },
+        "C1": {
+          "name": "PHASE",
+          "net": "/SW.C"
+        },
+        "D4": {
+          "name": "PHASE",
+          "net": "/SW.C"
+        },
+        "A3": {
+          "name": "VCC",
+          "net": "/V_{DRV}"
+        },
+        "C4": {
+          "name": "NC",
+          "net": "unconnected-(U3-NC-PadC4)"
+        }
+      },
+      "value": "LM1205",
+      "mpn": "UP1966E"
+    },
+    "C47": {
+      "pins": {
+        "1": "/V_{ANA}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor, small symbol",
+      "mpn": "CGA0603X7R104K500JT"
+    },
+    "C49": {
+      "pins": {
+        "1": "/Phase Current Sensors/Current Sense A/V+",
+        "2": "/Phase Current Sensors/Current Sense A/V-"
+      },
+      "value": "10nF",
+      "description": "Unpolarized capacitor, small symbol",
+      "mpn": "CSA0603X7R103K500JT"
+    },
+    "D7": {
+      "pins": {
+        "1": {
+          "name": "K",
+          "net": "/A"
+        },
+        "2": {
+          "name": "A",
+          "net": "/GND"
+        }
+      },
+      "value": "100V",
+      "description": "Zener diode, small symbol, filled shape"
+    },
+    "R22": {
+      "pins": {
+        "1": "/SW.A",
+        "2": "/Phase Current Sensors/Current Sense A/V+"
+      },
+      "value": "10",
+      "description": "Resistor, small US symbol",
+      "mpn": "RTT0310R0FTP"
+    },
+    "R23": {
+      "pins": {
+        "1": "/SW.A",
+        "2": "/A"
+      },
+      "value": ".5m",
+      "description": "Resistor, US symbol",
+      "mpn": "ASR-M-3-0.5F"
+    },
+    "R24": {
+      "pins": {
+        "1": "/A",
+        "2": "/Phase Current Sensors/Current Sense A/V-"
+      },
+      "value": "10",
+      "description": "Resistor, small US symbol",
+      "mpn": "RTT0310R0FTP"
+    },
+    "U8": {
+      "pins": {
+        "1": {
+          "name": "-",
+          "net": "/Phase Current Sensors/Current Sense A/V-"
+        },
+        "2": {
+          "name": "GND",
+          "net": "/GND"
+        },
+        "3": {
+          "name": "REF2",
+          "net": "/GND"
+        },
+        "4": {
+          "name": "GND",
+          "net": "/GND"
+        },
+        "5": "/I_SENSE.A",
+        "6": {
+          "name": "V+",
+          "net": "/V_{ANA}"
+        },
+        "7": {
+          "name": "REF1",
+          "net": "/V_{ANA}"
+        },
+        "8": {
+          "name": "+",
+          "net": "/Phase Current Sensors/Current Sense A/V+"
+        }
+      },
+      "value": "INA241A2",
+      "description": "High- and Low-Side, Bidirectional, Zero-Drift, Current-Sense Amplifier With Enhanced PWM Rejection, 20V/V, ±0.01% Gain Accuracy, ±10 μV Offset Voltage, SOIC-8",
+      "mpn": "INA241A2DDFR"
+    },
+    "C52": {
+      "pins": {
+        "1": "/V_{ANA}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor, small symbol",
+      "mpn": "CGA0603X7R104K500JT"
+    },
+    "C54": {
+      "pins": {
+        "1": "/Phase Current Sensors/Current Sense B/V+",
+        "2": "/Phase Current Sensors/Current Sense B/V-"
+      },
+      "value": "10nF",
+      "description": "Unpolarized capacitor, small symbol",
+      "mpn": "CSA0603X7R103K500JT"
+    },
+    "D8": {
+      "pins": {
+        "1": {
+          "name": "K",
+          "net": "/B"
+        },
+        "2": {
+          "name": "A",
+          "net": "/GND"
+        }
+      },
+      "value": "100V",
+      "description": "Zener diode, small symbol, filled shape"
+    },
+    "R25": {
+      "pins": {
+        "1": "/SW.B",
+        "2": "/Phase Current Sensors/Current Sense B/V+"
+      },
+      "value": "10",
+      "description": "Resistor, small US symbol",
+      "mpn": "RTT0310R0FTP"
+    },
+    "R26": {
+      "pins": {
+        "1": "/SW.B",
+        "2": "/B"
+      },
+      "value": ".5m",
+      "description": "Resistor, US symbol",
+      "mpn": "ASR-M-3-0.5F"
+    },
+    "R27": {
+      "pins": {
+        "1": "/B",
+        "2": "/Phase Current Sensors/Current Sense B/V-"
+      },
+      "value": "10",
+      "description": "Resistor, small US symbol",
+      "mpn": "RTT0310R0FTP"
+    },
+    "U9": {
+      "pins": {
+        "1": {
+          "name": "-",
+          "net": "/Phase Current Sensors/Current Sense B/V-"
+        },
+        "2": {
+          "name": "GND",
+          "net": "/GND"
+        },
+        "3": {
+          "name": "REF2",
+          "net": "/GND"
+        },
+        "4": {
+          "name": "GND",
+          "net": "/GND"
+        },
+        "5": "/I_SENSE.B",
+        "6": {
+          "name": "V+",
+          "net": "/V_{ANA}"
+        },
+        "7": {
+          "name": "REF1",
+          "net": "/V_{ANA}"
+        },
+        "8": {
+          "name": "+",
+          "net": "/Phase Current Sensors/Current Sense B/V+"
+        }
+      },
+      "value": "INA241A2",
+      "description": "High- and Low-Side, Bidirectional, Zero-Drift, Current-Sense Amplifier With Enhanced PWM Rejection, 20V/V, ±0.01% Gain Accuracy, ±10 μV Offset Voltage, SOIC-8",
+      "mpn": "INA241A2DDFR"
+    },
+    "C57": {
+      "pins": {
+        "1": "/V_{ANA}",
+        "2": "/GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor, small symbol",
+      "mpn": "CGA0603X7R104K500JT"
+    },
+    "C59": {
+      "pins": {
+        "1": "/Phase Current Sensors/Current Sense C/V+",
+        "2": "/Phase Current Sensors/Current Sense C/V-"
+      },
+      "value": "10nF",
+      "description": "Unpolarized capacitor, small symbol",
+      "mpn": "CSA0603X7R103K500JT"
+    },
+    "D9": {
+      "pins": {
+        "1": {
+          "name": "K",
+          "net": "/C"
+        },
+        "2": {
+          "name": "A",
+          "net": "/GND"
+        }
+      },
+      "value": "100V",
+      "description": "Zener diode, small symbol, filled shape"
+    },
+    "R28": {
+      "pins": {
+        "1": "/SW.C",
+        "2": "/Phase Current Sensors/Current Sense C/V+"
+      },
+      "value": "10",
+      "description": "Resistor, small US symbol",
+      "mpn": "RTT0310R0FTP"
+    },
+    "R29": {
+      "pins": {
+        "1": "/SW.C",
+        "2": "/C"
+      },
+      "value": ".5m",
+      "description": "Resistor, US symbol",
+      "mpn": "ASR-M-3-0.5F"
+    },
+    "R30": {
+      "pins": {
+        "1": "/C",
+        "2": "/Phase Current Sensors/Current Sense C/V-"
+      },
+      "value": "10",
+      "description": "Resistor, small US symbol",
+      "mpn": "RTT0310R0FTP"
+    },
+    "U10": {
+      "pins": {
+        "1": {
+          "name": "-",
+          "net": "/Phase Current Sensors/Current Sense C/V-"
+        },
+        "2": {
+          "name": "GND",
+          "net": "/GND"
+        },
+        "3": {
+          "name": "REF2",
+          "net": "/GND"
+        },
+        "4": {
+          "name": "GND",
+          "net": "/GND"
+        },
+        "5": "/I_SENSE.C",
+        "6": {
+          "name": "V+",
+          "net": "/V_{ANA}"
+        },
+        "7": {
+          "name": "REF1",
+          "net": "/V_{ANA}"
+        },
+        "8": {
+          "name": "+",
+          "net": "/Phase Current Sensors/Current Sense C/V+"
+        }
+      },
+      "value": "INA241A2",
+      "description": "High- and Low-Side, Bidirectional, Zero-Drift, Current-Sense Amplifier With Enhanced PWM Rejection, 20V/V, ±0.01% Gain Accuracy, ±10 μV Offset Voltage, SOIC-8",
+      "mpn": "INA241A2DDFR"
+    }
+  }
+}

@@ -172,6 +172,11 @@ describe("getDesignName", () => {
     expect(getDesignName("/projects/CutiePi_V2.3-20210409.DSN")).toBe("CutiePi_V2.3-20210409");
   });
 
+  it("strips the complete Universal Netlist suffix", () => {
+    expect(getDesignName("/projects/power-board.netlist.json")).toBe("power-board");
+    expect(getDesignName("/projects/power-board.NETLIST.JSON")).toBe("power-board");
+  });
+
   // A design that is only a netlist is addressed by a file every such design
   // names identically, so stripping the extension gave all of them the name
   // "pstxnet" and two of them side by side were indistinguishable in a result.

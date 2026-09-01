@@ -1,9 +1,10 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
-import { mkdtemp, readFile, rm } from "node:fs/promises";
+import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { handleExportJsonCommand } from "./commands.js";
 import { parseUniversalNetlist } from "../parsers/universal/reader.js";
+import { hasFixtures } from "../../test/utils.js";
 
 const TEST_DIR = path.dirname(new URL(import.meta.url).pathname);
 const DEMO = path.resolve(TEST_DIR, "../../test/universal/demo-board.netlist.json");
@@ -18,20 +19,43 @@ describe("handleExportJsonCommand", () => {
 
   it("writes the netlist to the given output path and prints it", async () => {
     dir = await mkdtemp(path.join(os.tmpdir(), "export-json-"));
-    const out = path.join(dir, "board.json");
+    const out = path.join(dir, "board.netlist.json");
     const log = vi.spyOn(console, "log").mockImplementation(() => {});
 
     await handleExportJsonCommand(DEMO, out);
 
     expect(log).toHaveBeenCalledWith(out);
     const written = await readFile(out, "utf-8");
+    const document = JSON.parse(written);
+    expect(document.metadata.netlistHash).toMatch(/^sha256:[0-9a-f]{64}$/);
+    expect(new Date(document.metadata.generatedAt).toISOString()).toBe(
+      document.metadata.generatedAt
+    );
+    expect(document.metadata.origin).toEqual({ type: "native" });
     // The export is itself a loadable Universal Netlist.
-    const netlist = parseUniversalNetlist(written, "board.json");
+    const netlist = parseUniversalNetlist(written, "board.netlist.json");
     expect(netlist.components.U1.mpn).toBe("REG-3V3-SOT23");
     expect(netlist.components.D1.dns).toBe(true);
   });
 
-  it("defaults the output to <design>.json in the working directory", async () => {
+  it.skipIf(!hasFixtures)("records vendor provenance for an EDA source", async () => {
+    dir = await mkdtemp(path.join(os.tmpdir(), "export-json-"));
+    const source = path.resolve(
+      TEST_DIR,
+      "../../test/fixtures/kicad/openmd-motordriver/OpenMD.kicad_pro"
+    );
+    const out = path.join(dir, "OpenMD.netlist.json");
+    vi.spyOn(console, "log").mockImplementation(() => {});
+
+    await handleExportJsonCommand(source, out);
+
+    expect(JSON.parse(await readFile(out, "utf-8")).metadata.origin).toEqual({
+      type: "vendor",
+      source: { vendor: "KiCad", fileType: ".kicad_pro" },
+    });
+  });
+
+  it("defaults the output to <design>.netlist.json in the working directory", async () => {
     dir = await mkdtemp(path.join(os.tmpdir(), "export-json-"));
     const previous = process.cwd();
     process.chdir(dir);
@@ -50,6 +74,25 @@ describe("handleExportJsonCommand", () => {
     ).toBe("REG-3V3-SOT23");
   });
 
+  it("preserves provenance when re-exporting a Universal Netlist", async () => {
+    dir = await mkdtemp(path.join(os.tmpdir(), "export-json-"));
+    const source = path.join(dir, "source.netlist.json");
+    const out = path.join(dir, "copy.netlist.json");
+    const document = JSON.parse(await readFile(DEMO, "utf-8"));
+    document.metadata.origin = {
+      type: "vendor",
+      source: { vendor: "Altium", fileType: ".prjpcb", formatVersion: "5.0" },
+    };
+    await writeFile(source, JSON.stringify(document));
+    vi.spyOn(console, "log").mockImplementation(() => {});
+
+    await handleExportJsonCommand(source, out);
+
+    expect(JSON.parse(await readFile(out, "utf-8")).metadata.origin).toEqual(
+      document.metadata.origin
+    );
+  });
+
   it("exits with the usage line when no design is given", async () => {
     const error = vi.spyOn(console, "error").mockImplementation(() => {});
     const exit = vi.spyOn(process, "exit").mockImplementation(() => {
@@ -58,7 +101,7 @@ describe("handleExportJsonCommand", () => {
 
     await expect(handleExportJsonCommand()).rejects.toThrow("exit");
     expect(error).toHaveBeenCalledWith(
-      "Usage: universal-netlist export-json <design> [output.json]"
+      "Usage: universal-netlist export-json <design> [output.netlist.json]"
     );
     expect(exit).toHaveBeenCalledWith(1);
   });
@@ -70,11 +113,30 @@ describe("handleExportJsonCommand", () => {
       throw new Error("exit");
     });
 
-    const broken = path.resolve(TEST_DIR, "../../test/universal/broken/pin-on-other-net.json");
-    await expect(handleExportJsonCommand(broken, path.join(dir, "x.json"))).rejects.toThrow("exit");
-    expect(error).toHaveBeenCalledWith(
-      "pin-on-other-net.json: net 'VCC' lists C1.1, but C1.1 is on 'GND'"
+    const broken = path.resolve(
+      TEST_DIR,
+      "../../test/universal/broken/pin-on-other-net.netlist.json"
     );
+    await expect(handleExportJsonCommand(broken, path.join(dir, "x.netlist.json"))).rejects.toThrow(
+      "exit"
+    );
+    expect(error).toHaveBeenCalledWith(
+      "pin-on-other-net.netlist.json: net 'VCC' lists C1.1, but C1.1 is on 'GND'"
+    );
+    expect(exit).toHaveBeenCalledWith(1);
+  });
+
+  it("refuses an explicit output path without the canonical suffix", async () => {
+    dir = await mkdtemp(path.join(os.tmpdir(), "export-json-"));
+    const error = vi.spyOn(console, "error").mockImplementation(() => {});
+    const exit = vi.spyOn(process, "exit").mockImplementation(() => {
+      throw new Error("exit");
+    });
+
+    await expect(handleExportJsonCommand(DEMO, path.join(dir, "board.json"))).rejects.toThrow(
+      "exit"
+    );
+    expect(error).toHaveBeenCalledWith("Universal Netlist output paths must end in .netlist.json");
     expect(exit).toHaveBeenCalledWith(1);
   });
 });

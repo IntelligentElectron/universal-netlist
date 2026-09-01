@@ -9,7 +9,39 @@
  * reference resolves, and it refuses the file on the first mismatch, naming it.
  */
 
+import { createHash } from "node:crypto";
 import type { ComponentDetails, NetConnections, ParsedNetlist, PinEntry } from "../../types.js";
+import { UNIVERSAL_NETLIST_SCHEMA_VERSION } from "../../universal-format.js";
+
+export { UNIVERSAL_NETLIST_SCHEMA_VERSION } from "../../universal-format.js";
+
+export interface UniversalNetlistSource {
+  vendor: string;
+  fileType: string;
+  formatVersion?: string;
+}
+
+export type UniversalNetlistOrigin =
+  | { type: "native" }
+  | { type: "vendor"; source: UniversalNetlistSource };
+
+export interface UniversalNetlistMetadata {
+  generatedAt: string;
+  netlistHash: string;
+  origin: UniversalNetlistOrigin;
+}
+
+/** The metadata and netlist payload written to every `.netlist.json` file. */
+export interface UniversalNetlistDocument extends ParsedNetlist {
+  universalNetlistSchemaVersion: number;
+  metadata: UniversalNetlistMetadata;
+}
+
+/** Options for producing a deterministic document when a caller needs one. */
+export interface UniversalNetlistSerializationOptions {
+  generatedAt?: Date | string;
+  origin?: UniversalNetlistOrigin;
+}
 
 /** A file that is not a valid Universal Netlist. The message names the defect. */
 export class UniversalNetlistError extends Error {
@@ -22,14 +54,140 @@ export class UniversalNetlistError extends Error {
 const isObject = (value: unknown): value is Record<string, unknown> =>
   typeof value === "object" && value !== null && !Array.isArray(value);
 
-/** Whether a parsed JSON value has the top-level shape of a Universal Netlist. */
-export const hasUniversalShape = (
-  value: unknown
-): value is { nets: Record<string, unknown>; components: Record<string, unknown> } =>
-  isObject(value) && isObject(value.nets) && isObject(value.components);
-
-const TOP_LEVEL_KEYS = new Set(["nets", "components"]);
+const VERSION_1_TOP_LEVEL_KEYS = new Set([
+  "universalNetlistSchemaVersion",
+  "metadata",
+  "nets",
+  "components",
+]);
+const VERSION_1_METADATA_KEYS = new Set(["generatedAt", "netlistHash", "origin"]);
+const NATIVE_ORIGIN_KEYS = new Set(["type"]);
+const VENDOR_ORIGIN_KEYS = new Set(["type", "source"]);
+const SOURCE_KEYS = new Set(["vendor", "fileType", "formatVersion"]);
 const COMPONENT_TEXT_FIELDS = ["mpn", "description", "comment", "value"] as const;
+type Fail = (message: string) => never;
+
+/**
+ * One version's complete compatibility boundary.
+ *
+ * Readers normalize historical documents into the current internal
+ * `ParsedNetlist`; writers serialize that internal model into one on-disk
+ * version. Adding a schema means adding a codec, while older codecs stay
+ * registered so their files remain readable.
+ */
+interface UniversalNetlistSchemaCodec {
+  read(raw: Record<string, unknown>, fail: Fail): ParsedNetlist;
+  write(
+    netlist: ParsedNetlist,
+    generatedAt: string,
+    origin: UniversalNetlistOrigin
+  ): UniversalNetlistDocument;
+}
+
+/** Recursively order object keys for a reproducible JSON representation. */
+const canonicalize = (value: unknown): unknown => {
+  if (Array.isArray(value)) return value.map(canonicalize);
+  if (!isObject(value)) return value;
+
+  const ordered: Record<string, unknown> = {};
+  for (const key of Object.keys(value).sort()) {
+    if (value[key] !== undefined) ordered[key] = canonicalize(value[key]);
+  }
+  return ordered;
+};
+
+/**
+ * Hash the stable content of a Universal Netlist.
+ *
+ * `nets` and `components` are canonicalized and hashed together. The schema
+ * envelope and all metadata are intentionally excluded, so metadata-only
+ * changes do not alter the electrical netlist's identity.
+ */
+export const calculateUniversalNetlistHash = (netlist: ParsedNetlist): string => {
+  const canonical = JSON.stringify(
+    canonicalize({
+      nets: netlist.nets,
+      components: netlist.components,
+    })
+  );
+  return `sha256:${createHash("sha256").update(canonical, "utf8").digest("hex")}`;
+};
+
+const isCanonicalGeneratedAt = (value: unknown): value is string => {
+  if (typeof value !== "string") return false;
+  const parsed = new Date(value);
+  return !Number.isNaN(parsed.getTime()) && parsed.toISOString() === value;
+};
+
+const normalizeGeneratedAt = (value: Date | string = new Date()): string => {
+  const generatedAt =
+    value instanceof Date && !Number.isNaN(value.getTime()) ? value.toISOString() : value;
+  if (!isCanonicalGeneratedAt(generatedAt)) {
+    throw new Error(
+      "Universal Netlist generation time must be a canonical ISO 8601 UTC timestamp, for example 2026-09-01T12:34:56.789Z"
+    );
+  }
+  return generatedAt;
+};
+
+const rejectUnexpectedKeys = (
+  value: Record<string, unknown>,
+  allowed: ReadonlySet<string>,
+  description: string,
+  fail: Fail
+): void => {
+  for (const key of Object.keys(value)) {
+    if (!allowed.has(key)) fail(`unexpected ${description} key '${key}'`);
+  }
+};
+
+const readOrigin = (raw: unknown, fail: Fail): UniversalNetlistOrigin => {
+  if (!isObject(raw)) fail("`metadata.origin` must be an object");
+  if (raw.type === "native") {
+    rejectUnexpectedKeys(raw, NATIVE_ORIGIN_KEYS, "native origin", fail);
+    return { type: "native" };
+  }
+  if (raw.type !== "vendor") {
+    fail("`metadata.origin.type` must be either `native` or `vendor`");
+  }
+  rejectUnexpectedKeys(raw, VENDOR_ORIGIN_KEYS, "vendor origin", fail);
+  if (!isObject(raw.source)) fail("vendor `metadata.origin` must have a `source` object");
+  rejectUnexpectedKeys(raw.source, SOURCE_KEYS, "source", fail);
+  if (typeof raw.source.vendor !== "string" || !raw.source.vendor.trim()) {
+    fail("`metadata.origin.source.vendor` must be a non-empty string");
+  }
+  if (
+    typeof raw.source.fileType !== "string" ||
+    !/^\.[a-z0-9][a-z0-9_+-]*$/.test(raw.source.fileType)
+  ) {
+    fail(
+      "`metadata.origin.source.fileType` must be a canonical lowercase file extension beginning with `.`"
+    );
+  }
+  if (
+    raw.source.formatVersion !== undefined &&
+    (typeof raw.source.formatVersion !== "string" || !raw.source.formatVersion.trim())
+  ) {
+    fail("`metadata.origin.source.formatVersion` must be a non-empty string when present");
+  }
+  return {
+    type: "vendor",
+    source: {
+      vendor: raw.source.vendor,
+      fileType: raw.source.fileType,
+      ...(typeof raw.source.formatVersion === "string"
+        ? { formatVersion: raw.source.formatVersion }
+        : {}),
+    },
+  };
+};
+
+const normalizeOrigin = (
+  value: UniversalNetlistOrigin = { type: "native" }
+): UniversalNetlistOrigin =>
+  readOrigin(value, (message) => {
+    throw new Error(`Invalid Universal Netlist origin: ${message}`);
+  });
 
 /**
  * Read a pin entry's net name. `""` is how the EDA parsers write a pin that is
@@ -38,35 +196,44 @@ const COMPONENT_TEXT_FIELDS = ["mpn", "description", "comment", "value"] as cons
 const netOf = (entry: PinEntry): string => (typeof entry === "string" ? entry : entry.net);
 
 /**
- * Validate a parsed JSON value as a Universal Netlist and return it typed.
+ * Validate a version 1 document and normalize it into the internal netlist.
  *
  * `source` names the file in error messages. Fields the schema does not define
- * on a component are dropped; the two top-level keys are the only ones allowed.
+ * on a component are dropped; the schema marker and payload keys are the only
+ * top-level keys allowed.
  * A net member written as one pin number string is read as a one-element array,
  * which is the form every tool works on.
  */
-export const validateUniversalNetlist = (raw: unknown, source = "netlist"): ParsedNetlist => {
-  const fail: (message: string) => never = (message) => {
-    throw new UniversalNetlistError(`${source}: ${message}`);
-  };
-
-  if (!hasUniversalShape(raw)) {
+const readVersion1 = (raw: Record<string, unknown>, fail: Fail): ParsedNetlist => {
+  if (!isObject(raw.metadata)) fail("`metadata` must be an object");
+  rejectUnexpectedKeys(raw.metadata, VERSION_1_METADATA_KEYS, "metadata", fail);
+  if (!isCanonicalGeneratedAt(raw.metadata.generatedAt)) {
     fail(
-      "not a Universal Netlist: the top level must be an object with `nets` and `components` objects"
+      "`metadata.generatedAt` must be a canonical ISO 8601 UTC timestamp, for example 2026-09-01T12:34:56.789Z"
     );
   }
-  const root = raw as { nets: Record<string, unknown>; components: Record<string, unknown> };
-  for (const key of Object.keys(root)) {
-    if (!TOP_LEVEL_KEYS.has(key)) {
+  if (
+    typeof raw.metadata.netlistHash !== "string" ||
+    !/^sha256:[0-9a-f]{64}$/.test(raw.metadata.netlistHash)
+  ) {
+    fail("`metadata.netlistHash` must be `sha256:` followed by 64 lowercase hexadecimal digits");
+  }
+  readOrigin(raw.metadata.origin, fail);
+  if (!isObject(raw.nets) || !isObject(raw.components)) {
+    fail("`nets` and `components` must be objects");
+  }
+  for (const key of Object.keys(raw)) {
+    if (!VERSION_1_TOP_LEVEL_KEYS.has(key)) {
       fail(
-        `unexpected top-level key '${key}'; a Universal Netlist has only \`nets\` and \`components\``
+        `unexpected top-level key '${key}'; a Universal Netlist has only ` +
+          "`universalNetlistSchemaVersion`, `metadata`, `nets`, and `components`"
       );
     }
   }
 
   // Components: shape of every entry, and the pin map each one declares.
   const components: ComponentDetails = {};
-  for (const [refdes, body] of Object.entries(root.components)) {
+  for (const [refdes, body] of Object.entries(raw.components)) {
     if (!refdes) fail("a component has an empty reference designator");
     if (!isObject(body)) fail(`component '${refdes}' must be an object`);
     if (!isObject(body.pins)) fail(`component '${refdes}' has no \`pins\` object`);
@@ -108,7 +275,7 @@ export const validateUniversalNetlist = (raw: unknown, source = "netlist"): Pars
 
   // Nets: shape of every member list.
   const nets: NetConnections = {};
-  for (const [net, members] of Object.entries(root.nets)) {
+  for (const [net, members] of Object.entries(raw.nets)) {
     if (!net) fail("a net has an empty name");
     if (!isObject(members)) fail(`net '${net}' must be an object mapping refdes to pin number(s)`);
     const out: Record<string, string[]> = {};
@@ -167,11 +334,105 @@ export const validateUniversalNetlist = (raw: unknown, source = "netlist"): Pars
     }
   }
 
-  return { nets, components };
+  const netlist = { nets, components };
+  const expectedHash = calculateUniversalNetlistHash(netlist);
+  if (raw.metadata.netlistHash !== expectedHash) {
+    fail("`metadata.netlistHash` does not match the canonical nets and components");
+  }
+
+  return netlist;
 };
 
-/** Parse JSON text as a Universal Netlist. `source` names the file in errors. */
-export const parseUniversalNetlist = (text: string, source = "netlist"): ParsedNetlist => {
+const VERSION_1_CODEC: UniversalNetlistSchemaCodec = {
+  read: readVersion1,
+  write: (netlist, generatedAt, origin) => ({
+    universalNetlistSchemaVersion: 1,
+    metadata: {
+      generatedAt,
+      netlistHash: calculateUniversalNetlistHash(netlist),
+      origin,
+    },
+    nets: netlist.nets,
+    components: netlist.components,
+  }),
+};
+
+/**
+ * Every on-disk schema version this build can read and write.
+ *
+ * Never replace an older entry when introducing a newer schema. Add its codec
+ * here, then advance `UNIVERSAL_NETLIST_SCHEMA_VERSION` so new exports use it.
+ */
+const SCHEMA_CODECS: ReadonlyMap<number, UniversalNetlistSchemaCodec> = new Map([
+  [1, VERSION_1_CODEC],
+]);
+
+/** Versions accepted by this build, in ascending order. */
+export const SUPPORTED_UNIVERSAL_NETLIST_SCHEMA_VERSIONS: readonly number[] = Object.freeze(
+  [...SCHEMA_CODECS.keys()].sort((a, b) => a - b)
+);
+
+const currentCodec = (): UniversalNetlistSchemaCodec => {
+  const codec = SCHEMA_CODECS.get(UNIVERSAL_NETLIST_SCHEMA_VERSION);
+  if (!codec) {
+    throw new Error(
+      `No Universal Netlist codec is registered for current schema version ${UNIVERSAL_NETLIST_SCHEMA_VERSION}`
+    );
+  }
+  return codec;
+};
+
+/** Add the current on-disk schema envelope to an internal parsed netlist. */
+export const toUniversalNetlistDocument = (
+  netlist: ParsedNetlist,
+  options: UniversalNetlistSerializationOptions = {}
+): UniversalNetlistDocument =>
+  currentCodec().write(
+    netlist,
+    normalizeGeneratedAt(options.generatedAt),
+    normalizeOrigin(options.origin)
+  );
+
+/** Serialize an internal netlist using the current on-disk schema version. */
+export const serializeUniversalNetlist = (
+  netlist: ParsedNetlist,
+  options: UniversalNetlistSerializationOptions = {}
+): string => JSON.stringify(toUniversalNetlistDocument(netlist, options), null, 2) + "\n";
+
+/**
+ * Dispatch a parsed document to its version-specific reader.
+ *
+ * A future build can make a newer schema current without dropping old files:
+ * registered historical readers continue normalizing them to `ParsedNetlist`.
+ */
+export const validateUniversalNetlist = (raw: unknown, source = "netlist"): ParsedNetlist => {
+  const fail: Fail = (message) => {
+    throw new UniversalNetlistError(`${source}: ${message}`);
+  };
+
+  if (!isObject(raw) || !("universalNetlistSchemaVersion" in raw)) {
+    fail("not a Universal Netlist: missing `universalNetlistSchemaVersion`");
+  }
+  if (!Number.isInteger(raw.universalNetlistSchemaVersion)) {
+    fail("`universalNetlistSchemaVersion` must be an integer");
+  }
+
+  const version = raw.universalNetlistSchemaVersion as number;
+  const codec = SCHEMA_CODECS.get(version);
+  if (!codec) {
+    fail(
+      `unsupported Universal Netlist schema version ${version}; supported: ` +
+        SUPPORTED_UNIVERSAL_NETLIST_SCHEMA_VERSIONS.join(", ")
+    );
+  }
+  return codec.read(raw, fail);
+};
+
+/** Parse JSON text and retain both the validated payload and its provenance metadata. */
+export const parseUniversalNetlistDocument = (
+  text: string,
+  source = "netlist"
+): UniversalNetlistDocument => {
   let raw: unknown;
   try {
     raw = JSON.parse(text);
@@ -179,5 +440,22 @@ export const parseUniversalNetlist = (text: string, source = "netlist"): ParsedN
     const detail = error instanceof Error ? error.message : String(error);
     throw new UniversalNetlistError(`${source}: not valid JSON (${detail})`);
   }
-  return validateUniversalNetlist(raw, source);
+  const netlist = validateUniversalNetlist(raw, source);
+  const document = raw as UniversalNetlistDocument;
+  return {
+    universalNetlistSchemaVersion: document.universalNetlistSchemaVersion,
+    metadata: {
+      generatedAt: document.metadata.generatedAt,
+      netlistHash: document.metadata.netlistHash,
+      origin: document.metadata.origin,
+    },
+    nets: netlist.nets,
+    components: netlist.components,
+  };
+};
+
+/** Parse JSON text as a Universal Netlist. `source` names the file in errors. */
+export const parseUniversalNetlist = (text: string, source = "netlist"): ParsedNetlist => {
+  const { nets, components } = parseUniversalNetlistDocument(text, source);
+  return { nets, components };
 };

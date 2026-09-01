@@ -1,0 +1,42 @@
+{
+  "universalNetlistSchemaVersion": 1,
+  "metadata": {
+    "generatedAt": "2026-09-01T20:04:14.264Z",
+    "netlistHash": "sha256:eebc888f8520254b732890c29b31d8209664d78a72e8a4d1faa25269fb717da6",
+    "origin": {
+      "type": "native"
+    }
+  },
+  "nets": {
+    "VCC": {
+      "U1": [
+        "1"
+      ],
+      "C1": [
+        "1"
+      ]
+    },
+    "GND": {
+      "U1": [
+        "2"
+      ],
+      "C1": [
+        "2"
+      ]
+    }
+  },
+  "components": {
+    "U1": {
+      "pins": {
+        "1": "VCC",
+        "2": "GND"
+      }
+    },
+    "C1": {
+      "pins": {
+        "1": "GND",
+        "2": "GND"
+      }
+    }
+  }
+}

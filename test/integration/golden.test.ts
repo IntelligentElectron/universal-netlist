@@ -8,7 +8,7 @@
  * 1. Add design files to test/fixtures/{format}/{design-name}/
  * 2. Run `npm test` - the test will fail with "missing golden output"
  * 3. Generate golden output: npm run golden -- <format> <name> <path>
- * 4. Commit the golden JSON file to test/golden/{format}/{name}.json
+ * 4. Commit the golden JSON file to test/golden/{format}/{name}.netlist.json
  */
 
 import path from "node:path";

@@ -16,7 +16,7 @@ Supported formats:
 - **Cadence CIS/HDL**: .DSN binary schematics, which is what to read. Exported .dat netlist files (pstxnet.dat, pstxprt.dat, pstchip.dat) are a fallback, for a design that ships without its schematic.
 - **Altium Designer**: .SchDoc schematic documents, discovered through their .PrjPcb project.
 - **KiCad**: .kicad_pro projects, or a root .kicad_sch.
-- **Universal Netlist**: .json files in this server's own netlist schema (nets plus components), validated on load.
+- **Universal Netlist**: .netlist.json files carrying this server's supported schema version, validated on load.
 
 ## Example Workflow
 
@@ -38,7 +38,7 @@ Supported formats:
 
 export const LIST_DESIGNS_DESCRIPTION = `\
 List all design projects in the given directory, one path each: a .DSN, a .PrjPcb, a \
-.kicad_pro, a Universal Netlist .json, or the netlist of a design that is only a netlist. \
+.kicad_pro, a Universal Netlist .netlist.json, or the netlist of a design that is only a netlist. \
 That path is the design, and it is what every other tool takes. \
 Always use this tool to discover designs instead of searching the filesystem manually.
 

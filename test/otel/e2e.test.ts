@@ -28,8 +28,15 @@ import { OtlpReceiver, canListenOnLoopback, waitFor } from "./otlp-receiver.js";
 const HERE = dirname(fileURLToPath(import.meta.url));
 const SERVER_ENTRY = join(HERE, "server-entry.ts");
 const REPO_ROOT = join(HERE, "..", "..");
-const BROKEN_DESIGN = join(REPO_ROOT, "test", "universal", "broken", "pin-on-other-net.json");
-const BROKEN_DESIGN_ERROR = "pin-on-other-net.json: net 'VCC' lists C1.1, but C1.1 is on 'GND'";
+const BROKEN_DESIGN = join(
+  REPO_ROOT,
+  "test",
+  "universal",
+  "broken",
+  "pin-on-other-net.netlist.json"
+);
+const BROKEN_DESIGN_ERROR =
+  "pin-on-other-net.netlist.json: net 'VCC' lists C1.1, but C1.1 is on 'GND'";
 const TEST_TIMEOUT = 30_000;
 
 /** A scratch telemetry path so the JSONL logger never touches the real install dir. */

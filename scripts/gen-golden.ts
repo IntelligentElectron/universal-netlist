@@ -27,9 +27,11 @@ const generateOne = async (format: Format, name: string, designPath: string): Pr
   console.log(
     `  Components: ${Object.keys(result.components).length}, Nets: ${Object.keys(result.nets).length}`
   );
-  const written = await saveGolden(format, name, result);
+  const written = await saveGolden(format, name, result, parsePath);
   console.log(
-    written ? `  Saved: test/golden/${format}/${name}.json` : `  Unchanged: ${format}/${name}`
+    written
+      ? `  Saved: test/golden/${format}/${name}.netlist.json`
+      : `  Unchanged: ${format}/${name}`
   );
   return written;
 };

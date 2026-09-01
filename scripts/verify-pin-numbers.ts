@@ -6,6 +6,7 @@
 import fs from "fs";
 import path from "path";
 import { parseDsnFile } from "../src/parsers/cadence/dsn/dsn-parser.js";
+import { parseUniversalNetlist } from "../src/parsers/universal/reader.js";
 import type { ParsedNetlist, PinEntry } from "../src/types.js";
 
 const goldenDir = "test/golden/cadence";
@@ -28,11 +29,14 @@ const dsnFiles = findDsnFiles("test/fixtures/cadence");
 
 for (const dsnPath of dsnFiles) {
   const projectName = path.basename(dsnPath, path.extname(dsnPath));
-  const goldenPath = path.join(goldenDir, `${projectName}.json`);
+  const goldenPath = path.join(goldenDir, `${projectName}.netlist.json`);
   if (!fs.existsSync(goldenPath)) continue;
 
   const dsn = parseDsnFile(dsnPath);
-  const golden: ParsedNetlist = JSON.parse(fs.readFileSync(goldenPath, "utf-8"));
+  const golden: ParsedNetlist = parseUniversalNetlist(
+    fs.readFileSync(goldenPath, "utf-8"),
+    path.basename(goldenPath)
+  );
 
   // Compare pin numbers for shared components
   let totalPins = 0;
