@@ -29,7 +29,9 @@ const generateOne = async (format: Format, name: string, designPath: string): Pr
   );
   const written = await saveGolden(format, name, result);
   console.log(
-    written ? `  Saved: test/golden/${format}/${name}.json` : `  Unchanged: ${format}/${name}`
+    written
+      ? `  Saved: test/golden/${format}/${name}.netlist.json`
+      : `  Unchanged: ${format}/${name}`
   );
   return written;
 };

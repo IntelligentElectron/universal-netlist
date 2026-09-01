@@ -1,14 +1,12 @@
 /**
  * Universal Netlist design discovery.
  *
- * A Universal Netlist design is a `.json` file in the Universal Netlist shape:
- * an object with `nets` and `components` (docs/schemas/universal-netlist.md).
- * Any other `.json` file is not a design and is not listed. A file that has the
- * shape but fails validation is listed with its error, so a broken netlist is
- * visible rather than silently absent.
+ * A Universal Netlist design is a `.netlist.json` file carrying the required
+ * schema version marker (docs/schemas/universal-netlist.md). Other JSON files
+ * are not opened. A `.netlist.json` file that fails validation is listed with
+ * its error, so a broken netlist is visible rather than silently absent.
  *
- * Design name: the file basename without `.json`, the same rule every other
- * tool applies to a design path.
+ * Design name: the file basename without `.netlist.json`.
  *
  * Directories named `node_modules` and directories whose name starts with `.`
  * are not walked. They hold `.json` in quantity and designs never.
@@ -16,12 +14,17 @@
 
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
-import { hasUniversalShape, validateUniversalNetlist } from "./reader.js";
+import { parseUniversalNetlist } from "./reader.js";
+import {
+  isUniversalNetlistPath,
+  UNIVERSAL_NETLIST_SUFFIX,
+  universalNetlistName,
+} from "../../universal-format.js";
 
-/** Extensions a caller may hand directly to the Universal Netlist handler. */
-export const UNIVERSAL_EXTENSIONS = [".json"] as const;
+/** Canonical suffix a caller may hand directly to the Universal Netlist handler. */
+export const UNIVERSAL_EXTENSIONS = [UNIVERSAL_NETLIST_SUFFIX] as const;
 
-/** Discovered Universal Netlist design. The `.json` file is the design. */
+/** Discovered Universal Netlist design. The `.netlist.json` file is the design. */
 export interface UniversalDiscoveredDesign {
   name: string;
   sourcePath: string;
@@ -29,20 +32,13 @@ export interface UniversalDiscoveredDesign {
   error?: string;
 }
 
-/** Both keys must appear in the text before the file is parsed at all. */
-const SHAPE_HINTS = [/"nets"\s*:/, /"components"\s*:/];
-
 const SKIPPED_DIRECTORIES = new Set(["node_modules"]);
 
 /** Check if a file path is one the Universal Netlist handler can process. */
-export const isUniversalFile = (filePath: string): boolean =>
-  UNIVERSAL_EXTENSIONS.includes(
-    path.extname(filePath).toLowerCase() as (typeof UNIVERSAL_EXTENSIONS)[number]
-  );
+export const isUniversalFile = (filePath: string): boolean => isUniversalNetlistPath(filePath);
 
-/** The design name for a Universal Netlist file path: the basename without `.json`. */
-export const universalDesignName = (filePath: string): string =>
-  path.basename(filePath, path.extname(filePath));
+/** The design name for a Universal Netlist file path: basename without its canonical suffix. */
+export const universalDesignName = universalNetlistName;
 
 const walkForJson = async (rootDir: string, maxDepth?: number): Promise<string[]> => {
   const files: string[] = [];
@@ -99,23 +95,13 @@ export const discoverUniversalDesigns = async (
       } catch {
         return null;
       }
-      if (!SHAPE_HINTS.every((hint) => hint.test(text))) return null;
-
-      let raw: unknown;
-      try {
-        raw = JSON.parse(text);
-      } catch {
-        return null;
-      }
-      if (!hasUniversalShape(raw)) return null;
-
       const design: UniversalDiscoveredDesign = {
         name: universalDesignName(filePath),
         sourcePath: filePath,
         format: "universal",
       };
       try {
-        validateUniversalNetlist(raw, path.basename(filePath));
+        parseUniversalNetlist(text, path.basename(filePath));
       } catch (error) {
         design.error = error instanceof Error ? error.message : String(error);
       }

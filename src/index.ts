@@ -12,7 +12,7 @@
  *   update|upgrade     Check for and install updates
  *   uninstall          Remove binary and PATH entries
  *   export-telemetry   Export telemetry data as a zip file
- *   export-json <design> [out]  Write a design's netlist as Universal Netlist JSON
+ *   export-json <design> [out.netlist.json]  Write a design as Universal Netlist JSON
  *   coverage [path]    Compare DSN parser output against DAT netlist exports
  */
 
@@ -65,7 +65,7 @@ const main = async (): Promise<void> => {
     return;
   }
 
-  // Handle export-json <design> [output.json]
+  // Handle export-json <design> [output.netlist.json]
   if (args.includes("--export-json")) {
     const idx = args.indexOf("--export-json");
     const outArg = args[idx + 2];

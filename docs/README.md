@@ -11,7 +11,7 @@ The Universal Netlist MCP Server provides tools for querying electronic design n
 | Cadence (CIS / HDL) | `.DSN` schematic (preferred), or `.dat` netlist files | The `.DSN` binary schematic is parsed directly and is what `list_designs` returns. Exported Allegro netlist files (`pstxnet.dat`, `pstxprt.dat`, `pstchip.dat`) are also readable, but they do not distinguish parts that a CIS variant leaves off the board from stuffed parts. |
 | Altium Designer | `.SchDoc` | Altium schematic documents (discovered via `.PrjPcb` project files) |
 | KiCad | `.kicad_pro` (or root `.kicad_sch`) | A committed `kicadsexpr` netlist export (`.net`) beside the project is parsed directly (preferred). When unavailable, one is generated on demand via `kicad-cli` (requires KiCad installed; set `KICAD_CLI_PATH` for a non-standard location). |
-| Universal Netlist | `.json` | A file in the [Universal Netlist schema](schemas/universal-netlist.md). Validated on load: `nets` and `components` must be exact inverses and every refdes and pin must resolve. See [Loading a Universal Netlist file](schemas/universal-netlist.md#loading-a-universal-netlist-file). |
+| Universal Netlist | `.netlist.json` | A file carrying the supported `universalNetlistSchemaVersion` in the [Universal Netlist schema](schemas/universal-netlist.md). Validated on load: `nets` and `components` must be exact inverses and every refdes and pin must resolve. See [Loading a Universal Netlist file](schemas/universal-netlist.md#loading-a-universal-netlist-file). |
 
 ## Design Philosophy
 
@@ -50,7 +50,7 @@ To get the most out of this MCP, follow the recommended [Net Naming Conventions]
 
 ## Command Line
 
-The binary's commands (`export-json`, `update`, `uninstall`, `export-telemetry`, `coverage`) are documented in [cli.md](cli.md). `export-json` writes a design as a Universal Netlist JSON file, which is itself a design every tool reads.
+The binary's commands (`export-json`, `update`, `uninstall`, `export-telemetry`, `coverage`) are documented in [cli.md](cli.md). `export-json` writes a design as a versioned `.netlist.json` file, which is itself a design every tool reads.
 
 ## Observability
 

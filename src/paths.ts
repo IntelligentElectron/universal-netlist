@@ -5,6 +5,7 @@
  */
 
 import path from "path";
+import { isUniversalNetlistPath, universalNetlistName } from "./universal-format.js";
 
 /**
  * Resolve a file path to an absolute path using native separators.
@@ -49,6 +50,7 @@ export const getDesignName = (design: string): string => {
   // reach the same design, and this makes all three name it the same way.
   const resolved = resolvePath(design);
   const base = path.basename(resolved);
+  if (isUniversalNetlistPath(base)) return universalNetlistName(base);
   if (REQUIRED_DAT_FILES.includes(base.toLowerCase() as (typeof REQUIRED_DAT_FILES)[number])) {
     // Resolving first is what makes one guard enough here: an absolute path's
     // directory is either a real directory or the root, so `.` and `..` cannot

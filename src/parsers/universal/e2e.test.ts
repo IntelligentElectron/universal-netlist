@@ -18,6 +18,7 @@ import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
 import { createServer } from "../../server.js";
 import { parseDesign } from "../index.js";
 import { parseUniversalDesign } from "./index.js";
+import { serializeUniversalNetlist, toUniversalNetlistDocument } from "./reader.js";
 import { fixturePath, hasFixtures } from "../../../test/utils.js";
 
 const TEST_DIR = path.dirname(new URL(import.meta.url).pathname);
@@ -47,11 +48,22 @@ describe("a Universal Netlist file as a design", () => {
       designs: Array<{ name: string; path: string; error?: string }>;
     };
     expect(result.designs).toEqual([
-      { name: "demo-board.netlist", path: DEMO },
+      { name: "demo-board", path: DEMO },
+      {
+        name: "malformed",
+        path: path.join(UNIVERSAL, "malformed.netlist.json"),
+        error: expect.stringContaining("malformed.netlist.json: not valid JSON"),
+      },
       {
         name: "pin-on-other-net",
-        path: path.join(UNIVERSAL, "broken", "pin-on-other-net.json"),
-        error: "pin-on-other-net.json: net 'VCC' lists C1.1, but C1.1 is on 'GND'",
+        path: path.join(UNIVERSAL, "broken", "pin-on-other-net.netlist.json"),
+        error: "pin-on-other-net.netlist.json: net 'VCC' lists C1.1, but C1.1 is on 'GND'",
+      },
+      {
+        name: "unsigned",
+        path: path.join(UNIVERSAL, "unsigned.netlist.json"),
+        error:
+          "unsigned.netlist.json: not a Universal Netlist: missing `universalNetlistSchemaVersion`",
       },
     ]);
   });
@@ -108,7 +120,7 @@ describe("a Universal Netlist file as a design", () => {
     const rails = (await call("search_nets", { design: DEMO, pattern: "^PP" })) as {
       results: Record<string, string[]>;
     };
-    expect([...rails.results["demo-board.netlist"]].sort()).toEqual(["PP3V3", "PP5V"]);
+    expect([...rails.results["demo-board"]].sort()).toEqual(["PP3V3", "PP5V"]);
 
     const xnet = (await call("query_xnet_by_pin_name", { design: DEMO, pin_name: "U2.5" })) as {
       error?: string;
@@ -122,25 +134,34 @@ describe("a Universal Netlist file as a design", () => {
 
   it("a tool on a broken file reports the defect", async () => {
     const result = (await call("run_erc", {
-      design: path.join(UNIVERSAL, "broken", "pin-on-other-net.json"),
+      design: path.join(UNIVERSAL, "broken", "pin-on-other-net.netlist.json"),
     })) as { error?: string };
-    expect(result.error).toBe("pin-on-other-net.json: net 'VCC' lists C1.1, but C1.1 is on 'GND'");
+    expect(result.error).toBe(
+      "pin-on-other-net.netlist.json: net 'VCC' lists C1.1, but C1.1 is on 'GND'"
+    );
   });
 
-  it("a tool on a .json that is not a netlist says so", async () => {
-    const result = (await call("run_erc", {
+  it("does not treat an ordinary .json file as a design", async () => {
+    const ordinary = (await call("run_erc", {
       design: path.join(UNIVERSAL, "not-a-netlist.json"),
     })) as {
       error?: string;
     };
-    expect(result.error).toContain("not-a-netlist.json: not a Universal Netlist");
+    expect(ordinary.error).toContain("Unsupported design file format '.json'");
 
-    const malformed = (await call("run_erc", {
-      design: path.join(UNIVERSAL, "malformed.json"),
+    const unsigned = (await call("run_erc", {
+      design: path.join(UNIVERSAL, "unsigned.netlist.json"),
     })) as {
       error?: string;
     };
-    expect(malformed.error).toContain("malformed.json: not valid JSON");
+    expect(unsigned.error).toContain("missing `universalNetlistSchemaVersion`");
+
+    const malformed = (await call("run_erc", {
+      design: path.join(UNIVERSAL, "malformed.netlist.json"),
+    })) as {
+      error?: string;
+    };
+    expect(malformed.error).toContain("malformed.netlist.json: not valid JSON");
   });
 });
 
@@ -150,7 +171,7 @@ describe("every golden file is a Universal Netlist", () => {
     const formats = await readdir(GOLDEN, { withFileTypes: true });
     for (const format of formats.filter((f) => f.isDirectory())) {
       const dir = path.join(GOLDEN, format.name);
-      for (const file of (await readdir(dir)).filter((f) => f.endsWith(".json"))) {
+      for (const file of (await readdir(dir)).filter((f) => f.endsWith(".netlist.json"))) {
         out.push({ filePath: path.join(dir, file) });
       }
     }
@@ -162,7 +183,7 @@ describe("every golden file is a Universal Netlist", () => {
     for (const { filePath } of await goldens()) {
       const loaded = await parseUniversalDesign(filePath);
       const raw = JSON.parse(await readFile(filePath, "utf-8"));
-      expect(loaded, filePath).toEqual(raw);
+      expect(toUniversalNetlistDocument(loaded), filePath).toEqual(raw);
       count += 1;
     }
     expect(count).toBeGreaterThan(0);
@@ -176,9 +197,9 @@ describe.skipIf(!hasFixtures)("a KiCad design exported to JSON answers like its 
 
   beforeAll(async () => {
     dir = await mkdtemp(path.join(os.tmpdir(), "universal-roundtrip-"));
-    exported = path.join(dir, "OpenMD.json");
-    // What `--export-json` writes: the parsed design, serialized.
-    await writeFile(exported, JSON.stringify(await parseDesign(source), null, 2) + "\n");
+    exported = path.join(dir, "OpenMD.netlist.json");
+    // What `--export-json` writes: the parsed design in the versioned file envelope.
+    await writeFile(exported, serializeUniversalNetlist(await parseDesign(source)));
   });
 
   afterAll(async () => {

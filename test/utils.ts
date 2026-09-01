@@ -6,6 +6,10 @@ import fs from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import type { ParsedNetlist } from "../src/types.js";
+import {
+  parseUniversalNetlist,
+  serializeUniversalNetlist,
+} from "../src/parsers/universal/reader.js";
 
 const TEST_DIR = path.dirname(new URL(import.meta.url).pathname);
 const FIXTURES_DIR = path.join(TEST_DIR, "fixtures");
@@ -81,25 +85,25 @@ export const listAllFixtures = async (): Promise<Fixture[]> => {
 };
 
 /**
- * Load golden output JSON for a fixture.
+ * Load a versioned Universal Netlist golden for a fixture.
  * Returns null if the golden file doesn't exist.
  */
 export const loadGolden = async (
   format: Format,
   designName: string
 ): Promise<ParsedNetlist | null> => {
-  const goldenPath = path.join(GOLDEN_DIR, format, `${designName}.json`);
+  const goldenPath = path.join(GOLDEN_DIR, format, `${designName}.netlist.json`);
 
   try {
     const content = await fs.readFile(goldenPath, "utf-8");
-    return JSON.parse(content) as ParsedNetlist;
+    return parseUniversalNetlist(content, path.basename(goldenPath));
   } catch {
     return null;
   }
 };
 
 /**
- * Save golden output JSON for a fixture.
+ * Save a versioned Universal Netlist golden for a fixture.
  */
 export const saveGolden = async (
   format: Format,
@@ -117,11 +121,12 @@ export const saveGolden = async (
   // The comparison is against the new data round-tripped through JSON, not the
   // data itself: serializing drops a key whose value is `undefined`, so the two
   // sides have to be compared in the form that reaches the file.
-  const serialized = JSON.stringify(data, null, 2) + "\n";
+  const serialized = serializeUniversalNetlist(data);
   const existing = await loadGolden(format, designName);
-  if (existing && deepEqual(existing, JSON.parse(serialized))) return false;
+  const roundTripped = parseUniversalNetlist(serialized, `${designName}.netlist.json`);
+  if (existing && deepEqual(existing, roundTripped)) return false;
 
-  const goldenPath = path.join(goldenDir, `${designName}.json`);
+  const goldenPath = path.join(goldenDir, `${designName}.netlist.json`);
   await fs.writeFile(goldenPath, serialized, "utf-8");
   return true;
 };

@@ -12,6 +12,7 @@ import fs from "fs";
 import path from "path";
 import { parseDsnFile } from "../src/parsers/cadence/dsn/dsn-parser.js";
 import { findCadenceDatFiles } from "../src/parsers/cadence/discovery.js";
+import { parseUniversalNetlist } from "../src/parsers/universal/reader.js";
 import {
   analyzeCoverage,
   formatCoverageReport,
@@ -41,7 +42,7 @@ const selfSnapshots: string[] = [];
 
 for (const dsnFile of dsnFiles) {
   const projectName = path.basename(dsnFile, path.extname(dsnFile));
-  const goldenFile = path.join(goldenDir, `${projectName}.json`);
+  const goldenFile = path.join(goldenDir, `${projectName}.netlist.json`);
 
   if (filterName && !projectName.includes(filterName)) continue;
   if (!fs.existsSync(goldenFile)) continue;
@@ -54,7 +55,10 @@ for (const dsnFile of dsnFiles) {
   if (!datFiles.pstxnet) selfSnapshots.push(projectName);
 
   try {
-    const golden: ParsedNetlist = JSON.parse(fs.readFileSync(goldenFile, "utf-8"));
+    const golden: ParsedNetlist = parseUniversalNetlist(
+      fs.readFileSync(goldenFile, "utf-8"),
+      path.basename(goldenFile)
+    );
     const dsn = parseDsnFile(dsnFile);
     results.push(analyzeCoverage(projectName, dsn, golden));
   } catch (e: unknown) {

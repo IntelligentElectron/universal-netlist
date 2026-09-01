@@ -23,6 +23,11 @@ import {
   type CoverageResult,
 } from "../dsn-vs-dat-coverage.js";
 import { checkForUpdate, performUpdate, isNpmInstall } from "./updater.js";
+import {
+  isUniversalFile,
+  serializeUniversalNetlist,
+  universalDesignName,
+} from "../parsers/universal/index.js";
 import { confirm } from "./prompts.js";
 import { removeFromPath } from "./shell.js";
 import { getCurrentExecutablePath } from "./executable.js";
@@ -63,7 +68,7 @@ Commands:
   update|upgrade       Check for updates and install if available
   uninstall            Remove the binary and its PATH entries
   export-telemetry     Export telemetry data as a zip file
-  export-json <design> [out]
+  export-json <design> [out.netlist.json]
                        Write a design's netlist as Universal Netlist JSON
   coverage [path]      Compare DSN parser output against DAT netlist exports
 
@@ -211,7 +216,7 @@ export const handleExportTelemetryCommand = async (): Promise<void> => {
  * Handle the export-json command.
  *
  * Parses a design file and writes its netlist as Universal Netlist JSON
- * (docs/schemas/universal-netlist.md), to `<design>.json` in the working
+ * (docs/schemas/universal-netlist.md), to `<design>.netlist.json` in the working
  * directory or to the given output path. The written file is itself a design
  * every tool reads.
  */
@@ -220,7 +225,7 @@ export const handleExportJsonCommand = async (
   outPath?: string
 ): Promise<void> => {
   if (!designPath) {
-    console.error("Usage: universal-netlist export-json <design> [output.json]");
+    console.error("Usage: universal-netlist export-json <design> [output.netlist.json]");
     process.exit(1);
   }
 
@@ -232,9 +237,15 @@ export const handleExportJsonCommand = async (
     console.error(error instanceof Error ? error.message : String(error));
     process.exit(1);
   }
-  const name = basename(absolutePath, extname(absolutePath));
-  const outFile = resolve(outPath ?? `${name}.json`);
-  writeFileSync(outFile, JSON.stringify(result, null, 2) + "\n");
+  if (outPath && !isUniversalFile(outPath)) {
+    console.error("Universal Netlist output paths must end in .netlist.json");
+    process.exit(1);
+  }
+  const name = isUniversalFile(absolutePath)
+    ? universalDesignName(absolutePath)
+    : basename(absolutePath, extname(absolutePath));
+  const outFile = resolve(outPath ?? `${name}.netlist.json`);
+  writeFileSync(outFile, serializeUniversalNetlist(result));
   console.log(outFile);
 };
 

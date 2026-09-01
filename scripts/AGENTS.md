@@ -20,7 +20,7 @@ node --import tsx scripts/gen-golden.ts --all
 ```
 
 - `format`: `cadence` or `altium`
-- `name`: output file name (without extension)
+- `name`: output file name (without the `.netlist.json` suffix)
 - `path`: path to the design file (.DSN, .PrjPcb, or pstxnet.dat)
 - `--all`: regenerate all golden files from discovered fixtures
 
@@ -34,7 +34,8 @@ Example:
 node --import tsx scripts/gen-golden.ts cadence BEAGLEBONEBLK_C3 "test/fixtures/cadence/BeagleBone-Black/ALLEGRO/BEAGLEBONEBLK_C3.DSN"
 ```
 
-Output is saved to `test/golden/<format>/<name>.json`.
+Output is saved to `test/golden/<format>/<name>.netlist.json`. Every golden is a
+versioned Universal Netlist document, not an arbitrary JSON file.
 
 When DAT files (.dat) exist alongside a .DSN, the parser prefers DAT (richer data: pin names, MPN, values). To generate golden from DAT, pass the pstxnet.dat path.
 
@@ -63,7 +64,7 @@ Deep-dive into gaps between DSN parser output and a DAT golden file for a single
 node --import tsx scripts/dsn-gap-analysis.ts <golden-name>
 ```
 
-- `golden-name`: name of the golden JSON file (without extension), e.g. `BEAGLEBONEBLK_C3`
+- `golden-name`: name of the golden file (without the `.netlist.json` suffix), e.g. `BEAGLEBONEBLK_C3`
 
 Run without arguments to see available golden files.
 

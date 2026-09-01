@@ -20,11 +20,15 @@ export {
   UNIVERSAL_EXTENSIONS,
 } from "./discovery.js";
 export {
-  hasUniversalShape,
   parseUniversalNetlist,
+  serializeUniversalNetlist,
+  toUniversalNetlistDocument,
   validateUniversalNetlist,
+  SUPPORTED_UNIVERSAL_NETLIST_SCHEMA_VERSIONS,
+  UNIVERSAL_NETLIST_SCHEMA_VERSION,
   UniversalNetlistError,
 } from "./reader.js";
+export type { UniversalNetlistDocument } from "./reader.js";
 export type { UniversalDiscoveredDesign } from "./discovery.js";
 
 /**
@@ -35,8 +39,8 @@ export const parseUniversalDesign = async (designPath: string): Promise<ParsedNe
   parseUniversalNetlist(await readFile(designPath, "utf-8"), path.basename(designPath));
 
 /**
- * Universal Netlist format handler. Recognizes `.json` files; the file must be
- * a Universal Netlist, which `parse` verifies.
+ * Universal Netlist format handler. Recognizes `.netlist.json` files; the file
+ * must carry the supported schema marker and pass validation.
  */
 export const universalHandler: EDAProjectFormatHandler = {
   name: "universal",

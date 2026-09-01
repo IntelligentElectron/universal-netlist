@@ -1,0 +1,1780 @@
+{
+  "universalNetlistSchemaVersion": 1,
+  "nets": {
+    "+1V1": {
+      "C1": [
+        "1"
+      ],
+      "C2": [
+        "1"
+      ],
+      "C3": [
+        "1"
+      ],
+      "U2": [
+        "23",
+        "45",
+        "50"
+      ]
+    },
+    "+3.3V": {
+      "C10": [
+        "1"
+      ],
+      "C11": [
+        "1"
+      ],
+      "C12": [
+        "1"
+      ],
+      "C14": [
+        "1"
+      ],
+      "C15": [
+        "1"
+      ],
+      "C4": [
+        "1"
+      ],
+      "C5": [
+        "1"
+      ],
+      "C6": [
+        "1"
+      ],
+      "C7": [
+        "1"
+      ],
+      "C8": [
+        "1"
+      ],
+      "C9": [
+        "1"
+      ],
+      "J4": [
+        "4",
+        "5",
+        "6"
+      ],
+      "R10": [
+        "1"
+      ],
+      "R11": [
+        "1"
+      ],
+      "R12": [
+        "1"
+      ],
+      "TP2": [
+        "1"
+      ],
+      "U1": [
+        "2"
+      ],
+      "U2": [
+        "1",
+        "10",
+        "22",
+        "33",
+        "42",
+        "43",
+        "44",
+        "48",
+        "49"
+      ],
+      "U3": [
+        "8"
+      ]
+    },
+    "/CC1": {
+      "J1": [
+        "A5"
+      ],
+      "R1": [
+        "1"
+      ]
+    },
+    "/CC2": {
+      "J1": [
+        "B5"
+      ],
+      "R2": [
+        "1"
+      ]
+    },
+    "/GPIO0": {
+      "J3": [
+        "1"
+      ],
+      "U2": [
+        "2"
+      ]
+    },
+    "/GPIO1": {
+      "J3": [
+        "2"
+      ],
+      "U2": [
+        "3"
+      ]
+    },
+    "/GPIO2": {
+      "J3": [
+        "4"
+      ],
+      "U2": [
+        "4"
+      ]
+    },
+    "/GPIO3": {
+      "J3": [
+        "5"
+      ],
+      "U2": [
+        "5"
+      ]
+    },
+    "/GPIO4": {
+      "J3": [
+        "6"
+      ],
+      "U2": [
+        "6"
+      ]
+    },
+    "/GPIO5": {
+      "J3": [
+        "7"
+      ],
+      "U2": [
+        "7"
+      ]
+    },
+    "/GPIO6": {
+      "J3": [
+        "9"
+      ],
+      "U2": [
+        "8"
+      ]
+    },
+    "/GPIO7": {
+      "J3": [
+        "10"
+      ],
+      "U2": [
+        "9"
+      ]
+    },
+    "/GPIO8": {
+      "J3": [
+        "11"
+      ],
+      "U2": [
+        "11"
+      ]
+    },
+    "/GPIO9": {
+      "J3": [
+        "12"
+      ],
+      "U2": [
+        "12"
+      ]
+    },
+    "/GPIO10": {
+      "J3": [
+        "14"
+      ],
+      "U2": [
+        "13"
+      ]
+    },
+    "/GPIO11": {
+      "J3": [
+        "15"
+      ],
+      "U2": [
+        "14"
+      ]
+    },
+    "/GPIO12": {
+      "J3": [
+        "16"
+      ],
+      "U2": [
+        "15"
+      ]
+    },
+    "/GPIO13": {
+      "J3": [
+        "17"
+      ],
+      "U2": [
+        "16"
+      ]
+    },
+    "/GPIO14": {
+      "J3": [
+        "19"
+      ],
+      "U2": [
+        "17"
+      ]
+    },
+    "/GPIO15": {
+      "J3": [
+        "20"
+      ],
+      "U2": [
+        "18"
+      ]
+    },
+    "/GPIO16": {
+      "J4": [
+        "20"
+      ],
+      "U2": [
+        "27"
+      ]
+    },
+    "/GPIO17": {
+      "J4": [
+        "19"
+      ],
+      "U2": [
+        "28"
+      ]
+    },
+    "/GPIO18": {
+      "J4": [
+        "17"
+      ],
+      "U2": [
+        "29"
+      ]
+    },
+    "/GPIO19": {
+      "J4": [
+        "16"
+      ],
+      "U2": [
+        "30"
+      ]
+    },
+    "/GPIO20": {
+      "J4": [
+        "15"
+      ],
+      "U2": [
+        "31"
+      ]
+    },
+    "/GPIO21": {
+      "J4": [
+        "14"
+      ],
+      "U2": [
+        "32"
+      ]
+    },
+    "/GPIO22": {
+      "J4": [
+        "12"
+      ],
+      "U2": [
+        "34"
+      ]
+    },
+    "/GPIO23": {
+      "R13": [
+        "1"
+      ],
+      "U2": [
+        "35"
+      ]
+    },
+    "/GPIO24": {
+      "R3": [
+        "1"
+      ],
+      "R6": [
+        "2"
+      ],
+      "U2": [
+        "36"
+      ]
+    },
+    "/GPIO25": {
+      "R14": [
+        "1"
+      ],
+      "U2": [
+        "37"
+      ]
+    },
+    "/GPIO26_ADC0": {
+      "J4": [
+        "11"
+      ],
+      "U2": [
+        "38"
+      ]
+    },
+    "/GPIO27_ADC1": {
+      "J4": [
+        "10"
+      ],
+      "U2": [
+        "39"
+      ]
+    },
+    "/GPIO28_ADC2": {
+      "J4": [
+        "9"
+      ],
+      "U2": [
+        "40"
+      ]
+    },
+    "/GPIO29_ADC3": {
+      "J4": [
+        "7"
+      ],
+      "U2": [
+        "41"
+      ]
+    },
+    "/LED_3V3": {
+      "D2": [
+        "2"
+      ],
+      "R12": [
+        "2"
+      ]
+    },
+    "/LED_BUILT_IN1": {
+      "D4": [
+        "2"
+      ],
+      "R14": [
+        "2"
+      ]
+    },
+    "/LED_BUILT_IN2": {
+      "D3": [
+        "2"
+      ],
+      "R13": [
+        "2"
+      ]
+    },
+    "/QSPI_SCLK": {
+      "TP9": [
+        "1"
+      ],
+      "U2": [
+        "52"
+      ],
+      "U3": [
+        "6"
+      ]
+    },
+    "/QSPI_SD0": {
+      "TP10": [
+        "1"
+      ],
+      "U2": [
+        "53"
+      ],
+      "U3": [
+        "5"
+      ]
+    },
+    "/QSPI_SD1": {
+      "TP11": [
+        "1"
+      ],
+      "U2": [
+        "55"
+      ],
+      "U3": [
+        "2"
+      ]
+    },
+    "/QSPI_SD2": {
+      "TP12": [
+        "1"
+      ],
+      "U2": [
+        "54"
+      ],
+      "U3": [
+        "3"
+      ]
+    },
+    "/QSPI_SD3": {
+      "TP13": [
+        "1"
+      ],
+      "U2": [
+        "51"
+      ],
+      "U3": [
+        "7"
+      ]
+    },
+    "/QSPI_SS": {
+      "R10": [
+        "2"
+      ],
+      "R15": [
+        "1"
+      ],
+      "TP8": [
+        "1"
+      ],
+      "U2": [
+        "56"
+      ],
+      "U3": [
+        "1"
+      ]
+    },
+    "/RDIV": {
+      "R6": [
+        "1"
+      ],
+      "R7": [
+        "2"
+      ]
+    },
+    "/RUN": {
+      "R11": [
+        "2"
+      ],
+      "SW2": [
+        "2"
+      ],
+      "U2": [
+        "26"
+      ]
+    },
+    "/SW1_{PULL-UP}": {
+      "R15": [
+        "2"
+      ],
+      "SW1": [
+        "2"
+      ]
+    },
+    "/SWCLK": {
+      "J5": [
+        "1"
+      ],
+      "J6": [
+        "1"
+      ],
+      "TP5": [
+        "1"
+      ],
+      "U2": [
+        "24"
+      ]
+    },
+    "/SWD": {
+      "J5": [
+        "3"
+      ],
+      "J6": [
+        "3"
+      ],
+      "TP6": [
+        "1"
+      ],
+      "U2": [
+        "25"
+      ]
+    },
+    "/USB_DN": {
+      "J1": [
+        "A7",
+        "B7"
+      ],
+      "R5": [
+        "1"
+      ]
+    },
+    "/USB_DP": {
+      "J1": [
+        "A6",
+        "B6"
+      ],
+      "R4": [
+        "1"
+      ]
+    },
+    "/USB_R_DN": {
+      "R5": [
+        "2"
+      ],
+      "U2": [
+        "46"
+      ]
+    },
+    "/USB_R_DP": {
+      "R4": [
+        "2"
+      ],
+      "U2": [
+        "47"
+      ]
+    },
+    "/Xin": {
+      "C16": [
+        "1"
+      ],
+      "R8": [
+        "1"
+      ],
+      "TP3": [
+        "1"
+      ],
+      "U2": [
+        "20"
+      ],
+      "Y1": [
+        "1"
+      ]
+    },
+    "/Xout": {
+      "R9": [
+        "2"
+      ],
+      "U2": [
+        "21"
+      ]
+    },
+    "/XoutR": {
+      "C17": [
+        "1"
+      ],
+      "R8": [
+        "2"
+      ],
+      "R9": [
+        "1"
+      ],
+      "TP4": [
+        "1"
+      ],
+      "Y1": [
+        "3"
+      ]
+    },
+    "GND": {
+      "C1": [
+        "2"
+      ],
+      "C10": [
+        "2"
+      ],
+      "C11": [
+        "2"
+      ],
+      "C12": [
+        "2"
+      ],
+      "C13": [
+        "2"
+      ],
+      "C14": [
+        "2"
+      ],
+      "C15": [
+        "2"
+      ],
+      "C16": [
+        "2"
+      ],
+      "C17": [
+        "2"
+      ],
+      "C2": [
+        "2"
+      ],
+      "C3": [
+        "2"
+      ],
+      "C4": [
+        "2"
+      ],
+      "C5": [
+        "2"
+      ],
+      "C6": [
+        "2"
+      ],
+      "C7": [
+        "2"
+      ],
+      "C8": [
+        "2"
+      ],
+      "C9": [
+        "2"
+      ],
+      "D2": [
+        "1"
+      ],
+      "D3": [
+        "1"
+      ],
+      "D4": [
+        "1"
+      ],
+      "J1": [
+        "A1",
+        "A12",
+        "B1",
+        "B12",
+        "SH"
+      ],
+      "J3": [
+        "13",
+        "18",
+        "3",
+        "8"
+      ],
+      "J4": [
+        "13",
+        "18",
+        "3",
+        "8"
+      ],
+      "J5": [
+        "2"
+      ],
+      "J6": [
+        "2",
+        "MP"
+      ],
+      "R1": [
+        "2"
+      ],
+      "R2": [
+        "2"
+      ],
+      "R7": [
+        "1"
+      ],
+      "SW1": [
+        "1"
+      ],
+      "SW2": [
+        "1"
+      ],
+      "TP14": [
+        "1"
+      ],
+      "TP7": [
+        "1"
+      ],
+      "U1": [
+        "1"
+      ],
+      "U2": [
+        "19",
+        "57"
+      ],
+      "U3": [
+        "4"
+      ],
+      "Y1": [
+        "2",
+        "4"
+      ]
+    },
+    "VBUS": {
+      "D1": [
+        "2"
+      ],
+      "J1": [
+        "A4",
+        "A9",
+        "B4",
+        "B9"
+      ],
+      "J4": [
+        "1"
+      ],
+      "R3": [
+        "2"
+      ]
+    },
+    "VCC": {
+      "C13": [
+        "1"
+      ],
+      "D1": [
+        "1"
+      ],
+      "J4": [
+        "2"
+      ],
+      "TP1": [
+        "1"
+      ],
+      "U1": [
+        "3"
+      ]
+    },
+    "unconnected-(J1-SBU1-PadA8)": {
+      "J1": [
+        "A8"
+      ]
+    },
+    "unconnected-(J1-SBU2-PadB8)": {
+      "J1": [
+        "B8"
+      ]
+    },
+    "unconnected-(U3-EP-Pad9)": {
+      "U3": [
+        "9"
+      ]
+    }
+  },
+  "components": {
+    "C1": {
+      "pins": {
+        "1": "+1V1",
+        "2": "GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor"
+    },
+    "C2": {
+      "pins": {
+        "1": "+1V1",
+        "2": "GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor"
+    },
+    "C3": {
+      "pins": {
+        "1": "+1V1",
+        "2": "GND"
+      },
+      "value": "1uF",
+      "description": "Unpolarized capacitor"
+    },
+    "C4": {
+      "pins": {
+        "1": "+3.3V",
+        "2": "GND"
+      },
+      "value": "1uF",
+      "description": "Unpolarized capacitor"
+    },
+    "C5": {
+      "pins": {
+        "1": "+3.3V",
+        "2": "GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor"
+    },
+    "C6": {
+      "pins": {
+        "1": "+3.3V",
+        "2": "GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor"
+    },
+    "C7": {
+      "pins": {
+        "1": "+3.3V",
+        "2": "GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor"
+    },
+    "C8": {
+      "pins": {
+        "1": "+3.3V",
+        "2": "GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor"
+    },
+    "C9": {
+      "pins": {
+        "1": "+3.3V",
+        "2": "GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor"
+    },
+    "C10": {
+      "pins": {
+        "1": "+3.3V",
+        "2": "GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor"
+    },
+    "C11": {
+      "pins": {
+        "1": "+3.3V",
+        "2": "GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor"
+    },
+    "C12": {
+      "pins": {
+        "1": "+3.3V",
+        "2": "GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor"
+    },
+    "C13": {
+      "pins": {
+        "1": "VCC",
+        "2": "GND"
+      },
+      "value": "1uF",
+      "description": "Unpolarized capacitor"
+    },
+    "C14": {
+      "pins": {
+        "1": "+3.3V",
+        "2": "GND"
+      },
+      "value": "1uF",
+      "description": "Unpolarized capacitor"
+    },
+    "C15": {
+      "pins": {
+        "1": "+3.3V",
+        "2": "GND"
+      },
+      "value": "100nF",
+      "description": "Unpolarized capacitor"
+    },
+    "C16": {
+      "pins": {
+        "1": "/Xin",
+        "2": "GND"
+      },
+      "value": "27p",
+      "description": "Unpolarized capacitor"
+    },
+    "C17": {
+      "pins": {
+        "1": "/XoutR",
+        "2": "GND"
+      },
+      "value": "27p",
+      "description": "Unpolarized capacitor"
+    },
+    "D1": {
+      "pins": {
+        "1": {
+          "name": "K",
+          "net": "VCC"
+        },
+        "2": {
+          "name": "A",
+          "net": "VBUS"
+        }
+      },
+      "value": "D_Schottky",
+      "description": "Schottky diode"
+    },
+    "D2": {
+      "pins": {
+        "1": {
+          "name": "K",
+          "net": "GND"
+        },
+        "2": {
+          "name": "A",
+          "net": "/LED_3V3"
+        }
+      },
+      "value": "LED",
+      "description": "Light emitting diode"
+    },
+    "D3": {
+      "pins": {
+        "1": {
+          "name": "K",
+          "net": "GND"
+        },
+        "2": {
+          "name": "A",
+          "net": "/LED_BUILT_IN2"
+        }
+      },
+      "value": "LED",
+      "description": "Light emitting diode"
+    },
+    "D4": {
+      "pins": {
+        "1": {
+          "name": "K",
+          "net": "GND"
+        },
+        "2": {
+          "name": "A",
+          "net": "/LED_BUILT_IN1"
+        }
+      },
+      "value": "LED",
+      "description": "Light emitting diode"
+    },
+    "H1": {
+      "pins": {},
+      "value": "MountingHole",
+      "description": "Mounting Hole without connection"
+    },
+    "H2": {
+      "pins": {},
+      "value": "MountingHole",
+      "description": "Mounting Hole without connection"
+    },
+    "H3": {
+      "pins": {},
+      "value": "MountingHole",
+      "description": "Mounting Hole without connection"
+    },
+    "H4": {
+      "pins": {},
+      "value": "MountingHole",
+      "description": "Mounting Hole without connection"
+    },
+    "J1": {
+      "pins": {
+        "A5": {
+          "name": "CC1",
+          "net": "/CC1"
+        },
+        "B5": {
+          "name": "CC2",
+          "net": "/CC2"
+        },
+        "A7": {
+          "name": "D-",
+          "net": "/USB_DN"
+        },
+        "B7": {
+          "name": "D-",
+          "net": "/USB_DN"
+        },
+        "A6": {
+          "name": "D+",
+          "net": "/USB_DP"
+        },
+        "B6": {
+          "name": "D+",
+          "net": "/USB_DP"
+        },
+        "A1": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "A12": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "B1": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "B12": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "SH": {
+          "name": "SHIELD",
+          "net": "GND"
+        },
+        "A4": {
+          "name": "VBUS",
+          "net": "VBUS"
+        },
+        "A9": {
+          "name": "VBUS",
+          "net": "VBUS"
+        },
+        "B4": {
+          "name": "VBUS",
+          "net": "VBUS"
+        },
+        "B9": {
+          "name": "VBUS",
+          "net": "VBUS"
+        },
+        "A8": {
+          "name": "SBU1",
+          "net": "unconnected-(J1-SBU1-PadA8)"
+        },
+        "B8": {
+          "name": "SBU2",
+          "net": "unconnected-(J1-SBU2-PadB8)"
+        }
+      },
+      "value": "USB_C_Receptacle_USB2.0"
+    },
+    "J3": {
+      "pins": {
+        "1": {
+          "name": "Pin_1",
+          "net": "/GPIO0"
+        },
+        "2": {
+          "name": "Pin_2",
+          "net": "/GPIO1"
+        },
+        "3": {
+          "name": "Pin_3",
+          "net": "GND"
+        },
+        "4": {
+          "name": "Pin_4",
+          "net": "/GPIO2"
+        },
+        "5": {
+          "name": "Pin_5",
+          "net": "/GPIO3"
+        },
+        "6": {
+          "name": "Pin_6",
+          "net": "/GPIO4"
+        },
+        "7": {
+          "name": "Pin_7",
+          "net": "/GPIO5"
+        },
+        "8": {
+          "name": "Pin_8",
+          "net": "GND"
+        },
+        "9": {
+          "name": "Pin_9",
+          "net": "/GPIO6"
+        },
+        "10": {
+          "name": "Pin_10",
+          "net": "/GPIO7"
+        },
+        "11": {
+          "name": "Pin_11",
+          "net": "/GPIO8"
+        },
+        "12": {
+          "name": "Pin_12",
+          "net": "/GPIO9"
+        },
+        "13": {
+          "name": "Pin_13",
+          "net": "GND"
+        },
+        "14": {
+          "name": "Pin_14",
+          "net": "/GPIO10"
+        },
+        "15": {
+          "name": "Pin_15",
+          "net": "/GPIO11"
+        },
+        "16": {
+          "name": "Pin_16",
+          "net": "/GPIO12"
+        },
+        "17": {
+          "name": "Pin_17",
+          "net": "/GPIO13"
+        },
+        "18": {
+          "name": "Pin_18",
+          "net": "GND"
+        },
+        "19": {
+          "name": "Pin_19",
+          "net": "/GPIO14"
+        },
+        "20": {
+          "name": "Pin_20",
+          "net": "/GPIO15"
+        }
+      },
+      "value": "Conn_01x20",
+      "description": "Generic connector, single row, 01x20, script generated (kicad-library-utils/schlib/autogen/connector/)"
+    },
+    "J4": {
+      "pins": {
+        "1": {
+          "name": "Pin_1",
+          "net": "VBUS"
+        },
+        "2": {
+          "name": "Pin_2",
+          "net": "VCC"
+        },
+        "3": {
+          "name": "Pin_3",
+          "net": "GND"
+        },
+        "4": {
+          "name": "Pin_4",
+          "net": "+3.3V"
+        },
+        "5": {
+          "name": "Pin_5",
+          "net": "+3.3V"
+        },
+        "6": {
+          "name": "Pin_6",
+          "net": "+3.3V"
+        },
+        "7": {
+          "name": "Pin_7",
+          "net": "/GPIO29_ADC3"
+        },
+        "8": {
+          "name": "Pin_8",
+          "net": "GND"
+        },
+        "9": {
+          "name": "Pin_9",
+          "net": "/GPIO28_ADC2"
+        },
+        "10": {
+          "name": "Pin_10",
+          "net": "/GPIO27_ADC1"
+        },
+        "11": {
+          "name": "Pin_11",
+          "net": "/GPIO26_ADC0"
+        },
+        "12": {
+          "name": "Pin_12",
+          "net": "/GPIO22"
+        },
+        "13": {
+          "name": "Pin_13",
+          "net": "GND"
+        },
+        "14": {
+          "name": "Pin_14",
+          "net": "/GPIO21"
+        },
+        "15": {
+          "name": "Pin_15",
+          "net": "/GPIO20"
+        },
+        "16": {
+          "name": "Pin_16",
+          "net": "/GPIO19"
+        },
+        "17": {
+          "name": "Pin_17",
+          "net": "/GPIO18"
+        },
+        "18": {
+          "name": "Pin_18",
+          "net": "GND"
+        },
+        "19": {
+          "name": "Pin_19",
+          "net": "/GPIO17"
+        },
+        "20": {
+          "name": "Pin_20",
+          "net": "/GPIO16"
+        }
+      },
+      "value": "Conn_01x20",
+      "description": "Generic connector, single row, 01x20, script generated (kicad-library-utils/schlib/autogen/connector/)"
+    },
+    "J5": {
+      "pins": {
+        "1": {
+          "name": "Pin_1",
+          "net": "/SWCLK"
+        },
+        "2": {
+          "name": "Pin_2",
+          "net": "GND"
+        },
+        "3": {
+          "name": "Pin_3",
+          "net": "/SWD"
+        }
+      },
+      "value": "Conn_01x03",
+      "description": "Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"
+    },
+    "J6": {
+      "pins": {
+        "1": {
+          "name": "Pin_1",
+          "net": "/SWCLK"
+        },
+        "2": {
+          "name": "Pin_2",
+          "net": "GND"
+        },
+        "3": {
+          "name": "Pin_3",
+          "net": "/SWD"
+        },
+        "MP": {
+          "name": "MountPin",
+          "net": "GND"
+        }
+      },
+      "value": "Conn_01x03_MountingPin",
+      "description": "Generic connectable mounting pin connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"
+    },
+    "R1": {
+      "pins": {
+        "1": "/CC1",
+        "2": "GND"
+      },
+      "value": "5.1k",
+      "description": "Resistor"
+    },
+    "R2": {
+      "pins": {
+        "1": "/CC2",
+        "2": "GND"
+      },
+      "value": "5.1k",
+      "description": "Resistor"
+    },
+    "R3": {
+      "pins": {
+        "1": "/GPIO24",
+        "2": "VBUS"
+      },
+      "value": "5.1k",
+      "description": "Resistor"
+    },
+    "R4": {
+      "pins": {
+        "1": "/USB_DP",
+        "2": "/USB_R_DP"
+      },
+      "value": "27R",
+      "description": "Resistor"
+    },
+    "R5": {
+      "pins": {
+        "1": "/USB_DN",
+        "2": "/USB_R_DN"
+      },
+      "value": "27R",
+      "description": "Resistor"
+    },
+    "R6": {
+      "pins": {
+        "1": "/RDIV",
+        "2": "/GPIO24"
+      },
+      "value": "5.1k",
+      "description": "Resistor"
+    },
+    "R7": {
+      "pins": {
+        "1": "GND",
+        "2": "/RDIV"
+      },
+      "value": "5.1k",
+      "description": "Resistor"
+    },
+    "R8": {
+      "pins": {
+        "1": "/Xin",
+        "2": "/XoutR"
+      },
+      "value": "1k",
+      "description": "Resistor",
+      "dns": true
+    },
+    "R9": {
+      "pins": {
+        "1": "/XoutR",
+        "2": "/Xout"
+      },
+      "value": "1k",
+      "description": "Resistor"
+    },
+    "R10": {
+      "pins": {
+        "1": "+3.3V",
+        "2": "/QSPI_SS"
+      },
+      "value": "1k",
+      "description": "Resistor",
+      "dns": true
+    },
+    "R11": {
+      "pins": {
+        "1": "+3.3V",
+        "2": "/RUN"
+      },
+      "value": "1k",
+      "description": "Resistor",
+      "dns": true
+    },
+    "R12": {
+      "pins": {
+        "1": "+3.3V",
+        "2": "/LED_3V3"
+      },
+      "value": "1k",
+      "description": "Resistor"
+    },
+    "R13": {
+      "pins": {
+        "1": "/GPIO23",
+        "2": "/LED_BUILT_IN2"
+      },
+      "value": "1k",
+      "description": "Resistor"
+    },
+    "R14": {
+      "pins": {
+        "1": "/GPIO25",
+        "2": "/LED_BUILT_IN1"
+      },
+      "value": "1k",
+      "description": "Resistor"
+    },
+    "R15": {
+      "pins": {
+        "1": "/QSPI_SS",
+        "2": "/SW1_{PULL-UP}"
+      },
+      "value": "1k",
+      "description": "Resistor"
+    },
+    "SW1": {
+      "pins": {
+        "1": "GND",
+        "2": "/SW1_{PULL-UP}"
+      },
+      "value": "SW_Push",
+      "description": "Push button switch, generic, two pins"
+    },
+    "SW2": {
+      "pins": {
+        "1": "GND",
+        "2": "/RUN"
+      },
+      "value": "SW_Push",
+      "description": "Push button switch, generic, two pins"
+    },
+    "TP1": {
+      "pins": {
+        "1": "VCC"
+      },
+      "value": "~"
+    },
+    "TP2": {
+      "pins": {
+        "1": "+3.3V"
+      },
+      "value": "~"
+    },
+    "TP3": {
+      "pins": {
+        "1": "/Xin"
+      },
+      "value": "~"
+    },
+    "TP4": {
+      "pins": {
+        "1": "/XoutR"
+      },
+      "value": "~"
+    },
+    "TP5": {
+      "pins": {
+        "1": "/SWCLK"
+      },
+      "value": "~"
+    },
+    "TP6": {
+      "pins": {
+        "1": "/SWD"
+      },
+      "value": "~"
+    },
+    "TP7": {
+      "pins": {
+        "1": "GND"
+      },
+      "value": "~"
+    },
+    "TP8": {
+      "pins": {
+        "1": "/QSPI_SS"
+      },
+      "value": "~"
+    },
+    "TP9": {
+      "pins": {
+        "1": "/QSPI_SCLK"
+      },
+      "value": "~"
+    },
+    "TP10": {
+      "pins": {
+        "1": "/QSPI_SD0"
+      },
+      "value": "~"
+    },
+    "TP11": {
+      "pins": {
+        "1": "/QSPI_SD1"
+      },
+      "value": "~"
+    },
+    "TP12": {
+      "pins": {
+        "1": "/QSPI_SD2"
+      },
+      "value": "~"
+    },
+    "TP13": {
+      "pins": {
+        "1": "/QSPI_SD3"
+      },
+      "value": "~"
+    },
+    "TP14": {
+      "pins": {
+        "1": "GND"
+      },
+      "value": "~"
+    },
+    "U1": {
+      "pins": {
+        "1": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "2": {
+          "name": "VO",
+          "net": "+3.3V"
+        },
+        "3": {
+          "name": "VI",
+          "net": "VCC"
+        }
+      },
+      "value": "XC6206P332MR",
+      "description": "Positive 60-250mA Low Dropout Regulator, Fixed Output, SOT-23"
+    },
+    "U2": {
+      "pins": {
+        "1": {
+          "name": "IOVDD",
+          "net": "+3.3V"
+        },
+        "2": {
+          "name": "GPIO0",
+          "net": "/GPIO0"
+        },
+        "3": {
+          "name": "GPIO1",
+          "net": "/GPIO1"
+        },
+        "4": {
+          "name": "GPIO2",
+          "net": "/GPIO2"
+        },
+        "5": {
+          "name": "GPIO3",
+          "net": "/GPIO3"
+        },
+        "6": {
+          "name": "GPIO4",
+          "net": "/GPIO4"
+        },
+        "7": {
+          "name": "GPIO5",
+          "net": "/GPIO5"
+        },
+        "8": {
+          "name": "GPIO6",
+          "net": "/GPIO6"
+        },
+        "9": {
+          "name": "GPIO7",
+          "net": "/GPIO7"
+        },
+        "10": {
+          "name": "IOVDD",
+          "net": "+3.3V"
+        },
+        "11": {
+          "name": "GPIO8",
+          "net": "/GPIO8"
+        },
+        "12": {
+          "name": "GPIO9",
+          "net": "/GPIO9"
+        },
+        "13": {
+          "name": "GPIO10",
+          "net": "/GPIO10"
+        },
+        "14": {
+          "name": "GPIO11",
+          "net": "/GPIO11"
+        },
+        "15": {
+          "name": "GPIO12",
+          "net": "/GPIO12"
+        },
+        "16": {
+          "name": "GPIO13",
+          "net": "/GPIO13"
+        },
+        "17": {
+          "name": "GPIO14",
+          "net": "/GPIO14"
+        },
+        "18": {
+          "name": "GPIO15",
+          "net": "/GPIO15"
+        },
+        "19": {
+          "name": "TESTEN",
+          "net": "GND"
+        },
+        "20": {
+          "name": "XIN",
+          "net": "/Xin"
+        },
+        "21": {
+          "name": "XOUT",
+          "net": "/Xout"
+        },
+        "22": {
+          "name": "IOVDD",
+          "net": "+3.3V"
+        },
+        "23": {
+          "name": "DVDD",
+          "net": "+1V1"
+        },
+        "24": {
+          "name": "SWCLK",
+          "net": "/SWCLK"
+        },
+        "25": {
+          "name": "SWD",
+          "net": "/SWD"
+        },
+        "26": {
+          "name": "RUN",
+          "net": "/RUN"
+        },
+        "27": {
+          "name": "GPIO16",
+          "net": "/GPIO16"
+        },
+        "28": {
+          "name": "GPIO17",
+          "net": "/GPIO17"
+        },
+        "29": {
+          "name": "GPIO18",
+          "net": "/GPIO18"
+        },
+        "30": {
+          "name": "GPIO19",
+          "net": "/GPIO19"
+        },
+        "31": {
+          "name": "GPIO20",
+          "net": "/GPIO20"
+        },
+        "32": {
+          "name": "GPIO21",
+          "net": "/GPIO21"
+        },
+        "33": {
+          "name": "IOVDD",
+          "net": "+3.3V"
+        },
+        "34": {
+          "name": "GPIO22",
+          "net": "/GPIO22"
+        },
+        "35": {
+          "name": "GPIO23",
+          "net": "/GPIO23"
+        },
+        "36": {
+          "name": "GPIO24",
+          "net": "/GPIO24"
+        },
+        "37": {
+          "name": "GPIO25",
+          "net": "/GPIO25"
+        },
+        "38": {
+          "name": "GPIO26_ADC0",
+          "net": "/GPIO26_ADC0"
+        },
+        "39": {
+          "name": "GPIO27_ADC1",
+          "net": "/GPIO27_ADC1"
+        },
+        "40": {
+          "name": "GPIO28_ADC2",
+          "net": "/GPIO28_ADC2"
+        },
+        "41": {
+          "name": "GPIO29_ADC3",
+          "net": "/GPIO29_ADC3"
+        },
+        "42": {
+          "name": "IOVDD",
+          "net": "+3.3V"
+        },
+        "43": {
+          "name": "ADC_AVDD",
+          "net": "+3.3V"
+        },
+        "44": {
+          "name": "VREG_IN",
+          "net": "+3.3V"
+        },
+        "45": {
+          "name": "VREG_VOUT",
+          "net": "+1V1"
+        },
+        "46": {
+          "name": "USB_DM",
+          "net": "/USB_R_DN"
+        },
+        "47": {
+          "name": "USB_DP",
+          "net": "/USB_R_DP"
+        },
+        "48": {
+          "name": "USB_VDD",
+          "net": "+3.3V"
+        },
+        "49": {
+          "name": "IOVDD",
+          "net": "+3.3V"
+        },
+        "50": {
+          "name": "DVDD",
+          "net": "+1V1"
+        },
+        "51": {
+          "name": "QSPI_SD3",
+          "net": "/QSPI_SD3"
+        },
+        "52": {
+          "name": "QSPI_SCLK",
+          "net": "/QSPI_SCLK"
+        },
+        "53": {
+          "name": "QSPI_SD0",
+          "net": "/QSPI_SD0"
+        },
+        "54": {
+          "name": "QSPI_SD2",
+          "net": "/QSPI_SD2"
+        },
+        "55": {
+          "name": "QSPI_SD1",
+          "net": "/QSPI_SD1"
+        },
+        "56": {
+          "name": "QSPI_SS",
+          "net": "/QSPI_SS"
+        },
+        "57": {
+          "name": "GND",
+          "net": "GND"
+        }
+      },
+      "value": "RP2040",
+      "description": "A microcontroller by Raspberry Pi"
+    },
+    "U3": {
+      "pins": {
+        "1": {
+          "name": "~{CS}",
+          "net": "/QSPI_SS"
+        },
+        "2": {
+          "name": "DO(IO1)",
+          "net": "/QSPI_SD1"
+        },
+        "3": {
+          "name": "IO2",
+          "net": "/QSPI_SD2"
+        },
+        "4": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "5": {
+          "name": "DI(IO0)",
+          "net": "/QSPI_SD0"
+        },
+        "6": {
+          "name": "CLK",
+          "net": "/QSPI_SCLK"
+        },
+        "7": {
+          "name": "IO3",
+          "net": "/QSPI_SD3"
+        },
+        "8": {
+          "name": "VCC",
+          "net": "+3.3V"
+        },
+        "9": {
+          "name": "EP",
+          "net": "unconnected-(U3-EP-Pad9)"
+        }
+      },
+      "value": "W25Q16JVUXIQ",
+      "description": "32Mb Serial Flash Memory, Standard/Dual/Quad SPI, DFN-8"
+    },
+    "Y1": {
+      "pins": {
+        "1": "/Xin",
+        "2": {
+          "name": "G",
+          "net": "GND"
+        },
+        "3": "/XoutR",
+        "4": {
+          "name": "G",
+          "net": "GND"
+        }
+      },
+      "value": "12MHz",
+      "description": "Four pin crystal, GND on pins 2 and 4"
+    }
+  }
+}

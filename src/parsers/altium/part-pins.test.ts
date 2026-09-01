@@ -8,7 +8,7 @@ import {
 } from "./part-pins.js";
 import { altiumHandler, parseAltium } from "./index.js";
 import { discoverAltiumDesigns } from "./discovery.js";
-import { validateUniversalNetlist } from "../universal/reader.js";
+import { toUniversalNetlistDocument, validateUniversalNetlist } from "../universal/reader.js";
 import type { PinEntry } from "../../types.js";
 import type { AltiumRecord, AltiumSchematic } from "./types.js";
 import { fixturePath, hasFixtures } from "../../../test/utils.js";
@@ -120,7 +120,9 @@ describe.skipIf(!hasFixtures)("every Altium fixture parses into a consistent net
     expect(designs.length).toBeGreaterThan(0);
     for (const design of designs) {
       const netlist = await altiumHandler.parse(design.sourcePath);
-      expect(() => validateUniversalNetlist(netlist, design.name)).not.toThrow();
+      expect(() =>
+        validateUniversalNetlist(toUniversalNetlistDocument(netlist), design.name)
+      ).not.toThrow();
     }
   }, 120_000);
 });

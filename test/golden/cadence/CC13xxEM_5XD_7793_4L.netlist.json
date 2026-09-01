@@ -1,0 +1,1086 @@
+{
+  "universalNetlistSchemaVersion": 1,
+  "nets": {
+    "N320947": {
+      "U1": [
+        "5"
+      ],
+      "Y1": [
+        "2"
+      ],
+      "C18": [
+        "1"
+      ]
+    },
+    "N320943": {
+      "U1": [
+        "4"
+      ],
+      "Y1": [
+        "1"
+      ],
+      "C17": [
+        "1"
+      ]
+    },
+    "N498187": {
+      "U1": [
+        "12"
+      ],
+      "C19": [
+        "1"
+      ]
+    },
+    "DIO_0": {
+      "P1": [
+        "9"
+      ],
+      "U1": [
+        "6"
+      ]
+    },
+    "DIO_1": {
+      "P1": [
+        "7"
+      ],
+      "U1": [
+        "7"
+      ]
+    },
+    "DIO_2": {
+      "P1": [
+        "2"
+      ],
+      "U1": [
+        "8"
+      ]
+    },
+    "DIO_7": {
+      "P1": [
+        "11"
+      ],
+      "U1": [
+        "20"
+      ]
+    },
+    "DIO_8": {
+      "P1": [
+        "17"
+      ],
+      "U1": [
+        "21"
+      ]
+    },
+    "DIO_9": {
+      "P1": [
+        "14"
+      ],
+      "U1": [
+        "22"
+      ]
+    },
+    "VDDR": {
+      "L1": [
+        "2"
+      ],
+      "C8": [
+        "1"
+      ],
+      "C9": [
+        "1"
+      ],
+      "C23": [
+        "1"
+      ],
+      "U1": [
+        "29",
+        "32"
+      ]
+    },
+    "N501295": {
+      "C15": [
+        "1"
+      ],
+      "J1": [
+        "1"
+      ]
+    },
+    "N501083": {
+      "U1": [
+        "1"
+      ],
+      "L11": [
+        "2"
+      ],
+      "C11": [
+        "2"
+      ],
+      "L12": [
+        "1"
+      ]
+    },
+    "N501319": {
+      "L13": [
+        "2"
+      ],
+      "C13": [
+        "2"
+      ],
+      "L14": [
+        "1"
+      ]
+    },
+    "N501343": {
+      "A1": [
+        "1"
+      ],
+      "L15": [
+        "1"
+      ],
+      "R2": [
+        "2"
+      ]
+    },
+    "N501473": {
+      "R2": [
+        "1"
+      ],
+      "C16": [
+        "1"
+      ]
+    },
+    "N501143": {
+      "C14": [
+        "2"
+      ],
+      "L14": [
+        "2"
+      ],
+      "C16": [
+        "2"
+      ],
+      "C15": [
+        "2"
+      ]
+    },
+    "N501307": {
+      "C12": [
+        "1"
+      ],
+      "L13": [
+        "1"
+      ],
+      "C22": [
+        "2"
+      ],
+      "L12": [
+        "2"
+      ]
+    },
+    "N501087": {
+      "U1": [
+        "2"
+      ],
+      "L11": [
+        "1"
+      ],
+      "L21": [
+        "2"
+      ],
+      "C22": [
+        "1"
+      ]
+    },
+    "N476264": {
+      "U1": [
+        "3"
+      ],
+      "C21": [
+        "1"
+      ],
+      "L21": [
+        "1"
+      ]
+    },
+    "VDDS": {
+      "FL1": [
+        "1"
+      ],
+      "C5": [
+        "1"
+      ],
+      "C6": [
+        "1"
+      ],
+      "C3": [
+        "1"
+      ],
+      "C4": [
+        "1"
+      ],
+      "U1": [
+        "18",
+        "11",
+        "28"
+      ],
+      "R1": [
+        "2"
+      ]
+    },
+    "N310119": {
+      "C25": [
+        "1"
+      ],
+      "Y2": [
+        "1"
+      ],
+      "U1": [
+        "30"
+      ]
+    },
+    "N310061": {
+      "Y2": [
+        "3"
+      ],
+      "C24": [
+        "1"
+      ],
+      "U1": [
+        "31"
+      ]
+    },
+    "VDD_EB": {
+      "FL1": [
+        "2"
+      ],
+      "P2": [
+        "9",
+        "7"
+      ]
+    },
+    "GND": {
+      "Y2": [
+        "4",
+        "2"
+      ],
+      "C24": [
+        "2"
+      ],
+      "C25": [
+        "2"
+      ],
+      "C8": [
+        "2"
+      ],
+      "C3": [
+        "2"
+      ],
+      "C4": [
+        "2"
+      ],
+      "C5": [
+        "2"
+      ],
+      "C6": [
+        "2"
+      ],
+      "C9": [
+        "2"
+      ],
+      "C23": [
+        "2"
+      ],
+      "C18": [
+        "2"
+      ],
+      "C17": [
+        "2"
+      ],
+      "P1": [
+        "1",
+        "19"
+      ],
+      "P2": [
+        "2",
+        "20"
+      ],
+      "C20": [
+        "2"
+      ],
+      "U1": [
+        "33"
+      ],
+      "C19": [
+        "2"
+      ],
+      "C14": [
+        "1"
+      ],
+      "J1": [
+        "4",
+        "5",
+        "2",
+        "3"
+      ],
+      "C12": [
+        "2"
+      ],
+      "C13": [
+        "1"
+      ],
+      "L15": [
+        "2"
+      ],
+      "C21": [
+        "2"
+      ],
+      "C11": [
+        "1"
+      ]
+    },
+    "NRESET": {
+      "P2": [
+        "15"
+      ],
+      "U1": [
+        "19"
+      ],
+      "R1": [
+        "1"
+      ],
+      "C20": [
+        "1"
+      ]
+    },
+    "DIO_12": {
+      "P1": [
+        "20"
+      ],
+      "U1": [
+        "25"
+      ]
+    },
+    "DIO_14": {
+      "P1": [
+        "15"
+      ],
+      "U1": [
+        "27"
+      ]
+    },
+    "JTAG_TMS": {
+      "P2": [
+        "4"
+      ],
+      "U1": [
+        "13"
+      ]
+    },
+    "DIO_4": {
+      "P1": [
+        "12"
+      ],
+      "U1": [
+        "10"
+      ]
+    },
+    "DIO_3": {
+      "P1": [
+        "4"
+      ],
+      "U1": [
+        "9"
+      ]
+    },
+    "DIO_13": {
+      "P1": [
+        "8"
+      ],
+      "U1": [
+        "26"
+      ]
+    },
+    "DIO_5": {
+      "R6": [
+        "1"
+      ],
+      "P1": [
+        "6"
+      ]
+    },
+    "JTAG_TDO": {
+      "R4": [
+        "1"
+      ],
+      "P2": [
+        "19"
+      ]
+    },
+    "DIO_6": {
+      "R5": [
+        "1"
+      ],
+      "P1": [
+        "10"
+      ]
+    },
+    "DIO_11": {
+      "P1": [
+        "18"
+      ],
+      "U1": [
+        "24"
+      ]
+    },
+    "DIO_6/JTAG_TDI": {
+      "R5": [
+        "2"
+      ],
+      "R3": [
+        "2"
+      ],
+      "U1": [
+        "16"
+      ]
+    },
+    "JTAG_TCK": {
+      "P2": [
+        "1"
+      ],
+      "U1": [
+        "14"
+      ]
+    },
+    "JTAG_TDI": {
+      "R3": [
+        "1"
+      ],
+      "P2": [
+        "17"
+      ]
+    },
+    "DCDC_SW": {
+      "L1": [
+        "1"
+      ],
+      "U1": [
+        "17"
+      ]
+    },
+    "DIO_5/JTAG_TDO": {
+      "R4": [
+        "2"
+      ],
+      "R6": [
+        "2"
+      ],
+      "U1": [
+        "15"
+      ]
+    },
+    "DIO_10": {
+      "P1": [
+        "16"
+      ],
+      "U1": [
+        "23"
+      ]
+    },
+    "NC": {
+      "FIDU1": [
+        "1"
+      ],
+      "FIDU6": [
+        "1"
+      ],
+      "FIDU4": [
+        "1"
+      ],
+      "FIDU5": [
+        "1"
+      ],
+      "FIDU2": [
+        "1"
+      ],
+      "FIDU3": [
+        "1"
+      ],
+      "P1": [
+        "3",
+        "5",
+        "13"
+      ],
+      "P2": [
+        "3",
+        "5",
+        "11",
+        "13",
+        "6",
+        "8",
+        "10",
+        "12",
+        "14",
+        "16",
+        "18"
+      ]
+    }
+  },
+  "components": {
+    "A1": {
+      "pins": {
+        "1": {
+          "name": "FEED/GND_1",
+          "net": "N501343"
+        }
+      },
+      "mpn": "ANTENNA_ANTENNA868_915MHZ_MIRROR_A2N_DISCRETE_ANTENNA PCB HELIX 868/915MHZ",
+      "value": "Antenna PCB helix 868/915MHz"
+    },
+    "C11": {
+      "pins": {
+        "1": "GND",
+        "2": "N501083"
+      },
+      "mpn": "CAPACITOR_CAPC1005X60L_3.3PF_CAPC1005X60L,CAPC1005X60M",
+      "value": "3.3pF"
+    },
+    "C12": {
+      "pins": {
+        "1": "N501307",
+        "2": "GND"
+      },
+      "mpn": "CAPACITOR_CAPC1005X60L_2.7PF_CAPC1005X60L,CAPC1005X60M",
+      "value": "2.7pF"
+    },
+    "C13": {
+      "pins": {
+        "1": "GND",
+        "2": "N501319"
+      },
+      "mpn": "CAPACITOR_CAPC1005X60L_6.2PF_CAPC1005X60L,CAPC1005X60M",
+      "value": "6.2pF"
+    },
+    "C14": {
+      "pins": {
+        "1": "GND",
+        "2": "N501143"
+      },
+      "mpn": "CAPACITOR_CAPC1005X60L_3PF_CAPC1005X60L,CAPC1005X60M",
+      "value": "3pF"
+    },
+    "C15": {
+      "pins": {
+        "1": "N501295",
+        "2": "N501143"
+      },
+      "mpn": "CAPACITOR_CAPC1005X60N_100PF_CAPC1005X60L,CAPC1005X60M",
+      "value": "100pF"
+    },
+    "C16": {
+      "pins": {
+        "1": "N501473",
+        "2": "N501143"
+      },
+      "dns": true,
+      "mpn": "CAPACITOR_CAPC1005X60N,CAPC1005X60M",
+      "value": "DNM_0402"
+    },
+    "C17": {
+      "pins": {
+        "1": "N320943",
+        "2": "GND"
+      },
+      "mpn": "CAPACITOR_CAPC1005X60L_12PF_CAPC1005X60L,CAPC1005X60M",
+      "value": "12pF"
+    },
+    "C18": {
+      "pins": {
+        "1": "N320947",
+        "2": "GND"
+      },
+      "mpn": "CAPACITOR_CAPC1005X60L_12PF_CAPC1005X60L,CAPC1005X60M",
+      "value": "12pF"
+    },
+    "C19": {
+      "pins": {
+        "1": "N498187",
+        "2": "GND"
+      },
+      "mpn": "CAPACITOR_CAPC1005X60L_1UF_CAPC1005X60L,CAPC1005X60M",
+      "value": "1uF"
+    },
+    "C20": {
+      "pins": {
+        "1": "NRESET",
+        "2": "GND"
+      },
+      "mpn": "CAPACITOR_CAPC1005X60L_100NF_CAPC1005X60L,CAPC1005X60M",
+      "value": "100nF"
+    },
+    "C21": {
+      "pins": {
+        "1": "N476264",
+        "2": "GND"
+      },
+      "mpn": "CAPACITOR_CAPC1005X60L_100PF_CAPC1005X60L,CAPC1005X60M",
+      "value": "100pF"
+    },
+    "C22": {
+      "pins": {
+        "1": "N501087",
+        "2": "N501307"
+      },
+      "mpn": "CAPACITOR_CAPC1005X60L_3.3PF_CAPC1005X60L,CAPC1005X60M",
+      "value": "3.3pF"
+    },
+    "C23": {
+      "pins": {
+        "1": "VDDR",
+        "2": "GND"
+      },
+      "mpn": "CAPACITOR_CAPC1005X60L_100NF_CAPC1005X60L,CAPC1005X60M",
+      "value": "100nF"
+    },
+    "C24": {
+      "pins": {
+        "1": "N310061",
+        "2": "GND"
+      },
+      "dns": true,
+      "mpn": "CAPACITOR_CAPC1005X60L,CAPC1005X60M",
+      "value": "DNM"
+    },
+    "C25": {
+      "pins": {
+        "1": "N310119",
+        "2": "GND"
+      },
+      "dns": true,
+      "mpn": "CAPACITOR_CAPC1005X60L,CAPC1005X60M",
+      "value": "DNM"
+    },
+    "C3": {
+      "pins": {
+        "1": "VDDS",
+        "2": "GND"
+      },
+      "mpn": "CAPACITOR_CAPC1005X60L_100NF_CAPC1005X60L,CAPC1005X60M",
+      "value": "100nF"
+    },
+    "C4": {
+      "pins": {
+        "1": "VDDS",
+        "2": "GND"
+      },
+      "mpn": "CAPACITOR_CAPC1005X60L_100NF_CAPC1005X60L,CAPC1005X60M",
+      "value": "100nF"
+    },
+    "C5": {
+      "pins": {
+        "1": "VDDS",
+        "2": "GND"
+      },
+      "mpn": "CAPACITOR_CAPC1608X100A2L_22UF_CAPC1608X100A2L,CAPC1608X100A2M",
+      "value": "22uF"
+    },
+    "C6": {
+      "pins": {
+        "1": "VDDS",
+        "2": "GND"
+      },
+      "mpn": "CAPACITOR_CAPC1005X60L_100NF_CAPC1005X60L,CAPC1005X60M",
+      "value": "100nF"
+    },
+    "C8": {
+      "pins": {
+        "1": "VDDR",
+        "2": "GND"
+      },
+      "mpn": "CAPACITOR_CAPC1608X100A2L_22UF_CAPC1608X100A2L,CAPC1608X100A2M",
+      "value": "22uF"
+    },
+    "C9": {
+      "pins": {
+        "1": "VDDR",
+        "2": "GND"
+      },
+      "mpn": "CAPACITOR_CAPC1005X60L_100NF_CAPC1005X60L,CAPC1005X60M",
+      "value": "100nF"
+    },
+    "FIDU1": {
+      "pins": {
+        "1": "NC"
+      },
+      "mpn": "FIDMARK_FID100X115_FIDU_1MM",
+      "value": "FIDU_1MM"
+    },
+    "FIDU2": {
+      "pins": {
+        "1": "NC"
+      },
+      "mpn": "FIDMARK_FID100X115_FIDU_1MM",
+      "value": "FIDU_1MM"
+    },
+    "FIDU3": {
+      "pins": {
+        "1": "NC"
+      },
+      "mpn": "FIDMARK_FID100X115_FIDU_1MM",
+      "value": "FIDU_1MM"
+    },
+    "FIDU4": {
+      "pins": {
+        "1": "NC"
+      },
+      "mpn": "FIDMARK_FID100X115_FIDU_1MM",
+      "value": "FIDU_1MM"
+    },
+    "FIDU5": {
+      "pins": {
+        "1": "NC"
+      },
+      "mpn": "FIDMARK_FID100X115_FIDU_1MM",
+      "value": "FIDU_1MM"
+    },
+    "FIDU6": {
+      "pins": {
+        "1": "NC"
+      },
+      "mpn": "FIDMARK_FID100X115_FIDU_1MM",
+      "value": "FIDU_1MM"
+    },
+    "FL1": {
+      "pins": {
+        "1": "VDDS",
+        "2": "VDD_EB"
+      },
+      "mpn": "FILTER_2PIN_FIL_BLM18HE152SN1DL_BLM18HE152SN1_FIL_BLM18HE152SN1DL,FIL_BLM18HE152SN1DM",
+      "value": "BLM18HE152SN1"
+    },
+    "J1": {
+      "pins": {
+        "1": "N501295",
+        "2": "GND",
+        "3": "GND",
+        "4": "GND",
+        "5": "GND"
+      },
+      "mpn": "CONN_COAX_1+4_HUSTSAN_SMA10V21TGGAN_SMA-10V21-TGG_HUSTSAN_SMA10V21TGGL,HUSTSAN_SMA10V21TGGM",
+      "value": "SMA-10V21-TGG"
+    },
+    "L1": {
+      "pins": {
+        "1": "DCDC_SW",
+        "2": "VDDR"
+      },
+      "mpn": "INDUCTOR_INDC2012X150L_6.8UH_INDC2012X150L,INDC2012X150M",
+      "value": "6.8uH"
+    },
+    "L11": {
+      "pins": {
+        "1": "N501087",
+        "2": "N501083"
+      },
+      "mpn": "INDUCTOR_INDC1005X60L_22NH_INDC1005X60M,INDC1005X60L",
+      "value": "22nH"
+    },
+    "L12": {
+      "pins": {
+        "1": "N501083",
+        "2": "N501307"
+      },
+      "mpn": "INDUCTOR_INDC1005X60L_8.2NH_INDC1005X60L,INDC1005X60M",
+      "value": "8.2nH"
+    },
+    "L13": {
+      "pins": {
+        "1": "N501307",
+        "2": "N501319"
+      },
+      "mpn": "INDUCTOR_INDC1005X60L_6.8NH_INDC1005X60L,INDC1005X60M",
+      "value": "6.8nH"
+    },
+    "L14": {
+      "pins": {
+        "1": "N501319",
+        "2": "N501143"
+      },
+      "mpn": "INDUCTOR_INDC1005X60L_6.8NH_INDC1005X60L,INDC1005X60M",
+      "value": "6.8nH"
+    },
+    "L15": {
+      "pins": {
+        "1": "N501343",
+        "2": "GND"
+      },
+      "mpn": "INDUCTOR_INDC1005X60L_TBD_INDC1005X60M,INDC1005X60L",
+      "value": "TBD"
+    },
+    "L21": {
+      "pins": {
+        "1": "N476264",
+        "2": "N501087"
+      },
+      "mpn": "INDUCTOR_INDC1005X60L_8.2NH_INDC1005X60L,INDC1005X60M",
+      "value": "8.2nH"
+    },
+    "P1": {
+      "pins": {
+        "1": "GND",
+        "2": "DIO_2",
+        "3": "NC",
+        "4": "DIO_3",
+        "5": "NC",
+        "6": "DIO_5",
+        "7": "DIO_1",
+        "8": "DIO_13",
+        "9": "DIO_0",
+        "10": "DIO_6",
+        "11": "DIO_7",
+        "12": "DIO_4",
+        "13": "NC",
+        "14": "DIO_9",
+        "15": "DIO_14",
+        "16": "DIO_10",
+        "17": "DIO_8",
+        "18": "DIO_11",
+        "19": "GND",
+        "20": "DIO_12"
+      },
+      "mpn": "CONN_HEADER_2X10_P_S_SAMTEC_SFM11002AN_SFM-110-02-S-D-A-K-TR_SAMTEC_SFM11002AL,SAMTEC_SFM11002AM",
+      "value": "SFM-110-02-S-D-A-K-TR"
+    },
+    "P2": {
+      "pins": {
+        "1": "JTAG_TCK",
+        "2": "GND",
+        "3": "NC",
+        "4": "JTAG_TMS",
+        "5": "NC",
+        "6": "NC",
+        "7": "VDD_EB",
+        "8": "NC",
+        "9": "VDD_EB",
+        "10": "NC",
+        "11": "NC",
+        "12": "NC",
+        "13": "NC",
+        "14": "NC",
+        "15": "NRESET",
+        "16": "NC",
+        "17": "JTAG_TDI",
+        "18": "NC",
+        "19": "JTAG_TDO",
+        "20": "GND"
+      },
+      "mpn": "CONN_HEADER_2X10_P_S_SAMTEC_SFM11002AN_SFM-110-02-S-D-A-K-TR_SAMTEC_SFM11002AL,SAMTEC_SFM11002AM",
+      "value": "SFM-110-02-S-D-A-K-TR"
+    },
+    "R1": {
+      "pins": {
+        "1": "NRESET",
+        "2": "VDDS"
+      },
+      "mpn": "RESISTOR_RESC1005X40L_100K_RESC1005X40L,RESC1005X40M",
+      "value": "100k"
+    },
+    "R2": {
+      "pins": {
+        "1": "N501473",
+        "2": "N501343"
+      },
+      "mpn": "RESISTOR_RESC1005X40L_0_RESC1005X40L,RESC1005X40M",
+      "value": "0"
+    },
+    "R3": {
+      "pins": {
+        "1": "JTAG_TDI",
+        "2": "DIO_6/JTAG_TDI"
+      },
+      "dns": true,
+      "mpn": "RESISTOR_RESC1005X40L,RESC1005X40M",
+      "value": "DNM"
+    },
+    "R4": {
+      "pins": {
+        "1": "JTAG_TDO",
+        "2": "DIO_5/JTAG_TDO"
+      },
+      "dns": true,
+      "mpn": "RESISTOR_RESC1005X40L,RESC1005X40M",
+      "value": "DNM"
+    },
+    "R5": {
+      "pins": {
+        "1": "DIO_6",
+        "2": "DIO_6/JTAG_TDI"
+      },
+      "mpn": "RESISTOR_RESC1005X40N_0_RESC1005X40L,RESC1005X40M",
+      "value": "0"
+    },
+    "R6": {
+      "pins": {
+        "1": "DIO_5",
+        "2": "DIO_5/JTAG_TDO"
+      },
+      "mpn": "RESISTOR_RESC1005X40N_0_RESC1005X40L,RESC1005X40M",
+      "value": "0"
+    },
+    "U1": {
+      "pins": {
+        "1": {
+          "name": "RF_P",
+          "net": "N501083"
+        },
+        "2": {
+          "name": "RF_N",
+          "net": "N501087"
+        },
+        "3": {
+          "name": "RX_TX",
+          "net": "N476264"
+        },
+        "4": {
+          "name": "X32K_Q1",
+          "net": "N320943"
+        },
+        "5": {
+          "name": "X32K_Q2",
+          "net": "N320947"
+        },
+        "6": {
+          "name": "DIO_0",
+          "net": "DIO_0"
+        },
+        "7": {
+          "name": "DIO_1",
+          "net": "DIO_1"
+        },
+        "8": {
+          "name": "DIO_2",
+          "net": "DIO_2"
+        },
+        "9": {
+          "name": "DIO_3",
+          "net": "DIO_3"
+        },
+        "10": {
+          "name": "DIO_4",
+          "net": "DIO_4"
+        },
+        "11": {
+          "name": "VDDS2",
+          "net": "VDDS"
+        },
+        "12": {
+          "name": "DCOUPL",
+          "net": "N498187"
+        },
+        "13": {
+          "name": "JTAG_TMSC",
+          "net": "JTAG_TMS"
+        },
+        "14": {
+          "name": "JTAG_TCKC",
+          "net": "JTAG_TCK"
+        },
+        "15": {
+          "name": "DIO_5",
+          "net": "DIO_5/JTAG_TDO"
+        },
+        "16": {
+          "name": "DIO_6",
+          "net": "DIO_6/JTAG_TDI"
+        },
+        "17": {
+          "name": "DCDC_SW",
+          "net": "DCDC_SW"
+        },
+        "18": {
+          "name": "VDDS_DCDC",
+          "net": "VDDS"
+        },
+        "19": {
+          "name": "RESET_N",
+          "net": "NRESET"
+        },
+        "20": {
+          "name": "DIO_7",
+          "net": "DIO_7"
+        },
+        "21": {
+          "name": "DIO_8",
+          "net": "DIO_8"
+        },
+        "22": {
+          "name": "DIO_9",
+          "net": "DIO_9"
+        },
+        "23": {
+          "name": "DIO_10",
+          "net": "DIO_10"
+        },
+        "24": {
+          "name": "DIO_11",
+          "net": "DIO_11"
+        },
+        "25": {
+          "name": "DIO_12",
+          "net": "DIO_12"
+        },
+        "26": {
+          "name": "DIO_13",
+          "net": "DIO_13"
+        },
+        "27": {
+          "name": "DIO_14",
+          "net": "DIO_14"
+        },
+        "28": {
+          "name": "VDDS",
+          "net": "VDDS"
+        },
+        "29": {
+          "name": "VDDR#29",
+          "net": "VDDR"
+        },
+        "30": {
+          "name": "X24M_P",
+          "net": "N310119"
+        },
+        "31": {
+          "name": "X24M_N",
+          "net": "N310061"
+        },
+        "32": {
+          "name": "VDDR#32",
+          "net": "VDDR"
+        },
+        "33": {
+          "name": "VSS",
+          "net": "GND"
+        }
+      },
+      "mpn": "IC_RF_CC13XX_5X5_QFN32_QFNFC50P500X500X100-33AN_CC13XX 5X5_QFNFC50P500X500X100-33AL,QFNFC50P500X500X100-33AM",
+      "value": "CC13xx 5x5"
+    },
+    "Y1": {
+      "pins": {
+        "1": "N320943",
+        "2": "N320947"
+      },
+      "mpn": "CRYSTAL_XTAL_FC-135N_32.768KHZ_XTAL_FC-135L,XTAL_FC-135M",
+      "value": "32.768kHz"
+    },
+    "Y2": {
+      "pins": {
+        "1": "N310119",
+        "2": "GND",
+        "3": "N310061",
+        "4": "GND"
+      },
+      "mpn": "XTAL_TSX_3225_V1_OSCCC250X320X80-4L_24MHZ_OSCCC250X320X80-4L,OSCCC250X320X80-4M",
+      "value": "24MHz"
+    }
+  }
+}

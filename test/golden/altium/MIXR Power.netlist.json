@@ -1,0 +1,3090 @@
+{
+  "universalNetlistSchemaVersion": 1,
+  "nets": {
+    "NetR12_1": {
+      "U2": [
+        "2"
+      ],
+      "R12": [
+        "1"
+      ]
+    },
+    "NetR9_2": {
+      "U2": [
+        "1"
+      ],
+      "R9": [
+        "2"
+      ],
+      "R11": [
+        "1"
+      ]
+    },
+    "GND": {
+      "U2": [
+        "3",
+        "7"
+      ],
+      "R11": [
+        "2"
+      ],
+      "C15": [
+        "2"
+      ],
+      "C16": [
+        "2"
+      ],
+      "C17": [
+        "2"
+      ],
+      "C12": [
+        "2"
+      ],
+      "C13": [
+        "2"
+      ],
+      "C14": [
+        "2"
+      ],
+      "C11": [
+        "2"
+      ],
+      "U3": [
+        "2",
+        "3"
+      ],
+      "C21": [
+        "2"
+      ],
+      "C22": [
+        "2"
+      ],
+      "C18": [
+        "2"
+      ],
+      "C19": [
+        "2"
+      ],
+      "R16": [
+        "2"
+      ],
+      "U4": [
+        "2"
+      ],
+      "Q2": [
+        "2"
+      ],
+      "R14": [
+        "2"
+      ],
+      "U7": [
+        "1",
+        "6"
+      ],
+      "C29": [
+        "2"
+      ],
+      "C31": [
+        "2"
+      ],
+      "C30": [
+        "2"
+      ],
+      "R25": [
+        "2"
+      ],
+      "C33": [
+        "2"
+      ],
+      "C32": [
+        "2"
+      ],
+      "C34": [
+        "2"
+      ],
+      "C35": [
+        "2"
+      ],
+      "C36": [
+        "2"
+      ],
+      "U8": [
+        "5",
+        "6",
+        "9"
+      ],
+      "C37": [
+        "2"
+      ],
+      "C41": [
+        "2"
+      ],
+      "C38": [
+        "2"
+      ],
+      "R31": [
+        "2"
+      ],
+      "C42": [
+        "2"
+      ],
+      "C39": [
+        "2"
+      ],
+      "C40": [
+        "2"
+      ],
+      "C43": [
+        "2"
+      ],
+      "C44": [
+        "2"
+      ],
+      "U9": [
+        "2",
+        "9"
+      ],
+      "C46": [
+        "2"
+      ],
+      "C45": [
+        "2"
+      ],
+      "C50": [
+        "2"
+      ],
+      "R40": [
+        "2"
+      ],
+      "C48": [
+        "2"
+      ],
+      "C49": [
+        "2"
+      ],
+      "LED3": [
+        "2"
+      ],
+      "LED2": [
+        "1"
+      ],
+      "LED4": [
+        "2"
+      ],
+      "Q3": [
+        "1"
+      ],
+      "Q4": [
+        "1"
+      ],
+      "Q5": [
+        "2"
+      ],
+      "R5": [
+        "2"
+      ],
+      "C5": [
+        "2"
+      ],
+      "R7": [
+        "2"
+      ],
+      "R8": [
+        "2"
+      ],
+      "U1": [
+        "17",
+        "18",
+        "25"
+      ],
+      "C2": [
+        "2"
+      ],
+      "R3": [
+        "1"
+      ],
+      "C6": [
+        "2"
+      ],
+      "C7": [
+        "2"
+      ],
+      "C4": [
+        "2"
+      ],
+      "U6": [
+        "8",
+        "15"
+      ],
+      "RT1": [
+        "2"
+      ],
+      "C27": [
+        "2"
+      ],
+      "D5": [
+        "1"
+      ],
+      "Q6": [
+        "4"
+      ],
+      "R42": [
+        "2"
+      ],
+      "JP1": [
+        "2"
+      ],
+      "P1": [
+        "A12",
+        "P1",
+        "A1",
+        "B1",
+        "B12"
+      ],
+      "D1": [
+        "2"
+      ],
+      "C1": [
+        "2"
+      ],
+      "R1": [
+        "2"
+      ],
+      "R2": [
+        "2"
+      ],
+      "P2": [
+        "8",
+        "9"
+      ],
+      "U5": [
+        "17",
+        "21",
+        "3",
+        "2",
+        "1"
+      ],
+      "C24": [
+        "2"
+      ],
+      "C23": [
+        "2"
+      ],
+      "R18": [
+        "1",
+        "2",
+        "3"
+      ],
+      "LED1": [
+        "2"
+      ],
+      "R19": [
+        "1"
+      ]
+    },
+    "NetC8_1": {
+      "U2": [
+        "4"
+      ],
+      "L2": [
+        "2"
+      ],
+      "C8": [
+        "1"
+      ],
+      "D4": [
+        "2"
+      ]
+    },
+    "NetC11_1": {
+      "U2": [
+        "6"
+      ],
+      "L2": [
+        "1"
+      ],
+      "C12": [
+        "1"
+      ],
+      "C13": [
+        "1"
+      ],
+      "C14": [
+        "1"
+      ],
+      "C11": [
+        "1"
+      ],
+      "F2": [
+        "2"
+      ],
+      "Q1": [
+        "2"
+      ],
+      "R10": [
+        "1"
+      ]
+    },
+    "49V2": {
+      "R9": [
+        "1"
+      ],
+      "D2": [
+        "1"
+      ],
+      "C9": [
+        "1"
+      ],
+      "C10": [
+        "1"
+      ],
+      "U3": [
+        "1"
+      ],
+      "C21": [
+        "1"
+      ],
+      "C22": [
+        "1"
+      ],
+      "TH_TP?": [
+        "TH_TP"
+      ]
+    },
+    "NetC8_2": {
+      "C8": [
+        "2"
+      ],
+      "D3": [
+        "1"
+      ],
+      "D2": [
+        "2"
+      ]
+    },
+    "NetC9_2": {
+      "D3": [
+        "2"
+      ],
+      "D4": [
+        "1"
+      ],
+      "C9": [
+        "2"
+      ],
+      "C10": [
+        "2"
+      ],
+      "C15": [
+        "1"
+      ],
+      "C16": [
+        "1"
+      ]
+    },
+    "NetC17_1": {
+      "R12": [
+        "2"
+      ],
+      "C17": [
+        "1"
+      ]
+    },
+    "V_SYS": {
+      "F2": [
+        "1"
+      ],
+      "R21": [
+        "1"
+      ],
+      "U1": [
+        "15",
+        "16"
+      ],
+      "VBAT_PROT1": [
+        "TH_TP"
+      ],
+      "L1": [
+        "2"
+      ],
+      "C4": [
+        "1"
+      ]
+    },
+    "NetC20_2": {
+      "U3": [
+        "4"
+      ],
+      "R15": [
+        "2"
+      ],
+      "R16": [
+        "1"
+      ],
+      "C20": [
+        "2"
+      ]
+    },
+    "48V": {
+      "U3": [
+        "5"
+      ],
+      "C18": [
+        "1"
+      ],
+      "C19": [
+        "1"
+      ],
+      "R15": [
+        "1"
+      ],
+      "C20": [
+        "1"
+      ],
+      "U4": [
+        "4"
+      ]
+    },
+    "48V_SW": {
+      "U4": [
+        "3"
+      ],
+      "P2": [
+        "10"
+      ]
+    },
+    "NetR17_2": {
+      "U4": [
+        "1"
+      ],
+      "R17": [
+        "2"
+      ]
+    },
+    "NetR17_1": {
+      "R17": [
+        "1"
+      ]
+    },
+    "NetQ1_1": {
+      "Q1": [
+        "1"
+      ],
+      "Q2": [
+        "3"
+      ],
+      "R10": [
+        "2"
+      ]
+    },
+    "NetQ2_1": {
+      "Q2": [
+        "1"
+      ],
+      "R13": [
+        "2"
+      ]
+    },
+    "NetR13_1": {
+      "R13": [
+        "1"
+      ]
+    },
+    "49V2_EN_7": {
+      "U2": [
+        "5"
+      ],
+      "Q1": [
+        "3"
+      ],
+      "R14": [
+        "1"
+      ]
+    },
+    "NetC29_1": {
+      "L3": [
+        "1"
+      ],
+      "U7": [
+        "5",
+        "7"
+      ],
+      "C29": [
+        "1"
+      ],
+      "C31": [
+        "1"
+      ],
+      "C30": [
+        "1"
+      ],
+      "R21": [
+        "2"
+      ]
+    },
+    "NetL3_2": {
+      "L3": [
+        "2"
+      ],
+      "U7": [
+        "2"
+      ]
+    },
+    "+5V": {
+      "U7": [
+        "3"
+      ],
+      "R22": [
+        "1"
+      ],
+      "C28": [
+        "1"
+      ],
+      "C33": [
+        "1"
+      ],
+      "C32": [
+        "1"
+      ],
+      "C34": [
+        "1"
+      ],
+      "C35": [
+        "1"
+      ],
+      "C36": [
+        "1"
+      ],
+      "R27": [
+        "1"
+      ],
+      "C39": [
+        "1"
+      ],
+      "C40": [
+        "1"
+      ],
+      "U9": [
+        "1"
+      ],
+      "C46": [
+        "1"
+      ],
+      "C45": [
+        "1"
+      ],
+      "Q3": [
+        "4"
+      ],
+      "R23": [
+        "1"
+      ],
+      "R37": [
+        "1"
+      ],
+      "P2": [
+        "14"
+      ]
+    },
+    "NetC28_2": {
+      "U7": [
+        "4"
+      ],
+      "R25": [
+        "1"
+      ],
+      "R22": [
+        "2"
+      ],
+      "C28": [
+        "2"
+      ]
+    },
+    "NetC37_1": {
+      "U8": [
+        "1",
+        "3",
+        "4"
+      ],
+      "R27": [
+        "2"
+      ],
+      "C37": [
+        "1"
+      ],
+      "C41": [
+        "1"
+      ],
+      "C38": [
+        "1"
+      ]
+    },
+    "NetR28_2": {
+      "U8": [
+        "7"
+      ],
+      "R28": [
+        "2"
+      ],
+      "R31": [
+        "1"
+      ]
+    },
+    "3V3": {
+      "U8": [
+        "8"
+      ],
+      "R28": [
+        "1"
+      ],
+      "C42": [
+        "1"
+      ],
+      "C43": [
+        "1"
+      ],
+      "C44": [
+        "1"
+      ],
+      "Q4": [
+        "4"
+      ],
+      "R29": [
+        "1"
+      ],
+      "R30": [
+        "1"
+      ],
+      "P2": [
+        "15",
+        "16"
+      ],
+      "U5": [
+        "18",
+        "4"
+      ],
+      "C24": [
+        "1"
+      ],
+      "C23": [
+        "1"
+      ],
+      "R18": [
+        "4",
+        "6",
+        "5"
+      ]
+    },
+    "NetC50_1": {
+      "U9": [
+        "3"
+      ],
+      "C50": [
+        "1"
+      ]
+    },
+    "-5V_SW": {
+      "U9": [
+        "4"
+      ],
+      "R36": [
+        "1"
+      ],
+      "C48": [
+        "1"
+      ],
+      "C49": [
+        "1"
+      ],
+      "R33": [
+        "1"
+      ],
+      "P2": [
+        "12"
+      ]
+    },
+    "NetR36_2": {
+      "U9": [
+        "5"
+      ],
+      "R36": [
+        "2"
+      ],
+      "R38": [
+        "1"
+      ]
+    },
+    "NetQ5_1": {
+      "U9": [
+        "6"
+      ],
+      "R37": [
+        "2"
+      ],
+      "Q5": [
+        "1"
+      ]
+    },
+    "NetC47_2": {
+      "U9": [
+        "7"
+      ],
+      "C47": [
+        "2"
+      ]
+    },
+    "NetC47_1": {
+      "U9": [
+        "8"
+      ],
+      "C47": [
+        "1"
+      ]
+    },
+    "NetR38_2": {
+      "R38": [
+        "2"
+      ],
+      "R40": [
+        "1"
+      ]
+    },
+    "+5V_SW": {
+      "R34": [
+        "1"
+      ],
+      "Q3": [
+        "3"
+      ],
+      "P2": [
+        "13"
+      ]
+    },
+    "NetLED3_1": {
+      "R34": [
+        "2"
+      ],
+      "LED3": [
+        "1"
+      ]
+    },
+    "NetLED2_2": {
+      "R33": [
+        "2"
+      ],
+      "LED2": [
+        "2"
+      ]
+    },
+    "3V3_SW": {
+      "R35": [
+        "1"
+      ],
+      "Q4": [
+        "3"
+      ],
+      "P2": [
+        "1",
+        "2"
+      ]
+    },
+    "NetLED4_1": {
+      "R35": [
+        "2"
+      ],
+      "LED4": [
+        "1"
+      ]
+    },
+    "NetQ3_5": {
+      "Q3": [
+        "5",
+        "6"
+      ],
+      "R23": [
+        "2"
+      ]
+    },
+    "NetQ3_2": {
+      "Q3": [
+        "2"
+      ],
+      "R26": [
+        "2"
+      ]
+    },
+    "NetQ4_5": {
+      "Q4": [
+        "5",
+        "6"
+      ],
+      "R29": [
+        "2"
+      ]
+    },
+    "NetQ4_2": {
+      "Q4": [
+        "2"
+      ],
+      "R32": [
+        "2"
+      ]
+    },
+    "ESP32_PWR_PE_GP0_nSW_EN": {
+      "R30": [
+        "2"
+      ],
+      "R26": [
+        "1"
+      ],
+      "R32": [
+        "1"
+      ],
+      "R39": [
+        "1"
+      ],
+      "U5": [
+        "9"
+      ],
+      "R18": [
+        "16"
+      ]
+    },
+    "NetQ5_3": {
+      "Q5": [
+        "3"
+      ],
+      "R39": [
+        "2"
+      ]
+    },
+    "REGN": {
+      "R4": [
+        "1"
+      ],
+      "C5": [
+        "1"
+      ],
+      "U1": [
+        "22"
+      ],
+      "REGN1": [
+        "TP"
+      ]
+    },
+    "NetR4_2": {
+      "R4": [
+        "2"
+      ],
+      "R5": [
+        "1"
+      ],
+      "U1": [
+        "11"
+      ]
+    },
+    "NetC3_1": {
+      "C3": [
+        "1"
+      ],
+      "U1": [
+        "19",
+        "20"
+      ],
+      "L1": [
+        "1"
+      ]
+    },
+    "NetC3_2": {
+      "C3": [
+        "2"
+      ],
+      "U1": [
+        "21"
+      ]
+    },
+    "NetR7_1": {
+      "R7": [
+        "1"
+      ],
+      "U1": [
+        "10"
+      ]
+    },
+    "NetR6_1": {
+      "R6": [
+        "1"
+      ],
+      "U1": [
+        "8"
+      ]
+    },
+    "NetR6_2": {
+      "R6": [
+        "2"
+      ],
+      "R8": [
+        "1"
+      ]
+    },
+    "NetU1_3": {
+      "U1": [
+        "3"
+      ]
+    },
+    "NetU1_4": {
+      "U1": [
+        "4"
+      ]
+    },
+    "ESP32_PWR_PE_GP6_BAT_CHG_STATUS": {
+      "U1": [
+        "5"
+      ],
+      "U5": [
+        "15"
+      ],
+      "R18": [
+        "11"
+      ]
+    },
+    "NetR3_2": {
+      "U1": [
+        "6"
+      ],
+      "R3": [
+        "2"
+      ]
+    },
+    "ESP32_PWR_PE_GP5_BAT_CHG_nPG": {
+      "U1": [
+        "7"
+      ],
+      "U5": [
+        "14"
+      ],
+      "R18": [
+        "12"
+      ]
+    },
+    "NetU1_9": {
+      "U1": [
+        "9"
+      ]
+    },
+    "VBAT_PROT": {
+      "U1": [
+        "13",
+        "14"
+      ],
+      "C6": [
+        "1"
+      ],
+      "U6": [
+        "10"
+      ],
+      "R20": [
+        "2"
+      ]
+    },
+    "NetC7_1": {
+      "U1": [
+        "23"
+      ],
+      "C7": [
+        "1"
+      ]
+    },
+    "V_CHG_USB_PROT": {
+      "U1": [
+        "24",
+        "1"
+      ],
+      "C2": [
+        "1"
+      ],
+      "D1": [
+        "5"
+      ],
+      "C1": [
+        "1"
+      ],
+      "F1": [
+        "2"
+      ],
+      "VUSB1": [
+        "TP"
+      ]
+    },
+    "NetRT1_1": {
+      "U6": [
+        "1"
+      ],
+      "RT1": [
+        "1"
+      ]
+    },
+    "NetD5_2": {
+      "U6": [
+        "6",
+        "7"
+      ],
+      "R20": [
+        "1"
+      ],
+      "F3": [
+        "2"
+      ],
+      "D5": [
+        "2"
+      ],
+      "R41": [
+        "1"
+      ]
+    },
+    "NetC27_1": {
+      "U6": [
+        "11"
+      ],
+      "C27": [
+        "1"
+      ]
+    },
+    "ESP32_PWR_PE_GP4_BAT_GAUGE_ALRT": {
+      "U6": [
+        "12"
+      ],
+      "U5": [
+        "13"
+      ],
+      "R18": [
+        "13"
+      ]
+    },
+    "ESP32_IO21_I2C1_SDA": {
+      "U6": [
+        "13"
+      ]
+    },
+    "ESP32_IO22_I2C1_SCL": {
+      "U6": [
+        "14"
+      ]
+    },
+    "NetF3_1": {
+      "M1": [
+        "1"
+      ],
+      "F3": [
+        "1"
+      ]
+    },
+    "NetC51_2": {
+      "M1": [
+        "2"
+      ],
+      "U10": [
+        "6"
+      ],
+      "Q6": [
+        "1"
+      ],
+      "C51": [
+        "2"
+      ],
+      "JP1": [
+        "1"
+      ]
+    },
+    "NetQ6_2": {
+      "U10": [
+        "1"
+      ],
+      "Q6": [
+        "2"
+      ]
+    },
+    "NetR42_1": {
+      "U10": [
+        "2"
+      ],
+      "R42": [
+        "1"
+      ]
+    },
+    "NetQ6_3": {
+      "U10": [
+        "3"
+      ],
+      "Q6": [
+        "3"
+      ]
+    },
+    "NetC51_1": {
+      "U10": [
+        "5"
+      ],
+      "R41": [
+        "2"
+      ],
+      "C51": [
+        "1"
+      ]
+    },
+    "NetF1_1": {
+      "P1": [
+        "A4",
+        "A9",
+        "B4",
+        "B9"
+      ],
+      "F1": [
+        "1"
+      ]
+    },
+    "NetD1_1": {
+      "P1": [
+        "A6",
+        "B6"
+      ],
+      "D1": [
+        "1"
+      ]
+    },
+    "NetD1_3": {
+      "P1": [
+        "A7",
+        "B7"
+      ],
+      "D1": [
+        "3"
+      ]
+    },
+    "USB_D-": {
+      "D1": [
+        "4"
+      ],
+      "D-1": [
+        "TP"
+      ]
+    },
+    "USB_D+": {
+      "D1": [
+        "6"
+      ],
+      "D+1": [
+        "TP"
+      ]
+    },
+    "NetP2_3": {
+      "P2": [
+        "3"
+      ]
+    },
+    "NetP2_4": {
+      "P2": [
+        "4"
+      ]
+    },
+    "NetP2_5": {
+      "P2": [
+        "5"
+      ]
+    },
+    "NetP2_6": {
+      "P2": [
+        "6"
+      ]
+    },
+    "NetP2_7": {
+      "P2": [
+        "7"
+      ]
+    },
+    "USB_CC1_3": {
+      "P1": [
+        "A5"
+      ],
+      "R2": [
+        "1"
+      ]
+    },
+    "USB_CC2_3": {
+      "P1": [
+        "B5"
+      ],
+      "R1": [
+        "1"
+      ]
+    },
+    "ESP32_PWR_PE_GP3_nBAT_CHG_EN": {
+      "U5": [
+        "12"
+      ],
+      "R18": [
+        "14"
+      ]
+    },
+    "ESP32_IO26_POWER_I2C_PE_INT": {
+      "U5": [
+        "7"
+      ],
+      "R19": [
+        "2"
+      ]
+    },
+    "ESP32_PWR_PE_GP2_49V2_REG_EN": {
+      "U5": [
+        "11"
+      ],
+      "R18": [
+        "15"
+      ]
+    },
+    "ESP32_PWR_PE_GP1_PHANTOM_PWR_EN": {
+      "U5": [
+        "10"
+      ]
+    },
+    "NetU5_19": {
+      "U5": [
+        "19"
+      ]
+    },
+    "NetU5_20": {
+      "U5": [
+        "20"
+      ]
+    },
+    "NetLED1_1": {
+      "R18": [
+        "8",
+        "7"
+      ],
+      "LED1": [
+        "1"
+      ]
+    },
+    "ESP32_PWR_PE_GP7_DEBUG_LEG_8": {
+      "U5": [
+        "16"
+      ],
+      "R18": [
+        "10",
+        "9"
+      ]
+    }
+  },
+  "components": {
+    "U2": {
+      "pins": {
+        "1": {
+          "name": "FB",
+          "net": "NetR9_2"
+        },
+        "2": {
+          "name": "COMP",
+          "net": "NetR12_1"
+        },
+        "3": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "4": {
+          "name": "SW",
+          "net": "NetC8_1"
+        },
+        "5": {
+          "name": "CTRL",
+          "net": "49V2_EN_7"
+        },
+        "6": {
+          "name": "VIN",
+          "net": "NetC11_1"
+        },
+        "7": {
+          "name": "PAD (GND)",
+          "net": "GND"
+        }
+      },
+      "mpn": "TPS61170DRVR",
+      "description": "Boost, Buck-Boost, Flyback, SEPIC Switching Regulator IC Positive Adjustable 3V 1 Output 960mA (Switch) 6-WDFN Exposed Pad",
+      "comment": "IC REG BOOST 38V 1.2A 6-WDFN"
+    },
+    "R9": {
+      "pins": {
+        "1": "49V2",
+        "2": "NetR9_2"
+      },
+      "mpn": "RT0603DRE07390KL",
+      "description": "390 kOhms ±0.5% 0.1W, 1/10W Chip Resistor 0603 (1608 Metric) Thin Film \r\n",
+      "comment": "RES 390K OHM 1% 1/10W 0603"
+    },
+    "R11": {
+      "pins": {
+        "1": "NetR9_2",
+        "2": "GND"
+      },
+      "description": "RES SMD 10K OHM 1% 1/10W 0603",
+      "comment": "RES 10K OHM 1% 1/10W 0603"
+    },
+    "L2": {
+      "pins": {
+        "1": "NetC11_1",
+        "2": "NetC8_1"
+      },
+      "mpn": "74438356220",
+      "description": "FIXED IND 22UH 1.7A 280MOHM SMD",
+      "comment": "IND 22UH 1.7A 280 MOHM SMD"
+    },
+    "C8": {
+      "pins": {
+        "1": "NetC8_1",
+        "2": "NetC8_2"
+      },
+      "mpn": "CL31B105KCHNNNE",
+      "description": "Cap Ceramic 1uF 100V X7R 10% SMD 1206 125C Embossed T/R",
+      "comment": "CAP CER 1UF 100V X7R 1206"
+    },
+    "D3": {
+      "pins": {
+        "1": "NetC8_2",
+        "2": "NetC9_2"
+      },
+      "mpn": "SL110PL-TP",
+      "description": "DIODE SCHOTTKY 100V 1A SOD123FL",
+      "comment": "DIODE SCHOTTKY 100V 1A SOD123FL"
+    },
+    "D4": {
+      "pins": {
+        "1": "NetC9_2",
+        "2": "NetC8_1"
+      },
+      "mpn": "SL110PL-TP",
+      "description": "DIODE SCHOTTKY 100V 1A SOD123FL",
+      "comment": "DIODE SCHOTTKY 100V 1A SOD123FL"
+    },
+    "D2": {
+      "pins": {
+        "1": "49V2",
+        "2": "NetC8_2"
+      },
+      "mpn": "SL110PL-TP",
+      "description": "DIODE SCHOTTKY 100V 1A SOD123FL",
+      "comment": "DIODE SCHOTTKY 100V 1A SOD123FL"
+    },
+    "C9": {
+      "pins": {
+        "1": "49V2",
+        "2": "NetC9_2"
+      },
+      "description": "2.2µF ±20% 100V Ceramic Capacitor X7R 1206 (3216 Metric)",
+      "comment": "CAP CER 2.2UF 100V ±20% X7R 1206"
+    },
+    "C10": {
+      "pins": {
+        "1": "49V2",
+        "2": "NetC9_2"
+      },
+      "description": "2.2µF ±20% 100V Ceramic Capacitor X7R 1206 (3216 Metric)",
+      "comment": "CAP CER 2.2UF 100V ±20% X7R 1206"
+    },
+    "C15": {
+      "pins": {
+        "1": "NetC9_2",
+        "2": "GND"
+      },
+      "description": "2.2µF ±20% 100V Ceramic Capacitor X7R 1206 (3216 Metric)",
+      "comment": "CAP CER 2.2UF 100V ±20% X7R 1206"
+    },
+    "C16": {
+      "pins": {
+        "1": "NetC9_2",
+        "2": "GND"
+      },
+      "description": "2.2µF ±20% 100V Ceramic Capacitor X7R 1206 (3216 Metric)",
+      "comment": "CAP CER 2.2UF 100V ±20% X7R 1206"
+    },
+    "R12": {
+      "pins": {
+        "1": "NetR12_1",
+        "2": "NetC17_1"
+      },
+      "description": "RES SMD 10K OHM 1% 1/10W 0603",
+      "comment": "RES 10K OHM 1% 1/10W 0603"
+    },
+    "C17": {
+      "pins": {
+        "1": "NetC17_1",
+        "2": "GND"
+      },
+      "description": "10000pF ±5% 50V Ceramic Capacitor U2J 0603 (1608 Metric)",
+      "comment": "CAP CER 10nF 50V 5% X7R 0603"
+    },
+    "C12": {
+      "pins": {
+        "1": "NetC11_1",
+        "2": "GND"
+      },
+      "description": "2.2µF ±20% 100V Ceramic Capacitor X7R 1206 (3216 Metric)",
+      "comment": "CAP CER 2.2UF 100V ±20% X7R 1206"
+    },
+    "C13": {
+      "pins": {
+        "1": "NetC11_1",
+        "2": "GND"
+      },
+      "description": "2.2µF ±20% 100V Ceramic Capacitor X7R 1206 (3216 Metric)",
+      "comment": "CAP CER 2.2UF 100V ±20% X7R 1206"
+    },
+    "C14": {
+      "pins": {
+        "1": "NetC11_1",
+        "2": "GND"
+      },
+      "description": "1µF ±10% 50V Ceramic Capacitor X7R 0603 (1608 Metric)",
+      "comment": "CAP CER 1UF 50V 10% X7R 0603"
+    },
+    "C11": {
+      "pins": {
+        "1": "NetC11_1",
+        "2": "GND"
+      },
+      "mpn": "GRM155R71E104KE14D",
+      "description": "Cap Ceramic 0.1uF 25V X7R 10% SMD 0402 125C Paper T/R",
+      "comment": "CAP CER 0.1UF 16V X7R 0402"
+    },
+    "F2": {
+      "pins": {
+        "1": "V_SYS",
+        "2": "NetC11_1"
+      },
+      "mpn": "0466.375NR",
+      "description": "FUSE BOARD MNT 375MA 125VAC/VDC",
+      "comment": "375 mA"
+    },
+    "U3": {
+      "pins": {
+        "1": {
+          "name": "VIN",
+          "net": "49V2"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "3": {
+          "name": "SHDN",
+          "net": "GND"
+        },
+        "4": {
+          "name": "FB",
+          "net": "NetC20_2"
+        },
+        "5": {
+          "name": "VOUT",
+          "net": "48V"
+        }
+      },
+      "mpn": "RT9072BGB",
+      "description": "Linear Voltage Regulator IC 1 Output 20mA SOT-23-5",
+      "comment": "IC REG LDO 80V ADJ 20MA SOT23-5"
+    },
+    "C21": {
+      "pins": {
+        "1": "49V2",
+        "2": "GND"
+      },
+      "description": "0.1µF ±10% 100V Ceramic Capacitor X7R 0805 (2012 Metric)",
+      "comment": "CAP CER 0.1UF 100V 10% X7R 0805"
+    },
+    "C22": {
+      "pins": {
+        "1": "49V2",
+        "2": "GND"
+      },
+      "description": "0.1µF ±10% 100V Ceramic Capacitor X7R 0805 (2012 Metric)",
+      "comment": "CAP CER 0.1UF 100V 10% X7R 0805"
+    },
+    "C18": {
+      "pins": {
+        "1": "48V",
+        "2": "GND"
+      },
+      "mpn": "CL31B105KCHNNNE",
+      "description": "Cap Ceramic 1uF 100V X7R 10% SMD 1206 125C Embossed T/R",
+      "comment": "CAP CER 1UF 100V X7R 1206"
+    },
+    "C19": {
+      "pins": {
+        "1": "48V",
+        "2": "GND"
+      },
+      "mpn": "CL31B105KCHNNNE",
+      "description": "Cap Ceramic 1uF 100V X7R 10% SMD 1206 125C Embossed T/R",
+      "comment": "CAP CER 1UF 100V X7R 1206"
+    },
+    "R15": {
+      "pins": {
+        "1": "48V",
+        "2": "NetC20_2"
+      },
+      "mpn": "RT0603BRD071ML",
+      "description": "RES SMD 1M OHM 0.1% 1/10W 0603",
+      "comment": "RES 1M OHM 0.1% 1/10W 0603"
+    },
+    "R16": {
+      "pins": {
+        "1": "NetC20_2",
+        "2": "GND"
+      },
+      "mpn": "ERJ-PB3B2672V",
+      "description": "RES SMD 26.7K OHM 0.1% 1/5W 0603",
+      "comment": "RES 26.7K OHM 0.1% 1/10W 0603"
+    },
+    "C20": {
+      "pins": {
+        "1": "48V",
+        "2": "NetC20_2"
+      },
+      "mpn": "CC0603JRNPO0BN270",
+      "description": "Cap Ceramic 27pF 100V C0G 5% SMD 0603 125C Paper T/R",
+      "comment": "CAP CER 27PF 100V 5% C0G/NP0 0603"
+    },
+    "U4": {
+      "pins": {
+        "1": {
+          "name": "+Control",
+          "net": "NetR17_2"
+        },
+        "2": {
+          "name": "-Control",
+          "net": "GND"
+        },
+        "3": {
+          "name": "Load",
+          "net": "48V_SW"
+        },
+        "4": {
+          "name": "Load",
+          "net": "48V"
+        }
+      },
+      "mpn": "CPC1017NTR",
+      "description": "Relay Solid-State SPST-NO 4-SOP",
+      "comment": "CPC1017N"
+    },
+    "R17": {
+      "pins": {
+        "1": "NetR17_1",
+        "2": "NetR17_2"
+      },
+      "mpn": "RT0402BRE071KL",
+      "description": "RES SMD 1K OHM 0.1% 1/16W 0402",
+      "comment": "RES 1K OHM 0.1% 1/16W 0402"
+    },
+    "Q1": {
+      "pins": {
+        "1": {
+          "name": "G",
+          "net": "NetQ1_1"
+        },
+        "2": {
+          "name": "S",
+          "net": "NetC11_1"
+        },
+        "3": {
+          "name": "D",
+          "net": "49V2_EN_7"
+        }
+      },
+      "mpn": "DMP3099L-7",
+      "description": "P-Channel 30V 3.8A (Ta) 1.08W (Ta) Surface Mount SOT-23",
+      "comment": "MOSFET P-CH 30V 3.8A SOT-23"
+    },
+    "Q2": {
+      "pins": {
+        "1": {
+          "name": "G",
+          "net": "NetQ2_1"
+        },
+        "2": {
+          "name": "S",
+          "net": "GND"
+        },
+        "3": {
+          "name": "D",
+          "net": "NetQ1_1"
+        }
+      },
+      "mpn": "DMN3023L-7",
+      "description": "N-Channel 30V 6.2A (Ta) 900mW (Ta) Surface Mount SOT-23",
+      "comment": "MOSFET N-CH 30V 6.2A 0.9W SOT-23"
+    },
+    "R10": {
+      "pins": {
+        "1": "NetC11_1",
+        "2": "NetQ1_1"
+      },
+      "mpn": "RC0402FR-07162KL",
+      "description": "RES SMD 162K OHM 1% 1/16W 0402",
+      "comment": "RES 162K OHM 1% 1/16W 0402"
+    },
+    "R14": {
+      "pins": {
+        "1": "49V2_EN_7",
+        "2": "GND"
+      },
+      "mpn": "RC0402FR-07162KL",
+      "description": "RES SMD 162K OHM 1% 1/16W 0402",
+      "comment": "RES 162K OHM 1% 1/16W 0402"
+    },
+    "R13": {
+      "pins": {
+        "1": "NetR13_1",
+        "2": "NetQ2_1"
+      },
+      "mpn": "RC0402FR-0722R1L",
+      "description": "RES SMD 22.1 OHM 1% 1/16W 0402",
+      "comment": "RES 22.1 OHM 1% 1/16W 0402"
+    },
+    "TH_TP?": {
+      "pins": {
+        "TH_TP": {
+          "name": "1",
+          "net": "49V2"
+        }
+      },
+      "comment": "Thru Test Point"
+    },
+    "L3": {
+      "pins": {
+        "1": "NetC29_1",
+        "2": "NetL3_2"
+      },
+      "mpn": "74437334010",
+      "description": "WURTH ELEKTRONIK         74437334010             Surface Mount Power Inductor, WE-LHMI Series, 1 H, 5.3 A, 13.9 A, Shielded, 0.02 ohm",
+      "comment": "IND 1UH 5.3A 20 MOHM SMD"
+    },
+    "U7": {
+      "pins": {
+        "1": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "2": {
+          "name": "SW",
+          "net": "NetL3_2"
+        },
+        "3": {
+          "name": "VOUT",
+          "net": "+5V"
+        },
+        "4": {
+          "name": "FB",
+          "net": "NetC28_2"
+        },
+        "5": {
+          "name": "EN",
+          "net": "NetC29_1"
+        },
+        "6": {
+          "name": "MODE",
+          "net": "GND"
+        },
+        "7": {
+          "name": "VIN",
+          "net": "NetC29_1"
+        }
+      },
+      "mpn": "TPS61022RWUT",
+      "description": "Boost Switching Regulator IC Positive Adjustable 2.2V 1 Output 7-VFQFN",
+      "comment": "IC REG BOOST 8A VQFN"
+    },
+    "C29": {
+      "pins": {
+        "1": "NetC29_1",
+        "2": "GND"
+      },
+      "mpn": "GRM155R71E104KE14D",
+      "description": "Cap Ceramic 0.1uF 25V X7R 10% SMD 0402 125C Paper T/R",
+      "comment": "CAP CER 0.1UF 16V X7R 0402"
+    },
+    "C31": {
+      "pins": {
+        "1": "NetC29_1",
+        "2": "GND"
+      },
+      "mpn": "GRT31CR61H106ME01L",
+      "description": "10µF ±20% 50V Ceramic Capacitor X5R 1206 (3216 Metric) \r\n",
+      "comment": "CAP CER 10uF 50V 20% X5R 1206"
+    },
+    "C30": {
+      "pins": {
+        "1": "NetC29_1",
+        "2": "GND"
+      },
+      "mpn": "GCM155R71E103KA37D",
+      "description": "MURATA - GCM155R71E103KA37D - SMD Vícevrstvý Keramický Kondenzátor, 10000 pF, 25 V, 0402 [1005 Metrické], ± 10%, X7R, Série GCM",
+      "comment": "CAP CER 10nF 25V X7R 0402"
+    },
+    "R21": {
+      "pins": {
+        "1": "V_SYS",
+        "2": "NetC29_1"
+      },
+      "mpn": "CRF0805-FZ-R005ELF",
+      "description": "5 mOhms ±1% 0.5W, 1/2W Chip Resistor 0805 (2012 Metric) Automotive AEC-Q200, Current Sense, Moisture Resistant Metal Element ",
+      "comment": "RES 0.005 OHM 1% 1/2W 0805"
+    },
+    "R25": {
+      "pins": {
+        "1": "NetC28_2",
+        "2": "GND"
+      },
+      "mpn": "RT0402BRD07100KL",
+      "description": "Thin Film Resistors - SMD 1/16W 100K ohm .1% 25ppm",
+      "comment": "RES 100K OHM 0.1% 1/16W 0402"
+    },
+    "R22": {
+      "pins": {
+        "1": "+5V",
+        "2": "NetC28_2"
+      },
+      "mpn": "RC0402FR-07750KL",
+      "description": "750 kOhms ±1% 0.063W, 1/16W Chip Resistor 0402 (1005 Metric) Moisture Resistant Thick Film",
+      "comment": "RES 750K OHM 1% 1/16W 0402"
+    },
+    "C28": {
+      "pins": {
+        "1": "+5V",
+        "2": "NetC28_2"
+      },
+      "mpn": "CL05C200JB5NNNC",
+      "description": "Cap Ceramic 20pF 50V C0G 5% SMD 0402 125C Paper T/R",
+      "comment": "CAP CER 20PF 50V C0G/NPO 0402"
+    },
+    "C33": {
+      "pins": {
+        "1": "+5V",
+        "2": "GND"
+      },
+      "mpn": "GRM155R71E104KE14D",
+      "description": "Cap Ceramic 0.1uF 25V X7R 10% SMD 0402 125C Paper T/R",
+      "comment": "CAP CER 0.1UF 16V X7R 0402"
+    },
+    "C32": {
+      "pins": {
+        "1": "+5V",
+        "2": "GND"
+      },
+      "mpn": "GCM155R71E103KA37D",
+      "description": "MURATA - GCM155R71E103KA37D - SMD Vícevrstvý Keramický Kondenzátor, 10000 pF, 25 V, 0402 [1005 Metrické], ± 10%, X7R, Série GCM",
+      "comment": "CAP CER 10nF 25V X7R 0402"
+    },
+    "C34": {
+      "pins": {
+        "1": "+5V",
+        "2": "GND"
+      },
+      "description": "22µF ±10% 6.3V Ceramic Capacitor X7R 1206 (3216 Metric)",
+      "comment": "CAP CER 22UF 6.3V ±10% X7R 1206"
+    },
+    "C35": {
+      "pins": {
+        "1": "+5V",
+        "2": "GND"
+      },
+      "description": "22µF ±10% 6.3V Ceramic Capacitor X7R 1206 (3216 Metric)",
+      "comment": "CAP CER 22UF 6.3V ±10% X7R 1206"
+    },
+    "C36": {
+      "pins": {
+        "1": "+5V",
+        "2": "GND"
+      },
+      "description": "22µF ±10% 6.3V Ceramic Capacitor X7R 1206 (3216 Metric)",
+      "comment": "CAP CER 22UF 6.3V ±10% X7R 1206"
+    },
+    "U8": {
+      "pins": {
+        "1": {
+          "name": "EN",
+          "net": "NetC37_1"
+        },
+        "2": {
+          "name": "PG",
+          "net": ""
+        },
+        "3": {
+          "name": "VIN",
+          "net": "NetC37_1"
+        },
+        "4": {
+          "name": "VIN",
+          "net": "NetC37_1"
+        },
+        "5": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "6": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "7": {
+          "name": "FB",
+          "net": "NetR28_2"
+        },
+        "8": {
+          "name": "VOUT",
+          "net": "3V3"
+        },
+        "9": {
+          "name": "PAD (GND)",
+          "net": "GND"
+        }
+      },
+      "mpn": "TPS82084SILR",
+      "description": "Non-Isolated PoL Module DC DC Converter 1 Output 0.8 ~ 6V 2A 2.5V - 6V Input",
+      "comment": "IC DCDC 0.8-6V 2A 8-uSIP"
+    },
+    "R27": {
+      "pins": {
+        "1": "+5V",
+        "2": "NetC37_1"
+      },
+      "mpn": "CRF0805-FZ-R005ELF",
+      "description": "5 mOhms ±1% 0.5W, 1/2W Chip Resistor 0805 (2012 Metric) Automotive AEC-Q200, Current Sense, Moisture Resistant Metal Element ",
+      "comment": "RES 0.005 OHM 1% 1/2W 0805"
+    },
+    "C37": {
+      "pins": {
+        "1": "NetC37_1",
+        "2": "GND"
+      },
+      "mpn": "GRM155R71E104KE14D",
+      "description": "Cap Ceramic 0.1uF 25V X7R 10% SMD 0402 125C Paper T/R",
+      "comment": "CAP CER 0.1UF 16V X7R 0402"
+    },
+    "C41": {
+      "pins": {
+        "1": "NetC37_1",
+        "2": "GND"
+      },
+      "mpn": "GRT31CR61H106ME01L",
+      "description": "10µF ±20% 50V Ceramic Capacitor X5R 1206 (3216 Metric) \r\n",
+      "comment": "CAP CER 10uF 50V 20% X5R 1206"
+    },
+    "C38": {
+      "pins": {
+        "1": "NetC37_1",
+        "2": "GND"
+      },
+      "mpn": "GCM155R71E103KA37D",
+      "description": "MURATA - GCM155R71E103KA37D - SMD Vícevrstvý Keramický Kondenzátor, 10000 pF, 25 V, 0402 [1005 Metrické], ± 10%, X7R, Série GCM",
+      "comment": "CAP CER 10nF 25V X7R 0402"
+    },
+    "R28": {
+      "pins": {
+        "1": "3V3",
+        "2": "NetR28_2"
+      },
+      "mpn": "RC0402FR-07523KL",
+      "description": "Thick Film Resistors 523K OHM 1%",
+      "comment": "RES 523K OHM 1% 1/16W 0402"
+    },
+    "R31": {
+      "pins": {
+        "1": "NetR28_2",
+        "2": "GND"
+      },
+      "mpn": "RC0402FR-07162KL",
+      "description": "RES SMD 162K OHM 1% 1/16W 0402",
+      "comment": "RES 162K OHM 1% 1/16W 0402"
+    },
+    "C42": {
+      "pins": {
+        "1": "3V3",
+        "2": "GND"
+      },
+      "mpn": "GRM155R71E104KE14D",
+      "description": "Cap Ceramic 0.1uF 25V X7R 10% SMD 0402 125C Paper T/R",
+      "comment": "CAP CER 0.1UF 16V X7R 0402"
+    },
+    "C39": {
+      "pins": {
+        "1": "+5V",
+        "2": "GND"
+      },
+      "mpn": "GRT31CR61H106ME01L",
+      "description": "10µF ±20% 50V Ceramic Capacitor X5R 1206 (3216 Metric) \r\n",
+      "comment": "CAP CER 10uF 50V 20% X5R 1206"
+    },
+    "C40": {
+      "pins": {
+        "1": "+5V",
+        "2": "GND"
+      },
+      "mpn": "GRT31CR61H106ME01L",
+      "description": "10µF ±20% 50V Ceramic Capacitor X5R 1206 (3216 Metric) \r\n",
+      "comment": "CAP CER 10uF 50V 20% X5R 1206"
+    },
+    "C43": {
+      "pins": {
+        "1": "3V3",
+        "2": "GND"
+      },
+      "description": "22µF ±10% 6.3V Ceramic Capacitor X7R 1206 (3216 Metric)",
+      "comment": "CAP CER 22UF 6.3V ±10% X7R 1206"
+    },
+    "C44": {
+      "pins": {
+        "1": "3V3",
+        "2": "GND"
+      },
+      "description": "22µF ±10% 6.3V Ceramic Capacitor X7R 1206 (3216 Metric)",
+      "comment": "CAP CER 22UF 6.3V ±10% X7R 1206"
+    },
+    "U9": {
+      "pins": {
+        "1": {
+          "name": "VIN",
+          "net": "+5V"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "3": {
+          "name": "CPOUT",
+          "net": "NetC50_1"
+        },
+        "4": {
+          "name": "VOUT",
+          "net": "-5V_SW"
+        },
+        "5": {
+          "name": "VFB",
+          "net": "NetR36_2"
+        },
+        "6": {
+          "name": "EN",
+          "net": "NetQ5_1"
+        },
+        "7": {
+          "name": "C1-",
+          "net": "NetC47_2"
+        },
+        "8": {
+          "name": "C1+",
+          "net": "NetC47_1"
+        },
+        "9": {
+          "name": "PAD (GND)",
+          "net": "GND"
+        }
+      },
+      "mpn": "LM27761DSGR",
+      "description": "Charge Pump Switching Regulator IC Negative Adjustable -1.5V 1 Output 250mA 8-WFDFN Exposed Pad",
+      "comment": "IC REG INV CHARGE PUMP ADJ 8-WSON"
+    },
+    "C47": {
+      "pins": {
+        "1": "NetC47_1",
+        "2": "NetC47_2"
+      },
+      "description": "1µF ±10% 50V Ceramic Capacitor X7R 0603 (1608 Metric)",
+      "comment": "CAP CER 1UF 50V 10% X7R 0603"
+    },
+    "R36": {
+      "pins": {
+        "1": "-5V_SW",
+        "2": "NetR36_2"
+      },
+      "mpn": "RC0402FR-07523KL",
+      "description": "Thick Film Resistors 523K OHM 1%",
+      "comment": "RES 523K OHM 1% 1/16W 0402"
+    },
+    "C46": {
+      "pins": {
+        "1": "+5V",
+        "2": "GND"
+      },
+      "description": "4.7µF ±20% 50V Ceramic Capacitor X5R 0805 (2012 Metric)",
+      "comment": "CAP CER 4.7UF 50V 10% X5R 0805",
+      "value": "4.7uF"
+    },
+    "C45": {
+      "pins": {
+        "1": "+5V",
+        "2": "GND"
+      },
+      "mpn": "GRM155R71E104KE14D",
+      "description": "Cap Ceramic 0.1uF 25V X7R 10% SMD 0402 125C Paper T/R",
+      "comment": "CAP CER 0.1UF 16V X7R 0402"
+    },
+    "C50": {
+      "pins": {
+        "1": "NetC50_1",
+        "2": "GND"
+      },
+      "mpn": "GRT31CR61H106ME01L",
+      "description": "10µF ±20% 50V Ceramic Capacitor X5R 1206 (3216 Metric) \r\n",
+      "comment": "CAP CER 10uF 50V 20% X5R 1206"
+    },
+    "R38": {
+      "pins": {
+        "1": "NetR36_2",
+        "2": "NetR38_2"
+      },
+      "mpn": "RC0402FR-07162KL",
+      "description": "RES SMD 162K OHM 1% 1/16W 0402",
+      "comment": "RES 162K OHM 1% 1/16W 0402"
+    },
+    "R40": {
+      "pins": {
+        "1": "NetR38_2",
+        "2": "GND"
+      },
+      "mpn": "RC0402FR-0710KL",
+      "description": "Surface Mount Thick Film Resistor, Rc Series, 10 Kohm, 62.5 Mw, - 1%, 50 V, 0402 [1005 Metric]",
+      "comment": "RES 10K OHM 1% 1/16W 0402"
+    },
+    "C48": {
+      "pins": {
+        "1": "-5V_SW",
+        "2": "GND"
+      },
+      "description": "2.2µF ±10% 25V Ceramic Capacitor X5R 0603 (1608 Metric)",
+      "comment": "CAP CER 2.2UF 25V 10% X5R 0603"
+    },
+    "C49": {
+      "pins": {
+        "1": "-5V_SW",
+        "2": "GND"
+      },
+      "description": "2.2µF ±10% 25V Ceramic Capacitor X5R 0603 (1608 Metric)",
+      "comment": "CAP CER 2.2UF 25V 10% X5R 0603"
+    },
+    "R34": {
+      "pins": {
+        "1": "+5V_SW",
+        "2": "NetLED3_1"
+      },
+      "mpn": "RC0402FR-074K7L",
+      "description": "YAGEO (PHYCOMP) - RC0402FR-074K7L - RES, THICK FILM, 4K7, 1%, 0.063W, 0402",
+      "comment": "RES 4.7K OHM 1% 1/10W 0402"
+    },
+    "LED3": {
+      "pins": {
+        "1": {
+          "name": "A",
+          "net": "NetLED3_1"
+        },
+        "2": {
+          "name": "K",
+          "net": "GND"
+        }
+      },
+      "mpn": "150060VS75000",
+      "description": "Green 572nm LED Indication - Discrete 2V 0603 (1608 Metric)",
+      "comment": "LED GREEN CLEAR 2V 0603"
+    },
+    "R33": {
+      "pins": {
+        "1": "-5V_SW",
+        "2": "NetLED2_2"
+      },
+      "mpn": "RC0402FR-074K7L",
+      "description": "YAGEO (PHYCOMP) - RC0402FR-074K7L - RES, THICK FILM, 4K7, 1%, 0.063W, 0402",
+      "comment": "RES 4.7K OHM 1% 1/10W 0402"
+    },
+    "LED2": {
+      "pins": {
+        "1": {
+          "name": "A",
+          "net": "GND"
+        },
+        "2": {
+          "name": "K",
+          "net": "NetLED2_2"
+        }
+      },
+      "mpn": "150060VS75000",
+      "description": "Green 572nm LED Indication - Discrete 2V 0603 (1608 Metric)",
+      "comment": "LED GREEN CLEAR 2V 0603"
+    },
+    "R35": {
+      "pins": {
+        "1": "3V3_SW",
+        "2": "NetLED4_1"
+      },
+      "mpn": "RC0402FR-074K7L",
+      "description": "YAGEO (PHYCOMP) - RC0402FR-074K7L - RES, THICK FILM, 4K7, 1%, 0.063W, 0402",
+      "comment": "RES 4.7K OHM 1% 1/10W 0402"
+    },
+    "LED4": {
+      "pins": {
+        "1": {
+          "name": "A",
+          "net": "NetLED4_1"
+        },
+        "2": {
+          "name": "K",
+          "net": "GND"
+        }
+      },
+      "mpn": "150060VS75000",
+      "description": "Green 572nm LED Indication - Discrete 2V 0603 (1608 Metric)",
+      "comment": "LED GREEN CLEAR 2V 0603"
+    },
+    "Q3": {
+      "pins": {
+        "1": {
+          "name": "S",
+          "net": "GND"
+        },
+        "2": {
+          "name": "G",
+          "net": "NetQ3_2"
+        },
+        "3": {
+          "name": "D",
+          "net": "+5V_SW"
+        },
+        "4": {
+          "name": "S",
+          "net": "+5V"
+        },
+        "5": {
+          "name": "G2",
+          "net": "NetQ3_5"
+        },
+        "6": {
+          "name": "D",
+          "net": "NetQ3_5"
+        }
+      },
+      "mpn": "SIA527DJ-T1-GE3",
+      "description": "MOSFET 12V 29mOhm@4.5V 4.5A N-CH",
+      "comment": "MOSFET N/P-CH 12V 4.5A SC-70-6"
+    },
+    "R23": {
+      "pins": {
+        "1": "+5V",
+        "2": "NetQ3_5"
+      },
+      "mpn": "RC0402FR-0710KL",
+      "description": "Surface Mount Thick Film Resistor, Rc Series, 10 Kohm, 62.5 Mw, - 1%, 50 V, 0402 [1005 Metric]",
+      "comment": "RES 10K OHM 1% 1/16W 0402"
+    },
+    "Q4": {
+      "pins": {
+        "1": {
+          "name": "S",
+          "net": "GND"
+        },
+        "2": {
+          "name": "G",
+          "net": "NetQ4_2"
+        },
+        "3": {
+          "name": "D",
+          "net": "3V3_SW"
+        },
+        "4": {
+          "name": "S",
+          "net": "3V3"
+        },
+        "5": {
+          "name": "G2",
+          "net": "NetQ4_5"
+        },
+        "6": {
+          "name": "D",
+          "net": "NetQ4_5"
+        }
+      },
+      "mpn": "SIA527DJ-T1-GE3",
+      "description": "MOSFET 12V 29mOhm@4.5V 4.5A N-CH",
+      "comment": "MOSFET N/P-CH 12V 4.5A SC-70-6"
+    },
+    "R29": {
+      "pins": {
+        "1": "3V3",
+        "2": "NetQ4_5"
+      },
+      "mpn": "RC0402FR-0710KL",
+      "description": "Surface Mount Thick Film Resistor, Rc Series, 10 Kohm, 62.5 Mw, - 1%, 50 V, 0402 [1005 Metric]",
+      "comment": "RES 10K OHM 1% 1/16W 0402"
+    },
+    "R30": {
+      "pins": {
+        "1": "3V3",
+        "2": "ESP32_PWR_PE_GP0_nSW_EN"
+      },
+      "mpn": "RC0402FR-0710KL",
+      "description": "Surface Mount Thick Film Resistor, Rc Series, 10 Kohm, 62.5 Mw, - 1%, 50 V, 0402 [1005 Metric]",
+      "comment": "RES 10K OHM 1% 1/16W 0402"
+    },
+    "R37": {
+      "pins": {
+        "1": "+5V",
+        "2": "NetQ5_1"
+      },
+      "mpn": "RC0402FR-0710KL",
+      "description": "Surface Mount Thick Film Resistor, Rc Series, 10 Kohm, 62.5 Mw, - 1%, 50 V, 0402 [1005 Metric]",
+      "comment": "RES 10K OHM 1% 1/16W 0402"
+    },
+    "Q5": {
+      "pins": {
+        "1": {
+          "name": "D",
+          "net": "NetQ5_1"
+        },
+        "2": {
+          "name": "S",
+          "net": "GND"
+        },
+        "3": {
+          "name": "G",
+          "net": "NetQ5_3"
+        }
+      },
+      "mpn": "DMN6140L-7",
+      "description": "N-Channel 60V 310mA (Ta) 370mW (Ta) Surface Mount SOT-23",
+      "comment": "MOSFET N-CH 60V 310MA SOT23"
+    },
+    "R26": {
+      "pins": {
+        "1": "ESP32_PWR_PE_GP0_nSW_EN",
+        "2": "NetQ3_2"
+      },
+      "mpn": "RC0402FR-0722R1L",
+      "description": "RES SMD 22.1 OHM 1% 1/16W 0402",
+      "comment": "RES 22.1 OHM 1% 1/16W 0402"
+    },
+    "R32": {
+      "pins": {
+        "1": "ESP32_PWR_PE_GP0_nSW_EN",
+        "2": "NetQ4_2"
+      },
+      "mpn": "RC0402FR-0722R1L",
+      "description": "RES SMD 22.1 OHM 1% 1/16W 0402",
+      "comment": "RES 22.1 OHM 1% 1/16W 0402"
+    },
+    "R39": {
+      "pins": {
+        "1": "ESP32_PWR_PE_GP0_nSW_EN",
+        "2": "NetQ5_3"
+      },
+      "mpn": "RC0402FR-0722R1L",
+      "description": "RES SMD 22.1 OHM 1% 1/16W 0402",
+      "comment": "RES 22.1 OHM 1% 1/16W 0402"
+    },
+    "R4": {
+      "pins": {
+        "1": "REGN",
+        "2": "NetR4_2"
+      },
+      "description": "RES SMD 10K OHM 1% 1/10W 0603",
+      "comment": "RES 10K OHM 1% 1/10W 0603"
+    },
+    "R5": {
+      "pins": {
+        "1": "NetR4_2",
+        "2": "GND"
+      },
+      "description": "RES SMD 10K OHM 1% 1/10W 0603",
+      "comment": "RES 10K OHM 1% 1/10W 0603"
+    },
+    "C3": {
+      "pins": {
+        "1": "NetC3_1",
+        "2": "NetC3_2"
+      },
+      "mpn": "C0603C473K3RACTU",
+      "description": "0.047µF ±10% 25V Ceramic Capacitor X7R 0603 (1608 Metric) \r\n",
+      "comment": "CAP CER 0.047UF 10% 25V X7R 0603"
+    },
+    "C5": {
+      "pins": {
+        "1": "REGN",
+        "2": "GND"
+      },
+      "description": "4.7µF ±20% 50V Ceramic Capacitor X5R 0805 (2012 Metric)",
+      "comment": "CAP CER 4.7UF 50V 10% X5R 0805",
+      "value": "4.7uF"
+    },
+    "R7": {
+      "pins": {
+        "1": "NetR7_1",
+        "2": "GND"
+      },
+      "mpn": "CRGCQ0603F330R",
+      "description": "330 Ohms ±1% 0.1W, 1/10W Chip Resistor 0603 (1608 Metric) Automotive AEC-Q200, Moisture Resistant Thick Film",
+      "comment": "RES 330 OHM 1% 1/10W 0603",
+      "value": "330"
+    },
+    "R6": {
+      "pins": {
+        "1": "NetR6_1",
+        "2": "NetR6_2"
+      },
+      "mpn": "RC0603FR-07220RL",
+      "description": "220 Ohms ±1% 0.1W, 1/10W Chip Resistor 0603 (1608 Metric) Moisture Resistant Thick Film",
+      "comment": "RES 220 OHM 1% 1/10W 0603"
+    },
+    "R8": {
+      "pins": {
+        "1": "NetR6_2",
+        "2": "GND"
+      },
+      "description": "RES SMD 40.2 OHM 0.5% 1/10W 0603",
+      "comment": "RES 40.2 OHM 0.5% 1/10W 0603"
+    },
+    "U1": {
+      "pins": {
+        "1": {
+          "name": "VAC",
+          "net": "V_CHG_USB_PROT"
+        },
+        "2": {
+          "name": "NC",
+          "net": ""
+        },
+        "3": {
+          "name": "D+",
+          "net": "NetU1_3"
+        },
+        "4": {
+          "name": "D-",
+          "net": "NetU1_4"
+        },
+        "5": {
+          "name": "STAT",
+          "net": "ESP32_PWR_PE_GP6_BAT_CHG_STATUS"
+        },
+        "6": {
+          "name": "OTG",
+          "net": "NetR3_2"
+        },
+        "7": {
+          "name": "P\\G\\",
+          "net": "ESP32_PWR_PE_GP5_BAT_CHG_nPG"
+        },
+        "8": {
+          "name": "ILIM",
+          "net": "NetR6_1"
+        },
+        "9": {
+          "name": "C\\E\\",
+          "net": "NetU1_9"
+        },
+        "10": {
+          "name": "ICHG",
+          "net": "NetR7_1"
+        },
+        "11": {
+          "name": "TS",
+          "net": "NetR4_2"
+        },
+        "12": {
+          "name": "VSET",
+          "net": ""
+        },
+        "13": {
+          "name": "BAT",
+          "net": "VBAT_PROT"
+        },
+        "14": {
+          "name": "BAT",
+          "net": "VBAT_PROT"
+        },
+        "15": {
+          "name": "SYS",
+          "net": "V_SYS"
+        },
+        "16": {
+          "name": "SYS",
+          "net": "V_SYS"
+        },
+        "17": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "18": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "19": {
+          "name": "SW",
+          "net": "NetC3_1"
+        },
+        "20": {
+          "name": "SW",
+          "net": "NetC3_1"
+        },
+        "21": {
+          "name": "BTST",
+          "net": "NetC3_2"
+        },
+        "22": {
+          "name": "REGN",
+          "net": "REGN"
+        },
+        "23": {
+          "name": "PMID",
+          "net": "NetC7_1"
+        },
+        "24": {
+          "name": "VBUS",
+          "net": "V_CHG_USB_PROT"
+        },
+        "25": {
+          "name": "PAD",
+          "net": "GND"
+        }
+      },
+      "mpn": "BQ25606RGER",
+      "description": "Charger IC Lithium Ion/Polymer 24-VQFN (4x4)",
+      "comment": "IC BATT CHG LI-ION 1 CELL 24-VQFN"
+    },
+    "C2": {
+      "pins": {
+        "1": "V_CHG_USB_PROT",
+        "2": "GND"
+      },
+      "description": "1µF ±10% 50V Ceramic Capacitor X7R 0603 (1608 Metric)",
+      "comment": "CAP CER 1UF 50V 10% X7R 0603"
+    },
+    "VBAT_PROT1": {
+      "pins": {
+        "TH_TP": {
+          "name": "1",
+          "net": "V_SYS"
+        }
+      },
+      "comment": "Thru Test Point"
+    },
+    "REGN1": {
+      "pins": {
+        "TP": {
+          "name": "1",
+          "net": "REGN"
+        }
+      },
+      "comment": "Test Point"
+    },
+    "L1": {
+      "pins": {
+        "1": "NetC3_1",
+        "2": "V_SYS"
+      },
+      "mpn": "74437334010",
+      "description": "WURTH ELEKTRONIK         74437334010             Surface Mount Power Inductor, WE-LHMI Series, 1 H, 5.3 A, 13.9 A, Shielded, 0.02 ohm",
+      "comment": "IND 1UH 5.3A 20 MOHM SMD"
+    },
+    "R3": {
+      "pins": {
+        "1": "GND",
+        "2": "NetR3_2"
+      },
+      "mpn": "RC0402FR-0710KL",
+      "description": "Surface Mount Thick Film Resistor, Rc Series, 10 Kohm, 62.5 Mw, - 1%, 50 V, 0402 [1005 Metric]",
+      "comment": "RES 10K OHM 1% 1/16W 0402"
+    },
+    "C6": {
+      "pins": {
+        "1": "VBAT_PROT",
+        "2": "GND"
+      },
+      "mpn": "GRT31CR61H106ME01L",
+      "description": "10µF ±20% 50V Ceramic Capacitor X5R 1206 (3216 Metric) \r\n",
+      "comment": "CAP CER 10uF 50V 20% X5R 1206"
+    },
+    "C7": {
+      "pins": {
+        "1": "NetC7_1",
+        "2": "GND"
+      },
+      "mpn": "GRT31CR61H106ME01L",
+      "description": "10µF ±20% 50V Ceramic Capacitor X5R 1206 (3216 Metric) \r\n",
+      "comment": "CAP CER 10uF 50V 20% X5R 1206"
+    },
+    "C4": {
+      "pins": {
+        "1": "V_SYS",
+        "2": "GND"
+      },
+      "mpn": "GRT31CR61H106ME01L",
+      "description": "10µF ±20% 50V Ceramic Capacitor X5R 1206 (3216 Metric) \r\n",
+      "comment": "CAP CER 10uF 50V 20% X5R 1206"
+    },
+    "U6": {
+      "pins": {
+        "1": {
+          "name": "TH",
+          "net": "NetRT1_1"
+        },
+        "2": {
+          "name": "NC",
+          "net": ""
+        },
+        "3": {
+          "name": "NC",
+          "net": ""
+        },
+        "4": {
+          "name": "NC",
+          "net": ""
+        },
+        "5": {
+          "name": "NC",
+          "net": ""
+        },
+        "6": {
+          "name": "BATT",
+          "net": "NetD5_2"
+        },
+        "7": {
+          "name": "CSN",
+          "net": "NetD5_2"
+        },
+        "8": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "9": {
+          "name": "CSPL",
+          "net": ""
+        },
+        "10": {
+          "name": "CSPH",
+          "net": "VBAT_PROT"
+        },
+        "11": {
+          "name": "REG",
+          "net": "NetC27_1"
+        },
+        "12": {
+          "name": "ALRT",
+          "net": "ESP32_PWR_PE_GP4_BAT_GAUGE_ALRT"
+        },
+        "13": {
+          "name": "SDA",
+          "net": "ESP32_IO21_I2C1_SDA"
+        },
+        "14": {
+          "name": "SCL",
+          "net": "ESP32_IO22_I2C1_SCL"
+        },
+        "15": {
+          "name": "PAD (GND)",
+          "net": "GND"
+        }
+      },
+      "mpn": "MAX17260SETD+T",
+      "description": "Battery Management 5.1 A 1-Cell Fuel Gauge with ModelGauge m5 EZ and Optional High-SideCurrent Sensing",
+      "comment": "IC BATT FUEL GAUGE LI-ION 14-DFN"
+    },
+    "R20": {
+      "pins": {
+        "1": "NetD5_2",
+        "2": "VBAT_PROT"
+      },
+      "mpn": "CRF0805-FZ-R005ELF",
+      "description": "5 mOhms ±1% 0.5W, 1/2W Chip Resistor 0805 (2012 Metric) Automotive AEC-Q200, Current Sense, Moisture Resistant Metal Element ",
+      "comment": "RES 0.005 OHM 1% 1/2W 0805"
+    },
+    "RT1": {
+      "pins": {
+        "1": "NetRT1_1",
+        "2": "GND"
+      },
+      "mpn": "NXRT15XH103FA1B030",
+      "description": "NTC Thermistor 10k Bead",
+      "comment": "10K NTC"
+    },
+    "C27": {
+      "pins": {
+        "1": "NetC27_1",
+        "2": "GND"
+      },
+      "mpn": "LMK105B7474KV-F",
+      "description": "CAP ,MLCC ,0402,6.3V,X7R,0.47uF, 10% ,T&R;",
+      "comment": "CAP CER 0.47UF 10V X7R 0402"
+    },
+    "M1": {
+      "pins": {
+        "1": {
+          "name": "+",
+          "net": "NetF3_1"
+        },
+        "2": {
+          "name": "-",
+          "net": "NetC51_2"
+        }
+      },
+      "mpn": "1043P",
+      "description": "BATTERY HOLDER 18650 PC PIN",
+      "comment": "PROTECTED 18650"
+    },
+    "F3": {
+      "pins": {
+        "1": "NetF3_1",
+        "2": "NetD5_2"
+      },
+      "mpn": "C1F5",
+      "description": "FUSE 5.0A 125VAC FAST 1206",
+      "comment": "FUSE 5A 32VDC 1206"
+    },
+    "D5": {
+      "pins": {
+        "1": "GND",
+        "2": "NetD5_2"
+      },
+      "mpn": "SMBJ5.0D-M3/H",
+      "description": "TVS DIODE 5V 9.1V DO214AA",
+      "comment": "DIODE TVS 5VWM 9.1VC DO-214AA (SMB)"
+    },
+    "U10": {
+      "pins": {
+        "1": {
+          "name": "DO",
+          "net": "NetQ6_2"
+        },
+        "2": {
+          "name": "VM",
+          "net": "NetR42_1"
+        },
+        "3": {
+          "name": "CO",
+          "net": "NetQ6_3"
+        },
+        "4": {
+          "name": "NC",
+          "net": ""
+        },
+        "5": {
+          "name": "VDD",
+          "net": "NetC51_1"
+        },
+        "6": {
+          "name": "VSS",
+          "net": "NetC51_2"
+        }
+      },
+      "mpn": "AP9101CK6-AYTRG1",
+      "description": "Battery Battery Protection IC Lithium Ion/Polymer SOT-26",
+      "comment": "IC BATT PROT LI-ION 1-CELL SOT26"
+    },
+    "Q6": {
+      "pins": {
+        "1": {
+          "name": "S1",
+          "net": "NetC51_2"
+        },
+        "2": {
+          "name": "G1",
+          "net": "NetQ6_2"
+        },
+        "3": {
+          "name": "G2",
+          "net": "NetQ6_3"
+        },
+        "4": {
+          "name": "S2",
+          "net": "GND"
+        },
+        "5": {
+          "name": "D",
+          "net": ""
+        }
+      },
+      "mpn": "DMN2014LHAB-7",
+      "description": "MOSFET 2N-CH 20V 9A 6-UDFN",
+      "comment": "MOSFET 2N-CH 20V 9A 6-UDFN"
+    },
+    "R42": {
+      "pins": {
+        "1": "NetR42_1",
+        "2": "GND"
+      },
+      "mpn": "ERJ-2RKF2701X",
+      "description": "2.7 kOhms ±1% 0.1W, 1/10W Chip Resistor 0402 (1005 Metric) Automotive AEC-Q200 Thick Film",
+      "comment": "RES 2.7K OHM 1% 1/16W 0402"
+    },
+    "R41": {
+      "pins": {
+        "1": "NetD5_2",
+        "2": "NetC51_1"
+      },
+      "mpn": "330R",
+      "description": "330 Ohms ±1% 0.1W, 1/10W Chip Resistor 0603 (1608 Metric) Automotive AEC-Q200, Moisture Resistant Thick Film",
+      "comment": "RES 330 OHM 1% 1/10W 0603"
+    },
+    "C51": {
+      "pins": {
+        "1": "NetC51_1",
+        "2": "NetC51_2"
+      },
+      "mpn": "GRM155R71E104KE14D",
+      "description": "Cap Ceramic 0.1uF 25V X7R 10% SMD 0402 125C Paper T/R",
+      "comment": "CAP CER 0.1UF 16V X7R 0402"
+    },
+    "JP1": {
+      "pins": {
+        "1": "NetC51_2",
+        "2": "GND"
+      },
+      "mpn": "XG8T-0231",
+      "description": "2 Positions Header Connector Through Hole Gold",
+      "comment": "JUMPER"
+    },
+    "P1": {
+      "pins": {
+        "A4": {
+          "name": "VBUS",
+          "net": "NetF1_1"
+        },
+        "A5": {
+          "name": "CC1",
+          "net": "USB_CC1_3"
+        },
+        "B5": {
+          "name": "CC2",
+          "net": "USB_CC2_3"
+        },
+        "A6": {
+          "name": "DP1",
+          "net": "NetD1_1"
+        },
+        "B6": {
+          "name": "DP2",
+          "net": "NetD1_1"
+        },
+        "A7": {
+          "name": "DN1",
+          "net": "NetD1_3"
+        },
+        "B7": {
+          "name": "DN2",
+          "net": "NetD1_3"
+        },
+        "A8": {
+          "name": "SBU1",
+          "net": ""
+        },
+        "B8": {
+          "name": "SBU2",
+          "net": ""
+        },
+        "A12": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "P1": {
+          "name": "SHELL",
+          "net": "GND"
+        },
+        "A1": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "B1": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "B12": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "A9": {
+          "name": "VBUS",
+          "net": "NetF1_1"
+        },
+        "B4": {
+          "name": "VBUS",
+          "net": "NetF1_1"
+        },
+        "B9": {
+          "name": "VBUS",
+          "net": "NetF1_1"
+        }
+      },
+      "mpn": "USB4085-GF-A",
+      "description": "USB - C USB 2.0 Receptacle Connector 16 Position Through Hole, Right Angle",
+      "comment": "CONN RECPT USB2.0 TYPE-C 16POS"
+    },
+    "D1": {
+      "pins": {
+        "1": {
+          "name": "Cathode3",
+          "net": "NetD1_1"
+        },
+        "2": {
+          "name": "Cathode2",
+          "net": "GND"
+        },
+        "3": {
+          "name": "Cathode1",
+          "net": "NetD1_3"
+        },
+        "4": {
+          "name": "Cathode2",
+          "net": "USB_D-"
+        },
+        "5": {
+          "name": "Cathode4",
+          "net": "V_CHG_USB_PROT"
+        },
+        "6": {
+          "name": "Cathode3",
+          "net": "USB_D+"
+        }
+      },
+      "description": "17V Clamp 5A (8/20µs) Ipp Tvs Diode Surface Mount SOT-23-6 ",
+      "comment": "DIODE TVS 5.25V 17V SOT23-6"
+    },
+    "C1": {
+      "pins": {
+        "1": "V_CHG_USB_PROT",
+        "2": "GND"
+      },
+      "description": "0.10µF ±10% 50V Ceramic Capacitor X7R 0603 (1608 Metric)",
+      "comment": "CAP CER 0.1UF 50V 10% X7R 0603"
+    },
+    "F1": {
+      "pins": {
+        "1": "NetF1_1",
+        "2": "V_CHG_USB_PROT"
+      },
+      "description": "2.5A 32V AC 32V DC Fuse Board Mount (Cartridge Style Excluded) Surface Mount 1206 (3216 Metric)",
+      "comment": "FUSE 2.5A 32VDC 1206"
+    },
+    "VUSB1": {
+      "pins": {
+        "TP": {
+          "name": "1",
+          "net": "V_CHG_USB_PROT"
+        }
+      },
+      "comment": "Test Point"
+    },
+    "D+1": {
+      "pins": {
+        "TP": {
+          "name": "1",
+          "net": "USB_D+"
+        }
+      },
+      "comment": "Test Point"
+    },
+    "D-1": {
+      "pins": {
+        "TP": {
+          "name": "1",
+          "net": "USB_D-"
+        }
+      },
+      "comment": "Test Point"
+    },
+    "R1": {
+      "pins": {
+        "1": "USB_CC2_3",
+        "2": "GND"
+      },
+      "mpn": "RMCF0402FT5K10",
+      "description": "5.1 kOhms ±1% 0.063W, 1/16W Chip Resistor 0402 (1005 Metric) Automotive AEC-Q200 Thick Film",
+      "comment": "RES 5.1K OHM 1% 1/16W 0402"
+    },
+    "R2": {
+      "pins": {
+        "1": "USB_CC1_3",
+        "2": "GND"
+      },
+      "mpn": "RMCF0402FT5K10",
+      "description": "5.1 kOhms ±1% 0.063W, 1/16W Chip Resistor 0402 (1005 Metric) Automotive AEC-Q200 Thick Film",
+      "comment": "RES 5.1K OHM 1% 1/16W 0402"
+    },
+    "P2": {
+      "pins": {
+        "1": "3V3_SW",
+        "2": "3V3_SW",
+        "3": "NetP2_3",
+        "4": "NetP2_4",
+        "5": "NetP2_5",
+        "6": "NetP2_6",
+        "7": "NetP2_7",
+        "8": "GND",
+        "9": "GND",
+        "10": "48V_SW",
+        "11": "",
+        "12": "-5V_SW",
+        "13": "+5V_SW",
+        "14": "+5V",
+        "15": "3V3",
+        "16": "3V3"
+      },
+      "mpn": "ESQ-108-12-T-D",
+      "description": "Conn Elevated Socket SKT 16 POS 2.54mm Solder ST Thru-Hole Tube",
+      "comment": "CONN 16POS HEADER 0.1\" 0.435\" FEMALE"
+    },
+    "U5": {
+      "pins": {
+        "1": {
+          "name": "A2",
+          "net": "GND"
+        },
+        "2": {
+          "name": "A1",
+          "net": "GND"
+        },
+        "3": {
+          "name": "A0",
+          "net": "GND"
+        },
+        "4": {
+          "name": "R\\E\\S\\E\\T\\",
+          "net": "3V3"
+        },
+        "5": {
+          "name": "NC",
+          "net": ""
+        },
+        "6": {
+          "name": "NC",
+          "net": ""
+        },
+        "7": {
+          "name": "INT",
+          "net": "ESP32_IO26_POWER_I2C_PE_INT"
+        },
+        "8": {
+          "name": "NC",
+          "net": ""
+        },
+        "9": {
+          "name": "GP0",
+          "net": "ESP32_PWR_PE_GP0_nSW_EN"
+        },
+        "10": {
+          "name": "GP1",
+          "net": "ESP32_PWR_PE_GP1_PHANTOM_PWR_EN"
+        },
+        "11": {
+          "name": "GP2",
+          "net": "ESP32_PWR_PE_GP2_49V2_REG_EN"
+        },
+        "12": {
+          "name": "GP3",
+          "net": "ESP32_PWR_PE_GP3_nBAT_CHG_EN"
+        },
+        "13": {
+          "name": "GP4",
+          "net": "ESP32_PWR_PE_GP4_BAT_GAUGE_ALRT"
+        },
+        "14": {
+          "name": "GP5",
+          "net": "ESP32_PWR_PE_GP5_BAT_CHG_nPG"
+        },
+        "15": {
+          "name": "GP6",
+          "net": "ESP32_PWR_PE_GP6_BAT_CHG_STATUS"
+        },
+        "16": {
+          "name": "GP7",
+          "net": "ESP32_PWR_PE_GP7_DEBUG_LEG_8"
+        },
+        "17": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "18": {
+          "name": "VDD",
+          "net": "3V3"
+        },
+        "19": {
+          "name": "SCL",
+          "net": "NetU5_19"
+        },
+        "20": {
+          "name": "SDA",
+          "net": "NetU5_20"
+        },
+        "21": {
+          "name": "PAD (GND)",
+          "net": "GND"
+        }
+      },
+      "description": "I/O Expander 8 I²C 1.7MHz 20-QFN-EP (4x4) \r\n",
+      "comment": "MCP23008"
+    },
+    "C24": {
+      "pins": {
+        "1": "3V3",
+        "2": "GND"
+      },
+      "mpn": "GRM155R71E104KE14D",
+      "description": "Cap Ceramic 0.1uF 25V X7R 10% SMD 0402 125C Paper T/R",
+      "comment": "CAP CER 0.1UF 16V X7R 0402"
+    },
+    "C23": {
+      "pins": {
+        "1": "3V3",
+        "2": "GND"
+      },
+      "description": "1µF ±10% 50V Ceramic Capacitor X7R 0603 (1608 Metric)",
+      "comment": "CAP CER 1UF 50V 10% X7R 0603"
+    },
+    "R18": {
+      "pins": {
+        "1": "GND",
+        "2": "GND",
+        "3": "GND",
+        "4": "3V3",
+        "5": "3V3",
+        "6": "3V3",
+        "7": "NetLED1_1",
+        "8": "NetLED1_1",
+        "9": "ESP32_PWR_PE_GP7_DEBUG_LEG_8",
+        "10": "ESP32_PWR_PE_GP7_DEBUG_LEG_8",
+        "11": "ESP32_PWR_PE_GP6_BAT_CHG_STATUS",
+        "12": "ESP32_PWR_PE_GP5_BAT_CHG_nPG",
+        "13": "ESP32_PWR_PE_GP4_BAT_GAUGE_ALRT",
+        "14": "ESP32_PWR_PE_GP3_nBAT_CHG_EN",
+        "15": "ESP32_PWR_PE_GP2_49V2_REG_EN",
+        "16": "ESP32_PWR_PE_GP0_nSW_EN"
+      },
+      "mpn": "EXB-2HV103JV",
+      "description": "RES ARRAY SMD 10K 5% 62.5mW 1506",
+      "comment": "RES ARRAY 10K OHM 5% 8RES",
+      "value": "Value"
+    },
+    "LED1": {
+      "pins": {
+        "1": {
+          "name": "A",
+          "net": "NetLED1_1"
+        },
+        "2": {
+          "name": "K",
+          "net": "GND"
+        }
+      },
+      "description": "Blue 470nm LED Indication - Discrete 2.8V 0603 (1608 Metric)",
+      "comment": "LED BLUE CLEAR 2.8V 0603"
+    },
+    "R19": {
+      "pins": {
+        "1": "GND",
+        "2": "ESP32_IO26_POWER_I2C_PE_INT"
+      },
+      "mpn": "RC0402FR-0710KL",
+      "description": "Surface Mount Thick Film Resistor, Rc Series, 10 Kohm, 62.5 Mw, - 1%, 50 V, 0402 [1005 Metric]",
+      "comment": "RES 10K OHM 1% 1/16W 0402"
+    }
+  }
+}

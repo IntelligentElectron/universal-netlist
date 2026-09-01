@@ -2,17 +2,41 @@
 
 This document defines the **Universal Netlist Schema** - the core data model that represents netlists from any supported EDA format (Cadence CIS, Cadence HDL, Altium Designer, KiCad). All parsers convert format-specific data into this unified representation.
 
+Every on-disk Universal Netlist is named `*.netlist.json` and carries
+`universalNetlistSchemaVersion`. That single field identifies the document as a
+Universal Netlist and states which schema version it implements. The current
+version is `1`; ordinary JSON files are not Universal Netlists, even if they
+happen to contain keys named `nets` or `components`.
+
+### Schema evolution
+
+Readers are registered by schema version. Each reader validates its historical
+document shape and normalizes it into the server's internal `ParsedNetlist`, so
+query tools do not need version-specific behavior. The exporter writes only the
+current schema version.
+
+When introducing version 2 or later:
+
+1. Add a new version-specific reader and writer to the schema codec registry.
+2. Keep every older reader registered so existing files remain loadable.
+3. Advance `UNIVERSAL_NETLIST_SCHEMA_VERSION` only after the new codec exists.
+4. Keep at least one fixture for every supported historical version.
+
+A document with an unregistered version is refused and the error lists the
+versions that build supports.
+
 ## Overview
 
 ```
-ParsedNetlist
+UniversalNetlistDocument
+├── universalNetlistSchemaVersion: 1
 ├── nets: NetConnections
 │   └── {netName}: { refdes: pin(s) }
 └── components: ComponentDetails
     └── {refdes}: { mpn, description, pins: { pinNum: PinEntry } }
 ```
 
-## ParsedNetlist
+## UniversalNetlistDocument
 
 The root schema representing a complete netlist.
 
@@ -21,6 +45,9 @@ The root schema representing a complete netlist.
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
+    "universalNetlistSchemaVersion": {
+      "const": 1
+    },
     "nets": {
       "$ref": "#/$defs/NetConnections"
     },
@@ -28,7 +55,7 @@ The root schema representing a complete netlist.
       "$ref": "#/$defs/ComponentDetails"
     }
   },
-  "required": ["nets", "components"],
+  "required": ["universalNetlistSchemaVersion", "nets", "components"],
   "additionalProperties": false
 }
 ```
@@ -37,6 +64,7 @@ The root schema representing a complete netlist.
 
 ```json
 {
+  "universalNetlistSchemaVersion": 1,
   "nets": {
     "PP3V3": { "U1": "3", "C1": "1", "R1": "1" },
     "GND": { "U1": "2", "C1": "2" },
@@ -260,11 +288,12 @@ This reduces output size by ~30% for typical designs while preserving important 
 
 ## Loading a Universal Netlist file
 
-A `.json` file in this schema is itself a design: `list_designs` discovers it, and every tool accepts its path. `universal-netlist export-json <design> [output.json]` writes this format, so an exported design round-trips.
+A `.netlist.json` file in this schema is itself a design: `list_designs` discovers it, and every tool accepts its path. `universal-netlist export-json <design> [output.netlist.json]` writes this format, so an exported design round-trips. Other `.json` files are ignored.
 
 The file is validated on load, because the EDA parsers build a consistent netlist by construction and a file may have been written or edited by anyone. A file is refused, naming the first defect, when:
 
-- the top level is not an object with `nets` and `components` objects, or carries any other key
+- `universalNetlistSchemaVersion` is missing, is not an integer, or names a version the reader does not support
+- `nets` or `components` is not an object, or the document carries any other top-level key
 - a component has no `pins` object, a text field (`mpn`, `description`, `comment`, `value`) that is not a string, or a `dns` that is not a boolean
 - a pin entry is neither a net name nor an object with exactly `name` and `net`
 - a net member is neither a pin number nor an array of pin numbers, is empty, or lists the same pin twice

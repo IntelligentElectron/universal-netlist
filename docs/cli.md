@@ -14,7 +14,7 @@ Commands:
   update|upgrade       Check for updates and install if available
   uninstall            Remove the binary and its PATH entries
   export-telemetry     Export telemetry data as a zip file
-  export-json <design> [out]
+  export-json <design> [out.netlist.json]
                        Write a design's netlist as Universal Netlist JSON
   coverage [path]      Compare DSN parser output against DAT netlist exports
 ```
@@ -22,16 +22,16 @@ Commands:
 ## export-json
 
 ```bash
-universal-netlist export-json <design> [output.json]
+universal-netlist export-json <design> [output.netlist.json]
 ```
 
-Parses a design and writes its netlist as one JSON file in the [Universal Netlist schema](schemas/universal-netlist.md). `<design>` is any file the server reads: a Cadence `.DSN`, an Altium `.PrjPcb`, a KiCad `.kicad_pro`, or a Universal Netlist `.json` itself. Without `[output.json]` the file is written as `<design>.json` in the working directory; either way the path written is printed on stdout.
+Parses a design and writes its netlist as one `.netlist.json` file in the [Universal Netlist schema](schemas/universal-netlist.md). `<design>` is any file the server reads: a Cadence `.DSN`, an Altium `.PrjPcb`, a KiCad `.kicad_pro`, or a Universal Netlist `.netlist.json` itself. The document carries `universalNetlistSchemaVersion`, currently `1`. Without an explicit output path the file is written as `<design>.netlist.json` in the working directory; an explicit output must also end in `.netlist.json`. Either way, the path written is printed on stdout.
 
 The written file is itself a design: `list_designs` finds it and every tool reads it, so an export round-trips. That makes it a snapshot you can commit, diff between revisions, or hand to another tool, with no EDA installation on the receiving side.
 
 ```bash
-universal-netlist export-json MyBoard.kicad_pro          # writes ./MyBoard.json
-universal-netlist export-json MyBoard.DSN out/board.json
+universal-netlist export-json MyBoard.kicad_pro          # writes ./MyBoard.netlist.json
+universal-netlist export-json MyBoard.DSN out/board.netlist.json
 ```
 
 A design that does not load exits 1 and prints the parser's message, naming the first defect.

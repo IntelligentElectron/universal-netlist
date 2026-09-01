@@ -1,11 +1,15 @@
 import { describe, it, expect } from "vitest";
 import {
   parseUniversalNetlist,
+  serializeUniversalNetlist,
   validateUniversalNetlist,
+  SUPPORTED_UNIVERSAL_NETLIST_SCHEMA_VERSIONS,
+  UNIVERSAL_NETLIST_SCHEMA_VERSION,
   UniversalNetlistError,
 } from "./reader.js";
 
 const valid = () => ({
+  universalNetlistSchemaVersion: UNIVERSAL_NETLIST_SCHEMA_VERSION,
   nets: {
     VCC: { U1: ["1"], C1: ["1"] },
     GND: { U1: ["2", "3"], C1: ["2"] },
@@ -73,9 +77,29 @@ describe("validateUniversalNetlist", () => {
   it("rejects a value that is not a netlist at all", () => {
     rejects(null, "not a Universal Netlist");
     rejects([], "not a Universal Netlist");
-    rejects({ nets: {} }, "not a Universal Netlist");
-    rejects({ components: {} }, "not a Universal Netlist");
-    rejects({ nets: "x", components: {} }, "not a Universal Netlist");
+    rejects({ nets: {}, components: {} }, "missing `universalNetlistSchemaVersion`");
+  });
+
+  it("rejects invalid and unsupported schema versions before reading the payload", () => {
+    rejects(
+      { universalNetlistSchemaVersion: "1", nets: {}, components: {} },
+      "`universalNetlistSchemaVersion` must be an integer"
+    );
+    rejects(
+      { universalNetlistSchemaVersion: 2, nets: {}, components: {} },
+      `unsupported Universal Netlist schema version 2; supported: ${SUPPORTED_UNIVERSAL_NETLIST_SCHEMA_VERSIONS.join(", ")}`
+    );
+  });
+
+  it("keeps the current writer registered as a supported reader", () => {
+    expect(SUPPORTED_UNIVERSAL_NETLIST_SCHEMA_VERSIONS).toContain(UNIVERSAL_NETLIST_SCHEMA_VERSION);
+  });
+
+  it("requires nets and components objects after accepting the marker", () => {
+    rejects(
+      { universalNetlistSchemaVersion: 1, nets: "x", components: {} },
+      "`nets` and `components` must be objects"
+    );
   });
 
   it("rejects an unexpected top-level key", () => {
@@ -176,5 +200,12 @@ describe("parseUniversalNetlist", () => {
 
   it("parses valid text", () => {
     expect(parseUniversalNetlist(JSON.stringify(valid())).components.C1.dns).toBe(true);
+  });
+
+  it("serializes the schema version before the payload", () => {
+    const parsed = validateUniversalNetlist(valid());
+    const document = JSON.parse(serializeUniversalNetlist(parsed));
+    expect(Object.keys(document)).toEqual(["universalNetlistSchemaVersion", "nets", "components"]);
+    expect(document.universalNetlistSchemaVersion).toBe(UNIVERSAL_NETLIST_SCHEMA_VERSION);
   });
 });
