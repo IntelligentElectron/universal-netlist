@@ -183,7 +183,12 @@ describe("every golden file is a Universal Netlist", () => {
     for (const { filePath } of await goldens()) {
       const loaded = await parseUniversalDesign(filePath);
       const raw = JSON.parse(await readFile(filePath, "utf-8"));
-      expect(toUniversalNetlistDocument(loaded), filePath).toEqual(raw);
+      expect(
+        toUniversalNetlistDocument(loaded, {
+          exportedAt: raw.universalNetlistExportedAt as string,
+        }),
+        filePath
+      ).toEqual(raw);
       count += 1;
     }
     expect(count).toBeGreaterThan(0);

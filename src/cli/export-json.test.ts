@@ -25,6 +25,11 @@ describe("handleExportJsonCommand", () => {
 
     expect(log).toHaveBeenCalledWith(out);
     const written = await readFile(out, "utf-8");
+    const document = JSON.parse(written);
+    expect(document.universalNetlistHash).toMatch(/^sha256:[0-9a-f]{64}$/);
+    expect(new Date(document.universalNetlistExportedAt).toISOString()).toBe(
+      document.universalNetlistExportedAt
+    );
     // The export is itself a loadable Universal Netlist.
     const netlist = parseUniversalNetlist(written, "board.netlist.json");
     expect(netlist.components.U1.mpn).toBe("REG-3V3-SOT23");

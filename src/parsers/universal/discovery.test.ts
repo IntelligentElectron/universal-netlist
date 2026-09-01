@@ -3,6 +3,7 @@ import { mkdtemp, mkdir, writeFile, rm } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { discoverUniversalDesigns, isUniversalFile, universalDesignName } from "./discovery.js";
+import { serializeUniversalNetlist } from "./reader.js";
 
 const TEST_DIR = path.dirname(new URL(import.meta.url).pathname);
 const UNIVERSAL = path.resolve(TEST_DIR, "../../../test/universal");
@@ -59,8 +60,7 @@ describe("discoverUniversalDesigns", () => {
   it("does not walk node_modules or dot-directories", async () => {
     const root = await mkdtemp(path.join(os.tmpdir(), "universal-discovery-"));
     try {
-      const netlist = JSON.stringify({
-        universalNetlistSchemaVersion: 1,
+      const netlist = serializeUniversalNetlist({
         nets: { N: { U1: ["1"] } },
         components: { U1: { pins: { "1": "N" } } },
       });

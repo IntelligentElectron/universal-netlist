@@ -2,11 +2,13 @@
 
 This document defines the **Universal Netlist Schema** - the core data model that represents netlists from any supported EDA format (Cadence CIS, Cadence HDL, Altium Designer, KiCad). All parsers convert format-specific data into this unified representation.
 
-Every on-disk Universal Netlist is named `*.netlist.json` and carries
-`universalNetlistSchemaVersion`. That single field identifies the document as a
-Universal Netlist and states which schema version it implements. The current
-version is `1`; ordinary JSON files are not Universal Netlists, even if they
-happen to contain keys named `nets` or `components`.
+Every on-disk Universal Netlist is named `*.netlist.json` and carries three
+metadata fields: `universalNetlistSchemaVersion`, `universalNetlistHash`, and
+`universalNetlistExportedAt`. The version identifies the document and its
+schema, the SHA-256 hash identifies its stable content, and the timestamp records
+when it was exported in UTC. The current version is `1`; ordinary JSON files are
+not Universal Netlists, even if they happen to contain keys named `nets` or
+`components`.
 
 ### Schema evolution
 
@@ -30,6 +32,8 @@ versions that build supports.
 ```
 UniversalNetlistDocument
 ├── universalNetlistSchemaVersion: 1
+├── universalNetlistHash: "sha256:<64 lowercase hex digits>"
+├── universalNetlistExportedAt: "2026-09-01T12:34:56.789Z"
 ├── nets: NetConnections
 │   └── {netName}: { refdes: pin(s) }
 └── components: ComponentDetails
@@ -48,6 +52,14 @@ The root schema representing a complete netlist.
     "universalNetlistSchemaVersion": {
       "const": 1
     },
+    "universalNetlistHash": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "universalNetlistExportedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
     "nets": {
       "$ref": "#/$defs/NetConnections"
     },
@@ -55,7 +67,13 @@ The root schema representing a complete netlist.
       "$ref": "#/$defs/ComponentDetails"
     }
   },
-  "required": ["universalNetlistSchemaVersion", "nets", "components"],
+  "required": [
+    "universalNetlistSchemaVersion",
+    "universalNetlistHash",
+    "universalNetlistExportedAt",
+    "nets",
+    "components"
+  ],
   "additionalProperties": false
 }
 ```
@@ -65,6 +83,8 @@ The root schema representing a complete netlist.
 ```json
 {
   "universalNetlistSchemaVersion": 1,
+  "universalNetlistHash": "sha256:d162573135e49348295f639ec3485dc0cb233cebbb56bbbb4f8055bc202e3649",
+  "universalNetlistExportedAt": "2026-09-01T12:34:56.789Z",
   "nets": {
     "PP3V3": { "U1": "3", "C1": "1", "R1": "1" },
     "GND": { "U1": "2", "C1": "2" },
@@ -286,6 +306,24 @@ The `PinEntry` union type balances information density with token efficiency:
 
 This reduces output size by ~30% for typical designs while preserving important pin name information.
 
+## Content hash and export time
+
+`universalNetlistHash` is SHA-256 over canonical JSON containing the schema
+version and the complete normalized `nets` and `components` payload. Object
+keys are sorted recursively before hashing; array order is preserved. The hash field itself and
+`universalNetlistExportedAt` are excluded, so identical netlist content has the
+same hash when exported at different times. Readers recompute and verify the
+hash before accepting a document.
+
+This is an integrity checksum, not a digital signature: anyone who changes a
+netlist can recompute its hash. It detects stale or accidental changes and gives
+identical content a stable identifier; it does not establish who produced the
+file.
+
+`universalNetlistExportedAt` is the instant the document was written, encoded
+as the canonical UTC form produced by JavaScript `Date.toISOString()`, including
+milliseconds and the trailing `Z`.
+
 ## Loading a Universal Netlist file
 
 A `.netlist.json` file in this schema is itself a design: `list_designs` discovers it, and every tool accepts its path. `universal-netlist export-json <design> [output.netlist.json]` writes this format, so an exported design round-trips. Other `.json` files are ignored.
@@ -293,6 +331,8 @@ A `.netlist.json` file in this schema is itself a design: `list_designs` discove
 The file is validated on load, because the EDA parsers build a consistent netlist by construction and a file may have been written or edited by anyone. A file is refused, naming the first defect, when:
 
 - `universalNetlistSchemaVersion` is missing, is not an integer, or names a version the reader does not support
+- `universalNetlistHash` is missing, malformed, or does not match the schema version and payload
+- `universalNetlistExportedAt` is missing or is not a canonical ISO 8601 UTC timestamp
 - `nets` or `components` is not an object, or the document carries any other top-level key
 - a component has no `pins` object, a text field (`mpn`, `description`, `comment`, `value`) that is not a string, or a `dns` that is not a boolean
 - a pin entry is neither a net name nor an object with exactly `name` and `net`

@@ -1,5 +1,7 @@
 {
   "universalNetlistSchemaVersion": 1,
+  "universalNetlistHash": "sha256:80da7def35061058950b2a66ab3db252909dca6523a3ea67c78901a8c1094caa",
+  "universalNetlistExportedAt": "2026-09-01T20:04:26.283Z",
   "nets": {
     "ANT": {
       "A1": [

@@ -1,5 +1,7 @@
 {
   "universalNetlistSchemaVersion": 1,
+  "universalNetlistHash": "sha256:19a078f8ee0e4ecddc1490b9d26b58149df44e6743ab3c2cefc5ec437f6c5a05",
+  "universalNetlistExportedAt": "2026-09-01T20:04:27.153Z",
   "nets": {
     "/top/DIS_AGC_3V3": {
       "R404": [

@@ -1,15 +1,18 @@
 import { describe, it, expect } from "vitest";
 import {
+  calculateUniversalNetlistHash,
   parseUniversalNetlist,
   serializeUniversalNetlist,
+  toUniversalNetlistDocument,
   validateUniversalNetlist,
   SUPPORTED_UNIVERSAL_NETLIST_SCHEMA_VERSIONS,
   UNIVERSAL_NETLIST_SCHEMA_VERSION,
   UniversalNetlistError,
 } from "./reader.js";
 
-const valid = () => ({
-  universalNetlistSchemaVersion: UNIVERSAL_NETLIST_SCHEMA_VERSION,
+const EXPORTED_AT = "2026-09-01T12:34:56.789Z";
+
+const payload = () => ({
   nets: {
     VCC: { U1: ["1"], C1: ["1"] },
     GND: { U1: ["2", "3"], C1: ["2"] },
@@ -28,6 +31,8 @@ const valid = () => ({
     C1: { value: "1uF", dns: true, pins: { "1": "VCC", "2": "GND" } },
   },
 });
+
+const valid = () => toUniversalNetlistDocument(payload(), { exportedAt: EXPORTED_AT });
 
 const rejects = (raw: unknown, fragment: string): void => {
   expect(() => validateUniversalNetlist(raw, "f.json")).toThrowError(UniversalNetlistError);
@@ -68,6 +73,13 @@ describe("validateUniversalNetlist", () => {
     const raw = valid();
     (raw.components.C1 as Record<string, unknown>).footprint = "0402";
     (raw.components.C1 as Record<string, unknown>).dns = false;
+    raw.universalNetlistHash = calculateUniversalNetlistHash({
+      nets: raw.nets,
+      components: {
+        ...raw.components,
+        C1: { value: "1uF", pins: { "1": "VCC", "2": "GND" } },
+      },
+    });
     expect(validateUniversalNetlist(raw).components.C1).toEqual({
       value: "1uF",
       pins: { "1": "VCC", "2": "GND" },
@@ -96,10 +108,43 @@ describe("validateUniversalNetlist", () => {
   });
 
   it("requires nets and components objects after accepting the marker", () => {
+    rejects({ ...valid(), nets: "x" }, "`nets` and `components` must be objects");
+  });
+
+  it("requires a canonical UTC export timestamp", () => {
     rejects(
-      { universalNetlistSchemaVersion: 1, nets: "x", components: {} },
-      "`nets` and `components` must be objects"
+      { ...valid(), universalNetlistExportedAt: undefined },
+      "`universalNetlistExportedAt` must be a canonical ISO 8601 UTC timestamp"
     );
+    rejects(
+      { ...valid(), universalNetlistExportedAt: "2026-09-01T12:34:56.789+00:00" },
+      "`universalNetlistExportedAt` must be a canonical ISO 8601 UTC timestamp"
+    );
+    rejects(
+      { ...valid(), universalNetlistExportedAt: "not-a-date" },
+      "`universalNetlistExportedAt` must be a canonical ISO 8601 UTC timestamp"
+    );
+  });
+
+  it("requires and verifies the SHA-256 content hash", () => {
+    const missing = { ...valid(), universalNetlistHash: undefined };
+    rejects(missing, "`universalNetlistHash` must be `sha256:`");
+
+    rejects(
+      { ...valid(), universalNetlistHash: "sha256:nope" },
+      "`universalNetlistHash` must be `sha256:`"
+    );
+
+    const changed = valid();
+    changed.components.C1.value = "2uF";
+    rejects(changed, "`universalNetlistHash` does not match");
+  });
+
+  it("hashes canonical content independently of object key order", () => {
+    const raw = valid();
+    raw.nets = { GND: raw.nets.GND, VCC: raw.nets.VCC };
+    raw.components = { C1: raw.components.C1, U1: raw.components.U1 };
+    expect(() => validateUniversalNetlist(raw)).not.toThrow();
   });
 
   it("rejects an unexpected top-level key", () => {
@@ -202,10 +247,28 @@ describe("parseUniversalNetlist", () => {
     expect(parseUniversalNetlist(JSON.stringify(valid())).components.C1.dns).toBe(true);
   });
 
-  it("serializes the schema version before the payload", () => {
+  it("serializes versioned, hashed, UTC-dated metadata before the payload", () => {
     const parsed = validateUniversalNetlist(valid());
-    const document = JSON.parse(serializeUniversalNetlist(parsed));
-    expect(Object.keys(document)).toEqual(["universalNetlistSchemaVersion", "nets", "components"]);
+    const document = JSON.parse(serializeUniversalNetlist(parsed, { exportedAt: EXPORTED_AT }));
+    expect(Object.keys(document)).toEqual([
+      "universalNetlistSchemaVersion",
+      "universalNetlistHash",
+      "universalNetlistExportedAt",
+      "nets",
+      "components",
+    ]);
     expect(document.universalNetlistSchemaVersion).toBe(UNIVERSAL_NETLIST_SCHEMA_VERSION);
+    expect(document.universalNetlistHash).toBe(calculateUniversalNetlistHash(parsed));
+    expect(document.universalNetlistExportedAt).toBe(EXPORTED_AT);
+  });
+
+  it("uses the current UTC time by default", () => {
+    const before = Date.now();
+    const document = JSON.parse(serializeUniversalNetlist(payload()));
+    const after = Date.now();
+    const exportedAt = Date.parse(document.universalNetlistExportedAt);
+    expect(exportedAt).toBeGreaterThanOrEqual(before);
+    expect(exportedAt).toBeLessThanOrEqual(after);
+    expect(document.universalNetlistExportedAt).toMatch(/Z$/);
   });
 });

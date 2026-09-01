@@ -9,6 +9,7 @@
  * reference resolves, and it refuses the file on the first mismatch, naming it.
  */
 
+import { createHash } from "node:crypto";
 import type { ComponentDetails, NetConnections, ParsedNetlist, PinEntry } from "../../types.js";
 import { UNIVERSAL_NETLIST_SCHEMA_VERSION } from "../../universal-format.js";
 
@@ -17,6 +18,13 @@ export { UNIVERSAL_NETLIST_SCHEMA_VERSION } from "../../universal-format.js";
 /** The metadata and netlist payload written to every `.netlist.json` file. */
 export interface UniversalNetlistDocument extends ParsedNetlist {
   universalNetlistSchemaVersion: number;
+  universalNetlistHash: string;
+  universalNetlistExportedAt: string;
+}
+
+/** Options for producing a deterministic document when a caller needs one. */
+export interface UniversalNetlistSerializationOptions {
+  exportedAt?: Date | string;
 }
 
 /** A file that is not a valid Universal Netlist. The message names the defect. */
@@ -30,7 +38,13 @@ export class UniversalNetlistError extends Error {
 const isObject = (value: unknown): value is Record<string, unknown> =>
   typeof value === "object" && value !== null && !Array.isArray(value);
 
-const VERSION_1_TOP_LEVEL_KEYS = new Set(["universalNetlistSchemaVersion", "nets", "components"]);
+const VERSION_1_TOP_LEVEL_KEYS = new Set([
+  "universalNetlistSchemaVersion",
+  "universalNetlistHash",
+  "universalNetlistExportedAt",
+  "nets",
+  "components",
+]);
 const COMPONENT_TEXT_FIELDS = ["mpn", "description", "comment", "value"] as const;
 type Fail = (message: string) => never;
 
@@ -44,8 +58,58 @@ type Fail = (message: string) => never;
  */
 interface UniversalNetlistSchemaCodec {
   read(raw: Record<string, unknown>, fail: Fail): ParsedNetlist;
-  write(netlist: ParsedNetlist): UniversalNetlistDocument;
+  write(netlist: ParsedNetlist, exportedAt: string): UniversalNetlistDocument;
 }
+
+/** Recursively order object keys for a reproducible JSON representation. */
+const canonicalize = (value: unknown): unknown => {
+  if (Array.isArray(value)) return value.map(canonicalize);
+  if (!isObject(value)) return value;
+
+  const ordered: Record<string, unknown> = {};
+  for (const key of Object.keys(value).sort()) {
+    if (value[key] !== undefined) ordered[key] = canonicalize(value[key]);
+  }
+  return ordered;
+};
+
+/**
+ * Hash the stable content of a Universal Netlist.
+ *
+ * The schema version and complete payload are covered. The hash itself and
+ * export timestamp are metadata and intentionally excluded, so re-exporting
+ * unchanged content at a different time produces the same digest.
+ */
+export const calculateUniversalNetlistHash = (
+  netlist: ParsedNetlist,
+  schemaVersion: number = UNIVERSAL_NETLIST_SCHEMA_VERSION
+): string => {
+  const canonical = JSON.stringify(
+    canonicalize({
+      universalNetlistSchemaVersion: schemaVersion,
+      nets: netlist.nets,
+      components: netlist.components,
+    })
+  );
+  return `sha256:${createHash("sha256").update(canonical, "utf8").digest("hex")}`;
+};
+
+const isCanonicalExportedAt = (value: unknown): value is string => {
+  if (typeof value !== "string") return false;
+  const parsed = new Date(value);
+  return !Number.isNaN(parsed.getTime()) && parsed.toISOString() === value;
+};
+
+const normalizeExportedAt = (value: Date | string = new Date()): string => {
+  const exportedAt =
+    value instanceof Date && !Number.isNaN(value.getTime()) ? value.toISOString() : value;
+  if (!isCanonicalExportedAt(exportedAt)) {
+    throw new Error(
+      "Universal Netlist export time must be a canonical ISO 8601 UTC timestamp, for example 2026-09-01T12:34:56.789Z"
+    );
+  }
+  return exportedAt;
+};
 
 /**
  * Read a pin entry's net name. `""` is how the EDA parsers write a pin that is
@@ -63,6 +127,17 @@ const netOf = (entry: PinEntry): string => (typeof entry === "string" ? entry : 
  * which is the form every tool works on.
  */
 const readVersion1 = (raw: Record<string, unknown>, fail: Fail): ParsedNetlist => {
+  if (!isCanonicalExportedAt(raw.universalNetlistExportedAt)) {
+    fail(
+      "`universalNetlistExportedAt` must be a canonical ISO 8601 UTC timestamp, for example 2026-09-01T12:34:56.789Z"
+    );
+  }
+  if (
+    typeof raw.universalNetlistHash !== "string" ||
+    !/^sha256:[0-9a-f]{64}$/.test(raw.universalNetlistHash)
+  ) {
+    fail("`universalNetlistHash` must be `sha256:` followed by 64 lowercase hexadecimal digits");
+  }
   if (!isObject(raw.nets) || !isObject(raw.components)) {
     fail("`nets` and `components` must be objects");
   }
@@ -70,7 +145,8 @@ const readVersion1 = (raw: Record<string, unknown>, fail: Fail): ParsedNetlist =
     if (!VERSION_1_TOP_LEVEL_KEYS.has(key)) {
       fail(
         `unexpected top-level key '${key}'; a Universal Netlist has only ` +
-          "`universalNetlistSchemaVersion`, `nets`, and `components`"
+          "`universalNetlistSchemaVersion`, `universalNetlistHash`, " +
+          "`universalNetlistExportedAt`, `nets`, and `components`"
       );
     }
   }
@@ -178,13 +254,21 @@ const readVersion1 = (raw: Record<string, unknown>, fail: Fail): ParsedNetlist =
     }
   }
 
-  return { nets, components };
+  const netlist = { nets, components };
+  const expectedHash = calculateUniversalNetlistHash(netlist, 1);
+  if (raw.universalNetlistHash !== expectedHash) {
+    fail("`universalNetlistHash` does not match the schema version, nets, and components");
+  }
+
+  return netlist;
 };
 
 const VERSION_1_CODEC: UniversalNetlistSchemaCodec = {
   read: readVersion1,
-  write: (netlist) => ({
+  write: (netlist, exportedAt) => ({
     universalNetlistSchemaVersion: 1,
+    universalNetlistHash: calculateUniversalNetlistHash(netlist, 1),
+    universalNetlistExportedAt: exportedAt,
     nets: netlist.nets,
     components: netlist.components,
   }),
@@ -216,12 +300,17 @@ const currentCodec = (): UniversalNetlistSchemaCodec => {
 };
 
 /** Add the current on-disk schema envelope to an internal parsed netlist. */
-export const toUniversalNetlistDocument = (netlist: ParsedNetlist): UniversalNetlistDocument =>
-  currentCodec().write(netlist);
+export const toUniversalNetlistDocument = (
+  netlist: ParsedNetlist,
+  options: UniversalNetlistSerializationOptions = {}
+): UniversalNetlistDocument =>
+  currentCodec().write(netlist, normalizeExportedAt(options.exportedAt));
 
 /** Serialize an internal netlist using the current on-disk schema version. */
-export const serializeUniversalNetlist = (netlist: ParsedNetlist): string =>
-  JSON.stringify(toUniversalNetlistDocument(netlist), null, 2) + "\n";
+export const serializeUniversalNetlist = (
+  netlist: ParsedNetlist,
+  options: UniversalNetlistSerializationOptions = {}
+): string => JSON.stringify(toUniversalNetlistDocument(netlist, options), null, 2) + "\n";
 
 /**
  * Dispatch a parsed document to its version-specific reader.

@@ -1,11 +1,37 @@
 {
   "universalNetlistSchemaVersion": 1,
+  "universalNetlistHash": "sha256:d46782488b58d3db6f29a6c3856e01ce8dd75604d52f5c0339ea6ed4dca7450d",
+  "universalNetlistExportedAt": "2026-09-01T20:04:14.264Z",
   "nets": {
-    "VCC": { "U1": ["1"], "C1": ["1"] },
-    "GND": { "U1": ["2"], "C1": ["2"] }
+    "VCC": {
+      "U1": [
+        "1"
+      ],
+      "C1": [
+        "1"
+      ]
+    },
+    "GND": {
+      "U1": [
+        "2"
+      ],
+      "C1": [
+        "2"
+      ]
+    }
   },
   "components": {
-    "U1": { "pins": { "1": "VCC", "2": "GND" } },
-    "C1": { "pins": { "1": "GND", "2": "GND" } }
+    "U1": {
+      "pins": {
+        "1": "VCC",
+        "2": "GND"
+      }
+    },
+    "C1": {
+      "pins": {
+        "1": "GND",
+        "2": "GND"
+      }
+    }
   }
 }

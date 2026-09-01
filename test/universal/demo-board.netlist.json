@@ -1,51 +1,195 @@
 {
   "universalNetlistSchemaVersion": 1,
+  "universalNetlistHash": "sha256:5003a841b84dfb83d334b5c954bd8910b91c7485307cb09286a84f8abc68ae18",
+  "universalNetlistExportedAt": "2026-09-01T20:05:58.004Z",
   "nets": {
-    "PP5V": { "J1": ["1"], "U1": ["1"], "C1": ["1"] },
-    "GND": { "J1": ["2"], "U1": ["2"], "C1": ["2"], "C2": ["2"], "U2": ["3", "9"], "D1": ["2"], "R2": ["2"], "R3": ["2"] },
-    "PP3V3": { "U1": ["3"], "C2": ["1"], "U2": ["1"], "R1": ["1"] },
-    "LED": { "R1": "2", "D1": "1" },
-    "Net-(U2-Pad5)": { "U2": ["5"], "TP1": ["1"] },
-    "Net-(R3-Pad1)": { "R3": ["1"], "U2": ["6"] },
-    "SENSE": { "R2": ["1"] }
+    "PP5V": {
+      "J1": [
+        "1"
+      ],
+      "U1": [
+        "1"
+      ],
+      "C1": [
+        "1"
+      ]
+    },
+    "GND": {
+      "J1": [
+        "2"
+      ],
+      "U1": [
+        "2"
+      ],
+      "C1": [
+        "2"
+      ],
+      "C2": [
+        "2"
+      ],
+      "U2": [
+        "3",
+        "9"
+      ],
+      "D1": [
+        "2"
+      ],
+      "R2": [
+        "2"
+      ],
+      "R3": [
+        "2"
+      ]
+    },
+    "PP3V3": {
+      "U1": [
+        "3"
+      ],
+      "C2": [
+        "1"
+      ],
+      "U2": [
+        "1"
+      ],
+      "R1": [
+        "1"
+      ]
+    },
+    "LED": {
+      "R1": [
+        "2"
+      ],
+      "D1": [
+        "1"
+      ]
+    },
+    "Net-(U2-Pad5)": {
+      "U2": [
+        "5"
+      ],
+      "TP1": [
+        "1"
+      ]
+    },
+    "Net-(R3-Pad1)": {
+      "R3": [
+        "1"
+      ],
+      "U2": [
+        "6"
+      ]
+    },
+    "SENSE": {
+      "R2": [
+        "1"
+      ]
+    }
   },
   "components": {
     "J1": {
       "description": "CONN HEADER 2POS",
-      "pins": { "1": "PP5V", "2": "GND" }
+      "pins": {
+        "1": "PP5V",
+        "2": "GND"
+      }
     },
     "U1": {
       "mpn": "REG-3V3-SOT23",
       "description": "IC REG LINEAR 3.3V",
       "pins": {
-        "1": { "name": "VIN", "net": "PP5V" },
-        "2": { "name": "GND", "net": "GND" },
-        "3": { "name": "VOUT", "net": "PP3V3" }
+        "1": {
+          "name": "VIN",
+          "net": "PP5V"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "3": {
+          "name": "VOUT",
+          "net": "PP3V3"
+        }
       }
     },
-    "C1": { "value": "10uF", "pins": { "1": "PP5V", "2": "GND" } },
-    "C2": { "value": "1uF", "pins": { "1": "PP3V3", "2": "GND" } },
-    "R1": { "value": "330", "pins": { "1": "PP3V3", "2": "LED" } },
+    "C1": {
+      "value": "10uF",
+      "pins": {
+        "1": "PP5V",
+        "2": "GND"
+      }
+    },
+    "C2": {
+      "value": "1uF",
+      "pins": {
+        "1": "PP3V3",
+        "2": "GND"
+      }
+    },
+    "R1": {
+      "value": "330",
+      "pins": {
+        "1": "PP3V3",
+        "2": "LED"
+      }
+    },
     "D1": {
       "description": "LED GREEN",
       "value": "DNP",
       "dns": true,
-      "pins": { "1": "LED", "2": "GND" }
+      "pins": {
+        "1": "LED",
+        "2": "GND"
+      }
     },
     "U2": {
       "mpn": "MCU-8BIT-10",
       "description": "IC MCU 8-BIT",
       "pins": {
-        "1": { "name": "VDD", "net": "PP3V3" },
-        "3": { "name": "GND", "net": "GND" },
-        "5": { "name": "PA0", "net": "Net-(U2-Pad5)" },
-        "6": { "name": "PA1", "net": "Net-(R3-Pad1)" },
-        "8": { "name": "PA2", "net": "" },
-        "9": { "name": "GND", "net": "GND" }
+        "1": {
+          "name": "VDD",
+          "net": "PP3V3"
+        },
+        "3": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "5": {
+          "name": "PA0",
+          "net": "Net-(U2-Pad5)"
+        },
+        "6": {
+          "name": "PA1",
+          "net": "Net-(R3-Pad1)"
+        },
+        "8": {
+          "name": "PA2",
+          "net": ""
+        },
+        "9": {
+          "name": "GND",
+          "net": "GND"
+        }
       }
     },
-    "TP1": { "description": "TEST POINT", "pins": { "1": "Net-(U2-Pad5)" } },
-    "R2": { "value": "10k", "pins": { "1": "SENSE", "2": "GND" } },
-    "R3": { "value": "4.7k", "pins": { "1": "Net-(R3-Pad1)", "2": "GND" } }
+    "TP1": {
+      "description": "TEST POINT",
+      "pins": {
+        "1": "Net-(U2-Pad5)"
+      }
+    },
+    "R2": {
+      "value": "10k",
+      "pins": {
+        "1": "SENSE",
+        "2": "GND"
+      }
+    },
+    "R3": {
+      "value": "4.7k",
+      "pins": {
+        "1": "Net-(R3-Pad1)",
+        "2": "GND"
+      }
+    }
   }
 }

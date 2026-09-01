@@ -1,5 +1,7 @@
 {
   "universalNetlistSchemaVersion": 1,
+  "universalNetlistHash": "sha256:3cd2d2fef827e6abcd67a92c047b6260af917a5094970cb1ebf25bd28c174124",
+  "universalNetlistExportedAt": "2026-09-01T20:04:27.164Z",
   "nets": {
     "+2V5_REF": {
       "C2329": [

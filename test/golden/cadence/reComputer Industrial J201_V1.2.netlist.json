@@ -1,5 +1,7 @@
 {
   "universalNetlistSchemaVersion": 1,
+  "universalNetlistHash": "sha256:10082a225b9b9fd735c9913d8b76f1104072c6af0e465b2fa6b6adf46271c745",
+  "universalNetlistExportedAt": "2026-09-01T20:04:19.830Z",
   "nets": {
     "CAN_120R_EN": {
       "U51": [
