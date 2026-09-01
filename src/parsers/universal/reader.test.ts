@@ -10,7 +10,7 @@ import {
   UniversalNetlistError,
 } from "./reader.js";
 
-const EXPORTED_AT = "2026-09-01T12:34:56.789Z";
+const GENERATED_AT = "2026-09-01T12:34:56.789Z";
 
 const payload = () => ({
   nets: {
@@ -32,7 +32,7 @@ const payload = () => ({
   },
 });
 
-const valid = () => toUniversalNetlistDocument(payload(), { exportedAt: EXPORTED_AT });
+const valid = () => toUniversalNetlistDocument(payload(), { generatedAt: GENERATED_AT });
 
 const rejects = (raw: unknown, fragment: string): void => {
   expect(() => validateUniversalNetlist(raw, "f.json")).toThrowError(UniversalNetlistError);
@@ -73,7 +73,7 @@ describe("validateUniversalNetlist", () => {
     const raw = valid();
     (raw.components.C1 as Record<string, unknown>).footprint = "0402";
     (raw.components.C1 as Record<string, unknown>).dns = false;
-    raw.universalNetlistHash = calculateUniversalNetlistHash({
+    raw.metadata.netlistHash = calculateUniversalNetlistHash({
       nets: raw.nets,
       components: {
         ...raw.components,
@@ -111,33 +111,36 @@ describe("validateUniversalNetlist", () => {
     rejects({ ...valid(), nets: "x" }, "`nets` and `components` must be objects");
   });
 
-  it("requires a canonical UTC export timestamp", () => {
+  it("requires a canonical UTC generation timestamp", () => {
     rejects(
-      { ...valid(), universalNetlistExportedAt: undefined },
-      "`universalNetlistExportedAt` must be a canonical ISO 8601 UTC timestamp"
+      { ...valid(), metadata: { ...valid().metadata, generatedAt: undefined } },
+      "`metadata.generatedAt` must be a canonical ISO 8601 UTC timestamp"
     );
     rejects(
-      { ...valid(), universalNetlistExportedAt: "2026-09-01T12:34:56.789+00:00" },
-      "`universalNetlistExportedAt` must be a canonical ISO 8601 UTC timestamp"
+      {
+        ...valid(),
+        metadata: { ...valid().metadata, generatedAt: "2026-09-01T12:34:56.789+00:00" },
+      },
+      "`metadata.generatedAt` must be a canonical ISO 8601 UTC timestamp"
     );
     rejects(
-      { ...valid(), universalNetlistExportedAt: "not-a-date" },
-      "`universalNetlistExportedAt` must be a canonical ISO 8601 UTC timestamp"
+      { ...valid(), metadata: { ...valid().metadata, generatedAt: "not-a-date" } },
+      "`metadata.generatedAt` must be a canonical ISO 8601 UTC timestamp"
     );
   });
 
   it("requires and verifies the SHA-256 content hash", () => {
-    const missing = { ...valid(), universalNetlistHash: undefined };
-    rejects(missing, "`universalNetlistHash` must be `sha256:`");
+    const missing = { ...valid(), metadata: { ...valid().metadata, netlistHash: undefined } };
+    rejects(missing, "`metadata.netlistHash` must be `sha256:`");
 
     rejects(
-      { ...valid(), universalNetlistHash: "sha256:nope" },
-      "`universalNetlistHash` must be `sha256:`"
+      { ...valid(), metadata: { ...valid().metadata, netlistHash: "sha256:nope" } },
+      "`metadata.netlistHash` must be `sha256:`"
     );
 
     const changed = valid();
     changed.components.C1.value = "2uF";
-    rejects(changed, "`universalNetlistHash` does not match");
+    rejects(changed, "`metadata.netlistHash` does not match");
   });
 
   it("hashes canonical content independently of object key order", () => {
@@ -147,8 +150,51 @@ describe("validateUniversalNetlist", () => {
     expect(() => validateUniversalNetlist(raw)).not.toThrow();
   });
 
-  it("rejects an unexpected top-level key", () => {
+  it("hashes nets and components together but excludes all metadata", () => {
+    const raw = valid();
+    raw.metadata.generatedAt = "2027-01-02T03:04:05.678Z";
+    raw.metadata.origin = {
+      type: "vendor",
+      source: { vendor: "KiCad", fileType: ".kicad_pro", formatVersion: "20231120" },
+    };
+    expect(() => validateUniversalNetlist(raw)).not.toThrow();
+
+    raw.components.C1.value = "2uF";
+    expect(() => validateUniversalNetlist(raw)).toThrowError("`metadata.netlistHash` does not match");
+  });
+
+  it("rejects unexpected top-level and metadata keys", () => {
     rejects({ ...valid(), meta: {} }, "unexpected top-level key 'meta'");
+    const raw = valid();
+    (raw.metadata as unknown as Record<string, unknown>).modifiedAt = GENERATED_AT;
+    rejects(raw, "unexpected metadata key 'modifiedAt'");
+  });
+
+  it("accepts native and vendor origins and validates their exact shapes", () => {
+    expect(valid().metadata.origin).toEqual({ type: "native" });
+    const vendor = toUniversalNetlistDocument(payload(), {
+      generatedAt: GENERATED_AT,
+      origin: {
+        type: "vendor",
+        source: { vendor: "Cadence", fileType: ".dsn", formatVersion: "3.3" },
+      },
+    });
+    expect(() => validateUniversalNetlist(vendor)).not.toThrow();
+
+    rejects(
+      { ...valid(), metadata: { ...valid().metadata, origin: { type: "vendor" } } },
+      "vendor `metadata.origin` must have a `source` object"
+    );
+    rejects(
+      {
+        ...valid(),
+        metadata: {
+          ...valid().metadata,
+          origin: { type: "vendor", source: { vendor: "Cadence", fileType: "DSN" } },
+        },
+      },
+      "must be a canonical lowercase file extension"
+    );
   });
 
   it("rejects a component without a pins object", () => {
@@ -249,26 +295,28 @@ describe("parseUniversalNetlist", () => {
 
   it("serializes versioned, hashed, UTC-dated metadata before the payload", () => {
     const parsed = validateUniversalNetlist(valid());
-    const document = JSON.parse(serializeUniversalNetlist(parsed, { exportedAt: EXPORTED_AT }));
+    const document = JSON.parse(serializeUniversalNetlist(parsed, { generatedAt: GENERATED_AT }));
     expect(Object.keys(document)).toEqual([
       "universalNetlistSchemaVersion",
-      "universalNetlistHash",
-      "universalNetlistExportedAt",
+      "metadata",
       "nets",
       "components",
     ]);
     expect(document.universalNetlistSchemaVersion).toBe(UNIVERSAL_NETLIST_SCHEMA_VERSION);
-    expect(document.universalNetlistHash).toBe(calculateUniversalNetlistHash(parsed));
-    expect(document.universalNetlistExportedAt).toBe(EXPORTED_AT);
+    expect(document.metadata).toEqual({
+      generatedAt: GENERATED_AT,
+      netlistHash: calculateUniversalNetlistHash(parsed),
+      origin: { type: "native" },
+    });
   });
 
   it("uses the current UTC time by default", () => {
     const before = Date.now();
     const document = JSON.parse(serializeUniversalNetlist(payload()));
     const after = Date.now();
-    const exportedAt = Date.parse(document.universalNetlistExportedAt);
-    expect(exportedAt).toBeGreaterThanOrEqual(before);
-    expect(exportedAt).toBeLessThanOrEqual(after);
-    expect(document.universalNetlistExportedAt).toMatch(/Z$/);
+    const generatedAt = Date.parse(document.metadata.generatedAt);
+    expect(generatedAt).toBeGreaterThanOrEqual(before);
+    expect(generatedAt).toBeLessThanOrEqual(after);
+    expect(document.metadata.generatedAt).toMatch(/Z$/);
   });
 });

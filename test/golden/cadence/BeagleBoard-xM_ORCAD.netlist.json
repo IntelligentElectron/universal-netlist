@@ -1,7 +1,16 @@
 {
   "universalNetlistSchemaVersion": 1,
-  "universalNetlistHash": "sha256:ab8d2e5d922aa42f9a268ae47bdd0a202027fc2e43276286fc5587f70f143012",
-  "universalNetlistExportedAt": "2026-09-01T20:04:19.595Z",
+  "metadata": {
+    "generatedAt": "2026-09-01T21:46:04.636Z",
+    "netlistHash": "sha256:a26956dca32e94be2a140e29cf2b3368fe80bad4231b30ce87449942cd060001",
+    "origin": {
+      "type": "vendor",
+      "source": {
+        "vendor": "Cadence",
+        "fileType": ".dat"
+      }
+    }
+  },
   "nets": {
     "USB2HS_STP": {
       "U4": [

@@ -1,7 +1,16 @@
 {
   "universalNetlistSchemaVersion": 1,
-  "universalNetlistHash": "sha256:5c89e83a8ed61b4d1e5b57f69c10a80b34e41e337ee09975787b3289995ee8ff",
-  "universalNetlistExportedAt": "2026-09-01T20:04:19.646Z",
+  "metadata": {
+    "generatedAt": "2026-09-01T21:46:04.690Z",
+    "netlistHash": "sha256:287dd1a32f71283141aa5b0791392af78d77ade1376139b24dc6edacaf575b85",
+    "origin": {
+      "type": "vendor",
+      "source": {
+        "vendor": "Cadence",
+        "fileType": ".dat"
+      }
+    }
+  },
   "nets": {
     "VBUS": {
       "P3": [

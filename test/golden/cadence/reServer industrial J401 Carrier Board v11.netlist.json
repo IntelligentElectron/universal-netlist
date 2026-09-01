@@ -1,7 +1,16 @@
 {
   "universalNetlistSchemaVersion": 1,
-  "universalNetlistHash": "sha256:9b7118f5dde8668ee318f8f66428f186417c0faedcc4dc4a7e1088916d9039d8",
-  "universalNetlistExportedAt": "2026-09-01T20:04:21.242Z",
+  "metadata": {
+    "generatedAt": "2026-09-01T21:46:06.253Z",
+    "netlistHash": "sha256:7d972c79b3160264c5734bfc234dc302c2f684cf92f121c698efdb40e9ebd77c",
+    "origin": {
+      "type": "vendor",
+      "source": {
+        "vendor": "Cadence",
+        "fileType": ".dat"
+      }
+    }
+  },
   "nets": {
     "PCIE2_RST": {
       "J9": [

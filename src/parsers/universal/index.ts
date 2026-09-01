@@ -22,6 +22,7 @@ export {
 export {
   calculateUniversalNetlistHash,
   parseUniversalNetlist,
+  parseUniversalNetlistDocument,
   serializeUniversalNetlist,
   toUniversalNetlistDocument,
   validateUniversalNetlist,
@@ -29,7 +30,13 @@ export {
   UNIVERSAL_NETLIST_SCHEMA_VERSION,
   UniversalNetlistError,
 } from "./reader.js";
-export type { UniversalNetlistDocument, UniversalNetlistSerializationOptions } from "./reader.js";
+export type {
+  UniversalNetlistDocument,
+  UniversalNetlistMetadata,
+  UniversalNetlistOrigin,
+  UniversalNetlistSerializationOptions,
+  UniversalNetlistSource,
+} from "./reader.js";
 export type { UniversalDiscoveredDesign } from "./discovery.js";
 
 /**

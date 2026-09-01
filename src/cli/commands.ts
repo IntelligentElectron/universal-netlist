@@ -3,12 +3,12 @@
  * --export-json, and --coverage.
  */
 
-import { existsSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { basename, dirname, extname, join, resolve } from "node:path";
 import { VERSION, GITHUB_REPO, BINARY_NAME } from "../version.js";
 import { SELF_UPDATE_ENABLED } from "../build-flags.js";
 import { exportTelemetry } from "../telemetry/index.js";
-import { parseDesign } from "../parsers/index.js";
+import { findHandler, parseDesign } from "../parsers/index.js";
 import {
   discoverCadenceDesigns,
   parseDsnFile,
@@ -25,7 +25,9 @@ import {
 import { checkForUpdate, performUpdate, isNpmInstall } from "./updater.js";
 import {
   isUniversalFile,
+  parseUniversalNetlistDocument,
   serializeUniversalNetlist,
+  type UniversalNetlistOrigin,
   universalDesignName,
 } from "../parsers/universal/index.js";
 import { confirm } from "./prompts.js";
@@ -231,8 +233,34 @@ export const handleExportJsonCommand = async (
 
   const absolutePath = resolve(designPath);
   let result;
+  let origin: UniversalNetlistOrigin;
   try {
-    result = await parseDesign(absolutePath);
+    if (isUniversalFile(absolutePath)) {
+      const document = parseUniversalNetlistDocument(
+        readFileSync(absolutePath, "utf-8"),
+        basename(absolutePath)
+      );
+      result = { nets: document.nets, components: document.components };
+      origin = document.metadata.origin;
+    } else {
+      const handler = findHandler(absolutePath);
+      if (!handler || handler.name === "universal") {
+        throw new Error(`Unsupported design format: ${absolutePath}`);
+      }
+      result = await parseDesign(absolutePath);
+      const vendor =
+        handler.name === "cadence"
+          ? "Cadence"
+          : handler.name === "altium"
+            ? "Altium"
+            : handler.name === "kicad"
+              ? "KiCad"
+              : handler.name;
+      origin = {
+        type: "vendor",
+        source: { vendor, fileType: extname(absolutePath).toLowerCase() },
+      };
+    }
   } catch (error) {
     console.error(error instanceof Error ? error.message : String(error));
     process.exit(1);
@@ -245,7 +273,7 @@ export const handleExportJsonCommand = async (
     ? universalDesignName(absolutePath)
     : basename(absolutePath, extname(absolutePath));
   const outFile = resolve(outPath ?? `${name}.netlist.json`);
-  writeFileSync(outFile, serializeUniversalNetlist(result));
+  writeFileSync(outFile, serializeUniversalNetlist(result, { origin }));
   console.log(outFile);
 };
 

@@ -185,7 +185,8 @@ describe("every golden file is a Universal Netlist", () => {
       const raw = JSON.parse(await readFile(filePath, "utf-8"));
       expect(
         toUniversalNetlistDocument(loaded, {
-          exportedAt: raw.universalNetlistExportedAt as string,
+          generatedAt: raw.metadata.generatedAt as string,
+          origin: raw.metadata.origin,
         }),
         filePath
       ).toEqual(raw);

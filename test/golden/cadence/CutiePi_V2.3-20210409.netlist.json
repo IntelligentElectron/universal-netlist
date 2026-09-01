@@ -1,7 +1,16 @@
 {
   "universalNetlistSchemaVersion": 1,
-  "universalNetlistHash": "sha256:269ee07ef0c1043ba9d1bbe96270f4c77e233904d6560c61c3dee5179bfb1315",
-  "universalNetlistExportedAt": "2026-09-01T20:04:19.661Z",
+  "metadata": {
+    "generatedAt": "2026-09-01T21:46:04.708Z",
+    "netlistHash": "sha256:ab0edb0ea156164288c455c5211d037799641beb0789eac1373a5725139f3b97",
+    "origin": {
+      "type": "vendor",
+      "source": {
+        "vendor": "Cadence",
+        "fileType": ".dat"
+      }
+    }
+  },
   "nets": {
     "N13115240": {
       "D1": [

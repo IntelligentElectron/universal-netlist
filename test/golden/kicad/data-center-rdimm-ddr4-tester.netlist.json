@@ -1,7 +1,16 @@
 {
   "universalNetlistSchemaVersion": 1,
-  "universalNetlistHash": "sha256:2f0c7049f32ad44f6a01d1e2a32cf5d504347c93f5a167df22c12b910a6a9a9a",
-  "universalNetlistExportedAt": "2026-09-01T20:04:27.204Z",
+  "metadata": {
+    "generatedAt": "2026-09-01T21:46:12.219Z",
+    "netlistHash": "sha256:a29632fe5cb1f902454d15e6d8390bd1be1794b1da133b4e5f6140a200938d23",
+    "origin": {
+      "type": "vendor",
+      "source": {
+        "vendor": "KiCad",
+        "fileType": ".kicad_pro"
+      }
+    }
+  },
   "nets": {
     "/Ethernet/AMPS_CTL": {
       "R156": [

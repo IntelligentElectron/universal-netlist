@@ -1,7 +1,16 @@
 {
   "universalNetlistSchemaVersion": 1,
-  "universalNetlistHash": "sha256:80da7def35061058950b2a66ab3db252909dca6523a3ea67c78901a8c1094caa",
-  "universalNetlistExportedAt": "2026-09-01T20:04:26.283Z",
+  "metadata": {
+    "generatedAt": "2026-09-01T21:46:11.294Z",
+    "netlistHash": "sha256:712bcd9df1b8877b041bb2bee8425b05ee50202968a6bbc74d2983562a4dfd67",
+    "origin": {
+      "type": "vendor",
+      "source": {
+        "vendor": "Altium",
+        "fileType": ".prjpcb"
+      }
+    }
+  },
   "nets": {
     "ANT": {
       "A1": [

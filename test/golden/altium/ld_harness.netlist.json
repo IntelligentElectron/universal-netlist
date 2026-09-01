@@ -1,7 +1,16 @@
 {
   "universalNetlistSchemaVersion": 1,
-  "universalNetlistHash": "sha256:2431e9c5ff5d1dd2887bcf5d225a712c7180585a41ee507fa44f6dcb7c89ad87",
-  "universalNetlistExportedAt": "2026-09-01T20:04:22.619Z",
+  "metadata": {
+    "generatedAt": "2026-09-01T21:46:07.650Z",
+    "netlistHash": "sha256:f1016363d89439cb81bc631f3895b67b8ef8a46d8feff7c4d8eee08038ceef22",
+    "origin": {
+      "type": "vendor",
+      "source": {
+        "vendor": "Altium",
+        "fileType": ".prjpcb"
+      }
+    }
+  },
   "nets": {
     "V_LASER_CHAN1": {
       "J4_CHAN1": [

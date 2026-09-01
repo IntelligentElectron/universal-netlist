@@ -1,7 +1,12 @@
 {
   "universalNetlistSchemaVersion": 1,
-  "universalNetlistHash": "sha256:5003a841b84dfb83d334b5c954bd8910b91c7485307cb09286a84f8abc68ae18",
-  "universalNetlistExportedAt": "2026-09-01T20:05:58.004Z",
+  "metadata": {
+    "generatedAt": "2026-09-01T20:05:58.004Z",
+    "netlistHash": "sha256:2b850b9e16d0f0aff15f91833a422c379456c6feabb20b05b7c43a393af27ab0",
+    "origin": {
+      "type": "native"
+    }
+  },
   "nets": {
     "PP5V": {
       "J1": [

@@ -2,13 +2,12 @@
 
 This document defines the **Universal Netlist Schema** - the core data model that represents netlists from any supported EDA format (Cadence CIS, Cadence HDL, Altium Designer, KiCad). All parsers convert format-specific data into this unified representation.
 
-Every on-disk Universal Netlist is named `*.netlist.json` and carries three
-metadata fields: `universalNetlistSchemaVersion`, `universalNetlistHash`, and
-`universalNetlistExportedAt`. The version identifies the document and its
-schema, the SHA-256 hash identifies its stable content, and the timestamp records
-when it was exported in UTC. The current version is `1`; ordinary JSON files are
-not Universal Netlists, even if they happen to contain keys named `nets` or
-`components`.
+Every on-disk Universal Netlist is named `*.netlist.json`. Its top-level
+`universalNetlistSchemaVersion` identifies the document and schema; its nested
+`metadata` records when the document was generated, the origin of its content,
+and a verified SHA-256 identity for `nets` and `components` together. The
+current version is `1`; ordinary JSON files are not Universal Netlists, even if
+they happen to contain keys named `nets` or `components`.
 
 ### Schema evolution
 
@@ -32,8 +31,10 @@ versions that build supports.
 ```
 UniversalNetlistDocument
 ├── universalNetlistSchemaVersion: 1
-├── universalNetlistHash: "sha256:<64 lowercase hex digits>"
-├── universalNetlistExportedAt: "2026-09-01T12:34:56.789Z"
+├── metadata
+│   ├── generatedAt: "2026-09-01T12:34:56.789Z"
+│   ├── netlistHash: "sha256:<64 lowercase hex digits>"
+│   └── origin: { type: "native" } | { type: "vendor", source: ... }
 ├── nets: NetConnections
 │   └── {netName}: { refdes: pin(s) }
 └── components: ComponentDetails
@@ -52,13 +53,51 @@ The root schema representing a complete netlist.
     "universalNetlistSchemaVersion": {
       "const": 1
     },
-    "universalNetlistHash": {
-      "type": "string",
-      "pattern": "^sha256:[0-9a-f]{64}$"
-    },
-    "universalNetlistExportedAt": {
-      "type": "string",
-      "format": "date-time"
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "generatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "netlistHash": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "origin": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": { "type": { "const": "native" } },
+              "required": ["type"],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "type": { "const": "vendor" },
+                "source": {
+                  "type": "object",
+                  "properties": {
+                    "vendor": { "type": "string", "minLength": 1 },
+                    "fileType": {
+                      "type": "string",
+                      "pattern": "^\\.[a-z0-9][a-z0-9_+-]*$"
+                    },
+                    "formatVersion": { "type": "string", "minLength": 1 }
+                  },
+                  "required": ["vendor", "fileType"],
+                  "additionalProperties": false
+                }
+              },
+              "required": ["type", "source"],
+              "additionalProperties": false
+            }
+          ]
+        }
+      },
+      "required": ["generatedAt", "netlistHash", "origin"],
+      "additionalProperties": false
     },
     "nets": {
       "$ref": "#/$defs/NetConnections"
@@ -69,8 +108,7 @@ The root schema representing a complete netlist.
   },
   "required": [
     "universalNetlistSchemaVersion",
-    "universalNetlistHash",
-    "universalNetlistExportedAt",
+    "metadata",
     "nets",
     "components"
   ],
@@ -83,8 +121,18 @@ The root schema representing a complete netlist.
 ```json
 {
   "universalNetlistSchemaVersion": 1,
-  "universalNetlistHash": "sha256:d162573135e49348295f639ec3485dc0cb233cebbb56bbbb4f8055bc202e3649",
-  "universalNetlistExportedAt": "2026-09-01T12:34:56.789Z",
+  "metadata": {
+    "generatedAt": "2026-09-01T12:34:56.789Z",
+    "netlistHash": "sha256:d162573135e49348295f639ec3485dc0cb233cebbb56bbbb4f8055bc202e3649",
+    "origin": {
+      "type": "vendor",
+      "source": {
+        "vendor": "Cadence",
+        "fileType": ".dsn",
+        "formatVersion": "3.3"
+      }
+    }
+  },
   "nets": {
     "PP3V3": { "U1": "3", "C1": "1", "R1": "1" },
     "GND": { "U1": "2", "C1": "2" },
@@ -306,23 +354,35 @@ The `PinEntry` union type balances information density with token efficiency:
 
 This reduces output size by ~30% for typical designs while preserving important pin name information.
 
-## Content hash and export time
+## Metadata, content hash, and origin
 
-`universalNetlistHash` is SHA-256 over canonical JSON containing the schema
-version and the complete normalized `nets` and `components` payload. Object
-keys are sorted recursively before hashing; array order is preserved. The hash field itself and
-`universalNetlistExportedAt` are excluded, so identical netlist content has the
-same hash when exported at different times. Readers recompute and verify the
-hash before accepting a document.
+`metadata.netlistHash` is SHA-256 over one canonical JSON object containing the
+complete normalized `nets` and `components` payload together. Object keys are
+sorted recursively before hashing; array order is preserved. The schema version
+and complete `metadata` object are excluded, so identical electrical content
+has the same hash regardless of its generation time or provenance. Readers
+recompute and verify the hash before accepting a document.
 
 This is an integrity checksum, not a digital signature: anyone who changes a
 netlist can recompute its hash. It detects stale or accidental changes and gives
 identical content a stable identifier; it does not establish who produced the
 file.
 
-`universalNetlistExportedAt` is the instant the document was written, encoded
+`metadata.generatedAt` is the instant this JSON document was generated, encoded
 as the canonical UTC form produced by JavaScript `Date.toISOString()`, including
-milliseconds and the trailing `Z`.
+milliseconds and the trailing `Z`. It applies to both native documents and
+documents converted from vendor files.
+
+`metadata.origin.type` is `native` when the Universal Netlist was created
+directly. Native origins omit `source`. It is `vendor` when a vendor file was
+parsed; then `source.vendor` and the canonical lowercase extension in
+`source.fileType` are required. `source.formatVersion` is optional because many
+files do not carry a reliable embedded format version.
+
+There is intentionally no `modifiedAt` in schema version 1: it cannot be kept
+reliable when JSON may be hand-edited. Editing `nets` or `components` is allowed,
+but requires recomputing `netlistHash`. The hash detects a mismatch; it does not
+make the file immutable.
 
 ## Loading a Universal Netlist file
 
@@ -331,9 +391,10 @@ A `.netlist.json` file in this schema is itself a design: `list_designs` discove
 The file is validated on load, because the EDA parsers build a consistent netlist by construction and a file may have been written or edited by anyone. A file is refused, naming the first defect, when:
 
 - `universalNetlistSchemaVersion` is missing, is not an integer, or names a version the reader does not support
-- `universalNetlistHash` is missing, malformed, or does not match the schema version and payload
-- `universalNetlistExportedAt` is missing or is not a canonical ISO 8601 UTC timestamp
-- `nets` or `components` is not an object, or the document carries any other top-level key
+- `metadata.netlistHash` is missing, malformed, or does not match canonical `nets` and `components`
+- `metadata.generatedAt` is missing or is not a canonical ISO 8601 UTC timestamp
+- `metadata.origin` is not a valid native or vendor origin, or vendor source metadata is incomplete
+- `nets` or `components` is not an object, or the document carries any other top-level or metadata key
 - a component has no `pins` object, a text field (`mpn`, `description`, `comment`, `value`) that is not a string, or a `dns` that is not a boolean
 - a pin entry is neither a net name nor an object with exactly `name` and `net`
 - a net member is neither a pin number nor an array of pin numbers, is empty, or lists the same pin twice

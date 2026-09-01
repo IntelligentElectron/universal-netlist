@@ -1,7 +1,16 @@
 {
   "universalNetlistSchemaVersion": 1,
-  "universalNetlistHash": "sha256:10082a225b9b9fd735c9913d8b76f1104072c6af0e465b2fa6b6adf46271c745",
-  "universalNetlistExportedAt": "2026-09-01T20:04:19.830Z",
+  "metadata": {
+    "generatedAt": "2026-09-01T21:46:04.876Z",
+    "netlistHash": "sha256:d76ada4bbb461f1031bc21e75e7c2279ee3b4e82c6c6eb90d78abbdee7b49d05",
+    "origin": {
+      "type": "vendor",
+      "source": {
+        "vendor": "Cadence",
+        "fileType": ".dat"
+      }
+    }
+  },
   "nets": {
     "CAN_120R_EN": {
       "U51": [

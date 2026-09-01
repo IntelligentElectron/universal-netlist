@@ -8,7 +8,9 @@ import path from "node:path";
 import type { ParsedNetlist } from "../src/types.js";
 import {
   parseUniversalNetlist,
+  parseUniversalNetlistDocument,
   serializeUniversalNetlist,
+  type UniversalNetlistOrigin,
 } from "../src/parsers/universal/reader.js";
 
 const TEST_DIR = path.dirname(new URL(import.meta.url).pathname);
@@ -108,25 +110,47 @@ export const loadGolden = async (
 export const saveGolden = async (
   format: Format,
   designName: string,
-  data: ParsedNetlist
+  data: ParsedNetlist,
+  sourcePath: string
 ): Promise<boolean> => {
   const goldenDir = path.join(GOLDEN_DIR, format);
   await fs.mkdir(goldenDir, { recursive: true });
 
-  // Only rewrite a golden whose content actually moved. The tests compare
-  // structurally, so a parser that reorders the keys it writes leaves every
-  // golden passing and every golden rewritten, burying the one design that
-  // changed under thousands of lines of key-order churn.
+  // Only rewrite a golden whose netlist content or source provenance moved.
+  // The tests compare structurally, so a parser that merely reorders keys
+  // should not bury a meaningful change under thousands of diff lines.
   //
   // The comparison is against the new data round-tripped through JSON, not the
   // data itself: serializing drops a key whose value is `undefined`, so the two
   // sides have to be compared in the form that reaches the file.
-  const serialized = serializeUniversalNetlist(data);
-  const existing = await loadGolden(format, designName);
+  const vendor: Record<Format, string> = {
+    cadence: "Cadence",
+    altium: "Altium",
+    kicad: "KiCad",
+  };
+  const origin: UniversalNetlistOrigin = {
+    type: "vendor",
+    source: { vendor: vendor[format], fileType: path.extname(sourcePath).toLowerCase() },
+  };
+  const serialized = serializeUniversalNetlist(data, { origin });
   const roundTripped = parseUniversalNetlist(serialized, `${designName}.netlist.json`);
-  if (existing && deepEqual(existing, roundTripped)) return false;
-
   const goldenPath = path.join(goldenDir, `${designName}.netlist.json`);
+  try {
+    const existingDocument = parseUniversalNetlistDocument(
+      await fs.readFile(goldenPath, "utf-8"),
+      path.basename(goldenPath)
+    );
+    const existing = {
+      nets: existingDocument.nets,
+      components: existingDocument.components,
+    };
+    if (deepEqual(existing, roundTripped) && deepEqual(existingDocument.metadata.origin, origin)) {
+      return false;
+    }
+  } catch {
+    // Missing and historical-schema goldens are rewritten below.
+  }
+
   await fs.writeFile(goldenPath, serialized, "utf-8");
   return true;
 };

@@ -1,7 +1,16 @@
 {
   "universalNetlistSchemaVersion": 1,
-  "universalNetlistHash": "sha256:8a6f04b30369d06f259dc1fac4009919dadc6507db85371611192f06d9368a17",
-  "universalNetlistExportedAt": "2026-09-01T20:04:27.106Z",
+  "metadata": {
+    "generatedAt": "2026-09-01T21:46:12.123Z",
+    "netlistHash": "sha256:e4bb5b636d8e5cd88eb80ee52d9626f963713066fb9964b699381c54b31557fe",
+    "origin": {
+      "type": "vendor",
+      "source": {
+        "vendor": "KiCad",
+        "fileType": ".kicad_pro"
+      }
+    }
+  },
   "nets": {
     "+1V8": {
       "Module301": [
