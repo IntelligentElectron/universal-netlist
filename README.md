@@ -11,7 +11,7 @@ It is compatible with Cadence, Altium, and KiCad, with plans to integrate more E
 | Cadence (CIS / HDL) | `.DSN` schematic (preferred), or `.dat` netlist files | Reads the `.DSN` binary schematic directly; exported Allegro netlist files are also readable |
 | Altium Designer | `.SchDoc` | Altium schematic documents, discovered via `.PrjPcb` project files |
 | KiCad | `.kicad_pro` (or root `.kicad_sch`) | Reads a committed `.net` export beside the project, or generates one via `kicad-cli` |
-| Universal Netlist | `.netlist.json` | The server's own versioned, hashed, UTC-dated [netlist format](docs/schemas/universal-netlist.md), read like any other design |
+| Universal Netlist | `.netlist.json` | The server's own versioned [netlist format](docs/schemas/universal-netlist.md), with native/vendor origin metadata, UTC generation time, and a verified SHA-256 over `nets` and `components` together |
 
 ## Native Install (Recommended)
 
