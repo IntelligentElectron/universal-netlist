@@ -216,9 +216,7 @@ const readVersion1 = (raw: Record<string, unknown>, fail: Fail): ParsedNetlist =
     typeof raw.metadata.netlistHash !== "string" ||
     !/^sha256:[0-9a-f]{64}$/.test(raw.metadata.netlistHash)
   ) {
-    fail(
-      "`metadata.netlistHash` must be `sha256:` followed by 64 lowercase hexadecimal digits"
-    );
+    fail("`metadata.netlistHash` must be `sha256:` followed by 64 lowercase hexadecimal digits");
   }
   readOrigin(raw.metadata.origin, fail);
   if (!isObject(raw.nets) || !isObject(raw.components)) {

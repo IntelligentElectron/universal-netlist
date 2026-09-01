@@ -160,7 +160,9 @@ describe("validateUniversalNetlist", () => {
     expect(() => validateUniversalNetlist(raw)).not.toThrow();
 
     raw.components.C1.value = "2uF";
-    expect(() => validateUniversalNetlist(raw)).toThrowError("`metadata.netlistHash` does not match");
+    expect(() => validateUniversalNetlist(raw)).toThrowError(
+      "`metadata.netlistHash` does not match"
+    );
   });
 
   it("rejects unexpected top-level and metadata keys", () => {
