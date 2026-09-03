@@ -1,3 +1,5 @@
+![Universal Netlist: connecting electronic schematics to AI-assisted circuit analysis](https://raw.githubusercontent.com/IntelligentElectron/universal-netlist/main/banner.png)
+
 # Universal Netlist MCP Server
 
 The **Universal Netlist MCP Server** gives AI agents the tools to understand and analyze your electrical schematics, for powerful and comprehensive design reviews through natural conversations.
