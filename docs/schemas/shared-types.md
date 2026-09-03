@@ -4,6 +4,25 @@ This document defines shared types used across tool responses in the Universal N
 
 For the core netlist data model, see [universal-netlist.md](universal-netlist.md).
 
+### KiCad part-number fields
+
+KiCad field names are user-defined. The parser reads both exported `fields`
+and `property` records, ignoring case and separators in their names:
+
+- Manufacturer-specific names such as `Manufacturer Part Number`, `MFR_PART_NUMBER`,
+  and `Mfg P/N` populate `mpn`. Specific manufacturer names take precedence over
+  `MPN`, regardless of their order in the file.
+- `Internal Part Number`, `CUST_PART_NUMBER`, and similar internal identifiers
+  populate `internal_pn`, ahead of generic `Part Number`, `PartNumber`, or `PN`.
+  Generic names alone do not establish that a manufacturer assigned the number,
+  so they are retained as the design's identifier rather than put in `mpn`.
+- `Manufacturer`, `Manufacturer_Name`, `MFR_NAME`, and common abbreviations
+  populate `manufacturer`.
+
+Blank values are skipped. Neither part-number field falls back to supplier
+SKUs or library symbols. `search_components_by_mpn` searches both fields, so
+a generic part number remains searchable after this separation.
+
 ## ComponentGroup
 
 Used in `list_components` and `search_components_by_*` results. Groups components by MPN for compact output.
@@ -24,7 +43,15 @@ Used in `list_components` and `search_components_by_*` results. Groups component
     },
     "mpn": {
       "type": "string",
-      "description": "Manufacturer Part Number (omitted if missing)"
+      "description": "The manufacturer's part number (omitted if the design records none)"
+    },
+    "internal_pn": {
+      "type": "string",
+      "description": "The part number the design owner identifies the part by (omitted if missing)"
+    },
+    "manufacturer": {
+      "type": "string",
+      "description": "The manufacturer's name (omitted if missing); an MPN is unique only within a manufacturer"
     },
     "description": {
       "type": "string",
@@ -57,6 +84,7 @@ Used in `list_components` and `search_components_by_*` results. Groups component
 ```json
 {
   "mpn": "RC0402FR-071KL",
+  "internal_pn": "INT-1001",
   "description": "RES 1K OHM 1% 1/16W 0402",
   "value": "1k",
   "count": 5,
@@ -75,7 +103,15 @@ Used in `query_xnet_*` results. Groups components by MPN with orientation tracki
   "properties": {
     "mpn": {
       "type": "string",
-      "description": "Manufacturer Part Number (omitted if missing)"
+      "description": "The manufacturer's part number (omitted if the design records none)"
+    },
+    "internal_pn": {
+      "type": "string",
+      "description": "The part number the design owner identifies the part by (omitted if missing)"
+    },
+    "manufacturer": {
+      "type": "string",
+      "description": "The manufacturer's name (omitted if missing); an MPN is unique only within a manufacturer"
     },
     "description": { "type": "string" },
     "comment": { "type": "string" },

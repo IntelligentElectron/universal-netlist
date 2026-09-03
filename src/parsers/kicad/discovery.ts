@@ -9,7 +9,7 @@
  * Discovery keys off the `.kicad_pro` basename: the root schematic and the
  * committed export share that basename. (This is robust even when the design
  * directory name differs from the project basename, e.g.
- * `rdimm-ddr4-tester/data-center-rdimm-ddr4-tester.kicad_pro`.)
+ * `board-tester/data-center-board-tester.kicad_pro`.)
  */
 
 import { readdir } from "node:fs/promises";

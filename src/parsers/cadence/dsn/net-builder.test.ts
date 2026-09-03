@@ -182,7 +182,7 @@ describe("chooseSymbolAttachment", () => {
   const none = () => undefined;
 
   it("attaches to the wire carrying the symbol's own name, not the nearest one", () => {
-    // LAUNCHXL-CC1310 sheet 3: a USB_VBUS symbol whose box spans three rails one
+    // Taken from a real sheet: a USB_VBUS symbol whose box spans three rails one
     // grid step apart. Its origin sits on the XDS_VCC rail, and the GND rail is
     // also inside the box. Attaching to either fused two power nets: XDS_VCC's
     // 12 pins landed on GND, which then won the group's name alphabetically.
@@ -199,9 +199,9 @@ describe("chooseSymbolAttachment", () => {
   });
 
   it("attaches to its own rail when the placement origin lies on the neighbouring one", () => {
-    // BeagleBoard-xM sheet 7: the VDD_PLL1 symbol's origin is one step below its
-    // own rail, exactly on VDD_PLL2's. Anchoring on the origin would move C120
-    // and U7.J15 onto the wrong rail.
+    // Taken from a real sheet: the VDD_PLL1 symbol's origin is one step below
+    // its own rail, exactly on VDD_PLL2's. Anchoring on the origin would move
+    // that rail's decoupling cap and its IC pin onto the wrong net.
     const sym = { x1: 1600, y1: 600, x2: 1656, y2: 620 };
     const named = groups([
       ["1600,600", "VDD_PLL2"],

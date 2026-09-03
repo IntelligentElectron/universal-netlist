@@ -25,9 +25,9 @@ describe("kicadHandler", () => {
 });
 
 describe.skipIf(!hasFixtures)("kicadHandler against fixtures", () => {
-  it("discovers all 10 KiCad fixture projects with their committed exports", async () => {
+  it("discovers all 11 KiCad fixture projects with their committed exports", async () => {
     const designs = await discoverKicadDesigns(KICAD_FIXTURES);
-    expect(designs.length).toBe(10);
+    expect(designs.length).toBe(11);
     for (const d of designs) {
       expect(d.format).toBe("kicad");
       expect(d.sourcePath.endsWith(".kicad_pro")).toBe(true);
@@ -47,7 +47,7 @@ describe.skipIf(!hasFixtures)("kicadHandler against fixtures", () => {
     expect(netlist.components["U1"]?.pins["15"]).toEqual({ name: "PC7", net: "+5V" });
   });
 
-  it("does not false-positive DNP on user 'DNP' BOM fields (cynthion)", async () => {
+  it("does not false-positive DNP on a user-defined 'DNP' BOM field", async () => {
     const designs = await discoverKicadDesigns(KICAD_FIXTURES);
     const cynthion = designs.find((d) => d.name === "cynthion");
     expect(cynthion).toBeDefined();

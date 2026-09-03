@@ -1,8 +1,8 @@
 {
-  "universalNetlistSchemaVersion": 1,
+  "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-01T21:46:11.294Z",
-    "netlistHash": "sha256:712bcd9df1b8877b041bb2bee8425b05ee50202968a6bbc74d2983562a4dfd67",
+    "generatedAt": "2026-09-03T01:02:27.104Z",
+    "netlistHash": "sha256:1b94a7e17666a2d1ee6872e1cde1eefce5f497dec53a5f1cd5d10f3ae0f66007",
     "origin": {
       "type": "vendor",
       "source": {
@@ -26,6 +26,7 @@
         "2": "ANT"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "NFC Antenna Listener-6",
       "value": "NFC_ANT_Listener-6"
     }

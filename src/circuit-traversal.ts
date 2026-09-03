@@ -226,6 +226,8 @@ interface FlatCircuitEntry {
   pin: string;
   net: string;
   mpn?: string;
+  internal_pn?: string;
+  manufacturer?: string;
   description?: string;
   comment?: string;
   value?: string;
@@ -272,6 +274,8 @@ const groupCircuitPins = (
     {
       refdes: string;
       mpn?: string;
+      internal_pn?: string;
+  manufacturer?: string;
       description?: string;
       comment?: string;
       value?: string;
@@ -286,6 +290,8 @@ const groupCircuitPins = (
       comp = {
         refdes: entry.refdes,
         mpn: entry.mpn,
+        internal_pn: entry.internal_pn,
+        manufacturer: entry.manufacturer,
         description: entry.description,
         comment: entry.comment,
         value: entry.value,
@@ -320,6 +326,8 @@ const groupCircuitPins = (
     components.push({
       refdes: comp.refdes,
       mpn: comp.mpn,
+      internal_pn: comp.internal_pn,
+      manufacturer: comp.manufacturer,
       description: comp.description,
       comment: comp.comment,
       value: comp.value,
@@ -429,6 +437,8 @@ export const traverseCircuitFromNet = (
           pin,
           net: currentNet,
           mpn: comp?.mpn,
+          internal_pn: comp?.internal_pn,
+          manufacturer: comp?.manufacturer,
           description: comp?.description,
           comment: comp?.comment,
           value: comp?.value,
@@ -449,6 +459,8 @@ export const traverseCircuitFromNet = (
               pin: otherPin,
               net: otherNetName,
               mpn: comp?.mpn,
+              internal_pn: comp?.internal_pn,
+          manufacturer: comp?.manufacturer,
               description: comp?.description,
               comment: comp?.comment,
               value: comp?.value,
@@ -486,6 +498,8 @@ export const traverseCircuitFromNet = (
                       pin: activePin,
                       net: otherNetName,
                       mpn: otherComp?.mpn,
+                      internal_pn: otherComp?.internal_pn,
+                      manufacturer: otherComp?.manufacturer,
                       description: otherComp?.description,
                       comment: otherComp?.comment,
                       value: otherComp?.value,

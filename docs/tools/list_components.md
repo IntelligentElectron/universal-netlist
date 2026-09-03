@@ -48,6 +48,7 @@ Response:
   "components": [
     {
       "mpn": "TPS62840DLCR",
+      "internal_pn": "INT-1002",
       "description": "IC REG BUCK ADJ 750MA 8WSON",
       "count": 2,
       "refdes": ["U1", "U2"]

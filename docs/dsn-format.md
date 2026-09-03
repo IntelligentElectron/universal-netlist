@@ -505,7 +505,37 @@ order. Verified across the Cadence fixture corpus — see section 12.3.
 
 User properties are the prefix `(name_idx, val_idx)` pairs (section 4.2). Resolution happens in `component-builder.ts`:
 
-- **MPN**: the pair whose name resolves to one of `"Part Number"`, `"PART_NUMBER"`, `"MPN"`, `"Manufacturer PN"` (`MPN_KEYS`). Falls back to `source_package` if none present.
+- **Part numbers**: a record stores its pairs in whatever order Cadence wrote them, and
+  `read_single_prefix_short` in the C++ reference keeps that order verbatim, so it carries
+  no precedence. Precedence is therefore applied by the consumer, which scans the key list
+  as the outer loop and the record's pairs as the inner one. Three lists, each in
+  precedence order:
+  - **`mpn`** — the manufacturer's part number, from `MANUFACTURER_PN_KEYS`:
+    `"Manufacturer PN"`, `"MANUFACTURER_PN"`, `"Manufacturer Part Number"`,
+    `"Vendor Part Number"`, `"Vendor P/N"`, `"MF_PART_NUMBER"`, `"MPN"`.
+  - **`internal_pn`** — the design owner's own number, from `PART_NUMBER_KEYS`:
+    `"PART_NUMBER"`, `"Part Number"`, `"PART NUMBER"`, `"PN"`.
+  - **`manufacturer`** — from `MANUFACTURER_KEYS`: `"Manufacturer"`, `"MANUFACTURER"`,
+    `"Manufacture"`. An MPN identifies a part only within a manufacturer, so this is what
+    makes `mpn` a key rather than a string.
+
+  `"MPN"` is in the first list but last within it. It names the field exactly, and is for
+  that reason the spelling libraries most often populate by hand with whatever was nearby,
+  commonly the library symbol's own name; every more specific spelling is tried first. A
+  pair whose value is the empty string is skipped rather than treated as a match, because
+  a library may leave a property in place with nothing in it beside a populated one.
+
+  There is no fallback between the three, and none to `source_package`. Each is omitted
+  when the record does not carry it. The two part numbers are different namespaces and
+  neither can be derived from the other, and a package name in `mpn` would be a footprint
+  claiming to be an orderable part.
+
+  Distributor part numbers (`"Mouser Part Number"`, `"Arrow Part Number"`,
+  `"Supplier Part Number"`) are read into none of these. A distributor SKU is a third
+  namespace again.
+
+  **Divergence from the reference:** the C++ parser does not resolve part numbers at all;
+  it stores `nameValueMapping` and stops. This precedence is ours.
 - **Value**: three sources, tried in priority order:
   1. Prefix pair with name `"Value"` (primary)
   2. `part_value_idx` in the body (fallback; the `uint32` above)

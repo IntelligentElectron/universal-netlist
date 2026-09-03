@@ -6,7 +6,7 @@
  * - Multiple projects isolation (sibling projects don't cross-match)
  * - Multiple designs in same directory (name-based tiebreaking)
  * - Edge cases (missing files, incomplete sets, orphan dats, case insensitivity)
- * - Real-world structures (BeagleBone style, Cadence HDL style)
+ * - Real-world structures (.DSN with an output folder, Cadence HDL style)
  */
 
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
@@ -80,19 +80,19 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
     it("should match .dat files in an IMMEDIATE subdirectory (arbitrary name)", async () => {
       // Structure:
       // project/
-      // ├── BEAGLEBONEBLK_C.DSN
+      // ├── BOARD_TOP_A.DSN
       // └── allegro/          <- arbitrary name, NOT design name
       //     ├── pstxnet.dat
       //     ├── pstxprt.dat
       //     └── pstchip.dat
       const projectDir = join(testDir, "project");
-      await createDesign(join(projectDir, "BEAGLEBONEBLK_C.DSN"));
+      await createDesign(join(projectDir, "BOARD_TOP_A.DSN"));
       await createDatFiles(join(projectDir, "allegro"));
 
       const designs = await discoverCadenceDesigns(testDir);
 
       expect(designs).toHaveLength(1);
-      expect(designs[0].name).toBe("BEAGLEBONEBLK_C");
+      expect(designs[0].name).toBe("BOARD_TOP_A");
       expect(designs[0].datFiles?.pstxnet).toBe(join(projectDir, "allegro", "pstxnet.dat"));
       expect(designs[0].error).toBeUndefined();
     });
@@ -225,17 +225,17 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
       expect(design2!.error).toBeUndefined();
     });
 
-    it("should handle 5 projects like reference-designs folder", async () => {
-      // Simulating: BeagleBone-Black-master, beaglebone-black-forked, test_design_3, test_design_4, test_design_5
+    it("should handle 5 sibling projects under one root", async () => {
+      // Two schematic projects plus three HDL projects, side by side.
       const projects = [
         {
-          dir: "BeagleBone-Black-master",
-          design: "BEAGLEBONEBLK_C.DSN",
+          dir: "project-main",
+          design: "BOARD_TOP_A.DSN",
           datDir: "allegro",
         },
         {
-          dir: "beaglebone-black-forked/ALLEGRO",
-          design: "BEAGLEBONEBLK_C3.DSN",
+          dir: "project-fork/ALLEGRO",
+          design: "BOARD_TOP_B.DSN",
           datDir: "allegro",
         },
         {
@@ -274,12 +274,12 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
       }
 
       // Verify specific projects
-      const beagle1 = designs.find((d) => d.name === "BEAGLEBONEBLK_C");
-      const beagle2 = designs.find((d) => d.name === "BEAGLEBONEBLK_C3");
+      const beagle1 = designs.find((d) => d.name === "BOARD_TOP_A");
+      const beagle2 = designs.find((d) => d.name === "BOARD_TOP_B");
       const design3 = designs.find((d) => d.name === "test_design_3");
 
-      expect(beagle1!.datFiles?.pstxnet).toContain("BeagleBone-Black-master");
-      expect(beagle2!.datFiles?.pstxnet).toContain("beaglebone-black-forked");
+      expect(beagle1!.datFiles?.pstxnet).toContain("project-main");
+      expect(beagle2!.datFiles?.pstxnet).toContain("project-fork");
       expect(design3!.datFiles?.pstxnet).toContain("test_design_3");
     });
   });
@@ -818,31 +818,31 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
   });
 
   describe("Real-World Structures", () => {
-    it("should handle BeagleBone style: .DSN with allegro/ output folder", async () => {
-      // Exact structure from BeagleBone-Black-master
-      const projectDir = join(testDir, "BeagleBone-Black-master");
-      await createDesign(join(projectDir, "BEAGLEBONEBLK_C.DSN"));
+    it("should handle a .DSN beside an allegro/ output folder", async () => {
+      // Exact structure a real project of this shape uses.
+      const projectDir = join(testDir, "project-main");
+      await createDesign(join(projectDir, "BOARD_TOP_A.DSN"));
       await createDatFiles(join(projectDir, "allegro"));
 
       const designs = await discoverCadenceDesigns(testDir);
 
       expect(designs).toHaveLength(1);
-      expect(designs[0].name).toBe("BEAGLEBONEBLK_C");
+      expect(designs[0].name).toBe("BOARD_TOP_A");
       expect(designs[0].format).toBe("cadence-cis");
       expect(designs[0].datFiles?.pstxnet).toContain("allegro");
       expect(designs[0].error).toBeUndefined();
     });
 
     it("should handle nested ALLEGRO folder structure", async () => {
-      // Exact structure from beaglebone-black-forked
-      const projectDir = join(testDir, "beaglebone-black-forked", "ALLEGRO");
-      await createDesign(join(projectDir, "BEAGLEBONEBLK_C3.DSN"));
+      // Exact structure a real project of this shape uses.
+      const projectDir = join(testDir, "project-fork", "ALLEGRO");
+      await createDesign(join(projectDir, "BOARD_TOP_B.DSN"));
       await createDatFiles(join(projectDir, "allegro"));
 
       const designs = await discoverCadenceDesigns(testDir);
 
       expect(designs).toHaveLength(1);
-      expect(designs[0].name).toBe("BEAGLEBONEBLK_C3");
+      expect(designs[0].name).toBe("BOARD_TOP_B");
       expect(designs[0].datFiles?.pstxnet).toContain(join("ALLEGRO", "allegro"));
       expect(designs[0].error).toBeUndefined();
     });
@@ -942,12 +942,12 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
 
     it("should extract design name from ROOT_DRAWING in pstxprt.dat", async () => {
       const datDir = join(testDir, "some_folder");
-      await createDatFiles(datDir, "BEAGLEBONEBLK_C");
+      await createDatFiles(datDir, "BOARD_TOP_A");
 
       const designs = await discoverCadenceDesigns(testDir);
 
       expect(designs).toHaveLength(1);
-      expect(designs[0].name).toBe("BEAGLEBONEBLK_C");
+      expect(designs[0].name).toBe("BOARD_TOP_A");
       expect(designs[0].format).toBe("cadence-dat");
     });
 

@@ -4,7 +4,7 @@ import {
   searchComponentsByMpn,
   searchComponentsByDescription,
 } from "./search-components.js";
-import type { ParsedNetlist, ErrorResult } from "../../types.js";
+import type { ParsedNetlist, ErrorResult, SearchComponentsResult } from "../../types.js";
 import * as parsersModule from "../../parsers/index.js";
 
 const isErrorResult = (result: unknown): result is ErrorResult =>
@@ -86,5 +86,61 @@ describe("search tools - broad pattern rejection", () => {
       const result = await searchComponentsByDescription("Buck", "/mock/design.dsn");
       expect(isErrorResult(result)).toBe(false);
     });
+  });
+});
+
+/**
+ * The two part numbers live in different namespaces, and a caller holding one
+ * of them has no way to know which. Searching only `mpn` would answer "no such
+ * part" to a correct internal part number.
+ */
+describe("searchComponentsByMpn - both part numbers", () => {
+  const netlist: ParsedNetlist = {
+    nets: { GND: { R1: ["1"], C1: ["1"] } },
+    components: {
+      R1: {
+        mpn: "MFRA-0R00-01005",
+        internal_pn: "INT-1001",
+        pins: { "1": "GND" },
+      },
+      C1: { mpn: "MFRB-100N-0402", pins: { "1": "GND" } },
+    },
+  };
+
+  beforeEach(() => {
+    vi.spyOn(parsersModule, "findHandler").mockReturnValue({
+      name: "mock",
+      extensions: [".dsn"],
+      canHandle: () => true,
+      discoverDesigns: vi.fn(),
+      parse: vi.fn(),
+    });
+    vi.spyOn(parsersModule, "parseDesign").mockResolvedValue(netlist);
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  const refdesFound = (result: unknown): string[] =>
+    Object.values((result as { results: Record<string, Array<{ refdes: string[] }>> }).results)
+      .flat()
+      .flatMap((group) => group.refdes);
+
+  it("finds a part by its manufacturer part number", async () => {
+    const result = await searchComponentsByMpn("MFRA-0R00-01005", "/mock/design.dsn");
+    expect(refdesFound(result)).toEqual(["R1"]);
+  });
+
+  it("finds a part by the design's own part number", async () => {
+    const result = await searchComponentsByMpn("INT-1001", "/mock/design.dsn");
+    expect(refdesFound(result)).toEqual(["R1"]);
+  });
+
+  it("reports both numbers on the group it returns", async () => {
+    const result = await searchComponentsByMpn("MFRA-0R00", "/mock/design.dsn");
+    const groups = Object.values((result as SearchComponentsResult).results).flat();
+    expect(groups[0].mpn).toBe("MFRA-0R00-01005");
+    expect(groups[0].internal_pn).toBe("INT-1001");
   });
 });

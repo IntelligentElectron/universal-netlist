@@ -6,9 +6,8 @@
  * MFGR_PN, DESCR, or VALUE fields. Some Cadence designs use graphical-only
  * text annotations on the schematic (e.g., "DNP" or "DNM" placed as plain text
  * near the component symbol). These annotations are not exported to DAT files
- * and are invisible to this parser. Known affected designs: OSHW-Jetson-Series
- * (graphical DNP), LAUNCHXL-CC1310 (graphical DNM on R13, A1, MH1-5, P8),
- * BeagleBoard-xM (graphical DNI on RP1, RP5).
+ * and are invisible to this parser, so a design marking parts that way reports
+ * them as fitted. All three spellings occur in practice: DNP, DNM and DNI.
  */
 
 import { readFile } from "fs/promises";

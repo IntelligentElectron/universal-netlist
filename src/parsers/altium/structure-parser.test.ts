@@ -80,7 +80,7 @@ describe("expandRepeatDesignator", () => {
   });
 
   it("tolerates the spacing variants Altium writes in practice", () => {
-    // Observed verbatim in aberrant-sound-module, cube-sat-eps and HELIOS-R.
+    // Each spelling below was observed verbatim in a real Altium project.
     expect(expandRepeatDesignator("Repeat(AY,1,3)")).toEqual(["AY1", "AY2", "AY3"]);
     expect(expandRepeatDesignator("Repeat(ideal_diode, 1, 2)")).toEqual([
       "ideal_diode1",

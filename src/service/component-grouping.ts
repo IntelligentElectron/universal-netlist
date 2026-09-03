@@ -21,6 +21,8 @@ export const groupComponentsByMpn = (
     string,
     {
       mpn?: string;
+      internal_pn?: string;
+      manufacturer?: string;
       description?: string;
       comment?: string;
       value?: string;
@@ -37,6 +39,8 @@ export const groupComponentsByMpn = (
     }
 
     const mpnTrimmed = component.mpn?.trim() || undefined;
+    const internalPn = component.internal_pn?.trim() || undefined;
+    const manufacturerName = component.manufacturer?.trim() || undefined;
     const descriptionValue = component.description?.trim() || undefined;
     const commentValue = component.comment?.trim() || undefined;
     const valueValue = component.value?.trim() || undefined;
@@ -50,6 +54,8 @@ export const groupComponentsByMpn = (
     const keyBase = mpnTrimmed ? `mpn:${mpnTrimmed}` : `refdes:${refdes}`;
     const groupKey = [
       keyBase,
+      `ipn:${internalPn ?? ""}`,
+      `mfg:${manufacturerName ?? ""}`,
       `desc:${descriptionValue ?? ""}`,
       `comment:${commentValue ?? ""}`,
       `value:${valueValue ?? ""}`,
@@ -59,6 +65,8 @@ export const groupComponentsByMpn = (
     if (!groups.has(groupKey)) {
       groups.set(groupKey, {
         ...(mpnTrimmed && { mpn: mpnTrimmed }),
+        ...(internalPn && { internal_pn: internalPn }),
+        ...(manufacturerName && { manufacturer: manufacturerName }),
         description: descriptionValue,
         comment: commentValue,
         value: valueValue,
@@ -80,6 +88,14 @@ export const groupComponentsByMpn = (
 
       if (group.mpn !== undefined) {
         entry.mpn = group.mpn;
+      }
+
+      if (group.internal_pn !== undefined) {
+        entry.internal_pn = group.internal_pn;
+      }
+
+      if (group.manufacturer !== undefined) {
+        entry.manufacturer = group.manufacturer;
       }
 
       if (group.description !== undefined) {
@@ -117,6 +133,8 @@ export const aggregateCircuitByMpn = (
     string,
     {
       mpn?: string;
+      internal_pn?: string;
+      manufacturer?: string;
       description?: string;
       comment?: string;
       value?: string;
@@ -137,6 +155,8 @@ export const aggregateCircuitByMpn = (
 
   for (const comp of components) {
     const mpn = comp.mpn?.trim() || undefined;
+    const internalPn = comp.internal_pn?.trim() || undefined;
+    const manufacturerName = comp.manufacturer?.trim() || undefined;
     const description = comp.description?.trim() || "";
     const value = comp.value?.trim() || undefined;
     const dnsFlag = comp.dns ? true : undefined;
@@ -158,6 +178,8 @@ export const aggregateCircuitByMpn = (
     const groupKey = [
       aggregationKey,
       netPair,
+      `ipn:${internalPn ?? ""}`,
+      `mfg:${manufacturerName ?? ""}`,
       `desc:${description}`,
       `comment:${comp.comment ?? ""}`,
       `value:${value ?? ""}`,
@@ -167,6 +189,8 @@ export const aggregateCircuitByMpn = (
     if (!groups.has(groupKey)) {
       groups.set(groupKey, {
         ...(mpn && { mpn }),
+        ...(internalPn && { internal_pn: internalPn }),
+        ...(manufacturerName && { manufacturer: manufacturerName }),
         description: description || undefined,
         comment: comp.comment,
         value,
@@ -211,6 +235,14 @@ export const aggregateCircuitByMpn = (
       aggregated.mpn = group.mpn;
     }
 
+    if (group.internal_pn !== undefined) {
+      aggregated.internal_pn = group.internal_pn;
+    }
+
+    if (group.manufacturer !== undefined) {
+      aggregated.manufacturer = group.manufacturer;
+    }
+
     if (group.description !== undefined) {
       aggregated.description = group.description;
     }
@@ -249,6 +281,12 @@ export const aggregateCircuitByMpn = (
       connections: comp.connections,
     };
 
+    if (comp.internal_pn !== undefined) {
+      unagg.internal_pn = comp.internal_pn;
+    }
+    if (comp.manufacturer !== undefined) {
+      unagg.manufacturer = comp.manufacturer;
+    }
     if (comp.description !== undefined) {
       unagg.description = comp.description;
     }

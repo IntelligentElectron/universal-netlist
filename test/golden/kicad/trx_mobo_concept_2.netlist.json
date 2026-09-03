@@ -1,8 +1,8 @@
 {
-  "universalNetlistSchemaVersion": 1,
+  "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-01T21:46:12.167Z",
-    "netlistHash": "sha256:349aeb195cb9c7dd914971fd5d129a386dbf6228d2327fe31d341917e97383b7",
+    "generatedAt": "2026-09-03T02:00:47.116Z",
+    "netlistHash": "sha256:9355e02b5b8cdfd55963bf119b41e3a2a48467d49690f61bd3d7c33361e9cfec",
     "origin": {
       "type": "vendor",
       "source": {
@@ -3435,7 +3435,7 @@
         "2": "GND"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C302": {
       "pins": {
@@ -3443,7 +3443,7 @@
         "2": "GND"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C303": {
       "pins": {
@@ -3451,7 +3451,7 @@
         "2": "GND"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C304": {
       "pins": {
@@ -3459,7 +3459,7 @@
         "2": "GND"
       },
       "value": "1u",
-      "mpn": "800238-105"
+      "internal_pn": "800238-105"
     },
     "C305": {
       "pins": {
@@ -3467,7 +3467,7 @@
         "2": "GND"
       },
       "value": "10u",
-      "mpn": "800003-106"
+      "internal_pn": "800003-106"
     },
     "Q301": {
       "pins": {
@@ -3485,7 +3485,7 @@
         }
       },
       "value": "BSS138",
-      "mpn": "800236-101"
+      "internal_pn": "800236-101"
     },
     "Q302": {
       "pins": {
@@ -3503,7 +3503,7 @@
         }
       },
       "value": "BSS138",
-      "mpn": "800236-101"
+      "internal_pn": "800236-101"
     },
     "R301": {
       "pins": {
@@ -3511,7 +3511,7 @@
         "2": "/top/i2c/SCL_I2C_5V0"
       },
       "value": "10K",
-      "mpn": "800235-103"
+      "internal_pn": "800235-103"
     },
     "R302": {
       "pins": {
@@ -3519,7 +3519,7 @@
         "2": "/top/i2c/SDA_I2C_5V0"
       },
       "value": "10K",
-      "mpn": "800235-103"
+      "internal_pn": "800235-103"
     },
     "R303": {
       "pins": {
@@ -3527,7 +3527,7 @@
         "2": "Net-(U302-VOUT)"
       },
       "value": "100",
-      "mpn": "800235-101"
+      "internal_pn": "800235-101"
     },
     "U301": {
       "pins": {
@@ -3553,7 +3553,7 @@
         }
       },
       "value": "24CW640",
-      "mpn": "800284-101"
+      "internal_pn": "800284-101"
     },
     "U302": {
       "pins": {
@@ -3583,7 +3583,7 @@
         }
       },
       "value": "MCP4725",
-      "mpn": "800285-101"
+      "internal_pn": "800285-101"
     },
     "U303": {
       "pins": {
@@ -3595,7 +3595,7 @@
       },
       "value": "74LVC1G00",
       "description": "Single NAND Gate, Low-Voltage CMOS",
-      "mpn": "800278-102"
+      "internal_pn": "800278-102"
     },
     "VR301": {
       "pins": {
@@ -3613,7 +3613,7 @@
         }
       },
       "value": "ME6211A33M3G-N",
-      "mpn": "800187-101"
+      "internal_pn": "800187-101"
     },
     "C401": {
       "pins": {
@@ -3621,7 +3621,7 @@
         "2": "GND"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "R401": {
       "pins": {
@@ -3629,7 +3629,7 @@
         "2": "/top/SCL_I2C_3V3"
       },
       "value": "10K",
-      "mpn": "800235-103"
+      "internal_pn": "800235-103"
     },
     "R402": {
       "pins": {
@@ -3637,7 +3637,7 @@
         "2": "/top/SDA_I2C_3V3"
       },
       "value": "10K",
-      "mpn": "800235-103"
+      "internal_pn": "800235-103"
     },
     "R403": {
       "pins": {
@@ -3645,7 +3645,7 @@
         "2": "GND"
       },
       "value": "1K",
-      "mpn": "800235-102"
+      "internal_pn": "800235-102"
     },
     "R404": {
       "pins": {
@@ -3653,7 +3653,7 @@
         "2": "GND"
       },
       "value": "1K",
-      "mpn": "800235-102"
+      "internal_pn": "800235-102"
     },
     "R405": {
       "pins": {
@@ -3661,7 +3661,7 @@
         "2": "GND"
       },
       "value": "1K",
-      "mpn": "800235-102"
+      "internal_pn": "800235-102"
     },
     "R406": {
       "pins": {
@@ -3669,7 +3669,7 @@
         "2": "GND"
       },
       "value": "1K",
-      "mpn": "800235-102"
+      "internal_pn": "800235-102"
     },
     "U401": {
       "pins": {
@@ -3739,7 +3739,7 @@
         }
       },
       "value": "PCA9554APW",
-      "mpn": "800237-101"
+      "internal_pn": "800237-101"
     },
     "C801": {
       "pins": {
@@ -3747,7 +3747,7 @@
         "2": "GND"
       },
       "value": "22u",
-      "mpn": "800267-226"
+      "internal_pn": "800267-226"
     },
     "C802": {
       "pins": {
@@ -3755,7 +3755,7 @@
         "2": "GND"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C803": {
       "pins": {
@@ -3763,7 +3763,7 @@
         "2": "GND"
       },
       "value": "4.7u",
-      "mpn": "800003-475"
+      "internal_pn": "800003-475"
     },
     "C804": {
       "pins": {
@@ -3771,7 +3771,7 @@
         "2": "GND"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C805": {
       "pins": {
@@ -3779,7 +3779,7 @@
         "2": "GND"
       },
       "value": "4.7u",
-      "mpn": "800003-475"
+      "internal_pn": "800003-475"
     },
     "C806": {
       "pins": {
@@ -3787,7 +3787,7 @@
         "2": "GND"
       },
       "value": "4.7u",
-      "mpn": "800003-475"
+      "internal_pn": "800003-475"
     },
     "C807": {
       "pins": {
@@ -3795,7 +3795,7 @@
         "2": "GND"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "Q801": {
       "pins": {
@@ -3814,7 +3814,7 @@
       },
       "value": "SI2369",
       "description": "30V P Channel mosfet  -2.1A, VGS=12V",
-      "mpn": "800134-101"
+      "internal_pn": "800134-101"
     },
     "Q802": {
       "pins": {
@@ -3833,7 +3833,7 @@
       },
       "value": "SI2369",
       "description": "30V P Channel mosfet  -2.1A, VGS=12V",
-      "mpn": "800134-101"
+      "internal_pn": "800134-101"
     },
     "Q803": {
       "pins": {
@@ -3851,7 +3851,7 @@
         }
       },
       "value": "BSS138",
-      "mpn": "800236-101"
+      "internal_pn": "800236-101"
     },
     "Q804": {
       "pins": {
@@ -3870,7 +3870,7 @@
       },
       "value": "SI2369",
       "description": "30V P Channel mosfet  -2.1A, VGS=12V",
-      "mpn": "800134-101"
+      "internal_pn": "800134-101"
     },
     "Q805": {
       "pins": {
@@ -3888,7 +3888,7 @@
         }
       },
       "value": "MMBT3904",
-      "mpn": "800259-101"
+      "internal_pn": "800259-101"
     },
     "Q806": {
       "pins": {
@@ -3907,7 +3907,7 @@
       },
       "value": "SI2369",
       "description": "30V P Channel mosfet  -2.1A, VGS=12V",
-      "mpn": "800134-101"
+      "internal_pn": "800134-101"
     },
     "Q807": {
       "pins": {
@@ -3925,7 +3925,7 @@
         }
       },
       "value": "BSS138",
-      "mpn": "800236-101"
+      "internal_pn": "800236-101"
     },
     "Q808": {
       "pins": {
@@ -3943,7 +3943,7 @@
         }
       },
       "value": "MMBT3904",
-      "mpn": "800259-101"
+      "internal_pn": "800259-101"
     },
     "R801": {
       "pins": {
@@ -3951,7 +3951,7 @@
         "2": "GND"
       },
       "value": "470",
-      "mpn": "800235-471"
+      "internal_pn": "800235-471"
     },
     "R802": {
       "pins": {
@@ -3959,7 +3959,7 @@
         "2": "Net-(Q801-G)"
       },
       "value": "10K",
-      "mpn": "800235-103"
+      "internal_pn": "800235-103"
     },
     "R803": {
       "pins": {
@@ -3967,7 +3967,7 @@
         "2": "Net-(Q803-D)"
       },
       "value": "10",
-      "mpn": "800235-100"
+      "internal_pn": "800235-100"
     },
     "R804": {
       "pins": {
@@ -3975,7 +3975,7 @@
         "2": "GND"
       },
       "value": "10K",
-      "mpn": "800235-103"
+      "internal_pn": "800235-103"
     },
     "R805": {
       "pins": {
@@ -3983,7 +3983,7 @@
         "2": "Net-(Q803-G)"
       },
       "value": "100",
-      "mpn": "800235-101"
+      "internal_pn": "800235-101"
     },
     "R806": {
       "pins": {
@@ -3991,7 +3991,7 @@
         "2": "/top/PTT_3V3"
       },
       "value": "10K",
-      "mpn": "800235-103"
+      "internal_pn": "800235-103"
     },
     "R807": {
       "pins": {
@@ -3999,7 +3999,7 @@
         "2": "GND"
       },
       "value": "10K",
-      "mpn": "800235-103"
+      "internal_pn": "800235-103"
     },
     "R808": {
       "pins": {
@@ -4007,7 +4007,7 @@
         "2": "Net-(Q806-G)"
       },
       "value": "10K",
-      "mpn": "800235-103"
+      "internal_pn": "800235-103"
     },
     "R809": {
       "pins": {
@@ -4015,7 +4015,7 @@
         "2": "Net-(Q807-D)"
       },
       "value": "10",
-      "mpn": "800235-100"
+      "internal_pn": "800235-100"
     },
     "R810": {
       "pins": {
@@ -4023,7 +4023,7 @@
         "2": "Net-(Q807-G)"
       },
       "value": "100",
-      "mpn": "800235-101"
+      "internal_pn": "800235-101"
     },
     "R811": {
       "pins": {
@@ -4031,7 +4031,7 @@
         "2": "/top/PTT_3V3_N"
       },
       "value": "10K",
-      "mpn": "800235-103"
+      "internal_pn": "800235-103"
     },
     "TP801": {
       "pins": {
@@ -4041,7 +4041,7 @@
         }
       },
       "value": "TESTPINTPSQ025",
-      "mpn": "800207-101"
+      "internal_pn": "800207-101"
     },
     "TP802": {
       "pins": {
@@ -4051,7 +4051,7 @@
         }
       },
       "value": "TESTPINTPSQ025",
-      "mpn": "800207-101"
+      "internal_pn": "800207-101"
     },
     "TP803": {
       "pins": {
@@ -4061,7 +4061,7 @@
         }
       },
       "value": "TESTPINTPSQ025",
-      "mpn": "800207-101"
+      "internal_pn": "800207-101"
     },
     "VR801": {
       "pins": {
@@ -4079,7 +4079,7 @@
         }
       },
       "value": "NCP1117-5.0_SOT223",
-      "mpn": "800121-102"
+      "internal_pn": "800121-102"
     },
     "VR802": {
       "pins": {
@@ -4097,7 +4097,7 @@
         }
       },
       "value": "MC78M08CDTRKG",
-      "mpn": "800294-101"
+      "internal_pn": "800294-101"
     },
     "C901": {
       "pins": {
@@ -4105,7 +4105,7 @@
         "2": "GND"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C902": {
       "pins": {
@@ -4113,7 +4113,7 @@
         "2": "GND"
       },
       "value": "100u",
-      "mpn": "800268-107"
+      "internal_pn": "800268-107"
     },
     "C903": {
       "pins": {
@@ -4121,7 +4121,7 @@
         "2": "GND"
       },
       "value": "22u",
-      "mpn": "800267-226"
+      "internal_pn": "800267-226"
     },
     "C904": {
       "pins": {
@@ -4129,7 +4129,7 @@
         "2": "Net-(C904-Pad2)"
       },
       "value": "0.01u",
-      "mpn": "800239-103"
+      "internal_pn": "800239-103"
     },
     "C905": {
       "pins": {
@@ -4137,7 +4137,7 @@
         "2": "/top/TX_AUDIO_IN"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C906": {
       "pins": {
@@ -4145,7 +4145,7 @@
         "2": "Net-(C906-Pad2)"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C907": {
       "pins": {
@@ -4153,7 +4153,7 @@
         "2": "Net-(C907-Pad2)"
       },
       "value": "22u",
-      "mpn": "800267-226"
+      "internal_pn": "800267-226"
     },
     "C908": {
       "pins": {
@@ -4161,7 +4161,7 @@
         "2": "Net-(C907-Pad2)"
       },
       "value": "22u",
-      "mpn": "800267-226"
+      "internal_pn": "800267-226"
     },
     "C909": {
       "pins": {
@@ -4169,7 +4169,7 @@
         "2": "GND"
       },
       "value": "0.0027u",
-      "mpn": "800239-272"
+      "internal_pn": "800239-272"
     },
     "C910": {
       "pins": {
@@ -4177,7 +4177,7 @@
         "2": "GND"
       },
       "value": "22u",
-      "mpn": "800267-226"
+      "internal_pn": "800267-226"
     },
     "C911": {
       "pins": {
@@ -4185,7 +4185,7 @@
         "2": "Net-(TP902-TP)"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C912": {
       "pins": {
@@ -4193,7 +4193,7 @@
         "2": "Net-(C912-Pad2)"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C913": {
       "pins": {
@@ -4201,7 +4201,7 @@
         "2": "GND"
       },
       "value": "22u",
-      "mpn": "800267-226"
+      "internal_pn": "800267-226"
     },
     "C914": {
       "pins": {
@@ -4209,7 +4209,7 @@
         "2": "Net-(Q902-C)"
       },
       "value": "0.0027u",
-      "mpn": "800239-272"
+      "internal_pn": "800239-272"
     },
     "C915": {
       "pins": {
@@ -4217,7 +4217,7 @@
         "2": "Net-(C914-Pad1)"
       },
       "value": "0.0027u",
-      "mpn": "800239-272"
+      "internal_pn": "800239-272"
     },
     "C916": {
       "pins": {
@@ -4225,7 +4225,7 @@
         "2": "Net-(C915-Pad1)"
       },
       "value": "0.0027u",
-      "mpn": "800239-272"
+      "internal_pn": "800239-272"
     },
     "C917": {
       "pins": {
@@ -4233,7 +4233,7 @@
         "2": "Net-(C916-Pad1)"
       },
       "value": "0.0027u",
-      "mpn": "800239-272"
+      "internal_pn": "800239-272"
     },
     "C918": {
       "pins": {
@@ -4241,7 +4241,7 @@
         "2": "GND"
       },
       "value": "22u",
-      "mpn": "800267-226"
+      "internal_pn": "800267-226"
     },
     "C919": {
       "pins": {
@@ -4249,7 +4249,7 @@
         "2": "GND"
       },
       "value": "0.01u",
-      "mpn": "800239-103"
+      "internal_pn": "800239-103"
     },
     "Q901": {
       "pins": {
@@ -4267,7 +4267,7 @@
         }
       },
       "value": "MMBT3906",
-      "mpn": "800275-101"
+      "internal_pn": "800275-101"
     },
     "Q902": {
       "pins": {
@@ -4285,7 +4285,7 @@
         }
       },
       "value": "MMBT3904",
-      "mpn": "800259-101"
+      "internal_pn": "800259-101"
     },
     "Q903": {
       "pins": {
@@ -4303,7 +4303,7 @@
         }
       },
       "value": "MMBT3904",
-      "mpn": "800259-101"
+      "internal_pn": "800259-101"
     },
     "R901": {
       "pins": {
@@ -4311,7 +4311,7 @@
         "2": "/top/P13V8_TX"
       },
       "value": "100",
-      "mpn": "800235-101"
+      "internal_pn": "800235-101"
     },
     "R902": {
       "pins": {
@@ -4319,7 +4319,7 @@
         "2": "Net-(C903-Pad1)"
       },
       "value": "10K",
-      "mpn": "800235-103"
+      "internal_pn": "800235-103"
     },
     "R903": {
       "pins": {
@@ -4327,7 +4327,7 @@
         "2": "GND"
       },
       "value": "10K",
-      "mpn": "800235-103"
+      "internal_pn": "800235-103"
     },
     "R904": {
       "pins": {
@@ -4335,7 +4335,7 @@
         "2": "Net-(C903-Pad1)"
       },
       "value": "10K",
-      "mpn": "800235-103"
+      "internal_pn": "800235-103"
     },
     "R905": {
       "pins": {
@@ -4344,7 +4344,7 @@
         "3": "Net-(C905-Pad1)"
       },
       "value": "20K",
-      "mpn": "800249-203"
+      "internal_pn": "800249-203"
     },
     "R906": {
       "pins": {
@@ -4352,7 +4352,7 @@
         "2": "Net-(R906-Pad2)"
       },
       "value": "10K",
-      "mpn": "800235-103"
+      "internal_pn": "800235-103"
     },
     "R907": {
       "pins": {
@@ -4360,7 +4360,7 @@
         "2": "Net-(C904-Pad2)"
       },
       "value": "10K",
-      "mpn": "800235-103"
+      "internal_pn": "800235-103"
     },
     "R908": {
       "pins": {
@@ -4368,7 +4368,7 @@
         "2": "Net-(C903-Pad1)"
       },
       "value": "680",
-      "mpn": "800235-681"
+      "internal_pn": "800235-681"
     },
     "R909": {
       "pins": {
@@ -4376,7 +4376,7 @@
         "2": "GND"
       },
       "value": "2K",
-      "mpn": "800235-202"
+      "internal_pn": "800235-202"
     },
     "R910": {
       "pins": {
@@ -4384,7 +4384,7 @@
         "2": "Net-(U901A--)"
       },
       "value": "270K",
-      "mpn": "800235-274"
+      "internal_pn": "800235-274"
     },
     "R911": {
       "pins": {
@@ -4392,7 +4392,7 @@
         "2": "/top/connectors/P8V0_TX"
       },
       "value": "100",
-      "mpn": "800235-101"
+      "internal_pn": "800235-101"
     },
     "R912": {
       "pins": {
@@ -4400,7 +4400,7 @@
         "2": "Net-(C910-Pad1)"
       },
       "value": "DNI",
-      "mpn": "800235-682"
+      "internal_pn": "800235-682"
     },
     "R913": {
       "pins": {
@@ -4408,7 +4408,7 @@
         "2": "Net-(C919-Pad1)"
       },
       "value": "100K",
-      "mpn": "800235-104"
+      "internal_pn": "800235-104"
     },
     "R914": {
       "pins": {
@@ -4416,7 +4416,7 @@
         "2": "Net-(U901A--)"
       },
       "value": "100K",
-      "mpn": "800235-104"
+      "internal_pn": "800235-104"
     },
     "R915": {
       "pins": {
@@ -4424,7 +4424,7 @@
         "2": "Net-(Q901-C)"
       },
       "value": "1K",
-      "mpn": "800235-102"
+      "internal_pn": "800235-102"
     },
     "R916": {
       "pins": {
@@ -4433,7 +4433,7 @@
         "3": "Net-(Q902-C)"
       },
       "value": "20K",
-      "mpn": "800249-203"
+      "internal_pn": "800249-203"
     },
     "R917": {
       "pins": {
@@ -4441,7 +4441,7 @@
         "2": "Net-(C912-Pad1)"
       },
       "value": "47K",
-      "mpn": "800235-473"
+      "internal_pn": "800235-473"
     },
     "R918": {
       "pins": {
@@ -4449,7 +4449,7 @@
         "2": "Net-(Q902-B)"
       },
       "value": "75K",
-      "mpn": "800235-753"
+      "internal_pn": "800235-753"
     },
     "R919": {
       "pins": {
@@ -4457,7 +4457,7 @@
         "2": "Net-(Q902-C)"
       },
       "value": "22K",
-      "mpn": "800235-223"
+      "internal_pn": "800235-223"
     },
     "R920": {
       "pins": {
@@ -4465,7 +4465,7 @@
         "2": "Net-(Q903-C)"
       },
       "value": "47K",
-      "mpn": "800235-473"
+      "internal_pn": "800235-473"
     },
     "R921": {
       "pins": {
@@ -4473,7 +4473,7 @@
         "2": "Net-(Q902-E)"
       },
       "value": "100",
-      "mpn": "800235-101"
+      "internal_pn": "800235-101"
     },
     "R922": {
       "pins": {
@@ -4481,7 +4481,7 @@
         "2": "/top/ENA_TUNE_OSC_3V3"
       },
       "value": "47K",
-      "mpn": "800235-473"
+      "internal_pn": "800235-473"
     },
     "R923": {
       "pins": {
@@ -4489,7 +4489,7 @@
         "2": "GND"
       },
       "value": "47K",
-      "mpn": "800235-473"
+      "internal_pn": "800235-473"
     },
     "R924": {
       "pins": {
@@ -4497,7 +4497,7 @@
         "2": "GND"
       },
       "value": "47K",
-      "mpn": "800235-473"
+      "internal_pn": "800235-473"
     },
     "R925": {
       "pins": {
@@ -4505,7 +4505,7 @@
         "2": "GND"
       },
       "value": "47K",
-      "mpn": "800235-473"
+      "internal_pn": "800235-473"
     },
     "R926": {
       "pins": {
@@ -4513,7 +4513,7 @@
         "2": "GND"
       },
       "value": "39K",
-      "mpn": "800235-393"
+      "internal_pn": "800235-393"
     },
     "R927": {
       "pins": {
@@ -4521,7 +4521,7 @@
         "2": "GND"
       },
       "value": "10K",
-      "mpn": "800235-103"
+      "internal_pn": "800235-103"
     },
     "TP901": {
       "pins": {
@@ -4531,7 +4531,7 @@
         }
       },
       "value": "TESTPINTPSQ025",
-      "mpn": "800207-101"
+      "internal_pn": "800207-101"
     },
     "TP902": {
       "pins": {
@@ -4541,7 +4541,7 @@
         }
       },
       "value": "TESTPINTPSQ025",
-      "mpn": "800207-101"
+      "internal_pn": "800207-101"
     },
     "U901": {
       "pins": {
@@ -4573,7 +4573,7 @@
         }
       },
       "value": "LMC6482",
-      "mpn": "800272-101"
+      "internal_pn": "800272-101"
     },
     "C1001": {
       "pins": {
@@ -4581,7 +4581,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/C1802_RF"
       },
       "value": "0.01u",
-      "mpn": "800239-103"
+      "internal_pn": "800239-103"
     },
     "C1002": {
       "pins": {
@@ -4589,7 +4589,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/U1801_NO_RF"
       },
       "value": "0.01u",
-      "mpn": "800239-103"
+      "internal_pn": "800239-103"
     },
     "C1003": {
       "pins": {
@@ -4597,7 +4597,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/C1805_RF"
       },
       "value": "1000p",
-      "mpn": "800239-102"
+      "internal_pn": "800239-102"
     },
     "C1004": {
       "pins": {
@@ -4605,7 +4605,7 @@
         "2": "Net-(C1004-Pad2)"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C1005": {
       "pins": {
@@ -4613,7 +4613,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/L1802_RF"
       },
       "value": "150p",
-      "mpn": "800239-151"
+      "internal_pn": "800239-151"
     },
     "L1001": {
       "pins": {
@@ -4621,7 +4621,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/L1802_RF"
       },
       "value": "81nH",
-      "mpn": "8XXXXX-XXX"
+      "internal_pn": "8XXXXX-XXX"
     },
     "L1002": {
       "pins": {
@@ -4629,7 +4629,7 @@
         "2": "Net-(L1002-Pad2)"
       },
       "value": "27uH",
-      "mpn": "800257-023"
+      "internal_pn": "800257-023"
     },
     "R1001": {
       "pins": {
@@ -4637,7 +4637,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/C1805_RF"
       },
       "value": "0",
-      "mpn": "800235-000"
+      "internal_pn": "800235-000"
     },
     "R1002": {
       "pins": {
@@ -4645,7 +4645,7 @@
         "2": "GND"
       },
       "value": "DNI",
-      "mpn": "800XXX-XXX"
+      "internal_pn": "800XXX-XXX"
     },
     "R1003": {
       "pins": {
@@ -4653,7 +4653,7 @@
         "2": "GND"
       },
       "value": "DNI",
-      "mpn": "800XXX-XXX"
+      "internal_pn": "800XXX-XXX"
     },
     "R1004": {
       "pins": {
@@ -4661,7 +4661,7 @@
         "2": "GND"
       },
       "value": "51",
-      "mpn": "800235-510"
+      "internal_pn": "800235-510"
     },
     "R1005": {
       "pins": {
@@ -4669,7 +4669,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/C1802_RF"
       },
       "value": "0",
-      "mpn": "800235-000"
+      "internal_pn": "800235-000"
     },
     "R1006": {
       "pins": {
@@ -4677,7 +4677,7 @@
         "2": "GND"
       },
       "value": "DNI",
-      "mpn": "800XXX-XXX"
+      "internal_pn": "800XXX-XXX"
     },
     "R1007": {
       "pins": {
@@ -4685,7 +4685,7 @@
         "2": "GND"
       },
       "value": "DNI",
-      "mpn": "800XXX-XXX"
+      "internal_pn": "800XXX-XXX"
     },
     "R1008": {
       "pins": {
@@ -4693,7 +4693,7 @@
         "2": "Net-(L1002-Pad2)"
       },
       "value": "2.2K",
-      "mpn": "800235-222"
+      "internal_pn": "800235-222"
     },
     "R1009": {
       "pins": {
@@ -4701,7 +4701,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/speech_amp/AUDIO_OUT"
       },
       "value": "1K",
-      "mpn": "800235-102"
+      "internal_pn": "800235-102"
     },
     "R1010": {
       "pins": {
@@ -4709,7 +4709,7 @@
         "2": "GND"
       },
       "value": "51",
-      "mpn": "800235-510"
+      "internal_pn": "800235-510"
     },
     "U1001": {
       "pins": {
@@ -4730,7 +4730,7 @@
         }
       },
       "value": "AS169-73",
-      "mpn": "800261-101"
+      "internal_pn": "800261-101"
     },
     "U1002": {
       "pins": {
@@ -4751,7 +4751,7 @@
         }
       },
       "value": "AS169-73",
-      "mpn": "800261-101"
+      "internal_pn": "800261-101"
     },
     "C1201": {
       "pins": {
@@ -4759,7 +4759,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/L2RRF_IN"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C1202": {
       "pins": {
@@ -4767,7 +4767,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/R2301_RF"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C1203": {
       "pins": {
@@ -4775,7 +4775,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/U2302_C_RF"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C1204": {
       "pins": {
@@ -4783,7 +4783,7 @@
         "2": "Net-(C1204-Pad2)"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C1205": {
       "pins": {
@@ -4791,7 +4791,7 @@
         "2": "GND"
       },
       "value": "1000p",
-      "mpn": "800239-102"
+      "internal_pn": "800239-102"
     },
     "C1206": {
       "pins": {
@@ -4799,7 +4799,7 @@
         "2": "GND"
       },
       "value": "1000p",
-      "mpn": "800239-102"
+      "internal_pn": "800239-102"
     },
     "C1207": {
       "pins": {
@@ -4807,7 +4807,7 @@
         "2": "GND"
       },
       "value": "1000p",
-      "mpn": "800239-102"
+      "internal_pn": "800239-102"
     },
     "C1208": {
       "pins": {
@@ -4815,7 +4815,7 @@
         "2": "GND"
       },
       "value": "1000p",
-      "mpn": "800239-102"
+      "internal_pn": "800239-102"
     },
     "C1209": {
       "pins": {
@@ -4823,7 +4823,7 @@
         "2": "GND"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C1210": {
       "pins": {
@@ -4831,7 +4831,7 @@
         "2": "GND"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C1211": {
       "pins": {
@@ -4839,7 +4839,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/T2301_RF"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C1212": {
       "pins": {
@@ -4847,7 +4847,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/C2314_RF"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C1213": {
       "pins": {
@@ -4855,7 +4855,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/R2L_RF_OUT"
       },
       "value": "150p",
-      "mpn": "800239-151"
+      "internal_pn": "800239-151"
     },
     "C1214": {
       "pins": {
@@ -4863,7 +4863,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/R2L_RF_IN"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C1215": {
       "pins": {
@@ -4871,7 +4871,7 @@
         "2": "Net-(C1215-Pad2)"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "E1201": {
       "pins": {
@@ -4879,7 +4879,7 @@
         "2": "Net-(U1202-V2)"
       },
       "value": "FB0805",
-      "mpn": "800245-601"
+      "internal_pn": "800245-601"
     },
     "E1202": {
       "pins": {
@@ -4887,7 +4887,7 @@
         "2": "Net-(U1202-V1)"
       },
       "value": "FB0805",
-      "mpn": "800245-601"
+      "internal_pn": "800245-601"
     },
     "E1203": {
       "pins": {
@@ -4895,7 +4895,7 @@
         "2": "Net-(T1201-S1)"
       },
       "value": "FB0805",
-      "mpn": "800245-601"
+      "internal_pn": "800245-601"
     },
     "L1201": {
       "pins": {
@@ -4903,7 +4903,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/R2L_RF_OUT"
       },
       "value": "81nH",
-      "mpn": "8XXXXX-XXX"
+      "internal_pn": "8XXXXX-XXX"
     },
     "Q1201": {
       "pins": {
@@ -4921,7 +4921,7 @@
         }
       },
       "value": "2SC3357",
-      "mpn": "800246-101"
+      "internal_pn": "800246-101"
     },
     "R1201": {
       "pins": {
@@ -4929,7 +4929,7 @@
         "2": "/top/TRX_RF"
       },
       "value": "0",
-      "mpn": "800235-000"
+      "internal_pn": "800235-000"
     },
     "R1202": {
       "pins": {
@@ -4937,7 +4937,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/C2303_RF"
       },
       "value": "0",
-      "mpn": "800235-000"
+      "internal_pn": "800235-000"
     },
     "R1203": {
       "pins": {
@@ -4945,7 +4945,7 @@
         "2": "/top/PTT_3V3"
       },
       "value": "33",
-      "mpn": "800235-330"
+      "internal_pn": "800235-330"
     },
     "R1204": {
       "pins": {
@@ -4953,7 +4953,7 @@
         "2": "/top/PTT_3V3_N"
       },
       "value": "33",
-      "mpn": "800235-330"
+      "internal_pn": "800235-330"
     },
     "R1205": {
       "pins": {
@@ -4961,7 +4961,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/C2314_RF"
       },
       "value": "1.1K",
-      "mpn": "800235-112"
+      "internal_pn": "800235-112"
     },
     "R1206": {
       "pins": {
@@ -4969,7 +4969,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/C2311_RF"
       },
       "value": "36",
-      "mpn": "800235-360"
+      "internal_pn": "800235-360"
     },
     "R1207": {
       "pins": {
@@ -4977,7 +4977,7 @@
         "2": "Net-(C1212-Pad1)"
       },
       "value": "910",
-      "mpn": "800235-911"
+      "internal_pn": "800235-911"
     },
     "R1208": {
       "pins": {
@@ -4985,7 +4985,7 @@
         "2": "GND"
       },
       "value": "150",
-      "mpn": "800235-151"
+      "internal_pn": "800235-151"
     },
     "R1209": {
       "pins": {
@@ -4993,7 +4993,7 @@
         "2": "GND"
       },
       "value": "150",
-      "mpn": "800235-151"
+      "internal_pn": "800235-151"
     },
     "R1210": {
       "pins": {
@@ -5001,7 +5001,7 @@
         "2": "GND"
       },
       "value": "360",
-      "mpn": "800235-361"
+      "internal_pn": "800235-361"
     },
     "R1211": {
       "pins": {
@@ -5009,7 +5009,7 @@
         "2": "GND"
       },
       "value": "10",
-      "mpn": "800235-100"
+      "internal_pn": "800235-100"
     },
     "R1212": {
       "pins": {
@@ -5017,7 +5017,7 @@
         "2": "GND"
       },
       "value": "30",
-      "mpn": "800235-300"
+      "internal_pn": "800235-300"
     },
     "T1201": {
       "pins": {
@@ -5039,7 +5039,7 @@
         }
       },
       "value": "XFMR_RF_BIFILAR",
-      "mpn": "800257-037"
+      "internal_pn": "800257-037"
     },
     "U1201": {
       "pins": {
@@ -5060,7 +5060,7 @@
         }
       },
       "value": "AS169-73",
-      "mpn": "800261-101"
+      "internal_pn": "800261-101"
     },
     "U1202": {
       "pins": {
@@ -5081,7 +5081,7 @@
         }
       },
       "value": "AS169-73",
-      "mpn": "800261-101"
+      "internal_pn": "800261-101"
     },
     "R1301": {
       "pins": {
@@ -5089,7 +5089,7 @@
         "2": "/top/connectors/LO_THIRD"
       },
       "value": "18",
-      "mpn": "800235-180"
+      "internal_pn": "800235-180"
     },
     "R1302": {
       "pins": {
@@ -5097,7 +5097,7 @@
         "2": "GND"
       },
       "value": "300",
-      "mpn": "800235-301"
+      "internal_pn": "800235-301"
     },
     "R1303": {
       "pins": {
@@ -5105,7 +5105,7 @@
         "2": "GND"
       },
       "value": "300",
-      "mpn": "800235-301"
+      "internal_pn": "800235-301"
     },
     "U1301": {
       "pins": {
@@ -5132,7 +5132,7 @@
         }
       },
       "value": "ADE-1",
-      "mpn": "800262-101"
+      "internal_pn": "800262-101"
     },
     "C1401": {
       "pins": {
@@ -5140,7 +5140,7 @@
         "2": "GND"
       },
       "value": "0.01u",
-      "mpn": "800239-103"
+      "internal_pn": "800239-103"
     },
     "C1402": {
       "pins": {
@@ -5148,7 +5148,7 @@
         "2": "GND"
       },
       "value": "0.01u",
-      "mpn": "800239-103"
+      "internal_pn": "800239-103"
     },
     "C1403": {
       "pins": {
@@ -5156,7 +5156,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/T2101_RF"
       },
       "value": "0.01u",
-      "mpn": "800239-103"
+      "internal_pn": "800239-103"
     },
     "C1404": {
       "pins": {
@@ -5164,7 +5164,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2102_RF"
       },
       "value": "0.01u",
-      "mpn": "800239-103"
+      "internal_pn": "800239-103"
     },
     "C1405": {
       "pins": {
@@ -5172,7 +5172,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2106_RF"
       },
       "value": "0.01u",
-      "mpn": "800239-103"
+      "internal_pn": "800239-103"
     },
     "C1406": {
       "pins": {
@@ -5180,7 +5180,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/L2RRF_IN"
       },
       "value": "0.01u",
-      "mpn": "800239-103"
+      "internal_pn": "800239-103"
     },
     "C1407": {
       "pins": {
@@ -5188,7 +5188,7 @@
         "2": "Net-(C1407-Pad2)"
       },
       "value": "0.01u",
-      "mpn": "800239-103"
+      "internal_pn": "800239-103"
     },
     "C1408": {
       "pins": {
@@ -5196,7 +5196,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2106_RF"
       },
       "value": "0.01u",
-      "mpn": "800239-103"
+      "internal_pn": "800239-103"
     },
     "C1409": {
       "pins": {
@@ -5204,7 +5204,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/U2102_RF"
       },
       "value": "0.01u",
-      "mpn": "800239-103"
+      "internal_pn": "800239-103"
     },
     "C1410": {
       "pins": {
@@ -5212,7 +5212,7 @@
         "2": "GND"
       },
       "value": "1000p",
-      "mpn": "800239-102"
+      "internal_pn": "800239-102"
     },
     "C1411": {
       "pins": {
@@ -5220,7 +5220,7 @@
         "2": "GND"
       },
       "value": "1000p",
-      "mpn": "800239-102"
+      "internal_pn": "800239-102"
     },
     "C1412": {
       "pins": {
@@ -5228,7 +5228,7 @@
         "2": "GND"
       },
       "value": "1000p",
-      "mpn": "800239-102"
+      "internal_pn": "800239-102"
     },
     "C1413": {
       "pins": {
@@ -5236,7 +5236,7 @@
         "2": "GND"
       },
       "value": "1000p",
-      "mpn": "800239-102"
+      "internal_pn": "800239-102"
     },
     "C1414": {
       "pins": {
@@ -5244,7 +5244,7 @@
         "2": "GND"
       },
       "value": "0.01u",
-      "mpn": "800239-103"
+      "internal_pn": "800239-103"
     },
     "C1415": {
       "pins": {
@@ -5252,7 +5252,7 @@
         "2": "GND"
       },
       "value": "0.01u",
-      "mpn": "800239-103"
+      "internal_pn": "800239-103"
     },
     "C1416": {
       "pins": {
@@ -5260,7 +5260,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/T2102_RF"
       },
       "value": "0.01u",
-      "mpn": "800239-103"
+      "internal_pn": "800239-103"
     },
     "C1417": {
       "pins": {
@@ -5268,7 +5268,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2114_RF"
       },
       "value": "0.01u",
-      "mpn": "800239-103"
+      "internal_pn": "800239-103"
     },
     "C1418": {
       "pins": {
@@ -5276,7 +5276,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2120_RF"
       },
       "value": "0.01u",
-      "mpn": "800239-103"
+      "internal_pn": "800239-103"
     },
     "C1419": {
       "pins": {
@@ -5284,7 +5284,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2L_RF_IN"
       },
       "value": "0.01u",
-      "mpn": "800239-103"
+      "internal_pn": "800239-103"
     },
     "C1420": {
       "pins": {
@@ -5292,7 +5292,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2118_RF"
       },
       "value": "0.01u",
-      "mpn": "800239-103"
+      "internal_pn": "800239-103"
     },
     "C1421": {
       "pins": {
@@ -5300,7 +5300,7 @@
         "2": "Net-(C1421-Pad2)"
       },
       "value": "0.01u",
-      "mpn": "800239-103"
+      "internal_pn": "800239-103"
     },
     "E1401": {
       "pins": {
@@ -5308,7 +5308,7 @@
         "2": "Net-(T1401-S1)"
       },
       "value": "FB0805",
-      "mpn": "800245-601"
+      "internal_pn": "800245-601"
     },
     "E1402": {
       "pins": {
@@ -5316,7 +5316,7 @@
         "2": "Net-(U1402-V2)"
       },
       "value": "FB0805",
-      "mpn": "800245-601"
+      "internal_pn": "800245-601"
     },
     "E1403": {
       "pins": {
@@ -5324,7 +5324,7 @@
         "2": "Net-(U1402-V1)"
       },
       "value": "FB0805",
-      "mpn": "800245-601"
+      "internal_pn": "800245-601"
     },
     "E1404": {
       "pins": {
@@ -5332,7 +5332,7 @@
         "2": "Net-(T1402-S1)"
       },
       "value": "FB0805",
-      "mpn": "800245-601"
+      "internal_pn": "800245-601"
     },
     "Q1401": {
       "pins": {
@@ -5350,7 +5350,7 @@
         }
       },
       "value": "2SC3357",
-      "mpn": "800246-101"
+      "internal_pn": "800246-101"
     },
     "Q1402": {
       "pins": {
@@ -5368,7 +5368,7 @@
         }
       },
       "value": "2SC3357",
-      "mpn": "800246-101"
+      "internal_pn": "800246-101"
     },
     "R1401": {
       "pins": {
@@ -5376,7 +5376,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2106_RF"
       },
       "value": "1.1K",
-      "mpn": "800235-112"
+      "internal_pn": "800235-112"
     },
     "R1402": {
       "pins": {
@@ -5384,7 +5384,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2103_RF"
       },
       "value": "36",
-      "mpn": "800235-360"
+      "internal_pn": "800235-360"
     },
     "R1403": {
       "pins": {
@@ -5392,7 +5392,7 @@
         "2": "GND"
       },
       "value": "150",
-      "mpn": "800235-151"
+      "internal_pn": "800235-151"
     },
     "R1404": {
       "pins": {
@@ -5400,7 +5400,7 @@
         "2": "GND"
       },
       "value": "150",
-      "mpn": "800235-151"
+      "internal_pn": "800235-151"
     },
     "R1405": {
       "pins": {
@@ -5408,7 +5408,7 @@
         "2": "Net-(C1405-Pad1)"
       },
       "value": "1.6K",
-      "mpn": "800235-162"
+      "internal_pn": "800235-162"
     },
     "R1406": {
       "pins": {
@@ -5416,7 +5416,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/THIRD_MIXER/IF"
       },
       "value": "0",
-      "mpn": "800235-000"
+      "internal_pn": "800235-000"
     },
     "R1407": {
       "pins": {
@@ -5424,7 +5424,7 @@
         "2": "GND"
       },
       "value": "360",
-      "mpn": "800235-361"
+      "internal_pn": "800235-361"
     },
     "R1408": {
       "pins": {
@@ -5432,7 +5432,7 @@
         "2": "GND"
       },
       "value": "6.8",
-      "mpn": "800235-068"
+      "internal_pn": "800235-068"
     },
     "R1409": {
       "pins": {
@@ -5440,7 +5440,7 @@
         "2": "GND"
       },
       "value": "30",
-      "mpn": "800235-300"
+      "internal_pn": "800235-300"
     },
     "R1410": {
       "pins": {
@@ -5448,7 +5448,7 @@
         "2": "/top/PTT_3V3"
       },
       "value": "33",
-      "mpn": "800235-330"
+      "internal_pn": "800235-330"
     },
     "R1411": {
       "pins": {
@@ -5456,7 +5456,7 @@
         "2": "/top/PTT_3V3_N"
       },
       "value": "33",
-      "mpn": "800235-330"
+      "internal_pn": "800235-330"
     },
     "R1412": {
       "pins": {
@@ -5464,7 +5464,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2120_RF"
       },
       "value": "1.1K",
-      "mpn": "800235-112"
+      "internal_pn": "800235-112"
     },
     "R1413": {
       "pins": {
@@ -5472,7 +5472,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2116_RF"
       },
       "value": "36",
-      "mpn": "800235-360"
+      "internal_pn": "800235-360"
     },
     "R1414": {
       "pins": {
@@ -5480,7 +5480,7 @@
         "2": "Net-(C1418-Pad1)"
       },
       "value": "1.6K",
-      "mpn": "800235-162"
+      "internal_pn": "800235-162"
     },
     "R1415": {
       "pins": {
@@ -5488,7 +5488,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2119_RF"
       },
       "value": "36",
-      "mpn": "800235-360"
+      "internal_pn": "800235-360"
     },
     "R1416": {
       "pins": {
@@ -5496,7 +5496,7 @@
         "2": "GND"
       },
       "value": "150",
-      "mpn": "800235-151"
+      "internal_pn": "800235-151"
     },
     "R1417": {
       "pins": {
@@ -5504,7 +5504,7 @@
         "2": "GND"
       },
       "value": "150",
-      "mpn": "800235-151"
+      "internal_pn": "800235-151"
     },
     "R1418": {
       "pins": {
@@ -5512,7 +5512,7 @@
         "2": "GND"
       },
       "value": "360",
-      "mpn": "800235-361"
+      "internal_pn": "800235-361"
     },
     "R1419": {
       "pins": {
@@ -5520,7 +5520,7 @@
         "2": "GND"
       },
       "value": "6.8",
-      "mpn": "800235-068"
+      "internal_pn": "800235-068"
     },
     "R1420": {
       "pins": {
@@ -5528,7 +5528,7 @@
         "2": "GND"
       },
       "value": "30",
-      "mpn": "800235-300"
+      "internal_pn": "800235-300"
     },
     "R1421": {
       "pins": {
@@ -5536,7 +5536,7 @@
         "2": "GND"
       },
       "value": "150",
-      "mpn": "800235-151"
+      "internal_pn": "800235-151"
     },
     "R1422": {
       "pins": {
@@ -5544,7 +5544,7 @@
         "2": "GND"
       },
       "value": "150",
-      "mpn": "800235-151"
+      "internal_pn": "800235-151"
     },
     "T1401": {
       "pins": {
@@ -5566,7 +5566,7 @@
         }
       },
       "value": "XFMR_RF_BIFILAR",
-      "mpn": "800257-037"
+      "internal_pn": "800257-037"
     },
     "T1402": {
       "pins": {
@@ -5588,7 +5588,7 @@
         }
       },
       "value": "XFMR_RF_BIFILAR",
-      "mpn": "800257-037"
+      "internal_pn": "800257-037"
     },
     "U1401": {
       "pins": {
@@ -5609,7 +5609,7 @@
         }
       },
       "value": "AS169-73",
-      "mpn": "800261-101"
+      "internal_pn": "800261-101"
     },
     "U1402": {
       "pins": {
@@ -5630,7 +5630,7 @@
         }
       },
       "value": "AS169-73",
-      "mpn": "800261-101"
+      "internal_pn": "800261-101"
     },
     "C1501": {
       "pins": {
@@ -5638,7 +5638,7 @@
         "2": "GND"
       },
       "value": "16p",
-      "mpn": "800239-160"
+      "internal_pn": "800239-160"
     },
     "C1502": {
       "pins": {
@@ -5646,7 +5646,7 @@
         "2": "GND"
       },
       "value": "13p",
-      "mpn": "800239-130"
+      "internal_pn": "800239-130"
     },
     "C1503": {
       "pins": {
@@ -5654,7 +5654,7 @@
         "2": "GND"
       },
       "value": "16p",
-      "mpn": "800239-160"
+      "internal_pn": "800239-160"
     },
     "L1501": {
       "pins": {
@@ -5663,7 +5663,7 @@
       },
       "value": "0.563uH",
       "description": "Inductor",
-      "mpn": "800234-370"
+      "internal_pn": "800234-370"
     },
     "L1502": {
       "pins": {
@@ -5672,7 +5672,7 @@
       },
       "value": "0.563uH",
       "description": "Inductor",
-      "mpn": "800234-370"
+      "internal_pn": "800234-370"
     },
     "R1501": {
       "pins": {
@@ -5680,7 +5680,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/BDA_RIGHT"
       },
       "value": "0",
-      "mpn": "800235-000"
+      "internal_pn": "800235-000"
     },
     "R1502": {
       "pins": {
@@ -5688,7 +5688,7 @@
         "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/roofing_filter/L2002_RF"
       },
       "value": "0",
-      "mpn": "800235-000"
+      "internal_pn": "800235-000"
     },
     "Y1501": {
       "pins": {
@@ -5698,7 +5698,7 @@
       },
       "value": "45.1 MHz",
       "description": "Three pin crystal, one ground/package pins (pin2) small symbol",
-      "mpn": "800287-101"
+      "internal_pn": "800287-101"
     },
     "Y1502": {
       "pins": {
@@ -5708,7 +5708,7 @@
       },
       "value": "45.1 MHz",
       "description": "Three pin crystal, one ground/package pins (pin2) small symbol",
-      "mpn": "800287-101"
+      "internal_pn": "800287-101"
     },
     "C1601": {
       "pins": {
@@ -5716,7 +5716,7 @@
         "2": "GND"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C1602": {
       "pins": {
@@ -5724,7 +5724,7 @@
         "2": "/top/radio/mixamp/Q801_B_RF"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C1603": {
       "pins": {
@@ -5732,7 +5732,7 @@
         "2": "/top/radio/mixamp/U801_RF"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C1604": {
       "pins": {
@@ -5740,7 +5740,7 @@
         "2": "Net-(C1604-Pad2)"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C1605": {
       "pins": {
@@ -5748,7 +5748,7 @@
         "2": "/top/radio/mixamp/T801_RF"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C1606": {
       "pins": {
@@ -5756,7 +5756,7 @@
         "2": "/top/radio/mixamp/C806_RF"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "Q1601": {
       "pins": {
@@ -5774,7 +5774,7 @@
         }
       },
       "value": "MMBT3904",
-      "mpn": "800259-101"
+      "internal_pn": "800259-101"
     },
     "R1601": {
       "pins": {
@@ -5782,7 +5782,7 @@
         "2": "/top/P13V8"
       },
       "value": "10",
-      "mpn": "800235-100"
+      "internal_pn": "800235-100"
     },
     "R1602": {
       "pins": {
@@ -5790,7 +5790,7 @@
         "2": "/top/LO_FIRST"
       },
       "value": "18",
-      "mpn": "800235-180"
+      "internal_pn": "800235-180"
     },
     "R1603": {
       "pins": {
@@ -5798,7 +5798,7 @@
         "2": "/top/radio/mixamp/Q801_B_RF"
       },
       "value": "8.2K",
-      "mpn": "800235-822"
+      "internal_pn": "800235-822"
     },
     "R1604": {
       "pins": {
@@ -5806,7 +5806,7 @@
         "2": "GND"
       },
       "value": "300",
-      "mpn": "800235-301"
+      "internal_pn": "800235-301"
     },
     "R1605": {
       "pins": {
@@ -5814,7 +5814,7 @@
         "2": "GND"
       },
       "value": "300",
-      "mpn": "800235-301"
+      "internal_pn": "800235-301"
     },
     "R1606": {
       "pins": {
@@ -5822,7 +5822,7 @@
         "2": "Net-(C1602-Pad1)"
       },
       "value": "1.6K",
-      "mpn": "800235-162"
+      "internal_pn": "800235-162"
     },
     "R1607": {
       "pins": {
@@ -5830,7 +5830,7 @@
         "2": "GND"
       },
       "value": "1.5K",
-      "mpn": "800235-152"
+      "internal_pn": "800235-152"
     },
     "R1608": {
       "pins": {
@@ -5838,7 +5838,7 @@
         "2": "GND"
       },
       "value": "6.8",
-      "mpn": "800235-068"
+      "internal_pn": "800235-068"
     },
     "R1609": {
       "pins": {
@@ -5846,7 +5846,7 @@
         "2": "GND"
       },
       "value": "120",
-      "mpn": "800235-121"
+      "internal_pn": "800235-121"
     },
     "R1610": {
       "pins": {
@@ -5854,7 +5854,7 @@
         "2": "/top/radio/mixamp/C805_RF"
       },
       "value": "36",
-      "mpn": "800235-360"
+      "internal_pn": "800235-360"
     },
     "R1611": {
       "pins": {
@@ -5862,7 +5862,7 @@
         "2": "GND"
       },
       "value": "150",
-      "mpn": "800235-151"
+      "internal_pn": "800235-151"
     },
     "R1612": {
       "pins": {
@@ -5870,7 +5870,7 @@
         "2": "GND"
       },
       "value": "150",
-      "mpn": "800235-151"
+      "internal_pn": "800235-151"
     },
     "T1601": {
       "pins": {
@@ -5892,7 +5892,7 @@
         }
       },
       "value": "XFMR_RF_BIFILAR",
-      "mpn": "800257-037"
+      "internal_pn": "800257-037"
     },
     "U1601": {
       "pins": {
@@ -5919,7 +5919,7 @@
         }
       },
       "value": "ADE-1",
-      "mpn": "800262-101"
+      "internal_pn": "800262-101"
     },
     "C1701": {
       "pins": {
@@ -5927,7 +5927,7 @@
         "2": "/top/radio/xtal_filter/Y703_RF"
       },
       "value": "430p",
-      "mpn": "800239-431"
+      "internal_pn": "800239-431"
     },
     "C1702": {
       "pins": {
@@ -5935,7 +5935,7 @@
         "2": "/top/radio/xtal_filter/C701_RF"
       },
       "value": "430p",
-      "mpn": "800239-431"
+      "internal_pn": "800239-431"
     },
     "C1703": {
       "pins": {
@@ -5943,7 +5943,7 @@
         "2": "/top/radio/xtal_filter/Y703_RF"
       },
       "value": "15p",
-      "mpn": "800239-150"
+      "internal_pn": "800239-150"
     },
     "C1704": {
       "pins": {
@@ -5951,7 +5951,7 @@
         "2": "/top/radio/xtal_filter/C701_RF"
       },
       "value": "15p",
-      "mpn": "800239-150"
+      "internal_pn": "800239-150"
     },
     "C1705": {
       "pins": {
@@ -5959,7 +5959,7 @@
         "2": "GND"
       },
       "value": "120p",
-      "mpn": "800239-121"
+      "internal_pn": "800239-121"
     },
     "C1706": {
       "pins": {
@@ -5967,7 +5967,7 @@
         "2": "GND"
       },
       "value": "150p",
-      "mpn": "800239-151"
+      "internal_pn": "800239-151"
     },
     "C1707": {
       "pins": {
@@ -5975,7 +5975,7 @@
         "2": "GND"
       },
       "value": "10p",
-      "mpn": "800239-100"
+      "internal_pn": "800239-100"
     },
     "C1708": {
       "pins": {
@@ -5983,7 +5983,7 @@
         "2": "GND"
       },
       "value": "10p",
-      "mpn": "800239-100"
+      "internal_pn": "800239-100"
     },
     "C1709": {
       "pins": {
@@ -5991,7 +5991,7 @@
         "2": "GND"
       },
       "value": "150P",
-      "mpn": "800239-151"
+      "internal_pn": "800239-151"
     },
     "C1710": {
       "pins": {
@@ -5999,7 +5999,7 @@
         "2": "GND"
       },
       "value": "120p",
-      "mpn": "800239-121"
+      "internal_pn": "800239-121"
     },
     "C1711": {
       "pins": {
@@ -6007,7 +6007,7 @@
         "2": "GND"
       },
       "value": "18p",
-      "mpn": "800239-180"
+      "internal_pn": "800239-180"
     },
     "C1712": {
       "pins": {
@@ -6015,7 +6015,7 @@
         "2": "GND"
       },
       "value": "150p",
-      "mpn": "800239-151"
+      "internal_pn": "800239-151"
     },
     "C1713": {
       "pins": {
@@ -6023,7 +6023,7 @@
         "2": "/top/radio/xtal_filter/C719_RF"
       },
       "value": "150p",
-      "mpn": "800239-151"
+      "internal_pn": "800239-151"
     },
     "C1714": {
       "pins": {
@@ -6031,7 +6031,7 @@
         "2": "/top/radio/xtal_filter/C719_RF"
       },
       "value": "10p",
-      "mpn": "800239-100"
+      "internal_pn": "800239-100"
     },
     "C1715": {
       "pins": {
@@ -6039,7 +6039,7 @@
         "2": "/top/radio/xtal_filter/C715_RF"
       },
       "value": "10p",
-      "mpn": "800239-100"
+      "internal_pn": "800239-100"
     },
     "C1716": {
       "pins": {
@@ -6047,7 +6047,7 @@
         "2": "/top/radio/xtal_filter/C715_RF"
       },
       "value": "150P",
-      "mpn": "800239-151"
+      "internal_pn": "800239-151"
     },
     "C1717": {
       "pins": {
@@ -6055,7 +6055,7 @@
         "2": "GND"
       },
       "value": "150p",
-      "mpn": "800239-151"
+      "internal_pn": "800239-151"
     },
     "C1718": {
       "pins": {
@@ -6063,7 +6063,7 @@
         "2": "GND"
       },
       "value": "20p",
-      "mpn": "800239-200"
+      "internal_pn": "800239-200"
     },
     "C1719": {
       "pins": {
@@ -6071,7 +6071,7 @@
         "2": "GND"
       },
       "value": "150p",
-      "mpn": "800239-151"
+      "internal_pn": "800239-151"
     },
     "C1720": {
       "pins": {
@@ -6079,7 +6079,7 @@
         "2": "GND"
       },
       "value": "20p",
-      "mpn": "800239-200"
+      "internal_pn": "800239-200"
     },
     "L1701": {
       "pins": {
@@ -6088,7 +6088,7 @@
       },
       "value": "0.97uH",
       "description": "Inductor",
-      "mpn": "800234-376"
+      "internal_pn": "800234-376"
     },
     "L1702": {
       "pins": {
@@ -6097,7 +6097,7 @@
       },
       "value": "0.97uH",
       "description": "Inductor",
-      "mpn": "800234-376"
+      "internal_pn": "800234-376"
     },
     "R1701": {
       "pins": {
@@ -6105,7 +6105,7 @@
         "2": "/top/radio/ifagc/IF_IN"
       },
       "value": "0",
-      "mpn": "800235-000"
+      "internal_pn": "800235-000"
     },
     "R1702": {
       "pins": {
@@ -6113,7 +6113,7 @@
         "2": "/top/radio/xtal_filter/R702_RF"
       },
       "value": "0",
-      "mpn": "800235-000"
+      "internal_pn": "800235-000"
     },
     "Y1701": {
       "pins": {
@@ -6123,7 +6123,7 @@
       },
       "value": "12.288 MHz",
       "description": "Three pin crystal, one ground/package pins (pin2) small symbol",
-      "mpn": "800286-101"
+      "internal_pn": "800286-101"
     },
     "Y1702": {
       "pins": {
@@ -6133,7 +6133,7 @@
       },
       "value": "12.288 MHz",
       "description": "Three pin crystal, one ground/package pins (pin2) small symbol",
-      "mpn": "800286-101"
+      "internal_pn": "800286-101"
     },
     "Y1703": {
       "pins": {
@@ -6143,7 +6143,7 @@
       },
       "value": "12.288 MHz",
       "description": "Three pin crystal, one ground/package pins (pin2) small symbol",
-      "mpn": "800286-101"
+      "internal_pn": "800286-101"
     },
     "Y1704": {
       "pins": {
@@ -6153,7 +6153,7 @@
       },
       "value": "12.288 MHz",
       "description": "Three pin crystal, one ground/package pins (pin2) small symbol",
-      "mpn": "800286-101"
+      "internal_pn": "800286-101"
     },
     "Y1705": {
       "pins": {
@@ -6163,7 +6163,7 @@
       },
       "value": "12.288 MHz",
       "description": "Three pin crystal, one ground/package pins (pin2) small symbol",
-      "mpn": "800286-101"
+      "internal_pn": "800286-101"
     },
     "Y1706": {
       "pins": {
@@ -6173,7 +6173,7 @@
       },
       "value": "12.288 MHz",
       "description": "Three pin crystal, one ground/package pins (pin2) small symbol",
-      "mpn": "800286-101"
+      "internal_pn": "800286-101"
     },
     "C1801": {
       "pins": {
@@ -6181,7 +6181,7 @@
         "2": "GND"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C1802": {
       "pins": {
@@ -6189,7 +6189,7 @@
         "2": "GND"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C1803": {
       "pins": {
@@ -6197,7 +6197,7 @@
         "2": "/top/radio/ifagc/R904_RF"
       },
       "value": "0.01u",
-      "mpn": "800239-103"
+      "internal_pn": "800239-103"
     },
     "C1804": {
       "pins": {
@@ -6205,7 +6205,7 @@
         "2": "/top/radio/ifagc/L902_RF"
       },
       "value": "0.01u",
-      "mpn": "800239-103"
+      "internal_pn": "800239-103"
     },
     "C1805": {
       "pins": {
@@ -6213,7 +6213,7 @@
         "2": "GND"
       },
       "value": "60p",
-      "mpn": "800241-600"
+      "internal_pn": "800241-600"
     },
     "C1806": {
       "pins": {
@@ -6221,7 +6221,7 @@
         "2": "Net-(Q1803-C)"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C1807": {
       "pins": {
@@ -6229,7 +6229,7 @@
         "2": "Net-(Q1804-C)"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C1808": {
       "pins": {
@@ -6237,7 +6237,7 @@
         "2": "GND"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C1809": {
       "pins": {
@@ -6245,7 +6245,7 @@
         "2": "GND"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C1810": {
       "pins": {
@@ -6253,7 +6253,7 @@
         "2": "GND"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "CR1801": {
       "pins": {
@@ -6268,7 +6268,7 @@
         }
       },
       "value": "BAT54",
-      "mpn": "800127-101"
+      "internal_pn": "800127-101"
     },
     "CR1802": {
       "pins": {
@@ -6283,7 +6283,7 @@
         }
       },
       "value": "BAT54",
-      "mpn": "800127-101"
+      "internal_pn": "800127-101"
     },
     "E1801": {
       "pins": {
@@ -6291,7 +6291,7 @@
         "2": "Net-(C1810-Pad1)"
       },
       "value": "FB0805",
-      "mpn": "800245-601"
+      "internal_pn": "800245-601"
     },
     "L1801": {
       "pins": {
@@ -6299,7 +6299,7 @@
         "2": "/top/radio/ifagc/R904_RF"
       },
       "value": "27uH",
-      "mpn": "800257-023"
+      "internal_pn": "800257-023"
     },
     "L1802": {
       "pins": {
@@ -6307,7 +6307,7 @@
         "2": "/top/radio/ifagc/IF_IN"
       },
       "value": "4.13uH",
-      "mpn": "800307-101"
+      "internal_pn": "800307-101"
     },
     "Q1801": {
       "pins": {
@@ -6326,7 +6326,7 @@
       },
       "value": "MMBFJ310",
       "description": "Id 30mA, 25V Vgs, N-Channel Junction FET Transistor, SOT-23",
-      "mpn": "800263-101"
+      "internal_pn": "800263-101"
     },
     "Q1802": {
       "pins": {
@@ -6345,7 +6345,7 @@
       },
       "value": "MMBFJ310",
       "description": "Id 30mA, 25V Vgs, N-Channel Junction FET Transistor, SOT-23",
-      "mpn": "800263-101"
+      "internal_pn": "800263-101"
     },
     "Q1803": {
       "pins": {
@@ -6363,7 +6363,7 @@
         }
       },
       "value": "MMBT3904",
-      "mpn": "800259-101"
+      "internal_pn": "800259-101"
     },
     "Q1804": {
       "pins": {
@@ -6381,7 +6381,7 @@
         }
       },
       "value": "MMBT3904",
-      "mpn": "800259-101"
+      "internal_pn": "800259-101"
     },
     "Q1805": {
       "pins": {
@@ -6399,7 +6399,7 @@
         }
       },
       "value": "BSS138",
-      "mpn": "800236-101"
+      "internal_pn": "800236-101"
     },
     "R1801": {
       "pins": {
@@ -6407,7 +6407,7 @@
         "2": "/top/P13V8"
       },
       "value": "82",
-      "mpn": "800235-820"
+      "internal_pn": "800235-820"
     },
     "R1802": {
       "pins": {
@@ -6415,7 +6415,7 @@
         "2": "/top/P13V8"
       },
       "value": "82",
-      "mpn": "800235-820"
+      "internal_pn": "800235-820"
     },
     "R1803": {
       "pins": {
@@ -6423,7 +6423,7 @@
         "2": "/top/radio/ifagc/R904_RF"
       },
       "value": "2.2K",
-      "mpn": "800235-222"
+      "internal_pn": "800235-222"
     },
     "R1804": {
       "pins": {
@@ -6431,7 +6431,7 @@
         "2": "/top/radio/ifagc/Q901_RF"
       },
       "value": "82",
-      "mpn": "800235-820"
+      "internal_pn": "800235-820"
     },
     "R1805": {
       "pins": {
@@ -6439,7 +6439,7 @@
         "2": "/top/radio/ifagc/Q902_RF"
       },
       "value": "82",
-      "mpn": "800235-820"
+      "internal_pn": "800235-820"
     },
     "R1806": {
       "pins": {
@@ -6447,7 +6447,7 @@
         "2": "GND"
       },
       "value": "2.2K",
-      "mpn": "800235-222"
+      "internal_pn": "800235-222"
     },
     "R1807": {
       "pins": {
@@ -6455,7 +6455,7 @@
         "2": "Net-(CR1801-A)"
       },
       "value": "39K",
-      "mpn": "800235-393"
+      "internal_pn": "800235-393"
     },
     "R1808": {
       "pins": {
@@ -6463,7 +6463,7 @@
         "2": "Net-(Q1803-C)"
       },
       "value": "39K",
-      "mpn": "800235-393"
+      "internal_pn": "800235-393"
     },
     "R1809": {
       "pins": {
@@ -6471,7 +6471,7 @@
         "2": "Net-(C1810-Pad1)"
       },
       "value": "390",
-      "mpn": "800235-391"
+      "internal_pn": "800235-391"
     },
     "R1810": {
       "pins": {
@@ -6479,7 +6479,7 @@
         "2": "Net-(CR1801-A)"
       },
       "value": "39K",
-      "mpn": "800235-393"
+      "internal_pn": "800235-393"
     },
     "R1811": {
       "pins": {
@@ -6487,7 +6487,7 @@
         "2": "Net-(Q1804-C)"
       },
       "value": "39K",
-      "mpn": "800235-393"
+      "internal_pn": "800235-393"
     },
     "R1812": {
       "pins": {
@@ -6495,7 +6495,7 @@
         "2": "Net-(C1810-Pad1)"
       },
       "value": "390",
-      "mpn": "800235-391"
+      "internal_pn": "800235-391"
     },
     "R1813": {
       "pins": {
@@ -6503,7 +6503,7 @@
         "2": "Net-(C1810-Pad1)"
       },
       "value": "270K",
-      "mpn": "800235-274"
+      "internal_pn": "800235-274"
     },
     "R1814": {
       "pins": {
@@ -6511,7 +6511,7 @@
         "2": "Net-(Q1805-G)"
       },
       "value": "270K",
-      "mpn": "800235-274"
+      "internal_pn": "800235-274"
     },
     "R1815": {
       "pins": {
@@ -6519,7 +6519,7 @@
         "2": "/top/P13V8_RX"
       },
       "value": "10K",
-      "mpn": "800235-103"
+      "internal_pn": "800235-103"
     },
     "R1816": {
       "pins": {
@@ -6527,7 +6527,7 @@
         "2": "/top/P13V8_RX"
       },
       "value": "10K",
-      "mpn": "800235-103"
+      "internal_pn": "800235-103"
     },
     "R1817": {
       "pins": {
@@ -6535,7 +6535,7 @@
         "2": "/top/i2c/TX_IF_GAIN"
       },
       "value": "DNI",
-      "mpn": "800235-000"
+      "internal_pn": "800235-000"
     },
     "R1818": {
       "pins": {
@@ -6544,7 +6544,7 @@
         "3": "Net-(C1810-Pad1)"
       },
       "value": "DNI",
-      "mpn": "800249-203"
+      "internal_pn": "800249-203"
     },
     "T1801": {
       "pins": {
@@ -6566,7 +6566,7 @@
         }
       },
       "value": "FT37-43",
-      "mpn": "800257-037"
+      "internal_pn": "800257-037"
     },
     "C2001": {
       "pins": {
@@ -6574,7 +6574,7 @@
         "2": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/R1305_RF"
       },
       "value": "1000p",
-      "mpn": "800239-102"
+      "internal_pn": "800239-102"
     },
     "C2002": {
       "pins": {
@@ -6582,7 +6582,7 @@
         "2": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/L1301_RF"
       },
       "value": "150p",
-      "mpn": "800239-151"
+      "internal_pn": "800239-151"
     },
     "C2003": {
       "pins": {
@@ -6590,7 +6590,7 @@
         "2": "Net-(C2003-Pad2)"
       },
       "value": "22u",
-      "mpn": "800267-226"
+      "internal_pn": "800267-226"
     },
     "C2004": {
       "pins": {
@@ -6598,7 +6598,7 @@
         "2": "GND"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C2005": {
       "pins": {
@@ -6606,7 +6606,7 @@
         "2": "GND"
       },
       "value": "22u",
-      "mpn": "800267-226"
+      "internal_pn": "800267-226"
     },
     "C2006": {
       "pins": {
@@ -6614,7 +6614,7 @@
         "2": "GND"
       },
       "value": "22u",
-      "mpn": "800267-226"
+      "internal_pn": "800267-226"
     },
     "C2007": {
       "pins": {
@@ -6622,7 +6622,7 @@
         "2": "GND"
       },
       "value": "22u",
-      "mpn": "800267-226"
+      "internal_pn": "800267-226"
     },
     "C2008": {
       "pins": {
@@ -6630,7 +6630,7 @@
         "2": "GND"
       },
       "value": "22u",
-      "mpn": "800267-226"
+      "internal_pn": "800267-226"
     },
     "L2001": {
       "pins": {
@@ -6638,7 +6638,7 @@
         "2": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/L1301_RF"
       },
       "value": "81nH",
-      "mpn": "8XXXXX-XXX"
+      "internal_pn": "8XXXXX-XXX"
     },
     "L2002": {
       "pins": {
@@ -6646,7 +6646,7 @@
         "2": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/L1301_RF"
       },
       "value": "15uH",
-      "mpn": "800257-023"
+      "internal_pn": "800257-023"
     },
     "Q2001": {
       "pins": {
@@ -6664,7 +6664,7 @@
         }
       },
       "value": "MMBT3904",
-      "mpn": "800259-101"
+      "internal_pn": "800259-101"
     },
     "Q2002": {
       "pins": {
@@ -6682,7 +6682,7 @@
         }
       },
       "value": "MMBT3904",
-      "mpn": "800259-101"
+      "internal_pn": "800259-101"
     },
     "Q2003": {
       "pins": {
@@ -6700,7 +6700,7 @@
         }
       },
       "value": "MMBT3904",
-      "mpn": "800259-101"
+      "internal_pn": "800259-101"
     },
     "R2001": {
       "pins": {
@@ -6708,7 +6708,7 @@
         "2": "/top/LO_SECOND"
       },
       "value": "18",
-      "mpn": "800235-180"
+      "internal_pn": "800235-180"
     },
     "R2002": {
       "pins": {
@@ -6716,7 +6716,7 @@
         "2": "GND"
       },
       "value": "300",
-      "mpn": "800235-301"
+      "internal_pn": "800235-301"
     },
     "R2003": {
       "pins": {
@@ -6724,7 +6724,7 @@
         "2": "GND"
       },
       "value": "300",
-      "mpn": "800235-301"
+      "internal_pn": "800235-301"
     },
     "R2004": {
       "pins": {
@@ -6732,7 +6732,7 @@
         "2": "/top/radio/ifagc/IF_OUT"
       },
       "value": "18",
-      "mpn": "800235-180"
+      "internal_pn": "800235-180"
     },
     "R2005": {
       "pins": {
@@ -6740,7 +6740,7 @@
         "2": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/U1301_RF"
       },
       "value": "36",
-      "mpn": "800235-360"
+      "internal_pn": "800235-360"
     },
     "R2006": {
       "pins": {
@@ -6748,7 +6748,7 @@
         "2": "GND"
       },
       "value": "300",
-      "mpn": "800235-301"
+      "internal_pn": "800235-301"
     },
     "R2007": {
       "pins": {
@@ -6756,7 +6756,7 @@
         "2": "GND"
       },
       "value": "300",
-      "mpn": "800235-301"
+      "internal_pn": "800235-301"
     },
     "R2008": {
       "pins": {
@@ -6764,7 +6764,7 @@
         "2": "GND"
       },
       "value": "150",
-      "mpn": "800235-151"
+      "internal_pn": "800235-151"
     },
     "R2009": {
       "pins": {
@@ -6772,7 +6772,7 @@
         "2": "GND"
       },
       "value": "150",
-      "mpn": "800235-151"
+      "internal_pn": "800235-151"
     },
     "R2010": {
       "pins": {
@@ -6780,7 +6780,7 @@
         "2": "Net-(C2003-Pad2)"
       },
       "value": "2.2K",
-      "mpn": "800235-222"
+      "internal_pn": "800235-222"
     },
     "R2011": {
       "pins": {
@@ -6788,7 +6788,7 @@
         "2": "Net-(Q2001-B)"
       },
       "value": "47K",
-      "mpn": "800235-473"
+      "internal_pn": "800235-473"
     },
     "R2012": {
       "pins": {
@@ -6796,7 +6796,7 @@
         "2": "Net-(C2007-Pad1)"
       },
       "value": "1K",
-      "mpn": "800235-102"
+      "internal_pn": "800235-102"
     },
     "R2013": {
       "pins": {
@@ -6804,7 +6804,7 @@
         "2": "Net-(Q2002-B)"
       },
       "value": "3.3K",
-      "mpn": "800235-332"
+      "internal_pn": "800235-332"
     },
     "R2014": {
       "pins": {
@@ -6812,7 +6812,7 @@
         "2": "/top/radio/prod_det_tx_mix/agc/LL_RX_AUDIO"
       },
       "value": "1K",
-      "mpn": "800235-102"
+      "internal_pn": "800235-102"
     },
     "R2015": {
       "pins": {
@@ -6820,7 +6820,7 @@
         "2": "Net-(Q2002-B)"
       },
       "value": "10K",
-      "mpn": "800235-103"
+      "internal_pn": "800235-103"
     },
     "R2016": {
       "pins": {
@@ -6828,7 +6828,7 @@
         "2": "Net-(Q2002-C)"
       },
       "value": "6.8K",
-      "mpn": "800235-682"
+      "internal_pn": "800235-682"
     },
     "R2017": {
       "pins": {
@@ -6836,7 +6836,7 @@
         "2": "GND"
       },
       "value": "3.3K",
-      "mpn": "800235-332"
+      "internal_pn": "800235-332"
     },
     "R2018": {
       "pins": {
@@ -6844,7 +6844,7 @@
         "2": "Net-(C2008-Pad1)"
       },
       "value": "100",
-      "mpn": "800235-101"
+      "internal_pn": "800235-101"
     },
     "R2019": {
       "pins": {
@@ -6852,7 +6852,7 @@
         "2": "GND"
       },
       "value": "4.7K",
-      "mpn": "800235-472"
+      "internal_pn": "800235-472"
     },
     "U2001": {
       "pins": {
@@ -6879,7 +6879,7 @@
         }
       },
       "value": "ADE-1",
-      "mpn": "800262-101"
+      "internal_pn": "800262-101"
     },
     "C2101": {
       "pins": {
@@ -6887,7 +6887,7 @@
         "2": "GND"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C2102": {
       "pins": {
@@ -6895,7 +6895,7 @@
         "2": "GND"
       },
       "value": "470u",
-      "mpn": "800270-477"
+      "internal_pn": "800270-477"
     },
     "C2103": {
       "pins": {
@@ -6903,7 +6903,7 @@
         "2": "GND"
       },
       "value": "4.7u",
-      "mpn": "800003-475"
+      "internal_pn": "800003-475"
     },
     "C2104": {
       "pins": {
@@ -6911,7 +6911,7 @@
         "2": "/top/RX_AUDIO_WIPER"
       },
       "value": "4.7u",
-      "mpn": "800003-475"
+      "internal_pn": "800003-475"
     },
     "C2105": {
       "pins": {
@@ -6919,7 +6919,7 @@
         "2": "/top/RX_AUDIO_SPEAKER"
       },
       "value": "470u",
-      "mpn": "800270-477"
+      "internal_pn": "800270-477"
     },
     "C2106": {
       "pins": {
@@ -6927,7 +6927,7 @@
         "2": "GND"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "Q2101": {
       "pins": {
@@ -6945,7 +6945,7 @@
         }
       },
       "value": "BSS138",
-      "mpn": "800236-101"
+      "internal_pn": "800236-101"
     },
     "R2101": {
       "pins": {
@@ -6953,7 +6953,7 @@
         "2": "Net-(C2106-Pad1)"
       },
       "value": "2.7",
-      "mpn": "800235-027"
+      "internal_pn": "800235-027"
     },
     "U2101": {
       "pins": {
@@ -6985,7 +6985,7 @@
         "14": "/top/P13V8"
       },
       "value": "LM380N",
-      "mpn": "800269-101"
+      "internal_pn": "800269-101"
     },
     "C2201": {
       "pins": {
@@ -6993,7 +6993,7 @@
         "2": "GND"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C2202": {
       "pins": {
@@ -7001,7 +7001,7 @@
         "2": "GND"
       },
       "value": "22u",
-      "mpn": "800267-226"
+      "internal_pn": "800267-226"
     },
     "C2203": {
       "pins": {
@@ -7009,7 +7009,7 @@
         "2": "GND"
       },
       "value": "22u",
-      "mpn": "800267-226"
+      "internal_pn": "800267-226"
     },
     "C2204": {
       "pins": {
@@ -7017,7 +7017,7 @@
         "2": "GND"
       },
       "value": "100u",
-      "mpn": "800268-107"
+      "internal_pn": "800268-107"
     },
     "C2205": {
       "pins": {
@@ -7025,7 +7025,7 @@
         "2": "GND"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C2206": {
       "pins": {
@@ -7033,7 +7033,7 @@
         "2": "GND"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C2207": {
       "pins": {
@@ -7041,7 +7041,7 @@
         "2": "GND"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C2208": {
       "pins": {
@@ -7049,7 +7049,7 @@
         "2": "Net-(C2208-Pad2)"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C2209": {
       "pins": {
@@ -7057,7 +7057,7 @@
         "2": "GND"
       },
       "value": "22u",
-      "mpn": "800267-226"
+      "internal_pn": "800267-226"
     },
     "C2210": {
       "pins": {
@@ -7065,7 +7065,7 @@
         "2": "GND"
       },
       "value": "1u",
-      "mpn": "800238-105"
+      "internal_pn": "800238-105"
     },
     "C2211": {
       "pins": {
@@ -7073,7 +7073,7 @@
         "2": "/top/radio/prod_det_tx_mix/agc/LL_RX_AUDIO"
       },
       "value": "4.7u",
-      "mpn": "800003-475"
+      "internal_pn": "800003-475"
     },
     "CR2201": {
       "pins": {
@@ -7088,7 +7088,7 @@
         }
       },
       "value": "BAT54",
-      "mpn": "800127-101"
+      "internal_pn": "800127-101"
     },
     "CR2202": {
       "pins": {
@@ -7103,7 +7103,7 @@
         }
       },
       "value": "BAT54",
-      "mpn": "800127-101"
+      "internal_pn": "800127-101"
     },
     "CR2203": {
       "pins": {
@@ -7118,7 +7118,7 @@
         }
       },
       "value": "BAT54",
-      "mpn": "800127-101"
+      "internal_pn": "800127-101"
     },
     "CR2204": {
       "pins": {
@@ -7133,7 +7133,7 @@
         }
       },
       "value": "BAT54",
-      "mpn": "800127-101"
+      "internal_pn": "800127-101"
     },
     "R2201": {
       "pins": {
@@ -7141,7 +7141,7 @@
         "2": "/top/P13V8"
       },
       "value": "10K",
-      "mpn": "800235-103"
+      "internal_pn": "800235-103"
     },
     "R2202": {
       "pins": {
@@ -7149,7 +7149,7 @@
         "2": "/top/radio/prod_det_tx_mix/agc/APBIAS"
       },
       "value": "10K",
-      "mpn": "800235-103"
+      "internal_pn": "800235-103"
     },
     "R2203": {
       "pins": {
@@ -7157,7 +7157,7 @@
         "2": "/top/P13V8"
       },
       "value": "100",
-      "mpn": "800235-101"
+      "internal_pn": "800235-101"
     },
     "R2204": {
       "pins": {
@@ -7165,7 +7165,7 @@
         "2": "Net-(U2202A-+)"
       },
       "value": "100K",
-      "mpn": "800235-104"
+      "internal_pn": "800235-104"
     },
     "R2205": {
       "pins": {
@@ -7173,7 +7173,7 @@
         "2": "/top/P13V8"
       },
       "value": "2.2M",
-      "mpn": "800235-225"
+      "internal_pn": "800235-225"
     },
     "R2206": {
       "pins": {
@@ -7181,7 +7181,7 @@
         "2": "Net-(CR2201-C)"
       },
       "value": "10K",
-      "mpn": "800235-103"
+      "internal_pn": "800235-103"
     },
     "R2207": {
       "pins": {
@@ -7189,7 +7189,7 @@
         "2": "Net-(C2209-Pad1)"
       },
       "value": "10K",
-      "mpn": "800235-103"
+      "internal_pn": "800235-103"
     },
     "R2208": {
       "pins": {
@@ -7197,7 +7197,7 @@
         "2": "Net-(U2202A--)"
       },
       "value": "100K",
-      "mpn": "800235-104"
+      "internal_pn": "800235-104"
     },
     "R2209": {
       "pins": {
@@ -7205,7 +7205,7 @@
         "2": "Net-(C2210-Pad1)"
       },
       "value": "1K",
-      "mpn": "800235-102"
+      "internal_pn": "800235-102"
     },
     "R2210": {
       "pins": {
@@ -7213,7 +7213,7 @@
         "2": "Net-(U2202B--)"
       },
       "value": "10K",
-      "mpn": "800235-103"
+      "internal_pn": "800235-103"
     },
     "R2211": {
       "pins": {
@@ -7221,7 +7221,7 @@
         "2": "/top/radio/ifagc/AGC_IN"
       },
       "value": "10K",
-      "mpn": "800235-103"
+      "internal_pn": "800235-103"
     },
     "U2201": {
       "pins": {
@@ -7250,7 +7250,7 @@
         "8": "/top/P5V0"
       },
       "value": "DG449DS-T1-E3",
-      "mpn": "800271-101"
+      "internal_pn": "800271-101"
     },
     "U2202": {
       "pins": {
@@ -7282,7 +7282,7 @@
         }
       },
       "value": "LMC6482",
-      "mpn": "800272-101"
+      "internal_pn": "800272-101"
     },
     "U2203": {
       "pins": {
@@ -7314,7 +7314,7 @@
         }
       },
       "value": "LMC6482",
-      "mpn": "800272-101"
+      "internal_pn": "800272-101"
     },
     "C2301": {
       "pins": {
@@ -7322,7 +7322,7 @@
         "2": "GND"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C2302": {
       "pins": {
@@ -7330,7 +7330,7 @@
         "2": "GND"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C2303": {
       "pins": {
@@ -7338,7 +7338,7 @@
         "2": "GND"
       },
       "value": "10u",
-      "mpn": "800003-106"
+      "internal_pn": "800003-106"
     },
     "C2304": {
       "pins": {
@@ -7346,7 +7346,7 @@
         "2": "GND"
       },
       "value": "1000p",
-      "mpn": "800239-102"
+      "internal_pn": "800239-102"
     },
     "C2305": {
       "pins": {
@@ -7354,7 +7354,7 @@
         "2": "GND"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C2306": {
       "pins": {
@@ -7362,7 +7362,7 @@
         "2": "GND"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C2307": {
       "pins": {
@@ -7370,7 +7370,7 @@
         "2": "GND"
       },
       "value": "10u",
-      "mpn": "800003-106"
+      "internal_pn": "800003-106"
     },
     "C2308": {
       "pins": {
@@ -7378,7 +7378,7 @@
         "2": "GND"
       },
       "value": "DNI",
-      "mpn": "800239-101"
+      "internal_pn": "800239-101"
     },
     "C2309": {
       "pins": {
@@ -7386,7 +7386,7 @@
         "2": "GND"
       },
       "value": "DNI",
-      "mpn": "800239-101"
+      "internal_pn": "800239-101"
     },
     "C2310": {
       "pins": {
@@ -7394,7 +7394,7 @@
         "2": "GND"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "C2311": {
       "pins": {
@@ -7402,7 +7402,7 @@
         "2": "GND"
       },
       "value": "0.1u",
-      "mpn": "800238-104"
+      "internal_pn": "800238-104"
     },
     "E2301": {
       "pins": {
@@ -7410,7 +7410,7 @@
         "2": "/top/SDA_I2C_3V3"
       },
       "value": "FB0805",
-      "mpn": "800245-601"
+      "internal_pn": "800245-601"
     },
     "E2302": {
       "pins": {
@@ -7418,7 +7418,7 @@
         "2": "/top/SCL_I2C_3V3"
       },
       "value": "FB0805",
-      "mpn": "800245-601"
+      "internal_pn": "800245-601"
     },
     "E2303": {
       "pins": {
@@ -7426,7 +7426,7 @@
         "2": "/top/P13V8"
       },
       "value": "FB0805",
-      "mpn": "800245-601"
+      "internal_pn": "800245-601"
     },
     "J2301": {
       "pins": {
@@ -7437,7 +7437,7 @@
         "5": "GND"
       },
       "value": "CONN_SMA_VERT",
-      "mpn": "800253-101"
+      "internal_pn": "800253-101"
     },
     "J2302": {
       "pins": {
@@ -7445,7 +7445,7 @@
         "2": "/top/RX_AUDIO_SPEAKER"
       },
       "value": "CONN2",
-      "mpn": "800114-102"
+      "internal_pn": "800114-102"
     },
     "J2303": {
       "pins": {
@@ -7453,7 +7453,7 @@
         "2": "/top/S_METER"
       },
       "value": "CONN2",
-      "mpn": "800114-102"
+      "internal_pn": "800114-102"
     },
     "J2304": {
       "pins": {
@@ -7464,7 +7464,7 @@
         "5": "GND"
       },
       "value": "CONN_SMA_VERT",
-      "mpn": "800253-101"
+      "internal_pn": "800253-101"
     },
     "J2305": {
       "pins": {
@@ -7473,7 +7473,7 @@
         "3": "/top/RX_AUDIO_TOP"
       },
       "value": "CONN3",
-      "mpn": "800114-103"
+      "internal_pn": "800114-103"
     },
     "J2306": {
       "pins": {
@@ -7484,7 +7484,7 @@
         "5": "GND"
       },
       "value": "CONN_SMA_VERT",
-      "mpn": "800253-101"
+      "internal_pn": "800253-101"
     },
     "J2307": {
       "pins": {
@@ -7493,7 +7493,7 @@
         "3": "Net-(J2307-Pad3)"
       },
       "value": "CONN3",
-      "mpn": "800114-103"
+      "internal_pn": "800114-103"
     },
     "J2308": {
       "pins": {
@@ -7504,7 +7504,7 @@
         "5": "GND"
       },
       "value": "CONN_SMA_VERT",
-      "mpn": "800253-101"
+      "internal_pn": "800253-101"
     },
     "J2309": {
       "pins": {
@@ -7513,7 +7513,7 @@
         "3": "/top/connectors/P8V0_TX"
       },
       "value": "CONN3",
-      "mpn": "800114-103"
+      "internal_pn": "800114-103"
     },
     "J2310": {
       "pins": {
@@ -7527,7 +7527,7 @@
         "8": "GND"
       },
       "value": "CONN8",
-      "mpn": "800114-108"
+      "internal_pn": "800114-108"
     },
     "MH2301": {
       "pins": {
@@ -7587,7 +7587,7 @@
         }
       },
       "value": "BSS138",
-      "mpn": "800236-101"
+      "internal_pn": "800236-101"
     },
     "R2301": {
       "pins": {
@@ -7595,7 +7595,7 @@
         "2": "Net-(J2307-Pad3)"
       },
       "value": "10K",
-      "mpn": "800235-103"
+      "internal_pn": "800235-103"
     },
     "TP2301": {
       "pins": {
@@ -7605,7 +7605,7 @@
         }
       },
       "value": "TESTPINTPSQ025",
-      "mpn": "800207-101"
+      "internal_pn": "800207-101"
     },
     "TP2302": {
       "pins": {
@@ -7615,7 +7615,7 @@
         }
       },
       "value": "TESTPINTPSQ025",
-      "mpn": "800207-101"
+      "internal_pn": "800207-101"
     },
     "TP2303": {
       "pins": {
@@ -7625,7 +7625,7 @@
         }
       },
       "value": "TESTPINTPSQ025",
-      "mpn": "800207-101"
+      "internal_pn": "800207-101"
     },
     "TP2304": {
       "pins": {
@@ -7635,7 +7635,7 @@
         }
       },
       "value": "TESTPINTPSQ025",
-      "mpn": "800207-101"
+      "internal_pn": "800207-101"
     }
   }
 }

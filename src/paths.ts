@@ -41,7 +41,7 @@ export const resolvePath = (inputPath: string): string => {
  * directory holds the identity instead: discovery collects a triad per
  * directory, so a directory contains at most one of these designs.
  *
- * Example: "/projects/BeagleBone-Black-copy/pstxnet.dat" -> "BeagleBone-Black-copy"
+ * Example: "/projects/board-rev-c/pstxnet.dat" -> "board-rev-c"
  */
 export const getDesignName = (design: string): string => {
   // Resolved the same way `loadNetlist` resolves it, so the name describes the

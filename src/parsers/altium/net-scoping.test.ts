@@ -62,8 +62,7 @@ describe("planLocalNetRenames", () => {
 
   it("numbers a sheet's own net even where no other sheet reuses the name", () => {
     // Altium suffixes because the net is the sheet's own, not because it
-    // collides: the MiSKo3 board carries `VBAT_8` for a label drawn on sheet 8
-    // alone.
+    // collides: a board carries `VBAT_8` for a label drawn on sheet 8 alone.
     const plans = planLocalNetRenames(
       [sheet("8", { VBAT: { label: true } }), sheet("2", { SDA: { label: true } })],
       "hierarchical"
@@ -219,8 +218,8 @@ describe("planLocalNetRenames collision guard", () => {
 });
 
 /**
- * Every case here is the shape solarcar-bms draws, and the expected numbers are
- * the ones its own `bms_mainboard-1_1.PcbDoc` carries.
+ * Every case here is the shape a real harness-using project draws, and the
+ * expected numbers are the ones that design's own board file carries.
  */
 describe("planLocalNetRenames on harness members", () => {
   it("numbers a member after the sheet labelling its bundle, not its own sheet", () => {

@@ -209,7 +209,7 @@ const mergeComponentInto = (
   for (const [pin, entry] of Object.entries(source.pins)) {
     if (target.pins[pin] === undefined) target.pins[pin] = entry;
   }
-  for (const field of ["mpn", "description", "comment", "value"] as const) {
+  for (const field of ["mpn", "internal_pn", "manufacturer", "description", "comment", "value"] as const) {
     if (target[field] === undefined && source[field] !== undefined) target[field] = source[field];
   }
   if (source.dns && !target.dns) target.dns = true;
@@ -370,6 +370,9 @@ export const extractComponents = (schematic: AltiumSchematic): ComponentDetails 
     }
 
     comment = resolveComment(comment, parameters);
+    // An MPN identifies a part only within a manufacturer, so the name is what
+    // makes `mpn` a key rather than a string.
+    const manufacturer = parameters["manufacturer"]?.trim() || undefined;
     const rawValue = parameters["value"];
     const value = rawValue?.trim() || undefined;
     if (comment && value && comment === value) {
@@ -420,6 +423,10 @@ export const extractComponents = (schematic: AltiumSchematic): ComponentDetails 
 
     if (mpn !== undefined) {
       component.mpn = mpn;
+    }
+
+    if (manufacturer !== undefined) {
+      component.manufacturer = manufacturer;
     }
 
     if (extractedDescription !== undefined) {

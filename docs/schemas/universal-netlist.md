@@ -6,7 +6,7 @@ Every on-disk Universal Netlist is named `*.netlist.json`. Its top-level
 `universalNetlistSchemaVersion` identifies the document and schema; its nested
 `metadata` records when the document was generated, the origin of its content,
 and a verified SHA-256 identity for `nets` and `components` together. The
-current version is `1`; ordinary JSON files are not Universal Netlists, even if
+current version is `2`; ordinary JSON files are not Universal Netlists, even if
 they happen to contain keys named `nets` or `components`.
 
 ### Schema evolution
@@ -16,21 +16,33 @@ document shape and normalizes it into the server's internal `ParsedNetlist`, so
 query tools do not need version-specific behavior. The exporter writes only the
 current schema version.
 
-When introducing version 2 or later:
+When introducing a new version:
 
 1. Add a new version-specific reader and writer to the schema codec registry.
 2. Keep every older reader registered so existing files remain loadable.
 3. Advance `UNIVERSAL_NETLIST_SCHEMA_VERSION` only after the new codec exists.
 4. Keep at least one fixture for every supported historical version.
+5. Add an entry to the [schema changelog](changelog.md).
 
 A document with an unregistered version is refused and the error lists the
 versions that build supports.
+
+Each version's writer drops the component fields that version does not define
+before hashing, so a version can never sign a `netlistHash` covering a field its
+own reader would discard. This is also why a field cannot be back-fitted to an
+older version: that reader would discard it and then fail the hash.
+
+### Version history
+
+Every version, what changed in it and when, is in the
+[schema changelog](changelog.md). `test/universal/demo-board.netlist.json` is
+kept at version 1 as the fixture proving older files still load.
 
 ## Overview
 
 ```
 UniversalNetlistDocument
-├── universalNetlistSchemaVersion: 1
+├── universalNetlistSchemaVersion: 2
 ├── metadata
 │   ├── generatedAt: "2026-09-01T12:34:56.789Z"
 │   ├── netlistHash: "sha256:<64 lowercase hex digits>"
@@ -38,7 +50,7 @@ UniversalNetlistDocument
 ├── nets: NetConnections
 │   └── {netName}: { refdes: pin(s) }
 └── components: ComponentDetails
-    └── {refdes}: { mpn, description, pins: { pinNum: PinEntry } }
+    └── {refdes}: { mpn, internal_pn, manufacturer, description, pins: { pinNum: PinEntry } }
 ```
 
 ## UniversalNetlistDocument
@@ -51,7 +63,7 @@ The root schema representing a complete netlist.
   "type": "object",
   "properties": {
     "universalNetlistSchemaVersion": {
-      "const": 1
+      "const": 2
     },
     "metadata": {
       "type": "object",
@@ -120,7 +132,7 @@ The root schema representing a complete netlist.
 
 ```json
 {
-  "universalNetlistSchemaVersion": 1,
+  "universalNetlistSchemaVersion": 2,
   "metadata": {
     "generatedAt": "2026-09-01T12:34:56.789Z",
     "netlistHash": "sha256:d162573135e49348295f639ec3485dc0cb233cebbb56bbbb4f8055bc202e3649",
@@ -141,6 +153,8 @@ The root schema representing a complete netlist.
   "components": {
     "U1": {
       "mpn": "TPS62840DLCR",
+      "internal_pn": "INT-1002",
+      "manufacturer": "Example Mfr",
       "description": "IC REG BUCK ADJ 750MA 8WSON",
       "pins": {
         "2": { "name": "GND", "net": "GND" },
@@ -216,7 +230,15 @@ Maps reference designators to component information including pin-to-net mapping
     "properties": {
       "mpn": {
         "type": "string",
-        "description": "Manufacturer Part Number (omitted if missing)"
+        "description": "The manufacturer's part number (omitted if the design records none). Never filled from an internal part number or a library symbol name."
+      },
+      "internal_pn": {
+        "type": "string",
+        "description": "The part number the design owner identifies the part by (omitted if missing). A different namespace from mpn, not a synonym. Added in schema version 2."
+      },
+      "manufacturer": {
+        "type": "string",
+        "description": "The manufacturer's name (omitted if missing). An MPN is unique only within a manufacturer. Added in schema version 2."
       },
       "description": {
         "type": "string",
@@ -261,6 +283,7 @@ Maps reference designators to component information including pin-to-net mapping
   },
   "R1": {
     "mpn": "RC0402FR-071KL",
+    "internal_pn": "INT-1001",
     "description": "RES 1K OHM 1% 1/16W 0402",
     "value": "1k",
     "pins": {
@@ -330,6 +353,7 @@ Represents a pin-to-net connection. Uses a string for simple pins, or an object 
 ### KiCad
 
 - Component properties come from each `comp` record's `value`, `description`, and MPN-style fields
+- Manufacturer-specific and internal part numbers are kept separate; see [KiCad field mapping](shared-types.md#kicad-part-number-fields)
 - Net connections come from the `nets` section of the resolved `kicadsexpr` export
 - Pin names come from the `node` entries' `pinfunction`
 - Nets declared inside a hierarchical sheet carry the sheet path in their name (e.g. `/Peripherals/D0`)
@@ -379,7 +403,7 @@ parsed; then `source.vendor` and the canonical lowercase extension in
 `source.fileType` are required. `source.formatVersion` is optional because many
 files do not carry a reliable embedded format version.
 
-There is intentionally no `modifiedAt` in schema version 1: it cannot be kept
+There is intentionally no `modifiedAt` in the schema: it cannot be kept
 reliable when JSON may be hand-edited. Editing `nets` or `components` is allowed,
 but requires recomputing `netlistHash`. The hash detects a mismatch; it does not
 make the file immutable.
@@ -395,7 +419,7 @@ The file is validated on load, because the EDA parsers build a consistent netlis
 - `metadata.generatedAt` is missing or is not a canonical ISO 8601 UTC timestamp
 - `metadata.origin` is not a valid native or vendor origin, or vendor source metadata is incomplete
 - `nets` or `components` is not an object, or the document carries any other top-level or metadata key
-- a component has no `pins` object, a text field (`mpn`, `description`, `comment`, `value`) that is not a string, or a `dns` that is not a boolean
+- a component has no `pins` object, a text field (`mpn`, `internal_pn`, `manufacturer`, `description`, `comment`, `value`) that is not a string, or a `dns` that is not a boolean
 - a pin entry is neither a net name nor an object with exactly `name` and `net`
 - a net member is neither a pin number nor an array of pin numbers, is empty, or lists the same pin twice
 - a net lists a component or a pin that is not declared, or a pin whose component entry puts it on a different net

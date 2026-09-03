@@ -7,7 +7,7 @@ import { applyChannelFormat } from "./index.js";
  * failure points at something reproducible rather than at an invented case.
  */
 describe("applyChannelFormat", () => {
-  it("substitutes $Component and $RoomName (aberrant-sound-module, PW-Sat2, HELIOS-R)", () => {
+  it("substitutes $Component and $RoomName", () => {
     expect(applyChannelFormat("$Component_$RoomName", "DD12", "AY1", 1)).toBe("DD12_AY1");
     expect(applyChannelFormat("$Component_$RoomName", "R4", "AY3", 3)).toBe("R4_AY3");
   });

@@ -1,8 +1,8 @@
 {
-  "universalNetlistSchemaVersion": 1,
+  "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-01T21:46:12.219Z",
-    "netlistHash": "sha256:a29632fe5cb1f902454d15e6d8390bd1be1794b1da133b4e5f6140a200938d23",
+    "generatedAt": "2026-09-03T01:02:27.753Z",
+    "netlistHash": "sha256:333fe3354b81cb99c8399fca80804db373e73ba629ec9c0889e4447145595934",
     "origin": {
       "type": "vendor",
       "source": {
@@ -10093,7 +10093,8 @@
       "pins": {},
       "value": "Mech_Lightpipe_Mentor_1296.2013",
       "description": "PCB Mounted 3-Way Right Angle LED Light Pipe, Tri-Level-Row Clear Dome Lens",
-      "mpn": "1296.2013"
+      "mpn": "1296.2013",
+      "manufacturer": "MENTOR"
     },
     "MP1": {
       "pins": {},
@@ -10125,7 +10126,8 @@
         "2": "GND"
       },
       "value": "C_47u_0603",
-      "mpn": "GRM188R60J476ME15D"
+      "mpn": "GRM188R60J476ME15D",
+      "manufacturer": "Murata"
     },
     "C103": {
       "pins": {
@@ -10133,7 +10135,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C104": {
       "pins": {
@@ -10141,7 +10144,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C105": {
       "pins": {
@@ -10149,7 +10153,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "R56": {
       "pins": {
@@ -10158,7 +10163,8 @@
       },
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1002GLF"
+      "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns"
     },
     "R61": {
       "pins": {
@@ -10167,7 +10173,8 @@
       },
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1002GLF"
+      "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns"
     },
     "U11": {
       "pins": {
@@ -10269,7 +10276,8 @@
         }
       },
       "value": "S27KL0641DABHI023",
-      "mpn": "S27KL0641DABHI023"
+      "mpn": "S27KL0641DABHI023",
+      "manufacturer": "Cypress Semiconductor"
     },
     "C5": {
       "pins": {
@@ -10277,7 +10285,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C12": {
       "pins": {
@@ -10285,7 +10294,8 @@
         "2": "GND"
       },
       "value": "C_47u_0603",
-      "mpn": "GRM188R60J476ME15D"
+      "mpn": "GRM188R60J476ME15D",
+      "manufacturer": "Murata"
     },
     "C13": {
       "pins": {
@@ -10293,7 +10303,8 @@
         "2": "GND"
       },
       "value": "C_470n_0402",
-      "mpn": "C1005X5R1E474M050BB"
+      "mpn": "C1005X5R1E474M050BB",
+      "manufacturer": "TDK"
     },
     "C37": {
       "pins": {
@@ -10301,7 +10312,8 @@
         "2": "GND"
       },
       "value": "C_470n_0402",
-      "mpn": "C1005X5R1E474M050BB"
+      "mpn": "C1005X5R1E474M050BB",
+      "manufacturer": "TDK"
     },
     "D1": {
       "pins": {
@@ -10309,7 +10321,8 @@
         "2": "Net-(D1-Pad2)"
       },
       "value": "LED_G_0603_KP-1608CGCK",
-      "mpn": "KP-1608CGCK"
+      "mpn": "KP-1608CGCK",
+      "manufacturer": "Kingbright"
     },
     "D4": {
       "pins": {
@@ -10372,6 +10385,7 @@
       },
       "value": "TPD6E05U06RVZR",
       "mpn": "TPD6E05U06RVZR",
+      "manufacturer": "Texas Instruments",
       "dns": true
     },
     "D10": {
@@ -10380,7 +10394,8 @@
         "2": "Net-(D10-Pad2)"
       },
       "value": "LED_G_0603_KP-1608CGCK",
-      "mpn": "KP-1608CGCK"
+      "mpn": "KP-1608CGCK",
+      "manufacturer": "Kingbright"
     },
     "EMCCLK1": {
       "pins": {
@@ -10409,6 +10424,7 @@
       "value": "PinHeader_2x7_P2mm_SMD_Shrouded_no-locator",
       "description": "Pin Header, Signal, Wire-to-Board, 2 mm, 2 Rows, 14 Contacts, Surface Mount Straight",
       "mpn": "878321412",
+      "manufacturer": "Molex",
       "dns": true
     },
     "PROG_B1": {
@@ -10418,7 +10434,8 @@
       },
       "value": "SW_B3U-1000P",
       "description": "Tactile Switch, B3U, Top Actuated, Surface Mount, Round Button, 153 gf, 50mA at 12VDC",
-      "mpn": "B3U-1000P"
+      "mpn": "B3U-1000P",
+      "manufacturer": "Omron"
     },
     "PUDC_B1": {
       "pins": {
@@ -10444,7 +10461,8 @@
       },
       "value": "BSS138PW",
       "description": "60 V, 320 mA N-channel enhancement mode Trench MOSFET, SC-70-3 aka SOT-323 package",
-      "mpn": "BSS138PW"
+      "mpn": "BSS138PW",
+      "manufacturer": "Nexperia"
     },
     "Q8": {
       "pins": {
@@ -10463,7 +10481,8 @@
       },
       "value": "BSS138PW",
       "description": "60 V, 320 mA N-channel enhancement mode Trench MOSFET, SC-70-3 aka SOT-323 package",
-      "mpn": "BSS138PW"
+      "mpn": "BSS138PW",
+      "manufacturer": "Nexperia"
     },
     "R9": {
       "pins": {
@@ -10472,7 +10491,8 @@
       },
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
-      "mpn": "ERJ2GE0R00X"
+      "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic"
     },
     "R10": {
       "pins": {
@@ -10481,7 +10501,8 @@
       },
       "value": "R_100R_0402",
       "description": "100R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1000GLF"
+      "mpn": "CR0402-FX-1000GLF",
+      "manufacturer": "Bourns"
     },
     "R11": {
       "pins": {
@@ -10491,6 +10512,7 @@
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
       "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic",
       "dns": true
     },
     "R12": {
@@ -10501,6 +10523,7 @@
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
       "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic",
       "dns": true
     },
     "R13": {
@@ -10510,7 +10533,8 @@
       },
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
-      "mpn": "ERJ2GE0R00X"
+      "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic"
     },
     "R14": {
       "pins": {
@@ -10519,7 +10543,8 @@
       },
       "value": "R_2k2_0402",
       "description": "2k2 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-2201GLF"
+      "mpn": "CR0402-FX-2201GLF",
+      "manufacturer": "Bourns"
     },
     "R21": {
       "pins": {
@@ -10528,7 +10553,8 @@
       },
       "value": "R_4k7_0402",
       "description": "4k7 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-4701GLF"
+      "mpn": "CR0402-FX-4701GLF",
+      "manufacturer": "Bourns"
     },
     "R22": {
       "pins": {
@@ -10537,7 +10563,8 @@
       },
       "value": "R_4k7_0402",
       "description": "4k7 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-4701GLF"
+      "mpn": "CR0402-FX-4701GLF",
+      "manufacturer": "Bourns"
     },
     "R23": {
       "pins": {
@@ -10546,7 +10573,8 @@
       },
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
-      "mpn": "ERJ2GE0R00X"
+      "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic"
     },
     "R24": {
       "pins": {
@@ -10555,7 +10583,8 @@
       },
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
-      "mpn": "ERJ2GE0R00X"
+      "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic"
     },
     "R26": {
       "pins": {
@@ -10564,7 +10593,8 @@
       },
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
-      "mpn": "ERJ2GE0R00X"
+      "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic"
     },
     "R27": {
       "pins": {
@@ -10573,7 +10603,8 @@
       },
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
-      "mpn": "ERJ2GE0R00X"
+      "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic"
     },
     "R28": {
       "pins": {
@@ -10582,7 +10613,8 @@
       },
       "value": "R_4k7_0402",
       "description": "4k7 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-4701GLF"
+      "mpn": "CR0402-FX-4701GLF",
+      "manufacturer": "Bourns"
     },
     "R30": {
       "pins": {
@@ -10591,7 +10623,8 @@
       },
       "value": "R_330R_0402",
       "description": "330R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-3300GLF"
+      "mpn": "CR0402-FX-3300GLF",
+      "manufacturer": "Bourns"
     },
     "R31": {
       "pins": {
@@ -10600,7 +10633,8 @@
       },
       "value": "R_330R_0402",
       "description": "330R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-3300GLF"
+      "mpn": "CR0402-FX-3300GLF",
+      "manufacturer": "Bourns"
     },
     "R32": {
       "pins": {
@@ -10609,7 +10643,8 @@
       },
       "value": "R_4k7_0402",
       "description": "4k7 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-4701GLF"
+      "mpn": "CR0402-FX-4701GLF",
+      "manufacturer": "Bourns"
     },
     "R33": {
       "pins": {
@@ -10619,6 +10654,7 @@
       "value": "R_100R_0402",
       "description": "100R resistor in 0402 package with 1% tolerance",
       "mpn": "CR0402-FX-1000GLF",
+      "manufacturer": "Bourns",
       "dns": true
     },
     "R34": {
@@ -10629,6 +10665,7 @@
       "value": "R_100R_0402",
       "description": "100R resistor in 0402 package with 1% tolerance",
       "mpn": "CR0402-FX-1000GLF",
+      "manufacturer": "Bourns",
       "dns": true
     },
     "R36": {
@@ -10639,6 +10676,7 @@
       "value": "R_100R_0402",
       "description": "100R resistor in 0402 package with 1% tolerance",
       "mpn": "CR0402-FX-1000GLF",
+      "manufacturer": "Bourns",
       "dns": true
     },
     "R57": {
@@ -10648,7 +10686,8 @@
       },
       "value": "R_330R_0402",
       "description": "330R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-3300GLF"
+      "mpn": "CR0402-FX-3300GLF",
+      "manufacturer": "Bourns"
     },
     "R58": {
       "pins": {
@@ -10657,7 +10696,8 @@
       },
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
-      "mpn": "ERJ2GE0R00X"
+      "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic"
     },
     "R59": {
       "pins": {
@@ -10666,7 +10706,8 @@
       },
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
-      "mpn": "ERJ2GE0R00X"
+      "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic"
     },
     "R60": {
       "pins": {
@@ -10675,7 +10716,8 @@
       },
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
-      "mpn": "ERJ2GE0R00X"
+      "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic"
     },
     "R193": {
       "pins": {
@@ -10684,7 +10726,8 @@
       },
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1002GLF"
+      "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns"
     },
     "S2": {
       "pins": {
@@ -10693,7 +10736,8 @@
       },
       "value": "SW_DS04-254-1-01BK-SMT",
       "description": "Slide switch",
-      "mpn": "DS04-254-1-01BK-SMT"
+      "mpn": "DS04-254-1-01BK-SMT",
+      "manufacturer": "CUI Inc"
     },
     "U3": {
       "pins": {
@@ -10736,7 +10780,8 @@
       },
       "value": "S25FL128SAGNFI000",
       "description": "28 Mbit (16 Mbyte)/256 Mbit (32 Mbyte), 3.0V SPI Flash Memory",
-      "mpn": "S25FL128SAGNFI000"
+      "mpn": "S25FL128SAGNFI000",
+      "manufacturer": "Cypress Semiconductor"
     },
     "U15": {
       "pins": {
@@ -13447,7 +13492,8 @@
       },
       "value": "XC7K160T-FFG676",
       "description": "Kintex®-7 Field Programmable Gate Array (FPGA) IC 300 4976640 65600 676-BBGA, FCBGA",
-      "mpn": "XC7K160T-FFG676"
+      "mpn": "XC7K160T-FFG676",
+      "manufacturer": "AMD-Xilinx"
     },
     "C153": {
       "pins": {
@@ -13455,7 +13501,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C154": {
       "pins": {
@@ -13463,7 +13510,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C160": {
       "pins": {
@@ -13471,7 +13519,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C161": {
       "pins": {
@@ -13479,7 +13528,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C162": {
       "pins": {
@@ -13487,7 +13537,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C163": {
       "pins": {
@@ -13495,7 +13546,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C164": {
       "pins": {
@@ -13503,7 +13555,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C165": {
       "pins": {
@@ -13511,7 +13564,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C166": {
       "pins": {
@@ -13519,7 +13573,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C167": {
       "pins": {
@@ -13527,7 +13582,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C168": {
       "pins": {
@@ -13535,7 +13591,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C169": {
       "pins": {
@@ -13543,7 +13600,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C170": {
       "pins": {
@@ -13551,7 +13609,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C171": {
       "pins": {
@@ -13559,7 +13618,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C173": {
       "pins": {
@@ -13567,7 +13627,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C176": {
       "pins": {
@@ -13575,7 +13636,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C177": {
       "pins": {
@@ -13583,7 +13645,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C179": {
       "pins": {
@@ -13591,7 +13654,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C181": {
       "pins": {
@@ -13599,7 +13663,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C199": {
       "pins": {
@@ -13607,7 +13672,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C200": {
       "pins": {
@@ -13615,7 +13681,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C201": {
       "pins": {
@@ -13623,7 +13690,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C202": {
       "pins": {
@@ -13631,7 +13699,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C203": {
       "pins": {
@@ -13639,7 +13708,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C204": {
       "pins": {
@@ -13647,7 +13717,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C205": {
       "pins": {
@@ -13655,7 +13726,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C208": {
       "pins": {
@@ -13663,7 +13735,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C209": {
       "pins": {
@@ -13671,7 +13744,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C210": {
       "pins": {
@@ -13679,7 +13753,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C211": {
       "pins": {
@@ -13687,7 +13762,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C212": {
       "pins": {
@@ -13695,7 +13771,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C213": {
       "pins": {
@@ -13703,7 +13780,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C214": {
       "pins": {
@@ -13711,7 +13789,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "R157": {
       "pins": {
@@ -13721,6 +13800,7 @@
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
       "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic",
       "dns": true
     },
     "R158": {
@@ -13730,7 +13810,8 @@
       },
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
-      "mpn": "ERJ2GE0R00X"
+      "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic"
     },
     "R185": {
       "pins": {
@@ -13740,6 +13821,7 @@
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
       "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic",
       "dns": true
     },
     "R186": {
@@ -13749,7 +13831,8 @@
       },
       "value": "R_100k_0402",
       "description": "100k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1003GLF"
+      "mpn": "CR0402-FX-1003GLF",
+      "manufacturer": "Bourns"
     },
     "TP10": {
       "pins": {
@@ -14927,7 +15010,8 @@
       },
       "value": "Bus_DDR4_2199155-1",
       "description": "DDR4 RDIMM 288 Pin SMT type",
-      "mpn": "2199155-1"
+      "mpn": "2199155-1",
+      "manufacturer": "TE Connectivity"
     },
     "C3": {
       "pins": {
@@ -14935,7 +15019,8 @@
         "2": "GND"
       },
       "value": "C_47u_0603",
-      "mpn": "GRM188R60J476ME15D"
+      "mpn": "GRM188R60J476ME15D",
+      "manufacturer": "Murata"
     },
     "C6": {
       "pins": {
@@ -14943,7 +15028,8 @@
         "2": "GND"
       },
       "value": "C_47u_0603",
-      "mpn": "GRM188R60J476ME15D"
+      "mpn": "GRM188R60J476ME15D",
+      "manufacturer": "Murata"
     },
     "C7": {
       "pins": {
@@ -14951,7 +15037,8 @@
         "2": "GND"
       },
       "value": "C_4u7_0402",
-      "mpn": "GRM155R61A475MEAAD"
+      "mpn": "GRM155R61A475MEAAD",
+      "manufacturer": "Murata"
     },
     "C8": {
       "pins": {
@@ -14959,7 +15046,8 @@
         "2": "GND"
       },
       "value": "C_330u_KEMET_D",
-      "mpn": "T520D337M006ATE045"
+      "mpn": "T520D337M006ATE045",
+      "manufacturer": "KEMET"
     },
     "C9": {
       "pins": {
@@ -14967,7 +15055,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C11": {
       "pins": {
@@ -14975,7 +15064,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C14": {
       "pins": {
@@ -14983,7 +15073,8 @@
         "2": "GND"
       },
       "value": "C_4u7_0402",
-      "mpn": "GRM155R61A475MEAAD"
+      "mpn": "GRM155R61A475MEAAD",
+      "manufacturer": "Murata"
     },
     "C15": {
       "pins": {
@@ -14991,7 +15082,8 @@
         "2": "GND"
       },
       "value": "C_47u_0603",
-      "mpn": "GRM188R60J476ME15D"
+      "mpn": "GRM188R60J476ME15D",
+      "manufacturer": "Murata"
     },
     "C16": {
       "pins": {
@@ -14999,7 +15091,8 @@
         "2": "GND"
       },
       "value": "C_4u7_0402",
-      "mpn": "GRM155R61A475MEAAD"
+      "mpn": "GRM155R61A475MEAAD",
+      "manufacturer": "Murata"
     },
     "C17": {
       "pins": {
@@ -15007,7 +15100,8 @@
         "2": "GND"
       },
       "value": "C_4u7_0402",
-      "mpn": "GRM155R61A475MEAAD"
+      "mpn": "GRM155R61A475MEAAD",
+      "manufacturer": "Murata"
     },
     "C19": {
       "pins": {
@@ -15015,7 +15109,8 @@
         "2": "GND"
       },
       "value": "C_4u7_0402",
-      "mpn": "GRM155R61A475MEAAD"
+      "mpn": "GRM155R61A475MEAAD",
+      "manufacturer": "Murata"
     },
     "C20": {
       "pins": {
@@ -15023,7 +15118,8 @@
         "2": "GND"
       },
       "value": "C_100u_KEMET_A",
-      "mpn": "298D107X06R3A2T"
+      "mpn": "298D107X06R3A2T",
+      "manufacturer": "Vishay"
     },
     "C21": {
       "pins": {
@@ -15031,7 +15127,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C22": {
       "pins": {
@@ -15039,7 +15136,8 @@
         "2": "GND"
       },
       "value": "C_47u_0603",
-      "mpn": "GRM188R60J476ME15D"
+      "mpn": "GRM188R60J476ME15D",
+      "manufacturer": "Murata"
     },
     "C23": {
       "pins": {
@@ -15047,7 +15145,8 @@
         "2": "GND"
       },
       "value": "C_47u_0603",
-      "mpn": "GRM188R60J476ME15D"
+      "mpn": "GRM188R60J476ME15D",
+      "manufacturer": "Murata"
     },
     "C24": {
       "pins": {
@@ -15055,7 +15154,8 @@
         "2": "GND"
       },
       "value": "C_47u_0603",
-      "mpn": "GRM188R60J476ME15D"
+      "mpn": "GRM188R60J476ME15D",
+      "manufacturer": "Murata"
     },
     "C25": {
       "pins": {
@@ -15063,7 +15163,8 @@
         "2": "GND"
       },
       "value": "C_47u_0603",
-      "mpn": "GRM188R60J476ME15D"
+      "mpn": "GRM188R60J476ME15D",
+      "manufacturer": "Murata"
     },
     "C26": {
       "pins": {
@@ -15071,7 +15172,8 @@
         "2": "GND"
       },
       "value": "C_330u_KEMET_D",
-      "mpn": "T520D337M006ATE045"
+      "mpn": "T520D337M006ATE045",
+      "manufacturer": "KEMET"
     },
     "C32": {
       "pins": {
@@ -15079,7 +15181,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C34": {
       "pins": {
@@ -15087,7 +15190,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C43": {
       "pins": {
@@ -15095,7 +15199,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C44": {
       "pins": {
@@ -15103,7 +15208,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C47": {
       "pins": {
@@ -15111,7 +15217,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C48": {
       "pins": {
@@ -15119,7 +15226,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C49": {
       "pins": {
@@ -15127,7 +15235,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C50": {
       "pins": {
@@ -15135,7 +15244,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C51": {
       "pins": {
@@ -15143,7 +15253,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C52": {
       "pins": {
@@ -15151,7 +15262,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C53": {
       "pins": {
@@ -15159,7 +15271,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C54": {
       "pins": {
@@ -15167,7 +15280,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C55": {
       "pins": {
@@ -15175,7 +15289,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C56": {
       "pins": {
@@ -15183,7 +15298,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C57": {
       "pins": {
@@ -15191,7 +15307,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C58": {
       "pins": {
@@ -15199,7 +15316,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C59": {
       "pins": {
@@ -15207,7 +15325,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C60": {
       "pins": {
@@ -15215,7 +15334,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C61": {
       "pins": {
@@ -15223,7 +15343,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C62": {
       "pins": {
@@ -15231,7 +15352,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C63": {
       "pins": {
@@ -15239,7 +15361,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C64": {
       "pins": {
@@ -15247,7 +15370,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C65": {
       "pins": {
@@ -15255,7 +15379,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C66": {
       "pins": {
@@ -15263,7 +15388,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C67": {
       "pins": {
@@ -15271,7 +15397,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C68": {
       "pins": {
@@ -15279,7 +15406,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C69": {
       "pins": {
@@ -15287,7 +15415,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C70": {
       "pins": {
@@ -15295,7 +15424,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C71": {
       "pins": {
@@ -15303,7 +15433,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C72": {
       "pins": {
@@ -15311,7 +15442,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C73": {
       "pins": {
@@ -15319,7 +15451,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C74": {
       "pins": {
@@ -15327,7 +15460,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C75": {
       "pins": {
@@ -15335,7 +15469,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C76": {
       "pins": {
@@ -15343,7 +15478,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C77": {
       "pins": {
@@ -15351,7 +15487,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C78": {
       "pins": {
@@ -15359,7 +15496,8 @@
         "2": "GND"
       },
       "value": "C_47u_0603",
-      "mpn": "GRM188R60J476ME15D"
+      "mpn": "GRM188R60J476ME15D",
+      "manufacturer": "Murata"
     },
     "C79": {
       "pins": {
@@ -15367,7 +15505,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C80": {
       "pins": {
@@ -15375,7 +15514,8 @@
         "2": "GND"
       },
       "value": "C_47u_0603",
-      "mpn": "GRM188R60J476ME15D"
+      "mpn": "GRM188R60J476ME15D",
+      "manufacturer": "Murata"
     },
     "C81": {
       "pins": {
@@ -15383,7 +15523,8 @@
         "2": "GND"
       },
       "value": "C_47u_0603",
-      "mpn": "GRM188R60J476ME15D"
+      "mpn": "GRM188R60J476ME15D",
+      "manufacturer": "Murata"
     },
     "C82": {
       "pins": {
@@ -15391,7 +15532,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C83": {
       "pins": {
@@ -15399,7 +15541,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C84": {
       "pins": {
@@ -15407,7 +15550,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C85": {
       "pins": {
@@ -15415,7 +15559,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C86": {
       "pins": {
@@ -15423,7 +15568,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C87": {
       "pins": {
@@ -15431,7 +15577,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C88": {
       "pins": {
@@ -15439,7 +15586,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C89": {
       "pins": {
@@ -15447,7 +15595,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C90": {
       "pins": {
@@ -15455,7 +15604,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C91": {
       "pins": {
@@ -15463,7 +15613,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C92": {
       "pins": {
@@ -15471,7 +15622,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C93": {
       "pins": {
@@ -15479,7 +15631,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C94": {
       "pins": {
@@ -15487,7 +15640,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C95": {
       "pins": {
@@ -15495,7 +15649,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C114": {
       "pins": {
@@ -15503,7 +15658,8 @@
         "2": "GND"
       },
       "value": "C_47u_0603",
-      "mpn": "GRM188R60J476ME15D"
+      "mpn": "GRM188R60J476ME15D",
+      "manufacturer": "Murata"
     },
     "C115": {
       "pins": {
@@ -15511,7 +15667,8 @@
         "2": "GND"
       },
       "value": "C_4u7_0402",
-      "mpn": "GRM155R61A475MEAAD"
+      "mpn": "GRM155R61A475MEAAD",
+      "manufacturer": "Murata"
     },
     "C143": {
       "pins": {
@@ -15519,7 +15676,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C144": {
       "pins": {
@@ -15527,7 +15685,8 @@
         "2": "GND"
       },
       "value": "C_4u7_0402",
-      "mpn": "GRM155R61A475MEAAD"
+      "mpn": "GRM155R61A475MEAAD",
+      "manufacturer": "Murata"
     },
     "C231": {
       "pins": {
@@ -15535,7 +15694,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C238": {
       "pins": {
@@ -15543,7 +15703,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C239": {
       "pins": {
@@ -15551,7 +15712,8 @@
         "2": "GND"
       },
       "value": "C_4u7_0402",
-      "mpn": "GRM155R61A475MEAAD"
+      "mpn": "GRM155R61A475MEAAD",
+      "manufacturer": "Murata"
     },
     "C240": {
       "pins": {
@@ -15559,7 +15721,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C241": {
       "pins": {
@@ -15567,7 +15730,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C242": {
       "pins": {
@@ -15575,7 +15739,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C243": {
       "pins": {
@@ -15583,7 +15748,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C244": {
       "pins": {
@@ -15591,7 +15757,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C245": {
       "pins": {
@@ -15599,7 +15766,8 @@
         "2": "GND"
       },
       "value": "C_4u7_0402",
-      "mpn": "GRM155R61A475MEAAD"
+      "mpn": "GRM155R61A475MEAAD",
+      "manufacturer": "Murata"
     },
     "C248": {
       "pins": {
@@ -15607,7 +15775,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C249": {
       "pins": {
@@ -15615,7 +15784,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C250": {
       "pins": {
@@ -15623,7 +15793,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C251": {
       "pins": {
@@ -15631,7 +15802,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C253": {
       "pins": {
@@ -15639,7 +15811,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C254": {
       "pins": {
@@ -15647,7 +15820,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C255": {
       "pins": {
@@ -15655,7 +15829,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C256": {
       "pins": {
@@ -15663,7 +15838,8 @@
         "2": "GND"
       },
       "value": "C_4u7_0402",
-      "mpn": "GRM155R61A475MEAAD"
+      "mpn": "GRM155R61A475MEAAD",
+      "manufacturer": "Murata"
     },
     "C276": {
       "pins": {
@@ -15671,7 +15847,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C277": {
       "pins": {
@@ -15679,7 +15856,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C278": {
       "pins": {
@@ -15687,7 +15865,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C279": {
       "pins": {
@@ -15695,7 +15874,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C286": {
       "pins": {
@@ -15703,7 +15883,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C294": {
       "pins": {
@@ -15711,7 +15892,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C295": {
       "pins": {
@@ -15719,7 +15901,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C296": {
       "pins": {
@@ -15727,7 +15910,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C297": {
       "pins": {
@@ -15735,7 +15919,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C298": {
       "pins": {
@@ -15743,7 +15928,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C299": {
       "pins": {
@@ -15751,7 +15937,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C300": {
       "pins": {
@@ -15759,7 +15946,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C301": {
       "pins": {
@@ -15767,7 +15955,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C302": {
       "pins": {
@@ -15775,7 +15964,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C303": {
       "pins": {
@@ -15783,7 +15973,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C304": {
       "pins": {
@@ -15791,7 +15982,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C305": {
       "pins": {
@@ -15799,7 +15991,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C306": {
       "pins": {
@@ -15807,7 +16000,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C307": {
       "pins": {
@@ -15815,7 +16009,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C308": {
       "pins": {
@@ -15823,7 +16018,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C309": {
       "pins": {
@@ -15831,7 +16027,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C310": {
       "pins": {
@@ -15839,7 +16036,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C313": {
       "pins": {
@@ -15847,7 +16045,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C314": {
       "pins": {
@@ -15855,7 +16054,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "R207": {
       "pins": {
@@ -15864,7 +16064,8 @@
       },
       "value": "R_100R_0402",
       "description": "100R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1000GLF"
+      "mpn": "CR0402-FX-1000GLF",
+      "manufacturer": "Bourns"
     },
     "C10": {
       "pins": {
@@ -15872,7 +16073,8 @@
         "2": "GND"
       },
       "value": "C_1u_0402",
-      "mpn": "C1005X6S1A105K050BC"
+      "mpn": "C1005X6S1A105K050BC",
+      "manufacturer": "TDK"
     },
     "C184": {
       "pins": {
@@ -15880,7 +16082,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C185": {
       "pins": {
@@ -15888,7 +16091,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C186": {
       "pins": {
@@ -15896,7 +16100,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C187": {
       "pins": {
@@ -15904,7 +16109,8 @@
         "2": "GND"
       },
       "value": "C_4u7_0402",
-      "mpn": "GRM155R61A475MEAAD"
+      "mpn": "GRM155R61A475MEAAD",
+      "manufacturer": "Murata"
     },
     "C188": {
       "pins": {
@@ -15912,7 +16118,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C189": {
       "pins": {
@@ -15920,7 +16127,8 @@
         "2": "GND"
       },
       "value": "C_4u7_0402",
-      "mpn": "GRM155R61A475MEAAD"
+      "mpn": "GRM155R61A475MEAAD",
+      "manufacturer": "Murata"
     },
     "C190": {
       "pins": {
@@ -15928,7 +16136,8 @@
         "2": "GND"
       },
       "value": "C_18p_0402",
-      "mpn": "MC0402N180J500CT"
+      "mpn": "MC0402N180J500CT",
+      "manufacturer": "Multicomp"
     },
     "C191": {
       "pins": {
@@ -15936,7 +16145,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C192": {
       "pins": {
@@ -15944,7 +16154,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C193": {
       "pins": {
@@ -15952,7 +16163,8 @@
         "2": "GND"
       },
       "value": "C_18p_0402",
-      "mpn": "MC0402N180J500CT"
+      "mpn": "MC0402N180J500CT",
+      "manufacturer": "Multicomp"
     },
     "C195": {
       "pins": {
@@ -15960,7 +16172,8 @@
         "2": "GND"
       },
       "value": "C_4u7_0402",
-      "mpn": "GRM155R61A475MEAAD"
+      "mpn": "GRM155R61A475MEAAD",
+      "manufacturer": "Murata"
     },
     "C196": {
       "pins": {
@@ -15968,7 +16181,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C197": {
       "pins": {
@@ -15976,7 +16190,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C226": {
       "pins": {
@@ -15985,6 +16200,7 @@
       },
       "value": "C_1u_0402",
       "mpn": "C1005X6S1A105K050BC",
+      "manufacturer": "TDK",
       "dns": true
     },
     "C252": {
@@ -15993,7 +16209,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C311": {
       "pins": {
@@ -16001,7 +16218,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "D3": {
       "pins": {
@@ -16011,7 +16229,8 @@
       },
       "value": "TPD2E009_SOT-9X3",
       "description": "2-Channel ESD Solution for High-Speed (6-Gbps) Differential Interface",
-      "mpn": "TPD2E009DRTR"
+      "mpn": "TPD2E009DRTR",
+      "manufacturer": "Texas Instruments"
     },
     "D5": {
       "pins": {
@@ -16019,7 +16238,8 @@
         "2": "Net-(D5-Pad2)"
       },
       "value": "LED_G_0603_KP-1608CGCK",
-      "mpn": "KP-1608CGCK"
+      "mpn": "KP-1608CGCK",
+      "manufacturer": "Kingbright"
     },
     "D6": {
       "pins": {
@@ -16027,7 +16247,8 @@
         "2": "Net-(D6-Pad2)"
       },
       "value": "LED_G_0603_KP-1608CGCK",
-      "mpn": "KP-1608CGCK"
+      "mpn": "KP-1608CGCK",
+      "manufacturer": "Kingbright"
     },
     "D7": {
       "pins": {
@@ -16035,7 +16256,8 @@
         "2": "Net-(D7-Pad2)"
       },
       "value": "LED_G_0603_KP-1608CGCK",
-      "mpn": "KP-1608CGCK"
+      "mpn": "KP-1608CGCK",
+      "manufacturer": "Kingbright"
     },
     "D8": {
       "pins": {
@@ -16043,7 +16265,8 @@
         "2": "Net-(D8-Pad2)"
       },
       "value": "LED_G_0603_KP-1608CGCK",
-      "mpn": "KP-1608CGCK"
+      "mpn": "KP-1608CGCK",
+      "manufacturer": "Kingbright"
     },
     "D9": {
       "pins": {
@@ -16051,7 +16274,8 @@
         "2": "Net-(D9-Pad2)"
       },
       "value": "LED_G_0603_KP-1608CGCK",
-      "mpn": "KP-1608CGCK"
+      "mpn": "KP-1608CGCK",
+      "manufacturer": "Kingbright"
     },
     "D17": {
       "pins": {
@@ -16074,7 +16298,8 @@
       },
       "value": "LED_RGY_0606_APTF1616SURKCGKSYKC",
       "description": "Standard LEDs - SMD RGY 1616 SMD",
-      "mpn": "APTF1616SURKCGKSYKC"
+      "mpn": "APTF1616SURKCGKSYKC",
+      "manufacturer": "Kingbright"
     },
     "FB4": {
       "pins": {
@@ -16083,7 +16308,8 @@
       },
       "value": "FB_600Z_0.5A_0603",
       "description": "Ferrite Beads WE-TMSB Suppression 240Ohm 200mA",
-      "mpn": "BLM18AG601SN1D"
+      "mpn": "BLM18AG601SN1D",
+      "manufacturer": "Murata"
     },
     "FB5": {
       "pins": {
@@ -16092,7 +16318,8 @@
       },
       "value": "FB_600Z_0.5A_0603",
       "description": "Ferrite Beads WE-TMSB Suppression 240Ohm 200mA",
-      "mpn": "BLM18AG601SN1D"
+      "mpn": "BLM18AG601SN1D",
+      "manufacturer": "Murata"
     },
     "IC3": {
       "pins": {
@@ -16158,7 +16385,8 @@
         }
       },
       "value": "TPD8S009DSMR",
-      "mpn": "TPD8S009DSMR"
+      "mpn": "TPD8S009DSMR",
+      "manufacturer": "Texas Instruments"
     },
     "J6": {
       "pins": {
@@ -16242,7 +16470,8 @@
       },
       "value": "HDMI_A_Female_685119134923",
       "description": "HDMI Receptacle Connector 19 Position Surface Mount, Right Angle; Through Hole",
-      "mpn": "685119134923"
+      "mpn": "685119134923",
+      "manufacturer": "Würth Elektronik"
     },
     "J7": {
       "pins": {
@@ -16286,7 +16515,8 @@
       },
       "value": "MicroSD_693071020811",
       "description": "SMT MICRO SD CARD CONNECTOR, PUSH-PUSH",
-      "mpn": "693071020811"
+      "mpn": "693071020811",
+      "manufacturer": "Würth Elektronik"
     },
     "J9": {
       "pins": {
@@ -16360,7 +16590,8 @@
         }
       },
       "value": "USB-C_USB4105-GF-A",
-      "mpn": "USB4105-GF-A"
+      "mpn": "USB4105-GF-A",
+      "manufacturer": "GCT"
     },
     "Q1": {
       "pins": {
@@ -16379,7 +16610,8 @@
       },
       "value": "BSS138PW",
       "description": "60 V, 320 mA N-channel enhancement mode Trench MOSFET, SC-70-3 aka SOT-323 package",
-      "mpn": "BSS138PW"
+      "mpn": "BSS138PW",
+      "manufacturer": "Nexperia"
     },
     "Q2": {
       "pins": {
@@ -16398,7 +16630,8 @@
       },
       "value": "BSS138PW",
       "description": "60 V, 320 mA N-channel enhancement mode Trench MOSFET, SC-70-3 aka SOT-323 package",
-      "mpn": "BSS138PW"
+      "mpn": "BSS138PW",
+      "manufacturer": "Nexperia"
     },
     "Q3": {
       "pins": {
@@ -16417,7 +16650,8 @@
       },
       "value": "BSS138PW",
       "description": "60 V, 320 mA N-channel enhancement mode Trench MOSFET, SC-70-3 aka SOT-323 package",
-      "mpn": "BSS138PW"
+      "mpn": "BSS138PW",
+      "manufacturer": "Nexperia"
     },
     "Q4": {
       "pins": {
@@ -16436,7 +16670,8 @@
       },
       "value": "BSS138PW",
       "description": "60 V, 320 mA N-channel enhancement mode Trench MOSFET, SC-70-3 aka SOT-323 package",
-      "mpn": "BSS138PW"
+      "mpn": "BSS138PW",
+      "manufacturer": "Nexperia"
     },
     "Q5": {
       "pins": {
@@ -16455,7 +16690,8 @@
       },
       "value": "BSS138PW",
       "description": "60 V, 320 mA N-channel enhancement mode Trench MOSFET, SC-70-3 aka SOT-323 package",
-      "mpn": "BSS138PW"
+      "mpn": "BSS138PW",
+      "manufacturer": "Nexperia"
     },
     "Q6": {
       "pins": {
@@ -16474,7 +16710,8 @@
       },
       "value": "BSS138PW",
       "description": "60 V, 320 mA N-channel enhancement mode Trench MOSFET, SC-70-3 aka SOT-323 package",
-      "mpn": "BSS138PW"
+      "mpn": "BSS138PW",
+      "manufacturer": "Nexperia"
     },
     "Q9": {
       "pins": {
@@ -16493,7 +16730,8 @@
       },
       "value": "BSS138PW",
       "description": "60 V, 320 mA N-channel enhancement mode Trench MOSFET, SC-70-3 aka SOT-323 package",
-      "mpn": "BSS138PW"
+      "mpn": "BSS138PW",
+      "manufacturer": "Nexperia"
     },
     "Q10": {
       "pins": {
@@ -16512,7 +16750,8 @@
       },
       "value": "BSS138PW",
       "description": "60 V, 320 mA N-channel enhancement mode Trench MOSFET, SC-70-3 aka SOT-323 package",
-      "mpn": "BSS138PW"
+      "mpn": "BSS138PW",
+      "manufacturer": "Nexperia"
     },
     "R1": {
       "pins": {
@@ -16521,7 +16760,8 @@
       },
       "value": "R_22R_0402",
       "description": "22R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-22R0GLF"
+      "mpn": "CR0402-FX-22R0GLF",
+      "manufacturer": "Bourns"
     },
     "R2": {
       "pins": {
@@ -16530,7 +16770,8 @@
       },
       "value": "R_22R_0402",
       "description": "22R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-22R0GLF"
+      "mpn": "CR0402-FX-22R0GLF",
+      "manufacturer": "Bourns"
     },
     "R3": {
       "pins": {
@@ -16539,7 +16780,8 @@
       },
       "value": "R_22R_0402",
       "description": "22R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-22R0GLF"
+      "mpn": "CR0402-FX-22R0GLF",
+      "manufacturer": "Bourns"
     },
     "R4": {
       "pins": {
@@ -16548,7 +16790,8 @@
       },
       "value": "R_22R_0402",
       "description": "22R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-22R0GLF"
+      "mpn": "CR0402-FX-22R0GLF",
+      "manufacturer": "Bourns"
     },
     "R5": {
       "pins": {
@@ -16557,7 +16800,8 @@
       },
       "value": "R_22R_0402",
       "description": "22R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-22R0GLF"
+      "mpn": "CR0402-FX-22R0GLF",
+      "manufacturer": "Bourns"
     },
     "R6": {
       "pins": {
@@ -16566,7 +16810,8 @@
       },
       "value": "R_22R_0402",
       "description": "22R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-22R0GLF"
+      "mpn": "CR0402-FX-22R0GLF",
+      "manufacturer": "Bourns"
     },
     "R7": {
       "pins": {
@@ -16575,7 +16820,8 @@
       },
       "value": "R_22R_0402",
       "description": "22R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-22R0GLF"
+      "mpn": "CR0402-FX-22R0GLF",
+      "manufacturer": "Bourns"
     },
     "R8": {
       "pins": {
@@ -16584,7 +16830,8 @@
       },
       "value": "R_22R_0402",
       "description": "22R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-22R0GLF"
+      "mpn": "CR0402-FX-22R0GLF",
+      "manufacturer": "Bourns"
     },
     "R15": {
       "pins": {
@@ -16593,7 +16840,8 @@
       },
       "value": "R_5k11_0402",
       "description": "5k11 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-5111GLF"
+      "mpn": "CR0402-FX-5111GLF",
+      "manufacturer": "Bourns"
     },
     "R16": {
       "pins": {
@@ -16602,7 +16850,8 @@
       },
       "value": "R_5k11_0402",
       "description": "5k11 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-5111GLF"
+      "mpn": "CR0402-FX-5111GLF",
+      "manufacturer": "Bourns"
     },
     "R18": {
       "pins": {
@@ -16611,7 +16860,8 @@
       },
       "value": "R_22R_0402",
       "description": "22R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-22R0GLF"
+      "mpn": "CR0402-FX-22R0GLF",
+      "manufacturer": "Bourns"
     },
     "R19": {
       "pins": {
@@ -16620,7 +16870,8 @@
       },
       "value": "R_22R_0402",
       "description": "22R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-22R0GLF"
+      "mpn": "CR0402-FX-22R0GLF",
+      "manufacturer": "Bourns"
     },
     "R20": {
       "pins": {
@@ -16629,7 +16880,8 @@
       },
       "value": "R_22R_0402",
       "description": "22R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-22R0GLF"
+      "mpn": "CR0402-FX-22R0GLF",
+      "manufacturer": "Bourns"
     },
     "R25": {
       "pins": {
@@ -16638,7 +16890,8 @@
       },
       "value": "R_22R_0402",
       "description": "22R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-22R0GLF"
+      "mpn": "CR0402-FX-22R0GLF",
+      "manufacturer": "Bourns"
     },
     "R37": {
       "pins": {
@@ -16647,7 +16900,8 @@
       },
       "value": "R_22R_0402",
       "description": "22R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-22R0GLF"
+      "mpn": "CR0402-FX-22R0GLF",
+      "manufacturer": "Bourns"
     },
     "R50": {
       "pins": {
@@ -16656,7 +16910,8 @@
       },
       "value": "R_330R_0402",
       "description": "330R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-3300GLF"
+      "mpn": "CR0402-FX-3300GLF",
+      "manufacturer": "Bourns"
     },
     "R51": {
       "pins": {
@@ -16665,7 +16920,8 @@
       },
       "value": "R_330R_0402",
       "description": "330R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-3300GLF"
+      "mpn": "CR0402-FX-3300GLF",
+      "manufacturer": "Bourns"
     },
     "R52": {
       "pins": {
@@ -16674,7 +16930,8 @@
       },
       "value": "R_330R_0402",
       "description": "330R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-3300GLF"
+      "mpn": "CR0402-FX-3300GLF",
+      "manufacturer": "Bourns"
     },
     "R53": {
       "pins": {
@@ -16683,7 +16940,8 @@
       },
       "value": "R_330R_0402",
       "description": "330R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-3300GLF"
+      "mpn": "CR0402-FX-3300GLF",
+      "manufacturer": "Bourns"
     },
     "R54": {
       "pins": {
@@ -16692,7 +16950,8 @@
       },
       "value": "R_330R_0402",
       "description": "330R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-3300GLF"
+      "mpn": "CR0402-FX-3300GLF",
+      "manufacturer": "Bourns"
     },
     "R125": {
       "pins": {
@@ -16701,7 +16960,8 @@
       },
       "value": "R_330R_0402",
       "description": "330R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-3300GLF"
+      "mpn": "CR0402-FX-3300GLF",
+      "manufacturer": "Bourns"
     },
     "R129": {
       "pins": {
@@ -16710,7 +16970,8 @@
       },
       "value": "R_12k_0402",
       "description": "12k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1202GLF"
+      "mpn": "CR0402-FX-1202GLF",
+      "manufacturer": "Bourns"
     },
     "R130": {
       "pins": {
@@ -16719,7 +16980,8 @@
       },
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1002GLF"
+      "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns"
     },
     "R131": {
       "pins": {
@@ -16728,7 +16990,8 @@
       },
       "value": "R_20k_0402",
       "description": "20k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-2002GLF"
+      "mpn": "CR0402-FX-2002GLF",
+      "manufacturer": "Bourns"
     },
     "R132": {
       "pins": {
@@ -16737,7 +17000,8 @@
       },
       "value": "R_20k_0402",
       "description": "20k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-2002GLF"
+      "mpn": "CR0402-FX-2002GLF",
+      "manufacturer": "Bourns"
     },
     "R133": {
       "pins": {
@@ -16746,7 +17010,8 @@
       },
       "value": "R_20k_0402",
       "description": "20k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-2002GLF"
+      "mpn": "CR0402-FX-2002GLF",
+      "manufacturer": "Bourns"
     },
     "R134": {
       "pins": {
@@ -16755,7 +17020,8 @@
       },
       "value": "R_20k_0402",
       "description": "20k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-2002GLF"
+      "mpn": "CR0402-FX-2002GLF",
+      "manufacturer": "Bourns"
     },
     "R135": {
       "pins": {
@@ -16764,7 +17030,8 @@
       },
       "value": "R_20k_0402",
       "description": "20k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-2002GLF"
+      "mpn": "CR0402-FX-2002GLF",
+      "manufacturer": "Bourns"
     },
     "R136": {
       "pins": {
@@ -16773,7 +17040,8 @@
       },
       "value": "R_220R_0402",
       "description": "220R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-2200GLF"
+      "mpn": "CR0402-FX-2200GLF",
+      "manufacturer": "Bourns"
     },
     "R137": {
       "pins": {
@@ -16782,7 +17050,8 @@
       },
       "value": "R_20k_0402",
       "description": "20k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-2002GLF"
+      "mpn": "CR0402-FX-2002GLF",
+      "manufacturer": "Bourns"
     },
     "R138": {
       "pins": {
@@ -16791,7 +17060,8 @@
       },
       "value": "R_20k_0402",
       "description": "20k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-2002GLF"
+      "mpn": "CR0402-FX-2002GLF",
+      "manufacturer": "Bourns"
     },
     "R139": {
       "pins": {
@@ -16800,7 +17070,8 @@
       },
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
-      "mpn": "ERJ2GE0R00X"
+      "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic"
     },
     "R140": {
       "pins": {
@@ -16809,7 +17080,8 @@
       },
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
-      "mpn": "ERJ2GE0R00X"
+      "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic"
     },
     "R141": {
       "pins": {
@@ -16818,7 +17090,8 @@
       },
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
-      "mpn": "ERJ2GE0R00X"
+      "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic"
     },
     "R142": {
       "pins": {
@@ -16827,7 +17100,8 @@
       },
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
-      "mpn": "ERJ2GE0R00X"
+      "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic"
     },
     "R143": {
       "pins": {
@@ -16836,7 +17110,8 @@
       },
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
-      "mpn": "ERJ2GE0R00X"
+      "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic"
     },
     "R144": {
       "pins": {
@@ -16845,7 +17120,8 @@
       },
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
-      "mpn": "ERJ2GE0R00X"
+      "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic"
     },
     "R145": {
       "pins": {
@@ -16854,7 +17130,8 @@
       },
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
-      "mpn": "ERJ2GE0R00X"
+      "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic"
     },
     "R146": {
       "pins": {
@@ -16863,7 +17140,8 @@
       },
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
-      "mpn": "ERJ2GE0R00X"
+      "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic"
     },
     "R147": {
       "pins": {
@@ -16872,7 +17150,8 @@
       },
       "value": "R_330R_0402",
       "description": "330R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-3300GLF"
+      "mpn": "CR0402-FX-3300GLF",
+      "manufacturer": "Bourns"
     },
     "R187": {
       "pins": {
@@ -16881,7 +17160,8 @@
       },
       "value": "R_330R_0402",
       "description": "330R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-3300GLF"
+      "mpn": "CR0402-FX-3300GLF",
+      "manufacturer": "Bourns"
     },
     "R188": {
       "pins": {
@@ -16890,7 +17170,8 @@
       },
       "value": "R_330R_0402",
       "description": "330R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-3300GLF"
+      "mpn": "CR0402-FX-3300GLF",
+      "manufacturer": "Bourns"
     },
     "R189": {
       "pins": {
@@ -16899,7 +17180,8 @@
       },
       "value": "R_330R_0402",
       "description": "330R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-3300GLF"
+      "mpn": "CR0402-FX-3300GLF",
+      "manufacturer": "Bourns"
     },
     "R190": {
       "pins": {
@@ -16908,7 +17190,8 @@
       },
       "value": "R_4k7_0402",
       "description": "4k7 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-4701GLF"
+      "mpn": "CR0402-FX-4701GLF",
+      "manufacturer": "Bourns"
     },
     "S1": {
       "pins": {
@@ -16918,7 +17201,8 @@
       },
       "value": "SW_1-1825027-1",
       "description": "Tactile Switch, Side Actuated, Through Hole, Round Button, 160 gf, 50mA at 24VDC",
-      "mpn": "1-1825027-1"
+      "mpn": "1-1825027-1",
+      "manufacturer": "TE Connectivity"
     },
     "TP1": {
       "pins": {
@@ -17195,7 +17479,8 @@
       },
       "value": "FT4232H_VQFN",
       "description": "Interface Bridges, USB to UART, MPSSE, 1.62 V, 1.98 V, VQFN, 56 Pins, -40 °C",
-      "mpn": "FT4232H-56Q-REEL"
+      "mpn": "FT4232H-56Q-REEL",
+      "manufacturer": "FTDI Chip"
     },
     "VBUS1": {
       "pins": {
@@ -17218,7 +17503,8 @@
         }
       },
       "value": "Oscillator_SMD_12MHz_KX-7",
-      "mpn": "ABM8G-12.000MHZ-18-D2Y-T"
+      "mpn": "ABM8G-12.000MHZ-18-D2Y-T",
+      "manufacturer": "Abracon"
     },
     "C119": {
       "pins": {
@@ -17226,7 +17512,8 @@
         "2": "GND"
       },
       "value": "C_4u7_0402",
-      "mpn": "GRM155R61A475MEAAD"
+      "mpn": "GRM155R61A475MEAAD",
+      "manufacturer": "Murata"
     },
     "C120": {
       "pins": {
@@ -17234,7 +17521,8 @@
         "2": "GND"
       },
       "value": "C_470n_0402",
-      "mpn": "C1005X5R1E474M050BB"
+      "mpn": "C1005X5R1E474M050BB",
+      "manufacturer": "TDK"
     },
     "C121": {
       "pins": {
@@ -17242,7 +17530,8 @@
         "2": "GND"
       },
       "value": "C_4u7_0402",
-      "mpn": "GRM155R61A475MEAAD"
+      "mpn": "GRM155R61A475MEAAD",
+      "manufacturer": "Murata"
     },
     "C122": {
       "pins": {
@@ -17250,7 +17539,8 @@
         "2": "GND"
       },
       "value": "C_470n_0402",
-      "mpn": "C1005X5R1E474M050BB"
+      "mpn": "C1005X5R1E474M050BB",
+      "manufacturer": "TDK"
     },
     "C123": {
       "pins": {
@@ -17258,7 +17548,8 @@
         "2": "GND"
       },
       "value": "C_4u7_0402",
-      "mpn": "GRM155R61A475MEAAD"
+      "mpn": "GRM155R61A475MEAAD",
+      "manufacturer": "Murata"
     },
     "C124": {
       "pins": {
@@ -17266,7 +17557,8 @@
         "2": "/Ethernet/AVDDL_PLL"
       },
       "value": "C_4u7_0402",
-      "mpn": "GRM155R61A475MEAAD"
+      "mpn": "GRM155R61A475MEAAD",
+      "manufacturer": "Murata"
     },
     "C125": {
       "pins": {
@@ -17274,7 +17566,8 @@
         "2": "GND"
       },
       "value": "C_470n_0402",
-      "mpn": "C1005X5R1E474M050BB"
+      "mpn": "C1005X5R1E474M050BB",
+      "manufacturer": "TDK"
     },
     "C126": {
       "pins": {
@@ -17282,7 +17575,8 @@
         "2": "GND"
       },
       "value": "C_470n_0402",
-      "mpn": "C1005X5R1E474M050BB"
+      "mpn": "C1005X5R1E474M050BB",
+      "manufacturer": "TDK"
     },
     "C127": {
       "pins": {
@@ -17290,7 +17584,8 @@
         "2": "GND"
       },
       "value": "C_470n_0402",
-      "mpn": "C1005X5R1E474M050BB"
+      "mpn": "C1005X5R1E474M050BB",
+      "manufacturer": "TDK"
     },
     "C128": {
       "pins": {
@@ -17298,7 +17593,8 @@
         "2": "/Ethernet/AVDDL_PLL"
       },
       "value": "C_100n_16V_0402",
-      "mpn": "MC0402B104K160CT"
+      "mpn": "MC0402B104K160CT",
+      "manufacturer": "Multicomp"
     },
     "C129": {
       "pins": {
@@ -17306,7 +17602,8 @@
         "2": "GND"
       },
       "value": "C_10n_0402",
-      "mpn": "GRM155R71H103KA88D"
+      "mpn": "GRM155R71H103KA88D",
+      "manufacturer": "Murata"
     },
     "C130": {
       "pins": {
@@ -17314,7 +17611,8 @@
         "2": "GND"
       },
       "value": "C_470n_0402",
-      "mpn": "C1005X5R1E474M050BB"
+      "mpn": "C1005X5R1E474M050BB",
+      "manufacturer": "TDK"
     },
     "C131": {
       "pins": {
@@ -17322,7 +17620,8 @@
         "2": "GND"
       },
       "value": "C_10n_0402",
-      "mpn": "GRM155R71H103KA88D"
+      "mpn": "GRM155R71H103KA88D",
+      "manufacturer": "Murata"
     },
     "C132": {
       "pins": {
@@ -17330,7 +17629,8 @@
         "2": "GND"
       },
       "value": "C_4u7_0402",
-      "mpn": "GRM155R61A475MEAAD"
+      "mpn": "GRM155R61A475MEAAD",
+      "manufacturer": "Murata"
     },
     "C133": {
       "pins": {
@@ -17338,7 +17638,8 @@
         "2": "/Ethernet/AVDDL_PLL"
       },
       "value": "C_10n_0402",
-      "mpn": "GRM155R71H103KA88D"
+      "mpn": "GRM155R71H103KA88D",
+      "manufacturer": "Murata"
     },
     "C134": {
       "pins": {
@@ -17346,7 +17647,8 @@
         "2": "GND"
       },
       "value": "C_10n_0402",
-      "mpn": "GRM155R71H103KA88D"
+      "mpn": "GRM155R71H103KA88D",
+      "manufacturer": "Murata"
     },
     "C135": {
       "pins": {
@@ -17354,7 +17656,8 @@
         "2": "GND"
       },
       "value": "C_10n_0402",
-      "mpn": "GRM155R71H103KA88D"
+      "mpn": "GRM155R71H103KA88D",
+      "manufacturer": "Murata"
     },
     "C136": {
       "pins": {
@@ -17362,7 +17665,8 @@
         "2": "GND"
       },
       "value": "C_10n_0402",
-      "mpn": "GRM155R71H103KA88D"
+      "mpn": "GRM155R71H103KA88D",
+      "manufacturer": "Murata"
     },
     "C137": {
       "pins": {
@@ -17370,7 +17674,8 @@
         "2": "GND"
       },
       "value": "C_4u7_0402",
-      "mpn": "GRM155R61A475MEAAD"
+      "mpn": "GRM155R61A475MEAAD",
+      "manufacturer": "Murata"
     },
     "C138": {
       "pins": {
@@ -17378,7 +17683,8 @@
         "2": "GND"
       },
       "value": "C_10n_0402",
-      "mpn": "GRM155R71H103KA88D"
+      "mpn": "GRM155R71H103KA88D",
+      "manufacturer": "Murata"
     },
     "C139": {
       "pins": {
@@ -17386,7 +17692,8 @@
         "2": "GND"
       },
       "value": "C_10n_0402",
-      "mpn": "GRM155R71H103KA88D"
+      "mpn": "GRM155R71H103KA88D",
+      "manufacturer": "Murata"
     },
     "C140": {
       "pins": {
@@ -17394,7 +17701,8 @@
         "2": "GND"
       },
       "value": "C_4u7_0402",
-      "mpn": "GRM155R61A475MEAAD"
+      "mpn": "GRM155R61A475MEAAD",
+      "manufacturer": "Murata"
     },
     "C141": {
       "pins": {
@@ -17402,7 +17710,8 @@
         "2": "GND"
       },
       "value": "C_10n_0402",
-      "mpn": "GRM155R71H103KA88D"
+      "mpn": "GRM155R71H103KA88D",
+      "manufacturer": "Murata"
     },
     "C142": {
       "pins": {
@@ -17410,7 +17719,8 @@
         "2": "GND"
       },
       "value": "C_10n_0402",
-      "mpn": "GRM155R71H103KA88D"
+      "mpn": "GRM155R71H103KA88D",
+      "manufacturer": "Murata"
     },
     "C147": {
       "pins": {
@@ -17418,7 +17728,8 @@
         "2": "GND"
       },
       "value": "C_22p_0402",
-      "mpn": "CC0402JRNPO9BN220"
+      "mpn": "CC0402JRNPO9BN220",
+      "manufacturer": "Yaego"
     },
     "C148": {
       "pins": {
@@ -17426,7 +17737,8 @@
         "2": "GND"
       },
       "value": "C_22p_0402",
-      "mpn": "CC0402JRNPO9BN220"
+      "mpn": "CC0402JRNPO9BN220",
+      "manufacturer": "Yaego"
     },
     "C221": {
       "pins": {
@@ -17434,7 +17746,8 @@
         "2": "GND"
       },
       "value": "C_100n_16V_0402",
-      "mpn": "MC0402B104K160CT"
+      "mpn": "MC0402B104K160CT",
+      "manufacturer": "Multicomp"
     },
     "C222": {
       "pins": {
@@ -17442,7 +17755,8 @@
         "2": "/Ethernet/VSS"
       },
       "value": "C_100n_0805_100V",
-      "mpn": "CL21B104KCFNNNE"
+      "mpn": "CL21B104KCFNNNE",
+      "manufacturer": "SAMSUNG"
     },
     "C223": {
       "pins": {
@@ -17450,7 +17764,8 @@
         "2": "GNDD"
       },
       "value": "C_22u_100V_2220",
-      "mpn": "C5750X7S2A226M280KB"
+      "mpn": "C5750X7S2A226M280KB",
+      "manufacturer": "TDK"
     },
     "C224": {
       "pins": {
@@ -17458,7 +17773,8 @@
         "2": "GNDD"
       },
       "value": "C_22u_100V_2220",
-      "mpn": "C5750X7S2A226M280KB"
+      "mpn": "C5750X7S2A226M280KB",
+      "manufacturer": "TDK"
     },
     "C225": {
       "pins": {
@@ -17466,7 +17782,8 @@
         "2": "GNDD"
       },
       "value": "C_22u_100V_2220",
-      "mpn": "C5750X7S2A226M280KB"
+      "mpn": "C5750X7S2A226M280KB",
+      "manufacturer": "TDK"
     },
     "C227": {
       "pins": {
@@ -17474,7 +17791,8 @@
         "2": "GND"
       },
       "value": "C_47u_16V_1206",
-      "mpn": "C3216X5R1C476M160AB"
+      "mpn": "C3216X5R1C476M160AB",
+      "manufacturer": "TDK"
     },
     "C228": {
       "pins": {
@@ -17482,7 +17800,8 @@
         "2": "GND"
       },
       "value": "C_47u_16V_1206",
-      "mpn": "C3216X5R1C476M160AB"
+      "mpn": "C3216X5R1C476M160AB",
+      "manufacturer": "TDK"
     },
     "C229": {
       "pins": {
@@ -17490,7 +17809,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C230": {
       "pins": {
@@ -17499,6 +17819,7 @@
       },
       "value": "C_4u7_0402",
       "mpn": "GRM155R61A475MEAAD",
+      "manufacturer": "Murata",
       "dns": true
     },
     "C287": {
@@ -17508,6 +17829,7 @@
       },
       "value": "C_100n_0402",
       "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata",
       "dns": true
     },
     "C288": {
@@ -17517,6 +17839,7 @@
       },
       "value": "C_100n_0402",
       "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata",
       "dns": true
     },
     "C289": {
@@ -17526,6 +17849,7 @@
       },
       "value": "C_100n_0402",
       "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata",
       "dns": true
     },
     "C290": {
@@ -17535,6 +17859,7 @@
       },
       "value": "C_100n_0402",
       "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata",
       "dns": true
     },
     "C291": {
@@ -17544,6 +17869,7 @@
       },
       "value": "C_100n_0402",
       "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata",
       "dns": true
     },
     "C292": {
@@ -17553,6 +17879,7 @@
       },
       "value": "C_100n_0402",
       "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata",
       "dns": true
     },
     "C293": {
@@ -17562,6 +17889,7 @@
       },
       "value": "C_100n_0402",
       "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata",
       "dns": true
     },
     "C312": {
@@ -17570,7 +17898,8 @@
         "2": "GND"
       },
       "value": "C_100n_16V_0402",
-      "mpn": "MC0402B104K160CT"
+      "mpn": "MC0402B104K160CT",
+      "manufacturer": "Multicomp"
     },
     "D12": {
       "pins": {
@@ -17581,7 +17910,8 @@
       },
       "value": "CD-MMBL110S",
       "description": "Bridge Rectifiers 1000V 1A MMBL DFN3538",
-      "mpn": "CD-MMBL110S"
+      "mpn": "CD-MMBL110S",
+      "manufacturer": "Bourns"
     },
     "D13": {
       "pins": {
@@ -17592,7 +17922,8 @@
       },
       "value": "CD-MMBL110S",
       "description": "Bridge Rectifiers 1000V 1A MMBL DFN3538",
-      "mpn": "CD-MMBL110S"
+      "mpn": "CD-MMBL110S",
+      "manufacturer": "Bourns"
     },
     "D14": {
       "pins": {
@@ -17604,7 +17935,8 @@
       },
       "value": "PTVS58VS1UR,115",
       "description": "400 W Transient Voltage Suppressor",
-      "mpn": "PTVS58VS1UR,115"
+      "mpn": "PTVS58VS1UR,115",
+      "manufacturer": "Nexperia"
     },
     "D15": {
       "pins": {
@@ -17612,7 +17944,8 @@
         "2": "GNDD"
       },
       "value": "LED_G_0603_KP-1608CGCK",
-      "mpn": "KP-1608CGCK"
+      "mpn": "KP-1608CGCK",
+      "manufacturer": "Kingbright"
     },
     "D16": {
       "pins": {
@@ -17621,7 +17954,8 @@
       },
       "value": "PDS760",
       "description": "PDS760 Series 60 V 7 A Surface Mount Schottky Barrier Rectifier - PowerDI-5",
-      "mpn": "PDS760-13"
+      "mpn": "PDS760-13",
+      "manufacturer": "Diodes Incorporated"
     },
     "FB1": {
       "pins": {
@@ -17630,7 +17964,8 @@
       },
       "value": "FB_120Z_2A_0603",
       "description": "Ferrite Beads WE-TMSB Suppression 240Ohm 200mA",
-      "mpn": "BLM18PG121SN1D"
+      "mpn": "BLM18PG121SN1D",
+      "manufacturer": "Murata"
     },
     "FB2": {
       "pins": {
@@ -17639,7 +17974,8 @@
       },
       "value": "FB_120Z_2A_0603",
       "description": "Ferrite Beads WE-TMSB Suppression 240Ohm 200mA",
-      "mpn": "BLM18PG121SN1D"
+      "mpn": "BLM18PG121SN1D",
+      "manufacturer": "Murata"
     },
     "FB3": {
       "pins": {
@@ -17648,7 +17984,8 @@
       },
       "value": "FB_120Z_2A_0603",
       "description": "Ferrite Beads WE-TMSB Suppression 240Ohm 200mA",
-      "mpn": "BLM18PG121SN1D"
+      "mpn": "BLM18PG121SN1D",
+      "manufacturer": "Murata"
     },
     "FB9": {
       "pins": {
@@ -17656,7 +17993,8 @@
         "2": "/Ethernet/VDD"
       },
       "value": "FB_220Z_2A_0603",
-      "mpn": "BLM21PG221SN1D"
+      "mpn": "BLM21PG221SN1D",
+      "manufacturer": "Murata"
     },
     "FB10": {
       "pins": {
@@ -17664,7 +18002,8 @@
         "2": "/Ethernet/VSS"
       },
       "value": "FB_220Z_2A_0603",
-      "mpn": "BLM21PG221SN1D"
+      "mpn": "BLM21PG221SN1D",
+      "manufacturer": "Murata"
     },
     "IC2": {
       "pins": {
@@ -17675,7 +18014,8 @@
       },
       "value": "ACPL-217-500E",
       "description": "Broadcom ACPL-217-500E DC Input Transistor Output Optocoupler, Surface Mount, 4-Pin SO",
-      "mpn": "ACPL-217-500E"
+      "mpn": "ACPL-217-500E",
+      "manufacturer": "Broadcom"
     },
     "J2": {
       "pins": {
@@ -17762,7 +18102,8 @@
       },
       "value": "Bus_RJ45_5-2337992-8",
       "description": "RJ45 Gigabit Ethernet Jack w/ Magnetics and PoE, Single Port, 802.3at Power over Ethernet",
-      "mpn": "5-2337992-8"
+      "mpn": "5-2337992-8",
+      "manufacturer": "TE Connectivity"
     },
     "PS1": {
       "pins": {
@@ -17793,7 +18134,8 @@
       },
       "value": "PDQE30-Q48-S12-D",
       "description": "DC-DC CONVERTER, 48VDC input, 12VDC nom isolated output w/ trim option, 30W, 270kHz PWM mode",
-      "mpn": "PDQE30-Q48-S12-D"
+      "mpn": "PDQE30-Q48-S12-D",
+      "manufacturer": "CUI Inc"
     },
     "R62": {
       "pins": {
@@ -17802,7 +18144,8 @@
       },
       "value": "R_220R_0402",
       "description": "220R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-2200GLF"
+      "mpn": "CR0402-FX-2200GLF",
+      "manufacturer": "Bourns"
     },
     "R67": {
       "pins": {
@@ -17811,7 +18154,8 @@
       },
       "value": "R_220R_0402",
       "description": "220R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-2200GLF"
+      "mpn": "CR0402-FX-2200GLF",
+      "manufacturer": "Bourns"
     },
     "R68": {
       "pins": {
@@ -17820,7 +18164,8 @@
       },
       "value": "R_12k1_0402",
       "description": "12k1 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1212GLF"
+      "mpn": "CR0402-FX-1212GLF",
+      "manufacturer": "Bourns"
     },
     "R69": {
       "pins": {
@@ -17829,7 +18174,8 @@
       },
       "value": "R_1M8_0402",
       "description": "1M8 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1804GLF"
+      "mpn": "CR0402-FX-1804GLF",
+      "manufacturer": "Bourns"
     },
     "R70": {
       "pins": {
@@ -17839,6 +18185,7 @@
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
       "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns",
       "dns": true
     },
     "R71": {
@@ -17849,6 +18196,7 @@
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
       "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns",
       "dns": true
     },
     "R72": {
@@ -17858,7 +18206,8 @@
       },
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1002GLF"
+      "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns"
     },
     "R73": {
       "pins": {
@@ -17867,7 +18216,8 @@
       },
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1002GLF"
+      "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns"
     },
     "R74": {
       "pins": {
@@ -17877,6 +18227,7 @@
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
       "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns",
       "dns": true
     },
     "R75": {
@@ -17887,6 +18238,7 @@
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
       "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns",
       "dns": true
     },
     "R76": {
@@ -17896,7 +18248,8 @@
       },
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1002GLF"
+      "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns"
     },
     "R77": {
       "pins": {
@@ -17905,7 +18258,8 @@
       },
       "value": "R_2k2_0402",
       "description": "2k2 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-2201GLF"
+      "mpn": "CR0402-FX-2201GLF",
+      "manufacturer": "Bourns"
     },
     "R78": {
       "pins": {
@@ -17914,7 +18268,8 @@
       },
       "value": "R_1k_0402",
       "description": "1k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1001GLF"
+      "mpn": "CR0402-FX-1001GLF",
+      "manufacturer": "Bourns"
     },
     "R79": {
       "pins": {
@@ -17923,7 +18278,8 @@
       },
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1002GLF"
+      "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns"
     },
     "R80": {
       "pins": {
@@ -17932,7 +18288,8 @@
       },
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1002GLF"
+      "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns"
     },
     "R81": {
       "pins": {
@@ -17941,7 +18298,8 @@
       },
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1002GLF"
+      "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns"
     },
     "R85": {
       "pins": {
@@ -17950,7 +18308,8 @@
       },
       "value": "R_63R4_0603",
       "description": "63R4 resistor in 0603 package with 1% tolerance",
-      "mpn": "CR0603-FX-63R4ELF"
+      "mpn": "CR0603-FX-63R4ELF",
+      "manufacturer": "Bourns"
     },
     "R89": {
       "pins": {
@@ -17959,7 +18318,8 @@
       },
       "value": "R_2k2_0402",
       "description": "2k2 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-2201GLF"
+      "mpn": "CR0402-FX-2201GLF",
+      "manufacturer": "Bourns"
     },
     "R90": {
       "pins": {
@@ -17969,6 +18329,7 @@
       "value": "R_2k2_0402",
       "description": "2k2 resistor in 0402 package with 1% tolerance",
       "mpn": "CR0402-FX-2201GLF",
+      "manufacturer": "Bourns",
       "dns": true
     },
     "R91": {
@@ -17979,6 +18340,7 @@
       "value": "R_2k2_0402",
       "description": "2k2 resistor in 0402 package with 1% tolerance",
       "mpn": "CR0402-FX-2201GLF",
+      "manufacturer": "Bourns",
       "dns": true
     },
     "R92": {
@@ -17988,7 +18350,8 @@
       },
       "value": "R_2k2_0402",
       "description": "2k2 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-2201GLF"
+      "mpn": "CR0402-FX-2201GLF",
+      "manufacturer": "Bourns"
     },
     "R93": {
       "pins": {
@@ -17997,7 +18360,8 @@
       },
       "value": "R_2k2_0402",
       "description": "2k2 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-2201GLF"
+      "mpn": "CR0402-FX-2201GLF",
+      "manufacturer": "Bourns"
     },
     "R94": {
       "pins": {
@@ -18007,6 +18371,7 @@
       "value": "R_2k2_0402",
       "description": "2k2 resistor in 0402 package with 1% tolerance",
       "mpn": "CR0402-FX-2201GLF",
+      "manufacturer": "Bourns",
       "dns": true
     },
     "R95": {
@@ -18017,6 +18382,7 @@
       "value": "R_2k2_0402",
       "description": "2k2 resistor in 0402 package with 1% tolerance",
       "mpn": "CR0402-FX-2201GLF",
+      "manufacturer": "Bourns",
       "dns": true
     },
     "R96": {
@@ -18027,6 +18393,7 @@
       "value": "R_2k2_0402",
       "description": "2k2 resistor in 0402 package with 1% tolerance",
       "mpn": "CR0402-FX-2201GLF",
+      "manufacturer": "Bourns",
       "dns": true
     },
     "R97": {
@@ -18036,7 +18403,8 @@
       },
       "value": "R_0R_0201",
       "description": "0R resistor in 0201 package with 1% tolerance",
-      "mpn": "CR0201-FX-0R00GLF"
+      "mpn": "CR0201-FX-0R00GLF",
+      "manufacturer": "Bourns"
     },
     "R98": {
       "pins": {
@@ -18045,7 +18413,8 @@
       },
       "value": "R_0R_0201",
       "description": "0R resistor in 0201 package with 1% tolerance",
-      "mpn": "CR0201-FX-0R00GLF"
+      "mpn": "CR0201-FX-0R00GLF",
+      "manufacturer": "Bourns"
     },
     "R99": {
       "pins": {
@@ -18054,7 +18423,8 @@
       },
       "value": "R_0R_0201",
       "description": "0R resistor in 0201 package with 1% tolerance",
-      "mpn": "CR0201-FX-0R00GLF"
+      "mpn": "CR0201-FX-0R00GLF",
+      "manufacturer": "Bourns"
     },
     "R100": {
       "pins": {
@@ -18063,7 +18433,8 @@
       },
       "value": "R_0R_0201",
       "description": "0R resistor in 0201 package with 1% tolerance",
-      "mpn": "CR0201-FX-0R00GLF"
+      "mpn": "CR0201-FX-0R00GLF",
+      "manufacturer": "Bourns"
     },
     "R101": {
       "pins": {
@@ -18072,7 +18443,8 @@
       },
       "value": "R_0R_0201",
       "description": "0R resistor in 0201 package with 1% tolerance",
-      "mpn": "CR0201-FX-0R00GLF"
+      "mpn": "CR0201-FX-0R00GLF",
+      "manufacturer": "Bourns"
     },
     "R102": {
       "pins": {
@@ -18081,7 +18453,8 @@
       },
       "value": "R_0R_0201",
       "description": "0R resistor in 0201 package with 1% tolerance",
-      "mpn": "CR0201-FX-0R00GLF"
+      "mpn": "CR0201-FX-0R00GLF",
+      "manufacturer": "Bourns"
     },
     "R103": {
       "pins": {
@@ -18090,7 +18463,8 @@
       },
       "value": "R_0R_0201",
       "description": "0R resistor in 0201 package with 1% tolerance",
-      "mpn": "CR0201-FX-0R00GLF"
+      "mpn": "CR0201-FX-0R00GLF",
+      "manufacturer": "Bourns"
     },
     "R104": {
       "pins": {
@@ -18099,7 +18473,8 @@
       },
       "value": "R_0R_0201",
       "description": "0R resistor in 0201 package with 1% tolerance",
-      "mpn": "CR0201-FX-0R00GLF"
+      "mpn": "CR0201-FX-0R00GLF",
+      "manufacturer": "Bourns"
     },
     "R105": {
       "pins": {
@@ -18108,7 +18483,8 @@
       },
       "value": "R_0R_0201",
       "description": "0R resistor in 0201 package with 1% tolerance",
-      "mpn": "CR0201-FX-0R00GLF"
+      "mpn": "CR0201-FX-0R00GLF",
+      "manufacturer": "Bourns"
     },
     "R106": {
       "pins": {
@@ -18117,7 +18493,8 @@
       },
       "value": "R_0R_0201",
       "description": "0R resistor in 0201 package with 1% tolerance",
-      "mpn": "CR0201-FX-0R00GLF"
+      "mpn": "CR0201-FX-0R00GLF",
+      "manufacturer": "Bourns"
     },
     "R107": {
       "pins": {
@@ -18126,7 +18503,8 @@
       },
       "value": "R_0R_0201",
       "description": "0R resistor in 0201 package with 1% tolerance",
-      "mpn": "CR0201-FX-0R00GLF"
+      "mpn": "CR0201-FX-0R00GLF",
+      "manufacturer": "Bourns"
     },
     "R108": {
       "pins": {
@@ -18135,7 +18513,8 @@
       },
       "value": "R_0R_0201",
       "description": "0R resistor in 0201 package with 1% tolerance",
-      "mpn": "CR0201-FX-0R00GLF"
+      "mpn": "CR0201-FX-0R00GLF",
+      "manufacturer": "Bourns"
     },
     "R109": {
       "pins": {
@@ -18144,7 +18523,8 @@
       },
       "value": "R_0R_0201",
       "description": "0R resistor in 0201 package with 1% tolerance",
-      "mpn": "CR0201-FX-0R00GLF"
+      "mpn": "CR0201-FX-0R00GLF",
+      "manufacturer": "Bourns"
     },
     "R110": {
       "pins": {
@@ -18153,7 +18533,8 @@
       },
       "value": "R_0R_0201",
       "description": "0R resistor in 0201 package with 1% tolerance",
-      "mpn": "CR0201-FX-0R00GLF"
+      "mpn": "CR0201-FX-0R00GLF",
+      "manufacturer": "Bourns"
     },
     "R111": {
       "pins": {
@@ -18162,7 +18543,8 @@
       },
       "value": "R_0R_0201",
       "description": "0R resistor in 0201 package with 1% tolerance",
-      "mpn": "CR0201-FX-0R00GLF"
+      "mpn": "CR0201-FX-0R00GLF",
+      "manufacturer": "Bourns"
     },
     "R112": {
       "pins": {
@@ -18171,7 +18553,8 @@
       },
       "value": "R_0R_0201",
       "description": "0R resistor in 0201 package with 1% tolerance",
-      "mpn": "CR0201-FX-0R00GLF"
+      "mpn": "CR0201-FX-0R00GLF",
+      "manufacturer": "Bourns"
     },
     "R156": {
       "pins": {
@@ -18180,7 +18563,8 @@
       },
       "value": "R_1k3_0603",
       "description": "1k3 resistor in 0603 package with 1% tolerance",
-      "mpn": "CR0603-FX-1301ELF"
+      "mpn": "CR0603-FX-1301ELF",
+      "manufacturer": "Bourns"
     },
     "R159": {
       "pins": {
@@ -18189,7 +18573,8 @@
       },
       "value": "R_49k9_0402",
       "description": "49k9 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-4992GLF"
+      "mpn": "CR0402-FX-4992GLF",
+      "manufacturer": "Bourns"
     },
     "R161": {
       "pins": {
@@ -18198,7 +18583,8 @@
       },
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
-      "mpn": "ERJ2GE0R00X"
+      "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic"
     },
     "R175": {
       "pins": {
@@ -18207,7 +18593,8 @@
       },
       "value": "R_24k9_0402",
       "description": "24k9 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-2492GLF"
+      "mpn": "CR0402-FX-2492GLF",
+      "manufacturer": "Bourns"
     },
     "R176": {
       "pins": {
@@ -18216,7 +18603,8 @@
       },
       "value": "R_63R4_0603",
       "description": "63R4 resistor in 0603 package with 1% tolerance",
-      "mpn": "CR0603-FX-63R4ELF"
+      "mpn": "CR0603-FX-63R4ELF",
+      "manufacturer": "Bourns"
     },
     "R177": {
       "pins": {
@@ -18226,6 +18614,7 @@
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
       "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns",
       "dns": true
     },
     "R178": {
@@ -18235,7 +18624,8 @@
       },
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
-      "mpn": "ERJ2GE0R00X"
+      "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic"
     },
     "R179": {
       "pins": {
@@ -18245,6 +18635,7 @@
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
       "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic",
       "dns": true
     },
     "R180": {
@@ -18254,7 +18645,8 @@
       },
       "value": "R_32k4_0402",
       "description": "32k4 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-3242GLF"
+      "mpn": "CR0402-FX-3242GLF",
+      "manufacturer": "Bourns"
     },
     "R181": {
       "pins": {
@@ -18264,6 +18656,7 @@
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
       "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns",
       "dns": true
     },
     "R182": {
@@ -18274,6 +18667,7 @@
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
       "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns",
       "dns": true
     },
     "R183": {
@@ -18283,7 +18677,8 @@
       },
       "value": "R_1k_0603",
       "description": "1k resistor in 0603 package with 1% tolerance",
-      "mpn": "CR0603-FX-1001ELF"
+      "mpn": "CR0603-FX-1001ELF",
+      "manufacturer": "Bourns"
     },
     "R184": {
       "pins": {
@@ -18292,7 +18687,8 @@
       },
       "value": "R_1k_0603",
       "description": "1k resistor in 0603 package with 1% tolerance",
-      "mpn": "CR0603-FX-1001ELF"
+      "mpn": "CR0603-FX-1001ELF",
+      "manufacturer": "Bourns"
     },
     "R205": {
       "pins": {
@@ -18301,7 +18697,8 @@
       },
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
-      "mpn": "ERJ2GE0R00X"
+      "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic"
     },
     "R206": {
       "pins": {
@@ -18311,6 +18708,7 @@
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
       "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic",
       "dns": true
     },
     "R221": {
@@ -18320,7 +18718,8 @@
       },
       "value": "R_0R_0201",
       "description": "0R resistor in 0201 package with 1% tolerance",
-      "mpn": "CR0201-FX-0R00GLF"
+      "mpn": "CR0201-FX-0R00GLF",
+      "manufacturer": "Bourns"
     },
     "R222": {
       "pins": {
@@ -18329,7 +18728,8 @@
       },
       "value": "R_0R_0201",
       "description": "0R resistor in 0201 package with 1% tolerance",
-      "mpn": "CR0201-FX-0R00GLF"
+      "mpn": "CR0201-FX-0R00GLF",
+      "manufacturer": "Bourns"
     },
     "U6": {
       "pins": {
@@ -18532,7 +18932,8 @@
       },
       "value": "KSZ9031RNXCA",
       "description": "Ethernet Controller, 1000 Mbps, IEEE 802.3, 1.14 V, 3.465 V, QFN, 48 Pins",
-      "mpn": "KSZ9031RNXCA"
+      "mpn": "KSZ9031RNXCA",
+      "manufacturer": "Microchip Technology"
     },
     "U13": {
       "pins": {
@@ -18623,7 +19024,8 @@
       },
       "value": "TPS2372-3RGWR",
       "description": "IEEE 802.3bt PoE high-power PD interface with automatic MPS & autoclass",
-      "mpn": "TPS2372-3RGWR"
+      "mpn": "TPS2372-3RGWR",
+      "manufacturer": "Texas Instruments"
     },
     "U16": {
       "pins": {
@@ -18858,7 +19260,8 @@
       },
       "value": "TS3L500RHUR",
       "description": "3.3-V, 2:1 (SPDT), 8-channel gigachannel LAN switch with LED switch & enhanced ESD protection",
-      "mpn": "TS3L500RHUR"
+      "mpn": "TS3L500RHUR",
+      "manufacturer": "Texas Instruments"
     },
     "Y1": {
       "pins": {
@@ -18875,7 +19278,8 @@
       },
       "value": "Oscillator_SMD_25MHz_KX-7",
       "description": "25 MHz ±20ppm Crystal 18pF 60 Ohms 4-SMD, No Lead",
-      "mpn": "ABM8G-25.000MHZ-18-D2Y-T"
+      "mpn": "ABM8G-25.000MHZ-18-D2Y-T",
+      "manufacturer": "Abracon"
     },
     "C18": {
       "pins": {
@@ -18883,7 +19287,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C145": {
       "pins": {
@@ -18891,7 +19296,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C146": {
       "pins": {
@@ -18899,7 +19305,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C206": {
       "pins": {
@@ -18907,7 +19314,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C207": {
       "pins": {
@@ -18915,7 +19323,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "R63": {
       "pins": {
@@ -18924,7 +19333,8 @@
       },
       "value": "R_80R6_0603",
       "description": "80R6 resistor in 0603 package with 1% tolerance",
-      "mpn": "CR0603-FX-80R6ELF"
+      "mpn": "CR0603-FX-80R6ELF",
+      "manufacturer": "Bourns"
     },
     "R64": {
       "pins": {
@@ -18933,7 +19343,8 @@
       },
       "value": "R_80R6_0603",
       "description": "80R6 resistor in 0603 package with 1% tolerance",
-      "mpn": "CR0603-FX-80R6ELF"
+      "mpn": "CR0603-FX-80R6ELF",
+      "manufacturer": "Bourns"
     },
     "R65": {
       "pins": {
@@ -18942,7 +19353,8 @@
       },
       "value": "R_1k_0603",
       "description": "1k resistor in 0603 package with 1% tolerance",
-      "mpn": "CR0603-FX-1001ELF"
+      "mpn": "CR0603-FX-1001ELF",
+      "manufacturer": "Bourns"
     },
     "R66": {
       "pins": {
@@ -18951,7 +19363,8 @@
       },
       "value": "R_1k_0603",
       "description": "1k resistor in 0603 package with 1% tolerance",
-      "mpn": "CR0603-FX-1001ELF"
+      "mpn": "CR0603-FX-1001ELF",
+      "manufacturer": "Bourns"
     },
     "R163": {
       "pins": {
@@ -18960,7 +19373,8 @@
       },
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1002GLF"
+      "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns"
     },
     "R164": {
       "pins": {
@@ -18970,6 +19384,7 @@
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
       "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic",
       "dns": true
     },
     "R165": {
@@ -18979,7 +19394,8 @@
       },
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
-      "mpn": "ERJ2GE0R00X"
+      "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic"
     },
     "R166": {
       "pins": {
@@ -18989,6 +19405,7 @@
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
       "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic",
       "dns": true
     },
     "R167": {
@@ -18998,7 +19415,8 @@
       },
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
-      "mpn": "ERJ2GE0R00X"
+      "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic"
     },
     "R168": {
       "pins": {
@@ -19008,6 +19426,7 @@
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
       "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic",
       "dns": true
     },
     "R169": {
@@ -19017,7 +19436,8 @@
       },
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
-      "mpn": "ERJ2GE0R00X"
+      "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic"
     },
     "R170": {
       "pins": {
@@ -19026,7 +19446,8 @@
       },
       "value": "R_4k7_0402",
       "description": "4k7 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-4701GLF"
+      "mpn": "CR0402-FX-4701GLF",
+      "manufacturer": "Bourns"
     },
     "R171": {
       "pins": {
@@ -19035,7 +19456,8 @@
       },
       "value": "R_4k7_0402",
       "description": "4k7 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-4701GLF"
+      "mpn": "CR0402-FX-4701GLF",
+      "manufacturer": "Bourns"
     },
     "R172": {
       "pins": {
@@ -19044,7 +19466,8 @@
       },
       "value": "R_4k7_0402",
       "description": "4k7 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-4701GLF"
+      "mpn": "CR0402-FX-4701GLF",
+      "manufacturer": "Bourns"
     },
     "R173": {
       "pins": {
@@ -19053,7 +19476,8 @@
       },
       "value": "R_4k7_0402",
       "description": "4k7 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-4701GLF"
+      "mpn": "CR0402-FX-4701GLF",
+      "manufacturer": "Bourns"
     },
     "R174": {
       "pins": {
@@ -19062,7 +19486,8 @@
       },
       "value": "R_4k7_0402",
       "description": "4k7 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-4701GLF"
+      "mpn": "CR0402-FX-4701GLF",
+      "manufacturer": "Bourns"
     },
     "TP12": {
       "pins": {
@@ -19092,7 +19517,8 @@
       },
       "value": "Oscillator_SMD_100MHz_ASFLMB",
       "description": "MEMS OSC XO 100.0000MHZ LVCMOS",
-      "mpn": "ASFLMB-100.000MHZ-XY-T"
+      "mpn": "ASFLMB-100.000MHZ-XY-T",
+      "manufacturer": "Abracon"
     },
     "U8": {
       "pins": {
@@ -19131,7 +19557,8 @@
       },
       "value": "PCA9517A_TSSOP",
       "description": "Translation - Voltage Levels LEVEL TRANSLATING I2",
-      "mpn": "PCA9517ADMR2G"
+      "mpn": "PCA9517ADMR2G",
+      "manufacturer": "ON Semiconductor"
     },
     "0V6": {
       "pins": {
@@ -19188,7 +19615,8 @@
         "2": "GND"
       },
       "value": "C_10u_0402",
-      "mpn": "CC0402MRX5R5BB106"
+      "mpn": "CC0402MRX5R5BB106",
+      "manufacturer": "Yaego"
     },
     "C2": {
       "pins": {
@@ -19196,7 +19624,8 @@
         "2": "GND"
       },
       "value": "C_100n_0603",
-      "mpn": "0603YC104KAZ2A"
+      "mpn": "0603YC104KAZ2A",
+      "manufacturer": "AVX"
     },
     "C4": {
       "pins": {
@@ -19204,7 +19633,8 @@
         "2": "GND"
       },
       "value": "C_1u_0603",
-      "mpn": "0603YD105KAT2A"
+      "mpn": "0603YD105KAT2A",
+      "manufacturer": "Walsin"
     },
     "C27": {
       "pins": {
@@ -19212,7 +19642,8 @@
         "2": "GND"
       },
       "value": "C_10u_25V_0603",
-      "mpn": "C1608X5R1E106M080AC"
+      "mpn": "C1608X5R1E106M080AC",
+      "manufacturer": "TDK"
     },
     "C28": {
       "pins": {
@@ -19220,7 +19651,8 @@
         "2": "GND"
       },
       "value": "C_10u_25V_0603",
-      "mpn": "C1608X5R1E106M080AC"
+      "mpn": "C1608X5R1E106M080AC",
+      "manufacturer": "TDK"
     },
     "C29": {
       "pins": {
@@ -19228,7 +19660,8 @@
         "2": "GND"
       },
       "value": "C_10u_25V_0603",
-      "mpn": "C1608X5R1E106M080AC"
+      "mpn": "C1608X5R1E106M080AC",
+      "manufacturer": "TDK"
     },
     "C30": {
       "pins": {
@@ -19236,7 +19669,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C31": {
       "pins": {
@@ -19244,7 +19678,8 @@
         "2": "GND"
       },
       "value": "C_22u_0603",
-      "mpn": "GRM188R60J226MEA0D"
+      "mpn": "GRM188R60J226MEA0D",
+      "manufacturer": "Murata"
     },
     "C33": {
       "pins": {
@@ -19252,7 +19687,8 @@
         "2": "GND"
       },
       "value": "C_10u_0402",
-      "mpn": "CC0402MRX5R5BB106"
+      "mpn": "CC0402MRX5R5BB106",
+      "manufacturer": "Yaego"
     },
     "C35": {
       "pins": {
@@ -19260,7 +19696,8 @@
         "2": "Net-(U2-SW)"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C36": {
       "pins": {
@@ -19268,7 +19705,8 @@
         "2": "GND"
       },
       "value": "C_470n_0402",
-      "mpn": "C1005X5R1E474M050BB"
+      "mpn": "C1005X5R1E474M050BB",
+      "manufacturer": "TDK"
     },
     "C38": {
       "pins": {
@@ -19276,7 +19714,8 @@
         "2": "GND"
       },
       "value": "C_10u_0402",
-      "mpn": "CC0402MRX5R5BB106"
+      "mpn": "CC0402MRX5R5BB106",
+      "manufacturer": "Yaego"
     },
     "C39": {
       "pins": {
@@ -19284,7 +19723,8 @@
         "2": "GND"
       },
       "value": "C_22u_0603",
-      "mpn": "GRM188R60J226MEA0D"
+      "mpn": "GRM188R60J226MEA0D",
+      "manufacturer": "Murata"
     },
     "C40": {
       "pins": {
@@ -19292,7 +19732,8 @@
         "2": "GND"
       },
       "value": "C_22u_0603",
-      "mpn": "GRM188R60J226MEA0D"
+      "mpn": "GRM188R60J226MEA0D",
+      "manufacturer": "Murata"
     },
     "C41": {
       "pins": {
@@ -19300,7 +19741,8 @@
         "2": "GND"
       },
       "value": "C_22u_0603",
-      "mpn": "GRM188R60J226MEA0D"
+      "mpn": "GRM188R60J226MEA0D",
+      "manufacturer": "Murata"
     },
     "C42": {
       "pins": {
@@ -19308,7 +19750,8 @@
         "2": "GND"
       },
       "value": "C_22u_0603",
-      "mpn": "GRM188R60J226MEA0D"
+      "mpn": "GRM188R60J226MEA0D",
+      "manufacturer": "Murata"
     },
     "C45": {
       "pins": {
@@ -19316,7 +19759,8 @@
         "2": "GND"
       },
       "value": "C_10u_0402",
-      "mpn": "CC0402MRX5R5BB106"
+      "mpn": "CC0402MRX5R5BB106",
+      "manufacturer": "Yaego"
     },
     "C46": {
       "pins": {
@@ -19324,7 +19768,8 @@
         "2": "Net-(U4-SW)"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C96": {
       "pins": {
@@ -19332,7 +19777,8 @@
         "2": "GND"
       },
       "value": "C_22u_0402",
-      "mpn": "04024W226MAT2A"
+      "mpn": "04024W226MAT2A",
+      "manufacturer": "AVX"
     },
     "C97": {
       "pins": {
@@ -19340,7 +19786,8 @@
         "2": "GND"
       },
       "value": "C_22u_0402",
-      "mpn": "04024W226MAT2A"
+      "mpn": "04024W226MAT2A",
+      "manufacturer": "AVX"
     },
     "C98": {
       "pins": {
@@ -19348,7 +19795,8 @@
         "2": "GND"
       },
       "value": "C_1u_0402",
-      "mpn": "C1005X6S1A105K050BC"
+      "mpn": "C1005X6S1A105K050BC",
+      "manufacturer": "TDK"
     },
     "C99": {
       "pins": {
@@ -19356,7 +19804,8 @@
         "2": "GND"
       },
       "value": "C_10u_0402",
-      "mpn": "CC0402MRX5R5BB106"
+      "mpn": "CC0402MRX5R5BB106",
+      "manufacturer": "Yaego"
     },
     "C100": {
       "pins": {
@@ -19364,7 +19813,8 @@
         "2": "GND"
       },
       "value": "C_10n_0603",
-      "mpn": "06031C103JAT2A"
+      "mpn": "06031C103JAT2A",
+      "manufacturer": "AVX"
     },
     "C101": {
       "pins": {
@@ -19372,7 +19822,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C106": {
       "pins": {
@@ -19380,7 +19831,8 @@
         "2": "GND"
       },
       "value": "C_10n_0603",
-      "mpn": "06031C103JAT2A"
+      "mpn": "06031C103JAT2A",
+      "manufacturer": "AVX"
     },
     "C107": {
       "pins": {
@@ -19388,7 +19840,8 @@
         "2": "GND"
       },
       "value": "C_10n_0603",
-      "mpn": "06031C103JAT2A"
+      "mpn": "06031C103JAT2A",
+      "manufacturer": "AVX"
     },
     "C108": {
       "pins": {
@@ -19396,7 +19849,8 @@
         "2": "GND"
       },
       "value": "C_10n_0603",
-      "mpn": "06031C103JAT2A"
+      "mpn": "06031C103JAT2A",
+      "manufacturer": "AVX"
     },
     "C109": {
       "pins": {
@@ -19404,7 +19858,8 @@
         "2": "GND"
       },
       "value": "C_10n_0603",
-      "mpn": "06031C103JAT2A"
+      "mpn": "06031C103JAT2A",
+      "manufacturer": "AVX"
     },
     "C110": {
       "pins": {
@@ -19412,7 +19867,8 @@
         "2": "GND"
       },
       "value": "C_10n_0603",
-      "mpn": "06031C103JAT2A"
+      "mpn": "06031C103JAT2A",
+      "manufacturer": "AVX"
     },
     "C111": {
       "pins": {
@@ -19420,7 +19876,8 @@
         "2": "GND"
       },
       "value": "C_10n_0603",
-      "mpn": "06031C103JAT2A"
+      "mpn": "06031C103JAT2A",
+      "manufacturer": "AVX"
     },
     "C112": {
       "pins": {
@@ -19428,7 +19885,8 @@
         "2": "GND"
       },
       "value": "C_10n_0603",
-      "mpn": "06031C103JAT2A"
+      "mpn": "06031C103JAT2A",
+      "manufacturer": "AVX"
     },
     "C113": {
       "pins": {
@@ -19436,7 +19894,8 @@
         "2": "GND"
       },
       "value": "C_10n_0603",
-      "mpn": "06031C103JAT2A"
+      "mpn": "06031C103JAT2A",
+      "manufacturer": "AVX"
     },
     "C116": {
       "pins": {
@@ -19444,7 +19903,8 @@
         "2": "GND"
       },
       "value": "C_47u_16V_1206",
-      "mpn": "C3216X5R1C476M160AB"
+      "mpn": "C3216X5R1C476M160AB",
+      "manufacturer": "TDK"
     },
     "C117": {
       "pins": {
@@ -19452,7 +19912,8 @@
         "2": "GND"
       },
       "value": "C_47u_16V_1206",
-      "mpn": "C3216X5R1C476M160AB"
+      "mpn": "C3216X5R1C476M160AB",
+      "manufacturer": "TDK"
     },
     "C118": {
       "pins": {
@@ -19460,7 +19921,8 @@
         "2": "GND"
       },
       "value": "C_47u_16V_1206",
-      "mpn": "C3216X5R1C476M160AB"
+      "mpn": "C3216X5R1C476M160AB",
+      "manufacturer": "TDK"
     },
     "C149": {
       "pins": {
@@ -19468,7 +19930,8 @@
         "2": "Net-(U5-SW)"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C150": {
       "pins": {
@@ -19476,7 +19939,8 @@
         "2": "GND"
       },
       "value": "C_10u_0402",
-      "mpn": "CC0402MRX5R5BB106"
+      "mpn": "CC0402MRX5R5BB106",
+      "manufacturer": "Yaego"
     },
     "C151": {
       "pins": {
@@ -19484,7 +19948,8 @@
         "2": "GND"
       },
       "value": "C_10u_0402",
-      "mpn": "CC0402MRX5R5BB106"
+      "mpn": "CC0402MRX5R5BB106",
+      "manufacturer": "Yaego"
     },
     "C152": {
       "pins": {
@@ -19492,7 +19957,8 @@
         "2": "GND"
       },
       "value": "C_22u_0402",
-      "mpn": "04024W226MAT2A"
+      "mpn": "04024W226MAT2A",
+      "manufacturer": "AVX"
     },
     "C155": {
       "pins": {
@@ -19500,7 +19966,8 @@
         "2": "GND"
       },
       "value": "C_22u_0402",
-      "mpn": "04024W226MAT2A"
+      "mpn": "04024W226MAT2A",
+      "manufacturer": "AVX"
     },
     "C156": {
       "pins": {
@@ -19508,7 +19975,8 @@
         "2": "GND"
       },
       "value": "C_1u_0402",
-      "mpn": "C1005X6S1A105K050BC"
+      "mpn": "C1005X6S1A105K050BC",
+      "manufacturer": "TDK"
     },
     "C157": {
       "pins": {
@@ -19516,7 +19984,8 @@
         "2": "Net-(U9-SW)"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C158": {
       "pins": {
@@ -19524,7 +19993,8 @@
         "2": "Net-(U12-SW)"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C159": {
       "pins": {
@@ -19532,7 +20002,8 @@
         "2": "GND"
       },
       "value": "C_22u_0603",
-      "mpn": "GRM188R60J226MEA0D"
+      "mpn": "GRM188R60J226MEA0D",
+      "manufacturer": "Murata"
     },
     "C172": {
       "pins": {
@@ -19540,7 +20011,8 @@
         "2": "GND"
       },
       "value": "C_4n7_0402",
-      "mpn": "CGA2B3X7S2A472K050BB"
+      "mpn": "CGA2B3X7S2A472K050BB",
+      "manufacturer": "TDK"
     },
     "C174": {
       "pins": {
@@ -19548,7 +20020,8 @@
         "2": "Net-(IC1-SS{slash}TR)"
       },
       "value": "C_10n_0402",
-      "mpn": "GRM155R71H103KA88D"
+      "mpn": "GRM155R71H103KA88D",
+      "manufacturer": "Murata"
     },
     "C175": {
       "pins": {
@@ -19556,7 +20029,8 @@
         "2": "GND"
       },
       "value": "C_47p_0402",
-      "mpn": "GRM1555C1E470JA01D"
+      "mpn": "GRM1555C1E470JA01D",
+      "manufacturer": "Murata"
     },
     "C178": {
       "pins": {
@@ -19564,7 +20038,8 @@
         "2": "Net-(IC1-SW)"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C180": {
       "pins": {
@@ -19572,7 +20047,8 @@
         "2": "GND"
       },
       "value": "C_47u_0603",
-      "mpn": "GRM188R60J476ME15D"
+      "mpn": "GRM188R60J476ME15D",
+      "manufacturer": "Murata"
     },
     "C182": {
       "pins": {
@@ -19580,7 +20056,8 @@
         "2": "GND"
       },
       "value": "C_47u_0603",
-      "mpn": "GRM188R60J476ME15D"
+      "mpn": "GRM188R60J476ME15D",
+      "manufacturer": "Murata"
     },
     "C183": {
       "pins": {
@@ -19588,7 +20065,8 @@
         "2": "GND"
       },
       "value": "C_47u_0603",
-      "mpn": "GRM188R60J476ME15D"
+      "mpn": "GRM188R60J476ME15D",
+      "manufacturer": "Murata"
     },
     "C215": {
       "pins": {
@@ -19596,7 +20074,8 @@
         "2": "GND"
       },
       "value": "C_22u_0402",
-      "mpn": "04024W226MAT2A"
+      "mpn": "04024W226MAT2A",
+      "manufacturer": "AVX"
     },
     "C216": {
       "pins": {
@@ -19604,7 +20083,8 @@
         "2": "GND"
       },
       "value": "C_22u_0402",
-      "mpn": "04024W226MAT2A"
+      "mpn": "04024W226MAT2A",
+      "manufacturer": "AVX"
     },
     "C217": {
       "pins": {
@@ -19612,7 +20092,8 @@
         "2": "GND"
       },
       "value": "C_22u_0402",
-      "mpn": "04024W226MAT2A"
+      "mpn": "04024W226MAT2A",
+      "manufacturer": "AVX"
     },
     "C218": {
       "pins": {
@@ -19620,7 +20101,8 @@
         "2": "GND"
       },
       "value": "C_22u_0402",
-      "mpn": "04024W226MAT2A"
+      "mpn": "04024W226MAT2A",
+      "manufacturer": "AVX"
     },
     "C219": {
       "pins": {
@@ -19628,7 +20110,8 @@
         "2": "GND"
       },
       "value": "C_1u_0402",
-      "mpn": "C1005X6S1A105K050BC"
+      "mpn": "C1005X6S1A105K050BC",
+      "manufacturer": "TDK"
     },
     "C220": {
       "pins": {
@@ -19636,7 +20119,8 @@
         "2": "GND"
       },
       "value": "C_1u_0402",
-      "mpn": "C1005X6S1A105K050BC"
+      "mpn": "C1005X6S1A105K050BC",
+      "manufacturer": "TDK"
     },
     "C232": {
       "pins": {
@@ -19644,7 +20128,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C233": {
       "pins": {
@@ -19652,7 +20137,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C234": {
       "pins": {
@@ -19660,7 +20146,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C235": {
       "pins": {
@@ -19668,7 +20155,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C236": {
       "pins": {
@@ -19676,7 +20164,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C237": {
       "pins": {
@@ -19684,7 +20173,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C275": {
       "pins": {
@@ -19692,7 +20182,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C280": {
       "pins": {
@@ -19700,7 +20191,8 @@
         "2": "GND"
       },
       "value": "C_1u_16V_0402",
-      "mpn": "C0402C105M4PACTU"
+      "mpn": "C0402C105M4PACTU",
+      "manufacturer": "KEMET"
     },
     "C281": {
       "pins": {
@@ -19708,7 +20200,8 @@
         "2": "GND"
       },
       "value": "C_1u_0402",
-      "mpn": "C1005X6S1A105K050BC"
+      "mpn": "C1005X6S1A105K050BC",
+      "manufacturer": "TDK"
     },
     "C282": {
       "pins": {
@@ -19716,7 +20209,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C283": {
       "pins": {
@@ -19724,7 +20218,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C284": {
       "pins": {
@@ -19732,7 +20227,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C285": {
       "pins": {
@@ -19740,7 +20236,8 @@
         "2": "GND"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "D2": {
       "pins": {
@@ -19749,7 +20246,8 @@
       },
       "value": "PDS760",
       "description": "PDS760 Series 60 V 7 A Surface Mount Schottky Barrier Rectifier - PowerDI-5",
-      "mpn": "PDS760-13"
+      "mpn": "PDS760-13",
+      "manufacturer": "Diodes Incorporated"
     },
     "D11": {
       "pins": {
@@ -19758,7 +20256,8 @@
       },
       "value": "PDS760",
       "description": "PDS760 Series 60 V 7 A Surface Mount Schottky Barrier Rectifier - PowerDI-5",
-      "mpn": "PDS760-13"
+      "mpn": "PDS760-13",
+      "manufacturer": "Diodes Incorporated"
     },
     "D19": {
       "pins": {
@@ -19768,7 +20267,8 @@
       },
       "value": "BZX84C5V1-TP",
       "description": "DIODE ZENER 5.1V 350MW SOT23",
-      "mpn": "BZX84C5V1-TP"
+      "mpn": "BZX84C5V1-TP",
+      "manufacturer": "Micro Commercial Co"
     },
     "GND1": {
       "pins": {
@@ -19776,7 +20276,8 @@
       },
       "value": "TestPoint_Probe_1206_RCW-0C",
       "description": "SMD Circuit Probe Pad 1206",
-      "mpn": "RCW-0C"
+      "mpn": "RCW-0C",
+      "manufacturer": "TE Connectivity"
     },
     "GND2": {
       "pins": {
@@ -19784,7 +20285,8 @@
       },
       "value": "TestPoint_Probe_1206_RCW-0C",
       "description": "SMD Circuit Probe Pad 1206",
-      "mpn": "RCW-0C"
+      "mpn": "RCW-0C",
+      "manufacturer": "TE Connectivity"
     },
     "IC1": {
       "pins": {
@@ -19835,7 +20337,8 @@
       },
       "value": "TPS54561QDPRRQ1",
       "description": "4.5-V to 60-V Input, 5-A, Step-Down DC-DC Converter",
-      "mpn": "TPS54561QDPRRQ1"
+      "mpn": "TPS54561QDPRRQ1",
+      "manufacturer": "Texas Instruments"
     },
     "J3": {
       "pins": {
@@ -19845,7 +20348,8 @@
       },
       "value": "BarrelJack_3167288",
       "description": "DC Power Connector, Jack, 4 A, 1.95 mm, PCB Mount, Through Hole",
-      "mpn": "MJ-179PH"
+      "mpn": "MJ-179PH",
+      "manufacturer": "Multicomp Pro"
     },
     "J8": {
       "pins": {
@@ -19855,7 +20359,8 @@
       },
       "value": "PinHeader_1x3_P2.54mm_Drill1.1mm",
       "description": "3x1 goldpin header",
-      "mpn": "61300311121"
+      "mpn": "61300311121",
+      "manufacturer": "Würth Elektronik"
     },
     "L1": {
       "pins": {
@@ -19863,7 +20368,8 @@
         "2": "VCC2V5"
       },
       "value": "L_4u7_2.8A_2020",
-      "mpn": "IHLP2020BZER4R7M01"
+      "mpn": "IHLP2020BZER4R7M01",
+      "manufacturer": "Vishay"
     },
     "L2": {
       "pins": {
@@ -19871,7 +20377,8 @@
         "2": "VDD1V2"
       },
       "value": "L_680n_6.1A_1210",
-      "mpn": "DFE322512F-R68M=P2"
+      "mpn": "DFE322512F-R68M=P2",
+      "manufacturer": "Murata"
     },
     "L3": {
       "pins": {
@@ -19879,7 +20386,8 @@
         "2": "VCC1V0"
       },
       "value": "L_1u5_6A_1716",
-      "mpn": "SRP0420-1R5K"
+      "mpn": "SRP0420-1R5K",
+      "manufacturer": "Bourns"
     },
     "L4": {
       "pins": {
@@ -19887,7 +20395,8 @@
         "2": "VCC1V2"
       },
       "value": "L_1u5_6A_1716",
-      "mpn": "SRP0420-1R5K"
+      "mpn": "SRP0420-1R5K",
+      "manufacturer": "Bourns"
     },
     "L5": {
       "pins": {
@@ -19895,7 +20404,8 @@
         "2": "VCC3V3"
       },
       "value": "L_1u5_6A_1716",
-      "mpn": "SRP0420-1R5K"
+      "mpn": "SRP0420-1R5K",
+      "manufacturer": "Bourns"
     },
     "L6": {
       "pins": {
@@ -19903,7 +20413,8 @@
         "2": "VCC5V0"
       },
       "value": "L_7u2_7.9A_WE-PDF",
-      "mpn": "7447798720"
+      "mpn": "7447798720",
+      "manufacturer": "Würth Elektronik"
     },
     "L7": {
       "pins": {
@@ -19911,7 +20422,8 @@
         "2": "VCC1V8"
       },
       "value": "L_1u5_6A_1716",
-      "mpn": "SRP0420-1R5K"
+      "mpn": "SRP0420-1R5K",
+      "manufacturer": "Bourns"
     },
     "NT1": {
       "pins": {
@@ -20054,7 +20566,8 @@
         "2": "Net-(PWR1-Pad2)"
       },
       "value": "LED_G_0603_KP-1608CGCK",
-      "mpn": "KP-1608CGCK"
+      "mpn": "KP-1608CGCK",
+      "manufacturer": "Kingbright"
     },
     "Q11": {
       "pins": {
@@ -20073,7 +20586,8 @@
       },
       "value": "BSS138PW",
       "description": "60 V, 320 mA N-channel enhancement mode Trench MOSFET, SC-70-3 aka SOT-323 package",
-      "mpn": "BSS138PW"
+      "mpn": "BSS138PW",
+      "manufacturer": "Nexperia"
     },
     "Q12": {
       "pins": {
@@ -20092,7 +20606,8 @@
       },
       "value": "BSS138PW",
       "description": "60 V, 320 mA N-channel enhancement mode Trench MOSFET, SC-70-3 aka SOT-323 package",
-      "mpn": "BSS138PW"
+      "mpn": "BSS138PW",
+      "manufacturer": "Nexperia"
     },
     "R17": {
       "pins": {
@@ -20101,7 +20616,8 @@
       },
       "value": "R_330R_0.25W_0603",
       "description": "330R resistor in 0603 package with 1% tolerance",
-      "mpn": "ERJ-UP3F3300V"
+      "mpn": "ERJ-UP3F3300V",
+      "manufacturer": "Panasonic"
     },
     "R29": {
       "pins": {
@@ -20110,7 +20626,8 @@
       },
       "value": "R_330R_0.25W_0603",
       "description": "330R resistor in 0603 package with 1% tolerance",
-      "mpn": "ERJ-UP3F3300V"
+      "mpn": "ERJ-UP3F3300V",
+      "manufacturer": "Panasonic"
     },
     "R35": {
       "pins": {
@@ -20119,7 +20636,8 @@
       },
       "value": "R_5R1_0402",
       "description": "5R1 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-5R10GLF"
+      "mpn": "CR0402-FX-5R10GLF",
+      "manufacturer": "Bourns"
     },
     "R38": {
       "pins": {
@@ -20128,7 +20646,8 @@
       },
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
-      "mpn": "ERJ2GE0R00X"
+      "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic"
     },
     "R39": {
       "pins": {
@@ -20137,7 +20656,8 @@
       },
       "value": "R_1k5_0402",
       "description": "1k5 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1501GLF"
+      "mpn": "CR0402-FX-1501GLF",
+      "manufacturer": "Bourns"
     },
     "R40": {
       "pins": {
@@ -20146,7 +20666,8 @@
       },
       "value": "R_100k_0402",
       "description": "100k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1003GLF"
+      "mpn": "CR0402-FX-1003GLF",
+      "manufacturer": "Bourns"
     },
     "R41": {
       "pins": {
@@ -20155,7 +20676,8 @@
       },
       "value": "R_1k_0402",
       "description": "1k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1001GLF"
+      "mpn": "CR0402-FX-1001GLF",
+      "manufacturer": "Bourns"
     },
     "R42": {
       "pins": {
@@ -20164,7 +20686,8 @@
       },
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
-      "mpn": "ERJ2GE0R00X"
+      "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic"
     },
     "R43": {
       "pins": {
@@ -20173,7 +20696,8 @@
       },
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1002GLF"
+      "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns"
     },
     "R44": {
       "pins": {
@@ -20182,7 +20706,8 @@
       },
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
-      "mpn": "ERJ2GE0R00X"
+      "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic"
     },
     "R45": {
       "pins": {
@@ -20191,7 +20716,8 @@
       },
       "value": "R_4k99_0402",
       "description": "4k99 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-4991GLF"
+      "mpn": "CR0402-FX-4991GLF",
+      "manufacturer": "Bourns"
     },
     "R46": {
       "pins": {
@@ -20200,7 +20726,8 @@
       },
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1002GLF"
+      "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns"
     },
     "R47": {
       "pins": {
@@ -20209,7 +20736,8 @@
       },
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
-      "mpn": "ERJ2GE0R00X"
+      "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic"
     },
     "R48": {
       "pins": {
@@ -20218,7 +20746,8 @@
       },
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
-      "mpn": "ERJ2GE0R00X"
+      "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic"
     },
     "R49": {
       "pins": {
@@ -20227,7 +20756,8 @@
       },
       "value": "R_31k6_0402",
       "description": "31k6 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-3162GLF"
+      "mpn": "CR0402-FX-3162GLF",
+      "manufacturer": "Bourns"
     },
     "R55": {
       "pins": {
@@ -20236,7 +20766,8 @@
       },
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
-      "mpn": "ERJ2GE0R00X"
+      "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic"
     },
     "R82": {
       "pins": {
@@ -20245,7 +20776,8 @@
       },
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1002GLF"
+      "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns"
     },
     "R83": {
       "pins": {
@@ -20254,7 +20786,8 @@
       },
       "value": "R_12k4_0402",
       "description": "12k4 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1242GLF"
+      "mpn": "CR0402-FX-1242GLF",
+      "manufacturer": "Bourns"
     },
     "R84": {
       "pins": {
@@ -20263,7 +20796,8 @@
       },
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1002GLF"
+      "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns"
     },
     "R86": {
       "pins": {
@@ -20272,7 +20806,8 @@
       },
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1002GLF"
+      "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns"
     },
     "R87": {
       "pins": {
@@ -20281,7 +20816,8 @@
       },
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1002GLF"
+      "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns"
     },
     "R88": {
       "pins": {
@@ -20290,7 +20826,8 @@
       },
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1002GLF"
+      "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns"
     },
     "R113": {
       "pins": {
@@ -20299,7 +20836,8 @@
       },
       "value": "R_330R_0.25W_0603",
       "description": "330R resistor in 0603 package with 1% tolerance",
-      "mpn": "ERJ-UP3F3300V"
+      "mpn": "ERJ-UP3F3300V",
+      "manufacturer": "Panasonic"
     },
     "R114": {
       "pins": {
@@ -20308,7 +20846,8 @@
       },
       "value": "R_330R_0.25W_0603",
       "description": "330R resistor in 0603 package with 1% tolerance",
-      "mpn": "ERJ-UP3F3300V"
+      "mpn": "ERJ-UP3F3300V",
+      "manufacturer": "Panasonic"
     },
     "R115": {
       "pins": {
@@ -20317,7 +20856,8 @@
       },
       "value": "R_16k9_0402",
       "description": "16k9 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1692GLF"
+      "mpn": "CR0402-FX-1692GLF",
+      "manufacturer": "Bourns"
     },
     "R116": {
       "pins": {
@@ -20326,7 +20866,8 @@
       },
       "value": "R_243k_0402",
       "description": "243k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-2433GLF"
+      "mpn": "CR0402-FX-2433GLF",
+      "manufacturer": "Bourns"
     },
     "R117": {
       "pins": {
@@ -20336,6 +20877,7 @@
       "value": "R_47k_0402",
       "description": "47k resistor in 0402 package with 1% tolerance",
       "mpn": "CR0402-FX-4702GLF",
+      "manufacturer": "Bourns",
       "dns": true
     },
     "R118": {
@@ -20346,6 +20888,7 @@
       "value": "R_47k_0402",
       "description": "47k resistor in 0402 package with 1% tolerance",
       "mpn": "CR0402-FX-4702GLF",
+      "manufacturer": "Bourns",
       "dns": true
     },
     "R119": {
@@ -20355,7 +20898,8 @@
       },
       "value": "R_330R_0402",
       "description": "330R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-3300GLF"
+      "mpn": "CR0402-FX-3300GLF",
+      "manufacturer": "Bourns"
     },
     "R120": {
       "pins": {
@@ -20364,7 +20908,8 @@
       },
       "value": "R_47k_0402",
       "description": "47k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-4702GLF"
+      "mpn": "CR0402-FX-4702GLF",
+      "manufacturer": "Bourns"
     },
     "R121": {
       "pins": {
@@ -20373,7 +20918,8 @@
       },
       "value": "R_100k_0402",
       "description": "100k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1003GLF"
+      "mpn": "CR0402-FX-1003GLF",
+      "manufacturer": "Bourns"
     },
     "R122": {
       "pins": {
@@ -20382,7 +20928,8 @@
       },
       "value": "R_100k_0402",
       "description": "100k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1003GLF"
+      "mpn": "CR0402-FX-1003GLF",
+      "manufacturer": "Bourns"
     },
     "R123": {
       "pins": {
@@ -20391,7 +20938,8 @@
       },
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1002GLF"
+      "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns"
     },
     "R124": {
       "pins": {
@@ -20400,7 +20948,8 @@
       },
       "value": "R_100k_0402",
       "description": "100k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1003GLF"
+      "mpn": "CR0402-FX-1003GLF",
+      "manufacturer": "Bourns"
     },
     "R126": {
       "pins": {
@@ -20409,7 +20958,8 @@
       },
       "value": "R_49R9_0402",
       "description": "49R9 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-49R9GLF"
+      "mpn": "CR0402-FX-49R9GLF",
+      "manufacturer": "Bourns"
     },
     "R127": {
       "pins": {
@@ -20418,7 +20968,8 @@
       },
       "value": "R_53k6_0402",
       "description": "53k6 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-5362GLF"
+      "mpn": "CR0402-FX-5362GLF",
+      "manufacturer": "Bourns"
     },
     "R128": {
       "pins": {
@@ -20427,7 +20978,8 @@
       },
       "value": "R_10k2_0402",
       "description": "10k2 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1022GLF"
+      "mpn": "CR0402-FX-1022GLF",
+      "manufacturer": "Bourns"
     },
     "R162": {
       "pins": {
@@ -20436,7 +20988,8 @@
       },
       "value": "R_0R01_1206",
       "description": "0R01 resistor in 1206 package with unspecified tolerance",
-      "mpn": "RL1206FR-7W0R01L"
+      "mpn": "RL1206FR-7W0R01L",
+      "manufacturer": "Yaego"
     },
     "R191": {
       "pins": {
@@ -20446,6 +20999,7 @@
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
       "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic",
       "dns": true
     },
     "R192": {
@@ -20455,7 +21009,8 @@
       },
       "value": "R_100k_0402",
       "description": "100k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1003GLF"
+      "mpn": "CR0402-FX-1003GLF",
+      "manufacturer": "Bourns"
     },
     "R194": {
       "pins": {
@@ -20464,7 +21019,8 @@
       },
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1002GLF"
+      "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns"
     },
     "R195": {
       "pins": {
@@ -20473,7 +21029,8 @@
       },
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1002GLF"
+      "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns"
     },
     "R196": {
       "pins": {
@@ -20483,6 +21040,7 @@
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
       "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic",
       "dns": true
     },
     "R197": {
@@ -20493,6 +21051,7 @@
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
       "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic",
       "dns": true
     },
     "R198": {
@@ -20502,7 +21061,8 @@
       },
       "value": "R_0R01_1206",
       "description": "0R01 resistor in 1206 package with unspecified tolerance",
-      "mpn": "RL1206FR-7W0R01L"
+      "mpn": "RL1206FR-7W0R01L",
+      "manufacturer": "Yaego"
     },
     "R199": {
       "pins": {
@@ -20511,7 +21071,8 @@
       },
       "value": "R_0R005_1206",
       "description": "0R005 resistor in 1206 package with 1% tolerance",
-      "mpn": "CR1206-J/-000ELF"
+      "mpn": "CR1206-J/-000ELF",
+      "manufacturer": "Bourns"
     },
     "R200": {
       "pins": {
@@ -20520,7 +21081,8 @@
       },
       "value": "R_0R01_1206",
       "description": "0R01 resistor in 1206 package with unspecified tolerance",
-      "mpn": "RL1206FR-7W0R01L"
+      "mpn": "RL1206FR-7W0R01L",
+      "manufacturer": "Yaego"
     },
     "R201": {
       "pins": {
@@ -20529,7 +21091,8 @@
       },
       "value": "R_0R01_1206",
       "description": "0R01 resistor in 1206 package with unspecified tolerance",
-      "mpn": "RL1206FR-7W0R01L"
+      "mpn": "RL1206FR-7W0R01L",
+      "manufacturer": "Yaego"
     },
     "R202": {
       "pins": {
@@ -20538,7 +21101,8 @@
       },
       "value": "R_0R01_1206",
       "description": "0R01 resistor in 1206 package with unspecified tolerance",
-      "mpn": "RL1206FR-7W0R01L"
+      "mpn": "RL1206FR-7W0R01L",
+      "manufacturer": "Yaego"
     },
     "R203": {
       "pins": {
@@ -20547,7 +21111,8 @@
       },
       "value": "R_0R01_1206",
       "description": "0R01 resistor in 1206 package with unspecified tolerance",
-      "mpn": "RL1206FR-7W0R01L"
+      "mpn": "RL1206FR-7W0R01L",
+      "manufacturer": "Yaego"
     },
     "R204": {
       "pins": {
@@ -20556,7 +21121,8 @@
       },
       "value": "R_0R01_1206",
       "description": "0R01 resistor in 1206 package with unspecified tolerance",
-      "mpn": "RL1206FR-7W0R01L"
+      "mpn": "RL1206FR-7W0R01L",
+      "manufacturer": "Yaego"
     },
     "R212": {
       "pins": {
@@ -20565,7 +21131,8 @@
       },
       "value": "R_100k_0402",
       "description": "100k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1003GLF"
+      "mpn": "CR0402-FX-1003GLF",
+      "manufacturer": "Bourns"
     },
     "R213": {
       "pins": {
@@ -20574,7 +21141,8 @@
       },
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1002GLF"
+      "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns"
     },
     "R214": {
       "pins": {
@@ -20583,7 +21151,8 @@
       },
       "value": "R_100k_0402",
       "description": "100k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1003GLF"
+      "mpn": "CR0402-FX-1003GLF",
+      "manufacturer": "Bourns"
     },
     "R215": {
       "pins": {
@@ -20592,7 +21161,8 @@
       },
       "value": "R_100k_0402",
       "description": "100k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1003GLF"
+      "mpn": "CR0402-FX-1003GLF",
+      "manufacturer": "Bourns"
     },
     "R216": {
       "pins": {
@@ -20601,7 +21171,8 @@
       },
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1002GLF"
+      "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns"
     },
     "R217": {
       "pins": {
@@ -20610,7 +21181,8 @@
       },
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1002GLF"
+      "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns"
     },
     "R218": {
       "pins": {
@@ -20619,7 +21191,8 @@
       },
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1002GLF"
+      "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns"
     },
     "R219": {
       "pins": {
@@ -20629,6 +21202,7 @@
       "value": "R_0R_0402",
       "description": "0R resistor in 0402 package with unspecified tolerance",
       "mpn": "ERJ2GE0R00X",
+      "manufacturer": "Panasonic",
       "dns": true
     },
     "R220": {
@@ -20638,7 +21212,8 @@
       },
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1002GLF"
+      "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns"
     },
     "S3": {
       "pins": {
@@ -20648,7 +21223,8 @@
       },
       "value": "SW_1-1825027-1",
       "description": "Tactile Switch, Side Actuated, Through Hole, Round Button, 160 gf, 50mA at 24VDC",
-      "mpn": "1-1825027-1"
+      "mpn": "1-1825027-1",
+      "manufacturer": "TE Connectivity"
     },
     "TP6": {
       "pins": {
@@ -20768,7 +21344,8 @@
         }
       },
       "value": "TPS65295RJE",
-      "mpn": "TPS65295RJET"
+      "mpn": "TPS65295RJET",
+      "manufacturer": "Texas Instruments"
     },
     "U4": {
       "pins": {
@@ -20798,7 +21375,8 @@
         }
       },
       "value": "AP62301WU-7",
-      "mpn": "AP62301WU-7"
+      "mpn": "AP62301WU-7",
+      "manufacturer": "Diodes Incorporated"
     },
     "U5": {
       "pins": {
@@ -20828,7 +21406,8 @@
         }
       },
       "value": "AP62301WU-7",
-      "mpn": "AP62301WU-7"
+      "mpn": "AP62301WU-7",
+      "manufacturer": "Diodes Incorporated"
     },
     "U9": {
       "pins": {
@@ -20858,7 +21437,8 @@
         }
       },
       "value": "AP62301WU-7",
-      "mpn": "AP62301WU-7"
+      "mpn": "AP62301WU-7",
+      "manufacturer": "Diodes Incorporated"
     },
     "U10": {
       "pins": {
@@ -20897,7 +21477,8 @@
       },
       "value": "LM3881MME_NOPB",
       "description": "LM3881MME/NOPB",
-      "mpn": "LM3881MME/NOPB"
+      "mpn": "LM3881MME/NOPB",
+      "manufacturer": "Texas Instruments"
     },
     "U12": {
       "pins": {
@@ -20927,7 +21508,8 @@
         }
       },
       "value": "AP62301WU-7",
-      "mpn": "AP62301WU-7"
+      "mpn": "AP62301WU-7",
+      "manufacturer": "Diodes Incorporated"
     },
     "U17": {
       "pins": {
@@ -20946,7 +21528,8 @@
       },
       "value": "74LVC2G07_SOT457",
       "description": "Dual Buffer w/ Open Drain, Low-Voltage CMOS, TSOP6 (SOT457/SC-74/SOT23-6) package 1.1mm height, Texas Instruments Equivalent: SN74LVC2G07DBVR",
-      "mpn": "74LVC2G07GV,125"
+      "mpn": "74LVC2G07GV,125",
+      "manufacturer": "Nexperia"
     },
     "U18": {
       "pins": {
@@ -20969,7 +21552,8 @@
       },
       "value": "MAX812REUS+T",
       "description": "Supervisory Circuits 4-Pin uP Voltage Monitors with Manual Reset Input",
-      "mpn": "MAX812REUS+T"
+      "mpn": "MAX812REUS+T",
+      "manufacturer": "Maxim Integrated"
     },
     "U19": {
       "pins": {
@@ -21044,7 +21628,8 @@
       },
       "value": "PAC1954T-E_VQFN",
       "description": "Current/Voltage Monitor Regulator High-Side 16-VQFN (3x3)",
-      "mpn": "PAC1954T-E/4MX"
+      "mpn": "PAC1954T-E/4MX",
+      "manufacturer": "Microchip Technology"
     },
     "U20": {
       "pins": {
@@ -21119,7 +21704,8 @@
       },
       "value": "PAC1954T-E_VQFN",
       "description": "Current/Voltage Monitor Regulator High-Side 16-VQFN (3x3)",
-      "mpn": "PAC1954T-E/4MX"
+      "mpn": "PAC1954T-E/4MX",
+      "manufacturer": "Microchip Technology"
     },
     "U21": {
       "pins": {
@@ -21145,7 +21731,8 @@
         }
       },
       "value": "SN74AHCT1G125_SOT",
-      "mpn": "SN74AHCT1G125DBVR"
+      "mpn": "SN74AHCT1G125DBVR",
+      "manufacturer": "Texas Instruments"
     },
     "U22": {
       "pins": {
@@ -21171,7 +21758,8 @@
         }
       },
       "value": "SN74AHCT1G125_SOT",
-      "mpn": "SN74AHCT1G125DBVR"
+      "mpn": "SN74AHCT1G125DBVR",
+      "manufacturer": "Texas Instruments"
     },
     "U23": {
       "pins": {
@@ -21197,7 +21785,8 @@
         }
       },
       "value": "SN74AHCT1G125_SOT",
-      "mpn": "SN74AHCT1G125DBVR"
+      "mpn": "SN74AHCT1G125DBVR",
+      "manufacturer": "Texas Instruments"
     },
     "U24": {
       "pins": {
@@ -21216,7 +21805,8 @@
       },
       "value": "74LVC2G07_SOT457",
       "description": "Dual Buffer w/ Open Drain, Low-Voltage CMOS, TSOP6 (SOT457/SC-74/SOT23-6) package 1.1mm height, Texas Instruments Equivalent: SN74LVC2G07DBVR",
-      "mpn": "74LVC2G07GV,125"
+      "mpn": "74LVC2G07GV,125",
+      "manufacturer": "Nexperia"
     },
     "U25": {
       "pins": {
@@ -21243,7 +21833,8 @@
       },
       "value": "NCP718ASN500_SOT",
       "description": "LDO Voltage Regulators 300 MA LOW IQ WIDE INPUT 5.0V",
-      "mpn": "NCP718ASN500T1G"
+      "mpn": "NCP718ASN500T1G",
+      "manufacturer": "ON Semiconductor"
     },
     "U26": {
       "pins": {
@@ -21274,7 +21865,8 @@
       },
       "value": "MAX16150A_SOT",
       "description": "nanoPower Pushbutton On/Off Controller and Battery Freshness Seal",
-      "mpn": "MAX16150AUT+T"
+      "mpn": "MAX16150AUT+T",
+      "manufacturer": "Maxim Integrated"
     },
     "U27": {
       "pins": {
@@ -21301,7 +21893,8 @@
       },
       "value": "SN74LVC1G240_SC70",
       "description": "Single Inverting Buffer/Driver With 3-State Output",
-      "mpn": "SN74LVC1G240DCKR"
+      "mpn": "SN74LVC1G240DCKR",
+      "manufacturer": "Texas Instruments"
     },
     "VIN1": {
       "pins": {
@@ -21316,7 +21909,8 @@
         "2": "/FPGA banks 115-116/GTR_REFCLK1_P"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C198": {
       "pins": {
@@ -21324,7 +21918,8 @@
         "2": "/FPGA banks 115-116/GTR_REFCLK1_N"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C246": {
       "pins": {
@@ -21332,7 +21927,8 @@
         "2": "/FPGA banks 115-116/GTR_REFCLK0_P"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C247": {
       "pins": {
@@ -21340,7 +21936,8 @@
         "2": "/FPGA banks 115-116/GTR_REFCLK0_N"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C315": {
       "pins": {
@@ -21348,7 +21945,8 @@
         "2": "GTR_REFCLK2_C_P"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C316": {
       "pins": {
@@ -21356,7 +21954,8 @@
         "2": "GTR_REFCLK2_C_N"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C317": {
       "pins": {
@@ -21364,7 +21963,8 @@
         "2": "GTR_REFCLK3_C_P"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C318": {
       "pins": {
@@ -21372,7 +21972,8 @@
         "2": "GTR_REFCLK3_C_N"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C257": {
       "pins": {
@@ -21380,7 +21981,8 @@
         "2": "GND"
       },
       "value": "C_100n_0201",
-      "mpn": "CC0201KRX6S5BB104"
+      "mpn": "CC0201KRX6S5BB104",
+      "manufacturer": "Yaego"
     },
     "C258": {
       "pins": {
@@ -21388,7 +21990,8 @@
         "2": "GND"
       },
       "value": "C_47u_16V_1206",
-      "mpn": "C3216X5R1C476M160AB"
+      "mpn": "C3216X5R1C476M160AB",
+      "manufacturer": "TDK"
     },
     "C259": {
       "pins": {
@@ -21396,7 +21999,8 @@
         "2": "GTX_TX0_P"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C260": {
       "pins": {
@@ -21404,7 +22008,8 @@
         "2": "GTX_TX0_N"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C261": {
       "pins": {
@@ -21412,7 +22017,8 @@
         "2": "GTX_TX1_P"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C262": {
       "pins": {
@@ -21420,7 +22026,8 @@
         "2": "GTX_TX1_N"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C263": {
       "pins": {
@@ -21428,7 +22035,8 @@
         "2": "GTX_TX2_P"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C264": {
       "pins": {
@@ -21436,7 +22044,8 @@
         "2": "GTX_TX2_N"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C265": {
       "pins": {
@@ -21444,7 +22053,8 @@
         "2": "GTX_TX3_P"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C266": {
       "pins": {
@@ -21452,7 +22062,8 @@
         "2": "GTX_TX3_N"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C267": {
       "pins": {
@@ -21460,7 +22071,8 @@
         "2": "GTX_TX4_P"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C268": {
       "pins": {
@@ -21468,7 +22080,8 @@
         "2": "GTX_TX4_N"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C269": {
       "pins": {
@@ -21476,7 +22089,8 @@
         "2": "GTX_TX5_P"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C270": {
       "pins": {
@@ -21484,7 +22098,8 @@
         "2": "GTX_TX5_N"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C271": {
       "pins": {
@@ -21492,7 +22107,8 @@
         "2": "GTX_TX6_P"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C272": {
       "pins": {
@@ -21500,7 +22116,8 @@
         "2": "/FMC HPC/GTX_TX6_C_N"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C273": {
       "pins": {
@@ -21508,7 +22125,8 @@
         "2": "GTX_TX7_P"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "C274": {
       "pins": {
@@ -21516,7 +22134,8 @@
         "2": "GTX_TX7_N"
       },
       "value": "C_100n_0402",
-      "mpn": "GRM155R61H104KE14D"
+      "mpn": "GRM155R61H104KE14D",
+      "manufacturer": "Murata"
     },
     "D18": {
       "pins": {
@@ -21525,7 +22144,8 @@
       },
       "value": "PDS760",
       "description": "PDS760 Series 60 V 7 A Surface Mount Schottky Barrier Rectifier - PowerDI-5",
-      "mpn": "PDS760-13"
+      "mpn": "PDS760-13",
+      "manufacturer": "Diodes Incorporated"
     },
     "J5": {
       "pins": {
@@ -23132,7 +23752,8 @@
       },
       "value": "ASP-134486-01",
       "description": "400-pole 10-row 1.27mm Female FMC HPC Connector with gold-plated copper alloy contacts.",
-      "mpn": "ASP-134486-01"
+      "mpn": "ASP-134486-01",
+      "manufacturer": "Samtec"
     },
     "R148": {
       "pins": {
@@ -23141,7 +23762,8 @@
       },
       "value": "R_33R_0402",
       "description": "33R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-33R0GLF"
+      "mpn": "CR0402-FX-33R0GLF",
+      "manufacturer": "Bourns"
     },
     "R149": {
       "pins": {
@@ -23150,7 +23772,8 @@
       },
       "value": "R_33R_0402",
       "description": "33R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-33R0GLF"
+      "mpn": "CR0402-FX-33R0GLF",
+      "manufacturer": "Bourns"
     },
     "R150": {
       "pins": {
@@ -23159,7 +23782,8 @@
       },
       "value": "R_33R_0402",
       "description": "33R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-33R0GLF"
+      "mpn": "CR0402-FX-33R0GLF",
+      "manufacturer": "Bourns"
     },
     "R151": {
       "pins": {
@@ -23168,7 +23792,8 @@
       },
       "value": "R_33R_0402",
       "description": "33R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-33R0GLF"
+      "mpn": "CR0402-FX-33R0GLF",
+      "manufacturer": "Bourns"
     },
     "R152": {
       "pins": {
@@ -23177,7 +23802,8 @@
       },
       "value": "R_33R_0402",
       "description": "33R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-33R0GLF"
+      "mpn": "CR0402-FX-33R0GLF",
+      "manufacturer": "Bourns"
     },
     "R153": {
       "pins": {
@@ -23186,7 +23812,8 @@
       },
       "value": "R_33R_0402",
       "description": "33R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-33R0GLF"
+      "mpn": "CR0402-FX-33R0GLF",
+      "manufacturer": "Bourns"
     },
     "R154": {
       "pins": {
@@ -23195,7 +23822,8 @@
       },
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1002GLF"
+      "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns"
     },
     "R155": {
       "pins": {
@@ -23204,7 +23832,8 @@
       },
       "value": "R_4k7_0402",
       "description": "4k7 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-4701GLF"
+      "mpn": "CR0402-FX-4701GLF",
+      "manufacturer": "Bourns"
     },
     "R160": {
       "pins": {
@@ -23213,7 +23842,8 @@
       },
       "value": "R_4k7_0402",
       "description": "4k7 resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-4701GLF"
+      "mpn": "CR0402-FX-4701GLF",
+      "manufacturer": "Bourns"
     },
     "R208": {
       "pins": {
@@ -23222,7 +23852,8 @@
       },
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1002GLF"
+      "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns"
     },
     "R209": {
       "pins": {
@@ -23231,7 +23862,8 @@
       },
       "value": "R_10k_0402",
       "description": "10k resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-1002GLF"
+      "mpn": "CR0402-FX-1002GLF",
+      "manufacturer": "Bourns"
     },
     "R210": {
       "pins": {
@@ -23240,7 +23872,8 @@
       },
       "value": "R_33R_0402",
       "description": "33R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-33R0GLF"
+      "mpn": "CR0402-FX-33R0GLF",
+      "manufacturer": "Bourns"
     },
     "R211": {
       "pins": {
@@ -23249,7 +23882,8 @@
       },
       "value": "R_33R_0402",
       "description": "33R resistor in 0402 package with 1% tolerance",
-      "mpn": "CR0402-FX-33R0GLF"
+      "mpn": "CR0402-FX-33R0GLF",
+      "manufacturer": "Bourns"
     },
     "TP15": {
       "pins": {

@@ -20,7 +20,9 @@ Returns component details with pin-to-net mappings using [`PinEntry`](../schemas
 ```json
 {
   "refdes": "string",
-  "mpn": "string",              // optional
+  "mpn": "string",              // optional, the manufacturer's part number
+  "internal_pn": "string",      // optional, the design owner's part number
+  "manufacturer": "string",     // optional, the manufacturer's name
   "description": "string",       // optional
   "comment": "string",           // optional
   "value": "string",             // optional
@@ -72,6 +74,7 @@ Response:
 {
   "refdes": "R1",
   "mpn": "RC0402FR-071KL",
+  "internal_pn": "INT-1001",
   "description": "RES 1K OHM 1% 1/16W 0402",
   "value": "1k",
   "pins": {
@@ -120,5 +123,9 @@ Pins use two formats:
 
 - Reference designator lookup is **case-insensitive** (`u1` matches `U1`)
 - The `NC` net indicates an unconnected pin (No Connect)
-- Components without MPN omit the `mpn` field and include a `notes` field
+- Components without a part number omit the `mpn` field and include a `notes` field
+- `mpn` is the manufacturer's part number and nothing else; `internal_pn` is the
+  number the design owner identifies the part by. They are different namespaces,
+  neither is derived from the other, and each is omitted when the design records
+  it nowhere. `mpn` is never filled from a library symbol or footprint name
 - Pin numbers are string keys (may be alphanumeric like `A1`, `B2` for BGAs)

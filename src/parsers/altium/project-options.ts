@@ -54,22 +54,21 @@ export interface AltiumProjectOptions {
  * is fixed and wrong everywhere, where the design's own shape is evidence.
  */
 const HIERARCHY_MODE_SCOPE: Readonly<Record<string, NetIdentifierScope>> = {
-  // The nRF52840 development kit and MiSKo3 record `2` and are drawn as full
-  // parent/child hierarchies; MiSKo3's board numbers its sheet-local labels and
-  // leaves `GND` bare, which is Hierarchical exactly.
+  // Projects recording `2` are drawn as full parent/child hierarchies, and one
+  // of them numbers its sheet-local labels while leaving `GND` bare, which is
+  // Hierarchical exactly.
   "2": "hierarchical",
-  // The LimeSDR-USB boards record `3` and are drawn with no sheet symbols and
-  // no ports at all, so nothing but matching net labels can be joining their
-  // sheets, which is Global. Note none of them enables
-  // `AppendSheetNumberToLocalNets`, so no board yet confirms this one the way
-  // MiSKo3 and solarcar-bms confirm `2` and `4`.
+  // Projects recording `3` are drawn with no sheet symbols and no ports at all,
+  // so nothing but matching net labels can be joining their sheets, which is
+  // Global. None of them enables `AppendSheetNumberToLocalNets`, so no design
+  // yet confirms this one the way `2` and `4` are confirmed.
   "3": "global",
-  // `4` was read as Strict Hierarchical until a board said otherwise. The
-  // solarcar-bms fixture records it and numbers its sheet-local signals, so its
-  // labels are certainly scoped to a sheet; but its board carries `GND`,
-  // `CHASSIS` and `LVB` unnumbered, so its power ports are just as certainly
-  // global, which Strict Hierarchical would not allow. It is read as
-  // Hierarchical until a design turns up that localizes its power nets.
+  // `4` was read as Strict Hierarchical until a design said otherwise. A project
+  // recording it numbers its sheet-local signals, so its labels are certainly
+  // scoped to a sheet; but its board carries its supply and chassis nets
+  // unnumbered, so its power ports are just as certainly global, which Strict
+  // Hierarchical would not allow. It is read as Hierarchical until a design
+  // turns up that localizes its power nets.
   "4": "hierarchical",
 };
 

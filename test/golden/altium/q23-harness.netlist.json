@@ -1,8 +1,8 @@
 {
-  "universalNetlistSchemaVersion": 1,
+  "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-01T21:46:11.397Z",
-    "netlistHash": "sha256:3af2c25d538cf0df15f0035bb8a1cef0bcdae7958d9bfb9bb8539dc0ce87f026",
+    "generatedAt": "2026-09-03T01:02:27.172Z",
+    "netlistHash": "sha256:932465c488a6f6c1aa104f93b4cc4061d2db75e21acc0b896644fcd27d6cc0dd",
     "origin": {
       "type": "vendor",
       "source": {
@@ -1510,6 +1510,7 @@
         "33": "SEN_0V_B1",
         "34": "SEN_0V_A1"
       },
+      "manufacturer": "Wurth Elektronik",
       "description": "THT Angled Pin Header WR-PHD, Pitch 2.54 mm, Single Row, 34 pins",
       "comment": "61303411021"
     },
@@ -1550,6 +1551,7 @@
         "33": "",
         "34": ""
       },
+      "manufacturer": "Wurth Elektronik",
       "description": "THT Angled Pin Header WR-PHD, Pitch 2.54 mm, Single Row, 34 pins",
       "comment": "61303411021"
     },
@@ -1590,6 +1592,7 @@
         "33": "GEAR_SHIFT_DOWN_CTRL",
         "34": "TURBO_ACT_BYP"
       },
+      "manufacturer": "Wurth Elektronik",
       "description": "THT Angled Pin Header WR-PHD, Pitch 2.54 mm, Single Row, 34 pins",
       "comment": "61303411021"
     },
@@ -1630,6 +1633,7 @@
         "33": "",
         "34": ""
       },
+      "manufacturer": "Wurth Elektronik",
       "description": "THT Angled Pin Header WR-PHD, Pitch 2.54 mm, Single Row, 34 pins",
       "comment": "61303411021"
     },
@@ -1937,6 +1941,7 @@
         "33": "",
         "34": ""
       },
+      "manufacturer": "Wurth Elektronik",
       "description": "THT Angled Pin Header WR-PHD, Pitch 2.54 mm, Single Row, 34 pins",
       "comment": "61303411021"
     },
@@ -1977,6 +1982,7 @@
         "33": "",
         "34": ""
       },
+      "manufacturer": "Wurth Elektronik",
       "description": "THT Angled Pin Header WR-PHD, Pitch 2.54 mm, Single Row, 34 pins",
       "comment": "61303411021"
     },
@@ -1993,6 +1999,7 @@
         "1": "PDM_CAN_N",
         "2": "PDM_CAN_P"
       },
+      "manufacturer": "Panasonic",
       "comment": "100 Ohm"
     },
     "PEDALBOX_BULKHEAD_CONN": {
@@ -2043,6 +2050,7 @@
         "1": "BRAKE_OT_n",
         "2": "VBATT"
       },
+      "manufacturer": "Vishay Dale",
       "comment": "10K"
     },
     "APPS_CONN2": {

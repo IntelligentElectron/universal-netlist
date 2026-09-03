@@ -1,8 +1,8 @@
 {
-  "universalNetlistSchemaVersion": 1,
+  "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-01T21:46:10.924Z",
-    "netlistHash": "sha256:464141a6984af7553f5e1947ba51ee8ed07e7aaf8731f7647aed08bb9ba7013f",
+    "generatedAt": "2026-09-03T01:02:26.836Z",
+    "netlistHash": "sha256:ff38fc66fd733e589cfd28b9ee8a1fb704a0d55dfc6548b2298c011c35665909",
     "origin": {
       "type": "vendor",
       "source": {
@@ -3573,6 +3573,7 @@
         }
       },
       "mpn": "BAT54HT1G",
+      "manufacturer": "ON Semiconductor / Fairchild",
       "description": "Schottky Barrier Diode, 2-Pin SOD-323, Pb-Free, Tape and Reel",
       "comment": "BAT54HT1G"
     },
@@ -3588,6 +3589,7 @@
         }
       },
       "mpn": "BAT54HT1G",
+      "manufacturer": "ON Semiconductor / Fairchild",
       "description": "Schottky Barrier Diode, 2-Pin SOD-323, Pb-Free, Tape and Reel",
       "comment": "BAT54HT1G"
     },
@@ -3603,6 +3605,7 @@
         }
       },
       "mpn": "BAT54HT1G",
+      "manufacturer": "ON Semiconductor / Fairchild",
       "description": "Schottky Barrier Diode, 2-Pin SOD-323, Pb-Free, Tape and Reel",
       "comment": "BAT54HT1G"
     },
@@ -5067,6 +5070,7 @@
           "net": "+3V3HUB"
         }
       },
+      "manufacturer": "Texas Instruments",
       "description": "800mA Low-Dropout Linear Regulator, 4-pin SOT-223, Pb-Free\r\n\r\nDataSheet: \r\nhttps://www.ti.com/lit/ds/symlink/lm1117.pdf?ts=1629838143263&ref_url=https%253A%252F%252Fwww.google.com%252F",
       "comment": "LM1117MPX-3.3"
     },
@@ -5257,6 +5261,7 @@
         }
       },
       "mpn": "MIC2544-1YMM-TR",
+      "manufacturer": "Microchip",
       "description": "IC PWR SWITCH N-CHAN 1:1 8MSOP\r\n\r\nDataSheet:\r\nhttps://ww1.microchip.com/downloads/en/DeviceDoc/20005725B.pdf",
       "comment": "MIC2548-1YM"
     },
@@ -5513,6 +5518,7 @@
         }
       },
       "mpn": "STM32F103CBT6",
+      "manufacturer": "STMicroelectronics",
       "description": "ARM Cortex-M3 32-bit MCU, 128 KB Flash, 20 KB Internal RAM, 37 I/Os, 48-pin LQFP, -40 to 85 degC, Tray\r\n\r\nDataSheet:\r\nhttps://www.st.com/resource/en/datasheet/stm32f103c8.pdf\r\n\r\n\r\nAbout STLINK:\r\nhttps://www.st.com/resource/en/user_manual/dm00231744-stm32-nucleo-32-boards-mb1180-stmicroelectronics.pdf",
       "comment": "STM32F103CBT6"
     },
@@ -5800,6 +5806,7 @@
         }
       },
       "mpn": "BAT54HT1G",
+      "manufacturer": "ON Semiconductor / Fairchild",
       "description": "Schottky Barrier Diode, 2-Pin SOD-323, Pb-Free, Tape and Reel",
       "comment": "BAT54HT1G"
     },
@@ -6092,6 +6099,7 @@
         }
       },
       "mpn": "SP3051-04HTG",
+      "manufacturer": "Littelfuse",
       "description": "TVS DIODE 6V 17V SOT23-6",
       "comment": "SP3051-04HTG"
     },
@@ -6274,6 +6282,7 @@
         }
       },
       "mpn": "632723300011",
+      "manufacturer": "Wurth Electronics",
       "description": "USB 3.1 Type C Receptacle WR-COM, Horizontal, SMT / THT",
       "comment": "632723300011"
     },

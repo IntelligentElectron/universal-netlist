@@ -1,8 +1,8 @@
 {
-  "universalNetlistSchemaVersion": 1,
+  "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-01T21:46:07.623Z",
-    "netlistHash": "sha256:952f68f5fbcfd645908511d1bf38757e61ce25b9d937b890837b78b3eea3211d",
+    "generatedAt": "2026-09-03T01:02:24.339Z",
+    "netlistHash": "sha256:a3043395987114e78eccaf172ac8cfb1be5d38326f07e4807bb0ebb0ab93bb8b",
     "origin": {
       "type": "vendor",
       "source": {
@@ -619,6 +619,7 @@
           "net": "GND"
         }
       },
+      "manufacturer": "Epson",
       "description": "MHz Range Crystal, 24 MHz, -40 to 85 degC, 4-Pin SMD, RoHS, Tape and Reel",
       "comment": "TSX-3225 24.0000MF15X-AC3"
     },
@@ -628,6 +629,7 @@
         "2": "+3V3"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata",
       "description": "CAP CER 0.1UF 16V X7R 0402",
       "comment": "2.2u",
       "value": "0.10µF"
@@ -638,6 +640,7 @@
         "2": "+3V3"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata",
       "description": "CAP CER 0.1UF 16V X7R 0402",
       "comment": "100n",
       "value": "0.10µF"
@@ -648,6 +651,7 @@
         "2": "+3V3"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata",
       "description": "CAP CER 0.1UF 16V X7R 0402",
       "comment": "100n",
       "value": "0.10µF"
@@ -658,6 +662,7 @@
         "2": "+3V3"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata",
       "description": "CAP CER 0.1UF 16V X7R 0402",
       "comment": "100n",
       "value": "0.10µF"
@@ -668,6 +673,7 @@
         "2": "+3V3"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata",
       "description": "CAP CER 0.1UF 16V X7R 0402",
       "comment": "100n",
       "value": "0.10µF"
@@ -678,6 +684,7 @@
         "2": "+3V3"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata",
       "description": "CAP CER 0.1UF 16V X7R 0402",
       "comment": "100n",
       "value": "0.10µF"
@@ -688,6 +695,7 @@
         "2": "MCU_VCAP1"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata",
       "description": "CAP CER 0.1UF 16V X7R 0402",
       "comment": "2.2u",
       "value": "0.10µF"
@@ -698,6 +706,7 @@
         "2": "MCU_NRST"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata",
       "description": "CAP CER 0.1UF 16V X7R 0402",
       "comment": "100n",
       "value": "0.10µF"
@@ -724,6 +733,7 @@
         "2": "MCU OSC IN"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata",
       "description": "CAP CER 0.1UF 16V X7R 0402",
       "comment": "10p",
       "value": "0.10µF"
@@ -734,6 +744,7 @@
         "2": "XTAL IN"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata",
       "description": "CAP CER 0.1UF 16V X7R 0402",
       "comment": "10p",
       "value": "0.10µF"
@@ -849,6 +860,7 @@
           "net": "GND"
         }
       },
+      "manufacturer": "InvenSense",
       "description": "3-Axis Gyroscope, Accelerometer and a Digital Motion Processor(TM) (DMP), 2.375 to 3.46 V, -40 to 85 degC, 24-Pin QFN, RoHS, Tape and Reel",
       "comment": "MPU-6050"
     },
@@ -858,6 +870,7 @@
         "2": "+3V3"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata",
       "description": "CAP CER 0.1UF 16V X7R 0402",
       "comment": "100n",
       "value": "0.10µF"
@@ -868,6 +881,7 @@
         "2": "IMU REGOUT"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata",
       "description": "CAP CER 0.1UF 16V X7R 0402",
       "comment": "100n",
       "value": "0.10µF"
@@ -878,6 +892,7 @@
         "2": "+3V3"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata",
       "description": "CAP CER 0.1UF 16V X7R 0402",
       "comment": "10n",
       "value": "0.10µF"
@@ -888,6 +903,7 @@
         "2": "IMU CPOUT"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata",
       "description": "CAP CER 0.1UF 16V X7R 0402",
       "comment": "2.2n",
       "value": "0.10µF"
@@ -940,6 +956,7 @@
         }
       },
       "mpn": "473460001",
+      "manufacturer": "Molex",
       "description": "CONN RCPT USB2.0 MICRO B SMD R/A",
       "comment": "473460001"
     },
@@ -963,6 +980,7 @@
         }
       },
       "mpn": "AMS1117-3.3",
+      "manufacturer": "Advanced Monolithic Systems",
       "description": "LDO Voltage Regulators 1A, 3.3V",
       "comment": "AMS1117-3.3"
     },
@@ -980,6 +998,7 @@
         "2": "VBUS"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata",
       "description": "CAP CER 0.1UF 16V X7R 0402",
       "comment": "2.2u",
       "value": "0.10µF"
@@ -990,6 +1009,7 @@
         "2": "+5V"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata",
       "description": "CAP CER 0.1UF 16V X7R 0402",
       "comment": "2.2u",
       "value": "0.10µF"

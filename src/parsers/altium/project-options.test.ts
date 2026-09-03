@@ -13,8 +13,8 @@ describe("parseProjectOptions", () => {
   it("reads a scope the project names outright", () => {
     expect(parseProjectOptions(design("HierarchyMode=3")).scope).toBe("global");
     expect(parseProjectOptions(design("HierarchyMode=2")).scope).toBe("hierarchical");
-    // `4` is read as Hierarchical: the solarcar-bms board numbers that
-    // project's sheet-local labels but leaves GND and CHASSIS bare, so its
+    // `4` is read as Hierarchical: a board recording it numbers that project's
+    // sheet-local labels but leaves its supply and chassis nets bare, so its
     // power ports are global and it cannot be Strict Hierarchical.
     expect(parseProjectOptions(design("HierarchyMode=4")).scope).toBe("hierarchical");
   });

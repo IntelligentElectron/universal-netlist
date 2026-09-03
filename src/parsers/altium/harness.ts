@@ -62,10 +62,10 @@ export type NestedHarnessTypes = ReadonlyMap<string, string>;
 /**
  * Resolve a harness type to the flat set of signals it carries.
  *
- * Harness types nest: an entry of one type may itself be a harness. In HELIOS-R
- * the `PGND` entry of `Channel_interface` carries `HarnessType=PGND_Domain`, so
- * the bundle also carries `PGND_Domain`'s members. Flattening one level drops
- * them silently.
+ * Harness types nest: an entry of one type may itself be a harness. Where a
+ * `PGND` entry of an interface bundle carries `HarnessType=PGND_Domain`, the
+ * bundle also carries `PGND_Domain`'s members. Flattening one level drops them
+ * silently.
  *
  * Nested members are qualified with the entry that reached them (`PGND.OP_OUT`),
  * so a signal name appearing in two branches stays distinct.
@@ -125,18 +125,18 @@ export const collectNestedHarnessTypes = (
 /**
  * Grid units per `DistanceFromTop` step on a harness connector.
  *
- * Derived from pulp-bio/HELIOS-R: its connector sits at Location.Y=670 with
- * entries at DistanceFromTop 1, 2, 9, 10 and 13, and the five wires that land on
- * it end at y = 660, 650, 580, 570 and 540 — exactly Location.Y - n * 10.
+ * Derived from real sheets: a connector at Location.Y=670 with entries at
+ * DistanceFromTop 1, 2, 9, 10 and 13 has the five wires landing on it end at
+ * y = 660, 650, 580, 570 and 540, which is exactly Location.Y - n * 10.
  */
 const HARNESS_ENTRY_PITCH = 10;
 
 /**
  * Denominator of `DistanceFromTop_Frac1`.
  *
- * An entry may sit half a step down: HELIOS-R's `channel.SchDoc` writes
- * `DistanceFromTop=1 | DistanceFromTop_Frac1=500000` for an entry whose wire
- * ends 15 grid units below the connector's top, so 500000 is half a step.
+ * An entry may sit half a step down: a sheet writing
+ * `DistanceFromTop=1 | DistanceFromTop_Frac1=500000` has that entry's wire end
+ * 15 grid units below the connector's top, so 500000 is half a step.
  */
 const DISTANCE_FRACTION_SCALE = 1_000_000;
 
@@ -226,8 +226,8 @@ const entryDistanceFromTop = (entry: HarnessRecord): number =>
  *
  * The entry's own `Side` is authoritative where it is written; otherwise the
  * connector's `HarnessConnectorSide` says it, inverted, because that field names
- * the side the bundle leaves from. Verified on 364 of the 365 entries across
- * pulp-bio/HELIOS-R and qfsae/pcb: each lands exactly on a wire end.
+ * the side the bundle leaves from. Verified on 364 of the 365 harness entries in
+ * the test corpus: each lands exactly on a wire end.
  */
 const entriesOnRightEdge = (connector: HarnessRecord, entry: HarnessRecord): boolean =>
   entry.Side !== undefined
@@ -360,8 +360,8 @@ const SHEET_ENTRY_VERTICAL_SIDES = new Set([undefined, "0", "1"]);
  * A sheet entry is placed the way a harness entry is: it inherits its position
  * from the sheet symbol it belongs to, sits `DistanceFromTop` grid steps below
  * that symbol's top edge, and takes the left edge unless `Side` puts it on the
- * right. Verified against all 44 harness-typed sheet entries in qfsae/pcb and
- * pulp-bio/HELIOS-R, each of which lands exactly on a harness line vertex.
+ * right. Verified against all 44 harness-typed sheet entries in the test corpus,
+ * each of which lands exactly on a harness line vertex.
  *
  * An entry on the top or bottom edge has no known position and returns none, so
  * it joins no bundle rather than being placed somewhere it may not be.

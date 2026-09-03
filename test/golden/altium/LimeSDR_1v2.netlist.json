@@ -1,8 +1,8 @@
 {
-  "universalNetlistSchemaVersion": 1,
+  "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-01T21:46:08.409Z",
-    "netlistHash": "sha256:0008d2fcdb8a87e8338d48f5610d845da8d64a255dc7bef2aa41fa1e8acc9f8c",
+    "generatedAt": "2026-09-03T01:02:24.935Z",
+    "netlistHash": "sha256:9595f1e02664b747ab5482fe9f98c34271b33c052a6d47d842ff97c92d6ea682",
     "origin": {
       "type": "vendor",
       "source": {
@@ -9552,6 +9552,7 @@
           "net": "NetC80_1"
         }
       },
+      "manufacturer": "Lime Microsystems",
       "comment": "LMS7002M"
     },
     "IC2": {
@@ -9589,6 +9590,7 @@
           "net": "VDIO_LMS"
         }
       },
+      "manufacturer": "Microchip Technology",
       "comment": "24FC64F"
     },
     "IC3": {
@@ -9626,6 +9628,7 @@
           "net": "VDIO_LMS"
         }
       },
+      "manufacturer": "Microchip Technology",
       "comment": "24FC512"
     },
     "R15": {
@@ -9633,6 +9636,7 @@
         "1": "VDIO_LMS",
         "2": "LMS_I2C_SCL"
       },
+      "manufacturer": "Stackpole Electronics Inc",
       "value": "2k2, 1%"
     },
     "R14": {
@@ -9640,6 +9644,7 @@
         "1": "VDIO_LMS",
         "2": "LMS_I2C_SDA"
       },
+      "manufacturer": "Stackpole Electronics Inc",
       "value": "2k2, 1%"
     },
     "C1": {
@@ -9647,6 +9652,7 @@
         "1": "NetC1_1",
         "2": "GND"
       },
+      "manufacturer": "AVX",
       "value": "10pF, 5%"
     },
     "C2": {
@@ -9654,6 +9660,7 @@
         "1": "GND",
         "2": "VDIO_LMS"
       },
+      "manufacturer": "TDK",
       "value": "1uF, 10%"
     },
     "C3": {
@@ -9661,6 +9668,7 @@
         "1": "GND",
         "2": "VDIO_LMS"
       },
+      "manufacturer": "TDK",
       "value": "1uF, 10%"
     },
     "R9": {
@@ -9668,6 +9676,7 @@
         "1": "NetIC1_F18",
         "2": "GND"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "R2": {
@@ -9675,6 +9684,7 @@
         "1": "GND",
         "2": "LMS_TXNRX2"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "R3": {
@@ -9682,6 +9692,7 @@
         "1": "VDIO_LMS",
         "2": "LMS_RXEN"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "R5": {
@@ -9689,6 +9700,7 @@
         "1": "VDIO_LMS",
         "2": "LMS_TXNRX1"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "R6": {
@@ -9696,6 +9708,7 @@
         "1": "VDIO_LMS",
         "2": "LMS_TXEN"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "R7": {
@@ -9703,6 +9716,7 @@
         "1": "LMS_RESET",
         "2": "VDIO_LMS"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "R8": {
@@ -9710,6 +9724,7 @@
         "1": "LMS_CORE_LDO_EN",
         "2": "VDIO_LMS"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "R1": {
@@ -9718,6 +9733,7 @@
         "2": "RxPLL_CLK"
       },
       "mpn": "RC1005F49R9CS",
+      "manufacturer": "Samsung Electro-Mechanics America, Inc.",
       "value": "49.9R, 1%"
     },
     "R4": {
@@ -9726,6 +9742,7 @@
         "2": ""
       },
       "mpn": "RC1005F49R9CS",
+      "manufacturer": "Samsung Electro-Mechanics America, Inc.",
       "value": "49.9R, 1%"
     },
     "R10": {
@@ -9734,6 +9751,7 @@
         "2": ""
       },
       "mpn": "RC1005F49R9CS",
+      "manufacturer": "Samsung Electro-Mechanics America, Inc.",
       "value": "49.9R, 1%"
     },
     "R11": {
@@ -9742,6 +9760,7 @@
         "2": "FPGA_SPI0_SCLK"
       },
       "mpn": "RC1005F49R9CS",
+      "manufacturer": "Samsung Electro-Mechanics America, Inc.",
       "value": "49.9R, 1%"
     },
     "R12": {
@@ -9750,6 +9769,7 @@
         "2": ""
       },
       "mpn": "RC1005F49R9CS",
+      "manufacturer": "Samsung Electro-Mechanics America, Inc.",
       "value": "49.9R, 1%"
     },
     "R13": {
@@ -9758,6 +9778,7 @@
         "2": ""
       },
       "mpn": "RC1005F49R9CS",
+      "manufacturer": "Samsung Electro-Mechanics America, Inc.",
       "value": "49.9R, 1%"
     },
     "MN10": {
@@ -9765,6 +9786,7 @@
         "1": "TXRF1_1AB_N",
         "2": "TXRF1_1AB_P"
       },
+      "manufacturer": "Yageo",
       "value": "0.5pF",
       "dns": true
     },
@@ -9774,6 +9796,7 @@
         "2": "TXRF1_2AB_P"
       },
       "mpn": "GRM1555C1HR80BA01D",
+      "manufacturer": "Murata Electronics North America",
       "value": "0.8pF"
     },
     "C14": {
@@ -9781,6 +9804,7 @@
         "1": "NetC14_1",
         "2": "NetC14_2"
       },
+      "manufacturer": "Yageo",
       "value": "100pF, 5%"
     },
     "MN26": {
@@ -9788,6 +9812,7 @@
         "1": "TXRF1_2AB_P",
         "2": "TXRF1_2AB_N"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1pF",
       "dns": true
     },
@@ -9799,6 +9824,7 @@
         "4": "NetC8_2",
         "6": "GND"
       },
+      "manufacturer": "Mini-Circuits",
       "comment": "TC1-1-13MA+"
     },
     "MN42": {
@@ -9806,6 +9832,7 @@
         "1": "RXRF1_HBB_N",
         "2": "RXRF1_HBB_P"
       },
+      "manufacturer": "Yageo",
       "value": "0.5pF",
       "dns": true
     },
@@ -9814,6 +9841,7 @@
         "1": "NetC18_1",
         "2": "NetC18_2"
       },
+      "manufacturer": "Yageo",
       "value": "100pF, 5%"
     },
     "MN34": {
@@ -9821,6 +9849,7 @@
         "1": "RXRF1_LBB_N",
         "2": "RXRF1_LBB_P"
       },
+      "manufacturer": "COILCRAFT",
       "value": "8.2nH, 5%"
     },
     "MN33": {
@@ -9829,6 +9858,7 @@
         "2": "RXRF1_LAB_P"
       },
       "mpn": "GRM1555C1H511JA01D",
+      "manufacturer": "Murata Electronics North America",
       "value": "510pF"
     },
     "MN35": {
@@ -9837,6 +9867,7 @@
         "2": "RXRF1_LAB_P"
       },
       "mpn": "GRM1555C1H1R2CA01D",
+      "manufacturer": "Murata Electronics North America",
       "value": "1.2pF"
     },
     "C16": {
@@ -9845,6 +9876,7 @@
         "2": "NetC16_2"
       },
       "mpn": "C1005C0G1H471J050BA",
+      "manufacturer": "TDK Corporation",
       "value": "470pF, 5%"
     },
     "C20": {
@@ -9853,6 +9885,7 @@
         "2": "NetC20_2"
       },
       "mpn": "C1005C0G1H471J050BA",
+      "manufacturer": "TDK Corporation",
       "value": "470pF, 5%"
     },
     "MN50": {
@@ -9860,6 +9893,7 @@
         "1": "RXRF1_WBB_N",
         "2": "RXRF1_WBB_P"
       },
+      "manufacturer": "COILCRAFT",
       "value": "10nH, 5%"
     },
     "T5": {
@@ -9870,6 +9904,7 @@
         "4": "GND",
         "6": "NetC16_2"
       },
+      "manufacturer": "Mini-Circuits",
       "comment": "TC1-1-13MA+"
     },
     "T9": {
@@ -9880,6 +9915,7 @@
         "4": "GND",
         "6": "NetC20_2"
       },
+      "manufacturer": "Mini-Circuits",
       "comment": "TC1-1-13MA+"
     },
     "T3": {
@@ -9889,6 +9925,7 @@
         "4": "TXRF1_2BB_N",
         "6": "NetMN23_1"
       },
+      "manufacturer": "Mini-circuits",
       "comment": "TCM1-63AX+"
     },
     "T7": {
@@ -9898,6 +9935,7 @@
         "4": "RXRF1_HBB_P",
         "6": "RXRF1_HBB_N"
       },
+      "manufacturer": "Mini-circuits",
       "comment": "TCM1-63AX+"
     },
     "C4": {
@@ -9906,6 +9944,7 @@
         "2": "VCC1P8_LMS"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C5": {
@@ -9914,6 +9953,7 @@
         "2": "VCC1P8_LMS"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C11": {
@@ -9922,6 +9962,7 @@
         "2": "VCC1P8_LMS"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C10": {
@@ -9930,6 +9971,7 @@
         "2": "VCC1P8_LMS"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C8": {
@@ -9938,6 +9980,7 @@
         "2": "NetC8_2"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "MN27": {
@@ -9945,6 +9988,7 @@
         "1": "TXRF1_2BB_N",
         "2": "NetMN23_1"
       },
+      "manufacturer": "Yageo",
       "value": "0.5pF"
     },
     "MN28": {
@@ -9953,6 +9997,7 @@
         "2": "TXRF1_2AB_N"
       },
       "mpn": "GRM1555C1HR80BA01D",
+      "manufacturer": "Murata Electronics North America",
       "value": "0.8pF"
     },
     "MN37": {
@@ -9961,6 +10006,7 @@
         "2": "RXRF1_LAB_N"
       },
       "mpn": "GRM1555C1H511JA01D",
+      "manufacturer": "Murata Electronics North America",
       "value": "510pF"
     },
     "MN43": {
@@ -9968,6 +10014,7 @@
         "1": "RXRF1_HAB_N",
         "2": "RXRF1_HAB_P"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1pF"
     },
     "MN41": {
@@ -9976,6 +10023,7 @@
         "2": "RXRF1_HAB_P"
       },
       "mpn": "04025U2R0BAT2A",
+      "manufacturer": "AVX",
       "value": "2pF"
     },
     "MN45": {
@@ -9984,6 +10032,7 @@
         "2": "RXRF1_HAB_N"
       },
       "mpn": "04025U2R0BAT2A",
+      "manufacturer": "AVX",
       "value": "2pF"
     },
     "MN51": {
@@ -9992,6 +10041,7 @@
         "2": "RXRF1_WAB_N"
       },
       "mpn": "GRM1555C1HR80BA01D",
+      "manufacturer": "Murata Electronics North America",
       "value": "0.8pF"
     },
     "MN49": {
@@ -9999,6 +10049,7 @@
         "1": "RXRF1_WBB_P",
         "2": "RXRF1_WAB_P"
       },
+      "manufacturer": "Yageo",
       "value": "100pF, 5%"
     },
     "MN53": {
@@ -10006,6 +10057,7 @@
         "1": "RXRF1_WBB_N",
         "2": "RXRF1_WAB_N"
       },
+      "manufacturer": "Yageo",
       "value": "100pF, 5%"
     },
     "J1": {
@@ -10019,6 +10071,7 @@
           "net": "GND"
         }
       },
+      "manufacturer": "Molex, LLC",
       "comment": "U.FL/MMCX"
     },
     "J3": {
@@ -10032,6 +10085,7 @@
           "net": "GND"
         }
       },
+      "manufacturer": "Molex, LLC",
       "comment": "U.FL/MMCX"
     },
     "J5": {
@@ -10045,6 +10099,7 @@
           "net": "GND"
         }
       },
+      "manufacturer": "Molex, LLC",
       "comment": "U.FL/MMCX"
     },
     "J7": {
@@ -10058,6 +10113,7 @@
           "net": "GND"
         }
       },
+      "manufacturer": "Molex, LLC",
       "comment": "U.FL/MMCX"
     },
     "MN24": {
@@ -10065,6 +10121,7 @@
         "1": "TXRF2_2AB_N",
         "2": "NetMN19_1"
       },
+      "manufacturer": "COILCRAFT",
       "value": "8.2nH, 5%"
     },
     "MN25": {
@@ -10072,6 +10129,7 @@
         "1": "TXRF2_2AB_P",
         "2": "NetMN20_1"
       },
+      "manufacturer": "COILCRAFT",
       "value": "8.2nH, 5%"
     },
     "C15": {
@@ -10079,6 +10137,7 @@
         "1": "NetC15_1",
         "2": "NetC15_2"
       },
+      "manufacturer": "Yageo",
       "value": "100pF, 5%"
     },
     "MN3": {
@@ -10087,6 +10146,7 @@
         "2": "VCC1P8_LMS"
       },
       "mpn": "MLF2012C101KT000",
+      "manufacturer": "TDK Corporation",
       "value": "100uH"
     },
     "MN4": {
@@ -10095,6 +10155,7 @@
         "2": "VCC1P8_LMS"
       },
       "mpn": "MLF2012C101KT000",
+      "manufacturer": "TDK Corporation",
       "value": "100uH"
     },
     "C19": {
@@ -10102,6 +10163,7 @@
         "1": "NetC19_1",
         "2": "NetC19_2"
       },
+      "manufacturer": "Yageo",
       "value": "100pF, 5%"
     },
     "C17": {
@@ -10110,6 +10172,7 @@
         "2": "NetC17_2"
       },
       "mpn": "C1005C0G1H471J050BA",
+      "manufacturer": "TDK Corporation",
       "value": "470pF, 5%"
     },
     "C21": {
@@ -10118,6 +10181,7 @@
         "2": "NetC21_2"
       },
       "mpn": "C1005C0G1H471J050BA",
+      "manufacturer": "TDK Corporation",
       "value": "470pF, 5%"
     },
     "T2": {
@@ -10128,6 +10192,7 @@
         "4": "NetC9_2",
         "6": "GND"
       },
+      "manufacturer": "Mini-Circuits",
       "comment": "TC1-1-13MA+"
     },
     "T6": {
@@ -10138,6 +10203,7 @@
         "4": "GND",
         "6": "NetC17_2"
       },
+      "manufacturer": "Mini-Circuits",
       "comment": "TC1-1-13MA+"
     },
     "T10": {
@@ -10148,6 +10214,7 @@
         "4": "GND",
         "6": "NetC21_2"
       },
+      "manufacturer": "Mini-Circuits",
       "comment": "TC1-1-13MA+"
     },
     "T4": {
@@ -10157,6 +10224,7 @@
         "4": "TXRF2_2BB_N",
         "6": "TXRF2_2BB_P"
       },
+      "manufacturer": "Mini-circuits",
       "comment": "TCM1-63AX+"
     },
     "T8": {
@@ -10166,6 +10234,7 @@
         "4": "RXRF2_HBB_P",
         "6": "RXRF2_HBB_N"
       },
+      "manufacturer": "Mini-circuits",
       "comment": "TCM1-63AX+"
     },
     "C12": {
@@ -10174,6 +10243,7 @@
         "2": "VCC1P8_LMS"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C13": {
@@ -10182,6 +10252,7 @@
         "2": "VCC1P8_LMS"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C9": {
@@ -10190,6 +10261,7 @@
         "2": "NetC9_2"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C6": {
@@ -10198,6 +10270,7 @@
         "2": "VCC1P8_LMS"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C7": {
@@ -10206,6 +10279,7 @@
         "2": "VCC1P8_LMS"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "MN20": {
@@ -10213,6 +10287,7 @@
         "1": "NetMN20_1",
         "2": "VCC1P8_LMS"
       },
+      "manufacturer": "BOURNS",
       "value": "0uH (0R)"
     },
     "MN19": {
@@ -10220,6 +10295,7 @@
         "1": "NetMN19_1",
         "2": "VCC1P8_LMS"
       },
+      "manufacturer": "BOURNS",
       "value": "0uH (0R)"
     },
     "MN14": {
@@ -10227,6 +10303,7 @@
         "1": "TXRF2_1AB_N",
         "2": "TXRF2_1AB_P"
       },
+      "manufacturer": "Yageo",
       "value": "0.5pF",
       "dns": true
     },
@@ -10236,6 +10313,7 @@
         "2": "TXRF2_2AB_P"
       },
       "mpn": "GRM1555C1HR80BA01D",
+      "manufacturer": "Murata Electronics North America",
       "value": "0.8pF"
     },
     "MN31": {
@@ -10243,6 +10321,7 @@
         "1": "TXRF2_2BB_N",
         "2": "TXRF2_2BB_P"
       },
+      "manufacturer": "Yageo",
       "value": "0.5pF"
     },
     "MN32": {
@@ -10251,6 +10330,7 @@
         "2": "TXRF2_2AB_N"
       },
       "mpn": "GRM1555C1HR80BA01D",
+      "manufacturer": "Murata Electronics North America",
       "value": "0.8pF"
     },
     "MN30": {
@@ -10258,6 +10338,7 @@
         "1": "TXRF2_2AB_P",
         "2": "TXRF2_2AB_N"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1pF",
       "dns": true
     },
@@ -10267,6 +10348,7 @@
         "2": "TXRF2_1BB_P"
       },
       "mpn": "04025U2R0BAT2A",
+      "manufacturer": "AVX",
       "value": "2pF"
     },
     "MN8": {
@@ -10275,6 +10357,7 @@
         "2": "NetMN4_1"
       },
       "mpn": "0402HP-47NXJLU",
+      "manufacturer": "COILCRAFT",
       "value": "47nH"
     },
     "MN16": {
@@ -10283,6 +10366,7 @@
         "2": "TXRF2_1BB_N"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "MN13": {
@@ -10291,6 +10375,7 @@
         "2": "TXRF2_1AB_P"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "MN7": {
@@ -10299,6 +10384,7 @@
         "2": "NetMN3_1"
       },
       "mpn": "0402HP-47NXJLU",
+      "manufacturer": "COILCRAFT",
       "value": "47nH"
     },
     "MN40": {
@@ -10307,6 +10393,7 @@
         "2": "RXRF2_LAB_N"
       },
       "mpn": "GRM1555C1H511JA01D",
+      "manufacturer": "Murata Electronics North America",
       "value": "510pF"
     },
     "MN38": {
@@ -10314,6 +10401,7 @@
         "1": "RXRF2_LBB_N",
         "2": "RXRF2_LBB_P"
       },
+      "manufacturer": "COILCRAFT",
       "value": "8.2nH, 5%"
     },
     "MN36": {
@@ -10322,6 +10410,7 @@
         "2": "RXRF2_LAB_P"
       },
       "mpn": "GRM1555C1H511JA01D",
+      "manufacturer": "Murata Electronics North America",
       "value": "510pF"
     },
     "MN39": {
@@ -10330,6 +10419,7 @@
         "2": "RXRF2_LAB_P"
       },
       "mpn": "GRM1555C1H1R2CA01D",
+      "manufacturer": "Murata Electronics North America",
       "value": "1.2pF"
     },
     "MN47": {
@@ -10337,6 +10427,7 @@
         "1": "RXRF2_HAB_N",
         "2": "RXRF2_HAB_P"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1pF"
     },
     "MN44": {
@@ -10345,6 +10436,7 @@
         "2": "RXRF2_HAB_P"
       },
       "mpn": "04025U2R0BAT2A",
+      "manufacturer": "AVX",
       "value": "2pF"
     },
     "MN48": {
@@ -10353,6 +10445,7 @@
         "2": "RXRF2_HAB_N"
       },
       "mpn": "04025U2R0BAT2A",
+      "manufacturer": "AVX",
       "value": "2pF"
     },
     "MN46": {
@@ -10360,6 +10453,7 @@
         "1": "RXRF2_HBB_N",
         "2": "RXRF2_HBB_P"
       },
+      "manufacturer": "Yageo",
       "value": "0.5pF",
       "dns": true
     },
@@ -10368,6 +10462,7 @@
         "1": "RXRF2_WBB_N",
         "2": "RXRF2_WBB_P"
       },
+      "manufacturer": "COILCRAFT",
       "value": "10nH, 5%"
     },
     "MN55": {
@@ -10376,6 +10471,7 @@
         "2": "RXRF2_WAB_N"
       },
       "mpn": "GRM1555C1HR80BA01D",
+      "manufacturer": "Murata Electronics North America",
       "value": "0.8pF"
     },
     "MN52": {
@@ -10383,6 +10479,7 @@
         "1": "RXRF2_WBB_P",
         "2": "RXRF2_WAB_P"
       },
+      "manufacturer": "Yageo",
       "value": "100pF, 5%"
     },
     "MN56": {
@@ -10390,6 +10487,7 @@
         "1": "RXRF2_WBB_N",
         "2": "RXRF2_WAB_N"
       },
+      "manufacturer": "Yageo",
       "value": "100pF, 5%"
     },
     "J2": {
@@ -10403,6 +10501,7 @@
           "net": "GND"
         }
       },
+      "manufacturer": "Molex, LLC",
       "comment": "U.FL/MMCX"
     },
     "J4": {
@@ -10416,6 +10515,7 @@
           "net": "GND"
         }
       },
+      "manufacturer": "Molex, LLC",
       "comment": "U.FL/MMCX"
     },
     "J6": {
@@ -10429,6 +10529,7 @@
           "net": "GND"
         }
       },
+      "manufacturer": "Molex, LLC",
       "comment": "U.FL/MMCX"
     },
     "J8": {
@@ -10442,6 +10543,7 @@
           "net": "GND"
         }
       },
+      "manufacturer": "Molex, LLC",
       "comment": "U.FL/MMCX"
     },
     "J10": {
@@ -10455,6 +10557,7 @@
           "net": "GND"
         }
       },
+      "manufacturer": "Molex, LLC",
       "comment": "U.FL/MMCX"
     },
     "J9": {
@@ -10468,6 +10571,7 @@
           "net": "GND"
         }
       },
+      "manufacturer": "Molex, LLC",
       "comment": "U.FL/MMCX"
     },
     "MN21": {
@@ -10475,6 +10579,7 @@
         "1": "TXRF1_2AB_N",
         "2": "NetMN17_1"
       },
+      "manufacturer": "COILCRAFT",
       "value": "8.2nH, 5%"
     },
     "MN22": {
@@ -10482,6 +10587,7 @@
         "1": "TXRF1_2AB_P",
         "2": "NetMN18_1"
       },
+      "manufacturer": "COILCRAFT",
       "value": "8.2nH, 5%"
     },
     "MN18": {
@@ -10489,6 +10595,7 @@
         "1": "NetMN18_1",
         "2": "VCC1P8_LMS"
       },
+      "manufacturer": "BOURNS",
       "value": "0uH (0R)"
     },
     "MN17": {
@@ -10496,6 +10603,7 @@
         "1": "NetMN17_1",
         "2": "VCC1P8_LMS"
       },
+      "manufacturer": "BOURNS",
       "value": "0uH (0R)"
     },
     "MN1": {
@@ -10504,6 +10612,7 @@
         "2": "VCC1P8_LMS"
       },
       "mpn": "MLF2012C101KT000",
+      "manufacturer": "TDK Corporation",
       "value": "100uH"
     },
     "MN6": {
@@ -10512,6 +10621,7 @@
         "2": "NetMN2_1"
       },
       "mpn": "0402HP-47NXJLU",
+      "manufacturer": "COILCRAFT",
       "value": "47nH"
     },
     "MN2": {
@@ -10520,6 +10630,7 @@
         "2": "VCC1P8_LMS"
       },
       "mpn": "MLF2012C101KT000",
+      "manufacturer": "TDK Corporation",
       "value": "100uH"
     },
     "MN5": {
@@ -10528,6 +10639,7 @@
         "2": "NetMN1_1"
       },
       "mpn": "0402HP-47NXJLU",
+      "manufacturer": "COILCRAFT",
       "value": "47nH"
     },
     "MN11": {
@@ -10536,6 +10648,7 @@
         "2": "TXRF1_1BB_P"
       },
       "mpn": "04025U2R0BAT2A",
+      "manufacturer": "AVX",
       "value": "2pF"
     },
     "MN12": {
@@ -10544,6 +10657,7 @@
         "2": "TXRF1_1BB_N"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "MN9": {
@@ -10552,6 +10666,7 @@
         "2": "TXRF1_1AB_P"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C28": {
@@ -10559,6 +10674,7 @@
         "1": "NetC28_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "C29": {
@@ -10566,6 +10682,7 @@
         "1": "NetC28_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1nF, 10%"
     },
     "C38": {
@@ -10573,6 +10690,7 @@
         "1": "NetC38_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "C39": {
@@ -10580,6 +10698,7 @@
         "1": "NetC38_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1nF, 10%"
     },
     "C26": {
@@ -10587,6 +10706,7 @@
         "1": "NetC26_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "C27": {
@@ -10594,6 +10714,7 @@
         "1": "NetC26_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1nF, 10%"
     },
     "C36": {
@@ -10601,6 +10722,7 @@
         "1": "NetC36_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "C37": {
@@ -10608,6 +10730,7 @@
         "1": "NetC36_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1nF, 10%"
     },
     "C24": {
@@ -10615,6 +10738,7 @@
         "1": "NetC24_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "C25": {
@@ -10622,6 +10746,7 @@
         "1": "NetC24_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1nF, 10%"
     },
     "C32": {
@@ -10629,6 +10754,7 @@
         "1": "NetC32_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "C33": {
@@ -10636,6 +10762,7 @@
         "1": "NetC32_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1nF, 10%"
     },
     "C22": {
@@ -10643,6 +10770,7 @@
         "1": "NetC22_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "C23": {
@@ -10650,6 +10778,7 @@
         "1": "NetC22_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1nF, 10%"
     },
     "C30": {
@@ -10657,6 +10786,7 @@
         "1": "NetC30_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "C31": {
@@ -10664,6 +10794,7 @@
         "1": "NetC30_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1nF, 10%"
     },
     "C34": {
@@ -10671,6 +10802,7 @@
         "1": "NetC34_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "C35": {
@@ -10678,6 +10810,7 @@
         "1": "NetC34_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1nF, 10%"
     },
     "R17": {
@@ -10685,6 +10818,7 @@
         "1": "VDIO_LMS",
         "2": "NetC34_1"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "R19": {
@@ -10692,6 +10826,7 @@
         "1": "VDIO_LMS",
         "2": "NetC24_1"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "R21": {
@@ -10699,6 +10834,7 @@
         "1": "VDIO_LMS",
         "2": "NetC32_1"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "R23": {
@@ -10706,6 +10842,7 @@
         "1": "VDIO_LMS",
         "2": "NetC22_1"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "R24": {
@@ -10713,6 +10850,7 @@
         "1": "VDIO_LMS",
         "2": "NetC30_1"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "R25": {
@@ -10720,6 +10858,7 @@
         "1": "NetC41_1",
         "2": "VCC1P8_LMS"
       },
+      "manufacturer": "Rohm Semiconductor",
       "value": "0R"
     },
     "C41": {
@@ -10727,6 +10866,7 @@
         "1": "NetC41_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "FR2": {
@@ -10734,6 +10874,7 @@
         "1": "VCC1P25_LMS",
         "2": "NetC40_1"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -10742,6 +10883,7 @@
         "1": "NetC40_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "FR4": {
@@ -10749,6 +10891,7 @@
         "1": "VCC1P25_LMS",
         "2": "NetC43_1"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -10757,6 +10900,7 @@
         "1": "NetC43_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "FR9": {
@@ -10764,6 +10908,7 @@
         "1": "VCC1P25_LMS",
         "2": "NetC49_1"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -10772,6 +10917,7 @@
         "1": "NetC49_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "FR5": {
@@ -10779,6 +10925,7 @@
         "1": "VCC1P25_LMS",
         "2": "NetC47_1"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -10787,6 +10934,7 @@
         "1": "NetC47_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "FR12": {
@@ -10794,6 +10942,7 @@
         "1": "NetC48_1",
         "2": "VCC1P8_LMS"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -10802,6 +10951,7 @@
         "1": "NetC48_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "FR14": {
@@ -10809,6 +10959,7 @@
         "1": "VCC1P25_LMS",
         "2": "NetC58_2"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -10817,6 +10968,7 @@
         "1": "GND",
         "2": "NetC58_2"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "R28": {
@@ -10824,6 +10976,7 @@
         "1": "NetIC1_J5",
         "2": "NetC58_2"
       },
+      "manufacturer": "Rohm Semiconductor",
       "value": "0R"
     },
     "C55": {
@@ -10831,6 +10984,7 @@
         "1": "NetC55_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "FR16": {
@@ -10838,6 +10992,7 @@
         "1": "VCC1P4_LMS",
         "2": "NetC59_1"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -10846,6 +11001,7 @@
         "1": "NetC59_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "R31": {
@@ -10853,6 +11009,7 @@
         "1": "NetIC1_K2",
         "2": "NetC59_1"
       },
+      "manufacturer": "Rohm Semiconductor",
       "value": "0R"
     },
     "FR20": {
@@ -10860,6 +11017,7 @@
         "1": "NetC65_1",
         "2": "NetC61_1"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -10868,6 +11026,7 @@
         "1": "NetC61_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "FR21": {
@@ -10875,6 +11034,7 @@
         "1": "VCC1P8_LMS",
         "2": "NetC62_1"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -10883,6 +11043,7 @@
         "1": "NetC62_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "FR23": {
@@ -10890,6 +11051,7 @@
         "1": "VCC1P8_LMS",
         "2": "NetC68_1"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -10898,6 +11060,7 @@
         "1": "NetC68_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "FR27": {
@@ -10905,6 +11068,7 @@
         "1": "VCC1P25_LMS",
         "2": "NetC67_1"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -10913,6 +11077,7 @@
         "1": "NetC67_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "FR28": {
@@ -10920,6 +11085,7 @@
         "1": "VCC1P25_LMS",
         "2": "NetC71_1"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -10928,6 +11094,7 @@
         "1": "NetC71_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "FR30": {
@@ -10935,6 +11102,7 @@
         "1": "VCC1P25_LMS",
         "2": "NetC72_1"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -10943,6 +11111,7 @@
         "1": "NetC72_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "FR33": {
@@ -10950,6 +11119,7 @@
         "1": "NetC78_1",
         "2": "VCC1P4_LMS"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -10958,6 +11128,7 @@
         "1": "NetC78_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "FR34": {
@@ -10965,6 +11136,7 @@
         "1": "NetC79_1",
         "2": "VCC1P4_LMS"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -10973,6 +11145,7 @@
         "1": "NetC79_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "FR35": {
@@ -10980,6 +11153,7 @@
         "1": "NetC80_1",
         "2": "VCC1P4_LMS"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -10988,6 +11162,7 @@
         "1": "NetC80_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "FR31": {
@@ -10995,6 +11170,7 @@
         "1": "NetC75_1",
         "2": "NetC76_1"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -11003,6 +11179,7 @@
         "1": "NetC75_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "FR29": {
@@ -11010,6 +11187,7 @@
         "1": "NetC73_1",
         "2": "NetC74_1"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -11018,6 +11196,7 @@
         "1": "NetC73_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "FR26": {
@@ -11025,6 +11204,7 @@
         "1": "NetC70_1",
         "2": "VCC1P25_LMS"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -11033,6 +11213,7 @@
         "1": "NetC70_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "FR24": {
@@ -11040,6 +11221,7 @@
         "1": "NetC69_1",
         "2": "VCC1P4_LMS"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -11048,6 +11230,7 @@
         "1": "NetC69_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "FR22": {
@@ -11055,6 +11238,7 @@
         "1": "NetC66_1",
         "2": "VCC1P25_LMS"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -11063,6 +11247,7 @@
         "1": "NetC66_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "C64": {
@@ -11070,6 +11255,7 @@
         "1": "NetC64_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "R32": {
@@ -11077,6 +11263,7 @@
         "1": "VCC1P25_LMS",
         "2": "NetC64_1"
       },
+      "manufacturer": "Rohm Semiconductor",
       "value": "0R"
     },
     "FR15": {
@@ -11084,6 +11271,7 @@
         "1": "NetC60_1",
         "2": "VCC1P25_LMS"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -11092,6 +11280,7 @@
         "1": "NetC60_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "FR17": {
@@ -11099,6 +11288,7 @@
         "1": "NetC56_1",
         "2": "VCC1P4_LMS"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -11107,6 +11297,7 @@
         "1": "NetC56_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "FR19": {
@@ -11114,6 +11305,7 @@
         "1": "NetC63_1",
         "2": "VCC1P8_LMS"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -11122,6 +11314,7 @@
         "1": "NetC63_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "C57": {
@@ -11129,6 +11322,7 @@
         "1": "NetC57_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "R29": {
@@ -11136,6 +11330,7 @@
         "1": "VCC1P25_LMS",
         "2": "NetC57_1"
       },
+      "manufacturer": "Rohm Semiconductor",
       "value": "0R"
     },
     "FR13": {
@@ -11143,6 +11338,7 @@
         "1": "NetC54_1",
         "2": "VCC1P25_LMS"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -11151,6 +11347,7 @@
         "1": "NetC54_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "FR1": {
@@ -11158,6 +11355,7 @@
         "1": "NetC42_1",
         "2": "VCC1P25_LMS"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -11166,6 +11364,7 @@
         "1": "NetC42_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "FR11": {
@@ -11173,6 +11372,7 @@
         "1": "NetC53_1",
         "2": "VCC1P25_LMS"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -11181,6 +11381,7 @@
         "1": "NetC53_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "FR8": {
@@ -11188,6 +11389,7 @@
         "1": "NetC51_1",
         "2": "VCC1P25_LMS"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -11196,6 +11398,7 @@
         "1": "NetC51_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "FR3": {
@@ -11203,6 +11406,7 @@
         "1": "NetC46_1",
         "2": "VCC1P8_LMS"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -11211,6 +11415,7 @@
         "1": "NetC44_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "R26": {
@@ -11218,6 +11423,7 @@
         "1": "NetC42_1",
         "2": "NetIC1_D6"
       },
+      "manufacturer": "Rohm Semiconductor",
       "value": "0R"
     },
     "R30": {
@@ -11225,6 +11431,7 @@
         "1": "NetC55_1",
         "2": "VCC1P25_LMS"
       },
+      "manufacturer": "Rohm Semiconductor",
       "value": "0R"
     },
     "FR10": {
@@ -11232,6 +11439,7 @@
         "1": "NetC52_1",
         "2": "NetC50_1"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -11240,6 +11448,7 @@
         "1": "NetC50_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "R27": {
@@ -11248,6 +11457,7 @@
         "2": "VCC1P8_LMS"
       },
       "mpn": "ERJ-1GEF10R0C",
+      "manufacturer": "Panasonic Electronic Components",
       "value": "10R"
     },
     "R33": {
@@ -11256,6 +11466,7 @@
         "2": "VCC1P25_LMS"
       },
       "mpn": "ERJ-1GEF10R0C",
+      "manufacturer": "Panasonic Electronic Components",
       "value": "10R"
     },
     "R35": {
@@ -11264,6 +11475,7 @@
         "2": "NetC76_1"
       },
       "mpn": "ERJ-1GEF10R0C",
+      "manufacturer": "Panasonic Electronic Components",
       "value": "10R"
     },
     "FR32": {
@@ -11271,6 +11483,7 @@
         "1": "NetC77_1",
         "2": "VCC1P8_LMS"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -11279,6 +11492,7 @@
         "1": "NetC77_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "R34": {
@@ -11287,6 +11501,7 @@
         "2": "NetC74_1"
       },
       "mpn": "ERJ-1GEF10R0C",
+      "manufacturer": "Panasonic Electronic Components",
       "value": "10R"
     },
     "C52": {
@@ -11294,6 +11509,7 @@
         "1": "NetC52_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "C65": {
@@ -11301,6 +11517,7 @@
         "1": "NetC65_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "C74": {
@@ -11308,6 +11525,7 @@
         "1": "NetC74_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "C76": {
@@ -11315,6 +11533,7 @@
         "1": "NetC76_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "FR18": {
@@ -11322,6 +11541,7 @@
         "1": "VCC1P25_LMS",
         "2": "NetC59_1"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz",
       "dns": true
@@ -11331,6 +11551,7 @@
         "1": "NetC69_1",
         "2": "VCC1P25_LMS"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz",
       "dns": true
@@ -11340,6 +11561,7 @@
         "1": "NetC28_1",
         "2": "VCC1P25_LMS_DIG"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "R18": {
@@ -11347,6 +11569,7 @@
         "1": "NetC38_1",
         "2": "VCC1P25_LMS_DIG"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "R20": {
@@ -11354,6 +11577,7 @@
         "1": "NetC26_1",
         "2": "VCC1P25_LMS_DIG"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "R22": {
@@ -11361,6 +11585,7 @@
         "1": "NetC36_1",
         "2": "VCC1P25_LMS_DIG"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "C45": {
@@ -11368,6 +11593,7 @@
         "1": "NetC45_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "C46": {
@@ -11375,6 +11601,7 @@
         "1": "NetC46_1",
         "2": "GND"
       },
+      "manufacturer": "TDK Corporation",
       "value": "1uF, 20%"
     },
     "FR6": {
@@ -11382,6 +11609,7 @@
         "1": "NetC45_1",
         "2": "VCC1P8_LMS"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -11390,6 +11618,7 @@
         "1": "NetC44_1",
         "2": "VCC1P8_LMS"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -13332,6 +13561,7 @@
           "net": "VCC1P2D"
         }
       },
+      "manufacturer": "Altera",
       "comment": "EP4CE40F23C8N"
     },
     "C286": {
@@ -13340,6 +13570,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C287": {
@@ -13348,6 +13579,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C288": {
@@ -13356,6 +13588,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C289": {
@@ -13364,6 +13597,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C290": {
@@ -13372,6 +13606,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C291": {
@@ -13380,6 +13615,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C292": {
@@ -13388,6 +13624,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C293": {
@@ -13396,6 +13633,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C285": {
@@ -13404,6 +13642,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C284": {
@@ -13412,6 +13651,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C283": {
@@ -13420,6 +13660,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C282": {
@@ -13428,6 +13669,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "R166": {
@@ -13436,6 +13678,7 @@
         "2": "VCC1P8"
       },
       "mpn": "RC1005F49R9CS",
+      "manufacturer": "Samsung Electro-Mechanics America, Inc.",
       "value": "49.9R, 1%"
     },
     "R167": {
@@ -13444,6 +13687,7 @@
         "2": "NetIC31_AA19"
       },
       "mpn": "RC1005F49R9CS",
+      "manufacturer": "Samsung Electro-Mechanics America, Inc.",
       "value": "49.9R, 1%"
     },
     "J17": {
@@ -13459,6 +13703,7 @@
         "9": "FPGA_JTAG_TDI",
         "10": "GND"
       },
+      "manufacturer": "Harwin Inc",
       "comment": "FPGA JTAG"
     },
     "R188": {
@@ -13466,6 +13711,7 @@
         "1": "VCC3P3",
         "2": "FLASH_AS_SS"
       },
+      "manufacturer": "Stackpole Electronics Inc.",
       "value": "4K7"
     },
     "R189": {
@@ -13473,6 +13719,7 @@
         "1": "VCC3P3",
         "2": "NetIC33_7"
       },
+      "manufacturer": "Stackpole Electronics Inc.",
       "value": "4K7"
     },
     "R190": {
@@ -13480,6 +13727,7 @@
         "1": "VCC3P3",
         "2": "NetIC33_3"
       },
+      "manufacturer": "Stackpole Electronics Inc.",
       "value": "4K7"
     },
     "IC33": {
@@ -13517,6 +13765,7 @@
           "net": "VCC3P3"
         }
       },
+      "manufacturer": "Micron Technology Inc.",
       "comment": "M25P16"
     },
     "C326": {
@@ -13525,6 +13774,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "R170": {
@@ -13532,6 +13782,7 @@
         "1": "MSEL1",
         "2": "GND"
       },
+      "manufacturer": "Yageo",
       "value": "0R",
       "dns": true
     },
@@ -13540,6 +13791,7 @@
         "1": "VCC2P5A",
         "2": "MSEL2"
       },
+      "manufacturer": "Yageo",
       "value": "0R",
       "dns": true
     },
@@ -13548,6 +13800,7 @@
         "1": "VCC2P5A",
         "2": "MSEL3"
       },
+      "manufacturer": "Yageo",
       "value": "0R",
       "dns": true
     },
@@ -13556,6 +13809,7 @@
         "1": "MSEL0",
         "2": "GND"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "R171": {
@@ -13563,6 +13817,7 @@
         "1": "VCC2P5A",
         "2": "MSEL1"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "R174": {
@@ -13570,6 +13825,7 @@
         "1": "MSEL2",
         "2": "GND"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "R178": {
@@ -13577,6 +13833,7 @@
         "1": "MSEL3",
         "2": "GND"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "R169": {
@@ -13584,6 +13841,7 @@
         "1": "VCC2P5A",
         "2": "MSEL0"
       },
+      "manufacturer": "Yageo",
       "value": "0R",
       "dns": true
     },
@@ -13654,6 +13912,7 @@
           "net": "VCC3P3"
         }
       },
+      "manufacturer": "TEXAS INSTRUMENTS",
       "comment": "TS3A5018PWR"
     },
     "R184": {
@@ -13661,6 +13920,7 @@
         "1": "NetIC32_1",
         "2": "EXP_AS_SS"
       },
+      "manufacturer": "Yageo",
       "value": "0R",
       "dns": true
     },
@@ -13669,6 +13929,7 @@
         "1": "NetIC32_1",
         "2": "EXP_AS_SW"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "J18": {
@@ -13684,6 +13945,7 @@
         "9": "FPGA_GPIO6",
         "10": "FPGA_GPIO7"
       },
+      "manufacturer": "Harwin Inc",
       "comment": "FPGA GPIO"
     },
     "R172": {
@@ -13691,6 +13953,7 @@
         "1": "VCC3P3",
         "2": "NetJ18_2"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "R173": {
@@ -13698,6 +13961,7 @@
         "1": "VCC_INT",
         "2": "NetJ18_2"
       },
+      "manufacturer": "Yageo",
       "value": "0R",
       "dns": true
     },
@@ -13713,6 +13977,7 @@
         "1": "FLASH_AS_SCLK",
         "2": "GND"
       },
+      "manufacturer": "Panasonic Electronic Components",
       "value": "100K"
     },
     "C396": {
@@ -13721,6 +13986,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C397": {
@@ -13729,6 +13995,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C398": {
@@ -13737,6 +14004,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C399": {
@@ -13745,6 +14013,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C392": {
@@ -13753,6 +14022,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C393": {
@@ -13761,6 +14031,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C394": {
@@ -13769,6 +14040,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C395": {
@@ -13777,6 +14049,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C388": {
@@ -13785,6 +14058,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C389": {
@@ -13793,6 +14067,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C390": {
@@ -13801,6 +14076,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C391": {
@@ -13809,6 +14085,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C386": {
@@ -13817,6 +14094,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C387": {
@@ -13825,6 +14103,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C378": {
@@ -13833,6 +14112,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C379": {
@@ -13841,6 +14121,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C380": {
@@ -13849,6 +14130,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C381": {
@@ -13857,6 +14139,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C374": {
@@ -13865,6 +14148,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C375": {
@@ -13873,6 +14157,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C376": {
@@ -13881,6 +14166,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C377": {
@@ -13889,6 +14175,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C370": {
@@ -13897,6 +14184,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C371": {
@@ -13905,6 +14193,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C372": {
@@ -13913,6 +14202,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C373": {
@@ -13921,6 +14211,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C368": {
@@ -13929,6 +14220,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C369": {
@@ -13937,6 +14229,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C382": {
@@ -13945,6 +14238,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C383": {
@@ -13953,6 +14247,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C384": {
@@ -13961,6 +14256,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C385": {
@@ -13969,6 +14265,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C328": {
@@ -13977,6 +14274,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C329": {
@@ -13985,6 +14283,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C330": {
@@ -13993,6 +14292,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C331": {
@@ -14001,6 +14301,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C346": {
@@ -14009,6 +14310,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C347": {
@@ -14017,6 +14319,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C348": {
@@ -14025,6 +14328,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C349": {
@@ -14033,6 +14337,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C351": {
@@ -14041,6 +14346,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C352": {
@@ -14049,6 +14355,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C353": {
@@ -14057,6 +14364,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C354": {
@@ -14065,6 +14373,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C355": {
@@ -14073,6 +14382,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C350": {
@@ -14081,6 +14391,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C357": {
@@ -14089,6 +14400,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C358": {
@@ -14097,6 +14409,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C359": {
@@ -14105,6 +14418,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C360": {
@@ -14113,6 +14427,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C361": {
@@ -14121,6 +14436,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C356": {
@@ -14129,6 +14445,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C363": {
@@ -14137,6 +14454,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C364": {
@@ -14145,6 +14463,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C365": {
@@ -14153,6 +14472,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C366": {
@@ -14161,6 +14481,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C367": {
@@ -14169,6 +14490,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C362": {
@@ -14177,6 +14499,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C334": {
@@ -14185,6 +14508,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C335": {
@@ -14193,6 +14517,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C336": {
@@ -14201,6 +14526,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C337": {
@@ -14209,6 +14535,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C338": {
@@ -14217,6 +14544,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C333": {
@@ -14225,6 +14553,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C332": {
@@ -14233,6 +14562,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C341": {
@@ -14241,6 +14571,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C342": {
@@ -14249,6 +14580,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C343": {
@@ -14257,6 +14589,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C344": {
@@ -14265,6 +14598,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C345": {
@@ -14273,6 +14607,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C340": {
@@ -14281,6 +14616,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C339": {
@@ -14289,6 +14625,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C327": {
@@ -14297,6 +14634,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "R180": {
@@ -14304,6 +14642,7 @@
         "1": "FPGA_JTAG_TCK",
         "2": "GND"
       },
+      "manufacturer": "Stackpole Electronics Inc",
       "value": "1k, 1%"
     },
     "R183": {
@@ -14311,6 +14650,7 @@
         "1": "VCC3P3",
         "2": "NetIC32_1"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "FR60": {
@@ -14318,6 +14658,7 @@
         "1": "VCC1P2",
         "2": "VCC1P2D"
       },
+      "manufacturer": "TDK Corporation",
       "comment": "600R@100MHz"
     },
     "C301": {
@@ -14333,6 +14674,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "FR61": {
@@ -14340,6 +14682,7 @@
         "1": "VCC2P5",
         "2": "VCC2P5A"
       },
+      "manufacturer": "TDK Corporation",
       "comment": "600R@100MHz"
     },
     "C311": {
@@ -14347,6 +14690,7 @@
         "1": "GND",
         "2": "VCC2P5A"
       },
+      "manufacturer": "MURATA",
       "value": "100uF, 6.3V"
     },
     "C313": {
@@ -14362,6 +14706,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C296": {
@@ -14376,6 +14721,7 @@
         "1": "GND",
         "2": "VCC1P2"
       },
+      "manufacturer": "Yageo",
       "value": "10uF, 20%"
     },
     "C298": {
@@ -14384,6 +14730,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C300": {
@@ -14391,6 +14738,7 @@
         "1": "GND",
         "2": "VCC1P2D"
       },
+      "manufacturer": "Yageo",
       "value": "10uF, 6.3V"
     },
     "C312": {
@@ -14398,6 +14746,7 @@
         "1": "GND",
         "2": "VCC2P5A"
       },
+      "manufacturer": "Yageo",
       "value": "10uF, 6.3V"
     },
     "C302": {
@@ -14405,6 +14754,7 @@
         "1": "VCC1P2D",
         "2": "GND"
       },
+      "manufacturer": "TDK",
       "value": "1uF, 10%"
     },
     "C314": {
@@ -14412,6 +14762,7 @@
         "1": "GND",
         "2": "VCC2P5A"
       },
+      "manufacturer": "TDK",
       "value": "1uF, 10%"
     },
     "C297": {
@@ -14419,6 +14770,7 @@
         "1": "VCC1P2",
         "2": "GND"
       },
+      "manufacturer": "TDK",
       "value": "1uF, 10%"
     },
     "C299": {
@@ -14427,6 +14779,7 @@
         "2": "VCC1P2D"
       },
       "mpn": "GRM31CR60G227ME11L",
+      "manufacturer": "Murata Electronics North America",
       "value": "220uF, 4V"
     },
     "C294": {
@@ -14435,6 +14788,7 @@
         "2": "VCC1P2"
       },
       "mpn": "GRM31CR60G227ME11L",
+      "manufacturer": "Murata Electronics North America",
       "value": "220uF, 4V"
     },
     "C306": {
@@ -14442,6 +14796,7 @@
         "1": "GND",
         "2": "VCC1P8"
       },
+      "manufacturer": "MURATA",
       "value": "100uF, 6.3V"
     },
     "C308": {
@@ -14457,6 +14812,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C307": {
@@ -14464,6 +14820,7 @@
         "1": "GND",
         "2": "VCC1P8"
       },
+      "manufacturer": "Yageo",
       "value": "10uF, 6.3V"
     },
     "C309": {
@@ -14471,6 +14828,7 @@
         "1": "GND",
         "2": "VCC1P8"
       },
+      "manufacturer": "TDK",
       "value": "1uF, 10%"
     },
     "C316": {
@@ -14478,6 +14836,7 @@
         "1": "GND",
         "2": "VDIO_LMS_FPGA"
       },
+      "manufacturer": "MURATA",
       "value": "100uF, 6.3V"
     },
     "C318": {
@@ -14493,6 +14852,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C317": {
@@ -14500,6 +14860,7 @@
         "1": "GND",
         "2": "VDIO_LMS_FPGA"
       },
+      "manufacturer": "Yageo",
       "value": "10uF, 6.3V"
     },
     "C319": {
@@ -14507,6 +14868,7 @@
         "1": "GND",
         "2": "VDIO_LMS_FPGA"
       },
+      "manufacturer": "TDK",
       "value": "1uF, 10%"
     },
     "C321": {
@@ -14514,6 +14876,7 @@
         "1": "GND",
         "2": "VCC3P3"
       },
+      "manufacturer": "MURATA",
       "value": "100uF,6.3V",
       "dns": true
     },
@@ -14530,6 +14893,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C322": {
@@ -14537,6 +14901,7 @@
         "1": "GND",
         "2": "VCC3P3"
       },
+      "manufacturer": "Yageo",
       "value": "10uF, 6.3V"
     },
     "C324": {
@@ -14544,6 +14909,7 @@
         "1": "GND",
         "2": "VCC3P3"
       },
+      "manufacturer": "TDK",
       "value": "1uF, 10%"
     },
     "VT1": {
@@ -14552,6 +14918,7 @@
         "S": "GND",
         "D": "NetJ19_1"
       },
+      "manufacturer": "Fairchild Semiconductor",
       "comment": "NDS331N"
     },
     "J19": {
@@ -14567,6 +14934,7 @@
         "1": "FAN_CTRL",
         "2": "GND"
       },
+      "manufacturer": "Yageo",
       "value": "10k,1%",
       "dns": true
     },
@@ -14576,6 +14944,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "R177": {
@@ -14583,6 +14952,7 @@
         "1": "FPGA_JTAG_TDI",
         "2": "VCC2P5A"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "R176": {
@@ -14590,6 +14960,7 @@
         "1": "FPGA_JTAG_TMS",
         "2": "VCC2P5A"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "R182": {
@@ -14597,6 +14968,7 @@
         "1": "LM75_OS",
         "2": "FAN_CTRL"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "C305": {
@@ -14605,6 +14977,7 @@
         "2": "VCC1P8"
       },
       "mpn": "GRM31CR60G227ME11L",
+      "manufacturer": "Murata Electronics North America",
       "value": "220uF, 4V"
     },
     "J20": {
@@ -14612,6 +14985,7 @@
         "1": "NetJ19_1",
         "2": "VCC3P3"
       },
+      "manufacturer": "Sullins Connector Solutions",
       "comment": "FAN"
     },
     "R36": {
@@ -14633,6 +15007,7 @@
         "15": "VTT_DDR2",
         "16": "VTT_DDR2"
       },
+      "manufacturer": "PANASONIC ELECTRONIC COMPONENTS",
       "comment": "8x56R"
     },
     "C85": {
@@ -14646,6 +15021,7 @@
         "7": "GND",
         "8": "GND"
       },
+      "manufacturer": "TDK",
       "value": "0.1uF"
     },
     "C90": {
@@ -14659,6 +15035,7 @@
         "7": "GND",
         "8": "GND"
       },
+      "manufacturer": "TDK",
       "value": "0.1uF"
     },
     "C91": {
@@ -14672,6 +15049,7 @@
         "7": "GND",
         "8": "GND"
       },
+      "manufacturer": "TDK",
       "value": "0.1uF"
     },
     "C110": {
@@ -14685,6 +15063,7 @@
         "7": "GND",
         "8": "GND"
       },
+      "manufacturer": "TDK",
       "value": "0.1uF"
     },
     "C115": {
@@ -14698,6 +15077,7 @@
         "7": "GND",
         "8": "GND"
       },
+      "manufacturer": "TDK",
       "value": "0.1uF"
     },
     "C116": {
@@ -14711,6 +15091,7 @@
         "7": "GND",
         "8": "GND"
       },
+      "manufacturer": "TDK",
       "value": "0.1uF"
     },
     "C103": {
@@ -14719,6 +15100,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "R37": {
@@ -14741,6 +15123,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "IC4": {
@@ -15082,6 +15465,7 @@
           "net": "VCC1P8_DDR2"
         }
       },
+      "manufacturer": "Alliance Memory, Inc.",
       "comment": "AS4C64M16D2-25BCN"
     },
     "IC5": {
@@ -15423,6 +15807,7 @@
           "net": ""
         }
       },
+      "manufacturer": "Alliance Memory, Inc.",
       "comment": "AS4C64M16D2-25BCN"
     },
     "R41": {
@@ -15445,6 +15830,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "R47": {
@@ -15467,6 +15853,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C81": {
@@ -15475,6 +15862,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C83": {
@@ -15483,6 +15871,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C84": {
@@ -15491,6 +15880,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C101": {
@@ -15498,6 +15888,7 @@
         "1": "GND",
         "2": "VCC1P8_DDR2"
       },
+      "manufacturer": "TDK Corporation",
       "value": "2.2uF, 20%"
     },
     "C102": {
@@ -15505,6 +15896,7 @@
         "1": "GND",
         "2": "VCC1P8_DDR2"
       },
+      "manufacturer": "TDK",
       "value": "1uF, 10%"
     },
     "C87": {
@@ -15513,6 +15905,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C86": {
@@ -15521,6 +15914,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C88": {
@@ -15529,6 +15923,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C89": {
@@ -15537,6 +15932,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C93": {
@@ -15545,6 +15941,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C92": {
@@ -15553,6 +15950,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C94": {
@@ -15561,6 +15959,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C95": {
@@ -15569,6 +15968,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C97": {
@@ -15577,6 +15977,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C96": {
@@ -15585,6 +15986,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C98": {
@@ -15593,6 +15995,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C99": {
@@ -15601,6 +16004,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C128": {
@@ -15609,6 +16013,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C107": {
@@ -15617,6 +16022,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C106": {
@@ -15625,6 +16031,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C108": {
@@ -15633,6 +16040,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C109": {
@@ -15641,6 +16049,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C126": {
@@ -15648,6 +16057,7 @@
         "1": "GND",
         "2": "VCC1P8_DDR2"
       },
+      "manufacturer": "TDK Corporation",
       "value": "2.2uF, 20%"
     },
     "C127": {
@@ -15655,6 +16065,7 @@
         "1": "GND",
         "2": "VCC1P8_DDR2"
       },
+      "manufacturer": "TDK",
       "value": "1uF, 10%"
     },
     "C112": {
@@ -15663,6 +16074,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C111": {
@@ -15671,6 +16083,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C113": {
@@ -15679,6 +16092,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C114": {
@@ -15687,6 +16101,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C118": {
@@ -15695,6 +16110,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C117": {
@@ -15703,6 +16119,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C119": {
@@ -15711,6 +16128,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C120": {
@@ -15719,6 +16137,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C122": {
@@ -15727,6 +16146,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C121": {
@@ -15735,6 +16155,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C123": {
@@ -15743,6 +16164,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C124": {
@@ -15751,6 +16173,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "R38": {
@@ -15772,6 +16195,7 @@
         "15": "VTT_DDR2",
         "16": "VTT_DDR2"
       },
+      "manufacturer": "PANASONIC ELECTRONIC COMPONENTS",
       "comment": "8x56R"
     },
     "R39": {
@@ -15793,6 +16217,7 @@
         "15": "VTT_DDR2",
         "16": "VTT_DDR2"
       },
+      "manufacturer": "PANASONIC ELECTRONIC COMPONENTS",
       "comment": "8x56R"
     },
     "R42": {
@@ -15814,6 +16239,7 @@
         "15": "VTT_DDR2",
         "16": "VTT_DDR2"
       },
+      "manufacturer": "PANASONIC ELECTRONIC COMPONENTS",
       "comment": "8x56R"
     },
     "R44": {
@@ -15835,6 +16261,7 @@
         "15": "VTT_DDR2",
         "16": "VTT_DDR2"
       },
+      "manufacturer": "PANASONIC ELECTRONIC COMPONENTS",
       "comment": "8x56R"
     },
     "R45": {
@@ -15856,6 +16283,7 @@
         "15": "VTT_DDR2",
         "16": "VTT_DDR2"
       },
+      "manufacturer": "PANASONIC ELECTRONIC COMPONENTS",
       "comment": "8x56R"
     },
     "C125": {
@@ -15863,6 +16291,7 @@
         "1": "GND",
         "2": "VCC1P8_DDR2"
       },
+      "manufacturer": "Yageo",
       "value": "10uF, 6.3V"
     },
     "C100": {
@@ -15870,6 +16299,7 @@
         "1": "GND",
         "2": "VCC1P8_DDR2"
       },
+      "manufacturer": "Yageo",
       "value": "10uF, 6.3V"
     },
     "C105": {
@@ -15878,6 +16308,7 @@
         "2": "VCC1P8_DDR2"
       },
       "mpn": "GRM31CR60G227ME11L",
+      "manufacturer": "Murata Electronics North America",
       "value": "220uF, 4V"
     },
     "C135": {
@@ -15885,6 +16316,7 @@
         "1": "GND",
         "2": "FX3_XTAL_P"
       },
+      "manufacturer": "Murata Electronics North America",
       "value": "13pF, 5%"
     },
     "FR36": {
@@ -15892,6 +16324,7 @@
         "1": "VCC5P0_USB",
         "2": "FX3_VBUS"
       },
+      "manufacturer": "TDK Corporation",
       "value": "220 Ohm @ 100MHz"
     },
     "XT1": {
@@ -15913,6 +16346,7 @@
           "net": "GND"
         }
       },
+      "manufacturer": "CTS-Frequency Controls",
       "comment": "19.2MHz"
     },
     "J11": {
@@ -15966,6 +16400,7 @@
           "net": "NetC134_1"
         }
       },
+      "manufacturer": "Amphenol Commercial Products",
       "comment": "Micro_USB3B"
     },
     "IC7": {
@@ -16011,6 +16446,7 @@
           "net": "FX3_USB_SSTX_N"
         }
       },
+      "manufacturer": "Littelfuse Inc",
       "comment": "SP3010-04UTG"
     },
     "FR37": {
@@ -16018,6 +16454,7 @@
         "1": "FX3_GND",
         "2": "NetC134_1"
       },
+      "manufacturer": "TDK Corporation",
       "value": "220 Ohm @ 100MHz"
     },
     "C137": {
@@ -16025,6 +16462,7 @@
         "1": "GND",
         "2": "FX3_XTAL_N"
       },
+      "manufacturer": "Murata Electronics North America",
       "value": "13pF, 5%"
     },
     "R53": {
@@ -16032,6 +16470,7 @@
         "1": "GND",
         "2": "FX3_OTG_ID"
       },
+      "manufacturer": "Yageo",
       "value": "0R",
       "dns": true
     },
@@ -16040,6 +16479,7 @@
         "1": "GND",
         "2": "FX3_VBUS"
       },
+      "manufacturer": "Yageo",
       "value": "1uF"
     },
     "C131": {
@@ -16048,6 +16488,7 @@
         "2": "FX3_USB_SSTX_P"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C130": {
@@ -16056,6 +16497,7 @@
         "2": "FX3_USB_SSTX_IC_N"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C134": {
@@ -16064,6 +16506,7 @@
         "2": "FX3_GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "NT1": {
@@ -16085,6 +16528,7 @@
         "1": "GND",
         "2": "FX3_RST"
       },
+      "manufacturer": "Omron Electronics Inc-EMC Div",
       "comment": "Switch, tactile"
     },
     "R48": {
@@ -16098,6 +16542,7 @@
         "7": "NetIC6_G10",
         "8": "FX3_DQ3"
       },
+      "manufacturer": "Yageo",
       "value": "22R"
     },
     "R50": {
@@ -16111,6 +16556,7 @@
         "7": "NetIC6_H9",
         "8": "FX3_DQ7"
       },
+      "manufacturer": "Yageo",
       "value": "22R"
     },
     "R52": {
@@ -16124,6 +16570,7 @@
         "7": "NetIC6_L10",
         "8": "FX3_DQ11"
       },
+      "manufacturer": "Yageo",
       "value": "22R"
     },
     "R57": {
@@ -16137,6 +16584,7 @@
         "7": "NetIC6_G8",
         "8": "FX3_DQ15"
       },
+      "manufacturer": "Yageo",
       "value": "22R"
     },
     "R61": {
@@ -16150,6 +16598,7 @@
         "7": "NetIC6_G7",
         "8": "FX3_CTL4"
       },
+      "manufacturer": "Yageo",
       "value": "22R"
     },
     "R62": {
@@ -16163,6 +16612,7 @@
         "7": "NetIC6_G5",
         "8": "FX3_CTL8"
       },
+      "manufacturer": "Yageo",
       "value": "22R"
     },
     "R63": {
@@ -16176,6 +16626,7 @@
         "7": "NetIC6_H5",
         "8": "FX3_CTL12"
       },
+      "manufacturer": "Yageo",
       "value": "22R"
     },
     "R60": {
@@ -16191,6 +16642,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "IC8": {
@@ -16228,6 +16680,7 @@
           "net": "VCC3P3"
         }
       },
+      "manufacturer": "Micron Technology Inc",
       "comment": "M25P40"
     },
     "R74": {
@@ -16235,6 +16688,7 @@
         "1": "GND",
         "2": "FX3_SPI_SCLK"
       },
+      "manufacturer": "Panasonic Electronic Components",
       "value": "100K"
     },
     "J13": {
@@ -16242,6 +16696,7 @@
         "1": "FX3_SPI_FLASH_SS",
         "2": "NetIC8_1"
       },
+      "manufacturer": "Sullins Connector Solutions",
       "comment": "Jumper"
     },
     "R81": {
@@ -16249,6 +16704,7 @@
         "1": "",
         "2": ""
       },
+      "manufacturer": "Stackpole Electronics Inc.",
       "value": "4K7"
     },
     "R82": {
@@ -16256,6 +16712,7 @@
         "1": "VCC3P3",
         "2": "NetIC8_7"
       },
+      "manufacturer": "Stackpole Electronics Inc.",
       "value": "4K7"
     },
     "R85": {
@@ -16263,6 +16720,7 @@
         "1": "VCC3P3",
         "2": "NetIC8_3"
       },
+      "manufacturer": "Stackpole Electronics Inc.",
       "value": "4K7"
     },
     "C136": {
@@ -16271,6 +16729,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "R54": {
@@ -16278,6 +16737,7 @@
         "1": "GND",
         "2": "NetIC6_C8"
       },
+      "manufacturer": "Rohm Semiconductor",
       "value": "6.04K, 1%"
     },
     "R56": {
@@ -16285,6 +16745,7 @@
         "1": "GND",
         "2": "NetIC6_B3"
       },
+      "manufacturer": "Stackpole Electronics Inc",
       "value": "200R, 1%"
     },
     "IC9": {
@@ -16323,6 +16784,7 @@
         }
       },
       "mpn": "LM75BTP,147",
+      "manufacturer": "NXP Semiconductors",
       "comment": "LM75"
     },
     "C140": {
@@ -16331,6 +16793,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "J12": {
@@ -16346,6 +16809,7 @@
         "9": "",
         "10": "NetJ12_10"
       },
+      "manufacturer": "Harwin Inc",
       "comment": "FX3 JTAG"
     },
     "R80": {
@@ -16353,6 +16817,7 @@
         "1": "NetJ12_10",
         "2": "FX3_RST"
       },
+      "manufacturer": "Yageo",
       "value": "0R",
       "dns": true
     },
@@ -16361,6 +16826,7 @@
         "1": "FX3_JTAG_TRST",
         "2": "NetJ12_10"
       },
+      "manufacturer": "Yageo",
       "value": "0R",
       "dns": true
     },
@@ -16851,6 +17317,7 @@
           "net": "VCC3P3_CFX3"
         }
       },
+      "manufacturer": "Cypress Semiconductor Corp",
       "comment": "CYUSB3014-BZXC"
     },
     "R49": {
@@ -16864,6 +17331,7 @@
         "7": "FX3_DQ19",
         "8": "NetIC6_J2"
       },
+      "manufacturer": "Yageo",
       "value": "22R"
     },
     "R51": {
@@ -16877,6 +17345,7 @@
         "7": "FX3_DQ23",
         "8": "NetIC6_H3"
       },
+      "manufacturer": "Yageo",
       "value": "22R"
     },
     "R55": {
@@ -16890,6 +17359,7 @@
         "7": "FX3_DQ27",
         "8": "NetIC6_F3"
       },
+      "manufacturer": "Yageo",
       "value": "22R"
     },
     "R58": {
@@ -16903,6 +17373,7 @@
         "7": "FX3_DQ31",
         "8": "NetIC6_E4"
       },
+      "manufacturer": "Yageo",
       "value": "22R"
     },
     "IC10": {
@@ -16977,6 +17448,7 @@
         }
       },
       "mpn": "MAX7322ATE+",
+      "manufacturer": "Maxim Integrated",
       "comment": "MAX7322"
     },
     "IC12": {
@@ -17046,6 +17518,7 @@
           "net": "GND"
         }
       },
+      "manufacturer": "NXP Semiconductors",
       "comment": "SC18IS602B"
     },
     "C142": {
@@ -17054,6 +17527,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C141": {
@@ -17062,6 +17536,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "R93": {
@@ -17069,6 +17544,7 @@
         "1": "VCC3P3",
         "2": "FX3_I2C_SDA"
       },
+      "manufacturer": "Stackpole Electronics Inc",
       "value": "1k, 1%"
     },
     "R67": {
@@ -17076,6 +17552,7 @@
         "1": "EXP_NCONFIG",
         "2": "FPGA_NCONFIG"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "R68": {
@@ -17083,6 +17560,7 @@
         "1": "EXP_NSTATUS",
         "2": "FPGA_NSTATUS"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "R69": {
@@ -17090,6 +17568,7 @@
         "1": "EXP_CONF_DONE",
         "2": "FPGA_CONF_DONE"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "IC11": {
@@ -17127,6 +17606,7 @@
           "net": "VCC3P3"
         }
       },
+      "manufacturer": "Microchip Technology",
       "comment": "24FC64F"
     },
     "C139": {
@@ -17135,6 +17615,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "R94": {
@@ -17142,6 +17623,7 @@
         "1": "VCC3P3",
         "2": "FX3_I2C_SCL"
       },
+      "manufacturer": "Stackpole Electronics Inc",
       "value": "1k, 1%"
     },
     "JMP1": {
@@ -17149,6 +17631,7 @@
         "1": "",
         "2": ""
       },
+      "manufacturer": "Harwin Inc.",
       "comment": "1 pcs."
     },
     "R78": {
@@ -17156,6 +17639,7 @@
         "1": "FX3_RST",
         "2": "VCC3P3_CFX3"
       },
+      "manufacturer": "Panasonic Electronic Components",
       "value": "100K"
     },
     "R92": {
@@ -17163,6 +17647,7 @@
         "1": "LM75_OS",
         "2": "VCC3P3"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "R88": {
@@ -17170,6 +17655,7 @@
         "1": "VCC3P3",
         "2": "NetIC12_3"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "R90": {
@@ -17177,6 +17663,7 @@
         "1": "BRDG_INT",
         "2": "VCC3P3"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "R91": {
@@ -17184,6 +17671,7 @@
         "1": "VCC3P3",
         "2": "NetIC10_16"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "R66": {
@@ -17191,6 +17679,7 @@
         "1": "VCC3P3",
         "2": "FPGA_NCONFIG"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "R65": {
@@ -17198,6 +17687,7 @@
         "1": "VCC3P3",
         "2": "FPGA_NSTATUS"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "R64": {
@@ -17205,6 +17695,7 @@
         "1": "VDIO_LMS_FPGA",
         "2": "FPGA_CONF_DONE"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "R75": {
@@ -17212,6 +17703,7 @@
         "1": "VCC1P8_FX3",
         "2": "FX3_PMODE0"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "R76": {
@@ -17219,6 +17711,7 @@
         "1": "VCC1P8_FX3",
         "2": "FX3_PMODE1"
       },
+      "manufacturer": "Yageo",
       "value": "10k,1%",
       "dns": true
     },
@@ -17227,6 +17720,7 @@
         "1": "GND",
         "2": "FX3_PMODE2"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "R79": {
@@ -17234,6 +17728,7 @@
         "1": "VCC1P8_FX3",
         "2": "FX3_INT"
       },
+      "manufacturer": "Yageo",
       "value": "10k,1%",
       "dns": true
     },
@@ -17242,6 +17737,7 @@
         "1": "GND",
         "2": "FX3_FSLC0"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "R86": {
@@ -17249,6 +17745,7 @@
         "1": "GND",
         "2": "FX3_FSLC1"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "R87": {
@@ -17256,6 +17753,7 @@
         "1": "GND",
         "2": "FX3_FSLC2"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "R89": {
@@ -17263,6 +17761,7 @@
         "1": "BRDG_SPI_DUMMY_SS",
         "2": "VCC3P3"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "C132": {
@@ -17271,6 +17770,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "R70": {
@@ -17278,6 +17778,7 @@
         "1": "FX3_I2C_SDA",
         "2": "NetR70_2"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "R72": {
@@ -17285,6 +17786,7 @@
         "1": "FX3_I2C_SCL",
         "2": "FPGA_I2C_SCL"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "R71": {
@@ -17292,6 +17794,7 @@
         "1": "FX3_SPI_MISO",
         "2": "NetR71_2"
       },
+      "manufacturer": "Yageo",
       "value": "0R",
       "dns": true
     },
@@ -17300,6 +17803,7 @@
         "1": "FX3_SPI_MOSI",
         "2": "FPGA_UART_TX"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "FR42": {
@@ -17307,6 +17811,7 @@
         "1": "NetC158_2",
         "2": "VCC1P2"
       },
+      "manufacturer": "TDK",
       "value": "600R, 2A"
     },
     "C173": {
@@ -17314,6 +17819,7 @@
         "1": "GND",
         "2": "VDD_FX3"
       },
+      "manufacturer": "Yageo",
       "value": "10nF, 10%"
     },
     "C166": {
@@ -17322,6 +17828,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C167": {
@@ -17330,6 +17837,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C165": {
@@ -17338,6 +17846,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C168": {
@@ -17346,6 +17855,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C169": {
@@ -17354,6 +17864,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C170": {
@@ -17362,6 +17873,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C171": {
@@ -17370,6 +17882,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C172": {
@@ -17378,6 +17891,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C174": {
@@ -17385,6 +17899,7 @@
         "1": "GND",
         "2": "VDD_FX3"
       },
+      "manufacturer": "Yageo",
       "value": "10nF, 10%"
     },
     "C175": {
@@ -17392,6 +17907,7 @@
         "1": "GND",
         "2": "VDD_FX3"
       },
+      "manufacturer": "Yageo",
       "value": "10nF, 10%"
     },
     "C176": {
@@ -17399,6 +17915,7 @@
         "1": "GND",
         "2": "VDD_FX3"
       },
+      "manufacturer": "Yageo",
       "value": "10nF, 10%"
     },
     "C177": {
@@ -17406,6 +17923,7 @@
         "1": "GND",
         "2": "VDD_FX3"
       },
+      "manufacturer": "Yageo",
       "value": "10nF, 10%"
     },
     "C178": {
@@ -17413,6 +17931,7 @@
         "1": "GND",
         "2": "VDD_FX3"
       },
+      "manufacturer": "Yageo",
       "value": "10nF, 10%"
     },
     "C179": {
@@ -17420,6 +17939,7 @@
         "1": "GND",
         "2": "VDD_FX3"
       },
+      "manufacturer": "Yageo",
       "value": "10nF, 10%"
     },
     "C180": {
@@ -17427,6 +17947,7 @@
         "1": "GND",
         "2": "VDD_FX3"
       },
+      "manufacturer": "Yageo",
       "value": "10nF, 10%"
     },
     "C144": {
@@ -17435,6 +17956,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C145": {
@@ -17443,6 +17965,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C146": {
@@ -17450,6 +17973,7 @@
         "1": "GND",
         "2": "VCC1P8_FX3"
       },
+      "manufacturer": "Yageo",
       "value": "10nF, 10%"
     },
     "C147": {
@@ -17457,6 +17981,7 @@
         "1": "GND",
         "2": "VCC1P8_FX3"
       },
+      "manufacturer": "Yageo",
       "value": "10nF, 10%"
     },
     "C148": {
@@ -17465,6 +17990,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C149": {
@@ -17472,6 +17998,7 @@
         "1": "GND",
         "2": "VCC1P8_FX3"
       },
+      "manufacturer": "Yageo",
       "value": "10nF, 10%"
     },
     "C151": {
@@ -17480,6 +18007,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C152": {
@@ -17487,6 +18015,7 @@
         "1": "GND",
         "2": "VCC3P3_FX3"
       },
+      "manufacturer": "Yageo",
       "value": "10nF, 10%"
     },
     "C153": {
@@ -17495,6 +18024,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C154": {
@@ -17502,6 +18032,7 @@
         "1": "GND",
         "2": "VCC3P3_FX3"
       },
+      "manufacturer": "Yageo",
       "value": "10nF, 10%"
     },
     "C159": {
@@ -17510,6 +18041,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C158": {
@@ -17525,6 +18057,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C162": {
@@ -17533,6 +18066,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C157": {
@@ -17541,6 +18075,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C156": {
@@ -17548,6 +18083,7 @@
         "1": "GND",
         "2": "VCC3P3_CFX3"
       },
+      "manufacturer": "Yageo",
       "value": "10nF, 10%"
     },
     "FR43": {
@@ -17555,6 +18091,7 @@
         "1": "NetC160_1",
         "2": "VCC1P2"
       },
+      "manufacturer": "TDK",
       "value": "600R, 2A"
     },
     "FR44": {
@@ -17562,6 +18099,7 @@
         "1": "NetC162_1",
         "2": "VCC1P2"
       },
+      "manufacturer": "TDK",
       "value": "600R, 2A"
     },
     "C161": {
@@ -17583,6 +18121,7 @@
         "1": "VCC3P3_CFX3",
         "2": "VCC3P3"
       },
+      "manufacturer": "TDK",
       "value": "600R,2A",
       "dns": true
     },
@@ -17591,6 +18130,7 @@
         "1": "VCC1P8",
         "2": "VCC1P8_FX3"
       },
+      "manufacturer": "TDK",
       "value": "600R, 2A"
     },
     "C143": {
@@ -17605,6 +18145,7 @@
         "1": "VCC3P3",
         "2": "VCC3P3_FX3"
       },
+      "manufacturer": "TDK",
       "value": "600R, 2A"
     },
     "C150": {
@@ -17619,6 +18160,7 @@
         "1": "VCC3P3_CFX3",
         "2": "VCC3P3_CLK"
       },
+      "manufacturer": "TDK",
       "value": "600R,2A",
       "dns": true
     },
@@ -17627,6 +18169,7 @@
         "1": "GND",
         "2": "VCC3P3_CFX3"
       },
+      "manufacturer": "Yageo",
       "value": "10uF, 6.3V"
     },
     "FR45": {
@@ -17634,6 +18177,7 @@
         "1": "VCC3P3_CFX3",
         "2": "VCC2P5"
       },
+      "manufacturer": "TDK",
       "value": "600R, 2A"
     },
     "FR46": {
@@ -17641,6 +18185,7 @@
         "1": "VCC1P2",
         "2": "VDD_FX3"
       },
+      "manufacturer": "TDK",
       "value": "600R, 2A"
     },
     "C164": {
@@ -17677,6 +18222,7 @@
           "net": "NetR95_1"
         }
       },
+      "manufacturer": "Rakon",
       "comment": "30.72 MHz",
       "dns": true
     },
@@ -17699,6 +18245,7 @@
           "net": "NetC186_2"
         }
       },
+      "manufacturer": "Rakon",
       "comment": "TCXO 61.44MHz",
       "dns": true
     },
@@ -17721,6 +18268,7 @@
           "net": "NetC186_2"
         }
       },
+      "manufacturer": "Rakon",
       "comment": "TCXO 30.72MHz"
     },
     "IC14": {
@@ -17758,6 +18306,7 @@
           "net": "NetC188_2"
         }
       },
+      "manufacturer": "Fairchild Semiconductor",
       "comment": "NC7SV74K8XCT"
     },
     "IC13": {
@@ -17859,6 +18408,7 @@
           "net": "GND"
         }
       },
+      "manufacturer": "Texas Instruments",
       "comment": "LMK00105"
     },
     "C215": {
@@ -17866,6 +18416,7 @@
         "1": "GND",
         "2": "NetC214_2"
       },
+      "manufacturer": "Yageo",
       "value": "22pF, 5%"
     },
     "C220": {
@@ -17873,6 +18424,7 @@
         "1": "GND",
         "2": "NetC220_2"
       },
+      "manufacturer": "AVX",
       "value": "10pF, 5%"
     },
     "R106": {
@@ -17880,6 +18432,7 @@
         "1": "NetC181_2",
         "2": "REF_CLK"
       },
+      "manufacturer": "Yageo",
       "value": "0R",
       "dns": true
     },
@@ -17888,6 +18441,7 @@
         "1": "NetR95_1",
         "2": "NetC186_2"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "R96": {
@@ -17895,6 +18449,7 @@
         "1": "NetC181_2",
         "2": "NetR96_2"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "R102": {
@@ -17902,6 +18457,7 @@
         "1": "NetIC14_1",
         "2": "NetR96_2"
       },
+      "manufacturer": "Yageo",
       "value": "0R",
       "dns": true
     },
@@ -17910,6 +18466,7 @@
         "1": "NetC181_2",
         "2": "NetIC14_5"
       },
+      "manufacturer": "Yageo",
       "value": "0R",
       "dns": true
     },
@@ -17918,6 +18475,7 @@
         "1": "NetC181_2",
         "2": "NetIC14_2"
       },
+      "manufacturer": "Yageo",
       "value": "0R",
       "dns": true
     },
@@ -17926,6 +18484,7 @@
         "1": "VCC3P3_CLK",
         "2": "NetC188_2"
       },
+      "manufacturer": "Yageo",
       "value": "0R",
       "dns": true
     },
@@ -17934,6 +18493,7 @@
         "1": "GND",
         "2": "VDIO_LMS_LMK"
       },
+      "manufacturer": "Yageo",
       "value": "100pF, 5%"
     },
     "C193": {
@@ -17941,6 +18501,7 @@
         "1": "GND",
         "2": "VDIO_LMS_LMK"
       },
+      "manufacturer": "Yageo",
       "value": "100pF, 5%"
     },
     "C196": {
@@ -17948,6 +18509,7 @@
         "1": "GND",
         "2": "+1.8V_DIG_LMK"
       },
+      "manufacturer": "Yageo",
       "value": "100pF, 5%"
     },
     "C197": {
@@ -17955,6 +18517,7 @@
         "1": "GND",
         "2": "+1.8V_DIG_LMK"
       },
+      "manufacturer": "Yageo",
       "value": "100pF, 5%"
     },
     "IC16": {
@@ -18044,6 +18607,7 @@
           "net": "GND"
         }
       },
+      "manufacturer": "Analog Devices Inc",
       "comment": "ADF4002"
     },
     "R111": {
@@ -18051,6 +18615,7 @@
         "1": "NetIC16_11",
         "2": "VCC3P3_CLK"
       },
+      "manufacturer": "Stackpole Electronics Inc",
       "value": "1k, 1%"
     },
     "C214": {
@@ -18058,6 +18623,7 @@
         "1": "NetC214_1",
         "2": "NetC214_2"
       },
+      "manufacturer": "Yageo",
       "value": "22pF, 5%"
     },
     "C213": {
@@ -18065,6 +18631,7 @@
         "1": "GND",
         "2": "NetC213_2"
       },
+      "manufacturer": "Yageo",
       "value": "22pF, 5%"
     },
     "R112": {
@@ -18072,6 +18639,7 @@
         "1": "NetC214_2",
         "2": "NetC213_2"
       },
+      "manufacturer": "Panasonic Electronic Components",
       "value": "470R, 0.5%"
     },
     "R118": {
@@ -18079,6 +18647,7 @@
         "1": "GND",
         "2": "NetC214_1"
       },
+      "manufacturer": "Yageo",
       "value": "330R, 5%"
     },
     "R110": {
@@ -18086,6 +18655,7 @@
         "1": "NetC209_2",
         "2": "VCC3P3_CLK"
       },
+      "manufacturer": "Yageo",
       "value": "10R, 5%"
     },
     "C216": {
@@ -18093,6 +18663,7 @@
         "1": "NetC216_1",
         "2": "GND"
       },
+      "manufacturer": "Yageo",
       "value": "220pF, 10%"
     },
     "C205": {
@@ -18100,6 +18671,7 @@
         "1": "NetC204_2",
         "2": "GND"
       },
+      "manufacturer": "Yageo",
       "value": "100pF, 5%"
     },
     "C206": {
@@ -18107,6 +18679,7 @@
         "1": "NetC204_2",
         "2": "GND"
       },
+      "manufacturer": "Yageo",
       "value": "100pF, 5%"
     },
     "R99": {
@@ -18114,6 +18687,7 @@
         "1": "VCC3P3_CLK",
         "2": "NetIC13_24"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "C201": {
@@ -18121,6 +18695,7 @@
         "1": "NetC201_1",
         "2": "NetC201_2"
       },
+      "manufacturer": "Yageo",
       "value": "100pF, 5%"
     },
     "C202": {
@@ -18128,6 +18703,7 @@
         "1": "NetC201_2",
         "2": "REF_ADF"
       },
+      "manufacturer": "Yageo",
       "value": "100pF, 5%"
     },
     "C211": {
@@ -18135,6 +18711,7 @@
         "1": "NetC211_1",
         "2": "NetC211_2"
       },
+      "manufacturer": "Murata Electronics",
       "value": "1nF, 10%"
     },
     "C212": {
@@ -18142,6 +18719,7 @@
         "1": "REF_CLK",
         "2": "NetC211_1"
       },
+      "manufacturer": "Murata Electronics",
       "value": "1nF, 10%"
     },
     "R105": {
@@ -18149,6 +18727,7 @@
         "1": "FPGA_CLK_OUT",
         "2": "NetC181_2"
       },
+      "manufacturer": "Yageo",
       "value": "0R",
       "dns": true
     },
@@ -18158,6 +18737,7 @@
         "2": "NetC181_2"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C182": {
@@ -18166,6 +18746,7 @@
         "2": "NetC181_1"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C183": {
@@ -18174,6 +18755,7 @@
         "2": "NetC183_2"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C188": {
@@ -18182,6 +18764,7 @@
         "2": "NetC188_2"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C186": {
@@ -18190,6 +18773,7 @@
         "2": "NetC186_2"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C195": {
@@ -18198,6 +18782,7 @@
         "2": "+1.8V_DIG_LMK"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C191": {
@@ -18206,6 +18791,7 @@
         "2": "VDIO_LMS_LMK"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C210": {
@@ -18214,6 +18800,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C203": {
@@ -18222,6 +18809,7 @@
         "2": "VCC3P3_CLK"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C204": {
@@ -18230,6 +18818,7 @@
         "2": "NetC204_2"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "FR51": {
@@ -18237,6 +18826,7 @@
         "1": "VCC3P3_CLK",
         "2": "NetC204_2"
       },
+      "manufacturer": "TDK Corporation",
       "comment": "600R@100MHz"
     },
     "C184": {
@@ -18244,6 +18834,7 @@
         "1": "GND",
         "2": "TxPLL_CLK"
       },
+      "manufacturer": "TDK Corporation",
       "value": "47pF"
     },
     "C185": {
@@ -18251,6 +18842,7 @@
         "1": "GND",
         "2": "RxPLL_CLK"
       },
+      "manufacturer": "TDK Corporation",
       "value": "47pF"
     },
     "FR48": {
@@ -18258,6 +18850,7 @@
         "1": "VCC1P8_LMS",
         "2": "+1.8V_DIG_LMK"
       },
+      "manufacturer": "TDK Corporation",
       "comment": "600R@100MHz"
     },
     "FR49": {
@@ -18265,6 +18858,7 @@
         "1": "VDIO_LMS_FPGA",
         "2": "VDIO_LMS_LMK"
       },
+      "manufacturer": "TDK Corporation",
       "comment": "600R@100MHz"
     },
     "C190": {
@@ -18272,6 +18866,7 @@
         "1": "GND",
         "2": "VDIO_LMS_LMK"
       },
+      "manufacturer": "TDK",
       "value": "1uF, 10%"
     },
     "J14": {
@@ -18285,6 +18880,7 @@
           "net": "GND"
         }
       },
+      "manufacturer": "Molex, LLC",
       "comment": "U.FL/MMCX"
     },
     "IC15": {
@@ -18314,6 +18910,7 @@
           "net": "NetFR50_1"
         }
       },
+      "manufacturer": "Analog Devices",
       "comment": "AD5601BKSZ-REEL7"
     },
     "C218": {
@@ -18322,6 +18919,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C217": {
@@ -18330,6 +18928,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "R113": {
@@ -18337,6 +18936,7 @@
         "1": "NetC213_2",
         "2": "TCXO_VC"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "R108": {
@@ -18344,6 +18944,7 @@
         "1": "TCXO_VC",
         "2": "NetC199_2"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "C199": {
@@ -18351,6 +18952,7 @@
         "1": "GND",
         "2": "NetC199_2"
       },
+      "manufacturer": "TDK",
       "value": "1uF,10%",
       "dns": true
     },
@@ -18360,6 +18962,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C187": {
@@ -18367,6 +18970,7 @@
         "1": "GND",
         "2": "NetC186_2"
       },
+      "manufacturer": "TDK",
       "value": "1uF, 10%"
     },
     "C189": {
@@ -18374,6 +18978,7 @@
         "1": "GND",
         "2": "+1.8V_DIG_LMK"
       },
+      "manufacturer": "TDK",
       "value": "1uF, 10%"
     },
     "C198": {
@@ -18381,6 +18986,7 @@
         "1": "GND",
         "2": "VDIO_LMS_LMK"
       },
+      "manufacturer": "Yageo",
       "value": "100pF, 5%"
     },
     "C194": {
@@ -18388,6 +18994,7 @@
         "1": "GND",
         "2": "VDIO_LMS_LMK"
       },
+      "manufacturer": "Yageo",
       "value": "100pF, 5%"
     },
     "C209": {
@@ -18395,6 +19002,7 @@
         "1": "GND",
         "2": "NetC209_2"
       },
+      "manufacturer": "Yageo",
       "value": "100pF, 5%"
     },
     "C208": {
@@ -18402,6 +19010,7 @@
         "1": "VCC3P3_CLK",
         "2": "GND"
       },
+      "manufacturer": "Yageo",
       "value": "100pF, 5%"
     },
     "C207": {
@@ -18409,6 +19018,7 @@
         "1": "VCC3P3_CLK",
         "2": "GND"
       },
+      "manufacturer": "Yageo",
       "value": "100pF, 5%"
     },
     "FR52": {
@@ -18416,6 +19026,7 @@
         "1": "VCC3P3_CLK",
         "2": "NetC200_1"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -18424,6 +19035,7 @@
         "1": "NetFR50_1",
         "2": "NetC199_2"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -18432,6 +19044,7 @@
         "1": "NetC186_2",
         "2": "VCC3P3_CLK"
       },
+      "manufacturer": "Taiyo Yuden",
       "comment": "Ferrite",
       "value": "600R@100MHz"
     },
@@ -18522,6 +19135,7 @@
           "net": "GND"
         }
       },
+      "manufacturer": "Silicon Labs",
       "comment": "Si5351C"
     },
     "C221": {
@@ -18529,6 +19143,7 @@
         "1": "GND",
         "2": "SI5351_XTAL_N"
       },
+      "manufacturer": "AVX",
       "value": "10pF, 5%"
     },
     "XT5": {
@@ -18550,6 +19165,7 @@
           "net": "GND"
         }
       },
+      "manufacturer": "ABRACON",
       "comment": "25MHz"
     },
     "C219": {
@@ -18557,6 +19173,7 @@
         "1": "GND",
         "2": "SI5351_XTAL_P"
       },
+      "manufacturer": "AVX",
       "value": "10pF, 5%"
     },
     "R107": {
@@ -18564,6 +19181,7 @@
         "1": "NetC181_2",
         "2": "SI_CLK4"
       },
+      "manufacturer": "Yageo",
       "value": "0R",
       "dns": true
     },
@@ -18573,6 +19191,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C222": {
@@ -18581,6 +19200,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C224": {
@@ -18589,6 +19209,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "R117": {
@@ -18596,6 +19217,7 @@
         "1": "NetIC16_19",
         "2": "GND"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "R115": {
@@ -18603,6 +19225,7 @@
         "1": "VCC3P3_SI",
         "2": "VCC3P3_CLK"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "R116": {
@@ -18610,6 +19233,7 @@
         "1": "ADF_MUXOUT",
         "2": "GND"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "R119": {
@@ -18618,6 +19242,7 @@
         "2": "NetC220_2"
       },
       "mpn": "RC1005F49R9CS",
+      "manufacturer": "Samsung Electro-Mechanics America, Inc.",
       "value": "49.9R, 1%"
     },
     "R121": {
@@ -18626,6 +19251,7 @@
         "2": "NetIC16_14"
       },
       "mpn": "RC1005F49R9CS",
+      "manufacturer": "Samsung Electro-Mechanics America, Inc.",
       "value": "49.9R, 1%"
     },
     "R120": {
@@ -18634,6 +19260,7 @@
         "2": "NetIC16_13"
       },
       "mpn": "RC1005F49R9CS",
+      "manufacturer": "Samsung Electro-Mechanics America, Inc.",
       "value": "49.9R, 1%"
     },
     "R114": {
@@ -18642,6 +19269,7 @@
         "2": "NetC211_1"
       },
       "mpn": "RC1005F49R9CS",
+      "manufacturer": "Samsung Electro-Mechanics America, Inc.",
       "value": "49.9R, 1%"
     },
     "R109": {
@@ -18650,6 +19278,7 @@
         "2": "NetC201_2"
       },
       "mpn": "RC1005F49R9CS",
+      "manufacturer": "Samsung Electro-Mechanics America, Inc.",
       "value": "49.9R, 1%"
     },
     "R98": {
@@ -18658,6 +19287,7 @@
         "2": "NetC181_1"
       },
       "mpn": "RC1005F49R9CS",
+      "manufacturer": "Samsung Electro-Mechanics America, Inc.",
       "value": "49.9R, 1%"
     },
     "R97": {
@@ -18666,6 +19296,7 @@
         "2": "NetR97_2"
       },
       "mpn": "RC1005F49R9CS",
+      "manufacturer": "Samsung Electro-Mechanics America, Inc.",
       "value": "49.9R, 1%"
     },
     "R101": {
@@ -18674,6 +19305,7 @@
         "2": "NetIC13_5"
       },
       "mpn": "RC1005F49R9CS",
+      "manufacturer": "Samsung Electro-Mechanics America, Inc.",
       "value": "49.9R, 1%"
     },
     "R137": {
@@ -18682,6 +19314,7 @@
         "2": "GND"
       },
       "mpn": "ERJ-2GEJ104X",
+      "manufacturer": "Panasonic Electronic Components",
       "value": "100k, 5%"
     },
     "C248": {
@@ -18689,6 +19322,7 @@
         "1": "NetC248_1",
         "2": "GND"
       },
+      "manufacturer": "TDK",
       "value": "1uF, 10%"
     },
     "IC22": {
@@ -18799,6 +19433,7 @@
         }
       },
       "mpn": "ADP2386ACPZN-R7",
+      "manufacturer": "Analog Devices Inc.",
       "comment": "ADP2386"
     },
     "C240": {
@@ -18807,6 +19442,7 @@
         "2": "NetC240_2"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "R138": {
@@ -18814,6 +19450,7 @@
         "1": "GND",
         "2": "NetIC22_2"
       },
+      "manufacturer": "Stackpole Electronics Inc.",
       "value": "2.21k, 1%"
     },
     "L1": {
@@ -18821,6 +19458,7 @@
         "1": "NetC240_2",
         "2": "VCC3P3"
       },
+      "manufacturer": "Vishay Dale",
       "value": "1.5uH"
     },
     "C252": {
@@ -18828,6 +19466,7 @@
         "1": "NetC252_1",
         "2": "GND"
       },
+      "manufacturer": "Murata Electronics North America",
       "value": "4.7pF"
     },
     "C253": {
@@ -18835,6 +19474,7 @@
         "1": "NetC253_1",
         "2": "GND"
       },
+      "manufacturer": "Kemet",
       "value": "1200pF"
     },
     "R139": {
@@ -18842,6 +19482,7 @@
         "1": "NetC253_1",
         "2": "NetC252_1"
       },
+      "manufacturer": "Panasonic Electronic Components",
       "value": "44.2k, 1%"
     },
     "C254": {
@@ -18849,6 +19490,7 @@
         "1": "NetC254_1",
         "2": "GND"
       },
+      "manufacturer": "Kemet",
       "value": "22nF"
     },
     "R150": {
@@ -18856,6 +19498,7 @@
         "1": "NetIC25_22",
         "2": "GND"
       },
+      "manufacturer": "Panasonic Electronic Components",
       "value": "124k, 1%"
     },
     "C268": {
@@ -18863,6 +19506,7 @@
         "1": "NetC268_1",
         "2": "GND"
       },
+      "manufacturer": "TDK",
       "value": "1uF, 10%"
     },
     "IC25": {
@@ -18972,6 +19616,7 @@
           "net": "NetC259_2"
         }
       },
+      "manufacturer": "Analog Devices Inc.",
       "comment": "ADP2386"
     },
     "C259": {
@@ -18980,6 +19625,7 @@
         "2": "NetC259_2"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "L2": {
@@ -18987,6 +19633,7 @@
         "1": "NetC259_2",
         "2": "VCC1P2"
       },
+      "manufacturer": "Vishay Dale",
       "value": "1uH"
     },
     "C271": {
@@ -18994,6 +19641,7 @@
         "1": "NetC271_1",
         "2": "GND"
       },
+      "manufacturer": "Kemet",
       "value": "68pF"
     },
     "C272": {
@@ -19001,6 +19649,7 @@
         "1": "NetC272_1",
         "2": "GND"
       },
+      "manufacturer": "Samsung Electro-Mechanics America, Inc.",
       "value": "1500pF"
     },
     "R154": {
@@ -19008,6 +19657,7 @@
         "1": "NetC272_1",
         "2": "NetC271_1"
       },
+      "manufacturer": "Panasonic Electronic Components",
       "value": "66.5k, 1%"
     },
     "C273": {
@@ -19015,6 +19665,7 @@
         "1": "NetC273_1",
         "2": "GND"
       },
+      "manufacturer": "Kemet",
       "value": "22nF"
     },
     "IC27": {
@@ -19052,6 +19703,7 @@
           "net": "GND"
         }
       },
+      "manufacturer": "Microchip Technology",
       "comment": "MIC37122"
     },
     "C265": {
@@ -19059,6 +19711,7 @@
         "1": "GND",
         "2": "NetC265_2"
       },
+      "manufacturer": "TDK Corporation",
       "value": "2.2uF, 20%"
     },
     "R152": {
@@ -19066,6 +19719,7 @@
         "1": "GND",
         "2": "NetIC27_4"
       },
+      "manufacturer": "Stackpole Electronics Inc",
       "value": "1k, 1%"
     },
     "C263": {
@@ -19073,6 +19727,7 @@
         "1": "GND",
         "2": "VCC3P3"
       },
+      "manufacturer": "TDK Corporation",
       "value": "2.2uF, 20%"
     },
     "R146": {
@@ -19080,6 +19735,7 @@
         "1": "VCC1P25_LMS",
         "2": "NetC265_2"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "IC21": {
@@ -19117,6 +19773,7 @@
           "net": "GND"
         }
       },
+      "manufacturer": "Microchip Technology",
       "comment": "MIC37122"
     },
     "C244": {
@@ -19124,6 +19781,7 @@
         "1": "GND",
         "2": "NetC244_2"
       },
+      "manufacturer": "TDK Corporation",
       "value": "2.2uF, 20%"
     },
     "R135": {
@@ -19131,6 +19789,7 @@
         "1": "GND",
         "2": "NetIC21_4"
       },
+      "manufacturer": "Stackpole Electronics Inc",
       "value": "1k, 1%"
     },
     "C242": {
@@ -19138,6 +19797,7 @@
         "1": "GND",
         "2": "VCC3P3"
       },
+      "manufacturer": "TDK Corporation",
       "value": "2.2uF, 20%"
     },
     "R132": {
@@ -19145,6 +19805,7 @@
         "1": "VCC1P8_LMS",
         "2": "NetC244_2"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "IC24": {
@@ -19182,6 +19843,7 @@
           "net": "GND"
         }
       },
+      "manufacturer": "Microchip Technology",
       "comment": "MIC37122"
     },
     "C251": {
@@ -19189,6 +19851,7 @@
         "1": "GND",
         "2": "NetC251_2"
       },
+      "manufacturer": "TDK Corporation",
       "value": "2.2uF, 20%"
     },
     "R141": {
@@ -19196,6 +19859,7 @@
         "1": "VCC1P4_LMS",
         "2": "NetC251_2"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "R148": {
@@ -19203,6 +19867,7 @@
         "1": "NetC265_2",
         "2": "NetIC27_4"
       },
+      "manufacturer": "Stackpole Electronics Inc",
       "value": "249R, 1%"
     },
     "R134": {
@@ -19210,6 +19875,7 @@
         "1": "NetC244_2",
         "2": "NetIC21_4"
       },
+      "manufacturer": "Stackpole Electronics Inc",
       "value": "806R, 1%"
     },
     "R144": {
@@ -19217,6 +19883,7 @@
         "1": "NetIC24_4",
         "2": "GND"
       },
+      "manufacturer": "Stackpole Electronics Inc",
       "value": "100R, 1%"
     },
     "R143": {
@@ -19224,6 +19891,7 @@
         "1": "NetC251_2",
         "2": "NetIC24_4"
       },
+      "manufacturer": "Stackpole Electronics Inc",
       "value": "40R2, 1%"
     },
     "FR55": {
@@ -19231,6 +19899,7 @@
         "1": "VCC3P3",
         "2": "NetC250_2"
       },
+      "manufacturer": "TDK Corporation",
       "comment": "600R@100MHz"
     },
     "FR56": {
@@ -19238,6 +19907,7 @@
         "1": "VCC3P3",
         "2": "NetC264_2"
       },
+      "manufacturer": "TDK Corporation",
       "comment": "600R@100MHz"
     },
     "FR54": {
@@ -19245,6 +19915,7 @@
         "1": "VCC3P3",
         "2": "NetC243_2"
       },
+      "manufacturer": "TDK Corporation",
       "comment": "600R@100MHz"
     },
     "C243": {
@@ -19252,6 +19923,7 @@
         "1": "GND",
         "2": "NetC243_2"
       },
+      "manufacturer": "TDK",
       "value": "1uF, 10%"
     },
     "C264": {
@@ -19259,6 +19931,7 @@
         "1": "GND",
         "2": "NetC264_2"
       },
+      "manufacturer": "TDK",
       "value": "1uF, 10%"
     },
     "C250": {
@@ -19266,6 +19939,7 @@
         "1": "GND",
         "2": "NetC250_2"
       },
+      "manufacturer": "TDK",
       "value": "1uF, 10%"
     },
     "C249": {
@@ -19273,6 +19947,7 @@
         "1": "GND",
         "2": "VCC3P3"
       },
+      "manufacturer": "TDK",
       "value": "1uF, 10%"
     },
     "IC29": {
@@ -19299,6 +19974,7 @@
         }
       },
       "mpn": "LP38503TS-ADJ/NOPB",
+      "manufacturer": "Texas Instruments",
       "comment": "LP38503TS"
     },
     "C275": {
@@ -19306,6 +19982,7 @@
         "1": "GND",
         "2": "NetC275_2"
       },
+      "manufacturer": "Yageo",
       "value": "10uF, 20%"
     },
     "C276": {
@@ -19313,6 +19990,7 @@
         "1": "GND",
         "2": "NetC276_2"
       },
+      "manufacturer": "Yageo",
       "value": "10uF, 20%"
     },
     "IC20": {
@@ -19350,6 +20028,7 @@
           "net": "GND"
         }
       },
+      "manufacturer": "Microchip Technology",
       "comment": "MIC37122"
     },
     "C228": {
@@ -19357,6 +20036,7 @@
         "1": "GND",
         "2": "NetC228_2"
       },
+      "manufacturer": "TDK Corporation",
       "value": "2.2uF, 20%"
     },
     "R130": {
@@ -19364,6 +20044,7 @@
         "1": "GND",
         "2": "NetIC20_4"
       },
+      "manufacturer": "Stackpole Electronics Inc",
       "value": "1k, 1%"
     },
     "C227": {
@@ -19371,6 +20052,7 @@
         "1": "GND",
         "2": "VCC3P3"
       },
+      "manufacturer": "TDK Corporation",
       "value": "2.2uF, 20%"
     },
     "R128": {
@@ -19378,6 +20060,7 @@
         "1": "VCC2P5",
         "2": "NetC228_2"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "R129": {
@@ -19385,6 +20068,7 @@
         "1": "NetC228_2",
         "2": "NetIC20_4"
       },
+      "manufacturer": "Yageo",
       "value": "1k5, 1%"
     },
     "C278": {
@@ -19392,6 +20076,7 @@
         "1": "GND",
         "2": "VCC_INT"
       },
+      "manufacturer": "TDK Corporation",
       "value": "2.2uF, 20%"
     },
     "R160": {
@@ -19399,6 +20084,7 @@
         "1": "VCC3P3_CLK",
         "2": "NetC279_2"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "FR58": {
@@ -19406,6 +20092,7 @@
         "1": "VCC_INT",
         "2": "NetC280_2"
       },
+      "manufacturer": "TDK Corporation",
       "comment": "600R@100MHz"
     },
     "R157": {
@@ -19413,6 +20100,7 @@
         "1": "VCC1P25_LMS_DIG",
         "2": "NetC275_2"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "IC23": {
@@ -19462,6 +20150,7 @@
           "net": "GND"
         }
       },
+      "manufacturer": "Richtek USA Inc.",
       "comment": "RT9026"
     },
     "C255": {
@@ -19469,6 +20158,7 @@
         "1": "GND",
         "2": "VTT_DDR2"
       },
+      "manufacturer": "Yageo",
       "value": "10uF, 6.3V"
     },
     "C256": {
@@ -19476,6 +20166,7 @@
         "1": "GND",
         "2": "VTT_DDR2"
       },
+      "manufacturer": "Yageo",
       "value": "10uF, 6.3V"
     },
     "C257": {
@@ -19483,6 +20174,7 @@
         "1": "GND",
         "2": "VCC3P3"
       },
+      "manufacturer": "TDK",
       "value": "1uF, 10%"
     },
     "IC28": {
@@ -19520,6 +20212,7 @@
           "net": "GND"
         }
       },
+      "manufacturer": "Microchip Technology",
       "comment": "MIC37122"
     },
     "C270": {
@@ -19527,6 +20220,7 @@
         "1": "GND",
         "2": "NetC270_2"
       },
+      "manufacturer": "TDK Corporation",
       "value": "2.2uF, 20%"
     },
     "R159": {
@@ -19534,6 +20228,7 @@
         "1": "GND",
         "2": "NetIC28_4"
       },
+      "manufacturer": "Stackpole Electronics Inc",
       "value": "1k, 1%"
     },
     "C269": {
@@ -19541,6 +20236,7 @@
         "1": "GND",
         "2": "VCC3P3"
       },
+      "manufacturer": "TDK Corporation",
       "value": "2.2uF, 20%"
     },
     "R155": {
@@ -19548,6 +20244,7 @@
         "1": "VCC1P8",
         "2": "NetC270_2"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "R156": {
@@ -19555,6 +20252,7 @@
         "1": "NetC270_2",
         "2": "NetIC28_4"
       },
+      "manufacturer": "Stackpole Electronics Inc",
       "value": "806R, 1%"
     },
     "IC26": {
@@ -19592,6 +20290,7 @@
           "net": "GND"
         }
       },
+      "manufacturer": "Microchip Technology",
       "comment": "MIC37122"
     },
     "C262": {
@@ -19599,6 +20298,7 @@
         "1": "GND",
         "2": "NetC262_2"
       },
+      "manufacturer": "TDK Corporation",
       "value": "2.2uF, 20%"
     },
     "R151": {
@@ -19606,6 +20306,7 @@
         "1": "GND",
         "2": "NetIC26_4"
       },
+      "manufacturer": "Stackpole Electronics Inc",
       "value": "1k, 1%"
     },
     "C261": {
@@ -19613,6 +20314,7 @@
         "1": "GND",
         "2": "VCC3P3"
       },
+      "manufacturer": "TDK Corporation",
       "value": "2.2uF, 20%"
     },
     "R145": {
@@ -19620,6 +20322,7 @@
         "1": "VCC1P8_DDR2",
         "2": "NetC262_2"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "R147": {
@@ -19627,6 +20330,7 @@
         "1": "NetC262_2",
         "2": "NetIC26_4"
       },
+      "manufacturer": "Stackpole Electronics Inc",
       "value": "806R, 1%"
     },
     "J15": {
@@ -19635,6 +20339,7 @@
         "2": "GND",
         "3": "GND"
       },
+      "manufacturer": "CUI Inc.",
       "comment": "CONN_PWR_JACK_2.1x5.5mm"
     },
     "R124": {
@@ -19642,6 +20347,7 @@
         "1": "VCC_INT",
         "2": "VCC5P0_USB"
       },
+      "manufacturer": "Yageo",
       "value": "0R",
       "dns": true
     },
@@ -19664,6 +20370,7 @@
           "net": "FPGA_LED2_R"
         }
       },
+      "manufacturer": "Bivar Inc.",
       "comment": "2xLED standoff",
       "dns": true
     },
@@ -19686,6 +20393,7 @@
           "net": "GND"
         }
       },
+      "manufacturer": "Bivar Inc.",
       "comment": "2xLED standoff",
       "dns": true
     },
@@ -19694,6 +20402,7 @@
         "1": "FPGA_LED1_G",
         "2": "NetLED1_1"
       },
+      "manufacturer": "Stackpole Electronics Inc",
       "value": "100R, 1%"
     },
     "R127": {
@@ -19701,6 +20410,7 @@
         "1": "FPGA_LED2_G",
         "2": "NetLED4_1"
       },
+      "manufacturer": "Stackpole Electronics Inc",
       "value": "100R, 1%"
     },
     "C258": {
@@ -19709,6 +20419,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C225": {
@@ -19716,6 +20427,7 @@
         "1": "GND",
         "2": "VDIO_LMS"
       },
+      "manufacturer": "TDK",
       "value": "1uF, 10%"
     },
     "C226": {
@@ -19724,6 +20436,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "R123": {
@@ -19731,6 +20444,7 @@
         "1": "VDIO_LMS_FPGA",
         "2": "VCC3P3"
       },
+      "manufacturer": "Yageo",
       "value": "0R"
     },
     "R125": {
@@ -19738,6 +20452,7 @@
         "1": "VDIO_LMS_FPGA",
         "2": "VCC2P5"
       },
+      "manufacturer": "Yageo",
       "value": "0R",
       "dns": true
     },
@@ -19746,6 +20461,7 @@
         "1": "VDIO_LMS_FPGA",
         "2": "VDIO_LMS"
       },
+      "manufacturer": "TDK Corporation",
       "comment": "600R@100MHz"
     },
     "FR59": {
@@ -19753,6 +20469,7 @@
         "1": "NetC277_2",
         "2": "NetC279_2"
       },
+      "manufacturer": "TDK Corporation",
       "comment": "600R@100MHz"
     },
     "C279": {
@@ -19760,6 +20477,7 @@
         "1": "GND",
         "2": "NetC279_2"
       },
+      "manufacturer": "TDK Corporation",
       "value": "2.2uF, 20%"
     },
     "IC19": {
@@ -19829,6 +20547,7 @@
           "net": ""
         }
       },
+      "manufacturer": "Fairchild Semiconductor",
       "comment": "FPF3042"
     },
     "J16": {
@@ -19837,6 +20556,7 @@
         "2": "NetC237_1",
         "3": "VCC_INT"
       },
+      "manufacturer": "Amphenol FCI",
       "comment": "Header 3x1 pin",
       "dns": true
     },
@@ -19845,6 +20565,7 @@
         "A": "NetC237_1",
         "K": "VCC_EXT"
       },
+      "manufacturer": "Micro Commercial Co",
       "comment": "SK36A"
     },
     "C238": {
@@ -19853,6 +20574,7 @@
         "2": "VCC_EXT"
       },
       "mpn": "GRM188R61E106MA73D",
+      "manufacturer": "Murata Electronics North America",
       "value": "10uF, 25V"
     },
     "C239": {
@@ -19860,6 +20582,7 @@
         "1": "GND",
         "2": "VCC5P0_USB"
       },
+      "manufacturer": "Yageo",
       "value": "10uF, 20%"
     },
     "R133": {
@@ -19867,6 +20590,7 @@
         "1": "VCC3P3",
         "2": "NetLED8_1"
       },
+      "manufacturer": "Stackpole Electronics Inc",
       "value": "249R, 1%"
     },
     "C241": {
@@ -19875,6 +20599,7 @@
         "2": "VCC_INT"
       },
       "mpn": "GRM188R61E106MA73D",
+      "manufacturer": "Murata Electronics North America",
       "value": "10uF, 25V"
     },
     "C260": {
@@ -19883,6 +20608,7 @@
         "2": "VCC_INT"
       },
       "mpn": "GRM188R61E106MA73D",
+      "manufacturer": "Murata Electronics North America",
       "value": "10uF, 25V"
     },
     "C231": {
@@ -19891,6 +20617,7 @@
         "2": "VCC_INT"
       },
       "mpn": "GRM188R61E106MA73D",
+      "manufacturer": "Murata Electronics North America",
       "value": "10uF, 25V"
     },
     "C232": {
@@ -19899,6 +20626,7 @@
         "2": "VCC_INT"
       },
       "mpn": "GRM188R61E106MA73D",
+      "manufacturer": "Murata Electronics North America",
       "value": "10uF, 25V"
     },
     "C233": {
@@ -19907,6 +20635,7 @@
         "2": "VCC_INT"
       },
       "mpn": "GRM188R61E106MA73D",
+      "manufacturer": "Murata Electronics North America",
       "value": "10uF, 25V"
     },
     "C234": {
@@ -19915,6 +20644,7 @@
         "2": "VCC_INT"
       },
       "mpn": "GRM188R61E106MA73D",
+      "manufacturer": "Murata Electronics North America",
       "value": "10uF, 25V"
     },
     "C235": {
@@ -19923,6 +20653,7 @@
         "2": "VCC_INT"
       },
       "mpn": "GRM188R61E106MA73D",
+      "manufacturer": "Murata Electronics North America",
       "value": "10uF, 25V"
     },
     "LED2": {
@@ -19933,6 +20664,7 @@
           "net": ""
         }
       },
+      "manufacturer": "Visual Communications Company - VCC",
       "comment": "LED_RG",
       "dns": true
     },
@@ -19942,6 +20674,7 @@
         "2": "NetC280_2"
       },
       "mpn": "GRM188R61E106MA73D",
+      "manufacturer": "Murata Electronics North America",
       "value": "10uF, 25V"
     },
     "C245": {
@@ -19949,6 +20682,7 @@
         "1": "GND",
         "2": "VCC3P3"
       },
+      "manufacturer": "Murata Electronics North America",
       "value": "100uF, 20%"
     },
     "C246": {
@@ -19956,6 +20690,7 @@
         "1": "GND",
         "2": "VCC3P3"
       },
+      "manufacturer": "Murata Electronics North America",
       "value": "100uF, 20%"
     },
     "C266": {
@@ -19963,6 +20698,7 @@
         "1": "GND",
         "2": "VCC1P2"
       },
+      "manufacturer": "Murata Electronics North America",
       "value": "220uF, 20%"
     },
     "C267": {
@@ -19970,6 +20706,7 @@
         "1": "GND",
         "2": "VCC1P2"
       },
+      "manufacturer": "Murata Electronics North America",
       "value": "220uF, 20%"
     },
     "R149": {
@@ -19977,6 +20714,7 @@
         "1": "VCC1P2",
         "2": "NetIC25_2"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "R153": {
@@ -19984,6 +20722,7 @@
         "1": "NetIC25_2",
         "2": "GND"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "R136": {
@@ -19991,6 +20730,7 @@
         "1": "VCC3P3",
         "2": "NetIC22_2"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "LED3": {
@@ -20001,6 +20741,7 @@
           "net": ""
         }
       },
+      "manufacturer": "Visual Communications Company - VCC",
       "comment": "LED_RG",
       "dns": true
     },
@@ -20012,6 +20753,7 @@
           "net": ""
         }
       },
+      "manufacturer": "Visual Communications Company - VCC",
       "comment": "LED_RG",
       "dns": true
     },
@@ -20023,6 +20765,7 @@
           "net": ""
         }
       },
+      "manufacturer": "Visual Communications Company - VCC",
       "comment": "LED_RG",
       "dns": true
     },
@@ -20031,6 +20774,7 @@
         "1": "GND",
         "2": "NetC277_2"
       },
+      "manufacturer": "Yageo",
       "value": "10uF, 20%"
     },
     "LED1": {
@@ -20040,6 +20784,7 @@
         "3": "FPGA_LED1_R",
         "4": "NetLED1_1"
       },
+      "manufacturer": "Avago Technologies US Inc.",
       "comment": "LED_RG_SMD"
     },
     "LED4": {
@@ -20049,6 +20794,7 @@
         "3": "FPGA_LED2_R",
         "4": "NetLED4_1"
       },
+      "manufacturer": "Avago Technologies US Inc.",
       "comment": "LED_RG_SMD"
     },
     "LED5": {
@@ -20058,6 +20804,7 @@
         "3": "FX3_LED_R",
         "4": "NetLED5_1"
       },
+      "manufacturer": "Avago Technologies US Inc.",
       "comment": "LED_RG_SMD"
     },
     "LED8": {
@@ -20067,6 +20814,7 @@
         "3": "GND",
         "4": ""
       },
+      "manufacturer": "Avago Technologies US Inc.",
       "comment": "LED_RG_SMD"
     },
     "C274": {
@@ -20074,6 +20822,7 @@
         "1": "GND",
         "2": "VCC3P3"
       },
+      "manufacturer": "TDK Corporation",
       "value": "2.2uF, 20%"
     },
     "FR57": {
@@ -20081,6 +20830,7 @@
         "1": "VCC3P3",
         "2": "NetC276_2"
       },
+      "manufacturer": "TDK Corporation",
       "comment": "600R@100MHz"
     },
     "IC30": {
@@ -20119,6 +20869,7 @@
         }
       },
       "mpn": "SPX3819S-L/TR",
+      "manufacturer": "Exar Corporation",
       "comment": "SPX3819S-L/TR"
     },
     "R164": {
@@ -20127,6 +20878,7 @@
         "2": "NetIC30_4"
       },
       "mpn": "CRCW040218K0FKED",
+      "manufacturer": "Vishay Dale",
       "value": "18k, 1%"
     },
     "R162": {
@@ -20135,6 +20887,7 @@
         "2": "NetIC30_4"
       },
       "mpn": "CRCW040230K0FKED",
+      "manufacturer": "Vishay Dale",
       "value": "30k, 1%"
     },
     "C247": {
@@ -20142,6 +20895,7 @@
         "1": "GND",
         "2": "VCC1P8_DDR2"
       },
+      "manufacturer": "Yageo",
       "value": "10uF, 6.3V"
     },
     "C281": {
@@ -20150,6 +20904,7 @@
         "2": "NetC281_2"
       },
       "mpn": "GRM188R61E106MA73D",
+      "manufacturer": "Murata Electronics North America",
       "value": "10uF, 25V"
     },
     "R140": {
@@ -20157,6 +20912,7 @@
         "1": "VCC3P3",
         "2": "NetIC23_9"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "R142": {
@@ -20164,6 +20920,7 @@
         "1": "VCC3P3",
         "2": "NetIC23_7"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "R158": {
@@ -20171,6 +20928,7 @@
         "1": "NetC275_2",
         "2": "NetIC29_5"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "R161": {
@@ -20178,6 +20936,7 @@
         "1": "NetIC29_5",
         "2": "GND"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "R163": {
@@ -20185,6 +20944,7 @@
         "1": "VCC2P5",
         "2": "NetC281_2"
       },
+      "manufacturer": "Yageo",
       "value": "10k, 1%"
     },
     "R165": {
@@ -20192,6 +20952,7 @@
         "1": "NetC281_2",
         "2": "VCC_INT"
       },
+      "manufacturer": "Yageo",
       "value": "0R",
       "dns": true
     },
@@ -20262,6 +21023,7 @@
           "net": "NetIC18_16"
         }
       },
+      "manufacturer": "Texas Instruments",
       "comment": "SN74AVC4T774"
     },
     "C229": {
@@ -20270,6 +21032,7 @@
         "2": "VCC1P8"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C230": {
@@ -20278,6 +21041,7 @@
         "2": "VCC3P3"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C237": {
@@ -20286,6 +21050,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "C236": {
@@ -20294,6 +21059,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71C104KA88D",
+      "manufacturer": "Murata Electronics",
       "value": "100nF, 10%"
     },
     "R122": {
@@ -20301,6 +21067,7 @@
         "1": "VCC_INT",
         "2": "VCC_EXT"
       },
+      "manufacturer": "Yageo",
       "value": "0R",
       "dns": true
     },
@@ -20309,6 +21076,7 @@
         "1": "FX3_LED_G",
         "2": "NetLED5_1"
       },
+      "manufacturer": "Stackpole Electronics Inc",
       "value": "249R, 1%"
     },
     "F1": {
@@ -20340,6 +21108,7 @@
         "MH1": "GND"
       },
       "mpn": "FIX-MAE-5TV",
+      "manufacturer": "FIX&FASTEN",
       "comment": "# pcs."
     },
     "MECH2": {
@@ -20347,6 +21116,7 @@
         "MH1": "GND"
       },
       "mpn": "FIX-MAE-5TV",
+      "manufacturer": "FIX&FASTEN",
       "comment": "# pcs."
     },
     "MECH3": {
@@ -20354,6 +21124,7 @@
         "MH1": "GND"
       },
       "mpn": "FIX-MAE-5TV",
+      "manufacturer": "FIX&FASTEN",
       "comment": "# pcs."
     },
     "MECH4": {
@@ -20361,6 +21132,7 @@
         "MH1": "GND"
       },
       "mpn": "FIX-MAE-5TV",
+      "manufacturer": "FIX&FASTEN",
       "comment": "# pcs."
     }
   }

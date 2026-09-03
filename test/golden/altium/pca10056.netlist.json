@@ -1,8 +1,8 @@
 {
-  "universalNetlistSchemaVersion": 1,
+  "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-01T21:46:11.285Z",
-    "netlistHash": "sha256:cd59e128547d5bbd82a85b602b6ae1e6620a142e93c8e98ddde88ec02c38bca8",
+    "generatedAt": "2026-09-03T01:02:27.096Z",
+    "netlistHash": "sha256:c767f5f0e97f13b25fce3a54ff8e48da20de14640210aab2bd4c1fee6b008515",
     "origin": {
       "type": "vendor",
       "source": {
@@ -3645,6 +3645,7 @@
     "Fid1": {
       "pins": {},
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Fiducial Mark",
       "comment": "Fiducial mark",
       "value": "N.A."
@@ -3652,6 +3653,7 @@
     "Fid2": {
       "pins": {},
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Fiducial Mark",
       "comment": "Fiducial mark",
       "value": "N.A."
@@ -3662,6 +3664,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, NP0, ±0.1pF",
       "value": "1.2pF"
     },
@@ -3681,6 +3684,7 @@
         }
       },
       "mpn": "MM8130-2600",
+      "manufacturer": "Murata",
       "description": "Coaxial Connector with Switch",
       "value": "MM8130-2600"
     },
@@ -3984,6 +3988,7 @@
         }
       },
       "mpn": "nRF52840-QIAAF0",
+      "manufacturer": "Nordic Semiconductor",
       "description": "Multi-protocol Bluetooth Low Energy, IEEE 802.15.4, ANT and 2.4GHz proprietary system-on-chip",
       "value": "nRF52840-QIAA"
     },
@@ -4007,6 +4012,7 @@
         }
       },
       "mpn": "MP12308",
+      "manufacturer": "Golledge",
       "description": "XTAL SMD 2016, 32MHz, Cl=8pF, Tol: ±10ppm, Stab: ±15ppm, -30°C ~ 85°C, ESR: 50ohm max",
       "value": "32MHz"
     },
@@ -4016,6 +4022,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, NP0, ±2%",
       "value": "12pF"
     },
@@ -4025,6 +4032,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, NP0, ±2%",
       "value": "12pF"
     },
@@ -4034,6 +4042,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, NP0, ±5%",
       "value": "100pF"
     },
@@ -4043,6 +4052,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X7R, ±10%",
       "value": "100nF"
     },
@@ -4052,6 +4062,7 @@
         "2": "GND"
       },
       "mpn": "CL10B475KQ8NQNC",
+      "manufacturer": "Samsung Electro-Mechanics America",
       "description": "Capacitor, X7R, ±10%, 6.3V",
       "value": "4.7µF"
     },
@@ -4061,6 +4072,7 @@
         "2": "NetL2_2"
       },
       "mpn": "MLZ1608M100WTD25",
+      "manufacturer": "TDK Corporation",
       "description": "Inductor, 250mA, ±20%, 1.05ohm. -55°C ~ 125°C",
       "value": "10µH"
     },
@@ -4070,6 +4082,7 @@
         "2": "DEC4_6"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X7R, ±10%",
       "value": "1.0µF"
     },
@@ -4079,6 +4092,7 @@
         "2": "NetC3_2"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, NP0, ±5%",
       "value": "0.8pF"
     },
@@ -4088,6 +4102,7 @@
         "2": "DEC4_6"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "value": "N.C.",
       "dns": true
     },
@@ -4097,6 +4112,7 @@
         "2": "NetC18_2"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, NP0, ±2%",
       "value": "12pF"
     },
@@ -4106,6 +4122,7 @@
         "2": "NetC17_2"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, NP0, ±2%",
       "value": "12pF"
     },
@@ -4115,6 +4132,7 @@
         "2": "NetL4_2"
       },
       "mpn": "MLZ1608M100WTD25",
+      "manufacturer": "TDK Corporation",
       "description": "Inductor, 250mA, ±20%, 1.05ohm. -55°C ~ 125°C",
       "value": "10µH"
     },
@@ -4124,6 +4142,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X7R, ±10%",
       "value": "100nF"
     },
@@ -4133,6 +4152,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X7S, ±10%, 10V",
       "value": "4.7µF"
     },
@@ -4142,6 +4162,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X7R, ±10%",
       "value": "100nF"
     },
@@ -4151,6 +4172,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "value": "N.C.",
       "dns": true
     },
@@ -4160,6 +4182,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X7R, ±10%",
       "value": "100nF"
     },
@@ -4169,6 +4192,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "value": "N.C.",
       "dns": true
     },
@@ -4178,6 +4202,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X7S, ±10%, 10V",
       "value": "4.7µF"
     },
@@ -4187,6 +4212,7 @@
         "2": "RF"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, C0G, ±0.05pF, 50V",
       "value": "0.5pF"
     },
@@ -4196,6 +4222,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X7R, ±10%",
       "value": "1.0µF"
     },
@@ -4205,6 +4232,7 @@
         "2": "GND"
       },
       "mpn": "CL10B475KQ8NQNC",
+      "manufacturer": "Samsung Electro-Mechanics America",
       "description": "Capacitor, X7R, ±10%, 6.3V",
       "value": "4.7µF"
     },
@@ -4214,6 +4242,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X7R, ±10%, 25V",
       "value": "47nF"
     },
@@ -4229,6 +4258,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Solderbridge",
       "value": "Solderbridge"
     },
@@ -4244,6 +4274,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Solderbridge",
       "value": "Solderbridge"
     },
@@ -4259,6 +4290,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
@@ -4274,6 +4306,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
@@ -4289,6 +4322,7 @@
         }
       },
       "mpn": "NX3215SA-32.768K-STD-MUA-9",
+      "manufacturer": "NDK",
       "description": "XTAL SMD 3215, 32.768kHz, 9pF, ±20ppm",
       "value": "32.768kHz"
     },
@@ -4298,6 +4332,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "value": "N.C.",
       "dns": true
     },
@@ -4313,6 +4348,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Solderbridge",
       "value": "Solderbridge"
     },
@@ -4328,6 +4364,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
@@ -4343,6 +4380,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
@@ -4358,6 +4396,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
@@ -4373,6 +4412,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
@@ -4388,6 +4428,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
@@ -4403,6 +4444,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
@@ -4412,6 +4454,7 @@
         "2": "P0.26"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±5%, 0.05W",
       "value": "0R"
     },
@@ -4421,6 +4464,7 @@
         "2": "P0.27"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±5%, 0.05W",
       "value": "0R"
     },
@@ -4430,6 +4474,7 @@
         "2": "P0.26"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "value": "N.C.",
       "dns": true
     },
@@ -4439,6 +4484,7 @@
         "2": "P0.27"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "value": "N.C.",
       "dns": true
     },
@@ -4454,6 +4500,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Solderbridge",
       "value": "Solderbridge"
     },
@@ -4469,6 +4516,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Solderbridge",
       "value": "Solderbridge"
     },
@@ -4484,6 +4532,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Solderbridge",
       "value": "Solderbridge"
     },
@@ -4499,6 +4548,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Solderbridge",
       "value": "Solderbridge"
     },
@@ -4514,6 +4564,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Solderbridge",
       "value": "Solderbridge"
     },
@@ -4523,6 +4574,7 @@
         "2": "P0.09/NFC1"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "value": "N.C.",
       "dns": true
     },
@@ -4532,6 +4584,7 @@
         "2": "P0.10/NFC2"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "value": "N.C.",
       "dns": true
     },
@@ -4541,6 +4594,7 @@
         "2": "NetL2_1"
       },
       "mpn": "LQG15HS15NJ02D",
+      "manufacturer": "Murata",
       "description": "Inductor, 450mA, ±5%,  0.32ohm",
       "value": "15nH"
     },
@@ -4550,6 +4604,7 @@
         "2": "RF"
       },
       "mpn": "LQG15HS4N7B02D",
+      "manufacturer": "Murata",
       "description": "Inductor, 700mA, ±0.1nH, 160mR LQG",
       "value": "4.7nH"
     },
@@ -4559,6 +4614,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "value": "N.C.",
       "dns": true
     },
@@ -4568,6 +4624,7 @@
         "2": "NetP20_4"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "150R"
     },
@@ -4577,6 +4634,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "1M0"
     },
@@ -4586,6 +4644,7 @@
         "2": "NetP20_5"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "150R"
     },
@@ -4595,6 +4654,7 @@
         "2": "NetP20_6"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "150R"
     },
@@ -4604,6 +4664,7 @@
         "2": "NetP20_7"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "150R"
     },
@@ -4613,6 +4674,7 @@
         "2": "NetP19_2"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "150R"
     },
@@ -4622,6 +4684,7 @@
         "2": "NetP19_4"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "150R"
     },
@@ -4631,6 +4694,7 @@
         "2": "NetP19_6"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "150R"
     },
@@ -4640,6 +4704,7 @@
         "2": "NetP19_10"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "150R"
     },
@@ -4659,6 +4724,7 @@
         }
       },
       "mpn": "RV2C010UNT2L",
+      "manufacturer": "Rohm Semiconductor",
       "description": "N-Channel MOSFET, 20V, 1A, 470mOhm, 400mW",
       "value": "RV2C010UNT2L"
     },
@@ -4668,6 +4734,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X7R, ±10%, 10V",
       "value": "2.2nF"
     },
@@ -4677,6 +4744,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
@@ -4686,6 +4754,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
@@ -4695,6 +4764,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
@@ -4704,6 +4774,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X7S, ±10%, 10V",
       "value": "4.7µF"
     },
@@ -4713,6 +4784,7 @@
         "2": "GND"
       },
       "mpn": "CL10B475KQ8NQNC",
+      "manufacturer": "Samsung Electro-Mechanics America",
       "description": "Capacitor, X7R, ±10%, 6.3V",
       "value": "4.7µF"
     },
@@ -4722,6 +4794,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
@@ -4731,6 +4804,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
@@ -4740,6 +4814,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
@@ -5139,6 +5214,7 @@
         }
       },
       "mpn": "nRF5340-QKAAD0",
+      "manufacturer": "Nordic Semiconductor",
       "description": "Multi-protocol Bluetooth Low Energy, IEEE 802.15.4, ANT and 2.4GHz proprietary system-on-chip",
       "value": "nRF5340-QKAA"
     },
@@ -5148,6 +5224,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
@@ -5157,6 +5234,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
@@ -5166,6 +5244,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
@@ -5175,6 +5254,7 @@
         "2": "NetC37_1"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "2R2"
     },
@@ -5184,6 +5264,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "49.9R"
     },
@@ -5207,6 +5288,7 @@
         }
       },
       "mpn": "MP12308",
+      "manufacturer": "Golledge",
       "description": "XTAL SMD 2016, 32MHz, Cl=8pF, Tol: ±10ppm, Stab: ±15ppm, -30°C ~ 85°C, ESR: 50ohm max",
       "value": "32MHz"
     },
@@ -5224,6 +5306,7 @@
         "10": "IMCU_RESET"
       },
       "mpn": "TC2050-IDC-NLFP",
+      "manufacturer": "Tag-Connect LLC",
       "description": "CBL PLUG-OF-NAILS 10-PIN",
       "value": "TC2050-IDC"
     },
@@ -5233,6 +5316,7 @@
         "2": "VDD_IMCU"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "100k"
     },
@@ -5241,6 +5325,7 @@
         "1": "IMCU_RESET"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.5mm circular SMD testpad",
       "value": "Ø1.5mm,SMD"
     },
@@ -5249,6 +5334,7 @@
         "1": "IMCU_SWDIO"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.5mm circular SMD testpad",
       "value": "Ø1.5mm,SMD"
     },
@@ -5257,6 +5343,7 @@
         "1": "IMCU_SWDCLK"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.5mm circular SMD testpad",
       "value": "Ø1.5mm,SMD"
     },
@@ -5265,6 +5352,7 @@
         "1": "VDD_IMCU"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.5mm circular SMD testpad",
       "value": "Ø1.5mm,SMD"
     },
@@ -5280,6 +5368,7 @@
         }
       },
       "mpn": "VS 25C7M5",
+      "manufacturer": "Victory Electronics",
       "description": "LED, Green, 0603, 573nm, Vf=2.0V, 24mcd, - 40 to +85°C",
       "value": "L0603G"
     },
@@ -5289,6 +5378,7 @@
         "2": "VBUS_IMCU"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "560R"
     },
@@ -5308,6 +5398,7 @@
         }
       },
       "mpn": "RV2C010UNT2L",
+      "manufacturer": "Rohm Semiconductor",
       "description": "N-Channel MOSFET, 20V, 1A, 470mOhm, 400mW",
       "value": "RV2C010UNT2L"
     },
@@ -5317,6 +5408,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X5R, ±10%, 6.3V",
       "value": "1.0µF"
     },
@@ -5326,6 +5418,7 @@
         "2": "NetC29_2"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X5R, ±10%, 6.3V",
       "value": "1.0µF"
     },
@@ -5335,6 +5428,7 @@
         "2": "VDD_IMCU"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X5R, ±10%, 6.3V",
       "value": "1.0µF"
     },
@@ -5344,6 +5438,7 @@
         "2": "NetC36_2"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X5R, ±10%, 6.3V",
       "value": "1.0µF"
     },
@@ -5353,6 +5448,7 @@
         "2": "NetC40_2"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X5R, ±10%, 6.3V",
       "value": "1.0µF"
     },
@@ -5361,6 +5457,7 @@
         "1": "VCOM_RTS"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -5369,6 +5466,7 @@
         "1": "VCOM_RxD"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -5377,6 +5475,7 @@
         "1": "VCOM_TxD"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -5385,6 +5484,7 @@
         "1": "VCOM_CTS"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -5400,6 +5500,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
@@ -5415,6 +5516,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
@@ -5430,6 +5532,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
@@ -5445,6 +5548,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
@@ -5516,6 +5620,7 @@
         }
       },
       "mpn": "FSA2466UMX",
+      "manufacturer": "ON Semiconductor",
       "description": "Data / Audio Low-Voltage Dual DPDT Analog Switch",
       "value": "FSA2466UMX"
     },
@@ -5525,6 +5630,7 @@
         "2": "VDD"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
@@ -5596,6 +5702,7 @@
         }
       },
       "mpn": "FSA2466UMX",
+      "manufacturer": "ON Semiconductor",
       "description": "Data / Audio Low-Voltage Dual DPDT Analog Switch",
       "value": "FSA2466UMX"
     },
@@ -5667,6 +5774,7 @@
         }
       },
       "mpn": "FSA2466UMX",
+      "manufacturer": "ON Semiconductor",
       "description": "Data / Audio Low-Voltage Dual DPDT Analog Switch",
       "value": "FSA2466UMX"
     },
@@ -5676,6 +5784,7 @@
         "2": "VDD"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
@@ -5685,6 +5794,7 @@
         "2": "VDD"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
@@ -5756,6 +5866,7 @@
         }
       },
       "mpn": "FSA2466UMX",
+      "manufacturer": "ON Semiconductor",
       "description": "Data / Audio Low-Voltage Dual DPDT Analog Switch",
       "value": "FSA2466UMX"
     },
@@ -5765,6 +5876,7 @@
         "2": "VDD"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
@@ -5784,6 +5896,7 @@
         }
       },
       "mpn": "CJS-1200TA",
+      "manufacturer": "Copal Electronics Inc",
       "description": "SMD slide Switch (ON-ON)",
       "value": "Switch"
     },
@@ -5793,6 +5906,7 @@
         "2": "VDD_PER"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "220R"
     },
@@ -5802,6 +5916,7 @@
         "2": "VDD_PER"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "220R"
     },
@@ -5817,6 +5932,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
@@ -5826,6 +5942,7 @@
         "2": "VDD_PER"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "220R"
     },
@@ -5841,6 +5958,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
@@ -5850,6 +5968,7 @@
         "2": "VDD_PER"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "220R"
     },
@@ -5865,6 +5984,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
@@ -5880,6 +6000,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
@@ -5895,6 +6016,7 @@
         }
       },
       "mpn": "VS 25C7M5",
+      "manufacturer": "Victory Electronics",
       "description": "LED, Green, 0603, 573nm, Vf=2.0V, 24mcd, - 40 to +85°C",
       "value": "L0603G"
     },
@@ -5910,6 +6032,7 @@
         }
       },
       "mpn": "VS 25C7M5",
+      "manufacturer": "Victory Electronics",
       "description": "LED, Green, 0603, 573nm, Vf=2.0V, 24mcd, - 40 to +85°C",
       "value": "L0603G"
     },
@@ -5925,6 +6048,7 @@
         }
       },
       "mpn": "VS 25C7M5",
+      "manufacturer": "Victory Electronics",
       "description": "LED, Green, 0603, 573nm, Vf=2.0V, 24mcd, - 40 to +85°C",
       "value": "L0603G"
     },
@@ -5940,6 +6064,7 @@
         }
       },
       "mpn": "VS 25C7M5",
+      "manufacturer": "Victory Electronics",
       "description": "LED, Green, 0603, 573nm, Vf=2.0V, 24mcd, - 40 to +85°C",
       "value": "L0603G"
     },
@@ -5955,6 +6080,7 @@
         }
       },
       "mpn": "TS604VM1-025BR-R",
+      "manufacturer": "Dailywell",
       "description": "Tactile Switch, SPNO, SMD, 160gf, 6.2x6.3x2.5mm",
       "value": "PB SW"
     },
@@ -5986,6 +6112,7 @@
         }
       },
       "mpn": "MKH-22D14-G2-B",
+      "manufacturer": "Dailywell",
       "description": "Slide Switch DPDT",
       "value": "MKH-22D14-G2-B"
     },
@@ -6001,6 +6128,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Solderbridge",
       "value": "Solderbridge"
     },
@@ -6024,6 +6152,7 @@
         }
       },
       "mpn": "TCK106AG,LF",
+      "manufacturer": "Toshiba",
       "description": "1.0 A Load Switch IC with Slew Rate Control Driver in Ultra Small Package",
       "value": "TCK106AG"
     },
@@ -6033,6 +6162,7 @@
         "2": "NetQ40_5"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "1M0"
     },
@@ -6042,6 +6172,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "150k"
     },
@@ -6057,6 +6188,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Solderbridge",
       "value": "Solderbridge"
     },
@@ -6072,6 +6204,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Solderbridge",
       "value": "Solderbridge"
     },
@@ -6087,6 +6220,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Solderbridge",
       "value": "Solderbridge"
     },
@@ -6102,6 +6236,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
@@ -6117,6 +6252,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Solderbridge",
       "value": "Solderbridge"
     },
@@ -6132,6 +6268,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Solderbridge",
       "value": "Solderbridge"
     },
@@ -6175,6 +6312,7 @@
         }
       },
       "mpn": "MX25R6435FZNIL0",
+      "manufacturer": "Macronix",
       "description": "Ultra low power, 64M-bit, serial multi I/O flash memory",
       "value": "MX25R6435F"
     },
@@ -6184,6 +6322,7 @@
         "2": "NetC49_2"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
@@ -6193,6 +6332,7 @@
         "2": "P0.10/NFC2"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±5%, 0.063W",
       "value": "0R"
     },
@@ -6202,6 +6342,7 @@
         "2": "P0.09/NFC1"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±5%, 0.063W",
       "value": "0R"
     },
@@ -6211,6 +6352,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, C0G, ±5%, 50V",
       "value": "300pF"
     },
@@ -6220,6 +6362,7 @@
         "2": "NFC2"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, C0G, ±5%, 50V",
       "value": "300pF"
     },
@@ -6235,6 +6378,7 @@
         }
       },
       "mpn": "TS604VM1-025BR-R",
+      "manufacturer": "Dailywell",
       "description": "Tactile Switch, SPNO, SMD, 160gf, 6.2x6.3x2.5mm",
       "value": "PB SW"
     },
@@ -6250,6 +6394,7 @@
         }
       },
       "mpn": "TS604VM1-025BR-R",
+      "manufacturer": "Dailywell",
       "description": "Tactile Switch, SPNO, SMD, 160gf, 6.2x6.3x2.5mm",
       "value": "PB SW"
     },
@@ -6265,6 +6410,7 @@
         }
       },
       "mpn": "TS604VM1-025BR-R",
+      "manufacturer": "Dailywell",
       "description": "Tactile Switch, SPNO, SMD, 160gf, 6.2x6.3x2.5mm",
       "value": "PB SW"
     },
@@ -6280,6 +6426,7 @@
         }
       },
       "mpn": "TS604VM1-025BR-R",
+      "manufacturer": "Dailywell",
       "description": "Tactile Switch, SPNO, SMD, 160gf, 6.2x6.3x2.5mm",
       "value": "PB SW"
     },
@@ -6319,6 +6466,7 @@
         }
       },
       "mpn": "TS27L2IPT",
+      "manufacturer": "STMicroelectronics",
       "description": "Precision very low power CMOS dual operational amplifier",
       "value": "TS27L2IPT"
     },
@@ -6329,6 +6477,7 @@
         "3": "NetP28_3"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Pin List 1x3, 2.54mm (100mil)",
       "value": "Pin List 1x3"
     },
@@ -6338,6 +6487,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "47k"
     },
@@ -6347,6 +6497,7 @@
         "2": "NetR52_2"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "4k7"
     },
@@ -6356,6 +6507,7 @@
         "2": "NetR53_2"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "4k7"
     },
@@ -6371,6 +6523,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Solderbridge",
       "value": "Solderbridge"
     },
@@ -6386,6 +6539,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
@@ -6401,6 +6555,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Solderbridge",
       "value": "Solderbridge"
     },
@@ -6410,6 +6565,7 @@
         "2": "VDD"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "value": "N.C.",
       "dns": true
     },
@@ -6418,6 +6574,7 @@
         "1": "nRF_ONLY"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -6427,6 +6584,7 @@
         "2": "NetR3_2"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "10k"
     },
@@ -6435,6 +6593,7 @@
         "1": "TRACE_SW"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -6444,6 +6603,7 @@
         "2": "NetR4_2"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "10k"
     },
@@ -6452,6 +6612,7 @@
         "1": "BUTTON2"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -6460,6 +6621,7 @@
         "1": "BUTTON1"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -6491,6 +6653,7 @@
         }
       },
       "mpn": "PMCPB5530X,115",
+      "manufacturer": "Nexperia",
       "description": "Mosfet Array N and P-Channel 20V 4A (Ta), 3.4A (Ta) 490mW Surface Mount 6-HUSON-EP (2x2)",
       "value": "PMCPB5530"
     },
@@ -6499,6 +6662,7 @@
         "1": "SWD3_IO"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -6507,6 +6671,7 @@
         "1": "SWD3_CLK"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -6515,6 +6680,7 @@
         "1": "SWD3_RESET"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -6530,6 +6696,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
@@ -6545,6 +6712,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
@@ -6560,6 +6728,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
@@ -6575,6 +6744,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
@@ -6583,6 +6753,7 @@
         "1": "SWD3_SWO"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -6602,6 +6773,7 @@
         }
       },
       "mpn": "CJS-1200TA",
+      "manufacturer": "Copal Electronics Inc",
       "description": "SMD slide Switch (ON-ON)",
       "value": "Switch"
     },
@@ -6617,6 +6789,7 @@
         "8": "VIN"
       },
       "mpn": "1125-1108S0M116CR04",
+      "manufacturer": "WCON",
       "description": "Pin List 1x8, 2.54mm (100mil), SMD",
       "value": "Pin List 1x8"
     },
@@ -6630,6 +6803,7 @@
         "6": "NetP5_6"
       },
       "mpn": "2171-203MS0CUNR3",
+      "manufacturer": "WCON",
       "description": "Socket 2x3, 2.54mm (100mil), SMD",
       "value": "Socket 2x3"
     },
@@ -6649,6 +6823,7 @@
         "12": "P0.31/AIN7"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Pin Header 2x6, 2.54mm (100mil)",
       "value": "Pin Header 2x6"
     },
@@ -6672,6 +6847,7 @@
         "16": "P1.08"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Pin Header 2x8, 2.54mm (100mil)",
       "value": "Pin Header 2x8"
     },
@@ -6699,6 +6875,7 @@
         "20": "SCL"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Pin Header 2x10, 2.54mm (100mil)",
       "value": "Pin Header 2x10"
     },
@@ -6722,6 +6899,7 @@
         "16": "VIN"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Pin Header 2x8, 2.54mm (100mil)",
       "value": "Pin Header 2x8"
     },
@@ -6745,6 +6923,7 @@
         "16": "NetP6_8"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Pin Header 2x8, 2.54mm (100mil)",
       "value": "Pin Header 2x8"
     },
@@ -6754,6 +6933,7 @@
         "2": "NetC67_2"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X7R, ±10%, 10V",
       "value": "4.7nF"
     },
@@ -6777,6 +6957,7 @@
         }
       },
       "mpn": "PRTR5V0U2X",
+      "manufacturer": "NXP Semiconductors",
       "description": "Ultra low capacitance double rail-to-rail ESD protection diode",
       "value": "PRTR5V0U2X"
     },
@@ -6785,6 +6966,7 @@
         "1": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -6794,6 +6976,7 @@
         "2": "NetC63_1"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X5R, ±20%",
       "value": "10µF"
     },
@@ -6802,6 +6985,7 @@
         "1": "NetC63_1"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -6811,6 +6995,7 @@
         "2": "NetC63_1"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
@@ -6819,6 +7004,7 @@
         "1": "IMCU_P"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -6827,6 +7013,7 @@
         "1": "IMCU_N"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -6842,6 +7029,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Solderbridge",
       "value": "Solderbridge"
     },
@@ -6857,6 +7045,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
@@ -6866,6 +7055,7 @@
         "2": "VDD"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "1M0"
     },
@@ -6874,6 +7064,7 @@
         "1": "SHIELD_DETECT"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -6905,6 +7096,7 @@
         }
       },
       "mpn": "AJU55-BS2111-L",
+      "manufacturer": "Allen Creations Corp.",
       "description": "MicroUSB-B-SMT",
       "value": "MicroUSB-B"
     },
@@ -6918,6 +7110,7 @@
         "6": "NetP5_6"
       },
       "mpn": "1125-1203S0M116CR03",
+      "manufacturer": "WCON",
       "description": "Pin Header 2x3, 2.54mm (100mil) SMD",
       "value": "Pin Hdr 2x3"
     },
@@ -6935,6 +7128,7 @@
         "10": "P0.18/RESET"
       },
       "mpn": "3132-10MS0BK00R5",
+      "manufacturer": "WCON",
       "description": "Pin Header 2x5, 1.27mm (50mil), SMD, Keying Shroud",
       "value": "Pin Header 2x5, 1.27mm"
     },
@@ -6952,6 +7146,7 @@
         "10": "NetP19_10"
       },
       "mpn": "3132-10MS0BK00R5",
+      "manufacturer": "WCON",
       "description": "Pin Header 2x5, 1.27mm (50mil), SMD, Keying Shroud",
       "value": "Pin Header 2x5, 1.27mm"
     },
@@ -6977,6 +7172,7 @@
         "18": "GND"
       },
       "mpn": "2171-209MS0CUNR3",
+      "manufacturer": "WCON",
       "description": "Socket 2x9, 2.54mm (100mil), SMD",
       "value": "Socket 2x9"
     },
@@ -7004,6 +7200,7 @@
         "20": "P1.09"
       },
       "mpn": "3132-20MS0BK00R1",
+      "manufacturer": "WCON",
       "description": "Pin Header 2x10, 1.27mm (50mil), SMD, Keying Shroud",
       "value": "Pin Header 2x10, 1.27mm"
     },
@@ -7016,6 +7213,7 @@
         "5": ""
       },
       "mpn": "5141-05RZDNWR03",
+      "manufacturer": "WCON",
       "description": "0.5mm FPC, 5P,Right Angle SMT,Double Contact,H=1.2mm,White, Tin plated",
       "value": "FPC 0.5mm RA SMD"
     },
@@ -7025,6 +7223,7 @@
         "2": "NetC66_2"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X7R, ±10%, 10V",
       "value": "4.7nF"
     },
@@ -7056,6 +7255,7 @@
         }
       },
       "mpn": "AJU55-BS2111-L",
+      "manufacturer": "Allen Creations Corp.",
       "description": "MicroUSB-B-SMT",
       "value": "MicroUSB-B"
     },
@@ -7065,6 +7265,7 @@
         "2": "VLi-Ion"
       },
       "mpn": "SM02B-SRSS-TB(LF)(SN)",
+      "manufacturer": "JST Sales America Inc.",
       "description": "1.0mm pitch connector side entry SMD",
       "value": "HDR-2, 1mm"
     },
@@ -7074,6 +7275,7 @@
         "2": "VLi-Ion"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Pin List 1x2, 2.54mm (100mil)",
       "value": "Pin List 1x2"
     },
@@ -7094,6 +7296,7 @@
         "13": "NetP20_13"
       },
       "mpn": "2171-113MS0CUNR1",
+      "manufacturer": "WCON",
       "description": "Socket 1x13, 2.54mm (100mil), SMD",
       "value": "Socket 1x13"
     },
@@ -7117,6 +7320,7 @@
         }
       },
       "mpn": "PRTR5V0U2X",
+      "manufacturer": "NXP Semiconductors",
       "description": "Ultra low capacitance double rail-to-rail ESD protection diode",
       "value": "PRTR5V0U2X"
     },
@@ -7126,6 +7330,7 @@
         "2": "NetC60_2"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X5R, ±20%",
       "value": "10µF"
     },
@@ -7135,6 +7340,7 @@
         "2": "NetC60_2"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
@@ -7144,6 +7350,7 @@
         "2": "GND"
       },
       "mpn": "BLM15AG121SN1D",
+      "manufacturer": "Murata",
       "description": "Ferrite Bead, 120 Ohm @ 100MHz, 500mA, 250 mOhm Max",
       "value": "120R/0.55A"
     },
@@ -7153,6 +7360,7 @@
         "2": "VBUS_nRF'"
       },
       "mpn": "BLM15AG121SN1D",
+      "manufacturer": "Murata",
       "description": "Ferrite Bead, 120 Ohm @ 100MHz, 500mA, 250 mOhm Max",
       "value": "120R/0.55A"
     },
@@ -7162,6 +7370,7 @@
         "2": "NetC60_2"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X7R, ±10%",
       "value": "10nF"
     },
@@ -7171,6 +7380,7 @@
         "2": "GND"
       },
       "mpn": "BLM15AG121SN1D",
+      "manufacturer": "Murata",
       "description": "Ferrite Bead, 120 Ohm @ 100MHz, 500mA, 250 mOhm Max",
       "value": "120R/0.55A"
     },
@@ -7180,6 +7390,7 @@
         "2": "GND"
       },
       "mpn": "BLM15AG121SN1D",
+      "manufacturer": "Murata",
       "description": "Ferrite Bead, 120 Ohm @ 100MHz, 500mA, 250 mOhm Max",
       "value": "120R/0.55A"
     },
@@ -7189,6 +7400,7 @@
         "2": "VBUS"
       },
       "mpn": "BLM15AG121SN1D",
+      "manufacturer": "Murata",
       "description": "Ferrite Bead, 120 Ohm @ 100MHz, 500mA, 250 mOhm Max",
       "value": "120R/0.55A"
     },
@@ -7198,6 +7410,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X7R, ±10%",
       "value": "10nF"
     },
@@ -7207,6 +7420,7 @@
         "2": "GND"
       },
       "mpn": "BLM15AG121SN1D",
+      "manufacturer": "Murata",
       "description": "Ferrite Bead, 120 Ohm @ 100MHz, 500mA, 250 mOhm Max",
       "value": "120R/0.55A"
     },
@@ -7215,6 +7429,7 @@
         "1": "D_N"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.5mm circular SMD testpad",
       "value": "Ø1.5mm,SMD"
     },
@@ -7223,6 +7438,7 @@
         "1": "D_P"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.5mm circular SMD testpad",
       "value": "Ø1.5mm,SMD"
     },
@@ -7231,6 +7447,7 @@
         "1": "NFC2"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -7239,6 +7456,7 @@
         "1": "NFC1"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -7247,6 +7465,7 @@
         "1": "VLi-Ion"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -7256,6 +7475,7 @@
         "2": "VBUS"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
@@ -7265,6 +7485,7 @@
         "2": "VBUS_nRF'"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
@@ -7280,6 +7501,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Solderbridge",
       "value": "Solderbridge"
     },
@@ -7288,6 +7510,7 @@
         "1": "NetFB62_1"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.5mm circular SMD testpad",
       "value": "Ø1.5mm,SMD"
     },
@@ -7296,6 +7519,7 @@
         "1": "NetC60_2"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.5mm circular SMD testpad",
       "value": "Ø1.5mm,SMD"
     },
@@ -7311,6 +7535,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
@@ -7326,6 +7551,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Solderbridge",
       "value": "Solderbridge"
     },
@@ -7334,6 +7560,7 @@
         "1": "P0.03/AIN1"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -7342,6 +7569,7 @@
         "1": "P0.04/AIN2"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -7350,6 +7578,7 @@
         "1": "P0.28/AIN4"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -7358,6 +7587,7 @@
         "1": "P0.29/AIN5"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -7366,6 +7596,7 @@
         "1": "P0.30/AIN6"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -7374,6 +7605,7 @@
         "1": "P0.31/AIN7"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -7383,6 +7615,7 @@
         "2": "NetC67_2"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "1M0"
     },
@@ -7392,6 +7625,7 @@
         "2": "NetC66_2"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "1M0"
     },
@@ -7401,6 +7635,7 @@
         "2": "NetP20_13"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "866R"
     },
@@ -7416,6 +7651,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Solderbridge",
       "value": "Solderbridge"
     },
@@ -7431,6 +7667,7 @@
         "8": "VIN"
       },
       "mpn": "2171-108MS0CUNR3",
+      "manufacturer": "WCON",
       "description": "Socket 1x8, 2.54mm (100mil), SMD",
       "value": "Socket 1x8"
     },
@@ -7444,6 +7681,7 @@
         "6": "P0.31/AIN7"
       },
       "mpn": "2171-106MS0CUNR3",
+      "manufacturer": "WCON",
       "description": "Socket 1x6, 2.54mm (100mil), SMD",
       "value": "Socket 1x6"
     },
@@ -7457,6 +7695,7 @@
         "6": "P0.31/AIN7"
       },
       "mpn": "1125-1106S0M116R2",
+      "manufacturer": "WCON",
       "description": "Pin List 1x6, 2.54mm (100mil), SMD",
       "value": "Pin List 1x6"
     },
@@ -7472,6 +7711,7 @@
         "8": "P1.08"
       },
       "mpn": "1125-1108S0M116CR04",
+      "manufacturer": "WCON",
       "description": "Pin List 1x8, 2.54mm (100mil), SMD",
       "value": "Pin List 1x8"
     },
@@ -7487,6 +7727,7 @@
         "8": "P1.08"
       },
       "mpn": "2171-108MS0CUNR3",
+      "manufacturer": "WCON",
       "description": "Socket 1x8, 2.54mm (100mil), SMD",
       "value": "Socket 1x8"
     },
@@ -7504,6 +7745,7 @@
         "10": "SCL"
       },
       "mpn": "1125-1110S0M116R2",
+      "manufacturer": "WCON",
       "description": "Pin List 1x10, 2.54mm (100mil), SMD",
       "value": "Pin List 1x10"
     },
@@ -7521,6 +7763,7 @@
         "10": "SCL"
       },
       "mpn": "2171-110MS0CUNR3",
+      "manufacturer": "WCON",
       "description": "Socket 1x10, 2.54mm (100mil), SMD",
       "value": "Socket 1x10"
     },
@@ -7536,6 +7779,7 @@
         "8": "NetP6_8"
       },
       "mpn": "1125-1108S0M116CR04",
+      "manufacturer": "WCON",
       "description": "Pin List 1x8, 2.54mm (100mil), SMD",
       "value": "Pin List 1x8"
     },
@@ -7551,6 +7795,7 @@
         "8": "NetP6_8"
       },
       "mpn": "2171-108MS0CUNR3",
+      "manufacturer": "WCON",
       "description": "Socket 1x8, 2.54mm (100mil), SMD",
       "value": "Socket 1x8"
     },
@@ -7571,6 +7816,7 @@
         "13": "NetP20_13"
       },
       "mpn": "1125-1113S0M116CR04",
+      "manufacturer": "WCON",
       "description": "Pin List 1x13, 2.54mm (100mil), SMD",
       "value": "Pin List 1x13"
     },
@@ -7586,6 +7832,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Solderbridge",
       "value": "Solderbridge"
     },
@@ -7601,6 +7848,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Solderbridge",
       "value": "Solderbridge"
     },
@@ -7609,6 +7857,7 @@
         "1": "VSENSE_SW_OUT"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -7617,6 +7866,7 @@
         "1": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Testpoint, through hole",
       "value": "TP"
     },
@@ -7625,6 +7875,7 @@
         "1": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Testpoint, through hole",
       "value": "TP"
     },
@@ -7656,6 +7907,7 @@
         }
       },
       "mpn": "MKH-22D14-G2-B",
+      "manufacturer": "Dailywell",
       "description": "Slide Switch DPDT",
       "value": "MKH-22D14-G2-B"
     },
@@ -7665,6 +7917,7 @@
         "2": "NetP21_2"
       },
       "mpn": "1125B-1102S0Z135CR06",
+      "manufacturer": "WCON",
       "description": "Pin List 1x2, 2.54mm (100mil), Right Angled, SMD",
       "value": "Pin List 1x2, Angled"
     },
@@ -7696,6 +7949,7 @@
         }
       },
       "mpn": "TSM250N02DCQ RFG",
+      "manufacturer": "Taiwan Semiconductor",
       "description": "Dual N Ch MOFET, 5.8A, 55mOhm max, 620mW",
       "value": "TSM250N02DCQ RFG"
     },
@@ -7705,6 +7959,7 @@
         "2": "VREG_EN_INV"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "1M0"
     },
@@ -7728,6 +7983,7 @@
         }
       },
       "mpn": "TCK106AG,LF",
+      "manufacturer": "Toshiba",
       "description": "1.0 A Load Switch IC with Slew Rate Control Driver in Ultra Small Package",
       "value": "TCK106AG"
     },
@@ -7751,6 +8007,7 @@
         }
       },
       "mpn": "TCK106AG,LF",
+      "manufacturer": "Toshiba",
       "description": "1.0 A Load Switch IC with Slew Rate Control Driver in Ultra Small Package",
       "value": "TCK106AG"
     },
@@ -7774,6 +8031,7 @@
         }
       },
       "mpn": "TCK106AG,LF",
+      "manufacturer": "Toshiba",
       "description": "1.0 A Load Switch IC with Slew Rate Control Driver in Ultra Small Package",
       "value": "TCK106AG"
     },
@@ -7789,6 +8047,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
@@ -7798,6 +8057,7 @@
         "2": "V5V"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
@@ -7821,6 +8081,7 @@
         }
       },
       "mpn": "TCK106AG,LF",
+      "manufacturer": "Toshiba",
       "description": "1.0 A Load Switch IC with Slew Rate Control Driver in Ultra Small Package",
       "value": "TCK106AG"
     },
@@ -7830,6 +8091,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "10M"
     },
@@ -7853,6 +8115,7 @@
         }
       },
       "mpn": "TCK106AG,LF",
+      "manufacturer": "Toshiba",
       "description": "1.0 A Load Switch IC with Slew Rate Control Driver in Ultra Small Package",
       "value": "TCK106AG"
     },
@@ -7872,6 +8135,7 @@
         }
       },
       "mpn": "RV2C010UNT2L",
+      "manufacturer": "Rohm Semiconductor",
       "description": "N-Channel MOSFET, 20V, 1A, 470mOhm, 400mW",
       "value": "RV2C010UNT2L"
     },
@@ -7881,6 +8145,7 @@
         "2": "VSUPPLY_EN"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "1M0"
     },
@@ -7890,6 +8155,7 @@
         "2": "VEXT_EN_INV"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "1M0"
     },
@@ -7905,6 +8171,7 @@
         }
       },
       "mpn": "NSR0620P2T5G",
+      "manufacturer": "ON Semiconductor",
       "description": "20V schottky barrier diode, Vf 350 mV @ 100 mA, Ir 2.0 µA @ 10 V, If 500 mA",
       "value": "NSR0620P2T5G"
     },
@@ -7920,6 +8187,7 @@
         }
       },
       "mpn": "NSR0620P2T5G",
+      "manufacturer": "ON Semiconductor",
       "description": "20V schottky barrier diode, Vf 350 mV @ 100 mA, Ir 2.0 µA @ 10 V, If 500 mA",
       "value": "NSR0620P2T5G"
     },
@@ -7935,6 +8203,7 @@
         }
       },
       "mpn": "NSR0620P2T5G",
+      "manufacturer": "ON Semiconductor",
       "description": "20V schottky barrier diode, Vf 350 mV @ 100 mA, Ir 2.0 µA @ 10 V, If 500 mA",
       "value": "NSR0620P2T5G"
     },
@@ -7944,6 +8213,7 @@
         "2": "VBOOST_SRC"
       },
       "mpn": "CL10A106MA8NRNC",
+      "manufacturer": "Samsung Electro-Mechanics America",
       "description": "Capacitor, X5R, ±20%, 25V",
       "value": "10µF"
     },
@@ -7953,6 +8223,7 @@
         "2": "V5V"
       },
       "mpn": "CL10A106MA8NRNC",
+      "manufacturer": "Samsung Electro-Mechanics America",
       "description": "Capacitor, X5R, ±20%, 25V",
       "value": "10µF"
     },
@@ -7962,6 +8233,7 @@
         "2": "NetC87_1"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "120k"
     },
@@ -7971,6 +8243,7 @@
         "2": "VREG"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "330k"
     },
@@ -7980,6 +8253,7 @@
         "2": "VREG"
       },
       "mpn": "NR3015T4R7M",
+      "manufacturer": "Taiyo Yuden",
       "description": "Ferrite Inductor, Shielded, 1,04A, 144mOhm",
       "value": "4.7µH"
     },
@@ -7989,6 +8263,7 @@
         "2": "VREG"
       },
       "mpn": "CL10A106MA8NRNC",
+      "manufacturer": "Samsung Electro-Mechanics America",
       "description": "Capacitor, X5R, ±20%, 25V",
       "value": "10µF"
     },
@@ -7998,6 +8273,7 @@
         "2": "NetC86_2"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X5R, ±10%, 16V",
       "value": "4.7µF"
     },
@@ -8033,6 +8309,7 @@
         }
       },
       "mpn": "XC9236D08CER-G",
+      "manufacturer": "Torex Semiconductor",
       "description": "600mA Driver Transistor Built-In, Synchronous Step-Down DC/DC Converters",
       "value": "XC9236"
     },
@@ -8042,6 +8319,7 @@
         "2": "VREG"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, NP0, ±5%, 25V",
       "value": "150pF"
     },
@@ -8057,6 +8335,7 @@
         }
       },
       "mpn": "NSR0620P2T5G",
+      "manufacturer": "ON Semiconductor",
       "description": "20V schottky barrier diode, Vf 350 mV @ 100 mA, Ir 2.0 µA @ 10 V, If 500 mA",
       "value": "NSR0620P2T5G"
     },
@@ -8076,6 +8355,7 @@
         }
       },
       "mpn": "FCX690BTA",
+      "manufacturer": "Diodes Incorporated",
       "description": "45V NPN high gain power transistor",
       "value": "FCX690BTA"
     },
@@ -8091,6 +8371,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Solderbridge",
       "value": "Solderbridge"
     },
@@ -8114,6 +8395,7 @@
         }
       },
       "mpn": "TCK106AG,LF",
+      "manufacturer": "Toshiba",
       "description": "1.0 A Load Switch IC with Slew Rate Control Driver in Ultra Small Package",
       "value": "TCK106AG"
     },
@@ -8123,6 +8405,7 @@
         "2": "VREG_EN"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "820k"
     },
@@ -8132,6 +8415,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "470k"
     },
@@ -8141,6 +8425,7 @@
         "2": "VSUPPLY"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
@@ -8150,6 +8435,7 @@
         "2": "VSUPPLY"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
@@ -8159,6 +8445,7 @@
         "2": "V5V"
       },
       "mpn": "CL10A106MA8NRNC",
+      "manufacturer": "Samsung Electro-Mechanics America",
       "description": "Capacitor, X5R, ±20%, 25V",
       "value": "10µF"
     },
@@ -8174,6 +8461,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Solderbridge",
       "value": "Solderbridge"
     },
@@ -8205,6 +8493,7 @@
         }
       },
       "mpn": "CAS-220TA",
+      "manufacturer": "Copal Electronics Inc",
       "description": "Slide Switch DPDT J Hook",
       "value": "CAS-220TA"
     },
@@ -8220,6 +8509,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Solderbridge",
       "value": "Solderbridge"
     },
@@ -8243,6 +8533,7 @@
         }
       },
       "mpn": "TCK106AG,LF",
+      "manufacturer": "Toshiba",
       "description": "1.0 A Load Switch IC with Slew Rate Control Driver in Ultra Small Package",
       "value": "TCK106AG"
     },
@@ -8270,6 +8561,7 @@
         }
       },
       "mpn": "74LVC1G08GW",
+      "manufacturer": "NXP Semiconductors",
       "description": "Single 2-Input AND Gate",
       "value": "74LVC1G08"
     },
@@ -8301,6 +8593,7 @@
         }
       },
       "mpn": "74LVC1G11GW",
+      "manufacturer": "NXP Semiconductors",
       "description": "Single 3-input AND gate",
       "value": "74LVC1G11"
     },
@@ -8328,6 +8621,7 @@
         }
       },
       "mpn": "74LVC1G08GW",
+      "manufacturer": "NXP Semiconductors",
       "description": "Single 2-Input AND Gate",
       "value": "74LVC1G08"
     },
@@ -8337,6 +8631,7 @@
         "2": "VSUPPLY"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
@@ -8346,6 +8641,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "10M"
     },
@@ -8361,6 +8657,7 @@
         }
       },
       "mpn": "LS14",
+      "manufacturer": "Good-Ark Semiconductor",
       "description": "Diode Schottky Vf=0.45, Vr=40V, If=1A, Ir=1µA",
       "value": "LS14"
     },
@@ -8380,6 +8677,7 @@
         }
       },
       "mpn": "RV2C010UNT2L",
+      "manufacturer": "Rohm Semiconductor",
       "description": "N-Channel MOSFET, 20V, 1A, 470mOhm, 400mW",
       "value": "RV2C010UNT2L"
     },
@@ -8389,6 +8687,7 @@
         "2": "NetQ83_3"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "1k"
     },
@@ -8398,6 +8697,7 @@
         "2": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "10M"
     },
@@ -8406,6 +8706,7 @@
         "1": "NetP21_2"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -8414,6 +8715,7 @@
         "1": "VBAT"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -8422,6 +8724,7 @@
         "1": "VDD_nRF_SENSE"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -8430,6 +8733,7 @@
         "1": "NetQ80_3"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -8438,6 +8742,7 @@
         "1": "VBOOST_SRC'"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -8446,6 +8751,7 @@
         "1": "VDD_IMCU"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -8454,6 +8760,7 @@
         "1": "VBOOST_SRC"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -8462,6 +8769,7 @@
         "1": "V5V"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -8470,6 +8778,7 @@
         "1": "VSUPPLY"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -8485,6 +8794,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
@@ -8494,6 +8804,7 @@
         "2": "NetQ84_5"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "1M0"
     },
@@ -8503,6 +8814,7 @@
         "2": "NetR95_2"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "100k"
     },
@@ -8512,6 +8824,7 @@
         "2": "VSUPPLY"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X5R, ±10%",
       "value": "100nF"
     },
@@ -8543,6 +8856,7 @@
         }
       },
       "mpn": "74LVC1G11GW",
+      "manufacturer": "NXP Semiconductors",
       "description": "Single 3-input AND gate",
       "value": "74LVC1G11"
     },
@@ -8582,6 +8896,7 @@
         }
       },
       "mpn": "JS203011JCQN",
+      "manufacturer": "C&K",
       "description": "Slide Switch DP3T 300mA 6V",
       "value": "JS203011JCQN"
     },
@@ -8591,6 +8906,7 @@
         "2": "VDD_nRF"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "value": "N.C.",
       "dns": true
     },
@@ -8606,6 +8922,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
@@ -8615,6 +8932,7 @@
         "2": "VDD_nRF'"
       },
       "mpn": "1125B-1102S0Z135CR06",
+      "manufacturer": "WCON",
       "description": "Pin List 1x2, 2.54mm (100mil), Right Angled, SMD",
       "value": "Pin List 1x2, Angled"
     },
@@ -8624,6 +8942,7 @@
         "2": "VDD_HV"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "value": "N.C.",
       "dns": true
     },
@@ -8639,6 +8958,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Shorted Solderbridge",
       "value": "Solderbridge"
     },
@@ -8648,6 +8968,7 @@
         "2": "VDD_HV'"
       },
       "mpn": "1125B-1102S0Z135CR06",
+      "manufacturer": "WCON",
       "description": "Pin List 1x2, 2.54mm (100mil), Right Angled, SMD",
       "value": "Pin List 1x2, Angled"
     },
@@ -8657,6 +8978,7 @@
         "2": "NetC92_2"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X7R, ±10%",
       "value": "1.0µF"
     },
@@ -8672,6 +8994,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Solderbridge",
       "value": "Solderbridge"
     },
@@ -8681,6 +9004,7 @@
         "2": "VBUS_nRF'"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X7R, ±10%",
       "value": "1.0µF"
     },
@@ -8696,6 +9020,7 @@
         }
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Solderbridge",
       "value": "Solderbridge"
     },
@@ -8704,6 +9029,7 @@
         "1": "NetR98_1"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -8712,6 +9038,7 @@
         "1": "VDD_nRF"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -8720,6 +9047,7 @@
         "1": "VDD_HV"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -8728,6 +9056,7 @@
         "1": "VDD"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -8736,6 +9065,7 @@
         "1": "GND"
       },
       "mpn": "N.A.",
+      "manufacturer": "Nordic Semiconductor",
       "description": "1.0mm circular SMD testpad",
       "value": "Ø1.0mm,SMD"
     },
@@ -8745,6 +9075,7 @@
         "2": "NetR97_2"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "4R7"
     },
@@ -8754,6 +9085,7 @@
         "2": "VBUS_nRF"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "4R7"
     },
@@ -8763,6 +9095,7 @@
         "2": "GND"
       },
       "mpn": "L-KLS5-CR2032-23-B1",
+      "manufacturer": "KLS Electronic",
       "description": "Bat Holder CR2032 SMD",
       "value": "Bat Holder CR2032"
     },
@@ -8772,6 +9105,7 @@
         "2": "VIO_REF"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "10k"
     },
@@ -8803,6 +9137,7 @@
         }
       },
       "mpn": "PMCPB5530X,115",
+      "manufacturer": "Nexperia",
       "description": "Mosfet Array N and P-Channel 20V 4A (Ta), 3.4A (Ta) 490mW Surface Mount 6-HUSON-EP (2x2)",
       "value": "PMCPB5530"
     },
@@ -8822,6 +9157,7 @@
         }
       },
       "mpn": "RV2C010UNT2L",
+      "manufacturer": "Rohm Semiconductor",
       "description": "N-Channel MOSFET, 20V, 1A, 470mOhm, 400mW",
       "value": "RV2C010UNT2L"
     },
@@ -8831,6 +9167,7 @@
         "2": "VDD_nRF_SENSE"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "47k"
     },
@@ -8840,6 +9177,7 @@
         "2": "NetC53_2"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Capacitor, X7R, ±10%",
       "value": "10nF"
     },
@@ -8849,6 +9187,7 @@
         "2": "NetC53_2"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "description": "Resistor, ±1%, 0.05W",
       "value": "10M"
     },
@@ -8872,6 +9211,7 @@
         }
       },
       "mpn": "TCK106AG,LF",
+      "manufacturer": "Toshiba",
       "description": "1.0 A Load Switch IC with Slew Rate Control Driver in Ultra Small Package",
       "value": "TCK106AG"
     },
@@ -8895,6 +9235,7 @@
         }
       },
       "mpn": "TCK106AG,LF",
+      "manufacturer": "Toshiba",
       "description": "1.0 A Load Switch IC with Slew Rate Control Driver in Ultra Small Package",
       "value": "TCK106AG"
     },
@@ -8930,6 +9271,7 @@
         }
       },
       "mpn": "XC9148A50CER-G",
+      "manufacturer": "Torex Semiconductor",
       "description": "1.4A Driver Transistor Built-In, Multi Functional Step-Up DC/DC Converter",
       "value": "XC9148"
     },
@@ -8939,6 +9281,7 @@
         "2": "NetL80_2"
       },
       "mpn": "VLS3012HBX-4R7M-N",
+      "manufacturer": "TDK Corporation",
       "description": "4.7µH Shielded Wirewound Inductor 2.23A 201 mOhm Max Nonstandard",
       "value": "4.7µH"
     },
@@ -8948,6 +9291,7 @@
         "2": "V5V"
       },
       "mpn": "N.A.",
+      "manufacturer": "N.A.",
       "value": "N.C.",
       "dns": true
     }
