@@ -1,4 +1,6 @@
 import { describe, it, expect } from "vitest";
+import { readFileSync } from "node:fs";
+import { fixturePath, hasFixtures } from "../../../test/utils.js";
 import { parseKicadNetlist } from "./netlist-parser.js";
 
 /** A compact but representative kicadsexpr export exercising the tricky cases. */
@@ -119,5 +121,111 @@ describe("parseKicadNetlist", () => {
   it("throws when the export is missing the components or nets section", () => {
     expect(() => parseKicadNetlist('(export (version "E") (nets))')).toThrow(/components/);
     expect(() => parseKicadNetlist('(export (version "E") (components))')).toThrow(/nets/);
+  });
+});
+
+describe("KiCad part-number namespaces", () => {
+  const component = (fields: Array<[string, string]>, properties: Array<[string, string]> = []) =>
+    parseKicadNetlist(`(export (components (comp (ref "C1")
+    (fields ${fields.map(([k, v]) => `(field (name ${JSON.stringify(k)}) ${JSON.stringify(v)})`).join(" ")})
+    ${properties.map(([k, v]) => `(property (name ${JSON.stringify(k)}) (value ${JSON.stringify(v)}))`).join(" ")}
+    (libsource (part "CAP_0603")))) (nets))`).components.C1;
+
+  it("keeps manufacturer and internal numbers separate in either field order", () => {
+    const fields: Array<[string, string]> = [
+      ["Part Number", "CTEB_2.2UF_35V_10%_254-500X840"],
+      ["Manufacturer Part Number", "T350C225K035AT"],
+      ["Manufacturer", "KEMET"],
+    ];
+    const expected = {
+      pins: {},
+      mpn: "T350C225K035AT",
+      internal_pn: "CTEB_2.2UF_35V_10%_254-500X840",
+      manufacturer: "KEMET",
+    };
+    expect(component(fields)).toEqual(expected);
+    expect(component([...fields].reverse())).toEqual(expected);
+  });
+
+  it("prefers a specific manufacturer property over a generic MPN field", () => {
+    expect(component([["MPN", "CAP_0603"]], [["Manufacturer_Part_Number", "MFR-100N"]]).mpn).toBe(
+      "MFR-100N"
+    );
+  });
+
+  it("retains a generic part number without claiming its manufacturer assigned it", () => {
+    expect(component([["PartNumber", "DESIGN-1001"]])).toEqual({
+      pins: {},
+      internal_pn: "DESIGN-1001",
+    });
+  });
+
+  it("reads explicit internal fields and prefers them to a generic part number", () => {
+    expect(
+      component([
+        ["Part Number", "CAP_0603"],
+        ["Internal Part Number", "INT-1001"],
+      ])
+    ).toEqual({ pins: {}, internal_pn: "INT-1001" });
+    expect(component([], [["CUST_PART_NUMBER", "4700-80047E"]])).toEqual({
+      pins: {},
+      internal_pn: "4700-80047E",
+    });
+  });
+
+  it("reads manufacturer aliases and trims values from property-only exports", () => {
+    expect(
+      component(
+        [],
+        [
+          ["MFR_PART_NUMBER", " GRM1555C1H101JA01D "],
+          ["MFR_NAME", " MURATA "],
+        ]
+      )
+    ).toEqual({ pins: {}, mpn: "GRM1555C1H101JA01D", manufacturer: "MURATA" });
+    expect(
+      component([
+        ["Mfg P/N", "RC0402FR-0710KL"],
+        ["mfg", "YAGEO"],
+      ])
+    ).toEqual({ pins: {}, mpn: "RC0402FR-0710KL", manufacturer: "YAGEO" });
+  });
+
+  it("skips whitespace-only fields without hiding a populated property", () => {
+    expect(
+      component([["Manufacturer Part Number", "  "]], [["Manufacturer Part Number", "MFR-1"]]).mpn
+    ).toBe("MFR-1");
+    expect(
+      component([
+        ["Manufacturer Part Number", "  "],
+        ["MPN", "MFR-2"],
+      ]).mpn
+    ).toBe("MFR-2");
+  });
+
+  it("does not substitute supplier numbers or library symbols for either namespace", () => {
+    expect(
+      component([
+        ["Mouser Part Number", "81-GRM1555C1H101JA01D"],
+        ["LCSC Part Number", "C1234"],
+      ])
+    ).toEqual({ pins: {} });
+  });
+});
+
+describe.skipIf(!hasFixtures)("KiCad multichannel fixture part numbers", () => {
+  it("preserves the two numbers recorded for the same capacitor", () => {
+    const source = readFileSync(
+      fixturePath("kicad", "multichannel-mixer", "multichannel_mixer.net"),
+      "utf8"
+    );
+    const result = parseKicadNetlist(source);
+    for (const ref of ["C1", "C2"]) {
+      expect(result.components[ref]).toMatchObject({
+        mpn: "T350C225K035AT",
+        internal_pn: "CTEB_2.2UF_35V_10%_254-500X840",
+        manufacturer: "KEMET",
+      });
+    }
   });
 });

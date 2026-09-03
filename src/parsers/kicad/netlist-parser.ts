@@ -36,36 +36,62 @@ import {
   type NetConnections,
 } from "../../types.js";
 
+/** Ignore case and spelling separators, but retain meaningful punctuation like # and /. */
+const normalizeKey = (s: string): string => s.toLowerCase().replace(/[\s_.-]/g, "");
+
+/** Manufacturer fields in precedence order, independent of their order in the file. */
+const MPN_FIELD_NAMES = [
+  "Manufacturer Part Number",
+  "Manufacturer PN",
+  "Manufacturer P/N",
+  "Manufacturer Part No",
+  "Manufacturer Part Num",
+  "Manufacturer Part #",
+  "Manufacturers Part Number",
+  "Manufacturer Part",
+  "MFR Part Number",
+  "MFR Part Num",
+  "MFR Part #",
+  "MFRPART",
+  "MFGR PN",
+  "MFG Part Number",
+  "MFG Part No",
+  "MFG Part #",
+  "MFG PN",
+  "MFG P/N",
+  "MPN",
+].map(normalizeKey);
+
 /**
- * Field names (case-insensitive, normalized) that hold a manufacturer part number.
- * KiCad MPN fields are user-named, so we accept the common spellings.
+ * Explicit internal identifiers take precedence over generic part numbers.
+ * A generic PartNumber names the design's part; it does not establish that a
+ * manufacturer assigned the number, even when its value happens to be an MPN.
  */
-const MPN_FIELD_NAMES = new Set(
-  [
-    "mpn",
-    "manufacturer part number",
-    "manufacturer_part_number",
-    "mfr part #",
-    "mfr. part #",
-    "mfrpart",
-    "part number",
-    "partnumber",
-    "manufacturerpartnumber",
-  ].map((s) => s.toLowerCase())
-);
+const INTERNAL_PN_FIELD_NAMES = [
+  "Internal Part Number",
+  "Internal PN",
+  "Internal P/N",
+  "Internal Ref",
+  "CUST PART NUMBER",
+  "Customer Part Number",
+  "Part Number",
+  "PN",
+].map(normalizeKey);
 
 /**
  * Field names (case-insensitive, normalized) that hold a manufacturer's name.
  * KiCad field names are user-chosen, so the common spellings are accepted.
  */
-const MANUFACTURER_FIELD_NAMES = new Set(
-  ["manufacturer", "manufacturer_name", "manufacturer name", "mfr", "mfg", "make"].map((s) =>
-    s.toLowerCase()
-  )
-);
-
-/** Normalize a field/property name for case-insensitive matching. */
-const normalizeKey = (s: string): string => s.trim().toLowerCase();
+const MANUFACTURER_FIELD_NAMES = [
+  "Manufacturer",
+  "Manufacturer Name",
+  "MFR Name",
+  "MFGR Name",
+  "MFG Name",
+  "MFR",
+  "MFG",
+  "Make",
+].map(normalizeKey);
 
 /**
  * Read the string value of a `(field (name "X") "value")` node.
@@ -76,27 +102,35 @@ const fieldValue = (field: SExpr[]): string | undefined =>
   field.slice(1).find((c): c is string => typeof c === "string");
 
 /**
- * Look up a named value in a comp's `fields` container and top-level
- * `property` children, returning the first non-empty match. `property` uses
- * `(value "...")`; `field` uses a trailing bare string.
+ * Collect non-empty values from both export spellings. A field wins over a
+ * duplicate property of the same name; an empty field cannot hide a property.
  */
-const lookupNamed = (comp: SExpr[], matches: (name: string) => boolean): string | undefined => {
+const namedValues = (comp: SExpr[]): Map<string, string> => {
+  const values = new Map<string, string>();
+  const add = (name: string | undefined, value: string | undefined): void => {
+    if (!name || !value?.trim()) return;
+    const key = normalizeKey(name);
+    if (!values.has(key)) values.set(key, value.trim());
+  };
   const fields = childByTag(comp, "fields");
   if (fields) {
     for (const field of childrenByTag(fields, "field")) {
-      const name = childString(field, "name");
-      if (name && matches(normalizeKey(name))) {
-        const value = fieldValue(field);
-        if (value && value.trim()) return value.trim();
-      }
+      add(childString(field, "name"), fieldValue(field));
     }
   }
   for (const property of childrenByTag(comp, "property")) {
-    const name = childString(property, "name");
-    if (name && matches(normalizeKey(name))) {
-      const value = childString(property, "value");
-      if (value && value.trim()) return value.trim();
-    }
+    add(childString(property, "name"), childString(property, "value"));
+  }
+  return values;
+};
+
+const lookupNamed = (
+  values: ReadonlyMap<string, string>,
+  keys: readonly string[]
+): string | undefined => {
+  for (const key of keys) {
+    const value = values.get(key);
+    if (value !== undefined) return value;
   }
   return undefined;
 };
@@ -177,12 +211,16 @@ export const parseKicadNetlist = (content: string): ParsedNetlist => {
     const description = componentDescription(comp);
     if (description) entry.description = description;
 
-    const mpn = lookupNamed(comp, (name) => MPN_FIELD_NAMES.has(name));
+    const fields = namedValues(comp);
+    const mpn = lookupNamed(fields, MPN_FIELD_NAMES);
     if (mpn) entry.mpn = mpn;
+
+    const internalPn = lookupNamed(fields, INTERNAL_PN_FIELD_NAMES);
+    if (internalPn) entry.internal_pn = internalPn;
 
     // An MPN identifies a part only within a manufacturer, so the name is what
     // makes `mpn` a key rather than a string.
-    const manufacturer = lookupNamed(comp, (name) => MANUFACTURER_FIELD_NAMES.has(name));
+    const manufacturer = lookupNamed(fields, MANUFACTURER_FIELD_NAMES);
     if (manufacturer) entry.manufacturer = manufacturer;
 
     if (isDnp(comp)) entry.dns = true;

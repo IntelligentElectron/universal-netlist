@@ -353,6 +353,7 @@ Represents a pin-to-net connection. Uses a string for simple pins, or an object 
 ### KiCad
 
 - Component properties come from each `comp` record's `value`, `description`, and MPN-style fields
+- Manufacturer-specific and internal part numbers are kept separate; see [KiCad field mapping](shared-types.md#kicad-part-number-fields)
 - Net connections come from the `nets` section of the resolved `kicadsexpr` export
 - Pin names come from the `node` entries' `pinfunction`
 - Nets declared inside a hierarchical sheet carry the sheet path in their name (e.g. `/Peripherals/D0`)
