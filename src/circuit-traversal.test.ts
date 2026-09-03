@@ -392,7 +392,7 @@ describe("isValidRefdes", () => {
   });
 
   it("should reject Cadence instance paths", () => {
-    expect(isValidRefdes("@BEAGLEBONEBLK_C.BEAGLEBONEBLACK(SCH_1):INS21415196@LAN8710")).toBe(
+    expect(isValidRefdes("@BOARD_TOP.BOARD_MAIN(SCH_1):INS21415196@LAN8710")).toBe(
       false
     );
     expect(isValidRefdes("'@DESIGN.SHEET:INS123@PART'")).toBe(false);

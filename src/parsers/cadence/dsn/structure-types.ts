@@ -55,9 +55,9 @@ export interface PinMapData {
   pinIgnores: Map<string, boolean[]>;
   /**
    * Per-pin "Pin Ignore" flags parallel to `cachePinMaps`. Kept separate from
-   * `pinIgnores` because the two streams describe different pin counts for the
-   * same key: CutiePi's `CON_HDMI_RA` is 20 entries in `Packages/` and 23 in
-   * the Cache, so one array cannot index both.
+   * `pinIgnores` because the two streams can describe different pin counts for
+   * the same key: a connector may be 20 entries in `Packages/` and 23 in the
+   * Cache, so one array cannot index both.
    */
   cachePinIgnores: Map<string, boolean[]>;
 }

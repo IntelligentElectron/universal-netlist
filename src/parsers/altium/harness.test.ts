@@ -10,10 +10,10 @@ import {
 import type { HarnessRecord } from "./harness.js";
 
 /**
- * The sample definitions are the verbatim contents of
- * `channel.Harness` from pulp-bio/HELIOS-R.
+ * The verbatim contents of a real `.Harness` sidecar, including the nested type
+ * (`Channel_interface` carries `PGND`, which is itself `PGND_Domain`).
  */
-const HELIOS_CHANNEL_HARNESS = [
+const SAMPLE_HARNESS_SIDECAR = [
   "AGND_Domain=PULSE_OUT,PULSE_IN,AGND,VDD5,STDN,TEMPOUT",
   "Channel_interface=PGND,V_LASER_P,3V3_P,AGND,VDD5_A",
   "PGND_Domain=3V3_P,OP_OUT,PGND,V_LASER",
@@ -21,7 +21,7 @@ const HELIOS_CHANNEL_HARNESS = [
 
 describe("parseHarnessDefinitions", () => {
   it("parses one type per line", () => {
-    const definitions = parseHarnessDefinitions(HELIOS_CHANNEL_HARNESS);
+    const definitions = parseHarnessDefinitions(SAMPLE_HARNESS_SIDECAR);
 
     expect([...definitions.keys()].sort()).toEqual([
       "AGND_Domain",
@@ -47,7 +47,7 @@ describe("parseHarnessDefinitions", () => {
 
 describe("resolveHarnessMembers", () => {
   it("returns the members of a flat harness type", () => {
-    const definitions = parseHarnessDefinitions(HELIOS_CHANNEL_HARNESS);
+    const definitions = parseHarnessDefinitions(SAMPLE_HARNESS_SIDECAR);
 
     expect(resolveHarnessMembers("AGND_Domain", definitions)).toEqual([
       "PULSE_OUT",
@@ -63,7 +63,7 @@ describe("resolveHarnessMembers", () => {
     // Channel_interface's PGND entry carries HarnessType=PGND_Domain, so the
     // bundle also carries PGND_Domain's members. Flattening one level would drop
     // OP_OUT and V_LASER entirely.
-    const definitions = parseHarnessDefinitions(HELIOS_CHANNEL_HARNESS);
+    const definitions = parseHarnessDefinitions(SAMPLE_HARNESS_SIDECAR);
     const nested = new Map([["PGND", "PGND_Domain"]]);
 
     expect(resolveHarnessMembers("Channel_interface", definitions, nested)).toEqual([
@@ -79,7 +79,7 @@ describe("resolveHarnessMembers", () => {
   });
 
   it("qualifies nested members so a repeated signal name stays distinct", () => {
-    const definitions = parseHarnessDefinitions(HELIOS_CHANNEL_HARNESS);
+    const definitions = parseHarnessDefinitions(SAMPLE_HARNESS_SIDECAR);
     const members = resolveHarnessMembers(
       "Channel_interface",
       definitions,
@@ -122,7 +122,7 @@ describe("resolveHarnessMembers", () => {
 
 describe("collectNestedHarnessTypes", () => {
   it("maps an entry name to the harness type it expands to", () => {
-    // Shape taken from the Additional stream of HELIOS-R's channel.SchDoc.
+    // Shape taken from the Additional stream of a real harness sheet.
     const nested = collectNestedHarnessTypes([
       { RECORD: "216", Name: "PGND", HarnessType: "PGND_Domain" },
       { RECORD: "216", Name: "AGND" },
@@ -139,8 +139,8 @@ describe("collectNestedHarnessTypes", () => {
 
 describe("readHarnessConnectors", () => {
   it("places entries on the connector's left edge at the verified pitch", () => {
-    // Geometry taken from pulp-bio/HELIOS-R main.SchDoc, where the five wires
-    // landing on this connector end at y = 660, 650, 580, 570 and 540.
+    // Geometry taken from a real sheet, where the five wires landing on this
+    // connector end at y = 660, 650, 580, 570 and 540.
     const records: HarnessRecord[] = [
       {
         RECORD: "215",
@@ -171,7 +171,7 @@ describe("readHarnessConnectors", () => {
   });
 
   it("places entries on the right edge when the entry says so", () => {
-    // qfsae/pcb DASH_BULKHEAD.SchDoc: the connector writes no
+    // Taken from a real bulkhead sheet: the connector writes no
     // HarnessConnectorSide and each entry carries Side=1, which is the same
     // arrangement mirrored. Its four wires end at x = 330.
     const records: HarnessRecord[] = [
@@ -188,8 +188,8 @@ describe("readHarnessConnectors", () => {
   });
 
   it("reads a fractional distance from the top", () => {
-    // HELIOS-R channel.SchDoc puts an entry half a step down, and its wire ends
-    // at y = 450 rather than 455.
+    // A real sheet puts an entry half a step down, and its wire ends at
+    // y = 450 rather than 455.
     const records: HarnessRecord[] = [
       { RECORD: "215", "Location.X": "815", "Location.Y": "465", XSize: "70" },
       {
@@ -247,7 +247,7 @@ describe("readHarnessConnectors", () => {
   });
 
   it("puts the bundle's outgoing connection on the edge opposite the entries", () => {
-    // HELIOS-R channel.SchDoc: this connector's harness line runs from (760,400).
+    // Taken from a real sheet: this connector's harness line runs from (760,400).
     const records: HarnessRecord[] = [
       {
         RECORD: "215",
@@ -306,8 +306,8 @@ describe("assignHarnessSignals", () => {
   });
 
   it("keeps two harnesses of the same type apart", () => {
-    // qfsae/pcb draws one 3WIRE_PSG_SENSOR harness per sensor, each entry named
-    // SIGNAL. Only the port they leave through tells them apart.
+    // A wiring harness may draw one identical bundle per sensor, each entry
+    // named SIGNAL. Only the port they leave through tells them apart.
     const records: HarnessRecord[] = [
       { RECORD: "215", ...at(240, 180), XSize: "60", PrimaryConnectionPosition: "20" },
       { RECORD: "216", Name: "SIGNAL", Side: "1", DistanceFromTop: "2" },
@@ -359,7 +359,7 @@ describe("assignHarnessSignals", () => {
   });
 
   it("reports the sheet entries a harness line joins as one bundle", () => {
-    // qfsae/pcb TOP.SchDoc joins a bulkhead's bundle to the sheet that feeds it,
+    // A top sheet may join a bulkhead's bundle to the sheet that feeds it,
     // where the same bundle goes by a different port name.
     const links = assignHarnessSignals([], {
       records: [
@@ -422,7 +422,7 @@ describe("cross-sheet harness members", () => {
   it("resolves the bundle a harness-typed sheet entry carries", () => {
     // main.SchDoc's sheet entry CHANNEL is typed Channel_interface; the members
     // below are what must cross the sheet boundary with it.
-    const definitions = parseHarnessDefinitions(HELIOS_CHANNEL_HARNESS);
+    const definitions = parseHarnessDefinitions(SAMPLE_HARNESS_SIDECAR);
     const nested = new Map([["PGND", "PGND_Domain"]]);
 
     const members = resolveHarnessMembers("Channel_interface", definitions, nested);
@@ -439,7 +439,7 @@ describe("cross-sheet harness members", () => {
   it("carries nested members across the boundary too", () => {
     // A one-level flatten would leave OP_OUT and V_LASER behind on the child
     // sheet, where they would become per-channel nets connected to nothing.
-    const definitions = parseHarnessDefinitions(HELIOS_CHANNEL_HARNESS);
+    const definitions = parseHarnessDefinitions(SAMPLE_HARNESS_SIDECAR);
     const flat = resolveHarnessMembers("Channel_interface", definitions);
     const withNesting = resolveHarnessMembers(
       "Channel_interface",

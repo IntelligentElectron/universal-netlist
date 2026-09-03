@@ -183,13 +183,13 @@ DESCR='CAP, CER, 100PF';
   });
 
   it("should handle component lines ending with :; (HDL format)", async () => {
-    // Real format from BeagleBone Black pstxprt.dat
+    // Real HDL-format pstxprt.dat, with the design's own names replaced.
     const content = `
 PART_NAME
  C1 'CAP_10UF_Y5V_10V_10%_0805_805_10UF,10V':;
 
 SECTION_NUMBER 1
- '@BEAGLEBONEBLK_C.BEAGLEBONEBLACK(SCH_1):INS21459032@MASTER.CAP_10UF_Y5V_10V_10%_0805.NORMAL(CHIPS)':
+ '@BOARD_TOP.BOARD_MAIN(SCH_1):INS21459032@MASTER.CAP_10UF_Y5V_10V_10%_0805.NORMAL(CHIPS)':
  PRIM_FILE='.\\pstchip.dat',
  XY='(390,150)';
 
@@ -197,7 +197,7 @@ PART_NAME
  U2 'PWR_TPS65217_2_U_48_RSL_TPS65217C':;
 
 SECTION_NUMBER 1
- '@BEAGLEBONEBLK_C.BEAGLEBONEBLACK(SCH_1):INS21416200@MASTER.PWR_TPS65217_2_U_48_RSL.NORMAL(CHIPS)':
+ '@BOARD_TOP.BOARD_MAIN(SCH_1):INS21416200@MASTER.PWR_TPS65217_2_U_48_RSL.NORMAL(CHIPS)':
  PRIM_FILE='.\\pstchip.dat';
 `;
 

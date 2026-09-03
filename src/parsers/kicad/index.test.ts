@@ -47,7 +47,7 @@ describe.skipIf(!hasFixtures)("kicadHandler against fixtures", () => {
     expect(netlist.components["U1"]?.pins["15"]).toEqual({ name: "PC7", net: "+5V" });
   });
 
-  it("does not false-positive DNP on user 'DNP' BOM fields (cynthion)", async () => {
+  it("does not false-positive DNP on a user-defined 'DNP' BOM field", async () => {
     const designs = await discoverKicadDesigns(KICAD_FIXTURES);
     const cynthion = designs.find((d) => d.name === "cynthion");
     expect(cynthion).toBeDefined();

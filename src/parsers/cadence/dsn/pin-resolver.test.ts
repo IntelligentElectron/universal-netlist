@@ -199,7 +199,7 @@ describe("extractUnitRef", () => {
 
 describe("pin map selection by symbol pin count", () => {
   it("prefers the Cache map when the package map is shorter than the symbol", () => {
-    // CutiePi's HDMI connector: a 23-pin symbol, and a 20-entry package map that
+    // A real HDMI connector: a 23-pin symbol, and a 20-entry package map that
     // cannot describe it, whose 17th and 18th entries are transposed. Riding on
     // it swapped SCL and SDA. The Cache map has exactly 23 entries.
     const inst = instance("CON_HDMI_RA", 23);
@@ -301,7 +301,7 @@ describe("isPinIgnored", () => {
 
 describe("Pin Ignore flags follow the map that supplied the pin number", () => {
   it("reads the Cache flags when the pin number came from the Cache map", () => {
-    // CutiePi's CON_HDMI_RA: 23-pin symbol, 20-entry package map, 23-entry Cache
+    // The same connector: 23-pin symbol, 20-entry package map, 23-entry Cache
     // map. The number comes from the Cache, so the flag must too; indexing the
     // 20-entry package flags with a Cache pin index reads a different pin.
     const inst = instance("CON_HDMI_RA", 23);

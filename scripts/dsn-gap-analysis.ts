@@ -9,9 +9,8 @@
  * Usage:
  *   node --import tsx scripts/dsn-gap-analysis.ts <golden-name>
  *
- * Example:
- *   node --import tsx scripts/dsn-gap-analysis.ts BEAGLEBONEBLK_C3
- *   node --import tsx scripts/dsn-gap-analysis.ts reServer_industrial_J401_Carrier_Board_v11
+ * The golden name is the basename of a file under test/golden/cadence/, without
+ * its .netlist.json extension. Run with no argument to list the available ones.
  */
 
 import fs from "fs";

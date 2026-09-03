@@ -846,8 +846,8 @@ export function buildNetConnectivity(
   //
   // Two sources, and they disagree in both directions. The wires are the drawing
   // and win where they exist, because a string-list entry is sometimes the
-  // symbol type rather than a net: pairingId 17700 reads "GND_SIGNAL" on three
-  // Jetson carrier designs, a name that appears nowhere in their DAT exports.
+  // symbol type rather than a net: some designs give a pairingId a name like
+  // "GND_SIGNAL" that appears nowhere in their own DAT exports.
   // The string list covers what the wires cannot: a symbol that no wire reaches,
   // where a resistor pin lands straight on the power port.
   const wirePairingNets = new Map<number, string>();

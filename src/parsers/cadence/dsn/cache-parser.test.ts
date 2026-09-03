@@ -29,7 +29,7 @@ describe("indexLibraryPart", () => {
   });
 
   it("lets a part's own name displace an alias another variant left there", () => {
-    // Verbatim from CutiePi: RES_0.Normal names its pins after their numbers and
+    // Verbatim from a real library: RES_0.Normal names its pins by number and
     // strips to RES.Normal, while the real RES.Normal names them A and B. First
     // writer wins gave every plain resistor the numbering, and a pin name equal
     // to the pin number is dropped, so those parts reported no names at all.

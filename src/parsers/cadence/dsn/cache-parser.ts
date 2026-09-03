@@ -75,7 +75,7 @@ function indexCachePackage(pkg: import("./structures.js").Package, pmd: PinMapDa
  * suffix-stripped form other instances refer to it by.
  *
  * A part's own name outranks a stripped form derived from a different variant.
- * CutiePi holds both `RES_0.Normal`, whose pins are named "1" and "2", and
+ * A design may hold both `RES_0.Normal`, whose pins are named "1" and "2", and
  * `RES.Normal`, whose pins are named "A" and "B". `RES_0.Normal` strips to
  * `RES.Normal`, so first-writer-wins gave every plain resistor in the design the
  * numbering-as-names of the other variant, which is then discarded for matching
@@ -113,11 +113,10 @@ export function indexLibraryPart(
  * A record is a chain of prefixes: zero or more long ones of 9 bytes, then a
  * short one of `type(1) + int16 pairCount` followed by 8 bytes per
  * (nameIdx, valIdx) pair. Assuming the short prefix sits exactly 3 bytes back
- * only holds when it carries no pairs and nothing precedes it. Across the
- * fixture corpus that is true for every Package, and for a minority of
- * LibraryParts: LAUNCHXL-CC1310 has 45 of them and 13 fit that shape, so a
- * design whose sequential parse failed early came out with pin numbers for
- * every component and pin names for none.
+ * only holds when it carries no pairs and nothing precedes it. Across the test
+ * corpus that is true for every Package, but for only a minority of
+ * LibraryParts, so a design whose sequential parse failed early came out with
+ * pin numbers for every component and pin names for none.
  *
  * So the pair count is searched for, and then the chain start, and the parse
  * itself decides: the prefix reader validates the chain, so a wrong guess

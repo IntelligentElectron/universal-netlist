@@ -159,7 +159,7 @@ describe("resolvePath", () => {
 describe("getDesignName", () => {
   beforeEach(() => {
     definePlatform("linux");
-    vi.spyOn(process, "cwd").mockReturnValue("/work/BeagleBone-Black-copy");
+    vi.spyOn(process, "cwd").mockReturnValue("/work/board-rev-c");
   });
 
   it("strips the directory and extension", () => {
@@ -181,17 +181,17 @@ describe("getDesignName", () => {
   // names identically, so stripping the extension gave all of them the name
   // "pstxnet" and two of them side by side were indistinguishable in a result.
   it("names a netlist-only design after its directory", () => {
-    expect(getDesignName("/fixtures/cadence/BeagleBone-Black-copy/pstxnet.dat")).toBe(
-      "BeagleBone-Black-copy"
+    expect(getDesignName("/fixtures/cadence/board-rev-c/pstxnet.dat")).toBe(
+      "board-rev-c"
     );
-    expect(getDesignName("/fixtures/cadence/BeagleBone-Black-barebone/pstxnet.dat")).toBe(
-      "BeagleBone-Black-barebone"
+    expect(getDesignName("/fixtures/cadence/board-rev-d/pstxnet.dat")).toBe(
+      "board-rev-d"
     );
   });
 
   it("distinguishes two netlist-only designs", () => {
-    const first = getDesignName("/fixtures/cadence/BeagleBone-Black-copy/pstxnet.dat");
-    const second = getDesignName("/fixtures/cadence/BeagleBone-Black-barebone/pstxnet.dat");
+    const first = getDesignName("/fixtures/cadence/board-rev-c/pstxnet.dat");
+    const second = getDesignName("/fixtures/cadence/board-rev-d/pstxnet.dat");
     expect(first).not.toBe(second);
   });
 
@@ -217,9 +217,9 @@ describe("getDesignName", () => {
   // this replaces; resolved, it is a file in the working directory and takes
   // that directory's name.
   it("names a relative path after the directory it resolves to", () => {
-    expect(getDesignName("pstxnet.dat")).toBe("BeagleBone-Black-copy");
-    expect(getDesignName("./pstxnet.dat")).toBe("BeagleBone-Black-copy");
-    expect(getDesignName("../BeagleBone-Black-copy/pstxnet.dat")).toBe("BeagleBone-Black-copy");
+    expect(getDesignName("pstxnet.dat")).toBe("board-rev-c");
+    expect(getDesignName("./pstxnet.dat")).toBe("board-rev-c");
+    expect(getDesignName("../board-rev-c/pstxnet.dat")).toBe("board-rev-c");
   });
 
   it("names a relative non-triad path after its own file", () => {
@@ -231,8 +231,8 @@ describe("getDesignName", () => {
   // exists to absorb. Read as typed on a Unix host, none of this is a separator
   // and the whole string is the name.
   it("reads a Windows-style path on a Unix host", () => {
-    expect(getDesignName("C:\\fixtures\\BeagleBone-Black-copy\\pstxnet.dat")).toBe(
-      "BeagleBone-Black-copy"
+    expect(getDesignName("C:\\fixtures\\board-rev-c\\pstxnet.dat")).toBe(
+      "board-rev-c"
     );
     expect(getDesignName("C:\\fixtures\\Board.DSN")).toBe("Board");
   });

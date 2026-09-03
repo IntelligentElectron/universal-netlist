@@ -2,9 +2,8 @@ import { describe, expect, it } from "vitest";
 import { planChannelNetNames, type ChannelNetScope } from "./index.js";
 
 /**
- * Every case below is drawn from a real repeated sheet in the fixture set, and
- * the expected names are the ones the design's own board file carries where a
- * board is available (`aberrant-sound-module`, `PCB/main_board.PcbDoc`).
+ * Every case below is drawn from a real repeated sheet, and the expected names
+ * are the ones that design's own board file carries where a board is available.
  */
 const emptyScope = (): ChannelNetScope => ({
   powerNetNames: new Set(),
@@ -13,7 +12,7 @@ const emptyScope = (): ChannelNetScope => ({
 });
 
 describe("planChannelNetNames", () => {
-  it("builds an auto-generated name around the channel's designator (aberrant-sound-module)", () => {
+  it("builds an auto-generated name around the channel's designator", () => {
     const scope: ChannelNetScope = {
       ...emptyScope(),
       pinNamed: new Map([["NetDD12_5", { refdes: "DD12", pin: "5" }]]),
@@ -39,7 +38,7 @@ describe("planChannelNetNames", () => {
     ).toEqual(new Map([["NetU1_3", "NetU1B_3"]]));
   });
 
-  it("keeps a pin number that contains an underscore intact (qfsae-harness)", () => {
+  it("keeps a pin number that contains an underscore intact", () => {
     // NetJ4_2_G is J4 pin "2_G". Recovering the refdes and pin by splitting the
     // name would put the channel in the wrong place, or in the middle of the pin.
     const scope: ChannelNetScope = {

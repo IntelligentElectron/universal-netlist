@@ -16,7 +16,7 @@ describe("buildCadencePinMap", () => {
     const nets: NetConnections = {
       VCC: {
         U1: ["1"],
-        "@BEAGLEBONEBLK_C.BEAGLEBONEBLACK(SCH_1):INS21415196@LAN8710": ["2"],
+        "@BOARD_TOP.BOARD_MAIN(SCH_1):INS21415196@LAN8710": ["2"],
       },
     };
     const components: ComponentDetails = {
@@ -28,7 +28,7 @@ describe("buildCadencePinMap", () => {
     // Valid refdes should have pin added
     expect(result["U1"].pins["1"]).toBeDefined();
     // Garbage instance path should NOT be added to components
-    expect(result["@BEAGLEBONEBLK_C.BEAGLEBONEBLACK(SCH_1):INS21415196@LAN8710"]).toBeUndefined();
+    expect(result["@BOARD_TOP.BOARD_MAIN(SCH_1):INS21415196@LAN8710"]).toBeUndefined();
   });
 
   it("should create entries for valid refdes not in components map", () => {

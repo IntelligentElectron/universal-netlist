@@ -41,7 +41,7 @@ const streamEntry = (path: string): OleDirectoryPath =>
 
 describe("parseVariantGroup", () => {
   it("reads each occurrence and the state the group gives it", () => {
-    // Verbatim from LAUNCHXL-CC1310's DNM group.
+    // Verbatim from a real design's DNM group.
     const entries = parseVariantGroup(groupStream("0\xb020922~0\xb020919~0\xb0"));
 
     expect(entries).toEqual([

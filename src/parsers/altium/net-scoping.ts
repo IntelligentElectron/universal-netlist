@@ -62,8 +62,8 @@ export interface SheetNetScope {
  * Work out, for every sheet, which of its nets carry the sheet's number.
  *
  * Altium suffixes a sheet-local net whether or not another sheet happens to
- * reuse the name: the MiSKo3 board carries `VBAT_8` for a `VBAT` label drawn on
- * sheet 8 alone. So the suffix follows from the net being the sheet's own, not
+ * reuse the name: a board carries `VBAT_8` for a `VBAT` label drawn on sheet 8
+ * and nowhere else. So the suffix follows from the net being the sheet's own, not
  * from a collision, and a name two sheets do reuse is separated as a
  * consequence rather than as a special case.
  *
@@ -136,9 +136,9 @@ export const planLocalNetRenames = (
   //
   // Altium builds a member's name as `<the harness wire's net label>.<member>`,
   // so the text before the first dot names the bundle net, and the sheet that
-  // labels the bundle is the sheet the member is numbered after. On
-  // solarcar-bms every member label is drawn on sheet 2 and every member reads
-  // `_1`, the sheet its bundle is labelled on.
+  // labels the bundle is the sheet the member is numbered after. A board whose
+  // member labels are all drawn on one sheet still numbers every member after
+  // the sheet its bundle is labelled on, not after the sheet drawing the member.
   //
   // The bundle is read back out of the member's name rather than from the
   // harness signal key, because the key holds the name the local port gives the
