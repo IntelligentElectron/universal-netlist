@@ -8,6 +8,10 @@ entry lists status against the codebase as of the last review.
 > `src/service.ts` was split into `src/service/` per-tool modules, and tool
 > descriptions moved to `src/descriptions.ts`).
 
+DAT parsing and `export_cadence_netlist` are dormant in MCP. Historical DAT
+findings remain as reference; current proposals must keep those paths limited
+to CLI coverage and regression helpers.
+
 | Plan | Topic | Status |
 |---|---|---|
 | [cloud-storage-readiness.md](./cloud-storage-readiness.md) | Decouple file I/O from parsers; add `Storage` interface + GCS adapter so `gs://` URIs work alongside local paths | Proposed |
@@ -15,7 +19,7 @@ entry lists status against the codebase as of the last review.
 | [xnet-depth-limit.md](./xnet-depth-limit.md) | Bound XNET output two ways: (A) `max_depth` parameter + `frontier_nets`/`max_depth_reached` metadata, and (B) automatic byte-budget output-size cap with graceful truncation. Both evaluated; recommend both | Proposed |
 | [power-net-stop-pattern.md](./power-net-stop-pattern.md) | Switch `POWER_NET_PATTERN` / `STOP_NET_PATTERN` keywords (VCC/VDD/VBAT/VBUS/VSYS) from anchored prefix to substring matching so prefixed rails like `CC1310_VDD` stop traversal | Proposed |
 | [relative_path.md](./relative_path.md) | Auto-discovery + ID-based design access: `list_designs` returns relative-path IDs that all other tools accept instead of absolute paths | Proposed |
-| [parser-quality-improvements.md](./parser-quality-improvements.md) | 10 quality gaps from the June 2026 full-fixture MCP stress test: solder-bridge traversal, Altium DNP detection, pstxnet design-name keying, DSN group value collapse, CP1251 decoding, hidden power pins, NC pseudo-net, error polish | Proposed |
+| [parser-quality-improvements.md](./parser-quality-improvements.md) | 10 quality gaps from the June 2026 full-fixture MCP stress test: solder-bridge traversal, Altium DNP detection, historical DAT design-name keying, DSN group value collapse, CP1251 decoding, hidden power pins, NC pseudo-net, error polish | Proposed |
 | [altium-visual-data.md](./altium-visual-data.md) | Extract non-electrical visual/drawing data (lines, polylines, junctions, sheet metadata, etc.) from `.SchDoc` for future schematic rendering | Proposed |
 | [dsn-parser-audit.md](./dsn-parser-audit.md) | Audit comparing our DSN TypeScript parser against the C++ `OpenOrCadParser` reference. Documents semantic extensions, gaps, and risks | Reference |
 

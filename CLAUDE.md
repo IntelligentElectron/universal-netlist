@@ -2,7 +2,12 @@
 
 ## Overview
 
-MCP server for querying EDA netlists and tracing circuit connectivity. Supports Cadence (CIS, HDL), Altium Designer, and KiCad formats.
+MCP server for querying EDA netlists and tracing circuit connectivity. Supports Cadence OrCAD/CIS (.DSN), Altium Designer, KiCad, and Universal Netlist formats.
+
+DAT parsing and `export_cadence_netlist` are dormant in MCP, controlled by
+`src/features.ts`. Keep their implementations and regression tests. The CLI
+`coverage` command and developer golden-generation scripts still use DAT as
+an independent reference; do not advertise that path to MCP clients.
 
 ## Development
 

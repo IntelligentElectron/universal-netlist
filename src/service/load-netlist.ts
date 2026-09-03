@@ -33,7 +33,7 @@ export const loadNetlist = async (designPath: string): Promise<ParsedNetlist | E
   if (!handler) {
     const ext = path.extname(normalizedPath);
     return {
-      error: `Unsupported design file format '${ext}'. Supported: .dsn, .cpm (Cadence), .PrjPcb, .SchDoc (Altium), .kicad_pro, .kicad_sch (KiCad), .netlist.json (Universal Netlist)`,
+      error: `Unsupported design file format '${ext}'. Supported: .dsn (Cadence), .PrjPcb, .SchDoc (Altium), .kicad_pro, .kicad_sch (KiCad), .netlist.json (Universal Netlist)`,
     };
   }
 

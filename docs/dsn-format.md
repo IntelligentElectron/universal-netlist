@@ -2,6 +2,10 @@
 
 This document describes the binary format of OrCAD Design (`.DSN`) files as understood by our parser. It is derived from reverse engineering, cross-referencing with [OpenOrCadParser](https://github.com/Werni2A/OpenOrCadParser), and validation against real-world designs.
 
+MCP reads `.DSN` schematics directly. DAT exports in this specification are
+independent references for CLI coverage and regression testing; DAT parsing and
+the Cadence exporter are dormant in MCP.
+
 Each section marks its confidence level:
 
 - **VERIFIED**: Confirmed by parsing 10+ real designs with correct output
@@ -1100,8 +1104,9 @@ occurrence id  --Hierarchy type 66-->  dbId  --PlacedInstance-->  refdes
 ```
 
 Reading it costs parsing the page streams, which is the schematic's whole cost.
-The DAT path therefore holds the resolved set for the `.DSN` that produced it and
-recomputes it when that file changes, so a query pays it once rather than per call.
+The retained DAT regression helper holds the resolved set for the `.DSN` that
+produced it and recomputes it when that file changes. MCP queries use the DSN
+parser directly.
 
 ### 11.3 What BOMPartData is not
 
@@ -1448,8 +1453,8 @@ Implemented, from both of the sources a Cadence design records it in:
 
 Reading the marker closed a divergence between the two paths. The value was being
 stripped of its marker without the flag ever being set, so the same board answered
-differently depending on whether a query named the `.DSN` or the `pstxnet.dat` beside
-it: 65 parts across BeagleBoard-xM (38), CutiePi (22) and CC13xx (5) were flagged by
+differently through the `.DSN` parser and the retained DAT regression parser:
+65 parts across BeagleBoard-xM (38), CutiePi (22) and CC13xx (5) were flagged by
 one path and not the other. `test/integration/golden.test.ts` now compares the two on
 every oracle design and asserts they agree, over 6360 components.
 

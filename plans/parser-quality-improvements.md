@@ -1,5 +1,10 @@
 # Parser quality improvements (June 2026 stress-test findings)
 
+> Historical audit from June 2026. DAT parsing and `export_cadence_netlist` are
+> now dormant in MCP. References to DAT tool calls below record the behavior
+> measured then; use `.DSN` schematics for current MCP queries. DAT-specific
+> follow-up work applies only to retained CLI coverage and regression helpers.
+
 ## Context
 
 On 2026-06-12 we ran a full-fixture stress test of the MCP server: 11 agents (one
@@ -97,7 +102,10 @@ value "10 NF" (must NOT flag), value "100nF" (must NOT flag). MCP verification:
 temperatureSensor R1 hidden by default, returned with `include_dns=true` and
 `dns: true`.
 
-## Finding 3: .dat designs keyed by file stem "pstxnet" instead of design name
+## Finding 3: Historical DAT design-name keying
+
+**Current scope:** DAT designs are no longer exposed by MCP discovery or queries.
+The evidence and proposed checks below concern the retained implementation.
 
 **Evidence:** all 5 Cadence-DAT fixtures: search results and error messages say
 design "pstxnet" while `list_designs` reports the real name (e.g.

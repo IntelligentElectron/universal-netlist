@@ -32,12 +32,13 @@ describe("discoverDesigns", () => {
   });
 
   describe("Cadence designs", () => {
-    it("should discover Cadence designs and associated .dat files", async () => {
+    it("discovers DSN schematics without associating DAT files or exposing HDL designs", async () => {
       const designDir = join(testDir, "test_design_1");
       const datDir = join(designDir, "worklib", "test_design_1", "packaged");
 
       await mkdir(datDir, { recursive: true });
       await writeFile(join(designDir, "test_design_1.cpm"), "");
+      await writeFile(join(designDir, "test_design_1.DSN"), "");
       await writeFile(join(datDir, "pstxnet.dat"), "test");
       await writeFile(join(datDir, "pstxprt.dat"), "test");
       await writeFile(join(datDir, "pstchip.dat"), "test");
@@ -46,12 +47,12 @@ describe("discoverDesigns", () => {
       expect(designs).toHaveLength(1);
       expect(designs[0]).toMatchObject({
         name: "test_design_1",
-        format: "cadence-hdl",
-        sourcePath: join(designDir, "test_design_1.cpm"),
+        format: "cadence-cis",
+        sourcePath: join(designDir, "test_design_1.DSN"),
         datFiles: {
-          pstxnet: join(datDir, "pstxnet.dat"),
-          pstxprt: join(datDir, "pstxprt.dat"),
-          pstchip: join(datDir, "pstchip.dat"),
+          pstxnet: null,
+          pstxprt: null,
+          pstchip: null,
         },
       });
     });
@@ -200,7 +201,7 @@ describe("discoverDesigns", () => {
       const cadenceDir = join(testDir, "cadence_board");
       const datDir = join(cadenceDir, "worklib", "cadence_board", "packaged");
       await mkdir(datDir, { recursive: true });
-      await writeFile(join(cadenceDir, "cadence_board.cpm"), "");
+      await writeFile(join(cadenceDir, "cadence_board.DSN"), "");
       await writeFile(join(datDir, "pstxnet.dat"), "test");
       await writeFile(join(datDir, "pstxprt.dat"), "test");
       await writeFile(join(datDir, "pstchip.dat"), "test");
@@ -217,7 +218,7 @@ describe("discoverDesigns", () => {
       const designs = await discoverDesigns(testDir);
       expect(designs).toHaveLength(2);
 
-      const cadence = designs.find((d) => d.format === "cadence-hdl");
+      const cadence = designs.find((d) => d.format === "cadence-cis");
       const altium = designs.find((d) => d.format === "altium");
 
       expect(cadence).toBeDefined();
@@ -253,7 +254,7 @@ describe("discoverDesigns", () => {
       expect(designs.map((d) => d.name)).toEqual(["real"]);
     });
 
-    it("should ignore ._* sidecars of Cadence .dat files", async () => {
+    it("excludes standalone DAT designs and their sidecars", async () => {
       const designDir = join(testDir, "dat_only");
       await mkdir(designDir, { recursive: true });
       for (const name of ["pstxnet.dat", "pstxprt.dat", "pstchip.dat"]) {
@@ -262,8 +263,7 @@ describe("discoverDesigns", () => {
       }
 
       const designs = await discoverDesigns(testDir);
-      expect(designs).toHaveLength(1);
-      expect(designs[0].format).toBe("cadence-dat");
+      expect(designs).toEqual([]);
     });
 
     it("should ignore ._* sidecars of KiCad project files", async () => {

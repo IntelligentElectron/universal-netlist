@@ -15,6 +15,7 @@ import path from "node:path";
 import { describe, it, expect } from "vitest";
 import { listAllFixtures, loadGolden, findDesignFiles, findDsnFiles } from "../utils.js";
 import { parseDesign } from "../../src/parsers/index.js";
+import { parseCadenceDatDesign } from "../../src/parsers/cadence/index.js";
 import { findCadenceDatFiles } from "../../src/parsers/cadence/discovery.js";
 import { parseDsnFile } from "../../src/parsers/cadence/dsn/dsn-parser.js";
 import type { ParsedNetlist } from "../../src/types.js";
@@ -81,7 +82,10 @@ describe("Parser Golden Output", async () => {
           }
 
           const parsePath = await resolveGoldenParsePath(designFile);
-          const actual = await parseDesign(parsePath);
+          // DAT remains an independent test oracle, outside the MCP handler.
+          const actual = await (/\.(dat|cpm)$/i.test(parsePath)
+            ? parseCadenceDatDesign(parsePath)
+            : parseDesign(parsePath));
 
           expect(actual).toEqual(golden);
         });

@@ -37,7 +37,7 @@ node --import tsx scripts/gen-golden.ts cadence BEAGLEBONEBLK_C3 "test/fixtures/
 Output is saved to `test/golden/<format>/<name>.netlist.json`. Every golden is a
 versioned Universal Netlist document, not an arbitrary JSON file.
 
-When DAT files (.dat) exist alongside a .DSN, the parser prefers DAT (richer data: pin names, MPN, values). To generate golden from DAT, pass the pstxnet.dat path.
+Golden generation uses the retained DAT parser as an independent reference when an export exists alongside a `.DSN`. To generate that reference directly, pass `pstxnet.dat`. This is a developer-only path: MCP discovery and queries accept the `.DSN` schematic and do not expose DAT parsing. CLI `coverage` also retains DAT comparison and its Windows export support.
 
 ## dsn-coverage-report.ts
 

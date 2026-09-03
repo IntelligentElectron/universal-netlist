@@ -11,6 +11,10 @@ design whose netlist is the thing you hand to somebody else. For the byte-level
 layout of the streams involved, see
 [section 11 of the DSN format specification](dsn-format.md#11-cis-variant-store).
 
+MCP queries read the `.DSN` schematic directly. DAT examples below explain the
+reference exports used by CLI coverage and regression tests; DAT parsing is
+dormant in MCP.
+
 ## The two mechanisms
 
 | | A. Marker in the part's value | B. CIS variant |
@@ -67,9 +71,9 @@ that use variants exclusively:
 Their exported part names read `R_R0402_DISCRETE_10K` and `CC_C0402_0.7PF`. There
 is nothing in them to find.
 
-So the flag is read from the schematic instead. This happens whether a query names
-the `.DSN` or the `pstxnet.dat` beside it: for a netlist query the schematic is
-located next to it and its variant store read, so both paths report the same set.
+MCP queries read the flag from the `.DSN` schematic. The retained DAT parser also
+reads the nearby schematic for variant flags when building regression references;
+that internal path is not exposed to MCP clients.
 
 ## One design, both mechanisms
 
@@ -90,16 +94,16 @@ Nothing about it is unusual, and nothing in the exported netlist could ever tell
 you it is not fitted.
 
 Reading both mechanisms returns exactly those 25, with nothing missing and
-nothing invented, on both the schematic and the netlist path.
+nothing invented, through the schematic parser and the retained DAT regression path.
 
 ## What this means in practice
 
-**Keep the `.DSN` with the netlist.** The variant store is in the schematic. Where
+**Query the `.DSN` schematic.** The variant store is in the schematic. Where
 a design's Do Not Install is set through variants, a directory holding only
 `pstxnet.dat`, `pstxprt.dat` and `pstchip.dat` does not contain that information
 in any form, and no tool can recover it from those files. Cadence exports the
 triad into a subdirectory of the schematic's own
-(`<design>/allegro/pstxnet.dat`), which is the layout this expects.
+(`<design>/allegro/pstxnet.dat`), which the retained regression helper recognizes.
 
 **A netlist you hand to somebody else carries mechanism A only.** If your
 downstream consumer needs to know what is not fitted, either send the `.DSN` too,

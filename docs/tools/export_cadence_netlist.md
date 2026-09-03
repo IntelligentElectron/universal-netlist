@@ -1,20 +1,20 @@
-# export_cadence_netlist
+# Cadence exporter (internal reference)
 
-> **Deprecated.** This tool is kept for backward compatibility and will eventually be removed. It is not needed to query a Cadence design: every tool reads the `.DSN` schematic directly, which is what `list_designs` returns as `path`. Reach for it only when the exported netlist files are themselves what you want, such as handing them to Allegro.
+> **Dormant in MCP.** This tool is not registered or callable by MCP clients. Its implementation is retained for CLI coverage and regression tests. The reference below describes that retained implementation; query Cadence designs through their `.DSN` schematics.
 
 Export Cadence schematic netlist to Allegro PCB format.
 
 ## Description
 
-Generates Allegro-compatible netlist files from Cadence schematics using the `pstswp` utility. This tool automates the netlist export process that would normally be done manually in Cadence Design Entry.
+The retained `exportCadenceNetlist` function generates Allegro-compatible netlist files from Cadence schematics using the `pstswp` utility. CLI coverage uses it on Windows when reference exports are missing. It is not an MCP tool.
 
 **Platform Requirement**: Windows only. Requires Cadence SPB installation.
 
-## Input Parameters
+## Internal function argument
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `design` | string | Yes | Path to `.DSN` schematic file |
+| `dsnPath` | string | Yes | Path to `.DSN` schematic file |
 
 ## Response Schema
 
@@ -66,18 +66,14 @@ Generates Allegro-compatible netlist files from Cadence schematics using the `ps
 }
 ```
 
-## Example
+## Internal API example
 
-**Exporting netlist from a Cadence schematic:**
+The CLI and regression tests call the retained service function directly:
 
-Call:
-```json
-{
-  "tool": "export_cadence_netlist",
-  "arguments": {
-    "design": "Schematics/MyBoard.DSN"
-  }
-}
+```typescript
+import { exportCadenceNetlist } from "./src/service/index.js";
+
+const result = await exportCadenceNetlist("Schematics/MyBoard.DSN");
 ```
 
 Response (success):

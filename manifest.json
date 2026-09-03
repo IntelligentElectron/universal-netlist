@@ -5,7 +5,7 @@
   "display_name": "Universal Netlist",
   "version": "0.0.3",
   "description": "Query EDA netlists and trace circuit connectivity for schematic design reviews",
-  "long_description": "The Universal Netlist MCP Server gives AI agents the power to understand and analyze your electrical schematics. Query components, trace signal paths through XNETs, run electrical rule checks, and perform comprehensive design reviews through natural conversations.\n\nSupports Cadence (CIS, HDL), Altium Designer, and KiCad formats. Design files are read directly, with no Cadence or Altium installation and no EDA license required.",
+  "long_description": "The Universal Netlist MCP Server gives AI agents the power to understand and analyze your electrical schematics. Query components, trace signal paths through XNETs, run electrical rule checks, and perform comprehensive design reviews through natural conversations.\n\nSupports Cadence OrCAD/CIS (.DSN schematics), Altium Designer, and KiCad formats. Design files are read directly, with no Cadence or Altium installation and no EDA license required.",
   "author": {
     "name": "IntelligentElectron",
     "url": "https://github.com/IntelligentElectron"
@@ -90,10 +90,6 @@
     {
       "name": "run_erc",
       "description": "Run electrical rule checks (ERC) on the netlist"
-    },
-    {
-      "name": "export_cadence_netlist",
-      "description": "DEPRECATED, kept for backward compatibility: export Cadence schematic to Allegro PCB format (Windows only). Not needed to query a design."
     }
   ]
 }

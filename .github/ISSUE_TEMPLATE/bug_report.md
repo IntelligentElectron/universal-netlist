@@ -32,8 +32,7 @@ What actually happened.
 
 ## Netlist Format
 
-- [ ] Cadence CIS (.dsn)
-- [ ] Cadence HDL (.cpm)
+- [ ] Cadence OrCAD/CIS (.dsn)
 - [ ] Altium Designer (.PrjPcb)
 - [ ] KiCad (.kicad_pro)
 

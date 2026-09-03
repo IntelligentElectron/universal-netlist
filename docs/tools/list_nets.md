@@ -70,7 +70,7 @@ Response:
 **Error (unsupported format):**
 ```json
 {
-  "error": "Unsupported design file format '.kicad_pcb'. Supported: .dsn, .cpm (Cadence), .PrjPcb, .SchDoc (Altium), .kicad_pro, .kicad_sch (KiCad)"
+  "error": "Unsupported design file format '.kicad_pcb'. Supported: .dsn (Cadence), .PrjPcb, .SchDoc (Altium), .kicad_pro, .kicad_sch (KiCad), .netlist.json (Universal Netlist)"
 }
 ```
 
