@@ -30,6 +30,64 @@ describe("groupComponentsByMpn", () => {
     expect(result[0].refdes).toEqual(["U1"]);
   });
 
+  it("reports the design's own part number and manufacturer alongside the MPN", () => {
+    const components: ComponentDetails = {
+      R1: {
+        mpn: "MFRA-0R00-01005",
+        internal_pn: "INT-1001",
+        manufacturer: "Example Mfr",
+        pins: { "1": "GND" },
+      },
+    };
+    const entries = Object.entries(components) as Array<[string, ComponentDetails[string]]>;
+
+    const result = groupComponentsByMpn(entries, false);
+
+    expect(result).toHaveLength(1);
+    expect(result[0].mpn).toBe("MFRA-0R00-01005");
+    expect(result[0].internal_pn).toBe("INT-1001");
+    expect(result[0].manufacturer).toBe("Example Mfr");
+  });
+
+  /**
+   * A group speaks for every part in it, so a field it reports has to be part
+   * of the key. Two parts sharing an internal number but sourced from different
+   * manufacturers would otherwise be merged, and the group would report the
+   * first one's manufacturer number for both.
+   */
+  it("does not merge parts that share an MPN but carry different internal numbers", () => {
+    const components: ComponentDetails = {
+      R1: { mpn: "MFRA-0R00-01005", internal_pn: "INT-1001", pins: { "1": "GND" } },
+      R2: { mpn: "MFRA-0R00-01005", internal_pn: "INT-1002", pins: { "1": "GND" } },
+    };
+    const entries = Object.entries(components) as Array<[string, ComponentDetails[string]]>;
+
+    const result = groupComponentsByMpn(entries, false);
+
+    expect(result).toHaveLength(2);
+    expect(result.map((g) => g.internal_pn).sort()).toEqual(["INT-1001", "INT-1002"]);
+  });
+
+  /**
+   * The defect at the layer a caller sees it: identical parts came back as two
+   * groups because some of them reported the manufacturer's number in `mpn` and
+   * the rest the design's. With one namespace in `mpn` they are one group.
+   */
+  it("groups identical parts once now that mpn holds a single namespace", () => {
+    const components: ComponentDetails = Object.fromEntries(
+      ["R0117", "R1100", "R1102", "R2100"].map((refdes) => [
+        refdes,
+        { mpn: "MFRA-0R00-01005", internal_pn: "INT-1001", value: "0", pins: { "1": "GND" } },
+      ])
+    );
+    const entries = Object.entries(components) as Array<[string, ComponentDetails[string]]>;
+
+    const result = groupComponentsByMpn(entries, false);
+
+    expect(result).toHaveLength(1);
+    expect(result[0].count).toBe(4);
+  });
+
   it("should set mpn to the value and omit notes when MPN is present", () => {
     const components: ComponentDetails = {
       U1: { mpn: "TPS62088", pins: { "1": "VCC", "2": "GND" } },
@@ -349,12 +407,11 @@ describe("aggregateCircuitByMpn", () => {
 /**
  * A group speaks for every part in it.
  *
- * Grouping used to key on MPN alone and keep whichever member arrived first,
- * so a design that gives every resistor the MPN `R` and every capacitor `CC`
- * — which the OSHW Jetson carriers do, and which `N.A.` placeholders do on
- * other boards — collapsed into one group reporting one value for all of them.
- * `list_components(type: "R")` on reComputer J202 answered a single group of
- * 271 resistors valued `5.1R`, and R1 is `0R`.
+ * Grouping used to key on MPN alone and keep whichever member arrived first, so
+ * a design that gives every resistor the MPN `R` and every capacitor `CC`, or
+ * that writes an `N.A.` placeholder, collapsed into one group reporting one
+ * member's value for all of them. Listing the resistors of such a board
+ * answered a single group of 271 parts valued `5.1R` when the first was `0R`.
  */
 describe("groups only merge parts the group's own fields describe", () => {
   const entriesOf = (components: ComponentDetails) =>

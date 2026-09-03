@@ -1,8 +1,8 @@
 {
-  "universalNetlistSchemaVersion": 1,
+  "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-01T21:46:11.017Z",
-    "netlistHash": "sha256:9aa63643572ca3ade62250ac554e8f0f6b6a9cab0481bcbf06187ec968ebc0ba",
+    "generatedAt": "2026-09-03T01:02:26.905Z",
+    "netlistHash": "sha256:f5a05e96b36b0bdbc8201a980cf86ac07ffdbae378909a0700c77e12f60f23c3",
     "origin": {
       "type": "vendor",
       "source": {
@@ -1319,6 +1319,7 @@
         }
       },
       "mpn": "TPS61170DRVR",
+      "manufacturer": "Texas Instruments",
       "description": "Boost, Buck-Boost, Flyback, SEPIC Switching Regulator IC Positive Adjustable 3V 1 Output 960mA (Switch) 6-WDFN Exposed Pad",
       "comment": "IC REG BOOST 38V 1.2A 6-WDFN"
     },
@@ -1328,6 +1329,7 @@
         "2": "NetR9_2"
       },
       "mpn": "RT0603DRE07390KL",
+      "manufacturer": "Yageo",
       "description": "390 kOhms ±0.5% 0.1W, 1/10W Chip Resistor 0603 (1608 Metric) Thin Film \r\n",
       "comment": "RES 390K OHM 1% 1/10W 0603"
     },
@@ -1345,6 +1347,7 @@
         "2": "NetC8_1"
       },
       "mpn": "74438356220",
+      "manufacturer": "Wurth Electronics",
       "description": "FIXED IND 22UH 1.7A 280MOHM SMD",
       "comment": "IND 22UH 1.7A 280 MOHM SMD"
     },
@@ -1354,6 +1357,7 @@
         "2": "NetC8_2"
       },
       "mpn": "CL31B105KCHNNNE",
+      "manufacturer": "Samsung",
       "description": "Cap Ceramic 1uF 100V X7R 10% SMD 1206 125C Embossed T/R",
       "comment": "CAP CER 1UF 100V X7R 1206"
     },
@@ -1363,6 +1367,7 @@
         "2": "NetC9_2"
       },
       "mpn": "SL110PL-TP",
+      "manufacturer": "MCC",
       "description": "DIODE SCHOTTKY 100V 1A SOD123FL",
       "comment": "DIODE SCHOTTKY 100V 1A SOD123FL"
     },
@@ -1372,6 +1377,7 @@
         "2": "NetC8_1"
       },
       "mpn": "SL110PL-TP",
+      "manufacturer": "MCC",
       "description": "DIODE SCHOTTKY 100V 1A SOD123FL",
       "comment": "DIODE SCHOTTKY 100V 1A SOD123FL"
     },
@@ -1381,6 +1387,7 @@
         "2": "NetC8_2"
       },
       "mpn": "SL110PL-TP",
+      "manufacturer": "MCC",
       "description": "DIODE SCHOTTKY 100V 1A SOD123FL",
       "comment": "DIODE SCHOTTKY 100V 1A SOD123FL"
     },
@@ -1462,6 +1469,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71E104KE14D",
+      "manufacturer": "Murata",
       "description": "Cap Ceramic 0.1uF 25V X7R 10% SMD 0402 125C Paper T/R",
       "comment": "CAP CER 0.1UF 16V X7R 0402"
     },
@@ -1471,6 +1479,7 @@
         "2": "NetC11_1"
       },
       "mpn": "0466.375NR",
+      "manufacturer": "Littelfuse",
       "description": "FUSE BOARD MNT 375MA 125VAC/VDC",
       "comment": "375 mA"
     },
@@ -1498,6 +1507,7 @@
         }
       },
       "mpn": "RT9072BGB",
+      "manufacturer": "Richtek",
       "description": "Linear Voltage Regulator IC 1 Output 20mA SOT-23-5",
       "comment": "IC REG LDO 80V ADJ 20MA SOT23-5"
     },
@@ -1523,6 +1533,7 @@
         "2": "GND"
       },
       "mpn": "CL31B105KCHNNNE",
+      "manufacturer": "Samsung",
       "description": "Cap Ceramic 1uF 100V X7R 10% SMD 1206 125C Embossed T/R",
       "comment": "CAP CER 1UF 100V X7R 1206"
     },
@@ -1532,6 +1543,7 @@
         "2": "GND"
       },
       "mpn": "CL31B105KCHNNNE",
+      "manufacturer": "Samsung",
       "description": "Cap Ceramic 1uF 100V X7R 10% SMD 1206 125C Embossed T/R",
       "comment": "CAP CER 1UF 100V X7R 1206"
     },
@@ -1541,6 +1553,7 @@
         "2": "NetC20_2"
       },
       "mpn": "RT0603BRD071ML",
+      "manufacturer": "Yageo",
       "description": "RES SMD 1M OHM 0.1% 1/10W 0603",
       "comment": "RES 1M OHM 0.1% 1/10W 0603"
     },
@@ -1550,6 +1563,7 @@
         "2": "GND"
       },
       "mpn": "ERJ-PB3B2672V",
+      "manufacturer": "Panasonic",
       "description": "RES SMD 26.7K OHM 0.1% 1/5W 0603",
       "comment": "RES 26.7K OHM 0.1% 1/10W 0603"
     },
@@ -1559,6 +1573,7 @@
         "2": "NetC20_2"
       },
       "mpn": "CC0603JRNPO0BN270",
+      "manufacturer": "Yageo",
       "description": "Cap Ceramic 27pF 100V C0G 5% SMD 0603 125C Paper T/R",
       "comment": "CAP CER 27PF 100V 5% C0G/NP0 0603"
     },
@@ -1582,6 +1597,7 @@
         }
       },
       "mpn": "CPC1017NTR",
+      "manufacturer": "IXYS Integrated Circuits Division",
       "description": "Relay Solid-State SPST-NO 4-SOP",
       "comment": "CPC1017N"
     },
@@ -1591,6 +1607,7 @@
         "2": "NetR17_2"
       },
       "mpn": "RT0402BRE071KL",
+      "manufacturer": "Yageo",
       "description": "RES SMD 1K OHM 0.1% 1/16W 0402",
       "comment": "RES 1K OHM 0.1% 1/16W 0402"
     },
@@ -1610,6 +1627,7 @@
         }
       },
       "mpn": "DMP3099L-7",
+      "manufacturer": "Diodes Incorporated",
       "description": "P-Channel 30V 3.8A (Ta) 1.08W (Ta) Surface Mount SOT-23",
       "comment": "MOSFET P-CH 30V 3.8A SOT-23"
     },
@@ -1629,6 +1647,7 @@
         }
       },
       "mpn": "DMN3023L-7",
+      "manufacturer": "Diodes",
       "description": "N-Channel 30V 6.2A (Ta) 900mW (Ta) Surface Mount SOT-23",
       "comment": "MOSFET N-CH 30V 6.2A 0.9W SOT-23"
     },
@@ -1638,6 +1657,7 @@
         "2": "NetQ1_1"
       },
       "mpn": "RC0402FR-07162KL",
+      "manufacturer": "Yageo",
       "description": "RES SMD 162K OHM 1% 1/16W 0402",
       "comment": "RES 162K OHM 1% 1/16W 0402"
     },
@@ -1647,6 +1667,7 @@
         "2": "GND"
       },
       "mpn": "RC0402FR-07162KL",
+      "manufacturer": "Yageo",
       "description": "RES SMD 162K OHM 1% 1/16W 0402",
       "comment": "RES 162K OHM 1% 1/16W 0402"
     },
@@ -1656,6 +1677,7 @@
         "2": "NetQ2_1"
       },
       "mpn": "RC0402FR-0722R1L",
+      "manufacturer": "Yageo",
       "description": "RES SMD 22.1 OHM 1% 1/16W 0402",
       "comment": "RES 22.1 OHM 1% 1/16W 0402"
     },
@@ -1674,6 +1696,7 @@
         "2": "NetL3_2"
       },
       "mpn": "74437334010",
+      "manufacturer": "Wurth Electronics",
       "description": "WURTH ELEKTRONIK         74437334010             Surface Mount Power Inductor, WE-LHMI Series, 1 H, 5.3 A, 13.9 A, Shielded, 0.02 ohm",
       "comment": "IND 1UH 5.3A 20 MOHM SMD"
     },
@@ -1709,6 +1732,7 @@
         }
       },
       "mpn": "TPS61022RWUT",
+      "manufacturer": "Texas Instruments",
       "description": "Boost Switching Regulator IC Positive Adjustable 2.2V 1 Output 7-VFQFN",
       "comment": "IC REG BOOST 8A VQFN"
     },
@@ -1718,6 +1742,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71E104KE14D",
+      "manufacturer": "Murata",
       "description": "Cap Ceramic 0.1uF 25V X7R 10% SMD 0402 125C Paper T/R",
       "comment": "CAP CER 0.1UF 16V X7R 0402"
     },
@@ -1727,6 +1752,7 @@
         "2": "GND"
       },
       "mpn": "GRT31CR61H106ME01L",
+      "manufacturer": "Murata",
       "description": "10µF ±20% 50V Ceramic Capacitor X5R 1206 (3216 Metric) \r\n",
       "comment": "CAP CER 10uF 50V 20% X5R 1206"
     },
@@ -1736,6 +1762,7 @@
         "2": "GND"
       },
       "mpn": "GCM155R71E103KA37D",
+      "manufacturer": "Murata",
       "description": "MURATA - GCM155R71E103KA37D - SMD Vícevrstvý Keramický Kondenzátor, 10000 pF, 25 V, 0402 [1005 Metrické], ± 10%, X7R, Série GCM",
       "comment": "CAP CER 10nF 25V X7R 0402"
     },
@@ -1745,6 +1772,7 @@
         "2": "NetC29_1"
       },
       "mpn": "CRF0805-FZ-R005ELF",
+      "manufacturer": "Bourns",
       "description": "5 mOhms ±1% 0.5W, 1/2W Chip Resistor 0805 (2012 Metric) Automotive AEC-Q200, Current Sense, Moisture Resistant Metal Element ",
       "comment": "RES 0.005 OHM 1% 1/2W 0805"
     },
@@ -1754,6 +1782,7 @@
         "2": "GND"
       },
       "mpn": "RT0402BRD07100KL",
+      "manufacturer": "Yageo",
       "description": "Thin Film Resistors - SMD 1/16W 100K ohm .1% 25ppm",
       "comment": "RES 100K OHM 0.1% 1/16W 0402"
     },
@@ -1763,6 +1792,7 @@
         "2": "NetC28_2"
       },
       "mpn": "RC0402FR-07750KL",
+      "manufacturer": "Yageo",
       "description": "750 kOhms ±1% 0.063W, 1/16W Chip Resistor 0402 (1005 Metric) Moisture Resistant Thick Film",
       "comment": "RES 750K OHM 1% 1/16W 0402"
     },
@@ -1772,6 +1802,7 @@
         "2": "NetC28_2"
       },
       "mpn": "CL05C200JB5NNNC",
+      "manufacturer": "Samsung",
       "description": "Cap Ceramic 20pF 50V C0G 5% SMD 0402 125C Paper T/R",
       "comment": "CAP CER 20PF 50V C0G/NPO 0402"
     },
@@ -1781,6 +1812,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71E104KE14D",
+      "manufacturer": "Murata",
       "description": "Cap Ceramic 0.1uF 25V X7R 10% SMD 0402 125C Paper T/R",
       "comment": "CAP CER 0.1UF 16V X7R 0402"
     },
@@ -1790,6 +1822,7 @@
         "2": "GND"
       },
       "mpn": "GCM155R71E103KA37D",
+      "manufacturer": "Murata",
       "description": "MURATA - GCM155R71E103KA37D - SMD Vícevrstvý Keramický Kondenzátor, 10000 pF, 25 V, 0402 [1005 Metrické], ± 10%, X7R, Série GCM",
       "comment": "CAP CER 10nF 25V X7R 0402"
     },
@@ -1857,6 +1890,7 @@
         }
       },
       "mpn": "TPS82084SILR",
+      "manufacturer": "Texas Instruments",
       "description": "Non-Isolated PoL Module DC DC Converter 1 Output 0.8 ~ 6V 2A 2.5V - 6V Input",
       "comment": "IC DCDC 0.8-6V 2A 8-uSIP"
     },
@@ -1866,6 +1900,7 @@
         "2": "NetC37_1"
       },
       "mpn": "CRF0805-FZ-R005ELF",
+      "manufacturer": "Bourns",
       "description": "5 mOhms ±1% 0.5W, 1/2W Chip Resistor 0805 (2012 Metric) Automotive AEC-Q200, Current Sense, Moisture Resistant Metal Element ",
       "comment": "RES 0.005 OHM 1% 1/2W 0805"
     },
@@ -1875,6 +1910,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71E104KE14D",
+      "manufacturer": "Murata",
       "description": "Cap Ceramic 0.1uF 25V X7R 10% SMD 0402 125C Paper T/R",
       "comment": "CAP CER 0.1UF 16V X7R 0402"
     },
@@ -1884,6 +1920,7 @@
         "2": "GND"
       },
       "mpn": "GRT31CR61H106ME01L",
+      "manufacturer": "Murata",
       "description": "10µF ±20% 50V Ceramic Capacitor X5R 1206 (3216 Metric) \r\n",
       "comment": "CAP CER 10uF 50V 20% X5R 1206"
     },
@@ -1893,6 +1930,7 @@
         "2": "GND"
       },
       "mpn": "GCM155R71E103KA37D",
+      "manufacturer": "Murata",
       "description": "MURATA - GCM155R71E103KA37D - SMD Vícevrstvý Keramický Kondenzátor, 10000 pF, 25 V, 0402 [1005 Metrické], ± 10%, X7R, Série GCM",
       "comment": "CAP CER 10nF 25V X7R 0402"
     },
@@ -1902,6 +1940,7 @@
         "2": "NetR28_2"
       },
       "mpn": "RC0402FR-07523KL",
+      "manufacturer": "Yageo",
       "description": "Thick Film Resistors 523K OHM 1%",
       "comment": "RES 523K OHM 1% 1/16W 0402"
     },
@@ -1911,6 +1950,7 @@
         "2": "GND"
       },
       "mpn": "RC0402FR-07162KL",
+      "manufacturer": "Yageo",
       "description": "RES SMD 162K OHM 1% 1/16W 0402",
       "comment": "RES 162K OHM 1% 1/16W 0402"
     },
@@ -1920,6 +1960,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71E104KE14D",
+      "manufacturer": "Murata",
       "description": "Cap Ceramic 0.1uF 25V X7R 10% SMD 0402 125C Paper T/R",
       "comment": "CAP CER 0.1UF 16V X7R 0402"
     },
@@ -1929,6 +1970,7 @@
         "2": "GND"
       },
       "mpn": "GRT31CR61H106ME01L",
+      "manufacturer": "Murata",
       "description": "10µF ±20% 50V Ceramic Capacitor X5R 1206 (3216 Metric) \r\n",
       "comment": "CAP CER 10uF 50V 20% X5R 1206"
     },
@@ -1938,6 +1980,7 @@
         "2": "GND"
       },
       "mpn": "GRT31CR61H106ME01L",
+      "manufacturer": "Murata",
       "description": "10µF ±20% 50V Ceramic Capacitor X5R 1206 (3216 Metric) \r\n",
       "comment": "CAP CER 10uF 50V 20% X5R 1206"
     },
@@ -1997,6 +2040,7 @@
         }
       },
       "mpn": "LM27761DSGR",
+      "manufacturer": "Texas Instruments",
       "description": "Charge Pump Switching Regulator IC Negative Adjustable -1.5V 1 Output 250mA 8-WFDFN Exposed Pad",
       "comment": "IC REG INV CHARGE PUMP ADJ 8-WSON"
     },
@@ -2014,6 +2058,7 @@
         "2": "NetR36_2"
       },
       "mpn": "RC0402FR-07523KL",
+      "manufacturer": "Yageo",
       "description": "Thick Film Resistors 523K OHM 1%",
       "comment": "RES 523K OHM 1% 1/16W 0402"
     },
@@ -2032,6 +2077,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71E104KE14D",
+      "manufacturer": "Murata",
       "description": "Cap Ceramic 0.1uF 25V X7R 10% SMD 0402 125C Paper T/R",
       "comment": "CAP CER 0.1UF 16V X7R 0402"
     },
@@ -2041,6 +2087,7 @@
         "2": "GND"
       },
       "mpn": "GRT31CR61H106ME01L",
+      "manufacturer": "Murata",
       "description": "10µF ±20% 50V Ceramic Capacitor X5R 1206 (3216 Metric) \r\n",
       "comment": "CAP CER 10uF 50V 20% X5R 1206"
     },
@@ -2050,6 +2097,7 @@
         "2": "NetR38_2"
       },
       "mpn": "RC0402FR-07162KL",
+      "manufacturer": "Yageo",
       "description": "RES SMD 162K OHM 1% 1/16W 0402",
       "comment": "RES 162K OHM 1% 1/16W 0402"
     },
@@ -2059,6 +2107,7 @@
         "2": "GND"
       },
       "mpn": "RC0402FR-0710KL",
+      "manufacturer": "Yageo",
       "description": "Surface Mount Thick Film Resistor, Rc Series, 10 Kohm, 62.5 Mw, - 1%, 50 V, 0402 [1005 Metric]",
       "comment": "RES 10K OHM 1% 1/16W 0402"
     },
@@ -2084,6 +2133,7 @@
         "2": "NetLED3_1"
       },
       "mpn": "RC0402FR-074K7L",
+      "manufacturer": "Yageo",
       "description": "YAGEO (PHYCOMP) - RC0402FR-074K7L - RES, THICK FILM, 4K7, 1%, 0.063W, 0402",
       "comment": "RES 4.7K OHM 1% 1/10W 0402"
     },
@@ -2099,6 +2149,7 @@
         }
       },
       "mpn": "150060VS75000",
+      "manufacturer": "Wurth Electronics Inc.",
       "description": "Green 572nm LED Indication - Discrete 2V 0603 (1608 Metric)",
       "comment": "LED GREEN CLEAR 2V 0603"
     },
@@ -2108,6 +2159,7 @@
         "2": "NetLED2_2"
       },
       "mpn": "RC0402FR-074K7L",
+      "manufacturer": "Yageo",
       "description": "YAGEO (PHYCOMP) - RC0402FR-074K7L - RES, THICK FILM, 4K7, 1%, 0.063W, 0402",
       "comment": "RES 4.7K OHM 1% 1/10W 0402"
     },
@@ -2123,6 +2175,7 @@
         }
       },
       "mpn": "150060VS75000",
+      "manufacturer": "Wurth Electronics Inc.",
       "description": "Green 572nm LED Indication - Discrete 2V 0603 (1608 Metric)",
       "comment": "LED GREEN CLEAR 2V 0603"
     },
@@ -2132,6 +2185,7 @@
         "2": "NetLED4_1"
       },
       "mpn": "RC0402FR-074K7L",
+      "manufacturer": "Yageo",
       "description": "YAGEO (PHYCOMP) - RC0402FR-074K7L - RES, THICK FILM, 4K7, 1%, 0.063W, 0402",
       "comment": "RES 4.7K OHM 1% 1/10W 0402"
     },
@@ -2147,6 +2201,7 @@
         }
       },
       "mpn": "150060VS75000",
+      "manufacturer": "Wurth Electronics Inc.",
       "description": "Green 572nm LED Indication - Discrete 2V 0603 (1608 Metric)",
       "comment": "LED GREEN CLEAR 2V 0603"
     },
@@ -2178,6 +2233,7 @@
         }
       },
       "mpn": "SIA527DJ-T1-GE3",
+      "manufacturer": "Vishay Semiconductors",
       "description": "MOSFET 12V 29mOhm@4.5V 4.5A N-CH",
       "comment": "MOSFET N/P-CH 12V 4.5A SC-70-6"
     },
@@ -2187,6 +2243,7 @@
         "2": "NetQ3_5"
       },
       "mpn": "RC0402FR-0710KL",
+      "manufacturer": "Yageo",
       "description": "Surface Mount Thick Film Resistor, Rc Series, 10 Kohm, 62.5 Mw, - 1%, 50 V, 0402 [1005 Metric]",
       "comment": "RES 10K OHM 1% 1/16W 0402"
     },
@@ -2218,6 +2275,7 @@
         }
       },
       "mpn": "SIA527DJ-T1-GE3",
+      "manufacturer": "Vishay Semiconductors",
       "description": "MOSFET 12V 29mOhm@4.5V 4.5A N-CH",
       "comment": "MOSFET N/P-CH 12V 4.5A SC-70-6"
     },
@@ -2227,6 +2285,7 @@
         "2": "NetQ4_5"
       },
       "mpn": "RC0402FR-0710KL",
+      "manufacturer": "Yageo",
       "description": "Surface Mount Thick Film Resistor, Rc Series, 10 Kohm, 62.5 Mw, - 1%, 50 V, 0402 [1005 Metric]",
       "comment": "RES 10K OHM 1% 1/16W 0402"
     },
@@ -2236,6 +2295,7 @@
         "2": "ESP32_PWR_PE_GP0_nSW_EN"
       },
       "mpn": "RC0402FR-0710KL",
+      "manufacturer": "Yageo",
       "description": "Surface Mount Thick Film Resistor, Rc Series, 10 Kohm, 62.5 Mw, - 1%, 50 V, 0402 [1005 Metric]",
       "comment": "RES 10K OHM 1% 1/16W 0402"
     },
@@ -2245,6 +2305,7 @@
         "2": "NetQ5_1"
       },
       "mpn": "RC0402FR-0710KL",
+      "manufacturer": "Yageo",
       "description": "Surface Mount Thick Film Resistor, Rc Series, 10 Kohm, 62.5 Mw, - 1%, 50 V, 0402 [1005 Metric]",
       "comment": "RES 10K OHM 1% 1/16W 0402"
     },
@@ -2264,6 +2325,7 @@
         }
       },
       "mpn": "DMN6140L-7",
+      "manufacturer": "Diodes",
       "description": "N-Channel 60V 310mA (Ta) 370mW (Ta) Surface Mount SOT-23",
       "comment": "MOSFET N-CH 60V 310MA SOT23"
     },
@@ -2273,6 +2335,7 @@
         "2": "NetQ3_2"
       },
       "mpn": "RC0402FR-0722R1L",
+      "manufacturer": "Yageo",
       "description": "RES SMD 22.1 OHM 1% 1/16W 0402",
       "comment": "RES 22.1 OHM 1% 1/16W 0402"
     },
@@ -2282,6 +2345,7 @@
         "2": "NetQ4_2"
       },
       "mpn": "RC0402FR-0722R1L",
+      "manufacturer": "Yageo",
       "description": "RES SMD 22.1 OHM 1% 1/16W 0402",
       "comment": "RES 22.1 OHM 1% 1/16W 0402"
     },
@@ -2291,6 +2355,7 @@
         "2": "NetQ5_3"
       },
       "mpn": "RC0402FR-0722R1L",
+      "manufacturer": "Yageo",
       "description": "RES SMD 22.1 OHM 1% 1/16W 0402",
       "comment": "RES 22.1 OHM 1% 1/16W 0402"
     },
@@ -2316,6 +2381,7 @@
         "2": "NetC3_2"
       },
       "mpn": "C0603C473K3RACTU",
+      "manufacturer": "KEMET",
       "description": "0.047µF ±10% 25V Ceramic Capacitor X7R 0603 (1608 Metric) \r\n",
       "comment": "CAP CER 0.047UF 10% 25V X7R 0603"
     },
@@ -2334,6 +2400,7 @@
         "2": "GND"
       },
       "mpn": "CRGCQ0603F330R",
+      "manufacturer": "TE Connectivity",
       "description": "330 Ohms ±1% 0.1W, 1/10W Chip Resistor 0603 (1608 Metric) Automotive AEC-Q200, Moisture Resistant Thick Film",
       "comment": "RES 330 OHM 1% 1/10W 0603",
       "value": "330"
@@ -2344,6 +2411,7 @@
         "2": "NetR6_2"
       },
       "mpn": "RC0603FR-07220RL",
+      "manufacturer": "Yageo",
       "description": "220 Ohms ±1% 0.1W, 1/10W Chip Resistor 0603 (1608 Metric) Moisture Resistant Thick Film",
       "comment": "RES 220 OHM 1% 1/10W 0603"
     },
@@ -2459,6 +2527,7 @@
         }
       },
       "mpn": "BQ25606RGER",
+      "manufacturer": "Texas Instruments",
       "description": "Charger IC Lithium Ion/Polymer 24-VQFN (4x4)",
       "comment": "IC BATT CHG LI-ION 1 CELL 24-VQFN"
     },
@@ -2494,6 +2563,7 @@
         "2": "V_SYS"
       },
       "mpn": "74437334010",
+      "manufacturer": "Wurth Electronics",
       "description": "WURTH ELEKTRONIK         74437334010             Surface Mount Power Inductor, WE-LHMI Series, 1 H, 5.3 A, 13.9 A, Shielded, 0.02 ohm",
       "comment": "IND 1UH 5.3A 20 MOHM SMD"
     },
@@ -2503,6 +2573,7 @@
         "2": "NetR3_2"
       },
       "mpn": "RC0402FR-0710KL",
+      "manufacturer": "Yageo",
       "description": "Surface Mount Thick Film Resistor, Rc Series, 10 Kohm, 62.5 Mw, - 1%, 50 V, 0402 [1005 Metric]",
       "comment": "RES 10K OHM 1% 1/16W 0402"
     },
@@ -2512,6 +2583,7 @@
         "2": "GND"
       },
       "mpn": "GRT31CR61H106ME01L",
+      "manufacturer": "Murata",
       "description": "10µF ±20% 50V Ceramic Capacitor X5R 1206 (3216 Metric) \r\n",
       "comment": "CAP CER 10uF 50V 20% X5R 1206"
     },
@@ -2521,6 +2593,7 @@
         "2": "GND"
       },
       "mpn": "GRT31CR61H106ME01L",
+      "manufacturer": "Murata",
       "description": "10µF ±20% 50V Ceramic Capacitor X5R 1206 (3216 Metric) \r\n",
       "comment": "CAP CER 10uF 50V 20% X5R 1206"
     },
@@ -2530,6 +2603,7 @@
         "2": "GND"
       },
       "mpn": "GRT31CR61H106ME01L",
+      "manufacturer": "Murata",
       "description": "10µF ±20% 50V Ceramic Capacitor X5R 1206 (3216 Metric) \r\n",
       "comment": "CAP CER 10uF 50V 20% X5R 1206"
     },
@@ -2597,6 +2671,7 @@
         }
       },
       "mpn": "MAX17260SETD+T",
+      "manufacturer": "Maxim",
       "description": "Battery Management 5.1 A 1-Cell Fuel Gauge with ModelGauge m5 EZ and Optional High-SideCurrent Sensing",
       "comment": "IC BATT FUEL GAUGE LI-ION 14-DFN"
     },
@@ -2606,6 +2681,7 @@
         "2": "VBAT_PROT"
       },
       "mpn": "CRF0805-FZ-R005ELF",
+      "manufacturer": "Bourns",
       "description": "5 mOhms ±1% 0.5W, 1/2W Chip Resistor 0805 (2012 Metric) Automotive AEC-Q200, Current Sense, Moisture Resistant Metal Element ",
       "comment": "RES 0.005 OHM 1% 1/2W 0805"
     },
@@ -2615,6 +2691,7 @@
         "2": "GND"
       },
       "mpn": "NXRT15XH103FA1B030",
+      "manufacturer": "Murata Electronics North America",
       "description": "NTC Thermistor 10k Bead",
       "comment": "10K NTC"
     },
@@ -2624,6 +2701,7 @@
         "2": "GND"
       },
       "mpn": "LMK105B7474KV-F",
+      "manufacturer": "Taiyo Yuden",
       "description": "CAP ,MLCC ,0402,6.3V,X7R,0.47uF, 10% ,T&R;",
       "comment": "CAP CER 0.47UF 10V X7R 0402"
     },
@@ -2639,6 +2717,7 @@
         }
       },
       "mpn": "1043P",
+      "manufacturer": "Keystone Electronics",
       "description": "BATTERY HOLDER 18650 PC PIN",
       "comment": "PROTECTED 18650"
     },
@@ -2648,6 +2727,7 @@
         "2": "NetD5_2"
       },
       "mpn": "C1F5",
+      "manufacturer": "Bel TRP",
       "description": "FUSE 5.0A 125VAC FAST 1206",
       "comment": "FUSE 5A 32VDC 1206"
     },
@@ -2657,6 +2737,7 @@
         "2": "NetD5_2"
       },
       "mpn": "SMBJ5.0D-M3/H",
+      "manufacturer": "Vishay Semiconductor Diodes Division",
       "description": "TVS DIODE 5V 9.1V DO214AA",
       "comment": "DIODE TVS 5VWM 9.1VC DO-214AA (SMB)"
     },
@@ -2688,6 +2769,7 @@
         }
       },
       "mpn": "AP9101CK6-AYTRG1",
+      "manufacturer": "Diodes",
       "description": "Battery Battery Protection IC Lithium Ion/Polymer SOT-26",
       "comment": "IC BATT PROT LI-ION 1-CELL SOT26"
     },
@@ -2715,6 +2797,7 @@
         }
       },
       "mpn": "DMN2014LHAB-7",
+      "manufacturer": "Diodes",
       "description": "MOSFET 2N-CH 20V 9A 6-UDFN",
       "comment": "MOSFET 2N-CH 20V 9A 6-UDFN"
     },
@@ -2724,6 +2807,7 @@
         "2": "GND"
       },
       "mpn": "ERJ-2RKF2701X",
+      "manufacturer": "Panasonic",
       "description": "2.7 kOhms ±1% 0.1W, 1/10W Chip Resistor 0402 (1005 Metric) Automotive AEC-Q200 Thick Film",
       "comment": "RES 2.7K OHM 1% 1/16W 0402"
     },
@@ -2733,6 +2817,7 @@
         "2": "NetC51_1"
       },
       "mpn": "330R",
+      "manufacturer": "TE Connectivity",
       "description": "330 Ohms ±1% 0.1W, 1/10W Chip Resistor 0603 (1608 Metric) Automotive AEC-Q200, Moisture Resistant Thick Film",
       "comment": "RES 330 OHM 1% 1/10W 0603"
     },
@@ -2742,6 +2827,7 @@
         "2": "NetC51_2"
       },
       "mpn": "GRM155R71E104KE14D",
+      "manufacturer": "Murata",
       "description": "Cap Ceramic 0.1uF 25V X7R 10% SMD 0402 125C Paper T/R",
       "comment": "CAP CER 0.1UF 16V X7R 0402"
     },
@@ -2751,6 +2837,7 @@
         "2": "GND"
       },
       "mpn": "XG8T-0231",
+      "manufacturer": "Omron Electronics Inc-EMC Div",
       "description": "2 Positions Header Connector Through Hole Gold",
       "comment": "JUMPER"
     },
@@ -2826,6 +2913,7 @@
         }
       },
       "mpn": "USB4085-GF-A",
+      "manufacturer": "Global Connector Technology",
       "description": "USB - C USB 2.0 Receptacle Connector 16 Position Through Hole, Right Angle",
       "comment": "CONN RECPT USB2.0 TYPE-C 16POS"
     },
@@ -2908,6 +2996,7 @@
         "2": "GND"
       },
       "mpn": "RMCF0402FT5K10",
+      "manufacturer": "Stackpole Electronics",
       "description": "5.1 kOhms ±1% 0.063W, 1/16W Chip Resistor 0402 (1005 Metric) Automotive AEC-Q200 Thick Film",
       "comment": "RES 5.1K OHM 1% 1/16W 0402"
     },
@@ -2917,6 +3006,7 @@
         "2": "GND"
       },
       "mpn": "RMCF0402FT5K10",
+      "manufacturer": "Stackpole Electronics",
       "description": "5.1 kOhms ±1% 0.063W, 1/16W Chip Resistor 0402 (1005 Metric) Automotive AEC-Q200 Thick Film",
       "comment": "RES 5.1K OHM 1% 1/16W 0402"
     },
@@ -2940,6 +3030,7 @@
         "16": "3V3"
       },
       "mpn": "ESQ-108-12-T-D",
+      "manufacturer": "Samtec",
       "description": "Conn Elevated Socket SKT 16 POS 2.54mm Solder ST Thru-Hole Tube",
       "comment": "CONN 16POS HEADER 0.1\" 0.435\" FEMALE"
     },
@@ -3039,6 +3130,7 @@
         "2": "GND"
       },
       "mpn": "GRM155R71E104KE14D",
+      "manufacturer": "Murata",
       "description": "Cap Ceramic 0.1uF 25V X7R 10% SMD 0402 125C Paper T/R",
       "comment": "CAP CER 0.1UF 16V X7R 0402"
     },
@@ -3070,6 +3162,7 @@
         "16": "ESP32_PWR_PE_GP0_nSW_EN"
       },
       "mpn": "EXB-2HV103JV",
+      "manufacturer": "Panasonic Electronic Components",
       "description": "RES ARRAY SMD 10K 5% 62.5mW 1506",
       "comment": "RES ARRAY 10K OHM 5% 8RES",
       "value": "Value"
@@ -3094,6 +3187,7 @@
         "2": "ESP32_IO26_POWER_I2C_PE_INT"
       },
       "mpn": "RC0402FR-0710KL",
+      "manufacturer": "Yageo",
       "description": "Surface Mount Thick Film Resistor, Rc Series, 10 Kohm, 62.5 Mw, - 1%, 50 V, 0402 [1005 Metric]",
       "comment": "RES 10K OHM 1% 1/16W 0402"
     }

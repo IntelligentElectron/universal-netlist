@@ -1,8 +1,8 @@
 {
-  "universalNetlistSchemaVersion": 1,
+  "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-01T21:46:12.136Z",
-    "netlistHash": "sha256:d34db7dd8904397dc8c94f5fd1ca9af82c14474caa05c3d9966bf4e2d55e02de",
+    "generatedAt": "2026-09-03T01:02:27.681Z",
+    "netlistHash": "sha256:7074cede4a1c7c43d0fc9e51e7cef83e4cb1089db60d83a8dbca92f28a78a396",
     "origin": {
       "type": "vendor",
       "source": {
@@ -4431,7 +4431,8 @@
       },
       "value": "330pF",
       "description": "CAP CER 330PF 50V C0G/NP0 0402",
-      "mpn": "CL05C331JB5NNNC"
+      "mpn": "CL05C331JB5NNNC",
+      "manufacturer": "Samsung"
     },
     "C47": {
       "pins": {
@@ -4440,7 +4441,8 @@
       },
       "value": "330pF",
       "description": "CAP CER 330PF 50V C0G/NP0 0402",
-      "mpn": "CL05C331JB5NNNC"
+      "mpn": "CL05C331JB5NNNC",
+      "manufacturer": "Samsung"
     },
     "C61": {
       "pins": {
@@ -4449,7 +4451,8 @@
       },
       "value": "0.1uF",
       "description": "CAP CER 0.1UF 25V X5R 0402",
-      "mpn": "CL05A104KA5NNNC"
+      "mpn": "CL05A104KA5NNNC",
+      "manufacturer": "Samsung"
     },
     "C62": {
       "pins": {
@@ -4458,7 +4461,8 @@
       },
       "value": "1nF",
       "description": "CAP CER 1000PF 50V X7R 0402",
-      "mpn": "CL05B102KB5NNNC"
+      "mpn": "CL05B102KB5NNNC",
+      "manufacturer": "Samsung"
     },
     "D22": {
       "pins": {
@@ -4473,7 +4477,8 @@
       },
       "value": "24±2%",
       "description": "DIODE ZENER 24V 250MW DFN1006-2",
-      "mpn": "BZX884-B24,315"
+      "mpn": "BZX884-B24,315",
+      "manufacturer": "Nexperia"
     },
     "D23": {
       "pins": {
@@ -4488,7 +4493,8 @@
       },
       "value": "TVS",
       "description": "TVS DIODE 36VWM 80VC DFN1006-2",
-      "mpn": "PESD36VS1UL,315"
+      "mpn": "PESD36VS1UL,315",
+      "manufacturer": "Nexperia"
     },
     "FL3": {
       "pins": {
@@ -4499,7 +4505,8 @@
       },
       "value": "Filter_EMI_CommonMode",
       "description": "CMC 130MA 2LN 28 OHM SMD",
-      "mpn": "DLM0NSB280HY2D"
+      "mpn": "DLM0NSB280HY2D",
+      "manufacturer": "Murata"
     },
     "J2": {
       "pins": {
@@ -4574,7 +4581,8 @@
       },
       "value": "USB_C",
       "description": "CONN RCPT USB2.0 TYPE-C 16POS",
-      "mpn": "USB-TYPE-C-019"
+      "mpn": "USB-TYPE-C-019",
+      "manufacturer": "DEALON"
     },
     "R15": {
       "pins": {
@@ -4583,7 +4591,8 @@
       },
       "value": "10k",
       "description": "RES 10K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-0710KL"
+      "mpn": "RC0402JR-0710KL",
+      "manufacturer": "Yageo"
     },
     "R34": {
       "pins": {
@@ -4592,7 +4601,8 @@
       },
       "value": "5.1k",
       "description": "RES 5.1K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-075K1L"
+      "mpn": "RC0402JR-075K1L",
+      "manufacturer": "Yageo"
     },
     "R35": {
       "pins": {
@@ -4601,7 +4611,8 @@
       },
       "value": "5.1k",
       "description": "RES 5.1K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-075K1L"
+      "mpn": "RC0402JR-075K1L",
+      "manufacturer": "Yageo"
     },
     "R46": {
       "pins": {
@@ -4610,7 +4621,8 @@
       },
       "value": "5.1k",
       "description": "RES 5.1K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-075K1L"
+      "mpn": "RC0402JR-075K1L",
+      "manufacturer": "Yageo"
     },
     "R55": {
       "pins": {
@@ -4619,7 +4631,8 @@
       },
       "value": "820k",
       "description": "RES 820K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-07820KL"
+      "mpn": "RC0402JR-07820KL",
+      "manufacturer": "Yageo"
     },
     "R56": {
       "pins": {
@@ -4628,7 +4641,8 @@
       },
       "value": "820k",
       "description": "RES 820K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-07820KL"
+      "mpn": "RC0402JR-07820KL",
+      "manufacturer": "Yageo"
     },
     "TP16": {
       "pins": {
@@ -4682,7 +4696,8 @@
       },
       "value": "PI3USB102G",
       "description": "IC USB 2.0 SWITCH 2:1 10TQFN",
-      "mpn": "PI3USB102GZLEX"
+      "mpn": "PI3USB102GZLEX",
+      "manufacturer": "Diodes Inc."
     },
     "C36": {
       "pins": {
@@ -4691,7 +4706,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "C37": {
       "pins": {
@@ -4700,7 +4716,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "C38": {
       "pins": {
@@ -4709,7 +4726,8 @@
       },
       "value": "0.1uF",
       "description": "CAP CER 0.1UF 25V X5R 0402",
-      "mpn": "CL05A104KA5NNNC"
+      "mpn": "CL05A104KA5NNNC",
+      "manufacturer": "Samsung"
     },
     "C39": {
       "pins": {
@@ -4718,7 +4736,8 @@
       },
       "value": "0.1uF",
       "description": "CAP CER 0.1UF 25V X5R 0402",
-      "mpn": "CL05A104KA5NNNC"
+      "mpn": "CL05A104KA5NNNC",
+      "manufacturer": "Samsung"
     },
     "R16": {
       "pins": {
@@ -4727,7 +4746,8 @@
       },
       "value": "8.06k±1%",
       "description": "RES SMD 8.06K OHM 1% 1/10W 0402",
-      "mpn": "ERJ-2RKF8061X"
+      "mpn": "ERJ-2RKF8061X",
+      "manufacturer": "Panasonic"
     },
     "R17": {
       "pins": {
@@ -4736,7 +4756,8 @@
       },
       "value": "20k",
       "description": "RES SMD 20K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-0720KL"
+      "mpn": "RC0402JR-0720KL",
+      "manufacturer": "Yageo"
     },
     "R22": {
       "pins": {
@@ -4745,7 +4766,8 @@
       },
       "value": "10k",
       "description": "RES 10K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-0710KL"
+      "mpn": "RC0402JR-0710KL",
+      "manufacturer": "Yageo"
     },
     "RN5": {
       "pins": {
@@ -4784,7 +4806,8 @@
       },
       "value": "0",
       "description": "RES ARRAY 4 RES ZERO OHM 0804",
-      "mpn": "YC124-JR-070RL"
+      "mpn": "YC124-JR-070RL",
+      "manufacturer": "Yageo"
     },
     "RN6": {
       "pins": {
@@ -4823,7 +4846,8 @@
       },
       "value": "0",
       "description": "RES ARRAY 4 RES ZERO OHM 0804",
-      "mpn": "YC124-JR-070RL"
+      "mpn": "YC124-JR-070RL",
+      "manufacturer": "Yageo"
     },
     "RN7": {
       "pins": {
@@ -4862,7 +4886,8 @@
       },
       "value": "0",
       "description": "RES ARRAY 4 RES ZERO OHM 0804",
-      "mpn": "YC124-JR-070RL"
+      "mpn": "YC124-JR-070RL",
+      "manufacturer": "Yageo"
     },
     "TP17": {
       "pins": {
@@ -4983,7 +5008,8 @@
       },
       "value": "USB3343-CP",
       "description": "IC TRANSCEIVER 1/1 24QFN",
-      "mpn": "USB3343-CP"
+      "mpn": "USB3343-CP",
+      "manufacturer": "Microchip"
     },
     "D15": {
       "pins": {
@@ -4998,7 +5024,8 @@
       },
       "value": "24±2%",
       "description": "DIODE ZENER 24V 250MW DFN1006-2",
-      "mpn": "BZX884-B24,315"
+      "mpn": "BZX884-B24,315",
+      "manufacturer": "Nexperia"
     },
     "D25": {
       "pins": {
@@ -5013,7 +5040,8 @@
       },
       "value": "TVS",
       "description": "TVS DIODE 36VWM 80VC DFN1006-2",
-      "mpn": "PESD36VS1UL,315"
+      "mpn": "PESD36VS1UL,315",
+      "manufacturer": "Nexperia"
     },
     "FL1": {
       "pins": {
@@ -5024,7 +5052,8 @@
       },
       "value": "Filter_EMI_CommonMode",
       "description": "CMC 130MA 2LN 28 OHM SMD",
-      "mpn": "DLM0NSB280HY2D"
+      "mpn": "DLM0NSB280HY2D",
+      "manufacturer": "Murata"
     },
     "J1": {
       "pins": {
@@ -5099,7 +5128,8 @@
       },
       "value": "USB_C",
       "description": "CONN RCPT USB2.0 TYPE-C 16POS",
-      "mpn": "USB-TYPE-C-019"
+      "mpn": "USB-TYPE-C-019",
+      "manufacturer": "DEALON"
     },
     "R44": {
       "pins": {
@@ -5108,7 +5138,8 @@
       },
       "value": "5.1k",
       "description": "RES 5.1K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-075K1L"
+      "mpn": "RC0402JR-075K1L",
+      "manufacturer": "Yageo"
     },
     "TP34": {
       "pins": {
@@ -5124,7 +5155,8 @@
       },
       "value": "0.1uF",
       "description": "CAP CER 0.1UF 25V X5R 0402",
-      "mpn": "CL05A104KA5NNNC"
+      "mpn": "CL05A104KA5NNNC",
+      "manufacturer": "Samsung"
     },
     "C48": {
       "pins": {
@@ -5133,7 +5165,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "C50": {
       "pins": {
@@ -5142,7 +5175,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "C66": {
       "pins": {
@@ -5151,7 +5185,8 @@
       },
       "value": "0.1uF",
       "description": "CAP CER 0.1UF 25V X5R 0402",
-      "mpn": "CL05A104KA5NNNC"
+      "mpn": "CL05A104KA5NNNC",
+      "manufacturer": "Samsung"
     },
     "R20": {
       "pins": {
@@ -5160,7 +5195,8 @@
       },
       "value": "8.06k±1%",
       "description": "RES SMD 8.06K OHM 1% 1/10W 0402",
-      "mpn": "ERJ-2RKF8061X"
+      "mpn": "ERJ-2RKF8061X",
+      "manufacturer": "Panasonic"
     },
     "R21": {
       "pins": {
@@ -5169,7 +5205,8 @@
       },
       "value": "20k",
       "description": "RES SMD 20K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-0720KL"
+      "mpn": "RC0402JR-0720KL",
+      "manufacturer": "Yageo"
     },
     "R24": {
       "pins": {
@@ -5178,7 +5215,8 @@
       },
       "value": "10k",
       "description": "RES 10K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-0710KL"
+      "mpn": "RC0402JR-0710KL",
+      "manufacturer": "Yageo"
     },
     "RN8": {
       "pins": {
@@ -5217,7 +5255,8 @@
       },
       "value": "0",
       "description": "RES ARRAY 4 RES ZERO OHM 0804",
-      "mpn": "YC124-JR-070RL"
+      "mpn": "YC124-JR-070RL",
+      "manufacturer": "Yageo"
     },
     "RN9": {
       "pins": {
@@ -5256,7 +5295,8 @@
       },
       "value": "0",
       "description": "RES ARRAY 4 RES ZERO OHM 0804",
-      "mpn": "YC124-JR-070RL"
+      "mpn": "YC124-JR-070RL",
+      "manufacturer": "Yageo"
     },
     "RN10": {
       "pins": {
@@ -5295,7 +5335,8 @@
       },
       "value": "0",
       "description": "RES ARRAY 4 RES ZERO OHM 0804",
-      "mpn": "YC124-JR-070RL"
+      "mpn": "YC124-JR-070RL",
+      "manufacturer": "Yageo"
     },
     "TP2": {
       "pins": {
@@ -5416,7 +5457,8 @@
       },
       "value": "USB3343-CP",
       "description": "IC TRANSCEIVER 1/1 24QFN",
-      "mpn": "USB3343-CP"
+      "mpn": "USB3343-CP",
+      "manufacturer": "Microchip"
     },
     "C49": {
       "pins": {
@@ -5425,7 +5467,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "C51": {
       "pins": {
@@ -5434,7 +5477,8 @@
       },
       "value": "0.1uF",
       "description": "CAP CER 0.1UF 25V X5R 0402",
-      "mpn": "CL05A104KA5NNNC"
+      "mpn": "CL05A104KA5NNNC",
+      "manufacturer": "Samsung"
     },
     "C52": {
       "pins": {
@@ -5443,7 +5487,8 @@
       },
       "value": "330pF",
       "description": "CAP CER 330PF 50V C0G/NP0 0402",
-      "mpn": "CL05C331JB5NNNC"
+      "mpn": "CL05C331JB5NNNC",
+      "manufacturer": "Samsung"
     },
     "C53": {
       "pins": {
@@ -5452,7 +5497,8 @@
       },
       "value": "330pF",
       "description": "CAP CER 330PF 50V C0G/NP0 0402",
-      "mpn": "CL05C331JB5NNNC"
+      "mpn": "CL05C331JB5NNNC",
+      "manufacturer": "Samsung"
     },
     "C58": {
       "pins": {
@@ -5461,7 +5507,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "C63": {
       "pins": {
@@ -5470,7 +5517,8 @@
       },
       "value": "0.1uF",
       "description": "CAP CER 0.1UF 25V X5R 0402",
-      "mpn": "CL05A104KA5NNNC"
+      "mpn": "CL05A104KA5NNNC",
+      "manufacturer": "Samsung"
     },
     "R32": {
       "pins": {
@@ -5479,7 +5527,8 @@
       },
       "value": "0",
       "description": "RES 0 OHM JUMPER 1/16W 0402",
-      "mpn": "RC0402FR-070RL"
+      "mpn": "RC0402FR-070RL",
+      "manufacturer": "Yageo"
     },
     "R33": {
       "pins": {
@@ -5488,7 +5537,8 @@
       },
       "value": "2.2k",
       "description": "RES 2.2K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-072K2L"
+      "mpn": "RC0402JR-072K2L",
+      "manufacturer": "Yageo"
     },
     "R38": {
       "pins": {
@@ -5497,7 +5547,8 @@
       },
       "value": "2.2k",
       "description": "RES 2.2K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-072K2L"
+      "mpn": "RC0402JR-072K2L",
+      "manufacturer": "Yageo"
     },
     "R39": {
       "pins": {
@@ -5506,7 +5557,8 @@
       },
       "value": "10k",
       "description": "RES 10K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-0710KL"
+      "mpn": "RC0402JR-0710KL",
+      "manufacturer": "Yageo"
     },
     "R99": {
       "pins": {
@@ -5515,7 +5567,8 @@
       },
       "value": "10k",
       "description": "RES 10K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-0710KL"
+      "mpn": "RC0402JR-0710KL",
+      "manufacturer": "Yageo"
     },
     "TP37": {
       "pins": {
@@ -5589,7 +5642,8 @@
       },
       "value": "FUSB302B",
       "description": "IC USB TYPE C CTLR PROGR 14-MLP",
-      "mpn": "FUSB302BMPX"
+      "mpn": "FUSB302BMPX",
+      "manufacturer": "onsemi"
     },
     "U14": {
       "pins": {
@@ -5648,7 +5702,8 @@
       },
       "value": "DPO2036",
       "description": "DATALINE OVER VOLTAGE PROTECTION",
-      "mpn": "DPO2036DBB-7"
+      "mpn": "DPO2036DBB-7",
+      "manufacturer": "Diodes Inc."
     },
     "D18": {
       "pins": {
@@ -5663,7 +5718,8 @@
       },
       "value": "24±2%",
       "description": "DIODE ZENER 24V 250MW DFN1006-2",
-      "mpn": "BZX884-B24,315"
+      "mpn": "BZX884-B24,315",
+      "manufacturer": "Nexperia"
     },
     "D24": {
       "pins": {
@@ -5678,7 +5734,8 @@
       },
       "value": "TVS",
       "description": "TVS DIODE 36VWM 80VC DFN1006-2",
-      "mpn": "PESD36VS1UL,315"
+      "mpn": "PESD36VS1UL,315",
+      "manufacturer": "Nexperia"
     },
     "D26": {
       "pins": {
@@ -5693,7 +5750,8 @@
       },
       "value": "TVS",
       "description": "TVS DIODE 36VWM 80VC DFN1006-2",
-      "mpn": "PESD36VS1UL,315"
+      "mpn": "PESD36VS1UL,315",
+      "manufacturer": "Nexperia"
     },
     "FL2": {
       "pins": {
@@ -5704,7 +5762,8 @@
       },
       "value": "Filter_EMI_CommonMode",
       "description": "CMC 130MA 2LN 28 OHM SMD",
-      "mpn": "DLM0NSB280HY2D"
+      "mpn": "DLM0NSB280HY2D",
+      "manufacturer": "Murata"
     },
     "FL4": {
       "pins": {
@@ -5715,7 +5774,8 @@
       },
       "value": "Filter_EMI_CommonMode",
       "description": "CMC 130MA 2LN 28 OHM SMD",
-      "mpn": "DLM0NSB280HY2D"
+      "mpn": "DLM0NSB280HY2D",
+      "manufacturer": "Murata"
     },
     "J3": {
       "pins": {
@@ -5742,7 +5802,8 @@
       },
       "value": "USB_A",
       "description": "USB A TYPE RECEPTACLE, SHORT BODY",
-      "mpn": "C42411"
+      "mpn": "C42411",
+      "manufacturer": "Jing Extension of the Electronic Co."
     },
     "J4": {
       "pins": {
@@ -5817,7 +5878,8 @@
       },
       "value": "USB_C",
       "description": "CONN RCPT USB2.0 TYPE-C 16POS",
-      "mpn": "USB-TYPE-C-019"
+      "mpn": "USB-TYPE-C-019",
+      "manufacturer": "DEALON"
     },
     "R45": {
       "pins": {
@@ -5826,7 +5888,8 @@
       },
       "value": "5.1k",
       "description": "RES 5.1K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-075K1L"
+      "mpn": "RC0402JR-075K1L",
+      "manufacturer": "Yageo"
     },
     "R57": {
       "pins": {
@@ -5835,7 +5898,8 @@
       },
       "value": "1k",
       "description": "RES 1K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-071KL"
+      "mpn": "RC0402JR-071KL",
+      "manufacturer": "Yageo"
     },
     "R58": {
       "pins": {
@@ -5844,7 +5908,8 @@
       },
       "value": "1k",
       "description": "RES 1K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-071KL"
+      "mpn": "RC0402JR-071KL",
+      "manufacturer": "Yageo"
     },
     "TP7": {
       "pins": {
@@ -5867,7 +5932,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "C43": {
       "pins": {
@@ -5876,7 +5942,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "C44": {
       "pins": {
@@ -5885,7 +5952,8 @@
       },
       "value": "0.1uF",
       "description": "CAP CER 0.1UF 25V X5R 0402",
-      "mpn": "CL05A104KA5NNNC"
+      "mpn": "CL05A104KA5NNNC",
+      "manufacturer": "Samsung"
     },
     "C67": {
       "pins": {
@@ -5894,7 +5962,8 @@
       },
       "value": "0.1uF",
       "description": "CAP CER 0.1UF 25V X5R 0402",
-      "mpn": "CL05A104KA5NNNC"
+      "mpn": "CL05A104KA5NNNC",
+      "manufacturer": "Samsung"
     },
     "R18": {
       "pins": {
@@ -5903,7 +5972,8 @@
       },
       "value": "8.06k±1%",
       "description": "RES SMD 8.06K OHM 1% 1/10W 0402",
-      "mpn": "ERJ-2RKF8061X"
+      "mpn": "ERJ-2RKF8061X",
+      "manufacturer": "Panasonic"
     },
     "R19": {
       "pins": {
@@ -5912,7 +5982,8 @@
       },
       "value": "20k",
       "description": "RES SMD 20K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-0720KL"
+      "mpn": "RC0402JR-0720KL",
+      "manufacturer": "Yageo"
     },
     "R23": {
       "pins": {
@@ -5921,7 +5992,8 @@
       },
       "value": "10k",
       "description": "RES 10K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-0710KL"
+      "mpn": "RC0402JR-0710KL",
+      "manufacturer": "Yageo"
     },
     "RN11": {
       "pins": {
@@ -5960,7 +6032,8 @@
       },
       "value": "0",
       "description": "RES ARRAY 4 RES ZERO OHM 0804",
-      "mpn": "YC124-JR-070RL"
+      "mpn": "YC124-JR-070RL",
+      "manufacturer": "Yageo"
     },
     "RN12": {
       "pins": {
@@ -5999,7 +6072,8 @@
       },
       "value": "0",
       "description": "RES ARRAY 4 RES ZERO OHM 0804",
-      "mpn": "YC124-JR-070RL"
+      "mpn": "YC124-JR-070RL",
+      "manufacturer": "Yageo"
     },
     "RN13": {
       "pins": {
@@ -6038,7 +6112,8 @@
       },
       "value": "0",
       "description": "RES ARRAY 4 RES ZERO OHM 0804",
-      "mpn": "YC124-JR-070RL"
+      "mpn": "YC124-JR-070RL",
+      "manufacturer": "Yageo"
     },
     "TP9": {
       "pins": {
@@ -6159,7 +6234,8 @@
       },
       "value": "USB3343-CP",
       "description": "IC TRANSCEIVER 1/1 24QFN",
-      "mpn": "USB3343-CP"
+      "mpn": "USB3343-CP",
+      "manufacturer": "Microchip"
     },
     "C41": {
       "pins": {
@@ -6168,7 +6244,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "C45": {
       "pins": {
@@ -6177,7 +6254,8 @@
       },
       "value": "0.1uF",
       "description": "CAP CER 0.1UF 25V X5R 0402",
-      "mpn": "CL05A104KA5NNNC"
+      "mpn": "CL05A104KA5NNNC",
+      "manufacturer": "Samsung"
     },
     "C54": {
       "pins": {
@@ -6186,7 +6264,8 @@
       },
       "value": "330pF",
       "description": "CAP CER 330PF 50V C0G/NP0 0402",
-      "mpn": "CL05C331JB5NNNC"
+      "mpn": "CL05C331JB5NNNC",
+      "manufacturer": "Samsung"
     },
     "C55": {
       "pins": {
@@ -6195,7 +6274,8 @@
       },
       "value": "330pF",
       "description": "CAP CER 330PF 50V C0G/NP0 0402",
-      "mpn": "CL05C331JB5NNNC"
+      "mpn": "CL05C331JB5NNNC",
+      "manufacturer": "Samsung"
     },
     "C56": {
       "pins": {
@@ -6204,7 +6284,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "C57": {
       "pins": {
@@ -6213,7 +6294,8 @@
       },
       "value": "0.1uF",
       "description": "CAP CER 0.1UF 25V X5R 0402",
-      "mpn": "CL05A104KA5NNNC"
+      "mpn": "CL05A104KA5NNNC",
+      "manufacturer": "Samsung"
     },
     "R36": {
       "pins": {
@@ -6222,7 +6304,8 @@
       },
       "value": "0",
       "description": "RES 0 OHM JUMPER 1/16W 0402",
-      "mpn": "RC0402FR-070RL"
+      "mpn": "RC0402FR-070RL",
+      "manufacturer": "Yageo"
     },
     "R37": {
       "pins": {
@@ -6231,7 +6314,8 @@
       },
       "value": "10k",
       "description": "RES 10K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-0710KL"
+      "mpn": "RC0402JR-0710KL",
+      "manufacturer": "Yageo"
     },
     "R97": {
       "pins": {
@@ -6240,7 +6324,8 @@
       },
       "value": "2.2k",
       "description": "RES 2.2K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-072K2L"
+      "mpn": "RC0402JR-072K2L",
+      "manufacturer": "Yageo"
     },
     "R98": {
       "pins": {
@@ -6249,7 +6334,8 @@
       },
       "value": "2.2k",
       "description": "RES 2.2K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-072K2L"
+      "mpn": "RC0402JR-072K2L",
+      "manufacturer": "Yageo"
     },
     "R100": {
       "pins": {
@@ -6258,7 +6344,8 @@
       },
       "value": "10k",
       "description": "RES 10K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-0710KL"
+      "mpn": "RC0402JR-0710KL",
+      "manufacturer": "Yageo"
     },
     "TP36": {
       "pins": {
@@ -6332,7 +6419,8 @@
       },
       "value": "FUSB302B",
       "description": "IC USB TYPE C CTLR PROGR 14-MLP",
-      "mpn": "FUSB302BMPX"
+      "mpn": "FUSB302BMPX",
+      "manufacturer": "onsemi"
     },
     "U13": {
       "pins": {
@@ -6391,7 +6479,8 @@
       },
       "value": "DPO2036",
       "description": "DATALINE OVER VOLTAGE PROTECTION",
-      "mpn": "DPO2036DBB-7"
+      "mpn": "DPO2036DBB-7",
+      "manufacturer": "Diodes Inc."
     },
     "IC1": {
       "pins": {
@@ -7422,7 +7511,8 @@
       },
       "value": "ECP5-BGA256",
       "description": "FPGA - Field Programmable Gate Array ECP5; 12k LUTs; 1.1V",
-      "mpn": "LFE5U-12F-6BG256C"
+      "mpn": "LFE5U-12F-6BG256C",
+      "manufacturer": "Lattice"
     },
     "C35": {
       "pins": {
@@ -7431,7 +7521,8 @@
       },
       "value": "0.1uF",
       "description": "CAP CER 0.1UF 25V X5R 0402",
-      "mpn": "CL05A104KA5NNNC"
+      "mpn": "CL05A104KA5NNNC",
+      "manufacturer": "Samsung"
     },
     "R5": {
       "pins": {
@@ -7440,7 +7531,8 @@
       },
       "value": "2.2k",
       "description": "RES 2.2K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-072K2L"
+      "mpn": "RC0402JR-072K2L",
+      "manufacturer": "Yageo"
     },
     "R6": {
       "pins": {
@@ -7449,7 +7541,8 @@
       },
       "value": "5.1k",
       "description": "RES 5.1K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-075K1L"
+      "mpn": "RC0402JR-075K1L",
+      "manufacturer": "Yageo"
     },
     "R12": {
       "pins": {
@@ -7458,7 +7551,8 @@
       },
       "value": "330",
       "description": "RES 330 OHM 1% 1/16W 0402",
-      "mpn": "RC0402FR-13330RL"
+      "mpn": "RC0402FR-13330RL",
+      "manufacturer": "Yageo"
     },
     "R13": {
       "pins": {
@@ -7467,7 +7561,8 @@
       },
       "value": "5.1k",
       "description": "RES 5.1K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-075K1L"
+      "mpn": "RC0402JR-075K1L",
+      "manufacturer": "Yageo"
     },
     "R14": {
       "pins": {
@@ -7476,7 +7571,8 @@
       },
       "value": "330",
       "description": "RES 330 OHM 1% 1/16W 0402",
-      "mpn": "RC0402FR-13330RL"
+      "mpn": "RC0402FR-13330RL",
+      "manufacturer": "Yageo"
     },
     "R102": {
       "pins": {
@@ -7485,7 +7581,8 @@
       },
       "value": "5.1k",
       "description": "RES 5.1K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-075K1L"
+      "mpn": "RC0402JR-075K1L",
+      "manufacturer": "Yageo"
     },
     "R109": {
       "pins": {
@@ -7494,7 +7591,8 @@
       },
       "value": "5.1k",
       "description": "RES 5.1K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-075K1L"
+      "mpn": "RC0402JR-075K1L",
+      "manufacturer": "Yageo"
     },
     "R110": {
       "pins": {
@@ -7503,7 +7601,8 @@
       },
       "value": "5.1k",
       "description": "RES 5.1K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-075K1L"
+      "mpn": "RC0402JR-075K1L",
+      "manufacturer": "Yageo"
     },
     "TP10": {
       "pins": {
@@ -7598,7 +7697,8 @@
       },
       "value": "W25Q32JVSS",
       "description": "IC FLASH 32M SPI 133MHZ 8SOIC",
-      "mpn": "W25Q32JVSSIQ"
+      "mpn": "W25Q32JVSSIQ",
+      "manufacturer": "Winbond"
     },
     "C5": {
       "pins": {
@@ -7607,7 +7707,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "C19": {
       "pins": {
@@ -7616,7 +7717,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "C21": {
       "pins": {
@@ -7625,7 +7727,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "C31": {
       "pins": {
@@ -7634,7 +7737,8 @@
       },
       "value": "0.1uF",
       "description": "CAP CER 0.1UF 25V X5R 0402",
-      "mpn": "CL05A104KA5NNNC"
+      "mpn": "CL05A104KA5NNNC",
+      "manufacturer": "Samsung"
     },
     "C32": {
       "pins": {
@@ -7643,7 +7747,8 @@
       },
       "value": "0.1uF",
       "description": "CAP CER 0.1UF 25V X5R 0402",
-      "mpn": "CL05A104KA5NNNC"
+      "mpn": "CL05A104KA5NNNC",
+      "manufacturer": "Samsung"
     },
     "C64": {
       "pins": {
@@ -7652,7 +7757,8 @@
       },
       "value": "0.1uF",
       "description": "CAP CER 0.1UF 25V X5R 0402",
-      "mpn": "CL05A104KA5NNNC"
+      "mpn": "CL05A104KA5NNNC",
+      "manufacturer": "Samsung"
     },
     "C65": {
       "pins": {
@@ -7661,7 +7767,8 @@
       },
       "value": "0.1uF",
       "description": "CAP CER 0.1UF 25V X5R 0402",
-      "mpn": "CL05A104KA5NNNC"
+      "mpn": "CL05A104KA5NNNC",
+      "manufacturer": "Samsung"
     },
     "R119": {
       "pins": {
@@ -7670,7 +7777,8 @@
       },
       "value": "5.1k",
       "description": "RES 5.1K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-075K1L"
+      "mpn": "RC0402JR-075K1L",
+      "manufacturer": "Yageo"
     },
     "U10": {
       "pins": {
@@ -7773,7 +7881,8 @@
       },
       "value": "HyperRAM",
       "description": "DRAM 64Mb HyperRAM x8, 166MHz, Ind temp, 3.0V",
-      "mpn": "W956A8MBYA6I"
+      "mpn": "W956A8MBYA6I",
+      "manufacturer": "Winbond"
     },
     "C76": {
       "pins": {
@@ -7782,7 +7891,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "C78": {
       "pins": {
@@ -7791,7 +7901,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "D2": {
       "pins": {
@@ -7806,7 +7917,8 @@
       },
       "value": "RED",
       "description": "LED SMD 0603 RED",
-      "mpn": "OSR50603C1E"
+      "mpn": "OSR50603C1E",
+      "manufacturer": "OptoSupply"
     },
     "D3": {
       "pins": {
@@ -7821,7 +7933,8 @@
       },
       "value": "ORANGE",
       "description": "LED SMD 0603 ORANGE",
-      "mpn": "E6C0603SEAC1UDA"
+      "mpn": "E6C0603SEAC1UDA",
+      "manufacturer": "EKINGLUX"
     },
     "D4": {
       "pins": {
@@ -7836,7 +7949,8 @@
       },
       "value": "YELLOW",
       "description": "LED SMD 0603 YELLOW",
-      "mpn": "E6C0603UYAC1UDA"
+      "mpn": "E6C0603UYAC1UDA",
+      "manufacturer": "EKINGLUX"
     },
     "D5": {
       "pins": {
@@ -7851,7 +7965,8 @@
       },
       "value": "GREEN",
       "description": "LED SMD 0603 GREEN",
-      "mpn": "ORH-G36G"
+      "mpn": "ORH-G36G",
+      "manufacturer": "Orient"
     },
     "D6": {
       "pins": {
@@ -7866,7 +7981,8 @@
       },
       "value": "BLUE",
       "description": "LED SMD 0603 BLUE",
-      "mpn": "ORH-B36G"
+      "mpn": "ORH-B36G",
+      "manufacturer": "Orient"
     },
     "D7": {
       "pins": {
@@ -7881,7 +7997,8 @@
       },
       "value": "PURPLE",
       "description": "LED SMD 0603 VIOLET",
-      "mpn": "OSVX0603C1E"
+      "mpn": "OSVX0603C1E",
+      "manufacturer": "OptoSupply"
     },
     "D10": {
       "pins": {
@@ -7896,7 +8013,8 @@
       },
       "value": "ICE BLUE",
       "description": "LED SMD 0603 ICE BLUE",
-      "mpn": "MHT192WDT-ICE"
+      "mpn": "MHT192WDT-ICE",
+      "manufacturer": "MEIHUA"
     },
     "D11": {
       "pins": {
@@ -7911,7 +8029,8 @@
       },
       "value": "PINK",
       "description": "LED SMD 0603 PINK",
-      "mpn": "OSK40603C1E"
+      "mpn": "OSK40603C1E",
+      "manufacturer": "OptoSupply"
     },
     "D12": {
       "pins": {
@@ -7926,7 +8045,8 @@
       },
       "value": "WHITE",
       "description": "LED SMD 0603 WHITE",
-      "mpn": "ORH-W46G"
+      "mpn": "ORH-W46G",
+      "manufacturer": "Orient"
     },
     "D13": {
       "pins": {
@@ -7941,7 +8061,8 @@
       },
       "value": "PINK",
       "description": "LED SMD 0603 PINK",
-      "mpn": "OSK40603C1E"
+      "mpn": "OSK40603C1E",
+      "manufacturer": "OptoSupply"
     },
     "D14": {
       "pins": {
@@ -7956,7 +8077,8 @@
       },
       "value": "ICE BLUE",
       "description": "LED SMD 0603 ICE BLUE",
-      "mpn": "MHT192WDT-ICE"
+      "mpn": "MHT192WDT-ICE",
+      "manufacturer": "MEIHUA"
     },
     "R7": {
       "pins": {
@@ -7965,7 +8087,8 @@
       },
       "value": "5.1k",
       "description": "RES 5.1K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-075K1L"
+      "mpn": "RC0402JR-075K1L",
+      "manufacturer": "Yageo"
     },
     "R8": {
       "pins": {
@@ -7974,7 +8097,8 @@
       },
       "value": "2.2k",
       "description": "RES 2.2K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-072K2L"
+      "mpn": "RC0402JR-072K2L",
+      "manufacturer": "Yageo"
     },
     "R9": {
       "pins": {
@@ -7983,7 +8107,8 @@
       },
       "value": "2.2k",
       "description": "RES 2.2K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-072K2L"
+      "mpn": "RC0402JR-072K2L",
+      "manufacturer": "Yageo"
     },
     "R10": {
       "pins": {
@@ -7992,7 +8117,8 @@
       },
       "value": "2.2k",
       "description": "RES 2.2K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-072K2L"
+      "mpn": "RC0402JR-072K2L",
+      "manufacturer": "Yageo"
     },
     "R11": {
       "pins": {
@@ -8001,7 +8127,8 @@
       },
       "value": "5.1k",
       "description": "RES 5.1K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-075K1L"
+      "mpn": "RC0402JR-075K1L",
+      "manufacturer": "Yageo"
     },
     "R26": {
       "pins": {
@@ -8010,7 +8137,8 @@
       },
       "value": "1k",
       "description": "RES 1K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-071KL"
+      "mpn": "RC0402JR-071KL",
+      "manufacturer": "Yageo"
     },
     "R27": {
       "pins": {
@@ -8019,7 +8147,8 @@
       },
       "value": "1k",
       "description": "RES 1K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-071KL"
+      "mpn": "RC0402JR-071KL",
+      "manufacturer": "Yageo"
     },
     "R28": {
       "pins": {
@@ -8028,7 +8157,8 @@
       },
       "value": "1k",
       "description": "RES 1K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-071KL"
+      "mpn": "RC0402JR-071KL",
+      "manufacturer": "Yageo"
     },
     "R29": {
       "pins": {
@@ -8037,7 +8167,8 @@
       },
       "value": "10k",
       "description": "RES 10K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-0710KL"
+      "mpn": "RC0402JR-0710KL",
+      "manufacturer": "Yageo"
     },
     "R30": {
       "pins": {
@@ -8046,7 +8177,8 @@
       },
       "value": "2.2k",
       "description": "RES 2.2K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-072K2L"
+      "mpn": "RC0402JR-072K2L",
+      "manufacturer": "Yageo"
     },
     "R31": {
       "pins": {
@@ -8055,7 +8187,8 @@
       },
       "value": "2.2k",
       "description": "RES 2.2K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-072K2L"
+      "mpn": "RC0402JR-072K2L",
+      "manufacturer": "Yageo"
     },
     "R101": {
       "pins": {
@@ -8064,7 +8197,8 @@
       },
       "value": "8.06k±1%",
       "description": "RES SMD 8.06K OHM 1% 1/10W 0402",
-      "mpn": "ERJ-2RKF8061X"
+      "mpn": "ERJ-2RKF8061X",
+      "manufacturer": "Panasonic"
     },
     "R104": {
       "pins": {
@@ -8073,7 +8207,8 @@
       },
       "value": "18.7k±1%",
       "description": "RES SMD 18.7K OHM 1% 1/10W 0402",
-      "mpn": "ERJ-2RKF1872X"
+      "mpn": "ERJ-2RKF1872X",
+      "manufacturer": "Panasonic"
     },
     "R106": {
       "pins": {
@@ -8082,7 +8217,8 @@
       },
       "value": "10k",
       "description": "RES 10K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-0710KL"
+      "mpn": "RC0402JR-0710KL",
+      "manufacturer": "Yageo"
     },
     "R107": {
       "pins": {
@@ -8091,7 +8227,8 @@
       },
       "value": "33k",
       "description": "RES SMD 33K OHM 5% 1/10W 0402",
-      "mpn": "ERJ-2GEJ333X"
+      "mpn": "ERJ-2GEJ333X",
+      "manufacturer": "Panasonic"
     },
     "SW1": {
       "pins": {
@@ -8104,7 +8241,8 @@
       },
       "value": "BTN_PROGRAM",
       "description": "SWITCH TACTILE SPST-NO 0.05A 12V",
-      "mpn": "TC-1109DE-B-F"
+      "mpn": "TC-1109DE-B-F",
+      "manufacturer": "XKB"
     },
     "SW2": {
       "pins": {
@@ -8117,7 +8255,8 @@
       },
       "value": "BTN_RESET",
       "description": "SWITCH TACTILE SPST-NO 0.05A 12V",
-      "mpn": "TC-1109DE-B-F"
+      "mpn": "TC-1109DE-B-F",
+      "manufacturer": "XKB"
     },
     "SW3": {
       "pins": {
@@ -8130,7 +8269,8 @@
       },
       "value": "BTN_USER",
       "description": "SWITCH TACTILE SPST-NO 0.05A 12V",
-      "mpn": "TC-1109DE-B-F"
+      "mpn": "TC-1109DE-B-F",
+      "manufacturer": "XKB"
     },
     "TP15": {
       "pins": {
@@ -8223,7 +8363,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "J5": {
       "pins": {
@@ -8354,7 +8495,8 @@
       },
       "value": "MEZZANINE",
       "description": "CONN RCPT 30POS SMD GOLD",
-      "mpn": "10132798-031100LF"
+      "mpn": "10132798-031100LF",
+      "manufacturer": "Amphenol"
     },
     "J7": {
       "pins": {
@@ -8409,7 +8551,8 @@
       },
       "value": "PMOD_A",
       "description": "CONN HDR 12POS 0.1 GOLD PCB R/A",
-      "mpn": "DW254W-22-12-85"
+      "mpn": "DW254W-22-12-85",
+      "manufacturer": "DEALON"
     },
     "J8": {
       "pins": {
@@ -8464,7 +8607,8 @@
       },
       "value": "PMOD_B",
       "description": "CONN HDR 12POS 0.1 GOLD PCB R/A",
-      "mpn": "DW254W-22-12-85"
+      "mpn": "DW254W-22-12-85",
+      "manufacturer": "DEALON"
     },
     "RN1": {
       "pins": {
@@ -8503,7 +8647,8 @@
       },
       "value": "33",
       "description": "RES ARRAY 4 RES 33 OHM 0804",
-      "mpn": "YC124-JR-0733RL"
+      "mpn": "YC124-JR-0733RL",
+      "manufacturer": "Yageo"
     },
     "RN2": {
       "pins": {
@@ -8542,7 +8687,8 @@
       },
       "value": "33",
       "description": "RES ARRAY 4 RES 33 OHM 0804",
-      "mpn": "YC124-JR-0733RL"
+      "mpn": "YC124-JR-0733RL",
+      "manufacturer": "Yageo"
     },
     "RN3": {
       "pins": {
@@ -8581,7 +8727,8 @@
       },
       "value": "33",
       "description": "RES ARRAY 4 RES 33 OHM 0804",
-      "mpn": "YC124-JR-0733RL"
+      "mpn": "YC124-JR-0733RL",
+      "manufacturer": "Yageo"
     },
     "RN4": {
       "pins": {
@@ -8620,7 +8767,8 @@
       },
       "value": "33",
       "description": "RES ARRAY 4 RES 33 OHM 0804",
-      "mpn": "YC124-JR-0733RL"
+      "mpn": "YC124-JR-0733RL",
+      "manufacturer": "Yageo"
     },
     "C34": {
       "pins": {
@@ -8629,7 +8777,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "C73": {
       "pins": {
@@ -8638,7 +8787,8 @@
       },
       "value": "2.2uF",
       "description": "CAP CER 2.2UF 10V X5R 0603",
-      "mpn": "CL10A225KP8NNNC"
+      "mpn": "CL10A225KP8NNNC",
+      "manufacturer": "Samsung"
     },
     "C77": {
       "pins": {
@@ -8647,7 +8797,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "D9": {
       "pins": {
@@ -8662,7 +8813,8 @@
       },
       "value": "SCHOTTKY",
       "description": "DIODE SCHOTTKY 40V 1A DSN1006-2",
-      "mpn": "PMEG4010ESBYL"
+      "mpn": "PMEG4010ESBYL",
+      "manufacturer": "Nexperia"
     },
     "J6": {
       "pins": {
@@ -8709,7 +8861,8 @@
       },
       "value": "MCU_SWD",
       "description": "CONN HEADER VERT 10POS 1.27MM",
-      "mpn": "FTSH-105-01-F-D-K"
+      "mpn": "FTSH-105-01-F-D-K",
+      "manufacturer": "Samtec"
     },
     "J10": {
       "pins": {
@@ -8740,7 +8893,8 @@
       },
       "value": "TC_SWD",
       "description": "CABLE ADAPTER 6 POS",
-      "mpn": "TC2030-CTX"
+      "mpn": "TC2030-CTX",
+      "manufacturer": "Tag-Connect"
     },
     "R25": {
       "pins": {
@@ -8749,7 +8903,8 @@
       },
       "value": "820k",
       "description": "RES 820K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-07820KL"
+      "mpn": "RC0402JR-07820KL",
+      "manufacturer": "Yageo"
     },
     "R52": {
       "pins": {
@@ -8758,7 +8913,8 @@
       },
       "value": "29.4k±1%",
       "description": "RES 29.4K OHM 1% 1/16W 0402",
-      "mpn": "RC0402FR-0729K4L"
+      "mpn": "RC0402FR-0729K4L",
+      "manufacturer": "Yageo"
     },
     "R53": {
       "pins": {
@@ -8767,7 +8923,8 @@
       },
       "value": "8.06k±1%",
       "description": "RES SMD 8.06K OHM 1% 1/10W 0402",
-      "mpn": "ERJ-2RKF8061X"
+      "mpn": "ERJ-2RKF8061X",
+      "manufacturer": "Panasonic"
     },
     "R105": {
       "pins": {
@@ -8776,7 +8933,8 @@
       },
       "value": "8.06k±1%",
       "description": "RES SMD 8.06K OHM 1% 1/10W 0402",
-      "mpn": "ERJ-2RKF8061X"
+      "mpn": "ERJ-2RKF8061X",
+      "manufacturer": "Panasonic"
     },
     "R111": {
       "pins": {
@@ -8785,7 +8943,8 @@
       },
       "value": "10k",
       "description": "RES 10K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-0710KL"
+      "mpn": "RC0402JR-0710KL",
+      "manufacturer": "Yageo"
     },
     "R118": {
       "pins": {
@@ -8794,7 +8953,8 @@
       },
       "value": "1k",
       "description": "RES 1K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-071KL"
+      "mpn": "RC0402JR-071KL",
+      "manufacturer": "Yageo"
     },
     "TP18": {
       "pins": {
@@ -8918,7 +9078,8 @@
       },
       "value": "ATSAMD11",
       "description": "IC MCU 32BIT 16KB FLASH 24QFN",
-      "mpn": "ATSAMD11D14A-MUT"
+      "mpn": "ATSAMD11D14A-MUT",
+      "manufacturer": "Microchip"
     },
     "C1": {
       "pins": {
@@ -8927,7 +9088,8 @@
       },
       "value": "2.2uF",
       "description": "CAP CER 2.2UF 10V X5R 0603",
-      "mpn": "CL10A225KP8NNNC"
+      "mpn": "CL10A225KP8NNNC",
+      "manufacturer": "Samsung"
     },
     "C2": {
       "pins": {
@@ -8936,7 +9098,8 @@
       },
       "value": "2.2uF",
       "description": "CAP CER 2.2UF 10V X5R 0603",
-      "mpn": "CL10A225KP8NNNC"
+      "mpn": "CL10A225KP8NNNC",
+      "manufacturer": "Samsung"
     },
     "C3": {
       "pins": {
@@ -8945,7 +9108,8 @@
       },
       "value": "2.2uF",
       "description": "CAP CER 2.2UF 10V X5R 0603",
-      "mpn": "CL10A225KP8NNNC"
+      "mpn": "CL10A225KP8NNNC",
+      "manufacturer": "Samsung"
     },
     "C4": {
       "pins": {
@@ -8954,7 +9118,8 @@
       },
       "value": "2.2uF",
       "description": "CAP CER 2.2UF 10V X5R 0603",
-      "mpn": "CL10A225KP8NNNC"
+      "mpn": "CL10A225KP8NNNC",
+      "manufacturer": "Samsung"
     },
     "C6": {
       "pins": {
@@ -8963,7 +9128,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "C7": {
       "pins": {
@@ -8972,7 +9138,8 @@
       },
       "value": "0.1uF",
       "description": "CAP CER 0.1UF 25V X5R 0402",
-      "mpn": "CL05A104KA5NNNC"
+      "mpn": "CL05A104KA5NNNC",
+      "manufacturer": "Samsung"
     },
     "C8": {
       "pins": {
@@ -8981,7 +9148,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "C9": {
       "pins": {
@@ -8990,7 +9158,8 @@
       },
       "value": "0.1uF",
       "description": "CAP CER 0.1UF 25V X5R 0402",
-      "mpn": "CL05A104KA5NNNC"
+      "mpn": "CL05A104KA5NNNC",
+      "manufacturer": "Samsung"
     },
     "C11": {
       "pins": {
@@ -8999,7 +9168,8 @@
       },
       "value": "0.1uF",
       "description": "CAP CER 0.1UF 25V X5R 0402",
-      "mpn": "CL05A104KA5NNNC"
+      "mpn": "CL05A104KA5NNNC",
+      "manufacturer": "Samsung"
     },
     "C12": {
       "pins": {
@@ -9008,7 +9178,8 @@
       },
       "value": "0.1uF",
       "description": "CAP CER 0.1UF 25V X5R 0402",
-      "mpn": "CL05A104KA5NNNC"
+      "mpn": "CL05A104KA5NNNC",
+      "manufacturer": "Samsung"
     },
     "C13": {
       "pins": {
@@ -9017,7 +9188,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "C14": {
       "pins": {
@@ -9026,7 +9198,8 @@
       },
       "value": "0.1uF",
       "description": "CAP CER 0.1UF 25V X5R 0402",
-      "mpn": "CL05A104KA5NNNC"
+      "mpn": "CL05A104KA5NNNC",
+      "manufacturer": "Samsung"
     },
     "C15": {
       "pins": {
@@ -9035,7 +9208,8 @@
       },
       "value": "0.1uF",
       "description": "CAP CER 0.1UF 25V X5R 0402",
-      "mpn": "CL05A104KA5NNNC"
+      "mpn": "CL05A104KA5NNNC",
+      "manufacturer": "Samsung"
     },
     "C16": {
       "pins": {
@@ -9044,7 +9218,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "C17": {
       "pins": {
@@ -9053,7 +9228,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "C18": {
       "pins": {
@@ -9062,7 +9238,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "C20": {
       "pins": {
@@ -9071,7 +9248,8 @@
       },
       "value": "2.2uF",
       "description": "CAP CER 2.2UF 10V X5R 0603",
-      "mpn": "CL10A225KP8NNNC"
+      "mpn": "CL10A225KP8NNNC",
+      "manufacturer": "Samsung"
     },
     "C22": {
       "pins": {
@@ -9080,7 +9258,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "C23": {
       "pins": {
@@ -9089,7 +9268,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "C24": {
       "pins": {
@@ -9098,7 +9278,8 @@
       },
       "value": "0.1uF",
       "description": "CAP CER 0.1UF 25V X5R 0402",
-      "mpn": "CL05A104KA5NNNC"
+      "mpn": "CL05A104KA5NNNC",
+      "manufacturer": "Samsung"
     },
     "C26": {
       "pins": {
@@ -9107,7 +9288,8 @@
       },
       "value": "0.1uF",
       "description": "CAP CER 0.1UF 25V X5R 0402",
-      "mpn": "CL05A104KA5NNNC"
+      "mpn": "CL05A104KA5NNNC",
+      "manufacturer": "Samsung"
     },
     "C27": {
       "pins": {
@@ -9116,7 +9298,8 @@
       },
       "value": "0.1uF",
       "description": "CAP CER 0.1UF 25V X5R 0402",
-      "mpn": "CL05A104KA5NNNC"
+      "mpn": "CL05A104KA5NNNC",
+      "manufacturer": "Samsung"
     },
     "C28": {
       "pins": {
@@ -9125,7 +9308,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "C29": {
       "pins": {
@@ -9134,7 +9318,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "C30": {
       "pins": {
@@ -9143,7 +9328,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "C33": {
       "pins": {
@@ -9152,7 +9338,8 @@
       },
       "value": "0.1uF",
       "description": "CAP CER 0.1UF 25V X5R 0402",
-      "mpn": "CL05A104KA5NNNC"
+      "mpn": "CL05A104KA5NNNC",
+      "manufacturer": "Samsung"
     },
     "C59": {
       "pins": {
@@ -9161,7 +9348,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "C60": {
       "pins": {
@@ -9170,7 +9358,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "C79": {
       "pins": {
@@ -9179,7 +9368,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "C80": {
       "pins": {
@@ -9188,7 +9378,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "C81": {
       "pins": {
@@ -9197,7 +9388,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "C82": {
       "pins": {
@@ -9206,7 +9398,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "C83": {
       "pins": {
@@ -9215,7 +9408,8 @@
       },
       "value": "1uF",
       "description": "CAP CER 1UF 6.3V X5R 0402 20%",
-      "mpn": "CL05A105MQ5NNNC"
+      "mpn": "CL05A105MQ5NNNC",
+      "manufacturer": "Samsung"
     },
     "D30": {
       "pins": {
@@ -9230,7 +9424,8 @@
       },
       "value": "3.0±2%",
       "description": "DIODE ZENER 3V 250MW DFN1006-2",
-      "mpn": "BZX884-B3V0,315"
+      "mpn": "BZX884-B3V0,315",
+      "manufacturer": "Nexperia"
     },
     "Q16": {
       "pins": {
@@ -9261,7 +9456,8 @@
       },
       "value": "2NPN",
       "description": "SOT-363 NPN+NPN 0.3W 0.1A 50V",
-      "mpn": "BC847BS"
+      "mpn": "BC847BS",
+      "manufacturer": "Yangzhou Yangjie"
     },
     "R4": {
       "pins": {
@@ -9270,7 +9466,8 @@
       },
       "value": "8.06k±1%",
       "description": "RES SMD 8.06K OHM 1% 1/10W 0402",
-      "mpn": "ERJ-2RKF8061X"
+      "mpn": "ERJ-2RKF8061X",
+      "manufacturer": "Panasonic"
     },
     "R43": {
       "pins": {
@@ -9279,7 +9476,8 @@
       },
       "value": "33k",
       "description": "RES SMD 33K OHM 5% 1/10W 0402",
-      "mpn": "ERJ-2GEJ333X"
+      "mpn": "ERJ-2GEJ333X",
+      "manufacturer": "Panasonic"
     },
     "R50": {
       "pins": {
@@ -9288,7 +9486,8 @@
       },
       "value": "0",
       "description": "RES 0 OHM JUMPER 1/16W 0402",
-      "mpn": "RC0402FR-070RL"
+      "mpn": "RC0402FR-070RL",
+      "manufacturer": "Yageo"
     },
     "R51": {
       "pins": {
@@ -9297,7 +9496,8 @@
       },
       "value": "8.06k±1%",
       "description": "RES SMD 8.06K OHM 1% 1/10W 0402",
-      "mpn": "ERJ-2RKF8061X"
+      "mpn": "ERJ-2RKF8061X",
+      "manufacturer": "Panasonic"
     },
     "R54": {
       "pins": {
@@ -9306,7 +9506,8 @@
       },
       "value": "0",
       "description": "RES 0 OHM JUMPER 1/16W 0402",
-      "mpn": "RC0402FR-070RL"
+      "mpn": "RC0402FR-070RL",
+      "manufacturer": "Yageo"
     },
     "R81": {
       "pins": {
@@ -9315,7 +9516,8 @@
       },
       "value": "57.6k±1%",
       "description": "RES 57.6K OHM 1% 1/16W 0402",
-      "mpn": "RC0402FR-0757K6L"
+      "mpn": "RC0402FR-0757K6L",
+      "manufacturer": "Yageo"
     },
     "R82": {
       "pins": {
@@ -9324,7 +9526,8 @@
       },
       "value": "18.7k±1%",
       "description": "RES SMD 18.7K OHM 1% 1/10W 0402",
-      "mpn": "ERJ-2RKF1872X"
+      "mpn": "ERJ-2RKF1872X",
+      "manufacturer": "Panasonic"
     },
     "R117": {
       "pins": {
@@ -9333,7 +9536,8 @@
       },
       "value": "0",
       "description": "RES 0 OHM JUMPER 1/16W 0402",
-      "mpn": "RC0402FR-070RL"
+      "mpn": "RC0402FR-070RL",
+      "manufacturer": "Yageo"
     },
     "TP3": {
       "pins": {
@@ -9425,7 +9629,8 @@
       },
       "value": "3V3REG",
       "description": "LDO CMOS HICURR U-DFN3030-8",
-      "mpn": "AP7361EA-33FGE-7"
+      "mpn": "AP7361EA-33FGE-7",
+      "manufacturer": "Diodes Inc."
     },
     "U4": {
       "pins": {
@@ -9452,7 +9657,8 @@
       },
       "value": "1V15REG",
       "description": "IC REG LINEAR 1.15V 200MA SMV",
-      "mpn": "TCR2EF115,LM(CT"
+      "mpn": "TCR2EF115,LM(CT",
+      "manufacturer": "Toshiba"
     },
     "U5": {
       "pins": {
@@ -9479,7 +9685,8 @@
       },
       "value": "2V5REG",
       "description": "IC REG LINEAR 2.5V 300MA SOT23-5",
-      "mpn": "MIC5504-2.5YM5-TR"
+      "mpn": "MIC5504-2.5YM5-TR",
+      "manufacturer": "Microchip"
     },
     "U15": {
       "pins": {
@@ -9506,7 +9713,8 @@
       },
       "value": "1V8REG",
       "description": "IC REG LINEAR 1.8V 300MA SOT23-5",
-      "mpn": "MIC5504-1.8YM5-TR"
+      "mpn": "MIC5504-1.8YM5-TR",
+      "manufacturer": "Microchip"
     },
     "C40": {
       "pins": {
@@ -9515,7 +9723,8 @@
       },
       "value": "0.1uF",
       "description": "CAP CER 0.1UF 25V X5R 0402",
-      "mpn": "CL05A104KA5NNNC"
+      "mpn": "CL05A104KA5NNNC",
+      "manufacturer": "Samsung"
     },
     "D1": {
       "pins": {
@@ -9530,7 +9739,8 @@
       },
       "value": "D",
       "description": "SOD-123FL 200V 1.0A  Diodes Rec",
-      "mpn": "U1D"
+      "mpn": "U1D",
+      "manufacturer": "Yangzhou Yangjie"
     },
     "D8": {
       "pins": {
@@ -9545,7 +9755,8 @@
       },
       "value": "D",
       "description": "SOD-123FL 200V 1.0A  Diodes Rec",
-      "mpn": "U1D"
+      "mpn": "U1D",
+      "manufacturer": "Yangzhou Yangjie"
     },
     "D16": {
       "pins": {
@@ -9560,7 +9771,8 @@
       },
       "value": "6.2±2%",
       "description": "DIODE ZENER 6.2V 250MW DFN1006-2",
-      "mpn": "BZX884-B6V2,315"
+      "mpn": "BZX884-B6V2,315",
+      "manufacturer": "Nexperia"
     },
     "D17": {
       "pins": {
@@ -9575,7 +9787,8 @@
       },
       "value": "5.6±2%",
       "description": "DIODE ZENER 5.6V 250MW DFN1006-2",
-      "mpn": "BZX884-B5V6,315"
+      "mpn": "BZX884-B5V6,315",
+      "manufacturer": "Nexperia"
     },
     "D19": {
       "pins": {
@@ -9590,7 +9803,8 @@
       },
       "value": "6.2±2%",
       "description": "DIODE ZENER 6.2V 250MW DFN1006-2",
-      "mpn": "BZX884-B6V2,315"
+      "mpn": "BZX884-B6V2,315",
+      "manufacturer": "Nexperia"
     },
     "D20": {
       "pins": {
@@ -9605,7 +9819,8 @@
       },
       "value": "6.2±2%",
       "description": "DIODE ZENER 6.2V 250MW DFN1006-2",
-      "mpn": "BZX884-B6V2,315"
+      "mpn": "BZX884-B6V2,315",
+      "manufacturer": "Nexperia"
     },
     "D21": {
       "pins": {
@@ -9620,7 +9835,8 @@
       },
       "value": "5.6±2%",
       "description": "DIODE ZENER 5.6V 250MW DFN1006-2",
-      "mpn": "BZX884-B5V6,315"
+      "mpn": "BZX884-B5V6,315",
+      "manufacturer": "Nexperia"
     },
     "D27": {
       "pins": {
@@ -9635,7 +9851,8 @@
       },
       "value": "6.2±2%",
       "description": "DIODE ZENER 6.2V 250MW DFN1006-2",
-      "mpn": "BZX884-B6V2,315"
+      "mpn": "BZX884-B6V2,315",
+      "manufacturer": "Nexperia"
     },
     "D28": {
       "pins": {
@@ -9650,7 +9867,8 @@
       },
       "value": "6.2±2%",
       "description": "DIODE ZENER 6.2V 250MW DFN1006-2",
-      "mpn": "BZX884-B6V2,315"
+      "mpn": "BZX884-B6V2,315",
+      "manufacturer": "Nexperia"
     },
     "D29": {
       "pins": {
@@ -9665,7 +9883,8 @@
       },
       "value": "6.2±2%",
       "description": "DIODE ZENER 6.2V 250MW DFN1006-2",
-      "mpn": "BZX884-B6V2,315"
+      "mpn": "BZX884-B6V2,315",
+      "manufacturer": "Nexperia"
     },
     "Q1": {
       "pins": {
@@ -9684,7 +9903,8 @@
       },
       "value": "PMOS",
       "description": "MOSFET P-CH 30V 10.6A/12A PPAK",
-      "mpn": "SIA483ADJ-T1-GE3"
+      "mpn": "SIA483ADJ-T1-GE3",
+      "manufacturer": "Vishay Siliconix"
     },
     "Q2": {
       "pins": {
@@ -9703,7 +9923,8 @@
       },
       "value": "PMOS",
       "description": "MOSFET P-CH 30V 10.6A/12A PPAK",
-      "mpn": "SIA483ADJ-T1-GE3"
+      "mpn": "SIA483ADJ-T1-GE3",
+      "manufacturer": "Vishay Siliconix"
     },
     "Q3": {
       "pins": {
@@ -9734,7 +9955,8 @@
       },
       "value": "2NPN",
       "description": "SOT-363 NPN+NPN 0.3W 0.1A 50V",
-      "mpn": "BC847BS"
+      "mpn": "BC847BS",
+      "manufacturer": "Yangzhou Yangjie"
     },
     "Q4": {
       "pins": {
@@ -9753,7 +9975,8 @@
       },
       "value": "PMOS",
       "description": "MOSFET P-CH 30V 10.6A/12A PPAK",
-      "mpn": "SIA483ADJ-T1-GE3"
+      "mpn": "SIA483ADJ-T1-GE3",
+      "manufacturer": "Vishay Siliconix"
     },
     "Q5": {
       "pins": {
@@ -9772,7 +9995,8 @@
       },
       "value": "PMOS",
       "description": "MOSFET P-CH 30V 10.6A/12A PPAK",
-      "mpn": "SIA483ADJ-T1-GE3"
+      "mpn": "SIA483ADJ-T1-GE3",
+      "manufacturer": "Vishay Siliconix"
     },
     "Q6": {
       "pins": {
@@ -9791,7 +10015,8 @@
       },
       "value": "PMOS",
       "description": "MOSFET P-CH 30V 10.6A/12A PPAK",
-      "mpn": "SIA483ADJ-T1-GE3"
+      "mpn": "SIA483ADJ-T1-GE3",
+      "manufacturer": "Vishay Siliconix"
     },
     "Q7": {
       "pins": {
@@ -9810,7 +10035,8 @@
       },
       "value": "PMOS",
       "description": "MOSFET P-CH 30V 10.6A/12A PPAK",
-      "mpn": "SIA483ADJ-T1-GE3"
+      "mpn": "SIA483ADJ-T1-GE3",
+      "manufacturer": "Vishay Siliconix"
     },
     "Q8": {
       "pins": {
@@ -9841,7 +10067,8 @@
       },
       "value": "2NPN",
       "description": "SOT-363 NPN+NPN 0.3W 0.1A 50V",
-      "mpn": "BC847BS"
+      "mpn": "BC847BS",
+      "manufacturer": "Yangzhou Yangjie"
     },
     "Q9": {
       "pins": {
@@ -9860,7 +10087,8 @@
       },
       "value": "PMOS",
       "description": "P-CH MOSFET 30V 4.4A SOT-23-3L",
-      "mpn": "YJL3401A"
+      "mpn": "YJL3401A",
+      "manufacturer": "Yangzhou Yangjie"
     },
     "Q10": {
       "pins": {
@@ -9891,7 +10119,8 @@
       },
       "value": "2PNP",
       "description": "PNP+PNP TRANS 45V 0.2A SOT-363",
-      "mpn": "BC857BS"
+      "mpn": "BC857BS",
+      "manufacturer": "Yangzhou Yangjie"
     },
     "Q11": {
       "pins": {
@@ -9922,7 +10151,8 @@
       },
       "value": "2NPN",
       "description": "SOT-363 NPN+NPN 0.3W 0.1A 50V",
-      "mpn": "BC847BS"
+      "mpn": "BC847BS",
+      "manufacturer": "Yangzhou Yangjie"
     },
     "Q12": {
       "pins": {
@@ -9941,7 +10171,8 @@
       },
       "value": "PMOS",
       "description": "P-CH MOSFET 30V 4.4A SOT-23-3L",
-      "mpn": "YJL3401A"
+      "mpn": "YJL3401A",
+      "manufacturer": "Yangzhou Yangjie"
     },
     "Q13": {
       "pins": {
@@ -9972,7 +10203,8 @@
       },
       "value": "2PNP",
       "description": "PNP+PNP TRANS 45V 0.2A SOT-363",
-      "mpn": "BC857BS"
+      "mpn": "BC857BS",
+      "manufacturer": "Yangzhou Yangjie"
     },
     "Q14": {
       "pins": {
@@ -10003,7 +10235,8 @@
       },
       "value": "2PNP",
       "description": "PNP+PNP TRANS 45V 0.2A SOT-363",
-      "mpn": "BC857BS"
+      "mpn": "BC857BS",
+      "manufacturer": "Yangzhou Yangjie"
     },
     "Q15": {
       "pins": {
@@ -10034,7 +10267,8 @@
       },
       "value": "2PNP",
       "description": "PNP+PNP TRANS 45V 0.2A SOT-363",
-      "mpn": "BC857BS"
+      "mpn": "BC857BS",
+      "manufacturer": "Yangzhou Yangjie"
     },
     "R1": {
       "pins": {
@@ -10045,7 +10279,8 @@
       },
       "value": "0.02±1%",
       "description": "RES 0.02 OHM 1% 1/3W 0603",
-      "mpn": "ERJ-3BWFR020V"
+      "mpn": "ERJ-3BWFR020V",
+      "manufacturer": "Panasonic"
     },
     "R2": {
       "pins": {
@@ -10056,7 +10291,8 @@
       },
       "value": "0.02±1%",
       "description": "RES 0.02 OHM 1% 1/3W 0603",
-      "mpn": "ERJ-3BWFR020V"
+      "mpn": "ERJ-3BWFR020V",
+      "manufacturer": "Panasonic"
     },
     "R3": {
       "pins": {
@@ -10065,7 +10301,8 @@
       },
       "value": "33k",
       "description": "RES SMD 33K OHM 5% 1/10W 0402",
-      "mpn": "ERJ-2GEJ333X"
+      "mpn": "ERJ-2GEJ333X",
+      "manufacturer": "Panasonic"
     },
     "R40": {
       "pins": {
@@ -10074,7 +10311,8 @@
       },
       "value": "2.2k",
       "description": "RES 2.2K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-072K2L"
+      "mpn": "RC0402JR-072K2L",
+      "manufacturer": "Yageo"
     },
     "R41": {
       "pins": {
@@ -10083,7 +10321,8 @@
       },
       "value": "10k",
       "description": "RES 10K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-0710KL"
+      "mpn": "RC0402JR-0710KL",
+      "manufacturer": "Yageo"
     },
     "R42": {
       "pins": {
@@ -10094,7 +10333,8 @@
       },
       "value": "0.02±1%",
       "description": "RES 0.02 OHM 1% 1/3W 0603",
-      "mpn": "ERJ-3BWFR020V"
+      "mpn": "ERJ-3BWFR020V",
+      "manufacturer": "Panasonic"
     },
     "R47": {
       "pins": {
@@ -10103,7 +10343,8 @@
       },
       "value": "33k",
       "description": "RES SMD 33K OHM 5% 1/10W 0402",
-      "mpn": "ERJ-2GEJ333X"
+      "mpn": "ERJ-2GEJ333X",
+      "manufacturer": "Panasonic"
     },
     "R48": {
       "pins": {
@@ -10112,7 +10353,8 @@
       },
       "value": "33k",
       "description": "RES SMD 33K OHM 5% 1/10W 0402",
-      "mpn": "ERJ-2GEJ333X"
+      "mpn": "ERJ-2GEJ333X",
+      "manufacturer": "Panasonic"
     },
     "R49": {
       "pins": {
@@ -10121,7 +10363,8 @@
       },
       "value": "33k",
       "description": "RES SMD 33K OHM 5% 1/10W 0402",
-      "mpn": "ERJ-2GEJ333X"
+      "mpn": "ERJ-2GEJ333X",
+      "manufacturer": "Panasonic"
     },
     "R59": {
       "pins": {
@@ -10132,7 +10375,8 @@
       },
       "value": "0.02±1%",
       "description": "RES 0.02 OHM 1% 1/3W 0603",
-      "mpn": "ERJ-3BWFR020V"
+      "mpn": "ERJ-3BWFR020V",
+      "manufacturer": "Panasonic"
     },
     "R60": {
       "pins": {
@@ -10141,7 +10385,8 @@
       },
       "value": "33k",
       "description": "RES SMD 33K OHM 5% 1/10W 0402",
-      "mpn": "ERJ-2GEJ333X"
+      "mpn": "ERJ-2GEJ333X",
+      "manufacturer": "Panasonic"
     },
     "R61": {
       "pins": {
@@ -10150,7 +10395,8 @@
       },
       "value": "33k",
       "description": "RES SMD 33K OHM 5% 1/10W 0402",
-      "mpn": "ERJ-2GEJ333X"
+      "mpn": "ERJ-2GEJ333X",
+      "manufacturer": "Panasonic"
     },
     "R62": {
       "pins": {
@@ -10159,7 +10405,8 @@
       },
       "value": "100k",
       "description": "RES SMD 100K OHM 5% 1/10W 0402",
-      "mpn": "ERJ-2GEJ104X"
+      "mpn": "ERJ-2GEJ104X",
+      "manufacturer": "Panasonic"
     },
     "R63": {
       "pins": {
@@ -10168,7 +10415,8 @@
       },
       "value": "2.2k",
       "description": "RES 2.2K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-072K2L"
+      "mpn": "RC0402JR-072K2L",
+      "manufacturer": "Yageo"
     },
     "R64": {
       "pins": {
@@ -10177,7 +10425,8 @@
       },
       "value": "10k",
       "description": "RES 10K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-0710KL"
+      "mpn": "RC0402JR-0710KL",
+      "manufacturer": "Yageo"
     },
     "R65": {
       "pins": {
@@ -10186,7 +10435,8 @@
       },
       "value": "2.2k",
       "description": "RES 2.2K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-072K2L"
+      "mpn": "RC0402JR-072K2L",
+      "manufacturer": "Yageo"
     },
     "R66": {
       "pins": {
@@ -10195,7 +10445,8 @@
       },
       "value": "10k",
       "description": "RES 10K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-0710KL"
+      "mpn": "RC0402JR-0710KL",
+      "manufacturer": "Yageo"
     },
     "R67": {
       "pins": {
@@ -10204,7 +10455,8 @@
       },
       "value": "18.7k±1%",
       "description": "RES SMD 18.7K OHM 1% 1/10W 0402",
-      "mpn": "ERJ-2RKF1872X"
+      "mpn": "ERJ-2RKF1872X",
+      "manufacturer": "Panasonic"
     },
     "R68": {
       "pins": {
@@ -10213,7 +10465,8 @@
       },
       "value": "820k",
       "description": "RES 820K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-07820KL"
+      "mpn": "RC0402JR-07820KL",
+      "manufacturer": "Yageo"
     },
     "R69": {
       "pins": {
@@ -10222,7 +10475,8 @@
       },
       "value": "33k",
       "description": "RES SMD 33K OHM 5% 1/10W 0402",
-      "mpn": "ERJ-2GEJ333X"
+      "mpn": "ERJ-2GEJ333X",
+      "manufacturer": "Panasonic"
     },
     "R70": {
       "pins": {
@@ -10231,7 +10485,8 @@
       },
       "value": "33k",
       "description": "RES SMD 33K OHM 5% 1/10W 0402",
-      "mpn": "ERJ-2GEJ333X"
+      "mpn": "ERJ-2GEJ333X",
+      "manufacturer": "Panasonic"
     },
     "R71": {
       "pins": {
@@ -10240,7 +10495,8 @@
       },
       "value": "2.2k",
       "description": "RES 2.2K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-072K2L"
+      "mpn": "RC0402JR-072K2L",
+      "manufacturer": "Yageo"
     },
     "R72": {
       "pins": {
@@ -10249,7 +10505,8 @@
       },
       "value": "10k",
       "description": "RES 10K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-0710KL"
+      "mpn": "RC0402JR-0710KL",
+      "manufacturer": "Yageo"
     },
     "R73": {
       "pins": {
@@ -10258,7 +10515,8 @@
       },
       "value": "18.7k±1%",
       "description": "RES SMD 18.7K OHM 1% 1/10W 0402",
-      "mpn": "ERJ-2RKF1872X"
+      "mpn": "ERJ-2RKF1872X",
+      "manufacturer": "Panasonic"
     },
     "R74": {
       "pins": {
@@ -10267,7 +10525,8 @@
       },
       "value": "18.7k±1%",
       "description": "RES SMD 18.7K OHM 1% 1/10W 0402",
-      "mpn": "ERJ-2RKF1872X"
+      "mpn": "ERJ-2RKF1872X",
+      "manufacturer": "Panasonic"
     },
     "R75": {
       "pins": {
@@ -10276,7 +10535,8 @@
       },
       "value": "820k",
       "description": "RES 820K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-07820KL"
+      "mpn": "RC0402JR-07820KL",
+      "manufacturer": "Yageo"
     },
     "R76": {
       "pins": {
@@ -10285,7 +10545,8 @@
       },
       "value": "33k",
       "description": "RES SMD 33K OHM 5% 1/10W 0402",
-      "mpn": "ERJ-2GEJ333X"
+      "mpn": "ERJ-2GEJ333X",
+      "manufacturer": "Panasonic"
     },
     "R77": {
       "pins": {
@@ -10294,7 +10555,8 @@
       },
       "value": "33k",
       "description": "RES SMD 33K OHM 5% 1/10W 0402",
-      "mpn": "ERJ-2GEJ333X"
+      "mpn": "ERJ-2GEJ333X",
+      "manufacturer": "Panasonic"
     },
     "R78": {
       "pins": {
@@ -10303,7 +10565,8 @@
       },
       "value": "2.2k",
       "description": "RES 2.2K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-072K2L"
+      "mpn": "RC0402JR-072K2L",
+      "manufacturer": "Yageo"
     },
     "R79": {
       "pins": {
@@ -10312,7 +10575,8 @@
       },
       "value": "10k",
       "description": "RES 10K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-0710KL"
+      "mpn": "RC0402JR-0710KL",
+      "manufacturer": "Yageo"
     },
     "R80": {
       "pins": {
@@ -10321,7 +10585,8 @@
       },
       "value": "18.7k±1%",
       "description": "RES SMD 18.7K OHM 1% 1/10W 0402",
-      "mpn": "ERJ-2RKF1872X"
+      "mpn": "ERJ-2RKF1872X",
+      "manufacturer": "Panasonic"
     },
     "R83": {
       "pins": {
@@ -10330,7 +10595,8 @@
       },
       "value": "2.2k",
       "description": "RES 2.2K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-072K2L"
+      "mpn": "RC0402JR-072K2L",
+      "manufacturer": "Yageo"
     },
     "R84": {
       "pins": {
@@ -10339,7 +10605,8 @@
       },
       "value": "2.2k",
       "description": "RES 2.2K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-072K2L"
+      "mpn": "RC0402JR-072K2L",
+      "manufacturer": "Yageo"
     },
     "R85": {
       "pins": {
@@ -10348,7 +10615,8 @@
       },
       "value": "10k",
       "description": "RES 10K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-0710KL"
+      "mpn": "RC0402JR-0710KL",
+      "manufacturer": "Yageo"
     },
     "R86": {
       "pins": {
@@ -10357,7 +10625,8 @@
       },
       "value": "10k",
       "description": "RES 10K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-0710KL"
+      "mpn": "RC0402JR-0710KL",
+      "manufacturer": "Yageo"
     },
     "R87": {
       "pins": {
@@ -10366,7 +10635,8 @@
       },
       "value": "5.1k",
       "description": "RES 5.1K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-075K1L"
+      "mpn": "RC0402JR-075K1L",
+      "manufacturer": "Yageo"
     },
     "R88": {
       "pins": {
@@ -10375,7 +10645,8 @@
       },
       "value": "2.2k",
       "description": "RES 2.2K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-072K2L"
+      "mpn": "RC0402JR-072K2L",
+      "manufacturer": "Yageo"
     },
     "R89": {
       "pins": {
@@ -10384,7 +10655,8 @@
       },
       "value": "10k",
       "description": "RES 10K OHM 5% 1/16W 0402",
-      "mpn": "RC0402JR-0710KL"
+      "mpn": "RC0402JR-0710KL",
+      "manufacturer": "Yageo"
     },
     "R90": {
       "pins": {
@@ -10393,7 +10665,8 @@
       },
       "value": "100k",
       "description": "RES SMD 100K OHM 5% 1/10W 0402",
-      "mpn": "ERJ-2GEJ104X"
+      "mpn": "ERJ-2GEJ104X",
+      "manufacturer": "Panasonic"
     },
     "R91": {
       "pins": {
@@ -10402,7 +10675,8 @@
       },
       "value": "100k",
       "description": "RES SMD 100K OHM 5% 1/10W 0402",
-      "mpn": "ERJ-2GEJ104X"
+      "mpn": "ERJ-2GEJ104X",
+      "manufacturer": "Panasonic"
     },
     "R92": {
       "pins": {
@@ -10411,7 +10685,8 @@
       },
       "value": "100k",
       "description": "RES SMD 100K OHM 5% 1/10W 0402",
-      "mpn": "ERJ-2GEJ104X"
+      "mpn": "ERJ-2GEJ104X",
+      "manufacturer": "Panasonic"
     },
     "R93": {
       "pins": {
@@ -10420,7 +10695,8 @@
       },
       "value": "100k",
       "description": "RES SMD 100K OHM 5% 1/10W 0402",
-      "mpn": "ERJ-2GEJ104X"
+      "mpn": "ERJ-2GEJ104X",
+      "manufacturer": "Panasonic"
     },
     "R94": {
       "pins": {
@@ -10429,7 +10705,8 @@
       },
       "value": "100k",
       "description": "RES SMD 100K OHM 5% 1/10W 0402",
-      "mpn": "ERJ-2GEJ104X"
+      "mpn": "ERJ-2GEJ104X",
+      "manufacturer": "Panasonic"
     },
     "R95": {
       "pins": {
@@ -10438,7 +10715,8 @@
       },
       "value": "100k",
       "description": "RES SMD 100K OHM 5% 1/10W 0402",
-      "mpn": "ERJ-2GEJ104X"
+      "mpn": "ERJ-2GEJ104X",
+      "manufacturer": "Panasonic"
     },
     "R96": {
       "pins": {
@@ -10447,7 +10725,8 @@
       },
       "value": "100k",
       "description": "RES SMD 100K OHM 5% 1/10W 0402",
-      "mpn": "ERJ-2GEJ104X"
+      "mpn": "ERJ-2GEJ104X",
+      "manufacturer": "Panasonic"
     },
     "R103": {
       "pins": {
@@ -10456,7 +10735,8 @@
       },
       "value": "0",
       "description": "RES 0 OHM JUMPER 1/16W 0402",
-      "mpn": "RC0402FR-070RL"
+      "mpn": "RC0402FR-070RL",
+      "manufacturer": "Yageo"
     },
     "R112": {
       "pins": {
@@ -10465,7 +10745,8 @@
       },
       "value": "0",
       "description": "RES 0 OHM JUMPER 1/16W 0402",
-      "mpn": "RC0402FR-070RL"
+      "mpn": "RC0402FR-070RL",
+      "manufacturer": "Yageo"
     },
     "R113": {
       "pins": {
@@ -10474,7 +10755,8 @@
       },
       "value": "0",
       "description": "RES 0 OHM JUMPER 1/16W 0402",
-      "mpn": "RC0402FR-070RL"
+      "mpn": "RC0402FR-070RL",
+      "manufacturer": "Yageo"
     },
     "R114": {
       "pins": {
@@ -10483,7 +10765,8 @@
       },
       "value": "0",
       "description": "RES 0 OHM JUMPER 1/16W 0402",
-      "mpn": "RC0402FR-070RL"
+      "mpn": "RC0402FR-070RL",
+      "manufacturer": "Yageo"
     },
     "R115": {
       "pins": {
@@ -10492,7 +10775,8 @@
       },
       "value": "0",
       "description": "RES 0 OHM JUMPER 1/16W 0402",
-      "mpn": "RC0402FR-070RL"
+      "mpn": "RC0402FR-070RL",
+      "manufacturer": "Yageo"
     },
     "R116": {
       "pins": {
@@ -10501,7 +10785,8 @@
       },
       "value": "0",
       "description": "RES 0 OHM JUMPER 1/16W 0402",
-      "mpn": "RC0402FR-070RL"
+      "mpn": "RC0402FR-070RL",
+      "manufacturer": "Yageo"
     },
     "R120": {
       "pins": {
@@ -10510,7 +10795,8 @@
       },
       "value": "100k",
       "description": "RES SMD 100K OHM 5% 1/10W 0402",
-      "mpn": "ERJ-2GEJ104X"
+      "mpn": "ERJ-2GEJ104X",
+      "manufacturer": "Panasonic"
     },
     "TP49": {
       "pins": {
@@ -10592,7 +10878,8 @@
       },
       "value": "PAC1954",
       "description": "IC CURRENT/VOLT MON 1% 16VQFN",
-      "mpn": "PAC1954T-E/4MX"
+      "mpn": "PAC1954T-E/4MX",
+      "manufacturer": "Microchip"
     },
     "C10": {
       "pins": {
@@ -10601,7 +10888,8 @@
       },
       "value": "0.1uF",
       "description": "CAP CER 0.1UF 25V X5R 0402",
-      "mpn": "CL05A104KA5NNNC"
+      "mpn": "CL05A104KA5NNNC",
+      "manufacturer": "Samsung"
     },
     "FID1": {
       "pins": {},
@@ -10660,7 +10948,8 @@
       },
       "value": "SPRING_CONTACT",
       "description": "SPRING FINGER CONTACT 1.8MM",
-      "mpn": "BW0033AG-L3.4W0.9H1.8"
+      "mpn": "BW0033AG-L3.4W0.9H1.8",
+      "manufacturer": "BAT WIRELESS"
     },
     "J12": {
       "pins": {
@@ -10671,7 +10960,8 @@
       },
       "value": "SPRING_CONTACT",
       "description": "SPRING FINGER CONTACT 1.8MM",
-      "mpn": "BW0033AG-L3.4W0.9H1.8"
+      "mpn": "BW0033AG-L3.4W0.9H1.8",
+      "manufacturer": "BAT WIRELESS"
     },
     "J13": {
       "pins": {
@@ -10682,7 +10972,8 @@
       },
       "value": "SPRING_CONTACT",
       "description": "SPRING FINGER CONTACT 1.8MM",
-      "mpn": "BW0033AG-L3.4W0.9H1.8"
+      "mpn": "BW0033AG-L3.4W0.9H1.8",
+      "manufacturer": "BAT WIRELESS"
     },
     "J14": {
       "pins": {
@@ -10693,7 +10984,8 @@
       },
       "value": "SPRING_CONTACT",
       "description": "SPRING FINGER CONTACT 1.8MM",
-      "mpn": "BW0033AG-L3.4W0.9H1.8"
+      "mpn": "BW0033AG-L3.4W0.9H1.8",
+      "manufacturer": "BAT WIRELESS"
     },
     "J15": {
       "pins": {
@@ -10704,7 +10996,8 @@
       },
       "value": "SPRING_CONTACT",
       "description": "SPRING FINGER CONTACT 1.8MM",
-      "mpn": "BW0033AG-L3.4W0.9H1.8"
+      "mpn": "BW0033AG-L3.4W0.9H1.8",
+      "manufacturer": "BAT WIRELESS"
     },
     "J16": {
       "pins": {
@@ -10715,7 +11008,8 @@
       },
       "value": "SPRING_CONTACT",
       "description": "SPRING FINGER CONTACT 1.8MM",
-      "mpn": "BW0033AG-L3.4W0.9H1.8"
+      "mpn": "BW0033AG-L3.4W0.9H1.8",
+      "manufacturer": "BAT WIRELESS"
     },
     "R108": {
       "pins": {
@@ -10724,7 +11018,8 @@
       },
       "value": "330",
       "description": "RES 330 OHM 1% 1/16W 0402",
-      "mpn": "RC0402FR-13330RL"
+      "mpn": "RC0402FR-13330RL",
+      "manufacturer": "Yageo"
     },
     "TP1": {
       "pins": {
@@ -10754,7 +11049,8 @@
       },
       "value": "Osc60MHz",
       "description": "MEMS OSC XO 60.0000MHZ H/LV-CMOS",
-      "mpn": "SIT1602BC-23-33E-60.000000E"
+      "mpn": "SIT1602BC-23-33E-60.000000E",
+      "manufacturer": "SiTIME"
     }
   }
 }

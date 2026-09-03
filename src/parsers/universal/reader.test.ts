@@ -97,9 +97,13 @@ describe("validateUniversalNetlist", () => {
       { universalNetlistSchemaVersion: "1", nets: {}, components: {} },
       "`universalNetlistSchemaVersion` must be an integer"
     );
+    // One past the newest registered codec, so this stays an unsupported
+    // version as versions are added rather than naming a number that a later
+    // schema turns into a valid one.
+    const unsupported = Math.max(...SUPPORTED_UNIVERSAL_NETLIST_SCHEMA_VERSIONS) + 1;
     rejects(
-      { universalNetlistSchemaVersion: 2, nets: {}, components: {} },
-      `unsupported Universal Netlist schema version 2; supported: ${SUPPORTED_UNIVERSAL_NETLIST_SCHEMA_VERSIONS.join(", ")}`
+      { universalNetlistSchemaVersion: unsupported, nets: {}, components: {} },
+      `unsupported Universal Netlist schema version ${unsupported}; supported: ${SUPPORTED_UNIVERSAL_NETLIST_SCHEMA_VERSIONS.join(", ")}`
     );
   });
 
@@ -309,6 +313,48 @@ describe("parseUniversalNetlist", () => {
       generatedAt: GENERATED_AT,
       netlistHash: calculateUniversalNetlistHash(parsed),
       origin: { type: "native" },
+    });
+  });
+
+  /**
+   * `internal_pn` and `manufacturer` are why schema version 2 exists. Version 1
+   * drops component fields it does not define and then checks `netlistHash`
+   * against what is left, so carrying them there would have produced files that
+   * every existing build, and this one, rejects.
+   */
+  describe("internal_pn and manufacturer", () => {
+    const withBoth = () => ({
+      nets: { VCC: { R1: ["1"] } },
+      components: {
+        R1: {
+          mpn: "MFRA-0R00-01005",
+          internal_pn: "INT-1001",
+          manufacturer: "Example Mfr",
+          pins: { "1": "VCC" },
+        },
+      },
+    });
+
+    it("survives a write and read at the current schema version", () => {
+      const text = serializeUniversalNetlist(withBoth(), { generatedAt: GENERATED_AT });
+      expect(JSON.parse(text).universalNetlistSchemaVersion).toBeGreaterThanOrEqual(2);
+      expect(parseUniversalNetlist(text).components.R1).toEqual({
+        mpn: "MFRA-0R00-01005",
+        internal_pn: "INT-1001",
+        manufacturer: "Example Mfr",
+        pins: { "1": "VCC" },
+      });
+    });
+
+    it("is not accepted into a version 1 document", () => {
+      const document = JSON.parse(
+        serializeUniversalNetlist(withBoth(), { generatedAt: GENERATED_AT })
+      );
+      document.universalNetlistSchemaVersion = 1;
+      // Version 1 reads the file without the new fields and recomputes a hash
+      // that no longer matches the one the document carries, so it is refused
+      // rather than quietly returning a netlist missing a part number.
+      rejects(document, "`metadata.netlistHash` does not match");
     });
   });
 

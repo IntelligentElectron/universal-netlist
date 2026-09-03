@@ -24,7 +24,15 @@ Used in `list_components` and `search_components_by_*` results. Groups component
     },
     "mpn": {
       "type": "string",
-      "description": "Manufacturer Part Number (omitted if missing)"
+      "description": "The manufacturer's part number (omitted if the design records none)"
+    },
+    "internal_pn": {
+      "type": "string",
+      "description": "The part number the design owner identifies the part by (omitted if missing)"
+    },
+    "manufacturer": {
+      "type": "string",
+      "description": "The manufacturer's name (omitted if missing); an MPN is unique only within a manufacturer"
     },
     "description": {
       "type": "string",
@@ -57,6 +65,7 @@ Used in `list_components` and `search_components_by_*` results. Groups component
 ```json
 {
   "mpn": "RC0402FR-071KL",
+  "internal_pn": "INT-1001",
   "description": "RES 1K OHM 1% 1/16W 0402",
   "value": "1k",
   "count": 5,
@@ -75,7 +84,15 @@ Used in `query_xnet_*` results. Groups components by MPN with orientation tracki
   "properties": {
     "mpn": {
       "type": "string",
-      "description": "Manufacturer Part Number (omitted if missing)"
+      "description": "The manufacturer's part number (omitted if the design records none)"
+    },
+    "internal_pn": {
+      "type": "string",
+      "description": "The part number the design owner identifies the part by (omitted if missing)"
+    },
+    "manufacturer": {
+      "type": "string",
+      "description": "The manufacturer's name (omitted if missing); an MPN is unique only within a manufacturer"
     },
     "description": { "type": "string" },
     "comment": { "type": "string" },

@@ -10,6 +10,7 @@ import {
   parseUniversalNetlist,
   parseUniversalNetlistDocument,
   serializeUniversalNetlist,
+  UNIVERSAL_NETLIST_SCHEMA_VERSION,
   type UniversalNetlistOrigin,
 } from "../src/parsers/universal/reader.js";
 
@@ -116,9 +117,12 @@ export const saveGolden = async (
   const goldenDir = path.join(GOLDEN_DIR, format);
   await fs.mkdir(goldenDir, { recursive: true });
 
-  // Only rewrite a golden whose netlist content or source provenance moved.
-  // The tests compare structurally, so a parser that merely reorders keys
-  // should not bury a meaningful change under thousands of diff lines.
+  // Only rewrite a golden whose netlist content, source provenance, or on-disk
+  // schema version moved. The tests compare structurally, so a parser that
+  // merely reorders keys should not bury a meaningful change under thousands of
+  // diff lines. The version is part of that test because a historical-schema
+  // golden still parses, so leaving it alone would strand it one schema behind
+  // every file the current writer produces.
   //
   // The comparison is against the new data round-tripped through JSON, not the
   // data itself: serializing drops a key whose value is `undefined`, so the two
@@ -144,11 +148,15 @@ export const saveGolden = async (
       nets: existingDocument.nets,
       components: existingDocument.components,
     };
-    if (deepEqual(existing, roundTripped) && deepEqual(existingDocument.metadata.origin, origin)) {
+    if (
+      existingDocument.universalNetlistSchemaVersion === UNIVERSAL_NETLIST_SCHEMA_VERSION &&
+      deepEqual(existing, roundTripped) &&
+      deepEqual(existingDocument.metadata.origin, origin)
+    ) {
       return false;
     }
   } catch {
-    // Missing and historical-schema goldens are rewritten below.
+    // Missing and unreadable goldens are rewritten below.
   }
 
   await fs.writeFile(goldenPath, serialized, "utf-8");

@@ -54,6 +54,16 @@ const MPN_FIELD_NAMES = new Set(
   ].map((s) => s.toLowerCase())
 );
 
+/**
+ * Field names (case-insensitive, normalized) that hold a manufacturer's name.
+ * KiCad field names are user-chosen, so the common spellings are accepted.
+ */
+const MANUFACTURER_FIELD_NAMES = new Set(
+  ["manufacturer", "manufacturer_name", "manufacturer name", "mfr", "mfg", "make"].map((s) =>
+    s.toLowerCase()
+  )
+);
+
 /** Normalize a field/property name for case-insensitive matching. */
 const normalizeKey = (s: string): string => s.trim().toLowerCase();
 
@@ -169,6 +179,11 @@ export const parseKicadNetlist = (content: string): ParsedNetlist => {
 
     const mpn = lookupNamed(comp, (name) => MPN_FIELD_NAMES.has(name));
     if (mpn) entry.mpn = mpn;
+
+    // An MPN identifies a part only within a manufacturer, so the name is what
+    // makes `mpn` a key rather than a string.
+    const manufacturer = lookupNamed(comp, (name) => MANUFACTURER_FIELD_NAMES.has(name));
+    if (manufacturer) entry.manufacturer = manufacturer;
 
     if (isDnp(comp)) entry.dns = true;
 

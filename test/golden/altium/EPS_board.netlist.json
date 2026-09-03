@@ -1,8 +1,8 @@
 {
-  "universalNetlistSchemaVersion": 1,
+  "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-01T21:46:10.734Z",
-    "netlistHash": "sha256:6dabc21c58e7ec74b680b8fba9948cb71599fedc02e82f696dceffe4deb5d3f1",
+    "generatedAt": "2026-09-03T01:02:26.705Z",
+    "netlistHash": "sha256:336479635e23de929c320fccd8c371f35ae88669a333ecae4580d3cc4dbec794",
     "origin": {
       "type": "vendor",
       "source": {
@@ -1406,6 +1406,7 @@
         }
       },
       "mpn": "TPS63020DSJT",
+      "manufacturer": "Texas Instruments",
       "description": "IC REG BCK BST ADJ 3.5A 14VSON",
       "comment": "TPS63020DSJT"
     },
@@ -1423,6 +1424,7 @@
         "1": "NetC500_1",
         "2": "GND"
       },
+      "manufacturer": "MURATA",
       "description": "CAP 10 µF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J106ME84D",
       "comment": "10u"
     },
@@ -1457,6 +1459,7 @@
         "1": "NetC500_1",
         "2": "GND"
       },
+      "manufacturer": "MURATA",
       "description": "CAP 10 µF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J106ME84D",
       "comment": "10u"
     },
@@ -1465,6 +1468,7 @@
         "1": "VOUT",
         "2": "GND"
       },
+      "manufacturer": "MURATA",
       "description": "CAP 22 µF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J226MEAOL",
       "comment": "22u"
     },
@@ -1473,6 +1477,7 @@
         "1": "VOUT",
         "2": "GND"
       },
+      "manufacturer": "MURATA",
       "description": "CAP 22 µF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J226MEAOL",
       "comment": "22u"
     },
@@ -1481,6 +1486,7 @@
         "1": "VOUT",
         "2": "GND"
       },
+      "manufacturer": "MURATA",
       "description": "CAP 22 µF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J226MEAOL",
       "comment": "22u"
     },
@@ -1804,6 +1810,7 @@
         }
       },
       "mpn": "PRT-14017",
+      "manufacturer": "SparkFun Electronics",
       "description": "GPIO Header for Raspberry Pi A+/B+/Pi 2/Pi 3 - 2x20 + 4 Cubesat pins",
       "comment": "RPI GPIO Connector + 4 Cubesat pins"
     },
@@ -1946,6 +1953,7 @@
         "2": "SW_MPPT_charger1"
       },
       "mpn": "C0603C104K5RACTU",
+      "manufacturer": "KEMET",
       "description": "CAP CER 50V X7R 0603",
       "comment": "100n",
       "value": "0.10 µF"
@@ -1956,6 +1964,7 @@
         "2": "GND"
       },
       "mpn": "C0603C104K5RACTU",
+      "manufacturer": "KEMET",
       "description": "CAP CER 50V X7R 0603\r\nLOW ESR!",
       "comment": "1u",
       "value": "0.10 µF"
@@ -1984,6 +1993,7 @@
         "2": "VBAT_MPPT_charger1"
       },
       "mpn": "C0603C104K5RACTU",
+      "manufacturer": "KEMET",
       "description": "CAP CER 50V X7R 0603",
       "comment": "1u",
       "value": "0.10 µF"
@@ -1994,6 +2004,7 @@
         "2": "FB_MPPT_charger1"
       },
       "mpn": "C0603C104K5RACTU",
+      "manufacturer": "KEMET",
       "description": "CAP CER 50V X7R 0603",
       "comment": "10p",
       "value": "0.10 µF"
@@ -2061,6 +2072,7 @@
         "1": "GND",
         "2": "VSOLAR__MPPT_charger1"
       },
+      "manufacturer": "Kemet",
       "description": "CAP, Ceramic, 0.1 uF, +/- 10%, 50 V, -55 to 125 degC, 1206 (3216 Metric), RoHS, Tape and Reel",
       "comment": "10u"
     },
@@ -2069,6 +2081,7 @@
         "1": "GND",
         "2": "VBAT_MPPT_charger1"
       },
+      "manufacturer": "Kemet",
       "description": "CAP, Ceramic, 0.1 uF, +/- 10%, 50 V, -55 to 125 degC, 1206 (3216 Metric), RoHS, Tape and Reel",
       "comment": "22u"
     },
@@ -2077,6 +2090,7 @@
         "1": "GND",
         "2": "VBAT_MPPT_charger1"
       },
+      "manufacturer": "Kemet",
       "description": "CAP, Ceramic, 0.1 uF, +/- 10%, 50 V, -55 to 125 degC, 1206 (3216 Metric), RoHS, Tape and Reel",
       "comment": "22u"
     },
@@ -2235,6 +2249,7 @@
         "2": "SW_MPPT_charger2"
       },
       "mpn": "C0603C104K5RACTU",
+      "manufacturer": "KEMET",
       "description": "CAP CER 50V X7R 0603",
       "comment": "100n",
       "value": "0.10 µF"
@@ -2245,6 +2260,7 @@
         "2": "GND"
       },
       "mpn": "C0603C104K5RACTU",
+      "manufacturer": "KEMET",
       "description": "CAP CER 50V X7R 0603\r\nLOW ESR!",
       "comment": "1u",
       "value": "0.10 µF"
@@ -2273,6 +2289,7 @@
         "2": "VBAT_MPPT_charger2"
       },
       "mpn": "C0603C104K5RACTU",
+      "manufacturer": "KEMET",
       "description": "CAP CER 50V X7R 0603",
       "comment": "1u",
       "value": "0.10 µF"
@@ -2283,6 +2300,7 @@
         "2": "FB_MPPT_charger2"
       },
       "mpn": "C0603C104K5RACTU",
+      "manufacturer": "KEMET",
       "description": "CAP CER 50V X7R 0603",
       "comment": "10p",
       "value": "0.10 µF"
@@ -2350,6 +2368,7 @@
         "1": "GND",
         "2": "VSOLAR__MPPT_charger2"
       },
+      "manufacturer": "Kemet",
       "description": "CAP, Ceramic, 0.1 uF, +/- 10%, 50 V, -55 to 125 degC, 1206 (3216 Metric), RoHS, Tape and Reel",
       "comment": "10u"
     },
@@ -2358,6 +2377,7 @@
         "1": "GND",
         "2": "VBAT_MPPT_charger2"
       },
+      "manufacturer": "Kemet",
       "description": "CAP, Ceramic, 0.1 uF, +/- 10%, 50 V, -55 to 125 degC, 1206 (3216 Metric), RoHS, Tape and Reel",
       "comment": "22u"
     },
@@ -2366,6 +2386,7 @@
         "1": "GND",
         "2": "VBAT_MPPT_charger2"
       },
+      "manufacturer": "Kemet",
       "description": "CAP, Ceramic, 0.1 uF, +/- 10%, 50 V, -55 to 125 degC, 1206 (3216 Metric), RoHS, Tape and Reel",
       "comment": "22u"
     },
@@ -2456,6 +2477,7 @@
           "net": "POWER_O2"
         }
       },
+      "manufacturer": "Alpha and Omega",
       "description": "N-channel Enhancement Mode Field-Effect Transistor; 5.8A/30V",
       "comment": "AO3400"
     },
@@ -2492,6 +2514,7 @@
           "net": "POWER_O1"
         }
       },
+      "manufacturer": "Alpha and Omega",
       "description": "N-channel Enhancement Mode Field-Effect Transistor; 5.8A/30V",
       "comment": "AO3400"
     },
@@ -2809,6 +2832,7 @@
           "net": "3,3V"
         }
       },
+      "manufacturer": "STMicroelectronics",
       "description": "ARM Cortex-M4 32-bit MCU+FPU, 210 DMIPS, 1024 kB Flash, 192 kB Internal RAM, 51 I/Os, 64-pin LQFP, -40 to 85 degC, Tray",
       "comment": "STM32F405RGT6"
     },
@@ -2818,6 +2842,7 @@
         "2": "GND"
       },
       "mpn": "C0603C104K5RACTU",
+      "manufacturer": "KEMET",
       "description": "CAP CER 50V X7R 0603",
       "comment": "2u2",
       "value": "0.10 µF"
@@ -2828,6 +2853,7 @@
         "2": "GND"
       },
       "mpn": "C0603C104K5RACTU",
+      "manufacturer": "KEMET",
       "description": "CAP CER 50V X7R 0603",
       "comment": "2u2",
       "value": "0.10 µF"
@@ -2838,6 +2864,7 @@
         "2": "GND"
       },
       "mpn": "C0603C104K5RACTU",
+      "manufacturer": "KEMET",
       "description": "CAP CER 50V X7R 0603",
       "comment": "20p",
       "value": "0.10 µF"
@@ -2848,6 +2875,7 @@
         "2": "GND"
       },
       "mpn": "C0603C104K5RACTU",
+      "manufacturer": "KEMET",
       "description": "CAP CER 50V X7R 0603",
       "comment": "20p",
       "value": "0.10 µF"
@@ -2866,6 +2894,7 @@
         "2": "GND"
       },
       "mpn": "C0603C104K5RACTU",
+      "manufacturer": "KEMET",
       "description": "CAP CER 0.1UF 50V X7R 0603",
       "comment": "4u7",
       "value": "0.10 µF"
@@ -2876,6 +2905,7 @@
         "2": "GND"
       },
       "mpn": "C0603C104K5RACTU",
+      "manufacturer": "KEMET",
       "description": "CAP CER 0.1UF 50V X7R 0603",
       "comment": "1u",
       "value": "0.10 µF"

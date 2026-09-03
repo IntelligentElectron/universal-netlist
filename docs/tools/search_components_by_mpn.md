@@ -4,13 +4,19 @@ Search for components by Manufacturer Part Number (MPN) pattern.
 
 ## Description
 
-Searches components using a regex pattern against MPN values. Useful for finding all instances of a specific part or part family.
+Searches components using a regex pattern against part numbers. Useful for finding all instances of a specific part or part family.
+
+Both part numbers are searched: `mpn`, the manufacturer's, and `internal_pn`,
+the number the design owner identifies the part by. They are different
+namespaces, and a caller holding one of them has no way to know which, so
+matching only `mpn` would answer "no such part" to a correct internal number.
+A group is returned once however many of its numbers matched.
 
 ## Input Parameters
 
 | Parameter | Type | Required | Default | Description |
 |-----------|------|----------|---------|-------------|
-| `pattern` | string | Yes | - | Regex pattern for MPN (case-insensitive) |
+| `pattern` | string | Yes | - | Regex pattern for either part number (case-insensitive) |
 | `design` | string | Yes | - | Path to design file |
 | `include_dns` | boolean | No | `false` | Include DNS components |
 
@@ -49,6 +55,7 @@ Response:
     "PowerBoard": [
       {
         "mpn": "TPS62840DLCR",
+        "internal_pn": "INT-1002",
         "description": "IC REG BUCK ADJ 750MA 8WSON",
         "count": 2,
         "refdes": ["U1", "U5"]
@@ -105,6 +112,8 @@ Response:
 
 - Pattern matching is **case-insensitive**
 - Inline flags like `(?i)` are accepted (matching is already case-insensitive by default)
-- Only searches components that have MPN data
-- If a design has no MPN data at all, `notes` will suggest asking for a BOM
-- Components without MPN cannot be found with this tool; use `search_components_by_refdes` instead
+- Only searches components that have at least one part number
+- If a design has no part-number data at all, `notes` will suggest asking for a BOM
+- Components without any part number cannot be found with this tool; use `search_components_by_refdes` instead
+- Each field is omitted when the design records nothing for it, so a design that
+  carries only one of the two is matched on that one

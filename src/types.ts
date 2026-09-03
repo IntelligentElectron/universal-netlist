@@ -50,7 +50,28 @@ export const getPinNet = (entry: PinEntry): string =>
  */
 export interface ComponentDetails {
   [refdes: string]: {
+    /**
+     * The manufacturer's part number, and nothing else.
+     *
+     * Omitted when the design records none. It is never filled from an internal
+     * part number or a library symbol name: a field named for the manufacturer
+     * that sometimes holds something else cannot be read without guessing which
+     * it got this time, which is the whole reason `internal_pn` exists.
+     *
+     * An MPN is unique only within a manufacturer, so `manufacturer` is what
+     * makes this a key rather than a string.
+     */
     mpn?: string;
+    /**
+     * The part number the design's own organization identifies the part by.
+     *
+     * A different namespace from `mpn`, not a synonym for it. One MPN commonly
+     * maps to several internal numbers, so the two cannot be collapsed and
+     * neither can be derived from the other.
+     */
+    internal_pn?: string;
+    /** The manufacturer's name, when the design records one. */
+    manufacturer?: string;
     description?: string;
     comment?: string;
     value?: string;
@@ -79,6 +100,8 @@ export interface CircuitComponent {
   refdes: string;
   type?: string;
   mpn?: string;
+  internal_pn?: string;
+  manufacturer?: string;
   description?: string;
   comment?: string;
   value?: string;
@@ -127,6 +150,8 @@ export interface OrientationVariant {
  */
 export interface AggregatedComponent {
   mpn?: string;
+  internal_pn?: string;
+  manufacturer?: string;
   description?: string;
   comment?: string;
   value?: string;
@@ -200,6 +225,8 @@ export interface ComponentGroup {
   refdes: string[];
   count: number;
   mpn?: string;
+  internal_pn?: string;
+  manufacturer?: string;
   description?: string;
   comment?: string;
   value?: string;
@@ -244,6 +271,8 @@ export interface SearchNetsResult {
 export interface QueryComponentResult {
   refdes: string;
   mpn?: string;
+  internal_pn?: string;
+  manufacturer?: string;
   description?: string;
   comment?: string;
   value?: string;

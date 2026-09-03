@@ -1,8 +1,8 @@
 {
-  "universalNetlistSchemaVersion": 1,
+  "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-01T21:46:12.101Z",
-    "netlistHash": "sha256:eebcbe9aa5ac0d16f93b354486754b8b28e483900276ca7f27995fe160a82492",
+    "generatedAt": "2026-09-03T01:02:27.651Z",
+    "netlistHash": "sha256:8b8f64cf058fc67a42b0761ce06d126be981a40b563f5c9c5822a68fe665cc4e",
     "origin": {
       "type": "vendor",
       "source": {
@@ -6916,6 +6916,7 @@
         }
       },
       "mpn": "MCP3913BA1-E/SS",
+      "manufacturer": "Microchip",
       "description": "6 Channel AFE 16, 24 Bit 28-SSOP"
     },
     "FB4": {
@@ -6923,14 +6924,16 @@
         "1": "NetC34_2",
         "2": "NetC37_2"
       },
-      "mpn": "BLM15AX601SN1D"
+      "mpn": "BLM15AX601SN1D",
+      "manufacturer": "Murata Electronics"
     },
     "FB3": {
       "pins": {
         "1": "NetC39_1",
         "2": "NetC40_1"
       },
-      "mpn": "BLM15AX601SN1D"
+      "mpn": "BLM15AX601SN1D",
+      "manufacturer": "Murata Electronics"
     },
     "X3": {
       "pins": {
@@ -6938,6 +6941,7 @@
         "2": "NetC35_1"
       },
       "mpn": "ABLS2-4.000MHZ-D4Y-T",
+      "manufacturer": "Abracon LLC",
       "description": "CRYSTAL 4.000 MHZ 18PF SMD"
     },
     "C35": {
@@ -6945,7 +6949,8 @@
         "1": "NetC35_1",
         "2": "NetC34_2"
       },
-      "mpn": "0402CG270J500NT"
+      "mpn": "0402CG270J500NT",
+      "manufacturer": "FH(Guangdong Fenghua Advanced Tech)"
     },
     "R77": {
       "pins": {
@@ -6953,6 +6958,7 @@
         "2": "NetC35_1"
       },
       "mpn": "0402WGF1004TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1M"
     },
     "C36": {
@@ -6960,14 +6966,16 @@
         "1": "NetC36_1",
         "2": "NetC34_2"
       },
-      "mpn": "0402CG270J500NT"
+      "mpn": "0402CG270J500NT",
+      "manufacturer": "FH(Guangdong Fenghua Advanced Tech)"
     },
     "C37": {
       "pins": {
         "1": "NetC37_1",
         "2": "NetC37_2"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R78": {
       "pins": {
@@ -6975,6 +6983,7 @@
         "2": "NetC39_1"
       },
       "mpn": "CRCW04021R00FKED",
+      "manufacturer": "Vishay Intertech",
       "value": "1"
     },
     "C39": {
@@ -6982,14 +6991,16 @@
         "1": "NetC39_1",
         "2": "NetC34_2"
       },
-      "mpn": "GMK107AB7105KAHT"
+      "mpn": "GMK107AB7105KAHT",
+      "manufacturer": "Taiyo Yuden"
     },
     "C38": {
       "pins": {
         "1": "NetC38_1",
         "2": "NetC34_2"
       },
-      "mpn": "CL21B106KAYQNNE"
+      "mpn": "CL21B106KAYQNNE",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R79": {
       "pins": {
@@ -6997,6 +7008,7 @@
         "2": "NetC40_1"
       },
       "mpn": "CRCW04021R00FKED",
+      "manufacturer": "Vishay Intertech",
       "value": "1"
     },
     "C40": {
@@ -7004,14 +7016,16 @@
         "1": "NetC40_1",
         "2": "NetC37_2"
       },
-      "mpn": "GMK107AB7105KAHT"
+      "mpn": "GMK107AB7105KAHT",
+      "manufacturer": "Taiyo Yuden"
     },
     "C41": {
       "pins": {
         "1": "NetC41_1",
         "2": "NetC37_2"
       },
-      "mpn": "CL21B106KAYQNNE"
+      "mpn": "CL21B106KAYQNNE",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R76": {
       "pins": {
@@ -7019,6 +7033,7 @@
         "2": "NetC39_1"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R75": {
@@ -7027,6 +7042,7 @@
         "2": "NetC39_1"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "C34": {
@@ -7034,7 +7050,8 @@
         "1": "NetC34_1",
         "2": "NetC34_2"
       },
-      "mpn": "0402CG270J500NT"
+      "mpn": "0402CG270J500NT",
+      "manufacturer": "FH(Guangdong Fenghua Advanced Tech)"
     },
     "R74": {
       "pins": {
@@ -7042,26 +7059,30 @@
         "2": "SPI2.MISO_1"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "TP72": {
       "pins": {
         "1": "CH0._N"
       },
-      "mpn": "RH-5001"
+      "mpn": "RH-5001",
+      "manufacturer": "ronghe"
     },
     "TP71": {
       "pins": {
         "1": "CH0._P"
       },
-      "mpn": "RH-5000"
+      "mpn": "RH-5000",
+      "manufacturer": "ronghe"
     },
     "C53": {
       "pins": {
         "1": "NetC53_1",
         "2": "NetC53_2"
       },
-      "mpn": "0402B153K250NT"
+      "mpn": "0402B153K250NT",
+      "manufacturer": "FH(Guangdong Fenghua Advanced Tech)"
     },
     "U4": {
       "pins": {
@@ -7087,6 +7108,7 @@
         }
       },
       "mpn": "TLV379IDCKR",
+      "manufacturer": "Texas Instruments",
       "description": "Low-Voltage, 4-µA, Rail-to-Rail I/O Operational Amplifier for Cost-Sensitive Systems 5-SC70 -40 to 125"
     },
     "R102": {
@@ -7095,6 +7117,7 @@
         "2": "NetQ8_3"
       },
       "mpn": "0402WGF5763TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "576k"
     },
     "R106": {
@@ -7103,6 +7126,7 @@
         "2": "NetC55_1"
       },
       "mpn": "0402WGF1073TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "107k"
     },
     "C55": {
@@ -7110,14 +7134,16 @@
         "1": "NetC55_1",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C56": {
       "pins": {
         "1": "VCC",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R105": {
       "pins": {
@@ -7125,6 +7151,7 @@
         "2": "LVB_DIV_1"
       },
       "mpn": "0402WGF3300TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "330"
     },
     "C71": {
@@ -7132,7 +7159,8 @@
         "1": "LVB_DIV_1",
         "2": "GND"
       },
-      "mpn": "CL05B103KB5NNNC"
+      "mpn": "CL05B103KB5NNNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "Q8": {
       "pins": {
@@ -7144,6 +7172,7 @@
         "6": "NetQ8_6"
       },
       "mpn": "SI1029X-T1-GE3",
+      "manufacturer": "Vishay Siliconix",
       "description": "Small Signal Field-Effect Transistor, 0.305A I(D), 60V, 2-Element, N-Channel and P-Channel, Silicon, Metal-oxide Semiconductor FET"
     },
     "R100": {
@@ -7152,6 +7181,7 @@
         "2": "NetD11_1"
       },
       "mpn": "0402WGF1003TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "100k"
     },
     "R101": {
@@ -7160,6 +7190,7 @@
         "2": "NetQ8_6"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "D11": {
@@ -7168,6 +7199,7 @@
         "2": "NetD11_2"
       },
       "mpn": "MM3Z15VC",
+      "manufacturer": "onsemi",
       "description": "DIODE ZENER 15V 200MW SOD"
     },
     "C149": {
@@ -7175,7 +7207,8 @@
         "1": "NetC149_1",
         "2": "NetC148_2"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R218": {
       "pins": {
@@ -7183,6 +7216,7 @@
         "2": "NetC149_1"
       },
       "mpn": "0402WGF5101TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "5.1k"
     },
     "R217": {
@@ -7191,6 +7225,7 @@
         "2": "A_IN"
       },
       "mpn": "0402WGF5101TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "5.1k"
     },
     "FB12": {
@@ -7198,14 +7233,16 @@
         "1": "",
         "2": "5P0_OUT"
       },
-      "mpn": "BLM15AX601SN1D"
+      "mpn": "BLM15AX601SN1D",
+      "manufacturer": "Murata Electronics"
     },
     "C148": {
       "pins": {
         "1": "5P0_OUT",
         "2": "NetC148_2"
       },
-      "mpn": "CL05B103KB5NNNC"
+      "mpn": "CL05B103KB5NNNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "D34": {
       "pins": {
@@ -7214,6 +7251,7 @@
         "3": "NetC149_1"
       },
       "mpn": "BAT54SLT1G",
+      "manufacturer": "ON Semiconductor",
       "description": "DIODE SCHOTTKY DUAL 30V SOT23"
     },
     "C171": {
@@ -7221,7 +7259,8 @@
         "1": "NetC171_1",
         "2": "NetC171_2"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R290": {
       "pins": {
@@ -7229,6 +7268,7 @@
         "2": "NetR244_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "C174": {
@@ -7236,7 +7276,8 @@
         "1": "NetC172_1",
         "2": "NetC171_2"
       },
-      "mpn": "TMK105B7224KV-FR"
+      "mpn": "TMK105B7224KV-FR",
+      "manufacturer": "Taiyo Yuden"
     },
     "R288": {
       "pins": {
@@ -7244,6 +7285,7 @@
         "2": "NetC171_1"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R289": {
@@ -7252,6 +7294,7 @@
         "2": "NetC171_1"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "U22": {
@@ -7322,6 +7365,7 @@
         }
       },
       "mpn": "BQ79600PWRQ1",
+      "manufacturer": "Texas Instruments",
       "description": "Automotive SPI/UART communication interface functional-safety compliant with automatic host wakeup"
     },
     "C173": {
@@ -7329,14 +7373,16 @@
         "1": "NetC173_1",
         "2": "NetC171_2"
       },
-      "mpn": "TMK105B7224KV-FR"
+      "mpn": "TMK105B7224KV-FR",
+      "manufacturer": "Taiyo Yuden"
     },
     "C172": {
       "pins": {
         "1": "NetC172_1",
         "2": "NetC171_2"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "D25": {
       "pins": {
@@ -7345,6 +7391,7 @@
         "3": "NetC101_2"
       },
       "mpn": "PESD2CAN,215",
+      "manufacturer": "NXP Semiconductors",
       "description": "DIODE ESD CAN SOT-23"
     },
     "T3": {
@@ -7355,6 +7402,7 @@
         "4": "CAN1_MDI._N"
       },
       "mpn": "ACT45B-101-2P-TL003",
+      "manufacturer": "TDK Corporation",
       "description": "CHOKE COMMON MODE 5000 OHM SMD",
       "comment": "CHOKE_ACT45B-101-2P-TL003"
     },
@@ -7394,6 +7442,7 @@
         }
       },
       "mpn": "TCAN1462VDRQ1",
+      "manufacturer": "Texas Instruments",
       "description": "Automotive signal improvement CAN FD transceiver with VIO and standby 8-SOIC -40 to 125"
     },
     "C103": {
@@ -7401,7 +7450,8 @@
         "1": "NetC103_1",
         "2": "NetC101_2"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R163": {
       "pins": {
@@ -7409,6 +7459,7 @@
         "2": "NetR163_2"
       },
       "mpn": "FRC0402F60R4TS",
+      "manufacturer": "FOJAN",
       "value": "60.4"
     },
     "R162": {
@@ -7417,6 +7468,7 @@
         "2": "NetC103_1"
       },
       "mpn": "FRC0402F60R4TS",
+      "manufacturer": "FOJAN",
       "value": "60.4"
     },
     "C101": {
@@ -7424,14 +7476,16 @@
         "1": "NetC101_1",
         "2": "NetC101_2"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C102": {
       "pins": {
         "1": "NetC102_1",
         "2": "NetC101_2"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R161": {
       "pins": {
@@ -7439,6 +7493,7 @@
         "2": "NetR161_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "S6": {
@@ -7449,6 +7504,7 @@
         "4": "NetD25_2"
       },
       "mpn": "CHS-02TA",
+      "manufacturer": "Nidec Copal",
       "description": "DIP Switch, Slide, SPST, Flush, Recessed, 6VDC, 100mA, CHS Series  Nidec Components CHS-02TA"
     },
     "J9": {
@@ -7479,6 +7535,7 @@
         }
       },
       "mpn": "686108183822",
+      "manufacturer": "Wurth Elektronik",
       "description": "CONN FFC VERT 8POS 1MM SMD"
     },
     "Q4": {
@@ -7497,6 +7554,7 @@
         }
       },
       "mpn": "MMBT3904T",
+      "manufacturer": "Shenzhen Slkormicro Semicon Co., Ltd.",
       "description": "Bipolar (BJT) Transistor NPN 40 V 200 mA 300MHz 150 mW Surface Mount SOT-523"
     },
     "Q5": {
@@ -7515,6 +7573,7 @@
         }
       },
       "mpn": "MMBT3904T",
+      "manufacturer": "Shenzhen Slkormicro Semicon Co., Ltd.",
       "description": "Bipolar (BJT) Transistor NPN 40 V 200 mA 300MHz 150 mW Surface Mount SOT-523"
     },
     "R119": {
@@ -7523,6 +7582,7 @@
         "2": "NetR119_2"
       },
       "mpn": "0402WGF4701TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "4.7k"
     },
     "R118": {
@@ -7531,6 +7591,7 @@
         "2": "NetR118_2"
       },
       "mpn": "0402WGF4701TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "4.7k"
     },
     "R117": {
@@ -7539,6 +7600,7 @@
         "2": "PWM2_OUT"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R116": {
@@ -7547,6 +7609,7 @@
         "2": "PWM1_OUT"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "D10": {
@@ -7555,6 +7618,7 @@
         "2": "TACH1_IN"
       },
       "mpn": "BAT54XV2T1G",
+      "manufacturer": "onsemi",
       "description": "ON Semi BAT54XV2T1G; SMT Schottky Diode; 30V 200mA; 5ns; 2-Pin SOD-523"
     },
     "D14": {
@@ -7563,6 +7627,7 @@
         "2": "TACH2_IN"
       },
       "mpn": "BAT54XV2T1G",
+      "manufacturer": "onsemi",
       "description": "ON Semi BAT54XV2T1G; SMT Schottky Diode; 30V 200mA; 5ns; 2-Pin SOD-523"
     },
     "R114": {
@@ -7571,6 +7636,7 @@
         "2": "NetD14_1"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R115": {
@@ -7579,6 +7645,7 @@
         "2": "NetD10_1"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "J12": {
@@ -7620,6 +7687,7 @@
         "35": "NetJ12_35"
       },
       "mpn": "1-776163-1",
+      "manufacturer": "TE Connectivity",
       "description": "Conn Power PL 35 POS 4mm Solder RA Thru-Hole 35 Terminal 1 Port, BLACK"
     },
     "J13": {
@@ -7661,6 +7729,7 @@
         "35": "NetJ13_35"
       },
       "mpn": "1-776163-5",
+      "manufacturer": "TE Connectivity",
       "description": "Conn Power PL 35 POS 4mm Solder RA Thru-Hole 35 Terminal 1 Port, BLUE"
     },
     "J7": {
@@ -7675,6 +7744,7 @@
         }
       },
       "mpn": "XT30UPB-M",
+      "manufacturer": "Changzhou Amass Elec",
       "description": "Vertical PCB mount XT30 male"
     },
     "XF6": {
@@ -7683,6 +7753,7 @@
         "2": "LVB"
       },
       "mpn": "3568",
+      "manufacturer": "Keystone Electronics",
       "description": "Fuse Holder 30 A 500V 1 Circuit Blade Through Hole"
     },
     "D12": {
@@ -7691,6 +7762,7 @@
         "2": "LVB"
       },
       "mpn": "5.0SMDJ12A",
+      "manufacturer": "Littelfuse",
       "description": "TVS 5000W 12V UNIDIRECT SMCJ"
     },
     "D37": {
@@ -7699,6 +7771,7 @@
         "2": "LVB"
       },
       "mpn": "SBR10E45P5-7",
+      "manufacturer": "Diodes",
       "description": "Rectifier Diode, 1 Phase, 1 Element, 10A, 45V V(RRM), Silicon"
     },
     "R292": {
@@ -7707,6 +7780,7 @@
         "2": "NetC178_1"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "R291": {
@@ -7715,6 +7789,7 @@
         "2": "NetD2_2"
       },
       "mpn": "0402WGF499JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "49.9"
     },
     "R293": {
@@ -7723,6 +7798,7 @@
         "2": "NetD2_1"
       },
       "mpn": "0402WGF499JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "49.9"
     },
     "C179": {
@@ -7730,14 +7806,16 @@
         "1": "NetC179_1",
         "2": "NetC73_2"
       },
-      "mpn": "0402YA101JAT2A"
+      "mpn": "0402YA101JAT2A",
+      "manufacturer": "Kyocera AVX"
     },
     "C178": {
       "pins": {
         "1": "NetC178_1",
         "2": "NetC73_2"
       },
-      "mpn": "0402YA101JAT2A"
+      "mpn": "0402YA101JAT2A",
+      "manufacturer": "Kyocera AVX"
     },
     "J15": {
       "pins": {
@@ -7759,6 +7837,7 @@
         }
       },
       "mpn": "43650-0219",
+      "manufacturer": "Molex",
       "description": "Conn Wire to Board HDR 4 POS 3mm Solder RA Thru-Hole 4 Terminal 1 Port Micro-Fit 3.0"
     },
     "D2": {
@@ -7768,6 +7847,7 @@
         "3": "NetC73_2"
       },
       "mpn": "PESD2USB3UX",
+      "manufacturer": "Nexperia USA Inc.",
       "description": "DIODE ESD USB SOT-23"
     },
     "T5": {
@@ -7780,6 +7860,7 @@
         "6": "COMM_P"
       },
       "mpn": "SM91502ALA-E",
+      "manufacturer": "Bourns Inc.",
       "description": "200µH LAN Pulse Transformer 1CT:1CT Surface Mount"
     },
     "C73": {
@@ -7787,7 +7868,8 @@
         "1": "NetC73_1",
         "2": "NetC73_2"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "J2": {
       "pins": {
@@ -7833,6 +7915,7 @@
         }
       },
       "mpn": "DM3BT-DSF-PEJS",
+      "manufacturer": "Hirose Electric Co Ltd",
       "description": "CONN MICRO SD R/A PUSH-PUSH SMD"
     },
     "J11": {
@@ -7891,6 +7974,7 @@
         }
       },
       "mpn": "TYPE-C-31-M-13",
+      "manufacturer": "HRO Electronics",
       "description": "USB 2.0 12P USB-C connector"
     },
     "D17": {
@@ -7900,6 +7984,7 @@
         "3": "NetC80_2"
       },
       "mpn": "PESD2USB3UX",
+      "manufacturer": "Nexperia USA Inc.",
       "description": "DIODE ESD USB SOT-23"
     },
     "R126": {
@@ -7908,6 +7993,7 @@
         "2": "NetJ11_A5"
       },
       "mpn": "0402WGF5101TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "5.1k"
     },
     "R127": {
@@ -7916,6 +8002,7 @@
         "2": "NetJ11_B5"
       },
       "mpn": "0402WGF5101TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "5.1k"
     },
     "C80": {
@@ -7923,7 +8010,8 @@
         "1": "NetC80_1",
         "2": "NetC80_2"
       },
-      "mpn": "CL31B106KBHNNNE"
+      "mpn": "CL31B106KBHNNNE",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "D16": {
       "pins": {
@@ -7931,6 +8019,7 @@
         "2": "NetC80_1"
       },
       "mpn": "MSS2P2-M3/89A",
+      "manufacturer": "Vishay Semiconductor Diodes Division",
       "description": "DIODE SCHOTTKY 20V 2A MICROSMP"
     },
     "U8": {
@@ -8013,6 +8102,7 @@
         }
       },
       "mpn": "MP6519GQ-Z",
+      "manufacturer": "Monolithic Power Systems",
       "description": "2.5V - 28V, 5A, H-bridge Current Regulator"
     },
     "R141": {
@@ -8021,6 +8111,7 @@
         "2": "NetC81_1"
       },
       "mpn": "0402WGF1003TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "100k"
     },
     "R136": {
@@ -8029,6 +8120,7 @@
         "2": "NetR136_2"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R138": {
@@ -8037,6 +8129,7 @@
         "2": "NetD19_2"
       },
       "mpn": "0402WGF4701TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "4.7k"
     },
     "D19": {
@@ -8045,6 +8138,7 @@
         "2": "NetD19_2"
       },
       "mpn": "LTST-C190KRKT",
+      "manufacturer": "Lite-On Inc",
       "description": "LED SUPER RED CLEAR 0603 SMD"
     },
     "R137": {
@@ -8053,6 +8147,7 @@
         "2": "NetR137_2"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R145": {
@@ -8061,6 +8156,7 @@
         "2": "NetR142_1"
       },
       "mpn": "HP06W2F130KT5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1.3"
     },
     "C83": {
@@ -8068,21 +8164,24 @@
         "1": "NetC81_1",
         "2": "NetC81_2"
       },
-      "mpn": "0805B475K500NT"
+      "mpn": "0805B475K500NT",
+      "manufacturer": "FH (Guangdong Fenghua Advanced Tech)"
     },
     "C81": {
       "pins": {
         "1": "NetC81_1",
         "2": "NetC81_2"
       },
-      "mpn": "0805B475K500NT"
+      "mpn": "0805B475K500NT",
+      "manufacturer": "FH (Guangdong Fenghua Advanced Tech)"
     },
     "C85": {
       "pins": {
         "1": "NetC85_1",
         "2": "NetC81_1"
       },
-      "mpn": "CL10A106MA8NRNC"
+      "mpn": "CL10A106MA8NRNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R140": {
       "pins": {
@@ -8090,6 +8189,7 @@
         "2": "NetR140_2"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "D20": {
@@ -8098,6 +8198,7 @@
         "2": "NetC81_1"
       },
       "mpn": "MSS2P2-M3/89A",
+      "manufacturer": "Vishay Semiconductor Diodes Division",
       "description": "DIODE SCHOTTKY 20V 2A MICROSMP"
     },
     "D21": {
@@ -8106,6 +8207,7 @@
         "2": "NetC81_1"
       },
       "mpn": "MSS2P2-M3/89A",
+      "manufacturer": "Vishay Semiconductor Diodes Division",
       "description": "DIODE SCHOTTKY 20V 2A MICROSMP"
     },
     "C82": {
@@ -8113,14 +8215,16 @@
         "1": "NetC82_1",
         "2": "NetC82_2"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C84": {
       "pins": {
         "1": "NetC84_1",
         "2": "NetC84_2"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R135": {
       "pins": {
@@ -8128,6 +8232,7 @@
         "2": "NetC82_1"
       },
       "mpn": "FRC0402F10R0TS",
+      "manufacturer": "FOJAN",
       "value": "10"
     },
     "R139": {
@@ -8136,6 +8241,7 @@
         "2": "NetC84_2"
       },
       "mpn": "FRC0402F10R0TS",
+      "manufacturer": "FOJAN",
       "value": "10"
     },
     "R142": {
@@ -8144,6 +8250,7 @@
         "2": "NetR142_2"
       },
       "mpn": "0402WGF0000TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "0m"
     },
     "R144": {
@@ -8152,6 +8259,7 @@
         "2": "NetC87_1"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "C86": {
@@ -8159,14 +8267,16 @@
         "1": "NetC86_1",
         "2": "NetC81_1"
       },
-      "mpn": "0402B473K500NT"
+      "mpn": "0402B473K500NT",
+      "manufacturer": "FH(Guangdong Fenghua Advanced Tech)"
     },
     "C87": {
       "pins": {
         "1": "NetC87_1",
         "2": "NetC81_1"
       },
-      "mpn": "GRM1555C1H471JA01D"
+      "mpn": "GRM1555C1H471JA01D",
+      "manufacturer": "Murata Electronics"
     },
     "D22": {
       "pins": {
@@ -8174,6 +8284,7 @@
         "2": "NetD22_2"
       },
       "mpn": "LTST-C190YKT",
+      "manufacturer": "Lite-On Inc",
       "description": "LED YELLOW CLEAR 0603 SMD"
     },
     "R143": {
@@ -8182,6 +8293,7 @@
         "2": "NetD22_2"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "U9": {
@@ -8220,6 +8332,7 @@
         }
       },
       "mpn": "BME280",
+      "manufacturer": "Bosch Tools",
       "description": "Pressure, Temperature and Humidity Sensor Digital Output 1.8V 8-Pin LGA T/R"
     },
     "C96": {
@@ -8227,7 +8340,8 @@
         "1": "NetC96_1",
         "2": "NetC96_2"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R243": {
       "pins": {
@@ -8235,6 +8349,7 @@
         "2": "NetR243_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "D43": {
@@ -8244,6 +8359,7 @@
         "3": "NetC188_1"
       },
       "mpn": "BAT54SLT1G",
+      "manufacturer": "ON Semiconductor",
       "description": "DIODE SCHOTTKY DUAL 30V SOT23"
     },
     "R265": {
@@ -8252,6 +8368,7 @@
         "2": "NetD43_2"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "Q11": {
@@ -8270,6 +8387,7 @@
         }
       },
       "mpn": "S9013",
+      "manufacturer": "Shenzhen Slkormicro Semicon Co., Ltd.",
       "description": "Bipolar (BJT) Transistor NPN 25 V 500 mA 150MHz 300 mW Surface Mount SOT-23"
     },
     "C188": {
@@ -8277,7 +8395,8 @@
         "1": "NetC188_1",
         "2": "NetC188_2"
       },
-      "mpn": "CL05B103KB5NNNC"
+      "mpn": "CL05B103KB5NNNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R264": {
       "pins": {
@@ -8285,6 +8404,7 @@
         "2": "NetD43_2"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "D44": {
@@ -8294,6 +8414,7 @@
         "3": ""
       },
       "mpn": "BAT54SLT1G",
+      "manufacturer": "ON Semiconductor",
       "description": "DIODE SCHOTTKY DUAL 30V SOT23"
     },
     "R266": {
@@ -8302,6 +8423,7 @@
         "2": "NetC188_1"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "T1": {
@@ -8356,6 +8478,7 @@
         }
       },
       "mpn": "H1102NL",
+      "manufacturer": "Pulse Electronics Corporation",
       "description": "MODULE XFRMR SGL ETHR LAN 16SOIC"
     },
     "C47": {
@@ -8363,28 +8486,32 @@
         "1": "NetC47_1",
         "2": "NetC47_2"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C50": {
       "pins": {
         "1": "NetC47_1",
         "2": "NetC47_2"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C48": {
       "pins": {
         "1": "NetC48_1",
         "2": "NetC48_2"
       },
-      "mpn": "CL05B103KB5NNNC"
+      "mpn": "CL05B103KB5NNNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C51": {
       "pins": {
         "1": "NetC51_1",
         "2": "NetC51_2"
       },
-      "mpn": "CL05B103KB5NNNC"
+      "mpn": "CL05B103KB5NNNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R91": {
       "pins": {
@@ -8392,6 +8519,7 @@
         "2": "NetC48_2"
       },
       "mpn": "0402WGF750JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "75"
     },
     "R92": {
@@ -8400,6 +8528,7 @@
         "2": "NetC51_2"
       },
       "mpn": "0402WGF750JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "75"
     },
     "C49": {
@@ -8407,7 +8536,8 @@
         "1": "NetC49_1",
         "2": "CHASSIS"
       },
-      "mpn": "CC0402KRX7R0BB222"
+      "mpn": "CC0402KRX7R0BB222",
+      "manufacturer": "YAGEO"
     },
     "U7": {
       "pins": {
@@ -8545,6 +8675,7 @@
         }
       },
       "mpn": "LAN8670C2T-E/LMX",
+      "manufacturer": "Microchip",
       "description": "10BASE-T1S PHY WITH MII/RMII \"1/1 Transceiver Full, Half Ethernet 32-VQFN (5x5)\""
     },
     "X7": {
@@ -8553,6 +8684,7 @@
         "3": "NetC78_1"
       },
       "mpn": "XRCGB25M000F3A00R0",
+      "manufacturer": "Murata",
       "description": "CRYSTAL 25.000MHZ 6PF SMD",
       "comment": "XTAL_XRCGB25M000F3A00R0"
     },
@@ -8562,6 +8694,7 @@
         "2": "NetC78_1"
       },
       "mpn": "0402WGF3300TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "330"
     },
     "C79": {
@@ -8569,14 +8702,16 @@
         "1": "NetC79_1",
         "2": "GND"
       },
-      "mpn": "0402CG6R0C500NT"
+      "mpn": "0402CG6R0C500NT",
+      "manufacturer": "FH(Guangdong Fenghua Advanced Tech)"
     },
     "C78": {
       "pins": {
         "1": "NetC78_1",
         "2": "GND"
       },
-      "mpn": "0402CG6R0C500NT"
+      "mpn": "0402CG6R0C500NT",
+      "manufacturer": "FH(Guangdong Fenghua Advanced Tech)"
     },
     "R159": {
       "pins": {
@@ -8584,6 +8719,7 @@
         "2": "SMI.MDIO_1"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R191": {
@@ -8592,6 +8728,7 @@
         "2": "NetR191_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R192": {
@@ -8600,6 +8737,7 @@
         "2": "NetR192_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R190": {
@@ -8608,6 +8746,7 @@
         "2": "NetR190_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R172": {
@@ -8616,6 +8755,7 @@
         "2": "NetR172_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R158": {
@@ -8624,6 +8764,7 @@
         "2": "NetR158_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R157": {
@@ -8632,6 +8773,7 @@
         "2": "NetR146_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R153": {
@@ -8640,6 +8782,7 @@
         "2": "NetR153_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R151": {
@@ -8648,6 +8791,7 @@
         "2": "NetR151_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R149": {
@@ -8656,6 +8800,7 @@
         "2": "NetR149_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R150": {
@@ -8664,6 +8809,7 @@
         "2": "NetR150_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "FB7": {
@@ -8671,7 +8817,8 @@
         "1": "NetC91_1",
         "2": "3P3"
       },
-      "mpn": "HCB2012KF-102T10"
+      "mpn": "HCB2012KF-102T10",
+      "manufacturer": "TAI-TECH"
     },
     "R241": {
       "pins": {
@@ -8679,6 +8826,7 @@
         "2": "NetC91_1"
       },
       "mpn": "CRCW04021R00FKED",
+      "manufacturer": "Vishay Intertech",
       "value": "1"
     },
     "C93": {
@@ -8686,21 +8834,24 @@
         "1": "NetC93_1",
         "2": "GND"
       },
-      "mpn": "CL21B106KAYQNNE"
+      "mpn": "CL21B106KAYQNNE",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C94": {
       "pins": {
         "1": "3P3",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C77": {
       "pins": {
         "1": "NetC77_1",
         "2": "GND"
       },
-      "mpn": "0402CG270J500NT"
+      "mpn": "0402CG270J500NT",
+      "manufacturer": "FH(Guangdong Fenghua Advanced Tech)"
     },
     "R152": {
       "pins": {
@@ -8708,6 +8859,7 @@
         "2": "NetR152_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "C95": {
@@ -8715,7 +8867,8 @@
         "1": "3P3",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R242": {
       "pins": {
@@ -8723,6 +8876,7 @@
         "2": "GND"
       },
       "mpn": "0402WGF1242TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "12.4k"
     },
     "C92": {
@@ -8730,14 +8884,16 @@
         "1": "NetC91_1",
         "2": "GND"
       },
-      "mpn": "GMK107AB7105KAHT"
+      "mpn": "GMK107AB7105KAHT",
+      "manufacturer": "Taiyo Yuden"
     },
     "C91": {
       "pins": {
         "1": "NetC91_1",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R177": {
       "pins": {
@@ -8745,6 +8901,7 @@
         "2": "GND"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R183": {
@@ -8753,6 +8910,7 @@
         "2": "GND"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R184": {
@@ -8761,6 +8919,7 @@
         "2": "GND"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R185": {
@@ -8769,6 +8928,7 @@
         "2": "GND"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R187": {
@@ -8777,6 +8937,7 @@
         "2": "GND"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R146": {
@@ -8785,6 +8946,7 @@
         "2": "NetR146_2"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R239": {
@@ -8793,6 +8955,7 @@
         "2": "GND"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R147": {
@@ -8801,6 +8964,7 @@
         "2": "NetR147_2"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R148": {
@@ -8809,6 +8973,7 @@
         "2": "NetC77_1"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "T4": {
@@ -8819,6 +8984,7 @@
         "4": "NetC88_1"
       },
       "mpn": "ACT1210D-131-2P-TL00",
+      "manufacturer": "TDK Corporation",
       "description": "130 µH @ 100 kHz 2 Line Common Mode Choke Surface Mount 6.7 kOhms @ 10 MHz 115mA DCR 3.5Ohm"
     },
     "C88": {
@@ -8826,14 +8992,16 @@
         "1": "NetC88_1",
         "2": "10B-T1S_MDI._N"
       },
-      "mpn": "FM31X104K251EEG"
+      "mpn": "FM31X104K251EEG",
+      "manufacturer": "PSA(Prosperity Dielectrics)"
     },
     "C89": {
       "pins": {
         "1": "NetC89_1",
         "2": "10B-T1S_MDI._P"
       },
-      "mpn": "FM31X104K251EEG"
+      "mpn": "FM31X104K251EEG",
+      "manufacturer": "PSA(Prosperity Dielectrics)"
     },
     "R235": {
       "pins": {
@@ -8841,6 +9009,7 @@
         "2": "GND"
       },
       "mpn": "1206W4F1002T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R236": {
@@ -8849,6 +9018,7 @@
         "2": "GND"
       },
       "mpn": "1206W4F1002T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R237": {
@@ -8857,6 +9027,7 @@
         "2": "NetC90_1"
       },
       "mpn": "FRC1206F49R9TS",
+      "manufacturer": "FOJAN",
       "value": "49.9"
     },
     "R238": {
@@ -8865,6 +9036,7 @@
         "2": "NetC90_1"
       },
       "mpn": "FRC1206F49R9TS",
+      "manufacturer": "FOJAN",
       "value": "49.9"
     },
     "C90": {
@@ -8872,7 +9044,8 @@
         "1": "NetC90_1",
         "2": "GND"
       },
-      "mpn": "FM32X224K251EEG"
+      "mpn": "FM32X224K251EEG",
+      "manufacturer": "PSA(Prosperity Dielectrics)"
     },
     "D15": {
       "pins": {
@@ -8881,6 +9054,7 @@
         "3": "GND"
       },
       "mpn": "PESD2USB3UX",
+      "manufacturer": "Nexperia USA Inc.",
       "description": "DIODE ESD USB SOT-23"
     },
     "R240": {
@@ -8889,6 +9063,7 @@
         "2": "GND"
       },
       "mpn": "1206W4F1003T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "100k"
     },
     "U11": {
@@ -9411,6 +9586,7 @@
         }
       },
       "mpn": "KSZ8567RTXV-VAO",
+      "manufacturer": "Microchip",
       "description": "Automotive Ethernet Switch 7 Port 10Mbps/100Mbps 128-Pin TQFP EP Tray"
     },
     "X4": {
@@ -9419,6 +9595,7 @@
         "3": "NetC136_1"
       },
       "mpn": "XRCGB25M000F3A00R0",
+      "manufacturer": "Murata",
       "description": "CRYSTAL 25.000MHZ 6PF SMD"
     },
     "R173": {
@@ -9427,6 +9604,7 @@
         "2": "NetR173_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R175": {
@@ -9435,6 +9613,7 @@
         "2": "NetR175_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R174": {
@@ -9443,6 +9622,7 @@
         "2": "NetR174_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R178": {
@@ -9451,6 +9631,7 @@
         "2": "NetR178_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R179": {
@@ -9459,6 +9640,7 @@
         "2": "NetR179_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R180": {
@@ -9467,6 +9649,7 @@
         "2": "NetR179_1"
       },
       "mpn": "0402WGF2201TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "2.2k"
     },
     "R186": {
@@ -9475,6 +9658,7 @@
         "2": "NetC136_1"
       },
       "mpn": "0402WGF3300TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "330"
     },
     "R189": {
@@ -9483,6 +9667,7 @@
         "2": "GND"
       },
       "mpn": "0402WGF6041TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "6.04k"
     },
     "FB9": {
@@ -9490,14 +9675,16 @@
         "1": "3P3",
         "2": "NetC104_1"
       },
-      "mpn": "HCB2012KF-102T10"
+      "mpn": "HCB2012KF-102T10",
+      "manufacturer": "TAI-TECH"
     },
     "FB10": {
       "pins": {
         "1": "1P2",
         "2": "NetC119_1"
       },
-      "mpn": "HCB2012KF-102T10"
+      "mpn": "HCB2012KF-102T10",
+      "manufacturer": "TAI-TECH"
     },
     "R166": {
       "pins": {
@@ -9505,6 +9692,7 @@
         "2": "NetC104_1"
       },
       "mpn": "CRCW04021R00FKED",
+      "manufacturer": "Vishay Intertech",
       "value": "1"
     },
     "R167": {
@@ -9513,6 +9701,7 @@
         "2": "NetC119_1"
       },
       "mpn": "CRCW04021R00FKED",
+      "manufacturer": "Vishay Intertech",
       "value": "1"
     },
     "C111": {
@@ -9520,217 +9709,248 @@
         "1": "NetC111_1",
         "2": "GND"
       },
-      "mpn": "CL21B106KAYQNNE"
+      "mpn": "CL21B106KAYQNNE",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C127": {
       "pins": {
         "1": "NetC127_1",
         "2": "GND"
       },
-      "mpn": "CL21B106KAYQNNE"
+      "mpn": "CL21B106KAYQNNE",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C104": {
       "pins": {
         "1": "NetC104_1",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C106": {
       "pins": {
         "1": "NetC104_1",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C108": {
       "pins": {
         "1": "NetC104_1",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C110": {
       "pins": {
         "1": "NetC104_1",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C112": {
       "pins": {
         "1": "NetC104_1",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C114": {
       "pins": {
         "1": "NetC104_1",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C116": {
       "pins": {
         "1": "NetC104_1",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C119": {
       "pins": {
         "1": "NetC119_1",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C121": {
       "pins": {
         "1": "NetC119_1",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C123": {
       "pins": {
         "1": "NetC119_1",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C125": {
       "pins": {
         "1": "NetC119_1",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C128": {
       "pins": {
         "1": "NetC119_1",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C129": {
       "pins": {
         "1": "NetC119_1",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C130": {
       "pins": {
         "1": "NetC119_1",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C131": {
       "pins": {
         "1": "NetC119_1",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C132": {
       "pins": {
         "1": "NetC119_1",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C105": {
       "pins": {
         "1": "3P3",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C107": {
       "pins": {
         "1": "3P3",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C109": {
       "pins": {
         "1": "3P3",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C113": {
       "pins": {
         "1": "1P2",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C115": {
       "pins": {
         "1": "1P2",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C117": {
       "pins": {
         "1": "1P2",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C118": {
       "pins": {
         "1": "1P2",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C120": {
       "pins": {
         "1": "1P2",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C122": {
       "pins": {
         "1": "1P2",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C124": {
       "pins": {
         "1": "1P2",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C126": {
       "pins": {
         "1": "1P2",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C136": {
       "pins": {
         "1": "NetC136_1",
         "2": "GND"
       },
-      "mpn": "0402CG6R0C500NT"
+      "mpn": "0402CG6R0C500NT",
+      "manufacturer": "FH(Guangdong Fenghua Advanced Tech)"
     },
     "C135": {
       "pins": {
         "1": "NetC135_1",
         "2": "GND"
       },
-      "mpn": "0402CG6R0C500NT"
+      "mpn": "0402CG6R0C500NT",
+      "manufacturer": "FH(Guangdong Fenghua Advanced Tech)"
     },
     "R188": {
       "pins": {
@@ -9738,6 +9958,7 @@
         "2": "NetC137_1"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "C137": {
@@ -9745,7 +9966,8 @@
         "1": "NetC137_1",
         "2": "GND"
       },
-      "mpn": "0402CG270J500NT"
+      "mpn": "0402CG270J500NT",
+      "manufacturer": "FH(Guangdong Fenghua Advanced Tech)"
     },
     "R176": {
       "pins": {
@@ -9753,6 +9975,7 @@
         "2": "MCU_RMII.RXD0_1"
       },
       "mpn": "0402WGF2201TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "2.2k"
     },
     "R181": {
@@ -9761,6 +9984,7 @@
         "2": "NetJ8_19"
       },
       "mpn": "0402WGF3300TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "330"
     },
     "R182": {
@@ -9769,6 +9993,7 @@
         "2": "NetJ8_17"
       },
       "mpn": "0402WGF3300TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "330"
     },
     "C133": {
@@ -9776,7 +10001,8 @@
         "1": "NetC133_1",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "D31": {
       "pins": {
@@ -9784,6 +10010,7 @@
         "2": "3P3"
       },
       "mpn": "LTST-C190AKT",
+      "manufacturer": "Lite-On Inc",
       "description": "LED AMBER CLEAR 0603 SMD"
     },
     "R171": {
@@ -9792,6 +10019,7 @@
         "2": "LED3_1"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "D30": {
@@ -9800,6 +10028,7 @@
         "2": "3P3"
       },
       "mpn": "LTST-C190GKT",
+      "manufacturer": "Lite-On Inc",
       "description": "LED GREEN CLEAR 0603 SMD"
     },
     "R170": {
@@ -9808,6 +10037,7 @@
         "2": "LED3_0"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "D28": {
@@ -9816,6 +10046,7 @@
         "2": "3P3"
       },
       "mpn": "LTST-C190GKT",
+      "manufacturer": "Lite-On Inc",
       "description": "LED GREEN CLEAR 0603 SMD"
     },
     "R168": {
@@ -9824,6 +10055,7 @@
         "2": "LED2_0"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "D29": {
@@ -9832,6 +10064,7 @@
         "2": "3P3"
       },
       "mpn": "LTST-C190AKT",
+      "manufacturer": "Lite-On Inc",
       "description": "LED AMBER CLEAR 0603 SMD"
     },
     "R169": {
@@ -9840,6 +10073,7 @@
         "2": "LED2_1"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "D26": {
@@ -9848,6 +10082,7 @@
         "2": "3P3"
       },
       "mpn": "LTST-C190GKT",
+      "manufacturer": "Lite-On Inc",
       "description": "LED GREEN CLEAR 0603 SMD"
     },
     "R164": {
@@ -9856,6 +10091,7 @@
         "2": "LED1_0"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "D27": {
@@ -9864,6 +10100,7 @@
         "2": "3P3"
       },
       "mpn": "LTST-C190AKT",
+      "manufacturer": "Lite-On Inc",
       "description": "LED AMBER CLEAR 0603 SMD"
     },
     "R165": {
@@ -9872,6 +10109,7 @@
         "2": "LED1_1"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "J8": {
@@ -9950,6 +10188,7 @@
         }
       },
       "mpn": "V8BR-1AX1-GH",
+      "manufacturer": "Bel",
       "description": "Conn RJ-45 F 8 POS 1.02mm Solder ST Thru-Hole 20 Terminal 1 Port Tray"
     },
     "C70": {
@@ -9957,7 +10196,8 @@
         "1": "NetC70_1",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R121": {
       "pins": {
@@ -9965,6 +10205,7 @@
         "2": "NetR121_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R103": {
@@ -9973,6 +10214,7 @@
         "2": "NetR103_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R123": {
@@ -9981,6 +10223,7 @@
         "2": "NetR123_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R125": {
@@ -9989,6 +10232,7 @@
         "2": "NetR125_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R122": {
@@ -9997,6 +10241,7 @@
         "2": "NetR121_1"
       },
       "mpn": "0402WGF2201TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "2.2k"
     },
     "R124": {
@@ -10005,6 +10250,7 @@
         "2": "NetR123_1"
       },
       "mpn": "0402WGF2201TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "2.2k"
     },
     "R131": {
@@ -10013,6 +10259,7 @@
         "2": "NetR131_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R120": {
@@ -10021,6 +10268,7 @@
         "2": "NetR120_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R130": {
@@ -10029,6 +10277,7 @@
         "2": "NetR125_1"
       },
       "mpn": "0402WGF2201TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "2.2k"
     },
     "R133": {
@@ -10037,6 +10286,7 @@
         "2": "NetR131_1"
       },
       "mpn": "0402WGF2201TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "2.2k"
     },
     "R134": {
@@ -10045,6 +10295,7 @@
         "2": "SPI2.MISO_1"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R286": {
@@ -10053,6 +10304,7 @@
         "2": "NetR286_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R285": {
@@ -10061,6 +10313,7 @@
         "2": "NetR285_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R108": {
@@ -10069,6 +10322,7 @@
         "2": "LED3_1"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "R111": {
@@ -10077,6 +10331,7 @@
         "2": "LED4_1"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "C54": {
@@ -10084,14 +10339,16 @@
         "1": "CH0._P",
         "2": "NetC54_2"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C57": {
       "pins": {
         "1": "NetC54_2",
         "2": "CH0._N"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R104": {
       "pins": {
@@ -10099,6 +10356,7 @@
         "2": "NetR104_2"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "R107": {
@@ -10107,6 +10365,7 @@
         "2": "NetR107_2"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "C52": {
@@ -10114,7 +10373,8 @@
         "1": "CH0._P",
         "2": "CH0._N"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "U17": {
       "pins": {
@@ -10216,6 +10476,7 @@
         }
       },
       "mpn": "LC29HEAMD",
+      "manufacturer": "Quectel",
       "description": "Rf Txrx Module Navigation SMD"
     },
     "Q7": {
@@ -10234,6 +10495,7 @@
         }
       },
       "mpn": "MMBT3904T",
+      "manufacturer": "Shenzhen Slkormicro Semicon Co., Ltd.",
       "description": "Bipolar (BJT) Transistor NPN 40 V 200 mA 300MHz 150 mW Surface Mount SOT-523"
     },
     "Q6": {
@@ -10246,6 +10508,7 @@
         "6": "NetQ6_1"
       },
       "mpn": "FDC638P",
+      "manufacturer": "onsemi",
       "description": "MOSFET P-CH 20V 4.5A SSOT-6"
     },
     "R246": {
@@ -10254,6 +10517,7 @@
         "2": "NetQ6_3"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R244": {
@@ -10262,6 +10526,7 @@
         "2": "NetR244_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R247": {
@@ -10270,6 +10535,7 @@
         "2": "NetR247_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R248": {
@@ -10278,6 +10544,7 @@
         "2": "NetR248_2"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "R245": {
@@ -10286,6 +10553,7 @@
         "2": "NetQ6_1"
       },
       "mpn": "RTT2510R0FTE",
+      "manufacturer": "RALEC",
       "value": "10"
     },
     "C166": {
@@ -10293,14 +10561,16 @@
         "1": "NetC134_1",
         "2": "NetC100_2"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C134": {
       "pins": {
         "1": "NetC134_1",
         "2": "NetC100_2"
       },
-      "mpn": "0402CG101J500NT"
+      "mpn": "0402CG101J500NT",
+      "manufacturer": "FH(Guangdong Fenghua Advanced Tech)"
     },
     "J14": {
       "pins": {
@@ -10314,6 +10584,7 @@
         }
       },
       "mpn": "RFPC-SMA14-FN-A",
+      "manufacturer": "GCT (Gradconn)",
       "description": "SMA Connector Jack, Female Socket Panel Mount, Through Hole, Right Angle Solder, IP68 unmated"
     },
     "C98": {
@@ -10321,28 +10592,32 @@
         "1": "GNSS_RF",
         "2": "GNSS_RF_BIASED"
       },
-      "mpn": "0402CG101J500NT"
+      "mpn": "0402CG101J500NT",
+      "manufacturer": "FH(Guangdong Fenghua Advanced Tech)"
     },
     "C164": {
       "pins": {
         "1": "NetC164_1",
         "2": "NetC100_2"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C100": {
       "pins": {
         "1": "NetC100_1",
         "2": "NetC100_2"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C165": {
       "pins": {
         "1": "NetC165_1",
         "2": "NetC100_2"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "D42": {
       "pins": {
@@ -10350,6 +10625,7 @@
         "2": "GNSS_RF_BIASED"
       },
       "mpn": "PTVSLC3D3V3B",
+      "manufacturer": "Prisemi",
       "description": "-55?~+150? 1uA 20A@8/20us 21V 3.3V 3.5pF 350W@8/20us 4V Bidirectional IEC 61000-4-2 TVS SOD-323 ESD and Surge Protection (TVS/ESD) ROHS"
     },
     "R250": {
@@ -10358,6 +10634,7 @@
         "2": "NetC165_1"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "D39": {
@@ -10366,6 +10643,7 @@
         "2": "NetR288_1"
       },
       "mpn": "BAT54XV2T1G",
+      "manufacturer": "onsemi",
       "description": "ON Semi BAT54XV2T1G; SMT Schottky Diode; 30V 200mA; 5ns; 2-Pin SOD-523"
     },
     "L4": {
@@ -10374,6 +10652,7 @@
         "2": "GNSS_RF_BIASED"
       },
       "mpn": "LQW18AN68NJ80D",
+      "manufacturer": "Murata",
       "description": "General Purpose Inductor, 0.068uH, 5%, 1 Element, Wirewound-Core, 1608/0603, 2.38GHz self resonant frequency",
       "value": "68nH"
     },
@@ -10383,6 +10662,7 @@
         "2": "NetD7_2"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "D7": {
@@ -10391,6 +10671,7 @@
         "2": "NetD7_2"
       },
       "mpn": "LTST-C190KRKT",
+      "manufacturer": "Lite-On Inc",
       "description": "LED SUPER RED CLEAR 0603 SMD"
     },
     "K2": {
@@ -10405,6 +10686,7 @@
         "8": "NetF5_2"
       },
       "mpn": "FTR-J2AK006W",
+      "manufacturer": "Fujitsu",
       "description": "General Purpose Relay 450VDC/10A"
     },
     "K3": {
@@ -10415,6 +10697,7 @@
         "4": "HV_MEAS_3"
       },
       "mpn": "P126BDA",
+      "manufacturer": "Sensata",
       "description": "RELAY GEN PURPOSE SPST 60A 12V"
     },
     "K1": {
@@ -10425,6 +10708,7 @@
         "4": "HV_RAW_SUPPLY_3"
       },
       "mpn": "P126BDA",
+      "manufacturer": "Sensata",
       "description": "RELAY GEN PURPOSE SPST 60A 12V"
     },
     "R82": {
@@ -10433,6 +10717,7 @@
         "2": "HV_P"
       },
       "mpn": "TEH100M7R50FE",
+      "manufacturer": "Ohmite",
       "description": "RES TK FM 7.5 OHM 100W 1% TO247"
     },
     "R84": {
@@ -10441,6 +10726,7 @@
         "2": "HV_N"
       },
       "mpn": "TEH100M7R50FE",
+      "manufacturer": "Ohmite",
       "description": "RES TK FM 7.5 OHM 100W 1% TO247",
       "comment": "RES_7.5_OHM_100W_1%_TO247"
     },
@@ -10452,6 +10738,7 @@
         "4": "NetR107_2"
       },
       "mpn": "WSL2726L5000FEB",
+      "manufacturer": "Vishay Dale",
       "description": "RES SMD 0.0005 OHM 1% 3W 2726"
     },
     "R80": {
@@ -10462,6 +10749,7 @@
         "4": "NetR107_2"
       },
       "mpn": "WSL2726L5000FEB",
+      "manufacturer": "Vishay Dale",
       "description": "RES SMD 0.0005 OHM 1% 3W 2726"
     },
     "R83": {
@@ -10472,6 +10760,7 @@
         "4": "NetR104_2"
       },
       "mpn": "WSL2726L5000FEB",
+      "manufacturer": "Vishay Dale",
       "description": "RES SMD 0.0005 OHM 1% 3W 2726"
     },
     "R90": {
@@ -10482,6 +10771,7 @@
         "4": "NetR104_2"
       },
       "mpn": "WSL27265L000FEB",
+      "manufacturer": "Vishay Dale",
       "description": "RES SMD 0.005 OHM 1% 3W 2726"
     },
     "C42": {
@@ -10489,21 +10779,24 @@
         "1": "HV_MC0_P_3",
         "2": "HV_MC0_N_3"
       },
-      "mpn": "C5750X7T2E225KT000N"
+      "mpn": "C5750X7T2E225KT000N",
+      "manufacturer": "TDK"
     },
     "C44": {
       "pins": {
         "1": "HV_MC1_P_3",
         "2": "HV_MC1_N_3"
       },
-      "mpn": "C5750X7T2E225KT000N"
+      "mpn": "C5750X7T2E225KT000N",
+      "manufacturer": "TDK"
     },
     "C46": {
       "pins": {
         "1": "HV_ARRAY_P_3",
         "2": "HV_ARRAY_N_3"
       },
-      "mpn": "C5750X7T2E225KT000N"
+      "mpn": "C5750X7T2E225KT000N",
+      "manufacturer": "TDK"
     },
     "F4": {
       "pins": {
@@ -10511,6 +10804,7 @@
         "2": "HV_MC1_P_3"
       },
       "mpn": "ELV10-80-2P",
+      "manufacturer": "Eaton",
       "description": "FUSE EV 80A 200VDC 2P TERM"
     },
     "F1": {
@@ -10519,6 +10813,7 @@
         "2": "HV_MC0_P_3"
       },
       "mpn": "ELV10-80-2P",
+      "manufacturer": "Eaton",
       "description": "FUSE EV 80A 200VDC 2P TERM"
     },
     "F3": {
@@ -10527,6 +10822,7 @@
         "2": "NetF3_2"
       },
       "mpn": "0ZRE0200FF1A",
+      "manufacturer": "Bel Fuse Inc.",
       "description": "Polymeric PTC Resettable Fuse 240V 2 A Ih Through Hole Radial, Disc"
     },
     "F5": {
@@ -10535,6 +10831,7 @@
         "2": "NetF5_2"
       },
       "mpn": "0ZRE0200FF1A",
+      "manufacturer": "Bel Fuse Inc.",
       "description": "Polymeric PTC Resettable Fuse 240V 2 A Ih Through Hole Radial, Disc"
     },
     "R85": {
@@ -10543,6 +10840,7 @@
         "2": "NetC53_1"
       },
       "mpn": "RC1206FR-072M2L",
+      "manufacturer": "YAGEO",
       "value": "2.2M"
     },
     "R87": {
@@ -10551,6 +10849,7 @@
         "2": "HV_N"
       },
       "mpn": "0402WGF9531TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "9.53k"
     },
     "R88": {
@@ -10559,16 +10858,19 @@
         "2": "HV_N"
       },
       "mpn": "0402WGF0000TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "0m"
     },
     "HS2": {
       "pins": {},
       "mpn": "WA-T247-101E",
+      "manufacturer": "Ohmite",
       "description": "Heat Sink, 11ohm, Extruded, Clip, Longitudinal, Aluminum Alloy, Anodized"
     },
     "HS3": {
       "pins": {},
       "mpn": "WA-T247-101E",
+      "manufacturer": "Ohmite",
       "description": "Heat Sink, 11ohm, Extruded, Clip, Longitudinal, Aluminum Alloy, Anodized"
     },
     "J19": {
@@ -10576,6 +10878,7 @@
         "0": "HV_ARRAY_P_3"
       },
       "mpn": "7461086",
+      "manufacturer": "Wurth Electronics",
       "description": "POWER ELEMENT BUSH M4 12PIN"
     },
     "J20": {
@@ -10583,6 +10886,7 @@
         "0": "HV_ARRAY_N_3"
       },
       "mpn": "7461086",
+      "manufacturer": "Wurth Electronics",
       "description": "POWER ELEMENT BUSH M4 12PIN"
     },
     "J6": {
@@ -10590,6 +10894,7 @@
         "0": "HV_MC1_P_3"
       },
       "mpn": "7461086",
+      "manufacturer": "Wurth Electronics",
       "description": "POWER ELEMENT BUSH M4 12PIN"
     },
     "J18": {
@@ -10597,6 +10902,7 @@
         "0": "HV_MC1_N_3"
       },
       "mpn": "7461086",
+      "manufacturer": "Wurth Electronics",
       "description": "POWER ELEMENT BUSH M4 12PIN"
     },
     "J4": {
@@ -10604,6 +10910,7 @@
         "0": "HV_MC0_P_3"
       },
       "mpn": "7461086",
+      "manufacturer": "Wurth Electronics",
       "description": "POWER ELEMENT BUSH M4 12PIN"
     },
     "J5": {
@@ -10611,6 +10918,7 @@
         "0": "HV_MC0_N_3"
       },
       "mpn": "7461086",
+      "manufacturer": "Wurth Electronics",
       "description": "POWER ELEMENT BUSH M4 12PIN"
     },
     "F2": {
@@ -10619,6 +10927,7 @@
         "2": "HV_ARRAY_P_3"
       },
       "mpn": "ELV10-15-2P",
+      "manufacturer": "Eaton",
       "description": "15A 200 VDC Fuse Cartridge Through Hole"
     },
     "J3": {
@@ -10626,6 +10935,7 @@
         "0": "HV_RAW_SUPPLY_3"
       },
       "mpn": "7461086",
+      "manufacturer": "Wurth Electronics",
       "description": "POWER ELEMENT BUSH M4 12PIN"
     },
     "J21": {
@@ -10633,6 +10943,7 @@
         "0": "HV_RAW_RETURN_3"
       },
       "mpn": "7461086",
+      "manufacturer": "Wurth Electronics",
       "description": "POWER ELEMENT BUSH M4 12PIN"
     },
     "D13": {
@@ -10641,19 +10952,22 @@
         "2": "HV_P"
       },
       "mpn": "30KPA120A",
+      "manufacturer": "Littelfuse",
       "description": "Trans Voltage Suppressor Diode, 30000W, 120V V(RWM), Unidirectional, 1 Element, Silicon"
     },
     "TP3": {
       "pins": {
         "1": "HV_RAW_SUPPLY_3"
       },
-      "mpn": "RH-5000"
+      "mpn": "RH-5000",
+      "manufacturer": "ronghe"
     },
     "TP79": {
       "pins": {
         "1": "HV_RAW_RETURN_3"
       },
-      "mpn": "RH-5001"
+      "mpn": "RH-5001",
+      "manufacturer": "ronghe"
     },
     "R132": {
       "pins": {
@@ -10661,6 +10975,7 @@
         "2": "NetR98_1"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "D18": {
@@ -10669,6 +10984,7 @@
         "2": "HV_P"
       },
       "mpn": "LTST-C190YKT",
+      "manufacturer": "Lite-On Inc",
       "description": "LED YELLOW CLEAR 0603 SMD"
     },
     "K4": {
@@ -10687,6 +11003,7 @@
         "6": "NetK4_4"
       },
       "mpn": "LCB127STR",
+      "manufacturer": "IXYS",
       "description": "Relay Ssr 50MA 1.4V Dc-in 0.2A 250V Ac/dc-out 6-PIN PDIP SMD T/r"
     },
     "R112": {
@@ -10695,6 +11012,7 @@
         "2": "HV_P"
       },
       "mpn": "TEH100M1K00JE",
+      "manufacturer": "Ohmite",
       "description": "RES 1K OHM TK FILM 5% 100W TO247"
     },
     "D9": {
@@ -10703,6 +11021,7 @@
         "2": "NetD9_2"
       },
       "mpn": "MM3Z56VC",
+      "manufacturer": "onsemi",
       "description": "DIODE ZENER 56V 200MW SOD"
     },
     "R113": {
@@ -10711,11 +11030,13 @@
         "2": "NetD9_2"
       },
       "mpn": "0402WGF4702TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "47k"
     },
     "HS1": {
       "pins": {},
       "mpn": "WA-T247-101E",
+      "manufacturer": "Ohmite",
       "description": "Heat Sink, 11ohm, Extruded, Clip, Longitudinal, Aluminum Alloy, Anodized"
     },
     "D8": {
@@ -10724,6 +11045,7 @@
         "2": "NetD8_2"
       },
       "mpn": "LTST-C190KRKT",
+      "manufacturer": "Lite-On Inc",
       "description": "LED SUPER RED CLEAR 0603 SMD"
     },
     "R98": {
@@ -10732,6 +11054,7 @@
         "2": "NetD8_2"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "U21": {
@@ -10794,6 +11117,7 @@
         }
       },
       "mpn": "ISM330DLC",
+      "manufacturer": "ST Microelectronics",
       "description": "ST ACCELEROMETER/GYROSCOPE 3D 14LGA LOW POWER"
     },
     "FB16": {
@@ -10801,28 +11125,32 @@
         "1": "NetFB16_1",
         "2": "NetC200_1"
       },
-      "mpn": "BLM15AX601SN1D"
+      "mpn": "BLM15AX601SN1D",
+      "manufacturer": "Murata Electronics"
     },
     "C202": {
       "pins": {
         "1": "NetC202_1",
         "2": "GND"
       },
-      "mpn": "CL21B106KAYQNNE"
+      "mpn": "CL21B106KAYQNNE",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C200": {
       "pins": {
         "1": "NetC200_1",
         "2": "GND"
       },
-      "mpn": "GMK107AB7105KAHT"
+      "mpn": "GMK107AB7105KAHT",
+      "manufacturer": "Taiyo Yuden"
     },
     "C201": {
       "pins": {
         "1": "NetC200_1",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R281": {
       "pins": {
@@ -10830,6 +11158,7 @@
         "2": "NetC200_1"
       },
       "mpn": "CRCW04021R00FKED",
+      "manufacturer": "Vishay Intertech",
       "value": "1"
     },
     "R282": {
@@ -10838,6 +11167,7 @@
         "2": "NetR282_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R283": {
@@ -10846,6 +11176,7 @@
         "2": "NetR283_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R284": {
@@ -10854,6 +11185,7 @@
         "2": "INT2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "U14": {
@@ -10924,6 +11256,7 @@
         }
       },
       "mpn": "SI8662BB-B-IS1",
+      "manufacturer": "Skyworks Solutions",
       "description": "6-ch 2.5kV Isolator, 150M, 4/2, NB SOIC16, lead free"
     },
     "R232": {
@@ -10932,6 +11265,7 @@
         "2": "SPI4.MISO_1"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R233": {
@@ -10940,6 +11274,7 @@
         "2": "NetR233_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R228": {
@@ -10948,6 +11283,7 @@
         "2": "NetR228_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R229": {
@@ -10956,6 +11292,7 @@
         "2": "NetR229_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R230": {
@@ -10964,6 +11301,7 @@
         "2": "NetR230_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R231": {
@@ -10972,6 +11310,7 @@
         "2": "NetR231_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "C158": {
@@ -10979,14 +11318,16 @@
         "1": "NetC158_1",
         "2": "NetC158_2"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C159": {
       "pins": {
         "1": "3P3_B",
         "2": "GND_B"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "U15": {
       "pins": {
@@ -11008,6 +11349,7 @@
         }
       },
       "mpn": "ROL-0505S",
+      "manufacturer": "Recom",
       "description": "5V to 5V isolated power supply module"
     },
     "U16": {
@@ -11034,6 +11376,7 @@
         }
       },
       "mpn": "TPS79933QDDCRQ1",
+      "manufacturer": "Texas Instruments",
       "description": "Fixed Positive LDO Regulator, 3.3V, 0.16V Dropout, BICMOS, PDSO5"
     },
     "C161": {
@@ -11041,14 +11384,16 @@
         "1": "NetC161_1",
         "2": "GND_B"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "FB13": {
       "pins": {
         "1": "NetC160_1",
         "2": "5P0_B"
       },
-      "mpn": "BLM15AX601SN1D"
+      "mpn": "BLM15AX601SN1D",
+      "manufacturer": "Murata Electronics"
     },
     "R234": {
       "pins": {
@@ -11056,6 +11401,7 @@
         "2": "NetC160_1"
       },
       "mpn": "CRCW04021R00FKED",
+      "manufacturer": "Vishay Intertech",
       "value": "1"
     },
     "C160": {
@@ -11063,21 +11409,24 @@
         "1": "NetC160_1",
         "2": "GND_B"
       },
-      "mpn": "CL10A106MA8NRNC"
+      "mpn": "CL10A106MA8NRNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C163": {
       "pins": {
         "1": "NetC163_1",
         "2": "GND_B"
       },
-      "mpn": "CL21B106KAYQNNE"
+      "mpn": "CL21B106KAYQNNE",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C162": {
       "pins": {
         "1": "3P3_B",
         "2": "GND_B"
       },
-      "mpn": "CL21B106KAYQNNE"
+      "mpn": "CL21B106KAYQNNE",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "S3": {
       "pins": {
@@ -11085,6 +11434,7 @@
         "2": "3P3"
       },
       "mpn": "TS-1092S-B3D2-G",
+      "manufacturer": "Yuandi",
       "description": "SWITCH TACTILE SPST-NO"
     },
     "S2": {
@@ -11093,6 +11443,7 @@
         "2": "CONN_nRST_2"
       },
       "mpn": "TS-1092S-B3D2-G",
+      "manufacturer": "Yuandi",
       "description": "SWITCH TACTILE SPST-NO"
     },
     "X1": {
@@ -11101,6 +11452,7 @@
         "3": "OSC_IN_2"
       },
       "mpn": "XRCGB25M000F3A00R0",
+      "manufacturer": "Murata",
       "description": "CRYSTAL 25.000MHZ 6PF SMD",
       "comment": "XTAL_XRCGB25M000F3A00R0"
     },
@@ -11110,6 +11462,7 @@
         "2": "NetC17_1"
       },
       "mpn": "9HT10-32.768KEZF-T",
+      "manufacturer": "TXC CORPORATION",
       "description": "CRYSTAL 32.768 KHZ 12.5 PF SMD",
       "comment": "XTAL_9HT10-32.768KEZF-T"
     },
@@ -11117,55 +11470,63 @@
       "pins": {
         "1": "DAC1_2"
       },
-      "mpn": "RH-5002"
+      "mpn": "RH-5002",
+      "manufacturer": "ronghe"
     },
     "TP2": {
       "pins": {
         "1": "DAC2_2"
       },
-      "mpn": "RH-5002"
+      "mpn": "RH-5002",
+      "manufacturer": "ronghe"
     },
     "C4": {
       "pins": {
         "1": "3P3",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C8": {
       "pins": {
         "1": "3P3",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C5": {
       "pins": {
         "1": "3P3",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C9": {
       "pins": {
         "1": "3P3",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C6": {
       "pins": {
         "1": "3P3",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C7": {
       "pins": {
         "1": "VBAT",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R55": {
       "pins": {
@@ -11173,6 +11534,7 @@
         "2": "NetC18_1"
       },
       "mpn": "0402WGF3300TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "330"
     },
     "R42": {
@@ -11181,6 +11543,7 @@
         "2": "NetC15_1"
       },
       "mpn": "0402WGF3300TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "330"
     },
     "C17": {
@@ -11188,14 +11551,16 @@
         "1": "NetC17_1",
         "2": "GND"
       },
-      "mpn": "0402CG150J500NT"
+      "mpn": "0402CG150J500NT",
+      "manufacturer": "FH(Guangdong Fenghua Advanced Tech)"
     },
     "C18": {
       "pins": {
         "1": "NetC18_1",
         "2": "GND"
       },
-      "mpn": "0402CG150J500NT"
+      "mpn": "0402CG150J500NT",
+      "manufacturer": "FH(Guangdong Fenghua Advanced Tech)"
     },
     "R22": {
       "pins": {
@@ -11203,6 +11568,7 @@
         "2": "CONN_SWDIO_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R26": {
@@ -11211,6 +11577,7 @@
         "2": "CONN_SWCLK_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R32": {
@@ -11219,6 +11586,7 @@
         "2": "CONN_nRST_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R30": {
@@ -11227,6 +11595,7 @@
         "2": "MCU_nRST_1"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R20": {
@@ -11235,6 +11604,7 @@
         "2": "3P3"
       },
       "mpn": "ERJP06F1000V",
+      "manufacturer": "PANASONIC",
       "value": "100"
     },
     "C3": {
@@ -11242,14 +11612,16 @@
         "1": "DAC1_2",
         "2": "GND"
       },
-      "mpn": "CL05B103KB5NNNC"
+      "mpn": "CL05B103KB5NNNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C11": {
       "pins": {
         "1": "DAC2_2",
         "2": "GND"
       },
-      "mpn": "CL05B103KB5NNNC"
+      "mpn": "CL05B103KB5NNNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R10": {
       "pins": {
@@ -11257,6 +11629,7 @@
         "2": "LED0_2"
       },
       "mpn": "FRC0402F2670TS",
+      "manufacturer": "FOJAN",
       "value": "267"
     },
     "R13": {
@@ -11265,6 +11638,7 @@
         "2": "LED1_2"
       },
       "mpn": "RTT029760FTH",
+      "manufacturer": "RALEC",
       "value": "976"
     },
     "R14": {
@@ -11273,6 +11647,7 @@
         "2": "LED2_2"
       },
       "mpn": "ERJ2RKF1870X",
+      "manufacturer": "PANASONIC",
       "value": "187"
     },
     "C15": {
@@ -11280,28 +11655,32 @@
         "1": "NetC15_1",
         "2": "GND"
       },
-      "mpn": "0402CG6R0C500NT"
+      "mpn": "0402CG6R0C500NT",
+      "manufacturer": "FH(Guangdong Fenghua Advanced Tech)"
     },
     "C16": {
       "pins": {
         "1": "OSC_IN_2",
         "2": "GND"
       },
-      "mpn": "0402CG6R0C500NT"
+      "mpn": "0402CG6R0C500NT",
+      "manufacturer": "FH(Guangdong Fenghua Advanced Tech)"
     },
     "C14": {
       "pins": {
         "1": "MCU_nRST_1",
         "2": "GND"
       },
-      "mpn": "0402CG270J500NT"
+      "mpn": "0402CG270J500NT",
+      "manufacturer": "FH(Guangdong Fenghua Advanced Tech)"
     },
     "C10": {
       "pins": {
         "1": "3P3",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R39": {
       "pins": {
@@ -11309,6 +11688,7 @@
         "2": "GND"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "R52": {
@@ -11317,6 +11697,7 @@
         "2": "3P3"
       },
       "mpn": "0402WGF1501TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1.5k"
     },
     "R41": {
@@ -11325,6 +11706,7 @@
         "2": "NetR41_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R40": {
@@ -11333,6 +11715,7 @@
         "2": "NetR40_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R38": {
@@ -11341,6 +11724,7 @@
         "2": "NetR38_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R27": {
@@ -11349,6 +11733,7 @@
         "2": "NetR27_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R17": {
@@ -11357,6 +11742,7 @@
         "2": "NetR17_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R33": {
@@ -11365,6 +11751,7 @@
         "2": "NetR33_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R47": {
@@ -11373,6 +11760,7 @@
         "2": "NetR47_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R48": {
@@ -11381,6 +11769,7 @@
         "2": "NetR48_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R49": {
@@ -11389,6 +11778,7 @@
         "2": "NetR49_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R50": {
@@ -11397,6 +11787,7 @@
         "2": "NetR50_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R51": {
@@ -11405,6 +11796,7 @@
         "2": "NetR51_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R21": {
@@ -11413,6 +11805,7 @@
         "2": "NetR21_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R28": {
@@ -11421,6 +11814,7 @@
         "2": "NetR28_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R25": {
@@ -11429,6 +11823,7 @@
         "2": "NetR25_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R43": {
@@ -11437,6 +11832,7 @@
         "2": "NetR43_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R29": {
@@ -11445,6 +11841,7 @@
         "2": "NetR29_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R1": {
@@ -11453,6 +11850,7 @@
         "2": "NetR1_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R2": {
@@ -11461,6 +11859,7 @@
         "2": "NetR2_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R7": {
@@ -11469,6 +11868,7 @@
         "2": "NetR7_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R15": {
@@ -11477,6 +11877,7 @@
         "2": "NetR15_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R16": {
@@ -11485,6 +11886,7 @@
         "2": "NetR16_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R37": {
@@ -11493,6 +11895,7 @@
         "2": "NetR37_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R31": {
@@ -11501,6 +11904,7 @@
         "2": "NetR31_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R34": {
@@ -11509,6 +11913,7 @@
         "2": "NetR34_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R54": {
@@ -11517,6 +11922,7 @@
         "2": "3P3"
       },
       "mpn": "0402WGF1501TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1.5k"
     },
     "R35": {
@@ -11525,6 +11931,7 @@
         "2": "NetR35_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R36": {
@@ -11533,6 +11940,7 @@
         "2": "NetR36_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R44": {
@@ -11541,6 +11949,7 @@
         "2": "NetR44_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R3": {
@@ -11549,6 +11958,7 @@
         "2": "NetR3_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "J1": {
@@ -11611,6 +12021,7 @@
         }
       },
       "mpn": "FTSH-107-01-L-DV-K-A",
+      "manufacturer": "Samtec",
       "description": "Connector Header Surface Mount 14 position 0.050\" (1.27mm)"
     },
     "C43": {
@@ -11618,63 +12029,72 @@
         "1": "3P3",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C45": {
       "pins": {
         "1": "3P3",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C63": {
       "pins": {
         "1": "3P3",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C64": {
       "pins": {
         "1": "3P3",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C65": {
       "pins": {
         "1": "3P3",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C66": {
       "pins": {
         "1": "3P3",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C67": {
       "pins": {
         "1": "NetC67_1",
         "2": "GND"
       },
-      "mpn": "GMK107AB7105KAHT"
+      "mpn": "GMK107AB7105KAHT",
+      "manufacturer": "Taiyo Yuden"
     },
     "C68": {
       "pins": {
         "1": "NetC68_1",
         "2": "GND"
       },
-      "mpn": "GMK107AB7105KAHT"
+      "mpn": "GMK107AB7105KAHT",
+      "manufacturer": "Taiyo Yuden"
     },
     "C69": {
       "pins": {
         "1": "3P3",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R56": {
       "pins": {
@@ -11682,6 +12102,7 @@
         "2": "CONN_SWO_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "C169": {
@@ -11689,7 +12110,8 @@
         "1": "NetC169_1",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R254": {
       "pins": {
@@ -11697,19 +12119,22 @@
         "2": "NetR254_2"
       },
       "mpn": "0402WGF3300TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "330"
     },
     "TP52": {
       "pins": {
         "1": "GND"
       },
-      "mpn": "RH-5001"
+      "mpn": "RH-5001",
+      "manufacturer": "ronghe"
     },
     "TP51": {
       "pins": {
         "1": "NetR254_2"
       },
-      "mpn": "RH-5000"
+      "mpn": "RH-5000",
+      "manufacturer": "ronghe"
     },
     "D45": {
       "pins": {
@@ -11718,6 +12143,7 @@
         "3": "NetC169_1"
       },
       "mpn": "BAT54SLT1G",
+      "manufacturer": "ON Semiconductor",
       "description": "DIODE SCHOTTKY DUAL 30V SOT23"
     },
     "R8": {
@@ -11726,6 +12152,7 @@
         "2": "DAC1_2"
       },
       "mpn": "0402WGF3300TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "330"
     },
     "R12": {
@@ -11734,6 +12161,7 @@
         "2": "DAC2_2"
       },
       "mpn": "0402WGF3300TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "330"
     },
     "D1": {
@@ -11744,6 +12172,7 @@
         "4": "NetD1_4"
       },
       "mpn": "XL-3528RGBW-HM",
+      "manufacturer": "XINGLIGHT",
       "description": "LED Multi-Color Chip Red/Green/Blue 621nm/525nm/468nm 25mA/15mA/15mA 4-Pin PLCC T/R"
     },
     "R260": {
@@ -11752,6 +12181,7 @@
         "2": "NetR260_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R261": {
@@ -11760,6 +12190,7 @@
         "2": "NetR261_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R262": {
@@ -11768,6 +12199,7 @@
         "2": "NetR262_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R45": {
@@ -11776,6 +12208,7 @@
         "2": "NetR45_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R259": {
@@ -11784,6 +12217,7 @@
         "2": "NetR259_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R258": {
@@ -11792,6 +12226,7 @@
         "2": "NetR258_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R4": {
@@ -11800,6 +12235,7 @@
         "2": "NetR4_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R5": {
@@ -11808,6 +12244,7 @@
         "2": "NetR5_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R46": {
@@ -11816,6 +12253,7 @@
         "2": "NetR46_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R53": {
@@ -11824,6 +12262,7 @@
         "2": "NetR53_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R6": {
@@ -11832,6 +12271,7 @@
         "2": "NetR6_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R18": {
@@ -11840,6 +12280,7 @@
         "2": "NetR18_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R19": {
@@ -11848,6 +12289,7 @@
         "2": "NetR19_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R23": {
@@ -11856,6 +12298,7 @@
         "2": "NetR23_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R263": {
@@ -11864,6 +12307,7 @@
         "2": "CONN_RX_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R280": {
@@ -11872,6 +12316,7 @@
         "2": "CONN_TX_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R287": {
@@ -11880,6 +12325,7 @@
         "2": "NetR287_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R294": {
@@ -11888,6 +12334,7 @@
         "2": "NetR294_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R95": {
@@ -11896,11 +12343,13 @@
         "2": "NetR95_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "H1": {
       "pins": {},
       "mpn": "N/A",
+      "manufacturer": "SSCP",
       "description": "3D-printed plastic frame used for security tape around STDC14 programming header",
       "comment": "3DP_STDC14_TAPE_FRAME"
     },
@@ -11910,6 +12359,7 @@
         "2": "3P3"
       },
       "mpn": "0402WGF1501TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1.5k"
     },
     "R99": {
@@ -11918,6 +12368,7 @@
         "2": "NetR99_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "U1": {
@@ -12824,6 +13275,7 @@
         }
       },
       "mpn": "STM32H5F5LJH7Q",
+      "manufacturer": "STMicroelectronics",
       "description": "ARM® Cortex®-M33F STM32H5 Microcontroller IC 32-Bit 250MHz 4MB (4M x 8) FLASH 225-TFBGA (13x13)"
     },
     "C13": {
@@ -12831,14 +13283,16 @@
         "1": "3P3",
         "2": "GND"
       },
-      "mpn": "CL10A106MA8NRNC"
+      "mpn": "CL10A106MA8NRNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C12": {
       "pins": {
         "1": "1P1_MCU",
         "2": "GND"
       },
-      "mpn": "CL10A106MA8NRNC"
+      "mpn": "CL10A106MA8NRNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R9": {
       "pins": {
@@ -12846,6 +13300,7 @@
         "2": "NetC68_1"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "L5": {
@@ -12853,35 +13308,40 @@
         "1": "NetL5_1",
         "2": "1P1_MCU"
       },
-      "mpn": "DFE201612E-2R2M=P2"
+      "mpn": "DFE201612E-2R2M=P2",
+      "manufacturer": "Murata Electronics"
     },
     "C75": {
       "pins": {
         "1": "3P3",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C74": {
       "pins": {
         "1": "1P1_MCU",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C1": {
       "pins": {
         "1": "1P1_MCU",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C2": {
       "pins": {
         "1": "1P1_MCU",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R11": {
       "pins": {
@@ -12889,6 +13349,7 @@
         "2": "NetR11_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "S1": {
@@ -12903,6 +13364,7 @@
         "8": "GND"
       },
       "mpn": "CHS-04TA",
+      "manufacturer": "Nidec Copal",
       "description": "DIP Switch, Slide, SPST, Flush, Recessed, 6VDC, 100mA, CHS Series  Nidec Components CHS-04TA"
     },
     "R68": {
@@ -12911,6 +13373,7 @@
         "2": "NetD3_2"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "S4": {
@@ -12919,6 +13382,7 @@
         "2": "NetQ1_1"
       },
       "mpn": "CHS-01TA",
+      "manufacturer": "Nidec Copal",
       "description": "DIP Switch, Slide, SPST, Flush, Recessed, 6VDC, 100mA, CHS Series  Nidec Components CHS-01TA"
     },
     "Q1": {
@@ -12937,6 +13401,7 @@
         }
       },
       "mpn": "MMBT3906T",
+      "manufacturer": "Shenzhen Slkormicro Semicon Co., Ltd.",
       "description": "Bipolar (BJT) Transistor NPN 40 V 200 mA 300MHz 150 mW Surface Mount SOT-523"
     },
     "Q3": {
@@ -12955,6 +13420,7 @@
         }
       },
       "mpn": "MMBT3904T",
+      "manufacturer": "Shenzhen Slkormicro Semicon Co., Ltd.",
       "description": "Bipolar (BJT) Transistor NPN 40 V 200 mA 300MHz 150 mW Surface Mount SOT-523"
     },
     "R58": {
@@ -12963,6 +13429,7 @@
         "2": "NetC20_1"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R59": {
@@ -12971,6 +13438,7 @@
         "2": "NetQ1_1"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "R61": {
@@ -12979,6 +13447,7 @@
         "2": "NetD4_2"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "R57": {
@@ -12987,6 +13456,7 @@
         "2": "NetC20_1"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R67": {
@@ -12995,6 +13465,7 @@
         "2": "NetD4_2"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "D3": {
@@ -13003,6 +13474,7 @@
         "2": "NetD3_2"
       },
       "mpn": "BAT54XV2T1G",
+      "manufacturer": "onsemi",
       "description": "ON Semi BAT54XV2T1G; SMT Schottky Diode; 30V 200mA; 5ns; 2-Pin SOD-523"
     },
     "D4": {
@@ -13011,6 +13483,7 @@
         "2": "NetD4_2"
       },
       "mpn": "SZMM5Z3V3T1G",
+      "manufacturer": "onsemi",
       "description": "500 mW Standard Tolerance Zener Diode Voltage Regulators 3.3 V (Automotive)"
     },
     "R63": {
@@ -13019,6 +13492,7 @@
         "2": "NetD4_2"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "U2": {
@@ -13157,6 +13631,7 @@
         }
       },
       "mpn": "TPS65263QRHBRQ1",
+      "manufacturer": "Texas Instruments",
       "description": "Switching Regulator, Current-mode, 3A, 2300kHz Switching Freq-Max, PQCC32"
     },
     "FB5": {
@@ -13164,28 +13639,32 @@
         "1": "NetD6_2",
         "2": "NetC20_1"
       },
-      "mpn": "HCB2012KF-102T10"
+      "mpn": "HCB2012KF-102T10",
+      "manufacturer": "TAI-TECH"
     },
     "C23": {
       "pins": {
         "1": "NetC23_1",
         "2": "NetC20_2"
       },
-      "mpn": "C5750X7R1E226MT000N"
+      "mpn": "C5750X7R1E226MT000N",
+      "manufacturer": "TDK"
     },
     "C20": {
       "pins": {
         "1": "NetC20_1",
         "2": "NetC20_2"
       },
-      "mpn": "0805B475K500NT"
+      "mpn": "0805B475K500NT",
+      "manufacturer": "FH (Guangdong Fenghua Advanced Tech)"
     },
     "C21": {
       "pins": {
         "1": "NetC21_1",
         "2": "NetC20_2"
       },
-      "mpn": "CL21B106KOQNNNE"
+      "mpn": "CL21B106KOQNNNE",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R64": {
       "pins": {
@@ -13193,6 +13672,7 @@
         "2": "NetR64_2"
       },
       "mpn": "0402WGF8872TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "88.7k"
     },
     "R62": {
@@ -13201,6 +13681,7 @@
         "2": "NetC20_1"
       },
       "mpn": "HP05W3F220KT5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "2.2"
     },
     "C19": {
@@ -13208,21 +13689,24 @@
         "1": "NetC19_1",
         "2": "NetC19_2"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C24": {
       "pins": {
         "1": "NetC24_1",
         "2": "NetC20_2"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C22": {
       "pins": {
         "1": "5P0",
         "2": "NetC20_2"
       },
-      "mpn": "C4532X7R1C336MT000N"
+      "mpn": "C4532X7R1C336MT000N",
+      "manufacturer": "TDK"
     },
     "R65": {
       "pins": {
@@ -13230,6 +13714,7 @@
         "2": "NetR65_2"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R66": {
@@ -13238,6 +13723,7 @@
         "2": "NetR60_1"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "C25": {
@@ -13245,7 +13731,8 @@
         "1": "NetC25_1",
         "2": "NetC20_2"
       },
-      "mpn": "CC0402KRX7R0BB222"
+      "mpn": "CC0402KRX7R0BB222",
+      "manufacturer": "YAGEO"
     },
     "R60": {
       "pins": {
@@ -13253,6 +13740,7 @@
         "2": "5P0"
       },
       "mpn": "0402WGF7322TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "73.2k"
     },
     "C26": {
@@ -13260,7 +13748,8 @@
         "1": "NetC26_1",
         "2": "NetC26_2"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R73": {
       "pins": {
@@ -13268,6 +13757,7 @@
         "2": "NetR73_2"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "C29": {
@@ -13275,7 +13765,8 @@
         "1": "NetC29_1",
         "2": "NetC20_2"
       },
-      "mpn": "CC0402KRX7R0BB222"
+      "mpn": "CC0402KRX7R0BB222",
+      "manufacturer": "YAGEO"
     },
     "R81": {
       "pins": {
@@ -13283,6 +13774,7 @@
         "2": "NetR71_1"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "C28": {
@@ -13290,7 +13782,8 @@
         "1": "3P3",
         "2": "NetC20_2"
       },
-      "mpn": "C4532X7R1C336MT000N"
+      "mpn": "C4532X7R1C336MT000N",
+      "manufacturer": "TDK"
     },
     "R71": {
       "pins": {
@@ -13298,6 +13791,7 @@
         "2": "3P3"
       },
       "mpn": "FRC0402F4532TS",
+      "manufacturer": "FOJAN",
       "value": "45.3k"
     },
     "R94": {
@@ -13306,6 +13800,7 @@
         "2": "NetR86_1"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "C31": {
@@ -13313,7 +13808,8 @@
         "1": "1P2",
         "2": "NetC20_2"
       },
-      "mpn": "C4532X7R1C336MT000N"
+      "mpn": "C4532X7R1C336MT000N",
+      "manufacturer": "TDK"
     },
     "R93": {
       "pins": {
@@ -13321,6 +13817,7 @@
         "2": "NetR93_2"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "C33": {
@@ -13328,21 +13825,24 @@
         "1": "NetC33_1",
         "2": "NetC20_2"
       },
-      "mpn": "CC0402KRX7R0BB222"
+      "mpn": "CC0402KRX7R0BB222",
+      "manufacturer": "YAGEO"
     },
     "C30": {
       "pins": {
         "1": "NetC30_1",
         "2": "NetC30_2"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C32": {
       "pins": {
         "1": "NetC32_1",
         "2": "NetC20_2"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R86": {
       "pins": {
@@ -13350,6 +13850,7 @@
         "2": "1P2"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R69": {
@@ -13358,6 +13859,7 @@
         "2": "5P0"
       },
       "mpn": "0402WGF1003TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "100k"
     },
     "R70": {
@@ -13366,6 +13868,7 @@
         "2": "NetR69_1"
       },
       "mpn": "0402WGF3302TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33k"
     },
     "C27": {
@@ -13373,7 +13876,8 @@
         "1": "5P0",
         "2": "NetC20_2"
       },
-      "mpn": "0805B475K500NT"
+      "mpn": "0805B475K500NT",
+      "manufacturer": "FH (Guangdong Fenghua Advanced Tech)"
     },
     "L1": {
       "pins": {
@@ -13381,6 +13885,7 @@
         "2": "5P0"
       },
       "mpn": "FTC404020S4R7MGCA",
+      "manufacturer": "cjiang",
       "description": "5A 4.7uH 6.3A 58mO ±20% SMD,4.1x4.1mm Fixed Inductors RoHS",
       "value": "4.7uH"
     },
@@ -13390,6 +13895,7 @@
         "2": "3P3"
       },
       "mpn": "FTC404020S4R7MGCA",
+      "manufacturer": "cjiang",
       "description": "5A 4.7uH 6.3A 58mO ±20% SMD,4.1x4.1mm Fixed Inductors RoHS",
       "value": "4.7uH"
     },
@@ -13399,6 +13905,7 @@
         "2": "1P2"
       },
       "mpn": "FTC404020S4R7MGCA",
+      "manufacturer": "cjiang",
       "description": "5A 4.7uH 6.3A 58mO ±20% SMD,4.1x4.1mm Fixed Inductors RoHS",
       "value": "4.7uH"
     },
@@ -13408,6 +13915,7 @@
         "2": "5P0"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "D5": {
@@ -13416,6 +13924,7 @@
         "2": "NetD5_2"
       },
       "mpn": "LTST-C190YKT",
+      "manufacturer": "Lite-On Inc",
       "description": "LED YELLOW CLEAR 0603 SMD"
     },
     "D6": {
@@ -13424,6 +13933,7 @@
         "2": "NetD6_2"
       },
       "mpn": "B340A-13-F",
+      "manufacturer": "Diodes",
       "description": "Rectifier Diode, Schottky, 1 Phase, 1 Element, 3A, 40V V(RRM), Silicon"
     },
     "U20": {
@@ -13450,6 +13960,7 @@
         }
       },
       "mpn": "TPS79933QDDCRQ1",
+      "manufacturer": "Texas Instruments",
       "description": "Fixed Positive LDO Regulator, 3.3V, 0.16V Dropout, BICMOS, PDSO5"
     },
     "C197": {
@@ -13457,21 +13968,24 @@
         "1": "NetC197_1",
         "2": "NetC197_2"
       },
-      "mpn": "CL21B106KAYQNNE"
+      "mpn": "CL21B106KAYQNNE",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C198": {
       "pins": {
         "1": "VOUT",
         "2": "NetC197_2"
       },
-      "mpn": "CL21B106KAYQNNE"
+      "mpn": "CL21B106KAYQNNE",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C199": {
       "pins": {
         "1": "NetC199_1",
         "2": "NetC197_2"
       },
-      "mpn": "CL05B103KB5NNNC"
+      "mpn": "CL05B103KB5NNNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "K5": {
       "pins": {
@@ -13493,6 +14007,7 @@
         }
       },
       "mpn": "CPC1150NTR",
+      "manufacturer": "Littelfuse",
       "description": "CPC1150N Series SPST 120 mA 350 V Single Channel Solid State Relay SMT - SOIC-4"
     },
     "R155": {
@@ -13501,6 +14016,7 @@
         "2": "NetR155_2"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "C99": {
@@ -13508,7 +14024,8 @@
         "1": "NetC58_1",
         "2": "NetC60_2"
       },
-      "mpn": "C5750X7T2E225KT000N"
+      "mpn": "C5750X7T2E225KT000N",
+      "manufacturer": "TDK"
     },
     "VR1": {
       "pins": {
@@ -13517,6 +14034,7 @@
         "3": "VOUT-"
       },
       "mpn": "67WR1KLF",
+      "manufacturer": "TT BI",
       "description": "Trimmer, Cermet, 0.5W, 20000ohm, 200V, 10% +/-Tol, 100ppm/Cel, 20 Turn(s)",
       "value": "1kR"
     },
@@ -13526,6 +14044,7 @@
         "2": "NetD24_2"
       },
       "mpn": "LTST-C190YKT",
+      "manufacturer": "Lite-On Inc",
       "description": "LED YELLOW CLEAR 0603 SMD"
     },
     "R156": {
@@ -13534,6 +14053,7 @@
         "2": "NetD24_2"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "R160": {
@@ -13544,6 +14064,7 @@
         "4": "NetR104_2"
       },
       "mpn": "WSL27265L000FEB",
+      "manufacturer": "Vishay Dale",
       "description": "RES SMD 0.005 OHM 1% 3W 2726"
     },
     "H4": {
@@ -13551,6 +14072,7 @@
         "1": "CHASSIS"
       },
       "mpn": "SMTSO-M3-2ET",
+      "manufacturer": "PennEngineering",
       "description": "Standoff Round Swage F/F M3 X 0.5-THD Carbon Steel Electro-Tin ASTM B545"
     },
     "H14": {
@@ -13558,6 +14080,7 @@
         "1": "CHASSIS"
       },
       "mpn": "SMTSO-M3-2ET",
+      "manufacturer": "PennEngineering",
       "description": "Standoff Round Swage F/F M3 X 0.5-THD Carbon Steel Electro-Tin ASTM B545"
     },
     "H5": {
@@ -13565,6 +14088,7 @@
         "1": "CHASSIS"
       },
       "mpn": "SMTSO-M3-2ET",
+      "manufacturer": "PennEngineering",
       "description": "Standoff Round Swage F/F M3 X 0.5-THD Carbon Steel Electro-Tin ASTM B545"
     },
     "H15": {
@@ -13572,6 +14096,7 @@
         "1": "CHASSIS"
       },
       "mpn": "SMTSO-M3-2ET",
+      "manufacturer": "PennEngineering",
       "description": "Standoff Round Swage F/F M3 X 0.5-THD Carbon Steel Electro-Tin ASTM B545"
     },
     "H6": {
@@ -13579,6 +14104,7 @@
         "1": "CHASSIS"
       },
       "mpn": "SMTSO-M3-2ET",
+      "manufacturer": "PennEngineering",
       "description": "Standoff Round Swage F/F M3 X 0.5-THD Carbon Steel Electro-Tin ASTM B545"
     },
     "H16": {
@@ -13586,21 +14112,25 @@
         "1": "CHASSIS"
       },
       "mpn": "SMTSO-M3-2ET",
+      "manufacturer": "PennEngineering",
       "description": "Standoff Round Swage F/F M3 X 0.5-THD Carbon Steel Electro-Tin ASTM B545"
     },
     "H3": {
       "pins": {},
       "mpn": "30183",
+      "manufacturer": "Vicor",
       "description": "Heat Sink, Aluminum"
     },
     "U5": {
       "pins": {},
       "mpn": "V110C15C100BG",
+      "manufacturer": "Vicor",
       "description": "APSM DCDC, 1 Output, 100W, Hybrid"
     },
     "H2": {
       "pins": {},
       "mpn": "16495",
+      "manufacturer": "Vicor",
       "description": "Heat Sink, Aluminum"
     },
     "U6": {
@@ -13613,6 +14143,7 @@
         "1": "NetC58_1"
       },
       "mpn": "15115-91-0710",
+      "manufacturer": "Preci-Dip",
       "description": "Pin Receptacle Connector 0.078\" ~ 0.096\" (1.98mm ~ 2.44mm) No Tail Solder"
     },
     "H9": {
@@ -13620,6 +14151,7 @@
         "1": "NetH9_1"
       },
       "mpn": "15115-91-0710",
+      "manufacturer": "Preci-Dip",
       "description": "Pin Receptacle Connector 0.078\" ~ 0.096\" (1.98mm ~ 2.44mm) No Tail Solder"
     },
     "H11": {
@@ -13627,6 +14159,7 @@
         "1": ""
       },
       "mpn": "15115-91-0710",
+      "manufacturer": "Preci-Dip",
       "description": "Pin Receptacle Connector 0.078\" ~ 0.096\" (1.98mm ~ 2.44mm) No Tail Solder"
     },
     "H8": {
@@ -13634,6 +14167,7 @@
         "1": "NetC59_2"
       },
       "mpn": "15115-91-0710",
+      "manufacturer": "Preci-Dip",
       "description": "Pin Receptacle Connector 0.078\" ~ 0.096\" (1.98mm ~ 2.44mm) No Tail Solder"
     },
     "H10": {
@@ -13641,6 +14175,7 @@
         "1": "NetH10_1"
       },
       "mpn": "15115-91-0710",
+      "manufacturer": "Preci-Dip",
       "description": "Pin Receptacle Connector 0.078\" ~ 0.096\" (1.98mm ~ 2.44mm) No Tail Solder"
     },
     "H12": {
@@ -13648,6 +14183,7 @@
         "1": "NetC60_2"
       },
       "mpn": "15115-91-0710",
+      "manufacturer": "Preci-Dip",
       "description": "Pin Receptacle Connector 0.078\" ~ 0.096\" (1.98mm ~ 2.44mm) No Tail Solder"
     },
     "H13": {
@@ -13655,6 +14191,7 @@
         "1": "VOUT-"
       },
       "mpn": "15115-91-0710",
+      "manufacturer": "Preci-Dip",
       "description": "Pin Receptacle Connector 0.078\" ~ 0.096\" (1.98mm ~ 2.44mm) No Tail Solder"
     },
     "R110": {
@@ -13663,6 +14200,7 @@
         "2": "NetR110_2"
       },
       "mpn": "0402WGF1502TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "15k"
     },
     "R109": {
@@ -13671,6 +14209,7 @@
         "2": "NetR109_2"
       },
       "mpn": "0402WGF4021TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "4.02k"
     },
     "C61": {
@@ -13678,28 +14217,32 @@
         "1": "NetC60_2",
         "2": "CHASSIS"
       },
-      "mpn": "GCM21B5C2E472JX01L"
+      "mpn": "GCM21B5C2E472JX01L",
+      "manufacturer": "Murata Electronics"
     },
     "C58": {
       "pins": {
         "1": "NetC58_1",
         "2": "CHASSIS"
       },
-      "mpn": "GCM21B5C2E472JX01L"
+      "mpn": "GCM21B5C2E472JX01L",
+      "manufacturer": "Murata Electronics"
     },
     "C59": {
       "pins": {
         "1": "CHASSIS",
         "2": "NetC59_2"
       },
-      "mpn": "GRM21B5C2E103JWAAL"
+      "mpn": "GRM21B5C2E103JWAAL",
+      "manufacturer": "Murata Electronics"
     },
     "C62": {
       "pins": {
         "1": "CHASSIS",
         "2": "VOUT-"
       },
-      "mpn": "GRM21B5C2E103JWAAL"
+      "mpn": "GRM21B5C2E103JWAAL",
+      "manufacturer": "Murata Electronics"
     },
     "C60": {
       "pins": {
@@ -13707,6 +14250,7 @@
         "2": "NetC60_2"
       },
       "mpn": "EKXJ221ELL221MM25S",
+      "manufacturer": "United Chemi-Con",
       "description": "Aluminum Electrolytic Capacitor, Polarized, Aluminum (wet), 220V, 20% +Tol, 20% -Tol, 220uF, Through Hole Mount"
     },
     "D23": {
@@ -13715,6 +14259,7 @@
         "2": "VOUT+"
       },
       "mpn": "SBR10E45P5-7",
+      "manufacturer": "Diodes",
       "description": "Rectifier Diode, 1 Phase, 1 Element, 10A, 45V V(RRM), Silicon"
     },
     "U18": {
@@ -13745,6 +14290,7 @@
         }
       },
       "mpn": "MCP1502T-25E/CHY",
+      "manufacturer": "Microchip",
       "description": "IC 7 PPM 0.1% VOLTAGE REFERENCE Series Voltage Reference IC Fixed 2.5V V ±0.1% 20 mA SOT-23-6"
     },
     "R252": {
@@ -13753,6 +14299,7 @@
         "2": "NetR252_2"
       },
       "mpn": "0402WGF2201TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "2.2k"
     },
     "C167": {
@@ -13760,14 +14307,16 @@
         "1": "OUT",
         "2": "NetC167_2"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C168": {
       "pins": {
         "1": "NetC168_1",
         "2": "NetC167_2"
       },
-      "mpn": "CL10A106MA8NRNC"
+      "mpn": "CL10A106MA8NRNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R253": {
       "pins": {
@@ -13775,6 +14324,7 @@
         "2": "NetR251_1"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "R251": {
@@ -13783,6 +14333,7 @@
         "2": "OUT"
       },
       "mpn": "0402WGF3300TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "330"
     },
     "U12": {
@@ -13981,6 +14532,7 @@
         }
       },
       "mpn": "STM32F103CBT6",
+      "manufacturer": "STMicroelectronics",
       "description": "ARM Cortex-M3 STM32 F1 Microcontroller 32-Bit 72MHz 128kB FLASH LQFP48 STM32F103CBT6"
     },
     "R215": {
@@ -13989,6 +14541,7 @@
         "2": "GND"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R216": {
@@ -13997,6 +14550,7 @@
         "2": "GND"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R194": {
@@ -14005,6 +14559,7 @@
         "2": "GND"
       },
       "mpn": "0402WGF4701TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "4.7k"
     },
     "R193": {
@@ -14013,6 +14568,7 @@
         "2": "3P3"
       },
       "mpn": "0402WGF4701TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "4.7k"
     },
     "X5": {
@@ -14021,6 +14577,7 @@
         "3": "OSC_IN"
       },
       "mpn": "ECS-80-8-33Q-JES-TR",
+      "manufacturer": "ECS Inc.",
       "description": "8 MHz ±20ppm Crystal 8pF 500 Ohms 4-SMD, No Lead"
     },
     "R195": {
@@ -14029,6 +14586,7 @@
         "2": "NetC139_1"
       },
       "mpn": "0402WGF3300TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "330"
     },
     "C139": {
@@ -14036,49 +14594,56 @@
         "1": "NetC139_1",
         "2": "GND"
       },
-      "mpn": "0402CG6R0C500NT"
+      "mpn": "0402CG6R0C500NT",
+      "manufacturer": "FH(Guangdong Fenghua Advanced Tech)"
     },
     "C140": {
       "pins": {
         "1": "OSC_IN",
         "2": "GND"
       },
-      "mpn": "0402CG6R0C500NT"
+      "mpn": "0402CG6R0C500NT",
+      "manufacturer": "FH(Guangdong Fenghua Advanced Tech)"
     },
     "C141": {
       "pins": {
         "1": "3P3",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C144": {
       "pins": {
         "1": "3P3",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C142": {
       "pins": {
         "1": "3P3",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C143": {
       "pins": {
         "1": "3P3",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "FB11": {
       "pins": {
         "1": "MCU_VDDA",
         "2": "3P3"
       },
-      "mpn": "BLM15AX601SN1D"
+      "mpn": "BLM15AX601SN1D",
+      "manufacturer": "Murata Electronics"
     },
     "R199": {
       "pins": {
@@ -14086,6 +14651,7 @@
         "2": "MCU_VDDA"
       },
       "mpn": "CRCW04021R00FKED",
+      "manufacturer": "Vishay Intertech",
       "value": "1"
     },
     "C145": {
@@ -14093,14 +14659,16 @@
         "1": "MCU_VDDA",
         "2": "GND"
       },
-      "mpn": "CL10A106MA8NRNC"
+      "mpn": "CL10A106MA8NRNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C146": {
       "pins": {
         "1": "NetC146_1",
         "2": "GND"
       },
-      "mpn": "CL21B106KAYQNNE"
+      "mpn": "CL21B106KAYQNNE",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "J16": {
       "pins": {
@@ -14142,6 +14710,7 @@
         }
       },
       "mpn": "FTSH-105-01-L-DV-K",
+      "manufacturer": "Samtec Inc",
       "description": "CONN HEADER 10 POS DUAL .05\" SMD"
     },
     "S7": {
@@ -14150,6 +14719,7 @@
         "2": "NetJ16_10"
       },
       "mpn": "TS-1092S-B3D2-G",
+      "manufacturer": "Yuandi",
       "description": "SWITCH TACTILE SPST-NO"
     },
     "R206": {
@@ -14158,6 +14728,7 @@
         "2": "NetJ16_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R207": {
@@ -14166,6 +14737,7 @@
         "2": "NetJ16_4"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R210": {
@@ -14174,6 +14746,7 @@
         "2": "NetJ16_10"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R209": {
@@ -14182,6 +14755,7 @@
         "2": "NetC147_1"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R205": {
@@ -14190,6 +14764,7 @@
         "2": "3P3"
       },
       "mpn": "ERJP06F1000V",
+      "manufacturer": "PANASONIC",
       "value": "100"
     },
     "C147": {
@@ -14197,7 +14772,8 @@
         "1": "NetC147_1",
         "2": "GND"
       },
-      "mpn": "0402CG270J500NT"
+      "mpn": "0402CG270J500NT",
+      "manufacturer": "FH(Guangdong Fenghua Advanced Tech)"
     },
     "R211": {
       "pins": {
@@ -14205,6 +14781,7 @@
         "2": "GND"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "R213": {
@@ -14213,6 +14790,7 @@
         "2": "NetR213_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R214": {
@@ -14221,6 +14799,7 @@
         "2": "NetR214_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R212": {
@@ -14229,6 +14808,7 @@
         "2": "NetR212_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "D33": {
@@ -14237,6 +14817,7 @@
         "2": "3P3"
       },
       "mpn": "LTST-C190GKT",
+      "manufacturer": "Lite-On Inc",
       "description": "LED GREEN CLEAR 0603 SMD"
     },
     "D32": {
@@ -14245,6 +14826,7 @@
         "2": "NetD32_2"
       },
       "mpn": "LTST-C190KRKT",
+      "manufacturer": "Lite-On Inc",
       "description": "LED SUPER RED CLEAR 0603 SMD"
     },
     "R200": {
@@ -14253,6 +14835,7 @@
         "2": "NetR198_2"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "R198": {
@@ -14261,6 +14844,7 @@
         "2": "NetR198_2"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "R208": {
@@ -14269,6 +14853,7 @@
         "2": "NetJ16_6"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "C138": {
@@ -14276,7 +14861,8 @@
         "1": "GND",
         "2": "NetC138_2"
       },
-      "mpn": "CL05B103KB5NNNC"
+      "mpn": "CL05B103KB5NNNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R197": {
       "pins": {
@@ -14284,6 +14870,7 @@
         "2": "NetR197_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R196": {
@@ -14292,6 +14879,7 @@
         "2": "NetR196_2"
       },
       "mpn": "0402WGF330JTCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33"
     },
     "R201": {
@@ -14300,6 +14888,7 @@
         "2": "NetQ2_1"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R203": {
@@ -14308,6 +14897,7 @@
         "2": "GND"
       },
       "mpn": "0402WGF3302TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "33k"
     },
     "R202": {
@@ -14316,6 +14906,7 @@
         "2": "NetR202_2"
       },
       "mpn": "RC0402FR-07100RL",
+      "manufacturer": "YAGEO",
       "value": "100"
     },
     "Q2": {
@@ -14334,6 +14925,7 @@
         }
       },
       "mpn": "S9013",
+      "manufacturer": "Shenzhen Slkormicro Semicon Co., Ltd.",
       "description": "Bipolar (BJT) Transistor NPN 25 V 500 mA 150MHz 300 mW Surface Mount SOT-23"
     },
     "R204": {
@@ -14342,6 +14934,7 @@
         "2": "USB_DFP1._P_1"
       },
       "mpn": "0402WGF1501TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1.5k"
     },
     "U23": {
@@ -14427,14 +15020,16 @@
           "net": "VTARGET"
         }
       },
-      "mpn": "SN74CB3Q3345PWR"
+      "mpn": "SN74CB3Q3345PWR",
+      "manufacturer": "Texas Instruments"
     },
     "C72": {
       "pins": {
         "1": "VTARGET",
         "2": "GND"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R128": {
       "pins": {
@@ -14442,6 +15037,7 @@
         "2": "VBUS"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "U13": {
@@ -14552,6 +15148,7 @@
         }
       },
       "mpn": "VN9E30FTR",
+      "manufacturer": "STMicroelectronics",
       "description": "Power Switch/Driver 1:6 N-Channel 35A 32-QFN (6x6)"
     },
     "C150": {
@@ -14559,56 +15156,64 @@
         "1": "OUT0",
         "2": "NetC150_2"
       },
-      "mpn": "CL05B103KB5NNNC"
+      "mpn": "CL05B103KB5NNNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C151": {
       "pins": {
         "1": "OUT1",
         "2": "NetC150_2"
       },
-      "mpn": "CL05B103KB5NNNC"
+      "mpn": "CL05B103KB5NNNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C154": {
       "pins": {
         "1": "OUT2",
         "2": "NetC150_2"
       },
-      "mpn": "CL05B103KB5NNNC"
+      "mpn": "CL05B103KB5NNNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C155": {
       "pins": {
         "1": "OUT3",
         "2": "NetC150_2"
       },
-      "mpn": "CL05B103KB5NNNC"
+      "mpn": "CL05B103KB5NNNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C156": {
       "pins": {
         "1": "OUT4",
         "2": "NetC150_2"
       },
-      "mpn": "CL05B103KB5NNNC"
+      "mpn": "CL05B103KB5NNNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C157": {
       "pins": {
         "1": "OUT5",
         "2": "NetC150_2"
       },
-      "mpn": "CL05B103KB5NNNC"
+      "mpn": "CL05B103KB5NNNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C153": {
       "pins": {
         "1": "NetC153_1",
         "2": "NetC150_2"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C152": {
       "pins": {
         "1": "NetC152_1",
         "2": "NetC150_2"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R220": {
       "pins": {
@@ -14616,6 +15221,7 @@
         "2": "NetC150_2"
       },
       "mpn": "0402WGF4701TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "4.7k"
     },
     "R219": {
@@ -14624,6 +15230,7 @@
         "2": "NetC153_1"
       },
       "mpn": "0402WGF3300TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "330"
     },
     "R225": {
@@ -14632,6 +15239,7 @@
         "2": "SPI2.SCK_1"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "R226": {
@@ -14640,6 +15248,7 @@
         "2": "SPI2.MOSI_1"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "R224": {
@@ -14648,6 +15257,7 @@
         "2": "NetR224_2"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "R227": {
@@ -14656,6 +15266,7 @@
         "2": "NetR227_2"
       },
       "mpn": "0402WGF3300TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "330"
     },
     "R222": {
@@ -14664,6 +15275,7 @@
         "2": "NetC150_2"
       },
       "mpn": "0402WGF4701TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "4.7k"
     },
     "R223": {
@@ -14672,6 +15284,7 @@
         "2": "NetR223_2"
       },
       "mpn": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "1k"
     },
     "R221": {
@@ -14680,6 +15293,7 @@
         "2": "NetC150_2"
       },
       "mpn": "0402WGF4701TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "4.7k"
     },
     "D36": {
@@ -14688,6 +15302,7 @@
         "2": "SPI2.MISO_1"
       },
       "mpn": "BAT54XV2T1G",
+      "manufacturer": "onsemi",
       "description": "ON Semi BAT54XV2T1G; SMT Schottky Diode; 30V 200mA; 5ns; 2-Pin SOD-523"
     },
     "D35": {
@@ -14696,55 +15311,64 @@
         "2": "NetC150_2"
       },
       "mpn": "BAT54XV2T1G",
+      "manufacturer": "onsemi",
       "description": "ON Semi BAT54XV2T1G; SMT Schottky Diode; 30V 200mA; 5ns; 2-Pin SOD-523"
     },
     "TP39": {
       "pins": {
         "1": "GND"
       },
-      "mpn": "RH-5001"
+      "mpn": "RH-5001",
+      "manufacturer": "ronghe"
     },
     "TP41": {
       "pins": {
         "1": "GND"
       },
-      "mpn": "RH-5001"
+      "mpn": "RH-5001",
+      "manufacturer": "ronghe"
     },
     "TP43": {
       "pins": {
         "1": "GND"
       },
-      "mpn": "RH-5001"
+      "mpn": "RH-5001",
+      "manufacturer": "ronghe"
     },
     "TP45": {
       "pins": {
         "1": "GND"
       },
-      "mpn": "RH-5001"
+      "mpn": "RH-5001",
+      "manufacturer": "ronghe"
     },
     "TP32": {
       "pins": {
         "1": "LVB"
       },
-      "mpn": "RH-5000"
+      "mpn": "RH-5000",
+      "manufacturer": "ronghe"
     },
     "TP33": {
       "pins": {
         "1": "5P0"
       },
-      "mpn": "RH-5000"
+      "mpn": "RH-5000",
+      "manufacturer": "ronghe"
     },
     "TP35": {
       "pins": {
         "1": "3P3"
       },
-      "mpn": "RH-5000"
+      "mpn": "RH-5000",
+      "manufacturer": "ronghe"
     },
     "TP37": {
       "pins": {
         "1": "1P2"
       },
-      "mpn": "RH-5000"
+      "mpn": "RH-5000",
+      "manufacturer": "ronghe"
     },
     "BT1": {
       "pins": {
@@ -14758,31 +15382,36 @@
         }
       },
       "mpn": "S8421-45R",
+      "manufacturer": "Harwin",
       "description": "EZ-Coin Cell Battery Retainer, Horizontal SMT, for CR2032 Coin Cell Batteries"
     },
     "TP46": {
       "pins": {
         "1": "GND"
       },
-      "mpn": "RH-5001"
+      "mpn": "RH-5001",
+      "manufacturer": "ronghe"
     },
     "TP47": {
       "pins": {
         "1": "GND"
       },
-      "mpn": "RH-5001"
+      "mpn": "RH-5001",
+      "manufacturer": "ronghe"
     },
     "TP34": {
       "pins": {
         "1": "LV_COIL"
       },
-      "mpn": "RH-5000"
+      "mpn": "RH-5000",
+      "manufacturer": "ronghe"
     },
     "TP48": {
       "pins": {
         "1": "GND"
       },
-      "mpn": "RH-5001"
+      "mpn": "RH-5001",
+      "manufacturer": "ronghe"
     },
     "MH1": {
       "pins": {
@@ -14842,25 +15471,29 @@
       "pins": {
         "1": "LV_FAN"
       },
-      "mpn": "RH-5000"
+      "mpn": "RH-5000",
+      "manufacturer": "ronghe"
     },
     "TP89": {
       "pins": {
         "1": "VBUS"
       },
-      "mpn": "RH-5000"
+      "mpn": "RH-5000",
+      "manufacturer": "ronghe"
     },
     "TP90": {
       "pins": {
         "1": "3P3_USB"
       },
-      "mpn": "RH-5000"
+      "mpn": "RH-5000",
+      "manufacturer": "ronghe"
     },
     "TP4": {
       "pins": {
         "1": "TIMEPULSE_1"
       },
-      "mpn": "RH-5002"
+      "mpn": "RH-5002",
+      "manufacturer": "ronghe"
     },
     "U19": {
       "pins": {
@@ -15014,6 +15647,7 @@
         }
       },
       "mpn": "USB2534I-1080AEN",
+      "manufacturer": "Microchip",
       "description": "USB Bus Controller, CMOS"
     },
     "R268": {
@@ -15022,6 +15656,7 @@
         "2": "NetR267_2"
       },
       "mpn": "0402WGF1003TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "100k"
     },
     "R267": {
@@ -15030,6 +15665,7 @@
         "2": "NetR267_2"
       },
       "mpn": "CRCW040249K9FKEDC",
+      "manufacturer": "Vishay Intertech",
       "value": "49.9k"
     },
     "X6": {
@@ -15038,6 +15674,7 @@
         "2": "NetC196_1"
       },
       "mpn": "TAXM24M2QLFCDT1T",
+      "manufacturer": "Yajingxin",
       "description": "CRYSTAL 24.000 MHZ 20PF SMD"
     },
     "R275": {
@@ -15046,6 +15683,7 @@
         "2": "NetR275_2"
       },
       "mpn": "0402WGF3300TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "330"
     },
     "C195": {
@@ -15053,14 +15691,16 @@
         "1": "NetC195_1",
         "2": "NetC170_2"
       },
-      "mpn": "0402CG330J500NT"
+      "mpn": "0402CG330J500NT",
+      "manufacturer": "FH(Guangdong Fenghua Advanced Tech)"
     },
     "C196": {
       "pins": {
         "1": "NetC196_1",
         "2": "NetC170_2"
       },
-      "mpn": "0402CG330J500NT"
+      "mpn": "0402CG330J500NT",
+      "manufacturer": "FH(Guangdong Fenghua Advanced Tech)"
     },
     "R279": {
       "pins": {
@@ -15068,6 +15708,7 @@
         "2": "NetC170_2"
       },
       "mpn": "0402WGF1202TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "12k"
     },
     "C190": {
@@ -15075,28 +15716,32 @@
         "1": "NetC190_1",
         "2": "NetC170_2"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C191": {
       "pins": {
         "1": "NetC190_1",
         "2": "NetC170_2"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C192": {
       "pins": {
         "1": "NetC190_1",
         "2": "NetC170_2"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "FB15": {
       "pins": {
         "1": "NetC193_1",
         "2": "NetC190_1"
       },
-      "mpn": "BLM15AX601SN1D"
+      "mpn": "BLM15AX601SN1D",
+      "manufacturer": "Murata Electronics"
     },
     "R272": {
       "pins": {
@@ -15104,6 +15749,7 @@
         "2": "NetC189_1"
       },
       "mpn": "CRCW04021R00FKED",
+      "manufacturer": "Vishay Intertech",
       "value": "1"
     },
     "C189": {
@@ -15111,21 +15757,24 @@
         "1": "NetC189_1",
         "2": "NetC170_2"
       },
-      "mpn": "CL21B106KAYQNNE"
+      "mpn": "CL21B106KAYQNNE",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C193": {
       "pins": {
         "1": "NetC193_1",
         "2": "NetC170_2"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "C194": {
       "pins": {
         "1": "NetC193_1",
         "2": "NetC170_2"
       },
-      "mpn": "CL05B104KB54PNC"
+      "mpn": "CL05B104KB54PNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     },
     "R269": {
       "pins": {
@@ -15133,6 +15782,7 @@
         "2": "NetR269_2"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R270": {
@@ -15141,6 +15791,7 @@
         "2": "NetR270_2"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R271": {
@@ -15149,6 +15800,7 @@
         "2": "NetR271_2"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R277": {
@@ -15157,6 +15809,7 @@
         "2": "NetC170_2"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R278": {
@@ -15165,6 +15818,7 @@
         "2": "NetC170_2"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R273": {
@@ -15173,6 +15827,7 @@
         "2": "NetR273_2"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R274": {
@@ -15181,6 +15836,7 @@
         "2": "NetR274_2"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R276": {
@@ -15189,6 +15845,7 @@
         "2": "NetC170_2"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R257": {
@@ -15197,6 +15854,7 @@
         "2": "NetC170_2"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R255": {
@@ -15205,6 +15863,7 @@
         "2": "NetR255_2"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "R256": {
@@ -15213,6 +15872,7 @@
         "2": "NetR256_2"
       },
       "mpn": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
       "value": "10k"
     },
     "C170": {
@@ -15220,7 +15880,8 @@
         "1": "NetC170_1",
         "2": "NetC170_2"
       },
-      "mpn": "CL10A106MA8NRNC"
+      "mpn": "CL10A106MA8NRNC",
+      "manufacturer": "Samsung Electro-Mechanics"
     }
   }
 }

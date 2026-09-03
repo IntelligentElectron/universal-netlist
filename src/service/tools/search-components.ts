@@ -48,6 +48,11 @@ export const searchComponentsByRefdes = async (
 /**
  * Search components by MPN pattern.
  *
+ * Both part numbers are searched, the manufacturer's and the design's own.
+ * They are different namespaces and a caller holding one of them has no way to
+ * know which, so matching only `mpn` would answer "no such part" to a correct
+ * internal part number.
+ *
  * @param pattern - Regex pattern
  * @param design - Path to design file
  * @param includeDns - Include DNS components
@@ -68,8 +73,12 @@ export const searchComponentsByMpn = async (
 
   const designName = getDesignName(design);
   const allComponents = Object.entries(netlist.components);
-  const componentsWithMpn = allComponents.filter(([, c]) => c.mpn?.trim());
-  const entries = componentsWithMpn.filter(([, component]) => regex.test(component.mpn!));
+  const componentsWithMpn = allComponents.filter(([, c]) => c.mpn?.trim() || c.internal_pn?.trim());
+  const entries = componentsWithMpn.filter(
+    ([, component]) =>
+      (component.mpn ? regex.test(component.mpn) : false) ||
+      (component.internal_pn ? regex.test(component.internal_pn) : false)
+  );
 
   // Case 1: No MPN data exists at all
   if (componentsWithMpn.length === 0) {

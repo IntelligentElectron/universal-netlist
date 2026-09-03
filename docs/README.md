@@ -21,7 +21,7 @@ Each tool has a single, focused responsibility. Complex reasoning is offloaded t
 
 ### Universal Netlist Schema
 
-All EDA formats convert to one compact JSON structure that captures connectivity essentials without bloat. Components have pins, pins connect to nets, and nets connect components. See [schemas/universal-netlist.md](schemas/universal-netlist.md) for the schema definition.
+All EDA formats convert to one compact JSON structure that captures connectivity essentials without bloat. Components have pins, pins connect to nets, and nets connect components. See [schemas/universal-netlist.md](schemas/universal-netlist.md) for the schema definition, and [schemas/changelog.md](schemas/changelog.md) for what changed in each schema version and when.
 
 ### Datasheet-Deferred Details
 

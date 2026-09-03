@@ -43,6 +43,16 @@ export const queryComponent = async (
     result.mpn = mpn;
   }
 
+  const internalPn = component.internal_pn?.trim() || undefined;
+  if (internalPn !== undefined) {
+    result.internal_pn = internalPn;
+  }
+
+  const manufacturer = component.manufacturer?.trim() || undefined;
+  if (manufacturer !== undefined) {
+    result.manufacturer = manufacturer;
+  }
+
   if (component.description !== undefined) {
     result.description = component.description;
   }

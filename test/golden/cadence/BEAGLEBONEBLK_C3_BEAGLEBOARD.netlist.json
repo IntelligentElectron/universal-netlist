@@ -1,8 +1,8 @@
 {
-  "universalNetlistSchemaVersion": 1,
+  "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-01T21:46:07.572Z",
-    "netlistHash": "sha256:7abd8a45811b8158a97efbe4cb4d71675d79f3f07f77b71bf02c11fd54b31440",
+    "generatedAt": "2026-09-03T01:02:24.304Z",
+    "netlistHash": "sha256:a20afaec7de64ad5814b4532fdfeca2511771d093e8415a7357e535e242b423e",
     "origin": {
       "type": "vendor",
       "source": {
@@ -5206,39 +5206,46 @@
   },
   "components": {
     "C150": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "HDMI_1V8",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C144": {
-      "mpn": "CAP_2.2uF_X5R_6.3V_10%_0402",
       "value": "2.2uF,10V",
       "pins": {
         "1": "HDMI_1V8",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX5R6BB225",
+      "internal_pn": "302012819",
+      "manufacturer": "YAGEO"
     },
     "C167": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "47pF,50V",
       "pins": {
         "1": "LCD_DATA12",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402JRNPO9BN470",
+      "internal_pn": "302010007",
+      "manufacturer": "YAGEO"
     },
     "C156": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "47pF,50V",
       "pins": {
         "1": "LCD_DATA10",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402JRNPO9BN470",
+      "internal_pn": "302010007",
+      "manufacturer": "YAGEO"
     },
     "P6": {
-      "mpn": "CONN_HDMI_TYPED",
       "value": "10118241-001RLF",
       "pins": {
         "1": {
@@ -5333,18 +5340,22 @@
           "name": "MTG4",
           "net": "GND_EARTH"
         }
-      }
+      },
+      "mpn": "10118241-001RLF",
+      "internal_pn": "320010901",
+      "manufacturer": "FCI"
     },
     "C168": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "47pF,50V",
       "pins": {
         "1": "LCD_DATA11",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402JRNPO9BN470",
+      "internal_pn": "302010007",
+      "manufacturer": "YAGEO"
     },
     "D7": {
-      "mpn": "32CTQ030/TO_1",
       "value": "TPD4S009DGSR",
       "pins": {
         "1": "HDMI_TX2-",
@@ -5357,58 +5368,72 @@
         "8": "DGND",
         "9": "NC",
         "10": "NC"
-      }
+      },
+      "mpn": "TPD4S009DGSR",
+      "internal_pn": "304050800",
+      "manufacturer": "TI"
     },
     "C151": {
-      "mpn": "CAP_2.2uF_X5R_6.3V_10%_0402",
       "value": "2.2uF,10V",
       "pins": {
         "1": "HDMI_1V8",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX5R6BB225",
+      "internal_pn": "302012819",
+      "manufacturer": "YAGEO"
     },
     "C169": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "47pF,50V",
       "pins": {
         "1": "LCD_DATA4",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402JRNPO9BN470",
+      "internal_pn": "302010007",
+      "manufacturer": "YAGEO"
     },
     "C149": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "HDMI_1V8",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C162": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "47pF,50V",
       "pins": {
         "1": "LCD_DATA6",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402JRNPO9BN470",
+      "internal_pn": "302010007",
+      "manufacturer": "YAGEO"
     },
     "C170": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "47pF,50V",
       "pins": {
         "1": "LCD_DATA3",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402JRNPO9BN470",
+      "internal_pn": "302010007",
+      "manufacturer": "YAGEO"
     },
     "R158": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "VDD_3V3B",
         "2": "HDMI_INT"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "U11": {
-      "mpn": "IC_TDA19988_HVQFN64_5",
       "value": "TDA19988BHN/C1,557",
       "pins": {
         "1": {
@@ -5671,34 +5696,42 @@
           "name": "PAD",
           "net": "DGND"
         }
-      }
+      },
+      "mpn": "TDA19988BHN/C1,557",
+      "internal_pn": "310990838",
+      "manufacturer": "NXP"
     },
     "C163": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "47pF,50V",
       "pins": {
         "1": "LCD_DATA5",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402JRNPO9BN470",
+      "internal_pn": "302010007",
+      "manufacturer": "YAGEO"
     },
     "R146": {
-      "mpn": "RES_1.5K_1/16W_5%_0402",
       "value": "1.5K,1%",
       "pins": {
         "1": "DVI_+5V",
         "2": "HDMI_DSCL"
-      }
+      },
+      "mpn": "RC0402FR-071K5L",
+      "internal_pn": "301010567",
+      "manufacturer": "YAGEO"
     },
     "C171": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "47pF,50V",
       "pins": {
         "1": "LCD_DATA1",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402JRNPO9BN470",
+      "internal_pn": "302010007",
+      "manufacturer": "YAGEO"
     },
     "D6": {
-      "mpn": "32CTQ030/TO_1",
       "value": "TPD4S009DGSR",
       "pins": {
         "1": "HDMI_TX0-",
@@ -5711,66 +5744,82 @@
         "8": "DGND",
         "9": "NC",
         "10": "NC"
-      }
+      },
+      "mpn": "TPD4S009DGSR",
+      "internal_pn": "304050800",
+      "manufacturer": "TI"
     },
     "FB5": {
-      "mpn": "FER_180_200_0805",
       "value": "150R,800mA",
       "pins": {
         "1": "HDMI_1V8",
         "2": "VDD_1V8"
-      }
+      },
+      "mpn": "LI0805H151R-10",
+      "internal_pn": "303030029",
+      "manufacturer": "LAIRD"
     },
     "C164": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "47pF,50V",
       "pins": {
         "1": "LCD_DATA15",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402JRNPO9BN470",
+      "internal_pn": "302010007",
+      "manufacturer": "YAGEO"
     },
     "R147": {
-      "mpn": "RES_1.5K_1/16W_5%_0402",
       "value": "1.5K,1%",
       "pins": {
         "1": "DVI_+5V",
         "2": "HDMI_DSDA"
-      }
+      },
+      "mpn": "RC0402FR-071K5L",
+      "internal_pn": "301010567",
+      "manufacturer": "YAGEO"
     },
     "C172": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "47pF,50V",
       "pins": {
         "1": "LCD_DATA2",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402JRNPO9BN470",
+      "internal_pn": "302010007",
+      "manufacturer": "YAGEO"
     },
     "C165": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "47pF,50V",
       "pins": {
         "1": "LCD_DATA14",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402JRNPO9BN470",
+      "internal_pn": "302010007",
+      "manufacturer": "YAGEO"
     },
     "C173": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "47pF,50V",
       "pins": {
         "1": "LCD_DATA0",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402JRNPO9BN470",
+      "internal_pn": "302010007",
+      "manufacturer": "YAGEO"
     },
     "RT1": {
-      "mpn": "PTC_RXEF010",
       "value": "RXEF010",
       "pins": {
         "1": "SYS_5V",
         "2": "DVI_+5V"
-      }
+      },
+      "mpn": "RXEF010",
+      "internal_pn": "307010055",
+      "manufacturer": "TE"
     },
     "D8": {
-      "mpn": "DIO_SR305_TH_0",
       "value": "RB751V40,115",
       "pins": {
         "1": {
@@ -5781,522 +5830,652 @@
           "name": "ANODE",
           "net": "HDMI_CEC_D"
         }
-      }
+      },
+      "mpn": "RB751V40,115",
+      "internal_pn": "304020767",
+      "manufacturer": "NXP"
     },
     "C148": {
-      "mpn": "CAP_2.2uF_X5R_6.3V_10%_0402",
       "value": "2.2uF,10V",
       "pins": {
         "1": "HDMI_1V8",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX5R6BB225",
+      "internal_pn": "302012819",
+      "manufacturer": "YAGEO"
     },
     "R148": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "HDMI_SWING",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "C147": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "HDMI_1V8",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C157": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "47pF,50V",
       "pins": {
         "1": "LCD_DATA9",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402JRNPO9BN470",
+      "internal_pn": "302010007",
+      "manufacturer": "YAGEO"
     },
     "C146": {
-      "mpn": "CAP_2.2uF_X5R_6.3V_10%_0402",
       "value": "2.2uF,10V",
       "pins": {
         "1": "HDMI_1V8",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX5R6BB225",
+      "internal_pn": "302012819",
+      "manufacturer": "YAGEO"
     },
     "R149": {
-      "mpn": "RES_0_1/16W_1%_0402",
       "value": "0R,5%",
       "pins": {
         "1": "N21667305",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402JR-070RL",
+      "internal_pn": "301010000",
+      "manufacturer": "YAGEO"
     },
     "C145": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "HDMI_1V8",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "R166": {
-      "mpn": "RES_22.6K_1/16W_1%_0402",
       "value": "27K,1%",
       "pins": {
         "1": "HDMI_CEC_D",
         "2": "VDD_3V3B"
-      }
+      },
+      "mpn": "RC0402FR-0727KL",
+      "internal_pn": "301010067",
+      "manufacturer": "YAGEO"
     },
     "C160": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "47pF,50V",
       "pins": {
         "1": "LCD_DATA8",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402JRNPO9BN470",
+      "internal_pn": "302010007",
+      "manufacturer": "YAGEO"
     },
     "C166": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "47pF,50V",
       "pins": {
         "1": "LCD_DATA13",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402JRNPO9BN470",
+      "internal_pn": "302010007",
+      "manufacturer": "YAGEO"
     },
     "C161": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "47pF,50V",
       "pins": {
         "1": "LCD_DATA7",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402JRNPO9BN470",
+      "internal_pn": "302010007",
+      "manufacturer": "YAGEO"
     },
     "C43": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_CORE",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C103": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDDS_DDR",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C44": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_CORE",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C45": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_CORE",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C71": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "DGND",
         "2": "VDD_3V3A"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "FB2": {
-      "mpn": "FER_180_200_0",
       "value": "150R,800mA",
       "pins": {
         "1": "VDD_ADC",
         "2": "VDD_1V8"
-      }
+      },
+      "mpn": "LI0805H151R-10",
+      "internal_pn": "303030029",
+      "manufacturer": "LAIRD"
     },
     "C46": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_CORE",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C96": {
-      "mpn": "CAP_10uF_Y5V_10V_10%_0805",
       "value": "10uF,16V",
       "pins": {
         "1": "DGND",
         "2": "VDDS_DDR"
-      }
+      },
+      "mpn": "CL21A106KOQNNNE",
+      "internal_pn": "302010361",
+      "manufacturer": "Samsung"
     },
     "C77": {
-      "mpn": "CAP_10uF_Y5V_10V_10%_0805",
       "value": "10uF,16V",
       "pins": {
         "1": "VDD_3V3A",
         "2": "DGND"
-      }
+      },
+      "mpn": "CL21A106KOQNNNE",
+      "internal_pn": "302010361",
+      "manufacturer": "Samsung"
     },
     "C47": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_CORE",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C48": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_CORE",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C61": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "DGND",
         "2": "VDD_3V3A"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C78": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_1V8",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C49": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_CORE",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C50": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_CORE",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C41": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_CORE",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C92": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_PLL",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C51": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_CORE",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C42": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_CORE",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C52": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_CORE",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C38": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_3V3A",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C53": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_CORE",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C54": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_CORE",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C55": {
-      "mpn": "CAP_10uF_Y5V_10V_10%_0805",
       "value": "10uF,16V",
       "pins": {
         "1": "DGND",
         "2": "VDD_CORE"
-      }
+      },
+      "mpn": "CL21A106KOQNNNE",
+      "internal_pn": "302010361",
+      "manufacturer": "Samsung"
     },
     "C62": {
-      "mpn": "CAP_10uF_Y5V_10V_10%_0805",
       "value": "10uF,16V",
       "pins": {
         "1": "DGND",
         "2": "VDD_MPU"
-      }
+      },
+      "mpn": "CL21A106KOQNNNE",
+      "internal_pn": "302010361",
+      "manufacturer": "Samsung"
     },
     "C80": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDDS",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C72": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "DGND",
         "2": "VDD_3V3A"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C66": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_3V3A",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C93": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_ADC",
         "2": "GNDA_ADC"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C90": {
-      "mpn": "CAP_1.0UF_X5R_10V_10%_0402",
       "value": "1uF,10V",
       "pins": {
         "1": "CAP_VDD_SRAM_MPU",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX5R6BB105",
+      "internal_pn": "302010040",
+      "manufacturer": "YAGEO"
     },
     "C60": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "DGND",
         "2": "VDD_3V3A"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C83": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDDS",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C67": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_3V3A",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C39": {
-      "mpn": "CAP_10uF_Y5V_10V_10%_0805",
       "value": "10uF,16V",
       "pins": {
         "1": "DGND",
         "2": "VDD_CORE"
-      }
+      },
+      "mpn": "CL21A106KOQNNNE",
+      "internal_pn": "302010361",
+      "manufacturer": "Samsung"
     },
     "C73": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "DGND",
         "2": "VDD_3V3A"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C102": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDDS_DDR",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C88": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_1V8",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C100": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDDS_DDR",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C98": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDDS_DDR",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C58": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_3V3A",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C65": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_MPU",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C87": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_3V3A",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C106": {
-      "mpn": "CAP_1.0UF_X5R_10V_10%_0402",
       "value": "1uF,10V",
       "pins": {
         "1": "VDD_PLL",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX5R6BB105",
+      "internal_pn": "302010040",
+      "manufacturer": "YAGEO"
     },
     "C81": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDDS",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C74": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "DGND",
         "2": "VDD_3V3A"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C95": {
-      "mpn": "CAP_10uF_Y5V_10V_10%_0805",
       "value": "10uF,16V",
       "pins": {
         "1": "DGND",
         "2": "VDDS_DDR"
-      }
+      },
+      "mpn": "CL21A106KOQNNNE",
+      "internal_pn": "302010361",
+      "manufacturer": "Samsung"
     },
     "C105": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VRTC",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C85": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDDS",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C59": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_3V3A",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C75": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "DGND",
         "2": "VDD_3V3A"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C86": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_1V8",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C40": {
-      "mpn": "CAP_10uF_Y5V_10V_10%_0805",
       "value": "10uF,16V",
       "pins": {
         "1": "DGND",
         "2": "VDD_CORE"
-      }
+      },
+      "mpn": "CL21A106KOQNNNE",
+      "internal_pn": "302010361",
+      "manufacturer": "Samsung"
     },
     "FB3": {
-      "mpn": "FER_180_200_0",
       "value": "150R,800mA",
       "pins": {
         "1": "GNDA_ADC",
         "2": "DGND"
-      }
+      },
+      "mpn": "LI0805H151R-10",
+      "internal_pn": "303030029",
+      "manufacturer": "LAIRD"
     },
     "TP2": {
-      "mpn": "TESTPT1",
       "value": "Test Point",
       "pins": {
         "1": {
@@ -6306,39 +6485,46 @@
       }
     },
     "C82": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDDS",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C68": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "DGND",
         "2": "VDD_3V3A"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "FB1": {
-      "mpn": "FER_180_200_0",
       "value": "150R,800mA",
       "pins": {
         "1": "VDD_1V8",
         "2": "VDD_PLL"
-      }
+      },
+      "mpn": "LI0805H151R-10",
+      "internal_pn": "303030029",
+      "manufacturer": "LAIRD"
     },
     "C89": {
-      "mpn": "CAP_1.0UF_X5R_10V_10%_0402",
       "value": "1uF,10V",
       "pins": {
         "1": "CAP_VDD_SRAM_CORE",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX5R6BB105",
+      "internal_pn": "302010040",
+      "manufacturer": "YAGEO"
     },
     "U5": {
-      "mpn": "IC_AM335X_ZCZ",
       "value": "AM3358BZCZ100",
       "pins": {
         "M5": {
@@ -7028,26 +7214,32 @@
         "D3": "DDR_A15",
         "B5": "LDO_PGOOD",
         "J4": "DDR_VREF"
-      }
+      },
+      "mpn": "AM3358BZCZ100",
+      "internal_pn": "310010099",
+      "manufacturer": "TI"
     },
     "C57": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "DGND",
         "2": "VDD_3V3A"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C76": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "DGND",
         "2": "VDD_3V3A"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "TP3": {
-      "mpn": "TESTPT1",
       "value": "Test Point",
       "pins": {
         "1": {
@@ -7057,199 +7249,246 @@
       }
     },
     "C69": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "DGND",
         "2": "VDD_3V3A"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "R54": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "DGND",
         "2": "ENZ_KALDO_1P8V"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "C79": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_PLL",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C91": {
-      "mpn": "CAP_1.0UF_X5R_10V_10%_0402",
       "value": "1uF,10V",
       "pins": {
         "1": "CAP_VBB_MPU",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX5R6BB105",
+      "internal_pn": "302010040",
+      "manufacturer": "YAGEO"
     },
     "C56": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "DGND",
         "2": "VDD_3V3A"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C101": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDDS_DDR",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C64": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_MPU",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C99": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDDS_DDR",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C84": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDDS",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C97": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDDS_DDR",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C94": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_PLL",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C104": {
-      "mpn": "CAP_1.0UF_X5R_10V_10%_0402",
       "value": "1uF,10V",
       "pins": {
         "1": "VDD_RTC",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX5R6BB105",
+      "internal_pn": "302010040",
+      "manufacturer": "YAGEO"
     },
     "C70": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "DGND",
         "2": "VDD_3V3A"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C63": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_MPU",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C37": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_3V3A",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "R106": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "VDD_3V3B",
         "2": "MMC1_DAT5"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "R109": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "VDD_3V3B",
         "2": "MMC1_CMD"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "C125": {
-      "mpn": "CAP_2.2uF_X5R_6.3V_10%_0402",
       "value": "2.2uF,10V",
       "pins": {
         "1": "EMMC_VCCI",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX5R6BB225",
+      "internal_pn": "302012819",
+      "manufacturer": "YAGEO"
     },
     "R111": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "VDD_3V3B",
         "2": "EMMC_RSTN"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "R108": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "VDD_3V3B",
         "2": "MMC1_DAT7"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "R105": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "VDD_3V3B",
         "2": "MMC1_DAT4"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "R104": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "VDD_3V3B",
         "2": "MMC1_DAT3"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "R101": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "VDD_3V3B",
         "2": "MMC1_DAT0"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "R107": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "VDD_3V3B",
         "2": "MMC1_DAT6"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "U13": {
-      "mpn": "eMMC_153-ball_WFBGA",
       "value": "EMMC04G-M627",
       "pins": {
         "A1": {
@@ -7864,90 +8103,112 @@
           "name": "VCC0",
           "net": "VDD_3V3B"
         }
-      }
+      },
+      "mpn": "EMMC04G-M627",
+      "internal_pn": "310090564",
+      "manufacturer": "Kingston"
     },
     "C130": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_3V3B",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C129": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_3V3B",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C128": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_3V3B",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C127": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_3V3B",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "R110": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "VDD_3V3B",
         "2": "MMC1_CLK"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "R103": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "VDD_3V3B",
         "2": "MMC1_DAT2"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "R102": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "VDD_3V3B",
         "2": "MMC1_DAT1"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "C126": {
-      "mpn": "CAP_10uF_Y5V_10V_10%_0805",
       "value": "10uF,16V",
       "pins": {
         "1": "DGND",
         "2": "VDD_3V3B"
-      }
+      },
+      "mpn": "CL21A106KOQNNNE",
+      "internal_pn": "302010361",
+      "manufacturer": "Samsung"
     },
     "R89": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "LCD_DATA6",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "R73": {
-      "mpn": "RES_470_1/10W_5%_0402",
       "value": "2.2K,5%",
       "pins": {
         "1": "SYS_5V",
         "2": "LEDBA"
-      }
+      },
+      "mpn": "RC0402JR-072K2L",
+      "internal_pn": "301010039",
+      "manufacturer": "YAGEO"
     },
     "D4": {
-      "mpn": "LED_LTST-C150GKT_0",
       "value": "19-217/BHC-ZL1M2RY/3T",
       "pins": {
         "1": {
@@ -7958,66 +8219,82 @@
           "name": "A",
           "net": "LEDCA"
         }
-      }
+      },
+      "mpn": "19-217/BHC-ZL1M2RY/3T",
+      "internal_pn": "304090045",
+      "manufacturer": "Everlight"
     },
     "R78": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "USR2",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "R91": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "LCD_DATA4",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "R55": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "VDD_3V3A",
         "2": "LCD_DATA15"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "R72": {
-      "mpn": "RES_470_1/10W_5%_0402",
       "value": "2.2K,5%",
       "pins": {
         "1": "SYS_5V",
         "2": "LEDAA"
-      }
+      },
+      "mpn": "RC0402JR-072K2L",
+      "internal_pn": "301010039",
+      "manufacturer": "YAGEO"
     },
     "R79": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "USR3",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "R65": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "VDD_3V3A",
         "2": "LCD_DATA5"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "R68": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "VDD_3V3A",
         "2": "LCD_DATA2"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "D5": {
-      "mpn": "LED_LTST-C150GKT_0",
       "value": "19-217/BHC-ZL1M2RY/3T",
       "pins": {
         "1": {
@@ -8028,90 +8305,112 @@
           "name": "A",
           "net": "LEDDA"
         }
-      }
+      },
+      "mpn": "19-217/BHC-ZL1M2RY/3T",
+      "internal_pn": "304090045",
+      "manufacturer": "Everlight"
     },
     "R77": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "USR1",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "R57": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "VDD_3V3A",
         "2": "LCD_DATA13"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "R95": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "LCD_DATA0",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "R64": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "VDD_3V3A",
         "2": "LCD_DATA6"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "R58": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "VDD_3V3A",
         "2": "LCD_DATA12"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "R82": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "LCD_DATA13",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "R94": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "LCD_DATA1",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "R61": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "VDD_3V3A",
         "2": "LCD_DATA9"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "R62": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "VDD_3V3A",
         "2": "LCD_DATA8"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "R80": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "LCD_DATA15",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "Q1": {
-      "mpn": "RN1907",
       "value": "DDC114YU-7-F",
       "pins": {
         "1": {
@@ -8129,34 +8428,42 @@
           "name": "3",
           "net": "LEDAC"
         }
-      }
+      },
+      "mpn": "DDC114YU-7-F",
+      "internal_pn": "305050004",
+      "manufacturer": "Diodes"
     },
     "R56": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "VDD_3V3A",
         "2": "LCD_DATA14"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "R92": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "LCD_DATA3",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "R70": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "VDD_3V3A",
         "2": "LCD_DATA0"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "Q2": {
-      "mpn": "RN1907",
       "value": "DDC114YU-7-F",
       "pins": {
         "1": {
@@ -8174,34 +8481,42 @@
           "name": "3",
           "net": "LEDCC"
         }
-      }
+      },
+      "mpn": "DDC114YU-7-F",
+      "internal_pn": "305050004",
+      "manufacturer": "Diodes"
     },
     "R63": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "VDD_3V3A",
         "2": "LCD_DATA7"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "R67": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "VDD_3V3A",
         "2": "LCD_DATA3"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "R83": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "LCD_DATA12",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "D2": {
-      "mpn": "LED_LTST-C150GKT_0",
       "value": "19-217/BHC-ZL1M2RY/3T",
       "pins": {
         "1": {
@@ -8212,34 +8527,42 @@
           "name": "A",
           "net": "LEDAA"
         }
-      }
+      },
+      "mpn": "19-217/BHC-ZL1M2RY/3T",
+      "internal_pn": "304090045",
+      "manufacturer": "Everlight"
     },
     "R90": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "LCD_DATA5",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "R74": {
-      "mpn": "RES_470_1/10W_5%_0402",
       "value": "2.2K,5%",
       "pins": {
         "1": "SYS_5V",
         "2": "LEDCA"
-      }
+      },
+      "mpn": "RC0402JR-072K2L",
+      "internal_pn": "301010039",
+      "manufacturer": "YAGEO"
     },
     "R84": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "LCD_DATA11",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "S2": {
-      "mpn": "SW_KT11P2JM_1",
       "value": "KMR231GLFS",
       "pins": {
         "1": {
@@ -8258,106 +8581,132 @@
           "name": "B2",
           "net": "DGND"
         }
-      }
+      },
+      "mpn": "KMR231GLFS",
+      "internal_pn": "311020198",
+      "manufacturer": "C&K"
     },
     "R60": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "VDD_3V3A",
         "2": "LCD_DATA10"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "R71": {
-      "mpn": "RES_470_1/10W_5%_0402",
       "value": "2.2K,5%",
       "pins": {
         "1": "SYS_5V",
         "2": "LEDDA"
-      }
+      },
+      "mpn": "RC0402JR-072K2L",
+      "internal_pn": "301010039",
+      "manufacturer": "YAGEO"
     },
     "R59": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "VDD_3V3A",
         "2": "LCD_DATA11"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "R76": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "USR0",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "R85": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "LCD_DATA10",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "R66": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "VDD_3V3A",
         "2": "LCD_DATA4"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "R86": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "LCD_DATA9",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "R93": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "LCD_DATA2",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "R75": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100R,1%",
       "pins": {
         "1": "LCD_DATA2",
         "2": "N21769115"
-      }
+      },
+      "mpn": "RC0402FR-07100RL",
+      "internal_pn": "301010442",
+      "manufacturer": "YAGEO"
     },
     "R87": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "LCD_DATA8",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "R81": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "LCD_DATA14",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "R69": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "VDD_3V3A",
         "2": "LCD_DATA1"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "D3": {
-      "mpn": "LED_LTST-C150GKT_0",
       "value": "19-217/BHC-ZL1M2RY/3T",
       "pins": {
         "1": {
@@ -8368,26 +8717,32 @@
           "name": "A",
           "net": "LEDBA"
         }
-      }
+      },
+      "mpn": "19-217/BHC-ZL1M2RY/3T",
+      "internal_pn": "304090045",
+      "manufacturer": "Everlight"
     },
     "R88": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "LCD_DATA7",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "C113": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDDS_DDR",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "U12": {
-      "mpn": "MT47H256M8_7",
       "value": "D2516ECMDXGJD-U",
       "pins": {
         "J1": {
@@ -8774,234 +9129,292 @@
           "name": "DQ9",
           "net": "DDR_D9"
         }
-      }
+      },
+      "mpn": "D2516ECMDXGJD-U",
+      "internal_pn": "310091066",
+      "manufacturer": "Kingston"
     },
     "C119": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDDS_DDR",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "R96": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "DGND",
         "2": "DDR_CKE"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "C111": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDDS_DDR",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C116": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDDS_DDR",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C117": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDDS_DDR",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C121": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDDS_DDR",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C122": {
-      "mpn": "CAP_10uF_Y5V_10V_10%_0805",
       "value": "10uF,16V",
       "pins": {
         "1": "DGND",
         "2": "VDDS_DDR"
-      }
+      },
+      "mpn": "CL21A106KOQNNNE",
+      "internal_pn": "302010361",
+      "manufacturer": "Samsung"
     },
     "C109": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDDS_DDR",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C114": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDDS_DDR",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C118": {
-      "mpn": "CAP_10uF_Y5V_10V_10%_0805",
       "value": "10uF,16V",
       "pins": {
         "1": "DGND",
         "2": "VDDS_DDR"
-      }
+      },
+      "mpn": "CL21A106KOQNNNE",
+      "internal_pn": "302010361",
+      "manufacturer": "Samsung"
     },
     "R100": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "DDR_VREF",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "R98": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "VDDS_DDR",
         "2": "DDR_VREF"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "R97": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "1.5K,1%",
       "pins": {
         "1": "VDDS_DDR",
         "2": "DDR_RESETN"
-      }
+      },
+      "mpn": "RC0402FR-071K5L",
+      "internal_pn": "301010567",
+      "manufacturer": "YAGEO"
     },
     "C107": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDDS_DDR",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C112": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDDS_DDR",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C120": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDDS_DDR",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C110": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDDS_DDR",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "R99": {
-      "mpn": "Res",
       "value": "240R,1%",
       "pins": {
         "1": "DGND",
         "2": "ZQ"
-      }
+      },
+      "mpn": "RC0402FR-07240RL",
+      "internal_pn": "301011475",
+      "manufacturer": "YAGEO"
     },
     "C115": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDDS_DDR",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C124": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "DDR_VREF",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C108": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDDS_DDR",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C123": {
-      "mpn": "CAP_0.001_X7R_50V_5%_0402",
       "value": "1nF,50V",
       "pins": {
         "1": "DDR_VREF",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R9BB102",
+      "internal_pn": "302010005",
+      "manufacturer": "YAGEO"
     },
     "R15": {
-      "mpn": "RES_33_0402",
       "value": "33R,5%",
       "pins": {
         "1": "MMC0_CMD",
         "2": "SD_CMD"
-      }
+      },
+      "mpn": "RC0402JR-0733RL",
+      "internal_pn": "301010034",
+      "manufacturer": "YAGEO"
     },
     "C153": {
-      "mpn": "CAP_10uF_Y5V_10V_10%_0805",
       "value": "10uF,16V",
       "pins": {
         "1": "VDD_3V3B",
         "2": "DGND"
-      }
+      },
+      "mpn": "CL21A106KOQNNNE",
+      "internal_pn": "302010361",
+      "manufacturer": "Samsung"
     },
     "R152": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "VDD_3V3B",
         "2": "SD_CLK"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "R154": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "VDD_3V3B",
         "2": "SD_DAT1"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "C5": {
-      "mpn": "CC",
       "value": "10pF,50V",
       "pins": {
         "1": "SD_CLK",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402JRNPO9BN100",
+      "internal_pn": "302010001",
+      "manufacturer": "YAGEO"
     },
     "R151": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "VDD_3V3B",
         "2": "SD_CMD"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "P8": {
-      "mpn": "HDR_46_F_2_0.1_0.1",
       "value": "Female Header 2x23Pin 2.54MM",
       "pins": {
         "1": "DGND",
@@ -9185,26 +9598,32 @@
           "name": "48",
           "net": "LCD_DATA1"
         }
-      }
+      },
+      "mpn": "FF-1236",
+      "internal_pn": "320030424",
+      "manufacturer": "SINOTOP"
     },
     "R155": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "VDD_3V3B",
         "2": "SD_DAT3"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "R16": {
-      "mpn": "RES_33_0402",
       "value": "33R,5%",
       "pins": {
         "1": "MMC0_CLKO",
         "2": "SD_CLK"
-      }
+      },
+      "mpn": "RC0402JR-0733RL",
+      "internal_pn": "301010034",
+      "manufacturer": "YAGEO"
     },
     "U7": {
-      "mpn": "MEM_24LC32_SOT23-5",
       "value": "24LC32AT-I/OT",
       "pins": {
         "1": {
@@ -9227,26 +9646,32 @@
           "name": "WP",
           "net": "WP"
         }
-      }
+      },
+      "mpn": "24LC32AT-I/OT",
+      "internal_pn": "310090051",
+      "manufacturer": "Microchip"
     },
     "R2": {
-      "mpn": "RES_33_0402",
       "value": "33R,5%",
       "pins": {
         "1": "MMC0_DAT2",
         "2": "SD_DAT2"
-      }
+      },
+      "mpn": "RC0402JR-0733RL",
+      "internal_pn": "301010034",
+      "manufacturer": "YAGEO"
     },
     "C154": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_3V3B",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "P10": {
-      "mpn": "MicroSD Card_10+4P",
       "value": "YL004-030-001",
       "pins": {
         "1": {
@@ -9305,58 +9730,72 @@
           "name": "SHD4",
           "net": "GND_EARTH"
         }
-      }
+      },
+      "mpn": "YL004-030-001",
+      "internal_pn": "320090416",
+      "manufacturer": "YU LIANG"
     },
     "R31": {
-      "mpn": "RES_33_0402",
       "value": "33R,5%",
       "pins": {
         "1": "MMC0_DAT0",
         "2": "SD_DAT0"
-      }
+      },
+      "mpn": "RC0402JR-0733RL",
+      "internal_pn": "301010034",
+      "manufacturer": "YAGEO"
     },
     "R153": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "VDD_3V3B",
         "2": "SD_DAT0"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "R157": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "MMC0_CD",
         "2": "VDD_3V3B"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "R150": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "VDD_3V3B",
         "2": "SD_DAT2"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "R156": {
-      "mpn": "RES_0_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "VDD_3V3A",
         "2": "WP"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "R13": {
-      "mpn": "RES_33_0402",
       "value": "33R,5%",
       "pins": {
         "1": "MMC0_DAT3",
         "2": "SD_DAT3"
-      }
+      },
+      "mpn": "RC0402JR-0733RL",
+      "internal_pn": "301010034",
+      "manufacturer": "YAGEO"
     },
     "TP4": {
-      "mpn": "TESTPT1",
       "value": "Test Point",
       "pins": {
         "1": {
@@ -9366,7 +9805,6 @@
       }
     },
     "P9": {
-      "mpn": "HDR_46_F_2_0.1_0.1",
       "value": "Female Header 2x23Pin 2.54MM",
       "pins": {
         "1": "DGND",
@@ -9550,66 +9988,82 @@
           "name": "48",
           "net": "DGND"
         }
-      }
+      },
+      "mpn": "FF-1236",
+      "internal_pn": "320030424",
+      "manufacturer": "SINOTOP"
     },
     "R32": {
-      "mpn": "RES_33_0402",
       "value": "33R,5%",
       "pins": {
         "1": "MMC0_DAT1",
         "2": "SD_DAT1"
-      }
+      },
+      "mpn": "RC0402JR-0733RL",
+      "internal_pn": "301010034",
+      "manufacturer": "YAGEO"
     },
     "C152": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_3V3A",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "R45": {
-      "mpn": "RES_33_0402",
       "value": "22R,1%",
       "pins": {
         "1": "LCDPCLK",
         "2": "LCD_PCLK"
-      }
+      },
+      "mpn": "RC0402FR-0722RL",
+      "internal_pn": "301010052",
+      "manufacturer": "YAGEO"
     },
     "R51": {
-      "mpn": "RES_4.75K_1/16W_1%_0402",
       "value": "0R,5%",
       "pins": {
         "1": "GPIO0_7",
         "2": "GPIO3_18"
-      }
+      },
+      "mpn": "RC0402JR-070RL",
+      "internal_pn": "301010000",
+      "manufacturer": "YAGEO"
     },
     "R159": {
-      "mpn": "RES_4.75K_1/16W_1%_0402",
       "value": "0R,5%",
       "pins": {
         "1": "USB_DC",
         "2": "N22155575"
-      }
+      },
+      "mpn": "RC0402JR-070RL",
+      "internal_pn": "301010000",
+      "manufacturer": "YAGEO"
     },
     "R27": {
-      "mpn": "RES_0_1/16W_1%_0402",
       "value": "0R,5%",
       "pins": {
         "1": "VDD_ADC",
         "2": "VREFP_ADC"
-      }
+      },
+      "mpn": "RC0402JR-070RL",
+      "internal_pn": "301010000",
+      "manufacturer": "YAGEO"
     },
     "R49": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "0R,5%",
       "pins": {
         "1": "DGND",
         "2": "USB1_ID"
-      }
+      },
+      "mpn": "RC0402JR-070RL",
+      "internal_pn": "301010000",
+      "manufacturer": "YAGEO"
     },
     "TP9": {
-      "mpn": "TESTPT1",
       "value": "Test Point",
       "pins": {
         "1": {
@@ -9619,47 +10073,56 @@
       }
     },
     "R46": {
-      "mpn": "RES_33_0402",
       "value": "0R,5%",
       "pins": {
         "1": "LCDVSYNC",
         "2": "LCD_VSYNC"
-      }
+      },
+      "mpn": "RC0402JR-070RL",
+      "internal_pn": "301010000",
+      "manufacturer": "YAGEO"
     },
     "C36": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "USB_DC",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "R165": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "B_UART0_RX",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "R37": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "0R,5%",
       "pins": {
         "1": "USB1_VBUS",
         "2": "USB1_PWR"
-      }
+      },
+      "mpn": "RC0402JR-070RL",
+      "internal_pn": "301010000",
+      "manufacturer": "YAGEO"
     },
     "R47": {
-      "mpn": "RES_33_0402",
       "value": "0R,5%",
       "pins": {
         "1": "LCDVHYNC",
         "2": "LCD_HSYNC"
-      }
+      },
+      "mpn": "RC0402JR-070RL",
+      "internal_pn": "301010000",
+      "manufacturer": "YAGEO"
     },
     "U8": {
-      "mpn": "TPS2061_1",
       "value": "TPS2051BDGNR",
       "pins": {
         "1": {
@@ -9698,26 +10161,32 @@
           "name": "PAD",
           "net": "DGND"
         }
-      }
+      },
+      "mpn": "TPS2051BDGNR",
+      "internal_pn": "310030211",
+      "manufacturer": "TI"
     },
     "C33": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VREFP_ADC",
         "2": "GNDA_ADC"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C32": {
-      "mpn": "CAP_0.001_X7R_50V_5%_0402",
       "value": "1nF,50V",
       "pins": {
         "1": "VREFP_ADC",
         "2": "GNDA_ADC"
-      }
+      },
+      "mpn": "CC0402KRX7R9BB102",
+      "internal_pn": "302010005",
+      "manufacturer": "YAGEO"
     },
     "U9": {
-      "mpn": "PROT_TPD4S012",
       "value": "TPD4S012DRYR",
       "pins": {
         "1": {
@@ -9744,18 +10213,22 @@
           "name": "VBUS",
           "net": "USB1_PWR"
         }
-      }
+      },
+      "mpn": "TPD4S012DRYR",
+      "internal_pn": "304050020",
+      "manufacturer": "TI"
     },
     "R48": {
-      "mpn": "RES_33_0402",
       "value": "0R,5%",
       "pins": {
         "1": "LCDDE",
         "2": "LCD_DE"
-      }
+      },
+      "mpn": "RC0402JR-070RL",
+      "internal_pn": "301010000",
+      "manufacturer": "YAGEO"
     },
     "P4": {
-      "mpn": "MINI-USB-AB-SOCKET",
       "value": "UX60SC-MB-5ST(80)",
       "pins": {
         "1": {
@@ -9794,26 +10267,32 @@
           "name": "G4",
           "net": "GND_EARTH"
         }
-      }
+      },
+      "mpn": "UX60SC-MB-5ST(80)",
+      "internal_pn": "320010900",
+      "manufacturer": "Hirose"
     },
     "C35": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "USB1_PWR",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C34": {
-      "mpn": "CAP_100UF_TANT_6.3V_3528-21",
       "value": "100uF,10V",
       "pins": {
         "1": "SYS_5V",
         "2": "DGND"
-      }
+      },
+      "mpn": "CS1A101M-CRE54",
+      "internal_pn": "302030050",
+      "manufacturer": "ST"
     },
     "J1": {
-      "mpn": "HEADER 6",
       "value": "Header 1x6Pin 2.54MM",
       "pins": {
         "1": "DGND",
@@ -9822,10 +10301,12 @@
         "4": "B_UART0_RX",
         "5": "B_UART0_TX",
         "6": "NC"
-      }
+      },
+      "mpn": "P125-1106A1BS116A1",
+      "internal_pn": "320020078",
+      "manufacturer": "YXCON"
     },
     "U15": {
-      "mpn": "IC_SN74LVC2G241_1",
       "value": "SN74LVC2G241DCUR",
       "pins": {
         "1": {
@@ -9860,10 +10341,12 @@
           "name": "VCC",
           "net": "VDD_3V3B"
         }
-      }
+      },
+      "mpn": "SN74LVC2G241DCUR",
+      "internal_pn": "310050078",
+      "manufacturer": "TI"
     },
     "U10": {
-      "mpn": "PROT_TPD4S012",
       "value": "TPD4S012DRYR",
       "pins": {
         "1": {
@@ -9890,82 +10373,102 @@
           "name": "VBUS",
           "net": "USB_DC"
         }
-      }
+      },
+      "mpn": "TPD4S012DRYR",
+      "internal_pn": "304050020",
+      "manufacturer": "TI"
     },
     "R26": {
-      "mpn": "RES_4.75K_1/16W_1%_0402",
       "value": "4.7K,1%",
       "pins": {
         "1": "VRTC",
         "2": "WAKEUP"
-      }
+      },
+      "mpn": "RC0402FR-074K7L",
+      "internal_pn": "301010633",
+      "manufacturer": "YAGEO"
     },
     "C31": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VREFP_ADC",
         "2": "GNDA_ADC"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "R28": {
-      "mpn": "RES_33_0402",
       "value": "33R,5%",
       "pins": {
         "1": "U5_H18",
         "2": "MII1_REFCLK"
-      }
+      },
+      "mpn": "RC0402JR-0733RL",
+      "internal_pn": "301010034",
+      "manufacturer": "YAGEO"
     },
     "R163": {
-      "mpn": "RES_4.75K_1/16W_1%_0402",
       "value": "4.7K,1%",
       "pins": {
         "1": "VDD_3V3B",
         "2": "AIN7"
-      }
+      },
+      "mpn": "RC0402FR-074K7L",
+      "internal_pn": "301010633",
+      "manufacturer": "YAGEO"
     },
     "FB7": {
-      "mpn": "FER_180_200_0",
       "value": "150R,800mA",
       "pins": {
         "1": "USB1_PWR",
         "2": "VBUS"
-      }
+      },
+      "mpn": "LI0805H151R-10",
+      "internal_pn": "303030029",
+      "manufacturer": "LAIRD"
     },
     "R53": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "USB1_DRVVBUS",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "R50": {
-      "mpn": "RES_4.75K_1/16W_1%_0402",
       "value": "0R,5%",
       "pins": {
         "1": "GPIO0_7",
         "2": "GPIO0_7SRC"
-      }
+      },
+      "mpn": "RC0402JR-070RL",
+      "internal_pn": "301010000",
+      "manufacturer": "YAGEO"
     },
     "C155": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "DGND",
         "2": "VDD_3V3B"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "R52": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "VDD_3V3A",
         "2": "USB1_OCN"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "P3": {
-      "mpn": "CONN_54819-0578_2",
       "value": "UB11123-4H9-4F",
       "pins": {
         "1": {
@@ -9992,234 +10495,292 @@
           "name": "PAD4",
           "net": "GND_EARTH"
         }
-      }
+      },
+      "mpn": "UB11123-4H9-4F",
+      "internal_pn": "320010075",
+      "manufacturer": "Foxconn"
     },
     "R164": {
-      "mpn": "RES_4.75K_1/16W_1%_0402",
       "value": "4.7K,1%",
       "pins": {
         "1": "AIN7",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-074K7L",
+      "internal_pn": "301010633",
+      "manufacturer": "YAGEO"
     },
     "R126": {
-      "mpn": "100-1/10W-1%-0603_4",
       "value": "100R,1%",
       "pins": {
         "1": "MII1_RXD2",
         "2": "RXD2/RMIISEL"
-      }
+      },
+      "mpn": "RC0402FR-07100RL",
+      "internal_pn": "301010442",
+      "manufacturer": "YAGEO"
     },
     "R137": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "0R,5%",
       "pins": {
         "1": "TCT_RCT",
         "2": "VDD_PHYA"
-      }
+      },
+      "mpn": "RC0402JR-070RL",
+      "internal_pn": "301010000",
+      "manufacturer": "YAGEO"
     },
     "C136": {
-      "mpn": "470pF/5%/50V/C0G/0603_0",
       "value": "470pF,50V",
       "pins": {
         "1": "PHY_VDDCR",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R9BB471",
+      "internal_pn": "302010010",
+      "manufacturer": "YAGEO"
     },
     "R132": {
-      "mpn": "RES_470_1/10W_5%_0402",
       "value": "470R,5%",
       "pins": {
         "1": "DGND",
         "2": "GRN_C"
-      }
+      },
+      "mpn": "RC0402JR-07470RL",
+      "internal_pn": "301010013",
+      "manufacturer": "YAGEO"
     },
     "C132": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_PHYA",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "R38": {
-      "mpn": "RES_4.7K_0402",
       "value": "33R,5%",
       "pins": {
         "1": "MII1_TXEN",
         "2": "TXEN"
-      }
+      },
+      "mpn": "RC0402JR-0733RL",
+      "internal_pn": "301010034",
+      "manufacturer": "YAGEO"
     },
     "R131": {
-      "mpn": "RES_100_1/10W_5%_0402",
       "value": "100R,1%",
       "pins": {
         "1": "MII1_RXCLK",
         "2": "REFCLKO"
-      }
+      },
+      "mpn": "RC0402FR-07100RL",
+      "internal_pn": "301010442",
+      "manufacturer": "YAGEO"
     },
     "C174": {
-      "mpn": "CAP_30PF_COG_50V_5%_0402",
       "value": "4.7uF,10V",
       "pins": {
         "1": "ETH_RESETN",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX5R6BB475",
+      "internal_pn": "302010407",
+      "manufacturer": "YAGEO"
     },
     "R130": {
-      "mpn": "RES_470_1/10W_5%_0402",
       "value": "470R,5%",
       "pins": {
         "1": "DGND",
         "2": "YEL_C"
-      }
+      },
+      "mpn": "RC0402JR-07470RL",
+      "internal_pn": "301010013",
+      "manufacturer": "YAGEO"
     },
     "R125": {
-      "mpn": "100-1/10W-1%-0603_4",
       "value": "100R,1%",
       "pins": {
         "1": "MII1_RXD3",
         "2": "RXD3/PHYAD2"
-      }
+      },
+      "mpn": "RC0402FR-07100RL",
+      "internal_pn": "301010442",
+      "manufacturer": "YAGEO"
     },
     "C137": {
-      "mpn": "CAP_0402_100pF_COG_50V",
       "value": "10pF,50V",
       "pins": {
         "1": "RXP",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402JRNPO9BN100",
+      "internal_pn": "302010001",
+      "manufacturer": "YAGEO"
     },
     "R112": {
-      "mpn": "RES_4.75K_1/16W_1%_0402",
       "value": "1.5K,1%",
       "pins": {
         "1": "RXD0/MODE0",
         "2": "VDD_3V3B"
-      }
+      },
+      "mpn": "RC0402FR-071K5L",
+      "internal_pn": "301010567",
+      "manufacturer": "YAGEO"
     },
     "FB4": {
-      "mpn": "FER_180_200_0",
       "value": "150R,800mA",
       "pins": {
         "1": "VDD_3V3B",
         "2": "VDD_PHYA"
-      }
+      },
+      "mpn": "LI0805H151R-10",
+      "internal_pn": "303030029",
+      "manufacturer": "LAIRD"
     },
     "R135": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "YELA",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "Y3": {
-      "mpn": "Suntsu ITEMP 25MHz _0.005% 20pf",
       "value": "25MHz,20pF",
       "pins": {
         "1": "PHY_XTAL1",
         "2": "PHYX"
-      }
+      },
+      "mpn": "5XBB25000202TF40Q3",
+      "internal_pn": "306011036",
+      "manufacturer": "INTERQUIP"
     },
     "R39": {
-      "mpn": "RES_4.7K_0402",
       "value": "33R,5%",
       "pins": {
         "1": "MII1_TXD0",
         "2": "TXD0"
-      }
+      },
+      "mpn": "RC0402JR-0733RL",
+      "internal_pn": "301010034",
+      "manufacturer": "YAGEO"
     },
     "R124": {
-      "mpn": "100-1/10W-1%-0603_4",
       "value": "10R,1%",
       "pins": {
         "1": "MII1_REFCLK",
         "2": "REFCLKO"
-      }
+      },
+      "mpn": "RC0402FR-0710RL",
+      "internal_pn": "301010444",
+      "manufacturer": "YAGEO"
     },
     "R139": {
-      "mpn": "RES_100_1/10W_5%_0402",
       "value": "100R,1%",
       "pins": {
         "1": "MII1_CRS_DV",
         "2": "CRS"
-      }
+      },
+      "mpn": "RC0402FR-07100RL",
+      "internal_pn": "301010442",
+      "manufacturer": "YAGEO"
     },
     "C141": {
-      "mpn": "CAP_0402_0.1uf_X5R_10V",
       "value": "22nF,50V",
       "pins": {
         "1": "TCT_RCT",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R9BB223",
+      "internal_pn": "302010242",
+      "manufacturer": "YAGEO"
     },
     "R127": {
-      "mpn": "RES_100_1/10W_5%_0402",
       "value": "100R,1%",
       "pins": {
         "1": "MII1_RXD1",
         "2": "RXD1/MODE1"
-      }
+      },
+      "mpn": "RC0402FR-07100RL",
+      "internal_pn": "301010442",
+      "manufacturer": "YAGEO"
     },
     "R116": {
-      "mpn": "RES_4.75K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "RXD3/PHYAD2",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "R123": {
-      "mpn": "RES_4.7K_0402",
       "value": "49.9R,1%",
       "pins": {
         "1": "TXN",
         "2": "VDD_PHYA"
-      }
+      },
+      "mpn": "RC0402FR-0749R9L",
+      "internal_pn": "301010041",
+      "manufacturer": "YAGEO"
     },
     "R117": {
-      "mpn": "RES_4.75K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "RXD2/RMIISEL",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "C23": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_3V3B",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C131": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_PHYA",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C140": {
-      "mpn": "CAP_0402_100pF_COG_50V",
       "value": "10pF,50V",
       "pins": {
         "1": "TXN",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402JRNPO9BN100",
+      "internal_pn": "302010001",
+      "manufacturer": "YAGEO"
     },
     "R40": {
-      "mpn": "RES_4.7K_0402",
       "value": "33R,5%",
       "pins": {
         "1": "MII1_TXD1",
         "2": "TXD1"
-      }
+      },
+      "mpn": "RC0402JR-0733RL",
+      "internal_pn": "301010034",
+      "manufacturer": "YAGEO"
     },
     "P5": {
-      "mpn": "CONN_RJ45_MAG_WE_0",
       "value": "LPJ0011BBNL",
       "pins": {
         "1": {
@@ -10278,82 +10839,102 @@
           "name": "SHD2",
           "net": "GND_EARTH"
         }
-      }
+      },
+      "mpn": "LPJ0011BBNL",
+      "internal_pn": "320140216",
+      "manufacturer": "Link-PP"
     },
     "R113": {
-      "mpn": "RES_4.75K_1/16W_1%_0402",
       "value": "1.5K,1%",
       "pins": {
         "1": "MODE2",
         "2": "VDD_3V3B"
-      }
+      },
+      "mpn": "RC0402FR-071K5L",
+      "internal_pn": "301010567",
+      "manufacturer": "YAGEO"
     },
     "C138": {
-      "mpn": "CAP_0402_100pF_COG_50V",
       "value": "10pF,50V",
       "pins": {
         "1": "RXN",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402JRNPO9BN100",
+      "internal_pn": "302010001",
+      "manufacturer": "YAGEO"
     },
     "R119": {
-      "mpn": "RES_1.5K_1/16W_5%_0402",
       "value": "1.5K,1%",
       "pins": {
         "1": "VDD_3V3B",
         "2": "MDIO_DATA"
-      }
+      },
+      "mpn": "RC0402FR-071K5L",
+      "internal_pn": "301010567",
+      "manufacturer": "YAGEO"
     },
     "R34": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "VDD_3V3B",
         "2": "ETH_RST_GPIO1_8"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "R140": {
-      "mpn": "RES_0_1/16W_1%_0402",
       "value": "0R,5%",
       "pins": {
         "1": "MII1_REFCLK",
         "2": "RCLKIN"
-      }
+      },
+      "mpn": "RC0402JR-070RL",
+      "internal_pn": "301010000",
+      "manufacturer": "YAGEO"
     },
     "C143": {
-      "mpn": "CAP_30PF_COG_50V_5%_0402",
       "value": "33pF,50V",
       "pins": {
         "1": "PHY_XTAL1",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402JRNPO9BN330",
+      "internal_pn": "302010000",
+      "manufacturer": "YAGEO"
     },
     "R134": {
-      "mpn": "100-1/10W-1%-0603_4",
       "value": "100R,1%",
       "pins": {
         "1": "MII1_TXCLK",
         "2": "TXCLK"
-      }
+      },
+      "mpn": "RC0402FR-07100RL",
+      "internal_pn": "301010442",
+      "manufacturer": "YAGEO"
     },
     "R122": {
-      "mpn": "RES_4.7K_0402",
       "value": "49.9R,1%",
       "pins": {
         "1": "TXP",
         "2": "VDD_PHYA"
-      }
+      },
+      "mpn": "RC0402FR-0749R9L",
+      "internal_pn": "301010041",
+      "manufacturer": "YAGEO"
     },
     "C139": {
-      "mpn": "CAP_0402_100pF_COG_50V",
       "value": "10pF,50V",
       "pins": {
         "1": "TXP",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402JRNPO9BN100",
+      "internal_pn": "302010001",
+      "manufacturer": "YAGEO"
     },
     "U14": {
-      "mpn": "LAN8710 QFN32_1",
       "value": "LAN8710A-EZC-TR",
       "pins": {
         "1": {
@@ -10488,90 +11069,112 @@
           "name": "GND_EP",
           "net": "DGND"
         }
-      }
+      },
+      "mpn": "LAN8710A-EZC-TR",
+      "internal_pn": "310070043",
+      "manufacturer": "Microchip"
     },
     "R33": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "VDD_3V3B",
         "2": "ETH_RESETN"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "R145": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "ETH_TXD4",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "R141": {
-      "mpn": "RES_1M_1/16W_1%_0402",
       "value": "1M,1%",
       "pins": {
         "1": "PHY_XTAL2",
         "2": "PHY_XTAL1"
-      }
+      },
+      "mpn": "RC0402FR-071ML",
+      "internal_pn": "301010043",
+      "manufacturer": "YAGEO"
     },
     "R41": {
-      "mpn": "RES_4.7K_0402",
       "value": "33R,5%",
       "pins": {
         "1": "MII1_TXD2",
         "2": "TXD2"
-      }
+      },
+      "mpn": "RC0402JR-0733RL",
+      "internal_pn": "301010034",
+      "manufacturer": "YAGEO"
     },
     "R128": {
-      "mpn": "RES_100_1/10W_5%_0402",
       "value": "100R,1%",
       "pins": {
         "1": "MII1_RXD0",
         "2": "RXD0/MODE0"
-      }
+      },
+      "mpn": "RC0402FR-07100RL",
+      "internal_pn": "301010442",
+      "manufacturer": "YAGEO"
     },
     "R118": {
-      "mpn": "RES_4.75K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "REFCLKO",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "R129": {
-      "mpn": "100-1/10W-1%-0603_4",
       "value": "100R,1%",
       "pins": {
         "1": "MII1_RXDV",
         "2": "RXDV"
-      }
+      },
+      "mpn": "RC0402FR-07100RL",
+      "internal_pn": "301010442",
+      "manufacturer": "YAGEO"
     },
     "R138": {
-      "mpn": "100-1/10W-1%-0603_4",
       "value": "100R,1%",
       "pins": {
         "1": "MII1_COL",
         "2": "MODE2"
-      }
+      },
+      "mpn": "RC0402FR-07100RL",
+      "internal_pn": "301010442",
+      "manufacturer": "YAGEO"
     },
     "R120": {
-      "mpn": "RES_4.7K_0402",
       "value": "49.9R,1%",
       "pins": {
         "1": "RXP",
         "2": "VDD_PHYA"
-      }
+      },
+      "mpn": "RC0402FR-0749R9L",
+      "internal_pn": "301010041",
+      "manufacturer": "YAGEO"
     },
     "R115": {
-      "mpn": "RES_4.75K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "RXER/PHYAD0",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "U1": {
-      "mpn": "SN74AHC1G09DCKR",
       "value": "SN74AHC1G09DCKR",
       "pins": {
         "1": {
@@ -10594,147 +11197,183 @@
           "name": "VCC",
           "net": "VDD_3V3B"
         }
-      }
+      },
+      "mpn": "SN74AHC1G09DCKR",
+      "internal_pn": "310051111",
+      "manufacturer": "TI"
     },
     "R143": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "10R,1%",
       "pins": {
         "1": "PHY_XTAL2",
         "2": "PHYX"
-      }
+      },
+      "mpn": "RC0402FR-0710RL",
+      "internal_pn": "301010444",
+      "manufacturer": "YAGEO"
     },
     "C142": {
-      "mpn": "CAP_30PF_COG_50V_5%_0402",
       "value": "33pF,50V",
       "pins": {
         "1": "PHYX",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402JRNPO9BN330",
+      "internal_pn": "302010000",
+      "manufacturer": "YAGEO"
     },
     "R133": {
-      "mpn": "RES_100_1/10W_5%_0402",
       "value": "100R,1%",
       "pins": {
         "1": "MII1_RXERR",
         "2": "RXER/PHYAD0"
-      }
+      },
+      "mpn": "RC0402FR-07100RL",
+      "internal_pn": "301010442",
+      "manufacturer": "YAGEO"
     },
     "R114": {
-      "mpn": "RES_4.75K_1/16W_1%_0402",
       "value": "1.5K,1%",
       "pins": {
         "1": "RXD1/MODE1",
         "2": "VDD_3V3B"
-      }
+      },
+      "mpn": "RC0402FR-071K5L",
+      "internal_pn": "301010567",
+      "manufacturer": "YAGEO"
     },
     "C135": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_3V3B",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C133": {
-      "mpn": "CAP_10uF_Y5V_10V_10%_0805",
       "value": "10uF,16V",
       "pins": {
         "1": "DGND",
         "2": "VDD_PHYA"
-      }
+      },
+      "mpn": "CL21A106KOQNNNE",
+      "internal_pn": "302010361",
+      "manufacturer": "Samsung"
     },
     "R136": {
-      "mpn": "RES_0.1_0805",
       "value": "0.1R,5%",
       "pins": {
         "1": "DGND",
         "2": "GND_EARTH"
-      }
+      },
+      "mpn": "RL0805JR-070R1L",
+      "internal_pn": "301010264",
+      "manufacturer": "YAGEO"
     },
     "R42": {
-      "mpn": "RES_4.7K_0402",
       "value": "33R,5%",
       "pins": {
         "1": "MII1_TXD3",
         "2": "TXD3"
-      }
+      },
+      "mpn": "RC0402JR-0733RL",
+      "internal_pn": "301010034",
+      "manufacturer": "YAGEO"
     },
     "R121": {
-      "mpn": "RES_4.7K_0402",
       "value": "49.9R,1%",
       "pins": {
         "1": "RXN",
         "2": "VDD_PHYA"
-      }
+      },
+      "mpn": "RC0402FR-0749R9L",
+      "internal_pn": "301010041",
+      "manufacturer": "YAGEO"
     },
     "R144": {
-      "mpn": "RES_12.1K_1/16W_1%_0402",
       "value": "12.1K,1%",
       "pins": {
         "1": "RBIAS",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-0712K1L",
+      "internal_pn": "301011877",
+      "manufacturer": "YAGEO"
     },
     "R142": {
-      "mpn": "RES_0_1/16W_1%_0402",
       "value": "0R,5%",
       "pins": {
         "1": "PHY_XTAL1",
         "2": "RCLKIN"
-      }
+      },
+      "mpn": "RC0402JR-070RL",
+      "internal_pn": "301010000",
+      "manufacturer": "YAGEO"
     },
     "C134": {
-      "mpn": "CAP_1.0UF_X5R_10V_10%_0402",
       "value": "1uF,10V",
       "pins": {
         "1": "PHY_VDDCR",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX5R6BB105",
+      "internal_pn": "302010040",
+      "manufacturer": "YAGEO"
     },
     "L3": {
-      "mpn": "IND_2.2uH_2.6A_10%_SMD",
       "value": "2.2uH,1.3A",
       "pins": {
         "1": "P_L3",
         "2": "VDD_CORE"
-      }
+      },
+      "mpn": "LQM2HPN2R2MG0L",
+      "internal_pn": "303010128",
+      "manufacturer": "Murata"
     },
     "R10": {
-      "mpn": "RES_470_1/10W_5%_0402",
       "value": "470K,1%",
       "pins": {
         "1": "N21757673",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-07470KL",
+      "internal_pn": "301010069",
+      "manufacturer": "YAGEO"
     },
     "P1": {
-      "mpn": "Power_Jack",
       "value": "DC630-20D01",
       "pins": {
         "1": "VDD_5V",
         "2": "DGND",
         "3": "NC"
-      }
+      },
+      "mpn": "DC630-20D01",
+      "internal_pn": "320120067",
+      "manufacturer": "MTCONN"
     },
     "R1": {
-      "mpn": "RES_100K_1/16W_1%_0402",
       "value": "100K,1%",
       "pins": {
         "1": "VDD_3V3A",
         "2": "PMIC_INT"
-      }
+      },
+      "mpn": "RC0402FR-07100KL",
+      "internal_pn": "301010456",
+      "manufacturer": "YAGEO"
     },
     "C17": {
-      "mpn": "CAP_2.2uF_X5R_6.3V_10%_0402",
       "value": "2.2uF,10V",
       "pins": {
         "1": "SYS_5V",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX5R6BB225",
+      "internal_pn": "302012819",
+      "manufacturer": "YAGEO"
     },
     "U2": {
-      "mpn": "PWR_TPS65217_2",
       "value": "TPS65217CRSLR",
       "pins": {
         "1": {
@@ -10933,26 +11572,32 @@
           "name": "PPAD",
           "net": "DGND"
         }
-      }
+      },
+      "mpn": "TPS65217CRSLR",
+      "internal_pn": "310030209",
+      "manufacturer": "TI"
     },
     "R6": {
-      "mpn": "RES_4.75K_1/16W_1%_0402",
       "value": "0R,5%",
       "pins": {
         "1": "VDCDC1",
         "2": "VDDS_DDR"
-      }
+      },
+      "mpn": "RC0402JR-070RL",
+      "internal_pn": "301010000",
+      "manufacturer": "YAGEO"
     },
     "R8": {
-      "mpn": "RES_4.75K_1/16W_1%_0402",
       "value": "0R,5%",
       "pins": {
         "1": "VLDO1",
         "2": "VDDS"
-      }
+      },
+      "mpn": "RC0402JR-070RL",
+      "internal_pn": "301010000",
+      "manufacturer": "YAGEO"
     },
     "MTG2": {
-      "mpn": "MHOLE",
       "value": "MHOLE",
       "pins": {
         "1": {
@@ -10962,15 +11607,16 @@
       }
     },
     "C4": {
-      "mpn": "CAP_10uF_Y5V_10V_10%_0805",
       "value": "10uF,16V",
       "pins": {
         "1": "DGND",
         "2": "P_BYPASS"
-      }
+      },
+      "mpn": "CL21A106KOQNNNE",
+      "internal_pn": "302010361",
+      "manufacturer": "Samsung"
     },
     "TP8": {
-      "mpn": "TESTPT1",
       "value": "Test Point",
       "pins": {
         "1": {
@@ -10980,15 +11626,16 @@
       }
     },
     "C18": {
-      "mpn": "CAP_2.2uF_X5R_6.3V_10%_0402",
       "value": "2.2uF,10V",
       "pins": {
         "1": "VDD_3V3AUX",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX5R6BB225",
+      "internal_pn": "302012819",
+      "manufacturer": "YAGEO"
     },
     "U4": {
-      "mpn": "PWR_TLV70233DBV_0",
       "value": "TL5209DR",
       "pins": {
         "1": {
@@ -11023,58 +11670,72 @@
           "name": "GND4",
           "net": "DGND"
         }
-      }
+      },
+      "mpn": "TL5209DR",
+      "internal_pn": "310030210",
+      "manufacturer": "TI"
     },
     "R11": {
-      "mpn": "RES_470_1/10W_5%_0402",
       "value": "280K,1%",
       "pins": {
         "1": "VDD_3V3B",
         "2": "N21757673"
-      }
+      },
+      "mpn": "RC0402FR-07280KL",
+      "internal_pn": "301010642",
+      "manufacturer": "YAGEO"
     },
     "C10": {
-      "mpn": "CAP_10uF_Y5V_10V_10%_0805",
       "value": "10uF,16V",
       "pins": {
         "1": "DGND",
         "2": "SYS_5V"
-      }
+      },
+      "mpn": "CL21A106KOQNNNE",
+      "internal_pn": "302010361",
+      "manufacturer": "Samsung"
     },
     "C15": {
-      "mpn": "CAP_10uF_Y5V_10V_10%_0805",
       "value": "10uF,16V",
       "pins": {
         "1": "DGND",
         "2": "VDD_3V3A"
-      }
+      },
+      "mpn": "CL21A106KOQNNNE",
+      "internal_pn": "302010361",
+      "manufacturer": "Samsung"
     },
     "R5": {
-      "mpn": "RES_4.75K_1/16W_1%_0402",
       "value": "0R,5%",
       "pins": {
         "1": "VLDO1",
         "2": "VRTC"
-      }
+      },
+      "mpn": "RC0402JR-070RL",
+      "internal_pn": "301010000",
+      "manufacturer": "YAGEO"
     },
     "C1": {
-      "mpn": "CAP_10uF_Y5V_10V_10%_0805",
       "value": "10uF,16V",
       "pins": {
         "1": "DGND",
         "2": "USB_DC"
-      }
+      },
+      "mpn": "CL21A106KOQNNNE",
+      "internal_pn": "302010361",
+      "manufacturer": "Samsung"
     },
     "C7": {
-      "mpn": "CAP_10uF_Y5V_10V_10%_0805",
       "value": "10uF,16V",
       "pins": {
         "1": "DGND",
         "2": "SYS_5V"
-      }
+      },
+      "mpn": "CL21A106KOQNNNE",
+      "internal_pn": "302010361",
+      "manufacturer": "Samsung"
     },
     "S3": {
-      "mpn": "SW_KT11P2JM_2",
       "value": "KMR231GLFS",
       "pins": {
         "1": {
@@ -11093,39 +11754,48 @@
           "name": "B2",
           "net": "PWR_BUT"
         }
-      }
+      },
+      "mpn": "KMR231GLFS",
+      "internal_pn": "311020198",
+      "manufacturer": "C&K"
     },
     "R4": {
-      "mpn": "RES_1.5K_1/16W_5%_0402",
       "value": "1.5K,1%",
       "pins": {
         "1": "VDD_3V3A",
         "2": "I2C0_SDA"
-      }
+      },
+      "mpn": "RC0402FR-071K5L",
+      "internal_pn": "301010567",
+      "manufacturer": "YAGEO"
     },
     "R7": {
-      "mpn": "RES_4.75K_1/16W_1%_0402",
       "value": "0R,5%",
       "pins": {
         "1": "VLDO1",
         "2": "VIO"
-      }
+      },
+      "mpn": "RC0402JR-070RL",
+      "internal_pn": "301010000",
+      "manufacturer": "YAGEO"
     },
     "C19": {
-      "mpn": "CAP_470PF_X7R_25V_10%_0402",
       "value": "470pF,50V",
       "pins": {
         "1": "N21757673",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R9BB471",
+      "internal_pn": "302010010",
+      "manufacturer": "YAGEO"
     },
     "PCB1": {
-      "mpn": "PCB",
       "value": "BeagleBone Black PCB",
-      "pins": {}
+      "pins": {},
+      "mpn": "BeagleBone Black Commercial RevC PCB",
+      "internal_pn": "319014477"
     },
     "D1": {
-      "mpn": "LED_LTST-C150GKT_0",
       "value": "19-217/BHC-ZL1M2RY/3T",
       "pins": {
         "1": {
@@ -11136,18 +11806,22 @@
           "name": "A",
           "net": "VDD_3V3AUX"
         }
-      }
+      },
+      "mpn": "19-217/BHC-ZL1M2RY/3T",
+      "internal_pn": "304090045",
+      "manufacturer": "Everlight"
     },
     "C12": {
-      "mpn": "CAP_10uF_Y5V_10V_10%_0805",
       "value": "10uF,16V",
       "pins": {
         "1": "DGND",
         "2": "VDD_MPU"
-      }
+      },
+      "mpn": "CL21A106KOQNNNE",
+      "internal_pn": "302010361",
+      "manufacturer": "Samsung"
     },
     "TP7": {
-      "mpn": "TESTPT1",
       "value": "Test Point",
       "pins": {
         "1": {
@@ -11157,23 +11831,26 @@
       }
     },
     "C2": {
-      "mpn": "CAP_10uF_Y5V_10V_10%_0805",
       "value": "10uF,16V",
       "pins": {
         "1": "DGND",
         "2": "VDD_5V"
-      }
+      },
+      "mpn": "CL21A106KOQNNNE",
+      "internal_pn": "302010361",
+      "manufacturer": "Samsung"
     },
     "L2": {
-      "mpn": "IND_2.2uH_2.6A_10%_SMD",
       "value": "2.2uH,1.3A",
       "pins": {
         "1": "P_L2",
         "2": "VDD_MPU"
-      }
+      },
+      "mpn": "LQM2HPN2R2MG0L",
+      "internal_pn": "303010128",
+      "manufacturer": "Murata"
     },
     "TP5": {
-      "mpn": "TESTPT1",
       "value": "Test Point",
       "pins": {
         "1": {
@@ -11183,7 +11860,6 @@
       }
     },
     "MTG3": {
-      "mpn": "MHOLE",
       "value": "MHOLE",
       "pins": {
         "1": {
@@ -11193,31 +11869,36 @@
       }
     },
     "C20": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_3V3B",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C13": {
-      "mpn": "CAP_10uF_Y5V_10V_10%_0805",
       "value": "10uF,16V",
       "pins": {
         "1": "DGND",
         "2": "SYS_5V"
-      }
+      },
+      "mpn": "CL21A106KOQNNNE",
+      "internal_pn": "302010361",
+      "manufacturer": "Samsung"
     },
     "C9": {
-      "mpn": "CAP_10uF_Y5V_10V_10%_0805",
       "value": "10uF,16V",
       "pins": {
         "1": "DGND",
         "2": "VDDS_DDR"
-      }
+      },
+      "mpn": "CL21A106KOQNNNE",
+      "internal_pn": "302010361",
+      "manufacturer": "Samsung"
     },
     "TP6": {
-      "mpn": "TESTPT1",
       "value": "Test Point",
       "pins": {
         "1": {
@@ -11227,15 +11908,16 @@
       }
     },
     "R12": {
-      "mpn": "RES_470_1/10W_5%_0402",
       "value": "470R,5%",
       "pins": {
         "1": "DGND",
         "2": "PWR_LEDR"
-      }
+      },
+      "mpn": "RC0402JR-07470RL",
+      "internal_pn": "301010013",
+      "manufacturer": "YAGEO"
     },
     "TP1": {
-      "mpn": "TESTPT1",
       "value": "Test Point",
       "pins": {
         "1": {
@@ -11245,15 +11927,16 @@
       }
     },
     "C3": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "DGND",
         "2": "P_INT_LDO"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "MTG1": {
-      "mpn": "MHOLE",
       "value": "MHOLE",
       "pins": {
         "1": {
@@ -11263,55 +11946,66 @@
       }
     },
     "C8": {
-      "mpn": "CAP_10uF_Y5V_10V_10%_0805",
       "value": "10uF,16V",
       "pins": {
         "1": "DGND",
         "2": "SYS_5V"
-      }
+      },
+      "mpn": "CL21A106KOQNNNE",
+      "internal_pn": "302010361",
+      "manufacturer": "Samsung"
     },
     "R3": {
-      "mpn": "RES_1.5K_1/16W_5%_0402",
       "value": "1.5K,1%",
       "pins": {
         "1": "VDD_3V3A",
         "2": "I2C0_SCL"
-      }
+      },
+      "mpn": "RC0402FR-071K5L",
+      "internal_pn": "301010567",
+      "manufacturer": "YAGEO"
     },
     "C11": {
-      "mpn": "CAP_10uF_Y5V_10V_10%_0805",
       "value": "10uF,16V",
       "pins": {
         "1": "DGND",
         "2": "VDD_CORE"
-      }
+      },
+      "mpn": "CL21A106KOQNNNE",
+      "internal_pn": "302010361",
+      "manufacturer": "Samsung"
     },
     "R9": {
-      "mpn": "RES_4.75K_1/16W_1%_0402",
       "value": "0R,5%",
       "pins": {
         "1": "VDDS",
         "2": "VDD_1V8"
-      }
+      },
+      "mpn": "RC0402JR-070RL",
+      "internal_pn": "301010000",
+      "manufacturer": "YAGEO"
     },
     "C16": {
-      "mpn": "CAP_2.2uF_X5R_6.3V_10%_0402",
       "value": "2.2uF,10V",
       "pins": {
         "1": "VRTC",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX5R6BB225",
+      "internal_pn": "302012819",
+      "manufacturer": "YAGEO"
     },
     "L1": {
-      "mpn": "IND_2.2uH_2.6A_10%_SMD",
       "value": "2.2uH,1.3A",
       "pins": {
         "1": "P_L1",
         "2": "VDCDC1"
-      }
+      },
+      "mpn": "LQM2HPN2R2MG0L",
+      "internal_pn": "303010128",
+      "manufacturer": "Murata"
     },
     "MTG4": {
-      "mpn": "MHOLE",
       "value": "MHOLE",
       "pins": {
         "1": {
@@ -11321,63 +12015,76 @@
       }
     },
     "C14": {
-      "mpn": "CAP_10uF_Y5V_10V_10%_0805",
       "value": "10uF,16V",
       "pins": {
         "1": "DGND",
         "2": "VDD_1V8"
-      }
+      },
+      "mpn": "CL21A106KOQNNNE",
+      "internal_pn": "302010361",
+      "manufacturer": "Samsung"
     },
     "R23": {
-      "mpn": "RES_4.75K_1/16W_1%_0402",
       "value": "4.7K,1%",
       "pins": {
         "1": "VDD_3V3B",
         "2": "JTAG_EMU0"
-      }
+      },
+      "mpn": "RC0402FR-074K7L",
+      "internal_pn": "301010633",
+      "manufacturer": "YAGEO"
     },
     "R167": {
-      "mpn": "RES_33_0402",
       "value": "33R,5%",
       "pins": {
         "1": "N22248684",
         "2": "GPIO3_21"
-      }
+      },
+      "mpn": "RC0402JR-0733RL",
+      "internal_pn": "301010034",
+      "manufacturer": "YAGEO"
     },
     "C29": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_3V3B",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "R172": {
-      "mpn": "RES_33_0402",
       "value": "33R,5%",
       "pins": {
         "1": "AM3_MMC1_DAT6",
         "2": "MMC1_DAT6"
-      }
+      },
+      "mpn": "RC0402JR-0733RL",
+      "internal_pn": "301010034",
+      "manufacturer": "YAGEO"
     },
     "C24": {
-      "mpn": "CAP_1.0UF_X5R_10V_10%_0402",
       "value": "2.2uF,10V",
       "pins": {
         "1": "SYS_RESETN",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX5R6BB225",
+      "internal_pn": "302012819",
+      "manufacturer": "YAGEO"
     },
     "R29": {
-      "mpn": "RES_0_1/16W_1%_0402",
       "value": "0R,5%",
       "pins": {
         "1": "GND_OSC0",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402JR-070RL",
+      "internal_pn": "301010000",
+      "manufacturer": "YAGEO"
     },
     "P2": {
-      "mpn": "HDR_10x2_CJTAG_0",
       "value": "Heaader 2x10 1.27mm",
       "pins": {
         "1": {
@@ -11463,103 +12170,126 @@
       }
     },
     "R170": {
-      "mpn": "RES_33_0402",
       "value": "33R,5%",
       "pins": {
         "1": "AM3_MMC1_DAT4",
         "2": "MMC1_DAT4"
-      }
+      },
+      "mpn": "RC0402JR-0733RL",
+      "internal_pn": "301010034",
+      "manufacturer": "YAGEO"
     },
     "R21": {
-      "mpn": "RES_33_0402",
       "value": "33R,5%",
       "pins": {
         "1": "N22248838",
         "2": "12MHZ"
-      }
+      },
+      "mpn": "RC0402JR-0733RL",
+      "internal_pn": "301010034",
+      "manufacturer": "YAGEO"
     },
     "R35": {
-      "mpn": "RES_33_0402",
       "value": "33R,5%",
       "pins": {
         "1": "AM3_MMC1_CLK",
         "2": "MMC1_CLK"
-      }
+      },
+      "mpn": "RC0402JR-0733RL",
+      "internal_pn": "301010034",
+      "manufacturer": "YAGEO"
     },
     "R162": {
-      "mpn": "RES_4.75K_1/16W_1%_0402",
       "value": "0R,5%",
       "pins": {
         "1": "N22287501",
         "2": "EMMC_RSTN"
-      }
+      },
+      "mpn": "RC0402JR-070RL",
+      "internal_pn": "301010000",
+      "manufacturer": "YAGEO"
     },
     "R168": {
-      "mpn": "RES_33_0402",
       "value": "33R,5%",
       "pins": {
         "1": "AM3_MMC1_DAT2",
         "2": "MMC1_DAT2"
-      }
+      },
+      "mpn": "RC0402JR-0733RL",
+      "internal_pn": "301010034",
+      "manufacturer": "YAGEO"
     },
     "C21": {
-      "mpn": "CAP_18PF_COG_50V_5%_0402",
       "value": "18pF,50V",
       "pins": {
         "1": "GND_OSC1",
         "2": "OSC1_IN"
-      }
+      },
+      "mpn": "CC0402JRNPO9BN180",
+      "internal_pn": "302010016",
+      "manufacturer": "YAGEO"
     },
     "R43": {
-      "mpn": "RES_33_0402",
       "value": "33R,5%",
       "pins": {
         "1": "AM3_MMC1_DAT0",
         "2": "MMC1_DAT0"
-      }
+      },
+      "mpn": "RC0402JR-0733RL",
+      "internal_pn": "301010034",
+      "manufacturer": "YAGEO"
     },
     "R36": {
-      "mpn": "RES_33_0402",
       "value": "33R,5%",
       "pins": {
         "1": "AM3_MMC1_CMD",
         "2": "MMC1_CMD"
-      }
+      },
+      "mpn": "RC0402JR-0733RL",
+      "internal_pn": "301010034",
+      "manufacturer": "YAGEO"
     },
     "C159": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_3V3A",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "R24": {
-      "mpn": "RES_4.75K_1/16W_1%_0402",
       "value": "4.7K,1%",
       "pins": {
         "1": "VDD_3V3B",
         "2": "JTAG_EMU1"
-      }
+      },
+      "mpn": "RC0402FR-074K7L",
+      "internal_pn": "301010633",
+      "manufacturer": "YAGEO"
     },
     "C25": {
-      "mpn": "CAP_18PF_COG_50V_5%_0402",
       "value": "18pF,50V",
       "pins": {
         "1": "OSC0_IN",
         "2": "GND_OSC0"
-      }
+      },
+      "mpn": "CC0402JRNPO9BN180",
+      "internal_pn": "302010016",
+      "manufacturer": "YAGEO"
     },
     "R20": {
-      "mpn": "RES_0_1/16W_1%_0402",
       "value": "0R,5%",
       "pins": {
         "1": "CLKOUT2",
         "2": "GPIO3_20"
-      }
+      },
+      "mpn": "RC0402JR-070RL",
+      "internal_pn": "301010000",
+      "manufacturer": "YAGEO"
     },
     "U16": {
-      "mpn": "IC_SN74LVC1G07DCK",
       "value": "SN74LVC1G07DCKR",
       "pins": {
         "1": {
@@ -11582,66 +12312,82 @@
           "name": "VCC",
           "net": "VIO"
         }
-      }
+      },
+      "mpn": "SN74LVC1G07DCKR",
+      "internal_pn": "310050079",
+      "manufacturer": "TI"
     },
     "R17": {
-      "mpn": "RES_1M_1/16W_1%_0402",
       "value": "1M,1%",
       "pins": {
         "1": "OSC0_IN",
         "2": "OSC0_OUT"
-      }
+      },
+      "mpn": "RC0402FR-071ML",
+      "internal_pn": "301010043",
+      "manufacturer": "YAGEO"
     },
     "R173": {
-      "mpn": "RES_33_0402",
       "value": "33R,5%",
       "pins": {
         "1": "AM3_MMC1_DAT7",
         "2": "MMC1_DAT7"
-      }
+      },
+      "mpn": "RC0402JR-0733RL",
+      "internal_pn": "301010034",
+      "manufacturer": "YAGEO"
     },
     "C27": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_3V3A",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "R19": {
-      "mpn": "RES_0_1/16W_1%_0402",
       "value": "0R,5%",
       "pins": {
         "1": "CLKOUT_SRC",
         "2": "CLKOUT2"
-      }
+      },
+      "mpn": "RC0402JR-070RL",
+      "internal_pn": "301010000",
+      "manufacturer": "YAGEO"
     },
     "R161": {
-      "mpn": "RES_4.75K_1/16W_1%_0402",
       "value": "0R,5%",
       "pins": {
         "1": "U5_T13",
         "2": "GPIO1_16"
-      }
+      },
+      "mpn": "RC0402JR-070RL",
+      "internal_pn": "301010000",
+      "manufacturer": "YAGEO"
     },
     "C175": {
-      "mpn": "CC",
       "value": "10pF,50V",
       "pins": {
         "1": "MMC1_CLK",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402JRNPO9BN100",
+      "internal_pn": "302010001",
+      "manufacturer": "YAGEO"
     },
     "R171": {
-      "mpn": "RES_33_0402",
       "value": "33R,5%",
       "pins": {
         "1": "AM3_MMC1_DAT5",
         "2": "MMC1_DAT5"
-      }
+      },
+      "mpn": "RC0402JR-0733RL",
+      "internal_pn": "301010034",
+      "manufacturer": "YAGEO"
     },
     "U6": {
-      "mpn": "IC_SN74AUC1G74",
       "value": "SN74LVC1G74DCTR",
       "pins": {
         "1": {
@@ -11676,50 +12422,62 @@
           "name": "VCC",
           "net": "VDD_3V3A"
         }
-      }
+      },
+      "mpn": "SN74LVC1G74DCTR",
+      "internal_pn": "310990837",
+      "manufacturer": "TI"
     },
     "R18": {
-      "mpn": "RES_33_0402",
       "value": "33R,5%",
       "pins": {
         "1": "PROC_A15",
         "2": "XDMA_EVENT_INTR0"
-      }
+      },
+      "mpn": "RC0402JR-0733RL",
+      "internal_pn": "301010034",
+      "manufacturer": "YAGEO"
     },
     "C30": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "SYS_RESETN",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "R22": {
-      "mpn": "RES_4.7K_0402",
       "value": "49.9R,1%",
       "pins": {
         "1": "DGND",
         "2": "DDR_VTP"
-      }
+      },
+      "mpn": "RC0402FR-0749R9L",
+      "internal_pn": "301010041",
+      "manufacturer": "YAGEO"
     },
     "R169": {
-      "mpn": "RES_33_0402",
       "value": "33R,5%",
       "pins": {
         "1": "AM3_MMC1_DAT3",
         "2": "MMC1_DAT3"
-      }
+      },
+      "mpn": "RC0402JR-0733RL",
+      "internal_pn": "301010034",
+      "manufacturer": "YAGEO"
     },
     "Y2": {
-      "mpn": "CRYS_24MHz_SCC_0",
       "value": "24MHz,20pF",
       "pins": {
         "1": "OSC0_OUT",
         "2": "OSC0_IN"
-      }
+      },
+      "mpn": "5XBB24000202TF50Q3",
+      "internal_pn": "306011035",
+      "manufacturer": "INTERQUIP"
     },
     "Y4": {
-      "mpn": "OSC_12MHz_1.3V",
       "value": "24.576MHz",
       "pins": {
         "1": {
@@ -11738,36 +12496,44 @@
           "name": "VCC",
           "net": "VDD_3V3A"
         }
-      }
+      },
+      "mpn": "1651-24575-BTBQYA",
+      "internal_pn": "306020601",
+      "manufacturer": "INTERQUIP"
     },
     "R44": {
-      "mpn": "RES_33_0402",
       "value": "33R,5%",
       "pins": {
         "1": "AM3_MMC1_DAT1",
         "2": "MMC1_DAT1"
-      }
+      },
+      "mpn": "RC0402JR-0733RL",
+      "internal_pn": "301010034",
+      "manufacturer": "YAGEO"
     },
     "R30": {
-      "mpn": "RES_0_1/16W_1%_0402",
       "value": "0R,5%",
       "pins": {
         "1": "GND_OSC0",
         "2": "GND_OSC1"
-      }
+      },
+      "mpn": "RC0402JR-070RL",
+      "internal_pn": "301010000",
+      "manufacturer": "YAGEO"
     },
     "Y1": {
-      "mpn": "CRYS_32_768KHz_SMD32_1",
       "value": "32.768KHz,12.5pF",
       "pins": {
         "1": "OSC1_IN",
         "2": "NC",
         "3": "NC",
         "4": "OSC1_OUT"
-      }
+      },
+      "mpn": "ABS25-32.768KHZ-T",
+      "internal_pn": "306010085",
+      "manufacturer": "Abracon"
     },
     "S1": {
-      "mpn": "SW_KT11P2JM_2",
       "value": "KMR231GLFS",
       "pins": {
         "1": {
@@ -11786,26 +12552,32 @@
           "name": "B2",
           "net": "SYS_RESETN"
         }
-      }
+      },
+      "mpn": "KMR231GLFS",
+      "internal_pn": "311020198",
+      "manufacturer": "C&K"
     },
     "R160": {
-      "mpn": "RES_4.75K_1/16W_1%_0402",
       "value": "0R,5%",
       "pins": {
         "1": "U5_R13",
         "2": "GPIO1_16"
-      }
+      },
+      "mpn": "RC0402JR-070RL",
+      "internal_pn": "301010000",
+      "manufacturer": "YAGEO"
     },
     "R14": {
-      "mpn": "RES_10K_1/16W_1%_0402",
       "value": "10K,1%",
       "pins": {
         "1": "VDD_3V3A",
         "2": "SYS_RESETN"
-      }
+      },
+      "mpn": "RC0402FR-0710KL",
+      "internal_pn": "301010047",
+      "manufacturer": "YAGEO"
     },
     "U3": {
-      "mpn": "IC_SN74LVC1G06DCK_0",
       "value": "SN74LVC1G06DCKR",
       "pins": {
         "1": {
@@ -11828,47 +12600,60 @@
           "name": "VCC",
           "net": "VDD_3V3A"
         }
-      }
+      },
+      "mpn": "SN74LVC1G06DCKR",
+      "internal_pn": "310050077",
+      "manufacturer": "TI"
     },
     "R25": {
-      "mpn": "RES_4.75K_1/16W_1%_0402",
       "value": "4.7K,1%",
       "pins": {
         "1": "JTAG_TRSTN",
         "2": "DGND"
-      }
+      },
+      "mpn": "RC0402FR-074K7L",
+      "internal_pn": "301010633",
+      "manufacturer": "YAGEO"
     },
     "C26": {
-      "mpn": "CAP_18PF_COG_50V_5%_0402",
       "value": "18pF,50V",
       "pins": {
         "1": "OSC0_OUT",
         "2": "GND_OSC0"
-      }
+      },
+      "mpn": "CC0402JRNPO9BN180",
+      "internal_pn": "302010016",
+      "manufacturer": "YAGEO"
     },
     "C158": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "VDD_3V3A",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C28": {
-      "mpn": "CAP_0.1uF_X5R_6.3V_20% 0201 ",
       "value": "100nF,16V",
       "pins": {
         "1": "DDR_VREF",
         "2": "DGND"
-      }
+      },
+      "mpn": "CC0402KRX7R7BB104",
+      "internal_pn": "302010004",
+      "manufacturer": "YAGEO"
     },
     "C22": {
-      "mpn": "CAP_18PF_COG_50V_5%_0402",
       "value": "18pF,50V",
       "pins": {
         "1": "GND_OSC1",
         "2": "OSC1_OUT"
-      }
+      },
+      "mpn": "CC0402JRNPO9BN180",
+      "internal_pn": "302010016",
+      "manufacturer": "YAGEO"
     }
   }
 }

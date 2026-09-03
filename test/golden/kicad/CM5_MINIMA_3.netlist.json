@@ -1,8 +1,8 @@
 {
-  "universalNetlistSchemaVersion": 1,
+  "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-01T21:46:12.123Z",
-    "netlistHash": "sha256:e4bb5b636d8e5cd88eb80ee52d9626f963713066fb9964b699381c54b31557fe",
+    "generatedAt": "2026-09-03T01:02:27.670Z",
+    "netlistHash": "sha256:c60f7a1ed588d2d7928ae60e2510461ce41c0499e8baa52f32f25c153f93fdcb",
     "origin": {
       "type": "vendor",
       "source": {
@@ -3087,7 +3087,8 @@
       },
       "value": "GLPLX-SMT-188S7",
       "description": "Modular Connectors / Ethernet Connectors Low Prof. RJ45 ModJk w Gb. Magnetics LED",
-      "mpn": "GLPLX-SMT-188S7-QQ-Y/G"
+      "mpn": "GLPLX-SMT-188S7-QQ-Y/G",
+      "manufacturer": "Kycon"
     },
     "R401": {
       "pins": {
