@@ -54,20 +54,58 @@ claim the PR makes about behavior has been checked against real data rather than
 A PR that is still exploratory, or whose effect has not been measured, is not done — say
 what is missing instead of merging it.
 
-`main` uses a merge queue, which changes the mechanics:
+### Merge with Valentino's credentials
 
-- `gh pr merge <n> --squash` **enqueues**; the queue builds the PR stacked on the entries
-  ahead of it and merges it when green. `! The merge strategy for main is set by the merge
-  queue` is the normal success message, not an error
-- `--delete-branch` is rejected while a queue is enabled; the repo's
-  `delete_branch_on_merge` setting handles cleanup
-- Inspect the queue with:
-  ```bash
-  gh api graphql -f query='{ repository(owner:"IntelligentElectron", name:"universal-netlist") {
-    mergeQueue(branch:"main") { entries(first:10) { nodes { position state pullRequest { number } } } } } }'
-  ```
-- `merge_group` events build on `gh-readonly-queue/...` refs. `ci.yml` must keep its
-  `merge_group` trigger or queued PRs wait for a check that never reports and are ejected
+`main` does not use a merge queue. Two independent rulesets apply:
+
+- **Only Valentino may merge** blocks updates to the default branch. Its sole
+  bypass actor is GitHub user `valentinozegna` (ID `6832610`), for pull requests only.
+- **main-protection** requires a PR and a passing, up-to-date `build` check, and
+  blocks deletion and force pushes. It has no bypass actors.
+
+Use Valentino's existing authenticated GitHub CLI session. GitHub permissions are
+attached to the account, not the commit's `user.email`; changing the author email
+cannot grant merge access. Run `git` and `gh` outside the sandbox for network and
+keychain access, as described in `CLAUDE.md`.
+
+1. Verify the identity actually used by the API, including any token override:
+   ```bash
+   gh api user --jq .login
+   ```
+   It must print `valentinozegna`. If another saved account is active, switch with
+   `gh auth switch --hostname github.com --user valentinozegna`, then verify again.
+   If the API still reports a different account, or Valentino is not authenticated,
+   stop the merge and report that authentication needs correcting. Never print,
+   copy, or commit credentials.
+2. Record the PR's full head SHA, check its base, and wait for CI:
+   ```bash
+   gh pr view <n> --repo IntelligentElectron/universal-netlist --json headRefOid,baseRefName,mergeStateStatus
+   gh pr checks <n> --repo IntelligentElectron/universal-netlist --watch --fail-fast
+   ```
+   Require `build` to pass for the recorded head and address actionable review
+   findings. If the head changes, check the new commit before merging it.
+3. Merge the exact verified commit using Valentino's permitted bypass:
+   ```bash
+   gh pr merge <n> --repo IntelligentElectron/universal-netlist --squash --admin --match-head-commit <verified-head-sha>
+   ```
+   Here `--admin` invokes the account's exception to **Only Valentino may merge**.
+   It does not grant a bypass of **main-protection**. A normal merge command can
+   report `Cannot update this protected ref` even after CI passes; this is why the
+   permitted bypass is needed. Do not weaken either ruleset to make a merge work.
+   If this command is rejected, inspect the current account, rules, head, and checks
+   before retrying; do not remove protection or push directly to `main`.
+4. Verify the recorded result:
+   ```bash
+   gh pr view <n> --repo IntelligentElectron/universal-netlist --json state,mergedBy,mergeCommit,url
+   ```
+   Confirm `MERGED` and `mergedBy.login == "valentinozegna"`. Then update a clean
+   local `main` with `git switch main` and `git pull --ff-only`.
+
+For a manual GitHub merge, sign in as `valentinozegna`, wait for CI, select the
+**Merge without waiting for requirements to be met (bypass rules)** checkbox, and
+squash-merge. The wording is GitHub's: it selects Valentino's PR-only exception;
+the separate required-build protection still applies. Other accounts have no
+exception to the merge restriction.
 
 ## Pull Requests
 

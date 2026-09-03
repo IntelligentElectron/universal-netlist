@@ -229,4 +229,7 @@ The TypeScript files in `src/parsers/cadence/dsn/` map to C++ files in `referenc
 
 ## Git Guidelines
 
-See the `release` skill (`.claude/skills/release.md`) for commit, push, PR, and release workflows.
+See the [release skill](.claude/skills/release/SKILL.md) for commit, push, PR, and
+release workflows, including account verification and the permitted PR-only
+merge bypass for `valentinozegna`. The same skill is exposed through
+`.agents/skills/release/SKILL.md`.
