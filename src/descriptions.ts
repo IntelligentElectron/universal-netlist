@@ -13,7 +13,7 @@ export const SERVER_INSTRUCTIONS = `
 This server provides tools to query EDA netlists for circuit design review.
 
 Supported formats:
-- **Cadence CIS/HDL**: .DSN binary schematics, which is what to read. Exported .dat netlist files (pstxnet.dat, pstxprt.dat, pstchip.dat) are a fallback, for a design that ships without its schematic.
+- **Cadence OrCAD/CIS**: .DSN binary schematics, parsed directly.
 - **Altium Designer**: .SchDoc schematic documents, discovered through their .PrjPcb project.
 - **KiCad**: .kicad_pro projects, or a root .kicad_sch.
 - **Universal Netlist**: .netlist.json files carrying this server's supported schema version, validated on load.
@@ -38,7 +38,7 @@ Supported formats:
 
 export const LIST_DESIGNS_DESCRIPTION = `\
 List all design projects in the given directory, one path each: a .DSN, a .PrjPcb, a \
-.kicad_pro, a Universal Netlist .netlist.json, or the netlist of a design that is only a netlist. \
+.kicad_pro, or a Universal Netlist .netlist.json. \
 That path is the design, and it is what every other tool takes. \
 Always use this tool to discover designs instead of searching the filesystem manually.
 
@@ -50,16 +50,8 @@ misspelled \`path\` behaves exactly like an omitted one. Each of those returns a
 real designs from a directory nobody asked about, and \`root\` is what tells it apart \
 from a correct answer. A result cut short by \`max_results\` says so in its notes.
 
-Cadence: the path is the .DSN schematic. It is the design as it stands, and it carries \
-what an exported netlist cannot: a part a CIS variant leaves off the board is written to \
-the .dat triad exactly like a part that is stuffed, with an ordinary value and all of its \
-connections, so nothing in those files marks it. Reading a .DSN takes longer than reading \
-a triad, which is the cost of reading the design rather than a summary of it.
-
-If a query reports missing netlist files: a CIS design has nothing to fix, re-run this \
-tool and use the .DSN it reports. An HDL (.cpm) design has no .DSN and does need a \
-netlist, which \`export_cadence_netlist\` cannot write; those are written from Cadence, \
-Tools → Create Netlist → PCB Editor format.
+Cadence: use the .DSN schematic returned by this tool. It is parsed directly and carries \
+component properties, connectivity, and CIS variant stuffing information.
 
 KiCad: the path is the .kicad_pro, and its netlist resolves automatically when queried, so \
 nothing needs exporting by hand. A committed kicadsexpr export (<project>.net) beside the \

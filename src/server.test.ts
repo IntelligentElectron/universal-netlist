@@ -1,7 +1,16 @@
 import { describe, it, expect, beforeAll } from "vitest";
+import { mkdtemp, readFile, writeFile, rm } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
 import { createServer } from "./server.js";
+import {
+  cadenceHandler,
+  findHandler,
+  getSupportedExtensions,
+  parseDesign,
+} from "./parsers/index.js";
 
 /**
  * Tool metadata as the Connectors Directory requires it.
@@ -13,8 +22,8 @@ import { createServer } from "./server.js";
  * client and read the tool list off the wire.
  */
 
-/** The one tool that writes: it runs Cadence's exporter and lands files on disk. */
-const WRITING_TOOLS = ["export_cadence_netlist"];
+/** The Cadence exporter is dormant; every registered tool is read-only. */
+const WRITING_TOOLS: string[] = [];
 
 /** As much of a tool result as these assertions read. */
 type ToolResult = { isError?: boolean; content?: Array<{ text?: string }> };
@@ -40,6 +49,67 @@ beforeAll(async () => {
   client = new Client({ name: "test", version: "0.0.0" });
   await Promise.all([client.connect(clientTransport), createServer().connect(serverTransport)]);
   tools = (await client.listTools()).tools as ListedTool[];
+});
+
+describe("dormant Cadence MCP features", () => {
+  it("omits DAT and exporter guidance from instructions, tool metadata, and the bundle manifest", async () => {
+    const manifest = JSON.parse(
+      await readFile(new URL("../manifest.json", import.meta.url), "utf8")
+    );
+    expect(manifest.tools.map((tool: { name: string }) => tool.name).sort()).toEqual(
+      tools.map((tool) => tool.name).sort()
+    );
+    const advertised = JSON.stringify({ instructions: client.getInstructions(), tools, manifest });
+    expect(advertised).not.toMatch(
+      /\bDAT\b|\bHDL\b|\.cpm\b|pstxnet|pstxprt|pstchip|export_cadence_netlist/i
+    );
+  });
+
+  it("does not register or execute the exporter even if a client knows its name", async () => {
+    expect(tools.map((tool) => tool.name)).not.toContain("export_cadence_netlist");
+    const result = (await client.callTool({
+      name: "export_cadence_netlist",
+      arguments: { design: "/not-opened.DSN" },
+    })) as ToolResult;
+    expect(result.isError).toBe(true);
+    expect(result.content?.[0]?.text).toContain("not found");
+  });
+
+  it.each(["pstxnet.dat", "PSTXNET.DAT", "design.cpm", "DESIGN.CPM"])(
+    "rejects %s through MCP queries and direct handler dispatch",
+    async (file) => {
+      expect(findHandler(file)).toBeUndefined();
+      await expect(parseDesign(file)).rejects.toThrow("Unsupported design format");
+      await expect(cadenceHandler.parse(file)).rejects.toThrow("Query the .DSN schematic");
+      const result = (await client.callTool({
+        name: "list_nets",
+        arguments: { design: file },
+      })) as ToolResult;
+      const body = JSON.parse(result.content![0].text!);
+      expect(body.error).toContain("Unsupported design file format");
+      expect(body.nets).toBeUndefined();
+    }
+  );
+
+  it("lists only the schematic when HDL and standalone DAT designs are nearby", async () => {
+    const dir = await mkdtemp(join(tmpdir(), "mcp-cadence-"));
+    try {
+      for (const file of ["board.DSN", "hdl.cpm", "pstxnet.dat", "pstxprt.dat", "pstchip.dat"]) {
+        await writeFile(join(dir, file), "test");
+      }
+      const result = (await client.callTool({
+        name: "list_designs",
+        arguments: { path: dir },
+      })) as ToolResult;
+      expect(result.isError).not.toBe(true);
+      const listed = JSON.parse(result.content![0].text!);
+      expect(listed.designs).toEqual([{ name: "board", path: join(dir, "board.DSN") }]);
+      expect(cadenceHandler.extensions).toEqual([".dsn"]);
+      expect(getSupportedExtensions()).not.toContain(".cpm");
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
+  });
 });
 
 describe("tool annotations", () => {

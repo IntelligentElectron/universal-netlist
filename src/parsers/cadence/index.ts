@@ -4,6 +4,7 @@
  */
 
 import path from "path";
+import { CADENCE_DAT_ENABLED } from "../../features.js";
 import { parsePstxnet } from "./dat/pstxnet-parser.js";
 import { parsePstxprt } from "./dat/pstxprt-parser.js";
 import { parsePstchip } from "./dat/pstchip-parser.js";
@@ -165,7 +166,7 @@ export const parseCadence = async (paths: CadenceFilePaths): Promise<CadenceRawN
 
 /**
  * Parse a Cadence design file.
- * Routes on file extension: .dsn → DSN binary parser, .dat → DAT parser.
+ * Reads DSN schematics; the DAT dispatch stays dormant behind its feature flag.
  */
 const parseCadenceDesign = async (designPath: string): Promise<ParsedNetlist> => {
   const ext = path.extname(designPath).toLowerCase();
@@ -175,6 +176,17 @@ const parseCadenceDesign = async (designPath: string): Promise<ParsedNetlist> =>
     return parseDsnFile(designPath);
   }
 
+  if (!CADENCE_DAT_ENABLED) {
+    throw new Error(
+      "Unsupported Cadence design format. Query the .DSN schematic returned by list_designs."
+    );
+  }
+  return parseCadenceDatDesign(designPath);
+};
+
+/** Internal DAT parsing retained for golden fixtures and regression tests. */
+export const parseCadenceDatDesign = async (designPath: string): Promise<ParsedNetlist> => {
+  const ext = path.extname(designPath).toLowerCase();
   // An exported netlist, either named directly or as a dat-only design.
   const datFiles = await findCadenceDatFiles(designPath);
   if (datFiles.pstxnet && datFiles.pstxprt) {
@@ -208,7 +220,7 @@ const parseCadenceDesign = async (designPath: string): Promise<ParsedNetlist> =>
 
 /**
  * Cadence EDA project format handler.
- * Supports Cadence CIS (.dsn) and HDL (.cpm) designs.
+ * Exposes Cadence OrCAD/CIS (.dsn) schematics to MCP tools.
  */
 export const cadenceHandler: EDAProjectFormatHandler = {
   name: "cadence",

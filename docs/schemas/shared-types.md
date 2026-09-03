@@ -403,7 +403,7 @@ All tools may return an error result instead of the expected response.
 
 Components are marked as DNS (Do Not Stuff) at parse time when any of their MPN, description, comment, or value fields match these markers (case-insensitive). Altium designs also check the "Assembly Info" component parameter.
 
-**Cadence:** a design's variants are read as well, and they are a separate source. A part an alternate BOM leaves off the board keeps an ordinary value and both of its net connections in the DAT export, so no marker names it; the flag is recorded in the schematic's CIS variant store instead. That store is read for every Cadence design, whether the query names the `.DSN` or the `pstxnet.dat` beside it, so the two paths report the same set. On `LAUNCHXL-CC1310` this is the difference between the 11 parts the markers name and the 25 its CIS-generated BOM writes as Quantity 0.
+**Cadence:** the `.DSN` schematic supplies both component markers and CIS variant information. A part an alternate BOM leaves off the board can keep an ordinary value and all of its net connections; its stuffing flag is recorded in the schematic's CIS variant store. On `LAUNCHXL-CC1310`, reading that store adds the parts needed to match the 25 references its CIS-generated BOM writes as Quantity 0, beyond the 11 named by markers alone.
 
 **KiCad:** DNS is taken from KiCad's own structural Do-Not-Populate flag, the valueless `(property (name "dnp"))` marker on a symbol, rather than text matching. A user BOM field literally named `DNP` that carries a value (e.g. `(property (name "DNP") (value "DNP"))`) is a normal field and does **not** mark the component DNS.
 
@@ -430,9 +430,9 @@ When DNS is detected, marker tokens are stripped from MPN and value fields (e.g.
 
 DNS components are excluded by default. Use `include_dns: true` to include them.
 
-**Limitation (Cadence DAT parser):** Some designs use graphical-only text annotations (e.g., "DNP" or "DNM" placed as schematic text near a component) with no corresponding structured property in the DAT export. These are invisible to the parser.
+**Limitation (Cadence):** Graphical-only text annotations such as "DNP" or "DNM" placed near a component do not set a structured component property or variant flag. They are not used for DNS detection.
 
-Both Cadence paths read both sources, so a design answers the same whether the query names its `.DSN` or the `pstxnet.dat` beside it. The golden suite asserts that agreement on every fixture design that has both. See [How Cadence Records Do Not Install](../cadence-dni.md) for the two mechanisms and what each leaves on disk.
+The Cadence schematic parser reads both markers and variants. The regression suite also retains an independent DAT reference for designs that include one; DAT parsing is dormant in MCP. See [How Cadence Records Do Not Install](../cadence-dni.md) for the two mechanisms and what each leaves on disk.
 
 ## Power/Ground Stop Nets
 

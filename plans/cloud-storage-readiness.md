@@ -1,10 +1,14 @@
 # Plan: Decouple file I/O from parsers (cloud-storage readiness)
 
+> Scope update: DAT parsing and `export_cadence_netlist` are dormant in MCP.
+> This proposal must preserve that boundary. DAT helpers may remain local for
+> CLI coverage and regression tests; they are not a cloud MCP input format.
+
 ## Context
 
 Today every parser entry point eventually pulls bytes off the local disk via
 `fs`/`fs/promises`. The user wants to deploy a Cloud Run / AWS variant of
-`universal-netlist` that reads `.DSN`, `.dat` (Cadence), and `.SchDoc` /
+`universal-netlist` that reads `.DSN` (Cadence) and `.SchDoc` /
 `.PrjPcb` (Altium) files directly from cloud storage buckets (GCS/S3) without
 forking the parsers. The actual binary/text parsing is already pure (operates
 on `Buffer`/`string`), so the question is: are the I/O seams thin enough to
@@ -16,14 +20,13 @@ file-system call through it. Cloud later becomes a single new file
 (`GcsStorage` / `S3Storage`) and one line in a URI router. No parser logic
 needs to change again.
 
-Scope confirmed with the user:
+Proposed scope, updated for the dormant MCP features:
 
 - **Abstraction + GCS adapter + end-to-end test against a real bucket.**
   S3 adapter is deferred (user has GCP, not AWS).
-- All three supported formats (`.DSN`, `.dat`, `.SchDoc`) must work in cloud.
-  `pstswp.exe` (used by `export_cadence_netlist`) stays local-only and is
-  out of scope, since the cloud path will consume pre-exported `.dat` or
-  the binary `.DSN`/`.SchDoc` directly.
+- Cadence `.DSN` schematics and Altium `.SchDoc`/`.PrjPcb` designs must work
+  in cloud. DAT input remains disabled for MCP. The retained `pstswp.exe`
+  exporter is only available to local CLI coverage and stays out of scope.
 - Cloud paths are addressed via URI scheme on existing path arguments
   (`gs://bucket/key`, `s3://bucket/key`). MCP tool signatures do not change.
 - The MCP binary still runs locally on the agent's machine. It just makes
@@ -44,13 +47,14 @@ Three categories of disk access exist today:
      thin wrapper around `OleReader`.
    - `src/parsers/cadence/dat/pstxnet-parser.ts:13`,
      `pstxprt-parser.ts:32`, `pstchip-parser.ts:22` — each reads the file
-     then delegates to a pure `parse*Content(string)` function.
+     then delegates to a pure `parse*Content(string)` function. These retained
+     DAT helpers are outside the proposed MCP storage work.
    - `src/parsers/altium/discovery.ts:52` — reads `.PrjPcb` config text.
    - `src/parsers/altium/discovery.ts:29-31` — `open()` + 8-byte read for
      OLE magic check (cheap to convert to a full read since these files
      are small and we always end up loading them anyway).
    - `src/parsers/cadence/discovery.ts:280` — reads `pstxprt.dat` to
-     extract `ROOT_DRAWING`.
+     extract `ROOT_DRAWING` for retained DAT discovery only, outside MCP.
 
 2. **Directory listings (recursive)** — for design discovery.
    - `src/parsers/cadence/discovery.ts:69` (`walkForCadenceFiles`).
@@ -58,8 +62,8 @@ Three categories of disk access exist today:
 
 3. **Local-only side-effects** — out of scope for cloud.
    - `src/service/tools/cadence-export.ts` — shells out to `pstswp.exe`,
-     creates output dirs, renames lock files. Stays Windows + local. Cloud
-     deployments must accept that this tool is a no-op in their environment.
+     creates output dirs and renames lock files for Windows CLI coverage.
+     It remains unregistered in MCP on every platform.
 
 No parser performs random-access seeks against a file handle. `BinaryReader`
 seeks are in-memory `Buffer` offsets, so cloud blobs (one fetch → one Buffer)
@@ -160,22 +164,16 @@ Already in an `async` function.
 **`src/parsers/cadence/dat/pstxnet-parser.ts`, `pstxprt-parser.ts`,
 `pstchip-parser.ts`**
 
-Replace `import { readFile } from "fs/promises"` with
-`import { getStorage } from "../../../storage/index.js"` and use
-`getStorage(filePath).readTextFile(filePath, "utf-8")`. The
-`parse*Content(string)` pure functions stay untouched.
+No changes required: these parsers remain local helpers for CLI coverage and
+regression fixtures. Do not route them into the cloud MCP handler.
 
 **`src/parsers/cadence/discovery.ts`**
 
-- Inject storage: change `walkForCadenceFiles` to call
-  `storage.listDirectory(rootDir, { maxDepth })` and consume the flat
-  recursive listing. Group `.dat` matches by directory in JS. The
-  matching/scoring logic (`matchDatSetsToDesigns`, etc.) is pure — it
-  stays unchanged.
-- Replace `readFile(pstxprtPath, "utf-8")` in `extractRootDrawing` with
-  `storage.readTextFile(...)`.
-- `discoverCadenceDesigns` and `findCadenceDatFiles` resolve the storage
-  via `getStorage(rootDir)` once, pass it through.
+- Use `storage.listDirectory(rootDir, { maxDepth })` for active DSN discovery.
+- Preserve the existing local DAT matching and `extractRootDrawing` helpers
+  for `discoverCadenceDesignsWithDat` and `findCadenceDatFiles`, used by CLI
+  coverage and golden generation.
+- Keep `.cpm` and standalone DAT designs out of MCP discovery.
 
 **`src/parsers/altium/discovery.ts`**
 
@@ -310,9 +308,6 @@ Modified:
 - `src/parsers/ole-reader/ole-reader.ts`
 - `src/parsers/cadence/dsn/dsn-parser.ts`
 - `src/parsers/altium/index.ts`
-- `src/parsers/cadence/dat/pstxnet-parser.ts`
-- `src/parsers/cadence/dat/pstxprt-parser.ts`
-- `src/parsers/cadence/dat/pstchip-parser.ts`
 - `src/parsers/cadence/discovery.ts`
 - `src/parsers/altium/discovery.ts`
 - `src/service/load-netlist.ts` (only `resolvePath` URI passthrough)
@@ -330,13 +325,14 @@ End-to-end checks before considering done.
 2. `npm run dev` and exercise via MCP tools against existing fixtures:
    - `mcp__universal-netlist__list_designs` against the test fixtures
      directory must return identical results to `main`.
-   - `mcp__universal-netlist__query_xnet_by_net_name` on a DSN fixture and
-     a `.dat`-based fixture must produce byte-identical JSON to `main`.
+   - `mcp__universal-netlist__query_xnet_by_net_name` on a DSN fixture
+     must produce byte-identical JSON to `main`.
+   - DAT and `.cpm` inputs must remain rejected by MCP.
    - `mcp__universal-netlist__query_xnet_by_pin_name` on an Altium
      `.SchDoc` fixture must produce byte-identical JSON to `main`.
 3. Confirm no remaining `import ... from "fs"` / `"fs/promises"` exists
-   under `src/parsers/**` (excluding `cadence-export.ts` which legitimately
-   needs local fs for `pstswp.exe` invocation). Grep is sufficient.
+   in active cloud parser paths. Retained local DAT and CLI export helpers
+   continue to use local filesystem APIs.
 
 ### GCS end-to-end (real bucket)
 
@@ -352,15 +348,13 @@ gsutil -m cp -r tests/fixtures/cadence-cis-sample \
   gs://val-netlist-e2e/cadence-cis-sample/
 gsutil -m cp -r tests/fixtures/altium-sample \
   gs://val-netlist-e2e/altium-sample/
-gsutil -m cp -r tests/fixtures/cadence-dat-sample \
-  gs://val-netlist-e2e/cadence-dat-sample/
 export NETLIST_GCS_E2E_BUCKET=val-netlist-e2e
 ```
 
 **E2E test file: `src/storage/gcs.e2e.test.ts`**
 
 Skips automatically if `NETLIST_GCS_E2E_BUCKET` is unset. For each of the
-three formats (cadence-cis, cadence-dat, altium) it runs the same query
+two format families (cadence-cis, altium) it runs the same query
 twice — once against the local fixture path, once against the
 `gs://${bucket}/...` URI — and `expect(localResult).toEqual(gcsResult)`.
 
@@ -376,7 +370,7 @@ skip("gcs e2e parity", () => {
   });
 
   it("query_xnet_by_net_name: DSN local vs gs:// match", async () => { /* ... */ });
-  it("query_xnet_by_net_name: dat-only local vs gs:// match", async () => { /* ... */ });
+  it("DAT inputs remain rejected by MCP", async () => { /* ... */ });
   it("query_xnet_by_pin_name: Altium local vs gs:// match", async () => { /* ... */ });
 });
 ```
@@ -482,9 +476,7 @@ The agent sees identical JSON in all three cases:
 {
   "designs": [
     { "name": "top",
-      "format": "cadence-cis",
-      "path": "<the original URI>/top.dsn",
-      "datFiles": { "pstxnet": "<URI>/netlist/pstxnet.dat", "...": "..." } }
+      "path": "<the original URI>/top.dsn" }
   ]
 }
 ```
@@ -567,9 +559,9 @@ own credential plumbing.
   This PR makes Cloud Run *possible*; actually deploying is a separate
   task.
 - Changing MCP tool argument shapes — `designPath` stays a string.
-- Refactoring `cadence-export.ts` for cloud — it remains a local-Windows
-  tool. Cloud users export `.dat` locally and upload, or use `.DSN` /
-  `.SchDoc` directly.
+- Refactoring `cadence-export.ts` for cloud — it remains a Windows CLI
+  coverage helper, dormant in MCP. Cloud queries use `.DSN` / `.SchDoc`
+  directly. DAT parsing remains outside the MCP surface.
 - Streaming reads. Every parser already loads whole files; GCS
   `download()` returns a Buffer just fine. Streaming can be added later
   if a parser ever needs it.

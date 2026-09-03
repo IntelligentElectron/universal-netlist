@@ -35,8 +35,9 @@ uses `.js` sketches. Map it onto the current structure when implementing:
   at the top of each. Design-name derivation is centralized in `src/paths.ts`
   (`getDesignName`).
 - `computeDesignId`'s extension strip should match the formats we actually
-  support today (`.PrjPcb`, `.SchDoc`, `.dsn`, `.dat`). `.cpm` and
-  `.kicad_pro` from the original sketch are not currently parsed.
+  support today (`.PrjPcb`, `.SchDoc`, `.dsn`, `.kicad_pro`, `.kicad_sch`,
+  `.netlist.json`). Preserve the compound Universal Netlist suffix. DAT parsing
+  and HDL `.cpm` discovery are dormant in MCP.
 
 Implementation Tasks
 Task 1: Add Design Registry
@@ -63,7 +64,7 @@ function clearRegistry() {
 function computeDesignId(searchRoot, fullPath) {
   const relativePath = path.relative(searchRoot, fullPath);
   // Remove file extension
-  return relativePath.replace(/\.(PrjPcb|kicad_pro|dsn|cpm)$/i, '');
+  return relativePath.replace(/\.(netlist\.json|PrjPcb|SchDoc|kicad_pro|kicad_sch|dsn)$/i, '');
 }
 Task 2: Update list_designs to Populate Registry
 When list_designs scans a directory, register each design with its relative path ID:
@@ -103,7 +104,7 @@ search_components_by_description
 query_xnet_by_net_name
 query_xnet_by_pin_name
 query_component
-export_cadence_netlist
+run_erc
 
 Task 4: Update Tool Descriptions
 Update the design parameter description in all tools:

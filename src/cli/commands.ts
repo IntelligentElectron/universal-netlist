@@ -9,12 +9,8 @@ import { VERSION, GITHUB_REPO, BINARY_NAME } from "../version.js";
 import { SELF_UPDATE_ENABLED } from "../build-flags.js";
 import { exportTelemetry } from "../telemetry/index.js";
 import { findHandler, parseDesign } from "../parsers/index.js";
-import {
-  discoverCadenceDesigns,
-  parseDsnFile,
-  parseCadence,
-  buildCadencePinMap,
-} from "../parsers/cadence/index.js";
+import { parseDsnFile, parseCadence, buildCadencePinMap } from "../parsers/cadence/index.js";
+import { discoverCadenceDesignsWithDat } from "../parsers/cadence/discovery.js";
 import { exportCadenceNetlist } from "../service/index.js";
 import { isErrorResult } from "../types.js";
 import {
@@ -287,7 +283,7 @@ export const handleCoverageCommand = async (
   verbose?: boolean
 ): Promise<void> => {
   const resolvedPath = resolve(searchPath ?? ".");
-  const designs = await discoverCadenceDesigns(resolvedPath);
+  const designs = await discoverCadenceDesignsWithDat(resolvedPath);
   const dsnDesigns = designs.filter((d) => d.format === "cadence-cis");
 
   if (dsnDesigns.length === 0) {

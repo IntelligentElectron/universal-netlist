@@ -2,7 +2,7 @@
  * Netlist MCP Server
  *
  * Model Context Protocol server for querying EDA netlists.
- * Supports Cadence (CIS, HDL) and Altium Designer formats.
+ * Supports Cadence OrCAD/CIS, Altium Designer, KiCad, and Universal Netlist formats.
  */
 
 import crypto from "node:crypto";
@@ -10,6 +10,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 import { VERSION } from "./version.js";
+import { CADENCE_EXPORT_ENABLED } from "./features.js";
 import {
   initTelemetry,
   withTelemetry,
@@ -384,21 +385,23 @@ export const createServer = (): McpServer => {
   // -------------------------------------------------------------------------
   // Tool: export_cadence_netlist
   // -------------------------------------------------------------------------
-  server.registerTool(
-    "export_cadence_netlist",
-    {
-      title: "Export Cadence netlist (deprecated)",
-      description: EXPORT_CADENCE_NETLIST_DESCRIPTION,
-      annotations: WRITES_TO_DISK,
-      inputSchema: z.strictObject({
-        design: z.string().describe("Path to .DSN schematic file"),
-      }),
-    },
-    withTelemetry("export_cadence_netlist", async ({ design }) => {
-      const result = await exportCadenceNetlist(design);
-      return formatResult(result);
-    })
-  );
+  if (CADENCE_EXPORT_ENABLED) {
+    server.registerTool(
+      "export_cadence_netlist",
+      {
+        title: "Export Cadence netlist (deprecated)",
+        description: EXPORT_CADENCE_NETLIST_DESCRIPTION,
+        annotations: WRITES_TO_DISK,
+        inputSchema: z.strictObject({
+          design: z.string().describe("Path to .DSN schematic file"),
+        }),
+      },
+      withTelemetry("export_cadence_netlist", async ({ design }) => {
+        const result = await exportCadenceNetlist(design);
+        return formatResult(result);
+      })
+    );
+  }
 
   return server;
 };

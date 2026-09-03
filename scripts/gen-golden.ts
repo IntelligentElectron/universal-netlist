@@ -1,6 +1,7 @@
 #!/usr/bin/env -S node --import tsx
 import path from "node:path";
 import { parseDesign } from "../src/parsers/index.js";
+import { parseCadenceDatDesign } from "../src/parsers/cadence/index.js";
 import { findCadenceDatFiles } from "../src/parsers/cadence/discovery.js";
 import { listAllFixtures, findDesignFiles, saveGolden, type Format } from "../test/utils.js";
 
@@ -23,7 +24,10 @@ const resolveGoldenParsePath = async (designFile: string): Promise<string> => {
 const generateOne = async (format: Format, name: string, designPath: string): Promise<boolean> => {
   const parsePath = await resolveGoldenParsePath(designPath);
   console.log(`Parsing: ${format}/${name}`);
-  const result = await parseDesign(parsePath);
+  // Golden generation uses the retained DAT oracle, outside the MCP handler.
+  const result = await (/\.(dat|cpm)$/i.test(parsePath)
+    ? parseCadenceDatDesign(parsePath)
+    : parseDesign(parsePath));
   console.log(
     `  Components: ${Object.keys(result.components).length}, Nets: ${Object.keys(result.nets).length}`
   );

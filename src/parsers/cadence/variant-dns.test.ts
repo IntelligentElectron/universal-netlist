@@ -8,14 +8,12 @@
  * see an ordinary part and the count answered before this was eleven, all of
  * them found by other means and all of them inside this set.
  *
- * The design keeps a netlist beside the schematic, so `list_designs` hands out
- * its `pstxnet.dat` and that is the path a query arrives with. Both paths are
- * asserted here because the flag has to survive the one that never opens the
- * schematic.
+ * Assert both the active schematic parser and the retained DAT oracle. DAT
+ * parsing remains available to regression tests while dormant in MCP.
  */
 
 import { describe, expect, it } from "vitest";
-import { cadenceHandler } from "./index.js";
+import { cadenceHandler, parseCadenceDatDesign } from "./index.js";
 import { fixturePath, hasFixtures } from "../../../test/utils.js";
 
 const CC1310 = ["cadence", "LAUNCHXL-CC1310", "doc", "hardware", "cc1310", "launchpad"];
@@ -53,7 +51,9 @@ const BOM_DO_NOT_STUFF = [
 ];
 
 const dnsRefdes = async (designPath: string): Promise<string[]> => {
-  const parsed = await cadenceHandler.parse(designPath);
+  const parsed = await (designPath.endsWith(".dat")
+    ? parseCadenceDatDesign(designPath)
+    : cadenceHandler.parse(designPath));
   return Object.entries(parsed.components)
     .filter(([, component]) => component.dns)
     .map(([refdes]) => refdes)
@@ -61,7 +61,7 @@ const dnsRefdes = async (designPath: string): Promise<string[]> => {
 };
 
 describe.skipIf(!hasFixtures)("variant Do Not Stuff", () => {
-  it("reports the BOM's unstuffed parts for a query against the netlist", async () => {
+  it("reports the BOM's unstuffed parts through the retained DAT parser", async () => {
     expect(await dnsRefdes(PSTXNET)).toEqual(BOM_DO_NOT_STUFF);
   });
 

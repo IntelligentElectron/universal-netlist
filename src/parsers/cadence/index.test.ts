@@ -5,7 +5,7 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
-import { buildCadencePinMap, parseCadence, cadenceHandler, type ChipPart } from "./index.js";
+import { buildCadencePinMap, parseCadence, parseCadenceDatDesign, type ChipPart } from "./index.js";
 import type { ComponentDetails, NetConnections } from "../../types.js";
 import fs from "fs/promises";
 import os from "os";
@@ -224,7 +224,7 @@ DESCR='Test Resistor';
   });
 });
 
-describe("cadenceHandler", () => {
+describe("retained DAT parser", () => {
   let tempDir: string;
 
   beforeEach(async () => {
@@ -277,7 +277,7 @@ VALUE='TestValue';
     await fs.writeFile(path.join(datDir, "pstchip.dat"), pstchipContent);
 
     // Parse using the handler with a .dat path (DAT fallback route)
-    const result = await cadenceHandler.parse(path.join(datDir, "pstxnet.dat"));
+    const result = await parseCadenceDatDesign(path.join(datDir, "pstxnet.dat"));
 
     // Verify result does NOT have internal properties (clean ParsedNetlist)
     expect("partNames" in result).toBe(false);

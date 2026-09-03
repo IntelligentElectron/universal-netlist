@@ -12,7 +12,11 @@
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import { writeFile, mkdir, rm, chmod } from "fs/promises";
 import { join } from "path";
-import { discoverCadenceDesigns, findCadenceDatFiles, isCadenceFile } from "./discovery.js";
+import {
+  discoverCadenceDesignsWithDat as discoverCadenceDesigns,
+  findCadenceDatFiles,
+  isCadenceFile,
+} from "./discovery.js";
 
 describe("Cadence Discovery - Subtree Scoped Matching", () => {
   const testDir = join(__dirname, "__test-cadence-discovery__");
@@ -1000,15 +1004,15 @@ describe("Cadence Discovery - Subtree Scoped Matching", () => {
       expect(isCadenceFile("/path/to/design.dsn")).toBe(true);
     });
 
-    it("should recognize .cpm files", () => {
-      expect(isCadenceFile("/path/to/design.cpm")).toBe(true);
-      expect(isCadenceFile("/path/to/DESIGN.CPM")).toBe(true);
+    it("does not recognize dormant .cpm designs", () => {
+      expect(isCadenceFile("/path/to/design.cpm")).toBe(false);
+      expect(isCadenceFile("/path/to/DESIGN.CPM")).toBe(false);
     });
 
-    it("should recognize pstxnet.dat", () => {
-      expect(isCadenceFile("/path/to/pstxnet.dat")).toBe(true);
-      expect(isCadenceFile("/path/to/PSTXNET.DAT")).toBe(true);
-      expect(isCadenceFile("/some/dir/Pstxnet.Dat")).toBe(true);
+    it("should reject pstxnet.dat", () => {
+      expect(isCadenceFile("/path/to/pstxnet.dat")).toBe(false);
+      expect(isCadenceFile("/path/to/PSTXNET.DAT")).toBe(false);
+      expect(isCadenceFile("/some/dir/Pstxnet.Dat")).toBe(false);
     });
 
     it("should reject other .dat files", () => {

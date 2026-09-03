@@ -1,6 +1,6 @@
 # Privacy Policy
 
-**Effective date:** 12 August 2026
+**Effective date:** 2 September 2026
 
 Universal Netlist MCP Server ("the server") is a local program. It runs on your
 own machine, reads design files from your own disk, and answers questions about
@@ -19,7 +19,7 @@ licence check, and no usage reporting. It stores no data about you.
 The server reads the EDA design files you point it at, and the directories you
 ask it to search:
 
-- Cadence `.DSN` schematics and exported `.dat` netlists
+- Cadence `.DSN` schematics
 - Altium `.PrjPcb` projects and `.SchDoc` documents
 - KiCad `.kicad_pro` projects, `.kicad_sch` schematics, and `.net` exports
 
@@ -73,10 +73,11 @@ Setting `OTEL_SDK_DISABLED=1` forces it off even when an endpoint is configured.
 
 ## Writing to your disk
 
-One tool writes: `export_cadence_netlist` runs Cadence's own exporter on Windows
-and creates a netlist directory beside your schematic, replacing an earlier
-export of the same design. Every other tool is read-only. Tools are annotated so
-your client can tell the difference and ask before running the one that writes.
+All registered MCP tools are annotated as read-only and leave source designs unchanged.
+A KiCad query may generate a temporary netlist, which is removed after reading.
+The Cadence exporter is dormant in MCP. The separate CLI `coverage` command can
+still invoke it on Windows to create or replace reference netlists beside a
+schematic. CLI reports and exports write to disk when you run those commands.
 
 ## Third parties
 

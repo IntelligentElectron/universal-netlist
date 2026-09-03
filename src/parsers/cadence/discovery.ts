@@ -14,8 +14,12 @@ import { readdir, readFile } from "fs/promises";
 import path from "path";
 import { createHash } from "crypto";
 import { isNetlistDirFor, REQUIRED_DAT_FILES } from "../../paths.js";
+import { CADENCE_DAT_ENABLED } from "../../features.js";
 
-const CADENCE_EXTENSIONS = [".dsn", ".cpm"] as const;
+const LEGACY_CADENCE_EXTENSIONS = [".dsn", ".cpm"] as const;
+const CADENCE_EXTENSIONS: readonly string[] = CADENCE_DAT_ENABLED
+  ? LEGACY_CADENCE_EXTENSIONS
+  : [".dsn"];
 
 /**
  * Cadence-specific discovered design with .dat file paths.
@@ -56,7 +60,8 @@ interface DatFileSet {
  */
 const walkForCadenceFiles = async (
   rootDir: string,
-  maxDepth?: number
+  maxDepth?: number,
+  includeDat = true
 ): Promise<{ designFiles: string[]; datSets: DatFileSet[] }> => {
   const designFiles: string[] = [];
   const datFilesByDir = new Map<string, Map<string, string>>();
@@ -91,12 +96,13 @@ const walkForCadenceFiles = async (
       const baseName = entry.name.toLowerCase();
 
       // Collect design files
-      if (CADENCE_EXTENSIONS.includes(ext as (typeof CADENCE_EXTENSIONS)[number])) {
+      if (ext === ".dsn" || (includeDat && ext === ".cpm")) {
         designFiles.push(fullPath);
       }
 
       // Collect .dat files grouped by directory
       if (
+        includeDat &&
         ext === ".dat" &&
         REQUIRED_DAT_FILES.includes(baseName as (typeof REQUIRED_DAT_FILES)[number])
       ) {
@@ -483,13 +489,29 @@ const buildStandaloneDesigns = async (
  * Uses subtree-scoped matching to associate .dat files with DSN/CPM designs.
  * Unmatched dat trios (no parent DSN/CPM) become standalone cadence-dat designs.
  */
-export const discoverCadenceDesigns = async (
+const discoverCadenceDesignsImpl = async (
   rootDir: string,
-  options?: { maxDepth?: number }
+  options: { maxDepth?: number } | undefined,
+  includeDat: boolean
 ): Promise<CadenceDiscoveredDesign[]> => {
   // Normalize separators before resolving to handle cross-platform paths
   const absoluteRootDir = path.resolve(normalizeSeparators(rootDir));
-  const { designFiles, datSets } = await walkForCadenceFiles(absoluteRootDir, options?.maxDepth);
+  const { designFiles, datSets } = await walkForCadenceFiles(
+    absoluteRootDir,
+    options?.maxDepth,
+    includeDat
+  );
+
+  // The MCP discovery path only reads schematics. Keep DAT matching below
+  // for the dormant implementation and its independent regression tests.
+  if (!includeDat) {
+    return designFiles.map((sourcePath) => ({
+      name: path.basename(sourcePath, path.extname(sourcePath)),
+      sourcePath,
+      format: "cadence-cis",
+      datFiles: { pstxnet: null, pstxprt: null, pstchip: null },
+    }));
+  }
 
   // Match dat sets to designs
   const { assignments, withheld } = matchDatSetsToDesigns(designFiles, datSets);
@@ -539,6 +561,19 @@ export const discoverCadenceDesigns = async (
 
   return designs;
 };
+
+/** Discover designs supported by the MCP server. */
+export const discoverCadenceDesigns = (
+  rootDir: string,
+  options?: { maxDepth?: number }
+): Promise<CadenceDiscoveredDesign[]> =>
+  discoverCadenceDesignsImpl(rootDir, options, CADENCE_DAT_ENABLED);
+
+/** Internal discovery for CLI coverage and the retained DAT regression tests. */
+export const discoverCadenceDesignsWithDat = (
+  rootDir: string,
+  options?: { maxDepth?: number }
+): Promise<CadenceDiscoveredDesign[]> => discoverCadenceDesignsImpl(rootDir, options, true);
 
 /**
  * Find Cadence .dat files for a specific design file.
@@ -654,7 +689,8 @@ const outrankedFromAbove = async (
     for (const entry of entries) {
       if (!entry.isFile() || entry.name.startsWith("._")) continue;
       const ext = path.extname(entry.name).toLowerCase();
-      if (!CADENCE_EXTENSIONS.includes(ext as (typeof CADENCE_EXTENSIONS)[number])) continue;
+      if (!LEGACY_CADENCE_EXTENSIONS.includes(ext as (typeof LEGACY_CADENCE_EXTENSIONS)[number]))
+        continue;
       const rivalName = path.basename(entry.name, path.extname(entry.name));
       if (scoreDatSetMatch(dir, rivalName, datSet) > ownScore) return true;
     }
@@ -671,11 +707,11 @@ const outrankedFromAbove = async (
  */
 export const isCadenceFile = (filePath: string): boolean => {
   const ext = path.extname(filePath).toLowerCase();
-  if (CADENCE_EXTENSIONS.includes(ext as (typeof CADENCE_EXTENSIONS)[number])) {
+  if (CADENCE_EXTENSIONS.includes(ext)) {
     return true;
   }
   // Also recognize pstxnet.dat as a Cadence dat-only design path
-  return path.basename(filePath).toLowerCase() === "pstxnet.dat";
+  return CADENCE_DAT_ENABLED && path.basename(filePath).toLowerCase() === "pstxnet.dat";
 };
 
 /** Cadence file extensions */
