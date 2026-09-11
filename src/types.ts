@@ -93,6 +93,18 @@ export interface ParsedNetlist {
   components: ComponentDetails;
 }
 
+/** A named assembly configuration exposed by an EDA design. */
+export interface DesignVariant {
+  name: string;
+  description?: string;
+}
+
+/** Options that select which assembly configuration a parser resolves. */
+export interface ParseDesignOptions {
+  /** Native variant name, or `<Default>` for the unmodified/core design. */
+  variant?: string;
+}
+
 /**
  * Component in circuit query result
  */
@@ -218,6 +230,11 @@ export interface ListDesignsResult {
   notes?: string[];
 }
 
+/** Result from list_variants. `<Default>` is always the first entry. */
+export interface ListVariantsResult {
+  variants: Array<DesignVariant & { is_default?: boolean }>;
+}
+
 /**
  * Component entry grouped by MPN for list/search results.
  */
@@ -312,8 +329,11 @@ export interface EDAProjectFormatHandler {
   /** Discover all designs of this format in a directory */
   discoverDesigns(rootDir: string, options?: DiscoverDesignsOptions): Promise<DiscoveredDesign[]>;
 
+  /** List the named assembly variants a design records. */
+  listVariants?(designPath: string): Promise<DesignVariant[]>;
+
   /** Parse a design file into the unified ParsedNetlist format */
-  parse(designPath: string): Promise<ParsedNetlist>;
+  parse(designPath: string, options?: ParseDesignOptions): Promise<ParsedNetlist>;
 }
 
 // =============================================================================

@@ -1,7 +1,8 @@
 # Altium Designer Schematic Format
 
-Reference for the two parts of the `.SchDoc` / `.PrjPcb` format that carry enough hidden
-structure to be worth writing down: multi-channel sheet repetition, and signal harnesses.
+Reference for the parts of the `.SchDoc` / `.PrjPcb` format that carry enough hidden
+structure to be worth writing down: assembly variants, multi-channel sheet repetition,
+and signal harnesses.
 The record model behind everything else is straightforward enough to read off
 `src/parsers/altium/`. Companion to [`dsn-format.md`](dsn-format.md), which covers Cadence.
 
@@ -37,6 +38,37 @@ leading number, and falls back to lexicographic order, interleaving `RECORD=2` b
 `RECORD=18` and `RECORD=209`.
 
 Record type numbers are listed in `src/parsers/altium/types.ts`.
+
+## Assembly variants
+
+**Confidence: VERIFIED** — implemented and tested against `qfsae-bspd-variant`.
+
+Altium models a variant as an overlay on the core project. The fitted/not-fitted
+state and local parameter changes live in numbered, INI-like sections of the text
+`.PrjPcb` itself:
+
+```ini
+[ProjectVariant1]
+Description=BSPD-DNP
+VariationCount=5
+Variation1=...|Designator=R23|UniqueId=...|Kind=1|...
+```
+
+`Description` is the native variant name. `VariationN` is pipe-delimited, and
+`Kind=1` is a Not Fitted component override. The parser resolves `Designator`
+case-insensitively after all project sheets have been merged, so the selected
+variant marks the corresponding component `dns: true`; `include_dns` then controls
+whether normal component queries and traversal retain it.
+
+The binary `.PrjPcbVariants` sidecar has a narrower purpose: it stores actual
+alternate component records. It is not the source for ordinary Not Fitted rows.
+Alternate parts and variant-local parameter substitution are not yet applied to
+the Universal Netlist; the current selector implements the fitted/not-fitted state
+covered by `Kind=1`.
+
+Call `list_variants` on the `.PrjPcb` to discover the native names. A project with
+named variants requires an explicit name or `<Default>` on every query, so a caller
+cannot accidentally treat a variant-bearing project as fully fitted.
 
 ## Multi-channel (repeated sheets)
 

@@ -152,6 +152,26 @@ describe("tool annotations", () => {
     const undescribed = tools.filter((t) => !t.description?.trim()).map((t) => t.name);
     expect(undescribed).toEqual([]);
   });
+
+  it("exposes the assembly variant selector on every design query", () => {
+    const queries = [
+      "list_components",
+      "list_nets",
+      "search_nets",
+      "search_components_by_refdes",
+      "search_components_by_mpn",
+      "search_components_by_description",
+      "query_component",
+      "query_xnet_by_net_name",
+      "query_xnet_by_pin_name",
+      "run_erc",
+    ];
+    for (const name of queries) {
+      expect(tools.find((tool) => tool.name === name)?.inputSchema?.properties).toHaveProperty(
+        "variant"
+      );
+    }
+  });
 });
 
 /**

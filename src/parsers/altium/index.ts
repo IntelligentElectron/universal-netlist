@@ -13,7 +13,13 @@
  */
 
 import path from "path";
-import type { ParsedNetlist, NetConnections, ComponentDetails, PinEntry } from "../../types.js";
+import type {
+  ParsedNetlist,
+  NetConnections,
+  ComponentDetails,
+  PinEntry,
+  ParseDesignOptions,
+} from "../../types.js";
 import { createPinEntry } from "../../types.js";
 import { isDnsComponent, hasDnsValueMarker, stripDnsMarkers } from "../../circuit-traversal.js";
 import type { AltiumSchematic, AltiumNet, AltiumRecord, OutputFormat } from "./types.js";
@@ -42,6 +48,11 @@ import { parseProjectOptions, resolveNetIdentifierScope } from "./project-option
 import type { AltiumProjectOptions, DesignShape } from "./project-options.js";
 import { planLocalNetRenames, applyNetRenames, noNetIdentifiers } from "./net-scoping.js";
 import type { NetIdentifierKinds } from "./net-scoping.js";
+import {
+  applyAltiumVariant,
+  listAltiumVariants,
+  parseAltiumProjectVariants,
+} from "./project-variants.js";
 
 // Re-export types and utilities for external use
 export type { AltiumSchematic, AltiumNet, AltiumRecord, OutputFormat };
@@ -1324,7 +1335,10 @@ const expandChannels = (
  * Parse an Altium project by parsing all its SchDoc files and merging the results.
  * Supports multi-channel expansion via PrjPCBStructure.
  */
-const parseAltiumProject = async (projectPath: string): Promise<ParsedNetlist> => {
+const parseAltiumProject = async (
+  projectPath: string,
+  parseOptions?: ParseDesignOptions
+): Promise<ParsedNetlist> => {
   const schdocPaths = await findAltiumSchDocs(projectPath);
 
   if (schdocPaths.length === 0) {
@@ -1539,6 +1553,8 @@ const parseAltiumProject = async (projectPath: string): Promise<ParsedNetlist> =
 
   const netlist: ParsedNetlist = { nets: allNets, components: allComponents };
   reconcileNetlist(netlist);
+  const variants = parseAltiumProjectVariants(await readFile(projectPath, "utf-8"));
+  applyAltiumVariant(netlist.components, variants, parseOptions?.variant);
   return netlist;
 };
 
@@ -1554,11 +1570,14 @@ export const altiumHandler: EDAProjectFormatHandler = {
 
   discoverDesigns: discoverAltiumDesigns,
 
-  parse: async (designPath: string): Promise<ParsedNetlist> => {
+  listVariants: async (designPath) =>
+    path.extname(designPath).toLowerCase() === ".schdoc" ? [] : listAltiumVariants(designPath),
+
+  parse: async (designPath: string, options?: ParseDesignOptions): Promise<ParsedNetlist> => {
     const ext = path.extname(designPath).toLowerCase();
     if (ext === ".schdoc") {
       return parseAltium(designPath);
     }
-    return parseAltiumProject(designPath);
+    return parseAltiumProject(designPath, options);
   },
 };

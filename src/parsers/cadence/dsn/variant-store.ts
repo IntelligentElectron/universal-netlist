@@ -38,6 +38,8 @@
 import type { OleDirectoryPath } from "../../ole-reader/types.js";
 import { OleReader } from "../../ole-reader/ole-reader.js";
 import { parsePage } from "./page-parser.js";
+import type { DesignVariant } from "../../../types.js";
+import { DEFAULT_VARIANT, isDefaultVariant } from "../../variants.js";
 
 /** Separator between occurrence tokens in a group stream. */
 const GROUP_SEPARATOR = "\xb0";
@@ -56,6 +58,9 @@ const DB_ID_OFFSET = 12;
 
 /** A group stream names itself, so `Groups/DNP/DNP` is the members list. */
 const GROUP_STREAM_PATH = /^CIS\/VariantStore\/Groups\/([^/]+)\/([^/]+)$/;
+
+/** A BOM variant's stream is named after its containing storage. */
+const BOM_VARIANT_STREAM_PATH = /^CIS\/VariantStore\/BOM\/([^/]+)\/([^/]+)$/;
 
 /** One occurrence a variant group names, and whether it is stuffed for it. */
 export interface VariantGroupEntry {
@@ -125,6 +130,46 @@ export function parseVariantNames(buffer: Buffer): string[] {
   }
 
   return names;
+}
+
+/**
+ * Parse the group names that make up one BOM variant.
+ *
+ * The payload is latin1 fields separated by 0xF9: a count followed by that
+ * many group names. `Common` often appears here without a matching group
+ * stream because it contributes no variant-specific stuffing override.
+ */
+export function parseBomVariantGroups(buffer: Buffer): string[] {
+  if (buffer.length < 4) return [];
+  const declared = buffer.readUInt32LE(0);
+  const payload = buffer
+    .subarray(4, 4 + Math.min(declared, buffer.length - 4))
+    .toString("latin1")
+    .split("\xf9");
+  const count = Number(payload.shift());
+  if (!Number.isInteger(count) || count < 0) return [];
+  return payload.slice(0, count).filter((name) => name.length > 0);
+}
+
+/** List the actual BOM variants, excluding group and helper stream names. */
+export function listCadenceVariants(entries: OleDirectoryPath[]): DesignVariant[] {
+  const variants: DesignVariant[] = [];
+  const seen = new Set<string>();
+  for (const entry of entries) {
+    if (entry.entry.type !== 2) continue;
+    const match = BOM_VARIANT_STREAM_PATH.exec(entry.path);
+    if (!match || match[1] !== match[2]) continue;
+    const key = match[1].toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    variants.push({ name: match[1] });
+  }
+  return variants;
+}
+
+/** Read the native BOM variant names straight from a DSN. */
+export function listCadenceVariantsFromFile(dsnPath: string): DesignVariant[] {
+  return listCadenceVariants(new OleReader(dsnPath).listAllEntries());
 }
 
 /**
@@ -209,8 +254,10 @@ export function readVariantDns(
   ole: OleReader,
   entries: OleDirectoryPath[],
   refdesByDbId: Map<number, string>,
-  hierarchy?: Buffer
+  hierarchy?: Buffer,
+  selectedVariant?: string
 ): Set<string> {
+  if (selectedVariant && isDefaultVariant(selectedVariant)) return new Set();
   if (!hasVariantGroups(entries)) return new Set();
 
   let occurrenceDbIds: Map<number, number>;
@@ -220,10 +267,40 @@ export function readVariantDns(
     return new Set();
   }
 
+  let selectedGroups: Set<string> | undefined;
+  if (selectedVariant) {
+    const variants = listCadenceVariants(entries);
+    const canonical = variants.find(
+      (variant) => variant.name.toLowerCase() === selectedVariant.trim().toLowerCase()
+    );
+    if (!canonical) {
+      throw new Error(
+        `Variant '${selectedVariant}' not found. Available variants: [${variants.map((variant) => variant.name).join(", ")}], ${DEFAULT_VARIANT}`
+      );
+    }
+    const membership = entries.find((entry) => {
+      const match = BOM_VARIANT_STREAM_PATH.exec(entry.path);
+      return (
+        entry.entry.type === 2 &&
+        match !== null &&
+        match[1].toLowerCase() === canonical.name.toLowerCase() &&
+        match[2].toLowerCase() === canonical.name.toLowerCase()
+      );
+    });
+    selectedGroups = new Set(
+      membership
+        ? parseBomVariantGroups(ole.readStreamByPath(membership.path)).map((name) =>
+            name.toLowerCase()
+          )
+        : []
+    );
+  }
+
   const groupEntries: VariantGroupEntry[] = [];
   for (const entry of entries) {
     const match = GROUP_STREAM_PATH.exec(entry.path);
     if (!match || match[1] !== match[2] || entry.entry.type !== 2) continue;
+    if (selectedGroups && !selectedGroups.has(match[1].toLowerCase())) continue;
     try {
       groupEntries.push(...parseVariantGroup(ole.readStreamByPath(entry.path)));
     } catch {
@@ -242,7 +319,7 @@ export function readVariantDns(
  * design without variants costs the container's directory scan and nothing
  * more.
  */
-export function readVariantDnsFromFile(dsnPath: string): Set<string> {
+export function readVariantDnsFromFile(dsnPath: string, selectedVariant?: string): Set<string> {
   const ole = new OleReader(dsnPath);
   const entries = ole.listAllEntries();
   if (!hasVariantGroups(entries)) return new Set();
@@ -259,5 +336,5 @@ export function readVariantDnsFromFile(dsnPath: string): Set<string> {
     }
   }
 
-  return readVariantDns(ole, entries, refdesByDbId);
+  return readVariantDns(ole, entries, refdesByDbId, undefined, selectedVariant);
 }

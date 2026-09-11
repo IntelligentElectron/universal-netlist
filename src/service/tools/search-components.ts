@@ -14,13 +14,14 @@ import { isErrorResult, type SearchComponentsResult, type ErrorResult } from "..
 export const searchComponentsByRefdes = async (
   pattern: string,
   design: string,
-  includeDns = false
+  includeDns = false,
+  variant?: string
 ): Promise<SearchComponentsResult | ErrorResult> => {
   const parsed = parseRegexPattern(pattern, "i");
   if ("error" in parsed) return parsed;
   const regex = parsed.regex;
 
-  const netlist = await loadNetlist(design);
+  const netlist = await loadNetlist(design, variant);
   if (isErrorResult(netlist)) {
     return netlist;
   }
@@ -60,13 +61,14 @@ export const searchComponentsByRefdes = async (
 export const searchComponentsByMpn = async (
   pattern: string,
   design: string,
-  includeDns = false
+  includeDns = false,
+  variant?: string
 ): Promise<SearchComponentsResult | ErrorResult> => {
   const parsed = parseRegexPattern(pattern, "i");
   if ("error" in parsed) return parsed;
   const regex = parsed.regex;
 
-  const netlist = await loadNetlist(design);
+  const netlist = await loadNetlist(design, variant);
   if (isErrorResult(netlist)) {
     return netlist;
   }
@@ -117,13 +119,14 @@ export const searchComponentsByMpn = async (
 export const searchComponentsByDescription = async (
   pattern: string,
   design: string,
-  includeDns = false
+  includeDns = false,
+  variant?: string
 ): Promise<SearchComponentsResult | ErrorResult> => {
   const parsed = parseRegexPattern(pattern, "i");
   if ("error" in parsed) return parsed;
   const regex = parsed.regex;
 
-  const netlist = await loadNetlist(design);
+  const netlist = await loadNetlist(design, variant);
   if (isErrorResult(netlist)) {
     return netlist;
   }

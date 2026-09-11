@@ -6,8 +6,11 @@ import { isErrorResult, type ListNetsResult, type ErrorResult } from "../../type
  *
  * @param design - Path to design file
  */
-export const listNets = async (design: string): Promise<ListNetsResult | ErrorResult> => {
-  const netlist = await loadNetlist(design);
+export const listNets = async (
+  design: string,
+  variant?: string
+): Promise<ListNetsResult | ErrorResult> => {
+  const netlist = await loadNetlist(design, variant);
   if (isErrorResult(netlist)) {
     return netlist;
   }

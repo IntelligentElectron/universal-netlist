@@ -14,6 +14,7 @@ Traces circuit connectivity starting from a specific component pin, traversing t
 | `pin_name` | string | Yes | - | Pin spec in `REFDES.PIN` format (e.g., `U2.10`, `U1.A5`) |
 | `skip_types` | string[] | No | `[]` | Component prefixes to exclude |
 | `include_dns` | boolean | No | `false` | Include DNS components |
+| `variant` | string | Conditional | - | Required when `list_variants` returns native names; pass one of them or `<Default>` |
 
 ## Response Schema
 

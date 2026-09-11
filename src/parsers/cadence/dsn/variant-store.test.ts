@@ -11,6 +11,8 @@ import { describe, expect, it } from "vitest";
 import {
   buildOccurrenceDbIds,
   hasVariantGroups,
+  listCadenceVariants,
+  parseBomVariantGroups,
   parseVariantGroup,
   parseVariantNames,
   resolveDnsRefdes,
@@ -105,6 +107,29 @@ describe("parseVariantNames", () => {
 
   it("returns nothing for the empty store a design without variants writes", () => {
     expect(parseVariantNames(Buffer.from([0x84, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00]))).toEqual([]);
+  });
+});
+
+describe("BOM variant membership", () => {
+  it("reads the exact groups assigned to one BOM variant", () => {
+    // Verbatim payload shape from LAUNCHXL-CC1310's `BOM/Standard/Standard`.
+    expect(
+      parseBomVariantGroups(groupStream("6\xf9Common\xf9DNM\xf9DebuggerIF\xf9Peripherals\xf9RF\xf9XDS"))
+    ).toEqual(["Common", "DNM", "DebuggerIF", "Peripherals", "RF", "XDS"]);
+  });
+
+  it("uses the count rather than reading bytes beyond the declared membership", () => {
+    expect(parseBomVariantGroups(groupStream("1\xf9DNP\xf9NotInThisVariant"))).toEqual(["DNP"]);
+  });
+
+  it("lists BOM variants but not their helper streams", () => {
+    expect(
+      listCadenceVariants([
+        streamEntry("CIS/VariantStore/BOM/Standard/Standard"),
+        streamEntry("CIS/VariantStore/BOM/Standard/BOMPartData"),
+        streamEntry("CIS/VariantStore/BOM/BOMDataStream"),
+      ])
+    ).toEqual([{ name: "Standard" }]);
   });
 });
 

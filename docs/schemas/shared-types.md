@@ -403,7 +403,9 @@ All tools may return an error result instead of the expected response.
 
 Components are marked as DNS (Do Not Stuff) at parse time when any of their MPN, description, comment, or value fields match these markers (case-insensitive). Altium designs also check the "Assembly Info" component parameter.
 
-**Cadence:** the `.DSN` schematic supplies both component markers and CIS variant information. A part an alternate BOM leaves off the board can keep an ordinary value and all of its net connections; its stuffing flag is recorded in the schematic's CIS variant store. On `LAUNCHXL-CC1310`, reading that store adds the parts needed to match the 25 references its CIS-generated BOM writes as Quantity 0, beyond the 11 named by markers alone.
+**Cadence:** the `.DSN` schematic supplies both component markers and CIS variant information. A part an alternate BOM leaves off the board can keep an ordinary value and all of its net connections; its stuffing flag is recorded in the schematic's CIS variant store. Selecting `LAUNCHXL-CC1310`'s `Standard` BOM variant adds the parts needed to match the 25 references its CIS-generated BOM writes as Quantity 0, beyond the 11 named by markers alone.
+
+**Altium:** a selected `.PrjPcb` variant applies its `Kind=1` (Not Fitted) component rows after the project's sheets are merged. The `.PrjPcbVariants` sidecar stores alternate component records; ordinary Not Fitted state is in the project file itself.
 
 **KiCad:** DNS is taken from KiCad's own structural Do-Not-Populate flag, the valueless `(property (name "dnp"))` marker on a symbol, rather than text matching. A user BOM field literally named `DNP` that carries a value (e.g. `(property (name "DNP") (value "DNP"))`) is a normal field and does **not** mark the component DNS.
 
@@ -429,6 +431,10 @@ Components are marked as DNS (Do Not Stuff) at parse time when any of their MPN,
 When DNS is detected, marker tokens are stripped from MPN and value fields (e.g., `"10K,DNI"` becomes `"10K"`).
 
 DNS components are excluded by default. Use `include_dns: true` to include them.
+
+Variant selection happens first, and `include_dns` filters the resulting assembly.
+Use `list_variants`; when a design has native named variants, every query requires
+one of those names or `<Default>` for the unmodified/core design.
 
 **Limitation (Cadence):** Graphical-only text annotations such as "DNP" or "DNM" placed near a component do not set a structured component property or variant flag. They are not used for DNS detection.
 

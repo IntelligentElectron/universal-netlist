@@ -1,0 +1,1821 @@
+{
+  "universalNetlistSchemaVersion": 2,
+  "metadata": {
+    "generatedAt": "2026-09-11T17:57:11.868Z",
+    "netlistHash": "sha256:3528b8a36b9383f5665596728e5f2fd5765fe1997f77a1f2711e9fb149fae9c9",
+    "origin": {
+      "type": "vendor",
+      "source": {
+        "vendor": "Altium",
+        "fileType": ".prjpcb"
+      }
+    }
+  },
+  "nets": {
+    "VCC12V": {
+      "J1": [
+        "1"
+      ],
+      "U11": [
+        "3"
+      ],
+      "C1": [
+        "1"
+      ]
+    },
+    "FLAG_OUT_N": {
+      "J1": [
+        "2"
+      ],
+      "TP23": [
+        "1"
+      ],
+      "U9": [
+        "13"
+      ],
+      "R41": [
+        "2"
+      ]
+    },
+    "BSE2": {
+      "J1": [
+        "3"
+      ],
+      "TP27": [
+        "1"
+      ],
+      "U1": [
+        "10"
+      ],
+      "U6": [
+        "11"
+      ],
+      "R23": [
+        "2"
+      ]
+    },
+    "BSE1": {
+      "J1": [
+        "4"
+      ],
+      "TP26": [
+        "1"
+      ],
+      "U1": [
+        "8"
+      ],
+      "U6": [
+        "9"
+      ],
+      "R24": [
+        "2"
+      ]
+    },
+    "TPS2": {
+      "J1": [
+        "5"
+      ],
+      "TP25": [
+        "1"
+      ],
+      "U1": [
+        "5"
+      ],
+      "U6": [
+        "7"
+      ],
+      "R25": [
+        "2"
+      ]
+    },
+    "TPS1": {
+      "J1": [
+        "6"
+      ],
+      "TP24": [
+        "1"
+      ],
+      "U1": [
+        "6"
+      ],
+      "U6": [
+        "5"
+      ],
+      "R26": [
+        "2"
+      ]
+    },
+    "GND": {
+      "J1": [
+        "7"
+      ],
+      "R1": [
+        "3"
+      ],
+      "R2": [
+        "3"
+      ],
+      "R3": [
+        "3"
+      ],
+      "R4": [
+        "3"
+      ],
+      "U2": [
+        "7",
+        "13"
+      ],
+      "U1": [
+        "12"
+      ],
+      "U4": [
+        "7"
+      ],
+      "U3": [
+        "7",
+        "8",
+        "9",
+        "12",
+        "13"
+      ],
+      "U8": [
+        "12"
+      ],
+      "U6": [
+        "12"
+      ],
+      "R22": [
+        "1"
+      ],
+      "U5": [
+        "2"
+      ],
+      "U7": [
+        "2"
+      ],
+      "R23": [
+        "1"
+      ],
+      "R24": [
+        "1"
+      ],
+      "R25": [
+        "1"
+      ],
+      "R26": [
+        "1"
+      ],
+      "U9": [
+        "6",
+        "12",
+        "14",
+        "7",
+        "11",
+        "15",
+        "8"
+      ],
+      "U11": [
+        "1"
+      ],
+      "C2": [
+        "2"
+      ],
+      "C1": [
+        "2"
+      ],
+      "R28": [
+        "1"
+      ],
+      "R30": [
+        "1"
+      ],
+      "R41": [
+        "1"
+      ],
+      "C4": [
+        "1"
+      ],
+      "R36": [
+        "1"
+      ],
+      "C3": [
+        "1"
+      ],
+      "R35": [
+        "1"
+      ],
+      "R33": [
+        "1"
+      ],
+      "R32": [
+        "1"
+      ],
+      "U10": [
+        "1"
+      ],
+      "C6": [
+        "2"
+      ],
+      "R39": [
+        "1"
+      ],
+      "C7": [
+        "2"
+      ],
+      "C5": [
+        "1"
+      ],
+      "R37": [
+        "1"
+      ]
+    },
+    "VCC5V": {
+      "R1": [
+        "1"
+      ],
+      "R2": [
+        "1"
+      ],
+      "R3": [
+        "1"
+      ],
+      "R4": [
+        "1"
+      ],
+      "R21": [
+        "2"
+      ],
+      "R19": [
+        "2"
+      ],
+      "R20": [
+        "2"
+      ],
+      "R18": [
+        "2"
+      ],
+      "U2": [
+        "14"
+      ],
+      "U1": [
+        "3"
+      ],
+      "U4": [
+        "5",
+        "6",
+        "8",
+        "9",
+        "12",
+        "13",
+        "14"
+      ],
+      "U3": [
+        "14"
+      ],
+      "U8": [
+        "3"
+      ],
+      "U6": [
+        "3"
+      ],
+      "R17": [
+        "2"
+      ],
+      "U5": [
+        "5"
+      ],
+      "U7": [
+        "5"
+      ],
+      "U9": [
+        "16",
+        "5"
+      ],
+      "U11": [
+        "2",
+        "4"
+      ],
+      "C2": [
+        "1"
+      ],
+      "R27": [
+        "2"
+      ],
+      "R29": [
+        "2"
+      ],
+      "C4": [
+        "2"
+      ],
+      "C3": [
+        "2"
+      ],
+      "R34": [
+        "1"
+      ],
+      "R31": [
+        "1"
+      ],
+      "U10": [
+        "4",
+        "8"
+      ],
+      "R39": [
+        "2"
+      ],
+      "R38": [
+        "2"
+      ],
+      "C8": [
+        "2"
+      ]
+    },
+    "TPS1_ADJ": {
+      "R1": [
+        "2"
+      ],
+      "U1": [
+        "7"
+      ],
+      "TP1": [
+        "1"
+      ]
+    },
+    "TPS2_ADJ": {
+      "R2": [
+        "2"
+      ],
+      "U1": [
+        "4"
+      ],
+      "TP2": [
+        "1"
+      ]
+    },
+    "BSE1_ADJ": {
+      "R3": [
+        "2"
+      ],
+      "U1": [
+        "9"
+      ],
+      "TP3": [
+        "1"
+      ]
+    },
+    "BSE2_ADJ": {
+      "R4": [
+        "2"
+      ],
+      "U1": [
+        "11"
+      ],
+      "TP4": [
+        "1"
+      ]
+    },
+    "TPS2D_N": {
+      "TP6": [
+        "1"
+      ],
+      "R19": [
+        "1"
+      ],
+      "U2": [
+        "1"
+      ],
+      "U1": [
+        "2"
+      ]
+    },
+    "TPS1D_N": {
+      "TP5": [
+        "1"
+      ],
+      "R21": [
+        "1"
+      ],
+      "U2": [
+        "3"
+      ],
+      "U1": [
+        "1"
+      ]
+    },
+    "NetR20_1": {
+      "R20": [
+        "1"
+      ],
+      "TP7": [
+        "1"
+      ],
+      "U2": [
+        "5"
+      ],
+      "U1": [
+        "14"
+      ]
+    },
+    "NetR18_1": {
+      "R18": [
+        "1"
+      ],
+      "TP8": [
+        "1"
+      ],
+      "U2": [
+        "9"
+      ],
+      "U1": [
+        "13"
+      ]
+    },
+    "TPS2D": {
+      "U2": [
+        "2"
+      ],
+      "TP10": [
+        "1"
+      ],
+      "U3": [
+        "1"
+      ]
+    },
+    "BSE1D": {
+      "U2": [
+        "6"
+      ],
+      "TP11": [
+        "1"
+      ],
+      "U3": [
+        "5"
+      ]
+    },
+    "BSE2D": {
+      "U2": [
+        "8"
+      ],
+      "TP12": [
+        "1"
+      ],
+      "U3": [
+        "6"
+      ]
+    },
+    "TPS1D": {
+      "U2": [
+        "4"
+      ],
+      "TP9": [
+        "1"
+      ],
+      "U3": [
+        "2"
+      ]
+    },
+    "TRIG_N": {
+      "U2": [
+        "10"
+      ],
+      "U9": [
+        "3"
+      ],
+      "TP19": [
+        "1"
+      ]
+    },
+    "NetU2_11": {
+      "U2": [
+        "11"
+      ],
+      "U8": [
+        "4",
+        "2",
+        "6",
+        "1"
+      ]
+    },
+    "TPS_ON": {
+      "U3": [
+        "3"
+      ],
+      "TP13": [
+        "1"
+      ],
+      "U4": [
+        "1"
+      ]
+    },
+    "BSE_ON": {
+      "U3": [
+        "4"
+      ],
+      "TP14": [
+        "1"
+      ],
+      "U4": [
+        "2"
+      ]
+    },
+    "BOTH_ON": {
+      "U4": [
+        "3"
+      ],
+      "TP15": [
+        "1"
+      ],
+      "U7": [
+        "1"
+      ]
+    },
+    "BOTH_TRIG": {
+      "U8": [
+        "5"
+      ],
+      "TP17": [
+        "1"
+      ],
+      "U7": [
+        "6"
+      ]
+    },
+    "NetR17_1": {
+      "U6": [
+        "6",
+        "4",
+        "10",
+        "8"
+      ],
+      "R17": [
+        "1"
+      ],
+      "R22": [
+        "2"
+      ]
+    },
+    "SENSOR_DC": {
+      "U6": [
+        "1",
+        "2",
+        "13",
+        "14"
+      ],
+      "U5": [
+        "1"
+      ],
+      "TP16": [
+        "1"
+      ]
+    },
+    "NetR34_2": {
+      "U5": [
+        "4"
+      ],
+      "R34": [
+        "2"
+      ],
+      "R35": [
+        "2"
+      ]
+    },
+    "SENSOR_TRIG": {
+      "U5": [
+        "6"
+      ],
+      "U8": [
+        "7"
+      ],
+      "TP18": [
+        "1"
+      ]
+    },
+    "NetR36_2": {
+      "U5": [
+        "3"
+      ],
+      "R36": [
+        "2"
+      ]
+    },
+    "NetR31_2": {
+      "U7": [
+        "4"
+      ],
+      "R31": [
+        "2"
+      ],
+      "R32": [
+        "2"
+      ]
+    },
+    "NetR33_2": {
+      "U7": [
+        "3"
+      ],
+      "R33": [
+        "2"
+      ]
+    },
+    "RESET": {
+      "U9": [
+        "4"
+      ],
+      "TP20": [
+        "1"
+      ],
+      "SW1": [
+        "2"
+      ],
+      "R40": [
+        "1"
+      ]
+    },
+    "NetR27_1": {
+      "U8": [
+        "8"
+      ],
+      "R27": [
+        "1"
+      ]
+    },
+    "NetR28_2": {
+      "U8": [
+        "9"
+      ],
+      "R28": [
+        "2"
+      ]
+    },
+    "NetR30_2": {
+      "U8": [
+        "11"
+      ],
+      "R30": [
+        "2"
+      ]
+    },
+    "NetR29_1": {
+      "U8": [
+        "10"
+      ],
+      "R29": [
+        "1"
+      ]
+    },
+    "NetC8_1": {
+      "U10": [
+        "2"
+      ],
+      "R37": [
+        "2"
+      ],
+      "C8": [
+        "1"
+      ]
+    },
+    "NetR40_2": {
+      "U10": [
+        "3"
+      ],
+      "SW1": [
+        "1"
+      ],
+      "R40": [
+        "2"
+      ]
+    },
+    "NetC5_2": {
+      "U10": [
+        "5"
+      ],
+      "C5": [
+        "2"
+      ]
+    },
+    "NetC7_1": {
+      "U10": [
+        "6"
+      ],
+      "R38": [
+        "1"
+      ],
+      "C7": [
+        "1"
+      ]
+    },
+    "NetC6_1": {
+      "U10": [
+        "7"
+      ],
+      "C6": [
+        "1"
+      ]
+    }
+  },
+  "components": {
+    "J1": {
+      "pins": {
+        "1": "VCC12V",
+        "2": "FLAG_OUT_N",
+        "3": "BSE2",
+        "4": "BSE1",
+        "5": "TPS2",
+        "6": "TPS1",
+        "7": "GND"
+      },
+      "manufacturer": "Molex",
+      "description": "CONN HEADER R/A 7POS 2.54MM",
+      "comment": "0705530006"
+    },
+    "TP24": {
+      "pins": {
+        "1": "TPS1"
+      },
+      "comment": "Test Point"
+    },
+    "TP25": {
+      "pins": {
+        "1": "TPS2"
+      },
+      "comment": "Test Point"
+    },
+    "TP26": {
+      "pins": {
+        "1": "BSE1"
+      },
+      "comment": "Test Point"
+    },
+    "TP27": {
+      "pins": {
+        "1": "BSE2"
+      },
+      "comment": "Test Point"
+    },
+    "TP23": {
+      "pins": {
+        "1": "FLAG_OUT_N"
+      },
+      "comment": "Test Point"
+    },
+    "R1": {
+      "pins": {
+        "1": {
+          "name": "A",
+          "net": "VCC5V"
+        },
+        "2": {
+          "name": "TAP",
+          "net": "TPS1_ADJ"
+        },
+        "3": {
+          "name": "B",
+          "net": "GND"
+        }
+      },
+      "description": "50k 10% Trimmer Potentiometer 25-Turn Cermet",
+      "comment": "3296P-1-503LF"
+    },
+    "R2": {
+      "pins": {
+        "1": {
+          "name": "A",
+          "net": "VCC5V"
+        },
+        "2": {
+          "name": "TAP",
+          "net": "TPS2_ADJ"
+        },
+        "3": {
+          "name": "B",
+          "net": "GND"
+        }
+      },
+      "description": "50k 10% Trimmer Potentiometer 25-Turn Cermet",
+      "comment": "3296P-1-503LF"
+    },
+    "R3": {
+      "pins": {
+        "1": {
+          "name": "A",
+          "net": "VCC5V"
+        },
+        "2": {
+          "name": "TAP",
+          "net": "BSE1_ADJ"
+        },
+        "3": {
+          "name": "B",
+          "net": "GND"
+        }
+      },
+      "description": "50k 10% Trimmer Potentiometer 25-Turn Cermet",
+      "comment": "3296P-1-503LF"
+    },
+    "R4": {
+      "pins": {
+        "1": {
+          "name": "A",
+          "net": "VCC5V"
+        },
+        "2": {
+          "name": "TAP",
+          "net": "BSE2_ADJ"
+        },
+        "3": {
+          "name": "B",
+          "net": "GND"
+        }
+      },
+      "description": "50k 10% Trimmer Potentiometer 25-Turn Cermet",
+      "comment": "3296P-1-503LF"
+    },
+    "TP6": {
+      "pins": {
+        "1": "TPS2D_N"
+      },
+      "comment": "Test Point"
+    },
+    "TP5": {
+      "pins": {
+        "1": "TPS1D_N"
+      },
+      "comment": "Test Point"
+    },
+    "R21": {
+      "pins": {
+        "1": "TPS1D_N",
+        "2": "VCC5V"
+      },
+      "manufacturer": "Yageo",
+      "description": "RES SMD 30K OHM 0.5% 1/8W 0805",
+      "value": "30 kOhms"
+    },
+    "R19": {
+      "pins": {
+        "1": "TPS2D_N",
+        "2": "VCC5V"
+      },
+      "manufacturer": "Yageo",
+      "description": "RES SMD 30K OHM 0.5% 1/8W 0805",
+      "value": "30 kOhms"
+    },
+    "R20": {
+      "pins": {
+        "1": "NetR20_1",
+        "2": "VCC5V"
+      },
+      "manufacturer": "Yageo",
+      "description": "RES SMD 30K OHM 0.5% 1/8W 0805",
+      "value": "30 kOhms"
+    },
+    "R18": {
+      "pins": {
+        "1": "NetR18_1",
+        "2": "VCC5V"
+      },
+      "manufacturer": "Yageo",
+      "description": "RES SMD 30K OHM 0.5% 1/8W 0805",
+      "value": "30 kOhms"
+    },
+    "TP7": {
+      "pins": {
+        "1": "NetR20_1"
+      },
+      "comment": "Test Point"
+    },
+    "TP8": {
+      "pins": {
+        "1": "NetR18_1"
+      },
+      "comment": "Test Point"
+    },
+    "U2": {
+      "pins": {
+        "1": {
+          "name": "1A",
+          "net": "TPS2D_N"
+        },
+        "2": {
+          "name": "1\\Y\\",
+          "net": "TPS2D"
+        },
+        "3": {
+          "name": "2A",
+          "net": "TPS1D_N"
+        },
+        "4": {
+          "name": "2\\Y\\",
+          "net": "TPS1D"
+        },
+        "5": {
+          "name": "3A",
+          "net": "NetR20_1"
+        },
+        "6": {
+          "name": "3\\Y\\",
+          "net": "BSE1D"
+        },
+        "7": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "8": {
+          "name": "4\\Y\\",
+          "net": "BSE2D"
+        },
+        "9": {
+          "name": "4A",
+          "net": "NetR18_1"
+        },
+        "10": {
+          "name": "5\\Y\\",
+          "net": "TRIG_N"
+        },
+        "11": {
+          "name": "5A",
+          "net": "NetU2_11"
+        },
+        "12": {
+          "name": "6\\Y\\",
+          "net": ""
+        },
+        "13": {
+          "name": "6A",
+          "net": "GND"
+        },
+        "14": {
+          "name": "VCC",
+          "net": "VCC5V"
+        }
+      },
+      "description": "TEXAS INSTRUMENTS - SN74LS04D - HEX INVERTER, SMD, 74LS04, SOIC14",
+      "comment": "SN74LS04D"
+    },
+    "TP10": {
+      "pins": {
+        "1": "TPS2D"
+      },
+      "comment": "Test Point"
+    },
+    "TP9": {
+      "pins": {
+        "1": "TPS1D"
+      },
+      "comment": "Test Point"
+    },
+    "TP11": {
+      "pins": {
+        "1": "BSE1D"
+      },
+      "comment": "Test Point"
+    },
+    "TP12": {
+      "pins": {
+        "1": "BSE2D"
+      },
+      "comment": "Test Point"
+    },
+    "U1": {
+      "pins": {
+        "1": {
+          "name": "OUT2",
+          "net": "TPS1D_N"
+        },
+        "2": {
+          "name": "OUT1",
+          "net": "TPS2D_N"
+        },
+        "3": {
+          "name": "V+",
+          "net": "VCC5V"
+        },
+        "4": {
+          "name": "IN1-",
+          "net": "TPS2_ADJ"
+        },
+        "5": {
+          "name": "IN1+",
+          "net": "TPS2"
+        },
+        "6": {
+          "name": "IN2-",
+          "net": "TPS1"
+        },
+        "7": {
+          "name": "IN2+",
+          "net": "TPS1_ADJ"
+        },
+        "8": {
+          "name": "IN3-",
+          "net": "BSE1"
+        },
+        "9": {
+          "name": "IN3+",
+          "net": "BSE1_ADJ"
+        },
+        "10": {
+          "name": "IN4-",
+          "net": "BSE2"
+        },
+        "11": {
+          "name": "IN4+",
+          "net": "BSE2_ADJ"
+        },
+        "12": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "13": {
+          "name": "OUT4",
+          "net": "NetR18_1"
+        },
+        "14": {
+          "name": "OUT3",
+          "net": "NetR20_1"
+        }
+      },
+      "description": "TEXAS INSTRUMENTS   LP339M/NOPB   LOW POWER COMPARATOR, QUAD, 8 uS, SOIC-14",
+      "comment": "LP339M/NOPB"
+    },
+    "U3": {
+      "pins": {
+        "1": {
+          "name": "A",
+          "net": "TPS2D"
+        },
+        "2": {
+          "name": "B",
+          "net": "TPS1D"
+        },
+        "3": {
+          "name": "J",
+          "net": "TPS_ON"
+        },
+        "4": {
+          "name": "K",
+          "net": "BSE_ON"
+        },
+        "5": {
+          "name": "C",
+          "net": "BSE1D"
+        },
+        "6": {
+          "name": "D",
+          "net": "BSE2D"
+        },
+        "7": {
+          "name": "VSS",
+          "net": "GND"
+        },
+        "8": {
+          "name": "E",
+          "net": "GND"
+        },
+        "9": {
+          "name": "F",
+          "net": "GND"
+        },
+        "10": {
+          "name": "L",
+          "net": ""
+        },
+        "11": {
+          "name": "M",
+          "net": ""
+        },
+        "12": {
+          "name": "G",
+          "net": "GND"
+        },
+        "13": {
+          "name": "H",
+          "net": "GND"
+        },
+        "14": {
+          "name": "VDD",
+          "net": "VCC5V"
+        }
+      },
+      "description": "OR Gate 4-Element 2-IN CMOS 14-Pin SOIC T/R",
+      "comment": "CD4071BM96"
+    },
+    "TP13": {
+      "pins": {
+        "1": "TPS_ON"
+      },
+      "comment": "Test Point"
+    },
+    "TP14": {
+      "pins": {
+        "1": "BSE_ON"
+      },
+      "comment": "Test Point"
+    },
+    "U4": {
+      "pins": {
+        "1": {
+          "name": "A",
+          "net": "TPS_ON"
+        },
+        "2": {
+          "name": "B",
+          "net": "BSE_ON"
+        },
+        "3": {
+          "name": "J",
+          "net": "BOTH_ON"
+        },
+        "4": {
+          "name": "K",
+          "net": ""
+        },
+        "5": {
+          "name": "C",
+          "net": "VCC5V"
+        },
+        "6": {
+          "name": "D",
+          "net": "VCC5V"
+        },
+        "7": {
+          "name": "VSS",
+          "net": "GND"
+        },
+        "8": {
+          "name": "E",
+          "net": "VCC5V"
+        },
+        "9": {
+          "name": "F",
+          "net": "VCC5V"
+        },
+        "10": {
+          "name": "L",
+          "net": ""
+        },
+        "11": {
+          "name": "M",
+          "net": ""
+        },
+        "12": {
+          "name": "G",
+          "net": "VCC5V"
+        },
+        "13": {
+          "name": "H",
+          "net": "VCC5V"
+        },
+        "14": {
+          "name": "VDD",
+          "net": "VCC5V"
+        }
+      },
+      "description": "TEXAS INSTRUMENTS - CD4081BM96 - AND Gate, CD4081, 8 Input, 6.8 mA, 3 V to 18 V, SOIC-14",
+      "comment": "CD4081BM96"
+    },
+    "TP15": {
+      "pins": {
+        "1": "BOTH_ON"
+      },
+      "comment": "Test Point"
+    },
+    "U8": {
+      "pins": {
+        "1": {
+          "name": "OUT2",
+          "net": "NetU2_11"
+        },
+        "2": {
+          "name": "OUT1",
+          "net": "NetU2_11"
+        },
+        "3": {
+          "name": "V+",
+          "net": "VCC5V"
+        },
+        "4": {
+          "name": "IN1-",
+          "net": "NetU2_11"
+        },
+        "5": {
+          "name": "IN1+",
+          "net": "BOTH_TRIG"
+        },
+        "6": {
+          "name": "IN2-",
+          "net": "NetU2_11"
+        },
+        "7": {
+          "name": "IN2+",
+          "net": "SENSOR_TRIG"
+        },
+        "8": {
+          "name": "IN3-",
+          "net": "NetR27_1"
+        },
+        "9": {
+          "name": "IN3+",
+          "net": "NetR28_2"
+        },
+        "10": {
+          "name": "IN4-",
+          "net": "NetR29_1"
+        },
+        "11": {
+          "name": "IN4+",
+          "net": "NetR30_2"
+        },
+        "12": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "13": {
+          "name": "OUT4",
+          "net": ""
+        },
+        "14": {
+          "name": "OUT3",
+          "net": ""
+        }
+      },
+      "description": "TEXAS INSTRUMENTS   LP339M/NOPB   LOW POWER COMPARATOR, QUAD, 8 uS, SOIC-14",
+      "comment": "LP339M/NOPB"
+    },
+    "U6": {
+      "pins": {
+        "1": {
+          "name": "OUT2",
+          "net": "SENSOR_DC"
+        },
+        "2": {
+          "name": "OUT1",
+          "net": "SENSOR_DC"
+        },
+        "3": {
+          "name": "V+",
+          "net": "VCC5V"
+        },
+        "4": {
+          "name": "IN1-",
+          "net": "NetR17_1"
+        },
+        "5": {
+          "name": "IN1+",
+          "net": "TPS1"
+        },
+        "6": {
+          "name": "IN2-",
+          "net": "NetR17_1"
+        },
+        "7": {
+          "name": "IN2+",
+          "net": "TPS2"
+        },
+        "8": {
+          "name": "IN3-",
+          "net": "NetR17_1"
+        },
+        "9": {
+          "name": "IN3+",
+          "net": "BSE1"
+        },
+        "10": {
+          "name": "IN4-",
+          "net": "NetR17_1"
+        },
+        "11": {
+          "name": "IN4+",
+          "net": "BSE2"
+        },
+        "12": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "13": {
+          "name": "OUT4",
+          "net": "SENSOR_DC"
+        },
+        "14": {
+          "name": "OUT3",
+          "net": "SENSOR_DC"
+        }
+      },
+      "description": "TEXAS INSTRUMENTS   LP339M/NOPB   LOW POWER COMPARATOR, QUAD, 8 uS, SOIC-14",
+      "comment": "LP339M/NOPB"
+    },
+    "TP17": {
+      "pins": {
+        "1": "BOTH_TRIG"
+      },
+      "comment": "Test Point"
+    },
+    "R17": {
+      "pins": {
+        "1": "NetR17_1",
+        "2": "VCC5V"
+      },
+      "manufacturer": "Yageo",
+      "description": "RES SMD 499K OHM 1% 1/8W 0805",
+      "value": "499 kOhms"
+    },
+    "R22": {
+      "pins": {
+        "1": "GND",
+        "2": "NetR17_1"
+      },
+      "manufacturer": "Yageo",
+      "description": "RES SMD 2K OHM 1% 1/8W 0805",
+      "value": "2 kOhms"
+    },
+    "U5": {
+      "pins": {
+        "1": {
+          "name": "IN",
+          "net": "SENSOR_DC"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "3": {
+          "name": "SET",
+          "net": "NetR36_2"
+        },
+        "4": {
+          "name": "DIV",
+          "net": "NetR34_2"
+        },
+        "5": {
+          "name": "V+",
+          "net": "VCC5V"
+        },
+        "6": {
+          "name": "OUT",
+          "net": "SENSOR_TRIG"
+        }
+      },
+      "description": "Programmable Delay Block 6-Pin TSOT-23 T/R",
+      "comment": "LTC6994CS6-1#TRMPBF"
+    },
+    "U7": {
+      "pins": {
+        "1": {
+          "name": "IN",
+          "net": "BOTH_ON"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "3": {
+          "name": "SET",
+          "net": "NetR33_2"
+        },
+        "4": {
+          "name": "DIV",
+          "net": "NetR31_2"
+        },
+        "5": {
+          "name": "V+",
+          "net": "VCC5V"
+        },
+        "6": {
+          "name": "OUT",
+          "net": "BOTH_TRIG"
+        }
+      },
+      "description": "Programmable Delay Block 6-Pin TSOT-23 T/R",
+      "comment": "LTC6994CS6-1#TRMPBF"
+    },
+    "TP18": {
+      "pins": {
+        "1": "SENSOR_TRIG"
+      },
+      "comment": "Test Point"
+    },
+    "TP16": {
+      "pins": {
+        "1": "SENSOR_DC"
+      },
+      "comment": "Test Point"
+    },
+    "R23": {
+      "pins": {
+        "1": "GND",
+        "2": "BSE2"
+      },
+      "manufacturer": "Stackpole Electronics Inc",
+      "description": "RES 1K OHM 0.1% 1/10W 0805",
+      "value": "1 kOhms"
+    },
+    "R24": {
+      "pins": {
+        "1": "GND",
+        "2": "BSE1"
+      },
+      "manufacturer": "Stackpole Electronics Inc",
+      "description": "RES 1K OHM 0.1% 1/10W 0805",
+      "value": "1 kOhms"
+    },
+    "R25": {
+      "pins": {
+        "1": "GND",
+        "2": "TPS2"
+      },
+      "manufacturer": "Stackpole Electronics Inc",
+      "description": "RES 1K OHM 0.1% 1/10W 0805",
+      "value": "1 kOhms"
+    },
+    "R26": {
+      "pins": {
+        "1": "GND",
+        "2": "TPS1"
+      },
+      "manufacturer": "Stackpole Electronics Inc",
+      "description": "RES 1K OHM 0.1% 1/10W 0805",
+      "value": "1 kOhms"
+    },
+    "U9": {
+      "pins": {
+        "1": {
+          "name": "Q4",
+          "net": ""
+        },
+        "2": {
+          "name": "NC",
+          "net": ""
+        },
+        "3": {
+          "name": "S1",
+          "net": "TRIG_N"
+        },
+        "4": {
+          "name": "R1",
+          "net": "RESET"
+        },
+        "5": {
+          "name": "ENABLE",
+          "net": "VCC5V"
+        },
+        "6": {
+          "name": "R2",
+          "net": "GND"
+        },
+        "7": {
+          "name": "S2",
+          "net": "GND"
+        },
+        "8": {
+          "name": "VSS",
+          "net": "GND"
+        },
+        "9": {
+          "name": "Q2",
+          "net": ""
+        },
+        "10": {
+          "name": "Q3",
+          "net": ""
+        },
+        "11": {
+          "name": "S3",
+          "net": "GND"
+        },
+        "12": {
+          "name": "R3",
+          "net": "GND"
+        },
+        "13": {
+          "name": "Q1",
+          "net": "FLAG_OUT_N"
+        },
+        "14": {
+          "name": "R4",
+          "net": "GND"
+        },
+        "15": {
+          "name": "S4",
+          "net": "GND"
+        },
+        "16": {
+          "name": "VDD",
+          "net": "VCC5V"
+        }
+      },
+      "description": "IC, QUAD NAND R/S-LATCH, 3-STATE, SOP-16, FULL REEL; Latch Type:SR; Output Current:-; Propagation Delay:50ns; Supply Voltage Min:3V; Supply Voltage Max:18V; Logic Case Style:SOIC; No. of Pins:16; No. of Bits:4bit ;RoHS Compliant: Yes",
+      "comment": "CD4044BNSR"
+    },
+    "U11": {
+      "pins": {
+        "1": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "2": {
+          "name": "OUT",
+          "net": "VCC5V"
+        },
+        "3": {
+          "name": "IN",
+          "net": "VCC12V"
+        },
+        "4": {
+          "name": "TAB",
+          "net": "VCC5V"
+        }
+      },
+      "description": "800-mA 15-V linear voltage regulator 4-SOT-223 0 to 125",
+      "comment": "LM1117MPX-5.0/NOPB"
+    },
+    "C2": {
+      "pins": {
+        "1": "VCC5V",
+        "2": "GND"
+      },
+      "manufacturer": "Panasonic Electronic Components",
+      "description": "CAP ALUM 10UF 20% 50V SMD",
+      "value": "10µF"
+    },
+    "C1": {
+      "pins": {
+        "1": "VCC12V",
+        "2": "GND"
+      },
+      "manufacturer": "Panasonic Electronic Components",
+      "description": "CAP ALUM 10UF 20% 50V SMD",
+      "value": "10µF"
+    },
+    "TP19": {
+      "pins": {
+        "1": "TRIG_N"
+      },
+      "comment": "Test Point"
+    },
+    "R27": {
+      "pins": {
+        "1": "NetR27_1",
+        "2": "VCC5V"
+      },
+      "manufacturer": "Yageo",
+      "description": "RES SMD 10K OHM 1% 1/8W 0805",
+      "value": "10 kOhms"
+    },
+    "R28": {
+      "pins": {
+        "1": "GND",
+        "2": "NetR28_2"
+      },
+      "manufacturer": "Yageo",
+      "description": "RES SMD 10K OHM 1% 1/8W 0805",
+      "value": "10 kOhms"
+    },
+    "R29": {
+      "pins": {
+        "1": "NetR29_1",
+        "2": "VCC5V"
+      },
+      "manufacturer": "Yageo",
+      "description": "RES SMD 10K OHM 1% 1/8W 0805",
+      "value": "10 kOhms"
+    },
+    "R30": {
+      "pins": {
+        "1": "GND",
+        "2": "NetR30_2"
+      },
+      "manufacturer": "Yageo",
+      "description": "RES SMD 10K OHM 1% 1/8W 0805",
+      "value": "10 kOhms"
+    },
+    "R41": {
+      "pins": {
+        "1": "GND",
+        "2": "FLAG_OUT_N"
+      },
+      "manufacturer": "Yageo",
+      "description": "RES SMD 10K OHM 1% 1/8W 0805",
+      "value": "10 kOhms"
+    },
+    "C4": {
+      "pins": {
+        "1": "GND",
+        "2": "VCC5V"
+      },
+      "manufacturer": "Vishay Vitramon",
+      "description": "CAP CER 0.1UF 25V X7R 0805",
+      "value": "0.1µF"
+    },
+    "R36": {
+      "pins": {
+        "1": "GND",
+        "2": "NetR36_2"
+      },
+      "manufacturer": "Yageo",
+      "description": "RES SMD 154K OHM 1% 1/8W 0805",
+      "value": "154 kOhms"
+    },
+    "C3": {
+      "pins": {
+        "1": "GND",
+        "2": "VCC5V"
+      },
+      "manufacturer": "Vishay Vitramon",
+      "description": "CAP CER 0.1UF 25V X7R 0805",
+      "value": "0.1µF"
+    },
+    "R34": {
+      "pins": {
+        "1": "VCC5V",
+        "2": "NetR34_2"
+      },
+      "manufacturer": "Yageo",
+      "description": "RES SMD 1M OHM 1% 1/8W 0805",
+      "value": "1M"
+    },
+    "R35": {
+      "pins": {
+        "1": "GND",
+        "2": "NetR34_2"
+      },
+      "manufacturer": "Yageo",
+      "description": "RES SMD 523K OHM 1% 1/8W 0805",
+      "value": "523k"
+    },
+    "R31": {
+      "pins": {
+        "1": "VCC5V",
+        "2": "NetR31_2"
+      },
+      "manufacturer": "Yageo",
+      "description": "RES SMD 1M OHM 1% 1/8W 0805",
+      "value": "1M"
+    },
+    "R33": {
+      "pins": {
+        "1": "GND",
+        "2": "NetR33_2"
+      },
+      "manufacturer": "Yageo",
+      "description": "RES SMD 191K OHM 1% 1/8W 0805",
+      "value": "191 kOhms"
+    },
+    "R32": {
+      "pins": {
+        "1": "GND",
+        "2": "NetR31_2"
+      },
+      "manufacturer": "Stackpole Electronics Inc",
+      "description": "RES 681K OHM 1% 1/8W 0805",
+      "value": "681k"
+    },
+    "U10": {
+      "pins": {
+        "1": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "2": {
+          "name": "TRIG",
+          "net": "NetC8_1"
+        },
+        "3": {
+          "name": "OUT",
+          "net": "NetR40_2"
+        },
+        "4": {
+          "name": "RST",
+          "net": "VCC5V"
+        },
+        "5": {
+          "name": "CVOLT",
+          "net": "NetC5_2"
+        },
+        "6": {
+          "name": "THR",
+          "net": "NetC7_1"
+        },
+        "7": {
+          "name": "DIS",
+          "net": "NetC6_1"
+        },
+        "8": {
+          "name": "+VCC",
+          "net": "VCC5V"
+        }
+      },
+      "description": "IC OSC SGL TIMER 100KHZ 8-SOIC",
+      "comment": "LM555CM"
+    },
+    "C6": {
+      "pins": {
+        "1": "NetC6_1",
+        "2": "GND"
+      },
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 4.7UF 25V X5R 0805",
+      "value": "4.7µF"
+    },
+    "R39": {
+      "pins": {
+        "1": "GND",
+        "2": "VCC5V"
+      },
+      "manufacturer": "Yageo",
+      "description": "RES SMD 10K OHM 1% 1/8W 0805",
+      "value": "10 kOhms"
+    },
+    "R38": {
+      "pins": {
+        "1": "NetC7_1",
+        "2": "VCC5V"
+      },
+      "manufacturer": "Yageo",
+      "description": "RES SMD 10K OHM 1% 1/8W 0805",
+      "value": "10 kOhms"
+    },
+    "C7": {
+      "pins": {
+        "1": "NetC7_1",
+        "2": "GND"
+      },
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 4.7UF 25V X5R 0805",
+      "value": "4.7µF"
+    },
+    "C5": {
+      "pins": {
+        "1": "GND",
+        "2": "NetC5_2"
+      },
+      "manufacturer": "Vishay Vitramon",
+      "description": "CAP CER 0.1UF 25V X7R 0805",
+      "value": "0.1µF"
+    },
+    "R37": {
+      "pins": {
+        "1": "GND",
+        "2": "NetC8_1"
+      },
+      "manufacturer": "Yageo",
+      "description": "RES SMD 10K OHM 1% 1/8W 0805",
+      "value": "10 kOhms"
+    },
+    "C8": {
+      "pins": {
+        "1": "NetC8_1",
+        "2": "VCC5V"
+      },
+      "manufacturer": "Vishay Vitramon",
+      "description": "CAP CER 1UF 25V X7R 0805",
+      "value": "1µF"
+    },
+    "TP20": {
+      "pins": {
+        "1": "RESET"
+      },
+      "comment": "Test Point"
+    },
+    "SW1": {
+      "pins": {
+        "1": "NetR40_2",
+        "2": "RESET"
+      },
+      "description": "Switch DIP OFF ON SPST 1 Raised Slide 0.1A 24VDC Gull Wing 1000Cycles SMD Tube",
+      "comment": "SDA01H1SBD"
+    },
+    "R40": {
+      "pins": {
+        "1": "RESET",
+        "2": "NetR40_2"
+      },
+      "manufacturer": "Stackpole Electronics Inc",
+      "description": "RES 1K OHM 0.1% 1/10W 0805",
+      "value": "1 kOhms"
+    },
+    "TP1": {
+      "pins": {
+        "1": "TPS1_ADJ"
+      },
+      "comment": "Test Point"
+    },
+    "TP2": {
+      "pins": {
+        "1": "TPS2_ADJ"
+      },
+      "comment": "Test Point"
+    },
+    "TP3": {
+      "pins": {
+        "1": "BSE1_ADJ"
+      },
+      "comment": "Test Point"
+    },
+    "TP4": {
+      "pins": {
+        "1": "BSE2_ADJ"
+      },
+      "comment": "Test Point"
+    }
+  }
+}

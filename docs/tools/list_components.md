@@ -15,6 +15,7 @@ The prefix is matched whole, not as a leading substring: `U` returns `U1` and `U
 | `design` | string | Yes | - | Path to design file (e.g., `./Design.PrjPcb`) |
 | `type` | string | Yes | - | Whole refdes prefix: `U`, `C`, `R`, `L`, `J`, `D`, `Q`, `TP`, `USB`, etc. |
 | `include_dns` | boolean | No | `false` | Include DNS (Do Not Stuff) components |
+| `variant` | string | Conditional | - | Required when `list_variants` returns native names; pass one of them or `<Default>` |
 
 ## Response Schema
 

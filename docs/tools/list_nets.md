@@ -11,6 +11,7 @@ Returns all net names defined in the design, sorted alphabetically. Use this to 
 | Parameter | Type | Required | Default | Description |
 |-----------|------|----------|---------|-------------|
 | `design` | string | Yes | - | Path to design file |
+| `variant` | string | Conditional | - | Required when `list_variants` returns native names; pass one of them or `<Default>` |
 
 ## Response Schema
 

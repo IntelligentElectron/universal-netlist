@@ -12,6 +12,7 @@ Returns detailed information about a specific component, including MPN, descript
 |-----------|------|----------|---------|-------------|
 | `design` | string | Yes | - | Path to design file |
 | `refdes` | string | Yes | - | Component reference designator (e.g., `U1`, `R10`) |
+| `variant` | string | Conditional | - | Required when `list_variants` returns native names; pass one of them or `<Default>` |
 
 ## Response Schema
 

@@ -19,6 +19,7 @@ A group is returned once however many of its numbers matched.
 | `pattern` | string | Yes | - | Regex pattern for either part number (case-insensitive) |
 | `design` | string | Yes | - | Path to design file |
 | `include_dns` | boolean | No | `false` | Include DNS components |
+| `variant` | string | Conditional | - | Required when `list_variants` returns native names; pass one of them or `<Default>` |
 
 ## Response Schema
 

@@ -3,6 +3,7 @@
 | Tool | Description |
 |------|-------------|
 | [`list_designs`](list_designs.md) | List all design projects in a directory |
+| [`list_variants`](list_variants.md) | List the core design and native assembly variants |
 | [`list_components`](list_components.md) | List components of a specific type in a design |
 | [`list_nets`](list_nets.md) | List all net names in a design |
 | [`search_nets`](search_nets.md) | Search for nets matching a regex pattern |

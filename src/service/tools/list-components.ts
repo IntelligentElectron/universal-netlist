@@ -10,13 +10,15 @@ import { isErrorResult, type ListComponentsResult, type ErrorResult } from "../.
  * @param design - Path to design file
  * @param type - Component type prefix (e.g., "U", "R", "C")
  * @param includeDns - Include DNS (Do Not Stuff) components
+ * @param variant - Named assembly variant, or `<Default>` for the core design
  */
 export const listComponents = async (
   design: string,
   type: string,
-  includeDns = false
+  includeDns = false,
+  variant?: string
 ): Promise<ListComponentsResult | ErrorResult> => {
-  const netlist = await loadNetlist(design);
+  const netlist = await loadNetlist(design, variant);
   if (isErrorResult(netlist)) {
     return netlist;
   }

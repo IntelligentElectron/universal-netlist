@@ -19,6 +19,7 @@ import {
 } from "./telemetry/index.js";
 import {
   listDesigns,
+  listVariants,
   listComponents,
   listNets,
   searchNets,
@@ -34,6 +35,7 @@ import {
 import {
   SERVER_INSTRUCTIONS,
   LIST_DESIGNS_DESCRIPTION,
+  LIST_VARIANTS_DESCRIPTION,
   LIST_COMPONENTS_DESCRIPTION,
   LIST_NETS_DESCRIPTION,
   SEARCH_NETS_DESCRIPTION,
@@ -78,6 +80,15 @@ const READ_ONLY = {
   idempotentHint: true,
   openWorldHint: false,
 } as const;
+
+/** One native assembly variant, or the explicit unmodified/core design. */
+const VARIANT_ARGUMENT = z
+  .string()
+  .min(1)
+  .optional()
+  .describe(
+    "Assembly variant name returned by list_variants, or <Default> for the unmodified/core design"
+  );
 
 /**
  * `export_cadence_netlist` runs Cadence's own exporter, which writes a netlist
@@ -150,6 +161,25 @@ export const createServer = (): McpServer => {
   );
 
   // -------------------------------------------------------------------------
+  // Tool: list_variants
+  // -------------------------------------------------------------------------
+  server.registerTool(
+    "list_variants",
+    {
+      title: "List design variants",
+      description: LIST_VARIANTS_DESCRIPTION,
+      annotations: READ_ONLY,
+      inputSchema: z.strictObject({
+        design: z.string().describe("Path to design file, as returned by list_designs"),
+      }),
+    },
+    withTelemetry("list_variants", async ({ design }) => {
+      const result = await listVariants(design);
+      return formatResult(result);
+    })
+  );
+
+  // -------------------------------------------------------------------------
   // Tool: list_components
   // -------------------------------------------------------------------------
   server.registerTool(
@@ -166,10 +196,11 @@ export const createServer = (): McpServer => {
           .optional()
           .default(false)
           .describe("Include DNS (Do Not Stuff) components"),
+        variant: VARIANT_ARGUMENT,
       }),
     },
-    withTelemetry("list_components", async ({ design, type, include_dns }) => {
-      const result = await listComponents(design, type, include_dns);
+    withTelemetry("list_components", async ({ design, type, include_dns, variant }) => {
+      const result = await listComponents(design, type, include_dns, variant);
       return formatResult(result);
     })
   );
@@ -185,10 +216,11 @@ export const createServer = (): McpServer => {
       annotations: READ_ONLY,
       inputSchema: z.strictObject({
         design: z.string().describe("Path to design file"),
+        variant: VARIANT_ARGUMENT,
       }),
     },
-    withTelemetry("list_nets", async ({ design }) => {
-      const result = await listNets(design);
+    withTelemetry("list_nets", async ({ design, variant }) => {
+      const result = await listNets(design, variant);
       return formatResult(result);
     })
   );
@@ -205,10 +237,11 @@ export const createServer = (): McpServer => {
       inputSchema: z.strictObject({
         pattern: z.string().describe("Regex pattern"),
         design: z.string().describe("Path to design file"),
+        variant: VARIANT_ARGUMENT,
       }),
     },
-    withTelemetry("search_nets", async ({ pattern, design }) => {
-      const result = await searchNets(pattern, design);
+    withTelemetry("search_nets", async ({ pattern, design, variant }) => {
+      const result = await searchNets(pattern, design, variant);
       return formatResult(result);
     })
   );
@@ -226,12 +259,16 @@ export const createServer = (): McpServer => {
         pattern: z.string().describe("Regex pattern for refdes"),
         design: z.string().describe("Path to design file"),
         include_dns: z.boolean().optional().default(false).describe("Include DNS components"),
+        variant: VARIANT_ARGUMENT,
       }),
     },
-    withTelemetry("search_components_by_refdes", async ({ pattern, design, include_dns }) => {
-      const result = await searchComponentsByRefdes(pattern, design, include_dns);
-      return formatResult(result);
-    })
+    withTelemetry(
+      "search_components_by_refdes",
+      async ({ pattern, design, include_dns, variant }) => {
+        const result = await searchComponentsByRefdes(pattern, design, include_dns, variant);
+        return formatResult(result);
+      }
+    )
   );
 
   // -------------------------------------------------------------------------
@@ -247,10 +284,11 @@ export const createServer = (): McpServer => {
         pattern: z.string().describe("Regex pattern for MPN"),
         design: z.string().describe("Path to design file"),
         include_dns: z.boolean().optional().default(false).describe("Include DNS components"),
+        variant: VARIANT_ARGUMENT,
       }),
     },
-    withTelemetry("search_components_by_mpn", async ({ pattern, design, include_dns }) => {
-      const result = await searchComponentsByMpn(pattern, design, include_dns);
+    withTelemetry("search_components_by_mpn", async ({ pattern, design, include_dns, variant }) => {
+      const result = await searchComponentsByMpn(pattern, design, include_dns, variant);
       return formatResult(result);
     })
   );
@@ -268,12 +306,16 @@ export const createServer = (): McpServer => {
         pattern: z.string().describe("Regex pattern for description"),
         design: z.string().describe("Path to design file"),
         include_dns: z.boolean().optional().default(false).describe("Include DNS components"),
+        variant: VARIANT_ARGUMENT,
       }),
     },
-    withTelemetry("search_components_by_description", async ({ pattern, design, include_dns }) => {
-      const result = await searchComponentsByDescription(pattern, design, include_dns);
-      return formatResult(result);
-    })
+    withTelemetry(
+      "search_components_by_description",
+      async ({ pattern, design, include_dns, variant }) => {
+        const result = await searchComponentsByDescription(pattern, design, include_dns, variant);
+        return formatResult(result);
+      }
+    )
   );
 
   // -------------------------------------------------------------------------
@@ -293,12 +335,19 @@ export const createServer = (): McpServer => {
           .optional()
           .describe("Component prefixes to exclude (e.g., ['C', 'L'])"),
         include_dns: z.boolean().optional().default(false).describe("Include DNS components"),
+        variant: VARIANT_ARGUMENT,
       }),
     },
     withTelemetry(
       "query_xnet_by_net_name",
-      async ({ design, net_name, skip_types, include_dns }) => {
-        const result = await queryXnetByNetName(design, net_name, skip_types, include_dns);
+      async ({ design, net_name, skip_types, include_dns, variant }) => {
+        const result = await queryXnetByNetName(
+          design,
+          net_name,
+          skip_types,
+          include_dns,
+          variant
+        );
         return formatResult(result);
       }
     )
@@ -318,12 +367,19 @@ export const createServer = (): McpServer => {
         pin_name: z.string().describe("Pin spec: REFDES.PIN (e.g., U2.10, U1.A5)"),
         skip_types: z.array(z.string()).optional().describe("Component prefixes to exclude"),
         include_dns: z.boolean().optional().default(false).describe("Include DNS components"),
+        variant: VARIANT_ARGUMENT,
       }),
     },
     withTelemetry(
       "query_xnet_by_pin_name",
-      async ({ design, pin_name, skip_types, include_dns }) => {
-        const result = await queryXnetByPinName(design, pin_name, skip_types, include_dns);
+      async ({ design, pin_name, skip_types, include_dns, variant }) => {
+        const result = await queryXnetByPinName(
+          design,
+          pin_name,
+          skip_types,
+          include_dns,
+          variant
+        );
         return formatResult(result);
       }
     )
@@ -341,10 +397,11 @@ export const createServer = (): McpServer => {
       inputSchema: z.strictObject({
         design: z.string().describe("Path to design file"),
         refdes: z.string().describe("Component reference designator"),
+        variant: VARIANT_ARGUMENT,
       }),
     },
-    withTelemetry("query_component", async ({ design, refdes }) => {
-      const result = await queryComponent(design, refdes);
+    withTelemetry("query_component", async ({ design, refdes, variant }) => {
+      const result = await queryComponent(design, refdes, variant);
       return formatResult(result);
     })
   );
@@ -370,16 +427,21 @@ export const createServer = (): McpServer => {
           .optional()
           .describe("Only run these rule ids (e.g., ['net.single_pin']). Omit for all"),
         exclude_rules: z.array(z.string()).optional().describe("Skip these rule ids"),
+        variant: VARIANT_ARGUMENT,
       }),
     },
-    withTelemetry("run_erc", async ({ design, include_dns, include_rules, exclude_rules }) => {
-      const result = await runErc(design, {
-        includeDns: include_dns,
-        includeRules: include_rules,
-        excludeRules: exclude_rules,
-      });
-      return formatResult(result);
-    })
+    withTelemetry(
+      "run_erc",
+      async ({ design, include_dns, include_rules, exclude_rules, variant }) => {
+        const result = await runErc(design, {
+          includeDns: include_dns,
+          includeRules: include_rules,
+          excludeRules: exclude_rules,
+          variant,
+        });
+        return formatResult(result);
+      }
+    )
   );
 
   // -------------------------------------------------------------------------

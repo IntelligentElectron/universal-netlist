@@ -12,6 +12,7 @@ Searches all net names in a design using a regular expression pattern. Useful fo
 |-----------|------|----------|---------|-------------|
 | `pattern` | string | Yes | - | Regex pattern to match against net names |
 | `design` | string | Yes | - | Path to design file |
+| `variant` | string | Conditional | - | Required when `list_variants` returns native names; pass one of them or `<Default>` |
 
 ## Response Schema
 

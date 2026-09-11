@@ -26,8 +26,8 @@ dormant in MCP.
 | Reaches the CIS BOM | Yes | Yes |
 | Recoverable from the `.dat` triad alone | Yes | **No** |
 
-Both are read, and a component flagged by either reports `dns: true`. A design may
-use one, the other, or both at once.
+Both are read for the selected assembly, and a component flagged by either reports
+`dns: true`. A design may use one, the other, or both at once.
 
 ## A. A marker in the part's value
 
@@ -50,10 +50,11 @@ The marker is stripped out of the reported value (`"10K,DNI"` reads back as
 
 ## B. A CIS variant
 
-Variants are a database feature. A group named `DNI`, `DNP`, `DNM` or anything
-else collects the occurrences a variant leaves off the board, and the alternate
-BOM CIS generates writes those parts with Quantity 0. Nothing is written into the
-part's value, its name, or its properties.
+Variants are a database feature. Groups collect occurrence-level stuffed or
+unstuffed states, and each named BOM variant records exactly which groups make up
+that assembly. The alternate BOM CIS generates writes the resulting unstuffed
+parts with Quantity 0. Nothing is written into the part's value, its name, or its
+properties.
 
 **A part unstuffed this way is indistinguishable from a stuffed one in the
 exported netlist.** It keeps an ordinary `VALUE` in `pstchip.dat`, an ordinary
@@ -93,8 +94,9 @@ MH1     HOLE_NPL_MTG320_HOLE_3.2MM_NPL     value "HOLE_3.2mm"  -> variant only
 Nothing about it is unusual, and nothing in the exported netlist could ever tell
 you it is not fitted.
 
-Reading both mechanisms returns exactly those 25, with nothing missing and
-nothing invented, through the schematic parser and the retained DAT regression path.
+Selecting the `Standard` BOM variant and reading both mechanisms returns exactly
+those 25, with nothing missing and nothing invented, through the schematic parser
+and the retained DAT regression path.
 
 ## What this means in practice
 
@@ -113,20 +115,30 @@ or use the alternate BOM as the statement of what gets built.
 DNI parts in a design are generic R/C/U with ordinary values, it is mechanism B
 and the netlist alone has never been able to answer.
 
+## Selecting an assembly
+
+Call `list_variants` with the `.DSN` path first. It returns `<Default>` and every
+native BOM variant found under `CIS/VariantStore/BOM`. When native variants exist,
+every design query requires one explicit selector:
+
+- `<Default>` reads the core schematic and only its intrinsic value/property DNS
+  markers.
+- A native variant reads that variant's exact group-membership stream, applies
+  only those groups, and then combines the result with intrinsic markers.
+
+Variant names match case-insensitively but retain their native spelling in
+results. An omitted or unknown selector is an error; the server never guesses
+which assembly the caller meant.
+
 ## Limits
 
-- **One answer per design, not per variant.** What is reported is the union: a
-  part some group leaves off the board and no group puts on. For a design with a
-  single BOM variant this is that variant's set exactly. For a design with two
-  variants whose unstuffed sets genuinely differ, there is no way to ask for one
-  of them, and the union matches neither.
 - **Graphical text is invisible.** A `DNP` drawn on the sheet as free-floating
   text, with no property behind it, exists in no file as anything but a drawing.
   Put the marker in the Value, or use a variant.
 - **`BOMPartData` is not a stuffed list.** Each `CIS/VariantStore/BOM/<variant>/BOMPartData`
   is decoded but deliberately unused: on `reServer J2032` none of its 30 ids are
   occurrence ids at all, and on `LAUNCHXL-CC1310` the ids that do resolve include
-  parts the design does not stuff. Section 11.3 of the format specification has
+  parts the design does not stuff. Section 11.4 of the format specification has
   the measurements.
 
 ## See also

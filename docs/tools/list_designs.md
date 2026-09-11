@@ -89,6 +89,7 @@ Response:
 
 - `path` is always the recommended path to pass to other tools
 - Generating a netlist is not a step towards querying a Cadence design. Every tool reads the `.DSN` directly, on every platform
-- For KiCad designs, `path` is the `.kicad_pro`; the netlist is resolved automatically when queried (committed `.net` export if present, otherwise generated via `kicad-cli`), so no manual export step is needed
+- Call `list_variants` before querying a design. If native names are present, choose one explicitly or use `<Default>` for the core design
+- For KiCad designs, `path` is the `.kicad_pro`; `<Default>` uses the committed `.net` export when present, while a native variant is generated via `kicad-cli --variant`, so no manual export step is needed
 - For Universal Netlist designs, `name` is the file basename without `.netlist.json`
 - The `pattern` parameter filters on the design `name`, not the full path

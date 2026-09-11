@@ -14,6 +14,7 @@ Traces circuit connectivity starting from a net name, traversing through series 
 | `net_name` | string | Yes | - | Exact net name to start from |
 | `skip_types` | string[] | No | `[]` | Component prefixes to exclude (e.g., `["C", "L"]`) |
 | `include_dns` | boolean | No | `false` | Include DNS components |
+| `variant` | string | Conditional | - | Required when `list_variants` returns native names; pass one of them or `<Default>` |
 
 ## Response Schema
 
