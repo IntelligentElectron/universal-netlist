@@ -107,7 +107,9 @@ class SpatialIndex {
 
     const recordType = device.RECORD;
     if (
-      (recordType === RECORD_TYPES.WIRE || recordType === RECORD_TYPES.PIN) &&
+      (recordType === RECORD_TYPES.WIRE ||
+        recordType === RECORD_TYPES.PIN ||
+        recordType === RECORD_TYPES.PORT) &&
       device.coords.length > 1
     ) {
       for (let i = 0; i < device.coords.length - 1; i++) {
@@ -165,7 +167,10 @@ const getLineSegments = (device: AltiumRecord): LineSegment[] => {
     return segments;
   }
 
-  if (device.RECORD === RECORD_TYPES.PIN && device.coords.length > 1) {
+  if (
+    (device.RECORD === RECORD_TYPES.PIN || device.RECORD === RECORD_TYPES.PORT) &&
+    device.coords.length > 1
+  ) {
     return [[device.coords[0], device.coords[1]]];
   }
 

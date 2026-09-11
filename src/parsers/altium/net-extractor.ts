@@ -83,13 +83,22 @@ const findConnectableDevices = (schematic: AltiumSchematic): AltiumRecord[] => {
     // Harness entries are given a Location by positionHarnessEntries(); a wire
     // landing on one joins the signal that entry names.
     RECORD_TYPES.HARNESS_ENTRY,
-    // Note: SHEET_ENTRY (16) is NOT included here. It uses DISTANCEFROMTOP relative to its
-    // parent SHEET_SYMBOL, not absolute Location.X/Y. Cross-sheet connectivity is handled
-    // by multi-channel expansion in parseAltiumProject() instead.
+    // A sheet entry is positioned by positionSheetEntries() from the sheet
+    // symbol that owns it; a wire landing on it joins the signal the entry
+    // carries down to the child sheet.
+    RECORD_TYPES.SHEET_ENTRY,
   ]);
 
   const collectDevices = (records: AltiumRecord[]): void => {
     for (const record of records) {
+      if (record.RECORD === RECORD_TYPES.SHEET_SYMBOL) positionSheetEntries(record);
+      // A harness-typed entry carries a bundle, which the harness code joins; a
+      // bus-notation entry meets a bus line, which is not traced. Neither is a
+      // single-signal connection point, and an entry that could not be placed
+      // must not sit at the origin touching every other such entry.
+      if (record.RECORD === RECORD_TYPES.SHEET_ENTRY && !isSignalSheetEntry(record)) {
+        continue;
+      }
       if (record.RECORD === RECORD_TYPES.PIN && !pinIsLive(record, schematic, duplicates)) {
         continue;
       }
@@ -110,6 +119,52 @@ const findConnectableDevices = (schematic: AltiumSchematic): AltiumRecord[] => {
 
   collectDevices(schematic.records);
   return devices;
+};
+
+/**
+ * Whether a sheet entry is a single-signal connection point with a position.
+ */
+export const isSignalSheetEntry = (entry: AltiumRecord): boolean => {
+  if (entry.HarnessType ?? entry.HARNESSTYPE) return false;
+  const name = String(entry.Name ?? entry.NAME ?? "");
+  if (!name || /\[/.test(name) || /^Repeat\(/i.test(name)) return false;
+  return entry.coords !== undefined && entry.coords.length > 0;
+};
+
+/**
+ * Place a sheet symbol's entries.
+ *
+ * A sheet entry has no location of its own. It sits on one edge of the sheet
+ * symbol that owns it, `Side` saying which (0 left, 1 right, 2 top, 3 bottom),
+ * `DistanceFromTop` grid steps of 10 units down from the symbol's top-left
+ * corner. Verified for the left and right edges, which is where all but a few
+ * dozen of the corpus's 1200 entries sit. An entry on the top or bottom edge
+ * is left unplaced rather than guessed at: the samples seen agree with a
+ * rightward `DistanceFromTop` only some of the time, and an entry placed
+ * wrongly would join a wire it never touches.
+ */
+const positionSheetEntries = (symbol: AltiumRecord): void => {
+  if (!symbol.children) return;
+  const x = scaledCoordinate(
+    symbol["Location.X"] ?? symbol["LOCATION.X"],
+    symbol["Location.X_Frac"] ?? symbol["LOCATION.X_FRAC"]
+  );
+  const y = scaledCoordinate(
+    symbol["Location.Y"] ?? symbol["LOCATION.Y"],
+    symbol["Location.Y_Frac"] ?? symbol["LOCATION.Y_FRAC"]
+  );
+  const width = scaledCoordinate(
+    symbol.XSize ?? symbol.XSIZE,
+    symbol.XSize_Frac ?? symbol.XSIZE_FRAC
+  );
+  for (const entry of symbol.children) {
+    if (entry.RECORD !== RECORD_TYPES.SHEET_ENTRY) continue;
+    const distance =
+      toNumber(entry.DistanceFromTop ?? entry.DISTANCEFROMTOP) * 10 * COORDINATE_SCALE;
+    const side = String(entry.Side ?? entry.SIDE ?? "0");
+    if (side === "1") entry.coords = [[x + width, y - distance]];
+    else if (side === "0") entry.coords = [[x, y - distance]];
+  }
 };
 
 /**
@@ -209,11 +264,41 @@ const calculateSimpleCoordinates = (device: AltiumRecord): void => {
  * - Wires: multiple X/Y coordinate pairs (X1,Y1,X2,Y2,...)
  * - Others: simple LOCATION.X and LOCATION.Y
  */
+/**
+ * Calculate port coordinates.
+ *
+ * A port is drawn as a bar of `Width` starting at its location, to the right
+ * for a horizontal style and upward for a vertical one (`Style` 4 and above),
+ * and a wire may land on either end of the bar. Both ends are kept, as for a
+ * pin, so the port joins whichever end the wire reaches.
+ */
+const calculatePortCoordinates = (device: AltiumRecord): void => {
+  const x = scaledCoordinate(
+    device["Location.X"] ?? device["LOCATION.X"],
+    device["Location.X_Frac"] ?? device["LOCATION.X_FRAC"]
+  );
+  const y = scaledCoordinate(
+    device["Location.Y"] ?? device["LOCATION.Y"],
+    device["Location.Y_Frac"] ?? device["LOCATION.Y_FRAC"]
+  );
+  const width = scaledCoordinate(
+    device["Width"] ?? device["WIDTH"],
+    device["Width_Frac"] ?? device["WIDTH_FRAC"]
+  );
+  const style = parseInt(String(device["Style"] ?? device["STYLE"] ?? "0"), 10);
+  const vertical = style >= 4;
+  device.coords = [[x, y], vertical ? [x, y + width] : [x + width, y]];
+};
+
 const calculateDeviceCoordinates = (device: AltiumRecord): void => {
   if (device.RECORD === RECORD_TYPES.PIN) {
     calculatePinCoordinates(device);
+  } else if (device.RECORD === RECORD_TYPES.PORT) {
+    calculatePortCoordinates(device);
   } else if (device.RECORD === RECORD_TYPES.WIRE) {
     calculateWireCoordinates(device);
+  } else if (device.RECORD === RECORD_TYPES.SHEET_ENTRY) {
+    // Placed from its sheet symbol by positionSheetEntries().
   } else {
     calculateSimpleCoordinates(device);
   }
@@ -343,6 +428,7 @@ const NAMING_PRIORITY: readonly { type: string; source: NonNullable<AltiumNet["n
   { type: RECORD_TYPES.HARNESS_ENTRY, source: "harness" },
   { type: RECORD_TYPES.NET_LABEL, source: "label" },
   { type: RECORD_TYPES.PORT, source: "port" },
+  { type: RECORD_TYPES.SHEET_ENTRY, source: "entry" },
 ];
 
 /**
