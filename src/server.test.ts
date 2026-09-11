@@ -103,7 +103,13 @@ describe("dormant Cadence MCP features", () => {
       })) as ToolResult;
       expect(result.isError).not.toBe(true);
       const listed = JSON.parse(result.content![0].text!);
-      expect(listed.designs).toEqual([{ name: "board", path: join(dir, "board.DSN") }]);
+      expect(listed.designs).toMatchObject([
+        {
+          name: "board",
+          path: join(dir, "board.DSN"),
+          design_variants: [{ name: "<Default>", is_default: true }],
+        },
+      ]);
       expect(cadenceHandler.extensions).toEqual([".dsn"]);
       expect(getSupportedExtensions()).not.toContain(".cpm");
     } finally {
@@ -153,7 +159,8 @@ describe("tool annotations", () => {
     expect(undescribed).toEqual([]);
   });
 
-  it("exposes the assembly variant selector on every design query", () => {
+  it("exposes the design_variant selector on every design query, and no list_variants tool", () => {
+    expect(tools.map((tool) => tool.name)).not.toContain("list_variants");
     const queries = [
       "list_components",
       "list_nets",
@@ -168,8 +175,29 @@ describe("tool annotations", () => {
     ];
     for (const name of queries) {
       expect(tools.find((tool) => tool.name === name)?.inputSchema?.properties).toHaveProperty(
-        "variant"
+        "design_variant"
       );
+    }
+  });
+
+  it("includes DNS parts by default when listing and searching, and leaves them out when traversing", () => {
+    const defaultOf = (name: string): unknown =>
+      (
+        tools.find((tool) => tool.name === name)?.inputSchema?.properties as Record<
+          string,
+          { default?: unknown }
+        >
+      ).include_dns.default;
+    for (const name of [
+      "list_components",
+      "search_components_by_refdes",
+      "search_components_by_mpn",
+      "search_components_by_description",
+    ]) {
+      expect(defaultOf(name), name).toBe(true);
+    }
+    for (const name of ["query_xnet_by_net_name", "query_xnet_by_pin_name", "run_erc"]) {
+      expect(defaultOf(name), name).toBe(false);
     }
   });
 });

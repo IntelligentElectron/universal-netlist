@@ -20,17 +20,17 @@ Supported formats:
 
 ## Example Workflow
 
-1. \`list_designs\` first: it finds the designs and gives you the path to query
-2. \`list_variants\`: if the design has named assembly variants, select one explicitly
-3. \`search_nets\` and \`search_components_by_*\` to find things by pattern
-4. \`query_component\` and \`query_xnet_*\` for detail and connectivity
-5. \`run_erc\` for electrical rule checks
+1. \`list_designs\` first: it finds the designs, gives you the path to query, and lists each design's \`design_variants\`
+2. \`search_nets\` and \`search_components_by_*\` to find things by pattern
+3. \`query_component\` and \`query_xnet_*\` for detail and connectivity
+4. \`run_erc\` for electrical rule checks
 
 ## Conventions
 
 - Design paths are relative to the working directory; absolute paths are also accepted
-- A design with named assembly variants requires \`variant\`; use \`<Default>\` for its unmodified/core design
-- DNS (Do Not Stuff) components are left out of results, and the tools that can include them take \`include_dns=true\`
+- A design with named design variants requires \`design_variant\` on every query; use \`<Default>\` (alias \`default\`) for its unmodified/core design. Every result echoes the \`design_variant\` it describes
+- DNS (Do Not Stuff) components are flagged \`dns: true\`. Listing and search tools include them by default; traversal and ERC leave them out unless \`include_dns=true\`
+- A part the selected variant substitutes for the base part is flagged \`alternate_part: true\`
 - A result carrying an \`error\` field failed, and the message names the tool that finds the value you wanted
 `.trim();
 
@@ -52,6 +52,13 @@ misspelled \`path\` behaves exactly like an omitted one. Each of those returns a
 real designs from a directory nobody asked about, and \`root\` is what tells it apart \
 from a correct answer. A result cut short by \`max_results\` says so in its notes.
 
+Each design lists its \`design_variants\`: \`<Default>\` (the unmodified/core design) first, \
+then every native variant recorded by Altium, Cadence CIS, or KiCad, with \`fabrication\` \
+where the vendor marks a variant as a build assembly. A design with named variants requires \
+\`design_variant\` on every query; omitting it is refused because no single fitted/not-fitted \
+answer represents several assemblies. Names match case-insensitively and results echo the \
+canonical spelling.
+
 Cadence: use the .DSN schematic returned by this tool. It is parsed directly and carries \
 component properties, connectivity, and CIS variant stuffing information.
 
@@ -60,14 +67,6 @@ nothing needs exporting by hand. A committed kicadsexpr export (<project>.net) b
 project is parsed directly, needing no KiCad install; otherwise kicad-cli generates one on \
 demand (requires KiCad installed; set KICAD_CLI_PATH for a non-standard location). If \
 neither is available the result carries an \`error\` saying so.`;
-
-export const LIST_VARIANTS_DESCRIPTION = `\
-List a design's assembly configurations. The first entry is always \`<Default>\`, the \
-unmodified/core design; any remaining entries are the native names recorded by Altium, \
-Cadence CIS, or KiCad. If named variants exist, pass exactly one returned name as \
-\`variant\` to every query. Names are matched case-insensitively and returned in their \
-canonical spelling. Omitting \`variant\` on such a design is refused because no single \
-fitted/not-fitted answer represents multiple assemblies.`;
 
 export const LIST_COMPONENTS_DESCRIPTION = `\
 List components of a specific type in a design. \

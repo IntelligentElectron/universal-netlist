@@ -1,6 +1,5 @@
 // Tools
 export { listDesigns, type ListDesignsOptions } from "./tools/list-designs.js";
-export { listVariants } from "./tools/list-variants.js";
 export { listComponents } from "./tools/list-components.js";
 export { listNets } from "./tools/list-nets.js";
 export { searchNets } from "./tools/search-nets.js";
@@ -22,7 +21,7 @@ export {
 } from "./tools/cadence-export.js";
 
 // Shared modules
-export { loadNetlist } from "./load-netlist.js";
+export { loadNetlist, type LoadedNetlist } from "./load-netlist.js";
 export {
   MPN_MISSING_NOTE,
   groupComponentsByMpn,
@@ -36,7 +35,6 @@ export type {
   ErrorResult,
   ListComponentsResult,
   ListNetsResult,
-  ListVariantsResult,
   SearchComponentsResult,
   SearchNetsResult,
   QueryComponentResult,

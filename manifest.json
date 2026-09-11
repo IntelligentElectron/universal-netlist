@@ -52,10 +52,6 @@
       "description": "List all design projects in a directory"
     },
     {
-      "name": "list_variants",
-      "description": "List named assembly variants in a design"
-    },
-    {
       "name": "list_components",
       "description": "List components of a specific type in a design"
     },

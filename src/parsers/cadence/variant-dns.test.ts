@@ -70,7 +70,9 @@ describe.skipIf(!hasFixtures)("variant Do Not Stuff", () => {
   });
 
   it("selects the BOM variant by name and leaves the core design's marker-only state intact", async () => {
-    expect(await cadenceHandler.listVariants?.(DSN)).toEqual([{ name: "Standard" }]);
+    expect(await cadenceHandler.listVariants?.(DSN)).toEqual([
+      { name: "Standard", fabrication: true },
+    ]);
 
     const selected = await cadenceHandler.parse(DSN, { variant: "standard" });
     const selectedDns = Object.entries(selected.components)

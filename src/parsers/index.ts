@@ -14,7 +14,6 @@ import type {
   ParsedNetlist,
   EDAProjectFormatHandler,
   ParseDesignOptions,
-  DesignVariant,
 } from "../types.js";
 import { cadenceHandler } from "./cadence/index.js";
 import { altiumHandler } from "./altium/index.js";
@@ -67,15 +66,6 @@ export const parseDesign = async (
     throw new Error(`Unsupported design format: ${designPath}`);
   }
   return handler.parse(designPath, options);
-};
-
-/** List the named assembly variants exposed by a design's native format. */
-export const listDesignVariants = async (designPath: string): Promise<DesignVariant[]> => {
-  const handler = findHandler(designPath);
-  if (!handler) {
-    throw new Error(`Unsupported design format: ${designPath}`);
-  }
-  return (await handler.listVariants?.(designPath)) ?? [];
 };
 
 /**

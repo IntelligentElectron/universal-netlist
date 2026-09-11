@@ -8,13 +8,13 @@ import { isErrorResult, type ListNetsResult, type ErrorResult } from "../../type
  */
 export const listNets = async (
   design: string,
-  variant?: string
+  designVariant?: string
 ): Promise<ListNetsResult | ErrorResult> => {
-  const netlist = await loadNetlist(design, variant);
+  const netlist = await loadNetlist(design, designVariant);
   if (isErrorResult(netlist)) {
     return netlist;
   }
 
   const nets = Object.keys(netlist.nets).sort((a, b) => a.localeCompare(b));
-  return { nets };
+  return { design_variant: netlist.design_variant, nets };
 };

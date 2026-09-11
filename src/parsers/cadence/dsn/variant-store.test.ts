@@ -114,7 +114,9 @@ describe("BOM variant membership", () => {
   it("reads the exact groups assigned to one BOM variant", () => {
     // Verbatim payload shape from LAUNCHXL-CC1310's `BOM/Standard/Standard`.
     expect(
-      parseBomVariantGroups(groupStream("6\xf9Common\xf9DNM\xf9DebuggerIF\xf9Peripherals\xf9RF\xf9XDS"))
+      parseBomVariantGroups(
+        groupStream("6\xf9Common\xf9DNM\xf9DebuggerIF\xf9Peripherals\xf9RF\xf9XDS")
+      )
     ).toEqual(["Common", "DNM", "DebuggerIF", "Peripherals", "RF", "XDS"]);
   });
 

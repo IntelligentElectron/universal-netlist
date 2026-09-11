@@ -9,16 +9,16 @@ import { isErrorResult, type ListComponentsResult, type ErrorResult } from "../.
  *
  * @param design - Path to design file
  * @param type - Component type prefix (e.g., "U", "R", "C")
- * @param includeDns - Include DNS (Do Not Stuff) components
- * @param variant - Named assembly variant, or `<Default>` for the core design
+ * @param includeDns - Include DNS (Do Not Stuff) components; listed by default
+ * @param designVariant - Native design variant, or `<Default>` for the core design
  */
 export const listComponents = async (
   design: string,
   type: string,
-  includeDns = false,
-  variant?: string
+  includeDns = true,
+  designVariant?: string
 ): Promise<ListComponentsResult | ErrorResult> => {
-  const netlist = await loadNetlist(design, variant);
+  const netlist = await loadNetlist(design, designVariant);
   if (isErrorResult(netlist)) {
     return netlist;
   }
@@ -71,6 +71,7 @@ export const listComponents = async (
   // the result says what it left out and how to see it.
   if (components.length === 0) {
     return {
+      design_variant: netlist.design_variant,
       components,
       notes: [
         `All ${entries.length} components with prefix '${prefix}' in design '${designName}' are DNS (Do Not Stuff) and were left out. Pass include_dns=true to list them.`,
@@ -78,5 +79,5 @@ export const listComponents = async (
     };
   }
 
-  return { components };
+  return { design_variant: netlist.design_variant, components };
 };

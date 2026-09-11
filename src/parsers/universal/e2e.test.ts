@@ -47,20 +47,24 @@ describe("a Universal Netlist file as a design", () => {
     const result = (await call("list_designs", { path: UNIVERSAL })) as {
       designs: Array<{ name: string; path: string; error?: string }>;
     };
+    const coreOnly = [{ name: "<Default>", is_default: true }];
     expect(result.designs).toEqual([
-      { name: "demo-board", path: DEMO },
+      { name: "demo-board", path: DEMO, design_variants: coreOnly },
       {
         name: "malformed",
+        design_variants: coreOnly,
         path: path.join(UNIVERSAL, "malformed.netlist.json"),
         error: expect.stringContaining("malformed.netlist.json: not valid JSON"),
       },
       {
         name: "pin-on-other-net",
+        design_variants: coreOnly,
         path: path.join(UNIVERSAL, "broken", "pin-on-other-net.netlist.json"),
         error: "pin-on-other-net.netlist.json: net 'VCC' lists C1.1, but C1.1 is on 'GND'",
       },
       {
         name: "unsigned",
+        design_variants: coreOnly,
         path: path.join(UNIVERSAL, "unsigned.netlist.json"),
         error:
           "unsigned.netlist.json: not a Universal Netlist: missing `universalNetlistSchemaVersion`",
@@ -72,6 +76,7 @@ describe("a Universal Netlist file as a design", () => {
     const result = await call("run_erc", { design: DEMO });
     expect(result).toEqual({
       design: DEMO,
+      design_variant: "<Default>",
       checked: ["net.single_pin", "net.testpoint_orphan", "net.testpoint_stub", "net.unnamed"],
       skipped: { dns: 1 },
       errors: {
@@ -89,7 +94,7 @@ describe("a Universal Netlist file as a design", () => {
       errors?: Record<string, unknown>;
       skipped?: unknown;
     };
-    expect(result.skipped).toBeUndefined();
+    expect(result.skipped).toEqual({ dns: 0 });
     expect(result.errors?.["net.single_pin"]).toEqual({ SENSE: ["R2.1"] });
   });
 

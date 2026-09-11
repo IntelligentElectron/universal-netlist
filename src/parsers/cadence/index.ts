@@ -235,7 +235,9 @@ export const cadenceHandler: EDAProjectFormatHandler = {
 
   discoverDesigns: discoverCadenceDesigns,
 
-  listVariants: async (designPath) => listCadenceVariantsFromFile(designPath),
+  // A CIS BOM variant is, by definition, one assembly the BOM is generated for.
+  listVariants: async (designPath) =>
+    listCadenceVariantsFromFile(designPath).map((variant) => ({ ...variant, fabrication: true })),
 
   parse: parseCadenceDesign,
 };

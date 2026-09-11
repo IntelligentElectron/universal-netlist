@@ -232,6 +232,7 @@ interface FlatCircuitEntry {
   comment?: string;
   value?: string;
   dns?: boolean;
+  alternate_part?: boolean;
 }
 
 export interface TraversalResult {
@@ -275,11 +276,12 @@ const groupCircuitPins = (
       refdes: string;
       mpn?: string;
       internal_pn?: string;
-  manufacturer?: string;
+      manufacturer?: string;
       description?: string;
       comment?: string;
       value?: string;
       dns?: boolean;
+      alternate_part?: boolean;
       netToPins: Map<string, string[]>;
     }
   >();
@@ -296,6 +298,7 @@ const groupCircuitPins = (
         comment: entry.comment,
         value: entry.value,
         dns: entry.dns,
+        alternate_part: entry.alternate_part,
         netToPins: new Map(),
       };
       byRefdes.set(entry.refdes, comp);
@@ -332,6 +335,7 @@ const groupCircuitPins = (
       comment: comp.comment,
       value: comp.value,
       dns: comp.dns,
+      alternate_part: comp.alternate_part,
       connections,
     });
   }
@@ -443,6 +447,7 @@ export const traverseCircuitFromNet = (
           comment: comp?.comment,
           value: comp?.value,
           dns: dnsFlag,
+          alternate_part: comp?.alternate_part,
         });
 
         if (comp?.pins && isPassive(refdes)) {
@@ -460,11 +465,12 @@ export const traverseCircuitFromNet = (
               net: otherNetName,
               mpn: comp?.mpn,
               internal_pn: comp?.internal_pn,
-          manufacturer: comp?.manufacturer,
+              manufacturer: comp?.manufacturer,
               description: comp?.description,
               comment: comp?.comment,
               value: comp?.value,
               dns: dnsFlag,
+              alternate_part: comp?.alternate_part,
             });
 
             if (visitedNets.has(otherNetName)) continue;
@@ -504,6 +510,7 @@ export const traverseCircuitFromNet = (
                       comment: otherComp?.comment,
                       value: otherComp?.value,
                       dns: otherDnsFlag,
+                      alternate_part: otherComp?.alternate_part,
                     });
                   }
                 }

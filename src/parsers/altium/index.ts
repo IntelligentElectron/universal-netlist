@@ -220,7 +220,14 @@ const mergeComponentInto = (
   for (const [pin, entry] of Object.entries(source.pins)) {
     if (target.pins[pin] === undefined) target.pins[pin] = entry;
   }
-  for (const field of ["mpn", "internal_pn", "manufacturer", "description", "comment", "value"] as const) {
+  for (const field of [
+    "mpn",
+    "internal_pn",
+    "manufacturer",
+    "description",
+    "comment",
+    "value",
+  ] as const) {
     if (target[field] === undefined && source[field] !== undefined) target[field] = source[field];
   }
   if (source.dns && !target.dns) target.dns = true;
@@ -1005,18 +1012,13 @@ export const findRepeatedSheetsInSchematic = (
 
 /**
  * Render a 1-based channel number as Altium's alphabetic channel label:
- * 1 → "A", 26 → "Z", 27 → "AA".
+ * 1 → "A", 26 → "Z". Past 26 Altium does not roll over to "AA"; it keeps
+ * counting through the ASCII characters that follow "Z", so channel 27 is
+ * "[" and channel 32 is "\`". FMC_DIO_32ch_lvds_a writes its variant rows
+ * that way (`R1[` … `R1\``), which is the only place the spelling can be read.
  */
-const channelAlpha = (channelIndex: number): string => {
-  let n = Math.max(1, channelIndex);
-  let out = "";
-  while (n > 0) {
-    const rem = (n - 1) % 26;
-    out = String.fromCharCode(65 + rem) + out;
-    n = Math.floor((n - 1) / 26);
-  }
-  return out;
-};
+const channelAlpha = (channelIndex: number): string =>
+  String.fromCharCode(64 + Math.max(1, channelIndex));
 
 /**
  * Tokens Altium substitutes into `ChannelDesignatorFormatString`.

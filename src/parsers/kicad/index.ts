@@ -53,9 +53,8 @@ export const parseKicadDesign = async (
 
   // 1. Committed export beside the project (preferred).
   const selectedVariant = options?.variant;
-  const namedVariant = selectedVariant && !isDefaultVariant(selectedVariant)
-    ? selectedVariant
-    : undefined;
+  const namedVariant =
+    selectedVariant && !isDefaultVariant(selectedVariant) ? selectedVariant : undefined;
 
   if (netlistExport && !namedVariant) {
     return parseKicadNetlist(await readFile(netlistExport, "utf-8"));
