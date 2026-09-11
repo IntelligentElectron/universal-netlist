@@ -14,12 +14,15 @@ export interface ErcOptions {
   includeDns?: boolean;
   includeRules?: string[];
   excludeRules?: string[];
+  designVariant?: string;
 }
 
 export interface ErcResult {
   design: string;
+  design_variant: string;
   checked: string[];
-  skipped?: Record<string, number>;
+  /** Always present. `dns` counts the parts left out of the scan, 0 with include_dns. */
+  skipped: Record<string, number>;
   // Every value is { [net]: endpoints[] } EXCEPT net.unnamed, whose value is a
   // bare net-name string[] (it has no endpoints). That one key is why these are
   // unions rather than Record<string, Record<string, string[]>>.
@@ -135,7 +138,7 @@ export const runErc = async (
   design: string,
   opts: ErcOptions = {}
 ): Promise<ErcResult | ErrorResult> => {
-  const netlist = await loadNetlist(design);
+  const netlist = await loadNetlist(design, opts.designVariant);
   if (isErrorResult(netlist)) return netlist;
 
   const includeDns = opts.includeDns ?? false;
@@ -184,9 +187,15 @@ export const runErc = async (
     }
   }
 
-  const result: ErcResult = { design, checked: selected.map((r) => r.id) };
+  const result: ErcResult = {
+    design,
+    design_variant: netlist.design_variant,
+    checked: selected.map((r) => r.id),
+    // Always written, so a clean scan and a scan that never looked at DNS parts
+    // do not read the same. With include_dns nothing is skipped, and it says 0.
+    skipped: { dns: includeDns ? 0 : skippedDns },
+  };
   if (Object.keys(errors).length > 0) result.errors = errors;
   if (Object.keys(warnings).length > 0) result.warnings = warnings;
-  if (!includeDns && skippedDns > 0) result.skipped = { dns: skippedDns };
   return result;
 };

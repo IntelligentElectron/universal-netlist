@@ -126,7 +126,7 @@ describe("listComponents - DNS and the suggestion list", () => {
   beforeEach(() => mockParse(netlist));
 
   it("suggests only prefixes the same query would return, and names the DNS-only ones apart", async () => {
-    const result = await listComponents(DESIGN, "X");
+    const result = await listComponents(DESIGN, "X", false);
     expect(isErrorResult(result)).toBe(true);
     expect((result as ErrorResult).error).toBe(
       "No components with prefix 'X' found in design 'design'. Available prefixes: [R, U] " +
@@ -134,18 +134,19 @@ describe("listComponents - DNS and the suggestion list", () => {
     );
   });
 
-  it("suggests every prefix when include_dns is true, with no DNS clause", async () => {
-    const result = await listComponents(DESIGN, "X", true);
+  it("suggests every prefix by default, with no DNS clause", async () => {
+    const result = await listComponents(DESIGN, "X");
     expect(isErrorResult(result)).toBe(true);
     expect((result as ErrorResult).error).toBe(
       "No components with prefix 'X' found in design 'design'. Available prefixes: [R, TP, U]"
     );
   });
 
-  it("says so when every component under the prefix is DNS", async () => {
-    const result = await listComponents(DESIGN, "TP");
+  it("says so when every component under the prefix is DNS and they were asked to be hidden", async () => {
+    const result = await listComponents(DESIGN, "TP", false);
     expect(isErrorResult(result)).toBe(false);
     expect(result).toEqual({
+      design_variant: "<Default>",
       components: [],
       notes: [
         "All 2 components with prefix 'TP' in design 'design' are DNS (Do Not Stuff) and were left out. Pass include_dns=true to list them.",
@@ -153,17 +154,26 @@ describe("listComponents - DNS and the suggestion list", () => {
     });
   });
 
-  it("lists the DNS-only prefix with include_dns=true", async () => {
-    const result = (await listComponents(DESIGN, "TP", true)) as ListComponentsResult;
+  it("lists the DNS-only prefix by default, flagged", async () => {
+    const result = (await listComponents(DESIGN, "TP")) as ListComponentsResult;
     expect(result.notes).toBeUndefined();
     expect(result.components.flatMap((c) => c.refdes).sort()).toEqual(["TP1", "TP2"]);
     expect(result.components.every((c) => c.dns === true)).toBe(true);
   });
 
   it("adds no note when some parts under the prefix are stuffed", async () => {
-    const result = (await listComponents(DESIGN, "R")) as ListComponentsResult;
+    const result = (await listComponents(DESIGN, "R", false)) as ListComponentsResult;
     expect(result.notes).toBeUndefined();
     expect(result.components.flatMap((c) => c.refdes)).toEqual(["R2"]);
+  });
+
+  it("lists DNS parts alongside fitted ones by default, each flagged", async () => {
+    const result = (await listComponents(DESIGN, "R")) as ListComponentsResult;
+    expect(result.notes).toBeUndefined();
+    expect(result.components.map((c) => [c.refdes.join(), c.dns ?? false])).toEqual([
+      ["R1", true],
+      ["R2", false],
+    ]);
   });
 
   it("the DNS clause is absent when no prefix is DNS-only", async () => {

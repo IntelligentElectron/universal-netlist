@@ -19,6 +19,13 @@ describe("searchNets - case insensitive by default", () => {
         U2: { pins: { "1": "VDD_3V3", "2": "GND" } },
       },
     };
+    vi.spyOn(parsersModule, "findHandler").mockReturnValue({
+      name: "mock",
+      extensions: [".dsn"],
+      canHandle: () => true,
+      discoverDesigns: vi.fn(),
+      parse: vi.fn(),
+    });
     vi.spyOn(parsersModule, "parseDesign").mockResolvedValue(mockNetlist);
   });
 

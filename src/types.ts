@@ -76,6 +76,8 @@ export interface ComponentDetails {
     comment?: string;
     value?: string;
     dns?: boolean;
+    /** Set when the selected design variant substitutes another part for the base one. */
+    alternate_part?: boolean;
     pins: Record<string, PinEntry>;
   };
 }
@@ -93,6 +95,28 @@ export interface ParsedNetlist {
   components: ComponentDetails;
 }
 
+/** A named design variant (assembly configuration) recorded by an EDA design. */
+export interface DesignVariant {
+  name: string;
+  /**
+   * Whether the vendor marks this variant as a build assembly. Altium records
+   * it per variant as `AllowFabrication`; every Cadence CIS BOM variant is one
+   * by definition. Omitted when the format has no such flag.
+   */
+  fabrication?: boolean;
+}
+
+/** One entry of a design's `design_variants` list in list_designs. */
+export interface DesignVariantInfo extends DesignVariant {
+  is_default?: boolean;
+}
+
+/** Options that select which assembly configuration a parser resolves. */
+export interface ParseDesignOptions {
+  /** Native variant name, or `<Default>` for the unmodified/core design. */
+  variant?: string;
+}
+
 /**
  * Component in circuit query result
  */
@@ -106,6 +130,8 @@ export interface CircuitComponent {
   comment?: string;
   value?: string;
   dns?: boolean;
+  /** Set when the selected design variant substitutes another part for the base one. */
+  alternate_part?: boolean;
   connections: Array<{
     net: string;
     pins: string[];
@@ -156,6 +182,8 @@ export interface AggregatedComponent {
   comment?: string;
   value?: string;
   dns?: boolean;
+  /** Set when the selected design variant substitutes another part for the base one. */
+  alternate_part?: boolean;
   total_count: number;
   refdes?: string[];
   connections?: PinNetConnection[];
@@ -167,6 +195,8 @@ export interface AggregatedComponent {
  * Result from circuit query with MPN aggregation
  */
 export interface AggregatedCircuitResult {
+  /** The design variant this result describes: a native name or `<Default>`. */
+  design_variant: string;
   starting_point: string;
   net?: string;
   total_components: number;
@@ -200,6 +230,11 @@ export type DiscoveredDesign =
 export interface DesignInfo {
   name: string;
   path: string;
+  /**
+   * `<Default>` first, then every native design variant. A design with more
+   * than the default entry requires `design_variant` on every query.
+   */
+  design_variants: DesignVariantInfo[];
   error?: string;
 }
 
@@ -231,6 +266,8 @@ export interface ComponentGroup {
   comment?: string;
   value?: string;
   dns?: boolean;
+  /** Set when the selected design variant substitutes another part for the base one. */
+  alternate_part?: boolean;
   notes?: string[];
 }
 
@@ -238,6 +275,8 @@ export interface ComponentGroup {
  * List components result.
  */
 export interface ListComponentsResult {
+  /** The design variant this result describes: a native name or `<Default>`. */
+  design_variant: string;
   components: ComponentGroup[];
   notes?: string[];
 }
@@ -246,6 +285,8 @@ export interface ListComponentsResult {
  * List nets result.
  */
 export interface ListNetsResult {
+  /** The design variant this result describes: a native name or `<Default>`. */
+  design_variant: string;
   nets: string[];
 }
 
@@ -253,6 +294,8 @@ export interface ListNetsResult {
  * Search components results with optional notes for empty results.
  */
 export interface SearchComponentsResult {
+  /** The design variant this result describes: a native name or `<Default>`. */
+  design_variant: string;
   results: Record<string, ComponentGroup[]>;
   notes?: string[];
 }
@@ -261,6 +304,8 @@ export interface SearchComponentsResult {
  * Search nets results with optional notes for empty results.
  */
 export interface SearchNetsResult {
+  /** The design variant this result describes: a native name or `<Default>`. */
+  design_variant: string;
   results: Record<string, string[]>;
   notes?: string[];
 }
@@ -269,6 +314,8 @@ export interface SearchNetsResult {
  * Query component details (pins mapped to nets).
  */
 export interface QueryComponentResult {
+  /** The design variant this result describes: a native name or `<Default>`. */
+  design_variant: string;
   refdes: string;
   mpn?: string;
   internal_pn?: string;
@@ -277,6 +324,8 @@ export interface QueryComponentResult {
   comment?: string;
   value?: string;
   dns?: boolean;
+  /** Set when the selected design variant substitutes another part for the base one. */
+  alternate_part?: boolean;
   pins: Record<string, PinEntry>;
   notes?: string[];
 }
@@ -312,8 +361,11 @@ export interface EDAProjectFormatHandler {
   /** Discover all designs of this format in a directory */
   discoverDesigns(rootDir: string, options?: DiscoverDesignsOptions): Promise<DiscoveredDesign[]>;
 
+  /** List the named assembly variants a design records. */
+  listVariants?(designPath: string): Promise<DesignVariant[]>;
+
   /** Parse a design file into the unified ParsedNetlist format */
-  parse(designPath: string): Promise<ParsedNetlist>;
+  parse(designPath: string, options?: ParseDesignOptions): Promise<ParsedNetlist>;
 }
 
 // =============================================================================

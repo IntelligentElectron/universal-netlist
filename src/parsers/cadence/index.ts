@@ -23,7 +23,9 @@ import {
   type ParsedNetlist,
   type ComponentDetails,
   type EDAProjectFormatHandler,
+  type ParseDesignOptions,
 } from "../../types.js";
+import { listCadenceVariantsFromFile } from "./dsn/variant-store.js";
 
 export { discoverCadenceDesigns, findCadenceDatFiles, isCadenceFile } from "./discovery.js";
 export { parseDsnFile } from "./dsn/dsn-parser.js";
@@ -168,12 +170,15 @@ export const parseCadence = async (paths: CadenceFilePaths): Promise<CadenceRawN
  * Parse a Cadence design file.
  * Reads DSN schematics; the DAT dispatch stays dormant behind its feature flag.
  */
-const parseCadenceDesign = async (designPath: string): Promise<ParsedNetlist> => {
+const parseCadenceDesign = async (
+  designPath: string,
+  options?: ParseDesignOptions
+): Promise<ParsedNetlist> => {
   const ext = path.extname(designPath).toLowerCase();
 
   // The schematic itself, which is the path list_designs hands out.
   if (ext === ".dsn") {
-    return parseDsnFile(designPath);
+    return parseDsnFile(designPath, options);
   }
 
   if (!CADENCE_DAT_ENABLED) {
@@ -229,6 +234,10 @@ export const cadenceHandler: EDAProjectFormatHandler = {
   canHandle: isCadenceFile,
 
   discoverDesigns: discoverCadenceDesigns,
+
+  // A CIS BOM variant is, by definition, one assembly the BOM is generated for.
+  listVariants: async (designPath) =>
+    listCadenceVariantsFromFile(designPath).map((variant) => ({ ...variant, fabrication: true })),
 
   parse: parseCadenceDesign,
 };

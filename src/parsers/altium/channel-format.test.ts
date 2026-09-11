@@ -54,8 +54,10 @@ describe("applyChannelFormat", () => {
 
   it("rolls the alphabetic label past Z", () => {
     expect(applyChannelFormat("$ChannelAlpha", "R1", "X", 26)).toBe("Z");
-    expect(applyChannelFormat("$ChannelAlpha", "R1", "X", 27)).toBe("AA");
-    expect(applyChannelFormat("$ChannelAlpha", "R1", "X", 32)).toBe("AF");
+    // Altium keeps counting through the ASCII after "Z" instead of rolling
+    // over: FMC_DIO_32ch_lvds_a names channels 27..32 `R1[` .. `R1\``.
+    expect(applyChannelFormat("$ChannelAlpha", "R1", "X", 27)).toBe("[");
+    expect(applyChannelFormat("$ChannelAlpha", "R1", "X", 32)).toBe("`");
   });
 
   it("handles a refdes with no numeric part", () => {

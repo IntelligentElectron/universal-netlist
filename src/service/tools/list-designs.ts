@@ -1,7 +1,8 @@
-import { discoverDesigns } from "../../parsers/index.js";
+import { discoverDesigns, findHandler } from "../../parsers/index.js";
+import { DEFAULT_VARIANT } from "../../parsers/variants.js";
 import { resolvePath } from "../../paths.js";
 import { parseRegexPattern } from "../regex-helpers.js";
-import type { ErrorResult, ListDesignsResult } from "../../types.js";
+import type { DesignVariantInfo, ErrorResult, ListDesignsResult } from "../../types.js";
 
 /**
  * Options for listDesigns.
@@ -12,6 +13,28 @@ export interface ListDesignsOptions {
   maxDepth?: number;
   maxResults?: number;
 }
+
+/**
+ * `<Default>` first, then the native design variants the design records.
+ *
+ * Listing reads the design's own file (the `.PrjPcb` text, the `.DSN` container
+ * directory, or the KiCad schematic tree) without parsing connectivity, so the
+ * cost is a small read per design. A design whose file cannot be read reports
+ * the default alone and carries the reason in `error`.
+ */
+const listDesignVariants = async (
+  sourcePath: string
+): Promise<{ design_variants: DesignVariantInfo[]; error?: string }> => {
+  const base: DesignVariantInfo = { name: DEFAULT_VARIANT, is_default: true };
+  const handler = findHandler(sourcePath);
+  if (!handler?.listVariants) return { design_variants: [base] };
+  try {
+    return { design_variants: [base, ...(await handler.listVariants(sourcePath))] };
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Unknown error occurred";
+    return { design_variants: [base], error: `Could not read design variants: ${message}` };
+  }
+};
 
 /**
  * List all designs in a directory.
@@ -65,15 +88,23 @@ export const listDesigns = async (
     );
   }
 
+  const entries = await Promise.all(
+    limited.map(async (design) => {
+      const variants = await listDesignVariants(design.sourcePath);
+      return {
+        name: design.name,
+        // The design's own file: a .DSN, a .PrjPcb, a .kicad_pro, or the netlist of
+        // a design that is only a netlist. One path, which is the one to query.
+        path: design.sourcePath,
+        design_variants: variants.design_variants,
+        error: design.error ?? variants.error,
+      };
+    })
+  );
+
   return {
     root: resolvedPath,
-    designs: limited.map((design) => ({
-      name: design.name,
-      // The design's own file: a .DSN, a .PrjPcb, a .kicad_pro, or the netlist of
-      // a design that is only a netlist. One path, which is the one to query.
-      path: design.sourcePath,
-      error: design.error,
-    })),
+    designs: entries,
     ...(notes.length > 0 ? { notes } : {}),
   };
 };

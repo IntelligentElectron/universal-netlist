@@ -340,7 +340,7 @@ Represents a pin-to-net connection. Uses a string for simple pins, or an object 
 ### Cadence OrCAD/CIS
 
 - Component properties, net connections, and pin names come directly from the `.DSN` binary schematic
-- CIS variant stuffing information comes from the schematic's variant store
+- CIS BOM names, exact group membership, and stuffing information come from the schematic's variant store; the store carries stuffing only, so no Cadence part is ever flagged `alternate_part`
 - MCP queries use the `.DSN` path returned by `list_designs`
 
 ### Altium Designer
@@ -348,6 +348,7 @@ Represents a pin-to-net connection. Uses a string for simple pins, or an object 
 - Component properties parsed from `.SchDoc` XML
 - Net connections derived from wire/junction analysis
 - Pin names come from component library definitions
+- A selected design variant applies the `.PrjPcb` rows for that variant: `Kind=1` Not Fitted rows mark `dns`, `Kind=2` Alternate Part rows mark `alternate_part`, and `ParamVariationN` parameter overrides land on `value`, `description`, `manufacturer`, and `mpn`
 
 ### KiCad
 
@@ -356,6 +357,7 @@ Represents a pin-to-net connection. Uses a string for simple pins, or an object 
 - Net connections come from the `nets` section of the resolved `kicadsexpr` export
 - Pin names come from the `node` entries' `pinfunction`
 - Nets declared inside a hierarchical sheet carry the sheet path in their name (e.g. `/Peripherals/D0`)
+- KiCad 10 named variants are discovered across the schematic hierarchy and applied from the per-instance variant blocks: `(dnp yes)` marks `dns: true`, and a `Value`, part-number, or manufacturer field override substitutes the part and sets `alternate_part: true`. kicad-cli's netlist export ignores `--variant` (measured on 10.0.5), so the base export is read and the overlay is applied by the parser
 
 ## Design Decisions
 

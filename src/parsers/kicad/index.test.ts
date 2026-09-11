@@ -25,9 +25,9 @@ describe("kicadHandler", () => {
 });
 
 describe.skipIf(!hasFixtures)("kicadHandler against fixtures", () => {
-  it("discovers all 11 KiCad fixture projects with their committed exports", async () => {
+  it("discovers all 12 KiCad fixture projects with their committed exports", async () => {
     const designs = await discoverKicadDesigns(KICAD_FIXTURES);
-    expect(designs.length).toBe(11);
+    expect(designs.length).toBe(12);
     for (const d of designs) {
       expect(d.format).toBe("kicad");
       expect(d.sourcePath.endsWith(".kicad_pro")).toBe(true);

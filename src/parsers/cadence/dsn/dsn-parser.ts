@@ -6,7 +6,7 @@
  */
 
 import { OleReader } from "../../ole-reader/ole-reader.js";
-import type { ComponentDetails, ParsedNetlist } from "../../../types.js";
+import type { ComponentDetails, ParsedNetlist, ParseDesignOptions } from "../../../types.js";
 import type { CachedLibraryPart, PinMapData } from "./structure-types.js";
 import { parsePage, parsePackageStream, parseHierarchyNetNames } from "./page-parser.js";
 import type { PageData } from "./page-parser.js";
@@ -18,7 +18,7 @@ import { buildComponents } from "./component-builder.js";
 import { readVariantDns } from "./variant-store.js";
 
 /** Parse a .DSN file into a ParsedNetlist. */
-export function parseDsnFile(dsnPath: string): ParsedNetlist {
+export function parseDsnFile(dsnPath: string, options?: ParseDesignOptions): ParsedNetlist {
   const ole = new OleReader(dsnPath);
   const entries = ole.listAllEntries();
 
@@ -168,7 +168,7 @@ export function parseDsnFile(dsnPath: string): ParsedNetlist {
   // components were built from say nothing about.
   applyVariantDns(
     components,
-    readVariantDns(ole, entries, buildRefdesByDbId(pages), hierarchyBuffer)
+    readVariantDns(ole, entries, buildRefdesByDbId(pages), hierarchyBuffer, options?.variant)
   );
 
   return { nets, components };

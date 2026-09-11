@@ -21,7 +21,7 @@ export {
 } from "./tools/cadence-export.js";
 
 // Shared modules
-export { loadNetlist } from "./load-netlist.js";
+export { loadNetlist, type LoadedNetlist } from "./load-netlist.js";
 export {
   MPN_MISSING_NOTE,
   groupComponentsByMpn,

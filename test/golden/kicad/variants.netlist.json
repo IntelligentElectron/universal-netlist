@@ -1,0 +1,1727 @@
+{
+  "universalNetlistSchemaVersion": 2,
+  "metadata": {
+    "generatedAt": "2026-09-11T21:02:40.100Z",
+    "netlistHash": "sha256:6db702eaf7368aef808d99ed444ecb0147cad0bba1f4c03f85d4bdf055476aab",
+    "origin": {
+      "type": "vendor",
+      "source": {
+        "vendor": "KiCad",
+        "fileType": ".kicad_pro"
+      }
+    }
+  },
+  "nets": {
+    "/CLOCK-RB6": {
+      "P2": [
+        "27"
+      ],
+      "P3": [
+        "39"
+      ],
+      "R13": [
+        "2"
+      ],
+      "U1": [
+        "6"
+      ],
+      "U5": [
+        "12"
+      ],
+      "U6": [
+        "6"
+      ]
+    },
+    "/DATA-RB7": {
+      "P2": [
+        "28"
+      ],
+      "P3": [
+        "40"
+      ],
+      "R12": [
+        "2"
+      ],
+      "U1": [
+        "5"
+      ],
+      "U2": [
+        "12"
+      ],
+      "U5": [
+        "13"
+      ],
+      "U6": [
+        "7"
+      ]
+    },
+    "/PC-CLOCK-OUT": {
+      "J1": [
+        "7"
+      ],
+      "R5": [
+        "1"
+      ],
+      "R6": [
+        "1"
+      ]
+    },
+    "/PC-DATA-IN": {
+      "J1": [
+        "8"
+      ],
+      "U2": [
+        "11"
+      ]
+    },
+    "/PC-DATA-OUT": {
+      "J1": [
+        "4"
+      ],
+      "R3": [
+        "1"
+      ],
+      "R4": [
+        "1"
+      ]
+    },
+    "/VPP_ON": {
+      "J1": [
+        "3"
+      ],
+      "R1": [
+        "1"
+      ],
+      "R2": [
+        "1"
+      ]
+    },
+    "/VPP{slash}MCLR": {
+      "P2": [
+        "1"
+      ],
+      "P3": [
+        "1"
+      ],
+      "R18": [
+        "2"
+      ],
+      "U5": [
+        "4"
+      ],
+      "U6": [
+        "4"
+      ]
+    },
+    "/pic_sockets/VCC_PIC": {
+      "C6": [
+        "1"
+      ],
+      "C7": [
+        "1"
+      ],
+      "JP1": [
+        "2"
+      ],
+      "P2": [
+        "20"
+      ],
+      "P3": [
+        "11",
+        "32"
+      ],
+      "Q3": [
+        "1"
+      ],
+      "R21": [
+        "2"
+      ],
+      "U1": [
+        "8"
+      ],
+      "U5": [
+        "14"
+      ],
+      "U6": [
+        "1"
+      ]
+    },
+    "GND": {
+      "C1": [
+        "2"
+      ],
+      "C2": [
+        "2"
+      ],
+      "C3": [
+        "2"
+      ],
+      "C4": [
+        "2"
+      ],
+      "C5": [
+        "2"
+      ],
+      "C6": [
+        "2"
+      ],
+      "C7": [
+        "2"
+      ],
+      "D12": [
+        "1"
+      ],
+      "D3": [
+        "2"
+      ],
+      "D5": [
+        "2"
+      ],
+      "D7": [
+        "2"
+      ],
+      "D8": [
+        "1"
+      ],
+      "D9": [
+        "1"
+      ],
+      "J1": [
+        "5"
+      ],
+      "P1": [
+        "1"
+      ],
+      "P2": [
+        "19",
+        "8"
+      ],
+      "P3": [
+        "12",
+        "31",
+        "8"
+      ],
+      "Q1": [
+        "3"
+      ],
+      "R15": [
+        "2"
+      ],
+      "R17": [
+        "2"
+      ],
+      "R2": [
+        "2"
+      ],
+      "R4": [
+        "2"
+      ],
+      "R6": [
+        "2"
+      ],
+      "U1": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "U2": [
+        "1",
+        "10",
+        "13",
+        "4",
+        "7"
+      ],
+      "U3": [
+        "2"
+      ],
+      "U4": [
+        "6",
+        "7"
+      ],
+      "U5": [
+        "5"
+      ],
+      "U6": [
+        "8"
+      ]
+    },
+    "Net-(C5-Pad1)": {
+      "C5": [
+        "1"
+      ],
+      "R10": [
+        "2"
+      ]
+    },
+    "Net-(D1-A)": {
+      "D1": [
+        "2"
+      ],
+      "P1": [
+        "2"
+      ]
+    },
+    "Net-(D1-K)": {
+      "C2": [
+        "1"
+      ],
+      "D1": [
+        "1"
+      ],
+      "U3": [
+        "1"
+      ]
+    },
+    "Net-(D2-A)": {
+      "D2": [
+        "2"
+      ],
+      "D3": [
+        "1"
+      ],
+      "R1": [
+        "2"
+      ],
+      "U2": [
+        "2"
+      ]
+    },
+    "Net-(D4-A)": {
+      "D4": [
+        "2"
+      ],
+      "D5": [
+        "1"
+      ],
+      "R3": [
+        "2"
+      ],
+      "U2": [
+        "5"
+      ]
+    },
+    "Net-(D6-A)": {
+      "D6": [
+        "2"
+      ],
+      "D7": [
+        "1"
+      ],
+      "R5": [
+        "2"
+      ],
+      "U2": [
+        "9"
+      ]
+    },
+    "Net-(D8-A)": {
+      "D8": [
+        "2"
+      ],
+      "R9": [
+        "2"
+      ]
+    },
+    "Net-(D9-A)": {
+      "D9": [
+        "2"
+      ],
+      "R14": [
+        "2"
+      ]
+    },
+    "Net-(D10-A)": {
+      "D10": [
+        "2"
+      ],
+      "L1": [
+        "1"
+      ],
+      "U4": [
+        "8"
+      ]
+    },
+    "Net-(D11-A)": {
+      "D11": [
+        "2"
+      ],
+      "R19": [
+        "1"
+      ]
+    },
+    "Net-(D11-K)": {
+      "D11": [
+        "1"
+      ],
+      "Q1": [
+        "1"
+      ],
+      "R11": [
+        "1"
+      ]
+    },
+    "Net-(D12-A)": {
+      "D12": [
+        "2"
+      ],
+      "R21": [
+        "1"
+      ]
+    },
+    "Net-(Q1-B)": {
+      "Q1": [
+        "2"
+      ],
+      "R8": [
+        "2"
+      ]
+    },
+    "Net-(Q2-B)": {
+      "C9": [
+        "2"
+      ],
+      "Q2": [
+        "2"
+      ],
+      "R11": [
+        "2"
+      ],
+      "R7": [
+        "2"
+      ]
+    },
+    "Net-(Q2-C)": {
+      "Q2": [
+        "1"
+      ],
+      "R17": [
+        "1"
+      ],
+      "R18": [
+        "1"
+      ],
+      "R9": [
+        "1"
+      ]
+    },
+    "Net-(Q3-B)": {
+      "Q3": [
+        "2"
+      ],
+      "R19": [
+        "2"
+      ],
+      "R20": [
+        "2"
+      ]
+    },
+    "Net-(R8-Pad1)": {
+      "R8": [
+        "1"
+      ],
+      "U2": [
+        "3"
+      ]
+    },
+    "Net-(R12-Pad1)": {
+      "R12": [
+        "1"
+      ],
+      "U2": [
+        "6"
+      ]
+    },
+    "Net-(R13-Pad1)": {
+      "R13": [
+        "1"
+      ],
+      "U2": [
+        "8"
+      ]
+    },
+    "Net-(R15-Pad1)": {
+      "R15": [
+        "1"
+      ],
+      "RV1": [
+        "1"
+      ]
+    },
+    "Net-(R16-Pad1)": {
+      "R16": [
+        "1"
+      ],
+      "RV1": [
+        "3"
+      ]
+    },
+    "Net-(U4-FB+)": {
+      "RV1": [
+        "2"
+      ],
+      "U4": [
+        "2"
+      ]
+    },
+    "Net-(U4-Vc)": {
+      "C4": [
+        "1"
+      ],
+      "R10": [
+        "1"
+      ],
+      "U4": [
+        "1"
+      ]
+    },
+    "VCC": {
+      "C1": [
+        "1"
+      ],
+      "D2": [
+        "1"
+      ],
+      "D4": [
+        "1"
+      ],
+      "D6": [
+        "1"
+      ],
+      "JP1": [
+        "1"
+      ],
+      "L1": [
+        "2"
+      ],
+      "Q3": [
+        "3"
+      ],
+      "R14": [
+        "1"
+      ],
+      "R20": [
+        "1"
+      ],
+      "U2": [
+        "14"
+      ],
+      "U3": [
+        "3"
+      ],
+      "U4": [
+        "5"
+      ]
+    },
+    "VPP": {
+      "C3": [
+        "1"
+      ],
+      "C9": [
+        "1"
+      ],
+      "D10": [
+        "1"
+      ],
+      "Q2": [
+        "3"
+      ],
+      "R16": [
+        "2"
+      ],
+      "R7": [
+        "1"
+      ]
+    },
+    "unconnected-(J1-P6-Pad6)": {
+      "J1": [
+        "6"
+      ]
+    },
+    "unconnected-(J1-P9-Pad9)": {
+      "J1": [
+        "9"
+      ]
+    },
+    "unconnected-(J1-Pad1)": {
+      "J1": [
+        "1"
+      ]
+    },
+    "unconnected-(J1-Pad2)": {
+      "J1": [
+        "2"
+      ]
+    },
+    "unconnected-(P2-Pad2)": {
+      "P2": [
+        "2"
+      ]
+    },
+    "unconnected-(P2-Pad3)": {
+      "P2": [
+        "3"
+      ]
+    },
+    "unconnected-(P2-Pad4)": {
+      "P2": [
+        "4"
+      ]
+    },
+    "unconnected-(P2-Pad5)": {
+      "P2": [
+        "5"
+      ]
+    },
+    "unconnected-(P2-Pad6)": {
+      "P2": [
+        "6"
+      ]
+    },
+    "unconnected-(P2-Pad7)": {
+      "P2": [
+        "7"
+      ]
+    },
+    "unconnected-(P2-Pad9)": {
+      "P2": [
+        "9"
+      ]
+    },
+    "unconnected-(P2-Pad10)": {
+      "P2": [
+        "10"
+      ]
+    },
+    "unconnected-(P2-Pad11)": {
+      "P2": [
+        "11"
+      ]
+    },
+    "unconnected-(P2-Pad12)": {
+      "P2": [
+        "12"
+      ]
+    },
+    "unconnected-(P2-Pad13)": {
+      "P2": [
+        "13"
+      ]
+    },
+    "unconnected-(P2-Pad14)": {
+      "P2": [
+        "14"
+      ]
+    },
+    "unconnected-(P2-Pad15)": {
+      "P2": [
+        "15"
+      ]
+    },
+    "unconnected-(P2-Pad16)": {
+      "P2": [
+        "16"
+      ]
+    },
+    "unconnected-(P2-Pad17)": {
+      "P2": [
+        "17"
+      ]
+    },
+    "unconnected-(P2-Pad18)": {
+      "P2": [
+        "18"
+      ]
+    },
+    "unconnected-(P2-Pad21)": {
+      "P2": [
+        "21"
+      ]
+    },
+    "unconnected-(P2-Pad22)": {
+      "P2": [
+        "22"
+      ]
+    },
+    "unconnected-(P2-Pad23)": {
+      "P2": [
+        "23"
+      ]
+    },
+    "unconnected-(P2-Pad24)": {
+      "P2": [
+        "24"
+      ]
+    },
+    "unconnected-(P2-Pad25)": {
+      "P2": [
+        "25"
+      ]
+    },
+    "unconnected-(P2-Pad26)": {
+      "P2": [
+        "26"
+      ]
+    },
+    "unconnected-(P3-Pad2)": {
+      "P3": [
+        "2"
+      ]
+    },
+    "unconnected-(P3-Pad3)": {
+      "P3": [
+        "3"
+      ]
+    },
+    "unconnected-(P3-Pad4)": {
+      "P3": [
+        "4"
+      ]
+    },
+    "unconnected-(P3-Pad5)": {
+      "P3": [
+        "5"
+      ]
+    },
+    "unconnected-(P3-Pad6)": {
+      "P3": [
+        "6"
+      ]
+    },
+    "unconnected-(P3-Pad7)": {
+      "P3": [
+        "7"
+      ]
+    },
+    "unconnected-(P3-Pad9)": {
+      "P3": [
+        "9"
+      ]
+    },
+    "unconnected-(P3-Pad10)": {
+      "P3": [
+        "10"
+      ]
+    },
+    "unconnected-(P3-Pad13)": {
+      "P3": [
+        "13"
+      ]
+    },
+    "unconnected-(P3-Pad14)": {
+      "P3": [
+        "14"
+      ]
+    },
+    "unconnected-(P3-Pad15)": {
+      "P3": [
+        "15"
+      ]
+    },
+    "unconnected-(P3-Pad16)": {
+      "P3": [
+        "16"
+      ]
+    },
+    "unconnected-(P3-Pad17)": {
+      "P3": [
+        "17"
+      ]
+    },
+    "unconnected-(P3-Pad18)": {
+      "P3": [
+        "18"
+      ]
+    },
+    "unconnected-(P3-Pad19)": {
+      "P3": [
+        "19"
+      ]
+    },
+    "unconnected-(P3-Pad20)": {
+      "P3": [
+        "20"
+      ]
+    },
+    "unconnected-(P3-Pad21)": {
+      "P3": [
+        "21"
+      ]
+    },
+    "unconnected-(P3-Pad22)": {
+      "P3": [
+        "22"
+      ]
+    },
+    "unconnected-(P3-Pad23)": {
+      "P3": [
+        "23"
+      ]
+    },
+    "unconnected-(P3-Pad24)": {
+      "P3": [
+        "24"
+      ]
+    },
+    "unconnected-(P3-Pad25)": {
+      "P3": [
+        "25"
+      ]
+    },
+    "unconnected-(P3-Pad26)": {
+      "P3": [
+        "26"
+      ]
+    },
+    "unconnected-(P3-Pad27)": {
+      "P3": [
+        "27"
+      ]
+    },
+    "unconnected-(P3-Pad28)": {
+      "P3": [
+        "28"
+      ]
+    },
+    "unconnected-(P3-Pad29)": {
+      "P3": [
+        "29"
+      ]
+    },
+    "unconnected-(P3-Pad30)": {
+      "P3": [
+        "30"
+      ]
+    },
+    "unconnected-(P3-Pad33)": {
+      "P3": [
+        "33"
+      ]
+    },
+    "unconnected-(P3-Pad34)": {
+      "P3": [
+        "34"
+      ]
+    },
+    "unconnected-(P3-Pad35)": {
+      "P3": [
+        "35"
+      ]
+    },
+    "unconnected-(P3-Pad36)": {
+      "P3": [
+        "36"
+      ]
+    },
+    "unconnected-(P3-Pad37)": {
+      "P3": [
+        "37"
+      ]
+    },
+    "unconnected-(P3-Pad38)": {
+      "P3": [
+        "38"
+      ]
+    },
+    "unconnected-(U1-WP-Pad7)": {
+      "U1": [
+        "7"
+      ]
+    },
+    "unconnected-(U4-FB--Pad3)": {
+      "U4": [
+        "3"
+      ]
+    },
+    "unconnected-(U4-S{slash}S-Pad4)": {
+      "U4": [
+        "4"
+      ]
+    },
+    "unconnected-(U5-OSC1{slash}CLKI-Pad16)": {
+      "U5": [
+        "16"
+      ]
+    },
+    "unconnected-(U5-OSC2{slash}CLKO-Pad15)": {
+      "U5": [
+        "15"
+      ]
+    },
+    "unconnected-(U5-RA0-Pad17)": {
+      "U5": [
+        "17"
+      ]
+    },
+    "unconnected-(U5-RA1-Pad18)": {
+      "U5": [
+        "18"
+      ]
+    },
+    "unconnected-(U5-RA2-Pad1)": {
+      "U5": [
+        "1"
+      ]
+    },
+    "unconnected-(U5-RA3-Pad2)": {
+      "U5": [
+        "2"
+      ]
+    },
+    "unconnected-(U5-RB0-Pad6)": {
+      "U5": [
+        "6"
+      ]
+    },
+    "unconnected-(U5-RB1-Pad7)": {
+      "U5": [
+        "7"
+      ]
+    },
+    "unconnected-(U5-RB2-Pad8)": {
+      "U5": [
+        "8"
+      ]
+    },
+    "unconnected-(U5-RB3-Pad9)": {
+      "U5": [
+        "9"
+      ]
+    },
+    "unconnected-(U5-RB4-Pad10)": {
+      "U5": [
+        "10"
+      ]
+    },
+    "unconnected-(U5-RB5-Pad11)": {
+      "U5": [
+        "11"
+      ]
+    },
+    "unconnected-(U5-T0ckl-Pad3)": {
+      "U5": [
+        "3"
+      ]
+    },
+    "unconnected-(U6-GP2-Pad5)": {
+      "U6": [
+        "5"
+      ]
+    },
+    "unconnected-(U6-GP4{slash}OSC2-Pad3)": {
+      "U6": [
+        "3"
+      ]
+    },
+    "unconnected-(U6-GP5{slash}OSC1-Pad2)": {
+      "U6": [
+        "2"
+      ]
+    }
+  },
+  "components": {
+    "C1": {
+      "pins": {
+        "1": "VCC",
+        "2": "GND"
+      },
+      "value": "100µF"
+    },
+    "C2": {
+      "pins": {
+        "1": "Net-(D1-K)",
+        "2": "GND"
+      },
+      "value": "220uF"
+    },
+    "C3": {
+      "pins": {
+        "1": "VPP",
+        "2": "GND"
+      },
+      "value": "22uF/25V"
+    },
+    "C4": {
+      "pins": {
+        "1": "Net-(U4-Vc)",
+        "2": "GND"
+      },
+      "value": "0"
+    },
+    "C5": {
+      "pins": {
+        "1": "Net-(C5-Pad1)",
+        "2": "GND"
+      },
+      "value": "10nF"
+    },
+    "C9": {
+      "pins": {
+        "1": "VPP",
+        "2": "Net-(Q2-B)"
+      },
+      "value": "220nF"
+    },
+    "D1": {
+      "pins": {
+        "1": {
+          "name": "K",
+          "net": "Net-(D1-K)"
+        },
+        "2": {
+          "name": "A",
+          "net": "Net-(D1-A)"
+        }
+      },
+      "value": "1N4004"
+    },
+    "D2": {
+      "pins": {
+        "1": {
+          "name": "K",
+          "net": "VCC"
+        },
+        "2": {
+          "name": "A",
+          "net": "Net-(D2-A)"
+        }
+      },
+      "value": "BAT43"
+    },
+    "D3": {
+      "pins": {
+        "1": {
+          "name": "K",
+          "net": "Net-(D2-A)"
+        },
+        "2": {
+          "name": "A",
+          "net": "GND"
+        }
+      },
+      "value": "BAT43"
+    },
+    "D4": {
+      "pins": {
+        "1": {
+          "name": "K",
+          "net": "VCC"
+        },
+        "2": {
+          "name": "A",
+          "net": "Net-(D4-A)"
+        }
+      },
+      "value": "BAT43"
+    },
+    "D5": {
+      "pins": {
+        "1": {
+          "name": "K",
+          "net": "Net-(D4-A)"
+        },
+        "2": {
+          "name": "A",
+          "net": "GND"
+        }
+      },
+      "value": "BAT43"
+    },
+    "D6": {
+      "pins": {
+        "1": {
+          "name": "K",
+          "net": "VCC"
+        },
+        "2": {
+          "name": "A",
+          "net": "Net-(D6-A)"
+        }
+      },
+      "value": "BAT43"
+    },
+    "D7": {
+      "pins": {
+        "1": {
+          "name": "K",
+          "net": "Net-(D6-A)"
+        },
+        "2": {
+          "name": "A",
+          "net": "GND"
+        }
+      },
+      "value": "BAT43"
+    },
+    "D8": {
+      "pins": {
+        "1": {
+          "name": "K",
+          "net": "GND"
+        },
+        "2": {
+          "name": "A",
+          "net": "Net-(D8-A)"
+        }
+      },
+      "value": "RED-LED"
+    },
+    "D9": {
+      "pins": {
+        "1": {
+          "name": "K",
+          "net": "GND"
+        },
+        "2": {
+          "name": "A",
+          "net": "Net-(D9-A)"
+        }
+      },
+      "value": "GREEN-LED"
+    },
+    "D10": {
+      "pins": {
+        "1": {
+          "name": "K",
+          "net": "VPP"
+        },
+        "2": {
+          "name": "A",
+          "net": "Net-(D10-A)"
+        }
+      },
+      "value": "SCHOTTKY"
+    },
+    "D11": {
+      "pins": {
+        "1": {
+          "name": "K",
+          "net": "Net-(D11-K)"
+        },
+        "2": {
+          "name": "A",
+          "net": "Net-(D11-A)"
+        }
+      },
+      "value": "BAT43"
+    },
+    "D12": {
+      "pins": {
+        "1": {
+          "name": "K",
+          "net": "GND"
+        },
+        "2": {
+          "name": "A",
+          "net": "Net-(D12-A)"
+        }
+      },
+      "value": "YELLOW-LED"
+    },
+    "J1": {
+      "pins": {
+        "1": "unconnected-(J1-Pad1)",
+        "2": "unconnected-(J1-Pad2)",
+        "3": "/VPP_ON",
+        "4": "/PC-DATA-OUT",
+        "5": "GND",
+        "6": {
+          "name": "P6",
+          "net": "unconnected-(J1-P6-Pad6)"
+        },
+        "7": {
+          "name": "P7",
+          "net": "/PC-CLOCK-OUT"
+        },
+        "8": {
+          "name": "P8",
+          "net": "/PC-DATA-IN"
+        },
+        "9": {
+          "name": "P9",
+          "net": "unconnected-(J1-P9-Pad9)"
+        }
+      },
+      "value": "DB9-FEMAL"
+    },
+    "JP1": {
+      "pins": {
+        "1": "VCC",
+        "2": "/pic_sockets/VCC_PIC"
+      },
+      "value": "JUMPER"
+    },
+    "L1": {
+      "pins": {
+        "1": "Net-(D10-A)",
+        "2": "VCC"
+      },
+      "value": "22uH"
+    },
+    "P1": {
+      "pins": {
+        "1": {
+          "name": "P1",
+          "net": "GND"
+        },
+        "2": {
+          "name": "PM",
+          "net": "Net-(D1-A)"
+        }
+      },
+      "value": "CONN_2"
+    },
+    "P101": {
+      "pins": {},
+      "value": "CONN_1"
+    },
+    "P102": {
+      "pins": {},
+      "value": "CONN_1"
+    },
+    "P103": {
+      "pins": {},
+      "value": "CONN_1"
+    },
+    "P104": {
+      "pins": {},
+      "value": "CONN_1"
+    },
+    "P105": {
+      "pins": {},
+      "value": "CONN_1"
+    },
+    "P106": {
+      "pins": {},
+      "value": "CONN_1"
+    },
+    "Q1": {
+      "pins": {
+        "1": {
+          "name": "C",
+          "net": "Net-(D11-K)"
+        },
+        "2": {
+          "name": "B",
+          "net": "Net-(Q1-B)"
+        },
+        "3": {
+          "name": "E",
+          "net": "GND"
+        }
+      },
+      "value": "BC237"
+    },
+    "Q2": {
+      "pins": {
+        "1": {
+          "name": "C",
+          "net": "Net-(Q2-C)"
+        },
+        "2": {
+          "name": "B",
+          "net": "Net-(Q2-B)"
+        },
+        "3": {
+          "name": "E",
+          "net": "VPP"
+        }
+      },
+      "value": "BC307"
+    },
+    "Q3": {
+      "pins": {
+        "1": {
+          "name": "C",
+          "net": "/pic_sockets/VCC_PIC"
+        },
+        "2": {
+          "name": "B",
+          "net": "Net-(Q3-B)"
+        },
+        "3": {
+          "name": "E",
+          "net": "VCC"
+        }
+      },
+      "value": "BC307"
+    },
+    "R1": {
+      "pins": {
+        "1": "/VPP_ON",
+        "2": "Net-(D2-A)"
+      },
+      "value": "10K"
+    },
+    "R2": {
+      "pins": {
+        "1": "/VPP_ON",
+        "2": "GND"
+      },
+      "value": "10K"
+    },
+    "R3": {
+      "pins": {
+        "1": "/PC-DATA-OUT",
+        "2": "Net-(D4-A)"
+      },
+      "value": "10K"
+    },
+    "R4": {
+      "pins": {
+        "1": "/PC-DATA-OUT",
+        "2": "GND"
+      },
+      "value": "10K"
+    },
+    "R5": {
+      "pins": {
+        "1": "/PC-CLOCK-OUT",
+        "2": "Net-(D6-A)"
+      },
+      "value": "10K"
+    },
+    "R6": {
+      "pins": {
+        "1": "/PC-CLOCK-OUT",
+        "2": "GND"
+      },
+      "value": "10K"
+    },
+    "R7": {
+      "pins": {
+        "1": "VPP",
+        "2": "Net-(Q2-B)"
+      },
+      "value": "10K"
+    },
+    "R8": {
+      "pins": {
+        "1": "Net-(R8-Pad1)",
+        "2": "Net-(Q1-B)"
+      },
+      "value": "1K"
+    },
+    "R9": {
+      "pins": {
+        "1": "Net-(Q2-C)",
+        "2": "Net-(D8-A)"
+      },
+      "value": "2.2K"
+    },
+    "R10": {
+      "pins": {
+        "1": "Net-(U4-Vc)",
+        "2": "Net-(C5-Pad1)"
+      },
+      "value": "5,1K"
+    },
+    "R11": {
+      "pins": {
+        "1": "Net-(D11-K)",
+        "2": "Net-(Q2-B)"
+      },
+      "value": "22K"
+    },
+    "R12": {
+      "pins": {
+        "1": "Net-(R12-Pad1)",
+        "2": "/DATA-RB7"
+      },
+      "value": "2k"
+    },
+    "R13": {
+      "pins": {
+        "1": "Net-(R13-Pad1)",
+        "2": "/CLOCK-RB6"
+      },
+      "value": "4k"
+    },
+    "R14": {
+      "pins": {
+        "1": "VCC",
+        "2": "Net-(D9-A)"
+      },
+      "value": "470"
+    },
+    "R15": {
+      "pins": {
+        "1": "Net-(R15-Pad1)",
+        "2": "GND"
+      },
+      "value": "6.2K"
+    },
+    "R16": {
+      "pins": {
+        "1": "Net-(R16-Pad1)",
+        "2": "VPP"
+      },
+      "value": "62K"
+    },
+    "R17": {
+      "pins": {
+        "1": "Net-(Q2-C)",
+        "2": "GND"
+      },
+      "value": "22K"
+    },
+    "R18": {
+      "pins": {
+        "1": "Net-(Q2-C)",
+        "2": "/VPP{slash}MCLR"
+      },
+      "value": "220"
+    },
+    "R19": {
+      "pins": {
+        "1": "Net-(D11-A)",
+        "2": "Net-(Q3-B)"
+      },
+      "value": "2.2K"
+    },
+    "R20": {
+      "pins": {
+        "1": "VCC",
+        "2": "Net-(Q3-B)"
+      },
+      "value": "2.2K"
+    },
+    "R21": {
+      "pins": {
+        "1": "Net-(D12-A)",
+        "2": "/pic_sockets/VCC_PIC"
+      },
+      "value": "470"
+    },
+    "RV1": {
+      "pins": {
+        "1": "Net-(R15-Pad1)",
+        "2": "Net-(U4-FB+)",
+        "3": "Net-(R16-Pad1)"
+      },
+      "value": "1K"
+    },
+    "U2": {
+      "pins": {
+        "1": "GND",
+        "2": "Net-(D2-A)",
+        "3": "Net-(R8-Pad1)",
+        "4": "GND",
+        "5": "Net-(D4-A)",
+        "6": "Net-(R12-Pad1)",
+        "7": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "8": "Net-(R13-Pad1)",
+        "9": "Net-(D6-A)",
+        "10": "GND",
+        "11": "/PC-DATA-IN",
+        "12": "/DATA-RB7",
+        "13": "GND",
+        "14": {
+          "name": "VCC",
+          "net": "VCC"
+        }
+      },
+      "value": "74HC125"
+    },
+    "U3": {
+      "pins": {
+        "1": {
+          "name": "VI",
+          "net": "Net-(D1-K)"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "3": {
+          "name": "VO",
+          "net": "VCC"
+        }
+      },
+      "value": "7805"
+    },
+    "U4": {
+      "pins": {
+        "1": {
+          "name": "Vc",
+          "net": "Net-(U4-Vc)"
+        },
+        "2": {
+          "name": "FB+",
+          "net": "Net-(U4-FB+)"
+        },
+        "3": {
+          "name": "FB-",
+          "net": "unconnected-(U4-FB--Pad3)"
+        },
+        "4": {
+          "name": "S/S",
+          "net": "unconnected-(U4-S{slash}S-Pad4)"
+        },
+        "5": {
+          "name": "Vin",
+          "net": "VCC"
+        },
+        "6": {
+          "name": "GND_S",
+          "net": "GND"
+        },
+        "7": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "8": {
+          "name": "Vsw",
+          "net": "Net-(D10-A)"
+        }
+      },
+      "value": "LT1373"
+    },
+    "C6": {
+      "pins": {
+        "1": "/pic_sockets/VCC_PIC",
+        "2": "GND"
+      },
+      "value": "100nF"
+    },
+    "C7": {
+      "pins": {
+        "1": "/pic_sockets/VCC_PIC",
+        "2": "GND"
+      },
+      "value": "100nF"
+    },
+    "P2": {
+      "pins": {
+        "1": "/VPP{slash}MCLR",
+        "2": "unconnected-(P2-Pad2)",
+        "3": "unconnected-(P2-Pad3)",
+        "4": "unconnected-(P2-Pad4)",
+        "5": "unconnected-(P2-Pad5)",
+        "6": "unconnected-(P2-Pad6)",
+        "7": "unconnected-(P2-Pad7)",
+        "8": "GND",
+        "9": "unconnected-(P2-Pad9)",
+        "10": "unconnected-(P2-Pad10)",
+        "11": "unconnected-(P2-Pad11)",
+        "12": "unconnected-(P2-Pad12)",
+        "13": "unconnected-(P2-Pad13)",
+        "14": "unconnected-(P2-Pad14)",
+        "15": "unconnected-(P2-Pad15)",
+        "16": "unconnected-(P2-Pad16)",
+        "17": "unconnected-(P2-Pad17)",
+        "18": "unconnected-(P2-Pad18)",
+        "19": "GND",
+        "20": "/pic_sockets/VCC_PIC",
+        "21": "unconnected-(P2-Pad21)",
+        "22": "unconnected-(P2-Pad22)",
+        "23": "unconnected-(P2-Pad23)",
+        "24": "unconnected-(P2-Pad24)",
+        "25": "unconnected-(P2-Pad25)",
+        "26": "unconnected-(P2-Pad26)",
+        "27": "/CLOCK-RB6",
+        "28": "/DATA-RB7"
+      },
+      "value": "SUPP28"
+    },
+    "P3": {
+      "pins": {
+        "1": "/VPP{slash}MCLR",
+        "2": "unconnected-(P3-Pad2)",
+        "3": "unconnected-(P3-Pad3)",
+        "4": "unconnected-(P3-Pad4)",
+        "5": "unconnected-(P3-Pad5)",
+        "6": "unconnected-(P3-Pad6)",
+        "7": "unconnected-(P3-Pad7)",
+        "8": "GND",
+        "9": "unconnected-(P3-Pad9)",
+        "10": "unconnected-(P3-Pad10)",
+        "11": "/pic_sockets/VCC_PIC",
+        "12": "GND",
+        "13": "unconnected-(P3-Pad13)",
+        "14": "unconnected-(P3-Pad14)",
+        "15": "unconnected-(P3-Pad15)",
+        "16": "unconnected-(P3-Pad16)",
+        "17": "unconnected-(P3-Pad17)",
+        "18": "unconnected-(P3-Pad18)",
+        "19": "unconnected-(P3-Pad19)",
+        "20": "unconnected-(P3-Pad20)",
+        "21": "unconnected-(P3-Pad21)",
+        "22": "unconnected-(P3-Pad22)",
+        "23": "unconnected-(P3-Pad23)",
+        "24": "unconnected-(P3-Pad24)",
+        "25": "unconnected-(P3-Pad25)",
+        "26": "unconnected-(P3-Pad26)",
+        "27": "unconnected-(P3-Pad27)",
+        "28": "unconnected-(P3-Pad28)",
+        "29": "unconnected-(P3-Pad29)",
+        "30": "unconnected-(P3-Pad30)",
+        "31": "GND",
+        "32": "/pic_sockets/VCC_PIC",
+        "33": "unconnected-(P3-Pad33)",
+        "34": "unconnected-(P3-Pad34)",
+        "35": "unconnected-(P3-Pad35)",
+        "36": "unconnected-(P3-Pad36)",
+        "37": "unconnected-(P3-Pad37)",
+        "38": "unconnected-(P3-Pad38)",
+        "39": "/CLOCK-RB6",
+        "40": "/DATA-RB7"
+      },
+      "value": "SUPP40"
+    },
+    "U1": {
+      "pins": {
+        "1": {
+          "name": "A0",
+          "net": "GND"
+        },
+        "2": {
+          "name": "A1",
+          "net": "GND"
+        },
+        "3": {
+          "name": "A2",
+          "net": "GND"
+        },
+        "4": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "5": {
+          "name": "SDA",
+          "net": "/DATA-RB7"
+        },
+        "6": {
+          "name": "SCL",
+          "net": "/CLOCK-RB6"
+        },
+        "7": {
+          "name": "WP",
+          "net": "unconnected-(U1-WP-Pad7)"
+        },
+        "8": {
+          "name": "VCC",
+          "net": "/pic_sockets/VCC_PIC"
+        }
+      },
+      "value": "24Cxx"
+    },
+    "U5": {
+      "pins": {
+        "1": {
+          "name": "RA2",
+          "net": "unconnected-(U5-RA2-Pad1)"
+        },
+        "2": {
+          "name": "RA3",
+          "net": "unconnected-(U5-RA3-Pad2)"
+        },
+        "3": {
+          "name": "T0ckl",
+          "net": "unconnected-(U5-T0ckl-Pad3)"
+        },
+        "4": {
+          "name": "MCLR",
+          "net": "/VPP{slash}MCLR"
+        },
+        "5": {
+          "name": "VSS",
+          "net": "GND"
+        },
+        "6": {
+          "name": "RB0",
+          "net": "unconnected-(U5-RB0-Pad6)"
+        },
+        "7": {
+          "name": "RB1",
+          "net": "unconnected-(U5-RB1-Pad7)"
+        },
+        "8": {
+          "name": "RB2",
+          "net": "unconnected-(U5-RB2-Pad8)"
+        },
+        "9": {
+          "name": "RB3",
+          "net": "unconnected-(U5-RB3-Pad9)"
+        },
+        "10": {
+          "name": "RB4",
+          "net": "unconnected-(U5-RB4-Pad10)"
+        },
+        "11": {
+          "name": "RB5",
+          "net": "unconnected-(U5-RB5-Pad11)"
+        },
+        "12": {
+          "name": "ICSPC/RB6",
+          "net": "/CLOCK-RB6"
+        },
+        "13": {
+          "name": "ICSPD/RB7",
+          "net": "/DATA-RB7"
+        },
+        "14": {
+          "name": "VDD",
+          "net": "/pic_sockets/VCC_PIC"
+        },
+        "15": {
+          "name": "OSC2/CLKO",
+          "net": "unconnected-(U5-OSC2{slash}CLKO-Pad15)"
+        },
+        "16": {
+          "name": "OSC1/CLKI",
+          "net": "unconnected-(U5-OSC1{slash}CLKI-Pad16)"
+        },
+        "17": {
+          "name": "RA0",
+          "net": "unconnected-(U5-RA0-Pad17)"
+        },
+        "18": {
+          "name": "RA1",
+          "net": "unconnected-(U5-RA1-Pad18)"
+        }
+      },
+      "value": "PIC_18_PINS"
+    },
+    "U6": {
+      "pins": {
+        "1": {
+          "name": "VDD",
+          "net": "/pic_sockets/VCC_PIC"
+        },
+        "2": {
+          "name": "GP5/OSC1",
+          "net": "unconnected-(U6-GP5{slash}OSC1-Pad2)"
+        },
+        "3": {
+          "name": "GP4/OSC2",
+          "net": "unconnected-(U6-GP4{slash}OSC2-Pad3)"
+        },
+        "4": {
+          "name": "GP3/MCLR",
+          "net": "/VPP{slash}MCLR"
+        },
+        "5": {
+          "name": "GP2",
+          "net": "unconnected-(U6-GP2-Pad5)"
+        },
+        "6": {
+          "name": "GP1",
+          "net": "/CLOCK-RB6"
+        },
+        "7": {
+          "name": "GP0",
+          "net": "/DATA-RB7"
+        },
+        "8": {
+          "name": "VSS",
+          "net": "GND"
+        }
+      },
+      "value": "PIC_8_PINS"
+    }
+  }
+}

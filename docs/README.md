@@ -8,9 +8,9 @@ The Universal Netlist MCP Server provides tools for querying electronic design n
 
 | Format | Input Files | Description |
 |--------|------------|-------------|
-| Cadence (OrCAD / CIS) | `.DSN` schematic | Reads the binary schematic directly, including CIS variant stuffing information |
-| Altium Designer | `.SchDoc` | Altium schematic documents (discovered via `.PrjPcb` project files) |
-| KiCad | `.kicad_pro` (or root `.kicad_sch`) | A committed `kicadsexpr` netlist export (`.net`) beside the project is parsed directly (preferred). When unavailable, one is generated on demand via `kicad-cli` (requires KiCad installed; set `KICAD_CLI_PATH` for a non-standard location). |
+| Cadence (OrCAD / CIS) | `.DSN` schematic | Reads the binary schematic directly, including exact CIS BOM variant membership and stuffing information |
+| Altium Designer | `.SchDoc` | Altium schematic documents, discovered and assembled through `.PrjPcb` project files, including design variants (Not Fitted rows, alternate parts, and parameter overrides) |
+| KiCad | `.kicad_pro` (or root `.kicad_sch`) | A committed `kicadsexpr` netlist export (`.net`) beside the project is parsed directly; otherwise `kicad-cli` generates one on demand (set `KICAD_CLI_PATH` for a non-standard location). A named KiCad 10 design variant is then applied from the schematic's per-instance variant blocks (`dnp` and field overrides), since kicad-cli's export does not apply them. |
 | Universal Netlist | `.netlist.json` | A versioned file with nested origin metadata, a UTC generation timestamp, and a verified SHA-256 over `nets` and `components` together in the [Universal Netlist schema](schemas/universal-netlist.md). Validated on load: the hash must match, `nets` and `components` must be exact inverses, and every refdes and pin must resolve. See [Loading a Universal Netlist file](schemas/universal-netlist.md#loading-a-universal-netlist-file). |
 
 ## Design Philosophy
@@ -31,7 +31,7 @@ The schema captures identification (MPN, description) but not electrical specifi
 
 | Tool | Description |
 |------|-------------|
-| [`list_designs`](tools/list_designs.md) | Find design projects in a directory |
+| [`list_designs`](tools/list_designs.md) | Find design projects in a directory, with each design's `design_variants` |
 | [`list_components`](tools/list_components.md) | List components by type (U, R, C, etc.) |
 | [`list_nets`](tools/list_nets.md) | List all nets in a design |
 | [`search_nets`](tools/search_nets.md) | Search nets by pattern |
@@ -60,6 +60,8 @@ The server can emit OpenTelemetry traces, metrics, and logs for every tool call,
 Once configured, you can ask your AI assistant questions like:
 
 - "Find all designs in the current directory"
+- "Which design variants does MyDesign.PrjPcb define?"
+- "List the capacitors in the Production variant of MyDesign.PrjPcb"
 - "List all the capacitors in MyDesign.PrjPcb"
 - "List the op-amps in MyBoard.kicad_pro"
 - "What nets contain 'USB' in their name?"
@@ -92,6 +94,7 @@ Error messages include actionable guidance (e.g., "Use list_components() to find
 
 Important behavioral documentation in [shared-types.md](schemas/shared-types.md):
 
+- [Design Variants](schemas/shared-types.md#design-variants) - Selecting one assembly with `design_variant`, and the `alternate_part` flag
 - [DNS Detection](schemas/shared-types.md#dns-detection) - How Do Not Stuff components are identified
 - [How Cadence Records Do Not Install](cadence-dni.md) - The two mechanisms a Cadence design uses, and why one of them never reaches the exported netlist
 - [Power/Ground Stop Nets](schemas/shared-types.md#powerground-stop-nets) - Nets that stop circuit traversal

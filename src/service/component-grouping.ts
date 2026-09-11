@@ -27,6 +27,7 @@ export const groupComponentsByMpn = (
       comment?: string;
       value?: string;
       dns?: boolean;
+      alternate_part?: boolean;
       notes?: string[];
       refdes: string[];
     }
@@ -37,6 +38,7 @@ export const groupComponentsByMpn = (
     if (!includeDns && dns) {
       continue;
     }
+    const alternatePart = component.alternate_part ?? false;
 
     const mpnTrimmed = component.mpn?.trim() || undefined;
     const internalPn = component.internal_pn?.trim() || undefined;
@@ -60,6 +62,7 @@ export const groupComponentsByMpn = (
       `comment:${commentValue ?? ""}`,
       `value:${valueValue ?? ""}`,
       `dns:${dns ? "1" : "0"}`,
+      `alt:${alternatePart ? "1" : "0"}`,
     ].join("||");
 
     if (!groups.has(groupKey)) {
@@ -71,6 +74,7 @@ export const groupComponentsByMpn = (
         comment: commentValue,
         value: valueValue,
         dns: dns || undefined,
+        alternate_part: alternatePart || undefined,
         notes: mpnTrimmed ? undefined : [MPN_MISSING_NOTE],
         refdes: [],
       });
@@ -114,6 +118,10 @@ export const groupComponentsByMpn = (
         entry.dns = group.dns;
       }
 
+      if (group.alternate_part !== undefined) {
+        entry.alternate_part = group.alternate_part;
+      }
+
       if (group.notes !== undefined) {
         entry.notes = group.notes;
       }
@@ -139,6 +147,7 @@ export const aggregateCircuitByMpn = (
       comment?: string;
       value?: string;
       dns?: boolean;
+      alternate_part?: boolean;
       notes?: string[];
       orientations: Map<
         string,
@@ -160,6 +169,7 @@ export const aggregateCircuitByMpn = (
     const description = comp.description?.trim() || "";
     const value = comp.value?.trim() || undefined;
     const dnsFlag = comp.dns ? true : undefined;
+    const alternateFlag = comp.alternate_part ? true : undefined;
 
     let aggregationKey: string;
     if (mpn) {
@@ -184,6 +194,7 @@ export const aggregateCircuitByMpn = (
       `comment:${comp.comment ?? ""}`,
       `value:${value ?? ""}`,
       `dns:${dnsFlag ? "1" : "0"}`,
+      `alt:${alternateFlag ? "1" : "0"}`,
     ].join("||");
 
     if (!groups.has(groupKey)) {
@@ -195,6 +206,7 @@ export const aggregateCircuitByMpn = (
         comment: comp.comment,
         value,
         dns: dnsFlag,
+        alternate_part: alternateFlag,
         notes: mpn ? undefined : [MPN_MISSING_NOTE],
         orientations: new Map(),
       });
@@ -255,6 +267,9 @@ export const aggregateCircuitByMpn = (
     if (group.dns !== undefined) {
       aggregated.dns = group.dns;
     }
+    if (group.alternate_part !== undefined) {
+      aggregated.alternate_part = group.alternate_part;
+    }
     if (group.notes !== undefined) {
       aggregated.notes = group.notes;
     }
@@ -298,6 +313,9 @@ export const aggregateCircuitByMpn = (
     }
     if (comp.dns) {
       unagg.dns = true;
+    }
+    if (comp.alternate_part) {
+      unagg.alternate_part = true;
     }
 
     result.push(unagg);

@@ -8,12 +8,14 @@ import { isErrorResult, type QueryComponentResult, type ErrorResult } from "../.
  *
  * @param design - Path to design file
  * @param refdes - Component reference designator
+ * @param designVariant - Native design variant, or `<Default>` for the core design
  */
 export const queryComponent = async (
   design: string,
-  refdes: string
+  refdes: string,
+  designVariant?: string
 ): Promise<QueryComponentResult | ErrorResult> => {
-  const netlist = await loadNetlist(design);
+  const netlist = await loadNetlist(design, designVariant);
   if (isErrorResult(netlist)) {
     return netlist;
   }
@@ -35,6 +37,7 @@ export const queryComponent = async (
   const dns = component.dns ?? false;
 
   const result: QueryComponentResult = {
+    design_variant: netlist.design_variant,
     refdes: resolvedRefdes,
     pins: component.pins,
   };
@@ -64,6 +67,9 @@ export const queryComponent = async (
   }
   if (dns) {
     result.dns = true;
+  }
+  if (component.alternate_part) {
+    result.alternate_part = true;
   }
   if (!mpn) {
     result.notes = [MPN_MISSING_NOTE];

@@ -69,6 +69,24 @@ describe.skipIf(!hasFixtures)("variant Do Not Stuff", () => {
     expect(await dnsRefdes(DSN)).toEqual(BOM_DO_NOT_STUFF);
   });
 
+  it("selects the BOM variant by name and leaves the core design's marker-only state intact", async () => {
+    expect(await cadenceHandler.listVariants?.(DSN)).toEqual([
+      { name: "Standard", fabrication: true },
+    ]);
+
+    const selected = await cadenceHandler.parse(DSN, { variant: "standard" });
+    const selectedDns = Object.entries(selected.components)
+      .filter(([, component]) => component.dns)
+      .map(([refdes]) => refdes)
+      .sort();
+    expect(selectedDns).toEqual(BOM_DO_NOT_STUFF);
+
+    const core = await cadenceHandler.parse(DSN, { variant: "<Default>" });
+    const coreDns = Object.keys(core.components).filter((refdes) => core.components[refdes].dns);
+    expect(coreDns.length).toBeGreaterThan(0);
+    expect(coreDns.length).toBeLessThan(BOM_DO_NOT_STUFF.length);
+  });
+
   it("leaves a design whose variant store is empty alone", async () => {
     // This design carries the CIS storage with no group in it, which is what a
     // design that has never declared a variant writes.

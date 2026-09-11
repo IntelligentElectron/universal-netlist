@@ -18,14 +18,16 @@ A group is returned once however many of its numbers matched.
 |-----------|------|----------|---------|-------------|
 | `pattern` | string | Yes | - | Regex pattern for either part number (case-insensitive) |
 | `design` | string | Yes | - | Path to design file |
-| `include_dns` | boolean | No | `false` | Include DNS components |
+| `include_dns` | boolean | No | `true` | Include DNS components, flagged `dns: true`; pass `false` for fitted parts only |
+| `design_variant` | string | Conditional | - | Design variant name from `list_designs`' `design_variants`, or `<Default>` (alias: `default`) for the unmodified/core design. Required when the design records named variants |
 
 ## Response Schema
 
-Returns results keyed by design name, each containing an array of [`ComponentGroup`](../schemas/shared-types.md#componentgroup) objects:
+Returns the design variant the result describes and results keyed by design name, each containing an array of [`ComponentGroup`](../schemas/shared-types.md#componentgroup) objects:
 
 ```json
 {
+  "design_variant": "<Default>",       // The variant described: a native name or <Default>
   "results": {
     "DesignName": [ComponentGroup, ...]
   },
@@ -51,6 +53,7 @@ Call:
 Response:
 ```json
 {
+  "design_variant": "<Default>",
   "results": {
     "PowerBoard": [
       {
@@ -74,6 +77,7 @@ Response:
 **No MPN data in design:**
 ```json
 {
+  "design_variant": "<Default>",
   "results": {
     "OldDesign": []
   },
@@ -84,6 +88,7 @@ Response:
 **No matches:**
 ```json
 {
+  "design_variant": "<Default>",
   "results": {
     "PowerBoard": []
   },
@@ -117,3 +122,6 @@ Response:
 - Components without any part number cannot be found with this tool; use `search_components_by_refdes` instead
 - Each field is omitted when the design records nothing for it, so a design that
   carries only one of the two is matched on that one
+- DNS components are included by default and flagged `dns: true`; pass `include_dns: false` for fitted parts only
+- `design_variant` names the assembly the result describes. A design that records named variants requires it on every call; `<Default>` (alias `default`) selects the unmodified/core design
+- `alternate_part: true` marks a group whose part the selected design variant substitutes for the base one; its `value`, `mpn`, `manufacturer`, and `description` describe the part as built for that variant. The `mpn` searched is the substituted part's, so a variant's alternate part is found by its own number

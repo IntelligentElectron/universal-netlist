@@ -9,18 +9,20 @@ import { isErrorResult, type SearchComponentsResult, type ErrorResult } from "..
  *
  * @param pattern - Regex pattern
  * @param design - Path to design file
- * @param includeDns - Include DNS components
+ * @param includeDns - Include DNS components; included by default
+ * @param designVariant - Native design variant, or `<Default>` for the core design
  */
 export const searchComponentsByRefdes = async (
   pattern: string,
   design: string,
-  includeDns = false
+  includeDns = true,
+  designVariant?: string
 ): Promise<SearchComponentsResult | ErrorResult> => {
   const parsed = parseRegexPattern(pattern, "i");
   if ("error" in parsed) return parsed;
   const regex = parsed.regex;
 
-  const netlist = await loadNetlist(design);
+  const netlist = await loadNetlist(design, designVariant);
   if (isErrorResult(netlist)) {
     return netlist;
   }
@@ -37,12 +39,13 @@ export const searchComponentsByRefdes = async (
 
   if (grouped.length === 0) {
     return {
+      design_variant: netlist.design_variant,
       results: { [designName]: [] },
       notes: [`No components matched refdes pattern '${pattern}'`],
     };
   }
 
-  return { results: { [designName]: grouped } };
+  return { design_variant: netlist.design_variant, results: { [designName]: grouped } };
 };
 
 /**
@@ -55,18 +58,20 @@ export const searchComponentsByRefdes = async (
  *
  * @param pattern - Regex pattern
  * @param design - Path to design file
- * @param includeDns - Include DNS components
+ * @param includeDns - Include DNS components; included by default
+ * @param designVariant - Native design variant, or `<Default>` for the core design
  */
 export const searchComponentsByMpn = async (
   pattern: string,
   design: string,
-  includeDns = false
+  includeDns = true,
+  designVariant?: string
 ): Promise<SearchComponentsResult | ErrorResult> => {
   const parsed = parseRegexPattern(pattern, "i");
   if ("error" in parsed) return parsed;
   const regex = parsed.regex;
 
-  const netlist = await loadNetlist(design);
+  const netlist = await loadNetlist(design, designVariant);
   if (isErrorResult(netlist)) {
     return netlist;
   }
@@ -83,6 +88,7 @@ export const searchComponentsByMpn = async (
   // Case 1: No MPN data exists at all
   if (componentsWithMpn.length === 0) {
     return {
+      design_variant: netlist.design_variant,
       results: { [designName]: [] },
       notes: ["This netlist has no MPN data. Ask user for BOM or schematic PDF"],
     };
@@ -97,6 +103,7 @@ export const searchComponentsByMpn = async (
   // Case 2: MPN data exists but pattern didn't match
   if (grouped.length === 0) {
     return {
+      design_variant: netlist.design_variant,
       results: { [designName]: [] },
       notes: [
         `No components matched pattern '${pattern}'. Try a broader pattern or use search_components_by_refdes instead`,
@@ -104,7 +111,7 @@ export const searchComponentsByMpn = async (
     };
   }
 
-  return { results: { [designName]: grouped } };
+  return { design_variant: netlist.design_variant, results: { [designName]: grouped } };
 };
 
 /**
@@ -112,18 +119,20 @@ export const searchComponentsByMpn = async (
  *
  * @param pattern - Regex pattern
  * @param design - Path to design file
- * @param includeDns - Include DNS components
+ * @param includeDns - Include DNS components; included by default
+ * @param designVariant - Native design variant, or `<Default>` for the core design
  */
 export const searchComponentsByDescription = async (
   pattern: string,
   design: string,
-  includeDns = false
+  includeDns = true,
+  designVariant?: string
 ): Promise<SearchComponentsResult | ErrorResult> => {
   const parsed = parseRegexPattern(pattern, "i");
   if ("error" in parsed) return parsed;
   const regex = parsed.regex;
 
-  const netlist = await loadNetlist(design);
+  const netlist = await loadNetlist(design, designVariant);
   if (isErrorResult(netlist)) {
     return netlist;
   }
@@ -138,6 +147,7 @@ export const searchComponentsByDescription = async (
   // Case 1: No description data exists at all
   if (componentsWithDescription.length === 0) {
     return {
+      design_variant: netlist.design_variant,
       results: { [designName]: [] },
       notes: ["This netlist has no description data. Ask user for BOM or schematic PDF"],
     };
@@ -152,6 +162,7 @@ export const searchComponentsByDescription = async (
   // Case 2: Description data exists but pattern didn't match
   if (grouped.length === 0) {
     return {
+      design_variant: netlist.design_variant,
       results: { [designName]: [] },
       notes: [
         `No components matched pattern '${pattern}'. Try a broader pattern or use search_components_by_refdes instead`,
@@ -159,5 +170,5 @@ export const searchComponentsByDescription = async (
     };
   }
 
-  return { results: { [designName]: grouped } };
+  return { design_variant: netlist.design_variant, results: { [designName]: grouped } };
 };

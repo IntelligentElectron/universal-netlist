@@ -13,7 +13,8 @@ Traces circuit connectivity starting from a net name, traversing through series 
 | `design` | string | Yes | - | Path to design file |
 | `net_name` | string | Yes | - | Exact net name to start from |
 | `skip_types` | string[] | No | `[]` | Component prefixes to exclude (e.g., `["C", "L"]`) |
-| `include_dns` | boolean | No | `false` | Include DNS components |
+| `include_dns` | boolean | No | `false` | Include DNS components in the traversal; by default a DNS part is treated as absent from the board |
+| `design_variant` | string | Conditional | - | Design variant name from `list_designs`' `design_variants`, or `<Default>` (alias: `default`) for the unmodified/core design. Required when the design records named variants |
 
 ## Response Schema
 
@@ -21,6 +22,7 @@ Returns circuit traversal results with components grouped by MPN. See [`Aggregat
 
 ```json
 {
+  "design_variant": "<Default>",        // The variant described: a native name or <Default>
   "starting_point": "string",           // The net name
   "total_components": 0,                // Total components found
   "unique_configurations": 0,           // Unique MPN/orientation combinations
@@ -32,7 +34,7 @@ Returns circuit traversal results with components grouped by MPN. See [`Aggregat
 ```
 
 **Related types:**
-- [`AggregatedComponent`](../schemas/shared-types.md#aggregatedcomponent) - Component grouping with orientation tracking
+- [`AggregatedComponent`](../schemas/shared-types.md#aggregatedcomponent) - Component grouping with orientation tracking; a group the selected design variant substitutes carries `alternate_part: true`
 - [`PinNetConnection`](../schemas/shared-types.md#pinnetconnection) - Pin-to-net mappings
 - [`OrientationVariant`](../schemas/shared-types.md#orientationvariant) - Different wiring patterns
 
@@ -54,6 +56,7 @@ Call:
 Response:
 ```json
 {
+  "design_variant": "<Default>",
   "starting_point": "I2C_SDA",
   "total_components": 3,
   "unique_configurations": 2,
@@ -87,6 +90,7 @@ Response:
 **With skipped components:**
 ```json
 {
+  "design_variant": "<Default>",
   "starting_point": "PP3V3",
   "total_components": 5,
   "unique_configurations": 3,
@@ -147,7 +151,9 @@ Skipped components appear in the `skipped` field with counts.
 
 - Components are aggregated by MPN for compact output
 - 2-pin components with different orientations are tracked separately
-- DNS components are excluded by default
+- DNS components are treated as absent from the board by default; pass `include_dns: true` to traverse through them, flagged `dns: true`
+- `design_variant` names the assembly the result describes. A design that records named variants requires it on every call; `<Default>` (alias `default`) selects the unmodified/core design
+- A component group the selected design variant substitutes for the base part carries `alternate_part: true`, and its part fields describe the part as built for that variant
 
 ## See Also
 

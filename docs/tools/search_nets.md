@@ -12,6 +12,7 @@ Searches all net names in a design using a regular expression pattern. Useful fo
 |-----------|------|----------|---------|-------------|
 | `pattern` | string | Yes | - | Regex pattern to match against net names |
 | `design` | string | Yes | - | Path to design file |
+| `design_variant` | string | Conditional | - | Design variant name from `list_designs`' `design_variants`, or `<Default>` (alias: `default`) for the unmodified/core design. Required when the design records named variants |
 
 ## Response Schema
 
@@ -20,6 +21,10 @@ Searches all net names in a design using a regular expression pattern. Useful fo
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
+    "design_variant": {
+      "type": "string",
+      "description": "The design variant this result describes: a native name or <Default>"
+    },
     "results": {
       "type": "object",
       "description": "Keyed by design name",
@@ -34,7 +39,7 @@ Searches all net names in a design using a regular expression pattern. Useful fo
       "description": "Present when no matches found"
     }
   },
-  "required": ["results"]
+  "required": ["design_variant", "results"]
 }
 ```
 
@@ -56,6 +61,7 @@ Call:
 Response:
 ```json
 {
+  "design_variant": "<Default>",
   "results": {
     "PowerBoard": [
       "I2C0_SCL",
@@ -70,6 +76,7 @@ Response:
 **No matches:**
 ```json
 {
+  "design_variant": "<Default>",
   "results": {
     "PowerBoard": []
   },
@@ -102,4 +109,5 @@ Response:
 - Results are sorted alphabetically
 - The design name (without extension) is used as the results key
 - Empty results include a `notes` field explaining the empty match
+- `design_variant` names the assembly the result describes. A design that records named variants requires it on every call; `<Default>` (alias `default`) selects the unmodified/core design
 - **KiCad**: nets declared inside a hierarchical sheet are sheet-path-prefixed (e.g. a `D0` data line on the Peripherals sheet is named `/Peripherals/D0`, not `/D0`). Prefer unanchored patterns like `D0` over `^/D0$` to avoid missing bussed or hierarchical nets

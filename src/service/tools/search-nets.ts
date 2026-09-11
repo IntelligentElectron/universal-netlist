@@ -8,16 +8,18 @@ import { isErrorResult, type SearchNetsResult, type ErrorResult } from "../../ty
  *
  * @param pattern - Regex pattern
  * @param design - Path to design file
+ * @param designVariant - Native design variant, or `<Default>` for the core design
  */
 export const searchNets = async (
   pattern: string,
-  design: string
+  design: string,
+  designVariant?: string
 ): Promise<SearchNetsResult | ErrorResult> => {
   const parsed = parseRegexPattern(pattern, "i");
   if ("error" in parsed) return parsed;
   const regex = parsed.regex;
 
-  const netlist = await loadNetlist(design);
+  const netlist = await loadNetlist(design, designVariant);
   if (isErrorResult(netlist)) {
     return netlist;
   }
@@ -34,10 +36,11 @@ export const searchNets = async (
 
   if (sorted.length === 0) {
     return {
+      design_variant: netlist.design_variant,
       results: { [designName]: [] },
       notes: [`No nets matched pattern '${pattern}'`],
     };
   }
 
-  return { results: { [designName]: sorted } };
+  return { design_variant: netlist.design_variant, results: { [designName]: sorted } };
 };

@@ -15,7 +15,7 @@
 
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-import type { ParsedNetlist, EDAProjectFormatHandler } from "../../types.js";
+import type { ParsedNetlist, EDAProjectFormatHandler, ParseDesignOptions } from "../../types.js";
 import { parseKicadNetlist } from "./netlist-parser.js";
 import { exportNetlist } from "./cli.js";
 import {
@@ -24,6 +24,8 @@ import {
   resolveKicadArtifacts,
   KICAD_EXTENSIONS,
 } from "./discovery.js";
+import { applyKicadVariant, collectKicadVariantOverrides, listKicadVariants } from "./variants.js";
+import { isDefaultVariant } from "../variants.js";
 
 export { discoverKicadDesigns, isKicadFile, resolveKicadArtifacts } from "./discovery.js";
 export { parseKicadNetlist } from "./netlist-parser.js";
@@ -33,8 +35,13 @@ export type { KicadDiscoveredDesign } from "./discovery.js";
 /**
  * Parse a KiCad design (a `.kicad_pro` project or a root `.kicad_sch`) into a
  * ParsedNetlist. Prefers a committed `.net` export; otherwise runs kicad-cli.
+ * A named design variant is then applied from the schematic's own instance
+ * blocks, since kicad-cli's export does not apply one.
  */
-export const parseKicadDesign = async (designPath: string): Promise<ParsedNetlist> => {
+export const parseKicadDesign = async (
+  designPath: string,
+  options?: ParseDesignOptions
+): Promise<ParsedNetlist> => {
   const ext = path.extname(designPath).toLowerCase();
 
   // Direct-call path only: a caller may pass a resolved `.net` export straight
@@ -46,23 +53,33 @@ export const parseKicadDesign = async (designPath: string): Promise<ParsedNetlis
 
   const { netlistExport, rootSchematic } = await resolveKicadArtifacts(designPath);
 
-  // 1. Committed export beside the project (preferred).
+  let parsed: ParsedNetlist;
   if (netlistExport) {
-    return parseKicadNetlist(await readFile(netlistExport, "utf-8"));
+    // 1. Committed export beside the project (preferred).
+    parsed = parseKicadNetlist(await readFile(netlistExport, "utf-8"));
+  } else if (rootSchematic) {
+    // 2. Live generation from the root schematic via kicad-cli.
+    parsed = parseKicadNetlist(await exportNetlist(rootSchematic));
+  } else {
+    throw new Error(
+      `No netlist for ${path.basename(designPath)}. Expected a committed "${path.basename(
+        designPath,
+        ext
+      )}.net" beside the project, or a root .kicad_sch plus an installed kicad-cli ` +
+        `(set KICAD_CLI_PATH if KiCad is in a non-standard location).`
+    );
   }
 
-  // 2. Live generation from the root schematic via kicad-cli.
-  if (rootSchematic) {
-    return parseKicadNetlist(await exportNetlist(rootSchematic));
+  // The base netlist describes the core design. A named variant is an overlay
+  // the schematic records per symbol instance, applied here for every source.
+  const selectedVariant = options?.variant;
+  if (selectedVariant && !isDefaultVariant(selectedVariant)) {
+    applyKicadVariant(
+      parsed.components,
+      await collectKicadVariantOverrides(designPath, selectedVariant)
+    );
   }
-
-  throw new Error(
-    `No netlist for ${path.basename(designPath)}. Expected a committed "${path.basename(
-      designPath,
-      ext
-    )}.net" beside the project, or a root .kicad_sch plus an installed kicad-cli ` +
-      `(set KICAD_CLI_PATH if KiCad is in a non-standard location).`
-  );
+  return parsed;
 };
 
 /**
@@ -78,6 +95,8 @@ export const kicadHandler: EDAProjectFormatHandler = {
   canHandle: isKicadFile,
 
   discoverDesigns: discoverKicadDesigns,
+
+  listVariants: listKicadVariants,
 
   parse: parseKicadDesign,
 };

@@ -107,9 +107,9 @@ describe("runErc DNS handling", () => {
     expect(r.errors?.["net.single_pin"]).toEqual({ SIG: ["U1.1"] }); // single after R1 dropped
   });
 
-  it("counts DNS pins when include_dns is true (no flag, no skipped)", async () => {
+  it("counts DNS pins when include_dns is true and reports skipped.dns as 0", async () => {
     const r = await erc(structuredClone(dnsNetlist), { includeDns: true });
-    expect(r.skipped).toBeUndefined();
+    expect(r.skipped).toEqual({ dns: 0 });
     expect(r.errors).toBeUndefined(); // SIG now has two functional pins
   });
 });
@@ -160,7 +160,7 @@ describe("runErc rule selection", () => {
     ]);
     expect(r.errors).toBeUndefined();
     expect(r.warnings).toBeUndefined();
-    expect(r.skipped).toBeUndefined();
+    expect(r.skipped).toEqual({ dns: 0 });
   });
 });
 

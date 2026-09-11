@@ -21,14 +21,16 @@ import {
  * @param netName - Net name
  * @param skipTypes - Component types to skip
  * @param includeDns - Include DNS components
+ * @param designVariant - Native design variant, or `<Default>` for the core design
  */
 export const queryXnetByNetName = async (
   design: string,
   netName: string,
   skipTypes: string[] = [],
-  includeDns = false
+  includeDns = false,
+  designVariant?: string
 ): Promise<AggregatedCircuitResult | ErrorResult> => {
-  const netlist = await loadNetlist(design);
+  const netlist = await loadNetlist(design, designVariant);
   if (isErrorResult(netlist)) {
     return netlist;
   }
@@ -57,6 +59,7 @@ export const queryXnetByNetName = async (
   const aggregated = aggregateCircuitByMpn(traversal.components);
 
   const response: AggregatedCircuitResult = {
+    design_variant: netlist.design_variant,
     starting_point: netName,
     total_components: traversal.components.length,
     unique_configurations: aggregated.length,
@@ -79,14 +82,16 @@ export const queryXnetByNetName = async (
  * @param pinSpec - Pin specification in "REFDES.PIN" format
  * @param skipTypes - Component types to skip
  * @param includeDns - Include DNS components
+ * @param designVariant - Native design variant, or `<Default>` for the core design
  */
 export const queryXnetByPinName = async (
   design: string,
   pinSpec: string,
   skipTypes: string[] = [],
-  includeDns = false
+  includeDns = false,
+  designVariant?: string
 ): Promise<AggregatedCircuitResult | ErrorResult> => {
-  const netlist = await loadNetlist(design);
+  const netlist = await loadNetlist(design, designVariant);
   if (isErrorResult(netlist)) {
     return netlist;
   }
@@ -132,6 +137,7 @@ export const queryXnetByPinName = async (
 
   if (connectedNet === "NC") {
     return {
+      design_variant: netlist.design_variant,
       starting_point: `${resolvedRefdes}.${pinKey}`,
       net: "NC",
       total_components: 0,
@@ -152,6 +158,7 @@ export const queryXnetByPinName = async (
   const aggregated = aggregateCircuitByMpn(traversal.components);
 
   const response: AggregatedCircuitResult = {
+    design_variant: netlist.design_variant,
     starting_point: `${resolvedRefdes}.${pinKey}`,
     net: connectedNet,
     total_components: traversal.components.length,
