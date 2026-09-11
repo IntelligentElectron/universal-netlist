@@ -11,7 +11,7 @@ Returns all net names defined in the design, sorted alphabetically. Use this to 
 | Parameter | Type | Required | Default | Description |
 |-----------|------|----------|---------|-------------|
 | `design` | string | Yes | - | Path to design file |
-| `variant` | string | Conditional | - | Required when `list_variants` returns native names; pass one of them or `<Default>` |
+| `design_variant` | string | Conditional | - | Design variant name from `list_designs`' `design_variants`, or `<Default>` (alias: `default`) for the unmodified/core design. Required when the design records named variants |
 
 ## Response Schema
 
@@ -20,13 +20,17 @@ Returns all net names defined in the design, sorted alphabetically. Use this to 
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
+    "design_variant": {
+      "type": "string",
+      "description": "The design variant this result describes: a native name or <Default>"
+    },
     "nets": {
       "type": "array",
       "items": { "type": "string" },
       "description": "List of net names, sorted alphabetically"
     }
   },
-  "required": ["nets"]
+  "required": ["design_variant", "nets"]
 }
 ```
 
@@ -47,6 +51,7 @@ Call:
 Response:
 ```json
 {
+  "design_variant": "<Default>",
   "nets": [
     "AGND",
     "CLK_25MHZ",
@@ -83,3 +88,4 @@ Response:
   - `PP*` for power rails (e.g., `PP3V3`, `PP1V8_CORE`)
   - `GND`, `AGND`, `DGND` for grounds
 - For targeted searches, use `search_nets` with a regex pattern instead
+- `design_variant` names the assembly the result describes. A design that records named variants requires it on every call; `<Default>` (alias `default`) selects the unmodified/core design

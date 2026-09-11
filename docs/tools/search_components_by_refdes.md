@@ -12,15 +12,16 @@ Searches components using a regex pattern against reference designators. Compone
 |-----------|------|----------|---------|-------------|
 | `pattern` | string | Yes | - | Regex pattern for refdes (case-insensitive) |
 | `design` | string | Yes | - | Path to design file |
-| `include_dns` | boolean | No | `false` | Include DNS components |
-| `variant` | string | Conditional | - | Required when `list_variants` returns native names; pass one of them or `<Default>` |
+| `include_dns` | boolean | No | `true` | Include DNS components, flagged `dns: true`; pass `false` for fitted parts only |
+| `design_variant` | string | Conditional | - | Design variant name from `list_designs`' `design_variants`, or `<Default>` (alias: `default`) for the unmodified/core design. Required when the design records named variants |
 
 ## Response Schema
 
-Returns results keyed by design name, each containing an array of [`ComponentGroup`](../schemas/shared-types.md#componentgroup) objects:
+Returns the design variant the result describes and results keyed by design name, each containing an array of [`ComponentGroup`](../schemas/shared-types.md#componentgroup) objects:
 
 ```json
 {
+  "design_variant": "<Default>",       // The variant described: a native name or <Default>
   "results": {
     "DesignName": [ComponentGroup, ...]
   },
@@ -46,6 +47,7 @@ Call:
 Response:
 ```json
 {
+  "design_variant": "<Default>",
   "results": {
     "PowerBoard": [
       {
@@ -63,6 +65,7 @@ Response:
 **No matches:**
 ```json
 {
+  "design_variant": "<Default>",
   "results": {
     "PowerBoard": []
   },
@@ -93,3 +96,6 @@ Response:
 - Inline flags like `(?i)` are accepted (matching is already case-insensitive by default)
 - Results are grouped by MPN for compactness
 - Components without MPN are listed individually with a `notes` field
+- DNS components are included by default and flagged `dns: true`; pass `include_dns: false` for fitted parts only
+- `design_variant` names the assembly the result describes. A design that records named variants requires it on every call; `<Default>` (alias `default`) selects the unmodified/core design
+- `alternate_part: true` marks a group whose part the selected design variant substitutes for the base one; its `value`, `mpn`, `manufacturer`, and `description` describe the part as built for that variant

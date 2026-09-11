@@ -13,8 +13,8 @@ Traces circuit connectivity starting from a specific component pin, traversing t
 | `design` | string | Yes | - | Path to design file |
 | `pin_name` | string | Yes | - | Pin spec in `REFDES.PIN` format (e.g., `U2.10`, `U1.A5`) |
 | `skip_types` | string[] | No | `[]` | Component prefixes to exclude |
-| `include_dns` | boolean | No | `false` | Include DNS components |
-| `variant` | string | Conditional | - | Required when `list_variants` returns native names; pass one of them or `<Default>` |
+| `include_dns` | boolean | No | `false` | Include DNS components in the traversal; by default a DNS part is treated as absent from the board |
+| `design_variant` | string | Conditional | - | Design variant name from `list_designs`' `design_variants`, or `<Default>` (alias: `default`) for the unmodified/core design. Required when the design records named variants |
 
 ## Response Schema
 
@@ -22,6 +22,7 @@ Returns circuit traversal results starting from a pin. See [`AggregatedComponent
 
 ```json
 {
+  "design_variant": "<Default>",        // The variant described: a native name or <Default>
   "starting_point": "REFDES.PIN",       // Pin in REFDES.PIN format
   "net": "string",                      // Connected net name
   "total_components": 0,
@@ -34,7 +35,7 @@ Returns circuit traversal results starting from a pin. See [`AggregatedComponent
 ```
 
 **Related types:**
-- [`AggregatedComponent`](../schemas/shared-types.md#aggregatedcomponent) - Component grouping with orientation tracking
+- [`AggregatedComponent`](../schemas/shared-types.md#aggregatedcomponent) - Component grouping with orientation tracking; a group the selected design variant substitutes carries `alternate_part: true`
 - [`PinNetConnection`](../schemas/shared-types.md#pinnetconnection) - Pin-to-net mappings
 - [`OrientationVariant`](../schemas/shared-types.md#orientationvariant) - Different wiring patterns
 
@@ -56,6 +57,7 @@ Call:
 Response:
 ```json
 {
+  "design_variant": "<Default>",
   "starting_point": "U5.PA9",
   "net": "UART_TX",
   "total_components": 2,
@@ -91,6 +93,7 @@ Response:
 **No Connect pin:**
 ```json
 {
+  "design_variant": "<Default>",
   "starting_point": "U1.7",
   "net": "NC",
   "total_components": 0,
@@ -155,7 +158,9 @@ The `pin_name` parameter uses `REFDES.PIN` format:
 - Pin lookup is **case-insensitive** (`u1.a5` matches `U1.A5`)
 - The `net` field shows what net the pin connects to
 - NC (No Connect) pins return an empty circuit with `circuit_hash: "nc-REFDES.PIN"`
-- Same traversal rules as `query_xnet_by_net_name`
+- Same traversal rules as `query_xnet_by_net_name`, including DNS handling: a DNS part is treated as absent from the board unless `include_dns: true`
+- `design_variant` names the assembly the result describes. A design that records named variants requires it on every call; `<Default>` (alias `default`) selects the unmodified/core design
+- A component group the selected design variant substitutes for the base part carries `alternate_part: true`
 
 ## See Also
 

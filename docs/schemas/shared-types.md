@@ -25,7 +25,7 @@ a generic part number remains searchable after this separation.
 
 ## ComponentGroup
 
-Used in `list_components` and `search_components_by_*` results. Groups components by MPN for compact output.
+Used in `list_components` and `search_components_by_*` results. Groups components by MPN for compact output. Every part field describes the part as built for the selected design variant; `dns` and `alternate_part` sit beside them.
 
 ```json
 {
@@ -68,6 +68,10 @@ Used in `list_components` and `search_components_by_*` results. Groups component
     "dns": {
       "type": "boolean",
       "description": "True if Do Not Stuff"
+    },
+    "alternate_part": {
+      "type": "boolean",
+      "description": "True when the selected design variant substitutes this part for the base one; the group's part fields describe the substituted part"
     },
     "notes": {
       "type": "array",
@@ -117,6 +121,10 @@ Used in `query_xnet_*` results. Groups components by MPN with orientation tracki
     "comment": { "type": "string" },
     "value": { "type": "string" },
     "dns": { "type": "boolean" },
+    "alternate_part": {
+      "type": "boolean",
+      "description": "True when the selected design variant substitutes this part for the base one"
+    },
     "total_count": {
       "type": "integer",
       "description": "Total components with this MPN"
@@ -298,6 +306,10 @@ Response type for `query_xnet_by_net_name` and `query_xnet_by_pin_name`.
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
+    "design_variant": {
+      "type": "string",
+      "description": "The design variant this result describes: a native name or <Default>"
+    },
     "starting_point": {
       "type": "string",
       "description": "The query starting point (net name or 'REFDES.PIN')"
@@ -334,7 +346,7 @@ Response type for `query_xnet_by_net_name` and `query_xnet_by_pin_name`.
       "description": "Count of skipped components by type (when skip_types used)"
     }
   },
-  "required": ["starting_point", "total_components", "unique_configurations", "components_by_mpn", "visited_nets", "circuit_hash"]
+  "required": ["design_variant", "starting_point", "total_components", "unique_configurations", "components_by_mpn", "visited_nets", "circuit_hash"]
 }
 ```
 
@@ -342,6 +354,7 @@ Response type for `query_xnet_by_net_name` and `query_xnet_by_pin_name`.
 
 ```json
 {
+  "design_variant": "<Default>",
   "starting_point": "I2C_SDA",
   "total_components": 3,
   "unique_configurations": 2,
@@ -399,13 +412,39 @@ All tools may return an error result instead of the expected response.
 }
 ```
 
+## Design Variants
+
+A design variant is one assembly of a design: the same schematic with some parts left off, substituted, or given different parameter values. `list_designs` reports each design's variants under `design_variants`, `<Default>` first and then every native name the design records (Altium `ProjectVariantN` sections, Cadence CIS BOM variants, KiCad instance variant blocks).
+
+Every tool that loads a design takes `design_variant`. A design that records named variants requires it on every call, because no single fitted/not-fitted answer represents several assemblies. Pass a native name, or `<Default>` (alias `default`) for the unmodified/core design. Names match case-insensitively; results echo the canonical spelling in a top-level `design_variant` field, which is the first field of every result from `list_components`, `list_nets`, `search_nets`, the three `search_components_by_*` tools, `query_component`, both `query_xnet_*` tools, and `run_erc`.
+
+An omitted selector on a variant-bearing design is an error:
+
+```json
+{
+  "error": "Design 'BSPD_002.PrjPcb' defines design variants ['BSPD-DNP']. Pass design_variant='<Default>' (alias 'default') for the unmodified/core design, or one of those names. list_designs() reports them under design_variants."
+}
+```
+
+So is an unknown name:
+
+```json
+{
+  "error": "Design variant 'Production' not found for design 'BSPD_002.PrjPcb'. Available: ['BSPD-DNP', '<Default>']."
+}
+```
+
+Names are quoted in both messages, so a variant literally named `0` reads as a name.
+
+**`alternate_part`.** A component the selected variant substitutes for the base part carries `alternate_part: true`, next to `dns`. It appears on `query_component` results, on `ComponentGroup` entries in list and search results, and on `AggregatedComponent` entries in `query_xnet_*` results. The main fields (`value`, `mpn`, `manufacturer`, `description`) always describe the part as built for the selected variant, so a caller reads the substituted part directly and the flag says only that it differs from the base design. Altium is the format that records substitutions in the schematic project (`Kind=2` rows with parameter overrides, see [altium-format.md](../altium-format.md#design-variants)). Cadence CIS keeps alternate parts in the CIS database rather than the `.DSN`, so no Cadence part is ever flagged; KiCad's `kicad-cli --variant` export applies its field overrides before the netlist is read.
+
 ## DNS Detection
 
 Components are marked as DNS (Do Not Stuff) at parse time when any of their MPN, description, comment, or value fields match these markers (case-insensitive). Altium designs also check the "Assembly Info" component parameter.
 
 **Cadence:** the `.DSN` schematic supplies both component markers and CIS variant information. A part an alternate BOM leaves off the board can keep an ordinary value and all of its net connections; its stuffing flag is recorded in the schematic's CIS variant store. Selecting `LAUNCHXL-CC1310`'s `Standard` BOM variant adds the parts needed to match the 25 references its CIS-generated BOM writes as Quantity 0, beyond the 11 named by markers alone.
 
-**Altium:** a selected `.PrjPcb` variant applies its `Kind=1` (Not Fitted) component rows after the project's sheets are merged. The `.PrjPcbVariants` sidecar stores alternate component records; ordinary Not Fitted state is in the project file itself.
+**Altium:** a selected `.PrjPcb` design variant applies its rows after the project's sheets are merged: `Kind=1` (Not Fitted) marks the part `dns: true`, `Kind=2` (Alternate Part) marks it `alternate_part: true`, and `ParamVariationN` rows override its value, description, manufacturer, and MPN. The `.PrjPcbVariants` sidecar stores the alternate parts' symbol data; the rows themselves are in the project file.
 
 **KiCad:** DNS is taken from KiCad's own structural Do-Not-Populate flag, the valueless `(property (name "dnp"))` marker on a symbol, rather than text matching. A user BOM field literally named `DNP` that carries a value (e.g. `(property (name "DNP") (value "DNP"))`) is a normal field and does **not** mark the component DNS.
 
@@ -430,11 +469,9 @@ Components are marked as DNS (Do Not Stuff) at parse time when any of their MPN,
 
 When DNS is detected, marker tokens are stripped from MPN and value fields (e.g., `"10K,DNI"` becomes `"10K"`).
 
-DNS components are excluded by default. Use `include_dns: true` to include them.
+`include_dns` defaults differ by what the tool does. `list_components` and the three `search_components_by_*` tools list DNS parts by default, flagged `dns: true`; pass `include_dns: false` to hide them. `query_xnet_by_net_name`, `query_xnet_by_pin_name`, and `run_erc` default to `false` and treat a DNS part as absent from the board; `run_erc` counts the parts it left out in `skipped.dns`.
 
-Variant selection happens first, and `include_dns` filters the resulting assembly.
-Use `list_variants`; when a design has native named variants, every query requires
-one of those names or `<Default>` for the unmodified/core design.
+Variant selection happens first, and `include_dns` then filters the resulting assembly. See [Design Variants](#design-variants) for the `design_variant` argument.
 
 **Limitation (Cadence):** Graphical-only text annotations such as "DNP" or "DNM" placed near a component do not set a structured component property or variant flag. They are not used for DNS detection.
 
@@ -472,7 +509,7 @@ The `notes` field provides contextual information:
 |------|---------|
 | `"MPN not found in exported netlist data..."` | Component lacks MPN; suggest user provide BOM |
 | `"No nets matched pattern '...'"` | Search returned empty results |
-| `"All N components with prefix '...' ... are DNS ..."` | `list_components` found the prefix, but every part under it is DNS; pass `include_dns: true` |
+| `"All N components with prefix '...' ... are DNS ..."` | `list_components` was called with `include_dns: false`, found the prefix, and every part under it is DNS; pass `include_dns: true` (the default) to list them |
 | `"This netlist has no MPN data..."` | Design has no MPN information |
 
 ## Case Sensitivity

@@ -117,18 +117,27 @@ and the netlist alone has never been able to answer.
 
 ## Selecting an assembly
 
-Call `list_variants` with the `.DSN` path first. It returns `<Default>` and every
-native BOM variant found under `CIS/VariantStore/BOM`. When native variants exist,
-every design query requires one explicit selector:
+Call `list_designs` first. Each `.DSN` lists its `design_variants`: `<Default>` and
+every native BOM variant found under `CIS/VariantStore/BOM`. Every Cadence BOM
+variant is a build assembly by definition, so each one is listed with
+`fabrication: true`. When native variants exist, every design query requires
+`design_variant`, one explicit selector:
 
-- `<Default>` reads the core schematic and only its intrinsic value/property DNS
-  markers.
+- `<Default>` (alias `default`) reads the core schematic and only its intrinsic
+  value/property DNS markers.
 - A native variant reads that variant's exact group-membership stream, applies
   only those groups, and then combines the result with intrinsic markers.
 
 Variant names match case-insensitively but retain their native spelling in
-results. An omitted or unknown selector is an error; the server never guesses
-which assembly the caller meant.
+results, which echo it in a top-level `design_variant` field. An omitted or
+unknown selector is an error; the server never guesses which assembly the caller
+meant.
+
+The DSN variant store carries group stuffing only. The `BOMPartData` stream beside
+each variant is a list of occurrence ids and carries no part substitutions, and
+alternate parts in OrCAD CIS live in the CIS database rather than in the
+schematic. A Cadence variant therefore changes which parts are fitted and nothing
+else, and no Cadence part is ever flagged `alternate_part`.
 
 ## Limits
 
@@ -138,8 +147,11 @@ which assembly the caller meant.
 - **`BOMPartData` is not a stuffed list.** Each `CIS/VariantStore/BOM/<variant>/BOMPartData`
   is decoded but deliberately unused: on `reServer J2032` none of its 30 ids are
   occurrence ids at all, and on `LAUNCHXL-CC1310` the ids that do resolve include
-  parts the design does not stuff. Section 11.4 of the format specification has
-  the measurements.
+  parts the design does not stuff. It carries no part substitutions either.
+  Section 11.4 of the format specification has the measurements.
+- **Alternate parts are not in the schematic.** OrCAD CIS records a variant's
+  alternate parts in the CIS database, which the `.DSN` does not contain, so the
+  parser cannot substitute them and never sets `alternate_part` on a Cadence part.
 
 ## See also
 

@@ -1,7 +1,7 @@
 # Altium Designer Schematic Format
 
 Reference for the parts of the `.SchDoc` / `.PrjPcb` format that carry enough hidden
-structure to be worth writing down: assembly variants, multi-channel sheet repetition,
+structure to be worth writing down: design variants, multi-channel sheet repetition,
 and signal harnesses.
 The record model behind everything else is straightforward enough to read off
 `src/parsers/altium/`. Companion to [`dsn-format.md`](dsn-format.md), which covers Cadence.
@@ -39,36 +39,72 @@ leading number, and falls back to lexicographic order, interleaving `RECORD=2` b
 
 Record type numbers are listed in `src/parsers/altium/types.ts`.
 
-## Assembly variants
+## Design variants
 
-**Confidence: VERIFIED** — implemented and tested against `qfsae-bspd-variant`.
+**Confidence: VERIFIED.** Implemented and tested against `qfsae-bspd-variant` (Not
+Fitted rows) and the ohwr `Pico-4CH` project (alternate parts and parameter overrides).
 
 Altium models a variant as an overlay on the core project. The fitted/not-fitted
-state and local parameter changes live in numbered, INI-like sections of the text
-`.PrjPcb` itself:
+state, the alternate-part choices, and the per-part parameter overrides all live in
+numbered, INI-like sections of the text `.PrjPcb` itself:
 
 ```ini
-[ProjectVariant1]
-Description=BSPD-DNP
-VariationCount=5
-Variation1=...|Designator=R23|UniqueId=...|Kind=1|...
+[ProjectVariant2]
+Description=ADS125H01
+AllowFabrication=0
+VariationCount=148
+Variation1=Designator=D1_CH1|UniqueId=\1PMVAVRRX\COEUSLRK|Kind=1|AlternatePart=
+Variation60=Designator=R94|UniqueId=\QHTSDXVH\AWXOAPPG|Kind=2|AlternatePart==Value|AltLibLink_DesignItemID=CRG0805F12K|...
+ParamVariationCount=40
+ParamVariation1=ParameterName=Comment|VariantValue==Value
+ParamDesignator1=R94
+ParamVariation20=ParameterName=Value|VariantValue=12k
+ParamDesignator20=R94
 ```
 
-`Description` is the native variant name. `VariationN` is pipe-delimited, and
-`Kind=1` is a Not Fitted component override. The parser resolves `Designator`
-case-insensitively after all project sheets have been merged, so the selected
-variant marks the corresponding component `dns: true`; `include_dns` then controls
-whether normal component queries and traversal retain it.
+`Description` is the native variant name, and `AllowFabrication` is the flag
+`list_designs` reports as `fabrication`. Each `VariationN` row is pipe-delimited and
+its `Kind` says what the variant does to the part:
 
-The binary `.PrjPcbVariants` sidecar has a narrower purpose: it stores actual
-alternate component records. It is not the source for ordinary Not Fitted rows.
-Alternate parts and variant-local parameter substitution are not yet applied to
-the Universal Netlist; the current selector implements the fitted/not-fitted state
-covered by `Kind=1`.
+| `Kind` | Meaning | Effect on the component |
+|---|---|---|
+| `0` | Fitted, written explicitly | none |
+| `1` | Not Fitted | `dns: true` |
+| `2` | Alternate Part; `AltLibLink_DesignItemID` names the substituted library item | `alternate_part: true`, plus the parameter overrides below |
 
-Call `list_variants` on the `.PrjPcb` to discover the native names. A project with
-named variants requires an explicit name or `<Default>` on every query, so a caller
-cannot accidentally treat a variant-bearing project as fully fitted.
+A per-part parameter override is a `ParamVariationN=ParameterName=<name>|VariantValue=<value>`
+row, paired to its part by the `ParamDesignatorN=<designator>` row of the same number.
+The parser applies the overrides for the parameters `Value`, `Description`,
+`Manufacturer`, and `Manufacturer Part Number` onto the component's `value`,
+`description`, `manufacturer`, and `mpn`. A `Comment` of `=Value` is Altium's
+expression for "show the Value parameter" and resolves to the value, the same way
+the base parser resolves it. A `Kind=2` row without a parameter override for a
+field leaves that field at its base value. The result is that every part field
+describes the part as built for the selected variant, and `alternate_part` says
+only that it differs from the base design.
+
+A real example from `Pico-4CH`: the `ADS125H01` variant replaces `R94`, a 5.6k
+Yageo `RC0805FR-075K6L` in the base design, with a 12k TE Connectivity
+`CRG0805F12K`, through a `Kind=2` row plus `Value`, `Manufacturer`,
+`Manufacturer Part Number`, and `Description` parameter rows. Querying `R94` in
+that variant returns `value: "12k"`, `mpn: "CRG0805F12K"`,
+`manufacturer: "TE Connectivity"`, and `alternate_part: true`; in `<Default>` it
+returns the Yageo part with no flag.
+
+Variant rows are matched to parsed components by designator, case-insensitively,
+after all project sheets have been merged. A repeated sheet's channel designators
+match too: Altium writes the physical designator into the row (`D1_CH1` above), so a
+row reaches the channel instance it names. A designator repeated in several rows,
+one per channel, receives every parameter row paired to that designator.
+
+The binary `.PrjPcbVariants` sidecar has a narrower purpose: it stores the
+alternate parts' symbol data. The rows that say which part a variant fits, and
+with which parameters, are in the project file itself.
+
+`list_designs` reports the native names under `design_variants`. A project with
+named variants requires `design_variant` on every query, either one of those names
+or `<Default>` (alias `default`), so a caller cannot accidentally treat a
+variant-bearing project as fully fitted.
 
 ## Multi-channel (repeated sheets)
 
@@ -133,7 +169,13 @@ literal `.` in `$Component.$RoomName` rather than as a setting to interpret. The
 | `$ComponentIndex` | trailing numeric part | `5` |
 | `$RoomName` | channel room name | `MPPT2` |
 | `$ChannelIndex` | 1-based channel number | `2` |
-| `$ChannelAlpha` | alphabetic label, rolling past Z to `AA` | `B` |
+| `$ChannelAlpha` | alphabetic label: `A` for channel 1 through `Z` for channel 26, then the ASCII characters after `Z` (channel 27 is `[`, channel 32 is a backtick) | `B` |
+
+`$ChannelAlpha` does not roll over to `AA`. Altium continues through the ASCII
+table past `Z`, so a sheet repeated more than 26 times gets punctuation for its later
+channels: `ohwr/FMC_DIO_32ch_lvds_a` names channels 27 through 32 `R1[` through
+``R1` ``, and the parser reproduces those designators so variant rows and queries
+match them.
 
 Formats observed in the wild, with a design that uses each:
 
