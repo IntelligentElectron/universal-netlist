@@ -159,6 +159,6 @@ Response:
 - Generating a netlist is not a step towards querying a Cadence design. Every tool reads the `.DSN` directly, on every platform
 - Read `design_variants` before querying a design. A design with more than the `<Default>` entry requires `design_variant` on every query: one of the listed names, or `<Default>` (alias `default`) for the core design. A query that omits it returns an error such as `Design 'BSPD_002.PrjPcb' defines design variants ['BSPD-DNP']. Pass design_variant='<Default>' (alias 'default') for the unmodified/core design, or one of those names. list_designs() reports them under design_variants.`
 - `fabrication` is present on native entries where the vendor records a build flag: Altium's `AllowFabrication` per variant, and `true` on every Cadence CIS BOM variant. KiCad entries carry no such flag
-- For KiCad designs, `path` is the `.kicad_pro`; `<Default>` uses the committed `.net` export when present, while a named variant is generated via `kicad-cli --variant`, which applies KiCad 10's per-instance variant blocks (dnp and field overrides) itself, so no manual export step is needed
+- For KiCad designs, `path` is the `.kicad_pro`. The committed `.net` export is used when present, otherwise `kicad-cli` generates one; a named variant is then applied from KiCad 10's per-instance variant blocks (`dnp` and field overrides) in the schematic, so no manual export step is needed
 - For Universal Netlist designs, `name` is the file basename without `.netlist.json`
 - The `pattern` parameter filters on the design `name`, not the full path

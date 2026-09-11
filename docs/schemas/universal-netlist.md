@@ -357,7 +357,7 @@ Represents a pin-to-net connection. Uses a string for simple pins, or an object 
 - Net connections come from the `nets` section of the resolved `kicadsexpr` export
 - Pin names come from the `node` entries' `pinfunction`
 - Nets declared inside a hierarchical sheet carry the sheet path in their name (e.g. `/Peripherals/D0`)
-- KiCad 10 named variants are discovered across the schematic hierarchy and exported with `kicad-cli --variant`, which applies the per-instance variant blocks (dnp and field overrides) itself
+- KiCad 10 named variants are discovered across the schematic hierarchy and applied from the per-instance variant blocks: `(dnp yes)` marks `dns: true`, and a `Value`, part-number, or manufacturer field override substitutes the part and sets `alternate_part: true`. kicad-cli's netlist export ignores `--variant` (measured on 10.0.5), so the base export is read and the overlay is applied by the parser
 
 ## Design Decisions
 

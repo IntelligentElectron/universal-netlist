@@ -10,7 +10,7 @@ The Universal Netlist MCP Server provides tools for querying electronic design n
 |--------|------------|-------------|
 | Cadence (OrCAD / CIS) | `.DSN` schematic | Reads the binary schematic directly, including exact CIS BOM variant membership and stuffing information |
 | Altium Designer | `.SchDoc` | Altium schematic documents, discovered and assembled through `.PrjPcb` project files, including design variants (Not Fitted rows, alternate parts, and parameter overrides) |
-| KiCad | `.kicad_pro` (or root `.kicad_sch`) | A committed `kicadsexpr` netlist export (`.net`) beside the project is parsed directly for `<Default>`. Named KiCad variants are generated on demand via `kicad-cli --variant` (requires a variant-capable KiCad; set `KICAD_CLI_PATH` for a non-standard location). |
+| KiCad | `.kicad_pro` (or root `.kicad_sch`) | A committed `kicadsexpr` netlist export (`.net`) beside the project is parsed directly; otherwise `kicad-cli` generates one on demand (set `KICAD_CLI_PATH` for a non-standard location). A named KiCad 10 design variant is then applied from the schematic's per-instance variant blocks (`dnp` and field overrides), since kicad-cli's export does not apply them. |
 | Universal Netlist | `.netlist.json` | A versioned file with nested origin metadata, a UTC generation timestamp, and a verified SHA-256 over `nets` and `components` together in the [Universal Netlist schema](schemas/universal-netlist.md). Validated on load: the hash must match, `nets` and `components` must be exact inverses, and every refdes and pin must resolve. See [Loading a Universal Netlist file](schemas/universal-netlist.md#loading-a-universal-netlist-file). |
 
 ## Design Philosophy

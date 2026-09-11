@@ -93,6 +93,24 @@ const MANUFACTURER_FIELD_NAMES = [
   "Make",
 ].map(normalizeKey);
 
+/** The Universal Netlist fields a KiCad symbol field can land in. */
+export type KicadFieldTarget = "value" | "description" | "mpn" | "internal_pn" | "manufacturer";
+
+/**
+ * Where a KiCad field lands in a component, by the same name lists the netlist
+ * reader applies, so a variant override of "MPN" reaches `mpn` exactly as the
+ * base value did. Unknown fields map nowhere.
+ */
+export const resolveKicadFieldTarget = (fieldName: string): KicadFieldTarget | undefined => {
+  const key = normalizeKey(fieldName);
+  if (key === "value") return "value";
+  if (key === "description") return "description";
+  if (MPN_FIELD_NAMES.includes(key)) return "mpn";
+  if (INTERNAL_PN_FIELD_NAMES.includes(key)) return "internal_pn";
+  if (MANUFACTURER_FIELD_NAMES.includes(key)) return "manufacturer";
+  return undefined;
+};
+
 /**
  * Read the string value of a `(field (name "X") "value")` node.
  * The value is the first bare string child after the `(name ...)` sub-list,

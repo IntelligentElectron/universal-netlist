@@ -79,10 +79,7 @@ export const isKicadCliAvailable = async (): Promise<boolean> => {
  * Writes to a temporary file (kicad-cli requires an output path), reads it back,
  * and cleans up. Throws if kicad-cli is unavailable or the export fails.
  */
-export const exportNetlist = async (
-  rootSchematicPath: string,
-  variant?: string
-): Promise<string> => {
+export const exportNetlist = async (rootSchematicPath: string): Promise<string> => {
   const cli = await resolveKicadCli();
   if (cli === null) {
     throw new Error(
@@ -95,10 +92,11 @@ export const exportNetlist = async (
   const tmpDir = await mkdtemp(path.join(os.tmpdir(), "kicad-netlist-"));
   const outPath = path.join(tmpDir, "netlist.net");
   try {
-    const args = ["sch", "export", "netlist", "--format", "kicadsexpr"];
-    if (variant) args.push("--variant", variant);
-    args.push("-o", outPath, rootSchematicPath);
-    await execFileAsync(cli, args, { timeout });
+    await execFileAsync(
+      cli,
+      ["sch", "export", "netlist", "--format", "kicadsexpr", "-o", outPath, rootSchematicPath],
+      { timeout }
+    );
     return await readFile(outPath, "utf-8");
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);

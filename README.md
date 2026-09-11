@@ -12,7 +12,7 @@ It is compatible with Cadence, Altium, and KiCad, with plans to integrate more E
 |--------|------------|-------------|
 | Cadence (OrCAD / CIS) | `.DSN` schematic | Reads the binary schematic directly, including selectable CIS BOM design variants |
 | Altium Designer | `.SchDoc` | Altium schematic documents, discovered via `.PrjPcb` project files with selectable design variants (Not Fitted rows, alternate parts, and parameter overrides) |
-| KiCad | `.kicad_pro` (or root `.kicad_sch`) | Reads a committed `.net` export for the core design, or generates a selected design variant via `kicad-cli --variant` |
+| KiCad | `.kicad_pro` (or root `.kicad_sch`) | Reads a committed `.net` export, or generates one with `kicad-cli`, then applies a selected design variant from the schematic's own instance blocks |
 | Universal Netlist Format | `.netlist.json` | The open [JSON format](https://github.com/IntelligentElectron/universal-netlist/blob/main/docs/schemas/universal-netlist.md) for netlists |
 
 ## Native Install (Recommended)
