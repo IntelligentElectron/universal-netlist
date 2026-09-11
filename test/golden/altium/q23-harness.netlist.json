@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-03T01:02:27.172Z",
-    "netlistHash": "sha256:932465c488a6f6c1aa104f93b4cc4061d2db75e21acc0b896644fcd27d6cc0dd",
+    "generatedAt": "2026-09-11T22:26:55.392Z",
+    "netlistHash": "sha256:80f479a92119b4cfff97f0bde2c8c8c7b917b2fec7ab888d9b689fc52c3c09bc",
     "origin": {
       "type": "vendor",
       "source": {
@@ -82,19 +82,6 @@
         "1"
       ]
     },
-    "BSPD_FAULT_n": {
-      "BSPD_CONN": [
-        "3"
-      ],
-      "PDM_CONN_B": [
-        "20"
-      ]
-    },
-    "BSPD_BRAKE_SEN": {
-      "BSPD_CONN": [
-        "4"
-      ]
-    },
     "TPS_VOLTAGE": {
       "BSPD_CONN": [
         "5"
@@ -151,17 +138,17 @@
       ],
       "BRAKE_LIGHT_CONN": [
         "1"
-      ]
-    },
-    "FL_DAMPER_POT": {
-      "FL_DAMPER_CONN": [
-        "2"
+      ],
+      "P?": [
+        "1"
       ],
       "DASH_BULKHEAD_CONN": [
+        "7"
+      ]
+    },
+    "NetFL_DAMPER_CONN_2": {
+      "FL_DAMPER_CONN": [
         "2"
-      ],
-      "DATA_LOGGER_CONN": [
-        "22"
       ]
     },
     "SIG_GND": {
@@ -267,20 +254,9 @@
         "3"
       ]
     },
-    "FR_DAMPER_POT": {
+    "NetFR_DAMPER_CONN_2": {
       "FR_DAMPER_CONN": [
         "2"
-      ],
-      "DASH_BULKHEAD_CONN": [
-        "5"
-      ],
-      "DATA_LOGGER_CONN": [
-        "21"
-      ]
-    },
-    "STEERING_POWER_DL": {
-      "STEERING_QUICK_CONN": [
-        "1"
       ]
     },
     "CAN_P": {
@@ -373,14 +349,6 @@
         "10"
       ]
     },
-    "PDM_CAN_GND": {
-      "P?": [
-        "1"
-      ],
-      "DASH_BULKHEAD_CONN": [
-        "7"
-      ]
-    },
     "KILL_SWITCH_IN": {
       "KILL_SWITCH_CONN": [
         "1"
@@ -392,12 +360,20 @@
         "19"
       ]
     },
-    "IGNITION_SWITCH_IN": {
+    "FL_DAMPER_POT": {
       "DASH_BULKHEAD_CONN": [
-        "11"
+        "2"
       ],
-      "PDM_CONN_A": [
-        "27"
+      "DATA_LOGGER_CONN": [
+        "22"
+      ]
+    },
+    "FR_DAMPER_POT": {
+      "DASH_BULKHEAD_CONN": [
+        "5"
+      ],
+      "DATA_LOGGER_CONN": [
+        "21"
       ]
     },
     "STEERING_POWER": {
@@ -406,25 +382,9 @@
       ],
       "PDM_CONN_A": [
         "8"
-      ]
-    },
-    "RR_DAMPER_POT": {
-      "DATA_LOGGER_CONN": [
-        "20"
       ],
-      "REAR_WHEEL_BULK": [
-        "5"
-      ]
-    },
-    "STEERING_ANGLE": {
-      "DATA_LOGGER_CONN": [
-        "3"
-      ],
-      "STEERING_ANGLE_SEN_CONN": [
-        "2"
-      ],
-      "UNDERLEGS_BULKHEAD_CONN": [
-        "4"
+      "STEERING_QUICK_CONN": [
+        "1"
       ]
     },
     "DATA_LOGGER_VBATT": {
@@ -434,14 +394,6 @@
       "PDM_CONN_A": [
         "9",
         "17"
-      ]
-    },
-    "RL_DAMPER_POT": {
-      "DATA_LOGGER_CONN": [
-        "19"
-      ],
-      "REAR_WHEEL_BULK": [
-        "2"
       ]
     },
     "DL_ETH_TX_P": {
@@ -639,28 +591,6 @@
         "11"
       ]
     },
-    "FRONT_BR_PRES": {
-      "ECU_CONN_B": [
-        "10"
-      ],
-      "PEDALBOX_BULKHEAD_CONN": [
-        "11"
-      ],
-      "FRONT_BR_PRES?": [
-        "2"
-      ]
-    },
-    "REAR_BR_PRES": {
-      "ECU_CONN_B": [
-        "11"
-      ],
-      "PEDALBOX_BULKHEAD_CONN": [
-        "14"
-      ],
-      "REAR_BR_PRES?": [
-        "2"
-      ]
-    },
     "ECU_VBATT": {
       "ECU_CONN_B": [
         "13",
@@ -676,17 +606,6 @@
         "9",
         "11",
         "13"
-      ]
-    },
-    "APPS_VOLTAGE2": {
-      "ECU_CONN_B": [
-        "16"
-      ],
-      "PEDALBOX_BULKHEAD_CONN": [
-        "2"
-      ],
-      "APPS_CONN2": [
-        "2"
       ]
     },
     "NetECU_CONN_B_17": {
@@ -756,17 +675,6 @@
         "15"
       ],
       "GEAR_SHIFT_ACT_PRESSURE_CONN": [
-        "2"
-      ]
-    },
-    "APPS_VOLTAGE1": {
-      "ECU_CONN_C": [
-        "15"
-      ],
-      "PEDALBOX_BULKHEAD_CONN": [
-        "5"
-      ],
-      "APPS_CONN1": [
         "2"
       ]
     },
@@ -930,11 +838,11 @@
       "GEAR_POS_CONN": [
         "2"
       ],
-      "PDM_CONN_B": [
-        "24"
-      ],
       "REAR_LOOM_CONN": [
         "4"
+      ],
+      "PDM_CONN_B": [
+        "24"
       ]
     },
     "INLET_MAN_PRESS_SEN": {
@@ -1040,14 +948,6 @@
         "3"
       ]
     },
-    "STARTER_RELAY_CTRL": {
-      "STARTER_RELAY_CONN": [
-        "1"
-      ],
-      "PDM_CONN_A": [
-        "2"
-      ]
-    },
     "VBATT+": {
       "STARTER_RELAY_CONN": [
         "3"
@@ -1098,17 +998,6 @@
         "3"
       ]
     },
-    "FAN_POWER": {
-      "FAN_CONN": [
-        "2"
-      ],
-      "FAN_CONN?": [
-        "2"
-      ],
-      "REAR_LOOM_CONN": [
-        "49"
-      ]
-    },
     "LAMBDA_LTC_POWER": {
       "LAMBDA_SEN_CONN": [
         "4"
@@ -1118,6 +1007,14 @@
       ],
       "REAR_LOOM_CONN": [
         "24"
+      ]
+    },
+    "STARTER_RELAY_CTRL": {
+      "PDM_CONN_A": [
+        "2"
+      ],
+      "STARTER_RELAY_CONN": [
+        "1"
       ]
     },
     "IGNITION_COIL_POWER": {
@@ -1169,6 +1066,15 @@
     "COOLING_FAN_POWER": {
       "PDM_CONN_A": [
         "15"
+      ],
+      "FAN_CONN": [
+        "2"
+      ],
+      "FAN_CONN?": [
+        "2"
+      ],
+      "REAR_LOOM_CONN": [
+        "49"
       ]
     },
     "REAR_WS_POWER": {
@@ -1178,6 +1084,22 @@
       "REAR_WHEEL_BULK": [
         "7",
         "10"
+      ]
+    },
+    "IGNITION_SWITCH_IN": {
+      "PDM_CONN_A": [
+        "27"
+      ],
+      "DASH_BULKHEAD_CONN": [
+        "11"
+      ]
+    },
+    "BSPD_FAULT_n": {
+      "PDM_CONN_B": [
+        "20"
+      ],
+      "BSPD_CONN": [
+        "3"
       ]
     },
     "BRAKE_OT_n": {
@@ -1214,6 +1136,69 @@
       ],
       "R1": [
         "2"
+      ]
+    },
+    "FRONT_BR_PRES": {
+      "PEDALBOX_BULKHEAD_CONN": [
+        "11"
+      ],
+      "FRONT_BR_PRES?": [
+        "2"
+      ],
+      "BSPD_CONN": [
+        "4"
+      ],
+      "ECU_CONN_B": [
+        "10"
+      ]
+    },
+    "REAR_BR_PRES": {
+      "PEDALBOX_BULKHEAD_CONN": [
+        "14"
+      ],
+      "REAR_BR_PRES?": [
+        "2"
+      ],
+      "ECU_CONN_B": [
+        "11"
+      ]
+    },
+    "APPS1_VOLTAGE": {
+      "APPS_CONN1": [
+        "2"
+      ],
+      "ECU_CONN_C": [
+        "15"
+      ],
+      "PEDALBOX_BULKHEAD_CONN": [
+        "5"
+      ]
+    },
+    "APPS2_VOLTAGE": {
+      "APPS_CONN2": [
+        "2"
+      ],
+      "ECU_CONN_B": [
+        "16"
+      ],
+      "PEDALBOX_BULKHEAD_CONN": [
+        "2"
+      ]
+    },
+    "RL_DAMPER_POT": {
+      "REAR_WHEEL_BULK": [
+        "2"
+      ],
+      "DATA_LOGGER_CONN": [
+        "19"
+      ]
+    },
+    "RR_DAMPER_POT": {
+      "REAR_WHEEL_BULK": [
+        "5"
+      ],
+      "DATA_LOGGER_CONN": [
+        "20"
       ]
     },
     "NetTRANSPONDER_CONN_1": {
@@ -1255,6 +1240,17 @@
       "WHEEL_SPEED_FR_CONN": [
         "3"
       ]
+    },
+    "STEERING_ANGLE": {
+      "STEERING_ANGLE_SEN_CONN": [
+        "2"
+      ],
+      "UNDERLEGS_BULKHEAD_CONN": [
+        "4"
+      ],
+      "DATA_LOGGER_CONN": [
+        "3"
+      ]
     }
   },
   "components": {
@@ -1263,7 +1259,7 @@
         "1": "VBATT",
         "2": "VCC5V",
         "3": "BSPD_FAULT_n",
-        "4": "BSPD_BRAKE_SEN",
+        "4": "FRONT_BR_PRES",
         "5": "TPS_VOLTAGE",
         "6": "PDM_GND"
       },
@@ -1273,7 +1269,7 @@
     "FL_DAMPER_CONN": {
       "pins": {
         "1": "VCC5V",
-        "2": "FL_DAMPER_POT",
+        "2": "NetFL_DAMPER_CONN_2",
         "3": "SIG_GND"
       },
       "description": "Header, 3-Pin",
@@ -1282,7 +1278,7 @@
     "FR_DAMPER_CONN": {
       "pins": {
         "1": "VCC5V",
-        "2": "FR_DAMPER_POT",
+        "2": "NetFR_DAMPER_CONN_2",
         "3": "SIG_GND"
       },
       "description": "Header, 3-Pin",
@@ -1290,7 +1286,7 @@
     },
     "STEERING_QUICK_CONN": {
       "pins": {
-        "1": "STEERING_POWER_DL",
+        "1": "STEERING_POWER",
         "2": "SIG_GND",
         "3": "CAN_P",
         "4": "CAN_N",
@@ -1304,7 +1300,7 @@
     },
     "P?": {
       "pins": {
-        "1": "PDM_CAN_GND",
+        "1": "PDM_GND",
         "2": "",
         "3": "",
         "4": "CAN_N",
@@ -1329,7 +1325,7 @@
         "4": "VCC5V",
         "5": "FR_DAMPER_POT",
         "6": "SIG_GND",
-        "7": "PDM_CAN_GND",
+        "7": "PDM_GND",
         "8": "SIG_GND",
         "9": "KILL_SWITCH_IN",
         "10": "SIG_GND",
@@ -1531,7 +1527,7 @@
         "13": "ECU_VBATT",
         "14": "",
         "15": "",
-        "16": "APPS_VOLTAGE2",
+        "16": "APPS2_VOLTAGE",
         "17": "NetECU_CONN_B_17",
         "18": "NetECU_CONN_B_18",
         "19": "ECU_VBATT",
@@ -1571,7 +1567,7 @@
         "12": "",
         "13": "",
         "14": "GEAR_SHIFT_ACTUATOR_PRESSURE",
-        "15": "APPS_VOLTAGE1",
+        "15": "APPS1_VOLTAGE",
         "16": "TPS_VOLTAGE",
         "17": "TPS_TRACKING_VOLTAGE",
         "18": "TB_MOTOR-",
@@ -1864,7 +1860,7 @@
     "FAN_CONN": {
       "pins": {
         "1": "PDM_GND",
-        "2": "FAN_POWER"
+        "2": "COOLING_FAN_POWER"
       },
       "description": "Header, 2-Pin",
       "comment": "Header 2"
@@ -1872,7 +1868,7 @@
     "FAN_CONN?": {
       "pins": {
         "1": "PDM_GND",
-        "2": "FAN_POWER"
+        "2": "COOLING_FAN_POWER"
       },
       "description": "Header, 2-Pin",
       "comment": "Header 2"
@@ -2005,10 +2001,10 @@
     "PEDALBOX_BULKHEAD_CONN": {
       "pins": {
         "1": "VCC5V",
-        "2": "APPS_VOLTAGE2",
+        "2": "APPS2_VOLTAGE",
         "3": "SIG_GND",
         "4": "SEN_5V_A2",
-        "5": "APPS_VOLTAGE1",
+        "5": "APPS1_VOLTAGE",
         "6": "SEN_0V_A1",
         "7": "SIG_GND",
         "8": "SIG_GND",
@@ -2031,7 +2027,7 @@
     "APPS_CONN1": {
       "pins": {
         "1": "SEN_5V_A2",
-        "2": "APPS_VOLTAGE1",
+        "2": "APPS1_VOLTAGE",
         "3": "SEN_0V_A1"
       },
       "description": "Header, 3-Pin",
@@ -2056,7 +2052,7 @@
     "APPS_CONN2": {
       "pins": {
         "1": "VCC5V",
-        "2": "APPS_VOLTAGE2",
+        "2": "APPS2_VOLTAGE",
         "3": "SIG_GND"
       },
       "description": "Header, 3-Pin",
@@ -2130,7 +2126,7 @@
         "46": "INLET_MAN_PRESS_SEN",
         "47": "SIG_GND",
         "48": "SIG_GND",
-        "49": "FAN_POWER",
+        "49": "COOLING_FAN_POWER",
         "50": "VCC5V"
       },
       "description": "Header, 25-Pin, Dual row, Right Angle",

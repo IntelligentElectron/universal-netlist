@@ -13,8 +13,14 @@ import { netLabelsAreGlobal, powerPortsAreGlobal } from "./project-options.js";
 
 /** The kinds of net identifier drawn on one net, which decide how far it reaches. */
 export interface NetIdentifierKinds {
-  /** A port or a sheet entry, which carries the net off the sheet under any scope. */
-  portOrEntry: boolean;
+  /** A port, which carries the net off the sheet under any scope. */
+  port: boolean;
+  /**
+   * A sheet entry, which leads down into a child sheet. It does not make the
+   * net any less this sheet's own: Altium numbers a label wired straight into
+   * a sheet entry just as it numbers one wired to nothing else.
+   */
+  entry: boolean;
   /** A power port, global except under Strict Hierarchical. */
   powerPort: boolean;
   /** A net label, which reaches other sheets only under Global. */
@@ -24,7 +30,8 @@ export interface NetIdentifierKinds {
 }
 
 export const noNetIdentifiers = (): NetIdentifierKinds => ({
-  portOrEntry: false,
+  port: false,
+  entry: false,
   powerPort: false,
   label: false,
   harness: false,
@@ -33,18 +40,20 @@ export const noNetIdentifiers = (): NetIdentifierKinds => ({
 /**
  * Whether a net stays on the sheet it is drawn on.
  *
- * A net leaves its sheet through a port, a sheet entry or a power port, so a
- * net carrying one of those is the same net wherever else it appears and keeps
- * a single name across the project. A net carrying none of them is named only
- * by a label its designer wrote or by one of its own pins, and two sheets that
- * happen to use that name are describing two different nets.
+ * A net leaves its sheet through a port or a power port, so a net carrying one
+ * of those is the same net wherever else it appears and keeps a single name
+ * across the project. A net carrying neither is named only by a label its
+ * designer wrote or by one of its own pins, and two sheets that happen to use
+ * that name are describing two different nets. A sheet entry does not count:
+ * every one of the 48 labels wired into a sheet entry on the solarcar-bms
+ * board carries its sheet number, exactly as a label wired to nothing else.
  *
  * The scope decides which identifiers count. Under Global a net label reaches
  * every sheet, so it holds a net open too; under Strict Hierarchical even a
  * power port is local.
  */
 export const isSheetBound = (kinds: NetIdentifierKinds, scope: NetIdentifierScope): boolean => {
-  if (kinds.portOrEntry || kinds.harness) return false;
+  if (kinds.port || kinds.harness) return false;
   if (kinds.powerPort && powerPortsAreGlobal(scope)) return false;
   if (kinds.label && netLabelsAreGlobal(scope)) return false;
   return true;

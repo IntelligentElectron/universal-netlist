@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-02T21:16:41.876Z",
-    "netlistHash": "sha256:f1016363d89439cb81bc631f3895b67b8ef8a46d8feff7c4d8eee08038ceef22",
+    "generatedAt": "2026-09-11T22:24:22.672Z",
+    "netlistHash": "sha256:0fb124807abe9751d6110d670668cc86fcb45d95d04cacafccea442dac4152ba",
     "origin": {
       "type": "vendor",
       "source": {
@@ -264,6 +264,48 @@
         "4_G"
       ]
     },
+    "OP_OUT_P_CHAN1": {
+      "J4_CHAN1": [
+        "5_G"
+      ]
+    },
+    "PULSE_OUT_A_CHAN1": {
+      "J4_CHAN1": [
+        "6_G"
+      ]
+    },
+    "PULSE_IN_A": {
+      "J4_CHAN1": [
+        "7_G"
+      ],
+      "J4_CHAN2": [
+        "7_G"
+      ],
+      "J4_CHAN3": [
+        "7_G"
+      ],
+      "J4_CHAN4": [
+        "7_G"
+      ],
+      "J4_CHAN5": [
+        "7_G"
+      ],
+      "J4_CHAN6": [
+        "7_G"
+      ],
+      "J4_CHAN7": [
+        "7_G"
+      ],
+      "J4_CHAN8": [
+        "7_G"
+      ],
+      "J4_CHAN9": [
+        "7_G"
+      ],
+      "J1": [
+        "4"
+      ]
+    },
     "NetJ4_CHAN1_8_G": {
       "J4_CHAN1": [
         "8_G",
@@ -273,6 +315,43 @@
     "NetJ4_CHAN1_9_G": {
       "J4_CHAN1": [
         "9_G"
+      ]
+    },
+    "STDN_A": {
+      "J4_CHAN1": [
+        "10_G"
+      ],
+      "J4_CHAN2": [
+        "10_G"
+      ],
+      "J4_CHAN3": [
+        "10_G"
+      ],
+      "J4_CHAN4": [
+        "10_G"
+      ],
+      "J4_CHAN5": [
+        "10_G"
+      ],
+      "J4_CHAN6": [
+        "10_G"
+      ],
+      "J4_CHAN7": [
+        "10_G"
+      ],
+      "J4_CHAN8": [
+        "10_G"
+      ],
+      "J4_CHAN9": [
+        "10_G"
+      ],
+      "J1": [
+        "1"
+      ]
+    },
+    "TEMP_A_CHAN1": {
+      "J4_CHAN1": [
+        "11_G"
       ]
     },
     "_3V3_P_CHAN1": {
@@ -351,6 +430,16 @@
         "4_G"
       ]
     },
+    "OP_OUT_P_CHAN2": {
+      "J4_CHAN2": [
+        "5_G"
+      ]
+    },
+    "PULSE_OUT_A_CHAN2": {
+      "J4_CHAN2": [
+        "6_G"
+      ]
+    },
     "NetJ4_CHAN2_8_G": {
       "J4_CHAN2": [
         "8_G",
@@ -360,6 +449,11 @@
     "NetJ4_CHAN2_9_G": {
       "J4_CHAN2": [
         "9_G"
+      ]
+    },
+    "TEMP_A_CHAN2": {
+      "J4_CHAN2": [
+        "11_G"
       ]
     },
     "_3V3_P_CHAN2": {
@@ -438,6 +532,16 @@
         "4_G"
       ]
     },
+    "OP_OUT_P_CHAN3": {
+      "J4_CHAN3": [
+        "5_G"
+      ]
+    },
+    "PULSE_OUT_A_CHAN3": {
+      "J4_CHAN3": [
+        "6_G"
+      ]
+    },
     "NetJ4_CHAN3_8_G": {
       "J4_CHAN3": [
         "8_G",
@@ -447,6 +551,11 @@
     "NetJ4_CHAN3_9_G": {
       "J4_CHAN3": [
         "9_G"
+      ]
+    },
+    "TEMP_A_CHAN3": {
+      "J4_CHAN3": [
+        "11_G"
       ]
     },
     "_3V3_P_CHAN3": {
@@ -525,6 +634,16 @@
         "4_G"
       ]
     },
+    "OP_OUT_P_CHAN4": {
+      "J4_CHAN4": [
+        "5_G"
+      ]
+    },
+    "PULSE_OUT_A_CHAN4": {
+      "J4_CHAN4": [
+        "6_G"
+      ]
+    },
     "NetJ4_CHAN4_8_G": {
       "J4_CHAN4": [
         "8_G",
@@ -534,6 +653,11 @@
     "NetJ4_CHAN4_9_G": {
       "J4_CHAN4": [
         "9_G"
+      ]
+    },
+    "TEMP_A_CHAN4": {
+      "J4_CHAN4": [
+        "11_G"
       ]
     },
     "_3V3_P_CHAN4": {
@@ -612,6 +736,16 @@
         "4_G"
       ]
     },
+    "OP_OUT_P_CHAN5": {
+      "J4_CHAN5": [
+        "5_G"
+      ]
+    },
+    "PULSE_OUT_A_CHAN5": {
+      "J4_CHAN5": [
+        "6_G"
+      ]
+    },
     "NetJ4_CHAN5_8_G": {
       "J4_CHAN5": [
         "8_G",
@@ -621,6 +755,11 @@
     "NetJ4_CHAN5_9_G": {
       "J4_CHAN5": [
         "9_G"
+      ]
+    },
+    "TEMP_A_CHAN5": {
+      "J4_CHAN5": [
+        "11_G"
       ]
     },
     "_3V3_P_CHAN5": {
@@ -699,6 +838,16 @@
         "4_G"
       ]
     },
+    "OP_OUT_P_CHAN6": {
+      "J4_CHAN6": [
+        "5_G"
+      ]
+    },
+    "PULSE_OUT_A_CHAN6": {
+      "J4_CHAN6": [
+        "6_G"
+      ]
+    },
     "NetJ4_CHAN6_8_G": {
       "J4_CHAN6": [
         "8_G",
@@ -708,6 +857,11 @@
     "NetJ4_CHAN6_9_G": {
       "J4_CHAN6": [
         "9_G"
+      ]
+    },
+    "TEMP_A_CHAN6": {
+      "J4_CHAN6": [
+        "11_G"
       ]
     },
     "_3V3_P_CHAN6": {
@@ -786,6 +940,16 @@
         "4_G"
       ]
     },
+    "OP_OUT_P_CHAN7": {
+      "J4_CHAN7": [
+        "5_G"
+      ]
+    },
+    "PULSE_OUT_A_CHAN7": {
+      "J4_CHAN7": [
+        "6_G"
+      ]
+    },
     "NetJ4_CHAN7_8_G": {
       "J4_CHAN7": [
         "8_G",
@@ -795,6 +959,11 @@
     "NetJ4_CHAN7_9_G": {
       "J4_CHAN7": [
         "9_G"
+      ]
+    },
+    "TEMP_A_CHAN7": {
+      "J4_CHAN7": [
+        "11_G"
       ]
     },
     "_3V3_P_CHAN7": {
@@ -873,6 +1042,16 @@
         "4_G"
       ]
     },
+    "OP_OUT_P_CHAN8": {
+      "J4_CHAN8": [
+        "5_G"
+      ]
+    },
+    "PULSE_OUT_A_CHAN8": {
+      "J4_CHAN8": [
+        "6_G"
+      ]
+    },
     "NetJ4_CHAN8_8_G": {
       "J4_CHAN8": [
         "8_G",
@@ -882,6 +1061,11 @@
     "NetJ4_CHAN8_9_G": {
       "J4_CHAN8": [
         "9_G"
+      ]
+    },
+    "TEMP_A_CHAN8": {
+      "J4_CHAN8": [
+        "11_G"
       ]
     },
     "_3V3_P_CHAN8": {
@@ -960,6 +1144,16 @@
         "4_G"
       ]
     },
+    "OP_OUT_P_CHAN9": {
+      "J4_CHAN9": [
+        "5_G"
+      ]
+    },
+    "PULSE_OUT_A_CHAN9": {
+      "J4_CHAN9": [
+        "6_G"
+      ]
+    },
     "NetJ4_CHAN9_8_G": {
       "J4_CHAN9": [
         "8_G",
@@ -969,6 +1163,11 @@
     "NetJ4_CHAN9_9_G": {
       "J4_CHAN9": [
         "9_G"
+      ]
+    },
+    "TEMP_A_CHAN9": {
+      "J4_CHAN9": [
+        "11_G"
       ]
     },
     "_3V3_P_CHAN9": {
@@ -1025,16 +1224,6 @@
       ],
       "J5_CHAN9": [
         "17"
-      ]
-    },
-    "PULSE_IN_A": {
-      "J1": [
-        "4"
-      ]
-    },
-    "STDN_A": {
-      "J1": [
-        "1"
       ]
     },
     "CHANNEL_INTERFACE.V_LASER_P": {
@@ -1242,13 +1431,13 @@
         "2_G": "NetJ4_CHAN1_2_G",
         "3_G": "PGND",
         "4_G": "NetJ4_CHAN1_4_G",
-        "5_G": "",
-        "6_G": "",
-        "7_G": "",
+        "5_G": "OP_OUT_P_CHAN1",
+        "6_G": "PULSE_OUT_A_CHAN1",
+        "7_G": "PULSE_IN_A",
         "8_G": "NetJ4_CHAN1_8_G",
         "9_G": "NetJ4_CHAN1_9_G",
-        "10_G": "",
-        "11_G": "",
+        "10_G": "STDN_A",
+        "11_G": "TEMP_A_CHAN1",
         "AGND": "AGND",
         "AGND_G": "NetJ4_CHAN1_8_G",
         "PGND": "PGND"
@@ -1384,13 +1573,13 @@
         "2_G": "NetJ4_CHAN2_2_G",
         "3_G": "PGND",
         "4_G": "NetJ4_CHAN2_4_G",
-        "5_G": "",
-        "6_G": "",
-        "7_G": "",
+        "5_G": "OP_OUT_P_CHAN2",
+        "6_G": "PULSE_OUT_A_CHAN2",
+        "7_G": "PULSE_IN_A",
         "8_G": "NetJ4_CHAN2_8_G",
         "9_G": "NetJ4_CHAN2_9_G",
-        "10_G": "",
-        "11_G": "",
+        "10_G": "STDN_A",
+        "11_G": "TEMP_A_CHAN2",
         "AGND": "AGND",
         "AGND_G": "NetJ4_CHAN2_8_G",
         "PGND": "PGND"
@@ -1526,13 +1715,13 @@
         "2_G": "NetJ4_CHAN3_2_G",
         "3_G": "PGND",
         "4_G": "NetJ4_CHAN3_4_G",
-        "5_G": "",
-        "6_G": "",
-        "7_G": "",
+        "5_G": "OP_OUT_P_CHAN3",
+        "6_G": "PULSE_OUT_A_CHAN3",
+        "7_G": "PULSE_IN_A",
         "8_G": "NetJ4_CHAN3_8_G",
         "9_G": "NetJ4_CHAN3_9_G",
-        "10_G": "",
-        "11_G": "",
+        "10_G": "STDN_A",
+        "11_G": "TEMP_A_CHAN3",
         "AGND": "AGND",
         "AGND_G": "NetJ4_CHAN3_8_G",
         "PGND": "PGND"
@@ -1668,13 +1857,13 @@
         "2_G": "NetJ4_CHAN4_2_G",
         "3_G": "PGND",
         "4_G": "NetJ4_CHAN4_4_G",
-        "5_G": "",
-        "6_G": "",
-        "7_G": "",
+        "5_G": "OP_OUT_P_CHAN4",
+        "6_G": "PULSE_OUT_A_CHAN4",
+        "7_G": "PULSE_IN_A",
         "8_G": "NetJ4_CHAN4_8_G",
         "9_G": "NetJ4_CHAN4_9_G",
-        "10_G": "",
-        "11_G": "",
+        "10_G": "STDN_A",
+        "11_G": "TEMP_A_CHAN4",
         "AGND": "AGND",
         "AGND_G": "NetJ4_CHAN4_8_G",
         "PGND": "PGND"
@@ -1810,13 +1999,13 @@
         "2_G": "NetJ4_CHAN5_2_G",
         "3_G": "PGND",
         "4_G": "NetJ4_CHAN5_4_G",
-        "5_G": "",
-        "6_G": "",
-        "7_G": "",
+        "5_G": "OP_OUT_P_CHAN5",
+        "6_G": "PULSE_OUT_A_CHAN5",
+        "7_G": "PULSE_IN_A",
         "8_G": "NetJ4_CHAN5_8_G",
         "9_G": "NetJ4_CHAN5_9_G",
-        "10_G": "",
-        "11_G": "",
+        "10_G": "STDN_A",
+        "11_G": "TEMP_A_CHAN5",
         "AGND": "AGND",
         "AGND_G": "NetJ4_CHAN5_8_G",
         "PGND": "PGND"
@@ -1952,13 +2141,13 @@
         "2_G": "NetJ4_CHAN6_2_G",
         "3_G": "PGND",
         "4_G": "NetJ4_CHAN6_4_G",
-        "5_G": "",
-        "6_G": "",
-        "7_G": "",
+        "5_G": "OP_OUT_P_CHAN6",
+        "6_G": "PULSE_OUT_A_CHAN6",
+        "7_G": "PULSE_IN_A",
         "8_G": "NetJ4_CHAN6_8_G",
         "9_G": "NetJ4_CHAN6_9_G",
-        "10_G": "",
-        "11_G": "",
+        "10_G": "STDN_A",
+        "11_G": "TEMP_A_CHAN6",
         "AGND": "AGND",
         "AGND_G": "NetJ4_CHAN6_8_G",
         "PGND": "PGND"
@@ -2094,13 +2283,13 @@
         "2_G": "NetJ4_CHAN7_2_G",
         "3_G": "PGND",
         "4_G": "NetJ4_CHAN7_4_G",
-        "5_G": "",
-        "6_G": "",
-        "7_G": "",
+        "5_G": "OP_OUT_P_CHAN7",
+        "6_G": "PULSE_OUT_A_CHAN7",
+        "7_G": "PULSE_IN_A",
         "8_G": "NetJ4_CHAN7_8_G",
         "9_G": "NetJ4_CHAN7_9_G",
-        "10_G": "",
-        "11_G": "",
+        "10_G": "STDN_A",
+        "11_G": "TEMP_A_CHAN7",
         "AGND": "AGND",
         "AGND_G": "NetJ4_CHAN7_8_G",
         "PGND": "PGND"
@@ -2236,13 +2425,13 @@
         "2_G": "NetJ4_CHAN8_2_G",
         "3_G": "PGND",
         "4_G": "NetJ4_CHAN8_4_G",
-        "5_G": "",
-        "6_G": "",
-        "7_G": "",
+        "5_G": "OP_OUT_P_CHAN8",
+        "6_G": "PULSE_OUT_A_CHAN8",
+        "7_G": "PULSE_IN_A",
         "8_G": "NetJ4_CHAN8_8_G",
         "9_G": "NetJ4_CHAN8_9_G",
-        "10_G": "",
-        "11_G": "",
+        "10_G": "STDN_A",
+        "11_G": "TEMP_A_CHAN8",
         "AGND": "AGND",
         "AGND_G": "NetJ4_CHAN8_8_G",
         "PGND": "PGND"
@@ -2378,13 +2567,13 @@
         "2_G": "NetJ4_CHAN9_2_G",
         "3_G": "PGND",
         "4_G": "NetJ4_CHAN9_4_G",
-        "5_G": "",
-        "6_G": "",
-        "7_G": "",
+        "5_G": "OP_OUT_P_CHAN9",
+        "6_G": "PULSE_OUT_A_CHAN9",
+        "7_G": "PULSE_IN_A",
         "8_G": "NetJ4_CHAN9_8_G",
         "9_G": "NetJ4_CHAN9_9_G",
-        "10_G": "",
-        "11_G": "",
+        "10_G": "STDN_A",
+        "11_G": "TEMP_A_CHAN9",
         "AGND": "AGND",
         "AGND_G": "NetJ4_CHAN9_8_G",
         "PGND": "PGND"

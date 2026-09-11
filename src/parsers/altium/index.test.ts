@@ -556,7 +556,9 @@ describe("Connectivity - PORT records", () => {
     expect(isConnected(port1, port2)).toBe(false);
   });
 
-  it("should connect PORT to NET_LABEL with same name", () => {
+  it("should not connect a PORT to a NET_LABEL of the same name", () => {
+    // Altium's connectivity guide: a port called Inta does not connect to a
+    // net label called Inta; the two must be wired together.
     const port: AltiumRecord = {
       index: 0,
       RECORD: RECORD_TYPES.PORT,
@@ -571,7 +573,7 @@ describe("Connectivity - PORT records", () => {
       coords: [[2000, 2000]],
     };
 
-    expect(isConnected(port, label)).toBe(true);
+    expect(isConnected(port, label)).toBe(false);
   });
 });
 

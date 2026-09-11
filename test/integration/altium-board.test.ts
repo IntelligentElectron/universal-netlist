@@ -1,0 +1,84 @@
+/**
+ * Altium schematic parsing checked against the board.
+ *
+ * A `.PcbDoc` carries the netlist Altium compiled from the same schematics, so
+ * it is an independent reference for which pins share a net and what the net
+ * is called. Each fixture below records how far the parser agrees with its
+ * board; a change that lowers a number here has lost connectivity somewhere.
+ */
+import { describe, it, expect } from "vitest";
+import { existsSync } from "fs";
+import path from "path";
+import { altiumHandler } from "../../src/parsers/altium/index.js";
+import { readBoardNetlist, compareToBoard } from "../helpers/altium-pcbdoc.js";
+
+const FIXTURES = path.resolve(__dirname, "../fixtures/altium");
+
+interface BoardCase {
+  name: string;
+  project: string;
+  board: string;
+  /** Board nets the parser still splits, all accounted for in the description. */
+  fragmented: number;
+  /** Shared pins whose net name matches the board's, at least. */
+  sameName: number;
+}
+
+const CASES: BoardCase[] = [
+  {
+    // Single sheet: the parser and the board agree completely.
+    name: "Altium-STM32-PCB",
+    project: "Altium-STM32-PCB/STM32_PCB_Design.PrjPcb",
+    board: "Altium-STM32-PCB/STM32_PCB_Design.PcbDoc",
+    fragmented: 0,
+    sameName: 120,
+  },
+  {
+    // Hierarchical, with harness bus entries such as `DAC[1..2]` carried on
+    // bus lines, which the parser does not trace: those members remain split.
+    name: "misko3",
+    project: "misko3/MISKO3.PrjPcb",
+    board: "misko3/Misko 3.PcbDoc",
+    fragmented: 55,
+    sameName: 644,
+  },
+  {
+    name: "MIXR Power",
+    project: "mixr-power/MIXR Power.PrjPcb",
+    board: "mixr-power/Layout/MIXR - Power.PcbDoc",
+    fragmented: 0,
+    sameName: 380,
+  },
+  {
+    name: "nRF52840 DK pca10056",
+    project:
+      "nRF52840-Development-Kit/PCA10056-nRF52840 Development Board 3_0_3/Altium Designer files/pca10056.PrjPCB",
+    board:
+      "nRF52840-Development-Kit/PCA10056-nRF52840 Development Board 3_0_3/Altium Designer files/400236.PcbDoc",
+    fragmented: 0,
+    sameName: 1056,
+  },
+];
+
+describe("Altium netlist against the board", () => {
+  for (const boardCase of CASES) {
+    const project = path.join(FIXTURES, boardCase.project);
+    const board = path.join(FIXTURES, boardCase.board);
+    describe.skipIf(!existsSync(project) || !existsSync(board))(boardCase.name, () => {
+      it("splits no board net beyond the known cases and merges none", async () => {
+        const parsed = await altiumHandler.parse(project, {});
+        const pinNets = new Map<string, string>();
+        for (const [refdes, component] of Object.entries(parsed.components)) {
+          for (const [pin, entry] of Object.entries(component.pins)) {
+            const net = typeof entry === "string" ? entry : entry.net;
+            if (net) pinNets.set(`${refdes}.${pin}`, net);
+          }
+        }
+        const comparison = compareToBoard(pinNets, readBoardNetlist(board));
+        expect(comparison.overMerged).toEqual([]);
+        expect(comparison.fragmented.length).toBeLessThanOrEqual(boardCase.fragmented);
+        expect(comparison.sameName).toBeGreaterThanOrEqual(boardCase.sameName);
+      });
+    });
+  }
+});

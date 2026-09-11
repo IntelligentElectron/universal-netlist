@@ -136,12 +136,15 @@ export const isSignalSheetEntry = (entry: AltiumRecord): boolean => {
  *
  * A sheet entry has no location of its own. It sits on one edge of the sheet
  * symbol that owns it, `Side` saying which (0 left, 1 right, 2 top, 3 bottom),
- * `DistanceFromTop` grid steps of 10 units down from the symbol's top-left
- * corner. Verified for the left and right edges, which is where all but a few
- * dozen of the corpus's 1200 entries sit. An entry on the top or bottom edge
- * is left unplaced rather than guessed at: the samples seen agree with a
- * rightward `DistanceFromTop` only some of the time, and an entry placed
- * wrongly would join a wire it never touches.
+ * `DistanceFromTop` steps of 10 units along that edge from the symbol's
+ * top-left corner: downward on a vertical edge, rightward on a horizontal one.
+ * `DistanceFromTop_Frac1` holds the fraction of a step in millionths, so
+ * 500000 is half a step: the nRF52840 DK cover sheet places its entries that
+ * way, and every one of its wires ends there.
+ *
+ * Verified against the wired entries of the fixture corpus: on the left and
+ * right edges over a thousand of them, on the bottom edge the q23-harness top
+ * sheet (steps 16 to 21 landing at 160 to 210), on the top edge PW-Sat2's EPS.
  */
 const positionSheetEntries = (symbol: AltiumRecord): void => {
   if (!symbol.children) return;
@@ -157,13 +160,21 @@ const positionSheetEntries = (symbol: AltiumRecord): void => {
     symbol.XSize ?? symbol.XSIZE,
     symbol.XSize_Frac ?? symbol.XSIZE_FRAC
   );
+  const height = scaledCoordinate(
+    symbol.YSize ?? symbol.YSIZE,
+    symbol.YSize_Frac ?? symbol.YSIZE_FRAC
+  );
   for (const entry of symbol.children) {
     if (entry.RECORD !== RECORD_TYPES.SHEET_ENTRY) continue;
-    const distance =
-      toNumber(entry.DistanceFromTop ?? entry.DISTANCEFROMTOP) * 10 * COORDINATE_SCALE;
+    const steps =
+      toNumber(entry.DistanceFromTop ?? entry.DISTANCEFROMTOP) +
+      toNumber(entry.DistanceFromTop_Frac1 ?? entry.DISTANCEFROMTOP_FRAC1) / 1_000_000;
+    const distance = Math.round(steps * 10 * COORDINATE_SCALE);
     const side = String(entry.Side ?? entry.SIDE ?? "0");
     if (side === "1") entry.coords = [[x + width, y - distance]];
-    else if (side === "0") entry.coords = [[x, y - distance]];
+    else if (side === "2") entry.coords = [[x + distance, y]];
+    else if (side === "3") entry.coords = [[x + distance, y - height]];
+    else entry.coords = [[x, y - distance]];
   }
 };
 
@@ -459,8 +470,38 @@ const claimedNetName = (device: AltiumRecord): string | undefined => {
  * a harness, say — the first in the device order wins, which is the order the
  * records appear in the file.
  */
-export const assignNetName = (net: AltiumNet, schematic: AltiumSchematic): void => {
+/**
+ * Which of the weaker identifiers may name a net.
+ *
+ * These are the project's `AllowPortNetNames` and `AllowSheetEntryNetNames`
+ * options. Altium leaves the first off and the second on by default, so a net
+ * reaching a child sheet only through a port is usually named after a pin, or
+ * after the sheet entry on the parent once the two are joined.
+ */
+export interface NetNamingOptions {
+  allowPortNetNames: boolean;
+  allowSheetEntryNetNames: boolean;
+}
+
+/** A lone document is read with every identifier allowed to name its net. */
+const NAME_FROM_ANY: NetNamingOptions = { allowPortNetNames: true, allowSheetEntryNetNames: true };
+
+const namingAllowed = (
+  naming: (typeof NAMING_PRIORITY)[number],
+  options: NetNamingOptions
+): boolean => {
+  if (naming.type === RECORD_TYPES.PORT) return options.allowPortNetNames;
+  if (naming.type === RECORD_TYPES.SHEET_ENTRY) return options.allowSheetEntryNetNames;
+  return true;
+};
+
+export const assignNetName = (
+  net: AltiumNet,
+  schematic: AltiumSchematic,
+  options: NetNamingOptions = NAME_FROM_ANY
+): void => {
   for (const naming of NAMING_PRIORITY) {
+    if (!namingAllowed(naming, options)) continue;
     for (const device of net.devices) {
       if (device.RECORD !== naming.type) continue;
       const nameValue = claimedNetName(device);
@@ -500,7 +541,10 @@ export const assignNetName = (net: AltiumNet, schematic: AltiumSchematic): void 
  * 3. Groups connected devices into nets
  * 4. Assigns names to nets based on power ports, labels, or pin names
  */
-export const extractNets = (schematic: AltiumSchematic): AltiumNet[] => {
+export const extractNets = (
+  schematic: AltiumSchematic,
+  naming: NetNamingOptions = NAME_FROM_ANY
+): AltiumNet[] => {
   // Find all connectable devices
   const devices = findConnectableDevices(schematic);
 
@@ -528,7 +572,7 @@ export const extractNets = (schematic: AltiumSchematic): AltiumNet[] => {
 
   // Assign names to nets
   for (const net of nets) {
-    assignNetName(net, schematic);
+    assignNetName(net, schematic, naming);
   }
 
   return nets;

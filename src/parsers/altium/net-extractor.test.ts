@@ -681,3 +681,230 @@ describe("naming a net after one of its pins", () => {
     ).toBe("NetJP_2");
   });
 });
+
+/** A one-pin component, so a net has a pin to be named after. */
+const partWithPin = (
+  index: number,
+  refdes: string,
+  pin: string,
+  x: number,
+  y: number
+): AltiumRecord =>
+  ({
+    index,
+    RECORD: RECORD_TYPES.COMPONENT,
+    children: [
+      {
+        index: index + 1,
+        RECORD: RECORD_TYPES.PIN,
+        OwnerIndex: String(index),
+        Designator: pin,
+        "Location.X": String(x),
+        "Location.Y": String(y),
+        PinLength: "0",
+        PinConglomerate: "0",
+      } as AltiumRecord,
+      { index: index + 2, RECORD: RECORD_TYPES.DESIGNATOR, Text: refdes } as AltiumRecord,
+    ],
+  }) as AltiumRecord;
+
+const wire = (index: number, x1: number, y1: number, x2: number, y2: number): AltiumRecord =>
+  ({
+    index,
+    RECORD: RECORD_TYPES.WIRE,
+    X1: String(x1),
+    Y1: String(y1),
+    X2: String(x2),
+    Y2: String(y2),
+  }) as AltiumRecord;
+
+const netOf = (nets: AltiumNet[], refdes: string): AltiumNet | undefined =>
+  nets.find((net) =>
+    net.devices.some(
+      (device) => device.RECORD === RECORD_TYPES.DESIGNATOR && device.Text === refdes
+    )
+  ) ??
+  nets.find((net) =>
+    net.devices.some((device) => device.RECORD === RECORD_TYPES.PIN && device.Designator === "1")
+  );
+
+describe("Port geometry", () => {
+  const schematicWithPort = (port: Partial<AltiumRecord>, wireEndX: number): AltiumSchematic => ({
+    header: [],
+    records: [
+      partWithPin(0, "U1", "1", 100, 0),
+      wire(3, 100, 0, wireEndX, 0),
+      {
+        index: 4,
+        RECORD: RECORD_TYPES.PORT,
+        Name: "CLK",
+        "Location.X": "200",
+        "Location.Y": "0",
+        Width: "60",
+        ...port,
+      } as AltiumRecord,
+    ],
+  });
+
+  it("joins a wire landing on the port's location", () => {
+    const nets = extractNets(schematicWithPort({}, 200));
+    expect(netOf(nets, "U1")?.name).toBe("CLK");
+  });
+
+  it("joins a wire landing on the far end of the port's bar", () => {
+    const nets = extractNets(schematicWithPort({}, 260));
+    expect(netOf(nets, "U1")?.name).toBe("CLK");
+  });
+
+  it("extends a vertical port upward", () => {
+    const schematic: AltiumSchematic = {
+      header: [],
+      records: [
+        partWithPin(0, "U1", "1", 200, 100),
+        wire(3, 200, 100, 200, 60),
+        {
+          index: 4,
+          RECORD: RECORD_TYPES.PORT,
+          Name: "CLK",
+          "Location.X": "200",
+          "Location.Y": "0",
+          Width: "60",
+          Style: "4",
+        } as AltiumRecord,
+      ],
+    };
+    expect(netOf(extractNets(schematic), "U1")?.name).toBe("CLK");
+  });
+
+  it("leaves a wire that stops short of the port unjoined", () => {
+    const nets = extractNets(schematicWithPort({}, 190));
+    expect(netOf(nets, "U1")?.name).toBe("NetU1_1");
+  });
+});
+
+describe("Sheet entry placement", () => {
+  const sheetSymbol = (entries: Partial<AltiumRecord>[]): AltiumRecord =>
+    ({
+      index: 10,
+      RECORD: RECORD_TYPES.SHEET_SYMBOL,
+      "Location.X": "500",
+      "Location.Y": "400",
+      XSize: "120",
+      YSize: "80",
+      children: entries.map(
+        (entry, offset) =>
+          ({
+            index: 11 + offset,
+            RECORD: RECORD_TYPES.SHEET_ENTRY,
+            OwnerIndex: "10",
+            ...entry,
+          }) as AltiumRecord
+      ),
+    }) as AltiumRecord;
+
+  const schematicWith = (entries: Partial<AltiumRecord>[], ...wires: AltiumRecord[]) => ({
+    header: [],
+    records: [partWithPin(0, "U1", "1", 100, 100), ...wires, sheetSymbol(entries)],
+  });
+
+  it("places a left-edge entry DistanceFromTop steps below the symbol's top-left corner", () => {
+    const nets = extractNets(
+      schematicWith([{ Name: "EN", DistanceFromTop: "3" }], wire(3, 100, 100, 500, 370))
+    );
+    const net = netOf(nets, "U1");
+    expect(net?.name).toBe("EN");
+    expect(net?.nameSource).toBe("entry");
+  });
+
+  it("places a right-edge entry on the symbol's right edge", () => {
+    const nets = extractNets(
+      schematicWith([{ Name: "EN", Side: "1", DistanceFromTop: "3" }], wire(3, 100, 100, 620, 370))
+    );
+    expect(netOf(nets, "U1")?.name).toBe("EN");
+  });
+
+  it("reads DistanceFromTop_Frac1 as millionths of a step", () => {
+    const nets = extractNets(
+      schematicWith(
+        [{ Name: "EN", DistanceFromTop: "3", DistanceFromTop_Frac1: "500000" }],
+        wire(3, 100, 100, 500, 365)
+      )
+    );
+    expect(netOf(nets, "U1")?.name).toBe("EN");
+  });
+
+  it("places top and bottom edge entries DistanceFromTop steps to the right", () => {
+    const top = extractNets(
+      schematicWith([{ Name: "EN", Side: "2", DistanceFromTop: "3" }], wire(3, 100, 100, 530, 400))
+    );
+    expect(netOf(top, "U1")?.name).toBe("EN");
+    const bottom = extractNets(
+      schematicWith([{ Name: "EN", Side: "3", DistanceFromTop: "3" }], wire(3, 100, 100, 530, 320))
+    );
+    expect(netOf(bottom, "U1")?.name).toBe("EN");
+  });
+
+  it("leaves a harness-typed entry and a bus-notation entry to their own handling", () => {
+    const nets = extractNets(
+      schematicWith(
+        [
+          { Name: "AD[0..7]", DistanceFromTop: "3" },
+          { Name: "SPI", HarnessType: "SPI", DistanceFromTop: "4" },
+        ],
+        wire(3, 100, 100, 500, 370),
+        wire(4, 100, 100, 500, 360)
+      )
+    );
+    expect(netOf(nets, "U1")?.name).toBe("NetU1_1");
+  });
+
+  it("ranks an entry below a port and a label when naming", () => {
+    const nets = extractNets({
+      header: [],
+      records: [
+        partWithPin(0, "U1", "1", 100, 100),
+        wire(3, 100, 100, 300, 100),
+        wire(5, 300, 100, 500, 370),
+        {
+          index: 4,
+          RECORD: RECORD_TYPES.PORT,
+          Name: "FROM_PORT",
+          "Location.X": "300",
+          "Location.Y": "100",
+          Width: "60",
+        } as AltiumRecord,
+        sheetSymbol([{ Name: "FROM_ENTRY", DistanceFromTop: "3" }]),
+      ],
+    });
+    expect(netOf(nets, "U1")?.name).toBe("FROM_PORT");
+  });
+});
+
+describe("Net naming options", () => {
+  const schematic = (): AltiumSchematic => ({
+    header: [],
+    records: [
+      partWithPin(0, "U1", "1", 100, 0),
+      wire(3, 100, 0, 200, 0),
+      {
+        index: 4,
+        RECORD: RECORD_TYPES.PORT,
+        Name: "CLK",
+        "Location.X": "200",
+        "Location.Y": "0",
+        Width: "60",
+      } as AltiumRecord,
+    ],
+  });
+
+  it("names a net after its port unless AllowPortNetNames is off", () => {
+    expect(netOf(extractNets(schematic()), "U1")?.name).toBe("CLK");
+    const nets = extractNets(schematic(), {
+      allowPortNetNames: false,
+      allowSheetEntryNetNames: true,
+    });
+    const net = netOf(nets, "U1");
+    expect(net?.name).toBe("NetU1_1");
+    expect(net?.nameSource).toBe("pin");
+  });
+});
