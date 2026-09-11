@@ -107,7 +107,9 @@ class SpatialIndex {
 
     const recordType = device.RECORD;
     if (
-      (recordType === RECORD_TYPES.WIRE || recordType === RECORD_TYPES.PIN) &&
+      (recordType === RECORD_TYPES.WIRE ||
+        recordType === RECORD_TYPES.PIN ||
+        recordType === RECORD_TYPES.PORT) &&
       device.coords.length > 1
     ) {
       for (let i = 0; i < device.coords.length - 1; i++) {
@@ -165,7 +167,10 @@ const getLineSegments = (device: AltiumRecord): LineSegment[] => {
     return segments;
   }
 
-  if (device.RECORD === RECORD_TYPES.PIN && device.coords.length > 1) {
+  if (
+    (device.RECORD === RECORD_TYPES.PIN || device.RECORD === RECORD_TYPES.PORT) &&
+    device.coords.length > 1
+  ) {
     return [[device.coords[0], device.coords[1]]];
   }
 
@@ -246,32 +251,30 @@ export const isConnected = (deviceA: AltiumRecord, deviceB: AltiumRecord): boole
     return true;
   }
 
-  // Special case: globally-named devices (power ports, net labels, ports)
-  // with the same name are connected globally.
-  // Note: SHEET_ENTRY is NOT globally-named; it connects via wires on the parent sheet.
-  // Multiple sheet symbols can have SHEET_ENTRIES with the same name connecting to
-  // different nets (e.g., multi-channel designs).
-  const isGloballyNamedDevice = (d: AltiumRecord): boolean =>
-    d.RECORD === RECORD_TYPES.POWER_PORT ||
-    d.RECORD === RECORD_TYPES.NET_LABEL ||
-    d.RECORD === RECORD_TYPES.PORT;
+  // Special case: named devices with the same name are connected by that name
+  // (see namedDeviceKey).
+  const keyA = namedDeviceKey(deviceA);
+  return keyA !== undefined && keyA === namedDeviceKey(deviceB);
+};
 
-  const getDeviceName = (d: AltiumRecord): unknown => d.Text ?? d.TEXT ?? d.Name ?? d.NAME;
-
-  const deviceAName = getDeviceName(deviceA);
-  const deviceBName = getDeviceName(deviceB);
-
-  if (
-    isGloballyNamedDevice(deviceA) &&
-    isGloballyNamedDevice(deviceB) &&
-    deviceAName &&
-    deviceBName &&
-    deviceAName === deviceBName
-  ) {
-    return true;
+/**
+ * The name under which a device joins others of its kind without a wire, or
+ * undefined for a device that only joins by geometry.
+ *
+ * Power ports and net labels of one name are one net. Ports of one name are one
+ * net too, but a port never joins a net label: Altium's connectivity guide
+ * states that a port called `Inta` does not connect to a net label called
+ * `Inta`, they must be wired. A sheet entry never joins by name at all: several
+ * sheet symbols may carry entries of one name that lead to different nets.
+ */
+const namedDeviceKey = (device: AltiumRecord): string | undefined => {
+  const name = device.Text ?? device.TEXT ?? device.Name ?? device.NAME;
+  if (name === undefined || name === null || name === "") return undefined;
+  if (device.RECORD === RECORD_TYPES.POWER_PORT || device.RECORD === RECORD_TYPES.NET_LABEL) {
+    return `label:${String(name)}`;
   }
-
-  return false;
+  if (device.RECORD === RECORD_TYPES.PORT) return `port:${String(name)}`;
+  return undefined;
 };
 
 /**
@@ -293,23 +296,15 @@ export const findAllConnectedComponents = (devices: AltiumRecord[]): AltiumRecor
     uf.find(d.index); // Initialize
   }
 
-  // Collect globally-named devices (power ports, net labels, ports)
-  const globalNamedTypes = new Set<string>([
-    RECORD_TYPES.POWER_PORT,
-    RECORD_TYPES.NET_LABEL,
-    RECORD_TYPES.PORT,
-  ]);
+  // Collect the devices that join by name (see namedDeviceKey)
   const globalLabels = new Map<string, number[]>();
   for (const device of devices) {
-    if (device.RECORD && globalNamedTypes.has(device.RECORD)) {
-      const text = (device.Text ?? device.TEXT ?? device.Name ?? device.NAME) as string | undefined;
-      if (text) {
-        if (!globalLabels.has(text)) {
-          globalLabels.set(text, []);
-        }
-        globalLabels.get(text)!.push(device.index);
-      }
+    const key = namedDeviceKey(device);
+    if (key === undefined) continue;
+    if (!globalLabels.has(key)) {
+      globalLabels.set(key, []);
     }
+    globalLabels.get(key)!.push(device.index);
   }
 
   // Collect harness entries by the signal they carry. Two entries of one bundle

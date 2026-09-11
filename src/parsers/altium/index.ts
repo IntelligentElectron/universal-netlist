@@ -32,7 +32,13 @@ import {
 import { OleReader, readOleStream, readOptionalOleStream } from "../ole-reader/ole-reader.js";
 import { parseRecords, findRecords } from "./record-parser.js";
 import { buildHierarchy, getPartsList, flattenHierarchy, findRecordByIndex } from "./hierarchy.js";
-import { extractNets, determineNetList, classifyNets } from "./net-extractor.js";
+import {
+  extractNets,
+  determineNetList,
+  classifyNets,
+  isSignalSheetEntry,
+} from "./net-extractor.js";
+import type { NetNamingOptions } from "./net-extractor.js";
 import { duplicateInstanceIndices, pinBelongsToInstance } from "./part-pins.js";
 import {
   readHarnessConnectors,
@@ -45,7 +51,7 @@ import {
 } from "./harness.js";
 import type { HarnessDefinitions } from "./harness.js";
 import { parseProjectOptions, resolveNetIdentifierScope } from "./project-options.js";
-import type { AltiumProjectOptions, DesignShape } from "./project-options.js";
+import type { AltiumProjectOptions, DesignShape, NetIdentifierScope } from "./project-options.js";
 import { planLocalNetRenames, applyNetRenames, noNetIdentifiers } from "./net-scoping.js";
 import type { NetIdentifierKinds } from "./net-scoping.js";
 import {
@@ -544,12 +550,30 @@ export const readSchematicRecords = (
  * names the same signal on every sheet the bundle reaches. That is what lets a
  * harness be traced from one sheet to another, where geometry cannot reach.
  */
+/**
+ * One net's claims to be the same net as a net on another sheet.
+ *
+ * `port:<name>` is what a port asserts under Flat and Global scope, where ports
+ * join by name across the project. `hier:<child>:<name>` is what a port on the
+ * child document `<child>` and a sheet entry on a symbol instantiating it both
+ * assert, and under Hierarchical scope that pair is the only way a signal
+ * crosses a sheet boundary. A net that carries no pins, a wire drawn from one
+ * sheet entry to another, still links the two and has no name of its own.
+ */
+export interface NetLinkGroup {
+  /** The net's name in the sheet's netlist, absent when it carries no pins. */
+  net?: string;
+  keys: string[];
+}
+
 interface ParsedDocument {
   netlist: ParsedNetlist;
+  /** Cross-sheet identity claims, one group per net on this sheet. */
+  links: NetLinkGroup[];
   /** Harness signal key -> the name of the net carrying it on this sheet. */
   harnessSignals: Map<string, string>;
-  /** Net names that came from the design rather than being derived from a pin. */
-  designedNames: Set<string>;
+  /** Where each net's name came from, keyed by the name. */
+  nameSources: Map<string, NetNameSource>;
   /** Bundle names this sheet joins, each group being one bundle under many names. */
   bundleLinks: string[][];
   /** Which kinds of net identifier each of this sheet's nets carries. */
@@ -628,8 +652,10 @@ const collectNetIdentifiers = (nets: AltiumNet[]): Map<string, NetIdentifierKind
     if (!net.name) continue;
     const kinds = identifiers.get(net.name) ?? noNetIdentifiers();
     for (const device of net.devices) {
-      if (device.RECORD === RECORD_TYPES.PORT || device.RECORD === RECORD_TYPES.SHEET_ENTRY) {
-        kinds.portOrEntry = true;
+      if (device.RECORD === RECORD_TYPES.PORT) {
+        kinds.port = true;
+      } else if (device.RECORD === RECORD_TYPES.SHEET_ENTRY) {
+        kinds.entry = true;
       } else if (device.RECORD === RECORD_TYPES.POWER_PORT) {
         kinds.powerPort = true;
       } else if (device.RECORD === RECORD_TYPES.NET_LABEL) {
@@ -674,9 +700,135 @@ const collectHarnessSignals = (
 };
 
 /**
+ * The document a sheet symbol instantiates, as its file name in lower case, or
+ * undefined for a repeated symbol, whose channels are joined by name during
+ * channel expansion rather than by link.
+ */
+const sheetSymbolChild = (symbol: AltiumRecord | undefined): string | undefined => {
+  const children = symbol?.children ?? [];
+  const designator = recordText(children.find((c) => c.RECORD === RECORD_TYPES.SHEET_NAME));
+  if (expandRepeatDesignator(designator).length > 0) return undefined;
+  const fileName = recordText(children.find((c) => c.RECORD === RECORD_TYPES.SHEET_FILE_NAME));
+  if (!fileName) return undefined;
+  return path.basename(fileName.replace(/\\/g, "/")).toLowerCase();
+};
+
+/**
+ * Collect every net's cross-sheet identity claims (see NetLinkGroup).
+ */
+const collectNetLinks = (
+  nets: AltiumNet[],
+  schematic: AltiumSchematic,
+  parsedNets: NetConnections,
+  documentName: string
+): NetLinkGroup[] => {
+  const groups: NetLinkGroup[] = [];
+  for (const net of nets) {
+    const keys = new Set<string>();
+    for (const device of net.devices) {
+      if (device.HarnessType ?? device.HARNESSTYPE) continue;
+      if (device.RECORD === RECORD_TYPES.PORT) {
+        const name = getDeviceName(device);
+        if (!name) continue;
+        keys.add(`port:${name}`);
+        keys.add(`hier:${documentName}:${name}`);
+      } else if (device.RECORD === RECORD_TYPES.SHEET_ENTRY && isSignalSheetEntry(device)) {
+        const name = getDeviceName(device);
+        const owner = device.OwnerIndex ?? device.OWNERINDEX;
+        if (!name || owner === undefined || owner === null || owner === "") continue;
+        const symbolIndex = parseInt(String(owner), 10);
+        const child = sheetSymbolChild(findRecordByIndex(schematic, symbolIndex));
+        // Which symbol the entry sits on is kept until the whole project has
+        // been read: a child placed by several symbols is parsed once, so
+        // only the first placement's entries can be joined to it.
+        if (child) keys.add(`entry:${documentName}#${symbolIndex}:${child}:${name}`);
+      }
+    }
+    if (keys.size === 0) continue;
+    const net_ = net.name && parsedNets[net.name] ? net.name : undefined;
+    groups.push({ net: net_, keys: [...keys] });
+  }
+  return groups;
+};
+
+const getDeviceName = (device: AltiumRecord): string | undefined => {
+  const value = device.Name ?? device.NAME;
+  return value === undefined || value === null || value === "" ? undefined : String(value);
+};
+
+/**
+ * Join the nets that ports and sheet entries link from one sheet to another.
+ *
+ * Under Hierarchical scope a port meets the sheet entry of the same name on the
+ * symbol that instantiates its sheet; under Flat and Global scope ports meet
+ * by name anywhere in the project. Either way the link is an identity between
+ * two nets that geometry cannot see, so the groups are resolved with a
+ * union-find over their keys and every group of two or more named nets is
+ * folded into one, exactly as a harness signal spanning sheets is.
+ */
+const linkedNetGroups = (
+  links: readonly NetLinkGroup[],
+  scope: NetIdentifierScope
+): Map<string, Set<string>> => {
+  const prefix = scope === "hierarchical" || scope === "strict-hierarchical" ? "hier:" : "port:";
+  // A child document placed by more than one sheet symbol without Repeat() is
+  // parsed as one instance, and its ports cannot be joined to any placement
+  // without joining them to all: the designators the child carries belong to
+  // one placement, and nothing here says which. Its entries are left unlinked
+  // rather than folding every placement's nets into one, so each such net
+  // stays a separate net and `run_erc` still reports the stub.
+  const placementsOfChild = new Map<string, Set<string>>();
+  const entryKey = /^entry:([^:]+):([^:]+):(.*)$/;
+  for (const group of links) {
+    for (const key of group.keys) {
+      const match = key.match(entryKey);
+      if (!match) continue;
+      const placements = placementsOfChild.get(match[2]) ?? new Set<string>();
+      placements.add(match[1]);
+      placementsOfChild.set(match[2], placements);
+    }
+  }
+  const resolveKey = (key: string): string | undefined => {
+    const match = key.match(entryKey);
+    if (!match) return key;
+    return placementsOfChild.get(match[2])?.size === 1 ? `hier:${match[2]}:${match[3]}` : undefined;
+  };
+  const parent = new Map<string, string>();
+  const find = (node: string): string => {
+    let root = node;
+    while (parent.get(root) !== undefined && parent.get(root) !== root) root = parent.get(root)!;
+    parent.set(node, root);
+    return root;
+  };
+  const union = (a: string, b: string): void => {
+    const ra = find(a);
+    const rb = find(b);
+    if (ra !== rb) parent.set(ra, rb);
+  };
+  const netNodes = new Set<string>();
+  for (const group of links) {
+    const keys = group.keys
+      .map(resolveKey)
+      .filter((key): key is string => key !== undefined && key.startsWith(prefix));
+    if (keys.length === 0) continue;
+    const nodes = group.net ? [`net:${group.net}`, ...keys] : keys;
+    if (group.net) netNodes.add(`net:${group.net}`);
+    for (const node of nodes) union(nodes[0], node);
+  }
+  const groups = new Map<string, Set<string>>();
+  for (const node of netNodes) {
+    const root = find(node);
+    const members = groups.get(root) ?? new Set<string>();
+    members.add(node.slice("net:".length));
+    groups.set(root, members);
+  }
+  return groups;
+};
+
+/**
  * Parse one Altium .SchDoc document.
  */
-const parseAltiumDocument = (schdocPath: string): ParsedDocument => {
+const parseAltiumDocument = (schdocPath: string, naming?: NetNamingOptions): ParsedDocument => {
   // 1. Read OLE file and extract FileHeader stream
   const buffer = readOleStream(schdocPath);
 
@@ -687,7 +839,7 @@ const parseAltiumDocument = (schdocPath: string): ParsedDocument => {
   const hierarchical = buildHierarchy(schematic);
 
   // 4. Extract nets
-  const nets = extractNets(hierarchical);
+  const nets = extractNets(hierarchical, naming);
 
   // 5. Convert to ParsedNetlist format
   const parsedNets = convertNets(nets, hierarchical);
@@ -697,17 +849,24 @@ const parseAltiumDocument = (schdocPath: string): ParsedDocument => {
   populatePinNets(components, parsedNets);
   reconcileNetlist({ nets: parsedNets, components });
 
-  const designedNames = new Set<string>();
+  const nameSources = new Map<string, NetNameSource>();
   for (const net of nets) {
-    if (net.name && net.nameSource && net.nameSource !== "pin") designedNames.add(net.name);
+    if (!net.name || !net.nameSource) continue;
+    const seen = nameSources.get(net.name);
+    // Two groups under one name are folded into one net; the stronger claim
+    // names it.
+    if (seen === undefined || NAME_RANK[net.nameSource] < NAME_RANK[seen]) {
+      nameSources.set(net.name, net.nameSource);
+    }
   }
 
   const { hasSheetEntries, hasPorts } = readDesignShape(hierarchical);
 
   return {
     netlist: { nets: parsedNets, components },
+    links: collectNetLinks(nets, hierarchical, parsedNets, path.basename(schdocPath).toLowerCase()),
     harnessSignals: collectHarnessSignals(nets, parsedNets),
-    designedNames,
+    nameSources,
     bundleLinks: schematic.bundleLinks ?? [],
     netIdentifiers: collectNetIdentifiers(nets),
     sheetNumber: readSheetNumber(hierarchical),
@@ -853,31 +1012,82 @@ const resolveBundleNames = (linkGroups: string[][]): Map<string, string> => {
   return resolved;
 };
 
+/** Where a net's name came from, as the naming rules rank them. */
+export type NetNameSource = NonNullable<AltiumNet["nameSource"]>;
+
+/**
+ * How strongly each kind of identifier claims a merged net's name: the rank
+ * Altium applies when one net carries several. A power port outranks all, then
+ * a labelled harness member, a net label, a port, a sheet entry, and last a
+ * name the parser derived from a pin. Verified against the misko3 board: every
+ * net that a label and a port both name is called after the label there.
+ */
+const NAME_RANK: Readonly<Record<NetNameSource, number>> = {
+  power: 0,
+  harness: 1,
+  label: 2,
+  port: 3,
+  entry: 4,
+  pin: 5,
+};
+
+/** A net whose naming was not recorded, such as one produced by channel expansion. */
+const UNRANKED = NAME_RANK.pin + 1;
+
 /**
  * Choose the name a group of merged nets keeps.
  *
- * A name the designer wrote — a label, a port, a power port — beats one the
- * parser derived from a pin, because the derived name says nothing about the
- * signal. Between two written names the one already on more pins wins, so a
- * signal keeps the name most of the design calls it by. Ties go to the first in
- * sort order, so the result does not depend on the order the documents happened
- * to be read in.
+ * The strongest claim wins (see NAME_RANK). Between two names of the same
+ * rank the first in sort order wins, which is what the misko3 board shows for
+ * a net labelled `NRST` on one sheet and `T_NRST` on another, and which keeps
+ * the result independent of the order the documents were read in.
  */
-const canonicalNetName = (
-  names: Iterable<string>,
-  designed: ReadonlySet<string>,
-  allNets: NetConnections
-): string => {
-  const pinCount = (name: string): number =>
-    Object.values(allNets[name] ?? {}).reduce((total, pins) => total + pins.length, 0);
-
+const canonicalNetName = (names: Iterable<string>, rankOf: (name: string) => number): string => {
   return [...names].sort((a, b) => {
-    const written = Number(designed.has(b)) - Number(designed.has(a));
-    if (written !== 0) return written;
-    const pins = pinCount(b) - pinCount(a);
-    if (pins !== 0) return pins;
-    return a < b ? -1 : a > b ? 1 : 0;
+    const rank = rankOf(a) - rankOf(b);
+    if (rank !== 0) return rank;
+    const plainA = displayName(a);
+    const plainB = displayName(b);
+    return plainA < plainB ? -1 : plainA > plainB ? 1 : 0;
   })[0];
+};
+
+/**
+ * Marks a name that is provisional: a port or sheet entry named the net, and
+ * under Hierarchical scope that name is this sheet's own, so the same name on
+ * another sheet is another net. The marker keeps the two apart while the
+ * sheets are merged by name, and is stripped once the links have been
+ * resolved. It cannot occur in a name Altium writes.
+ */
+const PROVISIONAL = "\u0000";
+
+/** A name as it will be reported, without any provisional marker. */
+const displayName = (name: string): string => {
+  const marker = name.indexOf(PROVISIONAL);
+  return marker < 0 ? name : name.slice(0, marker);
+};
+
+/**
+ * Give every provisional name its final form.
+ *
+ * Most such names never survive: the net is joined to a parent net that a label
+ * names. One that does keeps the name the port or entry gave it, and where two
+ * distinct nets end up claiming one name, the later in sort order is numbered.
+ */
+const settleProvisionalNames = (allNets: NetConnections): Map<string, string> => {
+  const renames = new Map<string, string>();
+  const taken = new Set(Object.keys(allNets).filter((name) => !name.includes(PROVISIONAL)));
+  const provisional = Object.keys(allNets)
+    .filter((name) => name.includes(PROVISIONAL))
+    .sort();
+  for (const name of provisional) {
+    const plain = displayName(name);
+    let candidate = plain;
+    for (let n = 2; taken.has(candidate); n++) candidate = `${plain}_${n}`;
+    taken.add(candidate);
+    renames.set(name, candidate);
+  }
+  return renames;
 };
 
 /**
@@ -896,7 +1106,7 @@ const mergeHarnessSignalNets = (
   allNets: NetConnections,
   allComponents: ComponentDetails,
   signalNets: Map<string, Set<string>>,
-  designedNames: ReadonlySet<string>
+  rankOf: (name: string) => number
 ): Map<string, string> => {
   const renames = new Map<string, string>();
 
@@ -907,7 +1117,7 @@ const mergeHarnessSignalNets = (
     const resolved = new Set([...netNames].map((name) => renames.get(name) ?? name));
     if (resolved.size < 2) continue;
 
-    const canonical = canonicalNetName(resolved, designedNames, allNets);
+    const canonical = canonicalNetName(resolved, rankOf);
     for (const [from, to] of renames) {
       if (resolved.has(to)) renames.set(from, canonical);
     }
@@ -1410,8 +1620,14 @@ const parseAltiumProject = async (
   const expandedFiles = new Set<string>();
   // Harness signal key -> every net name carrying it, across all sheets.
   const signalNets = new Map<string, Set<string>>();
-  const designedNames = new Set<string>();
+  const nameRanks = new Map<string, number>();
+  const rankOf = (name: string): number => nameRanks.get(name) ?? UNRANKED;
   const bundleLinks: string[][] = [];
+  const netLinks: NetLinkGroup[] = [];
+  const naming: NetNamingOptions = {
+    allowPortNetNames: options.allowPortNetNames,
+    allowSheetEntryNetNames: options.allowSheetEntryNetNames,
+  };
 
   // Which scope the project netlists under is only known once every sheet has
   // been read, because Automatic decides it from what the design draws. The
@@ -1436,7 +1652,12 @@ const parseAltiumProject = async (
       const buffer = readOleStream(schdocPath);
       const schematic = readSchematicRecords(schdocPath, buffer);
       const hierarchical = buildHierarchy(schematic);
-      const nets = extractNets(hierarchical);
+      // A repeated sheet still reaches its parent by name: a shared entry keeps
+      // the child's net under the entry's name across every channel, which
+      // needs the child's port to have named it. So ports name nets here even
+      // where the project says otherwise, until channels are linked the way
+      // single placements are.
+      const nets = extractNets(hierarchical, { ...naming, allowPortNetNames: true });
       const parsedNets = convertNets(nets, hierarchical);
       const components = extractComponents(hierarchical);
       populatePinNets(components, parsedNets);
@@ -1477,7 +1698,7 @@ const parseAltiumProject = async (
       // nets are named per channel rather than per sheet below.
       pending.push({ kind: "channels", netlist: expanded, shape: readDesignShape(hierarchical) });
     } else {
-      pending.push({ kind: "document", document: parseAltiumDocument(schdocPath) });
+      pending.push({ kind: "document", document: parseAltiumDocument(schdocPath, naming) });
     }
   }
 
@@ -1504,6 +1725,12 @@ const parseAltiumProject = async (
       )
     : documents.map(() => new Map<string, string>());
 
+  // Under Hierarchical scope a port or sheet entry names a net for its own
+  // sheet only; the same name on another sheet is another net, joined only
+  // through the links resolved below. Such names are marked provisional so
+  // that merging the sheets by name does not fold them together.
+  const namesAreSheetLocal = scope === "hierarchical" || scope === "strict-hierarchical";
+
   let documentIndex = 0;
   for (const sheet of pending) {
     if (sheet.kind === "channels") {
@@ -1512,25 +1739,42 @@ const parseAltiumProject = async (
     }
 
     const { document } = sheet;
-    const renames = renamesPerDocument[documentIndex++];
+    const renames = new Map(renamesPerDocument[documentIndex]);
+    if (namesAreSheetLocal) {
+      for (const [name, source] of document.nameSources) {
+        if (source !== "port" && source !== "entry") continue;
+        const local = renames.get(name) ?? name;
+        renames.set(name, `${local}${PROVISIONAL}${documentIndex}`);
+      }
+    }
+    documentIndex++;
 
     if (renames.size > 0) {
       applyNetRenames(document.netlist, renames);
       for (const [signal, netName] of document.harnessSignals) {
         document.harnessSignals.set(signal, renames.get(netName) ?? netName);
       }
-      const renamed = new Set<string>();
-      for (const name of document.designedNames) renamed.add(renames.get(name) ?? name);
-      document.designedNames = renamed;
+      const renamedSources = new Map<string, NetNameSource>();
+      for (const [name, source] of document.nameSources) {
+        renamedSources.set(renames.get(name) ?? name, source);
+      }
+      document.nameSources = renamedSources;
+      for (const group of document.links) {
+        if (group.net) group.net = renames.get(group.net) ?? group.net;
+      }
     }
 
     mergeResult(document.netlist, allNets, allComponents);
+    netLinks.push(...document.links);
     for (const [signal, netName] of document.harnessSignals) {
       const carriers = signalNets.get(signal) ?? new Set<string>();
       carriers.add(netName);
       signalNets.set(signal, carriers);
     }
-    for (const name of document.designedNames) designedNames.add(name);
+    for (const [name, source] of document.nameSources) {
+      const rank = NAME_RANK[source];
+      if (rank < rankOf(name)) nameRanks.set(name, rank);
+    }
     bundleLinks.push(...document.bundleLinks);
   }
 
@@ -1551,7 +1795,15 @@ const parseAltiumProject = async (
   // signal collected from one would no longer name the net that carries it.
   // Those sheets reach the rest of the design through their sheet entries,
   // which classifySheetEntries already carries the bundle's members across.
-  mergeHarnessSignalNets(allNets, allComponents, resolvedSignalNets, designedNames);
+  const harnessRenames = mergeHarnessSignalNets(allNets, allComponents, resolvedSignalNets, rankOf);
+
+  // Ports and sheet entries link nets across sheets the same way, once the
+  // harness merge has settled which name each net goes by.
+  for (const group of netLinks) {
+    if (group.net) group.net = harnessRenames.get(group.net) ?? group.net;
+  }
+  mergeHarnessSignalNets(allNets, allComponents, linkedNetGroups(netLinks, scope), rankOf);
+  applyNetRenames({ nets: allNets, components: allComponents }, settleProvisionalNames(allNets));
 
   const netlist: ParsedNetlist = { nets: allNets, components: allComponents };
   reconcileNetlist(netlist);

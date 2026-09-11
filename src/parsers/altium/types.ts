@@ -242,7 +242,7 @@ export interface AltiumNet {
   /** Net name (from power port, label, or pin) */
   name: string | null;
   /** Which kind of object the name came from; "pin" means the parser derived it */
-  nameSource?: "power" | "harness" | "label" | "port" | "pin";
+  nameSource?: "power" | "harness" | "label" | "port" | "entry" | "pin";
   /**
    * The pin the name was derived from, present only when `nameSource` is `pin`.
    *

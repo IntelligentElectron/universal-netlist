@@ -106,6 +106,105 @@ named variants requires `design_variant` on every query, either one of those nam
 or `<Default>` (alias `default`), so a caller cannot accidentally treat a
 variant-bearing project as fully fitted.
 
+## Ports and sheet entries
+
+**Confidence: VERIFIED** against the boards named below. A `.PcbDoc` carries the netlist Altium
+compiled from the same schematics (`Nets6`, `Components6` and `Pads6` streams), and
+`test/integration/altium-board.test.ts` reads it back to check which pins share a net and what
+the net is called. The single-sheet STM32 fixture agrees on every pin, so any disagreement on the
+hierarchical fixtures is the parser's.
+
+### A port is a bar with two hotspots
+
+A `PORT` (`RECORD=18`) is drawn as a bar `Width` long starting at `Location`, rightward for a
+horizontal style and upward for a vertical one (`Style` 4 and above). A wire may land on either
+end: over the fixture and corpus projects, 140 ports are wired at `Location` and 147 at the far
+end. The parser keeps both ends, as it does for a pin, so a port joins whichever end the wire
+reaches. Before this, a far-end port joined nothing and its net took a pin name such as
+`NetJ10_8` where the board says `CANH`.
+
+A port joins other ports of its name on the same sheet, and nothing else by name. Altium's
+connectivity guide is explicit that a port called `Inta` does not connect to a net label called
+`Inta`; the two must be wired.
+
+### A sheet entry sits on its symbol's edge
+
+A `SHEET_ENTRY` (`RECORD=16`) has no location of its own. It is a child of its `SHEET_SYMBOL`
+(`RECORD=15`), placed by two fields:
+
+| Field | Meaning |
+|---|---|
+| `Side` | `0` left (the default, and absent from most files), `1` right, `2` top, `3` bottom |
+| `DistanceFromTop` | steps of 10 units along that edge from the symbol's top-left corner: downward on a vertical edge, rightward on a horizontal one |
+| `DistanceFromTop_Frac1` | the fraction of a step in millionths; `500000` is half a step |
+
+The nRF52840 DK cover sheet places every entry half a step down, and every one of its wires
+ends there. Keys are upper case in older files (`DISTANCEFROMTOP`, `SIDE`), as everywhere
+else in the format.
+
+Positioned this way, a plain entry is a connection point like a pin: a wire from a parent-sheet
+label into it, or from one entry to another across the top sheet, forms a net. Before this, a
+top sheet drawn as nothing but sheet symbols wired entry to entry contributed no nets at all
+(64 such wires on misko3 alone). A harness-typed entry carries a bundle and is placed by the
+harness code instead; a bus-notation entry (`AD[0..7]`) meets a bus line, which is not traced;
+a `Repeat()` entry belongs to channel expansion.
+
+### How the sheets are joined
+
+Within a document, geometry decides. Across documents the parser records, for every net, the
+identity claims its ports and entries make, and resolves them project-wide with a union-find
+once every sheet has been read:
+
+- under **Hierarchical** and **Strict Hierarchical** scope, a port on document `child` and a
+  plain entry of the same name on a sheet symbol instantiating `child` are one net. This is the
+  only way a signal crosses a boundary; ports of one name on different sheets are different
+  nets, which is what Altium documents ("ports only connect vertically to their corresponding
+  sheet entries");
+- under **Flat** and **Global** scope, ports of one name are one net wherever they are drawn.
+
+A net with no pins, such as a top-sheet wire between two entries, still links the two claims
+it carries. A child document placed by several sheet symbols without `Repeat()` is parsed as one
+instance, so its ports are not joined to any placement: nothing says which placement the
+designators it carries belong to, and joining all of them folds every placement's nets into one.
+Its entries stay unlinked and `run_erc` still reports the stubs. Repeated sheets are joined by
+name through channel expansion as before, which is why ports keep naming nets on them whatever
+`AllowPortNetNames` says.
+
+### What the joined net is called
+
+`AllowPortNetNames` (Altium's default is off) and `AllowSheetEntryNetNames` (default on) decide
+whether a port or an entry may name a net at all; a net named by neither takes a pin name. When
+the nets of several sheets are folded into one, the strongest claim wins, in the order Altium's
+guide gives: a power port, a labelled harness member, a net label, a port, a sheet entry, a pin
+name. Between two claims of one rank the first in sort order wins, so the result does not depend
+on the order the documents were read in. The misko3 board bears this out: `USART5_TX` (a label
+on the MCU sheet) beats `LIN_TXD` (the port on the transceiver sheet), and `NRST` beats
+`T_NRST`, `NRST_MCU` and `NRST_DBG`.
+
+A port or entry name under Hierarchical scope is the sheet's own, so it is held under a
+provisional, sheet-unique name while the sheets are merged and settled afterwards; a name two
+distinct nets still claim is numbered `_2`, `_3` for the later ones in sort order.
+
+`AppendSheetNumberToLocalNets` numbers a label wired into a sheet entry just as it numbers one
+wired to nothing else: all 48 such labels on the solarcar-bms board carry their sheet number. A
+label on a net that leaves through a port is not numbered.
+
+### Results against the boards
+
+Board nets split into more than one parser net, before and after:
+
+| Fixture | Before | After | What remains |
+|---|---|---|---|
+| Altium-STM32-PCB (one sheet) | 0 | 0 | |
+| MIXR Power | 8 | 0 | |
+| nRF52840 DK pca10056 | 3 | 0 | |
+| misko3 | 83 | 55 | harness entries with bus ranges (`DAC[1..2]`) carried on bus lines |
+| solarcar-bms | 129 | 101 | child sheets placed several times without `Repeat()` |
+
+No parser net spans two board nets on any of the first four. solarcar-bms has 103 such nets,
+down from 97 plus the multi-placement stubs; its board also disagrees with its schematics on
+71 pins, so it is not used as a test.
+
 ## Multi-channel (repeated sheets)
 
 **Confidence: VERIFIED** — implemented and tested against the designs named below.

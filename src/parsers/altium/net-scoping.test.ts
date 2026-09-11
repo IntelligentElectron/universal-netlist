@@ -25,7 +25,7 @@ const sheet = (
 describe("isSheetBound", () => {
   it("lets a port or sheet entry carry a net off its sheet under every scope", () => {
     for (const scope of ["global", "flat", "hierarchical", "strict-hierarchical"] as const) {
-      expect(isSheetBound(kinds({ portOrEntry: true }), scope)).toBe(false);
+      expect(isSheetBound(kinds({ port: true }), scope)).toBe(false);
     }
   });
 
@@ -76,10 +76,7 @@ describe("planLocalNetRenames", () => {
     // pins on the child, where the same net arrives named by a port. One sheet
     // named it, so both sides take the number or they stop merging.
     const plans = planLocalNetRenames(
-      [
-        sheet("1", { LVB_DIV: { label: true } }),
-        sheet(undefined, { LVB_DIV: { portOrEntry: true } }),
-      ],
+      [sheet("1", { LVB_DIV: { label: true } }), sheet(undefined, { LVB_DIV: { port: true } })],
       "hierarchical"
     );
     expect(plans[0].get("LVB_DIV")).toBe("LVB_DIV_1");
@@ -103,8 +100,8 @@ describe("planLocalNetRenames", () => {
   it("leaves a name shared through ports alone, because it is one net", () => {
     const plans = planLocalNetRenames(
       [
-        sheet("1", { RESET: { label: true, portOrEntry: true } }),
-        sheet("2", { RESET: { label: true, portOrEntry: true } }),
+        sheet("1", { RESET: { label: true, port: true } }),
+        sheet("2", { RESET: { label: true, port: true } }),
       ],
       "hierarchical"
     );
@@ -208,7 +205,7 @@ describe("planLocalNetRenames collision guard", () => {
       [
         sheet("1", { SCL: { label: true } }),
         sheet("2", { SCL: { label: true } }),
-        sheet("5", { SCL_1: { label: true, portOrEntry: true } }),
+        sheet("5", { SCL_1: { label: true, port: true } }),
       ],
       "hierarchical"
     );
@@ -253,7 +250,7 @@ describe("planLocalNetRenames on harness members", () => {
     // still numbered after it.
     const plans = planLocalNetRenames(
       [
-        sheet("1", { MCU_RMII: { label: true, portOrEntry: true } }),
+        sheet("1", { MCU_RMII: { label: true, port: true } }),
         sheet("2", { "MCU_RMII.TXD0": { label: true, harness: true } }),
       ],
       "hierarchical"
@@ -321,7 +318,7 @@ describe("planLocalNetRenames on harness members", () => {
       [
         sheet("1", { SPI4: { label: true } }),
         sheet("2", { "SPI4.SCK": { label: true, harness: true } }),
-        sheet("3", { "SPI4.SCK_1": { label: true, portOrEntry: true } }),
+        sheet("3", { "SPI4.SCK_1": { label: true, port: true } }),
       ],
       "hierarchical"
     );
@@ -333,10 +330,7 @@ describe("planLocalNetRenames on harness members", () => {
     // sheet 1 runs into a sheet symbol, so it claims nothing either, which
     // leaves nothing to number this by.
     const plans = planLocalNetRenames(
-      [
-        sheet("1", { PGND: { label: true, portOrEntry: true } }),
-        sheet("2", { PGND: { harness: true } }),
-      ],
+      [sheet("1", { PGND: { label: true, port: true } }), sheet("2", { PGND: { harness: true } })],
       "hierarchical"
     );
     expect(plans[1].has("PGND")).toBe(false);
@@ -380,5 +374,14 @@ describe("planLocalNetRenames on harness members under other scopes", () => {
     );
     expect(plans[0].size).toBe(0);
     expect(plans[1].size).toBe(0);
+  });
+});
+
+describe("isSheetBound and sheet entries", () => {
+  it("numbers a label wired into a sheet entry with the rest of the sheet's labels", () => {
+    // Every one of the 48 such labels on the solarcar-bms board carries its
+    // sheet number, so an entry does not carry a name off its sheet.
+    expect(isSheetBound(kinds({ label: true, entry: true }), "hierarchical")).toBe(true);
+    expect(isSheetBound(kinds({ label: true, port: true }), "hierarchical")).toBe(false);
   });
 });
