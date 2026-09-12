@@ -108,8 +108,10 @@ class SpatialIndex {
     const recordType = device.RECORD;
     if (
       (recordType === RECORD_TYPES.WIRE ||
+        recordType === RECORD_TYPES.BUS ||
         recordType === RECORD_TYPES.PIN ||
-        recordType === RECORD_TYPES.PORT) &&
+        recordType === RECORD_TYPES.PORT ||
+        recordType === RECORD_TYPES.BUS_ENTRY) &&
       device.coords.length > 1
     ) {
       for (let i = 0; i < device.coords.length - 1; i++) {
@@ -153,13 +155,21 @@ class SpatialIndex {
 
 /**
  * Get line segments for a device.
+ *
+ * A bus line is a polyline like a wire and a bus entry a two-point segment
+ * like a pin. Neither is passed here by the net extractor, which never lets a
+ * bus join a net; bus.ts groups them on their own to find which range
+ * identifiers a bus reaches.
  */
 const getLineSegments = (device: AltiumRecord): LineSegment[] => {
   if (!device.coords || device.coords.length === 0) {
     return [];
   }
 
-  if (device.RECORD === RECORD_TYPES.WIRE && device.coords.length > 1) {
+  if (
+    (device.RECORD === RECORD_TYPES.WIRE || device.RECORD === RECORD_TYPES.BUS) &&
+    device.coords.length > 1
+  ) {
     const segments: LineSegment[] = [];
     for (let i = 0; i < device.coords.length - 1; i++) {
       segments.push([device.coords[i], device.coords[i + 1]]);
@@ -168,7 +178,9 @@ const getLineSegments = (device: AltiumRecord): LineSegment[] => {
   }
 
   if (
-    (device.RECORD === RECORD_TYPES.PIN || device.RECORD === RECORD_TYPES.PORT) &&
+    (device.RECORD === RECORD_TYPES.PIN ||
+      device.RECORD === RECORD_TYPES.PORT ||
+      device.RECORD === RECORD_TYPES.BUS_ENTRY) &&
     device.coords.length > 1
   ) {
     return [[device.coords[0], device.coords[1]]];
@@ -179,26 +191,43 @@ const getLineSegments = (device: AltiumRecord): LineSegment[] => {
 };
 
 /**
- * Check if a point lies on a line segment.
+ * How far apart two points may be and still touch, in scaled units: a
+ * twentieth of a schematic unit.
+ *
+ * Objects drawn in Altium sit on the grid and meet exactly. A design imported
+ * from another tool carries fractional coordinates, and there a net label can
+ * sit 0.001 to 0.002 units off the wire it names and a wire end 0.011 units
+ * off the wire it meets: four labels and one such wire on the LimeSDR-USB
+ * sheets, fifteen labels on the aberrant sound module, and both boards have
+ * them connected. Nothing in a schematic is deliberately drawn a twentieth of
+ * a unit from something else, the grid being 10 units and the finest pin pitch
+ * seen in an imported design 2.5.
  */
-const pointOnSegment = (point: Coordinate, segment: LineSegment): boolean => {
+const TOUCH_TOLERANCE = 500;
+
+/**
+ * Check if a point lies on a line segment, within TOUCH_TOLERANCE.
+ */
+export const pointOnSegment = (point: Coordinate, segment: LineSegment): boolean => {
   const [p1, p2] = segment;
   const [px, py] = point;
 
-  // Cross product collinearity check: perpendicular distance must be within tolerance.
-  // Altium coordinates (10000 units/mil) can have small rounding errors (~2 units),
-  // so we use tolerance of 2 units (0.0002 mil). Squared form avoids sqrt.
+  // Cross product collinearity check: the perpendicular distance must be
+  // within tolerance. Squared form avoids sqrt.
   const cross = (p2[0] - p1[0]) * (py - p1[1]) - (p2[1] - p1[1]) * (px - p1[0]);
   const segLenSq = (p2[0] - p1[0]) ** 2 + (p2[1] - p1[1]) ** 2;
-  if (segLenSq > 0 && cross * cross > 4 * segLenSq) return false;
+  if (segLenSq > 0 && cross * cross > TOUCH_TOLERANCE * TOUCH_TOLERANCE * segLenSq) return false;
 
-  const minX = Math.min(p1[0], p2[0]);
-  const maxX = Math.max(p1[0], p2[0]);
-  const minY = Math.min(p1[1], p2[1]);
-  const maxY = Math.max(p1[1], p2[1]);
+  const minX = Math.min(p1[0], p2[0]) - TOUCH_TOLERANCE;
+  const maxX = Math.max(p1[0], p2[0]) + TOUCH_TOLERANCE;
+  const minY = Math.min(p1[1], p2[1]) - TOUCH_TOLERANCE;
+  const maxY = Math.max(p1[1], p2[1]) + TOUCH_TOLERANCE;
 
   return px >= minX && px <= maxX && py >= minY && py <= maxY;
 };
+
+const pointsTouch = (a: Coordinate, b: Coordinate): boolean =>
+  Math.abs(a[0] - b[0]) <= TOUCH_TOLERANCE && Math.abs(a[1] - b[1]) <= TOUCH_TOLERANCE;
 
 /**
  * Check if a point lies on any of the given line segments.
@@ -223,6 +252,17 @@ const pointOnAnySegment = (point: Coordinate, segments: LineSegment[]): boolean 
 export const isConnected = (deviceA: AltiumRecord, deviceB: AltiumRecord): boolean => {
   const segmentsA = getLineSegments(deviceA);
   const segmentsB = getLineSegments(deviceB);
+
+  // Two pins meet end to end or not at all. A pin's whole length is kept so
+  // that a wire ending part way along it still joins, as imported designs
+  // draw them; but two pins lying along one line, the stacked resistors of the
+  // LimeSDR-USB FPGA bank sheet, are not joined by overlapping, and the board
+  // keeps them apart.
+  if (deviceA.RECORD === RECORD_TYPES.PIN && deviceB.RECORD === RECORD_TYPES.PIN) {
+    const endsA = segmentsA.flat();
+    const endsB = segmentsB.flat();
+    return endsA.some((a) => endsB.some((b) => pointsTouch(a, b)));
+  }
 
   for (const segment of segmentsA) {
     for (const vertex of segment) {

@@ -34,13 +34,31 @@ const CASES: BoardCase[] = [
     sameName: 120,
   },
   {
-    // Hierarchical, with harness bus entries such as `DAC[1..2]` carried on
-    // bus lines, which the parser does not trace: those members remain split.
+    // Hierarchical, with bus members carried through harness entries and
+    // harness-typed ports written as ranges. The names that still differ are
+    // harness members the board names after a label on another sheet.
     name: "misko3",
     project: "misko3/MISKO3.PrjPcb",
     board: "misko3/Misko 3.PcbDoc",
-    fragmented: 55,
-    sameName: 644,
+    fragmented: 0,
+    sameName: 780,
+  },
+  {
+    // Global scope, imported with fractional coordinates: labels and wire ends
+    // sit up to 0.011 units off the wires they meet. The names that differ
+    // are the board's upper-casing of the schematic's.
+    name: "LimeSDR-USB 1v4",
+    project: "LimeSDR-USB/hardware/plug/1v4/LimeSDR-USB_1v4.PrjPcb",
+    board: "LimeSDR-USB/hardware/plug/1v4/PCB/LimeSDR-USB_1v4.PcbDoc",
+    fragmented: 0,
+    sameName: 3008,
+  },
+  {
+    name: "LimeSDR-USB 1v2",
+    project: "LimeSDR-USB/hardware/plug/1v2/LimeSDR_1v2.PrjPcb",
+    board: "LimeSDR-USB/hardware/plug/1v2/PCB/LimeSDR_1v2.PcbDoc",
+    fragmented: 0,
+    sameName: 2862,
   },
   {
     name: "MIXR Power",

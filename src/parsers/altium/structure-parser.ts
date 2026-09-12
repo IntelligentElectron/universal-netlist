@@ -82,14 +82,24 @@ export const parseProjectStructure = (content: string): ProjectStructure => {
  */
 const REPEAT_SHEET_DESIGNATOR = /^Repeat\(\s*([^,)]+?)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i;
 
+/** One channel of a `Repeat()` sheet symbol. */
+export interface RepeatChannel {
+  designator: string;
+  /**
+   * The number in the designator, `2` for `AY2`. A `Repeat(NAME)` sheet entry
+   * on the symbol hands this channel the bus member `NAME2`.
+   */
+  index: number;
+}
+
 /**
  * Expand a `Repeat(name,start,end)` sheet symbol designator into one channel
- * designator per instance: `Repeat(AY,1,3)` → `AY1`, `AY2`, `AY3`.
+ * per instance: `Repeat(AY,1,3)` gives `AY1`, `AY2`, `AY3`, with indices 1 to 3.
  *
  * Returns an empty array for anything that is not a repeat, or for a range that
- * yields fewer than two channels — a single instance is not multi-channel.
+ * yields fewer than two channels: a single instance is not multi-channel.
  */
-export const expandRepeatDesignator = (schDesignator: string): string[] => {
+export const expandRepeatChannels = (schDesignator: string): RepeatChannel[] => {
   const match = schDesignator.trim().match(REPEAT_SHEET_DESIGNATOR);
   if (!match) return [];
 
@@ -98,12 +108,16 @@ export const expandRepeatDesignator = (schDesignator: string): string[] => {
   const end = Number.parseInt(endText, 10);
   if (!Number.isFinite(start) || !Number.isFinite(end) || end <= start) return [];
 
-  const designators: string[] = [];
+  const channels: RepeatChannel[] = [];
   for (let index = start; index <= end; index++) {
-    designators.push(`${base}${index}`);
+    channels.push({ designator: `${base}${index}`, index });
   }
-  return designators;
+  return channels;
 };
+
+/** The channel designators alone: `Repeat(AY,1,3)` gives `AY1`, `AY2`, `AY3`. */
+export const expandRepeatDesignator = (schDesignator: string): string[] =>
+  expandRepeatChannels(schDesignator).map((channel) => channel.designator);
 
 /**
  * Identify repeated (multi-channel) sheets.

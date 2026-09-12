@@ -897,11 +897,56 @@ describe("Net naming options", () => {
     ],
   });
 
+  it("names a net after its label rather than its power port unless the project says otherwise", () => {
+    const labelled = (): AltiumSchematic => ({
+      header: [],
+      records: [
+        partWithPin(0, "U1", "1", 100, 0),
+        wire(3, 100, 0, 200, 0),
+        {
+          index: 4,
+          RECORD: RECORD_TYPES.POWER_PORT,
+          Text: "+5V",
+          "Location.X": "200",
+          "Location.Y": "0",
+        } as AltiumRecord,
+        {
+          index: 5,
+          RECORD: RECORD_TYPES.NET_LABEL,
+          Text: "VCC_5V",
+          "Location.X": "150",
+          "Location.Y": "0",
+        } as AltiumRecord,
+      ],
+    });
+    const byLabel = netOf(
+      extractNets(labelled(), {
+        allowPortNetNames: true,
+        allowSheetEntryNetNames: true,
+        powerPortNamesTakePriority: false,
+      }),
+      "U1"
+    );
+    expect(byLabel?.name).toBe("VCC_5V");
+    expect(byLabel?.nameSource).toBe("label");
+    const byPower = netOf(
+      extractNets(labelled(), {
+        allowPortNetNames: true,
+        allowSheetEntryNetNames: true,
+        powerPortNamesTakePriority: true,
+      }),
+      "U1"
+    );
+    expect(byPower?.name).toBe("+5V");
+    expect(byPower?.nameSource).toBe("power");
+  });
+
   it("names a net after its port unless AllowPortNetNames is off", () => {
     expect(netOf(extractNets(schematic()), "U1")?.name).toBe("CLK");
     const nets = extractNets(schematic(), {
       allowPortNetNames: false,
       allowSheetEntryNetNames: true,
+      powerPortNamesTakePriority: true,
     });
     const net = netOf(nets, "U1");
     expect(net?.name).toBe("NetU1_1");

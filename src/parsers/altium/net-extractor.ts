@@ -10,6 +10,7 @@ import { RECORD_TYPES } from "./types.js";
 import { findAllConnectedComponents } from "./connectivity.js";
 import { findRecordByIndex } from "./hierarchy.js";
 import { duplicateInstanceIndices, pinBelongsToInstance } from "./part-pins.js";
+import { attachBusMembers } from "./bus.js";
 
 const COORDINATE_SCALE = 10000;
 
@@ -421,26 +422,83 @@ const collectPinCandidates = (
   return refdesPins;
 };
 
+/** Where a net's name came from, as the naming rules rank them. */
+export type NetNameSource = NonNullable<AltiumNet["nameSource"]>;
+
+/**
+ * Which of the weaker identifiers may name a net, and which of the stronger
+ * comes first.
+ *
+ * `allowPortNetNames` and `allowSheetEntryNetNames` are the project's
+ * `AllowPortNetNames` and `AllowSheetEntryNetNames` options. Altium leaves the
+ * first off and the second on by default, so a net reaching a child sheet only
+ * through a port is usually named after a pin, or after the sheet entry on the
+ * parent once the two are joined.
+ *
+ * `powerPortNamesTakePriority` is `PowerPortNamesTakePriority`, off by
+ * default: a net label outranks a power port on the same net unless the
+ * project says otherwise. Altium's connectivity guide lists the order as net
+ * labels, power ports, ports, then pins, with power ports moved to the front by
+ * this option.
+ */
+export interface NetNamingOptions {
+  allowPortNetNames: boolean;
+  allowSheetEntryNetNames: boolean;
+  powerPortNamesTakePriority: boolean;
+}
+
+/**
+ * A lone document is read with every identifier allowed to name its net and
+ * power ports first, which is how the parser has always read a single sheet.
+ */
+export const NAME_FROM_ANY: NetNamingOptions = {
+  allowPortNetNames: true,
+  allowSheetEntryNetNames: true,
+  powerPortNamesTakePriority: true,
+};
+
 /**
  * Naming devices, strongest claim on the net's name first.
  *
- * A power port names a global net and outranks everything. A labelled signal
- * harness comes next: Altium replaces the wire's own label with
- * `<harness label>.<entry name>` for every net the harness carries. Otherwise
- * the net label the designer wrote on the wire wins, ahead of a port, which
- * only names the signal where it crosses a sheet boundary.
+ * A labelled signal harness replaces the wire's own label with
+ * `<harness label>.<entry name>` for every net the harness carries, so it
+ * outranks the label. The label outranks a port, which only names the signal
+ * where it crosses a sheet boundary, and a port outranks a sheet entry. A
+ * power port names a global net and goes first when the project gives it
+ * priority; otherwise it falls behind the label, as Altium's guide has it.
  *
  * A harness entry never names a net. Its name belongs to a member of a bundle,
  * not to the net, so it is only unique within its harness: naming nets after
  * entries would put every sensor's `SIGNAL` under one name.
  */
-const NAMING_PRIORITY: readonly { type: string; source: NonNullable<AltiumNet["nameSource"]> }[] = [
-  { type: RECORD_TYPES.POWER_PORT, source: "power" },
-  { type: RECORD_TYPES.HARNESS_ENTRY, source: "harness" },
-  { type: RECORD_TYPES.NET_LABEL, source: "label" },
-  { type: RECORD_TYPES.PORT, source: "port" },
-  { type: RECORD_TYPES.SHEET_ENTRY, source: "entry" },
-];
+const NAMING_DEVICES: Readonly<Record<NetNameSource, string | undefined>> = {
+  power: RECORD_TYPES.POWER_PORT,
+  harness: RECORD_TYPES.HARNESS_ENTRY,
+  label: RECORD_TYPES.NET_LABEL,
+  port: RECORD_TYPES.PORT,
+  entry: RECORD_TYPES.SHEET_ENTRY,
+  pin: undefined,
+};
+
+/** The name sources in the order they claim a net's name, strongest first. */
+export const namingOrder = (options: NetNamingOptions): NetNameSource[] =>
+  options.powerPortNamesTakePriority
+    ? ["power", "harness", "label", "port", "entry", "pin"]
+    : ["harness", "label", "power", "port", "entry", "pin"];
+
+/**
+ * How strongly each kind of identifier claims a merged net's name: the rank
+ * Altium applies when one net carries several, lower being stronger. Verified
+ * against the misko3 board for labels against ports: every net that a label
+ * and a port both name is called after the label there.
+ */
+export const nameRanks = (options: NetNamingOptions): Readonly<Record<NetNameSource, number>> => {
+  const ranks = {} as Record<NetNameSource, number>;
+  namingOrder(options).forEach((source, rank) => {
+    ranks[source] = rank;
+  });
+  return ranks;
+};
 
 /**
  * The name a device claims for its net, or undefined when it claims none.
@@ -459,39 +517,16 @@ const claimedNetName = (device: AltiumRecord): string | undefined => {
 /**
  * Assign a name to a net.
  *
- * Priority:
- * 1. Power port TEXT value
- * 2. Labelled harness: <net label on the harness line>.<harness entry name>
- * 3. Net label TEXT value
- * 4. Port NAME value
- * 5. Pin-derived name (Net<Refdes>_<Pin>) using the lowest refdes/pin in the net
+ * The naming devices are tried in the order `namingOrder` gives, and a net
+ * none of them names is called after its lowest pin, `Net<Refdes>_<Pin>`.
  *
- * Where a net carries two names of the same rank — two net labels either side of
- * a harness, say — the first in the device order wins, which is the order the
- * records appear in the file.
+ * Where a net carries two names of the same rank, two net labels either side
+ * of a harness, say, the first in the device order wins, which is the order
+ * the records appear in the file.
  */
-/**
- * Which of the weaker identifiers may name a net.
- *
- * These are the project's `AllowPortNetNames` and `AllowSheetEntryNetNames`
- * options. Altium leaves the first off and the second on by default, so a net
- * reaching a child sheet only through a port is usually named after a pin, or
- * after the sheet entry on the parent once the two are joined.
- */
-export interface NetNamingOptions {
-  allowPortNetNames: boolean;
-  allowSheetEntryNetNames: boolean;
-}
-
-/** A lone document is read with every identifier allowed to name its net. */
-const NAME_FROM_ANY: NetNamingOptions = { allowPortNetNames: true, allowSheetEntryNetNames: true };
-
-const namingAllowed = (
-  naming: (typeof NAMING_PRIORITY)[number],
-  options: NetNamingOptions
-): boolean => {
-  if (naming.type === RECORD_TYPES.PORT) return options.allowPortNetNames;
-  if (naming.type === RECORD_TYPES.SHEET_ENTRY) return options.allowSheetEntryNetNames;
+const namingAllowed = (source: NetNameSource, options: NetNamingOptions): boolean => {
+  if (source === "port") return options.allowPortNetNames;
+  if (source === "entry") return options.allowSheetEntryNetNames;
   return true;
 };
 
@@ -500,14 +535,15 @@ export const assignNetName = (
   schematic: AltiumSchematic,
   options: NetNamingOptions = NAME_FROM_ANY
 ): void => {
-  for (const naming of NAMING_PRIORITY) {
-    if (!namingAllowed(naming, options)) continue;
+  for (const source of namingOrder(options)) {
+    const type = NAMING_DEVICES[source];
+    if (type === undefined || !namingAllowed(source, options)) continue;
     for (const device of net.devices) {
-      if (device.RECORD !== naming.type) continue;
+      if (device.RECORD !== type) continue;
       const nameValue = claimedNetName(device);
       if (nameValue) {
         net.name = unescapeAltiumOverbar(nameValue);
-        net.nameSource = naming.source;
+        net.nameSource = source;
         return;
       }
     }
@@ -575,7 +611,11 @@ export const extractNets = (
     assignNetName(net, schematic, naming);
   }
 
-  return nets;
+  // A bus joins its labelled member nets to the range identifiers it reaches;
+  // a member nothing here labels becomes a pinless net carrying only those.
+  const unlabelledMembers = attachBusMembers(schematic, nets);
+
+  return [...nets, ...unlabelledMembers];
 };
 
 /**
