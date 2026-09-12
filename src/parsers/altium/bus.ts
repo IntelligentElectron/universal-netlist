@@ -251,6 +251,17 @@ const labelsOf = (net: AltiumNet): string[] => {
   return [...labels];
 };
 
+/** The range labels drawn on a run, `FMC1_P[32..1]` on the bus itself. */
+const rangeLabelsOn = (run: BusRun, records: readonly AltiumRecord[]): string[] => {
+  const labels: string[] = [];
+  for (const record of records) {
+    if (record.RECORD !== RECORD_TYPES.NET_LABEL) continue;
+    const label = unescapeAltiumOverbar(String(record.Text ?? record.TEXT ?? ""));
+    if (RANGE.test(label) && run.touches(locationOf(record))) labels.push(label);
+  }
+  return labels;
+};
+
 /**
  * Attach every bus member net to the range identifiers its bus reaches.
  *
@@ -266,7 +277,13 @@ const labelsOf = (net: AltiumNet): string[] => {
  * carrying only their identifiers, so the link code still joins the two sides.
  *
  * `Repeat(NAME)` gives no members of its own, so it only ever joins nets that
- * are labelled.
+ * are labelled. Nor does it insist on its own name: Altium hands member `n`
+ * of whatever bus reaches the entry to channel `n`, and the FMC-DIO board
+ * carries `FMC1_P8` from the bus `FMC1_P[32..1]` into channel 8 of
+ * `Repeat(FMC_P)`. So a `Repeat(NAME)` entry accepts `NAME<n>` and, when
+ * every range on the run spells one prefix, that range's members too; a run
+ * carrying two prefixes could hand one channel two members, and there the
+ * entry keeps to its own name.
  */
 export const attachBusMembers = (schematic: AltiumSchematic, nets: AltiumNet[]): AltiumNet[] => {
   const records = flattenHierarchy(schematic);
@@ -295,27 +312,66 @@ export const attachBusMembers = (schematic: AltiumSchematic, nets: AltiumNet[]):
   }
 
   for (const run of runs) {
-    const attached = nets.filter((net) => netTouchesRun(net, run));
+    // A net is on the run when a wire of its ends there, or when it is
+    // labelled with a member of a range the bus itself is labelled with: the
+    // label names the member wherever on the sheet it is drawn, as any net
+    // label does, and the FMC-DIO top sheet wires its `FMC1_P8` nowhere near
+    // the bus `FMC1_P[32..1]` that carries it into the channel symbol.
+    // Geometry decides what is on the run: the nets whose wires end there, and
+    // the identifiers that sit on it or on such a net.
+    const touching = nets.filter((net) => netTouchesRun(net, run));
     const onRun = identifiers.filter((identifier) => {
       const coords = (identifier.coords ?? []) as Point[];
       if (coords.some((point) => run.touches(point))) return true;
       const own = identifierNet.get(identifier);
-      if (own && attached.includes(own)) return true;
-      return coords.some((point) => attached.some((net) => netTouchesPoint(net, point)));
+      if (own && touching.includes(own)) return true;
+      return coords.some((point) => touching.some((net) => netTouchesPoint(net, point)));
     });
     if (onRun.length === 0) continue;
 
-    const tests = onRun.map((identifier) => ({
-      identifier,
-      matches: busMemberTest(recordName(identifier))!,
-    }));
+    // The ranges the run carries, as labels on the bus and as identifiers
+    // written in range notation. Their members are named nets of the sheet,
+    // so a net labelled with one is on the run wherever its wire is drawn.
+    // When every range spells one prefix, a `Repeat(NAME)` entry on the run
+    // takes their members by index as well.
+    const ranges = [
+      ...rangeLabelsOn(run, records),
+      ...onRun.map(recordName).filter((name) => RANGE.test(unescapeAltiumOverbar(name))),
+    ];
+    const rangeTests = ranges.map((name) => busMemberTest(name)!);
+    const named = (label: string): boolean => rangeTests.some((test) => test(label));
+    const attached = [
+      ...touching,
+      ...nets.filter((net) => !touching.includes(net) && labelsOf(net).some(named)),
+    ];
+    const prefixes = new Set(ranges.map((name) => unescapeAltiumOverbar(name).match(RANGE)![1]));
+    const indexedPrefix = prefixes.size === 1 ? [...prefixes][0] : undefined;
+
+    const tests = onRun.map((identifier) => {
+      const name = recordName(identifier);
+      const own = busMemberTest(name)!;
+      const base = repeatBaseName(name);
+      const matches =
+        base !== undefined && indexedPrefix !== undefined
+          ? (label: string) => own(label) || named(label)
+          : own;
+      return { identifier, matches, base };
+    });
+    // A `Repeat(NAME)` carrier records the channel its member indexes: the
+    // digits after the prefix. The run's range is the one that lists the
+    // member, so its prefix is read first: `X12` on a bus `X1[1..2]` into
+    // `Repeat(X)` is channel 2, not channel 12.
+    const carry = (test: (typeof tests)[number], member: string): BusCarrier => {
+      if (test.base === undefined) return { device: test.identifier, member };
+      const prefix = indexedPrefix !== undefined && named(member) ? indexedPrefix : test.base;
+      const channel = parseInt(member.slice(prefix.length), 10);
+      return { device: test.identifier, member, channel };
+    };
 
     const labelled = new Set<string>();
     for (const net of attached) {
       for (const label of labelsOf(net)) {
-        const carriers: BusCarrier[] = tests
-          .filter(({ matches }) => matches(label))
-          .map(({ identifier }) => ({ device: identifier, member: label }));
+        const carriers = tests.filter(({ matches }) => matches(label)).map((t) => carry(t, label));
         if (carriers.length === 0) continue;
         labelled.add(label);
         net.busCarriers = [...(net.busCarriers ?? []), ...carriers];
@@ -329,9 +385,7 @@ export const attachBusMembers = (schematic: AltiumSchematic, nets: AltiumNet[]):
       }
     }
     for (const member of unlabelled) {
-      const carriers: BusCarrier[] = tests
-        .filter(({ matches }) => matches(member))
-        .map(({ identifier }) => ({ device: identifier, member }));
+      const carriers = tests.filter(({ matches }) => matches(member)).map((t) => carry(t, member));
       virtual.push({ name: null, devices: [], busCarriers: carriers });
     }
   }

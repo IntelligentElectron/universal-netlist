@@ -17,6 +17,8 @@ Test points are identified by the `TP` reference-designator prefix. "Functional 
 
 `net.unnamed` only flags real multi-pin nets, so a single-pin auto-named net is reported once (as `net.single_pin`), not twice. The three degenerate rules are mutually exclusive by construction.
 
+An auto-generated name is one the EDA tool derived from a pin rather than a label: Cadence `N123`, KiCad `Net-(D1-A)` and `unconnected-(J1-Pad3)`, Altium `Net<refdes>_<pin>` such as `NetR9_2` or `NetU9_A3` (the refdes part carries a number or a `?`, so a hand-written `NetCtrl_EN` is a named net).
+
 ## Input Parameters
 
 | Parameter | Type | Required | Default | Description |

@@ -38,10 +38,65 @@ const textRecords = (ole: OleReader, stream: string): Record<string, string>[] =
   return records;
 };
 
+/**
+ * The designator each component carries on the board, by component index.
+ *
+ * `Components6` records only the logical designator (`SOURCEDESIGNATOR`), which
+ * every channel of a multi-channel sheet shares: the FMC-DIO board places
+ * `IC49` thirty-two times. The physical designator Altium expanded it to
+ * (`IC49A` ... `IC49\``) is the component's designator string in `Texts6`, a
+ * record that names its component and, among that component's strings, is the
+ * one that starts with the logical designator. Only a channel suffix is
+ * accepted after it (letters, `_`, and the characters Altium counts past `Z`),
+ * so a comment such as `R1 0R` or a re-annotated `R12` cannot rename `R1`. A
+ * component with no such string keeps its logical designator.
+ */
+const CHANNEL_SUFFIX = /^[A-Za-z_[\]\\^`][A-Za-z0-9_[\]\\^`]*$/;
+
+const boardDesignators = (ole: OleReader, sources: readonly string[]): string[] => {
+  const designators = [...sources];
+  const exact = new Set<number>();
+  const texts = ole.readStreamByPath("Texts6/Data");
+  let pos = 0;
+  while (pos + 5 <= texts.length) {
+    const type = texts[pos];
+    pos += 1;
+    const headerLength = texts.readUInt32LE(pos);
+    pos += 4;
+    const header = texts.subarray(pos, pos + headerLength);
+    pos += headerLength;
+    if (pos + 4 > texts.length) break;
+    const textLength = texts.readUInt32LE(pos);
+    pos += 4;
+    const block = texts.subarray(pos, pos + textLength);
+    pos += textLength;
+    // Only the text primitive (type 5) is read; anything else is skipped whole.
+    if (type !== 5 || header.length < 9 || block.length === 0) continue;
+    const component = header.readInt16LE(7);
+    if (component < 0 || component >= sources.length) continue;
+    const text = block.subarray(1, 1 + block[0]).toString("latin1");
+    const source = sources[component];
+    if (text === source) {
+      exact.add(component);
+      designators[component] = text;
+    } else if (
+      !exact.has(component) &&
+      text.startsWith(source) &&
+      CHANNEL_SUFFIX.test(text.slice(source.length))
+    ) {
+      designators[component] = text;
+    }
+  }
+  return designators;
+};
+
 export const readBoardNetlist = (pcbDocPath: string): BoardNetlist => {
   const ole = new OleReader(pcbDocPath);
   const nets = textRecords(ole, "Nets6/Data").map((record) => record.NAME);
-  const components = textRecords(ole, "Components6/Data").map((record) => record.SOURCEDESIGNATOR);
+  const components = boardDesignators(
+    ole,
+    textRecords(ole, "Components6/Data").map((record) => record.SOURCEDESIGNATOR)
+  );
   const pads = ole.readStreamByPath("Pads6/Data");
   const pinNets = new Map<string, string>();
   let pos = 0;

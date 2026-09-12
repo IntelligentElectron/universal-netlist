@@ -21,6 +21,7 @@ const MICROPHONES = path.join(
   "heron-hardware/Microphone-Boards/Microphone-Boards.PrjPcb"
 );
 const Q23 = path.join(FIXTURES, "qfsae-harness/q23-harness/q23-harness.PrjPcb");
+const FMC_DIO = path.join(FIXTURES, "fmc-dio-32chlvdsa/FMC_DIO_32ch_lvds_a.PrjPcb");
 const PCA10056 = path.join(
   FIXTURES,
   "nRF52840-Development-Kit/PCA10056-nRF52840 Development Board 3_0_3/Altium Designer files/pca10056.PrjPCB"
@@ -149,6 +150,41 @@ describe.skipIf(!existsSync(LD_HARNESS))("ld_harness Repeat() bus members", () =
       ([, pins]) => Object.values(pins).flat().length === 1
     );
     expect(single).toEqual([]);
+  });
+});
+
+describe.skipIf(!existsSync(FMC_DIO))("FMC-DIO Repeat() entries fed by buses of another name", () => {
+  it("hands member n of the bus to channel n whatever the bus is called", async () => {
+    const { nets } = await altiumHandler.parse(FMC_DIO, {});
+    // The top sheet wires the connector symbol's LA07_P entry to a label
+    // FMC1_P8, and a bus labelled FMC1_P[32..1], drawn nowhere near it, into
+    // the Repeat(FMC_P) entry of the 32-way buffer symbol. The board carries
+    // FMC1_P8 into channel 8 (IC49H), and FMC1_P27 into channel 27 (IC49[).
+    expect(pinsOf(nets, "FMC1_P8")).toEqual(["IC49H.6", "IC50H.8", "J40.h13"]);
+    expect(pinsOf(nets, "FMC1_P27")).toEqual(["IC49[.6", "IC50[.8", "J40.d26"]);
+    expect(pinsOf(nets, "EN1_RX8")).toEqual(["IC49H.3", "IC51H.2", "IC56.6", "R262.1"]);
+  });
+
+  it("leaves only the connector pins the board leaves alone", async () => {
+    const { nets } = await altiumHandler.parse(FMC_DIO, {});
+    const single = Object.keys(nets).filter(
+      (net) => Object.values(nets[net]).flat().length === 1
+    );
+    // Eleven FMC pins carry a port the top sheet wires to nothing; the board
+    // names them the same way, after the pin or after the one label.
+    expect(single.sort()).toEqual([
+      "NetJ40_c2",
+      "NetJ40_c3",
+      "NetJ40_c6",
+      "NetJ40_c7",
+      "NetJ40_d4",
+      "NetJ40_d5",
+      "NetJ40_g2",
+      "NetJ40_g3",
+      "NetJ40_h4",
+      "NetJ40_h5",
+      "PG_C2M",
+    ]);
   });
 });
 

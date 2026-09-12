@@ -62,8 +62,24 @@ describe("expandBusRange and repeatBaseName", () => {
  *
  *   A second bus, labelled X[1..2] like a third one beside a sheet symbol,
  *   carries X2 to the symbol's Repeat(X) entry through a wire.
+ *
+ *   The options rename those two bus labels and the member wire, add a second
+ *   range label to the bus beside the symbol, or draw a labelled wire that
+ *   touches no bus at all.
  */
-const sheet = (): AltiumSchematic => {
+interface SheetOptions {
+  busLabel?: string;
+  member?: string;
+  extraLabel?: string;
+  detached?: string;
+}
+
+const sheet = ({
+  busLabel = "X[1..2]",
+  member = "X2",
+  extraLabel,
+  detached,
+}: SheetOptions = {}): AltiumSchematic => {
   let index = 0;
   const record = (fields: Record<string, unknown>): AltiumRecord =>
     ({ index: index++, ...fields }) as AltiumRecord;
@@ -138,7 +154,7 @@ const sheet = (): AltiumSchematic => {
   });
   const busALabel = record({
     RECORD: RECORD_TYPES.NET_LABEL,
-    Text: "X[1..2]",
+    Text: busLabel,
     "Location.X": "350",
     "Location.Y": "470",
   });
@@ -146,7 +162,7 @@ const sheet = (): AltiumSchematic => {
   const busB = record({ RECORD: RECORD_TYPES.BUS, X1: "100", Y1: "800", X2: "200", Y2: "800" });
   const busBLabel = record({
     RECORD: RECORD_TYPES.NET_LABEL,
-    Text: "X[1..2]",
+    Text: busLabel,
     "Location.X": "150",
     "Location.Y": "800",
   });
@@ -166,10 +182,33 @@ const sheet = (): AltiumSchematic => {
   });
   const memberLabel = record({
     RECORD: RECORD_TYPES.NET_LABEL,
-    Text: "X2",
+    Text: member,
     "Location.X": "250",
     "Location.Y": "810",
   });
+
+  const extras: AltiumRecord[] = [];
+  if (extraLabel) {
+    extras.push(
+      record({
+        RECORD: RECORD_TYPES.NET_LABEL,
+        Text: extraLabel,
+        "Location.X": "320",
+        "Location.Y": "470",
+      })
+    );
+  }
+  if (detached) {
+    extras.push(record({ RECORD: RECORD_TYPES.WIRE, X1: "100", Y1: "900", X2: "200", Y2: "900" }));
+    extras.push(
+      record({
+        RECORD: RECORD_TYPES.NET_LABEL,
+        Text: detached,
+        "Location.X": "150",
+        "Location.Y": "900",
+      })
+    );
+  }
 
   return buildHierarchy({
     header: [],
@@ -194,6 +233,7 @@ const sheet = (): AltiumSchematic => {
       busBEntry,
       memberWire,
       memberLabel,
+      ...extras,
     ],
   });
 };
@@ -231,5 +271,39 @@ describe("attachBusMembers", () => {
     expect(nets.filter((net) => net.busCarriers && net.name !== "D1" && net.name !== "X2")).toEqual(
       [expect.objectContaining({ name: null })]
     );
+  });
+
+  it("hands a Repeat() entry the members of a bus called something else, by index", () => {
+    // FMC-DIO wires IN1_P[32..1] into Repeat(IN_P); the board joins IN1_P8 to channel 8.
+    const nets = extractNets(sheet({ busLabel: "IN1_P[2..1]", member: "IN1_P2" }));
+    const member = netNamed(nets, "IN1_P2")!;
+    expect(member.busCarriers).toEqual([expect.objectContaining({ member: "IN1_P2", channel: 2 })]);
+    expect(member.busCarriers![0].device.Name).toBe("Repeat(X)");
+  });
+
+  it("reads the channel after the prefix, not the trailing digits of the member", () => {
+    // A bus called X1[1..2] carries X11 and X12; X12 is channel 2, not 12.
+    const nets = extractNets(sheet({ busLabel: "X1[1..2]", member: "X12" }));
+    expect(netNamed(nets, "X12")!.busCarriers).toEqual([
+      expect.objectContaining({ member: "X12", channel: 2 }),
+    ]);
+  });
+
+  it("keeps a Repeat() entry to its own name when the run carries two ranges", () => {
+    const nets = extractNets(
+      sheet({ busLabel: "IN1_P[2..1]", member: "IN1_P2", extraLabel: "IN1_N[2..1]" })
+    );
+    expect(netNamed(nets, "IN1_P2")!.busCarriers).toBeUndefined();
+    expect(netNamed(nets, "X2")).toBeUndefined();
+  });
+
+  it("carries a member labelled away from the bus, the label naming it anywhere on the sheet", () => {
+    const nets = extractNets(sheet({ detached: "X1" }));
+    const x1 = netNamed(nets, "X1")!;
+    expect(x1.devices.map((device) => device.RECORD)).toEqual([
+      RECORD_TYPES.WIRE,
+      RECORD_TYPES.NET_LABEL,
+    ]);
+    expect(x1.busCarriers).toEqual([expect.objectContaining({ member: "X1", channel: 1 })]);
   });
 });
