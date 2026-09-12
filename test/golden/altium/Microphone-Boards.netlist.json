@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-11T22:24:22.976Z",
-    "netlistHash": "sha256:ddbeb02aad0d9833735c8019443cfdd3557d1a7e91645158feb673524c6334dd",
+    "generatedAt": "2026-09-11T23:55:43.318Z",
+    "netlistHash": "sha256:b4b15dbe5237e10c13908ce46adc2194676c73e23e795e0aeafc638278e706a7",
     "origin": {
       "type": "vendor",
       "source": {
@@ -12,7 +12,7 @@
     }
   },
   "nets": {
-    "M_GMA3526H101": {
+    "NetM2A_1": {
       "M2A": [
         "1"
       ]
@@ -1411,7 +1411,7 @@
         "2"
       ]
     },
-    "M_GMA3526H102": {
+    "NetM2B_1": {
       "M2B": [
         "1"
       ]
@@ -1462,7 +1462,7 @@
         "2"
       ]
     },
-    "M_GMA3526H103": {
+    "NetM2C_1": {
       "M2C": [
         "1"
       ]
@@ -1513,7 +1513,7 @@
         "2"
       ]
     },
-    "M_GMA3526H104": {
+    "NetM2D_1": {
       "M2D": [
         "1"
       ]
@@ -1564,7 +1564,7 @@
         "2"
       ]
     },
-    "M_GMA3526H105": {
+    "NetM2E_1": {
       "M2E": [
         "1"
       ]
@@ -1615,7 +1615,7 @@
         "2"
       ]
     },
-    "M_GMA3526H106": {
+    "NetM2F_1": {
       "M2F": [
         "1"
       ]
@@ -1666,7 +1666,7 @@
         "2"
       ]
     },
-    "M_GMA3526H107": {
+    "NetM2G_1": {
       "M2G": [
         "1"
       ]
@@ -1717,7 +1717,7 @@
         "2"
       ]
     },
-    "M_GMA3526H108": {
+    "NetM2H_1": {
       "M2H": [
         "1"
       ]
@@ -1768,7 +1768,7 @@
         "2"
       ]
     },
-    "M_GMA4030H111": {
+    "NetM3A_1": {
       "M3A": [
         "1"
       ]
@@ -1819,7 +1819,7 @@
         "2"
       ]
     },
-    "M_GMA4030H112": {
+    "NetM3B_1": {
       "M3B": [
         "1"
       ]
@@ -1870,7 +1870,7 @@
         "2"
       ]
     },
-    "M_GMA4030H113": {
+    "NetM3C_1": {
       "M3C": [
         "1"
       ]
@@ -1921,7 +1921,7 @@
         "2"
       ]
     },
-    "M_GMA4030H114": {
+    "NetM3D_1": {
       "M3D": [
         "1"
       ]
@@ -1972,7 +1972,7 @@
         "2"
       ]
     },
-    "M_GMA4030H115": {
+    "NetM3E_1": {
       "M3E": [
         "1"
       ]
@@ -2023,7 +2023,7 @@
         "2"
       ]
     },
-    "M_GMA4030H116": {
+    "NetM3F_1": {
       "M3F": [
         "1"
       ]
@@ -2074,7 +2074,7 @@
         "2"
       ]
     },
-    "M_GMA4030H117": {
+    "NetM3G_1": {
       "M3G": [
         "1"
       ]
@@ -2125,7 +2125,7 @@
         "2"
       ]
     },
-    "M_GMA4030H118": {
+    "NetM3H_1": {
       "M3H": [
         "1"
       ]
@@ -2176,7 +2176,7 @@
         "2"
       ]
     },
-    "M_MP34DT05TR1": {
+    "NetM1A_1": {
       "M1A": [
         "1"
       ]
@@ -2227,7 +2227,7 @@
         "2"
       ]
     },
-    "M_MP34DT05TR2": {
+    "NetM1B_1": {
       "M1B": [
         "1"
       ]
@@ -2278,7 +2278,7 @@
         "2"
       ]
     },
-    "M_MP34DT05TR3": {
+    "NetM1C_1": {
       "M1C": [
         "1"
       ]
@@ -2329,7 +2329,7 @@
         "2"
       ]
     },
-    "M_MP34DT05TR4": {
+    "NetM1D_1": {
       "M1D": [
         "1"
       ]
@@ -2380,7 +2380,7 @@
         "2"
       ]
     },
-    "M_MP34DT05TR5": {
+    "NetM1E_1": {
       "M1E": [
         "1"
       ]
@@ -2431,7 +2431,7 @@
         "2"
       ]
     },
-    "M_MP34DT05TR6": {
+    "NetM1F_1": {
       "M1F": [
         "1"
       ]
@@ -2482,7 +2482,7 @@
         "2"
       ]
     },
-    "M_MP34DT05TR7": {
+    "NetM1G_1": {
       "M1G": [
         "1"
       ]
@@ -2533,7 +2533,7 @@
         "2"
       ]
     },
-    "M_MP34DT05TR8": {
+    "NetM1H_1": {
       "M1H": [
         "1"
       ]
@@ -2584,7 +2584,7 @@
         "2"
       ]
     },
-    "M_SD18OB2611": {
+    "NetM4A_1": {
       "M4A": [
         "1"
       ]
@@ -2635,7 +2635,7 @@
         "2"
       ]
     },
-    "M_SD18OB2612": {
+    "NetM4B_1": {
       "M4B": [
         "1"
       ]
@@ -2686,7 +2686,7 @@
         "2"
       ]
     },
-    "M_SD18OB2613": {
+    "NetM4C_1": {
       "M4C": [
         "1"
       ]
@@ -2737,7 +2737,7 @@
         "2"
       ]
     },
-    "M_SD18OB2614": {
+    "NetM4D_1": {
       "M4D": [
         "1"
       ]
@@ -2788,7 +2788,7 @@
         "2"
       ]
     },
-    "M_SD18OB2615": {
+    "NetM4E_1": {
       "M4E": [
         "1"
       ]
@@ -2839,7 +2839,7 @@
         "2"
       ]
     },
-    "M_SD18OB2616": {
+    "NetM4F_1": {
       "M4F": [
         "1"
       ]
@@ -2890,7 +2890,7 @@
         "2"
       ]
     },
-    "M_SD18OB2617": {
+    "NetM4G_1": {
       "M4G": [
         "1"
       ]
@@ -2941,7 +2941,7 @@
         "2"
       ]
     },
-    "M_SD18OB2618": {
+    "NetM4H_1": {
       "M4H": [
         "1"
       ]
@@ -2996,7 +2996,7 @@
   "components": {
     "M2A": {
       "pins": {
-        "1": "M_GMA3526H101"
+        "1": "NetM2A_1"
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
@@ -3119,7 +3119,7 @@
     },
     "M2B": {
       "pins": {
-        "1": "M_GMA3526H102"
+        "1": "NetM2B_1"
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
@@ -3242,7 +3242,7 @@
     },
     "M2C": {
       "pins": {
-        "1": "M_GMA3526H103"
+        "1": "NetM2C_1"
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
@@ -3365,7 +3365,7 @@
     },
     "M2D": {
       "pins": {
-        "1": "M_GMA3526H104"
+        "1": "NetM2D_1"
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
@@ -3488,7 +3488,7 @@
     },
     "M2E": {
       "pins": {
-        "1": "M_GMA3526H105"
+        "1": "NetM2E_1"
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
@@ -3611,7 +3611,7 @@
     },
     "M2F": {
       "pins": {
-        "1": "M_GMA3526H106"
+        "1": "NetM2F_1"
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
@@ -3734,7 +3734,7 @@
     },
     "M2G": {
       "pins": {
-        "1": "M_GMA3526H107"
+        "1": "NetM2G_1"
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
@@ -3857,7 +3857,7 @@
     },
     "M2H": {
       "pins": {
-        "1": "M_GMA3526H108"
+        "1": "NetM2H_1"
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
@@ -3980,7 +3980,7 @@
     },
     "M3A": {
       "pins": {
-        "1": "M_GMA4030H111"
+        "1": "NetM3A_1"
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
@@ -4103,7 +4103,7 @@
     },
     "M3B": {
       "pins": {
-        "1": "M_GMA4030H112"
+        "1": "NetM3B_1"
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
@@ -4226,7 +4226,7 @@
     },
     "M3C": {
       "pins": {
-        "1": "M_GMA4030H113"
+        "1": "NetM3C_1"
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
@@ -4349,7 +4349,7 @@
     },
     "M3D": {
       "pins": {
-        "1": "M_GMA4030H114"
+        "1": "NetM3D_1"
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
@@ -4472,7 +4472,7 @@
     },
     "M3E": {
       "pins": {
-        "1": "M_GMA4030H115"
+        "1": "NetM3E_1"
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
@@ -4595,7 +4595,7 @@
     },
     "M3F": {
       "pins": {
-        "1": "M_GMA4030H116"
+        "1": "NetM3F_1"
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
@@ -4718,7 +4718,7 @@
     },
     "M3G": {
       "pins": {
-        "1": "M_GMA4030H117"
+        "1": "NetM3G_1"
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
@@ -4841,7 +4841,7 @@
     },
     "M3H": {
       "pins": {
-        "1": "M_GMA4030H118"
+        "1": "NetM3H_1"
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
@@ -4964,7 +4964,7 @@
     },
     "M1A": {
       "pins": {
-        "1": "M_MP34DT05TR1"
+        "1": "NetM1A_1"
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
@@ -5087,7 +5087,7 @@
     },
     "M1B": {
       "pins": {
-        "1": "M_MP34DT05TR2"
+        "1": "NetM1B_1"
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
@@ -5210,7 +5210,7 @@
     },
     "M1C": {
       "pins": {
-        "1": "M_MP34DT05TR3"
+        "1": "NetM1C_1"
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
@@ -5333,7 +5333,7 @@
     },
     "M1D": {
       "pins": {
-        "1": "M_MP34DT05TR4"
+        "1": "NetM1D_1"
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
@@ -5456,7 +5456,7 @@
     },
     "M1E": {
       "pins": {
-        "1": "M_MP34DT05TR5"
+        "1": "NetM1E_1"
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
@@ -5579,7 +5579,7 @@
     },
     "M1F": {
       "pins": {
-        "1": "M_MP34DT05TR6"
+        "1": "NetM1F_1"
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
@@ -5702,7 +5702,7 @@
     },
     "M1G": {
       "pins": {
-        "1": "M_MP34DT05TR7"
+        "1": "NetM1G_1"
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
@@ -5825,7 +5825,7 @@
     },
     "M1H": {
       "pins": {
-        "1": "M_MP34DT05TR8"
+        "1": "NetM1H_1"
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
@@ -5948,7 +5948,7 @@
     },
     "M4A": {
       "pins": {
-        "1": "M_SD18OB2611"
+        "1": "NetM4A_1"
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
@@ -6071,7 +6071,7 @@
     },
     "M4B": {
       "pins": {
-        "1": "M_SD18OB2612"
+        "1": "NetM4B_1"
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
@@ -6194,7 +6194,7 @@
     },
     "M4C": {
       "pins": {
-        "1": "M_SD18OB2613"
+        "1": "NetM4C_1"
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
@@ -6317,7 +6317,7 @@
     },
     "M4D": {
       "pins": {
-        "1": "M_SD18OB2614"
+        "1": "NetM4D_1"
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
@@ -6440,7 +6440,7 @@
     },
     "M4E": {
       "pins": {
-        "1": "M_SD18OB2615"
+        "1": "NetM4E_1"
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
@@ -6563,7 +6563,7 @@
     },
     "M4F": {
       "pins": {
-        "1": "M_SD18OB2616"
+        "1": "NetM4F_1"
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
@@ -6686,7 +6686,7 @@
     },
     "M4G": {
       "pins": {
-        "1": "M_SD18OB2617"
+        "1": "NetM4G_1"
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
@@ -6809,7 +6809,7 @@
     },
     "M4H": {
       "pins": {
-        "1": "M_SD18OB2618"
+        "1": "NetM4H_1"
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"

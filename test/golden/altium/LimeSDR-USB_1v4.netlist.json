@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-03T01:02:25.491Z",
-    "netlistHash": "sha256:8e57dd1e9227e55f6b8b2bf8958875aa328ffe17806dd4cadc0d083b273aa737",
+    "generatedAt": "2026-09-11T23:59:42.552Z",
+    "netlistHash": "sha256:c2d41ea6b3c2240afabcae6011cc9ce5c69e2de9c84ed7d9500baa0329ff3956",
     "origin": {
       "type": "vendor",
       "source": {
@@ -12,9 +12,15 @@
     }
   },
   "nets": {
-    "NetIC1_AM24": {
+    "RxPLL_CLK": {
       "IC1": [
         "AM24"
+      ],
+      "C325": [
+        "2"
+      ],
+      "R142": [
+        "1"
       ]
     },
     "LMS_MCLK2": {
@@ -2306,6 +2312,30 @@
         "2"
       ]
     },
+    "FPGA_SPI0_SCLK": {
+      "R6": [
+        "2"
+      ],
+      "IC8": [
+        "E6"
+      ]
+    },
+    "FPGA_SPI0_MOSI": {
+      "R7": [
+        "2"
+      ],
+      "IC8": [
+        "D7"
+      ]
+    },
+    "FPGA_SPI0_MISO": {
+      "R8": [
+        "2"
+      ],
+      "IC8": [
+        "C8"
+      ]
+    },
     "FPGA_SPI0_LMS_SS": {
       "R9": [
         "2"
@@ -2436,7 +2466,7 @@
         "2"
       ]
     },
-    "NetMN13_1": {
+    "TXRF1_2BB_P": {
       "MN13": [
         "1"
       ],
@@ -2766,6 +2796,23 @@
         "1"
       ]
     },
+    "TX1_2_LB_H": {
+      "IC4": [
+        "4"
+      ],
+      "C11": [
+        "2"
+      ],
+      "IC5": [
+        "6"
+      ],
+      "C22": [
+        "2"
+      ],
+      "IC8": [
+        "F15"
+      ]
+    },
     "NetC10_1": {
       "IC4": [
         "5"
@@ -2780,6 +2827,9 @@
       ],
       "C12": [
         "2"
+      ],
+      "IC5": [
+        "4"
       ],
       "C21": [
         "2"
@@ -2823,20 +2873,6 @@
       ],
       "RA1": [
         "1"
-      ]
-    },
-    "TX1_2_LB_H": {
-      "C11": [
-        "2"
-      ],
-      "IC5": [
-        "6"
-      ],
-      "C22": [
-        "2"
-      ],
-      "IC8": [
-        "F15"
       ]
     },
     "NetC16_2": {
@@ -3294,6 +3330,23 @@
         "1"
       ]
     },
+    "TX2_2_LB_H": {
+      "IC6": [
+        "4"
+      ],
+      "C31": [
+        "2"
+      ],
+      "IC7": [
+        "6"
+      ],
+      "C42": [
+        "2"
+      ],
+      "IC8": [
+        "H11"
+      ]
+    },
     "NetC30_1": {
       "IC6": [
         "5"
@@ -3308,6 +3361,9 @@
       ],
       "C32": [
         "2"
+      ],
+      "IC7": [
+        "4"
       ],
       "C41": [
         "2"
@@ -3351,20 +3407,6 @@
       ],
       "RA5": [
         "1"
-      ]
-    },
-    "TX2_2_LB_H": {
-      "C31": [
-        "2"
-      ],
-      "IC7": [
-        "6"
-      ],
-      "C42": [
-        "2"
-      ],
-      "IC8": [
-        "H11"
       ]
     },
     "NetC36_2": {
@@ -3452,6 +3494,12 @@
       ],
       "C51": [
         "1"
+      ],
+      "IC1": [
+        "R31"
+      ],
+      "R22": [
+        "1"
       ]
     },
     "NetC60_1": {
@@ -3487,6 +3535,12 @@
         "1"
       ],
       "C59": [
+        "1"
+      ],
+      "IC1": [
+        "AA29"
+      ],
+      "R28": [
         "1"
       ]
     },
@@ -3558,22 +3612,6 @@
       ],
       "IC1": [
         "W33"
-      ]
-    },
-    "NetIC1_R31": {
-      "IC1": [
-        "R31"
-      ],
-      "R22": [
-        "1"
-      ]
-    },
-    "NetIC1_AA29": {
-      "IC1": [
-        "AA29"
-      ],
-      "R28": [
-        "1"
       ]
     },
     "NetC63_1": {
@@ -4197,6 +4235,9 @@
     "BRDG_SPI_SCLK": {
       "IC8": [
         "B2"
+      ],
+      "IC19": [
+        "11"
       ]
     },
     "BRDG_SPI_MOSI": {
@@ -4210,6 +4251,9 @@
     "FX3_LED_G": {
       "IC8": [
         "G5"
+      ],
+      "R169": [
+        "1"
       ]
     },
     "FAN_CTRL": {
@@ -4339,6 +4383,9 @@
     "FPGA_GPIO0": {
       "IC8": [
         "H8"
+      ],
+      "J12": [
+        "1"
       ]
     },
     "FPGA_UART_TX": {
@@ -4394,6 +4441,9 @@
     "FPGA_I2C_SDA": {
       "IC8": [
         "J7"
+      ],
+      "R110": [
+        "2"
       ]
     },
     "BRDG_SPI_FPGA_SS": {
@@ -4450,6 +4500,12 @@
     "FPGA_UART_RX": {
       "IC8": [
         "J1"
+      ],
+      "R111": [
+        "2"
+      ],
+      "R109": [
+        "2"
       ]
     },
     "FPGA_AS_DATA0": {
@@ -5089,11 +5145,15 @@
     },
     "NetIC8_AA19": {
       "IC8": [
-        "AA19",
-        "AB19"
+        "AA19"
       ],
       "R46": [
         "1"
+      ]
+    },
+    "NetIC8_AB19": {
+      "IC8": [
+        "AB19"
       ],
       "R47": [
         "2"
@@ -5951,21 +6011,6 @@
         "2"
       ]
     },
-    "FPGA_SPI0_MISO": {
-      "IC8": [
-        "C8"
-      ]
-    },
-    "FPGA_SPI0_MOSI": {
-      "IC8": [
-        "D7"
-      ]
-    },
-    "FPGA_SPI0_SCLK": {
-      "IC8": [
-        "E6"
-      ]
-    },
     "VDIO_LMS_FPGA": {
       "R49": [
         "2"
@@ -6502,6 +6547,9 @@
       "IC15": [
         "8"
       ],
+      "R121": [
+        "1"
+      ],
       "R123": [
         "1"
       ],
@@ -6754,22 +6802,6 @@
         "12"
       ]
     },
-    "NetIC10_7": {
-      "R71": [
-        "2"
-      ],
-      "IC10": [
-        "7"
-      ]
-    },
-    "NetIC10_3": {
-      "R73": [
-        "2"
-      ],
-      "IC10": [
-        "3"
-      ]
-    },
     "FLASH_AS_MISO": {
       "IC10": [
         "2"
@@ -6794,14 +6826,6 @@
         "9"
       ],
       "R69": [
-        "1"
-      ]
-    },
-    "NetIC9_6": {
-      "IC9": [
-        "6"
-      ],
-      "R68": [
         "1"
       ]
     },
@@ -7112,15 +7136,39 @@
       ],
       "IC11": [
         "A1",
+        "C1",
+        "G1",
+        "C3",
+        "G3",
+        "C7",
+        "G7",
+        "C9",
+        "G9",
         "E1",
         "R1",
         "J9",
+        "A9",
         "J1",
         "M9",
         "E9"
       ],
       "IC12": [
-        "A9"
+        "A1",
+        "C1",
+        "G1",
+        "C3",
+        "G3",
+        "C7",
+        "G7",
+        "C9",
+        "G9",
+        "E1",
+        "R1",
+        "J9",
+        "A9",
+        "J1",
+        "M9",
+        "E9"
       ],
       "C222": [
         "1"
@@ -7285,7 +7333,8 @@
         "10"
       ],
       "IC14": [
-        "5"
+        "5",
+        "6"
       ]
     },
     "FX3_USB_SSRX_N": {
@@ -7337,14 +7386,6 @@
         "B2"
       ],
       "R125": [
-        "2"
-      ]
-    },
-    "NetIC13_B3": {
-      "IC13": [
-        "B3"
-      ],
-      "R95": [
         "2"
       ]
     },
@@ -7400,14 +7441,6 @@
         "3"
       ],
       "C277": [
-        "2"
-      ]
-    },
-    "NetIC13_C8": {
-      "IC13": [
-        "C8"
-      ],
-      "R93": [
         "2"
       ]
     },
@@ -8063,6 +8096,9 @@
       "J17": [
         "2"
       ],
+      "R121": [
+        "2"
+      ],
       "R122": [
         "2"
       ]
@@ -8118,25 +8154,12 @@
         "1"
       ]
     },
-    "NetIC17_16": {
-      "IC17": [
-        "16"
-      ],
-      "R132": [
-        "2"
-      ]
-    },
     "NetIC19_3": {
       "IC19": [
         "3"
       ],
       "R129": [
         "2"
-      ]
-    },
-    "NetIC19_11": {
-      "IC19": [
-        "11"
       ]
     },
     "BRDG_SPI_DUMMY_SS": {
@@ -8171,19 +8194,6 @@
       ],
       "FR47": [
         "1"
-      ]
-    },
-    "NetR110_2": {
-      "R110": [
-        "2"
-      ]
-    },
-    "NetR109_2": {
-      "R111": [
-        "2"
-      ],
-      "R109": [
-        "2"
       ]
     },
     "NetC298_2": {
@@ -8533,6 +8543,14 @@
         "2"
       ]
     },
+    "NetIC20_3": {
+      "IC20": [
+        "3"
+      ],
+      "R139": [
+        "2"
+      ]
+    },
     "NetIC20_5": {
       "IC20": [
         "5"
@@ -8707,22 +8725,6 @@
         "2"
       ]
     },
-    "RxPLL_CLK": {
-      "C325": [
-        "2"
-      ],
-      "R142": [
-        "1"
-      ]
-    },
-    "NetC356_1": {
-      "C356": [
-        "1"
-      ],
-      "R162": [
-        "2"
-      ]
-    },
     "NetC355_2": {
       "C355": [
         "2"
@@ -8778,14 +8780,6 @@
         "2"
       ]
     },
-    "NetFR53_1": {
-      "IC22": [
-        "6"
-      ],
-      "FR53": [
-        "1"
-      ]
-    },
     "NetC341_2": {
       "R150": [
         "2"
@@ -8835,19 +8829,6 @@
         "19"
       ],
       "R148": [
-        "2"
-      ]
-    },
-    "NetJ18_1": {
-      "J18": [
-        "1"
-      ],
-      "R151": [
-        "1"
-      ]
-    },
-    "NetR139_2": {
-      "R139": [
         "2"
       ]
     },
@@ -8928,14 +8909,6 @@
         "1"
       ]
     },
-    "NetC390_1": {
-      "C390": [
-        "1"
-      ],
-      "R185": [
-        "1"
-      ]
-    },
     "NetIC31_22": {
       "R199": [
         "1"
@@ -9010,14 +8983,6 @@
         "24"
       ],
       "C413": [
-        "1"
-      ]
-    },
-    "NetC412_1": {
-      "C412": [
-        "1"
-      ],
-      "R201": [
         "1"
       ]
     },
@@ -9423,7 +9388,7 @@
       "pins": {
         "AM24": {
           "name": "xoscin_rx",
-          "net": "NetIC1_AM24"
+          "net": "RxPLL_CLK"
         },
         "P34": {
           "name": "MCLK2",
@@ -9811,7 +9776,7 @@
         },
         "R31": {
           "name": "DIGPRVDD1",
-          "net": "NetIC1_R31"
+          "net": "NetC50_1"
         },
         "L33": {
           "name": "DIGPRVDD1",
@@ -9823,7 +9788,7 @@
         },
         "AA29": {
           "name": "DIGPRVDD1",
-          "net": "NetIC1_AA29"
+          "net": "NetC58_1"
         },
         "D24": {
           "name": "VDD18_DIG",
@@ -10173,7 +10138,7 @@
     "R6": {
       "pins": {
         "1": "NetC1_1",
-        "2": ""
+        "2": "FPGA_SPI0_SCLK"
       },
       "mpn": "RC1005F49R9CS",
       "manufacturer": "Samsung Electro-Mechanics America, Inc.",
@@ -10182,7 +10147,7 @@
     "R7": {
       "pins": {
         "1": "NetIC1_F30",
-        "2": ""
+        "2": "FPGA_SPI0_MOSI"
       },
       "mpn": "RC1005F49R9CS",
       "manufacturer": "Samsung Electro-Mechanics America, Inc.",
@@ -10191,7 +10156,7 @@
     "R8": {
       "pins": {
         "1": "NetIC1_F28",
-        "2": ""
+        "2": "FPGA_SPI0_MISO"
       },
       "mpn": "RC1005F49R9CS",
       "manufacturer": "Samsung Electro-Mechanics America, Inc.",
@@ -10332,7 +10297,7 @@
     },
     "MN13": {
       "pins": {
-        "1": "NetMN13_1",
+        "1": "TXRF1_2BB_P",
         "2": "TXRF1_2AB_P"
       },
       "mpn": "GRM1555C1HR80BA01D",
@@ -10455,7 +10420,7 @@
         "2": "NetC10_2",
         "3": "GND",
         "4": "TXRF1_2BB_N",
-        "6": "NetMN13_1"
+        "6": "TXRF1_2BB_P"
       },
       "manufacturer": "Mini-circuits",
       "comment": "TCM1-63AX+"
@@ -10509,7 +10474,7 @@
     "MN15": {
       "pins": {
         "1": "TXRF1_2BB_N",
-        "2": "NetMN13_1"
+        "2": "TXRF1_2BB_P"
       },
       "manufacturer": "Yageo",
       "value": "0.5pF"
@@ -10750,7 +10715,7 @@
         },
         "4": {
           "name": "VCTL2",
-          "net": ""
+          "net": "TX1_2_LB_H"
         },
         "5": {
           "name": "RF IN",
@@ -10823,7 +10788,7 @@
         },
         "4": {
           "name": "VCTL2",
-          "net": ""
+          "net": "TX1_2_LB_L"
         },
         "5": {
           "name": "RF IN",
@@ -11500,7 +11465,7 @@
         },
         "4": {
           "name": "VCTL2",
-          "net": ""
+          "net": "TX2_2_LB_H"
         },
         "5": {
           "name": "RF IN",
@@ -11573,7 +11538,7 @@
         },
         "4": {
           "name": "VCTL2",
-          "net": ""
+          "net": "TX2_2_LB_L"
         },
         "5": {
           "name": "RF IN",
@@ -12631,7 +12596,7 @@
     },
     "R22": {
       "pins": {
-        "1": "NetIC1_R31",
+        "1": "NetC50_1",
         "2": "VCC1P25_LMS_DIG"
       },
       "manufacturer": "Yageo",
@@ -12655,7 +12620,7 @@
     },
     "R28": {
       "pins": {
-        "1": "NetIC1_AA29",
+        "1": "NetC58_1",
         "2": "VCC1P25_LMS_DIG"
       },
       "manufacturer": "Yageo",
@@ -13105,7 +13070,7 @@
         },
         "AB19": {
           "name": "IO, RDN2",
-          "net": "NetIC8_AA19"
+          "net": "NetIC8_AB19"
         },
         "W17": {
           "name": "IO, DIFFIO_B48p, (DQ2B)/(DQ5B)/(DQ5B)",
@@ -14755,7 +14720,7 @@
     "R47": {
       "pins": {
         "1": "GND",
-        "2": "NetIC8_AA19"
+        "2": "NetIC8_AB19"
       },
       "mpn": "RC1005F49R9CS",
       "manufacturer": "Samsung Electro-Mechanics America, Inc.",
@@ -14845,7 +14810,7 @@
     "R71": {
       "pins": {
         "1": "VCC3P3",
-        "2": "NetIC10_7"
+        "2": ""
       },
       "manufacturer": "Stackpole Electronics Inc.",
       "value": "4K7"
@@ -14853,7 +14818,7 @@
     "R73": {
       "pins": {
         "1": "VCC3P3",
-        "2": "NetIC10_3"
+        "2": ""
       },
       "manufacturer": "Stackpole Electronics Inc.",
       "value": "4K7"
@@ -14870,7 +14835,7 @@
         },
         "3": {
           "name": "W",
-          "net": "NetIC10_3"
+          "net": ""
         },
         "4": {
           "name": "GND",
@@ -14886,7 +14851,7 @@
         },
         "7": {
           "name": "HOLD",
-          "net": "NetIC10_7"
+          "net": ""
         },
         "8": {
           "name": "VCC",
@@ -14997,7 +14962,7 @@
         },
         "6": {
           "name": "NO2",
-          "net": "NetIC9_6"
+          "net": ""
         },
         "7": {
           "name": "COM2",
@@ -15062,7 +15027,7 @@
     },
     "J12": {
       "pins": {
-        "1": "",
+        "1": "FPGA_GPIO0",
         "2": "FPGA_GPIO1",
         "3": "FPGA_GPIO2",
         "4": "FPGA_GPIO3",
@@ -15095,7 +15060,7 @@
     },
     "R68": {
       "pins": {
-        "1": "NetIC9_6",
+        "1": "",
         "2": "FPGA_AS_DATA0"
       },
       "manufacturer": "Yageo",
@@ -16474,35 +16439,35 @@
         },
         "C1": {
           "name": "VDDQ",
-          "net": ""
+          "net": "VCC1P8_DDR2"
         },
         "G1": {
           "name": "VDDQ",
-          "net": ""
+          "net": "VCC1P8_DDR2"
         },
         "C3": {
           "name": "VDDQ",
-          "net": ""
+          "net": "VCC1P8_DDR2"
         },
         "G3": {
           "name": "VDDQ",
-          "net": ""
+          "net": "VCC1P8_DDR2"
         },
         "C7": {
           "name": "VDDQ",
-          "net": ""
+          "net": "VCC1P8_DDR2"
         },
         "G7": {
           "name": "VDDQ",
-          "net": ""
+          "net": "VCC1P8_DDR2"
         },
         "C9": {
           "name": "VDDQ",
-          "net": ""
+          "net": "VCC1P8_DDR2"
         },
         "G9": {
           "name": "VDDQ",
-          "net": ""
+          "net": "VCC1P8_DDR2"
         },
         "E1": {
           "name": "VDD",
@@ -16594,7 +16559,7 @@
         },
         "A9": {
           "name": "VDDQ",
-          "net": ""
+          "net": "VCC1P8_DDR2"
         },
         "J1": {
           "name": "VDDL",
@@ -16812,51 +16777,51 @@
         },
         "A1": {
           "name": "VDD",
-          "net": ""
+          "net": "VCC1P8_DDR2"
         },
         "C1": {
           "name": "VDDQ",
-          "net": ""
+          "net": "VCC1P8_DDR2"
         },
         "G1": {
           "name": "VDDQ",
-          "net": ""
+          "net": "VCC1P8_DDR2"
         },
         "C3": {
           "name": "VDDQ",
-          "net": ""
+          "net": "VCC1P8_DDR2"
         },
         "G3": {
           "name": "VDDQ",
-          "net": ""
+          "net": "VCC1P8_DDR2"
         },
         "C7": {
           "name": "VDDQ",
-          "net": ""
+          "net": "VCC1P8_DDR2"
         },
         "G7": {
           "name": "VDDQ",
-          "net": ""
+          "net": "VCC1P8_DDR2"
         },
         "C9": {
           "name": "VDDQ",
-          "net": ""
+          "net": "VCC1P8_DDR2"
         },
         "G9": {
           "name": "VDDQ",
-          "net": ""
+          "net": "VCC1P8_DDR2"
         },
         "E1": {
           "name": "VDD",
-          "net": ""
+          "net": "VCC1P8_DDR2"
         },
         "R1": {
           "name": "VDD",
-          "net": ""
+          "net": "VCC1P8_DDR2"
         },
         "J9": {
           "name": "VDD",
-          "net": ""
+          "net": "VCC1P8_DDR2"
         },
         "B2": {
           "name": "VSSQ",
@@ -16940,11 +16905,11 @@
         },
         "J1": {
           "name": "VDDL",
-          "net": ""
+          "net": "VCC1P8_DDR2"
         },
         "M9": {
           "name": "VDD",
-          "net": ""
+          "net": "VCC1P8_DDR2"
         },
         "N1": {
           "name": "VSS",
@@ -16956,7 +16921,7 @@
         },
         "E9": {
           "name": "VDDQ",
-          "net": ""
+          "net": "VCC1P8_DDR2"
         }
       },
       "manufacturer": "Alliance Memory, Inc.",
@@ -17505,7 +17470,7 @@
         },
         "B3": {
           "name": "R_USB3",
-          "net": "NetIC13_B3"
+          "net": ""
         },
         "B4": {
           "name": "FSLC[1]",
@@ -17529,7 +17494,7 @@
         },
         "C8": {
           "name": "R_USB2",
-          "net": "NetIC13_C8"
+          "net": ""
         },
         "C9": {
           "name": "OTG_ID",
@@ -18067,7 +18032,7 @@
         },
         "6": {
           "name": "SS_RX_P",
-          "net": ""
+          "net": "FX3_USB_SSRX_P"
         },
         "7": {
           "name": "SS_RX_M",
@@ -18335,8 +18300,8 @@
     },
     "R121": {
       "pins": {
-        "1": "",
-        "2": ""
+        "1": "VCC3P3",
+        "2": "NetIC15_1"
       },
       "manufacturer": "Stackpole Electronics Inc.",
       "value": "4K7"
@@ -18369,7 +18334,7 @@
     "R93": {
       "pins": {
         "1": "GND",
-        "2": "NetIC13_C8"
+        "2": ""
       },
       "manufacturer": "Rohm Semiconductor",
       "value": "6.04K, 1%"
@@ -18377,7 +18342,7 @@
     "R95": {
       "pins": {
         "1": "GND",
-        "2": "NetIC13_B3"
+        "2": ""
       },
       "manufacturer": "Stackpole Electronics Inc",
       "value": "200R, 1%"
@@ -18584,7 +18549,7 @@
         },
         "16": {
           "name": "\\R\\S\\T\\",
-          "net": "NetIC17_16"
+          "net": ""
         },
         "17": {
           "name": "EP",
@@ -18639,7 +18604,7 @@
         },
         "11": {
           "name": "SPICLK",
-          "net": "NetIC19_11"
+          "net": "BRDG_SPI_SCLK"
         },
         "12": {
           "name": "VDD",
@@ -18768,7 +18733,7 @@
     "R132": {
       "pins": {
         "1": "VCC3P3",
-        "2": "NetIC17_16"
+        "2": ""
       },
       "manufacturer": "Yageo",
       "value": "10k, 1%"
@@ -18875,7 +18840,7 @@
     "R110": {
       "pins": {
         "1": "FX3_I2C_SDA",
-        "2": "NetR110_2"
+        "2": "FPGA_I2C_SDA"
       },
       "manufacturer": "Yageo",
       "value": "0R"
@@ -18891,7 +18856,7 @@
     "R111": {
       "pins": {
         "1": "FX3_SPI_MISO",
-        "2": "NetR109_2"
+        "2": "FPGA_UART_RX"
       },
       "manufacturer": "Yageo",
       "value": "0R",
@@ -18917,7 +18882,7 @@
     "R109": {
       "pins": {
         "1": "GND",
-        "2": "NetR109_2"
+        "2": "FPGA_UART_RX"
       },
       "manufacturer": "Stackpole Electronics Inc.",
       "value": "2.21k, 1%"
@@ -19483,7 +19448,7 @@
         },
         "3": {
           "name": "CLKout0",
-          "net": ""
+          "net": "NetIC20_3"
         },
         "5": {
           "name": "CLKout1",
@@ -19766,7 +19731,7 @@
     },
     "C356": {
       "pins": {
-        "1": "NetC356_1",
+        "1": "",
         "2": "NetC356_2"
       },
       "manufacturer": "Yageo",
@@ -19791,7 +19756,7 @@
     "R162": {
       "pins": {
         "1": "GND",
-        "2": "NetC356_1"
+        "2": ""
       },
       "manufacturer": "Yageo",
       "value": "330R, 5%"
@@ -20023,7 +19988,7 @@
         },
         "6": {
           "name": "VOUT",
-          "net": "NetFR53_1"
+          "net": ""
         }
       },
       "manufacturer": "Analog Devices",
@@ -20451,7 +20416,7 @@
       "pins": {
         "1": {
           "name": "X",
-          "net": "NetJ18_1"
+          "net": ""
         },
         "2": {
           "name": "Y",
@@ -20463,7 +20428,7 @@
     },
     "R151": {
       "pins": {
-        "1": "NetJ18_1",
+        "1": "",
         "2": "REF_CLK_OUT"
       },
       "manufacturer": "Yageo",
@@ -20473,7 +20438,7 @@
     "R139": {
       "pins": {
         "1": "TxPLL_CLK",
-        "2": "NetR139_2"
+        "2": "NetIC20_3"
       },
       "manufacturer": "Yageo",
       "value": "0R"
@@ -20520,7 +20485,7 @@
     },
     "FR53": {
       "pins": {
-        "1": "NetFR53_1",
+        "1": "",
         "2": "NetC341_2"
       },
       "manufacturer": "TDK Corporation",
@@ -20697,7 +20662,7 @@
     },
     "C390": {
       "pins": {
-        "1": "NetC390_1",
+        "1": "",
         "2": "GND"
       },
       "manufacturer": "Kemet",
@@ -20705,7 +20670,7 @@
     },
     "R185": {
       "pins": {
-        "1": "NetC390_1",
+        "1": "",
         "2": "NetC389_1"
       },
       "manufacturer": "Panasonic Electronic Components",
@@ -20872,7 +20837,7 @@
     },
     "C412": {
       "pins": {
-        "1": "NetC412_1",
+        "1": "",
         "2": "GND"
       },
       "manufacturer": "Samsung Electro-Mechanics America, Inc.",
@@ -20880,7 +20845,7 @@
     },
     "R201": {
       "pins": {
-        "1": "NetC412_1",
+        "1": "",
         "2": "NetC411_1"
       },
       "manufacturer": "Panasonic Electronic Components",
@@ -22279,7 +22244,7 @@
     },
     "R169": {
       "pins": {
-        "1": "",
+        "1": "FX3_LED_G",
         "2": "NetLED2_1"
       },
       "manufacturer": "Stackpole Electronics Inc.",

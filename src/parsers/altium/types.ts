@@ -253,6 +253,19 @@ export interface AltiumNet {
   pinNameSource?: { refdes: string; pin: string };
   /** All devices connected to this net */
   devices: AltiumRecord[];
+  /**
+   * Range identifiers this net reaches through a bus, one per member name it
+   * is labelled with (see bus.ts). A pinless net may carry nothing else.
+   */
+  busCarriers?: BusCarrier[];
+}
+
+/** A bus member's claim on a range identifier: `AD3` on the port `AD[0..7]`. */
+export interface BusCarrier {
+  /** The port, sheet entry or harness entry written in range notation. */
+  device: AltiumRecord;
+  /** The member name, as the wire's net label spells it. */
+  member: string;
 }
 
 // OLE types re-exported from shared cfb module

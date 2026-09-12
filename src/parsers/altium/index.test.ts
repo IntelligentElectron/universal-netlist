@@ -301,13 +301,15 @@ describe("Connectivity", () => {
       expect(isConnected(wireA, wireB)).toBe(true);
     });
 
+    // Coordinates are scaled by 10000 per schematic unit, and the grid is 10
+    // units, so a gap of 5 units is 50000.
     it("should detect disconnected wires", () => {
       const wireA: AltiumRecord = {
         index: 0,
         RECORD: RECORD_TYPES.WIRE,
         coords: [
           [0, 0],
-          [50, 0],
+          [500000, 0],
         ],
       };
 
@@ -315,8 +317,8 @@ describe("Connectivity", () => {
         index: 1,
         RECORD: RECORD_TYPES.WIRE,
         coords: [
-          [100, 0],
-          [150, 0],
+          [1000000, 0],
+          [1500000, 0],
         ],
       };
 
@@ -329,7 +331,7 @@ describe("Connectivity", () => {
         RECORD: RECORD_TYPES.WIRE,
         coords: [
           [0, 0],
-          [100, 100],
+          [1000000, 1000000],
         ],
       };
 
@@ -337,12 +339,61 @@ describe("Connectivity", () => {
         index: 1,
         RECORD: RECORD_TYPES.WIRE,
         coords: [
-          [100, 0],
-          [0, 100],
+          [1000000, 0],
+          [0, 1000000],
         ],
       };
 
       expect(isConnected(wireA, wireB)).toBe(false);
+    });
+
+    it("joins a label a hundredth of a unit off its wire, as imported designs draw them", () => {
+      const wire: AltiumRecord = {
+        index: 0,
+        RECORD: RECORD_TYPES.WIRE,
+        coords: [
+          [0, 0],
+          [1000000, 0],
+        ],
+      };
+      const label: AltiumRecord = {
+        index: 1,
+        RECORD: RECORD_TYPES.NET_LABEL,
+        Text: "CLK",
+        coords: [[500000, 110]],
+      };
+      const farLabel: AltiumRecord = { ...label, index: 2, coords: [[500000, 5000]] };
+      expect(isConnected(wire, label)).toBe(true);
+      expect(isConnected(wire, farLabel)).toBe(false);
+    });
+
+    it("joins two pins end to end but not by overlapping along one line", () => {
+      const pinA: AltiumRecord = {
+        index: 0,
+        RECORD: RECORD_TYPES.PIN,
+        coords: [
+          [0, 0],
+          [100000, 0],
+        ],
+      };
+      const endToEnd: AltiumRecord = {
+        index: 1,
+        RECORD: RECORD_TYPES.PIN,
+        coords: [
+          [200000, 0],
+          [100000, 0],
+        ],
+      };
+      const overlapping: AltiumRecord = {
+        index: 2,
+        RECORD: RECORD_TYPES.PIN,
+        coords: [
+          [50000, 0],
+          [150000, 0],
+        ],
+      };
+      expect(isConnected(pinA, endToEnd)).toBe(true);
+      expect(isConnected(pinA, overlapping)).toBe(false);
     });
 
     it("should detect pin connected to wire", () => {
@@ -505,8 +556,8 @@ describe("Connectivity", () => {
         index: 1,
         RECORD: RECORD_TYPES.WIRE,
         coords: [
-          [500, 500],
-          [600, 500],
+          [5000000, 5000000],
+          [6000000, 5000000],
         ],
       };
 

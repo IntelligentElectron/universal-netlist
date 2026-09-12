@@ -146,71 +146,162 @@ Positioned this way, a plain entry is a connection point like a pin: a wire from
 label into it, or from one entry to another across the top sheet, forms a net. Before this, a
 top sheet drawn as nothing but sheet symbols wired entry to entry contributed no nets at all
 (64 such wires on misko3 alone). A harness-typed entry carries a bundle and is placed by the
-harness code instead; a bus-notation entry (`AD[0..7]`) meets a bus line, which is not traced;
-a `Repeat()` entry belongs to channel expansion.
+harness code instead; an entry in range notation (`AD[0..7]`) or written `Repeat(NAME)` meets a
+bus, and joins through it (see Buses below).
 
 ### How the sheets are joined
 
 Within a document, geometry decides. Across documents the parser records, for every net, the
-identity claims its ports and entries make, and resolves them project-wide with a union-find
-once every sheet has been read:
+identity claims its ports, entries, bus members and power ports make, and resolves them
+project-wide with a union-find once every sheet has been read. Each claim is a key:
 
-- under **Hierarchical** and **Strict Hierarchical** scope, a port on document `child` and a
-  plain entry of the same name on a sheet symbol instantiating `child` are one net. This is the
-  only way a signal crosses a boundary; ports of one name on different sheets are different
-  nets, which is what Altium documents ("ports only connect vertically to their corresponding
-  sheet entries");
-- under **Flat** and **Global** scope, ports of one name are one net wherever they are drawn.
+| Key | Made by | Joins |
+|---|---|---|
+| `hier\|<child>@<parent>#<symbol>@<channel>\|<name>` | a port on `child`, about the channel of the sheet symbol that placed it; a plain entry on that symbol, about every channel it instantiates; a `Repeat(NAME)` entry's bus member `NAME<n>`, about channel `n` | under every scope |
+| `port\|<name>` | a port | under Flat and Global scope, where ports join by name anywhere |
+| `power\|<name>` | a power port | wherever power ports are global, i.e. every scope but Strict Hierarchical |
+| `harness\|<bundle signal>` | a bus member reaching a harness entry, or a harness-typed port, written as a range | always, the bundle name resolved the way harness signals are |
 
-A net with no pins, such as a top-sheet wire between two entries, still links the two claims
-it carries. A child document placed by several sheet symbols without `Repeat()` is parsed as one
-instance, so its ports are not joined to any placement: nothing says which placement the
-designators it carries belong to, and joining all of them folds every placement's nets into one.
-Its entries stay unlinked and `run_erc` still reports the stubs. Repeated sheets are joined by
-name through channel expansion as before, which is why ports keep naming nets on them whatever
-`AllowPortNetNames` says.
+Under Hierarchical scope the port-to-entry pair is the only way a signal crosses a boundary;
+ports of one name on different sheets are different nets, which is what Altium documents
+("ports only connect vertically to their corresponding sheet entries"). Under Flat and Global
+scope the pair still holds and ports of one name join as well; LimeSDR-USB (Global) draws a
+block-diagram top sheet whose entries are wired to each other, and its board agrees with the
+result on every pin.
+
+A net with no pins, such as a top-sheet wire between two entries, still links the claims it
+carries, and still offers its name (see below). A power port links the nets it sits on across
+sheets whatever those nets are called, which is what lets a label outrank it without splitting
+the supply.
+
+### Multi-channel sheets are placements
+
+A sheet symbol is a placement of its child document, and a document placed more than once is a
+multi-channel sheet whichever way it was placed: by several plain sheet symbols, or by one whose
+designator is `Repeat(...)`. Altium's multi-channel guide allows both and expands the child the
+same way for each. The parser reads every symbol in the project, parses the child once, and
+instantiates it once per channel with the project's channel designator format (see
+Multi-channel below); every channel then links to the symbol that placed it as any single
+placement does. The `.PrjPcbStructure` is not read for this: it records the same symbols, and is
+frequently not committed.
+
+Before this, a child placed by several plain symbols was parsed once and left unlinked (nine
+such children on solarcar-bms, one on cube-sat-eps), and a `Repeat()` sheet was joined to its
+parent by net name alone, which needed its ports to name nets whatever `AllowPortNetNames`
+said. Both now go through the links above, and the option is honoured everywhere.
 
 ### What the joined net is called
 
 `AllowPortNetNames` (Altium's default is off) and `AllowSheetEntryNetNames` (default on) decide
-whether a port or an entry may name a net at all; a net named by neither takes a pin name. When
-the nets of several sheets are folded into one, the strongest claim wins, in the order Altium's
-guide gives: a power port, a labelled harness member, a net label, a port, a sheet entry, a pin
-name. Between two claims of one rank the first in sort order wins, so the result does not depend
-on the order the documents were read in. The misko3 board bears this out: `USART5_TX` (a label
-on the MCU sheet) beats `LIN_TXD` (the port on the transceiver sheet), and `NRST` beats
-`T_NRST`, `NRST_MCU` and `NRST_DBG`.
+whether a port or an entry may name a net at all; a net named by neither takes a pin name.
+`PowerPortNamesTakePriority` (default off) decides whether a power port outranks a net label on
+the same net. When the nets of several sheets are folded into one, the strongest claim wins, in
+the order Altium's connectivity guide gives: a labelled harness member, a net label, a power
+port, a port, a sheet entry, a pin name, with the power port moved to the front when the project
+gives it priority. Between two claims of one rank the first in sort order wins, so the result
+does not depend on the order the documents were read in. The misko3 board bears out the label
+against the port: `USART5_TX` (a label on the MCU sheet) beats `LIN_TXD` (the port on the
+transceiver sheet), and `NRST` beats `T_NRST`, `NRST_MCU` and `NRST_DBG`. No fixture board has a
+net that a label and a power port both name, so that order rests on the guide alone; the
+q23-harness fixture, whose project leaves the option off, names its 5 V sensor supply after the
+label `SEN_5V_A1` rather than the power port `VCC5V`.
 
-A port or entry name under Hierarchical scope is the sheet's own, so it is held under a
-provisional, sheet-unique name while the sheets are merged and settled afterwards; a name two
-distinct nets still claim is numbered `_2`, `_3` for the later ones in sort order.
+A pinless net still names: a wire between two entries carries no pins, but under
+`AllowSheetEntryNetNames` the entry names the net the child's pins end up in, and a pin-named
+child net takes that name. A port or entry name under Hierarchical scope is the sheet's own, so
+it is held under a provisional, sheet-unique name while the sheets are merged and settled
+afterwards; a name two distinct nets still claim is numbered `_2`, `_3` for the later ones in
+sort order.
 
 `AppendSheetNumberToLocalNets` numbers a label wired into a sheet entry just as it numbers one
 wired to nothing else: all 48 such labels on the solarcar-bms board carry their sheet number. A
-label on a net that leaves through a port is not numbered.
+label on a net that leaves through a port, or through a bus that reaches a range identifier, is
+not numbered: the misko3 board calls the bus members `AD0` and `PWM8`, not `AD0_6`.
+
+### Imported designs meet within a twentieth of a unit
+
+Objects drawn in Altium sit on the grid and meet exactly. A design imported from another tool
+carries fractional coordinates, and there a net label can sit 0.001 to 0.002 units off the wire
+it names and a wire end 0.011 units off the wire it meets: four labels and one such wire on the
+LimeSDR-USB sheets, fifteen labels on the aberrant sound module, and both boards have them
+connected. Two objects therefore touch when they are within 0.05 units of each other. Nothing in
+a schematic is deliberately drawn that close to something else: the grid is 10 units and the
+finest pin pitch seen in an imported design 2.5.
+
+Two pins meet end to end or not at all. A pin's whole length is kept as a hotspot so that a wire
+ending part way along it still joins, which imported designs also draw; but two pins lying along
+one line do not join by overlapping. The LimeSDR-USB FPGA bank sheet stacks two resistors that
+way, and the board keeps their nets apart.
 
 ### Results against the boards
 
 Board nets split into more than one parser net, before and after:
 
-| Fixture | Before | After | What remains |
-|---|---|---|---|
-| Altium-STM32-PCB (one sheet) | 0 | 0 | |
-| MIXR Power | 8 | 0 | |
-| nRF52840 DK pca10056 | 3 | 0 | |
-| misko3 | 83 | 55 | harness entries with bus ranges (`DAC[1..2]`) carried on bus lines |
-| solarcar-bms | 129 | 101 | child sheets placed several times without `Repeat()` |
+| Fixture | Before #210 | After #210 | Now | What remains |
+|---|---|---|---|---|
+| Altium-STM32-PCB (one sheet) | 0 | 0 | 0 | |
+| MIXR Power | 8 | 0 | 0 | |
+| nRF52840 DK pca10056 | 3 | 0 | 0 | |
+| misko3 | 83 | 55 | 0 | |
+| LimeSDR-USB 1v4 (Global, imported) | 6 | 6 | 0 | |
+| LimeSDR-USB 1v2 | 4 | 4 | 0 | |
+| solarcar-bms | 129 | 101 | 68 | the board disagrees with its schematics on 71 pins |
+| aberrant-sound-module | 1 | 1 | 0 | the board is out of date, and names overbar nets `A\D\0\` where the parser strips the bars |
 
-No parser net spans two board nets on any of the first four. solarcar-bms has 103 such nets,
-down from 97 plus the multi-placement stubs; its board also disagrees with its schematics on
-71 pins, so it is not used as a test.
+No parser net spans two board nets on any but the last two. On misko3 the pins whose net name
+matches the board's went from 644 to 780 of 816; the rest are harness members the board names
+after a label drawn on another sheet than the member. On LimeSDR-USB the names that differ are
+the board's upper-casing of the schematic's.
+
+## Buses
+
+**Confidence: VERIFIED** against the misko3 and LimeSDR-USB boards and the ld_harness project.
+
+A `BUS` (`RECORD=26`) is a polyline written like a wire (`LocationCount`, `X1`, `Y1`, ...) that
+carries several signals at once. It connects nothing by itself. A wire joins it through a
+`BUS_ENTRY` (`RECORD=37`), a short diagonal from `Location.X/Y` to `Corner.X/Y`, and the wire's
+net label says which of the bus's signals that wire is. On misko3 all 136 bus entries land on a
+bus, 131 wires meet a bus entry, and 127 of those carry a label within a range the bus reaches.
+
+The bus leaves the sheet through an identifier written in range notation, and those are the
+only objects a bus connects to:
+
+| Identifier | Example | Where it is placed |
+|---|---|---|
+| a port | `LED[0..7]` | by its own location, like any port |
+| a sheet entry | `AD[0..11]` | on its symbol's edge, like any entry |
+| a harness entry | `DAC[1..2]` | on its connector, like any harness entry |
+| a `Repeat(NAME)` sheet entry | `Repeat(OP_OUT_P)` | on its symbol's edge; carries `NAME1`, `NAME2`, ... one per channel |
+
+All 16 range identifiers on misko3 land exactly on a bus vertex. A net label in range notation on
+the bus itself names the bus, and as with a wire the name joins every bus on the sheet that
+carries it: the ld_harness top sheet draws `OP_OUT_P[1..9]` on one bus beside the channel symbol
+and again on another beside the connector, and only the label says they are one.
+
+The parser groups buses and bus entries into runs by geometry, joins runs that carry one label,
+and for each run matches the labels of the nets whose wires end on it against every identifier
+on it. A match is recorded on the net as a carrier, and the link code turns each carrier into
+the claim the identifier would make for a plain wire: a port's `hier` and `port` keys under the
+member's name, a sheet entry's `hier` key for the symbol (for `Repeat(NAME)`, for the channel the
+member indexes), a harness entry's or harness-typed port's `harness` key under the bundle and
+the member. A member no wire on the sheet labels still crosses the boundary, as a pinless net
+carrying only its identifiers, so a bus drawn straight from one symbol's `A[0..7]` to another's
+links the two.
+
+Altium's multi-channel guide states the `Repeat(NAME)` rule this way: with the symbol
+`Repeat(CIN,1,4)` and the entry `Repeat(Headphone)` on a bus `Headphone[1..4]`, "the net
+Headphone1 will connect to the channel CIN1, Headphone2 will connect to channel CIN2, and so
+on"; a bus wired to a plain entry reaches every channel. ld_harness does exactly this for nine
+channels, and every one of its 437 pins now sits on a net with at least two.
 
 ## Multi-channel (repeated sheets)
 
 **Confidence: VERIFIED** — implemented and tested against the designs named below.
 
 A multi-channel design instantiates one sub-sheet several times. The repeat is declared on the
-sheet symbol, not in the child document.
+sheet symbols, not in the child document: either several sheet symbols name the same child, or
+one symbol carries a `Repeat()` designator. See Multi-channel sheets are placements above for
+how either is found and linked; this section covers the naming.
 
 A `SHEET_SYMBOL` (`RECORD=15`) owns two children that matter:
 
@@ -238,13 +329,17 @@ Repeat(CHAN, 1,9)           pulp-bio/HELIOS-R
 ```
 
 A range yielding fewer than two instances is not treated as multi-channel, and the sheet is
-parsed once like any other.
+parsed once like any other. A child placed by plain symbols takes each symbol's designator as
+its room name; two symbols carrying one designator (cube-sat-eps places `buck_boost` twice under
+that name) would give two channels one room, and so one designator for each part, which Altium
+reports as a duplicate sheet symbol name; the later room is numbered `buck_boost_2` so nothing
+is folded together.
 
 Sheet entries may also be repeated, written as a bare `Repeat(<name>)` with no range. Those
-produce one net per channel; entries without `Repeat()` are shared across all channels. Across
-the fixture corpus only two record types ever carry a `Repeat(...)` name: `SHEET_ENTRY` (17
-occurrences) and `SHEET_NAME` (9). Ports do not, and the parser reads the form only on sheet
-entries.
+hand one bus member to each channel (see Buses); entries without `Repeat()` are shared across
+all channels. Across the fixture corpus only two record types ever carry a `Repeat(...)` name:
+`SHEET_ENTRY` (17 occurrences) and `SHEET_NAME` (9). Ports do not, and the parser reads the
+form only on sheet entries.
 
 A sheet entry name is not always one signal. It may be bus notation, `AD[0..7]`, which is
 expanded to `AD0` … `AD7` and classified signal by signal, descending ranges included. It may
@@ -292,20 +387,13 @@ Substitution must match the longest token first: a naive `replace("$Component", 
 as written, so a format the parser does not model yet produces one visibly wrong designator
 per channel instead of collapsing every channel onto the same one.
 
-### `.PrjPcbStructure` is optional
+### `.PrjPcbStructure` is not read
 
 Altium writes `.PrjPcbStructure` when a project is compiled, and it is frequently not
-committed. It is a convenience, not the source of truth: every multi-channel design surveyed
-outside our own fixtures ships only the `.PrjPcb`. Channel discovery therefore reads the sheet
-symbols directly, and uses the structure file only when present.
-
-**Filename casing is not consistent, and the lookup assumes one spelling.**
-`findStructureFile()` builds exactly `<project>.PrjPCBStructure`, with `PCB` capitalised. Both
-spellings occur in the fixtures: `aberrant-sound-module` writes `.PrjPCBStructure` and matches
-either way, while LimeSDR-USB writes `.PrjPcbStructure` and matches only because macOS
-filesystems are case-insensitive by default. On a case-sensitive filesystem the LimeSDR
-spelling would not be found, and the project would silently fall back to reading sheet
-symbols. That fallback is correct, so the effect is a slower path rather than a wrong answer.
+committed: every multi-channel design surveyed outside our own fixtures ships only the
+`.PrjPcb`. It records the same sheet symbols the schematics carry, so channel discovery reads
+the sheet symbols and nothing else. The structure parser is kept for tooling that wants the
+file's own view.
 
 ## Signal harnesses
 
@@ -478,10 +566,9 @@ including through a harness line drawn on a parent sheet between two sheet entri
 names are matched project-wide, as ports already are elsewhere in this parser, so two sheets
 that reuse a harness port name are read as sharing that bundle.
 
-Repeated sheets are the exception: channel expansion renames a repeated sheet's nets per
-channel, so signals collected there would no longer name the nets carrying them. Those sheets
-reach the rest of the design through `classifySheetEntries()`, which carries the bundle's
-members across instead.
+A repeated sheet's channels are documents like any other, so a harness signal collected on one
+names the channel's net; `classifySheetEntries()` also carries a shared bundle's members across
+so that the channel's nets keep the shared name.
 
 The nesting relationship is read from the entry records, but a nested bundle is not yet given
 its own identity: its members resolve as names, and its connectivity depends on the enclosing

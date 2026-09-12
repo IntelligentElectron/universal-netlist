@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-11T22:24:23.325Z",
-    "netlistHash": "sha256:9a6b658be77fa67675207298bb20164fa893ea49a50d7ef1a0913ad4006d18e2",
+    "generatedAt": "2026-09-11T23:55:43.288Z",
+    "netlistHash": "sha256:8e6bc2901fcfa601c28f16d71a64e1e43e9c77b8614bc5f72865852bb03780bf",
     "origin": {
       "type": "vendor",
       "source": {
@@ -13,29 +13,54 @@
   },
   "nets": {
     "GND": {
-      "R503": [
+      "R503A": [
         "1"
       ],
-      "U500": [
+      "U500A": [
         "2",
         "15"
       ],
-      "C500": [
+      "C500A": [
         "2"
       ],
-      "C505": [
+      "C505A": [
         "2"
       ],
-      "C501": [
+      "C501A": [
         "2"
       ],
-      "C502": [
+      "C502A": [
         "2"
       ],
-      "C503": [
+      "C503A": [
         "2"
       ],
-      "C504": [
+      "C504A": [
+        "2"
+      ],
+      "R503B": [
+        "1"
+      ],
+      "U500B": [
+        "2",
+        "15"
+      ],
+      "C500B": [
+        "2"
+      ],
+      "C505B": [
+        "2"
+      ],
+      "C501B": [
+        "2"
+      ],
+      "C502B": [
+        "2"
+      ],
+      "C503B": [
+        "2"
+      ],
+      "C504B": [
         "2"
       ],
       "U400A": [
@@ -244,121 +269,93 @@
         "2"
       ]
     },
-    "NetC502_1": {
-      "R501": [
+    "FB_TPS__buck_boost": {
+      "R501A": [
+        "1"
+      ],
+      "R503A": [
         "2"
       ],
-      "U500": [
-        "4",
-        "5"
-      ],
-      "C502": [
-        "1"
-      ],
-      "C503": [
-        "1"
-      ],
-      "C504": [
-        "1"
-      ]
-    },
-    "FB_TPS_": {
-      "R501": [
-        "1"
-      ],
-      "R503": [
-        "2"
-      ],
-      "U500": [
+      "U500A": [
         "3"
       ]
     },
-    "NetC500_1": {
-      "U500": [
-        "10",
-        "11"
-      ],
-      "C500": [
+    "VINA_TPS__buck_boost": {
+      "U500A": [
         "1"
       ],
-      "C501": [
-        "1"
-      ]
-    },
-    "NetR502_2": {
-      "U500": [
-        "12"
-      ],
-      "R502": [
-        "2"
-      ]
-    },
-    "NetR500_2": {
-      "U500": [
-        "13"
-      ],
-      "R500": [
-        "2"
-      ]
-    },
-    "VINA_TPS_": {
-      "U500": [
+      "C505A": [
         "1"
       ],
-      "C505": [
+      "R502A": [
         "1"
       ],
-      "R502": [
-        "1"
-      ],
-      "R500": [
+      "R500A": [
         "1"
       ]
     },
-    "L1": {
-      "U500": [
+    "L1_buck_boost": {
+      "U500A": [
         "8",
         "9"
       ],
-      "L500": [
+      "L500A": [
         "1"
       ]
     },
-    "L2": {
-      "U500": [
+    "L2_buck_boost": {
+      "U500A": [
         "6",
         "7"
       ],
-      "L500": [
+      "L500A": [
         "2"
       ]
     },
-    "NetU500_14": {
-      "U500": [
-        "14"
-      ]
-    },
-    "VOUT": {
-      "U400A": [
-        "6"
-      ],
-      "C401A": [
-        "2"
-      ],
-      "Q400A": [
+    "FB_TPS__buck_boost_2": {
+      "R501B": [
         "1"
       ],
-      "U400B": [
-        "6"
-      ],
-      "C401B": [
+      "R503B": [
         "2"
       ],
-      "Q400B": [
+      "U500B": [
+        "3"
+      ]
+    },
+    "VINA_TPS__buck_boost_2": {
+      "U500B": [
+        "1"
+      ],
+      "C505B": [
+        "1"
+      ],
+      "R502B": [
+        "1"
+      ],
+      "R500B": [
         "1"
       ]
     },
-    "VIN_ideal_diode1": {
+    "L1_buck_boost_2": {
+      "U500B": [
+        "8",
+        "9"
+      ],
+      "L500B": [
+        "1"
+      ]
+    },
+    "L2_buck_boost_2": {
+      "U500B": [
+        "6",
+        "7"
+      ],
+      "L500B": [
+        "2"
+      ]
+    },
+    "NetC400A_1": {
       "U400A": [
         "1"
       ],
@@ -382,7 +379,7 @@
         "4"
       ]
     },
-    "VIN_ideal_diode2": {
+    "NetC400B_1": {
       "U400B": [
         "1"
       ],
@@ -404,18 +401,6 @@
     "STAT__ideal_diode2": {
       "U400B": [
         "4"
-      ]
-    },
-    "NetJ600_2": {
-      "J600": [
-        "2",
-        "4"
-      ]
-    },
-    "NetJ600_41": {
-      "J600": [
-        "41",
-        "42"
       ]
     },
     "NetJ600_44": {
@@ -513,11 +498,6 @@
         "24"
       ]
     },
-    "IMON_MPPT_charger1": {
-      "U300A": [
-        "23"
-      ]
-    },
     "ISN_MPPT_charger1": {
       "U300A": [
         "22"
@@ -540,31 +520,12 @@
         "1"
       ]
     },
-    "PG_MPPT_charger1": {
-      "U300A": [
-        "19"
-      ]
-    },
     "RT_MPPT_charger1": {
       "U300A": [
         "3"
       ],
       "R305A": [
         "2"
-      ]
-    },
-    "SYNC": {
-      "U300A": [
-        "1"
-      ],
-      "R302A": [
-        "1"
-      ],
-      "U300B": [
-        "1"
-      ],
-      "R302B": [
-        "1"
       ]
     },
     "TR/SS_MPPT_charger1": {
@@ -578,7 +539,7 @@
         "1"
       ]
     },
-    "VBAT_MPPT_charger1": {
+    "NetC302A_2": {
       "R303A": [
         "2"
       ],
@@ -695,11 +656,6 @@
         "24"
       ]
     },
-    "IMON_MPPT_charger2": {
-      "U300B": [
-        "23"
-      ]
-    },
     "ISN_MPPT_charger2": {
       "U300B": [
         "22"
@@ -722,11 +678,6 @@
         "1"
       ]
     },
-    "PG_MPPT_charger2": {
-      "U300B": [
-        "19"
-      ]
-    },
     "RT_MPPT_charger2": {
       "U300B": [
         "3"
@@ -746,7 +697,7 @@
         "1"
       ]
     },
-    "VBAT_MPPT_charger2": {
+    "NetC302B_2": {
       "R303B": [
         "2"
       ],
@@ -778,15 +729,48 @@
         "1"
       ]
     },
-    "NetJ700_1": {
-      "J700": [
-        "1"
-      ]
-    },
     "VBUS": {
       "J700": [
         "2",
         "4"
+      ],
+      "U500A": [
+        "10",
+        "11"
+      ],
+      "C500A": [
+        "1"
+      ],
+      "C501A": [
+        "1"
+      ],
+      "U500B": [
+        "10",
+        "11"
+      ],
+      "C500B": [
+        "1"
+      ],
+      "C501B": [
+        "1"
+      ],
+      "U400A": [
+        "6"
+      ],
+      "C401A": [
+        "2"
+      ],
+      "Q400A": [
+        "1"
+      ],
+      "U400B": [
+        "6"
+      ],
+      "C401B": [
+        "2"
+      ],
+      "Q400B": [
+        "1"
       ]
     },
     "POWER_O2": {
@@ -848,6 +832,26 @@
       ],
       "R206": [
         "2"
+      ],
+      "R501B": [
+        "2"
+      ],
+      "U500B": [
+        "4",
+        "5"
+      ],
+      "C502B": [
+        "1"
+      ],
+      "C503B": [
+        "1"
+      ],
+      "C504B": [
+        "1"
+      ],
+      "J600": [
+        "41",
+        "42"
       ]
     },
     "C_LED3V3": {
@@ -864,6 +868,26 @@
       ],
       "TP701": [
         "1"
+      ],
+      "R501A": [
+        "2"
+      ],
+      "U500A": [
+        "4",
+        "5"
+      ],
+      "C502A": [
+        "1"
+      ],
+      "C503A": [
+        "1"
+      ],
+      "C504A": [
+        "1"
+      ],
+      "J600": [
+        "2",
+        "4"
       ]
     },
     "C_LED5V": {
@@ -882,42 +906,12 @@
         "1"
       ]
     },
-    "NetR702_2": {
-      "R703": [
-        "2"
-      ],
-      "R702": [
-        "2"
-      ],
-      "U200": [
-        "34"
-      ]
-    },
     "G1": {
       "Q700": [
         "1"
       ],
       "R700": [
         "1"
-      ]
-    },
-    "NetR700_2": {
-      "R701": [
-        "2"
-      ],
-      "R700": [
-        "2"
-      ],
-      "U200": [
-        "35"
-      ]
-    },
-    "NetD700_2": {
-      "D700": [
-        "2"
-      ],
-      "U200": [
-        "54"
       ]
     },
     "C_LED_USR": {
@@ -983,16 +977,6 @@
     "PB0": {
       "U200": [
         "26"
-      ]
-    },
-    "NetU200_27": {
-      "U200": [
-        "27"
-      ]
-    },
-    "NetU200_28": {
-      "U200": [
-        "28"
       ]
     },
     "TX": {
@@ -1076,16 +1060,6 @@
         "57"
       ]
     },
-    "NetU200_58": {
-      "U200": [
-        "58"
-      ]
-    },
-    "NetU200_59": {
-      "U200": [
-        "59"
-      ]
-    },
     "PB8": {
       "U200": [
         "61"
@@ -1126,31 +1100,6 @@
     "PC0": {
       "U200": [
         "8"
-      ]
-    },
-    "NetU200_9": {
-      "U200": [
-        "9"
-      ]
-    },
-    "NetU200_10": {
-      "U200": [
-        "10"
-      ]
-    },
-    "NetU200_11": {
-      "U200": [
-        "11"
-      ]
-    },
-    "NetU200_24": {
-      "U200": [
-        "24"
-      ]
-    },
-    "NetU200_25": {
-      "U200": [
-        "25"
       ]
     },
     "PC6": {
@@ -1282,16 +1231,6 @@
         "10"
       ]
     },
-    "NetR200_2": {
-      "R200": [
-        "2"
-      ]
-    },
-    "NetR201_2": {
-      "R201": [
-        "2"
-      ]
-    },
     "USRB0_NDB": {
       "R205": [
         "1"
@@ -1313,32 +1252,176 @@
       "R209": [
         "2"
       ]
+    },
+    "EN_5V_3V3": {
+      "U500A": [
+        "12"
+      ],
+      "R502A": [
+        "2"
+      ],
+      "U500B": [
+        "12"
+      ],
+      "R502B": [
+        "2"
+      ],
+      "J700": [
+        "1"
+      ]
+    },
+    "MODE_5V": {
+      "U500A": [
+        "13"
+      ],
+      "R500A": [
+        "2"
+      ],
+      "U200": [
+        "28"
+      ]
+    },
+    "PG_5V": {
+      "U500A": [
+        "14"
+      ],
+      "U200": [
+        "27"
+      ]
+    },
+    "MODE_3V3": {
+      "U500B": [
+        "13"
+      ],
+      "R500B": [
+        "2"
+      ],
+      "U200": [
+        "25"
+      ]
+    },
+    "PG_3V3": {
+      "U500B": [
+        "14"
+      ],
+      "U200": [
+        "24"
+      ]
+    },
+    "VBAT1": {
+      "R200": [
+        "2"
+      ]
+    },
+    "VBAT2": {
+      "R201": [
+        "2"
+      ]
+    },
+    "USER_LED": {
+      "D700": [
+        "2"
+      ],
+      "U200": [
+        "54"
+      ]
+    },
+    "IMON1": {
+      "U300A": [
+        "23"
+      ],
+      "U200": [
+        "9"
+      ]
+    },
+    "PG1": {
+      "U300A": [
+        "19"
+      ],
+      "U200": [
+        "58"
+      ]
+    },
+    "SYNC_CHRGR": {
+      "U300A": [
+        "1"
+      ],
+      "R302A": [
+        "1"
+      ],
+      "U300B": [
+        "1"
+      ],
+      "R302B": [
+        "1"
+      ],
+      "U200": [
+        "11"
+      ]
+    },
+    "IMON2": {
+      "U300B": [
+        "23"
+      ],
+      "U200": [
+        "10"
+      ]
+    },
+    "PG2": {
+      "U300B": [
+        "19"
+      ],
+      "U200": [
+        "59"
+      ]
+    },
+    "POWER_sw1": {
+      "R701": [
+        "2"
+      ],
+      "R700": [
+        "2"
+      ],
+      "U200": [
+        "35"
+      ]
+    },
+    "POWER_sw2": {
+      "R703": [
+        "2"
+      ],
+      "R702": [
+        "2"
+      ],
+      "U200": [
+        "34"
+      ]
     }
   },
   "components": {
-    "R501": {
+    "R501A": {
       "pins": {
-        "1": "FB_TPS_",
-        "2": "NetC502_1"
+        "1": "FB_TPS__buck_boost",
+        "2": "5V"
       },
       "description": "1M 0.1W 1% 0603  SMD",
       "comment": "1M",
       "value": "1000000.00 Ohm"
     },
-    "R503": {
+    "R503A": {
       "pins": {
         "1": "GND",
-        "2": "FB_TPS_"
+        "2": "FB_TPS__buck_boost"
       },
       "description": "180k/110k 0.1W 1% 0603 (1608 Metric)  SMD",
       "comment": "180k/110k",
       "value": "18000/110000 Ohm"
     },
-    "U500": {
+    "U500A": {
       "pins": {
         "1": {
           "name": "VINA",
-          "net": "VINA_TPS_"
+          "net": "VINA_TPS__buck_boost"
         },
         "2": {
           "name": "GND",
@@ -1346,51 +1429,51 @@
         },
         "3": {
           "name": "FB",
-          "net": "FB_TPS_"
+          "net": "FB_TPS__buck_boost"
         },
         "4": {
           "name": "VOUT",
-          "net": "NetC502_1"
+          "net": "5V"
         },
         "5": {
           "name": "VOUT",
-          "net": "NetC502_1"
+          "net": "5V"
         },
         "6": {
           "name": "L2",
-          "net": "L2"
+          "net": "L2_buck_boost"
         },
         "7": {
           "name": "L2",
-          "net": "L2"
+          "net": "L2_buck_boost"
         },
         "8": {
           "name": "L1",
-          "net": "L1"
+          "net": "L1_buck_boost"
         },
         "9": {
           "name": "L1",
-          "net": "L1"
+          "net": "L1_buck_boost"
         },
         "10": {
           "name": "VIN",
-          "net": "NetC500_1"
+          "net": "VBUS"
         },
         "11": {
           "name": "VIN",
-          "net": "NetC500_1"
+          "net": "VBUS"
         },
         "12": {
           "name": "EN",
-          "net": "NetR502_2"
+          "net": "EN_5V_3V3"
         },
         "13": {
           "name": "PS/SYNC",
-          "net": "NetR500_2"
+          "net": "MODE_5V"
         },
         "14": {
           "name": "PG",
-          "net": "NetU500_14"
+          "net": "PG_5V"
         },
         "15": {
           "name": "PGND",
@@ -1402,80 +1485,246 @@
       "description": "IC REG BCK BST ADJ 3.5A 14VSON",
       "comment": "TPS63020DSJT"
     },
-    "L500": {
+    "L500A": {
       "pins": {
-        "1": "L1",
-        "2": "L2"
+        "1": "L1_buck_boost",
+        "2": "L2_buck_boost"
       },
       "mpn": "XFL4020-152ML",
       "description": "XFL4020-152ML\r\n1.5uH 4.6A 15.8m? 20%",
       "comment": "1u5"
     },
-    "C500": {
+    "C500A": {
       "pins": {
-        "1": "NetC500_1",
+        "1": "VBUS",
         "2": "GND"
       },
       "manufacturer": "MURATA",
       "description": "CAP 10 µF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J106ME84D",
       "comment": "10u"
     },
-    "C505": {
+    "C505A": {
       "pins": {
-        "1": "VINA_TPS_",
+        "1": "VINA_TPS__buck_boost",
         "2": "GND"
       },
       "description": "CAP 0.1 µF, X5R or X7R ceramic",
       "comment": "100n"
     },
-    "R502": {
+    "R502A": {
       "pins": {
-        "1": "VINA_TPS_",
-        "2": "NetR502_2"
+        "1": "VINA_TPS__buck_boost",
+        "2": "EN_5V_3V3"
       },
       "description": "10k 0.1W 5% 0603 SMD",
       "comment": "10k",
       "value": "10000.00 Ohm"
     },
-    "R500": {
+    "R500A": {
       "pins": {
-        "1": "VINA_TPS_",
-        "2": "NetR500_2"
+        "1": "VINA_TPS__buck_boost",
+        "2": "MODE_5V"
       },
       "description": "10k 0.1W 5% 0603 SMD",
       "comment": "10k",
       "value": "10000.00 Ohm"
     },
-    "C501": {
+    "C501A": {
       "pins": {
-        "1": "NetC500_1",
+        "1": "VBUS",
         "2": "GND"
       },
       "manufacturer": "MURATA",
       "description": "CAP 10 µF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J106ME84D",
       "comment": "10u"
     },
-    "C502": {
+    "C502A": {
       "pins": {
-        "1": "NetC502_1",
+        "1": "5V",
         "2": "GND"
       },
       "manufacturer": "MURATA",
       "description": "CAP 22 µF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J226MEAOL",
       "comment": "22u"
     },
-    "C503": {
+    "C503A": {
       "pins": {
-        "1": "NetC502_1",
+        "1": "5V",
         "2": "GND"
       },
       "manufacturer": "MURATA",
       "description": "CAP 22 µF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J226MEAOL",
       "comment": "22u"
     },
-    "C504": {
+    "C504A": {
       "pins": {
-        "1": "NetC502_1",
+        "1": "5V",
+        "2": "GND"
+      },
+      "manufacturer": "MURATA",
+      "description": "CAP 22 µF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J226MEAOL",
+      "comment": "22u"
+    },
+    "R501B": {
+      "pins": {
+        "1": "FB_TPS__buck_boost_2",
+        "2": "3,3V"
+      },
+      "description": "1M 0.1W 1% 0603  SMD",
+      "comment": "1M",
+      "value": "1000000.00 Ohm"
+    },
+    "R503B": {
+      "pins": {
+        "1": "GND",
+        "2": "FB_TPS__buck_boost_2"
+      },
+      "description": "180k/110k 0.1W 1% 0603 (1608 Metric)  SMD",
+      "comment": "180k/110k",
+      "value": "18000/110000 Ohm"
+    },
+    "U500B": {
+      "pins": {
+        "1": {
+          "name": "VINA",
+          "net": "VINA_TPS__buck_boost_2"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "3": {
+          "name": "FB",
+          "net": "FB_TPS__buck_boost_2"
+        },
+        "4": {
+          "name": "VOUT",
+          "net": "3,3V"
+        },
+        "5": {
+          "name": "VOUT",
+          "net": "3,3V"
+        },
+        "6": {
+          "name": "L2",
+          "net": "L2_buck_boost_2"
+        },
+        "7": {
+          "name": "L2",
+          "net": "L2_buck_boost_2"
+        },
+        "8": {
+          "name": "L1",
+          "net": "L1_buck_boost_2"
+        },
+        "9": {
+          "name": "L1",
+          "net": "L1_buck_boost_2"
+        },
+        "10": {
+          "name": "VIN",
+          "net": "VBUS"
+        },
+        "11": {
+          "name": "VIN",
+          "net": "VBUS"
+        },
+        "12": {
+          "name": "EN",
+          "net": "EN_5V_3V3"
+        },
+        "13": {
+          "name": "PS/SYNC",
+          "net": "MODE_3V3"
+        },
+        "14": {
+          "name": "PG",
+          "net": "PG_3V3"
+        },
+        "15": {
+          "name": "PGND",
+          "net": "GND"
+        }
+      },
+      "mpn": "TPS63020DSJT",
+      "manufacturer": "Texas Instruments",
+      "description": "IC REG BCK BST ADJ 3.5A 14VSON",
+      "comment": "TPS63020DSJT"
+    },
+    "L500B": {
+      "pins": {
+        "1": "L1_buck_boost_2",
+        "2": "L2_buck_boost_2"
+      },
+      "mpn": "XFL4020-152ML",
+      "description": "XFL4020-152ML\r\n1.5uH 4.6A 15.8m? 20%",
+      "comment": "1u5"
+    },
+    "C500B": {
+      "pins": {
+        "1": "VBUS",
+        "2": "GND"
+      },
+      "manufacturer": "MURATA",
+      "description": "CAP 10 µF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J106ME84D",
+      "comment": "10u"
+    },
+    "C505B": {
+      "pins": {
+        "1": "VINA_TPS__buck_boost_2",
+        "2": "GND"
+      },
+      "description": "CAP 0.1 µF, X5R or X7R ceramic",
+      "comment": "100n"
+    },
+    "R502B": {
+      "pins": {
+        "1": "VINA_TPS__buck_boost_2",
+        "2": "EN_5V_3V3"
+      },
+      "description": "10k 0.1W 5% 0603 SMD",
+      "comment": "10k",
+      "value": "10000.00 Ohm"
+    },
+    "R500B": {
+      "pins": {
+        "1": "VINA_TPS__buck_boost_2",
+        "2": "MODE_3V3"
+      },
+      "description": "10k 0.1W 5% 0603 SMD",
+      "comment": "10k",
+      "value": "10000.00 Ohm"
+    },
+    "C501B": {
+      "pins": {
+        "1": "VBUS",
+        "2": "GND"
+      },
+      "manufacturer": "MURATA",
+      "description": "CAP 10 µF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J106ME84D",
+      "comment": "10u"
+    },
+    "C502B": {
+      "pins": {
+        "1": "3,3V",
+        "2": "GND"
+      },
+      "manufacturer": "MURATA",
+      "description": "CAP 22 µF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J226MEAOL",
+      "comment": "22u"
+    },
+    "C503B": {
+      "pins": {
+        "1": "3,3V",
+        "2": "GND"
+      },
+      "manufacturer": "MURATA",
+      "description": "CAP 22 µF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J226MEAOL",
+      "comment": "22u"
+    },
+    "C504B": {
+      "pins": {
+        "1": "3,3V",
         "2": "GND"
       },
       "manufacturer": "MURATA",
@@ -1486,7 +1735,7 @@
       "pins": {
         "1": {
           "name": "VIN",
-          "net": "VIN_ideal_diode1"
+          "net": "NetC400A_1"
         },
         "2": {
           "name": "GND",
@@ -1506,7 +1755,7 @@
         },
         "6": {
           "name": "SENSE",
-          "net": "VOUT"
+          "net": "VBUS"
         }
       },
       "description": "IC OR CTRLR SRC SELECT TSOT23-6",
@@ -1520,7 +1769,7 @@
         },
         "2": {
           "name": "A",
-          "net": "VOUT"
+          "net": "VBUS"
         }
       },
       "description": "CAP TANT 22UF 10% 6.3V 1411",
@@ -1530,7 +1779,7 @@
       "pins": {
         "1": {
           "name": "S",
-          "net": "VOUT"
+          "net": "VBUS"
         },
         "2": {
           "name": "G",
@@ -1538,7 +1787,7 @@
         },
         "3": {
           "name": "D",
-          "net": "VIN_ideal_diode1"
+          "net": "NetC400A_1"
         }
       },
       "description": "MOSFET P-CH 30V 45A SOP Advance",
@@ -1546,7 +1795,7 @@
     },
     "C400A": {
       "pins": {
-        "1": "VIN_ideal_diode1",
+        "1": "NetC400A_1",
         "2": "GND"
       },
       "description": "CAP 0.1 µF, X5R or X7R ceramic",
@@ -1556,7 +1805,7 @@
       "pins": {
         "1": {
           "name": "VIN",
-          "net": "VIN_ideal_diode2"
+          "net": "NetC400B_1"
         },
         "2": {
           "name": "GND",
@@ -1576,7 +1825,7 @@
         },
         "6": {
           "name": "SENSE",
-          "net": "VOUT"
+          "net": "VBUS"
         }
       },
       "description": "IC OR CTRLR SRC SELECT TSOT23-6",
@@ -1590,7 +1839,7 @@
         },
         "2": {
           "name": "A",
-          "net": "VOUT"
+          "net": "VBUS"
         }
       },
       "description": "CAP TANT 22UF 10% 6.3V 1411",
@@ -1600,7 +1849,7 @@
       "pins": {
         "1": {
           "name": "S",
-          "net": "VOUT"
+          "net": "VBUS"
         },
         "2": {
           "name": "G",
@@ -1608,7 +1857,7 @@
         },
         "3": {
           "name": "D",
-          "net": "VIN_ideal_diode2"
+          "net": "NetC400B_1"
         }
       },
       "description": "MOSFET P-CH 30V 45A SOP Advance",
@@ -1616,7 +1865,7 @@
     },
     "C400B": {
       "pins": {
-        "1": "VIN_ideal_diode2",
+        "1": "NetC400B_1",
         "2": "GND"
       },
       "description": "CAP 0.1 µF, X5R or X7R ceramic",
@@ -1630,7 +1879,7 @@
         },
         "2": {
           "name": "+5V",
-          "net": "NetJ600_2"
+          "net": "5V"
         },
         "3": {
           "name": "GPIO2 (I2C SDA)",
@@ -1638,7 +1887,7 @@
         },
         "4": {
           "name": "+5V",
-          "net": "NetJ600_2"
+          "net": "5V"
         },
         "5": {
           "name": "GPIO3 (I2C SCL)",
@@ -1786,11 +2035,11 @@
         },
         "41": {
           "name": "ADCS_3V3",
-          "net": "NetJ600_41"
+          "net": "3,3V"
         },
         "42": {
           "name": "LORA_3V3",
-          "net": "NetJ600_41"
+          "net": "3,3V"
         },
         "43": {
           "name": "UART_EPS_RX",
@@ -1810,7 +2059,7 @@
       "pins": {
         "1": {
           "name": "SYNC",
-          "net": "SYNC"
+          "net": "SYNC_CHRGR"
         },
         "2": {
           "name": "TR/SS",
@@ -1882,7 +2131,7 @@
         },
         "19": {
           "name": "PG",
-          "net": "PG_MPPT_charger1"
+          "net": "PG1"
         },
         "20": {
           "name": "FB",
@@ -1898,7 +2147,7 @@
         },
         "23": {
           "name": "IMON",
-          "net": "IMON_MPPT_charger1"
+          "net": "IMON1"
         },
         "24": {
           "name": "ICTRL",
@@ -1973,7 +2222,7 @@
     "R303A": {
       "pins": {
         "1": "FB_MPPT_charger1",
-        "2": "VBAT_MPPT_charger1"
+        "2": "NetC302A_2"
       },
       "description": "1M 0.1W 1% 0603 SMD",
       "comment": "1M",
@@ -1982,7 +2231,7 @@
     "C302A": {
       "pins": {
         "1": "ISP_MPPT_charger1",
-        "2": "VBAT_MPPT_charger1"
+        "2": "NetC302A_2"
       },
       "mpn": "C0603C104K5RACTU",
       "manufacturer": "KEMET",
@@ -1992,7 +2241,7 @@
     },
     "C303A": {
       "pins": {
-        "1": "VBAT_MPPT_charger1",
+        "1": "NetC302A_2",
         "2": "FB_MPPT_charger1"
       },
       "mpn": "C0603C104K5RACTU",
@@ -2013,7 +2262,7 @@
     "NT302A": {
       "pins": {
         "1": "BIAS_MPPT_charger1",
-        "2": "VBAT_MPPT_charger1"
+        "2": "NetC302A_2"
       },
       "description": "Net tie",
       "comment": "NetTie"
@@ -2029,14 +2278,14 @@
     "NT301A": {
       "pins": {
         "1": "ISN_MPPT_charger1",
-        "2": "VBAT_MPPT_charger1"
+        "2": "NetC302A_2"
       },
       "description": "Net tie",
       "comment": "NetTie"
     },
     "J301A": {
       "pins": {
-        "P": "VBAT_MPPT_charger1",
+        "P": "NetC302A_2",
         "N": "GND"
       },
       "description": "Socket; DC supply; XT30; male; PIN: 2; on PCBs; THT; Colour: yellow",
@@ -2054,7 +2303,7 @@
     "R300A": {
       "pins": {
         "1": "ISP_MPPT_charger1",
-        "2": "VBAT_MPPT_charger1"
+        "2": "NetC302A_2"
       },
       "description": "Thick Film Chip Resistors 0805 0.025? 0.125W 1% 100ppm/°C",
       "comment": "0.025R"
@@ -2071,7 +2320,7 @@
     "C304A": {
       "pins": {
         "1": "GND",
-        "2": "VBAT_MPPT_charger1"
+        "2": "NetC302A_2"
       },
       "manufacturer": "Kemet",
       "description": "CAP, Ceramic, 0.1 uF, +/- 10%, 50 V, -55 to 125 degC, 1206 (3216 Metric), RoHS, Tape and Reel",
@@ -2080,7 +2329,7 @@
     "C305A": {
       "pins": {
         "1": "GND",
-        "2": "VBAT_MPPT_charger1"
+        "2": "NetC302A_2"
       },
       "manufacturer": "Kemet",
       "description": "CAP, Ceramic, 0.1 uF, +/- 10%, 50 V, -55 to 125 degC, 1206 (3216 Metric), RoHS, Tape and Reel",
@@ -2088,7 +2337,7 @@
     },
     "R302A": {
       "pins": {
-        "1": "SYNC",
+        "1": "SYNC_CHRGR",
         "2": "INTVcc_MPPT_charger1"
       },
       "description": "10K 0.1W 5% 0603 (1608 Metric)  SMD",
@@ -2097,7 +2346,7 @@
     },
     "TP300A": {
       "pins": {
-        "1": "VBAT_MPPT_charger1"
+        "1": "NetC302A_2"
       },
       "description": "SMD test point",
       "comment": "TestPoint"
@@ -2106,7 +2355,7 @@
       "pins": {
         "1": {
           "name": "SYNC",
-          "net": "SYNC"
+          "net": "SYNC_CHRGR"
         },
         "2": {
           "name": "TR/SS",
@@ -2178,7 +2427,7 @@
         },
         "19": {
           "name": "PG",
-          "net": "PG_MPPT_charger2"
+          "net": "PG2"
         },
         "20": {
           "name": "FB",
@@ -2194,7 +2443,7 @@
         },
         "23": {
           "name": "IMON",
-          "net": "IMON_MPPT_charger2"
+          "net": "IMON2"
         },
         "24": {
           "name": "ICTRL",
@@ -2269,7 +2518,7 @@
     "R303B": {
       "pins": {
         "1": "FB_MPPT_charger2",
-        "2": "VBAT_MPPT_charger2"
+        "2": "NetC302B_2"
       },
       "description": "1M 0.1W 1% 0603 SMD",
       "comment": "1M",
@@ -2278,7 +2527,7 @@
     "C302B": {
       "pins": {
         "1": "ISP_MPPT_charger2",
-        "2": "VBAT_MPPT_charger2"
+        "2": "NetC302B_2"
       },
       "mpn": "C0603C104K5RACTU",
       "manufacturer": "KEMET",
@@ -2288,7 +2537,7 @@
     },
     "C303B": {
       "pins": {
-        "1": "VBAT_MPPT_charger2",
+        "1": "NetC302B_2",
         "2": "FB_MPPT_charger2"
       },
       "mpn": "C0603C104K5RACTU",
@@ -2309,7 +2558,7 @@
     "NT302B": {
       "pins": {
         "1": "BIAS_MPPT_charger2",
-        "2": "VBAT_MPPT_charger2"
+        "2": "NetC302B_2"
       },
       "description": "Net tie",
       "comment": "NetTie"
@@ -2325,14 +2574,14 @@
     "NT301B": {
       "pins": {
         "1": "ISN_MPPT_charger2",
-        "2": "VBAT_MPPT_charger2"
+        "2": "NetC302B_2"
       },
       "description": "Net tie",
       "comment": "NetTie"
     },
     "J301B": {
       "pins": {
-        "P": "VBAT_MPPT_charger2",
+        "P": "NetC302B_2",
         "N": "GND"
       },
       "description": "Socket; DC supply; XT30; male; PIN: 2; on PCBs; THT; Colour: yellow",
@@ -2350,7 +2599,7 @@
     "R300B": {
       "pins": {
         "1": "ISP_MPPT_charger2",
-        "2": "VBAT_MPPT_charger2"
+        "2": "NetC302B_2"
       },
       "description": "Thick Film Chip Resistors 0805 0.025? 0.125W 1% 100ppm/°C",
       "comment": "0.025R"
@@ -2367,7 +2616,7 @@
     "C304B": {
       "pins": {
         "1": "GND",
-        "2": "VBAT_MPPT_charger2"
+        "2": "NetC302B_2"
       },
       "manufacturer": "Kemet",
       "description": "CAP, Ceramic, 0.1 uF, +/- 10%, 50 V, -55 to 125 degC, 1206 (3216 Metric), RoHS, Tape and Reel",
@@ -2376,7 +2625,7 @@
     "C305B": {
       "pins": {
         "1": "GND",
-        "2": "VBAT_MPPT_charger2"
+        "2": "NetC302B_2"
       },
       "manufacturer": "Kemet",
       "description": "CAP, Ceramic, 0.1 uF, +/- 10%, 50 V, -55 to 125 degC, 1206 (3216 Metric), RoHS, Tape and Reel",
@@ -2384,7 +2633,7 @@
     },
     "R302B": {
       "pins": {
-        "1": "SYNC",
+        "1": "SYNC_CHRGR",
         "2": "INTVcc_MPPT_charger2"
       },
       "description": "10K 0.1W 5% 0603 (1608 Metric)  SMD",
@@ -2393,14 +2642,14 @@
     },
     "TP300B": {
       "pins": {
-        "1": "VBAT_MPPT_charger2"
+        "1": "NetC302B_2"
       },
       "description": "SMD test point",
       "comment": "TestPoint"
     },
     "J700": {
       "pins": {
-        "1": "NetJ700_1",
+        "1": "EN_5V_3V3",
         "2": "VBUS",
         "3": "POWER_O2",
         "4": "VBUS",
@@ -2476,7 +2725,7 @@
     "R703": {
       "pins": {
         "1": "GND",
-        "2": "NetR702_2"
+        "2": "POWER_sw2"
       },
       "description": "10k 0.1W 5% 0603 SMD",
       "comment": "10k",
@@ -2485,7 +2734,7 @@
     "R702": {
       "pins": {
         "1": "G2",
-        "2": "NetR702_2"
+        "2": "POWER_sw2"
       },
       "description": "100R 0.1W 5% 0603 SMD",
       "comment": "100R",
@@ -2513,7 +2762,7 @@
     "R701": {
       "pins": {
         "1": "GND",
-        "2": "NetR700_2"
+        "2": "POWER_sw1"
       },
       "description": "10k 0.1W 5% 0603 SMD",
       "comment": "10k",
@@ -2522,7 +2771,7 @@
     "R700": {
       "pins": {
         "1": "G1",
-        "2": "NetR700_2"
+        "2": "POWER_sw1"
       },
       "description": "100R 0.1W 5% 0603 SMD",
       "comment": "100R",
@@ -2536,7 +2785,7 @@
         },
         "2": {
           "name": "A",
-          "net": "NetD700_2"
+          "net": "USER_LED"
         }
       },
       "description": "Green LED",
@@ -2601,15 +2850,15 @@
         },
         "9": {
           "name": "PC1",
-          "net": "NetU200_9"
+          "net": "IMON1"
         },
         "10": {
           "name": "PC2",
-          "net": "NetU200_10"
+          "net": "IMON2"
         },
         "11": {
           "name": "PC3",
-          "net": "NetU200_11"
+          "net": "SYNC_CHRGR"
         },
         "12": {
           "name": "VSSA",
@@ -2661,11 +2910,11 @@
         },
         "24": {
           "name": "PC4",
-          "net": "NetU200_24"
+          "net": "PG_3V3"
         },
         "25": {
           "name": "PC5",
-          "net": "NetU200_25"
+          "net": "MODE_3V3"
         },
         "26": {
           "name": "PB0",
@@ -2673,11 +2922,11 @@
         },
         "27": {
           "name": "PB1",
-          "net": "NetU200_27"
+          "net": "PG_5V"
         },
         "28": {
           "name": "PB2-BOOT1(PB2)",
-          "net": "NetU200_28"
+          "net": "MODE_5V"
         },
         "29": {
           "name": "PB10",
@@ -2701,11 +2950,11 @@
         },
         "34": {
           "name": "PB13",
-          "net": "NetR702_2"
+          "net": "POWER_sw2"
         },
         "35": {
           "name": "PB14",
-          "net": "NetR700_2"
+          "net": "POWER_sw1"
         },
         "36": {
           "name": "PB15",
@@ -2781,7 +3030,7 @@
         },
         "54": {
           "name": "PD2",
-          "net": "NetD700_2"
+          "net": "USER_LED"
         },
         "55": {
           "name": "PB3(JTDO/TRACESWO)",
@@ -2797,11 +3046,11 @@
         },
         "58": {
           "name": "PB6",
-          "net": "NetU200_58"
+          "net": "PG1"
         },
         "59": {
           "name": "PB7",
-          "net": "NetU200_59"
+          "net": "PG2"
         },
         "60": {
           "name": "BOOT0",
@@ -3011,7 +3260,7 @@
     "R200": {
       "pins": {
         "1": "VBAT1_DIV",
-        "2": "NetR200_2"
+        "2": "VBAT1"
       },
       "description": "10k 0.1W 5% 0603 SMD",
       "comment": "10k",
@@ -3029,7 +3278,7 @@
     "R201": {
       "pins": {
         "1": "VBAT2_DIV",
-        "2": "NetR201_2"
+        "2": "VBAT2"
       },
       "description": "10k 0.1W 5% 0603  SMD",
       "comment": "10k",
