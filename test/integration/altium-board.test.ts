@@ -78,7 +78,8 @@ const CASES: BoardCase[] = [
   },
 ];
 
-describe("Altium netlist against the board", () => {
+// The LimeSDR-USB projects take several seconds to parse on a loaded CI runner.
+describe("Altium netlist against the board", { timeout: 30_000 }, () => {
   for (const boardCase of CASES) {
     const project = path.join(FIXTURES, boardCase.project);
     const board = path.join(FIXTURES, boardCase.board);

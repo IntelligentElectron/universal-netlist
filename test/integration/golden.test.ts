@@ -44,7 +44,15 @@ describe("Golden Reference Tests", () => {
   });
 });
 
-describe("Parser Golden Output", async () => {
+/**
+ * A parse of one of the larger boards takes one to two seconds on a developer
+ * machine and several times that on a loaded CI runner, where the default
+ * five-second limit has cut a healthy run short. Thirty seconds still catches
+ * a parser that hangs.
+ */
+const PARSE_TIMEOUT = 30_000;
+
+describe("Parser Golden Output", { timeout: PARSE_TIMEOUT }, async () => {
   const fixtures = await listAllFixtures();
 
   if (fixtures.length === 0) {
@@ -100,7 +108,7 @@ describe("Parser Golden Output", async () => {
  * For each Cadence .DSN fixture that has a golden JSON (from .dat parsing),
  * parse the .DSN directly and measure net/component coverage.
  */
-describe("DSN Parser Coverage vs DAT Golden", async () => {
+describe("DSN Parser Coverage vs DAT Golden", { timeout: PARSE_TIMEOUT }, async () => {
   const fixtures = await listAllFixtures();
   const cadenceDsnFixtures: {
     designFile: string;
@@ -188,7 +196,8 @@ describe("DSN Parser Coverage vs DAT Golden", async () => {
         const differing = common.filter(
           (net) => !sameSet(pinSet(golden.nets[net]), pinSet(dsn.nets[net]))
         );
-        const agreement = common.length > 0 ? (common.length - differing.length) / common.length : 1;
+        const agreement =
+          common.length > 0 ? (common.length - differing.length) / common.length : 1;
 
         // `common` is an intersection, so a net the parser lost and a net it
         // invented are both filtered out of it. Those are the two ways a net can
@@ -228,12 +237,16 @@ describe("DSN Parser Coverage vs DAT Golden", async () => {
             compared++;
             const dsnName = typeof dsnPin === "string" ? undefined : dsnPin.name;
             if (dsnName !== goldenName && mismatches.length < 8) {
-              mismatches.push(`${refdes}.${pinNumber}: dat="${goldenName}" dsn="${dsnName ?? "<none>"}"`);
+              mismatches.push(
+                `${refdes}.${pinNumber}: dat="${goldenName}" dsn="${dsnName ?? "<none>"}"`
+              );
             }
           }
         }
 
-        console.log(`[${projectName}] Pin names: compared=${compared} mismatched=${mismatches.length}`);
+        console.log(
+          `[${projectName}] Pin names: compared=${compared} mismatched=${mismatches.length}`
+        );
         expect(mismatches).toEqual([]);
       });
 
