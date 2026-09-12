@@ -61,6 +61,18 @@ const CASES: BoardCase[] = [
     sameName: 2862,
   },
   {
+    // Thirty-two channels of one buffer sheet by Repeat(), fed from buses the
+    // top sheet labels FMC1_P[32..1] and the like into entries called
+    // Repeat(FMC_P): the members join by index, and the wires that carry them
+    // never touch the bus. The board carries every channel's physical
+    // designator (IC49A ... IC49`), and agrees with the parser on every pin.
+    name: "FMC DIO 32ch LVDS",
+    project: "fmc-dio-32chlvdsa/FMC_DIO_32ch_lvds_a.PrjPcb",
+    board: "fmc-dio-32chlvdsa/PCB-Layout/FMC_DIO_32ch_lvds_a.PcbDoc",
+    fragmented: 0,
+    sameName: 1877,
+  },
+  {
     name: "MIXR Power",
     project: "mixr-power/MIXR Power.PrjPcb",
     board: "mixr-power/Layout/MIXR - Power.PcbDoc",

@@ -817,7 +817,7 @@ const collectNetLinks = (
       }
     }
 
-    for (const { device, member } of net.busCarriers ?? []) {
+    for (const { device, member, channel } of net.busCarriers ?? []) {
       const name = getDeviceName(device);
       if (!name) continue;
       if (device.RECORD === RECORD_TYPES.PORT) {
@@ -827,9 +827,11 @@ const collectNetLinks = (
         else port(member);
       } else if (device.RECORD === RECORD_TYPES.SHEET_ENTRY) {
         if (hasHarnessType(device)) continue;
+        // A `Repeat(NAME)` entry hands the member to the channel it indexes,
+        // which the bus code read off the member whatever the bus is called.
         const base = repeatBaseName(name);
         const key = base
-          ? entryKey(device, base, String(parseInt(member.slice(base.length), 10)))
+          ? entryKey(device, base, String(channel ?? parseInt(member.slice(base.length), 10)))
           : entryKey(device, member);
         if (key) keys.add(key);
       } else if (

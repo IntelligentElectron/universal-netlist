@@ -66,14 +66,15 @@ describe("runErc rules", () => {
       nets: {
         "Net-(D1-A)": { U1: ["1"], U2: ["1"] },
         "unconnected-(J1-X)": { U3: ["1"], U4: ["1"] },
+        NetR9_2: { R9: ["2"], U7: ["1"] }, // Altium's own pin-derived name
         NAMED: { U5: ["1"], U6: ["1"] },
       },
       components: Object.fromEntries(
-        ["U1", "U2", "U3", "U4", "U5", "U6"].map((r) => [r, { pins: {} }])
+        ["U1", "U2", "U3", "U4", "U5", "U6", "U7", "R9"].map((r) => [r, { pins: {} }])
       ),
     });
     const unnamed = r.warnings?.["net.unnamed"] as string[];
-    expect([...unnamed].sort()).toEqual(["Net-(D1-A)", "unconnected-(J1-X)"]);
+    expect([...unnamed].sort()).toEqual(["Net-(D1-A)", "NetR9_2", "unconnected-(J1-X)"]);
   });
 
   it("reports an auto-named single-pin net only under single_pin, not net.unnamed", async () => {

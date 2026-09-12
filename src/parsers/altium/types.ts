@@ -266,6 +266,11 @@ export interface BusCarrier {
   device: AltiumRecord;
   /** The member name, as the wire's net label spells it. */
   member: string;
+  /**
+   * The channel a `Repeat(NAME)` entry hands this member to: the member's
+   * index, whatever the bus is called. Present only on such an entry.
+   */
+  channel?: number;
 }
 
 // OLE types re-exported from shared cfb module

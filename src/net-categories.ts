@@ -16,6 +16,13 @@ export const categorizeNet = (name: string): NetCategory => {
   if (/^N\d+$/.test(base)) return "auto-generated"; // Cadence
   if (/^Net-\(.*\)$/i.test(base)) return "auto-generated"; // KiCad named-by-pin
   if (/^unconnected-\(.*\)$/i.test(base)) return "auto-generated"; // KiCad unconnected
+  // Altium named-by-pin: `Net<refdes>_<pin>`, the refdes expanded per channel
+  // (`NetDD12_AY1_1`, `NetIC49[_6`) or unannotated (`NetU?_1`). A refdes
+  // carries a number or a `?`, which is what keeps a hand-written `NetCtrl_EN`
+  // out. The parser's own `UnnamedNet<n>` counts too.
+  const altium = base.match(/^Net([A-Z][A-Za-z0-9[\]\\^_`?]*)_(\S+)$/);
+  if (altium && /[0-9?]/.test(altium[1])) return "auto-generated";
+  if (/^UnnamedNet\d+$/.test(base)) return "auto-generated";
   if (/\[.*\.\.]/.test(base)) return "bus-range";
   return "named";
 };

@@ -247,6 +247,12 @@ Board nets split into more than one parser net, before and after:
 | LimeSDR-USB 1v2 | 4 | 4 | 0 | |
 | solarcar-bms | 129 | 101 | 68 | the board disagrees with its schematics on 71 pins |
 | aberrant-sound-module | 1 | 1 | 0 | the board is out of date, and names overbar nets `A\D\0\` where the parser strips the bars |
+| FMC-DIO 32ch LVDS (32 channels by `Repeat()`) | 160 | 160 | 0 | |
+
+The comparison reads each component's physical designator from the board's `Texts6` stream
+rather than the logical `SOURCEDESIGNATOR` that every channel of a repeated sheet shares, so a
+multi-channel board compares every channel's pins: FMC-DIO shares 1877 pins with its schematics
+rather than the 533 the logical designators reach, and all 1877 agree in net and in name.
 
 No parser net spans two board nets on any but the last two. On misko3 the pins whose net name
 matches the board's went from 644 to 780 of 816; the rest are harness members the board names
@@ -293,6 +299,26 @@ Altium's multi-channel guide states the `Repeat(NAME)` rule this way: with the s
 Headphone1 will connect to the channel CIN1, Headphone2 will connect to channel CIN2, and so
 on"; a bus wired to a plain entry reaches every channel. ld_harness does exactly this for nine
 channels, and every one of its 437 pins now sits on a net with at least two.
+
+The guide's example names the bus after the entry, but Altium does not require it. The
+FMC-DIO top sheet wires a bus labelled `FMC1_P[32..1]` into the entry `Repeat(FMC_P)` of a
+32-way buffer symbol, and its board carries `FMC1_P8` into channel 8 (`IC49H.6`) and `FMC1_P27`
+into channel 27 (`IC49[.6`): member `n` of the bus reaches channel `n`, whatever the bus is
+called, and a descending range changes nothing. So a `Repeat(NAME)` entry accepts `NAME<n>`
+and, when every range on its run spells one prefix, that range's members as well. A run
+carrying two prefixes (`IN1_P[2..1]` and `IN1_N[2..1]` on one bus) could hand one channel two
+members, and there the entry keeps to its own name.
+
+The same sheet shows that a bus member need not touch the bus. Its `FMC1_P8` is a wire from
+the connector symbol's `LA07_P` entry to a net label, drawn nowhere near the bus, and the board
+joins it all the same: a net label names the net wherever on the sheet it is drawn, and a bus
+labelled `FMC1_P[32..1]` carries the nets `FMC1_P1` to `FMC1_P32`. A net is therefore on a run
+when a wire of its ends there, or when it is labelled with a member of a range the run carries,
+as a label on the bus or as a port or entry the bus reaches. Geometry alone decides which
+identifiers are on the run, so a wire labelled `D3` into some other symbol's entry elsewhere on
+the sheet does not drag that entry onto the bus. Before this, all 96 channel signals on FMC-DIO
+(`FMC1_P`, `FMC1_N`, `EN1_RX` for 32 channels) stopped at the top sheet and every channel's port
+was a single-pin net named after its pin, `NetIC49H_6` where the board says `FMC1_P8`.
 
 ## Multi-channel (repeated sheets)
 
