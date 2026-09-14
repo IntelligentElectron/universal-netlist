@@ -13,13 +13,14 @@ import { isErrorResult, type SearchNetsResult, type ErrorResult } from "../../ty
 export const searchNets = async (
   pattern: string,
   design: string,
-  designVariant?: string
+  designVariant?: string,
+  password?: string
 ): Promise<SearchNetsResult | ErrorResult> => {
   const parsed = parseRegexPattern(pattern, "i");
   if ("error" in parsed) return parsed;
   const regex = parsed.regex;
 
-  const netlist = await loadNetlist(design, designVariant);
+  const netlist = await loadNetlist(design, designVariant, password);
   if (isErrorResult(netlist)) {
     return netlist;
   }

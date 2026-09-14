@@ -27,6 +27,7 @@ Supported formats:
 
 ## Conventions
 
+- Protected OrCAD .DSN queries accept an optional \`password\` argument on each call; passwords are not retained. \`list_designs\` reads variant names without a password.
 - Design paths are relative to the working directory; absolute paths are also accepted
 - A design with named design variants requires \`design_variant\` on every query; use \`<Default>\` (alias \`default\`) for its unmodified/core design. Every result echoes the \`design_variant\` it describes
 - DNS (Do Not Stuff) components are flagged \`dns: true\`. Listing and search tools include them by default; traversal and ERC leave them out unless \`include_dns=true\`

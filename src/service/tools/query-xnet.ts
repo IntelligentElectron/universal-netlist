@@ -28,9 +28,10 @@ export const queryXnetByNetName = async (
   netName: string,
   skipTypes: string[] = [],
   includeDns = false,
-  designVariant?: string
+  designVariant?: string,
+  password?: string
 ): Promise<AggregatedCircuitResult | ErrorResult> => {
-  const netlist = await loadNetlist(design, designVariant);
+  const netlist = await loadNetlist(design, designVariant, password);
   if (isErrorResult(netlist)) {
     return netlist;
   }
@@ -89,9 +90,10 @@ export const queryXnetByPinName = async (
   pinSpec: string,
   skipTypes: string[] = [],
   includeDns = false,
-  designVariant?: string
+  designVariant?: string,
+  password?: string
 ): Promise<AggregatedCircuitResult | ErrorResult> => {
-  const netlist = await loadNetlist(design, designVariant);
+  const netlist = await loadNetlist(design, designVariant, password);
   if (isErrorResult(netlist)) {
     return netlist;
   }

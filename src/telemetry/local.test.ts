@@ -214,3 +214,17 @@ describe("exportTelemetry", () => {
     expect(existsSync(zipPath)).toBe(true);
   });
 });
+
+it("redacts password fields from local telemetry without changing handler input", async () => {
+  initTelemetry("password-test");
+  const args = { design: "board.DSN", password: "synthetic-private-password" };
+  const wrapped = withTelemetry("list_nets", async (received: typeof args) => {
+    expect(received.password).toBe(args.password);
+    return { content: [{ type: "text", text: "{}" }] };
+  });
+  await wrapped(args);
+  const content = readFileSync(testTelemetryPath, "utf8");
+  expect(content).not.toContain(args.password);
+  expect(content).toContain("[REDACTED]");
+  expect(args.password).toBe("synthetic-private-password");
+});

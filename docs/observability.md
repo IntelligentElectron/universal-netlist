@@ -83,7 +83,7 @@ One additional, clearly-scoped option is specific to this server:
 
 | Variable | Purpose |
 |----------|---------|
-| `OTEL_CAPTURE_TOOL_ARGS` | Set to `1`/`true` to also record raw tool arguments as `tool.args`, on both the span and the per-call log record. Off by default, since arguments may be sensitive. |
+| `OTEL_CAPTURE_TOOL_ARGS` | Set to `1`/`true` to also record tool arguments with `password` redacted as `tool.args`, on both the span and the per-call log record. Off by default, since arguments may be sensitive. |
 
 ## What gets emitted
 
@@ -101,7 +101,7 @@ One span per call, named `tool/<tool_name>`.
 | `tool.duration_ms` | Wall-clock duration of the call in milliseconds. |
 | `error.type` | Stable failure category from the closed set below. Present on failure. |
 | `error.class` | Runtime exception class, present only when the handler throws an `Error`. Intended for debugging, not grouping. |
-| `tool.args` | Full tool arguments as JSON. Only present when `OTEL_CAPTURE_TOOL_ARGS` is enabled. |
+| `tool.args` | Tool arguments as JSON with `password` replaced by `[REDACTED]`. Only present when `OTEL_CAPTURE_TOOL_ARGS` is enabled. |
 
 The span status is set to `ERROR` on failure and `OK` otherwise; exceptions are recorded on the span.
 
@@ -142,7 +142,7 @@ One structured log record per call, with body `tool/<tool_name> <outcome>` and s
 | `error.class` | Runtime exception class, present only for thrown `Error` values. |
 | `error.message` | Human-readable failure message, present on failure when available and truncated to 2,048 characters. For MCP error results, this is the result's `error` field. |
 | `enduser.id` | The host OS account name, mirroring the resource attribute below. Best-effort; omitted if it can't be read. |
-| `tool.args` | Full tool arguments as JSON, mirroring the span attribute. Only present when `OTEL_CAPTURE_TOOL_ARGS` is enabled. |
+| `tool.args` | Tool arguments as JSON with `password` replaced by `[REDACTED]`, mirroring the span attribute. Only present when `OTEL_CAPTURE_TOOL_ARGS` is enabled. |
 | `trace_id`, `span_id` | The active trace/span IDs, for trace-to-log correlation. |
 
 Log/label-based backends typically index only log-record attributes (resource attributes are dropped and span attributes are never carried), so `enduser.id`, failure messages, and captured arguments are set directly on each record to keep per-user, error, and per-input analytics possible from logs alone. Failure messages can contain file paths or fragments of tool input; they are exported whenever telemetry is enabled.

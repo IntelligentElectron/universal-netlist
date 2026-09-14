@@ -13,9 +13,10 @@ import { isErrorResult, type QueryComponentResult, type ErrorResult } from "../.
 export const queryComponent = async (
   design: string,
   refdes: string,
-  designVariant?: string
+  designVariant?: string,
+  password?: string
 ): Promise<QueryComponentResult | ErrorResult> => {
-  const netlist = await loadNetlist(design, designVariant);
+  const netlist = await loadNetlist(design, designVariant, password);
   if (isErrorResult(netlist)) {
     return netlist;
   }

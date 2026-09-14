@@ -16,9 +16,10 @@ export const listComponents = async (
   design: string,
   type: string,
   includeDns = true,
-  designVariant?: string
+  designVariant?: string,
+  password?: string
 ): Promise<ListComponentsResult | ErrorResult> => {
-  const netlist = await loadNetlist(design, designVariant);
+  const netlist = await loadNetlist(design, designVariant, password);
   if (isErrorResult(netlist)) {
     return netlist;
   }

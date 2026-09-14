@@ -27,6 +27,14 @@ It reads these from your local filesystem, on demand, when a tool is called. It
 holds their contents in memory for the life of the query. It writes nothing back
 to them.
 
+## Protected design passwords
+
+MCP design queries accept an optional OrCAD DSN password. The server uses it
+in memory for that call, does not retain it for later calls, and redacts the
+`password` field in local telemetry and opt-in OpenTelemetry argument capture.
+Your MCP client receives the password as a tool argument and may retain it in
+conversation history or client logs.
+
 ## Where your design data goes
 
 **To your MCP client, and therefore to that client's model provider.** This is

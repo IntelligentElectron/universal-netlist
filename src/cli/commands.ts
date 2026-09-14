@@ -61,6 +61,7 @@ Options:
   -v, --version        Output the version number
   -h, --help           Display help for command
   --verbose            Show per-design field mismatch breakdowns (with coverage)
+  --password-stdin     Read an OrCAD DSN password from piped input (export-json)
 
 Commands:
   update|upgrade       Check for updates and install if available
@@ -220,7 +221,8 @@ export const handleExportTelemetryCommand = async (): Promise<void> => {
  */
 export const handleExportJsonCommand = async (
   designPath?: string,
-  outPath?: string
+  outPath?: string,
+  passwordFromStdin = false
 ): Promise<void> => {
   if (!designPath) {
     console.error("Usage: universal-netlist export-json <design> [output.netlist.json]");
@@ -231,6 +233,12 @@ export const handleExportJsonCommand = async (
   let result;
   let origin: UniversalNetlistOrigin;
   try {
+    const handler = findHandler(absolutePath);
+    const isOrcadDsn =
+      handler?.name === "cadence" && extname(absolutePath).toLowerCase() === ".dsn";
+    if (passwordFromStdin && !isOrcadDsn) {
+      throw new Error("--password-stdin is only supported for OrCAD .DSN files");
+    }
     if (isUniversalFile(absolutePath)) {
       const document = parseUniversalNetlistDocument(
         readFileSync(absolutePath, "utf-8"),
@@ -239,11 +247,19 @@ export const handleExportJsonCommand = async (
       result = { nets: document.nets, components: document.components };
       origin = document.metadata.origin;
     } else {
-      const handler = findHandler(absolutePath);
       if (!handler || handler.name === "universal") {
         throw new Error(`Unsupported design format: ${absolutePath}`);
       }
-      result = await parseDesign(absolutePath);
+      let password: string | undefined;
+      if (passwordFromStdin) {
+        if (process.stdin.isTTY) {
+          throw new Error(
+            "--password-stdin requires piped input; it does not provide a hidden terminal prompt"
+          );
+        }
+        password = readFileSync(0, "utf-8").replace(/\r?\n$/, "");
+      }
+      result = await parseDesign(absolutePath, password === undefined ? undefined : { password });
       const vendor =
         handler.name === "cadence"
           ? "Cadence"

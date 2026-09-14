@@ -16,13 +16,14 @@ export const searchComponentsByRefdes = async (
   pattern: string,
   design: string,
   includeDns = true,
-  designVariant?: string
+  designVariant?: string,
+  password?: string
 ): Promise<SearchComponentsResult | ErrorResult> => {
   const parsed = parseRegexPattern(pattern, "i");
   if ("error" in parsed) return parsed;
   const regex = parsed.regex;
 
-  const netlist = await loadNetlist(design, designVariant);
+  const netlist = await loadNetlist(design, designVariant, password);
   if (isErrorResult(netlist)) {
     return netlist;
   }
@@ -65,13 +66,14 @@ export const searchComponentsByMpn = async (
   pattern: string,
   design: string,
   includeDns = true,
-  designVariant?: string
+  designVariant?: string,
+  password?: string
 ): Promise<SearchComponentsResult | ErrorResult> => {
   const parsed = parseRegexPattern(pattern, "i");
   if ("error" in parsed) return parsed;
   const regex = parsed.regex;
 
-  const netlist = await loadNetlist(design, designVariant);
+  const netlist = await loadNetlist(design, designVariant, password);
   if (isErrorResult(netlist)) {
     return netlist;
   }
@@ -126,13 +128,14 @@ export const searchComponentsByDescription = async (
   pattern: string,
   design: string,
   includeDns = true,
-  designVariant?: string
+  designVariant?: string,
+  password?: string
 ): Promise<SearchComponentsResult | ErrorResult> => {
   const parsed = parseRegexPattern(pattern, "i");
   if ("error" in parsed) return parsed;
   const regex = parsed.regex;
 
-  const netlist = await loadNetlist(design, designVariant);
+  const netlist = await loadNetlist(design, designVariant, password);
   if (isErrorResult(netlist)) {
     return netlist;
   }

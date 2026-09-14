@@ -111,8 +111,10 @@ export interface DesignVariantInfo extends DesignVariant {
   is_default?: boolean;
 }
 
-/** Options that select which assembly configuration a parser resolves. */
+/** Options for reading a design and selecting its assembly configuration. */
 export interface ParseDesignOptions {
+  /** Password for an encrypted OrCAD DSN; used in memory only. */
+  password?: string;
   /** Native variant name, or `<Default>` for the unmodified/core design. */
   variant?: string;
 }

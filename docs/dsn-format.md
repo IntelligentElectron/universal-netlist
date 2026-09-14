@@ -1522,3 +1522,33 @@ Key C++ source files for cross-referencing unknown bytes or new structure types:
 | `src/Structures/` | `dsn/structures.ts` | All structure parsers |
 
 `dsn/dsn-parser.ts` is the orchestrator that opens the container, discovers the streams and calls the above; `dsn/net-builder.ts`, `dsn/pin-resolver.ts` and `dsn/component-builder.ts` implement section 12 and have no C++ counterpart.
+
+## Password-protected streams (SYENCRYPT01)
+
+The TypeScript reader extends the vendored OpenOrCadParser implementation with
+an OrCAD-specific decryption layer; the reference C++ reader does not implement
+this layer. Record parsing still operates on the same decoded stream format.
+
+A protected Library stream retains its first 22 bytes, followed by the 20-byte
+ASCII marker `FILE_FMT_SYENCRYPT01`. Other protected streams put the marker at
+byte zero. Remove the marker and decrypt the remaining bytes with the OrCAD
+Sapphire II routine, initializing a fresh state for every stream. The password
+bytes are the key directly. Initialization includes the final permutation slot
+at index zero, which still consumes key material. Preserve the clear prefix.
+The decoded Library starts with the exact 32-byte header
+`OrCAD Windows Design           \0` (the final character is a NUL byte).
+
+`DsnReader` checks protection before the parser's best-effort record catches,
+validates the Library header, and exposes decoded buffers in memory. Shared CFB
+reading and other vendors are unchanged. Unknown `FILE_FMT_` / `FILE_FMT=`
+wrappers fail explicitly. Only printable ASCII passwords of 1–255 bytes are
+supported; no assumptions are made about Cadence's non-ASCII code pages.
+Header validation detects typical incorrect passwords, not arbitrary corruption
+in other streams: this cipher provides no authentication tag.
+
+Compatibility was checked against one private protected DSN containing 25
+protected streams, with the exported components and nets matching the existing
+independent decryption workflow. The private design and its password are not
+fixtures. Committed tests use synthetic known-answer vectors from an independent
+Python transcription, including one-byte and 255-byte keys and payloads longer
+than the 256-byte cipher state, plus wrapper and password error cases.

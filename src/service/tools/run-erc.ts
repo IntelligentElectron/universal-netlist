@@ -15,6 +15,7 @@ export interface ErcOptions {
   includeRules?: string[];
   excludeRules?: string[];
   designVariant?: string;
+  password?: string;
 }
 
 export interface ErcResult {
@@ -138,7 +139,7 @@ export const runErc = async (
   design: string,
   opts: ErcOptions = {}
 ): Promise<ErcResult | ErrorResult> => {
-  const netlist = await loadNetlist(design, opts.designVariant);
+  const netlist = await loadNetlist(design, opts.designVariant, opts.password);
   if (isErrorResult(netlist)) return netlist;
 
   const includeDns = opts.includeDns ?? false;

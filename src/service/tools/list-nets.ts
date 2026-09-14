@@ -8,9 +8,10 @@ import { isErrorResult, type ListNetsResult, type ErrorResult } from "../../type
  */
 export const listNets = async (
   design: string,
-  designVariant?: string
+  designVariant?: string,
+  password?: string
 ): Promise<ListNetsResult | ErrorResult> => {
-  const netlist = await loadNetlist(design, designVariant);
+  const netlist = await loadNetlist(design, designVariant, password);
   if (isErrorResult(netlist)) {
     return netlist;
   }
