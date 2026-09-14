@@ -396,6 +396,26 @@ describe("Connectivity", () => {
       expect(isConnected(pinA, overlapping)).toBe(false);
     });
 
+    it("keeps apart pins drawn from one point", () => {
+      const pinA: AltiumRecord = {
+        index: 0,
+        RECORD: RECORD_TYPES.PIN,
+        coords: [
+          [0, 0],
+          [300000, 0],
+        ],
+      };
+      const pinB: AltiumRecord = {
+        index: 1,
+        RECORD: RECORD_TYPES.PIN,
+        coords: [
+          [0, 0],
+          [0, 300000],
+        ],
+      };
+      expect(isConnected(pinA, pinB)).toBe(false);
+    });
+
     it("should detect pin connected to wire", () => {
       const wire: AltiumRecord = {
         index: 0,
@@ -487,6 +507,18 @@ describe("Connectivity", () => {
       };
 
       // Net labels with same Text are connected globally (off-page connection)
+      expect(isConnected(label1, label2)).toBe(true);
+    });
+
+    it("connects net labels whose Text differs only in case", () => {
+      const label1: AltiumRecord = {
+        index: 0,
+        RECORD: RECORD_TYPES.NET_LABEL,
+        Text: "VBAT",
+        coords: [[0, 0]],
+      };
+      const label2: AltiumRecord = { ...label1, index: 1, Text: "VBat", coords: [[900000, 0]] };
+
       expect(isConnected(label1, label2)).toBe(true);
     });
 

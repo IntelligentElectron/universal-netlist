@@ -6,7 +6,7 @@
  */
 
 import type { AltiumRecord } from "./types.js";
-import { RECORD_TYPES } from "./types.js";
+import { RECORD_TYPES, identifierKey } from "./types.js";
 import {
   COORDINATE_SCALE,
   TOUCH_TOLERANCE,
@@ -60,15 +60,10 @@ class UnionFind {
 class SpatialIndex {
   private cellSize: number;
   private grid: Map<string, number[]> = new Map();
-  private pointToDevices: Map<string, number[]> = new Map();
   private segmentCells: Map<number, Set<string>> = new Map();
 
   constructor(cellSize = COORDINATE_SCALE) {
     this.cellSize = cellSize;
-  }
-
-  private coordKey(x: number, y: number): string {
-    return `${x},${y}`;
   }
 
   private cellsForSegment(p1: Coordinate, p2: Coordinate): Set<string> {
@@ -96,12 +91,6 @@ class SpatialIndex {
     const allCells = new Set<string>();
 
     for (const coord of device.coords) {
-      const coordKeyStr = this.coordKey(coord[0], coord[1]);
-      if (!this.pointToDevices.has(coordKeyStr)) {
-        this.pointToDevices.set(coordKeyStr, []);
-      }
-      this.pointToDevices.get(coordKeyStr)!.push(deviceIdx);
-
       for (const cell of this.cellsForSegment(coord, coord)) allCells.add(cell);
     }
 
@@ -146,10 +135,6 @@ class SpatialIndex {
     }
     candidates.delete(device.index);
     return candidates;
-  }
-
-  getPointToDevices(): Map<string, number[]> {
-    return this.pointToDevices;
   }
 }
 
@@ -214,15 +199,13 @@ export const isConnected = (deviceA: AltiumRecord, deviceB: AltiumRecord): boole
   const segmentsA = getLineSegments(deviceA);
   const segmentsB = getLineSegments(deviceB);
 
-  // Two pins meet end to end or not at all. A pin's whole length is kept so
-  // that a wire ending part way along it still joins, as imported designs
-  // draw them; but two pins lying along one line, the stacked resistors of the
-  // LimeSDR-USB FPGA bank sheet, are not joined by overlapping, and the board
-  // keeps them apart.
+  // Two pins meet tip to tip or not at all. A wire may end anywhere along a pin,
+  // as imported designs draw them, but a pin's inner end is its body: pins drawn
+  // from one point, or overlapping along one line, stay apart.
   if (deviceA.RECORD === RECORD_TYPES.PIN && deviceB.RECORD === RECORD_TYPES.PIN) {
-    const endsA = segmentsA.flat();
-    const endsB = segmentsB.flat();
-    return endsA.some((a) => endsB.some((b) => pointsTouch(a, b)));
+    const tipA = deviceA.coords?.[deviceA.coords.length - 1];
+    const tipB = deviceB.coords?.[deviceB.coords.length - 1];
+    return tipA !== undefined && tipB !== undefined && pointsTouch(tipA, tipB);
   }
 
   for (const segment of segmentsA) {
@@ -247,7 +230,8 @@ export const isConnected = (deviceA: AltiumRecord, deviceB: AltiumRecord): boole
     deviceA.RECORD === RECORD_TYPES.HARNESS_ENTRY &&
     deviceB.RECORD === RECORD_TYPES.HARNESS_ENTRY &&
     typeof deviceA.harnessSignal === "string" &&
-    deviceA.harnessSignal === deviceB.harnessSignal
+    typeof deviceB.harnessSignal === "string" &&
+    identifierKey(deviceA.harnessSignal) === identifierKey(deviceB.harnessSignal)
   ) {
     return true;
   }
@@ -262,8 +246,8 @@ export const isConnected = (deviceA: AltiumRecord, deviceB: AltiumRecord): boole
  * The name under which a device joins others of its kind without a wire, or
  * undefined for a device that only joins by geometry.
  *
- * Power ports and net labels of one name are one net. Ports of one name are one
- * net too, but a port never joins a net label: Altium's connectivity guide
+ * Power ports and net labels of one name, in any case, are one net. Ports of one
+ * name are one net too, but a port never joins a net label: Altium's connectivity guide
  * states that a port called `Inta` does not connect to a net label called
  * `Inta`, they must be wired. A sheet entry never joins by name at all: several
  * sheet symbols may carry entries of one name that lead to different nets.
@@ -272,9 +256,9 @@ const namedDeviceKey = (device: AltiumRecord): string | undefined => {
   const name = device.Text ?? device.TEXT ?? device.Name ?? device.NAME;
   if (name === undefined || name === null || name === "") return undefined;
   if (device.RECORD === RECORD_TYPES.POWER_PORT || device.RECORD === RECORD_TYPES.NET_LABEL) {
-    return `label:${String(name)}`;
+    return `label:${identifierKey(String(name))}`;
   }
-  if (device.RECORD === RECORD_TYPES.PORT) return `port:${String(name)}`;
+  if (device.RECORD === RECORD_TYPES.PORT) return `port:${identifierKey(String(name))}`;
   return undefined;
 };
 
@@ -316,20 +300,11 @@ export const findAllConnectedComponents = (devices: AltiumRecord[]): AltiumRecor
     if (device.RECORD !== RECORD_TYPES.HARNESS_ENTRY) continue;
     const signal = device.harnessSignal;
     if (typeof signal !== "string" || !signal) continue;
-    if (!harnessSignals.has(signal)) {
-      harnessSignals.set(signal, []);
+    const key = identifierKey(signal);
+    if (!harnessSignals.has(key)) {
+      harnessSignals.set(key, []);
     }
-    harnessSignals.get(signal)!.push(device.index);
-  }
-
-  // Union devices sharing exact coordinates
-  for (const deviceIndices of spatialIndex.getPointToDevices().values()) {
-    if (deviceIndices.length > 1) {
-      const first = deviceIndices[0];
-      for (let i = 1; i < deviceIndices.length; i++) {
-        uf.union(first, deviceIndices[i]);
-      }
-    }
+    harnessSignals.get(key)!.push(device.index);
   }
 
   // Union geometrically connected devices (only check candidates in same cells)

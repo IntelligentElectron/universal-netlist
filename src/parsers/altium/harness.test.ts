@@ -473,6 +473,52 @@ describe("assignHarnessSignals", () => {
     expect(records[3].harnessSignal).toBe(records[1].harnessSignal);
   });
 
+  /** A connector leaving through the port TOP, with the entry SUB at (460,280). */
+  const parentConnector = (): HarnessRecord[] => [
+    { RECORD: "215", ...at(400, 300), XSize: "60", PrimaryConnectionPosition: "20" },
+    { RECORD: "216", Name: "SUB", DistanceFromTop: "2" },
+  ];
+  const topPort: HarnessRecord = { RECORD: "18", Name: "TOP", ...at(300, 280), Width: "100" };
+  const nestedSignal = harnessSignalKey(harnessSignalKey(portBundle("TOP"), "SUB"), "EN");
+
+  it("gives a connector on a harness from another connector's entry that entry's member", () => {
+    const records: HarnessRecord[] = [
+      ...parentConnector(),
+      { RECORD: "215", ...at(520, 300), XSize: "60", PrimaryConnectionPosition: "20" },
+      { RECORD: "216", Name: "EN", DistanceFromTop: "1" },
+    ];
+    assignHarnessSignals(readHarnessConnectors(records), {
+      records: [topPort],
+      buses: [harnessLine(460, 280, 520, 280)],
+    });
+
+    expect(records[3].harnessSignal).toBe(nestedSignal);
+  });
+
+  it("nests a connector whose primary meets another connector's entry directly", () => {
+    const records: HarnessRecord[] = [
+      ...parentConnector(),
+      { RECORD: "215", ...at(460, 300), XSize: "60", PrimaryConnectionPosition: "20" },
+      { RECORD: "216", Name: "EN", DistanceFromTop: "1" },
+    ];
+    assignHarnessSignals(readHarnessConnectors(records), { records: [topPort], buses: [] });
+
+    expect(records[3].harnessSignal).toBe(nestedSignal);
+  });
+
+  it("reports a sheet entry a connector's entry reaches as one bundle with that member", () => {
+    const links = assignHarnessSignals(readHarnessConnectors(parentConnector()), {
+      records: [
+        topPort,
+        { RECORD: "15", ...at(520, 300), XSize: "40" },
+        { RECORD: "16", Name: "DRIVER", DistanceFromTop: "2", HarnessType: "D" },
+      ],
+      buses: [harnessLine(460, 280, 520, 280)],
+    });
+
+    expect(links).toEqual([[entryBundle(1, "DRIVER"), harnessSignalKey(portBundle("TOP"), "SUB")]]);
+  });
+
   it("leaves a connector that reaches no harness line or port alone", () => {
     const records: HarnessRecord[] = [
       { RECORD: "215", ...at(10, 20), XSize: "50", PrimaryConnectionPosition: "5" },

@@ -269,9 +269,12 @@ const SIGNAL_SEPARATOR = "\u0000";
 export const harnessSignalKey = (bundle: string, member: string): string =>
   `${bundle}${SIGNAL_SEPARATOR}${member}`;
 
-/** Split a signal key back into the bundle and member it was built from. */
+/**
+ * Split a signal key back into the bundle and member it was built from. A nested
+ * bundle is itself a signal key, so the member follows the last separator.
+ */
 export const splitHarnessSignalKey = (key: string): { bundle: string; member: string } => {
-  const separator = key.indexOf(SIGNAL_SEPARATOR);
+  const separator = key.lastIndexOf(SIGNAL_SEPARATOR);
   if (separator < 0) return { bundle: key, member: "" };
   return { bundle: key.slice(0, separator), member: key.slice(separator + 1) };
 };
@@ -325,14 +328,15 @@ export interface HarnessSheetObjects {
  * Say which signal every harness entry carries, and what Altium calls its net.
  *
  * A harness connector hands its bundle off at its primary connection point, which
- * meets a signal harness line or a harness-typed port. Connectors reaching one
- * line or one port carry one bundle, so their entries of one name are one signal,
- * whatever the wires either side are labelled.
+ * meets a signal harness line, a harness-typed port or an entry of another
+ * connector. Connectors reaching one line or one port carry one bundle, so their
+ * entries of one name are one signal, whatever the wires either side are labelled.
  *
  * A bundle is identified by the ports and sheet entries it reaches (portBundle,
- * entryBundle), which the project resolves across sheets; a bundle reaching
- * neither is local to its sheet. A net label on the harness line names the nets it
- * carries `<label>.<entry name>`.
+ * entryBundle), which the project resolves across sheets, and by the connector
+ * entries it leaves from (the parent bundle's signal key); a bundle reaching none
+ * is local to its sheet. A net label on the harness line names the nets it carries
+ * `<label>.<entry name>`.
  *
  * Returns the identities of every bundle known by more than one.
  */
@@ -423,6 +427,36 @@ export const assignHarnessSignals = (
     }
   });
 
+  // An entry meeting a harness line, a port or another connector's primary carries
+  // a nested bundle: that member of its own connector's bundle.
+  const nested: { node: number; parent: number; member: string }[] = [];
+  connectors.forEach((connector, parent) => {
+    for (const entry of connector.entries) {
+      const member = recordName(entry);
+      if (!member) continue;
+      const point = scaledPoint(entry);
+      const node = connectors.length + lines.length + nested.length;
+      let reaches = false;
+      const line = lineAt(point);
+      if (line !== undefined) {
+        groups.union(line, node);
+        reaches = true;
+      }
+      connectors.forEach((child, id) => {
+        if (id === parent || !pointsTouch(child.primary, point)) return;
+        groups.union(id, node);
+        attached.add(id);
+        reaches = true;
+      });
+      for (const port of ports) {
+        if (!pointsTouch(port.end, point)) continue;
+        identify(node, port.identity);
+        reaches = true;
+      }
+      if (reaches) nested.push({ node, parent, member });
+    }
+  });
+
   const identitiesByRoot = new Map<number, Set<string>>();
   for (const [node, identities] of identitiesByNode) {
     const root = groups.find(node);
@@ -436,11 +470,27 @@ export const assignHarnessSignals = (
     labelByRoot.set(root, preferredName(labelByRoot.get(root), label));
   }
 
+  const bundles = new Map<number, string>();
+  const bundleOf = (root: number, visiting: ReadonlySet<number>): string => {
+    const known = bundles.get(root);
+    if (known !== undefined) return known;
+    const identities = new Set(identitiesByRoot.get(root));
+    const inside = new Set([...visiting, root]);
+    for (const { node, parent, member } of nested) {
+      const parentRoot = groups.find(parent);
+      if (groups.find(node) !== root || inside.has(parentRoot)) continue;
+      identities.add(harnessSignalKey(bundleOf(parentRoot, inside), member));
+    }
+    identitiesByRoot.set(root, identities);
+    const bundle = identities.size > 0 ? [...identities].sort()[0] : `local|${root}`;
+    bundles.set(root, bundle);
+    return bundle;
+  };
+
   connectors.forEach((connector, id) => {
     if (!attached.has(id)) return;
     const root = groups.find(id);
-    const identities = identitiesByRoot.get(root);
-    const bundle = identities ? [...identities].sort()[0] : `local|${root}`;
+    const bundle = bundleOf(root, new Set());
     const harnessLabel = labelByRoot.get(root);
 
     for (const entry of connector.entries) {
@@ -450,6 +500,7 @@ export const assignHarnessSignals = (
       if (harnessLabel !== undefined) entry.harnessNetName = `${harnessLabel}.${member}`;
     }
   });
+  for (const { node } of nested) bundleOf(groups.find(node), new Set());
 
   return [...identitiesByRoot.values()]
     .filter((identities) => identities.size > 1)

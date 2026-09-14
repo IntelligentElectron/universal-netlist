@@ -76,7 +76,7 @@ const findConnectableDevices = (schematic: AltiumSchematic): AltiumRecord[] => {
     RECORD_TYPES.NET_LABEL,
     RECORD_TYPES.POWER_PORT,
     RECORD_TYPES.PORT,
-    // Harness entries are given a Location by positionHarnessEntries(); a wire
+    // Harness entries are given a Location by readHarnessConnectors(); a wire
     // landing on one joins the signal that entry names.
     RECORD_TYPES.HARNESS_ENTRY,
     // A sheet entry is positioned by positionSheetEntries() from the sheet

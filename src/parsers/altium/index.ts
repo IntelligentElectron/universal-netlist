@@ -28,6 +28,7 @@ import {
   RECORD_TYPE_NAMES,
   PIN_ELECTRICAL_TYPES,
   POWER_PORT_STYLES,
+  identifierKey,
 } from "./types.js";
 import { OleReader, readOleStream, readOptionalOleStream } from "../ole-reader/ole-reader.js";
 import { parseRecords, findRecords } from "./record-parser.js";
@@ -556,16 +557,16 @@ export const readSchematicRecords = (
  *
  * - `port|<name>`: what a port asserts under Flat and Global scope, where
  *   ports join by name across the project.
- * - `hier|<child>@<parent>#<symbol index>@<channel>|<name>`: what a port on a
- *   document asserts about the sheet symbol that placed the document, and what
- *   a sheet entry of that name on the symbol asserts about it. This pair is how
- *   a signal crosses a sheet boundary under every scope, and the only way under
+ * - `hier|<instance>|<name>`: what a port on a document instance asserts about the
+ *   sheet symbol channel that placed it (see DocumentInstance.key), and what a sheet
+ *   entry of that name on the symbol asserts about it. This pair is how a signal
+ *   crosses a sheet boundary under every scope, and the only way under
  *   Hierarchical scope. A plain symbol has the one channel `1`; a `Repeat()`
- *   symbol has one per channel index, which a `Repeat(NAME)` entry's bus
- *   member `NAME<index>` addresses and a plain entry reaches all of.
- * - `entry|<parent>|<symbol index>|<child>|<name>|<channel index>`: an entry
- *   as written, resolved to the `hier` form once every document has been read
- *   and the symbol's channels are known.
+ *   symbol has one per channel index, which a `Repeat(NAME)` entry's bus member
+ *   `NAME<index>` addresses and a plain entry reaches all of.
+ * - `entry|<parent instance>|<parent document>|<symbol index>|<name>|<channel index>`:
+ *   an entry as written, resolved to the `hier` form once the symbol's channels
+ *   are known.
  * - `power|<name>`: a power port, which is one net across the project unless
  *   the scope makes power ports local.
  * - `harness|<bundle signal key>`: a bus member reaching a range identifier
@@ -774,8 +775,8 @@ const hasHarnessType = (device: AltiumRecord): boolean =>
 /**
  * Collect every net's cross-sheet identity claims (see NetLinkGroup).
  *
- * `placement` is what this document's ports claim about: the sheet symbol that
- * placed the document, or the document itself when nothing did.
+ * `placement` is the document instance this sheet is read as (see
+ * DocumentInstance.key).
  */
 const collectNetLinks = (
   nets: AltiumNet[],
@@ -790,9 +791,8 @@ const collectNetLinks = (
     const owner = entry.OwnerIndex ?? entry.OWNERINDEX;
     if (owner === undefined || owner === null || owner === "") return undefined;
     const symbolIndex = parseInt(String(owner), 10);
-    const child = sheetSymbolChild(findRecordByIndex(schematic, symbolIndex));
-    if (!child) return undefined;
-    return `entry|${documentName}|${symbolIndex}|${child}|${name}|${channel}`;
+    if (!sheetSymbolChild(findRecordByIndex(schematic, symbolIndex))) return undefined;
+    return `entry|${placement}|${documentName}|${symbolIndex}|${name}|${channel}`;
   };
 
   for (const net of nets) {
@@ -877,20 +877,23 @@ const collectNetLinks = (
 const linkedNetGroups = (
   links: readonly NetLinkGroup[],
   scope: NetIdentifierScope,
-  channelIndices: ReadonlyMap<string, readonly number[]>
+  symbolChannels: ReadonlyMap<string, readonly number[]>
 ): Map<string, Set<string>> => {
   const portsJoinByName = scope === "flat" || scope === "global";
   const powerIsGlobal = powerPortsAreGlobal(scope);
 
   // A plain entry reaches every channel the symbol instantiates; a
   // `Repeat(NAME)` entry's bus member reaches the one channel it indexes.
-  const resolveKeys = (key: string): string[] => {
+  // Names match ignoring case.
+  const resolveKeys = (key: string): string[] => resolveKey(key).map(identifierKey);
+  const resolveKey = (key: string): string[] => {
     const [kind] = key.split("|", 1);
     if (kind === "entry") {
-      const [, parent, symbolIndex, child, name, channel] = key.split("|");
-      const placement = `${child}@${parent}#${symbolIndex}`;
-      const channels = channel ? [channel] : (channelIndices.get(placement) ?? []).map(String);
-      return channels.map((index) => `hier|${placement}@${index}|${name}`);
+      const [, parent, document, symbolIndex, name, channel] = key.split("|");
+      const channels = channel
+        ? [channel]
+        : (symbolChannels.get(`${document}#${symbolIndex}`) ?? []).map(String);
+      return channels.map((index) => `hier|${parent}/${symbolIndex}@${index}|${name}`);
     }
     if (kind === "port") return portsJoinByName ? [key] : [];
     if (kind === "power") return powerIsGlobal ? [key] : [];
@@ -933,9 +936,7 @@ const linkedNetGroups = (
 /**
  * Parse one Altium .SchDoc document.
  *
- * `placement` is the channel of the sheet symbol that placed it, as
- * `<child>@<parent>#<symbol index>@<channel>`, or the document's own name when
- * nothing placed it (see NetLinkGroup).
+ * `placement` is the document instance it is read as (see DocumentInstance.key).
  */
 const parseAltiumDocument = (
   read: ReadDocument,
@@ -1218,30 +1219,25 @@ const recordText = (record: AltiumRecord | undefined): string => {
 interface SheetPlacement {
   /** The parent document. */
   parent: ReadDocument;
+  /** The parent's position in the project, which orders symbols across documents. */
+  parentOrder: number;
   symbol: AltiumRecord;
-  /** `<child>@<parent>#<symbol index>`, which the channel keys extend. */
-  placement: string;
   /** The channels the symbol instantiates: one for a plain symbol, several for `Repeat()`. */
   channels: RepeatChannel[];
+  /** `NAME` of a `Repeat(NAME,start,end)` designator. */
+  repeatName?: string;
 }
 
 /**
  * Every sheet symbol in the project, grouped by the document it places.
  *
- * A sheet symbol (RECORD=15) owns two children that matter here: its
- * designator (RECORD=32) and the child document it instantiates (RECORD=33).
- * The same document placed by several symbols, or once by a symbol whose
- * designator is a `Repeat(...)` expression, is a multi-channel sheet: Altium's
- * multi-channel guide allows either, and expands the designators of the child
- * the same way for both.
- *
- * The compiled `.PrjPcbStructure` records the same symbols, but Altium only
- * writes it when a project has been compiled and the file is frequently not
- * committed, so the symbols are read from the schematics themselves.
+ * A sheet symbol (RECORD=15) owns its designator (RECORD=32) and the child
+ * document it instantiates (RECORD=33). The compiled `.PrjPcbStructure` records
+ * the same symbols but is frequently not committed, so the schematics are read.
  */
 const findSheetPlacements = (documents: readonly ReadDocument[]): Map<string, SheetPlacement[]> => {
   const placements = new Map<string, SheetPlacement[]>();
-  for (const parent of documents) {
+  documents.forEach((parent, parentOrder) => {
     for (const symbol of flattenHierarchy(parent.hierarchical)) {
       if (symbol.RECORD !== RECORD_TYPES.SHEET_SYMBOL) continue;
       const child = sheetSymbolChild(symbol);
@@ -1253,51 +1249,130 @@ const findSheetPlacements = (documents: readonly ReadDocument[]): Map<string, Sh
       const placed = placements.get(child) ?? [];
       placed.push({
         parent,
+        parentOrder,
         symbol,
-        placement: `${child}@${parent.name}#${symbol.index}`,
         channels: repeated.length > 0 ? repeated : [{ designator, index: 1 }],
+        repeatName:
+          repeated.length > 0
+            ? repeated[0].designator.slice(0, -String(repeated[0].index).length)
+            : undefined,
       });
       placements.set(child, placed);
     }
-  }
+  });
   return placements;
 };
 
-/** One instance of a multi-channel sheet. */
-interface SheetChannel {
-  placement: SheetPlacement;
-  /** `<child>@<parent>#<symbol index>@<channel index>`: where this channel's ports and the symbol's entries meet. */
+/** One instance of a document: the sheet symbol channels that place it, from the top. */
+interface DocumentInstance {
+  /**
+   * The unplaced document's name, then `/<symbol index>@<channel index>` per level.
+   * Its ports meet the entries of the last level's symbol.
+   */
   key: string;
-  /** The room name, which the channel designator format and local net names carry. */
+  path: { placement: SheetPlacement; channel: RepeatChannel }[];
+  /** The room name, which `$RoomName` and local net names carry. */
   room: string;
-  /** 1-based position among the document's channels, for `$ChannelIndex` and `$ChannelAlpha`. */
+  /** 1-based position among the document's instances, for `$ChannelIndex` and `$ChannelAlpha`. */
   ordinal: number;
 }
 
-/**
- * The channels a document is instantiated as, across all of its placements.
- *
- * Two symbols carrying one designator would give two channels one room, and so
- * one designator for each part and one name for each local net. Altium reports
- * that as a duplicate sheet symbol name; here the later room is numbered so
- * nothing is folded together.
- */
-const sheetChannels = (placements: readonly SheetPlacement[]): SheetChannel[] => {
-  const channels: SheetChannel[] = [];
-  const rooms = new Map<string, number>();
-  for (const placement of placements) {
-    for (const channel of placement.channels) {
-      const seen = (rooms.get(channel.designator) ?? 0) + 1;
-      rooms.set(channel.designator, seen);
-      channels.push({
-        placement,
-        key: `${placement.placement}@${channel.index}`,
-        room: seen === 1 ? channel.designator : `${channel.designator}_${seen}`,
-        ordinal: channels.length + 1,
-      });
+/** Natural order ignoring case: runs of digits compare as numbers, everything else by code. */
+const naturalCompare = (a: string, b: string): number => {
+  const partsA = a.toUpperCase().match(/\d+|\D+/g) ?? [];
+  const partsB = b.toUpperCase().match(/\d+|\D+/g) ?? [];
+  for (let i = 0; i < Math.min(partsA.length, partsB.length); i++) {
+    const [x, y] = [partsA[i], partsB[i]];
+    const numeric = /^\d/.test(x) && /^\d/.test(y) ? Number(x) - Number(y) : 0;
+    if (numeric !== 0) return numeric;
+    if (!/^\d/.test(x) || !/^\d/.test(y)) {
+      if (x !== y) return x < y ? -1 : 1;
     }
   }
-  return channels;
+  return partsA.length - partsB.length;
+};
+
+/**
+ * Every instance of every document, numbered as Altium numbers them.
+ *
+ * A document is instantiated once per path of sheet symbol channels from an
+ * unplaced document, so a sheet inside a repeated sheet repeats with it. Instances
+ * are ordered by path, level by level: by channel designator in natural order,
+ * then between symbols of one designator, the later in the project first. A room
+ * is the last level's channel designator; rooms that repeat are numbered in
+ * instance order. Room naming style `1` writes channel and room numbers as letters.
+ */
+const documentInstances = (
+  documents: readonly ReadDocument[],
+  placements: ReadonlyMap<string, readonly SheetPlacement[]>,
+  roomNamingStyle: string
+): Map<string, DocumentInstance[]> => {
+  type Path = Pick<DocumentInstance, "key" | "path">;
+  const paths = new Map<string, Path[]>();
+  const visiting = new Set<string>();
+  const pathsOf = (name: string): Path[] => {
+    const known = paths.get(name);
+    if (known) return known;
+    const placed = placements.get(name) ?? [];
+    if (placed.length === 0 || visiting.has(name)) return [{ key: name, path: [] }];
+    visiting.add(name);
+    const result = placed.flatMap((placement) =>
+      pathsOf(placement.parent.name).flatMap((parent) =>
+        placement.channels.map((channel) => ({
+          key: `${parent.key}/${placement.symbol.index}@${channel.index}`,
+          path: [...parent.path, { placement, channel }],
+        }))
+      )
+    );
+    visiting.delete(name);
+    paths.set(name, result);
+    return result;
+  };
+
+  const compareLevel = (a: Path["path"][number], b: Path["path"][number]): number =>
+    naturalCompare(a.channel.designator, b.channel.designator) ||
+    (a.placement === b.placement
+      ? a.channel.index - b.channel.index
+      : b.placement.parentOrder - a.placement.parentOrder ||
+        b.placement.symbol.index - a.placement.symbol.index);
+  const comparePath = (a: Path, b: Path): number => {
+    for (let i = 0; i < Math.min(a.path.length, b.path.length); i++) {
+      const order = compareLevel(a.path[i], b.path[i]);
+      if (order !== 0) return order;
+    }
+    return a.path.length - b.path.length;
+  };
+  const number = (n: number): string => (roomNamingStyle === "1" ? channelAlpha(n) : String(n));
+
+  const instances = new Map<string, DocumentInstance[]>();
+  for (const document of documents) {
+    const ordered = [...pathsOf(document.name)].sort(comparePath);
+    const rooms = ordered.map(({ path: levels }) => {
+      const leaf = levels[levels.length - 1];
+      if (!leaf) return document.name;
+      const { placement, channel } = leaf;
+      return placement.repeatName === undefined
+        ? channel.designator
+        : `${placement.repeatName}${number(channel.index)}`;
+    });
+    const repeats = new Map<string, number>();
+    for (const room of rooms) repeats.set(room, (repeats.get(room) ?? 0) + 1);
+    const seen = new Map<string, number>();
+    instances.set(
+      document.name,
+      ordered.map((instance, i) => {
+        const room = rooms[i];
+        const n = (seen.get(room) ?? 0) + 1;
+        seen.set(room, n);
+        return {
+          ...instance,
+          room: repeats.get(room)! > 1 ? `${room}${number(n)}` : room,
+          ordinal: i + 1,
+        };
+      })
+    );
+  }
+  return instances;
 };
 
 /**
@@ -1520,27 +1595,26 @@ export const planChannelNetNames = (
       netNameMap.set(netName, `Net${expanded}_${pinName.pin}`);
     } else {
       // A `Repeat()` sheet entry signal, or a local net the parent never reaches
-      // at all. Either way it belongs to this channel alone.
-      netNameMap.set(netName, `${netName}_${roomName}`);
+      // at all. Either way it belongs to this channel alone, named the way the
+      // channel's designators are.
+      netNameMap.set(netName, applyChannelFormat(channelFormat, netName, roomName, channelIndex));
     }
   }
   return netNameMap;
 };
 
 /**
- * One channel of a multi-channel sheet, as its own document.
+ * One instance of a multi-instance sheet, as its own document.
  *
- * The sheet is drawn once and placed several times, so every part and most
- * nets exist once per channel under a name that says which (see
- * planChannelNetNames and applyChannelFormat). What the channel claims about
- * other sheets is rewritten the same way: its ports claim the symbol that
- * placed it, and the channel within that symbol, so a `Repeat(NAME)` entry's
- * bus member `NAME<n>` reaches channel `n` alone while a plain entry reaches
- * every channel.
+ * The sheet is drawn once and instantiated several times, so every part and most
+ * nets exist once per instance under a name that says which (see
+ * planChannelNetNames and applyChannelFormat). Its claims about other sheets name
+ * the instance: its ports meet the symbol channel that placed it, and its entries
+ * reach the instances of the sheets it places.
  */
 const channelDocument = (
   base: ParsedDocument,
-  channel: SheetChannel,
+  channel: DocumentInstance,
   channelFormat: string,
   scope: ChannelNetScope,
   documentName: string
@@ -1585,14 +1659,15 @@ const channelDocument = (
     components[refdes(origRefdes)] = { ...component, pins };
   }
 
-  const ownKeys = `hier|${documentName}|`;
+  const own = [`hier|${documentName}|`, `entry|${documentName}|`];
   const links: NetLinkGroup[] = base.links.map((group) => ({
     net: group.net === undefined ? undefined : rename(group.net),
     name: group.name === undefined ? undefined : rename(group.name),
-    keys: group.keys.flatMap((key) => {
-      if (!key.startsWith(ownKeys)) return [key];
-      const name = key.slice(ownKeys.length);
-      return [`hier|${channel.key}|${name}`];
+    keys: group.keys.map((key) => {
+      const prefix = own.find((start) => key.startsWith(start));
+      return prefix
+        ? `${prefix.slice(0, prefix.indexOf("|") + 1)}${channel.key}|${key.slice(prefix.length)}`
+        : key;
     }),
   }));
 
@@ -1654,6 +1729,7 @@ const parseAltiumProject = async (
 
   const documents = schdocPaths.map(readDocument);
   const placements = findSheetPlacements(documents);
+  const instances = documentInstances(documents, placements, options.roomNamingStyle);
 
   // Which scope the project netlists under is only known once every sheet has
   // been read, because Automatic decides it from what the design draws. The
@@ -1661,19 +1737,23 @@ const parseAltiumProject = async (
   // they were read, so that naming ties still fall the way they always have.
   const pending: ParsedDocument[] = [];
   for (const read of documents) {
-    const channels = sheetChannels(placements.get(read.name) ?? []);
+    const channels = instances.get(read.name) ?? [];
     if (channels.length <= 1) {
       pending.push(parseAltiumDocument(read, naming, channels[0]?.key));
       continue;
     }
 
     const base = parseAltiumDocument(read, naming);
-    // What every channel shares is whatever the placing symbols' plain entries
-    // carry across. The bundle definitions live beside each parent document,
-    // whose sheet entry declares the harness type; nesting is declared on the
-    // entry records of the parent schematic.
+    // The channels of one `Repeat()` symbol in one parent instance share what its
+    // plain entries carry; instances placed by different symbols, or under
+    // different parent instances, share nothing by name. The bundle definitions
+    // live beside the parent document, whose sheet entry declares the harness
+    // type; nesting is declared on the parent's entry records.
     const sharedNames = new Set<string>();
-    for (const placement of placements.get(read.name) ?? []) {
+    const placed = placements.get(read.name) ?? [];
+    const sharing =
+      placed.length === 1 && (instances.get(placed[0].parent.name) ?? []).length <= 1 ? placed : [];
+    for (const placement of sharing) {
       const harnessDefinitions = await readHarnessDefinitions(placement.parent.path);
       const nestedHarnessTypes = collectNestedHarnessTypes(
         flattenHierarchy(placement.parent.hierarchical) as never
@@ -1753,12 +1833,22 @@ const parseAltiumProject = async (
     }
   });
 
-  const channelIndices = new Map<string, number[]>();
+  // Names written on different sheets meet ignoring case, as they do on one.
+  const spellings = new Map<string, Set<string>>();
+  for (const name of Object.keys(allNets)) {
+    if (rankOf(name) >= ranks.pin) continue;
+    const key = identifierKey(name);
+    spellings.set(key, (spellings.get(key) ?? new Set<string>()).add(name));
+  }
+  const caseRenames = mergeNetGroups(allNets, allComponents, spellings.values(), rankOf);
+  const caseRenamed = (name: string): string => caseRenames.get(name) ?? name;
+
+  const symbolChannels = new Map<string, number[]>();
   for (const placed of placements.values()) {
-    for (const placement of placed) {
-      channelIndices.set(
-        placement.placement,
-        placement.channels.map((channel) => channel.index)
+    for (const { parent, symbol, channels } of placed) {
+      symbolChannels.set(
+        `${parent.name}#${symbol.index}`,
+        channels.map((channel) => channel.index)
       );
     }
   }
@@ -1768,22 +1858,35 @@ const parseAltiumProject = async (
   // channel of its symbol, and under Flat and Global scope ports also meet by name.
   // A bundle reaching neither stays within its channel.
   const portsJoinByName = scope === "flat" || scope === "global";
+  /** Nested bundle nodes, each with its parent bundle's node and its member. */
+  const nestedBundles = new Map<string, { parent: string; member: string }>();
   const bundleNodes = (document: ParsedDocument, identity: string): string[] => {
+    const nested = splitHarnessSignalKey(identity);
+    if (nested.member !== "") {
+      const parents = bundleNodes(document, nested.bundle);
+      const member = identifierKey(nested.member);
+      const node = harnessSignalKey(parents[0], member);
+      if (!nestedBundles.has(node)) {
+        nestedBundles.set(node, { parent: parents[0], member });
+        joinBundles(parents);
+      }
+      return [node];
+    }
     const separator = identity.indexOf("|");
     const kind = identity.slice(0, separator);
-    const rest = identity.slice(separator + 1);
+    const rest = identifierKey(identity.slice(separator + 1));
     if (kind === "port") {
       return [`hier|${document.placement}|${rest}`, ...(portsJoinByName ? [`port|${rest}`] : [])];
     }
     if (kind === "entry") {
       const index = rest.slice(0, rest.indexOf("|"));
       const name = rest.slice(index.length + 1);
-      const child = sheetSymbolChild(findRecordByIndex(document.hierarchical, parseInt(index, 10)));
-      const placement = `${child}@${document.name}#${index}`;
-      const channels = child ? (channelIndices.get(placement) ?? []) : [];
-      if (channels.length > 0) return channels.map((c) => `hier|${placement}@${c}|${name}`);
+      const channels = symbolChannels.get(`${document.name}#${index}`) ?? [];
+      if (channels.length > 0) {
+        return channels.map((c) => `hier|${document.placement}/${index}@${c}|${name}`);
+      }
     }
-    return [`${document.placement}|${identity}`];
+    return [`${document.placement}|${identifierKey(identity)}`];
   };
   const bundleParent = new Map<string, string>();
   const findBundle = (node: string): string => {
@@ -1794,12 +1897,15 @@ const parseAltiumProject = async (
     bundleParent.set(node, root);
     return root;
   };
-  const joinBundles = (nodes: readonly string[]): void => {
+  const joinBundles = (nodes: readonly string[]): boolean => {
+    let joined = false;
     for (const node of nodes) {
       const a = findBundle(nodes[0]);
       const b = findBundle(node);
       if (a !== b) bundleParent.set(b, a);
+      joined ||= a !== b;
     }
+    return joined;
   };
   const harnessKeyIdentities = (document: ParsedDocument): string[] =>
     document.links.flatMap((group) =>
@@ -1818,9 +1924,21 @@ const parseAltiumProject = async (
       joinBundles(group.map((identity) => bundleNodes(document, identity)[0]));
     }
   }
+  // Members of one name in joined bundles are one nested bundle; joining them can
+  // join the parents of deeper ones.
+  for (let joined = true; joined; ) {
+    joined = false;
+    const byMember = new Map<string, string>();
+    for (const [node, { parent, member }] of nestedBundles) {
+      const key = harnessSignalKey(findBundle(parent), member);
+      const met = byMember.get(key);
+      if (met === undefined) byMember.set(key, node);
+      else joined = joinBundles([met, node]) || joined;
+    }
+  }
   const resolveSignal = (document: ParsedDocument, signal: string): string => {
     const { bundle, member } = splitHarnessSignalKey(signal);
-    return harnessSignalKey(findBundle(bundleNodes(document, bundle)[0]), member);
+    return harnessSignalKey(findBundle(bundleNodes(document, bundle)[0]), identifierKey(member));
   };
 
   const signalNets = new Map<string, Set<string>>();
@@ -1828,29 +1946,47 @@ const parseAltiumProject = async (
     for (const [signal, netName] of document.harnessSignals) {
       const key = resolveSignal(document, signal);
       const carriers = signalNets.get(key) ?? new Set<string>();
-      carriers.add(netName);
+      carriers.add(caseRenamed(netName));
       signalNets.set(key, carriers);
     }
   }
   const harnessRenames = mergeNetGroups(allNets, allComponents, signalNets.values(), rankOf);
+  const renamed = (name: string): string =>
+    harnessRenames.get(caseRenamed(name)) ?? caseRenamed(name);
 
   // Ports, sheet entries, buses and power ports link nets across sheets the
   // same way, once the harness merge has settled which name each net goes by.
+  // A pinless net named by a port or sheet entry is that net's own: two of them
+  // named alike are two nets, so each takes a provisional name of its own.
+  let pinless = 0;
   const netLinks: NetLinkGroup[] = pending.flatMap((document) =>
-    document.links.map((group) => ({
-      net: group.net === undefined ? undefined : (harnessRenames.get(group.net) ?? group.net),
-      name: group.name === undefined ? undefined : (harnessRenames.get(group.name) ?? group.name),
-      keys: group.keys.map((key) =>
-        key.startsWith("harness|")
-          ? `harness|${resolveSignal(document, key.slice("harness|".length))}`
-          : key
-      ),
-    }))
+    document.links.map((group) => {
+      let name = group.name === undefined ? undefined : renamed(group.name);
+      const source = group.name === undefined ? undefined : document.nameSources.get(group.name);
+      if (
+        group.net === undefined &&
+        name !== undefined &&
+        (source === "port" || source === "entry")
+      ) {
+        const own = `${name}${PROVISIONAL}p${pinless++}`;
+        nameRankOf.set(own, rankOf(name));
+        name = own;
+      }
+      return {
+        net: group.net === undefined ? undefined : renamed(group.net),
+        name,
+        keys: group.keys.map((key) =>
+          key.startsWith("harness|")
+            ? `harness|${resolveSignal(document, key.slice("harness|".length))}`
+            : key
+        ),
+      };
+    })
   );
   mergeNetGroups(
     allNets,
     allComponents,
-    linkedNetGroups(netLinks, scope, channelIndices).values(),
+    linkedNetGroups(netLinks, scope, symbolChannels).values(),
     rankOf
   );
   applyNetRenames({ nets: allNets, components: allComponents }, settleProvisionalNames(allNets));

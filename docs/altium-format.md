@@ -159,23 +159,26 @@ bus, and joins through it (see Buses below).
 
 ### How the sheets are joined
 
-Within a document, geometry decides. Across documents the parser records, for every net, the
-identity claims its ports, entries, bus members and power ports make, and resolves them
-project-wide with a union-find once every sheet has been read. Each claim is a key:
+Within a document, geometry decides. Across documents every net makes identity claims through
+its ports, entries, bus members and power ports, and the claims resolve project-wide. Each claim
+is a key:
 
 | Key | Made by | Joins |
 |---|---|---|
-| `hier\|<child>@<parent>#<symbol>@<channel>\|<name>` | a port on `child`, about the channel of the sheet symbol that placed it; a plain entry on that symbol, about every channel it instantiates; a `Repeat(NAME)` entry's bus member `NAME<n>`, about channel `n` | under every scope |
-| `port\|<name>` | a port | under Flat and Global scope, where ports join by name anywhere |
-| `power\|<name>` | a power port | wherever power ports are global, i.e. every scope but Strict Hierarchical |
-| `harness\|<bundle signal>` | a bus member reaching a harness entry, or a harness-typed port, written as a range | always, the bundle name resolved the way harness signals are |
+| `hier\|<instance>\|<name>` | a port on a document instance; a plain entry, for every channel its symbol instantiates; a `Repeat(NAME)` entry's member `NAME<n>`, for channel `n` | under every scope |
+| `port\|<name>` | a port | under Flat and Global scope |
+| `power\|<name>` | a power port | under every scope but Strict Hierarchical |
+| `harness\|<bundle signal>` | a bus member reaching a harness entry or a harness-typed port | under every scope |
+
+An instance is named by the document no symbol places, then `/<symbol index>@<channel index>`
+for each sheet symbol channel on the way down (see Multi-channel sheets are placements).
+
+Names match ignoring case: the entry `DC_LINK` meets the port `DC_link`, and net labels, power
+ports and harness members match the same way.
 
 Under Hierarchical scope the port-to-entry pair is the only way a signal crosses a boundary;
-ports of one name on different sheets are different nets, which is what Altium documents
-("ports only connect vertically to their corresponding sheet entries"). Under Flat and Global
-scope the pair still holds and ports of one name join as well; LimeSDR-USB (Global) draws a
-block-diagram top sheet whose entries are wired to each other, and its board agrees with the
-result on every pin.
+ports of one name on different sheets are different nets ("ports only connect vertically to
+their corresponding sheet entries"). Under Flat and Global scope ports of one name join as well.
 
 A net with no pins, such as a top-sheet wire between two entries, still links the claims it
 carries, and still offers its name (see below). A power port links the nets it sits on across
@@ -184,19 +187,13 @@ the supply.
 
 ### Multi-channel sheets are placements
 
-A sheet symbol is a placement of its child document, and a document placed more than once is a
-multi-channel sheet whichever way it was placed: by several plain sheet symbols, or by one whose
-designator is `Repeat(...)`. Altium's multi-channel guide allows both and expands the child the
-same way for each. The parser reads every symbol in the project, parses the child once, and
-instantiates it once per channel with the project's channel designator format (see
-Multi-channel below); every channel then links to the symbol that placed it as any single
-placement does. The `.PrjPcbStructure` is not read for this: it records the same symbols, and is
-frequently not committed.
-
-Before this, a child placed by several plain symbols was parsed once and left unlinked (nine
-such children on solarcar-bms, one on cube-sat-eps), and a `Repeat()` sheet was joined to its
-parent by net name alone, which needed its ports to name nets whatever `AllowPortNetNames`
-said. Both now go through the links above, and the option is honoured everywhere.
+A sheet symbol places its child document once per channel: once for a plain designator, once per
+index for `Repeat(<name>,<start>,<end>)`. A document exists once for every path of channels from
+a document no symbol places, so a sheet inside a repeated sheet repeats with it: a sheet placed
+by two symbols that places a sheet of its own gives that sheet two instances. A document placed
+by several plain symbols is multi-channel exactly as a `Repeat()` one is. Each instance's ports
+meet the entries of the channel that placed it, and its entries reach the instances below it.
+The `.PrjPcbStructure` records the same symbols and is not read.
 
 ### What the joined net is called
 
@@ -233,36 +230,8 @@ coordinates, and their objects meet only nearly: up to 0.315 units apart, from m
 Two objects touch within 0.5 units. Nothing is drawn that close deliberately: the grid is 10 units
 and the finest imported pin pitch 2.5.
 
-Two pins meet end to end or not at all. A pin's whole length is kept as a hotspot so that a wire
-ending part way along it still joins, which imported designs also draw; but two pins lying along
-one line do not join by overlapping. The LimeSDR-USB FPGA bank sheet stacks two resistors that
-way, and the board keeps their nets apart.
-
-### Results against the boards
-
-Board nets split into more than one parser net, before and after:
-
-| Fixture | Before #210 | After #210 | Now | What remains |
-|---|---|---|---|---|
-| Altium-STM32-PCB (one sheet) | 0 | 0 | 0 | |
-| MIXR Power | 8 | 0 | 0 | |
-| nRF52840 DK pca10056 | 3 | 0 | 0 | |
-| misko3 | 83 | 55 | 0 | |
-| LimeSDR-USB 1v4 (Global, imported) | 6 | 6 | 0 | |
-| LimeSDR-USB 1v2 | 4 | 4 | 0 | |
-| solarcar-bms | 129 | 101 | 68 | the board disagrees with its schematics on 71 pins |
-| aberrant-sound-module | 1 | 1 | 0 | the board is out of date, and names overbar nets `A\D\0\` where the parser strips the bars |
-| FMC-DIO 32ch LVDS (32 channels by `Repeat()`) | 160 | 160 | 0 | |
-
-The comparison reads each component's physical designator from the board's `Texts6` stream
-rather than the logical `SOURCEDESIGNATOR` that every channel of a repeated sheet shares, so a
-multi-channel board compares every channel's pins: FMC-DIO shares 1877 pins with its schematics
-rather than the 533 the logical designators reach, and all 1877 agree in net and in name.
-
-No parser net spans two board nets on any but the last two. On misko3 the pins whose net name
-matches the board's went from 644 to 780 of 816; the rest are harness members the board names
-after a label drawn on another sheet than the member. On LimeSDR-USB the names that differ are
-the board's upper-casing of the schematic's.
+Two pins meet tip to tip. A wire may end anywhere along a pin, as imported designs draw them, but a
+pin's inner end is its body: pins drawn from one point, or overlapping along one line, stay apart.
 
 ## Buses
 
@@ -321,9 +290,11 @@ labelled `FMC1_P[32..1]` carries the nets `FMC1_P1` to `FMC1_P32`. A net is ther
 when a wire of its ends there, or when it is labelled with a member of a range the run carries,
 as a label on the bus or as a port or entry the bus reaches. Geometry alone decides which
 identifiers are on the run, so a wire labelled `D3` into some other symbol's entry elsewhere on
-the sheet does not drag that entry onto the bus. Before this, all 96 channel signals on FMC-DIO
-(`FMC1_P`, `FMC1_N`, `EN1_RX` for 32 channels) stopped at the top sheet and every channel's port
-was a single-pin net named after its pin, `NetIC49H_6` where the board says `FMC1_P8`.
+the sheet does not drag that entry onto the bus.
+
+A `Repeat(NAME)` entry wired to no bus takes the wire's net label as the bus name: under the label
+`L`, channel `n` carries `L<n>`, the sheet's net of that name. Entries `Repeat(VBAT)` and
+`Repeat(VIN)` on one wire labelled `VBAT` join channel `n` of both to the net `VBAT<n>`.
 
 ## Multi-channel (repeated sheets)
 
@@ -360,11 +331,29 @@ Repeat(CHAN, 1,9)           pulp-bio/HELIOS-R
 ```
 
 A range yielding fewer than two instances is not treated as multi-channel, and the sheet is
-parsed once like any other. A child placed by plain symbols takes each symbol's designator as
-its room name; two symbols carrying one designator (cube-sat-eps places `buck_boost` twice under
-that name) would give two channels one room, and so one designator for each part, which Altium
-reports as a duplicate sheet symbol name; the later room is numbered `buck_boost_2` so nothing
-is folded together.
+parsed once like any other.
+
+### Instance order and rooms
+
+A document's instances are numbered by path, compared level by level: by channel designator in
+natural order (case ignored, digit runs compared as numbers, other characters by code), then,
+between symbols of one designator, the one later in the project first (a later document, or later
+on one sheet). The number is
+`$ChannelIndex` and `$ChannelAlpha`.
+
+An instance's room is its last level's channel: the symbol's designator for a plain symbol,
+`<name><index>` for `Repeat(<name>,...)`. Rooms that repeat are numbered in instance order, so two
+symbols designated `buck_boost` give `buck_boost1` and `buck_boost2`. `ChannelRoomNamingStyle=1`
+writes those numbers, and `Repeat()` indices, as letters.
+
+### Net names in a channel
+
+A net that stays inside one channel is named the way the channel's designators are, by the
+channel designator format applied to its name: under `$Component$ChannelAlpha` the label `BIAS`
+names `BIASB` in channel 2, and under `$ComponentPrefix_$ChannelIndex_$ComponentIndex` the label
+`V_pulser` names `V_pulser_1_` in channel 1. A net named after a pin is rebuilt around the
+channel's designator: `NetDD12_5` becomes `NetDD12_AY1_5`. A supply keeps its name, and so does a
+signal a single placement's parent wires to every channel.
 
 Sheet entries may also be repeated, written as a bare `Repeat(<name>)` with no range. Those
 hand one bus member to each channel (see Buses); entries without `Repeat()` are shared across
@@ -382,10 +371,8 @@ contains exactly that.
 
 Expanded components are renamed using the project's `ChannelDesignatorFormatString`, a plain
 text setting in the `.PrjPcb`, read by a line-wise regex and defaulting to
-`$Component_$RoomName` when the project omits it. It sits alongside `ChannelRoomNamingStyle`
-and `ChannelRoomLevelSeperator`, which the parser does not read: the separator a project
-wants is already written into the format string itself, so `RoomNamingStyle=1` shows up as a
-literal `.` in `$Component.$RoomName` rather than as a setting to interpret. The tokens:
+`$Component_$RoomName` when the project omits it. The format string writes its own separators,
+so `ChannelRoomLevelSeperator` is not read. The tokens:
 
 | Token | Meaning | `R5`, room `MPPT2`, channel 2 |
 |---|---|---|
@@ -486,9 +473,8 @@ skips it: placed at the origin instead, every such entry in a document would app
 every other.
 
 The bundle leaves the connector from the opposite edge, at
-`Location.Y - PrimaryConnectionPosition` — note the plain units here, not the entries' grid
-steps. That point meets either a signal harness line or a harness-typed port; all 115
-connectors in the corpus attach at one or the other.
+`Location.Y - PrimaryConnectionPosition`, in plain units rather than the entries' grid steps. That
+point meets a signal harness line, a harness-typed port, or an entry of another connector.
 
 ### Harness type definitions live outside the `.SchDoc`
 
@@ -536,26 +522,34 @@ harness per sensor, each with an entry called `SIGNAL`; naming nets after entrie
 every sensor's signal on one net. So a bundle is identified by what its connector's outgoing
 connection reaches:
 
-- a **harness-typed port** — the bundle takes that port's name, which is global, so the sheet
-  on the other side arrives at the same identity;
-- a **signal harness line** — everything meeting that line is one bundle, and connectors,
-  ports and sheet entries on it share an identity;
-- neither — the bundle is local to its sheet and identified by the sheet.
+- a **harness-typed port**: the bundle meets the sheet entry of that name on the channel that
+  placed the sheet, and under Flat and Global scope the ports of that name anywhere;
+- a **harness-typed sheet entry**: the bundle meets the port of that name in every instance the
+  symbol places;
+- an **entry of another connector**: the bundle is that member of the other connector's bundle
+  (see Harness connectors nest);
+- a **signal harness line**: everything meeting the line is one bundle;
+- none: the bundle is local to its sheet instance.
 
 Entries of one bundle sharing a name are then one net, whatever the wires reaching them are
-labelled, which is the whole point of the mechanism. Where the two ends are on different
-sheets the nets are matched by the same identity after both sheets are parsed
-(`mergeHarnessSignalNets()`), and the surviving name is the one the designer wrote, preferring
-whichever is already on more pins.
+labelled, which is the whole point of the mechanism.
 
-One bundle is rarely called the same thing at both ends — a bulkhead sheet takes in
-`TRANSPONDER_POWER_UL` and passes on `TRANSPONDER_POWER`. The parent sheet is where they are
-shown to be one bundle, by a harness line drawn between the two sheet entries that name them;
-`resolveBundleNames()` folds such names together across the project.
+One bundle is rarely called the same thing at both ends: a bulkhead sheet takes in
+`TRANSPONDER_POWER_UL` and passes on `TRANSPONDER_POWER`. A harness line drawn between the two
+sheet entries that name them makes the two names one bundle.
 
 The exception to harness objects not naming nets is a **net label placed on the signal harness
 line**. That names the harness, and every net it carries is then called
 `<harness label>.<entry name>` in place of the wire's own label.
+
+### Harness connectors nest
+
+A connector's primary may meet an entry of another connector, directly or through a harness line.
+Its bundle is then that member of the other connector's bundle: a connector reached from the
+entry `Phase_A_commands` of a connector leaving through the port `FullBridge_commands` carries
+the bundle `Phase_A_commands` of `FullBridge_commands`, and its entries are that bundle's
+signals. Wherever two bundles join, their members of one name join too, so nesting resolves at
+any depth.
 
 ### Harness types nest
 
@@ -589,21 +583,9 @@ stops at the repeat rather than recursing forever.
 
 ### Scope
 
-Within a sheet, positioned harness entries join nets by geometry, and entries carrying one
-signal of one bundle join whatever the wires are labelled.
-
-Across a sheet boundary, a bundle is followed by matching signal identities between documents,
-including through a harness line drawn on a parent sheet between two sheet entries. Bundle
-names are matched project-wide, as ports already are elsewhere in this parser, so two sheets
-that reuse a harness port name are read as sharing that bundle.
-
-A repeated sheet's channels are documents like any other, so a harness signal collected on one
-names the channel's net; `classifySheetEntries()` also carries a shared bundle's members across
-so that the channel's nets keep the shared name.
-
-The nesting relationship is read from the entry records, but a nested bundle is not yet given
-its own identity: its members resolve as names, and its connectivity depends on the enclosing
-bundle.
+Within a sheet, positioned harness entries join nets by geometry, and entries carrying one signal
+of one bundle join whatever the wires are labelled. Across a sheet boundary a bundle is followed
+through the identities above, per document instance.
 
 ## Component instances
 

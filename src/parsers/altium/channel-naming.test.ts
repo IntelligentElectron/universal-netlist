@@ -100,9 +100,22 @@ describe("planChannelNetNames", () => {
     expect(names).toEqual(["NetR4_AY1_2", "NetR4_AY2_2", "NetR4_AY3_2"]);
   });
 
-  it("suffixes a designer-named local net, which carries no pin to rebuild from", () => {
+  it("names a designer-named local net the way the channel's designators are", () => {
     expect(
       planChannelNetNames(["FILTER_IN"], emptyScope(), "AY1", 1, "$Component_$RoomName")
     ).toEqual(new Map([["FILTER_IN", "FILTER_IN_AY1"]]));
+    // cube-sat-eps carries BIASB; ld_pulser carries V_pulser_1_.
+    expect(
+      planChannelNetNames(["BIAS"], emptyScope(), "MPPT_charger2", 2, "$Component$ChannelAlpha")
+    ).toEqual(new Map([["BIAS", "BIASB"]]));
+    expect(
+      planChannelNetNames(
+        ["V_pulser"],
+        emptyScope(),
+        "CHAN1",
+        1,
+        "$ComponentPrefix_$ChannelIndex_$ComponentIndex"
+      )
+    ).toEqual(new Map([["V_pulser", "V_pulser_1_"]]));
   });
 });

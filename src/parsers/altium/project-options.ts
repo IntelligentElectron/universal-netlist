@@ -37,6 +37,8 @@ export interface AltiumProjectOptions {
   powerPortNamesTakePriority: boolean;
   /** Designator format for multi-channel expansion. */
   channelFormat: string;
+  /** `ChannelRoomNamingStyle`; `1` numbers rooms with letters. */
+  roomNamingStyle: string;
 }
 
 /**
@@ -112,6 +114,7 @@ export const parseProjectOptions = (content: string): AltiumProjectOptions => {
     allowSheetEntryNetNames: readFlag(lines, "AllowSheetEntryNetNames", true),
     powerPortNamesTakePriority: readFlag(lines, "PowerPortNamesTakePriority", false),
     channelFormat: readKey(lines, "ChannelDesignatorFormatString") || DEFAULT_CHANNEL_FORMAT,
+    roomNamingStyle: readKey(lines, "ChannelRoomNamingStyle") || "0",
   };
 };
 

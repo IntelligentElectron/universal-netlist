@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-14T20:11:06.215Z",
-    "netlistHash": "sha256:8e6d04f3401239949565f0ece09aa9396960e679d348d7c957303edb73bce1df",
+    "generatedAt": "2026-09-14T22:01:28.981Z",
+    "netlistHash": "sha256:97db192497f40087c046e99e355dbbeadc299c53af663d7f1cb47b6edc04a6a0",
     "origin": {
       "type": "vendor",
       "source": {
@@ -1751,7 +1751,7 @@
       "J12": [
         "21"
       ],
-      "T3B": [
+      "T3A": [
         "4"
       ]
     },
@@ -1759,7 +1759,7 @@
       "J12": [
         "22"
       ],
-      "T3B": [
+      "T3A": [
         "3"
       ]
     },
@@ -1871,7 +1871,7 @@
       "J13": [
         "33"
       ],
-      "T3A": [
+      "T3B": [
         "4"
       ]
     },
@@ -1879,7 +1879,7 @@
       "J13": [
         "34"
       ],
-      "T3A": [
+      "T3B": [
         "3"
       ]
     },
@@ -2003,7 +2003,7 @@
         "3"
       ]
     },
-    "COMM_P_coupling0": {
+    "COMM_PA": {
       "J15A": [
         "1"
       ],
@@ -2011,7 +2011,7 @@
         "6"
       ]
     },
-    "COMM_N_coupling0": {
+    "COMM_NA": {
       "J15A": [
         "2"
       ],
@@ -2077,7 +2077,7 @@
         "3"
       ]
     },
-    "COMM_P_coupling1": {
+    "COMM_PB": {
       "J15B": [
         "1"
       ],
@@ -2085,7 +2085,7 @@
         "6"
       ]
     },
-    "COMM_N_coupling1": {
+    "COMM_NB": {
       "J15B": [
         "2"
       ],
@@ -5575,7 +5575,7 @@
       "R33": [
         "1"
       ],
-      "R161B": [
+      "R161A": [
         "1"
       ]
     },
@@ -5583,7 +5583,7 @@
       "U1": [
         "P15"
       ],
-      "U10B": [
+      "U10A": [
         "4"
       ]
     },
@@ -5663,7 +5663,7 @@
       "U1": [
         "C6"
       ],
-      "U10A": [
+      "U10B": [
         "4"
       ]
     },
@@ -5671,7 +5671,7 @@
       "R1": [
         "1"
       ],
-      "R161A": [
+      "R161B": [
         "1"
       ]
     },
@@ -7214,11 +7214,11 @@
       "R72": [
         "2"
       ],
-      "U20B": [
+      "U20A": [
         "1",
         "3"
       ],
-      "C197B": [
+      "C197A": [
         "1"
       ]
     },
@@ -7364,10 +7364,10 @@
       "TP90": [
         "1"
       ],
-      "U20A": [
+      "U20B": [
         "5"
       ],
-      "C198A": [
+      "C198B": [
         "1"
       ],
       "U12": [
@@ -7455,11 +7455,11 @@
       "D16": [
         "2"
       ],
-      "U20A": [
+      "U20B": [
         "1",
         "3"
       ],
-      "C197A": [
+      "C197B": [
         "1"
       ],
       "R201": [
@@ -8102,10 +8102,10 @@
       "C164": [
         "1"
       ],
-      "U20B": [
+      "U20A": [
         "5"
       ],
-      "C198B": [
+      "C198A": [
         "1"
       ]
     },
@@ -8898,8 +8898,8 @@
       "pins": {
         "1": "NetD25A_2",
         "2": "NetD25A_1",
-        "3": "CAN2_MDI._P",
-        "4": "CAN2_MDI._N"
+        "3": "CAN1_MDI._P",
+        "4": "CAN1_MDI._N"
       },
       "mpn": "ACT45B-101-2P-TL003",
       "manufacturer": "TDK Corporation",
@@ -8922,7 +8922,7 @@
         },
         "4": {
           "name": "RXD",
-          "net": "FDCAN1.RX_1"
+          "net": "FDCAN2.RX_1"
         },
         "5": {
           "name": "VRXD",
@@ -8989,7 +8989,7 @@
     },
     "R161A": {
       "pins": {
-        "1": "FDCAN1.TX_1",
+        "1": "FDCAN2.TX_1",
         "2": "NetR161A_2"
       },
       "mpn": "0402WGF330JTCE",
@@ -9021,8 +9021,8 @@
       "pins": {
         "1": "NetD25B_2",
         "2": "NetD25B_1",
-        "3": "CAN1_MDI._P",
-        "4": "CAN1_MDI._N"
+        "3": "CAN2_MDI._P",
+        "4": "CAN2_MDI._N"
       },
       "mpn": "ACT45B-101-2P-TL003",
       "manufacturer": "TDK Corporation",
@@ -9045,7 +9045,7 @@
         },
         "4": {
           "name": "RXD",
-          "net": "FDCAN2.RX_1"
+          "net": "FDCAN1.RX_1"
         },
         "5": {
           "name": "VRXD",
@@ -9112,7 +9112,7 @@
     },
     "R161B": {
       "pins": {
-        "1": "FDCAN2.TX_1",
+        "1": "FDCAN1.TX_1",
         "2": "NetR161B_2"
       },
       "mpn": "0402WGF330JTCE",
@@ -9444,11 +9444,11 @@
       "pins": {
         "1": {
           "name": "BR",
-          "net": "COMM_P_coupling0"
+          "net": "COMM_PA"
         },
         "2": {
           "name": "BL",
-          "net": "COMM_N_coupling0"
+          "net": "COMM_NA"
         },
         "3": {
           "name": "MH",
@@ -9478,9 +9478,9 @@
         "1": "NetD2A_2",
         "2": "NetC73A_1",
         "3": "NetD2A_1",
-        "4": "COMM_N_coupling0",
+        "4": "COMM_NA",
         "5": "",
-        "6": "COMM_P_coupling0"
+        "6": "COMM_PA"
       },
       "mpn": "SM91502ALA-E",
       "manufacturer": "Bourns Inc.",
@@ -9541,11 +9541,11 @@
       "pins": {
         "1": {
           "name": "BR",
-          "net": "COMM_P_coupling1"
+          "net": "COMM_PB"
         },
         "2": {
           "name": "BL",
-          "net": "COMM_N_coupling1"
+          "net": "COMM_NB"
         },
         "3": {
           "name": "MH",
@@ -9575,9 +9575,9 @@
         "1": "NetD2B_2",
         "2": "NetC73B_1",
         "3": "NetD2B_1",
-        "4": "COMM_N_coupling1",
+        "4": "COMM_NB",
         "5": "",
-        "6": "COMM_P_coupling1"
+        "6": "COMM_PB"
       },
       "mpn": "SM91502ALA-E",
       "manufacturer": "Bourns Inc.",
@@ -16824,7 +16824,7 @@
       "pins": {
         "1": {
           "name": "IN",
-          "net": "VBUS"
+          "net": "5P0"
         },
         "2": {
           "name": "GND",
@@ -16832,7 +16832,7 @@
         },
         "3": {
           "name": "EN",
-          "net": "VBUS"
+          "net": "5P0"
         },
         "4": {
           "name": "NR",
@@ -16840,7 +16840,7 @@
         },
         "5": {
           "name": "OUT",
-          "net": "3P3_USB"
+          "net": "3P3_GNSS_1"
         }
       },
       "mpn": "TPS79933QDDCRQ1",
@@ -16849,7 +16849,7 @@
     },
     "C197A": {
       "pins": {
-        "1": "VBUS",
+        "1": "5P0",
         "2": "GND"
       },
       "mpn": "CL21B106KAYQNNE",
@@ -16857,7 +16857,7 @@
     },
     "C198A": {
       "pins": {
-        "1": "3P3_USB",
+        "1": "3P3_GNSS_1",
         "2": "GND"
       },
       "mpn": "CL21B106KAYQNNE",
@@ -16875,7 +16875,7 @@
       "pins": {
         "1": {
           "name": "IN",
-          "net": "5P0"
+          "net": "VBUS"
         },
         "2": {
           "name": "GND",
@@ -16883,7 +16883,7 @@
         },
         "3": {
           "name": "EN",
-          "net": "5P0"
+          "net": "VBUS"
         },
         "4": {
           "name": "NR",
@@ -16891,7 +16891,7 @@
         },
         "5": {
           "name": "OUT",
-          "net": "3P3_GNSS_1"
+          "net": "3P3_USB"
         }
       },
       "mpn": "TPS79933QDDCRQ1",
@@ -16900,7 +16900,7 @@
     },
     "C197B": {
       "pins": {
-        "1": "5P0",
+        "1": "VBUS",
         "2": "GND"
       },
       "mpn": "CL21B106KAYQNNE",
@@ -16908,7 +16908,7 @@
     },
     "C198B": {
       "pins": {
-        "1": "3P3_GNSS_1",
+        "1": "3P3_USB",
         "2": "GND"
       },
       "mpn": "CL21B106KAYQNNE",

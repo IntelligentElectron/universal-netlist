@@ -82,25 +82,23 @@ const CASES: BoardCase[] = [
     sameName: 380,
   },
   {
-    // A harness meets a port at its fractional far end. Parser defect: the board
-    // letters the buck_boost and ideal_diode channels the other way round.
+    // A harness meets a port at its fractional far end, and Repeat() entries meet
+    // on a labelled wire. The Q400 footprints give three schematic pins nine
+    // pads, so the board puts pins 2 and 3 on VBUS as well.
     name: "cube-sat-eps",
     project: "cube-sat-eps/pcb/EPS_board.PrjPcb",
     board: "cube-sat-eps/pcb/EPS.PcbDoc",
-    fragmented: ["3,3V", "5V", "MODE_3V3", "MODE_5V", "PG_3V3", "PG_5V", "VBAT1", "VBAT2", "VBUS"],
-    overMerged: [
-      "3,3V",
-      "5V",
-      "G_OR__ideal_diode1",
-      "G_OR__ideal_diode2",
-      "MODE_3V3",
-      "MODE_5V",
-      "NetC400A_1",
-      "NetC400B_1",
-      "PG_3V3",
-      "PG_5V",
-    ],
-    sameName: 269,
+    fragmented: ["VBUS"],
+    overMerged: ["G_OR_A", "G_OR_B", "VBAT1", "VBAT2"],
+    sameName: 413,
+  },
+  {
+    // Harnesses nested in harness entries, a sheet under a sheet placed twice,
+    // and an entry and a port named alike but for case.
+    name: "easyinverter main board",
+    project: "easyinverter/MainBoard.PrjPCB",
+    board: "easyinverter/MainBoard_PCB.PcbDoc",
+    sameName: 243,
   },
   {
     // Parser defect: U11.7 and the crystal pads X1.2, X1.4, X3.2 and X3.4 are on

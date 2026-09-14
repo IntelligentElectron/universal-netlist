@@ -25,6 +25,7 @@ import { RECORD_TYPES } from "./types.js";
 import { findAllConnectedComponents } from "./connectivity.js";
 import { flattenHierarchy } from "./hierarchy.js";
 import { pointOnSegment, polylinePoints, scaledPoint, type Point } from "./coordinates.js";
+import { expandRepeatChannels } from "./structure-parser.js";
 
 type Segment = [Point, Point];
 
@@ -240,14 +241,13 @@ const rangeLabelsOn = (run: BusRun, records: readonly AltiumRecord[]): string[] 
  */
 export const attachBusMembers = (schematic: AltiumSchematic, nets: AltiumNet[]): AltiumNet[] => {
   const records = flattenHierarchy(schematic);
+  const identifiers = records.filter(isBusIdentifier);
+  if (identifiers.length === 0) return [];
+
   const busRecords = records.filter(
     (record) => record.RECORD === RECORD_TYPES.BUS || record.RECORD === RECORD_TYPES.BUS_ENTRY
   );
-  if (busRecords.length === 0) return [];
   for (const record of busRecords) placeBusRecord(record);
-
-  const identifiers = records.filter(isBusIdentifier);
-  if (identifiers.length === 0) return [];
 
   const runs = joinLabelledRuns(
     findAllConnectedComponents(busRecords).map((members) => {
@@ -259,6 +259,7 @@ export const attachBusMembers = (schematic: AltiumSchematic, nets: AltiumNet[]):
   );
 
   const virtual: AltiumNet[] = [];
+  const carried = new Set<AltiumRecord>();
   const identifierNet = new Map<AltiumRecord, AltiumNet>();
   for (const net of nets) {
     for (const device of net.devices) if (isBusIdentifier(device)) identifierNet.set(device, net);
@@ -281,6 +282,7 @@ export const attachBusMembers = (schematic: AltiumSchematic, nets: AltiumNet[]):
       return coords.some((point) => touching.some((net) => netTouchesPoint(net, point)));
     });
     if (onRun.length === 0) continue;
+    for (const identifier of onRun) carried.add(identifier);
 
     // The ranges the run carries, as labels on the bus and as identifiers
     // written in range notation. Their members are named nets of the sheet,
@@ -343,5 +345,53 @@ export const attachBusMembers = (schematic: AltiumSchematic, nets: AltiumNet[]):
     }
   }
 
+  const unbussed = identifiers.filter((identifier) => !carried.has(identifier));
+  return [...virtual, ...attachRepeatWires(records, nets, unbussed)];
+};
+
+/**
+ * Attach the channels of `Repeat(NAME)` entries whose wire reaches no bus.
+ *
+ * The wire's net label `L` then names one member per channel: channel `n` carries
+ * `L<n>`, joining the sheet's net of that name. The cube-sat-eps board joins channel
+ * `n` of both `Repeat(VBAT)` and `Repeat(VIN)`, wired together under `VBAT`, to the
+ * sheet's `VBAT<n>`.
+ */
+const attachRepeatWires = (
+  records: readonly AltiumRecord[],
+  nets: AltiumNet[],
+  identifiers: readonly AltiumRecord[]
+): AltiumNet[] => {
+  const channelsOf = new Map<AltiumRecord, number[]>();
+  for (const symbol of records) {
+    if (symbol.RECORD !== RECORD_TYPES.SHEET_SYMBOL) continue;
+    const designator = (symbol.children ?? []).find((c) => c.RECORD === RECORD_TYPES.SHEET_NAME);
+    const channels = expandRepeatChannels(designator ? recordName(designator) : "");
+    for (const entry of symbol.children ?? []) {
+      channelsOf.set(
+        entry,
+        channels.map((channel) => channel.index)
+      );
+    }
+  }
+
+  const virtual: AltiumNet[] = [];
+  for (const net of nets) {
+    if (net.nameSource !== "label" || !net.name) continue;
+    const members = new Map<string, BusCarrier[]>();
+    for (const entry of identifiers) {
+      if (entry.RECORD !== RECORD_TYPES.SHEET_ENTRY || !repeatBaseName(recordName(entry))) continue;
+      if (!((entry.coords ?? []) as Point[]).some((point) => netTouchesPoint(net, point))) continue;
+      for (const channel of channelsOf.get(entry) ?? []) {
+        const member = `${net.name}${channel}`;
+        members.set(member, [...(members.get(member) ?? []), { device: entry, member, channel }]);
+      }
+    }
+    for (const [member, carriers] of members) {
+      const labelled = nets.filter((other) => labelsOf(other).includes(member));
+      for (const other of labelled) other.busCarriers = [...(other.busCarriers ?? []), ...carriers];
+      if (labelled.length === 0) virtual.push({ name: null, devices: [], busCarriers: carriers });
+    }
+  }
   return virtual;
 };
