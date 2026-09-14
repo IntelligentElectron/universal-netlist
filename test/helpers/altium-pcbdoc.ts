@@ -139,7 +139,7 @@ export interface BoardComparison {
 export const compareToBoard = (
   pinNets: ReadonlyMap<string, string>,
   board: BoardNetlist,
-  schematicPins: ReadonlySet<string> = new Set()
+  schematicPins: ReadonlySet<string>
 ): BoardComparison => {
   const boardToSchematic = new Map<string, Set<string>>();
   const schematicToBoard = new Map<string, Set<string>>();

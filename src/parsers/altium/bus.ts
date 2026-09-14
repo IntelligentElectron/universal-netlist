@@ -22,23 +22,11 @@
 
 import type { AltiumRecord, AltiumNet, AltiumSchematic, BusCarrier } from "./types.js";
 import { RECORD_TYPES } from "./types.js";
-import { findAllConnectedComponents, pointOnSegment } from "./connectivity.js";
+import { findAllConnectedComponents } from "./connectivity.js";
 import { flattenHierarchy } from "./hierarchy.js";
+import { pointOnSegment, polylinePoints, scaledPoint, type Point } from "./coordinates.js";
 
-type Point = [number, number];
 type Segment = [Point, Point];
-
-/** Scaled units per schematic unit; `_Frac` fields count hundred-thousandths. */
-const COORDINATE_SCALE = 100000;
-
-const toNumber = (value: unknown): number => {
-  if (value === undefined || value === null || value === "") return 0;
-  const parsed = Number(value);
-  return Number.isNaN(parsed) ? 0 : parsed;
-};
-
-const scaledCoordinate = (base: unknown, frac: unknown): number =>
-  Math.round(toNumber(base) * COORDINATE_SCALE + toNumber(frac));
 
 const unescapeAltiumOverbar = (name: string): string =>
   name.includes("\\") ? name.replace(/\\/g, "") : name;
@@ -115,48 +103,12 @@ export const isBusIdentifier = (record: AltiumRecord): boolean =>
   BUS_IDENTIFIER_TYPES.has(record.RECORD) &&
   busMemberTest(recordName(record)) !== undefined;
 
-const polylineCoordinates = (record: AltiumRecord): Point[] => {
-  const indices: number[] = [];
-  for (const key of Object.keys(record)) {
-    const match = key.match(/^X(\d+)$/);
-    if (match) indices.push(parseInt(match[1], 10));
-  }
-  indices.sort((a, b) => a - b);
-  return indices.map((index) => [
-    scaledCoordinate(record[`X${index}`], record[`X${index}_Frac`] ?? record[`X${index}_FRAC`]),
-    scaledCoordinate(record[`Y${index}`], record[`Y${index}_Frac`] ?? record[`Y${index}_FRAC`]),
-  ]);
-};
-
-const locationOf = (record: AltiumRecord): Point => [
-  scaledCoordinate(
-    record["Location.X"] ?? record["LOCATION.X"],
-    record["Location.X_Frac"] ?? record["LOCATION.X_FRAC"]
-  ),
-  scaledCoordinate(
-    record["Location.Y"] ?? record["LOCATION.Y"],
-    record["Location.Y_Frac"] ?? record["LOCATION.Y_FRAC"]
-  ),
-];
-
 /** Give bus lines and bus entries the coordinates the connectivity code reads. */
 const placeBusRecord = (record: AltiumRecord): void => {
   if (record.RECORD === RECORD_TYPES.BUS) {
-    record.coords = polylineCoordinates(record);
+    record.coords = polylinePoints(record);
   } else if (record.RECORD === RECORD_TYPES.BUS_ENTRY) {
-    record.coords = [
-      locationOf(record),
-      [
-        scaledCoordinate(
-          record["Corner.X"] ?? record["CORNER.X"],
-          record["Corner.X_Frac"] ?? record["CORNER.X_FRAC"]
-        ),
-        scaledCoordinate(
-          record["Corner.Y"] ?? record["CORNER.Y"],
-          record["Corner.Y_Frac"] ?? record["CORNER.Y_FRAC"]
-        ),
-      ],
-    ];
+    record.coords = [scaledPoint(record), scaledPoint(record, "Corner")];
   }
 };
 
@@ -200,7 +152,7 @@ const joinLabelledRuns = (runs: BusRun[], records: readonly AltiumRecord[]): Bus
     if (text === undefined || text === null || text === "") continue;
     const label = unescapeAltiumOverbar(String(text));
     if (!RANGE.test(label)) continue;
-    const point = locationOf(record);
+    const point = scaledPoint(record);
     const run = runs.find((candidate) => candidate.touches(point));
     if (!run) continue;
     const seen = runByLabel.get(label);
@@ -258,7 +210,7 @@ const rangeLabelsOn = (run: BusRun, records: readonly AltiumRecord[]): string[] 
   for (const record of records) {
     if (record.RECORD !== RECORD_TYPES.NET_LABEL) continue;
     const label = unescapeAltiumOverbar(String(record.Text ?? record.TEXT ?? ""));
-    if (RANGE.test(label) && run.touches(locationOf(record))) labels.push(label);
+    if (RANGE.test(label) && run.touches(scaledPoint(record))) labels.push(label);
   }
   return labels;
 };

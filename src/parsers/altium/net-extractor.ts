@@ -11,9 +11,15 @@ import { findAllConnectedComponents } from "./connectivity.js";
 import { findRecordByIndex } from "./hierarchy.js";
 import { duplicateInstanceIndices, pinBelongsToInstance } from "./part-pins.js";
 import { attachBusMembers } from "./bus.js";
-
-/** Scaled units per schematic unit; `_Frac` fields count hundred-thousandths. */
-const COORDINATE_SCALE = 100000;
+import {
+  field,
+  polylinePoints,
+  portEnds,
+  scaledField,
+  scaledPoint,
+  sheetEntryPoint,
+  toNumber,
+} from "./coordinates.js";
 
 const unescapeAltiumOverbar = (name: string): string =>
   name.includes("\\") ? name.replace(/\\/g, "") : name;
@@ -30,18 +36,6 @@ const getDeviceNetName = (device: AltiumRecord): string | undefined => {
     if (val !== undefined && val !== null && val !== "") return String(val);
   }
   return undefined;
-};
-
-const toNumber = (value: unknown): number => {
-  if (value === undefined || value === null || value === "") {
-    return 0;
-  }
-  const parsed = Number(value);
-  return Number.isNaN(parsed) ? 0 : parsed;
-};
-
-const scaledCoordinate = (base: unknown, frac: unknown): number => {
-  return Math.round(toNumber(base) * COORDINATE_SCALE + toNumber(frac));
 };
 
 /**
@@ -133,187 +127,41 @@ export const isSignalSheetEntry = (entry: AltiumRecord): boolean => {
   return entry.coords !== undefined && entry.coords.length > 0;
 };
 
-/**
- * Place a sheet symbol's entries.
- *
- * A sheet entry has no location of its own. It sits on one edge of the sheet
- * symbol that owns it, `Side` saying which (0 left, 1 right, 2 top, 3 bottom),
- * `DistanceFromTop` steps of 10 units along that edge from the symbol's
- * top-left corner: downward on a vertical edge, rightward on a horizontal one.
- * `DistanceFromTop_Frac1` holds the fraction of a step in millionths, so
- * 500000 is half a step: the nRF52840 DK cover sheet places its entries that
- * way, and every one of its wires ends there.
- *
- * Verified against the wired entries of the fixture corpus: on the left and
- * right edges over a thousand of them, on the bottom edge the q23-harness top
- * sheet (steps 16 to 21 landing at 160 to 210), on the top edge PW-Sat2's EPS.
- */
+/** Place a sheet symbol's entries on its edges. */
 const positionSheetEntries = (symbol: AltiumRecord): void => {
-  if (!symbol.children) return;
-  const x = scaledCoordinate(
-    symbol["Location.X"] ?? symbol["LOCATION.X"],
-    symbol["Location.X_Frac"] ?? symbol["LOCATION.X_FRAC"]
-  );
-  const y = scaledCoordinate(
-    symbol["Location.Y"] ?? symbol["LOCATION.Y"],
-    symbol["Location.Y_Frac"] ?? symbol["LOCATION.Y_FRAC"]
-  );
-  const width = scaledCoordinate(
-    symbol.XSize ?? symbol.XSIZE,
-    symbol.XSize_Frac ?? symbol.XSIZE_FRAC
-  );
-  const height = scaledCoordinate(
-    symbol.YSize ?? symbol.YSIZE,
-    symbol.YSize_Frac ?? symbol.YSIZE_FRAC
-  );
-  for (const entry of symbol.children) {
-    if (entry.RECORD !== RECORD_TYPES.SHEET_ENTRY) continue;
-    const steps =
-      toNumber(entry.DistanceFromTop ?? entry.DISTANCEFROMTOP) +
-      toNumber(entry.DistanceFromTop_Frac1 ?? entry.DISTANCEFROMTOP_FRAC1) / 1_000_000;
-    const distance = Math.round(steps * 10 * COORDINATE_SCALE);
-    const side = String(entry.Side ?? entry.SIDE ?? "0");
-    if (side === "1") entry.coords = [[x + width, y - distance]];
-    else if (side === "2") entry.coords = [[x + distance, y]];
-    else if (side === "3") entry.coords = [[x + distance, y - height]];
-    else entry.coords = [[x, y - distance]];
+  for (const entry of symbol.children ?? []) {
+    if (entry.RECORD === RECORD_TYPES.SHEET_ENTRY) entry.coords = [sheetEntryPoint(symbol, entry)];
   }
 };
 
 /**
- * Calculate pin coordinates.
- *
- * Pin rotation is encoded in PINCONGLOMERATE (lower 2 bits * 90 degrees).
- * The endpoint is calculated using: location + rotation * pin_length.
- * We keep both the pin origin and endpoint so connectivity works at either end.
+ * A pin's two ends: its location and the tip `PinLength` away, turned by the low
+ * two bits of `PinConglomerate` in quarter turns. Either end connects.
  */
 const calculatePinCoordinates = (device: AltiumRecord): void => {
-  const locationX = scaledCoordinate(
-    device["Location.X"] ?? device["LOCATION.X"],
-    device["Location.X_Frac"] ?? device["LOCATION.X_FRAC"]
-  );
-  const locationY = scaledCoordinate(
-    device["Location.Y"] ?? device["LOCATION.Y"],
-    device["Location.Y_Frac"] ?? device["LOCATION.Y_FRAC"]
-  );
-  const pinLength = scaledCoordinate(
-    device["PinLength"] ?? device["PINLENGTH"],
-    device["PinLength_Frac"] ?? device["PINLENGTH_FRAC"]
-  );
-  const pinConglomerate = parseInt(
-    String(device["PinConglomerate"] || device["PINCONGLOMERATE"] || "0"),
-    10
-  );
-
-  // Extract rotation from lower 2 bits (0-3 -> 0, 90, 180, 270 degrees)
-  const rotationIndex = pinConglomerate & 0x03;
-  const rotationDegrees = rotationIndex * 90;
-  const rotationRadians = (rotationDegrees / 180) * Math.PI;
-
-  // Calculate pin endpoint
-  const endX = Math.round(locationX + Math.cos(rotationRadians) * pinLength);
-  const endY = Math.round(locationY + Math.sin(rotationRadians) * pinLength);
-
+  const [locationX, locationY] = scaledPoint(device);
+  const pinLength = scaledField(device, "PinLength");
+  const rotationRadians = ((toNumber(field(device, "PinConglomerate")) & 0x03) * Math.PI) / 2;
   device.coords = [
     [locationX, locationY],
-    [endX, endY],
+    [
+      Math.round(locationX + Math.cos(rotationRadians) * pinLength),
+      Math.round(locationY + Math.sin(rotationRadians) * pinLength),
+    ],
   ];
-};
-
-/**
- * Calculate wire coordinates.
- *
- * Wires have coordinates stored as X1,Y1,X2,Y2,... pairs.
- */
-const calculateWireCoordinates = (device: AltiumRecord): void => {
-  const coords: Array<[number, number]> = [];
-
-  // Pattern: X1, Y1, X2, Y2, etc.
-  const coordPattern = /^X(\d+)$/;
-
-  // Find all X coordinate keys and extract their indices
-  const indices: number[] = [];
-  for (const key of Object.keys(device)) {
-    const match = key.match(coordPattern);
-    if (match) {
-      indices.push(parseInt(match[1], 10));
-    }
-  }
-
-  // Sort indices and build coordinate array
-  indices.sort((a, b) => a - b);
-
-  for (const idx of indices) {
-    const x = scaledCoordinate(device[`X${idx}`], device[`X${idx}_Frac`] ?? device[`X${idx}_FRAC`]);
-    const y = scaledCoordinate(device[`Y${idx}`], device[`Y${idx}_Frac`] ?? device[`Y${idx}_FRAC`]);
-    coords.push([x, y]);
-  }
-
-  device.coords = coords;
-};
-
-/**
- * Calculate simple location coordinates.
- *
- * Used for power ports, net labels, etc.
- */
-const calculateSimpleCoordinates = (device: AltiumRecord): void => {
-  const x = scaledCoordinate(
-    device["Location.X"] ?? device["LOCATION.X"],
-    device["Location.X_Frac"] ?? device["LOCATION.X_FRAC"]
-  );
-  const y = scaledCoordinate(
-    device["Location.Y"] ?? device["LOCATION.Y"],
-    device["Location.Y_Frac"] ?? device["LOCATION.Y_FRAC"]
-  );
-  device.coords = [[x, y]];
-};
-
-/**
- * Calculate coordinates for a device.
- *
- * Different device types have coordinates stored differently:
- * - Pins: calculated from location + rotation + pin length
- * - Wires: multiple X/Y coordinate pairs (X1,Y1,X2,Y2,...)
- * - Others: simple LOCATION.X and LOCATION.Y
- */
-/**
- * Calculate port coordinates.
- *
- * A port is drawn as a bar of `Width` starting at its location, to the right
- * for a horizontal style and upward for a vertical one (`Style` 4 and above),
- * and a wire may land on either end of the bar. Both ends are kept, as for a
- * pin, so the port joins whichever end the wire reaches.
- */
-const calculatePortCoordinates = (device: AltiumRecord): void => {
-  const x = scaledCoordinate(
-    device["Location.X"] ?? device["LOCATION.X"],
-    device["Location.X_Frac"] ?? device["LOCATION.X_FRAC"]
-  );
-  const y = scaledCoordinate(
-    device["Location.Y"] ?? device["LOCATION.Y"],
-    device["Location.Y_Frac"] ?? device["LOCATION.Y_FRAC"]
-  );
-  const width = scaledCoordinate(
-    device["Width"] ?? device["WIDTH"],
-    device["Width_Frac"] ?? device["WIDTH_FRAC"]
-  );
-  const style = parseInt(String(device["Style"] ?? device["STYLE"] ?? "0"), 10);
-  const vertical = style >= 4;
-  device.coords = [[x, y], vertical ? [x, y + width] : [x + width, y]];
 };
 
 const calculateDeviceCoordinates = (device: AltiumRecord): void => {
   if (device.RECORD === RECORD_TYPES.PIN) {
     calculatePinCoordinates(device);
   } else if (device.RECORD === RECORD_TYPES.PORT) {
-    calculatePortCoordinates(device);
+    device.coords = portEnds(device);
   } else if (device.RECORD === RECORD_TYPES.WIRE) {
-    calculateWireCoordinates(device);
+    device.coords = polylinePoints(device);
   } else if (device.RECORD === RECORD_TYPES.SHEET_ENTRY) {
     // Placed from its sheet symbol by positionSheetEntries().
   } else {
-    calculateSimpleCoordinates(device);
+    device.coords = [scaledPoint(device)];
   }
 };
 

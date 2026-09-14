@@ -48,6 +48,7 @@ import {
   assignHarnessSignals,
   harnessSignalKey,
   splitHarnessSignalKey,
+  portBundle,
   parseHarnessDefinitions,
   resolveHarnessMembers,
   collectNestedHarnessTypes,
@@ -529,7 +530,6 @@ export const readSchematicRecords = (
   const bundleLinks = assignHarnessSignals(connectors, {
     records: schematic.records as never,
     buses: extra.records.filter((record) => record.RECORD === RECORD_TYPES.SIGNAL_HARNESS) as never,
-    sheetKey: path.basename(schdocPath),
   });
 
   const ownerOffset = schematic.records.length;
@@ -588,16 +588,21 @@ export interface NetLinkGroup {
 }
 
 interface ParsedDocument {
+  /** Lower-case file name, which is how sheet symbols refer to it. */
+  name: string;
+  /** What this document's ports claim about: the channel that placed it, or its own name. */
+  placement: string;
+  hierarchical: AltiumSchematic;
   netlist: ParsedNetlist;
   /** The nets as extracted, which channel expansion reads for naming. */
   nets: AltiumNet[];
   /** Cross-sheet identity claims, one group per net on this sheet. */
   links: NetLinkGroup[];
-  /** Harness signal key -> the name of the net carrying it on this sheet. */
+  /** Harness signal key, bundle identity and member, -> the net carrying it on this sheet. */
   harnessSignals: Map<string, string>;
   /** Where each net's name came from, keyed by the name. */
   nameSources: Map<string, NetNameSource>;
-  /** Bundle names this sheet joins, each group being one bundle under many names. */
+  /** Bundle identities this sheet joins, each group being one bundle. */
   bundleLinks: string[][];
   /** Which kinds of net identifier each of this sheet's nets carries. */
   netIdentifiers: Map<string, NetIdentifierKinds>;
@@ -823,8 +828,9 @@ const collectNetLinks = (
       if (device.RECORD === RECORD_TYPES.PORT) {
         // A harness-typed port reached by a bus names a bundle, and the port
         // of that name on the other sheet names the same bundle.
-        if (hasHarnessType(device)) keys.add(`harness|${harnessSignalKey(name, member)}`);
-        else port(member);
+        if (hasHarnessType(device)) {
+          keys.add(`harness|${harnessSignalKey(portBundle(name), member)}`);
+        } else port(member);
       } else if (device.RECORD === RECORD_TYPES.SHEET_ENTRY) {
         if (hasHarnessType(device)) continue;
         // A `Repeat(NAME)` entry hands the member to the channel it indexes,
@@ -871,7 +877,6 @@ const collectNetLinks = (
 const linkedNetGroups = (
   links: readonly NetLinkGroup[],
   scope: NetIdentifierScope,
-  bundleNames: ReadonlyMap<string, string>,
   channelIndices: ReadonlyMap<string, readonly number[]>
 ): Map<string, Set<string>> => {
   const portsJoinByName = scope === "flat" || scope === "global";
@@ -886,10 +891,6 @@ const linkedNetGroups = (
       const placement = `${child}@${parent}#${symbolIndex}`;
       const channels = channel ? [channel] : (channelIndices.get(placement) ?? []).map(String);
       return channels.map((index) => `hier|${placement}@${index}|${name}`);
-    }
-    if (kind === "harness") {
-      const { bundle, member } = splitHarnessSignalKey(key.slice("harness|".length));
-      return [`harness|${harnessSignalKey(bundleNames.get(bundle) ?? bundle, member)}`];
     }
     if (kind === "port") return portsJoinByName ? [key] : [];
     if (kind === "power") return powerIsGlobal ? [key] : [];
@@ -964,6 +965,9 @@ const parseAltiumDocument = (
   const { hasSheetEntries, hasPorts } = readDesignShape(hierarchical);
 
   return {
+    name: read.name,
+    placement,
+    hierarchical,
     netlist: { nets: parsedNets, components },
     nets,
     links: collectNetLinks(nets, hierarchical, parsedNets, read.name, placement),
@@ -1063,50 +1067,6 @@ const mergeResult = (
     if (existing) mergeComponentInto(existing, component);
     else allComponents[refdes] = component;
   }
-};
-
-/**
- * Resolve the many names one bundle goes by into a single one.
- *
- * A bundle is identified by the port it leaves its sheet through, and that port
- * is rarely called the same thing at both ends: a bulkhead sheet takes in
- * `TRANSPONDER_POWER_UL` and passes on `TRANSPONDER_POWER`. The parent sheet is
- * where the two are shown to be one bundle, by a harness line drawn between the
- * sheet entries that name them.
- *
- * Names are matched across the project, as ports already are elsewhere in this
- * parser, so two sheets that reuse one harness port name are read as sharing
- * that bundle.
- */
-const resolveBundleNames = (linkGroups: string[][]): Map<string, string> => {
-  const parent = new Map<string, string>();
-  const find = (name: string): string => {
-    const seen = parent.get(name);
-    if (seen === undefined) {
-      parent.set(name, name);
-      return name;
-    }
-    if (seen === name) return name;
-    const root = find(seen);
-    parent.set(name, root);
-    return root;
-  };
-
-  for (const group of linkGroups) {
-    for (const name of group) {
-      const rootA = find(group[0]);
-      const rootB = find(name);
-      if (rootA === rootB) continue;
-      // Keep the smaller name as the root so the choice is stable whatever
-      // order the documents were read in.
-      if (rootA < rootB) parent.set(rootB, rootA);
-      else parent.set(rootA, rootB);
-    }
-  }
-
-  const resolved = new Map<string, string>();
-  for (const name of parent.keys()) resolved.set(name, find(name));
-  return resolved;
 };
 
 export type { NetNameSource };
@@ -1644,6 +1604,9 @@ const channelDocument = (
   for (const [name, kinds] of base.netIdentifiers) netIdentifiers.set(rename(name), kinds);
 
   return {
+    name: base.name,
+    placement: channel.key,
+    hierarchical: base.hierarchical,
     netlist: { nets, components },
     nets: base.nets,
     links,
@@ -1754,12 +1717,8 @@ const parseAltiumProject = async (
 
   const allNets: NetConnections = {};
   const allComponents: ComponentDetails = {};
-  // Harness signal key -> every net name carrying it, across all sheets.
-  const signalNets = new Map<string, Set<string>>();
   const nameRankOf = new Map<string, number>();
   const rankOf = (name: string): number => nameRankOf.get(name) ?? unranked;
-  const bundleLinks: string[][] = [];
-  const netLinks: NetLinkGroup[] = [];
 
   pending.forEach((document, documentIndex) => {
     const renames = new Map(renamesPerDocument[documentIndex]);
@@ -1788,44 +1747,12 @@ const parseAltiumProject = async (
     }
 
     mergeResult(document.netlist, allNets, allComponents);
-    netLinks.push(...document.links);
-    for (const [signal, netName] of document.harnessSignals) {
-      const carriers = signalNets.get(signal) ?? new Set<string>();
-      carriers.add(netName);
-      signalNets.set(signal, carriers);
-    }
     for (const [name, source] of document.nameSources) {
       const rank = ranks[source];
       if (rank < rankOf(name)) nameRankOf.set(name, rank);
     }
-    bundleLinks.push(...document.bundleLinks);
   });
 
-  // One bundle is known by a different port name on each sheet it reaches, so
-  // fold every name onto the one the whole project agrees on before matching
-  // the signals up.
-  const bundleNames = resolveBundleNames(bundleLinks);
-  const resolvedSignalNets = new Map<string, Set<string>>();
-  for (const [signal, carriers] of signalNets) {
-    const { bundle, member } = splitHarnessSignalKey(signal);
-    const key = harnessSignalKey(bundleNames.get(bundle) ?? bundle, member);
-    const resolved = resolvedSignalNets.get(key) ?? new Set<string>();
-    for (const name of carriers) resolved.add(name);
-    resolvedSignalNets.set(key, resolved);
-  }
-  const harnessRenames = mergeNetGroups(
-    allNets,
-    allComponents,
-    resolvedSignalNets.values(),
-    rankOf
-  );
-
-  // Ports, sheet entries, buses and power ports link nets across sheets the
-  // same way, once the harness merge has settled which name each net goes by.
-  for (const group of netLinks) {
-    if (group.net) group.net = harnessRenames.get(group.net) ?? group.net;
-    if (group.name) group.name = harnessRenames.get(group.name) ?? group.name;
-  }
   const channelIndices = new Map<string, number[]>();
   for (const placed of placements.values()) {
     for (const placement of placed) {
@@ -1835,10 +1762,95 @@ const parseAltiumProject = async (
       );
     }
   }
+
+  // A harness crosses sheets the way a port does: a bundle's port meets the entry
+  // of the same name on the channel that placed its sheet, an entry reaches every
+  // channel of its symbol, and under Flat and Global scope ports also meet by name.
+  // A bundle reaching neither stays within its channel.
+  const portsJoinByName = scope === "flat" || scope === "global";
+  const bundleNodes = (document: ParsedDocument, identity: string): string[] => {
+    const separator = identity.indexOf("|");
+    const kind = identity.slice(0, separator);
+    const rest = identity.slice(separator + 1);
+    if (kind === "port") {
+      return [`hier|${document.placement}|${rest}`, ...(portsJoinByName ? [`port|${rest}`] : [])];
+    }
+    if (kind === "entry") {
+      const index = rest.slice(0, rest.indexOf("|"));
+      const name = rest.slice(index.length + 1);
+      const child = sheetSymbolChild(findRecordByIndex(document.hierarchical, parseInt(index, 10)));
+      const placement = `${child}@${document.name}#${index}`;
+      const channels = child ? (channelIndices.get(placement) ?? []) : [];
+      if (channels.length > 0) return channels.map((c) => `hier|${placement}@${c}|${name}`);
+    }
+    return [`${document.placement}|${identity}`];
+  };
+  const bundleParent = new Map<string, string>();
+  const findBundle = (node: string): string => {
+    let root = node;
+    while (bundleParent.get(root) !== undefined && bundleParent.get(root) !== root) {
+      root = bundleParent.get(root)!;
+    }
+    bundleParent.set(node, root);
+    return root;
+  };
+  const joinBundles = (nodes: readonly string[]): void => {
+    for (const node of nodes) {
+      const a = findBundle(nodes[0]);
+      const b = findBundle(node);
+      if (a !== b) bundleParent.set(b, a);
+    }
+  };
+  const harnessKeyIdentities = (document: ParsedDocument): string[] =>
+    document.links.flatMap((group) =>
+      group.keys
+        .filter((key) => key.startsWith("harness|"))
+        .map((key) => splitHarnessSignalKey(key.slice("harness|".length)).bundle)
+    );
+  for (const document of pending) {
+    const identities = [
+      ...[...document.harnessSignals.keys()].map((signal) => splitHarnessSignalKey(signal).bundle),
+      ...document.bundleLinks.flat(),
+      ...harnessKeyIdentities(document),
+    ];
+    for (const identity of identities) joinBundles(bundleNodes(document, identity));
+    for (const group of document.bundleLinks) {
+      joinBundles(group.map((identity) => bundleNodes(document, identity)[0]));
+    }
+  }
+  const resolveSignal = (document: ParsedDocument, signal: string): string => {
+    const { bundle, member } = splitHarnessSignalKey(signal);
+    return harnessSignalKey(findBundle(bundleNodes(document, bundle)[0]), member);
+  };
+
+  const signalNets = new Map<string, Set<string>>();
+  for (const document of pending) {
+    for (const [signal, netName] of document.harnessSignals) {
+      const key = resolveSignal(document, signal);
+      const carriers = signalNets.get(key) ?? new Set<string>();
+      carriers.add(netName);
+      signalNets.set(key, carriers);
+    }
+  }
+  const harnessRenames = mergeNetGroups(allNets, allComponents, signalNets.values(), rankOf);
+
+  // Ports, sheet entries, buses and power ports link nets across sheets the
+  // same way, once the harness merge has settled which name each net goes by.
+  const netLinks: NetLinkGroup[] = pending.flatMap((document) =>
+    document.links.map((group) => ({
+      net: group.net === undefined ? undefined : (harnessRenames.get(group.net) ?? group.net),
+      name: group.name === undefined ? undefined : (harnessRenames.get(group.name) ?? group.name),
+      keys: group.keys.map((key) =>
+        key.startsWith("harness|")
+          ? `harness|${resolveSignal(document, key.slice("harness|".length))}`
+          : key
+      ),
+    }))
+  );
   mergeNetGroups(
     allNets,
     allComponents,
-    linkedNetGroups(netLinks, scope, bundleNames, channelIndices).values(),
+    linkedNetGroups(netLinks, scope, channelIndices).values(),
     rankOf
   );
   applyNetRenames({ nets: allNets, components: allComponents }, settleProvisionalNames(allNets));

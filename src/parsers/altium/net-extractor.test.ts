@@ -9,8 +9,7 @@ import { extractNets, determineNetList, assignNetName } from "./net-extractor.js
 import { buildHierarchy, flattenHierarchy } from "./hierarchy.js";
 import { RECORD_TYPES } from "./types.js";
 import type { AltiumRecord, AltiumSchematic, AltiumNet } from "./types.js";
-
-const COORDINATE_SCALE = 100000;
+import { COORDINATE_SCALE } from "./coordinates.js";
 
 function scale(value: number): number {
   return value * COORDINATE_SCALE;

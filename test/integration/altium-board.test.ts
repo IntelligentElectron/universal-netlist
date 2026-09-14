@@ -3,8 +3,8 @@
  *
  * A `.PcbDoc` carries the netlist Altium compiled from the same schematics, so
  * it is an independent reference for which pins share a net and what the net
- * is called. Each fixture below records how far the parser agrees with its
- * board; a change that lowers a number here has lost connectivity somewhere.
+ * is called. Each fixture below lists exactly where the parser disagrees with
+ * its board, so any new disagreement fails by name.
  */
 import { describe, it, expect } from "vitest";
 import { existsSync } from "fs";
@@ -18,15 +18,18 @@ interface BoardCase {
   name: string;
   project: string;
   board: string;
-  /** Board nets the parser still splits, all accounted for in the description. */
-  fragmented: number;
+  /** Board nets the parser splits, each accounted for in the description. */
+  fragmented?: string[];
   /** Schematic nets spanning more than one board net. */
-  overMerged?: number;
+  overMerged?: string[];
   /** Connected board pins on no schematic net. */
-  unconnected?: number;
+  unconnected?: string[];
   /** Shared pins whose net name matches the board's, at least. */
   sameName: number;
 }
+
+/** The 32 channel letters of a Repeat() sheet: A to Z, then the characters after Z. */
+const CHANNELS_32 = Array.from({ length: 32 }, (_, i) => String.fromCharCode(65 + i));
 
 const CASES: BoardCase[] = [
   {
@@ -34,7 +37,6 @@ const CASES: BoardCase[] = [
     name: "Altium-STM32-PCB",
     project: "Altium-STM32-PCB/STM32_PCB_Design.PrjPcb",
     board: "Altium-STM32-PCB/STM32_PCB_Design.PcbDoc",
-    fragmented: 0,
     sameName: 120,
   },
   {
@@ -44,7 +46,6 @@ const CASES: BoardCase[] = [
     name: "misko3",
     project: "misko3/MISKO3.PrjPcb",
     board: "misko3/Misko 3.PcbDoc",
-    fragmented: 0,
     sameName: 780,
   },
   {
@@ -53,14 +54,12 @@ const CASES: BoardCase[] = [
     name: "LimeSDR-USB 1v4",
     project: "LimeSDR-USB/hardware/plug/1v4/LimeSDR-USB_1v4.PrjPcb",
     board: "LimeSDR-USB/hardware/plug/1v4/PCB/LimeSDR-USB_1v4.PcbDoc",
-    fragmented: 0,
     sameName: 3033,
   },
   {
     name: "LimeSDR-USB 1v2",
     project: "LimeSDR-USB/hardware/plug/1v2/LimeSDR_1v2.PrjPcb",
     board: "LimeSDR-USB/hardware/plug/1v2/PCB/LimeSDR_1v2.PcbDoc",
-    fragmented: 0,
     sameName: 2883,
   },
   {
@@ -68,41 +67,50 @@ const CASES: BoardCase[] = [
     // top sheet labels FMC1_P[32..1] and the like into entries called
     // Repeat(FMC_P): the members join by index, and the wires that carry them
     // never touch the bus. The board carries every channel's physical
-    // designator (IC49A ... IC49`). IC51 pins 3 and 5 are on no net in every
-    // channel.
+    // designator (IC49A ... IC49`). Parser defect: IC51 pins 3 (GND) and 5
+    // (P3V3) are on no net in every channel.
     name: "FMC DIO 32ch LVDS",
     project: "fmc-dio-32chlvdsa/FMC_DIO_32ch_lvds_a.PrjPcb",
     board: "fmc-dio-32chlvdsa/PCB-Layout/FMC_DIO_32ch_lvds_a.PcbDoc",
-    fragmented: 0,
-    unconnected: 64,
+    unconnected: CHANNELS_32.flatMap((channel) => [`IC51${channel}.3`, `IC51${channel}.5`]),
     sameName: 1877,
   },
   {
     name: "MIXR Power",
     project: "mixr-power/MIXR Power.PrjPcb",
     board: "mixr-power/Layout/MIXR - Power.PcbDoc",
-    fragmented: 0,
     sameName: 380,
   },
   {
-    // A harness meets a port at its fractional far end. The board letters the
-    // buck_boost and ideal_diode channels the other way round.
+    // A harness meets a port at its fractional far end. Parser defect: the board
+    // letters the buck_boost and ideal_diode channels the other way round.
     name: "cube-sat-eps",
     project: "cube-sat-eps/pcb/EPS_board.PrjPcb",
     board: "cube-sat-eps/pcb/EPS.PcbDoc",
-    fragmented: 9,
-    overMerged: 10,
+    fragmented: ["3,3V", "5V", "MODE_3V3", "MODE_5V", "PG_3V3", "PG_5V", "VBAT1", "VBAT2", "VBUS"],
+    overMerged: [
+      "3,3V",
+      "5V",
+      "G_OR__ideal_diode1",
+      "G_OR__ideal_diode2",
+      "MODE_3V3",
+      "MODE_5V",
+      "NetC400A_1",
+      "NetC400B_1",
+      "PG_3V3",
+      "PG_5V",
+    ],
     sameName: 269,
   },
   {
-    // U11.7 and the crystal pads X1.2, X1.4, X3.2 and X3.4 are on no net.
+    // Parser defect: U11.7 and the crystal pads X1.2, X1.4, X3.2 and X3.4 are on
+    // GND on the board and on no net here.
     name: "nRF52840 DK pca10056",
     project:
       "nRF52840-Development-Kit/PCA10056-nRF52840 Development Board 3_0_3/Altium Designer files/pca10056.PrjPCB",
     board:
       "nRF52840-Development-Kit/PCA10056-nRF52840 Development Board 3_0_3/Altium Designer files/400236.PcbDoc",
-    fragmented: 0,
-    unconnected: 5,
+    unconnected: ["U11.7", "X1.2", "X1.4", "X3.2", "X3.4"],
     sameName: 1056,
   },
 ];
@@ -113,7 +121,7 @@ describe("Altium netlist against the board", { timeout: 30_000 }, () => {
     const project = path.join(FIXTURES, boardCase.project);
     const board = path.join(FIXTURES, boardCase.board);
     describe.skipIf(!existsSync(project) || !existsSync(board))(boardCase.name, () => {
-      it("splits, merges and misses no board net beyond the known cases", async () => {
+      it("splits, merges and misses exactly the known board nets", async () => {
         const parsed = await altiumHandler.parse(project, {});
         const pinNets = new Map<string, string>();
         const schematicPins = new Set<string>();
@@ -125,9 +133,9 @@ describe("Altium netlist against the board", { timeout: 30_000 }, () => {
           }
         }
         const comparison = compareToBoard(pinNets, readBoardNetlist(board), schematicPins);
-        expect(comparison.overMerged.length).toBeLessThanOrEqual(boardCase.overMerged ?? 0);
-        expect(comparison.unconnected.length).toBeLessThanOrEqual(boardCase.unconnected ?? 0);
-        expect(comparison.fragmented.length).toBeLessThanOrEqual(boardCase.fragmented);
+        expect(comparison.fragmented).toEqual(boardCase.fragmented ?? []);
+        expect(comparison.overMerged).toEqual(boardCase.overMerged ?? []);
+        expect(comparison.unconnected).toEqual(boardCase.unconnected ?? []);
         expect(comparison.sameName).toBeGreaterThanOrEqual(boardCase.sameName);
       });
     });

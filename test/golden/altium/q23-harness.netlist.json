@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-11T23:51:59.202Z",
-    "netlistHash": "sha256:01e4076e4373638766d2788d66d9ff932a26313775b78318e4e066b728ecb2d1",
+    "generatedAt": "2026-09-14T20:26:46.909Z",
+    "netlistHash": "sha256:68176d3329e916e943cc21e9a98eac67f6967b0424d4581537be57466c943f9c",
     "origin": {
       "type": "vendor",
       "source": {
@@ -219,6 +219,9 @@
       "BRAKE_LIGHT_CONN": [
         "1"
       ],
+      "TRANSPONDER_CONN": [
+        "2"
+      ],
       "FL_DAMPER_CONN": [
         "3"
       ],
@@ -257,6 +260,50 @@
       "KILL_SWITCH_CONN": [
         "2"
       ],
+      "ENGINE_SPEED_CONN": [
+        "3"
+      ],
+      "ENGINE_CAM_SEN_CONN": [
+        "3"
+      ],
+      "INLET_MANI_PRESSURE_CONN": [
+        "3"
+      ],
+      "WHEEL_SPEED_BL_CONN": [
+        "3"
+      ],
+      "WHEEL_SPEED_BR_CONN": [
+        "3"
+      ],
+      "GEAR_SHIFT_ACT_CONN": [
+        "2",
+        "4"
+      ],
+      "TURBO_CONN": [
+        "2",
+        "4"
+      ],
+      "KNOCK_CONN": [
+        "3"
+      ],
+      "APPS_CONN2": [
+        "3"
+      ],
+      "FRONT_BR_PRES?": [
+        "3"
+      ],
+      "REAR_BR_PRES?": [
+        "3"
+      ],
+      "WHEEL_SPEED_FL_CONN": [
+        "3"
+      ],
+      "WHEEL_SPEED_FR_CONN": [
+        "3"
+      ],
+      "P?": [
+        "1"
+      ],
       "DATA_LOGGER_CONN": [
         "7"
       ],
@@ -268,38 +315,6 @@
       "ECU_CONN_C": [
         "10",
         "11"
-      ],
-      "KNOCK_CONN": [
-        "3"
-      ],
-      "ENGINE_SPEED_CONN": [
-        "3"
-      ],
-      "ENGINE_CAM_SEN_CONN": [
-        "3"
-      ],
-      "INLET_MANI_PRESSURE_CONN": [
-        "3"
-      ],
-      "GEAR_SHIFT_ACT_CONN": [
-        "2",
-        "4"
-      ],
-      "TURBO_CONN": [
-        "2",
-        "4"
-      ],
-      "APPS_CONN2": [
-        "3"
-      ],
-      "FRONT_BR_PRES?": [
-        "3"
-      ],
-      "REAR_BR_PRES?": [
-        "3"
-      ],
-      "P?": [
-        "1"
       ]
     },
     "STEERING_POWER": {
@@ -491,6 +506,9 @@
       ],
       "UNDERLEGS_BULKHEAD_CONN": [
         "7"
+      ],
+      "WHEEL_SPEED_FL_CONN": [
+        "2"
       ]
     },
     "WHEEL_SPEED_FR": {
@@ -499,6 +517,9 @@
       ],
       "UNDERLEGS_BULKHEAD_CONN": [
         "10"
+      ],
+      "WHEEL_SPEED_FR_CONN": [
+        "2"
       ]
     },
     "WHEEL_SPEED_BL": {
@@ -507,6 +528,9 @@
       ],
       "REAR_WHEEL_BULK": [
         "8"
+      ],
+      "WHEEL_SPEED_BL_CONN": [
+        "2"
       ]
     },
     "WHEEL_SPEED_BR": {
@@ -515,6 +539,9 @@
       ],
       "REAR_WHEEL_BULK": [
         "11"
+      ],
+      "WHEEL_SPEED_BR_CONN": [
+        "2"
       ]
     },
     "ECU_VBATT": {
@@ -565,9 +592,6 @@
         "44",
         "50"
       ],
-      "INLET_MANI_PRESSURE_CONN": [
-        "1"
-      ],
       "BSPD_CONN": [
         "2"
       ],
@@ -604,6 +628,9 @@
         "6",
         "9"
       ],
+      "INLET_MANI_PRESSURE_CONN": [
+        "1"
+      ],
       "THROTTLE_BODY_CONN": [
         "3"
       ],
@@ -614,6 +641,12 @@
         "1"
       ],
       "REAR_BR_PRES?": [
+        "1"
+      ],
+      "WHEEL_SPEED_FL_CONN": [
+        "1"
+      ],
+      "WHEEL_SPEED_FR_CONN": [
         "1"
       ]
     },
@@ -900,29 +933,9 @@
         "1"
       ]
     },
-    "NetWHEEL_SPEED_BL_CONN_2": {
-      "WHEEL_SPEED_BL_CONN": [
-        "2"
-      ]
-    },
-    "NetWHEEL_SPEED_BL_CONN_3": {
-      "WHEEL_SPEED_BL_CONN": [
-        "3"
-      ]
-    },
     "NetWHEEL_SPEED_BR_CONN_1": {
       "WHEEL_SPEED_BR_CONN": [
         "1"
-      ]
-    },
-    "NetWHEEL_SPEED_BR_CONN_2": {
-      "WHEEL_SPEED_BR_CONN": [
-        "2"
-      ]
-    },
-    "NetWHEEL_SPEED_BR_CONN_3": {
-      "WHEEL_SPEED_BR_CONN": [
-        "3"
       ]
     },
     "VBATT+": {
@@ -1016,6 +1029,9 @@
         "5"
       ],
       "UNDERLEGS_BULKHEAD_CONN": [
+        "1"
+      ],
+      "TRANSPONDER_CONN": [
         "1"
       ]
     },
@@ -1162,46 +1178,6 @@
       ],
       "DATA_LOGGER_CONN": [
         "20"
-      ]
-    },
-    "NetTRANSPONDER_CONN_1": {
-      "TRANSPONDER_CONN": [
-        "1"
-      ]
-    },
-    "NetTRANSPONDER_CONN_2": {
-      "TRANSPONDER_CONN": [
-        "2"
-      ]
-    },
-    "NetWHEEL_SPEED_FL_CONN_1": {
-      "WHEEL_SPEED_FL_CONN": [
-        "1"
-      ]
-    },
-    "NetWHEEL_SPEED_FL_CONN_2": {
-      "WHEEL_SPEED_FL_CONN": [
-        "2"
-      ]
-    },
-    "NetWHEEL_SPEED_FL_CONN_3": {
-      "WHEEL_SPEED_FL_CONN": [
-        "3"
-      ]
-    },
-    "NetWHEEL_SPEED_FR_CONN_1": {
-      "WHEEL_SPEED_FR_CONN": [
-        "1"
-      ]
-    },
-    "NetWHEEL_SPEED_FR_CONN_2": {
-      "WHEEL_SPEED_FR_CONN": [
-        "2"
-      ]
-    },
-    "NetWHEEL_SPEED_FR_CONN_3": {
-      "WHEEL_SPEED_FR_CONN": [
-        "3"
       ]
     },
     "STEERING_ANGLE": {
@@ -1741,8 +1717,8 @@
     "WHEEL_SPEED_BL_CONN": {
       "pins": {
         "1": "NetWHEEL_SPEED_BL_CONN_1",
-        "2": "NetWHEEL_SPEED_BL_CONN_2",
-        "3": "NetWHEEL_SPEED_BL_CONN_3"
+        "2": "WHEEL_SPEED_BL",
+        "3": "PDM_CAN_GND"
       },
       "description": "Header, 3-Pin",
       "comment": "Header 3"
@@ -1750,8 +1726,8 @@
     "WHEEL_SPEED_BR_CONN": {
       "pins": {
         "1": "NetWHEEL_SPEED_BR_CONN_1",
-        "2": "NetWHEEL_SPEED_BR_CONN_2",
-        "3": "NetWHEEL_SPEED_BR_CONN_3"
+        "2": "WHEEL_SPEED_BR",
+        "3": "PDM_CAN_GND"
       },
       "description": "Header, 3-Pin",
       "comment": "Header 3"
@@ -2144,26 +2120,26 @@
     },
     "TRANSPONDER_CONN": {
       "pins": {
-        "1": "NetTRANSPONDER_CONN_1",
-        "2": "NetTRANSPONDER_CONN_2"
+        "1": "TRANSPONDER_POWER",
+        "2": "PDM_CAN_GND"
       },
       "description": "Header, 2-Pin",
       "comment": "Header 2"
     },
     "WHEEL_SPEED_FL_CONN": {
       "pins": {
-        "1": "NetWHEEL_SPEED_FL_CONN_1",
-        "2": "NetWHEEL_SPEED_FL_CONN_2",
-        "3": "NetWHEEL_SPEED_FL_CONN_3"
+        "1": "SEN_5V_A1",
+        "2": "WHEEL_SPEED_FL",
+        "3": "PDM_CAN_GND"
       },
       "description": "Header, 3-Pin",
       "comment": "Header 3"
     },
     "WHEEL_SPEED_FR_CONN": {
       "pins": {
-        "1": "NetWHEEL_SPEED_FR_CONN_1",
-        "2": "NetWHEEL_SPEED_FR_CONN_2",
-        "3": "NetWHEEL_SPEED_FR_CONN_3"
+        "1": "SEN_5V_A1",
+        "2": "WHEEL_SPEED_FR",
+        "3": "PDM_CAN_GND"
       },
       "description": "Header, 3-Pin",
       "comment": "Header 3"

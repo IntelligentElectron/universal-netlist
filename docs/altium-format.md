@@ -226,12 +226,12 @@ wired to nothing else: all 48 such labels on the solarcar-bms board carry their 
 label on a net that leaves through a port, or through a bus that reaches a range identifier, is
 not numbered: the misko3 board calls the bus members `AD0` and `PWM8`, not `AD0_6`.
 
-### Objects meet within a tenth of a unit
+### Objects meet within half a unit
 
 Objects drawn in Altium sit on the grid and meet exactly. Imported designs carry fractional
-coordinates, and their objects meet only nearly: a wire end 0.071 units from the pin it joins.
-Two objects touch within 0.1 units (1 mil). Nothing is drawn that close deliberately: the grid is
-10 units and the finest imported pin pitch 2.5.
+coordinates, and their objects meet only nearly: up to 0.315 units apart, from metric rounding.
+Two objects touch within 0.5 units. Nothing is drawn that close deliberately: the grid is 10 units
+and the finest imported pin pitch 2.5.
 
 Two pins meet end to end or not at all. A pin's whole length is kept as a hotspot so that a wire
 ending part way along it still joins, which imported designs also draw; but two pins lying along

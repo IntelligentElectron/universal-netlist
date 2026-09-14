@@ -7,8 +7,14 @@
 
 import type { AltiumRecord } from "./types.js";
 import { RECORD_TYPES } from "./types.js";
+import {
+  COORDINATE_SCALE,
+  TOUCH_TOLERANCE,
+  pointOnSegment,
+  pointsTouch,
+  type Point as Coordinate,
+} from "./coordinates.js";
 
-type Coordinate = [number, number];
 type LineSegment = [Coordinate, Coordinate];
 
 /**
@@ -48,7 +54,8 @@ class UnionFind {
 }
 
 /**
- * Grid-based spatial index for fast neighbor lookup
+ * Grid-based spatial index for fast neighbor lookup. A device occupies every cell
+ * within TOUCH_TOLERANCE of it, so devices that touch across a cell edge share a cell.
  */
 class SpatialIndex {
   private cellSize: number;
@@ -56,14 +63,8 @@ class SpatialIndex {
   private pointToDevices: Map<string, number[]> = new Map();
   private segmentCells: Map<number, Set<string>> = new Map();
 
-  constructor(cellSize = 100000) {
+  constructor(cellSize = COORDINATE_SCALE) {
     this.cellSize = cellSize;
-  }
-
-  private cellKey(x: number, y: number): string {
-    const cx = Math.floor(x / this.cellSize);
-    const cy = Math.floor(y / this.cellSize);
-    return `${cx},${cy}`;
   }
 
   private coordKey(x: number, y: number): string {
@@ -75,10 +76,10 @@ class SpatialIndex {
     const [x1, y1] = p1;
     const [x2, y2] = p2;
 
-    const minCx = Math.floor(Math.min(x1, x2) / this.cellSize);
-    const maxCx = Math.floor(Math.max(x1, x2) / this.cellSize);
-    const minCy = Math.floor(Math.min(y1, y2) / this.cellSize);
-    const maxCy = Math.floor(Math.max(y1, y2) / this.cellSize);
+    const minCx = Math.floor((Math.min(x1, x2) - TOUCH_TOLERANCE) / this.cellSize);
+    const maxCx = Math.floor((Math.max(x1, x2) + TOUCH_TOLERANCE) / this.cellSize);
+    const minCy = Math.floor((Math.min(y1, y2) - TOUCH_TOLERANCE) / this.cellSize);
+    const maxCy = Math.floor((Math.max(y1, y2) + TOUCH_TOLERANCE) / this.cellSize);
 
     for (let cx = minCx; cx <= maxCx; cx++) {
       for (let cy = minCy; cy <= maxCy; cy++) {
@@ -101,8 +102,7 @@ class SpatialIndex {
       }
       this.pointToDevices.get(coordKeyStr)!.push(deviceIdx);
 
-      const cellKeyStr = this.cellKey(coord[0], coord[1]);
-      allCells.add(cellKeyStr);
+      for (const cell of this.cellsForSegment(coord, coord)) allCells.add(cell);
     }
 
     const recordType = device.RECORD;
@@ -189,36 +189,6 @@ const getLineSegments = (device: AltiumRecord): LineSegment[] => {
   const point = device.coords[0];
   return [[point, point]];
 };
-
-/**
- * How far apart two points may be and still touch: 0.1 schematic units. Imported
- * designs meet only nearly; the grid is 10 units.
- */
-const TOUCH_TOLERANCE = 10000;
-
-/**
- * Check if a point lies on a line segment, within TOUCH_TOLERANCE.
- */
-export const pointOnSegment = (point: Coordinate, segment: LineSegment): boolean => {
-  const [p1, p2] = segment;
-  const [px, py] = point;
-
-  // Cross product collinearity check: the perpendicular distance must be
-  // within tolerance. Squared form avoids sqrt.
-  const cross = (p2[0] - p1[0]) * (py - p1[1]) - (p2[1] - p1[1]) * (px - p1[0]);
-  const segLenSq = (p2[0] - p1[0]) ** 2 + (p2[1] - p1[1]) ** 2;
-  if (segLenSq > 0 && cross * cross > TOUCH_TOLERANCE * TOUCH_TOLERANCE * segLenSq) return false;
-
-  const minX = Math.min(p1[0], p2[0]) - TOUCH_TOLERANCE;
-  const maxX = Math.max(p1[0], p2[0]) + TOUCH_TOLERANCE;
-  const minY = Math.min(p1[1], p2[1]) - TOUCH_TOLERANCE;
-  const maxY = Math.max(p1[1], p2[1]) + TOUCH_TOLERANCE;
-
-  return px >= minX && px <= maxX && py >= minY && py <= maxY;
-};
-
-const pointsTouch = (a: Coordinate, b: Coordinate): boolean =>
-  Math.abs(a[0] - b[0]) <= TOUCH_TOLERANCE && Math.abs(a[1] - b[1]) <= TOUCH_TOLERANCE;
 
 /**
  * Check if a point lies on any of the given line segments.

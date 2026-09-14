@@ -8,6 +8,20 @@
  * See docs/altium-format.md for the record layout.
  */
 
+import {
+  COORDINATE_SCALE,
+  entryOffset,
+  field,
+  pointOnSegment,
+  pointsTouch,
+  polylinePoints,
+  portEnds,
+  scaledField,
+  scaledPoint,
+  sheetEntryPoint,
+  type Point,
+} from "./coordinates.js";
+
 /** Harness type name -> the member names it bundles, as written in the file. */
 export type HarnessDefinitions = Map<string, string[]>;
 
@@ -110,38 +124,23 @@ export const resolveHarnessMembers = (
  * stream, or there will be no harness entries in it at all).
  */
 export const collectNestedHarnessTypes = (
-  records: readonly { RECORD?: string; Name?: string; HarnessType?: string }[]
+  records: readonly Readonly<Record<string, unknown>>[]
 ): Map<string, string> => {
   const nested = new Map<string, string>();
   for (const record of records) {
     if (record.RECORD !== "216") continue;
-    const name = record.Name;
-    const harnessType = record.HarnessType;
-    if (name && harnessType) nested.set(name, harnessType);
+    const name = field(record, "Name");
+    const harnessType = field(record, "HarnessType");
+    if (name && harnessType) nested.set(String(name), String(harnessType));
   }
   return nested;
 };
 
-/**
- * Grid units per `DistanceFromTop` step on a harness connector.
- *
- * Derived from real sheets: a connector at Location.Y=670 with entries at
- * DistanceFromTop 1, 2, 9, 10 and 13 has the five wires landing on it end at
- * y = 660, 650, 580, 570 and 540, which is exactly Location.Y - n * 10.
- */
-const HARNESS_ENTRY_PITCH = 10;
-
-/**
- * Denominator of `DistanceFromTop_Frac1`.
- *
- * An entry may sit half a step down: a sheet writing
- * `DistanceFromTop=1 | DistanceFromTop_Frac1=500000` has that entry's wire end
- * 15 grid units below the connector's top, so 500000 is half a step.
- */
-const DISTANCE_FRACTION_SCALE = 1_000_000;
-
-/** Scaled units per schematic unit; `_Frac` fields count hundred-thousandths. */
-const COORDINATE_SCALE = 100000;
+/** The name an identifier is written with, `Name` or else `Text`. */
+const recordName = (record: HarnessRecord): string | undefined => {
+  const name = field(record, "Name") ?? field(record, "Text");
+  return name === undefined || name === null || name === "" ? undefined : String(name);
+};
 
 /**
  * Value of `Side` on an entry, and of `HarnessConnectorSide` on a connector.
@@ -177,9 +176,6 @@ export interface HarnessRecord {
   [key: string]: unknown;
 }
 
-/** A point in the same scaled units the net extractor works in. */
-type Point = readonly [number, number];
-
 /** One harness connector together with the entries drawn on its edge. */
 export interface HarnessConnector {
   /** The RECORD=215 connector itself. */
@@ -189,17 +185,6 @@ export interface HarnessConnector {
   /** Where the bundle leaves the connector, meeting a harness or a port. */
   primary: Point;
 }
-
-const toNumber = (value: unknown): number => {
-  if (value === undefined || value === null || value === "") return 0;
-  const parsed = Number(value);
-  return Number.isFinite(parsed) ? parsed : 0;
-};
-
-const scaled = (base: unknown, frac: unknown): number =>
-  Math.round(toNumber(base) * COORDINATE_SCALE + toNumber(frac));
-
-const pointKey = (point: Point): string => `${point[0]},${point[1]}`;
 
 /** Write a scaled coordinate back onto a record as Altium's base/fraction pair. */
 const setScaledLocation = (record: HarnessRecord, x: number, y: number): void => {
@@ -212,16 +197,6 @@ const setScaledLocation = (record: HarnessRecord, x: number, y: number): void =>
 };
 
 /**
- * How far below the connector's top edge an entry sits, in whole grid steps.
- *
- * The step count is a fixed-point value: `DistanceFromTop` counts whole steps and
- * `DistanceFromTop_Frac1` the fraction of one. Both are absent for an entry on
- * the top edge itself.
- */
-const entryDistanceFromTop = (entry: HarnessRecord): number =>
-  toNumber(entry.DistanceFromTop) + toNumber(entry.DistanceFromTop_Frac1) / DISTANCE_FRACTION_SCALE;
-
-/**
  * Whether a connector's entries are drawn on its right edge rather than its left.
  *
  * The entry's own `Side` is authoritative where it is written; otherwise the
@@ -230,9 +205,9 @@ const entryDistanceFromTop = (entry: HarnessRecord): number =>
  * the test corpus: each lands exactly on a wire end.
  */
 const entriesOnRightEdge = (connector: HarnessRecord, entry: HarnessRecord): boolean =>
-  entry.Side !== undefined
-    ? entry.Side === SIDE_FLAG
-    : connector.HarnessConnectorSide !== SIDE_FLAG;
+  field(entry, "Side") !== undefined
+    ? field(entry, "Side") === SIDE_FLAG
+    : field(connector, "HarnessConnectorSide") !== SIDE_FLAG;
 
 /**
  * Read the harness connectors of a sheet, giving every entry the coordinate at
@@ -255,20 +230,20 @@ export const readHarnessConnectors = (records: HarnessRecord[]): HarnessConnecto
   for (const record of records) {
     if (record.RECORD === "215") {
       current = undefined;
-      if (record["Location.X"] === undefined || record["Location.Y"] === undefined) continue;
+      if (field(record, "Location.X") === undefined || field(record, "Location.Y") === undefined) {
+        continue;
+      }
 
-      const originX = scaled(record["Location.X"], record["Location.X_Frac"]);
-      const originY = scaled(record["Location.Y"], record["Location.Y_Frac"]);
-      const width = scaled(record.XSize, record.XSize_Frac);
+      const [originX, originY] = scaledPoint(record);
       // The bundle leaves from the edge opposite the entries, at the height
       // `PrimaryConnectionPosition` gives below the connector's top.
-      const leavesRight = record.HarnessConnectorSide === SIDE_FLAG;
+      const leavesRight = field(record, "HarnessConnectorSide") === SIDE_FLAG;
       current = {
         connector: record,
         entries: [],
         primary: [
-          leavesRight ? originX + width : originX,
-          originY - scaled(record.PrimaryConnectionPosition, record.PrimaryConnectionPosition_Frac),
+          leavesRight ? originX + scaledField(record, "XSize") : originX,
+          originY - scaledField(record, "PrimaryConnectionPosition"),
         ],
       };
       connectors.push(current);
@@ -279,104 +254,12 @@ export const readHarnessConnectors = (records: HarnessRecord[]): HarnessConnecto
     current.entries.push(record);
 
     const connector = current.connector;
-    const originX = scaled(connector["Location.X"], connector["Location.X_Frac"]);
-    const originY = scaled(connector["Location.Y"], connector["Location.Y_Frac"]);
-    const width = entriesOnRightEdge(connector, record)
-      ? scaled(connector.XSize, connector.XSize_Frac)
-      : 0;
-    setScaledLocation(
-      record,
-      originX + width,
-      Math.round(originY - entryDistanceFromTop(record) * HARNESS_ENTRY_PITCH * COORDINATE_SCALE)
-    );
+    const [originX, originY] = scaledPoint(connector);
+    const width = entriesOnRightEdge(connector, record) ? scaledField(connector, "XSize") : 0;
+    setScaledLocation(record, originX + width, originY - entryOffset(record));
   }
 
   return connectors;
-};
-
-/**
- * Whether a point lies on the segment between two others.
- *
- * Harness lines are drawn on the grid, so the test is exact rather than
- * tolerant: a point is on the segment when it is collinear with the ends and
- * between them.
- */
-const pointOnSegment = (point: Point, start: Point, end: Point): boolean => {
-  const cross =
-    (end[0] - start[0]) * (point[1] - start[1]) - (end[1] - start[1]) * (point[0] - start[0]);
-  if (cross !== 0) return false;
-  return (
-    point[0] >= Math.min(start[0], end[0]) &&
-    point[0] <= Math.max(start[0], end[0]) &&
-    point[1] >= Math.min(start[1], end[1]) &&
-    point[1] <= Math.max(start[1], end[1])
-  );
-};
-
-/** The vertices of a polyline record, in scaled units. */
-const polylinePoints = (record: HarnessRecord): Point[] => {
-  const points: Point[] = [];
-  const count = toNumber(record.LocationCount);
-  for (let i = 1; i <= count; i++) {
-    points.push([
-      scaled(record[`X${i}`], record[`X${i}_Frac`]),
-      scaled(record[`Y${i}`], record[`Y${i}_Frac`]),
-    ]);
-  }
-  return points;
-};
-
-/** A record's own position, in scaled units. */
-const recordLocation = (record: HarnessRecord): Point => [
-  scaled(record["Location.X"], record["Location.X_Frac"]),
-  scaled(record["Location.Y"], record["Location.Y_Frac"]),
-];
-
-/**
- * The two ends of a port, in scaled units.
- *
- * A port is drawn as a horizontal box `Width` wide, and whichever end faces the
- * harness connector is the end the bundle meets, so both count.
- */
-const portEnds = (port: HarnessRecord): Point[] => {
-  const [x, y] = recordLocation(port);
-  return [
-    [x, y],
-    [x + scaled(port.Width, port.Width_Frac), y],
-  ];
-};
-
-/**
- * Sides a sheet entry can be drawn on, of which only two are placed here.
- *
- * `Side` counts round the sheet symbol: 0 left, 1 right, 2 top, 3 bottom. All 44
- * harness-typed sheet entries in the fixture corpus are on a vertical edge; the
- * seven on a horizontal one carry no `HarnessType`, so the geometry a top or
- * bottom entry uses has not been seen and is not guessed at.
- */
-const SHEET_ENTRY_VERTICAL_SIDES = new Set([undefined, "0", "1"]);
-
-/**
- * Where a sheet entry meets a harness line on the parent sheet.
- *
- * A sheet entry is placed the way a harness entry is: it inherits its position
- * from the sheet symbol it belongs to, sits `DistanceFromTop` grid steps below
- * that symbol's top edge, and takes the left edge unless `Side` puts it on the
- * right. Verified against all 44 harness-typed sheet entries in the test corpus,
- * each of which lands exactly on a harness line vertex.
- *
- * An entry on the top or bottom edge has no known position and returns none, so
- * it joins no bundle rather than being placed somewhere it may not be.
- */
-const sheetEntryLocation = (symbol: HarnessRecord, entry: HarnessRecord): Point | undefined => {
-  if (!SHEET_ENTRY_VERTICAL_SIDES.has(entry.Side)) return undefined;
-
-  const [originX, originY] = recordLocation(symbol);
-  const width = entry.Side === SIDE_FLAG ? scaled(symbol.XSize, symbol.XSize_Frac) : 0;
-  return [
-    originX + width,
-    Math.round(originY - entryDistanceFromTop(entry) * HARNESS_ENTRY_PITCH * COORDINATE_SCALE),
-  ];
 };
 
 /** Separates a bundle name from a member name; neither can contain it. */
@@ -417,196 +300,158 @@ class BundleGroups {
 const preferredName = (current: string | undefined, candidate: string): string =>
   current === undefined || candidate < current ? candidate : current;
 
+/** The identity of a bundle that leaves its sheet through the harness port `name`. */
+export const portBundle = (name: string): string => `port|${name}`;
+
 /**
- * Everything a sheet draws that a bundle can be identified or named by.
+ * The identity of a bundle that reaches the harness entry `name` of the sheet symbol
+ * at `symbolIndex`, the record's position among the sheet's `FileHeader` records.
  */
+export const entryBundle = (symbolIndex: number, name: string): string =>
+  `entry|${symbolIndex}|${name}`;
+
+/** Everything a sheet draws that a bundle can be identified or named by. */
 export interface HarnessSheetObjects {
   /**
-   * The `FileHeader` records in stream order.
-   *
-   * Ports, net labels, sheet symbols and their entries are read from here.
-   * Order matters: a sheet entry inherits its position from the sheet symbol it
-   * follows, exactly as a harness entry does from its connector.
+   * The `FileHeader` records in stream order. A sheet entry inherits its position
+   * from the sheet symbol it follows.
    */
   records: readonly HarnessRecord[];
   /** RECORD=218 signal harness lines, from the `Additional` stream. */
   buses: readonly HarnessRecord[];
-  /** Identifies bundles that never leave this sheet. */
-  sheetKey: string;
 }
 
 /**
  * Say which signal every harness entry carries, and what Altium calls its net.
  *
- * A harness connector bundles its entries and hands the bundle off from its
- * primary connection point, which meets either a signal harness polyline
- * (RECORD=218) or a harness-typed port (RECORD=18 with a `HarnessType`).
- * Connectors reaching the same polyline, or the same port, carry the same
- * bundle, so their entries of a given name are one signal — which is what lets
- * a net be traced through a harness whatever the wires either side are
- * labelled, the harness elements being, in Altium's words, "names of the
- * containers that carry the nets, not the names of the nets themselves".
+ * A harness connector hands its bundle off at its primary connection point, which
+ * meets a signal harness line or a harness-typed port. Connectors reaching one
+ * line or one port carry one bundle, so their entries of one name are one signal,
+ * whatever the wires either side are labelled.
  *
- * A bundle is identified by the port it reaches, because a port name is global:
- * the sheet on the other side names its own connectors from the same port and
- * arrives at the same signal keys, which is how a harness crosses a sheet
- * boundary. A bundle reaching no port is local to its sheet and identified by
- * `sheetKey`.
+ * A bundle is identified by the ports and sheet entries it reaches (portBundle,
+ * entryBundle), which the project resolves across sheets; a bundle reaching
+ * neither is local to its sheet. A net label on the harness line names the nets it
+ * carries `<label>.<entry name>`.
  *
- * Naming follows Altium's rule that harness elements do not name nets, with one
- * exception: a net label placed on the signal harness line names the harness,
- * and every net it carries is then called `<harness label>.<entry name>` in
- * place of whatever the wire itself was labelled.
- *
- * Entries of a connector that reaches neither a harness line nor a port are
- * left alone: they connect through geometry only, as they did before.
+ * Returns the identities of every bundle known by more than one.
  */
 export const assignHarnessSignals = (
   connectors: HarnessConnector[],
   sheet: HarnessSheetObjects
 ): string[][] => {
-  // Group everything that meets the same signal harness line. Each line is a
-  // node of its own, so a harness drawn as several joined lines, or one with
-  // three or more objects on it, still forms a single bundle.
+  // Each line is a node of its own, so a harness drawn as several joined lines is
+  // still one bundle.
   const groups = new BundleGroups();
-  const lineNode = (offset: number): number => connectors.length + offset;
-  const pointToLine = new Map<string, number>();
-  const lineShapes: { node: number; points: Point[] }[] = [];
-  sheet.buses.forEach((bus, offset) => {
-    const points = polylinePoints(bus);
-    lineShapes.push({ node: lineNode(offset), points });
-    for (const point of points) {
-      const key = pointKey(point);
-      // A line meeting another line at a vertex is the same harness.
-      const met = pointToLine.get(key);
-      if (met !== undefined) groups.union(met, lineNode(offset));
-      else pointToLine.set(key, lineNode(offset));
+  const lines = sheet.buses.map((bus, offset) => ({
+    node: connectors.length + offset,
+    points: polylinePoints(bus),
+  }));
+  lines.forEach((line, i) => {
+    for (const other of lines.slice(i + 1)) {
+      if (line.points.some((a) => other.points.some((b) => pointsTouch(a, b)))) {
+        groups.union(line.node, other.node);
+      }
     }
   });
 
-  /**
-   * The harness line a point touches.
-   *
-   * Objects meet a line at one of its vertices, which is how every connector,
-   * port and sheet entry in the sampled designs attaches. A net label naming the
-   * harness instead sits somewhere along it, so the whole run has to be walked.
-   */
+  /** The harness line a point touches, at a vertex or along a segment. */
   const lineAt = (point: Point): number | undefined => {
-    const vertex = pointToLine.get(pointKey(point));
-    if (vertex !== undefined) return vertex;
-    for (const shape of lineShapes) {
-      for (let i = 0; i + 1 < shape.points.length; i++) {
-        if (pointOnSegment(point, shape.points[i], shape.points[i + 1])) return shape.node;
+    for (const { node, points } of lines) {
+      if (points.some((vertex) => pointsTouch(point, vertex))) return node;
+    }
+    for (const { node, points } of lines) {
+      for (let i = 0; i + 1 < points.length; i++) {
+        if (pointOnSegment(point, [points[i], points[i + 1]])) return node;
       }
     }
     return undefined;
   };
 
-  /** Bundle names that reach a harness line, and the line group they reach. */
-  const namesByNode = new Map<number, Set<string>>();
-  const nameAt = (node: number, name: string): void => {
-    const names = namesByNode.get(node) ?? new Set<string>();
-    names.add(name);
-    namesByNode.set(node, names);
+  const identitiesByNode = new Map<number, Set<string>>();
+  const identify = (node: number, identity: string): void => {
+    const identities = identitiesByNode.get(node) ?? new Set<string>();
+    identities.add(identity);
+    identitiesByNode.set(node, identities);
   };
   const labelByNode = new Map<number, string>();
-  const portByPoint = new Map<string, string>();
+  const ports: { end: Point; identity: string }[] = [];
 
-  let symbol: HarnessRecord | undefined;
-  for (const record of sheet.records) {
+  let symbol: { record: HarnessRecord; index: number } | undefined;
+  for (const [index, record] of sheet.records.entries()) {
     if (record.RECORD === "15") {
-      symbol = record;
+      symbol = { record, index };
       continue;
     }
 
     if (record.RECORD === "25") {
-      // A net label sitting on a harness line names that harness.
-      const text = record.Text ?? record.Name;
-      const node = lineAt(recordLocation(record));
+      const text = field(record, "Text") ?? field(record, "Name");
+      const node = lineAt(scaledPoint(record));
       if (text && node !== undefined) {
         labelByNode.set(node, preferredName(labelByNode.get(node), String(text)));
       }
       continue;
     }
 
-    if (record.RECORD === "18" && record.HarnessType) {
-      const name = record.Name ?? record.Text;
-      if (!name) continue;
-      for (const end of portEnds(record)) {
-        const key = pointKey(end);
-        portByPoint.set(key, String(name));
-        const node = lineAt(end);
-        if (node !== undefined) nameAt(node, String(name));
-      }
-      continue;
-    }
+    // A port or sheet entry on a harness line carries the bundle, `HarnessType` or not.
+    const name = recordName(record);
+    if (!name) continue;
 
-    // A harness-typed sheet entry is the parent sheet's end of a bundle that a
-    // child sheet knows by the port of the same name. Two of them joined by a
-    // harness line are two names for one bundle.
-    if (record.RECORD === "16" && record.HarnessType && symbol) {
-      const name = record.Name ?? record.Text;
-      const location = name ? sheetEntryLocation(symbol, record) : undefined;
-      if (!name || !location) continue;
-      const node = lineAt(location);
-      if (node !== undefined) nameAt(node, String(name));
+    if (record.RECORD === "18") {
+      for (const end of portEnds(record)) {
+        ports.push({ end, identity: portBundle(name) });
+        const node = lineAt(end);
+        if (node !== undefined) identify(node, portBundle(name));
+      }
+    } else if (record.RECORD === "16" && symbol) {
+      const node = lineAt(sheetEntryPoint(symbol.record, record));
+      if (node !== undefined) identify(node, entryBundle(symbol.index, name));
     }
   }
 
   const attached = new Set<number>();
-  const portNames = new Map<number, string>();
   connectors.forEach((connector, id) => {
-    const key = pointKey(connector.primary);
-
     const line = lineAt(connector.primary);
     if (line !== undefined) {
       groups.union(line, id);
       attached.add(id);
     }
-
-    const portName = portByPoint.get(key);
-    if (portName !== undefined) {
-      portNames.set(id, portName);
+    for (const port of ports) {
+      if (!pointsTouch(port.end, connector.primary)) continue;
+      identify(id, port.identity);
       attached.add(id);
     }
   });
 
-  // Resolve every name against the final groups: a connector joined to a port
-  // through a harness line shares that line's group, and so its name.
-  const identityByRoot = new Map<number, string>();
-  const labelByRoot = new Map<number, string>();
-  const linkedByRoot = new Map<number, Set<string>>();
-  for (const [id, name] of portNames) {
-    const root = groups.find(id);
-    identityByRoot.set(root, preferredName(identityByRoot.get(root), name));
+  const identitiesByRoot = new Map<number, Set<string>>();
+  for (const [node, identities] of identitiesByNode) {
+    const root = groups.find(node);
+    const merged = identitiesByRoot.get(root) ?? new Set<string>();
+    for (const identity of identities) merged.add(identity);
+    identitiesByRoot.set(root, merged);
   }
+  const labelByRoot = new Map<number, string>();
   for (const [node, label] of labelByNode) {
     const root = groups.find(node);
     labelByRoot.set(root, preferredName(labelByRoot.get(root), label));
-  }
-  for (const [node, names] of namesByNode) {
-    const root = groups.find(node);
-    const linked = linkedByRoot.get(root) ?? new Set<string>();
-    for (const name of names) {
-      linked.add(name);
-      identityByRoot.set(root, preferredName(identityByRoot.get(root), name));
-    }
-    linkedByRoot.set(root, linked);
   }
 
   connectors.forEach((connector, id) => {
     if (!attached.has(id)) return;
     const root = groups.find(id);
-    const bundle = identityByRoot.get(root) ?? `${sheet.sheetKey}#${root}`;
+    const identities = identitiesByRoot.get(root);
+    const bundle = identities ? [...identities].sort()[0] : `local|${root}`;
     const harnessLabel = labelByRoot.get(root);
 
     for (const entry of connector.entries) {
-      const member = entry.Name ?? entry.Text;
+      const member = recordName(entry);
       if (!member) continue;
-      entry.harnessSignal = harnessSignalKey(bundle, String(member));
-      if (harnessLabel !== undefined) entry.harnessNetName = `${harnessLabel}.${String(member)}`;
+      entry.harnessSignal = harnessSignalKey(bundle, member);
+      if (harnessLabel !== undefined) entry.harnessNetName = `${harnessLabel}.${member}`;
     }
   });
 
-  return [...linkedByRoot.values()].filter((names) => names.size > 1).map((names) => [...names]);
+  return [...identitiesByRoot.values()]
+    .filter((identities) => identities.size > 1)
+    .map((identities) => [...identities].sort());
 };

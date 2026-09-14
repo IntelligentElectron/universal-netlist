@@ -6,7 +6,7 @@ import { describe, it, expect } from "vitest";
 import { extractComponents, readSheetNumber } from "./index.js";
 import { parseRecords } from "./record-parser.js";
 import { buildHierarchy, getPartsList, findRecordByIndex } from "./hierarchy.js";
-import { isConnected, findConnectedDevices } from "./connectivity.js";
+import { isConnected, findConnectedDevices, findAllConnectedComponents } from "./connectivity.js";
 import { RECORD_TYPES } from "./types.js";
 import type { AltiumRecord, AltiumSchematic } from "./types.js";
 
@@ -362,7 +362,7 @@ describe("Connectivity", () => {
         Text: "CLK",
         coords: [[500000, 1000]],
       };
-      const farLabel: AltiumRecord = { ...label, index: 2, coords: [[500000, 50000]] };
+      const farLabel: AltiumRecord = { ...label, index: 2, coords: [[500000, 100000]] };
       expect(isConnected(wire, label)).toBe(true);
       expect(isConnected(wire, farLabel)).toBe(false);
     });
@@ -373,23 +373,23 @@ describe("Connectivity", () => {
         RECORD: RECORD_TYPES.PIN,
         coords: [
           [0, 0],
-          [100000, 0],
+          [300000, 0],
         ],
       };
       const endToEnd: AltiumRecord = {
         index: 1,
         RECORD: RECORD_TYPES.PIN,
         coords: [
-          [200000, 0],
-          [100000, 0],
+          [600000, 0],
+          [300000, 0],
         ],
       };
       const overlapping: AltiumRecord = {
         index: 2,
         RECORD: RECORD_TYPES.PIN,
         coords: [
-          [50000, 0],
-          [150000, 0],
+          [100000, 0],
+          [400000, 0],
         ],
       };
       expect(isConnected(pinA, endToEnd)).toBe(true);
@@ -567,6 +567,30 @@ describe("Connectivity", () => {
       expect(connected.length).toBe(1);
       expect(connected[0].index).toBe(0);
     });
+  });
+});
+
+describe("findAllConnectedComponents", () => {
+  it("joins devices that touch across a spatial index cell edge", () => {
+    // Cells are one unit wide: the wire ends in cell 9 and the pin starts in cell 10.
+    const wire: AltiumRecord = {
+      index: 0,
+      RECORD: RECORD_TYPES.WIRE,
+      coords: [
+        [500000, 0],
+        [995000, 0],
+      ],
+    };
+    const pin: AltiumRecord = {
+      index: 1,
+      RECORD: RECORD_TYPES.PIN,
+      coords: [
+        [1000000, 0],
+        [2000000, 0],
+      ],
+    };
+    expect(isConnected(wire, pin)).toBe(true);
+    expect(findAllConnectedComponents([wire, pin])).toHaveLength(1);
   });
 });
 

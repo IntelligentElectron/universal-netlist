@@ -6,6 +6,8 @@ import {
   readHarnessConnectors,
   assignHarnessSignals,
   harnessSignalKey,
+  portBundle,
+  entryBundle,
 } from "./harness.js";
 import type { HarnessRecord } from "./harness.js";
 
@@ -298,7 +300,6 @@ describe("assignHarnessSignals", () => {
     assignHarnessSignals(connectors, {
       records: [],
       buses: [harnessLine(760, 400, 815, 400)],
-      sheetKey: "channel.SchDoc",
     });
 
     expect(records[1].harnessSignal).toBeDefined();
@@ -322,11 +323,10 @@ describe("assignHarnessSignals", () => {
         { RECORD: "18", Name: "FR_DAMPER_POT", ...at(80, 100), Width: "160", HarnessType: "S" },
       ],
       buses: [],
-      sheetKey: "DASH_BULKHEAD.SchDoc",
     });
 
-    expect(records[1].harnessSignal).toBe(harnessSignalKey("FL_DAMPER_POT", "SIGNAL"));
-    expect(records[3].harnessSignal).toBe(harnessSignalKey("FR_DAMPER_POT", "SIGNAL"));
+    expect(records[1].harnessSignal).toBe(harnessSignalKey(portBundle("FL_DAMPER_POT"), "SIGNAL"));
+    expect(records[3].harnessSignal).toBe(harnessSignalKey(portBundle("FR_DAMPER_POT"), "SIGNAL"));
   });
 
   it("names the nets of a labelled harness after the label and the entry", () => {
@@ -338,7 +338,6 @@ describe("assignHarnessSignals", () => {
     assignHarnessSignals(connectors, {
       records: [{ RECORD: "25", Text: "HARD", ...at(790, 400) }],
       buses: [harnessLine(760, 400, 815, 400)],
-      sheetKey: "channel.SchDoc",
     });
 
     expect(records[1].harnessNetName).toBe("HARD.OP_OUT");
@@ -352,7 +351,6 @@ describe("assignHarnessSignals", () => {
     assignHarnessSignals(connectors, {
       records: [],
       buses: [harnessLine(760, 400, 815, 400)],
-      sheetKey: "channel.SchDoc",
     });
 
     expect(records[1].harnessNetName).toBeUndefined();
@@ -375,31 +373,104 @@ describe("assignHarnessSignals", () => {
         },
       ],
       buses: [harnessLine(520, 610, 530, 700)],
-      sheetKey: "TOP.SchDoc",
     });
 
-    expect(links).toEqual([["TRANSPONDER_POWER_UL", "TRANSPONDER_POWER"]]);
+    expect(links).toEqual([
+      [entryBundle(0, "TRANSPONDER_POWER_UL"), entryBundle(2, "TRANSPONDER_POWER")],
+    ]);
   });
 
-  it("ignores a harness sheet entry on an edge whose geometry is unknown", () => {
-    // Side counts round the symbol: 0 left, 1 right, 2 top, 3 bottom. No
-    // harness-typed entry on a horizontal edge has been seen, so one is left out
-    // rather than placed where a vertical entry would go.
-    // ON_TOP would land on the same line vertex as ON_LEFT if it were placed as
-    // a left-edge entry, so its absence from the link is the whole assertion.
+  it("places a harness sheet entry on the top edge of its symbol", () => {
     const links = assignHarnessSignals([], {
       records: [
         { RECORD: "15", ...at(520, 630), XSize: "370" },
         { RECORD: "16", Name: "ON_TOP", Side: "2", DistanceFromTop: "2", HarnessType: "P" },
-        { RECORD: "16", Name: "ON_LEFT", DistanceFromTop: "2", HarnessType: "P" },
-        { RECORD: "15", ...at(450, 720), XSize: "80" },
+        { RECORD: "15", ...at(560, 720), XSize: "40" },
         { RECORD: "16", Name: "ON_RIGHT", Side: "1", DistanceFromTop: "2", HarnessType: "P" },
       ],
-      buses: [harnessLine(520, 610, 530, 700)],
-      sheetKey: "TOP.SchDoc",
+      buses: [harnessLine(540, 630, 600, 700)],
     });
 
-    expect(links).toEqual([["ON_LEFT", "ON_RIGHT"]]);
+    expect(links).toEqual([[entryBundle(0, "ON_TOP"), entryBundle(2, "ON_RIGHT")]]);
+  });
+
+  /** A connector whose bundle leaves its left edge at (240,160). */
+  const leftConnector = (): HarnessRecord[] => [
+    { RECORD: "215", ...at(240, 180), XSize: "60", PrimaryConnectionPosition: "20" },
+    { RECORD: "216", Name: "SIGNAL", Side: "1", DistanceFromTop: "2" },
+  ];
+
+  it("names a bundle by a port whose end is within the touch tolerance", () => {
+    const records = leftConnector();
+    assignHarnessSignals(readHarnessConnectors(records), {
+      records: [
+        {
+          RECORD: "18",
+          Name: "POT",
+          ...at(80, 160),
+          Width: "159",
+          Width_Frac: "93000",
+          HarnessType: "S",
+        },
+      ],
+      buses: [],
+    });
+
+    expect(records[1].harnessSignal).toBe(harnessSignalKey(portBundle("POT"), "SIGNAL"));
+  });
+
+  it("meets a vertical harness port at its top end", () => {
+    const records = leftConnector();
+    assignHarnessSignals(readHarnessConnectors(records), {
+      records: [
+        { RECORD: "18", Name: "POT", ...at(240, 100), Width: "60", Style: "4", HarnessType: "S" },
+      ],
+      buses: [],
+    });
+
+    expect(records[1].harnessSignal).toBe(harnessSignalKey(portBundle("POT"), "SIGNAL"));
+  });
+
+  it("reads records written with upper-case keys", () => {
+    const records: HarnessRecord[] = [
+      {
+        RECORD: "215",
+        "LOCATION.X": "240",
+        "LOCATION.Y": "180",
+        XSIZE: "60",
+        PRIMARYCONNECTIONPOSITION: "20",
+      },
+      { RECORD: "216", NAME: "SIGNAL", SIDE: "1", DISTANCEFROMTOP: "2" },
+    ];
+    assignHarnessSignals(readHarnessConnectors(records), {
+      records: [
+        {
+          RECORD: "18",
+          NAME: "POT",
+          "LOCATION.X": "80",
+          "LOCATION.Y": "160",
+          WIDTH: "160",
+          HARNESSTYPE: "S",
+        },
+      ],
+      buses: [],
+    });
+
+    expect(records[1]["Location.X"]).toBe("300");
+    expect(records[1].harnessSignal).toBe(harnessSignalKey(portBundle("POT"), "SIGNAL"));
+  });
+
+  it("joins harness lines that meet within the touch tolerance", () => {
+    const records = bundlePair();
+    assignHarnessSignals(readHarnessConnectors(records), {
+      records: [],
+      buses: [
+        harnessLine(760, 400, 790, 400),
+        { ...harnessLine(790, 400, 815, 400), X1_Frac: "5000" },
+      ],
+    });
+
+    expect(records[3].harnessSignal).toBe(records[1].harnessSignal);
   });
 
   it("leaves a connector that reaches no harness line or port alone", () => {
@@ -411,7 +482,6 @@ describe("assignHarnessSignals", () => {
     assignHarnessSignals(readHarnessConnectors(records), {
       records: [],
       buses: [],
-      sheetKey: "lonely.SchDoc",
     });
 
     expect(records[1].harnessSignal).toBeUndefined();
