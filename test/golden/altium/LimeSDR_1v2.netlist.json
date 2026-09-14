@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-11T23:59:41.404Z",
-    "netlistHash": "sha256:801c2b1dde080cdeb68b524daa0d35ba16a4679e34439685af1cf5d90bda7a57",
+    "generatedAt": "2026-09-14T19:06:55.487Z",
+    "netlistHash": "sha256:0a3d1f919d621c35268f24232ddc4f0477d5a15d1260a5ce8965c84ac380d9c9",
     "origin": {
       "type": "vendor",
       "source": {
@@ -5388,6 +5388,9 @@
     "FX3_DQ16": {
       "IC31": [
         "R21"
+      ],
+      "R49": [
+        "1"
       ]
     },
     "FX3_DQ20": {
@@ -6261,6 +6264,22 @@
         "12"
       ]
     },
+    "NetIC33_7": {
+      "R189": [
+        "2"
+      ],
+      "IC33": [
+        "7"
+      ]
+    },
+    "NetIC33_3": {
+      "R190": [
+        "2"
+      ],
+      "IC33": [
+        "3"
+      ]
+    },
     "FLASH_AS_MISO": {
       "IC33": [
         "2"
@@ -6985,9 +7004,12 @@
         "1"
       ]
     },
-    "NetR48_1": {
+    "NetIC6_F10": {
       "R48": [
         "1"
+      ],
+      "IC6": [
+        "F10"
       ]
     },
     "NetIC6_F9": {
@@ -7390,6 +7412,22 @@
         "F6"
       ]
     },
+    "NetIC6_C8": {
+      "R54": [
+        "2"
+      ],
+      "IC6": [
+        "C8"
+      ]
+    },
+    "NetIC6_B3": {
+      "R56": [
+        "2"
+      ],
+      "IC6": [
+        "B3"
+      ]
+    },
     "FX3_FSLC2": {
       "IC6": [
         "E6"
@@ -7624,6 +7662,14 @@
       ],
       "R67": [
         "1"
+      ]
+    },
+    "NetIC10_16": {
+      "IC10": [
+        "16"
+      ],
+      "R91": [
+        "2"
       ]
     },
     "NetIC12_3": {
@@ -8182,6 +8228,14 @@
         "2"
       ]
     },
+    "NetC214_1": {
+      "C214": [
+        "1"
+      ],
+      "R118": [
+        "2"
+      ]
+    },
     "NetC213_2": {
       "C213": [
         "2"
@@ -8235,6 +8289,14 @@
       ],
       "FR52": [
         "2"
+      ]
+    },
+    "NetFR50_1": {
+      "IC15": [
+        "6"
+      ],
+      "FR50": [
+        "1"
       ]
     },
     "VCC3P3_SI": {
@@ -8362,6 +8424,14 @@
         "1"
       ]
     },
+    "NetC253_1": {
+      "C253": [
+        "1"
+      ],
+      "R139": [
+        "1"
+      ]
+    },
     "NetIC25_22": {
       "R150": [
         "1"
@@ -8428,6 +8498,14 @@
         "24"
       ],
       "C273": [
+        "1"
+      ]
+    },
+    "NetC272_1": {
+      "C272": [
+        "1"
+      ],
+      "R154": [
         "1"
       ]
     },
@@ -13685,7 +13763,7 @@
     "R189": {
       "pins": {
         "1": "VCC3P3",
-        "2": ""
+        "2": "NetIC33_7"
       },
       "manufacturer": "Stackpole Electronics Inc.",
       "value": "4K7"
@@ -13693,7 +13771,7 @@
     "R190": {
       "pins": {
         "1": "VCC3P3",
-        "2": ""
+        "2": "NetIC33_3"
       },
       "manufacturer": "Stackpole Electronics Inc.",
       "value": "4K7"
@@ -13710,7 +13788,7 @@
         },
         "3": {
           "name": "W",
-          "net": ""
+          "net": "NetIC33_3"
         },
         "4": {
           "name": "GND",
@@ -13726,7 +13804,7 @@
         },
         "7": {
           "name": "HOLD",
-          "net": ""
+          "net": "NetIC33_7"
         },
         "8": {
           "name": "VCC",
@@ -16501,7 +16579,7 @@
     },
     "R48": {
       "pins": {
-        "1": "NetR48_1",
+        "1": "NetIC6_F10",
         "2": "FX3_DQ0",
         "3": "NetIC6_F9",
         "4": "FX3_DQ1",
@@ -16703,7 +16781,7 @@
     "R54": {
       "pins": {
         "1": "GND",
-        "2": ""
+        "2": "NetIC6_C8"
       },
       "manufacturer": "Rohm Semiconductor",
       "value": "6.04K, 1%"
@@ -16711,7 +16789,7 @@
     "R56": {
       "pins": {
         "1": "GND",
-        "2": ""
+        "2": "NetIC6_B3"
       },
       "manufacturer": "Stackpole Electronics Inc",
       "value": "200R, 1%"
@@ -16874,7 +16952,7 @@
         },
         "F10": {
           "name": "GPIO[0]",
-          "net": ""
+          "net": "NetIC6_F10"
         },
         "G2": {
           "name": "GPIO[42]",
@@ -17078,7 +17156,7 @@
         },
         "B3": {
           "name": "R_USB3",
-          "net": ""
+          "net": "NetIC6_B3"
         },
         "B4": {
           "name": "FSLC[1]",
@@ -17102,7 +17180,7 @@
         },
         "C8": {
           "name": "R_USB2",
-          "net": ""
+          "net": "NetIC6_C8"
         },
         "C9": {
           "name": "OTG_ID",
@@ -17290,7 +17368,7 @@
     },
     "R49": {
       "pins": {
-        "1": "",
+        "1": "FX3_DQ16",
         "2": "NetIC6_K2",
         "3": "FX3_DQ17",
         "4": "NetIC6_J4",
@@ -17408,7 +17486,7 @@
         },
         "16": {
           "name": "\\R\\S\\T\\",
-          "net": ""
+          "net": "NetIC10_16"
         },
         "17": {
           "name": "EP",
@@ -17637,7 +17715,7 @@
     "R91": {
       "pins": {
         "1": "VCC3P3",
-        "2": ""
+        "2": "NetIC10_16"
       },
       "manufacturer": "Yageo",
       "value": "10k, 1%"
@@ -18588,7 +18666,7 @@
     },
     "C214": {
       "pins": {
-        "1": "",
+        "1": "NetC214_1",
         "2": "NetC214_2"
       },
       "manufacturer": "Yageo",
@@ -18613,7 +18691,7 @@
     "R118": {
       "pins": {
         "1": "GND",
-        "2": ""
+        "2": "NetC214_1"
       },
       "manufacturer": "Yageo",
       "value": "330R, 5%"
@@ -18875,7 +18953,7 @@
         },
         "6": {
           "name": "VOUT",
-          "net": ""
+          "net": "NetFR50_1"
         }
       },
       "manufacturer": "Analog Devices",
@@ -19000,7 +19078,7 @@
     },
     "FR50": {
       "pins": {
-        "1": "",
+        "1": "NetFR50_1",
         "2": "NetC199_2"
       },
       "manufacturer": "Taiyo Yuden",
@@ -19439,7 +19517,7 @@
     },
     "C253": {
       "pins": {
-        "1": "",
+        "1": "NetC253_1",
         "2": "GND"
       },
       "manufacturer": "Kemet",
@@ -19447,7 +19525,7 @@
     },
     "R139": {
       "pins": {
-        "1": "",
+        "1": "NetC253_1",
         "2": "NetC252_1"
       },
       "manufacturer": "Panasonic Electronic Components",
@@ -19614,7 +19692,7 @@
     },
     "C272": {
       "pins": {
-        "1": "",
+        "1": "NetC272_1",
         "2": "GND"
       },
       "manufacturer": "Samsung Electro-Mechanics America, Inc.",
@@ -19622,7 +19700,7 @@
     },
     "R154": {
       "pins": {
-        "1": "",
+        "1": "NetC272_1",
         "2": "NetC271_1"
       },
       "manufacturer": "Panasonic Electronic Components",

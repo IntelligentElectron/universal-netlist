@@ -39,6 +39,14 @@ leading number, and falls back to lexicographic order, interleaving `RECORD=2` b
 
 Record type numbers are listed in `src/parsers/altium/types.ts`.
 
+### Coordinates
+
+A coordinate or size is a whole number of units (1 unit = 10 mil) plus an optional `_Frac` field
+in hundred-thousandths of a unit: `Width=44 | Width_Frac=35626` is 44.35626. Locations
+(`Location.X_Frac`), polyline vertices (`X1_Frac`) and sizes (`Width_Frac`, `XSize_Frac`,
+`PinLength_Frac`, `PrimaryConnectionPosition_Frac`) all carry one. `DistanceFromTop_Frac1` is the
+exception: millionths of a 10-unit step.
+
 ## Design variants
 
 **Confidence: VERIFIED.** Implemented and tested against `qfsae-bspd-variant` (Not
@@ -218,15 +226,12 @@ wired to nothing else: all 48 such labels on the solarcar-bms board carry their 
 label on a net that leaves through a port, or through a bus that reaches a range identifier, is
 not numbered: the misko3 board calls the bus members `AD0` and `PWM8`, not `AD0_6`.
 
-### Imported designs meet within a twentieth of a unit
+### Objects meet within a tenth of a unit
 
-Objects drawn in Altium sit on the grid and meet exactly. A design imported from another tool
-carries fractional coordinates, and there a net label can sit 0.001 to 0.002 units off the wire
-it names and a wire end 0.011 units off the wire it meets: four labels and one such wire on the
-LimeSDR-USB sheets, fifteen labels on the aberrant sound module, and both boards have them
-connected. Two objects therefore touch when they are within 0.05 units of each other. Nothing in
-a schematic is deliberately drawn that close to something else: the grid is 10 units and the
-finest pin pitch seen in an imported design 2.5.
+Objects drawn in Altium sit on the grid and meet exactly. Imported designs carry fractional
+coordinates, and their objects meet only nearly: a wire end 0.071 units from the pin it joins.
+Two objects touch within 0.1 units (1 mil). Nothing is drawn that close deliberately: the grid is
+10 units and the finest imported pin pitch 2.5.
 
 Two pins meet end to end or not at all. A pin's whole length is kept as a hotspot so that a wire
 ending part way along it still joins, which imported designs also draw; but two pins lying along

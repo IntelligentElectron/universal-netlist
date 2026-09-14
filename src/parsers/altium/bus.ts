@@ -28,7 +28,8 @@ import { flattenHierarchy } from "./hierarchy.js";
 type Point = [number, number];
 type Segment = [Point, Point];
 
-const COORDINATE_SCALE = 10000;
+/** Scaled units per schematic unit; `_Frac` fields count hundred-thousandths. */
+const COORDINATE_SCALE = 100000;
 
 const toNumber = (value: unknown): number => {
   if (value === undefined || value === null || value === "") return 0;

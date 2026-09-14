@@ -259,7 +259,7 @@ describe("readHarnessConnectors", () => {
       },
     ];
 
-    expect(readHarnessConnectors(records)[0].primary).toEqual([760 * 10000, 400 * 10000]);
+    expect(readHarnessConnectors(records)[0].primary).toEqual([760 * 100000, 400 * 100000]);
   });
 });
 

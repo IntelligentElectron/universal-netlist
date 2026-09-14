@@ -56,7 +56,7 @@ class SpatialIndex {
   private pointToDevices: Map<string, number[]> = new Map();
   private segmentCells: Map<number, Set<string>> = new Map();
 
-  constructor(cellSize = 10000) {
+  constructor(cellSize = 100000) {
     this.cellSize = cellSize;
   }
 
@@ -191,19 +191,10 @@ const getLineSegments = (device: AltiumRecord): LineSegment[] => {
 };
 
 /**
- * How far apart two points may be and still touch, in scaled units: a
- * twentieth of a schematic unit.
- *
- * Objects drawn in Altium sit on the grid and meet exactly. A design imported
- * from another tool carries fractional coordinates, and there a net label can
- * sit 0.001 to 0.002 units off the wire it names and a wire end 0.011 units
- * off the wire it meets: four labels and one such wire on the LimeSDR-USB
- * sheets, fifteen labels on the aberrant sound module, and both boards have
- * them connected. Nothing in a schematic is deliberately drawn a twentieth of
- * a unit from something else, the grid being 10 units and the finest pin pitch
- * seen in an imported design 2.5.
+ * How far apart two points may be and still touch: 0.1 schematic units. Imported
+ * designs meet only nearly; the grid is 10 units.
  */
-const TOUCH_TOLERANCE = 500;
+const TOUCH_TOLERANCE = 10000;
 
 /**
  * Check if a point lies on a line segment, within TOUCH_TOLERANCE.

@@ -301,8 +301,8 @@ describe("Connectivity", () => {
       expect(isConnected(wireA, wireB)).toBe(true);
     });
 
-    // Coordinates are scaled by 10000 per schematic unit, and the grid is 10
-    // units, so a gap of 5 units is 50000.
+    // Coordinates are scaled by 100000 per schematic unit, and the grid is 10
+    // units, so a gap of 5 units is 500000.
     it("should detect disconnected wires", () => {
       const wireA: AltiumRecord = {
         index: 0,
@@ -360,9 +360,9 @@ describe("Connectivity", () => {
         index: 1,
         RECORD: RECORD_TYPES.NET_LABEL,
         Text: "CLK",
-        coords: [[500000, 110]],
+        coords: [[500000, 1000]],
       };
-      const farLabel: AltiumRecord = { ...label, index: 2, coords: [[500000, 5000]] };
+      const farLabel: AltiumRecord = { ...label, index: 2, coords: [[500000, 50000]] };
       expect(isConnected(wire, label)).toBe(true);
       expect(isConnected(wire, farLabel)).toBe(false);
     });
@@ -427,7 +427,7 @@ describe("Connectivity", () => {
         index: 1,
         RECORD: RECORD_TYPES.POWER_PORT,
         Text: "VCC",
-        coords: [[1000, 1000]], // Far apart
+        coords: [[100000, 100000]], // Far apart
       };
 
       expect(isConnected(port1, port2)).toBe(true);
@@ -445,7 +445,7 @@ describe("Connectivity", () => {
         index: 1,
         RECORD: RECORD_TYPES.POWER_PORT,
         TEXT: "VCC",
-        coords: [[1000, 1000]],
+        coords: [[100000, 100000]],
       };
 
       expect(isConnected(port1, port2)).toBe(true);
@@ -483,7 +483,7 @@ describe("Connectivity", () => {
         index: 1,
         RECORD: RECORD_TYPES.NET_LABEL,
         Text: "IMU_SCL",
-        coords: [[1000, 1000]], // Far apart
+        coords: [[100000, 100000]], // Far apart
       };
 
       // Net labels with same Text are connected globally (off-page connection)
@@ -502,7 +502,7 @@ describe("Connectivity", () => {
         index: 1,
         RECORD: RECORD_TYPES.NET_LABEL,
         Text: "IMU_SDA",
-        coords: [[1000, 1000]], // Far apart, different text
+        coords: [[100000, 100000]], // Far apart, different text
       };
 
       expect(isConnected(label1, label2)).toBe(false);
@@ -583,7 +583,7 @@ describe("Connectivity - PORT records", () => {
       index: 1,
       RECORD: RECORD_TYPES.PORT,
       Name: "DOUT",
-      coords: [[2000, 2000]],
+      coords: [[200000, 200000]],
     };
 
     expect(isConnected(port1, port2)).toBe(true);
@@ -601,7 +601,7 @@ describe("Connectivity - PORT records", () => {
       index: 1,
       RECORD: RECORD_TYPES.PORT,
       Name: "DIN",
-      coords: [[2000, 2000]],
+      coords: [[200000, 200000]],
     };
 
     expect(isConnected(port1, port2)).toBe(false);
@@ -621,7 +621,7 @@ describe("Connectivity - PORT records", () => {
       index: 1,
       RECORD: RECORD_TYPES.NET_LABEL,
       Text: "CLK",
-      coords: [[2000, 2000]],
+      coords: [[200000, 200000]],
     };
 
     expect(isConnected(port, label)).toBe(false);

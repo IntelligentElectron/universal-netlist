@@ -140,8 +140,8 @@ const HARNESS_ENTRY_PITCH = 10;
  */
 const DISTANCE_FRACTION_SCALE = 1_000_000;
 
-/** Units per whole coordinate, matching the `_Frac` fields on Location records. */
-const COORDINATE_SCALE = 10000;
+/** Scaled units per schematic unit; `_Frac` fields count hundred-thousandths. */
+const COORDINATE_SCALE = 100000;
 
 /**
  * Value of `Side` on an entry, and of `HarnessConnectorSide` on a connector.
@@ -259,7 +259,7 @@ export const readHarnessConnectors = (records: HarnessRecord[]): HarnessConnecto
 
       const originX = scaled(record["Location.X"], record["Location.X_Frac"]);
       const originY = scaled(record["Location.Y"], record["Location.Y_Frac"]);
-      const width = scaled(record.XSize, undefined);
+      const width = scaled(record.XSize, record.XSize_Frac);
       // The bundle leaves from the edge opposite the entries, at the height
       // `PrimaryConnectionPosition` gives below the connector's top.
       const leavesRight = record.HarnessConnectorSide === SIDE_FLAG;
@@ -268,7 +268,7 @@ export const readHarnessConnectors = (records: HarnessRecord[]): HarnessConnecto
         entries: [],
         primary: [
           leavesRight ? originX + width : originX,
-          originY - scaled(record.PrimaryConnectionPosition, undefined),
+          originY - scaled(record.PrimaryConnectionPosition, record.PrimaryConnectionPosition_Frac),
         ],
       };
       connectors.push(current);
@@ -281,11 +281,13 @@ export const readHarnessConnectors = (records: HarnessRecord[]): HarnessConnecto
     const connector = current.connector;
     const originX = scaled(connector["Location.X"], connector["Location.X_Frac"]);
     const originY = scaled(connector["Location.Y"], connector["Location.Y_Frac"]);
-    const width = entriesOnRightEdge(connector, record) ? scaled(connector.XSize, undefined) : 0;
+    const width = entriesOnRightEdge(connector, record)
+      ? scaled(connector.XSize, connector.XSize_Frac)
+      : 0;
     setScaledLocation(
       record,
       originX + width,
-      originY - entryDistanceFromTop(record) * HARNESS_ENTRY_PITCH * COORDINATE_SCALE
+      Math.round(originY - entryDistanceFromTop(record) * HARNESS_ENTRY_PITCH * COORDINATE_SCALE)
     );
   }
 
@@ -340,7 +342,7 @@ const portEnds = (port: HarnessRecord): Point[] => {
   const [x, y] = recordLocation(port);
   return [
     [x, y],
-    [x + scaled(port.Width, undefined), y],
+    [x + scaled(port.Width, port.Width_Frac), y],
   ];
 };
 
@@ -370,10 +372,10 @@ const sheetEntryLocation = (symbol: HarnessRecord, entry: HarnessRecord): Point 
   if (!SHEET_ENTRY_VERTICAL_SIDES.has(entry.Side)) return undefined;
 
   const [originX, originY] = recordLocation(symbol);
-  const width = entry.Side === SIDE_FLAG ? scaled(symbol.XSize, undefined) : 0;
+  const width = entry.Side === SIDE_FLAG ? scaled(symbol.XSize, symbol.XSize_Frac) : 0;
   return [
     originX + width,
-    originY - entryDistanceFromTop(entry) * HARNESS_ENTRY_PITCH * COORDINATE_SCALE,
+    Math.round(originY - entryDistanceFromTop(entry) * HARNESS_ENTRY_PITCH * COORDINATE_SCALE),
   ];
 };
 

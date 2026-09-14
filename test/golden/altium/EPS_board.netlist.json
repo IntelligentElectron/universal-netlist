@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-11T23:55:43.288Z",
-    "netlistHash": "sha256:8e6bc2901fcfa601c28f16d71a64e1e43e9c77b8614bc5f72865852bb03780bf",
+    "generatedAt": "2026-09-14T18:57:00.979Z",
+    "netlistHash": "sha256:9db7591a4ee3aedde5ff04701bc04f2818c4f61638e45df8d308a6a00b4a3942",
     "origin": {
       "type": "vendor",
       "source": {
@@ -401,16 +401,6 @@
     "STAT__ideal_diode2": {
       "U400B": [
         "4"
-      ]
-    },
-    "NetJ600_44": {
-      "J600": [
-        "44"
-      ]
-    },
-    "NetJ600_43": {
-      "J600": [
-        "43"
       ]
     },
     "INTVcc_MPPT_charger1": {
@@ -982,11 +972,17 @@
     "TX": {
       "U200": [
         "29"
+      ],
+      "J600": [
+        "44"
       ]
     },
     "RX": {
       "U200": [
         "30"
+      ],
+      "J600": [
+        "43"
       ]
     },
     "PB12": {
@@ -2043,11 +2039,11 @@
         },
         "43": {
           "name": "UART_EPS_RX",
-          "net": "NetJ600_43"
+          "net": "RX"
         },
         "44": {
           "name": "UART_EPS_TX",
-          "net": "NetJ600_44"
+          "net": "TX"
         }
       },
       "mpn": "PRT-14017",

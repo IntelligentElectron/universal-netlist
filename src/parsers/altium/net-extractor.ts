@@ -12,7 +12,8 @@ import { findRecordByIndex } from "./hierarchy.js";
 import { duplicateInstanceIndices, pinBelongsToInstance } from "./part-pins.js";
 import { attachBusMembers } from "./bus.js";
 
-const COORDINATE_SCALE = 10000;
+/** Scaled units per schematic unit; `_Frac` fields count hundred-thousandths. */
+const COORDINATE_SCALE = 100000;
 
 const unescapeAltiumOverbar = (name: string): string =>
   name.includes("\\") ? name.replace(/\\/g, "") : name;

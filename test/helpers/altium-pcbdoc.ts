@@ -132,11 +132,14 @@ export interface BoardComparison {
   fragmented: string[];
   /** Schematic nets whose pins fall into more than one board net. */
   overMerged: string[];
+  /** Schematic pins on no net that the board connects to another pad. */
+  unconnected: string[];
 }
 
 export const compareToBoard = (
   pinNets: ReadonlyMap<string, string>,
-  board: BoardNetlist
+  board: BoardNetlist,
+  schematicPins: ReadonlySet<string> = new Set()
 ): BoardComparison => {
   const boardToSchematic = new Map<string, Set<string>>();
   const schematicToBoard = new Map<string, Set<string>>();
@@ -163,5 +166,11 @@ export const compareToBoard = (
     .filter(([, nets]) => nets.size > 1)
     .map(([name]) => name)
     .sort();
-  return { sharedPins, sameName, fragmented, overMerged };
+  const boardPads = new Map<string, number>();
+  for (const net of board.pinNets.values()) boardPads.set(net, (boardPads.get(net) ?? 0) + 1);
+  const unconnected = [...board.pinNets]
+    .filter(([pin, net]) => schematicPins.has(pin) && !pinNets.has(pin) && boardPads.get(net)! > 1)
+    .map(([pin]) => pin)
+    .sort();
+  return { sharedPins, sameName, fragmented, overMerged, unconnected };
 };
