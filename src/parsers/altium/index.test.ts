@@ -605,7 +605,7 @@ describe("Connectivity", () => {
 
 describe("findAllConnectedComponents", () => {
   it("joins devices that touch across a spatial index cell edge", () => {
-    // Cells are one unit wide: the wire ends in cell 9 and the pin starts in cell 10.
+    // Cells are ten units wide: the wire ends in cell 0 and the pin starts in cell 1.
     const wire: AltiumRecord = {
       index: 0,
       RECORD: RECORD_TYPES.WIRE,

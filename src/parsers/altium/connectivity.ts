@@ -19,15 +19,16 @@ import { UnionFind } from "./union-find.js";
 type LineSegment = [Coordinate, Coordinate];
 
 /**
- * Grid-based spatial index for fast neighbor lookup. A device occupies every cell
- * within TOUCH_TOLERANCE of it, so devices that touch across a cell edge share a cell.
+ * Grid-based spatial index for fast neighbor lookup, in cells of the 10-unit drawing
+ * grid. A device occupies every cell within TOUCH_TOLERANCE of it, so devices that
+ * touch across a cell edge share a cell.
  */
 class SpatialIndex {
   private cellSize: number;
   private grid: Map<string, number[]> = new Map();
   private segmentCells: Map<number, Set<string>> = new Map();
 
-  constructor(cellSize = COORDINATE_SCALE) {
+  constructor(cellSize = 10 * COORDINATE_SCALE) {
     this.cellSize = cellSize;
   }
 
@@ -243,7 +244,6 @@ export const findAllConnectedComponents = (devices: AltiumRecord[]): AltiumRecor
   const deviceByIndex = new Map<number, AltiumRecord>();
   for (const d of devices) {
     deviceByIndex.set(d.index, d);
-    uf.find(d.index); // Initialize
   }
 
   // Collect the devices that join by name (see namedDeviceKey)

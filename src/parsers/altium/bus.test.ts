@@ -289,6 +289,13 @@ describe("attachBusMembers", () => {
     ]);
   });
 
+  it("matches bus labels, ranges and members ignoring case", () => {
+    const nets = extractNets(sheet({ busLabel: "in1_p[2..1]", member: "IN1_P2" }));
+    expect(netNamed(nets, "IN1_P2")!.busCarriers).toEqual([
+      expect.objectContaining({ member: "IN1_P2", channel: 2 }),
+    ]);
+  });
+
   it("keeps a Repeat() entry to its own name when the run carries two ranges", () => {
     const nets = extractNets(
       sheet({ busLabel: "IN1_P[2..1]", member: "IN1_P2", extraLabel: "IN1_N[2..1]" })

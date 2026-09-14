@@ -1116,6 +1116,45 @@ const settleProvisionalNames = (allNets: NetConnections): Map<string, string> =>
   return renames;
 };
 
+/** Rename a document's nets, and every name that refers to them, merging nets renamed alike. */
+const renameDocumentNets = (
+  document: ParsedDocument,
+  renames: ReadonlyMap<string, string>,
+  ranks: Readonly<Record<NetNameSource, number>>
+): void => {
+  if (renames.size === 0) return;
+  const rename = (name: string): string => renames.get(name) ?? name;
+  applyNetRenames(document.netlist, renames);
+  for (const [signal, netName] of document.harnessSignals) {
+    document.harnessSignals.set(signal, rename(netName));
+  }
+  const nameSources = new Map<string, NetNameSource>();
+  for (const [name, source] of document.nameSources) {
+    const known = nameSources.get(rename(name));
+    nameSources.set(
+      rename(name),
+      known !== undefined && ranks[known] < ranks[source] ? known : source
+    );
+  }
+  document.nameSources = nameSources;
+  const netIdentifiers = new Map<string, NetIdentifierKinds>();
+  for (const [name, kinds] of document.netIdentifiers) {
+    const known = netIdentifiers.get(rename(name)) ?? noNetIdentifiers();
+    netIdentifiers.set(rename(name), {
+      port: known.port || kinds.port,
+      entry: known.entry || kinds.entry,
+      powerPort: known.powerPort || kinds.powerPort,
+      label: known.label || kinds.label,
+      harness: known.harness || kinds.harness,
+    });
+  }
+  document.netIdentifiers = netIdentifiers;
+  for (const group of document.links) {
+    if (group.net) group.net = rename(group.net);
+    if (group.name) group.name = rename(group.name);
+  }
+};
+
 /**
  * Fold each group of linked nets into one.
  *
@@ -1772,6 +1811,26 @@ const parseAltiumProject = async (
     hasPorts: pending.some((document) => document.hasPorts),
   });
 
+  // Names differing only in case are one name, spelled as the merged net would be.
+  const spellingRank = new Map<string, number>();
+  for (const document of pending) {
+    for (const [name, source] of document.nameSources) {
+      if (source === "pin") continue;
+      spellingRank.set(name, Math.min(spellingRank.get(name) ?? unranked, ranks[source]));
+    }
+  }
+  const spellings = new Map<string, string[]>();
+  for (const name of spellingRank.keys()) {
+    const key = identifierKey(name);
+    spellings.set(key, [...(spellings.get(key) ?? []), name]);
+  }
+  const respell = new Map<string, string>();
+  for (const names of spellings.values()) {
+    const canonical = canonicalNetName(names, (name) => spellingRank.get(name)!);
+    for (const name of names) if (name !== canonical) respell.set(name, canonical);
+  }
+  for (const document of pending) renameDocumentNets(document, respell, ranks);
+
   // Altium tells same-named local nets apart on the board by appending the
   // sheet number, and only when the project asks it to; left off, it merges
   // them into one board net instead, which is what merging by name already
@@ -1801,38 +1860,13 @@ const parseAltiumProject = async (
       }
     }
 
-    if (renames.size > 0) {
-      applyNetRenames(document.netlist, renames);
-      for (const [signal, netName] of document.harnessSignals) {
-        document.harnessSignals.set(signal, renames.get(netName) ?? netName);
-      }
-      const renamedSources = new Map<string, NetNameSource>();
-      for (const [name, source] of document.nameSources) {
-        renamedSources.set(renames.get(name) ?? name, source);
-      }
-      document.nameSources = renamedSources;
-      for (const group of document.links) {
-        if (group.net) group.net = renames.get(group.net) ?? group.net;
-        if (group.name) group.name = renames.get(group.name) ?? group.name;
-      }
-    }
-
+    renameDocumentNets(document, renames, ranks);
     mergeResult(document.netlist, allNets, allComponents);
     for (const [name, source] of document.nameSources) {
       const rank = ranks[source];
       if (rank < rankOf(name)) nameRankOf.set(name, rank);
     }
   });
-
-  // Names written on different sheets meet ignoring case, as they do on one.
-  const spellings = new Map<string, Set<string>>();
-  for (const name of Object.keys(allNets)) {
-    if (rankOf(name) >= ranks.pin) continue;
-    const key = identifierKey(name);
-    spellings.set(key, (spellings.get(key) ?? new Set<string>()).add(name));
-  }
-  const caseRenames = mergeNetGroups(allNets, allComponents, spellings.values(), rankOf);
-  const caseRenamed = (name: string): string => caseRenames.get(name) ?? name;
 
   const symbolChannels = new Map<string, number[]>();
   for (const placed of placements.values()) {
@@ -1849,6 +1883,9 @@ const parseAltiumProject = async (
   // channel of its symbol, and under Flat and Global scope ports also meet by name.
   // A bundle reaching neither stays within its channel.
   const portsJoinByName = scope === "flat" || scope === "global";
+  const bundles = new UnionFind<string>();
+  const joinBundles = (nodes: readonly string[]): boolean =>
+    nodes.reduce((joined, node) => bundles.union(nodes[0], node) || joined, false);
   /** Nested bundle nodes, each with its parent bundle's node and its member. */
   const nestedBundles = new Map<string, { parent: string; member: string }>();
   const bundleNodes = (document: ParsedDocument, identity: string): string[] => {
@@ -1879,10 +1916,6 @@ const parseAltiumProject = async (
     }
     return [`${document.placement}|${identifierKey(identity)}`];
   };
-  const bundles = new UnionFind<string>();
-  const findBundle = (node: string): string => bundles.find(node);
-  const joinBundles = (nodes: readonly string[]): boolean =>
-    nodes.reduce((joined, node) => bundles.union(nodes[0], node) || joined, false);
   const harnessKeyIdentities = (document: ParsedDocument): string[] =>
     document.links.flatMap((group) =>
       group.keys
@@ -1906,7 +1939,7 @@ const parseAltiumProject = async (
     joined = false;
     const byMember = new Map<string, string>();
     for (const [node, { parent, member }] of nestedBundles) {
-      const key = harnessSignalKey(findBundle(parent), member);
+      const key = harnessSignalKey(bundles.find(parent), member);
       const met = byMember.get(key);
       if (met === undefined) byMember.set(key, node);
       else joined = joinBundles([met, node]) || joined;
@@ -1914,7 +1947,7 @@ const parseAltiumProject = async (
   }
   const resolveSignal = (document: ParsedDocument, signal: string): string => {
     const { bundle, member } = splitHarnessSignalKey(signal);
-    return harnessSignalKey(findBundle(bundleNodes(document, bundle)[0]), identifierKey(member));
+    return harnessSignalKey(bundles.find(bundleNodes(document, bundle)[0]), identifierKey(member));
   };
 
   const signalNets = new Map<string, Set<string>>();
@@ -1922,13 +1955,12 @@ const parseAltiumProject = async (
     for (const [signal, netName] of document.harnessSignals) {
       const key = resolveSignal(document, signal);
       const carriers = signalNets.get(key) ?? new Set<string>();
-      carriers.add(caseRenamed(netName));
+      carriers.add(netName);
       signalNets.set(key, carriers);
     }
   }
   const harnessRenames = mergeNetGroups(allNets, allComponents, signalNets.values(), rankOf);
-  const renamed = (name: string): string =>
-    harnessRenames.get(caseRenamed(name)) ?? caseRenamed(name);
+  const renamed = (name: string): string => harnessRenames.get(name) ?? name;
 
   // Ports, sheet entries, buses and power ports link nets across sheets the
   // same way, once the harness merge has settled which name each net goes by.

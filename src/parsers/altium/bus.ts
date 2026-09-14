@@ -24,7 +24,14 @@ import type { AltiumRecord, AltiumNet, AltiumSchematic, BusCarrier } from "./typ
 import { RECORD_TYPES, identifierKey } from "./types.js";
 import { findAllConnectedComponents } from "./connectivity.js";
 import { flattenHierarchy } from "./hierarchy.js";
-import { pointOnSegment, polylinePoints, scaledPoint, type Point } from "./coordinates.js";
+import {
+  pointOnPolyline,
+  pointOnSegment,
+  polylinePoints,
+  recordName,
+  scaledPoint,
+  type Point,
+} from "./coordinates.js";
 import { expandRepeatChannels } from "./structure-parser.js";
 
 type Segment = [Point, Point];
@@ -52,9 +59,10 @@ export const busMemberTest = (name: string): ((label: string) => boolean) | unde
     const end = parseInt(endText, 10);
     const low = Math.min(start, end);
     const high = Math.max(start, end);
+    const prefixKey = identifierKey(prefix);
     return (label) => {
       const key = identifierKey(label);
-      if (!key.startsWith(identifierKey(prefix))) return false;
+      if (!key.startsWith(prefixKey)) return false;
       const rest = key.slice(prefix.length);
       if (!/^\d+$/.test(rest)) return false;
       const index = parseInt(rest, 10);
@@ -64,9 +72,9 @@ export const busMemberTest = (name: string): ((label: string) => boolean) | unde
   const repeat = plain.match(REPEAT);
   if (repeat) {
     const prefix = repeat[1].trim();
+    const prefixKey = identifierKey(prefix);
     return (label) =>
-      identifierKey(label).startsWith(identifierKey(prefix)) &&
-      /^\d+$/.test(label.slice(prefix.length));
+      identifierKey(label).startsWith(prefixKey) && /^\d+$/.test(label.slice(prefix.length));
   }
   return undefined;
 };
@@ -92,9 +100,6 @@ export const repeatBaseName = (name: string): string | undefined => {
   return repeat ? repeat[1].trim() : undefined;
 };
 
-const recordName = (record: AltiumRecord): string =>
-  String(record.Name ?? record.NAME ?? record.Text ?? record.TEXT ?? "");
-
 const BUS_IDENTIFIER_TYPES = new Set<string>([
   RECORD_TYPES.PORT,
   RECORD_TYPES.SHEET_ENTRY,
@@ -105,7 +110,7 @@ const BUS_IDENTIFIER_TYPES = new Set<string>([
 export const isBusIdentifier = (record: AltiumRecord): boolean =>
   record.RECORD !== undefined &&
   BUS_IDENTIFIER_TYPES.has(record.RECORD) &&
-  busMemberTest(recordName(record)) !== undefined;
+  busMemberTest(recordName(record) ?? "") !== undefined;
 
 /** Give bus lines and bus entries the coordinates the connectivity code reads. */
 const placeBusRecord = (record: AltiumRecord): void => {
@@ -174,14 +179,6 @@ const joinLabelledRuns = (runs: BusRun[], records: readonly AltiumRecord[]): Bus
   return runs.filter((run) => !merged.has(run));
 };
 
-const segmentsOf = (record: AltiumRecord): Segment[] => {
-  const coords = (record.coords ?? []) as Point[];
-  const segments: Segment[] = [];
-  for (let i = 0; i + 1 < coords.length; i++) segments.push([coords[i], coords[i + 1]]);
-  if (coords.length === 1) segments.push([coords[0], coords[0]]);
-  return segments;
-};
-
 const netTouchesRun = (net: AltiumNet, run: BusRun): boolean =>
   net.devices.some(
     (device) =>
@@ -193,7 +190,7 @@ const netTouchesPoint = (net: AltiumNet, point: Point): boolean =>
   net.devices.some(
     (device) =>
       device.RECORD === RECORD_TYPES.WIRE &&
-      segmentsOf(device).some((segment) => pointOnSegment(point, segment))
+      pointOnPolyline(point, (device.coords ?? []) as Point[])
   );
 
 const labelsOf = (net: AltiumNet): string[] => {
@@ -294,7 +291,9 @@ export const attachBusMembers = (schematic: AltiumSchematic, nets: AltiumNet[]):
     // takes their members by index as well.
     const ranges = [
       ...rangeLabelsOn(run, records),
-      ...onRun.map(recordName).filter((name) => RANGE.test(unescapeAltiumOverbar(name))),
+      ...onRun
+        .map((identifier) => recordName(identifier) ?? "")
+        .filter((name) => RANGE.test(unescapeAltiumOverbar(name))),
     ];
     const rangeTests = ranges.map((name) => busMemberTest(name)!);
     const named = (label: string): boolean => rangeTests.some((test) => test(label));
@@ -302,11 +301,13 @@ export const attachBusMembers = (schematic: AltiumSchematic, nets: AltiumNet[]):
       ...touching,
       ...nets.filter((net) => !touching.includes(net) && labelsOf(net).some(named)),
     ];
-    const prefixes = new Set(ranges.map((name) => unescapeAltiumOverbar(name).match(RANGE)![1]));
+    const prefixes = new Set(
+      ranges.map((name) => identifierKey(unescapeAltiumOverbar(name).match(RANGE)![1]))
+    );
     const indexedPrefix = prefixes.size === 1 ? [...prefixes][0] : undefined;
 
     const tests = onRun.map((identifier) => {
-      const name = recordName(identifier);
+      const name = recordName(identifier) ?? "";
       const own = busMemberTest(name)!;
       const base = repeatBaseName(name);
       const matches =
@@ -331,15 +332,15 @@ export const attachBusMembers = (schematic: AltiumSchematic, nets: AltiumNet[]):
       for (const label of labelsOf(net)) {
         const carriers = tests.filter(({ matches }) => matches(label)).map((t) => carry(t, label));
         if (carriers.length === 0) continue;
-        labelled.add(label);
+        labelled.add(identifierKey(label));
         net.busCarriers = [...(net.busCarriers ?? []), ...carriers];
       }
     }
 
     const unlabelled = new Set<string>();
     for (const { identifier } of tests) {
-      for (const member of expandBusRange(recordName(identifier))) {
-        if (!labelled.has(member)) unlabelled.add(member);
+      for (const member of expandBusRange(recordName(identifier) ?? "")) {
+        if (!labelled.has(identifierKey(member))) unlabelled.add(member);
       }
     }
     for (const member of unlabelled) {
@@ -365,7 +366,8 @@ const attachRepeatWires = (
 ): AltiumNet[] => {
   const repeats = identifiers.filter(
     (entry) =>
-      entry.RECORD === RECORD_TYPES.SHEET_ENTRY && repeatBaseName(recordName(entry)) !== undefined
+      entry.RECORD === RECORD_TYPES.SHEET_ENTRY &&
+      repeatBaseName(recordName(entry) ?? "") !== undefined
   );
   if (repeats.length === 0) return [];
 
@@ -373,7 +375,7 @@ const attachRepeatWires = (
   for (const symbol of records) {
     if (symbol.RECORD !== RECORD_TYPES.SHEET_SYMBOL) continue;
     const designator = (symbol.children ?? []).find((c) => c.RECORD === RECORD_TYPES.SHEET_NAME);
-    const channels = expandRepeatChannels(designator ? recordName(designator) : "");
+    const channels = expandRepeatChannels((designator && recordName(designator)) ?? "");
     for (const entry of symbol.children ?? []) {
       channelsOf.set(
         entry,
@@ -385,23 +387,32 @@ const attachRepeatWires = (
   for (const net of nets) {
     for (const label of labelsOf(net)) {
       const key = identifierKey(label);
-      netsByLabel.set(key, [...(netsByLabel.get(key) ?? []), net]);
+      const labelled = netsByLabel.get(key) ?? netsByLabel.set(key, []).get(key)!;
+      labelled.push(net);
+    }
+  }
+
+  // The members each labelled wire hands out, by member name.
+  const membersByWire = new Map<AltiumNet, Map<string, BusCarrier[]>>();
+  for (const entry of repeats) {
+    const points = (entry.coords ?? []) as Point[];
+    for (const net of nets) {
+      if (!points.some((point) => netTouchesPoint(net, point))) continue;
+      const labels = labelsOf(net);
+      const label = net.name !== null && labels.includes(net.name) ? net.name : labels.sort()[0];
+      if (label === undefined) continue;
+      const members = membersByWire.get(net) ?? membersByWire.set(net, new Map()).get(net)!;
+      for (const channel of channelsOf.get(entry) ?? []) {
+        const member = `${label}${channel}`;
+        const key = identifierKey(member);
+        const carriers = members.get(key) ?? members.set(key, []).get(key)!;
+        carriers.push({ device: entry, member, channel });
+      }
     }
   }
 
   const virtual: AltiumNet[] = [];
-  for (const net of nets) {
-    const label = labelsOf(net).sort()[0];
-    if (label === undefined) continue;
-    const members = new Map<string, BusCarrier[]>();
-    for (const entry of repeats) {
-      if (!((entry.coords ?? []) as Point[]).some((point) => netTouchesPoint(net, point))) continue;
-      for (const channel of channelsOf.get(entry) ?? []) {
-        const member = `${label}${channel}`;
-        const key = identifierKey(member);
-        members.set(key, [...(members.get(key) ?? []), { device: entry, member, channel }]);
-      }
-    }
+  for (const members of membersByWire.values()) {
     for (const [key, carriers] of members) {
       const labelled = netsByLabel.get(key) ?? [];
       for (const other of labelled) other.busCarriers = [...(other.busCarriers ?? []), ...carriers];

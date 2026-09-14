@@ -32,6 +32,12 @@ export const field = (record: Fields, key: string): unknown =>
   record[key] ?? record[key.toUpperCase()];
 
 /** A coordinate or size `key` plus its `key_Frac`, in scaled units. */
+/** The name a record is written with, `Name` or else `Text`. */
+export const recordName = (record: Fields): string | undefined => {
+  const name = field(record, "Name") ?? field(record, "Text");
+  return name === undefined || name === null || name === "" ? undefined : String(name);
+};
+
 export const scaledField = (record: Fields, key: string): number =>
   Math.round(
     toNumber(field(record, key)) * COORDINATE_SCALE + toNumber(field(record, `${key}_Frac`))
@@ -112,3 +118,9 @@ export const pointOnSegment = (
     point[1] <= Math.max(start[1], end[1]) + TOUCH_TOLERANCE
   );
 };
+
+/** Whether a point lies within TOUCH_TOLERANCE of a polyline, or of a lone point. */
+export const pointOnPolyline = (point: Readonly<Point>, points: readonly Point[]): boolean =>
+  points.length === 1
+    ? pointsTouch(point, points[0])
+    : points.some((vertex, i) => i > 0 && pointOnSegment(point, [points[i - 1], vertex]));

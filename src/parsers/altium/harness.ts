@@ -13,10 +13,11 @@ import {
   edgePoint,
   entryOffset,
   field,
-  pointOnSegment,
+  pointOnPolyline,
   pointsTouch,
   polylinePoints,
   portEnds,
+  recordName,
   scaledField,
   scaledPoint,
   sheetEntryPoint,
@@ -136,12 +137,6 @@ export const collectNestedHarnessTypes = (
     if (name && harnessType) nested.set(String(name), String(harnessType));
   }
   return nested;
-};
-
-/** The name an identifier is written with, `Name` or else `Text`. */
-const recordName = (record: HarnessRecord): string | undefined => {
-  const name = field(record, "Name") ?? field(record, "Text");
-  return name === undefined || name === null || name === "" ? undefined : String(name);
 };
 
 /**
@@ -317,24 +312,22 @@ export const assignHarnessSignals = (
     node: connectors.length + offset,
     points: polylinePoints(bus),
   }));
-  const onSegments = (point: Point, points: readonly Point[]): boolean =>
-    points.some((vertex, i) => i > 0 && pointOnSegment(point, [points[i - 1], vertex]));
   // Lines join where a vertex of one touches the other anywhere.
   lines.forEach((line, i) => {
     for (const other of lines.slice(i + 1)) {
       const meets = (a: readonly Point[], b: readonly Point[]): boolean =>
-        a.some((vertex) => b.some((point) => pointsTouch(vertex, point)) || onSegments(vertex, b));
+        a.some((vertex) => pointOnPolyline(vertex, b));
       if (meets(line.points, other.points) || meets(other.points, line.points)) {
         groups.union(line.node, other.node);
       }
     }
   });
 
-  /** The harness line a point touches, at a vertex or along a segment. */
+  /** The harness line a point touches, preferring one it meets at a vertex. */
   const lineAt = (point: Point): number | undefined =>
     (
       lines.find(({ points }) => points.some((vertex) => pointsTouch(point, vertex))) ??
-      lines.find(({ points }) => onSegments(point, points))
+      lines.find(({ points }) => pointOnPolyline(point, points))
     )?.node;
 
   const identitiesByNode = new Map<number, Set<string>>();
@@ -367,7 +360,7 @@ export const assignHarnessSignals = (
     const name = recordName(record);
     if (!name) continue;
 
-    const typed = field(record, "HarnessType") !== undefined;
+    const typed = Boolean(field(record, "HarnessType"));
     if (record.RECORD === "18") {
       for (const point of portEnds(record)) ends.push({ point, identity: portBundle(name), typed });
     } else if (record.RECORD === "16" && symbol) {
@@ -416,7 +409,7 @@ export const assignHarnessSignals = (
         attached.add(id);
         reaches = true;
       });
-      const typed = field(entry, "HarnessType") !== undefined;
+      const typed = Boolean(field(entry, "HarnessType"));
       for (const end of ends) {
         if (!(end.typed || typed) || !pointsTouch(end.point, point)) continue;
         identify(node, end.identity);
