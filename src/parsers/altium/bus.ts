@@ -21,7 +21,7 @@
  */
 
 import type { AltiumRecord, AltiumNet, AltiumSchematic, BusCarrier } from "./types.js";
-import { RECORD_TYPES } from "./types.js";
+import { RECORD_TYPES, identifierKey } from "./types.js";
 import { findAllConnectedComponents } from "./connectivity.js";
 import { flattenHierarchy } from "./hierarchy.js";
 import { pointOnSegment, polylinePoints, scaledPoint, type Point } from "./coordinates.js";
@@ -53,8 +53,9 @@ export const busMemberTest = (name: string): ((label: string) => boolean) | unde
     const low = Math.min(start, end);
     const high = Math.max(start, end);
     return (label) => {
-      if (!label.startsWith(prefix)) return false;
-      const rest = label.slice(prefix.length);
+      const key = identifierKey(label);
+      if (!key.startsWith(identifierKey(prefix))) return false;
+      const rest = key.slice(prefix.length);
       if (!/^\d+$/.test(rest)) return false;
       const index = parseInt(rest, 10);
       return index >= low && index <= high;
@@ -63,7 +64,9 @@ export const busMemberTest = (name: string): ((label: string) => boolean) | unde
   const repeat = plain.match(REPEAT);
   if (repeat) {
     const prefix = repeat[1].trim();
-    return (label) => label.startsWith(prefix) && /^\d+$/.test(label.slice(prefix.length));
+    return (label) =>
+      identifierKey(label).startsWith(identifierKey(prefix)) &&
+      /^\d+$/.test(label.slice(prefix.length));
   }
   return undefined;
 };
@@ -156,9 +159,9 @@ const joinLabelledRuns = (runs: BusRun[], records: readonly AltiumRecord[]): Bus
     const point = scaledPoint(record);
     const run = runs.find((candidate) => candidate.touches(point));
     if (!run) continue;
-    const seen = runByLabel.get(label);
+    const seen = runByLabel.get(identifierKey(label));
     if (!seen) {
-      runByLabel.set(label, run);
+      runByLabel.set(identifierKey(label), run);
       continue;
     }
     const target = resolve(seen);
@@ -352,16 +355,20 @@ export const attachBusMembers = (schematic: AltiumSchematic, nets: AltiumNet[]):
 /**
  * Attach the channels of `Repeat(NAME)` entries whose wire reaches no bus.
  *
- * The wire's net label `L` then names one member per channel: channel `n` carries
- * `L<n>`, joining the sheet's net of that name. The cube-sat-eps board joins channel
- * `n` of both `Repeat(VBAT)` and `Repeat(VIN)`, wired together under `VBAT`, to the
- * sheet's `VBAT<n>`.
+ * The wire's net label `L` names one member per channel: channel `n` carries `L<n>`,
+ * the sheet's net of that name.
  */
 const attachRepeatWires = (
   records: readonly AltiumRecord[],
   nets: AltiumNet[],
   identifiers: readonly AltiumRecord[]
 ): AltiumNet[] => {
+  const repeats = identifiers.filter(
+    (entry) =>
+      entry.RECORD === RECORD_TYPES.SHEET_ENTRY && repeatBaseName(recordName(entry)) !== undefined
+  );
+  if (repeats.length === 0) return [];
+
   const channelsOf = new Map<AltiumRecord, number[]>();
   for (const symbol of records) {
     if (symbol.RECORD !== RECORD_TYPES.SHEET_SYMBOL) continue;
@@ -374,21 +381,29 @@ const attachRepeatWires = (
       );
     }
   }
+  const netsByLabel = new Map<string, AltiumNet[]>();
+  for (const net of nets) {
+    for (const label of labelsOf(net)) {
+      const key = identifierKey(label);
+      netsByLabel.set(key, [...(netsByLabel.get(key) ?? []), net]);
+    }
+  }
 
   const virtual: AltiumNet[] = [];
   for (const net of nets) {
-    if (net.nameSource !== "label" || !net.name) continue;
+    const label = labelsOf(net).sort()[0];
+    if (label === undefined) continue;
     const members = new Map<string, BusCarrier[]>();
-    for (const entry of identifiers) {
-      if (entry.RECORD !== RECORD_TYPES.SHEET_ENTRY || !repeatBaseName(recordName(entry))) continue;
+    for (const entry of repeats) {
       if (!((entry.coords ?? []) as Point[]).some((point) => netTouchesPoint(net, point))) continue;
       for (const channel of channelsOf.get(entry) ?? []) {
-        const member = `${net.name}${channel}`;
-        members.set(member, [...(members.get(member) ?? []), { device: entry, member, channel }]);
+        const member = `${label}${channel}`;
+        const key = identifierKey(member);
+        members.set(key, [...(members.get(key) ?? []), { device: entry, member, channel }]);
       }
     }
-    for (const [member, carriers] of members) {
-      const labelled = nets.filter((other) => labelsOf(other).includes(member));
+    for (const [key, carriers] of members) {
+      const labelled = netsByLabel.get(key) ?? [];
       for (const other of labelled) other.busCarriers = [...(other.busCarriers ?? []), ...carriers];
       if (labelled.length === 0) virtual.push({ name: null, devices: [], busCarriers: carriers });
     }

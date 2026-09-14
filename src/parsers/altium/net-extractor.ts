@@ -136,7 +136,8 @@ const positionSheetEntries = (symbol: AltiumRecord): void => {
 
 /**
  * A pin's two ends: its location and the tip `PinLength` away, turned by the low
- * two bits of `PinConglomerate` in quarter turns. Either end connects.
+ * two bits of `PinConglomerate` in quarter turns. A wire meets it anywhere; another
+ * pin meets only its tip.
  */
 const calculatePinCoordinates = (device: AltiumRecord): void => {
   const [locationX, locationY] = scaledPoint(device);

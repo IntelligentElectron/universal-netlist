@@ -115,6 +115,10 @@ export const expandRepeatChannels = (schDesignator: string): RepeatChannel[] => 
   return channels;
 };
 
+/** The name of a `Repeat(name,start,end)` designator, `AY` for `Repeat(AY,1,3)`. */
+export const repeatSheetName = (schDesignator: string): string | undefined =>
+  schDesignator.trim().match(REPEAT_SHEET_DESIGNATOR)?.[1];
+
 /** The channel designators alone: `Repeat(AY,1,3)` gives `AY1`, `AY2`, `AY3`. */
 export const expandRepeatDesignator = (schDesignator: string): string[] =>
   expandRepeatChannels(schDesignator).map((channel) => channel.designator);

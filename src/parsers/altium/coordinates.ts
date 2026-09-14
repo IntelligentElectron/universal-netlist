@@ -62,24 +62,27 @@ export const entryOffset = (entry: Fields): number =>
   );
 
 /**
- * Where a sheet entry sits on its sheet symbol. `Side` is 0 left, 1 right, 2 top,
- * 3 bottom; the offset runs down a vertical edge and right along a horizontal one,
- * from the symbol's top-left corner.
+ * A point on an edge of a box drawn down and right from its `Location`: `side` 0 left,
+ * 1 right, 2 top, 3 bottom; `offset` runs down a vertical edge and right along a
+ * horizontal one.
  */
-export const sheetEntryPoint = (symbol: Fields, entry: Fields): Point => {
-  const [x, y] = scaledPoint(symbol);
-  const offset = entryOffset(entry);
-  switch (String(field(entry, "Side") ?? "0")) {
+export const edgePoint = (box: Fields, side: string, offset: number): Point => {
+  const [x, y] = scaledPoint(box);
+  switch (side) {
     case "1":
-      return [x + scaledField(symbol, "XSize"), y - offset];
+      return [x + scaledField(box, "XSize"), y - offset];
     case "2":
       return [x + offset, y];
     case "3":
-      return [x + offset, y - scaledField(symbol, "YSize")];
+      return [x + offset, y - scaledField(box, "YSize")];
     default:
       return [x, y - offset];
   }
 };
+
+/** Where a sheet entry sits on its sheet symbol, on the edge its `Side` names. */
+export const sheetEntryPoint = (symbol: Fields, entry: Fields): Point =>
+  edgePoint(symbol, String(field(entry, "Side") ?? "0"), entryOffset(entry));
 
 /** A port's two ends: a bar `Width` long, rightward, or upward for `Style` 4 and above. */
 export const portEnds = (port: Fields): [Point, Point] => {

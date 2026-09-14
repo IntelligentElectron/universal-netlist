@@ -520,6 +520,7 @@ describe("Connectivity", () => {
       const label2: AltiumRecord = { ...label1, index: 1, Text: "VBat", coords: [[900000, 0]] };
 
       expect(isConnected(label1, label2)).toBe(true);
+      expect(isConnected({ ...label1, Text: "10µA" }, { ...label2, Text: "10μA" })).toBe(false);
     });
 
     it("should not connect net labels with different Text unless by location", () => {

@@ -14,44 +14,9 @@ import {
   pointsTouch,
   type Point as Coordinate,
 } from "./coordinates.js";
+import { UnionFind } from "./union-find.js";
 
 type LineSegment = [Coordinate, Coordinate];
-
-/**
- * Union-Find data structure for efficient connected component detection
- */
-class UnionFind {
-  private parent: Map<number, number> = new Map();
-  private rank: Map<number, number> = new Map();
-
-  find(x: number): number {
-    if (!this.parent.has(x)) {
-      this.parent.set(x, x);
-      this.rank.set(x, 0);
-    }
-    if (this.parent.get(x) !== x) {
-      this.parent.set(x, this.find(this.parent.get(x)!));
-    }
-    return this.parent.get(x)!;
-  }
-
-  union(x: number, y: number): void {
-    let rootX = this.find(x);
-    let rootY = this.find(y);
-    if (rootX === rootY) return;
-
-    const rankX = this.rank.get(rootX)!;
-    const rankY = this.rank.get(rootY)!;
-
-    if (rankX < rankY) {
-      [rootX, rootY] = [rootY, rootX];
-    }
-    this.parent.set(rootY, rootX);
-    if (rankX === rankY) {
-      this.rank.set(rootX, rankX + 1);
-    }
-  }
-}
 
 /**
  * Grid-based spatial index for fast neighbor lookup. A device occupies every cell
@@ -274,7 +239,7 @@ export const findAllConnectedComponents = (devices: AltiumRecord[]): AltiumRecor
     spatialIndex.addDevice(device);
   }
 
-  const uf = new UnionFind();
+  const uf = new UnionFind<number>();
   const deviceByIndex = new Map<number, AltiumRecord>();
   for (const d of devices) {
     deviceByIndex.set(d.index, d);

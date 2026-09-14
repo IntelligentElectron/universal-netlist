@@ -204,8 +204,9 @@ export const POWER_PORT_STYLES = {
   GOST_BAR: "10",
 } as const;
 
-/** The key a net name or port, entry or harness name matches by: case is ignored. */
-export const identifierKey = (name: string): string => name.toUpperCase();
+/** The key a net, port, entry or harness name matches by: ASCII case is ignored. */
+export const identifierKey = (name: string): string =>
+  name.replace(/[a-z]+/g, (letters) => letters.toUpperCase());
 
 /**
  * A parsed record from the Altium schematic file.

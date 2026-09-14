@@ -307,3 +307,60 @@ describe("attachBusMembers", () => {
     expect(x1.busCarriers).toEqual([expect.objectContaining({ member: "X1", channel: 1 })]);
   });
 });
+
+describe("Repeat() entries on a labelled wire", () => {
+  /** A `Repeat(CH,1,2)` symbol whose entry `Repeat(VIN)` meets a wire labelled `vbat`, and a net `VBAT1`. */
+  const repeatWireSheet = (): AltiumSchematic => {
+    let index = 0;
+    const record = (fields: Record<string, unknown>): AltiumRecord =>
+      ({ index: index++, ...fields }) as AltiumRecord;
+    const symbol = record({
+      RECORD: RECORD_TYPES.SHEET_SYMBOL,
+      "Location.X": "500",
+      "Location.Y": "500",
+      XSize: "100",
+      YSize: "100",
+    });
+    const owner = String(symbol.index);
+    return buildHierarchy({
+      header: [],
+      records: [
+        symbol,
+        record({ RECORD: RECORD_TYPES.SHEET_NAME, Text: "Repeat(CH,1,2)", OwnerIndex: owner }),
+        record({ RECORD: RECORD_TYPES.SHEET_FILE_NAME, Text: "ch.SchDoc", OwnerIndex: owner }),
+        record({
+          RECORD: RECORD_TYPES.SHEET_ENTRY,
+          Name: "Repeat(VIN)",
+          DistanceFromTop: "2",
+          OwnerIndex: owner,
+        }),
+        record({ RECORD: RECORD_TYPES.WIRE, X1: "400", Y1: "480", X2: "500", Y2: "480" }),
+        record({
+          RECORD: RECORD_TYPES.NET_LABEL,
+          Text: "vbat",
+          "Location.X": "450",
+          "Location.Y": "480",
+        }),
+        record({ RECORD: RECORD_TYPES.WIRE, X1: "100", Y1: "900", X2: "200", Y2: "900" }),
+        record({
+          RECORD: RECORD_TYPES.NET_LABEL,
+          Text: "VBAT1",
+          "Location.X": "150",
+          "Location.Y": "900",
+        }),
+      ],
+    });
+  };
+
+  it("hands channel n the sheet's net named after the wire's label and n", () => {
+    const nets = extractNets(repeatWireSheet());
+
+    expect(netNamed(nets, "VBAT1")!.busCarriers).toEqual([
+      expect.objectContaining({ member: "vbat1", channel: 1 }),
+    ]);
+    const pinless = nets.filter((net) => net.name === null);
+    expect(pinless.map((net) => net.busCarriers)).toEqual([
+      [expect.objectContaining({ member: "vbat2", channel: 2 })],
+    ]);
+  });
+});

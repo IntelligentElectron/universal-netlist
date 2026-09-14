@@ -10,6 +10,7 @@
 
 import {
   COORDINATE_SCALE,
+  edgePoint,
   entryOffset,
   field,
   pointOnSegment,
@@ -21,6 +22,7 @@ import {
   sheetEntryPoint,
   type Point,
 } from "./coordinates.js";
+import { UnionFind } from "./union-find.js";
 
 /** Harness type name -> the member names it bundles, as written in the file. */
 export type HarnessDefinitions = Map<string, string[]>;
@@ -143,14 +145,11 @@ const recordName = (record: HarnessRecord): string | undefined => {
 };
 
 /**
- * Value of `Side` on an entry, and of `HarnessConnectorSide` on a connector.
- *
- * The two fields describe the same arrangement from opposite ends and are never
- * both written: an entry marked `Side=1` sits on the connector's right edge,
- * while a connector marked `HarnessConnectorSide=1` puts its entries on the left
- * edge and the bundle's outgoing connection on the right.
+ * The edge opposite each edge. A connector's `HarnessConnectorSide` names the edge
+ * its bundle leaves from (0 left, 1 right, 2 top, 3 bottom), and its entries sit on
+ * the opposite edge unless an entry's own `Side` says otherwise.
  */
-const SIDE_FLAG = "1";
+const OPPOSITE_EDGE: Readonly<Record<string, string>> = { "0": "1", "1": "0", "2": "3", "3": "2" };
 
 export interface HarnessRecord {
   RECORD?: string;
@@ -166,6 +165,7 @@ export interface HarnessRecord {
   "Location.Y_Frac"?: string;
   Width?: string;
   XSize?: string;
+  YSize?: string;
   Side?: string;
   HarnessConnectorSide?: string;
   LocationCount?: string;
@@ -197,24 +197,11 @@ const setScaledLocation = (record: HarnessRecord, x: number, y: number): void =>
 };
 
 /**
- * Whether a connector's entries are drawn on its right edge rather than its left.
- *
- * The entry's own `Side` is authoritative where it is written; otherwise the
- * connector's `HarnessConnectorSide` says it, inverted, because that field names
- * the side the bundle leaves from. Verified on 364 of the 365 harness entries in
- * the test corpus: each lands exactly on a wire end.
- */
-const entriesOnRightEdge = (connector: HarnessRecord, entry: HarnessRecord): boolean =>
-  field(entry, "Side") !== undefined
-    ? field(entry, "Side") === SIDE_FLAG
-    : field(connector, "HarnessConnectorSide") !== SIDE_FLAG;
-
-/**
  * Read the harness connectors of a sheet, giving every entry the coordinate at
  * which wires meet it.
  *
- * Entries carry only a distance below the connector's top edge and inherit the
- * rest of their position from the connector that owns them. `OwnerIndex` is
+ * Entries carry only a distance along the connector's edge and inherit the rest
+ * of their position from the connector that owns them. `OwnerIndex` is
  * present on some entries and absent on others, so ownership is taken from
  * stream order: entries follow their connector.
  *
@@ -234,17 +221,14 @@ export const readHarnessConnectors = (records: HarnessRecord[]): HarnessConnecto
         continue;
       }
 
-      const [originX, originY] = scaledPoint(record);
-      // The bundle leaves from the edge opposite the entries, at the height
-      // `PrimaryConnectionPosition` gives below the connector's top.
-      const leavesRight = field(record, "HarnessConnectorSide") === SIDE_FLAG;
       current = {
         connector: record,
         entries: [],
-        primary: [
-          leavesRight ? originX + scaledField(record, "XSize") : originX,
-          originY - scaledField(record, "PrimaryConnectionPosition"),
-        ],
+        primary: edgePoint(
+          record,
+          String(field(record, "HarnessConnectorSide") ?? "0"),
+          scaledField(record, "PrimaryConnectionPosition")
+        ),
       };
       connectors.push(current);
       continue;
@@ -253,10 +237,9 @@ export const readHarnessConnectors = (records: HarnessRecord[]): HarnessConnecto
     if (record.RECORD !== "216" || !current) continue;
     current.entries.push(record);
 
-    const connector = current.connector;
-    const [originX, originY] = scaledPoint(connector);
-    const width = entriesOnRightEdge(connector, record) ? scaledField(connector, "XSize") : 0;
-    setScaledLocation(record, originX + width, originY - entryOffset(record));
+    const leaves = String(field(current.connector, "HarnessConnectorSide") ?? "0");
+    const side = field(record, "Side") ?? OPPOSITE_EDGE[leaves] ?? "1";
+    setScaledLocation(record, ...edgePoint(current.connector, String(side), entryOffset(record)));
   }
 
   return connectors;
@@ -278,23 +261,6 @@ export const splitHarnessSignalKey = (key: string): { bundle: string; member: st
   if (separator < 0) return { bundle: key, member: "" };
   return { bundle: key.slice(0, separator), member: key.slice(separator + 1) };
 };
-
-class BundleGroups {
-  private parent = new Map<number, number>();
-
-  find(x: number): number {
-    if (!this.parent.has(x)) this.parent.set(x, x);
-    const seen = this.parent.get(x)!;
-    if (seen !== x) this.parent.set(x, this.find(seen));
-    return this.parent.get(x)!;
-  }
-
-  union(x: number, y: number): void {
-    const rootX = this.find(x);
-    const rootY = this.find(y);
-    if (rootX !== rootY) this.parent.set(rootY, rootX);
-  }
-}
 
 /**
  * Pick the smaller of two candidate names, so a bundle reached from several
@@ -346,31 +312,30 @@ export const assignHarnessSignals = (
 ): string[][] => {
   // Each line is a node of its own, so a harness drawn as several joined lines is
   // still one bundle.
-  const groups = new BundleGroups();
+  const groups = new UnionFind<number>();
   const lines = sheet.buses.map((bus, offset) => ({
     node: connectors.length + offset,
     points: polylinePoints(bus),
   }));
+  const onSegments = (point: Point, points: readonly Point[]): boolean =>
+    points.some((vertex, i) => i > 0 && pointOnSegment(point, [points[i - 1], vertex]));
+  // Lines join where a vertex of one touches the other anywhere.
   lines.forEach((line, i) => {
     for (const other of lines.slice(i + 1)) {
-      if (line.points.some((a) => other.points.some((b) => pointsTouch(a, b)))) {
+      const meets = (a: readonly Point[], b: readonly Point[]): boolean =>
+        a.some((vertex) => b.some((point) => pointsTouch(vertex, point)) || onSegments(vertex, b));
+      if (meets(line.points, other.points) || meets(other.points, line.points)) {
         groups.union(line.node, other.node);
       }
     }
   });
 
   /** The harness line a point touches, at a vertex or along a segment. */
-  const lineAt = (point: Point): number | undefined => {
-    for (const { node, points } of lines) {
-      if (points.some((vertex) => pointsTouch(point, vertex))) return node;
-    }
-    for (const { node, points } of lines) {
-      for (let i = 0; i + 1 < points.length; i++) {
-        if (pointOnSegment(point, [points[i], points[i + 1]])) return node;
-      }
-    }
-    return undefined;
-  };
+  const lineAt = (point: Point): number | undefined =>
+    (
+      lines.find(({ points }) => points.some((vertex) => pointsTouch(point, vertex))) ??
+      lines.find(({ points }) => onSegments(point, points))
+    )?.node;
 
   const identitiesByNode = new Map<number, Set<string>>();
   const identify = (node: number, identity: string): void => {
@@ -379,7 +344,8 @@ export const assignHarnessSignals = (
     identitiesByNode.set(node, identities);
   };
   const labelByNode = new Map<number, string>();
-  const ports: { end: Point; identity: string }[] = [];
+  /** Port ends and sheet entries, which a connector may meet without a harness line. */
+  const ends: { point: Point; identity: string; typed: boolean }[] = [];
 
   let symbol: { record: HarnessRecord; index: number } | undefined;
   for (const [index, record] of sheet.records.entries()) {
@@ -401,16 +367,17 @@ export const assignHarnessSignals = (
     const name = recordName(record);
     if (!name) continue;
 
+    const typed = field(record, "HarnessType") !== undefined;
     if (record.RECORD === "18") {
-      for (const end of portEnds(record)) {
-        ports.push({ end, identity: portBundle(name) });
-        const node = lineAt(end);
-        if (node !== undefined) identify(node, portBundle(name));
-      }
+      for (const point of portEnds(record)) ends.push({ point, identity: portBundle(name), typed });
     } else if (record.RECORD === "16" && symbol) {
-      const node = lineAt(sheetEntryPoint(symbol.record, record));
-      if (node !== undefined) identify(node, entryBundle(symbol.index, name));
+      const point = sheetEntryPoint(symbol.record, record);
+      ends.push({ point, identity: entryBundle(symbol.index, name), typed });
     }
+  }
+  for (const { point, identity } of ends) {
+    const node = lineAt(point);
+    if (node !== undefined) identify(node, identity);
   }
 
   const attached = new Set<number>();
@@ -420,15 +387,16 @@ export const assignHarnessSignals = (
       groups.union(line, id);
       attached.add(id);
     }
-    for (const port of ports) {
-      if (!pointsTouch(port.end, connector.primary)) continue;
-      identify(id, port.identity);
+    for (const end of ends) {
+      if (!pointsTouch(end.point, connector.primary)) continue;
+      identify(id, end.identity);
       attached.add(id);
     }
   });
 
-  // An entry meeting a harness line, a port or another connector's primary carries
-  // a nested bundle: that member of its own connector's bundle.
+  // An entry meeting a harness line, another connector's primary, or a harness-typed
+  // port or sheet entry carries a nested bundle: that member of its own connector's
+  // bundle. An entry meeting a plain port is a single signal.
   const nested: { node: number; parent: number; member: string }[] = [];
   connectors.forEach((connector, parent) => {
     for (const entry of connector.entries) {
@@ -448,9 +416,10 @@ export const assignHarnessSignals = (
         attached.add(id);
         reaches = true;
       });
-      for (const port of ports) {
-        if (!pointsTouch(port.end, point)) continue;
-        identify(node, port.identity);
+      const typed = field(entry, "HarnessType") !== undefined;
+      for (const end of ends) {
+        if (!(end.typed || typed) || !pointsTouch(end.point, point)) continue;
+        identify(node, end.identity);
         reaches = true;
       }
       if (reaches) nested.push({ node, parent, member });

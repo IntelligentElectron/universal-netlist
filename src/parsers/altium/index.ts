@@ -32,6 +32,7 @@ import {
 } from "./types.js";
 import { OleReader, readOleStream, readOptionalOleStream } from "../ole-reader/ole-reader.js";
 import { parseRecords, findRecords } from "./record-parser.js";
+import { UnionFind } from "./union-find.js";
 import { buildHierarchy, getPartsList, flattenHierarchy, findRecordByIndex } from "./hierarchy.js";
 import {
   extractNets,
@@ -593,7 +594,6 @@ interface ParsedDocument {
   name: string;
   /** What this document's ports claim about: the channel that placed it, or its own name. */
   placement: string;
-  hierarchical: AltiumSchematic;
   netlist: ParsedNetlist;
   /** The nets as extracted, which channel expansion reads for naming. */
   nets: AltiumNet[];
@@ -616,7 +616,7 @@ interface ParsedDocument {
 }
 
 /** A document's records, read once and shared by every pass that needs them. */
-interface ReadDocument {
+export interface ReadDocument {
   path: string;
   /** Lower-case file name, which is how sheet symbols refer to it. */
   name: string;
@@ -900,18 +900,7 @@ const linkedNetGroups = (
     return [key];
   };
 
-  const parent = new Map<string, string>();
-  const find = (node: string): string => {
-    let root = node;
-    while (parent.get(root) !== undefined && parent.get(root) !== root) root = parent.get(root)!;
-    parent.set(node, root);
-    return root;
-  };
-  const union = (a: string, b: string): void => {
-    const ra = find(a);
-    const rb = find(b);
-    if (ra !== rb) parent.set(ra, rb);
-  };
+  const sets = new UnionFind<string>();
 
   const netNodes = new Set<string>();
   for (const group of links) {
@@ -920,12 +909,12 @@ const linkedNetGroups = (
     const member = group.net ?? group.name;
     const nodes = member ? [`net:${member}`, ...keys] : keys;
     if (member) netNodes.add(`net:${member}`);
-    for (const node of nodes) union(nodes[0], node);
+    for (const node of nodes) sets.union(nodes[0], node);
   }
 
   const groups = new Map<string, Set<string>>();
   for (const node of netNodes) {
-    const root = find(node);
+    const root = sets.find(node);
     const members = groups.get(root) ?? new Set<string>();
     members.add(node.slice("net:".length));
     groups.set(root, members);
@@ -968,7 +957,6 @@ const parseAltiumDocument = (
   return {
     name: read.name,
     placement,
-    hierarchical,
     netlist: { nets: parsedNets, components },
     nets,
     links: collectNetLinks(nets, hierarchical, parsedNets, read.name, placement),
@@ -1030,7 +1018,7 @@ import {
 } from "./discovery.js";
 import { readFile } from "fs/promises";
 import type { EDAProjectFormatHandler } from "../../types.js";
-import { expandRepeatChannels } from "./structure-parser.js";
+import { expandRepeatChannels, repeatSheetName } from "./structure-parser.js";
 import type { RepeatChannel } from "./structure-parser.js";
 
 export { discoverAltiumDesigns, findAltiumSchDocs, isAltiumFile } from "./discovery.js";
@@ -1216,7 +1204,7 @@ const recordText = (record: AltiumRecord | undefined): string => {
 };
 
 /** One sheet symbol, and the document it places. */
-interface SheetPlacement {
+export interface SheetPlacement {
   /** The parent document. */
   parent: ReadDocument;
   /** The parent's position in the project, which orders symbols across documents. */
@@ -1235,7 +1223,9 @@ interface SheetPlacement {
  * document it instantiates (RECORD=33). The compiled `.PrjPcbStructure` records
  * the same symbols but is frequently not committed, so the schematics are read.
  */
-const findSheetPlacements = (documents: readonly ReadDocument[]): Map<string, SheetPlacement[]> => {
+export const findSheetPlacements = (
+  documents: readonly ReadDocument[]
+): Map<string, SheetPlacement[]> => {
   const placements = new Map<string, SheetPlacement[]>();
   documents.forEach((parent, parentOrder) => {
     for (const symbol of flattenHierarchy(parent.hierarchical)) {
@@ -1252,10 +1242,7 @@ const findSheetPlacements = (documents: readonly ReadDocument[]): Map<string, Sh
         parentOrder,
         symbol,
         channels: repeated.length > 0 ? repeated : [{ designator, index: 1 }],
-        repeatName:
-          repeated.length > 0
-            ? repeated[0].designator.slice(0, -String(repeated[0].index).length)
-            : undefined,
+        repeatName: repeated.length > 0 ? repeatSheetName(designator) : undefined,
       });
       placements.set(child, placed);
     }
@@ -1264,7 +1251,7 @@ const findSheetPlacements = (documents: readonly ReadDocument[]): Map<string, Sh
 };
 
 /** One instance of a document: the sheet symbol channels that place it, from the top. */
-interface DocumentInstance {
+export interface DocumentInstance {
   /**
    * The unplaced document's name, then `/<symbol index>@<channel index>` per level.
    * Its ports meet the entries of the last level's symbol.
@@ -1302,7 +1289,7 @@ const naturalCompare = (a: string, b: string): number => {
  * is the last level's channel designator; rooms that repeat are numbered in
  * instance order. Room naming style `1` writes channel and room numbers as letters.
  */
-const documentInstances = (
+export const documentInstances = (
   documents: readonly ReadDocument[],
   placements: ReadonlyMap<string, readonly SheetPlacement[]>,
   roomNamingStyle: string
@@ -1357,18 +1344,23 @@ const documentInstances = (
     });
     const repeats = new Map<string, number>();
     for (const room of rooms) repeats.set(room, (repeats.get(room) ?? 0) + 1);
+    // A numbered room may spell another room (`CH1` numbered 11, `CH11` numbered 1);
+    // numbering skips past it, so no two instances share a room.
+    const taken = new Set(rooms.filter((room) => repeats.get(room) === 1));
     const seen = new Map<string, number>();
     instances.set(
       document.name,
       ordered.map((instance, i) => {
-        const room = rooms[i];
-        const n = (seen.get(room) ?? 0) + 1;
-        seen.set(room, n);
-        return {
-          ...instance,
-          room: repeats.get(room)! > 1 ? `${room}${number(n)}` : room,
-          ordinal: i + 1,
-        };
+        let room = rooms[i];
+        if (repeats.get(room)! > 1) {
+          let n = seen.get(room) ?? 0;
+          do n++;
+          while (taken.has(`${rooms[i]}${number(n)}`));
+          seen.set(rooms[i], n);
+          room = `${rooms[i]}${number(n)}`;
+        }
+        taken.add(room);
+        return { ...instance, room, ordinal: i + 1 };
       })
     );
   }
@@ -1584,11 +1576,12 @@ export const planChannelNetNames = (
   channelFormat: string
 ): Map<string, string> => {
   const netNameMap = new Map<string, string>();
+  const sharedNames = new Set([...scope.sharedNames].map(identifierKey));
   for (const netName of netNames) {
     const pinName = scope.pinNamed.get(netName);
     if (scope.powerNetNames.has(netName)) {
       netNameMap.set(netName, netName);
-    } else if (scope.sharedNames.has(netName)) {
+    } else if (sharedNames.has(identifierKey(netName))) {
       netNameMap.set(netName, netName);
     } else if (pinName) {
       const expanded = applyChannelFormat(channelFormat, pinName.refdes, roomName, channelIndex);
@@ -1616,8 +1609,7 @@ const channelDocument = (
   base: ParsedDocument,
   channel: DocumentInstance,
   channelFormat: string,
-  scope: ChannelNetScope,
-  documentName: string
+  scope: ChannelNetScope
 ): ParsedDocument => {
   const names = new Set<string>([
     ...Object.keys(base.netlist.nets),
@@ -1659,7 +1651,7 @@ const channelDocument = (
     components[refdes(origRefdes)] = { ...component, pins };
   }
 
-  const own = [`hier|${documentName}|`, `entry|${documentName}|`];
+  const own = [`hier|${base.name}|`, `entry|${base.name}|`];
   const links: NetLinkGroup[] = base.links.map((group) => ({
     net: group.net === undefined ? undefined : rename(group.net),
     name: group.name === undefined ? undefined : rename(group.name),
@@ -1681,7 +1673,6 @@ const channelDocument = (
   return {
     name: base.name,
     placement: channel.key,
-    hierarchical: base.hierarchical,
     netlist: { nets, components },
     nets: base.nets,
     links,
@@ -1772,7 +1763,7 @@ const parseAltiumProject = async (
       pinNamed: collectPinNamedNets(base.nets),
     };
     for (const channel of channels) {
-      pending.push(channelDocument(base, channel, channelFormat, scope, read.name));
+      pending.push(channelDocument(base, channel, channelFormat, scope));
     }
   }
 
@@ -1888,25 +1879,10 @@ const parseAltiumProject = async (
     }
     return [`${document.placement}|${identifierKey(identity)}`];
   };
-  const bundleParent = new Map<string, string>();
-  const findBundle = (node: string): string => {
-    let root = node;
-    while (bundleParent.get(root) !== undefined && bundleParent.get(root) !== root) {
-      root = bundleParent.get(root)!;
-    }
-    bundleParent.set(node, root);
-    return root;
-  };
-  const joinBundles = (nodes: readonly string[]): boolean => {
-    let joined = false;
-    for (const node of nodes) {
-      const a = findBundle(nodes[0]);
-      const b = findBundle(node);
-      if (a !== b) bundleParent.set(b, a);
-      joined ||= a !== b;
-    }
-    return joined;
-  };
+  const bundles = new UnionFind<string>();
+  const findBundle = (node: string): string => bundles.find(node);
+  const joinBundles = (nodes: readonly string[]): boolean =>
+    nodes.reduce((joined, node) => bundles.union(nodes[0], node) || joined, false);
   const harnessKeyIdentities = (document: ParsedDocument): string[] =>
     document.links.flatMap((group) =>
       group.keys
