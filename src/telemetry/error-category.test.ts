@@ -15,6 +15,62 @@ describe("classifyToolError", () => {
     expect(classifyToolError(message)).toBe(expected);
   });
 
+  it.each([
+    [
+      "Password-protected OrCAD design: set UNIVERSAL_NETLIST_DSN_PASSWORD or UNIVERSAL_NETLIST_DSN_PASSWORD_FILE",
+      "permission_denied",
+    ],
+    [
+      "No password in UNIVERSAL_NETLIST_DSN_PASSWORD or UNIVERSAL_NETLIST_DSN_PASSWORD_FILE opens this OrCAD design",
+      "permission_denied",
+    ],
+    [
+      "Cannot read UNIVERSAL_NETLIST_DSN_PASSWORD_FILE: ENOENT: no such file or directory, open '/p.txt'",
+      "not_found",
+    ],
+    [
+      "Stream 'Views/A/Hierarchy' is encrypted in a format other than SYENCRYPT01",
+      "invalid_argument",
+    ],
+    ["Protected OrCAD design has no encrypted Library stream", "invalid_argument"],
+    [
+      "Design 'A.DSN' defines design variants ['Standard']. Pass design_variant='<Default>' (alias 'default') for the unmodified/core design, or one of those names. list_designs() reports them under design_variants.",
+      "invalid_argument",
+    ],
+    [
+      "Design variant 'Nope' not found for design 'A.DSN'. Available: ['Standard', '<Default>'].",
+      "not_found",
+    ],
+    ["Design variant 'Nope' not found. Available: ['Standard']", "not_found"],
+    ["Missing required parameter: type", "invalid_argument"],
+    ["MCP error -32602: Tool list_variants not found", "not_found"],
+    [
+      'No netlist for A.kicad_pro. Expected a committed "A.net" beside the project, or a root .kicad_sch plus an installed kicad-cli (set KICAD_CLI_PATH if KiCad is in a non-standard location).',
+      "not_found",
+    ],
+    [
+      'kicad-cli not found at KICAD_CLI_PATH="/opt/kicad-cli". Unset it or point it at a valid kicad-cli binary.',
+      "unavailable",
+    ],
+    [
+      "kicad-cli netlist export failed for /d/A.kicad_sch: Command failed: kicad-cli sch export netlist",
+      "unavailable",
+    ],
+    [
+      "kicad-cli netlist export failed for /d/A.kicad_sch: Command failed (timed out after 120000ms; raise KICAD_CLI_TIMEOUT for very large designs)",
+      "timeout",
+    ],
+    ["A.netlist.json: not valid JSON (Unexpected end of JSON input)", "invalid_argument"],
+    ["A.netlist.json: a net has an empty name", "invalid_argument"],
+    ["A.netlist.json: net 'VCC' lists R1.1 twice", "invalid_argument"],
+    ["A.netlist.json: R1.1 is on 'VCC', but no net 'VCC' is declared", "invalid_argument"],
+    ["Sector chain too long, possible corruption", "invalid_argument"],
+    ["String length 512 exceeds limit of 400 at offset 1024", "invalid_argument"],
+    ["No Universal Netlist codec is registered for current schema version 3", "internal"],
+  ] as const)("classifies the design failure %s as %s", (message, expected) => {
+    expect(classifyToolError(message)).toBe(expected);
+  });
+
   it("uses stable Node error codes before message text", () => {
     const error = Object.assign(new Error("opaque dependency message"), { code: "ENOENT" });
     expect(classifyToolError(error)).toBe("not_found");

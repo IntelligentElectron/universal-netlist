@@ -118,8 +118,8 @@ The span status is set to `ERROR` on failure and `OK` otherwise; exceptions are 
 | Value | Meaning |
 |-------|---------|
 | `invalid_argument` | The request, selection, or supplied design data is invalid or unsupported. |
-| `not_found` | A requested file, design, component, net, pin, or other resource does not exist. |
-| `permission_denied` | Access was refused by the operating system or an upstream service. |
+| `not_found` | A requested file, design, design variant, component, net, pin, tool, or other resource does not exist. |
+| `permission_denied` | Access was refused by the operating system, an upstream service, or a design's password protection. |
 | `resource_exhausted` | A size, memory, storage, file-descriptor, or output-buffer limit was reached. |
 | `cancelled` | The operation was cancelled or aborted. |
 | `timeout` | The operation exceeded its time limit or deadline. |

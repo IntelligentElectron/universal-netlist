@@ -35,8 +35,10 @@ const CODE_TYPES: Readonly<Record<string, ToolErrorType>> = {
 const MESSAGE_TYPES: ReadonlyArray<readonly [ToolErrorType, RegExp]> = [
   [
     "permission_denied",
-    /\b(?:eacces|eperm|permission denied|access denied|unauthori[sz]ed|forbidden)\b/i,
+    /\b(?:eacces|eperm|permission denied|access denied|unauthori[sz]ed|forbidden|password-protected|no password in)\b/i,
   ],
+  // Design data read at a byte offset: a length past a format limit is malformed data.
+  ["invalid_argument", /\bat offset \d+/i],
   [
     "resource_exhausted",
     /\b(?:enospc|enomem|emfile|enfile|out of memory|resource exhausted|too many open files|maxbuffer|exceeds? (?:the )?limit|payload too large)\b/i,
@@ -45,16 +47,23 @@ const MESSAGE_TYPES: ReadonlyArray<readonly [ToolErrorType, RegExp]> = [
   ["timeout", /\b(?:etimedout|timed out|timeout|deadline exceeded)\b/i],
   [
     "unavailable",
-    /\b(?:econnrefused|econnreset|ehostunreach|enetunreach|epipe|connection refused|connection reset|network unreachable|service unavailable|temporarily unavailable|only available on|no cadence spb installation|pstswp failed)\b/i,
+    /\b(?:econnrefused|econnreset|ehostunreach|enetunreach|epipe|connection refused|connection reset|network unreachable|service unavailable|temporarily unavailable|only available on|no cadence spb installation|pstswp failed|kicad-cli not found|kicad-cli netlist export failed)\b/i,
   ],
+  // A design with neither a netlist export nor a root schematic.
+  ["not_found", /\bno netlist for\b/i],
+  // A Universal Netlist validation failure names the file first.
+  ["invalid_argument", /^[^\n]*\.netlist\.json: /i],
   [
     "invalid_argument",
-    /\b(?:invalid|unsupported|malformed|not an?|unexpected|unbalanced|unterminated|expected|must|needs?|unknown rule|was empty|cannot be queried|matched all|out of bounds|magic signature mismatch|could not find valid|no schematic documents found|no hierarchy stream)\b/i,
+    /\b(?:invalid|unsupported|malformed|corrupt(?:ed|ion)?|not an?|unexpected|unbalanced|unterminated|expected|must|needs?|missing required|unknown rule|was empty|cannot be queried|matched all|out of bounds|magic signature mismatch|could not find valid|no schematic documents found|no hierarchy stream|defines design variants|encrypted in a format|no encrypted library stream)\b/i,
   ],
   ["invalid_argument", /\blists\b.+\bbut\b.+\bis on\b/i],
   ["invalid_argument", /\b(?:stream|section|signature|terminator)\b.+\bnot found\b/i],
   ["not_found", /\b(?:enoent|no such file|does not exist)\b/i],
-  ["not_found", /\b(?:file|directory|design|component|net|pin|path|resource)\b.+\bnot found\b/i],
+  [
+    "not_found",
+    /\b(?:file|directory|design|variant|component|net|pin|path|tool|resource)\b.+\bnot found\b/i,
+  ],
   ["not_found", /\bno (?:components?|nets?|pins?|designs?|files?|directories)\b.+\bfound\b/i],
 ];
 
