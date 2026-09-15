@@ -152,7 +152,9 @@ merged PRs (see CLAUDE.md), and `CHANGELOG.md` is history that releases do not e
 ### Thanking contributors
 
 Every person outside the maintainers who contributed to the release is thanked by name in
-its GitHub Release notes. Contributing means any of:
+its GitHub Release notes. The maintainer is Valentino Zegna, whose GitHub accounts are
+`valentinozegna` and `vzegnameta`; work from either account is not thanked. Contributing
+means any of:
 
 - authoring or co-authoring a PR in the release
 - reporting an issue a PR in the release fixes, or references
