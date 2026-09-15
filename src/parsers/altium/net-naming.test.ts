@@ -181,6 +181,15 @@ describe("naming a sheet's nets", () => {
     expect(nets.map((net) => net.name)).toEqual(["NetR1_1", "USB.DP"]);
   });
 
+  it("leaves a net without pins unnamed when the name it claims is taken", () => {
+    const { schematic, nets } = sheet(
+      { devices: [entry(1, "EN")], parts: ["R1"] },
+      { devices: [entry(2, "EN")] }
+    );
+    nameSheetNets(nets, schematic);
+    expect(nets.map((net) => net.name)).toEqual(["EN", null]);
+  });
+
   it("numbers a net whose every name another net holds after its lowest pin", () => {
     const { schematic, nets } = sheet(
       { devices: [label(1, "NetR2_1")], parts: ["R1"] },

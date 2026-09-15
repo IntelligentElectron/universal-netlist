@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import {
   busMemberTest,
+  firstFreeName,
   expandBusRange,
   identifierKey,
   repeatBaseName,
@@ -22,6 +23,7 @@ describe("busMemberTest", () => {
     expect(busMemberTest("D[3..0]")!("D2")).toBe(true);
     expect(busMemberTest("C\\S\\[1..2]")!("C\\S\\2")).toBe(true);
     expect(busMemberTest("C\\S\\[1..2]")!("CS2")).toBe(false);
+    expect(busMemberTest("D\\A\\T\\A\\[\\0\\.\\.\\7\\]")!("D\\A\\T\\A\\7")).toBe(true);
   });
 
   it("accepts any index for a Repeat() identifier", () => {
@@ -72,5 +74,12 @@ describe("repeatChannels", () => {
   it("gives no channels for a plain designator or a single index", () => {
     expect(repeatChannels("AY1")).toEqual([]);
     expect(repeatChannels("Repeat(AY,2,2)")).toEqual([]);
+  });
+});
+
+describe("firstFreeName", () => {
+  it("numbers a name past every taken spelling, ignoring case", () => {
+    expect(firstFreeName("SIG", new Set(["OTHER"]))).toBe("SIG");
+    expect(firstFreeName("sig", new Set(["SIG", "SIG_2"]))).toBe("sig_3");
   });
 });

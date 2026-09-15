@@ -145,7 +145,8 @@ export const findAllConnectedComponents = (devices: AltiumRecord[]): AltiumRecor
     }
   }
 
-  // Records that join without geometry: by name, and harness entries by signal.
+  // Records that join without geometry: by name, and harness entries by signal or by the
+  // member name a harness label gives them.
   const firstByKey = new Map<string, number>();
   const join = (key: string | undefined, device: AltiumRecord): void => {
     if (key === undefined) return;
@@ -155,9 +156,9 @@ export const findAllConnectedComponents = (devices: AltiumRecord[]): AltiumRecor
   };
   for (const device of devices) {
     join(namedDeviceKey(device), device);
-    if (device.RECORD === RECORD_TYPES.HARNESS_ENTRY && device.harnessSignal) {
-      join(`signal:${identifierKey(device.harnessSignal)}`, device);
-    }
+    if (device.RECORD !== RECORD_TYPES.HARNESS_ENTRY) continue;
+    if (device.harnessSignal) join(`signal:${identifierKey(device.harnessSignal)}`, device);
+    if (device.harnessNetName) join(`member:${identifierKey(device.harnessNetName)}`, device);
   }
 
   const groups = new Map<number, AltiumRecord[]>();

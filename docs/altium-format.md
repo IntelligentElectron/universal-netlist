@@ -118,16 +118,17 @@ Signal harnesses).
 Names match ignoring ASCII case: the entry `DC_LINK` meets the port `DC_link`, and net labels,
 power ports and harness members match the same way.
 
-Within a sheet, net labels and power ports of one name are one net, and ports of one name are one
-net. A port never joins a net label by name: Altium's connectivity guide states that a port called
+Within a sheet, net labels and power ports of one name are one net, ports of one name are one net,
+and harness entries a harness label gives one member name (`SPI.MOSI`) are one net. A port never joins a net label by name: Altium's connectivity guide states that a port called
 `Inta` does not connect to a net label called `Inta`; the two must be wired. Sheet entries never
 join by name: entries of one name on different symbols lead to different nets, and an entry no
 wire reaches connects to nothing.
 
-No two nets on one sheet share a name, ignoring case. Names are given strongest first (see What a
-net is called); between two nets claiming one name at one rank, the one whose record comes first
-keeps it. The other net is called by its next name, a pin's when nothing else names it: an entry
-`EN` on a sheet whose label `EN` names another net leaves its own net named after a pin.
+No two nets on one sheet share a name, ignoring case, nets without pins included. Nets choose in
+turn: the net whose next name ranks strongest (see What a net is called), and between two of one
+rank the one whose record comes first. A net whose name is taken moves on to its next, a pin's when
+nothing else names it: an entry `EN` on a sheet whose label `EN` names another net leaves its own net
+named after a pin.
 
 ### Net identifier scope
 
@@ -160,6 +161,7 @@ Each link a net makes across sheets is an identity:
 | `<instance>` and `<name>` | a port on a document instance; a plain entry, for every channel its symbol instantiates; a `Repeat(NAME)` entry's member `NAME<n>`, for channel `n` | under every scope |
 | `<name>` of a port | a port | under Flat and Global scope |
 | `<name>` of a power port | a power port | under every scope but Strict Hierarchical |
+| `<name>` of a net label | a net label | under Global scope |
 | bundle and member | a harness entry on the net, or a bus member reaching a harness entry or a harness-typed port | under every scope |
 
 An instance is the document no symbol places, then the symbol and channel of each placement on the

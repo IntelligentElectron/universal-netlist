@@ -10,7 +10,7 @@
 import { RECORD_TYPES, type AltiumNet, type AltiumSchematic, type NetNameSource } from "./types.js";
 import { fieldText } from "./records.js";
 import { pinDesignator, pinNumber } from "./components.js";
-import { identifierKey } from "./notation.js";
+import { firstFreeName, identifierKey } from "./notation.js";
 
 /** The project options that decide which identifiers name a net, and in what order. */
 export interface NetNamingOptions {
@@ -103,59 +103,54 @@ interface Candidate {
 }
 
 /**
- * A net's names in the order it takes them: identifiers strongest source first, two of one
- * source in sort order; then its pins, lowest designator and pin first.
+ * The names a net's identifiers give it, in the order it takes them: strongest source first,
+ * two of one source in sort order.
  */
-const candidatesOf = (
-  net: AltiumNet,
-  schematic: AltiumSchematic,
-  options: NetNamingOptions
-): Candidate[] => {
+const identifierNames = (net: AltiumNet, options: NetNamingOptions): Candidate[] => {
   const claims = new Map<NetNameSource, Map<string, number>>();
-  const pins = new Map<string, Map<string, number>>();
   for (const device of net.devices) {
-    if (device.RECORD === RECORD_TYPES.PIN) {
-      const refdes = pinDesignator(device, schematic);
-      const pin = pinNumber(device);
-      if (!refdes || !pin) continue;
-      const numbers = pins.get(refdes) ?? pins.set(refdes, new Map()).get(refdes)!;
-      if (!numbers.has(pin)) numbers.set(pin, device.index);
-      continue;
-    }
     const source = device.RECORD === undefined ? undefined : RECORD_SOURCE[device.RECORD];
     const name = source && claimedName(device);
     if (!source || !name) continue;
     const names = claims.get(source) ?? claims.set(source, new Map()).get(source)!;
     if (!names.has(name)) names.set(name, device.index);
   }
+  return namingOrder(options)
+    .filter((source) => namingAllowed(source, options))
+    .flatMap((source) => {
+      const names = claims.get(source) ?? new Map<string, number>();
+      return [...names.keys()].sort().map((name) => ({ name, source, claim: names.get(name)! }));
+    });
+};
 
-  const candidates: Candidate[] = [];
-  for (const source of namingOrder(options)) {
-    if (!namingAllowed(source, options)) continue;
-    const names = claims.get(source) ?? new Map<string, number>();
-    for (const name of [...names.keys()].sort()) {
-      candidates.push({ name, source, claim: names.get(name)! });
-    }
+/** The names a net's pins give it: lowest designator first, then lowest pin. */
+const pinNames = (net: AltiumNet, schematic: AltiumSchematic): Candidate[] => {
+  const pins = new Map<string, Map<string, number>>();
+  for (const device of net.devices) {
+    if (device.RECORD !== RECORD_TYPES.PIN) continue;
+    const refdes = pinDesignator(device, schematic);
+    const pin = pinNumber(device);
+    if (!refdes || !pin) continue;
+    const numbers = pins.get(refdes) ?? pins.set(refdes, new Map()).get(refdes)!;
+    if (!numbers.has(pin)) numbers.set(pin, device.index);
   }
-  for (const refdes of [...pins.keys()].sort(compareRefdes)) {
+  return [...pins.keys()].sort(compareRefdes).flatMap((refdes) => {
     const numbers = pins.get(refdes)!;
-    for (const pin of [...numbers.keys()].sort(comparePinNumbers)) {
-      candidates.push({
-        name: `Net${refdes}_${pin}`,
-        source: "pin",
-        claim: numbers.get(pin)!,
-        pin: { refdes, pin },
-      });
-    }
-  }
-  return candidates;
+    return [...numbers.keys()].sort(comparePinNumbers).map((pin) => ({
+      name: `Net${refdes}_${pin}`,
+      source: "pin" as const,
+      claim: numbers.get(pin)!,
+      pin: { refdes, pin },
+    }));
+  });
 };
 
 /**
- * Name a sheet's nets, no two alike ignoring case. Names are given strongest first; of two
- * nets claiming one name at one rank, the one whose record comes first keeps it, and the
- * other takes its next name. A net with pins whose every name is taken is numbered after
- * its lowest pin.
+ * Name a sheet's nets, no two alike ignoring case, pinless nets among them. Nets choose in
+ * turn: the net whose next name ranks strongest first, and between two of one rank the one
+ * whose claiming record comes first. A net whose next name is taken moves on to the one
+ * after; a net with pins whose every name is taken is numbered after its lowest pin, and a
+ * net without pins goes unnamed.
  */
 export const nameSheetNets = (
   nets: readonly AltiumNet[],
@@ -163,48 +158,64 @@ export const nameSheetNets = (
   options: NetNamingOptions = NAME_FROM_ANY
 ): void => {
   const ranks = nameRanks(options);
-  const queue = nets.map((net) => {
-    net.name = null;
-    net.nameSource = undefined;
-    net.pinNameSource = undefined;
-    return { net, candidates: candidatesOf(net, schematic, options), next: 0 };
-  });
-  type Entry = (typeof queue)[number];
+  const give = (net: AltiumNet, candidate: Candidate | undefined, name = candidate?.name): void => {
+    net.name = name ?? null;
+    net.nameSource = candidate?.source;
+    net.pinNameSource = candidate?.pin;
+  };
+
+  interface Entry {
+    net: AltiumNet;
+    candidates: Candidate[];
+    pinsAdded: boolean;
+    next: number;
+  }
+  /** The entry's next candidate, its pin names read only once its identifiers run out. */
+  const current = (entry: Entry): Candidate | undefined => {
+    if (entry.next >= entry.candidates.length && !entry.pinsAdded) {
+      entry.pinsAdded = true;
+      entry.candidates.push(...pinNames(entry.net, schematic));
+    }
+    return entry.candidates[entry.next];
+  };
   const before = (a: Entry, b: Entry): number => {
-    const [x, y] = [a.candidates[a.next], b.candidates[b.next]];
+    const [x, y] = [current(a)!, current(b)!];
     return ranks[x.source] - ranks[y.source] || x.claim - y.claim;
   };
-  const pending = queue.filter((entry) => entry.candidates.length > 0).sort(before);
+
+  const pending: Entry[] = [];
+  for (const net of nets) {
+    const entry = {
+      net,
+      candidates: identifierNames(net, options),
+      pinsAdded: false,
+      next: 0,
+    };
+    give(net, undefined);
+    if (current(entry)) pending.push(entry);
+  }
+  pending.sort(before);
 
   const held = new Set<string>();
-  const give = (net: AltiumNet, name: string, candidate: Candidate): void => {
-    net.name = name;
-    net.nameSource = candidate.source;
-    net.pinNameSource = candidate.pin;
-    held.add(identifierKey(name));
-  };
   for (let i = 0; i < pending.length; i++) {
     const entry = pending[i];
-    const candidate = entry.candidates[entry.next];
+    const candidate = current(entry)!;
     if (!held.has(identifierKey(candidate.name))) {
-      give(entry.net, candidate.name, candidate);
+      give(entry.net, candidate);
+      held.add(identifierKey(candidate.name));
       continue;
     }
     do entry.next++;
-    while (
-      entry.next < entry.candidates.length &&
-      held.has(identifierKey(entry.candidates[entry.next].name))
-    );
-    if (entry.next < entry.candidates.length) {
+    while (current(entry) && held.has(identifierKey(current(entry)!.name)));
+    if (current(entry)) {
       let at = i + 1;
       while (at < pending.length && before(pending[at], entry) <= 0) at++;
       pending.splice(at, 0, entry);
       continue;
     }
     const lowestPin = entry.candidates.find((option) => option.source === "pin");
-    if (!lowestPin) continue;
-    let n = 2;
-    while (held.has(identifierKey(`${lowestPin.name}_${n}`))) n++;
-    give(entry.net, `${lowestPin.name}_${n}`, { ...lowestPin, pin: undefined });
+    const name = lowestPin && firstFreeName(lowestPin.name, held);
+    give(entry.net, name ? lowestPin : undefined, name);
+    if (name) held.add(identifierKey(name));
   }
 };

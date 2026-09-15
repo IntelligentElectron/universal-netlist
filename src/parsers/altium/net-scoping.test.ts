@@ -16,6 +16,12 @@ const sheet = (
 ): SheetNetScope => ({
   sheetNumber,
   netIdentifiers: new Map(Object.entries(nets).map(([name, k]) => [name, kinds(k)])),
+  nameSources: new Map(
+    Object.entries(nets).map(([name, k]) => [
+      name,
+      k.label ? "label" : k.powerPort ? "power" : "pin",
+    ])
+  ),
 });
 
 describe("isSheetBound", () => {
@@ -144,6 +150,20 @@ describe("planLocalNetRenames", () => {
     );
     expect(plans[0].get("SCL")).toBe("SCL_1");
     expect(plans[1].has("SCL")).toBe(false);
+  });
+
+  it("leaves a pin name bare though a label sits on its net", () => {
+    const plans = planLocalNetRenames(
+      [
+        {
+          sheetNumber: "3",
+          netIdentifiers: new Map([["NetR1_1", kinds({ label: true })]]),
+          nameSources: new Map([["NetR1_1", "pin"]]),
+        },
+      ],
+      "hierarchical"
+    );
+    expect(plans[0].size).toBe(0);
   });
 
   it("does not number a name onto one in use in another case", () => {

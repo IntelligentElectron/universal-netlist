@@ -69,9 +69,10 @@ export const planChannelNetNames = (
     if (scope.powerNetNames.has(name) || shared.has(identifierKey(name))) {
       names.set(name, name);
     } else if (pin) {
+      const numbered = name.slice(`Net${pin.refdes}_${pin.pin}`.length);
       names.set(
         name,
-        `Net${applyChannelFormat(channelFormat, pin.refdes, roomName, channelIndex)}_${pin.pin}`
+        `Net${applyChannelFormat(channelFormat, pin.refdes, roomName, channelIndex)}_${pin.pin}${numbered}`
       );
     } else {
       names.set(name, applyChannelFormat(channelFormat, name, roomName, channelIndex));

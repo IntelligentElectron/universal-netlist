@@ -4,7 +4,7 @@
 
 import type { NetConnections, ParsedNetlist, PinEntry } from "../../types.js";
 import { mergeComponentInto } from "./components.js";
-import { identifierKey } from "./notation.js";
+import { firstFreeName, identifierKey } from "./notation.js";
 
 const pinNet = (entry: PinEntry): string => (typeof entry === "string" ? entry : entry.net);
 
@@ -129,9 +129,7 @@ export const settleProvisionalNames = (nets: NetConnections): Map<string, string
   const taken = new Set(names.filter((name) => !name.includes(PROVISIONAL)).map(identifierKey));
   const renames = new Map<string, string>();
   for (const name of names.filter((name) => name.includes(PROVISIONAL)).sort(byInstance)) {
-    const plain = displayName(name);
-    let candidate = plain;
-    for (let n = 2; taken.has(identifierKey(candidate)); n++) candidate = `${plain}_${n}`;
+    const candidate = firstFreeName(displayName(name), taken);
     taken.add(identifierKey(candidate));
     renames.set(name, candidate);
   }

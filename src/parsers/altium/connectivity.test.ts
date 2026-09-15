@@ -270,6 +270,21 @@ describe("Connectivity", () => {
 });
 
 describe("findAllConnectedComponents", () => {
+  it("joins harness entries a harness label gives one member name, whatever their signal", () => {
+    const member = (index: number, signal: string, x: number): AltiumRecord => ({
+      index,
+      RECORD: RECORD_TYPES.HARNESS_ENTRY,
+      harnessSignal: signal,
+      harnessNetName: "SPI.MOSI",
+      coords: [[x, 0]],
+    });
+    const groups = findAllConnectedComponents([
+      member(0, "local|1|MOSI", 0),
+      member(1, "local|2|MOSI", 50_000_000),
+    ]);
+    expect(groups).toHaveLength(1);
+  });
+
   it("joins devices that touch across a spatial index cell edge", () => {
     // Cells are ten units wide: the wire ends in cell 0 and the pin starts in cell 1.
     const wire: AltiumRecord = {

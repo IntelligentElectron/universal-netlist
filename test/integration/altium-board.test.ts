@@ -46,7 +46,7 @@ const CASES: BoardCase[] = [
     name: "misko3",
     project: "misko3/MISKO3.PrjPcb",
     board: "misko3/Misko 3.PcbDoc",
-    sameName: 780,
+    sameName: 783,
   },
   {
     // Global scope, imported with fractional coordinates. The names that differ

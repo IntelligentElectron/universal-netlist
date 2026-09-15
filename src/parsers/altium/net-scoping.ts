@@ -3,6 +3,7 @@
  * sheet's `SheetNumber`, so same-named local nets on two sheets stay apart.
  */
 
+import type { NetNameSource } from "./types.js";
 import { identifierKey } from "./notation.js";
 import {
   netLabelsAreGlobal,
@@ -43,6 +44,8 @@ export const isSheetBound = (kinds: NetIdentifierKinds, scope: NetIdentifierScop
 export interface SheetNetScope {
   sheetNumber?: string;
   netIdentifiers: ReadonlyMap<string, NetIdentifierKinds>;
+  /** Where each net's name comes from. */
+  nameSources: ReadonlyMap<string, NetNameSource>;
 }
 
 /**
@@ -69,7 +72,8 @@ export const planLocalNetRenames = (
   sheets.forEach((sheet, index) => {
     if (!sheet.sheetNumber) return;
     for (const [name, kinds] of sheet.netIdentifiers) {
-      if (!isSheetBound(kinds, scope) || (!kinds.label && !kinds.powerPort)) continue;
+      const source = sheet.nameSources.get(name);
+      if (!isSheetBound(kinds, scope) || (source !== "label" && source !== "power")) continue;
       if (inUse(numbered(name, sheet.sheetNumber))) continue;
       (claims.get(name) ?? claims.set(name, []).get(name)!).push({
         sheet: index,

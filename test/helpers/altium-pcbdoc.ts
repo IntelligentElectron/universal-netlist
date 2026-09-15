@@ -13,8 +13,8 @@ import { OleReader } from "../../src/parsers/ole-reader/ole-reader.js";
 export interface BoardNetlist {
   /** `<refdes>.<pad>` -> the nets its pads are on; a footprint can repeat a pad name. */
   pinNets: Map<string, Set<string>>;
-  /** Net name -> how many pads are on it. */
-  netPads: Map<string, number>;
+  /** Net name -> the `<refdes>.<pad>` pins on it. */
+  netPins: Map<string, Set<string>>;
   netCount: number;
 }
 
@@ -101,7 +101,7 @@ export const readBoardNetlist = (pcbDocPath: string): BoardNetlist => {
   );
   const pads = ole.readStreamByPath("Pads6/Data");
   const pinNets = new Map<string, Set<string>>();
-  const netPads = new Map<string, number>();
+  const netPins = new Map<string, Set<string>>();
   let pos = 0;
   while (pos < pads.length) {
     const type = pads[pos];
@@ -124,9 +124,9 @@ export const readBoardNetlist = (pcbDocPath: string): BoardNetlist => {
     if (!refdes || !netName) continue;
     const pin = `${refdes}.${name}`;
     (pinNets.get(pin) ?? pinNets.set(pin, new Set()).get(pin)!).add(netName);
-    netPads.set(netName, (netPads.get(netName) ?? 0) + 1);
+    (netPins.get(netName) ?? netPins.set(netName, new Set()).get(netName)!).add(pin);
   }
-  return { pinNets, netPads, netCount: nets.length };
+  return { pinNets, netPins, netCount: nets.length };
 };
 
 export interface BoardComparison {
@@ -188,7 +188,7 @@ export const compareToBoard = (
       ([pin, nets]) =>
         schematicPins.has(pin) &&
         !pinNets.has(pin) &&
-        [...nets].some((net) => board.netPads.get(net)! > 1)
+        [...nets].some((net) => board.netPins.get(net)!.size > 1)
     )
     .map(([pin]) => pin)
     .sort();

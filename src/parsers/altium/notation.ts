@@ -7,7 +7,15 @@
 export const identifierKey = (name: string): string =>
   name.replace(/[a-z]+/g, (letters) => letters.toUpperCase());
 
-const RANGE = /^(.+)\[(\d+)\.\.(\d+)\]$/;
+/** `name`, or the first of `name_2`, `name_3`, ... whose key `taken` does not hold. */
+export const firstFreeName = (name: string, taken: ReadonlySet<string>): string => {
+  let candidate = name;
+  for (let n = 2; taken.has(identifierKey(candidate)); n++) candidate = `${name}_${n}`;
+  return candidate;
+};
+
+/** `NAME[a..b]`; an overbar escape may follow any character of the brackets. */
+const RANGE = /^(.+?)\[\\?(\d+)\\?\.\\?\.\\?(\d+)\\?\]\\?$/;
 const REPEAT_ENTRY = /^Repeat\((.+)\)$/i;
 const REPEAT_SYMBOL = /^Repeat\(\s*([^,)]+?)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i;
 
