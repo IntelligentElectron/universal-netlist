@@ -215,8 +215,9 @@ function Install-UniversalNetlistMcp {
     Write-Host "To update, run:"
     Write-Host "  universal-netlist update"
     Write-Host ""
-    Write-Host "To connect Claude Code, in the terminal or the Claude desktop app:"
+    Write-Host "To connect Claude Code, install its CLI and run:"
     Write-Host "  claude mcp add --scope user universal-netlist -- universal-netlist"
+    Write-Host "Local Code tab sessions in the Claude desktop app then use the server too."
     Write-Host ""
 }
 

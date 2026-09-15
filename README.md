@@ -34,7 +34,7 @@ Why use the native installer:
 - **Auto-updates** — checks for updates on startup
 - **Signed binaries** — macOS binaries are notarized by Apple
 
-The installer places the binary in:
+The installer places the binary in the `bin/` folder of:
 
 | Platform | Install Directory |
 |----------|-------------------|
@@ -79,13 +79,13 @@ After installing the MCP with one of the methods above, you can connect it to yo
 
 ### Claude Code and the Claude desktop app
 
-Install [Claude Code](https://code.claude.com/docs), then run:
+Install the [Claude Code](https://code.claude.com/docs) CLI, then run:
 
 ```bash
 claude mcp add --scope user universal-netlist -- universal-netlist
 ```
 
-The Code tab of the [Claude desktop app](https://claude.ai/download) uses the MCP servers Claude Code registers, so the server is available there too.
+Local sessions in the Code tab of the [Claude desktop app](https://claude.ai/download) use the MCP servers Claude Code registers, so the server is available there too.
 
 ### OpenAI Codex
 

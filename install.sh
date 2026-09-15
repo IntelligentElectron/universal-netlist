@@ -270,8 +270,9 @@ main() {
     echo "To update, run:"
     echo "  universal-netlist update"
     echo ""
-    echo "To connect Claude Code, in the terminal or the Claude desktop app:"
+    echo "To connect Claude Code, install its CLI and run:"
     echo "  claude mcp add --scope user universal-netlist -- universal-netlist"
+    echo "Local Code tab sessions in the Claude desktop app then use the server too."
     echo ""
 }
 
