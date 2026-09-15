@@ -7,6 +7,19 @@
 export const identifierKey = (name: string): string =>
   name.replace(/[a-z]+/g, (letters) => letters.toUpperCase());
 
+/** Names in natural order ignoring ASCII case: digit runs by value, the rest by code unit. */
+export const compareNatural = (a: string, b: string): number => {
+  const partsA = identifierKey(a).match(/\d+|\D+/g) ?? [];
+  const partsB = identifierKey(b).match(/\d+|\D+/g) ?? [];
+  for (let i = 0; i < Math.min(partsA.length, partsB.length); i++) {
+    const [x, y] = [partsA[i], partsB[i]];
+    const numeric = /^\d/.test(x) && /^\d/.test(y);
+    if (numeric && Number(x) !== Number(y)) return Number(x) - Number(y);
+    if (!numeric && x !== y) return x < y ? -1 : 1;
+  }
+  return partsA.length - partsB.length;
+};
+
 /** `name`, or the first of `name_2`, `name_3`, ... whose key `taken` does not hold. */
 export const firstFreeName = (name: string, taken: ReadonlySet<string>): string => {
   let candidate = name;

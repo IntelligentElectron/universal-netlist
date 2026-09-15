@@ -106,6 +106,8 @@ interface Candidate {
   /** Index of the claiming record. */
   claim: number;
   pin?: PinNameSource;
+  /** The lowest pin's name, to be numbered past every name held when its turn comes. */
+  numbered?: boolean;
 }
 
 /**
@@ -155,8 +157,8 @@ const pinNames = (net: AltiumNet, schematic: AltiumSchematic): Candidate[] => {
  * Name a sheet's nets, no two alike ignoring case, pinless nets among them. Nets choose in
  * turn: the net whose next name ranks strongest first, and between two of one rank the one
  * whose claiming record comes first. A net whose next name is taken moves on to the one
- * after; a net with pins whose every name is taken is numbered after its lowest pin, and a
- * net without pins goes unnamed.
+ * after. A net with pins whose every name is taken is, at its turn among pin names, called
+ * after its lowest pin numbered past every name then held; a net without pins goes unnamed.
  */
 export const nameSheetNets = (
   nets: readonly AltiumNet[],
@@ -176,18 +178,27 @@ export const nameSheetNets = (
     pinsAdded: boolean;
     next: number;
   }
-  /** Move an entry to its next candidate, reading its pin names once its identifiers run out. */
+  /**
+   * Move an entry to its next candidate: its pin names once its identifiers run out, and
+   * after them its lowest pin's name numbered.
+   */
   const advance = (entry: Entry): Candidate | undefined => {
     entry.next++;
-    if (entry.next >= entry.candidates.length && !entry.pinsAdded) {
+    if (entry.next === entry.candidates.length && !entry.pinsAdded) {
       entry.pinsAdded = true;
-      entry.candidates.push(...pinNames(entry.net, schematic));
+      const pins = pinNames(entry.net, schematic);
+      entry.candidates.push(...pins);
+      if (pins.length > 0) entry.candidates.push({ ...pins[0], numbered: true });
     }
     return entry.candidates[entry.next];
   };
   const before = (a: Entry, b: Entry): number => {
     const [x, y] = [a.candidates[a.next], b.candidates[b.next]];
-    return ranks[x.source] - ranks[y.source] || x.claim - y.claim;
+    return (
+      ranks[x.source] - ranks[y.source] ||
+      Number(x.numbered ?? false) - Number(y.numbered ?? false) ||
+      x.claim - y.claim
+    );
   };
 
   const pending: Entry[] = [];
@@ -204,27 +215,22 @@ export const nameSheetNets = (
   pending.sort(before);
 
   const held = new Set<string>();
+  const isHeld = (candidate: Candidate): boolean =>
+    !candidate.numbered && held.has(identifierKey(candidate.name));
   for (let i = 0; i < pending.length; i++) {
     const entry = pending[i];
     let candidate: Candidate | undefined = entry.candidates[entry.next];
-    if (!held.has(identifierKey(candidate.name))) {
-      give(entry.net, candidate);
-      held.add(identifierKey(candidate.name));
+    if (!isHeld(candidate)) {
+      const name = candidate.numbered ? firstFreeName(candidate.name, held) : candidate.name;
+      give(entry.net, candidate, name);
+      held.add(identifierKey(name));
       continue;
     }
     do candidate = advance(entry);
-    while (candidate && held.has(identifierKey(candidate.name)));
-    if (candidate) {
-      let at = i + 1;
-      while (at < pending.length && before(pending[at], entry) <= 0) at++;
-      pending.splice(at, 0, entry);
-      continue;
-    }
-    const lowestPin = entry.candidates.find((option) => option.source === "pin");
-    if (!lowestPin?.pin) continue;
-    const name = firstFreeName(lowestPin.name, held);
-    const suffix = name.slice(lowestPin.name.length);
-    give(entry.net, { ...lowestPin, pin: { ...lowestPin.pin, suffix } }, name);
-    held.add(identifierKey(name));
+    while (candidate && isHeld(candidate));
+    if (!candidate) continue;
+    let at = i + 1;
+    while (at < pending.length && before(pending[at], entry) <= 0) at++;
+    pending.splice(at, 0, entry);
   }
 };

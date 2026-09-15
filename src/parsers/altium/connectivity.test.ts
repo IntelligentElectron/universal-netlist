@@ -3,6 +3,10 @@ import { findAllConnectedComponents, isConnected } from "./connectivity.js";
 import { RECORD_TYPES } from "./types.js";
 import type { AltiumRecord } from "./types.js";
 
+/** Whether two records end up in one net. */
+const joined = (a: AltiumRecord, b: AltiumRecord): boolean =>
+  findAllConnectedComponents([a, b]).length === 1;
+
 describe("Connectivity", () => {
   describe("isConnected", () => {
     it("should detect connected wires by coordinate overlap", () => {
@@ -176,7 +180,7 @@ describe("Connectivity", () => {
         coords: [[100000, 100000]], // Far apart
       };
 
-      expect(isConnected(port1, port2)).toBe(true);
+      expect(joined(port1, port2)).toBe(true);
     });
 
     it("should connect power ports with same TEXT", () => {
@@ -194,7 +198,7 @@ describe("Connectivity", () => {
         coords: [[100000, 100000]],
       };
 
-      expect(isConnected(port1, port2)).toBe(true);
+      expect(joined(port1, port2)).toBe(true);
     });
 
     it("should not connect power ports with different Text", () => {
@@ -233,7 +237,7 @@ describe("Connectivity", () => {
       };
 
       // Net labels with same Text are connected globally (off-page connection)
-      expect(isConnected(label1, label2)).toBe(true);
+      expect(joined(label1, label2)).toBe(true);
     });
 
     it("connects net labels whose Text differs only in case", () => {
@@ -245,8 +249,8 @@ describe("Connectivity", () => {
       };
       const label2: AltiumRecord = { ...label1, index: 1, Text: "VBat", coords: [[900000, 0]] };
 
-      expect(isConnected(label1, label2)).toBe(true);
-      expect(isConnected({ ...label1, Text: "10µA" }, { ...label2, Text: "10μA" })).toBe(false);
+      expect(joined(label1, label2)).toBe(true);
+      expect(joined({ ...label1, Text: "10µA" }, { ...label2, Text: "10μA" })).toBe(false);
     });
 
     it("should not connect net labels with different Text unless by location", () => {
@@ -264,7 +268,7 @@ describe("Connectivity", () => {
         coords: [[100000, 100000]], // Far apart, different text
       };
 
-      expect(isConnected(label1, label2)).toBe(false);
+      expect(joined(label1, label2)).toBe(false);
     });
   });
 });
@@ -324,7 +328,7 @@ describe("Connectivity - PORT records", () => {
       coords: [[200000, 200000]],
     };
 
-    expect(isConnected(port1, port2)).toBe(true);
+    expect(joined(port1, port2)).toBe(true);
   });
 
   it("should not connect PORTs with different Name", () => {
@@ -342,7 +346,7 @@ describe("Connectivity - PORT records", () => {
       coords: [[200000, 200000]],
     };
 
-    expect(isConnected(port1, port2)).toBe(false);
+    expect(joined(port1, port2)).toBe(false);
   });
 
   it("should not connect a PORT to a NET_LABEL of the same name", () => {
@@ -362,6 +366,6 @@ describe("Connectivity - PORT records", () => {
       coords: [[200000, 200000]],
     };
 
-    expect(isConnected(port, label)).toBe(false);
+    expect(joined(port, label)).toBe(false);
   });
 });

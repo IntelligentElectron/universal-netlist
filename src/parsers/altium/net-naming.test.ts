@@ -190,6 +190,18 @@ describe("naming a sheet's nets", () => {
     expect(nets.map((net) => net.name)).toEqual(["EN", null]);
   });
 
+  it("numbers a fully refused net only at its turn among pin names", () => {
+    // D's entry name outranks A's numbered pin name, though A was refused first.
+    const { schematic, nets } = sheet(
+      { devices: [entry(3, "X")], parts: ["R3"] },
+      { devices: [entry(7, "X")], parts: ["R1"] },
+      { devices: [label(11, "NetR1_1")], parts: ["R9"] },
+      { devices: [entry(15, "NetR1_1_2")], parts: ["R4"] }
+    );
+    nameSheetNets(nets, schematic);
+    expect(nets.map((net) => net.name)).toEqual(["X", "NetR1_1_3", "NetR1_1", "NetR1_1_2"]);
+  });
+
   it("numbers a net whose every name another net holds after its lowest pin", () => {
     const { schematic, nets } = sheet(
       { devices: [label(1, "NetR2_1")], parts: ["R1"] },

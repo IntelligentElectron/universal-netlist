@@ -4,7 +4,7 @@
 
 import type { NetConnections, ParsedNetlist, PinEntry } from "../../types.js";
 import { mergeComponentInto } from "./components.js";
-import { firstFreeName, identifierKey } from "./notation.js";
+import { compareNatural, firstFreeName, identifierKey } from "./notation.js";
 
 const pinNet = (entry: PinEntry): string => (typeof entry === "string" ? entry : entry.net);
 
@@ -117,28 +117,36 @@ export const mergeNetGroups = (
   applyNetRenames(netlist, renames);
 };
 
-const instanceOrder = new Intl.Collator("en", { numeric: true }).compare;
-
-/** Provisional names by name, then by instance, the instance's numbers by value. */
-const byInstance = (a: string, b: string): number => {
-  const [nameA, instanceA] = [displayName(a), a.slice(a.indexOf(PROVISIONAL) + 1)];
-  const [nameB, instanceB] = [displayName(b), b.slice(b.indexOf(PROVISIONAL) + 1)];
-  if (nameA !== nameB) return nameA < nameB ? -1 : 1;
-  return instanceOrder(instanceA, instanceB);
-};
-
 /**
- * Give every provisional name its reported form: the plain name, numbered `_2`, `_3` in
- * instance order where another net already has it, ignoring case.
+ * Give every provisional name its reported form: its plain name where no other net has it,
+ * else that name numbered `_2`, `_3` past every name given, ignoring case. Plain names go
+ * first, by name and then by instance; numbered ones follow in the same order.
  */
 export const settleProvisionalNames = (nets: NetConnections): Map<string, string> => {
   const names = Object.keys(nets);
   const taken = new Set(names.filter((name) => !name.includes(PROVISIONAL)).map(identifierKey));
+  const instanceOf = (name: string): string => name.slice(name.indexOf(PROVISIONAL) + 1);
+  const provisional = names
+    .filter((name) => name.includes(PROVISIONAL))
+    .sort(
+      (a, b) =>
+        compareNatural(displayName(a), displayName(b)) ||
+        compareNatural(instanceOf(a), instanceOf(b))
+    );
   const renames = new Map<string, string>();
-  for (const name of names.filter((name) => name.includes(PROVISIONAL)).sort(byInstance)) {
-    const candidate = firstFreeName(displayName(name), taken);
-    taken.add(identifierKey(candidate));
-    renames.set(name, candidate);
+  const duplicates: string[] = [];
+  for (const name of provisional) {
+    const plain = displayName(name);
+    if (taken.has(identifierKey(plain))) duplicates.push(name);
+    else {
+      renames.set(name, plain);
+      taken.add(identifierKey(plain));
+    }
+  }
+  for (const name of duplicates) {
+    const numbered = firstFreeName(displayName(name), taken);
+    renames.set(name, numbered);
+    taken.add(identifierKey(numbered));
   }
   return renames;
 };

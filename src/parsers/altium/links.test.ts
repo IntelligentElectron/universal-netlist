@@ -48,23 +48,4 @@ describe("linkedNetGroups", () => {
     );
     expect([...groups.values()].map((names) => [...names].sort())).toEqual([["A", "B"]]);
   });
-
-  it("joins net labels of one name across sheets under Global scope only", () => {
-    const links = [
-      {
-        placement: "a.schdoc",
-        document: "a.schdoc",
-        groups: [{ net: "NetR1_1", keys: ["label|SDA"] }],
-      },
-      {
-        placement: "b.schdoc",
-        document: "b.schdoc",
-        groups: [{ net: "SDA", keys: ["label|SDA"] }],
-      },
-    ];
-    expect(
-      [...linkedNetGroups(links, "global", new Map()).values()].map((names) => [...names].sort())
-    ).toEqual([["NetR1_1", "SDA"]]);
-    expect(linkedNetGroups(links, "flat", new Map()).size).toBe(0);
-  });
 });

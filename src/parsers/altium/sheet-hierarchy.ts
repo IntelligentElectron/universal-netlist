@@ -6,7 +6,7 @@
 import path from "path";
 import { RECORD_TYPES, type AltiumRecord } from "./types.js";
 import { fieldText, flattenHierarchy } from "./records.js";
-import { repeatChannels, repeatSheetName, type RepeatChannel } from "./notation.js";
+import { compareNatural, repeatChannels, repeatSheetName, type RepeatChannel } from "./notation.js";
 import type { ReadDocument } from "./document.js";
 
 const childRecord = (symbol: AltiumRecord | undefined, type: string): AltiumRecord | undefined =>
@@ -82,19 +82,6 @@ export interface DocumentInstance {
 export const channelAlpha = (channel: number): string =>
   String.fromCharCode(64 + Math.max(1, channel));
 
-/** Designators in natural order, ignoring case: digit runs as numbers, the rest by code. */
-const compareDesignators = (a: string, b: string): number => {
-  const partsA = a.toUpperCase().match(/\d+|\D+/g) ?? [];
-  const partsB = b.toUpperCase().match(/\d+|\D+/g) ?? [];
-  for (let i = 0; i < Math.min(partsA.length, partsB.length); i++) {
-    const [x, y] = [partsA[i], partsB[i]];
-    const numeric = /^\d/.test(x) && /^\d/.test(y);
-    if (numeric && Number(x) !== Number(y)) return Number(x) - Number(y);
-    if (!numeric && x !== y) return x < y ? -1 : 1;
-  }
-  return partsA.length - partsB.length;
-};
-
 /**
  * Every instance of every document, as Altium numbers them.
  *
@@ -126,7 +113,7 @@ export const documentInstances = (
 
   type Level = Chain["path"][number];
   const compareLevels = (a: Level, b: Level): number =>
-    compareDesignators(a.channel.designator, b.channel.designator) ||
+    compareNatural(a.channel.designator, b.channel.designator) ||
     (a.placement === b.placement
       ? a.channel.index - b.channel.index
       : b.placement.parentOrder - a.placement.parentOrder ||

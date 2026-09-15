@@ -17,11 +17,17 @@ describe("settleProvisionalNames", () => {
     expect(renames.get(`SIG${PROVISIONAL}10`)).toBe("SIG_3");
   });
 
-  it("orders provisional names by name before instance", () => {
+  it("keeps a provisional net's plain name ahead of numbering a duplicate", () => {
     const renames = settleProvisionalNames(
-      nets("SIG", `SIG_2${PROVISIONAL}a`, `SIG${PROVISIONAL}b`)
+      nets("SIG", `SIG${PROVISIONAL}1`, `SIG_2${PROVISIONAL}2`)
     );
-    expect(renames.get(`SIG${PROVISIONAL}b`)).toBe("SIG_2");
-    expect(renames.get(`SIG_2${PROVISIONAL}a`)).toBe("SIG_2_2");
+    expect(renames.get(`SIG_2${PROVISIONAL}2`)).toBe("SIG_2");
+    expect(renames.get(`SIG${PROVISIONAL}1`)).toBe("SIG_3");
+  });
+
+  it("numbers names that differ only in case by instance", () => {
+    const renames = settleProvisionalNames(nets(`abc${PROVISIONAL}1`, `ABC${PROVISIONAL}2`));
+    expect(renames.get(`abc${PROVISIONAL}1`)).toBe("abc");
+    expect(renames.get(`ABC${PROVISIONAL}2`)).toBe("ABC_2");
   });
 });

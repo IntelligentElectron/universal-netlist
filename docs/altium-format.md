@@ -161,7 +161,6 @@ Each link a net makes across sheets is an identity:
 | `<instance>` and `<name>` | a port on a document instance; a plain entry, for every channel its symbol instantiates; a `Repeat(NAME)` entry's member `NAME<n>`, for channel `n` | under every scope |
 | `<name>` of a port | a port | under Flat and Global scope |
 | `<name>` of a power port | a power port | under every scope but Strict Hierarchical |
-| `<name>` of a net label | a net label | under Global scope |
 | bundle and member | a harness entry on the net, or a bus member reaching a harness entry or a harness-typed port | under every scope |
 
 An instance is the document no symbol places, then the symbol and channel of each placement on the

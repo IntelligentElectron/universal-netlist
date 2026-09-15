@@ -17,7 +17,7 @@ import {
 import { assignHarnessSignals, readHarnessConnectors } from "./harness.js";
 import { extractComponents, pinDesignator, pinNumber } from "./components.js";
 import { extractNets } from "./net-extractor.js";
-import { nameRanks, NAME_FROM_ANY, type NetNamingOptions } from "./net-naming.js";
+import { NAME_FROM_ANY, type NetNamingOptions } from "./net-naming.js";
 import { collectNetLinks, type NetLinkGroup } from "./links.js";
 import { applyNetRenames, reconcileNetlist } from "./netlist.js";
 import { noNetIdentifiers, type NetIdentifierKinds } from "./net-scoping.js";
@@ -144,7 +144,7 @@ const collectNetIdentifiers = (nets: AltiumNet[]): Map<string, NetIdentifierKind
   const identifiers = new Map<string, NetIdentifierKinds>();
   for (const net of nets) {
     if (!net.name) continue;
-    const kinds = identifiers.get(net.name) ?? noNetIdentifiers();
+    const kinds = noNetIdentifiers();
     for (const device of net.devices) {
       if (device.RECORD === RECORD_TYPES.PORT) kinds.port = true;
       else if (device.RECORD === RECORD_TYPES.SHEET_ENTRY) kinds.entry = true;
@@ -177,13 +177,9 @@ export const parseDocument = (
   placePins(components, connections);
   reconcileNetlist({ nets: connections, components });
 
-  const ranks = nameRanks(naming);
   const nameSources = new Map<string, NetNameSource>();
-  for (const { name, nameSource } of nets) {
-    if (!name || !nameSource) continue;
-    const seen = nameSources.get(name);
-    if (seen === undefined || ranks[nameSource] < ranks[seen]) nameSources.set(name, nameSource);
-  }
+  for (const { name, nameSource } of nets)
+    if (name && nameSource) nameSources.set(name, nameSource);
 
   const records = flattenHierarchy(schematic);
   return {

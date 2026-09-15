@@ -98,9 +98,8 @@ const namedDeviceKey = (device: AltiumRecord): string | undefined => {
 };
 
 /**
- * Whether two records connect. A point of either touching the other connects them,
- * except that two pins meet only tip to tip: a pin's inner end is its body. Harness
- * entries carrying one signal connect, as do records joining by name.
+ * Whether two records touch. A point of either on the other connects them, except that two
+ * pins meet only tip to tip: a pin's inner end is its body.
  */
 export const isConnected = (a: AltiumRecord, b: AltiumRecord): boolean => {
   if (a.RECORD === RECORD_TYPES.PIN && b.RECORD === RECORD_TYPES.PIN) {
@@ -114,22 +113,10 @@ export const isConnected = (a: AltiumRecord, b: AltiumRecord): boolean => {
     from.some((segment) =>
       segment.some((point) => to.some((other) => pointOnSegment(point, other)))
     );
-  if (touches(segmentsA, segmentsB) || touches(segmentsB, segmentsA)) return true;
-
-  if (
-    a.RECORD === RECORD_TYPES.HARNESS_ENTRY &&
-    b.RECORD === RECORD_TYPES.HARNESS_ENTRY &&
-    a.harnessSignal !== undefined &&
-    b.harnessSignal !== undefined &&
-    identifierKey(a.harnessSignal) === identifierKey(b.harnessSignal)
-  ) {
-    return true;
-  }
-  const key = namedDeviceKey(a);
-  return key !== undefined && key === namedDeviceKey(b);
+  return touches(segmentsA, segmentsB) || touches(segmentsB, segmentsA);
 };
 
-/** Group records into the sets that connect. */
+/** Group records into the sets that connect: by touching, and by name or harness signal. */
 export const findAllConnectedComponents = (devices: AltiumRecord[]): AltiumRecord[][] => {
   const index = new SpatialIndex();
   const byIndex = new Map<number, AltiumRecord>();

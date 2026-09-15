@@ -16,11 +16,7 @@ import { isBusIdentifier } from "./bus.js";
 import { isSignalSheetEntry } from "./net-extractor.js";
 import { harnessSignalKey, portBundle, splitHarnessSignalKey } from "./harness.js";
 import { sheetSymbolChild } from "./sheet-hierarchy.js";
-import {
-  netLabelsAreGlobal,
-  powerPortsAreGlobal,
-  type NetIdentifierScope,
-} from "./project-options.js";
+import { powerPortsAreGlobal, type NetIdentifierScope } from "./project-options.js";
 import { UnionFind } from "./union-find.js";
 
 /**
@@ -31,7 +27,6 @@ import { UnionFind } from "./union-find.js";
  *   its symbol, or every channel when none is given.
  * - `port|<name>`: a port, meeting ports of its name under Flat and Global scope.
  * - `power|<name>`: a power port, global under every scope but Strict Hierarchical.
- * - `label|<name>`: a net label, global under Global scope.
  * - `harness|<signal key>`: a harness entry on the net, or a bus member reaching a harness
  *   entry or harness-typed port.
  */
@@ -81,11 +76,6 @@ export const collectNetLinks = (
       }
       if (device.RECORD === RECORD_TYPES.HARNESS_ENTRY) {
         if (device.harnessSignal) add(`harness|${device.harnessSignal}`);
-        continue;
-      }
-      if (device.RECORD === RECORD_TYPES.NET_LABEL) {
-        const name = fieldText(device, "Text");
-        if (name) add(`label|${name}`);
         continue;
       }
       // A bundle joins through its harness signals; a range through its bus members.
@@ -157,7 +147,6 @@ export const linkedNetGroups = (
     }
     if (kind === "port") return portsJoinByName ? [key] : [];
     if (kind === "power") return powerPortsAreGlobal(scope) ? [key] : [];
-    if (kind === "label") return netLabelsAreGlobal(scope) ? [key] : [];
     return [key];
   };
 

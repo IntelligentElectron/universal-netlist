@@ -76,7 +76,7 @@ export const planChannelNetNames = (
       names.set(name, name);
     } else if (pin) {
       const refdes = applyChannelFormat(channelFormat, pin.refdes, roomName, channelIndex);
-      names.set(name, `Net${refdes}_${pin.pin}${pin.suffix ?? ""}`);
+      names.set(name, `Net${refdes}_${pin.pin}`);
     } else {
       names.set(name, applyChannelFormat(channelFormat, name, roomName, channelIndex));
     }
@@ -147,8 +147,10 @@ export const channelDocument = (
     ...base.links.flatMap((group) => [group.net, group.name].filter((name) => name !== undefined)),
   ]);
   const planned = planChannelNetNames(names, scope, instance.room, instance.ordinal, channelFormat);
+  // A pin name is unique already, unless the sheet had to number it.
   for (const [from, to] of planned) {
-    if (to !== from && !scope.pinNamed.has(from))
+    const pin = scope.pinNamed.get(from);
+    if (to !== from && (!pin || from !== `Net${pin.refdes}_${pin.pin}`))
       planned.set(from, `${to}${PROVISIONAL}${instance.key}`);
   }
   const rename = (name: string): string => planned.get(name) ?? name;
