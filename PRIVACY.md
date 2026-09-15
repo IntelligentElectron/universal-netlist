@@ -82,9 +82,8 @@ Setting `OTEL_SDK_DISABLED=1` forces it off even when an endpoint is configured.
 
 All registered MCP tools are annotated as read-only and leave source designs unchanged.
 A KiCad query may generate a temporary netlist, which is removed after reading.
-The Cadence exporter is dormant in MCP. The separate CLI `coverage` command can
-still invoke it on Windows to create or replace reference netlists beside a
-schematic. CLI reports and exports write to disk when you run those commands.
+Commands you run by hand write what they are for: `export-json` the netlist file
+you name, and `export-telemetry` a zip file in the working directory.
 
 ## Third parties
 

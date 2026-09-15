@@ -1,5 +1,5 @@
 /**
- * Net-name categorization shared across the app (DSN-vs-DAT coverage, ERC).
+ * Net-name categorization shared by ERC and the DSN vs DAT coverage scripts.
  *
  * Classifies a net by how its name was produced. Sheet-path-prefixed names
  * (e.g. KiCad's "/Sheet/Net-(D1-A)") are categorized on their final segment so

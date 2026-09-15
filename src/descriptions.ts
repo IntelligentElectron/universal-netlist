@@ -27,6 +27,7 @@ Supported formats:
 
 ## Conventions
 
+- Read designs only through these tools. Never run the \`universal-netlist\` binary from a shell: it is this server, and its commands are for the people who install it
 - Design paths are relative to the working directory; absolute paths are also accepted
 - A design with named design variants requires \`design_variant\` on every query; use \`<Default>\` (alias \`default\`) for its unmodified/core design. Every result echoes the \`design_variant\` it describes
 - DNS (Do Not Stuff) components are flagged \`dns: true\`. Listing and search tools include them by default; traversal and ERC leave them out unless \`include_dns=true\`

@@ -8,7 +8,6 @@ Usage: universal-netlist [options] [command]
 Options:
   -v, --version        Output the version number
   -h, --help           Display help for command
-  --verbose            Show per-design field mismatch breakdowns (with coverage)
 
 Commands:
   update|upgrade       Check for updates and install if available
@@ -16,7 +15,6 @@ Commands:
   export-telemetry     Export telemetry data as a zip file
   export-json <design> [out.netlist.json]
                        Write a design's netlist as Universal Netlist JSON
-  coverage [path]      Compare DSN parser output against DAT netlist exports
 ```
 
 ## export-json
@@ -59,13 +57,3 @@ universal-netlist export-telemetry
 ```
 
 Writes the locally recorded [telemetry](observability.md) as a zip file in the working directory. Telemetry is off by default; this exports only what `OTEL_*` configuration recorded.
-
-## coverage
-
-```bash
-universal-netlist coverage [path] [verbose]
-```
-
-For every Cadence design under `path` (default: the working directory) that has both a `.DSN` schematic and exported `.dat` netlist files, parses both and writes a markdown report to the working directory comparing them. `verbose` adds per-design field mismatch breakdowns. This is a parser-development tool: the `.dat` files are the reference the `.DSN` parser is measured against. DAT parsing and the Cadence exporter remain available to this CLI workflow while dormant in MCP. On Windows, coverage can generate missing reference exports through the retained Cadence exporter.
-
-The one ambiguity the word forms carry: a token right after `coverage` is read as its path unless it is itself a command word, so a directory literally named `verbose` is given as `./verbose`. The value after `export-json` is always a path.

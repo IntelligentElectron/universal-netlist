@@ -37,7 +37,18 @@ node --import tsx scripts/gen-golden.ts cadence BEAGLEBONEBLK_C3 "test/fixtures/
 Output is saved to `test/golden/<format>/<name>.netlist.json`. Every golden is a
 versioned Universal Netlist document, not an arbitrary JSON file.
 
-Golden generation uses the retained DAT parser as an independent reference when an export exists alongside a `.DSN`. To generate that reference directly, pass `pstxnet.dat`. This is a developer-only path: MCP discovery and queries accept the `.DSN` schematic and do not expose DAT parsing. CLI `coverage` also retains DAT comparison and its Windows export support.
+Golden generation uses the retained DAT parser as an independent reference when an export exists alongside a `.DSN`. To generate that reference directly, pass `pstxnet.dat`. This is a developer-only path: MCP discovery and queries accept the `.DSN` schematic and do not expose DAT parsing.
+
+## dsn-vs-dat-coverage.ts
+
+Compare DSN parser output against DAT netlist exports for every Cadence design under a directory (default: the working directory) that has both a `.DSN` and exported `.dat` files. Prints the report and writes it as markdown to `dsn-vs-dat-coverage-<timestamp>.md` in the working directory.
+
+```bash
+node --import tsx scripts/dsn-vs-dat-coverage.ts                   # Designs under the working directory
+node --import tsx scripts/dsn-vs-dat-coverage.ts <path> --verbose  # Per-design field mismatch breakdowns
+```
+
+The `.dat` files are the reference the `.DSN` parser is measured against. On Windows, a design without them gets them from the dormant Cadence exporter first. The analysis and report formatting live in `scripts/lib/dsn-vs-dat-coverage.ts`, shared with `dsn-coverage-report.ts`.
 
 ## dsn-coverage-report.ts
 

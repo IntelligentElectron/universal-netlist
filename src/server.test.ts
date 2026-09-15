@@ -118,6 +118,14 @@ describe("dormant Cadence MCP features", () => {
   });
 });
 
+describe("server instructions", () => {
+  it("keep agents on the tools and off the binary's command line", () => {
+    expect(client.getInstructions()).toContain(
+      "Read designs only through these tools. Never run the `universal-netlist` binary from a shell"
+    );
+  });
+});
+
 describe("tool annotations", () => {
   it("registers every tool with a title", () => {
     const untitled = tools.filter((t) => !t.title?.trim()).map((t) => t.name);

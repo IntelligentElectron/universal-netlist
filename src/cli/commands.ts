@@ -1,23 +1,14 @@
 /**
  * CLI command handlers for --version, --help, --update, --uninstall, --export-telemetry,
- * --export-json, and --coverage.
+ * and --export-json.
  */
 
 import { existsSync, readFileSync, rmSync, writeFileSync } from "node:fs";
-import { basename, dirname, extname, join, resolve } from "node:path";
+import { basename, dirname, extname, resolve } from "node:path";
 import { VERSION, GITHUB_REPO, BINARY_NAME } from "../version.js";
 import { SELF_UPDATE_ENABLED } from "../build-flags.js";
 import { exportTelemetry } from "../telemetry/index.js";
 import { findHandler, parseDesign } from "../parsers/index.js";
-import { parseDsnFile, parseCadence, buildCadencePinMap } from "../parsers/cadence/index.js";
-import { discoverCadenceDesignsWithDat } from "../parsers/cadence/discovery.js";
-import { exportCadenceNetlist } from "../service/index.js";
-import { isErrorResult } from "../types.js";
-import {
-  analyzeCoverage,
-  formatCoverageReport,
-  type CoverageResult,
-} from "../dsn-vs-dat-coverage.js";
 import { checkForUpdate, performUpdate, isNpmInstall } from "./updater.js";
 import {
   isUniversalFile,
@@ -60,7 +51,6 @@ below are what you run by hand.
 Options:
   -v, --version        Output the version number
   -h, --help           Display help for command
-  --verbose            Show per-design field mismatch breakdowns (with coverage)
 
 Commands:
   update|upgrade       Check for updates and install if available
@@ -68,7 +58,6 @@ Commands:
   export-telemetry     Export telemetry data as a zip file
   export-json <design> [out.netlist.json]
                        Write a design's netlist as Universal Netlist JSON
-  coverage [path]      Compare DSN parser output against DAT netlist exports
 
 Installation:
 ${installation}
@@ -271,88 +260,4 @@ export const handleExportJsonCommand = async (
   const outFile = resolve(outPath ?? `${name}.netlist.json`);
   writeFileSync(outFile, serializeUniversalNetlist(result, { origin }));
   console.log(outFile);
-};
-
-/**
- * Handle --coverage command.
- * Compares DSN parser output against DAT netlist exports for Cadence designs.
- * Writes a markdown report to the current working directory.
- */
-export const handleCoverageCommand = async (
-  searchPath?: string,
-  verbose?: boolean
-): Promise<void> => {
-  const resolvedPath = resolve(searchPath ?? ".");
-  const designs = await discoverCadenceDesignsWithDat(resolvedPath);
-  const dsnDesigns = designs.filter((d) => d.format === "cadence-cis");
-
-  if (dsnDesigns.length === 0) {
-    console.error(`No Cadence .DSN files found in ${resolvedPath}`);
-    process.exit(1);
-  }
-
-  console.error("");
-  console.error(`Found ${dsnDesigns.length} DSN design(s) in ${resolvedPath}`);
-
-  const results: CoverageResult[] = [];
-
-  for (const design of dsnDesigns) {
-    let { datFiles } = design;
-
-    // On Windows, attempt export if .dat files are missing
-    if (!datFiles.pstxnet && process.platform === "win32") {
-      console.error(`Exporting netlist for ${design.name}...`);
-      const exportResult = await exportCadenceNetlist(design.sourcePath);
-      if (isErrorResult(exportResult)) {
-        console.error(`  Export failed: ${exportResult.error}`);
-      } else {
-        // The export already reports the directory it wrote, and it has verified
-        // all three files came from this run. Re-deriving the location instead
-        // could land on a different directory than the one just written.
-        datFiles = {
-          pstxnet: join(exportResult.outputDir, "pstxnet.dat"),
-          pstxprt: join(exportResult.outputDir, "pstxprt.dat"),
-          pstchip: join(exportResult.outputDir, "pstchip.dat"),
-        };
-      }
-    }
-
-    if (!datFiles.pstxnet || !datFiles.pstxprt) {
-      console.error(`Skipping ${design.name}: no .dat files found`);
-      continue;
-    }
-
-    try {
-      console.error(`  Analyzing ${design.name}...`);
-      const dsn = parseDsnFile(design.sourcePath);
-      const raw = await parseCadence({
-        pstxnetPath: datFiles.pstxnet,
-        pstxprtPath: datFiles.pstxprt,
-        pstchipPath: datFiles.pstchip ?? undefined,
-      });
-      const datComponents = buildCadencePinMap(raw.nets, raw.components, raw.chips, raw.partNames);
-      const dat = { nets: raw.nets, components: datComponents };
-
-      results.push(analyzeCoverage(design.name, dsn, dat));
-    } catch (e: unknown) {
-      console.error(`ERROR parsing ${design.name}: ${e instanceof Error ? e.message : e}`);
-    }
-  }
-
-  if (results.length === 0) {
-    console.error("No designs could be analyzed (all skipped or errored)");
-    process.exit(1);
-  }
-
-  // Terminal output: plain text, truncated verbose sections
-  const terminalReport = formatCoverageReport(results, { verbose });
-  console.log(terminalReport);
-
-  // File output: markdown with full verbose (no truncation) when verbose is enabled
-  const fileReport = formatCoverageReport(results, { verbose, truncate: false, markdown: true });
-  const now = new Date();
-  const ts = now.toISOString().replace(/[-:]/g, "").replace("T", "-").slice(0, 15);
-  const outFile = resolve(`dsn-vs-dat-coverage-${ts}.md`);
-  writeFileSync(outFile, fileReport + "\n");
-  console.error(`\nExported to:\n${outFile}`);
 };

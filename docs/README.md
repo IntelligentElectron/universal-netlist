@@ -53,7 +53,7 @@ A `.DSN` saved with a password opens with a password the server reads from its e
 
 ## Command Line
 
-The binary's commands (`export-json`, `update`, `uninstall`, `export-telemetry`, `coverage`) are documented in [cli.md](cli.md). `export-json` writes a design as a versioned `.netlist.json` file, which is itself a design every tool reads.
+The binary's commands (`export-json`, `update`, `uninstall`, `export-telemetry`) are documented in [cli.md](cli.md). `export-json` writes a design as a versioned `.netlist.json` file, which is itself a design every tool reads.
 
 ## Observability
 

@@ -569,7 +569,7 @@ export const discoverCadenceDesigns = (
 ): Promise<CadenceDiscoveredDesign[]> =>
   discoverCadenceDesignsImpl(rootDir, options, CADENCE_DAT_ENABLED);
 
-/** Internal discovery for CLI coverage and the retained DAT regression tests. */
+/** Internal discovery for the DSN vs DAT coverage script and the retained DAT regression tests. */
 export const discoverCadenceDesignsWithDat = (
   rootDir: string,
   options?: { maxDepth?: number }

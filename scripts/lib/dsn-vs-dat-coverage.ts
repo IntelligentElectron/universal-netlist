@@ -2,16 +2,14 @@
  * DSN vs DAT Coverage Analysis
  *
  * Pure comparison of two ParsedNetlist objects and markdown report formatting.
- * No file I/O; used by both the CLI --coverage command and scripts/dsn-coverage-report.ts.
+ * No file I/O; used by scripts/dsn-vs-dat-coverage.ts and scripts/dsn-coverage-report.ts.
  */
 
-import type { ParsedNetlist, PinEntry } from "./types.js";
-// categorizeNet now strips the sheet path before matching and recognizes KiCad
-// auto-name patterns, so a Cadence hierarchical net like /DESIGN/N123 classifies
-// as "auto-generated" (previously "named"). This can shift category counts in
-// the coverage report for hierarchical designs; it does not affect the
-// net/component coverage percentages, which match on names, not categories.
-import { categorizeNet } from "./net-categories.js";
+import type { ParsedNetlist, PinEntry } from "../../src/types.js";
+// A net's category reads its name without the sheet path, so a Cadence hierarchical
+// /DESIGN/N123 is auto-generated. Categories group the report; coverage percentages
+// match on names.
+import { categorizeNet } from "../../src/net-categories.js";
 
 // ---------------------------------------------------------------------------
 // Types

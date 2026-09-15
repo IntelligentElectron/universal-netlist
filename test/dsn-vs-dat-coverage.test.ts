@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { analyzeCoverage, formatCoverageReport } from "./dsn-vs-dat-coverage.js";
-import type { ParsedNetlist } from "./types.js";
+import { analyzeCoverage, formatCoverageReport } from "../scripts/lib/dsn-vs-dat-coverage.js";
+import type { ParsedNetlist } from "../src/types.js";
 
 const netlist = (nets: Record<string, Record<string, string[]>>): ParsedNetlist => ({
   nets,
