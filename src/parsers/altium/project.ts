@@ -126,7 +126,8 @@ export const parseAltiumProject = async (
     throw new Error(`No schematic documents found for project ${projectPath}`);
   }
 
-  const options = parseProjectOptions(await readFile(projectPath, "utf-8").catch(() => ""));
+  const projectText = await readFile(projectPath, "utf-8").catch(() => "");
+  const options = parseProjectOptions(projectText);
   const naming: NetNamingOptions = {
     allowPortNetNames: options.allowPortNetNames,
     allowSheetEntryNetNames: options.allowSheetEntryNetNames,
@@ -205,7 +206,7 @@ export const parseAltiumProject = async (
 
   applyAltiumVariant(
     netlist.components,
-    parseAltiumProjectVariants(await readFile(projectPath, "utf-8")),
+    parseAltiumProjectVariants(projectText),
     parseOptions?.variant
   );
   return netlist;

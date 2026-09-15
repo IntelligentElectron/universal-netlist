@@ -32,12 +32,25 @@ export const scaledPoint = (record: Fields, key = "Location"): Point => [
   scaledField(record, `${key}.Y`),
 ];
 
-/** A polyline's `LocationCount` vertices, `X1,Y1` to `Xn,Yn`; a coordinate left out is 0. */
-export const polylinePoints = (record: Fields): Point[] =>
-  Array.from({ length: toNumber(field(record, "LocationCount")) }, (_, i) => [
+/**
+ * A polyline's `LocationCount` vertices, `X1,Y1` to `Xn,Yn`; a coordinate left out is 0.
+ * The count goes no further than the vertices the record writes.
+ */
+export const polylinePoints = (record: Fields): Point[] => {
+  let keys = 0;
+  let highest = 0;
+  for (const key of Object.keys(record)) {
+    const vertex = /^[XY](\d+)$/i.exec(key);
+    if (!vertex) continue;
+    keys++;
+    highest = Math.max(highest, Number(vertex[1]));
+  }
+  const count = Math.min(toNumber(field(record, "LocationCount")) || highest, highest, keys);
+  return Array.from({ length: count }, (_, i) => [
     scaledField(record, `X${i + 1}`),
     scaledField(record, `Y${i + 1}`),
   ]);
+};
 
 /** How far along its edge an entry sits, from `DistanceFromTop` and `DistanceFromTop_Frac1`. */
 export const entryOffset = (entry: Fields): number =>

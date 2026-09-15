@@ -46,6 +46,11 @@ describe("polylinePoints", () => {
     ]);
   });
 
+  it("reads no more vertices than the record writes", () => {
+    expect(polylinePoints({ LocationCount: "1000000000", X1: "1", Y1: "2" })).toHaveLength(1);
+    expect(polylinePoints({ X1: "1", Y1: "2", X2: "3", Y2: "4" })).toHaveLength(2);
+  });
+
   it("puts a coordinate the record leaves out at 0", () => {
     expect(polylinePoints({ LOCATIONCOUNT: "2", X1: "985", Y1: "30", X2: "985" })).toEqual([
       [units(985), units(30)],

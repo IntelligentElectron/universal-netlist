@@ -29,13 +29,13 @@ export const NAME_FROM_ANY: NetNamingOptions = {
   powerPortNamesTakePriority: true,
 };
 
-/** The record each name source is read from. A harness entry names only a labelled harness. */
-const NAMING_RECORD: Readonly<Record<Exclude<NetNameSource, "pin">, string>> = {
-  power: RECORD_TYPES.POWER_PORT,
-  harness: RECORD_TYPES.HARNESS_ENTRY,
-  label: RECORD_TYPES.NET_LABEL,
-  port: RECORD_TYPES.PORT,
-  entry: RECORD_TYPES.SHEET_ENTRY,
+/** The name source each identifier record is. A harness entry names only a labelled harness. */
+const RECORD_SOURCE: Readonly<Record<string, NetNameSource>> = {
+  [RECORD_TYPES.POWER_PORT]: "power",
+  [RECORD_TYPES.HARNESS_ENTRY]: "harness",
+  [RECORD_TYPES.NET_LABEL]: "label",
+  [RECORD_TYPES.PORT]: "port",
+  [RECORD_TYPES.SHEET_ENTRY]: "entry",
 };
 
 /** The name sources, strongest first. */
@@ -106,36 +106,42 @@ export const assignNetName = (
   net.name = null;
   net.nameSource = undefined;
   net.pinNameSource = undefined;
+  const claims = new Map<NetNameSource, string[]>();
+  const pinsByRefdes = new Map<string, string[]>();
+  for (const device of net.devices) {
+    if (device.RECORD === RECORD_TYPES.PIN) {
+      const refdes = pinDesignator(device, schematic);
+      const pin = pinNumber(device);
+      if (!refdes || !pin) continue;
+      const pins = pinsByRefdes.get(refdes) ?? pinsByRefdes.set(refdes, []).get(refdes)!;
+      if (!pins.includes(pin)) pins.push(pin);
+      continue;
+    }
+    const source = device.RECORD === undefined ? undefined : RECORD_SOURCE[device.RECORD];
+    const claimed = source && unescapeOverbar(claimedName(device) ?? "");
+    if (source && claimed)
+      (claims.get(source) ?? claims.set(source, []).get(source)!).push(claimed);
+  }
+
   for (const source of namingOrder(options)) {
-    if (source === "pin" || !namingAllowed(source, options)) continue;
-    const [name] = net.devices
-      .filter((device) => device.RECORD === NAMING_RECORD[source])
-      .map((device) => unescapeOverbar(claimedName(device) ?? ""))
-      .filter((claimed) => claimed !== "" && !taken(claimed, source))
-      .sort();
-    if (name !== undefined) {
+    if (!namingAllowed(source, options)) continue;
+    const [name] = (claims.get(source) ?? []).filter((claimed) => !taken(claimed, source)).sort();
+    if (name === undefined) continue;
+    net.name = name;
+    net.nameSource = source;
+    return;
+  }
+
+  for (const refdes of [...pinsByRefdes.keys()].sort(compareRefdes)) {
+    for (const pin of pinsByRefdes.get(refdes)!.sort(comparePinNumbers)) {
+      const name = `Net${refdes}_${pin}`;
+      if (taken(name, "pin")) continue;
       net.name = name;
-      net.nameSource = source;
+      net.nameSource = "pin";
+      net.pinNameSource = { refdes, pin };
       return;
     }
   }
-
-  const pinsByRefdes = new Map<string, string[]>();
-  for (const device of net.devices) {
-    if (device.RECORD !== RECORD_TYPES.PIN) continue;
-    const refdes = pinDesignator(device, schematic);
-    const pin = pinNumber(device);
-    if (!refdes || !pin) continue;
-    const pins = pinsByRefdes.get(refdes) ?? pinsByRefdes.set(refdes, []).get(refdes)!;
-    if (!pins.includes(pin)) pins.push(pin);
-  }
-  if (pinsByRefdes.size === 0) return;
-
-  const refdes = [...pinsByRefdes.keys()].sort(compareRefdes)[0];
-  const pin = pinsByRefdes.get(refdes)!.sort(comparePinNumbers)[0];
-  net.name = `Net${refdes}_${pin}`;
-  net.nameSource = "pin";
-  net.pinNameSource = { refdes, pin };
 };
 
 /**
@@ -146,8 +152,9 @@ const nameKind = (source: NetNameSource): string =>
   source === "port" || source === "entry" || source === "pin" ? source : "label";
 
 /**
- * Name a sheet's nets. Two nets that cannot join by name do not share one: the net whose
- * name ranks lower, or comes later, takes its next name.
+ * Name a sheet's nets. Two nets that cannot join by name do not share one: names are
+ * settled strongest first, and the net whose name ranks lower, or comes later, takes its
+ * next name, settling at that name's rank.
  */
 export const nameSheetNets = (
   nets: readonly AltiumNet[],
@@ -161,11 +168,16 @@ export const nameSheetNets = (
     const holder = held.get(identifierKey(name));
     return holder !== undefined && (holder !== nameKind(source) || holder === "entry");
   };
-  const byRank = nets
-    .filter((net) => net.nameSource !== undefined)
-    .sort((a, b) => ranks[a.nameSource!] - ranks[b.nameSource!]);
-  for (const net of byRank) {
-    if (taken(net.name!, net.nameSource!)) assignNetName(net, schematic, options, taken);
-    if (net.name && net.nameSource) held.set(identifierKey(net.name), nameKind(net.nameSource));
+  const rankOf = (net: AltiumNet): number | undefined =>
+    net.nameSource === undefined ? undefined : ranks[net.nameSource];
+  for (let rank = 0; rank <= ranks.pin; rank++) {
+    for (const net of nets) {
+      if (rankOf(net) !== rank) continue;
+      if (taken(net.name!, net.nameSource!)) {
+        assignNetName(net, schematic, options, taken);
+        if (rankOf(net) !== rank) continue;
+      }
+      held.set(identifierKey(net.name!), nameKind(net.nameSource!));
+    }
   }
 };
