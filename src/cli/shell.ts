@@ -21,6 +21,15 @@ export const getShellRcFiles = (): string[] => {
   ];
 };
 
+/** Whether two paths name one directory, through symlinks and repeated slashes. */
+const sameDirectory = (a: string, b: string): boolean => {
+  try {
+    return fs.realpathSync(a) === fs.realpathSync(b);
+  } catch {
+    return path.resolve(a) === path.resolve(b);
+  }
+};
+
 /**
  * Remove universal-netlist PATH entries from shell rc files: each "# Universal Netlist MCP
  * Server" comment with the PATH line install.sh writes after it. A comment followed by any
@@ -30,10 +39,16 @@ export const getShellRcFiles = (): string[] => {
  */
 export const removeFromPath = (binDir: string): string[] => {
   const modified: string[] = [];
-  const isEntry = (line: string | undefined): boolean =>
-    line !== undefined &&
-    /^\s*(?:export PATH=|fish_add_path )/.test(line) &&
-    (line.includes(binDir) || line.includes("universal-netlist"));
+  const isEntry = (line: string | undefined): boolean => {
+    const added =
+      line === undefined
+        ? undefined
+        : (/^\s*export PATH="([^"]*):\$PATH"\s*$/.exec(line)?.[1] ??
+          /^\s*fish_add_path\s+(.+?)\s*$/.exec(line)?.[1]);
+    return (
+      added !== undefined && (added.includes("universal-netlist") || sameDirectory(added, binDir))
+    );
+  };
 
   for (const rcFile of getShellRcFiles()) {
     if (!fs.existsSync(rcFile)) continue;

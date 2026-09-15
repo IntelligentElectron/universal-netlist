@@ -1,5 +1,5 @@
 import { afterAll, describe, expect, it, vi } from "vitest";
-import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
@@ -30,6 +30,20 @@ describe("removeFromPath", () => {
     expect(removeFromPath("/opt/tools/bin").sort()).toEqual([fish, zshrc].sort());
     expect(readFileSync(zshrc, "utf-8")).toBe('alias ll="ls -l"\n');
     expect(readFileSync(fish, "utf-8")).toBe("set -x EDITOR vim\n");
+  });
+
+  it("recognises the binary's directory through a symlink or a repeated slash", () => {
+    const real = join(home, "real", "bin");
+    mkdirSync(real, { recursive: true });
+    symlinkSync(join(home, "real"), join(home, "link"));
+    const profile = join(home, ".profile");
+    writeFileSync(
+      profile,
+      `# Universal Netlist MCP Server\nexport PATH="${home}/link//bin:$PATH"\n`
+    );
+
+    expect(removeFromPath(real)).toContain(profile);
+    expect(readFileSync(profile, "utf-8")).toBe("\n");
   });
 
   it("leaves a comment followed by the user's own lines as it is", () => {

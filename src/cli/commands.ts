@@ -216,6 +216,11 @@ export const handleUninstallCommand = async (): Promise<void> => {
     }
   }
 
+  const telemetryLog = join(installDir, "telemetry.jsonl");
+  if (!installerLayout && existsSync(telemetryLog)) {
+    console.log(`Left in place, outside the installer's layout: ${telemetryLog}`);
+  }
+
   console.log("");
   if (remaining.length > 0) {
     console.log("Could not remove, so remove by hand:");

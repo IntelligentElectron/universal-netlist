@@ -216,7 +216,10 @@ describe("handleUninstallCommand as the standalone binary", () => {
       "opt/foo/universal-netlist",
     ]);
     try {
-      await uninstall(join(root, "prefix/bin/universal-netlist"));
+      const printed = await uninstall(join(root, "prefix/bin/universal-netlist"));
+      expect(printed).toContain(
+        `Left in place, outside the installer's layout: ${join(root, "prefix/telemetry.jsonl")}`
+      );
       await uninstall(join(root, "opt/foo/universal-netlist"));
       expect(readdirSync(join(root, "prefix/bin"))).toEqual(["other-tool"]);
       expect(existsSync(join(root, "prefix/telemetry.jsonl"))).toBe(true);
