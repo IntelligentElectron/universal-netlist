@@ -4,7 +4,13 @@
  */
 
 import type { ComponentDetails, NetConnections, PinEntry } from "../../types.js";
-import { RECORD_TYPES, type AltiumNet, type AltiumRecord, type NetNameSource } from "./types.js";
+import {
+  RECORD_TYPES,
+  type AltiumNet,
+  type AltiumRecord,
+  type NetNameSource,
+  type PinNameSource,
+} from "./types.js";
 import { fieldText } from "./records.js";
 import { expandBusRange, identifierKey, repeatBaseName } from "./notation.js";
 import { resolveHarnessMembers, type HarnessDefinitions } from "./harness.js";
@@ -47,7 +53,7 @@ export interface ChannelNetScope {
   /** Signals the parent's plain entries carry to every channel. */
   sharedNames: ReadonlySet<string>;
   /** The pin each pin-named net was named after. */
-  pinNamed: ReadonlyMap<string, { refdes: string; pin: string }>;
+  pinNamed: ReadonlyMap<string, PinNameSource>;
 }
 
 /**
@@ -69,11 +75,8 @@ export const planChannelNetNames = (
     if (scope.powerNetNames.has(name) || shared.has(identifierKey(name))) {
       names.set(name, name);
     } else if (pin) {
-      const numbered = name.slice(`Net${pin.refdes}_${pin.pin}`.length);
-      names.set(
-        name,
-        `Net${applyChannelFormat(channelFormat, pin.refdes, roomName, channelIndex)}_${pin.pin}${numbered}`
-      );
+      const refdes = applyChannelFormat(channelFormat, pin.refdes, roomName, channelIndex);
+      names.set(name, `Net${refdes}_${pin.pin}${pin.suffix ?? ""}`);
     } else {
       names.set(name, applyChannelFormat(channelFormat, name, roomName, channelIndex));
     }

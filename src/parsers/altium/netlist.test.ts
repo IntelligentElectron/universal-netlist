@@ -16,4 +16,12 @@ describe("settleProvisionalNames", () => {
     expect(renames.get(`SIG${PROVISIONAL}2`)).toBe("SIG_2");
     expect(renames.get(`SIG${PROVISIONAL}10`)).toBe("SIG_3");
   });
+
+  it("orders provisional names by name before instance", () => {
+    const renames = settleProvisionalNames(
+      nets("SIG", `SIG_2${PROVISIONAL}a`, `SIG${PROVISIONAL}b`)
+    );
+    expect(renames.get(`SIG${PROVISIONAL}b`)).toBe("SIG_2");
+    expect(renames.get(`SIG_2${PROVISIONAL}a`)).toBe("SIG_2_2");
+  });
 });

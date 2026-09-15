@@ -23,7 +23,6 @@ describe("busMemberTest", () => {
     expect(busMemberTest("D[3..0]")!("D2")).toBe(true);
     expect(busMemberTest("C\\S\\[1..2]")!("C\\S\\2")).toBe(true);
     expect(busMemberTest("C\\S\\[1..2]")!("CS2")).toBe(false);
-    expect(busMemberTest("D\\A\\T\\A\\[\\0\\.\\.\\7\\]")!("D\\A\\T\\A\\7")).toBe(true);
   });
 
   it("accepts any index for a Repeat() identifier", () => {

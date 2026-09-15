@@ -51,6 +51,14 @@ export interface AltiumSchematic {
 /** The kind of object a net's name comes from; `pin` is a name built from a pin. */
 export type NetNameSource = "power" | "harness" | "label" | "port" | "entry" | "pin";
 
+/** The pin a `pin` name is built from, `Net<refdes>_<pin>`, and any number given after it. */
+export interface PinNameSource {
+  refdes: string;
+  pin: string;
+  /** `_2`, `_3` ... when another net held the plain name. */
+  suffix?: string;
+}
+
 /** A set of records connected on one sheet. */
 export interface AltiumNet {
   name: string | null;
@@ -59,7 +67,7 @@ export interface AltiumNet {
    * The pin a `pin` name was built from. A channel rebuilds the name around its own
    * designator, and a designator may itself contain `_`.
    */
-  pinNameSource?: { refdes: string; pin: string };
+  pinNameSource?: PinNameSource;
   devices: AltiumRecord[];
   /** The range identifiers this net reaches through a bus, one per member name. */
   busCarriers?: BusCarrier[];

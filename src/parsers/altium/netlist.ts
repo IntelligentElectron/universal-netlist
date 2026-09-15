@@ -117,8 +117,15 @@ export const mergeNetGroups = (
   applyNetRenames(netlist, renames);
 };
 
-/** Provisional names by name, then by instance, numbers by value. */
-const byInstance = new Intl.Collator("en", { numeric: true }).compare;
+const instanceOrder = new Intl.Collator("en", { numeric: true }).compare;
+
+/** Provisional names by name, then by instance, the instance's numbers by value. */
+const byInstance = (a: string, b: string): number => {
+  const [nameA, instanceA] = [displayName(a), a.slice(a.indexOf(PROVISIONAL) + 1)];
+  const [nameB, instanceB] = [displayName(b), b.slice(b.indexOf(PROVISIONAL) + 1)];
+  if (nameA !== nameB) return nameA < nameB ? -1 : 1;
+  return instanceOrder(instanceA, instanceB);
+};
 
 /**
  * Give every provisional name its reported form: the plain name, numbered `_2`, `_3` in

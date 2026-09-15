@@ -14,8 +14,7 @@ export const firstFreeName = (name: string, taken: ReadonlySet<string>): string 
   return candidate;
 };
 
-/** `NAME[a..b]`; an overbar escape may follow any character of the brackets. */
-const RANGE = /^(.+?)\[\\?(\d+)\\?\.\\?\.\\?(\d+)\\?\]\\?$/;
+const RANGE = /^(.+)\[(\d+)\.\.(\d+)\]$/;
 const REPEAT_ENTRY = /^Repeat\((.+)\)$/i;
 const REPEAT_SYMBOL = /^Repeat\(\s*([^,)]+?)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i;
 

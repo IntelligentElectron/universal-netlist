@@ -88,7 +88,7 @@ describe("planChannelNetNames", () => {
   it("keeps the number a pin name was given when rebuilding it for a channel", () => {
     const scope: ChannelNetScope = {
       ...emptyScope(),
-      pinNamed: new Map([["NetR2_1_2", { refdes: "R2", pin: "1" }]]),
+      pinNamed: new Map([["NetR2_1_2", { refdes: "R2", pin: "1", suffix: "_2" }]]),
     };
     expect(planChannelNetNames(["NetR2_1_2"], scope, "CH1", 1, "$Component_$RoomName")).toEqual(
       new Map([["NetR2_1_2", "NetR2_CH1_1_2"]])
