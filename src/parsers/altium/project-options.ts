@@ -27,14 +27,13 @@ export interface AltiumProjectOptions {
 }
 
 /**
- * `HierarchyMode` values and their scope. `0` is Automatic; `2` and `4` number
- * sheet-local labels and keep supplies global, which is Hierarchical; `3` draws sheets
- * joined by net labels alone, which is Global. Any other value is read as Automatic.
+ * `HierarchyMode` values and their scope: `0` Automatic, `2` Hierarchical, `3` Global, `4`
+ * Strict Hierarchical. Any other value is read as Automatic.
  */
 const HIERARCHY_MODE_SCOPE: Readonly<Record<string, NetIdentifierScope>> = {
   "2": "hierarchical",
   "3": "global",
-  "4": "hierarchical",
+  "4": "strict-hierarchical",
 };
 
 export const DEFAULT_CHANNEL_FORMAT = "$Component_$RoomName";

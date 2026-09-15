@@ -1,5 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { applyChannelFormat, planChannelNetNames, type ChannelNetScope } from "./channels.js";
+import {
+  applyChannelFormat,
+  channelNetScope,
+  planChannelNetNames,
+  type ChannelNetScope,
+} from "./channels.js";
+import { RECORD_TYPES } from "./types.js";
+import type { AltiumNet, AltiumRecord } from "./types.js";
 
 /**
  * Every format string below was read verbatim from the `ChannelDesignatorFormatString`
@@ -200,5 +207,29 @@ describe("planChannelNetNames", () => {
         "$ComponentPrefix_$ChannelIndex_$ComponentIndex"
       )
     ).toEqual(new Map([["V_pulser", "V_pulser_1_"]]));
+  });
+});
+
+describe("channelNetScope", () => {
+  const record = (RECORD: string, extra: Record<string, unknown> = {}): AltiumRecord =>
+    ({ index: 0, RECORD, ...extra }) as AltiumRecord;
+  const nets: AltiumNet[] = [
+    { name: "5V_iso", devices: [record(RECORD_TYPES.POWER_PORT)] },
+    { name: "AGND", devices: [record(RECORD_TYPES.NET_LABEL)] },
+    {
+      name: "CHANNEL.AGND",
+      devices: [record(RECORD_TYPES.HARNESS_ENTRY, { harnessSignal: "port|CHANNEL|AGND" })],
+    },
+    { name: "EN", devices: [record(RECORD_TYPES.PORT)] },
+  ];
+
+  it("keeps a channel's supplies only where power ports are global", () => {
+    expect([...channelNetScope(nets, new Set(), true).powerNetNames]).toEqual(["5V_iso"]);
+    expect(channelNetScope(nets, new Set(), false).powerNetNames.size).toBe(0);
+  });
+
+  it("shares a parent's signal only on a net reaching the parent", () => {
+    const shared = channelNetScope(nets, new Set(["AGND", "CHANNEL.AGND", "EN"]), true).sharedNames;
+    expect([...shared].sort()).toEqual(["CHANNEL.AGND", "EN"]);
   });
 });

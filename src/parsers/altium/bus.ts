@@ -147,6 +147,12 @@ export const attachBusMembers = (schematic: AltiumSchematic, nets: AltiumNet[]):
 
   const virtual: AltiumNet[] = [];
   const carried = new Set<AltiumRecord>();
+  const rangeLabels = records
+    .filter((record) => record.RECORD === RECORD_TYPES.NET_LABEL)
+    .map((record) => ({ label: fieldText(record, "Text") ?? "", at: scaledPoint(record) }))
+    .filter(({ label }) => isRange(label));
+  const netLabels = new Map(nets.map((net) => [net, labelsOf(net)]));
+
   for (const run of busRuns(records)) {
     const touching = nets.filter((net) =>
       net.devices.some(
@@ -166,18 +172,14 @@ export const attachBusMembers = (schematic: AltiumSchematic, nets: AltiumNet[]):
     for (const identifier of onRun) carried.add(identifier);
 
     const ranges = [
-      ...records
-        .filter((record) => record.RECORD === RECORD_TYPES.NET_LABEL)
-        .map((record) => ({ label: fieldText(record, "Text") ?? "", at: scaledPoint(record) }))
-        .filter(({ label, at }) => isRange(label) && run.touches(at))
-        .map(({ label }) => label),
+      ...rangeLabels.filter(({ at }) => run.touches(at)).map(({ label }) => label),
       ...onRun.map((identifier) => recordName(identifier) ?? "").filter(isRange),
     ];
     const rangeTests = ranges.map((name) => busMemberTest(name)!);
     const named = (label: string): boolean => rangeTests.some((test) => test(label));
     const attached = [
       ...touching,
-      ...nets.filter((net) => !touching.includes(net) && labelsOf(net).some(named)),
+      ...nets.filter((net) => !touching.includes(net) && netLabels.get(net)!.some(named)),
     ];
     const prefixes = new Set(ranges.map((name) => identifierKey(rangePrefix(name)!)));
     const indexedPrefix = prefixes.size === 1 ? [...prefixes][0] : undefined;
@@ -206,7 +208,7 @@ export const attachBusMembers = (schematic: AltiumSchematic, nets: AltiumNet[]):
 
     const labelled = new Set<string>();
     for (const net of attached) {
-      for (const label of labelsOf(net)) {
+      for (const label of netLabels.get(net)!) {
         const carriers = tests.filter(({ matches }) => matches(label)).map((t) => carry(t, label));
         if (carriers.length === 0) continue;
         labelled.add(identifierKey(label));

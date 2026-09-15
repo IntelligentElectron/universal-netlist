@@ -86,8 +86,25 @@ export const applyNetRenames = (
  */
 export const PROVISIONAL = "\u0000";
 
-/** A name as reported, without its provisional marker. */
-const displayName = (name: string): string => name.split(PROVISIONAL, 1)[0];
+/**
+ * Marks a sheet-local name: its sheet's own until links resolve, then the plain name again,
+ * nets that still share it merging. No name Altium writes contains it.
+ */
+export const LOCAL = "\u0001";
+
+/** Each sheet-local name's plain form, merging nets that share it. */
+export const restoreLocalNames = (nets: NetConnections): Map<string, string> =>
+  new Map(
+    Object.keys(nets)
+      .filter((name) => name.includes(LOCAL))
+      .map((name) => [name, name.slice(0, name.indexOf(LOCAL))])
+  );
+
+/** A name as reported, without its provisional or local marker. */
+const displayName = (name: string): string => {
+  const marks = [name.indexOf(PROVISIONAL), name.indexOf(LOCAL)].filter((at) => at >= 0);
+  return marks.length > 0 ? name.slice(0, Math.min(...marks)) : name;
+};
 
 /** The name a group of merged nets keeps: the strongest claim, then the first in sort order. */
 export const canonicalNetName = (

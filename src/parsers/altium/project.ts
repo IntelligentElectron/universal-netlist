@@ -5,11 +5,17 @@
 
 import { readFile } from "fs/promises";
 import type { ParsedNetlist, ParseDesignOptions } from "../../types.js";
-import type { NetNameSource } from "./types.js";
-import { flattenHierarchy } from "./records.js";
+import { RECORD_TYPES, type NetNameSource } from "./types.js";
+import { fieldText, flattenHierarchy } from "./records.js";
 import { identifierKey } from "./notation.js";
 import { findAltiumSchDocs } from "./discovery.js";
-import { parseProjectOptions, resolveNetIdentifierScope } from "./project-options.js";
+import {
+  netLabelsAreGlobal,
+  parseProjectOptions,
+  powerPortsAreGlobal,
+  resolveNetIdentifierScope,
+  type NetIdentifierScope,
+} from "./project-options.js";
 import { applyAltiumVariant, parseAltiumProjectVariants } from "./project-variants.js";
 import { nameRanks, type NetNamingOptions } from "./net-naming.js";
 import { collectNestedHarnessTypes, parseHarnessDefinitions } from "./harness.js";
@@ -31,7 +37,9 @@ import { linkedNetGroups, type InstanceLinks } from "./links.js";
 import { resolveBundles } from "./bundles.js";
 import { planLocalNetRenames } from "./net-scoping.js";
 import {
+  LOCAL,
   PROVISIONAL,
+  restoreLocalNames,
   applyNetRenames,
   canonicalNetName,
   mergeNetGroups,
@@ -63,7 +71,8 @@ const parseInstances = async (
   placements: ReadonlyMap<string, readonly SheetPlacement[]>,
   instances: ReadonlyMap<string, readonly DocumentInstance[]>,
   naming: NetNamingOptions,
-  channelFormat: string
+  channelFormat: string,
+  scope: NetIdentifierScope
 ): Promise<ParsedDocument[]> => {
   const parsed: ParsedDocument[] = [];
   for (const read of documents) {
@@ -83,9 +92,9 @@ const parseInstances = async (
             collectNestedHarnessTypes(flattenHierarchy(parent.hierarchical))
           )
         : new Set<string>();
-    const scope = channelNetScope(base.nets, sharedNames);
+    const netScope = channelNetScope(base.nets, sharedNames, powerPortsAreGlobal(scope));
     for (const channel of channels) {
-      parsed.push(channelDocument(base, channel, channelFormat, scope));
+      parsed.push(channelDocument(base, channel, channelFormat, netScope));
     }
   }
   return parsed;
@@ -137,6 +146,12 @@ export const parseAltiumProject = async (
   const unranked = ranks.pin + 1;
 
   const documents = schdocPaths.map(readDocument);
+  const records = documents.flatMap((document) => flattenHierarchy(document.hierarchical));
+  const drawn = (type: string): boolean => records.some((record) => record.RECORD === type);
+  const scope = resolveNetIdentifierScope(options, {
+    hasSheetEntries: drawn(RECORD_TYPES.SHEET_ENTRY),
+    hasPorts: drawn(RECORD_TYPES.PORT),
+  });
   const placements = findSheetPlacements(documents);
   const instances = documentInstances(documents, placements, options.roomNamingStyle);
   const pending = await parseInstances(
@@ -144,13 +159,9 @@ export const parseAltiumProject = async (
     placements,
     instances,
     naming,
-    options.channelFormat
+    options.channelFormat,
+    scope
   );
-
-  const scope = resolveNetIdentifierScope(options, {
-    hasSheetEntries: pending.some((document) => document.hasSheetEntries),
-    hasPorts: pending.some((document) => document.hasPorts),
-  });
   unifySpellings(pending, ranks, unranked);
 
   // Same-named local nets on different sheets are one net unless the project numbers them.
@@ -158,17 +169,33 @@ export const parseAltiumProject = async (
     ? planLocalNetRenames(pending, scope)
     : pending.map(() => new Map<string, string>());
 
-  // Under Hierarchical scope a name a port or entry gives is its sheet's own until links
-  // resolve.
+  // Until links resolve, a name a port or entry gives under Hierarchical scope is its
+  // sheet's own, and so is a local net label or supply: nets merge by these names only
+  // after links join what they will.
   const namesAreSheetLocal = scope === "hierarchical" || scope === "strict-hierarchical";
+  const supplies = new Set(
+    powerPortsAreGlobal(scope)
+      ? records
+          .filter((record) => record.RECORD === RECORD_TYPES.POWER_PORT)
+          .map((record) => identifierKey(fieldText(record, "Text") ?? ""))
+      : []
+  );
+  // A label spelled as a global supply names that supply.
+  const localName = (name: string, source: NetNameSource): boolean =>
+    (source === "label" && !netLabelsAreGlobal(scope) && !supplies.has(identifierKey(name))) ||
+    (source === "power" && !powerPortsAreGlobal(scope));
   const netlist: ParsedNetlist = { nets: {}, components: {} };
   const nameRank = new Map<string, number>();
   const rankOf = (name: string): number => nameRank.get(name) ?? unranked;
   pending.forEach((document, index) => {
     const renames = new Map(sheetRenames[index]);
-    for (const [name, source] of namesAreSheetLocal ? document.nameSources : []) {
-      if (source !== "port" && source !== "entry") continue;
-      renames.set(name, `${renames.get(name) ?? name}${PROVISIONAL}${index}`);
+    for (const [name, source] of document.nameSources) {
+      const renamed = renames.get(name) ?? name;
+      if (namesAreSheetLocal && (source === "port" || source === "entry")) {
+        renames.set(name, `${renamed}${PROVISIONAL}${index}`);
+      } else if (localName(name, source)) {
+        renames.set(name, `${renamed}${LOCAL}${index}`);
+      }
     }
     renameDocumentNets(document, renames, ranks);
     mergeNetlistInto(netlist, document.netlist);
@@ -201,6 +228,7 @@ export const parseAltiumProject = async (
     })),
   }));
   mergeNetGroups(netlist, linkedNetGroups(links, scope, symbolChannels).values(), rankOf);
+  applyNetRenames(netlist, restoreLocalNames(netlist.nets));
   applyNetRenames(netlist, settleProvisionalNames(netlist.nets));
   reconcileNetlist(netlist);
 

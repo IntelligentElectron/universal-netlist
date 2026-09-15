@@ -112,23 +112,46 @@ export const sharedEntryNames = (
   return shared;
 };
 
-/** The scope channel naming reads from a sheet's nets and the signals its parent shares. */
+/**
+ * The scope channel naming reads from a sheet's nets: its supplies, where power ports are
+ * global, and the nets carrying a signal its parent shares through a port or harness.
+ */
 export const channelNetScope = (
   nets: AltiumNet[],
-  sharedNames: ReadonlySet<string>
-): ChannelNetScope => ({
-  powerNetNames: new Set(
-    nets
-      .filter((net) => net.name && net.devices.some((d) => d.RECORD === RECORD_TYPES.POWER_PORT))
-      .map((net) => net.name!)
-  ),
-  sharedNames,
-  pinNamed: new Map(
-    nets
-      .filter((net) => net.name && net.nameSource === "pin" && net.pinNameSource)
-      .map((net) => [net.name!, net.pinNameSource!])
-  ),
-});
+  sharedNames: ReadonlySet<string>,
+  suppliesAreGlobal: boolean
+): ChannelNetScope => {
+  const sharedKeys = new Set([...sharedNames].map(identifierKey));
+  /** A port, a harness entry of a harness port's bundle, or a bus reaching either. */
+  const reachesParent = (net: AltiumNet): boolean =>
+    net.devices.some(
+      (device) =>
+        device.RECORD === RECORD_TYPES.PORT ||
+        (device.RECORD === RECORD_TYPES.HARNESS_ENTRY && device.harnessSignal?.startsWith("port|"))
+    ) || (net.busCarriers ?? []).length > 0;
+  return {
+    powerNetNames: new Set(
+      nets
+        .filter(
+          (net) =>
+            suppliesAreGlobal &&
+            net.name &&
+            net.devices.some((device) => device.RECORD === RECORD_TYPES.POWER_PORT)
+        )
+        .map((net) => net.name!)
+    ),
+    sharedNames: new Set(
+      nets
+        .filter((net) => net.name && sharedKeys.has(identifierKey(net.name)) && reachesParent(net))
+        .map((net) => net.name!)
+    ),
+    pinNamed: new Map(
+      nets
+        .filter((net) => net.name && net.nameSource === "pin" && net.pinNameSource)
+        .map((net) => [net.name!, net.pinNameSource!])
+    ),
+  };
+};
 
 /**
  * One instance of a sheet as its own document: parts named by the channel designator

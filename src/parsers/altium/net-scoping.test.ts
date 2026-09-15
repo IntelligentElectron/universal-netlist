@@ -120,13 +120,13 @@ describe("planLocalNetRenames", () => {
     expect(plans[1].size).toBe(0);
   });
 
-  it("splits a power net under Strict Hierarchical, where power ports are local too", () => {
+  it("leaves a supply's name bare under Strict Hierarchical, numbering only labels", () => {
     const plans = planLocalNetRenames(
       [sheet("1", { GND: { powerPort: true } }), sheet("2", { GND: { powerPort: true } })],
       "strict-hierarchical"
     );
-    expect(plans[0].get("GND")).toBe("GND_1");
-    expect(plans[1].get("GND")).toBe("GND_2");
+    expect(plans[0].size).toBe(0);
+    expect(plans[1].size).toBe(0);
   });
 
   it("leaves an unnumbered sheet's nets alone, having nothing to suffix with", () => {

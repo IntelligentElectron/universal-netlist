@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { PROVISIONAL, settleProvisionalNames } from "./netlist.js";
+import { LOCAL, PROVISIONAL, restoreLocalNames, settleProvisionalNames } from "./netlist.js";
 
 describe("settleProvisionalNames", () => {
   const nets = (...names: string[]) => Object.fromEntries(names.map((name) => [name, {}]));
@@ -29,5 +29,23 @@ describe("settleProvisionalNames", () => {
     const renames = settleProvisionalNames(nets(`abc${PROVISIONAL}1`, `ABC${PROVISIONAL}2`));
     expect(renames.get(`abc${PROVISIONAL}1`)).toBe("abc");
     expect(renames.get(`ABC${PROVISIONAL}2`)).toBe("ABC_2");
+  });
+});
+
+describe("restoreLocalNames", () => {
+  it("gives sheet-local names back their plain spelling, provisional marks kept", () => {
+    const renames = restoreLocalNames({
+      [`SCK${LOCAL}1`]: {},
+      [`SCK${LOCAL}2`]: {},
+      [`EN${PROVISIONAL}top${LOCAL}3`]: {},
+      MSCK: {},
+    });
+    expect(renames).toEqual(
+      new Map([
+        [`SCK${LOCAL}1`, "SCK"],
+        [`SCK${LOCAL}2`, "SCK"],
+        [`EN${PROVISIONAL}top${LOCAL}3`, `EN${PROVISIONAL}top`],
+      ])
+    );
   });
 });

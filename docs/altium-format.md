@@ -139,8 +139,8 @@ named after a pin.
 | Automatic | `0` (default) | resolved from the design, below | | |
 | Global | `3` | join by name project-wide | join by name project-wide | global |
 | Flat | | join by name project-wide | sheet-local | global |
-| Hierarchical | `2`, `4` | join only their sheet entry | sheet-local | global |
-| Strict Hierarchical | | join only their sheet entry | sheet-local | sheet-local |
+| Hierarchical | `2` | join only their sheet entry | sheet-local | global |
+| Strict Hierarchical | `4` | join only their sheet entry | sheet-local | sheet-local |
 
 Automatic reads the design: sheet entries make it Hierarchical, ports without sheet entries make
 it Flat, and neither makes it Global. Under every scope a port meets the sheet entry of its name on
@@ -150,7 +150,13 @@ entries").
 A net with no pins, such as a wire between two sheet entries, still carries its links. Its name
 reaches the nets it links only when a net label, power port or labelled harness gives it; a name a
 port or sheet entry gives a pinless net names nothing. A power port links the nets it sits on
-across sheets whatever those nets are called.
+across sheets whatever those nets are called; under Global scope a net label links to power ports
+of its name as well.
+
+Sheet-local names meet only once the links are resolved. A local net label that a port or harness
+joins to a net of another name takes part in that net, and leaves alone a net of its name on
+another sheet; nets that still share a local name after that are one net. A net label spelled as
+a global power port names that supply.
 
 ### How the sheets are joined
 
@@ -161,7 +167,7 @@ Each link a net makes across sheets is an identity:
 | `<instance>` and `<name>` | a port on a document instance; a plain entry, for every channel its symbol instantiates; a `Repeat(NAME)` entry's member `NAME<n>`, for channel `n` | under every scope |
 | `<name>` of a port | a port | under Flat and Global scope |
 | `<name>` of a power port | a power port | under every scope but Strict Hierarchical |
-| `<name>` of a net label | every net label on the net | under Global scope, outside repeated sheets |
+| `<name>` of a net label | every net label on the net, meeting power ports of its name | under Global scope, outside repeated sheets |
 | bundle and member | a harness entry on the net, or a bus member reaching a harness entry or a harness-typed port | under every scope |
 
 An instance is the document no symbol places, then the symbol and channel of each placement on the
@@ -198,8 +204,8 @@ then by instance, and the others are numbered `_2`, `_3` past every name given.
 record on the document itself or on its sheet record; an unnumbered sheet writes `*`. A label
 `VBAT` on sheet 8 names `VBAT_8`, whether or not another sheet reuses the name. A net is the
 sheet's own when no port, harness or scope-global identifier carries it off the sheet; a label
-wired into a sheet entry is still the sheet's own. Only designer names are numbered: a label, or a
-power port under a scope that makes it local. Pin names (`NetC3_1`) are unique already and stay
+wired into a sheet entry is still the sheet's own. Only net label names are numbered; a supply
+keeps its name under every scope. Pin names (`NetC3_1`) are unique already and stay
 bare. A label on a net that leaves through a port, or through a bus reaching a range identifier, is
 not numbered. The number follows the net onto another sheet that carries it onward through a port
 or harness. A harness member is numbered after the sheet that labels its bundle.
@@ -321,8 +327,10 @@ channel designator format applied to its name: under `$Component$ChannelAlpha` t
 names `BIASB` in channel 2, and under `$ComponentPrefix_$ChannelIndex_$ComponentIndex` the label
 `V_OUT` names `V_OUT_1_` in channel 1. A net named after a pin is rebuilt around the channel's
 designator: `NetDD12_5` becomes `NetDD12_AY1_5`, and a numbered pin name loses its number there and
-is numbered again only if another net holds the rebuilt name. A supply keeps its name, and so does a signal a
-single placement's parent wires to every channel.
+is numbered again only if another net holds the rebuilt name. Where power ports are global a supply
+keeps its name, and so does a net carrying a signal a single placement's parent wires to every
+channel through a port or harness port; a local net merely spelled like that signal is the
+channel's own.
 
 ## Signal harnesses
 

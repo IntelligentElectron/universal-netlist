@@ -72,8 +72,7 @@ export const planLocalNetRenames = (
   sheets.forEach((sheet, index) => {
     if (!sheet.sheetNumber) return;
     for (const [name, kinds] of sheet.netIdentifiers) {
-      const source = sheet.nameSources.get(name);
-      if (!isSheetBound(kinds, scope) || (source !== "label" && source !== "power")) continue;
+      if (!isSheetBound(kinds, scope) || sheet.nameSources.get(name) !== "label") continue;
       if (inUse(numbered(name, sheet.sheetNumber))) continue;
       (claims.get(name) ?? claims.set(name, []).get(name)!).push({
         sheet: index,

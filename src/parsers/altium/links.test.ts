@@ -66,4 +66,21 @@ describe("linkedNetGroups", () => {
     expect(global.map((names) => [...names].sort())).toEqual([["I2C_SDA", "SDA"]]);
     expect(linkedNetGroups(links, "flat", new Map()).size).toBe(0);
   });
+
+  it("meets power ports of a label's name under Global scope", () => {
+    const links = [
+      {
+        placement: "a.schdoc",
+        document: "a.schdoc",
+        groups: [{ net: "+3V3", keys: ["label|VDD_MCU"] }],
+      },
+      {
+        placement: "b.schdoc",
+        document: "b.schdoc",
+        groups: [{ net: "VDD_MCU", keys: ["power|VDD_MCU"] }],
+      },
+    ];
+    const global = [...linkedNetGroups(links, "global", new Map()).values()];
+    expect(global.map((names) => [...names].sort())).toEqual([["+3V3", "VDD_MCU"]]);
+  });
 });

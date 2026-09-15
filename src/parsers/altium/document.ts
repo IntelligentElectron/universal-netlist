@@ -6,14 +6,7 @@ import path from "path";
 import type { NetConnections, ComponentDetails, ParsedNetlist } from "../../types.js";
 import { readOleStream, readOptionalOleStream } from "../ole-reader/ole-reader.js";
 import { RECORD_TYPES, type AltiumNet, type AltiumSchematic, type NetNameSource } from "./types.js";
-import {
-  buildHierarchy,
-  field,
-  fieldText,
-  flattenHierarchy,
-  ownerIndex,
-  parseRecords,
-} from "./records.js";
+import { buildHierarchy, field, fieldText, ownerIndex, parseRecords } from "./records.js";
 import { assignHarnessSignals, readHarnessConnectors } from "./harness.js";
 import { extractComponents, pinDesignator, pinNumber } from "./components.js";
 import { extractNets } from "./net-extractor.js";
@@ -85,8 +78,6 @@ export interface ParsedDocument {
   netIdentifiers: Map<string, NetIdentifierKinds>;
   /** The `SheetNumber` document parameter. */
   sheetNumber?: string;
-  hasSheetEntries: boolean;
-  hasPorts: boolean;
 }
 
 /**
@@ -181,7 +172,6 @@ export const parseDocument = (
   for (const { name, nameSource } of nets)
     if (name && nameSource) nameSources.set(name, nameSource);
 
-  const records = flattenHierarchy(schematic);
   return {
     name: read.name,
     placement,
@@ -192,8 +182,6 @@ export const parseDocument = (
     bundleLinks: read.bundleLinks,
     netIdentifiers: collectNetIdentifiers(nets),
     sheetNumber: readSheetNumber(schematic),
-    hasSheetEntries: records.some((record) => record.RECORD === RECORD_TYPES.SHEET_ENTRY),
-    hasPorts: records.some((record) => record.RECORD === RECORD_TYPES.PORT),
   };
 };
 

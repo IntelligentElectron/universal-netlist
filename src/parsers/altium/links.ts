@@ -31,7 +31,7 @@ import { UnionFind } from "./union-find.js";
  *   its symbol, or every channel when none is given.
  * - `port|<name>`: a port, meeting ports of its name under Flat and Global scope.
  * - `power|<name>`: a power port, global under every scope but Strict Hierarchical.
- * - `label|<name>`: a net label, global under Global scope.
+ * - `label|<name>`: a net label; under Global scope it meets power ports of its name.
  * - `harness|<signal key>`: a harness entry on the net, or a bus member reaching a harness
  *   entry or harness-typed port.
  */
@@ -157,7 +157,7 @@ export const linkedNetGroups = (
     }
     if (kind === "port") return portsJoinByName ? [key] : [];
     if (kind === "power") return powerPortsAreGlobal(scope) ? [key] : [];
-    if (kind === "label") return netLabelsAreGlobal(scope) ? [key] : [];
+    if (kind === "label") return netLabelsAreGlobal(scope) ? [`power|${fields[0]}`] : [];
     return [key];
   };
 
