@@ -16,10 +16,11 @@ check, and no usage reporting.
 
 It keeps a local log of its own use, `telemetry.jsonl`, on your disk:
 
-- Each server start records your operating system account name, host name, platform,
-  and the server version.
-- Each tool call records the tool, its arguments (such as design paths and
-  search patterns), its duration, and whether it succeeded.
+- Each server start records the time, a random session id, your operating system
+  account name, host name, platform, architecture and release, and the server
+  version.
+- Each tool call records the time, the session id, the tool, its arguments (such
+  as design paths and search patterns), its duration, and whether it succeeded.
 
 The server sends this file nowhere. `export-telemetry` zips it into your working
 directory when you run it. See the
@@ -96,10 +97,11 @@ All registered MCP tools are annotated as read-only and leave source designs unc
 A KiCad query may generate a temporary netlist, which is removed after reading.
 The server appends to its local usage log each time it starts and on every tool call.
 Commands you run by hand write to disk: `export-json` writes a `.netlist.json`
-file, `export-telemetry` a zip file in the working directory, `update` replaces
-the binary, and `uninstall` removes the binary and the PATH entries in your shell
-profile, and its local telemetry log when the binary is in the installer's
-`universal-netlist/bin/` directory; elsewhere it names the log it leaves.
+file, `export-telemetry` a zip file in the working directory, and `update`
+replaces the standalone binary. `uninstall` removes the standalone binary and the
+PATH entries in your shell profile; in the installer's `universal-netlist/bin/`
+directory it also removes the local usage log beside `bin/`, and elsewhere it
+names the log it leaves there.
 
 ## Third parties
 
@@ -117,8 +119,8 @@ parties that can receive data are the ones you choose and connect:
 The server keeps parsed design data in memory only while serving your request,
 and that memory is released when the process exits. Its local usage log stays on
 your disk, growing with every call, until you delete it.
-Anything retained is retained by your MCP client, your model provider, or your
-telemetry backend, under their own policies.
+Anything else retained is retained by your MCP client, your model provider, or
+your telemetry backend, under their own policies.
 
 ## Children
 

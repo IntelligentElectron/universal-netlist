@@ -108,7 +108,7 @@ codex mcp add universal-netlist -- universal-netlist
 
 The server can emit [OpenTelemetry](https://opentelemetry.io/) **traces, metrics, and logs** for every tool call, so you can integrate your own OTel service and see which tools are used, how long they take, and what fails. It is vendor-neutral and works with any OTLP-compatible backend (an OpenTelemetry Collector, Jaeger, Tempo, Prometheus, Honeycomb, Datadog, a managed cloud tracing service, etc.).
 
-Telemetry is **disabled by default** with zero overhead, and is enabled and configured entirely through the standard `OTEL_*` environment variables — no code changes. Separately, the server keeps a [local usage log](docs/observability.md#local-usage-log) on your disk.
+OpenTelemetry is **disabled by default** with zero overhead, and is enabled and configured entirely through the standard `OTEL_*` environment variables — no code changes. Separately, the server keeps a [local usage log](docs/observability.md#local-usage-log) on your disk.
 
 See **[Observability (OpenTelemetry)](docs/observability.md)** for setup, configuration, and the full list of emitted spans, metrics, and logs.
 
@@ -120,7 +120,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines.
 
 ## Privacy Policy
 
-The server runs on your machine and collects no data. The full policy is [PRIVACY.md](PRIVACY.md).
+The server runs on your machine and sends the author nothing; it keeps a local usage log on your disk. The full policy is [PRIVACY.md](PRIVACY.md).
 
 ## About
 

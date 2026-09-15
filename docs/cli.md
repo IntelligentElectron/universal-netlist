@@ -56,4 +56,4 @@ Removes the binary, its update backups, and the PATH entries `install.sh` added 
 universal-netlist export-telemetry
 ```
 
-Writes the server's [local usage log](observability.md#local-usage-log) as a zip file in the working directory. The server records that log each time it starts and on every tool call, whatever the OpenTelemetry settings.
+Writes the server's [local usage log](observability.md#local-usage-log) as a zip file in the working directory, using `zip` on macOS and Linux and `tar` on Windows. The server records that log each time it starts and on every tool call, whatever the OpenTelemetry settings.
