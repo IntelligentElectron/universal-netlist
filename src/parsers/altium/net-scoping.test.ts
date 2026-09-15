@@ -166,6 +166,15 @@ describe("planLocalNetRenames", () => {
     expect(plans[0].size).toBe(0);
   });
 
+  it("leaves a label spelled as a global supply bare", () => {
+    const plans = planLocalNetRenames(
+      [sheet("3", { GND: { label: true } }), sheet("4", { GND: { label: true } })],
+      "hierarchical",
+      new Set(["GND"])
+    );
+    expect(plans.every((plan) => plan.size === 0)).toBe(true);
+  });
+
   it("does not number a name onto one in use in another case", () => {
     const plans = planLocalNetRenames(
       [

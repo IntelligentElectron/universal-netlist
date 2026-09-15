@@ -31,7 +31,8 @@ import { UnionFind } from "./union-find.js";
  *   its symbol, or every channel when none is given.
  * - `port|<name>`: a port, meeting ports of its name under Flat and Global scope.
  * - `power|<name>`: a power port, global under every scope but Strict Hierarchical.
- * - `label|<name>`: a net label; under Global scope it meets power ports of its name.
+ * - `label|<name>`: a net label; it meets power ports of its name wherever they are global,
+ *   and under Global scope every label of its name.
  * - `harness|<signal key>`: a harness entry on the net, or a bus member reaching a harness
  *   entry or harness-typed port.
  */
@@ -137,12 +138,14 @@ export interface InstanceLinks {
 
 /**
  * The groups of net names that links join, a name of a pinless net among them. Keys match
- * ignoring case; `symbolChannels` lists each `<document>#<symbol index>`'s channels.
+ * ignoring case; `symbolChannels` lists each `<document>#<symbol index>`'s channels, and
+ * `supplies` the keys of the project's power port names.
  */
 export const linkedNetGroups = (
   links: readonly InstanceLinks[],
   scope: NetIdentifierScope,
-  symbolChannels: ReadonlyMap<string, readonly number[]>
+  symbolChannels: ReadonlyMap<string, readonly number[]>,
+  supplies: ReadonlySet<string> = new Set()
 ): Map<string, Set<string>> => {
   const portsJoinByName = scope === "flat" || scope === "global";
   const resolve = ({ placement, document }: InstanceLinks, key: string): string[] => {
@@ -157,7 +160,10 @@ export const linkedNetGroups = (
     }
     if (kind === "port") return portsJoinByName ? [key] : [];
     if (kind === "power") return powerPortsAreGlobal(scope) ? [key] : [];
-    if (kind === "label") return netLabelsAreGlobal(scope) ? [`power|${fields[0]}`] : [];
+    if (kind === "label") {
+      const supply = powerPortsAreGlobal(scope) && supplies.has(identifierKey(fields[0]));
+      return netLabelsAreGlobal(scope) || supply ? [`power|${fields[0]}`] : [];
+    }
     return [key];
   };
 

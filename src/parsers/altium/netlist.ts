@@ -102,8 +102,9 @@ export const restoreLocalNames = (nets: NetConnections): Map<string, string> =>
 
 /** A name as reported, without its provisional or local marker. */
 const displayName = (name: string): string => {
-  const marks = [name.indexOf(PROVISIONAL), name.indexOf(LOCAL)].filter((at) => at >= 0);
-  return marks.length > 0 ? name.slice(0, Math.min(...marks)) : name;
+  const [provisional, local] = [name.indexOf(PROVISIONAL), name.indexOf(LOCAL)];
+  const end = provisional < 0 ? local : local < 0 ? provisional : Math.min(provisional, local);
+  return end < 0 ? name : name.slice(0, end);
 };
 
 /** The name a group of merged nets keeps: the strongest claim, then the first in sort order. */

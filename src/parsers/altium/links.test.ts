@@ -83,4 +83,24 @@ describe("linkedNetGroups", () => {
     const global = [...linkedNetGroups(links, "global", new Map()).values()];
     expect(global.map((names) => [...names].sort())).toEqual([["+3V3", "VDD_MCU"]]);
   });
+
+  it("meets a global supply from a label of its name that does not name its net", () => {
+    const links = [
+      {
+        placement: "a.schdoc",
+        document: "a.schdoc",
+        groups: [{ net: "AAA", keys: ["label|SIG_GND"] }],
+      },
+      {
+        placement: "b.schdoc",
+        document: "b.schdoc",
+        groups: [{ net: "SIG_GND", keys: ["power|SIG_GND"] }],
+      },
+    ];
+    const groups = [
+      ...linkedNetGroups(links, "hierarchical", new Map(), new Set(["SIG_GND"])).values(),
+    ];
+    expect(groups.map((names) => [...names].sort())).toEqual([["AAA", "SIG_GND"]]);
+    expect(linkedNetGroups(links, "hierarchical", new Map()).size).toBe(1);
+  });
 });

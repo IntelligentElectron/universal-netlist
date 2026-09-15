@@ -156,7 +156,7 @@ of its name as well.
 Sheet-local names meet only once the links are resolved. A local net label that a port or harness
 joins to a net of another name takes part in that net, and leaves alone a net of its name on
 another sheet; nets that still share a local name after that are one net. A net label spelled as
-a global power port names that supply.
+a global power port names that supply, and links to it even where another name names its net.
 
 ### How the sheets are joined
 
@@ -204,8 +204,8 @@ then by instance, and the others are numbered `_2`, `_3` past every name given.
 record on the document itself or on its sheet record; an unnumbered sheet writes `*`. A label
 `VBAT` on sheet 8 names `VBAT_8`, whether or not another sheet reuses the name. A net is the
 sheet's own when no port, harness or scope-global identifier carries it off the sheet; a label
-wired into a sheet entry is still the sheet's own. Only net label names are numbered; a supply
-keeps its name under every scope. Pin names (`NetC3_1`) are unique already and stay
+wired into a sheet entry is still the sheet's own. Only net label names are numbered; a supply, and
+a label spelled as a supply whose power ports are global, keep their names. Pin names (`NetC3_1`) are unique already and stay
 bare. A label on a net that leaves through a port, or through a bus reaching a range identifier, is
 not numbered. The number follows the net onto another sheet that carries it onward through a port
 or harness. A harness member is numbered after the sheet that labels its bundle.

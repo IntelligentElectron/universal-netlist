@@ -228,6 +228,16 @@ describe("channelNetScope", () => {
     expect(channelNetScope(nets, new Set(), false).powerNetNames.size).toBe(0);
   });
 
+  it("does not count a bus into a child sheet as reaching the parent", () => {
+    const entry = record(RECORD_TYPES.SHEET_ENTRY, { Name: "D[0..1]" });
+    const net: AltiumNet = {
+      name: "D0",
+      devices: [record(RECORD_TYPES.NET_LABEL)],
+      busCarriers: [{ device: entry, member: "D0" }],
+    };
+    expect(channelNetScope([net], new Set(["D0"]), true).sharedNames.size).toBe(0);
+  });
+
   it("shares a parent's signal only on a net reaching the parent", () => {
     const shared = channelNetScope(nets, new Set(["AGND", "CHANNEL.AGND", "EN"]), true).sharedNames;
     expect([...shared].sort()).toEqual(["CHANNEL.AGND", "EN"]);

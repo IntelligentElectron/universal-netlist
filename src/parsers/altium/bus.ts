@@ -79,7 +79,16 @@ class BusRun {
 }
 
 /** A sheet's bus runs, runs carrying one range label folded into one. */
-const busRuns = (records: readonly AltiumRecord[]): BusRun[] => {
+/** A sheet's net labels in range notation, where each is drawn. */
+interface RangeLabel {
+  label: string;
+  at: Point;
+}
+
+const busRuns = (
+  records: readonly AltiumRecord[],
+  rangeLabels: readonly RangeLabel[]
+): BusRun[] => {
   const busRecords = records.filter(
     (record) => record.RECORD === RECORD_TYPES.BUS || record.RECORD === RECORD_TYPES.BUS_ENTRY
   );
@@ -102,10 +111,8 @@ const busRuns = (records: readonly AltiumRecord[]): BusRun[] => {
     return root;
   };
   const runByLabel = new Map<string, BusRun>();
-  for (const record of records) {
-    const label = record.RECORD === RECORD_TYPES.NET_LABEL ? fieldText(record, "Text") : undefined;
-    if (label === undefined || !isRange(label)) continue;
-    const run = runs.find((candidate) => candidate.touches(scaledPoint(record)));
+  for (const { label, at } of rangeLabels) {
+    const run = runs.find((candidate) => candidate.touches(at));
     if (!run) continue;
     const seen = runByLabel.get(identifierKey(label));
     if (!seen) {
@@ -147,13 +154,13 @@ export const attachBusMembers = (schematic: AltiumSchematic, nets: AltiumNet[]):
 
   const virtual: AltiumNet[] = [];
   const carried = new Set<AltiumRecord>();
-  const rangeLabels = records
+  const rangeLabels: RangeLabel[] = records
     .filter((record) => record.RECORD === RECORD_TYPES.NET_LABEL)
     .map((record) => ({ label: fieldText(record, "Text") ?? "", at: scaledPoint(record) }))
     .filter(({ label }) => isRange(label));
   const netLabels = new Map(nets.map((net) => [net, labelsOf(net)]));
 
-  for (const run of busRuns(records)) {
+  for (const run of busRuns(records, rangeLabels)) {
     const touching = nets.filter((net) =>
       net.devices.some(
         (device) =>
@@ -229,7 +236,7 @@ export const attachBusMembers = (schematic: AltiumSchematic, nets: AltiumNet[]):
   }
 
   const unbussed = identifiers.filter((identifier) => !carried.has(identifier));
-  return [...virtual, ...attachRepeatWires(records, nets, unbussed)];
+  return [...virtual, ...attachRepeatWires(records, nets, netLabels, unbussed)];
 };
 
 /**
@@ -239,6 +246,7 @@ export const attachBusMembers = (schematic: AltiumSchematic, nets: AltiumNet[]):
 const attachRepeatWires = (
   records: readonly AltiumRecord[],
   nets: AltiumNet[],
+  netLabels: ReadonlyMap<AltiumNet, readonly string[]>,
   identifiers: readonly AltiumRecord[]
 ): AltiumNet[] => {
   const repeats = identifiers.filter(
@@ -256,7 +264,7 @@ const attachRepeatWires = (
   }
   const netsByLabel = new Map<string, AltiumNet[]>();
   for (const net of nets) {
-    for (const label of labelsOf(net)) {
+    for (const label of netLabels.get(net)!) {
       const key = identifierKey(label);
       (netsByLabel.get(key) ?? netsByLabel.set(key, []).get(key)!).push(net);
     }
@@ -267,8 +275,9 @@ const attachRepeatWires = (
     const points = entry.coords ?? [];
     for (const net of nets) {
       if (!points.some((point) => netTouchesPoint(net, point))) continue;
-      const labels = labelsOf(net);
-      const label = net.name !== null && labels.includes(net.name) ? net.name : labels.sort()[0];
+      const labels = netLabels.get(net)!;
+      const label =
+        net.name !== null && labels.includes(net.name) ? net.name : [...labels].sort()[0];
       if (label === undefined) continue;
       const members = membersByWire.get(net) ?? membersByWire.set(net, new Map()).get(net)!;
       for (const channel of channelsOf.get(entry) ?? []) {

@@ -146,12 +146,19 @@ export const parseAltiumProject = async (
   const unranked = ranks.pin + 1;
 
   const documents = schdocPaths.map(readDocument);
-  const records = documents.flatMap((document) => flattenHierarchy(document.hierarchical));
-  const drawn = (type: string): boolean => records.some((record) => record.RECORD === type);
-  const scope = resolveNetIdentifierScope(options, {
-    hasSheetEntries: drawn(RECORD_TYPES.SHEET_ENTRY),
-    hasPorts: drawn(RECORD_TYPES.PORT),
-  });
+  const shape = { hasSheetEntries: false, hasPorts: false };
+  const powerNames = new Set<string>();
+  for (const document of documents) {
+    for (const record of flattenHierarchy(document.hierarchical)) {
+      if (record.RECORD === RECORD_TYPES.SHEET_ENTRY) shape.hasSheetEntries = true;
+      else if (record.RECORD === RECORD_TYPES.PORT) shape.hasPorts = true;
+      else if (record.RECORD === RECORD_TYPES.POWER_PORT) {
+        powerNames.add(identifierKey(fieldText(record, "Text") ?? ""));
+      }
+    }
+  }
+  const scope = resolveNetIdentifierScope(options, shape);
+  const supplies = powerPortsAreGlobal(scope) ? powerNames : new Set<string>();
   const placements = findSheetPlacements(documents);
   const instances = documentInstances(documents, placements, options.roomNamingStyle);
   const pending = await parseInstances(
@@ -166,20 +173,13 @@ export const parseAltiumProject = async (
 
   // Same-named local nets on different sheets are one net unless the project numbers them.
   const sheetRenames = options.appendSheetNumberToLocalNets
-    ? planLocalNetRenames(pending, scope)
+    ? planLocalNetRenames(pending, scope, supplies)
     : pending.map(() => new Map<string, string>());
 
   // Until links resolve, a name a port or entry gives under Hierarchical scope is its
   // sheet's own, and so is a local net label or supply: nets merge by these names only
   // after links join what they will.
   const namesAreSheetLocal = scope === "hierarchical" || scope === "strict-hierarchical";
-  const supplies = new Set(
-    powerPortsAreGlobal(scope)
-      ? records
-          .filter((record) => record.RECORD === RECORD_TYPES.POWER_PORT)
-          .map((record) => identifierKey(fieldText(record, "Text") ?? ""))
-      : []
-  );
   // A label spelled as a global supply names that supply.
   const localName = (name: string, source: NetNameSource): boolean =>
     (source === "label" && !netLabelsAreGlobal(scope) && !supplies.has(identifierKey(name))) ||
@@ -227,7 +227,7 @@ export const parseAltiumProject = async (
       ),
     })),
   }));
-  mergeNetGroups(netlist, linkedNetGroups(links, scope, symbolChannels).values(), rankOf);
+  mergeNetGroups(netlist, linkedNetGroups(links, scope, symbolChannels, supplies).values(), rankOf);
   applyNetRenames(netlist, restoreLocalNames(netlist.nets));
   applyNetRenames(netlist, settleProvisionalNames(netlist.nets));
   reconcileNetlist(netlist);

@@ -51,15 +51,16 @@ export interface SheetNetScope {
 /**
  * Each sheet's renames to `<name>_<SheetNumber>`, in the order the sheets are given.
  *
- * A sheet-bound net named by a label, or by a power port the scope makes local, takes
- * its sheet's number whether or not another sheet uses the name; a pin name stays bare.
+ * A sheet-bound net named by a label takes its sheet's number whether or not another sheet
+ * uses the name; a supply, a label spelled as a global supply, and a pin name stay bare.
  * Where only one sheet claims a name, the number follows that net onto sheets carrying
  * it onward through a port or harness. A harness member `<label>.<entry>` takes the
  * number of the one sheet labelling its bundle. No rename takes a name already in use.
  */
 export const planLocalNetRenames = (
   sheets: readonly SheetNetScope[],
-  scope: NetIdentifierScope
+  scope: NetIdentifierScope,
+  supplies: ReadonlySet<string> = new Set()
 ): Map<string, string>[] => {
   const namesInUse = new Set(
     sheets.flatMap((sheet) => [...sheet.netIdentifiers.keys()].map(identifierKey))
@@ -73,6 +74,7 @@ export const planLocalNetRenames = (
     if (!sheet.sheetNumber) return;
     for (const [name, kinds] of sheet.netIdentifiers) {
       if (!isSheetBound(kinds, scope) || sheet.nameSources.get(name) !== "label") continue;
+      if (supplies.has(identifierKey(name))) continue;
       if (inUse(numbered(name, sheet.sheetNumber))) continue;
       (claims.get(name) ?? claims.set(name, []).get(name)!).push({
         sheet: index,

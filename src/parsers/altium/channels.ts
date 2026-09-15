@@ -49,7 +49,7 @@ export const applyChannelFormat = (
 
 /** What a repeated sheet's nets are, as channel naming needs to see them. */
 export interface ChannelNetScope {
-  /** Nets a power port names: one supply across every channel. */
+  /** Nets a power port names that stay one supply across every channel. */
   powerNetNames: ReadonlySet<string>;
   /** Signals the parent's plain entries carry to every channel. */
   sharedNames: ReadonlySet<string>;
@@ -122,13 +122,13 @@ export const channelNetScope = (
   suppliesAreGlobal: boolean
 ): ChannelNetScope => {
   const sharedKeys = new Set([...sharedNames].map(identifierKey));
-  /** A port, a harness entry of a harness port's bundle, or a bus reaching either. */
+  /** A port, or a harness entry of a harness port's bundle, directly or through a bus. */
+  const toParent = (device: AltiumRecord): boolean =>
+    device.RECORD === RECORD_TYPES.PORT ||
+    (device.RECORD === RECORD_TYPES.HARNESS_ENTRY &&
+      Boolean(device.harnessSignal?.startsWith("port|")));
   const reachesParent = (net: AltiumNet): boolean =>
-    net.devices.some(
-      (device) =>
-        device.RECORD === RECORD_TYPES.PORT ||
-        (device.RECORD === RECORD_TYPES.HARNESS_ENTRY && device.harnessSignal?.startsWith("port|"))
-    ) || (net.busCarriers ?? []).length > 0;
+    net.devices.some(toParent) || (net.busCarriers ?? []).some(({ device }) => toParent(device));
   return {
     powerNetNames: new Set(
       nets
