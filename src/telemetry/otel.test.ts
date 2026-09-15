@@ -11,6 +11,7 @@ import { describe, it, expect, beforeAll, afterAll, beforeEach } from "vitest";
 import { userInfo } from "node:os";
 import { logs, type LogRecord, type LoggerProvider } from "@opentelemetry/api-logs";
 import { initOtel, instrumentTool, shutdownOtel } from "./otel.js";
+import { useClosedOtelExporter } from "../../test/helpers/otel-environment.js";
 
 const captured: LogRecord[] = [];
 const captureProvider: LoggerProvider = {
@@ -22,15 +23,10 @@ const captureProvider: LoggerProvider = {
   }),
 };
 
+let restoreEnvironment: () => void;
+
 beforeAll(async () => {
-  process.env.OTEL_EXPORTER_OTLP_ENDPOINT = "http://127.0.0.1:1";
-  // Shutdown gives up on the refused port at once instead of retrying it.
-  process.env.OTEL_EXPORTER_OTLP_TIMEOUT = "200";
-  // Keep the batch exporters from firing (and failing) mid-test; shutdown
-  // still flushes once at the end.
-  process.env.OTEL_BSP_SCHEDULE_DELAY = "600000";
-  process.env.OTEL_BLRP_SCHEDULE_DELAY = "600000";
-  process.env.OTEL_METRIC_EXPORT_INTERVAL = "600000";
+  restoreEnvironment = useClosedOtelExporter();
   await initOtel({ serviceName: "otel-test", serviceVersion: "0.0.0" });
   // Swap the SDK's registered global logger provider for the capture.
   logs.disable();
@@ -39,13 +35,8 @@ beforeAll(async () => {
 
 afterAll(async () => {
   logs.disable();
-  delete process.env.OTEL_EXPORTER_OTLP_ENDPOINT;
-  delete process.env.OTEL_EXPORTER_OTLP_TIMEOUT;
-  delete process.env.OTEL_BSP_SCHEDULE_DELAY;
-  delete process.env.OTEL_BLRP_SCHEDULE_DELAY;
-  delete process.env.OTEL_METRIC_EXPORT_INTERVAL;
-  delete process.env.OTEL_CAPTURE_TOOL_ARGS;
   await shutdownOtel();
+  restoreEnvironment();
 });
 
 beforeEach(() => {

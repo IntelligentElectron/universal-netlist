@@ -34,12 +34,17 @@ const CODE_TYPES: Readonly<Record<string, ToolErrorType>> = {
   EPIPE: "unavailable",
 };
 
-/** Quoted names and paths, which never state the cause; the whole message is the fallback. */
-const QUOTED = /'[^'\n]*'|"[^"\n]*"/g;
+/**
+ * Quoted names and paths, which never state the cause; the whole message is the fallback.
+ * An apostrophe between letters, as in `Bob's`, belongs to the name.
+ */
+const QUOTED = /(?<!\w)'(?:[^'\n]|(?<=\w)'(?=\w))*'(?!\w)|"[^"\n]*"/g;
 
 const MESSAGE_TYPES: ReadonlyArray<readonly [ToolErrorType, RegExp]> = [
-  // A Universal Netlist validation failure names the file first.
+  // Messages whose names are unquoted: the file, the requested tool, the rule ids.
   ["invalid_argument", /^[^\n]*\.netlist\.json: /i],
+  ["not_found", /^(?:MCP error -?\d+: )?Tool .+ not found$/i],
+  ["invalid_argument", /^Unknown rule id\(s\): /i],
   [
     "permission_denied",
     /\b(?:eacces|eperm|permission denied|access denied|unauthori[sz]ed|forbidden|password-protected|no password in)\b/i,
@@ -57,10 +62,10 @@ const MESSAGE_TYPES: ReadonlyArray<readonly [ToolErrorType, RegExp]> = [
     /\b(?:econnrefused|econnreset|ehostunreach|enetunreach|epipe|connection refused|connection reset|network unreachable|service unavailable|temporarily unavailable|only available on|no cadence spb installation|pstswp failed|kicad-cli not found|kicad-cli netlist export failed)\b/i,
   ],
   // A design with neither a netlist export nor a root schematic.
-  ["not_found", /\bno netlist for\b/i],
+  ["not_found", /\b(?:no netlist for|enotdir)\b/i],
   [
     "invalid_argument",
-    /\b(?:eisdir|outside buffer bounds|invalid|unsupported|malformed|corrupt(?:ed|ion)?|not an?|unexpected|unbalanced|unterminated|expected|must|needs?|missing required|unknown rule|was empty|cannot be queried|matched all|out of bounds|magic signature mismatch|could not find valid|no schematic documents found|no hierarchy stream|defines design variants|encrypted in a format|no encrypted library stream)\b/i,
+    /\b(?:eisdir|outside (?:of )?(?:the )?(?:buffer )?bounds|invalid|unsupported|malformed|corrupt(?:ed|ion)?|not an?|unexpected|unbalanced|unterminated|expected|must|needs?|missing required|unknown rule|was empty|cannot be queried|matched all|out of bounds|magic signature mismatch|could not find valid|no schematic documents found|no hierarchy stream|defines design variants|encrypted in a format|no encrypted library stream)\b/i,
   ],
   ["invalid_argument", /\blists\b.+\bbut\b.+\bis on\b/i],
   ["invalid_argument", /\b(?:stream|section|signature|terminator)\b.+\bnot found\b/i],

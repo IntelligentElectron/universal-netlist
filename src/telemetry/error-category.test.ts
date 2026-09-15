@@ -77,7 +77,36 @@ describe("classifyToolError", () => {
       "Failed to search '/Users/o'brien/x': ENOENT: no such file or directory, scandir '/Users/o'brien/x'",
       "not_found",
     ],
+    [
+      "Failed to search '/Volumes/Bob's Share/Invalid Boards': EPERM: operation not permitted, scandir '/Volumes/Bob's Share/Invalid Boards'",
+      "permission_denied",
+    ],
+    [
+      "Failed to search '/Volumes/Bob's Share/Expected': ETIMEDOUT: connection timed out, scandir '/Volumes/Bob's Share/Expected'",
+      "timeout",
+    ],
+    [
+      "Could not create the netlist output directory beside O'Brien.DSN: EACCES: permission denied, mkdir 'C:\\Needs Review\\allegro'.",
+      "permission_denied",
+    ],
+    [
+      "Design variant 'Bob's Build' needs the root .kicad_sch beside O'Brien.kicad_pro, which was not found.",
+      "invalid_argument",
+    ],
+    ["O'Brien.netlist.json: net 'TIMEOUT' lists R1.1 twice", "invalid_argument"],
+    [
+      "Design 'A.PrjPcb' defines design variants ['Bob's Build', 'Timeout Test']. Pass design_variant='<Default>'",
+      "invalid_argument",
+    ],
+    ["MCP error -32602: Tool timeout not found", "not_found"],
+    [
+      "Unknown rule id(s): timeout. Valid ids: net.single_pin, net.testpoint_orphan",
+      "invalid_argument",
+    ],
+    ["ENOTDIR: not a directory, scandir '/d/board.txt'", "not_found"],
     ["Attempt to access memory outside buffer bounds", "invalid_argument"],
+    ['"offset" is outside of buffer bounds', "invalid_argument"],
+    ["Offset is outside the bounds of the DataView", "invalid_argument"],
     [
       "Cannot read UNIVERSAL_NETLIST_DSN_PASSWORD_FILE: EISDIR: illegal operation on a directory, read",
       "invalid_argument",
