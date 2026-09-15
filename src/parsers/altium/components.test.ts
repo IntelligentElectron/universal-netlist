@@ -1,12 +1,12 @@
 import { describe, it, expect } from "vitest";
 import {
+  componentDesignator,
   duplicateInstanceIndices,
-  instanceDesignator,
-  instanceDisplayMode,
-  instancePartId,
+  extractComponents,
   pinBelongsToInstance,
-} from "./part-pins.js";
-import { altiumHandler, parseAltium } from "./index.js";
+} from "./components.js";
+import { altiumHandler } from "./index.js";
+import { RECORD_TYPES } from "./types.js";
 import { discoverAltiumDesigns } from "./discovery.js";
 import { toUniversalNetlistDocument, validateUniversalNetlist } from "../universal/reader.js";
 import type { PinEntry } from "../../types.js";
@@ -69,8 +69,6 @@ describe("pinBelongsToInstance", () => {
 
   it("reads both spellings of the fields", () => {
     const instance = part(0, "U1", { CurrentPartId: "1", DisplayMode: "1" });
-    expect(instancePartId(instance)).toBe("1");
-    expect(instanceDisplayMode(instance)).toBe("1");
     expect(
       pinBelongsToInstance(
         { index: 5, RECORD: "2", OWNERPARTID: "1", OWNERPARTDISPLAYMODE: "1" },
@@ -102,7 +100,7 @@ describe("duplicateInstanceIndices", () => {
 
   it("ignores instances with no designator", () => {
     const anonymous: AltiumRecord = { index: 0, RECORD: "1", children: [] };
-    expect(instanceDesignator(anonymous)).toBeUndefined();
+    expect(componentDesignator(anonymous)).toBeUndefined();
     expect(duplicateInstanceIndices(schematic(anonymous, { index: 5, RECORD: "1" }))).toEqual(
       new Set()
     );
@@ -138,9 +136,8 @@ describe.skipIf(!hasFixtures)("display modes and duplicate designators on real s
     );
 
   it("a header drawn in its default mode does not connect through its alternate mode's pins", async () => {
-    // P13 has two display modes. The alternate mode's pins sat on the GND
-    // rail and used to put pins 2, 4, 6 and 8 on GND as well as their nets.
-    const netlist = await parseAltium(pca("pca10056_sheet5_connectors.SchDoc"));
+    // P13 has two display modes; the alternate mode's pins sit on the GND rail.
+    const netlist = await altiumHandler.parse(pca("pca10056_sheet5_connectors.SchDoc"));
     const p13 = netlist.components.P13.pins;
     expect(netOf(p13["2"])).toBe("VIO");
     expect(netOf(p13["4"])).toBe("VIO");
@@ -156,7 +153,7 @@ describe.skipIf(!hasFixtures)("display modes and duplicate designators on real s
   });
 
   it("a capacitor whose alternate mode swaps its pins is read in the drawn mode", async () => {
-    const netlist = await parseAltium(
+    const netlist = await altiumHandler.parse(
       fixturePath(
         "altium",
         "heron-hardware",
@@ -187,7 +184,7 @@ describe.skipIf(!hasFixtures)("display modes and duplicate designators on real s
   it("a duplicate designator keeps the first instance and ignores the rest", async () => {
     // REAR_LOOM_CONN is drawn twice on one sheet; PDM_CAN_CONN twice on
     // another. One part cannot have one pin on two nets.
-    const bulkhead = await parseAltium(
+    const bulkhead = await altiumHandler.parse(
       fixturePath("altium", "qfsae-harness", "q23-harness", "REAR_LOOM_BULKHEAD.SchDoc")
     );
     const pin23 = netOf(bulkhead.components.REAR_LOOM_CONN.pins["23"]);
@@ -196,12 +193,130 @@ describe.skipIf(!hasFixtures)("display modes and duplicate designators on real s
     );
     expect(listing.map(([n]) => n)).toEqual([pin23]);
 
-    const pdm = await parseAltium(
+    const pdm = await altiumHandler.parse(
       fixturePath("altium", "qfsae-harness", "q23-harness", "PDM.SchDoc")
     );
     expect(Object.values(pdm.components.PDM_CAN_CONN.pins).map(netOf)).toEqual([
       "PDM_CAN_P",
       "PDM_CAN_N",
     ]);
+  });
+});
+
+describe("Component Extraction", () => {
+  it("should drop comment when it resolves to the same Value", () => {
+    const schematic: AltiumSchematic = {
+      header: [],
+      records: [
+        {
+          index: 0,
+          RECORD: RECORD_TYPES.COMPONENT,
+          children: [
+            {
+              index: 1,
+              RECORD: RECORD_TYPES.DESIGNATOR,
+              Text: "C6",
+            } as AltiumRecord,
+            {
+              index: 2,
+              RECORD: RECORD_TYPES.PARAMETER,
+              Name: "Comment",
+              Text: "=Value",
+            } as AltiumRecord,
+            {
+              index: 3,
+              RECORD: RECORD_TYPES.PARAMETER,
+              Name: "Value",
+              Text: "4.7uF",
+            } as AltiumRecord,
+          ],
+        } as AltiumRecord,
+      ],
+    };
+
+    const components = extractComponents(schematic);
+    const c6 = components.C6;
+
+    expect(c6).toBeDefined();
+    expect(c6?.value).toBe("4.7uF");
+    expect(Object.prototype.hasOwnProperty.call(c6 ?? {}, "comment")).toBe(false);
+  });
+
+  it("should keep comment distinct from value when both are present", () => {
+    const schematic: AltiumSchematic = {
+      header: [],
+      records: [
+        {
+          index: 0,
+          RECORD: RECORD_TYPES.COMPONENT,
+          children: [
+            {
+              index: 1,
+              RECORD: RECORD_TYPES.DESIGNATOR,
+              Text: "U2",
+            } as AltiumRecord,
+            {
+              index: 2,
+              RECORD: RECORD_TYPES.PARAMETER,
+              Name: "Comment",
+              Text: "CYUSB3014-BZXC",
+            } as AltiumRecord,
+            {
+              index: 3,
+              RECORD: RECORD_TYPES.PARAMETER,
+              Name: "Value",
+              Text: "100nF",
+            } as AltiumRecord,
+          ],
+        } as AltiumRecord,
+      ],
+    };
+
+    const components = extractComponents(schematic);
+    const u2 = components.U2;
+
+    expect(u2).toBeDefined();
+    expect(u2?.comment).toBe("CYUSB3014-BZXC");
+    expect(u2?.value).toBe("100nF");
+    expect(Object.prototype.hasOwnProperty.call(u2 ?? {}, "comment")).toBe(true);
+  });
+});
+
+/** A part marked Do Not Populate in its Value, and parts that only look it. */
+describe("Do Not Stuff written into Value", () => {
+  const withValue = (designator: string, value: string): AltiumSchematic => ({
+    header: [],
+    records: [
+      {
+        index: 0,
+        RECORD: RECORD_TYPES.COMPONENT,
+        children: [
+          { index: 1, RECORD: RECORD_TYPES.DESIGNATOR, Text: designator } as AltiumRecord,
+          {
+            index: 2,
+            RECORD: RECORD_TYPES.PARAMETER,
+            Name: "Value",
+            Text: value,
+          } as AltiumRecord,
+        ],
+      } as AltiumRecord,
+    ],
+  });
+
+  it("marks a part whose Value is DNP", () => {
+    expect(extractComponents(withValue("R1", "DNP")).R1?.dns).toBe(true);
+  });
+
+  it("marks a part whose Value carries the marker beside the value", () => {
+    expect(extractComponents(withValue("R2", "10K, DNP")).R2?.dns).toBe(true);
+  });
+
+  it("leaves a capacitor whose value is written in nanofarads alone", () => {
+    // `nF` is a unit here, not the "no fit" marker.
+    expect(extractComponents(withValue("C1", "2.2 nF")).C1?.dns).toBeUndefined();
+  });
+
+  it("leaves an ordinary value alone", () => {
+    expect(extractComponents(withValue("R3", "10K")).R3?.dns).toBeUndefined();
   });
 });

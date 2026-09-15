@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-14T22:01:27.558Z",
-    "netlistHash": "sha256:904dfc7fc57f8165a08d73eb9fe3f9dee12ee6f7dd0858ae8b50047ae8cae854",
+    "generatedAt": "2026-09-15T00:06:21.564Z",
+    "netlistHash": "sha256:d0762860dbd1fc1b19e283995bac1111b0c3018d80ae73f3c5a8ea3964816708",
     "origin": {
       "type": "vendor",
       "source": {
@@ -267,370 +267,6 @@
       ],
       "C209": [
         "2"
-      ]
-    },
-    "FB_TPS_A": {
-      "R501A": [
-        "1"
-      ],
-      "R503A": [
-        "2"
-      ],
-      "U500A": [
-        "3"
-      ]
-    },
-    "VINA_TPS_A": {
-      "U500A": [
-        "1"
-      ],
-      "C505A": [
-        "1"
-      ],
-      "R502A": [
-        "1"
-      ],
-      "R500A": [
-        "1"
-      ]
-    },
-    "L1A": {
-      "U500A": [
-        "8",
-        "9"
-      ],
-      "L500A": [
-        "1"
-      ]
-    },
-    "L2A": {
-      "U500A": [
-        "6",
-        "7"
-      ],
-      "L500A": [
-        "2"
-      ]
-    },
-    "FB_TPS_B": {
-      "R501B": [
-        "1"
-      ],
-      "R503B": [
-        "2"
-      ],
-      "U500B": [
-        "3"
-      ]
-    },
-    "VINA_TPS_B": {
-      "U500B": [
-        "1"
-      ],
-      "C505B": [
-        "1"
-      ],
-      "R502B": [
-        "1"
-      ],
-      "R500B": [
-        "1"
-      ]
-    },
-    "L1B": {
-      "U500B": [
-        "8",
-        "9"
-      ],
-      "L500B": [
-        "1"
-      ]
-    },
-    "L2B": {
-      "U500B": [
-        "6",
-        "7"
-      ],
-      "L500B": [
-        "2"
-      ]
-    },
-    "G_OR_A": {
-      "U400A": [
-        "5"
-      ],
-      "Q400A": [
-        "2"
-      ]
-    },
-    "STAT_A": {
-      "U400A": [
-        "4"
-      ]
-    },
-    "G_OR_B": {
-      "U400B": [
-        "5"
-      ],
-      "Q400B": [
-        "2"
-      ]
-    },
-    "STAT_B": {
-      "U400B": [
-        "4"
-      ]
-    },
-    "INTVccA": {
-      "U300A": [
-        "17"
-      ],
-      "C306A": [
-        "1"
-      ],
-      "R302A": [
-        "2"
-      ]
-    },
-    "VSOLAR_A": {
-      "U300A": [
-        "5",
-        "6"
-      ],
-      "R301A": [
-        "2"
-      ],
-      "J300A": [
-        "P"
-      ],
-      "NT300A": [
-        "1"
-      ],
-      "C301A": [
-        "2"
-      ]
-    },
-    "SWA": {
-      "U300A": [
-        "13",
-        "14",
-        "15"
-      ],
-      "C300A": [
-        "2"
-      ],
-      "L300A": [
-        "1"
-      ]
-    },
-    "BIASA": {
-      "U300A": [
-        "18"
-      ],
-      "NT302A": [
-        "1"
-      ]
-    },
-    "BSTA": {
-      "U300A": [
-        "16"
-      ],
-      "C300A": [
-        "1"
-      ]
-    },
-    "ENA": {
-      "U300A": [
-        "4"
-      ],
-      "NT300A": [
-        "2"
-      ]
-    },
-    "FBA": {
-      "U300A": [
-        "20"
-      ],
-      "R306A": [
-        "2"
-      ],
-      "R303A": [
-        "1"
-      ],
-      "C303A": [
-        "2"
-      ]
-    },
-    "ICTRLA": {
-      "U300A": [
-        "24"
-      ]
-    },
-    "ISNA": {
-      "U300A": [
-        "22"
-      ],
-      "NT301A": [
-        "1"
-      ]
-    },
-    "ISPA": {
-      "U300A": [
-        "21"
-      ],
-      "C302A": [
-        "1"
-      ],
-      "L300A": [
-        "2"
-      ],
-      "R300A": [
-        "1"
-      ]
-    },
-    "RTA": {
-      "U300A": [
-        "3"
-      ],
-      "R305A": [
-        "2"
-      ]
-    },
-    "TR/SSA": {
-      "U300A": [
-        "2"
-      ],
-      "R304A": [
-        "2"
-      ],
-      "R301A": [
-        "1"
-      ]
-    },
-    "INTVccB": {
-      "U300B": [
-        "17"
-      ],
-      "C306B": [
-        "1"
-      ],
-      "R302B": [
-        "2"
-      ]
-    },
-    "VSOLAR_B": {
-      "U300B": [
-        "5",
-        "6"
-      ],
-      "R301B": [
-        "2"
-      ],
-      "J300B": [
-        "P"
-      ],
-      "NT300B": [
-        "1"
-      ],
-      "C301B": [
-        "2"
-      ]
-    },
-    "SWB": {
-      "U300B": [
-        "13",
-        "14",
-        "15"
-      ],
-      "C300B": [
-        "2"
-      ],
-      "L300B": [
-        "1"
-      ]
-    },
-    "BIASB": {
-      "U300B": [
-        "18"
-      ],
-      "NT302B": [
-        "1"
-      ]
-    },
-    "BSTB": {
-      "U300B": [
-        "16"
-      ],
-      "C300B": [
-        "1"
-      ]
-    },
-    "ENB": {
-      "U300B": [
-        "4"
-      ],
-      "NT300B": [
-        "2"
-      ]
-    },
-    "FBB": {
-      "U300B": [
-        "20"
-      ],
-      "R306B": [
-        "2"
-      ],
-      "R303B": [
-        "1"
-      ],
-      "C303B": [
-        "2"
-      ]
-    },
-    "ICTRLB": {
-      "U300B": [
-        "24"
-      ]
-    },
-    "ISNB": {
-      "U300B": [
-        "22"
-      ],
-      "NT301B": [
-        "1"
-      ]
-    },
-    "ISPB": {
-      "U300B": [
-        "21"
-      ],
-      "C302B": [
-        "1"
-      ],
-      "L300B": [
-        "2"
-      ],
-      "R300B": [
-        "1"
-      ]
-    },
-    "RTB": {
-      "U300B": [
-        "3"
-      ],
-      "R305B": [
-        "2"
-      ]
-    },
-    "TR/SSB": {
-      "U300B": [
-        "2"
-      ],
-      "R304B": [
-        "2"
-      ],
-      "R301B": [
-        "1"
       ]
     },
     "VBUS": {
@@ -1384,6 +1020,370 @@
       "U200": [
         "34"
       ]
+    },
+    "BIASA": {
+      "U300A": [
+        "18"
+      ],
+      "NT302A": [
+        "1"
+      ]
+    },
+    "BIASB": {
+      "U300B": [
+        "18"
+      ],
+      "NT302B": [
+        "1"
+      ]
+    },
+    "BSTA": {
+      "U300A": [
+        "16"
+      ],
+      "C300A": [
+        "1"
+      ]
+    },
+    "BSTB": {
+      "U300B": [
+        "16"
+      ],
+      "C300B": [
+        "1"
+      ]
+    },
+    "ENA": {
+      "U300A": [
+        "4"
+      ],
+      "NT300A": [
+        "2"
+      ]
+    },
+    "ENB": {
+      "U300B": [
+        "4"
+      ],
+      "NT300B": [
+        "2"
+      ]
+    },
+    "FBA": {
+      "U300A": [
+        "20"
+      ],
+      "R306A": [
+        "2"
+      ],
+      "R303A": [
+        "1"
+      ],
+      "C303A": [
+        "2"
+      ]
+    },
+    "FBB": {
+      "U300B": [
+        "20"
+      ],
+      "R306B": [
+        "2"
+      ],
+      "R303B": [
+        "1"
+      ],
+      "C303B": [
+        "2"
+      ]
+    },
+    "FB_TPS_A": {
+      "R501A": [
+        "1"
+      ],
+      "R503A": [
+        "2"
+      ],
+      "U500A": [
+        "3"
+      ]
+    },
+    "FB_TPS_B": {
+      "R501B": [
+        "1"
+      ],
+      "R503B": [
+        "2"
+      ],
+      "U500B": [
+        "3"
+      ]
+    },
+    "G_OR_A": {
+      "U400A": [
+        "5"
+      ],
+      "Q400A": [
+        "2"
+      ]
+    },
+    "G_OR_B": {
+      "U400B": [
+        "5"
+      ],
+      "Q400B": [
+        "2"
+      ]
+    },
+    "ICTRLA": {
+      "U300A": [
+        "24"
+      ]
+    },
+    "ICTRLB": {
+      "U300B": [
+        "24"
+      ]
+    },
+    "INTVccA": {
+      "U300A": [
+        "17"
+      ],
+      "C306A": [
+        "1"
+      ],
+      "R302A": [
+        "2"
+      ]
+    },
+    "INTVccB": {
+      "U300B": [
+        "17"
+      ],
+      "C306B": [
+        "1"
+      ],
+      "R302B": [
+        "2"
+      ]
+    },
+    "ISNA": {
+      "U300A": [
+        "22"
+      ],
+      "NT301A": [
+        "1"
+      ]
+    },
+    "ISNB": {
+      "U300B": [
+        "22"
+      ],
+      "NT301B": [
+        "1"
+      ]
+    },
+    "ISPA": {
+      "U300A": [
+        "21"
+      ],
+      "C302A": [
+        "1"
+      ],
+      "L300A": [
+        "2"
+      ],
+      "R300A": [
+        "1"
+      ]
+    },
+    "ISPB": {
+      "U300B": [
+        "21"
+      ],
+      "C302B": [
+        "1"
+      ],
+      "L300B": [
+        "2"
+      ],
+      "R300B": [
+        "1"
+      ]
+    },
+    "L1A": {
+      "U500A": [
+        "8",
+        "9"
+      ],
+      "L500A": [
+        "1"
+      ]
+    },
+    "L1B": {
+      "U500B": [
+        "8",
+        "9"
+      ],
+      "L500B": [
+        "1"
+      ]
+    },
+    "L2A": {
+      "U500A": [
+        "6",
+        "7"
+      ],
+      "L500A": [
+        "2"
+      ]
+    },
+    "L2B": {
+      "U500B": [
+        "6",
+        "7"
+      ],
+      "L500B": [
+        "2"
+      ]
+    },
+    "RTA": {
+      "U300A": [
+        "3"
+      ],
+      "R305A": [
+        "2"
+      ]
+    },
+    "RTB": {
+      "U300B": [
+        "3"
+      ],
+      "R305B": [
+        "2"
+      ]
+    },
+    "STAT_A": {
+      "U400A": [
+        "4"
+      ]
+    },
+    "STAT_B": {
+      "U400B": [
+        "4"
+      ]
+    },
+    "SWA": {
+      "U300A": [
+        "13",
+        "14",
+        "15"
+      ],
+      "C300A": [
+        "2"
+      ],
+      "L300A": [
+        "1"
+      ]
+    },
+    "SWB": {
+      "U300B": [
+        "13",
+        "14",
+        "15"
+      ],
+      "C300B": [
+        "2"
+      ],
+      "L300B": [
+        "1"
+      ]
+    },
+    "TR/SSA": {
+      "U300A": [
+        "2"
+      ],
+      "R304A": [
+        "2"
+      ],
+      "R301A": [
+        "1"
+      ]
+    },
+    "TR/SSB": {
+      "U300B": [
+        "2"
+      ],
+      "R304B": [
+        "2"
+      ],
+      "R301B": [
+        "1"
+      ]
+    },
+    "VINA_TPS_A": {
+      "U500A": [
+        "1"
+      ],
+      "C505A": [
+        "1"
+      ],
+      "R502A": [
+        "1"
+      ],
+      "R500A": [
+        "1"
+      ]
+    },
+    "VINA_TPS_B": {
+      "U500B": [
+        "1"
+      ],
+      "C505B": [
+        "1"
+      ],
+      "R502B": [
+        "1"
+      ],
+      "R500B": [
+        "1"
+      ]
+    },
+    "VSOLAR_A": {
+      "U300A": [
+        "5",
+        "6"
+      ],
+      "R301A": [
+        "2"
+      ],
+      "J300A": [
+        "P"
+      ],
+      "NT300A": [
+        "1"
+      ],
+      "C301A": [
+        "2"
+      ]
+    },
+    "VSOLAR_B": {
+      "U300B": [
+        "5",
+        "6"
+      ],
+      "R301B": [
+        "2"
+      ],
+      "J300B": [
+        "P"
+      ],
+      "NT300B": [
+        "1"
+      ],
+      "C301B": [
+        "2"
+      ]
     }
   },
   "components": {
@@ -1479,7 +1479,7 @@
         "2": "L2A"
       },
       "mpn": "XFL4020-152ML",
-      "description": "XFL4020-152ML\r\n1.5uH 4.6A 15.8m? 20%",
+      "description": "XFL4020-152ML\r\n1.5uH 4.6A 15.8mΩ 20%",
       "comment": "1u5"
     },
     "C500A": {
@@ -1488,7 +1488,7 @@
         "2": "GND"
       },
       "manufacturer": "MURATA",
-      "description": "CAP 10 µF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J106ME84D",
+      "description": "CAP 10 μF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J106ME84D",
       "comment": "10u"
     },
     "C505A": {
@@ -1496,7 +1496,7 @@
         "1": "VINA_TPS_A",
         "2": "GND"
       },
-      "description": "CAP 0.1 µF, X5R or X7R ceramic",
+      "description": "CAP 0.1 μF, X5R or X7R ceramic",
       "comment": "100n"
     },
     "R502A": {
@@ -1523,7 +1523,7 @@
         "2": "GND"
       },
       "manufacturer": "MURATA",
-      "description": "CAP 10 µF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J106ME84D",
+      "description": "CAP 10 μF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J106ME84D",
       "comment": "10u"
     },
     "C502A": {
@@ -1532,7 +1532,7 @@
         "2": "GND"
       },
       "manufacturer": "MURATA",
-      "description": "CAP 22 µF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J226MEAOL",
+      "description": "CAP 22 μF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J226MEAOL",
       "comment": "22u"
     },
     "C503A": {
@@ -1541,7 +1541,7 @@
         "2": "GND"
       },
       "manufacturer": "MURATA",
-      "description": "CAP 22 µF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J226MEAOL",
+      "description": "CAP 22 μF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J226MEAOL",
       "comment": "22u"
     },
     "C504A": {
@@ -1550,7 +1550,7 @@
         "2": "GND"
       },
       "manufacturer": "MURATA",
-      "description": "CAP 22 µF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J226MEAOL",
+      "description": "CAP 22 μF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J226MEAOL",
       "comment": "22u"
     },
     "R501B": {
@@ -1645,7 +1645,7 @@
         "2": "L2B"
       },
       "mpn": "XFL4020-152ML",
-      "description": "XFL4020-152ML\r\n1.5uH 4.6A 15.8m? 20%",
+      "description": "XFL4020-152ML\r\n1.5uH 4.6A 15.8mΩ 20%",
       "comment": "1u5"
     },
     "C500B": {
@@ -1654,7 +1654,7 @@
         "2": "GND"
       },
       "manufacturer": "MURATA",
-      "description": "CAP 10 µF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J106ME84D",
+      "description": "CAP 10 μF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J106ME84D",
       "comment": "10u"
     },
     "C505B": {
@@ -1662,7 +1662,7 @@
         "1": "VINA_TPS_B",
         "2": "GND"
       },
-      "description": "CAP 0.1 µF, X5R or X7R ceramic",
+      "description": "CAP 0.1 μF, X5R or X7R ceramic",
       "comment": "100n"
     },
     "R502B": {
@@ -1689,7 +1689,7 @@
         "2": "GND"
       },
       "manufacturer": "MURATA",
-      "description": "CAP 10 µF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J106ME84D",
+      "description": "CAP 10 μF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J106ME84D",
       "comment": "10u"
     },
     "C502B": {
@@ -1698,7 +1698,7 @@
         "2": "GND"
       },
       "manufacturer": "MURATA",
-      "description": "CAP 22 µF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J226MEAOL",
+      "description": "CAP 22 μF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J226MEAOL",
       "comment": "22u"
     },
     "C503B": {
@@ -1707,7 +1707,7 @@
         "2": "GND"
       },
       "manufacturer": "MURATA",
-      "description": "CAP 22 µF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J226MEAOL",
+      "description": "CAP 22 μF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J226MEAOL",
       "comment": "22u"
     },
     "C504B": {
@@ -1716,7 +1716,7 @@
         "2": "GND"
       },
       "manufacturer": "MURATA",
-      "description": "CAP 22 µF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J226MEAOL",
+      "description": "CAP 22 μF 20% 6.3V, 0603, X5R ceramic, eg: GRM188R60J226MEAOL",
       "comment": "22u"
     },
     "U400A": {
@@ -1786,7 +1786,7 @@
         "1": "VBAT1",
         "2": "GND"
       },
-      "description": "CAP 0.1 µF, X5R or X7R ceramic",
+      "description": "CAP 0.1 μF, X5R or X7R ceramic",
       "comment": "100n"
     },
     "U400B": {
@@ -1856,7 +1856,7 @@
         "1": "VBAT2",
         "2": "GND"
       },
-      "description": "CAP 0.1 µF, X5R or X7R ceramic",
+      "description": "CAP 0.1 μF, X5R or X7R ceramic",
       "comment": "100n"
     },
     "J600": {
@@ -2185,7 +2185,7 @@
       "manufacturer": "KEMET",
       "description": "CAP CER 50V X7R 0603",
       "comment": "100n",
-      "value": "0.10 µF"
+      "value": "0.10 μF"
     },
     "C306A": {
       "pins": {
@@ -2196,7 +2196,7 @@
       "manufacturer": "KEMET",
       "description": "CAP CER 50V X7R 0603\r\nLOW ESR!",
       "comment": "1u",
-      "value": "0.10 µF"
+      "value": "0.10 μF"
     },
     "R306A": {
       "pins": {
@@ -2225,7 +2225,7 @@
       "manufacturer": "KEMET",
       "description": "CAP CER 50V X7R 0603",
       "comment": "1u",
-      "value": "0.10 µF"
+      "value": "0.10 μF"
     },
     "C303A": {
       "pins": {
@@ -2236,7 +2236,7 @@
       "manufacturer": "KEMET",
       "description": "CAP CER 50V X7R 0603",
       "comment": "10p",
-      "value": "0.10 µF"
+      "value": "0.10 μF"
     },
     "J300A": {
       "pins": {
@@ -2293,7 +2293,7 @@
         "1": "ISPA",
         "2": "VBAT1"
       },
-      "description": "Thick Film Chip Resistors 0805 0.025? 0.125W 1% 100ppm/°C",
+      "description": "Thick Film Chip Resistors 0805 0.025Ω 0.125W 1% 100ppm/°C",
       "comment": "0.025R"
     },
     "C301A": {
@@ -2481,7 +2481,7 @@
       "manufacturer": "KEMET",
       "description": "CAP CER 50V X7R 0603",
       "comment": "100n",
-      "value": "0.10 µF"
+      "value": "0.10 μF"
     },
     "C306B": {
       "pins": {
@@ -2492,7 +2492,7 @@
       "manufacturer": "KEMET",
       "description": "CAP CER 50V X7R 0603\r\nLOW ESR!",
       "comment": "1u",
-      "value": "0.10 µF"
+      "value": "0.10 μF"
     },
     "R306B": {
       "pins": {
@@ -2521,7 +2521,7 @@
       "manufacturer": "KEMET",
       "description": "CAP CER 50V X7R 0603",
       "comment": "1u",
-      "value": "0.10 µF"
+      "value": "0.10 μF"
     },
     "C303B": {
       "pins": {
@@ -2532,7 +2532,7 @@
       "manufacturer": "KEMET",
       "description": "CAP CER 50V X7R 0603",
       "comment": "10p",
-      "value": "0.10 µF"
+      "value": "0.10 μF"
     },
     "J300B": {
       "pins": {
@@ -2589,7 +2589,7 @@
         "1": "ISPB",
         "2": "VBAT2"
       },
-      "description": "Thick Film Chip Resistors 0805 0.025? 0.125W 1% 100ppm/°C",
+      "description": "Thick Film Chip Resistors 0805 0.025Ω 0.125W 1% 100ppm/°C",
       "comment": "0.025R"
     },
     "C301B": {
@@ -3074,7 +3074,7 @@
       "manufacturer": "KEMET",
       "description": "CAP CER 50V X7R 0603",
       "comment": "2u2",
-      "value": "0.10 µF"
+      "value": "0.10 μF"
     },
     "C213": {
       "pins": {
@@ -3085,7 +3085,7 @@
       "manufacturer": "KEMET",
       "description": "CAP CER 50V X7R 0603",
       "comment": "2u2",
-      "value": "0.10 µF"
+      "value": "0.10 μF"
     },
     "C210": {
       "pins": {
@@ -3096,7 +3096,7 @@
       "manufacturer": "KEMET",
       "description": "CAP CER 50V X7R 0603",
       "comment": "20p",
-      "value": "0.10 µF"
+      "value": "0.10 μF"
     },
     "C211": {
       "pins": {
@@ -3107,14 +3107,14 @@
       "manufacturer": "KEMET",
       "description": "CAP CER 50V X7R 0603",
       "comment": "20p",
-      "value": "0.10 µF"
+      "value": "0.10 μF"
     },
     "L200": {
       "pins": {
         "1": "3,3V",
         "2": "3,3VDDA"
       },
-      "description": "Multilayer Type Inductor for General Circuits, 0805 (2012), 0.22µH, 10%, 0.38?, 250mA",
+      "description": "Multilayer Type Inductor for General Circuits, 0805 (2012), 0.22μH, 10%, 0.38Ω, 250mA",
       "comment": "4u7"
     },
     "C200": {
@@ -3126,7 +3126,7 @@
       "manufacturer": "KEMET",
       "description": "CAP CER 0.1UF 50V X7R 0603",
       "comment": "4u7",
-      "value": "0.10 µF"
+      "value": "0.10 μF"
     },
     "C206": {
       "pins": {
@@ -3137,7 +3137,7 @@
       "manufacturer": "KEMET",
       "description": "CAP CER 0.1UF 50V X7R 0603",
       "comment": "1u",
-      "value": "0.10 µF"
+      "value": "0.10 μF"
     },
     "SW200": {
       "pins": {
@@ -3277,7 +3277,7 @@
         "1": "3,3V",
         "2": "GND"
       },
-      "description": "CAP 0.1 µF, X5R or X7R ceramic",
+      "description": "CAP 0.1 μF, X5R or X7R ceramic",
       "comment": "100n"
     },
     "C202": {
@@ -3285,7 +3285,7 @@
         "1": "3,3V",
         "2": "GND"
       },
-      "description": "CAP 0.1 µF, X5R or X7R ceramic",
+      "description": "CAP 0.1 μF, X5R or X7R ceramic",
       "comment": "100n"
     },
     "C203": {
@@ -3293,7 +3293,7 @@
         "1": "3,3V",
         "2": "GND"
       },
-      "description": "CAP 0.1 µF, X5R or X7R ceramic",
+      "description": "CAP 0.1 μF, X5R or X7R ceramic",
       "comment": "100n"
     },
     "C204": {
@@ -3301,7 +3301,7 @@
         "1": "3,3V",
         "2": "GND"
       },
-      "description": "CAP 0.1 µF, X5R or X7R ceramic",
+      "description": "CAP 0.1 μF, X5R or X7R ceramic",
       "comment": "100n"
     },
     "C205": {
@@ -3309,7 +3309,7 @@
         "1": "3,3V",
         "2": "GND"
       },
-      "description": "CAP 0.1 µF, X5R or X7R ceramic",
+      "description": "CAP 0.1 μF, X5R or X7R ceramic",
       "comment": "100n"
     },
     "R204": {
@@ -3344,7 +3344,7 @@
         "1": "NRST_NDB",
         "2": "GND"
       },
-      "description": "CAP 0.1 µF, ceramic",
+      "description": "CAP 0.1 μF, ceramic",
       "comment": "100n"
     },
     "C208": {
@@ -3352,7 +3352,7 @@
         "1": "USRB0_NDB",
         "2": "GND"
       },
-      "description": "CAP 0.1 µF, ceramic",
+      "description": "CAP 0.1 μF, ceramic",
       "comment": "100n"
     },
     "C209": {
@@ -3360,7 +3360,7 @@
         "1": "USRB1_NDB",
         "2": "GND"
       },
-      "description": "CAP 0.1 µF, ceramic",
+      "description": "CAP 0.1 μF, ceramic",
       "comment": "100n"
     },
     "R208": {

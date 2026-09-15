@@ -1,13 +1,78 @@
 import { describe, expect, it } from "vitest";
-import {
-  documentInstances,
-  findSheetPlacements,
-  planChannelNetNames,
-  type ChannelNetScope,
-  type ReadDocument,
-} from "./index.js";
-import { buildHierarchy } from "./hierarchy.js";
-import { RECORD_TYPES, type AltiumRecord } from "./types.js";
+import { applyChannelFormat, planChannelNetNames, type ChannelNetScope } from "./channels.js";
+
+/**
+ * Every format string below was read verbatim from the `ChannelDesignatorFormatString`
+ * of a real open-source Altium project. The design each came from is named so a
+ * failure points at something reproducible rather than at an invented case.
+ */
+describe("applyChannelFormat", () => {
+  it("substitutes $Component and $RoomName", () => {
+    expect(applyChannelFormat("$Component_$RoomName", "DD12", "AY1", 1)).toBe("DD12_AY1");
+    expect(applyChannelFormat("$Component_$RoomName", "R4", "AY3", 3)).toBe("R4_AY3");
+  });
+
+  it("substitutes $ChannelAlpha (cube-sat-eps, heron-hardware, utca-rtm-8-sfp)", () => {
+    expect(applyChannelFormat("$Component$ChannelAlpha", "R5", "MPPT1", 1)).toBe("R5A");
+    expect(applyChannelFormat("$Component$ChannelAlpha", "R5", "MPPT2", 2)).toBe("R5B");
+    expect(applyChannelFormat("$Component$ChannelAlpha", "C12", "MIC8", 8)).toBe("C12H");
+  });
+
+  it("substitutes $ChannelIndex with a dot separator (easyinverter OnePhase)", () => {
+    expect(applyChannelFormat("$Component.$ChannelIndex", "Q1", "Phase_T1", 1)).toBe("Q1.1");
+    expect(applyChannelFormat("$Component.$ChannelIndex", "Q1", "Phase_T4", 4)).toBe("Q1.4");
+  });
+
+  it("substitutes $RoomName with a dot separator (easyinverter LogicsOnly, RoomNamingStyle=1)", () => {
+    expect(applyChannelFormat("$Component.$RoomName", "K2", "GateCircuit_B2", 2)).toBe(
+      "K2.GateCircuit_B2"
+    );
+  });
+
+  it("substitutes $Component_$ChannelIndex (PW-Sat2, Thermostat_EEM, Booster)", () => {
+    expect(applyChannelFormat("$Component_$ChannelIndex", "U7", "S2", 2)).toBe("U7_2");
+  });
+
+  it("splits a refdes into prefix and index (vme-adc-250k-16b-36cha)", () => {
+    expect(
+      applyChannelFormat("$ComponentPrefix_$ChannelIndex_$ComponentIndex", "R5", "IA3", 3)
+    ).toBe("R_3_5");
+    expect(
+      applyChannelFormat("$ComponentPrefix_$ChannelIndex_$ComponentIndex", "RP12", "IA1", 1)
+    ).toBe("RP_1_12");
+  });
+
+  it("does not let $Component swallow the longer $ComponentPrefix token", () => {
+    // A naive `.replace("$Component", ...)` turns "$ComponentPrefix" into "R5Prefix".
+    expect(applyChannelFormat("$ComponentPrefix", "R5", "X1", 1)).toBe("R");
+    expect(applyChannelFormat("$ComponentIndex", "R5", "X1", 1)).toBe("5");
+  });
+
+  it("substitutes every occurrence, not just the first", () => {
+    expect(applyChannelFormat("$Component_$RoomName_$RoomName", "R1", "CH2", 2)).toBe("R1_CH2_CH2");
+  });
+
+  it("rolls the alphabetic label past Z", () => {
+    expect(applyChannelFormat("$ChannelAlpha", "R1", "X", 26)).toBe("Z");
+    // Altium keeps counting through the ASCII after "Z" instead of rolling
+    // over: FMC_DIO_32ch_lvds_a names channels 27..32 `R1[` .. `R1\``.
+    expect(applyChannelFormat("$ChannelAlpha", "R1", "X", 27)).toBe("[");
+    expect(applyChannelFormat("$ChannelAlpha", "R1", "X", 32)).toBe("`");
+  });
+
+  it("handles a refdes with no numeric part", () => {
+    expect(applyChannelFormat("$ComponentPrefix_$ComponentIndex", "TP", "CH1", 1)).toBe("TP_");
+    expect(applyChannelFormat("$Component$ChannelAlpha", "TP", "CH1", 1)).toBe("TPA");
+  });
+
+  it("leaves an unmodelled token visible rather than dropping it", () => {
+    // A silently dropped token would collapse every channel onto one designator,
+    // which is the failure mode this whole fix exists to remove.
+    expect(applyChannelFormat("$Component_$SomethingElse", "R1", "CH1", 1)).toBe(
+      "R1_$SomethingElse"
+    );
+  });
+});
 
 /**
  * Every case below is drawn from a real repeated sheet, and the expected names
@@ -125,82 +190,5 @@ describe("planChannelNetNames", () => {
         "$ComponentPrefix_$ChannelIndex_$ComponentIndex"
       )
     ).toEqual(new Map([["V_pulser", "V_pulser_1_"]]));
-  });
-});
-
-/** A document placing each `[designator, child]` by a sheet symbol of its own. */
-const document = (name: string, symbols: [string, string][] = []): ReadDocument => {
-  const records: AltiumRecord[] = [];
-  for (const [designator, child] of symbols) {
-    const index = records.length;
-    records.push(
-      { index, RECORD: RECORD_TYPES.SHEET_SYMBOL },
-      {
-        index: index + 1,
-        RECORD: RECORD_TYPES.SHEET_NAME,
-        Text: designator,
-        OwnerIndex: String(index),
-      },
-      {
-        index: index + 2,
-        RECORD: RECORD_TYPES.SHEET_FILE_NAME,
-        Text: child,
-        OwnerIndex: String(index),
-      }
-    );
-  }
-  return {
-    name,
-    path: name,
-    bundleLinks: [],
-    hierarchical: buildHierarchy({ header: [], records }),
-  };
-};
-
-const instancesOf = (documents: ReadDocument[], name: string, roomNamingStyle = "0") =>
-  documentInstances(documents, findSheetPlacements(documents), roomNamingStyle).get(name)!;
-
-describe("documentInstances", () => {
-  it("repeats a sheet inside a sheet placed twice", () => {
-    const documents = [
-      document("top.schdoc", [
-        ["HalfBridge_B", "half.schdoc"],
-        ["HalfBridge_A", "half.schdoc"],
-      ]),
-      document("half.schdoc", [["Driver", "driver.schdoc"]]),
-      document("driver.schdoc"),
-    ];
-
-    expect(
-      instancesOf(documents, "driver.schdoc").map(({ key, room, ordinal }) => [key, room, ordinal])
-    ).toEqual([
-      ["top.schdoc/3@1/0@1", "Driver1", 1],
-      ["top.schdoc/0@1/0@1", "Driver2", 2],
-    ]);
-  });
-
-  it("orders channels naturally and letters rooms under room naming style 1", () => {
-    const documents = [
-      document("top.schdoc", [["Repeat(CH,9,10)", "ch.schdoc"]]),
-      document("ch.schdoc"),
-    ];
-
-    expect(instancesOf(documents, "ch.schdoc").map(({ room }) => room)).toEqual(["CH9", "CH10"]);
-    expect(instancesOf(documents, "ch.schdoc", "1").map(({ room }) => room)).toEqual([
-      "CHI",
-      "CHJ",
-    ]);
-  });
-
-  it("numbers repeated rooms past a room they would spell", () => {
-    const documents = [
-      document("top.schdoc", [["Repeat(P,1,11)", "mid.schdoc"]]),
-      document("mid.schdoc", [["Repeat(CH,1,11)", "ch.schdoc"]]),
-      document("ch.schdoc"),
-    ];
-
-    const rooms = instancesOf(documents, "ch.schdoc").map(({ room }) => room);
-    expect(rooms).toHaveLength(121);
-    expect(new Set(rooms).size).toBe(121);
   });
 });

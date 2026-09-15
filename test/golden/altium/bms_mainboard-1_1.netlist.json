@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-14T22:01:28.981Z",
-    "netlistHash": "sha256:97db192497f40087c046e99e355dbbeadc299c53af663d7f1cb47b6edc04a6a0",
+    "generatedAt": "2026-09-15T00:06:22.610Z",
+    "netlistHash": "sha256:0302e79f483e212efee9d8bb3f8f181f05301814177e2491f8ff2dbe90d48f29",
     "origin": {
       "type": "vendor",
       "source": {
@@ -2003,22 +2003,6 @@
         "3"
       ]
     },
-    "COMM_PA": {
-      "J15A": [
-        "1"
-      ],
-      "T5A": [
-        "6"
-      ]
-    },
-    "COMM_NA": {
-      "J15A": [
-        "2"
-      ],
-      "T5A": [
-        "4"
-      ]
-    },
     "NetC73A_1": {
       "T5A": [
         "2"
@@ -2075,22 +2059,6 @@
       ],
       "T5B": [
         "3"
-      ]
-    },
-    "COMM_PB": {
-      "J15B": [
-        "1"
-      ],
-      "T5B": [
-        "6"
-      ]
-    },
-    "COMM_NB": {
-      "J15B": [
-        "2"
-      ],
-      "T5B": [
-        "4"
       ]
     },
     "NetC73B_1": {
@@ -8245,6 +8213,38 @@
       "R223C": [
         "2"
       ]
+    },
+    "COMM_NA": {
+      "J15A": [
+        "2"
+      ],
+      "T5A": [
+        "4"
+      ]
+    },
+    "COMM_NB": {
+      "J15B": [
+        "2"
+      ],
+      "T5B": [
+        "4"
+      ]
+    },
+    "COMM_PA": {
+      "J15A": [
+        "1"
+      ],
+      "T5A": [
+        "6"
+      ]
+    },
+    "COMM_PB": {
+      "J15B": [
+        "1"
+      ],
+      "T5B": [
+        "6"
+      ]
     }
   },
   "components": {
@@ -8557,7 +8557,7 @@
       },
       "mpn": "TLV379IDCKR",
       "manufacturer": "Texas Instruments",
-      "description": "Low-Voltage, 4-µA, Rail-to-Rail I/O Operational Amplifier for Cost-Sensitive Systems 5-SC70 -40 to 125"
+      "description": "Low-Voltage, 4-μA, Rail-to-Rail I/O Operational Amplifier for Cost-Sensitive Systems 5-SC70 -40 to 125"
     },
     "R102": {
       "pins": {
@@ -9005,7 +9005,7 @@
       },
       "mpn": "CHS-02TA",
       "manufacturer": "Nidec Copal",
-      "description": "DIP Switch, Slide, SPST, Flush, Recessed, 6VDC, 100mA, CHS Series  Nidec Components CHS-02TA"
+      "description": "DIP Switch, Slide, SPST, Flush, Recessed, 6VDC, 100mA, CHS Series ¦ Nidec Components CHS-02TA"
     },
     "D25B": {
       "pins": {
@@ -9128,7 +9128,7 @@
       },
       "mpn": "CHS-02TA",
       "manufacturer": "Nidec Copal",
-      "description": "DIP Switch, Slide, SPST, Flush, Recessed, 6VDC, 100mA, CHS Series  Nidec Components CHS-02TA"
+      "description": "DIP Switch, Slide, SPST, Flush, Recessed, 6VDC, 100mA, CHS Series ¦ Nidec Components CHS-02TA"
     },
     "J9": {
       "pins": {
@@ -13510,7 +13510,7 @@
       },
       "mpn": "PTVSLC3D3V3B",
       "manufacturer": "Prisemi",
-      "description": "-55?~+150? 1uA 20A@8/20us 21V 3.3V 3.5pF 350W@8/20us 4V Bidirectional IEC 61000-4-2 TVS SOD-323 ESD and Surge Protection (TVS/ESD) ROHS"
+      "description": "-55℃~+150℃ 1uA 20A@8/20us 21V 3.3V 3.5pF 350W@8/20us 4V Bidirectional IEC 61000-4-2 TVS SOD-323 ESD and Surge Protection (TVS/ESD) ROHS"
     },
     "R250": {
       "pins": {
@@ -16249,7 +16249,7 @@
       },
       "mpn": "CHS-04TA",
       "manufacturer": "Nidec Copal",
-      "description": "DIP Switch, Slide, SPST, Flush, Recessed, 6VDC, 100mA, CHS Series  Nidec Components CHS-04TA"
+      "description": "DIP Switch, Slide, SPST, Flush, Recessed, 6VDC, 100mA, CHS Series ¦ Nidec Components CHS-04TA"
     },
     "R68": {
       "pins": {
@@ -16267,7 +16267,7 @@
       },
       "mpn": "CHS-01TA",
       "manufacturer": "Nidec Copal",
-      "description": "DIP Switch, Slide, SPST, Flush, Recessed, 6VDC, 100mA, CHS Series  Nidec Components CHS-01TA"
+      "description": "DIP Switch, Slide, SPST, Flush, Recessed, 6VDC, 100mA, CHS Series ¦ Nidec Components CHS-01TA"
     },
     "Q1": {
       "pins": {
@@ -16770,7 +16770,7 @@
       },
       "mpn": "FTC404020S4R7MGCA",
       "manufacturer": "cjiang",
-      "description": "5A 4.7uH 6.3A 58mO ±20% SMD,4.1x4.1mm Fixed Inductors RoHS",
+      "description": "5A 4.7uH 6.3A 58mΩ ±20% SMD,4.1x4.1mm Fixed Inductors RoHS",
       "value": "4.7uH"
     },
     "L2": {
@@ -16780,7 +16780,7 @@
       },
       "mpn": "FTC404020S4R7MGCA",
       "manufacturer": "cjiang",
-      "description": "5A 4.7uH 6.3A 58mO ±20% SMD,4.1x4.1mm Fixed Inductors RoHS",
+      "description": "5A 4.7uH 6.3A 58mΩ ±20% SMD,4.1x4.1mm Fixed Inductors RoHS",
       "value": "4.7uH"
     },
     "L3": {
@@ -16790,7 +16790,7 @@
       },
       "mpn": "FTC404020S4R7MGCA",
       "manufacturer": "cjiang",
-      "description": "5A 4.7uH 6.3A 58mO ±20% SMD,4.1x4.1mm Fixed Inductors RoHS",
+      "description": "5A 4.7uH 6.3A 58mΩ ±20% SMD,4.1x4.1mm Fixed Inductors RoHS",
       "value": "4.7uH"
     },
     "R72": {

@@ -1,29 +1,44 @@
 # Altium Designer Schematic Format
 
-Reference for the parts of the `.SchDoc` / `.PrjPcb` format that carry hidden structure:
-geometry, cross-sheet connectivity, net naming, buses, multi-channel sheets, signal harnesses,
-component instances and design variants. Companion to [`dsn-format.md`](dsn-format.md), which
-covers Cadence.
+How Altium Designer schematics are written and how Altium connects and names what they draw:
+files and records, geometry, cross-sheet connectivity, net naming, buses, multi-channel sheets,
+signal harnesses, components and design variants. Companion to [`dsn-format.md`](dsn-format.md),
+which covers Cadence.
+
+## Files
+
+| File | Holds |
+|---|---|
+| `.PrjPcb` | the project: an INI-like text file listing its documents (`DocumentPath=`), its options, and its design variants |
+| `.SchDoc` | one schematic sheet, an OLE compound document of records |
+| `.Harness` | the harness types a sheet uses, beside the sheet under the same name |
+| `.PrjPcbStructure` | the sheet symbol tree, written when the project is compiled |
+| `.PrjPcbVariants` | the alternate parts' symbol data |
+
+A `DocumentPath` is relative to the project, its folders separated by `\`, and may carry further
+fields after a `|`.
 
 ## Records and streams
 
-A `.SchDoc` is an OLE compound document. Its `FileHeader` stream holds pipe-delimited key-value
-records, one per object:
+A `.SchDoc`'s `FileHeader` stream is a run of records, one per object. Each record is a
+four-byte length followed by pipe-delimited key-value pairs and a NUL:
 
 ```
 |RECORD=27|OWNERINDEX=12|LOCATION.X=410|LOCATION.Y=670|...
 ```
 
-Records are single-byte Windows-1252 in older files and UTF-8 in newer ones. Key casing varies
-between files: `Location.X` and `LOCATION.X` are the same key.
+The first record is the `HEADER`; every other record carries `RECORD=`, its object type. Keys are
+written in mixed or upper case depending on the file: `Location.X` and `LOCATION.X` are one key.
+Values are Windows-1252 in older files and UTF-8 in newer ones. A value the code page cannot hold
+is written a second time under `%UTF8%<key>` in UTF-8, and that copy is the text: `Text=220O` beside
+`%UTF8%Text=220Ω`.
 
-Signal harness objects (records 215 to 218) live in a second stream, `Additional`, in the same
-encoding. The stream is optional: ASCII exports omit it, and a sheet without harnesses may carry
-it empty.
+`OwnerIndex` names the record that owns this one, counting records from zero after the `HEADER`:
+a pin names its component, a sheet entry its sheet symbol, a parameter its component or sheet.
 
-`OWNERINDEX` counts `RECORD=` objects only, starting from zero after the `HEADER` record, so it
-is not the raw segment position. `OwnerIndex` on an `Additional` record numbers that stream's own
-record list.
+Signal harness records (`215` to `218`) live in a second stream, `Additional`, in the same format.
+Its `OwnerIndex` counts its own records. The stream is optional, and a sheet without harnesses may
+carry it empty.
 
 | Record | Object |
 |---|---|
@@ -36,9 +51,10 @@ record list.
 | `25` | net label |
 | `26` | bus |
 | `27` | wire |
-| `29` | junction |
-| `32` | sheet symbol designator (`SHEET_NAME`) |
-| `33` | sheet symbol file name (`SHEET_FILE_NAME`) |
+| `29` | junction: a drawn dot; wires connect where they touch, dot or not |
+| `31` | sheet: the document's own settings |
+| `32` | sheet symbol designator |
+| `33` | sheet symbol file name |
 | `34` | component designator |
 | `37` | bus entry |
 | `41` | parameter |
@@ -68,9 +84,10 @@ and the finest imported pin pitch 2.5.
 
 ### Pins
 
-A pin runs `PinLength` from `Location`, turned by the low two bits of `PinConglomerate` in quarter
-turns. A wire joins a pin anywhere along it. Two pins meet only tip to tip, the tip being the end
-`PinLength` from `Location`: pins drawn from one point, or overlapping along one line, stay apart.
+A pin (`RECORD=2`) writes its number as `Designator` and its function as `Name`. It runs
+`PinLength` from `Location`, turned by the low two bits of `PinConglomerate` in quarter turns. A
+wire joins a pin anywhere along it. Two pins meet only tip to tip, the tip being the end `PinLength`
+from `Location`: pins drawn from one point, or overlapping along one line, stay apart.
 
 ### Ports
 
@@ -143,8 +160,7 @@ way down (see Multi-channel sheets).
 ### What a net is called
 
 `AllowPortNetNames` (default off) and `AllowSheetEntryNetNames` (default on) decide whether a port
-or an entry may name a net; a net named by nothing else is called after its lowest pin,
-`Net<designator>_<pin>`. When one net carries several names the strongest wins:
+or an entry may name a net. When one net carries several names the strongest wins:
 
 1. a labelled harness member
 2. a net label
@@ -156,19 +172,23 @@ or an entry may name a net; a net named by nothing else is called after its lowe
 `PowerPortNamesTakePriority=1` moves the power port to the front. Between two names of one rank
 the first in sort order wins.
 
+A net nothing names is called after a pin, `Net<designator>_<pin>`: the lowest designator, ordered
+by prefix, then number, then suffix (`R9` before `R11`), and its lowest pin, numbers before names.
+
 A pinless net still names: under `AllowSheetEntryNetNames` an entry on a wire between two entries
 names the net the child sheet's pins end up in.
 
 ### Sheet numbers on local nets
 
-`AppendSheetNumberToLocalNets=1` suffixes a sheet's own nets with its `SheetNumber` document
-parameter: a label `VBAT` on sheet 8 names `VBAT_8`, whether or not another sheet reuses the name.
-A net is the sheet's own when no port, harness or scope-global identifier carries it off the sheet;
-a label wired into a sheet entry is still the sheet's own. Only designer names are numbered: a
-label, or a power port under a scope that makes it local. Pin names (`NetC3_1`) are unique already
-and stay bare. A label on a net that leaves through a port, or through a bus reaching a range
-identifier, is not numbered. The number follows the net onto another sheet that carries it onward
-through a port or harness. A harness member is numbered after the sheet that labels its bundle.
+`AppendSheetNumberToLocalNets=1` suffixes a sheet's own nets with its `SheetNumber`, a parameter
+record on the document itself or on its sheet record; an unnumbered sheet writes `*`. A label
+`VBAT` on sheet 8 names `VBAT_8`, whether or not another sheet reuses the name. A net is the
+sheet's own when no port, harness or scope-global identifier carries it off the sheet; a label
+wired into a sheet entry is still the sheet's own. Only designer names are numbered: a label, or a
+power port under a scope that makes it local. Pin names (`NetC3_1`) are unique already and stay
+bare. A label on a net that leaves through a port, or through a bus reaching a range identifier, is
+not numbered. The number follows the net onto another sheet that carries it onward through a port
+or harness. A harness member is numbered after the sheet that labels its bundle.
 
 ## Buses
 
@@ -302,7 +322,8 @@ A signal harness bundles several signals into one drawn connection. Four records
 
 A connector (`215`) owns the entries (`216`) that follow it in the stream, each naming one member.
 `OwnerIndex` on an entry is often unwritten. The harness type (`217`) names the bundle. The signal
-harness (`218`) carries the whole bundle between objects.
+harness (`218`) carries the whole bundle between objects. A sheet entry that meets a harness is a
+`FileHeader` record, placed on the symbol its `OwnerIndex` names.
 
 ### Placement
 
@@ -395,10 +416,18 @@ harness resolves to its signals recursively. The nesting is declared on the entr
 the `.Harness` file, which lists member names only. A nested member is qualified by the entry that
 reaches it (`PGND.OP_OUT`), so one signal name in two branches is two signals.
 
-## Component instances
+## Components
 
-A component record (`RECORD=1`) is one drawn instance of one part of a library component. Not
-every pin written under it is a connection point.
+A component record (`RECORD=1`) is one drawn instance of one part of a library component. It owns:
+
+| Record | Field | Holds |
+|---|---|---|
+| `34` designator | `Text` | the designator, `R5` |
+| `41` parameter | `Name`, `Text` | a parameter: `Value`, `Manufacturer`, `Manufacturer Part Number`, `Comment`, and any other |
+| `2` pin | `Designator`, `Name` | a pin's number and function |
+
+The component record itself carries `ComponentDescription`. A `Comment` written `=<parameter>`
+shows that parameter's value: `=Value` is the part's value.
 
 **Multi-part components.** A multi-part component (a dual op-amp, a resistor array, an FPGA split
 into banks) writes every part's pins under every instance, with `OwnerPartId` on the pin and

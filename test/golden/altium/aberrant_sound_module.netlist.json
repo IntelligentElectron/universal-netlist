@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-14T18:57:00.929Z",
-    "netlistHash": "sha256:4c1cecda45012260267662290afe99efafb423d8393093abc00c4f64e9d03e1a",
+    "generatedAt": "2026-09-15T00:06:21.527Z",
+    "netlistHash": "sha256:a5a4f924724a97edf128df83f9272a50adca753f5762b5cd1a6e59f5e8acb89e",
     "origin": {
       "type": "vendor",
       "source": {
@@ -1093,20 +1093,6 @@
         "10"
       ]
     },
-    "CLK_AY1": {
-      "DD12_AY1": [
-        "15"
-      ],
-      "DD11": [
-        "5"
-      ],
-      "DD12_AY2": [
-        "15"
-      ],
-      "DD12_AY3": [
-        "15"
-      ]
-    },
     "NetDD12_AY2_5": {
       "R4_AY2": [
         "2"
@@ -1555,6 +1541,20 @@
       "DD7": [
         "11"
       ]
+    },
+    "CLK_AY1": {
+      "DD12_AY1": [
+        "15"
+      ],
+      "DD11": [
+        "5"
+      ],
+      "DD12_AY2": [
+        "15"
+      ],
+      "DD12_AY3": [
+        "15"
+      ]
     }
   },
   "components": {
@@ -1619,7 +1619,7 @@
           "net": ""
         }
       },
-      "description": "ÈÄ7 3 to 8 DEMUX",
+      "description": "ИД7 3 to 8 DEMUX",
       "comment": "74x138",
       "value": "*"
     },
@@ -1643,7 +1643,7 @@
           "net": ""
         }
       },
-      "description": "ËÀ2 8NAND",
+      "description": "ЛА2 8NAND",
       "comment": "74x30",
       "value": "*"
     },
@@ -1670,7 +1670,7 @@
           "net": ""
         }
       },
-      "description": "ËÅ4 3x3NOR",
+      "description": "ЛЕ4 3x3NOR",
       "comment": "74x27",
       "value": "*"
     },
@@ -1697,7 +1697,7 @@
           "net": ""
         }
       },
-      "description": "ËÈ1 4x2AND",
+      "description": "ЛИ1 4x2AND",
       "comment": "74x08",
       "value": "*"
     },
@@ -1791,7 +1791,7 @@
           "net": ""
         }
       },
-      "description": "ÈÐ22 transparent latch",
+      "description": "ИР22 transparent latch",
       "comment": "74x573",
       "value": "*"
     },
@@ -1878,7 +1878,7 @@
           "net": ""
         }
       },
-      "description": "ÈÐ22 transparent latch",
+      "description": "ИР22 transparent latch",
       "comment": "74x573",
       "value": "*"
     },
@@ -1905,7 +1905,7 @@
           "net": ""
         }
       },
-      "description": "ËÀ13 4x2NAND O.C.",
+      "description": "ЛА13 4x2NAND O.C.",
       "comment": "74x38",
       "value": "*"
     },
@@ -1919,7 +1919,7 @@
     "DD11": {
       "pins": {
         "1": {
-          "name": "Ñ",
+          "name": "С",
           "net": "NetDD11_1"
         },
         "2": {
@@ -1967,7 +1967,7 @@
           "net": "GND"
         },
         "13": {
-          "name": "Ñ",
+          "name": "С",
           "net": "GND"
         },
         "14": {
@@ -1975,7 +1975,7 @@
           "net": ""
         }
       },
-      "description": "ÈÅ19",
+      "description": "ИЕ19",
       "comment": "74x393",
       "value": "*"
     },
@@ -2215,6 +2215,7 @@
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "10u"
     },
     "DD12_AY1": {
@@ -2340,6 +2341,7 @@
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "0.1u"
     },
     "C26_AY1": {
@@ -2347,6 +2349,7 @@
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "4.7u"
     },
     "R4_AY2": {
@@ -2382,6 +2385,7 @@
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "10u"
     },
     "DD12_AY2": {
@@ -2507,6 +2511,7 @@
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "0.1u"
     },
     "C26_AY2": {
@@ -2514,6 +2519,7 @@
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "4.7u"
     },
     "R4_AY3": {
@@ -2549,6 +2555,7 @@
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "10u"
     },
     "DD12_AY3": {
@@ -2674,6 +2681,7 @@
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "0.1u"
     },
     "C26_AY3": {
@@ -2681,6 +2689,7 @@
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "4.7u"
     },
     "P2": {
@@ -2906,6 +2915,7 @@
         "1": "L_IN3",
         "2": "NetC28_2"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "10u"
     },
     "C37": {
@@ -2913,6 +2923,7 @@
         "1": "R_IN3",
         "2": "NetC37_2"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "10u"
     },
     "C29": {
@@ -2920,6 +2931,7 @@
         "1": "NetC29_1",
         "2": "NetC29_2"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "10u"
     },
     "C35": {
@@ -2927,6 +2939,7 @@
         "1": "NetC35_1",
         "2": "NetC35_2"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "10u"
     },
     "C31": {
@@ -2934,6 +2947,7 @@
         "1": "NetC17_2",
         "2": "NetC31_2"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "10u"
     },
     "C27": {
@@ -2941,6 +2955,7 @@
         "1": "NetC27_1",
         "2": "NetC27_2"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "10u"
     },
     "C36": {
@@ -2948,6 +2963,7 @@
         "1": "NetC36_1",
         "2": "NetC36_2"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "10u"
     },
     "C32": {
@@ -2955,6 +2971,7 @@
         "1": "GND",
         "2": "NetC32_2"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "10u"
     },
     "C30": {
@@ -2962,6 +2979,7 @@
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "10u"
     },
     "C33": {
@@ -2969,6 +2987,7 @@
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "0.1u"
     },
     "C34": {
@@ -2976,6 +2995,7 @@
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "4.7u"
     },
     "C39": {
@@ -2983,6 +3003,7 @@
         "1": "NetC36_1",
         "2": "NetC39_2"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "1200 NC",
       "dns": true
     },
@@ -2991,6 +3012,7 @@
         "1": "NetC27_1",
         "2": "NetC38_2"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "1200 NC",
       "dns": true
     },
@@ -2999,6 +3021,7 @@
         "1": "GND",
         "2": "NetC17_2"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "Cap"
     },
     "P4": {
@@ -3430,6 +3453,7 @@
           "net": ""
         }
       },
+      "description": "ЛП19 6 buffers",
       "comment": "74x1034",
       "value": "*"
     },
@@ -3466,6 +3490,7 @@
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "10u"
     },
     "C4": {
@@ -3473,6 +3498,7 @@
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "10u"
     },
     "C1": {
@@ -3480,6 +3506,7 @@
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "0.1u"
     },
     "C2": {
@@ -3487,6 +3514,7 @@
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "4.7u"
     },
     "C5": {
@@ -3494,6 +3522,7 @@
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "0.1u"
     },
     "C7": {
@@ -3501,6 +3530,7 @@
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "4.7u"
     },
     "C6": {
@@ -3508,6 +3538,7 @@
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "0.1u"
     },
     "C8": {
@@ -3515,6 +3546,7 @@
         "1": "GND",
         "2": "+5"
       },
+      "description": "Murata ceramic capacitor",
       "comment": "4.7u"
     }
   }

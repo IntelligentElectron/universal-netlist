@@ -1,16 +1,15 @@
 /**
- * Altium schematic geometry, in integer scaled units.
- *
- * Every coordinate and size a record carries is read here, so the net extractor,
- * the bus code and the harness code place objects identically.
+ * Schematic geometry in scaled integer units: where objects sit and when they touch.
  */
+
+import { field, toNumber } from "./records.js";
 
 export type Point = [number, number];
 
 /** Scaled units per schematic unit; `_Frac` fields count hundred-thousandths. */
 export const COORDINATE_SCALE = 100000;
 
-/** How far apart two points may be and still touch: 0.5 units. Imported designs meet up to 0.315 apart. */
+/** How far apart two points may be and still touch: half a unit. */
 export const TOUCH_TOLERANCE = COORDINATE_SCALE / 2;
 
 /** Units per `DistanceFromTop` step along a sheet symbol or harness connector edge. */
@@ -21,23 +20,7 @@ const ENTRY_FRACTION_SCALE = 1_000_000;
 
 type Fields = Readonly<Record<string, unknown>>;
 
-export const toNumber = (value: unknown): number => {
-  if (value === undefined || value === null || value === "") return 0;
-  const parsed = Number(value);
-  return Number.isFinite(parsed) ? parsed : 0;
-};
-
-/** A field under its written key or its upper-case form, which older files use. */
-export const field = (record: Fields, key: string): unknown =>
-  record[key] ?? record[key.toUpperCase()];
-
-/** A coordinate or size `key` plus its `key_Frac`, in scaled units. */
-/** The name a record is written with, `Name` or else `Text`. */
-export const recordName = (record: Fields): string | undefined => {
-  const name = field(record, "Name") ?? field(record, "Text");
-  return name === undefined || name === null || name === "" ? undefined : String(name);
-};
-
+/** A coordinate or size `key` plus its `key_Frac`. */
 export const scaledField = (record: Fields, key: string): number =>
   Math.round(
     toNumber(field(record, key)) * COORDINATE_SCALE + toNumber(field(record, `${key}_Frac`))

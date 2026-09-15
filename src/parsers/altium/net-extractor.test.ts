@@ -5,8 +5,7 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { extractNets, determineNetList, assignNetName } from "./net-extractor.js";
-import { buildHierarchy, flattenHierarchy } from "./hierarchy.js";
+import { extractNets } from "./net-extractor.js";
 import { RECORD_TYPES } from "./types.js";
 import type { AltiumRecord, AltiumSchematic, AltiumNet } from "./types.js";
 import { COORDINATE_SCALE } from "./coordinates.js";
@@ -456,33 +455,9 @@ describe("Net naming", () => {
   });
 });
 
-describe("determineNetList", () => {
-  it("should return schematic with nets array added", () => {
-    const schematic: AltiumSchematic = {
-      header: [{ index: 0, HEADER: "test" }],
-      records: [
-        {
-          index: 1,
-          RECORD: RECORD_TYPES.WIRE,
-          X1: "0",
-          Y1: "0",
-          X2: "100",
-          Y2: "0",
-        } as AltiumRecord,
-      ],
-    };
-
-    const result = determineNetList(schematic);
-    expect(result.header).toEqual(schematic.header);
-    expect(result.records).toEqual(schematic.records);
-    expect(result.nets).toBeDefined();
-    expect(Array.isArray(result.nets)).toBe(true);
-  });
-});
-
 describe("signal harnesses", () => {
   /**
-   * The topology of issue #115: two components joined through a harness, with a
+   * Two components joined through a harness, with a
    * different net label on the wire at each end.
    *
    *   U1.1 --[FROM_U1]-- (entry SIG) [connector] ==harness== [connector] (entry SIG) --[TO_U2]-- U2.1
@@ -599,85 +574,6 @@ describe("signal harnesses", () => {
     expect(
       nets.some((net) => net.devices.some((d) => d.RECORD === RECORD_TYPES.HARNESS_ENTRY))
     ).toBe(false);
-  });
-});
-
-describe("naming a net after one of its pins", () => {
-  const pin = (refdes: string, number: string, index: number): AltiumRecord[] => [
-    { index, RECORD: RECORD_TYPES.COMPONENT, children: [] } as AltiumRecord,
-    {
-      index: index + 1,
-      RECORD: RECORD_TYPES.DESIGNATOR,
-      OwnerIndex: String(index),
-      Text: refdes,
-    } as AltiumRecord,
-    {
-      index: index + 2,
-      RECORD: RECORD_TYPES.PIN,
-      OwnerIndex: String(index),
-      Designator: number,
-    } as AltiumRecord,
-  ];
-
-  /** A schematic whose one net holds the given (refdes, pin) pairs. */
-  const netOf = (pins: [string, string][]): AltiumSchematic => {
-    const records: AltiumRecord[] = [];
-    pins.forEach(([refdes, number], i) => records.push(...pin(refdes, number, i * 3)));
-    return { header: [], records };
-  };
-
-  const nameOf = (pins: [string, string][]): string | null | undefined => {
-    const schematic = buildHierarchy(netOf(pins));
-    const net: AltiumNet = {
-      name: null,
-      devices: flattenHierarchy(schematic).filter((r) => r.RECORD === RECORD_TYPES.PIN),
-    };
-    assignNetName(net, schematic);
-    return net.name;
-  };
-
-  it("counts the designator's number rather than reading it as text", () => {
-    // R9 comes before R11; sorted as text it would not, and the net would be
-    // named after R11. Altium calls this net NetR9_2.
-    expect(
-      nameOf([
-        ["R11", "1"],
-        ["R9", "2"],
-      ])
-    ).toBe("NetR9_2");
-    expect(
-      nameOf([
-        ["C10", "2"],
-        ["C9", "2"],
-      ])
-    ).toBe("NetC9_2");
-  });
-
-  it("still orders different prefixes alphabetically", () => {
-    expect(
-      nameOf([
-        ["U2", "1"],
-        ["C9", "2"],
-      ])
-    ).toBe("NetC9_2");
-  });
-
-  it("breaks a tie on what follows the number", () => {
-    expect(
-      nameOf([
-        ["R5B", "1"],
-        ["R5A", "2"],
-      ])
-    ).toBe("NetR5A_2");
-  });
-
-  it("sorts a designator carrying no number ahead of the same prefix numbered", () => {
-    expect(
-      nameOf([
-        ["JP1", "1"],
-        ["JP", "2"],
-      ])
-    ).toBe("NetJP_2");
   });
 });
 

@@ -1,10 +1,6 @@
 import { describe, it, expect } from "vitest";
-import {
-  isSheetBound,
-  planLocalNetRenames,
-  applyNetRenames,
-  noNetIdentifiers,
-} from "./net-scoping.js";
+import { isSheetBound, planLocalNetRenames, noNetIdentifiers } from "./net-scoping.js";
+import { applyNetRenames } from "./netlist.js";
 import type { NetIdentifierKinds, SheetNetScope } from "./net-scoping.js";
 import type { ParsedNetlist } from "../../types.js";
 
@@ -364,7 +360,7 @@ describe("planLocalNetRenames on harness members under other scopes", () => {
 
   it("leaves a member alone, because under Global the bundle's label is not a sheet's", () => {
     // Global is the one scope where a label reaches every sheet, so nothing a
-    // label names is sheet-local — the bundle included.
+    // label names is sheet-local, the bundle included.
     const plans = planLocalNetRenames(
       [
         sheet("1", { USART2: { label: true } }),

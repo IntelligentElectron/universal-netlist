@@ -9,7 +9,7 @@ import {
   portBundle,
   entryBundle,
 } from "./harness.js";
-import type { HarnessRecord } from "./harness.js";
+import type { RecordFields } from "./types.js";
 
 /**
  * The verbatim contents of a real `.Harness` sidecar, including the nested type
@@ -143,7 +143,7 @@ describe("readHarnessConnectors", () => {
   it("places entries on the connector's left edge at the verified pitch", () => {
     // Geometry taken from a real sheet, where the five wires landing on this
     // connector end at y = 660, 650, 580, 570 and 540.
-    const records: HarnessRecord[] = [
+    const records: RecordFields[] = [
       {
         RECORD: "215",
         "Location.X": "410",
@@ -173,7 +173,7 @@ describe("readHarnessConnectors", () => {
   });
 
   it("leaves a connector marked 2 from its top edge, and one marked 3 from its bottom", () => {
-    const records: HarnessRecord[] = [
+    const records: RecordFields[] = [
       {
         RECORD: "215",
         "Location.X": "450",
@@ -210,7 +210,7 @@ describe("readHarnessConnectors", () => {
     // Taken from a real bulkhead sheet: the connector writes no
     // HarnessConnectorSide and each entry carries Side=1, which is the same
     // arrangement mirrored. Its four wires end at x = 330.
-    const records: HarnessRecord[] = [
+    const records: RecordFields[] = [
       { RECORD: "215", "Location.X": "230", "Location.Y": "250", XSize: "100" },
       { RECORD: "216", Name: "DRIVER_SWITCH_1", Side: "1", DistanceFromTop: "1" },
       { RECORD: "216", Name: "DRIVER_SWITCH_2", Side: "1", DistanceFromTop: "2" },
@@ -226,7 +226,7 @@ describe("readHarnessConnectors", () => {
   it("reads a fractional distance from the top", () => {
     // A real sheet puts an entry half a step down, and its wire ends at
     // y = 450 rather than 455.
-    const records: HarnessRecord[] = [
+    const records: RecordFields[] = [
       { RECORD: "215", "Location.X": "815", "Location.Y": "465", XSize: "70" },
       {
         RECORD: "216",
@@ -248,7 +248,7 @@ describe("readHarnessConnectors", () => {
   it("assigns entries to the most recent connector, not by OwnerIndex", () => {
     // OwnerIndex is present on some entries and absent on others in real files,
     // so stream order is what links an entry to its connector.
-    const records: HarnessRecord[] = [
+    const records: RecordFields[] = [
       { RECORD: "215", "Location.X": "100", "Location.Y": "500", HarnessConnectorSide: "1" },
       { RECORD: "216", Name: "A", DistanceFromTop: "1" },
       { RECORD: "215", "Location.X": "300", "Location.Y": "800", HarnessConnectorSide: "1" },
@@ -267,7 +267,7 @@ describe("readHarnessConnectors", () => {
     // Read as written it would sit at the origin, where its entries would all
     // appear to touch each other and its outgoing connection could be taken for
     // any harness line reaching that point.
-    const records: HarnessRecord[] = [
+    const records: RecordFields[] = [
       { RECORD: "215", XSize: "50" },
       { RECORD: "216", Name: "X", DistanceFromTop: "1" },
     ];
@@ -277,14 +277,14 @@ describe("readHarnessConnectors", () => {
   });
 
   it("ignores an entry with no preceding connector", () => {
-    const records: HarnessRecord[] = [{ RECORD: "216", Name: "orphan", DistanceFromTop: "1" }];
+    const records: RecordFields[] = [{ RECORD: "216", Name: "orphan", DistanceFromTop: "1" }];
 
     expect(readHarnessConnectors(records)).toEqual([]);
   });
 
   it("puts the bundle's outgoing connection on the edge opposite the entries", () => {
     // Taken from a real sheet: this connector's harness line runs from (760,400).
-    const records: HarnessRecord[] = [
+    const records: RecordFields[] = [
       {
         RECORD: "215",
         "Location.X": "690",
@@ -303,7 +303,7 @@ describe("assignHarnessSignals", () => {
   const at = (x: number, y: number) => ({ "Location.X": String(x), "Location.Y": String(y) });
 
   /** Two connectors of one type, wired to each other by a harness line. */
-  const bundlePair = (): HarnessRecord[] => [
+  const bundlePair = (): RecordFields[] => [
     // Bundles: entries on the left, line leaves from the right at (760,400).
     {
       RECORD: "215",
@@ -318,7 +318,7 @@ describe("assignHarnessSignals", () => {
     { RECORD: "216", Name: "OP_OUT", Side: "1", DistanceFromTop: "1" },
   ];
 
-  const harnessLine = (x1: number, y1: number, x2: number, y2: number): HarnessRecord => ({
+  const harnessLine = (x1: number, y1: number, x2: number, y2: number): RecordFields => ({
     RECORD: "218",
     LocationCount: "2",
     X1: String(x1),
@@ -331,10 +331,7 @@ describe("assignHarnessSignals", () => {
     const records = bundlePair();
     const connectors = readHarnessConnectors(records);
 
-    assignHarnessSignals(connectors, {
-      records: [],
-      buses: [harnessLine(760, 400, 815, 400)],
-    });
+    assignHarnessSignals(connectors, [], [harnessLine(760, 400, 815, 400)]);
 
     expect(records[1].harnessSignal).toBeDefined();
     expect(records[3].harnessSignal).toBe(records[1].harnessSignal);
@@ -343,7 +340,7 @@ describe("assignHarnessSignals", () => {
   it("keeps two harnesses of the same type apart", () => {
     // A wiring harness may draw one identical bundle per sensor, each entry
     // named SIGNAL. Only the port they leave through tells them apart.
-    const records: HarnessRecord[] = [
+    const records: RecordFields[] = [
       { RECORD: "215", ...at(240, 180), XSize: "60", PrimaryConnectionPosition: "20" },
       { RECORD: "216", Name: "SIGNAL", Side: "1", DistanceFromTop: "2" },
       { RECORD: "215", ...at(240, 120), XSize: "60", PrimaryConnectionPosition: "20" },
@@ -351,13 +348,14 @@ describe("assignHarnessSignals", () => {
     ];
     const connectors = readHarnessConnectors(records);
 
-    assignHarnessSignals(connectors, {
-      records: [
+    assignHarnessSignals(
+      connectors,
+      [
         { RECORD: "18", Name: "FL_DAMPER_POT", ...at(80, 160), Width: "160", HarnessType: "S" },
         { RECORD: "18", Name: "FR_DAMPER_POT", ...at(80, 100), Width: "160", HarnessType: "S" },
       ],
-      buses: [],
-    });
+      []
+    );
 
     expect(records[1].harnessSignal).toBe(harnessSignalKey(portBundle("FL_DAMPER_POT"), "SIGNAL"));
     expect(records[3].harnessSignal).toBe(harnessSignalKey(portBundle("FR_DAMPER_POT"), "SIGNAL"));
@@ -369,10 +367,11 @@ describe("assignHarnessSignals", () => {
     const records = bundlePair();
     const connectors = readHarnessConnectors(records);
 
-    assignHarnessSignals(connectors, {
-      records: [{ RECORD: "25", Text: "HARD", ...at(790, 400) }],
-      buses: [harnessLine(760, 400, 815, 400)],
-    });
+    assignHarnessSignals(
+      connectors,
+      [{ RECORD: "25", Text: "HARD", ...at(790, 400) }],
+      [harnessLine(760, 400, 815, 400)]
+    );
 
     expect(records[1].harnessNetName).toBe("HARD.OP_OUT");
     expect(records[3].harnessNetName).toBe("HARD.OP_OUT");
@@ -382,10 +381,7 @@ describe("assignHarnessSignals", () => {
     const records = bundlePair();
     const connectors = readHarnessConnectors(records);
 
-    assignHarnessSignals(connectors, {
-      records: [],
-      buses: [harnessLine(760, 400, 815, 400)],
-    });
+    assignHarnessSignals(connectors, [], [harnessLine(760, 400, 815, 400)]);
 
     expect(records[1].harnessNetName).toBeUndefined();
   });
@@ -393,21 +389,29 @@ describe("assignHarnessSignals", () => {
   it("reports the sheet entries a harness line joins as one bundle", () => {
     // A top sheet may join a bulkhead's bundle to the sheet that feeds it,
     // where the same bundle goes by a different port name.
-    const links = assignHarnessSignals([], {
-      records: [
+    const links = assignHarnessSignals(
+      [],
+      [
         { RECORD: "15", ...at(520, 630), XSize: "370" },
-        { RECORD: "16", Name: "TRANSPONDER_POWER_UL", DistanceFromTop: "2", HarnessType: "P" },
+        {
+          RECORD: "16",
+          OwnerIndex: "0",
+          Name: "TRANSPONDER_POWER_UL",
+          DistanceFromTop: "2",
+          HarnessType: "P",
+        },
         { RECORD: "15", ...at(310, 730), XSize: "220" },
         {
           RECORD: "16",
+          OwnerIndex: "2",
           Name: "TRANSPONDER_POWER",
           Side: "1",
           DistanceFromTop: "3",
           HarnessType: "P",
         },
       ],
-      buses: [harnessLine(520, 610, 530, 700)],
-    });
+      [harnessLine(520, 610, 530, 700)]
+    );
 
     expect(links).toEqual([
       [entryBundle(0, "TRANSPONDER_POWER_UL"), entryBundle(2, "TRANSPONDER_POWER")],
@@ -415,29 +419,45 @@ describe("assignHarnessSignals", () => {
   });
 
   it("places a harness sheet entry on the top edge of its symbol", () => {
-    const links = assignHarnessSignals([], {
-      records: [
+    const links = assignHarnessSignals(
+      [],
+      [
         { RECORD: "15", ...at(520, 630), XSize: "370" },
-        { RECORD: "16", Name: "ON_TOP", Side: "2", DistanceFromTop: "2", HarnessType: "P" },
+        {
+          RECORD: "16",
+          OwnerIndex: "0",
+          Name: "ON_TOP",
+          Side: "2",
+          DistanceFromTop: "2",
+          HarnessType: "P",
+        },
         { RECORD: "15", ...at(560, 720), XSize: "40" },
-        { RECORD: "16", Name: "ON_RIGHT", Side: "1", DistanceFromTop: "2", HarnessType: "P" },
+        {
+          RECORD: "16",
+          OwnerIndex: "2",
+          Name: "ON_RIGHT",
+          Side: "1",
+          DistanceFromTop: "2",
+          HarnessType: "P",
+        },
       ],
-      buses: [harnessLine(540, 630, 600, 700)],
-    });
+      [harnessLine(540, 630, 600, 700)]
+    );
 
     expect(links).toEqual([[entryBundle(0, "ON_TOP"), entryBundle(2, "ON_RIGHT")]]);
   });
 
   /** A connector whose bundle leaves its left edge at (240,160). */
-  const leftConnector = (): HarnessRecord[] => [
+  const leftConnector = (): RecordFields[] => [
     { RECORD: "215", ...at(240, 180), XSize: "60", PrimaryConnectionPosition: "20" },
     { RECORD: "216", Name: "SIGNAL", Side: "1", DistanceFromTop: "2" },
   ];
 
   it("names a bundle by a port whose end is within the touch tolerance", () => {
     const records = leftConnector();
-    assignHarnessSignals(readHarnessConnectors(records), {
-      records: [
+    assignHarnessSignals(
+      readHarnessConnectors(records),
+      [
         {
           RECORD: "18",
           Name: "POT",
@@ -447,26 +467,25 @@ describe("assignHarnessSignals", () => {
           HarnessType: "S",
         },
       ],
-      buses: [],
-    });
+      []
+    );
 
     expect(records[1].harnessSignal).toBe(harnessSignalKey(portBundle("POT"), "SIGNAL"));
   });
 
   it("meets a vertical harness port at its top end", () => {
     const records = leftConnector();
-    assignHarnessSignals(readHarnessConnectors(records), {
-      records: [
-        { RECORD: "18", Name: "POT", ...at(240, 100), Width: "60", Style: "4", HarnessType: "S" },
-      ],
-      buses: [],
-    });
+    assignHarnessSignals(
+      readHarnessConnectors(records),
+      [{ RECORD: "18", Name: "POT", ...at(240, 100), Width: "60", Style: "4", HarnessType: "S" }],
+      []
+    );
 
     expect(records[1].harnessSignal).toBe(harnessSignalKey(portBundle("POT"), "SIGNAL"));
   });
 
   it("reads records written with upper-case keys", () => {
-    const records: HarnessRecord[] = [
+    const records: RecordFields[] = [
       {
         RECORD: "215",
         "LOCATION.X": "240",
@@ -476,8 +495,9 @@ describe("assignHarnessSignals", () => {
       },
       { RECORD: "216", NAME: "SIGNAL", SIDE: "1", DISTANCEFROMTOP: "2" },
     ];
-    assignHarnessSignals(readHarnessConnectors(records), {
-      records: [
+    assignHarnessSignals(
+      readHarnessConnectors(records),
+      [
         {
           RECORD: "18",
           NAME: "POT",
@@ -487,8 +507,8 @@ describe("assignHarnessSignals", () => {
           HARNESSTYPE: "S",
         },
       ],
-      buses: [],
-    });
+      []
+    );
 
     expect(records[1]["Location.X"]).toBe("300");
     expect(records[1].harnessSignal).toBe(harnessSignalKey(portBundle("POT"), "SIGNAL"));
@@ -496,114 +516,122 @@ describe("assignHarnessSignals", () => {
 
   it("joins harness lines that meet within the touch tolerance", () => {
     const records = bundlePair();
-    assignHarnessSignals(readHarnessConnectors(records), {
-      records: [],
-      buses: [
-        harnessLine(760, 400, 790, 400),
-        { ...harnessLine(790, 400, 815, 400), X1_Frac: "5000" },
-      ],
-    });
+    assignHarnessSignals(
+      readHarnessConnectors(records),
+      [],
+      [harnessLine(760, 400, 790, 400), { ...harnessLine(790, 400, 815, 400), X1_Frac: "5000" }]
+    );
 
     expect(records[3].harnessSignal).toBe(records[1].harnessSignal);
   });
 
   /** A connector leaving through the port TOP, with the entry SUB at (460,280). */
-  const parentConnector = (): HarnessRecord[] => [
+  const parentConnector = (): RecordFields[] => [
     { RECORD: "215", ...at(400, 300), XSize: "60", PrimaryConnectionPosition: "20" },
     { RECORD: "216", Name: "SUB", DistanceFromTop: "2" },
   ];
-  const topPort: HarnessRecord = { RECORD: "18", Name: "TOP", ...at(300, 280), Width: "100" };
+  const topPort: RecordFields = { RECORD: "18", Name: "TOP", ...at(300, 280), Width: "100" };
   const nestedSignal = harnessSignalKey(harnessSignalKey(portBundle("TOP"), "SUB"), "EN");
 
   it("gives a connector on a harness from another connector's entry that entry's member", () => {
-    const records: HarnessRecord[] = [
+    const records: RecordFields[] = [
       ...parentConnector(),
       { RECORD: "215", ...at(520, 300), XSize: "60", PrimaryConnectionPosition: "20" },
       { RECORD: "216", Name: "EN", DistanceFromTop: "1" },
     ];
-    assignHarnessSignals(readHarnessConnectors(records), {
-      records: [topPort],
-      buses: [harnessLine(460, 280, 520, 280)],
-    });
+    assignHarnessSignals(
+      readHarnessConnectors(records),
+      [topPort],
+      [harnessLine(460, 280, 520, 280)]
+    );
 
     expect(records[3].harnessSignal).toBe(nestedSignal);
   });
 
   it("nests a connector whose primary meets another connector's entry directly", () => {
-    const records: HarnessRecord[] = [
+    const records: RecordFields[] = [
       ...parentConnector(),
       { RECORD: "215", ...at(460, 300), XSize: "60", PrimaryConnectionPosition: "20" },
       { RECORD: "216", Name: "EN", DistanceFromTop: "1" },
     ];
-    assignHarnessSignals(readHarnessConnectors(records), { records: [topPort], buses: [] });
+    assignHarnessSignals(readHarnessConnectors(records), [topPort], []);
 
     expect(records[3].harnessSignal).toBe(nestedSignal);
   });
 
   it("reports a sheet entry a connector's entry reaches as one bundle with that member", () => {
-    const links = assignHarnessSignals(readHarnessConnectors(parentConnector()), {
-      records: [
+    const links = assignHarnessSignals(
+      readHarnessConnectors(parentConnector()),
+      [
         topPort,
         { RECORD: "15", ...at(520, 300), XSize: "40" },
-        { RECORD: "16", Name: "DRIVER", DistanceFromTop: "2", HarnessType: "D" },
+        { RECORD: "16", OwnerIndex: "1", Name: "DRIVER", DistanceFromTop: "2", HarnessType: "D" },
       ],
-      buses: [harnessLine(460, 280, 520, 280)],
-    });
+      [harnessLine(460, 280, 520, 280)]
+    );
 
     expect(links).toEqual([[entryBundle(1, "DRIVER"), harnessSignalKey(portBundle("TOP"), "SUB")]]);
   });
 
   it("joins a harness line that ends part way along another", () => {
     const records = bundlePair();
-    assignHarnessSignals(readHarnessConnectors(records), {
-      records: [],
-      buses: [
+    assignHarnessSignals(
+      readHarnessConnectors(records),
+      [],
+      [
         harnessLine(760, 400, 760, 300),
         { ...harnessLine(815, 400, 815, 350), LocationCount: "3", X3: "760", Y3: "350" },
-      ],
-    });
+      ]
+    );
 
     expect(records[3].harnessSignal).toBe(records[1].harnessSignal);
   });
 
   it("meets a sheet entry drawn on a connector's primary", () => {
     const records = leftConnector();
-    assignHarnessSignals(readHarnessConnectors(records), {
-      records: [
+    assignHarnessSignals(
+      readHarnessConnectors(records),
+      [
         { RECORD: "15", ...at(140, 180), XSize: "100" },
-        { RECORD: "16", Name: "POT", Side: "1", DistanceFromTop: "2", HarnessType: "S" },
+        {
+          RECORD: "16",
+          OwnerIndex: "0",
+          Name: "POT",
+          Side: "1",
+          DistanceFromTop: "2",
+          HarnessType: "S",
+        },
       ],
-      buses: [],
-    });
+      []
+    );
 
     expect(records[1].harnessSignal).toBe(harnessSignalKey(entryBundle(0, "POT"), "SIGNAL"));
   });
 
   it("takes an entry meeting a plain port for one signal, and a harness port for a bundle", () => {
     const at460 = { ...at(410, 280), Width: "50" };
-    const plain = assignHarnessSignals(readHarnessConnectors(parentConnector()), {
-      records: [topPort, { RECORD: "18", Name: "SUB", ...at460 }],
-      buses: [],
-    });
-    const typed = assignHarnessSignals(readHarnessConnectors(parentConnector()), {
-      records: [topPort, { RECORD: "18", Name: "SUB", ...at460, HarnessType: "D" }],
-      buses: [],
-    });
+    const plain = assignHarnessSignals(
+      readHarnessConnectors(parentConnector()),
+      [topPort, { RECORD: "18", Name: "SUB", ...at460 }],
+      []
+    );
+    const typed = assignHarnessSignals(
+      readHarnessConnectors(parentConnector()),
+      [topPort, { RECORD: "18", Name: "SUB", ...at460, HarnessType: "D" }],
+      []
+    );
 
     expect(plain).toEqual([]);
     expect(typed).toEqual([[portBundle("SUB"), harnessSignalKey(portBundle("TOP"), "SUB")]]);
   });
 
   it("leaves a connector that reaches no harness line or port alone", () => {
-    const records: HarnessRecord[] = [
+    const records: RecordFields[] = [
       { RECORD: "215", ...at(10, 20), XSize: "50", PrimaryConnectionPosition: "5" },
       { RECORD: "216", Name: "X", Side: "1", DistanceFromTop: "1" },
     ];
 
-    assignHarnessSignals(readHarnessConnectors(records), {
-      records: [],
-      buses: [],
-    });
+    assignHarnessSignals(readHarnessConnectors(records), [], []);
 
     expect(records[1].harnessSignal).toBeUndefined();
   });

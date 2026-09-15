@@ -1,31 +1,22 @@
 /**
- * Sheet-local net scoping
- *
- * A net that never leaves the sheet it is drawn on belongs to that sheet alone,
- * so the same name on two sheets describes two different pieces of copper.
- * Altium keeps those apart on the board by appending the sheet number; this is
- * where a project's sheets are read for that, and where the renaming is planned.
+ * `AppendSheetNumberToLocalNets`: a net a sheet names and keeps to itself carries the
+ * sheet's `SheetNumber`, so same-named local nets on two sheets stay apart.
  */
 
-import type { NetConnections, ComponentDetails, ParsedNetlist } from "../../types.js";
-import type { NetIdentifierScope } from "./project-options.js";
-import { netLabelsAreGlobal, powerPortsAreGlobal } from "./project-options.js";
+import {
+  netLabelsAreGlobal,
+  powerPortsAreGlobal,
+  type NetIdentifierScope,
+} from "./project-options.js";
 
-/** The kinds of net identifier drawn on one net, which decide how far it reaches. */
+/** The identifier kinds on one net. */
 export interface NetIdentifierKinds {
-  /** A port, which carries the net off the sheet under any scope. */
   port: boolean;
-  /**
-   * A sheet entry, which leads down into a child sheet. It does not make the
-   * net any less this sheet's own: Altium numbers a label wired straight into
-   * a sheet entry just as it numbers one wired to nothing else.
-   */
+  /** A sheet entry leads into a child sheet; the net stays its sheet's own. */
   entry: boolean;
-  /** A power port, global except under Strict Hierarchical. */
   powerPort: boolean;
-  /** A net label, which reaches other sheets only under Global. */
   label: boolean;
-  /** A signal harness, whose members are matched across sheets by signal key. */
+  /** A harness member, matched across sheets by signal. */
   harness: boolean;
 }
 
@@ -38,216 +29,90 @@ export const noNetIdentifiers = (): NetIdentifierKinds => ({
 });
 
 /**
- * Whether a net stays on the sheet it is drawn on.
- *
- * A net leaves its sheet through a port or a power port, so a net carrying one
- * of those is the same net wherever else it appears and keeps a single name
- * across the project. A net carrying neither is named only by a label its
- * designer wrote or by one of its own pins, and two sheets that happen to use
- * that name are describing two different nets. A sheet entry does not count:
- * every one of the 48 labels wired into a sheet entry on the solarcar-bms
- * board carries its sheet number, exactly as a label wired to nothing else.
- *
- * The scope decides which identifiers count. Under Global a net label reaches
- * every sheet, so it holds a net open too; under Strict Hierarchical even a
- * power port is local.
+ * Whether a net stays on its sheet: no port or harness carries it off, nor a power port
+ * or net label the scope makes global.
  */
-export const isSheetBound = (kinds: NetIdentifierKinds, scope: NetIdentifierScope): boolean => {
-  if (kinds.port || kinds.harness) return false;
-  if (kinds.powerPort && powerPortsAreGlobal(scope)) return false;
-  if (kinds.label && netLabelsAreGlobal(scope)) return false;
-  return true;
-};
+export const isSheetBound = (kinds: NetIdentifierKinds, scope: NetIdentifierScope): boolean =>
+  !kinds.port &&
+  !kinds.harness &&
+  !(kinds.powerPort && powerPortsAreGlobal(scope)) &&
+  !(kinds.label && netLabelsAreGlobal(scope));
 
-/** One sheet's contribution to the project, as the scoping pass needs to see it. */
+/** One sheet, as sheet numbering reads it. */
 export interface SheetNetScope {
-  /** The sheet's `SheetNumber` document parameter, when it carries one. */
   sheetNumber?: string;
-  /** Which kinds of net identifier each of this sheet's nets carries. */
   netIdentifiers: ReadonlyMap<string, NetIdentifierKinds>;
 }
 
 /**
- * Work out, for every sheet, which of its nets carry the sheet's number.
+ * Each sheet's renames to `<name>_<SheetNumber>`, in the order the sheets are given.
  *
- * Altium suffixes a sheet-local net whether or not another sheet happens to
- * reuse the name: a board carries `VBAT_8` for a `VBAT` label drawn on sheet 8
- * and nowhere else. So the suffix follows from the net being the sheet's own, not
- * from a collision, and a name two sheets do reuse is separated as a
- * consequence rather than as a special case.
- *
- * Only a net a designer named is suffixed. A net named after one of its own
- * pins, `NetC3_1`, is already unique across the board because the refdes is,
- * and Altium leaves those alone: every board read for this carries them bare.
- *
- * Returns one rename map per sheet, in the order the sheets were given.
+ * A sheet-bound net named by a label, or by a power port the scope makes local, takes
+ * its sheet's number whether or not another sheet uses the name; a pin name stays bare.
+ * Where only one sheet claims a name, the number follows that net onto sheets carrying
+ * it onward through a port or harness. A harness member `<label>.<entry>` takes the
+ * number of the one sheet labelling its bundle. No rename takes a name already in use.
  */
 export const planLocalNetRenames = (
   sheets: readonly SheetNetScope[],
   scope: NetIdentifierScope
 ): Map<string, string>[] => {
-  // Every name the project already uses, on any sheet. A suffixed name that
-  // collides with one of these is a name the design gave to something else.
-  const namesInUse = new Set<string>();
-  for (const sheet of sheets) {
-    for (const netName of sheet.netIdentifiers.keys()) namesInUse.add(netName);
-  }
+  const namesInUse = new Set(sheets.flatMap((sheet) => [...sheet.netIdentifiers.keys()]));
+  const numbered = (name: string, number: string): string => `${name}_${number}`;
+  const renames = sheets.map(() => new Map<string, string>());
 
-  // Which sheets claim each name as their own, and under what number.
   const claims = new Map<string, { sheet: number; number: string }[]>();
   sheets.forEach((sheet, index) => {
     if (!sheet.sheetNumber) return;
-    for (const [netName, kinds] of sheet.netIdentifiers) {
-      if (!isSheetBound(kinds, scope)) continue;
-      // A name the designer wrote, rather than one derived from a pin. A power
-      // port counts: where the scope makes it local, the supply it names is
-      // this sheet's own and is numbered with the rest.
-      if (!kinds.label && !kinds.powerPort) continue;
-
-      // Some sheet may already draw a net actually called `SCL_2`. Folding the
-      // renamed net into it would invent a connection that the design does not
-      // make, which is the very fault this pass exists to remove, so the name
-      // is left alone and the nets merge as they always have. The whole project
-      // is checked, not just this sheet: the nets are merged by name afterwards,
-      // so a collision with any other sheet's net lands just as wrongly.
-      if (namesInUse.has(`${netName}_${sheet.sheetNumber}`)) continue;
-
-      const claimants = claims.get(netName) ?? [];
-      claimants.push({ sheet: index, number: sheet.sheetNumber });
-      claims.set(netName, claimants);
+    for (const [name, kinds] of sheet.netIdentifiers) {
+      if (!isSheetBound(kinds, scope) || (!kinds.label && !kinds.powerPort)) continue;
+      if (namesInUse.has(numbered(name, sheet.sheetNumber))) continue;
+      (claims.get(name) ?? claims.set(name, []).get(name)!).push({
+        sheet: index,
+        number: sheet.sheetNumber,
+      });
     }
   });
 
-  const renames = sheets.map(() => new Map<string, string>());
-
-  // Which numbered sheet writes each name as a net label.
-  //
-  // This asks less than the claim above. A bundle's wire almost always runs
-  // into a sheet symbol, so the bundle is rarely sheet-bound and rarely claims
-  // anything; the label is still what says whose bundle it is.
-  //
-  // Under Global a label names one net across the whole project, so a bundle's
-  // label says nothing about which sheet the bundle belongs to and there is
-  // nothing sheet-local to tell apart. The members are left alone for the same
-  // reason plain labels are.
+  // The numbered sheets that label each name, under any scope but Global.
   const labelledOn = new Map<string, Set<string>>();
   for (const sheet of netLabelsAreGlobal(scope) ? [] : sheets) {
     if (!sheet.sheetNumber) continue;
-    for (const [netName, kinds] of sheet.netIdentifiers) {
+    for (const [name, kinds] of sheet.netIdentifiers) {
       if (!kinds.label) continue;
-      const numbers = labelledOn.get(netName) ?? new Set<string>();
-      numbers.add(sheet.sheetNumber);
-      labelledOn.set(netName, numbers);
+      (labelledOn.get(name) ?? labelledOn.set(name, new Set()).get(name)!).add(sheet.sheetNumber);
     }
   }
 
-  // A harness member is numbered after its bundle, not after itself.
-  //
-  // Altium builds a member's name as `<the harness wire's net label>.<member>`,
-  // so the text before the first dot names the bundle net, and the sheet that
-  // labels the bundle is the sheet the member is numbered after. A board whose
-  // member labels are all drawn on one sheet still numbers every member after
-  // the sheet its bundle is labelled on, not after the sheet drawing the member.
-  //
-  // The bundle is read back out of the member's name rather than from the
-  // harness signal key, because the key holds the name the local port gives the
-  // bundle: `MCU_RMII.RXD1` is keyed under the port `RMII`, and it is the label
-  // `MCU_RMII` that the number follows.
   const memberNumbers = new Map<string, string>();
   for (const sheet of sheets) {
-    for (const [netName, kinds] of sheet.netIdentifiers) {
-      if (!kinds.harness) continue;
-      const dot = netName.indexOf(".");
-      if (dot <= 0) continue;
-      // A bundle labelled on two numbered sheets says nothing about where its
-      // members belong, and one labelled on none gives no number at all.
-      const on = labelledOn.get(netName.slice(0, dot));
-      if (on?.size !== 1) continue;
-      memberNumbers.set(netName, [...on][0]);
+    for (const [name, kinds] of sheet.netIdentifiers) {
+      const dot = name.indexOf(".");
+      const on = kinds.harness && dot > 0 ? labelledOn.get(name.slice(0, dot)) : undefined;
+      if (on?.size === 1) memberNumbers.set(name, [...on][0]);
     }
   }
 
-  for (const [netName, claimants] of claims) {
+  for (const [name, claimants] of claims) {
     if (claimants.length > 1) {
-      // Several sheets each drew their own net under this name, so each keeps
-      // its own number and they stay apart.
-      for (const { sheet, number } of claimants) {
-        renames[sheet].set(netName, `${netName}_${number}`);
-      }
+      for (const { sheet, number } of claimants) renames[sheet].set(name, numbered(name, number));
       continue;
     }
-
-    // One sheet named it, so the name is that sheet's. The pins may well be on
-    // another sheet entirely, reached through a sheet entry, so the rename has
-    // to follow the net there or the two stop merging.
-    //
-    // It follows only where the other sheet's net of that name carries the
-    // signal onward, through a port or a harness. A sheet drawing its own
-    // sheet-bound net under the same name has a different net, and renaming it
-    // would connect two things the design keeps apart.
-    const { sheet: claimant, number } = claimants[0];
+    const [{ sheet: claimant, number }] = claimants;
     sheets.forEach((sheet, index) => {
-      if (index !== claimant) {
-        const kinds = sheet.netIdentifiers.get(netName);
-        // A sheet that never draws the name has nothing to rename, and one
-        // drawing its own sheet-bound net under it has a different net.
-        if (!kinds || isSheetBound(kinds, scope)) return;
-      }
-      renames[index].set(netName, `${netName}_${number}`);
+      const kinds = sheet.netIdentifiers.get(name);
+      if (index !== claimant && (!kinds || isSheetBound(kinds, scope))) return;
+      renames[index].set(name, numbered(name, number));
     });
   }
 
-  // The bundle's number is applied last, and on every sheet carrying the member,
-  // so it settles any name a sheet's own label also claimed and the two ends of
-  // the harness still merge under one name.
-  for (const [netName, number] of memberNumbers) {
-    if (namesInUse.has(`${netName}_${number}`)) continue;
+  // Applied last, so a member's two ends still merge under one name.
+  for (const [name, number] of memberNumbers) {
+    if (namesInUse.has(numbered(name, number))) continue;
     sheets.forEach((sheet, index) => {
-      if (!sheet.netIdentifiers.has(netName)) return;
-      renames[index].set(netName, `${netName}_${number}`);
+      if (sheet.netIdentifiers.has(name)) renames[index].set(name, numbered(name, number));
     });
   }
 
   return renames;
-};
-
-/** Apply a rename map to a netlist, folding pins and component pin references with it. */
-export const applyNetRenames = (
-  netlist: ParsedNetlist,
-  renames: ReadonlyMap<string, string>
-): void => {
-  if (renames.size === 0) return;
-
-  renameNets(netlist.nets, renames);
-  renameComponentPinNets(netlist.components, renames);
-};
-
-const renameNets = (nets: NetConnections, renames: ReadonlyMap<string, string>): void => {
-  for (const [from, to] of renames) {
-    const connections = nets[from];
-    if (!connections) continue;
-    delete nets[from];
-
-    const target = (nets[to] ??= {});
-    for (const [refdes, pins] of Object.entries(connections)) {
-      target[refdes] = [...new Set([...(target[refdes] ?? []), ...pins])];
-    }
-  }
-};
-
-const renameComponentPinNets = (
-  components: ComponentDetails,
-  renames: ReadonlyMap<string, string>
-): void => {
-  for (const component of Object.values(components)) {
-    for (const [pinNumber, entry] of Object.entries(component.pins)) {
-      if (typeof entry === "string") {
-        const renamed = renames.get(entry);
-        if (renamed) component.pins[pinNumber] = renamed;
-      } else {
-        const renamed = renames.get(entry.net);
-        if (renamed) entry.net = renamed;
-      }
-    }
-  }
 };

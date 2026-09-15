@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-11T23:55:43.446Z",
-    "netlistHash": "sha256:38a05841bdc5788e43bbf822a35dd02e6d89ac9470d98149da4581cd3393d125",
+    "generatedAt": "2026-09-15T00:06:21.796Z",
+    "netlistHash": "sha256:eddaf91314ae7288db17443c3794b1480efa4315de80916a6a1356b5a8b0eaa9",
     "origin": {
       "type": "vendor",
       "source": {
@@ -4280,7 +4280,7 @@
         "1": "AREF",
         "2": "+3V3"
       },
-      "description": "Chip Ferrite Bead, 0805, 200O @ 100MHz, 0.26O, 25%, 500mA",
+      "description": "Chip Ferrite Bead, 0805, 200Ω @ 100MHz, 0.26Ω, 25%, 500mA",
       "comment": "BLM21BB201SN1D"
     },
     "R93": {
@@ -5009,7 +5009,7 @@
         "1": "V_BUS",
         "2": "+5"
       },
-      "description": "Chip Ferrite Bead, 0805, 200O @ 100MHz, 0.26O, 25%, 500mA",
+      "description": "Chip Ferrite Bead, 0805, 200Ω @ 100MHz, 0.26Ω, 25%, 500mA",
       "comment": "BLM21BB201SN1D"
     },
     "U2": {

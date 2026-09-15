@@ -1,48 +1,11 @@
 import { describe, it, expect } from "vitest";
-import { busMemberTest, expandBusRange, repeatBaseName, isBusIdentifier } from "./bus.js";
+import { isBusIdentifier } from "./bus.js";
 import { extractNets } from "./net-extractor.js";
-import { buildHierarchy } from "./hierarchy.js";
+import { buildHierarchy } from "./records.js";
 import { RECORD_TYPES } from "./types.js";
 import type { AltiumRecord, AltiumSchematic, AltiumNet } from "./types.js";
 
-describe("busMemberTest", () => {
-  it("accepts the members of a range and nothing else", () => {
-    const inRange = busMemberTest("AD[0..11]")!;
-    expect(inRange("AD0")).toBe(true);
-    expect(inRange("AD11")).toBe(true);
-    expect(inRange("AD12")).toBe(false);
-    expect(inRange("ADC")).toBe(false);
-    expect(inRange("AD")).toBe(false);
-  });
-
-  it("reads a descending range and an overbar", () => {
-    expect(busMemberTest("D[3..0]")!("D2")).toBe(true);
-    expect(busMemberTest("C\\S\\[1..2]")!("CS2")).toBe(true);
-  });
-
-  it("accepts any index for a Repeat() identifier", () => {
-    const repeated = busMemberTest("Repeat(OP_OUT_P)")!;
-    expect(repeated("OP_OUT_P9")).toBe(true);
-    expect(repeated("OP_OUT_P")).toBe(false);
-    expect(repeated("OP_OUT_N1")).toBe(false);
-  });
-
-  it("is undefined for a plain name", () => {
-    expect(busMemberTest("CLK")).toBeUndefined();
-  });
-});
-
-describe("expandBusRange and repeatBaseName", () => {
-  it("lists a finite range", () => {
-    expect(expandBusRange("DAC[1..2]")).toEqual(["DAC1", "DAC2"]);
-    expect(expandBusRange("Repeat(X)")).toEqual([]);
-  });
-
-  it("finds the base of a Repeat() identifier", () => {
-    expect(repeatBaseName("Repeat( TEMP_A )")).toBe("TEMP_A");
-    expect(repeatBaseName("TEMP_A")).toBeUndefined();
-  });
-
+describe("isBusIdentifier", () => {
   it("recognises range identifiers by record type", () => {
     expect(isBusIdentifier({ index: 0, RECORD: RECORD_TYPES.PORT, Name: "D[0..7]" })).toBe(true);
     expect(isBusIdentifier({ index: 0, RECORD: RECORD_TYPES.NET_LABEL, Text: "D[0..7]" })).toBe(

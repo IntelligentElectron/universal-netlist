@@ -154,7 +154,7 @@ OSHW-Jetson and CutiePi.
 **Evidence:** aberrant-sound-module: description "ËÈ1 4x2AND" (should be
 "ЛИ1"), comment "ÊÐ1533ËÅ4" (should be "КР1533ЛЕ4").
 
-**Root cause:** `src/parsers/altium/record-parser.ts:59-62` falls back from
+**Root cause:** `src/parsers/altium/records.ts` (`parseSegment`) falls back from
 UTF-8 to Latin-1 when replacement characters appear. Altium pre-Unicode string
 records are encoded in the authoring system's ANSI codepage (CP1251 for
 Cyrillic), not Latin-1.
@@ -178,7 +178,7 @@ them (multi-section symbol; section A names lost).
 
 **Root cause (to confirm):** hidden pins in SchDoc are pin records with the
 hidden/`PINCONGLOMERATE` flag, likely filtered or not net-resolved by
-`src/parsers/altium/record-parser.ts` / `connectivity.ts`. Hidden power pins
+`src/parsers/altium/components.ts` / `net-extractor.ts`. Hidden power pins
 auto-connect to the net named in their default designator unless overridden.
 
 **Fix:** parse hidden pins, emit them with their implicit power net (the pin's

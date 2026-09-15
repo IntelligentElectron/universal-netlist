@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-03T01:02:24.339Z",
-    "netlistHash": "sha256:a3043395987114e78eccaf172ac8cfb1be5d38326f07e4807bb0ebb0ab93bb8b",
+    "generatedAt": "2026-09-15T00:06:18.869Z",
+    "netlistHash": "sha256:89df2fa98fd8f83673f8403103191990cf5c30ae3ed74435a6c6ccd0def73fe7",
     "origin": {
       "type": "vendor",
       "source": {
@@ -632,7 +632,7 @@
       "manufacturer": "Murata",
       "description": "CAP CER 0.1UF 16V X7R 0402",
       "comment": "2.2u",
-      "value": "0.10µF"
+      "value": "0.10μF"
     },
     "C10": {
       "pins": {
@@ -643,7 +643,7 @@
       "manufacturer": "Murata",
       "description": "CAP CER 0.1UF 16V X7R 0402",
       "comment": "100n",
-      "value": "0.10µF"
+      "value": "0.10μF"
     },
     "C11": {
       "pins": {
@@ -654,7 +654,7 @@
       "manufacturer": "Murata",
       "description": "CAP CER 0.1UF 16V X7R 0402",
       "comment": "100n",
-      "value": "0.10µF"
+      "value": "0.10μF"
     },
     "C12": {
       "pins": {
@@ -665,7 +665,7 @@
       "manufacturer": "Murata",
       "description": "CAP CER 0.1UF 16V X7R 0402",
       "comment": "100n",
-      "value": "0.10µF"
+      "value": "0.10μF"
     },
     "C13": {
       "pins": {
@@ -676,7 +676,7 @@
       "manufacturer": "Murata",
       "description": "CAP CER 0.1UF 16V X7R 0402",
       "comment": "100n",
-      "value": "0.10µF"
+      "value": "0.10μF"
     },
     "C14": {
       "pins": {
@@ -687,7 +687,7 @@
       "manufacturer": "Murata",
       "description": "CAP CER 0.1UF 16V X7R 0402",
       "comment": "100n",
-      "value": "0.10µF"
+      "value": "0.10μF"
     },
     "C15": {
       "pins": {
@@ -698,7 +698,7 @@
       "manufacturer": "Murata",
       "description": "CAP CER 0.1UF 16V X7R 0402",
       "comment": "2.2u",
-      "value": "0.10µF"
+      "value": "0.10μF"
     },
     "C16": {
       "pins": {
@@ -709,14 +709,14 @@
       "manufacturer": "Murata",
       "description": "CAP CER 0.1UF 16V X7R 0402",
       "comment": "100n",
-      "value": "0.10µF"
+      "value": "0.10μF"
     },
     "R7": {
       "pins": {
         "1": "GND",
         "2": "MCU_BOOT0"
       },
-      "description": "RES Thick Film, 0O, 0.063W, 0402",
+      "description": "RES Thick Film, 0Ω, 0.063W, 0402",
       "comment": "10k"
     },
     "R5": {
@@ -724,7 +724,7 @@
         "1": "MCU_NRST",
         "2": "+3V3"
       },
-      "description": "RES Thick Film, 0O, 0.063W, 0402",
+      "description": "RES Thick Film, 0Ω, 0.063W, 0402",
       "comment": "10k"
     },
     "C17": {
@@ -736,7 +736,7 @@
       "manufacturer": "Murata",
       "description": "CAP CER 0.1UF 16V X7R 0402",
       "comment": "10p",
-      "value": "0.10µF"
+      "value": "0.10μF"
     },
     "C18": {
       "pins": {
@@ -747,14 +747,14 @@
       "manufacturer": "Murata",
       "description": "CAP CER 0.1UF 16V X7R 0402",
       "comment": "10p",
-      "value": "0.10µF"
+      "value": "0.10μF"
     },
     "R6": {
       "pins": {
         "1": "MCU OSC OUT",
         "2": "XTAL IN"
       },
-      "description": "RES Thick Film, 0O, 0.063W, 0402",
+      "description": "RES Thick Film, 0Ω, 0.063W, 0402",
       "comment": "0R"
     },
     "U3": {
@@ -873,7 +873,7 @@
       "manufacturer": "Murata",
       "description": "CAP CER 0.1UF 16V X7R 0402",
       "comment": "100n",
-      "value": "0.10µF"
+      "value": "0.10μF"
     },
     "C5": {
       "pins": {
@@ -884,7 +884,7 @@
       "manufacturer": "Murata",
       "description": "CAP CER 0.1UF 16V X7R 0402",
       "comment": "100n",
-      "value": "0.10µF"
+      "value": "0.10μF"
     },
     "C6": {
       "pins": {
@@ -895,7 +895,7 @@
       "manufacturer": "Murata",
       "description": "CAP CER 0.1UF 16V X7R 0402",
       "comment": "10n",
-      "value": "0.10µF"
+      "value": "0.10μF"
     },
     "C7": {
       "pins": {
@@ -906,7 +906,7 @@
       "manufacturer": "Murata",
       "description": "CAP CER 0.1UF 16V X7R 0402",
       "comment": "2.2n",
-      "value": "0.10µF"
+      "value": "0.10μF"
     },
     "J1": {
       "pins": {
@@ -989,7 +989,7 @@
         "1": "VBUS",
         "2": "+5V"
       },
-      "description": "Chip Ferrite Bead, 0603, 5O @ 100MHz, 0.05O, 25%, 800mA",
+      "description": "Chip Ferrite Bead, 0603, 5Ω @ 100MHz, 0.05Ω, 25%, 800mA",
       "comment": "120R"
     },
     "C1": {
@@ -1001,7 +1001,7 @@
       "manufacturer": "Murata",
       "description": "CAP CER 0.1UF 16V X7R 0402",
       "comment": "2.2u",
-      "value": "0.10µF"
+      "value": "0.10μF"
     },
     "C2": {
       "pins": {
@@ -1012,7 +1012,7 @@
       "manufacturer": "Murata",
       "description": "CAP CER 0.1UF 16V X7R 0402",
       "comment": "2.2u",
-      "value": "0.10µF"
+      "value": "0.10μF"
     },
     "C3": {
       "pins": {
@@ -1049,7 +1049,7 @@
         "1": "GND",
         "2": "LED_P_K"
       },
-      "description": "RES Thick Film, 0O, 0.063W, 0402",
+      "description": "RES Thick Film, 0Ω, 0.063W, 0402",
       "comment": "1k"
     },
     "D2": {
@@ -1071,7 +1071,7 @@
         "1": "MCU_LED_K",
         "2": "GND"
       },
-      "description": "RES Thick Film, 0O, 0.063W, 0402",
+      "description": "RES Thick Film, 0Ω, 0.063W, 0402",
       "comment": "1k"
     },
     "R2": {
@@ -1079,7 +1079,7 @@
         "1": "IMU _SCL",
         "2": "+3V3"
       },
-      "description": "RES Thick Film, 0O, 0.063W, 0402",
+      "description": "RES Thick Film, 0Ω, 0.063W, 0402",
       "comment": "2.2k"
     },
     "R3": {
@@ -1087,7 +1087,7 @@
         "1": "IMU _SDA",
         "2": "+3V3"
       },
-      "description": "RES Thick Film, 0O, 0.063W, 0402",
+      "description": "RES Thick Film, 0Ω, 0.063W, 0402",
       "comment": "2.2k"
     },
     "J3": {
@@ -1117,7 +1117,7 @@
           "net": "MCU_SWO"
         }
       },
-      "description": "Cortex® Plug-Of-Nails™ Adapter Cable",
+      "description": "CortexÂ® Plug-Of-Nailsâ„¢ Adapter Cable",
       "comment": "TC2030-CTX",
       "value": "*"
     },
