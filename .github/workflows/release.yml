@@ -141,11 +141,6 @@ jobs:
           shasum -a 256 universal-netlist-* > checksums.txt
           cat checksums.txt
 
-      - name: Build .mcpb desktop extension
-        env:
-          VERSION: ${{ steps.version.outputs.version }}
-        run: RELEASE_DIR=$PWD/bin OUTPUT_DIR=$PWD/bin scripts/build-mcpb.sh "$VERSION"
-
       - name: Download CI-built npm package
         uses: actions/download-artifact@v8
         with:
@@ -187,6 +182,5 @@ jobs:
             bin/universal-netlist-linux-x64
             bin/universal-netlist-windows-x64.exe
             bin/checksums.txt
-            bin/universal-netlist.mcpb
           draft: false
           prerelease: ${{ contains(steps.version.outputs.version, '-') }}

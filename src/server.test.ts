@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll } from "vitest";
-import { mkdtemp, readFile, writeFile, rm } from "node:fs/promises";
+import { mkdtemp, writeFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
@@ -52,14 +52,8 @@ beforeAll(async () => {
 });
 
 describe("dormant Cadence MCP features", () => {
-  it("omits DAT and exporter guidance from instructions, tool metadata, and the bundle manifest", async () => {
-    const manifest = JSON.parse(
-      await readFile(new URL("../manifest.json", import.meta.url), "utf8")
-    );
-    expect(manifest.tools.map((tool: { name: string }) => tool.name).sort()).toEqual(
-      tools.map((tool) => tool.name).sort()
-    );
-    const advertised = JSON.stringify({ instructions: client.getInstructions(), tools, manifest });
+  it("omits DAT and exporter guidance from instructions and tool metadata", async () => {
+    const advertised = JSON.stringify({ instructions: client.getInstructions(), tools });
     expect(advertised).not.toMatch(
       /\bDAT\b|\bHDL\b|\.cpm\b|pstxnet|pstxprt|pstchip|export_cadence_netlist/i
     );

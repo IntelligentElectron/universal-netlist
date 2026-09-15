@@ -15,7 +15,6 @@ set -euo pipefail
 # Configuration
 REPO="IntelligentElectron/universal-netlist"
 BINARY_NAME="universal-netlist"
-MCPB_NAME="universal-netlist.mcpb"
 
 # Determine default install directory based on OS
 get_default_install_dir() {
@@ -199,7 +198,6 @@ main() {
 
     local platform
     local download_url
-    local mcpb_url
     local checksum_url
     local expected_checksum
 
@@ -222,7 +220,6 @@ main() {
 
     # Construct download URLs
     download_url="https://github.com/${REPO}/releases/download/${version}/${platform}"
-    mcpb_url="https://github.com/${REPO}/releases/download/${version}/${MCPB_NAME}"
     checksum_url="https://github.com/${REPO}/releases/download/${version}/checksums.txt"
 
     info "Install directory: $install_dir"
@@ -256,31 +253,12 @@ main() {
     chmod +x "$binary_path"
     success "Installed binary to $binary_path"
 
-    # Download .mcpb package for Claude Desktop
-    local mcpb_path="$install_dir/$MCPB_NAME"
-    local mcpb_temp
-    mcpb_temp=$(mktemp)
-    trap "rm -f '$mcpb_temp' '$checksum_file'" EXIT
-
-    if download "$mcpb_url" "$mcpb_temp" 2>/dev/null; then
-        mv "$mcpb_temp" "$mcpb_path"
-        success "Installed Claude Desktop extension to $mcpb_path"
-    else
-        warn "Could not download .mcpb package (Claude Desktop extension)"
-    fi
-
     # Add to PATH
     add_to_path "$install_dir"
 
     # Print success message
     echo ""
     success "Installation complete!"
-    echo ""
-    echo "Installed files:"
-    echo "  Binary: $binary_path"
-    if [ -f "$mcpb_path" ]; then
-        echo "  Claude Desktop extension: $mcpb_path"
-    fi
     echo ""
     echo "To start using universal-netlist CLI, either:"
     echo "  1. Open a new terminal, or"
@@ -292,10 +270,9 @@ main() {
     echo "To update, run:"
     echo "  universal-netlist update"
     echo ""
-    echo "For Claude Desktop:"
-    echo "  1. Open Claude Desktop -> Settings -> Extensions -> Advanced settings"
-    echo "  2. Click 'Install Extension...' and select:"
-    echo "     $mcpb_path"
+    echo "To connect Claude Code, install its CLI and run:"
+    echo "  claude mcp add --scope user universal-netlist -- universal-netlist"
+    echo "Local Code tab sessions in the Claude desktop app then use the server too."
     echo ""
 }
 
