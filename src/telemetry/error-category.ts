@@ -34,6 +34,9 @@ const CODE_TYPES: Readonly<Record<string, ToolErrorType>> = {
   EPIPE: "unavailable",
 };
 
+/** A Node error code written ahead of its text, as in `EPERM: operation not permitted`. */
+const MESSAGE_CODE = /\b([A-Z][A-Z_]{3,}): /g;
+
 /**
  * Quoted names and paths, which never state the cause; the whole message is the fallback.
  * An apostrophe between letters, as in `Bob's`, belongs to the name.
@@ -93,6 +96,9 @@ export const classifyToolError = (failure: unknown): ToolErrorType => {
     if (causeCode && CODE_TYPES[causeCode]) return CODE_TYPES[causeCode];
 
     const message = describeFailure(failure);
+    for (const [, messageCode] of message.matchAll(MESSAGE_CODE)) {
+      if (CODE_TYPES[messageCode]) return CODE_TYPES[messageCode];
+    }
     for (const text of [message.replace(QUOTED, " "), message]) {
       for (const [type, pattern] of MESSAGE_TYPES) {
         if (pattern.test(text)) return type;

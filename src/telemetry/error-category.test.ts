@@ -98,6 +98,18 @@ describe("classifyToolError", () => {
       "Design 'A.PrjPcb' defines design variants ['Bob's Build', 'Timeout Test']. Pass design_variant='<Default>'",
       "invalid_argument",
     ],
+    [
+      "Failed to search '/Users/me/Chris' Projects/Cancelled (old)': EPERM: operation not permitted, scandir '/Users/me/Chris' Projects/Cancelled (old)'",
+      "permission_denied",
+    ],
+    [
+      "Failed to search '/Volumes/Share/Invalid Boards/Rev B (Jess')': ETIMEDOUT: connection timed out, scandir '/Volumes/Share/Invalid Boards/Rev B (Jess')'",
+      "timeout",
+    ],
+    [
+      "Failed to search '/data/Timeout/Designs '24'': ENOENT: no such file or directory, scandir '/data/Timeout/Designs '24''",
+      "not_found",
+    ],
     ["MCP error -32602: Tool timeout not found", "not_found"],
     [
       "Unknown rule id(s): timeout. Valid ids: net.single_pin, net.testpoint_orphan",
