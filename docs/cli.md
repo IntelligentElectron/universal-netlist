@@ -34,7 +34,7 @@ universal-netlist export-json MyBoard.kicad_pro          # writes ./MyBoard.netl
 universal-netlist export-json MyBoard.DSN out/board.netlist.json
 ```
 
-A design that does not load exits 1 and prints the parser's message, naming the first defect.
+A design that does not load exits 1 and prints the parser's message, naming the first defect. A password-protected OrCAD design reads its password from the environment; see [Password-protected OrCAD designs](password-protected-designs.md).
 
 ## update
 

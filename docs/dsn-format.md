@@ -1525,30 +1525,24 @@ Key C++ source files for cross-referencing unknown bytes or new structure types:
 
 ## Password-protected streams (SYENCRYPT01)
 
-The TypeScript reader extends the vendored OpenOrCadParser implementation with
-an OrCAD-specific decryption layer; the reference C++ reader does not implement
-this layer. Record parsing still operates on the same decoded stream format.
+A design saved with a password keeps its container directory in clear, so its stream names, and
+with them its BOM variant names, read without the password. The streams themselves are
+encrypted. An encrypted stream begins with the 20-byte ASCII marker `FILE_FMT_SYENCRYPT01`; the
+`Library` stream keeps its first 22 bytes in clear and carries the marker after them. A marker
+spelled `FILE_FMT_` or `FILE_FMT=` with another name is an encryption this reading does not
+cover.
 
-A protected Library stream retains its first 22 bytes, followed by the 20-byte
-ASCII marker `FILE_FMT_SYENCRYPT01`. Other protected streams put the marker at
-byte zero. Remove the marker and decrypt the remaining bytes with the OrCAD
-Sapphire II routine, initializing a fresh state for every stream. The password
-bytes are the key directly. Initialization includes the final permutation slot
-at index zero, which still consumes key material. Preserve the clear prefix.
-The decoded Library starts with the exact 32-byte header
-`OrCAD Windows Design           \0` (the final character is a NUL byte).
+The bytes after the marker are Sapphire II ciphertext (Michael Paul Johnson's stream cipher),
+decrypted with a fresh cipher state per stream and the password's bytes as the key. OrCAD's key
+schedule differs from the published cipher in one step: shuffling the last card, whose only
+possible partner is itself, still draws a key byte. The clear prefix and the decrypted bytes
+together are the stream as an unprotected design stores it.
 
-`DsnReader` checks protection before the parser's best-effort record catches,
-validates the Library header, and exposes decoded buffers in memory. Shared CFB
-reading and other vendors are unchanged. Unknown `FILE_FMT_` / `FILE_FMT=`
-wrappers fail explicitly. Only printable ASCII passwords of 1–255 bytes are
-supported; no assumptions are made about Cadence's non-ASCII code pages.
-Header validation detects typical incorrect passwords, not arbitrary corruption
-in other streams: this cipher provides no authentication tag.
+The cipher authenticates nothing, so a password is known to be right only by what it decrypts. A
+right password gives the `Library` header its fixed shape: the introduction
+`OrCAD Windows Design`, four zero bytes at offset 44 after the version and dates, and a font count
+at offset 48 of at least one. A wrong password gives those bytes by chance about once in four
+trillion.
 
-Compatibility was checked against one private protected DSN containing 25
-protected streams, with the exported components and nets matching the existing
-independent decryption workflow. The private design and its password are not
-fixtures. Committed tests use synthetic known-answer vectors from an independent
-Python transcription, including one-byte and 255-byte keys and payloads longer
-than the 256-byte cipher state, plus wrapper and password error cases.
+A key is 1 to 255 bytes. A password of printable ASCII characters is its own key; the encoding of
+any other character into the key is unknown.

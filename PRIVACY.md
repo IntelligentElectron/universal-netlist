@@ -27,6 +27,11 @@ It reads these from your local filesystem, on demand, when a tool is called. It
 holds their contents in memory for the life of the query. It writes nothing back
 to them.
 
+For a password-protected OrCAD design it also reads the passwords you give it
+through its environment (`UNIVERSAL_NETLIST_DSN_PASSWORD` or the file
+`UNIVERSAL_NETLIST_DSN_PASSWORD_FILE` names). It uses them in memory to decrypt
+the design and sends them nowhere: not to your MCP client, and not to telemetry.
+
 ## Where your design data goes
 
 **To your MCP client, and therefore to that client's model provider.** This is

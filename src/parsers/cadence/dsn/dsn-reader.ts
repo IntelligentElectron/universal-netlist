@@ -14,9 +14,21 @@ export const DSN_PASSWORD = "UNIVERSAL_NETLIST_DSN_PASSWORD";
 export const DSN_PASSWORD_FILE = "UNIVERSAL_NETLIST_DSN_PASSWORD_FILE";
 
 const MARKER = Buffer.from("FILE_FMT_SYENCRYPT01", "latin1");
-const LIBRARY_HEADER = Buffer.from("OrCAD Windows Design           \0", "latin1");
 /** The Library stream's leading header bytes stay in clear, ahead of the marker. */
 const LIBRARY_CLEAR_BYTES = 22;
+/** The Library header through its font count: introduction, version, dates, zeros. */
+const LIBRARY_HEADER_BYTES = 50;
+
+/**
+ * Whether bytes open as a design's Library: the introduction `OrCAD Windows Design`, the
+ * four zero bytes after the dates at offset 44, and a font count at 48 of 1 to 1024.
+ */
+const isLibraryHeader = (library: Buffer): boolean => {
+  if (library.length < LIBRARY_HEADER_BYTES) return false;
+  if (library.toString("latin1", 0, 20) !== "OrCAD Windows Design") return false;
+  const fonts = library.readUInt16LE(48);
+  return library.readUInt32LE(44) === 0 && fonts >= 1 && fonts <= 1024;
+};
 const PASSWORD_FORM = /^[\x20-\x7e]{1,255}$/;
 
 interface EncryptedStream {
@@ -53,7 +65,8 @@ const configuredKeys = (): Buffer[] => {
       throw new Error(`Cannot read ${DSN_PASSWORD_FILE}: ${(error as Error).message}`);
     }
     text.split(/\r?\n/).forEach((line, index) => {
-      if (line) passwords.push({ source: `${DSN_PASSWORD_FILE} line ${index + 1}`, password: line });
+      if (line)
+        passwords.push({ source: `${DSN_PASSWORD_FILE} line ${index + 1}`, password: line });
     });
   }
   return passwords.map(({ source, password }) => {
@@ -85,19 +98,24 @@ export class DsnReader {
     }
     if (encrypted.length === 0) return;
 
-    // The Library header is the one plaintext every protected design shares.
+    // A key opens the design when the Library header it decrypts reads as one.
     const library = encrypted.find((stream) => isLibrary(stream.path));
     if (!library) throw new Error("Protected OrCAD design has no encrypted Library stream");
     const keys = configuredKeys();
     if (keys.length === 0) {
-      throw new Error(`Password-protected OrCAD design: set ${DSN_PASSWORD} or ${DSN_PASSWORD_FILE}`);
+      throw new Error(
+        `Password-protected OrCAD design: set ${DSN_PASSWORD} or ${DSN_PASSWORD_FILE}`
+      );
     }
-    const header = { ...library, data: library.data.subarray(0, MARKER.length + LIBRARY_HEADER.length) };
-    const key = keys.find((candidate) =>
-      decrypt(header, candidate).subarray(0, LIBRARY_HEADER.length).equals(LIBRARY_HEADER)
-    );
+    const header = {
+      ...library,
+      data: library.data.subarray(0, MARKER.length + LIBRARY_HEADER_BYTES),
+    };
+    const key = keys.find((candidate) => isLibraryHeader(decrypt(header, candidate)));
     if (!key) {
-      throw new Error(`No password in ${DSN_PASSWORD} or ${DSN_PASSWORD_FILE} opens this OrCAD design`);
+      throw new Error(
+        `No password in ${DSN_PASSWORD} or ${DSN_PASSWORD_FILE} opens this OrCAD design`
+      );
     }
     for (const stream of encrypted) this.streams.set(stream.path, decrypt(stream, key));
   }
