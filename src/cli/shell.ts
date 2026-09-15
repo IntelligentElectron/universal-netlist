@@ -44,8 +44,8 @@ export const removeFromPath = (): string[] => {
       if (line.trim() === "# Universal Netlist MCP Server") {
         changed = true;
         i++; // Skip comment
-        // Skip the next line if it's the PATH export
-        if (i < lines.length && lines[i].includes("universal-netlist")) {
+        // Skip the PATH line install.sh writes after it, wherever the install directory is
+        if (i < lines.length && /^\s*(?:export PATH=|fish_add_path )/.test(lines[i])) {
           i++;
         }
         // Skip trailing empty line if present

@@ -3,13 +3,20 @@
  * and --export-json.
  */
 
-import { existsSync, readFileSync, rmSync, writeFileSync } from "node:fs";
-import { basename, dirname, extname, resolve } from "node:path";
-import { VERSION, GITHUB_REPO, BINARY_NAME } from "../version.js";
+import {
+  existsSync,
+  readdirSync,
+  readFileSync,
+  rmdirSync,
+  unlinkSync,
+  writeFileSync,
+} from "node:fs";
+import { basename, dirname, extname, join, resolve } from "node:path";
+import { VERSION, GITHUB_REPO, BINARY_NAME, NPM_PACKAGE } from "../version.js";
 import { SELF_UPDATE_ENABLED } from "../build-flags.js";
 import { exportTelemetry } from "../telemetry/index.js";
 import { findHandler, parseDesign } from "../parsers/index.js";
-import { checkForUpdate, performUpdate, isNpmInstall } from "./updater.js";
+import { checkForUpdate, performUpdate } from "./updater.js";
 import {
   isUniversalFile,
   parseUniversalNetlistDocument,
@@ -19,7 +26,7 @@ import {
 } from "../parsers/universal/index.js";
 import { confirm } from "./prompts.js";
 import { removeFromPath } from "./shell.js";
-import { getCurrentExecutablePath } from "./executable.js";
+import { getCurrentExecutablePath, isCompiledBinary } from "./executable.js";
 
 /**
  * Print version information.
@@ -82,8 +89,9 @@ export const handleUpdateCommand = async (): Promise<void> => {
     return;
   }
 
-  // For npm installs, provide npm-specific update instructions
-  if (isNpmInstall()) {
+  // Under Node.js or Bun the files belong to npm or a checkout, so only the
+  // standalone binary replaces itself.
+  if (!isCompiledBinary()) {
     console.log(`Checking for updates...`);
 
     const check = await checkForUpdate();
@@ -101,7 +109,7 @@ export const handleUpdateCommand = async (): Promise<void> => {
     console.log(`Update available: ${VERSION} -> ${check.latestVersion}`);
     console.log("");
     console.log("To update, run:");
-    console.log("  npm update -g universal-netlist");
+    console.log(`  npm update -g ${NPM_PACKAGE}`);
     return;
   }
 
@@ -151,6 +159,16 @@ export const handleUninstallCommand = async (): Promise<void> => {
     return;
   }
 
+  // Under Node.js or Bun the files belong to npm or a checkout, so only the
+  // standalone binary removes itself.
+  if (!isCompiledBinary()) {
+    console.log(
+      `${BINARY_NAME} v${VERSION} runs under ${basename(process.execPath)}, not as the standalone binary.`
+    );
+    console.log(`Remove an npm install with: npm uninstall -g ${NPM_PACKAGE}`);
+    return;
+  }
+
   const confirmed = await confirm(`This will remove ${BINARY_NAME} from your system. Continue?`);
   if (!confirmed) {
     console.log("Uninstall cancelled");
@@ -168,21 +186,43 @@ export const handleUninstallCommand = async (): Promise<void> => {
     console.log(`Modified: ${modifiedFiles.join(", ")}`);
   }
 
-  // Remove install directory
-  console.log(`Removing install directory: ${installDir}`);
-  if (existsSync(installDir)) {
+  // Only the files the binary's install, updates and telemetry write go, and a
+  // directory only once it is empty: the binary may sit in a shared directory.
+  const backups = listDirectory(binDir)
+    .filter((file) => file.startsWith(`${basename(binaryPath)}.backup.`))
+    .map((file) => join(binDir, file));
+  const files = [binaryPath, ...backups, ...INSTALL_FILES.map((file) => join(installDir, file))];
+  const remaining: string[] = [];
+  for (const file of files.filter((path) => existsSync(path))) {
     try {
-      rmSync(installDir, { recursive: true });
+      unlinkSync(file);
+      console.log(`Removed ${file}`);
     } catch (error) {
-      console.error(
-        `Failed to remove directory: ${error instanceof Error ? error.message : error}`
-      );
-      console.log("You may need to remove it manually.");
+      remaining.push(`${file} (${error instanceof Error ? error.message : error})`);
     }
+  }
+  for (const directory of [binDir, installDir]) {
+    if (existsSync(directory) && listDirectory(directory).length === 0) rmdirSync(directory);
   }
 
   console.log("");
+  if (remaining.length > 0) {
+    console.log("Could not remove, so remove by hand:");
+    for (const file of remaining) console.log(`  ${file}`);
+    return;
+  }
   console.log(`${BINARY_NAME} has been uninstalled.`);
+};
+
+/** What the install directory holds beside `bin/`: the local telemetry log and the `.mcpb` extension package. */
+const INSTALL_FILES = ["telemetry.jsonl", `${BINARY_NAME}.mcpb`];
+
+const listDirectory = (directory: string): string[] => {
+  try {
+    return readdirSync(directory);
+  } catch {
+    return [];
+  }
 };
 
 /**

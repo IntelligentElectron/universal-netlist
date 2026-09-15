@@ -28,3 +28,6 @@ export const GITHUB_REPO = "IntelligentElectron/universal-netlist";
 
 /** Binary name for the compiled executable. */
 export const BINARY_NAME = "universal-netlist";
+
+/** The npm package that runs the server under Node.js. */
+export const NPM_PACKAGE = "@intelligentelectron/universal-netlist";

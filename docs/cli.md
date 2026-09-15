@@ -40,7 +40,7 @@ A design that does not load exits 1 and prints the parser's message, naming the 
 universal-netlist update    # upgrade works too
 ```
 
-Checks GitHub for a newer release and replaces the binary in place. The server also checks on startup. A binary installed by a package manager (Homebrew, npm, a distro package) is managed by that manager, and this command says so instead of touching the file; npm installs update with `npm update -g @intelligentelectron/universal-netlist`.
+Checks GitHub for a newer release and replaces the binary in place. The server also checks on startup. A binary installed by a package manager (Homebrew, a distro package) is managed by that manager, and this command says so instead of touching the file. A copy running under Node.js, as an npm install does, reports whether a newer release exists and updates with `npm update -g @intelligentelectron/universal-netlist`.
 
 ## uninstall
 
@@ -48,7 +48,7 @@ Checks GitHub for a newer release and replaces the binary in place. The server a
 universal-netlist uninstall
 ```
 
-Removes the install directory (the binary and its local telemetry log) and the PATH entries `install.sh` added to the shell profile. A package-managed install is removed by its package manager, and the command says so.
+Removes the binary, its update backups, the local telemetry log and `.mcpb` file beside `bin/`, and the PATH entries `install.sh` added to the shell profile, then each of `bin/` and the install directory that is left empty. Other files stay, so a binary placed in a shared directory such as `/usr/local/bin` takes nothing else with it. A package-managed install is removed by its package manager, and a copy running under Node.js points at `npm uninstall -g @intelligentelectron/universal-netlist`; either way the command says so.
 
 ## export-telemetry
 
