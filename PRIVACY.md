@@ -1,6 +1,6 @@
 # Privacy Policy
 
-**Effective date:** 2 September 2026
+**Effective date:** 15 September 2026
 
 Universal Netlist MCP Server ("the server") is a local program. It runs on your
 own machine, reads design files from your own disk, and answers questions about
@@ -11,8 +11,20 @@ query is sent to the author.
 
 ## What the server collects
 
-**Nothing.** The server has no telemetry of its own, no account, no API key, no
-licence check, and no usage reporting. It stores no data about you.
+**Nothing for the author.** The server has no account, no API key, no licence
+check, and no usage reporting.
+
+It keeps a local log of its own use, `telemetry.jsonl`, on your disk:
+
+- Each server start records your operating system account name, host name, platform,
+  and the server version.
+- Each tool call records the tool, its arguments (such as design paths and
+  search patterns), its duration, and whether it succeeded.
+
+The server sends this file nowhere. `export-telemetry` zips it into your working
+directory when you run it. See the
+[local usage log](docs/observability.md#local-usage-log) for where it lives and
+how to redirect it.
 
 ## What the server reads
 
@@ -82,6 +94,7 @@ Setting `OTEL_SDK_DISABLED=1` forces it off even when an endpoint is configured.
 
 All registered MCP tools are annotated as read-only and leave source designs unchanged.
 A KiCad query may generate a temporary netlist, which is removed after reading.
+The server appends to its local usage log each time it starts and on every tool call.
 Commands you run by hand write to disk: `export-json` writes a `.netlist.json`
 file, `export-telemetry` a zip file in the working directory, `update` replaces
 the binary, and `uninstall` removes the binary and the PATH entries in your shell
@@ -101,8 +114,9 @@ parties that can receive data are the ones you choose and connect:
 
 ## Retention
 
-The server retains nothing. It keeps parsed design data in memory only while
-serving your request, and that memory is released when the process exits.
+The server keeps parsed design data in memory only while serving your request,
+and that memory is released when the process exits. Its local usage log stays on
+your disk, growing with every call, until you delete it.
 Anything retained is retained by your MCP client, your model provider, or your
 telemetry backend, under their own policies.
 

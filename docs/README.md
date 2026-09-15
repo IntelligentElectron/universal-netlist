@@ -57,7 +57,7 @@ The binary's commands (`export-json`, `update`, `uninstall`, `export-telemetry`)
 
 ## Observability
 
-The server can emit OpenTelemetry traces, metrics, and logs for every tool call, so you can integrate your own OTel service. It is disabled by default and configured entirely through standard `OTEL_*` environment variables. See [Observability (OpenTelemetry)](observability.md) for setup and the full list of emitted spans, metrics, and logs.
+The server can emit OpenTelemetry traces, metrics, and logs for every tool call, so you can integrate your own OTel service. It is disabled by default and configured entirely through standard `OTEL_*` environment variables. Separately, the server keeps a [local usage log](observability.md#local-usage-log) on your disk. See [Observability (OpenTelemetry)](observability.md) for setup and the full list of emitted spans, metrics, and logs.
 
 ## Example Queries
 

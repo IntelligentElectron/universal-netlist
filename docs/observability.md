@@ -10,6 +10,45 @@ The server can emit [OpenTelemetry](https://opentelemetry.io/) **traces, metrics
 - **Starts at the MCP request boundary.** Calls rejected by a tool's input schema are instrumented even though the SDK never invokes the tool handler. They are counted as `invalid_argument` failures, and their validation message identifies the offending argument.
 - **stdio-safe.** The MCP stdio transport owns stdout, so all diagnostics are written to stderr only; no console/stdout exporter is ever used.
 
+## Local usage log
+
+Apart from OpenTelemetry, the server appends a record of its own use to a local
+JSON Lines file, `telemetry.jsonl`, each time it starts and on every tool call. It sends the file
+nowhere; `universal-netlist export-telemetry` zips it into the working directory.
+
+Each server start writes one session record:
+
+| Field | Value |
+|-------|-------|
+| `timestamp` | Time of the record, ISO 8601 |
+| `session_id` | Random UUID for this server process |
+| `version` | Server version |
+| `username` | Operating system account name |
+| `machine` | `platform`, `arch`, `os_release`, and `hostname` |
+
+Each tool call writes one record:
+
+| Field | Value |
+|-------|-------|
+| `timestamp` | Time of the record, ISO 8601 |
+| `session_id` | The session the call belongs to |
+| `tool` | The tool called |
+| `args` | The call's arguments, such as design paths and search patterns, with schema defaults applied when the call reaches the tool |
+| `duration_ms` | Duration of the call in milliseconds |
+| `success` | `false` when the call failed |
+
+The file lives at:
+
+| Install | Location |
+|---------|----------|
+| Standalone binary | `telemetry.jsonl` in its install directory, beside `bin/` |
+| npm or source on macOS | `~/Library/Application Support/universal-netlist/telemetry.jsonl` |
+| npm or source on Windows | `%LOCALAPPDATA%\universal-netlist\telemetry.jsonl` |
+| npm or source elsewhere | `~/.local/share/universal-netlist/telemetry.jsonl` |
+
+`UNIVERSAL_NETLIST_TELEMETRY_PATH` names another file; on macOS and Linux, `/dev/null` keeps nothing.
+The file grows with every call; nothing rotates or trims it.
+
 ## Enabling and disabling
 
 Telemetry turns on as soon as you set an OTLP endpoint — either the general endpoint or any per-signal endpoint:
