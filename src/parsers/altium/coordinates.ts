@@ -33,19 +33,20 @@ export const scaledPoint = (record: Fields, key = "Location"): Point => [
 ];
 
 /**
- * A polyline's `LocationCount` vertices, `X1,Y1` to `Xn,Yn`; a coordinate left out is 0.
- * The count goes no further than the vertices the record writes.
+ * A polyline's `LocationCount` vertices, `X1,Y1` to `Xn,Yn`; a coordinate of 0 is not written.
+ * Only a vertex at the origin writes neither, and no two follow one another, so a count past
+ * two vertices per written coordinate, plus one, is read no further.
  */
 export const polylinePoints = (record: Fields): Point[] => {
-  let keys = 0;
+  let written = 0;
   let highest = 0;
   for (const key of Object.keys(record)) {
     const vertex = /^[XY](\d+)$/i.exec(key);
     if (!vertex) continue;
-    keys++;
+    written++;
     highest = Math.max(highest, Number(vertex[1]));
   }
-  const count = Math.min(toNumber(field(record, "LocationCount")) || highest, highest, keys);
+  const count = Math.min(toNumber(field(record, "LocationCount")) || highest, 2 * written + 1);
   return Array.from({ length: count }, (_, i) => [
     scaledField(record, `X${i + 1}`),
     scaledField(record, `Y${i + 1}`),

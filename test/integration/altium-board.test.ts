@@ -109,7 +109,7 @@ const CASES: BoardCase[] = [
     board:
       "nRF52840-Development-Kit/PCA10056-nRF52840 Development Board 3_0_3/Altium Designer files/400236.PcbDoc",
     unconnected: ["U11.7", "X1.2", "X1.4", "X3.2", "X3.4"],
-    sameName: 1056,
+    sameName: 1066,
   },
 ];
 

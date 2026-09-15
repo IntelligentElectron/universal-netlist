@@ -124,10 +124,10 @@ net. A port never joins a net label by name: Altium's connectivity guide states 
 join by name: entries of one name on different symbols lead to different nets, and an entry no
 wire reaches connects to nothing.
 
-Two nets on one sheet that do not join by name do not share a name either. The net whose name
-ranks lower (see What a net is called), or between two sheet entries the later one, is called by
-its next name, a pin's when nothing else names it: an entry `EN` on a sheet whose label `EN` names
-another net leaves its own net named after a pin.
+No two nets on one sheet share a name, ignoring case. Names are given strongest first (see What a
+net is called); between two nets claiming one name at one rank, the one whose record comes first
+keeps it. The other net is called by its next name, a pin's when nothing else names it: an entry
+`EN` on a sheet whose label `EN` names another net leaves its own net named after a pin.
 
 ### Net identifier scope
 
@@ -232,8 +232,9 @@ A `Repeat(NAME)` entry wired to no bus takes the wire's net label as the bus nam
 `L`, channel `n` carries `L<n>`, the sheet's net of that name. Entries `Repeat(VBAT)` and
 `Repeat(VIN)` on one wire labelled `VBAT` join channel `n` of both to the net `VBAT<n>`.
 
-Names may carry Altium's overbar escaping: `C\S\` is an active-low `CS`, and `Repeat(C\S\)`
-carries `CS1`, `CS2`, ...
+A backslash after a character draws a bar over it: `C\S\` shows an active-low CS. The
+backslashes are part of the name. `C\S\` and `CS` are different nets, the board calls the first
+`C\S\`, and the bus `C\S\[1..5]` carries `C\S\1` to `C\S\5`.
 
 ## Multi-channel sheets
 

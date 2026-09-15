@@ -109,11 +109,9 @@ export const readSheetNumber = (schematic: AltiumSchematic): string | undefined 
 /** A sheet's nets as `net -> designator -> pins`. A net with no pins, or one lone pin, is left out. */
 const netConnections = (nets: AltiumNet[], schematic: AltiumSchematic): NetConnections => {
   const connections: NetConnections = {};
-  let unnamed = 1;
   for (const net of nets) {
     const pins = net.devices.filter((device) => device.RECORD === RECORD_TYPES.PIN);
-    if (pins.length === 1 && pins.length === net.devices.length) continue;
-    const name = net.name ?? `UnnamedNet${unnamed++}`;
+    if (!net.name || (pins.length === 1 && pins.length === net.devices.length)) continue;
     const byRefdes: Record<string, string[]> = {};
     for (const pin of pins) {
       const refdes = pinDesignator(pin, schematic);
@@ -122,12 +120,7 @@ const netConnections = (nets: AltiumNet[], schematic: AltiumSchematic): NetConne
       const listed = (byRefdes[refdes] ??= []);
       if (!listed.includes(number)) listed.push(number);
     }
-    if (Object.keys(byRefdes).length === 0) continue;
-    // Two sets of records under one name are one net.
-    const existing = (connections[name] ??= {});
-    for (const [refdes, numbers] of Object.entries(byRefdes)) {
-      existing[refdes] = [...new Set([...(existing[refdes] ?? []), ...numbers])];
-    }
+    if (Object.keys(byRefdes).length > 0) connections[net.name] = byRefdes;
   }
   return connections;
 };

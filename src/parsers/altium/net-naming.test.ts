@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { assignNetName, nameSheetNets } from "./net-naming.js";
+import { nameSheetNets } from "./net-naming.js";
 import { buildHierarchy, flattenHierarchy } from "./records.js";
 import { RECORD_TYPES } from "./types.js";
 import type { AltiumNet, AltiumRecord, AltiumSchematic } from "./types.js";
@@ -34,7 +34,7 @@ describe("naming a net after one of its pins", () => {
       name: null,
       devices: flattenHierarchy(schematic).filter((r) => r.RECORD === RECORD_TYPES.PIN),
     };
-    assignNetName(net, schematic);
+    nameSheetNets([net], schematic);
     return net.name;
   };
 
@@ -167,10 +167,26 @@ describe("naming a sheet's nets", () => {
     expect(nets.map((net) => net.name)).toEqual(["NetR1_1", "NetR2_1"]);
   });
 
-  it("lets a label and a power port share a name", () => {
-    const power = { index: 2, RECORD: RECORD_TYPES.POWER_PORT, Text: "VCC" } as AltiumRecord;
-    const { schematic, nets } = sheet({ devices: [label(1, "VCC")] }, { devices: [power] });
+  it("gives a harness member's name and a net label's of the same text to one net only", () => {
+    const member = {
+      index: 1,
+      RECORD: RECORD_TYPES.HARNESS_ENTRY,
+      harnessNetName: "USB.DP",
+    } as AltiumRecord;
+    const { schematic, nets } = sheet(
+      { devices: [label(2, "USB.DP")], parts: ["R1"] },
+      { devices: [member], parts: ["R2"] }
+    );
     nameSheetNets(nets, schematic);
-    expect(nets.map((net) => net.name)).toEqual(["VCC", "VCC"]);
+    expect(nets.map((net) => net.name)).toEqual(["NetR1_1", "USB.DP"]);
+  });
+
+  it("numbers a net whose every name another net holds after its lowest pin", () => {
+    const { schematic, nets } = sheet(
+      { devices: [label(1, "NetR2_1")], parts: ["R1"] },
+      { devices: [entry(2, "NetR2_1")], parts: ["R2"] }
+    );
+    nameSheetNets(nets, schematic);
+    expect(nets.map((net) => net.name)).toEqual(["NetR2_1", "NetR2_1_2"]);
   });
 });

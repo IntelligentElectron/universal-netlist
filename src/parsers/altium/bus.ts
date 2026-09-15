@@ -23,7 +23,6 @@ import {
   rangePrefix,
   repeatBaseName,
   repeatChannels,
-  unescapeOverbar,
 } from "./notation.js";
 import { sheetSymbolDesignator } from "./sheet-hierarchy.js";
 import { findAllConnectedComponents } from "./connectivity.js";
@@ -45,17 +44,11 @@ const BUS_IDENTIFIERS = new Set<string | undefined>([
 export const isBusIdentifier = (record: AltiumRecord): boolean =>
   BUS_IDENTIFIERS.has(record.RECORD) && busMemberTest(recordName(record) ?? "") !== undefined;
 
-/** A net label's text, overbars removed. */
-const labelText = (record: AltiumRecord): string | undefined => {
-  const text = fieldText(record, "Text");
-  return text === undefined ? undefined : unescapeOverbar(text);
-};
-
 const labelsOf = (net: AltiumNet): string[] => [
   ...new Set(
     net.devices
       .filter((device) => device.RECORD === RECORD_TYPES.NET_LABEL)
-      .map(labelText)
+      .map((device) => fieldText(device, "Text"))
       .filter((label): label is string => label !== undefined)
   ),
 ];
@@ -110,7 +103,7 @@ const busRuns = (records: readonly AltiumRecord[]): BusRun[] => {
   };
   const runByLabel = new Map<string, BusRun>();
   for (const record of records) {
-    const label = record.RECORD === RECORD_TYPES.NET_LABEL ? labelText(record) : undefined;
+    const label = record.RECORD === RECORD_TYPES.NET_LABEL ? fieldText(record, "Text") : undefined;
     if (label === undefined || !isRange(label)) continue;
     const run = runs.find((candidate) => candidate.touches(scaledPoint(record)));
     if (!run) continue;
@@ -175,7 +168,7 @@ export const attachBusMembers = (schematic: AltiumSchematic, nets: AltiumNet[]):
     const ranges = [
       ...records
         .filter((record) => record.RECORD === RECORD_TYPES.NET_LABEL)
-        .map((record) => ({ label: labelText(record) ?? "", at: scaledPoint(record) }))
+        .map((record) => ({ label: fieldText(record, "Text") ?? "", at: scaledPoint(record) }))
         .filter(({ label, at }) => isRange(label) && run.touches(at))
         .map(({ label }) => label),
       ...onRun.map((identifier) => recordName(identifier) ?? "").filter(isRange),

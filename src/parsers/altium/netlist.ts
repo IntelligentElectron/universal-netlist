@@ -101,25 +101,20 @@ export const canonicalNetName = (
 
 /**
  * Fold each group of net names into one net under its canonical name. A group may name
- * pinless nets, which offer their name and nothing else. Returns the renames applied.
+ * pinless nets, which give their name and nothing else.
  */
 export const mergeNetGroups = (
   netlist: ParsedNetlist,
   groups: Iterable<Set<string>>,
   rankOf: (name: string) => number
-): Map<string, string> => {
+): void => {
   const renames = new Map<string, string>();
   for (const names of groups) {
-    const resolved = new Set([...names].map((name) => renames.get(name) ?? name));
-    if (resolved.size < 2 || ![...resolved].some((name) => netlist.nets[name] !== undefined)) {
-      continue;
-    }
-    const canonical = canonicalNetName(resolved, rankOf);
-    for (const [from, to] of renames) if (resolved.has(to)) renames.set(from, canonical);
-    for (const name of resolved) if (name !== canonical) renames.set(name, canonical);
+    if (names.size < 2 || ![...names].some((name) => netlist.nets[name] !== undefined)) continue;
+    const canonical = canonicalNetName(names, rankOf);
+    for (const name of names) if (name !== canonical) renames.set(name, canonical);
   }
   applyNetRenames(netlist, renames);
-  return renames;
 };
 
 /** Provisional names by name, then by instance, numbers by value. */

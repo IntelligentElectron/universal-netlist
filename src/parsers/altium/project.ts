@@ -126,7 +126,7 @@ export const parseAltiumProject = async (
     throw new Error(`No schematic documents found for project ${projectPath}`);
   }
 
-  const projectText = await readFile(projectPath, "utf-8").catch(() => "");
+  const projectText = await readFile(projectPath, "utf-8");
   const options = parseProjectOptions(projectText);
   const naming: NetNamingOptions = {
     allowPortNetNames: options.allowPortNetNames,

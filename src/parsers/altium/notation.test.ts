@@ -6,7 +6,6 @@ import {
   repeatBaseName,
   repeatChannels,
   repeatSheetName,
-  unescapeOverbar,
 } from "./notation.js";
 
 describe("busMemberTest", () => {
@@ -19,9 +18,10 @@ describe("busMemberTest", () => {
     expect(inRange("AD")).toBe(false);
   });
 
-  it("reads a descending range and an overbar", () => {
+  it("reads a descending range, and an overbarred prefix as written", () => {
     expect(busMemberTest("D[3..0]")!("D2")).toBe(true);
-    expect(busMemberTest("C\\S\\[1..2]")!("CS2")).toBe(true);
+    expect(busMemberTest("C\\S\\[1..2]")!("C\\S\\2")).toBe(true);
+    expect(busMemberTest("C\\S\\[1..2]")!("CS2")).toBe(false);
   });
 
   it("accepts any index for a Repeat() identifier", () => {
@@ -48,14 +48,14 @@ describe("expandBusRange and repeatBaseName", () => {
   });
 });
 
-describe("identifierKey and unescapeOverbar", () => {
+describe("identifierKey", () => {
   it("ignores ASCII case only", () => {
     expect(identifierKey("VBat")).toBe(identifierKey("VBAT"));
     expect(identifierKey("10µA")).not.toBe(identifierKey("10μA"));
   });
 
-  it("removes overbar escapes", () => {
-    expect(unescapeOverbar("C\\S\\")).toBe("CS");
+  it("keeps overbar escapes", () => {
+    expect(identifierKey("C\\S\\")).not.toBe(identifierKey("CS"));
   });
 });
 

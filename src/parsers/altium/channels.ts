@@ -6,7 +6,7 @@
 import type { ComponentDetails, NetConnections, PinEntry } from "../../types.js";
 import { RECORD_TYPES, type AltiumNet, type AltiumRecord, type NetNameSource } from "./types.js";
 import { fieldText } from "./records.js";
-import { expandBusRange, identifierKey, repeatBaseName, unescapeOverbar } from "./notation.js";
+import { expandBusRange, identifierKey, repeatBaseName } from "./notation.js";
 import { resolveHarnessMembers, type HarnessDefinitions } from "./harness.js";
 import { channelAlpha, type DocumentInstance } from "./sheet-hierarchy.js";
 import { PROVISIONAL } from "./netlist.js";
@@ -95,7 +95,7 @@ export const sharedEntryNames = (
     const name = fieldText(entry, "Name") ?? "";
     if (repeatBaseName(name) !== undefined) continue;
     const members = expandBusRange(name);
-    for (const signal of members.length > 0 ? members : [unescapeOverbar(name)]) shared.add(signal);
+    for (const signal of members.length > 0 ? members : [name]) shared.add(signal);
     const harnessType = fieldText(entry, "HarnessType");
     if (!harnessType) continue;
     for (const member of resolveHarnessMembers(harnessType, definitions, nestedTypes)) {

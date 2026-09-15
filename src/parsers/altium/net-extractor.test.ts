@@ -318,8 +318,8 @@ describe("Pin coordinate calculation", () => {
   });
 });
 
-describe("Overbar unescaping", () => {
-  it("should unescape fully overbarred net names", () => {
+describe("Overbar escapes", () => {
+  it("keeps a fully overbarred net name as written", () => {
     const schematic: AltiumSchematic = {
       header: [],
       records: [
@@ -343,10 +343,10 @@ describe("Overbar unescaping", () => {
     };
 
     const nets = extractNets(schematic);
-    expect(nets.find((n) => n.name === "IF_OFF")).toBeDefined();
+    expect(nets.find((n) => n.name === "\\I\\F\\_\\O\\F\\F")).toBeDefined();
   });
 
-  it("should unescape simple overbarred names", () => {
+  it("keeps an overbarred power port name as written", () => {
     const schematic: AltiumSchematic = {
       header: [],
       records: [
@@ -361,7 +361,7 @@ describe("Overbar unescaping", () => {
     };
 
     const nets = extractNets(schematic);
-    expect(nets.find((n) => n.name === "VCC")).toBeDefined();
+    expect(nets.find((n) => n.name === "\\V\\C\\C")).toBeDefined();
   });
 
   it("should not alter names without backslashes", () => {
@@ -391,7 +391,7 @@ describe("Overbar unescaping", () => {
     expect(nets.find((n) => n.name === "DATA_BUS")).toBeDefined();
   });
 
-  it("should unescape partially overbarred names", () => {
+  it("keeps a partially overbarred name as written", () => {
     const schematic: AltiumSchematic = {
       header: [],
       records: [
@@ -415,7 +415,7 @@ describe("Overbar unescaping", () => {
     };
 
     const nets = extractNets(schematic);
-    expect(nets.find((n) => n.name === "SPI_CLK")).toBeDefined();
+    expect(nets.find((n) => n.name === "SPI_\\C\\L\\K")).toBeDefined();
   });
 });
 

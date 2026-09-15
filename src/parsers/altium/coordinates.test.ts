@@ -46,8 +46,15 @@ describe("polylinePoints", () => {
     ]);
   });
 
-  it("reads no more vertices than the record writes", () => {
-    expect(polylinePoints({ LocationCount: "1000000000", X1: "1", Y1: "2" })).toHaveLength(1);
+  it("keeps a vertex at the origin, whose coordinates are both unwritten", () => {
+    expect(polylinePoints({ LocationCount: "2", Y2: "10" })).toEqual([
+      [0, 0],
+      [0, units(10)],
+    ]);
+  });
+
+  it("reads no further than the written coordinates can describe", () => {
+    expect(polylinePoints({ LocationCount: "1000000000", X1: "1", Y1: "2" })).toHaveLength(5);
     expect(polylinePoints({ X1: "1", Y1: "2", X2: "3", Y2: "4" })).toHaveLength(2);
   });
 

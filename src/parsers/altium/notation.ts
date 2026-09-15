@@ -1,13 +1,11 @@
 /**
- * How Altium writes names: case, overbars, bus ranges and `Repeat()`.
+ * How Altium writes names: case, bus ranges and `Repeat()`. A name keeps its overbar
+ * escapes: `C\S\` and `CS` are different names.
  */
 
 /** The key a net, port, entry or harness name matches by: ASCII case is ignored. */
 export const identifierKey = (name: string): string =>
   name.replace(/[a-z]+/g, (letters) => letters.toUpperCase());
-
-/** A name without its overbar escapes: `C\S\` is `CS`. */
-export const unescapeOverbar = (name: string): string => name.replace(/\\/g, "");
 
 const RANGE = /^(.+)\[(\d+)\.\.(\d+)\]$/;
 const REPEAT_ENTRY = /^Repeat\((.+)\)$/i;
@@ -15,7 +13,7 @@ const REPEAT_SYMBOL = /^Repeat\(\s*([^,)]+?)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i;
 
 /** A range identifier's prefix and bounds: `AD[0..11]` is `AD`, 0, 11. */
 const parseRange = (name: string): { prefix: string; start: number; end: number } | undefined => {
-  const range = unescapeOverbar(name).match(RANGE);
+  const range = name.match(RANGE);
   return range
     ? { prefix: range[1], start: parseInt(range[2], 10), end: parseInt(range[3], 10) }
     : undefined;
@@ -38,7 +36,7 @@ export const expandBusRange = (name: string): string[] => {
 
 /** The base name of a `Repeat(NAME)` entry, or undefined for any other name. */
 export const repeatBaseName = (name: string): string | undefined =>
-  unescapeOverbar(name).match(REPEAT_ENTRY)?.[1].trim();
+  name.match(REPEAT_ENTRY)?.[1].trim();
 
 /**
  * The members a range identifier carries, as a test on a label, ignoring case.
