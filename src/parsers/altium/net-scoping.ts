@@ -3,6 +3,7 @@
  * sheet's `SheetNumber`, so same-named local nets on two sheets stay apart.
  */
 
+import { identifierKey } from "./notation.js";
 import {
   netLabelsAreGlobal,
   powerPortsAreGlobal,
@@ -57,7 +58,10 @@ export const planLocalNetRenames = (
   sheets: readonly SheetNetScope[],
   scope: NetIdentifierScope
 ): Map<string, string>[] => {
-  const namesInUse = new Set(sheets.flatMap((sheet) => [...sheet.netIdentifiers.keys()]));
+  const namesInUse = new Set(
+    sheets.flatMap((sheet) => [...sheet.netIdentifiers.keys()].map(identifierKey))
+  );
+  const inUse = (name: string): boolean => namesInUse.has(identifierKey(name));
   const numbered = (name: string, number: string): string => `${name}_${number}`;
   const renames = sheets.map(() => new Map<string, string>());
 
@@ -66,7 +70,7 @@ export const planLocalNetRenames = (
     if (!sheet.sheetNumber) return;
     for (const [name, kinds] of sheet.netIdentifiers) {
       if (!isSheetBound(kinds, scope) || (!kinds.label && !kinds.powerPort)) continue;
-      if (namesInUse.has(numbered(name, sheet.sheetNumber))) continue;
+      if (inUse(numbered(name, sheet.sheetNumber))) continue;
       (claims.get(name) ?? claims.set(name, []).get(name)!).push({
         sheet: index,
         number: sheet.sheetNumber,
@@ -108,7 +112,7 @@ export const planLocalNetRenames = (
 
   // Applied last, so a member's two ends still merge under one name.
   for (const [name, number] of memberNumbers) {
-    if (namesInUse.has(numbered(name, number))) continue;
+    if (inUse(numbered(name, number))) continue;
     sheets.forEach((sheet, index) => {
       if (sheet.netIdentifiers.has(name)) renames[index].set(name, numbered(name, number));
     });

@@ -131,6 +131,7 @@ describe("Altium netlist against the board", { timeout: 30_000 }, () => {
           }
         }
         const comparison = compareToBoard(pinNets, readBoardNetlist(board), schematicPins);
+        expect(comparison.ambiguous).toEqual([]);
         expect(comparison.fragmented).toEqual(boardCase.fragmented ?? []);
         expect(comparison.overMerged).toEqual(boardCase.overMerged ?? []);
         expect(comparison.unconnected).toEqual(boardCase.unconnected ?? []);

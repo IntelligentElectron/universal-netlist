@@ -4,6 +4,7 @@
 
 import type { NetConnections, ParsedNetlist, PinEntry } from "../../types.js";
 import { mergeComponentInto } from "./components.js";
+import { identifierKey } from "./notation.js";
 
 const pinNet = (entry: PinEntry): string => (typeof entry === "string" ? entry : entry.net);
 
@@ -121,19 +122,22 @@ export const mergeNetGroups = (
   return renames;
 };
 
+/** Provisional names by name, then by instance, numbers by value. */
+const byInstance = new Intl.Collator("en", { numeric: true }).compare;
+
 /**
  * Give every provisional name its reported form: the plain name, numbered `_2`, `_3` in
- * sort order where another net already has it.
+ * instance order where another net already has it, ignoring case.
  */
 export const settleProvisionalNames = (nets: NetConnections): Map<string, string> => {
   const names = Object.keys(nets);
-  const taken = new Set(names.filter((name) => !name.includes(PROVISIONAL)));
+  const taken = new Set(names.filter((name) => !name.includes(PROVISIONAL)).map(identifierKey));
   const renames = new Map<string, string>();
-  for (const name of names.filter((name) => name.includes(PROVISIONAL)).sort()) {
+  for (const name of names.filter((name) => name.includes(PROVISIONAL)).sort(byInstance)) {
     const plain = displayName(name);
     let candidate = plain;
-    for (let n = 2; taken.has(candidate); n++) candidate = `${plain}_${n}`;
-    taken.add(candidate);
+    for (let n = 2; taken.has(identifierKey(candidate)); n++) candidate = `${plain}_${n}`;
+    taken.add(identifierKey(candidate));
     renames.set(name, candidate);
   }
   return renames;

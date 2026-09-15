@@ -68,7 +68,6 @@ export const resolveBundles = (
 
   for (const document of documents) {
     const identities = [
-      ...[...document.harnessSignals.keys()].map((signal) => splitHarnessSignalKey(signal).bundle),
       ...document.bundleLinks.flat(),
       ...document.links.flatMap((group) =>
         group.keys

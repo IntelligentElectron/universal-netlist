@@ -27,7 +27,7 @@ import {
   type SheetPlacement,
 } from "./sheet-hierarchy.js";
 import { channelDocument, channelNetScope, sharedEntryNames } from "./channels.js";
-import { linkedNetGroups, type NetLinkGroup } from "./links.js";
+import { linkedNetGroups, type InstanceLinks } from "./links.js";
 import { resolveBundles } from "./bundles.js";
 import { planLocalNetRenames } from "./net-scoping.js";
 import {
@@ -187,42 +187,18 @@ export const parseAltiumProject = async (
   }
 
   const resolveSignal = resolveBundles(pending, scope, symbolChannels);
-  const signalNets = new Map<string, Set<string>>();
-  for (const document of pending) {
-    for (const [signal, netName] of document.harnessSignals) {
-      const key = resolveSignal(document, signal);
-      (signalNets.get(key) ?? signalNets.set(key, new Set()).get(key)!).add(netName);
-    }
-  }
-  const harnessRenames = mergeNetGroups(netlist, signalNets.values(), rankOf);
-  const renamed = (name: string): string => harnessRenames.get(name) ?? name;
-
-  // A pinless net named by a port or entry is its own net: two named alike stay apart.
-  let pinless = 0;
-  const links: NetLinkGroup[] = pending.flatMap((document) =>
-    document.links.map((group) => {
-      let name = group.name === undefined ? undefined : renamed(group.name);
-      const source = group.name === undefined ? undefined : document.nameSources.get(group.name);
-      if (
-        group.net === undefined &&
-        name !== undefined &&
-        (source === "port" || source === "entry")
-      ) {
-        const own = `${name}${PROVISIONAL}p${pinless++}`;
-        nameRank.set(own, rankOf(name));
-        name = own;
-      }
-      return {
-        net: group.net === undefined ? undefined : renamed(group.net),
-        name,
-        keys: group.keys.map((key) =>
-          key.startsWith("harness|")
-            ? `harness|${resolveSignal(document, key.slice("harness|".length))}`
-            : key
-        ),
-      };
-    })
-  );
+  const links: InstanceLinks[] = pending.map((document) => ({
+    placement: document.placement,
+    document: document.name,
+    groups: document.links.map((group) => ({
+      ...group,
+      keys: group.keys.map((key) =>
+        key.startsWith("harness|")
+          ? `harness|${resolveSignal(document, key.slice("harness|".length))}`
+          : key
+      ),
+    })),
+  }));
   mergeNetGroups(netlist, linkedNetGroups(links, scope, symbolChannels).values(), rankOf);
   applyNetRenames(netlist, settleProvisionalNames(netlist.nets));
   reconcileNetlist(netlist);

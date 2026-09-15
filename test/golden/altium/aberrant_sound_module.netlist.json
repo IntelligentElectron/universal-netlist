@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-15T00:06:21.527Z",
-    "netlistHash": "sha256:a5a4f924724a97edf128df83f9272a50adca753f5762b5cd1a6e59f5e8acb89e",
+    "generatedAt": "2026-09-15T02:00:19.909Z",
+    "netlistHash": "sha256:97fa59c30a3719c3514fade6cb54c406f82f1a87dba7233e96823afb48be6afb",
     "origin": {
       "type": "vendor",
       "source": {
@@ -1300,7 +1300,7 @@
         "1"
       ]
     },
-    "L_IN3": {
+    "L_IN1": {
       "R11": [
         "1"
       ],
@@ -1360,7 +1360,7 @@
         "1"
       ]
     },
-    "R_IN3": {
+    "R_IN1": {
       "R23": [
         "1"
       ],
@@ -2184,28 +2184,28 @@
     },
     "R4_AY1": {
       "pins": {
-        "1": "L_IN3",
+        "1": "L_IN1",
         "2": "NetDD12_AY1_5"
       },
       "comment": "1K"
     },
     "R5_AY1": {
       "pins": {
-        "1": "L_IN3",
+        "1": "L_IN1",
         "2": "NetDD12_AY1_4"
       },
       "comment": "2.2K"
     },
     "R6_AY1": {
       "pins": {
-        "1": "R_IN3",
+        "1": "R_IN1",
         "2": "NetDD12_AY1_4"
       },
       "comment": "2.2K"
     },
     "R7_AY1": {
       "pins": {
-        "1": "R_IN3",
+        "1": "R_IN1",
         "2": "NetDD12_AY1_1"
       },
       "comment": "1K"
@@ -2354,28 +2354,28 @@
     },
     "R4_AY2": {
       "pins": {
-        "1": "L_IN3",
+        "1": "L_IN1",
         "2": "NetDD12_AY2_5"
       },
       "comment": "1K"
     },
     "R5_AY2": {
       "pins": {
-        "1": "L_IN3",
+        "1": "L_IN1",
         "2": "NetDD12_AY2_4"
       },
       "comment": "2.2K"
     },
     "R6_AY2": {
       "pins": {
-        "1": "R_IN3",
+        "1": "R_IN1",
         "2": "NetDD12_AY2_4"
       },
       "comment": "2.2K"
     },
     "R7_AY2": {
       "pins": {
-        "1": "R_IN3",
+        "1": "R_IN1",
         "2": "NetDD12_AY2_1"
       },
       "comment": "1K"
@@ -2524,28 +2524,28 @@
     },
     "R4_AY3": {
       "pins": {
-        "1": "L_IN3",
+        "1": "L_IN1",
         "2": "NetDD12_AY3_5"
       },
       "comment": "1K"
     },
     "R5_AY3": {
       "pins": {
-        "1": "L_IN3",
+        "1": "L_IN1",
         "2": "NetDD12_AY3_4"
       },
       "comment": "2.2K"
     },
     "R6_AY3": {
       "pins": {
-        "1": "R_IN3",
+        "1": "R_IN1",
         "2": "NetDD12_AY3_4"
       },
       "comment": "2.2K"
     },
     "R7_AY3": {
       "pins": {
-        "1": "R_IN3",
+        "1": "R_IN1",
         "2": "NetDD12_AY3_1"
       },
       "comment": "1K"
@@ -2797,14 +2797,14 @@
     },
     "R11": {
       "pins": {
-        "1": "L_IN3",
+        "1": "L_IN1",
         "2": "GND"
       },
       "comment": "510"
     },
     "R23": {
       "pins": {
-        "1": "R_IN3",
+        "1": "R_IN1",
         "2": "GND"
       },
       "comment": "510"
@@ -2912,7 +2912,7 @@
     },
     "C28": {
       "pins": {
-        "1": "L_IN3",
+        "1": "L_IN1",
         "2": "NetC28_2"
       },
       "description": "Murata ceramic capacitor",
@@ -2920,7 +2920,7 @@
     },
     "C37": {
       "pins": {
-        "1": "R_IN3",
+        "1": "R_IN1",
         "2": "NetC37_2"
       },
       "description": "Murata ceramic capacitor",

@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-14T20:26:46.909Z",
-    "netlistHash": "sha256:68176d3329e916e943cc21e9a98eac67f6967b0424d4581537be57466c943f9c",
+    "generatedAt": "2026-09-15T02:00:20.322Z",
+    "netlistHash": "sha256:2a4e33525a8c7436406fb7842b0316bdb1bd842b1121e2996a24e5d44f1e65c5",
     "origin": {
       "type": "vendor",
       "source": {
@@ -18,6 +18,12 @@
       ],
       "R2": [
         "2"
+      ],
+      "WHEEL_SPEED_BL_CONN": [
+        "1"
+      ],
+      "WHEEL_SPEED_BR_CONN": [
+        "1"
       ]
     },
     "TPS_VOLTAGE": {
@@ -32,6 +38,16 @@
       ],
       "THROTTLE_BODY_CONN": [
         "5"
+      ]
+    },
+    "NetFL_DAMPER_CONN_2": {
+      "FL_DAMPER_CONN": [
+        "2"
+      ]
+    },
+    "NetFR_DAMPER_CONN_2": {
+      "FR_DAMPER_CONN": [
+        "2"
       ]
     },
     "CAN_P": {
@@ -139,9 +155,6 @@
       "DASH_BULKHEAD_CONN": [
         "2"
       ],
-      "FL_DAMPER_CONN": [
-        "2"
-      ],
       "DATA_LOGGER_CONN": [
         "22"
       ]
@@ -149,9 +162,6 @@
     "FR_DAMPER_POT": {
       "DASH_BULKHEAD_CONN": [
         "5"
-      ],
-      "FR_DAMPER_CONN": [
-        "2"
       ],
       "DATA_LOGGER_CONN": [
         "21"
@@ -205,23 +215,6 @@
         "8",
         "11"
       ],
-      "IGNITION_CONN": [
-        "4"
-      ],
-      "FUEL_PUMP_CONN": [
-        "3",
-        "4"
-      ],
-      "INJECTOR_CONN": [
-        "4",
-        "5"
-      ],
-      "BRAKE_LIGHT_CONN": [
-        "1"
-      ],
-      "TRANSPONDER_CONN": [
-        "2"
-      ],
       "FL_DAMPER_CONN": [
         "3"
       ],
@@ -257,8 +250,23 @@
       "STEERING_ANGLE_SEN_CONN": [
         "3"
       ],
+      "P?": [
+        "1"
+      ],
       "KILL_SWITCH_CONN": [
         "2"
+      ],
+      "DATA_LOGGER_CONN": [
+        "7"
+      ],
+      "ECU_CONN_A": [
+        "24",
+        "25",
+        "32"
+      ],
+      "ECU_CONN_C": [
+        "10",
+        "11"
       ],
       "ENGINE_SPEED_CONN": [
         "3"
@@ -279,9 +287,23 @@
         "2",
         "4"
       ],
+      "IGNITION_CONN": [
+        "4"
+      ],
       "TURBO_CONN": [
         "2",
         "4"
+      ],
+      "FUEL_PUMP_CONN": [
+        "3",
+        "4"
+      ],
+      "INJECTOR_CONN": [
+        "4",
+        "5"
+      ],
+      "BRAKE_LIGHT_CONN": [
+        "1"
       ],
       "KNOCK_CONN": [
         "3"
@@ -295,26 +317,14 @@
       "REAR_BR_PRES?": [
         "3"
       ],
+      "TRANSPONDER_CONN": [
+        "2"
+      ],
       "WHEEL_SPEED_FL_CONN": [
         "3"
       ],
       "WHEEL_SPEED_FR_CONN": [
         "3"
-      ],
-      "P?": [
-        "1"
-      ],
-      "DATA_LOGGER_CONN": [
-        "7"
-      ],
-      "ECU_CONN_A": [
-        "24",
-        "25",
-        "32"
-      ],
-      "ECU_CONN_C": [
-        "10",
-        "11"
       ]
     },
     "STEERING_POWER": {
@@ -675,6 +685,9 @@
     "IGNITION_CTRL_OUT": {
       "ECU_CONN_C": [
         "4"
+      ],
+      "IGNITION_CONN": [
+        "3"
       ]
     },
     "SEN_5V_B": {
@@ -724,6 +737,9 @@
     "INJECTOR_CTRL_OUT": {
       "ECU_CONN_C": [
         "23"
+      ],
+      "INJECTOR_CONN": [
+        "3"
       ]
     },
     "FUEL_PRES_SEN": {
@@ -928,63 +944,8 @@
         "3"
       ]
     },
-    "NetWHEEL_SPEED_BL_CONN_1": {
-      "WHEEL_SPEED_BL_CONN": [
-        "1"
-      ]
-    },
-    "NetWHEEL_SPEED_BR_CONN_1": {
-      "WHEEL_SPEED_BR_CONN": [
-        "1"
-      ]
-    },
     "VBATT+": {
       "STARTER_RELAY_CONN": [
-        "3"
-      ]
-    },
-    "NetIGNITION_CONN_1": {
-      "IGNITION_CONN": [
-        "1"
-      ]
-    },
-    "NetIGNITION_CONN_2": {
-      "IGNITION_CONN": [
-        "2"
-      ]
-    },
-    "NetIGNITION_CONN_3": {
-      "IGNITION_CONN": [
-        "3"
-      ]
-    },
-    "NetIGNITION_CONN_5": {
-      "IGNITION_CONN": [
-        "5"
-      ]
-    },
-    "NetFUEL_PUMP_CONN_1": {
-      "FUEL_PUMP_CONN": [
-        "1"
-      ]
-    },
-    "NetFUEL_PUMP_CONN_2": {
-      "FUEL_PUMP_CONN": [
-        "2"
-      ]
-    },
-    "NetINJECTOR_CONN_1": {
-      "INJECTOR_CONN": [
-        "1"
-      ]
-    },
-    "NetINJECTOR_CONN_2": {
-      "INJECTOR_CONN": [
-        "2"
-      ]
-    },
-    "NetINJECTOR_CONN_3": {
-      "INJECTOR_CONN": [
         "3"
       ]
     },
@@ -1011,17 +972,29 @@
       "PDM_CONN_A": [
         "1",
         "10"
+      ],
+      "IGNITION_CONN": [
+        "1",
+        "2"
       ]
     },
     "FUEL_PUMP_POWER": {
       "PDM_CONN_A": [
         "3",
         "12"
+      ],
+      "FUEL_PUMP_CONN": [
+        "1",
+        "2"
       ]
     },
     "FUEL_INJECTOR_POWER": {
       "PDM_CONN_A": [
         "4"
+      ],
+      "INJECTOR_CONN": [
+        "1",
+        "2"
       ]
     },
     "TRANSPONDER_POWER": {
@@ -1135,11 +1108,11 @@
       "PEDALBOX_BULKHEAD_CONN": [
         "14"
       ],
-      "REAR_BR_PRES?": [
-        "2"
-      ],
       "ECU_CONN_B": [
         "11"
+      ],
+      "REAR_BR_PRES?": [
+        "2"
       ]
     },
     "APPS1_VOLTAGE": {
@@ -1214,6 +1187,9 @@
       ],
       "GEAR_SHIFT_ACT_PRESSURE_CONN": [
         "3"
+      ],
+      "IGNITION_CONN": [
+        "5"
       ]
     }
   },
@@ -1233,7 +1209,7 @@
     "FL_DAMPER_CONN": {
       "pins": {
         "1": "SEN_5V_A1",
-        "2": "FL_DAMPER_POT",
+        "2": "NetFL_DAMPER_CONN_2",
         "3": "PDM_CAN_GND"
       },
       "description": "Header, 3-Pin",
@@ -1242,7 +1218,7 @@
     "FR_DAMPER_CONN": {
       "pins": {
         "1": "SEN_5V_A1",
-        "2": "FR_DAMPER_POT",
+        "2": "NetFR_DAMPER_CONN_2",
         "3": "PDM_CAN_GND"
       },
       "description": "Header, 3-Pin",
@@ -1716,7 +1692,7 @@
     },
     "WHEEL_SPEED_BL_CONN": {
       "pins": {
-        "1": "NetWHEEL_SPEED_BL_CONN_1",
+        "1": "VBATT",
         "2": "WHEEL_SPEED_BL",
         "3": "PDM_CAN_GND"
       },
@@ -1725,7 +1701,7 @@
     },
     "WHEEL_SPEED_BR_CONN": {
       "pins": {
-        "1": "NetWHEEL_SPEED_BR_CONN_1",
+        "1": "VBATT",
         "2": "WHEEL_SPEED_BR",
         "3": "PDM_CAN_GND"
       },
@@ -1753,11 +1729,11 @@
     },
     "IGNITION_CONN": {
       "pins": {
-        "1": "NetIGNITION_CONN_1",
-        "2": "NetIGNITION_CONN_2",
-        "3": "NetIGNITION_CONN_3",
+        "1": "IGNITION_COIL_POWER",
+        "2": "IGNITION_COIL_POWER",
+        "3": "IGNITION_CTRL_OUT",
         "4": "PDM_CAN_GND",
-        "5": "NetIGNITION_CONN_5",
+        "5": "IGNITION_SEN_0V",
         "6": ""
       },
       "description": "Header, 6-Pin",
@@ -1775,8 +1751,8 @@
     },
     "FUEL_PUMP_CONN": {
       "pins": {
-        "1": "NetFUEL_PUMP_CONN_1",
-        "2": "NetFUEL_PUMP_CONN_2",
+        "1": "FUEL_PUMP_POWER",
+        "2": "FUEL_PUMP_POWER",
         "3": "PDM_CAN_GND",
         "4": "PDM_CAN_GND"
       },
@@ -1785,9 +1761,9 @@
     },
     "INJECTOR_CONN": {
       "pins": {
-        "1": "NetINJECTOR_CONN_1",
-        "2": "NetINJECTOR_CONN_2",
-        "3": "NetINJECTOR_CONN_3",
+        "1": "FUEL_INJECTOR_POWER",
+        "2": "FUEL_INJECTOR_POWER",
+        "3": "INJECTOR_CTRL_OUT",
         "4": "PDM_CAN_GND",
         "5": "PDM_CAN_GND",
         "6": ""

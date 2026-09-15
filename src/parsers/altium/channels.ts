@@ -127,9 +127,8 @@ export const channelNetScope = (
 
 /**
  * One instance of a sheet as its own document: parts named by the channel designator
- * format, nets as planChannelNetNames names them, and claims naming the instance. A net
- * the channel names itself is provisional, so a name it shares with another net does not
- * merge the two.
+ * format and nets as planChannelNetNames names them. A net the channel names itself is
+ * provisional, so a name it shares with another net does not merge the two.
  */
 export const channelDocument = (
   base: ParsedDocument,
@@ -141,7 +140,6 @@ export const channelDocument = (
     ...Object.keys(base.netlist.nets),
     ...base.nameSources.keys(),
     ...base.netIdentifiers.keys(),
-    ...base.harnessSignals.values(),
     ...base.links.flatMap((group) => [group.net, group.name].filter((name) => name !== undefined)),
   ]);
   const planned = planChannelNetNames(names, scope, instance.room, instance.ordinal, channelFormat);
@@ -170,16 +168,10 @@ export const channelDocument = (
     components[refdes(designator)] = { ...component, pins };
   }
 
-  const ownPrefixes = [`hier|${base.name}|`, `entry|${base.name}|`];
   const links: NetLinkGroup[] = base.links.map((group) => ({
+    ...group,
     net: group.net === undefined ? undefined : rename(group.net),
     name: group.name === undefined ? undefined : rename(group.name),
-    keys: group.keys.map((key) => {
-      const prefix = ownPrefixes.find((start) => key.startsWith(start));
-      return prefix
-        ? `${prefix.slice(0, prefix.indexOf("|") + 1)}${instance.key}|${key.slice(prefix.length)}`
-        : key;
-    }),
   }));
   const renameKeys = <T>(map: ReadonlyMap<string, T>): Map<string, T> =>
     new Map([...map].map(([name, value]) => [rename(name), value]));
@@ -189,7 +181,6 @@ export const channelDocument = (
     placement: instance.key,
     netlist: { nets, components },
     links,
-    harnessSignals: new Map([...base.harnessSignals].map(([signal, net]) => [signal, rename(net)])),
     nameSources: renameKeys<NetNameSource>(base.nameSources),
     netIdentifiers: renameKeys<NetIdentifierKinds>(base.netIdentifiers),
     // Channel net names already tell instances apart.

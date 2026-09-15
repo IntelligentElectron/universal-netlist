@@ -19,6 +19,12 @@ export const sheetSymbolChild = (symbol: AltiumRecord | undefined): string | und
   return fileName ? path.basename(fileName.replace(/\\/g, "/")).toLowerCase() : undefined;
 };
 
+/** A sheet symbol's designator, `Repeat(NAME,start,end)` for a repeated sheet. */
+export const sheetSymbolDesignator = (symbol: AltiumRecord): string => {
+  const name = childRecord(symbol, RECORD_TYPES.SHEET_NAME);
+  return (name && fieldText(name, "Text", "Name")) ?? "";
+};
+
 /** A sheet symbol placing a document. */
 export interface SheetPlacement {
   parent: ReadDocument;
@@ -41,8 +47,7 @@ export const findSheetPlacements = (
       if (symbol.RECORD !== RECORD_TYPES.SHEET_SYMBOL) continue;
       const child = sheetSymbolChild(symbol);
       if (!child) continue;
-      const name = childRecord(symbol, RECORD_TYPES.SHEET_NAME);
-      const designator = (name && fieldText(name, "Text", "Name")) ?? "";
+      const designator = sheetSymbolDesignator(symbol);
       const repeated = repeatChannels(designator);
       (placements.get(child) ?? placements.set(child, []).get(child)!).push({
         parent,

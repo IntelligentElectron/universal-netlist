@@ -146,6 +146,17 @@ describe("planLocalNetRenames", () => {
     expect(plans[1].has("SCL")).toBe(false);
   });
 
+  it("does not number a name onto one in use in another case", () => {
+    const plans = planLocalNetRenames(
+      [
+        sheet("1", { SCL: { label: true } }),
+        sheet("2", { SCL: { label: true }, scl_2: { label: true } }),
+      ],
+      "hierarchical"
+    );
+    expect(plans[1].has("SCL")).toBe(false);
+  });
+
   it("counts three sheets claiming one name and numbers each by its own sheet", () => {
     const plans = planLocalNetRenames(
       [

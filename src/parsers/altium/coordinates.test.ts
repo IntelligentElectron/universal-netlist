@@ -21,7 +21,14 @@ describe("scaledField", () => {
 
   it("puts an auto-sized port's far end on the harness line drawn to it", () => {
     const port = { "Location.X": "270", "Location.Y": "275", Width: "44", Width_Frac: "35626" };
-    const line = { X1: "314", X1_Frac: "35626", Y1: "275", X2: "320", Y2: "275" };
+    const line = {
+      LocationCount: "2",
+      X1: "314",
+      X1_Frac: "35626",
+      Y1: "275",
+      X2: "320",
+      Y2: "275",
+    };
     expect(portEnds(port)[1]).toEqual(polylinePoints(line)[0]);
   });
 
@@ -32,10 +39,17 @@ describe("scaledField", () => {
 });
 
 describe("polylinePoints", () => {
-  it("orders vertices by index", () => {
-    expect(polylinePoints({ X2: "3", Y2: "4", X1: "1", Y1: "2" })).toEqual([
+  it("reads LocationCount vertices in index order", () => {
+    expect(polylinePoints({ LocationCount: "2", X2: "3", Y2: "4", X1: "1", Y1: "2" })).toEqual([
       [units(1), units(2)],
       [units(3), units(4)],
+    ]);
+  });
+
+  it("puts a coordinate the record leaves out at 0", () => {
+    expect(polylinePoints({ LOCATIONCOUNT: "2", X1: "985", Y1: "30", X2: "985" })).toEqual([
+      [units(985), units(30)],
+      [units(985), 0],
     ]);
   });
 });

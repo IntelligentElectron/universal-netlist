@@ -73,7 +73,8 @@ in hundred-thousandths of a unit: `Width=44 | Width_Frac=35626` is 44.35626. Loc
 `PinLength_Frac`, `PrimaryConnectionPosition_Frac`) all carry one. `DistanceFromTop_Frac1` is the
 exception: millionths of a 10-unit step.
 
-A wire, bus or signal harness is a polyline: `LocationCount`, then `X1`, `Y1` to `Xn`, `Yn`.
+A wire, bus or signal harness is a polyline: `LocationCount`, then `X1`, `Y1` to `Xn`, `Yn`. A
+coordinate of 0 is not written, so a vertex can lack its `Xk` or `Yk`.
 
 ### Objects meet within half a unit
 
@@ -120,7 +121,13 @@ power ports and harness members match the same way.
 Within a sheet, net labels and power ports of one name are one net, and ports of one name are one
 net. A port never joins a net label by name: Altium's connectivity guide states that a port called
 `Inta` does not connect to a net label called `Inta`; the two must be wired. Sheet entries never
-join by name: entries of one name on different symbols lead to different nets.
+join by name: entries of one name on different symbols lead to different nets, and an entry no
+wire reaches connects to nothing.
+
+Two nets on one sheet that do not join by name do not share a name either. The net whose name
+ranks lower (see What a net is called), or between two sheet entries the later one, is called by
+its next name, a pin's when nothing else names it: an entry `EN` on a sheet whose label `EN` names
+another net leaves its own net named after a pin.
 
 ### Net identifier scope
 
@@ -139,9 +146,10 @@ it Flat, and neither makes it Global. Under every scope a port meets the sheet e
 the symbol that placed its sheet ("ports only connect vertically to their corresponding sheet
 entries").
 
-A net with no pins, such as a wire between two sheet entries, still carries its links and still
-offers its name. A power port links the nets it sits on across sheets whatever those nets are
-called.
+A net with no pins, such as a wire between two sheet entries, still carries its links. Its name
+reaches the nets it links only when a net label, power port or labelled harness gives it; a name a
+port or sheet entry gives a pinless net names nothing. A power port links the nets it sits on
+across sheets whatever those nets are called.
 
 ### How the sheets are joined
 
@@ -152,7 +160,7 @@ Each link a net makes across sheets is an identity:
 | `<instance>` and `<name>` | a port on a document instance; a plain entry, for every channel its symbol instantiates; a `Repeat(NAME)` entry's member `NAME<n>`, for channel `n` | under every scope |
 | `<name>` of a port | a port | under Flat and Global scope |
 | `<name>` of a power port | a power port | under every scope but Strict Hierarchical |
-| bundle and member | a bus member reaching a harness entry or a harness-typed port | under every scope |
+| bundle and member | a harness entry on the net, or a bus member reaching a harness entry or a harness-typed port | under every scope |
 
 An instance is the document no symbol places, then the symbol and channel of each placement on the
 way down (see Multi-channel sheets).
@@ -170,13 +178,11 @@ or an entry may name a net. When one net carries several names the strongest win
 6. a pin name
 
 `PowerPortNamesTakePriority=1` moves the power port to the front. Between two names of one rank
-the first in sort order wins.
+the first in sort order wins, on one sheet as across sheets.
 
 A net nothing names is called after a pin, `Net<designator>_<pin>`: the lowest designator, ordered
 by prefix, then number, then suffix (`R9` before `R11`), and its lowest pin, numbers before names.
-
-A pinless net still names: under `AllowSheetEntryNetNames` an entry on a wire between two entries
-names the net the child sheet's pins end up in.
+Text in both compares with punctuation before letters: `SUMPB_U1` comes before `SUMPBX_C1`.
 
 ### Sheet numbers on local nets
 

@@ -64,7 +64,14 @@ const sheet = ({
     "Location.Y": "100",
     Width: "40",
   });
-  const bus = record({ RECORD: RECORD_TYPES.BUS, X1: "100", Y1: "100", X2: "100", Y2: "200" });
+  const bus = record({
+    RECORD: RECORD_TYPES.BUS,
+    LocationCount: "2",
+    X1: "100",
+    Y1: "100",
+    X2: "100",
+    Y2: "200",
+  });
   const busEntry = record({
     RECORD: RECORD_TYPES.BUS_ENTRY,
     "Location.X": "100",
@@ -72,7 +79,14 @@ const sheet = ({
     "Corner.X": "110",
     "Corner.Y": "160",
   });
-  const wire = record({ RECORD: RECORD_TYPES.WIRE, X1: "110", Y1: "160", X2: "200", Y2: "160" });
+  const wire = record({
+    RECORD: RECORD_TYPES.WIRE,
+    LocationCount: "2",
+    X1: "110",
+    Y1: "160",
+    X2: "200",
+    Y2: "160",
+  });
   const label = record({
     RECORD: RECORD_TYPES.NET_LABEL,
     Text: "D1",
@@ -100,7 +114,14 @@ const sheet = ({
     OwnerIndex: String(symbolIndex),
   });
   // The entry sits at (500, 480); a wire reaches it from a bus entry.
-  const busA = record({ RECORD: RECORD_TYPES.BUS, X1: "400", Y1: "470", X2: "300", Y2: "470" });
+  const busA = record({
+    RECORD: RECORD_TYPES.BUS,
+    LocationCount: "2",
+    X1: "400",
+    Y1: "470",
+    X2: "300",
+    Y2: "470",
+  });
   const busAEntry = record({
     RECORD: RECORD_TYPES.BUS_ENTRY,
     "Location.X": "400",
@@ -110,6 +131,7 @@ const sheet = ({
   });
   const entryWire = record({
     RECORD: RECORD_TYPES.WIRE,
+    LocationCount: "2",
     X1: "410",
     Y1: "480",
     X2: "500",
@@ -122,7 +144,14 @@ const sheet = ({
     "Location.Y": "470",
   });
   // A separate bus carrying the same label, with the labelled member wire.
-  const busB = record({ RECORD: RECORD_TYPES.BUS, X1: "100", Y1: "800", X2: "200", Y2: "800" });
+  const busB = record({
+    RECORD: RECORD_TYPES.BUS,
+    LocationCount: "2",
+    X1: "100",
+    Y1: "800",
+    X2: "200",
+    Y2: "800",
+  });
   const busBLabel = record({
     RECORD: RECORD_TYPES.NET_LABEL,
     Text: busLabel,
@@ -138,6 +167,7 @@ const sheet = ({
   });
   const memberWire = record({
     RECORD: RECORD_TYPES.WIRE,
+    LocationCount: "2",
     X1: "210",
     Y1: "810",
     X2: "300",
@@ -162,7 +192,16 @@ const sheet = ({
     );
   }
   if (detached) {
-    extras.push(record({ RECORD: RECORD_TYPES.WIRE, X1: "100", Y1: "900", X2: "200", Y2: "900" }));
+    extras.push(
+      record({
+        RECORD: RECORD_TYPES.WIRE,
+        LocationCount: "2",
+        X1: "100",
+        Y1: "900",
+        X2: "200",
+        Y2: "900",
+      })
+    );
     extras.push(
       record({
         RECORD: RECORD_TYPES.NET_LABEL,
@@ -304,14 +343,28 @@ describe("Repeat() entries on a labelled wire", () => {
           DistanceFromTop: "2",
           OwnerIndex: owner,
         }),
-        record({ RECORD: RECORD_TYPES.WIRE, X1: "400", Y1: "480", X2: "500", Y2: "480" }),
+        record({
+          RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
+          X1: "400",
+          Y1: "480",
+          X2: "500",
+          Y2: "480",
+        }),
         record({
           RECORD: RECORD_TYPES.NET_LABEL,
           Text: "vbat",
           "Location.X": "450",
           "Location.Y": "480",
         }),
-        record({ RECORD: RECORD_TYPES.WIRE, X1: "100", Y1: "900", X2: "200", Y2: "900" }),
+        record({
+          RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
+          X1: "100",
+          Y1: "900",
+          X2: "200",
+          Y2: "900",
+        }),
         record({
           RECORD: RECORD_TYPES.NET_LABEL,
           Text: "VBAT1",

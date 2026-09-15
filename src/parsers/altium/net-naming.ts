@@ -10,7 +10,7 @@
 import { RECORD_TYPES, type AltiumNet, type AltiumSchematic, type NetNameSource } from "./types.js";
 import { fieldText } from "./records.js";
 import { pinDesignator, pinNumber } from "./components.js";
-import { unescapeOverbar } from "./notation.js";
+import { identifierKey, unescapeOverbar } from "./notation.js";
 
 /** The project options that decide which identifiers name a net, and in what order. */
 export interface NetNamingOptions {
@@ -58,6 +58,9 @@ const namingAllowed = (source: NetNameSource, options: NetNamingOptions): boolea
       ? options.allowSheetEntryNetNames
       : true;
 
+/** Text as Altium orders designators and pins in a net name: punctuation before letters. */
+const collate = new Intl.Collator("en").compare;
+
 /** Pin numbers in numeric order where both are numbers, numbers first, then by text. */
 const comparePinNumbers = (a: string, b: string): number => {
   const numberA = parseInt(a, 10);
@@ -65,7 +68,7 @@ const comparePinNumbers = (a: string, b: string): number => {
   if (!Number.isNaN(numberA) && !Number.isNaN(numberB)) return numberA - numberB;
   if (!Number.isNaN(numberA)) return -1;
   if (!Number.isNaN(numberB)) return 1;
-  return a.localeCompare(b);
+  return collate(a, b);
 };
 
 /**
@@ -76,12 +79,12 @@ const compareRefdes = (a: string, b: string): number => {
   const split = /^([^0-9]*)(\d+)?(.*)$/;
   const [, prefixA = "", digitsA, restA = ""] = a.match(split) ?? [];
   const [, prefixB = "", digitsB, restB = ""] = b.match(split) ?? [];
-  if (prefixA !== prefixB) return prefixA.localeCompare(prefixB);
+  if (prefixA !== prefixB) return collate(prefixA, prefixB);
   if (digitsA === undefined || digitsB === undefined) {
-    if (digitsA === digitsB) return restA.localeCompare(restB);
+    if (digitsA === digitsB) return collate(restA, restB);
     return digitsA === undefined ? -1 : 1;
   }
-  return parseInt(digitsA, 10) - parseInt(digitsB, 10) || restA.localeCompare(restB);
+  return parseInt(digitsA, 10) - parseInt(digitsB, 10) || collate(restA, restB);
 };
 
 /** The name an identifier claims; a harness entry claims one only on a labelled harness. */
@@ -91,24 +94,29 @@ const claimedName = (device: AltiumNet["devices"][number]): string | undefined =
     : fieldText(device, "Text", "Name");
 
 /**
- * Name a net. Two names of one rank fall to the first in record order; a net no
- * identifier names takes its lowest pin's name.
+ * Name a net. Two names of one rank fall to the first in sort order; a net no identifier
+ * names takes its lowest pin's name. A name `taken` refuses is passed over.
  */
 export const assignNetName = (
   net: AltiumNet,
   schematic: AltiumSchematic,
-  options: NetNamingOptions = NAME_FROM_ANY
+  options: NetNamingOptions = NAME_FROM_ANY,
+  taken: (name: string, source: NetNameSource) => boolean = () => false
 ): void => {
+  net.name = null;
+  net.nameSource = undefined;
+  net.pinNameSource = undefined;
   for (const source of namingOrder(options)) {
     if (source === "pin" || !namingAllowed(source, options)) continue;
-    for (const device of net.devices) {
-      if (device.RECORD !== NAMING_RECORD[source]) continue;
-      const name = claimedName(device);
-      if (name) {
-        net.name = unescapeOverbar(name);
-        net.nameSource = source;
-        return;
-      }
+    const [name] = net.devices
+      .filter((device) => device.RECORD === NAMING_RECORD[source])
+      .map((device) => unescapeOverbar(claimedName(device) ?? ""))
+      .filter((claimed) => claimed !== "" && !taken(claimed, source))
+      .sort();
+    if (name !== undefined) {
+      net.name = name;
+      net.nameSource = source;
+      return;
     }
   }
 
@@ -128,4 +136,36 @@ export const assignNetName = (
   net.name = `Net${refdes}_${pin}`;
   net.nameSource = "pin";
   net.pinNameSource = { refdes, pin };
+};
+
+/**
+ * The nets that may share a name: those named by labels, power ports and harness labels,
+ * and those named by ports; never those named by sheet entries.
+ */
+const nameKind = (source: NetNameSource): string =>
+  source === "port" || source === "entry" || source === "pin" ? source : "label";
+
+/**
+ * Name a sheet's nets. Two nets that cannot join by name do not share one: the net whose
+ * name ranks lower, or comes later, takes its next name.
+ */
+export const nameSheetNets = (
+  nets: readonly AltiumNet[],
+  schematic: AltiumSchematic,
+  options: NetNamingOptions = NAME_FROM_ANY
+): void => {
+  for (const net of nets) assignNetName(net, schematic, options);
+  const ranks = nameRanks(options);
+  const held = new Map<string, string>();
+  const taken = (name: string, source: NetNameSource): boolean => {
+    const holder = held.get(identifierKey(name));
+    return holder !== undefined && (holder !== nameKind(source) || holder === "entry");
+  };
+  const byRank = nets
+    .filter((net) => net.nameSource !== undefined)
+    .sort((a, b) => ranks[a.nameSource!] - ranks[b.nameSource!]);
+  for (const net of byRank) {
+    if (taken(net.name!, net.nameSource!)) assignNetName(net, schematic, options, taken);
+    if (net.name && net.nameSource) held.set(identifierKey(net.name), nameKind(net.nameSource));
+  }
 };

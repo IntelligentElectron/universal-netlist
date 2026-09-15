@@ -7,7 +7,7 @@ import { field, fieldText, toNumber } from "./records.js";
 import { duplicateInstanceIndices, pinIsLive } from "./components.js";
 import { findAllConnectedComponents } from "./connectivity.js";
 import { attachBusMembers } from "./bus.js";
-import { assignNetName, NAME_FROM_ANY, type NetNamingOptions } from "./net-naming.js";
+import { nameSheetNets, NAME_FROM_ANY, type NetNamingOptions } from "./net-naming.js";
 import {
   polylinePoints,
   portEnds,
@@ -99,6 +99,6 @@ export const extractNets = (
   const nets: AltiumNet[] = findAllConnectedComponents(connectionPoints(schematic)).map(
     (devices) => ({ name: null, devices: devices.sort((a, b) => a.index - b.index) })
   );
-  for (const net of nets) assignNetName(net, schematic, naming);
+  nameSheetNets(nets, schematic, naming);
   return [...nets, ...attachBusMembers(schematic, nets)];
 };

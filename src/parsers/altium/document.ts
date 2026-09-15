@@ -78,8 +78,6 @@ export interface ParsedDocument {
   nets: AltiumNet[];
   /** Cross-sheet identity claims, one group per net. */
   links: NetLinkGroup[];
-  /** Each harness signal key, and the net carrying it. */
-  harnessSignals: Map<string, string>;
   /** Where each net name came from. */
   nameSources: Map<string, NetNameSource>;
   bundleLinks: string[][];
@@ -173,23 +171,6 @@ const collectNetIdentifiers = (nets: AltiumNet[]): Map<string, NetIdentifierKind
   return identifiers;
 };
 
-/** Each harness signal on a sheet, and the net carrying it there. */
-const collectHarnessSignals = (
-  nets: AltiumNet[],
-  connections: NetConnections
-): Map<string, string> => {
-  const signals = new Map<string, string>();
-  for (const net of nets) {
-    if (!net.name || !connections[net.name]) continue;
-    for (const device of net.devices) {
-      const signal =
-        device.RECORD === RECORD_TYPES.HARNESS_ENTRY ? device.harnessSignal : undefined;
-      if (signal && !signals.has(signal)) signals.set(signal, net.name);
-    }
-  }
-  return signals;
-};
-
 /** Parse a document as the instance `placement`. */
 export const parseDocument = (
   read: ReadDocument,
@@ -217,8 +198,7 @@ export const parseDocument = (
     placement,
     netlist: { nets: connections, components },
     nets,
-    links: collectNetLinks(nets, schematic, connections, read.name, placement),
-    harnessSignals: collectHarnessSignals(nets, connections),
+    links: collectNetLinks(nets, schematic, connections),
     nameSources,
     bundleLinks: read.bundleLinks,
     netIdentifiers: collectNetIdentifiers(nets),
@@ -237,9 +217,6 @@ export const renameDocumentNets = (
   if (renames.size === 0) return;
   const rename = (name: string): string => renames.get(name) ?? name;
   applyNetRenames(document.netlist, renames);
-  for (const [signal, netName] of document.harnessSignals) {
-    document.harnessSignals.set(signal, rename(netName));
-  }
   const nameSources = new Map<string, NetNameSource>();
   for (const [name, source] of document.nameSources) {
     const known = nameSources.get(rename(name));

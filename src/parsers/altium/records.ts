@@ -118,19 +118,20 @@ export const flattenHierarchy = (schematic: AltiumSchematic): AltiumRecord[] => 
   return flat;
 };
 
+/** Each tree's records by index, the first of an index kept. */
+const recordsByIndex = new WeakMap<AltiumSchematic, AltiumRecord[]>();
+
 export const findRecordByIndex = (
   schematic: AltiumSchematic,
   index: number
 ): AltiumRecord | undefined => {
-  const search = (records: AltiumRecord[]): AltiumRecord | undefined => {
-    for (const record of records) {
-      if (record.index === index) return record;
-      const found = record.children && search(record.children);
-      if (found) return found;
-    }
-    return undefined;
-  };
-  return search(schematic.records);
+  let byIndex = recordsByIndex.get(schematic);
+  if (!byIndex) {
+    byIndex = [];
+    for (const record of flattenHierarchy(schematic)) byIndex[record.index] ??= record;
+    recordsByIndex.set(schematic, byIndex);
+  }
+  return byIndex[index];
 };
 
 /** The `OwnerIndex` a record names, if any. */

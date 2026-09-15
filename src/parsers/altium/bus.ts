@@ -25,6 +25,7 @@ import {
   repeatChannels,
   unescapeOverbar,
 } from "./notation.js";
+import { sheetSymbolDesignator } from "./sheet-hierarchy.js";
 import { findAllConnectedComponents } from "./connectivity.js";
 import {
   pointOnPolyline,
@@ -255,14 +256,8 @@ const attachRepeatWires = (
   const channelsOf = new Map<AltiumRecord, number[]>();
   for (const symbol of records) {
     if (symbol.RECORD !== RECORD_TYPES.SHEET_SYMBOL) continue;
-    const designator = symbol.children?.find((child) => child.RECORD === RECORD_TYPES.SHEET_NAME);
-    const channels = repeatChannels((designator && recordName(designator)) ?? "");
-    for (const entry of symbol.children ?? []) {
-      channelsOf.set(
-        entry,
-        channels.map((channel) => channel.index)
-      );
-    }
+    const channels = repeatChannels(sheetSymbolDesignator(symbol)).map(({ index }) => index);
+    for (const entry of symbol.children ?? []) channelsOf.set(entry, channels);
   }
   const netsByLabel = new Map<string, AltiumNet[]>();
   for (const net of nets) {

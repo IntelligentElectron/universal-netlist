@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { assignNetName } from "./net-naming.js";
+import { assignNetName, nameSheetNets } from "./net-naming.js";
 import { buildHierarchy, flattenHierarchy } from "./records.js";
 import { RECORD_TYPES } from "./types.js";
 import type { AltiumNet, AltiumRecord, AltiumSchematic } from "./types.js";
@@ -80,5 +80,74 @@ describe("naming a net after one of its pins", () => {
         ["JP", "2"],
       ])
     ).toBe("NetJP_2");
+  });
+});
+
+describe("naming a sheet's nets", () => {
+  const label = (index: number, text: string): AltiumRecord =>
+    ({ index, RECORD: RECORD_TYPES.NET_LABEL, Text: text }) as AltiumRecord;
+  const entry = (index: number, name: string): AltiumRecord =>
+    ({ index, RECORD: RECORD_TYPES.SHEET_ENTRY, Name: name }) as AltiumRecord;
+
+  /** Nets of `devices`, each with the pin `<pin>.1` when `pin` is given. */
+  const sheet = (...nets: { devices: AltiumRecord[]; pin?: string }[]) => {
+    const records: AltiumRecord[] = [];
+    const pins = nets.map(({ pin }) => {
+      if (!pin) return [];
+      const component = records.length;
+      records.push(
+        { index: component, RECORD: RECORD_TYPES.COMPONENT } as AltiumRecord,
+        {
+          index: component + 1,
+          RECORD: RECORD_TYPES.DESIGNATOR,
+          OwnerIndex: String(component),
+          Text: pin,
+        },
+        {
+          index: component + 2,
+          RECORD: RECORD_TYPES.PIN,
+          OwnerIndex: String(component),
+          Designator: "1",
+        }
+      );
+      return [records[component + 2]];
+    });
+    const schematic = buildHierarchy({ header: [], records });
+    const built = nets.map(
+      ({ devices }, i): AltiumNet => ({ name: null, devices: [...devices, ...pins[i]] })
+    );
+    return { schematic, nets: built };
+  };
+
+  it("takes the first name in sort order between two of one rank", () => {
+    const { schematic, nets } = sheet({ devices: [label(1, "ZETA"), label(2, "ALPHA")] });
+    nameSheetNets(nets, schematic);
+    expect(nets[0].name).toBe("ALPHA");
+  });
+
+  it("keeps a sheet entry's net apart from a label's net of its name", () => {
+    // A sheet entry joins nothing by name, so its net takes its next name, here its pin's.
+    const { schematic, nets } = sheet(
+      { devices: [label(1, "EN")], pin: "R1" },
+      { devices: [entry(2, "en")], pin: "R2" }
+    );
+    nameSheetNets(nets, schematic);
+    expect(nets.map((net) => net.name)).toEqual(["EN", "NetR2_1"]);
+  });
+
+  it("gives the later of two sheet entries named alike its next name", () => {
+    const { schematic, nets } = sheet(
+      { devices: [entry(1, "SIG")], pin: "R1" },
+      { devices: [entry(2, "SIG")], pin: "R2" }
+    );
+    nameSheetNets(nets, schematic);
+    expect(nets.map((net) => net.name)).toEqual(["SIG", "NetR2_1"]);
+  });
+
+  it("lets a label and a power port share a name", () => {
+    const power = { index: 2, RECORD: RECORD_TYPES.POWER_PORT, Text: "VCC" } as AltiumRecord;
+    const { schematic, nets } = sheet({ devices: [label(1, "VCC")] }, { devices: [power] });
+    nameSheetNets(nets, schematic);
+    expect(nets.map((net) => net.name)).toEqual(["VCC", "VCC"]);
   });
 });

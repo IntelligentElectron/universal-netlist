@@ -46,6 +46,7 @@ describe("extractNets", () => {
         {
           index: 3,
           RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
           X1: "100",
           Y1: "0",
           X2: "200",
@@ -72,6 +73,7 @@ describe("extractNets", () => {
         {
           index: 1,
           RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
           X1: "100",
           Y1: "100",
           X2: "200",
@@ -116,6 +118,7 @@ describe("extractNets", () => {
         {
           index: 3,
           RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
           X1: "0",
           Y1: "0",
           X2: "100",
@@ -138,6 +141,7 @@ describe("extractNets", () => {
         {
           index: 0,
           RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
           X1: "0",
           Y1: "0",
           X2: "100",
@@ -146,6 +150,7 @@ describe("extractNets", () => {
         {
           index: 1,
           RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
           X1: "1000",
           Y1: "1000",
           X2: "1100",
@@ -165,6 +170,7 @@ describe("extractNets", () => {
         {
           index: 0,
           RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
           X1: "0",
           Y1: "0",
           X2: "100",
@@ -173,6 +179,7 @@ describe("extractNets", () => {
         {
           index: 1,
           RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
           X1: "100",
           Y1: "0",
           X2: "200",
@@ -181,6 +188,7 @@ describe("extractNets", () => {
         {
           index: 2,
           RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
           X1: "200",
           Y1: "0",
           X2: "300",
@@ -291,6 +299,7 @@ describe("Pin coordinate calculation", () => {
         {
           index: 1,
           RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
           X1: "2",
           X1_Frac: "5000",
           Y1: "0",
@@ -324,6 +333,7 @@ describe("Overbar unescaping", () => {
         {
           index: 1,
           RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
           X1: "0",
           Y1: "0",
           X2: "100",
@@ -368,6 +378,7 @@ describe("Overbar unescaping", () => {
         {
           index: 1,
           RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
           X1: "0",
           Y1: "0",
           X2: "100",
@@ -394,6 +405,7 @@ describe("Overbar unescaping", () => {
         {
           index: 1,
           RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
           X1: "0",
           Y1: "0",
           X2: "100",
@@ -422,6 +434,7 @@ describe("Net naming", () => {
         {
           index: 1,
           RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
           X1: "500",
           Y1: "500",
           X2: "600",
@@ -442,6 +455,7 @@ describe("Net naming", () => {
         {
           index: 0,
           RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
           X1: "0",
           Y1: "0",
           X2: "100",
@@ -487,7 +501,15 @@ describe("signal harnesses", () => {
         component(0, "U1", 100),
         component(3, "U2", 500),
         // U1's wire runs into the left connector's entry at x = 200.
-        { index: 6, RECORD: RECORD_TYPES.WIRE, X1: "100", Y1: "100", X2: "200", Y2: "100" },
+        {
+          index: 6,
+          RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
+          X1: "100",
+          Y1: "100",
+          X2: "200",
+          Y2: "100",
+        },
         {
           index: 7,
           RECORD: RECORD_TYPES.NET_LABEL,
@@ -496,7 +518,15 @@ describe("signal harnesses", () => {
           "Location.Y": "100",
         },
         // U2's wire runs into the right connector's entry at x = 400.
-        { index: 8, RECORD: RECORD_TYPES.WIRE, X1: "400", Y1: "100", X2: "500", Y2: "100" },
+        {
+          index: 8,
+          RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
+          X1: "400",
+          Y1: "100",
+          X2: "500",
+          Y2: "100",
+        },
         {
           index: 9,
           RECORD: RECORD_TYPES.NET_LABEL,
@@ -607,6 +637,7 @@ const wire = (index: number, x1: number, y1: number, x2: number, y2: number): Al
   ({
     index,
     RECORD: RECORD_TYPES.WIRE,
+    LocationCount: "2",
     X1: String(x1),
     Y1: String(y1),
     X2: String(x2),
