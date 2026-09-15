@@ -34,10 +34,7 @@ Why use the native installer:
 - **Auto-updates** — checks for updates on startup
 - **Signed binaries** — macOS binaries are notarized by Apple
 
-The installer downloads two files:
-
-1. **Binary** - For CLI usage and manual MCP client configuration
-2. **Claude Desktop extension** (.mcpb) - For easy Claude Desktop integration
+The installer places the binary in:
 
 | Platform | Install Directory |
 |----------|-------------------|
@@ -80,26 +77,15 @@ npm update -g @intelligentelectron/universal-netlist
 
 After installing the MCP with one of the methods above, you can connect it to your AI agent of choice.
 
-### Claude Desktop
+### Claude Code and the Claude desktop app
 
-1. Download the [Claude Desktop app](https://claude.ai/download)
-2. Open Claude Desktop and go to **Settings** (gear icon)
-3. Under **Desktop app**, click **Extensions**
-4. Click **Advanced settings**
-5. In the **Extension Developer** section, click **Install Extension...**
-6. Navigate to your install directory and select `universal-netlist.mcpb`:
-   - **macOS**: `~/Library/Application Support/universal-netlist/universal-netlist.mcpb`
-   - **Windows**: `%LOCALAPPDATA%\universal-netlist\universal-netlist.mcpb`
-
-The extension will be available immediately in your conversations.
-
-### Claude Code
-
-Install [Claude Code](https://docs.anthropic.com/en/docs/claude-code), then run:
+Install [Claude Code](https://code.claude.com/docs), then run:
 
 ```bash
 claude mcp add --scope user universal-netlist -- universal-netlist
 ```
+
+The Code tab of the [Claude desktop app](https://claude.ai/download) uses the MCP servers Claude Code registers, so the server is available there too.
 
 ### OpenAI Codex
 

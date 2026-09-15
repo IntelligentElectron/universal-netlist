@@ -42,7 +42,7 @@ it.
 
 When you ask your AI assistant about a design, the server returns the relevant
 component, net, and connectivity data to the client you connected, such as
-Claude Desktop, Claude Code, or another MCP client. That client sends it on to
+Claude Code, the Claude desktop app, or another MCP client. That client sends it on to
 its model provider as part of your conversation. What that provider does with it
 is governed by their privacy policy and your agreement with them, not by this
 one.

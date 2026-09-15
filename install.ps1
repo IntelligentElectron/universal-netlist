@@ -14,7 +14,6 @@ $ErrorActionPreference = "Stop"
 # Configuration
 $Repo = "IntelligentElectron/universal-netlist"
 $BinaryName = "universal-netlist"
-$McpbName = "universal-netlist.mcpb"
 $DefaultInstallDir = Join-Path $env:LOCALAPPDATA "universal-netlist"
 
 # Logging functions
@@ -136,7 +135,6 @@ function Install-UniversalNetlistMcp {
 
     # Construct URLs
     $downloadUrl = "https://github.com/$Repo/releases/download/$version/$platform"
-    $mcpbUrl = "https://github.com/$Repo/releases/download/$version/$McpbName"
     $checksumUrl = "https://github.com/$Repo/releases/download/$version/checksums.txt"
 
     # Create installation directory
@@ -200,38 +198,12 @@ function Install-UniversalNetlistMcp {
     Move-Item $tempFile $binaryPath -Force
     Write-Success "Installed binary to $binaryPath"
 
-    # Download .mcpb package for Claude Desktop
-    $mcpbPath = Join-Path $installDir $McpbName
-    $mcpbDownloaded = $false
-
-    try {
-        $mcpbTemp = Join-Path $env:TEMP $McpbName
-        Invoke-WebRequest -Uri $mcpbUrl -OutFile $mcpbTemp -UseBasicParsing
-
-        if (Test-Path $mcpbPath) {
-            Remove-Item $mcpbPath -Force
-        }
-
-        Move-Item $mcpbTemp $mcpbPath -Force
-        Write-Success "Installed Claude Desktop extension to $mcpbPath"
-        $mcpbDownloaded = $true
-    }
-    catch {
-        Write-Warn "Could not download .mcpb package (Claude Desktop extension)"
-    }
-
     # Add to PATH
     Add-ToUserPath -BinDir $binDir
 
     # Print success message
     Write-Host ""
     Write-Success "Installation complete!"
-    Write-Host ""
-    Write-Host "Installed files:"
-    Write-Host "  Binary: $binaryPath"
-    if ($mcpbDownloaded) {
-        Write-Host "  Claude Desktop extension: $mcpbPath"
-    }
     Write-Host ""
     Write-Host "To start using universal-netlist CLI, either:"
     Write-Host "  1. Open a new PowerShell window, or"
@@ -243,10 +215,8 @@ function Install-UniversalNetlistMcp {
     Write-Host "To update, run:"
     Write-Host "  universal-netlist update"
     Write-Host ""
-    Write-Host "For Claude Desktop:"
-    Write-Host "  1. Open Claude Desktop -> Settings -> Extensions -> Advanced settings"
-    Write-Host "  2. Click 'Install Extension...' and select:"
-    Write-Host "     $mcpbPath"
+    Write-Host "To connect Claude Code, in the terminal or the Claude desktop app:"
+    Write-Host "  claude mcp add --scope user universal-netlist -- universal-netlist"
     Write-Host ""
 }
 
