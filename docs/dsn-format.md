@@ -1527,7 +1527,7 @@ Key C++ source files for cross-referencing unknown bytes or new structure types:
 
 A design saved with a password keeps its container directory in clear, so its stream names, and
 with them its BOM variant names, read without the password. The streams themselves are
-encrypted. An encrypted stream begins with the 20-byte ASCII marker `FILE_FMT_SYENCRYPT01`; the
+encrypted. An encrypted stream begins with the 20-byte ASCII marker `FILE_FMT_SYENCRYPT01`; the root
 `Library` stream keeps its first 22 bytes in clear and carries the marker after them. A marker
 spelled `FILE_FMT_` or `FILE_FMT=` with another name is an encryption this reading does not
 cover.
@@ -1539,10 +1539,11 @@ possible partner is itself, still draws a key byte. The clear prefix and the dec
 together are the stream as an unprotected design stores it.
 
 The cipher authenticates nothing, so a password is known to be right only by what it decrypts. A
-right password gives the `Library` header its fixed shape: the introduction
-`OrCAD Windows Design`, four zero bytes at offset 44 after the version and dates, and a font count
-at offset 48 of at least one. A wrong password gives those bytes by chance about once in four
-trillion.
+right password gives the `Library` header its introduction whole: the text `OrCAD Windows Design`,
+padded with spaces to a NUL at byte 31. Where OrCAD left other bytes after the text, the header's
+fixed fields still show: a version of 1 to 9 (1.1, 2.0, 3.2 and 3.3 are written) at offset 32, four
+zero bytes at 44 after the dates, and a font count of 1 to 1024 at 48. Only bytes past 22 depend on
+the password, so a wrong one passes the looser test by chance about once in 10^18.
 
 A key is 1 to 255 bytes. A password of printable ASCII characters is its own key; the encoding of
 any other character into the key is unknown.

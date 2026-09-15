@@ -57,9 +57,9 @@ export function encryptSapphireII(plaintext: Uint8Array, key: Uint8Array): Buffe
   return out;
 }
 
-/** A stream as a protected design stores it; the Library keeps its first 22 bytes in clear. */
+/** A stream as a protected design stores it; the root Library keeps its first 22 bytes in clear. */
 export function protectStream(path: string, data: Buffer, password: string): Buffer {
-  const clear = path.split("/").pop() === "Library" ? 22 : 0;
+  const clear = path === "Library" ? 22 : 0;
   return Buffer.concat([
     data.subarray(0, clear),
     MARKER,

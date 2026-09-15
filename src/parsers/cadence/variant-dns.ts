@@ -16,6 +16,7 @@ import { promises as fs } from "fs";
 import path from "path";
 import { findCadenceDatFiles, normalizeForComparison } from "./discovery.js";
 import { readVariantDnsFromFile } from "./dsn/variant-store.js";
+import { ProtectedDesignError } from "./dsn/dsn-reader.js";
 
 /** Sibling .DSN for a netlist directory, or null where there is no single answer. */
 const designFileCache = new Map<string, string | null>();
@@ -117,7 +118,9 @@ export async function readDatVariantDns(pstxnetPath: string): Promise<Set<string
   let dns: Set<string>;
   try {
     dns = readVariantDnsFromFile(designFile);
-  } catch {
+  } catch (error) {
+    // A protected design that does not open has variants the netlist cannot answer for.
+    if (error instanceof ProtectedDesignError) throw error;
     dns = new Set();
   }
 

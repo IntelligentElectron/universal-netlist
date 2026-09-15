@@ -30,7 +30,9 @@ to them.
 For a password-protected OrCAD design it also reads the passwords you give it
 through its environment (`UNIVERSAL_NETLIST_DSN_PASSWORD` or the file
 `UNIVERSAL_NETLIST_DSN_PASSWORD_FILE` names). It uses them in memory to decrypt
-the design and sends them nowhere: not to your MCP client, and not to telemetry.
+the design and passes them to nothing else: not in tool results, not to
+telemetry, and not to the programs it starts. They remain where you stored
+them, readable by software running under your account.
 
 ## Where your design data goes
 

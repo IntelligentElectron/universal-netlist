@@ -9,6 +9,7 @@ import { appendFileSync, mkdirSync, existsSync, statSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { userInfo, hostname, platform, arch, release } from "node:os";
 import { execSync } from "node:child_process";
+import { childEnvironment } from "../child-environment.js";
 import { VERSION } from "../version.js";
 import { instrumentTool } from "./otel.js";
 import { markToolHandlerInstrumented } from "./request-context.js";
@@ -210,9 +211,10 @@ export const exportTelemetry = async (): Promise<string> => {
   if (process.platform === "win32") {
     execSync(`tar -a -cf "${zipPath}" -C "${dirname(telemetryPath)}" telemetry.jsonl`, {
       stdio: "pipe",
+      env: childEnvironment(),
     });
   } else {
-    execSync(`zip -j "${zipPath}" "${telemetryPath}"`, { stdio: "pipe" });
+    execSync(`zip -j "${zipPath}" "${telemetryPath}"`, { stdio: "pipe", env: childEnvironment() });
   }
 
   return zipPath;

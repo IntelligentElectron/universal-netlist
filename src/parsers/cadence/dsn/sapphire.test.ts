@@ -4,6 +4,8 @@ import { encryptSapphireII } from "../../../../test/helpers/orcad-protect.js";
 import vectors from "./sapphire-vectors.json" with { type: "json" };
 
 describe("decryptSapphireII", () => {
+  // Synthetic known answers from an independent Python transcription of OrCAD's routine, the
+  // one that opened a protected design OrCAD wrote; the test encryptor is a third transcription.
   it.each(vectors.map((vector, index) => [index, vector] as const))(
     "decrypts known answer %i",
     (_, vector) => {

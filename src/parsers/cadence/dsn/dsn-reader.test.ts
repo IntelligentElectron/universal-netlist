@@ -5,17 +5,27 @@
 import { mkdtempSync, rmSync, writeFileSync } from "fs";
 import { tmpdir } from "os";
 import { join } from "path";
-import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "vitest";
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { fixturePath, hasFixtures } from "../../../../test/utils.js";
 import { protectStream } from "../../../../test/helpers/orcad-protect.js";
 
 const { protection } = vi.hoisted(() => ({
-  protection: {} as { transform?: (path: string, data: Buffer) => Buffer },
+  protection: {} as {
+    transform?: (path: string, data: Buffer) => Buffer;
+    /** A stream path the container reports under another name. */
+    rename?: { from: string; to: string };
+  },
 }));
 
 vi.mock("../../ole-reader/ole-reader.js", async (importOriginal) => {
   const actual = await importOriginal<typeof import("../../ole-reader/ole-reader.js")>();
   class OleReader extends actual.OleReader {
+    override listAllEntries() {
+      const { rename } = protection;
+      return super
+        .listAllEntries()
+        .map((item) => (rename && item.path === rename.from ? { ...item, path: rename.to } : item));
+    }
     override readStreamByPath(path: string): Buffer {
       const data = super.readStreamByPath(path);
       return protection.transform ? protection.transform(path, data) : data;
@@ -58,8 +68,13 @@ describe.skipIf(!hasFixtures)("password-protected OrCAD designs", () => {
     plainVariant = parseDsnFile(DSN, { variant: "Standard" });
     plainDns = readVariantDnsFromFile(DSN);
   });
+  beforeEach(() => {
+    vi.stubEnv(DSN_PASSWORD, "");
+    vi.stubEnv(DSN_PASSWORD_FILE, "");
+  });
   afterEach(() => {
     protection.transform = undefined;
+    protection.rename = undefined;
     vi.unstubAllEnvs();
   });
   afterAll(() => rmSync(directory, { recursive: true, force: true }));
@@ -71,8 +86,6 @@ describe.skipIf(!hasFixtures)("password-protected OrCAD designs", () => {
   };
 
   it("reads an unprotected design with no password configured", () => {
-    vi.stubEnv(DSN_PASSWORD, "");
-    vi.stubEnv(DSN_PASSWORD_FILE, "");
     expect(parseDsnFile(DSN)).toEqual(plain);
   });
 
@@ -93,8 +106,6 @@ describe.skipIf(!hasFixtures)("password-protected OrCAD designs", () => {
 
   it("asks for a password a protected design needs", () => {
     protect();
-    vi.stubEnv(DSN_PASSWORD, "");
-    vi.stubEnv(DSN_PASSWORD_FILE, "");
     expect(() => parseDsnFile(DSN)).toThrow(`set ${DSN_PASSWORD} or ${DSN_PASSWORD_FILE}`);
   });
 
@@ -105,10 +116,42 @@ describe.skipIf(!hasFixtures)("password-protected OrCAD designs", () => {
     expect(() => parseDsnFile(DSN)).not.toThrow(/not the password/);
   });
 
-  it("names the line of a password OrCAD cannot hold", () => {
+  it("passes over a password OrCAD cannot hold, and names it when nothing opens the design", () => {
     protect();
-    vi.stubEnv(DSN_PASSWORD_FILE, passwordFile(PASSWORD, "pässword"));
-    expect(() => parseDsnFile(DSN)).toThrow(`${DSN_PASSWORD_FILE} line 2`);
+    vi.stubEnv(DSN_PASSWORD_FILE, passwordFile("pässword", PASSWORD));
+    expect(parseDsnFile(DSN)).toEqual(plain);
+    vi.stubEnv(DSN_PASSWORD_FILE, passwordFile("wrong", "pässword"));
+    expect(() => parseDsnFile(DSN)).toThrow(
+      `not tried, as an OrCAD password is 1 to 255 printable ASCII characters: ${DSN_PASSWORD_FILE} line 2`
+    );
+  });
+
+  it("reads a password file saved with a byte-order mark", () => {
+    protect();
+    vi.stubEnv(DSN_PASSWORD_FILE, passwordFile(`\uFEFF${PASSWORD}`));
+    expect(parseDsnFile(DSN)).toEqual(plain);
+  });
+
+  it("opens a design whose Library introduction carries other bytes after its text", () => {
+    protection.transform = (path, data) => {
+      if (path !== "Library") return protectStream(path, data, PASSWORD);
+      const library = Buffer.from(data);
+      library.fill(0x5a, 20, 32);
+      return protectStream(path, library, PASSWORD);
+    };
+    vi.stubEnv(DSN_PASSWORD, PASSWORD);
+    expect(() => parseDsnFile(DSN)).not.toThrow();
+  });
+
+  it("decrypts a page named Library as any other page", () => {
+    protection.rename = {
+      from: "Views/CC1310_LaunchPad/Pages/2_Peripherals",
+      to: "Views/CC1310_LaunchPad/Pages/Library",
+    };
+    const renamed = parseDsnFile(DSN);
+    protect();
+    vi.stubEnv(DSN_PASSWORD, PASSWORD);
+    expect(parseDsnFile(DSN)).toEqual(renamed);
   });
 
   it("names the variable of a password file it cannot read", () => {
