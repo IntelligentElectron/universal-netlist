@@ -18,7 +18,6 @@ export interface AltiumProjectOptions {
   scope: NetIdentifierScope | undefined;
   appendSheetNumberToLocalNets: boolean;
   allowPortNetNames: boolean;
-  allowSheetEntryNetNames: boolean;
   powerPortNamesTakePriority: boolean;
   /** `ChannelDesignatorFormatString`. */
   channelFormat: string;
@@ -62,7 +61,6 @@ export const parseProjectOptions = (content: string): AltiumProjectOptions => {
     scope: hierarchyMode ? HIERARCHY_MODE_SCOPE[hierarchyMode] : undefined,
     appendSheetNumberToLocalNets: readFlag(lines, "AppendSheetNumberToLocalNets", false),
     allowPortNetNames: readFlag(lines, "AllowPortNetNames", false),
-    allowSheetEntryNetNames: readFlag(lines, "AllowSheetEntryNetNames", true),
     powerPortNamesTakePriority: readFlag(lines, "PowerPortNamesTakePriority", false),
     channelFormat: readKey(lines, "ChannelDesignatorFormatString") || DEFAULT_CHANNEL_FORMAT,
     roomNamingStyle: readKey(lines, "ChannelRoomNamingStyle") || "0",

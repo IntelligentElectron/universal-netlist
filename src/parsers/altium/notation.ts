@@ -28,6 +28,12 @@ export const compareNaturalKeys = (
 export const compareNatural = (a: string, b: string): number =>
   compareNaturalKeys(naturalKey(a), naturalKey(b));
 
+/** A name split before a trailing differential-pair suffix: `ISO_P` is `ISO` and `_P`. */
+export const splitPairSuffix = (name: string): [stem: string, suffix: string] => {
+  const pair = name.match(/^(.+)(_[PN])$/);
+  return pair ? [pair[1], pair[2]] : [name, ""];
+};
+
 /** `name`, or the first of `name_2`, `name_3`, ... whose key `taken` does not hold. */
 export const firstFreeName = (name: string, taken: ReadonlySet<string>): string => {
   let candidate = name;

@@ -166,6 +166,11 @@ describe("planLocalNetRenames", () => {
     expect(plans[0].size).toBe(0);
   });
 
+  it("numbers a pair net before its suffix", () => {
+    const plans = planLocalNetRenames([sheet("3", { HV_P: { label: true } })], "hierarchical");
+    expect(plans[0].get("HV_P")).toBe("HV_3_P");
+  });
+
   it("leaves a label spelled as a global supply bare", () => {
     const plans = planLocalNetRenames(
       [sheet("3", { GND: { label: true } }), sheet("4", { GND: { label: true } })],

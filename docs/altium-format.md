@@ -127,7 +127,7 @@ wire reaches connects to nothing.
 No two nets on one sheet share a name, ignoring case, nets without pins included. Nets choose in
 turn: the net whose next name ranks strongest (see What a net is called), and between two of one
 rank the one whose record comes first. A net whose name is taken moves on to its next, a pin's when
-nothing else names it: an entry `EN` on a sheet whose label `EN` names another net leaves its own net
+nothing else names it: a port `EN` on a sheet whose label `EN` names another net leaves its own net
 named after a pin.
 
 ### Net identifier scope
@@ -149,7 +149,7 @@ entries").
 
 A net with no pins, such as a wire between two sheet entries, still carries its links. Its name
 reaches the nets it links only when a net label, power port or labelled harness gives it; a name a
-port or sheet entry gives a pinless net names nothing. A power port links the nets it sits on
+port gives a pinless net names nothing. A power port links the nets it sits on
 across sheets whatever those nets are called; under Global scope a net label links to power ports
 of its name as well.
 
@@ -175,18 +175,19 @@ way down (see Multi-channel sheets).
 
 ### What a net is called
 
-`AllowPortNetNames` (default off) and `AllowSheetEntryNetNames` (default on) decide whether a port
-or an entry may name a net. When one net carries several names the strongest wins:
+`AllowPortNetNames` (default off) decides whether a port may name a net. A sheet entry never names
+a net, whatever `AllowSheetEntryNetNames` says: the board calls a net only an entry would name after
+its lowest pin. When one net carries several names the strongest wins:
 
 1. a labelled harness member
 2. a net label
 3. a power port
 4. a port
-5. a sheet entry
-6. a pin name
+5. a pin name
 
 `PowerPortNamesTakePriority=1` moves the power port to the front. Between two names of one rank
-the first in sort order wins, on one sheet as across sheets.
+the first in sort order wins, on one sheet as across sheets; between two pin names, the lower
+designator and pin, as below.
 
 A net nothing names is called after a pin, `Net<designator>_<pin>`: the lowest designator, ordered
 by prefix, then number, then suffix (`R9` before `R11`), and its lowest pin, numbers before names.
@@ -202,7 +203,8 @@ then by instance, and the others are numbered `_2`, `_3` past every name given.
 
 `AppendSheetNumberToLocalNets=1` suffixes a sheet's own nets with its `SheetNumber`, a parameter
 record on the document itself or on its sheet record; an unnumbered sheet writes `*`. A label
-`VBAT` on sheet 8 names `VBAT_8`, whether or not another sheet reuses the name. A net is the
+`VBAT` on sheet 8 names `VBAT_8`, whether or not another sheet reuses the name; the number goes
+before a differential-pair suffix, so `HV_P` on sheet 3 names `HV_3_P`. A net is the
 sheet's own when no port, harness or scope-global identifier carries it off the sheet; a label
 wired into a sheet entry is still the sheet's own. Only net label names are numbered; a supply, and
 a label spelled as a supply whose power ports are global, keep their names. Pin names (`NetC3_1`) are unique already and stay
@@ -325,7 +327,8 @@ $ComponentPrefix_$ChannelIndex_$ComponentIndex
 A net that stays inside one channel is named the way the channel's designators are, by the
 channel designator format applied to its name: under `$Component$ChannelAlpha` the label `BIAS`
 names `BIASB` in channel 2, and under `$ComponentPrefix_$ChannelIndex_$ComponentIndex` the label
-`V_OUT` names `V_OUT_1_` in channel 1. A net named after a pin is rebuilt around the channel's
+`V_OUT` names `V_OUT_1_` in channel 1. A differential-pair suffix stays last: `ISO_P` in channel G
+names `ISOG_P`. A net named after a pin is rebuilt around the channel's
 designator: `NetDD12_5` becomes `NetDD12_AY1_5`, and a numbered pin name loses its number there and
 is numbered again only if another net holds the rebuilt name. Where power ports are global a supply
 keeps its name, and so does a net carrying a signal a single placement's parent wires to every

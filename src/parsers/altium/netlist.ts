@@ -4,6 +4,7 @@
 
 import type { NetConnections, ParsedNetlist, PinEntry } from "../../types.js";
 import { mergeComponentInto } from "./components.js";
+import { comparePinNetNames } from "./net-naming.js";
 import { compareNaturalKeys, firstFreeName, identifierKey, naturalKey } from "./notation.js";
 
 const pinNet = (entry: PinEntry): string => (typeof entry === "string" ? entry : entry.net);
@@ -107,14 +108,19 @@ const displayName = (name: string): string => {
   return end < 0 ? name : name.slice(0, end);
 };
 
-/** The name a group of merged nets keeps: the strongest claim, then the first in sort order. */
+/**
+ * The name a group of merged nets keeps: the strongest claim, then pin names by designator
+ * and pin, and other names in sort order.
+ */
 export const canonicalNetName = (
   names: Iterable<string>,
-  rankOf: (name: string) => number
+  rankOf: (name: string) => number,
+  isPinName: (name: string) => boolean = () => false
 ): string =>
   [...names].sort((a, b) => {
     const [plainA, plainB] = [displayName(a), displayName(b)];
-    return rankOf(a) - rankOf(b) || (plainA < plainB ? -1 : plainA > plainB ? 1 : 0);
+    const pins = isPinName(a) && isPinName(b) ? comparePinNetNames(plainA, plainB) : undefined;
+    return rankOf(a) - rankOf(b) || pins || (plainA < plainB ? -1 : plainA > plainB ? 1 : 0);
   })[0];
 
 /**
@@ -124,12 +130,13 @@ export const canonicalNetName = (
 export const mergeNetGroups = (
   netlist: ParsedNetlist,
   groups: Iterable<Set<string>>,
-  rankOf: (name: string) => number
+  rankOf: (name: string) => number,
+  isPinName: (name: string) => boolean
 ): void => {
   const renames = new Map<string, string>();
   for (const names of groups) {
     if (names.size < 2 || ![...names].some((name) => netlist.nets[name] !== undefined)) continue;
-    const canonical = canonicalNetName(names, rankOf);
+    const canonical = canonicalNetName(names, rankOf, isPinName);
     for (const name of names) if (name !== canonical) renames.set(name, canonical);
   }
   applyNetRenames(netlist, renames);

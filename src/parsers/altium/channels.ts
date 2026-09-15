@@ -12,7 +12,7 @@ import {
   type PinNameSource,
 } from "./types.js";
 import { fieldText } from "./records.js";
-import { expandBusRange, identifierKey, repeatBaseName } from "./notation.js";
+import { expandBusRange, identifierKey, repeatBaseName, splitPairSuffix } from "./notation.js";
 import { resolveHarnessMembers, type HarnessDefinitions } from "./harness.js";
 import { pinNetName } from "./net-naming.js";
 import { channelAlpha, type DocumentInstance } from "./sheet-hierarchy.js";
@@ -51,7 +51,7 @@ export const applyChannelFormat = (
 export interface ChannelNetScope {
   /** Nets a power port names that stay one supply across every channel. */
   powerNetNames: ReadonlySet<string>;
-  /** Signals the parent's plain entries carry to every channel. */
+  /** Keys of the nets carrying a signal the parent's plain entries give every channel. */
   sharedNames: ReadonlySet<string>;
   /** The pin each pin-named net was named after. */
   pinNamed: ReadonlyMap<string, PinNameSource>;
@@ -69,17 +69,21 @@ export const planChannelNetNames = (
   channelIndex: number,
   channelFormat: string
 ): Map<string, string> => {
-  const shared = new Set([...scope.sharedNames].map(identifierKey));
   const names = new Map<string, string>();
   for (const name of netNames) {
     const pin = scope.pinNamed.get(name);
-    if (scope.powerNetNames.has(name) || shared.has(identifierKey(name))) {
+    if (scope.powerNetNames.has(name) || scope.sharedNames.has(identifierKey(name))) {
       names.set(name, name);
     } else if (pin) {
       const refdes = applyChannelFormat(channelFormat, pin.refdes, roomName, channelIndex);
       names.set(name, pinNetName({ refdes, pin: pin.pin }));
     } else {
-      names.set(name, applyChannelFormat(channelFormat, name, roomName, channelIndex));
+      // A pair suffix stays last: `ISO_P` in channel G is `ISOG_P`.
+      const [stem, suffix] = splitPairSuffix(name);
+      names.set(
+        name,
+        `${applyChannelFormat(channelFormat, stem, roomName, channelIndex)}${suffix}`
+      );
     }
   }
   return names;
@@ -143,7 +147,7 @@ export const channelNetScope = (
     sharedNames: new Set(
       nets
         .filter((net) => net.name && sharedKeys.has(identifierKey(net.name)) && reachesParent(net))
-        .map((net) => net.name!)
+        .map((net) => identifierKey(net.name!))
     ),
     pinNamed: new Map(
       nets

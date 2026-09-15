@@ -78,13 +78,13 @@ class BusRun {
   }
 }
 
-/** A sheet's bus runs, runs carrying one range label folded into one. */
 /** A sheet's net labels in range notation, where each is drawn. */
 interface RangeLabel {
   label: string;
   at: Point;
 }
 
+/** A sheet's bus runs, runs carrying one range label folded into one. */
 const busRuns = (
   records: readonly AltiumRecord[],
   rangeLabels: readonly RangeLabel[]

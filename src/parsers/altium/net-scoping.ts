@@ -4,7 +4,7 @@
  */
 
 import type { NetNameSource } from "./types.js";
-import { identifierKey } from "./notation.js";
+import { identifierKey, splitPairSuffix } from "./notation.js";
 import {
   netLabelsAreGlobal,
   powerPortsAreGlobal,
@@ -66,7 +66,11 @@ export const planLocalNetRenames = (
     sheets.flatMap((sheet) => [...sheet.netIdentifiers.keys()].map(identifierKey))
   );
   const inUse = (name: string): boolean => namesInUse.has(identifierKey(name));
-  const numbered = (name: string, number: string): string => `${name}_${number}`;
+  // A pair suffix stays last: `HV_P` on sheet 3 is `HV_3_P`.
+  const numbered = (name: string, number: string): string => {
+    const [stem, suffix] = splitPairSuffix(name);
+    return `${stem}_${number}${suffix}`;
+  };
   const renames = sheets.map(() => new Map<string, string>());
 
   const claims = new Map<string, { sheet: number; number: string }[]>();

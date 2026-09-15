@@ -49,7 +49,7 @@ export interface AltiumSchematic {
 }
 
 /** The kind of object a net's name comes from; `pin` is a name built from a pin. */
-export type NetNameSource = "power" | "harness" | "label" | "port" | "entry" | "pin";
+export type NetNameSource = "power" | "harness" | "label" | "port" | "pin";
 
 /** The pin a `pin` name is built from: `Net<refdes>_<pin>`, numbered when that was taken. */
 export interface PinNameSource {

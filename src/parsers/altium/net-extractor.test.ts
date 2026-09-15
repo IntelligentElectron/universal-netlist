@@ -733,20 +733,23 @@ describe("Sheet entry placement", () => {
     records: [partWithPin(0, "U1", "1", 100, 100), ...wires, sheetSymbol(entries)],
   });
 
+  /** Whether U1's net reaches a sheet entry. */
+  const reachesEntry = (nets: AltiumNet[]): boolean =>
+    netOf(nets, "U1")?.devices.some((device) => device.RECORD === RECORD_TYPES.SHEET_ENTRY) ??
+    false;
+
   it("places a left-edge entry DistanceFromTop steps below the symbol's top-left corner", () => {
     const nets = extractNets(
       schematicWith([{ Name: "EN", DistanceFromTop: "3" }], wire(3, 100, 100, 500, 370))
     );
-    const net = netOf(nets, "U1");
-    expect(net?.name).toBe("EN");
-    expect(net?.nameSource).toBe("entry");
+    expect(reachesEntry(nets)).toBe(true);
   });
 
   it("places a right-edge entry on the symbol's right edge", () => {
     const nets = extractNets(
       schematicWith([{ Name: "EN", Side: "1", DistanceFromTop: "3" }], wire(3, 100, 100, 620, 370))
     );
-    expect(netOf(nets, "U1")?.name).toBe("EN");
+    expect(reachesEntry(nets)).toBe(true);
   });
 
   it("reads DistanceFromTop_Frac1 as millionths of a step", () => {
@@ -756,18 +759,18 @@ describe("Sheet entry placement", () => {
         wire(3, 100, 100, 500, 365)
       )
     );
-    expect(netOf(nets, "U1")?.name).toBe("EN");
+    expect(reachesEntry(nets)).toBe(true);
   });
 
   it("places top and bottom edge entries DistanceFromTop steps to the right", () => {
     const top = extractNets(
       schematicWith([{ Name: "EN", Side: "2", DistanceFromTop: "3" }], wire(3, 100, 100, 530, 400))
     );
-    expect(netOf(top, "U1")?.name).toBe("EN");
+    expect(reachesEntry(top)).toBe(true);
     const bottom = extractNets(
       schematicWith([{ Name: "EN", Side: "3", DistanceFromTop: "3" }], wire(3, 100, 100, 530, 320))
     );
-    expect(netOf(bottom, "U1")?.name).toBe("EN");
+    expect(reachesEntry(bottom)).toBe(true);
   });
 
   it("leaves a harness-typed entry and a bus-notation entry to their own handling", () => {
@@ -784,7 +787,7 @@ describe("Sheet entry placement", () => {
     expect(netOf(nets, "U1")?.name).toBe("NetU1_1");
   });
 
-  it("ranks an entry below a port and a label when naming", () => {
+  it("names a net after its port, never after its sheet entry", () => {
     const nets = extractNets({
       header: [],
       records: [
@@ -848,7 +851,6 @@ describe("Net naming options", () => {
     const byLabel = netOf(
       extractNets(labelled(), {
         allowPortNetNames: true,
-        allowSheetEntryNetNames: true,
         powerPortNamesTakePriority: false,
       }),
       "U1"
@@ -858,7 +860,6 @@ describe("Net naming options", () => {
     const byPower = netOf(
       extractNets(labelled(), {
         allowPortNetNames: true,
-        allowSheetEntryNetNames: true,
         powerPortNamesTakePriority: true,
       }),
       "U1"
@@ -871,7 +872,6 @@ describe("Net naming options", () => {
     expect(netOf(extractNets(schematic()), "U1")?.name).toBe("CLK");
     const nets = extractNets(schematic(), {
       allowPortNetNames: false,
-      allowSheetEntryNetNames: true,
       powerPortNamesTakePriority: true,
     });
     const net = netOf(nets, "U1");

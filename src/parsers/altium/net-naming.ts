@@ -2,9 +2,9 @@
  * What a net is called.
  *
  * A net takes the name of its strongest identifier: a labelled signal harness
- * (`<label>.<entry>`), a net label, a power port, a port, a sheet entry. A power port
- * goes first when the project gives it priority. A net no identifier names is called
- * after its lowest pin, `Net<designator>_<pin>`.
+ * (`<label>.<entry>`), a net label, a power port, a port. A power port goes first when the
+ * project gives it priority. A sheet entry names nothing. A net no identifier names is
+ * called after its lowest pin, `Net<designator>_<pin>`.
  */
 
 import {
@@ -22,8 +22,6 @@ import { firstFreeName, identifierKey } from "./notation.js";
 export interface NetNamingOptions {
   /** `AllowPortNetNames`, off unless the project sets it. */
   allowPortNetNames: boolean;
-  /** `AllowSheetEntryNetNames`, on unless the project clears it. */
-  allowSheetEntryNetNames: boolean;
   /** `PowerPortNamesTakePriority`, off unless the project sets it. */
   powerPortNamesTakePriority: boolean;
 }
@@ -31,7 +29,6 @@ export interface NetNamingOptions {
 /** A sheet read on its own: every identifier names, power ports first. */
 export const NAME_FROM_ANY: NetNamingOptions = {
   allowPortNetNames: true,
-  allowSheetEntryNetNames: true,
   powerPortNamesTakePriority: true,
 };
 
@@ -41,14 +38,13 @@ const RECORD_SOURCE: Readonly<Record<string, NetNameSource>> = {
   [RECORD_TYPES.HARNESS_ENTRY]: "harness",
   [RECORD_TYPES.NET_LABEL]: "label",
   [RECORD_TYPES.PORT]: "port",
-  [RECORD_TYPES.SHEET_ENTRY]: "entry",
 };
 
 /** The name sources, strongest first. */
 const namingOrder = (options: NetNamingOptions): NetNameSource[] =>
   options.powerPortNamesTakePriority
-    ? ["power", "harness", "label", "port", "entry", "pin"]
-    : ["harness", "label", "power", "port", "entry", "pin"];
+    ? ["power", "harness", "label", "port", "pin"]
+    : ["harness", "label", "power", "port", "pin"];
 
 /** Each name source's rank, lower being stronger. */
 export const nameRanks = (options: NetNamingOptions): Readonly<Record<NetNameSource, number>> =>
@@ -58,11 +54,7 @@ export const nameRanks = (options: NetNamingOptions): Readonly<Record<NetNameSou
   >;
 
 const namingAllowed = (source: NetNameSource, options: NetNamingOptions): boolean =>
-  source === "port"
-    ? options.allowPortNetNames
-    : source === "entry"
-      ? options.allowSheetEntryNetNames
-      : true;
+  source !== "port" || options.allowPortNetNames;
 
 /** Text as Altium orders designators and pins in a net name: punctuation before letters. */
 const collate = new Intl.Collator("en").compare;
@@ -91,6 +83,17 @@ const compareRefdes = (a: string, b: string): number => {
     return digitsA === undefined ? -1 : 1;
   }
   return parseInt(digitsA, 10) - parseInt(digitsB, 10) || collate(restA, restB);
+};
+
+/**
+ * Two pin names, `Net<designator>_<pin>`, in the order a net takes them: by designator,
+ * then pin. Undefined when either is not a pin name.
+ */
+export const comparePinNetNames = (a: string, b: string): number | undefined => {
+  const pinName = /^Net(.+)_([^_]+)$/;
+  const [x, y] = [a.match(pinName), b.match(pinName)];
+  if (!x || !y) return undefined;
+  return compareRefdes(x[1], y[1]) || comparePinNumbers(x[2], y[2]);
 };
 
 /** The name an identifier claims; a harness entry claims one only on a labelled harness. */

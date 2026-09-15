@@ -139,7 +139,6 @@ export const parseAltiumProject = async (
   const options = parseProjectOptions(projectText);
   const naming: NetNamingOptions = {
     allowPortNetNames: options.allowPortNetNames,
-    allowSheetEntryNetNames: options.allowSheetEntryNetNames,
     powerPortNamesTakePriority: options.powerPortNamesTakePriority,
   };
   const ranks = nameRanks(naming);
@@ -187,11 +186,12 @@ export const parseAltiumProject = async (
   const netlist: ParsedNetlist = { nets: {}, components: {} };
   const nameRank = new Map<string, number>();
   const rankOf = (name: string): number => nameRank.get(name) ?? unranked;
+  const pinNames = new Set<string>();
   pending.forEach((document, index) => {
     const renames = new Map(sheetRenames[index]);
     for (const [name, source] of document.nameSources) {
       const renamed = renames.get(name) ?? name;
-      if (namesAreSheetLocal && (source === "port" || source === "entry")) {
+      if (namesAreSheetLocal && source === "port") {
         renames.set(name, `${renamed}${PROVISIONAL}${index}`);
       } else if (localName(name, source)) {
         renames.set(name, `${renamed}${LOCAL}${index}`);
@@ -201,6 +201,7 @@ export const parseAltiumProject = async (
     mergeNetlistInto(netlist, document.netlist);
     for (const [name, source] of document.nameSources) {
       if (ranks[source] < rankOf(name)) nameRank.set(name, ranks[source]);
+      if (source === "pin") pinNames.add(name);
     }
   });
 
@@ -227,7 +228,12 @@ export const parseAltiumProject = async (
       ),
     })),
   }));
-  mergeNetGroups(netlist, linkedNetGroups(links, scope, symbolChannels, supplies).values(), rankOf);
+  mergeNetGroups(
+    netlist,
+    linkedNetGroups(links, scope, symbolChannels, supplies).values(),
+    rankOf,
+    (name) => pinNames.has(name)
+  );
   applyNetRenames(netlist, restoreLocalNames(netlist.nets));
   applyNetRenames(netlist, settleProvisionalNames(netlist.nets));
   reconcileNetlist(netlist);

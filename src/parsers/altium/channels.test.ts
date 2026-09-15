@@ -92,6 +92,15 @@ const emptyScope = (): ChannelNetScope => ({
 });
 
 describe("planChannelNetNames", () => {
+  it("keeps a pair suffix after the channel designator", () => {
+    expect(planChannelNetNames(["ISO_P"], emptyScope(), "G", 7, "$Component$ChannelAlpha")).toEqual(
+      new Map([["ISO_P", "ISOG_P"]])
+    );
+    expect(
+      planChannelNetNames(["SENS1_N"], emptyScope(), "R4", 4, "$Component_$ChannelIndex")
+    ).toEqual(new Map([["SENS1_N", "SENS1_4_N"]]));
+  });
+
   it("rebuilds a numbered pin name around the channel's designator", () => {
     const scope: ChannelNetScope = {
       ...emptyScope(),
@@ -167,7 +176,7 @@ describe("planChannelNetNames", () => {
     // channel would break the connection the parent drew.
     const scope: ChannelNetScope = {
       ...emptyScope(),
-      sharedNames: new Set(["NetU1_3"]),
+      sharedNames: new Set(["NETU1_3"]),
       pinNamed: new Map([["NetU1_3", { refdes: "U1", pin: "3" }]]),
     };
 

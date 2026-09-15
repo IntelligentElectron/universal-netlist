@@ -128,8 +128,7 @@ describe("naming a sheet's nets", () => {
     expect(nets[0].name).toBe("ALPHA");
   });
 
-  it("keeps a sheet entry's net apart from a label's net of its name", () => {
-    // A sheet entry joins nothing by name, so its net takes its next name, here its pin's.
+  it("names a sheet entry's net after its pin, never after the entry", () => {
     const { schematic, nets } = sheet(
       { devices: [label(1, "EN")], parts: ["R1"] },
       { devices: [entry(2, "en")], parts: ["R2"] }
@@ -138,10 +137,10 @@ describe("naming a sheet's nets", () => {
     expect(nets.map((net) => net.name)).toEqual(["EN", "NetR2_1"]);
   });
 
-  it("gives the later of two sheet entries named alike its next name", () => {
+  it("gives the later of two nets claiming one name its next name", () => {
     const { schematic, nets } = sheet(
-      { devices: [entry(1, "SIG")], parts: ["R1"] },
-      { devices: [entry(2, "SIG")], parts: ["R2"] }
+      { devices: [port(1, "SIG")], parts: ["R1"] },
+      { devices: [port(2, "SIG")], parts: ["R2"] }
     );
     nameSheetNets(nets, schematic);
     expect(nets.map((net) => net.name)).toEqual(["SIG", "NetR2_1"]);
@@ -183,20 +182,20 @@ describe("naming a sheet's nets", () => {
 
   it("leaves a net without pins unnamed when the name it claims is taken", () => {
     const { schematic, nets } = sheet(
-      { devices: [entry(1, "EN")], parts: ["R1"] },
-      { devices: [entry(2, "EN")] }
+      { devices: [port(1, "EN")], parts: ["R1"] },
+      { devices: [port(2, "EN")] }
     );
     nameSheetNets(nets, schematic);
     expect(nets.map((net) => net.name)).toEqual(["EN", null]);
   });
 
   it("numbers a fully refused net only at its turn among pin names", () => {
-    // D's entry name outranks A's numbered pin name, though A was refused first.
+    // D's port name outranks A's numbered pin name, though A was refused first.
     const { schematic, nets } = sheet(
-      { devices: [entry(3, "X")], parts: ["R3"] },
-      { devices: [entry(7, "X")], parts: ["R1"] },
+      { devices: [port(3, "X")], parts: ["R3"] },
+      { devices: [port(7, "X")], parts: ["R1"] },
       { devices: [label(11, "NetR1_1")], parts: ["R9"] },
-      { devices: [entry(15, "NetR1_1_2")], parts: ["R4"] }
+      { devices: [port(15, "NetR1_1_2")], parts: ["R4"] }
     );
     nameSheetNets(nets, schematic);
     expect(nets.map((net) => net.name)).toEqual(["X", "NetR1_1_3", "NetR1_1", "NetR1_1_2"]);

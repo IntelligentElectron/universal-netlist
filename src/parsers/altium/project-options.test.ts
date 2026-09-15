@@ -37,13 +37,11 @@ describe("parseProjectOptions", () => {
       design(
         "AppendSheetNumberToLocalNets=1",
         "AllowPortNetNames=1",
-        "AllowSheetEntryNetNames=0",
         "PowerPortNamesTakePriority=1"
       )
     );
     expect(options.appendSheetNumberToLocalNets).toBe(true);
     expect(options.allowPortNetNames).toBe(true);
-    expect(options.allowSheetEntryNetNames).toBe(false);
     expect(options.powerPortNamesTakePriority).toBe(true);
   });
 
@@ -51,7 +49,6 @@ describe("parseProjectOptions", () => {
     const options = parseProjectOptions("");
     expect(options.appendSheetNumberToLocalNets).toBe(false);
     expect(options.allowPortNetNames).toBe(false);
-    expect(options.allowSheetEntryNetNames).toBe(true);
     expect(options.powerPortNamesTakePriority).toBe(false);
     expect(options.channelFormat).toBe(DEFAULT_CHANNEL_FORMAT);
   });

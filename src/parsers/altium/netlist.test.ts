@@ -1,5 +1,11 @@
 import { describe, it, expect } from "vitest";
-import { LOCAL, PROVISIONAL, restoreLocalNames, settleProvisionalNames } from "./netlist.js";
+import {
+  LOCAL,
+  PROVISIONAL,
+  canonicalNetName,
+  restoreLocalNames,
+  settleProvisionalNames,
+} from "./netlist.js";
 
 describe("settleProvisionalNames", () => {
   const nets = (...names: string[]) => Object.fromEntries(names.map((name) => [name, {}]));
@@ -47,5 +53,13 @@ describe("restoreLocalNames", () => {
         [`EN${PROVISIONAL}top${LOCAL}3`, `EN${PROVISIONAL}top`],
       ])
     );
+  });
+});
+
+describe("canonicalNetName", () => {
+  it("keeps the lowest designator and pin among pin names, not the first by character", () => {
+    const pin = (): boolean => true;
+    expect(canonicalNetName(["NetU13_1", "NetU1_11"], () => 5, pin)).toBe("NetU1_11");
+    expect(canonicalNetName(["NetR116_1", "NetR11_1"], () => 5, pin)).toBe("NetR11_1");
   });
 });
