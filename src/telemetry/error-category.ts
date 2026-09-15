@@ -61,6 +61,9 @@ const MESSAGE_SHAPES: ReadonlyArray<readonly [ToolErrorType, RegExp]> = [
   ["invalid_argument", /^[^\n]*\.netlist\.json: /i],
   ["not_found", /^(?:MCP error -?\d+: )?Tool .+ not found$/i],
   ["invalid_argument", /^Unknown rule id\(s\): /i],
+  ["not_found", /^No netlist for /],
+  ["invalid_argument", /^No schematic documents found for project /],
+  ["invalid_argument", /^Design variant '.*' needs the root \.kicad_sch beside /],
   ["timeout", /^kicad-cli netlist export failed for [\s\S]*\(timed out after \d+ms; /],
   ["unavailable", /^kicad-cli netlist export failed for /],
 ];
@@ -88,11 +91,10 @@ const MESSAGE_TYPES: ReadonlyArray<readonly [ToolErrorType, RegExp]> = [
     "unavailable",
     /\b(?:econnrefused|econnreset|ehostunreach|enetunreach|epipe|connection refused|connection reset|network unreachable|service unavailable|temporarily unavailable|only available on|no cadence spb installation|pstswp failed|kicad-cli not found)\b/i,
   ],
-  // A design with neither a netlist export nor a root schematic.
-  ["not_found", /\b(?:no netlist for|enotdir)\b/i],
+  ["not_found", /\benotdir\b/i],
   [
     "invalid_argument",
-    /\b(?:eisdir|outside (?:of )?(?:the )?(?:buffer )?bounds|invalid|unsupported|malformed|corrupt(?:ed|ion)?|not an?|unexpected|unbalanced|unterminated|expected|must|needs?|missing required|unknown rule|was empty|cannot be queried|matched all|out of bounds|magic signature mismatch|could not find valid|no schematic documents found|no hierarchy stream|defines design variants|encrypted in a format|no encrypted library stream)\b/i,
+    /\b(?:eisdir|outside (?:of )?(?:the )?(?:buffer )?bounds|invalid|unsupported|malformed|corrupt(?:ed|ion)?|not an?|unexpected|unbalanced|unterminated|expected|must|needs?|missing required|unknown rule|was empty|cannot be queried|matched all|out of bounds|magic signature mismatch|could not find valid|no hierarchy stream|defines design variants|encrypted in a format|no encrypted library stream)\b/i,
   ],
   ["invalid_argument", /\blists\b.+\bbut\b.+\bis on\b/i],
   ["invalid_argument", /\b(?:stream|section|signature|terminator)\b.+\bnot found\b/i],

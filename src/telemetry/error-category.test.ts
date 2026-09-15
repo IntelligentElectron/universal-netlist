@@ -128,6 +128,18 @@ describe("classifyToolError", () => {
       "Failed to search '/data/ENOENT: old': EACCES: permission denied, scandir '/data/ENOENT: old'",
       "permission_denied",
     ],
+    [
+      'No netlist for watchdog-timeout.kicad_pro. Expected a committed "watchdog-timeout.net" beside the project, or a root .kicad_sch plus an installed kicad-cli (set KICAD_CLI_PATH if KiCad is in a non-standard location).',
+      "not_found",
+    ],
+    [
+      "No schematic documents found for project /Users/me/Projects/Cancelled/Board.PrjPcb",
+      "invalid_argument",
+    ],
+    [
+      "Design variant 'Lite' needs the root .kicad_sch beside watchdog-timeout.kicad_pro, which was not found.",
+      "invalid_argument",
+    ],
     ["MCP error -32602: Tool timeout not found", "not_found"],
     [
       "Unknown rule id(s): timeout. Valid ids: net.single_pin, net.testpoint_orphan",
