@@ -12,6 +12,7 @@
  */
 
 import { execFile } from "node:child_process";
+import { childEnvironment } from "../../child-environment.js";
 import { promisify } from "node:util";
 import { mkdtemp, readFile, rm } from "node:fs/promises";
 import os from "node:os";
@@ -65,7 +66,7 @@ export const isKicadCliAvailable = async (): Promise<boolean> => {
   if (cli === null) return false;
   if (cli === "kicad-cli") {
     try {
-      await execFileAsync(cli, ["version"]);
+      await execFileAsync(cli, ["version"], { env: childEnvironment() });
       return true;
     } catch {
       return false;
@@ -95,7 +96,7 @@ export const exportNetlist = async (rootSchematicPath: string): Promise<string> 
     await execFileAsync(
       cli,
       ["sch", "export", "netlist", "--format", "kicadsexpr", "-o", outPath, rootSchematicPath],
-      { timeout }
+      { timeout, env: childEnvironment() }
     );
     return await readFile(outPath, "utf-8");
   } catch (error) {

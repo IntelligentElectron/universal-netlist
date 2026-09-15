@@ -47,6 +47,10 @@ The schema captures identification (MPN, description) but not electrical specifi
 
 To get the most out of this MCP, follow the recommended [Net Naming Conventions](net-naming-conventions.md) when naming nets and marking DNS components in your schematics. Net names drive power/ground detection, circuit traversal stop behavior, and `search_nets` pattern matching.
 
+## Password-protected OrCAD designs
+
+A `.DSN` saved with a password opens with a password the server reads from its environment. See [Password-protected OrCAD designs](password-protected-designs.md) for setup in each MCP client.
+
 ## Command Line
 
 The binary's commands (`export-json`, `update`, `uninstall`, `export-telemetry`, `coverage`) are documented in [cli.md](cli.md). `export-json` writes a design as a versioned `.netlist.json` file, which is itself a design every tool reads.

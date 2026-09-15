@@ -37,6 +37,7 @@
 
 import type { OleDirectoryPath } from "../../ole-reader/types.js";
 import { OleReader } from "../../ole-reader/ole-reader.js";
+import { DsnReader } from "./dsn-reader.js";
 import { parsePage } from "./page-parser.js";
 import type { DesignVariant } from "../../../types.js";
 import { DEFAULT_VARIANT, isDefaultVariant } from "../../variants.js";
@@ -233,7 +234,7 @@ export function hasVariantGroups(entries: OleDirectoryPath[]): boolean {
 }
 
 /** The view's Hierarchy stream, which holds the occurrence records. */
-function readHierarchy(ole: OleReader, entries: OleDirectoryPath[]): Buffer {
+function readHierarchy(ole: DsnReader, entries: OleDirectoryPath[]): Buffer {
   const entry = entries.find(
     (e) => /^Views\/.*\/Hierarchy\/Hierarchy$/.test(e.path) && e.entry.type === 2
   );
@@ -251,7 +252,7 @@ function readHierarchy(ole: OleReader, entries: OleDirectoryPath[]): Buffer {
  * it for the canonical net names and there is no reason to read it twice.
  */
 export function readVariantDns(
-  ole: OleReader,
+  ole: DsnReader,
   entries: OleDirectoryPath[],
   refdesByDbId: Map<number, string>,
   hierarchy?: Buffer,
@@ -320,9 +321,9 @@ export function readVariantDns(
  * more.
  */
 export function readVariantDnsFromFile(dsnPath: string, selectedVariant?: string): Set<string> {
-  const ole = new OleReader(dsnPath);
+  if (!hasVariantGroups(new OleReader(dsnPath).listAllEntries())) return new Set();
+  const ole = new DsnReader(dsnPath);
   const entries = ole.listAllEntries();
-  if (!hasVariantGroups(entries)) return new Set();
 
   const refdesByDbId = new Map<number, string>();
   for (const entry of entries) {

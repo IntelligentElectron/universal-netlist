@@ -1,4 +1,5 @@
 import { exec } from "child_process";
+import { childEnvironment } from "../../child-environment.js";
 import * as fs from "fs";
 import type { Dirent } from "fs";
 import path from "path";
@@ -339,6 +340,7 @@ export const exportCadenceNetlist = async (
     try {
       const { stdout, stderr } = await execAsync(command, {
         shell: "cmd.exe",
+        env: childEnvironment(),
         timeout: 120000,
         // -v 3 -l 255 is the most verbose setting pstswp has, and on a large
         // board it emits megabytes. Node's default cap is 1 MiB, and it does not

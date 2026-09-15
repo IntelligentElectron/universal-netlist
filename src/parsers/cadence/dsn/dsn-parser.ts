@@ -5,7 +5,7 @@
  * and Hierarchy streams, then assembles a ParsedNetlist.
  */
 
-import { OleReader } from "../../ole-reader/ole-reader.js";
+import { DsnReader } from "./dsn-reader.js";
 import type { ComponentDetails, ParsedNetlist, ParseDesignOptions } from "../../../types.js";
 import type { CachedLibraryPart, PinMapData } from "./structure-types.js";
 import { parsePage, parsePackageStream, parseHierarchyNetNames } from "./page-parser.js";
@@ -19,7 +19,7 @@ import { readVariantDns } from "./variant-store.js";
 
 /** Parse a .DSN file into a ParsedNetlist. */
 export function parseDsnFile(dsnPath: string, options?: ParseDesignOptions): ParsedNetlist {
-  const ole = new OleReader(dsnPath);
+  const ole = new DsnReader(dsnPath);
   const entries = ole.listAllEntries();
 
   // Parse Hierarchy stream for canonical net names
