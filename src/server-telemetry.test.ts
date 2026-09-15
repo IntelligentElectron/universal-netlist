@@ -65,13 +65,36 @@ const events = join(directory, "telemetry.jsonl");
 let client: Client;
 let tools: ListedTool[];
 
+/**
+ * A closed port enables the SDK without exporting, whatever the shell configures; logs go
+ * to the capture. A short export timeout keeps shutdown from retrying the refused port.
+ */
+const ENVIRONMENT: Record<string, string | undefined> = {
+  UNIVERSAL_NETLIST_TELEMETRY_PATH: events,
+  OTEL_SDK_DISABLED: undefined,
+  OTEL_EXPORTER_OTLP_ENDPOINT: "http://127.0.0.1:1",
+  OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: undefined,
+  OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: undefined,
+  OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: undefined,
+  OTEL_EXPORTER_OTLP_TIMEOUT: "200",
+  OTEL_CAPTURE_TOOL_ARGS: undefined,
+  OTEL_BSP_SCHEDULE_DELAY: "600000",
+  OTEL_BLRP_SCHEDULE_DELAY: "600000",
+  OTEL_METRIC_EXPORT_INTERVAL: "600000",
+};
+const shellEnvironment = Object.fromEntries(
+  Object.keys(ENVIRONMENT).map((name) => [name, process.env[name]])
+);
+
+const applyEnvironment = (values: Record<string, string | undefined>): void => {
+  for (const [name, value] of Object.entries(values)) {
+    if (value === undefined) delete process.env[name];
+    else process.env[name] = value;
+  }
+};
+
 beforeAll(async () => {
-  process.env.UNIVERSAL_NETLIST_TELEMETRY_PATH = events;
-  // A closed port enables the SDK without exporting; logs go to the capture.
-  process.env.OTEL_EXPORTER_OTLP_ENDPOINT = "http://127.0.0.1:1";
-  process.env.OTEL_BSP_SCHEDULE_DELAY = "600000";
-  process.env.OTEL_BLRP_SCHEDULE_DELAY = "600000";
-  process.env.OTEL_METRIC_EXPORT_INTERVAL = "600000";
+  applyEnvironment(ENVIRONMENT);
   await initOtel({ serviceName: "server-telemetry-test", serviceVersion: "0.0.0" });
   logs.disable();
   logs.setGlobalLoggerProvider(capture);
@@ -85,16 +108,8 @@ beforeAll(async () => {
 
 afterAll(async () => {
   logs.disable();
-  for (const name of [
-    "UNIVERSAL_NETLIST_TELEMETRY_PATH",
-    "OTEL_EXPORTER_OTLP_ENDPOINT",
-    "OTEL_BSP_SCHEDULE_DELAY",
-    "OTEL_BLRP_SCHEDULE_DELAY",
-    "OTEL_METRIC_EXPORT_INTERVAL",
-  ]) {
-    delete process.env[name];
-  }
   await shutdownOtel();
+  applyEnvironment(shellEnvironment);
   rmSync(directory, { recursive: true, force: true });
 });
 
@@ -223,6 +238,14 @@ describe("tool failure categories", () => {
       expect(otel[0]["tool.args"]).toBe(JSON.stringify(args));
       expect(JSON.stringify({ local, otel })).not.toContain(password);
     }
+  });
+
+  it.skipIf(!hasFixtures)("refuses a truncated design", async () => {
+    const truncated = join(directory, "Truncated.DSN");
+    writeFileSync(truncated, readFileSync(DSN).subarray(0, 4096));
+    expect(await categoryOf("list_nets", { design: truncated, design_variant: "default" })).toBe(
+      "invalid_argument"
+    );
   });
 
   it("asks for a design variant the design needs", async () => {

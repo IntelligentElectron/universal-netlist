@@ -24,6 +24,8 @@ const captureProvider: LoggerProvider = {
 
 beforeAll(async () => {
   process.env.OTEL_EXPORTER_OTLP_ENDPOINT = "http://127.0.0.1:1";
+  // Shutdown gives up on the refused port at once instead of retrying it.
+  process.env.OTEL_EXPORTER_OTLP_TIMEOUT = "200";
   // Keep the batch exporters from firing (and failing) mid-test; shutdown
   // still flushes once at the end.
   process.env.OTEL_BSP_SCHEDULE_DELAY = "600000";
@@ -38,6 +40,7 @@ beforeAll(async () => {
 afterAll(async () => {
   logs.disable();
   delete process.env.OTEL_EXPORTER_OTLP_ENDPOINT;
+  delete process.env.OTEL_EXPORTER_OTLP_TIMEOUT;
   delete process.env.OTEL_BSP_SCHEDULE_DELAY;
   delete process.env.OTEL_BLRP_SCHEDULE_DELAY;
   delete process.env.OTEL_METRIC_EXPORT_INTERVAL;

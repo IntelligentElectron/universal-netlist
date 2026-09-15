@@ -20,6 +20,8 @@ const CODE_TYPES: Readonly<Record<string, ToolErrorType>> = {
   EPERM: "permission_denied",
   ENOENT: "not_found",
   ENOTDIR: "not_found",
+  EISDIR: "invalid_argument",
+  ERR_BUFFER_OUT_OF_BOUNDS: "invalid_argument",
   ENOSPC: "resource_exhausted",
   ENOMEM: "resource_exhausted",
   EMFILE: "resource_exhausted",
@@ -32,7 +34,12 @@ const CODE_TYPES: Readonly<Record<string, ToolErrorType>> = {
   EPIPE: "unavailable",
 };
 
+/** Quoted names and paths, which never state the cause; the whole message is the fallback. */
+const QUOTED = /'[^'\n]*'|"[^"\n]*"/g;
+
 const MESSAGE_TYPES: ReadonlyArray<readonly [ToolErrorType, RegExp]> = [
+  // A Universal Netlist validation failure names the file first.
+  ["invalid_argument", /^[^\n]*\.netlist\.json: /i],
   [
     "permission_denied",
     /\b(?:eacces|eperm|permission denied|access denied|unauthori[sz]ed|forbidden|password-protected|no password in)\b/i,
@@ -51,11 +58,9 @@ const MESSAGE_TYPES: ReadonlyArray<readonly [ToolErrorType, RegExp]> = [
   ],
   // A design with neither a netlist export nor a root schematic.
   ["not_found", /\bno netlist for\b/i],
-  // A Universal Netlist validation failure names the file first.
-  ["invalid_argument", /^[^\n]*\.netlist\.json: /i],
   [
     "invalid_argument",
-    /\b(?:invalid|unsupported|malformed|corrupt(?:ed|ion)?|not an?|unexpected|unbalanced|unterminated|expected|must|needs?|missing required|unknown rule|was empty|cannot be queried|matched all|out of bounds|magic signature mismatch|could not find valid|no schematic documents found|no hierarchy stream|defines design variants|encrypted in a format|no encrypted library stream)\b/i,
+    /\b(?:eisdir|outside buffer bounds|invalid|unsupported|malformed|corrupt(?:ed|ion)?|not an?|unexpected|unbalanced|unterminated|expected|must|needs?|missing required|unknown rule|was empty|cannot be queried|matched all|out of bounds|magic signature mismatch|could not find valid|no schematic documents found|no hierarchy stream|defines design variants|encrypted in a format|no encrypted library stream)\b/i,
   ],
   ["invalid_argument", /\blists\b.+\bbut\b.+\bis on\b/i],
   ["invalid_argument", /\b(?:stream|section|signature|terminator)\b.+\bnot found\b/i],
@@ -83,8 +88,10 @@ export const classifyToolError = (failure: unknown): ToolErrorType => {
     if (causeCode && CODE_TYPES[causeCode]) return CODE_TYPES[causeCode];
 
     const message = describeFailure(failure);
-    for (const [type, pattern] of MESSAGE_TYPES) {
-      if (pattern.test(message)) return type;
+    for (const text of [message.replace(QUOTED, " "), message]) {
+      for (const [type, pattern] of MESSAGE_TYPES) {
+        if (pattern.test(text)) return type;
+      }
     }
   } catch {
     // Telemetry classification must never affect the tool call.

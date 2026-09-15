@@ -66,6 +66,22 @@ describe("classifyToolError", () => {
     ["A.netlist.json: R1.1 is on 'VCC', but no net 'VCC' is declared", "invalid_argument"],
     ["Sector chain too long, possible corruption", "invalid_argument"],
     ["String length 512 exceeds limit of 400 at offset 1024", "invalid_argument"],
+    ["A.netlist.json: net 'TIMEOUT' lists R1.1 twice", "invalid_argument"],
+    ["timeout.netlist.json: unexpected component key 'forbidden'", "invalid_argument"],
+    [
+      "Design 'A.PrjPcb' defines design variants ['Timeout Test']. Pass design_variant='<Default>'",
+      "invalid_argument",
+    ],
+    ["Net 'CANCELLED' not found in design 'A'.", "not_found"],
+    [
+      "Failed to search '/Users/o'brien/x': ENOENT: no such file or directory, scandir '/Users/o'brien/x'",
+      "not_found",
+    ],
+    ["Attempt to access memory outside buffer bounds", "invalid_argument"],
+    [
+      "Cannot read UNIVERSAL_NETLIST_DSN_PASSWORD_FILE: EISDIR: illegal operation on a directory, read",
+      "invalid_argument",
+    ],
     ["No Universal Netlist codec is registered for current schema version 3", "internal"],
   ] as const)("classifies the design failure %s as %s", (message, expected) => {
     expect(classifyToolError(message)).toBe(expected);
