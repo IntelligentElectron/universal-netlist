@@ -44,8 +44,7 @@ export interface LoadedNetlist extends ParsedNetlist {
  */
 export const loadNetlist = async (
   designPath: string,
-  designVariant?: string,
-  password?: string
+  designVariant?: string
 ): Promise<LoadedNetlist | ErrorResult> => {
   const normalizedPath = resolvePath(designPath);
   const handler = findHandler(normalizedPath);
@@ -54,13 +53,6 @@ export const loadNetlist = async (
     return {
       error: `Unsupported design file format '${ext}'. Use list_designs() first.`,
     };
-  }
-
-  if (
-    password !== undefined &&
-    (handler.name !== "cadence" || path.extname(normalizedPath).toLowerCase() !== ".dsn")
-  ) {
-    return { error: "Passwords are only supported for OrCAD .DSN files" };
   }
 
   try {
@@ -92,10 +84,7 @@ export const loadNetlist = async (
       selectedVariant = selected.name;
     }
 
-    const parsed = await parseDesign(normalizedPath, {
-      variant: selectedVariant,
-      ...(password === undefined ? {} : { password }),
-    });
+    const parsed = await parseDesign(normalizedPath, { variant: selectedVariant });
     normalizeUnconnectedPins(parsed);
     return { design_variant: selectedVariant, nets: parsed.nets, components: parsed.components };
   } catch (error) {

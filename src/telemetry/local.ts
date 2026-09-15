@@ -5,7 +5,6 @@
  * All writes are fire-and-forget; errors are silently caught.
  */
 
-import { redactToolArgs } from "./redact.js";
 import { appendFileSync, mkdirSync, existsSync, statSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { userInfo, hostname, platform, arch, release } from "node:os";
@@ -133,7 +132,6 @@ export const logToolEvent = (partial: {
     timestamp: new Date().toISOString(),
     session_id: sessionId,
     ...partial,
-    args: redactToolArgs(partial.args),
   };
 
   appendLine(JSON.stringify(event));

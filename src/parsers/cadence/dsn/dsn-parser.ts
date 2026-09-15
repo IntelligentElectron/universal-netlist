@@ -19,7 +19,7 @@ import { readVariantDns } from "./variant-store.js";
 
 /** Parse a .DSN file into a ParsedNetlist. */
 export function parseDsnFile(dsnPath: string, options?: ParseDesignOptions): ParsedNetlist {
-  const ole = new DsnReader(dsnPath, options?.password);
+  const ole = new DsnReader(dsnPath);
   const entries = ole.listAllEntries();
 
   // Parse Hierarchy stream for canonical net names

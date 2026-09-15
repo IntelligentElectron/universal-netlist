@@ -196,14 +196,3 @@ describe("instrumentTool log records", () => {
     expect(lastRecord().attributes ?? {}).not.toHaveProperty("error.class");
   });
 });
-
-it("redacts passwords from opt-in OpenTelemetry argument capture", async () => {
-  process.env.OTEL_CAPTURE_TOOL_ARGS = "1";
-  const args = { design: "board.DSN", password: "synthetic-private-password" };
-  await instrumentTool("list_nets", args, async () => "ok");
-  expect(lastRecord().attributes?.["tool.args"]).toBe(
-    JSON.stringify({ design: args.design, password: "[REDACTED]" })
-  );
-  expect(JSON.stringify(lastRecord())).not.toContain(args.password);
-  expect(args.password).toBe("synthetic-private-password");
-});

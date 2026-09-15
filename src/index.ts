@@ -67,14 +67,9 @@ const main = async (): Promise<void> => {
 
   // Handle export-json <design> [output.netlist.json]
   if (args.includes("--export-json")) {
-    const exportArgs = args.filter((arg) => arg !== "--password-stdin");
-    const idx = exportArgs.indexOf("--export-json");
-    const outArg = exportArgs[idx + 2];
-    await handleExportJsonCommand(
-      exportArgs[idx + 1],
-      outArg?.startsWith("--") ? undefined : outArg,
-      args.includes("--password-stdin")
-    );
+    const idx = args.indexOf("--export-json");
+    const outArg = args[idx + 2];
+    await handleExportJsonCommand(args[idx + 1], outArg?.startsWith("--") ? undefined : outArg);
     return;
   }
 

@@ -17,7 +17,6 @@
  *    no console/stdout exporter is ever used.
  */
 
-import { redactToolArgs } from "./redact.js";
 import { userInfo } from "node:os";
 import { trace, metrics, SpanStatusCode, type Span, type Attributes } from "@opentelemetry/api";
 import { logs, SeverityNumber } from "@opentelemetry/api-logs";
@@ -275,12 +274,10 @@ export const instrumentTool = async <R>(
   const tracer = trace.getTracer(INSTRUMENTATION_NAME);
   return tracer.startActiveSpan(`tool/${toolName}`, async (span) => {
     const start = Date.now();
-    // Non-secret args, untruncated: tool-call arguments are inherently small.
+    // Full args, untruncated: tool-call arguments are inherently small.
     // Serialized once, then attached to the span here and mirrored onto the
     // per-call log record (span attributes never reach log-based backends).
-    const capturedArgs = isTruthy(process.env.OTEL_CAPTURE_TOOL_ARGS)
-      ? safeJson(redactToolArgs(args))
-      : undefined;
+    const capturedArgs = isTruthy(process.env.OTEL_CAPTURE_TOOL_ARGS) ? safeJson(args) : undefined;
     try {
       safely(() => {
         span.setAttribute("tool.name", toolName);

@@ -9,7 +9,6 @@ Options:
   -v, --version        Output the version number
   -h, --help           Display help for command
   --verbose            Show per-design field mismatch breakdowns (with coverage)
-  --password-stdin     Read an OrCAD DSN password from piped input (export-json)
 
 Commands:
   update|upgrade       Check for updates and install if available
@@ -36,69 +35,6 @@ universal-netlist export-json MyBoard.DSN out/board.netlist.json
 ```
 
 A design that does not load exits 1 and prints the parser's message, naming the first defect.
-
-### Password-protected OrCAD DSN files
-
-`export-json` accepts `--password-stdin` for OrCAD `.DSN` files using
-`FILE_FMT_SYENCRYPT01`. Supply the password through a pipe; one final LF or CRLF
-is removed, while spaces are preserved. The password is not a command-line
-argument. On Windows, using PowerShell 7:
-
-```powershell
-Read-Host -MaskInput 'DSN password' | universal-netlist export-json Board.DSN board.netlist.json --password-stdin
-```
-
-On Linux, using Bash:
-
-```bash
-IFS= read -r -s -p 'DSN password: ' password
-printf '\n'
-printf '%s\n' "$password" |
-  universal-netlist export-json Board.DSN board.netlist.json --password-stdin
-unset password
-```
-
-The reader decrypts streams in memory and leaves the source DSN unchanged. It
-requires no Cadence installation or native cryptography library. The resulting
-netlist JSON is unprotected. Missing or incorrect passwords fail before export.
-This currently supports 1–255 printable ASCII password characters and
-SYENCRYPT01 only; other password encodings and encryption formats are rejected.
-The Library header validates the password, but does not authenticate the whole
-file against corruption or tampering. MCP queries also accept a per-call
-`password` argument, as described below.
-
-Programmatic callers of `parseDesign` or `parseDsnFile` can supply
-`{ password: "..." }` in `ParseDesignOptions` alongside existing options.
-
-
-## Password-protected designs through MCP
-
-Every design-query tool accepts an optional `password` argument for protected
-OrCAD `.DSN` files. For example, a `list_nets` call can use these arguments:
-
-```json
-{
-  "design": "/home/user/designs/Board.DSN",
-  "design_variant": "<Default>",
-  "password": "your-dsn-password"
-}
-```
-
-Supply the password on each call to listing, searching, component/XNET querying,
-or ERC tools that take a `design` argument. Passwords are not retained between
-calls. Other formats reject a supplied password. The same SYENCRYPT01 and
-printable-ASCII limits apply as in the CLI.
-
-`list_designs` needs no password: OrCAD variant names come from the unencrypted
-container directory. Choose the desired `design_variant` when querying; a
-password does not bypass variant selection. `--password-stdin` is only for CLI
-export, since stdin carries protocol messages in MCP mode.
-
-The server redacts the `password` argument in local telemetry and OpenTelemetry
-argument capture, and does not include it in query results. The MCP client still
-receives the password as a tool argument and may retain it in its conversation
-history or logs.
-
 
 ## update
 
