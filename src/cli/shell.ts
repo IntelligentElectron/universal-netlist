@@ -22,12 +22,18 @@ export const getShellRcFiles = (): string[] => {
 };
 
 /**
- * Remove universal-netlist PATH entries from shell rc files.
- * Looks for "# Universal Netlist MCP Server" comment blocks and removes them.
+ * Remove universal-netlist PATH entries from shell rc files: each "# Universal Netlist MCP
+ * Server" comment with the PATH line install.sh writes after it. A comment followed by any
+ * other line is left as it is.
+ * @param binDir - The directory the PATH line adds
  * @returns Array of file paths that were modified
  */
-export const removeFromPath = (): string[] => {
+export const removeFromPath = (binDir: string): string[] => {
   const modified: string[] = [];
+  const isEntry = (line: string | undefined): boolean =>
+    line !== undefined &&
+    /^\s*(?:export PATH=|fish_add_path )/.test(line) &&
+    (line.includes(binDir) || line.includes("universal-netlist"));
 
   for (const rcFile of getShellRcFiles()) {
     if (!fs.existsSync(rcFile)) continue;
@@ -40,14 +46,9 @@ export const removeFromPath = (): string[] => {
 
     while (i < lines.length) {
       const line = lines[i];
-      // Skip "# Universal Netlist MCP Server" comment and the following export/fish_add_path line
-      if (line.trim() === "# Universal Netlist MCP Server") {
+      if (line.trim() === "# Universal Netlist MCP Server" && isEntry(lines[i + 1])) {
         changed = true;
-        i++; // Skip comment
-        // Skip the PATH line install.sh writes after it, wherever the install directory is
-        if (i < lines.length && /^\s*(?:export PATH=|fish_add_path )/.test(lines[i])) {
-          i++;
-        }
+        i += 2;
         // Skip trailing empty line if present
         if (i < lines.length && lines[i].trim() === "") {
           i++;

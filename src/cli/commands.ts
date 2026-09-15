@@ -181,28 +181,39 @@ export const handleUninstallCommand = async (): Promise<void> => {
 
   // Remove PATH entries from shell rc files
   console.log("Removing PATH entries...");
-  const modifiedFiles = removeFromPath();
+  const modifiedFiles = removeFromPath(binDir);
   if (modifiedFiles.length > 0) {
     console.log(`Modified: ${modifiedFiles.join(", ")}`);
   }
 
-  // Only the files the binary's install, updates and telemetry write go, and a
-  // directory only once it is empty: the binary may sit in a shared directory.
+  // The binary and its update backups go wherever they are. The files and directories
+  // around them go only in the installer's `universal-netlist/bin/` layout, a directory
+  // only once empty: anywhere else they may belong to something else.
+  const installerLayout = basename(binDir) === "bin" && basename(installDir) === BINARY_NAME;
   const backups = listDirectory(binDir)
     .filter((file) => file.startsWith(`${basename(binaryPath)}.backup.`))
     .map((file) => join(binDir, file));
-  const files = [binaryPath, ...backups, ...INSTALL_FILES.map((file) => join(installDir, file))];
+  const files = [
+    binaryPath,
+    ...backups,
+    ...(installerLayout ? INSTALL_FILES.map((file) => join(installDir, file)) : []),
+  ];
   const remaining: string[] = [];
-  for (const file of files.filter((path) => existsSync(path))) {
+  const remove = (path: string, run: () => void): void => {
     try {
-      unlinkSync(file);
-      console.log(`Removed ${file}`);
+      run();
+      console.log(`Removed ${path}`);
     } catch (error) {
-      remaining.push(`${file} (${error instanceof Error ? error.message : error})`);
+      remaining.push(`${path} (${error instanceof Error ? error.message : error})`);
     }
+  };
+  for (const file of files.filter((path) => existsSync(path))) {
+    remove(file, () => unlinkSync(file));
   }
-  for (const directory of [binDir, installDir]) {
-    if (existsSync(directory) && listDirectory(directory).length === 0) rmdirSync(directory);
+  for (const directory of installerLayout ? [binDir, installDir] : []) {
+    if (existsSync(directory) && listDirectory(directory).length === 0) {
+      remove(directory, () => rmdirSync(directory));
+    }
   }
 
   console.log("");
@@ -214,7 +225,7 @@ export const handleUninstallCommand = async (): Promise<void> => {
   console.log(`${BINARY_NAME} has been uninstalled.`);
 };
 
-/** What the install directory holds beside `bin/`: the local telemetry log and the `.mcpb` extension package. */
+/** What the installer's directory holds beside `bin/`: the local telemetry log and the `.mcpb` extension package. */
 const INSTALL_FILES = ["telemetry.jsonl", `${BINARY_NAME}.mcpb`];
 
 const listDirectory = (directory: string): string[] => {

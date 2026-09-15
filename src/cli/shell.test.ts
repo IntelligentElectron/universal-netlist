@@ -14,7 +14,7 @@ const { removeFromPath } = await import("./shell.js");
 afterAll(() => rmSync(home, { recursive: true, force: true }));
 
 describe("removeFromPath", () => {
-  it("removes the block install.sh writes, whatever the install directory is called", () => {
+  it("removes the block install.sh writes for the binary's directory, whatever it is called", () => {
     const zshrc = join(home, ".zshrc");
     const fish = join(home, ".config", "fish", "config.fish");
     mkdirSync(join(home, ".config", "fish"), { recursive: true });
@@ -27,17 +27,18 @@ describe("removeFromPath", () => {
       "set -x EDITOR vim\n\n# Universal Netlist MCP Server\nfish_add_path /opt/tools/bin\n"
     );
 
-    expect(removeFromPath().sort()).toEqual([fish, zshrc].sort());
+    expect(removeFromPath("/opt/tools/bin").sort()).toEqual([fish, zshrc].sort());
     expect(readFileSync(zshrc, "utf-8")).toBe('alias ll="ls -l"\n');
     expect(readFileSync(fish, "utf-8")).toBe("set -x EDITOR vim\n");
   });
 
-  it("keeps a line after the comment that is not a PATH entry", () => {
+  it("leaves a comment followed by the user's own lines as it is", () => {
     const bashrc = join(home, ".bashrc");
-    writeFileSync(bashrc, "# Universal Netlist MCP Server\nalias un=universal-netlist\n");
+    const content =
+      '# Universal Netlist MCP Server\nexport PATH="$HOME/go/bin:$PATH"\nalias un=universal-netlist\n';
+    writeFileSync(bashrc, content);
 
-    removeFromPath();
-
-    expect(readFileSync(bashrc, "utf-8")).toBe("alias un=universal-netlist\n");
+    expect(removeFromPath("/opt/tools/bin")).toEqual([]);
+    expect(readFileSync(bashrc, "utf-8")).toBe(content);
   });
 });

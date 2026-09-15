@@ -46,8 +46,16 @@ describe("autoUpdate self-update guard", () => {
     process.argv[1] = bin;
     const fetchSpy = vi.fn().mockRejectedValue(new Error("network disabled in test"));
     vi.stubGlobal("fetch", fetchSpy);
+    vi.doMock("../build-flags.js", async (importOriginal) => ({
+      ...(await importOriginal<typeof import("../build-flags.js")>()),
+      COMPILED_BINARY: true,
+    }));
+    vi.resetModules();
+    const { autoUpdate: compiledAutoUpdate } = await import("./updater.js");
 
-    const updated = await autoUpdate();
+    const updated = await compiledAutoUpdate();
+    vi.doUnmock("../build-flags.js");
+    vi.resetModules();
 
     // The network call failed, so no update is applied, but the guard let it
     // get as far as fetch (proving the guard, not luck, is what gates updates).
@@ -71,7 +79,11 @@ describe("autoUpdate on a packaged build", () => {
     const fetchSpy = vi.fn();
     vi.stubGlobal("fetch", fetchSpy);
 
-    vi.doMock("../build-flags.js", () => ({ CHANNEL: "packaged", SELF_UPDATE_ENABLED: false }));
+    vi.doMock("../build-flags.js", () => ({
+      CHANNEL: "packaged",
+      SELF_UPDATE_ENABLED: false,
+      COMPILED_BINARY: true,
+    }));
     vi.resetModules();
     const { autoUpdate: packagedAutoUpdate } = await import("./updater.js");
 

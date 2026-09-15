@@ -5,7 +5,7 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { CHANNEL, SELF_UPDATE_ENABLED } from "./build-flags.js";
+import { CHANNEL, COMPILED_BINARY, SELF_UPDATE_ENABLED } from "./build-flags.js";
 
 describe("build flags", () => {
   it("defaults to the github channel when BUILD_CHANNEL is not injected", () => {
@@ -14,5 +14,9 @@ describe("build flags", () => {
 
   it("enables self-update on the github channel", () => {
     expect(SELF_UPDATE_ENABLED).toBe(true);
+  });
+
+  it("is not the compiled binary when BUILD_VERSION is not injected", () => {
+    expect(COMPILED_BINARY).toBe(false);
   });
 });
