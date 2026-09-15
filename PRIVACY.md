@@ -82,8 +82,9 @@ Setting `OTEL_SDK_DISABLED=1` forces it off even when an endpoint is configured.
 
 All registered MCP tools are annotated as read-only and leave source designs unchanged.
 A KiCad query may generate a temporary netlist, which is removed after reading.
-Commands you run by hand write what they are for: `export-json` the netlist file
-you name, and `export-telemetry` a zip file in the working directory.
+Commands you run by hand write to disk: `export-json` writes a `.netlist.json`
+file, `export-telemetry` a zip file in the working directory, and `update` and
+`uninstall` replace or remove the binary.
 
 ## Third parties
 

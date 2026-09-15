@@ -2,7 +2,7 @@
 
 > Scope update: DAT parsing and `export_cadence_netlist` are dormant in MCP.
 > This proposal must preserve that boundary. DAT helpers may remain local for
-> CLI coverage and regression tests; they are not a cloud MCP input format.
+> developer coverage scripts and regression tests; they are not a cloud MCP input format.
 
 ## Context
 
@@ -26,7 +26,7 @@ Proposed scope, updated for the dormant MCP features:
   S3 adapter is deferred (user has GCP, not AWS).
 - Cadence `.DSN` schematics and Altium `.SchDoc`/`.PrjPcb` designs must work
   in cloud. DAT input remains disabled for MCP. The retained `pstswp.exe`
-  exporter is only available to local CLI coverage and stays out of scope.
+  exporter is only available to local developer coverage scripts and stays out of scope.
 - Cloud paths are addressed via URI scheme on existing path arguments
   (`gs://bucket/key`, `s3://bucket/key`). MCP tool signatures do not change.
 - The MCP binary still runs locally on the agent's machine. It just makes
@@ -62,7 +62,7 @@ Three categories of disk access exist today:
 
 3. **Local-only side-effects** — out of scope for cloud.
    - `src/service/tools/cadence-export.ts` — shells out to `pstswp.exe`,
-     creates output dirs and renames lock files for Windows CLI coverage.
+     creates output dirs and renames lock files for Windows developer coverage scripts.
      It remains unregistered in MCP on every platform.
 
 No parser performs random-access seeks against a file handle. `BinaryReader`
@@ -164,15 +164,15 @@ Already in an `async` function.
 **`src/parsers/cadence/dat/pstxnet-parser.ts`, `pstxprt-parser.ts`,
 `pstchip-parser.ts`**
 
-No changes required: these parsers remain local helpers for CLI coverage and
+No changes required: these parsers remain local helpers for developer coverage scripts and
 regression fixtures. Do not route them into the cloud MCP handler.
 
 **`src/parsers/cadence/discovery.ts`**
 
 - Use `storage.listDirectory(rootDir, { maxDepth })` for active DSN discovery.
 - Preserve the existing local DAT matching and `extractRootDrawing` helpers
-  for `discoverCadenceDesignsWithDat` and `findCadenceDatFiles`, used by CLI
-  coverage and golden generation.
+  for `discoverCadenceDesignsWithDat` and `findCadenceDatFiles`, used by the
+  developer coverage script and golden generation.
 - Keep `.cpm` and standalone DAT designs out of MCP discovery.
 
 **`src/parsers/altium/discovery.ts`**
@@ -331,7 +331,7 @@ End-to-end checks before considering done.
    - `mcp__universal-netlist__query_xnet_by_pin_name` on an Altium
      `.SchDoc` fixture must produce byte-identical JSON to `main`.
 3. Confirm no remaining `import ... from "fs"` / `"fs/promises"` exists
-   in active cloud parser paths. Retained local DAT and CLI export helpers
+   in active cloud parser paths. Retained local DAT and export helpers
    continue to use local filesystem APIs.
 
 ### GCS end-to-end (real bucket)
@@ -559,7 +559,7 @@ own credential plumbing.
   This PR makes Cloud Run *possible*; actually deploying is a separate
   task.
 - Changing MCP tool argument shapes — `designPath` stays a string.
-- Refactoring `cadence-export.ts` for cloud — it remains a Windows CLI
+- Refactoring `cadence-export.ts` for cloud — it remains a Windows developer
   coverage helper, dormant in MCP. Cloud queries use `.DSN` / `.SchDoc`
   directly. DAT parsing remains outside the MCP surface.
 - Streaming reads. Every parser already loads whole files; GCS

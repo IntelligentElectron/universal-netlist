@@ -1,12 +1,12 @@
 # Cadence exporter (internal reference)
 
-> **Dormant in MCP.** This tool is not registered or callable by MCP clients. Its implementation is retained for CLI coverage and regression tests. The reference below describes that retained implementation; query Cadence designs through their `.DSN` schematics.
+> **Dormant in MCP.** This tool is not registered or callable by MCP clients. Its implementation is retained for developer coverage scripts and regression tests. The reference below describes that retained implementation; query Cadence designs through their `.DSN` schematics.
 
 Export Cadence schematic netlist to Allegro PCB format.
 
 ## Description
 
-The retained `exportCadenceNetlist` function generates Allegro-compatible netlist files from Cadence schematics using the `pstswp` utility. CLI coverage uses it on Windows when reference exports are missing. It is not an MCP tool.
+The retained `exportCadenceNetlist` function generates Allegro-compatible netlist files from Cadence schematics using the `pstswp` utility. `scripts/dsn-vs-dat-coverage.ts` uses it on Windows when reference exports are missing. It is not an MCP tool.
 
 **Platform Requirement**: Windows only. Requires Cadence SPB installation.
 

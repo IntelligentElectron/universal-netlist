@@ -33,12 +33,7 @@ describe("normalizeCliArgs", () => {
     expect(normalizeCliArgs(["--export-json", "help"])).toEqual(["--export-json", "help"]);
   });
 
-  it("mixes both forms in one call", () => {
-    expect(normalizeCliArgs(["--export-json", "board.DSN", "out.netlist.json"])).toEqual([
-      "--export-json",
-      "board.DSN",
-      "out.netlist.json",
-    ]);
+  it("reads the flag after a command's value as a command", () => {
     expect(normalizeCliArgs(["export-json", "board.DSN", "--help"])).toEqual([
       "--export-json",
       "board.DSN",

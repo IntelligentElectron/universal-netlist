@@ -10,7 +10,7 @@ entry lists status against the codebase as of the last review.
 
 DAT parsing and `export_cadence_netlist` are dormant in MCP. Historical DAT
 findings remain as reference; current proposals must keep those paths limited
-to CLI coverage and regression helpers.
+to developer coverage scripts and regression helpers.
 
 | Plan | Topic | Status |
 |---|---|---|
