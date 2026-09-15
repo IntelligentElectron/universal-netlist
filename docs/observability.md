@@ -4,11 +4,51 @@ The server can emit [OpenTelemetry](https://opentelemetry.io/) **traces, metrics
 
 ## Overview
 
-- **Disabled by default.** Telemetry is a no-op with zero overhead unless you point it at an OTLP endpoint. The heavy SDK packages are not imported until telemetry is configured; only the lightweight OpenTelemetry API stubs are always present, and they are no-ops when telemetry is off.
+- **Disabled by default.** OpenTelemetry is a no-op with zero overhead unless you point it at an OTLP endpoint. The heavy SDK packages are not imported until telemetry is configured; only the lightweight OpenTelemetry API stubs are always present, and they are no-ops when telemetry is off.
 - **Configured purely through standard `OTEL_*` environment variables.** No bespoke config and no code changes.
 - **Never affects tool results.** Every span, metric, and log operation is wrapped so that an exporter fault, misconfiguration, or unreachable backend degrades to "no telemetry" rather than an error. Pending data is flushed on shutdown.
 - **Starts at the MCP request boundary.** Calls rejected by a tool's input schema are instrumented even though the SDK never invokes the tool handler. They are counted as `invalid_argument` failures, and their validation message identifies the offending argument.
 - **stdio-safe.** The MCP stdio transport owns stdout, so all diagnostics are written to stderr only; no console/stdout exporter is ever used.
+
+## Local usage log
+
+Apart from OpenTelemetry, the server appends a record of its own use to a local
+JSON Lines file, `telemetry.jsonl`, each time it starts and on every tool call. It sends the file
+nowhere; `universal-netlist export-telemetry` zips it into the working directory.
+
+Each server start writes one session record:
+
+| Field | Value |
+|-------|-------|
+| `timestamp` | Time of the record, ISO 8601 |
+| `session_id` | Random UUID for this server process |
+| `version` | Server version |
+| `username` | Operating system account name |
+| `machine` | `platform`, `arch`, `os_release`, and `hostname` |
+
+Each tool call writes one record:
+
+| Field | Value |
+|-------|-------|
+| `timestamp` | Time of the record, ISO 8601 |
+| `session_id` | The session the call belongs to |
+| `tool` | The tool called |
+| `args` | The call's arguments, such as design paths and search patterns, with schema defaults applied when the call reaches the tool |
+| `duration_ms` | Duration of the call in milliseconds |
+| `success` | `false` when the call failed |
+
+The file lives at:
+
+| Install | Location |
+|---------|----------|
+| Standalone binary | `telemetry.jsonl` in the parent of the directory holding the binary: the install directory, beside `bin/`, for an installer install |
+| npm or source on macOS | `~/Library/Application Support/universal-netlist/telemetry.jsonl` |
+| npm or source on Windows | `%LOCALAPPDATA%\universal-netlist\telemetry.jsonl` |
+| npm or source elsewhere | `~/.local/share/universal-netlist/telemetry.jsonl` |
+
+`UNIVERSAL_NETLIST_TELEMETRY_PATH` names another file; on macOS and Linux, `/dev/null` keeps nothing.
+The file grows with every call; nothing rotates or trims it. Where it cannot be written, the
+server drops the records without reporting it.
 
 ## Enabling and disabling
 
@@ -164,7 +204,7 @@ All telemetry — traces, metrics, and logs alike — is tagged with:
 Telemetry is designed to be invisible to callers:
 
 - Instrumentation never alters a tool's result and never throws on its own; a failing exporter or SDK degrades to "no telemetry".
-- When unconfigured, the instrumentation path is a pure pass-through with zero overhead, and the SDK is never imported.
+- When unconfigured, the OpenTelemetry instrumentation path is a pure pass-through with zero overhead, and the SDK is never imported.
 - Pending, batched exports are flushed on process shutdown (including on `SIGINT`/`SIGTERM`), so short-lived invocations don't lose data.
 
 ## See Also

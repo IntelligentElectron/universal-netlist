@@ -56,4 +56,4 @@ Removes the binary, its update backups, and the PATH entries `install.sh` added 
 universal-netlist export-telemetry
 ```
 
-Writes the locally recorded [telemetry](observability.md) as a zip file in the working directory. Telemetry is off by default; this exports only what `OTEL_*` configuration recorded.
+Writes the server's [local usage log](observability.md#local-usage-log) as a zip file in the working directory, using `zip` on macOS and Linux and `tar` on Windows. The server records that log each time it starts and on every tool call, whatever the OpenTelemetry settings.

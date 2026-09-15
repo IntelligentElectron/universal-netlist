@@ -6,7 +6,7 @@
  */
 
 import { appendFileSync, mkdirSync, existsSync, statSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { basename, dirname, join } from "node:path";
 import { userInfo, hostname, platform, arch, release } from "node:os";
 import { execSync } from "node:child_process";
 import { COMPILED_BINARY } from "../build-flags.js";
@@ -207,10 +207,13 @@ export const exportTelemetry = async (): Promise<string> => {
   const zipPath = join(process.cwd(), zipName);
 
   if (process.platform === "win32") {
-    execSync(`tar -a -cf "${zipPath}" -C "${dirname(telemetryPath)}" telemetry.jsonl`, {
-      stdio: "pipe",
-      env: childEnvironment(),
-    });
+    execSync(
+      `tar -a -cf "${zipPath}" -C "${dirname(telemetryPath)}" "${basename(telemetryPath)}"`,
+      {
+        stdio: "pipe",
+        env: childEnvironment(),
+      }
+    );
   } else {
     execSync(`zip -j "${zipPath}" "${telemetryPath}"`, { stdio: "pipe", env: childEnvironment() });
   }
