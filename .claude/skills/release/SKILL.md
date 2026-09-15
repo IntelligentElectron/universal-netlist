@@ -136,16 +136,52 @@ finished work. `scripts/tag-release.sh --yes` skips the interactive prompt, whic
 non-interactive session cannot answer anyway; the script still refuses a wrong state,
 which is the check that actually protects the release.
 
-Absent that ask, do not infer one. Cut the release PR, merge it, say that the tag is the
-remaining step, and stop there.
+Absent that ask, do not infer one. Say that the tag is the remaining step, and stop there.
+
+The changelog is the GitHub Release the tag creates: its notes are generated from the
+merged PRs (see CLAUDE.md), and `CHANGELOG.md` is history that releases do not edit.
 
 1. Ensure `main` is clean and all checks pass
-2. Ensure `CHANGELOG.md` covers every change in the release. Feature PRs do not edit it
-   (see CLAUDE.md), so collect their `## Changelog` sections into the version section first
-3. Create and push the tag with `scripts/tag-release.sh` (add `--yes` when the session
+2. Create and push the tag with `scripts/tag-release.sh` (add `--yes` when the session
    cannot answer its prompt). Never tag by hand: `git tag` skips every state check, and
    tagging the wrong commit is the mistake the script exists to prevent
-4. Monitor CI: `gh run list` and `gh run view`
+3. Monitor CI: `gh run list` and `gh run view`, until the GitHub Release and the npm
+   version exist
+4. Thank every contributor in the changelog. A release is not done until this step is.
+
+### Thanking contributors
+
+Every person outside the maintainers who contributed to the release is thanked by name in
+its GitHub Release notes. Contributing means any of:
+
+- authoring or co-authoring a PR in the release
+- reporting an issue a PR in the release fixes, or references
+- testing, verifying, or reviewing work that a PR in the release acted on
+
+Find them from the release's own history, not from memory:
+
+```bash
+git log --format='%h %s' <previous-tag>..<tag>     # the PRs in the release
+gh pr view <n> --repo IntelligentElectron/universal-netlist --json author,commits,closingIssuesReferences,body
+gh issue view <m> --repo IntelligentElectron/universal-netlist --json author,comments
+```
+
+Check each PR's author and commit authors, the issues it closes or names (`Fixes #n`,
+`Refs #n`), and the people in those issues and PRs whose reports or verification the work
+used.
+
+Add a `## Thanks` section to the generated notes with one line per person: their linked
+handle, what they did, and the issue or PR it was in, in the style of `CHANGELOG.md`'s
+earlier Thanks sections. Keep the generated sections as they are.
+
+```bash
+gh release view <tag> --repo IntelligentElectron/universal-netlist --json body --jq .body > notes.md
+# append the ## Thanks section to notes.md
+gh release edit <tag> --repo IntelligentElectron/universal-netlist --notes-file notes.md
+```
+
+When no one outside the maintainers contributed, the notes need no Thanks section. Say so
+in the release report.
 
 ## Pre-commit Hooks
 
