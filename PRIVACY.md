@@ -84,7 +84,8 @@ All registered MCP tools are annotated as read-only and leave source designs unc
 A KiCad query may generate a temporary netlist, which is removed after reading.
 Commands you run by hand write to disk: `export-json` writes a `.netlist.json`
 file, `export-telemetry` a zip file in the working directory, `update` replaces
-the binary, and `uninstall` removes it and the PATH entries in your shell profile.
+the binary, and `uninstall` removes its install directory (the binary and its
+local telemetry log) and the PATH entries in your shell profile.
 
 ## Third parties
 

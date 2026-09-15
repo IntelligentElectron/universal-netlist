@@ -48,7 +48,7 @@ Checks GitHub for a newer release and replaces the binary in place. The server a
 universal-netlist uninstall
 ```
 
-Removes the binary and the PATH entries `install.sh` added to the shell profile. A package-managed install is removed by its package manager, and the command says so.
+Removes the install directory (the binary and its local telemetry log) and the PATH entries `install.sh` added to the shell profile. A package-managed install is removed by its package manager, and the command says so.
 
 ## export-telemetry
 
