@@ -110,6 +110,24 @@ describe("classifyToolError", () => {
       "Failed to search '/data/Timeout/Designs '24'': ENOENT: no such file or directory, scandir '/data/Timeout/Designs '24''",
       "not_found",
     ],
+    [
+      "kicad-cli netlist export failed for /d/A.kicad_sch: ENOENT: no such file or directory, open '/tmp/kicad-netlist-a/netlist.net'",
+      "unavailable",
+    ],
+    [
+      `board.netlist.json: not valid JSON (Unexpected token 'E', "ENOENT: no"... is not valid JSON)`,
+      "invalid_argument",
+    ],
+    [
+      `board.netlist.json: not valid JSON (Unexpected token 'E', "EACCES: pe"... is not valid JSON)`,
+      "invalid_argument",
+    ],
+    ["Invalid regex pattern 'ENOENT: ('", "invalid_argument"],
+    ["Net 'ETIMEDOUT: x' not found in design 'A'.", "not_found"],
+    [
+      "Failed to search '/data/ENOENT: old': EACCES: permission denied, scandir '/data/ENOENT: old'",
+      "permission_denied",
+    ],
     ["MCP error -32602: Tool timeout not found", "not_found"],
     [
       "Unknown rule id(s): timeout. Valid ids: net.single_pin, net.testpoint_orphan",

@@ -34,8 +34,36 @@ const CODE_TYPES: Readonly<Record<string, ToolErrorType>> = {
   EPIPE: "unavailable",
 };
 
-/** A Node error code written ahead of its text, as in `EPERM: operation not permitted`. */
-const MESSAGE_CODE = /\b([A-Z][A-Z_]{3,}): /g;
+/** The text Node and Bun write after a system error code, as in `EPERM: operation not permitted`. */
+const SYSTEM_ERROR_TEXT: Readonly<Record<string, string>> = {
+  ECANCELED: "operation canceled",
+  EACCES: "permission denied",
+  EPERM: "operation not permitted",
+  ENOENT: "no such file or directory",
+  ENOTDIR: "not a directory",
+  EISDIR: "illegal operation on a directory",
+  ENOSPC: "no space left on device",
+  ENOMEM: "not enough memory",
+  EMFILE: "too many open files",
+  ENFILE: "file table overflow",
+  ETIMEDOUT: "connection timed out",
+  ECONNREFUSED: "connection refused",
+  ECONNRESET: "connection reset by peer",
+  EHOSTUNREACH: "host is unreachable",
+  ENETUNREACH: "network is unreachable",
+  EPIPE: "broken pipe",
+};
+
+const SYSTEM_ERROR = /\b(E[A-Z]+): /g;
+
+/** Messages whose shape states the category, whatever names and causes they carry. */
+const MESSAGE_SHAPES: ReadonlyArray<readonly [ToolErrorType, RegExp]> = [
+  ["invalid_argument", /^[^\n]*\.netlist\.json: /i],
+  ["not_found", /^(?:MCP error -?\d+: )?Tool .+ not found$/i],
+  ["invalid_argument", /^Unknown rule id\(s\): /i],
+  ["timeout", /^kicad-cli netlist export failed for [\s\S]*\(timed out after \d+ms; /],
+  ["unavailable", /^kicad-cli netlist export failed for /],
+];
 
 /**
  * Quoted names and paths, which never state the cause; the whole message is the fallback.
@@ -44,10 +72,6 @@ const MESSAGE_CODE = /\b([A-Z][A-Z_]{3,}): /g;
 const QUOTED = /(?<!\w)'(?:[^'\n]|(?<=\w)'(?=\w))*'(?!\w)|"[^"\n]*"/g;
 
 const MESSAGE_TYPES: ReadonlyArray<readonly [ToolErrorType, RegExp]> = [
-  // Messages whose names are unquoted: the file, the requested tool, the rule ids.
-  ["invalid_argument", /^[^\n]*\.netlist\.json: /i],
-  ["not_found", /^(?:MCP error -?\d+: )?Tool .+ not found$/i],
-  ["invalid_argument", /^Unknown rule id\(s\): /i],
   [
     "permission_denied",
     /\b(?:eacces|eperm|permission denied|access denied|unauthori[sz]ed|forbidden|password-protected|no password in)\b/i,
@@ -62,7 +86,7 @@ const MESSAGE_TYPES: ReadonlyArray<readonly [ToolErrorType, RegExp]> = [
   ["timeout", /\b(?:etimedout|timed out|timeout|deadline exceeded)\b/i],
   [
     "unavailable",
-    /\b(?:econnrefused|econnreset|ehostunreach|enetunreach|epipe|connection refused|connection reset|network unreachable|service unavailable|temporarily unavailable|only available on|no cadence spb installation|pstswp failed|kicad-cli not found|kicad-cli netlist export failed)\b/i,
+    /\b(?:econnrefused|econnreset|ehostunreach|enetunreach|epipe|connection refused|connection reset|network unreachable|service unavailable|temporarily unavailable|only available on|no cadence spb installation|pstswp failed|kicad-cli not found)\b/i,
   ],
   // A design with neither a netlist export nor a root schematic.
   ["not_found", /\b(?:no netlist for|enotdir)\b/i],
@@ -96,8 +120,15 @@ export const classifyToolError = (failure: unknown): ToolErrorType => {
     if (causeCode && CODE_TYPES[causeCode]) return CODE_TYPES[causeCode];
 
     const message = describeFailure(failure);
-    for (const [, messageCode] of message.matchAll(MESSAGE_CODE)) {
-      if (CODE_TYPES[messageCode]) return CODE_TYPES[messageCode];
+    for (const [type, pattern] of MESSAGE_SHAPES) {
+      if (pattern.test(message)) return type;
+    }
+    for (const match of message.matchAll(SYSTEM_ERROR)) {
+      const [written, messageCode] = match;
+      const text = SYSTEM_ERROR_TEXT[messageCode];
+      if (text && message.startsWith(text, match.index + written.length)) {
+        return CODE_TYPES[messageCode];
+      }
     }
     for (const text of [message.replace(QUOTED, " "), message]) {
       for (const [type, pattern] of MESSAGE_TYPES) {
