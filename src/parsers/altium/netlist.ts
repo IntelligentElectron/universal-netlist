@@ -4,7 +4,7 @@
 
 import type { NetConnections, ParsedNetlist, PinEntry } from "../../types.js";
 import { mergeComponentInto } from "./components.js";
-import { compareNatural, firstFreeName, identifierKey } from "./notation.js";
+import { compareNaturalKeys, firstFreeName, identifierKey, naturalKey } from "./notation.js";
 
 const pinNet = (entry: PinEntry): string => (typeof entry === "string" ? entry : entry.net);
 
@@ -125,26 +125,28 @@ export const mergeNetGroups = (
 export const settleProvisionalNames = (nets: NetConnections): Map<string, string> => {
   const names = Object.keys(nets);
   const taken = new Set(names.filter((name) => !name.includes(PROVISIONAL)).map(identifierKey));
-  const instanceOf = (name: string): string => name.slice(name.indexOf(PROVISIONAL) + 1);
   const provisional = names
     .filter((name) => name.includes(PROVISIONAL))
+    .map((name) => ({
+      name,
+      plain: displayName(name),
+      order: naturalKey(displayName(name)),
+      instance: naturalKey(name.slice(name.indexOf(PROVISIONAL) + 1)),
+    }))
     .sort(
-      (a, b) =>
-        compareNatural(displayName(a), displayName(b)) ||
-        compareNatural(instanceOf(a), instanceOf(b))
+      (a, b) => compareNaturalKeys(a.order, b.order) || compareNaturalKeys(a.instance, b.instance)
     );
   const renames = new Map<string, string>();
-  const duplicates: string[] = [];
-  for (const name of provisional) {
-    const plain = displayName(name);
-    if (taken.has(identifierKey(plain))) duplicates.push(name);
+  const duplicates: typeof provisional = [];
+  for (const entry of provisional) {
+    if (taken.has(identifierKey(entry.plain))) duplicates.push(entry);
     else {
-      renames.set(name, plain);
-      taken.add(identifierKey(plain));
+      renames.set(entry.name, entry.plain);
+      taken.add(identifierKey(entry.plain));
     }
   }
-  for (const name of duplicates) {
-    const numbered = firstFreeName(displayName(name), taken);
+  for (const { name, plain } of duplicates) {
+    const numbered = firstFreeName(plain, taken);
     renames.set(name, numbered);
     taken.add(identifierKey(numbered));
   }

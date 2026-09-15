@@ -7,10 +7,14 @@
 export const identifierKey = (name: string): string =>
   name.replace(/[a-z]+/g, (letters) => letters.toUpperCase());
 
-/** Names in natural order ignoring ASCII case: digit runs by value, the rest by code unit. */
-export const compareNatural = (a: string, b: string): number => {
-  const partsA = identifierKey(a).match(/\d+|\D+/g) ?? [];
-  const partsB = identifierKey(b).match(/\d+|\D+/g) ?? [];
+/** A name's natural-order key: its digit runs and the text between, ignoring ASCII case. */
+export const naturalKey = (name: string): string[] => identifierKey(name).match(/\d+|\D+/g) ?? [];
+
+/** Two natural-order keys compared: digit runs by value, the rest by code unit. */
+export const compareNaturalKeys = (
+  partsA: readonly string[],
+  partsB: readonly string[]
+): number => {
   for (let i = 0; i < Math.min(partsA.length, partsB.length); i++) {
     const [x, y] = [partsA[i], partsB[i]];
     const numeric = /^\d/.test(x) && /^\d/.test(y);
@@ -19,6 +23,10 @@ export const compareNatural = (a: string, b: string): number => {
   }
   return partsA.length - partsB.length;
 };
+
+/** Names in natural order ignoring ASCII case. */
+export const compareNatural = (a: string, b: string): number =>
+  compareNaturalKeys(naturalKey(a), naturalKey(b));
 
 /** `name`, or the first of `name_2`, `name_3`, ... whose key `taken` does not hold. */
 export const firstFreeName = (name: string, taken: ReadonlySet<string>): string => {

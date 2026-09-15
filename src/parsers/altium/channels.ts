@@ -14,6 +14,7 @@ import {
 import { fieldText } from "./records.js";
 import { expandBusRange, identifierKey, repeatBaseName } from "./notation.js";
 import { resolveHarnessMembers, type HarnessDefinitions } from "./harness.js";
+import { pinNetName } from "./net-naming.js";
 import { channelAlpha, type DocumentInstance } from "./sheet-hierarchy.js";
 import { PROVISIONAL } from "./netlist.js";
 import type { ParsedDocument } from "./document.js";
@@ -76,7 +77,7 @@ export const planChannelNetNames = (
       names.set(name, name);
     } else if (pin) {
       const refdes = applyChannelFormat(channelFormat, pin.refdes, roomName, channelIndex);
-      names.set(name, `Net${refdes}_${pin.pin}`);
+      names.set(name, pinNetName({ refdes, pin: pin.pin }));
     } else {
       names.set(name, applyChannelFormat(channelFormat, name, roomName, channelIndex));
     }
@@ -150,7 +151,7 @@ export const channelDocument = (
   // A pin name is unique already, unless the sheet had to number it.
   for (const [from, to] of planned) {
     const pin = scope.pinNamed.get(from);
-    if (to !== from && (!pin || from !== `Net${pin.refdes}_${pin.pin}`))
+    if (to !== from && (!pin || from !== pinNetName(pin)))
       planned.set(from, `${to}${PROVISIONAL}${instance.key}`);
   }
   const rename = (name: string): string => planned.get(name) ?? name;
@@ -174,8 +175,9 @@ export const channelDocument = (
     components[refdes(designator)] = { ...component, pins };
   }
 
+  // A channel keeps its net labels to itself, as its label names show.
   const links: NetLinkGroup[] = base.links.map((group) => ({
-    ...group,
+    keys: group.keys.filter((key) => !key.startsWith("label|")),
     net: group.net === undefined ? undefined : rename(group.net),
     name: group.name === undefined ? undefined : rename(group.name),
   }));

@@ -48,4 +48,22 @@ describe("linkedNetGroups", () => {
     );
     expect([...groups.values()].map((names) => [...names].sort())).toEqual([["A", "B"]]);
   });
+
+  it("joins every net label of one name across sheets under Global scope only", () => {
+    const links = [
+      {
+        placement: "a.schdoc",
+        document: "a.schdoc",
+        groups: [{ net: "I2C_SDA", keys: ["label|I2C_SDA", "label|SDA"] }],
+      },
+      {
+        placement: "b.schdoc",
+        document: "b.schdoc",
+        groups: [{ net: "SDA", keys: ["label|SDA"] }],
+      },
+    ];
+    const global = [...linkedNetGroups(links, "global", new Map()).values()];
+    expect(global.map((names) => [...names].sort())).toEqual([["I2C_SDA", "SDA"]]);
+    expect(linkedNetGroups(links, "flat", new Map()).size).toBe(0);
+  });
 });

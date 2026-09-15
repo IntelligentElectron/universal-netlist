@@ -131,6 +131,9 @@ const identifierNames = (net: AltiumNet, options: NetNamingOptions): Candidate[]
     });
 };
 
+/** The name a pin gives its net. */
+export const pinNetName = ({ refdes, pin }: PinNameSource): string => `Net${refdes}_${pin}`;
+
 /** The names a net's pins give it: lowest designator first, then lowest pin. */
 const pinNames = (net: AltiumNet, schematic: AltiumSchematic): Candidate[] => {
   const pins = new Map<string, Map<string, number>>();
@@ -145,7 +148,7 @@ const pinNames = (net: AltiumNet, schematic: AltiumSchematic): Candidate[] => {
   return [...pins.keys()].sort(compareRefdes).flatMap((refdes) => {
     const numbers = pins.get(refdes)!;
     return [...numbers.keys()].sort(comparePinNumbers).map((pin) => ({
-      name: `Net${refdes}_${pin}`,
+      name: pinNetName({ refdes, pin }),
       source: "pin" as const,
       claim: numbers.get(pin)!,
       pin: { refdes, pin },
@@ -229,8 +232,12 @@ export const nameSheetNets = (
     do candidate = advance(entry);
     while (candidate && isHeld(candidate));
     if (!candidate) continue;
-    let at = i + 1;
-    while (at < pending.length && before(pending[at], entry) <= 0) at++;
-    pending.splice(at, 0, entry);
+    let [low, high] = [i + 1, pending.length];
+    while (low < high) {
+      const middle = (low + high) >> 1;
+      if (before(pending[middle], entry) <= 0) low = middle + 1;
+      else high = middle;
+    }
+    pending.splice(low, 0, entry);
   }
 };

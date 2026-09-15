@@ -161,6 +161,7 @@ Each link a net makes across sheets is an identity:
 | `<instance>` and `<name>` | a port on a document instance; a plain entry, for every channel its symbol instantiates; a `Repeat(NAME)` entry's member `NAME<n>`, for channel `n` | under every scope |
 | `<name>` of a port | a port | under Flat and Global scope |
 | `<name>` of a power port | a power port | under every scope but Strict Hierarchical |
+| `<name>` of a net label | every net label on the net | under Global scope, outside repeated sheets |
 | bundle and member | a harness entry on the net, or a bus member reaching a harness entry or a harness-typed port | under every scope |
 
 An instance is the document no symbol places, then the symbol and channel of each placement on the
@@ -184,6 +185,12 @@ the first in sort order wins, on one sheet as across sheets.
 A net nothing names is called after a pin, `Net<designator>_<pin>`: the lowest designator, ordered
 by prefix, then number, then suffix (`R9` before `R11`), and its lowest pin, numbers before names.
 Text in both compares with punctuation before letters: `SUMPB_U1` comes before `SUMPBX_C1`.
+
+A net whose every name another net on its sheet already holds is called after its lowest pin,
+numbered past the names held: `NetDD7_7_2`, `NetDD7_7_3`. Nets of different sheets or instances
+that end up with one name without joining, such as local names under Hierarchical scope or names
+a channel gives, keep it once: the name goes first to a net that has it unnumbered, by name and
+then by instance, and the others are numbered `_2`, `_3` past every name given.
 
 ### Sheet numbers on local nets
 
@@ -313,7 +320,8 @@ A net that stays inside one channel is named the way the channel's designators a
 channel designator format applied to its name: under `$Component$ChannelAlpha` the label `BIAS`
 names `BIASB` in channel 2, and under `$ComponentPrefix_$ChannelIndex_$ComponentIndex` the label
 `V_OUT` names `V_OUT_1_` in channel 1. A net named after a pin is rebuilt around the channel's
-designator: `NetDD12_5` becomes `NetDD12_AY1_5`. A supply keeps its name, and so does a signal a
+designator: `NetDD12_5` becomes `NetDD12_AY1_5`, and a numbered pin name loses its number there and
+is numbered again only if another net holds the rebuilt name. A supply keeps its name, and so does a signal a
 single placement's parent wires to every channel.
 
 ## Signal harnesses
