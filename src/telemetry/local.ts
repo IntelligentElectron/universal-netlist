@@ -9,6 +9,7 @@ import { appendFileSync, mkdirSync, existsSync, statSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { userInfo, hostname, platform, arch, release } from "node:os";
 import { execSync } from "node:child_process";
+import { COMPILED_BINARY } from "../build-flags.js";
 import { childEnvironment } from "../child-environment.js";
 import { VERSION } from "../version.js";
 import { instrumentTool } from "./otel.js";
@@ -44,9 +45,6 @@ export interface ToolEvent {
 // Install directory resolution
 // =============================================================================
 
-const isCompiledBinary = (): boolean =>
-  !process.execPath.includes("node") && !process.execPath.includes("bun");
-
 /**
  * Get the install directory for telemetry storage.
  *
@@ -54,7 +52,7 @@ const isCompiledBinary = (): boolean =>
  * For npm/dev: platform-specific fallback matching install.sh conventions.
  */
 export const getInstallDir = (): string => {
-  if (isCompiledBinary()) {
+  if (COMPILED_BINARY) {
     // execPath = <install_dir>/bin/universal-netlist
     return dirname(dirname(process.execPath));
   }

@@ -21,13 +21,34 @@ export const getShellRcFiles = (): string[] => {
   ];
 };
 
+/** Whether two paths name one directory, through symlinks and repeated slashes. */
+const sameDirectory = (a: string, b: string): boolean => {
+  try {
+    return fs.realpathSync(a) === fs.realpathSync(b);
+  } catch {
+    return path.resolve(a) === path.resolve(b);
+  }
+};
+
 /**
- * Remove universal-netlist PATH entries from shell rc files.
- * Looks for "# Universal Netlist MCP Server" comment blocks and removes them.
+ * Remove universal-netlist PATH entries from shell rc files: each "# Universal Netlist MCP
+ * Server" comment with the PATH line install.sh writes after it. A comment followed by any
+ * other line is left as it is.
+ * @param binDir - The directory the PATH line adds
  * @returns Array of file paths that were modified
  */
-export const removeFromPath = (): string[] => {
+export const removeFromPath = (binDir: string): string[] => {
   const modified: string[] = [];
+  const isEntry = (line: string | undefined): boolean => {
+    const added =
+      line === undefined
+        ? undefined
+        : (/^\s*export PATH="([^"]*):\$PATH"\s*$/.exec(line)?.[1] ??
+          /^\s*fish_add_path\s+(.+?)\s*$/.exec(line)?.[1]);
+    return (
+      added !== undefined && (added.includes("universal-netlist") || sameDirectory(added, binDir))
+    );
+  };
 
   for (const rcFile of getShellRcFiles()) {
     if (!fs.existsSync(rcFile)) continue;
@@ -40,14 +61,9 @@ export const removeFromPath = (): string[] => {
 
     while (i < lines.length) {
       const line = lines[i];
-      // Skip "# Universal Netlist MCP Server" comment and the following export/fish_add_path line
-      if (line.trim() === "# Universal Netlist MCP Server") {
+      if (line.trim() === "# Universal Netlist MCP Server" && isEntry(lines[i + 1])) {
         changed = true;
-        i++; // Skip comment
-        // Skip the next line if it's the PATH export
-        if (i < lines.length && lines[i].includes("universal-netlist")) {
-          i++;
-        }
+        i += 2;
         // Skip trailing empty line if present
         if (i < lines.length && lines[i].trim() === "") {
           i++;

@@ -7,6 +7,14 @@
 
 // Injected at compile time via --define (for Bun binaries).
 declare const BUILD_CHANNEL: string | undefined;
+declare const BUILD_VERSION: string | undefined;
+
+/**
+ * Whether this process is the standalone binary `scripts/build-binary.sh` compiles, the
+ * only build that defines `BUILD_VERSION`. Node.js and Bun running the sources or the npm
+ * package never are, whatever their executable is called or wherever it lives.
+ */
+export const COMPILED_BINARY = typeof BUILD_VERSION !== "undefined";
 
 /**
  * Who owns the installed binary.
