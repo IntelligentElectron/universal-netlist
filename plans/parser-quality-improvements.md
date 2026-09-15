@@ -3,7 +3,7 @@
 > Historical audit from June 2026. DAT parsing and `export_cadence_netlist` are
 > now dormant in MCP. References to DAT tool calls below record the behavior
 > measured then; use `.DSN` schematics for current MCP queries. DAT-specific
-> follow-up work applies only to retained CLI coverage and regression helpers.
+> follow-up work applies only to retained developer coverage scripts and regression helpers.
 
 ## Context
 

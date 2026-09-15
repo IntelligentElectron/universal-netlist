@@ -1,5 +1,5 @@
 /**
- * Dormant MCP features retained for CLI coverage and regression testing.
+ * Dormant MCP features retained for developer scripts and regression testing.
  * Re-enabling these requires a code change; there is no runtime opt-in.
  */
 export const CADENCE_DAT_ENABLED = false;

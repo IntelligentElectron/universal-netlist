@@ -12,8 +12,8 @@ layout of the streams involved, see
 [section 11 of the DSN format specification](dsn-format.md#11-cis-variant-store).
 
 MCP queries read the `.DSN` schematic directly. DAT examples below explain the
-reference exports used by CLI coverage and regression tests; DAT parsing is
-dormant in MCP.
+reference exports that developer coverage scripts and regression tests compare
+against; DAT parsing is dormant in MCP.
 
 ## The two mechanisms
 

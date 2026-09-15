@@ -3,8 +3,8 @@
 This document describes the binary format of OrCAD Design (`.DSN`) files as understood by our parser. It is derived from reverse engineering, cross-referencing with [OpenOrCadParser](https://github.com/Werni2A/OpenOrCadParser), and validation against real-world designs.
 
 MCP reads `.DSN` schematics directly. DAT exports in this specification are
-independent references for CLI coverage and regression testing; DAT parsing and
-the Cadence exporter are dormant in MCP.
+independent references for developer coverage scripts and regression testing; DAT
+parsing and the Cadence exporter are dormant in MCP.
 
 Each section marks its confidence level:
 

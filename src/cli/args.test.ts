@@ -30,26 +30,18 @@ describe("normalizeCliArgs", () => {
       "board.kicad_pro",
     ]);
     expect(normalizeCliArgs(["export-json", "update"])).toEqual(["--export-json", "update"]);
-    expect(normalizeCliArgs(["--export-json", "coverage"])).toEqual(["--export-json", "coverage"]);
+    expect(normalizeCliArgs(["--export-json", "help"])).toEqual(["--export-json", "help"]);
   });
 
-  it("keeps the optional path after coverage, and reads a command word there as a command", () => {
-    expect(normalizeCliArgs(["coverage", "designs"])).toEqual(["--coverage", "designs"]);
-    expect(normalizeCliArgs(["coverage", "designs", "verbose"])).toEqual([
-      "--coverage",
-      "designs",
-      "--verbose",
+  it("reads the flag after a command's value as a command", () => {
+    expect(normalizeCliArgs(["export-json", "board.DSN", "--help"])).toEqual([
+      "--export-json",
+      "board.DSN",
+      "--help",
     ]);
-    expect(normalizeCliArgs(["coverage", "verbose"])).toEqual(["--coverage", "--verbose"]);
-    expect(normalizeCliArgs(["--coverage", "--verbose"])).toEqual(["--coverage", "--verbose"]);
-    expect(normalizeCliArgs(["coverage", "./update"])).toEqual(["--coverage", "./update"]);
   });
 
-  it("mixes both forms in one call", () => {
-    expect(normalizeCliArgs(["--coverage", "fixtures", "verbose"])).toEqual([
-      "--coverage",
-      "fixtures",
-      "--verbose",
-    ]);
+  it("reads coverage and verbose as plain words", () => {
+    expect(normalizeCliArgs(["coverage", "verbose"])).toEqual(["coverage", "verbose"]);
   });
 });

@@ -8,9 +8,7 @@
  * before anything else looks at the arguments.
  *
  * A command that takes a value does not have that value rewritten: the path
- * after `export-json` is always a path, and the token after `coverage` is a
- * path unless it is itself a command word (a directory that happens to be
- * called `update` is given as `./update`).
+ * after `export-json` is always a path, whatever it is called.
  */
 
 /** Every command the binary understands, in its word form. */
@@ -21,8 +19,6 @@ export const COMMANDS = [
   "uninstall",
   "export-telemetry",
   "export-json",
-  "coverage",
-  "verbose",
 ] as const;
 
 const COMMAND_SET = new Set<string>(COMMANDS);
@@ -32,11 +28,8 @@ export const ALIASES: Record<string, (typeof COMMANDS)[number]> = {
   upgrade: "update",
 };
 
-/** Commands followed by a value. `required` means the next token is always the value. */
-const TAKES_VALUE: Record<string, "required" | "optional"> = {
-  "export-json": "required",
-  coverage: "optional",
-};
+/** Commands whose next token is always their value. */
+const TAKES_VALUE = new Set<string>(["export-json"]);
 
 /** The command a token names, as a word, or undefined when it names none. */
 const commandOf = (token: string): string | undefined => {
@@ -45,28 +38,25 @@ const commandOf = (token: string): string | undefined => {
   return ALIASES[word];
 };
 
-const isCommandToken = (token: string): boolean => commandOf(token) !== undefined;
-
 /**
  * Rewrite command words to their flag form. Anything that is not a command
  * word, or is the value of the command before it, is left as it is.
  */
 export const normalizeCliArgs = (args: readonly string[]): string[] => {
   const out: string[] = [];
-  let valueFor: "required" | "optional" | undefined;
+  let valueNext = false;
 
   for (const token of args) {
-    if (valueFor === "required" || (valueFor === "optional" && !isCommandToken(token))) {
+    if (valueNext) {
       out.push(token);
-      valueFor = undefined;
+      valueNext = false;
       continue;
     }
-    valueFor = undefined;
 
     const command = commandOf(token);
     if (command !== undefined) {
       out.push(`--${command}`);
-      valueFor = TAKES_VALUE[command];
+      valueNext = TAKES_VALUE.has(command);
       continue;
     }
     out.push(token);
