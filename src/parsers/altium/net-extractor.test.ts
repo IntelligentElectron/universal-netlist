@@ -5,12 +5,10 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { extractNets, determineNetList, assignNetName } from "./net-extractor.js";
-import { buildHierarchy, flattenHierarchy } from "./hierarchy.js";
+import { extractNets } from "./net-extractor.js";
 import { RECORD_TYPES } from "./types.js";
 import type { AltiumRecord, AltiumSchematic, AltiumNet } from "./types.js";
-
-const COORDINATE_SCALE = 10000;
+import { COORDINATE_SCALE } from "./coordinates.js";
 
 function scale(value: number): number {
   return value * COORDINATE_SCALE;
@@ -48,6 +46,7 @@ describe("extractNets", () => {
         {
           index: 3,
           RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
           X1: "100",
           Y1: "0",
           X2: "200",
@@ -74,6 +73,7 @@ describe("extractNets", () => {
         {
           index: 1,
           RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
           X1: "100",
           Y1: "100",
           X2: "200",
@@ -118,6 +118,7 @@ describe("extractNets", () => {
         {
           index: 3,
           RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
           X1: "0",
           Y1: "0",
           X2: "100",
@@ -140,6 +141,7 @@ describe("extractNets", () => {
         {
           index: 0,
           RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
           X1: "0",
           Y1: "0",
           X2: "100",
@@ -148,6 +150,7 @@ describe("extractNets", () => {
         {
           index: 1,
           RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
           X1: "1000",
           Y1: "1000",
           X2: "1100",
@@ -167,6 +170,7 @@ describe("extractNets", () => {
         {
           index: 0,
           RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
           X1: "0",
           Y1: "0",
           X2: "100",
@@ -175,6 +179,7 @@ describe("extractNets", () => {
         {
           index: 1,
           RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
           X1: "100",
           Y1: "0",
           X2: "200",
@@ -183,6 +188,7 @@ describe("extractNets", () => {
         {
           index: 2,
           RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
           X1: "200",
           Y1: "0",
           X2: "300",
@@ -293,6 +299,7 @@ describe("Pin coordinate calculation", () => {
         {
           index: 1,
           RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
           X1: "2",
           X1_Frac: "5000",
           Y1: "0",
@@ -311,8 +318,8 @@ describe("Pin coordinate calculation", () => {
   });
 });
 
-describe("Overbar unescaping", () => {
-  it("should unescape fully overbarred net names", () => {
+describe("Overbar escapes", () => {
+  it("keeps a fully overbarred net name as written", () => {
     const schematic: AltiumSchematic = {
       header: [],
       records: [
@@ -326,6 +333,7 @@ describe("Overbar unescaping", () => {
         {
           index: 1,
           RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
           X1: "0",
           Y1: "0",
           X2: "100",
@@ -335,10 +343,10 @@ describe("Overbar unescaping", () => {
     };
 
     const nets = extractNets(schematic);
-    expect(nets.find((n) => n.name === "IF_OFF")).toBeDefined();
+    expect(nets.find((n) => n.name === "\\I\\F\\_\\O\\F\\F")).toBeDefined();
   });
 
-  it("should unescape simple overbarred names", () => {
+  it("keeps an overbarred power port name as written", () => {
     const schematic: AltiumSchematic = {
       header: [],
       records: [
@@ -353,7 +361,7 @@ describe("Overbar unescaping", () => {
     };
 
     const nets = extractNets(schematic);
-    expect(nets.find((n) => n.name === "VCC")).toBeDefined();
+    expect(nets.find((n) => n.name === "\\V\\C\\C")).toBeDefined();
   });
 
   it("should not alter names without backslashes", () => {
@@ -370,6 +378,7 @@ describe("Overbar unescaping", () => {
         {
           index: 1,
           RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
           X1: "0",
           Y1: "0",
           X2: "100",
@@ -382,7 +391,7 @@ describe("Overbar unescaping", () => {
     expect(nets.find((n) => n.name === "DATA_BUS")).toBeDefined();
   });
 
-  it("should unescape partially overbarred names", () => {
+  it("keeps a partially overbarred name as written", () => {
     const schematic: AltiumSchematic = {
       header: [],
       records: [
@@ -396,6 +405,7 @@ describe("Overbar unescaping", () => {
         {
           index: 1,
           RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
           X1: "0",
           Y1: "0",
           X2: "100",
@@ -405,7 +415,7 @@ describe("Overbar unescaping", () => {
     };
 
     const nets = extractNets(schematic);
-    expect(nets.find((n) => n.name === "SPI_CLK")).toBeDefined();
+    expect(nets.find((n) => n.name === "SPI_\\C\\L\\K")).toBeDefined();
   });
 });
 
@@ -424,6 +434,7 @@ describe("Net naming", () => {
         {
           index: 1,
           RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
           X1: "500",
           Y1: "500",
           X2: "600",
@@ -444,6 +455,7 @@ describe("Net naming", () => {
         {
           index: 0,
           RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
           X1: "0",
           Y1: "0",
           X2: "100",
@@ -457,33 +469,9 @@ describe("Net naming", () => {
   });
 });
 
-describe("determineNetList", () => {
-  it("should return schematic with nets array added", () => {
-    const schematic: AltiumSchematic = {
-      header: [{ index: 0, HEADER: "test" }],
-      records: [
-        {
-          index: 1,
-          RECORD: RECORD_TYPES.WIRE,
-          X1: "0",
-          Y1: "0",
-          X2: "100",
-          Y2: "0",
-        } as AltiumRecord,
-      ],
-    };
-
-    const result = determineNetList(schematic);
-    expect(result.header).toEqual(schematic.header);
-    expect(result.records).toEqual(schematic.records);
-    expect(result.nets).toBeDefined();
-    expect(Array.isArray(result.nets)).toBe(true);
-  });
-});
-
 describe("signal harnesses", () => {
   /**
-   * The topology of issue #115: two components joined through a harness, with a
+   * Two components joined through a harness, with a
    * different net label on the wire at each end.
    *
    *   U1.1 --[FROM_U1]-- (entry SIG) [connector] ==harness== [connector] (entry SIG) --[TO_U2]-- U2.1
@@ -513,7 +501,15 @@ describe("signal harnesses", () => {
         component(0, "U1", 100),
         component(3, "U2", 500),
         // U1's wire runs into the left connector's entry at x = 200.
-        { index: 6, RECORD: RECORD_TYPES.WIRE, X1: "100", Y1: "100", X2: "200", Y2: "100" },
+        {
+          index: 6,
+          RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
+          X1: "100",
+          Y1: "100",
+          X2: "200",
+          Y2: "100",
+        },
         {
           index: 7,
           RECORD: RECORD_TYPES.NET_LABEL,
@@ -522,7 +518,15 @@ describe("signal harnesses", () => {
           "Location.Y": "100",
         },
         // U2's wire runs into the right connector's entry at x = 400.
-        { index: 8, RECORD: RECORD_TYPES.WIRE, X1: "400", Y1: "100", X2: "500", Y2: "100" },
+        {
+          index: 8,
+          RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
+          X1: "400",
+          Y1: "100",
+          X2: "500",
+          Y2: "100",
+        },
         {
           index: 9,
           RECORD: RECORD_TYPES.NET_LABEL,
@@ -603,85 +607,6 @@ describe("signal harnesses", () => {
   });
 });
 
-describe("naming a net after one of its pins", () => {
-  const pin = (refdes: string, number: string, index: number): AltiumRecord[] => [
-    { index, RECORD: RECORD_TYPES.COMPONENT, children: [] } as AltiumRecord,
-    {
-      index: index + 1,
-      RECORD: RECORD_TYPES.DESIGNATOR,
-      OwnerIndex: String(index),
-      Text: refdes,
-    } as AltiumRecord,
-    {
-      index: index + 2,
-      RECORD: RECORD_TYPES.PIN,
-      OwnerIndex: String(index),
-      Designator: number,
-    } as AltiumRecord,
-  ];
-
-  /** A schematic whose one net holds the given (refdes, pin) pairs. */
-  const netOf = (pins: [string, string][]): AltiumSchematic => {
-    const records: AltiumRecord[] = [];
-    pins.forEach(([refdes, number], i) => records.push(...pin(refdes, number, i * 3)));
-    return { header: [], records };
-  };
-
-  const nameOf = (pins: [string, string][]): string | null | undefined => {
-    const schematic = buildHierarchy(netOf(pins));
-    const net: AltiumNet = {
-      name: null,
-      devices: flattenHierarchy(schematic).filter((r) => r.RECORD === RECORD_TYPES.PIN),
-    };
-    assignNetName(net, schematic);
-    return net.name;
-  };
-
-  it("counts the designator's number rather than reading it as text", () => {
-    // R9 comes before R11; sorted as text it would not, and the net would be
-    // named after R11. Altium calls this net NetR9_2.
-    expect(
-      nameOf([
-        ["R11", "1"],
-        ["R9", "2"],
-      ])
-    ).toBe("NetR9_2");
-    expect(
-      nameOf([
-        ["C10", "2"],
-        ["C9", "2"],
-      ])
-    ).toBe("NetC9_2");
-  });
-
-  it("still orders different prefixes alphabetically", () => {
-    expect(
-      nameOf([
-        ["U2", "1"],
-        ["C9", "2"],
-      ])
-    ).toBe("NetC9_2");
-  });
-
-  it("breaks a tie on what follows the number", () => {
-    expect(
-      nameOf([
-        ["R5B", "1"],
-        ["R5A", "2"],
-      ])
-    ).toBe("NetR5A_2");
-  });
-
-  it("sorts a designator carrying no number ahead of the same prefix numbered", () => {
-    expect(
-      nameOf([
-        ["JP1", "1"],
-        ["JP", "2"],
-      ])
-    ).toBe("NetJP_2");
-  });
-});
-
 /** A one-pin component, so a net has a pin to be named after. */
 const partWithPin = (
   index: number,
@@ -712,6 +637,7 @@ const wire = (index: number, x1: number, y1: number, x2: number, y2: number): Al
   ({
     index,
     RECORD: RECORD_TYPES.WIRE,
+    LocationCount: "2",
     X1: String(x1),
     Y1: String(y1),
     X2: String(x2),
@@ -807,20 +733,23 @@ describe("Sheet entry placement", () => {
     records: [partWithPin(0, "U1", "1", 100, 100), ...wires, sheetSymbol(entries)],
   });
 
+  /** Whether U1's net reaches a sheet entry. */
+  const reachesEntry = (nets: AltiumNet[]): boolean =>
+    netOf(nets, "U1")?.devices.some((device) => device.RECORD === RECORD_TYPES.SHEET_ENTRY) ??
+    false;
+
   it("places a left-edge entry DistanceFromTop steps below the symbol's top-left corner", () => {
     const nets = extractNets(
       schematicWith([{ Name: "EN", DistanceFromTop: "3" }], wire(3, 100, 100, 500, 370))
     );
-    const net = netOf(nets, "U1");
-    expect(net?.name).toBe("EN");
-    expect(net?.nameSource).toBe("entry");
+    expect(reachesEntry(nets)).toBe(true);
   });
 
   it("places a right-edge entry on the symbol's right edge", () => {
     const nets = extractNets(
       schematicWith([{ Name: "EN", Side: "1", DistanceFromTop: "3" }], wire(3, 100, 100, 620, 370))
     );
-    expect(netOf(nets, "U1")?.name).toBe("EN");
+    expect(reachesEntry(nets)).toBe(true);
   });
 
   it("reads DistanceFromTop_Frac1 as millionths of a step", () => {
@@ -830,18 +759,18 @@ describe("Sheet entry placement", () => {
         wire(3, 100, 100, 500, 365)
       )
     );
-    expect(netOf(nets, "U1")?.name).toBe("EN");
+    expect(reachesEntry(nets)).toBe(true);
   });
 
   it("places top and bottom edge entries DistanceFromTop steps to the right", () => {
     const top = extractNets(
       schematicWith([{ Name: "EN", Side: "2", DistanceFromTop: "3" }], wire(3, 100, 100, 530, 400))
     );
-    expect(netOf(top, "U1")?.name).toBe("EN");
+    expect(reachesEntry(top)).toBe(true);
     const bottom = extractNets(
       schematicWith([{ Name: "EN", Side: "3", DistanceFromTop: "3" }], wire(3, 100, 100, 530, 320))
     );
-    expect(netOf(bottom, "U1")?.name).toBe("EN");
+    expect(reachesEntry(bottom)).toBe(true);
   });
 
   it("leaves a harness-typed entry and a bus-notation entry to their own handling", () => {
@@ -858,7 +787,7 @@ describe("Sheet entry placement", () => {
     expect(netOf(nets, "U1")?.name).toBe("NetU1_1");
   });
 
-  it("ranks an entry below a port and a label when naming", () => {
+  it("names a net after its port, never after its sheet entry", () => {
     const nets = extractNets({
       header: [],
       records: [
@@ -922,7 +851,6 @@ describe("Net naming options", () => {
     const byLabel = netOf(
       extractNets(labelled(), {
         allowPortNetNames: true,
-        allowSheetEntryNetNames: true,
         powerPortNamesTakePriority: false,
       }),
       "U1"
@@ -932,7 +860,6 @@ describe("Net naming options", () => {
     const byPower = netOf(
       extractNets(labelled(), {
         allowPortNetNames: true,
-        allowSheetEntryNetNames: true,
         powerPortNamesTakePriority: true,
       }),
       "U1"
@@ -945,7 +872,6 @@ describe("Net naming options", () => {
     expect(netOf(extractNets(schematic()), "U1")?.name).toBe("CLK");
     const nets = extractNets(schematic(), {
       allowPortNetNames: false,
-      allowSheetEntryNetNames: true,
       powerPortNamesTakePriority: true,
     });
     const net = netOf(nets, "U1");

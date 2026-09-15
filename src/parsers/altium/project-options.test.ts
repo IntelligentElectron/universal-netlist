@@ -13,10 +13,8 @@ describe("parseProjectOptions", () => {
   it("reads a scope the project names outright", () => {
     expect(parseProjectOptions(design("HierarchyMode=3")).scope).toBe("global");
     expect(parseProjectOptions(design("HierarchyMode=2")).scope).toBe("hierarchical");
-    // `4` is read as Hierarchical: a board recording it numbers that project's
-    // sheet-local labels but leaves its supply and chassis nets bare, so its
-    // power ports are global and it cannot be Strict Hierarchical.
-    expect(parseProjectOptions(design("HierarchyMode=4")).scope).toBe("hierarchical");
+    // A board recording `4` keeps a repeated sheet's isolated supplies apart per channel.
+    expect(parseProjectOptions(design("HierarchyMode=4")).scope).toBe("strict-hierarchical");
   });
 
   it("leaves the scope open on Automatic, which is the Altium default", () => {
@@ -39,13 +37,11 @@ describe("parseProjectOptions", () => {
       design(
         "AppendSheetNumberToLocalNets=1",
         "AllowPortNetNames=1",
-        "AllowSheetEntryNetNames=0",
         "PowerPortNamesTakePriority=1"
       )
     );
     expect(options.appendSheetNumberToLocalNets).toBe(true);
     expect(options.allowPortNetNames).toBe(true);
-    expect(options.allowSheetEntryNetNames).toBe(false);
     expect(options.powerPortNamesTakePriority).toBe(true);
   });
 
@@ -53,7 +49,6 @@ describe("parseProjectOptions", () => {
     const options = parseProjectOptions("");
     expect(options.appendSheetNumberToLocalNets).toBe(false);
     expect(options.allowPortNetNames).toBe(false);
-    expect(options.allowSheetEntryNetNames).toBe(true);
     expect(options.powerPortNamesTakePriority).toBe(false);
     expect(options.channelFormat).toBe(DEFAULT_CHANNEL_FORMAT);
   });

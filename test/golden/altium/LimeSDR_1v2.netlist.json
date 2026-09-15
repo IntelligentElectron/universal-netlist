@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-11T23:59:41.404Z",
-    "netlistHash": "sha256:801c2b1dde080cdeb68b524daa0d35ba16a4679e34439685af1cf5d90bda7a57",
+    "generatedAt": "2026-09-15T00:01:37.405Z",
+    "netlistHash": "sha256:013fcfcfda2521a5c52645bb72ed279534f3eab28e2c57746457620fd90c27b4",
     "origin": {
       "type": "vendor",
       "source": {
@@ -5388,6 +5388,9 @@
     "FX3_DQ16": {
       "IC31": [
         "R21"
+      ],
+      "R49": [
+        "1"
       ]
     },
     "FX3_DQ20": {
@@ -6261,6 +6264,22 @@
         "12"
       ]
     },
+    "NetIC33_7": {
+      "R189": [
+        "2"
+      ],
+      "IC33": [
+        "7"
+      ]
+    },
+    "NetIC33_3": {
+      "R190": [
+        "2"
+      ],
+      "IC33": [
+        "3"
+      ]
+    },
     "FLASH_AS_MISO": {
       "IC33": [
         "2"
@@ -6985,9 +7004,12 @@
         "1"
       ]
     },
-    "NetR48_1": {
+    "NetIC6_F10": {
       "R48": [
         "1"
+      ],
+      "IC6": [
+        "F10"
       ]
     },
     "NetIC6_F9": {
@@ -7390,6 +7412,22 @@
         "F6"
       ]
     },
+    "NetIC6_C8": {
+      "R54": [
+        "2"
+      ],
+      "IC6": [
+        "C8"
+      ]
+    },
+    "NetIC6_B3": {
+      "R56": [
+        "2"
+      ],
+      "IC6": [
+        "B3"
+      ]
+    },
     "FX3_FSLC2": {
       "IC6": [
         "E6"
@@ -7624,6 +7662,14 @@
       ],
       "R67": [
         "1"
+      ]
+    },
+    "NetIC10_16": {
+      "IC10": [
+        "16"
+      ],
+      "R91": [
+        "2"
       ]
     },
     "NetIC12_3": {
@@ -8182,6 +8228,14 @@
         "2"
       ]
     },
+    "NetC214_1": {
+      "C214": [
+        "1"
+      ],
+      "R118": [
+        "2"
+      ]
+    },
     "NetC213_2": {
       "C213": [
         "2"
@@ -8235,6 +8289,14 @@
       ],
       "FR52": [
         "2"
+      ]
+    },
+    "NetFR50_1": {
+      "IC15": [
+        "6"
+      ],
+      "FR50": [
+        "1"
       ]
     },
     "VCC3P3_SI": {
@@ -8362,6 +8424,14 @@
         "1"
       ]
     },
+    "NetC253_1": {
+      "C253": [
+        "1"
+      ],
+      "R139": [
+        "1"
+      ]
+    },
     "NetIC25_22": {
       "R150": [
         "1"
@@ -8428,6 +8498,14 @@
         "24"
       ],
       "C273": [
+        "1"
+      ]
+    },
+    "NetC272_1": {
+      "C272": [
+        "1"
+      ],
+      "R154": [
         "1"
       ]
     },
@@ -9559,6 +9637,7 @@
         }
       },
       "manufacturer": "Microchip Technology",
+      "description": "24FC64F",
       "comment": "24FC64F"
     },
     "IC3": {
@@ -9597,6 +9676,7 @@
         }
       },
       "manufacturer": "Microchip Technology",
+      "description": "24FC512",
       "comment": "24FC512"
     },
     "R15": {
@@ -10040,6 +10120,7 @@
         }
       },
       "manufacturer": "Molex, LLC",
+      "description": "CONN UMC RCPT STR 50 OHM SMD",
       "comment": "U.FL/MMCX"
     },
     "J3": {
@@ -10054,6 +10135,7 @@
         }
       },
       "manufacturer": "Molex, LLC",
+      "description": "CONN UMC RCPT STR 50 OHM SMD",
       "comment": "U.FL/MMCX"
     },
     "J5": {
@@ -10068,6 +10150,7 @@
         }
       },
       "manufacturer": "Molex, LLC",
+      "description": "CONN UMC RCPT STR 50 OHM SMD",
       "comment": "U.FL/MMCX"
     },
     "J7": {
@@ -10082,6 +10165,7 @@
         }
       },
       "manufacturer": "Molex, LLC",
+      "description": "CONN UMC RCPT STR 50 OHM SMD",
       "comment": "U.FL/MMCX"
     },
     "MN24": {
@@ -10470,6 +10554,7 @@
         }
       },
       "manufacturer": "Molex, LLC",
+      "description": "CONN UMC RCPT STR 50 OHM SMD",
       "comment": "U.FL/MMCX"
     },
     "J4": {
@@ -10484,6 +10569,7 @@
         }
       },
       "manufacturer": "Molex, LLC",
+      "description": "CONN UMC RCPT STR 50 OHM SMD",
       "comment": "U.FL/MMCX"
     },
     "J6": {
@@ -10498,6 +10584,7 @@
         }
       },
       "manufacturer": "Molex, LLC",
+      "description": "CONN UMC RCPT STR 50 OHM SMD",
       "comment": "U.FL/MMCX"
     },
     "J8": {
@@ -10512,6 +10599,7 @@
         }
       },
       "manufacturer": "Molex, LLC",
+      "description": "CONN UMC RCPT STR 50 OHM SMD",
       "comment": "U.FL/MMCX"
     },
     "J10": {
@@ -10526,6 +10614,7 @@
         }
       },
       "manufacturer": "Molex, LLC",
+      "description": "CONN UMC RCPT STR 50 OHM SMD",
       "comment": "U.FL/MMCX"
     },
     "J9": {
@@ -10540,6 +10629,7 @@
         }
       },
       "manufacturer": "Molex, LLC",
+      "description": "CONN UMC RCPT STR 50 OHM SMD",
       "comment": "U.FL/MMCX"
     },
     "MN21": {
@@ -13530,6 +13620,7 @@
         }
       },
       "manufacturer": "Altera",
+      "description": "IC FPGA 328 I/O 484FBGA",
       "comment": "EP4CE40F23C8N"
     },
     "C286": {
@@ -13672,6 +13763,7 @@
         "10": "GND"
       },
       "manufacturer": "Harwin Inc",
+      "description": "Header, 5-Pin, Dual row",
       "comment": "FPGA JTAG"
     },
     "R188": {
@@ -13685,7 +13777,7 @@
     "R189": {
       "pins": {
         "1": "VCC3P3",
-        "2": ""
+        "2": "NetIC33_7"
       },
       "manufacturer": "Stackpole Electronics Inc.",
       "value": "4K7"
@@ -13693,7 +13785,7 @@
     "R190": {
       "pins": {
         "1": "VCC3P3",
-        "2": ""
+        "2": "NetIC33_3"
       },
       "manufacturer": "Stackpole Electronics Inc.",
       "value": "4K7"
@@ -13710,7 +13802,7 @@
         },
         "3": {
           "name": "W",
-          "net": ""
+          "net": "NetIC33_3"
         },
         "4": {
           "name": "GND",
@@ -13726,7 +13818,7 @@
         },
         "7": {
           "name": "HOLD",
-          "net": ""
+          "net": "NetIC33_7"
         },
         "8": {
           "name": "VCC",
@@ -13881,6 +13973,7 @@
         }
       },
       "manufacturer": "TEXAS INSTRUMENTS",
+      "description": "TS3A5018PWR",
       "comment": "TS3A5018PWR"
     },
     "R184": {
@@ -13914,6 +14007,7 @@
         "10": "FPGA_GPIO7"
       },
       "manufacturer": "Harwin Inc",
+      "description": "Header, 5-Pin, Dual row",
       "comment": "FPGA GPIO"
     },
     "R172": {
@@ -14887,6 +14981,7 @@
         "D": "NetJ19_1"
       },
       "manufacturer": "Fairchild Semiconductor",
+      "description": "NDS331N",
       "comment": "NDS331N"
     },
     "J19": {
@@ -16315,6 +16410,7 @@
         }
       },
       "manufacturer": "CTS-Frequency Controls",
+      "description": "Oscillator Crystal 19.2 MHz",
       "comment": "19.2MHz"
     },
     "J11": {
@@ -16501,7 +16597,7 @@
     },
     "R48": {
       "pins": {
-        "1": "NetR48_1",
+        "1": "NetIC6_F10",
         "2": "FX3_DQ0",
         "3": "NetIC6_F9",
         "4": "FX3_DQ1",
@@ -16703,7 +16799,7 @@
     "R54": {
       "pins": {
         "1": "GND",
-        "2": ""
+        "2": "NetIC6_C8"
       },
       "manufacturer": "Rohm Semiconductor",
       "value": "6.04K, 1%"
@@ -16711,7 +16807,7 @@
     "R56": {
       "pins": {
         "1": "GND",
-        "2": ""
+        "2": "NetIC6_B3"
       },
       "manufacturer": "Stackpole Electronics Inc",
       "value": "200R, 1%"
@@ -16778,6 +16874,7 @@
         "10": "NetJ12_10"
       },
       "manufacturer": "Harwin Inc",
+      "description": "Header, 5-Pin, Dual row",
       "comment": "FX3 JTAG"
     },
     "R80": {
@@ -16874,7 +16971,7 @@
         },
         "F10": {
           "name": "GPIO[0]",
-          "net": ""
+          "net": "NetIC6_F10"
         },
         "G2": {
           "name": "GPIO[42]",
@@ -17078,7 +17175,7 @@
         },
         "B3": {
           "name": "R_USB3",
-          "net": ""
+          "net": "NetIC6_B3"
         },
         "B4": {
           "name": "FSLC[1]",
@@ -17102,7 +17199,7 @@
         },
         "C8": {
           "name": "R_USB2",
-          "net": ""
+          "net": "NetIC6_C8"
         },
         "C9": {
           "name": "OTG_ID",
@@ -17286,11 +17383,12 @@
         }
       },
       "manufacturer": "Cypress Semiconductor Corp",
+      "description": "EZ-USB(R) FX3: SuperSpeed USB Controller, 512 KB, 60 I/Os, 0 to 70 degC, 121-Pin FBGA (BZX121)",
       "comment": "CYUSB3014-BZXC"
     },
     "R49": {
       "pins": {
-        "1": "",
+        "1": "FX3_DQ16",
         "2": "NetIC6_K2",
         "3": "FX3_DQ17",
         "4": "NetIC6_J4",
@@ -17408,7 +17506,7 @@
         },
         "16": {
           "name": "\\R\\S\\T\\",
-          "net": ""
+          "net": "NetIC10_16"
         },
         "17": {
           "name": "EP",
@@ -17575,6 +17673,7 @@
         }
       },
       "manufacturer": "Microchip Technology",
+      "description": "24FC64F",
       "comment": "24FC64F"
     },
     "C139": {
@@ -17600,6 +17699,7 @@
         "2": ""
       },
       "manufacturer": "Harwin Inc.",
+      "description": "Shorting Jumper, 2-position, 1.27mm pitch",
       "comment": "1 pcs."
     },
     "R78": {
@@ -17637,7 +17737,7 @@
     "R91": {
       "pins": {
         "1": "VCC3P3",
-        "2": ""
+        "2": "NetIC10_16"
       },
       "manufacturer": "Yageo",
       "value": "10k, 1%"
@@ -18588,7 +18688,7 @@
     },
     "C214": {
       "pins": {
-        "1": "",
+        "1": "NetC214_1",
         "2": "NetC214_2"
       },
       "manufacturer": "Yageo",
@@ -18613,7 +18713,7 @@
     "R118": {
       "pins": {
         "1": "GND",
-        "2": ""
+        "2": "NetC214_1"
       },
       "manufacturer": "Yageo",
       "value": "330R, 5%"
@@ -18875,10 +18975,11 @@
         },
         "6": {
           "name": "VOUT",
-          "net": ""
+          "net": "NetFR50_1"
         }
       },
       "manufacturer": "Analog Devices",
+      "description": "Single 8-Bit nanoDAC with SPI Interface in LFCSP and SC70, 2.7 to 5.5 V, <100 uA, -40 to +125 degC, KS-6, Pb-Free, Reel",
       "comment": "AD5601BKSZ-REEL7"
     },
     "C218": {
@@ -19000,7 +19101,7 @@
     },
     "FR50": {
       "pins": {
-        "1": "",
+        "1": "NetFR50_1",
         "2": "NetC199_2"
       },
       "manufacturer": "Taiyo Yuden",
@@ -19104,6 +19205,7 @@
         }
       },
       "manufacturer": "Silicon Labs",
+      "description": "Si5351C",
       "comment": "Si5351C"
     },
     "C221": {
@@ -19134,6 +19236,7 @@
         }
       },
       "manufacturer": "ABRACON",
+      "description": "Oscillator Crystal 25 MHz",
       "comment": "25MHz"
     },
     "C219": {
@@ -19439,7 +19542,7 @@
     },
     "C253": {
       "pins": {
-        "1": "",
+        "1": "NetC253_1",
         "2": "GND"
       },
       "manufacturer": "Kemet",
@@ -19447,7 +19550,7 @@
     },
     "R139": {
       "pins": {
-        "1": "",
+        "1": "NetC253_1",
         "2": "NetC252_1"
       },
       "manufacturer": "Panasonic Electronic Components",
@@ -19614,7 +19717,7 @@
     },
     "C272": {
       "pins": {
-        "1": "",
+        "1": "NetC272_1",
         "2": "GND"
       },
       "manufacturer": "Samsung Electro-Mechanics America, Inc.",
@@ -19622,7 +19725,7 @@
     },
     "R154": {
       "pins": {
-        "1": "",
+        "1": "NetC272_1",
         "2": "NetC271_1"
       },
       "manufacturer": "Panasonic Electronic Components",
@@ -20308,6 +20411,7 @@
         "3": "GND"
       },
       "manufacturer": "CUI Inc.",
+      "description": "Power Connector, THT, 2.1mm ID, 5.5mm OD",
       "comment": "CONN_PWR_JACK_2.1x5.5mm"
     },
     "R124": {
@@ -20525,6 +20629,7 @@
         "3": "VCC_INT"
       },
       "manufacturer": "Amphenol FCI",
+      "description": "Header,3-pin",
       "comment": "Header 3x1 pin",
       "dns": true
     },
@@ -20534,6 +20639,7 @@
         "K": "VCC_EXT"
       },
       "manufacturer": "Micro Commercial Co",
+      "description": "Diode Schottky SMD SOD-523F",
       "comment": "SK36A"
     },
     "C238": {
@@ -21077,6 +21183,7 @@
       },
       "mpn": "FIX-MAE-5TV",
       "manufacturer": "FIX&FASTEN",
+      "description": "STANDOFF M/F MET 5MM HEX 10MM L",
       "comment": "# pcs."
     },
     "MECH2": {
@@ -21085,6 +21192,7 @@
       },
       "mpn": "FIX-MAE-5TV",
       "manufacturer": "FIX&FASTEN",
+      "description": "STANDOFF M/F MET 5MM HEX 10MM L",
       "comment": "# pcs."
     },
     "MECH3": {
@@ -21093,6 +21201,7 @@
       },
       "mpn": "FIX-MAE-5TV",
       "manufacturer": "FIX&FASTEN",
+      "description": "STANDOFF M/F MET 5MM HEX 10MM L",
       "comment": "# pcs."
     },
     "MECH4": {
@@ -21101,6 +21210,7 @@
       },
       "mpn": "FIX-MAE-5TV",
       "manufacturer": "FIX&FASTEN",
+      "description": "STANDOFF M/F MET 5MM HEX 10MM L",
       "comment": "# pcs."
     }
   }

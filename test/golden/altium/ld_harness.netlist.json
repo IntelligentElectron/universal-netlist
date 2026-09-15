@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-11T23:59:40.623Z",
-    "netlistHash": "sha256:1b0acb013d1549ca6a5e8abd8f6f7b7e809b8fd81862a0c8b0a3c0077d2fd019",
+    "generatedAt": "2026-09-15T06:30:52.695Z",
+    "netlistHash": "sha256:0f4cf81c96ac4cc1b56c9efce61773baddb6012ce47d20ef2813e074dcf3ab71",
     "origin": {
       "type": "vendor",
       "source": {
@@ -12,619 +12,6 @@
     }
   },
   "nets": {
-    "V_LASER_CHAN1": {
-      "J4_CHAN1": [
-        "2"
-      ],
-      "J5_CHAN1": [
-        "2",
-        "4",
-        "6"
-      ],
-      "J4_CHAN2": [
-        "2"
-      ],
-      "J5_CHAN2": [
-        "2",
-        "4",
-        "6"
-      ],
-      "J4_CHAN3": [
-        "2"
-      ],
-      "J5_CHAN3": [
-        "2",
-        "4",
-        "6"
-      ],
-      "J4_CHAN4": [
-        "2"
-      ],
-      "J5_CHAN4": [
-        "2",
-        "4",
-        "6"
-      ],
-      "J4_CHAN5": [
-        "2"
-      ],
-      "J5_CHAN5": [
-        "2",
-        "4",
-        "6"
-      ],
-      "J4_CHAN6": [
-        "2"
-      ],
-      "J5_CHAN6": [
-        "2",
-        "4",
-        "6"
-      ],
-      "J4_CHAN7": [
-        "2"
-      ],
-      "J5_CHAN7": [
-        "2",
-        "4",
-        "6"
-      ],
-      "J4_CHAN8": [
-        "2"
-      ],
-      "J5_CHAN8": [
-        "2",
-        "4",
-        "6"
-      ],
-      "J4_CHAN9": [
-        "2"
-      ],
-      "J5_CHAN9": [
-        "2",
-        "4",
-        "6"
-      ]
-    },
-    "AGND": {
-      "J4_CHAN1": [
-        "8",
-        "AGND"
-      ],
-      "J5_CHAN1": [
-        "12",
-        "14",
-        "18"
-      ],
-      "J4_CHAN2": [
-        "8",
-        "AGND"
-      ],
-      "J5_CHAN2": [
-        "12",
-        "14",
-        "18"
-      ],
-      "J4_CHAN3": [
-        "8",
-        "AGND"
-      ],
-      "J5_CHAN3": [
-        "12",
-        "14",
-        "18"
-      ],
-      "J4_CHAN4": [
-        "8",
-        "AGND"
-      ],
-      "J5_CHAN4": [
-        "12",
-        "14",
-        "18"
-      ],
-      "J4_CHAN5": [
-        "8",
-        "AGND"
-      ],
-      "J5_CHAN5": [
-        "12",
-        "14",
-        "18"
-      ],
-      "J4_CHAN6": [
-        "8",
-        "AGND"
-      ],
-      "J5_CHAN6": [
-        "12",
-        "14",
-        "18"
-      ],
-      "J4_CHAN7": [
-        "8",
-        "AGND"
-      ],
-      "J5_CHAN7": [
-        "12",
-        "14",
-        "18"
-      ],
-      "J4_CHAN8": [
-        "8",
-        "AGND"
-      ],
-      "J5_CHAN8": [
-        "12",
-        "14",
-        "18"
-      ],
-      "J4_CHAN9": [
-        "8",
-        "AGND"
-      ],
-      "J5_CHAN9": [
-        "12",
-        "14",
-        "18"
-      ]
-    },
-    "_3V3_P_CHAN1": {
-      "J4_CHAN1": [
-        "4"
-      ],
-      "J5_CHAN1": [
-        "10"
-      ],
-      "J4_CHAN2": [
-        "4"
-      ],
-      "J5_CHAN2": [
-        "10"
-      ],
-      "J4_CHAN3": [
-        "4"
-      ],
-      "J5_CHAN3": [
-        "10"
-      ],
-      "J4_CHAN4": [
-        "4"
-      ],
-      "J5_CHAN4": [
-        "10"
-      ],
-      "J4_CHAN5": [
-        "4"
-      ],
-      "J5_CHAN5": [
-        "10"
-      ],
-      "J4_CHAN6": [
-        "4"
-      ],
-      "J5_CHAN6": [
-        "10"
-      ],
-      "J4_CHAN7": [
-        "4"
-      ],
-      "J5_CHAN7": [
-        "10"
-      ],
-      "J4_CHAN8": [
-        "4"
-      ],
-      "J5_CHAN8": [
-        "10"
-      ],
-      "J4_CHAN9": [
-        "4"
-      ],
-      "J5_CHAN9": [
-        "10"
-      ]
-    },
-    "_OP_O_CHAN1": {
-      "J4_CHAN1": [
-        "5"
-      ],
-      "J5_CHAN1": [
-        "8"
-      ],
-      "J4_CHAN2": [
-        "5"
-      ],
-      "J5_CHAN2": [
-        "8"
-      ],
-      "J4_CHAN3": [
-        "5"
-      ],
-      "J5_CHAN3": [
-        "8"
-      ],
-      "J4_CHAN4": [
-        "5"
-      ],
-      "J5_CHAN4": [
-        "8"
-      ],
-      "J4_CHAN5": [
-        "5"
-      ],
-      "J5_CHAN5": [
-        "8"
-      ],
-      "J4_CHAN6": [
-        "5"
-      ],
-      "J5_CHAN6": [
-        "8"
-      ],
-      "J4_CHAN7": [
-        "5"
-      ],
-      "J5_CHAN7": [
-        "8"
-      ],
-      "J4_CHAN8": [
-        "5"
-      ],
-      "J5_CHAN8": [
-        "8"
-      ],
-      "J4_CHAN9": [
-        "5"
-      ],
-      "J5_CHAN9": [
-        "8"
-      ]
-    },
-    "_P_OUT_CHAN1": {
-      "J4_CHAN1": [
-        "6"
-      ],
-      "J5_CHAN1": [
-        "11"
-      ],
-      "J4_CHAN2": [
-        "6"
-      ],
-      "J5_CHAN2": [
-        "11"
-      ],
-      "J4_CHAN3": [
-        "6"
-      ],
-      "J5_CHAN3": [
-        "11"
-      ],
-      "J4_CHAN4": [
-        "6"
-      ],
-      "J5_CHAN4": [
-        "11"
-      ],
-      "J4_CHAN5": [
-        "6"
-      ],
-      "J5_CHAN5": [
-        "11"
-      ],
-      "J4_CHAN6": [
-        "6"
-      ],
-      "J5_CHAN6": [
-        "11"
-      ],
-      "J4_CHAN7": [
-        "6"
-      ],
-      "J5_CHAN7": [
-        "11"
-      ],
-      "J4_CHAN8": [
-        "6"
-      ],
-      "J5_CHAN8": [
-        "11"
-      ],
-      "J4_CHAN9": [
-        "6"
-      ],
-      "J5_CHAN9": [
-        "11"
-      ]
-    },
-    "_P_IN_CHAN1": {
-      "J4_CHAN1": [
-        "7"
-      ],
-      "J5_CHAN1": [
-        "13"
-      ],
-      "J4_CHAN2": [
-        "7"
-      ],
-      "J5_CHAN2": [
-        "13"
-      ],
-      "J4_CHAN3": [
-        "7"
-      ],
-      "J5_CHAN3": [
-        "13"
-      ],
-      "J4_CHAN4": [
-        "7"
-      ],
-      "J5_CHAN4": [
-        "13"
-      ],
-      "J4_CHAN5": [
-        "7"
-      ],
-      "J5_CHAN5": [
-        "13"
-      ],
-      "J4_CHAN6": [
-        "7"
-      ],
-      "J5_CHAN6": [
-        "13"
-      ],
-      "J4_CHAN7": [
-        "7"
-      ],
-      "J5_CHAN7": [
-        "13"
-      ],
-      "J4_CHAN8": [
-        "7"
-      ],
-      "J5_CHAN8": [
-        "13"
-      ],
-      "J4_CHAN9": [
-        "7"
-      ],
-      "J5_CHAN9": [
-        "13"
-      ]
-    },
-    "_VDD5_CHAN1": {
-      "J4_CHAN1": [
-        "9"
-      ],
-      "J5_CHAN1": [
-        "15"
-      ],
-      "J4_CHAN2": [
-        "9"
-      ],
-      "J5_CHAN2": [
-        "15"
-      ],
-      "J4_CHAN3": [
-        "9"
-      ],
-      "J5_CHAN3": [
-        "15"
-      ],
-      "J4_CHAN4": [
-        "9"
-      ],
-      "J5_CHAN4": [
-        "15"
-      ],
-      "J4_CHAN5": [
-        "9"
-      ],
-      "J5_CHAN5": [
-        "15"
-      ],
-      "J4_CHAN6": [
-        "9"
-      ],
-      "J5_CHAN6": [
-        "15"
-      ],
-      "J4_CHAN7": [
-        "9"
-      ],
-      "J5_CHAN7": [
-        "15"
-      ],
-      "J4_CHAN8": [
-        "9"
-      ],
-      "J5_CHAN8": [
-        "15"
-      ],
-      "J4_CHAN9": [
-        "9"
-      ],
-      "J5_CHAN9": [
-        "15"
-      ]
-    },
-    "_STDN_CHAN1": {
-      "J4_CHAN1": [
-        "10"
-      ],
-      "J5_CHAN1": [
-        "16"
-      ],
-      "J4_CHAN2": [
-        "10"
-      ],
-      "J5_CHAN2": [
-        "16"
-      ],
-      "J4_CHAN3": [
-        "10"
-      ],
-      "J5_CHAN3": [
-        "16"
-      ],
-      "J4_CHAN4": [
-        "10"
-      ],
-      "J5_CHAN4": [
-        "16"
-      ],
-      "J4_CHAN5": [
-        "10"
-      ],
-      "J5_CHAN5": [
-        "16"
-      ],
-      "J4_CHAN6": [
-        "10"
-      ],
-      "J5_CHAN6": [
-        "16"
-      ],
-      "J4_CHAN7": [
-        "10"
-      ],
-      "J5_CHAN7": [
-        "16"
-      ],
-      "J4_CHAN8": [
-        "10"
-      ],
-      "J5_CHAN8": [
-        "16"
-      ],
-      "J4_CHAN9": [
-        "10"
-      ],
-      "J5_CHAN9": [
-        "16"
-      ]
-    },
-    "_TEMP_CHAN1": {
-      "J4_CHAN1": [
-        "11"
-      ],
-      "J5_CHAN1": [
-        "17"
-      ],
-      "J4_CHAN2": [
-        "11"
-      ],
-      "J5_CHAN2": [
-        "17"
-      ],
-      "J4_CHAN3": [
-        "11"
-      ],
-      "J5_CHAN3": [
-        "17"
-      ],
-      "J4_CHAN4": [
-        "11"
-      ],
-      "J5_CHAN4": [
-        "17"
-      ],
-      "J4_CHAN5": [
-        "11"
-      ],
-      "J5_CHAN5": [
-        "17"
-      ],
-      "J4_CHAN6": [
-        "11"
-      ],
-      "J5_CHAN6": [
-        "17"
-      ],
-      "J4_CHAN7": [
-        "11"
-      ],
-      "J5_CHAN7": [
-        "17"
-      ],
-      "J4_CHAN8": [
-        "11"
-      ],
-      "J5_CHAN8": [
-        "17"
-      ],
-      "J4_CHAN9": [
-        "11"
-      ],
-      "J5_CHAN9": [
-        "17"
-      ]
-    },
-    "PULSE_IN_A": {
-      "J1": [
-        "4"
-      ],
-      "J4_CHAN1": [
-        "7_G"
-      ],
-      "J4_CHAN2": [
-        "7_G"
-      ],
-      "J4_CHAN3": [
-        "7_G"
-      ],
-      "J4_CHAN4": [
-        "7_G"
-      ],
-      "J4_CHAN5": [
-        "7_G"
-      ],
-      "J4_CHAN6": [
-        "7_G"
-      ],
-      "J4_CHAN7": [
-        "7_G"
-      ],
-      "J4_CHAN8": [
-        "7_G"
-      ],
-      "J4_CHAN9": [
-        "7_G"
-      ]
-    },
-    "STDN_A": {
-      "J1": [
-        "1"
-      ],
-      "J4_CHAN1": [
-        "10_G"
-      ],
-      "J4_CHAN2": [
-        "10_G"
-      ],
-      "J4_CHAN3": [
-        "10_G"
-      ],
-      "J4_CHAN4": [
-        "10_G"
-      ],
-      "J4_CHAN5": [
-        "10_G"
-      ],
-      "J4_CHAN6": [
-        "10_G"
-      ],
-      "J4_CHAN7": [
-        "10_G"
-      ],
-      "J4_CHAN8": [
-        "10_G"
-      ],
-      "J4_CHAN9": [
-        "10_G"
-      ]
-    },
     "CHANNEL_INTERFACE.V_LASER_P": {
       "J1": [
         "8",
@@ -891,6 +278,70 @@
         "9_G"
       ]
     },
+    "PULSE_IN_A": {
+      "J1": [
+        "4"
+      ],
+      "J4_CHAN1": [
+        "7_G"
+      ],
+      "J4_CHAN2": [
+        "7_G"
+      ],
+      "J4_CHAN3": [
+        "7_G"
+      ],
+      "J4_CHAN4": [
+        "7_G"
+      ],
+      "J4_CHAN5": [
+        "7_G"
+      ],
+      "J4_CHAN6": [
+        "7_G"
+      ],
+      "J4_CHAN7": [
+        "7_G"
+      ],
+      "J4_CHAN8": [
+        "7_G"
+      ],
+      "J4_CHAN9": [
+        "7_G"
+      ]
+    },
+    "STDN_A": {
+      "J1": [
+        "1"
+      ],
+      "J4_CHAN1": [
+        "10_G"
+      ],
+      "J4_CHAN2": [
+        "10_G"
+      ],
+      "J4_CHAN3": [
+        "10_G"
+      ],
+      "J4_CHAN4": [
+        "10_G"
+      ],
+      "J4_CHAN5": [
+        "10_G"
+      ],
+      "J4_CHAN6": [
+        "10_G"
+      ],
+      "J4_CHAN7": [
+        "10_G"
+      ],
+      "J4_CHAN8": [
+        "10_G"
+      ],
+      "J4_CHAN9": [
+        "10_G"
+      ]
+    },
     "OP_OUT_P1": {
       "J2": [
         "2"
@@ -1106,6 +557,699 @@
       "J4_CHAN9": [
         "11_G"
       ]
+    },
+    "AGND_CHAN1": {
+      "J4_CHAN1": [
+        "8",
+        "AGND"
+      ],
+      "J5_CHAN1": [
+        "12",
+        "14",
+        "18"
+      ]
+    },
+    "AGND_CHAN2": {
+      "J4_CHAN2": [
+        "8",
+        "AGND"
+      ],
+      "J5_CHAN2": [
+        "12",
+        "14",
+        "18"
+      ]
+    },
+    "AGND_CHAN3": {
+      "J4_CHAN3": [
+        "8",
+        "AGND"
+      ],
+      "J5_CHAN3": [
+        "12",
+        "14",
+        "18"
+      ]
+    },
+    "AGND_CHAN4": {
+      "J4_CHAN4": [
+        "8",
+        "AGND"
+      ],
+      "J5_CHAN4": [
+        "12",
+        "14",
+        "18"
+      ]
+    },
+    "AGND_CHAN5": {
+      "J4_CHAN5": [
+        "8",
+        "AGND"
+      ],
+      "J5_CHAN5": [
+        "12",
+        "14",
+        "18"
+      ]
+    },
+    "AGND_CHAN6": {
+      "J4_CHAN6": [
+        "8",
+        "AGND"
+      ],
+      "J5_CHAN6": [
+        "12",
+        "14",
+        "18"
+      ]
+    },
+    "AGND_CHAN7": {
+      "J4_CHAN7": [
+        "8",
+        "AGND"
+      ],
+      "J5_CHAN7": [
+        "12",
+        "14",
+        "18"
+      ]
+    },
+    "AGND_CHAN8": {
+      "J4_CHAN8": [
+        "8",
+        "AGND"
+      ],
+      "J5_CHAN8": [
+        "12",
+        "14",
+        "18"
+      ]
+    },
+    "AGND_CHAN9": {
+      "J4_CHAN9": [
+        "8",
+        "AGND"
+      ],
+      "J5_CHAN9": [
+        "12",
+        "14",
+        "18"
+      ]
+    },
+    "V_LASER_CHAN1": {
+      "J4_CHAN1": [
+        "2"
+      ],
+      "J5_CHAN1": [
+        "2",
+        "4",
+        "6"
+      ]
+    },
+    "V_LASER_CHAN2": {
+      "J4_CHAN2": [
+        "2"
+      ],
+      "J5_CHAN2": [
+        "2",
+        "4",
+        "6"
+      ]
+    },
+    "V_LASER_CHAN3": {
+      "J4_CHAN3": [
+        "2"
+      ],
+      "J5_CHAN3": [
+        "2",
+        "4",
+        "6"
+      ]
+    },
+    "V_LASER_CHAN4": {
+      "J4_CHAN4": [
+        "2"
+      ],
+      "J5_CHAN4": [
+        "2",
+        "4",
+        "6"
+      ]
+    },
+    "V_LASER_CHAN5": {
+      "J4_CHAN5": [
+        "2"
+      ],
+      "J5_CHAN5": [
+        "2",
+        "4",
+        "6"
+      ]
+    },
+    "V_LASER_CHAN6": {
+      "J4_CHAN6": [
+        "2"
+      ],
+      "J5_CHAN6": [
+        "2",
+        "4",
+        "6"
+      ]
+    },
+    "V_LASER_CHAN7": {
+      "J4_CHAN7": [
+        "2"
+      ],
+      "J5_CHAN7": [
+        "2",
+        "4",
+        "6"
+      ]
+    },
+    "V_LASER_CHAN8": {
+      "J4_CHAN8": [
+        "2"
+      ],
+      "J5_CHAN8": [
+        "2",
+        "4",
+        "6"
+      ]
+    },
+    "V_LASER_CHAN9": {
+      "J4_CHAN9": [
+        "2"
+      ],
+      "J5_CHAN9": [
+        "2",
+        "4",
+        "6"
+      ]
+    },
+    "_3V3_CHAN1_P": {
+      "J4_CHAN1": [
+        "4"
+      ],
+      "J5_CHAN1": [
+        "10"
+      ]
+    },
+    "_3V3_CHAN2_P": {
+      "J4_CHAN2": [
+        "4"
+      ],
+      "J5_CHAN2": [
+        "10"
+      ]
+    },
+    "_3V3_CHAN3_P": {
+      "J4_CHAN3": [
+        "4"
+      ],
+      "J5_CHAN3": [
+        "10"
+      ]
+    },
+    "_3V3_CHAN4_P": {
+      "J4_CHAN4": [
+        "4"
+      ],
+      "J5_CHAN4": [
+        "10"
+      ]
+    },
+    "_3V3_CHAN5_P": {
+      "J4_CHAN5": [
+        "4"
+      ],
+      "J5_CHAN5": [
+        "10"
+      ]
+    },
+    "_3V3_CHAN6_P": {
+      "J4_CHAN6": [
+        "4"
+      ],
+      "J5_CHAN6": [
+        "10"
+      ]
+    },
+    "_3V3_CHAN7_P": {
+      "J4_CHAN7": [
+        "4"
+      ],
+      "J5_CHAN7": [
+        "10"
+      ]
+    },
+    "_3V3_CHAN8_P": {
+      "J4_CHAN8": [
+        "4"
+      ],
+      "J5_CHAN8": [
+        "10"
+      ]
+    },
+    "_3V3_CHAN9_P": {
+      "J4_CHAN9": [
+        "4"
+      ],
+      "J5_CHAN9": [
+        "10"
+      ]
+    },
+    "_OP_O_CHAN1": {
+      "J4_CHAN1": [
+        "5"
+      ],
+      "J5_CHAN1": [
+        "8"
+      ]
+    },
+    "_OP_O_CHAN2": {
+      "J4_CHAN2": [
+        "5"
+      ],
+      "J5_CHAN2": [
+        "8"
+      ]
+    },
+    "_OP_O_CHAN3": {
+      "J4_CHAN3": [
+        "5"
+      ],
+      "J5_CHAN3": [
+        "8"
+      ]
+    },
+    "_OP_O_CHAN4": {
+      "J4_CHAN4": [
+        "5"
+      ],
+      "J5_CHAN4": [
+        "8"
+      ]
+    },
+    "_OP_O_CHAN5": {
+      "J4_CHAN5": [
+        "5"
+      ],
+      "J5_CHAN5": [
+        "8"
+      ]
+    },
+    "_OP_O_CHAN6": {
+      "J4_CHAN6": [
+        "5"
+      ],
+      "J5_CHAN6": [
+        "8"
+      ]
+    },
+    "_OP_O_CHAN7": {
+      "J4_CHAN7": [
+        "5"
+      ],
+      "J5_CHAN7": [
+        "8"
+      ]
+    },
+    "_OP_O_CHAN8": {
+      "J4_CHAN8": [
+        "5"
+      ],
+      "J5_CHAN8": [
+        "8"
+      ]
+    },
+    "_OP_O_CHAN9": {
+      "J4_CHAN9": [
+        "5"
+      ],
+      "J5_CHAN9": [
+        "8"
+      ]
+    },
+    "_P_IN_CHAN1": {
+      "J4_CHAN1": [
+        "7"
+      ],
+      "J5_CHAN1": [
+        "13"
+      ]
+    },
+    "_P_IN_CHAN2": {
+      "J4_CHAN2": [
+        "7"
+      ],
+      "J5_CHAN2": [
+        "13"
+      ]
+    },
+    "_P_IN_CHAN3": {
+      "J4_CHAN3": [
+        "7"
+      ],
+      "J5_CHAN3": [
+        "13"
+      ]
+    },
+    "_P_IN_CHAN4": {
+      "J4_CHAN4": [
+        "7"
+      ],
+      "J5_CHAN4": [
+        "13"
+      ]
+    },
+    "_P_IN_CHAN5": {
+      "J4_CHAN5": [
+        "7"
+      ],
+      "J5_CHAN5": [
+        "13"
+      ]
+    },
+    "_P_IN_CHAN6": {
+      "J4_CHAN6": [
+        "7"
+      ],
+      "J5_CHAN6": [
+        "13"
+      ]
+    },
+    "_P_IN_CHAN7": {
+      "J4_CHAN7": [
+        "7"
+      ],
+      "J5_CHAN7": [
+        "13"
+      ]
+    },
+    "_P_IN_CHAN8": {
+      "J4_CHAN8": [
+        "7"
+      ],
+      "J5_CHAN8": [
+        "13"
+      ]
+    },
+    "_P_IN_CHAN9": {
+      "J4_CHAN9": [
+        "7"
+      ],
+      "J5_CHAN9": [
+        "13"
+      ]
+    },
+    "_P_OUT_CHAN1": {
+      "J4_CHAN1": [
+        "6"
+      ],
+      "J5_CHAN1": [
+        "11"
+      ]
+    },
+    "_P_OUT_CHAN2": {
+      "J4_CHAN2": [
+        "6"
+      ],
+      "J5_CHAN2": [
+        "11"
+      ]
+    },
+    "_P_OUT_CHAN3": {
+      "J4_CHAN3": [
+        "6"
+      ],
+      "J5_CHAN3": [
+        "11"
+      ]
+    },
+    "_P_OUT_CHAN4": {
+      "J4_CHAN4": [
+        "6"
+      ],
+      "J5_CHAN4": [
+        "11"
+      ]
+    },
+    "_P_OUT_CHAN5": {
+      "J4_CHAN5": [
+        "6"
+      ],
+      "J5_CHAN5": [
+        "11"
+      ]
+    },
+    "_P_OUT_CHAN6": {
+      "J4_CHAN6": [
+        "6"
+      ],
+      "J5_CHAN6": [
+        "11"
+      ]
+    },
+    "_P_OUT_CHAN7": {
+      "J4_CHAN7": [
+        "6"
+      ],
+      "J5_CHAN7": [
+        "11"
+      ]
+    },
+    "_P_OUT_CHAN8": {
+      "J4_CHAN8": [
+        "6"
+      ],
+      "J5_CHAN8": [
+        "11"
+      ]
+    },
+    "_P_OUT_CHAN9": {
+      "J4_CHAN9": [
+        "6"
+      ],
+      "J5_CHAN9": [
+        "11"
+      ]
+    },
+    "_STDN_CHAN1": {
+      "J4_CHAN1": [
+        "10"
+      ],
+      "J5_CHAN1": [
+        "16"
+      ]
+    },
+    "_STDN_CHAN2": {
+      "J4_CHAN2": [
+        "10"
+      ],
+      "J5_CHAN2": [
+        "16"
+      ]
+    },
+    "_STDN_CHAN3": {
+      "J4_CHAN3": [
+        "10"
+      ],
+      "J5_CHAN3": [
+        "16"
+      ]
+    },
+    "_STDN_CHAN4": {
+      "J4_CHAN4": [
+        "10"
+      ],
+      "J5_CHAN4": [
+        "16"
+      ]
+    },
+    "_STDN_CHAN5": {
+      "J4_CHAN5": [
+        "10"
+      ],
+      "J5_CHAN5": [
+        "16"
+      ]
+    },
+    "_STDN_CHAN6": {
+      "J4_CHAN6": [
+        "10"
+      ],
+      "J5_CHAN6": [
+        "16"
+      ]
+    },
+    "_STDN_CHAN7": {
+      "J4_CHAN7": [
+        "10"
+      ],
+      "J5_CHAN7": [
+        "16"
+      ]
+    },
+    "_STDN_CHAN8": {
+      "J4_CHAN8": [
+        "10"
+      ],
+      "J5_CHAN8": [
+        "16"
+      ]
+    },
+    "_STDN_CHAN9": {
+      "J4_CHAN9": [
+        "10"
+      ],
+      "J5_CHAN9": [
+        "16"
+      ]
+    },
+    "_TEMP_CHAN1": {
+      "J4_CHAN1": [
+        "11"
+      ],
+      "J5_CHAN1": [
+        "17"
+      ]
+    },
+    "_TEMP_CHAN2": {
+      "J4_CHAN2": [
+        "11"
+      ],
+      "J5_CHAN2": [
+        "17"
+      ]
+    },
+    "_TEMP_CHAN3": {
+      "J4_CHAN3": [
+        "11"
+      ],
+      "J5_CHAN3": [
+        "17"
+      ]
+    },
+    "_TEMP_CHAN4": {
+      "J4_CHAN4": [
+        "11"
+      ],
+      "J5_CHAN4": [
+        "17"
+      ]
+    },
+    "_TEMP_CHAN5": {
+      "J4_CHAN5": [
+        "11"
+      ],
+      "J5_CHAN5": [
+        "17"
+      ]
+    },
+    "_TEMP_CHAN6": {
+      "J4_CHAN6": [
+        "11"
+      ],
+      "J5_CHAN6": [
+        "17"
+      ]
+    },
+    "_TEMP_CHAN7": {
+      "J4_CHAN7": [
+        "11"
+      ],
+      "J5_CHAN7": [
+        "17"
+      ]
+    },
+    "_TEMP_CHAN8": {
+      "J4_CHAN8": [
+        "11"
+      ],
+      "J5_CHAN8": [
+        "17"
+      ]
+    },
+    "_TEMP_CHAN9": {
+      "J4_CHAN9": [
+        "11"
+      ],
+      "J5_CHAN9": [
+        "17"
+      ]
+    },
+    "_VDD5_CHAN1": {
+      "J4_CHAN1": [
+        "9"
+      ],
+      "J5_CHAN1": [
+        "15"
+      ]
+    },
+    "_VDD5_CHAN2": {
+      "J4_CHAN2": [
+        "9"
+      ],
+      "J5_CHAN2": [
+        "15"
+      ]
+    },
+    "_VDD5_CHAN3": {
+      "J4_CHAN3": [
+        "9"
+      ],
+      "J5_CHAN3": [
+        "15"
+      ]
+    },
+    "_VDD5_CHAN4": {
+      "J4_CHAN4": [
+        "9"
+      ],
+      "J5_CHAN4": [
+        "15"
+      ]
+    },
+    "_VDD5_CHAN5": {
+      "J4_CHAN5": [
+        "9"
+      ],
+      "J5_CHAN5": [
+        "15"
+      ]
+    },
+    "_VDD5_CHAN6": {
+      "J4_CHAN6": [
+        "9"
+      ],
+      "J5_CHAN6": [
+        "15"
+      ]
+    },
+    "_VDD5_CHAN7": {
+      "J4_CHAN7": [
+        "9"
+      ],
+      "J5_CHAN7": [
+        "15"
+      ]
+    },
+    "_VDD5_CHAN8": {
+      "J4_CHAN8": [
+        "9"
+      ],
+      "J5_CHAN8": [
+        "15"
+      ]
+    },
+    "_VDD5_CHAN9": {
+      "J4_CHAN9": [
+        "9"
+      ],
+      "J5_CHAN9": [
+        "15"
+      ]
     }
   },
   "components": {
@@ -1125,7 +1269,7 @@
         },
         "4": {
           "name": "3V3_P",
-          "net": "_3V3_P_CHAN1"
+          "net": "_3V3_CHAN1_P"
         },
         "5": {
           "name": "OP_OUT",
@@ -1141,7 +1285,7 @@
         },
         "8": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN1"
         },
         "9": {
           "name": "V5V",
@@ -1166,7 +1310,7 @@
         "9_G": "CHANNEL_INTERFACE.VDD5_A",
         "10_G": "STDN_A",
         "11_G": "TEMP_A1",
-        "AGND": "AGND",
+        "AGND": "AGND_CHAN1",
         "AGND_G": "CHANNEL_INTERFACE.AGND",
         "PGND": "CHANNEL_INTERFACE.AGND"
       },
@@ -1213,7 +1357,7 @@
         },
         "10": {
           "name": "3V3_P",
-          "net": "_3V3_P_CHAN1"
+          "net": "_3V3_CHAN1_P"
         },
         "11": {
           "name": "PULSE_OUT",
@@ -1221,7 +1365,7 @@
         },
         "12": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN1"
         },
         "13": {
           "name": "PULSE_IN",
@@ -1229,7 +1373,7 @@
         },
         "14": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN1"
         },
         "15": {
           "name": "VDD5",
@@ -1245,7 +1389,7 @@
         },
         "18": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN1"
         }
       },
       "description": "Connector FPC, 18 pin, 0.5mm pitch",
@@ -1259,7 +1403,7 @@
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN2"
         },
         "3": {
           "name": "PGND",
@@ -1267,35 +1411,35 @@
         },
         "4": {
           "name": "3V3_P",
-          "net": "_3V3_P_CHAN1"
+          "net": "_3V3_CHAN2_P"
         },
         "5": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN1"
+          "net": "_OP_O_CHAN2"
         },
         "6": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN1"
+          "net": "_P_OUT_CHAN2"
         },
         "7": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN1"
+          "net": "_P_IN_CHAN2"
         },
         "8": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN2"
         },
         "9": {
           "name": "V5V",
-          "net": "_VDD5_CHAN1"
+          "net": "_VDD5_CHAN2"
         },
         "10": {
           "name": "STDN",
-          "net": "_STDN_CHAN1"
+          "net": "_STDN_CHAN2"
         },
         "11": {
           "name": "TEMP",
-          "net": "_TEMP_CHAN1"
+          "net": "_TEMP_CHAN2"
         },
         "1_G": "CHANNEL_INTERFACE.AGND",
         "2_G": "CHANNEL_INTERFACE.V_LASER_P",
@@ -1308,7 +1452,7 @@
         "9_G": "CHANNEL_INTERFACE.VDD5_A",
         "10_G": "STDN_A",
         "11_G": "TEMP_A2",
-        "AGND": "AGND",
+        "AGND": "AGND_CHAN2",
         "AGND_G": "CHANNEL_INTERFACE.AGND",
         "PGND": "CHANNEL_INTERFACE.AGND"
       },
@@ -1323,7 +1467,7 @@
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN2"
         },
         "3": {
           "name": "PGND",
@@ -1331,7 +1475,7 @@
         },
         "4": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN2"
         },
         "5": {
           "name": "PGND",
@@ -1339,7 +1483,7 @@
         },
         "6": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN2"
         },
         "7": {
           "name": "PGND",
@@ -1347,7 +1491,7 @@
         },
         "8": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN1"
+          "net": "_OP_O_CHAN2"
         },
         "9": {
           "name": "PGND",
@@ -1355,39 +1499,39 @@
         },
         "10": {
           "name": "3V3_P",
-          "net": "_3V3_P_CHAN1"
+          "net": "_3V3_CHAN2_P"
         },
         "11": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN1"
+          "net": "_P_OUT_CHAN2"
         },
         "12": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN2"
         },
         "13": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN1"
+          "net": "_P_IN_CHAN2"
         },
         "14": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN2"
         },
         "15": {
           "name": "VDD5",
-          "net": "_VDD5_CHAN1"
+          "net": "_VDD5_CHAN2"
         },
         "16": {
           "name": "STDN",
-          "net": "_STDN_CHAN1"
+          "net": "_STDN_CHAN2"
         },
         "17": {
           "name": "TEMPOUT",
-          "net": "_TEMP_CHAN1"
+          "net": "_TEMP_CHAN2"
         },
         "18": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN2"
         }
       },
       "description": "Connector FPC, 18 pin, 0.5mm pitch",
@@ -1401,7 +1545,7 @@
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN3"
         },
         "3": {
           "name": "PGND",
@@ -1409,35 +1553,35 @@
         },
         "4": {
           "name": "3V3_P",
-          "net": "_3V3_P_CHAN1"
+          "net": "_3V3_CHAN3_P"
         },
         "5": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN1"
+          "net": "_OP_O_CHAN3"
         },
         "6": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN1"
+          "net": "_P_OUT_CHAN3"
         },
         "7": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN1"
+          "net": "_P_IN_CHAN3"
         },
         "8": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN3"
         },
         "9": {
           "name": "V5V",
-          "net": "_VDD5_CHAN1"
+          "net": "_VDD5_CHAN3"
         },
         "10": {
           "name": "STDN",
-          "net": "_STDN_CHAN1"
+          "net": "_STDN_CHAN3"
         },
         "11": {
           "name": "TEMP",
-          "net": "_TEMP_CHAN1"
+          "net": "_TEMP_CHAN3"
         },
         "1_G": "CHANNEL_INTERFACE.AGND",
         "2_G": "CHANNEL_INTERFACE.V_LASER_P",
@@ -1450,7 +1594,7 @@
         "9_G": "CHANNEL_INTERFACE.VDD5_A",
         "10_G": "STDN_A",
         "11_G": "TEMP_A3",
-        "AGND": "AGND",
+        "AGND": "AGND_CHAN3",
         "AGND_G": "CHANNEL_INTERFACE.AGND",
         "PGND": "CHANNEL_INTERFACE.AGND"
       },
@@ -1465,7 +1609,7 @@
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN3"
         },
         "3": {
           "name": "PGND",
@@ -1473,7 +1617,7 @@
         },
         "4": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN3"
         },
         "5": {
           "name": "PGND",
@@ -1481,7 +1625,7 @@
         },
         "6": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN3"
         },
         "7": {
           "name": "PGND",
@@ -1489,7 +1633,7 @@
         },
         "8": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN1"
+          "net": "_OP_O_CHAN3"
         },
         "9": {
           "name": "PGND",
@@ -1497,39 +1641,39 @@
         },
         "10": {
           "name": "3V3_P",
-          "net": "_3V3_P_CHAN1"
+          "net": "_3V3_CHAN3_P"
         },
         "11": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN1"
+          "net": "_P_OUT_CHAN3"
         },
         "12": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN3"
         },
         "13": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN1"
+          "net": "_P_IN_CHAN3"
         },
         "14": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN3"
         },
         "15": {
           "name": "VDD5",
-          "net": "_VDD5_CHAN1"
+          "net": "_VDD5_CHAN3"
         },
         "16": {
           "name": "STDN",
-          "net": "_STDN_CHAN1"
+          "net": "_STDN_CHAN3"
         },
         "17": {
           "name": "TEMPOUT",
-          "net": "_TEMP_CHAN1"
+          "net": "_TEMP_CHAN3"
         },
         "18": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN3"
         }
       },
       "description": "Connector FPC, 18 pin, 0.5mm pitch",
@@ -1543,7 +1687,7 @@
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN4"
         },
         "3": {
           "name": "PGND",
@@ -1551,35 +1695,35 @@
         },
         "4": {
           "name": "3V3_P",
-          "net": "_3V3_P_CHAN1"
+          "net": "_3V3_CHAN4_P"
         },
         "5": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN1"
+          "net": "_OP_O_CHAN4"
         },
         "6": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN1"
+          "net": "_P_OUT_CHAN4"
         },
         "7": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN1"
+          "net": "_P_IN_CHAN4"
         },
         "8": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN4"
         },
         "9": {
           "name": "V5V",
-          "net": "_VDD5_CHAN1"
+          "net": "_VDD5_CHAN4"
         },
         "10": {
           "name": "STDN",
-          "net": "_STDN_CHAN1"
+          "net": "_STDN_CHAN4"
         },
         "11": {
           "name": "TEMP",
-          "net": "_TEMP_CHAN1"
+          "net": "_TEMP_CHAN4"
         },
         "1_G": "CHANNEL_INTERFACE.AGND",
         "2_G": "CHANNEL_INTERFACE.V_LASER_P",
@@ -1592,7 +1736,7 @@
         "9_G": "CHANNEL_INTERFACE.VDD5_A",
         "10_G": "STDN_A",
         "11_G": "TEMP_A4",
-        "AGND": "AGND",
+        "AGND": "AGND_CHAN4",
         "AGND_G": "CHANNEL_INTERFACE.AGND",
         "PGND": "CHANNEL_INTERFACE.AGND"
       },
@@ -1607,7 +1751,7 @@
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN4"
         },
         "3": {
           "name": "PGND",
@@ -1615,7 +1759,7 @@
         },
         "4": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN4"
         },
         "5": {
           "name": "PGND",
@@ -1623,7 +1767,7 @@
         },
         "6": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN4"
         },
         "7": {
           "name": "PGND",
@@ -1631,7 +1775,7 @@
         },
         "8": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN1"
+          "net": "_OP_O_CHAN4"
         },
         "9": {
           "name": "PGND",
@@ -1639,39 +1783,39 @@
         },
         "10": {
           "name": "3V3_P",
-          "net": "_3V3_P_CHAN1"
+          "net": "_3V3_CHAN4_P"
         },
         "11": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN1"
+          "net": "_P_OUT_CHAN4"
         },
         "12": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN4"
         },
         "13": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN1"
+          "net": "_P_IN_CHAN4"
         },
         "14": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN4"
         },
         "15": {
           "name": "VDD5",
-          "net": "_VDD5_CHAN1"
+          "net": "_VDD5_CHAN4"
         },
         "16": {
           "name": "STDN",
-          "net": "_STDN_CHAN1"
+          "net": "_STDN_CHAN4"
         },
         "17": {
           "name": "TEMPOUT",
-          "net": "_TEMP_CHAN1"
+          "net": "_TEMP_CHAN4"
         },
         "18": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN4"
         }
       },
       "description": "Connector FPC, 18 pin, 0.5mm pitch",
@@ -1685,7 +1829,7 @@
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN5"
         },
         "3": {
           "name": "PGND",
@@ -1693,35 +1837,35 @@
         },
         "4": {
           "name": "3V3_P",
-          "net": "_3V3_P_CHAN1"
+          "net": "_3V3_CHAN5_P"
         },
         "5": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN1"
+          "net": "_OP_O_CHAN5"
         },
         "6": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN1"
+          "net": "_P_OUT_CHAN5"
         },
         "7": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN1"
+          "net": "_P_IN_CHAN5"
         },
         "8": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN5"
         },
         "9": {
           "name": "V5V",
-          "net": "_VDD5_CHAN1"
+          "net": "_VDD5_CHAN5"
         },
         "10": {
           "name": "STDN",
-          "net": "_STDN_CHAN1"
+          "net": "_STDN_CHAN5"
         },
         "11": {
           "name": "TEMP",
-          "net": "_TEMP_CHAN1"
+          "net": "_TEMP_CHAN5"
         },
         "1_G": "CHANNEL_INTERFACE.AGND",
         "2_G": "CHANNEL_INTERFACE.V_LASER_P",
@@ -1734,7 +1878,7 @@
         "9_G": "CHANNEL_INTERFACE.VDD5_A",
         "10_G": "STDN_A",
         "11_G": "TEMP_A5",
-        "AGND": "AGND",
+        "AGND": "AGND_CHAN5",
         "AGND_G": "CHANNEL_INTERFACE.AGND",
         "PGND": "CHANNEL_INTERFACE.AGND"
       },
@@ -1749,7 +1893,7 @@
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN5"
         },
         "3": {
           "name": "PGND",
@@ -1757,7 +1901,7 @@
         },
         "4": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN5"
         },
         "5": {
           "name": "PGND",
@@ -1765,7 +1909,7 @@
         },
         "6": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN5"
         },
         "7": {
           "name": "PGND",
@@ -1773,7 +1917,7 @@
         },
         "8": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN1"
+          "net": "_OP_O_CHAN5"
         },
         "9": {
           "name": "PGND",
@@ -1781,39 +1925,39 @@
         },
         "10": {
           "name": "3V3_P",
-          "net": "_3V3_P_CHAN1"
+          "net": "_3V3_CHAN5_P"
         },
         "11": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN1"
+          "net": "_P_OUT_CHAN5"
         },
         "12": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN5"
         },
         "13": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN1"
+          "net": "_P_IN_CHAN5"
         },
         "14": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN5"
         },
         "15": {
           "name": "VDD5",
-          "net": "_VDD5_CHAN1"
+          "net": "_VDD5_CHAN5"
         },
         "16": {
           "name": "STDN",
-          "net": "_STDN_CHAN1"
+          "net": "_STDN_CHAN5"
         },
         "17": {
           "name": "TEMPOUT",
-          "net": "_TEMP_CHAN1"
+          "net": "_TEMP_CHAN5"
         },
         "18": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN5"
         }
       },
       "description": "Connector FPC, 18 pin, 0.5mm pitch",
@@ -1827,7 +1971,7 @@
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN6"
         },
         "3": {
           "name": "PGND",
@@ -1835,35 +1979,35 @@
         },
         "4": {
           "name": "3V3_P",
-          "net": "_3V3_P_CHAN1"
+          "net": "_3V3_CHAN6_P"
         },
         "5": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN1"
+          "net": "_OP_O_CHAN6"
         },
         "6": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN1"
+          "net": "_P_OUT_CHAN6"
         },
         "7": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN1"
+          "net": "_P_IN_CHAN6"
         },
         "8": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN6"
         },
         "9": {
           "name": "V5V",
-          "net": "_VDD5_CHAN1"
+          "net": "_VDD5_CHAN6"
         },
         "10": {
           "name": "STDN",
-          "net": "_STDN_CHAN1"
+          "net": "_STDN_CHAN6"
         },
         "11": {
           "name": "TEMP",
-          "net": "_TEMP_CHAN1"
+          "net": "_TEMP_CHAN6"
         },
         "1_G": "CHANNEL_INTERFACE.AGND",
         "2_G": "CHANNEL_INTERFACE.V_LASER_P",
@@ -1876,7 +2020,7 @@
         "9_G": "CHANNEL_INTERFACE.VDD5_A",
         "10_G": "STDN_A",
         "11_G": "TEMP_A6",
-        "AGND": "AGND",
+        "AGND": "AGND_CHAN6",
         "AGND_G": "CHANNEL_INTERFACE.AGND",
         "PGND": "CHANNEL_INTERFACE.AGND"
       },
@@ -1891,7 +2035,7 @@
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN6"
         },
         "3": {
           "name": "PGND",
@@ -1899,7 +2043,7 @@
         },
         "4": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN6"
         },
         "5": {
           "name": "PGND",
@@ -1907,7 +2051,7 @@
         },
         "6": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN6"
         },
         "7": {
           "name": "PGND",
@@ -1915,7 +2059,7 @@
         },
         "8": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN1"
+          "net": "_OP_O_CHAN6"
         },
         "9": {
           "name": "PGND",
@@ -1923,39 +2067,39 @@
         },
         "10": {
           "name": "3V3_P",
-          "net": "_3V3_P_CHAN1"
+          "net": "_3V3_CHAN6_P"
         },
         "11": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN1"
+          "net": "_P_OUT_CHAN6"
         },
         "12": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN6"
         },
         "13": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN1"
+          "net": "_P_IN_CHAN6"
         },
         "14": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN6"
         },
         "15": {
           "name": "VDD5",
-          "net": "_VDD5_CHAN1"
+          "net": "_VDD5_CHAN6"
         },
         "16": {
           "name": "STDN",
-          "net": "_STDN_CHAN1"
+          "net": "_STDN_CHAN6"
         },
         "17": {
           "name": "TEMPOUT",
-          "net": "_TEMP_CHAN1"
+          "net": "_TEMP_CHAN6"
         },
         "18": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN6"
         }
       },
       "description": "Connector FPC, 18 pin, 0.5mm pitch",
@@ -1969,7 +2113,7 @@
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN7"
         },
         "3": {
           "name": "PGND",
@@ -1977,35 +2121,35 @@
         },
         "4": {
           "name": "3V3_P",
-          "net": "_3V3_P_CHAN1"
+          "net": "_3V3_CHAN7_P"
         },
         "5": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN1"
+          "net": "_OP_O_CHAN7"
         },
         "6": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN1"
+          "net": "_P_OUT_CHAN7"
         },
         "7": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN1"
+          "net": "_P_IN_CHAN7"
         },
         "8": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN7"
         },
         "9": {
           "name": "V5V",
-          "net": "_VDD5_CHAN1"
+          "net": "_VDD5_CHAN7"
         },
         "10": {
           "name": "STDN",
-          "net": "_STDN_CHAN1"
+          "net": "_STDN_CHAN7"
         },
         "11": {
           "name": "TEMP",
-          "net": "_TEMP_CHAN1"
+          "net": "_TEMP_CHAN7"
         },
         "1_G": "CHANNEL_INTERFACE.AGND",
         "2_G": "CHANNEL_INTERFACE.V_LASER_P",
@@ -2018,7 +2162,7 @@
         "9_G": "CHANNEL_INTERFACE.VDD5_A",
         "10_G": "STDN_A",
         "11_G": "TEMP_A7",
-        "AGND": "AGND",
+        "AGND": "AGND_CHAN7",
         "AGND_G": "CHANNEL_INTERFACE.AGND",
         "PGND": "CHANNEL_INTERFACE.AGND"
       },
@@ -2033,7 +2177,7 @@
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN7"
         },
         "3": {
           "name": "PGND",
@@ -2041,7 +2185,7 @@
         },
         "4": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN7"
         },
         "5": {
           "name": "PGND",
@@ -2049,7 +2193,7 @@
         },
         "6": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN7"
         },
         "7": {
           "name": "PGND",
@@ -2057,7 +2201,7 @@
         },
         "8": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN1"
+          "net": "_OP_O_CHAN7"
         },
         "9": {
           "name": "PGND",
@@ -2065,39 +2209,39 @@
         },
         "10": {
           "name": "3V3_P",
-          "net": "_3V3_P_CHAN1"
+          "net": "_3V3_CHAN7_P"
         },
         "11": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN1"
+          "net": "_P_OUT_CHAN7"
         },
         "12": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN7"
         },
         "13": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN1"
+          "net": "_P_IN_CHAN7"
         },
         "14": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN7"
         },
         "15": {
           "name": "VDD5",
-          "net": "_VDD5_CHAN1"
+          "net": "_VDD5_CHAN7"
         },
         "16": {
           "name": "STDN",
-          "net": "_STDN_CHAN1"
+          "net": "_STDN_CHAN7"
         },
         "17": {
           "name": "TEMPOUT",
-          "net": "_TEMP_CHAN1"
+          "net": "_TEMP_CHAN7"
         },
         "18": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN7"
         }
       },
       "description": "Connector FPC, 18 pin, 0.5mm pitch",
@@ -2111,7 +2255,7 @@
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN8"
         },
         "3": {
           "name": "PGND",
@@ -2119,35 +2263,35 @@
         },
         "4": {
           "name": "3V3_P",
-          "net": "_3V3_P_CHAN1"
+          "net": "_3V3_CHAN8_P"
         },
         "5": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN1"
+          "net": "_OP_O_CHAN8"
         },
         "6": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN1"
+          "net": "_P_OUT_CHAN8"
         },
         "7": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN1"
+          "net": "_P_IN_CHAN8"
         },
         "8": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN8"
         },
         "9": {
           "name": "V5V",
-          "net": "_VDD5_CHAN1"
+          "net": "_VDD5_CHAN8"
         },
         "10": {
           "name": "STDN",
-          "net": "_STDN_CHAN1"
+          "net": "_STDN_CHAN8"
         },
         "11": {
           "name": "TEMP",
-          "net": "_TEMP_CHAN1"
+          "net": "_TEMP_CHAN8"
         },
         "1_G": "CHANNEL_INTERFACE.AGND",
         "2_G": "CHANNEL_INTERFACE.V_LASER_P",
@@ -2160,7 +2304,7 @@
         "9_G": "CHANNEL_INTERFACE.VDD5_A",
         "10_G": "STDN_A",
         "11_G": "TEMP_A8",
-        "AGND": "AGND",
+        "AGND": "AGND_CHAN8",
         "AGND_G": "CHANNEL_INTERFACE.AGND",
         "PGND": "CHANNEL_INTERFACE.AGND"
       },
@@ -2175,7 +2319,7 @@
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN8"
         },
         "3": {
           "name": "PGND",
@@ -2183,7 +2327,7 @@
         },
         "4": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN8"
         },
         "5": {
           "name": "PGND",
@@ -2191,7 +2335,7 @@
         },
         "6": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN8"
         },
         "7": {
           "name": "PGND",
@@ -2199,7 +2343,7 @@
         },
         "8": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN1"
+          "net": "_OP_O_CHAN8"
         },
         "9": {
           "name": "PGND",
@@ -2207,39 +2351,39 @@
         },
         "10": {
           "name": "3V3_P",
-          "net": "_3V3_P_CHAN1"
+          "net": "_3V3_CHAN8_P"
         },
         "11": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN1"
+          "net": "_P_OUT_CHAN8"
         },
         "12": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN8"
         },
         "13": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN1"
+          "net": "_P_IN_CHAN8"
         },
         "14": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN8"
         },
         "15": {
           "name": "VDD5",
-          "net": "_VDD5_CHAN1"
+          "net": "_VDD5_CHAN8"
         },
         "16": {
           "name": "STDN",
-          "net": "_STDN_CHAN1"
+          "net": "_STDN_CHAN8"
         },
         "17": {
           "name": "TEMPOUT",
-          "net": "_TEMP_CHAN1"
+          "net": "_TEMP_CHAN8"
         },
         "18": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN8"
         }
       },
       "description": "Connector FPC, 18 pin, 0.5mm pitch",
@@ -2253,7 +2397,7 @@
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN9"
         },
         "3": {
           "name": "PGND",
@@ -2261,35 +2405,35 @@
         },
         "4": {
           "name": "3V3_P",
-          "net": "_3V3_P_CHAN1"
+          "net": "_3V3_CHAN9_P"
         },
         "5": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN1"
+          "net": "_OP_O_CHAN9"
         },
         "6": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN1"
+          "net": "_P_OUT_CHAN9"
         },
         "7": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN1"
+          "net": "_P_IN_CHAN9"
         },
         "8": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN9"
         },
         "9": {
           "name": "V5V",
-          "net": "_VDD5_CHAN1"
+          "net": "_VDD5_CHAN9"
         },
         "10": {
           "name": "STDN",
-          "net": "_STDN_CHAN1"
+          "net": "_STDN_CHAN9"
         },
         "11": {
           "name": "TEMP",
-          "net": "_TEMP_CHAN1"
+          "net": "_TEMP_CHAN9"
         },
         "1_G": "CHANNEL_INTERFACE.AGND",
         "2_G": "CHANNEL_INTERFACE.V_LASER_P",
@@ -2302,7 +2446,7 @@
         "9_G": "CHANNEL_INTERFACE.VDD5_A",
         "10_G": "STDN_A",
         "11_G": "TEMP_A9",
-        "AGND": "AGND",
+        "AGND": "AGND_CHAN9",
         "AGND_G": "CHANNEL_INTERFACE.AGND",
         "PGND": "CHANNEL_INTERFACE.AGND"
       },
@@ -2317,7 +2461,7 @@
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN9"
         },
         "3": {
           "name": "PGND",
@@ -2325,7 +2469,7 @@
         },
         "4": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN9"
         },
         "5": {
           "name": "PGND",
@@ -2333,7 +2477,7 @@
         },
         "6": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN9"
         },
         "7": {
           "name": "PGND",
@@ -2341,7 +2485,7 @@
         },
         "8": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN1"
+          "net": "_OP_O_CHAN9"
         },
         "9": {
           "name": "PGND",
@@ -2349,39 +2493,39 @@
         },
         "10": {
           "name": "3V3_P",
-          "net": "_3V3_P_CHAN1"
+          "net": "_3V3_CHAN9_P"
         },
         "11": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN1"
+          "net": "_P_OUT_CHAN9"
         },
         "12": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN9"
         },
         "13": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN1"
+          "net": "_P_IN_CHAN9"
         },
         "14": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN9"
         },
         "15": {
           "name": "VDD5",
-          "net": "_VDD5_CHAN1"
+          "net": "_VDD5_CHAN9"
         },
         "16": {
           "name": "STDN",
-          "net": "_STDN_CHAN1"
+          "net": "_STDN_CHAN9"
         },
         "17": {
           "name": "TEMPOUT",
-          "net": "_TEMP_CHAN1"
+          "net": "_TEMP_CHAN9"
         },
         "18": {
           "name": "AGND",
-          "net": "AGND"
+          "net": "AGND_CHAN9"
         }
       },
       "description": "Connector FPC, 18 pin, 0.5mm pitch",

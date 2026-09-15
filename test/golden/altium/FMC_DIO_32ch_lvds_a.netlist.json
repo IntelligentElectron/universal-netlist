@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-12T20:06:03.598Z",
-    "netlistHash": "sha256:3707ba4c5dfa18698c8a492067bd37e9fff8cad303019aa8126b2eba943e3bbc",
+    "generatedAt": "2026-09-15T00:01:39.599Z",
+    "netlistHash": "sha256:f31a9f9ed897cbc0a37b485efa4c62ee9ebf78618d5d67ead90425264e8ab1e9",
     "origin": {
       "type": "vendor",
       "source": {
@@ -6066,6 +6066,7 @@
           "net": "NetC140A_2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC50A": {
@@ -6103,6 +6104,7 @@
           "net": "FMC1_P1"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC51A": {
@@ -6126,6 +6128,7 @@
       },
       "mpn": "74AHC1G04GW",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Single Inverter Buffer",
       "comment": "74AHC1G04GW"
     },
     "C127A": {
@@ -6135,6 +6138,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C128A": {
@@ -6144,6 +6148,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C140A": {
@@ -6153,6 +6158,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C141A": {
@@ -6162,6 +6168,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "D12A": {
@@ -6185,6 +6192,7 @@
       },
       "mpn": "PRTR5V0U2X",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Ultra Low Capacitance Double Rail-to-Rail ESD Protection Diode",
       "comment": "PRTR5V0U2X"
     },
     "R243A": {
@@ -6194,6 +6202,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R246A": {
@@ -6203,6 +6212,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R244A": {
@@ -6212,6 +6222,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "R245A": {
@@ -6221,6 +6232,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "C139A": {
@@ -6230,6 +6242,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R1A": {
@@ -6239,6 +6252,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "IC49B": {
@@ -6276,6 +6290,7 @@
           "net": "NetC140B_2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC50B": {
@@ -6313,6 +6328,7 @@
           "net": "FMC1_P2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC51B": {
@@ -6336,6 +6352,7 @@
       },
       "mpn": "74AHC1G04GW",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Single Inverter Buffer",
       "comment": "74AHC1G04GW"
     },
     "C127B": {
@@ -6345,6 +6362,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C128B": {
@@ -6354,6 +6372,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C140B": {
@@ -6363,6 +6382,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C141B": {
@@ -6372,6 +6392,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "D12B": {
@@ -6395,6 +6416,7 @@
       },
       "mpn": "PRTR5V0U2X",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Ultra Low Capacitance Double Rail-to-Rail ESD Protection Diode",
       "comment": "PRTR5V0U2X"
     },
     "R243B": {
@@ -6404,6 +6426,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R246B": {
@@ -6413,6 +6436,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R244B": {
@@ -6422,6 +6446,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "R245B": {
@@ -6431,6 +6456,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "C139B": {
@@ -6440,6 +6466,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R1B": {
@@ -6449,6 +6476,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "IC49C": {
@@ -6486,6 +6514,7 @@
           "net": "NetC140C_2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC50C": {
@@ -6523,6 +6552,7 @@
           "net": "FMC1_P3"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC51C": {
@@ -6546,6 +6576,7 @@
       },
       "mpn": "74AHC1G04GW",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Single Inverter Buffer",
       "comment": "74AHC1G04GW"
     },
     "C127C": {
@@ -6555,6 +6586,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C128C": {
@@ -6564,6 +6596,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C140C": {
@@ -6573,6 +6606,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C141C": {
@@ -6582,6 +6616,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "D12C": {
@@ -6605,6 +6640,7 @@
       },
       "mpn": "PRTR5V0U2X",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Ultra Low Capacitance Double Rail-to-Rail ESD Protection Diode",
       "comment": "PRTR5V0U2X"
     },
     "R243C": {
@@ -6614,6 +6650,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R246C": {
@@ -6623,6 +6660,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R244C": {
@@ -6632,6 +6670,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "R245C": {
@@ -6641,6 +6680,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "C139C": {
@@ -6650,6 +6690,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R1C": {
@@ -6659,6 +6700,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "IC49D": {
@@ -6696,6 +6738,7 @@
           "net": "NetC140D_2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC50D": {
@@ -6733,6 +6776,7 @@
           "net": "FMC1_P4"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC51D": {
@@ -6756,6 +6800,7 @@
       },
       "mpn": "74AHC1G04GW",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Single Inverter Buffer",
       "comment": "74AHC1G04GW"
     },
     "C127D": {
@@ -6765,6 +6810,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C128D": {
@@ -6774,6 +6820,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C140D": {
@@ -6783,6 +6830,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C141D": {
@@ -6792,6 +6840,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "D12D": {
@@ -6815,6 +6864,7 @@
       },
       "mpn": "PRTR5V0U2X",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Ultra Low Capacitance Double Rail-to-Rail ESD Protection Diode",
       "comment": "PRTR5V0U2X"
     },
     "R243D": {
@@ -6824,6 +6874,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R246D": {
@@ -6833,6 +6884,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R244D": {
@@ -6842,6 +6894,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "R245D": {
@@ -6851,6 +6904,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "C139D": {
@@ -6860,6 +6914,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R1D": {
@@ -6869,6 +6924,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "IC49E": {
@@ -6906,6 +6962,7 @@
           "net": "NetC140E_2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC50E": {
@@ -6943,6 +7000,7 @@
           "net": "FMC1_P5"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC51E": {
@@ -6966,6 +7024,7 @@
       },
       "mpn": "74AHC1G04GW",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Single Inverter Buffer",
       "comment": "74AHC1G04GW"
     },
     "C127E": {
@@ -6975,6 +7034,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C128E": {
@@ -6984,6 +7044,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C140E": {
@@ -6993,6 +7054,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C141E": {
@@ -7002,6 +7064,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "D12E": {
@@ -7025,6 +7088,7 @@
       },
       "mpn": "PRTR5V0U2X",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Ultra Low Capacitance Double Rail-to-Rail ESD Protection Diode",
       "comment": "PRTR5V0U2X"
     },
     "R243E": {
@@ -7034,6 +7098,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R246E": {
@@ -7043,6 +7108,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R244E": {
@@ -7052,6 +7118,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "R245E": {
@@ -7061,6 +7128,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "C139E": {
@@ -7070,6 +7138,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R1E": {
@@ -7079,6 +7148,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "IC49F": {
@@ -7116,6 +7186,7 @@
           "net": "NetC140F_2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC50F": {
@@ -7153,6 +7224,7 @@
           "net": "FMC1_P6"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC51F": {
@@ -7176,6 +7248,7 @@
       },
       "mpn": "74AHC1G04GW",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Single Inverter Buffer",
       "comment": "74AHC1G04GW"
     },
     "C127F": {
@@ -7185,6 +7258,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C128F": {
@@ -7194,6 +7268,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C140F": {
@@ -7203,6 +7278,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C141F": {
@@ -7212,6 +7288,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "D12F": {
@@ -7235,6 +7312,7 @@
       },
       "mpn": "PRTR5V0U2X",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Ultra Low Capacitance Double Rail-to-Rail ESD Protection Diode",
       "comment": "PRTR5V0U2X"
     },
     "R243F": {
@@ -7244,6 +7322,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R246F": {
@@ -7253,6 +7332,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R244F": {
@@ -7262,6 +7342,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "R245F": {
@@ -7271,6 +7352,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "C139F": {
@@ -7280,6 +7362,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R1F": {
@@ -7289,6 +7372,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "IC49G": {
@@ -7326,6 +7410,7 @@
           "net": "NetC140G_2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC50G": {
@@ -7363,6 +7448,7 @@
           "net": "FMC1_P7"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC51G": {
@@ -7386,6 +7472,7 @@
       },
       "mpn": "74AHC1G04GW",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Single Inverter Buffer",
       "comment": "74AHC1G04GW"
     },
     "C127G": {
@@ -7395,6 +7482,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C128G": {
@@ -7404,6 +7492,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C140G": {
@@ -7413,6 +7502,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C141G": {
@@ -7422,6 +7512,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "D12G": {
@@ -7445,6 +7536,7 @@
       },
       "mpn": "PRTR5V0U2X",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Ultra Low Capacitance Double Rail-to-Rail ESD Protection Diode",
       "comment": "PRTR5V0U2X"
     },
     "R243G": {
@@ -7454,6 +7546,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R246G": {
@@ -7463,6 +7556,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R244G": {
@@ -7472,6 +7566,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "R245G": {
@@ -7481,6 +7576,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "C139G": {
@@ -7490,6 +7586,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R1G": {
@@ -7499,6 +7596,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "IC49H": {
@@ -7536,6 +7634,7 @@
           "net": "NetC140H_2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC50H": {
@@ -7573,6 +7672,7 @@
           "net": "FMC1_P8"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC51H": {
@@ -7596,6 +7696,7 @@
       },
       "mpn": "74AHC1G04GW",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Single Inverter Buffer",
       "comment": "74AHC1G04GW"
     },
     "C127H": {
@@ -7605,6 +7706,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C128H": {
@@ -7614,6 +7716,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C140H": {
@@ -7623,6 +7726,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C141H": {
@@ -7632,6 +7736,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "D12H": {
@@ -7655,6 +7760,7 @@
       },
       "mpn": "PRTR5V0U2X",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Ultra Low Capacitance Double Rail-to-Rail ESD Protection Diode",
       "comment": "PRTR5V0U2X"
     },
     "R243H": {
@@ -7664,6 +7770,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R246H": {
@@ -7673,6 +7780,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R244H": {
@@ -7682,6 +7790,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "R245H": {
@@ -7691,6 +7800,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "C139H": {
@@ -7700,6 +7810,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R1H": {
@@ -7709,6 +7820,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "IC49I": {
@@ -7746,6 +7858,7 @@
           "net": "NetC140I_2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC50I": {
@@ -7783,6 +7896,7 @@
           "net": "FMC1_P9"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC51I": {
@@ -7806,6 +7920,7 @@
       },
       "mpn": "74AHC1G04GW",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Single Inverter Buffer",
       "comment": "74AHC1G04GW"
     },
     "C127I": {
@@ -7815,6 +7930,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C128I": {
@@ -7824,6 +7940,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C140I": {
@@ -7833,6 +7950,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C141I": {
@@ -7842,6 +7960,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "D12I": {
@@ -7865,6 +7984,7 @@
       },
       "mpn": "PRTR5V0U2X",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Ultra Low Capacitance Double Rail-to-Rail ESD Protection Diode",
       "comment": "PRTR5V0U2X"
     },
     "R243I": {
@@ -7874,6 +7994,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R246I": {
@@ -7883,6 +8004,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R244I": {
@@ -7892,6 +8014,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "R245I": {
@@ -7901,6 +8024,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "C139I": {
@@ -7910,6 +8034,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R1I": {
@@ -7919,6 +8044,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "IC49J": {
@@ -7956,6 +8082,7 @@
           "net": "NetC140J_2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC50J": {
@@ -7993,6 +8120,7 @@
           "net": "FMC1_P10"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC51J": {
@@ -8016,6 +8144,7 @@
       },
       "mpn": "74AHC1G04GW",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Single Inverter Buffer",
       "comment": "74AHC1G04GW"
     },
     "C127J": {
@@ -8025,6 +8154,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C128J": {
@@ -8034,6 +8164,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C140J": {
@@ -8043,6 +8174,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C141J": {
@@ -8052,6 +8184,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "D12J": {
@@ -8075,6 +8208,7 @@
       },
       "mpn": "PRTR5V0U2X",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Ultra Low Capacitance Double Rail-to-Rail ESD Protection Diode",
       "comment": "PRTR5V0U2X"
     },
     "R243J": {
@@ -8084,6 +8218,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R246J": {
@@ -8093,6 +8228,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R244J": {
@@ -8102,6 +8238,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "R245J": {
@@ -8111,6 +8248,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "C139J": {
@@ -8120,6 +8258,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R1J": {
@@ -8129,6 +8268,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "IC49K": {
@@ -8166,6 +8306,7 @@
           "net": "NetC140K_2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC50K": {
@@ -8203,6 +8344,7 @@
           "net": "FMC1_P11"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC51K": {
@@ -8226,6 +8368,7 @@
       },
       "mpn": "74AHC1G04GW",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Single Inverter Buffer",
       "comment": "74AHC1G04GW"
     },
     "C127K": {
@@ -8235,6 +8378,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C128K": {
@@ -8244,6 +8388,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C140K": {
@@ -8253,6 +8398,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C141K": {
@@ -8262,6 +8408,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "D12K": {
@@ -8285,6 +8432,7 @@
       },
       "mpn": "PRTR5V0U2X",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Ultra Low Capacitance Double Rail-to-Rail ESD Protection Diode",
       "comment": "PRTR5V0U2X"
     },
     "R243K": {
@@ -8294,6 +8442,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R246K": {
@@ -8303,6 +8452,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R244K": {
@@ -8312,6 +8462,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "R245K": {
@@ -8321,6 +8472,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "C139K": {
@@ -8330,6 +8482,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R1K": {
@@ -8339,6 +8492,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "IC49L": {
@@ -8376,6 +8530,7 @@
           "net": "NetC140L_2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC50L": {
@@ -8413,6 +8568,7 @@
           "net": "FMC1_P12"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC51L": {
@@ -8436,6 +8592,7 @@
       },
       "mpn": "74AHC1G04GW",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Single Inverter Buffer",
       "comment": "74AHC1G04GW"
     },
     "C127L": {
@@ -8445,6 +8602,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C128L": {
@@ -8454,6 +8612,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C140L": {
@@ -8463,6 +8622,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C141L": {
@@ -8472,6 +8632,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "D12L": {
@@ -8495,6 +8656,7 @@
       },
       "mpn": "PRTR5V0U2X",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Ultra Low Capacitance Double Rail-to-Rail ESD Protection Diode",
       "comment": "PRTR5V0U2X"
     },
     "R243L": {
@@ -8504,6 +8666,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R246L": {
@@ -8513,6 +8676,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R244L": {
@@ -8522,6 +8686,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "R245L": {
@@ -8531,6 +8696,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "C139L": {
@@ -8540,6 +8706,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R1L": {
@@ -8549,6 +8716,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "IC49M": {
@@ -8586,6 +8754,7 @@
           "net": "NetC140M_2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC50M": {
@@ -8623,6 +8792,7 @@
           "net": "FMC1_P13"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC51M": {
@@ -8646,6 +8816,7 @@
       },
       "mpn": "74AHC1G04GW",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Single Inverter Buffer",
       "comment": "74AHC1G04GW"
     },
     "C127M": {
@@ -8655,6 +8826,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C128M": {
@@ -8664,6 +8836,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C140M": {
@@ -8673,6 +8846,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C141M": {
@@ -8682,6 +8856,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "D12M": {
@@ -8705,6 +8880,7 @@
       },
       "mpn": "PRTR5V0U2X",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Ultra Low Capacitance Double Rail-to-Rail ESD Protection Diode",
       "comment": "PRTR5V0U2X"
     },
     "R243M": {
@@ -8714,6 +8890,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R246M": {
@@ -8723,6 +8900,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R244M": {
@@ -8732,6 +8910,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "R245M": {
@@ -8741,6 +8920,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "C139M": {
@@ -8750,6 +8930,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R1M": {
@@ -8759,6 +8940,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "IC49N": {
@@ -8796,6 +8978,7 @@
           "net": "NetC140N_2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC50N": {
@@ -8833,6 +9016,7 @@
           "net": "FMC1_P14"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC51N": {
@@ -8856,6 +9040,7 @@
       },
       "mpn": "74AHC1G04GW",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Single Inverter Buffer",
       "comment": "74AHC1G04GW"
     },
     "C127N": {
@@ -8865,6 +9050,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C128N": {
@@ -8874,6 +9060,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C140N": {
@@ -8883,6 +9070,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C141N": {
@@ -8892,6 +9080,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "D12N": {
@@ -8915,6 +9104,7 @@
       },
       "mpn": "PRTR5V0U2X",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Ultra Low Capacitance Double Rail-to-Rail ESD Protection Diode",
       "comment": "PRTR5V0U2X"
     },
     "R243N": {
@@ -8924,6 +9114,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R246N": {
@@ -8933,6 +9124,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R244N": {
@@ -8942,6 +9134,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "R245N": {
@@ -8951,6 +9144,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "C139N": {
@@ -8960,6 +9154,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R1N": {
@@ -8969,6 +9164,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "IC49O": {
@@ -9006,6 +9202,7 @@
           "net": "NetC140O_2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC50O": {
@@ -9043,6 +9240,7 @@
           "net": "FMC1_P15"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC51O": {
@@ -9066,6 +9264,7 @@
       },
       "mpn": "74AHC1G04GW",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Single Inverter Buffer",
       "comment": "74AHC1G04GW"
     },
     "C127O": {
@@ -9075,6 +9274,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C128O": {
@@ -9084,6 +9284,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C140O": {
@@ -9093,6 +9294,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C141O": {
@@ -9102,6 +9304,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "D12O": {
@@ -9125,6 +9328,7 @@
       },
       "mpn": "PRTR5V0U2X",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Ultra Low Capacitance Double Rail-to-Rail ESD Protection Diode",
       "comment": "PRTR5V0U2X"
     },
     "R243O": {
@@ -9134,6 +9338,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R246O": {
@@ -9143,6 +9348,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R244O": {
@@ -9152,6 +9358,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "R245O": {
@@ -9161,6 +9368,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "C139O": {
@@ -9170,6 +9378,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R1O": {
@@ -9179,6 +9388,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "IC49P": {
@@ -9216,6 +9426,7 @@
           "net": "NetC140P_2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC50P": {
@@ -9253,6 +9464,7 @@
           "net": "FMC1_P16"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC51P": {
@@ -9276,6 +9488,7 @@
       },
       "mpn": "74AHC1G04GW",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Single Inverter Buffer",
       "comment": "74AHC1G04GW"
     },
     "C127P": {
@@ -9285,6 +9498,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C128P": {
@@ -9294,6 +9508,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C140P": {
@@ -9303,6 +9518,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C141P": {
@@ -9312,6 +9528,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "D12P": {
@@ -9335,6 +9552,7 @@
       },
       "mpn": "PRTR5V0U2X",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Ultra Low Capacitance Double Rail-to-Rail ESD Protection Diode",
       "comment": "PRTR5V0U2X"
     },
     "R243P": {
@@ -9344,6 +9562,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R246P": {
@@ -9353,6 +9572,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R244P": {
@@ -9362,6 +9582,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "R245P": {
@@ -9371,6 +9592,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "C139P": {
@@ -9380,6 +9602,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R1P": {
@@ -9389,6 +9612,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "IC49Q": {
@@ -9426,6 +9650,7 @@
           "net": "NetC140Q_2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC50Q": {
@@ -9463,6 +9688,7 @@
           "net": "FMC1_P17"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC51Q": {
@@ -9486,6 +9712,7 @@
       },
       "mpn": "74AHC1G04GW",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Single Inverter Buffer",
       "comment": "74AHC1G04GW"
     },
     "C127Q": {
@@ -9495,6 +9722,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C128Q": {
@@ -9504,6 +9732,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C140Q": {
@@ -9513,6 +9742,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C141Q": {
@@ -9522,6 +9752,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "D12Q": {
@@ -9545,6 +9776,7 @@
       },
       "mpn": "PRTR5V0U2X",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Ultra Low Capacitance Double Rail-to-Rail ESD Protection Diode",
       "comment": "PRTR5V0U2X"
     },
     "R243Q": {
@@ -9554,6 +9786,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R246Q": {
@@ -9563,6 +9796,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R244Q": {
@@ -9572,6 +9806,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "R245Q": {
@@ -9581,6 +9816,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "C139Q": {
@@ -9590,6 +9826,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R1Q": {
@@ -9599,6 +9836,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "IC49R": {
@@ -9636,6 +9874,7 @@
           "net": "NetC140R_2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC50R": {
@@ -9673,6 +9912,7 @@
           "net": "FMC1_P18"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC51R": {
@@ -9696,6 +9936,7 @@
       },
       "mpn": "74AHC1G04GW",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Single Inverter Buffer",
       "comment": "74AHC1G04GW"
     },
     "C127R": {
@@ -9705,6 +9946,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C128R": {
@@ -9714,6 +9956,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C140R": {
@@ -9723,6 +9966,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C141R": {
@@ -9732,6 +9976,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "D12R": {
@@ -9755,6 +10000,7 @@
       },
       "mpn": "PRTR5V0U2X",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Ultra Low Capacitance Double Rail-to-Rail ESD Protection Diode",
       "comment": "PRTR5V0U2X"
     },
     "R243R": {
@@ -9764,6 +10010,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R246R": {
@@ -9773,6 +10020,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R244R": {
@@ -9782,6 +10030,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "R245R": {
@@ -9791,6 +10040,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "C139R": {
@@ -9800,6 +10050,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R1R": {
@@ -9809,6 +10060,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "IC49S": {
@@ -9846,6 +10098,7 @@
           "net": "NetC140S_2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC50S": {
@@ -9883,6 +10136,7 @@
           "net": "FMC1_P19"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC51S": {
@@ -9906,6 +10160,7 @@
       },
       "mpn": "74AHC1G04GW",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Single Inverter Buffer",
       "comment": "74AHC1G04GW"
     },
     "C127S": {
@@ -9915,6 +10170,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C128S": {
@@ -9924,6 +10180,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C140S": {
@@ -9933,6 +10190,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C141S": {
@@ -9942,6 +10200,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "D12S": {
@@ -9965,6 +10224,7 @@
       },
       "mpn": "PRTR5V0U2X",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Ultra Low Capacitance Double Rail-to-Rail ESD Protection Diode",
       "comment": "PRTR5V0U2X"
     },
     "R243S": {
@@ -9974,6 +10234,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R246S": {
@@ -9983,6 +10244,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R244S": {
@@ -9992,6 +10254,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "R245S": {
@@ -10001,6 +10264,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "C139S": {
@@ -10010,6 +10274,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R1S": {
@@ -10019,6 +10284,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "IC49T": {
@@ -10056,6 +10322,7 @@
           "net": "NetC140T_2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC50T": {
@@ -10093,6 +10360,7 @@
           "net": "FMC1_P20"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC51T": {
@@ -10116,6 +10384,7 @@
       },
       "mpn": "74AHC1G04GW",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Single Inverter Buffer",
       "comment": "74AHC1G04GW"
     },
     "C127T": {
@@ -10125,6 +10394,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C128T": {
@@ -10134,6 +10404,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C140T": {
@@ -10143,6 +10414,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C141T": {
@@ -10152,6 +10424,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "D12T": {
@@ -10175,6 +10448,7 @@
       },
       "mpn": "PRTR5V0U2X",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Ultra Low Capacitance Double Rail-to-Rail ESD Protection Diode",
       "comment": "PRTR5V0U2X"
     },
     "R243T": {
@@ -10184,6 +10458,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R246T": {
@@ -10193,6 +10468,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R244T": {
@@ -10202,6 +10478,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "R245T": {
@@ -10211,6 +10488,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "C139T": {
@@ -10220,6 +10498,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R1T": {
@@ -10229,6 +10508,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "IC49U": {
@@ -10266,6 +10546,7 @@
           "net": "NetC140U_2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC50U": {
@@ -10303,6 +10584,7 @@
           "net": "FMC1_P21"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC51U": {
@@ -10326,6 +10608,7 @@
       },
       "mpn": "74AHC1G04GW",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Single Inverter Buffer",
       "comment": "74AHC1G04GW"
     },
     "C127U": {
@@ -10335,6 +10618,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C128U": {
@@ -10344,6 +10628,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C140U": {
@@ -10353,6 +10638,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C141U": {
@@ -10362,6 +10648,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "D12U": {
@@ -10385,6 +10672,7 @@
       },
       "mpn": "PRTR5V0U2X",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Ultra Low Capacitance Double Rail-to-Rail ESD Protection Diode",
       "comment": "PRTR5V0U2X"
     },
     "R243U": {
@@ -10394,6 +10682,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R246U": {
@@ -10403,6 +10692,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R244U": {
@@ -10412,6 +10702,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "R245U": {
@@ -10421,6 +10712,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "C139U": {
@@ -10430,6 +10722,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R1U": {
@@ -10439,6 +10732,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "IC49V": {
@@ -10476,6 +10770,7 @@
           "net": "NetC140V_2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC50V": {
@@ -10513,6 +10808,7 @@
           "net": "FMC1_P22"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC51V": {
@@ -10536,6 +10832,7 @@
       },
       "mpn": "74AHC1G04GW",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Single Inverter Buffer",
       "comment": "74AHC1G04GW"
     },
     "C127V": {
@@ -10545,6 +10842,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C128V": {
@@ -10554,6 +10852,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C140V": {
@@ -10563,6 +10862,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C141V": {
@@ -10572,6 +10872,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "D12V": {
@@ -10595,6 +10896,7 @@
       },
       "mpn": "PRTR5V0U2X",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Ultra Low Capacitance Double Rail-to-Rail ESD Protection Diode",
       "comment": "PRTR5V0U2X"
     },
     "R243V": {
@@ -10604,6 +10906,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R246V": {
@@ -10613,6 +10916,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R244V": {
@@ -10622,6 +10926,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "R245V": {
@@ -10631,6 +10936,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "C139V": {
@@ -10640,6 +10946,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R1V": {
@@ -10649,6 +10956,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "IC49W": {
@@ -10686,6 +10994,7 @@
           "net": "NetC140W_2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC50W": {
@@ -10723,6 +11032,7 @@
           "net": "FMC1_P23"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC51W": {
@@ -10746,6 +11056,7 @@
       },
       "mpn": "74AHC1G04GW",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Single Inverter Buffer",
       "comment": "74AHC1G04GW"
     },
     "C127W": {
@@ -10755,6 +11066,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C128W": {
@@ -10764,6 +11076,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C140W": {
@@ -10773,6 +11086,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C141W": {
@@ -10782,6 +11096,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "D12W": {
@@ -10805,6 +11120,7 @@
       },
       "mpn": "PRTR5V0U2X",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Ultra Low Capacitance Double Rail-to-Rail ESD Protection Diode",
       "comment": "PRTR5V0U2X"
     },
     "R243W": {
@@ -10814,6 +11130,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R246W": {
@@ -10823,6 +11140,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R244W": {
@@ -10832,6 +11150,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "R245W": {
@@ -10841,6 +11160,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "C139W": {
@@ -10850,6 +11170,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R1W": {
@@ -10859,6 +11180,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "IC49X": {
@@ -10896,6 +11218,7 @@
           "net": "NetC140X_2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC50X": {
@@ -10933,6 +11256,7 @@
           "net": "FMC1_P24"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC51X": {
@@ -10956,6 +11280,7 @@
       },
       "mpn": "74AHC1G04GW",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Single Inverter Buffer",
       "comment": "74AHC1G04GW"
     },
     "C127X": {
@@ -10965,6 +11290,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C128X": {
@@ -10974,6 +11300,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C140X": {
@@ -10983,6 +11310,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C141X": {
@@ -10992,6 +11320,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "D12X": {
@@ -11015,6 +11344,7 @@
       },
       "mpn": "PRTR5V0U2X",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Ultra Low Capacitance Double Rail-to-Rail ESD Protection Diode",
       "comment": "PRTR5V0U2X"
     },
     "R243X": {
@@ -11024,6 +11354,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R246X": {
@@ -11033,6 +11364,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R244X": {
@@ -11042,6 +11374,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "R245X": {
@@ -11051,6 +11384,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "C139X": {
@@ -11060,6 +11394,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R1X": {
@@ -11069,6 +11404,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "IC49Y": {
@@ -11106,6 +11442,7 @@
           "net": "NetC140Y_2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC50Y": {
@@ -11143,6 +11480,7 @@
           "net": "FMC1_P25"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC51Y": {
@@ -11166,6 +11504,7 @@
       },
       "mpn": "74AHC1G04GW",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Single Inverter Buffer",
       "comment": "74AHC1G04GW"
     },
     "C127Y": {
@@ -11175,6 +11514,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C128Y": {
@@ -11184,6 +11524,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C140Y": {
@@ -11193,6 +11534,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C141Y": {
@@ -11202,6 +11544,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "D12Y": {
@@ -11225,6 +11568,7 @@
       },
       "mpn": "PRTR5V0U2X",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Ultra Low Capacitance Double Rail-to-Rail ESD Protection Diode",
       "comment": "PRTR5V0U2X"
     },
     "R243Y": {
@@ -11234,6 +11578,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R246Y": {
@@ -11243,6 +11588,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R244Y": {
@@ -11252,6 +11598,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "R245Y": {
@@ -11261,6 +11608,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "C139Y": {
@@ -11270,6 +11618,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R1Y": {
@@ -11279,6 +11628,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "IC49Z": {
@@ -11316,6 +11666,7 @@
           "net": "NetC140Z_2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC50Z": {
@@ -11353,6 +11704,7 @@
           "net": "FMC1_P26"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC51Z": {
@@ -11376,6 +11728,7 @@
       },
       "mpn": "74AHC1G04GW",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Single Inverter Buffer",
       "comment": "74AHC1G04GW"
     },
     "C127Z": {
@@ -11385,6 +11738,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C128Z": {
@@ -11394,6 +11748,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C140Z": {
@@ -11403,6 +11758,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C141Z": {
@@ -11412,6 +11768,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "D12Z": {
@@ -11435,6 +11792,7 @@
       },
       "mpn": "PRTR5V0U2X",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Ultra Low Capacitance Double Rail-to-Rail ESD Protection Diode",
       "comment": "PRTR5V0U2X"
     },
     "R243Z": {
@@ -11444,6 +11802,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R246Z": {
@@ -11453,6 +11812,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R244Z": {
@@ -11462,6 +11822,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "R245Z": {
@@ -11471,6 +11832,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "C139Z": {
@@ -11480,6 +11842,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R1Z": {
@@ -11489,6 +11852,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "IC49[": {
@@ -11526,6 +11890,7 @@
           "net": "NetC140[_2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC50[": {
@@ -11563,6 +11928,7 @@
           "net": "FMC1_P27"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC51[": {
@@ -11586,6 +11952,7 @@
       },
       "mpn": "74AHC1G04GW",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Single Inverter Buffer",
       "comment": "74AHC1G04GW"
     },
     "C127[": {
@@ -11595,6 +11962,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C128[": {
@@ -11604,6 +11972,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C140[": {
@@ -11613,6 +11982,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C141[": {
@@ -11622,6 +11992,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "D12[": {
@@ -11645,6 +12016,7 @@
       },
       "mpn": "PRTR5V0U2X",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Ultra Low Capacitance Double Rail-to-Rail ESD Protection Diode",
       "comment": "PRTR5V0U2X"
     },
     "R243[": {
@@ -11654,6 +12026,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R246[": {
@@ -11663,6 +12036,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R244[": {
@@ -11672,6 +12046,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "R245[": {
@@ -11681,6 +12056,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "C139[": {
@@ -11690,6 +12066,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R1[": {
@@ -11699,6 +12076,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "IC49\\": {
@@ -11736,6 +12114,7 @@
           "net": "NetC140\\_2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC50\\": {
@@ -11773,6 +12152,7 @@
           "net": "FMC1_P28"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC51\\": {
@@ -11796,6 +12176,7 @@
       },
       "mpn": "74AHC1G04GW",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Single Inverter Buffer",
       "comment": "74AHC1G04GW"
     },
     "C127\\": {
@@ -11805,6 +12186,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C128\\": {
@@ -11814,6 +12196,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C140\\": {
@@ -11823,6 +12206,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C141\\": {
@@ -11832,6 +12216,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "D12\\": {
@@ -11855,6 +12240,7 @@
       },
       "mpn": "PRTR5V0U2X",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Ultra Low Capacitance Double Rail-to-Rail ESD Protection Diode",
       "comment": "PRTR5V0U2X"
     },
     "R243\\": {
@@ -11864,6 +12250,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R246\\": {
@@ -11873,6 +12260,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R244\\": {
@@ -11882,6 +12270,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "R245\\": {
@@ -11891,6 +12280,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "C139\\": {
@@ -11900,6 +12290,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R1\\": {
@@ -11909,6 +12300,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "IC49]": {
@@ -11946,6 +12338,7 @@
           "net": "NetC140]_2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC50]": {
@@ -11983,6 +12376,7 @@
           "net": "FMC1_P29"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC51]": {
@@ -12006,6 +12400,7 @@
       },
       "mpn": "74AHC1G04GW",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Single Inverter Buffer",
       "comment": "74AHC1G04GW"
     },
     "C127]": {
@@ -12015,6 +12410,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C128]": {
@@ -12024,6 +12420,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C140]": {
@@ -12033,6 +12430,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C141]": {
@@ -12042,6 +12440,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "D12]": {
@@ -12065,6 +12464,7 @@
       },
       "mpn": "PRTR5V0U2X",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Ultra Low Capacitance Double Rail-to-Rail ESD Protection Diode",
       "comment": "PRTR5V0U2X"
     },
     "R243]": {
@@ -12074,6 +12474,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R246]": {
@@ -12083,6 +12484,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R244]": {
@@ -12092,6 +12494,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "R245]": {
@@ -12101,6 +12504,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "C139]": {
@@ -12110,6 +12514,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R1]": {
@@ -12119,6 +12524,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "IC49^": {
@@ -12156,6 +12562,7 @@
           "net": "NetC140^_2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC50^": {
@@ -12193,6 +12600,7 @@
           "net": "FMC1_P30"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC51^": {
@@ -12216,6 +12624,7 @@
       },
       "mpn": "74AHC1G04GW",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Single Inverter Buffer",
       "comment": "74AHC1G04GW"
     },
     "C127^": {
@@ -12225,6 +12634,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C128^": {
@@ -12234,6 +12644,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C140^": {
@@ -12243,6 +12654,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C141^": {
@@ -12252,6 +12664,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "D12^": {
@@ -12275,6 +12688,7 @@
       },
       "mpn": "PRTR5V0U2X",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Ultra Low Capacitance Double Rail-to-Rail ESD Protection Diode",
       "comment": "PRTR5V0U2X"
     },
     "R243^": {
@@ -12284,6 +12698,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R246^": {
@@ -12293,6 +12708,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R244^": {
@@ -12302,6 +12718,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "R245^": {
@@ -12311,6 +12728,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "C139^": {
@@ -12320,6 +12738,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R1^": {
@@ -12329,6 +12748,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "IC49_": {
@@ -12366,6 +12786,7 @@
           "net": "NetC140__2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC50_": {
@@ -12403,6 +12824,7 @@
           "net": "FMC1_P31"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC51_": {
@@ -12426,6 +12848,7 @@
       },
       "mpn": "74AHC1G04GW",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Single Inverter Buffer",
       "comment": "74AHC1G04GW"
     },
     "C127_": {
@@ -12435,6 +12858,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C128_": {
@@ -12444,6 +12868,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C140_": {
@@ -12453,6 +12878,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C141_": {
@@ -12462,6 +12888,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "D12_": {
@@ -12485,6 +12912,7 @@
       },
       "mpn": "PRTR5V0U2X",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Ultra Low Capacitance Double Rail-to-Rail ESD Protection Diode",
       "comment": "PRTR5V0U2X"
     },
     "R243_": {
@@ -12494,6 +12922,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R246_": {
@@ -12503,6 +12932,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R244_": {
@@ -12512,6 +12942,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "R245_": {
@@ -12521,6 +12952,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "C139_": {
@@ -12530,6 +12962,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R1_": {
@@ -12539,6 +12972,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "IC49`": {
@@ -12576,6 +13010,7 @@
           "net": "NetC140`_2"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC50`": {
@@ -12613,6 +13048,7 @@
           "net": "FMC1_P32"
         }
       },
+      "description": "LVDS TO LVDS repeater3.3V",
       "comment": "FIN1101K8X"
     },
     "IC51`": {
@@ -12636,6 +13072,7 @@
       },
       "mpn": "74AHC1G04GW",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Single Inverter Buffer",
       "comment": "74AHC1G04GW"
     },
     "C127`": {
@@ -12645,6 +13082,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C128`": {
@@ -12654,6 +13092,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C140`": {
@@ -12663,6 +13102,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C141`": {
@@ -12672,6 +13112,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "D12`": {
@@ -12695,6 +13136,7 @@
       },
       "mpn": "PRTR5V0U2X",
       "manufacturer": "NXP SEMICONDUCTORS",
+      "description": "Ultra Low Capacitance Double Rail-to-Rail ESD Protection Diode",
       "comment": "PRTR5V0U2X"
     },
     "R243`": {
@@ -12704,6 +13146,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R246`": {
@@ -12713,6 +13156,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R244`": {
@@ -12722,6 +13166,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "R245`": {
@@ -12731,6 +13176,7 @@
       },
       "mpn": "R0402_49R9_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "49R9"
     },
     "C139`": {
@@ -12740,6 +13186,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R1`": {
@@ -12749,6 +13196,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "J40": {
@@ -12916,30 +13364,37 @@
       },
       "mpn": "ASP-134488-01",
       "manufacturer": "SAMTEC",
+      "description": "Connector VITA 57, 160 Male contacts in 4 row cdgh",
       "comment": "VITA 57"
     },
     "FTG7": {
       "pins": {},
+      "description": "Fiducial Target",
       "comment": "Use only in PCB"
     },
     "FTG8": {
       "pins": {},
+      "description": "Fiducial Target",
       "comment": "Use only in PCB"
     },
     "FTG9": {
       "pins": {},
+      "description": "Fiducial Target",
       "comment": "Use only in PCB"
     },
     "FTG10": {
       "pins": {},
+      "description": "Fiducial Target",
       "comment": "Use only in PCB"
     },
     "FTG11": {
       "pins": {},
+      "description": "Fiducial Target",
       "comment": "Use only in PCB"
     },
     "FTG12": {
       "pins": {},
+      "description": "Fiducial Target",
       "comment": "Use only in PCB"
     },
     "IC61": {
@@ -12983,6 +13438,7 @@
       },
       "mpn": "24AA64T-I/MC",
       "manufacturer": "MICROCHIP TECHNOLOGY",
+      "description": "1.7-5.5V 64K I2C Serial EEPROM",
       "comment": "24AA64T-I/MC"
     },
     "IC62": {
@@ -13022,6 +13478,7 @@
       },
       "mpn": "MCP9801-M/MS",
       "manufacturer": "MICROCHIP TECHNOLOGIY",
+      "description": "2-Wire High-Accuracy Temperature Sensor",
       "comment": "MCP9801-M/MS"
     },
     "C165": {
@@ -13031,6 +13488,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C166": {
@@ -13040,6 +13498,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "J42": {
@@ -13117,6 +13576,7 @@
       },
       "mpn": "71430-0013",
       "manufacturer": "MOLEX",
+      "description": "Very High Density Cable Interconnect (VHDCI ) 68 Female",
       "comment": "DNP",
       "dns": true
     },
@@ -13189,6 +13649,7 @@
       },
       "mpn": "SN74LV595APWT",
       "manufacturer": "TEXAS INSTRUMENTS",
+      "description": "8-Bit Shift Register With 3-State Output Register",
       "comment": "SN74LV595APWT"
     },
     "IC57": {
@@ -13260,6 +13721,7 @@
       },
       "mpn": "SN74LV595APWT",
       "manufacturer": "TEXAS INSTRUMENTS",
+      "description": "8-Bit Shift Register With 3-State Output Register",
       "comment": "SN74LV595APWT"
     },
     "IC58": {
@@ -13331,6 +13793,7 @@
       },
       "mpn": "SN74LV595APWT",
       "manufacturer": "TEXAS INSTRUMENTS",
+      "description": "8-Bit Shift Register With 3-State Output Register",
       "comment": "SN74LV595APWT"
     },
     "IC59": {
@@ -13402,6 +13865,7 @@
       },
       "mpn": "SN74LV595APWT",
       "manufacturer": "TEXAS INSTRUMENTS",
+      "description": "8-Bit Shift Register With 3-State Output Register",
       "comment": "SN74LV595APWT"
     },
     "R256": {
@@ -13411,6 +13875,7 @@
       },
       "mpn": "R0402_47K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "47k"
     },
     "R257": {
@@ -13420,6 +13885,7 @@
       },
       "mpn": "R0402_47K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "47k"
     },
     "R258": {
@@ -13429,6 +13895,7 @@
       },
       "mpn": "R0402_47K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "47k"
     },
     "R259": {
@@ -13438,6 +13905,7 @@
       },
       "mpn": "R0402_47K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "47k"
     },
     "R260": {
@@ -13447,6 +13915,7 @@
       },
       "mpn": "R0402_47K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "47k"
     },
     "R261": {
@@ -13456,6 +13925,7 @@
       },
       "mpn": "R0402_47K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "47k"
     },
     "R262": {
@@ -13465,6 +13935,7 @@
       },
       "mpn": "R0402_47K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "47k"
     },
     "R263": {
@@ -13474,6 +13945,7 @@
       },
       "mpn": "R0402_47K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "47k"
     },
     "R264": {
@@ -13483,6 +13955,7 @@
       },
       "mpn": "R0402_47K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "47k"
     },
     "R269": {
@@ -13492,6 +13965,7 @@
       },
       "mpn": "R0402_47K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "47k"
     },
     "R274": {
@@ -13501,6 +13975,7 @@
       },
       "mpn": "R0402_47K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "47k"
     },
     "R279": {
@@ -13510,6 +13985,7 @@
       },
       "mpn": "R0402_47K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "47k"
     },
     "R284": {
@@ -13519,6 +13995,7 @@
       },
       "mpn": "R0402_47K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "47k"
     },
     "R289": {
@@ -13528,6 +14005,7 @@
       },
       "mpn": "R0402_47K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "47k"
     },
     "R290": {
@@ -13537,6 +14015,7 @@
       },
       "mpn": "R0402_47K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "47k"
     },
     "R291": {
@@ -13546,6 +14025,7 @@
       },
       "mpn": "R0402_47K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "47k"
     },
     "R292": {
@@ -13555,6 +14035,7 @@
       },
       "mpn": "R0402_47K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "47k"
     },
     "R293": {
@@ -13564,6 +14045,7 @@
       },
       "mpn": "R0402_47K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "47k"
     },
     "R294": {
@@ -13573,6 +14055,7 @@
       },
       "mpn": "R0402_47K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "47k"
     },
     "R295": {
@@ -13582,6 +14065,7 @@
       },
       "mpn": "R0402_47K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "47k"
     },
     "R296": {
@@ -13591,6 +14075,7 @@
       },
       "mpn": "R0402_47K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "47k"
     },
     "R297": {
@@ -13600,6 +14085,7 @@
       },
       "mpn": "R0402_47K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "47k"
     },
     "R298": {
@@ -13609,6 +14095,7 @@
       },
       "mpn": "R0402_47K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "47k"
     },
     "R299": {
@@ -13618,6 +14105,7 @@
       },
       "mpn": "R0402_47K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "47k"
     },
     "R300": {
@@ -13627,6 +14115,7 @@
       },
       "mpn": "R0402_47K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "47k"
     },
     "R301": {
@@ -13636,6 +14125,7 @@
       },
       "mpn": "R0402_47K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "47k"
     },
     "R302": {
@@ -13645,6 +14135,7 @@
       },
       "mpn": "R0402_47K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "47k"
     },
     "R303": {
@@ -13654,6 +14145,7 @@
       },
       "mpn": "R0402_47K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "47k"
     },
     "R304": {
@@ -13663,6 +14155,7 @@
       },
       "mpn": "R0402_47K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "47k"
     },
     "R305": {
@@ -13672,6 +14165,7 @@
       },
       "mpn": "R0402_47K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "47k"
     },
     "R306": {
@@ -13681,6 +14175,7 @@
       },
       "mpn": "R0402_47K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "47k"
     },
     "R307": {
@@ -13690,6 +14185,7 @@
       },
       "mpn": "R0402_47K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "47k"
     },
     "R255": {
@@ -13699,6 +14195,7 @@
       },
       "mpn": "R0402_100R_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "100"
     },
     "R254": {
@@ -13708,6 +14205,7 @@
       },
       "mpn": "R0402_100R_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "100"
     },
     "C153": {
@@ -13717,6 +14215,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C154": {
@@ -13726,6 +14225,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C155": {
@@ -13735,6 +14235,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C156": {
@@ -13744,6 +14245,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C152": {
@@ -13753,6 +14255,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "IC60": {
@@ -13790,6 +14293,7 @@
           "net": "3P3VAUX"
         }
       },
+      "description": "HOT SWAPPABLE 2-WIRE BUS BUFFERS",
       "comment": "TCA4311ADGKR"
     },
     "R310": {
@@ -13799,6 +14303,7 @@
       },
       "mpn": "R0402_10K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "10k"
     },
     "R311": {
@@ -13808,6 +14313,7 @@
       },
       "mpn": "R0402_10K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "10k"
     },
     "R312": {
@@ -13817,6 +14323,7 @@
       },
       "mpn": "R0402_10K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "10k"
     },
     "C163": {
@@ -13826,6 +14333,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X7R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R309": {
@@ -13835,6 +14343,7 @@
       },
       "mpn": "R0402_100K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "100k"
     },
     "C164": {
@@ -13844,6 +14353,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X7R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R308": {
@@ -13853,6 +14363,7 @@
       },
       "mpn": "R0402_100K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "100k"
     },
     "J41": {
@@ -13880,6 +14391,7 @@
       },
       "mpn": "46765-1001",
       "manufacturer": "MOLEX",
+      "description": "Connector HDMI 19 Male + 1 Shield",
       "comment": "HDMI"
     },
     "R267": {
@@ -13889,6 +14401,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R272": {
@@ -13898,6 +14411,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R277": {
@@ -13907,6 +14421,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R282": {
@@ -13916,6 +14431,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R287": {
@@ -13925,6 +14441,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R266": {
@@ -13934,6 +14451,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R271": {
@@ -13943,6 +14461,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R276": {
@@ -13952,6 +14471,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R281": {
@@ -13961,6 +14481,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R286": {
@@ -13970,6 +14491,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R268": {
@@ -13979,6 +14501,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R273": {
@@ -13988,6 +14511,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R278": {
@@ -13997,6 +14521,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R283": {
@@ -14006,6 +14531,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R288": {
@@ -14015,6 +14541,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R265": {
@@ -14024,6 +14551,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R270": {
@@ -14033,6 +14561,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R275": {
@@ -14042,6 +14571,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R280": {
@@ -14051,6 +14581,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "R285": {
@@ -14060,6 +14591,7 @@
       },
       "mpn": "R0402_0R_JUMPER",
       "manufacturer": "GENERIC",
+      "description": "Resistor",
       "value": "0"
     },
     "C157": {
@@ -14069,6 +14601,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X7R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C158": {
@@ -14078,6 +14611,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X7R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C159": {
@@ -14087,6 +14621,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X7R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C160": {
@@ -14096,6 +14631,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X7R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C161": {
@@ -14105,6 +14641,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X7R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C162": {
@@ -14114,6 +14651,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X7R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "F6": {
@@ -14123,6 +14661,7 @@
       },
       "mpn": "miniSMDC014F",
       "manufacturer": "TYCO ELECTRONICS",
+      "description": "Fuse",
       "value": "140mA-60V"
     },
     "R251": {
@@ -14132,6 +14671,7 @@
       },
       "mpn": "R0402_10K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "10k"
     },
     "R253": {
@@ -14141,6 +14681,7 @@
       },
       "mpn": "R0402_10K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "10k"
     },
     "C147": {
@@ -14150,6 +14691,7 @@
       },
       "mpn": "CC1206_22UF_10V_10%_X7R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "22uF"
     },
     "C148": {
@@ -14159,6 +14701,7 @@
       },
       "mpn": "CC1206_22UF_10V_10%_X7R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "22uF"
     },
     "C150": {
@@ -14168,6 +14711,7 @@
       },
       "mpn": "CC0402_15PF_50V_5%_NP0",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "15pF"
     },
     "R252": {
@@ -14177,6 +14721,7 @@
       },
       "mpn": "R0402_10R_1%_0.0625W_200PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "10"
     },
     "IC55": {
@@ -14228,6 +14773,7 @@
       },
       "mpn": "TPS51200DRCT",
       "manufacturer": "TEXAS INSTRUMENTS",
+      "description": "Sink/Source DDR Termination Regulator",
       "comment": "TPS51200DRCT"
     },
     "C151": {
@@ -14237,6 +14783,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C149": {
@@ -14246,6 +14793,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C146": {
@@ -14255,6 +14803,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X5R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "F7": {
@@ -14264,30 +14813,35 @@
       },
       "mpn": "miniSMDC014F",
       "manufacturer": "TYCO ELECTRONICS",
+      "description": "Fuse",
       "value": "140mA-60V"
     },
     "B9": {
       "pins": {
         "1": "GND"
       },
+      "description": "Single Terminal Socket",
       "comment": "Plated Hole"
     },
     "B8": {
       "pins": {
         "1": "GND"
       },
+      "description": "Single Terminal Socket",
       "comment": "Plated Hole"
     },
     "B10": {
       "pins": {
         "1": "GND"
       },
+      "description": "Single Terminal Socket",
       "comment": "Plated Hole"
     },
     "B11": {
       "pins": {
         "1": "GND"
       },
+      "description": "Single Terminal Socket",
       "comment": "Plated Hole"
     },
     "C1": {
@@ -14297,6 +14851,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X7R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "C2": {
@@ -14306,6 +14861,7 @@
       },
       "mpn": "CC0402_100NF_16V_10%_X7R",
       "manufacturer": "GENERIC",
+      "description": "Non-polarised capacitor",
       "value": "100nF"
     },
     "R2": {
@@ -14315,6 +14871,7 @@
       },
       "mpn": "R0402_10K_1%_0.0625W_100PPM",
       "manufacturer": "GENERIC",
+      "description": "Resistor - 1%",
       "value": "10k"
     },
     "IC1": {
@@ -14370,6 +14927,7 @@
       },
       "mpn": "TXB0304RUTR",
       "manufacturer": "TEXAS INSTRUMENTS",
+      "description": "4-bit Bidirectional Auto-direction Sensing Translator with Fully Symmetric 0.9V to 3.6V Range",
       "comment": "TXB0304RUTR"
     }
   }

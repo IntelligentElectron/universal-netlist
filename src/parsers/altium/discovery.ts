@@ -115,7 +115,7 @@ const walkForAltiumFiles = async (
 
     for (const entry of entries) {
       // macOS writes AppleDouble sidecars (`._name`) beside real files on network
-      // volumes (NFS/SMB). They are metadata, never designs — skip files and dirs alike.
+      // volumes (NFS/SMB). They are metadata, never designs, whether files or directories.
       if (entry.name.startsWith("._")) continue;
 
       const fullPath = path.join(currentDir, entry.name);
@@ -235,23 +235,6 @@ export const findAltiumSchDocs = async (projectPath: string): Promise<string[]> 
 export const isAltiumFile = (filePath: string): boolean => {
   const ext = path.extname(filePath).toLowerCase();
   return ALTIUM_EXTENSIONS.includes(ext as (typeof ALTIUM_EXTENSIONS)[number]);
-};
-
-/**
- * Find the PrjPCBStructure file alongside a project file.
- * Returns the path if found, undefined otherwise.
- */
-export const findStructureFile = async (projectPath: string): Promise<string | undefined> => {
-  const projectDir = path.dirname(projectPath);
-  const baseName = path.basename(projectPath, path.extname(projectPath));
-  const structurePath = path.join(projectDir, `${baseName}.PrjPCBStructure`);
-
-  try {
-    await readFile(structurePath, "utf-8");
-    return structurePath;
-  } catch {
-    return undefined;
-  }
 };
 
 /** Altium file extensions */

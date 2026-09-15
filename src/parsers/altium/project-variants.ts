@@ -1,39 +1,17 @@
 /**
- * Altium design variants stored in a text `.PrjPcb` project file.
- *
- * The project owns the fitted/not-fitted state, alternate-part choices, and
- * per-part parameter overrides. `.PrjPcbVariants` is a compound sidecar that
- * stores the alternate parts' symbol data; the rows that say which part a
- * variant fits are in the project file itself.
- *
- * Read from real projects (see docs/altium-format.md):
- *
- *   [ProjectVariant2]
- *   Description=ADS125H01
- *   AllowFabrication=0
- *   VariationCount=148
- *   Variation1=Designator=D1_CH1|UniqueId=\1PMVAVRRX\COEUSLRK|Kind=1|AlternatePart=
- *   Variation60=Designator=R94|UniqueId=\QHTSDXVH\AWXOAPPG|Kind=2|AlternatePart==Value|AltLibLink_DesignItemID=CRG0805F12K|...
- *   ParamVariation1=ParameterName=Comment|VariantValue==Value
- *   ParamDesignator1=R94
- *   ParamVariation20=ParameterName=Value|VariantValue=12k
- *   ParamDesignator20=R94
- *
- * `Kind` is 0 for an explicit Fitted override, 1 for Not Fitted, and 2 for an
- * alternate part. Each `ParamVariationN` row is paired with the part it changes
- * by the `ParamDesignatorN` row of the same number.
+ * Design variants, written in the `.PrjPcb` as `[ProjectVariantN]` sections: each
+ * `VariationN` row fits, removes (`Kind=1`) or substitutes (`Kind=2`) one part, and each
+ * `ParamVariationN` row overrides a parameter of the part its `ParamDesignatorN` names.
  */
 
 import { readFile } from "node:fs/promises";
 import type { ComponentDetails, DesignVariant } from "../../types.js";
 import { DEFAULT_VARIANT, findVariant, isDefaultVariant } from "../variants.js";
 
-/** Altium's native row kinds. */
-export const ALTIUM_KIND_FITTED = 0;
-export const ALTIUM_KIND_NOT_FITTED = 1;
-export const ALTIUM_KIND_ALTERNATE_PART = 2;
+const KIND_NOT_FITTED = 1;
+const KIND_ALTERNATE_PART = 2;
 
-export interface AltiumComponentVariation {
+interface AltiumComponentVariation {
   designator: string;
   uniqueId?: string;
   /** Altium's native kind: 0 Fitted, 1 Not Fitted, 2 Alternate Part. */
@@ -44,7 +22,7 @@ export interface AltiumComponentVariation {
   parameters: Record<string, string>;
 }
 
-export interface AltiumProjectVariant extends DesignVariant {
+interface AltiumProjectVariant extends DesignVariant {
   variations: AltiumComponentVariation[];
 }
 
@@ -189,11 +167,7 @@ export const listAltiumVariants = async (projectPath: string): Promise<DesignVar
     ...(fabrication !== undefined ? { fabrication } : {}),
   }));
 
-/**
- * Parameter names Altium writes that map onto Universal Netlist fields. The
- * mapping is the one the schematic parser applies to a part's own parameters,
- * so a variant override lands in the same field the base value came from.
- */
+/** The component field each parameter name overrides. */
 const PARAMETER_FIELDS: Record<string, "value" | "description" | "manufacturer" | "mpn"> = {
   value: "value",
   description: "description",
@@ -218,8 +192,7 @@ const applyParameterOverrides = (
     const field = PARAMETER_FIELDS[key];
     if (field) component[field] = value;
   }
-  // `=Value` is Altium's expression for "show the Value parameter", which the
-  // base parser also resolves; a comment equal to the value is not reported.
+  // `=Value` shows the Value parameter; a comment equal to the value is not reported.
   if (comment !== undefined) {
     const resolved = comment === "=Value" ? component.value : comment;
     if (resolved && resolved !== component.value) component.comment = resolved;
@@ -248,11 +221,11 @@ export const applyAltiumVariant = (
   for (const variation of variant.variations) {
     const component = componentsByName.get(variation.designator.toLowerCase());
     if (!component) continue;
-    if (variation.kind === ALTIUM_KIND_NOT_FITTED) {
+    if (variation.kind === KIND_NOT_FITTED) {
       component.dns = true;
       continue;
     }
-    if (variation.kind === ALTIUM_KIND_ALTERNATE_PART) component.alternate_part = true;
+    if (variation.kind === KIND_ALTERNATE_PART) component.alternate_part = true;
     applyParameterOverrides(component, variation.parameters);
   }
 };

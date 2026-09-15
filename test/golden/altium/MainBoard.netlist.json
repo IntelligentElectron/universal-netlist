@@ -1,0 +1,2321 @@
+{
+  "universalNetlistSchemaVersion": 2,
+  "metadata": {
+    "generatedAt": "2026-09-15T00:06:21.588Z",
+    "netlistHash": "sha256:155e3b409dca071f9a875749fe5d0b301a4bce38d0b54ab24e250cd7c9863e86",
+    "origin": {
+      "type": "vendor",
+      "source": {
+        "vendor": "Altium",
+        "fileType": ".prjpcb"
+      }
+    }
+  },
+  "nets": {
+    "+DC_link": {
+      "C4": [
+        "1"
+      ],
+      "C5": [
+        "1"
+      ],
+      "C2": [
+        "1"
+      ],
+      "C1": [
+        "1"
+      ],
+      "C6": [
+        "1"
+      ],
+      "R1": [
+        "2"
+      ],
+      "C22": [
+        "1"
+      ],
+      "J1": [
+        "1"
+      ],
+      "D2": [
+        "2"
+      ],
+      "HS1A": [
+        "2"
+      ],
+      "HS2A": [
+        "2"
+      ],
+      "TP9A": [
+        "1"
+      ],
+      "TP4A": [
+        "1"
+      ],
+      "HS1B": [
+        "2"
+      ],
+      "HS2B": [
+        "2"
+      ],
+      "TP9B": [
+        "1"
+      ],
+      "TP4B": [
+        "1"
+      ],
+      "D_HSA": [
+        "1"
+      ],
+      "D_HSB": [
+        "1"
+      ]
+    },
+    "-DC_link": {
+      "C4": [
+        "2"
+      ],
+      "C5": [
+        "2"
+      ],
+      "C7": [
+        "2"
+      ],
+      "C8": [
+        "2"
+      ],
+      "C6": [
+        "2"
+      ],
+      "R2": [
+        "1"
+      ],
+      "C22": [
+        "2"
+      ],
+      "J3": [
+        "1"
+      ],
+      "D3": [
+        "1"
+      ],
+      "BD2A": [
+        "1"
+      ],
+      "BD2B": [
+        "1"
+      ],
+      "LS1A": [
+        "3"
+      ],
+      "LS2A": [
+        "3"
+      ],
+      "C9A": [
+        "2"
+      ],
+      "TP6A": [
+        "1"
+      ],
+      "TP12A": [
+        "1"
+      ],
+      "TP16A": [
+        "1"
+      ],
+      "TP14A": [
+        "1"
+      ],
+      "U4A": [
+        "3"
+      ],
+      "C23A": [
+        "2"
+      ],
+      "C25A": [
+        "2"
+      ],
+      "LS1B": [
+        "3"
+      ],
+      "LS2B": [
+        "3"
+      ],
+      "C9B": [
+        "2"
+      ],
+      "TP6B": [
+        "1"
+      ],
+      "TP12B": [
+        "1"
+      ],
+      "TP16B": [
+        "1"
+      ],
+      "TP14B": [
+        "1"
+      ],
+      "U4B": [
+        "3"
+      ],
+      "C23B": [
+        "2"
+      ],
+      "C25B": [
+        "2"
+      ],
+      "S_LS_1A": [
+        "1"
+      ],
+      "S_LS_2A": [
+        "1"
+      ],
+      "GND_SENSE_LSA": [
+        "1"
+      ],
+      "S_LS_1B": [
+        "1"
+      ],
+      "S_LS_2B": [
+        "1"
+      ],
+      "GND_SENSE_LSB": [
+        "1"
+      ]
+    },
+    "NetC1_2": {
+      "C7": [
+        "1"
+      ],
+      "C8": [
+        "1"
+      ],
+      "C2": [
+        "2"
+      ],
+      "C1": [
+        "2"
+      ],
+      "R2": [
+        "2"
+      ],
+      "R1": [
+        "1"
+      ],
+      "J2": [
+        "1"
+      ],
+      "D2": [
+        "1"
+      ],
+      "D3": [
+        "2"
+      ]
+    },
+    "NetERRORA_1": {
+      "ERRORA": [
+        "1"
+      ],
+      "P1": [
+        "3"
+      ]
+    },
+    "NetIN_LSA_1": {
+      "IN_LSA": [
+        "1"
+      ],
+      "P1": [
+        "2"
+      ]
+    },
+    "NetIN_HSA_1": {
+      "IN_HSA": [
+        "1"
+      ],
+      "P1": [
+        "1"
+      ]
+    },
+    "NetERRORB_1": {
+      "ERRORB": [
+        "1"
+      ],
+      "P2": [
+        "1"
+      ]
+    },
+    "NetIN_LSB_1": {
+      "IN_LSB": [
+        "1"
+      ],
+      "P2": [
+        "2"
+      ]
+    },
+    "NetIN_HSB_1": {
+      "IN_HSB": [
+        "1"
+      ],
+      "P2": [
+        "3"
+      ]
+    },
+    "Heatsink": {
+      "BD1A": [
+        "1"
+      ],
+      "C9A": [
+        "1"
+      ],
+      "BD1B": [
+        "1"
+      ],
+      "C9B": [
+        "1"
+      ]
+    },
+    "+5V": {
+      "P4": [
+        "1"
+      ],
+      "R5": [
+        "1"
+      ],
+      "U2": [
+        "3"
+      ],
+      "R9": [
+        "2"
+      ],
+      "C18": [
+        "1"
+      ],
+      "C21": [
+        "1"
+      ],
+      "TP17": [
+        "1"
+      ],
+      "PW_5A": [
+        "1"
+      ],
+      "PW_5B": [
+        "1"
+      ]
+    },
+    "GND": {
+      "P4": [
+        "3"
+      ],
+      "U1": [
+        "7",
+        "11",
+        "5"
+      ],
+      "C17": [
+        "2"
+      ],
+      "C10": [
+        "2"
+      ],
+      "C16": [
+        "2"
+      ],
+      "R7": [
+        "1"
+      ],
+      "C12": [
+        "2"
+      ],
+      "C13": [
+        "2"
+      ],
+      "C14": [
+        "2"
+      ],
+      "C15": [
+        "2"
+      ],
+      "U2": [
+        "2"
+      ],
+      "C19": [
+        "2"
+      ],
+      "C18": [
+        "2"
+      ],
+      "P3": [
+        "1"
+      ],
+      "LE1": [
+        "2"
+      ],
+      "R6": [
+        "1"
+      ],
+      "H1": [
+        "2"
+      ],
+      "H2": [
+        "1"
+      ],
+      "C20": [
+        "2"
+      ],
+      "C21": [
+        "2"
+      ],
+      "TP18": [
+        "1"
+      ],
+      "TP20": [
+        "1"
+      ],
+      "PW_0A": [
+        "1"
+      ],
+      "PW_0B": [
+        "1"
+      ]
+    },
+    "Enable": {
+      "P4": [
+        "2"
+      ],
+      "ENA": [
+        "1"
+      ],
+      "ENB": [
+        "1"
+      ]
+    },
+    "Buck_SW": {
+      "U1": [
+        "9"
+      ],
+      "C11": [
+        "2"
+      ],
+      "L1": [
+        "1"
+      ],
+      "D1": [
+        "2"
+      ]
+    },
+    "NetC16_1": {
+      "U1": [
+        "4"
+      ],
+      "C16": [
+        "1"
+      ]
+    },
+    "NetR4_1": {
+      "U1": [
+        "6"
+      ],
+      "R4": [
+        "1"
+      ],
+      "R7": [
+        "2"
+      ]
+    },
+    "NetR3_2": {
+      "U1": [
+        "2"
+      ],
+      "R3": [
+        "2"
+      ]
+    },
+    "Vin": {
+      "U1": [
+        "1"
+      ],
+      "C17": [
+        "1"
+      ],
+      "C10": [
+        "1"
+      ],
+      "R3": [
+        "1"
+      ],
+      "P3": [
+        "2"
+      ],
+      "H2": [
+        "2"
+      ],
+      "C20": [
+        "1"
+      ]
+    },
+    "NetC11_1": {
+      "U1": [
+        "10"
+      ],
+      "C11": [
+        "1"
+      ]
+    },
+    "NetR5_2": {
+      "U1": [
+        "3"
+      ],
+      "R5": [
+        "2"
+      ]
+    },
+    "NetD1_1": {
+      "U1": [
+        "8"
+      ],
+      "D1": [
+        "1"
+      ],
+      "R6": [
+        "2"
+      ]
+    },
+    "Earth": {
+      "P3": [
+        "3"
+      ]
+    },
+    "+12V": {
+      "L1": [
+        "2"
+      ],
+      "R4": [
+        "2"
+      ],
+      "C12": [
+        "1"
+      ],
+      "C13": [
+        "1"
+      ],
+      "C14": [
+        "1"
+      ],
+      "C15": [
+        "1"
+      ],
+      "U2": [
+        "1"
+      ],
+      "C19": [
+        "1"
+      ],
+      "H1": [
+        "1"
+      ],
+      "TP19": [
+        "1"
+      ],
+      "PW_12A": [
+        "1"
+      ],
+      "PW_12B": [
+        "1"
+      ]
+    },
+    "NetLE1_1": {
+      "R9": [
+        "1"
+      ],
+      "LE1": [
+        "1"
+      ]
+    },
+    "5V_HSA": {
+      "U3A": [
+        "1"
+      ],
+      "C3A": [
+        "1"
+      ],
+      "C24A": [
+        "1"
+      ],
+      "VCC_ISO_HSA": [
+        "1"
+      ]
+    },
+    "5V_HSB": {
+      "U3B": [
+        "1"
+      ],
+      "C3B": [
+        "1"
+      ],
+      "C24B": [
+        "1"
+      ],
+      "VCC_ISO_HSB": [
+        "1"
+      ]
+    },
+    "5V_LSA": {
+      "U4A": [
+        "1"
+      ],
+      "C23A": [
+        "1"
+      ],
+      "C25A": [
+        "1"
+      ],
+      "VCC_ISO_LSA": [
+        "1"
+      ]
+    },
+    "5V_LSB": {
+      "U4B": [
+        "1"
+      ],
+      "C23B": [
+        "1"
+      ],
+      "C25B": [
+        "1"
+      ],
+      "VCC_ISO_LSB": [
+        "1"
+      ]
+    },
+    "Gate_HS_1A": {
+      "HS1A": [
+        "1"
+      ],
+      "TP1A": [
+        "1"
+      ],
+      "G_HS_1A": [
+        "1"
+      ]
+    },
+    "Gate_HS_1B": {
+      "HS1B": [
+        "1"
+      ],
+      "TP1B": [
+        "1"
+      ],
+      "G_HS_1B": [
+        "1"
+      ]
+    },
+    "Gate_HS_2A": {
+      "HS2A": [
+        "1"
+      ],
+      "TP7A": [
+        "1"
+      ],
+      "G_HS_2A": [
+        "1"
+      ]
+    },
+    "Gate_HS_2B": {
+      "HS2B": [
+        "1"
+      ],
+      "TP7B": [
+        "1"
+      ],
+      "G_HS_2B": [
+        "1"
+      ]
+    },
+    "Gate_LS_1A": {
+      "LS1A": [
+        "1"
+      ],
+      "TP2A": [
+        "1"
+      ],
+      "G_LS_1A": [
+        "1"
+      ]
+    },
+    "Gate_LS_1B": {
+      "LS1B": [
+        "1"
+      ],
+      "TP2B": [
+        "1"
+      ],
+      "G_LS_1B": [
+        "1"
+      ]
+    },
+    "Gate_LS_2A": {
+      "LS2A": [
+        "1"
+      ],
+      "TP8A": [
+        "1"
+      ],
+      "G_LS_2A": [
+        "1"
+      ]
+    },
+    "Gate_LS_2B": {
+      "LS2B": [
+        "1"
+      ],
+      "TP8B": [
+        "1"
+      ],
+      "G_LS_2B": [
+        "1"
+      ]
+    },
+    "Source_HSA": {
+      "HS1A": [
+        "3"
+      ],
+      "LS1A": [
+        "2"
+      ],
+      "OUTA": [
+        "1"
+      ],
+      "HS2A": [
+        "3"
+      ],
+      "LS2A": [
+        "2"
+      ],
+      "TP5A": [
+        "1"
+      ],
+      "TP10A": [
+        "1"
+      ],
+      "TP11A": [
+        "1"
+      ],
+      "TP13A": [
+        "1"
+      ],
+      "TP15A": [
+        "1"
+      ],
+      "U3A": [
+        "3"
+      ],
+      "TP3A": [
+        "1"
+      ],
+      "C3A": [
+        "2"
+      ],
+      "C24A": [
+        "2"
+      ],
+      "D_LSA": [
+        "1"
+      ],
+      "S_HS_1A": [
+        "1"
+      ],
+      "S_HS_2A": [
+        "1"
+      ],
+      "GND_SENSE_HSA": [
+        "1"
+      ]
+    },
+    "Source_HSB": {
+      "HS1B": [
+        "3"
+      ],
+      "LS1B": [
+        "2"
+      ],
+      "OUTB": [
+        "1"
+      ],
+      "HS2B": [
+        "3"
+      ],
+      "LS2B": [
+        "2"
+      ],
+      "TP5B": [
+        "1"
+      ],
+      "TP10B": [
+        "1"
+      ],
+      "TP11B": [
+        "1"
+      ],
+      "TP13B": [
+        "1"
+      ],
+      "TP15B": [
+        "1"
+      ],
+      "U3B": [
+        "3"
+      ],
+      "TP3B": [
+        "1"
+      ],
+      "C3B": [
+        "2"
+      ],
+      "C24B": [
+        "2"
+      ],
+      "D_LSB": [
+        "1"
+      ],
+      "S_HS_1B": [
+        "1"
+      ],
+      "S_HS_2B": [
+        "1"
+      ],
+      "GND_SENSE_HSB": [
+        "1"
+      ]
+    },
+    "Temp_HSA": {
+      "U3A": [
+        "2"
+      ],
+      "V_TEMP_HSA": [
+        "1"
+      ]
+    },
+    "Temp_HSB": {
+      "U3B": [
+        "2"
+      ],
+      "V_TEMP_HSB": [
+        "1"
+      ]
+    },
+    "Temp_LSA": {
+      "U4A": [
+        "2"
+      ],
+      "V_TEMP_LSA": [
+        "1"
+      ]
+    },
+    "Temp_LSB": {
+      "U4B": [
+        "2"
+      ],
+      "V_TEMP_LSB": [
+        "1"
+      ]
+    }
+  },
+  "components": {
+    "J1": {
+      "pins": {
+        "1": "+DC_link"
+      },
+      "description": "TERM SCREW M4 6 PIN PCB",
+      "comment": "Power connector",
+      "value": "Connector 7799"
+    },
+    "J2": {
+      "pins": {
+        "1": "NetC1_2"
+      },
+      "description": "TERM SCREW M4 6 PIN PCB",
+      "comment": "Power connector",
+      "value": "Connector 7799"
+    },
+    "D2": {
+      "pins": {
+        "1": "NetC1_2",
+        "2": "+DC_link"
+      },
+      "description": "TVS DIODE 495V 760V DO214AC",
+      "value": "SMAJ550-E3/61"
+    },
+    "J3": {
+      "pins": {
+        "1": "-DC_link"
+      },
+      "description": "TERM SCREW M4 6 PIN PCB",
+      "comment": "Power connector",
+      "value": "Connector 7799"
+    },
+    "D3": {
+      "pins": {
+        "1": "-DC_link",
+        "2": "NetC1_2"
+      },
+      "description": "TVS DIODE 495V 760V DO214AC",
+      "value": "SMAJ550-E3/61"
+    },
+    "C4": {
+      "pins": {
+        "1": "+DC_link",
+        "2": "-DC_link"
+      },
+      "description": "High Voltage Ceramic SMD capacitor, two part numbers, 100nF",
+      "comment": "ceramic HV",
+      "value": "100nF, 1kV"
+    },
+    "C5": {
+      "pins": {
+        "1": "+DC_link",
+        "2": "-DC_link"
+      },
+      "description": "Metalized Film Capacitor, two part numbers",
+      "comment": "Film Capacitor",
+      "value": "1uF, 630 V"
+    },
+    "C7": {
+      "pins": {
+        "1": "NetC1_2",
+        "2": "-DC_link"
+      },
+      "description": "Aluminum Electrolytic Capacitor 1000UF 20% 250V SNAP",
+      "comment": "MAL215953102E3",
+      "value": "1000uF/250V"
+    },
+    "C8": {
+      "pins": {
+        "1": "NetC1_2",
+        "2": "-DC_link"
+      },
+      "description": "Aluminum Electrolytic Capacitor 1000UF 20% 250V SNAP",
+      "comment": "MAL215953102E3",
+      "value": "1000uF/250V"
+    },
+    "C2": {
+      "pins": {
+        "1": "+DC_link",
+        "2": "NetC1_2"
+      },
+      "description": "Aluminum Electrolytic Capacitor 1000UF 20% 250V SNAP",
+      "comment": "MAL215953102E3",
+      "value": "1000uF/250V"
+    },
+    "C1": {
+      "pins": {
+        "1": "+DC_link",
+        "2": "NetC1_2"
+      },
+      "description": "Aluminum Electrolytic Capacitor 1000UF 20% 250V SNAP",
+      "comment": "MAL215953102E3",
+      "value": "1000uF/250V"
+    },
+    "C6": {
+      "pins": {
+        "1": "+DC_link",
+        "2": "-DC_link"
+      },
+      "description": "High Voltage Ceramic SMD capacitor, two part numbers, 100nF",
+      "comment": "ceramic HV",
+      "value": "100nF, 1kV"
+    },
+    "R2": {
+      "pins": {
+        "1": "-DC_link",
+        "2": "NetC1_2"
+      },
+      "description": "SMD resistor 2512, 150kOhm",
+      "comment": "CRCW2512150KFKEG",
+      "value": "150k"
+    },
+    "R1": {
+      "pins": {
+        "1": "NetC1_2",
+        "2": "+DC_link"
+      },
+      "description": "SMD resistor 2512, 150kOhm",
+      "comment": "CRCW2512150KFKEG",
+      "value": "150k"
+    },
+    "C22": {
+      "pins": {
+        "1": "+DC_link",
+        "2": "-DC_link"
+      },
+      "description": "Metalized Film Capacitor, two part numbers",
+      "comment": "Film Capacitor",
+      "value": "1uF, 630 V"
+    },
+    "ENA": {
+      "pins": {
+        "1": "Enable"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "ERRORA": {
+      "pins": {
+        "1": "NetERRORA_1"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "PW_12A": {
+      "pins": {
+        "1": "+12V"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "PW_5A": {
+      "pins": {
+        "1": "+5V"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "PW_0A": {
+      "pins": {
+        "1": "GND"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "IN_LSA": {
+      "pins": {
+        "1": "NetIN_LSA_1"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "IN_HSA": {
+      "pins": {
+        "1": "NetIN_HSA_1"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "D_LSA": {
+      "pins": {
+        "1": "Source_HSA"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "G_LS_1A": {
+      "pins": {
+        "1": "Gate_LS_1A"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "S_LS_1A": {
+      "pins": {
+        "1": "-DC_link"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "G_LS_2A": {
+      "pins": {
+        "1": "Gate_LS_2A"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "S_LS_2A": {
+      "pins": {
+        "1": "-DC_link"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "D_HSA": {
+      "pins": {
+        "1": "+DC_link"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "G_HS_1A": {
+      "pins": {
+        "1": "Gate_HS_1A"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "S_HS_1A": {
+      "pins": {
+        "1": "Source_HSA"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "G_HS_2A": {
+      "pins": {
+        "1": "Gate_HS_2A"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "S_HS_2A": {
+      "pins": {
+        "1": "Source_HSA"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "VCC_ISO_LSA": {
+      "pins": {
+        "1": "5V_LSA"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "V_TEMP_LSA": {
+      "pins": {
+        "1": "Temp_LSA"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "FIX1A": {
+      "pins": {},
+      "description": "Used to balance the mechanical load with the signal headers.",
+      "comment": "Interface with GateDriverBoard",
+      "value": "none"
+    },
+    "FIX2A": {
+      "pins": {},
+      "description": "Used to balance the mechanical load with the signal headers.",
+      "comment": "Interface with GateDriverBoard",
+      "value": "none"
+    },
+    "BD2A": {
+      "pins": {
+        "1": "-DC_link"
+      },
+      "description": "Used to connect carry the currents  from the GND logic plane back to the -DC_link plane, which is originated by parasitic capacitive coupling between Halfbridge output and GND plane",
+      "comment": "Place far from sensitive circuits",
+      "value": "none"
+    },
+    "VCC_ISO_HSA": {
+      "pins": {
+        "1": "5V_HSA"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "V_TEMP_HSA": {
+      "pins": {
+        "1": "Temp_HSA"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "GND_SENSE_HSA": {
+      "pins": {
+        "1": "Source_HSA"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "GND_SENSE_LSA": {
+      "pins": {
+        "1": "-DC_link"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "ENB": {
+      "pins": {
+        "1": "Enable"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "ERRORB": {
+      "pins": {
+        "1": "NetERRORB_1"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "PW_12B": {
+      "pins": {
+        "1": "+12V"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "PW_5B": {
+      "pins": {
+        "1": "+5V"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "PW_0B": {
+      "pins": {
+        "1": "GND"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "IN_LSB": {
+      "pins": {
+        "1": "NetIN_LSB_1"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "IN_HSB": {
+      "pins": {
+        "1": "NetIN_HSB_1"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "D_LSB": {
+      "pins": {
+        "1": "Source_HSB"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "G_LS_1B": {
+      "pins": {
+        "1": "Gate_LS_1B"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "S_LS_1B": {
+      "pins": {
+        "1": "-DC_link"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "G_LS_2B": {
+      "pins": {
+        "1": "Gate_LS_2B"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "S_LS_2B": {
+      "pins": {
+        "1": "-DC_link"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "D_HSB": {
+      "pins": {
+        "1": "+DC_link"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "G_HS_1B": {
+      "pins": {
+        "1": "Gate_HS_1B"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "S_HS_1B": {
+      "pins": {
+        "1": "Source_HSB"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "G_HS_2B": {
+      "pins": {
+        "1": "Gate_HS_2B"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "S_HS_2B": {
+      "pins": {
+        "1": "Source_HSB"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "VCC_ISO_LSB": {
+      "pins": {
+        "1": "5V_LSB"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "V_TEMP_LSB": {
+      "pins": {
+        "1": "Temp_LSB"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "FIX1B": {
+      "pins": {},
+      "description": "Used to balance the mechanical load with the signal headers.",
+      "comment": "Interface with GateDriverBoard",
+      "value": "none"
+    },
+    "FIX2B": {
+      "pins": {},
+      "description": "Used to balance the mechanical load with the signal headers.",
+      "comment": "Interface with GateDriverBoard",
+      "value": "none"
+    },
+    "BD2B": {
+      "pins": {
+        "1": "-DC_link"
+      },
+      "description": "Used to connect carry the currents  from the GND logic plane back to the -DC_link plane, which is originated by parasitic capacitive coupling between Halfbridge output and GND plane",
+      "comment": "Place far from sensitive circuits",
+      "value": "none"
+    },
+    "VCC_ISO_HSB": {
+      "pins": {
+        "1": "5V_HSB"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "V_TEMP_HSB": {
+      "pins": {
+        "1": "Temp_HSB"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "GND_SENSE_HSB": {
+      "pins": {
+        "1": "Source_HSB"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "GND_SENSE_LSB": {
+      "pins": {
+        "1": "-DC_link"
+      },
+      "description": "Interconection between gatedriver and main board",
+      "comment": "Board interconection",
+      "value": "Male Header 1 pin - 90 degrees"
+    },
+    "HS1A": {
+      "pins": {
+        "1": {
+          "name": "G",
+          "net": "Gate_HS_1A"
+        },
+        "2": {
+          "name": "D",
+          "net": "+DC_link"
+        },
+        "3": {
+          "name": "S",
+          "net": "Source_HSA"
+        }
+      },
+      "description": "Power Mosfet N channel, TO-247, multiple part numbers",
+      "comment": "N MOS",
+      "value": "14A, 1200V"
+    },
+    "LS1A": {
+      "pins": {
+        "1": {
+          "name": "G",
+          "net": "Gate_LS_1A"
+        },
+        "2": {
+          "name": "D",
+          "net": "Source_HSA"
+        },
+        "3": {
+          "name": "S",
+          "net": "-DC_link"
+        }
+      },
+      "description": "Power Mosfet N channel, TO-247, multiple part numbers",
+      "comment": "N MOS",
+      "value": "14A, 1200V"
+    },
+    "OUTA": {
+      "pins": {
+        "1": "Source_HSA"
+      },
+      "description": "TERM SCREW M4 6 PIN PCB",
+      "comment": "Power connector",
+      "value": "Connector 7799"
+    },
+    "HS2A": {
+      "pins": {
+        "1": {
+          "name": "G",
+          "net": "Gate_HS_2A"
+        },
+        "2": {
+          "name": "D",
+          "net": "+DC_link"
+        },
+        "3": {
+          "name": "S",
+          "net": "Source_HSA"
+        }
+      },
+      "description": "Power Mosfet N channel, TO-247, multiple part numbers",
+      "comment": "N MOS",
+      "value": "14A, 1200V"
+    },
+    "LS2A": {
+      "pins": {
+        "1": {
+          "name": "G",
+          "net": "Gate_LS_2A"
+        },
+        "2": {
+          "name": "D",
+          "net": "Source_HSA"
+        },
+        "3": {
+          "name": "S",
+          "net": "-DC_link"
+        }
+      },
+      "description": "Power Mosfet N channel, TO-247, multiple part numbers",
+      "comment": "N MOS",
+      "value": "14A, 1200V"
+    },
+    "BD1A": {
+      "pins": {
+        "1": "Heatsink"
+      },
+      "description": "Used to connect the net to the heatsink below board",
+      "comment": "Place near output plane",
+      "value": "Pan Head"
+    },
+    "C9A": {
+      "pins": {
+        "1": "Heatsink",
+        "2": "-DC_link"
+      },
+      "description": "High Voltage Capacitor to filter EMC from heatsink",
+      "comment": "Capacitor type Y",
+      "value": "1nF, 1kV"
+    },
+    "TP7A": {
+      "pins": {
+        "1": "Gate_HS_2A"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Test point"
+    },
+    "TP1A": {
+      "pins": {
+        "1": "Gate_HS_1A"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Test point"
+    },
+    "TP9A": {
+      "pins": {
+        "1": "+DC_link"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Test point"
+    },
+    "TP4A": {
+      "pins": {
+        "1": "+DC_link"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Test point"
+    },
+    "TP5A": {
+      "pins": {
+        "1": "Source_HSA"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Test point"
+    },
+    "TP10A": {
+      "pins": {
+        "1": "Source_HSA"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Test point"
+    },
+    "TP11A": {
+      "pins": {
+        "1": "Source_HSA"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Test point"
+    },
+    "TP6A": {
+      "pins": {
+        "1": "-DC_link"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Test point"
+    },
+    "TP12A": {
+      "pins": {
+        "1": "-DC_link"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Test point"
+    },
+    "TP8A": {
+      "pins": {
+        "1": "Gate_LS_2A"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Test point"
+    },
+    "TP2A": {
+      "pins": {
+        "1": "Gate_LS_1A"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Test point"
+    },
+    "TP13A": {
+      "pins": {
+        "1": "Source_HSA"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Test point"
+    },
+    "TP15A": {
+      "pins": {
+        "1": "Source_HSA"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Test point"
+    },
+    "TP16A": {
+      "pins": {
+        "1": "-DC_link"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Test point"
+    },
+    "TP14A": {
+      "pins": {
+        "1": "-DC_link"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Test point"
+    },
+    "U3A": {
+      "pins": {
+        "1": {
+          "name": "VDD",
+          "net": "5V_HSA"
+        },
+        "2": {
+          "name": "VOUT",
+          "net": "Temp_HSA"
+        },
+        "3": {
+          "name": "GND",
+          "net": "Source_HSA"
+        }
+      },
+      "description": "Low-Power Linear Active Thermistor IC, 3-Pin SOT-23, Extended Temperature, Tape and Reel",
+      "comment": "Temperature sensor HS",
+      "value": "MCP9700"
+    },
+    "U4A": {
+      "pins": {
+        "1": {
+          "name": "VDD",
+          "net": "5V_LSA"
+        },
+        "2": {
+          "name": "VOUT",
+          "net": "Temp_LSA"
+        },
+        "3": {
+          "name": "GND",
+          "net": "-DC_link"
+        }
+      },
+      "description": "Low-Power Linear Active Thermistor IC, 3-Pin SOT-23, Extended Temperature, Tape and Reel",
+      "comment": "Temperature sensor LS",
+      "value": "MCP9700"
+    },
+    "TP3A": {
+      "pins": {
+        "1": "Source_HSA"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Test point"
+    },
+    "C3A": {
+      "pins": {
+        "1": "5V_HSA",
+        "2": "Source_HSA"
+      },
+      "description": "SMD ceramic capacitor 0805",
+      "comment": "0805",
+      "value": "2u2/50V"
+    },
+    "C24A": {
+      "pins": {
+        "1": "5V_HSA",
+        "2": "Source_HSA"
+      },
+      "description": "SMD ceramic capacitor 0805",
+      "comment": "0805",
+      "value": "100nF/50V"
+    },
+    "C23A": {
+      "pins": {
+        "1": "5V_LSA",
+        "2": "-DC_link"
+      },
+      "description": "SMD ceramic capacitor 0805",
+      "comment": "0805",
+      "value": "2u2/50V"
+    },
+    "C25A": {
+      "pins": {
+        "1": "5V_LSA",
+        "2": "-DC_link"
+      },
+      "description": "SMD ceramic capacitor 0805",
+      "comment": "0805",
+      "value": "100nF/50V"
+    },
+    "HS1B": {
+      "pins": {
+        "1": {
+          "name": "G",
+          "net": "Gate_HS_1B"
+        },
+        "2": {
+          "name": "D",
+          "net": "+DC_link"
+        },
+        "3": {
+          "name": "S",
+          "net": "Source_HSB"
+        }
+      },
+      "description": "Power Mosfet N channel, TO-247, multiple part numbers",
+      "comment": "N MOS",
+      "value": "14A, 1200V"
+    },
+    "LS1B": {
+      "pins": {
+        "1": {
+          "name": "G",
+          "net": "Gate_LS_1B"
+        },
+        "2": {
+          "name": "D",
+          "net": "Source_HSB"
+        },
+        "3": {
+          "name": "S",
+          "net": "-DC_link"
+        }
+      },
+      "description": "Power Mosfet N channel, TO-247, multiple part numbers",
+      "comment": "N MOS",
+      "value": "14A, 1200V"
+    },
+    "OUTB": {
+      "pins": {
+        "1": "Source_HSB"
+      },
+      "description": "TERM SCREW M4 6 PIN PCB",
+      "comment": "Power connector",
+      "value": "Connector 7799"
+    },
+    "HS2B": {
+      "pins": {
+        "1": {
+          "name": "G",
+          "net": "Gate_HS_2B"
+        },
+        "2": {
+          "name": "D",
+          "net": "+DC_link"
+        },
+        "3": {
+          "name": "S",
+          "net": "Source_HSB"
+        }
+      },
+      "description": "Power Mosfet N channel, TO-247, multiple part numbers",
+      "comment": "N MOS",
+      "value": "14A, 1200V"
+    },
+    "LS2B": {
+      "pins": {
+        "1": {
+          "name": "G",
+          "net": "Gate_LS_2B"
+        },
+        "2": {
+          "name": "D",
+          "net": "Source_HSB"
+        },
+        "3": {
+          "name": "S",
+          "net": "-DC_link"
+        }
+      },
+      "description": "Power Mosfet N channel, TO-247, multiple part numbers",
+      "comment": "N MOS",
+      "value": "14A, 1200V"
+    },
+    "BD1B": {
+      "pins": {
+        "1": "Heatsink"
+      },
+      "description": "Used to connect the net to the heatsink below board",
+      "comment": "Place near output plane",
+      "value": "Pan Head"
+    },
+    "C9B": {
+      "pins": {
+        "1": "Heatsink",
+        "2": "-DC_link"
+      },
+      "description": "High Voltage Capacitor to filter EMC from heatsink",
+      "comment": "Capacitor type Y",
+      "value": "1nF, 1kV"
+    },
+    "TP7B": {
+      "pins": {
+        "1": "Gate_HS_2B"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Test point"
+    },
+    "TP1B": {
+      "pins": {
+        "1": "Gate_HS_1B"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Test point"
+    },
+    "TP9B": {
+      "pins": {
+        "1": "+DC_link"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Test point"
+    },
+    "TP4B": {
+      "pins": {
+        "1": "+DC_link"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Test point"
+    },
+    "TP5B": {
+      "pins": {
+        "1": "Source_HSB"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Test point"
+    },
+    "TP10B": {
+      "pins": {
+        "1": "Source_HSB"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Test point"
+    },
+    "TP11B": {
+      "pins": {
+        "1": "Source_HSB"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Test point"
+    },
+    "TP6B": {
+      "pins": {
+        "1": "-DC_link"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Test point"
+    },
+    "TP12B": {
+      "pins": {
+        "1": "-DC_link"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Test point"
+    },
+    "TP8B": {
+      "pins": {
+        "1": "Gate_LS_2B"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Test point"
+    },
+    "TP2B": {
+      "pins": {
+        "1": "Gate_LS_1B"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Test point"
+    },
+    "TP13B": {
+      "pins": {
+        "1": "Source_HSB"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Test point"
+    },
+    "TP15B": {
+      "pins": {
+        "1": "Source_HSB"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Test point"
+    },
+    "TP16B": {
+      "pins": {
+        "1": "-DC_link"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Test point"
+    },
+    "TP14B": {
+      "pins": {
+        "1": "-DC_link"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Test point"
+    },
+    "U3B": {
+      "pins": {
+        "1": {
+          "name": "VDD",
+          "net": "5V_HSB"
+        },
+        "2": {
+          "name": "VOUT",
+          "net": "Temp_HSB"
+        },
+        "3": {
+          "name": "GND",
+          "net": "Source_HSB"
+        }
+      },
+      "description": "Low-Power Linear Active Thermistor IC, 3-Pin SOT-23, Extended Temperature, Tape and Reel",
+      "comment": "Temperature sensor HS",
+      "value": "MCP9700"
+    },
+    "U4B": {
+      "pins": {
+        "1": {
+          "name": "VDD",
+          "net": "5V_LSB"
+        },
+        "2": {
+          "name": "VOUT",
+          "net": "Temp_LSB"
+        },
+        "3": {
+          "name": "GND",
+          "net": "-DC_link"
+        }
+      },
+      "description": "Low-Power Linear Active Thermistor IC, 3-Pin SOT-23, Extended Temperature, Tape and Reel",
+      "comment": "Temperature sensor LS",
+      "value": "MCP9700"
+    },
+    "TP3B": {
+      "pins": {
+        "1": "Source_HSB"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Test point"
+    },
+    "C3B": {
+      "pins": {
+        "1": "5V_HSB",
+        "2": "Source_HSB"
+      },
+      "description": "SMD ceramic capacitor 0805",
+      "comment": "0805",
+      "value": "2u2/50V"
+    },
+    "C24B": {
+      "pins": {
+        "1": "5V_HSB",
+        "2": "Source_HSB"
+      },
+      "description": "SMD ceramic capacitor 0805",
+      "comment": "0805",
+      "value": "100nF/50V"
+    },
+    "C23B": {
+      "pins": {
+        "1": "5V_LSB",
+        "2": "-DC_link"
+      },
+      "description": "SMD ceramic capacitor 0805",
+      "comment": "0805",
+      "value": "2u2/50V"
+    },
+    "C25B": {
+      "pins": {
+        "1": "5V_LSB",
+        "2": "-DC_link"
+      },
+      "description": "SMD ceramic capacitor 0805",
+      "comment": "0805",
+      "value": "100nF/50V"
+    },
+    "P1": {
+      "pins": {
+        "1": "NetIN_HSA_1",
+        "2": "NetIN_LSA_1",
+        "3": "NetERRORA_1"
+      },
+      "description": "Header 2.54mm 3 pins",
+      "comment": "HEADER 3 pins"
+    },
+    "P2": {
+      "pins": {
+        "1": "NetERRORB_1",
+        "2": "NetIN_LSB_1",
+        "3": "NetIN_HSB_1"
+      },
+      "description": "Header 2.54mm 3 pins",
+      "comment": "HEADER 3 pins"
+    },
+    "P4": {
+      "pins": {
+        "1": "+5V",
+        "2": "Enable",
+        "3": "GND"
+      },
+      "description": "Header 2.54mm 3 pins",
+      "comment": "HEADER 3 pins"
+    },
+    "U1": {
+      "pins": {
+        "1": {
+          "name": "VIN",
+          "net": "Vin"
+        },
+        "2": {
+          "name": "RT",
+          "net": "NetR3_2"
+        },
+        "3": {
+          "name": "PGD",
+          "net": "NetR5_2"
+        },
+        "4": {
+          "name": "SS",
+          "net": "NetC16_1"
+        },
+        "5": {
+          "name": "SGND",
+          "net": "GND"
+        },
+        "6": {
+          "name": "FB",
+          "net": "NetR4_1"
+        },
+        "7": {
+          "name": "CSG",
+          "net": "GND"
+        },
+        "8": {
+          "name": "CS",
+          "net": "NetD1_1"
+        },
+        "9": {
+          "name": "SW",
+          "net": "Buck_SW"
+        },
+        "10": {
+          "name": "BST",
+          "net": "NetC11_1"
+        },
+        "11": {
+          "name": "TH_PAD",
+          "net": "GND"
+        }
+      },
+      "description": "IC REG BUCK ADJ 2A 10MSOP",
+      "comment": "Buck Regulador IC",
+      "value": "LM25011"
+    },
+    "C17": {
+      "pins": {
+        "1": "Vin",
+        "2": "GND"
+      },
+      "description": "SMD ceramic capacitor 0805",
+      "comment": "Place close to input",
+      "value": "3.3uF"
+    },
+    "C10": {
+      "pins": {
+        "1": "Vin",
+        "2": "GND"
+      },
+      "description": "SMD ceramic capacitor 0805",
+      "comment": "Place close to buck IC",
+      "value": "100nF"
+    },
+    "C16": {
+      "pins": {
+        "1": "NetC16_1",
+        "2": "GND"
+      },
+      "description": "SMD ceramic capacitor 0805",
+      "comment": "Capacitor 0805",
+      "value": "100nF"
+    },
+    "R5": {
+      "pins": {
+        "1": "+5V",
+        "2": "NetR5_2"
+      },
+      "description": "SMD resistor 0805",
+      "comment": "Resistor 0805",
+      "value": "10k"
+    },
+    "R3": {
+      "pins": {
+        "1": "Vin",
+        "2": "NetR3_2"
+      },
+      "description": "SMD resistor 0805",
+      "comment": "Resistor 0805",
+      "value": "180k"
+    },
+    "C11": {
+      "pins": {
+        "1": "NetC11_1",
+        "2": "Buck_SW"
+      },
+      "description": "SMD ceramic capacitor 0805",
+      "comment": "Capacitor 0805",
+      "value": "100nF"
+    },
+    "L1": {
+      "pins": {
+        "1": "Buck_SW",
+        "2": "+12V"
+      },
+      "description": "Inductor 10UH 3.1A 50 mΩ SMD",
+      "comment": "SRN8040-100M",
+      "value": "10uH / 3.1A"
+    },
+    "R4": {
+      "pins": {
+        "1": "NetR4_1",
+        "2": "+12V"
+      },
+      "description": "SMD resistor 0805",
+      "comment": "Resistor 0805",
+      "value": "6.8k"
+    },
+    "R7": {
+      "pins": {
+        "1": "GND",
+        "2": "NetR4_1"
+      },
+      "description": "SMD resistor 0805",
+      "comment": "Resistor 0805",
+      "value": "1.8k"
+    },
+    "C12": {
+      "pins": {
+        "1": "+12V",
+        "2": "GND"
+      },
+      "description": "SMD ceramic capacitor 0805",
+      "comment": "Capacitor 0805",
+      "value": "10uF"
+    },
+    "C13": {
+      "pins": {
+        "1": "+12V",
+        "2": "GND"
+      },
+      "description": "SMD ceramic capacitor 0805",
+      "comment": "Capacitor 0805",
+      "value": "10uF"
+    },
+    "C14": {
+      "pins": {
+        "1": "+12V",
+        "2": "GND"
+      },
+      "description": "SMD ceramic capacitor 0805",
+      "comment": "Capacitor 0805",
+      "value": "100nF"
+    },
+    "C15": {
+      "pins": {
+        "1": "+12V",
+        "2": "GND"
+      },
+      "description": "SMD ceramic capacitor 0805",
+      "comment": "Capacitor 0805",
+      "value": "10nF"
+    },
+    "U2": {
+      "pins": {
+        "1": {
+          "name": "IN",
+          "net": "+12V"
+        },
+        "2": {
+          "name": "COM",
+          "net": "GND"
+        },
+        "3": {
+          "name": "OUT",
+          "net": "+5V"
+        }
+      },
+      "description": "IC REG LINEAR 5V 1A DPAK-3",
+      "comment": "MC7805BDTG",
+      "value": "MC7805"
+    },
+    "R9": {
+      "pins": {
+        "1": "NetLE1_1",
+        "2": "+5V"
+      },
+      "description": "SMD resistor 0805",
+      "comment": "Resistor 0805",
+      "value": "330"
+    },
+    "C19": {
+      "pins": {
+        "1": "+12V",
+        "2": "GND"
+      },
+      "description": "SMD ceramic capacitor 0805",
+      "comment": "Place close do MC7805",
+      "value": "330nF"
+    },
+    "C18": {
+      "pins": {
+        "1": "+5V",
+        "2": "GND"
+      },
+      "description": "SMD ceramic capacitor 0805",
+      "comment": "Place close do MC7805",
+      "value": "100nF"
+    },
+    "D1": {
+      "pins": {
+        "1": {
+          "name": "A",
+          "net": "NetD1_1"
+        },
+        "2": {
+          "name": "K",
+          "net": "Buck_SW"
+        }
+      },
+      "description": "DIODE SCHOTTKY 60V 3A SOD128",
+      "comment": "STPS360AF"
+    },
+    "P3": {
+      "pins": {
+        "1": "GND",
+        "2": "Vin",
+        "3": "Earth"
+      },
+      "description": "Header 2.54mm 3 pins",
+      "comment": "HEADER 3 pins"
+    },
+    "LE1": {
+      "pins": {
+        "1": "NetLE1_1",
+        "2": "GND"
+      },
+      "description": "LEDSMD 0805",
+      "comment": "LEDSMD 0805",
+      "value": "LED 0805"
+    },
+    "R6": {
+      "pins": {
+        "1": "GND",
+        "2": "NetD1_1"
+      },
+      "description": "RESISTOR 0.05 OHM 1% 1W SMD 1206",
+      "comment": "MCS1632R050FER",
+      "value": "50m"
+    },
+    "H1": {
+      "pins": {
+        "1": "+12V",
+        "2": "GND"
+      },
+      "description": "Screw Terminal 2 pins",
+      "comment": "Screw Terminal 2 pins",
+      "value": "Two wire screw terminal"
+    },
+    "H2": {
+      "pins": {
+        "1": "GND",
+        "2": "Vin"
+      },
+      "description": "Screw Terminal 2 pins",
+      "comment": "Screw Terminal 2 pins",
+      "value": "Two wire screw terminal"
+    },
+    "C20": {
+      "pins": {
+        "1": "Vin",
+        "2": "GND"
+      },
+      "description": "SMD ceramic capacitor 0805",
+      "comment": "Place close to buck IC",
+      "value": "1uF"
+    },
+    "C21": {
+      "pins": {
+        "1": "+5V",
+        "2": "GND"
+      },
+      "description": "SMD ceramic capacitor 0805",
+      "comment": "Place close do MC7805",
+      "value": "1uF"
+    },
+    "TP18": {
+      "pins": {
+        "1": "GND"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Name of signal"
+    },
+    "TP17": {
+      "pins": {
+        "1": "+5V"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Name of signal"
+    },
+    "TP19": {
+      "pins": {
+        "1": "+12V"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Name of signal"
+    },
+    "TP20": {
+      "pins": {
+        "1": "GND"
+      },
+      "description": "Test point to probe with oscilloscope",
+      "comment": "Name of signal"
+    },
+    "FIX3": {
+      "pins": {},
+      "description": "Mount Hole, to interface MainBoard with GatedriverBoard or MainBoard with heatsink",
+      "comment": "Mounting_hole",
+      "value": "none"
+    },
+    "FIX4": {
+      "pins": {},
+      "description": "Mount Hole, to interface MainBoard with GatedriverBoard or MainBoard with heatsink",
+      "comment": "Mounting_hole",
+      "value": "none"
+    },
+    "FIX5": {
+      "pins": {},
+      "description": "Mount Hole, to interface MainBoard with GatedriverBoard or MainBoard with heatsink",
+      "comment": "Mounting_hole",
+      "value": "none"
+    },
+    "FIX7": {
+      "pins": {},
+      "description": "Mount Hole, to interface MainBoard with GatedriverBoard or MainBoard with heatsink",
+      "comment": "Mounting_hole",
+      "value": "none"
+    },
+    "FIX8": {
+      "pins": {},
+      "description": "Mount Hole, to interface MainBoard with GatedriverBoard or MainBoard with heatsink",
+      "comment": "Mounting_hole",
+      "value": "none"
+    },
+    "FIX6": {
+      "pins": {},
+      "description": "Mount Hole, to interface MainBoard with GatedriverBoard or MainBoard with heatsink",
+      "comment": "Mounting_hole",
+      "value": "none"
+    }
+  }
+}

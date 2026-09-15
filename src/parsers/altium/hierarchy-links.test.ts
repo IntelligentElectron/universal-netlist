@@ -22,6 +22,7 @@ const MICROPHONES = path.join(
 );
 const Q23 = path.join(FIXTURES, "qfsae-harness/q23-harness/q23-harness.PrjPcb");
 const FMC_DIO = path.join(FIXTURES, "fmc-dio-32chlvdsa/FMC_DIO_32ch_lvds_a.PrjPcb");
+const EASYINVERTER = path.join(FIXTURES, "easyinverter/MainBoard.PrjPCB");
 const PCA10056 = path.join(
   FIXTURES,
   "nRF52840-Development-Kit/PCA10056-nRF52840 Development Board 3_0_3/Altium Designer files/pca10056.PrjPCB"
@@ -111,14 +112,27 @@ describe.skipIf(!existsSync(EPS_BOARD))("EPS_board multi-placed child", () => {
     expect(components["U500A"]).toBeDefined();
     expect(components["U500B"]).toBeDefined();
     expect(components["U500"]).toBeUndefined();
-    // Each placement's local nets stay apart, and both reach the parent's VBUS
-    // through their own symbol's entries.
-    expect(pinsOf(nets, "NetC400A_1")).toEqual(["C400A.1", "Q400A.3", "U400A.1"]);
-    expect(pinsOf(nets, "NetC400B_1")).toEqual(["C400B.1", "Q400B.3", "U400B.1"]);
+    // Both placements reach the parent's VBUS through their own symbol's entries.
     expect(pinsOf(nets, "VBUS")).toContain("U400A.6");
     expect(pinsOf(nets, "VBUS")).toContain("U400B.6");
     expect(pinsOf(nets, "VBUS")).toContain("U500A.10");
     expect(pinsOf(nets, "VBUS")).toContain("U500B.10");
+  });
+
+  it("hands channel n of Repeat() entries wired under the label L to the net Ln", async () => {
+    const { nets } = await altiumHandler.parse(EPS_BOARD, {});
+    // Repeat(VBAT) of the charger and Repeat(VIN) of the ideal diode share a
+    // wire labelled VBAT; the uC's entry reaches the label VBAT1.
+    for (const [channel, net] of [
+      ["A", "VBAT1"],
+      ["B", "VBAT2"],
+    ]) {
+      expect(pinsOf(nets, net)).toEqual(
+        expect.arrayContaining([`R300${channel}.2`, `U400${channel}.1`, `Q400${channel}.3`])
+      );
+    }
+    expect(pinsOf(nets, "VBAT1")).toContain("R200.2");
+    expect(pinsOf(nets, "VBAT2")).toContain("R201.2");
   });
 
   it("gives each Repeat() channel its own entry-named net", async () => {
@@ -153,40 +167,43 @@ describe.skipIf(!existsSync(LD_HARNESS))("ld_harness Repeat() bus members", () =
   });
 });
 
-describe.skipIf(!existsSync(FMC_DIO))("FMC-DIO Repeat() entries fed by buses of another name", () => {
-  it("hands member n of the bus to channel n whatever the bus is called", async () => {
-    const { nets } = await altiumHandler.parse(FMC_DIO, {});
-    // The top sheet wires the connector symbol's LA07_P entry to a label
-    // FMC1_P8, and a bus labelled FMC1_P[32..1], drawn nowhere near it, into
-    // the Repeat(FMC_P) entry of the 32-way buffer symbol. The board carries
-    // FMC1_P8 into channel 8 (IC49H), and FMC1_P27 into channel 27 (IC49[).
-    expect(pinsOf(nets, "FMC1_P8")).toEqual(["IC49H.6", "IC50H.8", "J40.h13"]);
-    expect(pinsOf(nets, "FMC1_P27")).toEqual(["IC49[.6", "IC50[.8", "J40.d26"]);
-    expect(pinsOf(nets, "EN1_RX8")).toEqual(["IC49H.3", "IC51H.2", "IC56.6", "R262.1"]);
-  });
+describe.skipIf(!existsSync(FMC_DIO))(
+  "FMC-DIO Repeat() entries fed by buses of another name",
+  () => {
+    it("hands member n of the bus to channel n whatever the bus is called", async () => {
+      const { nets } = await altiumHandler.parse(FMC_DIO, {});
+      // The top sheet wires the connector symbol's LA07_P entry to a label
+      // FMC1_P8, and a bus labelled FMC1_P[32..1], drawn nowhere near it, into
+      // the Repeat(FMC_P) entry of the 32-way buffer symbol. The board carries
+      // FMC1_P8 into channel 8 (IC49H), and FMC1_P27 into channel 27 (IC49[).
+      expect(pinsOf(nets, "FMC1_P8")).toEqual(["IC49H.6", "IC50H.8", "J40.h13"]);
+      expect(pinsOf(nets, "FMC1_P27")).toEqual(["IC49[.6", "IC50[.8", "J40.d26"]);
+      expect(pinsOf(nets, "EN1_RX8")).toEqual(["IC49H.3", "IC51H.2", "IC56.6", "R262.1"]);
+    });
 
-  it("leaves only the connector pins the board leaves alone", async () => {
-    const { nets } = await altiumHandler.parse(FMC_DIO, {});
-    const single = Object.keys(nets).filter(
-      (net) => Object.values(nets[net]).flat().length === 1
-    );
-    // Eleven FMC pins carry a port the top sheet wires to nothing; the board
-    // names them the same way, after the pin or after the one label.
-    expect(single.sort()).toEqual([
-      "NetJ40_c2",
-      "NetJ40_c3",
-      "NetJ40_c6",
-      "NetJ40_c7",
-      "NetJ40_d4",
-      "NetJ40_d5",
-      "NetJ40_g2",
-      "NetJ40_g3",
-      "NetJ40_h4",
-      "NetJ40_h5",
-      "PG_C2M",
-    ]);
-  });
-});
+    it("leaves only the connector pins the board leaves alone", async () => {
+      const { nets } = await altiumHandler.parse(FMC_DIO, {});
+      const single = Object.keys(nets).filter(
+        (net) => Object.values(nets[net]).flat().length === 1
+      );
+      // Eleven FMC pins carry a port the top sheet wires to nothing; the board
+      // names them the same way, after the pin or after the one label.
+      expect(single.sort()).toEqual([
+        "NetJ40_c2",
+        "NetJ40_c3",
+        "NetJ40_c6",
+        "NetJ40_c7",
+        "NetJ40_d4",
+        "NetJ40_d5",
+        "NetJ40_g2",
+        "NetJ40_g3",
+        "NetJ40_h4",
+        "NetJ40_h5",
+        "PG_C2M",
+      ]);
+    });
+  }
+);
 
 describe.skipIf(!existsSync(MICROPHONES))("Microphone-Boards unwired Repeat() entries", () => {
   it("keeps each channel's net apart when its entry is wired to nothing", async () => {
@@ -202,5 +219,29 @@ describe.skipIf(!existsSync(Q23))("q23-harness net naming", () => {
     const { nets } = await altiumHandler.parse(Q23, {});
     expect(pinsOf(nets, "SEN_5V_A1")).toContain("BSPD_CONN.2");
     expect(nets["VCC5V"]).toBeUndefined();
+  });
+});
+
+describe.skipIf(!existsSync(EASYINVERTER))("easyinverter nested harnesses and sheets", () => {
+  it("instantiates a sheet once per instance of the sheet that places it", async () => {
+    const { components } = await altiumHandler.parse(EASYINVERTER, {});
+    // gatedriver_interface.SchDoc sits under Halfbridge.SchDoc, placed twice.
+    expect(components["ENA"]).toBeDefined();
+    expect(components["ENB"]).toBeDefined();
+    expect(components["EN"]).toBeUndefined();
+  });
+
+  it("carries a member through a harness nested in another harness's entry", async () => {
+    const { nets } = await altiumHandler.parse(EASYINVERTER, {});
+    // Input_signals nests Driver_input_connections harnesses in the entries
+    // Phase_A_commands and Phase_B_commands of FullBridge_commands.
+    expect(pinsOf(nets, "NetERRORA_1")).toEqual(["ERRORA.1", "P1.3"]);
+    expect(pinsOf(nets, "Enable")).toEqual(["ENA.1", "ENB.1", "P4.2"]);
+  });
+
+  it("joins an entry and a port whose names differ only in case", async () => {
+    const { nets } = await altiumHandler.parse(EASYINVERTER, {});
+    // The top sheet's entry DC_LINK meets DC_link_input.SchDoc's port DC_link.
+    expect(pinsOf(nets, "+DC_link")).toEqual(expect.arrayContaining(["HS1A.2", "HS1B.2", "J1.1"]));
   });
 });

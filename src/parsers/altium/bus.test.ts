@@ -1,48 +1,11 @@
 import { describe, it, expect } from "vitest";
-import { busMemberTest, expandBusRange, repeatBaseName, isBusIdentifier } from "./bus.js";
+import { isBusIdentifier } from "./bus.js";
 import { extractNets } from "./net-extractor.js";
-import { buildHierarchy } from "./hierarchy.js";
+import { buildHierarchy } from "./records.js";
 import { RECORD_TYPES } from "./types.js";
 import type { AltiumRecord, AltiumSchematic, AltiumNet } from "./types.js";
 
-describe("busMemberTest", () => {
-  it("accepts the members of a range and nothing else", () => {
-    const inRange = busMemberTest("AD[0..11]")!;
-    expect(inRange("AD0")).toBe(true);
-    expect(inRange("AD11")).toBe(true);
-    expect(inRange("AD12")).toBe(false);
-    expect(inRange("ADC")).toBe(false);
-    expect(inRange("AD")).toBe(false);
-  });
-
-  it("reads a descending range and an overbar", () => {
-    expect(busMemberTest("D[3..0]")!("D2")).toBe(true);
-    expect(busMemberTest("C\\S\\[1..2]")!("CS2")).toBe(true);
-  });
-
-  it("accepts any index for a Repeat() identifier", () => {
-    const repeated = busMemberTest("Repeat(OP_OUT_P)")!;
-    expect(repeated("OP_OUT_P9")).toBe(true);
-    expect(repeated("OP_OUT_P")).toBe(false);
-    expect(repeated("OP_OUT_N1")).toBe(false);
-  });
-
-  it("is undefined for a plain name", () => {
-    expect(busMemberTest("CLK")).toBeUndefined();
-  });
-});
-
-describe("expandBusRange and repeatBaseName", () => {
-  it("lists a finite range", () => {
-    expect(expandBusRange("DAC[1..2]")).toEqual(["DAC1", "DAC2"]);
-    expect(expandBusRange("Repeat(X)")).toEqual([]);
-  });
-
-  it("finds the base of a Repeat() identifier", () => {
-    expect(repeatBaseName("Repeat( TEMP_A )")).toBe("TEMP_A");
-    expect(repeatBaseName("TEMP_A")).toBeUndefined();
-  });
-
+describe("isBusIdentifier", () => {
   it("recognises range identifiers by record type", () => {
     expect(isBusIdentifier({ index: 0, RECORD: RECORD_TYPES.PORT, Name: "D[0..7]" })).toBe(true);
     expect(isBusIdentifier({ index: 0, RECORD: RECORD_TYPES.NET_LABEL, Text: "D[0..7]" })).toBe(
@@ -101,7 +64,14 @@ const sheet = ({
     "Location.Y": "100",
     Width: "40",
   });
-  const bus = record({ RECORD: RECORD_TYPES.BUS, X1: "100", Y1: "100", X2: "100", Y2: "200" });
+  const bus = record({
+    RECORD: RECORD_TYPES.BUS,
+    LocationCount: "2",
+    X1: "100",
+    Y1: "100",
+    X2: "100",
+    Y2: "200",
+  });
   const busEntry = record({
     RECORD: RECORD_TYPES.BUS_ENTRY,
     "Location.X": "100",
@@ -109,7 +79,14 @@ const sheet = ({
     "Corner.X": "110",
     "Corner.Y": "160",
   });
-  const wire = record({ RECORD: RECORD_TYPES.WIRE, X1: "110", Y1: "160", X2: "200", Y2: "160" });
+  const wire = record({
+    RECORD: RECORD_TYPES.WIRE,
+    LocationCount: "2",
+    X1: "110",
+    Y1: "160",
+    X2: "200",
+    Y2: "160",
+  });
   const label = record({
     RECORD: RECORD_TYPES.NET_LABEL,
     Text: "D1",
@@ -137,7 +114,14 @@ const sheet = ({
     OwnerIndex: String(symbolIndex),
   });
   // The entry sits at (500, 480); a wire reaches it from a bus entry.
-  const busA = record({ RECORD: RECORD_TYPES.BUS, X1: "400", Y1: "470", X2: "300", Y2: "470" });
+  const busA = record({
+    RECORD: RECORD_TYPES.BUS,
+    LocationCount: "2",
+    X1: "400",
+    Y1: "470",
+    X2: "300",
+    Y2: "470",
+  });
   const busAEntry = record({
     RECORD: RECORD_TYPES.BUS_ENTRY,
     "Location.X": "400",
@@ -147,6 +131,7 @@ const sheet = ({
   });
   const entryWire = record({
     RECORD: RECORD_TYPES.WIRE,
+    LocationCount: "2",
     X1: "410",
     Y1: "480",
     X2: "500",
@@ -159,7 +144,14 @@ const sheet = ({
     "Location.Y": "470",
   });
   // A separate bus carrying the same label, with the labelled member wire.
-  const busB = record({ RECORD: RECORD_TYPES.BUS, X1: "100", Y1: "800", X2: "200", Y2: "800" });
+  const busB = record({
+    RECORD: RECORD_TYPES.BUS,
+    LocationCount: "2",
+    X1: "100",
+    Y1: "800",
+    X2: "200",
+    Y2: "800",
+  });
   const busBLabel = record({
     RECORD: RECORD_TYPES.NET_LABEL,
     Text: busLabel,
@@ -175,6 +167,7 @@ const sheet = ({
   });
   const memberWire = record({
     RECORD: RECORD_TYPES.WIRE,
+    LocationCount: "2",
     X1: "210",
     Y1: "810",
     X2: "300",
@@ -199,7 +192,16 @@ const sheet = ({
     );
   }
   if (detached) {
-    extras.push(record({ RECORD: RECORD_TYPES.WIRE, X1: "100", Y1: "900", X2: "200", Y2: "900" }));
+    extras.push(
+      record({
+        RECORD: RECORD_TYPES.WIRE,
+        LocationCount: "2",
+        X1: "100",
+        Y1: "900",
+        X2: "200",
+        Y2: "900",
+      })
+    );
     extras.push(
       record({
         RECORD: RECORD_TYPES.NET_LABEL,
@@ -289,6 +291,13 @@ describe("attachBusMembers", () => {
     ]);
   });
 
+  it("matches bus labels, ranges and members ignoring case", () => {
+    const nets = extractNets(sheet({ busLabel: "in1_p[2..1]", member: "IN1_P2" }));
+    expect(netNamed(nets, "IN1_P2")!.busCarriers).toEqual([
+      expect.objectContaining({ member: "IN1_P2", channel: 2 }),
+    ]);
+  });
+
   it("keeps a Repeat() entry to its own name when the run carries two ranges", () => {
     const nets = extractNets(
       sheet({ busLabel: "IN1_P[2..1]", member: "IN1_P2", extraLabel: "IN1_N[2..1]" })
@@ -305,5 +314,76 @@ describe("attachBusMembers", () => {
       RECORD_TYPES.NET_LABEL,
     ]);
     expect(x1.busCarriers).toEqual([expect.objectContaining({ member: "X1", channel: 1 })]);
+  });
+});
+
+describe("Repeat() entries on a labelled wire", () => {
+  /** A `Repeat(CH,1,2)` symbol whose entry `Repeat(VIN)` meets a wire labelled `vbat`, and a net `VBAT1`. */
+  const repeatWireSheet = (): AltiumSchematic => {
+    let index = 0;
+    const record = (fields: Record<string, unknown>): AltiumRecord =>
+      ({ index: index++, ...fields }) as AltiumRecord;
+    const symbol = record({
+      RECORD: RECORD_TYPES.SHEET_SYMBOL,
+      "Location.X": "500",
+      "Location.Y": "500",
+      XSize: "100",
+      YSize: "100",
+    });
+    const owner = String(symbol.index);
+    return buildHierarchy({
+      header: [],
+      records: [
+        symbol,
+        record({ RECORD: RECORD_TYPES.SHEET_NAME, Text: "Repeat(CH,1,2)", OwnerIndex: owner }),
+        record({ RECORD: RECORD_TYPES.SHEET_FILE_NAME, Text: "ch.SchDoc", OwnerIndex: owner }),
+        record({
+          RECORD: RECORD_TYPES.SHEET_ENTRY,
+          Name: "Repeat(VIN)",
+          DistanceFromTop: "2",
+          OwnerIndex: owner,
+        }),
+        record({
+          RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
+          X1: "400",
+          Y1: "480",
+          X2: "500",
+          Y2: "480",
+        }),
+        record({
+          RECORD: RECORD_TYPES.NET_LABEL,
+          Text: "vbat",
+          "Location.X": "450",
+          "Location.Y": "480",
+        }),
+        record({
+          RECORD: RECORD_TYPES.WIRE,
+          LocationCount: "2",
+          X1: "100",
+          Y1: "900",
+          X2: "200",
+          Y2: "900",
+        }),
+        record({
+          RECORD: RECORD_TYPES.NET_LABEL,
+          Text: "VBAT1",
+          "Location.X": "150",
+          "Location.Y": "900",
+        }),
+      ],
+    });
+  };
+
+  it("hands channel n the sheet's net named after the wire's label and n", () => {
+    const nets = extractNets(repeatWireSheet());
+
+    expect(netNamed(nets, "VBAT1")!.busCarriers).toEqual([
+      expect.objectContaining({ member: "vbat1", channel: 1 }),
+    ]);
+    const pinless = nets.filter((net) => net.name === null);
+    expect(pinless.map((net) => net.busCarriers)).toEqual([
+      [expect.objectContaining({ member: "vbat2", channel: 2 })],
+    ]);
   });
 });

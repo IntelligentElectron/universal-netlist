@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-11T23:55:43.446Z",
-    "netlistHash": "sha256:38a05841bdc5788e43bbf822a35dd02e6d89ac9470d98149da4581cd3393d125",
+    "generatedAt": "2026-09-15T03:22:19.618Z",
+    "netlistHash": "sha256:f3fe4c536f6699c4f498b3b15d266e810b118fb12398957ce79a695d7ff4558d",
     "origin": {
       "type": "vendor",
       "source": {
@@ -2443,6 +2443,17 @@
         "B5"
       ]
     },
+    "NetC12_2": {
+      "C12": [
+        "2"
+      ],
+      "U3": [
+        "21"
+      ],
+      "Y1": [
+        "1"
+      ]
+    },
     "NetLED3_2": {
       "LED3": [
         "2"
@@ -2553,17 +2564,6 @@
         "1"
       ]
     },
-    "NetC12_2_4": {
-      "C12": [
-        "2"
-      ],
-      "U3": [
-        "21"
-      ],
-      "Y1": [
-        "1"
-      ]
-    },
     "BC_EN1": {
       "U3": [
         "7"
@@ -2573,6 +2573,17 @@
       ],
       "U2": [
         "1"
+      ]
+    },
+    "CAN_STBY": {
+      "U8": [
+        "8"
+      ],
+      "R66": [
+        "1"
+      ],
+      "U9": [
+        "105"
       ]
     },
     "CAN2_RX": {
@@ -2623,17 +2634,6 @@
       ],
       "D7": [
         "2"
-      ]
-    },
-    "CAN_STBY": {
-      "U8": [
-        "8"
-      ],
-      "R66": [
-        "1"
-      ],
-      "U9": [
-        "105"
       ]
     },
     "CUR_LIMIT": {
@@ -4280,7 +4280,7 @@
         "1": "AREF",
         "2": "+3V3"
       },
-      "description": "Chip Ferrite Bead, 0805, 200O @ 100MHz, 0.26O, 25%, 500mA",
+      "description": "Chip Ferrite Bead, 0805, 200Ω @ 100MHz, 0.26Ω, 25%, 500mA",
       "comment": "BLM21BB201SN1D"
     },
     "R93": {
@@ -5009,7 +5009,7 @@
         "1": "V_BUS",
         "2": "+5"
       },
-      "description": "Chip Ferrite Bead, 0805, 200O @ 100MHz, 0.26O, 25%, 500mA",
+      "description": "Chip Ferrite Bead, 0805, 200Ω @ 100MHz, 0.26Ω, 25%, 500mA",
       "comment": "BLM21BB201SN1D"
     },
     "U2": {
@@ -6125,7 +6125,7 @@
     "C12": {
       "pins": {
         "1": "GND",
-        "2": "NetC12_2_4"
+        "2": "NetC12_2"
       },
       "description": "Capacitor",
       "value": "10p"
@@ -6302,7 +6302,7 @@
         },
         "21": {
           "name": "XTALOUT/(CLKIN EN)",
-          "net": "NetC12_2_4"
+          "net": "NetC12_2"
         },
         "22": {
           "name": "XTALIN/CLKIN",
@@ -6344,7 +6344,7 @@
       "pins": {
         "1": {
           "name": "OUT",
-          "net": "NetC12_2_4"
+          "net": "NetC12_2"
         },
         "2": {
           "name": "GND",

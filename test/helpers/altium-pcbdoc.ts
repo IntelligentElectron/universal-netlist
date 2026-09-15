@@ -11,8 +11,10 @@
 import { OleReader } from "../../src/parsers/ole-reader/ole-reader.js";
 
 export interface BoardNetlist {
-  /** `<refdes>.<pad>` -> net name, for every pad on a net. */
-  pinNets: Map<string, string>;
+  /** `<refdes>.<pad>` -> the nets its pads are on; a footprint can repeat a pad name. */
+  pinNets: Map<string, Set<string>>;
+  /** Net name -> the `<refdes>.<pad>` pins on it. */
+  netPins: Map<string, Set<string>>;
   netCount: number;
 }
 
@@ -98,7 +100,8 @@ export const readBoardNetlist = (pcbDocPath: string): BoardNetlist => {
     textRecords(ole, "Components6/Data").map((record) => record.SOURCEDESIGNATOR)
   );
   const pads = ole.readStreamByPath("Pads6/Data");
-  const pinNets = new Map<string, string>();
+  const pinNets = new Map<string, Set<string>>();
+  const netPins = new Map<string, Set<string>>();
   let pos = 0;
   while (pos < pads.length) {
     const type = pads[pos];
@@ -118,9 +121,12 @@ export const readBoardNetlist = (pcbDocPath: string): BoardNetlist => {
     if (net < 0 || component < 0) continue;
     const refdes = components[component];
     const netName = nets[net];
-    if (refdes && netName) pinNets.set(`${refdes}.${name}`, netName);
+    if (!refdes || !netName) continue;
+    const pin = `${refdes}.${name}`;
+    (pinNets.get(pin) ?? pinNets.set(pin, new Set()).get(pin)!).add(netName);
+    (netPins.get(netName) ?? netPins.set(netName, new Set()).get(netName)!).add(pin);
   }
-  return { pinNets, netCount: nets.length };
+  return { pinNets, netPins, netCount: nets.length };
 };
 
 export interface BoardComparison {
@@ -128,25 +134,39 @@ export interface BoardComparison {
   sharedPins: number;
   /** Shared pins whose net is called the same in both. */
   sameName: number;
+  /**
+   * Shared pins whose pads sit on more than one board net, which the board cannot place on
+   * one; they are left out of the checks below.
+   */
+  ambiguous: string[];
   /** Board nets whose pins fall into more than one schematic net. */
   fragmented: string[];
   /** Schematic nets whose pins fall into more than one board net. */
   overMerged: string[];
+  /** Schematic pins on no net that the board connects to another pad. */
+  unconnected: string[];
 }
 
 export const compareToBoard = (
   pinNets: ReadonlyMap<string, string>,
-  board: BoardNetlist
+  board: BoardNetlist,
+  schematicPins: ReadonlySet<string>
 ): BoardComparison => {
   const boardToSchematic = new Map<string, Set<string>>();
   const schematicToBoard = new Map<string, Set<string>>();
   let sharedPins = 0;
   let sameName = 0;
-  for (const [pin, boardNet] of board.pinNets) {
+  const ambiguous: string[] = [];
+  for (const [pin, boardNets] of board.pinNets) {
     const schematicNet = pinNets.get(pin);
     if (!schematicNet) continue;
     sharedPins++;
-    if (schematicNet === boardNet) sameName++;
+    if (boardNets.has(schematicNet)) sameName++;
+    if (boardNets.size > 1) {
+      ambiguous.push(pin);
+      continue;
+    }
+    const [boardNet] = boardNets;
     (
       boardToSchematic.get(boardNet) ?? boardToSchematic.set(boardNet, new Set()).get(boardNet)!
     ).add(schematicNet);
@@ -163,5 +183,14 @@ export const compareToBoard = (
     .filter(([, nets]) => nets.size > 1)
     .map(([name]) => name)
     .sort();
-  return { sharedPins, sameName, fragmented, overMerged };
+  const unconnected = [...board.pinNets]
+    .filter(
+      ([pin, nets]) =>
+        schematicPins.has(pin) &&
+        !pinNets.has(pin) &&
+        [...nets].some((net) => board.netPins.get(net)!.size > 1)
+    )
+    .map(([pin]) => pin)
+    .sort();
+  return { sharedPins, sameName, ambiguous: ambiguous.sort(), fragmented, overMerged, unconnected };
 };

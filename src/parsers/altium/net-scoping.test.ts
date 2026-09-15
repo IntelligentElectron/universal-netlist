@@ -1,10 +1,6 @@
 import { describe, it, expect } from "vitest";
-import {
-  isSheetBound,
-  planLocalNetRenames,
-  applyNetRenames,
-  noNetIdentifiers,
-} from "./net-scoping.js";
+import { isSheetBound, planLocalNetRenames, noNetIdentifiers } from "./net-scoping.js";
+import { applyNetRenames } from "./netlist.js";
 import type { NetIdentifierKinds, SheetNetScope } from "./net-scoping.js";
 import type { ParsedNetlist } from "../../types.js";
 
@@ -20,6 +16,12 @@ const sheet = (
 ): SheetNetScope => ({
   sheetNumber,
   netIdentifiers: new Map(Object.entries(nets).map(([name, k]) => [name, kinds(k)])),
+  nameSources: new Map(
+    Object.entries(nets).map(([name, k]) => [
+      name,
+      k.label ? "label" : k.powerPort ? "power" : "pin",
+    ])
+  ),
 });
 
 describe("isSheetBound", () => {
@@ -118,13 +120,13 @@ describe("planLocalNetRenames", () => {
     expect(plans[1].size).toBe(0);
   });
 
-  it("splits a power net under Strict Hierarchical, where power ports are local too", () => {
+  it("leaves a supply's name bare under Strict Hierarchical, numbering only labels", () => {
     const plans = planLocalNetRenames(
       [sheet("1", { GND: { powerPort: true } }), sheet("2", { GND: { powerPort: true } })],
       "strict-hierarchical"
     );
-    expect(plans[0].get("GND")).toBe("GND_1");
-    expect(plans[1].get("GND")).toBe("GND_2");
+    expect(plans[0].size).toBe(0);
+    expect(plans[1].size).toBe(0);
   });
 
   it("leaves an unnumbered sheet's nets alone, having nothing to suffix with", () => {
@@ -147,6 +149,45 @@ describe("planLocalNetRenames", () => {
       "hierarchical"
     );
     expect(plans[0].get("SCL")).toBe("SCL_1");
+    expect(plans[1].has("SCL")).toBe(false);
+  });
+
+  it("leaves a pin name bare though a label sits on its net", () => {
+    const plans = planLocalNetRenames(
+      [
+        {
+          sheetNumber: "3",
+          netIdentifiers: new Map([["NetR1_1", kinds({ label: true })]]),
+          nameSources: new Map([["NetR1_1", "pin"]]),
+        },
+      ],
+      "hierarchical"
+    );
+    expect(plans[0].size).toBe(0);
+  });
+
+  it("numbers a pair net before its suffix", () => {
+    const plans = planLocalNetRenames([sheet("3", { HV_P: { label: true } })], "hierarchical");
+    expect(plans[0].get("HV_P")).toBe("HV_3_P");
+  });
+
+  it("leaves a label spelled as a global supply bare", () => {
+    const plans = planLocalNetRenames(
+      [sheet("3", { GND: { label: true } }), sheet("4", { GND: { label: true } })],
+      "hierarchical",
+      new Set(["GND"])
+    );
+    expect(plans.every((plan) => plan.size === 0)).toBe(true);
+  });
+
+  it("does not number a name onto one in use in another case", () => {
+    const plans = planLocalNetRenames(
+      [
+        sheet("1", { SCL: { label: true } }),
+        sheet("2", { SCL: { label: true }, scl_2: { label: true } }),
+      ],
+      "hierarchical"
+    );
     expect(plans[1].has("SCL")).toBe(false);
   });
 
@@ -364,7 +405,7 @@ describe("planLocalNetRenames on harness members under other scopes", () => {
 
   it("leaves a member alone, because under Global the bundle's label is not a sheet's", () => {
     // Global is the one scope where a label reaches every sheet, so nothing a
-    // label names is sheet-local — the bundle included.
+    // label names is sheet-local, the bundle included.
     const plans = planLocalNetRenames(
       [
         sheet("1", { USART2: { label: true } }),

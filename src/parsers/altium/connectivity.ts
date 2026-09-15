@@ -1,460 +1,157 @@
 /**
- * Altium Connectivity Detection
- *
- * Uses spatial indexing and Union-Find for O(n) connectivity detection
- * instead of O(n²) pairwise comparisons.
+ * Which records on a sheet connect: by geometry, through a spatial index, and by name.
  */
 
-import type { AltiumRecord } from "./types.js";
-import { RECORD_TYPES } from "./types.js";
+import { RECORD_TYPES, type AltiumRecord } from "./types.js";
+import { identifierKey } from "./notation.js";
+import { fieldText } from "./records.js";
+import {
+  COORDINATE_SCALE,
+  TOUCH_TOLERANCE,
+  pointOnSegment,
+  pointsTouch,
+  type Point,
+} from "./coordinates.js";
+import { UnionFind } from "./union-find.js";
 
-type Coordinate = [number, number];
-type LineSegment = [Coordinate, Coordinate];
+type Segment = [Point, Point];
 
-/**
- * Union-Find data structure for efficient connected component detection
- */
-class UnionFind {
-  private parent: Map<number, number> = new Map();
-  private rank: Map<number, number> = new Map();
+/** Records drawn as lines: every consecutive pair of points is a segment. */
+const LINES = new Set<string | undefined>([RECORD_TYPES.WIRE, RECORD_TYPES.BUS]);
 
-  find(x: number): number {
-    if (!this.parent.has(x)) {
-      this.parent.set(x, x);
-      this.rank.set(x, 0);
-    }
-    if (this.parent.get(x) !== x) {
-      this.parent.set(x, this.find(this.parent.get(x)!));
-    }
-    return this.parent.get(x)!;
+/** Records drawn from one point to another. */
+const BARS = new Set<string | undefined>([
+  RECORD_TYPES.PIN,
+  RECORD_TYPES.PORT,
+  RECORD_TYPES.BUS_ENTRY,
+]);
+
+/** A record's segments; a lone point is a segment of zero length. */
+const segmentsOf = (device: AltiumRecord): Segment[] => {
+  const points = device.coords ?? [];
+  if (points.length === 0) return [];
+  if (points.length > 1 && LINES.has(device.RECORD)) {
+    return points.slice(1).map((point, i) => [points[i], point]);
   }
+  if (points.length > 1 && BARS.has(device.RECORD)) return [[points[0], points[1]]];
+  return [[points[0], points[0]]];
+};
 
-  union(x: number, y: number): void {
-    let rootX = this.find(x);
-    let rootY = this.find(y);
-    if (rootX === rootY) return;
-
-    const rankX = this.rank.get(rootX)!;
-    const rankY = this.rank.get(rootY)!;
-
-    if (rankX < rankY) {
-      [rootX, rootY] = [rootY, rootX];
-    }
-    this.parent.set(rootY, rootX);
-    if (rankX === rankY) {
-      this.rank.set(rootX, rankX + 1);
-    }
-  }
-}
-
-/**
- * Grid-based spatial index for fast neighbor lookup
- */
+/** Cells of the 10-unit drawing grid, each holding the records within touching distance. */
 class SpatialIndex {
-  private cellSize: number;
-  private grid: Map<string, number[]> = new Map();
-  private pointToDevices: Map<string, number[]> = new Map();
-  private segmentCells: Map<number, Set<string>> = new Map();
+  private readonly cells = new Map<string, number[]>();
+  private readonly cellsOf = new Map<number, Set<string>>();
 
-  constructor(cellSize = 10000) {
-    this.cellSize = cellSize;
+  private static addCells([x1, y1]: Point, [x2, y2]: Point, into: Set<string>): void {
+    const cell = (value: number): number => Math.floor(value / (10 * COORDINATE_SCALE));
+    const [left, right] = [
+      cell(Math.min(x1, x2) - TOUCH_TOLERANCE),
+      cell(Math.max(x1, x2) + TOUCH_TOLERANCE),
+    ];
+    const [bottom, top] = [
+      cell(Math.min(y1, y2) - TOUCH_TOLERANCE),
+      cell(Math.max(y1, y2) + TOUCH_TOLERANCE),
+    ];
+    for (let cx = left; cx <= right; cx++) {
+      for (let cy = bottom; cy <= top; cy++) into.add(`${cx},${cy}`);
+    }
   }
 
-  private cellKey(x: number, y: number): string {
-    const cx = Math.floor(x / this.cellSize);
-    const cy = Math.floor(y / this.cellSize);
-    return `${cx},${cy}`;
-  }
-
-  private coordKey(x: number, y: number): string {
-    return `${x},${y}`;
-  }
-
-  private cellsForSegment(p1: Coordinate, p2: Coordinate): Set<string> {
+  add(device: AltiumRecord): void {
+    const points = device.coords ?? [];
+    if (points.length === 0) return;
     const cells = new Set<string>();
-    const [x1, y1] = p1;
-    const [x2, y2] = p2;
-
-    const minCx = Math.floor(Math.min(x1, x2) / this.cellSize);
-    const maxCx = Math.floor(Math.max(x1, x2) / this.cellSize);
-    const minCy = Math.floor(Math.min(y1, y2) / this.cellSize);
-    const maxCy = Math.floor(Math.max(y1, y2) / this.cellSize);
-
-    for (let cx = minCx; cx <= maxCx; cx++) {
-      for (let cy = minCy; cy <= maxCy; cy++) {
-        cells.add(`${cx},${cy}`);
-      }
+    for (const point of points) SpatialIndex.addCells(point, point, cells);
+    if (LINES.has(device.RECORD) || BARS.has(device.RECORD)) {
+      for (let i = 1; i < points.length; i++)
+        SpatialIndex.addCells(points[i - 1], points[i], cells);
     }
-    return cells;
-  }
-
-  addDevice(device: AltiumRecord): void {
-    if (!device.coords || device.coords.length === 0) return;
-
-    const deviceIdx = device.index;
-    const allCells = new Set<string>();
-
-    for (const coord of device.coords) {
-      const coordKeyStr = this.coordKey(coord[0], coord[1]);
-      if (!this.pointToDevices.has(coordKeyStr)) {
-        this.pointToDevices.set(coordKeyStr, []);
-      }
-      this.pointToDevices.get(coordKeyStr)!.push(deviceIdx);
-
-      const cellKeyStr = this.cellKey(coord[0], coord[1]);
-      allCells.add(cellKeyStr);
-    }
-
-    const recordType = device.RECORD;
-    if (
-      (recordType === RECORD_TYPES.WIRE ||
-        recordType === RECORD_TYPES.BUS ||
-        recordType === RECORD_TYPES.PIN ||
-        recordType === RECORD_TYPES.PORT ||
-        recordType === RECORD_TYPES.BUS_ENTRY) &&
-      device.coords.length > 1
-    ) {
-      for (let i = 0; i < device.coords.length - 1; i++) {
-        const segCells = this.cellsForSegment(device.coords[i], device.coords[i + 1]);
-        for (const cell of segCells) {
-          allCells.add(cell);
-        }
-      }
-    }
-
-    this.segmentCells.set(deviceIdx, allCells);
-    for (const cell of allCells) {
-      if (!this.grid.has(cell)) {
-        this.grid.set(cell, []);
-      }
-      this.grid.get(cell)!.push(deviceIdx);
-    }
-  }
-
-  getCandidates(device: AltiumRecord): Set<number> {
-    const cells = this.segmentCells.get(device.index);
-    if (!cells) return new Set();
-
-    const candidates = new Set<number>();
+    this.cellsOf.set(device.index, cells);
     for (const cell of cells) {
-      const devicesInCell = this.grid.get(cell);
-      if (devicesInCell) {
-        for (const idx of devicesInCell) {
-          candidates.add(idx);
-        }
-      }
+      (this.cells.get(cell) ?? this.cells.set(cell, []).get(cell)!).push(device.index);
     }
-    candidates.delete(device.index);
-    return candidates;
   }
 
-  getPointToDevices(): Map<string, number[]> {
-    return this.pointToDevices;
+  /** The records sharing a cell with `device`. */
+  neighbours(device: AltiumRecord): Set<number> {
+    const found = new Set<number>();
+    for (const cell of this.cellsOf.get(device.index) ?? []) {
+      for (const index of this.cells.get(cell) ?? []) found.add(index);
+    }
+    found.delete(device.index);
+    return found;
   }
 }
 
 /**
- * Get line segments for a device.
- *
- * A bus line is a polyline like a wire and a bus entry a two-point segment
- * like a pin. Neither is passed here by the net extractor, which never lets a
- * bus join a net; bus.ts groups them on their own to find which range
- * identifiers a bus reaches.
- */
-const getLineSegments = (device: AltiumRecord): LineSegment[] => {
-  if (!device.coords || device.coords.length === 0) {
-    return [];
-  }
-
-  if (
-    (device.RECORD === RECORD_TYPES.WIRE || device.RECORD === RECORD_TYPES.BUS) &&
-    device.coords.length > 1
-  ) {
-    const segments: LineSegment[] = [];
-    for (let i = 0; i < device.coords.length - 1; i++) {
-      segments.push([device.coords[i], device.coords[i + 1]]);
-    }
-    return segments;
-  }
-
-  if (
-    (device.RECORD === RECORD_TYPES.PIN ||
-      device.RECORD === RECORD_TYPES.PORT ||
-      device.RECORD === RECORD_TYPES.BUS_ENTRY) &&
-    device.coords.length > 1
-  ) {
-    return [[device.coords[0], device.coords[1]]];
-  }
-
-  const point = device.coords[0];
-  return [[point, point]];
-};
-
-/**
- * How far apart two points may be and still touch, in scaled units: a
- * twentieth of a schematic unit.
- *
- * Objects drawn in Altium sit on the grid and meet exactly. A design imported
- * from another tool carries fractional coordinates, and there a net label can
- * sit 0.001 to 0.002 units off the wire it names and a wire end 0.011 units
- * off the wire it meets: four labels and one such wire on the LimeSDR-USB
- * sheets, fifteen labels on the aberrant sound module, and both boards have
- * them connected. Nothing in a schematic is deliberately drawn a twentieth of
- * a unit from something else, the grid being 10 units and the finest pin pitch
- * seen in an imported design 2.5.
- */
-const TOUCH_TOLERANCE = 500;
-
-/**
- * Check if a point lies on a line segment, within TOUCH_TOLERANCE.
- */
-export const pointOnSegment = (point: Coordinate, segment: LineSegment): boolean => {
-  const [p1, p2] = segment;
-  const [px, py] = point;
-
-  // Cross product collinearity check: the perpendicular distance must be
-  // within tolerance. Squared form avoids sqrt.
-  const cross = (p2[0] - p1[0]) * (py - p1[1]) - (p2[1] - p1[1]) * (px - p1[0]);
-  const segLenSq = (p2[0] - p1[0]) ** 2 + (p2[1] - p1[1]) ** 2;
-  if (segLenSq > 0 && cross * cross > TOUCH_TOLERANCE * TOUCH_TOLERANCE * segLenSq) return false;
-
-  const minX = Math.min(p1[0], p2[0]) - TOUCH_TOLERANCE;
-  const maxX = Math.max(p1[0], p2[0]) + TOUCH_TOLERANCE;
-  const minY = Math.min(p1[1], p2[1]) - TOUCH_TOLERANCE;
-  const maxY = Math.max(p1[1], p2[1]) + TOUCH_TOLERANCE;
-
-  return px >= minX && px <= maxX && py >= minY && py <= maxY;
-};
-
-const pointsTouch = (a: Coordinate, b: Coordinate): boolean =>
-  Math.abs(a[0] - b[0]) <= TOUCH_TOLERANCE && Math.abs(a[1] - b[1]) <= TOUCH_TOLERANCE;
-
-/**
- * Check if a point lies on any of the given line segments.
- */
-const pointOnAnySegment = (point: Coordinate, segments: LineSegment[]): boolean => {
-  for (const segment of segments) {
-    if (pointOnSegment(point, segment)) {
-      return true;
-    }
-  }
-  return false;
-};
-
-/**
- * Check if two devices are connected.
- *
- * Connectivity is determined by:
- * 1. For wires: line segment intersection
- * 2. For other devices: point overlap on wire segment
- * 3. Special case: power ports/net labels with same TEXT value
- */
-export const isConnected = (deviceA: AltiumRecord, deviceB: AltiumRecord): boolean => {
-  const segmentsA = getLineSegments(deviceA);
-  const segmentsB = getLineSegments(deviceB);
-
-  // Two pins meet end to end or not at all. A pin's whole length is kept so
-  // that a wire ending part way along it still joins, as imported designs
-  // draw them; but two pins lying along one line, the stacked resistors of the
-  // LimeSDR-USB FPGA bank sheet, are not joined by overlapping, and the board
-  // keeps them apart.
-  if (deviceA.RECORD === RECORD_TYPES.PIN && deviceB.RECORD === RECORD_TYPES.PIN) {
-    const endsA = segmentsA.flat();
-    const endsB = segmentsB.flat();
-    return endsA.some((a) => endsB.some((b) => pointsTouch(a, b)));
-  }
-
-  for (const segment of segmentsA) {
-    for (const vertex of segment) {
-      if (pointOnAnySegment(vertex, segmentsB)) {
-        return true;
-      }
-    }
-  }
-
-  for (const segment of segmentsB) {
-    for (const vertex of segment) {
-      if (pointOnAnySegment(vertex, segmentsA)) {
-        return true;
-      }
-    }
-  }
-
-  // Harness entries carrying the same signal of the same bundle are the two ends
-  // of one net, however the wires reaching them are labelled.
-  if (
-    deviceA.RECORD === RECORD_TYPES.HARNESS_ENTRY &&
-    deviceB.RECORD === RECORD_TYPES.HARNESS_ENTRY &&
-    typeof deviceA.harnessSignal === "string" &&
-    deviceA.harnessSignal === deviceB.harnessSignal
-  ) {
-    return true;
-  }
-
-  // Special case: named devices with the same name are connected by that name
-  // (see namedDeviceKey).
-  const keyA = namedDeviceKey(deviceA);
-  return keyA !== undefined && keyA === namedDeviceKey(deviceB);
-};
-
-/**
- * The name under which a device joins others of its kind without a wire, or
- * undefined for a device that only joins by geometry.
- *
- * Power ports and net labels of one name are one net. Ports of one name are one
- * net too, but a port never joins a net label: Altium's connectivity guide
- * states that a port called `Inta` does not connect to a net label called
- * `Inta`, they must be wired. A sheet entry never joins by name at all: several
- * sheet symbols may carry entries of one name that lead to different nets.
+ * The key under which a record joins others without a wire. Net labels and power ports
+ * of one name are one net, and so are ports of one name; a port never joins a label by
+ * name, and a sheet entry never joins by name at all.
  */
 const namedDeviceKey = (device: AltiumRecord): string | undefined => {
-  const name = device.Text ?? device.TEXT ?? device.Name ?? device.NAME;
-  if (name === undefined || name === null || name === "") return undefined;
+  const name = fieldText(device, "Text", "Name");
+  if (name === undefined) return undefined;
   if (device.RECORD === RECORD_TYPES.POWER_PORT || device.RECORD === RECORD_TYPES.NET_LABEL) {
-    return `label:${String(name)}`;
+    return `label:${identifierKey(name)}`;
   }
-  if (device.RECORD === RECORD_TYPES.PORT) return `port:${String(name)}`;
-  return undefined;
+  return device.RECORD === RECORD_TYPES.PORT ? `port:${identifierKey(name)}` : undefined;
 };
 
 /**
- * Find all connected components using spatial indexing and Union-Find.
- * This is O(n) average case instead of O(n²).
+ * Whether two records touch. A point of either on the other connects them, except that two
+ * pins meet only tip to tip: a pin's inner end is its body.
  */
+export const isConnected = (a: AltiumRecord, b: AltiumRecord): boolean => {
+  if (a.RECORD === RECORD_TYPES.PIN && b.RECORD === RECORD_TYPES.PIN) {
+    const tipA = a.coords?.[a.coords.length - 1];
+    const tipB = b.coords?.[b.coords.length - 1];
+    return tipA !== undefined && tipB !== undefined && pointsTouch(tipA, tipB);
+  }
+  const segmentsA = segmentsOf(a);
+  const segmentsB = segmentsOf(b);
+  const touches = (from: Segment[], to: Segment[]): boolean =>
+    from.some((segment) =>
+      segment.some((point) => to.some((other) => pointOnSegment(point, other)))
+    );
+  return touches(segmentsA, segmentsB) || touches(segmentsB, segmentsA);
+};
+
+/** Group records into the sets that connect: by touching, and by name or harness signal. */
 export const findAllConnectedComponents = (devices: AltiumRecord[]): AltiumRecord[][] => {
-  if (devices.length === 0) return [];
-
-  const spatialIndex = new SpatialIndex();
+  const index = new SpatialIndex();
+  const byIndex = new Map<number, AltiumRecord>();
   for (const device of devices) {
-    spatialIndex.addDevice(device);
+    index.add(device);
+    byIndex.set(device.index, device);
   }
 
-  const uf = new UnionFind();
-  const deviceByIndex = new Map<number, AltiumRecord>();
-  for (const d of devices) {
-    deviceByIndex.set(d.index, d);
-    uf.find(d.index); // Initialize
-  }
-
-  // Collect the devices that join by name (see namedDeviceKey)
-  const globalLabels = new Map<string, number[]>();
+  const sets = new UnionFind<number>();
   for (const device of devices) {
-    const key = namedDeviceKey(device);
-    if (key === undefined) continue;
-    if (!globalLabels.has(key)) {
-      globalLabels.set(key, []);
+    for (const neighbour of index.neighbours(device)) {
+      if (isConnected(device, byIndex.get(neighbour)!)) sets.union(device.index, neighbour);
     }
-    globalLabels.get(key)!.push(device.index);
   }
 
-  // Collect harness entries by the signal they carry. Two entries of one bundle
-  // named alike are the same net wherever they are drawn, so a wire label that
-  // differs from one end of the harness to the other does not split it.
-  const harnessSignals = new Map<string, number[]>();
+  // Records that join without geometry: by name, and harness entries by signal or by the
+  // member name a harness label gives them.
+  const firstByKey = new Map<string, number>();
+  const join = (key: string | undefined, device: AltiumRecord): void => {
+    if (key === undefined) return;
+    const first = firstByKey.get(key);
+    if (first === undefined) firstByKey.set(key, device.index);
+    else sets.union(first, device.index);
+  };
   for (const device of devices) {
+    join(namedDeviceKey(device), device);
     if (device.RECORD !== RECORD_TYPES.HARNESS_ENTRY) continue;
-    const signal = device.harnessSignal;
-    if (typeof signal !== "string" || !signal) continue;
-    if (!harnessSignals.has(signal)) {
-      harnessSignals.set(signal, []);
-    }
-    harnessSignals.get(signal)!.push(device.index);
+    if (device.harnessSignal) join(`signal:${identifierKey(device.harnessSignal)}`, device);
+    if (device.harnessNetName) join(`member:${identifierKey(device.harnessNetName)}`, device);
   }
 
-  // Union devices sharing exact coordinates
-  for (const deviceIndices of spatialIndex.getPointToDevices().values()) {
-    if (deviceIndices.length > 1) {
-      const first = deviceIndices[0];
-      for (let i = 1; i < deviceIndices.length; i++) {
-        uf.union(first, deviceIndices[i]);
-      }
-    }
-  }
-
-  // Union geometrically connected devices (only check candidates in same cells)
+  const groups = new Map<number, AltiumRecord[]>();
   for (const device of devices) {
-    const candidates = spatialIndex.getCandidates(device);
-    for (const candidateIdx of candidates) {
-      const candidate = deviceByIndex.get(candidateIdx)!;
-      if (isConnected(device, candidate)) {
-        uf.union(device.index, candidateIdx);
-      }
-    }
+    const root = sets.find(device.index);
+    (groups.get(root) ?? groups.set(root, []).get(root)!).push(device);
   }
-
-  // Union globally-named devices (power ports/net labels with same text)
-  for (const indices of globalLabels.values()) {
-    if (indices.length > 1) {
-      const first = indices[0];
-      for (let i = 1; i < indices.length; i++) {
-        uf.union(first, indices[i]);
-      }
-    }
-  }
-
-  // Union the harness entries that carry one signal
-  for (const indices of harnessSignals.values()) {
-    if (indices.length > 1) {
-      const first = indices[0];
-      for (let i = 1; i < indices.length; i++) {
-        uf.union(first, indices[i]);
-      }
-    }
-  }
-
-  // Group devices by their root
-  const components = new Map<number, AltiumRecord[]>();
-  for (const device of devices) {
-    const root = uf.find(device.index);
-    if (!components.has(root)) {
-      components.set(root, []);
-    }
-    components.get(root)!.push(device);
-  }
-
-  return Array.from(components.values());
-};
-
-/**
- * Find all devices directly connected to the given device.
- */
-export const findNeighbors = (device: AltiumRecord, allDevices: AltiumRecord[]): AltiumRecord[] => {
-  const neighbors: AltiumRecord[] = [];
-
-  for (const other of allDevices) {
-    if (other.index === device.index) {
-      continue;
-    }
-
-    if (isConnected(device, other)) {
-      neighbors.push(other);
-    }
-  }
-
-  return neighbors;
-};
-
-/**
- * Find all devices connected to a starting device using DFS.
- * Note: This is kept for backwards compatibility but the new
- * findAllConnectedComponents() is preferred for performance.
- */
-export const findConnectedDevices = (
-  startDevice: AltiumRecord,
-  allDevices: AltiumRecord[],
-  visited: AltiumRecord[] = []
-): AltiumRecord[] => {
-  const alreadyVisited = visited.some((v) => v.index === startDevice.index);
-  if (alreadyVisited) {
-    return visited;
-  }
-
-  visited.push(startDevice);
-  const neighbors = findNeighbors(startDevice, allDevices);
-
-  for (const neighbor of neighbors) {
-    findConnectedDevices(neighbor, allDevices, visited);
-  }
-
-  return visited;
+  return [...groups.values()];
 };
