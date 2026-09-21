@@ -8,47 +8,68 @@
 import { DsnReader } from "./dsn-reader.js";
 import type { ComponentDetails, ParsedNetlist, ParseDesignOptions } from "../../../types.js";
 import type { CachedLibraryPart, PinMapData } from "./structure-types.js";
-import { parsePage, parsePackageStream, parseHierarchyNetNames } from "./page-parser.js";
+import { parsePage, parsePackageStream } from "./page-parser.js";
+import { parseHierarchyStream, type HierarchyStream } from "./hierarchy-parser.js";
+import { expandHierarchy } from "./hierarchy-expander.js";
 import type { PageData } from "./page-parser.js";
 import { parseCacheStream, indexLibraryPart } from "./cache-parser.js";
 import { parseLibraryStrLst } from "./library-parser.js";
 import { buildDeviceIndexMap } from "./pin-resolver.js";
 import { buildNetConnectivity } from "./net-builder.js";
 import { buildComponents } from "./component-builder.js";
-import { buildOccurrenceRefdes, pickOccurrenceRefdes, readVariantDns } from "./variant-store.js";
+import { readVariantDns } from "./variant-store.js";
 
 /** Parse a .DSN file into a ParsedNetlist. */
 export function parseDsnFile(dsnPath: string, options?: ParseDesignOptions): ParsedNetlist {
   const ole = new DsnReader(dsnPath);
   const entries = ole.listAllEntries();
 
-  // Parse Hierarchy stream for canonical net names
-  const hierEntry = entries.find(
-    (e) => /^Views\/.*\/Hierarchy\/Hierarchy$/.test(e.path) && e.entry.type === 2
-  );
-  let canonicalNetNames = new Set<string>();
-  // Held for the variant store, which reads the same stream for its occurrences.
-  let hierarchyBuffer: Buffer | undefined;
-  if (hierEntry) {
+  // Each view's Hierarchy stream is its occurrence tree: the root schematic's
+  // nets and parts, and one nested scope per placement of every hierarchical
+  // block. Best-effort: a view whose stream will not parse is read flat.
+  const roots: HierarchyStream[] = [];
+  for (const entry of entries) {
+    if (!/^Views\/[^/]+\/Hierarchy\/Hierarchy$/.test(entry.path) || entry.entry.type !== 2)
+      continue;
     try {
-      hierarchyBuffer = ole.readStreamByPath(hierEntry.path);
-      canonicalNetNames = parseHierarchyNetNames(hierarchyBuffer);
+      roots.push(parseHierarchyStream(ole.readStreamByPath(entry.path)));
     } catch {
-      // Hierarchy parsing is best-effort; continue without it
+      // The pages still parse; they keep their inline references and flat nets.
     }
   }
 
-  // Parse all Page streams
-  const pageEntries = entries.filter(
-    (e) => /^Views\/.*\/Pages\//.test(e.path) && e.entry.type === 2
+  // Parse all Page streams, grouped by the schematic folder each sits in.
+  const pagesBySchematic = new Map<string, PageData[]>();
+  for (const entry of entries) {
+    const match = /^Views\/([^/]+)\/Pages\//.exec(entry.path);
+    if (!match || entry.entry.type !== 2) continue;
+    const schematic = match[1].toLowerCase();
+    const list = pagesBySchematic.get(schematic) ?? [];
+    list.push(parsePage(ole.readStreamByPath(entry.path)));
+    pagesBySchematic.set(schematic, list);
+  }
+
+  // Parse Library stream for strLst string table
+  let strLst: string[] = [];
+  const libEntry = entries.find(
+    (e) => (e.path === "Library" || e.path.endsWith("/Library")) && e.entry.type === 2
   );
+  if (libEntry) {
+    try {
+      const libBuffer = ole.readStreamByPath(libEntry.path);
+      strLst = parseLibraryStrLst(libBuffer);
+    } catch {
+      // Library parsing is best-effort
+    }
+  }
 
-  const pages = pageEntries.map((pageEntry) => {
-    const pageBuffer = ole.readStreamByPath(pageEntry.path);
-    return parsePage(pageBuffer);
-  });
-
-  if (hierarchyBuffer) applyOccurrenceRefdes(pages, hierarchyBuffer);
+  // One copy of a child schematic's pages per placement of the block that
+  // draws it, carrying that placement's reference designators.
+  const { pages, canonicalNetNames, occurrenceRefdes } = expandHierarchy(
+    roots,
+    pagesBySchematic,
+    strLst
+  );
 
   // Parse Package streams for pin mapping data.
   // Each Package stream contains Device entries with pinMap arrays that map
@@ -134,20 +155,6 @@ export function parseDsnFile(dsnPath: string, options?: ParseDesignOptions): Par
     }
   }
 
-  // Parse Library stream for strLst string table
-  let strLst: string[] = [];
-  const libEntry = entries.find(
-    (e) => (e.path === "Library" || e.path.endsWith("/Library")) && e.entry.type === 2
-  );
-  if (libEntry) {
-    try {
-      const libBuffer = ole.readStreamByPath(libEntry.path);
-      strLst = parseLibraryStrLst(libBuffer);
-    } catch {
-      // Library parsing is best-effort
-    }
-  }
-
   // Build netlist from parsed data
   const deviceIndexMap = buildDeviceIndexMap(pages);
   const { nets, componentPins } = buildNetConnectivity(
@@ -168,54 +175,9 @@ export function parseDsnFile(dsnPath: string, options?: ParseDesignOptions): Par
 
   // A design's variants carry their own Do Not Stuff set, which the values the
   // components were built from say nothing about.
-  applyVariantDns(
-    components,
-    readVariantDns(ole, entries, buildRefdesByDbId(pages), hierarchyBuffer, options?.variant)
-  );
+  applyVariantDns(components, readVariantDns(ole, entries, occurrenceRefdes, options?.variant));
 
   return { nets, components };
-}
-
-/**
- * Replace each instance's reference designator with its annotated occurrence one.
- *
- * OrCAD keeps the reference twice and annotation writes the occurrence copy, so
- * where the two disagree the occurrence is the one Capture displays and the one
- * the BOM and board flows carry. An instance whose occurrence records no
- * reference keeps the inline copy, which is the only one such a design has. An
- * instance with several occurrences, one per placement of a reused block,
- * keeps the inline copy when it is one of them and takes the first otherwise.
- *
- * This runs before connectivity and components are built, so every consumer,
- * the net map, the component map and the variant DNS lookup, is keyed by the
- * same reference.
- */
-function applyOccurrenceRefdes(pages: PageData[], hierarchy: Buffer): void {
-  let occurrenceRefdes: Map<number, string[]>;
-  try {
-    occurrenceRefdes = buildOccurrenceRefdes(hierarchy);
-  } catch {
-    return; // Best-effort, exactly as the canonical net names are.
-  }
-  if (occurrenceRefdes.size === 0) return;
-
-  for (const page of pages) {
-    for (const inst of page.placedInstances) {
-      const annotated = occurrenceRefdes.get(inst.dbId);
-      if (annotated !== undefined) inst.reference = pickOccurrenceRefdes(inst.reference, annotated);
-    }
-  }
-}
-
-/** Index the placed instances by dbId, which is what an occurrence names. */
-function buildRefdesByDbId(pages: PageData[]): Map<number, string> {
-  const refdesByDbId = new Map<number, string>();
-  for (const page of pages) {
-    for (const inst of page.placedInstances) {
-      if (inst.reference) refdesByDbId.set(inst.dbId, inst.reference);
-    }
-  }
-  return refdesByDbId;
 }
 
 /** Mark the components a variant leaves off the board. */

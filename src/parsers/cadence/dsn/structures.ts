@@ -6,7 +6,7 @@
  */
 
 import { BinaryReader } from "./binary-reader.js";
-import { StructureType } from "./structure-types.js";
+import { StructureType, structureTypeName } from "./structure-types.js";
 import {
   FutureDataList,
   autoReadPrefixes,
@@ -66,6 +66,33 @@ export interface PlacedInstance {
    * the uint16 following sourcePackage. Single-section parts carry 0.
    */
   sectionIndex: number;
+  /**
+   * Pin numbers this occurrence of the part assigns, by pin index, where they
+   * differ from the section the page record draws. Set by the hierarchy
+   * expander from the occurrence's `Number` pin properties; absent on a page
+   * read as it is.
+   */
+  pinNumbers?: ReadonlyMap<number, string>;
+}
+
+/**
+ * A hierarchical block drawn on a page: one placement of a child schematic.
+ *
+ * The record is a PlacedInstance with an empty package name whose body embeds
+ * the block symbol as a LibraryPart, so the symbol's pins name the block's
+ * hierarchical ports in pin order. Its pins carry the same records as a part's
+ * pins, and their positions are where the parent page's wires reach the block.
+ */
+export interface DrawnInstance {
+  /** The id the Hierarchy stream's block occurrence names. */
+  dbId: number;
+  /** The instance name, such as `MV1`; Capture suffixes it onto the placement's local nets. */
+  reference: string;
+  /** Hierarchical port names, in pin order: `ports[i]` is the port of the pin with index `i + 1`. */
+  ports: string[];
+  pins: T0x10[];
+  locX: number;
+  locY: number;
 }
 
 export interface GraphicInst {
@@ -183,9 +210,19 @@ export function parseWire(reader: BinaryReader): Wire {
   return { segmentId, id, startX, startY, endX, endY, aliases };
 }
 
+/**
+ * Parse a pin record: a T0x10 on a PlacedInstance, or a T0x10 or T0x11 on a
+ * DrawnInstance. The two types share one body; a DrawnInstance draws some of
+ * its pins under each.
+ */
 export function parseT0x10(reader: BinaryReader): T0x10 {
   const futureData = new FutureDataList(reader);
-  autoReadPrefixes(reader, futureData, StructureType.T0x10);
+  const { structType } = autoReadPrefixes(reader, futureData);
+  if (structType !== StructureType.T0x10 && structType !== StructureType.T0x11) {
+    throw new Error(
+      `Expected structure type T0x10 or T0x11, got ${structureTypeName[structType] ?? structType}`
+    );
+  }
   readPreamble(reader);
   futureData.checkpoint();
 
@@ -264,6 +301,58 @@ export function parsePlacedInstance(reader: BinaryReader): PlacedInstance {
     t0x10s,
     sectionIndex,
   };
+}
+
+/** The byte a DrawnInstance writes before its embedded block symbol. */
+const DRAWN_INSTANCE_SYMBOL_MARKER = 0x18;
+
+/**
+ * Parse a DrawnInstance, the record OpenOrCadParser skips as unimplemented.
+ *
+ * The body follows PlacedInstance up to its display properties, then a marker
+ * byte and the embedded LibraryPart replace the byte PlacedInstance skips, and
+ * the reference, part-value index, ten bytes and pin list follow as in a
+ * PlacedInstance. There is no source package or section after the pins.
+ */
+export function parseDrawnInstance(reader: BinaryReader): DrawnInstance {
+  const futureData = new FutureDataList(reader);
+  autoReadPrefixes(reader, futureData, StructureType.DrawnInstance);
+  readPreamble(reader);
+  futureData.checkpoint();
+
+  reader.skip(8); // unknown
+  reader.readStringLenZeroTerm(); // package name, empty on a drawn instance
+  const dbId = reader.readUint32();
+  reader.skip(8); // unknown
+  const locX = reader.readInt16();
+  const locY = reader.readInt16();
+  reader.skip(4); // unknown
+
+  const lenSymbolDisplayProps = reader.readUint16();
+  for (let i = 0; i < lenSymbolDisplayProps; i++) {
+    parseSymbolDisplayProp(reader);
+  }
+
+  futureData.checkpoint();
+
+  let ports: string[] = [];
+  if (reader.readUint8() === DRAWN_INSTANCE_SYMBOL_MARKER) {
+    ports = parseLibraryPart(reader).pinNames;
+  }
+
+  const reference = reader.readStringLenZeroTerm();
+  reader.skip(4); // part value index
+  reader.skip(10); // unknown
+
+  const lenPins = reader.readUint16();
+  const pins: T0x10[] = [];
+  for (let i = 0; i < lenPins; i++) {
+    pins.push(parseT0x10(reader));
+  }
+
+  futureData.readRestOfStructure();
+
+  return { dbId, reference, ports, pins, locX, locY };
 }
 
 /**

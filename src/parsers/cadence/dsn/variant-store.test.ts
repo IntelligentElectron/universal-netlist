@@ -9,12 +9,9 @@
 
 import { describe, expect, it } from "vitest";
 import {
-  buildOccurrenceDbIds,
-  buildOccurrenceRefdes,
   hasVariantGroups,
   listCadenceVariants,
   parseBomVariantGroups,
-  pickOccurrenceRefdes,
   parseVariantGroup,
   parseVariantNames,
   resolveDnsRefdes,
@@ -27,35 +24,6 @@ const groupStream = (payload: string): Buffer => {
   const header = Buffer.alloc(4);
   header.writeUInt32LE(body.length);
   return Buffer.concat([header, body]);
-};
-
-/**
- * One Hierarchy record: type, two pad bytes, the preamble, then the body.
- *
- * `extra` is the preamble's trailing-data length. It is zero on most designs,
- * and where it is not, the whole body sits that many bytes further on.
- * `reference` is the occurrence's reference designator, which trails the body.
- */
-const record = (
-  type: number,
-  first: number,
-  second: number,
-  { reference, extra = 0 }: { reference?: string; extra?: number } = {}
-): Buffer => {
-  const body = 11 + extra; // type, two pads, magic, trailing-data length
-  const buffer = Buffer.alloc(
-    reference === undefined ? body + 8 : body + 20 + 3 + reference.length
-  );
-  buffer[0] = type;
-  Buffer.from([0xff, 0xe4, 0x5c, 0x39]).copy(buffer, 3);
-  buffer.writeUInt32LE(extra, 7);
-  buffer.writeUInt32LE(first, body);
-  buffer.writeUInt32LE(second, body + 4);
-  if (reference !== undefined) {
-    buffer.writeUInt16LE(reference.length, body + 20);
-    buffer.write(reference, body + 22, "latin1");
-  }
-  return buffer;
 };
 
 const streamEntry = (path: string): OleDirectoryPath =>
@@ -155,140 +123,29 @@ describe("BOM variant membership", () => {
   });
 });
 
-describe("buildOccurrenceDbIds", () => {
-  it("pairs a part occurrence with the instance it stands for", () => {
-    expect(buildOccurrenceDbIds(record(66, 40520, 6173697)).get(40520)).toBe(6173697);
-  });
-
-  it("leaves the net mapping beside it alone", () => {
-    // Type 67 is NetDbIdMapping, whose body reads as a dbId and a net name.
-    // Taking it for an occurrence would resolve a net id onto a part.
-    expect(buildOccurrenceDbIds(record(67, 40520, 6173697)).size).toBe(0);
-  });
-
-  it("reads every occurrence in a stream carrying more than one", () => {
-    const hierarchy = Buffer.concat([
-      record(66, 40520, 6173697),
-      record(67, 32677, 11),
-      record(66, 45218, 6462656),
-    ]);
-
-    expect([...buildOccurrenceDbIds(hierarchy)]).toEqual([
-      [40520, 6173697],
-      [45218, 6462656],
-    ]);
-  });
-
-  it("reads past the preamble's trailing data to find the body", () => {
-    // A record carrying a display-property block declares its length in the
-    // preamble. Reading the body at the fixed offset instead lands inside that
-    // block and pairs an occurrence that does not exist with a dbId that is not
-    // an instance.
-    const hierarchy = record(66, 40520, 6173697, { extra: 37 });
-
-    expect([...buildOccurrenceDbIds(hierarchy)]).toEqual([[40520, 6173697]]);
-  });
-});
-
-describe("buildOccurrenceRefdes", () => {
-  it("names the instance an occurrence annotates", () => {
-    expect(buildOccurrenceRefdes(record(66, 40520, 6173697, { reference: "U32" }))).toEqual(
-      new Map([[6173697, ["U32"]]])
-    );
-  });
-
-  it("finds the reference past the preamble's trailing data", () => {
-    const hierarchy = record(66, 40520, 6173697, { reference: "U32", extra: 37 });
-
-    expect(buildOccurrenceRefdes(hierarchy)).toEqual(new Map([[6173697, ["U32"]]]));
-  });
-
-  it("keeps a never-annotated placeholder, which is a real occurrence value", () => {
-    expect(buildOccurrenceRefdes(record(66, 1, 9, { reference: "U?" })).get(9)).toEqual(["U?"]);
-  });
-
-  it("leaves the net mapping beside it alone", () => {
-    expect(buildOccurrenceRefdes(record(67, 40520, 6173697, { reference: "U32" })).size).toBe(0);
-  });
-
-  it("gives every section of a multi-section part the same reference", () => {
-    // Both sections annotate to one refdes, each under its own dbId.
-    const hierarchy = Buffer.concat([
-      record(66, 1, 45502261, { reference: "U32" }),
-      record(66, 2, 45501482, { reference: "U32" }),
-    ]);
-
-    expect([...buildOccurrenceRefdes(hierarchy).values()]).toEqual([["U32"], ["U32"]]);
-  });
-
-  it("lists every reference a reused block's instance carries, once each, in stream order", () => {
-    // One instance, placed through a block used three times: each placement is
-    // its own occurrence with its own annotated reference. One repeats a
-    // reference on a second section, which is not another placement.
-    const hierarchy = Buffer.concat([
-      record(66, 1, 9, { reference: "U2" }),
-      record(66, 2, 9, { reference: "U1" }),
-      record(66, 3, 9, { reference: "U2" }),
-      record(66, 4, 9, { reference: "U3" }),
-    ]);
-
-    expect(buildOccurrenceRefdes(hierarchy).get(9)).toEqual(["U2", "U1", "U3"]);
-  });
-
-  it("returns nothing for occurrences that record no reference", () => {
-    // The common case: the instance copy in the page record is the annotated
-    // one, so there is nothing here to override it with.
-    expect(buildOccurrenceRefdes(record(66, 40520, 6173697)).size).toBe(0);
-  });
-
-  it("skips a field at the reference's offset that is not shaped like one", () => {
-    // The offset is fixed, so shape is what tells a reference from whatever a
-    // record this parser does not recognise happens to put there.
-    expect(buildOccurrenceRefdes(record(66, 1, 9, { reference: "123" })).size).toBe(0);
-  });
-
-  it("ignores a record truncated before its reference", () => {
-    const hierarchy = record(66, 1, 9, { reference: "C9" });
-
-    expect(buildOccurrenceRefdes(hierarchy.subarray(0, hierarchy.length - 2)).size).toBe(0);
-  });
-});
-
-describe("pickOccurrenceRefdes", () => {
-  it("takes the one occurrence a flat design's instance has", () => {
-    expect(pickOccurrenceRefdes("C34", ["C41"])).toBe("C41");
-  });
-
-  it("keeps an inline copy that is one of the instance's occurrences", () => {
-    // Stream order put U2 first, but the inline U1 is an annotated placement
-    // too, and keeping it leaves the reported reference where it was.
-    expect(pickOccurrenceRefdes("U1", ["U2", "U1", "U3"])).toBe("U1");
-  });
-
-  it("falls back to the first occurrence for a placeholder or stale inline copy", () => {
-    expect(pickOccurrenceRefdes("C?", ["C175", "C177", "C83"])).toBe("C175");
-    expect(pickOccurrenceRefdes("C9", ["C175", "C177", "C83"])).toBe("C175");
-  });
-});
-
 describe("resolveDnsRefdes", () => {
-  const occurrences = new Map([
-    [1, 100],
-    [2, 200],
-  ]);
+  // Occurrence id to the refdes the parser reports for it, as the hierarchy
+  // expander builds it: a reused block's instance appears once per placement.
   const refdes = new Map([
-    [100, "R13"],
-    [200, "C24"],
+    [1, "R13"],
+    [2, "C24"],
+    [3, "C124"],
   ]);
 
   it("names the refdes behind an unstuffed occurrence", () => {
-    const dns = resolveDnsRefdes([{ occurrenceId: 1, stuffed: false }], occurrences, refdes);
+    const dns = resolveDnsRefdes([{ occurrenceId: 1, stuffed: false }], refdes);
 
     expect([...dns]).toEqual(["R13"]);
   });
 
+  it("unstuffs one placement of a reused block and leaves the other on the board", () => {
+    const dns = resolveDnsRefdes([{ occurrenceId: 3, stuffed: false }], refdes);
+
+    expect([...dns]).toEqual(["C124"]);
+  });
+
   it("leaves a stuffed occurrence on the board", () => {
-    const dns = resolveDnsRefdes([{ occurrenceId: 1, stuffed: true }], occurrences, refdes);
+    const dns = resolveDnsRefdes([{ occurrenceId: 1, stuffed: true }], refdes);
 
     expect(dns.size).toBe(0);
   });
@@ -301,7 +158,6 @@ describe("resolveDnsRefdes", () => {
         { occurrenceId: 1, stuffed: false },
         { occurrenceId: 1, stuffed: true },
       ],
-      occurrences,
       refdes
     );
 
@@ -310,7 +166,7 @@ describe("resolveDnsRefdes", () => {
 
   it("skips an occurrence no instance answers to", () => {
     // reServer J2032's DNP group names one such id.
-    const dns = resolveDnsRefdes([{ occurrenceId: 99, stuffed: false }], occurrences, refdes);
+    const dns = resolveDnsRefdes([{ occurrenceId: 99, stuffed: false }], refdes);
 
     expect(dns.size).toBe(0);
   });

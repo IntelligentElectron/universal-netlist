@@ -10,10 +10,19 @@
 import { BinaryReader } from "./binary-reader.js";
 import { StructureType } from "./structure-types.js";
 import { FutureDataList, autoReadPrefixes, readPreamble, skipStructure } from "./generic-parser.js";
-import type { Wire, PlacedInstance, GraphicInst, LibraryPart, Package } from "./structures.js";
+import type {
+  Wire,
+  PlacedInstance,
+  DrawnInstance,
+  GraphicInst,
+  LibraryPart,
+  Package,
+} from "./structures.js";
+import type { Placement } from "./hierarchy-expander.js";
 import {
   parseWire,
   parsePlacedInstance,
+  parseDrawnInstance,
   parseGlobal,
   parsePort,
   parseOffPageConnector,
@@ -59,9 +68,17 @@ export interface PageData {
   netTable: Map<number, string[]>;
   wires: Wire[];
   placedInstances: PlacedInstance[];
+  /** The hierarchical blocks drawn on the page, each placing a child schematic. */
+  drawnInstances: DrawnInstance[];
   ports: GraphicInst[];
   globals: GraphicInst[];
   offPageConnectors: GraphicInst[];
+  /**
+   * Set on a copy of the page made for one placement of the hierarchical block
+   * that draws its schematic; absent on a page read as it is. See
+   * hierarchy-expander.ts.
+   */
+  placement?: Placement;
 }
 
 /** Parse a single Page stream. */
@@ -119,15 +136,23 @@ export function parsePage(buffer: Buffer): PageData {
     wires.push(parseWire(reader));
   }
 
-  // PlacedInstances
+  // PlacedInstances, interleaved with the DrawnInstances that place
+  // hierarchical blocks. OpenOrCadParser reads this list generically and skips
+  // DrawnInstance as unimplemented; its body is read here (see structures.ts).
   const lenPlacedInstances = reader.readUint16();
   const placedInstances: PlacedInstance[] = [];
+  const drawnInstances: DrawnInstance[] = [];
   for (let i = 0; i < lenPlacedInstances; i++) {
-    // Hierarchical pages may interleave DrawnInstance records with the
-    // component-bearing PlacedInstances. OpenOrCadParser reads this list
-    // generically and skips DrawnInstance because its body is unimplemented.
     if (reader.peek(1)[0] === StructureType.DrawnInstance) {
-      skipStructure(reader);
+      // Best-effort: a block record this parser cannot read is skipped by its
+      // own boundary, which costs that placement and nothing else on the page.
+      const start = reader.tell();
+      try {
+        drawnInstances.push(parseDrawnInstance(reader));
+      } catch {
+        reader.seek(start);
+        skipStructure(reader);
+      }
       continue;
     }
     placedInstances.push(parsePlacedInstance(reader));
@@ -158,7 +183,16 @@ export function parsePage(buffer: Buffer): PageData {
 
   // Remaining sections (ERC, bus entries, graphics, etc.) are skipped
 
-  return { name, netTable, wires, placedInstances, ports, globals, offPageConnectors };
+  return {
+    name,
+    netTable,
+    wires,
+    placedInstances,
+    drawnInstances,
+    ports,
+    globals,
+    offPageConnectors,
+  };
 }
 
 export interface PackageStreamResult {
@@ -191,47 +225,4 @@ export function parsePackageStream(buffer: Buffer): PackageStreamResult {
     }
   }
   return { pkg: parsePackage(reader), libraryParts };
-}
-
-/**
- * Parse the Hierarchy stream to extract the canonical flat net name list.
- *
- * The Hierarchy stream contains the authoritative net names for the design,
- * resolving cross-page aliases (e.g., GPIO8 on one page becomes PWRSEL in
- * the canonical list when connected via off-page connectors).
- *
- * Record format per net: 24 bytes metadata + uint16 nameLength + name + null
- */
-export function parseHierarchyNetNames(buffer: Buffer): Set<string> {
-  const names = new Set<string>();
-  const reader = new BinaryReader(buffer);
-
-  // Header: type(1) + structLength(4) + zeros(4)
-  reader.skip(9);
-
-  // View name: uint16 length + string + null
-  const viewNameLen = reader.readUint16();
-  reader.skip(viewNameLen + 1);
-
-  // Scan forward to find first 0x43 marker (start of net records)
-  while (reader.tell() < buffer.length - 2) {
-    if (reader.readUint8() === 0x43) {
-      reader.seek(reader.tell() - 3);
-      break;
-    }
-  }
-  const netCount = reader.readUint16();
-
-  for (let i = 0; i < netCount; i++) {
-    reader.skip(24); // fixed metadata
-    const nameLen = reader.readUint16();
-    reader.skip(nameLen + 1); // name + null
-    const name = buffer
-      .subarray(reader.tell() - nameLen - 1, reader.tell() - 1)
-      .toString("ascii")
-      .toUpperCase();
-    names.add(name);
-  }
-
-  return names;
 }

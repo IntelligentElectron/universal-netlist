@@ -75,6 +75,41 @@ const placedInstance = (reference: string): Buffer =>
     uint16(0), // section index
   ]);
 
+/** A pin record as a PlacedInstance or DrawnInstance carries it. */
+const pin = (pinIndex: number, x: number, y: number, netId: number): Buffer =>
+  Buffer.concat([
+    shortPrefix(StructureType.T0x10),
+    uint16(pinIndex),
+    int16(x),
+    int16(y),
+    uint32(netId),
+    uint32(0),
+    uint16(0), // SymbolDisplayProp count
+  ]);
+
+/**
+ * A DrawnInstance without its embedded block symbol: the marker byte is not
+ * the symbol's, so the port list is empty and the reference follows.
+ */
+const drawnInstance = (dbId: number, reference: string, pins: Buffer[]): Buffer =>
+  Buffer.concat([
+    shortPrefix(StructureType.DrawnInstance),
+    Buffer.alloc(8),
+    stringLenZeroTerm(""), // package name
+    uint32(dbId),
+    Buffer.alloc(8),
+    int16(100),
+    int16(200),
+    Buffer.alloc(4),
+    uint16(0), // SymbolDisplayProp count
+    Buffer.from([0x00]), // no embedded symbol
+    stringLenZeroTerm(reference),
+    uint32(0), // part value string index
+    Buffer.alloc(10),
+    uint16(pins.length),
+    ...pins,
+  ]);
+
 const page = (instances: Buffer[], ports: Buffer[]): Buffer =>
   Buffer.concat([
     shortPrefix(StructureType.Page),
@@ -103,11 +138,30 @@ describe("parsePage", () => {
     expect(parsed.ports.map((item) => item.dbId)).toEqual([2001, 2002]);
   });
 
-  it("skips DrawnInstance records in a mixed page instance array", () => {
+  it("skips a DrawnInstance it cannot read by its own boundary, keeping the page", () => {
     const drawn = emptyBoundedStructure(StructureType.DrawnInstance);
     const parsed = parsePage(page([drawn, placedInstance("R1")], []));
 
+    expect(parsed.drawnInstances).toHaveLength(0);
     expect(parsed.placedInstances).toHaveLength(1);
     expect(parsed.placedInstances[0].reference).toBe("R1");
+  });
+
+  it("reads a DrawnInstance's block id, instance name and pins from a mixed instance array", () => {
+    const parsed = parsePage(
+      page([drawnInstance(17, "MV1", [pin(1, 450, 360, 799)]), placedInstance("R1")], [])
+    );
+
+    expect(parsed.placedInstances.map((item) => item.reference)).toEqual(["R1"]);
+    expect(parsed.drawnInstances).toHaveLength(1);
+    expect(parsed.drawnInstances[0].dbId).toBe(17);
+    expect(parsed.drawnInstances[0].reference).toBe("MV1");
+    expect(parsed.drawnInstances[0].pins).toHaveLength(1);
+    expect(parsed.drawnInstances[0].pins[0]).toMatchObject({
+      pinIndex: 1,
+      pointX: 450,
+      pointY: 360,
+      netId: 799,
+    });
   });
 });
