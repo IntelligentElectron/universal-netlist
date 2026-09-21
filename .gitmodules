@@ -1,3 +1,4 @@
 [submodule "test/fixtures"]
 	path = test/fixtures
 	url = https://github.com/IntelligentElectron/test-fixtures
+	branch = main
