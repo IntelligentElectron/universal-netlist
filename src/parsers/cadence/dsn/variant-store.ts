@@ -22,17 +22,35 @@
  * the `dbId` a placed instance carries nor the `INSnnn` of a PST `C_PATH`, and
  * neither of those appears anywhere in the container. They resolve through the
  * view's Hierarchy stream, whose records carry the structure preamble
- * `FF E4 5C 39` followed by its uint32 length of trailing data (zero here):
+ * `FF E4 5C 39` followed by its uint32 length of trailing data:
  *
- *   <type> 00 00 FF E4 5C 39 00 00 00 00 <uint32 occurrence> <uint32 dbId>
+ *   <type> 00 00 FF E4 5C 39 <uint32 extra> <extra bytes>
+ *     <uint32 occurrence> <uint32 dbId> <type> <uint32> <7 zero bytes>
+ *     <uint16 length> <latin1 reference> 00
+ *
+ * That `extra` count is the part of the preamble this parser used to read as a
+ * zero it could skip. It is zero on most designs, and when it is not, the whole
+ * body sits that many bytes further on, so every field after it has to be read
+ * relative to it rather than to the magic.
  *
  * Type 66 is `SthInHierarchy1`, which OpenOrCadParser leaves unidentified. It is
  * the part occurrence: on every fixture the count of these records equals the
  * design's placed-instance count, and every dbId they name is one of that
- * design's instances, which is where the refdes comes from. Type 67 beside it is
- * the reference's `NetDbIdMapping`, and reading it the same way yields that
- * record's documented dbId and net name, which is what says the offsets are read
- * from the right place.
+ * design's instances. Type 67 beside it is the reference's `NetDbIdMapping`, and
+ * reading it the same way yields that record's documented dbId and net name,
+ * which is what says the offsets are read from the right place.
+ *
+ * The trailing reference is the *occurrence* copy of the part's reference
+ * designator. OrCAD keeps a second, *instance* copy inline in the page record,
+ * and the two are not interchangeable: annotation writes the occurrence copy,
+ * and that is what Capture displays and what the netlist and board flows
+ * consume. The instance copy is only written when the design has never been
+ * re-annotated, so where the occurrence carries a reference the instance one is
+ * routinely stale or a never-annotated `U?`/`C?` placeholder.
+ *
+ * Whether a design writes the occurrence copy is not something the container
+ * announces, so it is not worth predicting: a record either carries a reference
+ * or it does not, and that is the test.
  */
 
 import type { OleDirectoryPath } from "../../ole-reader/types.js";
@@ -51,11 +69,29 @@ const PREAMBLE_MAGIC = Buffer.from([0xff, 0xe4, 0x5c, 0x39]);
 /** `SthInHierarchy1`: the record standing for a placed part. */
 const PART_OCCURRENCE_TYPE = 66;
 
-/** Bytes from the preamble to the body: the magic plus its uint32 length. */
+/** Bytes from the preamble to the uint32 counting the body's leading extra. */
+const TRAILING_LENGTH_OFFSET = 4;
+
+/** Bytes from the preamble, past the extra, to the occurrence id. */
 const OCCURRENCE_ID_OFFSET = 8;
 
-/** Bytes from the preamble to the dbId that follows the occurrence id. */
+/** Bytes from the preamble, past the extra, to the dbId. */
 const DB_ID_OFFSET = 12;
+
+/** Bytes from the preamble, past the extra, to the length-prefixed reference. */
+const REFERENCE_OFFSET = 28;
+
+/**
+ * Longest reference designator accepted. Real ones are short, and a cap keeps a
+ * stray length word from swallowing the bytes that follow it.
+ */
+const MAX_REFERENCE_LENGTH = 16;
+
+/**
+ * An extra longer than this is not a record this parser understands. Real ones
+ * are tens of bytes; the guard bounds the read rather than trusting the file.
+ */
+const MAX_TRAILING_LENGTH = 4096;
 
 /** A group stream names itself, so `Groups/DNP/DNP` is the members list. */
 const GROUP_STREAM_PATH = /^CIS\/VariantStore\/Groups\/([^/]+)\/([^/]+)$/;
@@ -173,27 +209,116 @@ export function listCadenceVariantsFromFile(dsnPath: string): DesignVariant[] {
   return listCadenceVariants(new OleReader(dsnPath).listAllEntries());
 }
 
+/** One part occurrence, read off the Hierarchy stream. */
+interface PartOccurrence {
+  occurrenceId: number;
+  dbId: number;
+  /** The annotated reference designator, where the record carries one. */
+  reference?: string;
+}
+
+/**
+ * Is `text` shaped like a reference designator — a letter-led alphanumeric tag,
+ * optionally carrying OrCAD's `?` placeholder (`U?`, `C?`)?
+ *
+ * The offset is fixed, so this is the guard that keeps a same-shaped
+ * neighbouring field from being read as the reference: anything failing it
+ * means the record is not the layout expected and its reference is left unset.
+ */
+function isReferenceShaped(text: string): boolean {
+  return /^[A-Za-z][A-Za-z0-9?_]*$/.test(text);
+}
+
+/** Read the length-prefixed, NUL-terminated reference at `at`, if one is there. */
+function readReference(hierarchy: Buffer, at: number): string | undefined {
+  if (at + 2 > hierarchy.length) return undefined;
+  const length = hierarchy.readUInt16LE(at);
+  if (length === 0 || length > MAX_REFERENCE_LENGTH) return undefined;
+  if (at + 2 + length >= hierarchy.length) return undefined;
+  if (hierarchy[at + 2 + length] !== 0x00) return undefined;
+  const text = hierarchy.subarray(at + 2, at + 2 + length).toString("latin1");
+  return isReferenceShaped(text) ? text : undefined;
+}
+
+/**
+ * How far past the preamble this record's body starts.
+ *
+ * Zero for the compact record, which is what most designs write; a record
+ * carrying a display-property block for the reference declares its length here
+ * and pushes every later field along by it.
+ */
+function readTrailingLength(hierarchy: Buffer, at: number): number {
+  if (at + TRAILING_LENGTH_OFFSET + 4 > hierarchy.length) return 0;
+  const extra = hierarchy.readUInt32LE(at + TRAILING_LENGTH_OFFSET);
+  return extra > MAX_TRAILING_LENGTH ? 0 : extra;
+}
+
+/** Walk the part occurrences a Hierarchy stream records, in stream order. */
+function* readPartOccurrences(hierarchy: Buffer): Generator<PartOccurrence> {
+  let at = hierarchy.indexOf(PREAMBLE_MAGIC);
+  while (at !== -1) {
+    const body = at + readTrailingLength(hierarchy, at);
+    if (
+      at >= 3 &&
+      hierarchy[at - 3] === PART_OCCURRENCE_TYPE &&
+      body + DB_ID_OFFSET + 4 <= hierarchy.length
+    ) {
+      yield {
+        occurrenceId: hierarchy.readUInt32LE(body + OCCURRENCE_ID_OFFSET),
+        dbId: hierarchy.readUInt32LE(body + DB_ID_OFFSET),
+        reference: readReference(hierarchy, body + REFERENCE_OFFSET),
+      };
+    }
+    at = hierarchy.indexOf(PREAMBLE_MAGIC, at + 1);
+  }
+}
+
 /**
  * Map each part occurrence in a Hierarchy stream to the dbId it stands for.
  */
 export function buildOccurrenceDbIds(hierarchy: Buffer): Map<number, number> {
   const occurrences = new Map<number, number>();
-
-  let at = hierarchy.indexOf(PREAMBLE_MAGIC);
-  while (at !== -1) {
-    if (
-      at >= 3 &&
-      hierarchy[at - 3] === PART_OCCURRENCE_TYPE &&
-      at + DB_ID_OFFSET + 4 <= hierarchy.length
-    ) {
-      const occurrenceId = hierarchy.readUInt32LE(at + OCCURRENCE_ID_OFFSET);
-      const dbId = hierarchy.readUInt32LE(at + DB_ID_OFFSET);
-      if (!occurrences.has(occurrenceId)) occurrences.set(occurrenceId, dbId);
-    }
-    at = hierarchy.indexOf(PREAMBLE_MAGIC, at + 1);
+  for (const { occurrenceId, dbId } of readPartOccurrences(hierarchy)) {
+    if (!occurrences.has(occurrenceId)) occurrences.set(occurrenceId, dbId);
   }
-
   return occurrences;
+}
+
+/**
+ * Map each placed instance to the reference designators its occurrences carry,
+ * in stream order and without repeats.
+ *
+ * Returns an empty map for a design whose occurrences record no reference,
+ * which is the common case: there the instance copy in the page record is the
+ * annotated one and nothing needs overriding. A multi-section part contributes
+ * one record per section, each under its own dbId. A reused hierarchical block
+ * gives one instance one occurrence per placement of the block, and annotation
+ * gives each placement its own reference, so an instance can carry several:
+ * `pickOccurrenceRefdes` chooses among them.
+ */
+export function buildOccurrenceRefdes(hierarchy: Buffer): Map<number, string[]> {
+  const references = new Map<number, string[]>();
+  for (const { dbId, reference } of readPartOccurrences(hierarchy)) {
+    if (reference === undefined) continue;
+    const list = references.get(dbId);
+    if (list === undefined) references.set(dbId, [reference]);
+    else if (!list.includes(reference)) list.push(reference);
+  }
+  return references;
+}
+
+/**
+ * The reference designator an instance reports, given the inline copy from its
+ * page record and the references its occurrences carry.
+ *
+ * The parser reports each instance once, so a reused block's instance has to
+ * settle on one of its placements' references. The inline copy wins when it is
+ * one of them: it is then an annotated reference, and keeping it makes the
+ * choice stable across saves instead of following stream order. Otherwise the
+ * inline copy is stale or a placeholder and the first occurrence stands in.
+ */
+export function pickOccurrenceRefdes(inline: string, occurrences: readonly string[]): string {
+  return occurrences.includes(inline) ? inline : occurrences[0];
 }
 
 /**

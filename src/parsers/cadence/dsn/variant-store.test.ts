@@ -10,9 +10,11 @@
 import { describe, expect, it } from "vitest";
 import {
   buildOccurrenceDbIds,
+  buildOccurrenceRefdes,
   hasVariantGroups,
   listCadenceVariants,
   parseBomVariantGroups,
+  pickOccurrenceRefdes,
   parseVariantGroup,
   parseVariantNames,
   resolveDnsRefdes,
@@ -27,14 +29,32 @@ const groupStream = (payload: string): Buffer => {
   return Buffer.concat([header, body]);
 };
 
-/** One Hierarchy record: type, two pad bytes, the preamble, then the body. */
-const record = (type: number, first: number, second: number): Buffer => {
-  const buffer = Buffer.alloc(19);
+/**
+ * One Hierarchy record: type, two pad bytes, the preamble, then the body.
+ *
+ * `extra` is the preamble's trailing-data length. It is zero on most designs,
+ * and where it is not, the whole body sits that many bytes further on.
+ * `reference` is the occurrence's reference designator, which trails the body.
+ */
+const record = (
+  type: number,
+  first: number,
+  second: number,
+  { reference, extra = 0 }: { reference?: string; extra?: number } = {}
+): Buffer => {
+  const body = 11 + extra; // type, two pads, magic, trailing-data length
+  const buffer = Buffer.alloc(
+    reference === undefined ? body + 8 : body + 20 + 3 + reference.length
+  );
   buffer[0] = type;
   Buffer.from([0xff, 0xe4, 0x5c, 0x39]).copy(buffer, 3);
-  buffer.writeUInt32LE(0, 7); // preamble trailing-data length
-  buffer.writeUInt32LE(first, 11);
-  buffer.writeUInt32LE(second, 15);
+  buffer.writeUInt32LE(extra, 7);
+  buffer.writeUInt32LE(first, body);
+  buffer.writeUInt32LE(second, body + 4);
+  if (reference !== undefined) {
+    buffer.writeUInt16LE(reference.length, body + 20);
+    buffer.write(reference, body + 22, "latin1");
+  }
   return buffer;
 };
 
@@ -157,6 +177,97 @@ describe("buildOccurrenceDbIds", () => {
       [40520, 6173697],
       [45218, 6462656],
     ]);
+  });
+
+  it("reads past the preamble's trailing data to find the body", () => {
+    // A record carrying a display-property block declares its length in the
+    // preamble. Reading the body at the fixed offset instead lands inside that
+    // block and pairs an occurrence that does not exist with a dbId that is not
+    // an instance.
+    const hierarchy = record(66, 40520, 6173697, { extra: 37 });
+
+    expect([...buildOccurrenceDbIds(hierarchy)]).toEqual([[40520, 6173697]]);
+  });
+});
+
+describe("buildOccurrenceRefdes", () => {
+  it("names the instance an occurrence annotates", () => {
+    expect(buildOccurrenceRefdes(record(66, 40520, 6173697, { reference: "U32" }))).toEqual(
+      new Map([[6173697, ["U32"]]])
+    );
+  });
+
+  it("finds the reference past the preamble's trailing data", () => {
+    const hierarchy = record(66, 40520, 6173697, { reference: "U32", extra: 37 });
+
+    expect(buildOccurrenceRefdes(hierarchy)).toEqual(new Map([[6173697, ["U32"]]]));
+  });
+
+  it("keeps a never-annotated placeholder, which is a real occurrence value", () => {
+    expect(buildOccurrenceRefdes(record(66, 1, 9, { reference: "U?" })).get(9)).toEqual(["U?"]);
+  });
+
+  it("leaves the net mapping beside it alone", () => {
+    expect(buildOccurrenceRefdes(record(67, 40520, 6173697, { reference: "U32" })).size).toBe(0);
+  });
+
+  it("gives every section of a multi-section part the same reference", () => {
+    // Both sections annotate to one refdes, each under its own dbId.
+    const hierarchy = Buffer.concat([
+      record(66, 1, 45502261, { reference: "U32" }),
+      record(66, 2, 45501482, { reference: "U32" }),
+    ]);
+
+    expect([...buildOccurrenceRefdes(hierarchy).values()]).toEqual([["U32"], ["U32"]]);
+  });
+
+  it("lists every reference a reused block's instance carries, once each, in stream order", () => {
+    // One instance, placed through a block used three times: each placement is
+    // its own occurrence with its own annotated reference. One repeats a
+    // reference on a second section, which is not another placement.
+    const hierarchy = Buffer.concat([
+      record(66, 1, 9, { reference: "U2" }),
+      record(66, 2, 9, { reference: "U1" }),
+      record(66, 3, 9, { reference: "U2" }),
+      record(66, 4, 9, { reference: "U3" }),
+    ]);
+
+    expect(buildOccurrenceRefdes(hierarchy).get(9)).toEqual(["U2", "U1", "U3"]);
+  });
+
+  it("returns nothing for occurrences that record no reference", () => {
+    // The common case: the instance copy in the page record is the annotated
+    // one, so there is nothing here to override it with.
+    expect(buildOccurrenceRefdes(record(66, 40520, 6173697)).size).toBe(0);
+  });
+
+  it("skips a field at the reference's offset that is not shaped like one", () => {
+    // The offset is fixed, so shape is what tells a reference from whatever a
+    // record this parser does not recognise happens to put there.
+    expect(buildOccurrenceRefdes(record(66, 1, 9, { reference: "123" })).size).toBe(0);
+  });
+
+  it("ignores a record truncated before its reference", () => {
+    const hierarchy = record(66, 1, 9, { reference: "C9" });
+
+    expect(buildOccurrenceRefdes(hierarchy.subarray(0, hierarchy.length - 2)).size).toBe(0);
+  });
+});
+
+describe("pickOccurrenceRefdes", () => {
+  it("takes the one occurrence a flat design's instance has", () => {
+    expect(pickOccurrenceRefdes("C34", ["C41"])).toBe("C41");
+  });
+
+  it("keeps an inline copy that is one of the instance's occurrences", () => {
+    // Stream order put U2 first, but the inline U1 is an annotated placement
+    // too, and keeping it leaves the reported reference where it was.
+    expect(pickOccurrenceRefdes("U1", ["U2", "U1", "U3"])).toBe("U1");
+  });
+
+  it("falls back to the first occurrence for a placeholder or stale inline copy", () => {
+    expect(pickOccurrenceRefdes("C?", ["C175", "C177", "C83"])).toBe("C175");
+    expect(pickOccurrenceRefdes("C9", ["C175", "C177", "C83"])).toBe("C175");
   });
 });
 
