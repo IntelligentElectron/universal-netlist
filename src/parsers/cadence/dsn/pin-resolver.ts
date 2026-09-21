@@ -175,17 +175,25 @@ export function resolvePinNumber(
   pmd: PinMapData,
   deviceIndex?: number
 ): string {
+  // The occurrence's own numbering wins: a part shared by several placements
+  // of a block is drawn once but uses a different section in each.
+  const assigned = inst.pinNumbers?.get(pin.pinIndex);
+  if (assigned !== undefined) return assigned;
+
   if (pin.pinIndex <= 0) return String(pin.pinIndex || 1);
 
+  // A map entry that is empty is no answer: a library part saved without pin
+  // numbers writes one per pin, and reporting it would fold every pin of the
+  // part into one nameless pin.
   const selected = selectPinMap(inst, pmd, deviceIndex);
   const selectedPin = lookupPin(selected?.map, pin.pinIndex);
-  if (selectedPin !== undefined) return selectedPin;
+  if (selectedPin) return selectedPin;
 
   // The chosen map has no entry at this index. The other stream may still carry
   // one, so try it before falling back to the symbol's own record order.
   for (const maps of [pmd.pinMaps, pmd.cachePinMaps]) {
     const other = lookupPin(findPinMap(inst, maps, pmd.deviceUnitRefs, deviceIndex), pin.pinIndex);
-    if (other !== undefined) return other;
+    if (other) return other;
   }
 
   return String(pin.pinIndex);

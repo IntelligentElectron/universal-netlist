@@ -58,7 +58,7 @@ Root Entry/
       Pages/
         {PageName}                 # One stream per schematic page
       Hierarchy/
-        Hierarchy                  # Canonical net name list + occurrence -> dbId
+        Hierarchy                  # Occurrence tree: nets and parts per placement (section 8)
   Packages/
     {PackageName}                  # Per-package: PartCell + LibraryPart[] + Package
   CIS/
@@ -73,7 +73,7 @@ Root Entry/
 |--------|---------|---------------|
 | `Library` | String table (`strLst`), fonts, page settings | Parsed (strLst only) |
 | `Views/{name}/Pages/{page}` | Components, wires, nets, aliases per page | Fully parsed |
-| `Views/{name}/Hierarchy/Hierarchy` | Canonical flat net name list | Partially parsed |
+| `Views/{name}/Hierarchy/Hierarchy` | Occurrence tree: flat net names, one scope per block placement | Fully parsed (section 8) |
 | `Packages/{name}` | Package + Device[] + LibraryPart[] | Fully parsed |
 | `Cache` | LibraryPart + Package definitions for all components | Parsed (Packages + LibraryParts) |
 | `CIS/VariantStore/BOM/{v}/{v}` | Exact group membership for one BOM variant | Fully parsed (section 11) |
@@ -226,9 +226,10 @@ The full list is `src/parsers/cadence/dsn/structure-types.ts`, ported from `Enum
 | `0x06` | 6 | PartCell | Part cell in Package streams | no |
 | `0x0A` | 10 | Page | Page-level wrapper | yes |
 | `0x0B` | 11 | PartInstance | Part instance (unused by us) | no |
-| `0x0C` | 12 | DrawnInstance | Hierarchical drawn page instance | no |
+| `0x0C` | 12 | DrawnInstance | Hierarchical block placed on a page (section 7.7.2) | yes |
 | `0x0D` | 13 | PlacedInstance | Component placed on schematic | yes |
-| `0x10` | 16 | T0x10 | Pin instance on a placed component | yes |
+| `0x10` | 16 | T0x10 | Pin instance on a placed component or a drawn block | yes |
+| `0x11` | 17 | T0x11 | Pin instance on a drawn block; the same body as T0x10 | yes |
 | `0x14` | 20 | WireScalar | Single-signal wire | yes |
 | `0x15` | 21 | WireBus | Bus wire | yes |
 | `0x17` | 23 | Port | Port symbol | yes |
@@ -343,7 +344,7 @@ uint16    len_net_table
 uint16    len_wires
           Wire[] sub-records (see 7.6)
 uint16    len_placed_instances
-          DrawnInstance or PlacedInstance sub-records (see 7.7)
+          PlacedInstance (see 7.7) or DrawnInstance (see 7.7.2) sub-records, interleaved
 uint16    len_ports
           Port[] sub-records (see 7.8)
 uint16    len_globals
@@ -588,6 +589,54 @@ No-connect is therefore inferred, not read: a pin is called NC when `net_id == 0
 
 **IMPORTANT**: `net_id` values are NOT the same as `Wire.id` values. They are in different Cadence DB object ID spaces. The correspondence between pin netId and wire id is established indirectly through the net name table (both reference the same logical net, but via different IDs).
 
+### 7.7.2 DrawnInstance (type 0x0C)
+
+**Confidence: VERIFIED**
+
+A hierarchical block drawn on a page: one placement of a child schematic. It
+sits in the same list as the PlacedInstances and shares their layout up to the
+display properties, then embeds the block's symbol where a PlacedInstance goes
+on to its reference. OpenOrCadParser leaves the body unimplemented.
+
+```
+PREFIXES (1..N, type 0x0C)
+PREAMBLE (optional)
+BODY:
+    8 bytes   unknown
+    string    pkg_name                 # empty on a drawn instance
+    uint32    db_id                    # what the Hierarchy stream's block occurrence names (section 8)
+    8 bytes   unknown
+    int16     loc_x
+    int16     loc_y
+    4 bytes   unknown
+    uint16    len_symbol_display_props
+              SymbolDisplayProp[] sub-records
+    -- checkpoint --
+    uint8     0x18                     # marks the embedded symbol
+              LibraryPart              # the block symbol (section 9.3); its SymbolPins
+                                       # name the hierarchical ports, in pin order
+    string    reference                # the instance name, e.g. the "MV1" in a flat
+                                       # net name "N00439_MV1"
+    uint32    part_value_idx
+    10 bytes  unknown
+    uint16    len_pins
+              T0x10 or T0x11 sub-records (section 7.7.1)
+    -- end of structure --
+```
+
+The pins carry the block's connection points on the parent page, and their
+`net_id` is the parent net's id exactly as on a part's pin. Pin index `i` is the
+`i`th SymbolPin of the embedded symbol, which is how a pin is matched to the
+port it stands for. Some pins are written under type 0x11 rather than 0x10, with
+an identical body; every design read so far that draws bus ports writes some
+0x11 pins, and the parser reads the two alike. Bus ports are not traced (section
+13.2).
+
+There is no `source_package` or section index after the pins, and no
+`pkg_name`: the child schematic a block draws is not in this record at all. It
+is named by the block occurrence in the Hierarchy stream whose `dbId` matches
+this record's, and that name is the schematic's folder under `Views/`.
+
 ### 7.8 GraphicInst (Global, Port, OffPageConnector)
 
 **Confidence: VERIFIED (layout), OBSERVED (5 trailing bytes on Global/OPC)**
@@ -653,59 +702,110 @@ BODY:
 
 ## 8. Hierarchy Stream
 
-**Confidence: HEURISTIC**
+**Confidence: VERIFIED (layout), HEURISTIC (top-level version detection)**
 
-The Hierarchy stream at `Views/{name}/Hierarchy/Hierarchy` contains the authoritative flat list of net names for the design. This is used to:
-- Resolve cross-page net name aliases (prefer hierarchy name over local alias)
-- Disambiguate nets that appear on multiple pages with the same name
-- Provide names for pin-to-pin connections (no wire, just overlapping pins)
+The stream at `Views/{name}/Hierarchy/Hierarchy` is Capture's flattened
+occurrence tree for one view: the root schematic's nets and part occurrences,
+and inside it one occurrence per placement of every hierarchical block, each
+carrying the nets and parts of that placement. A block drawn once and placed
+three times appears three times, and each copy annotates its own reference
+designators and, where they differ, its own pin numbers. It is the design's
+statement of what is on the board: the page streams describe drawings, this
+stream describes placements.
 
-### Binary layout (partially understood)
+It is used for three things:
 
-```
-HEADER:
-    1 byte    type
-    4 bytes   struct_length    (uint32)
-    4 bytes   zeros
-    uint16    view_name_length
-    view_name_length bytes + 0x00   view_name
+- The root scope's net names are the design's flat net name list, which resolves
+  cross-page aliases and names pin-to-pin nets (section 12.4)
+- Each scope's part occurrences carry the reference designator that placement
+  annotates, and each placement's pin numbers where they differ from the drawing
+  (section 12.6)
+- The occurrence ids the CIS variant store names resolve here (section 11.3)
 
-SCAN FORWARD to the first 0x43 byte, then REWIND 2 bytes
+### Layout
 
-    uint16    net_count        # the two bytes immediately BEFORE the 0x43
-
-For each net:
-    24 bytes  fixed metadata   (UNKNOWN contents)
-    uint16    name_length
-    name_length bytes + 0x00   net_name
-```
-
-Net names are uppercased on read, matching the page net table.
-
-**HEURISTIC**: The "scan for 0x43" approach is fragile. We don't fully understand the header structure between the view name and the net records. The 0x43 byte happens to sit two bytes after the net count in all tested designs, but this is pattern-matching, not spec-based parsing. The whole stream is best-effort: a throw anywhere in it leaves `canonicalNetNames` empty and the rest of the parse continues without hierarchy preference.
-
-**The 24 bytes of "fixed metadata" per net record** are the record's own framing.
-Each is a structure in the ordinary sense of section 4: a type byte, its prefix, then
-the preamble `FF E4 5C 39` and the uint32 length of its trailing data (zero here),
-then the record body. For a net record the body opens with a uint32 dbId, which is
-what OpenOrCadParser's `StreamHierarchy` documents for `NetDbIdMapping` (type 67),
-and the name follows it. The sequential parser above skips the framing rather than
-reading it; the variant store reads it directly, anchoring on the preamble:
+The stream is read sequentially with the framing of section 4. After the 9-byte
+stream header:
 
 ```
-    1 byte    type              # 66 SthInHierarchy1, 67 NetDbIdMapping
-    2 bytes   zeros
-    4 bytes   FF E4 5C 39       # preamble magic
-    uint32    trailing_length   # 0 in every Hierarchy record observed
-    uint32    body[0]
-    uint32    body[1]           # type 66 only
+string    schematic_name             # the root schematic; names the view's Views/ folder
+7 bytes   unknown
+uint16    len_named                  each: structure, 4 bytes, string
+SCOPE                                (top level; see the version note below)
 ```
 
-**Type 66 (`SthInHierarchy1`) is the part occurrence**, which OpenOrCadParser leaves
-unidentified. Its body is `{occurrence id, dbId}`, pairing a CIS variant occurrence
-with the `PlacedInstance` it stands for. On all 11 Cadence fixtures the count of
-type 66 records equals the design's placed-instance count exactly, and every dbId
-they name belongs to that design. Section 11.3 is what uses this.
+A scope is:
+
+```
+uint16    len_nets                   each: structure (type 0x43), uint32 db_id, string name
+uint16    len_t0x52                  each: structure (type 0x52), 8 bytes
+uint32    len_t0x5b                  each: structure (type 0x5B), 8 bytes
+uint16    len_occurrences            each: OCCURRENCE
+```
+
+and an occurrence, type 0x42, is:
+
+```
+structure                            # prefixes + preamble; the preamble's trailing data holds a
+                                     # display-property block for the reference, when there is one
+uint32    occurrence_id
+uint32    db_id                      # a PlacedInstance (section 7.7) or a DrawnInstance (7.7.2)
+uint8     0x42
+uint32    unknown
+uint32    unknown
+string    schematic                  # empty for a part; for a block, the child schematic it draws
+string    reference                  # the annotated refdes; empty for a block, or never annotated
+uint32    unknown
+uint16    len_pins                   each: structure (type 0x44), uint32 pin_occurrence_id, uint16 ordinal
+SCOPE                                # a part's scope has every count at zero
+```
+
+A part occurrence and a block occurrence are one record: which it is follows
+from which of the two strings is empty. A block's scope holds that placement's
+nets and parts, and blocks placed inside it, to any depth.
+
+The occurrence's preamble carries trailing data when the reference has a
+display-property block, so the body must be read relative to the preamble's
+length field rather than at a fixed offset from its magic; that is the ordinary
+rule of section 4.4, and the one place this stream was once read without it.
+
+### Pin records
+
+Each pin record's short prefix carries (name, value) pairs into the Library
+string list like any other structure. A pin whose number this occurrence
+assigns carries a `Number` property with the pin number as its value. Pin
+`ordinal` is the pin's position in the list and equals `pin_index - 1` on the
+page record's T0x10.
+
+This is how a multi-section part shared by several placements of a block gets
+its numbers. The part is drawn once, in one section, so its page record can only
+say that section's pin numbers; annotation assigns each placement a section of
+its own, and this record is where the assignment lives. Reading it is what makes
+a hex inverter split across two placements report pins 1 to 4 in one and 5 to 9
+in the other, as Capture's own netlist does.
+
+### Version variants of the top-level scope
+
+Only the top-level scope varies with the file version, exactly where
+OpenOrCadParser's `StreamHierarchy` reads its version flags: the type-0x5B count
+is 2 or 4 bytes, an 8-byte block may sit before the occurrence count, and the
+occurrence count is 2 or 4 bytes. Nested scopes are fixed as shown. Rather than
+carry a version, the parser tries each of the eight layouts and keeps the one
+that reads the stream to its last byte, then throws when none does. The counts
+leave a wrong layout no slack to reach the end, and every stream in the
+reference corpus is read to its exact end by one of them. A stream that fails
+leaves its view flat: the pages parse with their inline references, and no
+placement is expanded.
+
+### Net names and occurrence ids
+
+Net names are compared uppercased, matching the page net table. The `db_id` on a
+net record is the net object's id, which nothing else in the container refers
+to; the names are what the parser uses.
+
+Occurrence ids are a numbering of their own, neither the `db_id` of an instance
+nor the `INSnnn` of a PST path. Type 0x43 beside type 0x42 is `NetDbIdMapping` in
+OpenOrCadParser, and type 0x42 is its unidentified `SthInHierarchy1`.
 
 ---
 
@@ -1122,14 +1222,18 @@ The ids are a numbering of their own. They are **not** the `dbId` a
 `C_PATH`; searching a `.DSN` for a PST `INSnnn` value as a uint32 finds nothing.
 
 They resolve through the Hierarchy stream (section 8), whose part occurrence
-records pair one with the `dbId` of the instance it stands for. The refdes then
-comes from that instance:
+records carry the refdes the placement annotates. An occurrence that annotates
+none stands for an instance a design never re-annotated, and its refdes is the
+inline one on the `PlacedInstance` the record's `dbId` names:
 
 ```
-occurrence id  --Hierarchy type 66-->  dbId  --PlacedInstance-->  refdes
+occurrence id  --Hierarchy type 0x42-->  reference, or dbId --PlacedInstance-->  refdes
 ```
 
-Reading it costs parsing the page streams, which is the schematic's whole cost.
+A part inside a reused block has one occurrence per placement, each with its own
+id and refdes, so a group can unstuff one placement and leave the rest on the
+board. Reading the join costs parsing the page streams, which is the schematic's
+whole cost.
 The retained DAT regression helper holds the resolved set for the `.DSN` that
 produced it and recomputes it when that file changes. MCP queries use the DSN
 parser directly.
@@ -1311,9 +1415,9 @@ Measured over the Cadence fixture corpus, nets whose pin set disagrees with the 
 2. Wire segments sharing the same `Wire.id` are unioned (same logical net)
 3. Net names come from: wire aliases (labels) and the page net table
 4. When a group has multiple candidate names, hierarchy-canonical names take priority, and the alphabetically first name wins within whichever set applies. Cadence's CIS export breaks the same tie the same way
-5. Unnamed wire groups get `N{minSegmentId}` names
+5. Unnamed wire groups get `N{minSegmentId}` names, the segment id zero-padded to five digits, which is how Capture's flat net list and DAT export write them
 6. Cross-page nets connected via OffPageConnectors are resolved by `strLst[name_str_idx]` (OPCs with the same index share the same net). A pin is matched to an OPC by testing its coordinate against five specific points: the four bbox edge midpoints (`maxX,midY`, `minX,midY`, `midX,maxY`, `midX,minY`) and the OPC's own `locX,locY`. Testing only those, rather than every point on the edges, is what stops OPC boxes that overlap vertically on a dense sheet from fusing unrelated nets. A pin matching any of them takes the OPC's net name even when the OPC has no wire connection on that page
-7. Duplicate net names across pages are disambiguated using hierarchy suffixed names
+7. Duplicate net names across pages are disambiguated using hierarchy suffixed names. The hierarchy names are the root scope's (section 8); a placement's pages use their own scope's names, see 12.6
 8. Global/Port symbols take their net name from `strLst[name_str_idx]`, the same field OPCs use. The symbol's own `name` field is the symbol *type* and must not be used: a symbol drawn as `VDD_1v8` may carry `CAM_CORE`, and two symbols both drawn as `VCC_BAR` carry `VDD_PLL1` and `VDD_PLL2`. The name is used for two things: steering the symbol to the one wire it belongs to (below), and naming a sentinel pin (`net_id == 0xFFFFFFFF`) that overlaps the symbol's bbox and that no wire coordinate resolved. Where the symbol does reach a wire, that wire group's resolved name wins, because `strLst[name_str_idx]` is occasionally a symbol type too: `pairingId` 17700 reads `GND_SIGNAL` on three Jetson carrier designs, a name absent from their DAT exports
 9. Wire body point-on-segment matching: a pin whose coordinate falls on a horizontal/vertical wire segment (not just the endpoints) is unioned with that wire
 
@@ -1351,7 +1455,65 @@ the DAT export exactly, with no net missing and none invented.
 
 **Confidence: VERIFIED**
 
-Multi-unit components (e.g., quad op-amps) appear as multiple PlacedInstance records sharing the same `reference` (refdes). Each instance has its own T0x10 pins representing one unit. The parser merges all instances with the same refdes into a single component, combining their pin sets.
+Multi-unit components (e.g., quad op-amps) appear as multiple PlacedInstance records sharing the same `reference` (refdes). Each instance has its own T0x10 pins representing one unit. The parser merges all instances with the same refdes into a single component, combining their pin sets. The units may sit in different placements of a hierarchical block: a hex inverter drawn once inside a block placed twice is one component whose pins come from both placements, numbered by each placement's occurrence (section 8).
+
+### 12.6 Hierarchical Block Expansion
+
+**Confidence: VERIFIED (one level, against a DAT export); HEURISTIC (nested net suffix)**
+
+A hierarchical block is a child schematic drawn once and placed by a
+DrawnInstance (section 7.7.2) on a parent page, possibly several times, possibly
+inside another block. The page streams hold the drawing once; the Hierarchy
+stream (section 8) holds one occurrence per placement. The parser expands the
+tree so that each placement is reported as the distinct parts and nets it is.
+
+For each view, the root scope's pages are the view's `Views/{name}/Pages`. For
+each DrawnInstance on a page, the block occurrence in the current scope with the
+same `dbId` names the child schematic and opens its scope; the child's pages are
+copied once for that placement, and the copy's DrawnInstances are expanded in
+turn. The schematic of a block the stream names no occurrence for, and any
+schematic no root reaches, is read once, flat, which is also what every page gets
+in a design with no Hierarchy stream.
+
+A placement's page copies differ from the drawing in four ways:
+
+1. **Reference designators** are the ones the placement's scope annotates. An
+   instance whose occurrence annotates none keeps its inline reference.
+2. **Pin numbers** are the ones the placement's occurrence assigns through its
+   pins' `Number` properties, where it assigns any; the page's pin map answers
+   otherwise.
+3. **Pin net ids** move into a range of their own, a multiple of 2^32 above the
+   file's 32-bit ids, so the same pin drawn once never shares a net-id group
+   across placements. The two sentinel values (section 7.7.1) are left alone.
+4. **Hierarchical ports** are bound to the parent page: the child's port symbol,
+   named through `strLst[pairingId]` like any symbol, is matched by name to the
+   DrawnInstance's SymbolPin, and that pin's position and net id on the parent
+   page are recorded on the copy.
+
+Net building (section 12.4) then classifies each wire group on a placement's
+page:
+
+- a group attached to a bound hierarchical port takes the parent's net: its pins
+  join the parent's net-id group under the parent page and the block pin's
+  coordinate, so every later rule sees one net, and nothing is reported under the
+  port's own name;
+- a group attached to a global symbol keeps its name, so a power net is one net
+  across the whole design;
+- every other group is local to the placement and is suffixed with `_` and the
+  placement's instance path, so two placements of one drawing report two nets.
+
+The suffix for a placement one level down is `_{instance name}`, which is what
+Capture's flat netlist writes. For a block placed inside a block the path is
+joined outermost first with `_`; no design with a DAT export exercises that, so
+it is inferred rather than verified.
+
+Bus ports are not traced: their pins are read, but the parser does not trace bus
+wires (section 13.2), so a net that enters a block only through a bus port stays
+on the parent side.
+
+The DrawnInstance's pins are wired on the parent page exactly as a part's pins
+are (section 12.4, rules 1, 8 and 9), so an unwired block pin binds nothing and
+the port's net stays local to the placement.
 
 ---
 
@@ -1366,7 +1528,7 @@ Each unknown area in the format is mapped to its impact on parser coverage. PinN
 | **PlacedInstance 10 unknown bytes** (section 7.7) | 10 per component | None | None | None observed; may encode a secondary value reference or CIS link |
 | **Port 9 trailing bytes** (section 7.8) | 9 per port | None | None | None |
 | **Global/OPC 5 trailing bytes** (section 7.8) | 5 per symbol | None | None | None |
-| **Hierarchy 24-byte metadata** (section 8) | 24 per net | None | None | None |
+| **Occurrence unknown fields** (section 8) | 12 per occurrence | None | None | None |
 | **T0x10 unknown_int** (section 7.7.1) | 4 per pin | None | None | None |
 | **Page tail after OPCs** (section 7) | Variable | None | None | None |
 
@@ -1378,7 +1540,7 @@ Each unknown area in the format is mapped to its impact on parser coverage. PinN
 | Bus entries | Bus connection points |
 | Bus wires | Wire type 0x15 is accepted but buses aren't traced |
 | CIS streams | CIS database link information |
-| DrawnInstance bodies | Hierarchical page instances are skipped via their prefix boundaries |
+| Bus ports on drawn blocks | A DrawnInstance's bus pins (type 0x11) are read but, with buses untraced, carry no nets into the placement |
 | Graphical primitives | Shapes inside LibraryPart (lines, rects, arcs) |
 | Title block contents | Skipped entirely |
 | Page sections after OPCs | Everything after OffPageConnectors in the page stream |
@@ -1406,7 +1568,9 @@ Each unknown area in the format is mapped to its impact on parser coverage. PinN
 | LibraryPart | After checkpoint 1 | 4 | Before len_primitives |
 | SymbolPin | After pin_shape | 2 | Unknown |
 | SymbolPin | After port_type | 4 | Unknown |
-| Hierarchy net record | Per record | **24** | Fixed metadata; may contain DB object IDs |
+| DrawnInstance | As PlacedInstance up to the display properties, then 10 after part_value_idx | 30 | Same positions as PlacedInstance (section 7.7.2) |
+| Hierarchy occurrence | After db_id, after the two strings | 8 + 4 | Section 8 |
+| Hierarchy scope | After each type-0x52 and type-0x5B structure | 8 | Section 8 |
 
 ### 13.4 Heuristics that could break
 
@@ -1415,7 +1579,9 @@ Each unknown area in the format is mapped to its impact on parser coverage. PinN
 | Prefix count auto-detection (try 10..1) | Low | Parse failure on individual structure |
 | T0x10.sth encoding (< 32768 vs >= 32768) | Low | Wrong pin index, wrong pin number |
 | Cache entry metadata probing (tryRead heuristic) | Medium | Could misparse entry boundary; mitigated by brute-force preamble recovery (section 10.3) |
-| Hierarchy 0x43 scan | Medium | Wrong net count, corrupt net names |
+| Hierarchy top-level layout chosen by reading to the exact end of the stream (section 8) | Low | No layout fits: the view is read flat, with no placements expanded |
+| Occurrence pin ordinal = pin index - 1 (section 8) | Low | A placement's assigned pin numbers land on the wrong pins |
+| Nested placement net suffix joins the instance path with `_` (section 12.6) | Medium | Local nets of a block placed inside a block named differently from Capture's netlist |
 | PageSettings = 156 bytes | Low | Parse offset error for everything after it |
 | LOGFONTA = 60 bytes | Low | Wrong strLst offset, corrupt string table |
 | 5 unknown bytes after Global/OPC | Medium | Parse offset error for subsequent records |

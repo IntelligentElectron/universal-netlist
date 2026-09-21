@@ -172,6 +172,28 @@ interface PinInfo {
   coordNet?: string;
 }
 
+/** A pin with this net id touches no net of its own. */
+const NO_CONNECT = 0;
+
+/**
+ * The name Capture gives a net nobody named: `N` and the segment id, padded to
+ * five digits. Its flat net list and DAT export both write it this way.
+ */
+function autoNetName(segmentId: number): string {
+  return `N${String(segmentId).padStart(5, "0")}`;
+}
+
+/** A page's resolved wire groups. */
+interface PageCoordMap {
+  /** Coordinate or symbol key to the net name of the wire group it is in. */
+  coordToNet: Map<string, string>;
+  /**
+   * Net name of a wire group attached to one of the placement's hierarchical
+   * ports, to that port's name. Empty on a page that is not a placement.
+   */
+  portGroups: Map<string, string>;
+}
+
 /**
  * Build a coordinate -> net name map for a single page using wire graph connectivity.
  *
@@ -181,8 +203,8 @@ interface PinInfo {
  * 1. All wire aliases and net table entries are collected as candidates.
  * 2. When a group has multiple candidate names, the alphabetically first name
  *    wins (matches Cadence CIS export behavior).
- * 3. Unnamed groups get a synthesized N{minSegmentId} name, matching the
- *    auto-generated naming convention in Cadence's DAT export.
+ * 3. Unnamed groups get a synthesized N{minSegmentId} name, zero-padded to
+ *    five digits, matching the auto-generated naming in Cadence's DAT export.
  *
  * Global/port/OPC symbols are NOT used for naming: their `.name` field is the
  * schematic symbol type (e.g. "VCC_BAR", "GND_SIGNAL"), not the net name.
@@ -194,12 +216,20 @@ interface PinInfo {
  * names take priority over non-hierarchy names. This resolves cross-page
  * aliases (e.g., wire alias "PWRSEL" + table "GPIO8" on the same wire;
  * hierarchy contains "PWRSEL", so it wins).
+ *
+ * On a page that is one placement of a hierarchical block, a wire group is
+ * one of three things. A group attached to a hierarchical port symbol keeps
+ * the port's net and is reported in `portGroups`, so the pins on it can be
+ * joined to the parent's net (see collectPins). A group attached to a global
+ * symbol is a power net the whole design shares and keeps its name. Every
+ * other group is local to the placement and gets the placement's suffix, which
+ * is how two placements of one drawing report two nets rather than one.
  */
 function buildPageCoordMap(
   page: PageData,
   canonicalNetNames: Set<string>,
   symbolNets: Map<number, string>
-): Map<string, string> {
+): PageCoordMap {
   const uf = new CoordUnionFind();
 
   // Connect wire endpoints into groups.
@@ -358,8 +388,14 @@ function buildPageCoordMap(
   // Sentinel pins (netId=0xFFFFFFFF) on power/ground symbols have coordinates
   // inside the global's bbox but not at any wire endpoint. Match them via
   // bbox containment (for globals) and point-on-segment (for wire bodies).
-  for (const inst of page.placedInstances) {
-    for (const pin of inst.t0x10s) {
+  // A hierarchical block's pins are wired exactly like a part's, and the
+  // placement they open reads its parent net off this same map.
+  const pins = [
+    ...page.placedInstances.flatMap((inst) => inst.t0x10s),
+    ...page.drawnInstances.flatMap((drawn) => drawn.pins),
+  ];
+  {
+    for (const pin of pins) {
       const coord = `${pin.pointX},${pin.pointY}`;
       if (allWireCoords.has(coord)) continue; // already connected via wire endpoint
 
@@ -403,8 +439,21 @@ function buildPageCoordMap(
     }
   }
 
+  // What a placement's groups attach to: a hierarchical port, by the net name
+  // the Library string list gives its symbol, or a global.
+  const portByKey = new Map<string, string>();
+  const globalKeys = new Set<string>();
+  if (page.placement) {
+    for (const sym of page.ports) {
+      const portName = symbolNets.get(sym.pairingId);
+      if (portName !== undefined) portByKey.set(symbolKey(sym), portName);
+    }
+    for (const sym of page.globals) globalKeys.add(symbolKey(sym));
+  }
+
   // Resolve one canonical name per connected wire group
   const coordToNet = new Map<string, string>();
+  const portGroups = new Map<string, string>();
   for (const [, members] of uf.groups()) {
     const allNames = new Set<string>();
     for (const m of members) {
@@ -425,7 +474,17 @@ function buildPageCoordMap(
         if (segId !== undefined && segId < minSegId) minSegId = segId;
       }
       if (minSegId === Infinity) continue;
-      canonicalName = `N${minSegId}`;
+      canonicalName = autoNetName(minSegId);
+    }
+
+    if (page.placement) {
+      let port: string | undefined;
+      for (const m of members) if ((port = portByKey.get(m)) !== undefined) break;
+      if (port !== undefined && page.placement.ports.has(port)) {
+        portGroups.set(canonicalName, port);
+      } else if (!members.some((m) => globalKeys.has(m))) {
+        canonicalName += page.placement.suffix;
+      }
     }
 
     for (const m of members) {
@@ -433,13 +492,13 @@ function buildPageCoordMap(
     }
   }
 
-  return coordToNet;
+  return { coordToNet, portGroups };
 }
 
 /** Collect all component pins across pages with their coordinate-resolved net names. */
 function collectPins(
   pages: PageData[],
-  pageCoordMaps: Map<string, string>[],
+  pageCoordMaps: PageCoordMap[],
   pmd: PinMapData,
   deviceIndexMap: Map<number, number>,
   globalPairingNets: Map<number, string>,
@@ -447,7 +506,8 @@ function collectPins(
 ): PinInfo[] {
   const pins: PinInfo[] = [];
   for (let i = 0; i < pages.length; i++) {
-    const coordToNet = pageCoordMaps[i];
+    const { coordToNet, portGroups } = pageCoordMaps[i];
+    const placement = pages[i].placement;
     for (const inst of pages[i].placedInstances) {
       const refdes = inst.reference;
       if (!refdes || !isValidRefdes(refdes)) continue;
@@ -501,13 +561,38 @@ function collectPins(
               coord === `${opc.locX},${opc.locY}`
             ) {
               coordNet = opcPairingNets.get(opc.pairingId);
-              if (coordNet) break;
+              if (coordNet) {
+                // The string list's name is the block's own; in a placement it
+                // names that placement's net.
+                if (placement) coordNet += placement.suffix;
+                break;
+              }
             }
           }
         }
 
+        // A pin on one of the placement's hierarchical ports is on the parent
+        // page's net: it joins the parent's net-id group, under the parent's
+        // page and the block pin's coordinate, so every rule downstream sees
+        // one net. An unwired block pin leaves the port's net local instead.
+        let netId = pin.netId;
+        let pageIdx = i;
+        let pinCoord = coord;
+        if (placement && coordNet !== undefined && portGroups.has(coordNet)) {
+          const binding = placement.ports.get(portGroups.get(coordNet)!)!;
+          const parentNet = pageCoordMaps[binding.pageIdx].coordToNet.get(binding.coord);
+          if (binding.netId !== NO_CONNECT || parentNet !== undefined) {
+            netId = binding.netId;
+            pageIdx = binding.pageIdx;
+            pinCoord = binding.coord;
+            coordNet = parentNet;
+          } else {
+            coordNet += placement.suffix;
+          }
+        }
+
         const pinNumber = resolvePinNumber(pin, inst, pmd, deviceIndex);
-        pins.push({ refdes, pinNumber, netId: pin.netId, pageIdx: i, coord, coordNet });
+        pins.push({ refdes, pinNumber, netId, pageIdx, coord: pinCoord, coordNet });
       }
     }
   }
@@ -767,13 +852,13 @@ function assembleNets(
  */
 function buildOpcNameMap(
   pages: PageData[],
-  pageCoordMaps: Map<string, string>[],
+  pageCoordMaps: PageCoordMap[],
   canonicalNetNames: Set<string>
 ): Map<string, string> {
   const opcIdToNames = new Map<number, Set<string>>();
 
   for (let i = 0; i < pages.length; i++) {
-    const coordMap = pageCoordMaps[i];
+    const coordMap = pageCoordMaps[i].coordToNet;
     for (const opc of pages[i].offPageConnectors) {
       const opcKey = `opc:${opc.pairingId}:${opc.dbId}`;
       const netName = coordMap.get(opcKey);
@@ -823,17 +908,23 @@ export function buildNetConnectivity(
     }
   }
 
-  const pageCoordMaps = pages.map((page) => buildPageCoordMap(page, canonicalNetNames, symbolNets));
+  // A placement's own scope names its nets; the root's list names everything else.
+  const pageCoordMaps = pages.map((page) =>
+    buildPageCoordMap(page, page.placement?.canonicalNetNames ?? canonicalNetNames, symbolNets)
+  );
 
   // Apply cross-page OPC name equivalences (creates new maps to avoid mutation)
   const opcNameMap = buildOpcNameMap(pages, pageCoordMaps, canonicalNetNames);
   const resolvedCoordMaps =
     opcNameMap.size > 0
-      ? pageCoordMaps.map((coordMap) => {
-          const resolved = new Map(coordMap);
-          for (const [coord, name] of resolved) {
+      ? pageCoordMaps.map(({ coordToNet, portGroups }) => {
+          const resolved: PageCoordMap = { coordToNet: new Map(coordToNet), portGroups: new Map() };
+          for (const [coord, name] of resolved.coordToNet) {
             const mapped = opcNameMap.get(name);
-            if (mapped) resolved.set(coord, mapped);
+            if (mapped) resolved.coordToNet.set(coord, mapped);
+          }
+          for (const [name, port] of portGroups) {
+            resolved.portGroups.set(opcNameMap.get(name) ?? name, port);
           }
           return resolved;
         })
@@ -852,7 +943,7 @@ export function buildNetConnectivity(
   // where a resistor pin lands straight on the power port.
   const wirePairingNets = new Map<number, string>();
   for (let i = 0; i < pages.length; i++) {
-    const coordMap = resolvedCoordMaps[i];
+    const coordMap = resolvedCoordMaps[i].coordToNet;
     for (const sym of [...pages[i].globals, ...pages[i].ports]) {
       if (wirePairingNets.has(sym.pairingId)) continue;
       const net = coordMap.get(symbolKey(sym));
@@ -870,7 +961,7 @@ export function buildNetConnectivity(
   // Fallback: resolve from wire connections on other pages (for designs without strLst).
   const opcPairingNets = new Map<number, string>();
   for (let i = 0; i < pages.length; i++) {
-    const coordMap = resolvedCoordMaps[i];
+    const coordMap = resolvedCoordMaps[i].coordToNet;
     for (const opc of pages[i].offPageConnectors) {
       if (opcPairingNets.has(opc.pairingId)) continue;
       // Try strLst first (always correct when available)

@@ -78,6 +78,27 @@ describe("resolvePinNumber", () => {
     expect(resolvePinNumber(pin(2), inst, pmd)).toBe("7");
   });
 
+  it("treats an empty Packages/ entry as no answer and reads on", () => {
+    // A library part saved without pin numbers writes one empty string per
+    // pin; taking it would fold every pin of the part into one nameless pin.
+    const inst = instance("FET", 3);
+    const cached = pinMapData({ FET: ["", "", ""] }, { FET: ["1", "2", "3"] });
+    const bare = pinMapData({ FET: ["", "", ""] });
+
+    expect(resolvePinNumber(pin(2), inst, cached)).toBe("2");
+    expect(resolvePinNumber(pin(3), inst, bare)).toBe("3");
+  });
+
+  it("takes the number the occurrence assigns over every map", () => {
+    // A part shared by two placements of a block is drawn once but uses a
+    // different section in each; the Hierarchy stream carries the numbers.
+    const inst = { ...instance("HEX_INV", 2), pinNumbers: new Map([[1, "9"]]) };
+    const pmd = pinMapData({ HEX_INV: ["1", "2"] });
+
+    expect(resolvePinNumber(pin(1), inst, pmd)).toBe("9");
+    expect(resolvePinNumber(pin(2), inst, pmd)).toBe("2");
+  });
+
   it("uses the symbol record order only when neither map resolves the pin", () => {
     const inst = instance("UNKNOWN_PART", 2);
     const pmd = pinMapData({});
@@ -140,6 +161,7 @@ describe("buildDeviceIndexMap", () => {
       netTable: new Map(),
       wires: [],
       placedInstances,
+      drawnInstances: [],
       ports: [],
       globals: [],
       offPageConnectors: [],

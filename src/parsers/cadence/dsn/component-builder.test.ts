@@ -64,6 +64,7 @@ const resolve = (
     netTable: new Map(),
     wires: [],
     placedInstances: [instance],
+    drawnInstances: [],
     ports: [],
     globals: [],
     offPageConnectors: [],

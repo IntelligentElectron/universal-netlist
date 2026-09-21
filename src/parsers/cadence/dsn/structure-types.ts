@@ -13,6 +13,8 @@ export enum StructureType {
   DrawnInstance = 12,
   PlacedInstance = 13,
   T0x10 = 16,
+  /** A pin of a DrawnInstance; the same body as T0x10 under its own type. */
+  T0x11 = 17,
   WireScalar = 20,
   WireBus = 21,
   Port = 23,
@@ -67,6 +69,7 @@ export const structureTypeName: Partial<Record<StructureType, string>> = {
   [StructureType.DrawnInstance]: "DrawnInstance",
   [StructureType.PlacedInstance]: "PlacedInstance",
   [StructureType.T0x10]: "T0x10",
+  [StructureType.T0x11]: "T0x11",
   [StructureType.WireScalar]: "WireScalar",
   [StructureType.WireBus]: "WireBus",
   [StructureType.Port]: "Port",
