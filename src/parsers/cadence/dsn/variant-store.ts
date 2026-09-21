@@ -285,20 +285,40 @@ export function buildOccurrenceDbIds(hierarchy: Buffer): Map<number, number> {
 }
 
 /**
- * Map each placed instance to the reference designator its occurrence carries.
+ * Map each placed instance to the reference designators its occurrences carry,
+ * in stream order and without repeats.
  *
  * Returns an empty map for a design whose occurrences record no reference,
  * which is the common case: there the instance copy in the page record is the
  * annotated one and nothing needs overriding. A multi-section part contributes
- * one record per section, all naming the same reference, and the first record
- * for a dbId wins.
+ * one record per section, each under its own dbId. A reused hierarchical block
+ * gives one instance one occurrence per placement of the block, and annotation
+ * gives each placement its own reference, so an instance can carry several:
+ * `pickOccurrenceRefdes` chooses among them.
  */
-export function buildOccurrenceRefdes(hierarchy: Buffer): Map<number, string> {
-  const references = new Map<number, string>();
+export function buildOccurrenceRefdes(hierarchy: Buffer): Map<number, string[]> {
+  const references = new Map<number, string[]>();
   for (const { dbId, reference } of readPartOccurrences(hierarchy)) {
-    if (reference !== undefined && !references.has(dbId)) references.set(dbId, reference);
+    if (reference === undefined) continue;
+    const list = references.get(dbId);
+    if (list === undefined) references.set(dbId, [reference]);
+    else if (!list.includes(reference)) list.push(reference);
   }
   return references;
+}
+
+/**
+ * The reference designator an instance reports, given the inline copy from its
+ * page record and the references its occurrences carry.
+ *
+ * The parser reports each instance once, so a reused block's instance has to
+ * settle on one of its placements' references. The inline copy wins when it is
+ * one of them: it is then an annotated reference, and keeping it makes the
+ * choice stable across saves instead of following stream order. Otherwise the
+ * inline copy is stale or a placeholder and the first occurrence stands in.
+ */
+export function pickOccurrenceRefdes(inline: string, occurrences: readonly string[]): string {
+  return occurrences.includes(inline) ? inline : occurrences[0];
 }
 
 /**

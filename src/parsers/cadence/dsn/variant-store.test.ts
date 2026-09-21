@@ -14,6 +14,7 @@ import {
   hasVariantGroups,
   listCadenceVariants,
   parseBomVariantGroups,
+  pickOccurrenceRefdes,
   parseVariantGroup,
   parseVariantNames,
   resolveDnsRefdes,
@@ -192,18 +193,18 @@ describe("buildOccurrenceDbIds", () => {
 describe("buildOccurrenceRefdes", () => {
   it("names the instance an occurrence annotates", () => {
     expect(buildOccurrenceRefdes(record(66, 40520, 6173697, { reference: "U32" }))).toEqual(
-      new Map([[6173697, "U32"]])
+      new Map([[6173697, ["U32"]]])
     );
   });
 
   it("finds the reference past the preamble's trailing data", () => {
     const hierarchy = record(66, 40520, 6173697, { reference: "U32", extra: 37 });
 
-    expect(buildOccurrenceRefdes(hierarchy)).toEqual(new Map([[6173697, "U32"]]));
+    expect(buildOccurrenceRefdes(hierarchy)).toEqual(new Map([[6173697, ["U32"]]]));
   });
 
   it("keeps a never-annotated placeholder, which is a real occurrence value", () => {
-    expect(buildOccurrenceRefdes(record(66, 1, 9, { reference: "U?" })).get(9)).toBe("U?");
+    expect(buildOccurrenceRefdes(record(66, 1, 9, { reference: "U?" })).get(9)).toEqual(["U?"]);
   });
 
   it("leaves the net mapping beside it alone", () => {
@@ -217,7 +218,21 @@ describe("buildOccurrenceRefdes", () => {
       record(66, 2, 45501482, { reference: "U32" }),
     ]);
 
-    expect([...buildOccurrenceRefdes(hierarchy).values()]).toEqual(["U32", "U32"]);
+    expect([...buildOccurrenceRefdes(hierarchy).values()]).toEqual([["U32"], ["U32"]]);
+  });
+
+  it("lists every reference a reused block's instance carries, once each, in stream order", () => {
+    // One instance, placed through a block used three times: each placement is
+    // its own occurrence with its own annotated reference. One repeats a
+    // reference on a second section, which is not another placement.
+    const hierarchy = Buffer.concat([
+      record(66, 1, 9, { reference: "U2" }),
+      record(66, 2, 9, { reference: "U1" }),
+      record(66, 3, 9, { reference: "U2" }),
+      record(66, 4, 9, { reference: "U3" }),
+    ]);
+
+    expect(buildOccurrenceRefdes(hierarchy).get(9)).toEqual(["U2", "U1", "U3"]);
   });
 
   it("returns nothing for occurrences that record no reference", () => {
@@ -236,6 +251,23 @@ describe("buildOccurrenceRefdes", () => {
     const hierarchy = record(66, 1, 9, { reference: "C9" });
 
     expect(buildOccurrenceRefdes(hierarchy.subarray(0, hierarchy.length - 2)).size).toBe(0);
+  });
+});
+
+describe("pickOccurrenceRefdes", () => {
+  it("takes the one occurrence a flat design's instance has", () => {
+    expect(pickOccurrenceRefdes("C34", ["C41"])).toBe("C41");
+  });
+
+  it("keeps an inline copy that is one of the instance's occurrences", () => {
+    // Stream order put U2 first, but the inline U1 is an annotated placement
+    // too, and keeping it leaves the reported reference where it was.
+    expect(pickOccurrenceRefdes("U1", ["U2", "U1", "U3"])).toBe("U1");
+  });
+
+  it("falls back to the first occurrence for a placeholder or stale inline copy", () => {
+    expect(pickOccurrenceRefdes("C?", ["C175", "C177", "C83"])).toBe("C175");
+    expect(pickOccurrenceRefdes("C9", ["C175", "C177", "C83"])).toBe("C175");
   });
 });
 

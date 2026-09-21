@@ -15,7 +15,7 @@ import { parseLibraryStrLst } from "./library-parser.js";
 import { buildDeviceIndexMap } from "./pin-resolver.js";
 import { buildNetConnectivity } from "./net-builder.js";
 import { buildComponents } from "./component-builder.js";
-import { buildOccurrenceRefdes, readVariantDns } from "./variant-store.js";
+import { buildOccurrenceRefdes, pickOccurrenceRefdes, readVariantDns } from "./variant-store.js";
 
 /** Parse a .DSN file into a ParsedNetlist. */
 export function parseDsnFile(dsnPath: string, options?: ParseDesignOptions): ParsedNetlist {
@@ -182,14 +182,16 @@ export function parseDsnFile(dsnPath: string, options?: ParseDesignOptions): Par
  * OrCAD keeps the reference twice and annotation writes the occurrence copy, so
  * where the two disagree the occurrence is the one Capture displays and the one
  * the BOM and board flows carry. An instance whose occurrence records no
- * reference keeps the inline copy, which is the only one such a design has.
+ * reference keeps the inline copy, which is the only one such a design has. An
+ * instance with several occurrences, one per placement of a reused block,
+ * keeps the inline copy when it is one of them and takes the first otherwise.
  *
- * This runs before connectivity and components are built, so every consumer —
- * the net map, the component map and the variant DNS lookup — is keyed by the
+ * This runs before connectivity and components are built, so every consumer,
+ * the net map, the component map and the variant DNS lookup, is keyed by the
  * same reference.
  */
 function applyOccurrenceRefdes(pages: PageData[], hierarchy: Buffer): void {
-  let occurrenceRefdes: Map<number, string>;
+  let occurrenceRefdes: Map<number, string[]>;
   try {
     occurrenceRefdes = buildOccurrenceRefdes(hierarchy);
   } catch {
@@ -200,7 +202,7 @@ function applyOccurrenceRefdes(pages: PageData[], hierarchy: Buffer): void {
   for (const page of pages) {
     for (const inst of page.placedInstances) {
       const annotated = occurrenceRefdes.get(inst.dbId);
-      if (annotated !== undefined) inst.reference = annotated;
+      if (annotated !== undefined) inst.reference = pickOccurrenceRefdes(inst.reference, annotated);
     }
   }
 }
