@@ -15,7 +15,7 @@ import { parseLibraryStrLst } from "./library-parser.js";
 import { buildDeviceIndexMap } from "./pin-resolver.js";
 import { buildNetConnectivity } from "./net-builder.js";
 import { buildComponents } from "./component-builder.js";
-import { readVariantDns } from "./variant-store.js";
+import { buildOccurrenceRefdes, readVariantDns } from "./variant-store.js";
 
 /** Parse a .DSN file into a ParsedNetlist. */
 export function parseDsnFile(dsnPath: string, options?: ParseDesignOptions): ParsedNetlist {
@@ -47,6 +47,8 @@ export function parseDsnFile(dsnPath: string, options?: ParseDesignOptions): Par
     const pageBuffer = ole.readStreamByPath(pageEntry.path);
     return parsePage(pageBuffer);
   });
+
+  if (hierarchyBuffer) applyOccurrenceRefdes(pages, hierarchyBuffer);
 
   // Parse Package streams for pin mapping data.
   // Each Package stream contains Device entries with pinMap arrays that map
@@ -172,6 +174,35 @@ export function parseDsnFile(dsnPath: string, options?: ParseDesignOptions): Par
   );
 
   return { nets, components };
+}
+
+/**
+ * Replace each instance's reference designator with its annotated occurrence one.
+ *
+ * OrCAD keeps the reference twice and annotation writes the occurrence copy, so
+ * where the two disagree the occurrence is the one Capture displays and the one
+ * the BOM and board flows carry. An instance whose occurrence records no
+ * reference keeps the inline copy, which is the only one such a design has.
+ *
+ * This runs before connectivity and components are built, so every consumer —
+ * the net map, the component map and the variant DNS lookup — is keyed by the
+ * same reference.
+ */
+function applyOccurrenceRefdes(pages: PageData[], hierarchy: Buffer): void {
+  let occurrenceRefdes: Map<number, string>;
+  try {
+    occurrenceRefdes = buildOccurrenceRefdes(hierarchy);
+  } catch {
+    return; // Best-effort, exactly as the canonical net names are.
+  }
+  if (occurrenceRefdes.size === 0) return;
+
+  for (const page of pages) {
+    for (const inst of page.placedInstances) {
+      const annotated = occurrenceRefdes.get(inst.dbId);
+      if (annotated !== undefined) inst.reference = annotated;
+    }
+  }
 }
 
 /** Index the placed instances by dbId, which is what an occurrence names. */
