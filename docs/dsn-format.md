@@ -615,8 +615,8 @@ BODY:
     uint8     0x18                     # marks the embedded symbol
               LibraryPart              # the block symbol (section 9.3); its SymbolPins
                                        # name the hierarchical ports, in pin order
-    string    reference                # the instance name, e.g. the "MV1" in a flat
-                                       # net name "N00439_MV1"
+    string    reference                # the instance name, e.g. the "BLK1" in a flat
+                                       # net name "N00439_BLK1"
     uint32    part_value_idx
     10 bytes  unknown
     uint16    len_pins
@@ -733,9 +733,9 @@ duplicate. The parser reads as roots the views no other view places, once each,
 whose pages are in the file (section 12.6).
 
 Annotation is by instance or by occurrence, and the two leave different marks.
-Annotated by instance, the drawing carries the reference (`R5`, `MV1`) and the
+Annotated by instance, the drawing carries the reference (`R5`, `BLK1`) and the
 occurrence carries the same or nothing. Annotated by occurrence, the drawing
-keeps its placeholder (`R?`, `col?`) and only the occurrence carries the
+keeps its placeholder (`R?`, `BLK?`) and only the occurrence carries the
 reference, for parts and for blocks alike. The parser reads the occurrence's
 reference first and the drawing's where the occurrence has none.
 
@@ -1531,7 +1531,7 @@ sentinel net id, is on that port's group as well; a pin on a global symbol is
 on the global's net.
 
 The suffix is `_` and the instance path from the root down, joined with `_`,
-uppercase: `_MV1` one level down, `_M1_COL8_R-D71` three levels down. Capture's
+uppercase: `_BLK1` one level down, `_BLK1_SUB2_UNIT3` three levels down. Capture's
 flat netlist names them the same way, and both depths have been checked against
 an Allegro export of a design that draws them. Each path element is the name
 the block occurrence annotates, or the name drawn on the block where the
