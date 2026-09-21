@@ -3,7 +3,8 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { disambiguateCrossPageNets, chooseSymbolAttachment, symbolKey } from "./net-builder.js";
+import { disambiguateCrossPageNets } from "./net-assembly.js";
+import { chooseSymbolAttachment, symbolKey } from "./symbol-attachment.js";
 
 /**
  * Build the (netIdToName, netIdGroups) pair the disambiguator consumes.

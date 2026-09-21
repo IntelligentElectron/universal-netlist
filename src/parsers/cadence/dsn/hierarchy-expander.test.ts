@@ -262,7 +262,9 @@ describe("expandHierarchy", () => {
     });
   });
 
-  it("passes a schematic no root reaches through as it is, once", () => {
+  it("leaves out a schematic no root reaches, once a root is usable", () => {
+    // A sheet the occurrence tree does not place is one the design no longer
+    // uses; Capture's own netlist leaves it out too.
     const orphan = page("LIB", [instance(5, "R9")]);
     const main = page("PAGE1", [instance(1, "R1")]);
 
@@ -274,11 +276,10 @@ describe("expandHierarchy", () => {
       ])
     );
 
-    expect(out).toHaveLength(2);
-    expect(out[1]).toBe(orphan);
+    expect(out.map((p) => p.placedInstances[0].reference)).toEqual(["R1"]);
   });
 
-  it("passes a block's schematic through flat when the stream names no occurrence for the block", () => {
+  it("leaves out a block's schematic when the stream names no occurrence for the block", () => {
     const child = page("PAGE1", [instance(275, "C1")]);
     const main = page("PAGE1", [], [block(17, "MV1", [], [])]);
 
@@ -290,8 +291,116 @@ describe("expandHierarchy", () => {
       ])
     );
 
-    expect(out).toHaveLength(2);
-    expect(out[1]).toBe(child);
+    expect(out).toEqual([main]);
+  });
+
+  it("reads every page flat when no root's pages are in the file", () => {
+    const main = page("PAGE1", [instance(1, "R1")]);
+
+    const { pages: out } = expandHierarchy(
+      [root("Elsewhere", scope([part(1, 1, "R2")]))],
+      new Map([["main", [main]]])
+    );
+
+    expect(out).toEqual([main]);
+  });
+
+  it("drops a root that another root's tree places as a block", () => {
+    // A schematic that was once the root keeps its own Hierarchy stream, whose
+    // occurrences would list its parts a second time.
+    const child = page("PAGE1", [instance(275, "C1")]);
+    const main = page("PAGE1", [], [block(17, "MV1", [], [])]);
+    const stale = root("child", scope([part(9, 275, "C1")]));
+    const top = root(
+      "Main",
+      scope(
+        [],
+        [
+          {
+            occurrenceId: 2,
+            dbId: 17,
+            schematic: "child",
+            reference: "",
+            scope: scope([part(1, 275, "C6")]),
+          },
+        ]
+      )
+    );
+
+    const { pages: out } = expandHierarchy(
+      [stale, top],
+      new Map([
+        ["main", [main]],
+        ["child", [child]],
+      ])
+    );
+
+    expect(out.map((p) => [p.placement?.path.join("/"), p.placedInstances[0]?.reference])).toEqual([
+      [undefined, undefined],
+      ["MV1", "C6"],
+    ]);
+  });
+
+  it("passes over a block whose schematic is already open above it", () => {
+    // A block naming the root's own schematic points at another design file
+    // whose schematic shares the name; expanding it here would recurse.
+    const main = page("PAGE1", [instance(1, "R1")], [block(17, "IMU", [], [])]);
+    const roots = [
+      root(
+        "SCHEMATIC1",
+        scope(
+          [part(1, 1, "R1")],
+          [
+            {
+              occurrenceId: 2,
+              dbId: 17,
+              schematic: "SCHEMATIC1",
+              reference: "",
+              scope: scope([part(3, 1, "R9")]),
+            },
+          ]
+        )
+      ),
+    ];
+
+    const { pages: out } = expandHierarchy(roots, new Map([["schematic1", [main]]]));
+
+    expect(out).toHaveLength(1);
+    expect(out[0].placedInstances[0].reference).toBe("R1");
+  });
+
+  it("names the placement after the occurrence's reference, and after the drawing where it annotates none", () => {
+    // Annotated by occurrence, the drawing keeps `col?` and each occurrence
+    // carries its own name; annotated by instance, the occurrence is blank.
+    const child = page("PAGE1", [instance(275, "C1")]);
+    const main = page("PAGE1", [], [block(17, "col?", [], []), block(39, "MV2", [], [])]);
+    const roots = [
+      root(
+        "Main",
+        scope(
+          [],
+          [
+            { occurrenceId: 2, dbId: 17, schematic: "child", reference: "col8", scope: scope([]) },
+            { occurrenceId: 5, dbId: 39, schematic: "child", reference: "", scope: scope([]) },
+          ]
+        )
+      ),
+    ];
+
+    const { pages: out } = expandHierarchy(
+      roots,
+      new Map([
+        ["main", [main]],
+        ["child", [child]],
+      ])
+    );
+
+    expect(
+      out.slice(1).map((p) => [p.placement!.path, p.placement!.suffix, p.placement!.netIdOffset])
+    ).toEqual([
+      [["col8"], "_COL8", SPAN],
+      [["MV2"], "_MV2", 2 * SPAN],
+    ]);
   });
 
   it("reads every page flat when there is no Hierarchy stream", () => {

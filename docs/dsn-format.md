@@ -615,8 +615,8 @@ BODY:
     uint8     0x18                     # marks the embedded symbol
               LibraryPart              # the block symbol (section 9.3); its SymbolPins
                                        # name the hierarchical ports, in pin order
-    string    reference                # the instance name, e.g. the "MV1" in a flat
-                                       # net name "N00439_MV1"
+    string    reference                # the instance name, e.g. the "BLK1" in a flat
+                                       # net name "N00439_BLK1"
     uint32    part_value_idx
     10 bytes  unknown
     uint16    len_pins
@@ -629,8 +629,9 @@ The pins carry the block's connection points on the parent page, and their
 `i`th SymbolPin of the embedded symbol, which is how a pin is matched to the
 port it stands for. Some pins are written under type 0x11 rather than 0x10, with
 an identical body; every design read so far that draws bus ports writes some
-0x11 pins, and the parser reads the two alike. Bus ports are not traced (section
-13.2).
+0x11 pins, and the parser reads the two alike. A bus port's SymbolPin carries
+the bus name with its range, such as `DATA[7:0]`, and its members are bound by
+name (section 12.6).
 
 There is no `source_package` or section index after the pins, and no
 `pkg_name`: the child schematic a block draws is not in this record at all. It
@@ -713,14 +714,30 @@ designators and, where they differ, its own pin numbers. It is the design's
 statement of what is on the board: the page streams describe drawings, this
 stream describes placements.
 
-It is used for three things:
+It is used for four things:
 
 - The root scope's net names are the design's flat net name list, which resolves
   cross-page aliases and names pin-to-pin nets (section 12.4)
 - Each scope's part occurrences carry the reference designator that placement
   annotates, and each placement's pin numbers where they differ from the drawing
   (section 12.6)
+- Each block occurrence carries the instance name its placement annotates, which
+  names the placement's local nets (section 12.6)
 - The occurrence ids the CIS variant store names resolve here (section 11.3)
+
+A file may hold more than one Hierarchy stream, one per view, and not every
+view is a root of the design. A view that another view's tree places as a block
+is one of that design's blocks, and its own stream is the stale tree of a
+schematic that was once the root; a second stream for one schematic is a
+duplicate. The parser reads as roots the views no other view places, once each,
+whose pages are in the file (section 12.6).
+
+Annotation is by instance or by occurrence, and the two leave different marks.
+Annotated by instance, the drawing carries the reference (`R5`, `BLK1`) and the
+occurrence carries the same or nothing. Annotated by occurrence, the drawing
+keeps its placeholder (`R?`, `BLK?`) and only the occurrence carries the
+reference, for parts and for blocks alike. The parser reads the occurrence's
+reference first and the drawing's where the occurrence has none.
 
 ### Layout
 
@@ -1459,7 +1476,7 @@ Multi-unit components (e.g., quad op-amps) appear as multiple PlacedInstance rec
 
 ### 12.6 Hierarchical Block Expansion
 
-**Confidence: VERIFIED (one level, against a DAT export); HEURISTIC (nested net suffix)**
+**Confidence: VERIFIED (one level and three levels against Allegro netlist exports; bus members and nested ports against the designs' own root net lists)**
 
 A hierarchical block is a child schematic drawn once and placed by a
 DrawnInstance (section 7.7.2) on a parent page, possibly several times, possibly
@@ -1467,13 +1484,16 @@ inside another block. The page streams hold the drawing once; the Hierarchy
 stream (section 8) holds one occurrence per placement. The parser expands the
 tree so that each placement is reported as the distinct parts and nets it is.
 
-For each view, the root scope's pages are the view's `Views/{name}/Pages`. For
-each DrawnInstance on a page, the block occurrence in the current scope with the
-same `dbId` names the child schematic and opens its scope; the child's pages are
-copied once for that placement, and the copy's DrawnInstances are expanded in
-turn. The schematic of a block the stream names no occurrence for, and any
-schematic no root reaches, is read once, flat, which is also what every page gets
-in a design with no Hierarchy stream.
+For each root view (section 8), the root scope's pages are the view's
+`Views/{name}/Pages`. For each DrawnInstance on a page, the block occurrence in
+the current scope with the same `dbId` names the child schematic and opens its
+scope; the child's pages are copied once for that placement, and the copy's
+DrawnInstances are expanded in turn. Two blocks are passed over: one the stream
+names no occurrence for, and one whose schematic is already open above it, which
+is a reference to another design file whose schematic shares the name, so its
+contents are not in this file. A schematic the tree does not reach is a sheet the
+design no longer uses, and it is left out, as Capture's own netlist leaves it
+out. Only a file with no usable root has every page read as it is.
 
 A placement's page copies differ from the drawing in four ways:
 
@@ -1497,19 +1517,42 @@ page:
   join the parent's net-id group under the parent page and the block pin's
   coordinate, so every later rule sees one net, and nothing is reported under the
   port's own name;
+- a group named as a member of a bound bus port is on that port's member: for
+  the port `DATA[7:0]`, the groups named `DATA7` through `DATA0`. Capture joins a
+  bus's members by name, and the bus entries that draw them (section 13.2) are
+  not needed for it;
 - a group attached to a global symbol keeps its name, so a power net is one net
   across the whole design;
 - every other group is local to the placement and is suffixed with `_` and the
   placement's instance path, so two placements of one drawing report two nets.
 
-The suffix for a placement one level down is `_{instance name}`, which is what
-Capture's flat netlist writes. For a block placed inside a block the path is
-joined outermost first with `_`; no design with a DAT export exercises that, so
-it is inferred rather than verified.
+A pin that sits on a port symbol with no wire, which the page marks with the
+sentinel net id, is on that port's group as well; a pin on a global symbol is
+on the global's net.
 
-Bus ports are not traced: their pins are read, but the parser does not trace bus
-wires (section 13.2), so a net that enters a block only through a bus port stays
-on the parent side.
+The suffix is `_` and the instance path from the root down, joined with `_`,
+uppercase: `_BLK1` one level down, `_BLK1_SUB2_UNIT3` three levels down. Capture's
+flat netlist names them the same way, and both depths have been checked against
+an Allegro export of a design that draws them. Each path element is the name
+the block occurrence annotates, or the name drawn on the block where the
+occurrence annotates none (section 8).
+
+The parent of a placement may itself be a placement, and the group at the block
+pin may be on one of the parent's own ports. A pin on a port therefore follows
+the chain up until it reaches a group that is local to a page, and joins that
+group; a design nested three deep reports a top-level net with the pins of the
+parts three placements down.
+
+A bus port's member is bound by position, not by name, because the bus wired to
+the block pin on the parent page may be named and numbered differently from the
+port: the member at position `i` of the port's range is on the member at
+position `i` of the parent bus's range, read from the bus wire's alias or net
+table entry at the pin. When no wire on the parent page carries that member (a
+bus that runs from one block's pin straight to another's), the parent's bus
+hands the member on: it gets a net id of its own under the parent, named as the
+parent's member, and the chain continues as if the parent had drawn it. A block
+pin that is not wired at all, or wired to something that is not a bus, leaves
+the port's members local to the placement.
 
 The DrawnInstance's pins are wired on the parent page exactly as a part's pins
 are (section 12.4, rules 1, 8 and 9), so an unwired block pin binds nothing and
@@ -1537,10 +1580,9 @@ Each unknown area in the format is mapped to its impact on parser coverage. PinN
 | Area | Description |
 |------|-------------|
 | ERC objects | Electrical rules check markers on the schematic |
-| Bus entries | Bus connection points |
-| Bus wires | Wire type 0x15 is accepted but buses aren't traced |
+| Bus entries | Bus connection points; a bus's members are joined by name instead (section 12.6) |
+| Bus wires | Wire type 0x15 is read as a wire and named by its alias; nothing is traced along it |
 | CIS streams | CIS database link information |
-| Bus ports on drawn blocks | A DrawnInstance's bus pins (type 0x11) are read but, with buses untraced, carry no nets into the placement |
 | Graphical primitives | Shapes inside LibraryPart (lines, rects, arcs) |
 | Title block contents | Skipped entirely |
 | Page sections after OPCs | Everything after OffPageConnectors in the page stream |
@@ -1581,7 +1623,9 @@ Each unknown area in the format is mapped to its impact on parser coverage. PinN
 | Cache entry metadata probing (tryRead heuristic) | Medium | Could misparse entry boundary; mitigated by brute-force preamble recovery (section 10.3) |
 | Hierarchy top-level layout chosen by reading to the exact end of the stream (section 8) | Low | No layout fits: the view is read flat, with no placements expanded |
 | Occurrence pin ordinal = pin index - 1 (section 8) | Low | A placement's assigned pin numbers land on the wrong pins |
-| Nested placement net suffix joins the instance path with `_` (section 12.6) | Medium | Local nets of a block placed inside a block named differently from Capture's netlist |
+| Bus port members matched to the parent bus by position (section 12.6) | Low | A port range narrower or wider than the bus it is wired to binds the wrong members; Capture flags that mismatch itself |
+| A schematic no root reaches is left out (section 12.6) | Low | A design whose only Hierarchy stream is stale loses the sheets the stale tree does not place |
+| A view another view places is not a root (section 8) | Low | Two independent roots in one file, one of which also draws the other, would read the drawn one only as a block |
 | PageSettings = 156 bytes | Low | Parse offset error for everything after it |
 | LOGFONTA = 60 bytes | Low | Wrong strLst offset, corrupt string table |
 | 5 unknown bytes after Global/OPC | Medium | Parse offset error for subsequent records |
@@ -1687,7 +1731,7 @@ Key C++ source files for cross-referencing unknown bytes or new structure types:
 | `src/Streams/StreamLibrary.cpp` | `dsn/library-parser.ts` | Library stream / strLst |
 | `src/Structures/` | `dsn/structures.ts` | All structure parsers |
 
-`dsn/dsn-parser.ts` is the orchestrator that opens the container, discovers the streams and calls the above; `dsn/net-builder.ts`, `dsn/pin-resolver.ts` and `dsn/component-builder.ts` implement section 12 and have no C++ counterpart.
+`dsn/dsn-parser.ts` is the orchestrator that opens the container, discovers the streams and calls the above; `dsn/hierarchy-expander.ts` implements section 12.6, `dsn/net-builder.ts` with `dsn/page-groups.ts`, `dsn/net-pins.ts` and `dsn/net-assembly.ts` implement section 12.4, and `dsn/pin-resolver.ts` and `dsn/component-builder.ts` the rest of section 12; none has a C++ counterpart.
 
 ## Password-protected streams (SYENCRYPT01)
 
