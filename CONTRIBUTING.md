@@ -16,12 +16,20 @@ This project is maintained by:
 
 ### Development Setup
 
-1. Fork and clone the repository (including test fixtures):
+1. Fork the repository, then clone your fork (including test fixtures) and add
+   this repository as `upstream`:
 
    ```bash
    git clone --recurse-submodules https://github.com/YOUR_USERNAME/universal-netlist.git
    cd universal-netlist
+   git remote add upstream https://github.com/IntelligentElectron/universal-netlist.git
    ```
+
+   A fork is the standard path for everyone outside the organization. Only
+   maintainers can push branches to this repository; that is GitHub's default
+   for a public repository, not a restriction specific to this project. Your
+   fork is `origin`, where your branches go, and `upstream` is where `main`
+   comes from.
 
    If you already cloned without `--recurse-submodules`, fetch the test fixtures:
 
@@ -115,7 +123,18 @@ npm test              # Unit tests
    npm run type-check && npm run lint && npm test
    ```
 
-4. **Push and create a PR:**
+4. **Push to your fork and open a PR against `main` here:**
+
+   ```bash
+   git push -u origin feature/your-feature-name
+   gh pr create --repo IntelligentElectron/universal-netlist \
+     --base main --head YOUR_USERNAME:feature/your-feature-name
+   ```
+
+   Pushing to `IntelligentElectron/universal-netlist` directly is rejected
+   without write access, which is expected. The PR from your fork is the
+   contribution.
+
    - Fill out the PR template
    - Link any related issues
    - Describe what you changed and why
@@ -128,13 +147,43 @@ npm test              # Unit tests
 6. **Code Review:**
    - Respond to feedback
    - Make requested changes
-   - If `main` changes before merge, update your branch and let the required check rerun
+   - If `main` changes before merge, bring your branch up to date and let the
+     required check rerun:
+
+     ```bash
+     git fetch upstream
+     git rebase upstream/main
+     git push --force-with-lease
+     ```
+
+### After you open a PR
+
+Everything below is enforced by the ruleset on `main`, which anyone can read:
+
+```bash
+gh api repos/IntelligentElectron/universal-netlist/rules/branches/main
+```
+
+- CI runs on every PR, including one opened from a fork, and starts as soon as
+  the PR is opened. The workflow runs on the `pull_request` event with a
+  read-only token and uses no secrets, so a fork needs nothing configured.
+- The required check is `build`. It must pass, and it must have run on a branch
+  that is up to date with `main`, before the PR can merge. If `main` moves after
+  your check passed, rebase as in step 6 and the check reruns.
+- `main` accepts changes only through a pull request, and blocks force-pushes
+  and deletion. Rewriting your own branch is fine; nothing rewrites `main`.
+- A maintainer reviews and merges. Contributors do not merge their own PRs and
+  do not need to.
 
 ## Reporting Issues
 
 - Use the issue templates
 - Include steps to reproduce
 - Provide sample files if possible (anonymized)
+- The template applies a starting label on its own. Every other label,
+  milestone and assignee is set by maintainers during triage, and GitHub rejects
+  them from anyone without write access, so describe the problem and leave the
+  categorizing to us.
 
 ## Code of Conduct
 
@@ -146,4 +195,5 @@ By contributing, you agree that your contributions will be licensed under the Ap
 
 ## Questions?
 
-Open a [Discussion](https://github.com/IntelligentElectron/universal-netlist/discussions) for questions or ideas.
+Open an [issue](https://github.com/IntelligentElectron/universal-netlist/issues/new/choose)
+for questions or ideas. The feature request template works for both.
