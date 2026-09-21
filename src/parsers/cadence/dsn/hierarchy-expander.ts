@@ -21,6 +21,7 @@
 import type { PageData } from "./page-parser.js";
 import {
   buildOccurrenceRefdes,
+  walkBlockOccurrences,
   type HierarchyScope,
   type HierarchyStream,
   type PartOccurrence,
@@ -39,14 +40,24 @@ export interface PortBinding {
 
 /** What a page copy needs to know about the placement it belongs to. */
 export interface Placement {
-  /** Instance names from the root down, such as `["MV1"]`. */
+  /**
+   * Instance names from the root down, such as `["MV1"]`: the name each
+   * block occurrence annotates, or the name drawn on the block where the
+   * occurrence annotates none.
+   */
   path: string[];
   /**
    * Appended to the placement's local net names, so two placements of one
-   * drawing report two nets. Capture's flat netlist names them the same way.
+   * drawing report two nets: `_` and the path joined with `_`, uppercase,
+   * which is how Capture's flat netlist names them at any depth.
    */
   suffix: string;
-  /** Hierarchical port name, uppercase, to the parent block pin it connects. */
+  /** What this placement's pin net ids were moved up by; see NET_ID_SPAN. */
+  netIdOffset: number;
+  /**
+   * Hierarchical port name, uppercase, to the parent block pin it connects. A
+   * bus port keeps its range in the name, such as `DATA[7:0]`.
+   */
   ports: Map<string, PortBinding>;
   /** The names the Hierarchy stream gives this placement's nets, uppercase. */
   canonicalNetNames: Set<string>;
@@ -113,10 +124,49 @@ function inlineReferences(pages: Iterable<PageData>): Map<number, string> {
 }
 
 /**
+ * The views whose occurrence trees describe the design, in the order given.
+ *
+ * A view that another view's tree places as a block is one of that design's
+ * blocks, and its own Hierarchy stream is the stale tree of a schematic that
+ * was once the root; reading it as a root would list its parts a second time.
+ * A second stream for the same schematic is dropped for the same reason. A
+ * root whose pages are not in the file describes nothing here.
+ */
+function designRoots(
+  roots: HierarchyStream[],
+  pagesBySchematic: ReadonlyMap<string, PageData[]>
+): HierarchyStream[] {
+  const placedBy = new Map<string, Set<string>>();
+  for (const root of roots) {
+    for (const block of walkBlockOccurrences(root.scope)) {
+      const schematic = block.schematic.toLowerCase();
+      if (!placedBy.has(schematic)) placedBy.set(schematic, new Set());
+      placedBy.get(schematic)!.add(root.schematic.toLowerCase());
+    }
+  }
+  const seen = new Set<string>();
+  return roots.filter((root) => {
+    const schematic = root.schematic.toLowerCase();
+    if (seen.has(schematic) || !pagesBySchematic.has(schematic)) return false;
+    const placers = placedBy.get(schematic);
+    if (placers && [...placers].some((placer) => placer !== schematic)) return false;
+    seen.add(schematic);
+    return true;
+  });
+}
+
+/**
  * Expand the views' occurrence trees over the parsed pages.
  *
  * `pagesBySchematic` is keyed by the schematic's folder name under `Views/`,
  * lowercased. Root and block schematic names are matched to it the same way.
+ *
+ * With a usable root, the design is what its tree reaches: a schematic the
+ * tree does not place is a sheet the design no longer uses, and Capture's own
+ * netlist leaves it out too. A block that names a schematic already open above
+ * it is a reference to another design file whose schematic shares the name,
+ * so its contents are not in this file and the block is passed over. Without
+ * any usable root, every page is read as it is.
  */
 export function expandHierarchy(
   roots: HierarchyStream[],
@@ -125,13 +175,14 @@ export function expandHierarchy(
 ): ExpandedDesign {
   const pages: PageData[] = [];
   const canonicalNetNames = new Set<string>();
-  const instantiated = new Set<string>();
+  const usableRoots = designRoots(roots, pagesBySchematic);
+  const open: string[] = [];
   let placements = 0;
 
   const emit = (scope: HierarchyScope, schematic: string, placement?: Placement): void => {
     const source = pagesBySchematic.get(schematic.toLowerCase());
     if (!source) return;
-    instantiated.add(schematic.toLowerCase());
+    open.push(schematic.toLowerCase());
 
     const references = new Map<number, string>();
     const pinNumbers = new Map<number, Map<number, string>>();
@@ -142,7 +193,7 @@ export function expandHierarchy(
       if (numbers) pinNumbers.set(part.dbId, numbers);
     }
 
-    const offset = placement ? placements * NET_ID_SPAN : 0;
+    const offset = placement?.netIdOffset ?? 0;
     const copies: { page: PageData; pageIdx: number }[] = [];
     for (const page of source) {
       const copy: PageData = {
@@ -170,7 +221,7 @@ export function expandHierarchy(
     for (const { page: copy, pageIdx } of copies) {
       for (const drawn of copy.drawnInstances) {
         const block = scope.blocks.find((b) => b.dbId === drawn.dbId);
-        if (!block) continue;
+        if (!block || open.includes(block.schematic.toLowerCase())) continue;
 
         const ports = new Map<string, PortBinding>();
         for (const pin of drawn.pins) {
@@ -183,27 +234,31 @@ export function expandHierarchy(
           });
         }
 
-        const path = [...(placement?.path ?? []), drawn.reference];
+        // Blocks are annotated like parts: the occurrence carries the name when
+        // the design was annotated by occurrence, and the drawing keeps `X?`.
+        const path = [...(placement?.path ?? []), block.reference || drawn.reference];
         placements++;
         emit(block.scope, block.schematic, {
           path,
-          suffix: "_" + path.join("_"),
+          suffix: ("_" + path.join("_")).toUpperCase(),
+          netIdOffset: placements * NET_ID_SPAN,
           ports,
           canonicalNetNames: new Set(block.scope.nets.map((net) => net.name.toUpperCase())),
         });
       }
     }
+    open.pop();
   };
 
-  for (const root of roots) {
+  for (const root of usableRoots) {
     for (const net of root.scope.nets) canonicalNetNames.add(net.name.toUpperCase());
     emit(root.scope, root.schematic);
   }
 
-  for (const [schematic, source] of pagesBySchematic) {
-    if (!instantiated.has(schematic)) pages.push(...source);
+  if (usableRoots.length === 0) {
+    for (const source of pagesBySchematic.values()) pages.push(...source);
   }
 
   const inline = inlineReferences([...pagesBySchematic.values()].flat());
-  return { pages, canonicalNetNames, occurrenceRefdes: buildOccurrenceRefdes(roots, inline) };
+  return { pages, canonicalNetNames, occurrenceRefdes: buildOccurrenceRefdes(usableRoots, inline) };
 }
