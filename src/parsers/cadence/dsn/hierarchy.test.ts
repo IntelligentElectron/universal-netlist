@@ -23,10 +23,12 @@ const CARRIER = join(
 );
 const MODULE = join(fixturePath("cadence", "parallella-aafm"), "HB1A-AAFM.DSN");
 const SENSOR = join(fixturePath("cadence", "pintowin-sensor-board"), "SENSOR_BOARD.DSN");
+const SDR = join(fixturePath("cadence", "opencellular-sdr"), "OC_CONNECT1_SDR_REV_C_V1P1.DSN");
 
 const hasCarrier = hasFixtures && existsSync(CARRIER);
 const hasModule = hasFixtures && existsSync(MODULE);
 const hasSensor = hasFixtures && existsSync(SENSOR);
+const hasSdr = hasFixtures && existsSync(SDR);
 
 function readTree(dsnPath: string) {
   const ole = new DsnReader(dsnPath);
@@ -178,3 +180,31 @@ describe.skipIf(!hasSensor)(
     });
   }
 );
+
+describe.skipIf(!hasSdr)("flat design with per-page reference ranges, re-annotated", () => {
+  const netlist = parseDsnFile(SDR);
+
+  it("reads the Hierarchy stream past the top-level scope's property bag", () => {
+    // Capture records the ranges (seven pages numbering their parts 100-199
+    // through 700-799) in the top-level scope's property bag, so the preamble
+    // before the occurrence count carries trailing data rather than 8 empty
+    // bytes. A parser that skips a fixed 8 bytes there cannot read the stream.
+    const tree = readTree(SDR);
+    expect(tree.scope.blocks).toEqual([]);
+    expect(tree.scope.parts).toHaveLength(1246);
+  });
+
+  it("reports every reference on the assembly BOM under its annotated designator", () => {
+    // 1,133 references on the BOM's mount and do-not-populate sheets; the rest
+    // are test points, mounting holes and pad parts a BOM leaves out.
+    expect(Object.keys(netlist.components)).toHaveLength(1210);
+    for (const ref of ["C110", "FB28", "R100", "R212", "U12", "U36", "X1"]) {
+      expect(netlist.components[ref]).toBeDefined();
+    }
+    // The page records' inline copies still carry the designators from before
+    // the re-annotation; the stream is what maps each part to its BOM name.
+    for (const stale of ["C2080", "R10642", "U707", "X2"]) {
+      expect(netlist.components[stale]).toBeUndefined();
+    }
+  });
+});
