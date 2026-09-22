@@ -94,11 +94,17 @@ function occurrence(spec: OccurrenceSpec): Buffer {
 
 interface TopLayout {
   wideAuxCount?: boolean;
-  padded?: boolean;
   wideOccurrenceCount?: boolean;
+  /** Trailing data of the top-level scope's preamble: the design's property bag. */
+  propertyBag?: Buffer;
 }
 
-/** A whole stream: header, root schematic name, then the top-level scope. */
+/**
+ * A whole stream: header, root schematic name, then the top-level scope.
+ *
+ * The preamble before the occurrence count is written unconditionally, as a real
+ * file writes it; `propertyBag` fills its trailing data.
+ */
 const stream = (schematic: string, spec: ScopeSpec, layout: TopLayout = {}): Buffer =>
   Buffer.concat([
     Buffer.alloc(9),
@@ -109,12 +115,20 @@ const stream = (schematic: string, spec: ScopeSpec, layout: TopLayout = {}): Buf
     ...(spec.nets ?? []).map(([dbId, name]) => net(dbId, name)),
     u16(0),
     layout.wideAuxCount === false ? u16(0) : u32(0),
-    layout.padded ? Buffer.alloc(8) : Buffer.alloc(0),
+    Buffer.from([0xff, 0xe4, 0x5c, 0x39]),
+    u32(layout.propertyBag?.length ?? 0),
+    layout.propertyBag ?? Buffer.alloc(0),
     layout.wideOccurrenceCount
       ? u32(spec.occurrences?.length ?? 0)
       : u16(spec.occurrences?.length ?? 0),
     ...(spec.occurrences ?? []).map(occurrence),
   ]);
+
+/** A reference-range bag, as Capture writes it when pages number their own parts. */
+const REFERENCE_RANGE_BAG = Buffer.from(
+  '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x001 3 15 REFERENCE_RANGE 1 19 REFERENCE_RANGE_BAG 1 13 CDS_REF_RANGE 54 {"page":[{"1.TOP":{"global":{"*":[{"start":"1"}]}}}]}',
+  "latin1"
+);
 
 describe("parseHierarchyStream", () => {
   it("reads the root schematic, its nets and its part occurrences", () => {
@@ -265,9 +279,16 @@ describe("parseHierarchyStream", () => {
 
   it.each([
     ["narrow auxiliary count", { wideAuxCount: false }],
-    ["padded before the occurrence count", { padded: true }],
     ["wide occurrence count", { wideOccurrenceCount: true }],
-    ["padded, both counts wide", { padded: true, wideOccurrenceCount: true }],
+    ["property bag before the occurrence count", { propertyBag: REFERENCE_RANGE_BAG }],
+    [
+      "property bag and a narrow auxiliary count",
+      { wideAuxCount: false, propertyBag: REFERENCE_RANGE_BAG },
+    ],
+    [
+      "property bag and a wide occurrence count",
+      { wideOccurrenceCount: true, propertyBag: REFERENCE_RANGE_BAG },
+    ],
   ])("reads a top-level scope laid out with a %s", (_name, layout: TopLayout) => {
     const parsed = parseHierarchyStream(
       stream(
