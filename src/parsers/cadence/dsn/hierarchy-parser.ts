@@ -44,12 +44,17 @@
  *                                          carries this occurrence's pin number
  *   <scope>                                a part's scope has every count at zero
  *
- * The top-level scope alone varies with the file version, in the widths of its
- * two later counts and in an 8-byte block before the occurrence count, exactly
- * where OpenOrCadParser's version flags say it does. Nested scopes are fixed.
- * Rather than carry a version, the parser tries each layout and keeps the one
- * that ends on the stream's last byte: the counts leave no slack for a wrong
- * layout to reach it.
+ * The top-level scope carries one more thing than a nested one: a preamble
+ * before its occurrence count, whose trailing data holds the design's property
+ * bag. The bag is where Capture records per-page reference ranges, so it is
+ * empty on a design that never set them and hundreds of bytes on one that did.
+ * Its framing is there either way.
+ *
+ * The top-level scope alone also varies with the file version, in the widths of
+ * its two later counts, exactly where OpenOrCadParser's version flags say it
+ * does. Nested scopes are fixed. Rather than carry a version, the parser tries
+ * each layout and keeps the one that ends on the stream's last byte: the counts
+ * leave no slack for a wrong layout to reach it.
  */
 
 import { BinaryReader } from "./binary-reader.js";
@@ -128,21 +133,15 @@ const INNER_HEADER_TYPE = 0x42;
 interface TopLayout {
   /** Bytes in the type-91 count. */
   wideAuxCount: boolean;
-  /** Whether 8 bytes sit before the occurrence count. */
-  padded: boolean;
   /** Bytes in the occurrence count. */
   wideOccurrenceCount: boolean;
 }
 
 const TOP_LAYOUTS: readonly TopLayout[] = [
-  { wideAuxCount: true, padded: false, wideOccurrenceCount: false },
-  { wideAuxCount: true, padded: true, wideOccurrenceCount: false },
-  { wideAuxCount: false, padded: false, wideOccurrenceCount: false },
-  { wideAuxCount: false, padded: true, wideOccurrenceCount: false },
-  { wideAuxCount: true, padded: false, wideOccurrenceCount: true },
-  { wideAuxCount: true, padded: true, wideOccurrenceCount: true },
-  { wideAuxCount: false, padded: false, wideOccurrenceCount: true },
-  { wideAuxCount: false, padded: true, wideOccurrenceCount: true },
+  { wideAuxCount: true, wideOccurrenceCount: false },
+  { wideAuxCount: false, wideOccurrenceCount: false },
+  { wideAuxCount: true, wideOccurrenceCount: true },
+  { wideAuxCount: false, wideOccurrenceCount: true },
 ];
 
 /** Read a structure's framing: its prefixes and preamble. */
@@ -215,7 +214,9 @@ function readScope(reader: BinaryReader, top?: TopLayout): HierarchyScope {
     reader.skip(8);
   }
 
-  if (top?.padded) reader.skip(8);
+  // The design's property bag, empty on most designs and sizeable on one that
+  // sets per-page reference ranges. Only the top-level scope carries it.
+  if (top) readPreamble(reader);
 
   const occurrenceCount = top?.wideOccurrenceCount ? reader.readUint32() : reader.readUint16();
   for (let i = 0; i < occurrenceCount; i++) readOccurrence(reader, scope);
