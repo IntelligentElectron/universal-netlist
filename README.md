@@ -2,7 +2,7 @@
 
 # Universal Netlist MCP Server
 
-The **Universal Netlist MCP Server** reads electrical schematics and gives an AI agent tools to query their components, nets, and connectivity and to run electrical rule checks during a design review.
+The **Universal Netlist MCP Server** gives AI agents the tools to understand and analyze your electrical schematics, for powerful and comprehensive design reviews through natural conversations.
 
 It reads Cadence, Altium, and KiCad design files directly on macOS, Linux, and Windows, with no Cadence or Altium installation and no EDA license required.
 
