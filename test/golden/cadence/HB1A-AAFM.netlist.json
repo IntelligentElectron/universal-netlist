@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-21T21:53:18.146Z",
-    "netlistHash": "sha256:ba12dcb0705c2df4a7e493b04cd285710848a0c95fee28732494377ad53fb1cc",
+    "generatedAt": "2026-09-25T15:37:36.526Z",
+    "netlistHash": "sha256:b30765328ccded8fedc4e7f98b187f788f31d7d80603937537a7ad27319d5b35",
     "origin": {
       "type": "vendor",
       "source": {
@@ -9052,7 +9052,8 @@
         "1": "FMC_LA_N_32",
         "2": "FMC_LA_N_33",
         "3": "GND"
-      }
+      },
+      "dns": true
     },
     "R292": {
       "value": "57.6",
@@ -9459,7 +9460,8 @@
           "name": "TP",
           "net": "LEFT_CCLK_STUB_P_CLOCK"
         }
-      }
+      },
+      "dns": true
     },
     "C39": {
       "value": "0.1 uF",
@@ -9584,7 +9586,8 @@
           "name": "TP",
           "net": "RIGHT_CCLK_STUB_P_CLOCK"
         }
-      }
+      },
+      "dns": true
     },
     "C20": {
       "value": "22.0 uF",
@@ -9628,7 +9631,8 @@
           "name": "TP",
           "net": "LEFT_CCLK_STUB_N_CLOCK"
         }
-      }
+      },
+      "dns": true
     },
     "R289": {
       "value": "40.2",
@@ -9644,7 +9648,8 @@
           "name": "TP",
           "net": "N6964358_CLOCK"
         }
-      }
+      },
+      "dns": true
     },
     "TP18": {
       "value": "J001-1T01",
@@ -9653,7 +9658,8 @@
           "name": "TP",
           "net": "RIGHT_CCLK_STUB_N_CLOCK"
         }
-      }
+      },
+      "dns": true
     },
     "R23": {
       "value": "499.0",
@@ -10985,7 +10991,8 @@
           "name": "TP",
           "net": "LL_FLAG_DSP"
         }
-      }
+      },
+      "dns": true
     },
     "C229": {
       "value": "0.1 uF",
@@ -11064,7 +11071,8 @@
           "name": "TP",
           "net": "MVSS_QUAD ANEMONE_DSP LL"
         }
-      }
+      },
+      "dns": true
     },
     "C193": {
       "value": "0.1 uF",
@@ -11108,7 +11116,8 @@
           "name": "TP",
           "net": "LL_RESET_L"
         }
-      }
+      },
+      "dns": true
     },
     "C224": {
       "value": "0.1 uF",
@@ -11138,7 +11147,8 @@
           "name": "TP",
           "net": "MVDD_QUAD ANEMONE_DSP LL"
         }
-      }
+      },
+      "dns": true
     },
     "C213": {
       "value": "0.1 uF",
@@ -12350,7 +12360,8 @@
           "name": "TP",
           "net": "LR_FLAG_DSP"
         }
-      }
+      },
+      "dns": true
     },
     "C111": {
       "value": "0.1 uF",
@@ -12429,7 +12440,8 @@
           "name": "TP",
           "net": "MVSS_QUAD ANEMONE_DSP LR"
         }
-      }
+      },
+      "dns": true
     },
     "C128": {
       "value": "0.1 uF",
@@ -12473,7 +12485,8 @@
           "name": "TP",
           "net": "LR_RESET_L"
         }
-      }
+      },
+      "dns": true
     },
     "C64": {
       "value": "0.1 uF",
@@ -12503,7 +12516,8 @@
           "name": "TP",
           "net": "MVDD_QUAD ANEMONE_DSP LR"
         }
-      }
+      },
+      "dns": true
     },
     "C66": {
       "value": "0.1 uF",
@@ -13715,7 +13729,8 @@
           "name": "TP",
           "net": "UL_FLAG_DSP"
         }
-      }
+      },
+      "dns": true
     },
     "C199": {
       "value": "0.1 uF",
@@ -13794,7 +13809,8 @@
           "name": "TP",
           "net": "MVSS_QUAD ANEMONE_DSP UL"
         }
-      }
+      },
+      "dns": true
     },
     "C204": {
       "value": "0.1 uF",
@@ -13838,7 +13854,8 @@
           "name": "TP",
           "net": "UL_RESET_L"
         }
-      }
+      },
+      "dns": true
     },
     "C189": {
       "value": "0.1 uF",
@@ -13868,7 +13885,8 @@
           "name": "TP",
           "net": "MVDD_QUAD ANEMONE_DSP UL"
         }
-      }
+      },
+      "dns": true
     },
     "C171": {
       "value": "0.1 uF",
@@ -15080,7 +15098,8 @@
           "name": "TP",
           "net": "UR_FLAG_DSP"
         }
-      }
+      },
+      "dns": true
     },
     "C72": {
       "value": "0.1 uF",
@@ -15159,7 +15178,8 @@
           "name": "TP",
           "net": "MVSS_QUAD ANEMONE_DSP UR"
         }
-      }
+      },
+      "dns": true
     },
     "C69": {
       "value": "0.1 uF",
@@ -15203,7 +15223,8 @@
           "name": "TP",
           "net": "UR_RESET_L"
         }
-      }
+      },
+      "dns": true
     },
     "C51": {
       "value": "0.1 uF",
@@ -15233,7 +15254,8 @@
           "name": "TP",
           "net": "MVDD_QUAD ANEMONE_DSP UR"
         }
-      }
+      },
+      "dns": true
     },
     "C121": {
       "value": "0.1 uF",
@@ -15681,7 +15703,8 @@
       "pins": {
         "1": "FMC_TMS_CPLD",
         "2": "PVADJ"
-      }
+      },
+      "dns": true
     },
     "C30": {
       "value": "22.0 uF",
@@ -15911,7 +15934,8 @@
           "name": "TP",
           "net": "SYNC_L"
         }
-      }
+      },
+      "dns": true
     },
     "R202": {
       "value": "10K",
@@ -16004,7 +16028,8 @@
           "name": "TP",
           "net": "CPLD_GCLK_1_CPLD"
         }
-      }
+      },
+      "dns": true
     },
     "R200": {
       "value": "10K",
@@ -16020,7 +16045,8 @@
           "name": "TP",
           "net": "CPLD_0_CPLD"
         }
-      }
+      },
+      "dns": true
     },
     "R11": {
       "value": "100.0",
@@ -16041,7 +16067,8 @@
       "pins": {
         "1": "FMC_TDI_CPLD",
         "2": "PVADJ"
-      }
+      },
+      "dns": true
     },
     "C136": {
       "value": "0.1 uF",
@@ -16055,7 +16082,8 @@
       "pins": {
         "1": "FMC_TCK_CPLD",
         "2": "GND"
-      }
+      },
+      "dns": true
     },
     "TP23": {
       "value": "J001-1T01",
@@ -16064,7 +16092,8 @@
           "name": "TP",
           "net": "CPLD_GCLK_0_CPLD"
         }
-      }
+      },
+      "dns": true
     },
     "R201": {
       "value": "10K",
@@ -16106,7 +16135,8 @@
       "pins": {
         "1": "PVADJ",
         "2": "GND"
-      }
+      },
+      "dns": true
     },
     "C135": {
       "value": "22.0 uF",
@@ -16155,7 +16185,8 @@
       "pins": {
         "1": "N05055_POWER",
         "2": "GND"
-      }
+      },
+      "dns": true
     },
     "R30": {
       "value": "232K",
@@ -16218,7 +16249,8 @@
       "pins": {
         "1": "P3V3",
         "2": "SS_1V0_POWER"
-      }
+      },
+      "dns": true
     },
     "C117": {
       "value": "22.0 uF",
@@ -16351,7 +16383,8 @@
       "pins": {
         "1": "COMP_1V0_POWER",
         "2": "GND"
-      }
+      },
+      "dns": true
     },
     "R28": {
       "value": "232K",
@@ -16421,7 +16454,8 @@
       "pins": {
         "1": "N05055_POWER",
         "2": "COMP_1V0_POWER"
-      }
+      },
+      "dns": true
     },
     "C233": {
       "value": "22.0 uF",
@@ -16514,7 +16548,8 @@
           "name": "TP",
           "net": "GND_EARTH"
         }
-      }
+      },
+      "dns": true
     },
     "C47": {
       "value": "0.1 uF",
@@ -16574,7 +16609,8 @@
           "name": "TP",
           "net": "GND_EARTH"
         }
-      }
+      },
+      "dns": true
     },
     "FH1": {
       "value": "J001-1T01",
@@ -16583,7 +16619,8 @@
           "name": "TP",
           "net": "GND_EARTH"
         }
-      }
+      },
+      "dns": true
     },
     "SO4": {
       "value": "J001-1T01",
@@ -16592,7 +16629,8 @@
           "name": "TP",
           "net": "GND_EARTH"
         }
-      }
+      },
+      "dns": true
     },
     "FH5": {
       "value": "J001-1T01",
@@ -16601,7 +16639,8 @@
           "name": "TP",
           "net": "GND_EARTH"
         }
-      }
+      },
+      "dns": true
     },
     "FH9": {
       "value": "J001-1T01",
@@ -16610,7 +16649,8 @@
           "name": "TP",
           "net": "GND_EARTH"
         }
-      }
+      },
+      "dns": true
     },
     "U5": {
       "value": "UMEM-0011",
@@ -16662,7 +16702,8 @@
           "name": "TP",
           "net": "GND_EARTH"
         }
-      }
+      },
+      "dns": true
     },
     "FH6": {
       "value": "J001-1T01",
@@ -16671,7 +16712,8 @@
           "name": "TP",
           "net": "GND_EARTH"
         }
-      }
+      },
+      "dns": true
     },
     "FH10": {
       "value": "J001-1T01",
@@ -16680,7 +16722,8 @@
           "name": "TP",
           "net": "GND_EARTH"
         }
-      }
+      },
+      "dns": true
     },
     "FH3": {
       "value": "J001-1T01",
@@ -16689,7 +16732,8 @@
           "name": "TP",
           "net": "GND_EARTH"
         }
-      }
+      },
+      "dns": true
     },
     "U13": {
       "value": "USEN-0004",
@@ -16735,7 +16779,8 @@
           "name": "TP",
           "net": "GND_EARTH"
         }
-      }
+      },
+      "dns": true
     },
     "FH12": {
       "value": "J001-1T01",
@@ -16744,7 +16789,8 @@
           "name": "TP",
           "net": "GND_EARTH"
         }
-      }
+      },
+      "dns": true
     },
     "FH11": {
       "value": "J001-1T01",
@@ -16753,7 +16799,8 @@
           "name": "TP",
           "net": "GND_EARTH"
         }
-      }
+      },
+      "dns": true
     },
     "FH4": {
       "value": "J001-1T01",
@@ -16762,7 +16809,8 @@
           "name": "TP",
           "net": "GND_EARTH"
         }
-      }
+      },
+      "dns": true
     },
     "FH8": {
       "value": "J001-1T01",
@@ -16771,7 +16819,8 @@
           "name": "TP",
           "net": "GND_EARTH"
         }
-      }
+      },
+      "dns": true
     },
     "SO1": {
       "value": "J001-1T01",
@@ -16780,7 +16829,8 @@
           "name": "TP",
           "net": "GND_EARTH"
         }
-      }
+      },
+      "dns": true
     },
     "C137": {
       "value": "0.1 uF",
@@ -16796,7 +16846,8 @@
           "name": "TP",
           "net": "GND_EARTH"
         }
-      }
+      },
+      "dns": true
     },
     "C42": {
       "value": "0.1 uF",
@@ -16844,7 +16895,8 @@
           "name": "TP",
           "net": "GND"
         }
-      }
+      },
+      "dns": true
     },
     "TP1": {
       "value": "J001-1T01",
@@ -16853,7 +16905,8 @@
           "name": "TP",
           "net": "PVADJ"
         }
-      }
+      },
+      "dns": true
     },
     "TP5": {
       "value": "J001-1T01",
@@ -16862,7 +16915,8 @@
           "name": "TP",
           "net": "P3V3"
         }
-      }
+      },
+      "dns": true
     },
     "TP7": {
       "value": "J001-1T01",
@@ -16871,7 +16925,8 @@
           "name": "TP",
           "net": "P2V5"
         }
-      }
+      },
+      "dns": true
     },
     "TP4": {
       "value": "J001-1T01",
@@ -16880,7 +16935,8 @@
           "name": "TP",
           "net": "CURRENT_VCORE_POWER"
         }
-      }
+      },
+      "dns": true
     },
     "C3": {
       "value": "22.0 uF",
@@ -16920,7 +16976,8 @@
           "name": "TP",
           "net": "P1V0"
         }
-      }
+      },
+      "dns": true
     },
     "U2": {
       "value": "USEN-0012",
@@ -16968,7 +17025,8 @@
           "name": "TP",
           "net": "P1V0_LOC"
         }
-      }
+      },
+      "dns": true
     },
     "R21": {
       "value": "0.02",
@@ -16991,7 +17049,8 @@
           "name": "TP",
           "net": "CURRENT_VIO_POWER"
         }
-      }
+      },
+      "dns": true
     }
   }
 }

@@ -10,7 +10,7 @@ import { isErrorResult, type ListComponentsResult, type ErrorResult } from "../.
  * @param design - Path to design file
  * @param type - Component type prefix (e.g., "U", "R", "C")
  * @param includeDns - Include DNS (Do Not Stuff) components; listed by default
- * @param designVariant - Native design variant, or `<Default>` for the core design
+ * @param designVariant - Native design variant, or `<Default>` for the base build
  */
 export const listComponents = async (
   design: string,

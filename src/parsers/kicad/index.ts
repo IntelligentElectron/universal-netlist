@@ -25,7 +25,7 @@ import {
   KICAD_EXTENSIONS,
 } from "./discovery.js";
 import { applyKicadVariant, collectKicadVariantOverrides, listKicadVariants } from "./variants.js";
-import { isDefaultVariant } from "../variants.js";
+import { describeDefaultVariantRefusal, isDefaultVariantLiteral } from "../variants.js";
 
 export { discoverKicadDesigns, isKicadFile, resolveKicadArtifacts } from "./discovery.js";
 export { parseKicadNetlist } from "./netlist-parser.js";
@@ -70,10 +70,17 @@ export const parseKicadDesign = async (
     );
   }
 
-  // The base netlist describes the core design. A named variant is an overlay
-  // the schematic records per symbol instance, applied here for every source.
+  // The base netlist describes the base build, which a project that declares no
+  // variant has. A named variant is an overlay the schematic records per symbol
+  // instance, applied here for every source. Only the literal names the base
+  // build: a declared variant called `default` is a variant, and the plain
+  // alias is the service's to resolve. A project that declares variants has
+  // only those to build, so the literal is refused on it.
   const selectedVariant = options?.variant;
-  if (selectedVariant && !isDefaultVariant(selectedVariant)) {
+  if (selectedVariant && isDefaultVariantLiteral(selectedVariant)) {
+    const variants = await listKicadVariants(designPath);
+    if (variants.length > 0) throw new Error(describeDefaultVariantRefusal(variants));
+  } else if (selectedVariant) {
     applyKicadVariant(
       parsed.components,
       await collectKicadVariantOverrides(designPath, selectedVariant)

@@ -15,6 +15,7 @@ import {
   parseVariantGroup,
   parseVariantNames,
   resolveDnsRefdes,
+  resolveVariantStuffing,
 } from "./variant-store.js";
 import type { OleDirectoryPath } from "../../ole-reader/types.js";
 
@@ -169,6 +170,40 @@ describe("resolveDnsRefdes", () => {
     const dns = resolveDnsRefdes([{ occurrenceId: 99, stuffed: false }], refdes);
 
     expect(dns.size).toBe(0);
+  });
+});
+
+describe("resolveVariantStuffing", () => {
+  const refdes = new Map([
+    [1, "R13"],
+    [2, "C24"],
+  ]);
+
+  it("reports the parts a group explicitly puts on the board beside the ones it leaves off", () => {
+    // A variant's stuffed set is what lets it override a part's own property.
+    const stuffing = resolveVariantStuffing(
+      [
+        { occurrenceId: 1, stuffed: true },
+        { occurrenceId: 2, stuffed: false },
+      ],
+      refdes
+    );
+
+    expect([...stuffing.stuffed]).toEqual(["R13"]);
+    expect([...stuffing.unstuffed]).toEqual(["C24"]);
+  });
+
+  it("keeps a part named both ways in the stuffed set alone", () => {
+    const stuffing = resolveVariantStuffing(
+      [
+        { occurrenceId: 1, stuffed: false },
+        { occurrenceId: 1, stuffed: true },
+      ],
+      refdes
+    );
+
+    expect([...stuffing.stuffed]).toEqual(["R13"]);
+    expect(stuffing.unstuffed.size).toBe(0);
   });
 });
 

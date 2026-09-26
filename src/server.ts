@@ -79,13 +79,13 @@ const READ_ONLY = {
   openWorldHint: false,
 } as const;
 
-/** One native design variant, or the explicit unmodified/core design. */
+/** One native design variant, or the explicit base build. */
 const DESIGN_VARIANT_ARGUMENT = z
   .string()
   .min(1)
   .optional()
   .describe(
-    "Design variant name from list_designs' design_variants, or <Default> (alias: default) for the unmodified/core design. Required when the design records named variants"
+    "Design variant name from list_designs' design_variants. Required when the design records named variants, which are its only builds. <Default> (alias: default) is the one build of a design that records none"
   );
 
 /**

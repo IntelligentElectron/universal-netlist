@@ -11,7 +11,7 @@ Returns all net names defined in the design, sorted alphabetically. Use this to 
 | Parameter | Type | Required | Default | Description |
 |-----------|------|----------|---------|-------------|
 | `design` | string | Yes | - | Path to design file |
-| `design_variant` | string | Conditional | - | Design variant name from `list_designs`' `design_variants`, or `<Default>` (alias: `default`) for the unmodified/core design. Required when the design records named variants |
+| `design_variant` | string | Conditional | - | Design variant name from `list_designs`' `design_variants`. Required when the design records named variants, which are its only builds. `<Default>` (alias: `default`) is the one build of a design that records none |
 
 ## Response Schema
 
@@ -88,4 +88,4 @@ Response:
   - `PP*` for power rails (e.g., `PP3V3`, `PP1V8_CORE`)
   - `GND`, `AGND`, `DGND` for grounds
 - For targeted searches, use `search_nets` with a regex pattern instead
-- `design_variant` names the assembly the result describes. A design that records named variants requires it on every call; `<Default>` (alias `default`) selects the unmodified/core design
+- `design_variant` names the assembly the result describes. A design that records named variants requires it on every call; those variants are its only builds and `<Default>` is refused on it. `<Default>` (alias `default`) is the one build of a design that records no variant, the design with every part's own Do Not Stuff state

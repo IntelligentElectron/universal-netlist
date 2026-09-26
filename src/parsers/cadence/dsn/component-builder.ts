@@ -7,7 +7,11 @@
 
 import type { ComponentDetails } from "../../../types.js";
 import { createPinEntry, type PinEntry } from "../../../types.js";
-import { isValidRefdes, hasDnsValueMarker } from "../../../circuit-traversal.js";
+import {
+  isValidRefdes,
+  hasDnsPropertyMarker,
+  hasDnsValueMarker,
+} from "../../../circuit-traversal.js";
 import type { PrefixPropertyPair } from "./generic-parser.js";
 import type { CachedLibraryPart, PinMapData } from "./structure-types.js";
 import type { PlacedInstance } from "./structures.js";
@@ -80,6 +84,29 @@ function readProperty(
     }
   }
   return undefined;
+}
+
+/**
+ * Whether any property other than the value carries a Do Not Stuff marker.
+ *
+ * This is where a library keeps a part's assembly option, and the field is
+ * called `ASSY`, `ASSY_OPT`, `Assembly`, `BuildOptions` or `INSTALL` depending
+ * on who drew the library, so the name is not consulted: a list of names would
+ * miss the next spelling, and the value is what says `DNP`. A part number or
+ * manufacturer that spells it out (`MPN=DNM`, `Manufacturer=DO NOT MOUNT`) is
+ * read the same way. A placeholder such as `<DNP>` is a property left blank,
+ * which the delimiters in the pattern keep from matching.
+ */
+function hasDnsProperty(
+  prefixProperties: readonly PrefixPropertyPair[],
+  strLst: string[]
+): boolean {
+  for (const [nameIdx, valIdx] of prefixProperties) {
+    if (nameIdx >= strLst.length || valIdx >= strLst.length) continue;
+    if (strLst[nameIdx] === "Value") continue;
+    if (hasDnsPropertyMarker(strLst[valIdx])) return true;
+  }
+  return false;
 }
 
 /** DNS markers that Cadence embeds in value strings. */
@@ -228,13 +255,17 @@ export function buildComponents(
         const cached = findCachedPart(inst, cachedParts);
         if (cached?.defaultValue) value = cached.defaultValue;
       }
-      // The marker is the only thing on the schematic that says a part is not
-      // stuffed, and cleaning it out of the value erases it, so read it first.
+      // A part says it is off the board in one of two places on the schematic,
+      // and both are read here because a variant is not the only thing that
+      // unstuffs a part. The value can carry a marker (`10K,DNI`), and cleaning
+      // the value erases it, so that is read before the cleaning. Any other
+      // property can carry one on its own (`ASSY=DNP`, `MPN=DNM`).
       let dns = false;
       if (value) {
         dns = hasDnsValueMarker(value);
         value = cleanDnsFromValue(value);
       }
+      if (!dns) dns = hasDnsProperty(inst.prefixProperties, strLst);
 
       // Build pins with names from cached library parts
       const pinNets = componentPins.get(refdes);

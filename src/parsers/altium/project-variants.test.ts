@@ -145,15 +145,26 @@ describe("applyAltiumVariant", () => {
     expect(result.R2.alternate_part).toBeUndefined();
   });
 
-  it("leaves the explicit base design unchanged", () => {
+  it("leaves the base build of a project without variants unchanged", () => {
     const result = components();
-    applyAltiumVariant(result, variants, "<Default>");
+    applyAltiumVariant(result, [], "<Default>");
     expect(result).toEqual(components());
+  });
+
+  /**
+   * The `[No Variations]` a project with variants shows in Altium is the drawing
+   * with everything fitted, and the variants carry what is left off the board.
+   * Reading it as a build used to answer with every part fitted.
+   */
+  it("refuses the base build of a project that declares variants", () => {
+    expect(() => applyAltiumVariant(components(), variants, "<Default>")).toThrow(
+      "'<Default>' is not a build of this design: its variants ['Production', 'Debug'] are the assemblies it records"
+    );
   });
 
   it("rejects an unknown selection rather than falling back to fitted", () => {
     expect(() => applyAltiumVariant(components(), variants, "missing")).toThrow(
-      "Available: ['Production', 'Debug', '<Default>']"
+      "Available: ['Production', 'Debug']"
     );
   });
 });

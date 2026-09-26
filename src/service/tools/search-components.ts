@@ -10,7 +10,7 @@ import { isErrorResult, type SearchComponentsResult, type ErrorResult } from "..
  * @param pattern - Regex pattern
  * @param design - Path to design file
  * @param includeDns - Include DNS components; included by default
- * @param designVariant - Native design variant, or `<Default>` for the core design
+ * @param designVariant - Native design variant, or `<Default>` for the base build
  */
 export const searchComponentsByRefdes = async (
   pattern: string,
@@ -59,7 +59,7 @@ export const searchComponentsByRefdes = async (
  * @param pattern - Regex pattern
  * @param design - Path to design file
  * @param includeDns - Include DNS components; included by default
- * @param designVariant - Native design variant, or `<Default>` for the core design
+ * @param designVariant - Native design variant, or `<Default>` for the base build
  */
 export const searchComponentsByMpn = async (
   pattern: string,
@@ -120,7 +120,7 @@ export const searchComponentsByMpn = async (
  * @param pattern - Regex pattern
  * @param design - Path to design file
  * @param includeDns - Include DNS components; included by default
- * @param designVariant - Native design variant, or `<Default>` for the core design
+ * @param designVariant - Native design variant, or `<Default>` for the base build
  */
 export const searchComponentsByDescription = async (
   pattern: string,

@@ -199,7 +199,7 @@ describe("tool failure categories", () => {
     vi.stubEnv(DSN_PASSWORD, "");
     vi.stubEnv(DSN_PASSWORD_FILE, "");
     protection.password = "synthetic password";
-    const args = { design: DSN, design_variant: "default" };
+    const args = { design: DSN, design_variant: "Standard" };
     expect(await categoryOf("list_nets", args)).toBe("permission_denied");
     vi.stubEnv(DSN_PASSWORD, "not the password");
     expect(await categoryOf("list_nets", args)).toBe("permission_denied");
@@ -209,7 +209,7 @@ describe("tool failure categories", () => {
     vi.stubEnv("OTEL_CAPTURE_TOOL_ARGS", "1");
     vi.stubEnv(DSN_PASSWORD_FILE, "");
     protection.password = "synthetic password";
-    const args = { design: DSN, design_variant: "default" };
+    const args = { design: DSN, design_variant: "Standard" };
     for (const password of ["not the password", "synthetic password"]) {
       vi.stubEnv(DSN_PASSWORD, password);
       const { failed, local, otel } = await call("list_nets", args);

@@ -13,7 +13,7 @@ Searches components using a regex pattern against description values. Useful for
 | `pattern` | string | Yes | - | Regex pattern for description (case-insensitive) |
 | `design` | string | Yes | - | Path to design file |
 | `include_dns` | boolean | No | `true` | Include DNS components, flagged `dns: true`; pass `false` for fitted parts only |
-| `design_variant` | string | Conditional | - | Design variant name from `list_designs`' `design_variants`, or `<Default>` (alias: `default`) for the unmodified/core design. Required when the design records named variants |
+| `design_variant` | string | Conditional | - | Design variant name from `list_designs`' `design_variants`. Required when the design records named variants, which are its only builds. `<Default>` (alias: `default`) is the one build of a design that records none |
 
 ## Response Schema
 
@@ -116,5 +116,5 @@ Response:
 - Descriptions typically include package size, value, and function
 - Use this tool when components lack MPN data but have descriptions
 - DNS components are included by default and flagged `dns: true`; pass `include_dns: false` for fitted parts only
-- `design_variant` names the assembly the result describes. A design that records named variants requires it on every call; `<Default>` (alias `default`) selects the unmodified/core design
+- `design_variant` names the assembly the result describes. A design that records named variants requires it on every call; those variants are its only builds and `<Default>` is refused on it. `<Default>` (alias `default`) is the one build of a design that records no variant, the design with every part's own Do Not Stuff state
 - `alternate_part: true` marks a group whose part the selected design variant substitutes for the base one; its `value`, `mpn`, `manufacturer`, and `description` describe the part as built for that variant

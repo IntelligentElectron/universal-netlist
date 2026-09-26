@@ -6,7 +6,12 @@
 
 import { readFile } from "node:fs/promises";
 import type { ComponentDetails, DesignVariant } from "../../types.js";
-import { DEFAULT_VARIANT, findVariant, isDefaultVariant } from "../variants.js";
+import {
+  describeDefaultVariantRefusal,
+  describeVariantChoices,
+  findVariant,
+  isDefaultVariantLiteral,
+} from "../variants.js";
 
 const KIND_NOT_FITTED = 1;
 const KIND_ALTERNATE_PART = 2;
@@ -206,12 +211,24 @@ export const applyAltiumVariant = (
   variants: readonly AltiumProjectVariant[],
   selected?: string
 ): void => {
-  if (!selected || isDefaultVariant(selected)) return;
+  if (!selected) return;
+
+  // Only the literal names the base build here: a declared variant called
+  // `default` is a variant, and the plain alias is the service's to resolve.
+  // The base build exists only for a project that declares no variant. The
+  // `[No Variations]` a project with variants shows in Altium is the drawing
+  // with everything fitted: across the designs read for this, its variants
+  // carry the parts left off the board and `AllowFabrication` is 0 on nearly
+  // every one, so the flag marks nothing and the variants are the builds.
+  if (isDefaultVariantLiteral(selected)) {
+    if (variants.length > 0) throw new Error(describeDefaultVariantRefusal(variants));
+    return;
+  }
 
   const variant = findVariant(variants, selected) as AltiumProjectVariant | undefined;
   if (!variant) {
     throw new Error(
-      `Design variant '${selected}' not found. Available: [${[...variants.map((item) => `'${item.name}'`), `'${DEFAULT_VARIANT}'`].join(", ")}]`
+      `Design variant '${selected}' not found. Available: ${describeVariantChoices(variants)}`
     );
   }
 

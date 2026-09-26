@@ -8,7 +8,7 @@ import { isErrorResult, type SearchNetsResult, type ErrorResult } from "../../ty
  *
  * @param pattern - Regex pattern
  * @param design - Path to design file
- * @param designVariant - Native design variant, or `<Default>` for the core design
+ * @param designVariant - Native design variant, or `<Default>` for the base build
  */
 export const searchNets = async (
   pattern: string,

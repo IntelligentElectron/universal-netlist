@@ -15,7 +15,7 @@ The prefix is matched whole, not as a leading substring: `U` returns `U1` and `U
 | `design` | string | Yes | - | Path to design file (e.g., `./Design.PrjPcb`) |
 | `type` | string | Yes | - | Whole refdes prefix: `U`, `C`, `R`, `L`, `J`, `D`, `Q`, `TP`, `USB`, etc. |
 | `include_dns` | boolean | No | `true` | Include DNS (Do Not Stuff) components, flagged `dns: true`; pass `false` to list only fitted parts |
-| `design_variant` | string | Conditional | - | Design variant name from `list_designs`' `design_variants`, or `<Default>` (alias: `default`) for the unmodified/core design. Required when the design records named variants |
+| `design_variant` | string | Conditional | - | Design variant name from `list_designs`' `design_variants`. Required when the design records named variants, which are its only builds. `<Default>` (alias: `default`) is the one build of a design that records none |
 
 ## Response Schema
 
@@ -138,7 +138,7 @@ Response:
 **Error (design variant omitted on a design that records named variants):**
 ```json
 {
-  "error": "Design 'BSPD_002.PrjPcb' defines design variants ['BSPD-DNP']. Pass design_variant='<Default>' (alias 'default') for the unmodified/core design, or one of those names. list_designs() reports them under design_variants."
+  "error": "Design 'BSPD_002.PrjPcb' defines design variants ['BSPD-DNP']. Pass design_variant as one of those names; they are the only builds it records. list_designs() reports them under design_variants."
 }
 ```
 
@@ -156,7 +156,7 @@ Response:
 - Components are grouped by MPN; components without MPN are listed individually
 - Components without MPN include a `notes` field suggesting next steps
 - DNS components are listed by default and marked `dns: true`. With `include_dns: false` they are hidden: a prefix whose components are all DNS then returns an empty list with a `notes` entry saying so, and the unmatched-type error lists such prefixes apart from the ones the query would return
-- `design_variant` names the assembly the result describes. A design that records named variants requires it on every call; `<Default>` (alias `default`) selects the unmodified/core design, and names match case-insensitively
+- `design_variant` names the assembly the result describes. A design that records named variants requires it on every call; those variants are its only builds and `<Default>` is refused on it. `<Default>` (alias `default`) is the one build of a design that records no variant, the design with every part's own Do Not Stuff state, and names match case-insensitively
 - `alternate_part: true` marks a group whose part the selected design variant substitutes for the base one. The group's `value`, `mpn`, `manufacturer`, and `description` describe the part as built for that variant
 
 ## See Also

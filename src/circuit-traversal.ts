@@ -121,6 +121,20 @@ const DNS_VALUE_PATTERN =
  */
 export const hasDnsValueMarker = (text: string): boolean => DNS_VALUE_PATTERN.test(text);
 
+// A part's other properties are where a library keeps its assembly option:
+// `ASSY=DNP`, `INSTALL=DNI`, `Manufacturer=DO NOT MOUNT`. Any of those fields
+// can also hold a pin state or a unit, so `NC` and `NF` are both left out here:
+// on their own they name a normally-closed contact or nanofarads far more often
+// than a part that is off the board. `NOT CONNECTED` goes with them, since it
+// describes a pin. The tokens that remain mean one thing wherever they stand.
+const DNS_PROPERTY_PATTERN =
+  /(?:^|[_,\s])(DNS|DNP|DNF|DNI|DNM)(?:$|[_,\s])|DO\s*NOT\s*(STUFF|POPULATE|INSTALL|FIT|MOUNT)|NOT\s*(POPULATED|FITTED|MOUNTED)|NO\s*POP/i;
+
+/**
+ * Whether a component property, other than its value, carries a Do Not Stuff marker.
+ */
+export const hasDnsPropertyMarker = (text: string): boolean => DNS_PROPERTY_PATTERN.test(text);
+
 /**
  * Detect Do Not Stuff components using common markers.
  */

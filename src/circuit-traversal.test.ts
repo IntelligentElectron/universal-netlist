@@ -17,6 +17,7 @@ import {
   traverseCircuitFromNet,
   computeCircuitHash,
   hasDnsValueMarker,
+  hasDnsPropertyMarker,
 } from "./circuit-traversal.js";
 import type { NetConnections, ComponentDetails } from "./types.js";
 
@@ -1229,6 +1230,43 @@ describe("hasDnsValueMarker", () => {
   it("leaves ordinary values alone", () => {
     for (const value of ["100nF", "10K", "0R", "1uF", "4.7uH", "5.1K"]) {
       expect(hasDnsValueMarker(value)).toBe(false);
+    }
+  });
+});
+
+describe("hasDnsPropertyMarker", () => {
+  it("reads the tokens and phrases that mean one thing wherever they stand", () => {
+    for (const text of [
+      "DNP",
+      "dni",
+      "DNM",
+      "DNS",
+      "DNF",
+      "DO NOT MOUNT",
+      "RESISTOR, DO NOT MOUNT, 0603, SMD",
+      "Not Fitted",
+      "NO POP",
+      "CAPACITOR_0402_DNM_N/A_M",
+    ]) {
+      expect(hasDnsPropertyMarker(text), text).toBe(true);
+    }
+  });
+
+  it("leaves alone the tokens that are also a contact state or a unit", () => {
+    for (const text of [
+      "NC",
+      "SWITCH, SPST, NC",
+      "2.2 nF",
+      "NF",
+      "NOT CONNECTED",
+      "<DNP>",
+      "-",
+      "MOUNT",
+      "",
+      "DNI=NumDSP(2,4)",
+      "UREG-0064=NumDSP(1)&Mfg(A);DNI=NumDSP(2,4)",
+    ]) {
+      expect(hasDnsPropertyMarker(text), text).toBe(false);
     }
   });
 });

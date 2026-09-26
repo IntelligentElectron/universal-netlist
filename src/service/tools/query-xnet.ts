@@ -21,7 +21,7 @@ import {
  * @param netName - Net name
  * @param skipTypes - Component types to skip
  * @param includeDns - Include DNS components
- * @param designVariant - Native design variant, or `<Default>` for the core design
+ * @param designVariant - Native design variant, or `<Default>` for the base build
  */
 export const queryXnetByNetName = async (
   design: string,
@@ -82,7 +82,7 @@ export const queryXnetByNetName = async (
  * @param pinSpec - Pin specification in "REFDES.PIN" format
  * @param skipTypes - Component types to skip
  * @param includeDns - Include DNS components
- * @param designVariant - Native design variant, or `<Default>` for the core design
+ * @param designVariant - Native design variant, or `<Default>` for the base build
  */
 export const queryXnetByPinName = async (
   design: string,

@@ -27,7 +27,7 @@ An auto-generated name is one the EDA tool derived from a pin rather than a labe
 | `include_dns` | boolean | No | `false` | Include DNS (Do Not Stuff) components in the checks; by default a DNS part is treated as absent from the board and counted in `skipped.dns` |
 | `include_rules` | string[] | No | all | Run only these rule ids (e.g. `["net.single_pin"]`) |
 | `exclude_rules` | string[] | No | none | Skip these rule ids (applied after `include_rules`) |
-| `design_variant` | string | Conditional | - | Design variant name from `list_designs`' `design_variants`, or `<Default>` (alias: `default`) for the unmodified/core design. Required when the design records named variants |
+| `design_variant` | string | Conditional | - | Design variant name from `list_designs`' `design_variants`. Required when the design records named variants, which are its only builds. `<Default>` (alias: `default`) is the one build of a design that records none |
 
 An unknown rule id in `include_rules` or `exclude_rules` returns an `ErrorResult` listing the valid ids, rather than silently checking nothing (which would look like a clean design). An empty `include_rules` array is likewise rejected: omit the field to run all rules.
 
@@ -99,7 +99,7 @@ Clean design (every checked rule passed, nothing skipped):
 - Endpoint arrays are always arrays, even for a single endpoint, so the shape is uniform for every finding.
 - Unconnected pins without a no-connect symbol are **not** checked: the parsers cannot reliably distinguish them from intentional no-connects (KiCad omits unconnected pins entirely; Altium normalizes both to `NC`).
 - Test point detection is heuristic (the `TP` refdes prefix).
-- `design_variant` selects the assembly to check. A design that records named variants requires it on every call; `<Default>` (alias `default`) selects the unmodified/core design. A part the selected variant marks Not Fitted is a DNS part for the run.
+- `design_variant` selects the assembly to check. A design that records named variants requires it on every call; those variants are its only builds and `<Default>` is refused on it. `<Default>` (alias `default`) is the one build of a design that records no variant, the design with every part's own Do Not Stuff state. A part the selected variant marks Not Fitted is a DNS part for the run.
 
 ## See Also
 

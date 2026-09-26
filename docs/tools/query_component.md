@@ -12,7 +12,7 @@ Returns detailed information about a specific component, including MPN, descript
 |-----------|------|----------|---------|-------------|
 | `design` | string | Yes | - | Path to design file |
 | `refdes` | string | Yes | - | Component reference designator (e.g., `U1`, `R10`) |
-| `design_variant` | string | Conditional | - | Design variant name from `list_designs`' `design_variants`, or `<Default>` (alias: `default`) for the unmodified/core design. Required when the design records named variants |
+| `design_variant` | string | Conditional | - | Design variant name from `list_designs`' `design_variants`. Required when the design records named variants, which are its only builds. `<Default>` (alias: `default`) is the one build of a design that records none |
 
 ## Response Schema
 
@@ -147,7 +147,7 @@ The same call with `design_variant: "<Default>"` returns the base part (here a 5
 **Error (design variant omitted on a design that records named variants):**
 ```json
 {
-  "error": "Design 'BSPD_002.PrjPcb' defines design variants ['BSPD-DNP']. Pass design_variant='<Default>' (alias 'default') for the unmodified/core design, or one of those names. list_designs() reports them under design_variants."
+  "error": "Design 'BSPD_002.PrjPcb' defines design variants ['BSPD-DNP']. Pass design_variant as one of those names; they are the only builds it records. list_designs() reports them under design_variants."
 }
 ```
 
@@ -182,5 +182,5 @@ Pins use two formats:
   neither is derived from the other, and each is omitted when the design records
   it nowhere. `mpn` is never filled from a library symbol or footprint name
 - Pin numbers are string keys (may be alphanumeric like `A1`, `B2` for BGAs)
-- `design_variant` names the assembly the result describes. A design that records named variants requires it on every call; `<Default>` (alias `default`) selects the unmodified/core design, names match case-insensitively, and the result echoes the canonical spelling
+- `design_variant` names the assembly the result describes. A design that records named variants requires it on every call; those variants are its only builds and `<Default>` is refused on it. `<Default>` (alias `default`) is the one build of a design that records no variant, the design with every part's own Do Not Stuff state, names match case-insensitively, and the result echoes the canonical spelling
 - `alternate_part: true` is present when the selected design variant substitutes another part for the base one. `value`, `mpn`, `manufacturer`, and `description` always describe the part as built for the selected variant; a DNS part in that variant carries `dns: true` beside it

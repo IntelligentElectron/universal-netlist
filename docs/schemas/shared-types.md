@@ -414,15 +414,15 @@ All tools may return an error result instead of the expected response.
 
 ## Design Variants
 
-A design variant is one assembly of a design: the same schematic with some parts left off, substituted, or given different parameter values. `list_designs` reports each design's variants under `design_variants`, `<Default>` first and then every native name the design records (Altium `ProjectVariantN` sections, Cadence CIS BOM variants, KiCad instance variant blocks).
+A design variant is one assembly of a design: the same schematic with some parts left off, substituted, or given different parameter values. `list_designs` reports each design's builds under `design_variants`: every native name the design records (Altium `ProjectVariantN` sections, Cadence CIS BOM variants, KiCad instance variant blocks), or `<Default>` alone for a design that records none. A design that records variants has only those to build. No vendor's file marks the bare design as an assembly: Altium's per-variant `AllowFabrication` is 0 on nearly every real project, KiCad and Cadence CIS record no such flag, and across the designs read for this the variants carry the parts left off the board while the bare design has everything fitted.
 
-Every tool that loads a design takes `design_variant`. A design that records named variants requires it on every call, because no single fitted/not-fitted answer represents several assemblies. Pass a native name, or `<Default>` (alias `default`) for the unmodified/core design. Names match case-insensitively; results echo the canonical spelling in a top-level `design_variant` field, which is the first field of every result from `list_components`, `list_nets`, `search_nets`, the three `search_components_by_*` tools, `query_component`, both `query_xnet_*` tools, and `run_erc`.
+Every tool that loads a design takes `design_variant`. A design that records named variants requires it on every call, because no single fitted/not-fitted answer represents several assemblies. Pass a native name. `<Default>` (alias `default`) is the one build of a design that records no variant, the design with every part's own Do Not Stuff state, and is refused on a design that records any. A declared variant named `default` takes the plain alias; the literal `<Default>` always names the base build. Names match case-insensitively; results echo the canonical spelling in a top-level `design_variant` field, which is the first field of every result from `list_components`, `list_nets`, `search_nets`, the three `search_components_by_*` tools, `query_component`, both `query_xnet_*` tools, and `run_erc`.
 
 An omitted selector on a variant-bearing design is an error:
 
 ```json
 {
-  "error": "Design 'BSPD_002.PrjPcb' defines design variants ['BSPD-DNP']. Pass design_variant='<Default>' (alias 'default') for the unmodified/core design, or one of those names. list_designs() reports them under design_variants."
+  "error": "Design 'BSPD_002.PrjPcb' defines design variants ['BSPD-DNP']. Pass design_variant as one of those names; they are the only builds it records. list_designs() reports them under design_variants."
 }
 ```
 
@@ -440,9 +440,9 @@ Names are quoted in both messages, so a variant literally named `0` reads as a n
 
 ## DNS Detection
 
-Components are marked as DNS (Do Not Stuff) at parse time when any of their MPN, description, comment, or value fields match these markers (case-insensitive). Altium designs also check the "Assembly Info" component parameter.
+Components are marked as DNS (Do Not Stuff) at parse time when any of their MPN, description, comment, or value fields match these markers (case-insensitive). Altium designs also check the "Assembly Info" component parameter. Cadence designs also check every other property on the part, which is where a library keeps its assembly option (`ASSY=DNP`, `ASSY_OPT=DNP`, `Assembly=DNP`, `BuildOptions=DNI`, `INSTALL=DNI`); there, `NC` and `NF` on their own are read as a contact state and a unit rather than a marker.
 
-**Cadence:** the `.DSN` schematic supplies both component markers and CIS variant information. A part an alternate BOM leaves off the board can keep an ordinary value and all of its net connections; its stuffing flag is recorded in the schematic's CIS variant store. Selecting `LAUNCHXL-CC1310`'s `Standard` BOM variant adds the parts needed to match the 25 references its CIS-generated BOM writes as Quantity 0, beyond the 11 named by markers alone.
+**Cadence:** the `.DSN` schematic supplies the part's own markers, its assembly property, and the CIS variant store. In every format a result describes one build: a design that declares variants has only those to build, and a design that declares none has its base build. A part an alternate BOM leaves off the board can keep an ordinary value and all of its net connections; its stuffing flag is recorded in the schematic's CIS variant store. Selecting `LAUNCHXL-CC1310`'s `Standard` BOM variant adds the parts needed to match the 25 references its CIS-generated BOM writes as Quantity 0, beyond the 11 named by markers alone.
 
 **Altium:** a selected `.PrjPcb` design variant applies its rows after the project's sheets are merged: `Kind=1` (Not Fitted) marks the part `dns: true`, `Kind=2` (Alternate Part) marks it `alternate_part: true`, and `ParamVariationN` rows override its value, description, manufacturer, and MPN. The `.PrjPcbVariants` sidecar stores the alternate parts' symbol data; the rows themselves are in the project file.
 

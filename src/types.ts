@@ -113,7 +113,10 @@ export interface DesignVariantInfo extends DesignVariant {
 
 /** Options that select which assembly configuration a parser resolves. */
 export interface ParseDesignOptions {
-  /** Native variant name, or `<Default>` for the unmodified/core design. */
+  /**
+   * A declared variant's name, or the literal `<Default>` for the base build.
+   * The plain alias `default` is resolved by the service before it gets here.
+   */
   variant?: string;
 }
 

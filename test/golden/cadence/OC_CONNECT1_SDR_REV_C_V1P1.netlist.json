@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-22T18:13:31.744Z",
-    "netlistHash": "sha256:497c8c92b00fed07aebd7bfa15f54cb7d5d8d20c1d2a6af81107dfb083cff8e1",
+    "generatedAt": "2026-09-25T15:37:34.928Z",
+    "netlistHash": "sha256:6db51872c3a27ef2fec67001eec9b5217d9889a7ebf701f2229be199d50451bf",
     "origin": {
       "type": "vendor",
       "source": {
@@ -12645,7 +12645,8 @@
       "pins": {
         "1": "FPGA_TMS",
         "2": "N16852454"
-      }
+      },
+      "dns": true
     },
     "R1566": {
       "value": "10K",
@@ -12653,7 +12654,8 @@
         "1": "N19828358",
         "2": "1P8V _FX3"
       },
-      "internal_pn": "RC0402JR-0710KL"
+      "internal_pn": "RC0402JR-0710KL",
+      "dns": true
     },
     "R64": {
       "value": "10K",
@@ -12725,7 +12727,8 @@
       "pins": {
         "1": "FPGA_TDO",
         "2": "N16852459"
-      }
+      },
+      "dns": true
     },
     "R11343": {
       "value": "10K",
@@ -12733,7 +12736,8 @@
         "1": "N16852449",
         "2": "GND_SIGNAL"
       },
-      "internal_pn": "RC0402JR-0710KL"
+      "internal_pn": "RC0402JR-0710KL",
+      "dns": true
     },
     "R66": {
       "value": "6.04k",
@@ -12895,7 +12899,8 @@
       "pins": {
         "1": "FX3_TDO",
         "2": "N19830637"
-      }
+      },
+      "dns": true
     },
     "R10931": {
       "value": "10K",
@@ -13371,7 +13376,8 @@
       "pins": {
         "1": "VCTCXO_CLK_BUFF_CLKIN",
         "2": "GND_SIGNAL"
-      }
+      },
+      "dns": true
     },
     "C4326": {
       "value": "100pF",
@@ -13587,7 +13593,8 @@
       "pins": {
         "1": "PLL_CE",
         "2": "GND_SIGNAL"
-      }
+      },
+      "dns": true
     },
     "R10903": {
       "value": "1M",
@@ -13610,7 +13617,8 @@
       "pins": {
         "1": "N16881616",
         "2": "GND_SIGNAL"
-      }
+      },
+      "dns": true
     },
     "C4664": {
       "value": "1uF",
@@ -13950,7 +13958,8 @@
       "pins": {
         "1": "PCIE0_TXP_R",
         "2": "GND_SIGNAL"
-      }
+      },
+      "dns": true
     },
     "C4316": {
       "value": "100uF",
@@ -14738,14 +14747,16 @@
       "pins": {
         "1": "GND_SIGNAL",
         "2": "N18917845"
-      }
+      },
+      "dns": true
     },
     "R11144": {
       "value": "0Ohm",
       "pins": {
         "1": "PCIE0_TXN_R",
         "2": "GND_SIGNAL"
-      }
+      },
+      "dns": true
     },
     "C4312": {
       "value": "4.7uF",
@@ -15094,7 +15105,8 @@
       "pins": {
         "1": "VCC_MGTAVTT_FB",
         "2": "GND_SIGNAL"
-      }
+      },
+      "dns": true
     },
     "C130": {
       "value": "4.7uF",
@@ -15263,7 +15275,8 @@
       "pins": {
         "1": "VCCINT+VCCBRAM_FB",
         "2": "GND_SIGNAL"
-      }
+      },
+      "dns": true
     },
     "C132": {
       "value": "0.47UF",
@@ -15390,7 +15403,8 @@
       "pins": {
         "1": "CH1_3P3V_TEMP",
         "2": "V3P3"
-      }
+      },
+      "dns": true
     },
     "R11256": {
       "value": "0E",
@@ -15420,7 +15434,8 @@
         "2": "VCCMGT_VCCO18_VCC33_L"
       },
       "internal_pn": "RC0402FR-07121RL",
-      "manufacturer": "Yageo"
+      "manufacturer": "Yageo",
+      "dns": true
     },
     "R11257": {
       "value": "0E",
@@ -15543,7 +15558,8 @@
       "pins": {
         "1": "VCCAUX18",
         "2": "VBAT"
-      }
+      },
+      "dns": true
     },
     "R53": {
       "value": "0Ohm",
@@ -15574,7 +15590,8 @@
         "1": "GND_SIGNAL",
         "2": "FPGA_TCK"
       },
-      "internal_pn": "RC0402JR-0710KL"
+      "internal_pn": "RC0402JR-0710KL",
+      "dns": true
     },
     "R11253": {
       "value": "0E",
@@ -15702,7 +15719,8 @@
       "pins": {
         "1": "VBAT",
         "2": "GND_SIGNAL"
-      }
+      },
+      "dns": true
     },
     "Q2P1": {
       "value": "MMBT3904",
@@ -15728,7 +15746,8 @@
       "pins": {
         "1": "GND_SIGNAL",
         "2": "N16708724"
-      }
+      },
+      "dns": true
     },
     "R50": {
       "value": "680E",
@@ -15878,7 +15897,8 @@
         "1": "1P8V _FX3",
         "2": "AUX_PWR_ON_LV"
       },
-      "internal_pn": "RC0402JR-0710KL"
+      "internal_pn": "RC0402JR-0710KL",
+      "dns": true
     },
     "C210": {
       "value": "0.1µF",
@@ -15911,7 +15931,8 @@
         "1": "1.8VD_FPGA",
         "2": "FPGA_PUDC_B"
       },
-      "internal_pn": "RC0402JR-07680RL"
+      "internal_pn": "RC0402JR-07680RL",
+      "dns": true
     },
     "R68": {
       "value": "100E",
@@ -16487,7 +16508,8 @@
       "pins": {
         "1": "N19332520",
         "2": "GND"
-      }
+      },
+      "dns": true
     },
     "TP32": {
       "value": "T POINT R",
@@ -16600,7 +16622,8 @@
         "2": "TRANS_CODEC_RESET"
       },
       "internal_pn": "RC0402FR-07121RL",
-      "manufacturer": "Yageo"
+      "manufacturer": "Yageo",
+      "dns": true
     },
     "TP27": {
       "value": "T POINT R",
@@ -16816,7 +16839,8 @@
         "1": "GND_SIGNAL",
         "2": "N16200277"
       },
-      "internal_pn": "RC0402FR-071KL"
+      "internal_pn": "RC0402FR-071KL",
+      "dns": true
     },
     "C275": {
       "value": "10uF",
@@ -16898,7 +16922,8 @@
         "1": "N3141205",
         "2": "INTVCC_3622"
       },
-      "internal_pn": "RC0402FR-071KL"
+      "internal_pn": "RC0402FR-071KL",
+      "dns": true
     },
     "R11178": {
       "value": "0Ohm",
@@ -17358,14 +17383,16 @@
       "pins": {
         "1": "N18996570",
         "2": "L_TIVA_I2C3_SDA_FPGA"
-      }
+      },
+      "dns": true
     },
     "R273": {
       "value": "0Ohm",
       "pins": {
         "1": "FGA_CH1_RX_ATTN_1DB",
         "2": "N18744166"
-      }
+      },
+      "dns": true
     },
     "R1650": {
       "value": "0Ohm",
@@ -17379,7 +17406,8 @@
       "pins": {
         "1": "N18560396",
         "2": "FGA_CH1_TX_ATTN_2DB"
-      }
+      },
+      "dns": true
     },
     "R1455": {
       "value": "0Ohm",
@@ -17393,21 +17421,24 @@
       "pins": {
         "1": "N18998877",
         "2": "RF_PGOOD_LDO"
-      }
+      },
+      "dns": true
     },
     "R269": {
       "value": "0Ohm",
       "pins": {
         "1": "FGA_CH2_RX_ATTN_1DB",
         "2": "N18744296"
-      }
+      },
+      "dns": true
     },
     "R1752": {
       "value": "0E",
       "pins": {
         "1": "N18995659",
         "2": "L_TIVA_I2C4_SCLK_FPGA"
-      }
+      },
+      "dns": true
     },
     "R1651": {
       "value": "0Ohm",
@@ -17428,7 +17459,8 @@
       "pins": {
         "1": "N18560393",
         "2": "FGA_CH1_TX_ATTN_4DB"
-      }
+      },
+      "dns": true
     },
     "C755": {
       "value": "0.47UF",
@@ -17445,7 +17477,8 @@
       "pins": {
         "1": "CH1_RF_DET_LB_F_DET_OUT",
         "2": "N19009826"
-      }
+      },
+      "dns": true
     },
     "R263": {
       "value": "0Ohm",
@@ -17459,7 +17492,8 @@
       "pins": {
         "1": "N18560390",
         "2": "FGA_CH1_TX_ATTN_8DB"
-      }
+      },
+      "dns": true
     },
     "C750": {
       "value": "0.47UF",
@@ -17476,7 +17510,8 @@
       "pins": {
         "1": "FGA_CH1_RX_ATTN_8DB",
         "2": "N18744265"
-      }
+      },
+      "dns": true
     },
     "R1653": {
       "value": "0Ohm",
@@ -17498,7 +17533,8 @@
         "1": "LTE_MODULE_1_PPS_OUT",
         "2": "N18992995"
       },
-      "internal_pn": "C0402C100K4GACTU"
+      "internal_pn": "C0402C100K4GACTU",
+      "dns": true
     },
     "R1452": {
       "value": "0Ohm",
@@ -17512,7 +17548,8 @@
       "pins": {
         "1": "N18996297",
         "2": "L_TIVA_I2C4_SDA_FPGA"
-      }
+      },
+      "dns": true
     },
     "C757": {
       "value": "0.47UF",
@@ -17536,7 +17573,8 @@
       "pins": {
         "1": "N18560695",
         "2": "FGA_CH2_TX_ATTN_P16DB"
-      }
+      },
+      "dns": true
     },
     "J3303": {
       "value": "MICTOR43-LA",
@@ -17721,14 +17759,16 @@
       "pins": {
         "1": "CH1_RF_DET_HB_F_DET_OUT",
         "2": "N19009831"
-      }
+      },
+      "dns": true
     },
     "R271": {
       "value": "0Ohm",
       "pins": {
         "1": "FGA_CH1_RX_ATTN_4DB",
         "2": "N18744234"
-      }
+      },
+      "dns": true
     },
     "C752": {
       "value": "4.7uF",
@@ -17760,14 +17800,16 @@
       "pins": {
         "1": "N18560684",
         "2": "FGA_CH2_TX_ATTN_P5DB"
-      }
+      },
+      "dns": true
     },
     "R266": {
       "value": "0Ohm",
       "pins": {
         "1": "FGA_CH2_RX_ATTN_8DB",
         "2": "N18744389"
-      }
+      },
+      "dns": true
     },
     "R10970": {
       "value": "10K",
@@ -17775,7 +17817,8 @@
         "1": "3.3VD_FPGA",
         "2": "AUX_PWR_ON"
       },
-      "internal_pn": "RC0402JR-0710KL"
+      "internal_pn": "RC0402JR-0710KL",
+      "dns": true
     },
     "R265": {
       "value": "0Ohm",
@@ -17789,28 +17832,32 @@
       "pins": {
         "1": "N18996442",
         "2": "L_TIVA_I2C2_SDA_FPGA"
-      }
+      },
+      "dns": true
     },
     "R254": {
       "value": "0Ohm",
       "pins": {
         "1": "N18560679",
         "2": "FGA_CH2_TX_ATTN_1DB"
-      }
+      },
+      "dns": true
     },
     "R272": {
       "value": "0Ohm",
       "pins": {
         "1": "FGA_CH1_RX_ATTN_2DB",
         "2": "N18744203"
-      }
+      },
+      "dns": true
     },
     "R1792": {
       "value": "0Ohm",
       "pins": {
         "1": "CH2_RF_DET_LB_F_DET_OUT",
         "2": "N19009836"
-      }
+      },
+      "dns": true
     },
     "C763": {
       "value": "100uF",
@@ -17837,14 +17884,16 @@
       "pins": {
         "1": "N18560413",
         "2": "FGA_CH1_TX_ATTN_P16DB"
-      }
+      },
+      "dns": true
     },
     "R253": {
       "value": "0Ohm",
       "pins": {
         "1": "N18560676",
         "2": "FGA_CH2_TX_ATTN_2DB"
-      }
+      },
+      "dns": true
     },
     "C756": {
       "value": "100uF",
@@ -17890,14 +17939,16 @@
       "pins": {
         "1": "FGA_CH2_RX_ATTN_4DB",
         "2": "N18744358"
-      }
+      },
+      "dns": true
     },
     "R1750": {
       "value": "0E",
       "pins": {
         "1": "N18996558",
         "2": "L_TIVA_I2C3_SCLK_FPGA"
-      }
+      },
+      "dns": true
     },
     "C4626": {
       "value": "0.1uF",
@@ -17931,14 +17982,16 @@
       "pins": {
         "1": "N18560402",
         "2": "FGA_CH1_TX_ATTN_P5DB"
-      }
+      },
+      "dns": true
     },
     "R252": {
       "value": "0Ohm",
       "pins": {
         "1": "N18560673",
         "2": "FGA_CH2_TX_ATTN_4DB"
-      }
+      },
+      "dns": true
     },
     "R10971": {
       "value": "1K",
@@ -17960,7 +18013,8 @@
       "pins": {
         "1": "N18996457",
         "2": "L_TIVA_I2C2_SCLK_FPGA"
-      }
+      },
+      "dns": true
     },
     "C760": {
       "value": "0.47UF",
@@ -17977,7 +18031,8 @@
       "pins": {
         "1": "N18560399",
         "2": "FGA_CH1_TX_ATTN_1DB"
-      }
+      },
+      "dns": true
     },
     "C758": {
       "value": "0.47UF",
@@ -17994,28 +18049,32 @@
       "pins": {
         "1": "N18560670",
         "2": "FGA_CH2_TX_ATTN_8DB"
-      }
+      },
+      "dns": true
     },
     "R268": {
       "value": "0Ohm",
       "pins": {
         "1": "FGA_CH2_RX_ATTN_2DB",
         "2": "N18744327"
-      }
+      },
+      "dns": true
     },
     "R1793": {
       "value": "0Ohm",
       "pins": {
         "1": "CH2_RF_DET_HB_F_DET_OUT",
         "2": "N19009841"
-      }
+      },
+      "dns": true
     },
     "R11199": {
       "value": "0E",
       "pins": {
         "1": "CLK_SYNC_FPGA_OUT",
         "2": "SYNC_FPGA_OUT"
-      }
+      },
+      "dns": true
     },
     "C285": {
       "value": "0.1uF",
@@ -18113,7 +18172,8 @@
         "1": "V3P3",
         "2": "N16302576"
       },
-      "internal_pn": "RC0402JR-0710KL"
+      "internal_pn": "RC0402JR-0710KL",
+      "dns": true
     },
     "R187": {
       "value": "10E",
@@ -18262,7 +18322,8 @@
         "1": "V3P3",
         "2": "N16302586"
       },
-      "internal_pn": "RC0402JR-0710KL"
+      "internal_pn": "RC0402JR-0710KL",
+      "dns": true
     },
     "R11316": {
       "value": "0E",
@@ -18806,7 +18867,8 @@
       "pins": {
         "1": "SHDN_SW",
         "2": "N1743929"
-      }
+      },
+      "dns": true
     },
     "R97": {
       "value": "20K",
@@ -19048,7 +19110,8 @@
         "1": "N1705100",
         "2": "VREG"
       },
-      "internal_pn": "RC0402FR-071KL"
+      "internal_pn": "RC0402FR-071KL",
+      "dns": true
     },
     "C241": {
       "value": "1uF",
@@ -19823,7 +19886,8 @@
       "pins": {
         "1": "3P3V_IO_3",
         "2": "N18698691"
-      }
+      },
+      "dns": true
     },
     "R1850": {
       "value": "0E",
@@ -19844,7 +19908,8 @@
       "pins": {
         "1": "SYS_CNRL_A2_CPU",
         "2": "GND"
-      }
+      },
+      "dns": true
     },
     "R11324": {
       "value": "10K",
@@ -19872,14 +19937,16 @@
       "pins": {
         "1": "SYS_CNRL_A1_CPU",
         "2": "GND"
-      }
+      },
+      "dns": true
     },
     "R11297": {
       "value": "1K",
       "pins": {
         "1": "GND",
         "2": "N19282694"
-      }
+      },
+      "dns": true
     },
     "R11284": {
       "value": "0E",
@@ -19900,14 +19967,16 @@
       "pins": {
         "1": "3P3V_IO_4",
         "2": "N19282510"
-      }
+      },
+      "dns": true
     },
     "R1815": {
       "value": "10K",
       "pins": {
         "1": "SYS_CNRL_A1_CPU",
         "2": "GND"
-      }
+      },
+      "dns": true
     },
     "R1833": {
       "value": "0E",
@@ -19935,28 +20004,32 @@
       "pins": {
         "1": "STRP_RESET_IO",
         "2": "N19449419"
-      }
+      },
+      "dns": true
     },
     "R11293": {
       "value": "10K",
       "pins": {
         "1": "SYS_CNRL_A2_CPU",
         "2": "GND"
-      }
+      },
+      "dns": true
     },
     "R11298": {
       "value": "1K",
       "pins": {
         "1": "GND",
         "2": "N19282692"
-      }
+      },
+      "dns": true
     },
     "R11285": {
       "value": "1K",
       "pins": {
         "1": "3P3V_IO_4",
         "2": "N19282702"
-      }
+      },
+      "dns": true
     },
     "R11283": {
       "value": "10K",
@@ -19970,7 +20043,8 @@
       "pins": {
         "1": "3P3V_IO_4",
         "2": "N19282512"
-      }
+      },
+      "dns": true
     },
     "R11330": {
       "value": "0E",
@@ -19998,7 +20072,8 @@
       "pins": {
         "1": "3P3V_IO_3",
         "2": "N18699219"
-      }
+      },
+      "dns": true
     },
     "U7145": {
       "value": "PCA9557",
@@ -20074,42 +20149,48 @@
       "pins": {
         "1": "N19282512",
         "2": "L_TIVA_TRXFECONN_I2C3_SCLK"
-      }
+      },
+      "dns": true
     },
     "R1854": {
       "value": "10K",
       "pins": {
         "1": "3P3V_IO_3",
         "2": "N18698693"
-      }
+      },
+      "dns": true
     },
     "R950": {
       "value": "0E",
       "pins": {
         "1": "N19449419",
         "2": "SYNC_RESET"
-      }
+      },
+      "dns": true
     },
     "R11278": {
       "value": "10K",
       "pins": {
         "1": "SYS_CNRL_A0_CPU",
         "2": "GND"
-      }
+      },
+      "dns": true
     },
     "R11279": {
       "value": "1K",
       "pins": {
         "1": "3P3V_IO_4",
         "2": "N19282692"
-      }
+      },
+      "dns": true
     },
     "R1802": {
       "value": "1K",
       "pins": {
         "1": "3P3V_IO_3",
         "2": "N18699221"
-      }
+      },
+      "dns": true
     },
     "R1856": {
       "value": "10K",
@@ -20130,7 +20211,8 @@
       "pins": {
         "1": "STRP_RESET_IO",
         "2": "GND"
-      }
+      },
+      "dns": true
     },
     "R11286": {
       "value": "0E",
@@ -20144,7 +20226,8 @@
       "pins": {
         "1": "3P3V_IO_4",
         "2": "3P3VD_TIVA"
-      }
+      },
+      "dns": true
     },
     "R11322": {
       "value": "10K",
@@ -20158,14 +20241,16 @@
       "pins": {
         "1": "3P3V_IO_4",
         "2": "N19398770"
-      }
+      },
+      "dns": true
     },
     "R11280": {
       "value": "1K",
       "pins": {
         "1": "3P3V_IO_4",
         "2": "N19282694"
-      }
+      },
+      "dns": true
     },
     "R1851": {
       "value": "0E",
@@ -20193,14 +20278,16 @@
       "pins": {
         "1": "3P3V_IO_3",
         "2": "N18699217"
-      }
+      },
+      "dns": true
     },
     "R961": {
       "value": "0E",
       "pins": {
         "1": "N19282510",
         "2": "L_TIVA_TRXFECONN_I2C3_SDA"
-      }
+      },
+      "dns": true
     },
     "R1809": {
       "value": "10K",
@@ -20214,14 +20301,16 @@
       "pins": {
         "1": "3P3V_IO_3",
         "2": "N18699215"
-      }
+      },
+      "dns": true
     },
     "R11281": {
       "value": "1K",
       "pins": {
         "1": "3P3V_IO_4",
         "2": "N19282696"
-      }
+      },
+      "dns": true
     },
     "R1808": {
       "value": "10K",
@@ -20235,7 +20324,8 @@
       "pins": {
         "1": "GND",
         "2": "N19282702"
-      }
+      },
+      "dns": true
     },
     "R11291": {
       "value": "10K",
@@ -20256,14 +20346,16 @@
       "pins": {
         "1": "3P3V_IO_3",
         "2": "SYS_CNRL_A0_CPU"
-      }
+      },
+      "dns": true
     },
     "R951": {
       "value": "0E",
       "pins": {
         "1": "GBC_SYNC_RESET",
         "2": "N19449419"
-      }
+      },
+      "dns": true
     },
     "U1800": {
       "value": "PCA9557",
@@ -20346,7 +20438,8 @@
       "pins": {
         "1": "GND",
         "2": "N19282696"
-      }
+      },
+      "dns": true
     },
     "R1810": {
       "value": "10K",
@@ -20556,7 +20649,8 @@
         "1": "1.8VD_BIAS_FX3",
         "2": "FX3_SSTX-"
       },
-      "internal_pn": "RC0402JR-0710KL"
+      "internal_pn": "RC0402JR-0710KL",
+      "dns": true
     },
     "SW10": {
       "value": "CL-SB-12A-01",
@@ -20618,7 +20712,8 @@
         "1": "1.8VD_BIAS_FX3",
         "2": "FX3_SSRX+"
       },
-      "internal_pn": "RC0402JR-0710KL"
+      "internal_pn": "RC0402JR-0710KL",
+      "dns": true
     },
     "R197": {
       "value": "1K",
@@ -20697,7 +20792,8 @@
         "1": "1.8VD_BIAS_FX3",
         "2": "FX3_SSRX-"
       },
-      "internal_pn": "RC0402JR-0710KL"
+      "internal_pn": "RC0402JR-0710KL",
+      "dns": true
     },
     "R196": {
       "value": "10K",
@@ -20705,7 +20801,8 @@
         "1": "1.8VD_BIAS_FX3",
         "2": "FX3_SSTX+"
       },
-      "internal_pn": "RC0402JR-0710KL"
+      "internal_pn": "RC0402JR-0710KL",
+      "dns": true
     },
     "R210": {
       "value": "0Ohm",
@@ -21197,7 +21294,8 @@
         "1": "N18932476",
         "2": "N18932509"
       },
-      "internal_pn": "C0402C100K4GACTU"
+      "internal_pn": "C0402C100K4GACTU",
+      "dns": true
     },
     "C1603": {
       "value": "18pF",
@@ -21221,7 +21319,8 @@
         "1": "N18932509",
         "2": "TX_EXT_LO_IN"
       },
-      "internal_pn": "C0402C100K4GACTU"
+      "internal_pn": "C0402C100K4GACTU",
+      "dns": true
     },
     "CON4": {
       "value": "19S101-40ML5",
@@ -21667,7 +21766,8 @@
       "pins": {
         "1": "3P3VD_TIVA",
         "2": "N19492526"
-      }
+      },
+      "dns": true
     },
     "R451": {
       "value": "10k",
@@ -21711,14 +21811,16 @@
       "pins": {
         "1": "N19432609",
         "2": "WTDG_SYS_ALERT_FPGA"
-      }
+      },
+      "dns": true
     },
     "R1354": {
       "value": "100K",
       "pins": {
         "1": "3P3VD_TIVA",
         "2": "N19492528"
-      }
+      },
+      "dns": true
     },
     "A9": {
       "value": "M3 Spacer",
@@ -21731,7 +21833,8 @@
       "pins": {
         "1": "N19432618",
         "2": "GND"
-      }
+      },
+      "dns": true
     },
     "R469": {
       "value": "10K",
@@ -21754,7 +21857,8 @@
       "pins": {
         "1": "V3P3",
         "2": "N19432681"
-      }
+      },
+      "dns": true
     },
     "R1355": {
       "value": "10K",
@@ -21775,7 +21879,8 @@
       "pins": {
         "1": "N19432661",
         "2": "GND"
-      }
+      },
+      "dns": true
     },
     "U7152": {
       "value": "SN74AVC1T45DRLR",
@@ -21864,7 +21969,8 @@
       "pins": {
         "1": "IO_EXP_INVEN_EEPROM_WP",
         "2": "GND"
-      }
+      },
+      "dns": true
     },
     "U7151": {
       "value": "SN74AVC4T774RGYR",
@@ -21960,7 +22066,8 @@
       "pins": {
         "1": "N19434417",
         "2": "RF_TEMP_CS_ALERT_FPGA"
-      }
+      },
+      "dns": true
     },
     "R459": {
       "value": "10k",
@@ -21974,7 +22081,8 @@
       "pins": {
         "1": "N19432640",
         "2": "RF_FE_IO_RESET_FPGA"
-      }
+      },
+      "dns": true
     },
     "R1360": {
       "value": "0E",
@@ -22024,14 +22132,16 @@
       "pins": {
         "1": "N19432749",
         "2": "GND"
-      }
+      },
+      "dns": true
     },
     "R466": {
       "value": "0ohm",
       "pins": {
         "1": "N19433284",
         "2": "SDR_TEMP_CS_ALERT_FPGA"
-      }
+      },
+      "dns": true
     },
     "R472": {
       "value": "0E",
@@ -22059,7 +22169,8 @@
       "pins": {
         "1": "V3P3",
         "2": "N19432759"
-      }
+      },
+      "dns": true
     },
     "R464": {
       "value": "10k",
@@ -22095,7 +22206,8 @@
       "pins": {
         "1": "3P3VD_TIVA",
         "2": "N19492524"
-      }
+      },
+      "dns": true
     },
     "C4635": {
       "value": "0.1uF",
@@ -22123,7 +22235,8 @@
       "pins": {
         "1": "N19432583",
         "2": "RF_PGOOD_LDO_FPGA"
-      }
+      },
+      "dns": true
     },
     "R467": {
       "value": "10K",
@@ -22137,7 +22250,8 @@
       "pins": {
         "1": "3P3VD_TIVA",
         "2": "FE_12V_PWR_CTRL"
-      }
+      },
+      "dns": true
     },
     "FB12": {
       "value": "33E",
@@ -22146,7 +22260,8 @@
         "2": "TRXFE_IN_12V"
       },
       "internal_pn": "BLM18PG330SN1D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "dns": true
     },
     "R11095": {
       "value": "100K",
@@ -22162,7 +22277,8 @@
         "2": "TRXFE_IN_12V"
       },
       "internal_pn": "BLM18PG330SN1D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "dns": true
     },
     "C2032": {
       "value": "1NF",
@@ -22202,7 +22318,8 @@
         "2": "RF_FE_12V_PWR_CNTRL"
       },
       "internal_pn": "RC0402FR-071ML",
-      "manufacturer": "Yageo"
+      "manufacturer": "Yageo",
+      "dns": true
     },
     "R1244": {
       "value": "0ohm",
@@ -22453,7 +22570,8 @@
         "2": "GND_SIGNAL"
       },
       "internal_pn": "GRM1555C1E180JA01D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "dns": true
     },
     "R10953": {
       "value": "95.3",
@@ -22566,7 +22684,8 @@
       "pins": {
         "1": "CLK_OUT1_AD_TRX",
         "2": "N19521447"
-      }
+      },
+      "dns": true
     },
     "R11188": {
       "value": "0E",
@@ -22588,7 +22707,8 @@
         "1": "L_TIVA_I2C3_SDA",
         "2": "CLK_SDIO_S1"
       },
-      "internal_pn": "RC0402JR-070RL"
+      "internal_pn": "RC0402JR-070RL",
+      "dns": true
     },
     "R11195": {
       "value": "0E",
@@ -22596,7 +22716,8 @@
         "1": "L_TIVA_I2C3_SCLK",
         "2": "CLK_SCLK_S0"
       },
-      "internal_pn": "RC0402JR-070RL"
+      "internal_pn": "RC0402JR-070RL",
+      "dns": true
     },
     "R720": {
       "value": "0E",
@@ -22604,7 +22725,8 @@
         "1": "N19521447",
         "2": "N19210311"
       },
-      "internal_pn": "RC0402JR-070RL"
+      "internal_pn": "RC0402JR-070RL",
+      "dns": true
     },
     "R11184": {
       "value": "10K",
@@ -22633,7 +22755,8 @@
       "pins": {
         "1": "V3P3_CLK",
         "2": "N19060388"
-      }
+      },
+      "dns": true
     },
     "C4467": {
       "value": "0.1uF",
@@ -22764,7 +22887,8 @@
       "pins": {
         "1": "V3P3_CLK",
         "2": "N19060162"
-      }
+      },
+      "dns": true
     },
     "R11244": {
       "value": "0E",
@@ -22772,21 +22896,24 @@
         "1": "REF_40MHZ_BYPASS",
         "2": "N19059583"
       },
-      "internal_pn": "RC0402JR-070RL"
+      "internal_pn": "RC0402JR-070RL",
+      "dns": true
     },
     "R11186": {
       "value": "10K",
       "pins": {
         "1": "V3P3_CLK",
         "2": "CLK_RESET_B"
-      }
+      },
+      "dns": true
     },
     "R11180": {
       "value": "10K",
       "pins": {
         "1": "V3P3_CLK",
         "2": "CLK_SYNC_FPGA_OUT"
-      }
+      },
+      "dns": true
     },
     "MH6": {
       "value": "Mounting_Hole",
@@ -22873,7 +23000,8 @@
       "pins": {
         "1": "V3P3_CLK",
         "2": "N19060167"
-      }
+      },
+      "dns": true
     },
     "R11181": {
       "value": "10K",
@@ -22887,7 +23015,8 @@
       "pins": {
         "1": "CLK_RESET_B",
         "2": "GND_SIGNAL"
-      }
+      },
+      "dns": true
     },
     "C4474": {
       "value": "0.1uF",
@@ -22964,7 +23093,8 @@
       "pins": {
         "1": "CLK_OUT1_AD_TRX",
         "2": "N19210311"
-      }
+      },
+      "dns": true
     },
     "MH8": {
       "value": "Mounting_Hole",
@@ -23026,7 +23156,8 @@
       "pins": {
         "1": "N19758482",
         "2": "GND_SIGNAL"
-      }
+      },
+      "dns": true
     },
     "R384": {
       "value": "10K",
@@ -23100,7 +23231,8 @@
       "pins": {
         "1": "1.8VD_FPGA_EEPROM",
         "2": "EEPROM_W#"
-      }
+      },
+      "dns": true
     },
     "R1983": {
       "value": "49.9E",
@@ -23318,7 +23450,8 @@
       "pins": {
         "1": "1.8VD_FPGA_MUX",
         "2": "N19758482"
-      }
+      },
+      "dns": true
     },
     "R1984": {
       "value": "49.9E",
@@ -23332,7 +23465,8 @@
       "pins": {
         "1": "FPGA_CFG_INIT_B",
         "2": "EEPROM_W#"
-      }
+      },
+      "dns": true
     },
     "FB6317": {
       "value": "120E",
@@ -23376,7 +23510,8 @@
         "2": "FPGA_CFG_INIT_B"
       },
       "internal_pn": "RC0402FR-07121RL",
-      "manufacturer": "Yageo"
+      "manufacturer": "Yageo",
+      "dns": true
     },
     "R1603": {
       "value": "0E",
@@ -23411,7 +23546,8 @@
       "pins": {
         "1": "N2997026",
         "2": "GND"
-      }
+      },
+      "dns": true
     },
     "L3402": {
       "value": "2.2uH",
@@ -23524,7 +23660,8 @@
       "pins": {
         "1": "N3002699",
         "2": "GND"
-      }
+      },
+      "dns": true
     },
     "TP66": {
       "value": "T POINT R",
@@ -24187,7 +24324,8 @@
       "pins": {
         "1": "ADC_PD_OUT",
         "2": "N19401987"
-      }
+      },
+      "dns": true
     },
     "C4490": {
       "value": "0.1uF",
@@ -24222,7 +24360,8 @@
       "pins": {
         "1": "N19401987",
         "2": "CH2_RF_DET_LB_F_DET_OUT"
-      }
+      },
+      "dns": true
     },
     "C4464": {
       "value": "0.1uF",
@@ -24264,7 +24403,8 @@
       "pins": {
         "1": "N19401987",
         "2": "CH1_RF_DET_LB_F_DET_OUT"
-      }
+      },
+      "dns": true
     },
     "R650": {
       "value": "0Ohm",
@@ -24295,7 +24435,8 @@
         "1": "N5130058",
         "2": "GND"
       },
-      "internal_pn": "04025C330JAT2A"
+      "internal_pn": "04025C330JAT2A",
+      "dns": true
     },
     "U1402": {
       "value": "FA-128 40.0000MF20X-K0",
@@ -24593,7 +24734,8 @@
         "1": "GND",
         "2": "N18653435"
       },
-      "internal_pn": "RC0402JR-070RL"
+      "internal_pn": "RC0402JR-070RL",
+      "dns": true
     },
     "C1406": {
       "value": "1000pF",
@@ -24658,7 +24800,8 @@
         "2": "CAT_CLKOUT_FPGA"
       },
       "internal_pn": "RC0402FR-07180RL",
-      "manufacturer": "Yageo"
+      "manufacturer": "Yageo",
+      "dns": true
     },
     "C1408": {
       "value": "0.1uF",
@@ -24723,28 +24866,32 @@
       "pins": {
         "1": "V3P3",
         "2": "N18663807"
-      }
+      },
+      "dns": true
     },
     "R506": {
       "value": "1K",
       "pins": {
         "1": "N18663501",
         "2": "GND"
-      }
+      },
+      "dns": true
     },
     "R354": {
       "value": "1K",
       "pins": {
         "1": "N18874789",
         "2": "GND"
-      }
+      },
+      "dns": true
     },
     "R504": {
       "value": "1K",
       "pins": {
         "1": "N18663495",
         "2": "GND"
-      }
+      },
+      "dns": true
     },
     "C4428": {
       "value": "0.1uF",
@@ -24758,7 +24905,8 @@
       "pins": {
         "1": "N18663498",
         "2": "GND"
-      }
+      },
+      "dns": true
     },
     "R500": {
       "value": "10k",
@@ -24793,7 +24941,8 @@
       "pins": {
         "1": "N18874791",
         "2": "GND"
-      }
+      },
+      "dns": true
     },
     "R501": {
       "value": "10k",
@@ -25006,21 +25155,24 @@
       "pins": {
         "1": "N18874795",
         "2": "GND"
-      }
+      },
+      "dns": true
     },
     "R356": {
       "value": "1K",
       "pins": {
         "1": "N18874793",
         "2": "GND"
-      }
+      },
+      "dns": true
     },
     "R507": {
       "value": "1K",
       "pins": {
         "1": "N18663504",
         "2": "GND"
-      }
+      },
+      "dns": true
     },
     "R503": {
       "value": "10k",
@@ -25048,7 +25200,8 @@
       "pins": {
         "1": "V3P3",
         "2": "N18874864"
-      }
+      },
+      "dns": true
     },
     "R363": {
       "value": "10k",
@@ -25106,7 +25259,8 @@
       "pins": {
         "1": "N3462622",
         "2": "GND"
-      }
+      },
+      "dns": true
     },
     "C4010": {
       "value": "1uF",
@@ -25409,7 +25563,8 @@
       "pins": {
         "1": "N18641977",
         "2": "GND"
-      }
+      },
+      "dns": true
     },
     "R4016": {
       "value": "10K",
@@ -25631,7 +25786,8 @@
       "pins": {
         "1": "N19215404",
         "2": "REF_40MHZ_BYPASS"
-      }
+      },
+      "dns": true
     },
     "R11247": {
       "value": "0E",
@@ -25705,7 +25861,8 @@
         "1": "N19216441",
         "2": "N19215404"
       },
-      "internal_pn": "C0402C100K4GACTU"
+      "internal_pn": "C0402C100K4GACTU",
+      "dns": true
     },
     "J3305": {
       "value": "QFS-026-04.25-L-D-RF1",
@@ -25782,7 +25939,8 @@
       "pins": {
         "1": "N19215412",
         "2": "GND"
-      }
+      },
+      "dns": true
     },
     "C4425": {
       "value": "10pF",

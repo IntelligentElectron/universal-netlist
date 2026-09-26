@@ -29,7 +29,7 @@ Supported formats:
 
 - Read designs only through these tools. Never run the \`universal-netlist\` binary from a shell: it is this server, and its commands are for the people who install it
 - Design paths are relative to the working directory; absolute paths are also accepted
-- A design with named design variants requires \`design_variant\` on every query; use \`<Default>\` (alias \`default\`) for its unmodified/core design. Every result echoes the \`design_variant\` it describes
+- Every result describes one build of a design. A design with named design variants requires \`design_variant\` on every query, one of the names \`list_designs\` lists for it: those variants are its only builds, and \`<Default>\` is refused on it. A design with no variants has one build, \`<Default>\` (alias \`default\`), the design with every part's own Do Not Stuff state. Every result echoes the \`design_variant\` it describes
 - DNS (Do Not Stuff) components are flagged \`dns: true\`. Listing and search tools include them by default; traversal and ERC leave them out unless \`include_dns=true\`
 - A part the selected variant substitutes for the base part is flagged \`alternate_part: true\`
 - A result carrying an \`error\` field failed, and the message names the tool that finds the value you wanted
@@ -53,12 +53,14 @@ misspelled \`path\` behaves exactly like an omitted one. Each of those returns a
 real designs from a directory nobody asked about, and \`root\` is what tells it apart \
 from a correct answer. A result cut short by \`max_results\` says so in its notes.
 
-Each design lists its \`design_variants\`: \`<Default>\` (the unmodified/core design) first, \
-then every native variant recorded by Altium, Cadence CIS, or KiCad, with \`fabrication\` \
-where the vendor marks a variant as a build assembly. A design with named variants requires \
-\`design_variant\` on every query; omitting it is refused because no single fitted/not-fitted \
-answer represents several assemblies. Names match case-insensitively and results echo the \
-canonical spelling.
+Each design lists its \`design_variants\`, which are its builds: every native variant recorded \
+by Altium, Cadence CIS, or KiCad, with \`fabrication\` where the vendor marks a variant as a \
+build assembly, or \`<Default>\` alone for a design that records no variant, which is that \
+design with every part's own Do Not Stuff state. A design with named variants has only those \
+to build: it requires \`design_variant\` on every query, and \`<Default>\` is refused on it, \
+because no single fitted/not-fitted answer represents several assemblies and nothing in any \
+vendor's file marks the bare design as one. Names match case-insensitively and results echo \
+the canonical spelling.
 
 Cadence: use the .DSN schematic returned by this tool. It is parsed directly and carries \
 component properties, connectivity, and CIS variant stuffing information.
