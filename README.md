@@ -2,9 +2,9 @@
 
 # Universal Netlist MCP Server
 
-The **Universal Netlist MCP Server** gives AI agents the tools to understand and analyze your electrical schematics, for powerful and comprehensive design reviews through natural conversations.
+The **Universal Netlist MCP Server** reads electrical schematics and gives an AI agent tools to query their components, nets, and connectivity and to run electrical rule checks during a design review.
 
-It is compatible with Cadence, Altium, and KiCad, with plans to integrate more EDAs in the future. It reads your design files directly on macOS, Linux, and Windows, with no Cadence or Altium installation and no EDA license required.
+It reads Cadence, Altium, and KiCad design files directly on macOS, Linux, and Windows, with no Cadence or Altium installation and no EDA license required.
 
 ## Supported Formats
 
@@ -29,10 +29,10 @@ curl -fsSL https://raw.githubusercontent.com/IntelligentElectron/universal-netli
 irm https://raw.githubusercontent.com/IntelligentElectron/universal-netlist/main/install.ps1 | iex
 ```
 
-Why use the native installer:
-- **No dependencies** — standalone binary, no Node.js required
-- **Auto-updates** — checks for updates on startup
-- **Signed binaries** — macOS binaries are notarized by Apple
+The native installer provides:
+- **No dependencies**: a standalone binary, with no Node.js required
+- **Auto-updates**: the binary checks for updates on startup
+- **Signed binaries**: macOS binaries are notarized by Apple
 
 The installer places the binary in the `bin/` folder of:
 
@@ -73,9 +73,9 @@ To update:
 npm update -g @intelligentelectron/universal-netlist
 ```
 
-## Connect the MCP with your favorite AI tool
+## Connect the server to an AI agent
 
-After installing the MCP with one of the methods above, you can connect it to your AI agent of choice.
+After installing the server with one of the methods above, register it with the agent you use.
 
 ### Claude Code and the Claude desktop app
 
@@ -106,9 +106,9 @@ codex mcp add universal-netlist -- universal-netlist
 
 ## Observability (OpenTelemetry)
 
-The server can emit [OpenTelemetry](https://opentelemetry.io/) **traces, metrics, and logs** for every tool call, so you can integrate your own OTel service and see which tools are used, how long they take, and what fails. It is vendor-neutral and works with any OTLP-compatible backend (an OpenTelemetry Collector, Jaeger, Tempo, Prometheus, Honeycomb, Datadog, a managed cloud tracing service, etc.).
+The server can emit [OpenTelemetry](https://opentelemetry.io/) **traces, metrics, and logs** for every tool call, which report which tools are used, how long they take, and what fails. Any OTLP-compatible backend receives them (an OpenTelemetry Collector, Jaeger, Tempo, Prometheus, Honeycomb, Datadog, or a managed cloud tracing service).
 
-OpenTelemetry is **disabled by default** with zero overhead, and is enabled and configured entirely through the standard `OTEL_*` environment variables — no code changes. Separately, the server keeps a [local usage log](docs/observability.md#local-usage-log) on your disk.
+OpenTelemetry is **disabled by default** and is enabled and configured through the standard `OTEL_*` environment variables, with no code changes. Separately, the server keeps a [local usage log](docs/observability.md#local-usage-log) on your disk.
 
 See **[Observability (OpenTelemetry)](docs/observability.md)** for setup, configuration, and the full list of emitted spans, metrics, and logs.
 
