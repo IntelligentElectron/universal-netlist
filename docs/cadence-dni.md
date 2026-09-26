@@ -1,14 +1,14 @@
 # How Cadence Records Do Not Install
 
-A Cadence design records Do Not Install three different ways, and they do not
-behave alike. One travels with the part into every file the design exports. The
-other two stay in the schematic: a property on the part reaches the BOM and
-nothing else, and the CIS variant store is the schematic's own database. A tool
-that reads only the exported netlist sees the first and cannot see the other
-two, no matter how carefully it looks, because they were never written there.
+A Cadence design records Do Not Install three different ways. One travels with
+the part into every file the design exports. The other two stay in the
+schematic: a property on the part reaches the BOM and nothing else, and the CIS
+variant store is the schematic's own database. A tool that reads only the
+exported netlist sees the first and cannot see the other two, because they are
+not written there.
 
-This page describes all three, what each leaves on disk, and what that means for
-a design whose netlist is the thing you hand to somebody else. For the byte-level
+This page describes all three, what each leaves on disk, and what that means
+when the exported netlist is what gets shared. For the byte-level
 layout of the streams involved, see
 [section 11 of the DSN format specification](dsn-format.md#11-cis-variant-store).
 
@@ -76,8 +76,7 @@ its own name in angle brackets (`<DNP>`) and is not a marker either.
 Nothing about the property reaches the exported netlist. On the three Jetson
 carrier boards that use it exclusively, every part it marks keeps an ordinary
 part name in `pstxprt.dat` and both of its pins in `pstxnet.dat`, and the DAT
-reference reports all of them fitted. The schematic is the only place the answer
-exists.
+reference reports all of them fitted. Only the schematic records the property.
 
 ## C. A CIS variant
 
@@ -100,8 +99,8 @@ that use variants exclusively:
 | Present in `pstxnet.dat` | 77/77 | 289/291 |
 | Carrying any marker in the `.dat` triad | **0/77** | **0/291** |
 
-Their exported part names read `R_R0402_DISCRETE_10K` and `CC_C0402_0.7PF`. There
-is nothing in them to find.
+Their exported part names read `R_R0402_DISCRETE_10K` and `CC_C0402_0.7PF`,
+with no marker in either.
 
 MCP queries read the flag from the `.DSN` schematic. The retained DAT parser also
 reads the nearby schematic for variant flags when building regression references;
@@ -110,7 +109,7 @@ that internal path is not exposed to MCP clients.
 ## One design, several mechanisms
 
 `LAUNCHXL-CC1310` uses a value marker, `MPN=DNM` and `Manufacturer=DO NOT MOUNT`
-on the part, and a CIS variant, which is what makes it a useful reference. Its
+on the part, and a CIS variant. Its
 CIS-generated BOM writes 25 part references with Quantity 0. Eleven of them carry
 a marker; fourteen do not:
 
@@ -122,13 +121,11 @@ A1      ANTENNA_PCB_ANTENNA_DN024N_...     value "868MHz/..."  -> variant only
 MH1     HOLE_NPL_MTG320_HOLE_3.2MM_NPL     value "HOLE_3.2mm"  -> variant only
 ```
 
-`R13` is the case worth remembering: a zero-ohm resistor whose value is `0`.
-Nothing about it is unusual, and nothing in the exported netlist could ever tell
-you it is not fitted.
+`R13` is a zero-ohm resistor whose value is `0`; the exported netlist carries no
+sign that it is not fitted.
 
-Selecting the `Standard` BOM variant and reading both mechanisms returns exactly
-those 25, with nothing missing and nothing invented, through the schematic parser
-and the retained DAT regression path.
+Selecting the `Standard` BOM variant returns exactly those 25 through the
+schematic parser and through the retained DAT regression path.
 
 ## What this means in practice
 
@@ -139,13 +136,13 @@ in any form, and no tool can recover it from those files. Cadence exports the
 triad into a subdirectory of the schematic's own
 (`<design>/allegro/pstxnet.dat`), which the retained regression helper recognizes.
 
-**A netlist you hand to somebody else carries mechanism A only.** If your
-downstream consumer needs to know what is not fitted, either send the `.DSN` too,
-or use the alternate BOM as the statement of what gets built.
+**An exported netlist carries mechanism A only.** A downstream consumer that
+needs to know what is not fitted needs the `.DSN` as well, or the alternate BOM
+as the statement of what gets built.
 
-**Which mechanism is yours** is worth knowing before you trust a count. If the
-DNI parts in a design are generic R/C/U with ordinary values, it is mechanism B
-or C and the netlist alone has never been able to answer.
+**Identify the mechanism before trusting a count.** If the DNI parts in a design
+are generic R/C/U with ordinary values, it is mechanism B or C, which the
+netlist alone cannot report.
 
 ## Selecting a build
 

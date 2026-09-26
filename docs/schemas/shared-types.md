@@ -430,7 +430,7 @@ So is an unknown name:
 
 ```json
 {
-  "error": "Design variant 'Production' not found for design 'BSPD_002.PrjPcb'. Available: ['BSPD-DNP', '<Default>']."
+  "error": "Design variant 'Production' not found for design 'BSPD_002.PrjPcb'. Available: ['BSPD-DNP']."
 }
 ```
 

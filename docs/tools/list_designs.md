@@ -87,7 +87,7 @@ Returns the directory searched, the designs found in it, and notes about the sea
 }
 ```
 
-`root` is reported on every result because it is the one thing a caller cannot check from the designs alone: an omitted, blank, or misspelled `path` searches the server's working directory and returns real designs from a directory nobody asked about.
+`root` is reported on every result so the caller can confirm which directory was searched: an omitted, blank, or misspelled `path` searches the server's working directory, which is not necessarily the caller's.
 
 ## Example
 

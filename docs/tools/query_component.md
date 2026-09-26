@@ -154,7 +154,7 @@ The same call with `design_variant: "<Default>"` returns the base part (here a 5
 **Error (unknown design variant):**
 ```json
 {
-  "error": "Design variant 'Production' not found for design 'BSPD_002.PrjPcb'. Available: ['BSPD-DNP', '<Default>']."
+  "error": "Design variant 'Production' not found for design 'BSPD_002.PrjPcb'. Available: ['BSPD-DNP']."
 }
 ```
 
