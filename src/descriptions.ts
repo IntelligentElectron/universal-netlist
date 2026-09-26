@@ -40,32 +40,23 @@ Supported formats:
 // =============================================================================
 
 export const LIST_DESIGNS_DESCRIPTION = `\
-List all design projects in the given directory, one path each: a .DSN, a .PrjPcb, a \
-.kicad_pro, or a Universal Netlist .netlist.json. \
-That path is the design, and it is what every other tool takes. \
-Use this tool to discover designs instead of searching the filesystem.
+List the design projects in a directory, one path each: a .DSN, a .PrjPcb, a .kicad_pro, \
+or a Universal Netlist .netlist.json. That path is what every other tool takes; use this \
+tool instead of searching the filesystem.
 
-The result names the directory it searched in \`root\`. \`path\` is optional; omitting it \
-or leaving it blank searches the server's working directory, which is where the server was \
-launched and not necessarily the caller's directory. An argument the schema does not define \
-is dropped before it arrives, so a misspelled \`path\` behaves like an omitted one. Check \
-\`root\` to confirm which directory was searched. A result cut short by \`max_results\` \
-says so in its notes.
+\`path\` is optional. Omitted, blank, or misspelled (unknown arguments are dropped), it \
+searches the server's working directory, so check \`root\` for the directory actually \
+searched. A result cut short by \`max_results\` says so in its notes.
 
-Each design lists its \`design_variants\`, which are its builds: every native variant recorded \
-by Altium, Cadence CIS, or KiCad, with \`fabrication\` where the vendor marks a variant as a \
-build assembly, or \`<Default>\` alone for a design that records no variant, meaning that \
-design with every part's own Do Not Stuff state. A design with named variants has only those \
-to build: it requires \`design_variant\` on every query, and \`<Default>\` is refused on it. \
-Names match case-insensitively and results echo the canonical spelling.
+\`design_variants\` lists each design's builds: its native variants (Altium, Cadence CIS, \
+KiCad; \`fabrication\` where the vendor marks one a build assembly), or \`<Default>\` alone \
+when it records none. A design with variants requires \`design_variant\` on every query, \
+and \`<Default>\` is refused on it.
 
-Cadence: query the .DSN schematic returned by this tool. It is parsed directly and carries \
-component properties, connectivity, and CIS variant stuffing.
-
-KiCad: the path is the .kicad_pro, and its netlist resolves when queried. A committed \
-kicadsexpr export (<project>.net) beside the project is parsed directly with no KiCad \
-install; otherwise kicad-cli generates one (requires KiCad; set KICAD_CLI_PATH for a \
-non-standard location). If neither is available the result carries an \`error\`.`;
+Cadence: query the .DSN; it carries properties, connectivity, and CIS stuffing. KiCad: \
+query the .kicad_pro; a committed <project>.net export is read directly, otherwise \
+kicad-cli generates one (set KICAD_CLI_PATH if needed) and a missing netlist is reported \
+in \`error\`.`;
 
 export const LIST_COMPONENTS_DESCRIPTION = `\
 List components of a specific type in a design. \
