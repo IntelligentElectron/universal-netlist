@@ -234,8 +234,9 @@ export interface DesignInfo {
   name: string;
   path: string;
   /**
-   * `<Default>` first, then every native design variant. A design with more
-   * than the default entry requires `design_variant` on every query.
+   * The builds the design has: every native design variant it records, or
+   * `<Default>` alone when it records none. A design that lists a native
+   * variant requires `design_variant` on every query, as one of those names.
    */
   design_variants: DesignVariantInfo[];
   error?: string;

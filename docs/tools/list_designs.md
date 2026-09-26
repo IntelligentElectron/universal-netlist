@@ -49,7 +49,7 @@ Returns the directory searched, the designs found in it, and notes about the sea
           },
           "design_variants": {
             "type": "array",
-            "description": "<Default> first, then every native design variant the design records",
+            "description": "The builds the design has: every native design variant it records, or <Default> alone when it records none",
             "items": {
               "type": "object",
               "properties": {
@@ -59,7 +59,7 @@ Returns the directory searched, the designs found in it, and notes about the sea
                 },
                 "is_default": {
                   "type": "boolean",
-                  "description": "Present and true on the <Default> entry only"
+                  "description": "Present and true on the <Default> entry only, which appears only when the design records no variant"
                 },
                 "fabrication": {
                   "type": "boolean",
@@ -112,7 +112,6 @@ Response:
       "name": "PowerBoard",
       "path": "PowerBoard/PowerBoard.PrjPcb",
       "design_variants": [
-        { "name": "<Default>", "is_default": true },
         { "name": "Production", "fabrication": true },
         { "name": "EVT-DNP", "fabrication": false }
       ]
@@ -121,7 +120,6 @@ Response:
       "name": "MainBoard",
       "path": "MainBoard/schematic.DSN",
       "design_variants": [
-        { "name": "<Default>", "is_default": true },
         { "name": "Standard", "fabrication": true }
       ]
     },
@@ -136,7 +134,6 @@ Response:
       "name": "SensorHub",
       "path": "SensorHub/SensorHub.kicad_pro",
       "design_variants": [
-        { "name": "<Default>", "is_default": true },
         { "name": "LowPower" }
       ]
     }
@@ -144,7 +141,7 @@ Response:
 }
 ```
 
-`PowerBoard`, `MainBoard`, and `SensorHub` each record named variants, so every query on them takes `design_variant`. `AudioModule` lists `<Default>` alone and needs no selector.
+`PowerBoard`, `MainBoard`, and `SensorHub` each record named variants, which are their only builds, so every query on them takes `design_variant` as one of the listed names and `<Default>` is refused. `AudioModule` records none, lists `<Default>` alone, and needs no selector.
 
 **Error (invalid regex):**
 ```json
