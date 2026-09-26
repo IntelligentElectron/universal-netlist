@@ -1,13 +1,14 @@
 # How Cadence Records Do Not Install
 
-A Cadence design records Do Not Install two different ways, and they do not
-behave alike. One travels with the part into every file the design exports. The
-other is held in the schematic's own database and reaches the BOM alone. A tool
-that reads only the exported netlist sees the first and cannot see the second, no
-matter how carefully it looks, because the second was never written there.
+A Cadence design records Do Not Install three different ways. One travels with
+the part into every file the design exports. The other two stay in the
+schematic: a property on the part reaches the BOM and nothing else, and the CIS
+variant store is the schematic's own database. A tool that reads only the
+exported netlist sees the first and cannot see the other two, because they are
+not written there.
 
-This page describes both, what each leaves on disk, and what that means for a
-design whose netlist is the thing you hand to somebody else. For the byte-level
+This page describes all three, what each leaves on disk, and what that means
+when the exported netlist is what gets shared. For the byte-level
 layout of the streams involved, see
 [section 11 of the DSN format specification](dsn-format.md#11-cis-variant-store).
 
@@ -15,19 +16,22 @@ MCP queries read the `.DSN` schematic directly. DAT examples below explain the
 reference exports that developer coverage scripts and regression tests compare
 against; DAT parsing is dormant in MCP.
 
-## The two mechanisms
+## The three mechanisms
 
-| | A. Marker in the part's value | B. CIS variant |
-|---|---|---|
-| Where the designer sets it | The component's **Value** property, typed as text | **Tools → Variant** / Alternate BOM, as a group |
-| Where it lives on disk | The value string itself | `CIS/VariantStore` inside the `.DSN` |
-| Reaches the `.DSN` | Yes | Yes |
-| Reaches `pstchip` / `pstxprt` / `pstxnet` | **Yes** | **No** |
-| Reaches the CIS BOM | Yes | Yes |
-| Recoverable from the `.dat` triad alone | Yes | **No** |
+| | A. Marker in the part's value | B. Assembly property on the part | C. CIS variant |
+|---|---|---|---|
+| Where the designer sets it | The component's **Value** property, typed as text | A part property the library provides (`ASSY`, `INSTALL`, ...) | **Tools → Variant** / Alternate BOM, as a group |
+| Where it lives on disk | The value string itself | The part's property list in the page stream | `CIS/VariantStore` inside the `.DSN` |
+| Reaches the `.DSN` | Yes | Yes | Yes |
+| Reaches `pstchip` / `pstxprt` / `pstxnet` | **Yes** | **No** | **No** |
+| Reaches the CIS BOM | Yes | As a column, where the BOM template asks for it | Yes |
+| Recoverable from the `.dat` triad alone | Yes | **No** | **No** |
 
-Both are read for the selected assembly, and a component flagged by either reports
-`dns: true`. A design may use one, the other, or both at once.
+All three are read for the selected build, and a component flagged by any of them
+reports `dns: true`. A design may use one, two, or all of them at once. A variant
+that explicitly puts a part on the board overrides that part's own value or
+property: the group is the instruction for the build being read, and the property
+is the base state it overrides.
 
 ## A. A marker in the part's value
 
@@ -48,7 +52,33 @@ Because the value propagates, so does the marker. This is the mechanism the
 The marker is stripped out of the reported value (`"10K,DNI"` reads back as
 `"10K"`), but the flag is set first, so cleaning the value does not lose the fact.
 
-## B. A CIS variant
+## B. An assembly property on the part
+
+Many libraries give every part a property that holds its assembly option, and
+the designer sets it per part. The property's name is the library's choice, and
+the fixtures alone spell it five ways:
+
+```
+reComputer J201     ASSY=DNP          174 parts, ASSY blank on the fitted ones
+BeagleBone Black    ASSY=DNI           37 parts
+CutiePi             ASSY_OPT=DNP       39 parts, beside 22 whose value carries a marker
+OpenCellular SDR    Assembly=DNP      158 parts, Assembly=MOUNT on the fitted ones
+Parallella          BuildOptions=DNI, INSTALL=DNI
+```
+
+The parser reads every property on the part other than its value and flags the
+part when one carries a marker on its own, so the property's name never has to
+be known in advance. Two spellings are deliberately left out here: `NC` alone
+names a normally-closed contact and `NF` alone is nanofarads, and neither takes a
+part off the board when it stands in a property. A property left blank shows as
+its own name in angle brackets (`<DNP>`) and is not a marker either.
+
+Nothing about the property reaches the exported netlist. On the three Jetson
+carrier boards that use it exclusively, every part it marks keeps an ordinary
+part name in `pstxprt.dat` and both of its pins in `pstxnet.dat`, and the DAT
+reference reports all of them fitted. Only the schematic records the property.
+
+## C. A CIS variant
 
 Variants are a database feature. Groups collect occurrence-level stuffed or
 unstuffed states, and each named BOM variant records exactly which groups make up
@@ -64,21 +94,22 @@ that use variants exclusively:
 
 | | reServer J2032 | reServer J401 |
 |---|---|---|
-| Parts the design leaves off the board | 77 | 291 |
+| Parts the design's variant leaves off the board | 77 | 291 |
 | Present in `pstxprt.dat` | 77/77 | 289/291 |
 | Present in `pstxnet.dat` | 77/77 | 289/291 |
 | Carrying any marker in the `.dat` triad | **0/77** | **0/291** |
 
-Their exported part names read `R_R0402_DISCRETE_10K` and `CC_C0402_0.7PF`. There
-is nothing in them to find.
+Their exported part names read `R_R0402_DISCRETE_10K` and `CC_C0402_0.7PF`,
+with no marker in either.
 
 MCP queries read the flag from the `.DSN` schematic. The retained DAT parser also
 reads the nearby schematic for variant flags when building regression references;
 that internal path is not exposed to MCP clients.
 
-## One design, both mechanisms
+## One design, several mechanisms
 
-`LAUNCHXL-CC1310` uses both, which is what makes it a useful reference. Its
+`LAUNCHXL-CC1310` uses a value marker, `MPN=DNM` and `Manufacturer=DO NOT MOUNT`
+on the part, and a CIS variant. Its
 CIS-generated BOM writes 25 part references with Quantity 0. Eleven of them carry
 a marker; fourteen do not:
 
@@ -90,13 +121,11 @@ A1      ANTENNA_PCB_ANTENNA_DN024N_...     value "868MHz/..."  -> variant only
 MH1     HOLE_NPL_MTG320_HOLE_3.2MM_NPL     value "HOLE_3.2mm"  -> variant only
 ```
 
-`R13` is the case worth remembering: a zero-ohm resistor whose value is `0`.
-Nothing about it is unusual, and nothing in the exported netlist could ever tell
-you it is not fitted.
+`R13` is a zero-ohm resistor whose value is `0`; the exported netlist carries no
+sign that it is not fitted.
 
-Selecting the `Standard` BOM variant and reading both mechanisms returns exactly
-those 25, with nothing missing and nothing invented, through the schematic parser
-and the retained DAT regression path.
+Selecting the `Standard` BOM variant returns exactly those 25 through the
+schematic parser and through the retained DAT regression path.
 
 ## What this means in practice
 
@@ -107,31 +136,41 @@ in any form, and no tool can recover it from those files. Cadence exports the
 triad into a subdirectory of the schematic's own
 (`<design>/allegro/pstxnet.dat`), which the retained regression helper recognizes.
 
-**A netlist you hand to somebody else carries mechanism A only.** If your
-downstream consumer needs to know what is not fitted, either send the `.DSN` too,
-or use the alternate BOM as the statement of what gets built.
+**An exported netlist carries mechanism A only.** A downstream consumer that
+needs to know what is not fitted needs the `.DSN` as well, or the alternate BOM
+as the statement of what gets built.
 
-**Which mechanism is yours** is worth knowing before you trust a count. If the
-DNI parts in a design are generic R/C/U with ordinary values, it is mechanism B
-and the netlist alone has never been able to answer.
+**Identify the mechanism before trusting a count.** If the DNI parts in a design
+are generic R/C/U with ordinary values, it is mechanism B or C, which the
+netlist alone cannot report.
 
-## Selecting an assembly
+## Selecting a build
 
-Call `list_designs` first. Each `.DSN` lists its `design_variants`: `<Default>` and
-every native BOM variant found under `CIS/VariantStore/BOM`. Every Cadence BOM
-variant is a build assembly by definition, so each one is listed with
-`fabrication: true`. When native variants exist, every design query requires
-`design_variant`, one explicit selector:
+Call `list_designs` first. Each `.DSN` lists its `design_variants`, which are the
+builds it has:
 
-- `<Default>` (alias `default`) reads the core schematic and only its intrinsic
-  value/property DNS markers.
-- A native variant reads that variant's exact group-membership stream, applies
-  only those groups, and then combines the result with intrinsic markers.
+- A design that declares no CIS variant lists `<Default>` alone. That is its one
+  build: the schematic with every part's own value marker and assembly property
+  honoured. `design_variant` is optional for it, and `<Default>` (alias
+  `default`) names it explicitly.
+- A design that declares CIS variants lists those and nothing else, each with
+  `fabrication: true`, because every Cadence BOM variant is a build assembly by
+  definition. Every query on it requires `design_variant` as one of those names.
+  A native variant reads that variant's exact group-membership stream, applies
+  only those groups, and combines the result with the parts' own markers and
+  properties, the groups winning where they name a part explicitly.
+
+`<Default>` is refused on a design that declares variants. A CIS variant is the
+assembly a BOM is generated for, and nothing in the schematic marks the bare
+design as one, so reading it as a build would describe a board with every
+variant's parts fitted that is never built. The refusal names the variants to
+choose from.
 
 Variant names match case-insensitively but retain their native spelling in
-results, which echo it in a top-level `design_variant` field. An omitted or
-unknown selector is an error; the server never guesses which assembly the caller
-meant.
+results, which echo it in a top-level `design_variant` field. A declared variant
+named `default` takes the plain alias, and the literal `<Default>` always names
+the base build. An omitted or unknown selector is an error; the server never
+guesses which assembly the caller meant.
 
 The DSN variant store carries group stuffing only. The `BOMPartData` stream beside
 each variant is a list of occurrence ids and carries no part substitutions, and

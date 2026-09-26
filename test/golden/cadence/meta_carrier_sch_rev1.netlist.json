@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-21T21:53:16.381Z",
-    "netlistHash": "sha256:1c7c7a8ea46b8b740e031e6adde6960fad927fc8100d4dccdda89c49c8b6cc09",
+    "generatedAt": "2026-09-25T15:37:38.456Z",
+    "netlistHash": "sha256:d825eb35f4058c1d8985ebe41bf383c94054a4267be3c1caccccc0880767ece5",
     "origin": {
       "type": "vendor",
       "source": {
@@ -12403,7 +12403,8 @@
           "name": "TP",
           "net": "MVSS"
         }
-      }
+      },
+      "dns": true
     },
     "J2": {
       "value": "BTH120",
@@ -12844,7 +12845,8 @@
           "name": "TP",
           "net": "MVDD"
         }
-      }
+      },
+      "dns": true
     },
     "R138": {
       "value": "0",
@@ -14015,7 +14017,8 @@
           "name": "TP",
           "net": "2P5V"
         }
-      }
+      },
+      "dns": true
     },
     "R125": {
       "value": "0",
@@ -14038,7 +14041,8 @@
           "name": "TP",
           "net": "N9567341"
         }
-      }
+      },
+      "dns": true
     },
     "R1": {
       "value": "0",
@@ -14068,7 +14072,8 @@
           "name": "TP",
           "net": "5P0V"
         }
-      }
+      },
+      "dns": true
     },
     "TP11": {
       "value": "J001-1T01",
@@ -14077,7 +14082,8 @@
           "name": "TP",
           "net": "N9567837"
         }
-      }
+      },
+      "dns": true
     },
     "TP5": {
       "value": "J001-1T01",
@@ -14086,7 +14092,8 @@
           "name": "TP",
           "net": "3P3V"
         }
-      }
+      },
+      "dns": true
     },
     "U11": {
       "value": "BSS138",
@@ -14146,7 +14153,8 @@
           "name": "TP",
           "net": "1P8V"
         }
-      }
+      },
+      "dns": true
     },
     "R105": {
       "value": "10.2K",
@@ -14181,7 +14189,8 @@
       "pins": {
         "1": "3P3V",
         "2": "EEPROM_SEL"
-      }
+      },
+      "dns": true
     },
     "R8": {
       "value": "10K",
@@ -14195,7 +14204,8 @@
       "pins": {
         "1": "GND",
         "2": "FAN"
-      }
+      },
+      "dns": true
     },
     "R84": {
       "value": "10.2K",
@@ -14274,7 +14284,8 @@
           "name": "TP",
           "net": "N9567588"
         }
-      }
+      },
+      "dns": true
     },
     "TP12": {
       "value": "J001-1T01",
@@ -14283,7 +14294,8 @@
           "name": "TP",
           "net": "N9566934"
         }
-      }
+      },
+      "dns": true
     },
     "R119": {
       "value": "0",
@@ -18574,7 +18586,8 @@
           "name": "TP",
           "net": "Q1_VDD"
         }
-      }
+      },
+      "dns": true
     },
     "C71": {
       "value": "22 uF",
@@ -18896,7 +18909,8 @@
           "name": "TP",
           "net": "Q1_VDDIO"
         }
-      }
+      },
+      "dns": true
     },
     "C107": {
       "value": "4700pF",
@@ -19177,7 +19191,8 @@
           "name": "TP",
           "net": "Q2_VDD"
         }
-      }
+      },
+      "dns": true
     },
     "C183": {
       "value": "22 uF",
@@ -19499,7 +19514,8 @@
           "name": "TP",
           "net": "Q2_VDDIO"
         }
-      }
+      },
+      "dns": true
     },
     "C163": {
       "value": "4700pF",
@@ -19780,7 +19796,8 @@
           "name": "TP",
           "net": "Q0_VDD"
         }
-      }
+      },
+      "dns": true
     },
     "C180": {
       "value": "22 uF",
@@ -20102,7 +20119,8 @@
           "name": "TP",
           "net": "Q0_VDDIO"
         }
-      }
+      },
+      "dns": true
     },
     "C160": {
       "value": "4700pF",
@@ -20383,7 +20401,8 @@
           "name": "TP",
           "net": "Q3_VDD"
         }
-      }
+      },
+      "dns": true
     },
     "C78": {
       "value": "22 uF",
@@ -20705,7 +20724,8 @@
           "name": "TP",
           "net": "Q3_VDDIO"
         }
-      }
+      },
+      "dns": true
     },
     "C110": {
       "value": "4700pF",

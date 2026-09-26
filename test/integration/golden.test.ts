@@ -251,18 +251,22 @@ describe("DSN Parser Coverage vs DAT Golden", { timeout: PARSE_TIMEOUT }, async 
       });
 
       /**
-       * Do Not Stuff reaches a design by two roads that meet nowhere else: a
-       * marker written into a part's value, and the CIS variant store in the
-       * schematic. The DAT export carries the first and not the second, a `.DSN`
-       * read on its own carries the second and, until the marker was read out of
-       * the value it was being cleaned from, not the first. Whichever path a
-       * query takes, it is the same board, so the answer has to be the same:
-       * the two disagreed on 65 parts across three designs before this ran.
+       * Do Not Stuff reaches a design by three roads. A marker written into a
+       * part's value travels with the part into the DAT export. A part's
+       * assembly property (`ASSY=DNP`) and the CIS variant store stay behind in
+       * the schematic: the export writes neither, so a part unstuffed either way
+       * keeps an ordinary part name and both of its pins there. The `.DSN` reads
+       * all three, so it knows everything the export knows and more. Every part
+       * the export marks must come back marked from the schematic: the two
+       * disagreed on 65 such parts across three designs before this ran. A part
+       * the schematic marks and the export does not is the schematic knowing
+       * what the export could not carry, and is counted rather than failed.
        */
-      it.runIf(isOracle)("should mark the same components Do Not Stuff as the DAT export", () => {
+      it.runIf(isOracle)("should mark every component the DAT export marks Do Not Stuff", () => {
         const dsn = parseOnce(designFile);
-        const disagreements: string[] = [];
+        const missed: string[] = [];
         let compared = 0;
+        let schematicOnly = 0;
 
         for (const [refdes, goldenComp] of Object.entries(golden.components)) {
           const dsnComp = dsn.components[refdes];
@@ -270,13 +274,14 @@ describe("DSN Parser Coverage vs DAT Golden", { timeout: PARSE_TIMEOUT }, async 
           compared++;
           const fromDat = goldenComp.dns === true;
           const fromDsn = dsnComp.dns === true;
-          if (fromDat !== fromDsn && disagreements.length < 8) {
-            disagreements.push(`${refdes}: dat=${fromDat} dsn=${fromDsn}`);
-          }
+          if (fromDat && !fromDsn && missed.length < 8) missed.push(refdes);
+          if (fromDsn && !fromDat) schematicOnly++;
         }
 
-        console.log(`[${projectName}] DNS: compared=${compared} disagreed=${disagreements.length}`);
-        expect(disagreements).toEqual([]);
+        console.log(
+          `[${projectName}] DNS: compared=${compared} missed=${missed.length} schematic-only=${schematicOnly}`
+        );
+        expect(missed).toEqual([]);
       });
 
       it("should have >50% net coverage", () => {

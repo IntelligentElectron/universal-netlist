@@ -113,7 +113,10 @@ export interface DesignVariantInfo extends DesignVariant {
 
 /** Options that select which assembly configuration a parser resolves. */
 export interface ParseDesignOptions {
-  /** Native variant name, or `<Default>` for the unmodified/core design. */
+  /**
+   * A declared variant's name, or the literal `<Default>` for the base build.
+   * The plain alias `default` is resolved by the service before it gets here.
+   */
   variant?: string;
 }
 
@@ -231,8 +234,9 @@ export interface DesignInfo {
   name: string;
   path: string;
   /**
-   * `<Default>` first, then every native design variant. A design with more
-   * than the default entry requires `design_variant` on every query.
+   * The builds the design has: every native design variant it records, or
+   * `<Default>` alone when it records none. A design that lists a native
+   * variant requires `design_variant` on every query, as one of those names.
    */
   design_variants: DesignVariantInfo[];
   error?: string;

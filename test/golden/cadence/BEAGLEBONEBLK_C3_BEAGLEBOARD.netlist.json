@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 2,
   "metadata": {
-    "generatedAt": "2026-09-03T01:02:24.304Z",
-    "netlistHash": "sha256:a20afaec7de64ad5814b4532fdfeca2511771d093e8415a7357e535e242b423e",
+    "generatedAt": "2026-09-25T15:37:32.572Z",
+    "netlistHash": "sha256:bb56989ee2a8a3cc6e47edec213b4f152ecd8a01b7e51093abe53c0cca332cbb",
     "origin": {
       "type": "vendor",
       "source": {
@@ -6482,7 +6482,8 @@
           "name": "TP",
           "net": "VDD_MPUON"
         }
-      }
+      },
+      "dns": true
     },
     "C82": {
       "value": "100nF,16V",
@@ -7246,7 +7247,8 @@
           "name": "TP",
           "net": "TESTOUT"
         }
-      }
+      },
+      "dns": true
     },
     "C69": {
       "value": "100nF,16V",
@@ -8242,7 +8244,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "dns": true
     },
     "R55": {
       "value": "100K,1%",
@@ -8252,7 +8255,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "dns": true
     },
     "R72": {
       "value": "2.2K,5%",
@@ -8328,7 +8332,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "dns": true
     },
     "R95": {
       "value": "100K,1%",
@@ -8348,7 +8353,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "dns": true
     },
     "R58": {
       "value": "100K,1%",
@@ -8358,7 +8364,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "dns": true
     },
     "R82": {
       "value": "100K,1%",
@@ -8388,7 +8395,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "dns": true
     },
     "R62": {
       "value": "100K,1%",
@@ -8398,7 +8406,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "dns": true
     },
     "R80": {
       "value": "100K,1%",
@@ -8451,7 +8460,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "dns": true
     },
     "R70": {
       "value": "100K,1%",
@@ -8461,7 +8471,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "dns": true
     },
     "Q2": {
       "value": "DDC114YU-7-F",
@@ -8494,7 +8505,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "dns": true
     },
     "R67": {
       "value": "100K,1%",
@@ -8540,7 +8552,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "dns": true
     },
     "R74": {
       "value": "2.2K,5%",
@@ -8594,7 +8607,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "dns": true
     },
     "R71": {
       "value": "2.2K,5%",
@@ -8614,7 +8628,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "dns": true
     },
     "R76": {
       "value": "100K,1%",
@@ -8664,7 +8679,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "dns": true
     },
     "R75": {
       "value": "100R,1%",
@@ -8694,7 +8710,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "dns": true
     },
     "R69": {
       "value": "100K,1%",
@@ -8704,7 +8721,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "dns": true
     },
     "D3": {
       "value": "19-217/BHC-ZL1M2RY/3T",
@@ -9402,7 +9420,8 @@
       },
       "mpn": "CC0402JRNPO9BN100",
       "internal_pn": "302010001",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "dns": true
     },
     "R151": {
       "value": "10K,1%",
@@ -9802,7 +9821,8 @@
           "name": "TP",
           "net": "WP"
         }
-      }
+      },
+      "dns": true
     },
     "P9": {
       "value": "Female Header 2x23Pin 2.54MM",
@@ -10070,7 +10090,8 @@
           "name": "TP",
           "net": "N22488252"
         }
-      }
+      },
+      "dns": true
     },
     "R46": {
       "value": "0R,5%",
@@ -10678,7 +10699,8 @@
       },
       "mpn": "RC0402FR-0710RL",
       "internal_pn": "301010444",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "dns": true
     },
     "R139": {
       "value": "100R,1%",
@@ -10892,7 +10914,8 @@
       },
       "mpn": "RC0402JR-070RL",
       "internal_pn": "301010000",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "dns": true
     },
     "C143": {
       "value": "33pF,50V",
@@ -11102,7 +11125,8 @@
       },
       "mpn": "RC0402FR-071ML",
       "internal_pn": "301010043",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "dns": true
     },
     "R41": {
       "value": "33R,5%",
@@ -11604,7 +11628,8 @@
           "name": "TP",
           "net": "GND_EARTH"
         }
-      }
+      },
+      "dns": true
     },
     "C4": {
       "value": "10uF,16V",
@@ -11623,7 +11648,8 @@
           "name": "TP",
           "net": "DGND"
         }
-      }
+      },
+      "dns": true
     },
     "C18": {
       "value": "2.2uF,10V",
@@ -11828,7 +11854,8 @@
           "name": "TP",
           "net": "N22420447"
         }
-      }
+      },
+      "dns": true
     },
     "C2": {
       "value": "10uF,16V",
@@ -11857,7 +11884,8 @@
           "name": "TP",
           "net": "N22420400"
         }
-      }
+      },
+      "dns": true
     },
     "MTG3": {
       "value": "MHOLE",
@@ -11866,7 +11894,8 @@
           "name": "TP",
           "net": "GND_EARTH"
         }
-      }
+      },
+      "dns": true
     },
     "C20": {
       "value": "100nF,16V",
@@ -11905,7 +11934,8 @@
           "name": "TP",
           "net": "N22420444"
         }
-      }
+      },
+      "dns": true
     },
     "R12": {
       "value": "470R,5%",
@@ -11924,7 +11954,8 @@
           "name": "TP",
           "net": "DGND"
         }
-      }
+      },
+      "dns": true
     },
     "C3": {
       "value": "100nF,16V",
@@ -11943,7 +11974,8 @@
           "name": "TP",
           "net": "GND_EARTH"
         }
-      }
+      },
+      "dns": true
     },
     "C8": {
       "value": "10uF,16V",
@@ -11983,7 +12015,8 @@
       },
       "mpn": "RC0402JR-070RL",
       "internal_pn": "301010000",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "dns": true
     },
     "C16": {
       "value": "2.2uF,10V",
@@ -12012,7 +12045,8 @@
           "name": "TP",
           "net": "GND_EARTH"
         }
-      }
+      },
+      "dns": true
     },
     "C14": {
       "value": "10uF,16V",
@@ -12072,7 +12106,8 @@
       },
       "mpn": "CC0402KRX5R6BB225",
       "internal_pn": "302012819",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "dns": true
     },
     "R29": {
       "value": "0R,5%",
@@ -12167,7 +12202,8 @@
           "name": "GND5",
           "net": "DGND"
         }
-      }
+      },
+      "dns": true
     },
     "R170": {
       "value": "33R,5%",
@@ -12375,7 +12411,8 @@
       },
       "mpn": "CC0402JRNPO9BN100",
       "internal_pn": "302010001",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "dns": true
     },
     "R171": {
       "value": "33R,5%",

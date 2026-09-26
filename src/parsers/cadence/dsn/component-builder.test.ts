@@ -44,7 +44,7 @@ const resolve = (
   refdes: string,
   properties: Array<[string, string]>,
   sourcePackage = "RES_0402"
-): { mpn?: string; internal_pn?: string; manufacturer?: string } => {
+): { mpn?: string; internal_pn?: string; manufacturer?: string; dns?: boolean } => {
   const { strLst, pairs } = makeStrLst(properties);
   const instance: PlacedInstance = {
     pkgName: `${sourcePackage}.Normal`,
@@ -79,7 +79,12 @@ const resolve = (
     new Map()
   );
   const built = components[refdes];
-  return { mpn: built.mpn, internal_pn: built.internal_pn, manufacturer: built.manufacturer };
+  return {
+    mpn: built.mpn,
+    internal_pn: built.internal_pn,
+    manufacturer: built.manufacturer,
+    dns: built.dns,
+  };
 };
 
 describe("part number resolution", () => {
@@ -198,5 +203,48 @@ describe("part number resolution", () => {
       internal_pn: undefined,
       manufacturer: "Example Mfr",
     });
+  });
+});
+
+/**
+ * Do Not Stuff read from a part's properties.
+ *
+ * A library keeps a part's assembly option under a name of its own choosing,
+ * and the value alone is not where every design writes it. Before this was
+ * read, a board whose every unstuffed part said `ASSY=DNP` reported all of
+ * them fitted.
+ */
+describe("Do Not Stuff from properties", () => {
+  it("reads an assembly option whatever the library calls the property", () => {
+    expect(resolve("C1", [["ASSY", "DNP"]]).dns).toBe(true);
+    expect(resolve("C2", [["ASSY_OPT", "DNP"]]).dns).toBe(true);
+    expect(resolve("C3", [["Assembly", "DNP"]]).dns).toBe(true);
+    expect(resolve("R1", [["INSTALL", "DNI"]]).dns).toBe(true);
+    expect(resolve("R2", [["BuildOptions", "DNI"]]).dns).toBe(true);
+    expect(resolve("TP1", [["ASSY", "dni"]]).dns).toBe(true);
+  });
+
+  it("reads a part number, manufacturer or description that spells it out", () => {
+    expect(resolve("R1", [["MPN", "DNM"]]).dns).toBe(true);
+    expect(resolve("R2", [["Manufacturer", "DO NOT MOUNT"]]).dns).toBe(true);
+    expect(resolve("R3", [["Description", "RESISTOR, DO NOT MOUNT, 0603, SMD"]]).dns).toBe(true);
+    expect(resolve("C4", [["MPN", "CAPACITOR_0402_DNM_N/A_M"]]).dns).toBe(true);
+  });
+
+  it("leaves a fitted part alone", () => {
+    // The blank and the affirmative spellings the fixtures write on fitted parts.
+    expect(resolve("C1", [["ASSY", ""]]).dns).toBeUndefined();
+    expect(resolve("C2", [["Assembly", "MOUNT"]]).dns).toBeUndefined();
+    expect(resolve("C3", [["No_Mount", "-"]]).dns).toBeUndefined();
+    // A property left blank shows as its own name in angle brackets.
+    expect(resolve("R4", [["DNP", "<DNP>"]]).dns).toBeUndefined();
+    // `NC` is a contact state and `nF` a unit; neither unstuffs a part on its own.
+    expect(resolve("S5", [["Description", "SWITCH, SPST, NC"]]).dns).toBeUndefined();
+    expect(resolve("C6", [["Capacitance", "2.2 nF"]]).dns).toBeUndefined();
+    // A build-option expression names DNI as a condition, not as the part's state.
+    expect(
+      resolve("R7", [["BuildOptions", "UREG-0064=NumDSP(1)&Mfg(A);DNI=NumDSP(2,4)"]]).dns
+    ).toBeUndefined();
+    expect(resolve("R8", [["Manufacturer", "Example Mfr"]]).dns).toBeUndefined();
   });
 });

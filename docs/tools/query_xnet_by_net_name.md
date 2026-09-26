@@ -14,7 +14,7 @@ Traces circuit connectivity starting from a net name, traversing through series 
 | `net_name` | string | Yes | - | Exact net name to start from |
 | `skip_types` | string[] | No | `[]` | Component prefixes to exclude (e.g., `["C", "L"]`) |
 | `include_dns` | boolean | No | `false` | Include DNS components in the traversal; by default a DNS part is treated as absent from the board |
-| `design_variant` | string | Conditional | - | Design variant name from `list_designs`' `design_variants`, or `<Default>` (alias: `default`) for the unmodified/core design. Required when the design records named variants |
+| `design_variant` | string | Conditional | - | Design variant name from `list_designs`' `design_variants`. Required when the design records named variants, which are its only builds. `<Default>` (alias: `default`) is the one build of a design that records none |
 
 ## Response Schema
 
@@ -152,7 +152,7 @@ Skipped components appear in the `skipped` field with counts.
 - Components are aggregated by MPN for compact output
 - 2-pin components with different orientations are tracked separately
 - DNS components are treated as absent from the board by default; pass `include_dns: true` to traverse through them, flagged `dns: true`
-- `design_variant` names the assembly the result describes. A design that records named variants requires it on every call; `<Default>` (alias `default`) selects the unmodified/core design
+- `design_variant` names the assembly the result describes. A design that records named variants requires it on every call; those variants are its only builds and `<Default>` is refused on it. `<Default>` (alias `default`) is the one build of a design that records no variant, the design with every part's own Do Not Stuff state
 - A component group the selected design variant substitutes for the base part carries `alternate_part: true`, and its part fields describe the part as built for that variant
 
 ## See Also

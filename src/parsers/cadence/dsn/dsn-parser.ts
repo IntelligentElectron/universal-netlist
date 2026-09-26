@@ -17,7 +17,7 @@ import { parseLibraryStrLst } from "./library-parser.js";
 import { buildDeviceIndexMap } from "./pin-resolver.js";
 import { buildNetConnectivity } from "./net-builder.js";
 import { buildComponents } from "./component-builder.js";
-import { readVariantDns } from "./variant-store.js";
+import { readVariantStuffing, type VariantStuffing } from "./variant-store.js";
 
 /** Parse a .DSN file into a ParsedNetlist. */
 export function parseDsnFile(dsnPath: string, options?: ParseDesignOptions): ParsedNetlist {
@@ -173,16 +173,33 @@ export function parseDsnFile(dsnPath: string, options?: ParseDesignOptions): Par
     deviceIndexMap
   );
 
-  // A design's variants carry their own Do Not Stuff set, which the values the
+  // A design's variants carry their own stuffing, which the properties the
   // components were built from say nothing about.
-  applyVariantDns(components, readVariantDns(ole, entries, occurrenceRefdes, options?.variant));
+  applyVariantStuffing(
+    components,
+    readVariantStuffing(ole, entries, occurrenceRefdes, options?.variant)
+  );
 
   return { nets, components };
 }
 
-/** Mark the components a variant leaves off the board. */
-function applyVariantDns(components: ComponentDetails, dnsRefdes: Set<string>): void {
-  for (const refdes of dnsRefdes) {
+/**
+ * Apply a variant's stuffing to the components' own Do Not Stuff state.
+ *
+ * A part the variant's groups explicitly put on the board is fitted even where
+ * one of its properties says otherwise: the group is the instruction for this
+ * build, and the property is the base state it overrides. A part the groups
+ * leave off the board is off it whatever its properties say.
+ */
+export function applyVariantStuffing(
+  components: ComponentDetails,
+  stuffing: VariantStuffing
+): void {
+  for (const refdes of stuffing.stuffed) {
+    const component = components[refdes];
+    if (component) delete component.dns;
+  }
+  for (const refdes of stuffing.unstuffed) {
     const component = components[refdes];
     if (component) component.dns = true;
   }

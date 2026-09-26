@@ -4,10 +4,10 @@ import { resolvePath } from "../paths.js";
 import type { ParsedNetlist, ErrorResult } from "../types.js";
 import {
   DEFAULT_VARIANT,
+  describeDefaultVariantRefusal,
   describeVariantChoices,
-  findVariant,
-  isDefaultVariant,
   quoteVariantNames,
+  resolveVariantSelector,
 } from "../parsers/variants.js";
 
 /**
@@ -39,8 +39,11 @@ export interface LoadedNetlist extends ParsedNetlist {
  * Load netlist from a design file path.
  * Delegates to the appropriate handler based on file extension.
  *
- * A design that records native variants is refused without an explicit
- * `design_variant`, so a caller can never mistake one assembly for another.
+ * Every result describes one build of the design. A design that declares
+ * variants has only those to build, so it is refused without an explicit
+ * `design_variant` naming one of them, and `<Default>` is refused on it too.
+ * A design that declares none has its base build, and `design_variant` is
+ * optional for it.
  */
 export const loadNetlist = async (
   designPath: string,
@@ -63,30 +66,33 @@ export const loadNetlist = async (
       return {
         error:
           `Design '${designName}' defines design variants ${quoteVariantNames(variants)}. ` +
-          `Pass design_variant='${DEFAULT_VARIANT}' (alias 'default') for the unmodified/core design, ` +
-          `or one of those names. list_designs() reports them under design_variants.`,
+          `Pass design_variant as one of those names; they are the only builds it records. ` +
+          `list_designs() reports them under design_variants.`,
       };
     }
 
-    // Passing the default explicitly matters for formats such as Cadence, whose
-    // low-level parser retains a legacy "union of groups" mode for developer
-    // coverage. Public queries must always describe one assembly.
-    let selectedVariant = DEFAULT_VARIANT;
-    if (requested && !isDefaultVariant(requested)) {
-      const selected = findVariant(variants, requested);
-      if (!selected) {
-        return {
-          error:
-            `Design variant '${requested}' not found for design '${designName}'. ` +
-            `Available: ${describeVariantChoices(variants)}.`,
-        };
-      }
-      selectedVariant = selected.name;
+    // The parser is handed a canonical selector: a declared name in its own
+    // spelling, or the literal `<Default>`. Passing that explicitly matters for
+    // Cadence, whose parser keeps a "union of groups" mode for developer
+    // coverage when given no selector at all; public queries always describe
+    // one build.
+    const selection = requested
+      ? resolveVariantSelector(variants, requested)
+      : { selected: DEFAULT_VARIANT };
+    if (!selection) {
+      return {
+        error:
+          `Design variant '${requested}' not found for design '${designName}'. ` +
+          `Available: ${describeVariantChoices(variants)}.`,
+      };
+    }
+    if (selection.selected === DEFAULT_VARIANT && variants.length > 0) {
+      return { error: describeDefaultVariantRefusal(variants, designName) };
     }
 
-    const parsed = await parseDesign(normalizedPath, { variant: selectedVariant });
+    const parsed = await parseDesign(normalizedPath, { variant: selection.selected });
     normalizeUnconnectedPins(parsed);
-    return { design_variant: selectedVariant, nets: parsed.nets, components: parsed.components };
+    return { design_variant: selection.selected, nets: parsed.nets, components: parsed.components };
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error occurred";
     return { error: message };

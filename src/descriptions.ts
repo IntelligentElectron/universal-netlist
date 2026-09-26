@@ -27,9 +27,9 @@ Supported formats:
 
 ## Conventions
 
-- Read designs only through these tools. Never run the \`universal-netlist\` binary from a shell: it is this server, and its commands are for the people who install it
+- Read designs only through these tools. Never run the \`universal-netlist\` binary from a shell: it is this server, and its subcommands install and update it rather than answer queries
 - Design paths are relative to the working directory; absolute paths are also accepted
-- A design with named design variants requires \`design_variant\` on every query; use \`<Default>\` (alias \`default\`) for its unmodified/core design. Every result echoes the \`design_variant\` it describes
+- Every result describes one build of a design. A design with named design variants requires \`design_variant\` on every query, one of the names \`list_designs\` lists for it: those variants are its only builds, and \`<Default>\` is refused on it. A design with no variants has one build, \`<Default>\` (alias \`default\`), the design with every part's own Do Not Stuff state. Every result echoes the \`design_variant\` it describes
 - DNS (Do Not Stuff) components are flagged \`dns: true\`. Listing and search tools include them by default; traversal and ERC leave them out unless \`include_dns=true\`
 - A part the selected variant substitutes for the base part is flagged \`alternate_part: true\`
 - A result carrying an \`error\` field failed, and the message names the tool that finds the value you wanted
@@ -40,34 +40,23 @@ Supported formats:
 // =============================================================================
 
 export const LIST_DESIGNS_DESCRIPTION = `\
-List all design projects in the given directory, one path each: a .DSN, a .PrjPcb, a \
-.kicad_pro, or a Universal Netlist .netlist.json. \
-That path is the design, and it is what every other tool takes. \
-Always use this tool to discover designs instead of searching the filesystem manually.
+List the design projects in a directory, one path each: a .DSN, a .PrjPcb, a .kicad_pro, \
+or a Universal Netlist .netlist.json. That path is what every other tool takes; use this \
+tool instead of searching the filesystem.
 
-The result names the directory it searched in \`root\`, and reading it is worth the \
-glance: \`path\` is optional, and omitting it or leaving it blank searches the server's \
-working directory, which is where the server was launched and not necessarily where you \
-are. An argument the schema does not define is dropped before it arrives, so a \
-misspelled \`path\` behaves exactly like an omitted one. Each of those returns a list of \
-real designs from a directory nobody asked about, and \`root\` is what tells it apart \
-from a correct answer. A result cut short by \`max_results\` says so in its notes.
+\`path\` is optional. Omitted, blank, or misspelled (unknown arguments are dropped), it \
+searches the server's working directory, so check \`root\` for the directory actually \
+searched. A result cut short by \`max_results\` says so in its notes.
 
-Each design lists its \`design_variants\`: \`<Default>\` (the unmodified/core design) first, \
-then every native variant recorded by Altium, Cadence CIS, or KiCad, with \`fabrication\` \
-where the vendor marks a variant as a build assembly. A design with named variants requires \
-\`design_variant\` on every query; omitting it is refused because no single fitted/not-fitted \
-answer represents several assemblies. Names match case-insensitively and results echo the \
-canonical spelling.
+\`design_variants\` lists each design's builds: its native variants (Altium, Cadence CIS, \
+KiCad; \`fabrication\` where the vendor marks one a build assembly), or \`<Default>\` alone \
+when it records none. A design with variants requires \`design_variant\` on every query, \
+and \`<Default>\` is refused on it.
 
-Cadence: use the .DSN schematic returned by this tool. It is parsed directly and carries \
-component properties, connectivity, and CIS variant stuffing information.
-
-KiCad: the path is the .kicad_pro, and its netlist resolves automatically when queried, so \
-nothing needs exporting by hand. A committed kicadsexpr export (<project>.net) beside the \
-project is parsed directly, needing no KiCad install; otherwise kicad-cli generates one on \
-demand (requires KiCad installed; set KICAD_CLI_PATH for a non-standard location). If \
-neither is available the result carries an \`error\` saying so.`;
+Cadence: query the .DSN; it carries properties, connectivity, and CIS stuffing. KiCad: \
+query the .kicad_pro; a committed <project>.net export is read directly, otherwise \
+kicad-cli generates one (set KICAD_CLI_PATH if needed) and a missing netlist is reported \
+in \`error\`.`;
 
 export const LIST_COMPONENTS_DESCRIPTION = `\
 List components of a specific type in a design. \
@@ -124,9 +113,8 @@ than the one net; \`circuit_hash\` identifies unique topologies. Traversal stops
 power and ground nets, recognised by name (VCC*, VDD*, 3V3, GND*, VSS*, ...) or by \
 carrying more than 40 pins. A rail named outside that, such as VDIO_LMS, is traversed \
 like a signal, so a query that pulls up to one returns its whole pull-up network; \
-\`visited_nets\` names every net the result crossed, which is where to look when a \
-result is broader than expected. \`skip_types\` leaves series passives out, and \
-\`skip_types=['C','L','R']\` is the cheapest way to cut such a result down. \
+\`visited_nets\` names every net the result crossed. \`skip_types\` leaves series \
+passives out; \`skip_types=['C','L','R']\` removes all three from the result. \
 Rejects ground nets (GND, AGND, DGND, etc.) with an error. \
 If the net is not found, \`search_nets\` finds the name.`;
 
@@ -137,7 +125,7 @@ electrical node; \`circuit_hash\` identifies unique topologies. Traversal stops 
 and ground nets, recognised by name (VCC*, VDD*, 3V3, GND*, VSS*, ...) or by carrying \
 more than 40 pins; a rail named outside that is traversed like a signal, and \
 \`visited_nets\` names every net the result crossed. \`skip_types\` leaves series \
-passives out, such as \`skip_types=['C','L','R']\` to cut a broad result down. \
+passives out, for example \`skip_types=['C','L','R']\`. \
 A pin on no net reads as the net \`NC\` and returns an empty result. \
 Rejects pins connected to ground nets (GND, AGND, DGND, etc.) with an error.`;
 
@@ -146,8 +134,7 @@ Get full component details including all pin connections. \
 Refdes lookup is case-insensitive. \
 Returns MPN, description, value, and pin-to-net mappings when available. \
 Each pin maps to its net name, or to {name, net} where the pin has a function name that \
-differs from its number. A pin on no net reads as the net "NC", which is a marker rather \
-than a net you can look up. \
+differs from its number. A pin on no net reads as the net "NC", a marker and not a queryable net. \
 If the refdes is not found, \`search_components_by_refdes\` finds it; \
 errors include guidance and suggestions.`;
 

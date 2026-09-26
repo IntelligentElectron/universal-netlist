@@ -34,14 +34,24 @@ describe("classifyToolError", () => {
     ],
     ["Protected OrCAD design has no encrypted Library stream", "invalid_argument"],
     [
-      "Design 'A.DSN' defines design variants ['Standard']. Pass design_variant='<Default>' (alias 'default') for the unmodified/core design, or one of those names. list_designs() reports them under design_variants.",
+      "Design 'A.DSN' defines design variants ['Standard']. Pass design_variant as one of those names; they are the only builds it records. list_designs() reports them under design_variants.",
       "invalid_argument",
     ],
     [
-      "Design variant 'Nope' not found for design 'A.DSN'. Available: ['Standard', '<Default>'].",
+      "'<Default>' is not a build of design 'A.PrjPcb': its variants ['Production'] are the assemblies it records, and nothing in the design marks the bare schematic as one. Pass design_variant as one of those names.",
+      "invalid_argument",
+    ],
+    [
+      "'<Default>' is not a build of this design: its variants ['Standard'] are the assemblies it records, and nothing in the design marks the bare schematic as one. Select one of those names.",
+      "invalid_argument",
+    ],
+    [
+      "Design variant 'Nope' not found for design 'A.kicad_pro'. Available: ['<Default>'].",
       "not_found",
     ],
+    ["Design variant 'Nope' not found for design 'A.DSN'. Available: ['Standard'].", "not_found"],
     ["Design variant 'Nope' not found. Available: ['Standard']", "not_found"],
+    ["Variant 'Nope' not found. Available variants: ['Standard']", "not_found"],
     ["Missing required parameter: type", "invalid_argument"],
     ["MCP error -32602: Tool list_variants not found", "not_found"],
     [

@@ -8,7 +8,7 @@ import { isErrorResult, type QueryComponentResult, type ErrorResult } from "../.
  *
  * @param design - Path to design file
  * @param refdes - Component reference designator
- * @param designVariant - Native design variant, or `<Default>` for the core design
+ * @param designVariant - Native design variant, or `<Default>` for the base build
  */
 export const queryComponent = async (
   design: string,

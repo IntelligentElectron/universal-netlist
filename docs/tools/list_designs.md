@@ -6,9 +6,9 @@ List all design projects in a directory.
 
 Discovers Cadence, Altium, KiCad, and Universal Netlist design files by scanning the specified directory recursively. Returns the best available path for each design. Use this tool first to find available projects before querying them.
 
-Each design lists its `design_variants`: `<Default>` (the unmodified/core design) first, then every native variant the design records. Altium names come from the `ProjectVariantN` sections of the `.PrjPcb`, Cadence names from the CIS BOM variant store in the `.DSN`, and KiCad names from the instance variant blocks across the schematic hierarchy. A native entry carries `fabrication` where the vendor marks the variant as a build assembly: Altium records it per variant as `AllowFabrication`, and every Cadence CIS BOM variant is one by definition. KiCad has no such flag, so its entries omit it. Listing reads the design's own file without parsing connectivity; a design whose variants cannot be read reports `<Default>` alone and carries the reason in `error`.
+Each design lists its `design_variants`, which are its builds: every native variant the design records, or `<Default>` alone for a design that records none, which is that design with every part's own Do Not Stuff state. A design that records variants has only those to build: no vendor's file marks the bare design as an assembly, and across the designs read for this the variants carry the parts left off the board while the bare design has everything fitted. Altium names come from the `ProjectVariantN` sections of the `.PrjPcb`, Cadence names from the CIS BOM variant store in the `.DSN`, and KiCad names from the instance variant blocks across the schematic hierarchy. A native entry carries `fabrication` where the vendor marks the variant as a build assembly: Altium records it per variant as `AllowFabrication`, and every Cadence CIS BOM variant is one by definition. KiCad has no such flag, so its entries omit it. Listing reads the design's own file without parsing connectivity; a design whose variants cannot be read reports `<Default>` alone and carries the reason in `error`.
 
-A design with named variants requires `design_variant` on every query. Pass one of the listed names, or `<Default>` (alias `default`) for the core design. Names match case-insensitively, and results echo the canonical spelling.
+A design with named variants requires `design_variant` on every query, one of the listed names; `<Default>` (alias `default`) is refused on it. Names match case-insensitively, and results echo the canonical spelling. A declared variant named `default` takes the plain alias; the literal `<Default>` always means the base build.
 
 Every design reports one path to query. For Cadence, it is the `.DSN` schematic, read directly with component properties, connectivity, and CIS variant stuffing information. For Altium, `path` is the `.PrjPcb`. For KiCad, `path` is the `.kicad_pro` project (discovery keys off `.kicad_pro`, even when the directory name differs from the project basename). For a Universal Netlist, `path` is the `.netlist.json` file itself. Other JSON files are ignored. A `.netlist.json` document must carry the supported `universalNetlistSchemaVersion`; one that is malformed, unsigned, unsupported, or structurally invalid is listed with an `error`. Directories named `node_modules` or starting with `.` are not searched.
 
@@ -49,17 +49,17 @@ Returns the directory searched, the designs found in it, and notes about the sea
           },
           "design_variants": {
             "type": "array",
-            "description": "<Default> first, then every native design variant the design records",
+            "description": "The builds the design has: every native design variant it records, or <Default> alone when it records none",
             "items": {
               "type": "object",
               "properties": {
                 "name": {
                   "type": "string",
-                  "description": "Variant name, in the design's own spelling; <Default> is the unmodified/core design"
+                  "description": "Variant name, in the design's own spelling; <Default> is the one build of a design that records no variant"
                 },
                 "is_default": {
                   "type": "boolean",
-                  "description": "Present and true on the <Default> entry only"
+                  "description": "Present and true on the <Default> entry only, which appears only when the design records no variant"
                 },
                 "fabrication": {
                   "type": "boolean",
@@ -87,7 +87,7 @@ Returns the directory searched, the designs found in it, and notes about the sea
 }
 ```
 
-`root` is reported on every result because it is the one thing a caller cannot check from the designs alone: an omitted, blank, or misspelled `path` searches the server's working directory and returns real designs from a directory nobody asked about.
+`root` is reported on every result so the caller can confirm which directory was searched: an omitted, blank, or misspelled `path` searches the server's working directory, which is not necessarily the caller's.
 
 ## Example
 
@@ -112,7 +112,6 @@ Response:
       "name": "PowerBoard",
       "path": "PowerBoard/PowerBoard.PrjPcb",
       "design_variants": [
-        { "name": "<Default>", "is_default": true },
         { "name": "Production", "fabrication": true },
         { "name": "EVT-DNP", "fabrication": false }
       ]
@@ -121,7 +120,6 @@ Response:
       "name": "MainBoard",
       "path": "MainBoard/schematic.DSN",
       "design_variants": [
-        { "name": "<Default>", "is_default": true },
         { "name": "Standard", "fabrication": true }
       ]
     },
@@ -136,7 +134,6 @@ Response:
       "name": "SensorHub",
       "path": "SensorHub/SensorHub.kicad_pro",
       "design_variants": [
-        { "name": "<Default>", "is_default": true },
         { "name": "LowPower" }
       ]
     }
@@ -144,7 +141,7 @@ Response:
 }
 ```
 
-`PowerBoard`, `MainBoard`, and `SensorHub` each record named variants, so every query on them takes `design_variant`. `AudioModule` lists `<Default>` alone and needs no selector.
+`PowerBoard`, `MainBoard`, and `SensorHub` each record named variants, which are their only builds, so every query on them takes `design_variant` as one of the listed names and `<Default>` is refused. `AudioModule` records none, lists `<Default>` alone, and needs no selector.
 
 **Error (invalid regex):**
 ```json
@@ -157,7 +154,7 @@ Response:
 
 - `path` is always the recommended path to pass to other tools
 - Generating a netlist is not a step towards querying a Cadence design. Every tool reads the `.DSN` directly, on every platform
-- Read `design_variants` before querying a design. A design with more than the `<Default>` entry requires `design_variant` on every query: one of the listed names, or `<Default>` (alias `default`) for the core design. A query that omits it returns an error such as `Design 'BSPD_002.PrjPcb' defines design variants ['BSPD-DNP']. Pass design_variant='<Default>' (alias 'default') for the unmodified/core design, or one of those names. list_designs() reports them under design_variants.`
+- Read `design_variants` before querying a design. A design that lists a native variant requires `design_variant` on every query, one of the listed names; `<Default>` is refused on it. A query that omits it returns an error such as `Design 'BSPD_002.PrjPcb' defines design variants ['BSPD-DNP']. Pass design_variant as one of those names; they are the only builds it records. list_designs() reports them under design_variants.`
 - `fabrication` is present on native entries where the vendor records a build flag: Altium's `AllowFabrication` per variant, and `true` on every Cadence CIS BOM variant. KiCad entries carry no such flag
 - For KiCad designs, `path` is the `.kicad_pro`. The committed `.net` export is used when present, otherwise `kicad-cli` generates one; a named variant is then applied from KiCad 10's per-instance variant blocks (`dnp` and field overrides) in the schematic, so no manual export step is needed
 - For Universal Netlist designs, `name` is the file basename without `.netlist.json`

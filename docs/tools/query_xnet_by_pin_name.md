@@ -14,7 +14,7 @@ Traces circuit connectivity starting from a specific component pin, traversing t
 | `pin_name` | string | Yes | - | Pin spec in `REFDES.PIN` format (e.g., `U2.10`, `U1.A5`) |
 | `skip_types` | string[] | No | `[]` | Component prefixes to exclude |
 | `include_dns` | boolean | No | `false` | Include DNS components in the traversal; by default a DNS part is treated as absent from the board |
-| `design_variant` | string | Conditional | - | Design variant name from `list_designs`' `design_variants`, or `<Default>` (alias: `default`) for the unmodified/core design. Required when the design records named variants |
+| `design_variant` | string | Conditional | - | Design variant name from `list_designs`' `design_variants`. Required when the design records named variants, which are its only builds. `<Default>` (alias: `default`) is the one build of a design that records none |
 
 ## Response Schema
 
@@ -159,7 +159,7 @@ The `pin_name` parameter uses `REFDES.PIN` format:
 - The `net` field shows what net the pin connects to
 - NC (No Connect) pins return an empty circuit with `circuit_hash: "nc-REFDES.PIN"`
 - Same traversal rules as `query_xnet_by_net_name`, including DNS handling: a DNS part is treated as absent from the board unless `include_dns: true`
-- `design_variant` names the assembly the result describes. A design that records named variants requires it on every call; `<Default>` (alias `default`) selects the unmodified/core design
+- `design_variant` names the assembly the result describes. A design that records named variants requires it on every call; those variants are its only builds and `<Default>` is refused on it. `<Default>` (alias `default`) is the one build of a design that records no variant, the design with every part's own Do Not Stuff state
 - A component group the selected design variant substitutes for the base part carries `alternate_part: true`
 
 ## See Also

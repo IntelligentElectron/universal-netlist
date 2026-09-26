@@ -15,7 +15,9 @@ export interface ListDesignsOptions {
 }
 
 /**
- * `<Default>` first, then the native design variants the design records.
+ * The builds a design offers: the native design variants it records, or its
+ * base build when it records none. The list is what a caller may pass as
+ * `design_variant`, so it never names a build the design does not have.
  *
  * Listing reads the design's own file (the `.PrjPcb` text, the `.DSN` container
  * directory, or the KiCad schematic tree) without parsing connectivity, so the
@@ -29,7 +31,8 @@ const listDesignVariants = async (
   const handler = findHandler(sourcePath);
   if (!handler?.listVariants) return { design_variants: [base] };
   try {
-    return { design_variants: [base, ...(await handler.listVariants(sourcePath))] };
+    const native = await handler.listVariants(sourcePath);
+    return { design_variants: native.length > 0 ? native : [base] };
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error occurred";
     return { design_variants: [base], error: `Could not read design variants: ${message}` };

@@ -6,10 +6,11 @@ import { describe, it, expect } from "vitest";
 import { existsSync } from "fs";
 import { join } from "path";
 import { OleReader } from "../../ole-reader/ole-reader.js";
-import { parseDsnFile } from "./dsn-parser.js";
+import { applyVariantStuffing, parseDsnFile } from "./dsn-parser.js";
 import { parseCadence, buildCadencePinMap } from "../index.js";
 import { traverseCircuitFromNet, computeCircuitHash } from "../../../circuit-traversal.js";
 import { fixturePath, hasFixtures } from "../../../../test/utils.js";
+import type { ComponentDetails } from "../../../types.js";
 
 const FIXTURE_DIR = fixturePath("cadence", "BeagleBone-Black", "ALLEGRO");
 const DSN_FIXTURE = join(FIXTURE_DIR, "BEAGLEBONEBLK_C3.DSN");
@@ -216,5 +217,37 @@ describe.skipIf(!hasDsnFixture || !hasDatFixtures)("DSN vs DAT comparison", () =
 
     console.log(`\nBackend-invariant hash check: ${compared} identical XNETs compared`);
     expect(compared).toBeGreaterThan(0);
+  });
+});
+
+/**
+ * A variant's groups are the instruction for one build, and a part's own
+ * property is the base state they override. No fixture names a part both
+ * ways, so the rule is pinned here on components built by hand.
+ */
+describe("applyVariantStuffing", () => {
+  it("fits a part the selected variant explicitly stuffs, whatever its property says", () => {
+    const components: ComponentDetails = {
+      R1: { value: "10K", pins: {}, dns: true },
+      R2: { value: "10K", pins: {} },
+      R3: { value: "10K", pins: {}, dns: true },
+    };
+
+    applyVariantStuffing(components, {
+      stuffed: new Set(["R1"]),
+      unstuffed: new Set(["R2"]),
+    });
+
+    expect(components.R1.dns).toBeUndefined();
+    expect(components.R2.dns).toBe(true);
+    expect(components.R3.dns).toBe(true);
+  });
+
+  it("ignores a part the variant names that the design does not carry", () => {
+    const components: ComponentDetails = { R1: { pins: {} } };
+
+    applyVariantStuffing(components, { stuffed: new Set(["R9"]), unstuffed: new Set(["R8"]) });
+
+    expect(components).toEqual({ R1: { pins: {} } });
   });
 });

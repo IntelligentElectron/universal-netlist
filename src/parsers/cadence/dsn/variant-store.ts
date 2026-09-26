@@ -38,7 +38,12 @@ import {
   type HierarchyStream,
 } from "./hierarchy-parser.js";
 import type { DesignVariant } from "../../../types.js";
-import { DEFAULT_VARIANT, isDefaultVariant } from "../../variants.js";
+import {
+  describeDefaultVariantRefusal,
+  findVariant,
+  isDefaultVariantLiteral,
+  quoteVariantNames,
+} from "../../variants.js";
 
 /** Separator between occurrence tokens in a group stream. */
 const GROUP_SEPARATOR = "\xb0";
@@ -159,8 +164,16 @@ export function listCadenceVariantsFromFile(dsnPath: string): DesignVariant[] {
   return listCadenceVariants(new OleReader(dsnPath).listAllEntries());
 }
 
+/** The stuffing a set of groups gives the parts they name. */
+export interface VariantStuffing {
+  /** Parts a group leaves off the board and no group puts on it. */
+  unstuffed: Set<string>;
+  /** Parts a group explicitly puts on the board. */
+  stuffed: Set<string>;
+}
+
 /**
- * Resolve the variant groups' occurrences to the refdes they leave off the board.
+ * Resolve the variant groups' occurrences to the refdes they stuff and unstuff.
  *
  * A refdes is unstuffed when a group says so and no group says otherwise. Every
  * design read for this keeps the two apart, unstuffing whole groups (`DNP`,
@@ -168,10 +181,10 @@ export function listCadenceVariantsFromFile(dsnPath: string): DesignVariant[] {
  * design that did name one both ways is reported stuffed, which leaves it on
  * the board rather than dropping a part a caller would have to find missing.
  */
-export function resolveDnsRefdes(
+export function resolveVariantStuffing(
   entries: VariantGroupEntry[],
   occurrenceRefdes: ReadonlyMap<number, string>
-): Set<string> {
+): VariantStuffing {
   const unstuffed = new Set<string>();
   const stuffed = new Set<string>();
 
@@ -182,7 +195,15 @@ export function resolveDnsRefdes(
   }
 
   for (const refdes of stuffed) unstuffed.delete(refdes);
-  return unstuffed;
+  return { unstuffed, stuffed };
+}
+
+/** The refdes a set of groups leaves off the board. */
+export function resolveDnsRefdes(
+  entries: VariantGroupEntry[],
+  occurrenceRefdes: ReadonlyMap<number, string>
+): Set<string> {
+  return resolveVariantStuffing(entries, occurrenceRefdes).unstuffed;
 }
 
 /** Whether a .DSN's entries carry a variant group at all. */
@@ -194,33 +215,45 @@ export function hasVariantGroups(entries: OleDirectoryPath[]): boolean {
 }
 
 /**
- * Read the refdes a design's variants leave unstuffed.
+ * Read the stuffing a design's variant store gives its parts.
  *
- * Returns an empty set for a design that declares no variants, which is the
+ * With a variant selected, only that variant's groups are read, and `stuffed`
+ * is what those groups explicitly put on the board. With no selector at all,
+ * every group is read together: that is a developer coverage mode rather than
+ * a build, so it reports what the groups unstuff and never what they stuff.
+ *
+ * `<Default>` is the schematic with no variant applied. A CIS variant is the
+ * assembly a BOM is generated for, and nothing marks the bare schematic as one,
+ * so on a design that declares variants the selector is refused rather than
+ * read as a build with every variant's parts fitted. On a design whose store
+ * holds groups but no BOM variant, there is no variant to choose and the groups
+ * still say which parts are off the board, so they are read together.
+ *
+ * Returns empty sets for a design that declares no variants, which is the
  * common case and costs only the directory scan the caller has already done.
  *
  * `occurrenceRefdes` maps each occurrence id to the refdes the parser reports
  * for it; the .DSN path builds it while expanding the hierarchy
  * (`buildOccurrenceRefdes` in hierarchy-parser.ts).
  */
-export function readVariantDns(
+export function readVariantStuffing(
   ole: DsnReader,
   entries: OleDirectoryPath[],
   occurrenceRefdes: ReadonlyMap<number, string>,
   selectedVariant?: string
-): Set<string> {
-  if (selectedVariant && isDefaultVariant(selectedVariant)) return new Set();
-  if (!hasVariantGroups(entries)) return new Set();
+): VariantStuffing {
+  if (!hasVariantGroups(entries)) return { unstuffed: new Set(), stuffed: new Set() };
 
   let selectedGroups: Set<string> | undefined;
-  if (selectedVariant) {
+  if (selectedVariant && isDefaultVariantLiteral(selectedVariant)) {
     const variants = listCadenceVariants(entries);
-    const canonical = variants.find(
-      (variant) => variant.name.toLowerCase() === selectedVariant.trim().toLowerCase()
-    );
+    if (variants.length > 0) throw new Error(describeDefaultVariantRefusal(variants));
+  } else if (selectedVariant) {
+    const variants = listCadenceVariants(entries);
+    const canonical = findVariant(variants, selectedVariant);
     if (!canonical) {
       throw new Error(
-        `Variant '${selectedVariant}' not found. Available variants: [${variants.map((variant) => variant.name).join(", ")}], ${DEFAULT_VARIANT}`
+        `Variant '${selectedVariant}' not found. Available variants: ${quoteVariantNames(variants)}`
       );
     }
     const membership = entries.find((entry) => {
@@ -253,7 +286,18 @@ export function readVariantDns(
     }
   }
 
-  return resolveDnsRefdes(groupEntries, occurrenceRefdes);
+  const stuffing = resolveVariantStuffing(groupEntries, occurrenceRefdes);
+  return selectedGroups ? stuffing : { unstuffed: stuffing.unstuffed, stuffed: new Set() };
+}
+
+/** The refdes a design's variants leave unstuffed; see {@link readVariantStuffing}. */
+export function readVariantDns(
+  ole: DsnReader,
+  entries: OleDirectoryPath[],
+  occurrenceRefdes: ReadonlyMap<number, string>,
+  selectedVariant?: string
+): Set<string> {
+  return readVariantStuffing(ole, entries, occurrenceRefdes, selectedVariant).unstuffed;
 }
 
 /**
