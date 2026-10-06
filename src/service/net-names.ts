@@ -55,6 +55,12 @@ export interface NetNameIndexOptions {
   sources?: Record<string, NetLabelSource[]>;
   /** Whether the design is Cadence, so the Allegro netlister's rules apply. */
   allegro?: boolean;
+  /**
+   * Whether net names carry a sheet path, as KiCad's do (`/Sheet/SIG`). A label
+   * in a sub-sheet then puts its whitespace after the path: `/Sheet/ SIG`.
+   * Cadence names use `/` as an ordinary character and are read whole.
+   */
+  sheetPaths?: boolean;
 }
 
 const quote = (name: string): string => JSON.stringify(name);
@@ -65,6 +71,7 @@ const PROBLEM_TEXT: Record<NetNameWarning["problem"], string> = {
   leading_and_trailing_whitespace: "leading and trailing whitespace",
   whitespace_only: "only whitespace",
   whitespace_before_block_suffix: "whitespace before its block placement suffix",
+  same_name_as_padded_net: "no whitespace of its own",
 };
 
 const edgeProblem = (name: string): NetNameWarning["problem"] => {
@@ -81,7 +88,10 @@ export class NetNameIndex {
   private readonly names: string[];
   private readonly nameSet: Set<string>;
   private readonly allegro: boolean;
+  private readonly sheetPaths: boolean;
   private readonly sources: Record<string, NetLabelSource[]>;
+  /** Nets whose own name carries label whitespace. */
+  private readonly flagged = new Set<string>();
   /** Each net's names with the label whitespace removed. */
   private readonly keysOf = new Map<string, Set<string>>();
   /** Whitespace-free key to every net that reads as it. */
@@ -95,10 +105,11 @@ export class NetNameIndex {
     this.nameSet = new Set(all);
     this.names = all.filter((n) => n !== NO_CONNECT);
     this.allegro = options.allegro ?? false;
+    this.sheetPaths = options.sheetPaths ?? false;
     this.sources = options.sources ?? {};
 
     for (const name of this.names) {
-      const keys = new Set([name.trim()]);
+      const keys = new Set([this.normalize(name)]);
       // A padded label inside a block keeps its whitespace ahead of the
       // placement suffix: "SIG _U1" reads as "SIG_U1".
       for (const { text } of this.sources[name] ?? []) {
@@ -112,12 +123,36 @@ export class NetNameIndex {
       }
     }
     for (const name of this.names) {
-      if (this.isFlagged(name)) this.warnings.set(name, this.buildWarning(name));
+      if (this.isFlagged(name)) this.flagged.add(name);
+    }
+    for (const name of this.names) {
+      if (this.flagged.has(name)) this.warnings.set(name, this.buildWarning(name));
+    }
+    // A net without whitespace of its own that reads the same as a padded one is
+    // half of the same collision, and is warned about with it.
+    for (const name of this.colliding()) {
+      if (!this.warnings.has(name)) this.warnings.set(name, this.buildPartnerWarning(name));
     }
   }
 
+  /** The name's sheet path, if it carries one, and the label part after it. */
+  private split(name: string): { path: string; label: string } {
+    const slash = this.sheetPaths ? name.lastIndexOf("/") : -1;
+    return { path: name.slice(0, slash + 1), label: name.slice(slash + 1) };
+  }
+
+  /** The name with the label's leading and trailing whitespace removed. */
+  private normalize(name: string): string {
+    const { path, label } = this.split(name.trim());
+    return path + label.trim();
+  }
+
   private isFlagged(name: string): boolean {
-    return hasEdgeWhitespace(name) || (this.sources[name]?.length ?? 0) > 0;
+    return (
+      hasEdgeWhitespace(name) ||
+      hasEdgeWhitespace(this.split(name).label) ||
+      (this.sources[name]?.length ?? 0) > 0
+    );
   }
 
   /** Whether a block placement suffix follows the label text that names this net. */
@@ -139,7 +174,9 @@ export class NetNameIndex {
     // netlist name is no more known than that of "SIG _U1".
     const problem = this.hasBlockSuffix(name)
       ? "whitespace_before_block_suffix"
-      : edgeProblem(name);
+      : hasEdgeWhitespace(name)
+        ? edgeProblem(name)
+        : edgeProblem(this.split(name).label);
     const others = this.sameAs(name);
     const warning: NetNameWarning = { net: name, problem, message: "" };
     const what = `Net name ${quote(name)} has ${PROBLEM_TEXT[problem]}`;
@@ -168,17 +205,33 @@ export class NetNameIndex {
             `so compare it by connectivity, and fix the label.`
           : `Fix the label.`);
     } else if (this.allegro) {
-      warning.netlist_name = name.trim();
+      warning.netlist_name = this.normalize(name);
       warning.message =
-        `${what}. The Allegro netlister trims it and writes ${quote(name.trim())}, which ` +
-        `is the name to compare against an export or another design.`;
+        `${what}. The Allegro netlister trims it and writes ${quote(warning.netlist_name)}, ` +
+        `which is the name to compare against an export or another design.`;
     } else {
-      warning.message = `${what}, which reads the same as ${quote(name.trim())}. Fix the label.`;
+      warning.message = `${what}, which reads the same as ${quote(this.normalize(name))}. Fix the label.`;
     }
 
     const where = this.sources[name];
     if (where && where.length > 0) warning.sources = where;
     return warning;
+  }
+
+  private buildPartnerWarning(name: string): NetNameWarning {
+    const others = this.sameAs(name);
+    return {
+      net: name,
+      problem: "same_name_as_padded_net",
+      same_name_after_trim: others,
+      message:
+        `Net name ${quote(name)} reads the same as ${others.map(quote).join(", ")}, whose ` +
+        `label carries whitespace. They are separate nets, drawn with what reads as one name.` +
+        (this.allegro
+          ? ` The Allegro netlister renames one of them (warning ORCAP-36005) when it ` +
+            `exports, so neither name is known to match the export: compare them by connectivity.`
+          : ""),
+    };
   }
 
   /** The warning for one net, when its name needs one. */
@@ -201,7 +254,7 @@ export class NetNameIndex {
 
   /** Every net whose name carries label whitespace, in name order. */
   flaggedNets(): string[] {
-    return [...this.warnings.keys()].sort();
+    return [...this.flagged].sort();
   }
 
   /**
@@ -209,10 +262,14 @@ export class NetNameIndex {
    * where at least one of them carries it, in name order.
    */
   collidingNets(): string[] {
+    return this.colliding();
+  }
+
+  private colliding(): string[] {
     const out = new Set<string>();
     for (const group of this.byKey.values()) {
       const distinct = [...new Set(group)];
-      if (distinct.length > 1 && distinct.some((n) => this.warnings.has(n))) {
+      if (distinct.length > 1 && distinct.some((n) => this.flagged.has(n))) {
         for (const n of distinct) out.add(n);
       }
     }
@@ -230,17 +287,22 @@ export class NetNameIndex {
   resolve(input: string): NetNameResolution {
     if (this.nameSet.has(input)) return { status: "exact", net: input };
 
-    const key = input.trim();
+    const key = this.normalize(input);
     if (key === "") return { status: "missing" };
 
     const byWhitespace = [...new Set(this.byKey.get(key) ?? [])];
+    // A 31-character cut can end in a space the name had inside it, so the name
+    // as passed is tried before its trimmed form.
+    const prefixes = this.allegro
+      ? [input, key].filter((p) => p.length === LEGACY_NETLIST_NAME_LIMIT)
+      : [];
     const byTruncation =
-      this.allegro && key.length === LEGACY_NETLIST_NAME_LIMIT
+      prefixes.length > 0
         ? this.names.filter(
             (n) =>
               !byWhitespace.includes(n) &&
               [...(this.keysOf.get(n) ?? [])].some(
-                (k) => k.length > LEGACY_NETLIST_NAME_LIMIT && k.startsWith(key)
+                (k) => k.length > LEGACY_NETLIST_NAME_LIMIT && prefixes.some((p) => k.startsWith(p))
               )
           )
         : [];
@@ -310,4 +372,5 @@ export const indexNetNames = (netlist: {
   new NetNameIndex(Object.keys(netlist.nets), {
     sources: netlist.netLabelSources,
     allegro: netlist.format === "cadence",
+    sheetPaths: netlist.format === "kicad",
   });

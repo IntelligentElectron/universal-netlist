@@ -132,7 +132,9 @@ export interface NetNameWarning {
     | "trailing_whitespace"
     | "leading_and_trailing_whitespace"
     | "whitespace_only"
-    | "whitespace_before_block_suffix";
+    | "whitespace_before_block_suffix"
+    /** No whitespace of its own, but reads the same as a net whose label carries it. */
+    | "same_name_as_padded_net";
   /** Other nets whose names read the same as this one once label whitespace is removed. */
   same_name_after_trim?: string[];
   /** The objects that give the net its name, where the design records them. */

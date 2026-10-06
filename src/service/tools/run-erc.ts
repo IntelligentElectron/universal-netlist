@@ -61,6 +61,9 @@ const collect = (
 // R = functional pin count, T = testpoint pin count. The three degenerate rules
 // are mutually exclusive (R/T buckets don't overlap); net.unnamed's R>=2 guard
 // keeps it from doubling up on a net already flagged by single_pin/orphan/stub.
+// The two whitespace rules check names, not pin counts, so they overlap freely
+// with the others and with each other: one padded single-pin net can appear
+// under single_pin, whitespace_in_name and whitespace_name_collision at once.
 const RULES: Rule[] = [
   {
     id: "net.single_pin",

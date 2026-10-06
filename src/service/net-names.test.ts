@@ -82,6 +82,13 @@ describe("NetNameIndex.resolve", () => {
     expect(cadence([padded]).resolve(PREFIX)).toEqual({ status: "whitespace", net: padded });
   });
 
+  it("matches a 31-character cut that ends in a space inside the name", () => {
+    const net = "POWER GOOD FROM REGULATOR BANK A1";
+    const cut = net.slice(0, 31);
+    expect(cut.endsWith(" ")).toBe(true);
+    expect(cadence([net]).resolve(cut)).toEqual({ status: "truncated", net });
+  });
+
   it("matches a prefix of another length to nothing", () => {
     expect(index.resolve("PTA2/JTAG_TDO/TRACE_SWO/EZP_D0")).toEqual({ status: "missing" });
     expect(index.resolve("PTA2/JTAG_TDO/TRACE_SWO/EZP_D0/U")).toEqual({ status: "missing" });
@@ -108,6 +115,31 @@ describe("NetNameIndex.resolve", () => {
       "SIG _U2": [alias("SIG ")],
     });
     expect(block.resolve("SIG_U1")).toEqual({ status: "whitespace", net: blockNet });
+  });
+});
+
+describe("NetNameIndex for KiCad sheet paths", () => {
+  // kicad-cli exports a sub-sheet label " V+" as "/Sheet/ V+": the whitespace
+  // follows the sheet path, and Cadence's whole-name trim would miss it.
+  const index = new NetNameIndex(
+    ["/Sense A/ V+", "/Sense A/V- ", "/Sense A/V-", "/Audio Amp/LOUT"],
+    {
+      sheetPaths: true,
+    }
+  );
+
+  it("flags whitespace after the sheet path", () => {
+    expect(index.warningFor("/Sense A/ V+")).toMatchObject({ problem: "leading_whitespace" });
+    expect(index.flaggedNets()).toEqual(["/Sense A/ V+", "/Sense A/V- "]);
+  });
+
+  it("leaves spaces inside a sheet path alone", () => {
+    expect(index.warningFor("/Audio Amp/LOUT")).toBeUndefined();
+  });
+
+  it("finds the net without the whitespace and sees collisions within a sheet", () => {
+    expect(index.resolve("/Sense A/V+")).toEqual({ status: "whitespace", net: "/Sense A/ V+" });
+    expect(index.collidingNets()).toEqual(["/Sense A/V-", "/Sense A/V- "]);
   });
 });
 
@@ -155,8 +187,13 @@ describe("NetNameIndex warnings", () => {
     expect(warning?.netlist_name).toBeUndefined();
     expect(warning?.same_name_after_trim).toEqual(["SIGNAL_C", "SIGNAL_C "]);
     expect(warning?.message).toContain("ORCAP-36005");
-    // The bare name is a valid name, and only the padded nets carry a warning.
-    expect(index.warningFor("SIGNAL_C")).toBeUndefined();
+    // The bare net has no whitespace of its own, and is warned about as the
+    // other half of the collision.
+    expect(index.warningFor("SIGNAL_C")).toMatchObject({
+      problem: "same_name_as_padded_net",
+      same_name_after_trim: [" SIGNAL_C", "SIGNAL_C "],
+    });
+    expect(index.warningFor("SIGNAL_C")?.netlist_name).toBeUndefined();
     expect(index.flaggedNets()).toEqual([" SIGNAL_C", "SIGNAL_C "]);
     expect(index.collidingNets()).toEqual([" SIGNAL_C", "SIGNAL_C", "SIGNAL_C "]);
   });

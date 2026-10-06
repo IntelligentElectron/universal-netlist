@@ -91,7 +91,10 @@ describe.skipIf(!hasMultio)("net names with leading or trailing whitespace", () 
   it("list_nets warns on every padded net", async () => {
     const result = ok(await listNets(design));
     expect(result.nets).toEqual(expect.arrayContaining(["SC ", " SDA", "SDA"]));
-    expect(result.net_name_warnings?.map((w) => w.net)).toEqual([" SDA", "SC "]);
+    // SDA has no whitespace of its own; it is warned about as the other half of
+    // the collision with " SDA".
+    expect(result.net_name_warnings?.map((w) => w.net)).toEqual([" SDA", "SC ", "SDA"]);
+    expect(warningOf(result.net_name_warnings, "SDA")?.problem).toBe("same_name_as_padded_net");
     expect(warningOf(result.net_name_warnings, "SC ")).toMatchObject({
       netlist_name: "SC",
       problem: "trailing_whitespace",
@@ -245,6 +248,57 @@ describe.skipIf(!(hasFixtures && existsSync(AAFM)))(
       const erc = ok(await runErc(design, { includeRules: ["net.whitespace_in_name"] }));
       const flagged = erc.warnings?.["net.whitespace_in_name"] as Record<string, string[]>;
       expect(Object.keys(flagged).sort()).toEqual([...padded].sort());
+    });
+  }
+);
+
+const OPENMD_DIR = fixturePath("kicad", "openmd-motordriver");
+
+describe.skipIf(!(hasFixtures && existsSync(join(OPENMD_DIR, "OpenMD.net"))))(
+  "a padded KiCad sub-sheet label",
+  () => {
+    // kicad-cli exports a sub-sheet label " V+" as "/<sheet path>/ V+" (checked
+    // with kicad-cli 9 on a copy of this project). The committed netlist is
+    // rewritten the same way, so the test runs without kicad-cli.
+    const NET = "/Phase Current Sensors/Current Sense A/V+";
+    const PADDED = "/Phase Current Sensors/Current Sense A/ V+";
+    let dir: string;
+    let design: string;
+
+    beforeAll(() => {
+      dir = mkdtempSync(join(tmpdir(), "net-name-kicad-"));
+      for (const file of ["OpenMD.kicad_pro", "OpenMD.kicad_sch", "OpenMD.net"]) {
+        copyFileSync(join(OPENMD_DIR, file), join(dir, file));
+      }
+      const netlist = readFileSync(join(dir, "OpenMD.net"), "utf8");
+      expect(netlist.split(`(name "${NET}")`).length - 1).toBe(1);
+      writeFileSync(
+        join(dir, "OpenMD.net"),
+        netlist.replace(`(name "${NET}")`, `(name "${PADDED}")`)
+      );
+      design = join(dir, "OpenMD.kicad_pro");
+    });
+
+    afterAll(() => rmSync(dir, { recursive: true, force: true }));
+
+    it("is warned about, found without the whitespace, and flagged by ERC", async () => {
+      const nets = ok(await listNets(design));
+      const warning = warningOf(nets.net_name_warnings, PADDED);
+      expect(warning?.problem).toBe("leading_whitespace");
+      expect(warning?.netlist_name).toBeUndefined();
+      expect(warning?.message).not.toContain("Allegro");
+
+      const lookup = ok(await queryXnetByNetName(design, NET));
+      expect(lookup.net).toBe(PADDED);
+
+      const erc = ok(await runErc(design, { includeRules: ["net.whitespace_in_name"] }));
+      const flagged = erc.warnings?.["net.whitespace_in_name"] as Record<string, string[]>;
+      expect(Object.keys(flagged)).toEqual([PADDED]);
+    });
+
+    it("gets no 31-character Allegro match", async () => {
+      const long = ok(await listNets(design)).nets.find((n) => n.length > 31)!;
+      expect(isErrorResult(await queryXnetByNetName(design, long.slice(0, 31)))).toBe(true);
     });
   }
 );
