@@ -33,6 +33,8 @@ const normalizeUnconnectedPins = (netlist: ParsedNetlist): void => {
 /** A parsed design plus the design variant it was resolved for. */
 export interface LoadedNetlist extends ParsedNetlist {
   design_variant: string;
+  /** The handler that parsed the design, such as `cadence` or `kicad`. */
+  format: string;
 }
 
 /**
@@ -92,7 +94,7 @@ export const loadNetlist = async (
 
     const parsed = await parseDesign(normalizedPath, { variant: selection.selected });
     normalizeUnconnectedPins(parsed);
-    return { design_variant: selection.selected, nets: parsed.nets, components: parsed.components };
+    return { ...parsed, design_variant: selection.selected, format: handler.name };
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error occurred";
     return { error: message };

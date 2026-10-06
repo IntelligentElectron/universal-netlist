@@ -61,9 +61,7 @@ describe("design_variants", () => {
   });
 
   it("lists the base build of a format that records no variants at all", async () => {
-    vi.spyOn(parsers, "findHandler").mockReturnValue(
-      mockHandler({ listVariants: undefined })
-    );
+    vi.spyOn(parsers, "findHandler").mockReturnValue(mockHandler({ listVariants: undefined }));
     vi.spyOn(parsers, "discoverDesigns").mockResolvedValue([
       { name: "demo", format: "universal", sourcePath: "/mock/demo.netlist.json" },
     ]);

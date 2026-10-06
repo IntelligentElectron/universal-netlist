@@ -17,6 +17,8 @@ import { existsSync, readFileSync } from "fs";
 import { join } from "path";
 import { parseDsnFile } from "./dsn-parser.js";
 import { parsePstxnet } from "../dat/pstxnet-parser.js";
+import { queryXnetByNetName } from "../../../service/tools/query-xnet.js";
+import { isErrorResult } from "../../../types.js";
 import { fixturePath, hasFixtures } from "../../../../test/utils.js";
 
 const CLAY = fixturePath("cadence", "clay-r6");
@@ -62,6 +64,14 @@ describe.skipIf(!hasClay)("net names longer than the Allegro limit", () => {
     const truncated = longNames.filter((n) => n.slice(0, ALLEGRO_NET_NAME_LIMIT) in exported);
     expect(truncated).toHaveLength(27);
     for (const name of longNames) expect(exported[name]).toBeUndefined();
+  });
+
+  it("finds the net when queried by the name the export gives it", async () => {
+    const result = await queryXnetByNetName(BLOCK, TRUNCATED);
+    if (isErrorResult(result)) throw new Error(result.error);
+    expect(result.starting_point).toBe(TRUNCATED);
+    expect(result.net).toBe(FULL);
+    expect(result.notes?.[0]).toContain("PSTWRITER 16.6");
   });
 
   it("finds every renamed export net under its full name in the schematic", () => {

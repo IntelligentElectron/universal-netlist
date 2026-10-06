@@ -37,6 +37,11 @@ Searches all net names in a design using a regular expression pattern. Useful fo
       "type": "array",
       "items": { "type": "string" },
       "description": "Present when no matches found"
+    },
+    "net_name_warnings": {
+      "type": "array",
+      "items": { "$ref": "../schemas/shared-types.md#net-name-warnings" },
+      "description": "Nets listed whose names have leading or trailing whitespace; omitted when none"
     }
   },
   "required": ["design_variant", "results"]

@@ -157,7 +157,7 @@ export function parseDsnFile(dsnPath: string, options?: ParseDesignOptions): Par
 
   // Build netlist from parsed data
   const deviceIndexMap = buildDeviceIndexMap(pages);
-  const { nets, componentPins } = buildNetConnectivity(
+  const { nets, componentPins, netLabelSources } = buildNetConnectivity(
     pages,
     canonicalNetNames,
     pmd,
@@ -180,7 +180,7 @@ export function parseDsnFile(dsnPath: string, options?: ParseDesignOptions): Par
     readVariantStuffing(ole, entries, occurrenceRefdes, options?.variant)
   );
 
-  return { nets, components };
+  return { nets, components, netLabelSources };
 }
 
 /**

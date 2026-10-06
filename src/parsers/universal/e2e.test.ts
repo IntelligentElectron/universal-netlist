@@ -77,7 +77,14 @@ describe("a Universal Netlist file as a design", () => {
     expect(result).toEqual({
       design: DEMO,
       design_variant: "<Default>",
-      checked: ["net.single_pin", "net.testpoint_orphan", "net.testpoint_stub", "net.unnamed"],
+      checked: [
+        "net.single_pin",
+        "net.testpoint_orphan",
+        "net.testpoint_stub",
+        "net.whitespace_in_name",
+        "net.whitespace_name_collision",
+        "net.unnamed",
+      ],
       skipped: { dns: 1 },
       errors: {
         "net.single_pin": { LED: ["R1.2"], SENSE: ["R2.1"] },

@@ -1,4 +1,5 @@
 import { loadNetlist } from "../load-netlist.js";
+import { indexNetNames } from "../net-names.js";
 import { isErrorResult, type ListNetsResult, type ErrorResult } from "../../types.js";
 
 /**
@@ -16,5 +17,8 @@ export const listNets = async (
   }
 
   const nets = Object.keys(netlist.nets).sort((a, b) => a.localeCompare(b));
-  return { design_variant: netlist.design_variant, nets };
+  const result: ListNetsResult = { design_variant: netlist.design_variant, nets };
+  const warnings = indexNetNames(netlist).warningsFor(nets);
+  if (warnings.length > 0) result.net_name_warnings = warnings;
+  return result;
 };

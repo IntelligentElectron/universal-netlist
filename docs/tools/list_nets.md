@@ -28,6 +28,11 @@ Returns all net names defined in the design, sorted alphabetically. Use this to 
       "type": "array",
       "items": { "type": "string" },
       "description": "List of net names, sorted alphabetically"
+    },
+    "net_name_warnings": {
+      "type": "array",
+      "items": { "$ref": "../schemas/shared-types.md#net-name-warnings" },
+      "description": "Nets listed whose names have leading or trailing whitespace; omitted when none"
     }
   },
   "required": ["design_variant", "nets"]

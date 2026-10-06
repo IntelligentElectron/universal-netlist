@@ -157,6 +157,8 @@ describe("runErc rule selection", () => {
       "net.single_pin",
       "net.testpoint_orphan",
       "net.testpoint_stub",
+      "net.whitespace_in_name",
+      "net.whitespace_name_collision",
       "net.unnamed",
     ]);
     expect(r.errors).toBeUndefined();
@@ -185,7 +187,7 @@ describe.skipIf(!hasRdimm)("runErc integration (rdimm-ddr4-tester)", () => {
     expect(isErrorResult(result)).toBe(false);
     const r = result as ErcResult;
 
-    expect(r.checked).toHaveLength(4);
+    expect(r.checked).toHaveLength(6);
     nonEmptyMap(r.errors?.["net.single_pin"]); // R=1 nets
     nonEmptyMap(r.warnings?.["net.testpoint_stub"]); // real TP-on-single-pin nets
     const unnamed = r.warnings?.["net.unnamed"] as string[];

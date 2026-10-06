@@ -93,6 +93,53 @@ export interface ComponentDetails {
 export interface ParsedNetlist {
   nets: NetConnections;
   components: ComponentDetails;
+  /**
+   * The schematic objects that give a net a name with leading or trailing
+   * whitespace, keyed by that net. Only the Cadence .DSN parser fills it, and
+   * only for such nets; it is omitted when there are none.
+   */
+  netLabelSources?: Record<string, NetLabelSource[]>;
+}
+
+/** A schematic object that names a net, and where it sits. */
+export interface NetLabelSource {
+  kind: "net_alias" | "off_page_connector" | "global" | "hierarchical_port";
+  /** The object's text, whitespace included, uppercased as net names are. */
+  text: string;
+  /** The page the object is drawn on. */
+  page: string;
+  /** The object's location in the page's own coordinates, as the design stores them. */
+  x: number;
+  y: number;
+}
+
+/**
+ * A net whose name a netlister writes differently, attached to every result
+ * that reports the net.
+ */
+export interface NetNameWarning {
+  /** The net's name as the schematic gives it, and as every tool reports it. */
+  net: string;
+  /**
+   * The name the Allegro netlister writes for the net, for a Cadence design.
+   * Omitted when the schematic does not decide it: an all-whitespace name, a
+   * name that reads the same as another net's once trimmed, or a padded label
+   * inside a hierarchical block.
+   */
+  netlist_name?: string;
+  problem:
+    | "leading_whitespace"
+    | "trailing_whitespace"
+    | "leading_and_trailing_whitespace"
+    | "whitespace_only"
+    | "whitespace_before_block_suffix"
+    /** No whitespace of its own, but reads the same as a net whose label carries it. */
+    | "same_name_as_padded_net";
+  /** Other nets whose names read the same as this one once label whitespace is removed. */
+  same_name_after_trim?: string[];
+  /** The objects that give the net its name, where the design records them. */
+  sources?: NetLabelSource[];
+  message: string;
 }
 
 /** A named design variant (assembly configuration) recorded by an EDA design. */
@@ -208,6 +255,10 @@ export interface AggregatedCircuitResult {
   visited_nets: string[];
   circuit_hash: string;
   skipped?: Record<string, number>;
+  /** How the queried name was matched, when it was not the net's exact name. */
+  notes?: string[];
+  /** Nets in this result whose names a netlister writes differently. */
+  net_name_warnings?: NetNameWarning[];
 }
 
 // Re-export format-specific discovered design types for consumers
@@ -292,6 +343,8 @@ export interface ListNetsResult {
   /** The design variant this result describes: a native name or `<Default>`. */
   design_variant: string;
   nets: string[];
+  /** Nets in this result whose names a netlister writes differently. */
+  net_name_warnings?: NetNameWarning[];
 }
 
 /**
@@ -312,6 +365,8 @@ export interface SearchNetsResult {
   design_variant: string;
   results: Record<string, string[]>;
   notes?: string[];
+  /** Nets in this result whose names a netlister writes differently. */
+  net_name_warnings?: NetNameWarning[];
 }
 
 /**
@@ -332,6 +387,8 @@ export interface QueryComponentResult {
   alternate_part?: boolean;
   pins: Record<string, PinEntry>;
   notes?: string[];
+  /** Nets in this result whose names a netlister writes differently. */
+  net_name_warnings?: NetNameWarning[];
 }
 
 /**

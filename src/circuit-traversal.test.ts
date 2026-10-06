@@ -21,6 +21,17 @@ import {
 } from "./circuit-traversal.js";
 import type { NetConnections, ComponentDetails } from "./types.js";
 
+describe("classifying a net whose label carries edge whitespace", () => {
+  // Capture keeps a label's leading and trailing whitespace in the net name
+  // (issue #235). A ground or rail labelled that way is still a ground or rail.
+  it("still recognises ground and power", () => {
+    expect(isGroundNet("GND ")).toBe(true);
+    expect(isGroundNet(" /Sheet/AGND")).toBe(true);
+    expect(isStopNet(" VCC")).toBe(true);
+    expect(isStopNet("SIGNAL ")).toBe(false);
+  });
+});
+
 describe("isGroundNet", () => {
   it("should match GND", () => {
     expect(isGroundNet("GND")).toBe(true);
@@ -393,9 +404,7 @@ describe("isValidRefdes", () => {
   });
 
   it("should reject Cadence instance paths", () => {
-    expect(isValidRefdes("@BOARD_TOP.BOARD_MAIN(SCH_1):INS21415196@LAN8710")).toBe(
-      false
-    );
+    expect(isValidRefdes("@BOARD_TOP.BOARD_MAIN(SCH_1):INS21415196@LAN8710")).toBe(false);
     expect(isValidRefdes("'@DESIGN.SHEET:INS123@PART'")).toBe(false);
   });
 

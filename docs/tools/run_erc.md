@@ -13,9 +13,13 @@ Test points are identified by the `TP` reference-designator prefix. "Functional 
 | `net.single_pin` | error | a net has exactly one functional pin and no test point | `REFDES.PIN` endpoints |
 | `net.testpoint_orphan` | error | a net is touched only by test points (no functional pin) | `REFDES.PIN` endpoints |
 | `net.testpoint_stub` | warning | a net has one functional pin plus one or more test points | `REFDES.PIN` endpoints |
+| `net.whitespace_in_name` | warning | a net's name has leading or trailing whitespace | `REFDES.PIN` endpoints |
+| `net.whitespace_name_collision` | error | two or more nets have names that read the same once leading and trailing whitespace is trimmed | `REFDES.PIN` endpoints, one entry per net |
 | `net.unnamed` | warning | a net with 2+ functional pins carries an auto-generated name | bare net names |
 
 `net.unnamed` only flags real multi-pin nets, so a single-pin auto-named net is reported once (as `net.single_pin`), not twice. The three degenerate rules are mutually exclusive by construction.
+
+The two whitespace rules check net names, independently of the connectivity rules. Capture keeps leading and trailing whitespace as part of a net name, so `"SIGNAL_A "` names its own net, and the Allegro netlister trims it on export to `SIGNAL_A`. `net.whitespace_in_name` lists every such net: its name differs between the schematic and the board, so an exact lookup, a mating board, or the design's own export spells it differently. `net.whitespace_name_collision` lists nets such as `" SIGNAL_A"` and `SIGNAL_A` that are separate nets drawn with what reads as the same name: an open on the schematic, and two nets the netlister renames apart on export (warning `ORCAP-36005`). A padded net in a collision appears under both rules. Inside a Cadence hierarchical block, a padded label puts its whitespace ahead of the placement suffix, as in `"SIG _U1"`, and a KiCad sub-sheet label puts it after the sheet path, as in `/Sheet/ SIG`; both rules cover those forms too. The Allegro behavior applies to Cadence designs; for other formats the rules flag the same names as label typos. Spaces inside a name, such as `MAIN PWR_EN`, are written unchanged and are not flagged. Each padded net's `net_name_warnings` entry in the query tools names the objects that carry the text (see [shared types](../schemas/shared-types.md#net-name-warnings)).
 
 An auto-generated name is one the EDA tool derived from a pin rather than a label: Cadence `N123`, KiCad `Net-(D1-A)` and `unconnected-(J1-Pad3)`, Altium `Net<refdes>_<pin>` such as `NetR9_2` or `NetU9_A3` (the refdes part carries a number or a `?`, so a hand-written `NetCtrl_EN` is a named net).
 
@@ -70,7 +74,7 @@ Response:
 {
   "design": "PowerBoard/PowerBoard.kicad_pro",
   "design_variant": "<Default>",
-  "checked": ["net.single_pin", "net.testpoint_orphan", "net.testpoint_stub", "net.unnamed"],
+  "checked": ["net.single_pin", "net.testpoint_orphan", "net.testpoint_stub", "net.whitespace_in_name", "net.whitespace_name_collision", "net.unnamed"],
   "skipped": { "dns": 7 },
   "errors": {
     "net.single_pin": { "GND_ISLAND": ["U7.3"] },
@@ -88,7 +92,7 @@ Clean design (every checked rule passed, nothing skipped):
 {
   "design": "PowerBoard/PowerBoard.kicad_pro",
   "design_variant": "<Default>",
-  "checked": ["net.single_pin", "net.testpoint_orphan", "net.testpoint_stub", "net.unnamed"],
+  "checked": ["net.single_pin", "net.testpoint_orphan", "net.testpoint_stub", "net.whitespace_in_name", "net.whitespace_name_collision", "net.unnamed"],
   "skipped": { "dns": 0 }
 }
 ```

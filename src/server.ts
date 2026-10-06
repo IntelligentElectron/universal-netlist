@@ -330,7 +330,11 @@ export const createServer = (): McpServer => {
       annotations: READ_ONLY,
       inputSchema: z.strictObject({
         design: z.string().describe("Path to design file"),
-        net_name: z.string().describe("Exact net name"),
+        net_name: z
+          .string()
+          .describe(
+            "Net name. An exact match wins; otherwise it is matched ignoring leading and trailing whitespace, and for Cadence as a 31-character PSTWRITER 16.6 name"
+          ),
         skip_types: z
           .array(z.string())
           .optional()

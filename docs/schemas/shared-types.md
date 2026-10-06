@@ -316,7 +316,7 @@ Response type for `query_xnet_by_net_name` and `query_xnet_by_pin_name`.
     },
     "net": {
       "type": "string",
-      "description": "The starting net name (present when querying by pin)"
+      "description": "The starting net name: present when querying by pin, or when a net name matched other than exactly"
     },
     "total_components": {
       "type": "integer",
@@ -344,6 +344,16 @@ Response type for `query_xnet_by_net_name` and `query_xnet_by_pin_name`.
       "type": "object",
       "additionalProperties": { "type": "integer" },
       "description": "Count of skipped components by type (when skip_types used)"
+    },
+    "notes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "How the queried net name was matched, when it was not the net's exact name (query_xnet_by_net_name)"
+    },
+    "net_name_warnings": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/NetNameWarning" },
+      "description": "Nets in this result whose names the Allegro netlister writes differently; see Net Name Warnings"
     }
   },
   "required": ["design_variant", "starting_point", "total_components", "unique_configurations", "components_by_mpn", "visited_nets", "circuit_hash"]
@@ -384,6 +394,45 @@ Response type for `query_xnet_by_net_name` and `query_xnet_by_pin_name`.
   "circuit_hash": "a1b2c3d4e5f67890"
 }
 ```
+
+## Net Name Warnings
+
+Every tool that reports net names (`list_nets`, `search_nets`, `query_component`, `query_xnet_by_net_name`, `query_xnet_by_pin_name`) reports them as the schematic writes them, and adds a `net_name_warnings` array for each net in the result whose name carries label whitespace: leading or trailing whitespace, whitespace after a KiCad sheet path (`/Sheet/ SIG`), or, inside a Cadence hierarchical block, whitespace ahead of the placement suffix (`"SIG _U1"`). A net without whitespace of its own that reads the same as one of those also gets a warning, as the other half of the collision. The array is omitted when there is none.
+
+Capture keeps leading and trailing whitespace as part of a net name; the Allegro netlister trims it on export. `"SIGNAL_A "` is written `SIGNAL_A` in `pstxnet.dat`, so an exact lookup, a mating board's netlist, or the design's own export spells the net differently from the schematic. Spaces inside a name are written unchanged.
+
+```json
+{
+  "net": "SIGNAL_A ",
+  "netlist_name": "SIGNAL_A",
+  "problem": "trailing_whitespace",
+  "sources": [
+    { "kind": "off_page_connector", "text": "SIGNAL_A ", "page": "PAGE2", "x": 410, "y": 170 },
+    { "kind": "net_alias", "text": "SIGNAL_A ", "page": "PAGE5", "x": 50, "y": 430 }
+  ],
+  "message": "Net name \"SIGNAL_A \" has trailing whitespace. The Allegro netlister trims it and writes \"SIGNAL_A\", which is the name to compare against an export or another design."
+}
+```
+
+| Field | Meaning |
+|-------|---------|
+| `net` | The name every tool reports, whitespace included |
+| `netlist_name` | Cadence only: the trimmed name the Allegro netlister writes. Omitted when the schematic does not decide it: an all-whitespace name, a name that reads the same as another net's once the whitespace is removed, or a padded label inside a hierarchical block |
+| `problem` | `leading_whitespace`, `trailing_whitespace`, `leading_and_trailing_whitespace`, `whitespace_only`, `whitespace_before_block_suffix`, or `same_name_as_padded_net` (no whitespace of its own, but reads the same as a net whose label carries it) |
+| `same_name_after_trim` | Other nets whose names read the same once the whitespace is removed. They are separate nets; the Allegro netlister renames one of them on export (warning `ORCAP-36005`), so compare them by connectivity |
+| `sources` | Cadence `.DSN` only: the objects whose text names the net (`net_alias`, `off_page_connector`, `global`, `hierarchical_port`), with that `text`, the page each is on (with the block placement path for a page inside a hierarchical block), and its location in the page's own coordinates. An object is listed only on the net the connectivity puts it on |
+| `message` | The same, in a sentence |
+
+`query_xnet_by_net_name` resolves a name with no exact match in two further steps, and says which in `notes`:
+
+1. Ignoring label whitespace on both the name and the nets: `SIGNAL_A` finds `"SIGNAL_A "`, and `SIG_U1` finds `"SIG _U1"`.
+2. Cadence only: as the 31-character name a PSTWRITER 16.6 export gives a longer net: `DDR4_DQS_P_BYTE_LANE_0_TO_FPGA_` finds `DDR4_DQS_P_BYTE_LANE_0_TO_FPGA_BANK_64`. PSTWRITER 17.4 and later write long names in full.
+
+An exact match always wins, so a name is never moved onto another net. A name that matches more than one net, by either step or by both, returns an error listing them. `starting_point` keeps the name passed in, and `net` names the net matched.
+
+The Allegro rules (`netlist_name`, the 31-character step) apply to Cadence designs. Other formats get the same whitespace warnings, lookups and ERC findings without them.
+
+`run_erc` reports the same nets under `net.whitespace_in_name` and `net.whitespace_name_collision`.
 
 ## ErrorResult
 
@@ -511,6 +560,7 @@ The `notes` field provides contextual information:
 | `"No nets matched pattern '...'"` | Search returned empty results |
 | `"All N components with prefix '...' ... are DNS ..."` | `list_components` was called with `include_dns: false`, found the prefix, and every part under it is DNS; pass `include_dns: true` (the default) to list them |
 | `"This netlist has no MPN data..."` | Design has no MPN information |
+| `"No net is named ... exactly. It matched ..."` | `query_xnet_by_net_name` matched the name ignoring leading and trailing whitespace, or as a 31-character PSTWRITER 16.6 name; see [Net Name Warnings](#net-name-warnings) |
 
 ## Case Sensitivity
 
@@ -524,6 +574,7 @@ Different operations have different case sensitivity behaviors:
 | `search_components_by_description` pattern | No | Regex uses `i` flag for case-insensitive matching |
 | `query_component` refdes | No | Refdes lookup is case-insensitive |
 | `query_xnet_by_pin_name` refdes/pin | No | Both refdes and pin lookup are case-insensitive |
+| `query_xnet_by_net_name` net | Yes | Exact first, then ignoring leading and trailing whitespace; see [Net Name Warnings](#net-name-warnings) |
 | `list_components` type prefix | No | Prefix matching is case-insensitive |
 
 **Examples:**
