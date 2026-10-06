@@ -95,6 +95,44 @@ const RULES: Rule[] = [
       ),
   },
   {
+    // The Allegro netlister trims the name, so the export, a mating board and
+    // an exact lookup all spell this net differently from the schematic.
+    id: "net.whitespace_in_name",
+    severity: "warning",
+    shape: "map",
+    run: (scan) =>
+      collect(
+        scan,
+        (net) => net !== net.trim(),
+        (s) => [...s.functional, ...s.testpoints]
+      ),
+  },
+  {
+    // Separate nets whose names read the same once trimmed: on the schematic
+    // they look like one net, and the netlister renames one of them on export.
+    id: "net.whitespace_name_collision",
+    severity: "error",
+    shape: "map",
+    run: (scan) => {
+      const byTrimmed = new Map<string, string[]>();
+      for (const net of scan.keys()) {
+        const group = byTrimmed.get(net.trim()) ?? [];
+        group.push(net);
+        byTrimmed.set(net.trim(), group);
+      }
+      const colliding = new Set(
+        [...byTrimmed.values()]
+          .filter((group) => group.length > 1 && group.some((n) => n !== n.trim()))
+          .flat()
+      );
+      return collect(
+        scan,
+        (net) => colliding.has(net),
+        (s) => [...s.functional, ...s.testpoints]
+      );
+    },
+  },
+  {
     id: "net.unnamed",
     severity: "warning",
     shape: "arr",

@@ -92,7 +92,13 @@ export const loadNetlist = async (
 
     const parsed = await parseDesign(normalizedPath, { variant: selection.selected });
     normalizeUnconnectedPins(parsed);
-    return { design_variant: selection.selected, nets: parsed.nets, components: parsed.components };
+    const loaded: LoadedNetlist = {
+      design_variant: selection.selected,
+      nets: parsed.nets,
+      components: parsed.components,
+    };
+    if (parsed.netLabelSources) loaded.netLabelSources = parsed.netLabelSources;
+    return loaded;
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error occurred";
     return { error: message };

@@ -1,7 +1,13 @@
 import { getDesignName } from "../../paths.js";
 import { loadNetlist } from "../load-netlist.js";
 import { MPN_MISSING_NOTE } from "../component-grouping.js";
-import { isErrorResult, type QueryComponentResult, type ErrorResult } from "../../types.js";
+import { indexNetNames } from "../net-names.js";
+import {
+  isErrorResult,
+  getPinNet,
+  type QueryComponentResult,
+  type ErrorResult,
+} from "../../types.js";
 
 /**
  * Query component details by reference designator.
@@ -74,6 +80,9 @@ export const queryComponent = async (
   if (!mpn) {
     result.notes = [MPN_MISSING_NOTE];
   }
+
+  const warnings = indexNetNames(netlist).warningsFor(Object.values(component.pins).map(getPinNet));
+  if (warnings.length > 0) result.net_name_warnings = warnings;
 
   return result;
 };

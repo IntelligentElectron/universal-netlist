@@ -1,6 +1,7 @@
 import { getDesignName } from "../../paths.js";
 import { loadNetlist } from "../load-netlist.js";
 import { aggregateCircuitByMpn } from "../component-grouping.js";
+import { describeAmbiguity, describeResolution, indexNetNames } from "../net-names.js";
 import {
   naturalSort,
   traverseCircuitFromNet,
@@ -36,21 +37,27 @@ export const queryXnetByNetName = async (
   }
 
   const { nets, components } = netlist;
+  const names = indexNetNames(netlist);
 
-  if (!nets[netName]) {
+  const resolution = names.resolve(netName);
+  if (resolution.status === "missing") {
     const designName = getDesignName(design);
     return {
       error: `Net '${netName}' not found in design '${designName}'. Use search_nets() to find available nets.`,
     };
   }
+  if (resolution.status === "ambiguous") {
+    return { error: describeAmbiguity(netName, resolution) };
+  }
+  const net = resolution.net;
 
-  if (isGroundNet(netName)) {
+  if (isGroundNet(net)) {
     return {
-      error: `${netName} is a ground net and cannot be queried.`,
+      error: `${net} is a ground net and cannot be queried.`,
     };
   }
 
-  const traversal = traverseCircuitFromNet(netName, nets, components, {
+  const traversal = traverseCircuitFromNet(net, nets, components, {
     skipTypes,
     includeDns,
   });
@@ -60,7 +67,7 @@ export const queryXnetByNetName = async (
 
   const response: AggregatedCircuitResult = {
     design_variant: netlist.design_variant,
-    starting_point: netName,
+    starting_point: net,
     total_components: traversal.components.length,
     unique_configurations: aggregated.length,
     components_by_mpn: aggregated,
@@ -71,6 +78,13 @@ export const queryXnetByNetName = async (
   if (Object.keys(traversal.skipped).length > 0) {
     response.skipped = traversal.skipped;
   }
+
+  if (resolution.status !== "exact") {
+    response.net = net;
+    response.notes = [describeResolution(netName, resolution)];
+  }
+  const warnings = names.warningsFor([net, ...traversal.visited_nets]);
+  if (warnings.length > 0) response.net_name_warnings = warnings;
 
   return response;
 };
@@ -171,6 +185,9 @@ export const queryXnetByPinName = async (
   if (Object.keys(traversal.skipped).length > 0) {
     response.skipped = traversal.skipped;
   }
+
+  const warnings = indexNetNames(netlist).warningsFor([connectedNet, ...traversal.visited_nets]);
+  if (warnings.length > 0) response.net_name_warnings = warnings;
 
   return response;
 };

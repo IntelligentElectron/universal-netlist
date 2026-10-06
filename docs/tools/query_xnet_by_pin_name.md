@@ -30,7 +30,8 @@ Returns circuit traversal results starting from a pin. See [`AggregatedComponent
   "components_by_mpn": [AggregatedComponent, ...],
   "visited_nets": ["net1", "net2"],
   "circuit_hash": "string",
-  "skipped": { "C": 5, "L": 2 }         // Optional
+  "skipped": { "C": 5, "L": 2 },        // Optional
+  "net_name_warnings": [NetNameWarning, ...] // Optional: visited nets whose names have leading or trailing whitespace
 }
 ```
 

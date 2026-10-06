@@ -33,6 +33,7 @@ Supported formats:
 - DNS (Do Not Stuff) components are flagged \`dns: true\`. Listing and search tools include them by default; traversal and ERC leave them out unless \`include_dns=true\`
 - A part the selected variant substitutes for the base part is flagged \`alternate_part: true\`
 - A result carrying an \`error\` field failed, and the message names the tool that finds the value you wanted
+- A net named with leading or trailing whitespace comes with \`net_name_warnings\`; its \`netlist_name\` is the name an Allegro export or another board uses
 `.trim();
 
 // =============================================================================
@@ -83,6 +84,7 @@ with a notes field when nothing matches. \
 KiCad nets declared inside a hierarchical sheet are sheet-path-prefixed \
 (e.g. a "D0" data line on the Peripherals sheet is named "/Peripherals/D0", not "/D0"), \
 so prefer unanchored patterns like "D0" over "^/D0$" or you may miss bussed/hierarchical nets. \
+A name with leading or trailing whitespace also matches as trimmed, so "^SIG$" finds "SIG ". \
 Rejects patterns that match all items; use list_nets for full results.`;
 
 export const SEARCH_COMPONENTS_BY_REFDES_DESCRIPTION = `\
@@ -116,6 +118,9 @@ like a signal, so a query that pulls up to one returns its whole pull-up network
 \`visited_nets\` names every net the result crossed. \`skip_types\` leaves series \
 passives out; \`skip_types=['C','L','R']\` removes all three from the result. \
 Rejects ground nets (GND, AGND, DGND, etc.) with an error. \
+A name that matches no net exactly is matched ignoring leading and trailing whitespace, \
+then as the 31-character name a PSTWRITER 16.6 Allegro export gives a longer net; \
+\`notes\` says when that happened, and a name that could mean several nets returns them. \
 If the net is not found, \`search_nets\` finds the name.`;
 
 export const QUERY_XNET_BY_PIN_NAME_DESCRIPTION = `\
@@ -161,6 +166,10 @@ by severity (\`errors\`, \`warnings\`) then rule id. Full output, never truncate
 Rules: \`net.single_pin\` (error: a net with one functional pin and no test point), \
 \`net.testpoint_orphan\` (error: a net touched only by test points), \
 \`net.testpoint_stub\` (warning: one functional pin plus test point(s)), \
+\`net.whitespace_in_name\` (warning: a net name with leading or trailing whitespace, which \
+the Allegro netlister trims), \
+\`net.whitespace_name_collision\` (error: separate nets whose names read the same once \
+trimmed, such as " SIG" and SIG), \
 \`net.unnamed\` (warning: an auto-generated net name on a real 2+-pin net). \
 Test points are identified by the \`TP\` refdes prefix. Findings key each net to its \
 \`REFDES.PIN\` endpoints (always arrays); \`net.unnamed\` lists bare net names. \

@@ -34,7 +34,8 @@ Returns component details with pin-to-net mappings using [`PinEntry`](../schemas
     "pinNumber": PinEntry,       // See PinEntry in universal-netlist.md
     ...
   },
-  "notes": ["..."]               // optional
+  "notes": ["..."],              // optional
+  "net_name_warnings": [NetNameWarning, ...] // optional, pins' nets whose names have leading or trailing whitespace
 }
 ```
 
