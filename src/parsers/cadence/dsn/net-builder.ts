@@ -9,13 +9,14 @@
  * off-page connectors carry.
  */
 
-import type { NetConnections } from "../../../types.js";
+import type { NetConnections, NetLabelSource } from "../../../types.js";
 import type { PinMapData } from "./structure-types.js";
 import type { PageData } from "./page-parser.js";
 import { symbolKey } from "./symbol-attachment.js";
 import { buildPageCoordMap, renameGroups, type PageCoordMap } from "./page-groups.js";
 import { collectPins } from "./net-pins.js";
 import { assembleNets } from "./net-assembly.js";
+import { collectPaddedNetLabelSources } from "./net-label-sources.js";
 
 /**
  * Build cross-page OPC name equivalences.
@@ -69,6 +70,8 @@ export function buildNetConnectivity(
 ): {
   nets: NetConnections;
   componentPins: Map<string, Map<string, string>>;
+  /** Nets named by text with leading or trailing whitespace, to the objects carrying it. */
+  netLabelSources?: Record<string, NetLabelSource[]>;
 } {
   // A global/port symbol's pairingId indexes the Library string list, which
   // holds its net name. The symbol's own `name` field is the schematic symbol
@@ -150,5 +153,14 @@ export function buildNetConnectivity(
     opcPairingNets,
     symbolNets
   );
-  return assembleNets(allPins, canonicalNetNames);
+  const { nets, componentPins } = assembleNets(allPins, canonicalNetNames);
+  const netLabelSources = collectPaddedNetLabelSources(
+    pages,
+    resolvedCoordMaps,
+    globalPairingNets,
+    opcPairingNets,
+    strLst,
+    nets
+  );
+  return netLabelSources ? { nets, componentPins, netLabelSources } : { nets, componentPins };
 }

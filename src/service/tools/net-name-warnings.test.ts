@@ -117,9 +117,10 @@ describe.skipIf(!hasMultio)("net names with leading or trailing whitespace", () 
 
   it("query_xnet_by_net_name finds the net by the name the netlister writes", async () => {
     const result = ok(await queryXnetByNetName(design, "SC"));
-    expect(result.starting_point).toBe("SC ");
+    // starting_point keeps the name asked for; net names the net it matched.
+    expect(result.starting_point).toBe("SC");
     expect(result.net).toBe("SC ");
-    expect(result.notes?.[0]).toContain("leading or trailing whitespace");
+    expect(result.notes?.[0]).toContain("differs from it only by whitespace");
     expect(warningOf(result.net_name_warnings, "SC ")?.netlist_name).toBe("SC");
     const exact = ok(await queryXnetByNetName(design, "SC "));
     expect(exact.circuit_hash).toBe(result.circuit_hash);
@@ -187,3 +188,63 @@ describe.skipIf(!(hasFixtures && existsSync(J202)))("net names with inner spaces
     expect(erc.errors?.["net.whitespace_name_collision"]).toBeUndefined();
   });
 });
+
+const AAFM = fixturePath("cadence", "parallella-aafm", "HB1A-AAFM.DSN");
+
+describe.skipIf(!(hasFixtures && existsSync(AAFM)))(
+  "a padded label inside a placed block",
+  { timeout: 60_000 },
+  () => {
+    // aafm draws the DSP block once and places it four times. Its local net
+    // MVDD is reported once per placement, as `MVDD_QUAD ANEMONE_DSP LL` and so
+    // on. Rewriting the label to "MVD " puts the whitespace inside each reported
+    // name, ahead of the placement suffix: "MVD _QUAD ANEMONE_DSP LL".
+    let dir: string;
+    let design: string;
+    const original = hasFixtures && existsSync(AAFM) ? parseDsnFile(AAFM) : undefined;
+    const placements = Object.keys(original?.nets ?? {}).filter((n) => n.startsWith("MVDD_"));
+    const padded = placements.map((n) => "MVD " + n.slice("MVDD".length));
+
+    beforeAll(() => {
+      dir = mkdtempSync(join(tmpdir(), "net-name-block-"));
+      design = join(dir, "HB1A-AAFM.DSN");
+      copyFileSync(AAFM, design);
+      const bytes = readFileSync(design);
+      expect(renameInPlace(bytes, "MVDD", "MVD ")).toBe(8);
+      writeFileSync(design, bytes);
+    });
+
+    afterAll(() => rmSync(dir, { recursive: true, force: true }));
+
+    it("keeps each placement's net and records the label on the block page", () => {
+      expect(placements).toHaveLength(4);
+      const parsed = parseDsnFile(design);
+      placements.forEach((name, i) => {
+        expect(parsed.nets[padded[i]]).toEqual(original!.nets[name]);
+        const sources = parsed.netLabelSources?.[padded[i]];
+        expect(sources?.length).toBeGreaterThan(0);
+        for (const s of sources!) {
+          expect(s.text).toBe("MVD ");
+          expect(s.page).toContain("(");
+        }
+      });
+    });
+
+    it("warns on every placement's net, finds it without the whitespace, and flags it in ERC", async () => {
+      const nets = ok(await listNets(design));
+      for (const name of padded) {
+        expect(warningOf(nets.net_name_warnings, name)).toMatchObject({
+          problem: "whitespace_before_block_suffix",
+        });
+        expect(warningOf(nets.net_name_warnings, name)?.netlist_name).toBeUndefined();
+      }
+
+      const lookup = ok(await queryXnetByNetName(design, padded[0].replace("MVD ", "MVD")));
+      expect(lookup.net).toBe(padded[0]);
+
+      const erc = ok(await runErc(design, { includeRules: ["net.whitespace_in_name"] }));
+      const flagged = erc.warnings?.["net.whitespace_in_name"] as Record<string, string[]>;
+      expect(Object.keys(flagged).sort()).toEqual([...padded].sort());
+    });
+  }
+);

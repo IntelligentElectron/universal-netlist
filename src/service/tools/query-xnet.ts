@@ -67,7 +67,7 @@ export const queryXnetByNetName = async (
 
   const response: AggregatedCircuitResult = {
     design_variant: netlist.design_variant,
-    starting_point: net,
+    starting_point: netName,
     total_components: traversal.components.length,
     unique_configurations: aggregated.length,
     components_by_mpn: aggregated,

@@ -16,7 +16,6 @@ import { parseCacheStream, indexLibraryPart } from "./cache-parser.js";
 import { parseLibraryStrLst } from "./library-parser.js";
 import { buildDeviceIndexMap } from "./pin-resolver.js";
 import { buildNetConnectivity } from "./net-builder.js";
-import { collectPaddedNetLabelSources } from "./net-label-sources.js";
 import { buildComponents } from "./component-builder.js";
 import { readVariantStuffing, type VariantStuffing } from "./variant-store.js";
 
@@ -158,7 +157,7 @@ export function parseDsnFile(dsnPath: string, options?: ParseDesignOptions): Par
 
   // Build netlist from parsed data
   const deviceIndexMap = buildDeviceIndexMap(pages);
-  const { nets, componentPins } = buildNetConnectivity(
+  const { nets, componentPins, netLabelSources } = buildNetConnectivity(
     pages,
     canonicalNetNames,
     pmd,
@@ -182,7 +181,6 @@ export function parseDsnFile(dsnPath: string, options?: ParseDesignOptions): Par
   );
 
   const parsed: ParsedNetlist = { nets, components };
-  const netLabelSources = collectPaddedNetLabelSources(pages, nets, strLst);
   if (netLabelSources) parsed.netLabelSources = netLabelSources;
   return parsed;
 }

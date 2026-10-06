@@ -33,6 +33,8 @@ const normalizeUnconnectedPins = (netlist: ParsedNetlist): void => {
 /** A parsed design plus the design variant it was resolved for. */
 export interface LoadedNetlist extends ParsedNetlist {
   design_variant: string;
+  /** The handler that parsed the design, such as `cadence` or `kicad`. */
+  format: string;
 }
 
 /**
@@ -94,6 +96,7 @@ export const loadNetlist = async (
     normalizeUnconnectedPins(parsed);
     const loaded: LoadedNetlist = {
       design_variant: selection.selected,
+      format: handler.name,
       nets: parsed.nets,
       components: parsed.components,
     };

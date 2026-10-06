@@ -1,22 +1,26 @@
 /**
  * Net Label Sources
  *
- * Finds the schematic objects that give a net a name with leading or trailing
+ * Finds the schematic objects whose text names a net with leading or trailing
  * whitespace: the net aliases, off-page connectors, global symbols and
  * hierarchical ports carrying that text, with the page each is on and its
  * location. Capture keeps the whitespace as part of the name, and the Allegro
  * netlister trims it on export, so the designer needs to know which object to
  * fix (issue #235).
  *
- * An alias carries its own text. The symbols carry a Library string-list index
- * (`pairingId`), and the string at that index is the net name, read the same
- * way net-builder.ts reads it for connectivity.
+ * Each object is matched to the net the connectivity build gave it, not to a
+ * net found by its text, so a source is only ever listed on a net its object
+ * is on. It is listed when its text is what names that net: the net is the
+ * text itself, or, on a page that is one placement of a hierarchical block,
+ * the text with the placement's suffix. There the whitespace ends up inside the
+ * reported name, as in `"SIG _U1"`.
  */
 
 import type { NetConnections, NetLabelSource } from "../../../types.js";
+import { hasEdgeWhitespace } from "../../../net-categories.js";
 import type { PageData } from "./page-parser.js";
-
-const isPadded = (name: string): boolean => name !== name.trim();
+import type { PageCoordMap } from "./page-groups.js";
+import { symbolKey } from "./symbol-attachment.js";
 
 /** The page a source sits on, with the block placement when it is one. */
 function pageLabel(page: PageData): string {
@@ -24,58 +28,65 @@ function pageLabel(page: PageData): string {
 }
 
 /**
- * The net a label's text names on this page: the text itself, or the text with
- * the placement's suffix where the net is local to a block placement.
- */
-function netFor(name: string, page: PageData, nets: NetConnections): string | undefined {
-  if (name in nets) return name;
-  const suffixed = page.placement ? name + page.placement.suffix : undefined;
-  return suffixed && suffixed in nets ? suffixed : undefined;
-}
-
-/**
- * Collect the sources of every net whose name has leading or trailing
- * whitespace. Returns undefined when no net has one.
+ * Collect the sources of every net named by text with leading or trailing
+ * whitespace. Returns undefined when there are none.
+ *
+ * @param coordMaps - Each page's resolved wire groups, as connectivity used them
+ * @param globalPairingNets - Global and port pairingId to the net its pins join
+ * @param opcPairingNets - Off-page connector pairingId to the net its pins join
  */
 export function collectPaddedNetLabelSources(
   pages: PageData[],
-  nets: NetConnections,
-  strLst: string[]
+  coordMaps: PageCoordMap[],
+  globalPairingNets: Map<number, string>,
+  opcPairingNets: Map<number, string>,
+  strLst: string[],
+  nets: NetConnections
 ): Record<string, NetLabelSource[]> | undefined {
   const out = new Map<string, Map<string, NetLabelSource>>();
 
   const add = (
-    rawName: string | undefined,
+    rawText: string | undefined,
+    net: string | undefined,
     kind: NetLabelSource["kind"],
     page: PageData,
     x: number,
     y: number
   ) => {
-    if (!rawName) return;
+    if (!rawText || !net || !(net in nets)) return;
     // Net names are uppercased everywhere they are read; whitespace is kept.
-    const name = rawName.toUpperCase();
-    if (!isPadded(name)) return;
-    const net = netFor(name, page, nets);
-    if (!net) return;
-    const source: NetLabelSource = { kind, page: pageLabel(page), x, y };
+    const text = rawText.toUpperCase();
+    if (!hasEdgeWhitespace(text)) return;
+    const named = net === text || (page.placement && net === text + page.placement.suffix);
+    if (!named) return;
+    const source: NetLabelSource = { kind, text, page: pageLabel(page), x, y };
     const key = `${kind}|${source.page}|${x}|${y}`;
     const sources = out.get(net) ?? new Map<string, NetLabelSource>();
     sources.set(key, source);
     out.set(net, sources);
   };
 
-  for (const page of pages) {
+  pages.forEach((page, i) => {
+    const coordToNet = coordMaps[i].coordToNet;
     for (const wire of page.wires) {
-      for (const alias of wire.aliases) add(alias.name, "net_alias", page, alias.locX, alias.locY);
+      const net = coordToNet.get(`${wire.startX},${wire.startY}`);
+      for (const alias of wire.aliases) {
+        add(alias.name, net, "net_alias", page, alias.locX, alias.locY);
+      }
     }
     for (const opc of page.offPageConnectors) {
-      add(strLst[opc.pairingId], "off_page_connector", page, opc.locX, opc.locY);
+      const net = opcPairingNets.get(opc.pairingId);
+      add(strLst[opc.pairingId], net, "off_page_connector", page, opc.locX, opc.locY);
     }
-    for (const sym of page.globals) add(strLst[sym.pairingId], "global", page, sym.locX, sym.locY);
+    for (const sym of page.globals) {
+      const net = coordToNet.get(symbolKey(sym)) ?? globalPairingNets.get(sym.pairingId);
+      add(strLst[sym.pairingId], net, "global", page, sym.locX, sym.locY);
+    }
     for (const sym of page.ports) {
-      add(strLst[sym.pairingId], "hierarchical_port", page, sym.locX, sym.locY);
+      const net = coordToNet.get(symbolKey(sym)) ?? globalPairingNets.get(sym.pairingId);
+      add(strLst[sym.pairingId], net, "hierarchical_port", page, sym.locX, sym.locY);
     }
-  }
+  });
 
   if (out.size === 0) return undefined;
   const result: Record<string, NetLabelSource[]> = {};

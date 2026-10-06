@@ -104,6 +104,8 @@ export interface ParsedNetlist {
 /** A schematic object that names a net, and where it sits. */
 export interface NetLabelSource {
   kind: "net_alias" | "off_page_connector" | "global" | "hierarchical_port";
+  /** The object's text, whitespace included, uppercased as net names are. */
+  text: string;
   /** The page the object is drawn on. */
   page: string;
   /** The object's location in the page's own coordinates, as the design stores them. */
@@ -119,17 +121,19 @@ export interface NetNameWarning {
   /** The net's name as the schematic gives it, and as every tool reports it. */
   net: string;
   /**
-   * The name the Allegro netlister writes for the net. Omitted when the
-   * schematic does not decide it: an all-whitespace name, or a name that reads
-   * the same as another net's once trimmed.
+   * The name the Allegro netlister writes for the net, for a Cadence design.
+   * Omitted when the schematic does not decide it: an all-whitespace name, a
+   * name that reads the same as another net's once trimmed, or a padded label
+   * inside a hierarchical block.
    */
   netlist_name?: string;
   problem:
     | "leading_whitespace"
     | "trailing_whitespace"
     | "leading_and_trailing_whitespace"
-    | "whitespace_only";
-  /** Other nets whose names read the same as this one once trimmed. */
+    | "whitespace_only"
+    | "whitespace_before_block_suffix";
+  /** Other nets whose names read the same as this one once label whitespace is removed. */
   same_name_after_trim?: string[];
   /** The objects that give the net its name, where the design records them. */
   sources?: NetLabelSource[];

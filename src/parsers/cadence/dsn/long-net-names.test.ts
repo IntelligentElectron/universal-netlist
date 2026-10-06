@@ -69,7 +69,7 @@ describe.skipIf(!hasClay)("net names longer than the Allegro limit", () => {
   it("finds the net when queried by the name the export gives it", async () => {
     const result = await queryXnetByNetName(BLOCK, TRUNCATED);
     if (isErrorResult(result)) throw new Error(result.error);
-    expect(result.starting_point).toBe(FULL);
+    expect(result.starting_point).toBe(TRUNCATED);
     expect(result.net).toBe(FULL);
     expect(result.notes?.[0]).toContain("PSTWRITER 16.6");
   });

@@ -36,7 +36,7 @@ Returns circuit traversal results with components grouped by MPN. See [`Aggregat
 }
 ```
 
-**Name matching:** an exact name always wins. A name with no exact match is matched ignoring leading and trailing whitespace (`SIGNAL_A` finds the schematic's `"SIGNAL_A "`, which the Allegro netlister writes as `SIGNAL_A`), then as the 31-character name a PSTWRITER 16.6 export gives a longer net. `starting_point` and `net` then name the net matched, and `notes` says how. A name that could mean several nets returns an error listing them. See [Net Name Warnings](../schemas/shared-types.md#net-name-warnings).
+**Name matching:** an exact name always wins. A name with no exact match is matched ignoring leading and trailing whitespace (`SIGNAL_A` finds the schematic's `"SIGNAL_A "`, which the Allegro netlister writes as `SIGNAL_A`), then as the 31-character name a PSTWRITER 16.6 export gives a longer net. `starting_point` keeps the name you passed, `net` names the net matched, and `notes` says how. The 31-character step applies to Cadence designs only. A name that could mean several nets returns an error listing them. See [Net Name Warnings](../schemas/shared-types.md#net-name-warnings).
 
 **Related types:**
 - [`AggregatedComponent`](../schemas/shared-types.md#aggregatedcomponent) - Component grouping with orientation tracking; a group the selected design variant substitutes carries `alternate_part: true`
