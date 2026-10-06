@@ -426,7 +426,7 @@ Capture keeps leading and trailing whitespace as part of a net name; the Allegro
 `query_xnet_by_net_name` resolves a name with no exact match in two further steps, and says which in `notes`:
 
 1. Ignoring label whitespace on both the name and the nets: `SIGNAL_A` finds `"SIGNAL_A "`, and `SIG_U1` finds `"SIG _U1"`.
-2. Cadence only: as the 31-character name a PSTWRITER 16.6 export gives a longer net: `PTA2/JTAG_TDO/TRACE_SWO/EZP_D0/` finds `PTA2/JTAG_TDO/TRACE_SWO/EZP_D0/UART0_TX/FTM0_CH7`. PSTWRITER 17.4 and later write long names in full.
+2. Cadence only: as the 31-character name a PSTWRITER 16.6 export gives a longer net: `DDR4_DQS_P_BYTE_LANE_0_TO_FPGA_` finds `DDR4_DQS_P_BYTE_LANE_0_TO_FPGA_BANK_64`. PSTWRITER 17.4 and later write long names in full.
 
 An exact match always wins, so a name is never moved onto another net. A name that matches more than one net, by either step or by both, returns an error listing them. `starting_point` keeps the name passed in, and `net` names the net matched.
 
