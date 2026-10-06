@@ -90,6 +90,19 @@ describe("queryXnetByNetName - ground net blocking", () => {
     expect((result as ErrorResult).error).toContain("cannot be queried");
   });
 
+  it("should refuse a padded ground matched without its whitespace", async () => {
+    const mockNetlist: ParsedNetlist = {
+      nets: { "GND ": { R1: ["2"] }, SIGNAL: { R1: ["1"] } },
+      components: { R1: { pins: { "1": "SIGNAL", "2": "GND " }, mpn: "10k" } },
+    };
+    vi.spyOn(parsersModule, "parseDesign").mockResolvedValue(mockNetlist);
+
+    const result = await queryXnetByNetName("/mock/design.dsn", "GND");
+
+    expect(isErrorResult(result)).toBe(true);
+    expect((result as ErrorResult).error).toContain("ground");
+  });
+
   it("should allow non-ground net queries", async () => {
     const mockNetlist: ParsedNetlist = {
       nets: { SIGNAL: { R1: ["1"] }, GND: { R1: ["2"] } },

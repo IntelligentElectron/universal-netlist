@@ -53,22 +53,29 @@ export const stripSheetPath = (netName: string): string => {
 };
 
 /**
+ * The base name a net is classified by: its last sheet-path segment, without
+ * the leading or trailing whitespace a label can carry. A ground labelled
+ * "GND " is still ground (issue #235).
+ */
+const classifiedName = (netName: string): string => stripSheetPath(netName).trim();
+
+/**
  * Check if a net name matches the ground pattern.
  */
 export const isGroundNet = (netName: string): boolean =>
-  GROUND_NET_PATTERN.test(stripSheetPath(netName));
+  GROUND_NET_PATTERN.test(classifiedName(netName));
 
 /**
  * Check if a net name matches the power pattern.
  */
 export const isPowerNet = (netName: string): boolean =>
-  POWER_NET_PATTERN.test(stripSheetPath(netName));
+  POWER_NET_PATTERN.test(classifiedName(netName));
 
 /**
  * Check if a net name matches the stop pattern (power or ground).
  */
 export const isStopNet = (netName: string): boolean =>
-  STOP_NET_PATTERN.test(stripSheetPath(netName));
+  STOP_NET_PATTERN.test(classifiedName(netName));
 
 /**
  * Determine if a component is a traversable passive (R/RS, L, C, FB).

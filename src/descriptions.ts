@@ -166,8 +166,8 @@ by severity (\`errors\`, \`warnings\`) then rule id. Full output, never truncate
 Rules: \`net.single_pin\` (error: a net with one functional pin and no test point), \
 \`net.testpoint_orphan\` (error: a net touched only by test points), \
 \`net.testpoint_stub\` (warning: one functional pin plus test point(s)), \
-\`net.whitespace_in_name\` (warning: a net name with leading or trailing whitespace, which \
-the Allegro netlister trims), \
+\`net.whitespace_in_name\` (warning: a net name with leading or trailing whitespace; \
+for Cadence, the Allegro netlister trims it), \
 \`net.whitespace_name_collision\` (error: separate nets whose names read the same once \
 trimmed, such as " SIG" and SIG), \
 \`net.unnamed\` (warning: an auto-generated net name on a real 2+-pin net). \

@@ -96,8 +96,9 @@ const RULES: Rule[] = [
       ),
   },
   {
-    // Cadence: the Allegro netlister trims the name, so the export, a mating
-    // board and an exact lookup all spell this net differently from the schematic.
+    // A label typo in any format. For Cadence the Allegro netlister also trims
+    // it, so the export, a mating board and an exact lookup spell the net
+    // differently from the schematic.
     id: "net.whitespace_in_name",
     severity: "warning",
     shape: "map",

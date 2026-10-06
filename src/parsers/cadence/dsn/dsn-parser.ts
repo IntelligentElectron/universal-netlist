@@ -180,9 +180,7 @@ export function parseDsnFile(dsnPath: string, options?: ParseDesignOptions): Par
     readVariantStuffing(ole, entries, occurrenceRefdes, options?.variant)
   );
 
-  const parsed: ParsedNetlist = { nets, components };
-  if (netLabelSources) parsed.netLabelSources = netLabelSources;
-  return parsed;
+  return { nets, components, netLabelSources };
 }
 
 /**

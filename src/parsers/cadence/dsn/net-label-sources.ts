@@ -75,7 +75,10 @@ export function collectPaddedNetLabelSources(
       }
     }
     for (const opc of page.offPageConnectors) {
-      const net = opcPairingNets.get(opc.pairingId);
+      // The connector's own wire group on this page carries the placement
+      // suffix; the design-wide name does not.
+      const net =
+        coordToNet.get(`opc:${opc.pairingId}:${opc.dbId}`) ?? opcPairingNets.get(opc.pairingId);
       add(strLst[opc.pairingId], net, "off_page_connector", page, opc.locX, opc.locY);
     }
     for (const sym of page.globals) {

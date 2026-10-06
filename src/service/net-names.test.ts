@@ -92,6 +92,15 @@ describe("NetNameIndex.resolve", () => {
     expect(index.resolve("   ")).toEqual({ status: "missing" });
   });
 
+  it("matches the 31-character name of a long padded block label", () => {
+    const net = "LONG_SIGNAL_NAME_ABCDEFGHIJK _QUAD ANEMONE_DSP LL";
+    const block = cadence([net], { [net]: [alias("LONG_SIGNAL_NAME_ABCDEFGHIJK ")] });
+    expect(block.resolve("LONG_SIGNAL_NAME_ABCDEFGHIJK_QU")).toEqual({
+      status: "truncated",
+      net,
+    });
+  });
+
   it("matches a padded block label by its name without the whitespace", () => {
     const blockNet = "SIG _U1";
     const block = cadence([blockNet, "SIG _U2"], {
@@ -170,6 +179,19 @@ describe("NetNameIndex warnings", () => {
   it("flags a name that is nothing but whitespace", () => {
     const warning = cadence([" "]).warningFor(" ");
     expect(warning?.problem).toBe("whitespace_only");
+    expect(warning?.netlist_name).toBeUndefined();
+  });
+
+  it("names the other whitespace-only nets one collides with, as ERC does", () => {
+    const index = cadence([" ", "  "]);
+    expect(index.warningFor(" ")?.same_name_after_trim).toEqual(["  "]);
+    expect(index.collidingNets()).toEqual(["  ", " "].sort());
+  });
+
+  it("classifies a block label with a leading space by its block suffix", () => {
+    const net = " SIG _U1";
+    const warning = cadence([net], { [net]: [alias(" SIG ")] }).warningFor(net);
+    expect(warning?.problem).toBe("whitespace_before_block_suffix");
     expect(warning?.netlist_name).toBeUndefined();
   });
 

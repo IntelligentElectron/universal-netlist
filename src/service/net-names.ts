@@ -120,6 +120,11 @@ export class NetNameIndex {
     return hasEdgeWhitespace(name) || (this.sources[name]?.length ?? 0) > 0;
   }
 
+  /** Whether a block placement suffix follows the label text that names this net. */
+  private hasBlockSuffix(name: string): boolean {
+    return (this.sources[name] ?? []).some(({ text }) => name !== text && name.startsWith(text));
+  }
+
   /** Other nets that read the same as this one with the label whitespace removed. */
   private sameAs(name: string): string[] {
     const others = new Set<string>();
@@ -130,13 +135,22 @@ export class NetNameIndex {
   }
 
   private buildWarning(name: string): NetNameWarning {
-    const problem = hasEdgeWhitespace(name) ? edgeProblem(name) : "whitespace_before_block_suffix";
+    // A block suffix decides first: " SIG _U1" has a leading space too, but its
+    // netlist name is no more known than that of "SIG _U1".
+    const problem = this.hasBlockSuffix(name)
+      ? "whitespace_before_block_suffix"
+      : edgeProblem(name);
     const others = this.sameAs(name);
     const warning: NetNameWarning = { net: name, problem, message: "" };
     const what = `Net name ${quote(name)} has ${PROBLEM_TEXT[problem]}`;
 
     if (problem === "whitespace_only") {
-      warning.message = `${what}. Rename the object that names it.`;
+      if (others.length > 0) warning.same_name_after_trim = others;
+      warning.message =
+        `${what}. Rename the object that names it.` +
+        (others.length > 0
+          ? ` It reads the same as ${others.map(quote).join(", ")}, which are separate nets.`
+          : "");
     } else if (others.length > 0) {
       warning.same_name_after_trim = others;
       warning.message =
@@ -225,8 +239,9 @@ export class NetNameIndex {
         ? this.names.filter(
             (n) =>
               !byWhitespace.includes(n) &&
-              n.trim().length > LEGACY_NETLIST_NAME_LIMIT &&
-              n.trim().startsWith(key)
+              [...(this.keysOf.get(n) ?? [])].some(
+                (k) => k.length > LEGACY_NETLIST_NAME_LIMIT && k.startsWith(key)
+              )
           )
         : [];
 

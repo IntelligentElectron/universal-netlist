@@ -162,5 +162,5 @@ export function buildNetConnectivity(
     strLst,
     nets
   );
-  return netLabelSources ? { nets, componentPins, netLabelSources } : { nets, componentPins };
+  return { nets, componentPins, netLabelSources };
 }
