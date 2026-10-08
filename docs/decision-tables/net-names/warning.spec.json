@@ -1,0 +1,27 @@
+{
+  "name": "warning",
+  "assumes": [
+    "NetNameIndex.warningFor(net) for a net in the design, other than NC",
+    "KiCad names are judged on the label after the sheet path",
+    "edge_other means the edge whitespace includes U+00A0 or another non-ASCII space String.trim removes",
+    "edge_space means every leading and trailing character removed is U+0020; edge_other means at least one is another character String.trim removes (tab, NBSP, other Unicode spaces)"
+  ],
+  "dimensions": {
+    "whitespace": [
+      "none",
+      "edge_space",
+      "edge_other",
+      "only",
+      "before_block_suffix"
+    ],
+    "collides": [
+      "no",
+      "yes"
+    ],
+    "format": [
+      "cadence",
+      "kicad",
+      "other"
+    ]
+  }
+}

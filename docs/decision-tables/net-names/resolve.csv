@@ -1,0 +1,73 @@
+input,ws_matches,trunc_matches,format,outcome,next,status,note
+exact,0,0,cadence,exact,,draft,"src/service/net-names.ts:288; exact always wins, test net-names.test.ts:47"
+exact,0,0,other,exact,,draft,"src/service/net-names.ts:288; exact always wins, test net-names.test.ts:47"
+exact,0,1,cadence,exact,,draft,"src/service/net-names.ts:288; exact always wins, test net-names.test.ts:47"
+exact,0,1,other,n/a,,draft,"truncation is matched for Cadence only, src/service/net-names.ts:296"
+exact,0,many,cadence,exact,,draft,"src/service/net-names.ts:288; exact always wins, test net-names.test.ts:47"
+exact,0,many,other,n/a,,draft,"truncation is matched for Cadence only, src/service/net-names.ts:296"
+exact,1,0,cadence,exact,,draft,"src/service/net-names.ts:288; exact always wins, test net-names.test.ts:47"
+exact,1,0,other,exact,,draft,"src/service/net-names.ts:288; exact always wins, test net-names.test.ts:47"
+exact,1,1,cadence,exact,,draft,"src/service/net-names.ts:288; exact always wins, test net-names.test.ts:47"
+exact,1,1,other,n/a,,draft,"truncation is matched for Cadence only, src/service/net-names.ts:296"
+exact,1,many,cadence,exact,,draft,"src/service/net-names.ts:288; exact always wins, test net-names.test.ts:47"
+exact,1,many,other,n/a,,draft,"truncation is matched for Cadence only, src/service/net-names.ts:296"
+exact,many,0,cadence,exact,,draft,"src/service/net-names.ts:288; exact always wins, test net-names.test.ts:47"
+exact,many,0,other,exact,,draft,"src/service/net-names.ts:288; exact always wins, test net-names.test.ts:47"
+exact,many,1,cadence,exact,,draft,"src/service/net-names.ts:288; exact always wins, test net-names.test.ts:47"
+exact,many,1,other,n/a,,draft,"truncation is matched for Cadence only, src/service/net-names.ts:296"
+exact,many,many,cadence,exact,,draft,"src/service/net-names.ts:288; exact always wins, test net-names.test.ts:47"
+exact,many,many,other,n/a,,draft,"truncation is matched for Cadence only, src/service/net-names.ts:296"
+plain,0,0,cadence,missing,,draft,src/service/net-names.ts:311
+plain,0,0,other,missing,,draft,src/service/net-names.ts:311
+plain,0,1,cadence,match by 31-char cut,,draft,src/service/net-names.ts:315
+plain,0,1,other,n/a,,draft,"truncation is matched for Cadence only, src/service/net-names.ts:296"
+plain,0,many,cadence,ambiguous: truncated,,draft,src/service/net-names.ts:321
+plain,0,many,other,n/a,,draft,"truncation is matched for Cadence only, src/service/net-names.ts:296"
+plain,1,0,cadence,match by whitespace,,draft,src/service/net-names.ts:313
+plain,1,0,other,match by whitespace,,draft,src/service/net-names.ts:313
+plain,1,1,cadence,ambiguous: whitespace or truncated,,draft,src/service/net-names.ts:322; test net-names.test.ts:75
+plain,1,1,other,n/a,,draft,"truncation is matched for Cadence only, src/service/net-names.ts:296"
+plain,1,many,cadence,ambiguous: whitespace or truncated,,draft,src/service/net-names.ts:322; test net-names.test.ts:75
+plain,1,many,other,n/a,,draft,"truncation is matched for Cadence only, src/service/net-names.ts:296"
+plain,many,0,cadence,ambiguous: whitespace,,draft,src/service/net-names.ts:319
+plain,many,0,other,ambiguous: whitespace,,draft,src/service/net-names.ts:319
+plain,many,1,cadence,ambiguous: whitespace or truncated,,draft,src/service/net-names.ts:322; test net-names.test.ts:75
+plain,many,1,other,n/a,,draft,"truncation is matched for Cadence only, src/service/net-names.ts:296"
+plain,many,many,cadence,ambiguous: whitespace or truncated,,draft,src/service/net-names.ts:322; test net-names.test.ts:75
+plain,many,many,other,n/a,,draft,"truncation is matched for Cadence only, src/service/net-names.ts:296"
+padded,0,0,cadence,missing,,draft,src/service/net-names.ts:311
+padded,0,0,other,missing,,draft,src/service/net-names.ts:311
+padded,0,1,cadence,match by 31-char cut,,draft,src/service/net-names.ts:315
+padded,0,1,other,n/a,,draft,"truncation is matched for Cadence only, src/service/net-names.ts:296"
+padded,0,many,cadence,ambiguous: truncated,,draft,src/service/net-names.ts:321
+padded,0,many,other,n/a,,draft,"truncation is matched for Cadence only, src/service/net-names.ts:296"
+padded,1,0,cadence,match by whitespace,,draft,src/service/net-names.ts:313
+padded,1,0,other,match by whitespace,,draft,src/service/net-names.ts:313
+padded,1,1,cadence,ambiguous: whitespace or truncated,,draft,src/service/net-names.ts:322; test net-names.test.ts:75
+padded,1,1,other,n/a,,draft,"truncation is matched for Cadence only, src/service/net-names.ts:296"
+padded,1,many,cadence,ambiguous: whitespace or truncated,,draft,src/service/net-names.ts:322; test net-names.test.ts:75
+padded,1,many,other,n/a,,draft,"truncation is matched for Cadence only, src/service/net-names.ts:296"
+padded,many,0,cadence,ambiguous: whitespace,,draft,src/service/net-names.ts:319
+padded,many,0,other,ambiguous: whitespace,,draft,src/service/net-names.ts:319
+padded,many,1,cadence,ambiguous: whitespace or truncated,,draft,src/service/net-names.ts:322; test net-names.test.ts:75
+padded,many,1,other,n/a,,draft,"truncation is matched for Cadence only, src/service/net-names.ts:296"
+padded,many,many,cadence,ambiguous: whitespace or truncated,,draft,src/service/net-names.ts:322; test net-names.test.ts:75
+padded,many,many,other,n/a,,draft,"truncation is matched for Cadence only, src/service/net-names.ts:296"
+blank,0,0,cadence,missing,,draft,src/service/net-names.ts:291
+blank,0,0,other,missing,,draft,src/service/net-names.ts:291
+blank,0,1,cadence,n/a,,draft,"keys are trimmed, so no key starts with a blank prefix"
+blank,0,1,other,n/a,,draft,"truncation is matched for Cadence only, src/service/net-names.ts:296"
+blank,0,many,cadence,n/a,,draft,"keys are trimmed, so no key starts with a blank prefix"
+blank,0,many,other,n/a,,draft,"truncation is matched for Cadence only, src/service/net-names.ts:296"
+blank,1,0,cadence,missing,,decided,Decided 2026-10-08: blank input names nothing a designer means; the exact blank name still matches
+blank,1,0,other,missing,,decided,Decided 2026-10-08: blank input names nothing a designer means; the exact blank name still matches
+blank,1,1,cadence,n/a,,draft,"keys are trimmed, so no key starts with a blank prefix"
+blank,1,1,other,n/a,,draft,"truncation is matched for Cadence only, src/service/net-names.ts:296"
+blank,1,many,cadence,n/a,,draft,"keys are trimmed, so no key starts with a blank prefix"
+blank,1,many,other,n/a,,draft,"truncation is matched for Cadence only, src/service/net-names.ts:296"
+blank,many,0,cadence,missing,,decided,Decided 2026-10-08: blank input names nothing a designer means; the exact blank name still matches
+blank,many,0,other,missing,,decided,Decided 2026-10-08: blank input names nothing a designer means; the exact blank name still matches
+blank,many,1,cadence,n/a,,draft,"keys are trimmed, so no key starts with a blank prefix"
+blank,many,1,other,n/a,,draft,"truncation is matched for Cadence only, src/service/net-names.ts:296"
+blank,many,many,cadence,n/a,,draft,"keys are trimmed, so no key starts with a blank prefix"
+blank,many,many,other,n/a,,draft,"truncation is matched for Cadence only, src/service/net-names.ts:296"

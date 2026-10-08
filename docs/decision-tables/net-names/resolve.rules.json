@@ -1,0 +1,123 @@
+{
+  "name": "resolve",
+  "rules": [
+    {
+      "when": {
+        "input": [
+          "plain",
+          "padded"
+        ],
+        "ws_matches": [
+          "1",
+          "many"
+        ],
+        "trunc_matches": [
+          "1",
+          "many"
+        ]
+      },
+      "outcome": "ambiguous: whitespace or truncated",
+      "next": "",
+      "cells": 8
+    },
+    {
+      "when": {
+        "input": [
+          "blank"
+        ]
+      },
+      "outcome": "missing",
+      "next": "",
+      "cells": 6
+    },
+    {
+      "when": {
+        "input": [
+          "plain",
+          "padded"
+        ],
+        "ws_matches": [
+          "1"
+        ],
+        "trunc_matches": [
+          "0"
+        ]
+      },
+      "outcome": "match by whitespace",
+      "next": "",
+      "cells": 4
+    },
+    {
+      "when": {
+        "input": [
+          "plain",
+          "padded"
+        ],
+        "ws_matches": [
+          "many"
+        ],
+        "trunc_matches": [
+          "0"
+        ]
+      },
+      "outcome": "ambiguous: whitespace",
+      "next": "",
+      "cells": 4
+    },
+    {
+      "when": {
+        "input": [
+          "plain",
+          "padded"
+        ],
+        "ws_matches": [
+          "0"
+        ],
+        "trunc_matches": [
+          "0"
+        ]
+      },
+      "outcome": "missing",
+      "next": "",
+      "cells": 4
+    },
+    {
+      "when": {
+        "input": [
+          "plain",
+          "padded"
+        ],
+        "ws_matches": [
+          "0"
+        ],
+        "trunc_matches": [
+          "1"
+        ]
+      },
+      "outcome": "match by 31-char cut",
+      "next": "",
+      "cells": 2
+    },
+    {
+      "when": {
+        "input": [
+          "plain",
+          "padded"
+        ],
+        "ws_matches": [
+          "0"
+        ],
+        "trunc_matches": [
+          "many"
+        ]
+      },
+      "outcome": "ambiguous: truncated",
+      "next": "",
+      "cells": 2
+    }
+  ],
+  "default": {
+    "outcome": "exact",
+    "next": ""
+  }
+}
