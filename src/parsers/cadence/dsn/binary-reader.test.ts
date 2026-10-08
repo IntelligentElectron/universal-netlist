@@ -112,6 +112,25 @@ describe("BinaryReader", () => {
       const r = new BinaryReader(buf);
       expect(r.readStringLenZeroTerm()).toBe("");
     });
+
+    // Capture writes the Windows code page. Decoding as ASCII dropped each
+    // byte's top bit: a no-break space read as a space and "±5V" as "15V".
+    it("decodes bytes above 0x7F as Windows-1252", () => {
+      const text = [0x56, 0xb1, 0x35, 0x56, 0xa0, 0xb5, 0x92, 0x96, 0x80];
+      const expected = "V±5V µ’–€";
+      const lenZero = Buffer.from([text.length, 0, ...text, 0]);
+      expect(new BinaryReader(lenZero).readStringLenZeroTerm()).toBe(expected);
+      const lenTerm = Buffer.from([text.length, 0, ...text]);
+      expect(new BinaryReader(lenTerm).readStringLenTerm()).toBe(expected);
+      expect(new BinaryReader(Buffer.from([...text, 0])).readStringZeroTerm()).toBe(expected);
+    });
+
+    it("decodes every byte to its own character, so none is lost", () => {
+      const all = Buffer.from([...Array(255).keys()].map((b) => b + 1));
+      const decoded = new BinaryReader(Buffer.from([...all, 0])).readStringZeroTerm();
+      expect(decoded).toHaveLength(255);
+      expect(new Set(decoded).size).toBe(255);
+    });
   });
 
   describe("assumeData", () => {

@@ -3,8 +3,34 @@
  *
  * Port of DataStream.cpp from OpenOrCadParser.
  * Wraps a Buffer with position tracking and typed read methods.
- * All integers are little-endian. Strings are ASCII (1 byte/char).
+ * All integers are little-endian. Strings are one byte per character: the C++
+ * reference keeps them as raw bytes, and Capture writes them in the Windows
+ * code page (`0.1µF` is `30 2E 31 B5 46`).
  */
+
+/**
+ * Windows-1252 characters for bytes 0x80-0x9F, where it differs from Latin-1.
+ * The five bytes it leaves undefined keep their Latin-1 control character, as
+ * the WHATWG decoder does. Spelled out because runtimes disagree:
+ * `TextDecoder("windows-1252")` in Node returns the Latin-1 controls.
+ */
+const WINDOWS_1252_HIGH =
+  "\u20ac\u0081\u201a\u0192\u201e\u2026\u2020\u2021" +
+  "\u02c6\u2030\u0160\u2039\u0152\u008d\u017d\u008f" +
+  "\u0090\u2018\u2019\u201c\u201d\u2022\u2013\u2014" +
+  "\u02dc\u2122\u0161\u203a\u0153\u009d\u017e\u0178";
+
+/**
+ * Decode a DSN string as Windows-1252, the code page of a Western Capture
+ * install. It maps every byte to exactly one character, so no byte is lost
+ * and a design saved under another code page can still be re-encoded.
+ */
+export const decodeString = (buf: Buffer, start = 0, end = buf.length): string => {
+  const text = buf.toString("latin1", start, end);
+  return /[\x80-\x9f]/.test(text)
+    ? text.replace(/[\x80-\x9f]/g, (c) => WINDOWS_1252_HIGH[c.charCodeAt(0) - 0x80])
+    : text;
+};
 
 export class BinaryReader {
   private buf: Buffer;
@@ -93,7 +119,7 @@ export class BinaryReader {
   }
 
   /**
-   * Read a null-terminated ASCII string (no length prefix).
+   * Read a null-terminated string (no length prefix).
    * Safety limit of 3500 chars (matching C++ reference).
    */
   readStringZeroTerm(): string {
@@ -101,7 +127,7 @@ export class BinaryReader {
     const limit = Math.min(this.buf.length, start + 3500);
     while (this.pos < limit) {
       if (this.buf[this.pos] === 0) {
-        const str = this.buf.toString("ascii", start, this.pos);
+        const str = decodeString(this.buf, start, this.pos);
         this.pos++; // skip null terminator
         return str;
       }
@@ -120,13 +146,13 @@ export class BinaryReader {
       throw new Error(`String length ${len} exceeds limit of 400 at offset ${this.pos - 2}`);
     }
     this.ensureAvailable(len);
-    const str = this.buf.toString("ascii", this.pos, this.pos + len);
+    const str = decodeString(this.buf, this.pos, this.pos + len);
     this.pos += len;
     return str;
   }
 
   /**
-   * Read a length-prefixed, null-terminated ASCII string.
+   * Read a length-prefixed, null-terminated string.
    * Format: uint16 length + chars + null terminator.
    * The length should match the string length (not counting the null).
    */
@@ -144,7 +170,7 @@ export class BinaryReader {
       return "";
     }
     this.ensureAvailable(len + 1); // chars + null
-    const str = this.buf.toString("ascii", this.pos, this.pos + len);
+    const str = decodeString(this.buf, this.pos, this.pos + len);
     this.pos += len;
     const terminator = this.buf[this.pos];
     if (terminator !== 0) {
