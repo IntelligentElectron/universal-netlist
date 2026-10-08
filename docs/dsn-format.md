@@ -106,13 +106,13 @@ Every string the DSN parsers read uses length-prefixed, null-terminated encoding
 
 ```
 uint16   length       # byte count of string content (not including null)
-char[]   content      # ASCII (or Latin-1 in Library strLst)
+char[]   content      # one byte per character, read as Windows-1252
 uint8    0x00         # null terminator
 ```
 
 Special case: if `length == 0`, only the null terminator byte (0x00) is present. The reader checks that byte really is 0 and throws if it is not.
 
-The Library stream's `strLst` uses Latin-1 encoding. All other streams use ASCII.
+Capture writes strings in the Windows ANSI code page of the machine that saved the design. `BinaryReader` decodes them as Windows-1252, the Western code page, which maps every byte to exactly one character: `0.1µF` (`B5` for µ) reads as written, and no byte is lost. A design saved under another code page, such as GBK on a Chinese machine, reads as the Windows-1252 form of its bytes; re-encoding that text as Windows-1252 gives back the original bytes. The Library stream's `strLst` uses the same decoder. The variant store is read as Latin-1, which differs only at 0x80–0x9F.
 
 `BinaryReader` also carries two other forms ported from the C++ reference, `readStringZeroTerm` (null-terminated, no length prefix, 3500-char cap) and `readStringLenTerm` (length-prefixed, no terminator, 400-char cap). Neither is called by any DSN parser today.
 

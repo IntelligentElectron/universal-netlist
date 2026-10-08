@@ -5,12 +5,12 @@
  * that all prefix property pairs index into.
  */
 
-import { BinaryReader } from "./binary-reader.js";
+import { BinaryReader, decodeString } from "./binary-reader.js";
 
 const PAGE_SETTINGS_SIZE = 156;
 
-/** Read a length-prefixed, null-terminated string using latin1 encoding. */
-function readStringLatin1(reader: BinaryReader): string {
+/** Read a length-prefixed, null-terminated string, without the 400-character cap. */
+function readLibraryString(reader: BinaryReader): string {
   const len = reader.readUint16();
   if (len === 0) {
     reader.skip(1); // null terminator
@@ -18,7 +18,7 @@ function readStringLatin1(reader: BinaryReader): string {
   }
   const bytes = reader.readBytes(len);
   reader.skip(1); // null terminator
-  return bytes.toString("latin1");
+  return decodeString(bytes);
 }
 
 /**
@@ -53,7 +53,7 @@ export function parseLibraryStrLst(buffer: Buffer): string[] {
 
   // 8 strings (str_lst_part_field entries)
   for (let i = 0; i < 8; i++) {
-    readStringLatin1(reader);
+    readLibraryString(reader);
   }
 
   // PageSettings
@@ -63,7 +63,7 @@ export function parseLibraryStrLst(buffer: Buffer): string[] {
   const strLstLen = reader.readUint32();
   const strLst: string[] = [];
   for (let i = 0; i < strLstLen; i++) {
-    strLst.push(readStringLatin1(reader));
+    strLst.push(readLibraryString(reader));
   }
 
   return strLst;
