@@ -1,0 +1,15 @@
+{
+  "name": "resolve",
+  "assumes": [
+    "NetNameIndex.resolve(input) for a name a tool caller passes",
+    "ws_matches counts nets other than the input itself whose whitespace-free key equals the input's key (block keys included)",
+    "trunc_matches counts nets, outside ws_matches, with a key over 31 characters starting with the input or its trimmed form, when that is exactly 31 characters",
+    "the NC placeholder is excluded from ws and trunc matching"
+  ],
+  "dimensions": {
+    "input": ["exact", "plain", "padded", "blank"],
+    "ws_matches": ["0", "1", "many"],
+    "trunc_matches": ["0", "1", "many"],
+    "format": ["cadence", "other"]
+  }
+}

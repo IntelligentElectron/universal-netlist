@@ -399,7 +399,7 @@ Response type for `query_xnet_by_net_name` and `query_xnet_by_pin_name`.
 
 Every tool that reports net names (`list_nets`, `search_nets`, `query_component`, `query_xnet_by_net_name`, `query_xnet_by_pin_name`) reports them as the schematic writes them, and adds a `net_name_warnings` array for each net in the result whose name carries label whitespace: leading or trailing whitespace, whitespace after a KiCad sheet path (`/Sheet/ SIG`), or, inside a Cadence hierarchical block, whitespace ahead of the placement suffix (`"SIG _U1"`). A net without whitespace of its own that reads the same as one of those also gets a warning, as the other half of the collision. The array is omitted when there is none.
 
-Capture keeps leading and trailing whitespace as part of a net name; the Allegro netlister trims it on export. `"SIGNAL_A "` is written `SIGNAL_A` in `pstxnet.dat`, so an exact lookup, a mating board's netlist, or the design's own export spells the net differently from the schematic. Spaces inside a name are written unchanged.
+Capture keeps leading and trailing whitespace as part of a net name; the Allegro netlister trims leading and trailing spaces on export. `"SIGNAL_A "` is written `SIGNAL_A` in `pstxnet.dat`, so an exact lookup, a mating board's netlist, or the design's own export spells the net differently from the schematic. Spaces inside a name are written unchanged.
 
 ```json
 {
@@ -417,7 +417,7 @@ Capture keeps leading and trailing whitespace as part of a net name; the Allegro
 | Field | Meaning |
 |-------|---------|
 | `net` | The name every tool reports, whitespace included |
-| `netlist_name` | Cadence only: the trimmed name the Allegro netlister writes. Omitted when the schematic does not decide it: an all-whitespace name, a name that reads the same as another net's once the whitespace is removed, or a padded label inside a hierarchical block |
+| `netlist_name` | Cadence only: the trimmed name the Allegro netlister writes. Omitted when the schematic does not decide it, or no export shows it: an all-whitespace name, a name padded with whitespace other than spaces (a tab or a non-breaking space), a name that reads the same as another net's once the whitespace is removed, or a padded label inside a hierarchical block |
 | `problem` | `leading_whitespace`, `trailing_whitespace`, `leading_and_trailing_whitespace`, `whitespace_only`, `whitespace_before_block_suffix`, or `same_name_as_padded_net` (no whitespace of its own, but reads the same as a net whose label carries it) |
 | `same_name_after_trim` | Other nets whose names read the same once the whitespace is removed. They are separate nets; the Allegro netlister renames one of them on export (warning `ORCAP-36005`), so compare them by connectivity |
 | `sources` | Cadence `.DSN` only: the objects whose text names the net (`net_alias`, `off_page_connector`, `global`, `hierarchical_port`), with that `text`, the page each is on (with the block placement path for a page inside a hierarchical block), and its location in the page's own coordinates. An object is listed only on the net the connectivity puts it on |

@@ -8,9 +8,11 @@
  * name taken from its export, or from a mating board's, then finds nothing.
  * Two rewrites are known from real exports (issue #235):
  *
- * - Leading and trailing whitespace is trimmed, by every writer checked
+ * - Leading and trailing spaces are trimmed, by every writer checked
  *   (PSTWRITER 17.4 and 23.1). `"SIGNAL_A "` is written `SIGNAL_A`. The trimmed
- *   name is computed at export; the schematic stores only the raw one.
+ *   name is computed at export; the schematic stores only the raw one. Padding
+ *   with other whitespace, such as a non-breaking space, is untested and gets
+ *   no netlist name.
  * - Names over 31 characters are cut to 31 by PSTWRITER 16.6. Writers 17.4,
  *   23.1 and 25.1 write them in full, so a cut name is only a lookup alias here
  *   and never a net's netlist name.
@@ -81,6 +83,17 @@ const edgeProblem = (name: string): NetNameWarning["problem"] => {
   const trailing = !name.endsWith(trimmed);
   if (leading && trailing) return "leading_and_trailing_whitespace";
   return leading ? "leading_whitespace" : "trailing_whitespace";
+};
+
+/**
+ * Whether every leading and trailing character trim removes is a plain space,
+ * the only padding real exports show the netlister trimming. A tab or a
+ * non-breaking space reads the same but is untested.
+ */
+const trimsOnlySpaces = (name: string): boolean => {
+  const trimmed = name.trim();
+  const start = name.indexOf(trimmed);
+  return /^ *$/.test(name.slice(0, start) + name.slice(start + trimmed.length));
 };
 
 /** Index of a design's net names, built once per tool call. */
@@ -204,6 +217,10 @@ export class NetNameIndex {
           ? `How the Allegro netlister writes this name is not known from the schematic, ` +
             `so compare it by connectivity, and fix the label.`
           : `Fix the label.`);
+    } else if (this.allegro && !trimsOnlySpaces(name)) {
+      warning.message =
+        `${what}, and not only spaces. No export shows how the Allegro netlister writes ` +
+        `such a name, so compare it by connectivity, and fix the label.`;
     } else if (this.allegro) {
       warning.netlist_name = this.normalize(name);
       warning.message =

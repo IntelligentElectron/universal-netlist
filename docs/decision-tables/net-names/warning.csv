@@ -1,0 +1,31 @@
+whitespace,collides,format,outcome,next,status,note
+none,no,cadence,no warning,,draft,src/service/net-names.ts:129
+none,no,kicad,no warning,,draft,src/service/net-names.ts:129
+none,no,other,no warning,,draft,src/service/net-names.ts:129
+none,yes,cadence,"partner warning, no netlist name, ORCAP-36005 note",,draft,src/service/net-names.ts:221
+none,yes,kicad,"partner warning, no netlist name",,draft,src/service/net-names.ts:221
+none,yes,other,"partner warning, no netlist name",,draft,src/service/net-names.ts:221
+edge_space,no,cadence,netlist name = trimmed,,draft,"src/service/net-names.ts:207; PSTWRITER 17.4/23.1 exports, issue #235"
+edge_space,no,kicad,"fix-the-label warning, no netlist name",,draft,src/service/net-names.ts:212
+edge_space,no,other,"fix-the-label warning, no netlist name",,draft,src/service/net-names.ts:212
+edge_space,yes,cadence,"collision warning, no netlist name, ORCAP-36005 note",,draft,src/service/net-names.ts:191; awaiting issue #235 experiment
+edge_space,yes,kicad,"collision warning, no netlist name",,draft,src/service/net-names.ts:191; awaiting issue #235 experiment
+edge_space,yes,other,"collision warning, no netlist name",,draft,src/service/net-names.ts:191; awaiting issue #235 experiment
+edge_other,no,cadence,"unverified-trim warning, no netlist name",,decided,"Decided 2026-10-08: no export shows PSTWRITER trims NBSP (issue #235 case NBSP); warn and match by whitespace, state no Allegro name"
+edge_other,no,kicad,"fix-the-label warning, no netlist name",,draft,src/service/net-names.ts:212
+edge_other,no,other,"fix-the-label warning, no netlist name",,draft,src/service/net-names.ts:212
+edge_other,yes,cadence,"collision warning, no netlist name, ORCAP-36005 note",,draft,src/service/net-names.ts:191; awaiting issue #235 experiment
+edge_other,yes,kicad,"collision warning, no netlist name",,draft,src/service/net-names.ts:191; awaiting issue #235 experiment
+edge_other,yes,other,"collision warning, no netlist name",,draft,src/service/net-names.ts:191; awaiting issue #235 experiment
+only,no,cadence,whitespace-only warning,,draft,src/service/net-names.ts:184
+only,no,kicad,whitespace-only warning,,draft,src/service/net-names.ts:184
+only,no,other,whitespace-only warning,,draft,src/service/net-names.ts:184
+only,yes,cadence,whitespace-only warning listing the others,,draft,src/service/net-names.ts:184
+only,yes,kicad,whitespace-only warning listing the others,,draft,src/service/net-names.ts:184
+only,yes,other,whitespace-only warning listing the others,,draft,src/service/net-names.ts:184
+before_block_suffix,no,cadence,"block warning, no netlist name",,draft,"src/service/net-names.ts:200; Allegro spelling unknown, issue #235 case BLK_WS"
+before_block_suffix,no,kicad,n/a,,draft,"label sources come from Cadence .DSN only, load-netlist/indexNetNames:373"
+before_block_suffix,no,other,n/a,,draft,"label sources come from Cadence .DSN only, load-netlist/indexNetNames:373"
+before_block_suffix,yes,cadence,"collision warning, no netlist name, ORCAP-36005 note",,draft,src/service/net-names.ts:191; awaiting issue #235 experiment
+before_block_suffix,yes,kicad,n/a,,draft,"label sources come from Cadence .DSN only, load-netlist/indexNetNames:373"
+before_block_suffix,yes,other,n/a,,draft,"label sources come from Cadence .DSN only, load-netlist/indexNetNames:373"

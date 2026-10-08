@@ -176,6 +176,18 @@ describe("NetNameIndex warnings", () => {
     });
   });
 
+  it("gives no netlist name to a net padded with other whitespace than spaces", () => {
+    // Exports show the netlister trimming spaces; a non-breaking space or a tab
+    // reads the same and is untested (issue #235).
+    for (const net of [" SIG_N", "SIG_N\t", " SIG_N "]) {
+      const index = cadence([net]);
+      const warning = index.warningFor(net);
+      expect(warning?.netlist_name).toBeUndefined();
+      expect(warning?.message).toContain("No export shows");
+      expect(index.resolve("SIG_N")).toEqual({ status: "whitespace", net });
+    }
+  });
+
   it("leaves names with only inner spaces alone", () => {
     // The Jetson fixtures export "TYPE C_UART_5V" unchanged.
     expect(cadence(["TYPE C_UART_5V"]).warningFor("TYPE C_UART_5V")).toBeUndefined();

@@ -1,0 +1,162 @@
+{
+  "name": "warning",
+  "rules": [
+    {
+      "when": {
+        "whitespace": [
+          "edge_space",
+          "edge_other"
+        ],
+        "collides": [
+          "yes"
+        ],
+        "format": [
+          "kicad",
+          "other"
+        ]
+      },
+      "outcome": "collision warning, no netlist name",
+      "next": "",
+      "cells": 4
+    },
+    {
+      "when": {
+        "whitespace": [
+          "edge_space",
+          "edge_other",
+          "before_block_suffix"
+        ],
+        "collides": [
+          "yes"
+        ],
+        "format": [
+          "cadence"
+        ]
+      },
+      "outcome": "collision warning, no netlist name, ORCAP-36005 note",
+      "next": "",
+      "cells": 3
+    },
+    {
+      "when": {
+        "whitespace": [
+          "none"
+        ],
+        "collides": [
+          "no"
+        ]
+      },
+      "outcome": "no warning",
+      "next": "",
+      "cells": 3
+    },
+    {
+      "when": {
+        "whitespace": [
+          "only"
+        ],
+        "collides": [
+          "no"
+        ]
+      },
+      "outcome": "whitespace-only warning",
+      "next": "",
+      "cells": 3
+    },
+    {
+      "when": {
+        "whitespace": [
+          "only"
+        ],
+        "collides": [
+          "yes"
+        ]
+      },
+      "outcome": "whitespace-only warning listing the others",
+      "next": "",
+      "cells": 3
+    },
+    {
+      "when": {
+        "whitespace": [
+          "none"
+        ],
+        "collides": [
+          "yes"
+        ],
+        "format": [
+          "kicad",
+          "other"
+        ]
+      },
+      "outcome": "partner warning, no netlist name",
+      "next": "",
+      "cells": 2
+    },
+    {
+      "when": {
+        "whitespace": [
+          "before_block_suffix"
+        ],
+        "collides": [
+          "no"
+        ]
+      },
+      "outcome": "block warning, no netlist name",
+      "next": "",
+      "cells": 1
+    },
+    {
+      "when": {
+        "whitespace": [
+          "none"
+        ],
+        "collides": [
+          "yes"
+        ],
+        "format": [
+          "cadence"
+        ]
+      },
+      "outcome": "partner warning, no netlist name, ORCAP-36005 note",
+      "next": "",
+      "cells": 1
+    },
+    {
+      "when": {
+        "whitespace": [
+          "edge_other"
+        ],
+        "collides": [
+          "no"
+        ],
+        "format": [
+          "cadence"
+        ]
+      },
+      "outcome": "unverified-trim warning, no netlist name",
+      "next": "",
+      "cells": 1
+    },
+    {
+      "when": {
+        "whitespace": [
+          "edge_space"
+        ],
+        "collides": [
+          "no"
+        ],
+        "format": [
+          "cadence"
+        ]
+      },
+      "outcome": "netlist name = trimmed",
+      "next": "",
+      "cells": 1
+    }
+  ],
+  "default": {
+    "outcome": "fix-the-label warning, no netlist name",
+    "next": ""
+  }
+}

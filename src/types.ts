@@ -122,7 +122,8 @@ export interface NetNameWarning {
   net: string;
   /**
    * The name the Allegro netlister writes for the net, for a Cadence design.
-   * Omitted when the schematic does not decide it: an all-whitespace name, a
+   * Omitted when the schematic does not decide it, or no export shows it: an
+   * all-whitespace name, a name padded with other whitespace than spaces, a
    * name that reads the same as another net's once trimmed, or a padded label
    * inside a hierarchical block.
    */

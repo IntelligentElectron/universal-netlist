@@ -181,12 +181,8 @@ describe("getDesignName", () => {
   // names identically, so stripping the extension gave all of them the name
   // "pstxnet" and two of them side by side were indistinguishable in a result.
   it("names a netlist-only design after its directory", () => {
-    expect(getDesignName("/fixtures/cadence/board-rev-c/pstxnet.dat")).toBe(
-      "board-rev-c"
-    );
-    expect(getDesignName("/fixtures/cadence/board-rev-d/pstxnet.dat")).toBe(
-      "board-rev-d"
-    );
+    expect(getDesignName("/fixtures/cadence/board-rev-c/pstxnet.dat")).toBe("board-rev-c");
+    expect(getDesignName("/fixtures/cadence/board-rev-d/pstxnet.dat")).toBe("board-rev-d");
   });
 
   it("distinguishes two netlist-only designs", () => {
@@ -231,9 +227,7 @@ describe("getDesignName", () => {
   // exists to absorb. Read as typed on a Unix host, none of this is a separator
   // and the whole string is the name.
   it("reads a Windows-style path on a Unix host", () => {
-    expect(getDesignName("C:\\fixtures\\board-rev-c\\pstxnet.dat")).toBe(
-      "board-rev-c"
-    );
+    expect(getDesignName("C:\\fixtures\\board-rev-c\\pstxnet.dat")).toBe("board-rev-c");
     expect(getDesignName("C:\\fixtures\\Board.DSN")).toBe("Board");
   });
 
