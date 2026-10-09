@@ -2,3 +2,10 @@
 command = "npx"
 args = ["tsx", "src/index.ts"]
 cwd = "/Users/valentino/Developer/IntelligentElectron/universal-netlist"
+
+[marketplaces.decision-tables]
+source_type = "git"
+source = "https://github.com/valentinozegna/decision-tables.git"
+
+[plugins."decision-tables@decision-tables"]
+enabled = true
