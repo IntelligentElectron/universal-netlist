@@ -51,7 +51,8 @@ complete and green.
 
 Done and verified means: the change does what the PR says, `build` is green, and any
 claim the PR makes about behavior has been checked against real data rather than asserted.
-A PR that is still exploratory, or whose effect has not been measured, is not done — say
+The PR description carries the `## Decision tables` and `## Verification` sections that
+[Pull Requests](#pull-requests) requires. A PR that is still exploratory, or whose effect has not been measured, is not done — say
 what is missing instead of merging it.
 
 ### Merge with Valentino's credentials
@@ -111,19 +112,58 @@ exception to the merge restriction.
 
 1. Check the full branch diff: `git log --oneline main..HEAD` and `git diff main...HEAD --stat`
 2. Push the branch if needed
-3. Create PR with:
+3. Gather the decision-table evidence and the verification report (see below)
+4. Create PR with:
    ```bash
    gh pr create --title "short title" --body "$(cat <<'EOF'
    ## Summary
    <1-3 bullet points>
+
+   ## Decision tables
+   <table evidence, or the one-line reason none applies>
+
+   ## Verification
+   <verdict and the report, pasted unedited>
 
    ## Test plan
    - [ ] verification steps
    EOF
    )"
    ```
-4. Return the PR URL to the user
-5. Merge it once the work is done and the checks are green (see Merging above)
+5. Return the PR URL to the user
+6. Merge it once the work is done and the checks are green (see Merging above)
+
+Every PR description has both sections. A PR missing either one is not ready to merge.
+
+### Decision tables
+
+Golden tables live in `docs/decision-tables/<feature>/`, each replayed against the code
+by a `*.table.test.ts`. The `decision-tables` plugin (installed by `.claude/settings.json`
+and `.codex/config.toml`) defines the evidence for each kind of PR in its step 8, "Attach
+the table to the PR". Follow it:
+
+- **Logic covered by a table changed:** paste the evidence step 8 lists for the PR's
+  kind (new feature, behavior change, refactor, bug fix), command output in fenced
+  code blocks, unedited.
+- **New logic with interacting conditions and no table:** build the table with the
+  plugin first, then attach it as a new feature.
+- **No table-covered logic changed:** write one line saying so and why, for example
+  "Docs only" or "Build config; no runtime logic".
+
+### Verification
+
+Run the changed code through its real surface (the MCP server over stdio, the CLI, the
+built binary) and observe the result. Running the tests or the type check is CI's job and
+does not count.
+
+- **Claude Code:** run the `/verify` skill on the branch and paste its report: verdict,
+  claim, method, steps, and findings.
+- **Other agents:** verify free form with the same standard. Drive the surface the change
+  reaches, paste the captured output, and give a verdict of PASS, FAIL, BLOCKED, or SKIP.
+  Include at least one probe off the happy path.
+
+A FAIL or BLOCKED verdict means the PR is not done: fix it, or say what is missing. SKIP
+is for changes with no runtime surface (docs, tests, or config only), with one line why.
 
 ## Releases
 
