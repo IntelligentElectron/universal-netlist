@@ -193,6 +193,17 @@ offer to install it on every clone. Golden tables live in `docs/decision-tables/
 and a `*.table.test.ts` beside the code replays every cell (for example
 `src/service/net-names.table.test.ts`).
 
+### Pull request descriptions
+
+Every PR description, from any agent or person, has a `## Decision tables` section and
+a `## Verification` section; a PR missing either is not ready to merge. Decision tables:
+the plugin's step 8 evidence when table-covered logic changes, or one line saying why
+none applies. Verification: in Claude Code, the `/verify` report; in any other agent, a
+free-form report that drives the real surface, pastes the output, probes off the happy
+path, and gives a PASS/FAIL/BLOCKED/SKIP verdict. `.github/PULL_REQUEST_TEMPLATE.md`
+carries both sections; `gh pr create --body` skips it, so add them by hand.
+[CONTRIBUTING.md](CONTRIBUTING.md#decision-tables-and-verification) has the details.
+
 ## CI/CD
 
 - **CI** (`ci.yml`): One required PR run — type-check, lint, test, build
