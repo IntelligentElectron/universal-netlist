@@ -138,6 +138,8 @@ npm test              # Unit tests
    - Fill out the PR template
    - Link any related issues
    - Describe what you changed and why
+   - Include the `## Decision tables` and `## Verification` sections (see
+     [Decision tables and verification](#decision-tables-and-verification))
 
 5. **Do not edit `CHANGELOG.md` or bump `package.json`:**
    A version tag stamps every release artifact and GitHub generates its notes from merged
@@ -155,6 +157,37 @@ npm test              # Unit tests
      git rebase upstream/main
      git push --force-with-lease
      ```
+
+### Decision tables and verification
+
+Every PR description has these two sections, whether a person or an agent writes it.
+A PR missing either one is not ready to merge. `gh pr create --body` skips the template,
+so an agent that writes the body itself adds both sections by hand.
+
+**Decision tables.** Logic with interacting conditions is specified by golden tables in
+`docs/decision-tables/<feature>/`, and a `*.table.test.ts` beside the code replays every
+cell. The tables come from the
+[decision-tables](https://github.com/valentinozegna/decision-tables) plugin, which
+`.claude/settings.json` and `.codex/config.toml` offer to install when you open the repo
+in Claude Code or Codex.
+
+- Logic covered by a table changed: paste the evidence that the plugin's step 8, "Attach
+  the table to the PR", lists for this kind of PR (new feature, behavior change,
+  refactor, bug fix), unedited, in fenced code blocks.
+- New logic with interacting conditions and no table: build the table first, then attach
+  it as a new feature.
+- No table-covered logic changed: write one line saying so and why.
+
+**Verification.** Run the changed code through its real surface (the MCP server over
+stdio, the CLI, the built binary) and paste what you observed. Passing tests and the type
+check are CI's job and do not count here.
+
+- Claude Code: run `/verify` on the branch and paste its report.
+- Any other agent, or a person: drive the surface the change reaches, paste the captured
+  output, include at least one case off the happy path, and give a verdict of PASS, FAIL,
+  BLOCKED, or SKIP. SKIP is for docs, tests, or config only, with one line why.
+
+A FAIL or BLOCKED verdict means the PR is not ready yet.
 
 ### After you open a PR
 
