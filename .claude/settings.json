@@ -23,5 +23,16 @@
       "Bash(node *)",
       "Bash(jq *)"
     ]
+  },
+  "enabledPlugins": {
+    "decision-tables@decision-tables": true
+  },
+  "extraKnownMarketplaces": {
+    "decision-tables": {
+      "source": {
+        "source": "github",
+        "repo": "valentinozegna/decision-tables"
+      }
+    }
   }
 }

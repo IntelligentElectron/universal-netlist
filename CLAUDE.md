@@ -184,6 +184,15 @@ npm test -- src/service.test.ts    # Run specific file
 npm run test:watch                 # Watch mode
 ```
 
+### Decision tables
+
+Logic with interacting conditions is designed with the `decision-tables` skill, from
+the plugin `decision-tables@decision-tables` in `valentinozegna/decision-tables`.
+`.claude/settings.json` and `.codex/config.toml` register it, so Claude Code and Codex
+offer to install it on every clone. Golden tables live in `docs/decision-tables/<feature>/`,
+and a `*.table.test.ts` beside the code replays every cell (for example
+`src/service/net-names.table.test.ts`).
+
 ## CI/CD
 
 - **CI** (`ci.yml`): One required PR run — type-check, lint, test, build
