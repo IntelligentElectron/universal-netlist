@@ -37,7 +37,7 @@ describe("agent skill", () => {
   it("stays short, and leaves each tool's detail to the reference", () => {
     const skill = renderSkill();
     expect(skill.split("\n").length).toBeLessThan(500);
-    for (const tool of TOOLS) expect(skill).toContain(`| \`${tool.name}\` | ${tool.title} |`);
+    for (const tool of TOOLS) expect(skill).toContain(`| \`${tool.name}\` | `);
     expect(skill).toContain("](references/tools.md)");
   });
 

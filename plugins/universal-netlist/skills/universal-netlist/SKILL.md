@@ -79,14 +79,14 @@ universal-netlist query_xnet_by_net_name hardware/board.DSN --net_name SPI_CLK -
 
 | Tool | What it does |
 |------|--------------|
-| `list_designs` | List designs |
-| `list_components` | List components |
-| `list_nets` | List nets |
-| `search_nets` | Search nets |
-| `search_components_by_refdes` | Search components by refdes |
-| `search_components_by_mpn` | Search components by MPN |
-| `search_components_by_description` | Search components by description |
-| `query_xnet_by_net_name` | Trace XNET from a net |
-| `query_xnet_by_pin_name` | Trace XNET from a pin |
-| `query_component` | Get component details |
-| `run_erc` | Run electrical rule checks |
+| `list_designs` | List the design projects in a directory, one path each: a .DSN, a .PrjPcb, a .kicad_pro, or a Universal Netlist .netlist.json. |
+| `list_components` | List components of a specific type in a design. |
+| `list_nets` | List all net names in a design, sorted alphabetically. |
+| `search_nets` | Search for nets matching a regex pattern. |
+| `search_components_by_refdes` | Search for components by refdes pattern. |
+| `search_components_by_mpn` | Search for components by MPN (Manufacturer Part Number) pattern. |
+| `search_components_by_description` | Search for components by description pattern. |
+| `query_xnet_by_net_name` | Get full XNET (Extended Net) connectivity for a net. |
+| `query_xnet_by_pin_name` | Get full XNET connectivity starting from a component pin, named REFDES.PIN (e.g. U1.A5, R10.1). |
+| `query_component` | Get full component details including all pin connections. |
+| `run_erc` | Run electrical rule checks (ERC) on a design's netlist and return findings grouped by severity (`errors`, `warnings`) then rule id. |

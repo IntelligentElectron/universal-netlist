@@ -64,6 +64,19 @@ const asFlags = (text: string): string => {
   });
 };
 
+/**
+ * A description's first sentence, on one line, for the skill's tool table: it
+ * says what the tool is for, which is what an agent picks a tool by.
+ */
+const firstSentence = (text: string): string => {
+  const flat = text.replace(/\s+/g, " ").trim();
+  // A full stop ends the sentence, unless it ends an abbreviation such as e.g.
+  const end = [...flat.matchAll(/\.(\s|$)/g)].find(
+    (match) => !/\b(e\.g|i\.e|etc)$/i.test(flat.slice(0, match.index))
+  )?.index;
+  return (end === undefined ? flat : flat.slice(0, end + 1)).replace(/\|/g, "\\|");
+};
+
 const flagLine = (flag: ReturnType<typeof flagsOf>[number]): string => {
   const kind =
     flag.kind === "array"
@@ -160,7 +173,7 @@ export const renderSkill = (): string => {
     "",
     "| Tool | What it does |",
     "|------|--------------|",
-    ...TOOLS.map((tool) => `| \`${tool.name}\` | ${tool.title} |`),
+    ...TOOLS.map((tool) => `| \`${tool.name}\` | ${firstSentence(asFlags(tool.description))} |`),
   ];
   return `${lines.join("\n")}\n`;
 };
