@@ -1,6 +1,6 @@
 import { getDesignName } from "../../paths.js";
 import { loadNetlist } from "../load-netlist.js";
-import { aggregateCircuitByMpn } from "../component-grouping.js";
+import { aggregateCircuitByMpn, componentNotes } from "../component-grouping.js";
 import { describeAmbiguity, describeResolution, indexNetNames } from "../net-names.js";
 import {
   naturalSort,
@@ -71,6 +71,7 @@ export const queryXnetByNetName = async (
     total_components: traversal.components.length,
     unique_configurations: aggregated.length,
     components_by_mpn: aggregated,
+    ...componentNotes(aggregated),
     visited_nets: traversal.visited_nets,
     circuit_hash: circuitHash,
   };
@@ -178,6 +179,7 @@ export const queryXnetByPinName = async (
     total_components: traversal.components.length,
     unique_configurations: aggregated.length,
     components_by_mpn: aggregated,
+    ...componentNotes(aggregated),
     visited_nets: traversal.visited_nets,
     circuit_hash: circuitHash,
   };

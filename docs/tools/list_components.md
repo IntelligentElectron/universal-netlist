@@ -25,6 +25,7 @@ Returns the design variant the result describes and an array of [`ComponentGroup
 {
   "design_variant": "<Default>",       // The variant described: a native name or <Default>
   "components": [ComponentGroup, ...],
+  "component_notes": [ComponentNote, ...], // Optional: each note about some components, once, with their refdes
   "notes": ["string"]
 }
 ```
@@ -65,8 +66,13 @@ Response:
     {
       "description": "IC GENERIC",
       "count": 1,
-      "refdes": ["U3"],
-      "notes": ["MPN not found in exported netlist data. Tell user to update symbol properties in library, or to point you to the BOM"]
+      "refdes": ["U3"]
+    }
+  ],
+  "component_notes": [
+    {
+      "note": "MPN not found in exported netlist data. Tell user to update symbol properties in library, or to point you to the BOM",
+      "refdes": ["U3"]
     }
   ]
 }
@@ -154,7 +160,7 @@ Response:
 - The `type` parameter is case-insensitive (`u` and `U` both work)
 - `type` matches the whole prefix, so `U` does not return `USB1`, and `TP` returns the test points. Query each prefix you need, or read the list the unmatched-type error gives you
 - Components are grouped by MPN; components without MPN are listed individually
-- Components without MPN include a `notes` field suggesting next steps
+- Components without MPN are named once in `component_notes`, beside the note suggesting next steps (see [`ComponentNote`](../schemas/shared-types.md#componentnote))
 - DNS components are listed by default and marked `dns: true`. With `include_dns: false` they are hidden: a prefix whose components are all DNS then returns an empty list with a `notes` entry saying so, and the unmatched-type error lists such prefixes apart from the ones the query would return
 - `design_variant` names the assembly the result describes. A design that records named variants requires it on every call; those variants are its only builds and `<Default>` is refused on it. `<Default>` (alias `default`) is the one build of a design that records no variant, the design with every part's own Do Not Stuff state, and names match case-insensitively
 - `alternate_part: true` marks a group whose part the selected design variant substitutes for the base one. The group's `value`, `mpn`, `manufacturer`, and `description` describe the part as built for that variant
@@ -163,4 +169,5 @@ Response:
 
 - [Design Variants](../schemas/shared-types.md#design-variants) - Selecting one assembly, and the `alternate_part` flag
 - [DNS Detection](../schemas/shared-types.md#dns-detection) - How DNS components are identified
+- [ComponentNote](../schemas/shared-types.md#componentnote) - Notes about particular components
 - [Notes Array](../schemas/shared-types.md#notes-array) - Meaning of notes field values

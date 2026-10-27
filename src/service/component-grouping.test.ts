@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import {
   MPN_MISSING_NOTE,
+  componentNotes,
   groupComponentsByMpn,
   aggregateCircuitByMpn,
 } from "./component-grouping.js";
@@ -25,8 +26,10 @@ describe("groupComponentsByMpn", () => {
 
     expect(result).toHaveLength(1);
     expect(result[0].mpn).toBeUndefined();
-    expect(result[0].notes).toBeDefined();
-    expect(result[0].notes).toContain(MPN_MISSING_NOTE);
+    expect(result[0]).not.toHaveProperty("notes");
+    expect(componentNotes(result)).toEqual({
+      component_notes: [{ note: MPN_MISSING_NOTE, refdes: ["U1"] }],
+    });
     expect(result[0].refdes).toEqual(["U1"]);
   });
 
@@ -98,7 +101,7 @@ describe("groupComponentsByMpn", () => {
 
     expect(result).toHaveLength(1);
     expect(result[0].mpn).toBe("TPS62088");
-    expect(result[0].notes).toBeUndefined();
+    expect(componentNotes(result)).toEqual({});
   });
 
   it("should omit mpn when MPN is empty string", () => {
@@ -111,7 +114,9 @@ describe("groupComponentsByMpn", () => {
 
     expect(result).toHaveLength(1);
     expect(result[0].mpn).toBeUndefined();
-    expect(result[0].notes).toContain(MPN_MISSING_NOTE);
+    expect(componentNotes(result)).toEqual({
+      component_notes: [{ note: MPN_MISSING_NOTE, refdes: ["U1"] }],
+    });
   });
 
   it("should omit mpn when MPN is whitespace only", () => {
@@ -124,7 +129,9 @@ describe("groupComponentsByMpn", () => {
 
     expect(result).toHaveLength(1);
     expect(result[0].mpn).toBeUndefined();
-    expect(result[0].notes).toContain(MPN_MISSING_NOTE);
+    expect(componentNotes(result)).toEqual({
+      component_notes: [{ note: MPN_MISSING_NOTE, refdes: ["U1"] }],
+    });
   });
 
   it("should group components with same MPN together without notes", () => {
@@ -147,7 +154,7 @@ describe("groupComponentsByMpn", () => {
     expect(result).toHaveLength(1);
     expect(result[0].mpn).toBe("10K");
     expect(result[0].count).toBe(2);
-    expect(result[0].notes).toBeUndefined();
+    expect(componentNotes(result)).toEqual({});
   });
 
   it("should include value when present", () => {
@@ -204,7 +211,7 @@ describe("groupComponentsByMpn", () => {
     expect(result[0].dns).toBeUndefined();
   });
 
-  it("should not group components without MPN (each gets its own entry with notes)", () => {
+  it("should not group components without MPN, and name them all in one note", () => {
     const components: ComponentDetails = {
       U1: { description: "IC", pins: { "1": "VCC" } },
       U2: { description: "IC", pins: { "1": "VCC" } },
@@ -215,12 +222,14 @@ describe("groupComponentsByMpn", () => {
 
     expect(result).toHaveLength(2);
     expect(result.every((r) => r.mpn === undefined)).toBe(true);
-    expect(result.every((r) => r.notes?.includes(MPN_MISSING_NOTE))).toBe(true);
+    expect(componentNotes(result)).toEqual({
+      component_notes: [{ note: MPN_MISSING_NOTE, refdes: ["U1", "U2"] }],
+    });
   });
 });
 
 describe("aggregateCircuitByMpn", () => {
-  it("should omit mpn and add notes for components without MPN", () => {
+  it("should omit mpn and name components without MPN in the note", () => {
     const components: CircuitComponent[] = [
       {
         refdes: "U1",
@@ -236,8 +245,10 @@ describe("aggregateCircuitByMpn", () => {
 
     expect(result).toHaveLength(1);
     expect(result[0].mpn).toBeUndefined();
-    expect(result[0].notes).toBeDefined();
-    expect(result[0].notes).toContain(MPN_MISSING_NOTE);
+    expect(result[0]).not.toHaveProperty("notes");
+    expect(componentNotes(result)).toEqual({
+      component_notes: [{ note: MPN_MISSING_NOTE, refdes: ["U1"] }],
+    });
   });
 
   it("should preserve mpn and omit notes for components with MPN", () => {
@@ -257,10 +268,10 @@ describe("aggregateCircuitByMpn", () => {
 
     expect(result).toHaveLength(1);
     expect(result[0].mpn).toBe("TPS62088");
-    expect(result[0].notes).toBeUndefined();
+    expect(componentNotes(result)).toEqual({});
   });
 
-  it("should add notes to unaggregatable components (no MPN, no description)", () => {
+  it("should name unaggregatable components (no MPN, no description) in the note", () => {
     const components: CircuitComponent[] = [
       {
         refdes: "X1",
@@ -275,7 +286,9 @@ describe("aggregateCircuitByMpn", () => {
 
     expect(result).toHaveLength(1);
     expect(result[0].mpn).toBeUndefined();
-    expect(result[0].notes).toContain(MPN_MISSING_NOTE);
+    expect(componentNotes(result)).toEqual({
+      component_notes: [{ note: MPN_MISSING_NOTE, refdes: ["X1"] }],
+    });
     expect(result[0].refdes).toEqual(["X1"]);
   });
 
@@ -293,7 +306,9 @@ describe("aggregateCircuitByMpn", () => {
 
     expect(result).toHaveLength(1);
     expect(result[0].mpn).toBeUndefined();
-    expect(result[0].notes).toContain(MPN_MISSING_NOTE);
+    expect(componentNotes(result)).toEqual({
+      component_notes: [{ note: MPN_MISSING_NOTE, refdes: ["U1"] }],
+    });
   });
 
   it("should aggregate components with same MPN without notes", () => {
@@ -323,7 +338,7 @@ describe("aggregateCircuitByMpn", () => {
     expect(result).toHaveLength(1);
     expect(result[0].mpn).toBe("100nF");
     expect(result[0].total_count).toBe(2);
-    expect(result[0].notes).toBeUndefined();
+    expect(componentNotes(result)).toEqual({});
   });
 
   it("should include value in aggregated results when provided", () => {
@@ -505,5 +520,55 @@ describe("groups only merge parts the group's own fields describe", () => {
 
     expect(result).toHaveLength(2);
     expect(result.map((g) => g.value).sort()).toEqual(["0R", "10K"]);
+  });
+});
+
+describe("componentNotes", () => {
+  it("states the note once for every part without an MPN, in natural order", () => {
+    const components: ComponentDetails = {
+      R10: { value: "10k", pins: { "1": "A" } },
+      R2: { value: "1k", pins: { "1": "A" } },
+      R3: { mpn: "RC0402", pins: { "1": "A" } },
+    };
+    const groups = groupComponentsByMpn(Object.entries(components), true);
+
+    expect(groups.some((group) => "notes" in group)).toBe(false);
+    expect(componentNotes(groups)).toEqual({
+      component_notes: [{ note: MPN_MISSING_NOTE, refdes: ["R2", "R10"] }],
+    });
+  });
+
+  it("collects the refdes of every orientation of an xnet group", () => {
+    const components: CircuitComponent[] = [
+      {
+        refdes: "R1",
+        description: "Resistor",
+        connections: [
+          { net: "A", pins: ["1"] },
+          { net: "B", pins: ["2"] },
+        ],
+      },
+      {
+        refdes: "R2",
+        description: "Resistor",
+        connections: [
+          { net: "A", pins: ["2"] },
+          { net: "B", pins: ["1"] },
+        ],
+      },
+    ];
+    const groups = aggregateCircuitByMpn(components);
+
+    expect(groups[0].orientations).toHaveLength(2);
+    expect(componentNotes(groups)).toEqual({
+      component_notes: [{ note: MPN_MISSING_NOTE, refdes: ["R1", "R2"] }],
+    });
+  });
+
+  it("adds nothing when every part has an MPN, or there are no parts", () => {
+    const components: ComponentDetails = { R1: { mpn: "RC0402", pins: { "1": "A" } } };
+
+    expect(componentNotes(groupComponentsByMpn(Object.entries(components), true))).toEqual({});
+    expect(componentNotes([])).toEqual({});
   });
 });
