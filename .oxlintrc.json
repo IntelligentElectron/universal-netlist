@@ -1,11 +1,20 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["eslint", "typescript"],
+  "plugins": [
+    "eslint",
+    "typescript"
+  ],
   "categories": {
     "correctness": "error"
   },
   "rules": {
-    "eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }],
+    "eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_"
+      }
+    ],
     "eslint/no-array-constructor": "error",
     "typescript/no-explicit-any": "warn",
     "typescript/ban-ts-comment": "error",
@@ -13,7 +22,21 @@
     "typescript/no-namespace": "error",
     "typescript/no-require-imports": "error",
     "typescript/no-unsafe-function-type": "error",
-    "typescript/no-unnecessary-type-constraint": "error"
+    "typescript/no-unnecessary-type-constraint": "error",
+    "eslint/no-case-declarations": "error",
+    "eslint/no-empty": "error",
+    "eslint/no-fallthrough": "error",
+    "eslint/no-prototype-builtins": "error",
+    "eslint/no-regex-spaces": "error",
+    "eslint/no-unexpected-multiline": "error",
+    "eslint/no-var": "error",
+    "eslint/prefer-const": "error",
+    "eslint/prefer-rest-params": "error",
+    "eslint/prefer-spread": "error"
   },
-  "ignorePatterns": ["dist/**", "node_modules/**", "**/._*"]
+  "ignorePatterns": [
+    "dist/**",
+    "node_modules/**",
+    "**/._*"
+  ]
 }
