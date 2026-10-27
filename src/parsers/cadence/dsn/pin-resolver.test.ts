@@ -140,6 +140,34 @@ describe("findPinMap", () => {
 
     expect(findPinMap(inst, maps, unitRefs, 1)).toEqual(["2", "15"]);
   });
+
+  // DIGITALCONVERTOR.DSN (issue #247): the LM324's Package stream `LM324_0`
+  // stores each section under `LM324_0B` and `LM324B` but lists the sections
+  // under `LM324` alone. Section B read section A's pins 3, 2, 1, so U3.1 and
+  // U3.2 each landed in two nets.
+  it("selects the section by position under the stripped name before falling back to A", () => {
+    const inst = instance("LM324_0", 5);
+    const maps = new Map<string, (string | null)[]>([
+      ["LM324A", ["3", "2", "1", "4", "11"]],
+      ["LM324_0A", ["3", "2", "1", "4", "11"]],
+      ["LM324B", ["5", "6", "7", "4", "11"]],
+      ["LM324_0B", ["5", "6", "7", "4", "11"]],
+    ]);
+    const unitRefs = new Map<string, string[]>([["LM324", ["A", "B"]]]);
+
+    expect(findPinMap(inst, maps, unitRefs, 1)).toEqual(["5", "6", "7", "4", "11"]);
+    expect(findPinMap(inst, maps, unitRefs, 0)).toEqual(["3", "2", "1", "4", "11"]);
+  });
+
+  it("falls back to section A only when no name lists the section", () => {
+    const inst = instance("LM324_0", 5);
+    const maps = new Map<string, (string | null)[]>([
+      ["LM324_0A", ["3", "2", "1", "4", "11"]],
+      ["LM324_0B", ["5", "6", "7", "4", "11"]],
+    ]);
+
+    expect(findPinMap(inst, maps, new Map(), 1)).toEqual(["3", "2", "1", "4", "11"]);
+  });
 });
 
 describe("buildDeviceIndexMap", () => {

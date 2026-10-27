@@ -1,0 +1,46 @@
+{
+  "name": "section-pin-map",
+  "rules": [
+    {
+      "when": {
+        "unit_suffix": [
+          "yes"
+        ]
+      },
+      "outcome": "the section its suffix names",
+      "next": "",
+      "cells": 9
+    },
+    {
+      "when": {
+        "section_index": [
+          "in-range"
+        ],
+        "sections_listed_under": [
+          "source",
+          "stripped"
+        ]
+      },
+      "outcome": "the section at its index",
+      "next": "",
+      "cells": 6
+    },
+    {
+      "when": {
+        "unit_suffix": [
+          "no"
+        ],
+        "a_map_under": [
+          "none"
+        ]
+      },
+      "outcome": "no map",
+      "next": "",
+      "cells": 7
+    }
+  ],
+  "default": {
+    "outcome": "section A",
+    "next": ""
+  }
+}

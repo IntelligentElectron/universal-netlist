@@ -1,0 +1,55 @@
+unit_suffix,section_index,sections_listed_under,a_map_under,outcome,next,status,note
+yes,in-range,source,source,n/a,,draft,buildDeviceIndexMap skips an instance whose pkgName carries a unit suffix (pin-resolver.ts:218 buildDeviceIndexMap)
+yes,in-range,source,stripped,n/a,,draft,buildDeviceIndexMap skips an instance whose pkgName carries a unit suffix (pin-resolver.ts:218 buildDeviceIndexMap)
+yes,in-range,source,none,n/a,,draft,buildDeviceIndexMap skips an instance whose pkgName carries a unit suffix (pin-resolver.ts:218 buildDeviceIndexMap)
+yes,in-range,stripped,source,n/a,,draft,buildDeviceIndexMap skips an instance whose pkgName carries a unit suffix (pin-resolver.ts:218 buildDeviceIndexMap)
+yes,in-range,stripped,stripped,n/a,,draft,buildDeviceIndexMap skips an instance whose pkgName carries a unit suffix (pin-resolver.ts:218 buildDeviceIndexMap)
+yes,in-range,stripped,none,n/a,,draft,buildDeviceIndexMap skips an instance whose pkgName carries a unit suffix (pin-resolver.ts:218 buildDeviceIndexMap)
+yes,in-range,none,source,n/a,,draft,buildDeviceIndexMap skips an instance whose pkgName carries a unit suffix (pin-resolver.ts:218 buildDeviceIndexMap)
+yes,in-range,none,stripped,n/a,,draft,buildDeviceIndexMap skips an instance whose pkgName carries a unit suffix (pin-resolver.ts:218 buildDeviceIndexMap)
+yes,in-range,none,none,n/a,,draft,buildDeviceIndexMap skips an instance whose pkgName carries a unit suffix (pin-resolver.ts:218 buildDeviceIndexMap)
+yes,out-of-range,source,source,n/a,,draft,buildDeviceIndexMap skips an instance whose pkgName carries a unit suffix (pin-resolver.ts:218 buildDeviceIndexMap)
+yes,out-of-range,source,stripped,n/a,,draft,buildDeviceIndexMap skips an instance whose pkgName carries a unit suffix (pin-resolver.ts:218 buildDeviceIndexMap)
+yes,out-of-range,source,none,n/a,,draft,buildDeviceIndexMap skips an instance whose pkgName carries a unit suffix (pin-resolver.ts:218 buildDeviceIndexMap)
+yes,out-of-range,stripped,source,n/a,,draft,buildDeviceIndexMap skips an instance whose pkgName carries a unit suffix (pin-resolver.ts:218 buildDeviceIndexMap)
+yes,out-of-range,stripped,stripped,n/a,,draft,buildDeviceIndexMap skips an instance whose pkgName carries a unit suffix (pin-resolver.ts:218 buildDeviceIndexMap)
+yes,out-of-range,stripped,none,n/a,,draft,buildDeviceIndexMap skips an instance whose pkgName carries a unit suffix (pin-resolver.ts:218 buildDeviceIndexMap)
+yes,out-of-range,none,source,n/a,,draft,buildDeviceIndexMap skips an instance whose pkgName carries a unit suffix (pin-resolver.ts:218 buildDeviceIndexMap)
+yes,out-of-range,none,stripped,n/a,,draft,buildDeviceIndexMap skips an instance whose pkgName carries a unit suffix (pin-resolver.ts:218 buildDeviceIndexMap)
+yes,out-of-range,none,none,n/a,,draft,buildDeviceIndexMap skips an instance whose pkgName carries a unit suffix (pin-resolver.ts:218 buildDeviceIndexMap)
+yes,unknown,source,source,the section its suffix names,,draft,pin-resolver.ts:70
+yes,unknown,source,stripped,the section its suffix names,,draft,pin-resolver.ts:70
+yes,unknown,source,none,the section its suffix names,,draft,pin-resolver.ts:70
+yes,unknown,stripped,source,the section its suffix names,,draft,pin-resolver.ts:70
+yes,unknown,stripped,stripped,the section its suffix names,,draft,pin-resolver.ts:70
+yes,unknown,stripped,none,the section its suffix names,,draft,pin-resolver.ts:70
+yes,unknown,none,source,the section its suffix names,,draft,pin-resolver.ts:70
+yes,unknown,none,stripped,the section its suffix names,,draft,pin-resolver.ts:70
+yes,unknown,none,none,the section its suffix names,,draft,pin-resolver.ts:70
+no,in-range,source,source,the section at its index,,draft,pin-resolver.ts:81
+no,in-range,source,stripped,the section at its index,,draft,pin-resolver.ts:81
+no,in-range,source,none,the section at its index,,draft,pin-resolver.ts:81
+no,in-range,stripped,source,the section at its index,,draft,"Bug fix (#247): was section A, because the section-A fallback for the source name ran inside the name loop, before the stripped name's positional lookup; it now runs after the loop (pin-resolver.ts:90). DIGITALCONVERTOR U3B read pins 3,2,1 instead of 5,6,7"
+no,in-range,stripped,stripped,the section at its index,,draft,pin-resolver.ts:81
+no,in-range,stripped,none,the section at its index,,draft,pin-resolver.ts:81
+no,in-range,none,source,section A,,draft,"pin-resolver.ts:90; no section list to index, or an index past its end"
+no,in-range,none,stripped,section A,,draft,"pin-resolver.ts:90; no section list to index, or an index past its end"
+no,in-range,none,none,no map,,draft,pin-resolver.ts:101; resolvePinNumber then tries the other stream and the symbol's record order
+no,out-of-range,source,source,section A,,draft,"pin-resolver.ts:90; no section list to index, or an index past its end"
+no,out-of-range,source,stripped,section A,,draft,"pin-resolver.ts:90; no section list to index, or an index past its end"
+no,out-of-range,source,none,no map,,draft,pin-resolver.ts:101; resolvePinNumber then tries the other stream and the symbol's record order
+no,out-of-range,stripped,source,section A,,draft,"pin-resolver.ts:90; no section list to index, or an index past its end"
+no,out-of-range,stripped,stripped,section A,,draft,"pin-resolver.ts:90; no section list to index, or an index past its end"
+no,out-of-range,stripped,none,no map,,draft,pin-resolver.ts:101; resolvePinNumber then tries the other stream and the symbol's record order
+no,out-of-range,none,source,section A,,draft,"pin-resolver.ts:90; no section list to index, or an index past its end"
+no,out-of-range,none,stripped,section A,,draft,"pin-resolver.ts:90; no section list to index, or an index past its end"
+no,out-of-range,none,none,no map,,draft,pin-resolver.ts:101; resolvePinNumber then tries the other stream and the symbol's record order
+no,unknown,source,source,section A,,draft,"pin-resolver.ts:90; no section list to index, or an index past its end"
+no,unknown,source,stripped,section A,,draft,"pin-resolver.ts:90; no section list to index, or an index past its end"
+no,unknown,source,none,no map,,draft,pin-resolver.ts:101; resolvePinNumber then tries the other stream and the symbol's record order
+no,unknown,stripped,source,section A,,draft,"pin-resolver.ts:90; no section list to index, or an index past its end"
+no,unknown,stripped,stripped,section A,,draft,"pin-resolver.ts:90; no section list to index, or an index past its end"
+no,unknown,stripped,none,no map,,draft,pin-resolver.ts:101; resolvePinNumber then tries the other stream and the symbol's record order
+no,unknown,none,source,section A,,draft,"pin-resolver.ts:90; no section list to index, or an index past its end"
+no,unknown,none,stripped,section A,,draft,"pin-resolver.ts:90; no section list to index, or an index past its end"
+no,unknown,none,none,no map,,draft,pin-resolver.ts:101; resolvePinNumber then tries the other stream and the symbol's record order

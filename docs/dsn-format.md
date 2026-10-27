@@ -299,7 +299,7 @@ For each alias:
 4 bytes  0x00000000
 2 bytes  unknown
 2 bytes  unknown
-string   schematic_name  (uint16 len + ASCII + 0x00)
+string   schematic_name  (uint16 len + ASCII + 0x00)   # the design's root schematic
 ```
 
 ### Version gate
@@ -323,7 +323,11 @@ Designs below 3 are written in an older record encoding: the Page stream's struc
 
 ### What we parse
 
-Only the version and the `strLst` string table. Everything before it (header, fonts, some_data, part_field strings, PageSettings) is skipped by computing byte offsets. Everything after it (alias table, design footer) is ignored.
+The version, the `strLst` string table, and in a design file the footer's `schematic_name`. Everything before the table (header, fonts, some_data, part_field strings, PageSettings) is skipped by computing byte offsets; the alias table is read past.
+
+`schematic_name` is the design's root schematic, the one Capture's Make Root marks and its netlist starts from (section 8). It is the stream's last field, so the parser takes it only when the read ends exactly at the end of the stream; any other read misread something before it, and the design names no root. Every design the version gate reads (the 88 at 3.2 and 3.3) ends there.
+
+**Confidence: VERIFIED.** On every design with a Capture export, `schematic_name` is the schematic the export's part paths start from (`C_PATH='@design.<schematic>(sch_1):...'`), including every multi-view one: `SENSOR_BOARD` (6 views), `EEM2TTL` (4), `SENSORS EXPO DEMO` (3), `ROHM_SENSOR_PLATFORM_BASE_BOARD`, `STRAIN GAUGE BOARD` and `SEQUENTIALTIMER` (2 each). The one design that differs, `nixie.dsn`, was saved a day after its export with a simulation sheet made the root.
 
 ### UNKNOWN: PageSettings
 
@@ -750,6 +754,14 @@ is one of that design's blocks, and its own stream is the stale tree of a
 schematic that was once the root; a second stream for one schematic is a
 duplicate. The parser reads as roots the views no other view places, once each,
 whose pages are in the file (section 12.6).
+
+A file may still hold several such roots: earlier revisions of the design, or a
+simulation sheet, each a top-level schematic of its own (`trs80_power.dsn` holds
+`PSUPPLY`, `SCHEMATIC1` and `PSUPPLY-REV2`). Capture netlists only the root the
+Library stream names (section 6), so when that name is one of them, it is the
+only root read. Reading them all lists each revision's parts over the others',
+one reference designator on two nets. When the Library stream names none of
+them, every one is read.
 
 Annotation is by instance or by occurrence, and the two leave different marks.
 Annotated by instance, the drawing carries the reference (`R5`, `BLK1`) and the
@@ -1422,12 +1434,17 @@ The **outer loop** walks three spellings of the base name, in order, stopping at
 2. **Normalized**: expand `_N_` to `_N.0_` (version-like suffixes)
 3. **Stripped**: remove a trailing `_\d+`
 
-The **inner loop** tries four ways to turn a base name into a key, in order:
+The **inner loop** tries three ways to turn a base name into a key, in order:
 
 1. **Direct match**: the base name is itself a Package key
 2. **Multi-unit**: base + unit letter extracted from the `pkgName` suffix; if that letter is a doubled pair such as `AA`, its first character is tried as well
 3. **Positional device assignment**: for multi-section components with no unit suffix, base + the unit letter at `sectionIndex` (see below)
-4. **Unit "A" fallback**: base + `"A"`, for a package whose devices are not enumerated in `deviceUnitRefs`
+
+After both loops, with no key found:
+
+4. **Unit "A" fallback**: base + `"A"`, for each spelling in order, for a package whose devices are not enumerated in `deviceUnitRefs`
+
+The fallback runs only once every spelling has had its positional lookup. A Package stream named `LM324_0` stores each section under both `LM324_0B` and `LM324B`, and the parser once listed the sections in `deviceUnitRefs` under the stripped `LM324` alone. With the fallback inside the inner loop, `LM324_0A` matched before `LM324` reached step 3, and every section of the part read section A's pins: on `DIGITALCONVERTOR.DSN`, sections B to D of `U3` reported pins 3, 2, 1, so each of those pins sat on four nets (issue #247). The sections are now listed under every name their maps are stored under, in both the `Packages/` and the Cache index, and the fallback stays last for a package whose sections are listed under none.
 
 For multi-unit matching, `pkgName` format is `{sourcePackage}{unitLetter}.Normal` (e.g., `OMAP_CBP_1AA.Normal`). Cadence sometimes doubles the unit letter ("AA"), but the Device `unitRef` uses a single letter ("A").
 
@@ -1437,7 +1454,7 @@ Steps 3 and 4 apply only when no unit letter was extracted: an instance carrying
 
 Multi-section components like resistor packs (e.g., RP1 with package `RPAK_10_8RES`, 8 sections, 16 physical pins) have multiple PlacedInstances sharing the same `(refdes, pkgName)` with no unit suffix in `pkgName`. Each such instance names its own Device through `PlacedInstance.section_index` (section 7.7).
 
-The parser builds a `deviceIndexMap` (`Map<dbId, sectionIndex>`) over every instance whose `extractUnitRef()` returns `undefined`; instances with a unit suffix resolve by that suffix instead. A parallel `deviceUnitRefs` map (`Map<pkgBaseName, unitRef[]>`) stores the ordered Device unit reference letters from Package structures, and `findPinMap` selects the Device with `pinMaps.get(base + unitRefs[sectionIndex])`.
+The parser builds a `deviceIndexMap` (`Map<dbId, sectionIndex>`) over every instance whose `extractUnitRef()` returns `undefined`; instances with a unit suffix resolve by that suffix instead. A parallel `deviceUnitRefs` map (`Map<packageName, unitRef[]>`, keyed by both the package name and its `_N`-stripped form, like the unit maps) stores the ordered Device unit reference letters from Package structures, and `findPinMap` selects the Device with `pinMaps.get(base + unitRefs[sectionIndex])`.
 
 This replaced an earlier heuristic that sorted each `(refdes, pkgName)` group by `dbId` and assigned positional indices. `dbId` order is *not* section order: on `BeagleBoard-xM_ORCAD` the eight `RP3` sections are allocated with adjacent pairs transposed, so six of its sixteen pins attached to the wrong nets. Because the nets and the pin numbers were each individually valid, net and component coverage stayed at 100% and `verify-pin-numbers.ts` reported 100% — only a per-net `{refdes.pin}` comparison against the DAT export exposed it.
 
@@ -1644,6 +1661,7 @@ Each unknown area in the format is mapped to its impact on parser coverage. PinN
 | Occurrence pin ordinal = pin index - 1 (section 8) | Low | A placement's assigned pin numbers land on the wrong pins |
 | Bus port members matched to the parent bus by position (section 12.6) | Low | A port range narrower or wider than the bus it is wired to binds the wrong members; Capture flags that mismatch itself |
 | A schematic no root reaches is left out (section 12.6) | Low | A design whose only Hierarchy stream is stale loses the sheets the stale tree does not place |
+| Only the root the Library stream names is read, when it is one of several unplaced roots (section 8) | Low | A design saved with a simulation sheet as its root reports that sheet, not the board, as Capture's netlist would |
 | A view another view places is not a root (section 8) | Low | Two independent roots in one file, one of which also draws the other, would read the drawn one only as a block |
 | PageSettings = 156 bytes | Low | Parse offset error for everything after it |
 | LOGFONTA = 60 bytes | Low | Wrong strLst offset, corrupt string table |
