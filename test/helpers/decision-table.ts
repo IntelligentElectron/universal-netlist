@@ -7,7 +7,7 @@ import path from "path";
 
 /**
  * Read a table CSV under `dir`: quoted fields may hold commas and doubled quotes. Rows
- * end at LF or CR LF, and the last row needs no line ending.
+ * end at LF or CR LF, the last row needs no line ending, and blank lines are skipped.
  */
 export const readTable = (dir: string, name: string): Record<string, string>[] => {
   const raw = readFileSync(path.join(dir, `${name}.csv`), "utf8").replace(/\r\n/g, "\n");
@@ -29,7 +29,8 @@ export const readTable = (dir: string, name: string): Record<string, string>[] =
       row.push(field);
       field = "";
       if (c === "\n") {
-        rows.push(row);
+        // A blank line holds no cell.
+        if (row.length > 1 || row[0] !== "") rows.push(row);
         row = [];
       }
     } else field += c;
