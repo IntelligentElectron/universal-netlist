@@ -18,9 +18,16 @@
  */
 
 import { userInfo } from "node:os";
-import { trace, metrics, SpanStatusCode, type Span, type Attributes } from "@opentelemetry/api";
-import { logs, SeverityNumber } from "@opentelemetry/api-logs";
-import type { SpanExporter } from "@opentelemetry/sdk-trace-base";
+import {
+  trace,
+  metrics,
+  logs,
+  SeverityNumber,
+  SpanStatusCode,
+  type Span,
+  type Attributes,
+} from "@opentelemetry/api";
+import type { SpanExporter } from "@opentelemetry/sdk-trace";
 import type { PushMetricExporter } from "@opentelemetry/sdk-metrics";
 import type { LogRecordExporter } from "@opentelemetry/sdk-logs";
 import { classifyToolError, getErrorClass, type ToolErrorType } from "./error-category.js";
@@ -138,7 +145,7 @@ export const initOtel = async (opts: {
       resource,
       traceExporter,
       metricReaders: [reader],
-      logRecordProcessors: [new BatchLogRecordProcessor(logExporter)],
+      logRecordProcessors: [new BatchLogRecordProcessor({ exporter: logExporter })],
     });
 
     nodeSdk.start();

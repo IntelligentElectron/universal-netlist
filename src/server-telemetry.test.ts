@@ -8,7 +8,7 @@ import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "vitest
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { logs, type LogRecord, type LoggerProvider } from "@opentelemetry/api-logs";
+import { logs, type LogRecord, type LoggerProvider } from "@opentelemetry/api";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
 import { createServer } from "./server.js";

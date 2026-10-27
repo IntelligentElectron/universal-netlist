@@ -9,7 +9,7 @@
 
 import { describe, it, expect, beforeAll, afterAll, beforeEach } from "vitest";
 import { userInfo } from "node:os";
-import { logs, type LogRecord, type LoggerProvider } from "@opentelemetry/api-logs";
+import { logs, type LogRecord, type LoggerProvider } from "@opentelemetry/api";
 import { initOtel, instrumentTool, shutdownOtel } from "./otel.js";
 import { useClosedOtelExporter } from "../../test/helpers/otel-environment.js";
 

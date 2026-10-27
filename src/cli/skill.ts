@@ -101,7 +101,7 @@ const FRONTMATTER = {
   description: SKILL_DESCRIPTION,
   license: "Apache-2.0",
   compatibility:
-    "Requires a shell and the universal-netlist command line (the standalone binary, or Node.js 20+ for npx).",
+    "Requires a shell and the universal-netlist command line (the standalone binary, or Node.js 22.15+ for npx).",
 };
 
 /** The skill's Markdown. */
