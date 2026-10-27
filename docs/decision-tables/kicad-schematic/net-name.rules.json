@@ -1,0 +1,194 @@
+{
+  "name": "net-name",
+  "rules": [
+    {
+      "when": {
+        "a": [
+          "sheet_bus",
+          "label"
+        ],
+        "b": [
+          "power_or_global",
+          "hier_bus"
+        ]
+      },
+      "outcome": "b names the net",
+      "next": "",
+      "cells": 48
+    },
+    {
+      "when": {
+        "b": [
+          "power_or_global",
+          "hier_bus"
+        ],
+        "priority": [
+          "b_higher"
+        ]
+      },
+      "outcome": "b names the net",
+      "next": "",
+      "cells": 18
+    },
+    {
+      "when": {
+        "a": [
+          "label"
+        ],
+        "b": [
+          "sheet_bus"
+        ]
+      },
+      "outcome": "b names the net",
+      "next": "",
+      "cells": 18
+    },
+    {
+      "when": {
+        "a": [
+          "label"
+        ],
+        "priority": [
+          "b_higher"
+        ]
+      },
+      "outcome": "b names the net",
+      "next": "",
+      "cells": 6
+    },
+    {
+      "when": {
+        "a": [
+          "sheet_bus"
+        ],
+        "b": [
+          "sheet_bus"
+        ],
+        "priority": [
+          "b_higher"
+        ]
+      },
+      "outcome": "b names the net",
+      "next": "",
+      "cells": 6
+    },
+    {
+      "when": {
+        "b": [
+          "power_or_global",
+          "hier_bus"
+        ],
+        "priority": [
+          "equal"
+        ],
+        "depth": [
+          "b_shallower"
+        ]
+      },
+      "outcome": "b names the net",
+      "next": "",
+      "cells": 4
+    },
+    {
+      "when": {
+        "a": [
+          "power_or_global",
+          "label"
+        ],
+        "priority": [
+          "equal"
+        ],
+        "depth": [
+          "equal",
+          "b_shallower"
+        ],
+        "name": [
+          "b_lower"
+        ]
+      },
+      "outcome": "b names the net",
+      "next": "",
+      "cells": 3
+    },
+    {
+      "when": {
+        "a": [
+          "sheet_bus"
+        ],
+        "b": [
+          "sheet_bus"
+        ],
+        "priority": [
+          "equal"
+        ],
+        "depth": [
+          "b_shallower"
+        ]
+      },
+      "outcome": "b names the net",
+      "next": "",
+      "cells": 2
+    },
+    {
+      "when": {
+        "a": [
+          "label"
+        ],
+        "priority": [
+          "equal"
+        ],
+        "depth": [
+          "b_shallower"
+        ]
+      },
+      "outcome": "b names the net",
+      "next": "",
+      "cells": 1
+    },
+    {
+      "when": {
+        "b": [
+          "hier_bus"
+        ],
+        "priority": [
+          "equal"
+        ],
+        "depth": [
+          "equal"
+        ],
+        "name": [
+          "b_lower"
+        ]
+      },
+      "outcome": "b names the net",
+      "next": "",
+      "cells": 1
+    },
+    {
+      "when": {
+        "a": [
+          "sheet_bus"
+        ],
+        "b": [
+          "sheet_bus"
+        ],
+        "priority": [
+          "equal"
+        ],
+        "depth": [
+          "equal"
+        ],
+        "name": [
+          "b_lower"
+        ]
+      },
+      "outcome": "b names the net",
+      "next": "",
+      "cells": 1
+    }
+  ],
+  "default": {
+    "outcome": "a names the net",
+    "next": ""
+  }
+}

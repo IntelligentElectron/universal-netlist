@@ -13,6 +13,8 @@ export interface ResolvedComponent {
   readonly reference: string;
   readonly value: string;
   readonly footprint: string;
+  /** The library symbol's description, which KiCad reports under `libsource`. */
+  readonly libDescription: string;
   /** Every field, Reference and Value included, in file order. */
   readonly properties: readonly { readonly name: string; readonly value: string }[];
   readonly dnp: boolean;
@@ -50,12 +52,16 @@ const NOT_A_FIELD = new Set(["Reference", "Value"]);
 export const writeKicadNetlist = (design: ResolvedSchematic): string => {
   const lines: string[] = ["(export", '  (version "E")', "  (components"];
   for (const component of design.components) {
+    // KiCad writes an empty value as "~", and the part's own Description field,
+    // when it has one, as the comp's description ahead of the library's.
+    const description = component.properties.find((p) => p.name === "Description")?.value;
     lines.push(
       "    (comp",
       `      (ref ${quote(component.reference)})`,
-      `      (value ${quote(component.value)})`
+      `      (value ${quote(component.value || "~")})`
     );
     if (component.footprint) lines.push(`      (footprint ${quote(component.footprint)})`);
+    if (description) lines.push(`      (description ${quote(description)})`);
     lines.push("      (fields");
     for (const property of component.properties) {
       if (NOT_A_FIELD.has(property.name)) continue;
@@ -64,6 +70,7 @@ export const writeKicadNetlist = (design: ResolvedSchematic): string => {
       );
     }
     lines.push("      )");
+    lines.push(`      (libsource (description ${quote(component.libDescription)}))`);
     if (component.dnp) lines.push('      (property (name "dnp"))');
     lines.push("    )");
   }

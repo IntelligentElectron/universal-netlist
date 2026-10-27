@@ -1,0 +1,27 @@
+{
+  "name": "pin-net-name",
+  "assumes": [
+    "the name of a net no label or power symbol names, taken from one of its pins (pin 3 of U1, named SDA when named)",
+    "units: whether the symbol has more than one unit (U1A, U1B)",
+    "unconnected: a lone pin, a no-connect pin, or a net with a no-connect flag",
+    "every saved export in test/fixtures/kicad (KiCad 10.0.0 and 10.0.5) puts the unit letter only beside a pin name"
+  ],
+  "dimensions": {
+    "named": [
+      "yes",
+      "no"
+    ],
+    "units": [
+      "single",
+      "multi"
+    ],
+    "connection": [
+      "connected",
+      "unconnected"
+    ],
+    "shares_name": [
+      "yes",
+      "no"
+    ]
+  }
+}

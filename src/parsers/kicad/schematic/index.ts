@@ -21,7 +21,9 @@ import { writeKicadNetlist } from "./netlist-writer.js";
 /**
  * The root schematic and every sheet it reaches, each named as the sheets that
  * use it name it (`Sheetfile`, relative to the root's directory). A sheet that
- * cannot be read is left out, as KiCad leaves out a missing sheet.
+ * cannot be read fails the read: a netlist without it would be missing that
+ * sheet's parts and nets while looking complete, so the KiCad handler falls
+ * back to kicad-cli, or reports the missing sheet.
  */
 const readSources = async (
   rootSchematic: string,
@@ -36,14 +38,15 @@ const readSources = async (
     for (const sheetFile of parseKicadSheetFiles(sources[i].content)) {
       if (seen.has(sheetFile)) continue;
       seen.add(sheetFile);
+      let content: string;
       try {
-        sources.push({
-          name: sheetFile,
-          content: await readText(files, path.resolve(rootDir, sheetFile)),
-        });
-      } catch {
-        // A missing sheet contributes nothing; the rest of the design still reads.
+        content = await readText(files, path.resolve(rootDir, sheetFile));
+      } catch (error) {
+        throw new Error(
+          `Sheet "${sheetFile}" used by ${sources[i].name} cannot be read: ${(error as Error).message}`
+        );
       }
+      sources.push({ name: sheetFile, content });
     }
   }
   return sources;

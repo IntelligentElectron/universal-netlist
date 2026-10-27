@@ -134,12 +134,30 @@ describe.skipIf(!hasFixtures)("createNetlistService with a file reader", () => {
     });
   });
 
-  it("does not run kicad-cli on files only the reader can see", async () => {
+  it("reads a KiCad design with no saved .net from its schematics alone, without kicad-cli", async () => {
     const only = new Map([...files].filter(([p]) => !p.endsWith(".net")));
+    const memory = createNetlistService({ files: memoryReader(only) });
+    const fromSchematics = await memory.listNets({
+      design: path.join(MEMORY_ROOT, "kicad", "OpenMD.kicad_pro"),
+    });
+    expect(fromSchematics).not.toHaveProperty("error");
+    expect(fromSchematics).toEqual(
+      await createNetlistService().listNets({
+        design: fixturePath("kicad", "openmd-motordriver", "OpenMD.kicad_pro"),
+      })
+    );
+  });
+
+  it("names the schematic reader's failure when kicad-cli is off and no .net is saved", async () => {
+    const only = new Map(
+      [...files].filter(([p]) => !p.endsWith(".net") && !p.endsWith("Drivers.kicad_sch"))
+    );
     const memory = createNetlistService({ files: memoryReader(only) });
     expect(
       await memory.listNets({ design: path.join(MEMORY_ROOT, "kicad", "OpenMD.kicad_pro") })
-    ).toEqual({ error: expect.stringContaining("kicad-cli is turned off") });
+    ).toEqual({
+      error: expect.stringMatching(/Drivers\.kicad_sch.*cannot be read.*kicad-cli is turned off/s),
+    });
   });
 });
 

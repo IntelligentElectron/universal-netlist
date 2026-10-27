@@ -39,7 +39,10 @@ export const parseKicadVariantNames = (content: string): string[] => {
   return uniqueVariants(variants).map((variant) => variant.name);
 };
 
-/** Collect hierarchical child schematic paths from `(property "Sheetfile" ...)`. */
+/**
+ * Collect hierarchical child schematic paths from `(property "Sheetfile" ...)`,
+ * or `(property "Sheet file" ...)` as KiCad 6 spelled it.
+ */
 export const parseKicadSheetFiles = (content: string): string[] => {
   const files: string[] = [];
 
@@ -47,7 +50,8 @@ export const parseKicadSheetFiles = (content: string): string[] => {
     if (!isList(node)) return;
     if (tag(node) === "sheet") {
       for (const property of childrenByTag(node, "property")) {
-        if (property[1] === "Sheetfile" && typeof property[2] === "string") {
+        const isFile = property[1] === "Sheetfile" || property[1] === "Sheet file";
+        if (isFile && typeof property[2] === "string") {
           const file = property[2].trim();
           if (file) files.push(file);
         }

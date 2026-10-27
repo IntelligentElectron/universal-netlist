@@ -1,0 +1,121 @@
+{
+  "name": "pin-net-name",
+  "rules": [
+    {
+      "when": {
+        "named": [
+          "no"
+        ],
+        "connection": [
+          "connected"
+        ]
+      },
+      "outcome": "Net-(U1-Pad3)",
+      "next": "",
+      "cells": 2
+    },
+    {
+      "when": {
+        "named": [
+          "no"
+        ],
+        "connection": [
+          "unconnected"
+        ]
+      },
+      "outcome": "unconnected-(U1-Pad3)",
+      "next": "",
+      "cells": 2
+    },
+    {
+      "when": {
+        "named": [
+          "yes"
+        ],
+        "units": [
+          "multi"
+        ],
+        "connection": [
+          "unconnected"
+        ]
+      },
+      "outcome": "unconnected-(U1A-SDA-Pad3)",
+      "next": "",
+      "cells": 2
+    },
+    {
+      "when": {
+        "named": [
+          "yes"
+        ],
+        "units": [
+          "multi"
+        ],
+        "connection": [
+          "connected"
+        ],
+        "shares_name": [
+          "no"
+        ]
+      },
+      "outcome": "Net-(U1A-SDA)",
+      "next": "",
+      "cells": 1
+    },
+    {
+      "when": {
+        "units": [
+          "multi"
+        ],
+        "connection": [
+          "connected"
+        ],
+        "shares_name": [
+          "yes"
+        ]
+      },
+      "outcome": "Net-(U1A-SDA-Pad3)",
+      "next": "",
+      "cells": 1
+    },
+    {
+      "when": {
+        "named": [
+          "yes"
+        ],
+        "units": [
+          "single"
+        ],
+        "connection": [
+          "connected"
+        ],
+        "shares_name": [
+          "no"
+        ]
+      },
+      "outcome": "Net-(U1-SDA)",
+      "next": "",
+      "cells": 1
+    },
+    {
+      "when": {
+        "units": [
+          "single"
+        ],
+        "connection": [
+          "connected"
+        ],
+        "shares_name": [
+          "yes"
+        ]
+      },
+      "outcome": "Net-(U1-SDA-Pad3)",
+      "next": "",
+      "cells": 1
+    }
+  ],
+  "default": {
+    "outcome": "unconnected-(U1-SDA-Pad3)",
+    "next": ""
+  }
+}

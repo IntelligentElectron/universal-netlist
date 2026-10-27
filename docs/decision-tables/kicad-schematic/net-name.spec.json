@@ -1,0 +1,39 @@
+{
+  "name": "net-name",
+  "assumes": [
+    "two candidate drivers on one net; the one that wins names it (better(a, b) in connectivity.ts)",
+    "power_or_global: a power symbol or a global label (priority power, local power or global)",
+    "hier_bus: a bus member's name from a bus that reaches other sheets (a hierarchical label, a sheet pin or a global bus label on its group)",
+    "sheet_bus: a bus member's name from a bus that stays on its sheet",
+    "label: a local or hierarchical label, or a sheet pin, on the member's own wires",
+    "a and b never tie on everything: names differ when nothing else does"
+  ],
+  "dimensions": {
+    "a": [
+      "power_or_global",
+      "hier_bus",
+      "sheet_bus",
+      "label"
+    ],
+    "b": [
+      "power_or_global",
+      "hier_bus",
+      "sheet_bus",
+      "label"
+    ],
+    "priority": [
+      "a_higher",
+      "equal",
+      "b_higher"
+    ],
+    "depth": [
+      "a_shallower",
+      "equal",
+      "b_shallower"
+    ],
+    "name": [
+      "a_lower",
+      "b_lower"
+    ]
+  }
+}

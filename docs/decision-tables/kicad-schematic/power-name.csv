@@ -1,0 +1,7 @@
+format,value,outcome,next,status,note
+kicad6,set,power pin name,,draft,"src/parsers/kicad/schematic/connectivity.ts powerNetName: a KiCad 6 file names the net after the power pin, as KiCad reads one (leftymobo-ham-trx: GND_US symbols, pin GND, net GND)"
+kicad6,empty,power pin name,,draft,"src/parsers/kicad/schematic/connectivity.ts powerNetName: a KiCad 6 file names the net after the power pin, as KiCad reads one (leftymobo-ham-trx: GND_US symbols, pin GND, net GND)"
+kicad6,tilde,power pin name,,draft,"src/parsers/kicad/schematic/connectivity.ts powerNetName: a KiCad 6 file names the net after the power pin, as KiCad reads one (leftymobo-ham-trx: GND_US symbols, pin GND, net GND)"
+kicad7_or_later,set,value,,draft,src/parsers/kicad/schematic/connectivity.ts powerNetName: KiCad 7 and later name the net after the symbol's Value
+kicad7_or_later,empty,power pin name,,draft,an empty or ~ value names nothing; the pin's name does
+kicad7_or_later,tilde,power pin name,,draft,an empty or ~ value names nothing; the pin's name does

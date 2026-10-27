@@ -2,13 +2,15 @@
  * Parity of the raw `.kicad_sch` reader with KiCad's own netlister.
  *
  * Every KiCad fixture carries a `.net` that `kicad-cli sch export netlist`
- * wrote. The raw reader reads the schematics alone, and its netlist must equal
- * that export: the same nets by name with the same pins, and the same
- * components with the same fields. With `KICAD_PARITY=live` and kicad-cli
- * installed, it is also compared with a fresh export, so a fixture saved by an
- * older KiCad is checked against the netlister this machine has.
+ * wrote, and the raw reader, reading the schematics alone, must produce the
+ * same netlist: the same nets by name with the same pins, and the same
+ * components with the same fields. Where a fixture's saved export came from an
+ * older KiCad whose netlister differs, test/golden/kicad-cli/<project>.net
+ * holds the export of kicad-cli 10.0.5, which this reader follows. With
+ * `KICAD_PARITY=live` and kicad-cli installed, each design is also compared
+ * with a fresh export.
  */
-import { readdirSync } from "node:fs";
+import { existsSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { FIXTURES, hasFixtures } from "../../../../test/utils.js";
@@ -18,47 +20,24 @@ import { parseKicadNetlist } from "../netlist-parser.js";
 import { exportNetlist, isKicadCliAvailable } from "../cli.js";
 import { resolveKicadArtifacts } from "../discovery.js";
 import { readKicadSchematicNetlist } from "./index.js";
+import { netlistDifferences } from "./compare.js";
 
-/** Every KiCad fixture project with a saved export beside it. */
-const projects = (): string[] => {
+const NEWER_EXPORTS = path.resolve(__dirname, "../../../../test/golden/kicad-cli");
+
+/** A fixture that ships without one of its sheets, so no reader can read it whole. */
+const INCOMPLETE = "kicad-qa-variants";
+
+/** Every KiCad fixture project: its directory and its `.kicad_pro`. */
+const projects = (): [string, string][] => {
   if (!hasFixtures) return [];
   const root = path.join(FIXTURES, "kicad");
-  const found: string[] = [];
-  for (const design of readdirSync(root)) {
-    for (const name of readdirSync(path.join(root, design))) {
-      if (name.endsWith(".kicad_pro")) found.push(path.join(root, design, name));
-    }
-  }
-  return found.sort();
-};
-
-/** How two netlists differ, net by net and component by component; empty when they agree. */
-export const netlistDifferences = (expected: ParsedNetlist, actual: ParsedNetlist): string[] => {
-  const differences: string[] = [];
-  const pins = (net: ParsedNetlist["nets"][string] | undefined) =>
-    Object.entries(net ?? {})
-      .flatMap(([refdes, numbers]) => numbers.map((pin) => `${refdes}.${pin}`))
-      .sort();
-  for (const name of new Set([...Object.keys(expected.nets), ...Object.keys(actual.nets)])) {
-    const [want, got] = [pins(expected.nets[name]), pins(actual.nets[name])];
-    if (want.join() !== got.join()) {
-      const missing = want.filter((pin) => !got.includes(pin));
-      const extra = got.filter((pin) => !want.includes(pin));
-      differences.push(`net ${JSON.stringify(name)}: missing [${missing}] extra [${extra}]`);
-    }
-  }
-  for (const refdes of new Set([
-    ...Object.keys(expected.components),
-    ...Object.keys(actual.components),
-  ])) {
-    const [want, got] = [expected.components[refdes], actual.components[refdes]];
-    if (JSON.stringify(want) !== JSON.stringify(got)) {
-      differences.push(
-        `component ${refdes}: expected ${JSON.stringify(want)?.slice(0, 200)} got ${JSON.stringify(got)?.slice(0, 200)}`
-      );
-    }
-  }
-  return differences;
+  return readdirSync(root)
+    .sort()
+    .flatMap((design) =>
+      readdirSync(path.join(root, design))
+        .filter((name) => name.endsWith(".kicad_pro"))
+        .map((name): [string, string] => [design, path.join(root, design, name)])
+    );
 };
 
 const raw = async (project: string): Promise<ParsedNetlist> => {
@@ -67,11 +46,26 @@ const raw = async (project: string): Promise<ParsedNetlist> => {
   return readKicadSchematicNetlist(rootSchematic, nodeFileReader, project);
 };
 
-describe.skipIf(!hasFixtures)("raw .kicad_sch reader against the saved kicad-cli export", () => {
-  it.each(projects())("%s", async (project) => {
-    const { netlistExport } = await resolveKicadArtifacts(project);
-    const saved = parseKicadNetlist(await readText(nodeFileReader, netlistExport!));
-    expect(netlistDifferences(saved, await raw(project))).toEqual([]);
+/** The kicad-cli export a design is checked against: a newer one when there is one. */
+const reference = async (project: string): Promise<ParsedNetlist> => {
+  const newer = path.join(NEWER_EXPORTS, `${path.basename(project, ".kicad_pro")}.net`);
+  const saved = existsSync(newer) ? newer : (await resolveKicadArtifacts(project)).netlistExport!;
+  return parseKicadNetlist(await readText(nodeFileReader, saved));
+};
+
+describe.skipIf(!hasFixtures)("raw .kicad_sch reader against kicad-cli exports", () => {
+  it.each(projects().filter(([design]) => design !== INCOMPLETE))(
+    "%s",
+    async (_design, project) => {
+      expect(netlistDifferences(await reference(project), await raw(project))).toEqual([]);
+    }
+  );
+
+  it("refuses a design whose sheet is missing, naming the sheet", async () => {
+    const project = projects().find(([design]) => design === INCOMPLETE)![1];
+    await expect(raw(project)).rejects.toThrow(
+      /Sheet "pic_sockets\.kicad_sch" used by variants\.kicad_sch cannot be read/
+    );
   });
 });
 
@@ -79,9 +73,9 @@ const live = process.env.KICAD_PARITY === "live";
 describe.skipIf(!hasFixtures || !live)(
   "raw .kicad_sch reader against a live kicad-cli export",
   () => {
-    it.each(projects())(
+    it.each(projects().filter(([design]) => design !== INCOMPLETE))(
       "%s",
-      async (project) => {
+      async (_design, project) => {
         if (!(await isKicadCliAvailable())) throw new Error("KICAD_PARITY=live needs kicad-cli");
         const { rootSchematic } = await resolveKicadArtifacts(project);
         const exported = parseKicadNetlist(await exportNetlist(rootSchematic!));

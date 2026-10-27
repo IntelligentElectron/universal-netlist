@@ -1,0 +1,22 @@
+{
+  "name": "power-name",
+  "rules": [
+    {
+      "when": {
+        "format": [
+          "kicad7_or_later"
+        ],
+        "value": [
+          "set"
+        ]
+      },
+      "outcome": "value",
+      "next": "",
+      "cells": 1
+    }
+  ],
+  "default": {
+    "outcome": "power pin name",
+    "next": ""
+  }
+}
