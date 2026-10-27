@@ -214,6 +214,21 @@ describe("parseKicadNetlist", () => {
     expect(named.components.U1.pins).toEqual({ toString: "A", constructor: "B" });
   });
 
+  it("keeps nets and stub parts named like an Object method", () => {
+    const named = parseKicadNetlist(`
+(export
+  (components)
+  (nets
+    (net (code "1") (name "toString") (node (ref "constructor") (pin "1")))
+    (net (code "2") (name "constructor") (node (ref "constructor") (pin "2")))))
+`);
+    expect(Object.keys(named.nets)).toEqual(["toString", "constructor"]);
+    expect(named.nets.toString).toEqual({ constructor: ["1"] });
+    const stub = "constructor";
+    expect(Object.hasOwn(named.components, stub)).toBe(true);
+    expect(named.components[stub].pins).toEqual({ "1": "toString", "2": "constructor" });
+  });
+
   it("still lists a numbered pin on every net it is on, as a short", () => {
     const short = parseKicadNetlist(`
 (export

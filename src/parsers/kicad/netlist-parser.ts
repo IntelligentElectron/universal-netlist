@@ -257,13 +257,15 @@ export const parseKicadNetlist = (content: string): ParsedNetlist => {
   // A node may reference a refdes absent from (components) in a truncated or
   // malformed export; we intentionally create a bare stub so the connection
   // is not lost (it will simply have no value/mpn/description).
-  const componentOf = (refdes: string) => (components[refdes] ??= { pins: {} });
+  // Own keys only: a refdes or net named `constructor` is no Object method.
+  const componentOf = (refdes: string) =>
+    Object.hasOwn(components, refdes) ? components[refdes] : (components[refdes] = { pins: {} });
 
   // Net → component pin membership. This builder only ever stores arrays
   // (matching the other parsers), so the cast reflects an invariant of this
   // loop, not a general guarantee of the NetConnections type.
   const list = (membership: NetConnections[string], refdes: string, pin: string) => {
-    const pins = (membership[refdes] as string[] | undefined) ?? [];
+    const pins = Object.hasOwn(membership, refdes) ? (membership[refdes] as string[]) : [];
     if (!pins.includes(pin)) pins.push(pin);
     membership[refdes] = pins;
   };
@@ -283,7 +285,9 @@ export const parseKicadNetlist = (content: string): ParsedNetlist => {
     const netName = childString(net, "name");
     if (!netName) continue;
 
-    const membership: NetConnections[string] = (nets[netName] ??= {});
+    const membership: NetConnections[string] = Object.hasOwn(nets, netName)
+      ? nets[netName]
+      : (nets[netName] = {});
     const nodes = childrenByTag(net, "node");
     for (const node of nodes) {
       const refdes = childString(node, "ref");
@@ -308,9 +312,11 @@ export const parseKicadNetlist = (content: string): ParsedNetlist => {
   unnumbered.sort((a, b) => Number(a.alone) - Number(b.alone));
   for (const { netName, membership, refdes, name } of unnumbered) {
     const pins = componentOf(refdes).pins;
-    if (Object.hasOwn(pins, name) && getPinNet(pins[name]) !== netName) continue;
+    const placed = Object.hasOwn(pins, name) ? getPinNet(pins[name]) : undefined;
+    if (placed !== undefined && placed !== netName) continue;
     list(membership, refdes, name);
-    if (!Object.hasOwn(pins, name)) pins[name] = createPinEntry(name, name, netName);
+    // The name is the key, so the entry is the plain net name.
+    if (placed === undefined) pins[name] = netName;
   }
 
   return { nets, components };
