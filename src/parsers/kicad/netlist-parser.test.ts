@@ -179,6 +179,54 @@ describe("parseKicadNetlist", () => {
     ).not.toThrow();
   });
 
+  it("keeps a shared name on the wired net when an open pin's stub is listed first", () => {
+    // KiCad lists nets by name, and "unconnected-" sorts before "~{RST}".
+    const shared = parseKicadNetlist(`
+(export
+  (components
+    (comp (ref "U1") (value "Module"))
+    (comp (ref "U2") (value "MCU")))
+  (nets
+    (net (code "1") (name "unconnected-(U1-~{RST}-Pad)")
+      (node (ref "U1") (pin "") (pinfunction "~{RST}_")))
+    (net (code "2") (name "~{RST}")
+      (node (ref "U2") (pin "5"))
+      (node (ref "U1") (pin "") (pinfunction "~{RST}_")))))
+`);
+    expect(shared.nets["~{RST}"]).toEqual({ U2: ["5"], U1: ["~{RST}"] });
+    expect(shared.nets["unconnected-(U1-~{RST}-Pad)"]).toEqual({});
+    expect(shared.components.U1.pins).toEqual({ "~{RST}": "~{RST}" });
+  });
+
+  it("keys a pin named like an Object method as its own pin", () => {
+    const named = parseKicadNetlist(`
+(export
+  (components
+    (comp (ref "U1") (value "Module")))
+  (nets
+    (net (code "1") (name "A")
+      (node (ref "U1") (pin "") (pinfunction "toString_")))
+    (net (code "2") (name "B")
+      (node (ref "U1") (pin "") (pinfunction "constructor_")))))
+`);
+    expect(named.nets.A).toEqual({ U1: ["toString"] });
+    expect(named.nets.B).toEqual({ U1: ["constructor"] });
+    expect(named.components.U1.pins).toEqual({ toString: "A", constructor: "B" });
+  });
+
+  it("still lists a numbered pin on every net it is on, as a short", () => {
+    const short = parseKicadNetlist(`
+(export
+  (components
+    (comp (ref "U1") (value "Dual")))
+  (nets
+    (net (code "1") (name "VCC") (node (ref "U1") (pin "7")))
+    (net (code "2") (name "VDD") (node (ref "U1") (pin "7")))))
+`);
+    expect(short.nets.VCC).toEqual({ U1: ["7"] });
+    expect(short.nets.VDD).toEqual({ U1: ["7"] });
+  });
+
   it("uses a plain net string when the pin name equals the pin number", () => {
     // TP1 pin 1, pinfunction "1_1" → name "1" == number → plain string.
     expect(result.components.TP1.pins["1"]).toBe("VOUT");

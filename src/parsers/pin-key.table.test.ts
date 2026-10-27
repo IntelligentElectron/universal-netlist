@@ -18,12 +18,13 @@ interface Cell {
   name: boolean;
   refdes: boolean;
   /** Where U1's other pin with the same key is: nowhere, on SIG, or on FIRST. */
-  shares: "none" | "same net" | "earlier net";
+  shares: "none" | "same net" | "earlier net" | "earlier lone net";
 }
 
 /**
  * U1's pin, on net SIG with C1 pin 1, written as a KiCad netlist export. A pin sharing
- * its key comes before it, on SIG or on FIRST, the net listed first.
+ * its key comes before it, on SIG or on FIRST, the net listed first: with C2 pin 1, or
+ * alone as KiCad lists an open pin.
  */
 const kicad = ({ number, name, refdes, shares }: Cell): ParsedNetlist => {
   const pin = number ? "7" : "";
@@ -40,7 +41,9 @@ const kicad = ({ number, name, refdes, shares }: Cell): ParsedNetlist => {
     (comp (ref "U1") (value "Buck"))
     (comp (ref "C1") (value "100n")))
   (nets
-    (net (code "1") (name "FIRST") ${shares === "earlier net" ? node : ""})
+    (net (code "1") (name "FIRST")
+      ${shares === "earlier net" ? `(node (ref "C2") (pin "1")) ${node}` : ""}
+      ${shares === "earlier lone net" ? node : ""})
     (net (code "2") (name "SIG")
       (node (ref "C1") (pin "1"))
       ${shares === "same net" ? node : ""}
@@ -50,7 +53,7 @@ const kicad = ({ number, name, refdes, shares }: Cell): ParsedNetlist => {
 
 /**
  * U1's pin, wired to C1 pin 1 under power port SIG, written as an Altium sheet. A pin
- * sharing its key sits on SIG's wire, or on its own wire under power port FIRST.
+ * sharing its key sits on SIG's wire, on its own wire under power port FIRST, or alone.
  */
 const altium = ({ number, name, refdes, shares }: Cell): ParsedNetlist => {
   const at = (x: number, y = 100) => ({ "Location.X": String(x), "Location.Y": String(y) });
@@ -87,6 +90,7 @@ const altium = ({ number, name, refdes, shares }: Cell): ParsedNetlist => {
           { RECORD: RECORD_TYPES.POWER_PORT, Text: "FIRST", ...at(200, 300) },
         ]
       : []),
+    ...(shares === "earlier lone net" ? [u1Pin(at(100, 300))] : []),
   ];
   return parseDocument({
     path: "sheet.SchDoc",
@@ -113,21 +117,39 @@ describe("golden table: pin-key", () => {
       });
       expect(nets.SIG?.C1).toEqual(["1"]);
       const key = row.number === "present" ? "7" : "EN";
-      const onNets = Object.keys(nets).filter((net) => nets[net].U1 !== undefined);
+      const onNets = Object.keys(nets)
+        .filter((net) => nets[net].U1 !== undefined)
+        .sort();
+      const onlyOn = (net: string) => {
+        expect(onNets).toEqual([net]);
+        expect(nets[net].U1).toEqual([key]);
+        expect(getPinNet(components.U1.pins[key])).toBe(net);
+      };
 
-      if (row.outcome === "dropped") {
-        expect(onNets).toEqual([]);
-      } else if (row.outcome === "kept on its first net only") {
-        // KiCad lists FIRST first; Altium settles the order while tracing the sheet.
-        expect(onNets).toHaveLength(1);
-        if (row.format === "kicad") expect(onNets).toEqual(["FIRST"]);
-        expect(nets[onNets[0]].U1).toEqual([key]);
-        expect(getPinNet(components.U1.pins[key])).toBe(onNets[0]);
-      } else {
-        expect(row.outcome).toBe(`keyed by ${row.number === "present" ? "number" : "name"}`);
-        expect(onNets).toEqual(["SIG"]);
-        expect(nets.SIG.U1).toEqual([key]);
-        expect(Object.keys(components.U1.pins)).toEqual([key]);
+      switch (row.outcome) {
+        case "dropped":
+          expect(onNets).toEqual([]);
+          break;
+        case "keyed by number":
+        case "keyed by name":
+          expect(row.outcome).toBe(`keyed by ${row.number === "present" ? "number" : "name"}`);
+          onlyOn("SIG");
+          expect(Object.keys(components.U1.pins)).toEqual([key]);
+          break;
+        case "listed on every net":
+          expect(onNets).toEqual(["FIRST", "SIG"]);
+          for (const net of onNets) expect(nets[net].U1).toEqual([key]);
+          break;
+        case "kept on this net only":
+          onlyOn("SIG");
+          break;
+        case "kept on its first net only":
+          // KiCad lists FIRST first; Altium settles the order while tracing the sheet.
+          if (row.format === "kicad") onlyOn("FIRST");
+          else onlyOn(onNets[0]);
+          break;
+        default:
+          throw new Error(`no check for outcome '${row.outcome}'`);
       }
     });
   }

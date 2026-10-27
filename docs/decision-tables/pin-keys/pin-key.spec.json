@@ -7,7 +7,7 @@
     "refdes: KiCad (ref ...), Altium the owning component's designator",
     "The key is the PIN in REFDES.PIN: the pin's entry in the component's pins and in each net it is on",
     "Altium names a pin-named net Net<refdes>_<key> from the same key",
-    "shares: whether another pin of the same part with the same key was listed before this one, on this net or on an earlier one"
+    "shares: whether another pin of the same part with the same key was listed before this one: on this net, on an earlier net with other pins, or on an earlier net it is alone on (KiCad's unconnected-(...) stub for an open pin; Altium leaves such a net out)"
   ],
   "dimensions": {
     "format": [
@@ -29,7 +29,8 @@
     "shares": [
       "none",
       "same net",
-      "earlier net"
+      "earlier net",
+      "earlier lone net"
     ]
   }
 }

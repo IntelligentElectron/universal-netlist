@@ -21,22 +21,6 @@
     {
       "when": {
         "number": [
-          "present"
-        ],
-        "refdes": [
-          "present"
-        ],
-        "shares": [
-          "earlier net"
-        ]
-      },
-      "outcome": "kept on its first net only",
-      "next": "",
-      "cells": 4
-    },
-    {
-      "when": {
-        "number": [
           "empty"
         ],
         "name": [
@@ -56,6 +40,42 @@
     },
     {
       "when": {
+        "format": [
+          "kicad"
+        ],
+        "number": [
+          "present"
+        ],
+        "refdes": [
+          "present"
+        ],
+        "shares": [
+          "earlier net",
+          "earlier lone net"
+        ]
+      },
+      "outcome": "listed on every net",
+      "next": "",
+      "cells": 4
+    },
+    {
+      "when": {
+        "name": [
+          "present"
+        ],
+        "refdes": [
+          "present"
+        ],
+        "shares": [
+          "earlier lone net"
+        ]
+      },
+      "outcome": "kept on this net only",
+      "next": "",
+      "cells": 3
+    },
+    {
+      "when": {
         "name": [
           "present"
         ],
@@ -68,7 +88,45 @@
       },
       "outcome": "kept on its first net only",
       "next": "",
-      "cells": 2
+      "cells": 3
+    },
+    {
+      "when": {
+        "format": [
+          "altium"
+        ],
+        "number": [
+          "present"
+        ],
+        "refdes": [
+          "present"
+        ],
+        "shares": [
+          "earlier lone net"
+        ]
+      },
+      "outcome": "kept on this net only",
+      "next": "",
+      "cells": 1
+    },
+    {
+      "when": {
+        "format": [
+          "altium"
+        ],
+        "number": [
+          "present"
+        ],
+        "refdes": [
+          "present"
+        ],
+        "shares": [
+          "earlier net"
+        ]
+      },
+      "outcome": "kept on its first net only",
+      "next": "",
+      "cells": 1
     }
   ],
   "default": {
