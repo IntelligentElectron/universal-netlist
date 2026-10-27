@@ -1,15 +1,15 @@
 named,xdg,home,tmp,outcome,next,status,note
-unset,unset,none,writable,tmp dir,,draft,os.tmpdir()/universal-netlist: read-only root or no home falls through to a writable temp mount
+unset,unset,none,writable,tmp dir,,draft,"os.tmpdir()/universal-netlist-<uid>, one per user: read-only root or no home falls through to a writable temp mount"
 unset,unset,none,unwritable,no disk cache,,draft,nothing writable; queries answer without a disk cache
 unset,unset,writable,writable,home dir,,draft,~/.cache/universal-netlist
 unset,unset,writable,unwritable,home dir,,draft,~/.cache/universal-netlist
-unset,unset,unwritable,writable,tmp dir,,draft,os.tmpdir()/universal-netlist: read-only root or no home falls through to a writable temp mount
+unset,unset,unwritable,writable,tmp dir,,draft,"os.tmpdir()/universal-netlist-<uid>, one per user: read-only root or no home falls through to a writable temp mount"
 unset,unset,unwritable,unwritable,no disk cache,,draft,nothing writable; queries answer without a disk cache
-unset,relative,none,writable,tmp dir,,draft,os.tmpdir()/universal-netlist: read-only root or no home falls through to a writable temp mount
+unset,relative,none,writable,tmp dir,,draft,"os.tmpdir()/universal-netlist-<uid>, one per user: read-only root or no home falls through to a writable temp mount"
 unset,relative,none,unwritable,no disk cache,,draft,nothing writable; queries answer without a disk cache
 unset,relative,writable,writable,home dir,,draft,~/.cache/universal-netlist; a relative XDG_CACHE_HOME is ignored per the XDG spec
 unset,relative,writable,unwritable,home dir,,draft,~/.cache/universal-netlist; a relative XDG_CACHE_HOME is ignored per the XDG spec
-unset,relative,unwritable,writable,tmp dir,,draft,os.tmpdir()/universal-netlist: read-only root or no home falls through to a writable temp mount
+unset,relative,unwritable,writable,tmp dir,,draft,"os.tmpdir()/universal-netlist-<uid>, one per user: read-only root or no home falls through to a writable temp mount"
 unset,relative,unwritable,unwritable,no disk cache,,draft,nothing writable; queries answer without a disk cache
 unset,writable,none,writable,xdg dir,,draft,"$XDG_CACHE_HOME/universal-netlist, absolute per the XDG spec"
 unset,writable,none,unwritable,xdg dir,,draft,"$XDG_CACHE_HOME/universal-netlist, absolute per the XDG spec"
@@ -17,11 +17,11 @@ unset,writable,writable,writable,xdg dir,,draft,"$XDG_CACHE_HOME/universal-netli
 unset,writable,writable,unwritable,xdg dir,,draft,"$XDG_CACHE_HOME/universal-netlist, absolute per the XDG spec"
 unset,writable,unwritable,writable,xdg dir,,draft,"$XDG_CACHE_HOME/universal-netlist, absolute per the XDG spec"
 unset,writable,unwritable,unwritable,xdg dir,,draft,"$XDG_CACHE_HOME/universal-netlist, absolute per the XDG spec"
-unset,unwritable,none,writable,tmp dir,,draft,os.tmpdir()/universal-netlist: read-only root or no home falls through to a writable temp mount
+unset,unwritable,none,writable,tmp dir,,draft,"os.tmpdir()/universal-netlist-<uid>, one per user: read-only root or no home falls through to a writable temp mount"
 unset,unwritable,none,unwritable,no disk cache,,draft,nothing writable; queries answer without a disk cache
 unset,unwritable,writable,writable,home dir,,draft,~/.cache/universal-netlist
 unset,unwritable,writable,unwritable,home dir,,draft,~/.cache/universal-netlist
-unset,unwritable,unwritable,writable,tmp dir,,draft,os.tmpdir()/universal-netlist: read-only root or no home falls through to a writable temp mount
+unset,unwritable,unwritable,writable,tmp dir,,draft,"os.tmpdir()/universal-netlist-<uid>, one per user: read-only root or no home falls through to a writable temp mount"
 unset,unwritable,unwritable,unwritable,no disk cache,,draft,nothing writable; queries answer without a disk cache
 writable,unset,none,writable,named dir,,draft,resolveDiskCacheDir: UNIVERSAL_NETLIST_CACHE_DIR is used as it is
 writable,unset,none,unwritable,named dir,,draft,resolveDiskCacheDir: UNIVERSAL_NETLIST_CACHE_DIR is used as it is
