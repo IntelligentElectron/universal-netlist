@@ -77,10 +77,10 @@ universal-netlist query_xnet_by_net_name hardware/board.DSN --net_name SPI_CLK -
 
 Each description is the MCP tool's own. Where one says an unknown argument is dropped, the command line refuses it instead, with exit 2.
 
-Every tool but `list_designs` also takes these two flags, not repeated below:
+Every tool but `list_designs` also takes these two flags, not repeated below; `--design` may be the first argument instead:
 
-- `--design` (required). The design's path, as `list_designs` gives it, or the first argument.
-- `--design_variant`. Required on a design with named variants, as Conventions describes.
+- `--design` (required; string). Path to design file, as returned by list_designs.
+- `--design_variant` (string). Design variant name from list_designs' design_variants. Required when the design records named variants, which are its only builds. <Default> (alias: default) is the one build of a design that records none.
 
 ### list_designs
 
@@ -109,7 +109,6 @@ List components of a specific type in a design. The type is the refdes prefix, m
 ### list_nets
 
 List all net names in a design, sorted alphabetically. The result can be large. Prefer search_nets for targeted queries.
-
 
 ### search_nets
 

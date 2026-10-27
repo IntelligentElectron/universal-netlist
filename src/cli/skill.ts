@@ -83,6 +83,13 @@ export const SHARED_FLAGS = ["design", "design_variant"] as const;
 
 const isShared = (name: string): boolean => (SHARED_FLAGS as readonly string[]).includes(name);
 
+/** The shared flags' lines, rendered from the first tool that takes them, as every flag is. */
+const sharedFlagLines = (): string[] =>
+  SHARED_FLAGS.map((name) => {
+    const flag = TOOLS.flatMap((tool) => flagsOf(tool)).find((f) => f.name === name);
+    return flag ? flagLine(flag) : `- \`--${name}\`.`;
+  });
+
 /**
  * The skill's frontmatter: the Agent Skills fields, and only those, so every
  * host reads it. Each value is written as a JSON string, which is a YAML
@@ -173,14 +180,14 @@ export const renderSkill = (): string => {
     "",
     "Each description is the MCP tool's own. Where one says an unknown argument is dropped, the command line refuses it instead, with exit 2.",
     "",
-    "Every tool but `list_designs` also takes these two flags, not repeated below:",
+    "Every tool but `list_designs` also takes these two flags, not repeated below; `--design` may be the first argument instead:",
     "",
-    "- `--design` (required). The design's path, as `list_designs` gives it, or the first argument.",
-    "- `--design_variant`. Required on a design with named variants, as Conventions describes.",
+    ...sharedFlagLines(),
   ];
   for (const tool of TOOLS) {
-    lines.push("", `### ${tool.name}`, "", asFlags(tool.description), "");
-    for (const flag of flagsOf(tool)) if (!isShared(flag.name)) lines.push(flagLine(flag));
+    lines.push("", `### ${tool.name}`, "", asFlags(tool.description));
+    const own = flagsOf(tool).filter((flag) => !isShared(flag.name));
+    if (own.length > 0) lines.push("", ...own.map(flagLine));
   }
   return `${lines.join("\n")}\n`;
 };
