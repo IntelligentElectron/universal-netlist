@@ -31,6 +31,7 @@ import {
 } from "./sexpr.js";
 import {
   createPinEntry,
+  getPinNet,
   type ParsedNetlist,
   type ComponentDetails,
   type NetConnections,
@@ -172,18 +173,20 @@ const isDnp = (comp: SExpr[]): boolean =>
  * pinfunction as `<name>_<pinNumber>` (e.g. pin "15" named "PC7" → "PC7_15",
  * pin "1" named "1" → "1_1"). We strip the trailing `_<pinNumber>` to get the
  * symbol's pin name; `createPinEntry` then drops it when it equals the number.
- * KiCad uses a bare "~" for an unnamed pin, which carries no meaning here.
+ * A pin with no number ends in a bare `_` ("GND_"). KiCad uses a bare "~" for
+ * an unnamed pin, which carries no meaning here.
  */
 const pinName = (pinfunction: string | undefined, pinNumber: string): string | undefined => {
-  if (!pinfunction || pinfunction === "~") return undefined;
+  if (!pinfunction) return undefined;
   // Strip only a trailing `_<pinNumber>`. A pin number containing an underscore
   // (e.g. "1_2") is non-standard; the length guard below still prevents
   // stripping a name down to empty, and any over-strip is bounded to that quirk.
   const suffix = `_${pinNumber}`;
-  if (pinfunction.endsWith(suffix) && pinfunction.length > suffix.length) {
-    return pinfunction.slice(0, -suffix.length);
-  }
-  return pinfunction;
+  const name =
+    pinfunction.endsWith(suffix) && pinfunction.length > suffix.length
+      ? pinfunction.slice(0, -suffix.length)
+      : pinfunction;
+  return name === "~" ? undefined : name;
 };
 
 /**
@@ -259,24 +262,35 @@ export const parseKicadNetlist = (content: string): ParsedNetlist => {
 
     for (const node of childrenByTag(net, "node")) {
       const refdes = childString(node, "ref");
-      const pin = childString(node, "pin");
+      const number = childString(node, "pin") ?? "";
+      const name = pinName(childString(node, "pinfunction"), number);
+      // A pin is keyed by its number, or by its name where it has none, as the
+      // Altium parser keys it (docs/decision-tables/pin-keys). A pin with
+      // neither has no key a Universal Netlist can carry, so it is left out.
+      const pin = number || name;
       if (!refdes || !pin) continue;
+
+      // A node may reference a refdes absent from (components) in a truncated or
+      // malformed export; we intentionally create a bare stub so the connection
+      // is not lost (it will simply have no value/mpn/description).
+      const component = components[refdes] ?? { pins: {} };
+      components[refdes] = component;
+
+      // A key is one pin, on the first net that lists it, as the Altium parser
+      // reconciles it. Two unnumbered pins sharing a name, or two pins sharing
+      // a number, are left off every later net, since a pin names one net.
+      const placed = component.pins[pin];
+      if (placed !== undefined && getPinNet(placed) !== netName) continue;
 
       // Net → component pin membership. This builder only ever stores arrays
       // (matching the other parsers), so the cast reflects an invariant of this
       // loop, not a general guarantee of the NetConnections type.
       const pins = (membership[refdes] as string[] | undefined) ?? [];
-      pins.push(pin);
+      if (!pins.includes(pin)) pins.push(pin);
       membership[refdes] = pins;
 
       // Component pin → net mapping, with the symbol pin name when meaningful.
-      // A node may reference a refdes absent from (components) in a truncated or
-      // malformed export; we intentionally create a bare stub so the connection
-      // is not lost (it will simply have no value/mpn/description).
-      const component = components[refdes] ?? { pins: {} };
-      const name = pinName(childString(node, "pinfunction"), pin);
-      component.pins[pin] = createPinEntry(pin, name, netName);
-      components[refdes] = component;
+      component.pins[pin] ??= createPinEntry(pin, name, netName);
     }
 
     nets[netName] = membership;

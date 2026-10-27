@@ -1,0 +1,78 @@
+{
+  "name": "pin-key",
+  "rules": [
+    {
+      "when": {
+        "number": [
+          "present"
+        ],
+        "refdes": [
+          "present"
+        ],
+        "shares": [
+          "none",
+          "same net"
+        ]
+      },
+      "outcome": "keyed by number",
+      "next": "",
+      "cells": 8
+    },
+    {
+      "when": {
+        "number": [
+          "present"
+        ],
+        "refdes": [
+          "present"
+        ],
+        "shares": [
+          "earlier net"
+        ]
+      },
+      "outcome": "kept on its first net only",
+      "next": "",
+      "cells": 4
+    },
+    {
+      "when": {
+        "number": [
+          "empty"
+        ],
+        "name": [
+          "present"
+        ],
+        "refdes": [
+          "present"
+        ],
+        "shares": [
+          "none",
+          "same net"
+        ]
+      },
+      "outcome": "keyed by name",
+      "next": "",
+      "cells": 4
+    },
+    {
+      "when": {
+        "name": [
+          "present"
+        ],
+        "refdes": [
+          "present"
+        ],
+        "shares": [
+          "earlier net"
+        ]
+      },
+      "outcome": "kept on its first net only",
+      "next": "",
+      "cells": 2
+    }
+  ],
+  "default": {
+    "outcome": "dropped",
+    "next": ""
+  }
+}

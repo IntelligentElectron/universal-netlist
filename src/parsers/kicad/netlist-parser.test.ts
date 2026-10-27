@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
 import { fixturePath, hasFixtures } from "../../../test/utils.js";
 import { parseKicadNetlist } from "./netlist-parser.js";
+import { toUniversalNetlistDocument, validateUniversalNetlist } from "../universal/reader.js";
 
 /** A compact but representative kicadsexpr export exercising the tricky cases. */
 const EXPORT = `
@@ -105,6 +106,77 @@ describe("parseKicadNetlist", () => {
       (node (ref "R7") (pin "2") (pinfunction "~")))))
 `);
     expect(unnamed.components.R7.pins["2"]).toBe("SIG");
+  });
+
+  it("keys a pin with an empty number by its name (issue #245)", () => {
+    // A module symbol with unnumbered pins, as in OlafGoud/Freesbank's CNC3DPrinter:
+    // KiCad writes (pin "") and a pinfunction ending in a bare "_".
+    const unnumbered = parseKicadNetlist(`
+(export
+  (components
+    (comp (ref "U1") (value "Buck"))
+    (comp (ref "C1") (value "100n")))
+  (nets
+    (net (code "1") (name "VIN")
+      (node (ref "U1") (pin "") (pinfunction "Vin_") (pintype "input")))
+    (net (code "2") (name "GND")
+      (node (ref "C1") (pin "2") (pintype "passive"))
+      (node (ref "U1") (pin "") (pinfunction "GND_") (pintype "input")))
+    (net (code "3") (name "Net-(U1-~{EN}_)")
+      (node (ref "U1") (pin "") (pinfunction "~{EN}__") (pintype "input")))
+    (net (code "4") (name "LOST")
+      (node (ref "C1") (pin "1") (pintype "passive"))
+      (node (ref "U1") (pin "") (pinfunction "~_") (pintype "passive"))
+      (node (ref "U1") (pin "") (pintype "passive")))))
+`);
+    expect(unnumbered.nets.VIN).toEqual({ U1: ["Vin"] });
+    expect(unnumbered.nets.GND).toEqual({ C1: ["2"], U1: ["GND"] });
+    expect(unnumbered.nets["Net-(U1-~{EN}_)"]).toEqual({ U1: ["~{EN}_"] });
+    // Unnamed as well as unnumbered: no key, so the pin is left out.
+    expect(unnumbered.nets.LOST).toEqual({ C1: ["1"] });
+    expect(unnumbered.components.U1.pins).toEqual({
+      Vin: "VIN",
+      GND: "GND",
+      "~{EN}_": "Net-(U1-~{EN}_)",
+    });
+  });
+
+  it("lists a pin once when a name key repeats a pin already on the net", () => {
+    const repeated = parseKicadNetlist(`
+(export
+  (components
+    (comp (ref "J1") (value "Header")))
+  (nets
+    (net (code "1") (name "SIG")
+      (node (ref "J1") (pin "1"))
+      (node (ref "J1") (pin "") (pinfunction "1_")))))
+`);
+    expect(repeated.nets.SIG).toEqual({ J1: ["1"] });
+    expect(repeated.components.J1.pins).toEqual({ "1": "SIG" });
+  });
+
+  it("keeps unnumbered pins sharing a name on the first net, so the design exports", () => {
+    // Lab04DT2's SERLCD1: three unnumbered GND pins, one wired and two left open.
+    const shared = parseKicadNetlist(`
+(export
+  (components
+    (comp (ref "U2") (value "MCU"))
+    (comp (ref "LCD1") (value "SerLCD")))
+  (nets
+    (net (code "1") (name "GND")
+      (node (ref "U2") (pin "4"))
+      (node (ref "LCD1") (pin "") (pinfunction "GND_")))
+    (net (code "2") (name "unconnected-(LCD1-GND-Pad)")
+      (node (ref "LCD1") (pin "") (pinfunction "GND_")))
+    (net (code "3") (name "unconnected-(LCD1-GND-Pad)_1")
+      (node (ref "LCD1") (pin "") (pinfunction "GND_")))))
+`);
+    expect(shared.nets.GND).toEqual({ U2: ["4"], LCD1: ["GND"] });
+    expect(shared.nets["unconnected-(LCD1-GND-Pad)"]).toEqual({});
+    expect(shared.components.LCD1.pins).toEqual({ GND: "GND" });
+    expect(() =>
+      validateUniversalNetlist(JSON.parse(JSON.stringify(toUniversalNetlistDocument(shared))))
+    ).not.toThrow();
   });
 
   it("uses a plain net string when the pin name equals the pin number", () => {
