@@ -5,6 +5,7 @@
 
 import { open, readFile, readdir } from "fs/promises";
 import path from "path";
+import { splitLines } from "./lines.js";
 
 const ALTIUM_EXTENSIONS = [".prjpcb", ".schdoc"] as const;
 
@@ -57,7 +58,7 @@ const readProjectSchDocs = async (projectPath: string): Promise<string[]> => {
   const projectDir = path.dirname(projectPath);
   const schdocs = new Set<string>();
 
-  for (const line of content.split(/\r?\n/)) {
+  for (const line of splitLines(content)) {
     const match = line.match(/^\s*DocumentPath=(.+)$/i);
     if (!match) continue;
 

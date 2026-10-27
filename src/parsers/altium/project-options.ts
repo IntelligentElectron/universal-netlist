@@ -3,6 +3,8 @@
  * called.
  */
 
+import { splitLines } from "./lines.js";
+
 /**
  * The net identifier scope:
  * - `global`: net labels and ports join by name across every sheet.
@@ -55,7 +57,7 @@ const readFlag = (lines: readonly string[], key: string, fallback: boolean): boo
 
 /** Parse a `.PrjPcb`'s netlisting options. */
 export const parseProjectOptions = (content: string): AltiumProjectOptions => {
-  const lines = content.split(/\r?\n/);
+  const lines = splitLines(content);
   const hierarchyMode = readKey(lines, "HierarchyMode");
   return {
     scope: hierarchyMode ? HIERARCHY_MODE_SCOPE[hierarchyMode] : undefined,
