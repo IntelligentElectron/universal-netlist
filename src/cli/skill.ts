@@ -92,14 +92,25 @@ const flagLine = (flag: ReturnType<typeof flagsOf>[number]): string => {
   return `- \`--${flag.name}\` (${notes.join("; ")}).${description}`;
 };
 
+/**
+ * The skill's frontmatter: the Agent Skills fields, and only those, so every
+ * host reads it. Each value is written as a JSON string, which is a YAML
+ * double-quoted scalar, because a plain one cannot hold the `: ` the
+ * description does and strict YAML readers (gh skill) refuse it.
+ */
+const FRONTMATTER = {
+  name: "universal-netlist",
+  description: SKILL_DESCRIPTION,
+  license: "Apache-2.0",
+  compatibility:
+    "Requires a shell and the universal-netlist command line (the standalone binary, or Node.js 20+ for npx).",
+};
+
 /** The skill's Markdown. */
 export const renderSkill = (): string => {
   const lines: string[] = [
     "---",
-    "name: universal-netlist",
-    `description: ${SKILL_DESCRIPTION}`,
-    "license: Apache-2.0",
-    "compatibility: Requires a shell and the universal-netlist command line (the standalone binary, or Node.js 20+ for npx).",
+    ...Object.entries(FRONTMATTER).map(([key, value]) => `${key}: ${JSON.stringify(value)}`),
     "---",
     "",
     GENERATED,

@@ -7,13 +7,18 @@ import { SKILL_PATH, TOOLS_REFERENCE_PATH, renderSkill, renderToolsReference } f
 const committed = (relative: string) =>
   readFileSync(path.resolve(__dirname, "../..", relative), "utf-8");
 
-/** The YAML frontmatter's fields, one `key: value` per line. */
+/**
+ * The YAML frontmatter's fields, one `key: value` per line. Each value must be
+ * a JSON string, a YAML double-quoted scalar, so a strict YAML reader takes it
+ * whatever punctuation it holds; JSON.parse throws on any other.
+ */
 const frontmatter = (skill: string): Record<string, string> => {
   const block = /^---\n([\s\S]*?)\n---\n/.exec(skill)?.[1] ?? "";
   return Object.fromEntries(
-    block
-      .split("\n")
-      .map((line) => [line.slice(0, line.indexOf(":")), line.slice(line.indexOf(":") + 2)])
+    block.split("\n").map((line) => {
+      const colon = line.indexOf(": ");
+      return [line.slice(0, colon), JSON.parse(line.slice(colon + 2)) as string];
+    })
   );
 };
 
