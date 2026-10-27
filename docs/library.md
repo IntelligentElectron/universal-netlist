@@ -27,12 +27,13 @@ const same = await netlist.call("query_xnet_by_net_name", {
 });
 ```
 
-| Option                 | Default                                           | What it does                                                         |
-| ---------------------- | ------------------------------------------------- | -------------------------------------------------------------------- |
-| `files`                | the local disk                                    | The `FileReader` every parser reads design files through             |
-| `root`                 | the working directory at call time                | The directory relative `design` and `path` arguments resolve against |
-| `secrets.dsnPasswords` | none                                              | Passwords to try, in order, on a password-protected OrCAD `.DSN`     |
-| `kicadCli`             | on with the local disk, off with a custom `files` | `{ path, timeoutMs }` for `kicad-cli`, or `false` to never run it    |
+| Option                 | Default                                            | What it does                                                                                        |
+| ---------------------- | -------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `files`                | the local disk                                     | The `FileReader` every parser reads design files through                                            |
+| `root`                 | the working directory at call time                 | The directory relative `design` and `path` arguments resolve against                                |
+| `secrets.dsnPasswords` | none                                               | Passwords to try, in order, on a password-protected OrCAD `.DSN`                                    |
+| `kicadCli`             | on with the local disk, off with any other `files` | `{ path, timeoutMs }` for `kicad-cli`, or `false` to never run it                                   |
+| `cache`                | 8 parses in memory                                 | `{ maxEntries, dir, maxBytes }`, or `false` to parse every query; see [Parse cache](parse-cache.md) |
 
 The service reads nothing from the environment. The MCP server and the CLI read `KICAD_CLI_PATH`, `KICAD_CLI_TIMEOUT`, `UNIVERSAL_NETLIST_DSN_PASSWORD` and `UNIVERSAL_NETLIST_DSN_PASSWORD_FILE`; a host passes the same settings as these options.
 

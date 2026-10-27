@@ -1,0 +1,31 @@
+{
+  "name": "location",
+  "assumes": [
+    "the disk cache is on (see enabled)",
+    "home=none covers no HOME and no passwd entry (os.homedir throws or returns a relative path)",
+    "writable means the directory exists or can be created and can be written; for the xdg, home and tmp locations it also means a real directory owned by this user that no other user can write (nodeCacheDirHost.writable with isPrivate), so one another user made is unwritable here",
+    "the tmp location is os.tmpdir()/universal-netlist-<uid>, one per user"
+  ],
+  "dimensions": {
+    "named": [
+      "unset",
+      "writable",
+      "unwritable"
+    ],
+    "xdg": [
+      "unset",
+      "relative",
+      "writable",
+      "unwritable"
+    ],
+    "home": [
+      "none",
+      "writable",
+      "unwritable"
+    ],
+    "tmp": [
+      "writable",
+      "unwritable"
+    ]
+  }
+}

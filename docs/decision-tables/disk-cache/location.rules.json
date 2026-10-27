@@ -1,0 +1,72 @@
+{
+  "name": "location",
+  "rules": [
+    {
+      "when": {
+        "named": [
+          "writable"
+        ]
+      },
+      "outcome": "named dir",
+      "next": "",
+      "cells": 24
+    },
+    {
+      "when": {
+        "named": [
+          "unset"
+        ],
+        "xdg": [
+          "writable"
+        ]
+      },
+      "outcome": "xdg dir",
+      "next": "",
+      "cells": 6
+    },
+    {
+      "when": {
+        "named": [
+          "unset"
+        ],
+        "xdg": [
+          "unset",
+          "relative",
+          "unwritable"
+        ],
+        "home": [
+          "writable"
+        ]
+      },
+      "outcome": "home dir",
+      "next": "",
+      "cells": 6
+    },
+    {
+      "when": {
+        "named": [
+          "unset"
+        ],
+        "xdg": [
+          "unset",
+          "relative",
+          "unwritable"
+        ],
+        "home": [
+          "none",
+          "unwritable"
+        ],
+        "tmp": [
+          "writable"
+        ]
+      },
+      "outcome": "tmp dir",
+      "next": "",
+      "cells": 6
+    }
+  ],
+  "default": {
+    "outcome": "no disk cache",
+    "next": ""
+  }
+}

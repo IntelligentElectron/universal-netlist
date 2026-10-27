@@ -1,0 +1,49 @@
+entry,files,design,parse,outcome,next,status,note
+none,unchanged,plain,reads_files,"parse, store",,draft,no entry; src/service/cache.ts cached() stores probes and the frozen value
+none,unchanged,plain,reads_nothing,"parse, nothing stored",,draft,nothing to check a later load against; src/service/cache.ts probes.length > 0
+none,unchanged,plain,fails,"error, nothing stored",,draft,the parse throws out of cached() before store.set; loadNetlist turns it into { error }
+none,unchanged,protected,reads_files,"parse, nothing stored",,decided,"decided (user, 2026-10-27): a password-protected .DSN is never cached, in memory or on disk"
+none,unchanged,protected,reads_nothing,"parse, nothing stored",,decided,"decided (user, 2026-10-27): a password-protected .DSN is never cached, in memory or on disk"
+none,unchanged,protected,fails,"error, nothing stored",,draft,the parse throws out of cached() before store.set; loadNetlist turns it into { error }
+none,changed,plain,reads_files,"parse, store",,draft,no entry; src/service/cache.ts cached() stores probes and the frozen value
+none,changed,plain,reads_nothing,"parse, nothing stored",,draft,nothing to check a later load against; src/service/cache.ts probes.length > 0
+none,changed,plain,fails,"error, nothing stored",,draft,the parse throws out of cached() before store.set; loadNetlist turns it into { error }
+none,changed,protected,reads_files,"parse, nothing stored",,decided,"decided (user, 2026-10-27): a password-protected .DSN is never cached, in memory or on disk"
+none,changed,protected,reads_nothing,"parse, nothing stored",,decided,"decided (user, 2026-10-27): a password-protected .DSN is never cached, in memory or on disk"
+none,changed,protected,fails,"error, nothing stored",,draft,the parse throws out of cached() before store.set; loadNetlist turns it into { error }
+current,unchanged,plain,reads_files,answer from cache,,draft,"src/service/cache.ts cached(): probesHold, then deepFreeze(entry.value); the parse does not run"
+current,unchanged,plain,reads_nothing,n/a,,draft,"a parse that read nothing is never stored (src/service/cache.ts, probes.length > 0), so no current entry exists for one"
+current,unchanged,plain,fails,answer from cache,,draft,"src/service/cache.ts cached(): probesHold, then deepFreeze(entry.value); the parse does not run"
+current,unchanged,protected,reads_files,n/a,,draft,"a protected design is never stored (src/service/cache.ts, the dsnPasswords wrapper), so no current entry exists for one"
+current,unchanged,protected,reads_nothing,n/a,,draft,"a protected design is never stored (src/service/cache.ts, the dsnPasswords wrapper), so no current entry exists for one"
+current,unchanged,protected,fails,n/a,,draft,"a protected design is never stored (src/service/cache.ts, the dsnPasswords wrapper), so no current entry exists for one"
+current,changed,plain,reads_files,"parse, store",,draft,a probe answers differently; src/service/cache.ts cached() stores probes and the frozen value
+current,changed,plain,reads_nothing,n/a,,draft,"a parse that read nothing is never stored (src/service/cache.ts, probes.length > 0), so no current entry exists for one"
+current,changed,plain,fails,"error, nothing stored",,draft,the parse throws out of cached() before store.set; loadNetlist turns it into { error }
+current,changed,protected,reads_files,n/a,,draft,"a protected design is never stored (src/service/cache.ts, the dsnPasswords wrapper), so no current entry exists for one"
+current,changed,protected,reads_nothing,n/a,,draft,"a protected design is never stored (src/service/cache.ts, the dsnPasswords wrapper), so no current entry exists for one"
+current,changed,protected,fails,n/a,,draft,"a protected design is never stored (src/service/cache.ts, the dsnPasswords wrapper), so no current entry exists for one"
+foreign,unchanged,plain,reads_files,"parse, store",,draft,"written by another format or package version, or for another key: isEntryFile; src/service/cache.ts cached() stores probes and the frozen value"
+foreign,unchanged,plain,reads_nothing,"parse, nothing stored",,draft,nothing to check a later load against; src/service/cache.ts probes.length > 0
+foreign,unchanged,plain,fails,"error, nothing stored",,draft,the parse throws out of cached() before store.set; loadNetlist turns it into { error }
+foreign,unchanged,protected,reads_files,"parse, nothing stored",,decided,"decided (user, 2026-10-27): a password-protected .DSN is never cached, in memory or on disk"
+foreign,unchanged,protected,reads_nothing,"parse, nothing stored",,decided,"decided (user, 2026-10-27): a password-protected .DSN is never cached, in memory or on disk"
+foreign,unchanged,protected,fails,"error, nothing stored",,draft,the parse throws out of cached() before store.set; loadNetlist turns it into { error }
+foreign,changed,plain,reads_files,"parse, store",,draft,"written by another format or package version, or for another key: isEntryFile; src/service/cache.ts cached() stores probes and the frozen value"
+foreign,changed,plain,reads_nothing,"parse, nothing stored",,draft,nothing to check a later load against; src/service/cache.ts probes.length > 0
+foreign,changed,plain,fails,"error, nothing stored",,draft,the parse throws out of cached() before store.set; loadNetlist turns it into { error }
+foreign,changed,protected,reads_files,"parse, nothing stored",,decided,"decided (user, 2026-10-27): a password-protected .DSN is never cached, in memory or on disk"
+foreign,changed,protected,reads_nothing,"parse, nothing stored",,decided,"decided (user, 2026-10-27): a password-protected .DSN is never cached, in memory or on disk"
+foreign,changed,protected,fails,"error, nothing stored",,draft,the parse throws out of cached() before store.set; loadNetlist turns it into { error }
+corrupt,unchanged,plain,reads_files,"parse, store",,draft,unreadable or not JSON: DiskCacheStore.get returns undefined; src/service/cache.ts cached() stores probes and the frozen value
+corrupt,unchanged,plain,reads_nothing,"parse, nothing stored",,draft,nothing to check a later load against; src/service/cache.ts probes.length > 0
+corrupt,unchanged,plain,fails,"error, nothing stored",,draft,the parse throws out of cached() before store.set; loadNetlist turns it into { error }
+corrupt,unchanged,protected,reads_files,"parse, nothing stored",,decided,"decided (user, 2026-10-27): a password-protected .DSN is never cached, in memory or on disk"
+corrupt,unchanged,protected,reads_nothing,"parse, nothing stored",,decided,"decided (user, 2026-10-27): a password-protected .DSN is never cached, in memory or on disk"
+corrupt,unchanged,protected,fails,"error, nothing stored",,draft,the parse throws out of cached() before store.set; loadNetlist turns it into { error }
+corrupt,changed,plain,reads_files,"parse, store",,draft,unreadable or not JSON: DiskCacheStore.get returns undefined; src/service/cache.ts cached() stores probes and the frozen value
+corrupt,changed,plain,reads_nothing,"parse, nothing stored",,draft,nothing to check a later load against; src/service/cache.ts probes.length > 0
+corrupt,changed,plain,fails,"error, nothing stored",,draft,the parse throws out of cached() before store.set; loadNetlist turns it into { error }
+corrupt,changed,protected,reads_files,"parse, nothing stored",,decided,"decided (user, 2026-10-27): a password-protected .DSN is never cached, in memory or on disk"
+corrupt,changed,protected,reads_nothing,"parse, nothing stored",,decided,"decided (user, 2026-10-27): a password-protected .DSN is never cached, in memory or on disk"
+corrupt,changed,protected,fails,"error, nothing stored",,draft,the parse throws out of cached() before store.set; loadNetlist turns it into { error }

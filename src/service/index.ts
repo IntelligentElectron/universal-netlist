@@ -4,9 +4,15 @@ export {
   serviceFor,
   type NetlistService,
   type NetlistServiceOptions,
+  type NetlistServiceCache,
   type NetlistServiceSecrets,
 } from "./netlist-service.js";
-export { serviceContextFromEnvironment, type ServiceContext } from "./context.js";
+export {
+  CACHE_ENTRIES_ENV,
+  serviceContextFromEnvironment,
+  type ServiceContext,
+} from "./context.js";
+export type { CacheEntry, CacheStore, Probe } from "./cache.js";
 export {
   nodeFileReader,
   parserContextFromEnvironment,

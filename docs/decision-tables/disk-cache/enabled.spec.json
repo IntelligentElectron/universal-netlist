@@ -1,0 +1,12 @@
+{
+  "name": "enabled",
+  "assumes": [
+    "one CLI invocation; the MCP server and library hosts choose the disk cache through options, not these inputs",
+    "cache_env words are matched trimmed and case-insensitively: on = 1/true/yes/on, off = 0/false/no/off, other = any other non-empty text"
+  ],
+  "dimensions": {
+    "flag": ["absent", "present"],
+    "cache_env": ["unset", "on", "off", "other"],
+    "dir_env": ["unset", "set"]
+  }
+}

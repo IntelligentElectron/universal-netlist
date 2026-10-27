@@ -15,7 +15,8 @@ Give the server one of two environment variables:
 
 Set both and the server tries the single password first, then each line of the file. A protected
 design opens with whichever password decrypts it; the others are passed over, so one file can hold
-the passwords of every design you work with. Blank lines, and passwords that are not 1 to 255
+the passwords of every design you work with. A protected design is parsed on every query: its
+decrypted content is never kept in the [parse cache](parse-cache.md), in memory or on disk. Blank lines, and passwords that are not 1 to 255
 printable ASCII characters, are skipped. Keep the file private to your account:
 
 ```bash

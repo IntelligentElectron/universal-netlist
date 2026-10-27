@@ -1,0 +1,40 @@
+{
+  "name": "enabled",
+  "rules": [
+    {
+      "when": {
+        "flag": [
+          "absent"
+        ],
+        "cache_env": [
+          "unset",
+          "off",
+          "other"
+        ],
+        "dir_env": [
+          "unset"
+        ]
+      },
+      "outcome": "off",
+      "next": "",
+      "cells": 3
+    },
+    {
+      "when": {
+        "flag": [
+          "absent"
+        ],
+        "cache_env": [
+          "off"
+        ]
+      },
+      "outcome": "off",
+      "next": "",
+      "cells": 1
+    }
+  ],
+  "default": {
+    "outcome": "on",
+    "next": ""
+  }
+}
