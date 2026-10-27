@@ -27,7 +27,7 @@ Supported formats:
 
 ## Conventions
 
-- Read designs only through these tools. Never run the \`universal-netlist\` binary from a shell: it is this server, and its subcommands install and update it rather than answer queries
+- Read designs only through these tools. The \`universal-netlist\` binary is this server; its command line is for agents without MCP, so do not run it from a shell
 - Design paths are relative to the working directory; absolute paths are also accepted
 - Every result describes one build of a design. A design with named design variants requires \`design_variant\` on every query, one of the names \`list_designs\` lists for it: those variants are its only builds, and \`<Default>\` is refused on it. A design with no variants has one build, \`<Default>\` (alias \`default\`), the design with every part's own Do Not Stuff state. Every result echoes the \`design_variant\` it describes
 - DNS (Do Not Stuff) components are flagged \`dns: true\`. Listing and search tools include them by default; traversal and ERC leave them out unless \`include_dns=true\`

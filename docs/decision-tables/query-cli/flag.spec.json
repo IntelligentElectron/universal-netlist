@@ -1,0 +1,14 @@
+{
+  "name": "flag",
+  "assumes": [
+    "one --name token after the tool's name, where name is the schema argument's exact snake_case name (or not, for kind=unknown)",
+    "--help or -h anywhere means tool help instead (see exit), and --cache alone is the command line's own flag",
+    "word = true or false; number = text a person types as a number (e.g. 3, -1, 2.5); text = anything else; dash = the next token starts with '-'",
+    "a value the flag takes is then checked by the tool's schema, which may still refuse it (a usage error, see exit)"
+  ],
+  "dimensions": {
+    "kind": ["string", "number", "boolean", "array", "unknown"],
+    "form": ["eq_word", "eq_number", "eq_text", "eq_empty", "next_word", "next_number", "next_text", "next_dash", "last"],
+    "occurrence": ["first", "repeat"]
+  }
+}

@@ -1,6 +1,6 @@
 # Command Line
 
-The `universal-netlist` binary is an MCP server: an MCP client runs it with no command and speaks to it over stdio. Run by hand with no command, it prints how to set that up instead of serving. Everything else it can do is a command. Every command is accepted as a word (`universal-netlist update`) and as a flag (`universal-netlist --update`); the pages below use the word form.
+The `universal-netlist` binary is an MCP server: an MCP client runs it with no command and speaks to it over stdio. Run by hand with no command, it prints how to set that up instead of serving. Everything else it can do is a command, and every MCP tool is one too; see [Query tools](#query-tools). Every command is accepted as a word (`universal-netlist update`) and as a flag (`universal-netlist --update`); the pages below use the word form.
 
 ```
 Usage: universal-netlist [options] [command]
@@ -15,7 +15,41 @@ Commands:
   export-telemetry     Export telemetry data as a zip file
   export-json <design> [out.netlist.json]
                        Write a design's netlist as Universal Netlist JSON
+  <tool> [design] --flag value ...
+                       Run an MCP tool and print its JSON result
 ```
+
+## Query tools
+
+```bash
+universal-netlist <tool> [design] --flag value ...
+universal-netlist <tool> --help
+```
+
+Every MCP tool is a command under its own name, for a shell or an agent without MCP: `list_designs`, `search_nets`, `query_xnet_by_net_name` and the rest (`universal-netlist --help` lists them). Each call is stateless and self-contained: it names the design, and prints one result.
+
+The flags are the tool's arguments, built from the same schema the MCP server registers, so the names, defaults and checks are the same:
+
+| Argument kind | Written as |
+|---------------|------------|
+| text or number | `--net_name SPI_CLK` or `--net_name=SPI_CLK`. A value starting with a dash needs `=`: `--net_name=-12V` |
+| boolean | `--include_dns` alone is true; `--include_dns false` or `--include_dns=false` |
+| list | the flag repeated: `--skip_types C --skip_types L` |
+| `design` | `--design board.DSN`, or the first argument: `universal-netlist search_nets board.DSN --pattern '^V'` |
+
+The result is the tool's JSON on stdout: indented on a terminal, one compact line otherwise.
+
+| Exit | Meaning |
+|------|---------|
+| 0 | The result answers the query |
+| 1 | The result has an `error` field |
+| 2 | A usage error: an unknown, repeated or missing flag, or a value of the wrong kind. The message and the tool's usage line go to stderr, and the tool does not run |
+
+`--help` (or `-h`) anywhere after the tool's name prints its description and every flag instead. A first word that is neither a command nor a tool exits 2 with the list of tools; it never starts the server. Query commands never update the binary.
+
+Each call is a new process, so its parse ends with it. `--cache`, `UNIVERSAL_NETLIST_CACHE=1` or `UNIVERSAL_NETLIST_CACHE_DIR=<dir>` keep parses on disk between calls; see [Parse cache](parse-cache.md#command-line-on-disk). The settings the server reads from the environment (`KICAD_CLI_PATH`, `KICAD_CLI_TIMEOUT`, the OrCAD password variables) apply here too.
+
+The rules are golden decision tables: [flag parsing](decision-tables/query-cli/flag.rules.md), [the positional design](decision-tables/query-cli/positional.rules.md) and [exit codes](decision-tables/query-cli/exit.rules.md).
 
 ## export-json
 

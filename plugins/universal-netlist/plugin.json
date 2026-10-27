@@ -1,0 +1,21 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "universal-netlist",
+  "description": "Query Cadence, Altium, KiCad and Universal Netlist designs from the shell with the universal-netlist command line, for agents without the MCP server.",
+  "author": {
+    "name": "Valentino Zegna",
+    "url": "https://github.com/IntelligentElectron"
+  },
+  "homepage": "https://github.com/IntelligentElectron/universal-netlist",
+  "repository": "https://github.com/IntelligentElectron/universal-netlist",
+  "license": "Apache-2.0",
+  "keywords": [
+    "eda",
+    "netlist",
+    "schematic",
+    "kicad",
+    "altium",
+    "cadence",
+    "orcad"
+  ]
+}

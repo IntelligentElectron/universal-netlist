@@ -1,0 +1,101 @@
+{
+  "name": "exit",
+  "rules": [
+    {
+      "when": {
+        "help": [
+          "absent"
+        ],
+        "args": [
+          "usage_error",
+          "schema_refuses"
+        ]
+      },
+      "outcome": "usage on stderr, exit 2",
+      "next": "",
+      "cells": 12
+    },
+    {
+      "when": {
+        "help": [
+          "absent"
+        ],
+        "args": [
+          "valid"
+        ],
+        "result": [
+          "error_field",
+          "throws"
+        ],
+        "stdout": [
+          "pipe"
+        ]
+      },
+      "outcome": "compact JSON on stdout, exit 1",
+      "next": "",
+      "cells": 2
+    },
+    {
+      "when": {
+        "help": [
+          "absent"
+        ],
+        "args": [
+          "valid"
+        ],
+        "result": [
+          "error_field",
+          "throws"
+        ],
+        "stdout": [
+          "tty"
+        ]
+      },
+      "outcome": "indented JSON on stdout, exit 1",
+      "next": "",
+      "cells": 2
+    },
+    {
+      "when": {
+        "help": [
+          "absent"
+        ],
+        "args": [
+          "valid"
+        ],
+        "result": [
+          "ok"
+        ],
+        "stdout": [
+          "pipe"
+        ]
+      },
+      "outcome": "compact JSON on stdout, exit 0",
+      "next": "",
+      "cells": 1
+    },
+    {
+      "when": {
+        "help": [
+          "absent"
+        ],
+        "args": [
+          "valid"
+        ],
+        "result": [
+          "ok"
+        ],
+        "stdout": [
+          "tty"
+        ]
+      },
+      "outcome": "indented JSON on stdout, exit 0",
+      "next": "",
+      "cells": 1
+    }
+  ],
+  "default": {
+    "outcome": "tool help on stdout, exit 0",
+    "next": ""
+  }
+}

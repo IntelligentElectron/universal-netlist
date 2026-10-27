@@ -39,6 +39,18 @@ versioned Universal Netlist document, not an arbitrary JSON file.
 
 Golden generation uses the retained DAT parser as an independent reference when an export exists alongside a `.DSN`. To generate that reference directly, pass `pstxnet.dat`. This is a developer-only path: MCP discovery and queries accept the `.DSN` schematic and do not expose DAT parsing.
 
+## gen-skill.ts
+
+Writes the agent skill for the query command line,
+`plugins/universal-netlist/skills/universal-netlist/SKILL.md`, from the tool registry.
+
+```bash
+npm run gen:skill
+```
+
+`src/cli/skill.test.ts` fails while the committed skill differs from this output, so run it
+after changing a tool's description, arguments or the server's conventions.
+
 ## dsn-vs-dat-coverage.ts
 
 Compare DSN parser output against DAT netlist exports for every Cadence design under a directory (default: the working directory) that has both a `.DSN` and exported `.dat` files. Prints the report and writes it as markdown to `dsn-vs-dat-coverage-<timestamp>.md` in the working directory.
