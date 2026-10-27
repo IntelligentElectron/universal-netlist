@@ -13,8 +13,15 @@
 
 import path from "node:path";
 import { describe, it, expect } from "vitest";
-import { listAllFixtures, loadGolden, findDesignFiles, findDsnFiles } from "../utils.js";
+import {
+  listAllFixtures,
+  loadGolden,
+  findDesignFiles,
+  findDsnFiles,
+  unsupportedRefusal,
+} from "../utils.js";
 import { parseDesign } from "../../src/parsers/index.js";
+import { UnsupportedDesignError } from "../../src/parsers/errors.js";
 import { parseCadenceDatDesign } from "../../src/parsers/cadence/index.js";
 import { findCadenceDatFiles } from "../../src/parsers/cadence/discovery.js";
 import { parseDsnFile } from "../../src/parsers/cadence/dsn/dsn-parser.js";
@@ -77,6 +84,19 @@ describe("Parser Golden Output", { timeout: PARSE_TIMEOUT }, async () => {
         baseName.toLowerCase() === "pstxnet.dat"
           ? fixture.name
           : path.basename(designFile, path.extname(designFile));
+
+      const refusal = unsupportedRefusal(fixture.format, projectName);
+      if (refusal !== undefined) {
+        describe(`${fixture.format}/${projectName}`, () => {
+          it("is refused as unsupported, naming why, and has no golden output", async () => {
+            expect(await loadGolden(fixture.format, projectName)).toBeNull();
+            const parse = parseDesign(designFile);
+            await expect(parse).rejects.toBeInstanceOf(UnsupportedDesignError);
+            await expect(parse).rejects.toThrow(refusal);
+          });
+        });
+        continue;
+      }
 
       describe(`${fixture.format}/${projectName}`, () => {
         it("should match golden output", async () => {

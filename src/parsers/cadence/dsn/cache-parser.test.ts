@@ -8,8 +8,8 @@
  */
 
 import { describe, expect, it } from "vitest";
-import { indexLibraryPart } from "./cache-parser.js";
-import type { CachedLibraryPart } from "./structure-types.js";
+import { indexLibraryPart, listDeviceUnits } from "./cache-parser.js";
+import type { CachedLibraryPart, PinMapData } from "./structure-types.js";
 
 const part = (name: string, pinNames: string[]) => ({ name, pinNames });
 
@@ -61,5 +61,35 @@ describe("indexLibraryPart", () => {
     const parts = index(part("PLAIN.Normal", ["P"]));
 
     expect([...parts.keys()]).toEqual(["PLAIN.Normal"]);
+  });
+});
+
+describe("listDeviceUnits", () => {
+  const pmd = (): PinMapData => ({
+    pinMaps: new Map(),
+    cachePinMaps: new Map(),
+    deviceUnitRefs: new Map(),
+    pinIgnores: new Map(),
+    cachePinIgnores: new Map(),
+  });
+  const devices = (...units: string[]) => units.map((unitRef) => ({ unitRef }));
+
+  // DIGITALCONVERTOR.DSN (issue #247): `LM324_0` stores its section maps under
+  // both `LM324_0B` and `LM324B`, so the sections are listed under both names.
+  it("lists the units under the package name and its stripped form", () => {
+    const data = pmd();
+    listDeviceUnits(data, ["LM324", "LM324_0"], devices("A", "B", "C", "D"));
+
+    expect(data.deviceUnitRefs.get("LM324")).toEqual(["A", "B", "C", "D"]);
+    expect(data.deviceUnitRefs.get("LM324_0")).toEqual(["A", "B", "C", "D"]);
+  });
+
+  it("keeps the list of the first package to claim a name", () => {
+    const data = pmd();
+    listDeviceUnits(data, ["RPAK", "RPAK_1"], devices("A", "B"));
+    listDeviceUnits(data, ["RPAK", "RPAK_2"], devices("A", "B", "C"));
+
+    expect(data.deviceUnitRefs.get("RPAK")).toEqual(["A", "B"]);
+    expect(data.deviceUnitRefs.get("RPAK_2")).toEqual(["A", "B", "C"]);
   });
 });
