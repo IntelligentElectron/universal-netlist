@@ -14,6 +14,10 @@
       "types": "./dist/service/index.d.ts",
       "default": "./dist/service/index.js"
     },
+    "./tools": {
+      "types": "./dist/tools/index.d.ts",
+      "default": "./dist/tools/index.js"
+    },
     "./types": {
       "types": "./dist/types.d.ts",
       "default": "./dist/types.js"

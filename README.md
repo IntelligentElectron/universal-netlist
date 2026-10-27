@@ -114,7 +114,7 @@ See **[Observability (OpenTelemetry)](docs/observability.md)** for setup, config
 
 ## Documentation
 
-See [docs/](docs/README.md) for API documentation and response schemas, [docs/cli.md](docs/cli.md) for the binary's command line, and [docs/password-protected-designs.md](docs/password-protected-designs.md) for OrCAD designs saved with a password.
+See [docs/](docs/README.md) for API documentation and response schemas, [docs/cli.md](docs/cli.md) for the binary's command line, [docs/library.md](docs/library.md) for calling the tools in-process from your own code, and [docs/password-protected-designs.md](docs/password-protected-designs.md) for OrCAD designs saved with a password.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines.
 
