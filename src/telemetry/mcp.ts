@@ -26,9 +26,10 @@ type CallToolHandler = (
  * request handling, so intercept its one tools/call registration and wrap the
  * complete SDK path: validation, callback dispatch, and error-result creation.
  */
-export const instrumentMcpToolCalls = (mcp: McpServer): void => {
+export const instrumentMcpToolCalls = (mcp: McpServer): (() => void) => {
   const lowLevelServer = mcp.server;
   const setRequestHandler = lowLevelServer.setRequestHandler.bind(lowLevelServer);
+  let wrapped = false;
 
   lowLevelServer.setRequestHandler = ((schema: unknown, handler: unknown): void => {
     if (schema !== CallToolRequestSchema) {
@@ -36,6 +37,7 @@ export const instrumentMcpToolCalls = (mcp: McpServer): void => {
       return;
     }
 
+    wrapped = true;
     const callTool = handler as CallToolHandler;
     setRequestHandler(CallToolRequestSchema, async (request, extra) => {
       const args = request.params.arguments ?? {};
@@ -50,4 +52,15 @@ export const instrumentMcpToolCalls = (mcp: McpServer): void => {
       return withTelemetry(request.params.name, async () => result)(args);
     });
   }) as typeof lowLevelServer.setRequestHandler;
+
+  // An SDK that registers tools/call before this runs (as 1.32.2 does when the
+  // McpServer options declare the tools capability) bypasses the wrapper, and
+  // rejected calls go unrecorded. Call this once the tools are registered.
+  return (): void => {
+    if (!wrapped) {
+      throw new Error(
+        "tools/call was registered before instrumentMcpToolCalls; rejected calls would not be recorded"
+      );
+    }
+  };
 };
