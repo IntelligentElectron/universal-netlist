@@ -94,9 +94,10 @@ npm test              # Unit tests
 
 ### Code Style
 
-- TypeScript 7 with strict mode. TypeScript 7 is the native compiler and ships no
-  `tsserver.js`, so point your editor at its own bundled TypeScript or at TypeScript 7
-  native editor support, not at the workspace version
+- TypeScript 7 with strict mode. TypeScript 7 is the native compiler, and
+  `node_modules/typescript` holds the compiler only. Editors use their own bundled
+  TypeScript for language features: in VS Code, run "TypeScript: Select TypeScript
+  Version" and pick "Use VS Code's Version"
 - oxlint for linting (`.oxlintrc.json`)
 - Prefer functional programming patterns
 - Add JSDoc comments for exported functions
