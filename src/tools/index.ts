@@ -357,21 +357,31 @@ const exportCadenceNetlistTool = defineTool({
 // Registry
 // =============================================================================
 
+/**
+ * Tools kept in the code but offered only when their feature flag is on
+ * (src/features.ts). A tool not named here is always offered.
+ */
+const FEATURE_FLAGS: Readonly<Record<string, boolean>> = {
+  export_cadence_netlist: CADENCE_EXPORT_ENABLED,
+};
+
 /** Every tool this build offers, in the order clients list them. */
-export const TOOLS: readonly AnyToolDefinition[] = Object.freeze([
-  listDesignsTool,
-  listComponentsTool,
-  listNetsTool,
-  searchNetsTool,
-  searchComponentsByRefdesTool,
-  searchComponentsByMpnTool,
-  searchComponentsByDescriptionTool,
-  queryXnetByNetNameTool,
-  queryXnetByPinNameTool,
-  queryComponentTool,
-  runErcTool,
-  ...(CADENCE_EXPORT_ENABLED ? [exportCadenceNetlistTool] : []),
-]);
+export const TOOLS: readonly AnyToolDefinition[] = Object.freeze(
+  [
+    listDesignsTool,
+    listComponentsTool,
+    listNetsTool,
+    searchNetsTool,
+    searchComponentsByRefdesTool,
+    searchComponentsByMpnTool,
+    searchComponentsByDescriptionTool,
+    queryXnetByNetNameTool,
+    queryXnetByPinNameTool,
+    queryComponentTool,
+    runErcTool,
+    exportCadenceNetlistTool,
+  ].filter((tool) => FEATURE_FLAGS[tool.name] ?? true)
+);
 
 /** The tool with this exact name, or undefined when this build offers none. */
 export const findTool = (name: string): AnyToolDefinition | undefined =>
