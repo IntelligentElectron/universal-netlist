@@ -45,8 +45,8 @@ npm run dev          # Run with tsx (auto-reload)
 npm run build        # Compile TypeScript to dist/
 npm run start        # Run compiled version
 npm run type-check   # TypeScript type checking
-npm run lint         # ESLint
-npm run lint:fix     # ESLint with auto-fix
+npm run lint         # oxlint
+npm run lint:fix     # oxlint with auto-fix
 npm test             # Run tests with Vitest
 npm run test:watch   # Run tests in watch mode
 npm run compile:all  # Build the five per-arch binaries (any host)

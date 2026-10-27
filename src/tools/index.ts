@@ -82,7 +82,7 @@ export interface ToolDefinition<S extends z.ZodObject = z.ZodObject, R = unknown
 }
 
 /** A tool whose argument types have been erased, as the registry lists them. */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// oxlint-disable-next-line typescript/no-explicit-any
 export type AnyToolDefinition = ToolDefinition<z.ZodObject<any>, unknown>;
 
 /** The raw arguments a tool accepts, before its schema applies defaults. */

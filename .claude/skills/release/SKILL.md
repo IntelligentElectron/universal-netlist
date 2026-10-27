@@ -225,14 +225,15 @@ gh release edit <tag> --repo IntelligentElectron/universal-netlist --notes-file 
 When no one outside the maintainers contributed, the notes need no Thanks section. Say so
 in the release report.
 
-## Pre-commit Hooks
+## Before committing
 
-This repo uses husky + lint-staged. Pre-commit runs:
-- ESLint (with auto-fix) and type-check on staged TS/TSX files
-- All TypeScript tests (`npm test`) across all workspaces
-- Python validation for `services/server`: Black, Pyright, pytest
+This repo has no pre-commit hook, so nothing runs on `git commit`. Run the checks
+yourself first, as CLAUDE.md's "Before Committing" says, and do not claim a hook ran:
 
-If hooks fail:
-- Git pull issues: work with the user to resolve
-- Type/lint errors: fix the code
-- Test failures: identify root cause and fix (code or tests)
+```bash
+npm run type-check && npm run lint && npm test
+```
+
+CI's `build` check runs the same on every PR. If a check fails:
+- Type or lint errors: fix the code (`npm run lint:fix` applies oxlint's safe fixes)
+- Test failures: identify the root cause and fix the code or the test

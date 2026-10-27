@@ -88,14 +88,14 @@ Before submitting a PR, run all checks:
 
 ```bash
 npm run type-check    # TypeScript type checking
-npm run lint          # ESLint
+npm run lint          # oxlint
 npm test              # Unit tests
 ```
 
 ### Code Style
 
 - TypeScript with strict mode
-- ESLint for linting
+- oxlint for linting (`.oxlintrc.json`)
 - Prefer functional programming patterns
 - Add JSDoc comments for exported functions
 

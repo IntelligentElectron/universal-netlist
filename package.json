@@ -32,8 +32,8 @@
     "start": "node dist/index.js",
     "dev": "node --import tsx src/index.ts",
     "type-check": "tsc --noEmit -p tsconfig.check.json",
-    "lint": "eslint \"src/**/*.ts\" \"scripts/**/*.ts\"",
-    "lint:fix": "eslint \"src/**/*.ts\" \"scripts/**/*.ts\" --fix",
+    "lint": "oxlint src scripts",
+    "lint:fix": "oxlint src scripts --fix",
     "format": "prettier --write \"src/**/*.ts\"",
     "format:check": "prettier --check \"src/**/*.ts\"",
     "test": "vitest run",
@@ -89,11 +89,10 @@
   },
   "devDependencies": {
     "@types/node": "^22.20.5",
-    "eslint": "^9.39.5",
+    "oxlint": "^1.90.0",
     "prettier": "^3.9.10",
     "tsx": "^4.23.15",
     "typescript": "^5.7.3",
-    "typescript-eslint": "^8.72.1",
     "vite": "^8.3.5",
     "vitest": "^5.0.5"
   },
