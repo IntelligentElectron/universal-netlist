@@ -1,0 +1,84 @@
+{
+  "name": "lookup",
+  "rules": [
+    {
+      "when": {
+        "entry": [
+          "none",
+          "foreign",
+          "corrupt"
+        ],
+        "parse": [
+          "fails"
+        ]
+      },
+      "outcome": "error, nothing stored",
+      "next": "",
+      "cells": 12
+    },
+    {
+      "when": {
+        "entry": [
+          "none",
+          "foreign",
+          "corrupt"
+        ],
+        "design": [
+          "plain"
+        ],
+        "parse": [
+          "reads_files"
+        ]
+      },
+      "outcome": "parse, store",
+      "next": "",
+      "cells": 6
+    },
+    {
+      "when": {
+        "entry": [
+          "current"
+        ],
+        "files": [
+          "unchanged"
+        ]
+      },
+      "outcome": "answer from cache",
+      "next": "",
+      "cells": 2
+    },
+    {
+      "when": {
+        "files": [
+          "changed"
+        ],
+        "parse": [
+          "fails"
+        ]
+      },
+      "outcome": "error, nothing stored",
+      "next": "",
+      "cells": 1
+    },
+    {
+      "when": {
+        "files": [
+          "changed"
+        ],
+        "design": [
+          "plain"
+        ],
+        "parse": [
+          "reads_files"
+        ]
+      },
+      "outcome": "parse, store",
+      "next": "",
+      "cells": 1
+    }
+  ],
+  "default": {
+    "outcome": "parse, nothing stored",
+    "next": ""
+  }
+}

@@ -3,7 +3,7 @@ import { DEFAULT_VARIANT } from "../../parsers/variants.js";
 import { resolvePath } from "../../paths.js";
 import { parseRegexPattern } from "../regex-helpers.js";
 import type { DesignVariantInfo, ErrorResult, ListDesignsResult } from "../../types.js";
-import type { ParserContext } from "../../parsers/context.js";
+import { listVariantsCached } from "../load-netlist.js";
 import type { ServiceContext } from "../context.js";
 
 /**
@@ -28,13 +28,13 @@ export interface ListDesignsOptions {
  */
 const listDesignVariants = async (
   sourcePath: string,
-  context: ParserContext
+  context: ServiceContext
 ): Promise<{ design_variants: DesignVariantInfo[]; error?: string }> => {
   const base: DesignVariantInfo = { name: DEFAULT_VARIANT, is_default: true };
   const handler = findHandler(sourcePath);
   if (!handler?.listVariants) return { design_variants: [base] };
   try {
-    const native = await handler.listVariants(sourcePath, context);
+    const native = await listVariantsCached(handler, sourcePath, context.parser, context.cache);
     return { design_variants: native.length > 0 ? native : [base] };
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error occurred";
@@ -97,7 +97,7 @@ export const listDesigns = async (
 
   const entries = await Promise.all(
     limited.map(async (design) => {
-      const variants = await listDesignVariants(design.sourcePath, context.parser);
+      const variants = await listDesignVariants(design.sourcePath, context);
       return {
         name: design.name,
         // The design's own file: a .DSN, a .PrjPcb, a .kicad_pro, or the netlist of

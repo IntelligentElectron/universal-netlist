@@ -1,9 +1,15 @@
 import path from "path";
 import { findHandler, parseDesign } from "../parsers/index.js";
 import { resolvePath } from "../paths.js";
-import type { ParsedNetlist, ErrorResult } from "../types.js";
+import type {
+  DesignVariant,
+  EDAProjectFormatHandler,
+  ErrorResult,
+  ParsedNetlist,
+} from "../types.js";
 import { serviceContextFromEnvironment, type ServiceContext } from "./context.js";
-import { readOnce } from "../parsers/context.js";
+import { readOnce, type ParserContext } from "../parsers/context.js";
+import { cached, type CacheStore } from "./cache.js";
 import {
   DEFAULT_VARIANT,
   describeDefaultVariantRefusal,
@@ -13,9 +19,10 @@ import {
 } from "../parsers/variants.js";
 
 /**
- * Normalize unconnected pins to "NC" (No Connect).
+ * Normalize unconnected pins to "NC" (No Connect), in place. It runs on a
+ * fresh parse before the parse is cached, so a cached parse is never changed.
  */
-const normalizeUnconnectedPins = (netlist: ParsedNetlist): void => {
+const normalizeUnconnectedPins = (netlist: ParsedNetlist): ParsedNetlist => {
   for (const component of Object.values(netlist.components)) {
     for (const [pin, net] of Object.entries(component.pins)) {
       if (typeof net === "string") {
@@ -30,7 +37,24 @@ const normalizeUnconnectedPins = (netlist: ParsedNetlist): void => {
       }
     }
   }
+  return netlist;
 };
+
+/**
+ * The variants a design records, from the cache when its files have not
+ * changed. Listing and parsing share one cache, so a query costs one listing.
+ */
+export const listVariantsCached = async (
+  handler: EDAProjectFormatHandler,
+  designPath: string,
+  parser: ParserContext,
+  cache?: CacheStore
+): Promise<DesignVariant[]> =>
+  handler.listVariants
+    ? cached(cache, { kind: "variants", path: designPath }, parser, (recording) =>
+        handler.listVariants!(designPath, recording)
+      )
+    : [];
 
 /** A parsed design plus the design variant it was resolved for. */
 export interface LoadedNetlist extends ParsedNetlist {
@@ -70,7 +94,7 @@ export const loadNetlist = async (
   }
 
   try {
-    const variants = (await handler.listVariants?.(normalizedPath, parser)) ?? [];
+    const variants = await listVariantsCached(handler, normalizedPath, parser, context.cache);
     const requested = designVariant?.trim();
     const designName = path.basename(normalizedPath);
     if (!requested && variants.length > 0) {
@@ -101,11 +125,14 @@ export const loadNetlist = async (
       return { error: describeDefaultVariantRefusal(variants, designName) };
     }
 
-    const parsed = await parseDesign(normalizedPath, {
-      variant: selection.selected,
-      context: parser,
-    });
-    normalizeUnconnectedPins(parsed);
+    const parsed = await cached(
+      context.cache,
+      { kind: "netlist", path: normalizedPath, variant: selection.selected },
+      parser,
+      (recording) =>
+        parseDesign(normalizedPath, { variant: selection.selected, context: recording }),
+      normalizeUnconnectedPins
+    );
     return { ...parsed, design_variant: selection.selected, format: handler.name };
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error occurred";

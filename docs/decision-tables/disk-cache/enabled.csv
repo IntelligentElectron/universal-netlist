@@ -1,0 +1,17 @@
+flag,cache_env,dir_env,outcome,next,status,note
+absent,unset,unset,off,,draft,opt-in: nothing turns it on
+absent,unset,set,on,,flag,product: naming a directory in UNIVERSAL_NETLIST_CACHE_DIR turns the cache on (asked; recommended A)
+absent,on,unset,on,,draft,UNIVERSAL_NETLIST_CACHE is an on word
+absent,on,set,on,,draft,UNIVERSAL_NETLIST_CACHE is an on word
+absent,off,unset,off,,draft,UNIVERSAL_NETLIST_CACHE is an off word
+absent,off,set,off,,flag,product: an off word wins over a named directory (asked; recommended A)
+absent,other,unset,off,,draft,opt-in: nothing turns it on (an unrecognised word is not on)
+absent,other,set,on,,flag,product: naming a directory in UNIVERSAL_NETLIST_CACHE_DIR turns the cache on (asked; recommended A)
+present,unset,unset,on,,draft,src/service/disk-cache.ts diskCacheEnabled: the flag wins for its call
+present,unset,set,on,,draft,src/service/disk-cache.ts diskCacheEnabled: the flag wins for its call
+present,on,unset,on,,draft,src/service/disk-cache.ts diskCacheEnabled: the flag wins for its call
+present,on,set,on,,draft,src/service/disk-cache.ts diskCacheEnabled: the flag wins for its call
+present,off,unset,on,,draft,src/service/disk-cache.ts diskCacheEnabled: the flag wins for its call
+present,off,set,on,,draft,src/service/disk-cache.ts diskCacheEnabled: the flag wins for its call
+present,other,unset,on,,draft,src/service/disk-cache.ts diskCacheEnabled: the flag wins for its call
+present,other,set,on,,draft,src/service/disk-cache.ts diskCacheEnabled: the flag wins for its call

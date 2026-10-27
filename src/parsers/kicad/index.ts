@@ -24,7 +24,12 @@ import {
   resolveKicadArtifacts,
   KICAD_EXTENSIONS,
 } from "./discovery.js";
-import { applyKicadVariant, collectKicadVariantOverrides, listKicadVariants } from "./variants.js";
+import {
+  applyKicadVariant,
+  collectKicadVariantOverrides,
+  listKicadVariants,
+  readSchematicHierarchy,
+} from "./variants.js";
 import { describeDefaultVariantRefusal, isDefaultVariantLiteral } from "../variants.js";
 
 export { discoverKicadDesigns, isKicadFile, resolveKicadArtifacts } from "./discovery.js";
@@ -59,7 +64,10 @@ export const parseKicadDesign = async (
     // 1. Committed export beside the project (preferred).
     parsed = parseKicadNetlist(await readText(files, netlistExport));
   } else if (rootSchematic && kicadCli) {
-    // 2. Live generation from the root schematic via kicad-cli.
+    // 2. Live generation from the root schematic via kicad-cli. kicad-cli
+    // reads the sheets itself; reading them through the reader first lets a
+    // parse cache see every file the netlist came from.
+    await readSchematicHierarchy(rootSchematic, files);
     parsed = parseKicadNetlist(await exportNetlist(rootSchematic, kicadCli));
   } else if (rootSchematic) {
     // kicad-cli reads the disk itself, so it is off for files it cannot see.

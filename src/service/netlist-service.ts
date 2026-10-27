@@ -34,11 +34,27 @@ import {
 } from "../parsers/context.js";
 import type { ErrorResult } from "../types.js";
 import type { ServiceContext } from "./context.js";
+import { DEFAULT_MAX_ENTRIES, MemoryCacheStore, TieredCacheStore } from "./cache.js";
+import { DiskCacheStore } from "./disk-cache.js";
 
 /** Secrets a design may need to open. */
 export interface NetlistServiceSecrets {
   /** Passwords to try, in order, on a password-protected OrCAD `.DSN`. */
   readonly dsnPasswords?: readonly string[];
+}
+
+/** How a service keeps parses between queries. */
+export interface NetlistServiceCache {
+  /** Parses kept in memory, least recently used dropped first. Default 8; 0 keeps none. */
+  readonly maxEntries?: number;
+  /**
+   * A directory to keep parses in across processes too. The directory is
+   * created if needed; one that cannot be written is skipped, never failing a
+   * query.
+   */
+  readonly dir?: string;
+  /** Cap on the directory's size in bytes. Default 256 MiB. */
+  readonly maxBytes?: number;
 }
 
 /** How a service reads designs. Every field is optional. */
@@ -55,7 +71,21 @@ export interface NetlistServiceOptions {
    * `kicad-cli` reads the local disk itself.
    */
   readonly kicadCli?: KicadCliOptions | false;
+  /**
+   * The parse cache: a design is parsed once and reused until a file it reads
+   * changes. Default: 8 parses in memory. `false` parses on every query.
+   */
+  readonly cache?: NetlistServiceCache | false;
 }
+
+/** The store a cache option describes. */
+export const cacheStoreFor = (option: NetlistServiceCache | false | undefined) => {
+  if (option === false) return undefined;
+  const memory = new MemoryCacheStore(option?.maxEntries ?? DEFAULT_MAX_ENTRIES);
+  if (!option?.dir) return memory.maxEntries > 0 ? memory : undefined;
+  const disk = new DiskCacheStore(option.dir, option.maxBytes);
+  return new TieredCacheStore(memory, disk);
+};
 
 type Method<T> = (args: ToolArgs<T>) => Promise<ToolResult<T> | ErrorResult>;
 
@@ -120,6 +150,7 @@ export const serviceFor = (context: ServiceContext): NetlistService => {
 export const createNetlistService = (options: NetlistServiceOptions = {}): NetlistService => {
   const files = options.files ?? nodeFileReader;
   const kicadCli = options.kicadCli ?? (files === nodeFileReader ? {} : false);
+  const cache = cacheStoreFor(options.cache);
   return serviceFor({
     parser: {
       files,
@@ -127,5 +158,6 @@ export const createNetlistService = (options: NetlistServiceOptions = {}): Netli
       dsnPasswords: passwordList(options.secrets?.dsnPasswords),
     },
     ...(options.root !== undefined ? { root: options.root } : {}),
+    ...(cache ? { cache } : {}),
   });
 };

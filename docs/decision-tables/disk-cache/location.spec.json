@@ -1,0 +1,14 @@
+{
+  "name": "location",
+  "assumes": [
+    "the disk cache is on (see enabled)",
+    "writable means the directory exists or can be created, and can be written",
+    "home=none covers no HOME and no passwd entry (os.homedir throws or returns a relative path)"
+  ],
+  "dimensions": {
+    "named": ["unset", "writable", "unwritable"],
+    "xdg": ["unset", "relative", "writable", "unwritable"],
+    "home": ["none", "writable", "unwritable"],
+    "tmp": ["writable", "unwritable"]
+  }
+}

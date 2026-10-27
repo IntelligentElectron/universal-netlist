@@ -1,0 +1,14 @@
+{
+  "name": "lookup",
+  "assumes": [
+    "one load of one slot: a design's variant list, or one build of it (path, variant and package version are the slot)",
+    "the store is reachable; a store whose get or set throws counts as entry=none and nothing stored",
+    "files=changed means at least one stored probe (a read's content hash, an exists answer, a directory listing, a prefix hash) answers differently now"
+  ],
+  "dimensions": {
+    "entry": ["none", "current", "foreign", "corrupt"],
+    "files": ["unchanged", "changed"],
+    "design": ["plain", "protected"],
+    "parse": ["reads_files", "reads_nothing", "fails"]
+  }
+}
