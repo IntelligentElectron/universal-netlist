@@ -1,0 +1,35 @@
+{
+  "name": "root-views",
+  "rules": [
+    {
+      "when": {
+        "named_root": [
+          "block",
+          "no-pages",
+          "no-hierarchy",
+          "none"
+        ],
+        "other_roots": [
+          "1+"
+        ]
+      },
+      "outcome": "read every unplaced root",
+      "next": "",
+      "cells": 4
+    },
+    {
+      "when": {
+        "named_root": [
+          "unplaced-root"
+        ]
+      },
+      "outcome": "read the named root",
+      "next": "",
+      "cells": 2
+    }
+  ],
+  "default": {
+    "outcome": "read every page as it is",
+    "next": ""
+  }
+}

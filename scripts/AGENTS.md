@@ -22,7 +22,7 @@ node --import tsx scripts/gen-golden.ts --all
 - `format`: `cadence` or `altium`
 - `name`: output file name (without the `.netlist.json` suffix)
 - `path`: path to the design file (.DSN, .PrjPcb, or pstxnet.dat)
-- `--all`: regenerate all golden files from discovered fixtures
+- `--all`: regenerate all golden files from discovered fixtures. A fixture the parsers refuse, listed in `UNSUPPORTED_FIXTURES` in `test/utils.ts`, is skipped: it has no golden, and the golden test checks its refusal instead
 
 A golden is only rewritten when its content actually moved. The tests compare
 structurally, so a parser that merely reorders the keys it writes would

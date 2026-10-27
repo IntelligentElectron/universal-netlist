@@ -131,10 +131,18 @@ function inlineReferences(pages: Iterable<PageData>): Map<number, string> {
  * was once the root; reading it as a root would list its parts a second time.
  * A second stream for the same schematic is dropped for the same reason. A
  * root whose pages are not in the file describes nothing here.
+ *
+ * A file may still hold several such roots: earlier revisions of the design,
+ * or a simulation sheet, each a top-level schematic of its own. Capture
+ * netlists one, the root schematic the design names, so when `rootSchematic`
+ * is one of them it is the only one read; reading them all would list each
+ * revision's parts over the others', one reference designator on two nets.
+ * When the design names none of them, every one is read, as before.
  */
 function designRoots(
   roots: HierarchyStream[],
-  pagesBySchematic: ReadonlyMap<string, PageData[]>
+  pagesBySchematic: ReadonlyMap<string, PageData[]>,
+  rootSchematic: string | undefined
 ): HierarchyStream[] {
   const placedBy = new Map<string, Set<string>>();
   for (const root of roots) {
@@ -145,7 +153,7 @@ function designRoots(
     }
   }
   const seen = new Set<string>();
-  return roots.filter((root) => {
+  const unplaced = roots.filter((root) => {
     const schematic = root.schematic.toLowerCase();
     if (seen.has(schematic) || !pagesBySchematic.has(schematic)) return false;
     const placers = placedBy.get(schematic);
@@ -153,6 +161,10 @@ function designRoots(
     seen.add(schematic);
     return true;
   });
+  const named = unplaced.find(
+    (root) => root.schematic.toLowerCase() === rootSchematic?.toLowerCase()
+  );
+  return named ? [named] : unplaced;
 }
 
 /**
@@ -167,15 +179,19 @@ function designRoots(
  * it is a reference to another design file whose schematic shares the name,
  * so its contents are not in this file and the block is passed over. Without
  * any usable root, every page is read as it is.
+ *
+ * `rootSchematic` is the root the design names in its Library stream, which
+ * picks one root out of several; see designRoots.
  */
 export function expandHierarchy(
   roots: HierarchyStream[],
   pagesBySchematic: Map<string, PageData[]>,
-  strLst: readonly string[] = []
+  strLst: readonly string[] = [],
+  rootSchematic?: string
 ): ExpandedDesign {
   const pages: PageData[] = [];
   const canonicalNetNames = new Set<string>();
-  const usableRoots = designRoots(roots, pagesBySchematic);
+  const usableRoots = designRoots(roots, pagesBySchematic, rootSchematic);
   const open: string[] = [];
   let placements = 0;
 
