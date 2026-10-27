@@ -1,0 +1,136 @@
+{
+  "name": "pin-key",
+  "rules": [
+    {
+      "when": {
+        "number": [
+          "present"
+        ],
+        "refdes": [
+          "present"
+        ],
+        "shares": [
+          "none",
+          "same net"
+        ]
+      },
+      "outcome": "keyed by number",
+      "next": "",
+      "cells": 8
+    },
+    {
+      "when": {
+        "number": [
+          "empty"
+        ],
+        "name": [
+          "present"
+        ],
+        "refdes": [
+          "present"
+        ],
+        "shares": [
+          "none",
+          "same net"
+        ]
+      },
+      "outcome": "keyed by name",
+      "next": "",
+      "cells": 4
+    },
+    {
+      "when": {
+        "format": [
+          "kicad"
+        ],
+        "number": [
+          "present"
+        ],
+        "refdes": [
+          "present"
+        ],
+        "shares": [
+          "earlier net",
+          "earlier lone net"
+        ]
+      },
+      "outcome": "listed on every net",
+      "next": "",
+      "cells": 4
+    },
+    {
+      "when": {
+        "name": [
+          "present"
+        ],
+        "refdes": [
+          "present"
+        ],
+        "shares": [
+          "earlier lone net"
+        ]
+      },
+      "outcome": "kept on this net only",
+      "next": "",
+      "cells": 3
+    },
+    {
+      "when": {
+        "name": [
+          "present"
+        ],
+        "refdes": [
+          "present"
+        ],
+        "shares": [
+          "earlier net"
+        ]
+      },
+      "outcome": "kept on its first net only",
+      "next": "",
+      "cells": 3
+    },
+    {
+      "when": {
+        "format": [
+          "altium"
+        ],
+        "number": [
+          "present"
+        ],
+        "refdes": [
+          "present"
+        ],
+        "shares": [
+          "earlier lone net"
+        ]
+      },
+      "outcome": "kept on this net only",
+      "next": "",
+      "cells": 1
+    },
+    {
+      "when": {
+        "format": [
+          "altium"
+        ],
+        "number": [
+          "present"
+        ],
+        "refdes": [
+          "present"
+        ],
+        "shares": [
+          "earlier net"
+        ]
+      },
+      "outcome": "kept on its first net only",
+      "next": "",
+      "cells": 1
+    }
+  ],
+  "default": {
+    "outcome": "dropped",
+    "next": ""
+  }
+}

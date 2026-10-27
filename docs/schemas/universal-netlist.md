@@ -298,6 +298,8 @@ Maps reference designators to component information including pin-to-net mapping
 
 Represents a pin-to-net connection. Uses a string for simple pins, or an object when the pin name differs from the pin number.
 
+A pin is keyed by its number. A symbol pin with no number (KiCad writes `(pin "")`; an Altium pin with no designator) is keyed by its name instead, and is then a plain net string. A part whose unnumbered pins share a name has one pin under that name, on the first net with other pins on it.
+
 ```json
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
