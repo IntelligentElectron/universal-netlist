@@ -44,7 +44,7 @@ const normalizeUnconnectedPins = (netlist: ParsedNetlist): ParsedNetlist => {
  * The variants a design records, from the cache when its files have not
  * changed. Listing and parsing share one cache, so a query costs one listing.
  */
-export const listVariantsCached = async (
+const listVariantsCached = async (
   handler: EDAProjectFormatHandler,
   designPath: string,
   parser: ParserContext,
