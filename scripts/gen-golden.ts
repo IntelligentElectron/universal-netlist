@@ -3,7 +3,13 @@ import path from "node:path";
 import { parseDesign } from "../src/parsers/index.js";
 import { parseCadenceDatDesign } from "../src/parsers/cadence/index.js";
 import { findCadenceDatFiles } from "../src/parsers/cadence/discovery.js";
-import { listAllFixtures, findDesignFiles, saveGolden, type Format } from "../test/utils.js";
+import {
+  listAllFixtures,
+  findDesignFiles,
+  saveGolden,
+  UNSUPPORTED_FIXTURES,
+  type Format,
+} from "../test/utils.js";
 
 /**
  * Resolve the parse path for golden generation.
@@ -57,6 +63,11 @@ const generateAll = async (): Promise<void> => {
           ? fixture.name
           : path.basename(designFile, path.extname(designFile));
 
+      // A design the parsers refuse has no golden; the golden test checks its refusal.
+      if (UNSUPPORTED_FIXTURES[`${fixture.format}/${projectName}`] !== undefined) {
+        console.log(`Skipped: ${fixture.format}/${projectName} (unsupported)`);
+        continue;
+      }
       if (await generateOne(fixture.format, projectName, designFile)) count++;
     }
   }

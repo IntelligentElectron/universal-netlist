@@ -51,6 +51,16 @@ export const hasFixtures = existsSync(path.join(FIXTURES_DIR, "kicad"));
 
 export type Format = "cadence" | "altium" | "kicad";
 
+/**
+ * Fixtures saved in a format the parsers refuse, keyed `<format>/<project name>`,
+ * with text their refusal must contain. They have no golden output: the golden
+ * test checks the refusal instead, and golden generation skips them.
+ */
+export const UNSUPPORTED_FIXTURES: Readonly<Record<string, string>> = {
+  // OrCAD Capture saved it at Library stream version 2.0, in the older page encoding.
+  "cadence/GPR_LF": "older Capture format (Library stream version 2.0)",
+};
+
 export interface Fixture {
   name: string;
   path: string;
