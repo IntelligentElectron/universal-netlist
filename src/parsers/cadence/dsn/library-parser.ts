@@ -77,8 +77,9 @@ export function parseLibraryStrLst(buffer: Buffer): string[] {
 const DESIGN_INTRODUCTION = "OrCAD Windows Design";
 
 /**
- * The design's root schematic, as a design file's Library stream names it, or
- * undefined when the stream is a library's or its tail does not read cleanly.
+ * Parse the Library stream once for its strLst string table and, in a design
+ * file, its root schematic: undefined when the stream is a library's or its
+ * tail does not read cleanly.
  *
  * A design's stream ends with its alias table and a footer whose last field is
  * the root schematic: the one Capture's Make Root marks, and the one its
@@ -90,12 +91,20 @@ const DESIGN_INTRODUCTION = "OrCAD Windows Design";
  * The name is the stream's last field, so a read that does not end exactly at
  * the end of the stream misread something before it and names nothing.
  */
-export function parseLibraryRootSchematic(buffer: Buffer): string | undefined {
+export function parseLibraryStream(buffer: Buffer): {
+  strLst: string[];
+  rootSchematic: string | undefined;
+} {
+  const reader = new BinaryReader(buffer);
+  const strLst = readThroughStrLst(reader);
+  return { strLst, rootSchematic: readRootSchematic(buffer, reader) };
+}
+
+/** The design footer's root schematic, read with `reader` just past the strLst table. */
+function readRootSchematic(buffer: Buffer, reader: BinaryReader): string | undefined {
   const introduction = buffer.subarray(0, 32).toString("latin1");
   if (!introduction.startsWith(DESIGN_INTRODUCTION)) return undefined;
   try {
-    const reader = new BinaryReader(buffer);
-    readThroughStrLst(reader);
     const aliasLstLen = reader.readUint16();
     for (let i = 0; i < aliasLstLen; i++) {
       readLibraryString(reader); // alias

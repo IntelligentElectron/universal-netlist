@@ -13,7 +13,7 @@ import { parseHierarchyStream, type HierarchyStream } from "./hierarchy-parser.j
 import { expandHierarchy } from "./hierarchy-expander.js";
 import type { PageData } from "./page-parser.js";
 import { parseCacheStream, indexLibraryPart } from "./cache-parser.js";
-import { parseLibraryRootSchematic, parseLibraryStrLst } from "./library-parser.js";
+import { parseLibraryStream } from "./library-parser.js";
 import { buildDeviceIndexMap } from "./pin-resolver.js";
 import { buildNetConnectivity } from "./net-builder.js";
 import { buildComponents } from "./component-builder.js";
@@ -59,8 +59,7 @@ export function parseDsnFile(dsnPath: string, options?: ParseDesignOptions): Par
   if (libEntry) {
     try {
       const libBuffer = ole.readStreamByPath(libEntry.path);
-      strLst = parseLibraryStrLst(libBuffer);
-      rootSchematic = parseLibraryRootSchematic(libBuffer);
+      ({ strLst, rootSchematic } = parseLibraryStream(libBuffer));
     } catch {
       // Library parsing is best-effort
     }
@@ -115,9 +114,11 @@ export function parseDsnFile(dsnPath: string, options?: ParseDesignOptions): Par
         pmd.pinIgnores.set(streamName, pkg.devices[0].pinIgnore);
       } else {
         // Multi-unit: store per unit keyed by both baseName and streamName
-        // so findPinMap can match either sourcePackage form.
+        // so findPinMap can match either sourcePackage form, and list the
+        // units under both names for the positional lookup.
         const unitRefs = pkg.devices.map((d) => d.unitRef);
         if (!pmd.deviceUnitRefs.has(baseName)) pmd.deviceUnitRefs.set(baseName, unitRefs);
+        if (!pmd.deviceUnitRefs.has(streamName)) pmd.deviceUnitRefs.set(streamName, unitRefs);
         for (const device of pkg.devices) {
           const baseKey = baseName + device.unitRef;
           if (!pmd.pinMaps.has(baseKey)) {

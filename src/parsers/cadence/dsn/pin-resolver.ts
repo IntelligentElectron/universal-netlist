@@ -25,12 +25,13 @@ export function extractUnitRef(inst: PlacedInstance): string | undefined {
 }
 
 /**
- * Find the pin map for a PlacedInstance, trying multiple matching strategies:
- * 1. Direct sourcePackage match
- * 2. Multi-unit: sourcePackage + unitRef extracted from pkgName
+ * Find the pin map for a PlacedInstance. Each spelling of the package name
+ * (sourcePackage as written, then with version-like `_N_` expanded to
+ * `_N.0_`, then with a trailing `_N` stripped) is tried in turn for:
+ * 1. Direct match (single-device packages)
+ * 2. Multi-unit: name + unitRef extracted from pkgName
  * 3. Positional device assignment for multi-section components (no unit suffix)
- * 4. Normalized match: expand version-like suffixes with ".0"
- * 5. Stripped match: remove trailing _N suffix from sourcePackage
+ * Only when no spelling matches is the unit "A" map tried, for each spelling.
  */
 export function findPinMap(
   inst: PlacedInstance,

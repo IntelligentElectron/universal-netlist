@@ -43,8 +43,11 @@ function indexCachePackage(pkg: import("./structures.js").Package, pmd: PinMapDa
       pmd.cachePinIgnores.set(pkg.name, firstDev.pinIgnore);
     }
   } else {
+    // Listed under both names its unit maps are stored under, so the
+    // positional lookup finds the units whichever name the instance carries.
     const unitRefs = pkg.devices.map((d) => d.unitRef);
     if (!pmd.deviceUnitRefs.has(baseName)) pmd.deviceUnitRefs.set(baseName, unitRefs);
+    if (!pmd.deviceUnitRefs.has(pkg.name)) pmd.deviceUnitRefs.set(pkg.name, unitRefs);
     for (const dev of pkg.devices) {
       const baseKey = baseName + dev.unitRef;
       if (!pmd.pinMaps.has(baseKey)) {

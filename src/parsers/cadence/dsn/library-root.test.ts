@@ -5,7 +5,7 @@
 import { describe, expect, it } from "vitest";
 import { existsSync } from "fs";
 import { DsnReader } from "./dsn-reader.js";
-import { parseLibraryRootSchematic, parseLibraryStrLst } from "./library-parser.js";
+import { parseLibraryStream, parseLibraryStrLst } from "./library-parser.js";
 import { fixturePath, hasFixtures } from "../../../../test/utils.js";
 
 /** A uint16 length, the bytes, and the null terminator, as the stream writes strings. */
@@ -52,33 +52,31 @@ const library = (opts: { introduction?: string; root?: string; tail?: Buffer } =
   ]);
 };
 
-describe("parseLibraryRootSchematic", () => {
+const rootOf = (buffer: Buffer): string | undefined => parseLibraryStream(buffer).rootSchematic;
+
+describe("parseLibraryStream root schematic", () => {
   it("reads the root schematic from the end of a design's Library stream", () => {
     const buffer = library({ root: "PSUPPLY-REV2" });
 
-    expect(parseLibraryRootSchematic(buffer)).toBe("PSUPPLY-REV2");
+    expect(parseLibraryStream(buffer)).toEqual({ strLst: ["VCC"], rootSchematic: "PSUPPLY-REV2" });
     expect(parseLibraryStrLst(buffer)).toEqual(["VCC"]);
   });
 
   it("names nothing for a library, which has no design footer", () => {
-    expect(
-      parseLibraryRootSchematic(library({ introduction: "OrCAD Windows Library" }))
-    ).toBeUndefined();
+    expect(rootOf(library({ introduction: "OrCAD Windows Library" }))).toBeUndefined();
   });
 
   it("names nothing when the name does not end the stream", () => {
     // Bytes after the name mean something before it was misread.
-    expect(
-      parseLibraryRootSchematic(library({ root: "TOP", tail: Buffer.from([1]) }))
-    ).toBeUndefined();
+    expect(rootOf(library({ root: "TOP", tail: Buffer.from([1]) }))).toBeUndefined();
   });
 
   it("names nothing when the stream ends before the name", () => {
-    expect(parseLibraryRootSchematic(library())).toBeUndefined();
+    expect(rootOf(library())).toBeUndefined();
   });
 
   it("names nothing for an empty name", () => {
-    expect(parseLibraryRootSchematic(library({ root: "" }))).toBeUndefined();
+    expect(rootOf(library({ root: "" }))).toBeUndefined();
   });
 });
 
@@ -90,7 +88,7 @@ const MULTI_VIEW_FIXTURES: [string, string, string][] = [
   ["parallella-meta-carrier", "meta_carrier_sch_rev1.dsn", "TOP"],
 ];
 
-describe.skipIf(!hasFixtures)("parseLibraryRootSchematic on multi-view fixtures", () => {
+describe.skipIf(!hasFixtures)("root schematic of multi-view fixtures", () => {
   for (const [dir, file, root] of MULTI_VIEW_FIXTURES) {
     const dsn = fixturePath("cadence", dir, file);
     it.skipIf(!existsSync(dsn))(`${file} names ${root}`, () => {
@@ -99,7 +97,7 @@ describe.skipIf(!hasFixtures)("parseLibraryRootSchematic on multi-view fixtures"
         .listAllEntries()
         .find((e) => (e.path === "Library" || e.path.endsWith("/Library")) && e.entry.type === 2)!;
 
-      expect(parseLibraryRootSchematic(ole.readStreamByPath(entry.path))).toBe(root);
+      expect(rootOf(ole.readStreamByPath(entry.path))).toBe(root);
     });
   }
 });

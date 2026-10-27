@@ -1425,7 +1425,7 @@ After both loops, with no key found:
 
 4. **Unit "A" fallback**: base + `"A"`, for each spelling in order, for a package whose devices are not enumerated in `deviceUnitRefs`
 
-The fallback runs only once every spelling has had its positional lookup. A Package stream named `LM324_0` stores each section under both `LM324_0B` and `LM324B`, but lists the sections in `deviceUnitRefs` under the stripped `LM324` alone. With the fallback inside the inner loop, `LM324_0A` matched before `LM324` reached step 3, and every section of the part read section A's pins: on `DIGITALCONVERTOR.DSN`, sections B to D of `U3` reported pins 3, 2, 1, so each of those pins sat on four nets (issue #247).
+The fallback runs only once every spelling has had its positional lookup. A Package stream named `LM324_0` stores each section under both `LM324_0B` and `LM324B`, and the parser once listed the sections in `deviceUnitRefs` under the stripped `LM324` alone. With the fallback inside the inner loop, `LM324_0A` matched before `LM324` reached step 3, and every section of the part read section A's pins: on `DIGITALCONVERTOR.DSN`, sections B to D of `U3` reported pins 3, 2, 1, so each of those pins sat on four nets (issue #247). The sections are now listed under every name their maps are stored under, in both the `Packages/` and the Cache index, and the fallback stays last for a package whose sections are listed under none.
 
 For multi-unit matching, `pkgName` format is `{sourcePackage}{unitLetter}.Normal` (e.g., `OMAP_CBP_1AA.Normal`). Cadence sometimes doubles the unit letter ("AA"), but the Device `unitRef` uses a single letter ("A").
 
