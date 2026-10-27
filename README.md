@@ -95,22 +95,62 @@ Install [OpenAI Codex](https://developers.openai.com/codex/cli/), then run:
 codex mcp add universal-netlist -- universal-netlist
 ```
 
-### Agents without MCP: the command line and its plugin
+## Agent plugin: the command line without MCP
 
-Every MCP tool is also a command, for an agent in a sandbox or container that cannot connect an MCP server:
+Every MCP tool is also a shell command, for an agent in a sandbox or container that cannot connect an MCP server:
 
 ```bash
 universal-netlist search_nets board.DSN --pattern '^VCC'
 ```
 
-The `universal-netlist` plugin teaches an agent those commands. In Claude Code:
+The `universal-netlist` plugin carries one skill that teaches an agent those commands, their flags and exit codes, and the parse cache. Install the binary first ([Native Install](#native-install-recommended) or [npm](#alternative-install-via-npm)), then the plugin for the agent you use. Agents connected to the MCP server use its tools and don't need the plugin.
 
-```bash
-claude plugin marketplace add IntelligentElectron/universal-netlist
-claude plugin install universal-netlist@universal-netlist
+Claude Code:
+
+```
+/plugin marketplace add IntelligentElectron/universal-netlist
+/plugin install universal-netlist@universal-netlist
 ```
 
-In Codex, add the marketplace to `~/.codex/config.toml`:
+Codex:
+
+```
+codex plugin marketplace add IntelligentElectron/universal-netlist
+codex plugin add universal-netlist@universal-netlist
+```
+
+Both commands clone this repository. To fetch only the plugin, add a sparse checkout to the marketplace command: `--sparse .claude-plugin plugins` for Claude Code, `--sparse .agents/plugins --sparse plugins` for Codex.
+
+Cursor: open **Customize**, import `https://github.com/IntelligentElectron/universal-netlist` with **From GitHub Repository**, and install `universal-netlist`.
+
+Gemini CLI:
+
+```
+gemini skills install https://github.com/IntelligentElectron/universal-netlist.git --path plugins/universal-netlist/skills/universal-netlist
+```
+
+GitHub Copilot, and the other agents that read [Agent Skills](https://agentskills.io) (OpenCode, Amp, Goose, Cline and more), through the GitHub CLI:
+
+```
+gh skill install IntelligentElectron/universal-netlist universal-netlist --agent github-copilot --scope user
+```
+
+`--agent` takes `opencode`, `amp`, `goose` and the other names `gh skill install --help` lists.
+
+To install it for everyone who clones a project, add this to the project's `.claude/settings.json`:
+
+```json
+{
+  "extraKnownMarketplaces": {
+    "universal-netlist": {
+      "source": { "source": "github", "repo": "IntelligentElectron/universal-netlist" }
+    }
+  },
+  "enabledPlugins": { "universal-netlist@universal-netlist": true }
+}
+```
+
+and this to the project's `.codex/config.toml`:
 
 ```toml
 [marketplaces.universal-netlist]
@@ -121,7 +161,7 @@ source = "https://github.com/IntelligentElectron/universal-netlist.git"
 enabled = true
 ```
 
-See [docs/cli.md](docs/cli.md#query-tools) for the flags, output and exit codes.
+Then ask the agent to review a schematic, trace a net, or check a design. See [docs/cli.md](docs/cli.md#query-tools) for the command line itself.
 
 ## Supported Platforms
 
