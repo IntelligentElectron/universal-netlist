@@ -1,0 +1,91 @@
+kind,form,occurrence,outcome,next,status,note
+string,eq_word,first,text,,draft,"src/cli/query.ts parseQueryArgs: the text as written, empty included"
+string,eq_word,repeat,usage: given twice,,draft,src/cli/query.ts parseQueryArgs: only an array flag repeats
+string,eq_number,first,text,,draft,"src/cli/query.ts parseQueryArgs: the text as written, empty included"
+string,eq_number,repeat,usage: given twice,,draft,src/cli/query.ts parseQueryArgs: only an array flag repeats
+string,eq_text,first,text,,draft,"src/cli/query.ts parseQueryArgs: the text as written, empty included"
+string,eq_text,repeat,usage: given twice,,draft,src/cli/query.ts parseQueryArgs: only an array flag repeats
+string,eq_empty,first,text,,draft,"src/cli/query.ts parseQueryArgs: the text as written, empty included"
+string,eq_empty,repeat,usage: given twice,,draft,src/cli/query.ts parseQueryArgs: only an array flag repeats
+string,next_word,first,text,,draft,"src/cli/query.ts parseQueryArgs: the text as written, empty included"
+string,next_word,repeat,usage: given twice,,draft,src/cli/query.ts parseQueryArgs: only an array flag repeats
+string,next_number,first,text,,draft,"src/cli/query.ts parseQueryArgs: the text as written, empty included"
+string,next_number,repeat,usage: given twice,,draft,src/cli/query.ts parseQueryArgs: only an array flag repeats
+string,next_text,first,text,,draft,"src/cli/query.ts parseQueryArgs: the text as written, empty included"
+string,next_text,repeat,usage: given twice,,draft,src/cli/query.ts parseQueryArgs: only an array flag repeats
+string,next_dash,first,usage: needs =value for a dash,,draft,src/cli/query.ts parseQueryArgs: a value starting with a dash is written --flag=-12V
+string,next_dash,repeat,usage: given twice,,draft,src/cli/query.ts parseQueryArgs: only an array flag repeats
+string,last,first,usage: needs a value,,draft,src/cli/query.ts parseQueryArgs: nothing follows the flag
+string,last,repeat,usage: given twice,,draft,src/cli/query.ts parseQueryArgs: only an array flag repeats
+number,eq_word,first,usage: takes a number,,draft,"src/cli/query.ts parseQueryArgs: text that is not a number, or empty"
+number,eq_word,repeat,usage: given twice,,draft,src/cli/query.ts parseQueryArgs: only an array flag repeats
+number,eq_number,first,number,,draft,src/cli/query.ts parseQueryArgs: Number(text)
+number,eq_number,repeat,usage: given twice,,draft,src/cli/query.ts parseQueryArgs: only an array flag repeats
+number,eq_text,first,usage: takes a number,,draft,"src/cli/query.ts parseQueryArgs: text that is not a number, or empty"
+number,eq_text,repeat,usage: given twice,,draft,src/cli/query.ts parseQueryArgs: only an array flag repeats
+number,eq_empty,first,usage: takes a number,,draft,"src/cli/query.ts parseQueryArgs: text that is not a number, or empty"
+number,eq_empty,repeat,usage: given twice,,draft,src/cli/query.ts parseQueryArgs: only an array flag repeats
+number,next_word,first,usage: takes a number,,draft,"src/cli/query.ts parseQueryArgs: text that is not a number, or empty"
+number,next_word,repeat,usage: given twice,,draft,src/cli/query.ts parseQueryArgs: only an array flag repeats
+number,next_number,first,number,,draft,src/cli/query.ts parseQueryArgs: Number(text)
+number,next_number,repeat,usage: given twice,,draft,src/cli/query.ts parseQueryArgs: only an array flag repeats
+number,next_text,first,usage: takes a number,,draft,"src/cli/query.ts parseQueryArgs: text that is not a number, or empty"
+number,next_text,repeat,usage: given twice,,draft,src/cli/query.ts parseQueryArgs: only an array flag repeats
+number,next_dash,first,usage: needs =value for a dash,,draft,src/cli/query.ts parseQueryArgs: a value starting with a dash is written --flag=-12V
+number,next_dash,repeat,usage: given twice,,draft,src/cli/query.ts parseQueryArgs: only an array flag repeats
+number,last,first,usage: needs a value,,draft,src/cli/query.ts parseQueryArgs: nothing follows the flag
+number,last,repeat,usage: given twice,,draft,src/cli/query.ts parseQueryArgs: only an array flag repeats
+boolean,eq_word,first,that boolean,,draft,src/cli/query.ts parseQueryArgs: --flag=true / --flag=false
+boolean,eq_word,repeat,usage: given twice,,draft,src/cli/query.ts parseQueryArgs: only an array flag repeats
+boolean,eq_number,first,usage: takes true or false,,draft,src/cli/query.ts parseQueryArgs: --flag=<other>
+boolean,eq_number,repeat,usage: given twice,,draft,src/cli/query.ts parseQueryArgs: only an array flag repeats
+boolean,eq_text,first,usage: takes true or false,,draft,src/cli/query.ts parseQueryArgs: --flag=<other>
+boolean,eq_text,repeat,usage: given twice,,draft,src/cli/query.ts parseQueryArgs: only an array flag repeats
+boolean,eq_empty,first,usage: takes true or false,,draft,src/cli/query.ts parseQueryArgs: --flag=<other>
+boolean,eq_empty,repeat,usage: given twice,,draft,src/cli/query.ts parseQueryArgs: only an array flag repeats
+boolean,next_word,first,"that boolean, next consumed",,draft,src/cli/query.ts parseQueryArgs: a true/false word after a boolean flag is its value
+boolean,next_word,repeat,usage: given twice,,draft,src/cli/query.ts parseQueryArgs: only an array flag repeats
+boolean,next_number,first,"true, next not consumed",,draft,src/cli/query.ts parseQueryArgs: a boolean flag alone means true; the next token is read on its own
+boolean,next_number,repeat,usage: given twice,,draft,src/cli/query.ts parseQueryArgs: only an array flag repeats
+boolean,next_text,first,"true, next not consumed",,draft,src/cli/query.ts parseQueryArgs: a boolean flag alone means true; the next token is read on its own
+boolean,next_text,repeat,usage: given twice,,draft,src/cli/query.ts parseQueryArgs: only an array flag repeats
+boolean,next_dash,first,"true, next not consumed",,draft,src/cli/query.ts parseQueryArgs: a boolean flag alone means true; the next token is read on its own
+boolean,next_dash,repeat,usage: given twice,,draft,src/cli/query.ts parseQueryArgs: only an array flag repeats
+boolean,last,first,"true, next not consumed",,draft,src/cli/query.ts parseQueryArgs: a boolean flag alone means true; the next token is read on its own
+boolean,last,repeat,usage: given twice,,draft,src/cli/query.ts parseQueryArgs: only an array flag repeats
+array,eq_word,first,append text,,draft,src/cli/query.ts parseQueryArgs: each occurrence adds one element; repeats are how an array is given
+array,eq_word,repeat,append text,,draft,src/cli/query.ts parseQueryArgs: each occurrence adds one element; repeats are how an array is given
+array,eq_number,first,append text,,draft,src/cli/query.ts parseQueryArgs: each occurrence adds one element; repeats are how an array is given
+array,eq_number,repeat,append text,,draft,src/cli/query.ts parseQueryArgs: each occurrence adds one element; repeats are how an array is given
+array,eq_text,first,append text,,draft,src/cli/query.ts parseQueryArgs: each occurrence adds one element; repeats are how an array is given
+array,eq_text,repeat,append text,,draft,src/cli/query.ts parseQueryArgs: each occurrence adds one element; repeats are how an array is given
+array,eq_empty,first,append text,,draft,src/cli/query.ts parseQueryArgs: each occurrence adds one element; repeats are how an array is given
+array,eq_empty,repeat,append text,,draft,src/cli/query.ts parseQueryArgs: each occurrence adds one element; repeats are how an array is given
+array,next_word,first,append text,,draft,src/cli/query.ts parseQueryArgs: each occurrence adds one element; repeats are how an array is given
+array,next_word,repeat,append text,,draft,src/cli/query.ts parseQueryArgs: each occurrence adds one element; repeats are how an array is given
+array,next_number,first,append text,,draft,src/cli/query.ts parseQueryArgs: each occurrence adds one element; repeats are how an array is given
+array,next_number,repeat,append text,,draft,src/cli/query.ts parseQueryArgs: each occurrence adds one element; repeats are how an array is given
+array,next_text,first,append text,,draft,src/cli/query.ts parseQueryArgs: each occurrence adds one element; repeats are how an array is given
+array,next_text,repeat,append text,,draft,src/cli/query.ts parseQueryArgs: each occurrence adds one element; repeats are how an array is given
+array,next_dash,first,usage: needs =value for a dash,,draft,src/cli/query.ts parseQueryArgs: a value starting with a dash is written --flag=-12V
+array,next_dash,repeat,usage: needs =value for a dash,,draft,src/cli/query.ts parseQueryArgs: a value starting with a dash is written --flag=-12V
+array,last,first,usage: needs a value,,draft,src/cli/query.ts parseQueryArgs: nothing follows the flag
+array,last,repeat,usage: needs a value,,draft,src/cli/query.ts parseQueryArgs: nothing follows the flag
+unknown,eq_word,first,usage: unknown flag,,draft,src/cli/query.ts parseQueryArgs: not in the schema; a kebab-case spelling is pointed at its snake_case name
+unknown,eq_word,repeat,usage: unknown flag,,draft,src/cli/query.ts parseQueryArgs: not in the schema; a kebab-case spelling is pointed at its snake_case name
+unknown,eq_number,first,usage: unknown flag,,draft,src/cli/query.ts parseQueryArgs: not in the schema; a kebab-case spelling is pointed at its snake_case name
+unknown,eq_number,repeat,usage: unknown flag,,draft,src/cli/query.ts parseQueryArgs: not in the schema; a kebab-case spelling is pointed at its snake_case name
+unknown,eq_text,first,usage: unknown flag,,draft,src/cli/query.ts parseQueryArgs: not in the schema; a kebab-case spelling is pointed at its snake_case name
+unknown,eq_text,repeat,usage: unknown flag,,draft,src/cli/query.ts parseQueryArgs: not in the schema; a kebab-case spelling is pointed at its snake_case name
+unknown,eq_empty,first,usage: unknown flag,,draft,src/cli/query.ts parseQueryArgs: not in the schema; a kebab-case spelling is pointed at its snake_case name
+unknown,eq_empty,repeat,usage: unknown flag,,draft,src/cli/query.ts parseQueryArgs: not in the schema; a kebab-case spelling is pointed at its snake_case name
+unknown,next_word,first,usage: unknown flag,,draft,src/cli/query.ts parseQueryArgs: not in the schema; a kebab-case spelling is pointed at its snake_case name
+unknown,next_word,repeat,usage: unknown flag,,draft,src/cli/query.ts parseQueryArgs: not in the schema; a kebab-case spelling is pointed at its snake_case name
+unknown,next_number,first,usage: unknown flag,,draft,src/cli/query.ts parseQueryArgs: not in the schema; a kebab-case spelling is pointed at its snake_case name
+unknown,next_number,repeat,usage: unknown flag,,draft,src/cli/query.ts parseQueryArgs: not in the schema; a kebab-case spelling is pointed at its snake_case name
+unknown,next_text,first,usage: unknown flag,,draft,src/cli/query.ts parseQueryArgs: not in the schema; a kebab-case spelling is pointed at its snake_case name
+unknown,next_text,repeat,usage: unknown flag,,draft,src/cli/query.ts parseQueryArgs: not in the schema; a kebab-case spelling is pointed at its snake_case name
+unknown,next_dash,first,usage: unknown flag,,draft,src/cli/query.ts parseQueryArgs: not in the schema; a kebab-case spelling is pointed at its snake_case name
+unknown,next_dash,repeat,usage: unknown flag,,draft,src/cli/query.ts parseQueryArgs: not in the schema; a kebab-case spelling is pointed at its snake_case name
+unknown,last,first,usage: unknown flag,,draft,src/cli/query.ts parseQueryArgs: not in the schema; a kebab-case spelling is pointed at its snake_case name
+unknown,last,repeat,usage: unknown flag,,draft,src/cli/query.ts parseQueryArgs: not in the schema; a kebab-case spelling is pointed at its snake_case name

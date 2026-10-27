@@ -1,0 +1,9 @@
+{
+  "name": "positional",
+  "assumes": ["one token after the tool's name that does not start with '-' and is not a flag's value"],
+  "dimensions": {
+    "position": ["first", "later"],
+    "tool_design": ["takes_design", "no_design"],
+    "design_flag": ["absent", "present"]
+  }
+}

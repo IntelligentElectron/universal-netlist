@@ -27,6 +27,16 @@ import {
 import { confirm } from "./prompts.js";
 import { removeFromPath } from "./shell.js";
 import { getCurrentExecutablePath, isCompiledBinary } from "./executable.js";
+import { runQuery, toolList } from "./query.js";
+import type { AnyToolDefinition } from "../tools/index.js";
+import { serviceContextFromEnvironment, type ServiceContext } from "../service/context.js";
+import { TieredCacheStore } from "../service/cache.js";
+import {
+  DiskCacheStore,
+  diskCacheEnabled,
+  diskCacheMaxBytes,
+  resolveDiskCacheDir,
+} from "../service/disk-cache.js";
 
 /**
  * Print version information.
@@ -52,8 +62,14 @@ ${BINARY_NAME} v${VERSION}
 Usage: ${BINARY_NAME} [options] [command]
 
 MCP server for querying EDA netlists: Cadence, Altium Designer, KiCad, and Universal Netlist JSON.
-An MCP client runs the binary with no command and speaks to it over stdio; the commands
-below are what you run by hand.
+An MCP client runs the binary with no command and speaks to it over stdio. Every MCP tool is
+also a command, for a shell or an agent without MCP:
+
+  ${BINARY_NAME} <tool> [design] --flag value ...
+  ${BINARY_NAME} <tool> --help        that tool's description and flags
+
+Tools:
+${toolList()}
 
 Options:
   -v, --version        Output the version number
@@ -65,6 +81,10 @@ Commands:
   export-telemetry     Export telemetry data as a zip file
   export-json <design> [out.netlist.json]
                        Write a design's netlist as Universal Netlist JSON
+
+A tool prints its result as JSON on stdout and exits 1 when the result has an error
+field, 2 on a usage error. --cache, UNIVERSAL_NETLIST_CACHE=1 or UNIVERSAL_NETLIST_CACHE_DIR
+keep parses on disk between calls.
 
 Installation:
 ${installation}
@@ -316,4 +336,48 @@ export const handleExportJsonCommand = async (
   const outFile = resolve(outPath ?? `${name}.netlist.json`);
   writeFileSync(outFile, serializeUniversalNetlist(result, { origin }));
   console.log(outFile);
+};
+
+/**
+ * The service context a query call runs with: the environment's, plus the
+ * disk cache when `--cache` or the environment turns it on and a directory for
+ * it can be written. Without one, the call answers without a disk cache.
+ */
+export const queryContext = async (
+  cacheFlag: boolean,
+  env: NodeJS.ProcessEnv = process.env
+): Promise<ServiceContext> => {
+  const base = serviceContextFromEnvironment(env);
+  if (!diskCacheEnabled(cacheFlag, env)) return base;
+  const location = await resolveDiskCacheDir(env);
+  if (!location) return base;
+  const disk = new DiskCacheStore(location.dir, diskCacheMaxBytes(env), location.isPrivate);
+  return { ...base, cache: base.cache ? new TieredCacheStore(base.cache, disk) : disk };
+};
+
+/**
+ * Run a tool from the command line: `universal-netlist <tool> [design] --flag value`.
+ * Prints the result and sets the exit code; see `cli/query.ts`.
+ */
+export const handleQueryCommand = async (
+  tool: AnyToolDefinition,
+  tokens: readonly string[]
+): Promise<void> => {
+  const outcome = await runQuery(tool, tokens, {
+    isTTY: Boolean(process.stdout.isTTY),
+    context: (cache) => queryContext(cache),
+  });
+  if (outcome.stdout !== undefined) process.stdout.write(`${outcome.stdout}\n`);
+  if (outcome.stderr !== undefined) process.stderr.write(`${outcome.stderr}\n`);
+  process.exitCode = outcome.exitCode;
+};
+
+/** A first word that is neither a command nor a tool: say what is, and exit 2. */
+export const handleUnknownCommand = (word: string): void => {
+  process.stderr.write(
+    `error: '${word}' is not a command or a tool.\n` +
+      `Tools (run '${BINARY_NAME} <tool> --help' for one's flags):\n${toolList()}\n` +
+      `Run '${BINARY_NAME} help' for the other commands.\n`
+  );
+  process.exitCode = 2;
 };

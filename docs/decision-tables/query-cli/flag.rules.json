@@ -1,0 +1,228 @@
+{
+  "name": "flag",
+  "rules": [
+    {
+      "when": {
+        "kind": [
+          "unknown"
+        ]
+      },
+      "outcome": "usage: unknown flag",
+      "next": "",
+      "cells": 18
+    },
+    {
+      "when": {
+        "kind": [
+          "array"
+        ],
+        "form": [
+          "eq_word",
+          "eq_number",
+          "eq_text",
+          "eq_empty",
+          "next_word",
+          "next_number",
+          "next_text"
+        ]
+      },
+      "outcome": "append text",
+      "next": "",
+      "cells": 14
+    },
+    {
+      "when": {
+        "kind": [
+          "string"
+        ],
+        "form": [
+          "eq_word",
+          "eq_number",
+          "eq_text",
+          "eq_empty",
+          "next_word",
+          "next_number",
+          "next_text"
+        ],
+        "occurrence": [
+          "first"
+        ]
+      },
+      "outcome": "text",
+      "next": "",
+      "cells": 7
+    },
+    {
+      "when": {
+        "kind": [
+          "number"
+        ],
+        "form": [
+          "eq_word",
+          "eq_text",
+          "eq_empty",
+          "next_word",
+          "next_text"
+        ],
+        "occurrence": [
+          "first"
+        ]
+      },
+      "outcome": "usage: takes a number",
+      "next": "",
+      "cells": 5
+    },
+    {
+      "when": {
+        "kind": [
+          "boolean"
+        ],
+        "form": [
+          "next_number",
+          "next_text",
+          "next_dash",
+          "last"
+        ],
+        "occurrence": [
+          "first"
+        ]
+      },
+      "outcome": "true, next not consumed",
+      "next": "",
+      "cells": 4
+    },
+    {
+      "when": {
+        "kind": [
+          "boolean"
+        ],
+        "form": [
+          "eq_number",
+          "eq_text",
+          "eq_empty"
+        ],
+        "occurrence": [
+          "first"
+        ]
+      },
+      "outcome": "usage: takes true or false",
+      "next": "",
+      "cells": 3
+    },
+    {
+      "when": {
+        "kind": [
+          "string",
+          "number",
+          "array"
+        ],
+        "form": [
+          "last"
+        ],
+        "occurrence": [
+          "first"
+        ]
+      },
+      "outcome": "usage: needs a value",
+      "next": "",
+      "cells": 3
+    },
+    {
+      "when": {
+        "kind": [
+          "string",
+          "number",
+          "array"
+        ],
+        "form": [
+          "next_dash"
+        ],
+        "occurrence": [
+          "first"
+        ]
+      },
+      "outcome": "usage: needs =value for a dash",
+      "next": "",
+      "cells": 3
+    },
+    {
+      "when": {
+        "kind": [
+          "number"
+        ],
+        "form": [
+          "eq_number",
+          "next_number"
+        ],
+        "occurrence": [
+          "first"
+        ]
+      },
+      "outcome": "number",
+      "next": "",
+      "cells": 2
+    },
+    {
+      "when": {
+        "kind": [
+          "array"
+        ],
+        "form": [
+          "last"
+        ]
+      },
+      "outcome": "usage: needs a value",
+      "next": "",
+      "cells": 1
+    },
+    {
+      "when": {
+        "kind": [
+          "array"
+        ],
+        "form": [
+          "next_dash"
+        ]
+      },
+      "outcome": "usage: needs =value for a dash",
+      "next": "",
+      "cells": 1
+    },
+    {
+      "when": {
+        "kind": [
+          "boolean"
+        ],
+        "form": [
+          "eq_word"
+        ],
+        "occurrence": [
+          "first"
+        ]
+      },
+      "outcome": "that boolean",
+      "next": "",
+      "cells": 1
+    },
+    {
+      "when": {
+        "kind": [
+          "boolean"
+        ],
+        "form": [
+          "next_word"
+        ],
+        "occurrence": [
+          "first"
+        ]
+      },
+      "outcome": "that boolean, next consumed",
+      "next": "",
+      "cells": 1
+    }
+  ],
+  "default": {
+    "outcome": "usage: given twice",
+    "next": ""
+  }
+}

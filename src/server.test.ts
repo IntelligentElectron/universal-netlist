@@ -114,8 +114,10 @@ describe("dormant Cadence MCP features", () => {
 
 describe("server instructions", () => {
   it("keep agents on the tools and off the binary's command line", () => {
-    expect(client.getInstructions()).toContain(
-      "Read designs only through these tools. Never run the `universal-netlist` binary from a shell"
+    const instructions = client.getInstructions();
+    expect(instructions).toContain("Read designs only through these tools.");
+    expect(instructions).toContain(
+      "its command line is for agents without MCP, so do not run it from a shell"
     );
   });
 });

@@ -95,6 +95,34 @@ Install [OpenAI Codex](https://developers.openai.com/codex/cli/), then run:
 codex mcp add universal-netlist -- universal-netlist
 ```
 
+### Agents without MCP: the command line and its plugin
+
+Every MCP tool is also a command, for an agent in a sandbox or container that cannot connect an MCP server:
+
+```bash
+universal-netlist search_nets board.DSN --pattern '^VCC'
+```
+
+The `universal-netlist` plugin teaches an agent those commands. In Claude Code:
+
+```bash
+claude plugin marketplace add IntelligentElectron/universal-netlist
+claude plugin install universal-netlist@universal-netlist
+```
+
+In Codex, add the marketplace to `~/.codex/config.toml`:
+
+```toml
+[marketplaces.universal-netlist]
+source_type = "git"
+source = "https://github.com/IntelligentElectron/universal-netlist.git"
+
+[plugins."universal-netlist@universal-netlist"]
+enabled = true
+```
+
+See [docs/cli.md](docs/cli.md#query-tools) for the flags, output and exit codes.
+
 ## Supported Platforms
 
 | Platform | Binary |

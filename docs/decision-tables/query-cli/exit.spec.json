@@ -1,0 +1,10 @@
+{
+  "name": "exit",
+  "assumes": ["a call whose first word is a registry tool's name"],
+  "dimensions": {
+    "help": ["absent", "present"],
+    "args": ["valid", "usage_error", "schema_refuses"],
+    "result": ["ok", "error_field", "throws"],
+    "stdout": ["tty", "pipe"]
+  }
+}
