@@ -31,6 +31,7 @@ vi.mock("../../ole-reader/ole-reader.js", async (importOriginal) => {
 });
 
 import { parseDsnFile } from "./dsn-parser.js";
+import { parsePage } from "./page-parser.js";
 import { DsnReader } from "./dsn-reader.js";
 import { readLibraryVersion, UnsupportedDsnVersionError } from "./library-parser.js";
 
@@ -145,5 +146,36 @@ describe.skipIf(!hasFixtures)("Library stream versions in parseDsnFile", () => {
   it("reports a failure at a tested version unchanged", () => {
     atVersion(3, 3, true);
     expect(() => parseDsnFile(DSN)).toThrow(new Error(pageError));
+  });
+});
+
+/**
+ * GPRino's low-frequency board, which OrCAD Capture saved at Library stream version 2.0:
+ * the real case of issue #246, not a rewritten version field.
+ */
+describe.skipIf(!hasFixtures)("a design saved at Library stream version 2.0", () => {
+  const OLDER = fixturePath("cadence", "gprino-lf", "GPR_LF.DSN");
+
+  it("reads version 2.0 after the design's introduction", () => {
+    const library = new DsnReader(OLDER).readStreamByPath("Library");
+    expect(library.toString("latin1", 0, 20)).toBe("OrCAD Windows Design");
+    expect(readLibraryVersion(library)).toEqual({ major: 2, minor: 0 });
+  });
+
+  it("has a page the 3.x page parser cannot read, which is why the gate refuses it", () => {
+    const reader = new DsnReader(OLDER);
+    const page = reader.listAllEntries().find((e) => e.path.includes("/Pages/"))!;
+    const data = reader.readStreamByPath(page.path);
+    // The older page record opens 0A 00 00 and then the page name, with no 4-byte length.
+    expect([...data.subarray(0, 5)]).toEqual([0x0a, 0x00, 0x00, 0x05, 0x00]);
+    expect(data.toString("latin1", 5, 10)).toBe("PAGE1");
+    expect(() => parsePage(data)).toThrow();
+  });
+
+  it("is refused, naming its version, before any page is read", () => {
+    expect(() => parseDsnFile(OLDER)).toThrow(UnsupportedDsnVersionError);
+    expect(() => parseDsnFile(OLDER)).toThrow(
+      "OrCAD design saved in an older Capture format (Library stream version 2.0)"
+    );
   });
 });

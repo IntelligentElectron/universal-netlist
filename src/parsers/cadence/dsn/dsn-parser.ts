@@ -14,11 +14,11 @@ import { parsePage, parsePackageStream } from "./page-parser.js";
 import { parseHierarchyStream, type HierarchyStream } from "./hierarchy-parser.js";
 import { expandHierarchy } from "./hierarchy-expander.js";
 import type { PageData } from "./page-parser.js";
-import { parseCacheStream, indexLibraryPart } from "./cache-parser.js";
+import { parseCacheStream, indexLibraryPart, listDeviceUnits } from "./cache-parser.js";
 import {
   assertReadableLibraryVersion,
   describeParseFailure,
-  parseLibraryStrLst,
+  parseLibraryStream,
   readLibraryVersion,
 } from "./library-parser.js";
 import { buildDeviceIndexMap } from "./pin-resolver.js";
@@ -92,11 +92,13 @@ function parseDsnStreams(
     pagesBySchematic.set(schematic, list);
   }
 
-  // Parse Library stream for strLst string table
+  // Parse Library stream for strLst string table, and the root schematic a
+  // design names, which picks one root when the file holds several.
   let strLst: string[] = [];
+  let rootSchematic: string | undefined;
   if (library) {
     try {
-      strLst = parseLibraryStrLst(library);
+      ({ strLst, rootSchematic } = parseLibraryStream(library));
     } catch {
       // Library parsing is best-effort
     }
@@ -107,7 +109,8 @@ function parseDsnStreams(
   const { pages, canonicalNetNames, occurrenceRefdes } = expandHierarchy(
     roots,
     pagesBySchematic,
-    strLst
+    strLst,
+    rootSchematic
   );
 
   // Parse Package streams for pin mapping data.
@@ -151,8 +154,7 @@ function parseDsnStreams(
       } else {
         // Multi-unit: store per unit keyed by both baseName and streamName
         // so findPinMap can match either sourcePackage form.
-        const unitRefs = pkg.devices.map((d) => d.unitRef);
-        if (!pmd.deviceUnitRefs.has(baseName)) pmd.deviceUnitRefs.set(baseName, unitRefs);
+        listDeviceUnits(pmd, [baseName, streamName], pkg.devices);
         for (const device of pkg.devices) {
           const baseKey = baseName + device.unitRef;
           if (!pmd.pinMaps.has(baseKey)) {
