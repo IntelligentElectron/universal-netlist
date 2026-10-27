@@ -15,6 +15,8 @@ import path from "path";
 import { createHash } from "crypto";
 import { isNetlistDirFor, REQUIRED_DAT_FILES } from "../../paths.js";
 import { CADENCE_DAT_ENABLED } from "../../features.js";
+import type { DiscoverDesignsOptions } from "../../types.js";
+import { listDir, nodeFileReader, type FileReader } from "../context.js";
 
 const LEGACY_CADENCE_EXTENSIONS = [".dsn", ".cpm"] as const;
 const CADENCE_EXTENSIONS: readonly string[] = CADENCE_DAT_ENABLED
@@ -59,6 +61,7 @@ interface DatFileSet {
  * @param maxDepth - Maximum recursion depth (0 = root only). Omit for unlimited.
  */
 const walkForCadenceFiles = async (
+  files: FileReader,
   rootDir: string,
   maxDepth?: number,
   includeDat = true
@@ -69,7 +72,7 @@ const walkForCadenceFiles = async (
   const walk = async (currentDir: string, depth: number): Promise<void> => {
     let entries;
     try {
-      entries = await readdir(currentDir, { withFileTypes: true });
+      entries = await listDir(files, currentDir);
     } catch (error) {
       if (!(error instanceof Error) || !("code" in error) || error.code !== "EACCES") {
         throw error;
@@ -491,12 +494,13 @@ const buildStandaloneDesigns = async (
  */
 const discoverCadenceDesignsImpl = async (
   rootDir: string,
-  options: { maxDepth?: number } | undefined,
+  options: DiscoverDesignsOptions | undefined,
   includeDat: boolean
 ): Promise<CadenceDiscoveredDesign[]> => {
   // Normalize separators before resolving to handle cross-platform paths
   const absoluteRootDir = path.resolve(normalizeSeparators(rootDir));
   const { designFiles, datSets } = await walkForCadenceFiles(
+    options?.context?.files ?? nodeFileReader,
     absoluteRootDir,
     options?.maxDepth,
     includeDat
@@ -565,7 +569,7 @@ const discoverCadenceDesignsImpl = async (
 /** Discover designs supported by the MCP server. */
 export const discoverCadenceDesigns = (
   rootDir: string,
-  options?: { maxDepth?: number }
+  options?: DiscoverDesignsOptions
 ): Promise<CadenceDiscoveredDesign[]> =>
   discoverCadenceDesignsImpl(rootDir, options, CADENCE_DAT_ENABLED);
 
@@ -584,7 +588,8 @@ export const findCadenceDatFiles = async (designFilePath: string): Promise<Caden
   const normalizedPath = normalizeSeparators(designFilePath);
   const designDir = path.dirname(normalizedPath);
 
-  const { designFiles, datSets } = await walkForCadenceFiles(designDir);
+  // The DAT path is a developer reference, read from the local disk only.
+  const { designFiles, datSets } = await walkForCadenceFiles(nodeFileReader, designDir);
 
   // Find dat sets in this design's subtree
   const candidates = datSets.filter((ds) => isDescendantOrEqual(ds.directory, designDir));

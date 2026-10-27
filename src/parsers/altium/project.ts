@@ -3,7 +3,7 @@
  * netlist across harnesses, ports, sheet entries, buses and power ports.
  */
 
-import { readFile } from "fs/promises";
+import { nodeFileReader, readText, type FileReader } from "../context.js";
 import type { ParsedNetlist, ParseDesignOptions } from "../../types.js";
 import { RECORD_TYPES, type NetNameSource } from "./types.js";
 import { fieldText, flattenHierarchy } from "./records.js";
@@ -51,10 +51,10 @@ import {
 type Ranks = Readonly<Record<NetNameSource, number>>;
 
 /** A sheet's `.Harness` file beside it, or no definitions. */
-const readHarnessDefinitions = async (schdocPath: string) => {
+const readHarnessDefinitions = async (files: FileReader, schdocPath: string) => {
   try {
     return parseHarnessDefinitions(
-      await readFile(schdocPath.replace(/\.SchDoc$/i, ".Harness"), "utf-8")
+      await readText(files, schdocPath.replace(/\.SchDoc$/i, ".Harness"))
     );
   } catch {
     return new Map<string, string[]>();
@@ -67,6 +67,7 @@ const readHarnessDefinitions = async (schdocPath: string) => {
  * share anything by name.
  */
 const parseInstances = async (
+  files: FileReader,
   documents: readonly ReadDocument[],
   placements: ReadonlyMap<string, readonly SheetPlacement[]>,
   instances: ReadonlyMap<string, readonly DocumentInstance[]>,
@@ -88,7 +89,7 @@ const parseInstances = async (
       placed.length === 1 && (instances.get(parent.name) ?? []).length <= 1
         ? sharedEntryNames(
             symbol,
-            await readHarnessDefinitions(parent.path),
+            await readHarnessDefinitions(files, parent.path),
             collectNestedHarnessTypes(flattenHierarchy(parent.hierarchical))
           )
         : new Set<string>();
@@ -130,12 +131,13 @@ export const parseAltiumProject = async (
   projectPath: string,
   parseOptions?: ParseDesignOptions
 ): Promise<ParsedNetlist> => {
-  const schdocPaths = await findAltiumSchDocs(projectPath);
+  const files = parseOptions?.context?.files ?? nodeFileReader;
+  const schdocPaths = await findAltiumSchDocs(projectPath, files);
   if (schdocPaths.length === 0) {
     throw new Error(`No schematic documents found for project ${projectPath}`);
   }
 
-  const projectText = await readFile(projectPath, "utf-8");
+  const projectText = await readText(files, projectPath);
   const options = parseProjectOptions(projectText);
   const naming: NetNamingOptions = {
     allowPortNetNames: options.allowPortNetNames,
@@ -144,7 +146,10 @@ export const parseAltiumProject = async (
   const ranks = nameRanks(naming);
   const unranked = ranks.pin + 1;
 
-  const documents = schdocPaths.map(readDocument);
+  const documents: ReadDocument[] = [];
+  for (const schdocPath of schdocPaths) {
+    documents.push(readDocument(schdocPath, await files.readFile(schdocPath)));
+  }
   const shape = { hasSheetEntries: false, hasPorts: false };
   const powerNames = new Set<string>();
   for (const document of documents) {
@@ -161,6 +166,7 @@ export const parseAltiumProject = async (
   const placements = findSheetPlacements(documents);
   const instances = documentInstances(documents, placements, options.roomNamingStyle);
   const pending = await parseInstances(
+    files,
     documents,
     placements,
     instances,

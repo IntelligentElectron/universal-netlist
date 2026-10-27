@@ -8,7 +8,7 @@
 
 import { afterEach, describe, expect, it, vi } from "vitest";
 import * as parsers from "../../parsers/index.js";
-import { listDesigns } from "./list-designs.js";
+import { listDesigns } from "../index.js";
 import { fixturePath, hasFixtures } from "../../../test/utils.js";
 import type { EDAProjectFormatHandler, ListDesignsResult } from "../../types.js";
 

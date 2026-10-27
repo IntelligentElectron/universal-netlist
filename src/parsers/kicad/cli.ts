@@ -6,7 +6,7 @@
  * used when only raw `.kicad_sch` files are available and KiCad is installed.
  *
  * Resolution order for the binary:
- *   1. `KICAD_CLI_PATH` environment variable (explicit override)
+ *   1. The configured path (`KICAD_CLI_PATH`, or the `kicadCli.path` option)
  *   2. Known per-platform install locations
  *   3. `kicad-cli` on the system PATH
  */
@@ -18,6 +18,7 @@ import { mkdtemp, readFile, rm } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { isExecutable } from "./fs-utils.js";
+import { kicadCliFromEnvironment, type KicadCliOptions } from "../context.js";
 
 const execFileAsync = promisify(execFile);
 
@@ -25,9 +26,11 @@ const execFileAsync = promisify(execFile);
 const DEFAULT_EXPORT_TIMEOUT_MS = 120_000;
 
 /** Resolve the export timeout, falling back to the default for unset/invalid values. */
-const exportTimeoutMs = (): number => {
-  const parsed = Number(process.env.KICAD_CLI_TIMEOUT);
-  return Number.isFinite(parsed) && parsed > 0 ? parsed : DEFAULT_EXPORT_TIMEOUT_MS;
+const exportTimeoutMs = (options: KicadCliOptions): number => {
+  const configured = options.timeoutMs;
+  return configured !== undefined && Number.isFinite(configured) && configured > 0
+    ? configured
+    : DEFAULT_EXPORT_TIMEOUT_MS;
 };
 
 /** Per-platform default install locations for the kicad-cli binary. */
@@ -44,10 +47,12 @@ const PLATFORM_DEFAULTS: Record<string, string[]> = {
 /**
  * Resolve a usable `kicad-cli` command. Returns the first candidate that exists,
  * falling back to the bare name `kicad-cli` (resolved against PATH at exec time).
- * Returns null only when an explicit `KICAD_CLI_PATH` is set but missing.
+ * Returns null only when an explicit path is configured but missing.
  */
-export const resolveKicadCli = async (): Promise<string | null> => {
-  const override = process.env.KICAD_CLI_PATH;
+export const resolveKicadCli = async (
+  options: KicadCliOptions = kicadCliFromEnvironment()
+): Promise<string | null> => {
+  const override = options.path;
   if (override) {
     return (await isExecutable(override)) ? override : null;
   }
@@ -61,8 +66,10 @@ export const resolveKicadCli = async (): Promise<string | null> => {
 };
 
 /** True when a kicad-cli binary appears to be available. */
-export const isKicadCliAvailable = async (): Promise<boolean> => {
-  const cli = await resolveKicadCli();
+export const isKicadCliAvailable = async (
+  options: KicadCliOptions = kicadCliFromEnvironment()
+): Promise<boolean> => {
+  const cli = await resolveKicadCli(options);
   if (cli === null) return false;
   if (cli === "kicad-cli") {
     try {
@@ -80,16 +87,19 @@ export const isKicadCliAvailable = async (): Promise<boolean> => {
  * Writes to a temporary file (kicad-cli requires an output path), reads it back,
  * and cleans up. Throws if kicad-cli is unavailable or the export fails.
  */
-export const exportNetlist = async (rootSchematicPath: string): Promise<string> => {
-  const cli = await resolveKicadCli();
+export const exportNetlist = async (
+  rootSchematicPath: string,
+  options: KicadCliOptions = kicadCliFromEnvironment()
+): Promise<string> => {
+  const cli = await resolveKicadCli(options);
   if (cli === null) {
     throw new Error(
-      `kicad-cli not found at KICAD_CLI_PATH="${process.env.KICAD_CLI_PATH}". ` +
+      `kicad-cli not found at KICAD_CLI_PATH="${options.path}". ` +
         `Unset it or point it at a valid kicad-cli binary.`
     );
   }
 
-  const timeout = exportTimeoutMs();
+  const timeout = exportTimeoutMs(options);
   const tmpDir = await mkdtemp(path.join(os.tmpdir(), "kicad-netlist-"));
   const outPath = path.join(tmpDir, "netlist.net");
   try {

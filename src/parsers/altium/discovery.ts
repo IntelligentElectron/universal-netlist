@@ -3,7 +3,8 @@
  * Finds Altium Designer projects (.PrjPcb) and their schematic files (.SchDoc).
  */
 
-import { open, readFile, readdir } from "fs/promises";
+import { listDir, nodeFileReader, readPrefix, readText, type FileReader } from "../context.js";
+import type { DiscoverDesignsOptions } from "../../types.js";
 import path from "path";
 import { splitLines } from "./lines.js";
 
@@ -24,22 +25,12 @@ const OLE_MAGIC = Buffer.from([0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1]);
 /**
  * Check if a file is an OLE-format SchDoc file.
  */
-const isOleSchDoc = async (filePath: string): Promise<boolean> => {
-  let handle;
+const isOleSchDoc = async (files: FileReader, filePath: string): Promise<boolean> => {
   try {
-    handle = await open(filePath, "r");
-    const buffer = Buffer.alloc(OLE_MAGIC.length);
-    const { bytesRead } = await handle.read(buffer, 0, OLE_MAGIC.length, 0);
-    if (bytesRead < OLE_MAGIC.length) {
-      return false;
-    }
-    return buffer.equals(OLE_MAGIC);
+    const prefix = await readPrefix(files, filePath, OLE_MAGIC.length);
+    return prefix.length === OLE_MAGIC.length && OLE_MAGIC.equals(prefix);
   } catch {
     return false;
-  } finally {
-    if (handle) {
-      await handle.close();
-    }
   }
 };
 
@@ -47,10 +38,10 @@ const isOleSchDoc = async (filePath: string): Promise<boolean> => {
  * Read SchDoc paths from an Altium project file.
  * Returns absolute paths to valid SchDoc files.
  */
-const readProjectSchDocs = async (projectPath: string): Promise<string[]> => {
+const readProjectSchDocs = async (files: FileReader, projectPath: string): Promise<string[]> => {
   let content: string;
   try {
-    content = await readFile(projectPath, "utf-8");
+    content = await readText(files, projectPath);
   } catch {
     return [];
   }
@@ -82,7 +73,7 @@ const readProjectSchDocs = async (projectPath: string): Promise<string[]> => {
     // Resolve to absolute path
     const absolutePath = path.resolve(projectDir, normalized);
 
-    if (await isOleSchDoc(absolutePath)) {
+    if (await isOleSchDoc(files, absolutePath)) {
       schdocs.add(absolutePath);
     }
   }
@@ -97,6 +88,7 @@ const readProjectSchDocs = async (projectPath: string): Promise<string[]> => {
  * @param maxDepth - Maximum recursion depth (0 = root only). Omit for unlimited.
  */
 const walkForAltiumFiles = async (
+  files: FileReader,
   rootDir: string,
   maxDepth?: number
 ): Promise<{ projects: string[]; schdocs: string[] }> => {
@@ -106,7 +98,7 @@ const walkForAltiumFiles = async (
   const walk = async (currentDir: string, depth: number): Promise<void> => {
     let entries;
     try {
-      entries = await readdir(currentDir, { withFileTypes: true });
+      entries = await listDir(files, currentDir);
     } catch (error) {
       if (!(error instanceof Error) || !("code" in error) || error.code !== "EACCES") {
         throw error;
@@ -134,7 +126,7 @@ const walkForAltiumFiles = async (
       if (ext === ".prjpcb") {
         projects.push(fullPath);
       } else if (ext === ".schdoc") {
-        if (await isOleSchDoc(fullPath)) {
+        if (await isOleSchDoc(files, fullPath)) {
           schdocs.push(fullPath);
         }
       }
@@ -162,17 +154,18 @@ const fallbackProjectSchDocs = (projectDir: string, schdocs: string[]): string[]
  */
 export const discoverAltiumDesigns = async (
   rootDir: string,
-  options?: { maxDepth?: number }
+  options?: DiscoverDesignsOptions
 ): Promise<AltiumDiscoveredDesign[]> => {
+  const files = options?.context?.files ?? nodeFileReader;
   const absoluteRootDir = path.resolve(rootDir);
-  const { projects, schdocs } = await walkForAltiumFiles(absoluteRootDir, options?.maxDepth);
+  const { projects, schdocs } = await walkForAltiumFiles(files, absoluteRootDir, options?.maxDepth);
 
   const designs: AltiumDiscoveredDesign[] = [];
   const claimedSchDocs = new Set<string>();
 
   for (const projectPath of projects) {
     const name = path.basename(projectPath, path.extname(projectPath));
-    let schdocPaths = await readProjectSchDocs(projectPath);
+    let schdocPaths = await readProjectSchDocs(files, projectPath);
 
     if (schdocPaths.length === 0) {
       const projectDir = path.dirname(projectPath);
@@ -217,13 +210,16 @@ export const discoverAltiumDesigns = async (
 /**
  * Find SchDoc files for a specific Altium project file.
  */
-export const findAltiumSchDocs = async (projectPath: string): Promise<string[]> => {
-  const schdocPaths = await readProjectSchDocs(projectPath);
+export const findAltiumSchDocs = async (
+  projectPath: string,
+  files: FileReader = nodeFileReader
+): Promise<string[]> => {
+  const schdocPaths = await readProjectSchDocs(files, projectPath);
 
   if (schdocPaths.length === 0) {
     // Fallback: scan project directory
     const projectDir = path.dirname(projectPath);
-    const { schdocs } = await walkForAltiumFiles(projectDir);
+    const { schdocs } = await walkForAltiumFiles(files, projectDir);
     return fallbackProjectSchDocs(projectDir, schdocs);
   }
 

@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 
-vi.mock("../service/index.js", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("../service/index.js")>()),
+vi.mock("../service/tools/list-nets.js", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("../service/tools/list-nets.js")>()),
   listNets: async () => {
     throw new Error("parser blew up");
   },

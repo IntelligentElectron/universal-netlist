@@ -27,7 +27,7 @@ describe("OleReader", () => {
       const invalidFile = join(testDir, "invalid.bin");
       await writeFile(invalidFile, Buffer.from("not an ole file"));
 
-      expect(() => new OleReader(invalidFile)).toThrow(
+      expect(() => OleReader.fromFile(invalidFile)).toThrow(
         "Invalid OLE file: magic signature mismatch"
       );
     });
@@ -36,14 +36,14 @@ describe("OleReader", () => {
       const emptyFile = join(testDir, "empty.bin");
       await writeFile(emptyFile, Buffer.alloc(0));
 
-      expect(() => new OleReader(emptyFile)).toThrow();
+      expect(() => OleReader.fromFile(emptyFile)).toThrow();
     });
 
     it("should reject files that are too small", async () => {
       const smallFile = join(testDir, "small.bin");
       await writeFile(smallFile, Buffer.alloc(4));
 
-      expect(() => new OleReader(smallFile)).toThrow();
+      expect(() => OleReader.fromFile(smallFile)).toThrow();
     });
   });
 
@@ -61,7 +61,7 @@ describe("OleReader", () => {
       await writeFile(validFile, header);
 
       try {
-        new OleReader(validFile);
+        OleReader.fromFile(validFile);
       } catch (e) {
         expect((e as Error).message).not.toContain("magic signature");
       }

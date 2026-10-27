@@ -98,18 +98,20 @@ describe("tool registry", () => {
     expect(result.error).toContain("Failed to search");
   });
 
-  it("loads neither the MCP SDK nor OpenTelemetry", () => {
+  it("loads neither the MCP SDK nor OpenTelemetry, and neither does ./service", () => {
     // The walk sees both packages from the server, so an empty list below means
     // the registry really reaches neither.
     const server = importGraph(path.resolve(__dirname, "../server.ts")).packages;
     expect(server).toContain("@modelcontextprotocol/sdk");
     expect([...server].some((name) => name.startsWith("@opentelemetry/"))).toBe(true);
 
-    const { files, packages } = importGraph(path.resolve(__dirname, "index.ts"));
-    expect(files).toContain(path.resolve(__dirname, "../service/index.ts"));
-    const heavy = [...packages].filter(
-      (name) => name === "@modelcontextprotocol/sdk" || name.startsWith("@opentelemetry/")
-    );
-    expect(heavy).toEqual([]);
+    for (const entry of ["index.ts", "../service/index.ts"]) {
+      const { files, packages } = importGraph(path.resolve(__dirname, entry));
+      expect(files, entry).toContain(path.resolve(__dirname, "../service/load-netlist.ts"));
+      const heavy = [...packages].filter(
+        (name) => name === "@modelcontextprotocol/sdk" || name.startsWith("@opentelemetry/")
+      );
+      expect(heavy, entry).toEqual([]);
+    }
   });
 });

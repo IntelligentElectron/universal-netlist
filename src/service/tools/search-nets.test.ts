@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { searchNets } from "./search-nets.js";
+import { searchNets } from "../index.js";
 import type { ParsedNetlist, ErrorResult } from "../../types.js";
 import * as parsersModule from "../../parsers/index.js";
 

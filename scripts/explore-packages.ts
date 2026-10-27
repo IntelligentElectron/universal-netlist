@@ -37,7 +37,7 @@ function parsePackageStream(buf: Buffer) {
 const dsnFiles = findDsnFiles("test/fixtures/cadence");
 
 for (const dsn of dsnFiles) {
-  const ole = new OleReader(dsn);
+  const ole = OleReader.fromFile(dsn);
   const entries = ole.listAllEntries();
   const pkgEntries = entries.filter((e) => e.path.startsWith("Packages/") && e.entry.type === 2);
 
@@ -83,7 +83,7 @@ for (const dsn of dsnFiles) {
 // Also explore the Library stream for CIS cache
 console.log("\n\n=== Library Stream Exploration ===");
 for (const dsn of dsnFiles.slice(0, 3)) {
-  const ole = new OleReader(dsn);
+  const ole = OleReader.fromFile(dsn);
   const entries = ole.listAllEntries();
   const libEntry = entries.find((e) => e.path === "Library");
   if (!libEntry) continue;

@@ -9,7 +9,7 @@ import { isUniversalNetlistPath, universalNetlistName } from "./universal-format
 
 /**
  * Resolve a file path to an absolute path using native separators.
- * Relative paths are resolved against the current working directory.
+ * Relative paths are resolved against `root`, or the current working directory.
  *
  * On Windows, path.normalize() converts / to \
  * On Unix, we must manually convert \ to / since path.normalize() doesn't
@@ -21,12 +21,13 @@ import { isUniversalNetlistPath, universalNetlistName } from "./universal-format
  *   "C:/Users/foo/bar"      -> "C:\\Users\\foo\\bar"     (Windows)
  *   "\\Users\\foo\\bar"     -> "/Users/foo/bar"          (Unix)
  */
-export const resolvePath = (inputPath: string): string => {
+export const resolvePath = (inputPath: string, root?: string): string => {
+  const base = root ?? process.cwd();
   if (process.platform === "win32") {
-    return path.resolve(path.normalize(inputPath));
+    return path.resolve(base, path.normalize(inputPath));
   }
   // On Unix, convert backslashes to forward slashes before normalizing
-  return path.resolve(path.normalize(inputPath.replace(/\\/g, "/")));
+  return path.resolve(base, path.normalize(inputPath.replace(/\\/g, "/")));
 };
 
 /**
@@ -43,12 +44,12 @@ export const resolvePath = (inputPath: string): string => {
  *
  * Example: "/projects/board-rev-c/pstxnet.dat" -> "board-rev-c"
  */
-export const getDesignName = (design: string): string => {
+export const getDesignName = (design: string, root?: string): string => {
   // Resolved the same way `loadNetlist` resolves it, so the name describes the
   // file that was actually read rather than whatever string the caller typed.
   // A bare filename, a relative path and a Windows-style path on a Unix host all
   // reach the same design, and this makes all three name it the same way.
-  const resolved = resolvePath(design);
+  const resolved = resolvePath(design, root);
   const base = path.basename(resolved);
   if (isUniversalNetlistPath(base)) return universalNetlistName(base);
   if (REQUIRED_DAT_FILES.includes(base.toLowerCase() as (typeof REQUIRED_DAT_FILES)[number])) {

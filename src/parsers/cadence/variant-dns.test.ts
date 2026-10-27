@@ -22,7 +22,7 @@ import { describe, expect, it } from "vitest";
 import { cadenceHandler, parseCadenceDatDesign } from "./index.js";
 import { fixturePath, hasFixtures } from "../../../test/utils.js";
 import { loadNetlist } from "../../service/load-netlist.js";
-import { runErc } from "../../service/tools/run-erc.js";
+import { runErc } from "../../service/index.js";
 import type { ErrorResult } from "../../types.js";
 
 const CC1310 = ["cadence", "LAUNCHXL-CC1310", "doc", "hardware", "cc1310", "launchpad"];

@@ -3,7 +3,7 @@ import { existsSync } from "node:fs";
 import type { ParsedNetlist } from "../../types.js";
 import { isErrorResult } from "../../types.js";
 import * as parsersModule from "../../parsers/index.js";
-import { runErc, type ErcResult } from "./run-erc.js";
+import { runErc, type ErcResult } from "../index.js";
 import { fixturePath, hasFixtures } from "../../../test/utils.js";
 
 const DESIGN = "/mock/design.dsn";

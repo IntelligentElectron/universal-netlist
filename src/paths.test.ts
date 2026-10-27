@@ -476,7 +476,10 @@ describe("listDesigns maxDepth", () => {
 
     await listDesigns({ maxDepth: 2 });
 
-    expect(parsers.discoverDesigns).toHaveBeenCalledWith(expect.any(String), { maxDepth: 2 });
+    expect(parsers.discoverDesigns).toHaveBeenCalledWith(
+      expect.any(String),
+      expect.objectContaining({ maxDepth: 2 })
+    );
   });
 
   it("passes undefined maxDepth when omitted", async () => {
@@ -484,9 +487,10 @@ describe("listDesigns maxDepth", () => {
 
     await listDesigns();
 
-    expect(parsers.discoverDesigns).toHaveBeenCalledWith(expect.any(String), {
-      maxDepth: undefined,
-    });
+    expect(parsers.discoverDesigns).toHaveBeenCalledWith(
+      expect.any(String),
+      expect.objectContaining({ maxDepth: undefined })
+    );
   });
 });
 

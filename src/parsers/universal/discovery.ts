@@ -12,7 +12,8 @@
  * are not walked. They hold `.json` in quantity and designs never.
  */
 
-import { readdir, readFile } from "node:fs/promises";
+import type { DiscoverDesignsOptions } from "../../types.js";
+import { listDir, nodeFileReader, readText, type FileReader } from "../context.js";
 import path from "node:path";
 import { parseUniversalNetlist } from "./reader.js";
 import {
@@ -40,13 +41,17 @@ export const isUniversalFile = (filePath: string): boolean => isUniversalNetlist
 /** The design name for a Universal Netlist file path: basename without its canonical suffix. */
 export const universalDesignName = universalNetlistName;
 
-const walkForJson = async (rootDir: string, maxDepth?: number): Promise<string[]> => {
+const walkForJson = async (
+  reader: FileReader,
+  rootDir: string,
+  maxDepth?: number
+): Promise<string[]> => {
   const files: string[] = [];
 
   const walk = async (currentDir: string, depth: number): Promise<void> => {
     let entries;
     try {
-      entries = await readdir(currentDir, { withFileTypes: true });
+      entries = await listDir(reader, currentDir);
     } catch (error) {
       const skippable = new Set(["EACCES", "ENOENT", "ENOTDIR"]);
       if (!(error instanceof Error) || !("code" in error) || !skippable.has(String(error.code))) {
@@ -82,16 +87,17 @@ const walkForJson = async (rootDir: string, maxDepth?: number): Promise<string[]
  */
 export const discoverUniversalDesigns = async (
   rootDir: string,
-  options?: { maxDepth?: number }
+  options?: DiscoverDesignsOptions
 ): Promise<UniversalDiscoveredDesign[]> => {
+  const reader = options?.context?.files ?? nodeFileReader;
   const absoluteRootDir = path.resolve(rootDir);
-  const files = await walkForJson(absoluteRootDir, options?.maxDepth);
+  const files = await walkForJson(reader, absoluteRootDir, options?.maxDepth);
 
   const designs = await Promise.all(
     files.map(async (filePath): Promise<UniversalDiscoveredDesign | null> => {
       let text: string;
       try {
-        text = await readFile(filePath, "utf-8");
+        text = await readText(reader, filePath);
       } catch {
         return null;
       }

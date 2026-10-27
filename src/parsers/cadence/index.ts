@@ -26,6 +26,7 @@ import {
   type ParseDesignOptions,
 } from "../../types.js";
 import { listCadenceVariantsFromFile } from "./dsn/variant-store.js";
+import { contextOrDefault } from "../context.js";
 
 export { discoverCadenceDesigns, findCadenceDatFiles, isCadenceFile } from "./discovery.js";
 export { parseDsnFile } from "./dsn/dsn-parser.js";
@@ -178,7 +179,8 @@ const parseCadenceDesign = async (
 
   // The schematic itself, which is the path list_designs hands out.
   if (ext === ".dsn") {
-    return parseDsnFile(designPath, options);
+    const context = contextOrDefault(options?.context);
+    return parseDsnFile(await context.files.readFile(designPath), options, context.dsnPasswords);
   }
 
   if (!CADENCE_DAT_ENABLED) {
@@ -236,8 +238,10 @@ export const cadenceHandler: EDAProjectFormatHandler = {
   discoverDesigns: discoverCadenceDesigns,
 
   // A CIS BOM variant is, by definition, one assembly the BOM is generated for.
-  listVariants: async (designPath) =>
-    listCadenceVariantsFromFile(designPath).map((variant) => ({ ...variant, fabrication: true })),
+  listVariants: async (designPath, context) =>
+    listCadenceVariantsFromFile(await contextOrDefault(context).files.readFile(designPath)).map(
+      (variant) => ({ ...variant, fabrication: true })
+    ),
 
   parse: parseCadenceDesign,
 };

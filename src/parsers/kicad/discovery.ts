@@ -12,9 +12,9 @@
  * `board-tester/data-center-board-tester.kicad_pro`.)
  */
 
-import { readdir } from "node:fs/promises";
 import path from "node:path";
-import { isReadable } from "./fs-utils.js";
+import type { DiscoverDesignsOptions } from "../../types.js";
+import { listDir, nodeFileReader, type FileReader } from "../context.js";
 
 /** Extensions a caller may hand directly to the KiCad handler. */
 export const KICAD_EXTENSIONS = [".kicad_pro", ".kicad_sch"] as const;
@@ -44,7 +44,8 @@ export interface KicadDiscoveredDesign {
  * sibling committed `.net` export when present.
  */
 export const resolveKicadArtifacts = async (
-  designPath: string
+  designPath: string,
+  files: FileReader = nodeFileReader
 ): Promise<{ name: string; rootSchematic: string | null; netlistExport: string | null }> => {
   const rawExt = path.extname(designPath);
   const ext = rawExt.toLowerCase();
@@ -54,10 +55,10 @@ export const resolveKicadArtifacts = async (
 
   const candidateSchematic =
     ext === ".kicad_sch" ? designPath : path.join(dir, `${base}.kicad_sch`);
-  const rootSchematic = (await isReadable(candidateSchematic)) ? candidateSchematic : null;
+  const rootSchematic = (await files.exists(candidateSchematic)) ? candidateSchematic : null;
 
   const candidateExport = path.join(dir, `${base}${NETLIST_EXT}`);
-  const netlistExport = (await isReadable(candidateExport)) ? candidateExport : null;
+  const netlistExport = (await files.exists(candidateExport)) ? candidateExport : null;
 
   return { name: base, rootSchematic, netlistExport };
 };
@@ -66,13 +67,17 @@ export const resolveKicadArtifacts = async (
  * Recursively walk a directory collecting `.kicad_pro` project files.
  * Skips directories that cannot be read (EACCES), mirroring the Cadence walker.
  */
-const walkForProjects = async (rootDir: string, maxDepth?: number): Promise<string[]> => {
+const walkForProjects = async (
+  files: FileReader,
+  rootDir: string,
+  maxDepth?: number
+): Promise<string[]> => {
   const projects: string[] = [];
 
   const walk = async (currentDir: string, depth: number): Promise<void> => {
     let entries;
     try {
-      entries = await readdir(currentDir, { withFileTypes: true });
+      entries = await listDir(files, currentDir);
     } catch (error) {
       // Skip unreadable, missing, or non-directory paths (e.g. permission denied,
       // or a directory removed/replaced mid-walk by a concurrent change).
@@ -110,14 +115,18 @@ const walkForProjects = async (rootDir: string, maxDepth?: number): Promise<stri
  */
 export const discoverKicadDesigns = async (
   rootDir: string,
-  options?: { maxDepth?: number }
+  options?: DiscoverDesignsOptions
 ): Promise<KicadDiscoveredDesign[]> => {
+  const files = options?.context?.files ?? nodeFileReader;
   const absoluteRootDir = path.resolve(rootDir);
-  const projectFiles = await walkForProjects(absoluteRootDir, options?.maxDepth);
+  const projectFiles = await walkForProjects(files, absoluteRootDir, options?.maxDepth);
 
   const designs = await Promise.all(
     projectFiles.map(async (projectPath): Promise<KicadDiscoveredDesign> => {
-      const { name, rootSchematic, netlistExport } = await resolveKicadArtifacts(projectPath);
+      const { name, rootSchematic, netlistExport } = await resolveKicadArtifacts(
+        projectPath,
+        files
+      );
       return {
         name,
         sourcePath: projectPath,

@@ -38,7 +38,7 @@ describe("loadNetlist variant selection", () => {
     const parse = vi.spyOn(parsers, "parseDesign").mockResolvedValue(structuredClone(parsed));
 
     const result = await loadNetlist(DESIGN, "production");
-    expect(parse).toHaveBeenCalledWith(DESIGN, { variant: "Production" });
+    expect(parse).toHaveBeenCalledWith(DESIGN, expect.objectContaining({ variant: "Production" }));
     expect("components" in result && result.components.R1.pins["2"]).toBe("NC");
     expect("design_variant" in result && result.design_variant).toBe("Production");
   });
@@ -83,12 +83,18 @@ describe("loadNetlist variant selection", () => {
       design_variant: "<Default>",
       components: {},
     });
-    expect(parse).toHaveBeenLastCalledWith(DESIGN, { variant: "<Default>" });
+    expect(parse).toHaveBeenLastCalledWith(
+      DESIGN,
+      expect.objectContaining({ variant: "<Default>" })
+    );
     for (const selector of ["<default>", "default"]) {
       await expect(loadNetlist(DESIGN, selector)).resolves.toMatchObject({
         design_variant: "<Default>",
       });
-      expect(parse).toHaveBeenLastCalledWith(DESIGN, { variant: "<Default>" });
+      expect(parse).toHaveBeenLastCalledWith(
+        DESIGN,
+        expect.objectContaining({ variant: "<Default>" })
+      );
     }
 
     expect(await loadNetlist(DESIGN, "missing")).toEqual({
@@ -112,7 +118,7 @@ describe("loadNetlist variant selection", () => {
     await expect(loadNetlist(DESIGN, "default")).resolves.toMatchObject({
       design_variant: "Default",
     });
-    expect(parse).toHaveBeenLastCalledWith(DESIGN, { variant: "Default" });
+    expect(parse).toHaveBeenLastCalledWith(DESIGN, expect.objectContaining({ variant: "Default" }));
 
     expect(await loadNetlist(DESIGN, "<Default>")).toEqual({
       error: expect.stringContaining("'<Default>' is not a build of design 'board.PrjPcb'"),

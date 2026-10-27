@@ -1,17 +1,20 @@
 /**
  * An OrCAD design container's streams. A password-protected design stores streams
- * encrypted under `FILE_FMT_SYENCRYPT01`; they read decrypted with a password from the
- * environment.
+ * encrypted under `FILE_FMT_SYENCRYPT01`; they read decrypted with a configured
+ * password, from the environment or the caller's options.
  */
 
-import { readFileSync } from "fs";
 import { OleReader } from "../../ole-reader/ole-reader.js";
 import type { OleDirectoryPath } from "../../ole-reader/types.js";
 import { decryptSapphireII } from "./sapphire.js";
+import {
+  DSN_PASSWORD,
+  DSN_PASSWORD_FILE,
+  dsnPasswordsFromEnvironment,
+  type DsnPasswords,
+} from "../../context.js";
 
-export const DSN_PASSWORD = "UNIVERSAL_NETLIST_DSN_PASSWORD";
-/** A file of passwords, one per line. */
-export const DSN_PASSWORD_FILE = "UNIVERSAL_NETLIST_DSN_PASSWORD_FILE";
+export { DSN_PASSWORD, DSN_PASSWORD_FILE };
 
 const MARKER = Buffer.from("FILE_FMT_SYENCRYPT01", "latin1");
 /** The root `Library` stream keeps its first bytes in clear, ahead of the marker. */
@@ -69,27 +72,15 @@ const markerAt = (path: string, data: Buffer): number | undefined => {
 };
 
 /**
- * The configured passwords: the variable's, then each line of the file's. A password
- * that cannot be a key is set aside with the reason, not tried.
+ * The configured passwords as keys. A password that cannot be a key is set aside
+ * with the reason, not tried.
  */
-const configuredKeys = (): { keys: Buffer[]; unusable: string[] } => {
-  const passwords: Array<{ source: string; password: string }> = [];
-  const password = process.env[DSN_PASSWORD];
-  if (password) passwords.push({ source: DSN_PASSWORD, password });
-  const file = process.env[DSN_PASSWORD_FILE];
-  if (file) {
-    let text: string;
-    try {
-      text = readFileSync(file, "utf-8").replace(/^\uFEFF/, "");
-    } catch (error) {
-      throw new ProtectedDesignError(
-        `Cannot read ${DSN_PASSWORD_FILE}: ${(error as Error).message}`
-      );
-    }
-    text.split(/\r?\n/).forEach((line, index) => {
-      if (line)
-        passwords.push({ source: `${DSN_PASSWORD_FILE} line ${index + 1}`, password: line });
-    });
+const configuredKeys = (configured: DsnPasswords): { keys: Buffer[]; unusable: string[] } => {
+  let passwords;
+  try {
+    passwords = configured.list();
+  } catch (error) {
+    throw new ProtectedDesignError((error as Error).message);
   }
   const keys: Buffer[] = [];
   const unusable: string[] = [];
@@ -108,8 +99,15 @@ export class DsnReader {
   private readonly entries: OleDirectoryPath[];
   private readonly streams = new Map<string, Buffer>();
 
-  constructor(dsnPath: string) {
-    const ole = new OleReader(dsnPath);
+  /**
+   * Read a design from its bytes. A path is read from the disk, for scripts and
+   * tests; parsers pass the bytes their file reader returned.
+   */
+  constructor(
+    source: Uint8Array | string,
+    passwords: DsnPasswords = dsnPasswordsFromEnvironment()
+  ) {
+    const ole = typeof source === "string" ? OleReader.fromFile(source) : new OleReader(source);
     this.entries = ole.listAllEntries();
     const encrypted: EncryptedStream[] = [];
     for (const { path, entry } of this.entries) {
@@ -125,10 +123,10 @@ export class DsnReader {
     const library = encrypted.find((stream) => stream.path === "Library");
     if (!library)
       throw new ProtectedDesignError("Protected OrCAD design has no encrypted Library stream");
-    const { keys, unusable } = configuredKeys();
+    const { keys, unusable } = configuredKeys(passwords);
     if (keys.length === 0 && unusable.length === 0) {
       throw new ProtectedDesignError(
-        `Password-protected OrCAD design: set ${DSN_PASSWORD} or ${DSN_PASSWORD_FILE}`
+        `Password-protected OrCAD design: set ${passwords.configuredBy}`
       );
     }
     const header = {
@@ -141,7 +139,7 @@ export class DsnReader {
         ? `; not tried, as an OrCAD password is 1 to 255 printable ASCII characters: ${unusable.join(", ")}`
         : "";
       throw new ProtectedDesignError(
-        `No password in ${DSN_PASSWORD} or ${DSN_PASSWORD_FILE} opens this OrCAD design${skipped}`
+        `No password in ${passwords.configuredBy} opens this OrCAD design${skipped}`
       );
     }
     for (const stream of encrypted) this.streams.set(stream.path, decrypt(stream, key));

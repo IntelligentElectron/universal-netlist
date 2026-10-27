@@ -159,9 +159,10 @@ export function listCadenceVariants(entries: OleDirectoryPath[]): DesignVariant[
   return variants;
 }
 
-/** Read the native BOM variant names straight from a DSN. */
-export function listCadenceVariantsFromFile(dsnPath: string): DesignVariant[] {
-  return listCadenceVariants(new OleReader(dsnPath).listAllEntries());
+/** Read the native BOM variant names straight from a DSN's bytes, or its path on disk. */
+export function listCadenceVariantsFromFile(source: Uint8Array | string): DesignVariant[] {
+  const ole = typeof source === "string" ? OleReader.fromFile(source) : new OleReader(source);
+  return listCadenceVariants(ole.listAllEntries());
 }
 
 /** The stuffing a set of groups gives the parts they name. */
@@ -309,7 +310,7 @@ export function readVariantDns(
  * more.
  */
 export function readVariantDnsFromFile(dsnPath: string, selectedVariant?: string): Set<string> {
-  if (!hasVariantGroups(new OleReader(dsnPath).listAllEntries())) return new Set();
+  if (!hasVariantGroups(OleReader.fromFile(dsnPath).listAllEntries())) return new Set();
   const ole = new DsnReader(dsnPath);
   const entries = ole.listAllEntries();
 

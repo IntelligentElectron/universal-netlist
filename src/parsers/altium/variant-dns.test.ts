@@ -3,12 +3,12 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { altiumHandler } from "./index.js";
 import { fixturePath, hasFixtures } from "../../../test/utils.js";
-import { listDesigns } from "../../service/tools/list-designs.js";
+import { listDesigns } from "../../service/index.js";
 import { loadNetlist } from "../../service/load-netlist.js";
-import { listComponents } from "../../service/tools/list-components.js";
-import { queryComponent } from "../../service/tools/query-component.js";
-import { queryXnetByNetName } from "../../service/tools/query-xnet.js";
-import { runErc } from "../../service/tools/run-erc.js";
+import { listComponents } from "../../service/index.js";
+import { queryComponent } from "../../service/index.js";
+import { queryXnetByNetName } from "../../service/index.js";
+import { runErc } from "../../service/index.js";
 import type {
   AggregatedCircuitResult,
   ErrorResult,

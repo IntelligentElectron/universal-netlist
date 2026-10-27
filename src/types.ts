@@ -2,6 +2,8 @@
  * TypeScript type definitions for netlist parsing and circuit analysis
  */
 
+import type { ParserContext } from "./parsers/context.js";
+
 // Import format-specific discovered design types from their parsers
 import type { CadenceDiscoveredDesign } from "./parsers/cadence/discovery.js";
 import type { AltiumDiscoveredDesign } from "./parsers/altium/discovery.js";
@@ -166,6 +168,8 @@ export interface ParseDesignOptions {
    * The plain alias `default` is resolved by the service before it gets here.
    */
   variant?: string;
+  /** What to read files through, and the parser settings. Default: the environment's. */
+  context?: ParserContext;
 }
 
 /**
@@ -417,6 +421,8 @@ export const isErrorResult = (result: unknown): result is ErrorResult =>
 export interface DiscoverDesignsOptions {
   /** Maximum directory recursion depth (0 = no recursion). Omit for unlimited. */
   maxDepth?: number;
+  /** What to read files through, and the parser settings. Default: the environment's. */
+  context?: ParserContext;
 }
 
 /**
@@ -437,7 +443,7 @@ export interface EDAProjectFormatHandler {
   discoverDesigns(rootDir: string, options?: DiscoverDesignsOptions): Promise<DiscoveredDesign[]>;
 
   /** List the named assembly variants a design records. */
-  listVariants?(designPath: string): Promise<DesignVariant[]>;
+  listVariants?(designPath: string, context?: ParserContext): Promise<DesignVariant[]>;
 
   /** Parse a design file into the unified ParsedNetlist format */
   parse(designPath: string, options?: ParseDesignOptions): Promise<ParsedNetlist>;

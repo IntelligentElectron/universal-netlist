@@ -4,7 +4,7 @@
  * `ParamVariationN` row overrides a parameter of the part its `ParamDesignatorN` names.
  */
 
-import { readFile } from "node:fs/promises";
+import { nodeFileReader, readText, type FileReader } from "../context.js";
 import type { ComponentDetails, DesignVariant } from "../../types.js";
 import {
   describeDefaultVariantRefusal,
@@ -167,8 +167,11 @@ export const parseAltiumProjectVariants = (content: string): AltiumProjectVarian
 };
 
 /** Read the named design variants from an Altium project. */
-export const listAltiumVariants = async (projectPath: string): Promise<DesignVariant[]> =>
-  parseAltiumProjectVariants(await readFile(projectPath, "utf-8")).map(({ name, fabrication }) => ({
+export const listAltiumVariants = async (
+  projectPath: string,
+  files: FileReader = nodeFileReader
+): Promise<DesignVariant[]> =>
+  parseAltiumProjectVariants(await readText(files, projectPath)).map(({ name, fabrication }) => ({
     name,
     ...(fabrication !== undefined ? { fabrication } : {}),
   }));

@@ -1,3 +1,4 @@
+import type { ServiceContext } from "../context.js";
 import { getDesignName } from "../../paths.js";
 import { loadNetlist } from "../load-netlist.js";
 import { componentNotes, groupComponentsByMpn } from "../component-grouping.js";
@@ -9,25 +10,26 @@ import { isErrorResult, type SearchComponentsResult, type ErrorResult } from "..
  *
  * @param pattern - Regex pattern
  * @param design - Path to design file
- * @param includeDns - Include DNS components; included by default
+ * @param includeDns - Include DNS components
  * @param designVariant - Native design variant, or `<Default>` for the base build
  */
 export const searchComponentsByRefdes = async (
   pattern: string,
   design: string,
-  includeDns = true,
-  designVariant?: string
+  includeDns: boolean,
+  designVariant: string | undefined,
+  context: ServiceContext
 ): Promise<SearchComponentsResult | ErrorResult> => {
   const parsed = parseRegexPattern(pattern, "i");
   if ("error" in parsed) return parsed;
   const regex = parsed.regex;
 
-  const netlist = await loadNetlist(design, designVariant);
+  const netlist = await loadNetlist(design, designVariant, context);
   if (isErrorResult(netlist)) {
     return netlist;
   }
 
-  const designName = getDesignName(design);
+  const designName = getDesignName(design, context.root);
   const allEntries = Object.entries(netlist.components);
   const entries = allEntries.filter(([refdes]) => regex.test(refdes));
 
@@ -62,25 +64,26 @@ export const searchComponentsByRefdes = async (
  *
  * @param pattern - Regex pattern
  * @param design - Path to design file
- * @param includeDns - Include DNS components; included by default
+ * @param includeDns - Include DNS components
  * @param designVariant - Native design variant, or `<Default>` for the base build
  */
 export const searchComponentsByMpn = async (
   pattern: string,
   design: string,
-  includeDns = true,
-  designVariant?: string
+  includeDns: boolean,
+  designVariant: string | undefined,
+  context: ServiceContext
 ): Promise<SearchComponentsResult | ErrorResult> => {
   const parsed = parseRegexPattern(pattern, "i");
   if ("error" in parsed) return parsed;
   const regex = parsed.regex;
 
-  const netlist = await loadNetlist(design, designVariant);
+  const netlist = await loadNetlist(design, designVariant, context);
   if (isErrorResult(netlist)) {
     return netlist;
   }
 
-  const designName = getDesignName(design);
+  const designName = getDesignName(design, context.root);
   const allComponents = Object.entries(netlist.components);
   const componentsWithMpn = allComponents.filter(([, c]) => c.mpn?.trim() || c.internal_pn?.trim());
   const entries = componentsWithMpn.filter(
@@ -127,25 +130,26 @@ export const searchComponentsByMpn = async (
  *
  * @param pattern - Regex pattern
  * @param design - Path to design file
- * @param includeDns - Include DNS components; included by default
+ * @param includeDns - Include DNS components
  * @param designVariant - Native design variant, or `<Default>` for the base build
  */
 export const searchComponentsByDescription = async (
   pattern: string,
   design: string,
-  includeDns = true,
-  designVariant?: string
+  includeDns: boolean,
+  designVariant: string | undefined,
+  context: ServiceContext
 ): Promise<SearchComponentsResult | ErrorResult> => {
   const parsed = parseRegexPattern(pattern, "i");
   if ("error" in parsed) return parsed;
   const regex = parsed.regex;
 
-  const netlist = await loadNetlist(design, designVariant);
+  const netlist = await loadNetlist(design, designVariant, context);
   if (isErrorResult(netlist)) {
     return netlist;
   }
 
-  const designName = getDesignName(design);
+  const designName = getDesignName(design, context.root);
   const allComponents = Object.entries(netlist.components);
   const componentsWithDescription = allComponents.filter(([, c]) => c.description?.trim());
   const entries = componentsWithDescription.filter(([, component]) =>

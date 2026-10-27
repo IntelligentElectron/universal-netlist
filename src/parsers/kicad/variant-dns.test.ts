@@ -3,10 +3,10 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { kicadHandler } from "./index.js";
 import { fixturePath, hasFixtures } from "../../../test/utils.js";
-import { listDesigns } from "../../service/tools/list-designs.js";
+import { listDesigns } from "../../service/index.js";
 import { loadNetlist } from "../../service/load-netlist.js";
-import { queryComponent } from "../../service/tools/query-component.js";
-import { runErc } from "../../service/tools/run-erc.js";
+import { queryComponent } from "../../service/index.js";
+import { runErc } from "../../service/index.js";
 import type { ErrorResult, ListDesignsResult } from "../../types.js";
 
 /**

@@ -1,3 +1,4 @@
+import type { ServiceContext } from "../context.js";
 import { getDesignName } from "../../paths.js";
 import { loadNetlist } from "../load-netlist.js";
 import { parseRegexPattern, tooManyMatchesError } from "../regex-helpers.js";
@@ -14,18 +15,19 @@ import { isErrorResult, type SearchNetsResult, type ErrorResult } from "../../ty
 export const searchNets = async (
   pattern: string,
   design: string,
-  designVariant?: string
+  designVariant: string | undefined,
+  context: ServiceContext
 ): Promise<SearchNetsResult | ErrorResult> => {
   const parsed = parseRegexPattern(pattern, "i");
   if ("error" in parsed) return parsed;
   const regex = parsed.regex;
 
-  const netlist = await loadNetlist(design, designVariant);
+  const netlist = await loadNetlist(design, designVariant, context);
   if (isErrorResult(netlist)) {
     return netlist;
   }
 
-  const designName = getDesignName(design);
+  const designName = getDesignName(design, context.root);
   const allNets = Object.keys(netlist.nets);
   // A name with leading or trailing whitespace is also matched as the netlister
   // writes it, trimmed, so an anchored pattern finds "SIGNAL_A " as SIGNAL_A.

@@ -3,7 +3,7 @@ import {
   searchComponentsByRefdes,
   searchComponentsByMpn,
   searchComponentsByDescription,
-} from "./search-components.js";
+} from "../index.js";
 import type { ParsedNetlist, ErrorResult, SearchComponentsResult } from "../../types.js";
 import * as parsersModule from "../../parsers/index.js";
 

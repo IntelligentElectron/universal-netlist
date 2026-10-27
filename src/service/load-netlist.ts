@@ -2,6 +2,7 @@ import path from "path";
 import { findHandler, parseDesign } from "../parsers/index.js";
 import { resolvePath } from "../paths.js";
 import type { ParsedNetlist, ErrorResult } from "../types.js";
+import { serviceContextFromEnvironment, type ServiceContext } from "./context.js";
 import {
   DEFAULT_VARIANT,
   describeDefaultVariantRefusal,
@@ -46,12 +47,17 @@ export interface LoadedNetlist extends ParsedNetlist {
  * `design_variant` naming one of them, and `<Default>` is refused on it too.
  * A design that declares none has its base build, and `design_variant` is
  * optional for it.
+ *
+ * The design is read through the context's file reader, and a relative path
+ * resolves against its root. Without a context, the local disk and the
+ * environment's settings are used.
  */
 export const loadNetlist = async (
   designPath: string,
-  designVariant?: string
+  designVariant?: string,
+  context: ServiceContext = serviceContextFromEnvironment()
 ): Promise<LoadedNetlist | ErrorResult> => {
-  const normalizedPath = resolvePath(designPath);
+  const normalizedPath = resolvePath(designPath, context.root);
   const handler = findHandler(normalizedPath);
   if (!handler) {
     const ext = path.extname(normalizedPath);
@@ -61,7 +67,7 @@ export const loadNetlist = async (
   }
 
   try {
-    const variants = (await handler.listVariants?.(normalizedPath)) ?? [];
+    const variants = (await handler.listVariants?.(normalizedPath, context.parser)) ?? [];
     const requested = designVariant?.trim();
     const designName = path.basename(normalizedPath);
     if (!requested && variants.length > 0) {
@@ -92,7 +98,10 @@ export const loadNetlist = async (
       return { error: describeDefaultVariantRefusal(variants, designName) };
     }
 
-    const parsed = await parseDesign(normalizedPath, { variant: selection.selected });
+    const parsed = await parseDesign(normalizedPath, {
+      variant: selection.selected,
+      context: context.parser,
+    });
     normalizeUnconnectedPins(parsed);
     return { ...parsed, design_variant: selection.selected, format: handler.name };
   } catch (error) {

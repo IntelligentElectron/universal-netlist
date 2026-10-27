@@ -21,11 +21,11 @@ import { tmpdir } from "os";
 import { join } from "path";
 import { fixturePath, hasFixtures } from "../../../test/utils.js";
 import { isErrorResult, type NetNameWarning } from "../../types.js";
-import { listNets } from "./list-nets.js";
-import { searchNets } from "./search-nets.js";
-import { queryComponent } from "./query-component.js";
-import { queryXnetByNetName, queryXnetByPinName } from "./query-xnet.js";
-import { runErc } from "./run-erc.js";
+import { listNets } from "../index.js";
+import { searchNets } from "../index.js";
+import { queryComponent } from "../index.js";
+import { queryXnetByNetName, queryXnetByPinName } from "../index.js";
+import { runErc } from "../index.js";
 import { parseDsnFile } from "../../parsers/cadence/dsn/dsn-parser.js";
 
 const MULTIO = fixturePath("cadence", "multio", "MULTIO.DSN");

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { listComponents } from "./list-components.js";
+import { listComponents } from "../index.js";
 import type { ParsedNetlist, ErrorResult, ListComponentsResult } from "../../types.js";
 import * as parsersModule from "../../parsers/index.js";
 

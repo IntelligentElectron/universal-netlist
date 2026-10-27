@@ -6,6 +6,7 @@
  */
 
 import { DsnReader } from "./dsn-reader.js";
+import type { DsnPasswords } from "../../context.js";
 import type { ComponentDetails, ParsedNetlist, ParseDesignOptions } from "../../../types.js";
 import type { CachedLibraryPart, PinMapData } from "./structure-types.js";
 import { parsePage, parsePackageStream } from "./page-parser.js";
@@ -19,9 +20,16 @@ import { buildNetConnectivity } from "./net-builder.js";
 import { buildComponents } from "./component-builder.js";
 import { readVariantStuffing, type VariantStuffing } from "./variant-store.js";
 
-/** Parse a .DSN file into a ParsedNetlist. */
-export function parseDsnFile(dsnPath: string, options?: ParseDesignOptions): ParsedNetlist {
-  const ole = new DsnReader(dsnPath);
+/**
+ * Parse a .DSN into a ParsedNetlist, from its bytes or, for scripts and tests,
+ * its path on disk.
+ */
+export function parseDsnFile(
+  source: Uint8Array | string,
+  options?: ParseDesignOptions,
+  passwords?: DsnPasswords
+): ParsedNetlist {
+  const ole = new DsnReader(source, passwords);
   const entries = ole.listAllEntries();
 
   // Each view's Hierarchy stream is its occurrence tree: the root schematic's
