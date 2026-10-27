@@ -1,6 +1,6 @@
 import { getDesignName } from "../../paths.js";
 import { loadNetlist } from "../load-netlist.js";
-import { groupComponentsByMpn } from "../component-grouping.js";
+import { componentNotes, groupComponentsByMpn } from "../component-grouping.js";
 import { parseRegexPattern, tooManyMatchesError } from "../regex-helpers.js";
 import { isErrorResult, type SearchComponentsResult, type ErrorResult } from "../../types.js";
 
@@ -45,7 +45,11 @@ export const searchComponentsByRefdes = async (
     };
   }
 
-  return { design_variant: netlist.design_variant, results: { [designName]: grouped } };
+  return {
+    design_variant: netlist.design_variant,
+    results: { [designName]: grouped },
+    ...componentNotes(grouped),
+  };
 };
 
 /**
@@ -111,7 +115,11 @@ export const searchComponentsByMpn = async (
     };
   }
 
-  return { design_variant: netlist.design_variant, results: { [designName]: grouped } };
+  return {
+    design_variant: netlist.design_variant,
+    results: { [designName]: grouped },
+    ...componentNotes(grouped),
+  };
 };
 
 /**
@@ -170,5 +178,9 @@ export const searchComponentsByDescription = async (
     };
   }
 
-  return { design_variant: netlist.design_variant, results: { [designName]: grouped } };
+  return {
+    design_variant: netlist.design_variant,
+    results: { [designName]: grouped },
+    ...componentNotes(grouped),
+  };
 };

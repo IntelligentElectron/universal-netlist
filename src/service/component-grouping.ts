@@ -5,10 +5,30 @@ import {
   type AggregatedCircuitResult,
   type AggregatedComponent,
   type ComponentGroup,
+  type ComponentNote,
 } from "../types.js";
 
 export const MPN_MISSING_NOTE =
   "MPN not found in exported netlist data. Tell user to update symbol properties in library, or to point you to the BOM";
+
+/**
+ * The notes about particular parts in one result's groups: each note once,
+ * with the refdes it applies to, so its cost to the reading agent is one
+ * sentence plus the refdes however many parts it covers.
+ *
+ * A group carries an `mpn` exactly when its parts have one, so the groups
+ * alone say which parts the missing-MPN note covers; the rules are in
+ * docs/decision-tables/component-notes.
+ */
+export const componentNotes = (
+  groups: Array<Pick<AggregatedComponent, "mpn" | "refdes" | "orientations">>
+): { component_notes?: ComponentNote[] } => {
+  const refdes = groups
+    .filter((group) => group.mpn === undefined)
+    .flatMap((group) => group.refdes ?? group.orientations?.flatMap((o) => o.refdes) ?? []);
+  if (refdes.length === 0) return {};
+  return { component_notes: [{ note: MPN_MISSING_NOTE, refdes: refdes.sort(naturalSort) }] };
+};
 
 /**
  * Group components by MPN for compact output.
@@ -28,7 +48,6 @@ export const groupComponentsByMpn = (
       value?: string;
       dns?: boolean;
       alternate_part?: boolean;
-      notes?: string[];
       refdes: string[];
     }
   >();
@@ -75,7 +94,6 @@ export const groupComponentsByMpn = (
         value: valueValue,
         dns: dns || undefined,
         alternate_part: alternatePart || undefined,
-        notes: mpnTrimmed ? undefined : [MPN_MISSING_NOTE],
         refdes: [],
       });
     }
@@ -122,10 +140,6 @@ export const groupComponentsByMpn = (
         entry.alternate_part = group.alternate_part;
       }
 
-      if (group.notes !== undefined) {
-        entry.notes = group.notes;
-      }
-
       return entry;
     })
     .sort((a, b) => (a.mpn ?? "").localeCompare(b.mpn ?? ""));
@@ -148,7 +162,6 @@ export const aggregateCircuitByMpn = (
       value?: string;
       dns?: boolean;
       alternate_part?: boolean;
-      notes?: string[];
       orientations: Map<
         string,
         {
@@ -207,7 +220,6 @@ export const aggregateCircuitByMpn = (
         value,
         dns: dnsFlag,
         alternate_part: alternateFlag,
-        notes: mpn ? undefined : [MPN_MISSING_NOTE],
         orientations: new Map(),
       });
     }
@@ -270,9 +282,6 @@ export const aggregateCircuitByMpn = (
     if (group.alternate_part !== undefined) {
       aggregated.alternate_part = group.alternate_part;
     }
-    if (group.notes !== undefined) {
-      aggregated.notes = group.notes;
-    }
 
     if (orientationsList.length === 1) {
       aggregated.refdes = orientationsList[0].refdes.sort(naturalSort);
@@ -291,7 +300,6 @@ export const aggregateCircuitByMpn = (
   for (const comp of unaggregatable) {
     const unagg: AggregatedComponent = {
       refdes: [comp.refdes],
-      notes: [MPN_MISSING_NOTE],
       total_count: 1,
       connections: comp.connections,
     };
