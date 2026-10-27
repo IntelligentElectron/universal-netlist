@@ -61,6 +61,10 @@ export const UNSUPPORTED_FIXTURES: Readonly<Record<string, string>> = {
   "cadence/GPR_LF": "older Capture format (Library stream version 2.0)",
 };
 
+/** The text a refused fixture's refusal must contain, or undefined for a fixture that parses. */
+export const unsupportedRefusal = (format: Format, projectName: string): string | undefined =>
+  UNSUPPORTED_FIXTURES[`${format}/${projectName}`];
+
 export interface Fixture {
   name: string;
   path: string;

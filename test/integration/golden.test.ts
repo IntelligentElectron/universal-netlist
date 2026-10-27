@@ -18,7 +18,7 @@ import {
   loadGolden,
   findDesignFiles,
   findDsnFiles,
-  UNSUPPORTED_FIXTURES,
+  unsupportedRefusal,
 } from "../utils.js";
 import { parseDesign } from "../../src/parsers/index.js";
 import { UnsupportedDesignError } from "../../src/parsers/errors.js";
@@ -85,7 +85,7 @@ describe("Parser Golden Output", { timeout: PARSE_TIMEOUT }, async () => {
           ? fixture.name
           : path.basename(designFile, path.extname(designFile));
 
-      const refusal = UNSUPPORTED_FIXTURES[`${fixture.format}/${projectName}`];
+      const refusal = unsupportedRefusal(fixture.format, projectName);
       if (refusal !== undefined) {
         describe(`${fixture.format}/${projectName}`, () => {
           it("is refused as unsupported, naming why, and has no golden output", async () => {

@@ -7,7 +7,7 @@ import {
   listAllFixtures,
   findDesignFiles,
   saveGolden,
-  UNSUPPORTED_FIXTURES,
+  unsupportedRefusal,
   type Format,
 } from "../test/utils.js";
 
@@ -64,7 +64,7 @@ const generateAll = async (): Promise<void> => {
           : path.basename(designFile, path.extname(designFile));
 
       // A design the parsers refuse has no golden; the golden test checks its refusal.
-      if (UNSUPPORTED_FIXTURES[`${fixture.format}/${projectName}`] !== undefined) {
+      if (unsupportedRefusal(fixture.format, projectName) !== undefined) {
         console.log(`Skipped: ${fixture.format}/${projectName} (unsupported)`);
         continue;
       }
