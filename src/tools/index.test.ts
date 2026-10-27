@@ -70,6 +70,9 @@ describe("tool registry", () => {
     expect(() => {
       (READ_ONLY as { readOnlyHint: boolean }).readOnlyHint = false;
     }).toThrow(TypeError);
+    expect(() => {
+      (findTool("list_nets") as { annotations: unknown }).annotations = {};
+    }).toThrow(TypeError);
     expect(findTool("list_nets")!.annotations.readOnlyHint).toBe(true);
   });
 

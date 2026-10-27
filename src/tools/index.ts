@@ -84,7 +84,7 @@ export type AnyToolDefinition = ToolDefinition<z.ZodObject<any>>;
 
 /** Keep a tool's argument types while it is written, then erase them. */
 const defineTool = <S extends z.ZodObject>(tool: ToolDefinition<S>): AnyToolDefinition =>
-  tool as unknown as AnyToolDefinition;
+  Object.freeze(tool) as unknown as AnyToolDefinition;
 
 // =============================================================================
 // Shared annotations and arguments
@@ -385,7 +385,8 @@ export interface ToolErrorResult {
  * Call a tool by name on raw arguments. The arguments are parsed by the tool's
  * schema first, so defaults apply and anything the schema refuses comes back
  * as an `{ error }` result naming the argument, the same way a tool reports
- * its own failures. A name this build does not offer is reported the same way.
+ * its own failures. A name this build does not offer, and an exception the
+ * tool throws, are reported the same way, so the promise never rejects.
  */
 export const callTool = async (name: string, args: unknown = {}): Promise<unknown> => {
   const tool = findTool(name);
@@ -396,5 +397,9 @@ export const callTool = async (name: string, args: unknown = {}): Promise<unknow
   if (!parsed.success) {
     return { error: `Invalid arguments for ${name}: ${z.prettifyError(parsed.error)}` };
   }
-  return tool.run(parsed.data);
+  try {
+    return await tool.run(parsed.data);
+  } catch (error) {
+    return { error: error instanceof Error ? error.message : String(error) };
+  }
 };
