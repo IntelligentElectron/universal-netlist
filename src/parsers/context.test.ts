@@ -36,6 +36,22 @@ describe("readOnce", () => {
     await expect(once.readFile("/a")).resolves.toEqual(new Uint8Array([7]));
   });
 
+  it("checks the reader for a path whose read has not succeeded", async () => {
+    let fail!: (error: Error) => void;
+    const files = reader({
+      readFile: () => new Promise((_, reject) => (fail = reject)),
+      exists: vi.fn(async () => false),
+    });
+    const once = readOnce(files);
+    const pending = once.readFile("/a.net");
+    expect(await once.exists("/a.net")).toBe(false);
+    fail(new Error("ENOENT"));
+    await expect(pending).rejects.toThrow("ENOENT");
+    const ok = readOnce(reader());
+    await ok.readFile("/b");
+    expect(await ok.exists("/b")).toBe(true);
+  });
+
   it("keeps a reader without listDir unable to list", () => {
     expect(readOnce(reader()).listDir).toBeUndefined();
   });

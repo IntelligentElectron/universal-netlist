@@ -98,19 +98,24 @@ export const readPrefix = async (
  */
 export const readOnce = (files: FileReader): FileReader => {
   const reads = new Map<string, Promise<Uint8Array>>();
+  /** Paths whose read has succeeded. */
+  const done = new Set<string>();
   const readFile = (path: string): Promise<Uint8Array> => {
     let read = reads.get(path);
     if (!read) {
       read = files.readFile(path);
       reads.set(path, read);
       // A failed read is not kept, so a retry reads again.
-      read.catch(() => reads.delete(path));
+      read.then(
+        () => done.add(path),
+        () => reads.delete(path)
+      );
     }
     return read;
   };
   return {
     readFile,
-    exists: (path) => (reads.has(path) ? Promise.resolve(true) : files.exists(path)),
+    exists: (path) => (done.has(path) ? Promise.resolve(true) : files.exists(path)),
     ...(files.listDir ? { listDir: (path: string) => files.listDir!(path) } : {}),
     readPrefix: async (path, length) =>
       files.readPrefix && !reads.has(path)

@@ -3,7 +3,7 @@ import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { fixturePath, hasFixtures } from "../../test/utils.js";
 import type { DirEntry, FileReader } from "../parsers/context.js";
-import { DSN_PASSWORD, KICAD_CLI_PATH } from "../parsers/context.js";
+import { DSN_PASSWORD, KICAD_CLI_PATH, nodeFileReader } from "../parsers/context.js";
 import { createNetlistService, serviceContextFromEnvironment } from "./index.js";
 
 /** A directory where nothing exists on disk, so every read has to come through the reader. */
@@ -139,7 +139,7 @@ describe.skipIf(!hasFixtures)("createNetlistService with a file reader", () => {
     const memory = createNetlistService({ files: memoryReader(only) });
     expect(
       await memory.listNets({ design: path.join(MEMORY_ROOT, "kicad", "OpenMD.kicad_pro") })
-    ).toEqual({ error: expect.stringContaining("kicad-cli is turned off for this file reader") });
+    ).toEqual({ error: expect.stringContaining("kicad-cli is turned off") });
   });
 });
 
@@ -179,6 +179,7 @@ describe("createNetlistService options", () => {
     const files: FileReader = { readFile: async () => new Uint8Array(), exists: async () => false };
     expect(createNetlistService({ files }).context.parser.kicadCli).toBe(false);
     expect(createNetlistService({ files, kicadCli: {} }).context.parser.kicadCli).toEqual({});
+    expect(createNetlistService({ files: nodeFileReader }).context.parser.kicadCli).toEqual({});
   });
 
   it("applies a tool's defaults and refuses its unknown arguments", async () => {

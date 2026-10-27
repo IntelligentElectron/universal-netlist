@@ -67,8 +67,8 @@ export const parseKicadDesign = async (
       `No netlist for ${path.basename(designPath)}. Expected a committed "${path.basename(
         designPath,
         ext
-      )}.net" beside the project; kicad-cli is turned off for this file reader, so it cannot ` +
-        `generate one.`
+      )}.net" beside the project; kicad-cli is turned off (the kicadCli option, off by ` +
+        `default for a file reader other than the local disk), so it cannot generate one.`
     );
   } else {
     throw new Error(

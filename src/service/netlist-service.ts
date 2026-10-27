@@ -51,7 +51,7 @@ export interface NetlistServiceOptions {
   /**
    * How to run `kicad-cli` for a KiCad design with no saved `.net`, or `false`
    * to never run it. Default: on with the local disk, found at the platform's
-   * install locations or on PATH; off with a custom `files` reader, since
+   * install locations or on PATH; off with any other `files` reader, since
    * `kicad-cli` reads the local disk itself.
    */
   readonly kicadCli?: KicadCliOptions | false;
@@ -119,7 +119,7 @@ export const serviceFor = (context: ServiceContext): NetlistService => {
  */
 export const createNetlistService = (options: NetlistServiceOptions = {}): NetlistService => {
   const files = options.files ?? nodeFileReader;
-  const kicadCli = options.kicadCli ?? (options.files ? false : {});
+  const kicadCli = options.kicadCli ?? (files === nodeFileReader ? {} : false);
   return serviceFor({
     parser: {
       files,
