@@ -132,11 +132,6 @@ function readThroughStrLst(reader: BinaryReader): string[] {
   return strLst;
 }
 
-/** Parse the Library stream and extract the strLst string table. */
-export function parseLibraryStrLst(buffer: Buffer): string[] {
-  return readThroughStrLst(new BinaryReader(buffer));
-}
-
 const DESIGN_INTRODUCTION = "OrCAD Windows Design";
 
 /**

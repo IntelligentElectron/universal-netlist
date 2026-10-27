@@ -5,7 +5,7 @@
 import { describe, expect, it } from "vitest";
 import { existsSync } from "fs";
 import { DsnReader } from "./dsn-reader.js";
-import { parseLibraryStream, parseLibraryStrLst } from "./library-parser.js";
+import { parseLibraryStream } from "./library-parser.js";
 import { fixturePath, hasFixtures } from "../../../../test/utils.js";
 
 /** A uint16 length, the bytes, and the null terminator, as the stream writes strings. */
@@ -59,7 +59,6 @@ describe("parseLibraryStream root schematic", () => {
     const buffer = library({ root: "PSUPPLY-REV2" });
 
     expect(parseLibraryStream(buffer)).toEqual({ strLst: ["VCC"], rootSchematic: "PSUPPLY-REV2" });
-    expect(parseLibraryStrLst(buffer)).toEqual(["VCC"]);
   });
 
   it("names nothing for a library, which has no design footer", () => {
