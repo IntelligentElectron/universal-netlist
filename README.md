@@ -8,12 +8,12 @@ It reads Cadence, Altium, and KiCad design files directly on macOS, Linux, and W
 
 ## Supported Formats
 
-| Format | Input Files | Description |
-|--------|------------|-------------|
-| Cadence (OrCAD / CIS) | `.DSN` schematic | Reads the binary schematic directly, including each part's own Do Not Stuff state and the selectable CIS BOM design variants |
-| Altium Designer | `.SchDoc` | Altium schematic documents, discovered via `.PrjPcb` project files; sheets are joined through ports, sheet entries and buses under the project's net identifier scope, with selectable design variants (Not Fitted rows, alternate parts, and parameter overrides) |
-| KiCad | `.kicad_pro` (or root `.kicad_sch`) | Reads a committed `.net` export, or generates one with `kicad-cli`, then applies a selected design variant from the schematic's own instance blocks |
-| Universal Netlist Format | `.netlist.json` | The open [JSON format](https://github.com/IntelligentElectron/universal-netlist/blob/main/docs/schemas/universal-netlist.md) for netlists |
+| Format                   | Input Files                         | Description                                                                                                                                                                                                                                                                                     |
+| ------------------------ | ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Cadence (OrCAD / CIS)    | `.DSN` schematic                    | Reads the binary schematic directly, including each part's own Do Not Stuff state and the selectable CIS BOM design variants. A design saved in an older Capture format (Library stream version below 3) is refused with a message naming its version; re-save it in a newer Capture to read it |
+| Altium Designer          | `.SchDoc`                           | Altium schematic documents, discovered via `.PrjPcb` project files; sheets are joined through ports, sheet entries and buses under the project's net identifier scope, with selectable design variants (Not Fitted rows, alternate parts, and parameter overrides)                              |
+| KiCad                    | `.kicad_pro` (or root `.kicad_sch`) | Reads a committed `.net` export, or generates one with `kicad-cli`, then applies a selected design variant from the schematic's own instance blocks                                                                                                                                             |
+| Universal Netlist Format | `.netlist.json`                     | The open [JSON format](https://github.com/IntelligentElectron/universal-netlist/blob/main/docs/schemas/universal-netlist.md) for netlists                                                                                                                                                       |
 
 ## Native Install (Recommended)
 
@@ -30,17 +30,18 @@ irm https://raw.githubusercontent.com/IntelligentElectron/universal-netlist/main
 ```
 
 The native installer provides:
+
 - **No dependencies**: a standalone binary, with no Node.js required
 - **Auto-updates**: the binary checks for updates on startup
 - **Signed binaries**: macOS binaries are notarized by Apple
 
 The installer places the binary in the `bin/` folder of:
 
-| Platform | Install Directory |
-|----------|-------------------|
-| macOS | `~/Library/Application Support/universal-netlist/` |
-| Linux | `~/.local/share/universal-netlist/` |
-| Windows | `%LOCALAPPDATA%\universal-netlist\` |
+| Platform | Install Directory                                  |
+| -------- | -------------------------------------------------- |
+| macOS    | `~/Library/Application Support/universal-netlist/` |
+| Linux    | `~/.local/share/universal-netlist/`                |
+| Windows  | `%LOCALAPPDATA%\universal-netlist\`                |
 
 ### Update
 
@@ -49,7 +50,6 @@ The server checks for updates on startup. To update manually:
 ```bash
 universal-netlist update
 ```
-
 
 ## Alternative: Install via npm
 
@@ -97,12 +97,12 @@ codex mcp add universal-netlist -- universal-netlist
 
 ## Supported Platforms
 
-| Platform | Binary |
-|----------|--------|
+| Platform          | Binary                               |
+| ----------------- | ------------------------------------ |
 | macOS (Universal) | `universal-netlist-darwin-universal` |
-| Linux (x64) | `universal-netlist-linux-x64` |
-| Linux (ARM64) | `universal-netlist-linux-arm64` |
-| Windows (x64) | `universal-netlist-windows-x64.exe` |
+| Linux (x64)       | `universal-netlist-linux-x64`        |
+| Linux (ARM64)     | `universal-netlist-linux-arm64`      |
+| Windows (x64)     | `universal-netlist-windows-x64.exe`  |
 
 ## Observability (OpenTelemetry)
 

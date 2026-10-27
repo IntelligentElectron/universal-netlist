@@ -7,13 +7,19 @@
 
 import { DsnReader } from "./dsn-reader.js";
 import type { ComponentDetails, ParsedNetlist, ParseDesignOptions } from "../../../types.js";
+import type { OleDirectoryPath } from "../../ole-reader/types.js";
 import type { CachedLibraryPart, PinMapData } from "./structure-types.js";
 import { parsePage, parsePackageStream } from "./page-parser.js";
 import { parseHierarchyStream, type HierarchyStream } from "./hierarchy-parser.js";
 import { expandHierarchy } from "./hierarchy-expander.js";
 import type { PageData } from "./page-parser.js";
 import { parseCacheStream, indexLibraryPart } from "./cache-parser.js";
-import { parseLibraryStrLst } from "./library-parser.js";
+import {
+  assertReadableLibraryVersion,
+  describeParseFailure,
+  parseLibraryStrLst,
+  readLibraryVersion,
+} from "./library-parser.js";
 import { buildDeviceIndexMap } from "./pin-resolver.js";
 import { buildNetConnectivity } from "./net-builder.js";
 import { buildComponents } from "./component-builder.js";
@@ -23,7 +29,28 @@ import { readVariantStuffing, type VariantStuffing } from "./variant-store.js";
 export function parseDsnFile(dsnPath: string, options?: ParseDesignOptions): ParsedNetlist {
   const ole = new DsnReader(dsnPath);
   const entries = ole.listAllEntries();
+  const libEntry = entries.find(
+    (e) => (e.path === "Library" || e.path.endsWith("/Library")) && e.entry.type === 2
+  );
 
+  // The Library version says which page encoding the design was written in,
+  // so an older design is refused before its pages are misread.
+  const version = libEntry ? readLibraryVersion(ole.readStreamByPath(libEntry.path)) : undefined;
+  assertReadableLibraryVersion(version);
+  try {
+    return parseDsnStreams(ole, entries, libEntry, options);
+  } catch (error) {
+    throw describeParseFailure(version, error);
+  }
+}
+
+/** Parse a design's streams into a ParsedNetlist. */
+function parseDsnStreams(
+  ole: DsnReader,
+  entries: OleDirectoryPath[],
+  libEntry: OleDirectoryPath | undefined,
+  options?: ParseDesignOptions
+): ParsedNetlist {
   // Each view's Hierarchy stream is its occurrence tree: the root schematic's
   // nets and parts, and one nested scope per placement of every hierarchical
   // block. Best-effort: a view whose stream will not parse is read flat.
@@ -51,9 +78,6 @@ export function parseDsnFile(dsnPath: string, options?: ParseDesignOptions): Par
 
   // Parse Library stream for strLst string table
   let strLst: string[] = [];
-  const libEntry = entries.find(
-    (e) => (e.path === "Library" || e.path.endsWith("/Library")) && e.entry.type === 2
-  );
   if (libEntry) {
     try {
       const libBuffer = ole.readStreamByPath(libEntry.path);
