@@ -31,6 +31,7 @@ Returns the design variant the result describes and results keyed by design name
   "results": {
     "DesignName": [ComponentGroup, ...]
   },
+  "component_notes": [ComponentNote, ...], // Optional: notes about some components, with their refdes
   "notes": ["..."]  // Present when no matches or no MPN data
 }
 ```
@@ -122,6 +123,7 @@ Response:
 - Components without any part number cannot be found with this tool; use `search_components_by_refdes` instead
 - Each field is omitted when the design records nothing for it, so a design that
   carries only one of the two is matched on that one
+- Matches without an MPN are named once in `component_notes` (see [`ComponentNote`](../schemas/shared-types.md#componentnote))
 - DNS components are included by default and flagged `dns: true`; pass `include_dns: false` for fitted parts only
 - `design_variant` names the assembly the result describes. A design that records named variants requires it on every call; those variants are its only builds and `<Default>` is refused on it. `<Default>` (alias `default`) is the one build of a design that records no variant, the design with every part's own Do Not Stuff state
 - `alternate_part: true` marks a group whose part the selected design variant substitutes for the base one; its `value`, `mpn`, `manufacturer`, and `description` describe the part as built for that variant. The `mpn` searched is the substituted part's, so a variant's alternate part is found by its own number
