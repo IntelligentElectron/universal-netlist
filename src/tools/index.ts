@@ -17,6 +17,7 @@
 
 import { z } from "zod";
 import { CADENCE_EXPORT_ENABLED } from "../features.js";
+import type { ErrorResult } from "../types.js";
 import {
   EXPORT_CADENCE_NETLIST_DESCRIPTION,
   LIST_COMPONENTS_DESCRIPTION,
@@ -376,11 +377,6 @@ export const TOOLS: readonly AnyToolDefinition[] = Object.freeze([
 export const findTool = (name: string): AnyToolDefinition | undefined =>
   TOOLS.find((tool) => tool.name === name);
 
-/** The `{ error }` result a failed tool call returns, as every tool does. */
-export interface ToolErrorResult {
-  error: string;
-}
-
 /**
  * Call a tool by name on raw arguments. The arguments are parsed by the tool's
  * schema first, so defaults apply and anything the schema refuses comes back
@@ -388,7 +384,10 @@ export interface ToolErrorResult {
  * its own failures. A name this build does not offer, and an exception the
  * tool throws, are reported the same way, so the promise never rejects.
  */
-export const callTool = async (name: string, args: unknown = {}): Promise<unknown> => {
+export const callTool = async (
+  name: string,
+  args: unknown = {}
+): Promise<unknown | ErrorResult> => {
   const tool = findTool(name);
   if (!tool) {
     return { error: `Unknown tool '${name}'. Available: ${TOOLS.map((t) => t.name).join(", ")}.` };
