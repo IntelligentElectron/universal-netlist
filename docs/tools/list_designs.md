@@ -8,6 +8,8 @@ Discovers Cadence, Altium, KiCad, and Universal Netlist design files by scanning
 
 Each design lists its `design_variants`, which are its builds: every native variant the design records, or `<Default>` alone for a design that records none, which is that design with every part's own Do Not Stuff state. A design that records variants has only those to build: no vendor's file marks the bare design as an assembly, and across the designs read for this the variants carry the parts left off the board while the bare design has everything fitted. Altium names come from the `ProjectVariantN` sections of the `.PrjPcb`, Cadence names from the CIS BOM variant store in the `.DSN`, and KiCad names from the instance variant blocks across the schematic hierarchy. A native entry carries `fabrication` where the vendor marks the variant as a build assembly: Altium records it per variant as `AllowFabrication`, and every Cadence CIS BOM variant is one by definition. KiCad has no such flag, so its entries omit it. Listing reads the design's own file without parsing connectivity; a design whose variants cannot be read reports `<Default>` alone and carries the reason in `error`.
 
+A design whose own file shows that it cannot be read is listed with `unsupported: true`, `<Default>` alone, and the reason in `error`. Every query on it returns that same error. Today this marks an OrCAD `.DSN` saved in an older Capture format (Library stream version below 3); its `error` names the version and asks for a re-save in a newer Capture. A password-protected `.DSN` keeps its version encrypted, so it is listed normally and judged when a query opens it.
+
 A design with named variants requires `design_variant` on every query, one of the listed names; `<Default>` (alias `default`) is refused on it. Names match case-insensitively, and results echo the canonical spelling. A declared variant named `default` takes the plain alias; the literal `<Default>` always means the base build.
 
 Every design reports one path to query. For Cadence, it is the `.DSN` schematic, read directly with component properties, connectivity, and CIS variant stuffing information. For Altium, `path` is the `.PrjPcb`. For KiCad, `path` is the `.kicad_pro` project (discovery keys off `.kicad_pro`, even when the directory name differs from the project basename). For a Universal Netlist, `path` is the `.netlist.json` file itself. Other JSON files are ignored. A `.netlist.json` document must carry the supported `universalNetlistSchemaVersion`; one that is malformed, unsigned, unsupported, or structurally invalid is listed with an `error`. Directories named `node_modules` or starting with `.` are not searched.
@@ -68,6 +70,10 @@ Returns the directory searched, the designs found in it, and notes about the sea
               },
               "required": ["name"]
             }
+          },
+          "unsupported": {
+            "type": "boolean",
+            "description": "Present and true when the design's own file shows it cannot be read; error says why, and every query returns that error"
           },
           "error": {
             "type": "string",
@@ -153,6 +159,7 @@ Response:
 ## Notes
 
 - `path` is always the recommended path to pass to other tools
+- Skip a design marked `unsupported: true`: every query on it returns its `error`, for example `OrCAD design saved in an older Capture format (Library stream version 2.0), which universal-netlist cannot read; it reads version 3 and later. Open the design in a newer OrCAD Capture and save it, then read it again.`
 - Generating a netlist is not a step towards querying a Cadence design. Every tool reads the `.DSN` directly, on every platform
 - Read `design_variants` before querying a design. A design that lists a native variant requires `design_variant` on every query, one of the listed names; `<Default>` is refused on it. A query that omits it returns an error such as `Design 'BSPD_002.PrjPcb' defines design variants ['BSPD-DNP']. Pass design_variant as one of those names; they are the only builds it records. list_designs() reports them under design_variants.`
 - `fabrication` is present on native entries where the vendor records a build flag: Altium's `AllowFabrication` per variant, and `true` on every Cadence CIS BOM variant. KiCad entries carry no such flag

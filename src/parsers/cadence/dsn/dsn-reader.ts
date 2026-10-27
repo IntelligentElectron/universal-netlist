@@ -6,6 +6,7 @@
 
 import { OleReader } from "../../ole-reader/ole-reader.js";
 import type { OleDirectoryPath } from "../../ole-reader/types.js";
+import { readLibraryVersion } from "./library-parser.js";
 import { decryptSapphireII } from "./sapphire.js";
 import {
   DSN_PASSWORD,
@@ -15,6 +16,9 @@ import {
 } from "../../context.js";
 
 export { DSN_PASSWORD, DSN_PASSWORD_FILE };
+
+/** The root Library stream's path. A page may also be named "Library", under `Views/`. */
+export const ROOT_LIBRARY = "Library";
 
 const MARKER = Buffer.from("FILE_FMT_SYENCRYPT01", "latin1");
 /** The root `Library` stream keeps its first bytes in clear, ahead of the marker. */
@@ -35,11 +39,8 @@ export class ProtectedDesignError extends Error {}
 const isLibraryHeader = (library: Buffer): boolean => {
   if (library.length < LIBRARY_HEADER_BYTES) return false;
   if (library.subarray(0, LIBRARY_HEADER.length).equals(LIBRARY_HEADER)) return true;
-  const [major, minor, fonts] = [
-    library.readUInt16LE(32),
-    library.readUInt16LE(34),
-    library.readUInt16LE(48),
-  ];
+  const { major, minor } = readLibraryVersion(library)!;
+  const fonts = library.readUInt16LE(48);
   return (
     library.toString("latin1", 0, 20) === "OrCAD Windows Design" &&
     major >= 1 &&
@@ -58,11 +59,20 @@ interface EncryptedStream {
   at: number;
 }
 
+/** Where a stream's encryption marker would start: after the root Library's clear bytes. */
+const markerOffset = (path: string): number => (path === ROOT_LIBRARY ? LIBRARY_CLEAR_BYTES : 0);
+
+/** Whether a stream, as stored in the container, carries an encryption marker of any format. */
+export const isEncryptedStream = (path: string, data: Buffer): boolean => {
+  const at = markerOffset(path);
+  const tag = data.toString("latin1", at, at + 9);
+  return tag === "FILE_FMT_" || tag === "FILE_FMT=";
+};
+
 /** Where a stream's encryption marker starts, if the stream is encrypted. */
 const markerAt = (path: string, data: Buffer): number | undefined => {
-  const at = path === "Library" ? LIBRARY_CLEAR_BYTES : 0;
-  const tag = data.toString("latin1", at, at + 9);
-  if (tag !== "FILE_FMT_" && tag !== "FILE_FMT=") return undefined;
+  if (!isEncryptedStream(path, data)) return undefined;
+  const at = markerOffset(path);
   if (!data.subarray(at, at + MARKER.length).equals(MARKER)) {
     throw new ProtectedDesignError(
       `Stream '${path}' is encrypted in a format other than SYENCRYPT01`
@@ -120,7 +130,7 @@ export class DsnReader {
     if (encrypted.length === 0) return;
 
     // A key opens the design when the Library header it decrypts reads as one.
-    const library = encrypted.find((stream) => stream.path === "Library");
+    const library = encrypted.find((stream) => stream.path === ROOT_LIBRARY);
     if (!library)
       throw new ProtectedDesignError("Protected OrCAD design has no encrypted Library stream");
     const { keys, unusable } = configuredKeys(passwords);

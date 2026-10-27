@@ -302,9 +302,28 @@ For each alias:
 string   schematic_name  (uint16 len + ASCII + 0x00)
 ```
 
+### Version gate
+
+`version_major.version_minor` says which record encoding the design's other streams use. `parseDsnFile` reads it from the root `Library` stream before any page (`readLibraryVersion` in `library-parser.ts`) and sorts it four ways. A schematic page may also be named `Library` (`Views/<schematic>/Pages/Library`), so the stream is matched by its full path, as `DsnReader` matches it for decryption.
+
+| Version | Corpus designs | What the parser does |
+|---------|----------------|----------------------|
+| No Library stream, or one shorter than 36 bytes | none | Reads the design as before, with an empty `strLst` |
+| Major below 3 (1.1 and 2.0 seen) | 14 (1 at 1.1, 13 at 2.0) | Throws `UnsupportedDsnVersionError`, naming the version and asking for a re-save in a newer Capture |
+| 3.2 or 3.3 | 88 (86 at 3.2, 2 at 3.3), and every fixture | Reads the design |
+| Any other version from 3 up | none | Reads the design as 3.2 and 3.3 are read; a parse that throws has the version appended to its message |
+
+The golden table for these outcomes is [docs/decision-tables/dsn-library-version](decision-tables/dsn-library-version/gate.rules.md).
+
+`list_designs` applies the same refusal while listing (`assertListableDsn`, called from the Cadence handler's `listVariants`): a design below 3 is listed with `unsupported: true` and the refusal as its `error`. Listing reads the container without a password, so a protected design, whose Library version is encrypted, is listed normally and judged when a query decrypts it. Its golden table is [listing.rules.md](decision-tables/dsn-library-version/listing.rules.md).
+
+Designs below 3 are written in an older record encoding: the Page stream's structures carry no 4-byte prefix lengths. A 3.x page record opens with its type byte, a `uint32` length and four zero bytes (`0A C1 57 00 00 00 00 00 00 0A ...` in `multio`); a page record in every 1.1 and 2.0 design in the corpus opens `0A 00 00` and then the page name (`0A 00 00 05 00 50 41 47 45 31 00`, `PAGE1`). Some of those designs have `Packages` streams and some do not (8 of the 14 do), so the streams present do not tell the encodings apart; the Library version does. Every one of them threw a string-decoding error on its first page (issue #246) before this gate existed.
+
+**Divergence from the reference:** `StreamLibrary.cpp` logs the version and does not act on it; it reads every version the same way, choosing `str_lst_len`'s width by its file-format prediction instead. We refuse a design below 3 outright, because reading its pages with the 3.x layout misreads them.
+
 ### What we parse
 
-Only the `strLst` string table. Everything before it (header, fonts, some_data, part_field strings, PageSettings) is skipped by computing byte offsets. Everything after it (alias table, design footer) is ignored.
+Only the version and the `strLst` string table. Everything before it (header, fonts, some_data, part_field strings, PageSettings) is skipped by computing byte offsets. Everything after it (alias table, design footer) is ignored.
 
 ### UNKNOWN: PageSettings
 
@@ -316,7 +335,7 @@ We assume each LOGFONTA structure is exactly 60 bytes, matching the Windows LOGF
 
 ### UNKNOWN: str_lst_len width
 
-The OpenOrCadParser mentions that "version A" files use `uint16` for `str_lst_len` instead of `uint32`. Our parser always reads `uint32`. We haven't encountered a version A file: every fixture reads `introduction` = `"OrCAD Windows Design"` at version 3.2 or 3.3.
+The OpenOrCadParser mentions that "version A" files use `uint16` for `str_lst_len` instead of `uint32`. Our parser always reads `uint32`. Every design it reads is at version 3 or later: every fixture reads `introduction` = `"OrCAD Windows Design"` at version 3.2 or 3.3, and the version gate refuses a design below 3 before its `strLst` is read. Whether "version A" means a Library version below 3 is not known.
 
 ---
 
