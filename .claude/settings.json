@@ -5,7 +5,7 @@
       "Bash(npm test *)",
       "Bash(npx tsx *)",
       "Bash(npx prettier *)",
-      "Bash(npx eslint *)",
+      "Bash(npx oxlint *)",
       "Bash(bun *)",
       "Bash(strings *)",
       "Bash(xxd *)",

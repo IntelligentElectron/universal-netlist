@@ -185,13 +185,12 @@ describe("tool annotations", () => {
   });
 
   it("includes DNS parts by default when listing and searching, and leaves them out when traversing", () => {
-    const defaultOf = (name: string): unknown =>
-      (
-        tools.find((tool) => tool.name === name)?.inputSchema?.properties as Record<
-          string,
-          { default?: unknown }
-        >
-      ).include_dns.default;
+    const defaultOf = (name: string): unknown => {
+      const properties = tools.find((tool) => tool.name === name)?.inputSchema?.properties as
+        | Record<string, { default?: unknown }>
+        | undefined;
+      return properties?.include_dns?.default;
+    };
     for (const name of [
       "list_components",
       "search_components_by_refdes",
