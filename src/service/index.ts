@@ -24,6 +24,7 @@ export {
 export { loadNetlist, type LoadedNetlist } from "./load-netlist.js";
 export {
   MPN_MISSING_NOTE,
+  componentNotes,
   groupComponentsByMpn,
   aggregateCircuitByMpn,
 } from "./component-grouping.js";
@@ -42,6 +43,7 @@ export type {
   CadenceInstall,
   ExportNetlistResult,
   ComponentGroup,
+  ComponentNote,
   AggregatedComponent,
   ComponentDetails,
   CircuitComponent,

@@ -104,3 +104,4 @@ Important behavioral documentation in [shared-types.md](schemas/shared-types.md)
 - [Power/Ground Stop Nets](schemas/shared-types.md#powerground-stop-nets) - Nets that stop circuit traversal
 - [Case Sensitivity](schemas/shared-types.md#case-sensitivity) - Which operations are case-sensitive
 - [Notes Array](schemas/shared-types.md#notes-array) - Meaning of informational notes in responses
+- [ComponentNote](schemas/shared-types.md#componentnote) - Notes about particular components, stated once per result with their refdes

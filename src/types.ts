@@ -239,7 +239,15 @@ export interface AggregatedComponent {
   refdes?: string[];
   connections?: PinNetConnection[];
   orientations?: OrientationVariant[];
-  notes?: string[];
+}
+
+/**
+ * A note about some of the components in a result, stated once with the refdes
+ * it applies to rather than repeated on each of their groups.
+ */
+export interface ComponentNote {
+  note: string;
+  refdes: string[];
 }
 
 /**
@@ -253,6 +261,8 @@ export interface AggregatedCircuitResult {
   total_components: number;
   unique_configurations: number;
   components_by_mpn: AggregatedComponent[];
+  /** Notes about some of the components, each with the refdes it applies to. */
+  component_notes?: ComponentNote[];
   visited_nets: string[];
   circuit_hash: string;
   skipped?: Record<string, number>;
@@ -324,7 +334,6 @@ export interface ComponentGroup {
   dns?: boolean;
   /** Set when the selected design variant substitutes another part for the base one. */
   alternate_part?: boolean;
-  notes?: string[];
 }
 
 /**
@@ -334,6 +343,8 @@ export interface ListComponentsResult {
   /** The design variant this result describes: a native name or `<Default>`. */
   design_variant: string;
   components: ComponentGroup[];
+  /** Notes about some of the components, each with the refdes it applies to. */
+  component_notes?: ComponentNote[];
   notes?: string[];
 }
 
@@ -355,6 +366,8 @@ export interface SearchComponentsResult {
   /** The design variant this result describes: a native name or `<Default>`. */
   design_variant: string;
   results: Record<string, ComponentGroup[]>;
+  /** Notes about some of the components, each with the refdes it applies to. */
+  component_notes?: ComponentNote[];
   notes?: string[];
 }
 

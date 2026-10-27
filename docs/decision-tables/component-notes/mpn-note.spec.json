@@ -1,0 +1,16 @@
+{
+  "name": "mpn-note",
+  "assumes": [
+    "One component in the netlist that a list_components, search_components_by_*, or query_xnet_* call would otherwise return",
+    "query_component is out of scope: it describes one component and states its note once already",
+    "mpn = blank means the property is set to whitespace only",
+    "group = groupComponentsByMpn (list_components, search_components_by_*); xnet_described / xnet_bare = aggregateCircuitByMpn (query_xnet_*) for a part with / without a description",
+    "Every refdes a result lists under the MPN note shares one component_notes entry, refdes in natural order; the field is omitted when no part is listed"
+  ],
+  "dimensions": {
+    "mpn": ["present", "blank", "absent"],
+    "internal_pn": ["present", "absent"],
+    "stuffing": ["fitted", "dns_listed", "dns_left_out"],
+    "path": ["group", "xnet_described", "xnet_bare"]
+  }
+}

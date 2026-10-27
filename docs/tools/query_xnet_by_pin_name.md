@@ -28,6 +28,7 @@ Returns circuit traversal results starting from a pin. See [`AggregatedComponent
   "total_components": 0,
   "unique_configurations": 0,
   "components_by_mpn": [AggregatedComponent, ...],
+  "component_notes": [ComponentNote, ...], // Optional: notes about some components, with their refdes
   "visited_nets": ["net1", "net2"],
   "circuit_hash": "string",
   "skipped": { "C": 5, "L": 2 },        // Optional
@@ -158,6 +159,7 @@ The `pin_name` parameter uses `REFDES.PIN` format:
 
 - Pin lookup is **case-insensitive** (`u1.a5` matches `U1.A5`)
 - The `net` field shows what net the pin connects to
+- Components without MPN are named once in `component_notes` (see [`ComponentNote`](../schemas/shared-types.md#componentnote))
 - NC (No Connect) pins return an empty circuit with `circuit_hash: "nc-REFDES.PIN"`
 - Same traversal rules as `query_xnet_by_net_name`, including DNS handling: a DNS part is treated as absent from the board unless `include_dns: true`
 - `design_variant` names the assembly the result describes. A design that records named variants requires it on every call; those variants are its only builds and `<Default>` is refused on it. `<Default>` (alias `default`) is the one build of a design that records no variant, the design with every part's own Do Not Stuff state

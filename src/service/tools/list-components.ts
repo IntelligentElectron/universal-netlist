@@ -1,6 +1,6 @@
 import { getDesignName } from "../../paths.js";
 import { loadNetlist } from "../load-netlist.js";
-import { groupComponentsByMpn } from "../component-grouping.js";
+import { componentNotes, groupComponentsByMpn } from "../component-grouping.js";
 import { matchesRefdesType, getRefdesPrefix } from "../../circuit-traversal.js";
 import { isErrorResult, type ListComponentsResult, type ErrorResult } from "../../types.js";
 
@@ -79,5 +79,5 @@ export const listComponents = async (
     };
   }
 
-  return { design_variant: netlist.design_variant, components };
+  return { design_variant: netlist.design_variant, components, ...componentNotes(components) };
 };

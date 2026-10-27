@@ -72,11 +72,6 @@ Used in `list_components` and `search_components_by_*` results. Groups component
     "alternate_part": {
       "type": "boolean",
       "description": "True when the selected design variant substitutes this part for the base one; the group's part fields describe the substituted part"
-    },
-    "notes": {
-      "type": "array",
-      "items": { "type": "string" },
-      "description": "Informational notes (e.g., missing MPN warning)"
     }
   },
   "required": ["refdes", "count"]
@@ -143,10 +138,6 @@ Used in `query_xnet_*` results. Groups components by MPN with orientation tracki
       "type": "array",
       "items": { "$ref": "#/$defs/OrientationVariant" },
       "description": "Present when multiple orientations"
-    },
-    "notes": {
-      "type": "array",
-      "items": { "type": "string" }
     }
   },
   "required": ["total_count"]
@@ -297,6 +288,50 @@ Tracks different orientations/polarities for 2-pin components.
 }
 ```
 
+## ComponentNote
+
+A note about some of the components in a result, stated once with the refdes it
+applies to. `list_components`, the `search_components_by_*` tools, and the
+`query_xnet_*` tools return these in `component_notes`, which is omitted when no
+note applies. Each distinct note appears once per result, so a hundred parts
+without an MPN cost one sentence and a hundred refdes rather than a hundred
+sentences.
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "note": {
+      "type": "string",
+      "description": "The note"
+    },
+    "refdes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Every component in the result the note applies to, in natural order"
+    }
+  },
+  "required": ["note", "refdes"]
+}
+```
+
+**Example:**
+
+```json
+{
+  "note": "MPN not found in exported netlist data. Tell user to update symbol properties in library, or to point you to the BOM",
+  "refdes": ["J1", "J2", "R4", "R12"]
+}
+```
+
+| Note | Applies to |
+|------|------------|
+| `"MPN not found in exported netlist data..."` | Every listed component whose MPN is missing or whitespace, including one that has an `internal_pn`; suggest the user provide a BOM |
+
+The rules for which components a note names are the golden decision table in
+[`docs/decision-tables/component-notes`](../decision-tables/component-notes/mpn-note.rules.md).
+
 ## AggregatedCircuitResult
 
 Response type for `query_xnet_by_net_name` and `query_xnet_by_pin_name`.
@@ -330,6 +365,11 @@ Response type for `query_xnet_by_net_name` and `query_xnet_by_pin_name`.
       "type": "array",
       "items": { "$ref": "#/$defs/AggregatedComponent" },
       "description": "Components grouped by MPN with orientation tracking"
+    },
+    "component_notes": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/ComponentNote" },
+      "description": "Each note about some of the components, once, with the refdes it applies to; see ComponentNote"
     },
     "visited_nets": {
       "type": "array",
@@ -552,11 +592,13 @@ Circuit traversal (`query_xnet_*`) stops at power and ground nets to prevent unb
 
 ## Notes Array
 
-The `notes` field provides contextual information:
+The `notes` field provides contextual information about the result as a whole.
+A note about particular components is in `component_notes`; see
+[ComponentNote](#componentnote).
 
 | Note | Meaning |
 |------|---------|
-| `"MPN not found in exported netlist data..."` | Component lacks MPN; suggest user provide BOM |
+| `"MPN not found in exported netlist data..."` | `query_component`: the component lacks an MPN; suggest user provide BOM |
 | `"No nets matched pattern '...'"` | Search returned empty results |
 | `"All N components with prefix '...' ... are DNS ..."` | `list_components` was called with `include_dns: false`, found the prefix, and every part under it is DNS; pass `include_dns: true` (the default) to list them |
 | `"This netlist has no MPN data..."` | Design has no MPN information |

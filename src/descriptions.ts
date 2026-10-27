@@ -67,7 +67,8 @@ partial prefix returns nothing rather than everything starting with it, so if a 
 expected is missing, look for it under its own prefix. \
 Identical components are grouped for compact output: parts share a group only when their \
 MPN, description, comment and value all agree, so every field a group reports is true of \
-every part in it. A group whose parts carry no MPN says so in its notes. \
+every part in it. Parts with no MPN are named once in \`component_notes\`, with the \
+note about them. \
 If no components match, the error lists the prefixes the same query would return, and \
 names apart any prefix whose components are all DNS. A prefix whose components are all \
 DNS returns an empty list with a note saying so; pass include_dns=true to list them.`;
@@ -91,6 +92,7 @@ export const SEARCH_COMPONENTS_BY_REFDES_DESCRIPTION = `\
 Search for components by refdes pattern. Matching is case-insensitive. \
 Identical components are grouped for compact output, on MPN, description, comment and \
 value together, so every field a group reports is true of every part in it. \
+Parts with no MPN are named once in \`component_notes\`, with the note about them. \
 A notes field is returned when nothing matches. \
 Rejects patterns that match all items; use list_components for full results.`;
 
@@ -99,6 +101,7 @@ Search for components by MPN (Manufacturer Part Number) pattern. \
 Not all netlists include MPN data; if unavailable, \
 fall back to search_components_by_refdes or search_components_by_description, \
 or ask the user for a BOM. \
+Parts with no MPN are named once in \`component_notes\`, with the note about them. \
 Rejects patterns that match all items; use list_components for full results.`;
 
 export const SEARCH_COMPONENTS_BY_DESCRIPTION_DESCRIPTION = `\
@@ -106,6 +109,7 @@ Search for components by description pattern. \
 Not all netlists include description data; if unavailable, \
 fall back to search_components_by_refdes or search_components_by_mpn, \
 or ask the user for a BOM. \
+Parts with no MPN are named once in \`component_notes\`, with the note about them. \
 Rejects patterns that match all items; use list_components for full results.`;
 
 export const QUERY_XNET_BY_NET_NAME_DESCRIPTION = `\
@@ -121,6 +125,7 @@ Rejects ground nets (GND, AGND, DGND, etc.) with an error. \
 A name that matches no net exactly is matched ignoring leading and trailing whitespace, \
 then as the 31-character name a PSTWRITER 16.6 Allegro export gives a longer net; \
 \`notes\` says when that happened, and a name that could mean several nets returns them. \
+Parts with no MPN are named once in \`component_notes\`, with the note about them. \
 If the net is not found, \`search_nets\` finds the name.`;
 
 export const QUERY_XNET_BY_PIN_NAME_DESCRIPTION = `\
@@ -132,6 +137,7 @@ more than 40 pins; a rail named outside that is traversed like a signal, and \
 \`visited_nets\` names every net the result crossed. \`skip_types\` leaves series \
 passives out, for example \`skip_types=['C','L','R']\`. \
 A pin on no net reads as the net \`NC\` and returns an empty result. \
+Parts with no MPN are named once in \`component_notes\`, with the note about them. \
 Rejects pins connected to ground nets (GND, AGND, DGND, etc.) with an error.`;
 
 export const QUERY_COMPONENT_DESCRIPTION = `\
