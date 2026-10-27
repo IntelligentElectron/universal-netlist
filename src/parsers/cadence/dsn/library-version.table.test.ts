@@ -50,13 +50,14 @@ const outcome = (version: LibraryVersion | undefined, restThrows: boolean): stri
     return "refused naming the version and asking to re-save";
   }
   if (!restThrows) return "netlist";
-  const thrown = new Error(PAGE_ERROR);
+  const thrown = new RangeError(PAGE_ERROR);
   const reported = describeParseFailure(version, thrown);
-  if (reported === thrown) return "the parse error unchanged";
+  // The error keeps its class either way, so a caller can still tell it apart.
+  expect(reported).toBe(thrown);
   const message = (reported as Error).message;
+  if (message === PAGE_ERROR) return "the parse error unchanged";
   expect(message.startsWith(PAGE_ERROR)).toBe(true);
   expect(message).toContain(`Library stream version ${version!.major}.${version!.minor};`);
-  expect((reported as Error).cause).toBe(thrown);
   return "the parse error naming the untested version";
 };
 

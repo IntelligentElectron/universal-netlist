@@ -25,7 +25,7 @@ export interface LibraryVersion {
  * - `tested`: 3.2 or 3.3, the versions of every design this parser has read whole.
  * - `untested`: any other version from 3 up, read as the tested ones are.
  */
-export type LibraryVersionSupport = "unknown" | "older" | "tested" | "untested";
+type LibraryVersionSupport = "unknown" | "older" | "tested" | "untested";
 
 const TESTED_VERSIONS = ["3.2", "3.3"];
 
@@ -41,7 +41,7 @@ export function readLibraryVersion(buffer: Buffer): LibraryVersion | undefined {
 }
 
 /** Classify a Library version; see {@link LibraryVersionSupport}. */
-export function libraryVersionSupport(version: LibraryVersion | undefined): LibraryVersionSupport {
+function libraryVersionSupport(version: LibraryVersion | undefined): LibraryVersionSupport {
   if (!version) return "unknown";
   if (version.major < 3) return "older";
   return TESTED_VERSIONS.includes(formatVersion(version)) ? "tested" : "untested";
@@ -52,22 +52,22 @@ export function assertReadableLibraryVersion(version: LibraryVersion | undefined
   if (libraryVersionSupport(version) !== "older") return;
   throw new UnsupportedDsnVersionError(
     `OrCAD design saved in an older Capture format (Library stream version ` +
-      `${formatVersion(version!)}), which this server cannot read; it reads version 3 and ` +
-      `later. Open the design in a newer OrCAD Capture, save it, and query it again.`
+      `${formatVersion(version!)}), which universal-netlist cannot read; it reads version 3 ` +
+      `and later. Open the design in a newer OrCAD Capture and save it, then read it again.`
   );
 }
 
 /**
  * The error to report for a parse that threw: unchanged, or, at a version no design
- * has been read whole at, naming that version, so the report says where to look.
+ * has been read whole at, the same error with that version named in its message, so
+ * the report says where to look and a caller can still tell the error by its class.
  */
 export function describeParseFailure(version: LibraryVersion | undefined, error: unknown): unknown {
   if (libraryVersionSupport(version) !== "untested" || !(error instanceof Error)) return error;
-  return new Error(
-    `${error.message} (Library stream version ${formatVersion(version!)}; designs read ` +
-      `whole so far are at ${TESTED_VERSIONS.join(" and ")})`,
-    { cause: error }
-  );
+  error.message +=
+    ` (Library stream version ${formatVersion(version!)}; designs read ` +
+    `whole so far are at ${TESTED_VERSIONS.join(" and ")})`;
+  return error;
 }
 
 /** Read a length-prefixed, null-terminated string, without the 400-character cap. */

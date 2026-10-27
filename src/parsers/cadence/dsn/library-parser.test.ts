@@ -97,6 +97,12 @@ describe.skipIf(!hasFixtures)("Library stream versions in parseDsnFile", () => {
     });
   }
 
+  it("reads a design whose Library stream ends before its version", () => {
+    rewrite.transform = (path, data) => (path === "Library" ? data.subarray(0, 20) : data);
+    const parsed = parseDsnFile(DSN);
+    expect(Object.keys(parsed.nets).sort()).toEqual(Object.keys(plain.nets).sort());
+  });
+
   it("reads a design at an untested version as a tested one", () => {
     atVersion(3, 4);
     expect(parseDsnFile(DSN)).toEqual(plain);

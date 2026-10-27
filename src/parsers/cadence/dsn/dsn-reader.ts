@@ -7,6 +7,7 @@
 import { readFileSync } from "fs";
 import { OleReader } from "../../ole-reader/ole-reader.js";
 import type { OleDirectoryPath } from "../../ole-reader/types.js";
+import { readLibraryVersion } from "./library-parser.js";
 import { decryptSapphireII } from "./sapphire.js";
 
 export const DSN_PASSWORD = "UNIVERSAL_NETLIST_DSN_PASSWORD";
@@ -32,11 +33,8 @@ export class ProtectedDesignError extends Error {}
 const isLibraryHeader = (library: Buffer): boolean => {
   if (library.length < LIBRARY_HEADER_BYTES) return false;
   if (library.subarray(0, LIBRARY_HEADER.length).equals(LIBRARY_HEADER)) return true;
-  const [major, minor, fonts] = [
-    library.readUInt16LE(32),
-    library.readUInt16LE(34),
-    library.readUInt16LE(48),
-  ];
+  const { major, minor } = readLibraryVersion(library)!;
+  const fonts = library.readUInt16LE(48);
   return (
     library.toString("latin1", 0, 20) === "OrCAD Windows Design" &&
     major >= 1 &&

@@ -35,10 +35,11 @@ export function parseDsnFile(dsnPath: string, options?: ParseDesignOptions): Par
 
   // The Library version says which page encoding the design was written in,
   // so an older design is refused before its pages are misread.
-  const version = libEntry ? readLibraryVersion(ole.readStreamByPath(libEntry.path)) : undefined;
+  const library = libEntry ? ole.readStreamByPath(libEntry.path) : undefined;
+  const version = library ? readLibraryVersion(library) : undefined;
   assertReadableLibraryVersion(version);
   try {
-    return parseDsnStreams(ole, entries, libEntry, options);
+    return parseDsnStreams(ole, entries, library, options);
   } catch (error) {
     throw describeParseFailure(version, error);
   }
@@ -48,7 +49,7 @@ export function parseDsnFile(dsnPath: string, options?: ParseDesignOptions): Par
 function parseDsnStreams(
   ole: DsnReader,
   entries: OleDirectoryPath[],
-  libEntry: OleDirectoryPath | undefined,
+  library: Buffer | undefined,
   options?: ParseDesignOptions
 ): ParsedNetlist {
   // Each view's Hierarchy stream is its occurrence tree: the root schematic's
@@ -78,10 +79,9 @@ function parseDsnStreams(
 
   // Parse Library stream for strLst string table
   let strLst: string[] = [];
-  if (libEntry) {
+  if (library) {
     try {
-      const libBuffer = ole.readStreamByPath(libEntry.path);
-      strLst = parseLibraryStrLst(libBuffer);
+      strLst = parseLibraryStrLst(library);
     } catch {
       // Library parsing is best-effort
     }

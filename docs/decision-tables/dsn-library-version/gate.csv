@@ -1,9 +1,9 @@
 version,rest_of_parse,outcome,next,status,note
-unknown,succeeds,netlist,,draft,src/parsers/cadence/dsn/dsn-parser.ts:41 (a design with no Library stream reads as before; its strLst stays empty)
-unknown,throws,the parse error unchanged,,draft,src/parsers/cadence/dsn/library-parser.ts:65 (no version to name)
+unknown,succeeds,netlist,,draft,src/parsers/cadence/dsn/dsn-parser.ts:42 (a design with no Library stream reads as before; its strLst stays empty)
+unknown,throws,the parse error unchanged,,draft,src/parsers/cadence/dsn/library-parser.ts:66 (no version to name)
 older,succeeds,refused naming the version and asking to re-save,,draft,src/parsers/cadence/dsn/library-parser.ts:52 runs before any page is read; the older record encoding has no 4-byte prefix lengths so a read that does not throw would still misread the pages
 older,throws,refused naming the version and asking to re-save,,draft,src/parsers/cadence/dsn/library-parser.ts:52 (issue #246: all 14 corpus designs at 1.1 and 2.0 threw a string-decoding error on their first page)
-tested,succeeds,netlist,,draft,src/parsers/cadence/dsn/dsn-parser.ts:41 (all 88 corpus designs at 3.2 and 3.3 read; output unchanged)
-tested,throws,the parse error unchanged,,draft,src/parsers/cadence/dsn/library-parser.ts:65
-untested,succeeds,netlist,,draft,src/parsers/cadence/dsn/dsn-parser.ts:41 (no corpus design is at another 3.x or later; reading it as 3.2 and 3.3 are read keeps today's behaviour and the 3.2 to 3.3 step changed nothing this parser reads)
-untested,throws,the parse error naming the untested version,,draft,src/parsers/cadence/dsn/library-parser.ts:66 (the issue asks that a failing load name the version; at an untested version that is where to look)
+tested,succeeds,netlist,,draft,src/parsers/cadence/dsn/dsn-parser.ts:42 (all 88 corpus designs at 3.2 and 3.3 read; output unchanged)
+tested,throws,the parse error unchanged,,draft,src/parsers/cadence/dsn/library-parser.ts:66
+untested,succeeds,netlist,,draft,src/parsers/cadence/dsn/dsn-parser.ts:42 (no corpus design is at another 3.x or later; reading it as 3.2 and 3.3 are read keeps today's behaviour and the 3.2 to 3.3 step changed nothing this parser reads)
+untested,throws,the parse error naming the untested version,,draft,src/parsers/cadence/dsn/library-parser.ts:67 (the issue asks that a failing load name the version; at an untested version that is where to look)
