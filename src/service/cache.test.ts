@@ -14,7 +14,7 @@ import { afterAll, afterEach, describe, expect, it, vi } from "vitest";
 import { fixturePath, hasFixtures } from "../../test/utils.js";
 import * as parsers from "../parsers/index.js";
 import type { FileReader } from "../parsers/context.js";
-import { passwordList } from "../parsers/context.js";
+import { passwordList, type ParserContext } from "../parsers/context.js";
 import { MemoryCacheStore, cached, deepFreeze, type CacheEntry } from "./cache.js";
 import { DiskCacheStore, nodeCacheDirHost } from "./disk-cache.js";
 import { createNetlistService, loadNetlist } from "./index.js";
@@ -136,7 +136,7 @@ describe("cached", () => {
   it("shares one parse between concurrent misses", async () => {
     const store = new MemoryCacheStore(4);
     let parses = 0;
-    const produce = async (c: typeof context) => {
+    const produce = async (c: ParserContext) => {
       parses++;
       await c.files.readFile("/a.DSN");
       await new Promise((resolve) => setTimeout(resolve, 10));
