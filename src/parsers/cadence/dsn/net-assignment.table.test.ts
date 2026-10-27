@@ -4,7 +4,6 @@
  * which root views the hierarchy expander reads, and which section's pin map a
  * placed instance of a multi-section package resolves to.
  */
-import { readFileSync } from "fs";
 import path from "path";
 import { describe, expect, it } from "vitest";
 import { expandHierarchy } from "./hierarchy-expander.js";
@@ -12,40 +11,9 @@ import { findPinMap } from "./pin-resolver.js";
 import type { BlockOccurrence, HierarchyScope, HierarchyStream } from "./hierarchy-parser.js";
 import type { PageData } from "./page-parser.js";
 import type { DrawnInstance, PlacedInstance } from "./structures.js";
+import { cellName, readTable } from "../../../../test/helpers/decision-table.js";
 
 const TABLES = path.resolve(__dirname, "../../../../docs/decision-tables/dsn-net-assignment");
-
-/** Parse a table CSV: quoted fields may hold commas and doubled quotes. */
-const readTable = (name: string): Record<string, string>[] => {
-  const text = readFileSync(path.join(TABLES, `${name}.csv`), "utf8");
-  const rows: string[][] = [];
-  let row: string[] = [];
-  let field = "";
-  let quoted = false;
-  for (let i = 0; i < text.length; i++) {
-    const c = text[i];
-    if (quoted) {
-      if (c === '"' && text[i + 1] === '"') {
-        field += '"';
-        i++;
-      } else if (c === '"') quoted = false;
-      else field += c;
-    } else if (c === '"') quoted = true;
-    else if (c === "," || c === "\n") {
-      row.push(field);
-      field = "";
-      if (c === "\n") {
-        rows.push(row);
-        row = [];
-      }
-    } else field += c;
-  }
-  const [header, ...body] = rows;
-  return body.map((r) => Object.fromEntries(header.map((h, i) => [h, r[i]])));
-};
-
-const cellName = (row: Record<string, string>, dims: string[]) =>
-  dims.map((d) => `${d}=${row[d]}`).join(" ");
 
 const instance = (dbId: number, reference: string, sourcePackage = "R"): PlacedInstance => ({
   pkgName: `${sourcePackage}.Normal`,
@@ -132,7 +100,7 @@ describe("golden table: root-views", () => {
     return { pages, roots, rootSchematic: named === "none" ? undefined : "Named", unplaced, all };
   };
 
-  for (const row of readTable("root-views").filter((r) => r.outcome !== "n/a")) {
+  for (const row of readTable(TABLES, "root-views").filter((r) => r.outcome !== "n/a")) {
     it(cellName(row, dims), () => {
       const { pages, roots, rootSchematic, unplaced, all } = design(
         row.named_root,
@@ -163,7 +131,7 @@ describe("golden table: section-pin-map", () => {
     number | undefined
   >;
 
-  for (const row of readTable("section-pin-map").filter((r) => r.outcome !== "n/a")) {
+  for (const row of readTable(TABLES, "section-pin-map").filter((r) => r.outcome !== "n/a")) {
     it(cellName(row, dims), () => {
       const inst = instance(1, "U1", "PKG_0");
       const maps = new Map<string, (string | null)[]>();
