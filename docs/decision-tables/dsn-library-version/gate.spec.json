@@ -1,0 +1,14 @@
+{
+  "name": "gate",
+  "assumes": [
+    "parseDsnFile on a file that opens as an OLE container and, when protected, decrypts",
+    "version is the uint16 major and minor at offset 32 of the root Library stream (path exactly Library; a page named Library is not it)",
+    "unknown means the design has no root Library stream or one shorter than the 36 bytes that end the version",
+    "older means major below 3; tested means 3.2 or 3.3, the versions of every design read whole; untested means any other version with major 3 or above",
+    "rest_of_parse is whether reading the pages, packages, cache and hierarchy throws"
+  ],
+  "dimensions": {
+    "version": ["unknown", "older", "tested", "untested"],
+    "rest_of_parse": ["succeeds", "throws"]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "name": "gate",
+  "rules": [
+    {
+      "when": {
+        "version": [
+          "older"
+        ]
+      },
+      "outcome": "refused naming the version and asking to re-save",
+      "next": "",
+      "cells": 2
+    },
+    {
+      "when": {
+        "version": [
+          "unknown",
+          "tested"
+        ],
+        "rest_of_parse": [
+          "throws"
+        ]
+      },
+      "outcome": "the parse error unchanged",
+      "next": "",
+      "cells": 2
+    },
+    {
+      "when": {
+        "version": [
+          "untested"
+        ],
+        "rest_of_parse": [
+          "throws"
+        ]
+      },
+      "outcome": "the parse error naming the untested version",
+      "next": "",
+      "cells": 1
+    }
+  ],
+  "default": {
+    "outcome": "netlist",
+    "next": ""
+  }
+}
