@@ -1,0 +1,37 @@
+{
+  "name": "pin-key",
+  "assumes": [
+    "A pin connected to a net, read by the KiCad netlist parser (a (node ...) of a kicadsexpr export) or the Altium document parser (a pin record on a sheet)",
+    "number: KiCad (pin ...), Altium Designator; empty when absent or \"\"",
+    "name: KiCad (pinfunction ...) less its trailing _<number>, with \"~\" meaning unnamed; Altium Name",
+    "refdes: KiCad (ref ...), Altium the owning component's designator",
+    "The key is the PIN in REFDES.PIN: the pin's entry in the component's pins and in each net it is on",
+    "Altium names a pin-named net Net<refdes>_<key> from the same key",
+    "shares: whether another pin of the same part with the same key was listed before this one: on this net, on an earlier net with other pins, or on an earlier lone net. A lone net is KiCad's unconnected-(...) stub for an open pin, a net of one node; Altium leaves a net of one pin and nothing else out",
+    "Not covered: a one-pin net that carries a label. KiCad counts it lone, so it yields a shared name key to a net with other pins; Altium keeps it, and a shared key goes to the net it traces first"
+  ],
+  "dimensions": {
+    "format": [
+      "kicad",
+      "altium"
+    ],
+    "number": [
+      "present",
+      "empty"
+    ],
+    "name": [
+      "present",
+      "empty"
+    ],
+    "refdes": [
+      "present",
+      "empty"
+    ],
+    "shares": [
+      "none",
+      "same net",
+      "earlier net",
+      "earlier lone net"
+    ]
+  }
+}

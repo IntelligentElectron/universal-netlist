@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
 import { fixturePath, hasFixtures } from "../../../test/utils.js";
 import { parseKicadNetlist } from "./netlist-parser.js";
+import { toUniversalNetlistDocument, validateUniversalNetlist } from "../universal/reader.js";
 
 /** A compact but representative kicadsexpr export exercising the tricky cases. */
 const EXPORT = `
@@ -105,6 +106,140 @@ describe("parseKicadNetlist", () => {
       (node (ref "R7") (pin "2") (pinfunction "~")))))
 `);
     expect(unnamed.components.R7.pins["2"]).toBe("SIG");
+  });
+
+  it("keys a pin with an empty number by its name (issue #245)", () => {
+    // A module symbol with unnumbered pins, as in OlafGoud/Freesbank's CNC3DPrinter:
+    // KiCad writes (pin "") and a pinfunction ending in a bare "_".
+    const unnumbered = parseKicadNetlist(`
+(export
+  (components
+    (comp (ref "U1") (value "Buck"))
+    (comp (ref "C1") (value "100n")))
+  (nets
+    (net (code "1") (name "VIN")
+      (node (ref "U1") (pin "") (pinfunction "Vin_") (pintype "input")))
+    (net (code "2") (name "GND")
+      (node (ref "C1") (pin "2") (pintype "passive"))
+      (node (ref "U1") (pin "") (pinfunction "GND_") (pintype "input")))
+    (net (code "3") (name "Net-(U1-~{EN}_)")
+      (node (ref "U1") (pin "") (pinfunction "~{EN}__") (pintype "input")))
+    (net (code "4") (name "LOST")
+      (node (ref "C1") (pin "1") (pintype "passive"))
+      (node (ref "U1") (pin "") (pinfunction "~_") (pintype "passive"))
+      (node (ref "U1") (pin "") (pintype "passive")))))
+`);
+    expect(unnumbered.nets.VIN).toEqual({ U1: ["Vin"] });
+    expect(unnumbered.nets.GND).toEqual({ C1: ["2"], U1: ["GND"] });
+    expect(unnumbered.nets["Net-(U1-~{EN}_)"]).toEqual({ U1: ["~{EN}_"] });
+    // Unnamed as well as unnumbered: no key, so the pin is left out.
+    expect(unnumbered.nets.LOST).toEqual({ C1: ["1"] });
+    expect(unnumbered.components.U1.pins).toEqual({
+      Vin: "VIN",
+      GND: "GND",
+      "~{EN}_": "Net-(U1-~{EN}_)",
+    });
+  });
+
+  it("lists a pin once when a name key repeats a pin already on the net", () => {
+    const repeated = parseKicadNetlist(`
+(export
+  (components
+    (comp (ref "J1") (value "Header")))
+  (nets
+    (net (code "1") (name "SIG")
+      (node (ref "J1") (pin "1"))
+      (node (ref "J1") (pin "") (pinfunction "1_")))))
+`);
+    expect(repeated.nets.SIG).toEqual({ J1: ["1"] });
+    expect(repeated.components.J1.pins).toEqual({ "1": "SIG" });
+  });
+
+  it("keeps unnumbered pins sharing a name on the first net, so the design exports", () => {
+    // Lab04DT2's SERLCD1: three unnumbered GND pins, one wired and two left open.
+    const shared = parseKicadNetlist(`
+(export
+  (components
+    (comp (ref "U2") (value "MCU"))
+    (comp (ref "LCD1") (value "SerLCD")))
+  (nets
+    (net (code "1") (name "GND")
+      (node (ref "U2") (pin "4"))
+      (node (ref "LCD1") (pin "") (pinfunction "GND_")))
+    (net (code "2") (name "unconnected-(LCD1-GND-Pad)")
+      (node (ref "LCD1") (pin "") (pinfunction "GND_")))
+    (net (code "3") (name "unconnected-(LCD1-GND-Pad)_1")
+      (node (ref "LCD1") (pin "") (pinfunction "GND_")))))
+`);
+    expect(shared.nets.GND).toEqual({ U2: ["4"], LCD1: ["GND"] });
+    expect(shared.nets["unconnected-(LCD1-GND-Pad)"]).toEqual({});
+    expect(shared.components.LCD1.pins).toEqual({ GND: "GND" });
+    expect(() =>
+      validateUniversalNetlist(JSON.parse(JSON.stringify(toUniversalNetlistDocument(shared))))
+    ).not.toThrow();
+  });
+
+  it("keeps a shared name on the wired net when an open pin's stub is listed first", () => {
+    // KiCad lists nets by name, and "unconnected-" sorts before "~{RST}".
+    const shared = parseKicadNetlist(`
+(export
+  (components
+    (comp (ref "U1") (value "Module"))
+    (comp (ref "U2") (value "MCU")))
+  (nets
+    (net (code "1") (name "unconnected-(U1-~{RST}-Pad)")
+      (node (ref "U1") (pin "") (pinfunction "~{RST}_")))
+    (net (code "2") (name "~{RST}")
+      (node (ref "U2") (pin "5"))
+      (node (ref "U1") (pin "") (pinfunction "~{RST}_")))))
+`);
+    expect(shared.nets["~{RST}"]).toEqual({ U2: ["5"], U1: ["~{RST}"] });
+    expect(shared.nets["unconnected-(U1-~{RST}-Pad)"]).toEqual({});
+    expect(shared.components.U1.pins).toEqual({ "~{RST}": "~{RST}" });
+  });
+
+  it("keys a pin named like an Object method as its own pin", () => {
+    const named = parseKicadNetlist(`
+(export
+  (components
+    (comp (ref "U1") (value "Module")))
+  (nets
+    (net (code "1") (name "A")
+      (node (ref "U1") (pin "") (pinfunction "toString_")))
+    (net (code "2") (name "B")
+      (node (ref "U1") (pin "") (pinfunction "constructor_")))))
+`);
+    expect(named.nets.A).toEqual({ U1: ["toString"] });
+    expect(named.nets.B).toEqual({ U1: ["constructor"] });
+    expect(named.components.U1.pins).toEqual({ toString: "A", constructor: "B" });
+  });
+
+  it("keeps nets and stub parts named like an Object method", () => {
+    const named = parseKicadNetlist(`
+(export
+  (components)
+  (nets
+    (net (code "1") (name "toString") (node (ref "constructor") (pin "1")))
+    (net (code "2") (name "constructor") (node (ref "constructor") (pin "2")))))
+`);
+    expect(Object.keys(named.nets)).toEqual(["toString", "constructor"]);
+    expect(named.nets.toString).toEqual({ constructor: ["1"] });
+    const stub = "constructor";
+    expect(Object.hasOwn(named.components, stub)).toBe(true);
+    expect(named.components[stub].pins).toEqual({ "1": "toString", "2": "constructor" });
+  });
+
+  it("still lists a numbered pin on every net it is on, as a short", () => {
+    const short = parseKicadNetlist(`
+(export
+  (components
+    (comp (ref "U1") (value "Dual")))
+  (nets
+    (net (code "1") (name "VCC") (node (ref "U1") (pin "7")))
+    (net (code "2") (name "VDD") (node (ref "U1") (pin "7")))))
+`);
+    expect(short.nets.VCC).toEqual({ U1: ["7"] });
+    expect(short.nets.VDD).toEqual({ U1: ["7"] });
   });
 
   it("uses a plain net string when the pin name equals the pin number", () => {
