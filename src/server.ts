@@ -61,7 +61,7 @@ export const createServer = (
 
   // Wrap the complete SDK tools/call path so schema rejections are measured
   // before the SDK has a chance to return without invoking a tool handler.
-  instrumentMcpToolCalls(server);
+  const assertToolCallsInstrumented = instrumentMcpToolCalls(server);
 
   for (const tool of TOOLS) {
     server.registerTool(
@@ -77,6 +77,7 @@ export const createServer = (
       )
     );
   }
+  assertToolCallsInstrumented();
 
   return server;
 };
