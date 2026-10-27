@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { CADENCE_EXPORT_ENABLED } from "../features.js";
-import { TOOLS, findTool } from "./index.js";
+import { READ_ONLY, TOOLS, callTool, findTool } from "./index.js";
 
 /**
  * Every module a source file reaches through its relative imports, and every
@@ -20,9 +20,9 @@ const importGraph = (entry: string): { files: Set<string>; packages: Set<string>
     // Static `import ... from "x"`, `export ... from "x"`, and `import("x")`.
     // Type-only imports are erased at compile time, so they load nothing.
     const specifiers = [
-      ...source.matchAll(/^\s*(?:import|export)(?!\s+type\b)[^"';]*?from\s+"([^"]+)"/gm),
-      ...source.matchAll(/^\s*import\s+"([^"]+)"/gm),
-      ...source.matchAll(/\bimport\(\s*"([^"]+)"\s*\)/g),
+      ...source.matchAll(/^\s*(?:import|export)(?!\s+type\b)[^"'`;]*?from\s+["']([^"']+)["']/gm),
+      ...source.matchAll(/^\s*import\s+["']([^"']+)["']/gm),
+      ...source.matchAll(/\bimport\(\s*["']([^"']+)["']\s*\)/g),
     ].map((match) => match[1]);
     for (const specifier of specifiers) {
       if (specifier.startsWith(".")) {
@@ -66,6 +66,35 @@ describe("tool registry", () => {
     expect(traced).toEqual({ design: "a.DSN", net_name: "GND", include_dns: false });
   });
 
+  it("refuses to let a host change the shared annotations", () => {
+    expect(() => {
+      (READ_ONLY as { readOnlyHint: boolean }).readOnlyHint = false;
+    }).toThrow(TypeError);
+    expect(findTool("list_nets")!.annotations.readOnlyHint).toBe(true);
+  });
+
+  it("parses raw arguments before running, and reports a refusal as an error result", async () => {
+    expect(await callTool("list_designs", { search_path: "/tmp" })).toEqual({
+      error: expect.stringContaining('Unrecognized key: "search_path"'),
+    });
+    expect(await callTool("query_component", { refdes: "U1" })).toEqual({
+      error: expect.stringMatching(/Invalid arguments for query_component:[\s\S]*design/),
+    });
+    expect(await callTool("list_designs", { max_results: 0 })).toEqual({
+      error: expect.stringContaining("max_results"),
+    });
+    expect(await callTool("no_such_tool")).toEqual({
+      error: expect.stringContaining("Unknown tool 'no_such_tool'"),
+    });
+  });
+
+  it("runs a tool whose arguments parse", async () => {
+    const result = (await callTool("list_designs", { path: "/nonexistent-on-purpose" })) as {
+      error?: string;
+    };
+    expect(result.error).toContain("Failed to search");
+  });
+
   it("loads neither the MCP SDK nor OpenTelemetry", () => {
     // The walk sees both packages from the server, so an empty list below means
     // the registry really reaches neither.
@@ -74,7 +103,7 @@ describe("tool registry", () => {
     expect([...server].some((name) => name.startsWith("@opentelemetry/"))).toBe(true);
 
     const { files, packages } = importGraph(path.resolve(__dirname, "index.ts"));
-    expect(files.size).toBeGreaterThan(50);
+    expect(files).toContain(path.resolve(__dirname, "../service/index.ts"));
     const heavy = [...packages].filter(
       (name) => name === "@modelcontextprotocol/sdk" || name.startsWith("@opentelemetry/")
     );

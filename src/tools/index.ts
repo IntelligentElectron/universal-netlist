@@ -4,9 +4,12 @@
  * One entry per tool: its name, title, description, annotations, input schema
  * and the function that runs it. The MCP server and the command line are both
  * built from this list, so a tool's name, arguments, defaults and behavior are
- * the same everywhere it is offered. An argument's default lives in its schema
- * and nowhere else: `run` receives the arguments after the schema has parsed
- * them, defaults applied.
+ * the same everywhere it is offered. An argument's default lives in its schema:
+ * `run` receives the arguments after the schema has parsed them, defaults
+ * applied. (The positional functions in `./service` still carry their own
+ * copies of these defaults for their direct callers.) `callTool` is the entry point for raw arguments: it
+ * parses them first, so an unknown or mistyped argument is refused instead of
+ * being dropped or passed on.
  *
  * This module imports neither the MCP SDK nor OpenTelemetry, so a library that
  * embeds the tools does not load either.
@@ -53,10 +56,10 @@ import {
  * depend on the MCP SDK.
  */
 export interface ToolAnnotations {
-  readOnlyHint: boolean;
-  destructiveHint: boolean;
-  idempotentHint: boolean;
-  openWorldHint: boolean;
+  readonly readOnlyHint: boolean;
+  readonly destructiveHint: boolean;
+  readonly idempotentHint: boolean;
+  readonly openWorldHint: boolean;
 }
 
 /** One tool: what a client is told about it, and the function that runs it. */
@@ -68,7 +71,10 @@ export interface ToolDefinition<S extends z.ZodObject = z.ZodObject> {
   readonly annotations: ToolAnnotations;
   /** A strict object schema: an argument it does not define is refused. */
   readonly inputSchema: S;
-  /** Run the tool on arguments already parsed by `inputSchema`. */
+  /**
+   * Run the tool on arguments already parsed by `inputSchema`. Raw arguments
+   * go through `callTool`, which parses them first.
+   */
   readonly run: (args: z.output<S>) => Promise<unknown>;
 }
 
@@ -92,23 +98,23 @@ const defineTool = <S extends z.ZodObject>(tool: ToolDefinition<S>): AnyToolDefi
  * `openWorldHint` is false throughout: every tool operates on the design files
  * already on this machine, not on an open-ended set of external entities.
  */
-export const READ_ONLY: ToolAnnotations = {
+export const READ_ONLY: ToolAnnotations = Object.freeze({
   readOnlyHint: true,
   destructiveHint: false,
   idempotentHint: true,
   openWorldHint: false,
-};
+});
 
 /**
  * `export_cadence_netlist` runs Cadence's own exporter, which writes a netlist
  * directory beside the schematic and overwrites an earlier export in place.
  */
-export const WRITES_TO_DISK: ToolAnnotations = {
+export const WRITES_TO_DISK: ToolAnnotations = Object.freeze({
   readOnlyHint: false,
   destructiveHint: true,
   idempotentHint: false,
   openWorldHint: false,
-};
+});
 
 /** One native design variant, or the explicit base build. */
 const DESIGN_VARIANT_ARGUMENT = z
@@ -351,7 +357,7 @@ const exportCadenceNetlistTool = defineTool({
 // =============================================================================
 
 /** Every tool this build offers, in the order clients list them. */
-export const TOOLS: readonly AnyToolDefinition[] = [
+export const TOOLS: readonly AnyToolDefinition[] = Object.freeze([
   listDesignsTool,
   listComponentsTool,
   listNetsTool,
@@ -364,8 +370,31 @@ export const TOOLS: readonly AnyToolDefinition[] = [
   queryComponentTool,
   runErcTool,
   ...(CADENCE_EXPORT_ENABLED ? [exportCadenceNetlistTool] : []),
-];
+]);
 
 /** The tool with this exact name, or undefined when this build offers none. */
 export const findTool = (name: string): AnyToolDefinition | undefined =>
   TOOLS.find((tool) => tool.name === name);
+
+/** The `{ error }` result a failed tool call returns, as every tool does. */
+export interface ToolErrorResult {
+  error: string;
+}
+
+/**
+ * Call a tool by name on raw arguments. The arguments are parsed by the tool's
+ * schema first, so defaults apply and anything the schema refuses comes back
+ * as an `{ error }` result naming the argument, the same way a tool reports
+ * its own failures. A name this build does not offer is reported the same way.
+ */
+export const callTool = async (name: string, args: unknown = {}): Promise<unknown> => {
+  const tool = findTool(name);
+  if (!tool) {
+    return { error: `Unknown tool '${name}'. Available: ${TOOLS.map((t) => t.name).join(", ")}.` };
+  }
+  const parsed = tool.inputSchema.safeParse(args);
+  if (!parsed.success) {
+    return { error: `Invalid arguments for ${name}: ${z.prettifyError(parsed.error)}` };
+  }
+  return tool.run(parsed.data);
+};
