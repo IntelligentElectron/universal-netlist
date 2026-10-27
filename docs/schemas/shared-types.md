@@ -294,8 +294,7 @@ A note about some of the components in a result, stated once with the refdes it
 applies to. `list_components`, the `search_components_by_*` tools, and the
 `query_xnet_*` tools return these in `component_notes`, which is omitted when no
 note applies. Each distinct note appears once per result, so a hundred parts
-without an MPN cost one sentence and a hundred refdes rather than a hundred
-sentences.
+without an MPN cost one sentence and a hundred refdes.
 
 ```json
 {

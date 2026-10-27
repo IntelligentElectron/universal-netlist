@@ -12,14 +12,13 @@ export const MPN_MISSING_NOTE =
   "MPN not found in exported netlist data. Tell user to update symbol properties in library, or to point you to the BOM";
 
 /**
- * State each note once for the groups of one result, with the refdes it
- * applies to.
+ * The notes about particular parts in one result's groups: each note once,
+ * with the refdes it applies to, so its cost to the reading agent is one
+ * sentence plus the refdes however many parts it covers.
  *
- * The note used to ride on every group it applied to, so a net or a prefix
- * with a hundred unnumbered parts repeated the same sentence a hundred times
- * to the agent reading it. A group carries an `mpn` exactly when its parts
- * have one, so the groups alone say which parts the note covers; the rules
- * are in docs/decision-tables/component-notes.
+ * A group carries an `mpn` exactly when its parts have one, so the groups
+ * alone say which parts the missing-MPN note covers; the rules are in
+ * docs/decision-tables/component-notes.
  */
 export const componentNotes = (
   groups: Array<Pick<AggregatedComponent, "mpn" | "refdes" | "orientations">>

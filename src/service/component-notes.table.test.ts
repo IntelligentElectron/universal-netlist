@@ -3,7 +3,6 @@
  * against the grouping the component tools use, one test per cell, so the
  * table and the code cannot drift.
  */
-import { readFileSync } from "fs";
 import path from "path";
 import { describe, expect, it } from "vitest";
 import { traverseCircuitFromNet } from "../circuit-traversal.js";
@@ -13,27 +12,15 @@ import {
   groupComponentsByMpn,
 } from "./component-grouping.js";
 import type { AggregatedComponent, ComponentDetails, NetConnections } from "../types.js";
+import { cellName, readTable } from "../../test/helpers/decision-table.js";
 
 const TABLES = path.resolve(__dirname, "../../docs/decision-tables/component-notes");
-
-/**
- * Read a table CSV. Only the trailing note column is ever quoted, and the
- * dimension and outcome columns before it hold no commas, so a plain split
- * reads them correctly.
- */
-const readTable = (name: string): Record<string, string>[] => {
-  const [header, ...body] = readFileSync(path.join(TABLES, `${name}.csv`), "utf8")
-    .trim()
-    .split("\n")
-    .map((line) => line.split(","));
-  return body.map((r) => Object.fromEntries(header.map((h, i) => [h, r[i]])));
-};
 
 describe("golden table: mpn-note", () => {
   const dims = ["mpn", "internal_pn", "stuffing", "path"];
 
-  for (const row of readTable("mpn-note").filter((r) => r.outcome !== "n/a")) {
-    it(dims.map((d) => `${d}=${row[d]}`).join(" "), () => {
+  for (const row of readTable(TABLES, "mpn-note").filter((r) => r.outcome !== "n/a")) {
+    it(cellName(row, dims), () => {
       // X1 is the part under test; R1 has an MPN, so the result is never empty.
       const components: ComponentDetails = {
         X1: {

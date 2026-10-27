@@ -242,8 +242,8 @@ export interface AggregatedComponent {
 }
 
 /**
- * A note about some of the components in a result, stated once with the refdes
- * it applies to rather than repeated on each of their groups.
+ * A note about some of the components in a result, stated once with every
+ * refdes it applies to.
  */
 export interface ComponentNote {
   note: string;
