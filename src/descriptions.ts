@@ -57,7 +57,11 @@ and \`<Default>\` is refused on it.
 Cadence: query the .DSN; it carries properties, connectivity, and CIS stuffing. KiCad: \
 query the .kicad_pro; a committed <project>.net export is read directly, otherwise \
 kicad-cli generates one (set KICAD_CLI_PATH if needed) and a missing netlist is reported \
-in \`error\`.`;
+in \`error\`.
+
+A design marked \`unsupported: true\` cannot be read (for example an OrCAD design saved in an \
+older Capture format); \`error\` says why and what to do, and every query on it returns that \
+error, so do not query it.`;
 
 export const LIST_COMPONENTS_DESCRIPTION = `\
 List components of a specific type in a design. \
