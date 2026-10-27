@@ -89,6 +89,21 @@ describe.skipIf(!hasFixtures)("createNetlistService with a file reader", () => {
     ).toEqual(await disk.listComponents({ design: onDisk, type: "U", design_variant: variant }));
   });
 
+  it("reads each file once per query, and every sheet of a project", async () => {
+    const reader = memoryReader(files) as FileReader & { reads: string[] };
+    const memory = createNetlistService({ files: reader });
+    await memory.listNets({ design: path.join(MEMORY_ROOT, "cadence", "MULTIO.DSN") });
+    expect(reader.reads).toEqual([path.join(MEMORY_ROOT, "cadence", "MULTIO.DSN")]);
+
+    reader.reads.length = 0;
+    await memory.listNets({ design: path.join(MEMORY_ROOT, "altium", "MISKO3.PrjPcb") });
+    const sheets = [...files.keys()].filter(
+      (p) => p.startsWith(path.join(MEMORY_ROOT, "altium")) && p.endsWith(".SchDoc")
+    );
+    expect(new Set(reader.reads).size).toBe(reader.reads.length);
+    expect(reader.reads).toEqual(expect.arrayContaining(sheets));
+  });
+
   it("reads a Universal Netlist from memory", async () => {
     const memory = createNetlistService({ files: memoryReader(files) });
     const result = await memory.listNets({

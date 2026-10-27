@@ -146,10 +146,11 @@ export const parseAltiumProject = async (
   const ranks = nameRanks(naming);
   const unranked = ranks.pin + 1;
 
-  const documents: ReadDocument[] = [];
-  for (const schdocPath of schdocPaths) {
-    documents.push(readDocument(schdocPath, await files.readFile(schdocPath)));
-  }
+  const documents = await Promise.all(
+    schdocPaths.map(async (schdocPath) =>
+      readDocument(schdocPath, await files.readFile(schdocPath))
+    )
+  );
   const shape = { hasSheetEntries: false, hasPorts: false };
   const powerNames = new Set<string>();
   for (const document of documents) {

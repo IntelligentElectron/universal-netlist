@@ -46,6 +46,7 @@ import {
 } from "../service/tools/search-components.js";
 import { searchNets } from "../service/tools/search-nets.js";
 import { serviceContextFromEnvironment, type ServiceContext } from "../service/context.js";
+import { resolvePath } from "../paths.js";
 
 // =============================================================================
 // Types
@@ -366,7 +367,7 @@ export const exportCadenceNetlistTool = defineTool({
   inputSchema: z.strictObject({
     design: z.string().describe("Path to .DSN schematic file"),
   }),
-  run: ({ design }) => exportCadenceNetlist(design),
+  run: ({ design }, context) => exportCadenceNetlist(resolvePath(design, context.root)),
 });
 
 // =============================================================================

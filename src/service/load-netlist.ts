@@ -3,6 +3,7 @@ import { findHandler, parseDesign } from "../parsers/index.js";
 import { resolvePath } from "../paths.js";
 import type { ParsedNetlist, ErrorResult } from "../types.js";
 import { serviceContextFromEnvironment, type ServiceContext } from "./context.js";
+import { readOnce } from "../parsers/context.js";
 import {
   DEFAULT_VARIANT,
   describeDefaultVariantRefusal,
@@ -58,6 +59,8 @@ export const loadNetlist = async (
   context: ServiceContext = serviceContextFromEnvironment()
 ): Promise<LoadedNetlist | ErrorResult> => {
   const normalizedPath = resolvePath(designPath, context.root);
+  // Listing variants and parsing read the same files; each is read once.
+  const parser = { ...context.parser, files: readOnce(context.parser.files) };
   const handler = findHandler(normalizedPath);
   if (!handler) {
     const ext = path.extname(normalizedPath);
@@ -67,7 +70,7 @@ export const loadNetlist = async (
   }
 
   try {
-    const variants = (await handler.listVariants?.(normalizedPath, context.parser)) ?? [];
+    const variants = (await handler.listVariants?.(normalizedPath, parser)) ?? [];
     const requested = designVariant?.trim();
     const designName = path.basename(normalizedPath);
     if (!requested && variants.length > 0) {
@@ -100,7 +103,7 @@ export const loadNetlist = async (
 
     const parsed = await parseDesign(normalizedPath, {
       variant: selection.selected,
-      context: context.parser,
+      context: parser,
     });
     normalizeUnconnectedPins(parsed);
     return { ...parsed, design_variant: selection.selected, format: handler.name };

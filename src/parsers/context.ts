@@ -74,8 +74,10 @@ export const nodeFileReader: FileReader = Object.freeze({
 });
 
 /** A file's text, decoded as UTF-8 the way `readFile(path, "utf-8")` does. */
-export const readText = async (files: FileReader, path: string): Promise<string> =>
-  Buffer.from(await files.readFile(path)).toString("utf-8");
+export const readText = async (files: FileReader, path: string): Promise<string> => {
+  const bytes = await files.readFile(path);
+  return Buffer.from(bytes.buffer, bytes.byteOffset, bytes.byteLength).toString("utf-8");
+};
 
 /** A file's first bytes, through `readPrefix` when the reader has it. */
 export const readPrefix = async (
@@ -86,6 +88,36 @@ export const readPrefix = async (
   files.readPrefix
     ? files.readPrefix(path, length)
     : (await files.readFile(path)).subarray(0, length);
+
+/**
+ * A reader that reads each file once: a repeated `readFile` of the same path
+ * shares the first read, and `readPrefix` is answered from a whole read when the
+ * reader has no `readPrefix` of its own. One design load reads its main file to
+ * list variants and again to parse, and Altium discovery sniffs each `.SchDoc`
+ * before the parse reads it, so a load wraps its reader in this.
+ */
+export const readOnce = (files: FileReader): FileReader => {
+  const reads = new Map<string, Promise<Uint8Array>>();
+  const readFile = (path: string): Promise<Uint8Array> => {
+    let read = reads.get(path);
+    if (!read) {
+      read = files.readFile(path);
+      reads.set(path, read);
+      // A failed read is not kept, so a retry reads again.
+      read.catch(() => reads.delete(path));
+    }
+    return read;
+  };
+  return {
+    readFile,
+    exists: (path) => (reads.has(path) ? Promise.resolve(true) : files.exists(path)),
+    ...(files.listDir ? { listDir: (path: string) => files.listDir!(path) } : {}),
+    readPrefix: async (path, length) =>
+      files.readPrefix && !reads.has(path)
+        ? files.readPrefix(path, length)
+        : (await readFile(path)).subarray(0, length),
+  };
+};
 
 /** A directory's entries, or an error saying this reader cannot list one. */
 export const listDir = (files: FileReader, path: string): Promise<DirEntry[]> => {

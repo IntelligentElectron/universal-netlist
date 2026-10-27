@@ -23,11 +23,19 @@ import type {
   SearchNetsResult,
 } from "../types.js";
 
-/** Run a tool on the environment's context, keeping only the arguments given. */
+/**
+ * Run a tool on the environment's context, keeping only the arguments given.
+ * An empty design variant is no variant, as these functions have always read
+ * it, though the tool's schema refuses one.
+ */
 const run = <R>(name: string, args: Record<string, unknown>): Promise<R | ErrorResult> =>
   callTool(
     name,
-    Object.fromEntries(Object.entries(args).filter(([, value]) => value !== undefined)),
+    Object.fromEntries(
+      Object.entries(args).filter(
+        ([key, value]) => value !== undefined && !(key === "design_variant" && value === "")
+      )
+    ),
     serviceContextFromEnvironment()
   ) as Promise<R | ErrorResult>;
 
