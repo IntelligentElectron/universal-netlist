@@ -1,0 +1,9 @@
+position,tool_design,design_flag,outcome,next,status,note
+first,takes_design,absent,design,,draft,the first bare token is the design
+first,takes_design,present,usage: design given twice,,draft,positional and --design both name it
+first,no_design,absent,usage: takes only flags,,draft,list_designs takes no design
+first,no_design,present,n/a,,draft,a tool without a design argument has no --design flag
+later,takes_design,absent,usage: unexpected argument,,draft,only the first token may be the design
+later,takes_design,present,usage: unexpected argument,,draft,only the first token may be the design
+later,no_design,absent,usage: takes only flags,,draft,list_designs takes no design
+later,no_design,present,n/a,,draft,a tool without a design argument has no --design flag

@@ -1,0 +1,16 @@
+{
+  "name": "universal-netlist",
+  "owner": {
+    "name": "Valentino Zegna"
+  },
+  "metadata": {
+    "description": "Query Cadence, Altium, KiCad and Universal Netlist designs from the shell with the universal-netlist command line, for agents without the MCP server."
+  },
+  "plugins": [
+    {
+      "name": "universal-netlist",
+      "source": "plugins/universal-netlist",
+      "description": "Query Cadence, Altium, KiCad and Universal Netlist designs from the shell with the universal-netlist command line, for agents without the MCP server."
+    }
+  ]
+}

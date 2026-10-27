@@ -1,0 +1,20 @@
+{
+  "name": "universal-netlist",
+  "interface": {
+    "displayName": "Universal Netlist"
+  },
+  "plugins": [
+    {
+      "name": "universal-netlist",
+      "source": {
+        "source": "local",
+        "path": "./plugins/universal-netlist"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

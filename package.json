@@ -39,6 +39,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "golden": "node --import tsx scripts/gen-golden.ts",
+    "gen:skill": "node --import tsx scripts/gen-skill.ts",
     "script": "node --import tsx",
     "clean": "rm -rf dist bin",
     "compile": "scripts/build-binary.sh host bin/universal-netlist",

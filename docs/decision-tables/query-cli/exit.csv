@@ -1,0 +1,37 @@
+help,args,result,stdout,outcome,next,status,note
+absent,valid,ok,tty,"indented JSON on stdout, exit 0",,draft,"runQuery: the result; indented on a terminal, compact for a pipe"
+absent,valid,ok,pipe,"compact JSON on stdout, exit 0",,draft,"runQuery: the result; indented on a terminal, compact for a pipe"
+absent,valid,error_field,tty,"indented JSON on stdout, exit 1",,draft,"runQuery: a result with an error field; indented on a terminal, compact for a pipe"
+absent,valid,error_field,pipe,"compact JSON on stdout, exit 1",,draft,"runQuery: a result with an error field; indented on a terminal, compact for a pipe"
+absent,valid,throws,tty,"indented JSON on stdout, exit 1",,draft,"runQuery: a thrown error is printed as { error }; indented on a terminal, compact for a pipe"
+absent,valid,throws,pipe,"compact JSON on stdout, exit 1",,draft,"runQuery: a thrown error is printed as { error }; indented on a terminal, compact for a pipe"
+absent,usage_error,ok,tty,"usage on stderr, exit 2",,draft,src/cli/query.ts runQuery: usageError; the tool does not run
+absent,usage_error,ok,pipe,"usage on stderr, exit 2",,draft,src/cli/query.ts runQuery: usageError; the tool does not run
+absent,usage_error,error_field,tty,"usage on stderr, exit 2",,draft,src/cli/query.ts runQuery: usageError; the tool does not run
+absent,usage_error,error_field,pipe,"usage on stderr, exit 2",,draft,src/cli/query.ts runQuery: usageError; the tool does not run
+absent,usage_error,throws,tty,"usage on stderr, exit 2",,draft,src/cli/query.ts runQuery: usageError; the tool does not run
+absent,usage_error,throws,pipe,"usage on stderr, exit 2",,draft,src/cli/query.ts runQuery: usageError; the tool does not run
+absent,schema_refuses,ok,tty,"usage on stderr, exit 2",,draft,src/cli/query.ts runQuery: usageError; the tool does not run
+absent,schema_refuses,ok,pipe,"usage on stderr, exit 2",,draft,src/cli/query.ts runQuery: usageError; the tool does not run
+absent,schema_refuses,error_field,tty,"usage on stderr, exit 2",,draft,src/cli/query.ts runQuery: usageError; the tool does not run
+absent,schema_refuses,error_field,pipe,"usage on stderr, exit 2",,draft,src/cli/query.ts runQuery: usageError; the tool does not run
+absent,schema_refuses,throws,tty,"usage on stderr, exit 2",,draft,src/cli/query.ts runQuery: usageError; the tool does not run
+absent,schema_refuses,throws,pipe,"usage on stderr, exit 2",,draft,src/cli/query.ts runQuery: usageError; the tool does not run
+present,valid,ok,tty,"tool help on stdout, exit 0",,draft,"--help wins over everything else, so an agent can always ask; nothing runs"
+present,valid,ok,pipe,"tool help on stdout, exit 0",,draft,"--help wins over everything else, so an agent can always ask; nothing runs"
+present,valid,error_field,tty,"tool help on stdout, exit 0",,draft,"--help wins over everything else, so an agent can always ask; nothing runs"
+present,valid,error_field,pipe,"tool help on stdout, exit 0",,draft,"--help wins over everything else, so an agent can always ask; nothing runs"
+present,valid,throws,tty,"tool help on stdout, exit 0",,draft,"--help wins over everything else, so an agent can always ask; nothing runs"
+present,valid,throws,pipe,"tool help on stdout, exit 0",,draft,"--help wins over everything else, so an agent can always ask; nothing runs"
+present,usage_error,ok,tty,"tool help on stdout, exit 0",,draft,"--help wins over everything else, so an agent can always ask; nothing runs"
+present,usage_error,ok,pipe,"tool help on stdout, exit 0",,draft,"--help wins over everything else, so an agent can always ask; nothing runs"
+present,usage_error,error_field,tty,"tool help on stdout, exit 0",,draft,"--help wins over everything else, so an agent can always ask; nothing runs"
+present,usage_error,error_field,pipe,"tool help on stdout, exit 0",,draft,"--help wins over everything else, so an agent can always ask; nothing runs"
+present,usage_error,throws,tty,"tool help on stdout, exit 0",,draft,"--help wins over everything else, so an agent can always ask; nothing runs"
+present,usage_error,throws,pipe,"tool help on stdout, exit 0",,draft,"--help wins over everything else, so an agent can always ask; nothing runs"
+present,schema_refuses,ok,tty,"tool help on stdout, exit 0",,draft,"--help wins over everything else, so an agent can always ask; nothing runs"
+present,schema_refuses,ok,pipe,"tool help on stdout, exit 0",,draft,"--help wins over everything else, so an agent can always ask; nothing runs"
+present,schema_refuses,error_field,tty,"tool help on stdout, exit 0",,draft,"--help wins over everything else, so an agent can always ask; nothing runs"
+present,schema_refuses,error_field,pipe,"tool help on stdout, exit 0",,draft,"--help wins over everything else, so an agent can always ask; nothing runs"
+present,schema_refuses,throws,tty,"tool help on stdout, exit 0",,draft,"--help wins over everything else, so an agent can always ask; nothing runs"
+present,schema_refuses,throws,pipe,"tool help on stdout, exit 0",,draft,"--help wins over everything else, so an agent can always ask; nothing runs"

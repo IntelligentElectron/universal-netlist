@@ -1,0 +1,51 @@
+{
+  "name": "positional",
+  "rules": [
+    {
+      "when": {
+        "position": [
+          "later"
+        ],
+        "tool_design": [
+          "takes_design"
+        ]
+      },
+      "outcome": "usage: unexpected argument",
+      "next": "",
+      "cells": 2
+    },
+    {
+      "when": {
+        "position": [
+          "first"
+        ],
+        "design_flag": [
+          "present"
+        ]
+      },
+      "outcome": "usage: design given twice",
+      "next": "",
+      "cells": 1
+    },
+    {
+      "when": {
+        "position": [
+          "first"
+        ],
+        "tool_design": [
+          "takes_design"
+        ],
+        "design_flag": [
+          "absent"
+        ]
+      },
+      "outcome": "design",
+      "next": "",
+      "cells": 1
+    }
+  ],
+  "default": {
+    "outcome": "usage: takes only flags",
+    "next": ""
+  }
+}
