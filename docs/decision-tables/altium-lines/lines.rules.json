@@ -1,0 +1,8 @@
+{
+  "name": "lines",
+  "rules": [],
+  "default": {
+    "outcome": "line read",
+    "next": ""
+  }
+}

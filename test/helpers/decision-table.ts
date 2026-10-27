@@ -1,0 +1,39 @@
+/**
+ * Golden decision tables in `docs/decision-tables/<feature>/`, read for the
+ * `*.table.test.ts` suites that replay every cell against the code.
+ */
+import { readFileSync } from "fs";
+import path from "path";
+
+/** Read a table CSV under `dir`: quoted fields may hold commas and doubled quotes. */
+export const readTable = (dir: string, name: string): Record<string, string>[] => {
+  const text = readFileSync(path.join(dir, `${name}.csv`), "utf8");
+  const rows: string[][] = [];
+  let row: string[] = [];
+  let field = "";
+  let quoted = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (quoted) {
+      if (c === '"' && text[i + 1] === '"') {
+        field += '"';
+        i++;
+      } else if (c === '"') quoted = false;
+      else field += c;
+    } else if (c === '"') quoted = true;
+    else if (c === "," || c === "\n") {
+      row.push(field);
+      field = "";
+      if (c === "\n") {
+        rows.push(row);
+        row = [];
+      }
+    } else field += c;
+  }
+  const [header, ...body] = rows;
+  return body.map((r) => Object.fromEntries(header.map((h, i) => [h, r[i]])));
+};
+
+/** A test name for a cell: each dimension and its value. */
+export const cellName = (row: Record<string, string>, dims: readonly string[]): string =>
+  dims.map((d) => `${d}=${row[d]}`).join(" ");

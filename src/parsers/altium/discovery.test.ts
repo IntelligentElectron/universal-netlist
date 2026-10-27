@@ -180,6 +180,36 @@ describe("Altium Discovery - Project File Parsing", () => {
       expect(designs[0].schdocPaths[1]).toContain("mcontrol.SchDoc");
       expect(designs[0].schdocPaths[2]).toContain("zpower.SchDoc");
     });
+
+    it("should read a project whose lines end in CR CR LF (#244)", async () => {
+      // Shaped like MB1136.PrjPCB: five documents, four of them schematics.
+      const projectDir = join(testDir, "project");
+      await mkdir(projectDir, { recursive: true });
+      const sheets = ["Power.SchDoc", "MCU.SchDoc", "Connectors.SchDoc", "Debug.SchDoc"];
+
+      await writeFile(
+        join(projectDir, "MB1136.PrjPCB"),
+        [
+          "[Design]",
+          "Version=1.0",
+          ...sheets.flatMap((sheet, i) => [`[Document${i + 1}]`, `DocumentPath=${sheet}`]),
+          "[Document5]",
+          "DocumentPath=MB1136.PcbDoc",
+          "",
+        ].join("\r\r\n")
+      );
+      for (const sheet of sheets) {
+        await writeOleSchDoc(join(projectDir, sheet));
+      }
+
+      const designs = await discoverAltiumDesigns(testDir);
+
+      expect(designs).toHaveLength(1);
+      expect(designs[0].error).toBeUndefined();
+      expect(designs[0].schdocPaths).toEqual(
+        sheets.map((sheet) => join(projectDir, sheet)).sort((a, b) => a.localeCompare(b))
+      );
+    });
   });
 
   describe("Fallback SchDoc discovery", () => {
