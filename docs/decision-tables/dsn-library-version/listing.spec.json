@@ -1,0 +1,15 @@
+{
+  "name": "listing",
+  "assumes": [
+    "list_designs on a .DSN that opens as an OLE container and whose variant streams read",
+    "version is the uint16 major and minor at offset 32 of the root Library stream (path exactly Library), with the values the gate table defines: unknown, older (major below 3), tested (3.2 or 3.3), untested (any other from 3 up)",
+    "library is whether the root Library stream is encrypted (a password-protected design: its first 22 bytes are clear, the version is not)",
+    "variants is whether the design records CIS BOM variants",
+    "listing reads the container without a password, so an encrypted version is never known at listing"
+  ],
+  "dimensions": {
+    "version": ["unknown", "older", "tested", "untested"],
+    "library": ["clear", "encrypted"],
+    "variants": ["none", "named"]
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "name": "listing",
+  "rules": [
+    {
+      "when": {
+        "version": [
+          "unknown",
+          "tested",
+          "untested"
+        ],
+        "variants": [
+          "named"
+        ]
+      },
+      "outcome": "its named variants",
+      "next": "",
+      "cells": 6
+    },
+    {
+      "when": {
+        "version": [
+          "older"
+        ],
+        "library": [
+          "clear"
+        ]
+      },
+      "outcome": "unsupported, <Default> alone, error is the refusal",
+      "next": "",
+      "cells": 2
+    },
+    {
+      "when": {
+        "library": [
+          "encrypted"
+        ],
+        "variants": [
+          "named"
+        ]
+      },
+      "outcome": "its named variants",
+      "next": "",
+      "cells": 1
+    }
+  ],
+  "default": {
+    "outcome": "<Default> alone",
+    "next": ""
+  }
+}
