@@ -2,7 +2,7 @@
  * The query command line through the real entry point, in a child process,
  * as an agent in a sandbox runs it.
  */
-import { spawnSync } from "node:child_process";
+import { spawn, spawnSync } from "node:child_process";
 import { chmodSync, mkdirSync, mkdtempSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
@@ -83,6 +83,19 @@ describe.skipIf(!hasFixtures)("query command line on a design", () => {
     const { code, stdout } = cli(["query_xnet_by_net_name", design, "--net_name=NOPE"]);
     expect(code).toBe(1);
     expect(JSON.parse(stdout).error).toContain("Net 'NOPE' not found");
+  });
+
+  it("ends quietly when the reader closes the pipe first, as `| head` does", async () => {
+    const child = spawn(process.execPath, ["--import", "tsx", ENTRY, "list_nets", design], {
+      stdio: ["ignore", "pipe", "pipe"],
+      env: { ...process.env, NODE_NO_WARNINGS: "1" },
+    });
+    child.stdout.destroy();
+    let stderr = "";
+    child.stderr.on("data", (chunk) => (stderr += chunk));
+    const code = await new Promise((resolve) => child.on("close", resolve));
+    expect(stderr).toBe("");
+    expect(code).toBe(0);
   });
 
   it("keeps parses on disk with --cache, in the directory named", () => {

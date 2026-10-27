@@ -65,13 +65,15 @@ universal-netlist query_xnet_by_net_name hardware/board.DSN --net_name SPI_CLK -
 
 - Design paths are relative to the working directory; absolute paths are also accepted
 - Every result describes one build of a design. A design with named design variants requires `design_variant` on every query, one of the names `list_designs` lists for it: those variants are its only builds, and `<Default>` is refused on it. A design with no variants has one build, `<Default>` (alias `default`), the design with every part's own Do Not Stuff state. Every result echoes the `design_variant` it describes
-- DNS (Do Not Stuff) components are flagged `dns: true`. Listing and search tools include them by default; traversal and ERC leave them out unless `include_dns=true`
+- DNS (Do Not Stuff) components are flagged `dns: true`. Listing and search tools include them by default; traversal and ERC leave them out unless `--include_dns`
 - A part the selected variant substitutes for the base part is flagged `alternate_part: true`
 - A result carrying an `error` field failed, and the message names the tool that finds the value you wanted
 - A net named with leading or trailing whitespace comes with `net_name_warnings`; its `netlist_name` is the name an Allegro export or another board uses
 - Read design files only through these commands, not by parsing them yourself, and never run `universal-netlist update` or `universal-netlist uninstall`: they replace or remove the binary
 
 ## Tools
+
+The descriptions are the MCP tools' own. Where one says an unknown argument is dropped, the command line refuses it instead, with exit 2.
 
 ### list_designs
 
@@ -96,7 +98,7 @@ universal-netlist list_designs [--path <text>] [--pattern <text>] [--max_depth <
 
 ### list_components
 
-List components of a specific type in a design. The type is the refdes prefix, matched whole and case-insensitively: "u" gives U1 and U2 but NOT USB1, whose prefix is USB, and "tp" gives the test points. Asking for a partial prefix returns nothing rather than everything starting with it, so if a part you expected is missing, look for it under its own prefix. Identical components are grouped for compact output: parts share a group only when their MPN, description, comment and value all agree, so every field a group reports is true of every part in it. `component_notes` names the parts with no MPN. If no components match, the error lists the prefixes the same query would return, and names apart any prefix whose components are all DNS. A prefix whose components are all DNS returns an empty list with a note saying so; pass include_dns=true to list them.
+List components of a specific type in a design. The type is the refdes prefix, matched whole and case-insensitively: "u" gives U1 and U2 but NOT USB1, whose prefix is USB, and "tp" gives the test points. Asking for a partial prefix returns nothing rather than everything starting with it, so if a part you expected is missing, look for it under its own prefix. Identical components are grouped for compact output: parts share a group only when their MPN, description, comment and value all agree, so every field a group reports is true of every part in it. `component_notes` names the parts with no MPN. If no components match, the error lists the prefixes the same query would return, and names apart any prefix whose components are all DNS. A prefix whose components are all DNS returns an empty list with a note saying so; pass --include_dns to list them.
 
 ```bash
 universal-netlist list_components <design> --type <text> [--include_dns] [--design_variant <text>]

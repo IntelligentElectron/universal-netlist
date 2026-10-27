@@ -30,7 +30,26 @@ const conventions = (): string[] => {
   const section = SERVER_INSTRUCTIONS.split("## Conventions")[1] ?? "";
   return section
     .split("\n")
-    .filter((line) => line.startsWith("- ") && !line.startsWith("- Read designs only"));
+    .filter((line) => line.startsWith("- ") && !line.startsWith("- Read designs only"))
+    .map(asFlags);
+};
+
+/** Every argument name any tool takes. */
+const argumentNames = (): Set<string> =>
+  new Set(TOOLS.flatMap((tool) => flagsOf(tool).map((flag) => flag.name)));
+
+/**
+ * MCP argument spellings in prose, as the command line writes them:
+ * `include_dns=true` is `--include_dns`. Only argument names are rewritten, so
+ * a result field such as `dns=true` stays as it is.
+ */
+const asFlags = (text: string): string => {
+  const names = argumentNames();
+  return text.replace(/`?\b(\w+)=(true|false)\b`?/g, (match, name: string, value: string) => {
+    if (!names.has(name)) return match;
+    const flag = value === "true" ? `--${name}` : `--${name}=false`;
+    return match.startsWith("`") ? `\`${flag}\`` : flag;
+  });
 };
 
 const flagLine = (flag: ReturnType<typeof flagsOf>[number]): string => {
@@ -122,6 +141,8 @@ export const renderSkill = (): string => {
     "- Read design files only through these commands, not by parsing them yourself, and never run `universal-netlist update` or `universal-netlist uninstall`: they replace or remove the binary",
     "",
     "## Tools",
+    "",
+    "The descriptions are the MCP tools' own. Where one says an unknown argument is dropped, the command line refuses it instead, with exit 2.",
   ];
 
   for (const tool of TOOLS) {
@@ -129,7 +150,7 @@ export const renderSkill = (): string => {
       "",
       `### ${tool.name}`,
       "",
-      tool.description,
+      asFlags(tool.description),
       "",
       "```bash",
       usageLine(tool),

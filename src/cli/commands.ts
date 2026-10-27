@@ -367,6 +367,11 @@ export const handleQueryCommand = async (
     isTTY: Boolean(process.stdout.isTTY),
     context: (cache) => queryContext(cache),
   });
+  // A reader that has seen enough closes the pipe (`| head`); the rest of the
+  // output has nowhere to go, which is not a failure of the query.
+  process.stdout.on("error", (error: NodeJS.ErrnoException) => {
+    if (error.code !== "EPIPE") throw error;
+  });
   if (outcome.stdout !== undefined) process.stdout.write(`${outcome.stdout}\n`);
   if (outcome.stderr !== undefined) process.stderr.write(`${outcome.stderr}\n`);
   process.exitCode = outcome.exitCode;

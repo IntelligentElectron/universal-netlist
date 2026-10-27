@@ -14,10 +14,14 @@ describe("agent skill", () => {
   it("documents every tool this build offers, with its description and flags", () => {
     const skill = renderSkill();
     for (const tool of TOOLS) {
-      expect(skill).toContain(`### ${tool.name}\n\n${tool.description}\n`);
+      expect(skill).toContain(`### ${tool.name}\n\n`);
+      // Each description's first sentence, which names no MCP argument syntax.
+      expect(skill).toContain(tool.description.split(/[.:]/)[0]);
     }
     expect(skill).toContain("`--net_name`");
     expect(skill).not.toMatch(/export_cadence_netlist|\bDAT\b|pstxnet/);
+    // Arguments are spelled as flags, never as MCP's name=value.
+    expect(skill).not.toMatch(/(?<!--)\binclude_dns=(true|false)/);
   });
 
   it("starts with the frontmatter an agent reads to decide when to load it", () => {

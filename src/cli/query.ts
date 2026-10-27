@@ -117,7 +117,9 @@ export const parseQueryArgs = (tool: AnyToolDefinition, tokens: readonly string[
     }
 
     if (!token.startsWith("--")) {
-      return usage(`Unknown flag '${token}'. Flags are spelled --name, as the tool's arguments are.`);
+      return usage(
+        `Unknown flag '${token}'. Flags are spelled --name, as the tool's arguments are.`
+      );
     }
 
     const equals = token.indexOf("=");

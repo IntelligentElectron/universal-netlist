@@ -1,7 +1,6 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "universal-netlist",
-  "version": "1.0.0",
   "description": "Query Cadence, Altium, KiCad and Universal Netlist designs from the shell with the universal-netlist command line, for agents without the MCP server.",
   "author": {
     "name": "Valentino Zegna",
