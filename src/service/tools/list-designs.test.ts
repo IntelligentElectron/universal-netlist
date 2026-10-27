@@ -9,6 +9,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import * as parsers from "../../parsers/index.js";
 import { listDesigns } from "./list-designs.js";
+import { loadNetlist } from "../load-netlist.js";
 import { UnsupportedDesignError } from "../../parsers/errors.js";
 import { fixturePath, hasFixtures } from "../../../test/utils.js";
 import type { EDAProjectFormatHandler, ListDesignsResult } from "../../types.js";
@@ -147,6 +148,20 @@ describe.skipIf(!hasFixtures)("design_variants on real designs", () => {
     expect(await variantsOf(dir, "BSPD_002.PrjPcb")).toEqual([
       { name: "BSPD-DNP", fabrication: false },
     ]);
+  });
+
+  it("lists a Cadence design saved at Library stream version 2.0 as unsupported", async () => {
+    const dir = fixturePath("cadence", "gprino-lf");
+    const result = (await listDesigns({ searchPath: dir })) as ListDesignsResult;
+    const design = result.designs.find((entry) => entry.path.endsWith("GPR_LF.DSN"))!;
+    expect(design).toMatchObject({
+      name: "GPR_LF",
+      design_variants: [{ name: "<Default>", is_default: true }],
+      unsupported: true,
+    });
+    expect(design.error).toContain("older Capture format (Library stream version 2.0)");
+    // Every query on it returns the error the listing gave it.
+    expect(await loadNetlist(design.path)).toEqual({ error: design.error });
   });
 
   it("lists a KiCad project's variants as its builds, with no fabrication flag", async () => {
