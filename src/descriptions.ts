@@ -45,9 +45,9 @@ List the design projects in a directory, one path each: a .DSN, a .PrjPcb, a .ki
 or a Universal Netlist .netlist.json. That path is what every other tool takes; use this \
 tool instead of searching the filesystem.
 
-\`path\` is optional. Omitted, blank, or misspelled (unknown arguments are dropped), it \
-searches the server's working directory, so check \`root\` for the directory actually \
-searched. A result cut short by \`max_results\` says so in its notes.
+\`path\` is optional. Omitted or blank, it searches the server's working directory, so \
+check \`root\` for the directory actually searched. A misspelled argument name is refused \
+with an error naming it. A result cut short by \`max_results\` says so in its notes.
 
 \`design_variants\` lists each design's builds: its native variants (Altium, Cadence CIS, \
 KiCad; \`fabrication\` where the vendor marks one a build assembly), or \`<Default>\` alone \

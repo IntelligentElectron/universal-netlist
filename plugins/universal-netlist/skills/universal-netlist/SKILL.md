@@ -86,7 +86,7 @@ Every tool but `list_designs` also takes these two flags, not repeated below; `-
 
 List the design projects in a directory, one path each: a .DSN, a .PrjPcb, a .kicad_pro, or a Universal Netlist .netlist.json. That path is what every other tool takes; use this tool instead of searching the filesystem.
 
-`path` is optional. Omitted, blank, or misspelled (unknown arguments are dropped), it searches the server's working directory, so check `root` for the directory actually searched. A result cut short by `max_results` says so in its notes.
+`path` is optional. Omitted or blank, it searches the server's working directory, so check `root` for the directory actually searched. A misspelled argument name is refused with an error naming it. A result cut short by `max_results` says so in its notes.
 
 `design_variants` lists each design's builds: its native variants (Altium, Cadence CIS, KiCad; `fabrication` where the vendor marks one a build assembly), or `<Default>` alone when it records none. A design with variants requires `design_variant` on every query, and `<Default>` is refused on it.
 
