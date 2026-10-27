@@ -3,7 +3,7 @@
  * own export (parity.test.ts, and by hand while a design is investigated).
  */
 
-import type { ParsedNetlist } from "../../../types.js";
+import type { ParsedNetlist } from "../../src/types.js";
 
 /** JSON with every object's keys sorted: key order carries no meaning in a netlist. */
 const canonical = (value: unknown): string =>

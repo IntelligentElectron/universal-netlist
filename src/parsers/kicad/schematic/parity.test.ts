@@ -20,7 +20,7 @@ import { parseKicadNetlist } from "../netlist-parser.js";
 import { exportNetlist, isKicadCliAvailable } from "../cli.js";
 import { resolveKicadArtifacts } from "../discovery.js";
 import { readKicadSchematicNetlist } from "./index.js";
-import { netlistDifferences } from "./compare.js";
+import { netlistDifferences } from "../../../../test/helpers/netlist-compare.js";
 
 const NEWER_EXPORTS = path.resolve(__dirname, "../../../../test/golden/kicad-cli");
 

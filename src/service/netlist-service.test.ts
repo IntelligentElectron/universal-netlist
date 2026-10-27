@@ -148,6 +148,38 @@ describe.skipIf(!hasFixtures)("createNetlistService with a file reader", () => {
     );
   });
 
+  it("finds a sheet beside the sheet that uses it, in a subdirectory", async () => {
+    // Drivers.kicad_sch and the PhaseDriver.kicad_sch it uses move into drivers/,
+    // and the root names drivers/Drivers.kicad_sch; Drivers keeps naming its
+    // child by its bare file name, which is found beside it.
+    const kicad = path.join(MEMORY_ROOT, "kicad");
+    const moved = new Map<string, Uint8Array>();
+    for (const [p, data] of files) {
+      if (!p.startsWith(kicad + path.sep) || p.endsWith(".net")) continue;
+      const name = path.basename(p);
+      if (name === "Drivers.kicad_sch" || name === "PhaseDriver.kicad_sch") {
+        moved.set(path.join(kicad, "drivers", name), data);
+      } else if (name === "OpenMD.kicad_sch") {
+        const text = Buffer.from(data).toString("utf-8");
+        moved.set(
+          p,
+          new TextEncoder().encode(
+            text.replace(
+              '"Sheetfile" "Drivers.kicad_sch"',
+              '"Sheetfile" "drivers/Drivers.kicad_sch"'
+            )
+          )
+        );
+      } else moved.set(p, data);
+    }
+    const memory = createNetlistService({ files: memoryReader(moved) });
+    expect(await memory.listNets({ design: path.join(kicad, "OpenMD.kicad_pro") })).toEqual(
+      await createNetlistService().listNets({
+        design: fixturePath("kicad", "openmd-motordriver", "OpenMD.kicad_pro"),
+      })
+    );
+  });
+
   it("names the schematic reader's failure when kicad-cli is off and no .net is saved", async () => {
     const only = new Map(
       [...files].filter(([p]) => !p.endsWith(".net") && !p.endsWith("Drivers.kicad_sch"))

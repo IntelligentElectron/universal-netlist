@@ -14,42 +14,70 @@ import path from "node:path";
 import { readText, type FileReader } from "../../context.js";
 import type { ParsedNetlist } from "../../../types.js";
 import { parseKicadNetlist } from "../netlist-parser.js";
-import { parseKicadSheetFiles } from "../variants.js";
 import { resolveSchematic, type SchematicSource } from "./connectivity.js";
 import { writeKicadNetlist } from "./netlist-writer.js";
 
 /**
+ * The files a schematic's sheets name, from their `Sheetfile` property
+ * (`Sheet file` in KiCad 6). Found by scanning the text, not parsing it: the
+ * connectivity engine parses every sheet once, and this only needs the names.
+ */
+const sheetFiles = (content: string): string[] => {
+  const files = new Set<string>();
+  for (const match of content.matchAll(/\(property\s+"Sheet ?file"\s+"((?:[^"\\]|\\.)*)"/g)) {
+    const file = match[1].replace(/\\(.)/g, "$1").trim();
+    if (file) files.add(file);
+  }
+  return [...files];
+};
+
+/**
  * The root schematic and every sheet it reaches, each named as the sheets that
- * use it name it (`Sheetfile`, relative to the root's directory). A sheet that
- * cannot be read fails the read: a netlist without it would be missing that
- * sheet's parts and nets while looking complete, so the KiCad handler falls
- * back to kicad-cli, or reports the missing sheet.
+ * use it name it. A sheet's file is looked for beside the sheet that uses it,
+ * as the KiCad handler's other readers look for it, then beside the root. A
+ * sheet that cannot be read fails the read: a netlist without it would be
+ * missing that sheet's parts and nets while looking complete, so the KiCad
+ * handler falls back to kicad-cli, or reports the missing sheet.
  */
 const readSources = async (
   rootSchematic: string,
   files: FileReader
 ): Promise<SchematicSource[]> => {
   const rootDir = path.dirname(rootSchematic);
-  const sources: SchematicSource[] = [
-    { name: path.basename(rootSchematic), content: await readText(files, rootSchematic) },
+  const sources: (SchematicSource & { dir: string })[] = [
+    {
+      name: path.basename(rootSchematic),
+      content: await readText(files, rootSchematic),
+      dir: rootDir,
+    },
   ];
   const seen = new Set([sources[0].name]);
   for (let i = 0; i < sources.length; i++) {
-    for (const sheetFile of parseKicadSheetFiles(sources[i].content)) {
+    for (const sheetFile of sheetFiles(sources[i].content)) {
       if (seen.has(sheetFile)) continue;
       seen.add(sheetFile);
-      let content: string;
-      try {
-        content = await readText(files, path.resolve(rootDir, sheetFile));
-      } catch (error) {
+      const candidates = [...new Set([sources[i].dir, rootDir])].map((dir) =>
+        path.resolve(dir, sheetFile)
+      );
+      let found: { content: string; dir: string } | undefined;
+      let failure: unknown;
+      for (const candidate of candidates) {
+        try {
+          found = { content: await readText(files, candidate), dir: path.dirname(candidate) };
+          break;
+        } catch (error) {
+          failure ??= error;
+        }
+      }
+      if (!found) {
         throw new Error(
-          `Sheet "${sheetFile}" used by ${sources[i].name} cannot be read: ${(error as Error).message}`
+          `Sheet "${sheetFile}" used by ${sources[i].name} cannot be read: ${(failure as Error).message}`
         );
       }
-      sources.push({ name: sheetFile, content });
+      sources.push({ name: sheetFile, ...found });
     }
   }
-  return sources;
+  return sources.map(({ name, content }) => ({ name, content }));
 };
 
 /**
