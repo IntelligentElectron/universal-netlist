@@ -301,6 +301,12 @@ export interface DesignInfo {
    * variant requires `design_variant` on every query, as one of those names.
    */
   design_variants: DesignVariantInfo[];
+  /**
+   * Set when the design's own file shows that this server cannot read it, such as an
+   * OrCAD design saved in an older Capture format. `error` then says why; every query
+   * on the design is refused with the same message.
+   */
+  unsupported?: boolean;
   error?: string;
 }
 
@@ -436,7 +442,10 @@ export interface EDAProjectFormatHandler {
   /** Discover all designs of this format in a directory */
   discoverDesigns(rootDir: string, options?: DiscoverDesignsOptions): Promise<DiscoveredDesign[]>;
 
-  /** List the named assembly variants a design records. */
+  /**
+   * List the named assembly variants a design records. Throws `UnsupportedDesignError`
+   * when the design's own file shows that it cannot be read.
+   */
   listVariants?(designPath: string): Promise<DesignVariant[]>;
 
   /** Parse a design file into the unified ParsedNetlist format */

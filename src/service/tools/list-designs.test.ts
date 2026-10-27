@@ -9,6 +9,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import * as parsers from "../../parsers/index.js";
 import { listDesigns } from "./list-designs.js";
+import { UnsupportedDesignError } from "../../parsers/errors.js";
 import { fixturePath, hasFixtures } from "../../../test/utils.js";
 import type { EDAProjectFormatHandler, ListDesignsResult } from "../../types.js";
 
@@ -69,6 +70,60 @@ describe("design_variants", () => {
     expect(await variantsOf("/mock", "demo.netlist.json")).toEqual([
       { name: "<Default>", is_default: true },
     ]);
+  });
+});
+
+describe("unsupported designs", () => {
+  afterEach(() => vi.restoreAllMocks());
+
+  const REASON = "OrCAD design saved in an older Capture format (Library stream version 2.0)";
+
+  it("marks a design its handler rules out, with the handler's reason as its error", async () => {
+    vi.spyOn(parsers, "findHandler").mockReturnValue(
+      mockHandler({ listVariants: vi.fn().mockRejectedValue(new UnsupportedDesignError(REASON)) })
+    );
+    vi.spyOn(parsers, "discoverDesigns").mockResolvedValue([
+      { name: "old", format: "universal", sourcePath: "/mock/old.DSN" },
+    ]);
+
+    const result = (await listDesigns({ searchPath: "/mock" })) as ListDesignsResult;
+    expect(result.designs[0]).toEqual({
+      name: "old",
+      path: "/mock/old.DSN",
+      design_variants: [{ name: "<Default>", is_default: true }],
+      unsupported: true,
+      error: REASON,
+    });
+  });
+
+  it("keeps the reason ahead of a discovery error, since every query returns it", async () => {
+    vi.spyOn(parsers, "findHandler").mockReturnValue(
+      mockHandler({ listVariants: vi.fn().mockRejectedValue(new UnsupportedDesignError(REASON)) })
+    );
+    vi.spyOn(parsers, "discoverDesigns").mockResolvedValue([
+      {
+        name: "old",
+        format: "universal",
+        sourcePath: "/mock/old.DSN",
+        error: "A netlist in /mock/allegro could belong to this design or to another one nearby",
+      },
+    ]);
+
+    const result = (await listDesigns({ searchPath: "/mock" })) as ListDesignsResult;
+    expect(result.designs[0]).toMatchObject({ unsupported: true, error: REASON });
+  });
+
+  it("marks no design whose variants fail to read for another reason", async () => {
+    vi.spyOn(parsers, "findHandler").mockReturnValue(
+      mockHandler({ listVariants: vi.fn().mockRejectedValue(new Error("disk read failed")) })
+    );
+    vi.spyOn(parsers, "discoverDesigns").mockResolvedValue([
+      { name: "board", format: "universal", sourcePath: "/mock/board.DSN" },
+    ]);
+
+    const result = (await listDesigns({ searchPath: "/mock" })) as ListDesignsResult;
+    expect(result.designs[0].unsupported).toBeUndefined();
+    expect(result.designs[0].error).toBe("Could not read design variants: disk read failed");
   });
 });
 
