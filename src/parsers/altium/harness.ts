@@ -19,6 +19,7 @@ import {
   type Point,
 } from "./coordinates.js";
 import { UnionFind } from "./union-find.js";
+import { splitLines } from "./lines.js";
 
 /** A `.Harness` file: each harness type's member names. */
 export type HarnessDefinitions = Map<string, string[]>;
@@ -26,7 +27,7 @@ export type HarnessDefinitions = Map<string, string[]>;
 /** Parse a `.Harness` file, one `TypeName=Member1,Member2,...` per line. */
 export const parseHarnessDefinitions = (content: string): HarnessDefinitions => {
   const definitions: HarnessDefinitions = new Map();
-  for (const line of content.split(/\r?\n/)) {
+  for (const line of splitLines(content)) {
     const separator = line.indexOf("=");
     const typeName = line.slice(0, Math.max(separator, 0)).trim();
     if (separator <= 0 || !typeName) continue;
