@@ -64,6 +64,29 @@ describe("parseProjectOptions", () => {
     const options = parseProjectOptions(design("  hierarchymode = 3  "));
     expect(options.scope).toBe("global");
   });
+
+  it("reads every option from a project whose lines end in CR CR LF (#244)", () => {
+    const options = parseProjectOptions(
+      [
+        "[Design]",
+        "HierarchyMode=2",
+        "AppendSheetNumberToLocalNets=1",
+        "AllowPortNetNames=1",
+        "PowerPortNamesTakePriority=1",
+        "ChannelDesignatorFormatString=$Component$ChannelAlpha",
+        "ChannelRoomNamingStyle=1",
+        "",
+      ].join("\r\r\n")
+    );
+    expect(options).toEqual({
+      scope: "hierarchical",
+      appendSheetNumberToLocalNets: true,
+      allowPortNetNames: true,
+      powerPortNamesTakePriority: true,
+      channelFormat: "$Component$ChannelAlpha",
+      roomNamingStyle: "1",
+    });
+  });
 });
 
 describe("resolveNetIdentifierScope", () => {
