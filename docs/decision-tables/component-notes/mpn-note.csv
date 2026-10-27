@@ -17,12 +17,12 @@ present,absent,dns_listed,xnet_bare,no note,,draft,"component-grouping.ts:78 / :
 present,absent,dns_left_out,group,left out of result,,draft,component-grouping.ts:38 (group); circuit-traversal.ts:398 (xnet)
 present,absent,dns_left_out,xnet_described,left out of result,,draft,component-grouping.ts:38 (group); circuit-traversal.ts:398 (xnet)
 present,absent,dns_left_out,xnet_bare,left out of result,,draft,component-grouping.ts:38 (group); circuit-traversal.ts:398 (xnet)
-blank,present,fitted,group,listed under MPN note,,draft,"component-grouping.ts:78, note when the trimmed MPN is empty, internal PN or not"
-blank,present,fitted,xnet_described,listed under MPN note,,draft,"component-grouping.ts:210, note when the trimmed MPN is empty"
-blank,present,fitted,xnet_bare,listed under MPN note,,draft,"component-grouping.ts:294, an unaggregatable part always carries the note"
-blank,present,dns_listed,group,listed under MPN note,,draft,"component-grouping.ts:78, note when the trimmed MPN is empty, internal PN or not"
-blank,present,dns_listed,xnet_described,listed under MPN note,,draft,"component-grouping.ts:210, note when the trimmed MPN is empty"
-blank,present,dns_listed,xnet_bare,listed under MPN note,,draft,"component-grouping.ts:294, an unaggregatable part always carries the note"
+blank,present,fitted,group,listed under MPN note,,decided,"Decided in #254: an internal PN does not stand in for the MPN, so the part keeps the missing-MPN note"
+blank,present,fitted,xnet_described,listed under MPN note,,decided,"Decided in #254: an internal PN does not stand in for the MPN, so the part keeps the missing-MPN note"
+blank,present,fitted,xnet_bare,listed under MPN note,,decided,"Decided in #254: an internal PN does not stand in for the MPN, so the part keeps the missing-MPN note"
+blank,present,dns_listed,group,listed under MPN note,,decided,"Decided in #254: an internal PN does not stand in for the MPN, so the part keeps the missing-MPN note"
+blank,present,dns_listed,xnet_described,listed under MPN note,,decided,"Decided in #254: an internal PN does not stand in for the MPN, so the part keeps the missing-MPN note"
+blank,present,dns_listed,xnet_bare,listed under MPN note,,decided,"Decided in #254: an internal PN does not stand in for the MPN, so the part keeps the missing-MPN note"
 blank,present,dns_left_out,group,left out of result,,draft,component-grouping.ts:38 (group); circuit-traversal.ts:398 (xnet)
 blank,present,dns_left_out,xnet_described,left out of result,,draft,component-grouping.ts:38 (group); circuit-traversal.ts:398 (xnet)
 blank,present,dns_left_out,xnet_bare,left out of result,,draft,component-grouping.ts:38 (group); circuit-traversal.ts:398 (xnet)
@@ -35,12 +35,12 @@ blank,absent,dns_listed,xnet_bare,listed under MPN note,,draft,"component-groupi
 blank,absent,dns_left_out,group,left out of result,,draft,component-grouping.ts:38 (group); circuit-traversal.ts:398 (xnet)
 blank,absent,dns_left_out,xnet_described,left out of result,,draft,component-grouping.ts:38 (group); circuit-traversal.ts:398 (xnet)
 blank,absent,dns_left_out,xnet_bare,left out of result,,draft,component-grouping.ts:38 (group); circuit-traversal.ts:398 (xnet)
-absent,present,fitted,group,listed under MPN note,,draft,"component-grouping.ts:78, note when the trimmed MPN is empty, internal PN or not"
-absent,present,fitted,xnet_described,listed under MPN note,,draft,"component-grouping.ts:210, note when the trimmed MPN is empty"
-absent,present,fitted,xnet_bare,listed under MPN note,,draft,"component-grouping.ts:294, an unaggregatable part always carries the note"
-absent,present,dns_listed,group,listed under MPN note,,draft,"component-grouping.ts:78, note when the trimmed MPN is empty, internal PN or not"
-absent,present,dns_listed,xnet_described,listed under MPN note,,draft,"component-grouping.ts:210, note when the trimmed MPN is empty"
-absent,present,dns_listed,xnet_bare,listed under MPN note,,draft,"component-grouping.ts:294, an unaggregatable part always carries the note"
+absent,present,fitted,group,listed under MPN note,,decided,"Decided in #254: an internal PN does not stand in for the MPN, so the part keeps the missing-MPN note"
+absent,present,fitted,xnet_described,listed under MPN note,,decided,"Decided in #254: an internal PN does not stand in for the MPN, so the part keeps the missing-MPN note"
+absent,present,fitted,xnet_bare,listed under MPN note,,decided,"Decided in #254: an internal PN does not stand in for the MPN, so the part keeps the missing-MPN note"
+absent,present,dns_listed,group,listed under MPN note,,decided,"Decided in #254: an internal PN does not stand in for the MPN, so the part keeps the missing-MPN note"
+absent,present,dns_listed,xnet_described,listed under MPN note,,decided,"Decided in #254: an internal PN does not stand in for the MPN, so the part keeps the missing-MPN note"
+absent,present,dns_listed,xnet_bare,listed under MPN note,,decided,"Decided in #254: an internal PN does not stand in for the MPN, so the part keeps the missing-MPN note"
 absent,present,dns_left_out,group,left out of result,,draft,component-grouping.ts:38 (group); circuit-traversal.ts:398 (xnet)
 absent,present,dns_left_out,xnet_described,left out of result,,draft,component-grouping.ts:38 (group); circuit-traversal.ts:398 (xnet)
 absent,present,dns_left_out,xnet_bare,left out of result,,draft,component-grouping.ts:38 (group); circuit-traversal.ts:398 (xnet)
