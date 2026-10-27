@@ -21,8 +21,9 @@ export interface LibraryVersion {
  *
  * - `unknown`: the design has no Library stream, or one too short to hold a version.
  * - `older`: major below 3. Capture wrote these pages in an older record encoding,
- *   with no 4-byte prefix lengths and no `Packages` streams, which this parser does
- *   not read. Every 1.1 and 2.0 design in the corpus fails on its first page.
+ *   with no 4-byte prefix lengths (a page record opens `0A 00 00` and then its name),
+ *   which this parser does not read. Every 1.1 and 2.0 design in the corpus fails on
+ *   its first page.
  * - `tested`: 3.2 or 3.3, the versions of every design this parser has read whole.
  * - `untested`: any other version from 3 up, read as the tested ones are.
  */
