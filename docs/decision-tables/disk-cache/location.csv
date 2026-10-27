@@ -47,27 +47,27 @@ writable,unwritable,writable,writable,named dir,,draft,resolveDiskCacheDir: UNIV
 writable,unwritable,writable,unwritable,named dir,,draft,resolveDiskCacheDir: UNIVERSAL_NETLIST_CACHE_DIR is used as it is
 writable,unwritable,unwritable,writable,named dir,,draft,resolveDiskCacheDir: UNIVERSAL_NETLIST_CACHE_DIR is used as it is
 writable,unwritable,unwritable,unwritable,named dir,,draft,resolveDiskCacheDir: UNIVERSAL_NETLIST_CACHE_DIR is used as it is
-unwritable,unset,none,writable,no disk cache,,flag,product: a directory named on purpose does not move elsewhere (asked; recommended A)
-unwritable,unset,none,unwritable,no disk cache,,flag,product: a directory named on purpose does not move elsewhere (asked; recommended A)
-unwritable,unset,writable,writable,no disk cache,,flag,product: a directory named on purpose does not move elsewhere (asked; recommended A)
-unwritable,unset,writable,unwritable,no disk cache,,flag,product: a directory named on purpose does not move elsewhere (asked; recommended A)
-unwritable,unset,unwritable,writable,no disk cache,,flag,product: a directory named on purpose does not move elsewhere (asked; recommended A)
-unwritable,unset,unwritable,unwritable,no disk cache,,flag,product: a directory named on purpose does not move elsewhere (asked; recommended A)
-unwritable,relative,none,writable,no disk cache,,flag,product: a directory named on purpose does not move elsewhere (asked; recommended A)
-unwritable,relative,none,unwritable,no disk cache,,flag,product: a directory named on purpose does not move elsewhere (asked; recommended A)
-unwritable,relative,writable,writable,no disk cache,,flag,product: a directory named on purpose does not move elsewhere (asked; recommended A)
-unwritable,relative,writable,unwritable,no disk cache,,flag,product: a directory named on purpose does not move elsewhere (asked; recommended A)
-unwritable,relative,unwritable,writable,no disk cache,,flag,product: a directory named on purpose does not move elsewhere (asked; recommended A)
-unwritable,relative,unwritable,unwritable,no disk cache,,flag,product: a directory named on purpose does not move elsewhere (asked; recommended A)
-unwritable,writable,none,writable,no disk cache,,flag,product: a directory named on purpose does not move elsewhere (asked; recommended A)
-unwritable,writable,none,unwritable,no disk cache,,flag,product: a directory named on purpose does not move elsewhere (asked; recommended A)
-unwritable,writable,writable,writable,no disk cache,,flag,product: a directory named on purpose does not move elsewhere (asked; recommended A)
-unwritable,writable,writable,unwritable,no disk cache,,flag,product: a directory named on purpose does not move elsewhere (asked; recommended A)
-unwritable,writable,unwritable,writable,no disk cache,,flag,product: a directory named on purpose does not move elsewhere (asked; recommended A)
-unwritable,writable,unwritable,unwritable,no disk cache,,flag,product: a directory named on purpose does not move elsewhere (asked; recommended A)
-unwritable,unwritable,none,writable,no disk cache,,flag,product: a directory named on purpose does not move elsewhere (asked; recommended A)
-unwritable,unwritable,none,unwritable,no disk cache,,flag,product: a directory named on purpose does not move elsewhere (asked; recommended A)
-unwritable,unwritable,writable,writable,no disk cache,,flag,product: a directory named on purpose does not move elsewhere (asked; recommended A)
-unwritable,unwritable,writable,unwritable,no disk cache,,flag,product: a directory named on purpose does not move elsewhere (asked; recommended A)
-unwritable,unwritable,unwritable,writable,no disk cache,,flag,product: a directory named on purpose does not move elsewhere (asked; recommended A)
-unwritable,unwritable,unwritable,unwritable,no disk cache,,flag,product: a directory named on purpose does not move elsewhere (asked; recommended A)
+unwritable,unset,none,writable,no disk cache,,decided,"decided (user, 2026-10-27): an unwritable UNIVERSAL_NETLIST_CACHE_DIR means no disk cache for that run; queries still answer"
+unwritable,unset,none,unwritable,no disk cache,,decided,"decided (user, 2026-10-27): an unwritable UNIVERSAL_NETLIST_CACHE_DIR means no disk cache for that run; queries still answer"
+unwritable,unset,writable,writable,no disk cache,,decided,"decided (user, 2026-10-27): an unwritable UNIVERSAL_NETLIST_CACHE_DIR means no disk cache for that run; queries still answer"
+unwritable,unset,writable,unwritable,no disk cache,,decided,"decided (user, 2026-10-27): an unwritable UNIVERSAL_NETLIST_CACHE_DIR means no disk cache for that run; queries still answer"
+unwritable,unset,unwritable,writable,no disk cache,,decided,"decided (user, 2026-10-27): an unwritable UNIVERSAL_NETLIST_CACHE_DIR means no disk cache for that run; queries still answer"
+unwritable,unset,unwritable,unwritable,no disk cache,,decided,"decided (user, 2026-10-27): an unwritable UNIVERSAL_NETLIST_CACHE_DIR means no disk cache for that run; queries still answer"
+unwritable,relative,none,writable,no disk cache,,decided,"decided (user, 2026-10-27): an unwritable UNIVERSAL_NETLIST_CACHE_DIR means no disk cache for that run; queries still answer"
+unwritable,relative,none,unwritable,no disk cache,,decided,"decided (user, 2026-10-27): an unwritable UNIVERSAL_NETLIST_CACHE_DIR means no disk cache for that run; queries still answer"
+unwritable,relative,writable,writable,no disk cache,,decided,"decided (user, 2026-10-27): an unwritable UNIVERSAL_NETLIST_CACHE_DIR means no disk cache for that run; queries still answer"
+unwritable,relative,writable,unwritable,no disk cache,,decided,"decided (user, 2026-10-27): an unwritable UNIVERSAL_NETLIST_CACHE_DIR means no disk cache for that run; queries still answer"
+unwritable,relative,unwritable,writable,no disk cache,,decided,"decided (user, 2026-10-27): an unwritable UNIVERSAL_NETLIST_CACHE_DIR means no disk cache for that run; queries still answer"
+unwritable,relative,unwritable,unwritable,no disk cache,,decided,"decided (user, 2026-10-27): an unwritable UNIVERSAL_NETLIST_CACHE_DIR means no disk cache for that run; queries still answer"
+unwritable,writable,none,writable,no disk cache,,decided,"decided (user, 2026-10-27): an unwritable UNIVERSAL_NETLIST_CACHE_DIR means no disk cache for that run; queries still answer"
+unwritable,writable,none,unwritable,no disk cache,,decided,"decided (user, 2026-10-27): an unwritable UNIVERSAL_NETLIST_CACHE_DIR means no disk cache for that run; queries still answer"
+unwritable,writable,writable,writable,no disk cache,,decided,"decided (user, 2026-10-27): an unwritable UNIVERSAL_NETLIST_CACHE_DIR means no disk cache for that run; queries still answer"
+unwritable,writable,writable,unwritable,no disk cache,,decided,"decided (user, 2026-10-27): an unwritable UNIVERSAL_NETLIST_CACHE_DIR means no disk cache for that run; queries still answer"
+unwritable,writable,unwritable,writable,no disk cache,,decided,"decided (user, 2026-10-27): an unwritable UNIVERSAL_NETLIST_CACHE_DIR means no disk cache for that run; queries still answer"
+unwritable,writable,unwritable,unwritable,no disk cache,,decided,"decided (user, 2026-10-27): an unwritable UNIVERSAL_NETLIST_CACHE_DIR means no disk cache for that run; queries still answer"
+unwritable,unwritable,none,writable,no disk cache,,decided,"decided (user, 2026-10-27): an unwritable UNIVERSAL_NETLIST_CACHE_DIR means no disk cache for that run; queries still answer"
+unwritable,unwritable,none,unwritable,no disk cache,,decided,"decided (user, 2026-10-27): an unwritable UNIVERSAL_NETLIST_CACHE_DIR means no disk cache for that run; queries still answer"
+unwritable,unwritable,writable,writable,no disk cache,,decided,"decided (user, 2026-10-27): an unwritable UNIVERSAL_NETLIST_CACHE_DIR means no disk cache for that run; queries still answer"
+unwritable,unwritable,writable,unwritable,no disk cache,,decided,"decided (user, 2026-10-27): an unwritable UNIVERSAL_NETLIST_CACHE_DIR means no disk cache for that run; queries still answer"
+unwritable,unwritable,unwritable,writable,no disk cache,,decided,"decided (user, 2026-10-27): an unwritable UNIVERSAL_NETLIST_CACHE_DIR means no disk cache for that run; queries still answer"
+unwritable,unwritable,unwritable,unwritable,no disk cache,,decided,"decided (user, 2026-10-27): an unwritable UNIVERSAL_NETLIST_CACHE_DIR means no disk cache for that run; queries still answer"

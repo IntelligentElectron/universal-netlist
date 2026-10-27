@@ -1,5 +1,3 @@
-WARNING: 24 cells are undecided; these rules are provisional
-
 | # | When | Outcome | Next | Cells |
 |---|---|---|---|---|
 | 1 | named = writable | named dir |  | 24 |
