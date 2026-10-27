@@ -5,9 +5,13 @@
 import { readFileSync } from "fs";
 import path from "path";
 
-/** Read a table CSV under `dir`: quoted fields may hold commas and doubled quotes. */
+/**
+ * Read a table CSV under `dir`: quoted fields may hold commas and doubled quotes. Rows
+ * end at LF or CR LF, and the last row needs no line ending.
+ */
 export const readTable = (dir: string, name: string): Record<string, string>[] => {
-  const text = readFileSync(path.join(dir, `${name}.csv`), "utf8");
+  const raw = readFileSync(path.join(dir, `${name}.csv`), "utf8").replace(/\r\n/g, "\n");
+  const text = raw.endsWith("\n") ? raw : `${raw}\n`;
   const rows: string[][] = [];
   let row: string[] = [];
   let field = "";

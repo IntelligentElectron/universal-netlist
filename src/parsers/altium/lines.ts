@@ -3,9 +3,8 @@
  */
 
 /**
- * Split text into lines the way Altium's own reader (Delphi `TStrings`) does: CR LF,
- * a lone CR and a lone LF each end a line. A CR CR LF ending, which a second CR LF
- * conversion leaves behind, reads as a line followed by an empty line, so no line
- * keeps a stray CR.
+ * Split text into lines at each LF, with every CR right before it. That reads LF, CR LF
+ * and the CR CR LF a second CR LF conversion leaves behind, so no line keeps a stray CR.
+ * A CR anywhere else stays part of its line.
  */
-export const splitLines = (text: string): string[] => text.split(/\r\n|\r|\n/);
+export const splitLines = (text: string): string[] => text.split(/\r*\n/);

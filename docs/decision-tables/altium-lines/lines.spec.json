@@ -4,7 +4,8 @@
     "an Altium text file (.PrjPcb or .Harness) read as UTF-8 by one of the four readers",
     "every line of the file ends the same way; the cell's terminator ends the key line the reader looks for",
     "end-of-file means the key line is the file's last and has no terminator",
-    "'line read' means the reader returns the value the key line sets; 'line missed' means it behaves as if the line were absent"
+    "'line read' means the reader returns the value the key line sets; 'line missed' means it behaves as if the line were absent",
+    "a CR with no LF after it (past any further CRs) is part of its line's text"
   ],
   "dimensions": {
     "terminator": ["LF", "CRLF", "CRCRLF", "CR", "end-of-file"],

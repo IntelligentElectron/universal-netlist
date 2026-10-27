@@ -40,10 +40,16 @@ describe("golden table: lines", () => {
     await rm(dir, { recursive: true, force: true });
   });
 
-  /** Whether each reader returns the value its key line, the last listed, sets. */
-  const READERS: Record<string, (text: (lines: string[]) => string) => Promise<boolean>> = {
-    "document-path": async (text) => {
-      const project = path.join(dir, `${Math.random().toString(36).slice(2)}.PrjPcb`);
+  /**
+   * Whether each reader returns the value its key line, the last listed, sets. `name`
+   * names the cell's project file, one per terminator.
+   */
+  const READERS: Record<
+    string,
+    (text: (lines: string[]) => string, name: string) => Promise<boolean>
+  > = {
+    "document-path": async (text, name) => {
+      const project = path.join(dir, `${name}.PrjPcb`);
       await writeFile(
         project,
         text(["[Design]", "Version=1.0", "[Document1]", "DocumentPath=Main.SchDoc"])
@@ -66,7 +72,7 @@ describe("golden table: lines", () => {
     it(cellName(row, dims), async () => {
       const { ending, last } = ENDINGS[row.terminator];
       const text = (lines: string[]) => lines.join(ending) + (last ? "" : ending);
-      const read = await READERS[row.reader](text);
+      const read = await READERS[row.reader](text, row.terminator);
       expect(read ? "line read" : "line missed").toBe(row.outcome);
     });
   }
