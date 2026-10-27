@@ -304,7 +304,7 @@ string   schematic_name  (uint16 len + ASCII + 0x00)
 
 ### Version gate
 
-`version_major.version_minor` says which record encoding the design's other streams use. `parseDsnFile` reads it before any page (`readLibraryVersion` in `library-parser.ts`) and sorts it four ways:
+`version_major.version_minor` says which record encoding the design's other streams use. `parseDsnFile` reads it from the root `Library` stream before any page (`readLibraryVersion` in `library-parser.ts`) and sorts it four ways. A schematic page may also be named `Library` (`Views/<schematic>/Pages/Library`), so the stream is matched by its full path, as `DsnReader` matches it for decryption.
 
 | Version | Corpus designs | What the parser does |
 |---------|----------------|----------------------|

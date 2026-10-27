@@ -6,12 +6,22 @@ import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import { fixturePath, hasFixtures } from "../../../../test/utils.js";
 
 const { rewrite } = vi.hoisted(() => ({
-  rewrite: {} as { transform?: (path: string, data: Buffer) => Buffer },
+  rewrite: {} as {
+    transform?: (path: string, data: Buffer) => Buffer;
+    /** A stream path the container reports under another name. */
+    rename?: { from: string; to: string };
+  },
 }));
 
 vi.mock("../../ole-reader/ole-reader.js", async (importOriginal) => {
   const actual = await importOriginal<typeof import("../../ole-reader/ole-reader.js")>();
   class OleReader extends actual.OleReader {
+    override listAllEntries() {
+      const { rename } = rewrite;
+      return super
+        .listAllEntries()
+        .map((item) => (rename && item.path === rename.from ? { ...item, path: rename.to } : item));
+    }
     override readStreamByPath(path: string): Buffer {
       const data = super.readStreamByPath(path);
       return rewrite.transform ? rewrite.transform(path, data) : data;
@@ -71,6 +81,7 @@ describe.skipIf(!hasFixtures)("Library stream versions in parseDsnFile", () => {
   });
   afterEach(() => {
     rewrite.transform = undefined;
+    rewrite.rename = undefined;
   });
 
   it("reads the fixture at version 3.2", () => {
@@ -96,6 +107,22 @@ describe.skipIf(!hasFixtures)("Library stream versions in parseDsnFile", () => {
       expect(() => parseDsnFile(DSN)).toThrow(`Library stream version ${major}.${minor}`);
     });
   }
+
+  it("reads the version and strings from the root Library stream, not a page named Library", () => {
+    const page = new DsnReader(DSN)
+      .listAllEntries()
+      .find((e) => e.path.startsWith("Views/SCHEMATIC1/Pages/P1"))!.path;
+    const renamed = "Views/SCHEMATIC1/Pages/Library";
+    rewrite.rename = { from: page, to: renamed };
+    // The page's bytes where a Library keeps its version read as 2.0.
+    rewrite.transform = (path, data) => {
+      if (path !== renamed) return data;
+      const copy = Buffer.from(data);
+      copy.writeUInt32LE(2, 32);
+      return copy;
+    };
+    expect(parseDsnFile(DSN).components).toEqual(plain.components);
+  });
 
   it("reads a design whose Library stream ends before its version", () => {
     rewrite.transform = (path, data) => (path === "Library" ? data.subarray(0, 20) : data);

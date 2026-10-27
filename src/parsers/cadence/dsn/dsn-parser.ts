@@ -29,9 +29,8 @@ import { readVariantStuffing, type VariantStuffing } from "./variant-store.js";
 export function parseDsnFile(dsnPath: string, options?: ParseDesignOptions): ParsedNetlist {
   const ole = new DsnReader(dsnPath);
   const entries = ole.listAllEntries();
-  const libEntry = entries.find(
-    (e) => (e.path === "Library" || e.path.endsWith("/Library")) && e.entry.type === 2
-  );
+  // The root stream, as DsnReader decrypts it: a page may also be named "Library".
+  const libEntry = entries.find((e) => e.path === "Library" && e.entry.type === 2);
 
   // The Library version says which page encoding the design was written in,
   // so an older design is refused before its pages are misread.
