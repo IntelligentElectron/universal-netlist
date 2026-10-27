@@ -12,6 +12,7 @@ import {
   findVariant,
   isDefaultVariantLiteral,
 } from "../variants.js";
+import { splitLines } from "./lines.js";
 
 const KIND_NOT_FITTED = 1;
 const KIND_ALTERNATE_PART = 2;
@@ -41,7 +42,7 @@ const parseSections = (content: string): IniSection[] => {
   const sections: IniSection[] = [];
   let current: IniSection | undefined;
 
-  for (const rawLine of content.split(/\r?\n/)) {
+  for (const rawLine of splitLines(content)) {
     const line = rawLine.trim();
     const sectionMatch = /^\[([^\]]+)]$/.exec(line);
     if (sectionMatch) {

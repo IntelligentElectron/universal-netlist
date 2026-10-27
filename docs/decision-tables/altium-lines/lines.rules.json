@@ -1,0 +1,19 @@
+{
+  "name": "lines",
+  "rules": [
+    {
+      "when": {
+        "terminator": [
+          "CR"
+        ]
+      },
+      "outcome": "line missed",
+      "next": "",
+      "cells": 4
+    }
+  ],
+  "default": {
+    "outcome": "line read",
+    "next": ""
+  }
+}
