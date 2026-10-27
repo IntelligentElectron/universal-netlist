@@ -18,6 +18,3 @@ const accessible = async (p: string, mode: number): Promise<boolean> => {
 
 /** True when `p` exists and is executable (X_OK) — used to validate a kicad-cli binary. */
 export const isExecutable = (p: string): Promise<boolean> => accessible(p, constants.X_OK);
-
-/** True when `p` exists and is readable (R_OK) — used to validate discovered artifacts. */
-export const isReadable = (p: string): Promise<boolean> => accessible(p, constants.R_OK);

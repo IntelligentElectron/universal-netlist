@@ -23,13 +23,13 @@ const hasDatFixtures = hasFixtures && existsSync(PSTXNET_FIXTURE) && existsSync(
 
 describe.skipIf(!hasDsnFixture)("DSN CFBF Container", () => {
   it("should open DSN file as OLE container", () => {
-    const ole = new OleReader(DSN_FIXTURE);
+    const ole = OleReader.fromFile(DSN_FIXTURE);
     const streams = ole.listStreams();
     expect(streams.length).toBeGreaterThan(0);
   });
 
   it("should list hierarchical directory entries", () => {
-    const ole = new OleReader(DSN_FIXTURE);
+    const ole = OleReader.fromFile(DSN_FIXTURE);
     const entries = ole.listAllEntries();
     expect(entries.length).toBeGreaterThan(0);
 
@@ -43,7 +43,7 @@ describe.skipIf(!hasDsnFixture)("DSN CFBF Container", () => {
   });
 
   it("should find Page streams under Views/*/Pages/*", () => {
-    const ole = new OleReader(DSN_FIXTURE);
+    const ole = OleReader.fromFile(DSN_FIXTURE);
     const entries = ole.listAllEntries();
     const pageEntries = entries.filter(
       (e) => /Views\/.*\/Pages\//.test(e.path) && e.entry.type === 2
@@ -56,7 +56,7 @@ describe.skipIf(!hasDsnFixture)("DSN CFBF Container", () => {
   });
 
   it("should find Packages Directory stream", () => {
-    const ole = new OleReader(DSN_FIXTURE);
+    const ole = OleReader.fromFile(DSN_FIXTURE);
     const entries = ole.listAllEntries();
     const pkgDir = entries.find((e) => e.path === "Packages Directory");
     expect(pkgDir).toBeDefined();
@@ -65,7 +65,7 @@ describe.skipIf(!hasDsnFixture)("DSN CFBF Container", () => {
   });
 
   it("should read Page stream data", () => {
-    const ole = new OleReader(DSN_FIXTURE);
+    const ole = OleReader.fromFile(DSN_FIXTURE);
     const entries = ole.listAllEntries();
     const firstPage = entries.find((e) => /Views\/.*\/Pages\//.test(e.path) && e.entry.type === 2);
     expect(firstPage).toBeDefined();
@@ -76,7 +76,7 @@ describe.skipIf(!hasDsnFixture)("DSN CFBF Container", () => {
   });
 
   it("should find Library stream", () => {
-    const ole = new OleReader(DSN_FIXTURE);
+    const ole = OleReader.fromFile(DSN_FIXTURE);
     const entries = ole.listAllEntries();
     const library = entries.find((e) => e.path === "Library");
     expect(library).toBeDefined();
@@ -84,7 +84,7 @@ describe.skipIf(!hasDsnFixture)("DSN CFBF Container", () => {
   });
 
   it("should log container structure for inspection", () => {
-    const ole = new OleReader(DSN_FIXTURE);
+    const ole = OleReader.fromFile(DSN_FIXTURE);
     const tree = ole.getDirectoryTree();
     expect(tree.length).toBeGreaterThan(0);
     console.log("\n--- DSN Container Structure ---\n" + tree + "\n");

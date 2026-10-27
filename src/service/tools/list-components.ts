@@ -1,3 +1,4 @@
+import type { ServiceContext } from "../context.js";
 import { getDesignName } from "../../paths.js";
 import { loadNetlist } from "../load-netlist.js";
 import { componentNotes, groupComponentsByMpn } from "../component-grouping.js";
@@ -9,16 +10,17 @@ import { isErrorResult, type ListComponentsResult, type ErrorResult } from "../.
  *
  * @param design - Path to design file
  * @param type - Component type prefix (e.g., "U", "R", "C")
- * @param includeDns - Include DNS (Do Not Stuff) components; listed by default
+ * @param includeDns - Include DNS (Do Not Stuff) components
  * @param designVariant - Native design variant, or `<Default>` for the base build
  */
 export const listComponents = async (
   design: string,
   type: string,
-  includeDns = true,
-  designVariant?: string
+  includeDns: boolean,
+  designVariant: string | undefined,
+  context: ServiceContext
 ): Promise<ListComponentsResult | ErrorResult> => {
-  const netlist = await loadNetlist(design, designVariant);
+  const netlist = await loadNetlist(design, designVariant, context);
   if (isErrorResult(netlist)) {
     return netlist;
   }
@@ -31,7 +33,7 @@ export const listComponents = async (
   const entries = Object.entries(netlist.components).filter(([refdes]) =>
     matchesRefdesType(refdes, prefix)
   );
-  const designName = getDesignName(design);
+  const designName = getDesignName(design, context.root);
 
   if (entries.length === 0) {
     // Derive the suggestion list with the same prefix logic the matcher uses

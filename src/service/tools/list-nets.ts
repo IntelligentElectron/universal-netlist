@@ -1,3 +1,4 @@
+import type { ServiceContext } from "../context.js";
 import { loadNetlist } from "../load-netlist.js";
 import { indexNetNames } from "../net-names.js";
 import { isErrorResult, type ListNetsResult, type ErrorResult } from "../../types.js";
@@ -9,9 +10,10 @@ import { isErrorResult, type ListNetsResult, type ErrorResult } from "../../type
  */
 export const listNets = async (
   design: string,
-  designVariant?: string
+  designVariant: string | undefined,
+  context: ServiceContext
 ): Promise<ListNetsResult | ErrorResult> => {
-  const netlist = await loadNetlist(design, designVariant);
+  const netlist = await loadNetlist(design, designVariant, context);
   if (isErrorResult(netlist)) {
     return netlist;
   }

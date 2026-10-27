@@ -17,7 +17,7 @@ import { existsSync, readFileSync } from "fs";
 import { join } from "path";
 import { parseDsnFile } from "./dsn-parser.js";
 import { parsePstxnet } from "../dat/pstxnet-parser.js";
-import { queryXnetByNetName } from "../../../service/tools/query-xnet.js";
+import { queryXnetByNetName } from "../../../service/index.js";
 import { isErrorResult } from "../../../types.js";
 import { fixturePath, hasFixtures } from "../../../../test/utils.js";
 

@@ -13,7 +13,7 @@ const OPENMD = fixturePath("kicad", "openmd-motordriver", "OpenMD.kicad_pro");
 const hasOpenMd = hasFixtures && existsSync(OPENMD);
 
 describe("queryXnetByNetName - ground net blocking", () => {
-  let queryXnetByNetName: typeof import("./query-xnet.js").queryXnetByNetName;
+  let queryXnetByNetName: typeof import("../index.js").queryXnetByNetName;
 
   beforeAll(async () => {
     vi.spyOn(parsersModule, "findHandler").mockReturnValue({
@@ -24,7 +24,7 @@ describe("queryXnetByNetName - ground net blocking", () => {
       parse: vi.fn(),
     });
 
-    const mod = await import("./query-xnet.js");
+    const mod = await import("../index.js");
     queryXnetByNetName = mod.queryXnetByNetName;
   });
 
@@ -117,7 +117,7 @@ describe("queryXnetByNetName - ground net blocking", () => {
 });
 
 describe("queryXnetByPinName - ground net blocking", () => {
-  let queryXnetByPinName: typeof import("./query-xnet.js").queryXnetByPinName;
+  let queryXnetByPinName: typeof import("../index.js").queryXnetByPinName;
 
   beforeAll(async () => {
     vi.spyOn(parsersModule, "findHandler").mockReturnValue({
@@ -128,7 +128,7 @@ describe("queryXnetByPinName - ground net blocking", () => {
       parse: vi.fn(),
     });
 
-    const mod = await import("./query-xnet.js");
+    const mod = await import("../index.js");
     queryXnetByPinName = mod.queryXnetByPinName;
   });
 
@@ -198,7 +198,7 @@ describe("queryXnetByPinName - ground net blocking", () => {
 // trace. This drives the real parser + classifier through the public tool.
 describe.skipIf(!hasOpenMd)("queryXnetByNetName - real fixture (OpenMD /GND)", () => {
   it("rejects the hierarchical /GND ground net", async () => {
-    const { queryXnetByNetName } = await import("./query-xnet.js");
+    const { queryXnetByNetName } = await import("../index.js");
 
     const result = await queryXnetByNetName(OPENMD, "/GND");
 

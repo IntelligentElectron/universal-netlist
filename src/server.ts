@@ -17,6 +17,7 @@ import {
 } from "./telemetry/index.js";
 import { SERVER_INSTRUCTIONS } from "./descriptions.js";
 import { TOOLS } from "./tools/index.js";
+import { serviceContextFromEnvironment, type ServiceContext } from "./service/context.js";
 
 // =============================================================================
 // Helper Functions
@@ -37,9 +38,13 @@ const formatResult = (result: unknown): { content: { type: "text"; text: string 
  * Create and configure the MCP server.
  *
  * Every tool comes from the registry in `tools/index.ts`, which the command
- * line reads too, so both offer the same names, arguments and defaults.
+ * line reads too, so both offer the same names, arguments and defaults. The
+ * tools read designs through `context`: by default the local disk, with the
+ * environment's `kicad-cli` and password settings.
  */
-export const createServer = (): McpServer => {
+export const createServer = (
+  context: ServiceContext = serviceContextFromEnvironment()
+): McpServer => {
   const server = new McpServer(
     {
       name: "netlist-mcp-server",
@@ -67,7 +72,7 @@ export const createServer = (): McpServer => {
         inputSchema: tool.inputSchema,
       },
       withTelemetry(tool.name, async (args: Record<string, unknown>) =>
-        formatResult(await tool.run(args))
+        formatResult(await tool.run(args, context))
       )
     );
   }

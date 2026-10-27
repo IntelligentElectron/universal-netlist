@@ -45,16 +45,23 @@ export class OleReader {
   private directoryPaths: OleDirectoryPath[] | null = null;
 
   /**
-   * Create a new OleReader instance for reading OLE compound files.
+   * Read an OLE compound file from its bytes.
    */
-  constructor(filePath: string) {
-    this.buffer = readFileSync(filePath);
+  constructor(bytes: Uint8Array) {
+    this.buffer = Buffer.isBuffer(bytes)
+      ? bytes
+      : Buffer.from(bytes.buffer, bytes.byteOffset, bytes.byteLength);
     this.validateMagic();
     this.header = this.parseHeader();
     this.fat = this.buildFat();
     this.directories = this.readDirectories();
     this.miniFat = this.buildMiniFat();
     this.miniStream = this.readMiniStream();
+  }
+
+  /** Read an OLE compound file from the local disk, for scripts and tests. */
+  static fromFile<T extends OleReader>(this: new (bytes: Uint8Array) => T, filePath: string): T {
+    return new this(readFileSync(filePath));
   }
 
   /**
@@ -447,22 +454,14 @@ export class OleReader {
 }
 
 /**
- * Read a stream from an OLE file.
- */
-export const readOleStream = (filePath: string, streamName = "FileHeader"): Buffer => {
-  const ole = new OleReader(filePath);
-  return ole.readStream(streamName);
-};
-
-/**
  * Read a stream that a document may not have, returning undefined instead of throwing.
  *
  * Altium keeps signal harness objects in an `Additional` stream that only exists in
  * documents that use them, so its absence is the normal case rather than an error.
  */
-export const readOptionalOleStream = (filePath: string, streamName: string): Buffer | undefined => {
+export const readOptionalOleStream = (ole: OleReader, streamName: string): Buffer | undefined => {
   try {
-    return new OleReader(filePath).readStream(streamName);
+    return ole.readStream(streamName);
   } catch {
     return undefined;
   }

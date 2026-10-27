@@ -1,16 +1,37 @@
-// Tools
-export { listDesigns, type ListDesignsOptions } from "./tools/list-designs.js";
-export { listComponents } from "./tools/list-components.js";
-export { listNets } from "./tools/list-nets.js";
-export { searchNets } from "./tools/search-nets.js";
+// Library entry point
 export {
+  createNetlistService,
+  serviceFor,
+  type NetlistService,
+  type NetlistServiceOptions,
+  type NetlistServiceSecrets,
+} from "./netlist-service.js";
+export { serviceContextFromEnvironment, type ServiceContext } from "./context.js";
+export {
+  nodeFileReader,
+  parserContextFromEnvironment,
+  type DirEntry,
+  type FileReader,
+  type KicadCliOptions,
+  type ParserContext,
+} from "../parsers/context.js";
+
+// Tools, as the positional functions this module has always exported
+export {
+  listDesigns,
+  listComponents,
+  listNets,
+  searchNets,
   searchComponentsByRefdes,
   searchComponentsByMpn,
   searchComponentsByDescription,
-} from "./tools/search-components.js";
-export { queryComponent } from "./tools/query-component.js";
-export { queryXnetByNetName, queryXnetByPinName } from "./tools/query-xnet.js";
-export { runErc, type ErcOptions, type ErcResult } from "./tools/run-erc.js";
+  queryComponent,
+  queryXnetByNetName,
+  queryXnetByPinName,
+  runErc,
+} from "./positional.js";
+export type { ListDesignsOptions } from "./tools/list-designs.js";
+export type { ErcOptions, ErcResult } from "./tools/run-erc.js";
 export {
   exportCadenceNetlist,
   detectCadenceVersions,

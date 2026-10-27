@@ -1,11 +1,11 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { listComponents } from "./list-components.js";
+import { listComponents } from "../index.js";
 import {
   searchComponentsByRefdes,
   searchComponentsByMpn,
   searchComponentsByDescription,
-} from "./search-components.js";
-import { queryXnetByNetName, queryXnetByPinName } from "./query-xnet.js";
+} from "../index.js";
+import { queryXnetByNetName, queryXnetByPinName } from "../index.js";
 import { MPN_MISSING_NOTE } from "../component-grouping.js";
 import type { ParsedNetlist } from "../../types.js";
 import * as parsersModule from "../../parsers/index.js";

@@ -7,9 +7,9 @@
  * served by every tool exactly like a design parsed from its EDA source.
  */
 
-import { readFile } from "node:fs/promises";
+import { contextOrDefault, readText } from "../context.js";
 import path from "node:path";
-import type { ParsedNetlist, EDAProjectFormatHandler } from "../../types.js";
+import type { ParsedNetlist, EDAProjectFormatHandler, ParseDesignOptions } from "../../types.js";
 import { parseUniversalNetlist } from "./reader.js";
 import { discoverUniversalDesigns, isUniversalFile, UNIVERSAL_EXTENSIONS } from "./discovery.js";
 
@@ -43,8 +43,14 @@ export type { UniversalDiscoveredDesign } from "./discovery.js";
  * Parse a Universal Netlist JSON file. Throws `UniversalNetlistError` naming the
  * first defect when the file is not a valid Universal Netlist.
  */
-export const parseUniversalDesign = async (designPath: string): Promise<ParsedNetlist> =>
-  parseUniversalNetlist(await readFile(designPath, "utf-8"), path.basename(designPath));
+export const parseUniversalDesign = async (
+  designPath: string,
+  options?: ParseDesignOptions
+): Promise<ParsedNetlist> =>
+  parseUniversalNetlist(
+    await readText(contextOrDefault(options?.context).files, designPath),
+    path.basename(designPath)
+  );
 
 /**
  * Universal Netlist format handler. Recognizes `.netlist.json` files; the file

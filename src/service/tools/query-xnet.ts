@@ -1,3 +1,4 @@
+import type { ServiceContext } from "../context.js";
 import { getDesignName } from "../../paths.js";
 import { loadNetlist } from "../load-netlist.js";
 import { aggregateCircuitByMpn, componentNotes } from "../component-grouping.js";
@@ -28,10 +29,11 @@ export const queryXnetByNetName = async (
   design: string,
   netName: string,
   skipTypes: string[] = [],
-  includeDns = false,
-  designVariant?: string
+  includeDns: boolean,
+  designVariant: string | undefined,
+  context: ServiceContext
 ): Promise<AggregatedCircuitResult | ErrorResult> => {
-  const netlist = await loadNetlist(design, designVariant);
+  const netlist = await loadNetlist(design, designVariant, context);
   if (isErrorResult(netlist)) {
     return netlist;
   }
@@ -41,7 +43,7 @@ export const queryXnetByNetName = async (
 
   const resolution = names.resolve(netName);
   if (resolution.status === "missing") {
-    const designName = getDesignName(design);
+    const designName = getDesignName(design, context.root);
     return {
       error: `Net '${netName}' not found in design '${designName}'. Use search_nets() to find available nets.`,
     };
@@ -103,10 +105,11 @@ export const queryXnetByPinName = async (
   design: string,
   pinSpec: string,
   skipTypes: string[] = [],
-  includeDns = false,
-  designVariant?: string
+  includeDns: boolean,
+  designVariant: string | undefined,
+  context: ServiceContext
 ): Promise<AggregatedCircuitResult | ErrorResult> => {
-  const netlist = await loadNetlist(design, designVariant);
+  const netlist = await loadNetlist(design, designVariant, context);
   if (isErrorResult(netlist)) {
     return netlist;
   }
@@ -124,7 +127,7 @@ export const queryXnetByPinName = async (
   );
 
   if (!refdesEntry) {
-    const designName = getDesignName(design);
+    const designName = getDesignName(design, context.root);
     return {
       error: `Component '${refdesInput}' not found in design '${designName}'. Use list_components() or search_components_by_refdes() to find available components.`,
     };

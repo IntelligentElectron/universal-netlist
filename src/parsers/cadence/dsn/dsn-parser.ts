@@ -7,6 +7,7 @@
 
 import { DsnReader, isEncryptedStream, ROOT_LIBRARY } from "./dsn-reader.js";
 import type { OleReader } from "../../ole-reader/ole-reader.js";
+import type { DsnPasswords } from "../../context.js";
 import type { ComponentDetails, ParsedNetlist, ParseDesignOptions } from "../../../types.js";
 import type { OleDirectoryPath } from "../../ole-reader/types.js";
 import type { CachedLibraryPart, PinMapData } from "./structure-types.js";
@@ -42,9 +43,16 @@ export function assertListableDsn(ole: OleReader, entries: OleDirectoryPath[]): 
   assertReadableLibraryVersion(readLibraryVersion(library));
 }
 
-/** Parse a .DSN file into a ParsedNetlist. */
-export function parseDsnFile(dsnPath: string, options?: ParseDesignOptions): ParsedNetlist {
-  const ole = new DsnReader(dsnPath);
+/**
+ * Parse a .DSN into a ParsedNetlist, from its bytes or, for scripts and tests,
+ * its path on disk.
+ */
+export function parseDsnFile(
+  source: Uint8Array | string,
+  options?: ParseDesignOptions,
+  passwords?: DsnPasswords
+): ParsedNetlist {
+  const ole = new DsnReader(source, passwords);
   const entries = ole.listAllEntries();
   const libEntry = findRootLibrary(entries);
 

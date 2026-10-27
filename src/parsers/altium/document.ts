@@ -4,7 +4,7 @@
 
 import path from "path";
 import type { NetConnections, ComponentDetails, ParsedNetlist } from "../../types.js";
-import { readOleStream, readOptionalOleStream } from "../ole-reader/ole-reader.js";
+import { OleReader, readOptionalOleStream } from "../ole-reader/ole-reader.js";
 import { RECORD_TYPES, type AltiumNet, type AltiumSchematic, type NetNameSource } from "./types.js";
 import { buildHierarchy, field, fieldText, ownerIndex, parseRecords } from "./records.js";
 import { assignHarnessSignals, readHarnessConnectors } from "./harness.js";
@@ -26,13 +26,14 @@ export interface ReadDocument {
 }
 
 /**
- * Read a `.SchDoc`: its `FileHeader` records and, from the `Additional` stream, its
+ * Read a `.SchDoc` from its bytes: its `FileHeader` records and, from the `Additional` stream, its
  * harness records. `OwnerIndex` in `Additional` counts that stream's own records, so it
  * is shifted past the `FileHeader` records the two lists are joined after.
  */
-export const readDocument = (schdocPath: string): ReadDocument => {
-  const schematic = parseRecords(readOleStream(schdocPath));
-  const additional = readOptionalOleStream(schdocPath, "Additional");
+export const readDocument = (schdocPath: string, bytes: Uint8Array): ReadDocument => {
+  const ole = new OleReader(bytes);
+  const schematic = parseRecords(ole.readStream("FileHeader"));
+  const additional = readOptionalOleStream(ole, "Additional");
   const extra = additional && additional.length > 0 ? parseRecords(additional).records : [];
 
   let bundleLinks: string[][] = [];

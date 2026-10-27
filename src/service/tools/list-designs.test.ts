@@ -8,7 +8,7 @@
 
 import { afterEach, describe, expect, it, vi } from "vitest";
 import * as parsers from "../../parsers/index.js";
-import { listDesigns } from "./list-designs.js";
+import { listDesigns } from "../index.js";
 import { loadNetlist } from "../load-netlist.js";
 import { UnsupportedDesignError } from "../../parsers/errors.js";
 import { fixturePath, hasFixtures } from "../../../test/utils.js";

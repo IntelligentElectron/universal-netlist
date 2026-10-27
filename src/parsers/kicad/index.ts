@@ -13,8 +13,8 @@
  * labels, buses and hierarchical sheets for us.
  */
 
-import { readFile } from "node:fs/promises";
 import path from "node:path";
+import { contextOrDefault, readText } from "../context.js";
 import type { ParsedNetlist, EDAProjectFormatHandler, ParseDesignOptions } from "../../types.js";
 import { parseKicadNetlist } from "./netlist-parser.js";
 import { exportNetlist } from "./cli.js";
@@ -43,23 +43,33 @@ export const parseKicadDesign = async (
   options?: ParseDesignOptions
 ): Promise<ParsedNetlist> => {
   const ext = path.extname(designPath).toLowerCase();
+  const { files, kicadCli } = contextOrDefault(options?.context);
 
   // Direct-call path only: a caller may pass a resolved `.net` export straight
   // in. `.net` is an internal artifact, so it is intentionally absent from
   // KICAD_EXTENSIONS / `canHandle` and is never reached via discovery.
   if (ext === ".net") {
-    return parseKicadNetlist(await readFile(designPath, "utf-8"));
+    return parseKicadNetlist(await readText(files, designPath));
   }
 
-  const { netlistExport, rootSchematic } = await resolveKicadArtifacts(designPath);
+  const { netlistExport, rootSchematic } = await resolveKicadArtifacts(designPath, files);
 
   let parsed: ParsedNetlist;
   if (netlistExport) {
     // 1. Committed export beside the project (preferred).
-    parsed = parseKicadNetlist(await readFile(netlistExport, "utf-8"));
-  } else if (rootSchematic) {
+    parsed = parseKicadNetlist(await readText(files, netlistExport));
+  } else if (rootSchematic && kicadCli) {
     // 2. Live generation from the root schematic via kicad-cli.
-    parsed = parseKicadNetlist(await exportNetlist(rootSchematic));
+    parsed = parseKicadNetlist(await exportNetlist(rootSchematic, kicadCli));
+  } else if (rootSchematic) {
+    // kicad-cli reads the disk itself, so it is off for files it cannot see.
+    throw new Error(
+      `No netlist for ${path.basename(designPath)}. Expected a committed "${path.basename(
+        designPath,
+        ext
+      )}.net" beside the project; kicad-cli is turned off (the kicadCli option, off by ` +
+        `default for a file reader other than the local disk), so it cannot generate one.`
+    );
   } else {
     throw new Error(
       `No netlist for ${path.basename(designPath)}. Expected a committed "${path.basename(
@@ -78,12 +88,12 @@ export const parseKicadDesign = async (
   // only those to build, so the literal is refused on it.
   const selectedVariant = options?.variant;
   if (selectedVariant && isDefaultVariantLiteral(selectedVariant)) {
-    const variants = await listKicadVariants(designPath);
+    const variants = await listKicadVariants(designPath, files);
     if (variants.length > 0) throw new Error(describeDefaultVariantRefusal(variants));
   } else if (selectedVariant) {
     applyKicadVariant(
       parsed.components,
-      await collectKicadVariantOverrides(designPath, selectedVariant)
+      await collectKicadVariantOverrides(designPath, selectedVariant, files)
     );
   }
   return parsed;
@@ -103,7 +113,7 @@ export const kicadHandler: EDAProjectFormatHandler = {
 
   discoverDesigns: discoverKicadDesigns,
 
-  listVariants: listKicadVariants,
+  listVariants: (designPath, context) => listKicadVariants(designPath, context?.files),
 
   parse: parseKicadDesign,
 };

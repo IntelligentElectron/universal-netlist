@@ -1,3 +1,4 @@
+import type { ServiceContext } from "../context.js";
 import { getDesignName } from "../../paths.js";
 import { loadNetlist } from "../load-netlist.js";
 import { MPN_MISSING_NOTE } from "../component-grouping.js";
@@ -19,9 +20,10 @@ import {
 export const queryComponent = async (
   design: string,
   refdes: string,
-  designVariant?: string
+  designVariant: string | undefined,
+  context: ServiceContext
 ): Promise<QueryComponentResult | ErrorResult> => {
-  const netlist = await loadNetlist(design, designVariant);
+  const netlist = await loadNetlist(design, designVariant, context);
   if (isErrorResult(netlist)) {
     return netlist;
   }
@@ -32,7 +34,7 @@ export const queryComponent = async (
   );
 
   if (!componentEntry) {
-    const designName = getDesignName(design);
+    const designName = getDesignName(design, context.root);
     return {
       error: `Component '${refdes}' not found in design '${designName}'. Use list_components() or search_components_by_refdes() to find available components.`,
     };

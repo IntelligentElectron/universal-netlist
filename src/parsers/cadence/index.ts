@@ -27,6 +27,7 @@ import {
 } from "../../types.js";
 import { listCadenceVariants } from "./dsn/variant-store.js";
 import { OleReader } from "../ole-reader/ole-reader.js";
+import { contextOrDefault } from "../context.js";
 
 export { discoverCadenceDesigns, findCadenceDatFiles, isCadenceFile } from "./discovery.js";
 export { parseDsnFile } from "./dsn/dsn-parser.js";
@@ -179,7 +180,8 @@ const parseCadenceDesign = async (
 
   // The schematic itself, which is the path list_designs hands out.
   if (ext === ".dsn") {
-    return parseDsnFile(designPath, options);
+    const context = contextOrDefault(options?.context);
+    return parseDsnFile(await context.files.readFile(designPath), options, context.dsnPasswords);
   }
 
   if (!CADENCE_DAT_ENABLED) {
@@ -239,8 +241,8 @@ export const cadenceHandler: EDAProjectFormatHandler = {
   // A CIS BOM variant is, by definition, one assembly the BOM is generated for. A
   // design saved in an older Capture format is refused here, so list_designs marks it
   // unsupported before a query does.
-  listVariants: async (designPath) => {
-    const ole = new OleReader(designPath);
+  listVariants: async (designPath, context) => {
+    const ole = new OleReader(await contextOrDefault(context).files.readFile(designPath));
     const entries = ole.listAllEntries();
     assertListableDsn(ole, entries);
     return listCadenceVariants(entries).map((variant) => ({ ...variant, fabrication: true }));

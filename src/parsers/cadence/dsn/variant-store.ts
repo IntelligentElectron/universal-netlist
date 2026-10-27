@@ -304,7 +304,7 @@ export function readVariantDns(
  * more.
  */
 export function readVariantDnsFromFile(dsnPath: string, selectedVariant?: string): Set<string> {
-  if (!hasVariantGroups(new OleReader(dsnPath).listAllEntries())) return new Set();
+  if (!hasVariantGroups(OleReader.fromFile(dsnPath).listAllEntries())) return new Set();
   const ole = new DsnReader(dsnPath);
   const entries = ole.listAllEntries();
 

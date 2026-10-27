@@ -106,7 +106,7 @@ interface PageInfo {
 }
 
 function collectPages(dsnPath: string): PageInfo[] {
-  const ole = new OleReader(dsnPath);
+  const ole = OleReader.fromFile(dsnPath);
   const entries = ole.listAllEntries();
   const pageEntries = entries.filter(
     (e) => /^Views\/.*\/Pages\//.test(e.path) && e.entry.type === 2
@@ -630,7 +630,7 @@ function cmdConflicts(pages: PageInfo[]) {
 // ---------------------------------------------------------------------------
 
 function cmdStreams(dsnPath: string) {
-  const ole = new OleReader(dsnPath);
+  const ole = OleReader.fromFile(dsnPath);
   for (const e of ole.listAllEntries()) {
     const type = e.entry.type === 2 ? "STREAM" : "DIR   ";
     const size = e.entry.type === 2 ? ` (${e.entry.size} bytes)` : "";
@@ -639,7 +639,7 @@ function cmdStreams(dsnPath: string) {
 }
 
 function cmdStream(dsnPath: string, streamPath: string, offset: number, length: number) {
-  const ole = new OleReader(dsnPath);
+  const ole = OleReader.fromFile(dsnPath);
   const buf = ole.readStreamByPath(streamPath);
   console.log(`Stream: ${streamPath} (${buf.length} bytes)\n`);
 
@@ -676,7 +676,7 @@ function cmdStream(dsnPath: string, streamPath: string, offset: number, length: 
 }
 
 function cmdHierarchy(dsnPath: string) {
-  const ole = new OleReader(dsnPath);
+  const ole = OleReader.fromFile(dsnPath);
   const entries = ole.listAllEntries();
   const hierEntry = entries.find(
     (e) => /^Views\/.*\/Hierarchy\/Hierarchy$/.test(e.path) && e.entry.type === 2

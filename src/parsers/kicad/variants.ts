@@ -14,8 +14,8 @@
  * the way the Altium handler applies its project rows.
  */
 
-import { readFile } from "node:fs/promises";
 import path from "node:path";
+import { nodeFileReader, readText, type FileReader } from "../context.js";
 import type { ComponentDetails, DesignVariant } from "../../types.js";
 import { uniqueVariants } from "../variants.js";
 import { childrenByTag, childString, isList, parseSexpr, tag, type SExpr } from "./sexpr.js";
@@ -61,7 +61,10 @@ export const parseKicadSheetFiles = (content: string): string[] => {
 };
 
 /** Read the root schematic and every hierarchical child once each, root first. */
-const readSchematicHierarchy = async (rootSchematic: string): Promise<string[]> => {
+export const readSchematicHierarchy = async (
+  rootSchematic: string,
+  files: FileReader = nodeFileReader
+): Promise<string[]> => {
   const contents: string[] = [];
   const queue = [path.resolve(rootSchematic)];
   const visited = new Set<string>();
@@ -73,7 +76,7 @@ const readSchematicHierarchy = async (rootSchematic: string): Promise<string[]> 
 
     let content: string;
     try {
-      content = await readFile(schematic, "utf-8");
+      content = await readText(files, schematic);
     } catch (error) {
       // Preserve committed-netlist support when a historical fixture omits a
       // child sheet. kicad-cli will report the missing file if live export is
@@ -92,12 +95,15 @@ const readSchematicHierarchy = async (rootSchematic: string): Promise<string[]> 
 };
 
 /** Read named variants from the root schematic and every hierarchical sheet. */
-export const listKicadVariants = async (designPath: string): Promise<DesignVariant[]> => {
-  const { rootSchematic } = await resolveKicadArtifacts(designPath);
+export const listKicadVariants = async (
+  designPath: string,
+  files: FileReader = nodeFileReader
+): Promise<DesignVariant[]> => {
+  const { rootSchematic } = await resolveKicadArtifacts(designPath, files);
   if (!rootSchematic) return [];
 
   const variants: DesignVariant[] = [];
-  for (const content of await readSchematicHierarchy(rootSchematic)) {
+  for (const content of await readSchematicHierarchy(rootSchematic, files)) {
     variants.push(...parseKicadVariantNames(content).map((name) => ({ name })));
   }
   return uniqueVariants(variants);
@@ -186,9 +192,10 @@ export const parseKicadVariantOverrides = (
 /** Collect one variant's overrides across the whole schematic hierarchy. */
 export const collectKicadVariantOverrides = async (
   designPath: string,
-  variantName: string
+  variantName: string,
+  files: FileReader = nodeFileReader
 ): Promise<Map<string, KicadVariantOverride>> => {
-  const { name, rootSchematic } = await resolveKicadArtifacts(designPath);
+  const { name, rootSchematic } = await resolveKicadArtifacts(designPath, files);
   if (!rootSchematic) {
     throw new Error(
       `Design variant '${variantName}' needs the root .kicad_sch beside ${path.basename(designPath)}, which was not found.`
@@ -196,7 +203,7 @@ export const collectKicadVariantOverrides = async (
   }
 
   const merged = new Map<string, KicadVariantOverride>();
-  for (const content of await readSchematicHierarchy(rootSchematic)) {
+  for (const content of await readSchematicHierarchy(rootSchematic, files)) {
     for (const [reference, override] of parseKicadVariantOverrides(content, variantName, name)) {
       mergeOverride(merged, reference, override);
     }

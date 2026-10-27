@@ -93,7 +93,7 @@ const boardDesignators = (ole: OleReader, sources: readonly string[]): string[] 
 };
 
 export const readBoardNetlist = (pcbDocPath: string): BoardNetlist => {
-  const ole = new OleReader(pcbDocPath);
+  const ole = OleReader.fromFile(pcbDocPath);
   const nets = textRecords(ole, "Nets6/Data").map((record) => record.NAME);
   const components = boardDesignators(
     ole,

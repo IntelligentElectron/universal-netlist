@@ -4,6 +4,8 @@ import { DEFAULT_VARIANT } from "../../parsers/variants.js";
 import { resolvePath } from "../../paths.js";
 import { parseRegexPattern } from "../regex-helpers.js";
 import type { DesignVariantInfo, ErrorResult, ListDesignsResult } from "../../types.js";
+import type { ParserContext } from "../../parsers/context.js";
+import type { ServiceContext } from "../context.js";
 
 /**
  * Options for listDesigns.
@@ -27,13 +29,14 @@ export interface ListDesignsOptions {
  * out is also marked `unsupported`, with the message every query would return.
  */
 const listDesignVariants = async (
-  sourcePath: string
+  sourcePath: string,
+  context: ParserContext
 ): Promise<{ design_variants: DesignVariantInfo[]; unsupported?: boolean; error?: string }> => {
   const base: DesignVariantInfo = { name: DEFAULT_VARIANT, is_default: true };
   const handler = findHandler(sourcePath);
   if (!handler?.listVariants) return { design_variants: [base] };
   try {
-    const native = await handler.listVariants(sourcePath);
+    const native = await handler.listVariants(sourcePath, context);
     return { design_variants: native.length > 0 ? native : [base] };
   } catch (error) {
     if (error instanceof UnsupportedDesignError) {
@@ -48,9 +51,10 @@ const listDesignVariants = async (
  * List all designs in a directory.
  */
 export const listDesigns = async (
-  options: ListDesignsOptions = {}
+  options: ListDesignsOptions & { maxResults: number },
+  context: ServiceContext
 ): Promise<ListDesignsResult | ErrorResult> => {
-  const { searchPath, pattern = ".*", maxDepth, maxResults = 50 } = options;
+  const { searchPath, pattern = ".*", maxDepth, maxResults } = options;
   // A blank string is not a directory, and it reaches the working directory by
   // the same route an absent argument does: `path.normalize("")` is ".". Treated
   // as a path it would resolve to that default while skipping the note saying
@@ -58,7 +62,7 @@ export const listDesigns = async (
   // is what gets resolved, so a directory whose name really does carry spaces
   // still resolves to itself.
   const requestedPath = searchPath?.trim() ? searchPath : undefined;
-  const resolvedPath = resolvePath(requestedPath ?? ".");
+  const resolvedPath = resolvePath(requestedPath ?? ".", context.root);
 
   const parsed = parseRegexPattern(pattern);
   if ("error" in parsed) return parsed;
@@ -66,7 +70,7 @@ export const listDesigns = async (
 
   let designs;
   try {
-    designs = await discoverDesigns(resolvedPath, { maxDepth });
+    designs = await discoverDesigns(resolvedPath, { maxDepth, context: context.parser });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error occurred";
     return { error: `Failed to search '${resolvedPath}': ${message}` };
@@ -98,7 +102,7 @@ export const listDesigns = async (
 
   const entries = await Promise.all(
     limited.map(async (design) => {
-      const variants = await listDesignVariants(design.sourcePath);
+      const variants = await listDesignVariants(design.sourcePath, context.parser);
       return {
         name: design.name,
         // The design's own file: a .DSN, a .PrjPcb, a .kicad_pro, or the netlist of

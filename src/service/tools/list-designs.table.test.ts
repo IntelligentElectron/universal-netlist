@@ -26,7 +26,7 @@ vi.mock("../../parsers/ole-reader/ole-reader.js", async (importOriginal) => {
   return { ...actual, OleReader };
 });
 
-import { listDesigns } from "./list-designs.js";
+import { listDesigns } from "../index.js";
 import { loadNetlist } from "../load-netlist.js";
 
 const TABLES = path.resolve(__dirname, "../../../docs/decision-tables/dsn-library-version");
