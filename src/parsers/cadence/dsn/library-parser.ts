@@ -5,6 +5,7 @@
  * that all prefix property pairs index into.
  */
 
+import { UnsupportedDesignError } from "../../errors.js";
 import { BinaryReader, decodeString } from "./binary-reader.js";
 
 const PAGE_SETTINGS_SIZE = 156;
@@ -30,7 +31,7 @@ type LibraryVersionSupport = "unknown" | "older" | "tested" | "untested";
 const TESTED_VERSIONS = ["3.2", "3.3"];
 
 /** A design whose Library version predates the page encoding this parser reads. */
-export class UnsupportedDsnVersionError extends Error {}
+export class UnsupportedDsnVersionError extends UnsupportedDesignError {}
 
 const formatVersion = ({ major, minor }: LibraryVersion): string => `${major}.${minor}`;
 

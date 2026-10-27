@@ -5,7 +5,8 @@
  * and Hierarchy streams, then assembles a ParsedNetlist.
  */
 
-import { DsnReader } from "./dsn-reader.js";
+import { DsnReader, isEncryptedStream } from "./dsn-reader.js";
+import type { OleReader } from "../../ole-reader/ole-reader.js";
 import type { ComponentDetails, ParsedNetlist, ParseDesignOptions } from "../../../types.js";
 import type { OleDirectoryPath } from "../../ole-reader/types.js";
 import type { CachedLibraryPart, PinMapData } from "./structure-types.js";
@@ -25,12 +26,29 @@ import { buildNetConnectivity } from "./net-builder.js";
 import { buildComponents } from "./component-builder.js";
 import { readVariantStuffing, type VariantStuffing } from "./variant-store.js";
 
+/** The root Library stream's path, as DsnReader decrypts it: a page may also be named "Library". */
+const ROOT_LIBRARY = "Library";
+
+const findRootLibrary = (entries: OleDirectoryPath[]): OleDirectoryPath | undefined =>
+  entries.find((e) => e.path === ROOT_LIBRARY && e.entry.type === 2);
+
+/**
+ * Refuse, from the container alone, a design parseDsnFile would refuse for its Library
+ * version, so a listing can mark it before a query does. A protected design keeps that
+ * version encrypted until a password opens it, so it is judged only when parsed.
+ */
+export function assertListableDsn(ole: OleReader, entries: OleDirectoryPath[]): void {
+  if (!findRootLibrary(entries)) return;
+  const library = ole.readStreamByPath(ROOT_LIBRARY);
+  if (isEncryptedStream(ROOT_LIBRARY, library)) return;
+  assertReadableLibraryVersion(readLibraryVersion(library));
+}
+
 /** Parse a .DSN file into a ParsedNetlist. */
 export function parseDsnFile(dsnPath: string, options?: ParseDesignOptions): ParsedNetlist {
   const ole = new DsnReader(dsnPath);
   const entries = ole.listAllEntries();
-  // The root stream, as DsnReader decrypts it: a page may also be named "Library".
-  const libEntry = entries.find((e) => e.path === "Library" && e.entry.type === 2);
+  const libEntry = findRootLibrary(entries);
 
   // The Library version says which page encoding the design was written in,
   // so an older design is refused before its pages are misread.

@@ -315,6 +315,8 @@ string   schematic_name  (uint16 len + ASCII + 0x00)
 
 The golden table for these outcomes is [docs/decision-tables/dsn-library-version](decision-tables/dsn-library-version/gate.rules.md).
 
+`list_designs` applies the same refusal while listing (`assertListableDsn`, called from the Cadence handler's `listVariants`): a design below 3 is listed with `unsupported: true` and the refusal as its `error`. Listing reads the container without a password, so a protected design, whose Library version is encrypted, is listed normally and judged when a query decrypts it. Its golden table is [listing.rules.md](decision-tables/dsn-library-version/listing.rules.md).
+
 Designs below 3 are written in an older record encoding: the Page stream's structures carry no 4-byte prefix lengths, and the container has no `Packages` streams. Every 1.1 and 2.0 design in the corpus threw a string-decoding error on its first page (issue #246) before this gate existed.
 
 **Divergence from the reference:** `StreamLibrary.cpp` logs the version and does not act on it; it reads every version the same way, choosing `str_lst_len`'s width by its file-format prediction instead. We refuse a design below 3 outright, because reading its pages with the 3.x layout misreads them.

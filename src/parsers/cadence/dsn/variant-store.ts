@@ -159,11 +159,6 @@ export function listCadenceVariants(entries: OleDirectoryPath[]): DesignVariant[
   return variants;
 }
 
-/** Read the native BOM variant names straight from a DSN. */
-export function listCadenceVariantsFromFile(dsnPath: string): DesignVariant[] {
-  return listCadenceVariants(new OleReader(dsnPath).listAllEntries());
-}
-
 /** The stuffing a set of groups gives the parts they name. */
 export interface VariantStuffing {
   /** Parts a group leaves off the board and no group puts on it. */

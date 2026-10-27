@@ -53,11 +53,20 @@ interface EncryptedStream {
   at: number;
 }
 
+/** Where a stream's encryption marker would start: after the root Library's clear bytes. */
+const markerOffset = (path: string): number => (path === "Library" ? LIBRARY_CLEAR_BYTES : 0);
+
+/** Whether a stream, as stored in the container, carries an encryption marker of any format. */
+export const isEncryptedStream = (path: string, data: Buffer): boolean => {
+  const at = markerOffset(path);
+  const tag = data.toString("latin1", at, at + 9);
+  return tag === "FILE_FMT_" || tag === "FILE_FMT=";
+};
+
 /** Where a stream's encryption marker starts, if the stream is encrypted. */
 const markerAt = (path: string, data: Buffer): number | undefined => {
-  const at = path === "Library" ? LIBRARY_CLEAR_BYTES : 0;
-  const tag = data.toString("latin1", at, at + 9);
-  if (tag !== "FILE_FMT_" && tag !== "FILE_FMT=") return undefined;
+  if (!isEncryptedStream(path, data)) return undefined;
+  const at = markerOffset(path);
   if (!data.subarray(at, at + MARKER.length).equals(MARKER)) {
     throw new ProtectedDesignError(
       `Stream '${path}' is encrypted in a format other than SYENCRYPT01`

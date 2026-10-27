@@ -1,4 +1,5 @@
 import { discoverDesigns, findHandler } from "../../parsers/index.js";
+import { UnsupportedDesignError } from "../../parsers/errors.js";
 import { DEFAULT_VARIANT } from "../../parsers/variants.js";
 import { resolvePath } from "../../paths.js";
 import { parseRegexPattern } from "../regex-helpers.js";
@@ -22,11 +23,12 @@ export interface ListDesignsOptions {
  * Listing reads the design's own file (the `.PrjPcb` text, the `.DSN` container
  * directory, or the KiCad schematic tree) without parsing connectivity, so the
  * cost is a small read per design. A design whose file cannot be read reports
- * the default alone and carries the reason in `error`.
+ * the default alone and carries the reason in `error`; one the format itself rules
+ * out is also marked `unsupported`, with the message every query would return.
  */
 const listDesignVariants = async (
   sourcePath: string
-): Promise<{ design_variants: DesignVariantInfo[]; error?: string }> => {
+): Promise<{ design_variants: DesignVariantInfo[]; unsupported?: boolean; error?: string }> => {
   const base: DesignVariantInfo = { name: DEFAULT_VARIANT, is_default: true };
   const handler = findHandler(sourcePath);
   if (!handler?.listVariants) return { design_variants: [base] };
@@ -34,6 +36,9 @@ const listDesignVariants = async (
     const native = await handler.listVariants(sourcePath);
     return { design_variants: native.length > 0 ? native : [base] };
   } catch (error) {
+    if (error instanceof UnsupportedDesignError) {
+      return { design_variants: [base], unsupported: true, error: error.message };
+    }
     const message = error instanceof Error ? error.message : "Unknown error occurred";
     return { design_variants: [base], error: `Could not read design variants: ${message}` };
   }
@@ -100,6 +105,7 @@ export const listDesigns = async (
         // a design that is only a netlist. One path, which is the one to query.
         path: design.sourcePath,
         design_variants: variants.design_variants,
+        ...(variants.unsupported ? { unsupported: true } : {}),
         error: design.error ?? variants.error,
       };
     })
