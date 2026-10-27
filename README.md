@@ -65,7 +65,7 @@ Or use with npx (no installation required):
 npx @intelligentelectron/universal-netlist help
 ```
 
-Requires Node.js 20+.
+Requires Node.js 22.15+.
 
 To update:
 

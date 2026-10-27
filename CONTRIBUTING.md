@@ -11,7 +11,7 @@ This project is maintained by:
 
 ### Prerequisites
 
-- Node.js >= 20.0.0
+- Node.js >= 22.15.0
 - npm
 
 ### Development Setup
