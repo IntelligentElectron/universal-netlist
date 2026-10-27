@@ -178,7 +178,7 @@ export const renderSkill = (): string => {
     "",
     "## Tools",
     "",
-    "Each description is the MCP tool's own. Where one says an unknown argument is dropped, the command line refuses it instead, with exit 2.",
+    "Each description is the MCP tool's own.",
     "",
     "Every tool but `list_designs` also takes these two flags, not repeated below; `--design` may be the first argument instead:",
     "",

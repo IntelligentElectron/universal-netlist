@@ -93,7 +93,7 @@ Returns the directory searched, the designs found in it, and notes about the sea
 }
 ```
 
-`root` is reported on every result so the caller can confirm which directory was searched: an omitted, blank, or misspelled `path` searches the server's working directory, which is not necessarily the caller's.
+`root` is reported on every result so the caller can confirm which directory was searched: an omitted or blank `path` searches the server's working directory, which is not necessarily the caller's. A misspelled argument name, such as `search_path`, is refused with an error naming it.
 
 ## Example
 
