@@ -105,8 +105,11 @@ export const listDesigns = async (
         // a design that is only a netlist. One path, which is the one to query.
         path: design.sourcePath,
         design_variants: variants.design_variants,
-        ...(variants.unsupported ? { unsupported: true } : {}),
-        error: design.error ?? variants.error,
+        // An unsupported design's error is the reason it cannot be read, which every
+        // query on it returns; nothing discovery noticed about it outranks that.
+        ...(variants.unsupported
+          ? { unsupported: true, error: variants.error }
+          : { error: design.error ?? variants.error }),
       };
     })
   );

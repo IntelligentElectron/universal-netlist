@@ -27,6 +27,7 @@ vi.mock("../../parsers/ole-reader/ole-reader.js", async (importOriginal) => {
 });
 
 import { listDesigns } from "./list-designs.js";
+import { loadNetlist } from "../load-netlist.js";
 
 const TABLES = path.resolve(__dirname, "../../../docs/decision-tables/dsn-library-version");
 
@@ -100,4 +101,22 @@ describe.skipIf(!hasFixtures)("golden table: listing", () => {
       expect(outcome(design!)).toBe(row.outcome);
     });
   }
+});
+
+describe.skipIf(!hasFixtures)("a query on a design listed unsupported", () => {
+  afterEach(() => {
+    rewrite.transform = undefined;
+  });
+
+  it("returns the error the listing gave it", async () => {
+    const { dir, file } = FIXTURES.named;
+    rewrite.transform = (streamPath, data) =>
+      streamPath === "Library" ? VERSIONS.older(data) : data;
+    const result = (await listDesigns({ searchPath: dir, maxDepth: 0 })) as ListDesignsResult;
+    const design = result.designs.find((entry) => entry.path.endsWith(file))!;
+    expect(design.unsupported).toBe(true);
+    for (const variant of [undefined, "Standard"]) {
+      expect(await loadNetlist(design.path, variant)).toEqual({ error: design.error });
+    }
+  });
 });

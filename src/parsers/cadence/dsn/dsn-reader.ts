@@ -14,6 +14,9 @@ export const DSN_PASSWORD = "UNIVERSAL_NETLIST_DSN_PASSWORD";
 /** A file of passwords, one per line. */
 export const DSN_PASSWORD_FILE = "UNIVERSAL_NETLIST_DSN_PASSWORD_FILE";
 
+/** The root Library stream's path. A page may also be named "Library", under `Views/`. */
+export const ROOT_LIBRARY = "Library";
+
 const MARKER = Buffer.from("FILE_FMT_SYENCRYPT01", "latin1");
 /** The root `Library` stream keeps its first bytes in clear, ahead of the marker. */
 const LIBRARY_CLEAR_BYTES = 22;
@@ -54,7 +57,7 @@ interface EncryptedStream {
 }
 
 /** Where a stream's encryption marker would start: after the root Library's clear bytes. */
-const markerOffset = (path: string): number => (path === "Library" ? LIBRARY_CLEAR_BYTES : 0);
+const markerOffset = (path: string): number => (path === ROOT_LIBRARY ? LIBRARY_CLEAR_BYTES : 0);
 
 /** Whether a stream, as stored in the container, carries an encryption marker of any format. */
 export const isEncryptedStream = (path: string, data: Buffer): boolean => {
@@ -129,7 +132,7 @@ export class DsnReader {
     if (encrypted.length === 0) return;
 
     // A key opens the design when the Library header it decrypts reads as one.
-    const library = encrypted.find((stream) => stream.path === "Library");
+    const library = encrypted.find((stream) => stream.path === ROOT_LIBRARY);
     if (!library)
       throw new ProtectedDesignError("Protected OrCAD design has no encrypted Library stream");
     const { keys, unusable } = configuredKeys();

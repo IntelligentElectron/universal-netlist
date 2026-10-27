@@ -5,7 +5,7 @@
  * and Hierarchy streams, then assembles a ParsedNetlist.
  */
 
-import { DsnReader, isEncryptedStream } from "./dsn-reader.js";
+import { DsnReader, isEncryptedStream, ROOT_LIBRARY } from "./dsn-reader.js";
 import type { OleReader } from "../../ole-reader/ole-reader.js";
 import type { ComponentDetails, ParsedNetlist, ParseDesignOptions } from "../../../types.js";
 import type { OleDirectoryPath } from "../../ole-reader/types.js";
@@ -26,9 +26,7 @@ import { buildNetConnectivity } from "./net-builder.js";
 import { buildComponents } from "./component-builder.js";
 import { readVariantStuffing, type VariantStuffing } from "./variant-store.js";
 
-/** The root Library stream's path, as DsnReader decrypts it: a page may also be named "Library". */
-const ROOT_LIBRARY = "Library";
-
+/** The root Library stream, as DsnReader decrypts it: not a page that is also named "Library". */
 const findRootLibrary = (entries: OleDirectoryPath[]): OleDirectoryPath | undefined =>
   entries.find((e) => e.path === ROOT_LIBRARY && e.entry.type === 2);
 
