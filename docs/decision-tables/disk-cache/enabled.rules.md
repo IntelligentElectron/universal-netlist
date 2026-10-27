@@ -1,5 +1,3 @@
-WARNING: 3 cells are undecided; these rules are provisional
-
 | # | When | Outcome | Next | Cells |
 |---|---|---|---|---|
 | 1 | flag = absent; cache_env = unset / off / other; dir_env = unset | off |  | 3 |

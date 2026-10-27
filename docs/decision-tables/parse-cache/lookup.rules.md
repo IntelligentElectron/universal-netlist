@@ -1,5 +1,3 @@
-WARNING: 12 cells are undecided; these rules are provisional
-
 | # | When | Outcome | Next | Cells |
 |---|---|---|---|---|
 | 1 | entry = none / foreign / corrupt; parse = fails | error, nothing stored |  | 12 |

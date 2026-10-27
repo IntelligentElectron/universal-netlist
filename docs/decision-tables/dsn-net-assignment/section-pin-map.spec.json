@@ -1,0 +1,14 @@
+{
+  "name": "section-pin-map",
+  "assumes": [
+    "No single-device pin map is stored under the source package name or its _N-stripped form (a single-device package resolves directly and never reaches this table)",
+    "The candidate names are tried in the order findPinMapKey builds them: the source package, then its _N-stripped form",
+    "When unit_suffix is yes, a map is stored under a candidate name plus that suffix"
+  ],
+  "dimensions": {
+    "unit_suffix": ["yes", "no"],
+    "section_index": ["in-range", "out-of-range", "unknown"],
+    "sections_listed_under": ["source", "stripped", "none"],
+    "a_map_under": ["source", "stripped", "none"]
+  }
+}

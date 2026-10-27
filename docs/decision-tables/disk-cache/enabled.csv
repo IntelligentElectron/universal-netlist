@@ -1,12 +1,12 @@
 flag,cache_env,dir_env,outcome,next,status,note
 absent,unset,unset,off,,draft,opt-in: nothing turns it on
-absent,unset,set,on,,flag,product: naming a directory in UNIVERSAL_NETLIST_CACHE_DIR turns the cache on (asked; recommended A)
+absent,unset,set,on,,decided,"decided (user, 2026-10-27): --cache, UNIVERSAL_NETLIST_CACHE=1 or a set UNIVERSAL_NETLIST_CACHE_DIR turn it on; UNIVERSAL_NETLIST_CACHE=0 turns it off unless the flag is given"
 absent,on,unset,on,,draft,UNIVERSAL_NETLIST_CACHE is an on word
 absent,on,set,on,,draft,UNIVERSAL_NETLIST_CACHE is an on word
 absent,off,unset,off,,draft,UNIVERSAL_NETLIST_CACHE is an off word
-absent,off,set,off,,flag,product: an off word wins over a named directory (asked; recommended A)
+absent,off,set,off,,decided,"decided (user, 2026-10-27): --cache, UNIVERSAL_NETLIST_CACHE=1 or a set UNIVERSAL_NETLIST_CACHE_DIR turn it on; UNIVERSAL_NETLIST_CACHE=0 turns it off unless the flag is given"
 absent,other,unset,off,,draft,opt-in: nothing turns it on (an unrecognised word is not on)
-absent,other,set,on,,flag,product: naming a directory in UNIVERSAL_NETLIST_CACHE_DIR turns the cache on (asked; recommended A)
+absent,other,set,on,,decided,"decided (user, 2026-10-27): --cache, UNIVERSAL_NETLIST_CACHE=1 or a set UNIVERSAL_NETLIST_CACHE_DIR turn it on; UNIVERSAL_NETLIST_CACHE=0 turns it off unless the flag is given"
 present,unset,unset,on,,draft,src/service/disk-cache.ts diskCacheEnabled: the flag wins for its call
 present,unset,set,on,,draft,src/service/disk-cache.ts diskCacheEnabled: the flag wins for its call
 present,on,unset,on,,draft,src/service/disk-cache.ts diskCacheEnabled: the flag wins for its call
