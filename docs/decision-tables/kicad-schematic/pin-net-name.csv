@@ -1,0 +1,17 @@
+named,units,connection,shares_name,outcome,next,status,note
+yes,single,connected,yes,Net-(U1-SDA-Pad3),,draft,src/parsers/kicad/schematic/connectivity.ts pinNetName: a named pin; the pad is added when another pin of the unit shares the name
+yes,single,connected,no,Net-(U1-SDA),,draft,src/parsers/kicad/schematic/connectivity.ts pinNetName: a named pin; the pad is added when another pin of the unit shares the name
+yes,single,unconnected,yes,unconnected-(U1-SDA-Pad3),,draft,src/parsers/kicad/schematic/connectivity.ts pinNetName: unconnected keeps the pad; the unit letter only beside a pin name
+yes,single,unconnected,no,unconnected-(U1-SDA-Pad3),,draft,src/parsers/kicad/schematic/connectivity.ts pinNetName: unconnected keeps the pad; the unit letter only beside a pin name
+yes,multi,connected,yes,Net-(U1A-SDA-Pad3),,draft,src/parsers/kicad/schematic/connectivity.ts pinNetName: a named pin; the pad is added when another pin of the unit shares the name
+yes,multi,connected,no,Net-(U1A-SDA),,draft,src/parsers/kicad/schematic/connectivity.ts pinNetName: a named pin; the pad is added when another pin of the unit shares the name
+yes,multi,unconnected,yes,unconnected-(U1A-SDA-Pad3),,draft,src/parsers/kicad/schematic/connectivity.ts pinNetName: unconnected keeps the pad; the unit letter only beside a pin name
+yes,multi,unconnected,no,unconnected-(U1A-SDA-Pad3),,draft,src/parsers/kicad/schematic/connectivity.ts pinNetName: unconnected keeps the pad; the unit letter only beside a pin name
+no,single,connected,yes,n/a,,draft,shares_name is about the pin's name; an unnamed pin has none to share
+no,single,connected,no,Net-(U1-Pad3),,draft,"src/parsers/kicad/schematic/connectivity.ts pinNetName: an unnamed pin gives no unit letter (Net-(SW602-Pad1), modular-synth-vco)"
+no,single,unconnected,yes,n/a,,draft,shares_name is about the pin's name; an unnamed pin has none to share
+no,single,unconnected,no,unconnected-(U1-Pad3),,draft,src/parsers/kicad/schematic/connectivity.ts pinNetName: unconnected keeps the pad; the unit letter only beside a pin name
+no,multi,connected,yes,n/a,,draft,shares_name is about the pin's name; an unnamed pin has none to share
+no,multi,connected,no,Net-(U1-Pad3),,draft,"src/parsers/kicad/schematic/connectivity.ts pinNetName: an unnamed pin gives no unit letter (Net-(SW602-Pad1), modular-synth-vco)"
+no,multi,unconnected,yes,n/a,,draft,shares_name is about the pin's name; an unnamed pin has none to share
+no,multi,unconnected,no,unconnected-(U1-Pad3),,draft,src/parsers/kicad/schematic/connectivity.ts pinNetName: unconnected keeps the pad; the unit letter only beside a pin name

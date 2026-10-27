@@ -1,0 +1,16 @@
+{
+  "name": "resolve",
+  "assumes": [
+    "a KiCad design given as a .kicad_pro or a root .kicad_sch (a .net given directly is parsed as it is)",
+    "saved_net: <project>.net beside the project, read through the file reader",
+    "raw: the raw .kicad_sch reader run on the root schematic and its sheets; fails means it throws (a sheet it cannot parse, a construct it does not read)",
+    "kicad_cli: off when the kicadCli setting is false (the default for a file reader other than the local disk); works or fails when it runs",
+    "a named design variant is applied afterwards in every case, from the schematic's instance blocks"
+  ],
+  "dimensions": {
+    "saved_net": ["present", "absent"],
+    "root_sch": ["present", "absent"],
+    "raw": ["works", "fails"],
+    "kicad_cli": ["works", "fails", "off"]
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "name": "resolve",
+  "rules": [
+    {
+      "when": {
+        "saved_net": [
+          "absent"
+        ],
+        "root_sch": [
+          "absent"
+        ]
+      },
+      "outcome": "error: no netlist",
+      "next": "",
+      "cells": 6
+    },
+    {
+      "when": {
+        "saved_net": [
+          "absent"
+        ],
+        "root_sch": [
+          "present"
+        ],
+        "raw": [
+          "works"
+        ]
+      },
+      "outcome": "raw reader",
+      "next": "",
+      "cells": 3
+    },
+    {
+      "when": {
+        "saved_net": [
+          "absent"
+        ],
+        "root_sch": [
+          "present"
+        ],
+        "raw": [
+          "fails"
+        ],
+        "kicad_cli": [
+          "fails"
+        ]
+      },
+      "outcome": "error: raw and kicad-cli",
+      "next": "",
+      "cells": 1
+    },
+    {
+      "when": {
+        "saved_net": [
+          "absent"
+        ],
+        "root_sch": [
+          "present"
+        ],
+        "raw": [
+          "fails"
+        ],
+        "kicad_cli": [
+          "off"
+        ]
+      },
+      "outcome": "error: raw, kicad-cli off",
+      "next": "",
+      "cells": 1
+    },
+    {
+      "when": {
+        "saved_net": [
+          "absent"
+        ],
+        "root_sch": [
+          "present"
+        ],
+        "raw": [
+          "fails"
+        ],
+        "kicad_cli": [
+          "works"
+        ]
+      },
+      "outcome": "kicad-cli export",
+      "next": "",
+      "cells": 1
+    }
+  ],
+  "default": {
+    "outcome": "saved .net",
+    "next": ""
+  }
+}

@@ -1,0 +1,25 @@
+saved_net,root_sch,raw,kicad_cli,outcome,next,status,note
+present,present,works,works,saved .net,,draft,src/parsers/kicad/index.ts: a committed export is KiCad's own netlist and wins; nothing else runs
+present,present,works,fails,saved .net,,draft,src/parsers/kicad/index.ts: a committed export is KiCad's own netlist and wins; nothing else runs
+present,present,works,off,saved .net,,draft,src/parsers/kicad/index.ts: a committed export is KiCad's own netlist and wins; nothing else runs
+present,present,fails,works,saved .net,,draft,src/parsers/kicad/index.ts: a committed export is KiCad's own netlist and wins; nothing else runs
+present,present,fails,fails,saved .net,,draft,src/parsers/kicad/index.ts: a committed export is KiCad's own netlist and wins; nothing else runs
+present,present,fails,off,saved .net,,draft,src/parsers/kicad/index.ts: a committed export is KiCad's own netlist and wins; nothing else runs
+present,absent,works,works,saved .net,,draft,src/parsers/kicad/index.ts: a committed export is KiCad's own netlist and wins; nothing else runs
+present,absent,works,fails,saved .net,,draft,src/parsers/kicad/index.ts: a committed export is KiCad's own netlist and wins; nothing else runs
+present,absent,works,off,saved .net,,draft,src/parsers/kicad/index.ts: a committed export is KiCad's own netlist and wins; nothing else runs
+present,absent,fails,works,saved .net,,draft,src/parsers/kicad/index.ts: a committed export is KiCad's own netlist and wins; nothing else runs
+present,absent,fails,fails,saved .net,,draft,src/parsers/kicad/index.ts: a committed export is KiCad's own netlist and wins; nothing else runs
+present,absent,fails,off,saved .net,,draft,src/parsers/kicad/index.ts: a committed export is KiCad's own netlist and wins; nothing else runs
+absent,present,works,works,raw reader,,draft,"issue #243: the raw reader comes before kicad-cli, so no KiCad install is needed and no process is started"
+absent,present,works,fails,raw reader,,draft,"issue #243: the raw reader comes before kicad-cli, so no KiCad install is needed and no process is started"
+absent,present,works,off,raw reader,,draft,"issue #243: the raw reader comes before kicad-cli, so no KiCad install is needed and no process is started"
+absent,present,fails,works,kicad-cli export,,draft,the raw reader could not read the design; kicad-cli is the fallback
+absent,present,fails,fails,error: raw and kicad-cli,,draft,both failed; the error names both reasons
+absent,present,fails,off,"error: raw, kicad-cli off",,draft,the raw reader failed and kicad-cli is off; the error names the raw reader's reason and how to turn kicad-cli on or commit a .net
+absent,absent,works,works,error: no netlist,,draft,neither a saved .net nor a root schematic to read
+absent,absent,works,fails,error: no netlist,,draft,neither a saved .net nor a root schematic to read
+absent,absent,works,off,error: no netlist,,draft,neither a saved .net nor a root schematic to read
+absent,absent,fails,works,error: no netlist,,draft,neither a saved .net nor a root schematic to read
+absent,absent,fails,fails,error: no netlist,,draft,neither a saved .net nor a root schematic to read
+absent,absent,fails,off,error: no netlist,,draft,neither a saved .net nor a root schematic to read

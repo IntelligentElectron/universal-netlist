@@ -12,7 +12,7 @@ List the design projects in a directory, one path each: a .DSN, a .PrjPcb, a .ki
 
 `design_variants` lists each design's builds: its native variants (Altium, Cadence CIS, KiCad; `fabrication` where the vendor marks one a build assembly), or `<Default>` alone when it records none. A design with variants requires `design_variant` on every query, and `<Default>` is refused on it.
 
-Cadence: query the .DSN; it carries properties, connectivity, and CIS stuffing. KiCad: query the .kicad_pro; a committed <project>.net export is read directly, otherwise kicad-cli generates one (set KICAD_CLI_PATH if needed) and a missing netlist is reported in `error`.
+Cadence: query the .DSN; it carries properties, connectivity, and CIS stuffing. KiCad: query the .kicad_pro; a committed <project>.net export is read directly, otherwise the schematics are read themselves (no KiCad install needed), with kicad-cli as the last resort; a design none of them can read is reported in `error`.
 
 A design marked `unsupported: true` cannot be read (for example an OrCAD design saved in an older Capture format); `error` says why and what to do, and every query on it returns that error, so do not query it.
 

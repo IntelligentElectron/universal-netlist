@@ -55,9 +55,9 @@ when it records none. A design with variants requires \`design_variant\` on ever
 and \`<Default>\` is refused on it.
 
 Cadence: query the .DSN; it carries properties, connectivity, and CIS stuffing. KiCad: \
-query the .kicad_pro; a committed <project>.net export is read directly, otherwise \
-kicad-cli generates one (set KICAD_CLI_PATH if needed) and a missing netlist is reported \
-in \`error\`.
+query the .kicad_pro; a committed <project>.net export is read directly, otherwise the \
+schematics are read themselves (no KiCad install needed), with kicad-cli as the last resort; \
+a design none of them can read is reported in \`error\`.
 
 A design marked \`unsupported: true\` cannot be read (for example an OrCAD design saved in an \
 older Capture format); \`error\` says why and what to do, and every query on it returns that \

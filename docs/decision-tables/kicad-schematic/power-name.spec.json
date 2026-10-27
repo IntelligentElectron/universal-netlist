@@ -1,0 +1,18 @@
+{
+  "name": "power-name",
+  "assumes": [
+    "a power symbol's power_in pin, global or local",
+    "kicad6: the file's (version) is before 20230121, the first KiCad 7 schematic format"
+  ],
+  "dimensions": {
+    "format": [
+      "kicad6",
+      "kicad7_or_later"
+    ],
+    "value": [
+      "set",
+      "empty",
+      "tilde"
+    ]
+  }
+}
