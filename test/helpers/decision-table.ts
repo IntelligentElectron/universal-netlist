@@ -1,16 +1,17 @@
 /**
- * Golden decision tables under docs/decision-tables, read for the tests that
- * replay them against the code, one test per cell.
+ * Golden decision tables in `docs/decision-tables/<feature>/`, read for the
+ * `*.table.test.ts` suites that replay every cell against the code.
  */
 import { readFileSync } from "fs";
 import path from "path";
 
-const HELPERS_DIR = path.dirname(new URL(import.meta.url).pathname);
-const TABLES = path.resolve(HELPERS_DIR, "../../docs/decision-tables");
-
-/** Read `<feature>/<name>.csv`: quoted fields may hold commas and doubled quotes. */
-export const readTable = (feature: string, name: string): Record<string, string>[] => {
-  const text = readFileSync(path.join(TABLES, feature, `${name}.csv`), "utf8");
+/**
+ * Read a table CSV under `dir`: quoted fields may hold commas and doubled quotes. Rows
+ * end at LF or CR LF, the last row needs no line ending, and blank lines are skipped.
+ */
+export const readTable = (dir: string, name: string): Record<string, string>[] => {
+  const raw = readFileSync(path.join(dir, `${name}.csv`), "utf8").replace(/\r\n/g, "\n");
+  const text = raw.endsWith("\n") ? raw : `${raw}\n`;
   const rows: string[][] = [];
   let row: string[] = [];
   let field = "";
@@ -28,7 +29,8 @@ export const readTable = (feature: string, name: string): Record<string, string>
       row.push(field);
       field = "";
       if (c === "\n") {
-        rows.push(row);
+        // A blank line holds no cell.
+        if (row.length > 1 || row[0] !== "") rows.push(row);
         row = [];
       }
     } else field += c;
@@ -37,6 +39,6 @@ export const readTable = (feature: string, name: string): Record<string, string>
   return body.map((r) => Object.fromEntries(header.map((h, i) => [h, r[i]])));
 };
 
-/** A cell's test name: its dimension values in order. */
-export const cellName = (row: Record<string, string>, dims: string[]) =>
+/** A test name for a cell: each dimension and its value. */
+export const cellName = (row: Record<string, string>, dims: readonly string[]): string =>
   dims.map((d) => `${d}=${row[d]}`).join(" ");

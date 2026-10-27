@@ -2,10 +2,13 @@
  * Replays the golden decision tables in docs/decision-tables/net-names against
  * NetNameIndex, one test per cell, so the tables and the code cannot drift.
  */
+import path from "path";
 import { describe, expect, it } from "vitest";
 import { NetNameIndex } from "./net-names.js";
 import type { NetLabelSource } from "../types.js";
 import { cellName, readTable } from "../../test/helpers/decision-table.js";
+
+const TABLES = path.resolve(__dirname, "../../docs/decision-tables/net-names");
 
 describe("golden table: resolve", () => {
   const dims = ["input", "ws_matches", "trunc_matches", "format"];
@@ -13,7 +16,7 @@ describe("golden table: resolve", () => {
   const KEY = "PTA0/JTAG_TCLK/SWD_CLK/EZP_CLK/";
   const count = { "0": 0, "1": 1, many: 2 } as Record<string, number>;
 
-  for (const row of readTable("net-names", "resolve").filter((r) => r.outcome !== "n/a")) {
+  for (const row of readTable(TABLES, "resolve").filter((r) => r.outcome !== "n/a")) {
     it(cellName(row, dims), () => {
       const blank = row.input === "blank";
       const wsNets = blank ? [" ", "  "] : [` ${KEY}`, `${KEY} `];
@@ -60,7 +63,7 @@ describe("golden table: warning", () => {
     before_block_suffix: { net: "SIG _U1", partner: "SIG_U1" },
   };
 
-  for (const row of readTable("net-names", "warning").filter((r) => r.outcome !== "n/a")) {
+  for (const row of readTable(TABLES, "warning").filter((r) => r.outcome !== "n/a")) {
     it(cellName(row, dims), () => {
       const { net, partner } = cases[row.whitespace];
       const names = row.collides === "yes" ? [net, partner] : [net];

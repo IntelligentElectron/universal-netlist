@@ -3,6 +3,7 @@
  * against the Library version gate, one test per cell, so the table and the code
  * cannot drift.
  */
+import path from "path";
 import { describe, expect, it } from "vitest";
 import { cellName, readTable } from "../../../../test/helpers/decision-table.js";
 import {
@@ -11,6 +12,8 @@ import {
   type LibraryVersion,
   UnsupportedDsnVersionError,
 } from "./library-parser.js";
+
+const TABLES = path.resolve(__dirname, "../../../../docs/decision-tables/dsn-library-version");
 
 /** Every version each value of the table's `version` dimension covers. */
 const VERSIONS: Record<string, (LibraryVersion | undefined)[]> = {
@@ -59,7 +62,7 @@ const outcome = (version: LibraryVersion | undefined, restThrows: boolean): stri
 
 describe("golden table: gate", () => {
   const dims = ["version", "rest_of_parse"];
-  for (const row of readTable("dsn-library-version", "gate").filter((r) => r.outcome !== "n/a")) {
+  for (const row of readTable(TABLES, "gate").filter((r) => r.outcome !== "n/a")) {
     it(cellName(row, dims), () => {
       for (const version of VERSIONS[row.version]) {
         expect(outcome(version, row.rest_of_parse === "throws")).toBe(row.outcome);
