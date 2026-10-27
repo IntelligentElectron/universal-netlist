@@ -9,6 +9,7 @@ import {
   CACHE_DIRECTORY_NAME,
   CACHE_DIR_ENV,
   CACHE_ENV,
+  tmpCacheDirectoryName,
   diskCacheEnabled,
   resolveDiskCacheDir,
   type CacheDirHost,
@@ -42,7 +43,7 @@ describe("golden table: location", () => {
     "named dir": NAMED,
     "xdg dir": path.join(XDG, CACHE_DIRECTORY_NAME),
     "home dir": path.join(HOME, ".cache", CACHE_DIRECTORY_NAME),
-    "tmp dir": path.join(TMP, CACHE_DIRECTORY_NAME),
+    "tmp dir": path.join(TMP, tmpCacheDirectoryName()),
     "no disk cache": undefined,
   };
 
@@ -63,9 +64,15 @@ describe("golden table: location", () => {
       const host: CacheDirHost = {
         homedir: () => (row.home === "none" ? undefined : HOME),
         tmpdir: () => TMP,
-        writable: async (dir) => writable.has(dir),
+        writable: async (dir, isPrivate) => {
+          // Only the named directory is taken as the user gives it.
+          expect(isPrivate).toBe(dir !== NAMED);
+          return writable.has(dir);
+        },
       };
-      expect(await resolveDiskCacheDir(env, host)).toBe(expected[row.outcome]);
+      const location = await resolveDiskCacheDir(env, host);
+      expect(location?.dir).toBe(expected[row.outcome]);
+      if (location) expect(location.isPrivate).toBe(row.outcome !== "named dir");
     });
   }
 });

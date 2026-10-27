@@ -17,6 +17,7 @@
 import { constants } from "node:fs";
 import {
   access,
+  lstat,
   mkdir,
   readFile,
   readdir,
@@ -39,8 +40,22 @@ const FORMAT = "universal-netlist-parse-cache";
 /** Default cap on the directory's entries: 256 MiB. */
 export const DEFAULT_MAX_BYTES = 256 * 1024 * 1024;
 
-/** The directory name used under XDG_CACHE_HOME, ~/.cache and the temp directory. */
+/** The directory name used under XDG_CACHE_HOME and ~/.cache. */
 export const CACHE_DIRECTORY_NAME = "universal-netlist";
+
+/**
+ * The directory name used in the temp directory, which other users share: one
+ * per user, so nobody else's directory is ever taken for this user's.
+ */
+export const tmpCacheDirectoryName = (): string => {
+  const uid = process.getuid?.();
+  if (uid !== undefined) return `${CACHE_DIRECTORY_NAME}-${uid}`;
+  try {
+    return `${CACHE_DIRECTORY_NAME}-${os.userInfo().username.replace(/[^A-Za-z0-9._-]/g, "_")}`;
+  } catch {
+    return CACHE_DIRECTORY_NAME;
+  }
+};
 
 export const CACHE_ENV = "UNIVERSAL_NETLIST_CACHE";
 export const CACHE_DIR_ENV = "UNIVERSAL_NETLIST_CACHE_DIR";
@@ -76,11 +91,17 @@ const isEntryFile = (raw: unknown, key: string): raw is EntryFile => {
   );
 };
 
-/** Entries as JSON files in one directory. */
+/**
+ * Entries as JSON files in one directory. A private store keeps them readable
+ * by this user only (directory 0700, files 0600), as a cache this package picks
+ * the place for is; a directory the user names keeps the modes the user's
+ * umask gives, so containers sharing a volume can read each other's entries.
+ */
 export class DiskCacheStore implements CacheStore {
   constructor(
     readonly dir: string,
-    readonly maxBytes = DEFAULT_MAX_BYTES
+    readonly maxBytes = DEFAULT_MAX_BYTES,
+    readonly isPrivate = false
   ) {}
 
   private file(key: string): string {
@@ -114,8 +135,8 @@ export class DiskCacheStore implements CacheStore {
     const file = this.file(key);
     const temporary = `${file}.${process.pid}.${randomBytes(6).toString("hex")}.tmp`;
     try {
-      await mkdir(this.dir, { recursive: true });
-      await writeFile(temporary, JSON.stringify(body));
+      await mkdir(this.dir, { recursive: true, ...(this.isPrivate ? { mode: 0o700 } : {}) });
+      await writeFile(temporary, JSON.stringify(body), this.isPrivate ? { mode: 0o600 } : {});
       await rename(temporary, file);
     } catch {
       await unlink(temporary).catch(() => {});
@@ -178,8 +199,13 @@ export interface CacheDirHost {
   /** The user's home directory, or undefined when there is none. */
   homedir(): string | undefined;
   tmpdir(): string;
-  /** Create the directory if needed, and say whether it can be written. */
-  writable(dir: string): Promise<boolean>;
+  /**
+   * Create the directory if needed, and say whether it can be written. A
+   * private directory must also be a real directory owned by this user that
+   * nobody else can write, so a directory another user created first is
+   * refused.
+   */
+  writable(dir: string, isPrivate: boolean): Promise<boolean>;
 }
 
 const homedirOrNone = (): string | undefined => {
@@ -195,16 +221,30 @@ const homedirOrNone = (): string | undefined => {
 export const nodeCacheDirHost: CacheDirHost = {
   homedir: homedirOrNone,
   tmpdir: () => os.tmpdir(),
-  writable: async (dir) => {
+  writable: async (dir, isPrivate) => {
     try {
-      await mkdir(dir, { recursive: true });
+      await mkdir(dir, { recursive: true, ...(isPrivate ? { mode: 0o700 } : {}) });
       await access(dir, constants.W_OK);
+      if (isPrivate) {
+        const info = await lstat(dir);
+        const uid = process.getuid?.();
+        if (!info.isDirectory()) return false;
+        if (uid !== undefined && info.uid !== uid) return false;
+        if (process.platform !== "win32" && (info.mode & 0o022) !== 0) return false;
+      }
       return true;
     } catch {
       return false;
     }
   },
 };
+
+/** Where the disk cache lives, and whether this package chose the place. */
+export interface DiskCacheLocation {
+  readonly dir: string;
+  /** True for the XDG, home and temp locations, which are kept private. */
+  readonly isPrivate: boolean;
+}
 
 /**
  * The directory the disk cache uses, or undefined when there is none to write.
@@ -213,17 +253,18 @@ export const nodeCacheDirHost: CacheDirHost = {
  * on purpose does not move somewhere else. Otherwise the first writable of
  * `$XDG_CACHE_HOME/universal-netlist` (when it is an absolute path, as the XDG
  * spec requires), `~/.cache/universal-netlist`, and the temp directory's
- * `universal-netlist`, so a read-only root filesystem or a missing home
- * directory falls through to a writable temp mount.
+ * `universal-netlist-<uid>`, so a read-only root filesystem or a missing home
+ * directory falls through to a writable temp mount. Those three are kept
+ * private to the user, and one that is not is passed over.
  */
 export const resolveDiskCacheDir = async (
   env: NodeJS.ProcessEnv = process.env,
   host: CacheDirHost = nodeCacheDirHost
-): Promise<string | undefined> => {
+): Promise<DiskCacheLocation | undefined> => {
   const named = env[CACHE_DIR_ENV]?.trim();
   if (named) {
     const dir = path.resolve(named);
-    return (await host.writable(dir)) ? dir : undefined;
+    return (await host.writable(dir, false)) ? { dir, isPrivate: false } : undefined;
   }
 
   const candidates: string[] = [];
@@ -231,10 +272,10 @@ export const resolveDiskCacheDir = async (
   if (xdg && path.isAbsolute(xdg)) candidates.push(path.join(xdg, CACHE_DIRECTORY_NAME));
   const home = host.homedir();
   if (home) candidates.push(path.join(home, ".cache", CACHE_DIRECTORY_NAME));
-  candidates.push(path.join(host.tmpdir(), CACHE_DIRECTORY_NAME));
+  candidates.push(path.join(host.tmpdir(), tmpCacheDirectoryName()));
 
   for (const dir of candidates) {
-    if (await host.writable(dir)) return dir;
+    if (await host.writable(dir, true)) return { dir, isPrivate: true };
   }
   return undefined;
 };

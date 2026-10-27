@@ -3,7 +3,6 @@ import { DEFAULT_VARIANT } from "../../parsers/variants.js";
 import { resolvePath } from "../../paths.js";
 import { parseRegexPattern } from "../regex-helpers.js";
 import type { DesignVariantInfo, ErrorResult, ListDesignsResult } from "../../types.js";
-import { listVariantsCached } from "../load-netlist.js";
 import type { ServiceContext } from "../context.js";
 
 /**
@@ -34,7 +33,9 @@ const listDesignVariants = async (
   const handler = findHandler(sourcePath);
   if (!handler?.listVariants) return { design_variants: [base] };
   try {
-    const native = await listVariantsCached(handler, sourcePath, context.parser, context.cache);
+    // Not through the parse cache: a listing of many designs would push every
+    // cached parse out of it.
+    const native = await handler.listVariants(sourcePath, context.parser);
     return { design_variants: native.length > 0 ? native : [base] };
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error occurred";

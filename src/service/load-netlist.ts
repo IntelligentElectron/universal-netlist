@@ -7,8 +7,8 @@ import type {
   ErrorResult,
   ParsedNetlist,
 } from "../types.js";
-import { serviceContextFromEnvironment, type ServiceContext } from "./context.js";
-import { readOnce, type ParserContext } from "../parsers/context.js";
+import type { ServiceContext } from "./context.js";
+import { parserContextFromEnvironment, readOnce, type ParserContext } from "../parsers/context.js";
 import { cached, type CacheStore } from "./cache.js";
 import {
   DEFAULT_VARIANT,
@@ -75,12 +75,14 @@ export interface LoadedNetlist extends ParsedNetlist {
  *
  * The design is read through the context's file reader, and a relative path
  * resolves against its root. Without a context, the local disk and the
- * environment's settings are used.
+ * environment's settings are used and nothing is cached, so the caller gets a
+ * parse of its own. Through a context's cache, the parse is shared with later
+ * queries and deep-frozen.
  */
 export const loadNetlist = async (
   designPath: string,
   designVariant?: string,
-  context: ServiceContext = serviceContextFromEnvironment()
+  context: ServiceContext = { parser: parserContextFromEnvironment() }
 ): Promise<LoadedNetlist | ErrorResult> => {
   const normalizedPath = resolvePath(designPath, context.root);
   // Listing variants and parsing read the same files; each is read once.

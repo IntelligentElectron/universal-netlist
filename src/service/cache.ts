@@ -243,10 +243,14 @@ export class TieredCacheStore implements CacheStore {
 /** Default number of in-memory entries: a few designs, each with a variant list and a build or two. */
 export const DEFAULT_MAX_ENTRIES = 8;
 
+/** Loads in progress, per store, so two concurrent misses share one parse. */
+const inFlight = new WeakMap<CacheStore, Map<string, Promise<unknown>>>();
+
 /**
  * Answer from the store when the entry's probes still hold; otherwise run
  * `produce` against a recording reader and store what it returns. A store that
- * fails is skipped, never failing the answer.
+ * fails is skipped, never failing the answer. Concurrent calls for one slot of
+ * one store share a single lookup and parse.
  */
 export const cached = async <T>(
   store: CacheStore | undefined,
@@ -258,6 +262,29 @@ export const cached = async <T>(
   if (!store) return prepare(await produce(context));
 
   const key = slotKey(slot);
+  let loads = inFlight.get(store);
+  if (!loads) {
+    loads = new Map();
+    inFlight.set(store, loads);
+  }
+  const pending = loads.get(key);
+  if (pending) return pending as Promise<T>;
+  const load = lookUpOrProduce(store, key, context, produce, prepare);
+  loads.set(key, load);
+  try {
+    return await load;
+  } finally {
+    loads.delete(key);
+  }
+};
+
+const lookUpOrProduce = async <T>(
+  store: CacheStore,
+  key: string,
+  context: ParserContext,
+  produce: (context: ParserContext) => Promise<T>,
+  prepare: (value: T) => T
+): Promise<T> => {
   const entry = await store.get(key).catch(() => undefined);
   if (entry && (await probesHold(entry.probes, context.files))) {
     return deepFreeze(entry.value) as T;

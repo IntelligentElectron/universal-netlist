@@ -1,4 +1,12 @@
-import { chmodSync, mkdtempSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import {
+  chmodSync,
+  mkdirSync,
+  mkdtempSync,
+  readdirSync,
+  rmSync,
+  statSync,
+  writeFileSync,
+} from "node:fs";
 import { readFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
@@ -6,9 +14,10 @@ import { afterAll, afterEach, describe, expect, it, vi } from "vitest";
 import { fixturePath, hasFixtures } from "../../test/utils.js";
 import * as parsers from "../parsers/index.js";
 import type { FileReader } from "../parsers/context.js";
-import { MemoryCacheStore, deepFreeze, type CacheEntry } from "./cache.js";
-import { DiskCacheStore } from "./disk-cache.js";
-import { createNetlistService } from "./index.js";
+import { passwordList } from "../parsers/context.js";
+import { MemoryCacheStore, cached, deepFreeze, type CacheEntry } from "./cache.js";
+import { DiskCacheStore, nodeCacheDirHost } from "./disk-cache.js";
+import { createNetlistService, loadNetlist } from "./index.js";
 
 const scratch = mkdtempSync(path.join(tmpdir(), "parse-cache-"));
 afterAll(() => rmSync(scratch, { recursive: true, force: true }));
@@ -96,6 +105,52 @@ describe("DiskCacheStore", () => {
   });
 });
 
+describe.skipIf(process.platform === "win32")("a private cache directory", () => {
+  it("is created for this user only, with entries only this user can read", async () => {
+    const dir = path.join(scratch, "private", "cache");
+    expect(await nodeCacheDirHost.writable(dir, true)).toBe(true);
+    expect(statSync(dir).mode & 0o777).toBe(0o700);
+    const store = new DiskCacheStore(dir, undefined, true);
+    await store.set("k", entry(1));
+    expect(statSync(path.join(dir, "k.json")).mode & 0o777).toBe(0o600);
+  });
+
+  it("is refused when anyone else can write it, as a directory another user made can be", async () => {
+    const dir = path.join(scratch, "shared");
+    mkdirSync(dir);
+    chmodSync(dir, 0o777);
+    expect(await nodeCacheDirHost.writable(dir, true)).toBe(false);
+    // A directory the user names is taken as it is.
+    expect(await nodeCacheDirHost.writable(dir, false)).toBe(true);
+  });
+});
+
+describe("cached", () => {
+  const files: FileReader = {
+    readFile: async () => new Uint8Array([1]),
+    exists: async () => true,
+  };
+  const context = { files, kicadCli: false as const, dsnPasswords: passwordList() };
+  const slot = { kind: "netlist" as const, path: "/a.DSN", variant: "<Default>" };
+
+  it("shares one parse between concurrent misses", async () => {
+    const store = new MemoryCacheStore(4);
+    let parses = 0;
+    const produce = async (c: typeof context) => {
+      parses++;
+      await c.files.readFile("/a.DSN");
+      await new Promise((resolve) => setTimeout(resolve, 10));
+      return { n: parses };
+    };
+    const [a, b] = await Promise.all([
+      cached(store, slot, context, produce),
+      cached(store, slot, context, produce),
+    ]);
+    expect(parses).toBe(1);
+    expect(a).toBe(b);
+  });
+});
+
 describe("deepFreeze", () => {
   it("freezes nested values", () => {
     const value = deepFreeze({ components: { U1: { pins: { "1": "" } } } });
@@ -152,6 +207,24 @@ describe.skipIf(!hasFixtures)("the service's parse cache", () => {
     const parse = vi.spyOn(parsers, "parseDesign");
     const second = createNetlistService({ files, cache: { dir } });
     expect(await second.queryComponent({ design: "/m/MULTIO.DSN", refdes: "U1" })).toEqual(parsed);
+    expect(parse).not.toHaveBeenCalled();
+  });
+
+  it("gives a loadNetlist caller without a context a parse of its own to change", async () => {
+    const design = fixturePath("cadence", "multio", "MULTIO.DSN");
+    const netlist = await loadNetlist(design);
+    if ("error" in netlist) throw new Error(netlist.error);
+    expect(Object.isFrozen(netlist.components)).toBe(false);
+    expect(await loadNetlist(design)).not.toBe(netlist);
+  });
+
+  it("does not let list_designs push parses out of the cache", async () => {
+    const service = createNetlistService({ cache: { maxEntries: 2 } });
+    const design = fixturePath("cadence", "multio", "MULTIO.DSN");
+    await service.listNets({ design });
+    const parse = vi.spyOn(parsers, "parseDesign");
+    await service.listDesigns({ path: fixturePath("kicad") });
+    await service.listNets({ design });
     expect(parse).not.toHaveBeenCalled();
   });
 

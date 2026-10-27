@@ -34,9 +34,9 @@ The directory is the first of these that can be written:
 1. `UNIVERSAL_NETLIST_CACHE_DIR`. A directory named on purpose is used as it is or not at all: if it cannot be written, that call runs without a disk cache.
 2. `$XDG_CACHE_HOME/universal-netlist`, when `XDG_CACHE_HOME` is an absolute path
 3. `~/.cache/universal-netlist`, when there is a home directory
-4. `universal-netlist` in the temp directory
+4. `universal-netlist-<uid>` in the temp directory, one per user
 
-A read-only root filesystem or a container user with no home directory falls through to a writable temp mount. In Docker, mount a volume and name it, so the cache survives the container and can be shared between containers:
+A read-only root filesystem or a container user with no home directory falls through to a writable temp mount. The last three are kept private: the directory is created `0700` and entries `0600`, and a directory owned by another user or writable by anyone else is passed over, so nobody else on the machine can read your designs from the cache or plant an entry in it. A directory you name keeps the modes your umask gives, so containers that share a volume can read each other's entries. In Docker, mount a volume and name it, so the cache survives the container and can be shared between containers:
 
 ```bash
 docker run -v netlist-cache:/cache -e UNIVERSAL_NETLIST_CACHE_DIR=/cache ...
@@ -56,4 +56,4 @@ createNetlistService({ cache: { dir: "/var/cache/netlist", maxBytes: 1e9 } }); /
 createNetlistService({ cache: false }); // parse every query
 ```
 
-A cached parse is shared by every query and is deep-frozen; results are built from it, never by changing it.
+A cached parse is shared by every query and is deep-frozen; results are built from it, never by changing it. Treat a result as read-only, since parts of it can be the frozen parse itself. `loadNetlist(design, variant)` called without a context bypasses the cache and returns a parse of its own.
