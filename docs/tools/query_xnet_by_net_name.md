@@ -27,6 +27,7 @@ Returns circuit traversal results with components grouped by MPN. See [`Aggregat
   "total_components": 0,                // Total components found
   "unique_configurations": 0,           // Unique MPN/orientation combinations
   "components_by_mpn": [AggregatedComponent, ...],
+  "component_notes": [ComponentNote, ...], // Optional: notes about some components, with their refdes
   "visited_nets": ["net1", "net2"],     // All nets traversed
   "circuit_hash": "string",             // Unique circuit topology hash
   "skipped": { "C": 5, "L": 2 },        // Skipped component counts by type (optional)
@@ -155,6 +156,7 @@ Skipped components appear in the `skipped` field with counts.
 ## Notes
 
 - Components are aggregated by MPN for compact output
+- Components without MPN are named once in `component_notes` (see [`ComponentNote`](../schemas/shared-types.md#componentnote))
 - 2-pin components with different orientations are tracked separately
 - DNS components are treated as absent from the board by default; pass `include_dns: true` to traverse through them, flagged `dns: true`
 - `design_variant` names the assembly the result describes. A design that records named variants requires it on every call; those variants are its only builds and `<Default>` is refused on it. `<Default>` (alias `default`) is the one build of a design that records no variant, the design with every part's own Do Not Stuff state

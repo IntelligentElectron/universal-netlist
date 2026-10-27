@@ -1,0 +1,33 @@
+{
+  "name": "mpn-note",
+  "rules": [
+    {
+      "when": {
+        "stuffing": [
+          "dns_left_out"
+        ]
+      },
+      "outcome": "left out of result",
+      "next": "",
+      "cells": 18
+    },
+    {
+      "when": {
+        "mpn": [
+          "present"
+        ],
+        "stuffing": [
+          "fitted",
+          "dns_listed"
+        ]
+      },
+      "outcome": "no note",
+      "next": "",
+      "cells": 12
+    }
+  ],
+  "default": {
+    "outcome": "listed under MPN note",
+    "next": ""
+  }
+}
