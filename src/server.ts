@@ -51,9 +51,10 @@ export const createServer = (
       version: VERSION,
     },
     {
-      capabilities: {
-        tools: {},
-      },
+      // No `capabilities.tools` here: from SDK 1.32.2 a declared capability makes
+      // McpServer register its tools/call handler in this constructor, before
+      // instrumentMcpToolCalls can wrap it, and calls the SDK rejects would go
+      // unrecorded. registerTool declares the capability with the first tool.
       instructions: SERVER_INSTRUCTIONS,
     }
   );
