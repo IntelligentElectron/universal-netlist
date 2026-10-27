@@ -1,0 +1,11 @@
+named_root,other_roots,outcome,next,status,note
+unplaced-root,0,read the named root,,draft,"hierarchy-expander.ts:178; 102 corpus designs, every multi-view one with a DAT export names the same root in C_PATH"
+unplaced-root,1+,read the named root,,flag,"Was: read every unplaced root (hierarchy-expander.ts:178), which lists trs80_power C12 and nixie C1 twice. Library schematic_name matches the export root on every multi-view design with a DAT, but nixie's export (2018-06-27) predates the save (2018-06-28) that made SIM1, a simulation sheet, the root. Follow the file's root?"
+block,0,read every page as it is,,draft,hierarchy-expander.ts:258; corpus: SENSORS EXPO DEMO (named root's Hierarchy stream does not parse)
+block,1+,read every unplaced root,,flag,"No corpus design. The named root is placed by another view, so one of the two trees is stale and the file does not say which. Keep today's rule (hierarchy-expander.ts:135)?"
+no-pages,0,read every page as it is,,draft,hierarchy-expander.ts:258; corpus: SENSORS EXPO DEMO (named root's Hierarchy stream does not parse)
+no-pages,1+,read every unplaced root,,draft,"hierarchy-expander.ts:135; no-pages: the named root describes nothing in this file; none: no root to prefer (older Library versions, empty name)"
+no-hierarchy,0,read every page as it is,,draft,hierarchy-expander.ts:258; corpus: SENSORS EXPO DEMO (named root's Hierarchy stream does not parse)
+no-hierarchy,1+,read every unplaced root,,flag,"No corpus design. Capture would netlist the named root, but without its tree this parser cannot expand its blocks; today the named root's pages are left out. Keep today's rule?"
+none,0,read every page as it is,,draft,hierarchy-expander.ts:258; corpus: SENSORS EXPO DEMO (named root's Hierarchy stream does not parse)
+none,1+,read every unplaced root,,draft,"hierarchy-expander.ts:135; no-pages: the named root describes nothing in this file; none: no root to prefer (older Library versions, empty name)"

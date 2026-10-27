@@ -84,10 +84,17 @@ export function findPinMapKey(
         return base + unitRefs[deviceIndex];
       }
     }
+  }
 
-    // Fallback: a package whose devices are not enumerated in deviceUnitRefs
-    // still has a single unit "A" entry to try.
-    if (!unitRef && pinMaps.has(base + "A")) return base + "A";
+  // Fallback: a package whose devices are not enumerated in deviceUnitRefs
+  // still has a single unit "A" entry to try. Only once every name has had
+  // its positional lookup: a package stream stores its sections under both
+  // `LM324_0A` and `LM324A` but lists them under `LM324` alone, so taking
+  // `LM324_0A` first would read every section of the part as section A.
+  if (!unitRef) {
+    for (const base of candidates) {
+      if (pinMaps.has(base + "A")) return base + "A";
+    }
   }
 
   return undefined;

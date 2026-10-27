@@ -13,7 +13,7 @@ import { parseHierarchyStream, type HierarchyStream } from "./hierarchy-parser.j
 import { expandHierarchy } from "./hierarchy-expander.js";
 import type { PageData } from "./page-parser.js";
 import { parseCacheStream, indexLibraryPart } from "./cache-parser.js";
-import { parseLibraryStrLst } from "./library-parser.js";
+import { parseLibraryRootSchematic, parseLibraryStrLst } from "./library-parser.js";
 import { buildDeviceIndexMap } from "./pin-resolver.js";
 import { buildNetConnectivity } from "./net-builder.js";
 import { buildComponents } from "./component-builder.js";
@@ -49,8 +49,10 @@ export function parseDsnFile(dsnPath: string, options?: ParseDesignOptions): Par
     pagesBySchematic.set(schematic, list);
   }
 
-  // Parse Library stream for strLst string table
+  // Parse Library stream for strLst string table, and the root schematic a
+  // design names, which picks one root when the file holds several.
   let strLst: string[] = [];
+  let rootSchematic: string | undefined;
   const libEntry = entries.find(
     (e) => (e.path === "Library" || e.path.endsWith("/Library")) && e.entry.type === 2
   );
@@ -58,6 +60,7 @@ export function parseDsnFile(dsnPath: string, options?: ParseDesignOptions): Par
     try {
       const libBuffer = ole.readStreamByPath(libEntry.path);
       strLst = parseLibraryStrLst(libBuffer);
+      rootSchematic = parseLibraryRootSchematic(libBuffer);
     } catch {
       // Library parsing is best-effort
     }
@@ -68,7 +71,8 @@ export function parseDsnFile(dsnPath: string, options?: ParseDesignOptions): Par
   const { pages, canonicalNetNames, occurrenceRefdes } = expandHierarchy(
     roots,
     pagesBySchematic,
-    strLst
+    strLst,
+    rootSchematic
   );
 
   // Parse Package streams for pin mapping data.

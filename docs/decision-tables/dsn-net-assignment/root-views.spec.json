@@ -1,0 +1,12 @@
+{
+  "name": "root-views",
+  "assumes": [
+    "The file is a design (its Library stream introduction reads OrCAD Windows Design), not a library",
+    "An unplaced root is a view with a parsable Hierarchy stream, pages in the file, and no other view's tree placing it (hierarchy-expander designRoots)",
+    "Within the roots chosen here, blocks expand exactly as before; only which roots are read is in question"
+  ],
+  "dimensions": {
+    "named_root": ["unplaced-root", "block", "no-pages", "no-hierarchy", "none"],
+    "other_roots": ["0", "1+"]
+  }
+}
