@@ -12,6 +12,25 @@ import { StructureType, type CachedLibraryPart, type PinMapData } from "./struct
 import { skipStructure } from "./generic-parser.js";
 import { parsePackage, parseLibraryPart } from "./structures.js";
 
+/**
+ * List a multi-device package's unit letters, in device order, under each name
+ * its unit maps are stored under: the name as written and its `_N`-stripped
+ * form. findPinMapKey's positional lookup reads the list under whichever name
+ * an instance's sourcePackage spells, so a list under one name only leaves the
+ * other to the section-A fallback (issue #247). The first package to claim a
+ * name keeps it.
+ */
+export function listDeviceUnits(
+  pmd: PinMapData,
+  names: string[],
+  devices: { unitRef: string }[]
+): void {
+  const unitRefs = devices.map((d) => d.unitRef);
+  for (const name of names) {
+    if (!pmd.deviceUnitRefs.has(name)) pmd.deviceUnitRefs.set(name, unitRefs);
+  }
+}
+
 /** Index a Cache Package's pin maps (fallback; doesn't override existing entries). */
 function indexCachePackage(pkg: import("./structures.js").Package, pmd: PinMapData): void {
   if (!pkg.name || pkg.devices.length === 0) return;
@@ -43,11 +62,7 @@ function indexCachePackage(pkg: import("./structures.js").Package, pmd: PinMapDa
       pmd.cachePinIgnores.set(pkg.name, firstDev.pinIgnore);
     }
   } else {
-    // Listed under both names its unit maps are stored under, so the
-    // positional lookup finds the units whichever name the instance carries.
-    const unitRefs = pkg.devices.map((d) => d.unitRef);
-    if (!pmd.deviceUnitRefs.has(baseName)) pmd.deviceUnitRefs.set(baseName, unitRefs);
-    if (!pmd.deviceUnitRefs.has(pkg.name)) pmd.deviceUnitRefs.set(pkg.name, unitRefs);
+    listDeviceUnits(pmd, [baseName, pkg.name], pkg.devices);
     for (const dev of pkg.devices) {
       const baseKey = baseName + dev.unitRef;
       if (!pmd.pinMaps.has(baseKey)) {

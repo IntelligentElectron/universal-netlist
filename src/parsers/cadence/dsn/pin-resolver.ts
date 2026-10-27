@@ -89,8 +89,8 @@ export function findPinMapKey(
 
   // Fallback: a package whose devices are not enumerated in deviceUnitRefs
   // still has a single unit "A" entry to try. Only once every name has had
-  // its positional lookup: a package stream stores its sections under both
-  // `LM324_0A` and `LM324A` but lists them under `LM324` alone, so taking
+  // its positional lookup: when the sections are listed under one spelling
+  // only (`LM324`, with maps under both `LM324_0A` and `LM324A`), taking
   // `LM324_0A` first would read every section of the part as section A.
   if (!unitRef) {
     for (const base of candidates) {
