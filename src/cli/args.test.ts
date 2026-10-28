@@ -24,21 +24,9 @@ describe("normalizeCliArgs", () => {
     expect(normalizeCliArgs([])).toEqual([]);
   });
 
-  it("keeps the path after export-json as a path, whatever it is called", () => {
-    expect(normalizeCliArgs(["export-json", "board.kicad_pro"])).toEqual([
-      "--export-json",
-      "board.kicad_pro",
-    ]);
-    expect(normalizeCliArgs(["export-json", "update"])).toEqual(["--export-json", "update"]);
-    expect(normalizeCliArgs(["--export-json", "help"])).toEqual(["--export-json", "help"]);
-  });
-
-  it("reads the flag after a command's value as a command", () => {
-    expect(normalizeCliArgs(["export-json", "board.DSN", "--help"])).toEqual([
-      "--export-json",
-      "board.DSN",
-      "--help",
-    ]);
+  it("has no export-json command: it became the export_design tool", () => {
+    expect(COMMANDS).not.toContain("export-json");
+    expect(normalizeCliArgs(["export-json", "update"])).toEqual(["export-json", "--update"]);
   });
 
   it("reads coverage and verbose as plain words", () => {

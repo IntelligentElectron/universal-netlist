@@ -57,6 +57,8 @@ Parsing a large design takes a second or two; a query on a parsed design takes m
 3. `query_component` and `query_xnet_by_*` give detail and connectivity.
 4. `run_erc` runs the electrical rule checks.
 
+Answer questions about a design with these query tools. `export_design` writes a whole design as a `.netlist.json` file, and is only for a program that post-processes the netlist in that format; see [Command-line-only tools](#command-line-only-tools).
+
 ```bash
 universal-netlist list_designs --path ./hardware
 universal-netlist search_nets hardware/board.DSN --pattern '^VCC'
@@ -166,3 +168,15 @@ Run electrical rule checks (ERC) on a design's netlist and return findings group
 - `--include_dns` (true or false; alone means true; default false). Include DNS (Do Not Stuff) components in the checks.
 - `--include_rules` (text, repeat the flag for each). Only run these rule ids (e.g., ['net.single_pin']). Omit for all.
 - `--exclude_rules` (text, repeat the flag for each). Skip these rule ids.
+
+## Command-line-only tools
+
+These tools are not offered by the MCP server. Each takes the shared flags above as well as its own, and prints its result as the query tools do.
+
+To answer a question about a design, run a query tool: it reads the design directly and returns only what was asked, at a fraction of the cost of reading a whole-netlist file. Export a design only when the netlist itself must be post-processed in Universal Netlist format, by a script or another program, or kept as a snapshot of one build.
+
+### export_design
+
+Write one build of a design as a Universal Netlist JSON file (.netlist.json), for a program that post-processes the whole netlist outside universal-netlist. To answer a question about a design, use the query tools instead: they read the design directly and return only what was asked. A design with named variants is exported as the one design_variant names, and the file records it in metadata.designVariant; each part's dns flag is its Do Not Stuff state in that build. The written file is itself a design every tool reads. Command line only; the MCP server does not offer it.
+
+- `--output` (string). Output path, ending in .netlist.json. Default: <design name>.netlist.json in the working directory.

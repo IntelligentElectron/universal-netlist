@@ -12,8 +12,8 @@
  *   update|upgrade     Check for and install updates
  *   uninstall          Remove binary and PATH entries
  *   export-telemetry   Export telemetry data as a zip file
- *   export-json <design> [out.netlist.json]  Write a design as Universal Netlist JSON
- *   <tool> [design] --flag value ...         Run an MCP tool, printing its JSON result
+ *   <tool> [design] --flag value ...         Run a tool, printing its JSON result: any
+ *                                            MCP tool, or export_design (command line only)
  */
 
 import {
@@ -22,9 +22,9 @@ import {
   handleUpdateCommand,
   handleUninstallCommand,
   handleExportTelemetryCommand,
-  handleExportJsonCommand,
   handleQueryCommand,
   handleUnknownCommand,
+  handleRenamedCommand,
 } from "./cli/commands.js";
 import { toolNamed } from "./cli/query.js";
 import { autoUpdate, reexec } from "./cli/updater.js";
@@ -39,6 +39,13 @@ const main = async (): Promise<void> => {
   const tool = toolNamed(raw[0]);
   if (tool) {
     await handleQueryCommand(tool, raw.slice(1));
+    return;
+  }
+
+  // export-json became the export_design tool. Say so instead of treating it
+  // as a mistyped word, or as a flag that starts the server.
+  if (raw[0] === "export-json" || raw[0] === "--export-json") {
+    handleRenamedCommand(raw[0], "export_design");
     return;
   }
 
@@ -73,14 +80,6 @@ const main = async (): Promise<void> => {
   // Handle --export-telemetry
   if (args.includes("--export-telemetry")) {
     await handleExportTelemetryCommand();
-    return;
-  }
-
-  // Handle export-json <design> [output.netlist.json]
-  if (args.includes("--export-json")) {
-    const idx = args.indexOf("--export-json");
-    const outArg = args[idx + 2];
-    await handleExportJsonCommand(args[idx + 1], outArg?.startsWith("--") ? undefined : outArg);
     return;
   }
 

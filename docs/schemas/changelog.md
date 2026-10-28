@@ -5,16 +5,39 @@ tracks the **schema** only: the shape of the document, its fields, and what they
 mean. Parser and server behaviour that does not change the document is out of
 scope.
 
-The current version is **2**. Readers for every earlier version stay registered,
+The current version is **3**. Readers for every earlier version stay registered,
 so a file written by any released build remains loadable.
 
 | Version | Date | Status |
 |---|---|---|
-| [2](#version-2) | 2026-09-02 | Current |
+| [3](#version-3) | 2026-10-28 | Current |
+| [2](#version-2) | 2026-09-02 | Supported |
 | [1](#version-1) | 2026-09-01 | Supported |
 | [Pre-schema](#pre-schema) | 2026-03-10 | Not loadable |
 
 ---
+
+## Version 3
+
+**2026-10-28**
+
+Records which build of a design the document holds.
+
+| Field | Change |
+|---|---|
+| `metadata.designVariant` | Added. The design variant the netlist was exported as, in the source design's spelling. Omitted for the base build of a design that declares no variants. |
+
+A design with named variants has only those to build, and each part's Do Not
+Stuff state depends on which one is chosen. Version 2 recorded none of this, so
+a file exported from one variant could not be told apart from another's, and
+read back as a base build. A version 3 file that records a variant is loaded as
+that variant's build alone: it lists that one name under `design_variants`, and
+queries of it name it.
+
+**Compatibility.** A version 2 document cannot carry the field: its reader
+refuses any metadata key it does not define. Version 2 files stay readable, as
+base builds. Builds that predate version 3 refuse version 3 files, naming the
+versions they support.
 
 ## Version 2
 

@@ -16,6 +16,7 @@ import {
   describeVariantChoices,
   quoteVariantNames,
   resolveVariantSelector,
+  type VariantSelection,
 } from "../parsers/variants.js";
 
 /**
@@ -55,6 +56,43 @@ const listVariantsCached = async (
         handler.listVariants!(designPath, recording)
       )
     : [];
+
+/**
+ * The build a caller's `design_variant` selects, by the rule every query
+ * applies: a design that declares variants has only those to build, so it needs
+ * one of their names, and `<Default>` is refused on it. A design that declares
+ * none has its base build, which an absent selector also selects. The refusal
+ * is an error result naming the choices.
+ */
+export const selectDesignVariant = (
+  variants: readonly DesignVariant[],
+  requested: string | undefined,
+  designName: string
+): VariantSelection | ErrorResult => {
+  const trimmed = requested?.trim();
+  if (!trimmed && variants.length > 0) {
+    return {
+      error:
+        `Design '${designName}' defines design variants ${quoteVariantNames(variants)}. ` +
+        `Pass design_variant as one of those names; they are the only builds it records. ` +
+        `list_designs() reports them under design_variants.`,
+    };
+  }
+  const selection = trimmed
+    ? resolveVariantSelector(variants, trimmed)
+    : { selected: DEFAULT_VARIANT };
+  if (!selection) {
+    return {
+      error:
+        `Design variant '${trimmed}' not found for design '${designName}'. ` +
+        `Available: ${describeVariantChoices(variants)}.`,
+    };
+  }
+  if (selection.selected === DEFAULT_VARIANT && variants.length > 0) {
+    return { error: describeDefaultVariantRefusal(variants, designName) };
+  }
+  return selection;
+};
 
 /** A parsed design plus the design variant it was resolved for. */
 export interface LoadedNetlist extends ParsedNetlist {
@@ -97,35 +135,13 @@ export const loadNetlist = async (
 
   try {
     const variants = await listVariantsCached(handler, normalizedPath, parser, context.cache);
-    const requested = designVariant?.trim();
-    const designName = path.basename(normalizedPath);
-    if (!requested && variants.length > 0) {
-      return {
-        error:
-          `Design '${designName}' defines design variants ${quoteVariantNames(variants)}. ` +
-          `Pass design_variant as one of those names; they are the only builds it records. ` +
-          `list_designs() reports them under design_variants.`,
-      };
-    }
-
     // The parser is handed a canonical selector: a declared name in its own
     // spelling, or the literal `<Default>`. Passing that explicitly matters for
     // Cadence, whose parser keeps a "union of groups" mode for developer
     // coverage when given no selector at all; public queries always describe
     // one build.
-    const selection = requested
-      ? resolveVariantSelector(variants, requested)
-      : { selected: DEFAULT_VARIANT };
-    if (!selection) {
-      return {
-        error:
-          `Design variant '${requested}' not found for design '${designName}'. ` +
-          `Available: ${describeVariantChoices(variants)}.`,
-      };
-    }
-    if (selection.selected === DEFAULT_VARIANT && variants.length > 0) {
-      return { error: describeDefaultVariantRefusal(variants, designName) };
-    }
+    const selection = selectDesignVariant(variants, designVariant, path.basename(normalizedPath));
+    if ("error" in selection) return selection;
 
     const parsed = await cached(
       context.cache,

@@ -3,14 +3,20 @@
  *
  * Reads a design that is already a Universal Netlist JSON file, the format every
  * other parser converts into (docs/schemas/universal-netlist.md). A file written
- * by `--export-json`, by another tool, or by hand is validated on load and then
+ * by `export_design`, by another tool, or by hand is validated on load and then
  * served by every tool exactly like a design parsed from its EDA source.
  */
 
 import { contextOrDefault, readText } from "../context.js";
 import path from "node:path";
-import type { ParsedNetlist, EDAProjectFormatHandler, ParseDesignOptions } from "../../types.js";
-import { parseUniversalNetlist } from "./reader.js";
+import type {
+  DesignVariant,
+  ParsedNetlist,
+  EDAProjectFormatHandler,
+  ParseDesignOptions,
+} from "../../types.js";
+import type { ParserContext } from "../context.js";
+import { parseUniversalNetlist, parseUniversalNetlistDocument } from "./reader.js";
 import { discoverUniversalDesigns, isUniversalFile, UNIVERSAL_EXTENSIONS } from "./discovery.js";
 
 export {
@@ -53,6 +59,23 @@ export const parseUniversalDesign = async (
   );
 
 /**
+ * The build a Universal Netlist file records. A file exported from one variant
+ * of a design is that variant's build and nothing else, so it lists that one
+ * name, and every query of it names the variant as the source design's would.
+ * A file without `metadata.designVariant` is a base build and lists none.
+ */
+export const listUniversalVariants = async (
+  designPath: string,
+  context?: ParserContext
+): Promise<DesignVariant[]> => {
+  const { metadata } = parseUniversalNetlistDocument(
+    await readText(contextOrDefault(context).files, designPath),
+    path.basename(designPath)
+  );
+  return metadata.designVariant !== undefined ? [{ name: metadata.designVariant }] : [];
+};
+
+/**
  * Universal Netlist format handler. Recognizes `.netlist.json` files; the file
  * must carry the supported schema marker and pass validation.
  */
@@ -63,6 +86,8 @@ export const universalHandler: EDAProjectFormatHandler = {
   canHandle: isUniversalFile,
 
   discoverDesigns: discoverUniversalDesigns,
+
+  listVariants: listUniversalVariants,
 
   parse: parseUniversalDesign,
 };

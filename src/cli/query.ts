@@ -1,6 +1,7 @@
 /**
  * The query command line: every registry tool as a subcommand under its MCP
- * name, with flags named as its schema's arguments.
+ * name, with flags named as its schema's arguments, plus the tools only the
+ * command line offers (`CLI_ONLY_TOOLS`), which take flags the same way.
  *
  *   universal-netlist search_nets board.DSN --pattern '^V'
  *   universal-netlist query_xnet_by_net_name --design board.DSN --net_name=-12V --skip_types C --skip_types L
@@ -20,6 +21,7 @@
 import { z } from "zod";
 import { BINARY_NAME } from "../version.js";
 import { TOOLS, findTool, type AnyToolDefinition } from "../tools/index.js";
+import { exportDesignTool } from "./export-design.js";
 import type { ServiceContext } from "../service/context.js";
 
 // =============================================================================
@@ -231,9 +233,22 @@ export const toolHelp = (tool: AnyToolDefinition): string => {
   return lines.join("\n");
 };
 
-/** The tool list `--help` prints. */
-export const toolList = (): string =>
-  TOOLS.map((tool) => `  ${tool.name.padEnd(34)}${tool.title}`).join("\n");
+/**
+ * Tools only the command line offers. Each has a registry tool's shape and runs
+ * the same way here, but the MCP server never registers it.
+ */
+export const CLI_ONLY_TOOLS: readonly AnyToolDefinition[] = Object.freeze([
+  exportDesignTool as unknown as AnyToolDefinition,
+]);
+
+const listTools = (tools: readonly AnyToolDefinition[]): string =>
+  tools.map((tool) => `  ${tool.name.padEnd(34)}${tool.title}`).join("\n");
+
+/** The MCP tools `--help` prints. */
+export const toolList = (): string => listTools(TOOLS);
+
+/** The command-line-only tools `--help` prints. */
+export const cliOnlyToolList = (): string => listTools(CLI_ONLY_TOOLS);
 
 // =============================================================================
 // Running
@@ -294,4 +309,6 @@ export const runQuery = async (
 
 /** The registry tool a command-line word names, if any. */
 export const toolNamed = (word: string | undefined): AnyToolDefinition | undefined =>
-  word === undefined ? undefined : findTool(word);
+  word === undefined
+    ? undefined
+    : (findTool(word) ?? CLI_ONLY_TOOLS.find((tool) => tool.name === word));

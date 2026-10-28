@@ -1,5 +1,5 @@
 {
-  "universalNetlistSchemaVersion": 2,
+  "universalNetlistSchemaVersion": 3,
   "metadata": {
     "generatedAt": "2026-09-03T01:02:27.104Z",
     "netlistHash": "sha256:1b94a7e17666a2d1ee6872e1cde1eefce5f497dec53a5f1cd5d10f3ae0f66007",

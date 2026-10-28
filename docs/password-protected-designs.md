@@ -69,10 +69,10 @@ Restart the client, or reconnect the server, after changing its environment.
 
 ## Exporting a protected design
 
-`export-json` reads the same variables:
+`export_design` reads the same variables:
 
 ```bash
-UNIVERSAL_NETLIST_DSN_PASSWORD_FILE=~/.orcad-passwords universal-netlist export-json Board.DSN
+UNIVERSAL_NETLIST_DSN_PASSWORD_FILE=~/.orcad-passwords universal-netlist export_design Board.DSN
 ```
 
 The `.netlist.json` it writes is not protected.

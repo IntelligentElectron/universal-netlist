@@ -12,6 +12,7 @@
 import { createHash } from "node:crypto";
 import type { ComponentDetails, NetConnections, ParsedNetlist, PinEntry } from "../../types.js";
 import { UNIVERSAL_NETLIST_SCHEMA_VERSION } from "../../universal-format.js";
+import { isDefaultVariant } from "../variants.js";
 
 export { UNIVERSAL_NETLIST_SCHEMA_VERSION } from "../../universal-format.js";
 
@@ -22,13 +23,17 @@ export interface UniversalNetlistSource {
 }
 
 export type UniversalNetlistOrigin =
-  | { type: "native" }
-  | { type: "vendor"; source: UniversalNetlistSource };
+  { type: "native" } | { type: "vendor"; source: UniversalNetlistSource };
 
 export interface UniversalNetlistMetadata {
   generatedAt: string;
   netlistHash: string;
   origin: UniversalNetlistOrigin;
+  /**
+   * The design variant whose build this document records. Omitted for the base
+   * build of a design that declares no variants. Version 3 and later.
+   */
+  designVariant?: string;
 }
 
 /** The metadata and netlist payload written to every `.netlist.json` file. */
@@ -41,6 +46,8 @@ export interface UniversalNetlistDocument extends ParsedNetlist {
 export interface UniversalNetlistSerializationOptions {
   generatedAt?: Date | string;
   origin?: UniversalNetlistOrigin;
+  /** The design variant the netlist was built for; omit for the base build. */
+  designVariant?: string;
 }
 
 /** A file that is not a valid Universal Netlist. The message names the defect. */
@@ -55,19 +62,15 @@ const isObject = (value: unknown): value is Record<string, unknown> =>
   typeof value === "object" && value !== null && !Array.isArray(value);
 
 const TOP_LEVEL_KEYS = new Set(["universalNetlistSchemaVersion", "metadata", "nets", "components"]);
-const METADATA_KEYS = new Set(["generatedAt", "netlistHash", "origin"]);
+const VERSION_1_METADATA_KEYS = new Set(["generatedAt", "netlistHash", "origin"]);
+const VERSION_3_METADATA_KEYS = new Set([...VERSION_1_METADATA_KEYS, "designVariant"]);
 const NATIVE_ORIGIN_KEYS = new Set(["type"]);
 const VENDOR_ORIGIN_KEYS = new Set(["type", "source"]);
 const SOURCE_KEYS = new Set(["vendor", "fileType", "formatVersion"]);
 
 /** A component field a document carries as a plain string. */
 type ComponentTextField =
-  | "mpn"
-  | "internal_pn"
-  | "manufacturer"
-  | "description"
-  | "comment"
-  | "value";
+  "mpn" | "internal_pn" | "manufacturer" | "description" | "comment" | "value";
 
 const VERSION_1_COMPONENT_TEXT_FIELDS: readonly ComponentTextField[] = [
   "mpn",
@@ -95,6 +98,30 @@ const VERSION_2_COMPONENT_TEXT_FIELDS: readonly ComponentTextField[] = [
   "manufacturer",
 ];
 
+/**
+ * What one schema version carries beyond the envelope every version shares.
+ *
+ * Version 2 separates the part numbers (see above). Version 3 adds
+ * `metadata.designVariant`, so a file exported from a design with named
+ * variants says which build it is. It could not be added to version 2: that
+ * reader refuses any metadata key it does not define, so a version 2 file
+ * carrying it would be rejected by every build that already exists.
+ */
+interface VersionShape {
+  readonly componentTextFields: readonly ComponentTextField[];
+  readonly metadataKeys: ReadonlySet<string>;
+}
+
+const VERSION_1: VersionShape = {
+  componentTextFields: VERSION_1_COMPONENT_TEXT_FIELDS,
+  metadataKeys: VERSION_1_METADATA_KEYS,
+};
+const VERSION_2: VersionShape = {
+  ...VERSION_1,
+  componentTextFields: VERSION_2_COMPONENT_TEXT_FIELDS,
+};
+const VERSION_3: VersionShape = { ...VERSION_2, metadataKeys: VERSION_3_METADATA_KEYS };
+
 type Fail = (message: string) => never;
 
 /**
@@ -110,7 +137,8 @@ interface UniversalNetlistSchemaCodec {
   write(
     netlist: ParsedNetlist,
     generatedAt: string,
-    origin: UniversalNetlistOrigin
+    origin: UniversalNetlistOrigin,
+    designVariant?: string
   ): UniversalNetlistDocument;
 }
 
@@ -220,6 +248,31 @@ const normalizeOrigin = (
   });
 
 /**
+ * Check a recorded design variant name. The base build is recorded by leaving
+ * the field out, so `<Default>` and its alias `default` are refused: either
+ * would read back as a declared variant of that name.
+ */
+const readDesignVariant = (raw: unknown, fail: Fail): string | undefined => {
+  if (raw === undefined) return undefined;
+  if (typeof raw !== "string" || !raw.trim() || raw !== raw.trim()) {
+    fail(
+      "`metadata.designVariant` must be a non-empty string without leading or trailing whitespace"
+    );
+  }
+  if (isDefaultVariant(raw)) {
+    fail(
+      `\`metadata.designVariant\` must name a declared variant, not '${raw}'; omit it for the base build`
+    );
+  }
+  return raw;
+};
+
+const normalizeDesignVariant = (value: string | undefined): string | undefined =>
+  readDesignVariant(value, (message) => {
+    throw new Error(`Invalid Universal Netlist design variant: ${message}`);
+  });
+
+/**
  * Read a pin entry's net name. `""` is how the EDA parsers write a pin that is
  * connected to nothing; `loadNetlist` normalizes it to `NC` after parsing.
  */
@@ -240,10 +293,10 @@ const netOf = (entry: PinEntry): string => (typeof entry === "string" ? entry : 
  * string is read as a one-element array, which is the form every tool works on.
  */
 const makeVersionReader =
-  (componentTextFields: readonly ComponentTextField[]) =>
+  ({ componentTextFields, metadataKeys }: VersionShape) =>
   (raw: Record<string, unknown>, fail: Fail): ParsedNetlist => {
     if (!isObject(raw.metadata)) fail("`metadata` must be an object");
-    rejectUnexpectedKeys(raw.metadata, METADATA_KEYS, "metadata", fail);
+    rejectUnexpectedKeys(raw.metadata, metadataKeys, "metadata", fail);
     if (!isCanonicalGeneratedAt(raw.metadata.generatedAt)) {
       fail(
         "`metadata.generatedAt` must be a canonical ISO 8601 UTC timestamp, for example 2026-09-01T12:34:56.789Z"
@@ -256,6 +309,7 @@ const makeVersionReader =
       fail("`metadata.netlistHash` must be `sha256:` followed by 64 lowercase hexadecimal digits");
     }
     readOrigin(raw.metadata.origin, fail);
+    readDesignVariant(raw.metadata.designVariant, fail);
     if (!isObject(raw.nets) || !isObject(raw.components)) {
       fail("`nets` and `components` must be objects");
     }
@@ -411,19 +465,24 @@ const projectComponents = (
   return { nets: netlist.nets, components };
 };
 
-const makeVersionCodec = (
-  version: number,
-  componentTextFields: readonly ComponentTextField[]
-): UniversalNetlistSchemaCodec => ({
-  read: makeVersionReader(componentTextFields),
-  write: (netlist, generatedAt, origin) => {
-    const projected = projectComponents(netlist, componentTextFields);
+const makeVersionCodec = (version: number, shape: VersionShape): UniversalNetlistSchemaCodec => ({
+  read: makeVersionReader(shape),
+  write: (netlist, generatedAt, origin, designVariant) => {
+    // A version that cannot record the variant must not write a file that
+    // looks like the base build when it is not.
+    if (designVariant !== undefined && !shape.metadataKeys.has("designVariant")) {
+      throw new Error(
+        `Universal Netlist schema version ${version} cannot record design variant '${designVariant}'`
+      );
+    }
+    const projected = projectComponents(netlist, shape.componentTextFields);
     return {
       universalNetlistSchemaVersion: version,
       metadata: {
         generatedAt,
         netlistHash: calculateUniversalNetlistHash(projected),
         origin,
+        ...(designVariant !== undefined ? { designVariant } : {}),
       },
       nets: projected.nets,
       components: projected.components,
@@ -438,8 +497,9 @@ const makeVersionCodec = (
  * here, then advance `UNIVERSAL_NETLIST_SCHEMA_VERSION` so new exports use it.
  */
 const SCHEMA_CODECS: ReadonlyMap<number, UniversalNetlistSchemaCodec> = new Map([
-  [1, makeVersionCodec(1, VERSION_1_COMPONENT_TEXT_FIELDS)],
-  [2, makeVersionCodec(2, VERSION_2_COMPONENT_TEXT_FIELDS)],
+  [1, makeVersionCodec(1, VERSION_1)],
+  [2, makeVersionCodec(2, VERSION_2)],
+  [3, makeVersionCodec(3, VERSION_3)],
 ]);
 
 /** Versions accepted by this build, in ascending order. */
@@ -465,7 +525,8 @@ export const toUniversalNetlistDocument = (
   currentCodec().write(
     netlist,
     normalizeGeneratedAt(options.generatedAt),
-    normalizeOrigin(options.origin)
+    normalizeOrigin(options.origin),
+    normalizeDesignVariant(options.designVariant)
   );
 
 /** Serialize an internal netlist using the current on-disk schema version. */
@@ -523,6 +584,9 @@ export const parseUniversalNetlistDocument = (
       generatedAt: document.metadata.generatedAt,
       netlistHash: document.metadata.netlistHash,
       origin: document.metadata.origin,
+      ...(document.metadata.designVariant !== undefined
+        ? { designVariant: document.metadata.designVariant }
+        : {}),
     },
     nets: netlist.nets,
     components: netlist.components,

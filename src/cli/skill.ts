@@ -13,7 +13,7 @@
 import { SERVER_INSTRUCTIONS } from "../descriptions.js";
 import { GITHUB_REPO, NPM_PACKAGE } from "../version.js";
 import { TOOLS } from "../tools/index.js";
-import { flagsOf } from "./query.js";
+import { CLI_ONLY_TOOLS, flagsOf } from "./query.js";
 
 /** The skill's directory, from the repository root. */
 export const SKILL_DIR = "plugins/universal-netlist/skills/universal-netlist";
@@ -165,6 +165,8 @@ export const renderSkill = (): string => {
     "3. `query_component` and `query_xnet_by_*` give detail and connectivity.",
     "4. `run_erc` runs the electrical rule checks.",
     "",
+    "Answer questions about a design with these query tools. `export_design` writes a whole design as a `.netlist.json` file, and is only for a program that post-processes the netlist in that format; see [Command-line-only tools](#command-line-only-tools).",
+    "",
     "```bash",
     "universal-netlist list_designs --path ./hardware",
     "universal-netlist search_nets hardware/board.DSN --pattern '^VCC'",
@@ -185,6 +187,19 @@ export const renderSkill = (): string => {
     ...sharedFlagLines(),
   ];
   for (const tool of TOOLS) {
+    lines.push("", `### ${tool.name}`, "", asFlags(tool.description));
+    const own = flagsOf(tool).filter((flag) => !isShared(flag.name));
+    if (own.length > 0) lines.push("", ...own.map(flagLine));
+  }
+  lines.push(
+    "",
+    "## Command-line-only tools",
+    "",
+    "These tools are not offered by the MCP server. Each takes the shared flags above as well as its own, and prints its result as the query tools do.",
+    "",
+    "To answer a question about a design, run a query tool: it reads the design directly and returns only what was asked, at a fraction of the cost of reading a whole-netlist file. Export a design only when the netlist itself must be post-processed in Universal Netlist format, by a script or another program, or kept as a snapshot of one build."
+  );
+  for (const tool of CLI_ONLY_TOOLS) {
     lines.push("", `### ${tool.name}`, "", asFlags(tool.description));
     const own = flagsOf(tool).filter((flag) => !isShared(flag.name));
     if (own.length > 0) lines.push("", ...own.map(flagLine));
