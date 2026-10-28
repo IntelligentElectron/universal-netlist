@@ -9,6 +9,11 @@ vi.mock("node:os", async (importOriginal) => ({
   homedir: () => home,
 }));
 
+// ZDOTDIR points removeFromPath at more zsh files; keep it inside the scratch home, never
+// at the real one of whoever runs the tests.
+const zdotdir = join(home, "zdotdir");
+vi.stubEnv("ZDOTDIR", zdotdir);
+
 const { removeFromPath } = await import("./shell.js");
 
 afterAll(() => rmSync(home, { recursive: true, force: true }));
@@ -30,6 +35,26 @@ describe("removeFromPath", () => {
     expect(removeFromPath("/opt/tools/bin").sort()).toEqual([fish, zshrc].sort());
     expect(readFileSync(zshrc, "utf-8")).toBe('alias ll="ls -l"\n');
     expect(readFileSync(fish, "utf-8")).toBe("set -x EDITOR vim\n");
+  });
+
+  it("removes the block from the login profiles too", () => {
+    const zprofile = join(home, ".zprofile");
+    const bashLogin = join(home, ".bash_login");
+    const block = '\n# Universal Netlist MCP Server\nexport PATH="/opt/tools/bin:$PATH"\n';
+    writeFileSync(zprofile, 'eval "$(/opt/homebrew/bin/brew shellenv)"\n' + block);
+    writeFileSync(bashLogin, "umask 022\n" + block);
+
+    expect(removeFromPath("/opt/tools/bin").sort()).toEqual([bashLogin, zprofile].sort());
+    expect(readFileSync(zprofile, "utf-8")).toBe('eval "$(/opt/homebrew/bin/brew shellenv)"\n');
+    expect(readFileSync(bashLogin, "utf-8")).toBe("umask 022\n");
+  });
+
+  it("removes the block from zsh's files under ZDOTDIR", () => {
+    mkdirSync(zdotdir, { recursive: true });
+    const zprofile = join(zdotdir, ".zprofile");
+    writeFileSync(zprofile, '# Universal Netlist MCP Server\nexport PATH="/opt/tools/bin:$PATH"\n');
+
+    expect(removeFromPath("/opt/tools/bin")).toEqual([zprofile]);
   });
 
   it("recognises the binary's directory through a symlink or a repeated slash", () => {

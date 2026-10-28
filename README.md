@@ -38,7 +38,7 @@ The installer provides:
 - **Auto-updates**: the binary checks for updates on startup; `universal-netlist update` updates it on demand
 - **Signed binaries**: macOS binaries are notarized by Apple
 
-It places the binary in the `bin/` folder of `~/Library/Application Support/universal-netlist/` (macOS), `~/.local/share/universal-netlist/` (Linux) or `%LOCALAPPDATA%\universal-netlist\` (Windows), and adds that folder to your PATH. Open a new terminal afterwards, so the agent you start next finds it.
+It places the binary in the `bin/` folder of `~/Library/Application Support/universal-netlist/` (macOS), `~/.local/share/universal-netlist/` (Linux) or `%LOCALAPPDATA%\universal-netlist\` (Windows), and adds that folder to your PATH in both your shell's startup file and its login profile, so apps started outside a terminal, such as the Claude desktop app, find it too. Restart your agent afterwards. If you installed before the login-profile entry existed, run the installer again: it adds only what is missing.
 
 <details>
 <summary>Install with npm instead</summary>

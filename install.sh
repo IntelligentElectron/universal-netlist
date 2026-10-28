@@ -139,7 +139,7 @@ get_shell_rc() {
             fi
             ;;
         zsh)
-            echo "$HOME/.zshrc"
+            echo "${ZDOTDIR:-$HOME}/.zshrc"
             ;;
         fish)
             echo "$HOME/.config/fish/config.fish"
@@ -150,40 +150,69 @@ get_shell_rc() {
     esac
 }
 
-# Add to PATH in shell rc file
-add_to_path() {
-    local install_dir="$1"
-    local bin_dir="$install_dir/bin"
-    local shell_rc
-    shell_rc=$(get_shell_rc)
+# Get the login profile, which apps started outside a terminal (the Claude desktop
+# app, an editor launched from the Dock) read for their PATH. Empty when the rc
+# file already covers login shells.
+get_login_profile() {
     local shell_name
     shell_name=$(basename "$SHELL")
 
-    # Check if already in PATH
-    if echo "$PATH" | grep -q "$bin_dir"; then
-        info "Already in PATH"
-        return 0
+    case "$shell_name" in
+        bash)
+            # bash reads the first of these that exists, so a new .bash_profile
+            # would hide an existing .profile
+            if [ -f "$HOME/.bash_profile" ]; then
+                echo "$HOME/.bash_profile"
+            elif [ -f "$HOME/.bash_login" ]; then
+                echo "$HOME/.bash_login"
+            else
+                echo "$HOME/.profile"
+            fi
+            ;;
+        zsh)
+            echo "${ZDOTDIR:-$HOME}/.zprofile"
+            ;;
+    esac
+}
+
+# Add to PATH in the shell rc file and the login profile
+add_to_path() {
+    local install_dir="$1"
+    local bin_dir="$install_dir/bin"
+    local shell_name
+    shell_name=$(basename "$SHELL")
+    local shell_rc
+    shell_rc=$(get_shell_rc)
+    local login_profile
+    login_profile=$(get_login_profile)
+    if [ "$login_profile" = "$shell_rc" ]; then
+        login_profile=""
     fi
 
-    # Check if already added to shell rc
-    if grep -q "universal-netlist" "$shell_rc" 2>/dev/null; then
-        info "PATH entry already exists in $shell_rc"
-        return 0
-    fi
+    local file
+    for file in "$shell_rc" "$login_profile"; do
+        [ -n "$file" ] || continue
 
-    info "Adding to PATH in $shell_rc"
+        if grep -qF "$bin_dir" "$file" 2>/dev/null; then
+            info "PATH entry already exists in $file"
+            continue
+        fi
 
-    if [ "$shell_name" = "fish" ]; then
-        echo "" >> "$shell_rc"
-        echo "# Universal Netlist MCP Server" >> "$shell_rc"
-        echo "fish_add_path $bin_dir" >> "$shell_rc"
-    else
-        echo "" >> "$shell_rc"
-        echo "# Universal Netlist MCP Server" >> "$shell_rc"
-        echo "export PATH=\"$bin_dir:\$PATH\"" >> "$shell_rc"
-    fi
+        info "Adding to PATH in $file"
+        mkdir -p "$(dirname "$file")"
 
-    success "Added to PATH in $shell_rc"
+        if [ "$shell_name" = "fish" ]; then
+            echo "" >> "$file"
+            echo "# Universal Netlist MCP Server" >> "$file"
+            echo "fish_add_path $bin_dir" >> "$file"
+        else
+            echo "" >> "$file"
+            echo "# Universal Netlist MCP Server" >> "$file"
+            echo "export PATH=\"$bin_dir:\$PATH\"" >> "$file"
+        fi
+
+        success "Added to PATH in $file"
+    done
 }
 
 # Main installation function
