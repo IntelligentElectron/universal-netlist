@@ -25,16 +25,24 @@ chmod 600 ~/.orcad-passwords
 
 ### Claude Code and the Claude desktop app
 
-Register the server with the variable. Claude Code in the Claude desktop app uses the servers
-Claude Code registers, so this one command covers both:
+The plugin's server inherits Claude Code's environment, so export the variable in your shell
+profile, then restart Claude Code or the Claude desktop app:
 
 ```bash
-claude mcp add --scope user universal-netlist -e UNIVERSAL_NETLIST_DSN_PASSWORD_FILE=$HOME/.orcad-passwords -- universal-netlist
+export UNIVERSAL_NETLIST_DSN_PASSWORD_FILE=$HOME/.orcad-passwords
 ```
 
-If the server is already registered, remove it first with `claude mcp remove universal-netlist`.
-
 ### OpenAI Codex
+
+Codex starts a plugin's server without your environment variables, so the plugin's server never
+sees the password. Turn that server off in `~/.codex/config.toml`:
+
+```toml
+[plugins."universal-netlist@universal-netlist".mcp_servers.universal-netlist]
+enabled = false
+```
+
+and register the server yourself with the variable:
 
 ```bash
 codex mcp add universal-netlist --env UNIVERSAL_NETLIST_DSN_PASSWORD_FILE=$HOME/.orcad-passwords -- universal-netlist

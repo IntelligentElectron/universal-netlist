@@ -65,11 +65,11 @@ universal-netlist query_xnet_by_net_name hardware/board.DSN --net_name SPI_CLK -
 
 ## Conventions
 
-- Design paths are relative to the working directory; absolute paths are also accepted
-- Every result describes one build of a design. A design with named design variants requires `design_variant` on every query, one of the names `list_designs` lists for it: those variants are its only builds, and `<Default>` is refused on it. A design with no variants has one build, `<Default>` (alias `default`), the design with every part's own Do Not Stuff state. Every result echoes the `design_variant` it describes
-- DNS (Do Not Stuff) components are flagged `dns: true`. Listing and search tools include them by default; traversal and ERC leave them out unless `--include_dns`
+- Pass absolute design paths: a relative one resolves against this process's working directory, which a plugin may set to its own folder
+- Every result describes, and echoes, one `design_variant` of a design. A design with named variants requires `design_variant` on every query, one of the names `list_designs` lists: those are its only builds, and `<Default>` is refused. A design with no variants has one build, `<Default>` (alias `default`), with each part's own Do Not Stuff state
+- DNS (Do Not Stuff) parts are flagged `dns: true`: listing and search include them, traversal and ERC only with `--include_dns`
 - A part the selected variant substitutes for the base part is flagged `alternate_part: true`
-- A result carrying an `error` field failed, and the message names the tool that finds the value you wanted
+- A result with an `error` field failed; its message names the tool that finds what you wanted
 - A net named with leading or trailing whitespace comes with `net_name_warnings`; its `netlist_name` is the name an Allegro export or another board uses
 - Read design files only through these commands, not by parsing them yourself, and never run `universal-netlist update` or `universal-netlist uninstall`: they replace or remove the binary
 

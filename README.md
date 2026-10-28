@@ -116,6 +116,7 @@ and this to the project's `.codex/config.toml`:
 [marketplaces.universal-netlist]
 source_type = "git"
 source = "https://github.com/IntelligentElectron/universal-netlist.git"
+sparse_paths = [".agents/plugins", "plugins"]
 
 [plugins."universal-netlist@universal-netlist"]
 enabled = true

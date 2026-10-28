@@ -10,17 +10,17 @@
 export const SERVER_INSTRUCTIONS = `
 # Netlist MCP Server
 
-This server provides tools to query EDA netlists for circuit design review.
+Tools to query EDA netlists for circuit design review.
 
 Supported formats:
 - **Cadence OrCAD/CIS**: .DSN binary schematics, parsed directly.
-- **Altium Designer**: .SchDoc schematic documents, discovered through their .PrjPcb project.
+- **Altium Designer**: .SchDoc schematics, found through their .PrjPcb project.
 - **KiCad**: .kicad_pro projects, or a root .kicad_sch.
-- **Universal Netlist**: .netlist.json files carrying this server's supported schema version, validated on load.
+- **Universal Netlist**: .netlist.json files in a supported schema version, validated on load.
 
 ## Example Workflow
 
-1. \`list_designs\` first: it finds the designs, gives you the path to query, and lists each design's \`design_variants\`
+1. \`list_designs\` first: the designs, the path to query for each, and its \`design_variants\`
 2. \`search_nets\` and \`search_components_by_*\` to find things by pattern
 3. \`query_component\` and \`query_xnet_*\` for detail and connectivity
 4. \`run_erc\` for electrical rule checks
@@ -28,11 +28,11 @@ Supported formats:
 ## Conventions
 
 - Read designs only through these tools. The \`universal-netlist\` binary is this server; its command line is for agents without MCP, so do not run it from a shell
-- Design paths are relative to the working directory; absolute paths are also accepted
-- Every result describes one build of a design. A design with named design variants requires \`design_variant\` on every query, one of the names \`list_designs\` lists for it: those variants are its only builds, and \`<Default>\` is refused on it. A design with no variants has one build, \`<Default>\` (alias \`default\`), the design with every part's own Do Not Stuff state. Every result echoes the \`design_variant\` it describes
-- DNS (Do Not Stuff) components are flagged \`dns: true\`. Listing and search tools include them by default; traversal and ERC leave them out unless \`include_dns=true\`
+- Pass absolute design paths: a relative one resolves against this process's working directory, which a plugin may set to its own folder
+- Every result describes, and echoes, one \`design_variant\` of a design. A design with named variants requires \`design_variant\` on every query, one of the names \`list_designs\` lists: those are its only builds, and \`<Default>\` is refused. A design with no variants has one build, \`<Default>\` (alias \`default\`), with each part's own Do Not Stuff state
+- DNS (Do Not Stuff) parts are flagged \`dns: true\`: listing and search include them, traversal and ERC only with \`include_dns=true\`
 - A part the selected variant substitutes for the base part is flagged \`alternate_part: true\`
-- A result carrying an \`error\` field failed, and the message names the tool that finds the value you wanted
+- A result with an \`error\` field failed; its message names the tool that finds what you wanted
 - A net named with leading or trailing whitespace comes with \`net_name_warnings\`; its \`netlist_name\` is the name an Allegro export or another board uses
 `.trim();
 
