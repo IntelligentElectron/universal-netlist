@@ -139,7 +139,7 @@ get_shell_rc() {
             fi
             ;;
         zsh)
-            echo "$HOME/.zshrc"
+            echo "${ZDOTDIR:-$HOME}/.zshrc"
             ;;
         fish)
             echo "$HOME/.config/fish/config.fish"
@@ -170,7 +170,7 @@ get_login_profile() {
             fi
             ;;
         zsh)
-            echo "$HOME/.zprofile"
+            echo "${ZDOTDIR:-$HOME}/.zprofile"
             ;;
     esac
 }
@@ -193,12 +193,13 @@ add_to_path() {
     for file in "$shell_rc" "$login_profile"; do
         [ -n "$file" ] || continue
 
-        if grep -q "universal-netlist" "$file" 2>/dev/null; then
+        if grep -qF "$bin_dir" "$file" 2>/dev/null; then
             info "PATH entry already exists in $file"
             continue
         fi
 
         info "Adding to PATH in $file"
+        mkdir -p "$(dirname "$file")"
 
         if [ "$shell_name" = "fish" ]; then
             echo "" >> "$file"

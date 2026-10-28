@@ -13,7 +13,11 @@ import * as os from "node:os";
  */
 export const getShellRcFiles = (): string[] => {
   const home = os.homedir();
+  const zdotdir = process.env.ZDOTDIR;
   return [
+    ...(zdotdir && path.resolve(zdotdir) !== path.resolve(home)
+      ? [path.join(zdotdir, ".zshrc"), path.join(zdotdir, ".zprofile")]
+      : []),
     path.join(home, ".zshrc"),
     path.join(home, ".zprofile"),
     path.join(home, ".bashrc"),

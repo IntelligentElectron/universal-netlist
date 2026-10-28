@@ -9,6 +9,11 @@ vi.mock("node:os", async (importOriginal) => ({
   homedir: () => home,
 }));
 
+// ZDOTDIR points removeFromPath at more zsh files; keep it inside the scratch home, never
+// at the real one of whoever runs the tests.
+const zdotdir = join(home, "zdotdir");
+vi.stubEnv("ZDOTDIR", zdotdir);
+
 const { removeFromPath } = await import("./shell.js");
 
 afterAll(() => rmSync(home, { recursive: true, force: true }));
@@ -42,6 +47,14 @@ describe("removeFromPath", () => {
     expect(removeFromPath("/opt/tools/bin").sort()).toEqual([bashLogin, zprofile].sort());
     expect(readFileSync(zprofile, "utf-8")).toBe('eval "$(/opt/homebrew/bin/brew shellenv)"\n');
     expect(readFileSync(bashLogin, "utf-8")).toBe("umask 022\n");
+  });
+
+  it("removes the block from zsh's files under ZDOTDIR", () => {
+    mkdirSync(zdotdir, { recursive: true });
+    const zprofile = join(zdotdir, ".zprofile");
+    writeFileSync(zprofile, '# Universal Netlist MCP Server\nexport PATH="/opt/tools/bin:$PATH"\n');
+
+    expect(removeFromPath("/opt/tools/bin")).toEqual([zprofile]);
   });
 
   it("recognises the binary's directory through a symlink or a repeated slash", () => {
