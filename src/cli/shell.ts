@@ -7,15 +7,18 @@ import * as path from "node:path";
 import * as os from "node:os";
 
 /**
- * Get shell configuration file paths to check for PATH entries.
+ * Get shell configuration file paths to check for PATH entries: the rc files and the login
+ * profiles install.sh writes to.
  * @returns Array of paths to shell rc files
  */
 export const getShellRcFiles = (): string[] => {
   const home = os.homedir();
   return [
     path.join(home, ".zshrc"),
+    path.join(home, ".zprofile"),
     path.join(home, ".bashrc"),
     path.join(home, ".bash_profile"),
+    path.join(home, ".bash_login"),
     path.join(home, ".profile"),
     path.join(home, ".config", "fish", "config.fish"),
   ];

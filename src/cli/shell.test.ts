@@ -32,6 +32,18 @@ describe("removeFromPath", () => {
     expect(readFileSync(fish, "utf-8")).toBe("set -x EDITOR vim\n");
   });
 
+  it("removes the block from the login profiles too", () => {
+    const zprofile = join(home, ".zprofile");
+    const bashLogin = join(home, ".bash_login");
+    const block = '\n# Universal Netlist MCP Server\nexport PATH="/opt/tools/bin:$PATH"\n';
+    writeFileSync(zprofile, 'eval "$(/opt/homebrew/bin/brew shellenv)"\n' + block);
+    writeFileSync(bashLogin, "umask 022\n" + block);
+
+    expect(removeFromPath("/opt/tools/bin").sort()).toEqual([bashLogin, zprofile].sort());
+    expect(readFileSync(zprofile, "utf-8")).toBe('eval "$(/opt/homebrew/bin/brew shellenv)"\n');
+    expect(readFileSync(bashLogin, "utf-8")).toBe("umask 022\n");
+  });
+
   it("recognises the binary's directory through a symlink or a repeated slash", () => {
     const real = join(home, "real", "bin");
     mkdirSync(real, { recursive: true });
