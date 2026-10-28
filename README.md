@@ -67,11 +67,11 @@ Local sessions in the Code tab of the [Claude desktop app](https://claude.ai/dow
 #### OpenAI Codex
 
 ```bash
-codex plugin marketplace add IntelligentElectron/universal-netlist
+codex plugin marketplace add IntelligentElectron/universal-netlist --sparse .agents/plugins --sparse plugins
 codex plugin add universal-netlist@universal-netlist
 ```
 
-The plugin works in the Codex CLI and the Codex app.
+The `--sparse` paths fetch only the plugin; Codex otherwise clones the whole repository, test fixtures included, which takes minutes. The plugin works in the Codex CLI and the Codex app.
 
 Then ask the agent to review a schematic, trace a net, or check a design.
 
