@@ -92,8 +92,9 @@ export type ToolArgs<T> = T extends ToolDefinition<infer S, unknown> ? z.input<S
 export type ToolResult<T> = T extends ToolDefinition<z.ZodObject, infer R> ? R : never;
 
 /** Keep a tool's argument and result types, and freeze it. */
-const defineTool = <S extends z.ZodObject, R>(tool: ToolDefinition<S, R>): ToolDefinition<S, R> =>
-  Object.freeze(tool);
+export const defineTool = <S extends z.ZodObject, R>(
+  tool: ToolDefinition<S, R>
+): ToolDefinition<S, R> => Object.freeze(tool);
 
 // =============================================================================
 // Shared annotations and arguments
@@ -126,7 +127,7 @@ export const WRITES_TO_DISK: ToolAnnotations = Object.freeze({
 });
 
 /** One native design variant, or the explicit base build. */
-const DESIGN_VARIANT_ARGUMENT = z
+export const DESIGN_VARIANT_ARGUMENT = z
   .string()
   .min(1)
   .optional()

@@ -1,6 +1,6 @@
 # Command Line
 
-The `universal-netlist` binary is an MCP server: an MCP client runs it with no command and speaks to it over stdio. Run by hand with no command, it prints how to set that up instead of serving. Everything else it can do is a command, and every MCP tool is one too; see [Query tools](#query-tools). Every command is accepted as a word (`universal-netlist update`) and as a flag (`universal-netlist --update`); the pages below use the word form.
+The `universal-netlist` binary is an MCP server: an MCP client runs it with no command and speaks to it over stdio. Run by hand with no command, it prints how to set that up instead of serving. Everything else it can do is a command, and every MCP tool is one too; see [Query tools](#query-tools). One tool, [`export_design`](#export_design), is offered by the command line only. Every command is accepted as a word (`universal-netlist update`) and as a flag (`universal-netlist --update`); the pages below use the word form.
 
 ```
 Usage: universal-netlist [options] [command]
@@ -13,10 +13,9 @@ Commands:
   update|upgrade       Check for updates and install if available
   uninstall            Remove the binary and its PATH entries
   export-telemetry     Export telemetry data as a zip file
-  export-json <design> [out.netlist.json]
-                       Write a design's netlist as Universal Netlist JSON
   <tool> [design] --flag value ...
-                       Run an MCP tool and print its JSON result
+                       Run a tool and print its JSON result: any MCP tool, or
+                       export_design (command line only)
 ```
 
 ## Query tools
@@ -26,7 +25,7 @@ universal-netlist <tool> [design] --flag value ...
 universal-netlist <tool> --help
 ```
 
-Every MCP tool is a command under its own name, for a shell or an agent without MCP: `list_designs`, `search_nets`, `query_xnet_by_net_name` and the rest (`universal-netlist --help` lists them). Each call is stateless and self-contained: it names the design, and prints one result.
+Every MCP tool is a command under its own name, for a shell or an agent without MCP: `list_designs`, `search_nets`, `query_xnet_by_net_name` and the rest (`universal-netlist --help` lists them). [`export_design`](#export_design) is a tool of the command line only, and takes its flags the same way. Each call is stateless and self-contained: it names the design, and prints one result.
 
 The flags are the tool's arguments, built from the same schema the MCP server registers, so the names, defaults and checks are the same:
 
@@ -51,22 +50,41 @@ Each call is a new process, so its parse ends with it. `--cache`, `UNIVERSAL_NET
 
 The rules are golden decision tables: [flag parsing](decision-tables/query-cli/flag.rules.md), [the positional design](decision-tables/query-cli/positional.rules.md) and [exit codes](decision-tables/query-cli/exit.rules.md).
 
-## export-json
+## export_design
 
 ```bash
-universal-netlist export-json <design> [output.netlist.json]
+universal-netlist export_design <design> [--output <path>] [--design_variant <name>]
+universal-netlist export_design --help
 ```
 
-Parses a design and writes its netlist as one `.netlist.json` file in the [Universal Netlist schema](schemas/universal-netlist.md). `<design>` is any file the server reads: a Cadence `.DSN`, an Altium `.PrjPcb`, a KiCad `.kicad_pro`, or a Universal Netlist `.netlist.json` itself. The document carries `universalNetlistSchemaVersion` (currently `1`) and nested metadata with a UTC generation time, a verified SHA-256 over `nets` and `components` together, and either native or vendor provenance. Re-exporting a Universal Netlist preserves its origin. Without an explicit output path the file is written as `<design>.netlist.json` in the working directory; an explicit output must also end in `.netlist.json`. Either way, the path written is printed on stdout.
+Writes one build of a design as a `.netlist.json` file in the [Universal Netlist schema](schemas/universal-netlist.md), for a program that post-processes the whole netlist: a script, a diff between revisions or builds, another tool. To answer a question about a design, use the query tools; they read the design directly and return only what was asked. `export_design` is a tool of the command line only: the MCP server does not offer it.
 
-The written file is itself a design: `list_designs` finds it and every tool reads it, so an export round-trips. That makes it a snapshot you can commit, diff between revisions, or hand to another tool, with no EDA installation on the receiving side.
+It is a tool like the query tools, so it parses its flags, prints its help and result, and exits by the same rules (see [Query tools](#query-tools)):
+
+| Flag | Meaning |
+|------|---------|
+| `--design` | Any file the server reads: a Cadence `.DSN`, an Altium `.PrjPcb`, a KiCad `.kicad_pro`, or a Universal Netlist `.netlist.json` itself. May be the first argument instead |
+| `--output` | Where to write. It must end in `.netlist.json`. Default: `<design name>.netlist.json` in the working directory |
+| `--design_variant` | The build to export, by the rule every query applies: required when the design defines named variants, which are the only builds it records, and one of the names `list_designs` reports. `<Default>` is refused on such a design. Optional for a design without variants, whose base build is exported |
+
+Each part's `dns` flag is its Do Not Stuff state in the exported build, and the variant's substitutions replace the base part's fields. The file records the variant in `metadata.designVariant`; a base build records none. The document also carries `universalNetlistSchemaVersion` (currently `3`), a UTC generation time, a verified SHA-256 over `nets` and `components` together, and native or vendor provenance. Re-exporting a Universal Netlist preserves its origin and its variant.
+
+The result names the design, the build written and the absolute path written:
+
+```json
+{"design":"/work/MyBoard.DSN","design_variant":"Fab-A","output":"/work/out/board.netlist.json"}
+```
+
+The written file is itself a design: `list_designs` finds it, and every tool reads it. A file that records a variant lists that one name under `design_variants`, and queries of it name it with `design_variant`, as queries of its source do.
 
 ```bash
-universal-netlist export-json MyBoard.kicad_pro          # writes ./MyBoard.netlist.json
-universal-netlist export-json MyBoard.DSN out/board.netlist.json
+universal-netlist export_design MyBoard.kicad_pro                   # writes ./MyBoard.netlist.json
+universal-netlist export_design MyBoard.DSN --design_variant Fab-A --output out/board.netlist.json
 ```
 
-A design that does not load exits 1 and prints the parser's message, naming the first defect. A password-protected OrCAD design reads its password from the environment; see [Password-protected OrCAD designs](password-protected-designs.md).
+A design that does not load, or a missing or unknown variant, exits 1 with the reason in the result's `error`, and nothing is written. An unknown flag, a second path or an output path without `.netlist.json` exits 2. A password-protected OrCAD design reads its password from the environment; see [Password-protected OrCAD designs](password-protected-designs.md).
+
+Through v1.13.2 this was the `export-json` command, which took the output as a second path and ignored `--design_variant`. `export-json` now exits 2 with a message naming `export_design`.
 
 ## update
 

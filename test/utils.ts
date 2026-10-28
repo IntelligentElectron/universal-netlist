@@ -11,8 +11,8 @@ import {
   parseUniversalNetlistDocument,
   serializeUniversalNetlist,
   UNIVERSAL_NETLIST_SCHEMA_VERSION,
-  type UniversalNetlistOrigin,
 } from "../src/parsers/universal/reader.js";
+import { vendorOrigin } from "../src/parsers/index.js";
 
 const TEST_DIR = path.dirname(new URL(import.meta.url).pathname);
 const FIXTURES_DIR = path.join(TEST_DIR, "fixtures");
@@ -141,15 +141,7 @@ export const saveGolden = async (
   // The comparison is against the new data round-tripped through JSON, not the
   // data itself: serializing drops a key whose value is `undefined`, so the two
   // sides have to be compared in the form that reaches the file.
-  const vendor: Record<Format, string> = {
-    cadence: "Cadence",
-    altium: "Altium",
-    kicad: "KiCad",
-  };
-  const origin: UniversalNetlistOrigin = {
-    type: "vendor",
-    source: { vendor: vendor[format], fileType: path.extname(sourcePath).toLowerCase() },
-  };
+  const origin = vendorOrigin(format, sourcePath);
   const serialized = serializeUniversalNetlist(data, { origin });
   const roundTripped = parseUniversalNetlist(serialized, `${designName}.netlist.json`);
   const goldenPath = path.join(goldenDir, `${designName}.netlist.json`);

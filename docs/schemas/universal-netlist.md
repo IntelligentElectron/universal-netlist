@@ -5,8 +5,8 @@ This document defines the **Universal Netlist Schema** - the core data model tha
 Every on-disk Universal Netlist is named `*.netlist.json`. Its top-level
 `universalNetlistSchemaVersion` identifies the document and schema; its nested
 `metadata` records when the document was generated, the origin of its content,
-and a verified SHA-256 identity for `nets` and `components` together. The
-current version is `2`; ordinary JSON files are not Universal Netlists, even if
+the design variant whose build it holds, and a verified SHA-256 identity for
+`nets` and `components` together. The current version is `3`; ordinary JSON files are not Universal Netlists, even if
 they happen to contain keys named `nets` or `components`.
 
 ### Schema evolution
@@ -42,11 +42,12 @@ kept at version 1 as the fixture proving older files still load.
 
 ```
 UniversalNetlistDocument
-├── universalNetlistSchemaVersion: 2
+├── universalNetlistSchemaVersion: 3
 ├── metadata
 │   ├── generatedAt: "2026-09-01T12:34:56.789Z"
 │   ├── netlistHash: "sha256:<64 lowercase hex digits>"
-│   └── origin: { type: "native" } | { type: "vendor", source: ... }
+│   ├── origin: { type: "native" } | { type: "vendor", source: ... }
+│   └── designVariant?: "Fab-A"
 ├── nets: NetConnections
 │   └── {netName}: { refdes: pin(s) }
 └── components: ComponentDetails
@@ -63,7 +64,7 @@ The root schema representing a complete netlist.
   "type": "object",
   "properties": {
     "universalNetlistSchemaVersion": {
-      "const": 2
+      "const": 3
     },
     "metadata": {
       "type": "object",
@@ -106,6 +107,12 @@ The root schema representing a complete netlist.
               "additionalProperties": false
             }
           ]
+        },
+        "designVariant": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^\\S(.*\\S)?$",
+          "not": { "pattern": "^<[Dd][Ee][Ff][Aa][Uu][Ll][Tt]>$" }
         }
       },
       "required": ["generatedAt", "netlistHash", "origin"],
@@ -132,7 +139,7 @@ The root schema representing a complete netlist.
 
 ```json
 {
-  "universalNetlistSchemaVersion": 2,
+  "universalNetlistSchemaVersion": 3,
   "metadata": {
     "generatedAt": "2026-09-01T12:34:56.789Z",
     "netlistHash": "sha256:d162573135e49348295f639ec3485dc0cb233cebbb56bbbb4f8055bc202e3649",
@@ -143,7 +150,8 @@ The root schema representing a complete netlist.
         "fileType": ".dsn",
         "formatVersion": "3.3"
       }
-    }
+    },
+    "designVariant": "Fab-A"
   },
   "nets": {
     "PP3V3": { "U1": "3", "C1": "1", "R1": "1" },
@@ -406,6 +414,17 @@ parsed; then `source.vendor` and the canonical lowercase extension in
 `source.fileType` are required. `source.formatVersion` is optional because many
 files do not carry a reliable embedded format version.
 
+`metadata.designVariant` names the design variant whose build the document
+holds: the name, in the source design's own spelling, that the build was
+exported with. It is omitted for the base build of a design that declares no
+variants, so it is never `<Default>`; a design may declare a variant called
+`default`, which is recorded like any other name. It carries no leading or
+trailing whitespace. A document that records a variant is that
+variant's build and nothing else: loaded as a design, it lists that one name
+under `design_variants`, and every query of it names it, as queries of its
+source design do. Each component's `dns` is its Do Not Stuff state in that
+build. Like the rest of `metadata`, it is outside `netlistHash`.
+
 There is intentionally no `modifiedAt` in the schema: it cannot be kept
 reliable when JSON may be hand-edited. Editing `nets` or `components` is allowed,
 but requires recomputing `netlistHash`. The hash detects a mismatch; it does not
@@ -413,7 +432,7 @@ make the file immutable.
 
 ## Loading a Universal Netlist file
 
-A `.netlist.json` file in this schema is itself a design: `list_designs` discovers it, and every tool accepts its path. `universal-netlist export-json <design> [output.netlist.json]` writes this format, so an exported design round-trips. Other `.json` files are ignored.
+A `.netlist.json` file in this schema is itself a design: `list_designs` discovers it, and every tool accepts its path. `universal-netlist export_design <design> [--output <path>] [--design_variant <name>]` writes this format, so an exported design round-trips. Other `.json` files are ignored.
 
 The file is validated on load, because the EDA parsers build a consistent netlist by construction and a file may have been written or edited by anyone. A file is refused, naming the first defect, when:
 
@@ -421,6 +440,7 @@ The file is validated on load, because the EDA parsers build a consistent netlis
 - `metadata.netlistHash` is missing, malformed, or does not match canonical `nets` and `components`
 - `metadata.generatedAt` is missing or is not a canonical ISO 8601 UTC timestamp
 - `metadata.origin` is not a valid native or vendor origin, or vendor source metadata is incomplete
+- `metadata.designVariant` is present but empty, padded with whitespace, `<Default>`, or not a string (version 3 and later; earlier versions refuse the key)
 - `nets` or `components` is not an object, or the document carries any other top-level or metadata key
 - a component has no `pins` object, a text field (`mpn`, `internal_pn`, `manufacturer`, `description`, `comment`, `value`) that is not a string, or a `dns` that is not a boolean
 - a pin entry is neither a net name nor an object with exactly `name` and `net`

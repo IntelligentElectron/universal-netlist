@@ -1,7 +1,7 @@
 import path from "node:path";
 
 /** Schema version written by new Universal Netlist exports. */
-export const UNIVERSAL_NETLIST_SCHEMA_VERSION = 2 as const;
+export const UNIVERSAL_NETLIST_SCHEMA_VERSION = 3 as const;
 
 /** Canonical suffix for an on-disk Universal Netlist document. */
 export const UNIVERSAL_NETLIST_SUFFIX = ".netlist.json" as const;

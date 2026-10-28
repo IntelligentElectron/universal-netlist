@@ -216,7 +216,7 @@ describe.skipIf(!hasFixtures)("a KiCad design exported to JSON answers like its 
   beforeAll(async () => {
     dir = await mkdtemp(path.join(os.tmpdir(), "universal-roundtrip-"));
     exported = path.join(dir, "OpenMD.netlist.json");
-    // What `--export-json` writes: the parsed design in the versioned file envelope.
+    // What `export_design` writes: the parsed design in the versioned file envelope.
     await writeFile(exported, serializeUniversalNetlist(await parseDesign(source)));
   });
 

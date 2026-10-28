@@ -96,7 +96,7 @@ Setting `OTEL_SDK_DISABLED=1` forces it off even when an endpoint is configured.
 All registered MCP tools are annotated as read-only and leave source designs unchanged.
 A KiCad query may generate a temporary netlist, which is removed after reading.
 The server appends to its local usage log each time it starts and on every tool call.
-Commands you run by hand write to disk: `export-json` writes a `.netlist.json`
+Commands you run by hand write to disk: `export_design` writes a `.netlist.json`
 file, `export-telemetry` a zip file in the working directory, and `update`
 replaces the standalone binary. `uninstall` removes the standalone binary and the
 PATH entries in your shell profile; in the installer's `universal-netlist/bin/`

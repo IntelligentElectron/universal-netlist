@@ -8,6 +8,7 @@
  * 3. Import and register the handler here
  */
 
+import path from "node:path";
 import type {
   DiscoveredDesign,
   DiscoverDesignsOptions,
@@ -19,6 +20,7 @@ import { cadenceHandler } from "./cadence/index.js";
 import { altiumHandler } from "./altium/index.js";
 import { kicadHandler } from "./kicad/index.js";
 import { universalHandler } from "./universal/index.js";
+import type { UniversalNetlistOrigin } from "./universal/reader.js";
 
 // Re-export handlers for direct access
 export { cadenceHandler } from "./cadence/index.js";
@@ -36,6 +38,27 @@ const handlers: EDAProjectFormatHandler[] = [
   kicadHandler,
   universalHandler,
 ];
+
+/** The vendor each EDA handler reads, as a Universal Netlist origin names it. */
+const VENDOR_NAMES: Readonly<Record<string, string>> = {
+  cadence: "Cadence",
+  altium: "Altium",
+  kicad: "KiCad",
+};
+
+/**
+ * The Universal Netlist provenance of a design parsed from its EDA source: the
+ * handler's vendor and the source file's canonical lowercase extension.
+ */
+export const vendorOrigin = (handlerName: string, designPath: string): UniversalNetlistOrigin => {
+  return {
+    type: "vendor",
+    source: {
+      vendor: VENDOR_NAMES[handlerName] ?? handlerName,
+      fileType: path.extname(designPath).toLowerCase(),
+    },
+  };
+};
 
 /**
  * Find a handler that can process the given file path.

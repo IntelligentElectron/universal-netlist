@@ -1,33 +1,18 @@
 /**
  * CLI command handlers for --version, --help, --update, --uninstall, --export-telemetry,
- * and --export-json.
+ * and the tool commands.
  */
 
-import {
-  existsSync,
-  readdirSync,
-  readFileSync,
-  rmdirSync,
-  unlinkSync,
-  writeFileSync,
-} from "node:fs";
-import { basename, dirname, extname, join, resolve } from "node:path";
+import { existsSync, readdirSync, rmdirSync, unlinkSync } from "node:fs";
+import { basename, dirname, join } from "node:path";
 import { VERSION, GITHUB_REPO, BINARY_NAME, NPM_PACKAGE } from "../version.js";
 import { SELF_UPDATE_ENABLED } from "../build-flags.js";
 import { exportTelemetry } from "../telemetry/index.js";
-import { findHandler, parseDesign } from "../parsers/index.js";
 import { checkForUpdate, performUpdate } from "./updater.js";
-import {
-  isUniversalFile,
-  parseUniversalNetlistDocument,
-  serializeUniversalNetlist,
-  type UniversalNetlistOrigin,
-  universalDesignName,
-} from "../parsers/universal/index.js";
 import { confirm } from "./prompts.js";
 import { removeFromPath } from "./shell.js";
 import { getCurrentExecutablePath, isCompiledBinary } from "./executable.js";
-import { runQuery, toolList } from "./query.js";
+import { cliOnlyToolList, runQuery, toolList } from "./query.js";
 import type { AnyToolDefinition } from "../tools/index.js";
 import { serviceContextFromEnvironment, type ServiceContext } from "../service/context.js";
 import { TieredCacheStore } from "../service/cache.js";
@@ -63,13 +48,17 @@ Usage: ${BINARY_NAME} [options] [command]
 
 MCP server for querying EDA netlists: Cadence, Altium Designer, KiCad, and Universal Netlist JSON.
 An MCP client runs the binary with no command and speaks to it over stdio. Every MCP tool is
-also a command, for a shell or an agent without MCP:
+also a command, for a shell or an agent without MCP, and export_design writes a whole design
+as Universal Netlist JSON for post-processing:
 
   ${BINARY_NAME} <tool> [design] --flag value ...
   ${BINARY_NAME} <tool> --help        that tool's description and flags
 
 Tools:
 ${toolList()}
+
+Command-line tools (not offered over MCP):
+${cliOnlyToolList()}
 
 Options:
   -v, --version        Output the version number
@@ -79,8 +68,6 @@ Commands:
   update|upgrade       Check for updates and install if available
   uninstall            Remove the binary and its PATH entries
   export-telemetry     Export telemetry data as a zip file
-  export-json <design> [out.netlist.json]
-                       Write a design's netlist as Universal Netlist JSON
 
 A tool prints its result as JSON on stdout and exits 1 when the result has an error
 field, 2 on a usage error. --cache, UNIVERSAL_NETLIST_CACHE=1 or UNIVERSAL_NETLIST_CACHE_DIR
@@ -276,69 +263,6 @@ export const handleExportTelemetryCommand = async (): Promise<void> => {
 };
 
 /**
- * Handle the export-json command.
- *
- * Parses a design file and writes its netlist as Universal Netlist JSON
- * (docs/schemas/universal-netlist.md), to `<design>.netlist.json` in the working
- * directory or to the given output path. The written file is itself a design
- * every tool reads.
- */
-export const handleExportJsonCommand = async (
-  designPath?: string,
-  outPath?: string
-): Promise<void> => {
-  if (!designPath) {
-    console.error("Usage: universal-netlist export-json <design> [output.netlist.json]");
-    process.exit(1);
-  }
-
-  const absolutePath = resolve(designPath);
-  let result;
-  let origin: UniversalNetlistOrigin;
-  try {
-    if (isUniversalFile(absolutePath)) {
-      const document = parseUniversalNetlistDocument(
-        readFileSync(absolutePath, "utf-8"),
-        basename(absolutePath)
-      );
-      result = { nets: document.nets, components: document.components };
-      origin = document.metadata.origin;
-    } else {
-      const handler = findHandler(absolutePath);
-      if (!handler || handler.name === "universal") {
-        throw new Error(`Unsupported design format: ${absolutePath}`);
-      }
-      result = await parseDesign(absolutePath);
-      const vendor =
-        handler.name === "cadence"
-          ? "Cadence"
-          : handler.name === "altium"
-            ? "Altium"
-            : handler.name === "kicad"
-              ? "KiCad"
-              : handler.name;
-      origin = {
-        type: "vendor",
-        source: { vendor, fileType: extname(absolutePath).toLowerCase() },
-      };
-    }
-  } catch (error) {
-    console.error(error instanceof Error ? error.message : String(error));
-    process.exit(1);
-  }
-  if (outPath && !isUniversalFile(outPath)) {
-    console.error("Universal Netlist output paths must end in .netlist.json");
-    process.exit(1);
-  }
-  const name = isUniversalFile(absolutePath)
-    ? universalDesignName(absolutePath)
-    : basename(absolutePath, extname(absolutePath));
-  const outFile = resolve(outPath ?? `${name}.netlist.json`);
-  writeFileSync(outFile, serializeUniversalNetlist(result, { origin }));
-  console.log(outFile);
-};
-
-/**
  * The service context a query call runs with: the environment's, plus the
  * disk cache when `--cache` or the environment turns it on and a directory for
  * it can be written. Without one, the call answers without a disk cache.
@@ -382,7 +306,17 @@ export const handleUnknownCommand = (word: string): void => {
   process.stderr.write(
     `error: '${word}' is not a command or a tool.\n` +
       `Tools (run '${BINARY_NAME} <tool> --help' for one's flags):\n${toolList()}\n` +
+      `${cliOnlyToolList()}\n` +
       `Run '${BINARY_NAME} help' for the other commands.\n`
+  );
+  process.exitCode = 2;
+};
+
+/** A command that was renamed: name its new spelling, and exit 2. */
+export const handleRenamedCommand = (word: string, replacement: string): void => {
+  process.stderr.write(
+    `error: '${word}' is now the '${replacement}' tool.\n` +
+      `Run '${BINARY_NAME} ${replacement} --help' for its flags.\n`
   );
   process.exitCode = 2;
 };

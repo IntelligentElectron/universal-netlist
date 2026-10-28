@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import {
   calculateUniversalNetlistHash,
   parseUniversalNetlist,
+  parseUniversalNetlistDocument,
   serializeUniversalNetlist,
   toUniversalNetlistDocument,
   validateUniversalNetlist,
@@ -355,6 +356,64 @@ describe("parseUniversalNetlist", () => {
       // that no longer matches the one the document carries, so it is refused
       // rather than quietly returning a netlist missing a part number.
       rejects(document, "`metadata.netlistHash` does not match");
+    });
+  });
+
+  /**
+   * `metadata.designVariant` is why schema version 3 exists: a file exported
+   * from one variant of a design says which build it is. Version 2 refuses any
+   * metadata key it does not define, so the field could not be added there.
+   */
+  describe("designVariant", () => {
+    const withVariant = (designVariant: unknown) => {
+      const document = valid() as unknown as { metadata: Record<string, unknown> };
+      document.metadata.designVariant = designVariant;
+      return document;
+    };
+
+    it("is written, read back, and left out of the content hash", () => {
+      const parsed = validateUniversalNetlist(valid());
+      const text = serializeUniversalNetlist(parsed, {
+        generatedAt: GENERATED_AT,
+        designVariant: "Fab-A",
+      });
+      const document = parseUniversalNetlistDocument(text);
+      expect(document.universalNetlistSchemaVersion).toBe(3);
+      expect(document.metadata.designVariant).toBe("Fab-A");
+      expect(document.metadata.netlistHash).toBe(calculateUniversalNetlistHash(parsed));
+    });
+
+    it("is omitted for a base build", () => {
+      expect(valid().metadata).not.toHaveProperty("designVariant");
+      expect(parseUniversalNetlistDocument(JSON.stringify(valid())).metadata).not.toHaveProperty(
+        "designVariant"
+      );
+    });
+
+    it("must be a non-empty, trimmed name, and not the base build's", () => {
+      for (const bad of ["", " Fab-A", 3]) {
+        rejects(withVariant(bad), "`metadata.designVariant` must be a non-empty string");
+      }
+      for (const base of ["<Default>", "<default>"]) {
+        rejects(withVariant(base), "omit it for the base build");
+      }
+      expect(() =>
+        toUniversalNetlistDocument(payload(), { designVariant: "<Default>" })
+      ).toThrowError("Invalid Universal Netlist design variant");
+    });
+
+    it("records a declared variant called default, which is not the base build", () => {
+      const text = serializeUniversalNetlist(payload(), {
+        generatedAt: GENERATED_AT,
+        designVariant: "default",
+      });
+      expect(parseUniversalNetlistDocument(text).metadata.designVariant).toBe("default");
+    });
+
+    it("is not accepted into a version 2 document", () => {
+      const document = withVariant("Fab-A") as unknown as Record<string, unknown>;
+      document.universalNetlistSchemaVersion = 2;
+      rejects(document, "unexpected metadata key 'designVariant'");
     });
   });
 
