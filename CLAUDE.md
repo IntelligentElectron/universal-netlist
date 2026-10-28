@@ -50,7 +50,7 @@ npm run lint:fix     # oxlint with auto-fix
 npm test             # Run tests with Vitest
 npm run test:watch   # Run tests in watch mode
 npm run compile:all  # Build the five per-arch binaries (any host)
-npm run compile:darwin-universal  # Add the lipo'd macOS universal binary (macOS only)
+npm run compile:darwin-universal  # Add the legacy lipo'd macOS universal binary (macOS only)
 ```
 
 ### Binary Compilation
@@ -102,10 +102,12 @@ The third argument is the build channel, baked in as `BUILD_CHANNEL` (see
   ```
 
 Bun cross-compiles all of these targets from any host, so `compile:all` builds the five
-per-arch binaries on any machine. The macOS universal binary is a separate step,
-`compile:darwin-universal`, because `lipo` only exists on macOS. Keeping it out of
-`compile:all` lets a Linux host build the per-arch binaries. `release.yml` runs on macOS
-and produces both.
+per-arch binaries on any machine. A Mac installs and updates to the binary for its own
+CPU, `darwin-arm64` or `darwin-x64`. The macOS universal binary is a legacy asset: installs
+from v0.0.15 through v1.13.x request it by name, and their next update moves them to the
+per-arch binary. Building it is a separate step, `compile:darwin-universal`, because
+`lipo` only exists on macOS. Keeping it out of `compile:all` lets a Linux host build the
+per-arch binaries. `release.yml` runs on macOS and produces all three.
 
 `--compile` embeds the Bun runtime in the output, so the Bun version is part of the
 shipped binary. `.bun-version` records the Bun version used for release builds. The

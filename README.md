@@ -164,7 +164,8 @@ gh skill install IntelligentElectron/universal-netlist universal-netlist --agent
 
 | Platform | Binary |
 |----------|--------|
-| macOS (Universal) | `universal-netlist-darwin-universal` |
+| macOS (Apple Silicon) | `universal-netlist-darwin-arm64` |
+| macOS (Intel) | `universal-netlist-darwin-x64` |
 | Linux (x64) | `universal-netlist-linux-x64` |
 | Linux (ARM64) | `universal-netlist-linux-arm64` |
 | Windows (x64) | `universal-netlist-windows-x64.exe` |
