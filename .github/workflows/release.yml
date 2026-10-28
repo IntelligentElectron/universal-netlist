@@ -97,43 +97,45 @@ jobs:
           security list-keychain -d user -s "$KEYCHAIN_PATH"
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
 
-      - name: Create macOS universal binary
+      # Each Mac downloads only its own architecture: darwin-arm64 or darwin-x64.
+      # darwin-universal is the legacy asset that installs from v0.0.15 through
+      # v1.13.x request by name; their next update brings them to the per-arch
+      # binaries. Every Mac binary has its own signature, so all three are
+      # signed and then notarized together in one submission.
+      - name: Create legacy macOS universal binary
         run: |
           cd bin
           lipo -create universal-netlist-darwin-arm64 universal-netlist-darwin-x64 \
             -output universal-netlist-darwin-universal
           lipo -info universal-netlist-darwin-universal
 
-      - name: Sign macOS universal binary
+      - name: Sign macOS binaries
         env:
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
           cd bin
-          codesign --force --options runtime --entitlements ../entitlements.plist \
-            --sign "Developer ID Application: Valentino Zegna Baruffa ($APPLE_TEAM_ID)" \
-            universal-netlist-darwin-universal
-          codesign --verify --verbose universal-netlist-darwin-universal
+          for binary in universal-netlist-darwin-arm64 universal-netlist-darwin-x64 universal-netlist-darwin-universal; do
+            codesign --force --options runtime --entitlements ../entitlements.plist \
+              --sign "Developer ID Application: Valentino Zegna Baruffa ($APPLE_TEAM_ID)" \
+              "$binary"
+            codesign --verify --verbose "$binary"
+          done
 
-      - name: Notarize macOS universal binary
+      - name: Notarize macOS binaries
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_APP_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
           cd bin
-          zip universal-netlist-darwin-universal.zip universal-netlist-darwin-universal
-          xcrun notarytool submit universal-netlist-darwin-universal.zip \
+          zip universal-netlist-darwin.zip universal-netlist-darwin-arm64 \
+            universal-netlist-darwin-x64 universal-netlist-darwin-universal
+          xcrun notarytool submit universal-netlist-darwin.zip \
             --apple-id "$APPLE_ID" \
             --password "$APPLE_APP_PASSWORD" \
             --team-id "$APPLE_TEAM_ID" \
             --wait
-          rm universal-netlist-darwin-universal.zip
-
-      - name: Create arch-specific aliases for backward-compatible updates
-        run: |
-          cd bin
-          cp universal-netlist-darwin-universal universal-netlist-darwin-arm64
-          cp universal-netlist-darwin-universal universal-netlist-darwin-x64
+          rm universal-netlist-darwin.zip
 
       - name: Generate checksums
         run: |
@@ -175,9 +177,9 @@ jobs:
           tag_name: ${{ inputs.tag || github.ref_name }}
           generate_release_notes: true
           files: |
-            bin/universal-netlist-darwin-universal
             bin/universal-netlist-darwin-arm64
             bin/universal-netlist-darwin-x64
+            bin/universal-netlist-darwin-universal
             bin/universal-netlist-linux-arm64
             bin/universal-netlist-linux-x64
             bin/universal-netlist-windows-x64.exe

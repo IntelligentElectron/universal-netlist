@@ -8,7 +8,7 @@
  */
 
 import { describe, it, expect, afterEach, vi } from "vitest";
-import { autoUpdate } from "./updater.js";
+import { autoUpdate, getPlatformBinaryName } from "./updater.js";
 
 const ORIGINAL_EXEC_PATH = process.execPath;
 const ORIGINAL_ARGV1 = process.argv[1];
@@ -91,5 +91,30 @@ describe("autoUpdate on a packaged build", () => {
 
     expect(updated).toBe(false);
     expect(fetchSpy).not.toHaveBeenCalled();
+  });
+});
+
+describe("getPlatformBinaryName", () => {
+  const appleSilicon = (): boolean => true;
+  const intel = (): boolean => false;
+
+  it("gives an arm64 Mac the arm64 binary", () => {
+    expect(getPlatformBinaryName("darwin", "arm64", intel)).toBe("universal-netlist-darwin-arm64");
+  });
+
+  it("gives an Intel Mac the x64 binary", () => {
+    expect(getPlatformBinaryName("darwin", "x64", intel)).toBe("universal-netlist-darwin-x64");
+  });
+
+  it("gives an x64 process under Rosetta the native arm64 binary", () => {
+    expect(getPlatformBinaryName("darwin", "x64", appleSilicon)).toBe(
+      "universal-netlist-darwin-arm64"
+    );
+  });
+
+  it("names Linux and Windows binaries by process architecture alone", () => {
+    expect(getPlatformBinaryName("linux", "arm64", intel)).toBe("universal-netlist-linux-arm64");
+    expect(getPlatformBinaryName("linux", "x64", appleSilicon)).toBe("universal-netlist-linux-x64");
+    expect(getPlatformBinaryName("win32", "x64", intel)).toBe("universal-netlist-windows-x64.exe");
   });
 });

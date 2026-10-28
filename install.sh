@@ -55,10 +55,14 @@ detect_platform() {
         *) die "Unsupported architecture: $(uname -m)" ;;
     esac
 
+    # A shell running under Rosetta reports x86_64 on an Apple Silicon Mac.
+    # hw.optional.arm64 reports the hardware, and an Intel Mac has no such key.
+    if [ "$os" = "darwin" ] && [ "$(sysctl -in hw.optional.arm64 2>/dev/null)" = "1" ]; then
+        arch="arm64"
+    fi
+
     # Return platform string
-    if [ "$os" = "darwin" ]; then
-        echo "${BINARY_NAME}-darwin-universal"
-    elif [ "$os" = "windows" ]; then
+    if [ "$os" = "windows" ]; then
         echo "${BINARY_NAME}-${os}-${arch}.exe"
     else
         echo "${BINARY_NAME}-${os}-${arch}"

@@ -16,7 +16,7 @@ import {
 } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, dirname, basename } from "node:path";
-import { spawn } from "node:child_process";
+import { execFileSync, spawn } from "node:child_process";
 import { VERSION, GITHUB_REPO, BINARY_NAME } from "../version.js";
 import { SELF_UPDATE_ENABLED } from "../build-flags.js";
 import { getCurrentExecutablePath, isCompiledBinary } from "./executable.js";
@@ -57,14 +57,34 @@ export const isNpmInstall = (): boolean => {
 };
 
 /**
- * Get the platform-specific binary name.
+ * Whether this Mac has an Apple Silicon CPU. `hw.optional.arm64` reports the
+ * hardware, so it stays true when this process is an x64 binary under Rosetta;
+ * an Intel Mac has no such key, and `-i` makes sysctl print nothing for it.
  */
-const getPlatformBinaryName = (): string => {
-  const platform = process.platform;
-  const arch = process.arch;
+const isAppleSiliconMac = (): boolean => {
+  try {
+    const output = execFileSync("/usr/sbin/sysctl", ["-in", "hw.optional.arm64"], {
+      encoding: "utf8",
+    });
+    return output.trim() === "1";
+  } catch {
+    return process.arch === "arm64";
+  }
+};
 
+/**
+ * Get the platform-specific binary name. A Mac gets the binary for its CPU, so
+ * an x64 binary running under Rosetta updates itself to the native arm64 one.
+ */
+export const getPlatformBinaryName = (
+  platform: NodeJS.Platform = process.platform,
+  arch: string = process.arch,
+  appleSilicon: () => boolean = isAppleSiliconMac
+): string => {
   if (platform === "darwin") {
-    return `${BINARY_NAME}-darwin-universal`;
+    return arch === "arm64" || appleSilicon()
+      ? `${BINARY_NAME}-darwin-arm64`
+      : `${BINARY_NAME}-darwin-x64`;
   } else if (platform === "linux") {
     return arch === "arm64" ? `${BINARY_NAME}-linux-arm64` : `${BINARY_NAME}-linux-x64`;
   } else if (platform === "win32") {
