@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "universal-netlist",
-  "description": "Query Cadence, Altium, KiCad and Universal Netlist designs from the shell with the universal-netlist command line, for agents without the MCP server.",
+  "description": "Query Cadence, Altium, KiCad and Universal Netlist designs through the universal-netlist MCP server, which the plugin connects, with a skill for its command line where MCP is unavailable. Needs the universal-netlist binary on PATH.",
   "owner": {
     "name": "Valentino Zegna",
     "url": "https://github.com/IntelligentElectron"
@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "universal-netlist",
-      "description": "Query Cadence, Altium, KiCad and Universal Netlist designs from the shell with the universal-netlist command line, for agents without the MCP server.",
+      "description": "Query Cadence, Altium, KiCad and Universal Netlist designs through the universal-netlist MCP server, which the plugin connects, with a skill for its command line where MCP is unavailable. Needs the universal-netlist binary on PATH.",
       "source": "./plugins/universal-netlist",
       "category": "development"
     }

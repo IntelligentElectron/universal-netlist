@@ -215,9 +215,10 @@ function Install-UniversalNetlistMcp {
     Write-Host "To update, run:"
     Write-Host "  universal-netlist update"
     Write-Host ""
-    Write-Host "To connect Claude Code, install its CLI and run:"
-    Write-Host "  claude mcp add --scope user universal-netlist -- universal-netlist"
-    Write-Host "Local Code tab sessions in the Claude desktop app then use the server too."
+    Write-Host "To connect your agent, install the universal-netlist plugin. In Claude Code:"
+    Write-Host "  /plugin marketplace add IntelligentElectron/universal-netlist"
+    Write-Host "  /plugin install universal-netlist@universal-netlist"
+    Write-Host "Codex, Cursor and other agents: https://github.com/IntelligentElectron/universal-netlist#install"
     Write-Host ""
 }
 

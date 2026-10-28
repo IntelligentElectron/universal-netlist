@@ -270,9 +270,10 @@ main() {
     echo "To update, run:"
     echo "  universal-netlist update"
     echo ""
-    echo "To connect Claude Code, install its CLI and run:"
-    echo "  claude mcp add --scope user universal-netlist -- universal-netlist"
-    echo "Local Code tab sessions in the Claude desktop app then use the server too."
+    echo "To connect your agent, install the universal-netlist plugin. In Claude Code:"
+    echo "  /plugin marketplace add IntelligentElectron/universal-netlist"
+    echo "  /plugin install universal-netlist@universal-netlist"
+    echo "Codex, Cursor and other agents: https://github.com/IntelligentElectron/universal-netlist#install"
     echo ""
 }
 

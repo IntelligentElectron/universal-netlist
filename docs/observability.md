@@ -61,6 +61,10 @@ Telemetry turns on as soon as you set an OTLP endpoint — either the general en
 
 Setting `OTEL_SDK_DISABLED=1` (or `true`) forces telemetry off even when an endpoint is present. With no endpoint configured, telemetry stays off.
 
+An agent plugin does not hand `OTEL_*` variables to the server: Claude Code removes them from the
+environment it passes on, and Codex passes none of yours. To export telemetry from an agent, register
+the server yourself with the variables in its `env`, and leave the plugin's server off.
+
 ## Quick start with a local Collector / Jaeger
 
 Run an all-in-one Jaeger (which accepts OTLP and renders traces) and point the server at it:

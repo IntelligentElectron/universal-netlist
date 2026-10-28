@@ -1,0 +1,9 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "universal-netlist": {
+      "type": "stdio",
+      "command": "universal-netlist"
+    }
+  }
+}

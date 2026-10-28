@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "universal-netlist": {
+      "command": "universal-netlist"
+    }
+  }
+}

@@ -15,7 +15,11 @@ It reads Cadence, Altium, and KiCad design files directly on macOS, Linux, and W
 | KiCad | `.kicad_pro` (or root `.kicad_sch`) | Reads a committed `.net` export, or else the schematics themselves (KiCad 6 to 10, no KiCad install needed), with `kicad-cli` as the last resort; then applies a selected design variant from the schematic's own instance blocks. See [the KiCad schematic reader](docs/kicad-schematic-reader.md) |
 | Universal Netlist Format | `.netlist.json` | The open [JSON format](https://github.com/IntelligentElectron/universal-netlist/blob/main/docs/schemas/universal-netlist.md) for netlists |
 
-## Native Install (Recommended)
+## Install
+
+Installing takes two steps: the `universal-netlist` binary, then the plugin for your agent. The plugin connects the MCP server to the agent, so there is no configuration to write.
+
+### 1. Install the binary
 
 **macOS / Linux:**
 
@@ -29,115 +33,71 @@ curl -fsSL https://raw.githubusercontent.com/IntelligentElectron/universal-netli
 irm https://raw.githubusercontent.com/IntelligentElectron/universal-netlist/main/install.ps1 | iex
 ```
 
-The native installer provides:
+The installer provides:
 - **No dependencies**: a standalone binary, with no Node.js required
-- **Auto-updates**: the binary checks for updates on startup
+- **Auto-updates**: the binary checks for updates on startup; `universal-netlist update` updates it on demand
 - **Signed binaries**: macOS binaries are notarized by Apple
 
-The installer places the binary in the `bin/` folder of:
+It places the binary in the `bin/` folder of `~/Library/Application Support/universal-netlist/` (macOS), `~/.local/share/universal-netlist/` (Linux) or `%LOCALAPPDATA%\universal-netlist\` (Windows), and adds that folder to your PATH. Open a new terminal afterwards, so the agent you start next finds it.
 
-| Platform | Install Directory |
-|----------|-------------------|
-| macOS | `~/Library/Application Support/universal-netlist/` |
-| Linux | `~/.local/share/universal-netlist/` |
-| Windows | `%LOCALAPPDATA%\universal-netlist\` |
-
-### Update
-
-The server checks for updates on startup. To update manually:
-
-```bash
-universal-netlist update
-```
-
-
-## Alternative: Install via npm
-
-For developers who prefer npm:
+<details>
+<summary>Install with npm instead</summary>
 
 ```bash
 npm install -g @intelligentelectron/universal-netlist
 ```
 
-Or use with npx (no installation required):
+Requires Node.js 22.15+. Update with `npm update -g @intelligentelectron/universal-netlist`.
 
-```bash
-npx @intelligentelectron/universal-netlist help
-```
+Install the binary one way only: the plugin runs the first `universal-netlist` on your PATH.
 
-Requires Node.js 22.15+.
+</details>
 
-To update:
+### 2. Install the plugin
 
-```bash
-npm update -g @intelligentelectron/universal-netlist
-```
-
-## Connect the server to an AI agent
-
-After installing the server with one of the methods above, register it with the agent you use.
-
-### Claude Code and the Claude desktop app
-
-Install the [Claude Code](https://code.claude.com/docs) CLI, then run:
-
-```bash
-claude mcp add --scope user universal-netlist -- universal-netlist
-```
-
-Local sessions in the Code tab of the [Claude desktop app](https://claude.ai/download) use the MCP servers Claude Code registers, so the server is available there too.
-
-### OpenAI Codex
-
-Install [OpenAI Codex](https://developers.openai.com/codex/cli/), then run:
-
-```bash
-codex mcp add universal-netlist -- universal-netlist
-```
-
-## Agent plugin: the command line without MCP
-
-Every MCP tool is also a shell command, for an agent in a sandbox or container that cannot connect an MCP server:
-
-```bash
-universal-netlist search_nets board.DSN --pattern '^VCC'
-```
-
-The `universal-netlist` plugin carries one skill that teaches an agent those commands, their flags and exit codes, and the parse cache. Install the binary first ([Native Install](#native-install-recommended) or [npm](#alternative-install-via-npm)), then the plugin for the agent you use. Agents connected to the MCP server use its tools and don't need the plugin.
-
-Claude Code:
+#### Claude Code
 
 ```
 /plugin marketplace add IntelligentElectron/universal-netlist
 /plugin install universal-netlist@universal-netlist
 ```
 
-Codex:
+Local sessions in the Code tab of the [Claude desktop app](https://claude.ai/download) use Claude Code's plugins, so the server is available there too.
 
-```
-codex plugin marketplace add IntelligentElectron/universal-netlist
+#### OpenAI Codex
+
+```bash
+codex plugin marketplace add IntelligentElectron/universal-netlist --sparse .agents/plugins --sparse plugins
 codex plugin add universal-netlist@universal-netlist
 ```
 
-Both commands clone this repository. To fetch only the plugin, add a sparse checkout to the marketplace command: `--sparse .claude-plugin plugins` for Claude Code, `--sparse .agents/plugins --sparse plugins` for Codex.
+The `--sparse` paths fetch only the plugin; Codex otherwise clones the whole repository, test fixtures included, which takes minutes. The plugin works in the Codex CLI and the Codex app.
 
-Cursor: open **Customize**, import `https://github.com/IntelligentElectron/universal-netlist` with **From GitHub Repository**, and install `universal-netlist`.
+Then ask the agent to review a schematic, trace a net, or check a design.
 
-Gemini CLI:
+#### Other agents
 
+<details>
+<summary>Cursor</summary>
+
+Open **Customize**, choose **Browse Marketplace**, then **Add Marketplace → Import from GitHub**. Enter `IntelligentElectron/universal-netlist` and add the `universal-netlist` plugin.
+
+</details>
+
+<details>
+<summary>GitHub Copilot CLI</summary>
+
+```bash
+copilot plugin marketplace add IntelligentElectron/universal-netlist
+copilot plugin install universal-netlist@universal-netlist
 ```
-gemini skills install https://github.com/IntelligentElectron/universal-netlist.git --path plugins/universal-netlist/skills/universal-netlist
-```
 
-GitHub Copilot, and the other agents that read [Agent Skills](https://agentskills.io) (OpenCode, Amp, Goose, Cline and more), through the GitHub CLI:
+</details>
 
-```
-gh skill install IntelligentElectron/universal-netlist universal-netlist --agent github-copilot --scope user
-```
+<details>
+<summary>Turn the plugin on for everyone who clones a project</summary>
 
-`--agent` takes `opencode`, `amp`, `goose` and the other names `gh skill install --help` lists.
-
-To install it for everyone who clones a project, add this to the project's `.claude/settings.json`:
+Add this to the project's `.claude/settings.json`:
 
 ```json
 {
@@ -156,12 +116,49 @@ and this to the project's `.codex/config.toml`:
 [marketplaces.universal-netlist]
 source_type = "git"
 source = "https://github.com/IntelligentElectron/universal-netlist.git"
+sparse_paths = [".agents/plugins", "plugins"]
 
 [plugins."universal-netlist@universal-netlist"]
 enabled = true
 ```
 
-Then ask the agent to review a schematic, trace a net, or check a design. See [docs/cli.md](docs/cli.md#query-tools) for the command line itself.
+Each person still installs the binary once.
+
+</details>
+
+<details>
+<summary>Moving from a server you registered by hand</summary>
+
+If you registered the server yourself before, remove that registration so the agent does not run two copies:
+
+```bash
+claude mcp remove --scope user universal-netlist
+```
+
+```bash
+codex mcp remove universal-netlist
+```
+
+</details>
+
+<details>
+<summary>The command line, for agents without MCP</summary>
+
+Every MCP tool is also a shell command, for an agent in a sandbox or container that cannot connect an MCP server:
+
+```bash
+universal-netlist search_nets board.DSN --pattern '^VCC'
+```
+
+The plugin carries a skill that teaches an agent those commands, their flags and exit codes, and the parse cache; the agent uses it only when the MCP server is not connected. Agents that read [Agent Skills](https://agentskills.io) can install the skill alone through the GitHub CLI:
+
+```bash
+gh skill install IntelligentElectron/universal-netlist universal-netlist --agent github-copilot --scope user
+```
+
+`--agent` takes `opencode`, `amp`, `goose` and the other names `gh skill install --help` lists. See [docs/cli.md](docs/cli.md#query-tools) for the command line itself.
+
+</details>
 
 ## Supported Platforms
 
@@ -192,11 +189,9 @@ The server runs on your machine and sends the author nothing; it keeps a local u
 
 ## About
 
-Created by **Valentino Zegna**
-
 This project is hosted on GitHub under the [IntelligentElectron](https://github.com/IntelligentElectron) organization.
 
-Universal Netlist MCP Server and the universal netlist open standard are original works by Valentino Zegna.
+Universal Netlist MCP Server and the universal netlist open standard are original works by [Valentino Zegna](https://www.linkedin.com/in/valentinozegna).
 
 ## Acknowledgments
 
