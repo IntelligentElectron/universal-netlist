@@ -12,7 +12,7 @@
 import { createHash } from "node:crypto";
 import type { ComponentDetails, NetConnections, ParsedNetlist, PinEntry } from "../../types.js";
 import { UNIVERSAL_NETLIST_SCHEMA_VERSION } from "../../universal-format.js";
-import { isDefaultVariant } from "../variants.js";
+import { isDefaultVariantLiteral } from "../variants.js";
 
 export { UNIVERSAL_NETLIST_SCHEMA_VERSION } from "../../universal-format.js";
 
@@ -249,8 +249,9 @@ const normalizeOrigin = (
 
 /**
  * Check a recorded design variant name. The base build is recorded by leaving
- * the field out, so `<Default>` and its alias `default` are refused: either
- * would read back as a declared variant of that name.
+ * the field out, so `<Default>` is refused: it would read back as a declared
+ * variant of that name. A design may declare a variant called `default`, and
+ * that name is recorded like any other.
  */
 const readDesignVariant = (raw: unknown, fail: Fail): string | undefined => {
   if (raw === undefined) return undefined;
@@ -259,7 +260,7 @@ const readDesignVariant = (raw: unknown, fail: Fail): string | undefined => {
       "`metadata.designVariant` must be a non-empty string without leading or trailing whitespace"
     );
   }
-  if (isDefaultVariant(raw)) {
+  if (isDefaultVariantLiteral(raw)) {
     fail(
       `\`metadata.designVariant\` must name a declared variant, not '${raw}'; omit it for the base build`
     );

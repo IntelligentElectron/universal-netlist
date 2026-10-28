@@ -306,6 +306,7 @@ export const handleUnknownCommand = (word: string): void => {
   process.stderr.write(
     `error: '${word}' is not a command or a tool.\n` +
       `Tools (run '${BINARY_NAME} <tool> --help' for one's flags):\n${toolList()}\n` +
+      `${cliOnlyToolList()}\n` +
       `Run '${BINARY_NAME} help' for the other commands.\n`
   );
   process.exitCode = 2;

@@ -394,12 +394,20 @@ describe("parseUniversalNetlist", () => {
       for (const bad of ["", " Fab-A", 3]) {
         rejects(withVariant(bad), "`metadata.designVariant` must be a non-empty string");
       }
-      for (const base of ["<Default>", "default"]) {
+      for (const base of ["<Default>", "<default>"]) {
         rejects(withVariant(base), "omit it for the base build");
       }
       expect(() =>
         toUniversalNetlistDocument(payload(), { designVariant: "<Default>" })
       ).toThrowError("Invalid Universal Netlist design variant");
+    });
+
+    it("records a declared variant called default, which is not the base build", () => {
+      const text = serializeUniversalNetlist(payload(), {
+        generatedAt: GENERATED_AT,
+        designVariant: "default",
+      });
+      expect(parseUniversalNetlistDocument(text).metadata.designVariant).toBe("default");
     });
 
     it("is not accepted into a version 2 document", () => {

@@ -64,7 +64,7 @@ const listVariantsCached = async (
  * none has its base build, which an absent selector also selects. The refusal
  * is an error result naming the choices.
  */
-export const selectDesignVariant = (
+const selectDesignVariant = (
   variants: readonly DesignVariant[],
   requested: string | undefined,
   designName: string

@@ -44,6 +44,26 @@ describe("query command line", () => {
     expect(stderr).toContain("search_nets");
   });
 
+  it("lists export_design in --help and on an unknown word, as a command-line tool", () => {
+    const help = cli(["--help"]);
+    expect(help.stdout).toContain("Command-line tools (not offered over MCP):");
+    expect(help.stdout).toContain("export_design");
+    expect(help.stdout).not.toContain("export-json");
+
+    const typo = cli(["export-design", "board.DSN"]);
+    expect(typo.code).toBe(2);
+    expect(typo.stderr).toContain("export_design");
+  });
+
+  it("names export_design for the export-json command it replaced, in either spelling", () => {
+    for (const word of ["export-json", "--export-json"]) {
+      const { code, stdout, stderr } = cli([word, "board.DSN", "out.netlist.json"]);
+      expect(code, word).toBe(2);
+      expect(stdout).toBe("");
+      expect(stderr).toContain(`'${word}' is now the 'export_design' tool.`);
+    }
+  });
+
   it("prints a tool's help from the registry", () => {
     const { code, stdout } = cli(["query_xnet_by_net_name", "--help"]);
     expect(code).toBe(0);

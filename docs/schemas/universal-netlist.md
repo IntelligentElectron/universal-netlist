@@ -112,7 +112,7 @@ The root schema representing a complete netlist.
           "type": "string",
           "minLength": 1,
           "pattern": "^\\S(.*\\S)?$",
-          "not": { "pattern": "^(<[Dd][Ee][Ff][Aa][Uu][Ll][Tt]>|[Dd][Ee][Ff][Aa][Uu][Ll][Tt])$" }
+          "not": { "pattern": "^<[Dd][Ee][Ff][Aa][Uu][Ll][Tt]>$" }
         }
       },
       "required": ["generatedAt", "netlistHash", "origin"],
@@ -417,8 +417,9 @@ files do not carry a reliable embedded format version.
 `metadata.designVariant` names the design variant whose build the document
 holds: the name, in the source design's own spelling, that the build was
 exported with. It is omitted for the base build of a design that declares no
-variants, so it is never `<Default>` or its alias `default`, and it carries no
-leading or trailing whitespace. A document that records a variant is that
+variants, so it is never `<Default>`; a design may declare a variant called
+`default`, which is recorded like any other name. It carries no leading or
+trailing whitespace. A document that records a variant is that
 variant's build and nothing else: loaded as a design, it lists that one name
 under `design_variants`, and every query of it names it, as queries of its
 source design do. Each component's `dns` is its Do Not Stuff state in that
@@ -439,7 +440,7 @@ The file is validated on load, because the EDA parsers build a consistent netlis
 - `metadata.netlistHash` is missing, malformed, or does not match canonical `nets` and `components`
 - `metadata.generatedAt` is missing or is not a canonical ISO 8601 UTC timestamp
 - `metadata.origin` is not a valid native or vendor origin, or vendor source metadata is incomplete
-- `metadata.designVariant` is present but empty, padded with whitespace, `<Default>` or `default`, or not a string (version 3 and later; earlier versions refuse the key)
+- `metadata.designVariant` is present but empty, padded with whitespace, `<Default>`, or not a string (version 3 and later; earlier versions refuse the key)
 - `nets` or `components` is not an object, or the document carries any other top-level or metadata key
 - a component has no `pins` object, a text field (`mpn`, `internal_pn`, `manufacturer`, `description`, `comment`, `value`) that is not a string, or a `dns` that is not a boolean
 - a pin entry is neither a net name nor an object with exactly `name` and `net`

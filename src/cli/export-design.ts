@@ -12,27 +12,29 @@
  * with the query tools; a whole-design file is for a program that
  * post-processes the netlist.
  *
- * The build is chosen by the rule every query applies: a design that declares
- * variants is exported only as one of them, and the file records that name in
+ * The design is loaded as every query loads it, by `loadNetlist`: the same
+ * variant rules, file reader and parse cache. A design that declares variants
+ * is exported only as one of them, and the file records that name in
  * `metadata.designVariant`. A design that declares none is exported as its
  * base build.
  */
 
-import { readFileSync, writeFileSync } from "node:fs";
+import { writeFileSync } from "node:fs";
 import { basename, extname, resolve } from "node:path";
 import { z } from "zod";
-import { findHandler, parseDesign } from "../parsers/index.js";
+import { readText } from "../parsers/context.js";
+import { vendorOrigin } from "../parsers/index.js";
 import {
   isUniversalFile,
-  parseUniversalNetlistDocument,
   serializeUniversalNetlist,
   type UniversalNetlistOrigin,
   universalDesignName,
 } from "../parsers/universal/index.js";
+import { DEFAULT_VARIANT } from "../parsers/variants.js";
 import { resolvePath } from "../paths.js";
-import { selectDesignVariant } from "../service/load-netlist.js";
+import { loadNetlist } from "../service/load-netlist.js";
 import { DESIGN_VARIANT_ARGUMENT, WRITES_TO_DISK, defineTool } from "../tools/index.js";
-import type { ErrorResult, ParsedNetlist } from "../types.js";
+import type { ComponentDetails, ErrorResult, ParsedNetlist, PinEntry } from "../types.js";
 
 export const EXPORT_DESIGN_DESCRIPTION =
   "Write one build of a design as a Universal Netlist JSON file (.netlist.json), for a program " +
@@ -52,7 +54,26 @@ export interface ExportDesignResult {
   output: string;
 }
 
-const VENDORS: Record<string, string> = { cadence: "Cadence", altium: "Altium", kicad: "KiCad" };
+/**
+ * The netlist as the file records it. `loadNetlist` names a pin that is
+ * connected to nothing `NC`, while the file leaves its net empty, so such a pin
+ * is written back as `""`. A pin that a net called `NC` lists is on that net,
+ * and keeps it.
+ */
+const withUnconnectedPinsEmpty = (netlist: ParsedNetlist): ParsedNetlist => {
+  const components: ComponentDetails = {};
+  for (const [refdes, component] of Object.entries(netlist.components)) {
+    const onNcNet = netlist.nets.NC?.[refdes] ?? [];
+    const pins: Record<string, PinEntry> = {};
+    for (const [pin, entry] of Object.entries(component.pins)) {
+      const net = typeof entry === "string" ? entry : entry.net;
+      if (net !== "NC" || onNcNet.includes(pin)) pins[pin] = entry;
+      else pins[pin] = typeof entry === "string" ? "" : { name: entry.name, net: "" };
+    }
+    components[refdes] = { ...component, pins };
+  }
+  return { nets: netlist.nets, components };
+};
 
 export const exportDesignTool = defineTool({
   name: "export_design",
@@ -72,47 +93,24 @@ export const exportDesignTool = defineTool({
   }),
   run: async (args, context): Promise<ExportDesignResult | ErrorResult> => {
     const designPath = resolvePath(args.design, context.root);
-    const handler = findHandler(designPath);
-    if (!handler) return { error: `Unsupported design format: ${designPath}` };
+    const loaded = await loadNetlist(designPath, args.design_variant, context);
+    if ("error" in loaded) return loaded;
 
-    let netlist: ParsedNetlist;
-    let origin: UniversalNetlistOrigin;
-    const variants = handler.listVariants
-      ? await handler.listVariants(designPath, context.parser)
-      : [];
-    const selection = selectDesignVariant(variants, args.design_variant, basename(designPath));
-    if ("error" in selection) return selection;
-
-    if (isUniversalFile(designPath)) {
-      // A Universal Netlist is one build already; its provenance carries over.
-      const document = parseUniversalNetlistDocument(
-        readFileSync(designPath, "utf-8"),
-        basename(designPath)
-      );
-      netlist = { nets: document.nets, components: document.components };
-      origin = document.metadata.origin;
-    } else {
-      netlist = await parseDesign(designPath, {
-        variant: selection.selected,
-        context: context.parser,
-      });
-      origin = {
-        type: "vendor",
-        source: {
-          vendor: VENDORS[handler.name] ?? handler.name,
-          fileType: extname(designPath).toLowerCase(),
-        },
-      };
-    }
-
+    // A Universal Netlist is one build already, and its provenance carries
+    // over. The load above has validated the file.
+    const origin: UniversalNetlistOrigin = isUniversalFile(designPath)
+      ? JSON.parse(await readText(context.parser.files, designPath)).metadata.origin
+      : vendorOrigin(loaded.format, designPath);
     const name = isUniversalFile(designPath)
       ? universalDesignName(designPath)
       : basename(designPath, extname(designPath));
     const output = resolve(args.output ?? `${name}.netlist.json`);
+    const designVariant =
+      loaded.design_variant === DEFAULT_VARIANT ? undefined : loaded.design_variant;
     writeFileSync(
       output,
-      serializeUniversalNetlist(netlist, { origin, designVariant: selection.native?.name })
+      serializeUniversalNetlist(withUnconnectedPinsEmpty(loaded), { origin, designVariant })
     );
-    return { design: designPath, design_variant: selection.selected, output };
+    return { design: designPath, design_variant: loaded.design_variant, output };
   },
 });

@@ -16,7 +16,7 @@ import type {
   ParseDesignOptions,
 } from "../../types.js";
 import type { ParserContext } from "../context.js";
-import { parseUniversalNetlist, parseUniversalNetlistDocument } from "./reader.js";
+import { parseUniversalNetlist } from "./reader.js";
 import { discoverUniversalDesigns, isUniversalFile, UNIVERSAL_EXTENSIONS } from "./discovery.js";
 
 export {
@@ -63,16 +63,25 @@ export const parseUniversalDesign = async (
  * of a design is that variant's build and nothing else, so it lists that one
  * name, and every query of it names the variant as the source design's would.
  * A file without `metadata.designVariant` is a base build and lists none.
+ *
+ * Only the field is read. Validating the file and verifying its hash is the
+ * parse's job, so listing stays a read per design, and a file that does not
+ * parse lists no variant and is refused, naming the defect, when it is loaded.
  */
 export const listUniversalVariants = async (
   designPath: string,
   context?: ParserContext
 ): Promise<DesignVariant[]> => {
-  const { metadata } = parseUniversalNetlistDocument(
-    await readText(contextOrDefault(context).files, designPath),
-    path.basename(designPath)
-  );
-  return metadata.designVariant !== undefined ? [{ name: metadata.designVariant }] : [];
+  const text = await readText(contextOrDefault(context).files, designPath);
+  let raw: unknown;
+  try {
+    raw = JSON.parse(text);
+  } catch {
+    return [];
+  }
+  const metadata = (raw as { metadata?: { designVariant?: unknown } } | null)?.metadata;
+  const name = metadata?.designVariant;
+  return typeof name === "string" && name.trim() ? [{ name }] : [];
 };
 
 /**

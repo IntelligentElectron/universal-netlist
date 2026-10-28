@@ -11,7 +11,8 @@ import { exportDesignTool } from "./export-design.js";
 import { CLI_ONLY_TOOLS, runQuery, toolHelp, toolNamed } from "./query.js";
 import { callTool, findTool, TOOLS, type AnyToolDefinition } from "../tools/index.js";
 import { serviceContextFromEnvironment } from "../service/context.js";
-import { parseUniversalNetlist } from "../parsers/universal/reader.js";
+import { parseUniversalNetlist, serializeUniversalNetlist } from "../parsers/universal/reader.js";
+import { MemoryCacheStore } from "../service/cache.js";
 import { UNIVERSAL_NETLIST_SCHEMA_VERSION } from "../universal-format.js";
 import { fixturePath, hasFixtures } from "../../test/utils.js";
 
@@ -121,6 +122,41 @@ describe("export_design", () => {
       expect(outcome.stderr).toContain("usage: universal-netlist export_design");
     }
     expect(existsSync(out)).toBe(false);
+  });
+
+  it("writes an unconnected pin as connected to nothing, beside a real net called NC", async () => {
+    const source = path.join(dir, "nc.netlist.json");
+    const out = path.join(dir, "out.netlist.json");
+    await writeFile(
+      source,
+      serializeUniversalNetlist({
+        nets: { NC: { J1: ["1"] } },
+        components: { J1: { pins: { "1": "NC", "2": "", "3": { name: "SHLD", net: "" } } } },
+      })
+    );
+
+    expect((await exportDesign(source, "--output", out)).exitCode).toBe(0);
+
+    const written = await readDocument(out);
+    expect(written.components.J1.pins).toEqual({
+      "1": "NC",
+      "2": "",
+      "3": { name: "SHLD", net: "" },
+    });
+    expect(written.nets).toEqual({ NC: { J1: ["1"] } });
+  });
+
+  it("loads through the context's parse cache, as a query does", async () => {
+    const cache = new MemoryCacheStore(10);
+    const context = async () => ({ ...serviceContextFromEnvironment(), cache });
+    const out = path.join(dir, "cached.netlist.json");
+
+    await runQuery(tool, [DEMO, "--output", out], { isTTY: false, context });
+    expect(cache.size).toBeGreaterThan(0);
+    const second = await runQuery(tool, [DEMO, "--output", out], { isTTY: false, context });
+
+    expect(second.exitCode).toBe(0);
+    expect((await readDocument(out)).components.U1.mpn).toBe("REG-3V3-SOT23");
   });
 
   it("reports a design that does not load as an error result", async () => {
