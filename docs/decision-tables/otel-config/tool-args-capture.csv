@@ -1,0 +1,13 @@
+content,own_switch,outcome,next,status,note
+unset,off,none,,decided,Semconv: no capture by default
+unset,on,span and log,,decided,Ruling: this program's switch has always put arguments on both signals
+NO_CONTENT,off,none,,decided,"Ruling: the standard variable beats this program's switch, as an explicit standard selector does in the destination table"
+NO_CONTENT,on,none,,decided,"Ruling: the standard variable beats this program's switch, as an explicit standard selector does in the destination table"
+SPAN_ONLY,off,span,,decided,"Ruling: the standard variable beats this program's switch, as an explicit standard selector does in the destination table"
+SPAN_ONLY,on,span,,decided,"Ruling: the standard variable beats this program's switch, as an explicit standard selector does in the destination table"
+EVENT_ONLY,off,log,,decided,"Ruling: the standard variable beats this program's switch, as an explicit standard selector does in the destination table"
+EVENT_ONLY,on,log,,decided,"Ruling: the standard variable beats this program's switch, as an explicit standard selector does in the destination table"
+SPAN_AND_EVENT,off,span and log,,decided,"Ruling: the standard variable beats this program's switch, as an explicit standard selector does in the destination table"
+SPAN_AND_EVENT,on,span and log,,decided,"Ruling: the standard variable beats this program's switch, as an explicit standard selector does in the destination table"
+invalid,off,none,,decided,"Semconv: an unrecognized value defaults to NO_CONTENT, also over the own switch. Ruling: a typo must not export arguments"
+invalid,on,none,,decided,"Semconv: an unrecognized value defaults to NO_CONTENT, also over the own switch. Ruling: a typo must not export arguments"

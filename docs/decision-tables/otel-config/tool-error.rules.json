@@ -1,0 +1,63 @@
+{
+  "name": "otel-tool-error",
+  "rules": [
+    {
+      "when": {
+        "failure": [
+          "is_error",
+          "thrown"
+        ],
+        "cause": [
+          "classifiable"
+        ]
+      },
+      "outcome": "tool_error, classified",
+      "next": "",
+      "cells": 2
+    },
+    {
+      "when": {
+        "failure": [
+          "is_error",
+          "thrown"
+        ],
+        "cause": [
+          "unclassifiable"
+        ]
+      },
+      "outcome": "tool_error, internal",
+      "next": "",
+      "cells": 2
+    },
+    {
+      "when": {
+        "failure": [
+          "payload"
+        ],
+        "cause": [
+          "classifiable"
+        ]
+      },
+      "outcome": "classified, classified",
+      "next": "",
+      "cells": 1
+    },
+    {
+      "when": {
+        "failure": [
+          "payload"
+        ],
+        "cause": [
+          "unclassifiable"
+        ]
+      },
+      "outcome": "internal, internal",
+      "next": "",
+      "cells": 1
+    }
+  ],
+  "default": {
+    "outcome": "none",
+    "next": ""
+  }
+}

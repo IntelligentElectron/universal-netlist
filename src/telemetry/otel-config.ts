@@ -173,6 +173,10 @@ export const resolveOtelConfig = (env: Env, defaults: OtelBuildDefaults = {}): O
   if (read(env, "OTEL_CAPTURE_TOOL_ARGS")) {
     warnings.push("OTEL_CAPTURE_TOOL_ARGS is deprecated; use UNIVERSAL_NETLIST_CAPTURE_ARGS");
   }
+  const content = read(env, GENAI_CAPTURE_CONTENT);
+  if (content !== undefined && !(content.toUpperCase() in CONTENT_CAPTURE)) {
+    warnings.push(`${GENAI_CAPTURE_CONTENT}='${content}' is not a capture mode; capturing nothing`);
+  }
 
   return {
     enabled: true,
@@ -193,6 +197,56 @@ export const captureArgsEnabled = (env: Env): boolean => {
   if (value !== undefined) return value.toLowerCase() === "true";
   const legacy = read(env, "OTEL_CAPTURE_TOOL_ARGS")?.toLowerCase();
   return legacy === "true" || legacy === "1";
+};
+
+/** Which signals carry a tool call's arguments. */
+export interface ToolArgsCapture {
+  readonly span: boolean;
+  readonly log: boolean;
+}
+
+/** The variable the GenAI conventions name for this, and the values they give it. */
+const GENAI_CAPTURE_CONTENT = "OTEL_INSTRUMENTATION_GENAI_CAPTURE_CONTENT";
+const CONTENT_CAPTURE: Readonly<Record<string, ToolArgsCapture>> = {
+  NO_CONTENT: { span: false, log: false },
+  SPAN_ONLY: { span: true, log: false },
+  EVENT_ONLY: { span: false, log: true },
+  SPAN_AND_EVENT: { span: true, log: true },
+};
+
+/**
+ * Where a tool call's arguments go. The conventions' variable decides when it is set,
+ * and an unknown value captures nothing, as they say. Otherwise this program's own
+ * switch puts them on both signals.
+ */
+export const toolArgsCapture = (env: Env): ToolArgsCapture => {
+  const content = read(env, GENAI_CAPTURE_CONTENT);
+  if (content !== undefined)
+    return CONTENT_CAPTURE[content.toUpperCase()] ?? CONTENT_CAPTURE.NO_CONTENT;
+  const capture = captureArgsEnabled(env);
+  return { span: capture, log: capture };
+};
+
+/**
+ * How a tool call ended. `is_error` is a result the client sees as `isError: true`,
+ * and a throw reaches the client the same way, since the SDK turns it into one.
+ * `payload` is a successful response that carries an error in its content.
+ */
+export type ToolFailureKind = "none" | "payload" | "is_error" | "thrown";
+
+/**
+ * A tool failure's `error.type`: the conventions say `tool_error` for an `isError`
+ * result and a low-cardinality name for an error in the payload. The category names
+ * the cause on every failure, since `tool_error` does not.
+ */
+export const toolErrorAttributes = <T extends string>(
+  kind: ToolFailureKind,
+  failure: unknown,
+  classify: (failure: unknown) => T
+): { errorType?: T | "tool_error"; category?: T } => {
+  if (kind === "none") return {};
+  const category = classify(failure);
+  return { errorType: kind === "payload" ? category : "tool_error", category };
 };
 
 /** The extensions of a design file, the only paths recorded. */

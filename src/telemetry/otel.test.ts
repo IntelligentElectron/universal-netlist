@@ -43,6 +43,7 @@ beforeEach(() => {
   captured.length = 0;
   delete process.env.OTEL_CAPTURE_TOOL_ARGS;
   delete process.env.UNIVERSAL_NETLIST_CAPTURE_ARGS;
+  delete process.env.OTEL_INSTRUMENTATION_GENAI_CAPTURE_CONTENT;
   delete process.env.UNIVERSAL_NETLIST_DESIGN_ROOT;
   process.exitCode = undefined;
 });
@@ -52,21 +53,31 @@ const lastRecord = (): LogRecord => {
   return captured[0];
 };
 
+const ARGUMENTS = "gen_ai.tool.call.arguments";
+
 describe("instrumentTool log records", () => {
   it("emits one record per call with the standard attributes", async () => {
     const result = await instrumentTool("demo_tool", { a: 1 }, async () => "ok");
 
     expect(result).toBe("ok");
     const record = lastRecord();
-    expect(record.body).toBe("tool/demo_tool success");
+    expect(record.eventName).toBe("universal_netlist.tool_call.completed");
+    expect(record.body).toBe("tools/call demo_tool succeeded");
     expect(record.severityText).toBe("INFO");
     expect(record.attributes).toMatchObject({
-      "tool.name": "demo_tool",
-      "tool.outcome": "success",
+      "mcp.method.name": "tools/call",
+      "gen_ai.operation.name": "execute_tool",
+      "gen_ai.tool.name": "demo_tool",
     });
-    expect(record.attributes?.["tool.duration_ms"]).toBeTypeOf("number");
-    expect(record.attributes?.trace_id).toBeTypeOf("string");
-    expect(record.attributes?.span_id).toBeTypeOf("string");
+    for (const removed of [
+      "tool.name",
+      "tool.outcome",
+      "tool.duration_ms",
+      "trace_id",
+      "span_id",
+    ]) {
+      expect(record.attributes ?? {}).not.toHaveProperty(removed);
+    }
   });
 
   it("mirrors the user attributes onto the record", async () => {
@@ -93,25 +104,34 @@ describe("instrumentTool log records", () => {
     );
   });
 
-  it("captures tool.args under the deprecated name's documented 1", async () => {
+  it("captures arguments under the deprecated name's documented 1", async () => {
     process.env.OTEL_CAPTURE_TOOL_ARGS = "1";
     await instrumentTool("demo_tool", { a: 1 }, async () => "ok");
-    expect(lastRecord().attributes?.["tool.args"]).toBe(JSON.stringify({ a: 1 }));
+    expect(lastRecord().attributes?.[ARGUMENTS]).toEqual({ a: 1 });
   });
 
-  it("captures tool.args on the record when UNIVERSAL_NETLIST_CAPTURE_ARGS is true", async () => {
+  it("captures structured arguments on the record when UNIVERSAL_NETLIST_CAPTURE_ARGS is true", async () => {
     process.env.UNIVERSAL_NETLIST_CAPTURE_ARGS = "TRUE";
     const args = { design: "board.kicad_pro", pattern: "^VCC" };
 
     await instrumentTool("demo_tool", args, async () => "ok");
 
-    expect(lastRecord().attributes?.["tool.args"]).toBe(JSON.stringify(args));
+    expect(lastRecord().attributes?.[ARGUMENTS]).toEqual(args);
   });
 
-  it("omits tool.args when capture is not asked for", async () => {
+  it("keeps arguments off the record when the conventions' variable says spans only", async () => {
+    process.env.UNIVERSAL_NETLIST_CAPTURE_ARGS = "true";
+    process.env.OTEL_INSTRUMENTATION_GENAI_CAPTURE_CONTENT = "span_only";
+
+    await instrumentTool("demo_tool", { a: 1 }, async () => "ok");
+
+    expect(lastRecord().attributes ?? {}).not.toHaveProperty(ARGUMENTS);
+  });
+
+  it("omits arguments when capture is not asked for", async () => {
     await instrumentTool("demo_tool", { design: "board.kicad_pro" }, async () => "ok");
 
-    expect(lastRecord().attributes ?? {}).not.toHaveProperty("tool.args");
+    expect(lastRecord().attributes ?? {}).not.toHaveProperty(ARGUMENTS);
   });
 
   it("keeps the user and args on error records", async () => {
@@ -125,13 +145,14 @@ describe("instrumentTool log records", () => {
 
     const record = lastRecord();
     expect(record.severityText).toBe("ERROR");
+    expect(record.body).toBe("tools/call demo_tool failed");
     expect(record.attributes).toMatchObject({
-      "tool.outcome": "error",
-      "error.type": "internal",
+      "error.type": "tool_error",
+      "universal_netlist.error.category": "internal",
       "error.class": "TypeError",
       "error.message": "boom",
       "enduser.id": userInfo().username,
-      "tool.args": JSON.stringify({ a: 1 }),
+      [ARGUMENTS]: { a: 1 },
     });
   });
 
@@ -147,9 +168,42 @@ describe("instrumentTool log records", () => {
 
     expect(result).toBe(errorResult);
     expect(lastRecord().attributes).toMatchObject({
-      "tool.outcome": "error",
       "error.type": "not_found",
+      "universal_netlist.error.category": "not_found",
       "error.message": "Design file not found",
+    });
+  });
+
+  it("names an isError result tool_error and keeps its cause as the category", async () => {
+    const result = { isError: true };
+
+    await instrumentTool("demo_tool", {}, async () => result, {
+      isErrorResult: () => true,
+      isToolErrorResult: () => true,
+      getErrorMessage: () => "MCP error -32602: Tool demo_tool not found",
+    });
+
+    expect(lastRecord().attributes).toMatchObject({
+      "error.type": "tool_error",
+      "universal_netlist.error.category": "not_found",
+    });
+  });
+
+  it("records the request's id and session, and its connection, when given one", async () => {
+    await instrumentTool("demo_tool", {}, async () => "ok", {
+      request: {
+        id: "7",
+        sessionId: "s1",
+        protocolVersion: "2025-06-18",
+        networkTransport: "pipe",
+      },
+    });
+
+    expect(lastRecord().attributes).toMatchObject({
+      "jsonrpc.request.id": "7",
+      "mcp.session.id": "s1",
+      "mcp.protocol.version": "2025-06-18",
+      "network.transport": "pipe",
     });
   });
 
@@ -170,10 +224,14 @@ describe("instrumentTool log records", () => {
 
     expect(captured).toHaveLength(2);
     expect(captured[0].attributes).toMatchObject({
-      "error.type": "not_found",
+      "error.type": "tool_error",
+      "universal_netlist.error.category": "not_found",
       "error.class": "Error",
     });
-    expect(captured[1].attributes).toMatchObject({ "error.type": "not_found" });
+    expect(captured[1].attributes).toMatchObject({
+      "error.type": "not_found",
+      "universal_netlist.error.category": "not_found",
+    });
     expect(captured[1].attributes ?? {}).not.toHaveProperty("error.class");
   });
 
@@ -181,6 +239,7 @@ describe("instrumentTool log records", () => {
     await instrumentTool("demo_tool", {}, async () => "ok");
 
     expect(lastRecord().attributes ?? {}).not.toHaveProperty("error.type");
+    expect(lastRecord().attributes ?? {}).not.toHaveProperty("universal_netlist.error.category");
     expect(lastRecord().attributes ?? {}).not.toHaveProperty("error.class");
     expect(lastRecord().attributes ?? {}).not.toHaveProperty("error.message");
   });
@@ -210,8 +269,8 @@ describe("instrumentTool log records", () => {
     ).rejects.toBe(thrown);
 
     expect(lastRecord().attributes).toMatchObject({
-      "tool.outcome": "error",
-      "error.type": "internal",
+      "error.type": "tool_error",
+      "universal_netlist.error.category": "internal",
       "error.message": "Unknown error",
     });
     expect(lastRecord().attributes ?? {}).not.toHaveProperty("error.class");

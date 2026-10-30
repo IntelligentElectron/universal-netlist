@@ -1,0 +1,8 @@
+{
+  "name": "otel-tool-args-capture",
+  "assumes": ["Telemetry is on"],
+  "dimensions": {
+    "content": ["unset", "NO_CONTENT", "SPAN_ONLY", "EVENT_ONLY", "SPAN_AND_EVENT", "invalid"],
+    "own_switch": ["off", "on"]
+  }
+}

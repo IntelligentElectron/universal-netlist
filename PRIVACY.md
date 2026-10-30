@@ -89,7 +89,10 @@ it off, and the official releases carry none. Exports honour your `HTTPS_PROXY`,
 - Human-readable failure messages, which can contain file paths or fragments of tool input
 - `user.name` and `enduser.id`, both your host operating system account name
 - The process id of a command
-- Arguments, **only** if you additionally set `UNIVERSAL_NETLIST_CAPTURE_ARGS=true`.
+- The id of an MCP request, the protocol version it used, and any trace context your
+  agent sent with it
+- Arguments, **only** if you additionally set `UNIVERSAL_NETLIST_CAPTURE_ARGS=true`,
+  or, for tool calls, `OTEL_INSTRUMENTATION_GENAI_CAPTURE_CONTENT`.
   These include the file paths and search patterns you passed.
 - A design's path relative to a root you choose, **only** if you set
   `UNIVERSAL_NETLIST_DESIGN_ROOT`. An absolute path is never recorded this way.

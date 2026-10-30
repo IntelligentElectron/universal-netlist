@@ -1,0 +1,9 @@
+failure,cause,outcome,next,status,note
+none,classifiable,none,,decided,Semconv: error.type only when the operation fails
+none,unclassifiable,none,,decided,Semconv: error.type only when the operation fails
+payload,classifiable,"classified, classified",,decided,Semconv: an error in the payload of a successful response gets a low-cardinality name; the closed category set is that name
+payload,unclassifiable,"internal, internal",,decided,Semconv: an error in the payload of a successful response gets a low-cardinality name; the closed category set is that name
+is_error,classifiable,"tool_error, classified",,decided,"Semconv: isError true is tool_error. Ruling: the category keeps the cause, which issue #191 asked to classify"
+is_error,unclassifiable,"tool_error, internal",,decided,"Semconv: isError true is tool_error. Ruling: the category keeps the cause, which issue #191 asked to classify"
+thrown,classifiable,"tool_error, classified",,decided,"Ruling: the SDK turns a throw into an isError result, so the client sees the same failure as is_error"
+thrown,unclassifiable,"tool_error, internal",,decided,"Ruling: the SDK turns a throw into an isError result, so the client sees the same failure as is_error"

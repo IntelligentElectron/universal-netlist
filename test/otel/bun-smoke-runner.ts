@@ -35,9 +35,9 @@ const run = async (): Promise<void> => {
 
   const ok = await waitFor(
     () =>
-      receiver.spans().some((s) => s.name === "tool/smoke_tool") &&
-      receiver.metrics().some((m) => m.name === "tool.calls") &&
-      receiver.logs().some((l) => l.body === "tool/smoke_tool success") &&
+      receiver.spans().some((s) => s.name === "tools/call smoke_tool") &&
+      receiver.metrics().some((m) => m.name === "mcp.server.operation.duration") &&
+      receiver.logs().some((l) => l.body === "tools/call smoke_tool succeeded") &&
       receiver.spans().some((s) => s.name === "bun-smoke smoke") &&
       receiver.metrics().some((m) => m.name === "universal_netlist.command.duration"),
     5000
@@ -45,16 +45,16 @@ const run = async (): Promise<void> => {
 
   await receiver.stop();
 
-  const span = receiver.spans().find((s) => s.name === "tool/smoke_tool");
+  const span = receiver.spans().find((s) => s.name === "tools/call smoke_tool");
   console.log("binary exit code:", exitCode);
-  console.log("span delivered:  ", Boolean(span), span?.attributes["tool.outcome"]);
+  console.log("span delivered:  ", Boolean(span), span?.attributes["gen_ai.tool.name"]);
   console.log(
     "metric delivered:",
-    receiver.metrics().some((m) => m.name === "tool.calls")
+    receiver.metrics().some((m) => m.name === "mcp.server.operation.duration")
   );
   console.log(
     "log delivered:   ",
-    receiver.logs().some((l) => l.body === "tool/smoke_tool success")
+    receiver.logs().some((l) => l.body === "tools/call smoke_tool succeeded")
   );
 
   if (exitCode !== 0 || !ok) {

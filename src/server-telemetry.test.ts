@@ -124,9 +124,8 @@ describe("tool call telemetry", () => {
       );
       const { failed, otel } = await call(tool.name, args);
       expect(failed, `${tool.name} failed on ${JSON.stringify(args)}`).toBe(false);
-      expect(otel, tool.name).toEqual([
-        expect.objectContaining({ "tool.name": tool.name, "tool.outcome": "success" }),
-      ]);
+      expect(otel, tool.name).toEqual([expect.objectContaining({ "gen_ai.tool.name": tool.name })]);
+      expect(otel[0], tool.name).not.toHaveProperty("error.type");
     }
   });
 
@@ -136,19 +135,29 @@ describe("tool call telemetry", () => {
       expect(failed, tool.name).toBe(true);
       expect(otel, tool.name).toEqual([
         expect.objectContaining({
-          "tool.name": tool.name,
-          "tool.outcome": "error",
-          "error.type": "invalid_argument",
+          "gen_ai.tool.name": tool.name,
+          "error.type": "tool_error",
+          "universal_netlist.error.category": "invalid_argument",
         }),
       ]);
     }
+  });
+
+  it("records the request's id on each call", async () => {
+    const { otel } = await call(tools[0].name, {});
+    expect(otel[0]["jsonrpc.request.id"]).toBeTypeOf("string");
+    expect(otel[0]["mcp.protocol.version"]).toBeTypeOf("string");
   });
 
   it("records a call to a tool the server does not register as not found", async () => {
     const { failed, otel } = await call("list_variants", {});
     expect(failed).toBe(true);
     expect(otel).toEqual([
-      expect.objectContaining({ "tool.name": "list_variants", "error.type": "not_found" }),
+      expect.objectContaining({
+        "gen_ai.tool.name": "list_variants",
+        "error.type": "tool_error",
+        "universal_netlist.error.category": "not_found",
+      }),
     ]);
   });
 });
@@ -196,7 +205,7 @@ describe("tool failure categories", () => {
       vi.stubEnv(DSN_PASSWORD, password);
       const { failed, otel } = await call("list_nets", args);
       expect(failed).toBe(password !== protection.password);
-      expect(otel[0]["tool.args"]).toBe(JSON.stringify(args));
+      expect(otel[0]["gen_ai.tool.call.arguments"]).toEqual(args);
       expect(JSON.stringify(otel)).not.toContain(password);
     }
   });

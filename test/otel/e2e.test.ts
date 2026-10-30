@@ -5,13 +5,14 @@
  * in-process OTLP receiver, calls tools, and asserts the emitted spans, metrics,
  * and logs. Covers the issue #66 acceptance criteria:
  *   - no-op + no emission when unconfigured
- *   - per-tool-call span (tool/<name>) with outcome attributes
- *   - tool.calls / tool.duration / tool.errors metrics
- *   - structured log correlated by trace/span id
- *   - log-record attributes mirror the user and, opt-in, tool.args (issue #82)
+ *   - per-tool-call span (tools/call <name>) under the MCP semantic conventions
+ *   - the mcp.server.operation.duration histogram, in seconds
+ *   - structured log correlated by its own trace context
+ *   - the caller's trace context in params._meta parents the span
+ *   - log-record attributes mirror the user and, opt-in, the arguments (issue #82)
  *   - error logs carry the failure message from a fixture-backed MCP result (issue #184)
  *   - SDK input-schema rejections are counted and classified (issue #191)
- *   - failure path: outcome=error, tool result still returned
+ *   - failure path: error.type and status set, tool result still returned
  *   - exporter unreachable: tool calls still succeed
  *   - flush on shutdown
  */
@@ -42,6 +43,10 @@ const BROKEN_DESIGN = join(
 const BROKEN_DESIGN_ERROR =
   "pin-on-other-net.netlist.json: net 'VCC' lists C1.1, but C1.1 is on 'GND'";
 const TEST_TIMEOUT = 30_000;
+const LIST_DESIGNS = "tools/call list_designs";
+const OPERATION_DURATION = "mcp.server.operation.duration";
+const ARGUMENTS = "gen_ai.tool.call.arguments";
+const SPAN_KIND_SERVER = 2;
 
 /** Spawn the server with the given env, run `fn`, then close the client. */
 const withServer = async (
@@ -169,6 +174,14 @@ describe.skipIf(!loopbackAvailable)("OpenTelemetry end-to-end", () => {
     await receiver.stop();
   });
 
+  const hasDurationPoint = (
+    matches: (attributes: Record<string, string | number | boolean>) => boolean
+  ): boolean =>
+    receiver
+      .metrics()
+      .filter((metric) => metric.name === OPERATION_DURATION)
+      .some((metric) => metric.points.some((point) => matches(point.attributes)));
+
   test(
     "no-op: nothing is emitted when OTEL_* is not configured",
     async () => {
@@ -188,7 +201,7 @@ describe.skipIf(!loopbackAvailable)("OpenTelemetry end-to-end", () => {
   );
 
   test(
-    "happy path: span + metrics + correlated log for a successful tool call",
+    "happy path: an MCP-convention span, duration metric and correlated log",
     async () => {
       await withServer(otelEnv(receiver), async (client) => {
         const res: any = await client.callTool({
@@ -200,28 +213,48 @@ describe.skipIf(!loopbackAvailable)("OpenTelemetry end-to-end", () => {
 
       const got = await waitFor(
         () =>
-          receiver.spans().some((s) => s.name === "tool/list_designs") &&
-          receiver.metrics().some((m) => m.name === "tool.calls") &&
-          receiver.logs().some((l) => l.body === "tool/list_designs success")
+          receiver.spans().some((s) => s.name === LIST_DESIGNS) &&
+          receiver.metrics().some((m) => m.name === OPERATION_DURATION) &&
+          receiver.logs().some((l) => l.body === `${LIST_DESIGNS} succeeded`)
       );
       expect(got).toBe(true);
 
-      const span = receiver.spans().find((s) => s.name === "tool/list_designs")!;
-      expect(span.attributes["tool.name"]).toBe("list_designs");
-      expect(span.attributes["tool.outcome"]).toBe("success");
-      expect(typeof span.attributes["tool.duration_ms"]).toBe("number");
+      const span = receiver.spans().find((s) => s.name === LIST_DESIGNS)!;
+      expect(span.kind).toBe(SPAN_KIND_SERVER);
+      expect(span.attributes).toMatchObject({
+        "mcp.method.name": "tools/call",
+        "gen_ai.operation.name": "execute_tool",
+        "gen_ai.tool.name": "list_designs",
+        "network.transport": "pipe",
+      });
+      expect(span.attributes["mcp.protocol.version"]).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+      expect(typeof span.attributes["jsonrpc.request.id"]).toBe("string");
+      // The conventions leave a success's status unset.
+      expect(span.status?.code ?? 0).toBe(0);
+      expect(span.attributes["error.type"]).toBeUndefined();
+      expect(span.attributes["tool.name"]).toBeUndefined();
 
-      const calls = receiver.metrics().find((m) => m.name === "tool.calls")!;
-      expect(
-        calls.points.some(
-          (p) => p.attributes.tool === "list_designs" && p.attributes.outcome === "success"
-        )
-      ).toBe(true);
-      expect(receiver.metrics().some((m) => m.name === "tool.duration")).toBe(true);
+      const duration = receiver.metrics().find((m) => m.name === OPERATION_DURATION)!;
+      expect(duration.unit).toBe("s");
+      const point = duration.points.find((p) => p.attributes["gen_ai.tool.name"] === "list_designs")!;
+      expect(point.attributes).toMatchObject({
+        "mcp.method.name": "tools/call",
+        "gen_ai.operation.name": "execute_tool",
+        "network.transport": "pipe",
+      });
+      // The per-call id would make a series per call.
+      expect(point.attributes["jsonrpc.request.id"]).toBeUndefined();
+      expect(point.explicitBounds?.[0]).toBe(0.01);
+      for (const removed of ["tool.calls", "tool.duration", "tool.errors"]) {
+        expect(receiver.metrics().some((m) => m.name === removed)).toBe(false);
+      }
 
-      const log = receiver.logs().find((l) => l.body === "tool/list_designs success")!;
-      expect(log.attributes.trace_id).toBe(span.traceId);
-      expect(log.attributes.span_id).toBe(span.spanId);
+      const log = receiver.logs().find((l) => l.body === `${LIST_DESIGNS} succeeded`)!;
+      expect(log.eventName).toBe("universal_netlist.tool_call.completed");
+      expect(log.traceId).toBe(span.traceId);
+      expect(log.spanId).toBe(span.spanId);
+      expect(log.attributes.trace_id).toBeUndefined();
+      expect(log.attributes.span_id).toBeUndefined();
 
       // The host OS account, set at the resource level and mirrored onto the
       // log record itself for log-only backends.
@@ -230,15 +263,36 @@ describe.skipIf(!loopbackAvailable)("OpenTelemetry end-to-end", () => {
       expect(log.attributes["user.name"]).toBe(userInfo().username);
       expect(log.attributes["enduser.id"]).toBe(userInfo().username);
       // Args are opt-in and were not requested here.
-      expect(log.attributes["tool.args"]).toBeUndefined();
-      expect(span.attributes["tool.args"]).toBeUndefined();
+      expect(log.attributes[ARGUMENTS]).toBeUndefined();
+      expect(span.attributes[ARGUMENTS]).toBeUndefined();
       expect(log.attributes["error.message"]).toBeUndefined();
     },
     TEST_TIMEOUT
   );
 
   test(
-    "args capture: UNIVERSAL_NETLIST_CAPTURE_ARGS puts tool.args on the span and the log record",
+    "context propagation: the caller's traceparent in params._meta parents the span",
+    async () => {
+      const traceId = "4bf92f3577b34da6a3ce929d0e0e4736";
+      const parentSpanId = "00f067aa0ba902b7";
+      await withServer(otelEnv(receiver), async (client) => {
+        await client.callTool({
+          name: "list_designs",
+          arguments: { path: tmpdir(), max_depth: 0 },
+          _meta: { traceparent: `00-${traceId}-${parentSpanId}-01` },
+        });
+      });
+
+      expect(await waitFor(() => receiver.spans().some((s) => s.traceId === traceId))).toBe(true);
+      const span = receiver.spans().find((s) => s.traceId === traceId)!;
+      expect(span.name).toBe(LIST_DESIGNS);
+      expect(span.parentSpanId).toBe(parentSpanId);
+    },
+    TEST_TIMEOUT
+  );
+
+  test(
+    "args capture: UNIVERSAL_NETLIST_CAPTURE_ARGS puts JSON on the span and structure on the log",
     async () => {
       const args = { path: tmpdir(), max_depth: 0 };
       await withServer(otelEnv(receiver, { UNIVERSAL_NETLIST_CAPTURE_ARGS: "true" }), async (client) => {
@@ -246,36 +300,36 @@ describe.skipIf(!loopbackAvailable)("OpenTelemetry end-to-end", () => {
         expect(res.isError).toBeFalsy();
       });
 
-      // Filter on tool.args presence: earlier tests emitted argless records.
+      // Filter on the attribute's presence: earlier tests emitted argless records.
       const got = await waitFor(
         () =>
-          receiver
-            .spans()
-            .some((s) => s.name === "tool/list_designs" && "tool.args" in s.attributes) &&
+          receiver.spans().some((s) => s.name === LIST_DESIGNS && ARGUMENTS in s.attributes) &&
           receiver
             .logs()
-            .some((l) => l.body === "tool/list_designs success" && "tool.args" in l.attributes)
+            .some((l) => l.body === `${LIST_DESIGNS} succeeded` && ARGUMENTS in l.attributes)
       );
       expect(got).toBe(true);
 
       // The handler sees args with schema defaults applied, so match on the
-      // caller-supplied subset; span and log must carry the identical JSON.
+      // caller-supplied subset.
       const span = receiver
         .spans()
-        .find((s) => s.name === "tool/list_designs" && "tool.args" in s.attributes)!;
-      expect(JSON.parse(String(span.attributes["tool.args"]))).toMatchObject(args);
+        .find((s) => s.name === LIST_DESIGNS && ARGUMENTS in s.attributes)!;
+      expect(JSON.parse(String(span.attributes[ARGUMENTS]))).toMatchObject(args);
 
+      // The receiver renders a structured value as JSON; a string would have stayed a string.
       const log = receiver
         .logs()
-        .find((l) => l.body === "tool/list_designs success" && "tool.args" in l.attributes)!;
-      expect(log.attributes["tool.args"]).toBe(span.attributes["tool.args"]);
+        .find((l) => l.body === `${LIST_DESIGNS} succeeded` && ARGUMENTS in l.attributes)!;
+      expect(JSON.parse(String(log.attributes[ARGUMENTS]))).toMatchObject(args);
+      expect(log.structuredAttributes).toContain(ARGUMENTS);
       expect(log.attributes["enduser.id"]).toBe(userInfo().username);
     },
     TEST_TIMEOUT
   );
 
   test(
-    "failure path: outcome=error span + error metric, tool result still returned",
+    "failure path: a failure in the payload gets its category as error.type, result still returned",
     async () => {
       let toolReturned = false;
       await withServer(otelEnv(receiver), async (client) => {
@@ -289,40 +343,39 @@ describe.skipIf(!loopbackAvailable)("OpenTelemetry end-to-end", () => {
       });
       expect(toolReturned).toBe(true);
 
+      const name = "tools/call run_erc";
       const got = await waitFor(
         () =>
-          receiver
-            .spans()
-            .some((s) => s.name === "tool/run_erc" && s.attributes["tool.outcome"] === "error") &&
+          receiver.spans().some((s) => s.name === name && s.attributes["error.type"] !== undefined) &&
           receiver
             .logs()
             .some(
-              (l) =>
-                l.body === "tool/run_erc error" &&
-                l.attributes["error.message"] === BROKEN_DESIGN_ERROR
+              (l) => l.body === `${name} failed` && l.attributes["error.message"] === BROKEN_DESIGN_ERROR
             )
       );
       expect(got).toBe(true);
 
       const span = receiver
         .spans()
-        .find((s) => s.name === "tool/run_erc" && s.attributes["tool.outcome"] === "error")!;
+        .find((s) => s.name === name && s.attributes["error.type"] !== undefined)!;
       expect(span.attributes["error.type"]).toBe("invalid_argument");
+      expect(span.attributes["universal_netlist.error.category"]).toBe("invalid_argument");
+      expect(span.status?.code).toBe(2);
 
       const log = receiver
         .logs()
         .find(
-          (l) =>
-            l.body === "tool/run_erc error" && l.attributes["error.message"] === BROKEN_DESIGN_ERROR
+          (l) => l.body === `${name} failed` && l.attributes["error.message"] === BROKEN_DESIGN_ERROR
         )!;
       expect(log.attributes["error.type"]).toBe("invalid_argument");
-      expect(log.attributes["error.message"]).toBe(BROKEN_DESIGN_ERROR);
+      expect(log.severityText).toBe("ERROR");
 
-      await waitFor(() => receiver.metrics().some((m) => m.name === "tool.errors"));
-      const errors = receiver.metrics().find((m) => m.name === "tool.errors")!;
       expect(
-        errors.points.some(
-          (p) => p.attributes.tool === "run_erc" && p.attributes.error_type === "invalid_argument"
+        await waitFor(() =>
+          hasDurationPoint(
+            (attrs) =>
+              attrs["gen_ai.tool.name"] === "run_erc" && attrs["error.type"] === "invalid_argument"
+          )
         )
       ).toBe(true);
     },
@@ -330,7 +383,7 @@ describe.skipIf(!loopbackAvailable)("OpenTelemetry end-to-end", () => {
   );
 
   test(
-    "input-schema rejection: SDK failure emits the complete error telemetry shape",
+    "input-schema rejection: the SDK's isError result is tool_error, with its cause as the category",
     async () => {
       await withServer(otelEnv(receiver), async (client) => {
         const res: any = await client.callTool({
@@ -341,17 +394,15 @@ describe.skipIf(!loopbackAvailable)("OpenTelemetry end-to-end", () => {
         expect(res.content?.[0]?.text ?? "").toContain('Unrecognized key: "search_path"');
       });
 
+      const isRejection = (attrs: Record<string, string | number | boolean>): boolean =>
+        attrs["error.type"] === "tool_error" &&
+        attrs["universal_netlist.error.category"] === "invalid_argument";
       const got = await waitFor(
         () =>
-          receiver.spans().some(
-            (s) =>
-              s.name === "tool/list_designs" &&
-              s.attributes["tool.outcome"] === "error" &&
-              s.attributes["error.type"] === "invalid_argument"
-          ) &&
+          receiver.spans().some((s) => s.name === LIST_DESIGNS && isRejection(s.attributes)) &&
           receiver.logs().some(
             (l) =>
-              l.body === "tool/list_designs error" &&
+              l.body === `${LIST_DESIGNS} failed` &&
               String(l.attributes["error.message"]).includes("search_path")
           )
       );
@@ -359,44 +410,19 @@ describe.skipIf(!loopbackAvailable)("OpenTelemetry end-to-end", () => {
 
       const rejectionSpans = receiver
         .spans()
-        .filter(
-          (s) =>
-            s.name === "tool/list_designs" && s.attributes["tool.outcome"] === "error"
-        );
+        .filter((s) => s.name === LIST_DESIGNS && s.attributes["error.type"] !== undefined);
       expect(rejectionSpans).toHaveLength(1);
-      const span = rejectionSpans[0];
-      expect(span.attributes["error.type"]).toBe("invalid_argument");
-      expect(typeof span.attributes["tool.duration_ms"]).toBe("number");
+      expect(rejectionSpans[0].status?.code).toBe(2);
+      expect(typeof rejectionSpans[0].attributes["jsonrpc.request.id"]).toBe("string");
 
-      const rejectionLogs = receiver
-        .logs()
-        .filter((l) => l.body === "tool/list_designs error");
+      const rejectionLogs = receiver.logs().filter((l) => l.body === `${LIST_DESIGNS} failed`);
       expect(rejectionLogs).toHaveLength(1);
-      const log = rejectionLogs[0];
-      expect(log.attributes["error.type"]).toBe("invalid_argument");
-      expect(log.attributes["error.message"]).toContain("search_path");
-
-      const hasMetricPoint = (
-        name: string,
-        matches: (attributes: Record<string, string | number | boolean>) => boolean
-      ): boolean =>
-        receiver
-          .metrics()
-          .filter((metric) => metric.name === name)
-          .some((metric) => metric.points.some((point) => matches(point.attributes)));
+      expect(isRejection(rejectionLogs[0].attributes)).toBe(true);
+      expect(rejectionLogs[0].attributes["error.message"]).toContain("search_path");
 
       expect(
-        await waitFor(
-          () =>
-            hasMetricPoint(
-              "tool.calls",
-              (attrs) => attrs.tool === "list_designs" && attrs.outcome === "error"
-            ) &&
-            hasMetricPoint(
-              "tool.errors",
-              (attrs) =>
-                attrs.tool === "list_designs" && attrs.error_type === "invalid_argument"
-            )
+        await waitFor(() =>
+          hasDurationPoint((attrs) => attrs["gen_ai.tool.name"] === "list_designs" && isRejection(attrs))
         )
       ).toBe(true);
     },

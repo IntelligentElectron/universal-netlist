@@ -7,7 +7,7 @@ The MCP server and the command line can emit [OpenTelemetry](https://opentelemet
 - **Disabled by default.** OpenTelemetry is a no-op with zero overhead until something asks for an export. The heavy SDK packages are not imported until then; only the lightweight OpenTelemetry API stubs are always present, and they are no-ops when telemetry is off.
 - **Configured through the environment variables the specification defines**, read under its rules: only `true` is true, an empty variable is unset, and a value this program cannot honour gets a warning on stderr and is ignored. See [Where telemetry goes](#where-telemetry-goes) for the two variables this program adds.
 - **Never affects results.** Every span, metric, and log operation is wrapped so that an exporter fault, misconfiguration, or unreachable backend degrades to "no telemetry" rather than an error, and a command keeps its output and exit code. Export failures stay off a command's stderr unless `OTEL_LOG_LEVEL` asks for them; the MCP server reports them on stderr.
-- **Starts at the MCP request boundary.** Calls rejected by a tool's input schema are instrumented even though the SDK never invokes the tool handler. They are counted as `invalid_argument` failures, and their validation message identifies the offending argument.
+- **Starts at the MCP request boundary.** Calls rejected by a tool's input schema are instrumented even though the SDK never invokes the tool handler. They are recorded as failures with the category `invalid_argument`, and their validation message identifies the offending argument.
 - **stdout-safe.** stdout carries MCP and command results, so all diagnostics are written to stderr only and the `console` exporter is refused.
 
 ## Where telemetry goes
@@ -106,6 +106,7 @@ These are the standard OpenTelemetry variables this program acts on.
 | `OTEL_EXPORTER_OTLP_HEADERS` | Headers for the exporter, e.g. `Authorization=Bearer <token>` for a managed backend. Per-signal forms apply too. |
 | `OTEL_EXPORTER_OTLP_PROTOCOL`, `OTEL_EXPORTER_OTLP_<SIGNAL>_PROTOCOL` | `http/protobuf` (default) or `http/json`. |
 | `OTEL_EXPORTER_OTLP_TIMEOUT`, `..._CERTIFICATE`, `..._CLIENT_CERTIFICATE`, `..._CLIENT_KEY`, `..._COMPRESSION` | Exporter timeout, TLS files, and compression. Per-signal forms apply too. |
+| `OTEL_INSTRUMENTATION_GENAI_CAPTURE_CONTENT` | Which signals carry a tool call's arguments: `NO_CONTENT`, `SPAN_ONLY`, `EVENT_ONLY` (the log record) or `SPAN_AND_EVENT`, in any case. Set, it decides over `UNIVERSAL_NETLIST_CAPTURE_ARGS` for tool calls; any other value captures nothing, with a warning. See [the golden table](decision-tables/otel-config/tool-args-capture.rules.md). |
 | `OTEL_SERVICE_NAME` | Service name on the resource. Defaults to `universal-netlist`. |
 | `OTEL_RESOURCE_ATTRIBUTES` | Additional resource identity attributes. |
 | `OTEL_NODE_RESOURCE_DETECTORS` | The SDK's resource detectors, such as `host` or `process`. Unset, only the environment is read. |
@@ -119,7 +120,7 @@ These are this program's own, named outside the `OTEL_` prefix the specification
 | Variable | Purpose |
 |----------|---------|
 | `UNIVERSAL_NETLIST_OTEL_DIR` | Write telemetry to [OTLP JSON Lines files](#files) in this directory. |
-| `UNIVERSAL_NETLIST_CAPTURE_ARGS` | `true` also records raw arguments: `tool.args` for a tool call, `process.command_args` for a command. Off by default, since arguments may be sensitive. |
+| `UNIVERSAL_NETLIST_CAPTURE_ARGS` | `true` also records raw arguments: `gen_ai.tool.call.arguments` for a tool call, `process.command_args` for a command. Off by default, since arguments may be sensitive. |
 | `UNIVERSAL_NETLIST_DESIGN_ROOT` | Records `universal_netlist.design.path`, a design file's path relative to this directory. Unset, it is not recorded. A path outside the root, or a file without a design's extension, is not recorded either, so an absolute path never is. |
 | `OTEL_CAPTURE_TOOL_ARGS` | Deprecated name for `UNIVERSAL_NETLIST_CAPTURE_ARGS`. It still takes `1` or `true`, with a warning, and the new name wins when both are set. |
 
@@ -130,29 +131,42 @@ rejection has the same telemetry shape as any other failed call, including durat
 
 ### Tool call spans
 
-One span per call, named `tool/<tool_name>`.
+Tool calls follow the [semantic conventions for MCP](https://github.com/open-telemetry/semantic-conventions-genai/blob/main/docs/gen-ai/mcp.md), which are at Development status and may still change.
+
+One span of kind `SERVER` per call, named `tools/call <tool_name>`. When the request's `params._meta` carries a `traceparent`, the span is a child of that trace; otherwise it starts one. The status is `ERROR` on failure, with the failure message as its description, and otherwise unset. Exceptions are recorded on the span.
 
 | Attribute | Description |
 |-----------|-------------|
-| `tool.name` | The tool that was invoked. |
-| `tool.outcome` | `success` or `error`. |
-| `tool.duration_ms` | Wall-clock duration of the call in milliseconds. |
-| `error.type` | Stable failure category from the closed set below. Present on failure. |
+| `mcp.method.name` | `tools/call`. |
+| `gen_ai.operation.name` | `execute_tool`. |
+| `gen_ai.tool.name` | The tool that was invoked. |
+| `jsonrpc.request.id` | The id of the JSON-RPC request. |
+| `mcp.protocol.version` | The MCP version negotiated with the client. |
+| `network.transport` | `pipe`, for the stdio server. |
+| `mcp.session.id` | The MCP session, when the transport has one. Stdio has none. |
+| `error.type` | Present on failure: see [Tool call failures](#tool-call-failures). |
+| `universal_netlist.error.category` | Present on failure: see [Tool call failures](#tool-call-failures). |
 | `error.class` | Runtime exception class, present only when the handler throws an `Error`. Intended for debugging, not grouping. |
-| `tool.args` | Full tool arguments as JSON. Only present when `UNIVERSAL_NETLIST_CAPTURE_ARGS` is enabled. |
+| `gen_ai.tool.call.arguments` | Full tool arguments as JSON text, since a span attribute cannot hold an object. Only present when [capture](#configuration-reference) asks for it. |
 | `universal_netlist.design.path` | The design's path relative to `UNIVERSAL_NETLIST_DESIGN_ROOT`. Only present when that is set and the path qualifies. |
-
-The span status is set to `ERROR` on failure and `OK` otherwise; exceptions are recorded on the span.
 
 ### Tool call metrics
 
-| Instrument | Type | Unit | Labels |
-|------------|------|------|--------|
-| `tool.calls` | Counter | — | `tool`, `outcome` |
-| `tool.duration` | Histogram | ms | `tool`, `outcome` |
-| `tool.errors` | Counter | — | `tool`, `error_type` |
+One histogram, `mcp.server.operation.duration`, in seconds, with the bucket boundaries the conventions give it. Its count is the number of calls, and `error.type` separates the failures, so no separate counters are needed.
 
-`error.type` and the `tool.errors.error_type` label use this closed vocabulary:
+Its labels are `mcp.method.name`, `gen_ai.operation.name`, `gen_ai.tool.name`, `mcp.protocol.version`, `network.transport` and, on failure, `error.type` and `universal_netlist.error.category`.
+
+### Tool call failures
+
+`universal_netlist.error.category` names the cause of every failure, from the closed vocabulary below. `error.type` is what the conventions ask for, which depends on how the failure reaches the client:
+
+| The failure | `error.type` |
+|-------------|--------------|
+| An error in the content of a successful response, which is how this server's tools report one | The category |
+| A result with `isError: true`, which the SDK creates for an input-schema rejection or an unknown tool | `tool_error` |
+| A handler that throws, which the SDK turns into such a result | `tool_error` |
+
+To group failures by cause, use `universal_netlist.error.category`. The rules are in [the golden table](decision-tables/otel-config/tool-error.rules.md).
 
 | Value | Meaning |
 |-------|---------|
@@ -170,22 +184,39 @@ values are telemetry API: changing or renaming one requires an explicit changelo
 
 ### Tool call logs
 
-One structured log record per call, with body `tool/<tool_name> <outcome>` and severity `INFO` on success or `ERROR` on failure. Each record carries:
+One log record per call, with the event name `universal_netlist.tool_call.completed`, the body `tools/call <tool_name> succeeded` or `tools/call <tool_name> failed`, and severity `INFO` or `ERROR`. Its own trace context ties it to the span. Each record carries the span's attributes, plus:
 
 | Attribute | Description |
 |-----------|-------------|
-| `tool.name` | The tool that was invoked. |
-| `tool.outcome` | `success` or `error`. |
-| `tool.duration_ms` | Duration in milliseconds. |
-| `error.type` | Stable failure category from the closed set above. Present on failure. |
-| `error.class` | Runtime exception class, present only for thrown `Error` values. |
 | `error.message` | Human-readable failure message, present on failure when available and truncated to 2,048 characters. For MCP error results, this is the result's `error` field. |
 | `user.name`, `enduser.id` | The host OS account name, mirroring the resource attributes below. Best-effort; omitted if it can't be read. |
-| `tool.args` | Full tool arguments as JSON, mirroring the span attribute. Only present when `UNIVERSAL_NETLIST_CAPTURE_ARGS` is enabled. |
-| `universal_netlist.design.path` | Mirroring the span attribute. |
-| `trace_id`, `span_id` | The active trace/span IDs, for trace-to-log correlation. |
+| `gen_ai.tool.call.arguments` | Full tool arguments as a structured value, as the conventions require on a log record. Only present when [capture](#configuration-reference) asks for it. |
 
-Log/label-based backends typically index only log-record attributes (resource attributes are dropped and span attributes are never carried), so the user attributes, failure messages, and captured arguments are set directly on each record to keep per-user, error, and per-input analytics possible from logs alone. Failure messages can contain file paths or fragments of tool input; they are exported whenever telemetry is enabled.
+Log/label-based backends typically index only log-record attributes (resource attributes are dropped and span attributes are never carried), so the user attributes, failure messages, and captured arguments are set directly on each record to keep per-user, error, and per-input analytics possible from logs alone. Failure messages can contain file paths or fragments of tool input; they are exported whenever telemetry is enabled, on the span's status as well as the record. A call's duration is on the span and the histogram, and not on the record.
+
+### Migrating from the earlier tool call names
+
+Releases before this one used names of their own. They changed in one release, with no period of emitting both, so a dashboard or alert built on them needs this mapping:
+
+| Earlier name | Current name |
+|--------------|--------------|
+| Span `tool/<tool_name>`, kind `INTERNAL` | Span `tools/call <tool_name>`, kind `SERVER` |
+| Span status `OK` on success | Unset on success |
+| `tool.name` | `gen_ai.tool.name` |
+| `tool.outcome` = `success` | `error.type` absent |
+| `tool.outcome` = `error` | `error.type` present |
+| `tool.duration_ms` on the span | The span's own start and end times |
+| `tool.duration_ms` on the log record | Removed; `mcp.server.operation.duration` |
+| `tool.args` (JSON text) | `gen_ai.tool.call.arguments`: JSON text on the span, a structured value on the log record |
+| `error.type` on an `isError` result or a throw | `error.type` = `tool_error`; the earlier value is `universal_netlist.error.category` |
+| Metric `tool.duration`, milliseconds | Metric `mcp.server.operation.duration`, seconds: multiply a threshold by 0.001 |
+| Metric `tool.calls` | The count of `mcp.server.operation.duration` |
+| Metric `tool.errors` | The count of `mcp.server.operation.duration` with `error.type` present |
+| Metric label `tool` | `gen_ai.tool.name` |
+| Metric label `outcome` | `error.type` present or absent |
+| Metric label `error_type` | `universal_netlist.error.category` |
+| Log attributes `trace_id`, `span_id` | The log record's own trace context |
+| Log body `tool/<tool_name> success` or `error` | `tools/call <tool_name> succeeded` or `failed` |
 
 ### Commands
 

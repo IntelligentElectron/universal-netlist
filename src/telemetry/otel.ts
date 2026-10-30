@@ -21,28 +21,36 @@
 import { readFileSync } from "node:fs";
 import { userInfo } from "node:os";
 import {
+  context,
+  propagation,
   trace,
   metrics,
   logs,
   SeverityNumber,
   SpanKind,
   SpanStatusCode,
-  type Span,
+  type AnyValue,
   type Attributes,
+  type Context,
+  type Span,
 } from "@opentelemetry/api";
 import type { SpanExporter } from "@opentelemetry/sdk-trace";
 import type { PushMetricExporter } from "@opentelemetry/sdk-metrics";
 import type { LogRecordExporter } from "@opentelemetry/sdk-logs";
 import { OTEL_BUILD_DEFAULTS } from "../build-flags.js";
-import { classifyToolError, getErrorClass, type ToolErrorType } from "./error-category.js";
+import { classifyToolError, getErrorClass } from "./error-category.js";
 import {
   captureArgsEnabled,
   commandErrorType,
   designPathAttribute,
   resolveOtelConfig,
+  toolArgsCapture,
+  toolErrorAttributes,
   type Signal,
   type SignalDestination,
+  type ToolFailureKind,
 } from "./otel-config.js";
+import type { ToolRequest } from "./request-context.js";
 
 const INSTRUMENTATION_NAME = "@intelligentelectron/mcp";
 const MAX_ERROR_MESSAGE_LENGTH = 2048;
@@ -73,12 +81,7 @@ let metricFlushTimer: ReturnType<typeof setInterval> | undefined;
 /** The push metric reader, retained so the bun fallback can force a flush. */
 let metricReader: { forceFlush: () => Promise<void> } | undefined;
 
-interface Instruments {
-  calls: ReturnType<ReturnType<typeof metrics.getMeter>["createCounter"]>;
-  duration: ReturnType<ReturnType<typeof metrics.getMeter>["createHistogram"]>;
-  errors: ReturnType<ReturnType<typeof metrics.getMeter>["createCounter"]>;
-}
-let instruments: Instruments | undefined;
+let toolDuration: ReturnType<ReturnType<typeof metrics.getMeter>["createHistogram"]> | undefined;
 
 let commandDuration: ReturnType<ReturnType<typeof metrics.getMeter>["createHistogram"]> | undefined;
 
@@ -244,7 +247,7 @@ export const initOtel = async (opts: {
 
     nodeSdk.start();
     sdk = nodeSdk;
-    instruments = undefined; // rebind lazily to the now-registered MeterProvider
+    toolDuration = undefined; // rebind lazily to the now-registered MeterProvider
     commandDuration = undefined;
     enabled = true;
 
@@ -402,12 +405,32 @@ export const shutdownOtel = async (): Promise<boolean> => {
 // Per-tool-call instrumentation
 // =============================================================================
 
+const TOOL_METHOD = "tools/call";
+const TOOL_DURATION = "mcp.server.operation.duration";
+const TOOL_ARGUMENTS = "gen_ai.tool.call.arguments";
+const ERROR_CATEGORY = "universal_netlist.error.category";
+const TOOL_CALL_EVENT = "universal_netlist.tool_call.completed";
+
+/** The boundaries the MCP conventions give this histogram, in seconds. */
+const TOOL_DURATION_BUCKETS = [0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10, 30, 60, 120, 300];
+
+/** The caller's trace context from `params._meta`, where the MCP conventions carry it. */
+const parentContext = (meta: Record<string, unknown> | undefined): Context => {
+  try {
+    return meta ? propagation.extract(context.active(), meta) : context.active();
+  } catch {
+    return context.active();
+  }
+};
+
 /**
- * Wrap a single tool invocation in a span named `tool/<name>`, record the
- * standard metrics, and emit a structured log correlated by trace/span id.
+ * Wrap a single tool invocation in a span under the semantic conventions for MCP:
+ * https://github.com/open-telemetry/semantic-conventions-genai/blob/main/docs/gen-ai/mcp.md
  *
- * `run` is executed exactly once. When telemetry is disabled this is a direct
- * pass-through. Telemetry never alters the result and never throws on its own.
+ * The span is `tools/call <tool>`, of kind SERVER, with the caller's trace as its
+ * parent when the request carries one. `run` is executed exactly once. When telemetry
+ * is disabled this is a direct pass-through. Telemetry never alters the result and
+ * never throws on its own.
  */
 export const instrumentTool = async <R>(
   toolName: string,
@@ -415,165 +438,168 @@ export const instrumentTool = async <R>(
   run: () => Promise<R>,
   opts?: {
     isErrorResult?: (result: R) => boolean;
+    /** A failure the client sees as `isError: true`, as opposed to one in the result's payload. */
+    isToolErrorResult?: (result: R) => boolean;
     getErrorMessage?: (result: R) => string | undefined;
+    request?: ToolRequest;
   }
 ): Promise<R> => {
   if (!enabled) return run();
 
+  const request = opts?.request;
+  // Low-cardinality, so the metric shares them. The conventions ask for what a
+  // sampler may use at span creation, so all of them go there.
+  const identity: Attributes = {
+    "mcp.method.name": TOOL_METHOD,
+    "gen_ai.operation.name": "execute_tool",
+    "gen_ai.tool.name": toolName,
+    ...(request?.protocolVersion ? { "mcp.protocol.version": request.protocolVersion } : {}),
+    ...(request?.networkTransport ? { "network.transport": request.networkTransport } : {}),
+  };
+  const correlation: Attributes = {
+    ...(request?.id !== undefined ? { "jsonrpc.request.id": request.id } : {}),
+    ...(request?.sessionId ? { "mcp.session.id": request.sessionId } : {}),
+  };
+  const design = designPathAttribute(args.design, process.env);
+  const capture = toolArgsCapture(process.env);
   const tracer = trace.getTracer(INSTRUMENTATION_NAME);
-  return tracer.startActiveSpan(`tool/${toolName}`, async (span) => {
-    const start = Date.now();
-    // Full args, untruncated: tool-call arguments are inherently small.
-    // Serialized once, then attached to the span here and mirrored onto the
-    // per-call log record (span attributes never reach log-based backends).
-    const capturedArgs = captureArgsEnabled(process.env) ? safeJson(args) : undefined;
-    const designPath = designPathAttribute(args.design, process.env);
-    try {
-      safely(() => {
-        span.setAttribute("tool.name", toolName);
-        if (capturedArgs !== undefined) span.setAttribute("tool.args", capturedArgs);
-        if (designPath !== undefined) span.setAttribute(DESIGN_PATH, designPath);
-      });
-
-      const result = await run();
-
-      const isError = opts?.isErrorResult?.(result) ?? false;
-      const resultErrorMessage = isError ? opts?.getErrorMessage?.(result) : undefined;
-      finishSpan(
-        span,
-        toolName,
-        isError ? "error" : "success",
-        isError ? classifyToolError(resultErrorMessage) : undefined,
-        undefined,
-        normalizeErrorMessage(resultErrorMessage),
-        Date.now() - start,
-        capturedArgs,
-        designPath
-      );
-      return result;
-    } catch (err) {
-      safely(() => span.recordException(err instanceof Error ? err : new Error(String(err))));
-      finishSpan(
-        span,
-        toolName,
-        "error",
-        classifyToolError(err),
-        getErrorClass(err),
-        normalizeErrorMessage(describeError(err)),
-        Date.now() - start,
-        capturedArgs,
-        designPath
-      );
-      throw err;
+  return tracer.startActiveSpan(
+    `${TOOL_METHOD} ${toolName}`,
+    {
+      kind: SpanKind.SERVER,
+      attributes: {
+        ...identity,
+        ...correlation,
+        ...(design !== undefined ? { [DESIGN_PATH]: design } : {}),
+        // A span attribute holds no object, so the conventions take JSON here.
+        ...(capture.span ? { [TOOL_ARGUMENTS]: safeJson(args) } : {}),
+      },
+    },
+    parentContext(request?.meta),
+    async (span) => {
+      const start = performance.now();
+      const finish = (failure: {
+        kind: ToolFailureKind;
+        cause?: unknown;
+        errorClass?: string;
+        message?: string;
+      }): void =>
+        finishSpan(span, identity, correlation, {
+          ...failure,
+          ...toolErrorAttributes(failure.kind, failure.cause, classifyToolError),
+          seconds: (performance.now() - start) / 1000,
+          design,
+          args: capture.log ? structuredJson(args) : undefined,
+        });
+      try {
+        const result = await run();
+        if (opts?.isErrorResult?.(result)) {
+          const message = opts.getErrorMessage?.(result);
+          finish({
+            kind: opts.isToolErrorResult?.(result) ? "is_error" : "payload",
+            cause: message,
+            message: normalizeErrorMessage(message),
+          });
+        } else {
+          finish({ kind: "none" });
+        }
+        return result;
+      } catch (err) {
+        safely(() => span.recordException(err instanceof Error ? err : new Error(String(err))));
+        finish({
+          kind: "thrown",
+          cause: err,
+          errorClass: getErrorClass(err),
+          message: normalizeErrorMessage(describeError(err)),
+        });
+        throw err;
+      }
     }
-  });
+  );
 };
 
 const finishSpan = (
   span: Span,
-  toolName: string,
-  outcome: "success" | "error",
-  errorType: ToolErrorType | undefined,
-  errorClass: string | undefined,
-  errorMessage: string | undefined,
-  durationMs: number,
-  capturedArgs: string | undefined,
-  designPath: string | undefined
+  identity: Attributes,
+  correlation: Attributes,
+  call: {
+    errorType?: string;
+    category?: string;
+    errorClass?: string;
+    message?: string;
+    seconds: number;
+    design: string | undefined;
+    args: unknown;
+  }
 ): void => {
-  safely(() => {
-    span.setAttribute("tool.outcome", outcome);
-    span.setAttribute("tool.duration_ms", durationMs);
-    if (errorType) span.setAttribute("error.type", errorType);
-    if (errorClass) span.setAttribute("error.class", errorClass);
-    span.setStatus({ code: outcome === "error" ? SpanStatusCode.ERROR : SpanStatusCode.OK });
-  });
+  const failure: Attributes = {
+    ...(call.errorType ? { "error.type": call.errorType } : {}),
+    ...(call.category ? { [ERROR_CATEGORY]: call.category } : {}),
+  };
 
   safely(() => {
-    const inst = getInstruments();
-    const labels: Attributes = { tool: toolName, outcome };
-    inst.calls.add(1, labels);
-    inst.duration.record(durationMs, labels);
-    if (outcome === "error") {
-      inst.errors.add(1, { tool: toolName, error_type: errorType ?? "unknown" });
-    }
+    span.setAttributes(failure);
+    if (call.errorClass) span.setAttribute("error.class", call.errorClass);
+    // The conventions leave a success's status unset.
+    if (call.errorType) span.setStatus({ code: SpanStatusCode.ERROR, message: call.message });
   });
 
-  safely(() =>
-    emitLog(
-      span,
-      toolName,
-      outcome,
-      errorType,
-      errorClass,
-      errorMessage,
-      durationMs,
-      capturedArgs,
-      designPath
-    )
-  );
+  // One histogram: its count is the number of calls, and `error.type` splits out
+  // the failures, which is how the conventions count errors.
+  safely(() => getToolDuration().record(call.seconds, { ...identity, ...failure }));
+
+  safely(() => emitLog(identity, correlation, failure, call));
 
   safely(() => span.end());
 };
 
 /**
- * Emit the per-call log record. Log/label-based backends index only log-record
- * attributes (resource attributes are dropped and span attributes are never
- * carried), so the user attributes are mirrored here from the resource and the
- * captured args from the span are mirrored here. Failure messages are attached
- * here as well, keeping errors actionable from logs alone.
+ * Emit the per-call log record, inside the active span, so the record carries its
+ * trace context. Log/label-based backends index only log-record attributes (resource
+ * attributes are dropped and span attributes are never carried), so the user
+ * attributes are mirrored here from the resource, and the span's attributes and the
+ * failure message are attached here as well, keeping errors actionable from logs alone.
  */
 const emitLog = (
-  span: Span,
-  toolName: string,
-  outcome: "success" | "error",
-  errorType: ToolErrorType | undefined,
-  errorClass: string | undefined,
-  errorMessage: string | undefined,
-  durationMs: number,
-  capturedArgs: string | undefined,
-  designPath: string | undefined
+  identity: Attributes,
+  correlation: Attributes,
+  failure: Attributes,
+  call: {
+    errorType?: string;
+    errorClass?: string;
+    message?: string;
+    design: string | undefined;
+    args: unknown;
+  }
 ): void => {
-  const sc = span.spanContext();
-  const logger = logs.getLogger(INSTRUMENTATION_NAME);
-  logger.emit({
-    severityNumber: outcome === "error" ? SeverityNumber.ERROR : SeverityNumber.INFO,
-    severityText: outcome === "error" ? "ERROR" : "INFO",
-    body: `tool/${toolName} ${outcome}`,
+  const failed = call.errorType !== undefined;
+  logs.getLogger(INSTRUMENTATION_NAME).emit({
+    eventName: TOOL_CALL_EVENT,
+    severityNumber: failed ? SeverityNumber.ERROR : SeverityNumber.INFO,
+    severityText: failed ? "ERROR" : "INFO",
+    body: `${TOOL_METHOD} ${String(identity["gen_ai.tool.name"])} ${failed ? "failed" : "succeeded"}`,
     attributes: {
-      "tool.name": toolName,
-      "tool.outcome": outcome,
-      "tool.duration_ms": durationMs,
-      ...(errorType ? { "error.type": errorType } : {}),
-      ...(errorClass ? { "error.class": errorClass } : {}),
-      ...(errorMessage ? { "error.message": errorMessage } : {}),
+      ...identity,
+      ...correlation,
+      ...failure,
+      ...(call.errorClass ? { "error.class": call.errorClass } : {}),
+      ...(call.message ? { "error.message": call.message } : {}),
       ...hostUser(),
-      ...(capturedArgs !== undefined ? { "tool.args": capturedArgs } : {}),
-      ...(designPath !== undefined ? { [DESIGN_PATH]: designPath } : {}),
-      // Explicit ids for trace-to-log correlation in addition to the record's
-      // own trace context.
-      trace_id: sc.traceId,
-      span_id: sc.spanId,
+      ...(call.args !== undefined ? { [TOOL_ARGUMENTS]: call.args as AnyValue } : {}),
+      ...(call.design !== undefined ? { [DESIGN_PATH]: call.design } : {}),
     },
   });
 };
 
-const getInstruments = (): Instruments => {
-  if (!instruments) {
-    const meter = metrics.getMeter(INSTRUMENTATION_NAME);
-    instruments = {
-      calls: meter.createCounter("tool.calls", {
-        description: "Number of tool invocations",
-      }),
-      duration: meter.createHistogram("tool.duration", {
-        unit: "ms",
-        description: "Tool invocation duration in milliseconds",
-      }),
-      errors: meter.createCounter("tool.errors", {
-        description: "Number of failed tool invocations",
-      }),
-    };
+const getToolDuration = () => {
+  if (!toolDuration) {
+    toolDuration = metrics.getMeter(INSTRUMENTATION_NAME).createHistogram(TOOL_DURATION, {
+      unit: "s",
+      description: "MCP request duration as observed on the server",
+      advice: { explicitBucketBoundaries: TOOL_DURATION_BUCKETS },
+    });
   }
-  return instruments;
+  return toolDuration;
 };
 
 // =============================================================================
@@ -741,6 +767,15 @@ const safely = (fn: () => void): void => {
 const safeJson = (value: unknown): string => {
   try {
     return JSON.stringify(value);
+  } catch {
+    return "[unserializable]";
+  }
+};
+
+/** The value as plain JSON data, for an attribute that holds it in structured form. */
+const structuredJson = (value: unknown): unknown => {
+  try {
+    return JSON.parse(JSON.stringify(value));
   } catch {
     return "[unserializable]";
   }
