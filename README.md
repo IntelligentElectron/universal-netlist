@@ -160,16 +160,6 @@ gh skill install IntelligentElectron/universal-netlist universal-netlist --agent
 
 </details>
 
-## Supported Platforms
-
-| Platform | Binary |
-|----------|--------|
-| macOS (Apple Silicon) | `universal-netlist-darwin-arm64` |
-| macOS (Intel) | `universal-netlist-darwin-x64` |
-| Linux (x64) | `universal-netlist-linux-x64` |
-| Linux (ARM64) | `universal-netlist-linux-arm64` |
-| Windows (x64) | `universal-netlist-windows-x64.exe` |
-
 ## Observability (OpenTelemetry)
 
 The server can emit [OpenTelemetry](https://opentelemetry.io/) **traces, metrics, and logs** for every tool call, which report which tools are used, how long they take, and what fails. Any OTLP-compatible backend receives them (an OpenTelemetry Collector, Jaeger, Tempo, Prometheus, Honeycomb, Datadog, or a managed cloud tracing service).
@@ -180,7 +170,7 @@ See **[Observability (OpenTelemetry)](docs/observability.md)** for setup, config
 
 ## Documentation
 
-See [docs/](docs/README.md) for API documentation and response schemas, [docs/cli.md](docs/cli.md) for the binary's command line, [docs/library.md](docs/library.md) for calling the tools in-process from your own code, [docs/parse-cache.md](docs/parse-cache.md) for how parses are reused between queries, and [docs/password-protected-designs.md](docs/password-protected-designs.md) for OrCAD designs saved with a password.
+See [docs/](docs/README.md) for API documentation, response schemas and [supported platforms](docs/README.md#supported-platforms), [docs/cli.md](docs/cli.md) for the binary's command line, [docs/library.md](docs/library.md) for calling the tools in-process from your own code, [docs/parse-cache.md](docs/parse-cache.md) for how parses are reused between queries, and [docs/password-protected-designs.md](docs/password-protected-designs.md) for OrCAD designs saved with a password.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines.
 
