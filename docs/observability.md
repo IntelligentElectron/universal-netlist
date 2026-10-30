@@ -113,7 +113,7 @@ These are the standard OpenTelemetry variables this program acts on.
 | `OTEL_TRACES_SAMPLER` | Standard trace sampler configuration. |
 | `OTEL_LOG_LEVEL` | The SDK's own diagnostics, always on stderr. Unset, the server reports warnings and errors, and a command reports only settings it could not honour. |
 | `OTEL_BSP_SCHEDULE_DELAY`, `OTEL_BLRP_SCHEDULE_DELAY` | Batch span and log processor export intervals (ms). Their other standard settings apply too. |
-| `OTEL_METRIC_EXPORT_INTERVAL`, `OTEL_METRIC_EXPORT_TIMEOUT` | Metric export interval and timeout (ms). The interval, default `60000`, also drives the periodic metric flush used by the compiled Bun binaries, where the SDK's own timer doesn't fire. |
+| `OTEL_METRIC_EXPORT_INTERVAL`, `OTEL_METRIC_EXPORT_TIMEOUT` | Metric export interval and timeout (ms). The interval defaults to `60000`. |
 
 These are this program's own, named outside the `OTEL_` prefix the specification reserves:
 
@@ -262,7 +262,7 @@ Telemetry is designed to be invisible to callers:
 
 - Instrumentation never alters a tool's result or a command's output and exit code, and never throws on its own; a failing exporter or SDK degrades to "no telemetry".
 - When unconfigured, the OpenTelemetry instrumentation path is a pure pass-through with zero overhead, and the SDK is never imported.
-- Pending, batched exports are flushed on process shutdown (including on `SIGINT`/`SIGTERM`), for at most 5 seconds, so short-lived invocations don't lose data.
+- Pending, batched exports are flushed on process shutdown, for at most 5 seconds, so short-lived invocations don't lose data. That covers a command finishing, `SIGINT`/`SIGTERM`, and the MCP server's client closing stdin, after which the server finishes any call in progress, flushes, and exits.
 
 ## See Also
 

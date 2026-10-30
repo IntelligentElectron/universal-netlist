@@ -14,11 +14,11 @@
  *   - SDK input-schema rejections are counted and classified (issue #191)
  *   - failure path: error.type and status set, tool result still returned
  *   - exporter unreachable: tool calls still succeed
- *   - flush on shutdown
+ *   - flush on shutdown, including a client closing stdin with no signal
  */
 
 import { describe, test, expect, beforeAll, afterAll } from "vitest";
-import { spawn } from "node:child_process";
+import { spawn, spawnSync } from "node:child_process";
 import { createServer as createHttpServer, request as httpRequest } from "node:http";
 import { existsSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir, userInfo } from "node:os";
@@ -161,6 +161,86 @@ describe("command line telemetry on disk", () => {
     TEST_TIMEOUT
   );
 });
+
+const hasBun = spawnSync("bun", ["--version"]).status === 0;
+
+/** The server under each runtime it ships on. CI has no Bun; a local run covers it. */
+const RUNTIMES = [
+  { runtime: "Node.js", command: process.execPath, args: ["--import", "tsx"], skip: false },
+  { runtime: "Bun", command: "bun", args: [], skip: !hasBun },
+];
+
+/**
+ * Serve MCP as a client that leaves by closing stdin, with no signal: `initialize`,
+ * one `tools/call`, then close. `awaitReply: false` closes with the call still in
+ * progress. Resolves with what the server did from that close on.
+ */
+const closeStdinAfterCall = (
+  server: { command: string; args: string[] },
+  env: Record<string, string>,
+  design: string,
+  { awaitReply = true } = {}
+): Promise<{ code: number | null; signal: string | null; seconds: number; replied: boolean }> =>
+  new Promise((resolve, reject) => {
+    const child = spawn(server.command, [...server.args, SERVER_ENTRY], {
+      cwd: REPO_ROOT,
+      env: { PATH: process.env.PATH ?? "", HOME: process.env.HOME ?? "", ...env },
+      stdio: ["pipe", "pipe", "ignore"],
+    });
+    const send = (message: object) => child.stdin.write(`${JSON.stringify(message)}\n`);
+    let closedAt = 0;
+    const closeStdin = () => {
+      closedAt = performance.now();
+      child.stdin.end();
+    };
+    let replied = false;
+    let stdout = "";
+    child.stdout.on("data", (chunk) => {
+      stdout += chunk;
+      const lines = stdout.split("\n");
+      stdout = lines.pop() ?? "";
+      for (const line of lines) {
+        const { id } = JSON.parse(line) as { id?: number };
+        if (id === 1) {
+          send({ jsonrpc: "2.0", method: "notifications/initialized" });
+          send({
+            jsonrpc: "2.0",
+            id: 2,
+            method: "tools/call",
+            params: { name: "list_nets", arguments: { design } },
+          });
+          if (!awaitReply) closeStdin();
+        } else if (id === 2) {
+          replied = true;
+          if (awaitReply) closeStdin();
+        }
+      }
+    });
+    // A server that never leaves fails on its signal, and is not left running.
+    const deadline = setTimeout(() => child.kill("SIGKILL"), 15_000);
+    child.once("error", reject);
+    child.once("close", (code, signal) => {
+      clearTimeout(deadline);
+      resolve({ code, signal, seconds: (performance.now() - closedAt) / 1000, replied });
+    });
+    send({
+      jsonrpc: "2.0",
+      id: 1,
+      method: "initialize",
+      params: {
+        protocolVersion: "2025-06-18",
+        capabilities: {},
+        clientInfo: { name: "otel-e2e", version: "1.0.0" },
+      },
+    });
+  });
+
+/** Long enough that nothing exports on its own, so only the exit's flush can. */
+const EXPORT_ONLY_ON_EXIT = {
+  OTEL_BSP_SCHEDULE_DELAY: "600000",
+  OTEL_BLRP_SCHEDULE_DELAY: "600000",
+  OTEL_METRIC_EXPORT_INTERVAL: "600000",
+};
 
 describe.skipIf(!loopbackAvailable)("OpenTelemetry end-to-end", () => {
   let receiver: OtlpReceiver;
@@ -478,6 +558,110 @@ describe.skipIf(!loopbackAvailable)("OpenTelemetry end-to-end", () => {
     },
     TEST_TIMEOUT
   );
+
+  describe.each(RUNTIMES)("client closes stdin, under $runtime", ({ command, args, skip }) => {
+    const server = { command, args };
+    const design = join(REPO_ROOT, "test", "universal", "demo-board.netlist.json");
+
+    test.skipIf(skip)(
+      "the server flushes every signal and exits",
+      async () => {
+        const service = `stdin-close-${command === "bun" ? "bun" : "node"}`;
+        const spansBefore = receiver.spans().length;
+        const logsBefore = receiver.logs().length;
+        const metricsBefore = receiver.metrics().length;
+        const run = await closeStdinAfterCall(
+          server,
+          otelEnv(receiver, { ...EXPORT_ONLY_ON_EXIT, OTEL_SERVICE_NAME: service }),
+          design
+        );
+
+        expect(run).toMatchObject({ code: 0, signal: null, replied: true });
+        expect(run.seconds).toBeLessThan(4);
+        // Already delivered when the process ended, with no time allowed after it.
+        expect(
+          receiver
+            .spans()
+            .slice(spansBefore)
+            .map((s) => s.name)
+        ).toContain("tools/call list_nets");
+        expect(
+          receiver
+            .logs()
+            .slice(logsBefore)
+            .map((l) => l.body)
+        ).toContain("tools/call list_nets succeeded");
+        expect(
+          receiver
+            .metrics()
+            .slice(metricsBefore)
+            .map((m) => m.name)
+        ).toContain(OPERATION_DURATION);
+      },
+      TEST_TIMEOUT
+    );
+
+    test.skipIf(skip)(
+      "a call still in progress when stdin closes is answered and exported",
+      async () => {
+        const before = receiver.spans().length;
+        const run = await closeStdinAfterCall(
+          server,
+          otelEnv(receiver, EXPORT_ONLY_ON_EXIT),
+          design,
+          { awaitReply: false }
+        );
+
+        expect(run).toMatchObject({ code: 0, signal: null, replied: true });
+        expect(
+          receiver
+            .spans()
+            .slice(before)
+            .map((s) => s.name)
+        ).toContain("tools/call list_nets");
+      },
+      TEST_TIMEOUT
+    );
+
+    test.skipIf(skip)(
+      "a collector that never answers delays the exit by the flush limit, not the export's",
+      async () => {
+        const stuck = createHttpServer(() => {
+          // Takes the export and never replies.
+        });
+        await new Promise<void>((resolve) => stuck.listen(0, "127.0.0.1", resolve));
+        const { port } = stuck.address() as { port: number };
+        try {
+          const run = await closeStdinAfterCall(
+            server,
+            {
+              ...otelEnv(receiver, EXPORT_ONLY_ON_EXIT),
+              OTEL_EXPORTER_OTLP_ENDPOINT: `http://127.0.0.1:${port}`,
+              OTEL_EXPORTER_OTLP_TIMEOUT: "60000",
+            },
+            design
+          );
+
+          expect(run).toMatchObject({ code: 0, signal: null, replied: true });
+          expect(run.seconds).toBeLessThan(8);
+        } finally {
+          stuck.closeAllConnections();
+          stuck.close();
+        }
+      },
+      TEST_TIMEOUT
+    );
+
+    test.skipIf(skip)(
+      "with telemetry off the server exits the same way",
+      async () => {
+        const run = await closeStdinAfterCall(server, {}, design);
+        expect(run).toMatchObject({ code: 0, signal: null, replied: true });
+        expect(run.seconds).toBeLessThan(4);
+      },
+      TEST_TIMEOUT
+    );
+  });
 
   describe("command line", () => {
     test(

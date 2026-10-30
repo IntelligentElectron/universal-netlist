@@ -75,12 +75,6 @@ let sdk: { shutdown: () => Promise<void>; forceFlush?: () => Promise<void> } | u
 /** Set for a command: see `quietExports`. */
 let quiet = false;
 
-/** Bun-only fallback timer that forces periodic metric export (see startMetricFlushFallback). */
-let metricFlushTimer: ReturnType<typeof setInterval> | undefined;
-
-/** The push metric reader, retained so the bun fallback can force a flush. */
-let metricReader: { forceFlush: () => Promise<void> } | undefined;
-
 let toolDuration: ReturnType<ReturnType<typeof metrics.getMeter>["createHistogram"]> | undefined;
 
 let commandDuration: ReturnType<ReturnType<typeof metrics.getMeter>["createHistogram"]> | undefined;
@@ -207,7 +201,6 @@ export const initOtel = async (opts: {
           ),
         })
       : undefined;
-    metricReader = reader;
 
     // Each signal is given explicitly, even when empty: left out, NodeSDK picks
     // its exporter from the environment, which could name the console.
@@ -251,7 +244,6 @@ export const initOtel = async (opts: {
     commandDuration = undefined;
     enabled = true;
 
-    startMetricFlushFallback();
     installShutdownHooks();
   } catch (err) {
     // Telemetry setup must never take the server or a command down.
@@ -337,21 +329,6 @@ const createLogExporter = async (
   return new OTLPLogExporter(otlpOptions("logs", destination));
 };
 
-/**
- * Bun's compiled standalone runtime does not fire the metric reader's internal
- * `unref()`'d interval, so periodic metric export never happens there and a
- * long-running server would only emit metrics on shutdown. Under bun, drive an
- * explicit flush on our own (ref'd) timer at the configured export interval.
- * No-op on Node, where the reader's own interval works. Cleared on shutdown.
- */
-const startMetricFlushFallback = (): void => {
-  if (!(process.versions as { bun?: string }).bun || !metricReader) return;
-  const intervalMs = Number(process.env.OTEL_METRIC_EXPORT_INTERVAL) || 60000;
-  metricFlushTimer = setInterval(() => {
-    void metricReader?.forceFlush?.();
-  }, intervalMs);
-};
-
 let shutdownHooksInstalled = false;
 const installShutdownHooks = (): void => {
   if (shutdownHooksInstalled) return;
@@ -364,9 +341,20 @@ const installShutdownHooks = (): void => {
   };
   process.once("SIGTERM", onSignal);
   process.once("SIGINT", onSignal);
+  // The MCP server's only way out: stdin closes, nothing else holds the event loop.
   process.once("beforeExit", () => {
-    void shutdownOtel();
+    void shutdownOtel().then((flushed) => {
+      if (!flushed) exitOnceDrained();
+    });
   });
+};
+
+/**
+ * A flush that outlasted `SHUTDOWN_TIMEOUT_MS` leaves exports holding the event
+ * loop, so exit once stdout has drained, with the exit code already set.
+ */
+export const exitOnceDrained = (): void => {
+  process.stdout.write("", () => process.exit(process.exitCode));
 };
 
 /**
@@ -376,11 +364,6 @@ const installShutdownHooks = (): void => {
  * exports it abandoned can still hold the event loop open.
  */
 export const shutdownOtel = async (): Promise<boolean> => {
-  if (metricFlushTimer) {
-    clearInterval(metricFlushTimer);
-    metricFlushTimer = undefined;
-  }
-  metricReader = undefined;
   const active = sdk;
   if (!active) return true;
   sdk = undefined;
