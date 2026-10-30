@@ -31,6 +31,7 @@ import { normalizeCliArgs } from "./cli/args.js";
 import { SELF_UPDATE_ENABLED } from "./build-flags.js";
 import { VERSION, BINARY_NAME } from "./version.js";
 import {
+  exitOnceDrained,
   initOtel,
   instrumentCommand,
   shutdownOtel,
@@ -40,9 +41,7 @@ import { runServer } from "./server.js";
 
 /**
  * Run one command under telemetry, flushing before the process exits: a command
- * lasts seconds, too short for batch intervals. A flush that outlasts its limit
- * leaves exports holding the event loop, so exit once stdout has drained, with
- * the exit code the command set. Off, this is a plain call.
+ * lasts seconds, too short for batch intervals. Off, this is a plain call.
  */
 const runCommand = async (
   command: string,
@@ -59,7 +58,7 @@ const runCommand = async (
     flushed = await shutdownOtel();
   }
   if (!flushed) {
-    process.stdout.write("", () => process.exit(process.exitCode));
+    exitOnceDrained();
   }
 };
 
