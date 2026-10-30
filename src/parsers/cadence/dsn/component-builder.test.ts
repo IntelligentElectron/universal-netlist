@@ -267,10 +267,48 @@ describe("description", () => {
         ["DESCRIPTION", "SMD CAP Ceramic 100nF"],
       ]).description
     ).toBe("SMD CAP Ceramic 100nF");
+    expect(
+      build("C2", [
+        ["Part Description", "  "],
+        ["DESCRIPTION", "SMD CAP Ceramic 1uF"],
+      ]).description
+    ).toBe("SMD CAP Ceramic 1uF");
     expect(build("R1", [["Description", ""]])).not.toHaveProperty("description");
     expect(build("R2", [["DescriptiveText", "silkscreen note"]])).not.toHaveProperty(
       "description"
     );
+  });
+
+  it("takes the description from whichever unit of a part carries it", () => {
+    const { strLst, pairs } = makeStrLst([
+      ["Description", ""],
+      ["Description", "Quad op-amp"],
+    ]);
+    const unit = (pkgName: string, prefixProperties: typeof pairs): PlacedInstance => ({
+      pkgName,
+      dbId: 1,
+      reference: "U1",
+      sourcePackage: "OPAMP",
+      partValueIdx: 0,
+      prefixProperties,
+      locX: 0,
+      locY: 0,
+      symbolDisplayProps: [],
+      t0x10s: [],
+      sectionIndex: 0,
+    });
+    const page: PageData = {
+      name: "page1",
+      netTable: new Map(),
+      wires: [],
+      placedInstances: [unit("OPAMP_A.Normal", [pairs[0]]), unit("OPAMP_B.Normal", [pairs[1]])],
+      drawnInstances: [],
+      ports: [],
+      globals: [],
+      offPageConnectors: [],
+    };
+    const components = buildComponents([page], new Map(), strLst, new Map(), EMPTY_PMD, new Map());
+    expect(components.U1.description).toBe("Quad op-amp");
   });
 });
 
