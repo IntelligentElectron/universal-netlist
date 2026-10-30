@@ -12,6 +12,7 @@ import { buildComponents } from "./component-builder.js";
 import type { PageData } from "./page-parser.js";
 import type { PlacedInstance } from "./structures.js";
 import type { CachedLibraryPart, PinMapData } from "./structure-types.js";
+import type { ComponentDetails } from "../../../types.js";
 
 /** Interned string list, as the Library stream provides it. */
 const makeStrLst = (
@@ -37,14 +38,14 @@ const EMPTY_PMD: PinMapData = {
 };
 
 /**
- * Resolve one component built from a single instance carrying `properties`.
- * The instance has no pins, which the part-number path does not read.
+ * Build one component from a single instance carrying `properties`.
+ * The instance has no pins, which the property path does not read.
  */
-const resolve = (
+const build = (
   refdes: string,
   properties: Array<[string, string]>,
   sourcePackage = "RES_0402"
-): { mpn?: string; internal_pn?: string; manufacturer?: string; dns?: boolean } => {
+): ComponentDetails[string] => {
   const { strLst, pairs } = makeStrLst(properties);
   const instance: PlacedInstance = {
     pkgName: `${sourcePackage}.Normal`,
@@ -78,7 +79,16 @@ const resolve = (
     EMPTY_PMD,
     new Map()
   );
-  const built = components[refdes];
+  return components[refdes];
+};
+
+/** The part-number and stuffing fields of one built component. */
+const resolve = (
+  refdes: string,
+  properties: Array<[string, string]>,
+  sourcePackage = "RES_0402"
+): { mpn?: string; internal_pn?: string; manufacturer?: string; dns?: boolean } => {
+  const built = build(refdes, properties, sourcePackage);
   return {
     mpn: built.mpn,
     internal_pn: built.internal_pn,
@@ -203,6 +213,64 @@ describe("part number resolution", () => {
       internal_pn: undefined,
       manufacturer: "Example Mfr",
     });
+  });
+});
+
+/**
+ * The part's description, which description search matches against.
+ *
+ * Before this was read, every .DSN reported no description at all and search
+ * told the caller the design had none, though the part records carried one.
+ */
+describe("description", () => {
+  it("reads the description whatever the library calls the property", () => {
+    expect(build("C1", [["Description", "CAP CER 0.1UF 16V X7S 0201"]]).description).toBe(
+      "CAP CER 0.1UF 16V X7S 0201"
+    );
+    expect(build("C2", [["DESCRIPTION", "CAP,CER,C0G,0402,50V,10%,22PF"]]).description).toBe(
+      "CAP,CER,C0G,0402,50V,10%,22PF"
+    );
+    expect(build("TP1", [["description", "Testpoint"]]).description).toBe("Testpoint");
+    expect(build("U1", [["DESCR", "IC, REG, LDO, 3.3V, 0.3A, SOT23-5"]]).description).toBe(
+      "IC, REG, LDO, 3.3V, 0.3A, SOT23-5"
+    );
+    expect(build("SW1", [["Description:", "Slide Switch SPDT"]]).description).toBe(
+      "Slide Switch SPDT"
+    );
+  });
+
+  /**
+   * One design stores these two in both orders on parts of the same kind, and
+   * the generic one there is stale: it calls a ferrite bead an inductor.
+   */
+  it("prefers Part Description over the generic spelling whatever the order", () => {
+    const bead = "0603-120ohm-25%-0.05RDC-2.0IDC/BLM18PG121SH1";
+    const stale = "CoilInd,Shielded(SHLD),5.6uH@100KHz,+/-30%,2.75A,28mOhm,SMD";
+    expect(
+      build("FB1", [
+        ["Description", stale],
+        ["Part Description", bead],
+      ]).description
+    ).toBe(bead);
+    expect(
+      build("FB2", [
+        ["Part Description", bead],
+        ["Description", stale],
+      ]).description
+    ).toBe(bead);
+  });
+
+  it("skips an empty property and omits the field when none carries a value", () => {
+    expect(
+      build("C1", [
+        ["Description", ""],
+        ["DESCRIPTION", "SMD CAP Ceramic 100nF"],
+      ]).description
+    ).toBe("SMD CAP Ceramic 100nF");
+    expect(build("R1", [["Description", ""]])).not.toHaveProperty("description");
+    expect(build("R2", [["DescriptiveText", "silkscreen note"]])).not.toHaveProperty(
+      "description"
+    );
   });
 });
 

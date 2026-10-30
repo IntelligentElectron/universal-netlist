@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 3,
   "metadata": {
-    "generatedAt": "2026-09-25T15:37:38.456Z",
-    "netlistHash": "sha256:d825eb35f4058c1d8985ebe41bf383c94054a4267be3c1caccccc0880767ece5",
+    "generatedAt": "2026-10-30T00:03:18.190Z",
+    "netlistHash": "sha256:b85343e58ddf7c25f0c677d9c196a75d9081c5e3930bea104c0d4878ddec5c06",
     "origin": {
       "type": "vendor",
       "source": {
@@ -12404,6 +12404,7 @@
           "net": "MVSS"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "J2": {
@@ -12836,7 +12837,8 @@
       "pins": {
         "1": "RESETB",
         "2": "CTRL_IN0"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "TP2": {
       "value": "J001-1T01",
@@ -12846,6 +12848,7 @@
           "net": "MVDD"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "R138": {
@@ -12853,14 +12856,16 @@
       "pins": {
         "1": "RESETB",
         "2": "CTRL_OUT0"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "R2": {
       "value": "0",
       "pins": {
         "1": "FMC_VADJ",
         "2": "N9103357"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "J8": {
       "value": "BTH30",
@@ -12959,147 +12964,168 @@
       "pins": {
         "1": "EA_DATA_OUT_N6",
         "2": "N907687153"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R189": {
       "value": "0",
       "pins": {
         "1": "N907687123",
         "2": "EA_DATA_OUT_N7"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R184": {
       "value": "0",
       "pins": {
         "1": "EA_DATA_OUT_P2",
         "2": "N907687149"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R48": {
       "value": "0",
       "pins": {
         "1": "RESETB",
         "2": "N9407357"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "R183": {
       "value": "0",
       "pins": {
         "1": "N907687119",
         "2": "EA_DATA_OUT_P3"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R151": {
       "value": "0",
       "pins": {
         "1": "N90768712",
         "2": "EA_DATA_IN_N3"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R192": {
       "value": "0",
       "pins": {
         "1": "EA_DATA_OUT_P6",
         "2": "N907687154"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R191": {
       "value": "0",
       "pins": {
         "1": "N907687124",
         "2": "EA_DATA_OUT_P7"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R150": {
       "value": "0",
       "pins": {
         "1": "EA_DATA_IN_P0",
         "2": "N907687157"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R147": {
       "value": "0",
       "pins": {
         "1": "EA_DATA_IN_N4",
         "2": "N907687131"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R160": {
       "value": "0",
       "pins": {
         "1": "N90768714",
         "2": "EA_DATA_IN_N5"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R153": {
       "value": "0",
       "pins": {
         "1": "N90768713",
         "2": "EA_DATA_IN_P3"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R162": {
       "value": "0",
       "pins": {
         "1": "EA_LCLK_IN_N0",
         "2": "N907687136"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R161": {
       "value": "0",
       "pins": {
         "1": "N90768719",
         "2": "EA_FRAME_IN_N0"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R154": {
       "value": "0",
       "pins": {
         "1": "EA_DATA_IN_P4",
         "2": "N907687132"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R148": {
       "value": "0",
       "pins": {
         "1": "N90768716",
         "2": "EA_DATA_IN_P5"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R142": {
       "value": "0",
       "pins": {
         "1": "RESETB",
         "2": "N9406213"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "R170": {
       "value": "0",
       "pins": {
         "1": "EA_FRAME_OUT_N0",
         "2": "N907687141"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R152": {
       "value": "0",
       "pins": {
         "1": "EA_DATA_IN_N2",
         "2": "N907687128"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R169": {
       "value": "0",
       "pins": {
         "1": "N907687111",
         "2": "EA_WAIT_WR_IN_N0"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R164": {
       "value": "0",
       "pins": {
         "1": "EA_LCLK_IN_P0",
         "2": "N907687137"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "P1": {
       "value": "J400-AV11",
@@ -13604,14 +13630,16 @@
         "F36": "GND",
         "F39": "GND",
         "F40": "FMC_VADJ"
-      }
+      },
+      "description": "Connector 400 Pins (40x10) Vertical 50mils VITA-57 Pb"
     },
     "R46": {
       "value": "0",
       "pins": {
         "1": "SDA",
         "2": "N9411664"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "J14": {
       "value": "BTH30",
@@ -13710,7 +13738,8 @@
       "pins": {
         "1": "N93844651",
         "2": "EA_FRAME_IN_P0"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "U9": {
       "value": "BSS138",
@@ -13734,272 +13763,311 @@
       "pins": {
         "1": "EA_DATA_IN_N6",
         "2": "N907687133"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R178": {
       "value": "0",
       "pins": {
         "1": "EA_DATA_OUT_N0",
         "2": "N907687146"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R149": {
       "value": "0",
       "pins": {
         "1": "N90768717",
         "2": "EA_DATA_IN_N7"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R49": {
       "value": "0",
       "pins": {
         "1": "CLKPD_1P8V",
         "2": "N9607504"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "R177": {
       "value": "0",
       "pins": {
         "1": "N907687116",
         "2": "EA_DATA_OUT_N1"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R172": {
       "value": "0",
       "pins": {
         "1": "EA_FRAME_OUT_P0",
         "2": "N907687142"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R4": {
       "value": "0",
       "pins": {
         "1": "FMC_VADJ",
         "2": "N9103313"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "R171": {
       "value": "0",
       "pins": {
         "1": "N907687112",
         "2": "EA_WAIT_WR_IN_P0"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R166": {
       "value": "0",
       "pins": {
         "1": "EA_WAIT_RD_OUT_N0",
         "2": "N907687138"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R186": {
       "value": "0",
       "pins": {
         "1": "EA_DATA_OUT_N4",
         "2": "N907687151"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R165": {
       "value": "0",
       "pins": {
         "1": "N93890641",
         "2": "EA_WAIT_WR_OUT_N0"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R114": {
       "value": "0",
       "pins": {
         "1": "CLKPDB",
         "2": "N90768711"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "R185": {
       "value": "0",
       "pins": {
         "1": "N907687121",
         "2": "EA_DATA_OUT_N5"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R157": {
       "value": "0",
       "pins": {
         "1": "EA_DATA_IN_P6",
         "2": "N907687134"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R180": {
       "value": "0",
       "pins": {
         "1": "EA_DATA_OUT_P0",
         "2": "N907687147"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R159": {
       "value": "0",
       "pins": {
         "1": "EA_DATA_IN_P2",
         "2": "N907687129"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R156": {
       "value": "0",
       "pins": {
         "1": "N90768718",
         "2": "EA_DATA_IN_P7"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R179": {
       "value": "0",
       "pins": {
         "1": "N907687117",
         "2": "EA_DATA_OUT_P1"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R173": {
       "value": "0",
       "pins": {
         "1": "EA_LCLK_OUT_N0",
         "2": "N907687143"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R174": {
       "value": "0",
       "pins": {
         "1": "N907687113",
         "2": "EA_WAIT_RD_IN_N0"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R47": {
       "value": "0",
       "pins": {
         "1": "SCL",
         "2": "N9411668"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "R145": {
       "value": "0",
       "pins": {
         "1": "N907687126",
         "2": "EA_DATA_IN_N1"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R168": {
       "value": "0",
       "pins": {
         "1": "EA_WAIT_RD_OUT_P0",
         "2": "N907687139"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R188": {
       "value": "0",
       "pins": {
         "1": "EA_DATA_OUT_P4",
         "2": "N907687152"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R167": {
       "value": "0",
       "pins": {
         "1": "N96073781",
         "2": "EA_WAIT_WR_OUT_P0"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R187": {
       "value": "0",
       "pins": {
         "1": "N907687122",
         "2": "EA_DATA_OUT_P5"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R182": {
       "value": "0",
       "pins": {
         "1": "EA_DATA_OUT_N2",
         "2": "N907687148"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R158": {
       "value": "0",
       "pins": {
         "1": "EA_DATA_IN_N0",
         "2": "N907687156"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R181": {
       "value": "0",
       "pins": {
         "1": "N907687118",
         "2": "EA_DATA_OUT_N3"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R176": {
       "value": "0",
       "pins": {
         "1": "EA_LCLK_OUT_P0",
         "2": "N907687144"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R175": {
       "value": "0",
       "pins": {
         "1": "N907687114",
         "2": "EA_WAIT_RD_IN_P0"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R146": {
       "value": "0",
       "pins": {
         "1": "N907687127",
         "2": "EA_DATA_IN_P1"
-      }
+      },
+      "description": "RES SMD 0.0OHM JUMPER"
     },
     "R134": {
       "value": "0",
       "pins": {
         "1": "SCL_5V",
         "2": "N907687158"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "C154": {
       "value": "120pF",
       "pins": {
         "1": "1P8V",
         "2": "N9564956"
-      }
+      },
+      "description": "CAP, CERM, 120 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "R120": {
       "value": "10K",
       "pins": {
         "1": "3P3V",
         "2": "SDA"
-      }
+      },
+      "description": "10k Ohm ±1% 0.063W, 1/16W Chip Resistor 0402"
     },
     "R80": {
       "value": "43.2K",
       "pins": {
         "1": "N9393424",
         "2": "GND"
-      }
+      },
+      "description": "RES, 43.2 k, 1%, 0.1 W, 0603"
     },
     "R103": {
       "value": "12.7K",
       "pins": {
         "1": "N9564956",
         "2": "1P8V"
-      }
+      },
+      "description": "RES, 12.7 k, 1%, 0.1 W, 0603"
     },
     "C67": {
       "value": "120pF",
       "pins": {
         "1": "N9567341",
         "2": "N9567389"
-      }
+      },
+      "description": "CAP, CERM, 120 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "TP22": {
       "value": "TP_5017",
       "pins": {
         "1": "3P3V"
-      }
+      },
+      "description": "PC TEST POINT MINI SMD"
     },
     "J7": {
       "value": "HDR_1X3_TH_VER",
@@ -14018,6 +14086,7 @@
           "net": "2P5V"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "R125": {
@@ -14025,14 +14094,16 @@
       "pins": {
         "1": "1P8V",
         "2": "N9610290"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "R88": {
       "value": "12.7K",
       "pins": {
         "1": "N9567389",
         "2": "N9567341"
-      }
+      },
+      "description": "RES, 12.7 k, 1%, 0.1 W, 0603"
     },
     "TP15": {
       "value": "J001-1T01",
@@ -14042,6 +14113,7 @@
           "net": "N9567341"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "R1": {
@@ -14049,21 +14121,24 @@
       "pins": {
         "1": "12P0V",
         "2": "FAN"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "R89": {
       "value": "10.2K",
       "pins": {
         "1": "N9567389",
         "2": "GND"
-      }
+      },
+      "description": "RES, 10.2 k, 1%, 0.1 W, 0603"
     },
     "C48": {
       "value": "120pF",
       "pins": {
         "1": "N9567837",
         "2": "N9567885"
-      }
+      },
+      "description": "CAP, CERM, 120 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "TP9": {
       "value": "J001-1T01",
@@ -14073,6 +14148,7 @@
           "net": "5P0V"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "TP11": {
@@ -14083,6 +14159,7 @@
           "net": "N9567837"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "TP5": {
@@ -14093,6 +14170,7 @@
           "net": "3P3V"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "U11": {
@@ -14117,34 +14195,39 @@
       "pins": {
         "1": "N9567885",
         "2": "N9567837"
-      }
+      },
+      "description": "RES, 12.7 k, 1%, 0.1 W, 0603"
     },
     "R104": {
       "value": "10.2K",
       "pins": {
         "1": "N9564956",
         "2": "GND"
-      }
+      },
+      "description": "RES, 10.2 k, 1%, 0.1 W, 0603"
     },
     "TP21": {
       "value": "TP_5017",
       "pins": {
         "1": "12P0V"
-      }
+      },
+      "description": "PC TEST POINT MINI SMD"
     },
     "C116": {
       "value": "120pF",
       "pins": {
         "1": "N9566934",
         "2": "N9566986"
-      }
+      },
+      "description": "CAP, CERM, 120 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "R18": {
       "value": "22.1K",
       "pins": {
         "1": "GND",
         "2": "N9135133"
-      }
+      },
+      "description": "RES, 22.1 k, 1%, 0.1 W, 0603"
     },
     "TP8": {
       "value": "J001-1T01",
@@ -14154,6 +14237,7 @@
           "net": "1P8V"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "R105": {
@@ -14161,28 +14245,32 @@
       "pins": {
         "1": "N9567885",
         "2": "GND"
-      }
+      },
+      "description": "RES, 10.2 k, 1%, 0.1 W, 0603"
     },
     "R85": {
       "value": "12.7K",
       "pins": {
         "1": "N9566986",
         "2": "N9566934"
-      }
+      },
+      "description": "RES, 12.7 k, 1%, 0.1 W, 0603"
     },
     "R135": {
       "value": "10K",
       "pins": {
         "1": "3P3V",
         "2": "SCL"
-      }
+      },
+      "description": "10k Ohm ±1% 0.063W, 1/16W Chip Resistor 0402"
     },
     "R31": {
       "value": "39K",
       "pins": {
         "1": "GND",
         "2": "N9398753"
-      }
+      },
+      "description": "RES SMD 39K OHM 1% 1/10W 0603"
     },
     "J13": {
       "value": "HDR_1X2_TH_VER",
@@ -14197,7 +14285,8 @@
       "pins": {
         "1": "GND",
         "2": "N9396494"
-      }
+      },
+      "description": "10k Ohm ±1% 0.063W, 1/16W Chip Resistor 0402"
     },
     "J9": {
       "value": "HDR_1X2_TH_VER",
@@ -14212,7 +14301,8 @@
       "pins": {
         "1": "N9566986",
         "2": "GND"
-      }
+      },
+      "description": "RES, 10.2 k, 1%, 0.1 W, 0603"
     },
     "U1": {
       "value": "SG-310",
@@ -14240,42 +14330,48 @@
       "value": "TP_5017",
       "pins": {
         "1": "GND"
-      }
+      },
+      "description": "PC TEST POINT MINI SMD"
     },
     "C157": {
       "value": "120pF",
       "pins": {
         "1": "N9567588",
         "2": "N9567636"
-      }
+      },
+      "description": "CAP, CERM, 120 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "C119": {
       "value": "120pF",
       "pins": {
         "1": "5P0V",
         "2": "N9393624"
-      }
+      },
+      "description": "CAP, CERM, 4.7 uF, 10 V, ±10%, X7R, 0805"
     },
     "R22": {
       "value": "12.7K",
       "pins": {
         "1": "N9393624",
         "2": "5P0V"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "C1": {
       "value": "0.1 uF",
       "pins": {
         "1": "3P3V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "R109": {
       "value": "12.7K",
       "pins": {
         "1": "N9567636",
         "2": "N9567588"
-      }
+      },
+      "description": "RES, 12.7 k, 1%, 0.1 W, 0603"
     },
     "TP16": {
       "value": "J001-1T01",
@@ -14285,6 +14381,7 @@
           "net": "N9567588"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "TP12": {
@@ -14295,6 +14392,7 @@
           "net": "N9566934"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "R119": {
@@ -14302,27 +14400,31 @@
       "pins": {
         "1": "SDA_5V",
         "2": "N907687159"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "TP19": {
       "value": "TP_5017",
       "pins": {
         "1": "GND"
-      }
+      },
+      "description": "PC TEST POINT MINI SMD"
     },
     "C22": {
       "value": "160pF",
       "pins": {
         "1": "3P3V",
         "2": "N9396754"
-      }
+      },
+      "description": "CAP, CERM, 160 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "R100": {
       "value": "9.31K",
       "pins": {
         "1": "N9396754",
         "2": "3P3V"
-      }
+      },
+      "description": "RES, 9.31 k, 1%, 0.1 W, 0603"
     },
     "J10": {
       "value": "HDR_1X3",
@@ -14337,7 +14439,8 @@
       "pins": {
         "1": "GND",
         "2": "N9397654"
-      }
+      },
+      "description": "RES SMD 56K OHM 1% 1/10W 0603"
     },
     "U12": {
       "value": "DIP4",
@@ -14358,21 +14461,24 @@
       "pins": {
         "1": "N9393624",
         "2": "GND"
-      }
+      },
+      "description": "RES SMD 10.2K OHM 1% 1/16W 0402"
     },
     "R110": {
       "value": "10.2K",
       "pins": {
         "1": "N9567636",
         "2": "GND"
-      }
+      },
+      "description": "RES, 10.2 k, 1%, 0.1 W, 0603"
     },
     "C113": {
       "value": "68pF",
       "pins": {
         "1": "2P5V",
         "2": "N9393424"
-      }
+      },
+      "description": "CAP, CERM, 68 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "U13": {
       "value": "BSS138",
@@ -14396,20 +14502,23 @@
       "pins": {
         "1": "N9393424",
         "2": "2P5V"
-      }
+      },
+      "description": "RES, 22.1 k, 1%, 0.1 W, 0603"
     },
     "TP23": {
       "value": "TP_5017",
       "pins": {
         "1": "1P8V"
-      }
+      },
+      "description": "PC TEST POINT MINI SMD"
     },
     "R99": {
       "value": "3.01K",
       "pins": {
         "1": "N9396754",
         "2": "GND"
-      }
+      },
+      "description": "RES, 3.01 k, 1%, 0.1 W, 0603"
     },
     "J3": {
       "value": "BTH120",
@@ -14841,7 +14950,8 @@
       "pins": {
         "1": "WE_FRAME_IN_N0",
         "2": "Q0_VDDIO"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "J15": {
       "value": "BSH120",
@@ -15273,63 +15383,72 @@
       "pins": {
         "1": "GND",
         "2": "WE_FRAME_IN_P0"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R5": {
       "value": "10K",
       "pins": {
         "1": "WE_FRAME_IN_N1",
         "2": "Q0_VDDIO"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R141": {
       "value": "10K",
       "pins": {
         "1": "GND",
         "2": "WE_FRAME_IN_P1"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R139": {
       "value": "10K",
       "pins": {
         "1": "WE_FRAME_IN_N2",
         "2": "Q2_VDDIO"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R140": {
       "value": "10K",
       "pins": {
         "1": "GND",
         "2": "WE_FRAME_IN_P2"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R136": {
       "value": "10K",
       "pins": {
         "1": "WE_FRAME_IN_N3",
         "2": "Q2_VDDIO"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R137": {
       "value": "10K",
       "pins": {
         "1": "GND",
         "2": "WE_FRAME_IN_P3"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R131": {
       "value": "10K",
       "pins": {
         "1": "GND",
         "2": "NO_FRAME_IN_P0"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R98": {
       "value": "10K",
       "pins": {
         "1": "NO_FRAME_IN_N1",
         "2": "Q0_VDDIO"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "J11": {
       "value": "BSH120",
@@ -15761,7 +15880,8 @@
       "pins": {
         "1": "GND",
         "2": "NO_FRAME_IN_P1"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "J1": {
       "value": "BTH120",
@@ -16193,35 +16313,40 @@
       "pins": {
         "1": "NO_FRAME_IN_N2",
         "2": "Q1_VDDIO"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R75": {
       "value": "10K",
       "pins": {
         "1": "GND",
         "2": "NO_FRAME_IN_P2"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R52": {
       "value": "10K",
       "pins": {
         "1": "NO_FRAME_IN_N3",
         "2": "Q1_VDDIO"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R50": {
       "value": "10K",
       "pins": {
         "1": "GND",
         "2": "NO_FRAME_IN_P3"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R133": {
       "value": "10K",
       "pins": {
         "1": "NO_FRAME_IN_N0",
         "2": "Q0_VDDIO"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "J5": {
       "value": "BTH120",
@@ -16653,7 +16778,8 @@
       "pins": {
         "1": "SO_FRAME_IN_N0",
         "2": "Q2_VDDIO"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "J12": {
       "value": "BSH120",
@@ -17085,63 +17211,72 @@
       "pins": {
         "1": "GND",
         "2": "SO_FRAME_IN_P0"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R112": {
       "value": "10K",
       "pins": {
         "1": "SO_FRAME_IN_N1",
         "2": "Q2_VDDIO"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R111": {
       "value": "10K",
       "pins": {
         "1": "GND",
         "2": "SO_FRAME_IN_P1"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R78": {
       "value": "10K",
       "pins": {
         "1": "SO_FRAME_IN_N2",
         "2": "Q3_VDDIO"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R74": {
       "value": "10K",
       "pins": {
         "1": "GND",
         "2": "SO_FRAME_IN_P2"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R53": {
       "value": "10K",
       "pins": {
         "1": "SO_FRAME_IN_N3",
         "2": "Q3_VDDIO"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R51": {
       "value": "10K",
       "pins": {
         "1": "GND",
         "2": "SO_FRAME_IN_P3"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R43": {
       "value": "10K",
       "pins": {
         "1": "GND",
         "2": "EA_FRAME_IN_P0"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R45": {
       "value": "10K",
       "pins": {
         "1": "EA_FRAME_IN_N1",
         "2": "Q1_VDDIO"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "J6": {
       "value": "BSH120",
@@ -17573,7 +17708,8 @@
       "pins": {
         "1": "GND",
         "2": "EA_FRAME_IN_P1"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "J4": {
       "value": "BTH120",
@@ -18005,49 +18141,56 @@
       "pins": {
         "1": "EA_FRAME_IN_N2",
         "2": "Q3_VDDIO"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R15": {
       "value": "10K",
       "pins": {
         "1": "GND",
         "2": "EA_FRAME_IN_P2"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R27": {
       "value": "10K",
       "pins": {
         "1": "EA_FRAME_IN_N3",
         "2": "Q3_VDDIO"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R32": {
       "value": "10K",
       "pins": {
         "1": "GND",
         "2": "EA_FRAME_IN_P3"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R44": {
       "value": "10K",
       "pins": {
         "1": "EA_FRAME_IN_N0",
         "2": "Q1_VDDIO"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "C8": {
       "value": "0.1 uF",
       "pins": {
         "1": "1P8V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C82": {
       "value": "0.1 uF",
       "pins": {
         "1": "3P3V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "U6": {
       "value": "VG-4513CA",
@@ -18084,112 +18227,128 @@
       "pins": {
         "1": "LDO_VCO_CLOCK0",
         "2": "GND"
-      }
+      },
+      "description": "CAP CER 0.47UF 10V X5R 0402"
     },
     "R64": {
       "value": "49.9",
       "pins": {
         "1": "OSC_IN_1_CLOCK0",
         "2": "N9393456_CLOCK0"
-      }
+      },
+      "description": "RES SMD 49.9 OHM 1% 1/10W 0402"
     },
     "C97": {
       "value": "0.1 uF",
       "pins": {
         "1": "OSC_IN_B1_CLOCK0",
         "2": "OSC_IN_B_CLOCK0"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C4": {
       "value": "0.1 uF",
       "pins": {
         "1": "3P3V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "R68": {
       "value": "49.9",
       "pins": {
         "1": "N9393456_CLOCK0",
         "2": "OSC_IN_B1_CLOCK0"
-      }
+      },
+      "description": "RES SMD 49.9 OHM 1% 1/10W 0402"
     },
     "C7": {
       "value": "0.1 uF",
       "pins": {
         "1": "3P3V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C99": {
       "value": "0.1 uF",
       "pins": {
         "1": "REFB_1_CLOCK0",
         "2": "CLKIN_N0"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C15": {
       "value": "10uF",
       "pins": {
         "1": "3P3V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, 0603, 10UF, X5R, 10V"
     },
     "C96": {
       "value": "0.1 uF",
       "pins": {
         "1": "N9393456_CLOCK0",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "R66": {
       "value": "49.9",
       "pins": {
         "1": "GND",
         "2": "N9393456_CLOCK0"
-      }
+      },
+      "description": "RES SMD 49.9 OHM 1% 1/10W 0402"
     },
     "C19": {
       "value": "10uF",
       "pins": {
         "1": "3P3V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, 0603, 10UF, X5R, 10V"
     },
     "C104": {
       "value": "0.47 uF",
       "pins": {
         "1": "LDO_DIV_M1_CLOCK0",
         "2": "GND"
-      }
+      },
+      "description": "CAP CER 0.47UF 10V X5R 0402"
     },
     "R69": {
       "value": "0",
       "pins": {
         "1": "REFA",
         "2": "N7676529_CLOCK0"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "C5": {
       "value": "10uF",
       "pins": {
         "1": "1P8V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, 0603, 10UF, X5R, 10V"
     },
     "C18": {
       "value": "10uF",
       "pins": {
         "1": "1P8V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, 0603, 10UF, X5R, 10V"
     },
     "C102": {
       "value": "0.47 uF",
       "pins": {
         "1": "LDO_PLL1_CLOCK0",
         "2": "GND"
-      }
+      },
+      "description": "CAP CER 0.47UF 10V X5R 0402"
     },
     "U7": {
       "value": "AD9523-1",
@@ -18493,91 +18652,104 @@
       "pins": {
         "1": "OSC_IN_1_CLOCK0",
         "2": "OSC_IN_CLOCK0"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "R55": {
       "value": "1K",
       "pins": {
         "1": "N9391829_CLOCK0",
         "2": "OSC_CTRL_CLOCK0"
-      }
+      },
+      "description": "RES SMD 1K OHM 1% 1/16W 0402"
     },
     "C81": {
       "value": "0.33uF",
       "pins": {
         "1": "OSC_CTRL_CLOCK0",
         "2": "GND"
-      }
+      },
+      "description": "CAP CER 0.33UF 10V X5R 0402"
     },
     "C101": {
       "value": "0.33uF",
       "pins": {
         "1": "LF1_EXT_CAP_CLOCK0",
         "2": "GND"
-      }
+      },
+      "description": "CAP CER 0.33UF 10V X5R 0402"
     },
     "R65": {
       "value": "0",
       "pins": {
         "1": "N7685377_CLOCK0",
         "2": "3P3V"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "C98": {
       "value": "0.47 uF",
       "pins": {
         "1": "REFA_B_CLOCK0",
         "2": "GND"
-      }
+      },
+      "description": "CAP CER 0.47UF 10V X5R 0402"
     },
     "C100": {
       "value": "0.1 uF",
       "pins": {
         "1": "REFB_B1_CLOCK0",
         "2": "CLKIN_P0"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C13": {
       "value": "0.1 uF",
       "pins": {
         "1": "1P8V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C103": {
       "value": "1000 pF",
       "pins": {
         "1": "LF2_EXT_CAP_CLOCK0",
         "2": "LDO_VCO_CLOCK0"
-      }
+      },
+      "description": "CAP CER 1000PF 50V NP0 0402"
     },
     "R77": {
       "value": "100.0",
       "pins": {
         "1": "CLKREF_N_CLOCK0",
         "2": "CLKREF_P_CLOCK0"
-      }
+      },
+      "description": "RES SMD 100 OHM 1% 1/16W 0402"
     },
     "R67": {
       "value": "100.0",
       "pins": {
         "1": "CLKIN_P0",
         "2": "CLKIN_N0"
-      }
+      },
+      "description": "RES SMD 100 OHM 1% 1/16W 0402"
     },
     "R7": {
       "value": "12.7K",
       "pins": {
         "1": "VFB2_Q1_POWER",
         "2": "Q1_VDDIO"
-      }
+      },
+      "description": "RES, 12.7 k, 1%, 0.1 W, 0603"
     },
     "C33": {
       "value": "0.1 uF",
       "pins": {
         "1": "12P0V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "TP10": {
       "value": "J001-1T01",
@@ -18587,6 +18759,7 @@
           "net": "Q1_VDD"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "C71": {
@@ -18594,105 +18767,120 @@
       "pins": {
         "1": "Q1_VDD",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "R13": {
       "value": "10.2K",
       "pins": {
         "1": "VFB2_Q1_POWER",
         "2": "GND"
-      }
+      },
+      "description": "RES, 10.2 k, 1%, 0.1 W, 0603"
     },
     "R57": {
       "value": "0",
       "pins": {
         "1": "CB1_Q1_POWER",
         "2": "N7653540_Q1_POWER"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "C83": {
       "value": "0.1 uF",
       "pins": {
         "1": "SW2_Q1_POWER",
         "2": "N7661663_Q1_POWER"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C42": {
       "value": "4.7pF",
       "pins": {
         "1": "RCLOCK_Q1_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 4.7 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "R20": {
       "value": "374K",
       "pins": {
         "1": "GND",
         "2": "RCLOCK_Q1_POWER"
-      }
+      },
+      "description": "RES, 374 k, 1%, 0.1 W, 0603"
     },
     "C27": {
       "value": "10uF",
       "pins": {
         "1": "VDDG_Q1_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, 0603, 10UF, X5R, 10V"
     },
     "C115": {
       "value": "0.1 uF",
       "pins": {
         "1": "SW4_Q1_POWER",
         "2": "N7663329_Q1_POWER"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C84": {
       "value": "0.1 uF",
       "pins": {
         "1": "SW1_Q1_POWER",
         "2": "N7653540_Q1_POWER"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "L4": {
       "value": "2.2uH",
       "pins": {
         "1": "SW2_Q1_POWER",
         "2": "Q1_VDDIO"
-      }
+      },
+      "description": "2.2µH Shielded Wirewound Inductor 7.5A 11.3 mOhm 2-SMD"
     },
     "R56": {
       "value": "0",
       "pins": {
         "1": "CB2_Q1_POWER",
         "2": "N7661663_Q1_POWER"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "L7": {
       "value": "2.2uH",
       "pins": {
         "1": "SW4_Q1_POWER",
         "2": "5P0V"
-      }
+      },
+      "description": "2.2µH Shielded Wirewound Inductor 7.5A 11.3 mOhm 2-SMD"
     },
     "R83": {
       "value": "0",
       "pins": {
         "1": "CB4_Q1_POWER",
         "2": "N7663329_Q1_POWER"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "C91": {
       "value": "4700pF",
       "pins": {
         "1": "N7676769_Q1_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 4.7 uF, 10 V, ±10%, X7R, 0805"
     },
     "C25": {
       "value": "3.3uF",
       "pins": {
         "1": "VDDD_Q1_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP CER 3.3UF 10V X7R 0805"
     },
     "U3": {
       "value": "TPS65400",
@@ -18900,7 +19088,8 @@
       "pins": {
         "1": "COMP3_Q1_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "TP6": {
       "value": "J001-1T01",
@@ -18910,6 +19099,7 @@
           "net": "Q1_VDDIO"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "C107": {
@@ -18917,112 +19107,128 @@
       "pins": {
         "1": "N7678257_Q1_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 4.7 uF, 10 V, ±10%, X7R, 0805"
     },
     "R12": {
       "value": "10K",
       "pins": {
         "1": "PGOOD_Q1_POWER",
         "2": "VDDD_Q1_POWER"
-      }
+      },
+      "description": "10k Ohm ±1% 0.063W, 1/16W Chip Resistor 0402"
     },
     "C114": {
       "value": "0.1 uF",
       "pins": {
         "1": "SW3_Q1_POWER",
         "2": "N7662399_Q1_POWER"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C44": {
       "value": "160pF",
       "pins": {
         "1": "Q1_VDD",
         "2": "VFB1_Q1_POWER"
-      }
+      },
+      "description": "CAP, CERM, 160 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "R82": {
       "value": "0",
       "pins": {
         "1": "CB3_Q1_POWER",
         "2": "N7662399_Q1_POWER"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "R25": {
       "value": "10.2K",
       "pins": {
         "1": "VFB1_Q1_POWER",
         "2": "Q1_VDD"
-      }
+      },
+      "description": "RES, 10.2 k, 1%, 0.1 W, 0603"
     },
     "C127": {
       "value": "22 uF",
       "pins": {
         "1": "5P0V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "L3": {
       "value": "2.2uH",
       "pins": {
         "1": "SW3_Q1_POWER",
         "2": "2P5V"
-      }
+      },
+      "description": "2.2µH Shielded Wirewound Inductor 7.5A 11.3 mOhm 2-SMD"
     },
     "C73": {
       "value": "22 uF",
       "pins": {
         "1": "Q1_VDDIO",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "C74": {
       "value": "22 uF",
       "pins": {
         "1": "Q1_VDDIO",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "C89": {
       "value": "22pF",
       "pins": {
         "1": "COMP2_Q1_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "L8": {
       "value": "2.2uH",
       "pins": {
         "1": "SW1_Q1_POWER",
         "2": "Q1_VDD"
-      }
+      },
+      "description": "2.2µH Shielded Wirewound Inductor 7.5A 11.3 mOhm 2-SMD"
     },
     "C123": {
       "value": "22 uF",
       "pins": {
         "1": "5P0V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "C31": {
       "value": "0.1 uF",
       "pins": {
         "1": "Q1_VDDIO",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C75": {
       "value": "22 uF",
       "pins": {
         "1": "Q1_VDD",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "C109": {
       "value": "22pF",
       "pins": {
         "1": "COMP4_Q1_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "CR1": {
       "value": "GREEN",
@@ -19042,147 +19248,168 @@
       "pins": {
         "1": "N7677954_Q1_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 4.7 uF, 10 V, ±10%, X7R, 0805"
     },
     "C37": {
       "value": "0.1 uF",
       "pins": {
         "1": "5P0V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "R21": {
       "value": "43.2K",
       "pins": {
         "1": "VFB1_Q1_POWER",
         "2": "GND"
-      }
+      },
+      "description": "RES, 43.2 k, 1%, 0.1 W, 0603"
     },
     "C105": {
       "value": "4700pF",
       "pins": {
         "1": "N7678567_Q1_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 4.7 uF, 10 V, ±10%, X7R, 0805"
     },
     "C26": {
       "value": "4.7uF",
       "pins": {
         "1": "VDDA_Q1_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, 0603, 4.7UF, X5R, 16V"
     },
     "R70": {
       "value": "15.4K",
       "pins": {
         "1": "N7678257_Q1_POWER",
         "2": "COMP3_Q1_POWER"
-      }
+      },
+      "description": "RES, 15.4 k, 1%, 0.1 W, 0603"
     },
     "C120": {
       "value": "22 uF",
       "pins": {
         "1": "12P0V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "R19": {
       "value": "0",
       "pins": {
         "1": "RST_N_Q1_POWER",
         "2": "VDDD_Q1_POWER"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "C24": {
       "value": "0.1 uF",
       "pins": {
         "1": "12P0V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C36": {
       "value": "0.1 uF",
       "pins": {
         "1": "Q1_VDD",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C125": {
       "value": "22 uF",
       "pins": {
         "1": "2P5V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "C126": {
       "value": "22 uF",
       "pins": {
         "1": "2P5V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "R60": {
       "value": "15.4K",
       "pins": {
         "1": "N7677954_Q1_POWER",
         "2": "COMP2_Q1_POWER"
-      }
+      },
+      "description": "RES, 15.4 k, 1%, 0.1 W, 0603"
     },
     "C21": {
       "value": "120pF",
       "pins": {
         "1": "Q1_VDDIO",
         "2": "VFB2_Q1_POWER"
-      }
+      },
+      "description": "CAP, CERM, 120 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "R61": {
       "value": "15.4K",
       "pins": {
         "1": "N7676769_Q1_POWER",
         "2": "COMP1_Q1_POWER"
-      }
+      },
+      "description": "RES, 15.4 k, 1%, 0.1 W, 0603"
     },
     "R71": {
       "value": "15.4K",
       "pins": {
         "1": "N7678567_Q1_POWER",
         "2": "COMP4_Q1_POWER"
-      }
+      },
+      "description": "RES, 15.4 k, 1%, 0.1 W, 0603"
     },
     "C90": {
       "value": "22pF",
       "pins": {
         "1": "COMP1_Q1_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "C79": {
       "value": "22 uF",
       "pins": {
         "1": "12P0V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "C30": {
       "value": "0.1 uF",
       "pins": {
         "1": "2P5V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "R41": {
       "value": "12.7K",
       "pins": {
         "1": "VFB2_Q2_POWER",
         "2": "Q2_VDDIO"
-      }
+      },
+      "description": "RES, 12.7 k, 1%, 0.1 W, 0603"
     },
     "C66": {
       "value": "0.1 uF",
       "pins": {
         "1": "12P0V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "TP13": {
       "value": "J001-1T01",
@@ -19192,6 +19419,7 @@
           "net": "Q2_VDD"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "C183": {
@@ -19199,105 +19427,120 @@
       "pins": {
         "1": "Q2_VDD",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "R35": {
       "value": "10.2K",
       "pins": {
         "1": "VFB2_Q2_POWER",
         "2": "GND"
-      }
+      },
+      "description": "RES, 10.2 k, 1%, 0.1 W, 0603"
     },
     "R128": {
       "value": "0",
       "pins": {
         "1": "CB1_Q2_POWER",
         "2": "N7653540_Q2_POWER"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "C177": {
       "value": "0.1 uF",
       "pins": {
         "1": "SW2_Q2_POWER",
         "2": "N7661663_Q2_POWER"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C47": {
       "value": "4.7pF",
       "pins": {
         "1": "RCLOCK_Q2_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 4.7 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "R29": {
       "value": "374K",
       "pins": {
         "1": "GND",
         "2": "RCLOCK_Q2_POWER"
-      }
+      },
+      "description": "RES, 374 k, 1%, 0.1 W, 0603"
     },
     "C63": {
       "value": "10uF",
       "pins": {
         "1": "VDDG_Q2_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, 0603, 10UF, X5R, 10V"
     },
     "C155": {
       "value": "0.1 uF",
       "pins": {
         "1": "SW4_Q2_POWER",
         "2": "N7663329_Q2_POWER"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C176": {
       "value": "0.1 uF",
       "pins": {
         "1": "SW1_Q2_POWER",
         "2": "N7653540_Q2_POWER"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "L13": {
       "value": "2.2uH",
       "pins": {
         "1": "SW2_Q2_POWER",
         "2": "Q2_VDDIO"
-      }
+      },
+      "description": "2.2µH Shielded Wirewound Inductor 7.5A 11.3 mOhm 2-SMD"
     },
     "R129": {
       "value": "0",
       "pins": {
         "1": "CB2_Q2_POWER",
         "2": "N7661663_Q2_POWER"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "L10": {
       "value": "2.2uH",
       "pins": {
         "1": "SW4_Q2_POWER",
         "2": "N9567837"
-      }
+      },
+      "description": "2.2µH Shielded Wirewound Inductor 7.5A 11.3 mOhm 2-SMD"
     },
     "R107": {
       "value": "0",
       "pins": {
         "1": "CB4_Q2_POWER",
         "2": "N7663329_Q2_POWER"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "C170": {
       "value": "4700pF",
       "pins": {
         "1": "N7676769_Q2_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 4.7 uF, 10 V, ±10%, X7R, 0805"
     },
     "C65": {
       "value": "3.3uF",
       "pins": {
         "1": "VDDD_Q2_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP CER 3.3UF 10V X7R 0805"
     },
     "U4": {
       "value": "TPS65400",
@@ -19505,7 +19748,8 @@
       "pins": {
         "1": "COMP3_Q2_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "TP18": {
       "value": "J001-1T01",
@@ -19515,6 +19759,7 @@
           "net": "Q2_VDDIO"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "C163": {
@@ -19522,112 +19767,128 @@
       "pins": {
         "1": "N7678257_Q2_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 4.7 uF, 10 V, ±10%, X7R, 0805"
     },
     "R36": {
       "value": "10K",
       "pins": {
         "1": "PGOOD_Q2_POWER",
         "2": "VDDD_Q2_POWER"
-      }
+      },
+      "description": "10k Ohm ±1% 0.063W, 1/16W Chip Resistor 0402"
     },
     "C156": {
       "value": "0.1 uF",
       "pins": {
         "1": "SW3_Q2_POWER",
         "2": "N7662399_Q2_POWER"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C45": {
       "value": "160pF",
       "pins": {
         "1": "Q2_VDD",
         "2": "VFB1_Q2_POWER"
-      }
+      },
+      "description": "CAP, CERM, 160 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "R108": {
       "value": "0",
       "pins": {
         "1": "CB3_Q2_POWER",
         "2": "N7662399_Q2_POWER"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "R24": {
       "value": "10.2K",
       "pins": {
         "1": "VFB1_Q2_POWER",
         "2": "Q2_VDD"
-      }
+      },
+      "description": "RES, 10.2 k, 1%, 0.1 W, 0603"
     },
     "C139": {
       "value": "22 uF",
       "pins": {
         "1": "N9567837",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "L14": {
       "value": "2.2uH",
       "pins": {
         "1": "SW3_Q2_POWER",
         "2": "N9567588"
-      }
+      },
+      "description": "2.2µH Shielded Wirewound Inductor 7.5A 11.3 mOhm 2-SMD"
     },
     "C184": {
       "value": "22 uF",
       "pins": {
         "1": "Q2_VDDIO",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "C185": {
       "value": "22 uF",
       "pins": {
         "1": "Q2_VDDIO",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "C172": {
       "value": "22pF",
       "pins": {
         "1": "COMP2_Q2_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "L9": {
       "value": "2.2uH",
       "pins": {
         "1": "SW1_Q2_POWER",
         "2": "Q2_VDD"
-      }
+      },
+      "description": "2.2µH Shielded Wirewound Inductor 7.5A 11.3 mOhm 2-SMD"
     },
     "C141": {
       "value": "22 uF",
       "pins": {
         "1": "N9567837",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "C59": {
       "value": "0.1 uF",
       "pins": {
         "1": "Q2_VDDIO",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C187": {
       "value": "22 uF",
       "pins": {
         "1": "Q2_VDD",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "C161": {
       "value": "22pF",
       "pins": {
         "1": "COMP4_Q2_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "CR4": {
       "value": "GREEN",
@@ -19647,147 +19908,168 @@
       "pins": {
         "1": "N7677954_Q2_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 4.7 uF, 10 V, ±10%, X7R, 0805"
     },
     "C53": {
       "value": "0.1 uF",
       "pins": {
         "1": "N9567837",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "R28": {
       "value": "43.2K",
       "pins": {
         "1": "VFB1_Q2_POWER",
         "2": "GND"
-      }
+      },
+      "description": "RES, 43.2 k, 1%, 0.1 W, 0603"
     },
     "C165": {
       "value": "4700pF",
       "pins": {
         "1": "N7678567_Q2_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 4.7 uF, 10 V, ±10%, X7R, 0805"
     },
     "C64": {
       "value": "4.7uF",
       "pins": {
         "1": "VDDA_Q2_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, 0603, 4.7UF, X5R, 16V"
     },
     "R118": {
       "value": "15.4K",
       "pins": {
         "1": "N7678257_Q2_POWER",
         "2": "COMP3_Q2_POWER"
-      }
+      },
+      "description": "RES, 15.4 k, 1%, 0.1 W, 0603"
     },
     "C151": {
       "value": "22 uF",
       "pins": {
         "1": "12P0V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "R30": {
       "value": "0",
       "pins": {
         "1": "RST_N_Q2_POWER",
         "2": "VDDD_Q2_POWER"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "C57": {
       "value": "0.1 uF",
       "pins": {
         "1": "12P0V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C54": {
       "value": "0.1 uF",
       "pins": {
         "1": "Q2_VDD",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C133": {
       "value": "22 uF",
       "pins": {
         "1": "N9567588",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "C134": {
       "value": "22 uF",
       "pins": {
         "1": "N9567588",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "R124": {
       "value": "15.4K",
       "pins": {
         "1": "N7677954_Q2_POWER",
         "2": "COMP2_Q2_POWER"
-      }
+      },
+      "description": "RES, 15.4 k, 1%, 0.1 W, 0603"
     },
     "C69": {
       "value": "120pF",
       "pins": {
         "1": "Q2_VDDIO",
         "2": "VFB2_Q2_POWER"
-      }
+      },
+      "description": "CAP, CERM, 120 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "R123": {
       "value": "15.4K",
       "pins": {
         "1": "N7676769_Q2_POWER",
         "2": "COMP1_Q2_POWER"
-      }
+      },
+      "description": "RES, 15.4 k, 1%, 0.1 W, 0603"
     },
     "R117": {
       "value": "15.4K",
       "pins": {
         "1": "N7678567_Q2_POWER",
         "2": "COMP4_Q2_POWER"
-      }
+      },
+      "description": "RES, 15.4 k, 1%, 0.1 W, 0603"
     },
     "C171": {
       "value": "22pF",
       "pins": {
         "1": "COMP1_Q2_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "C179": {
       "value": "22 uF",
       "pins": {
         "1": "12P0V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "C60": {
       "value": "0.1 uF",
       "pins": {
         "1": "N9567588",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "R23": {
       "value": "12.7K",
       "pins": {
         "1": "VFB2_Q0_POWER",
         "2": "Q0_VDDIO"
-      }
+      },
+      "description": "RES, 12.7 k, 1%, 0.1 W, 0603"
     },
     "C41": {
       "value": "0.1 uF",
       "pins": {
         "1": "12P0V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "TP3": {
       "value": "J001-1T01",
@@ -19797,6 +20079,7 @@
           "net": "Q0_VDD"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "C180": {
@@ -19804,105 +20087,120 @@
       "pins": {
         "1": "Q0_VDD",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "R16": {
       "value": "10.2K",
       "pins": {
         "1": "VFB2_Q0_POWER",
         "2": "GND"
-      }
+      },
+      "description": "RES, 10.2 k, 1%, 0.1 W, 0603"
     },
     "R126": {
       "value": "0",
       "pins": {
         "1": "CB1_Q0_POWER",
         "2": "N7653540_Q0_POWER"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "C175": {
       "value": "0.1 uF",
       "pins": {
         "1": "SW2_Q0_POWER",
         "2": "N7661663_Q0_POWER"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C23": {
       "value": "4.7pF",
       "pins": {
         "1": "RCLOCK_Q0_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 4.7 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "R10": {
       "value": "374K",
       "pins": {
         "1": "GND",
         "2": "RCLOCK_Q0_POWER"
-      }
+      },
+      "description": "RES, 374 k, 1%, 0.1 W, 0603"
     },
     "C38": {
       "value": "10uF",
       "pins": {
         "1": "VDDG_Q0_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, 0603, 10UF, X5R, 10V"
     },
     "C152": {
       "value": "0.1 uF",
       "pins": {
         "1": "SW4_Q0_POWER",
         "2": "N7663329_Q0_POWER"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C174": {
       "value": "0.1 uF",
       "pins": {
         "1": "SW1_Q0_POWER",
         "2": "N7653540_Q0_POWER"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "L5": {
       "value": "2.2uH",
       "pins": {
         "1": "SW2_Q0_POWER",
         "2": "Q0_VDDIO"
-      }
+      },
+      "description": "2.2µH Shielded Wirewound Inductor 7.5A 11.3 mOhm 2-SMD"
     },
     "R127": {
       "value": "0",
       "pins": {
         "1": "CB2_Q0_POWER",
         "2": "N7661663_Q0_POWER"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "L2": {
       "value": "2.2uH",
       "pins": {
         "1": "SW4_Q0_POWER",
         "2": "3P3V"
-      }
+      },
+      "description": "2.2µH Shielded Wirewound Inductor 7.5A 11.3 mOhm 2-SMD"
     },
     "R101": {
       "value": "0",
       "pins": {
         "1": "CB4_Q0_POWER",
         "2": "N7663329_Q0_POWER"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "C166": {
       "value": "4700pF",
       "pins": {
         "1": "N7676769_Q0_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 4.7 uF, 10 V, ±10%, X7R, 0805"
     },
     "C40": {
       "value": "3.3uF",
       "pins": {
         "1": "VDDD_Q0_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP CER 3.3UF 10V X7R 0805"
     },
     "U2": {
       "value": "TPS65400",
@@ -20110,7 +20408,8 @@
       "pins": {
         "1": "COMP3_Q0_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "TP7": {
       "value": "J001-1T01",
@@ -20120,6 +20419,7 @@
           "net": "Q0_VDDIO"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "C160": {
@@ -20127,112 +20427,128 @@
       "pins": {
         "1": "N7678257_Q0_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 4.7 uF, 10 V, ±10%, X7R, 0805"
     },
     "R17": {
       "value": "10K",
       "pins": {
         "1": "PGOOD",
         "2": "VDDD_Q0_POWER"
-      }
+      },
+      "description": "10k Ohm ±1% 0.063W, 1/16W Chip Resistor 0402"
     },
     "C153": {
       "value": "0.1 uF",
       "pins": {
         "1": "SW3_Q0_POWER",
         "2": "N7662399_Q0_POWER"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C20": {
       "value": "160pF",
       "pins": {
         "1": "Q0_VDD",
         "2": "VFB1_Q0_POWER"
-      }
+      },
+      "description": "CAP, CERM, 160 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "R102": {
       "value": "0",
       "pins": {
         "1": "CB3_Q0_POWER",
         "2": "N7662399_Q0_POWER"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "R6": {
       "value": "10.2K",
       "pins": {
         "1": "VFB1_Q0_POWER",
         "2": "Q0_VDD"
-      }
+      },
+      "description": "RES, 10.2 k, 1%, 0.1 W, 0603"
     },
     "C140": {
       "value": "22 uF",
       "pins": {
         "1": "3P3V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "L6": {
       "value": "2.2uH",
       "pins": {
         "1": "SW3_Q0_POWER",
         "2": "1P8V"
-      }
+      },
+      "description": "2.2µH Shielded Wirewound Inductor 7.5A 11.3 mOhm 2-SMD"
     },
     "C181": {
       "value": "22 uF",
       "pins": {
         "1": "Q0_VDDIO",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "C182": {
       "value": "22 uF",
       "pins": {
         "1": "Q0_VDDIO",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "C168": {
       "value": "22pF",
       "pins": {
         "1": "COMP2_Q0_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "L1": {
       "value": "2.2uH",
       "pins": {
         "1": "SW1_Q0_POWER",
         "2": "Q0_VDD"
-      }
+      },
+      "description": "2.2µH Shielded Wirewound Inductor 7.5A 11.3 mOhm 2-SMD"
     },
     "C136": {
       "value": "22 uF",
       "pins": {
         "1": "3P3V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "C34": {
       "value": "0.1 uF",
       "pins": {
         "1": "Q0_VDDIO",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C186": {
       "value": "22 uF",
       "pins": {
         "1": "Q0_VDD",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "C158": {
       "value": "22pF",
       "pins": {
         "1": "COMP4_Q0_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "CR2": {
       "value": "GREEN",
@@ -20252,147 +20568,168 @@
       "pins": {
         "1": "N7677954_Q0_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 4.7 uF, 10 V, ±10%, X7R, 0805"
     },
     "C28": {
       "value": "0.1 uF",
       "pins": {
         "1": "3P3V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "R9": {
       "value": "43.2K",
       "pins": {
         "1": "VFB1_Q0_POWER",
         "2": "GND"
-      }
+      },
+      "description": "RES, 43.2 k, 1%, 0.1 W, 0603"
     },
     "C164": {
       "value": "4700pF",
       "pins": {
         "1": "N7678567_Q0_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 4.7 uF, 10 V, ±10%, X7R, 0805"
     },
     "C39": {
       "value": "4.7uF",
       "pins": {
         "1": "VDDA_Q0_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, 0603, 4.7UF, X5R, 16V"
     },
     "R116": {
       "value": "15.4K",
       "pins": {
         "1": "N7678257_Q0_POWER",
         "2": "COMP3_Q0_POWER"
-      }
+      },
+      "description": "RES, 15.4 k, 1%, 0.1 W, 0603"
     },
     "C178": {
       "value": "22 uF",
       "pins": {
         "1": "12P0V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "R11": {
       "value": "0",
       "pins": {
         "1": "RST_N_Q0_POWER",
         "2": "VDDD_Q0_POWER"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "C32": {
       "value": "0.1 uF",
       "pins": {
         "1": "12P0V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C29": {
       "value": "0.1 uF",
       "pins": {
         "1": "Q0_VDD",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C137": {
       "value": "22 uF",
       "pins": {
         "1": "1P8V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "C138": {
       "value": "22 uF",
       "pins": {
         "1": "1P8V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "R122": {
       "value": "15.4K",
       "pins": {
         "1": "N7677954_Q0_POWER",
         "2": "COMP2_Q0_POWER"
-      }
+      },
+      "description": "RES, 15.4 k, 1%, 0.1 W, 0603"
     },
     "C43": {
       "value": "120pF",
       "pins": {
         "1": "Q0_VDDIO",
         "2": "VFB2_Q0_POWER"
-      }
+      },
+      "description": "CAP, CERM, 120 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "R121": {
       "value": "15.4K",
       "pins": {
         "1": "N7676769_Q0_POWER",
         "2": "COMP1_Q0_POWER"
-      }
+      },
+      "description": "RES, 15.4 k, 1%, 0.1 W, 0603"
     },
     "R115": {
       "value": "15.4K",
       "pins": {
         "1": "N7678567_Q0_POWER",
         "2": "COMP4_Q0_POWER"
-      }
+      },
+      "description": "RES, 15.4 k, 1%, 0.1 W, 0603"
     },
     "C167": {
       "value": "22pF",
       "pins": {
         "1": "COMP1_Q0_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "C150": {
       "value": "22 uF",
       "pins": {
         "1": "12P0V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "C35": {
       "value": "0.1 uF",
       "pins": {
         "1": "1P8V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "R26": {
       "value": "12.7K",
       "pins": {
         "1": "VFB2_Q3_POWER",
         "2": "Q3_VDDIO"
-      }
+      },
+      "description": "RES, 12.7 k, 1%, 0.1 W, 0603"
     },
     "C58": {
       "value": "0.1 uF",
       "pins": {
         "1": "12P0V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "TP17": {
       "value": "J001-1T01",
@@ -20402,6 +20739,7 @@
           "net": "Q3_VDD"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "C78": {
@@ -20409,105 +20747,120 @@
       "pins": {
         "1": "Q3_VDD",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "R34": {
       "value": "10.2K",
       "pins": {
         "1": "VFB2_Q3_POWER",
         "2": "GND"
-      }
+      },
+      "description": "RES, 10.2 k, 1%, 0.1 W, 0603"
     },
     "R59": {
       "value": "0",
       "pins": {
         "1": "CB1_Q3_POWER",
         "2": "N7653540_Q3_POWER"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "C85": {
       "value": "0.1 uF",
       "pins": {
         "1": "SW2_Q3_POWER",
         "2": "N7661663_Q3_POWER"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C68": {
       "value": "4.7pF",
       "pins": {
         "1": "RCLOCK_Q3_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 4.7 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "R39": {
       "value": "374K",
       "pins": {
         "1": "GND",
         "2": "RCLOCK_Q3_POWER"
-      }
+      },
+      "description": "RES, 374 k, 1%, 0.1 W, 0603"
     },
     "C52": {
       "value": "10uF",
       "pins": {
         "1": "VDDG_Q3_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, 0603, 10UF, X5R, 10V"
     },
     "C118": {
       "value": "0.1 uF",
       "pins": {
         "1": "SW4_Q3_POWER",
         "2": "N7663329_Q3_POWER"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C86": {
       "value": "0.1 uF",
       "pins": {
         "1": "SW1_Q3_POWER",
         "2": "N7653540_Q3_POWER"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "L12": {
       "value": "2.2uH",
       "pins": {
         "1": "SW2_Q3_POWER",
         "2": "Q3_VDDIO"
-      }
+      },
+      "description": "2.2µH Shielded Wirewound Inductor 7.5A 11.3 mOhm 2-SMD"
     },
     "R58": {
       "value": "0",
       "pins": {
         "1": "CB2_Q3_POWER",
         "2": "N7661663_Q3_POWER"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "L15": {
       "value": "2.2uH",
       "pins": {
         "1": "SW4_Q3_POWER",
         "2": "N9567341"
-      }
+      },
+      "description": "2.2µH Shielded Wirewound Inductor 7.5A 11.3 mOhm 2-SMD"
     },
     "R87": {
       "value": "0",
       "pins": {
         "1": "CB4_Q3_POWER",
         "2": "N7663329_Q3_POWER"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "C95": {
       "value": "4700pF",
       "pins": {
         "1": "N7676769_Q3_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 4.7 uF, 10 V, ±10%, X7R, 0805"
     },
     "C50": {
       "value": "3.3uF",
       "pins": {
         "1": "VDDD_Q3_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP CER 3.3UF 10V X7R 0805"
     },
     "U5": {
       "value": "TPS65400",
@@ -20715,7 +21068,8 @@
       "pins": {
         "1": "COMP3_Q3_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "TP14": {
       "value": "J001-1T01",
@@ -20725,6 +21079,7 @@
           "net": "Q3_VDDIO"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "C110": {
@@ -20732,112 +21087,128 @@
       "pins": {
         "1": "N7678257_Q3_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 4.7 uF, 10 V, ±10%, X7R, 0805"
     },
     "R33": {
       "value": "10K",
       "pins": {
         "1": "PGOOD_Q3_POWER",
         "2": "VDDD_Q3_POWER"
-      }
+      },
+      "description": "10k Ohm ±1% 0.063W, 1/16W Chip Resistor 0402"
     },
     "C117": {
       "value": "0.1 uF",
       "pins": {
         "1": "SW3_Q3_POWER",
         "2": "N7662399_Q3_POWER"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C70": {
       "value": "160pF",
       "pins": {
         "1": "Q3_VDD",
         "2": "VFB1_Q3_POWER"
-      }
+      },
+      "description": "CAP, CERM, 160 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "R86": {
       "value": "0",
       "pins": {
         "1": "CB3_Q3_POWER",
         "2": "N7662399_Q3_POWER"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "R54": {
       "value": "10.2K",
       "pins": {
         "1": "VFB1_Q3_POWER",
         "2": "Q3_VDD"
-      }
+      },
+      "description": "RES, 10.2 k, 1%, 0.1 W, 0603"
     },
     "C130": {
       "value": "22 uF",
       "pins": {
         "1": "N9567341",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "L11": {
       "value": "2.2uH",
       "pins": {
         "1": "SW3_Q3_POWER",
         "2": "N9566934"
-      }
+      },
+      "description": "2.2µH Shielded Wirewound Inductor 7.5A 11.3 mOhm 2-SMD"
     },
     "C77": {
       "value": "22 uF",
       "pins": {
         "1": "Q3_VDDIO",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "C76": {
       "value": "22 uF",
       "pins": {
         "1": "Q3_VDDIO",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "C93": {
       "value": "22pF",
       "pins": {
         "1": "COMP2_Q3_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "L16": {
       "value": "2.2uH",
       "pins": {
         "1": "SW1_Q3_POWER",
         "2": "Q3_VDD"
-      }
+      },
+      "description": "2.2µH Shielded Wirewound Inductor 7.5A 11.3 mOhm 2-SMD"
     },
     "C124": {
       "value": "22 uF",
       "pins": {
         "1": "N9567341",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "C56": {
       "value": "0.1 uF",
       "pins": {
         "1": "Q3_VDDIO",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C72": {
       "value": "22 uF",
       "pins": {
         "1": "Q3_VDD",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "C112": {
       "value": "22pF",
       "pins": {
         "1": "COMP4_Q3_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "CR3": {
       "value": "GREEN",
@@ -20857,147 +21228,168 @@
       "pins": {
         "1": "N7677954_Q3_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 4.7 uF, 10 V, ±10%, X7R, 0805"
     },
     "C62": {
       "value": "0.1 uF",
       "pins": {
         "1": "N9567341",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "R40": {
       "value": "43.2K",
       "pins": {
         "1": "VFB1_Q3_POWER",
         "2": "GND"
-      }
+      },
+      "description": "RES, 43.2 k, 1%, 0.1 W, 0603"
     },
     "C106": {
       "value": "4700pF",
       "pins": {
         "1": "N7678567_Q3_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 4.7 uF, 10 V, ±10%, X7R, 0805"
     },
     "C51": {
       "value": "4.7uF",
       "pins": {
         "1": "VDDA_Q3_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, 0603, 4.7UF, X5R, 16V"
     },
     "R72": {
       "value": "15.4K",
       "pins": {
         "1": "N7678257_Q3_POWER",
         "2": "COMP3_Q3_POWER"
-      }
+      },
+      "description": "RES, 15.4 k, 1%, 0.1 W, 0603"
     },
     "C121": {
       "value": "22 uF",
       "pins": {
         "1": "12P0V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "R38": {
       "value": "0",
       "pins": {
         "1": "RST_N_Q3_POWER",
         "2": "VDDD_Q3_POWER"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "C49": {
       "value": "0.1 uF",
       "pins": {
         "1": "12P0V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C61": {
       "value": "0.1 uF",
       "pins": {
         "1": "Q3_VDD",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C129": {
       "value": "22 uF",
       "pins": {
         "1": "N9566934",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "C128": {
       "value": "22 uF",
       "pins": {
         "1": "N9566934",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "R62": {
       "value": "15.4K",
       "pins": {
         "1": "N7677954_Q3_POWER",
         "2": "COMP2_Q3_POWER"
-      }
+      },
+      "description": "RES, 15.4 k, 1%, 0.1 W, 0603"
     },
     "C46": {
       "value": "120pF",
       "pins": {
         "1": "Q3_VDDIO",
         "2": "VFB2_Q3_POWER"
-      }
+      },
+      "description": "CAP, CERM, 120 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "R63": {
       "value": "15.4K",
       "pins": {
         "1": "N7676769_Q3_POWER",
         "2": "COMP1_Q3_POWER"
-      }
+      },
+      "description": "RES, 15.4 k, 1%, 0.1 W, 0603"
     },
     "R73": {
       "value": "15.4K",
       "pins": {
         "1": "N7678567_Q3_POWER",
         "2": "COMP4_Q3_POWER"
-      }
+      },
+      "description": "RES, 15.4 k, 1%, 0.1 W, 0603"
     },
     "C94": {
       "value": "22pF",
       "pins": {
         "1": "COMP1_Q3_POWER",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22 pF, 50 V, ±5%, C0G/NP0, 0603"
     },
     "C80": {
       "value": "22 uF",
       "pins": {
         "1": "12P0V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 22uF, 10V, ±10%, X7R, 1206"
     },
     "C55": {
       "value": "0.1 uF",
       "pins": {
         "1": "N9566934",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C9": {
       "value": "0.1 uF",
       "pins": {
         "1": "1P8V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C131": {
       "value": "0.1 uF",
       "pins": {
         "1": "3P3V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "U8": {
       "value": "VG-4513CA",
@@ -21034,112 +21426,128 @@
       "pins": {
         "1": "LDO_VCO_CLOCK1",
         "2": "GND"
-      }
+      },
+      "description": "CAP CER 0.47UF 10V X5R 0402"
     },
     "R91": {
       "value": "49.9",
       "pins": {
         "1": "OSC_IN_1_CLOCK1",
         "2": "N9393456_CLOCK1"
-      }
+      },
+      "description": "RES SMD 49.9 OHM 1% 1/10W 0402"
     },
     "C142": {
       "value": "0.1 uF",
       "pins": {
         "1": "OSC_IN_B1_CLOCK1",
         "2": "OSC_IN_B_CLOCK1"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C17": {
       "value": "0.1 uF",
       "pins": {
         "1": "3P3V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "R95": {
       "value": "49.9",
       "pins": {
         "1": "N9393456_CLOCK1",
         "2": "OSC_IN_B1_CLOCK1"
-      }
+      },
+      "description": "RES SMD 49.9 OHM 1% 1/10W 0402"
     },
     "C6": {
       "value": "0.1 uF",
       "pins": {
         "1": "3P3V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C144": {
       "value": "0.1 uF",
       "pins": {
         "1": "REFB_1_CLOCK1",
         "2": "CLKIN_N1"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C2": {
       "value": "10uF",
       "pins": {
         "1": "3P3V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, 0603, 10UF, X5R, 10V"
     },
     "C135": {
       "value": "0.1 uF",
       "pins": {
         "1": "N9393456_CLOCK1",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "R92": {
       "value": "49.9",
       "pins": {
         "1": "GND",
         "2": "N9393456_CLOCK1"
-      }
+      },
+      "description": "RES SMD 49.9 OHM 1% 1/10W 0402"
     },
     "C14": {
       "value": "10uF",
       "pins": {
         "1": "3P3V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, 0603, 10UF, X5R, 10V"
     },
     "C149": {
       "value": "0.47 uF",
       "pins": {
         "1": "LDO_DIV_M1_CLOCK1",
         "2": "GND"
-      }
+      },
+      "description": "CAP CER 0.47UF 10V X5R 0402"
     },
     "R96": {
       "value": "0",
       "pins": {
         "1": "REFA",
         "2": "N7676529_CLOCK1"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "C3": {
       "value": "10uF",
       "pins": {
         "1": "1P8V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, 0603, 10UF, X5R, 10V"
     },
     "C12": {
       "value": "10uF",
       "pins": {
         "1": "1P8V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, 0603, 10UF, X5R, 10V"
     },
     "C147": {
       "value": "0.47 uF",
       "pins": {
         "1": "LDO_PLL1_CLOCK1",
         "2": "GND"
-      }
+      },
+      "description": "CAP CER 0.47UF 10V X5R 0402"
     },
     "U10": {
       "value": "AD9523-1",
@@ -21443,77 +21851,88 @@
       "pins": {
         "1": "OSC_IN_1_CLOCK1",
         "2": "OSC_IN_CLOCK1"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "R90": {
       "value": "1K",
       "pins": {
         "1": "N9391829_CLOCK1",
         "2": "OSC_CTRL_CLOCK1"
-      }
+      },
+      "description": "RES SMD 1K OHM 1% 1/16W 0402"
     },
     "C122": {
       "value": "0.33uF",
       "pins": {
         "1": "OSC_CTRL_CLOCK1",
         "2": "GND"
-      }
+      },
+      "description": "CAP CER 0.33UF 10V X5R 0402"
     },
     "C146": {
       "value": "0.33uF",
       "pins": {
         "1": "LF1_EXT_CAP_CLOCK1",
         "2": "GND"
-      }
+      },
+      "description": "CAP CER 0.33UF 10V X5R 0402"
     },
     "R93": {
       "value": "0",
       "pins": {
         "1": "N7685377_CLOCK1",
         "2": "3P3V"
-      }
+      },
+      "description": "RES, 0, 5%, 0.1 W, 0603"
     },
     "C143": {
       "value": "0.47 uF",
       "pins": {
         "1": "REFA_B_CLOCK1",
         "2": "GND"
-      }
+      },
+      "description": "CAP CER 0.47UF 10V X5R 0402"
     },
     "C145": {
       "value": "0.1 uF",
       "pins": {
         "1": "REFB_B1_CLOCK1",
         "2": "CLKIN_P1"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C16": {
       "value": "0.1 uF",
       "pins": {
         "1": "1P8V",
         "2": "GND"
-      }
+      },
+      "description": "CAP, CERM, 0.1uF, 25V, ±10%, X7R, 0603"
     },
     "C148": {
       "value": "1000 pF",
       "pins": {
         "1": "LF2_EXT_CAP_CLOCK1",
         "2": "LDO_VCO_CLOCK1"
-      }
+      },
+      "description": "CAP CER 1000PF 50V NP0 0402"
     },
     "R113": {
       "value": "100.0",
       "pins": {
         "1": "CLKREF_N_CLOCK1",
         "2": "CLKREF_P_CLOCK1"
-      }
+      },
+      "description": "RES SMD 100 OHM 1% 1/16W 0402"
     },
     "R94": {
       "value": "100.0",
       "pins": {
         "1": "CLKIN_P1",
         "2": "CLKIN_N1"
-      }
+      },
+      "description": "RES SMD 100 OHM 1% 1/16W 0402"
     }
   }
 }

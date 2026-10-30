@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 3,
   "metadata": {
-    "generatedAt": "2026-10-06T17:17:12.058Z",
-    "netlistHash": "sha256:58b7fcccc2773b090372fc949712fbb2def9ddcd32a753b0ed7d07039607ec1b",
+    "generatedAt": "2026-10-30T00:03:13.621Z",
+    "netlistHash": "sha256:510b590992cf121e6e82d896b3c97b0bf571b1627051a1e3dd8659c092a00e95",
     "origin": {
       "type": "vendor",
       "source": {
@@ -606,7 +606,8 @@
       },
       "mpn": "ABS06-32.768KHZ-T",
       "internal_pn": "ABS06_32_768KHZ_T",
-      "manufacturer": "Abracon LLC"
+      "manufacturer": "Abracon LLC",
+      "description": "Crystal 32.7680kHz 20ppm 12.5pF 90kOhm"
     },
     "C1": {
       "value": ".1uf",
@@ -616,7 +617,8 @@
       },
       "mpn": "C1005X7R1C104K050BC",
       "internal_pn": "C1005X7R1C104K050BC",
-      "manufacturer": "TDK Corporation"
+      "manufacturer": "TDK Corporation",
+      "description": "CAP CER 0.1UF 16V X7R 0402"
     },
     "C6": {
       "value": ".1uf",
@@ -626,7 +628,8 @@
       },
       "mpn": "C1005X7R1C104K050BC",
       "internal_pn": "C1005X7R1C104K050BC",
-      "manufacturer": "TDK Corporation"
+      "manufacturer": "TDK Corporation",
+      "description": "CAP CER 0.1UF 16V X7R 0402"
     },
     "C5": {
       "value": ".1uf",
@@ -636,7 +639,8 @@
       },
       "mpn": "C1005X7R1C104K050BC",
       "internal_pn": "C1005X7R1C104K050BC",
-      "manufacturer": "TDK Corporation"
+      "manufacturer": "TDK Corporation",
+      "description": "CAP CER 0.1UF 16V X7R 0402"
     },
     "R1": {
       "value": "10k",
@@ -646,7 +650,8 @@
       },
       "mpn": "CRCW040210K0FKED",
       "internal_pn": "CRCW040210K0FKED",
-      "manufacturer": "Vishay/Dale"
+      "manufacturer": "Vishay/Dale",
+      "description": "RES SMD 10k OHM 1% 1/16W 0402"
     },
     "C4": {
       "value": ".1uf",
@@ -656,7 +661,8 @@
       },
       "mpn": "C1005X7R1C104K050BC",
       "internal_pn": "C1005X7R1C104K050BC",
-      "manufacturer": "TDK Corporation"
+      "manufacturer": "TDK Corporation",
+      "description": "CAP CER 0.1UF 16V X7R 0402"
     },
     "C8": {
       "value": "10uF",
@@ -666,7 +672,8 @@
       },
       "mpn": "C1608X7S0J106M080AC",
       "internal_pn": "C1608X7S0J106M080AC",
-      "manufacturer": "TDK Corporation"
+      "manufacturer": "TDK Corporation",
+      "description": "CAP CER 10UF 6.3V X7S 0603"
     },
     "C7": {
       "value": "10uF",
@@ -676,7 +683,8 @@
       },
       "mpn": "C1608X7S0J106M080AC",
       "internal_pn": "C1608X7S0J106M080AC",
-      "manufacturer": "TDK Corporation"
+      "manufacturer": "TDK Corporation",
+      "description": "CAP CER 10UF 6.3V X7S 0603"
     },
     "J1": {
       "value": "2x5 SMT",
@@ -694,7 +702,8 @@
       },
       "mpn": "FTSH-105-01-F-DV",
       "internal_pn": "FTSH-105-01-F-DV",
-      "manufacturer": "Samtec"
+      "manufacturer": "Samtec",
+      "description": "CONN HEADER 10POS DUAL .05\" SMD"
     },
     "C3": {
       "value": ".1uf",
@@ -704,7 +713,8 @@
       },
       "mpn": "C1005X7R1C104K050BC",
       "internal_pn": "C1005X7R1C104K050BC",
-      "manufacturer": "TDK Corporation"
+      "manufacturer": "TDK Corporation",
+      "description": "CAP CER 0.1UF 16V X7R 0402"
     },
     "Y2": {
       "value": "8MHz",
@@ -728,7 +738,8 @@
       },
       "mpn": "ASCO-8.000MHZ-EK-T3",
       "internal_pn": "ASCO_8_000MHZ_EK_T3",
-      "manufacturer": "Abracon LLC"
+      "manufacturer": "Abracon LLC",
+      "description": "OSC X0 8.000MHz CMOS SMD"
     },
     "C2": {
       "value": ".1uf",
@@ -738,7 +749,8 @@
       },
       "mpn": "C1005X7R1C104K050BC",
       "internal_pn": "C1005X7R1C104K050BC",
-      "manufacturer": "TDK Corporation"
+      "manufacturer": "TDK Corporation",
+      "description": "CAP CER 0.1UF 16V X7R 0402"
     },
     "R2": {
       "value": "10k",
@@ -748,7 +760,8 @@
       },
       "mpn": "CRCW040210K0FKED",
       "internal_pn": "CRCW040210K0FKED",
-      "manufacturer": "Vishay/Dale"
+      "manufacturer": "Vishay/Dale",
+      "description": "RES SMD 10k OHM 1% 1/16W 0402"
     },
     "L1": {
       "value": "600 Ohm",
@@ -758,7 +771,8 @@
       },
       "mpn": "BK2125HM601-T",
       "internal_pn": "BK2125HM601_T",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "FERRITE BEAD 600 OHM 0805"
     },
     "R3": {
       "value": "10k",
@@ -768,7 +782,8 @@
       },
       "mpn": "CRCW040210K0FKED",
       "internal_pn": "CRCW040210K0FKED",
-      "manufacturer": "Vishay/Dale"
+      "manufacturer": "Vishay/Dale",
+      "description": "RES SMD 10k OHM 1% 1/16W 0402"
     },
     "R4": {
       "value": "10k",
@@ -778,7 +793,8 @@
       },
       "mpn": "CRCW040210K0FKED",
       "internal_pn": "CRCW040210K0FKED",
-      "manufacturer": "Vishay/Dale"
+      "manufacturer": "Vishay/Dale",
+      "description": "RES SMD 10k OHM 1% 1/16W 0402"
     },
     "C10": {
       "value": "10uF",
@@ -788,7 +804,8 @@
       },
       "mpn": "C1608X7S0J106M080AC",
       "internal_pn": "C1608X7S0J106M080AC",
-      "manufacturer": "TDK Corporation"
+      "manufacturer": "TDK Corporation",
+      "description": "CAP CER 10UF 6.3V X7S 0603"
     },
     "C9": {
       "value": ".1uf",
@@ -798,7 +815,8 @@
       },
       "mpn": "C1005X7R1C104K050BC",
       "internal_pn": "C1005X7R1C104K050BC",
-      "manufacturer": "TDK Corporation"
+      "manufacturer": "TDK Corporation",
+      "description": "CAP CER 0.1UF 16V X7R 0402"
     },
     "U1": {
       "value": "MK64FN1M0VLL12",
@@ -1206,7 +1224,8 @@
       },
       "mpn": "MK64FN1M0VLL12",
       "internal_pn": "MK64FN1M0VLL12",
-      "manufacturer": "Freescale"
+      "manufacturer": "Freescale",
+      "description": "IC MCU KINETIS 1MB 100LQFP"
     }
   }
 }

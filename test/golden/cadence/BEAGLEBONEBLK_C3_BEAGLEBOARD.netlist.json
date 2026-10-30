@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 3,
   "metadata": {
-    "generatedAt": "2026-09-25T15:37:32.572Z",
-    "netlistHash": "sha256:bb56989ee2a8a3cc6e47edec213b4f152ecd8a01b7e51093abe53c0cca332cbb",
+    "generatedAt": "2026-10-30T00:03:13.568Z",
+    "netlistHash": "sha256:f8c6acf6302aac370e9bdf372a6136531ddf8dab93564716609846572439b3cf",
     "origin": {
       "type": "vendor",
       "source": {
@@ -5213,7 +5213,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C144": {
       "value": "2.2uF,10V",
@@ -5223,7 +5224,8 @@
       },
       "mpn": "CC0402KRX5R6BB225",
       "internal_pn": "302012819",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 2.2uF-10V-10%-X5R;0402"
     },
     "C167": {
       "value": "47pF,50V",
@@ -5233,7 +5235,8 @@
       },
       "mpn": "CC0402JRNPO9BN470",
       "internal_pn": "302010007",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 47pF-50V-5%-NP0;0402"
     },
     "C156": {
       "value": "47pF,50V",
@@ -5243,7 +5246,8 @@
       },
       "mpn": "CC0402JRNPO9BN470",
       "internal_pn": "302010007",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 47pF-50V-5%-NP0;0402"
     },
     "P6": {
       "value": "10118241-001RLF",
@@ -5343,7 +5347,8 @@
       },
       "mpn": "10118241-001RLF",
       "internal_pn": "320010901",
-      "manufacturer": "FCI"
+      "manufacturer": "FCI",
+      "description": "SMD HDMI Type D Right Angle;SMT+DIP"
     },
     "C168": {
       "value": "47pF,50V",
@@ -5353,7 +5358,8 @@
       },
       "mpn": "CC0402JRNPO9BN470",
       "internal_pn": "302010007",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 47pF-50V-5%-NP0;0402"
     },
     "D7": {
       "value": "TPD4S009DGSR",
@@ -5371,7 +5377,8 @@
       },
       "mpn": "TPD4S009DGSR",
       "internal_pn": "304050800",
-      "manufacturer": "TI"
+      "manufacturer": "TI",
+      "description": "SMD Diode TVS;4-Ch ESD For Differential Interface;VSSOP(10)"
     },
     "C151": {
       "value": "2.2uF,10V",
@@ -5381,7 +5388,8 @@
       },
       "mpn": "CC0402KRX5R6BB225",
       "internal_pn": "302012819",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 2.2uF-10V-10%-X5R;0402"
     },
     "C169": {
       "value": "47pF,50V",
@@ -5391,7 +5399,8 @@
       },
       "mpn": "CC0402JRNPO9BN470",
       "internal_pn": "302010007",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 47pF-50V-5%-NP0;0402"
     },
     "C149": {
       "value": "100nF,16V",
@@ -5401,7 +5410,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C162": {
       "value": "47pF,50V",
@@ -5411,7 +5421,8 @@
       },
       "mpn": "CC0402JRNPO9BN470",
       "internal_pn": "302010007",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 47pF-50V-5%-NP0;0402"
     },
     "C170": {
       "value": "47pF,50V",
@@ -5421,7 +5432,8 @@
       },
       "mpn": "CC0402JRNPO9BN470",
       "internal_pn": "302010007",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 47pF-50V-5%-NP0;0402"
     },
     "R158": {
       "value": "10K,1%",
@@ -5431,7 +5443,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "U11": {
       "value": "TDA19988BHN/C1,557",
@@ -5699,7 +5712,8 @@
       },
       "mpn": "TDA19988BHN/C1,557",
       "internal_pn": "310990838",
-      "manufacturer": "NXP"
+      "manufacturer": "NXP",
+      "description": "SMD IC HDMI Transmitter;64-HVQFN"
     },
     "C163": {
       "value": "47pF,50V",
@@ -5709,7 +5723,8 @@
       },
       "mpn": "CC0402JRNPO9BN470",
       "internal_pn": "302010007",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 47pF-50V-5%-NP0;0402"
     },
     "R146": {
       "value": "1.5K,1%",
@@ -5719,7 +5734,8 @@
       },
       "mpn": "RC0402FR-071K5L",
       "internal_pn": "301010567",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 1.5K-1%-1/16W;0402"
     },
     "C171": {
       "value": "47pF,50V",
@@ -5729,7 +5745,8 @@
       },
       "mpn": "CC0402JRNPO9BN470",
       "internal_pn": "302010007",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 47pF-50V-5%-NP0;0402"
     },
     "D6": {
       "value": "TPD4S009DGSR",
@@ -5747,7 +5764,8 @@
       },
       "mpn": "TPD4S009DGSR",
       "internal_pn": "304050800",
-      "manufacturer": "TI"
+      "manufacturer": "TI",
+      "description": "SMD Diode TVS;4-Ch ESD For Differential Interface;VSSOP(10)"
     },
     "FB5": {
       "value": "150R,800mA",
@@ -5757,7 +5775,8 @@
       },
       "mpn": "LI0805H151R-10",
       "internal_pn": "303030029",
-      "manufacturer": "LAIRD"
+      "manufacturer": "LAIRD",
+      "description": "SMD Ferrite Bead;150R-800mA-0805"
     },
     "C164": {
       "value": "47pF,50V",
@@ -5767,7 +5786,8 @@
       },
       "mpn": "CC0402JRNPO9BN470",
       "internal_pn": "302010007",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 47pF-50V-5%-NP0;0402"
     },
     "R147": {
       "value": "1.5K,1%",
@@ -5777,7 +5797,8 @@
       },
       "mpn": "RC0402FR-071K5L",
       "internal_pn": "301010567",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 1.5K-1%-1/16W;0402"
     },
     "C172": {
       "value": "47pF,50V",
@@ -5787,7 +5808,8 @@
       },
       "mpn": "CC0402JRNPO9BN470",
       "internal_pn": "302010007",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 47pF-50V-5%-NP0;0402"
     },
     "C165": {
       "value": "47pF,50V",
@@ -5797,7 +5819,8 @@
       },
       "mpn": "CC0402JRNPO9BN470",
       "internal_pn": "302010007",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 47pF-50V-5%-NP0;0402"
     },
     "C173": {
       "value": "47pF,50V",
@@ -5807,7 +5830,8 @@
       },
       "mpn": "CC0402JRNPO9BN470",
       "internal_pn": "302010007",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 47pF-50V-5%-NP0;0402"
     },
     "RT1": {
       "value": "RXEF010",
@@ -5817,7 +5841,8 @@
       },
       "mpn": "RXEF010",
       "internal_pn": "307010055",
-      "manufacturer": "TE"
+      "manufacturer": "TE",
+      "description": "DIP PPTC;100mA-60V;2P-5.0-W7.4*T3.0mm"
     },
     "D8": {
       "value": "RB751V40,115",
@@ -5833,7 +5858,8 @@
       },
       "mpn": "RB751V40,115",
       "internal_pn": "304020767",
-      "manufacturer": "NXP"
+      "manufacturer": "NXP",
+      "description": "SMD Diode Schottky 40V-120mA;SOD-323"
     },
     "C148": {
       "value": "2.2uF,10V",
@@ -5843,7 +5869,8 @@
       },
       "mpn": "CC0402KRX5R6BB225",
       "internal_pn": "302012819",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 2.2uF-10V-10%-X5R;0402"
     },
     "R148": {
       "value": "10K,1%",
@@ -5853,7 +5880,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "C147": {
       "value": "100nF,16V",
@@ -5863,7 +5891,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C157": {
       "value": "47pF,50V",
@@ -5873,7 +5902,8 @@
       },
       "mpn": "CC0402JRNPO9BN470",
       "internal_pn": "302010007",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 47pF-50V-5%-NP0;0402"
     },
     "C146": {
       "value": "2.2uF,10V",
@@ -5883,7 +5913,8 @@
       },
       "mpn": "CC0402KRX5R6BB225",
       "internal_pn": "302012819",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 2.2uF-10V-10%-X5R;0402"
     },
     "R149": {
       "value": "0R,5%",
@@ -5893,7 +5924,8 @@
       },
       "mpn": "RC0402JR-070RL",
       "internal_pn": "301010000",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 0R-5%-1/16W;0402"
     },
     "C145": {
       "value": "100nF,16V",
@@ -5903,7 +5935,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "R166": {
       "value": "27K,1%",
@@ -5913,7 +5946,8 @@
       },
       "mpn": "RC0402FR-0727KL",
       "internal_pn": "301010067",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 27K-1%-1/16W;0402"
     },
     "C160": {
       "value": "47pF,50V",
@@ -5923,7 +5957,8 @@
       },
       "mpn": "CC0402JRNPO9BN470",
       "internal_pn": "302010007",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 47pF-50V-5%-NP0;0402"
     },
     "C166": {
       "value": "47pF,50V",
@@ -5933,7 +5968,8 @@
       },
       "mpn": "CC0402JRNPO9BN470",
       "internal_pn": "302010007",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 47pF-50V-5%-NP0;0402"
     },
     "C161": {
       "value": "47pF,50V",
@@ -5943,7 +5979,8 @@
       },
       "mpn": "CC0402JRNPO9BN470",
       "internal_pn": "302010007",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 47pF-50V-5%-NP0;0402"
     },
     "C43": {
       "value": "100nF,16V",
@@ -5953,7 +5990,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C103": {
       "value": "100nF,16V",
@@ -5963,7 +6001,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C44": {
       "value": "100nF,16V",
@@ -5973,7 +6012,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C45": {
       "value": "100nF,16V",
@@ -5983,7 +6023,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C71": {
       "value": "100nF,16V",
@@ -5993,7 +6034,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "FB2": {
       "value": "150R,800mA",
@@ -6003,7 +6045,8 @@
       },
       "mpn": "LI0805H151R-10",
       "internal_pn": "303030029",
-      "manufacturer": "LAIRD"
+      "manufacturer": "LAIRD",
+      "description": "SMD Ferrite Bead;150R-800mA-0805"
     },
     "C46": {
       "value": "100nF,16V",
@@ -6013,7 +6056,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C96": {
       "value": "10uF,16V",
@@ -6023,7 +6067,8 @@
       },
       "mpn": "CL21A106KOQNNNE",
       "internal_pn": "302010361",
-      "manufacturer": "Samsung"
+      "manufacturer": "Samsung",
+      "description": "SMD CAP Ceramic;10uF-16V-10%-X5R-0805"
     },
     "C77": {
       "value": "10uF,16V",
@@ -6033,7 +6078,8 @@
       },
       "mpn": "CL21A106KOQNNNE",
       "internal_pn": "302010361",
-      "manufacturer": "Samsung"
+      "manufacturer": "Samsung",
+      "description": "SMD CAP Ceramic;10uF-16V-10%-X5R-0805"
     },
     "C47": {
       "value": "100nF,16V",
@@ -6043,7 +6089,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C48": {
       "value": "100nF,16V",
@@ -6053,7 +6100,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C61": {
       "value": "100nF,16V",
@@ -6063,7 +6111,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C78": {
       "value": "100nF,16V",
@@ -6073,7 +6122,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C49": {
       "value": "100nF,16V",
@@ -6083,7 +6133,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C50": {
       "value": "100nF,16V",
@@ -6093,7 +6144,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C41": {
       "value": "100nF,16V",
@@ -6103,7 +6155,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C92": {
       "value": "100nF,16V",
@@ -6113,7 +6166,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C51": {
       "value": "100nF,16V",
@@ -6123,7 +6177,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C42": {
       "value": "100nF,16V",
@@ -6133,7 +6188,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C52": {
       "value": "100nF,16V",
@@ -6143,7 +6199,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C38": {
       "value": "100nF,16V",
@@ -6153,7 +6210,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C53": {
       "value": "100nF,16V",
@@ -6163,7 +6221,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C54": {
       "value": "100nF,16V",
@@ -6173,7 +6232,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C55": {
       "value": "10uF,16V",
@@ -6183,7 +6243,8 @@
       },
       "mpn": "CL21A106KOQNNNE",
       "internal_pn": "302010361",
-      "manufacturer": "Samsung"
+      "manufacturer": "Samsung",
+      "description": "SMD CAP Ceramic;10uF-16V-10%-X5R-0805"
     },
     "C62": {
       "value": "10uF,16V",
@@ -6193,7 +6254,8 @@
       },
       "mpn": "CL21A106KOQNNNE",
       "internal_pn": "302010361",
-      "manufacturer": "Samsung"
+      "manufacturer": "Samsung",
+      "description": "SMD CAP Ceramic;10uF-16V-10%-X5R-0805"
     },
     "C80": {
       "value": "100nF,16V",
@@ -6203,7 +6265,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C72": {
       "value": "100nF,16V",
@@ -6213,7 +6276,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C66": {
       "value": "100nF,16V",
@@ -6223,7 +6287,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C93": {
       "value": "100nF,16V",
@@ -6233,7 +6298,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C90": {
       "value": "1uF,10V",
@@ -6243,7 +6309,8 @@
       },
       "mpn": "CC0402KRX5R6BB105",
       "internal_pn": "302010040",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 1uF-10V-10%-X5R;0402"
     },
     "C60": {
       "value": "100nF,16V",
@@ -6253,7 +6320,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C83": {
       "value": "100nF,16V",
@@ -6263,7 +6331,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C67": {
       "value": "100nF,16V",
@@ -6273,7 +6342,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C39": {
       "value": "10uF,16V",
@@ -6283,7 +6353,8 @@
       },
       "mpn": "CL21A106KOQNNNE",
       "internal_pn": "302010361",
-      "manufacturer": "Samsung"
+      "manufacturer": "Samsung",
+      "description": "SMD CAP Ceramic;10uF-16V-10%-X5R-0805"
     },
     "C73": {
       "value": "100nF,16V",
@@ -6293,7 +6364,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C102": {
       "value": "100nF,16V",
@@ -6303,7 +6375,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C88": {
       "value": "100nF,16V",
@@ -6313,7 +6386,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C100": {
       "value": "100nF,16V",
@@ -6323,7 +6397,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C98": {
       "value": "100nF,16V",
@@ -6333,7 +6408,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C58": {
       "value": "100nF,16V",
@@ -6343,7 +6419,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C65": {
       "value": "100nF,16V",
@@ -6353,7 +6430,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C87": {
       "value": "100nF,16V",
@@ -6363,7 +6441,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C106": {
       "value": "1uF,10V",
@@ -6373,7 +6452,8 @@
       },
       "mpn": "CC0402KRX5R6BB105",
       "internal_pn": "302010040",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 1uF-10V-10%-X5R;0402"
     },
     "C81": {
       "value": "100nF,16V",
@@ -6383,7 +6463,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C74": {
       "value": "100nF,16V",
@@ -6393,7 +6474,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C95": {
       "value": "10uF,16V",
@@ -6403,7 +6485,8 @@
       },
       "mpn": "CL21A106KOQNNNE",
       "internal_pn": "302010361",
-      "manufacturer": "Samsung"
+      "manufacturer": "Samsung",
+      "description": "SMD CAP Ceramic;10uF-16V-10%-X5R-0805"
     },
     "C105": {
       "value": "100nF,16V",
@@ -6413,7 +6496,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C85": {
       "value": "100nF,16V",
@@ -6423,7 +6507,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C59": {
       "value": "100nF,16V",
@@ -6433,7 +6518,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C75": {
       "value": "100nF,16V",
@@ -6443,7 +6529,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C86": {
       "value": "100nF,16V",
@@ -6453,7 +6540,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C40": {
       "value": "10uF,16V",
@@ -6463,7 +6551,8 @@
       },
       "mpn": "CL21A106KOQNNNE",
       "internal_pn": "302010361",
-      "manufacturer": "Samsung"
+      "manufacturer": "Samsung",
+      "description": "SMD CAP Ceramic;10uF-16V-10%-X5R-0805"
     },
     "FB3": {
       "value": "150R,800mA",
@@ -6473,7 +6562,8 @@
       },
       "mpn": "LI0805H151R-10",
       "internal_pn": "303030029",
-      "manufacturer": "LAIRD"
+      "manufacturer": "LAIRD",
+      "description": "SMD Ferrite Bead;150R-800mA-0805"
     },
     "TP2": {
       "value": "Test Point",
@@ -6483,6 +6573,7 @@
           "net": "VDD_MPUON"
         }
       },
+      "description": "SMD Test Point,50mil,Circle",
       "dns": true
     },
     "C82": {
@@ -6493,7 +6584,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C68": {
       "value": "100nF,16V",
@@ -6503,7 +6595,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "FB1": {
       "value": "150R,800mA",
@@ -6513,7 +6606,8 @@
       },
       "mpn": "LI0805H151R-10",
       "internal_pn": "303030029",
-      "manufacturer": "LAIRD"
+      "manufacturer": "LAIRD",
+      "description": "SMD Ferrite Bead;150R-800mA-0805"
     },
     "C89": {
       "value": "1uF,10V",
@@ -6523,7 +6617,8 @@
       },
       "mpn": "CC0402KRX5R6BB105",
       "internal_pn": "302010040",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 1uF-10V-10%-X5R;0402"
     },
     "U5": {
       "value": "AM3358BZCZ100",
@@ -7218,7 +7313,8 @@
       },
       "mpn": "AM3358BZCZ100",
       "internal_pn": "310010099",
-      "manufacturer": "TI"
+      "manufacturer": "TI",
+      "description": "SMD IC MCU;NFBGA-324(15x15)"
     },
     "C57": {
       "value": "100nF,16V",
@@ -7228,7 +7324,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C76": {
       "value": "100nF,16V",
@@ -7238,7 +7335,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "TP3": {
       "value": "Test Point",
@@ -7248,6 +7346,7 @@
           "net": "TESTOUT"
         }
       },
+      "description": "SMD Test Point,50mil,Circle",
       "dns": true
     },
     "C69": {
@@ -7258,7 +7357,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "R54": {
       "value": "10K,1%",
@@ -7268,7 +7368,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "C79": {
       "value": "100nF,16V",
@@ -7278,7 +7379,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C91": {
       "value": "1uF,10V",
@@ -7288,7 +7390,8 @@
       },
       "mpn": "CC0402KRX5R6BB105",
       "internal_pn": "302010040",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 1uF-10V-10%-X5R;0402"
     },
     "C56": {
       "value": "100nF,16V",
@@ -7298,7 +7401,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C101": {
       "value": "100nF,16V",
@@ -7308,7 +7412,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C64": {
       "value": "100nF,16V",
@@ -7318,7 +7423,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C99": {
       "value": "100nF,16V",
@@ -7328,7 +7434,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C84": {
       "value": "100nF,16V",
@@ -7338,7 +7445,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C97": {
       "value": "100nF,16V",
@@ -7348,7 +7456,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C94": {
       "value": "100nF,16V",
@@ -7358,7 +7467,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C104": {
       "value": "1uF,10V",
@@ -7368,7 +7478,8 @@
       },
       "mpn": "CC0402KRX5R6BB105",
       "internal_pn": "302010040",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 1uF-10V-10%-X5R;0402"
     },
     "C70": {
       "value": "100nF,16V",
@@ -7378,7 +7489,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C63": {
       "value": "100nF,16V",
@@ -7388,7 +7500,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C37": {
       "value": "100nF,16V",
@@ -7398,7 +7511,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "R106": {
       "value": "10K,1%",
@@ -7408,7 +7522,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "R109": {
       "value": "10K,1%",
@@ -7418,7 +7533,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "C125": {
       "value": "2.2uF,10V",
@@ -7428,7 +7544,8 @@
       },
       "mpn": "CC0402KRX5R6BB225",
       "internal_pn": "302012819",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 2.2uF-10V-10%-X5R;0402"
     },
     "R111": {
       "value": "10K,1%",
@@ -7438,7 +7555,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "R108": {
       "value": "10K,1%",
@@ -7448,7 +7566,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "R105": {
       "value": "10K,1%",
@@ -7458,7 +7577,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "R104": {
       "value": "10K,1%",
@@ -7468,7 +7588,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "R101": {
       "value": "10K,1%",
@@ -7478,7 +7599,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "R107": {
       "value": "10K,1%",
@@ -7488,7 +7610,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "U13": {
       "value": "EMMC04G-M627",
@@ -8108,7 +8231,8 @@
       },
       "mpn": "EMMC04G-M627",
       "internal_pn": "310090564",
-      "manufacturer": "Kingston"
+      "manufacturer": "Kingston",
+      "description": "SMD IC Memory;VFBGA-153"
     },
     "C130": {
       "value": "100nF,16V",
@@ -8118,7 +8242,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C129": {
       "value": "100nF,16V",
@@ -8128,7 +8253,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C128": {
       "value": "100nF,16V",
@@ -8138,7 +8264,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C127": {
       "value": "100nF,16V",
@@ -8148,7 +8275,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "R110": {
       "value": "10K,1%",
@@ -8158,7 +8286,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "R103": {
       "value": "10K,1%",
@@ -8168,7 +8297,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "R102": {
       "value": "10K,1%",
@@ -8178,7 +8308,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "C126": {
       "value": "10uF,16V",
@@ -8188,7 +8319,8 @@
       },
       "mpn": "CL21A106KOQNNNE",
       "internal_pn": "302010361",
-      "manufacturer": "Samsung"
+      "manufacturer": "Samsung",
+      "description": "SMD CAP Ceramic;10uF-16V-10%-X5R-0805"
     },
     "R89": {
       "value": "100K,1%",
@@ -8198,7 +8330,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "R73": {
       "value": "2.2K,5%",
@@ -8208,7 +8341,8 @@
       },
       "mpn": "RC0402JR-072K2L",
       "internal_pn": "301010039",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 2.2K-5%-1/16W;0402"
     },
     "D4": {
       "value": "19-217/BHC-ZL1M2RY/3T",
@@ -8224,7 +8358,8 @@
       },
       "mpn": "19-217/BHC-ZL1M2RY/3T",
       "internal_pn": "304090045",
-      "manufacturer": "Everlight"
+      "manufacturer": "Everlight",
+      "description": "SMD LED Clear-Blue;0603"
     },
     "R78": {
       "value": "100K,1%",
@@ -8234,7 +8369,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "R91": {
       "value": "100K,1%",
@@ -8245,6 +8381,7 @@
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
       "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402",
       "dns": true
     },
     "R55": {
@@ -8256,6 +8393,7 @@
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
       "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402",
       "dns": true
     },
     "R72": {
@@ -8266,7 +8404,8 @@
       },
       "mpn": "RC0402JR-072K2L",
       "internal_pn": "301010039",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 2.2K-5%-1/16W;0402"
     },
     "R79": {
       "value": "100K,1%",
@@ -8276,7 +8415,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "R65": {
       "value": "100K,1%",
@@ -8286,7 +8426,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "R68": {
       "value": "100K,1%",
@@ -8296,7 +8437,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "D5": {
       "value": "19-217/BHC-ZL1M2RY/3T",
@@ -8312,7 +8454,8 @@
       },
       "mpn": "19-217/BHC-ZL1M2RY/3T",
       "internal_pn": "304090045",
-      "manufacturer": "Everlight"
+      "manufacturer": "Everlight",
+      "description": "SMD LED Clear-Blue;0603"
     },
     "R77": {
       "value": "100K,1%",
@@ -8322,7 +8465,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "R57": {
       "value": "100K,1%",
@@ -8333,6 +8477,7 @@
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
       "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402",
       "dns": true
     },
     "R95": {
@@ -8343,7 +8488,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "R64": {
       "value": "100K,1%",
@@ -8354,6 +8500,7 @@
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
       "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402",
       "dns": true
     },
     "R58": {
@@ -8365,6 +8512,7 @@
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
       "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402",
       "dns": true
     },
     "R82": {
@@ -8375,7 +8523,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "R94": {
       "value": "100K,1%",
@@ -8385,7 +8534,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "R61": {
       "value": "100K,1%",
@@ -8396,6 +8546,7 @@
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
       "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402",
       "dns": true
     },
     "R62": {
@@ -8407,6 +8558,7 @@
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
       "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402",
       "dns": true
     },
     "R80": {
@@ -8417,7 +8569,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "Q1": {
       "value": "DDC114YU-7-F",
@@ -8440,7 +8593,8 @@
       },
       "mpn": "DDC114YU-7-F",
       "internal_pn": "305050004",
-      "manufacturer": "Diodes"
+      "manufacturer": "Diodes",
+      "description": "SMD Transistor Array 2 NPN-50V-100mA-SOT-363"
     },
     "R56": {
       "value": "100K,1%",
@@ -8450,7 +8604,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "R92": {
       "value": "100K,1%",
@@ -8461,6 +8616,7 @@
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
       "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402",
       "dns": true
     },
     "R70": {
@@ -8472,6 +8628,7 @@
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
       "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402",
       "dns": true
     },
     "Q2": {
@@ -8495,7 +8652,8 @@
       },
       "mpn": "DDC114YU-7-F",
       "internal_pn": "305050004",
-      "manufacturer": "Diodes"
+      "manufacturer": "Diodes",
+      "description": "SMD Transistor Array 2 NPN-50V-100mA-SOT-363"
     },
     "R63": {
       "value": "100K,1%",
@@ -8506,6 +8664,7 @@
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
       "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402",
       "dns": true
     },
     "R67": {
@@ -8516,7 +8675,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "R83": {
       "value": "100K,1%",
@@ -8526,7 +8686,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "D2": {
       "value": "19-217/BHC-ZL1M2RY/3T",
@@ -8542,7 +8703,8 @@
       },
       "mpn": "19-217/BHC-ZL1M2RY/3T",
       "internal_pn": "304090045",
-      "manufacturer": "Everlight"
+      "manufacturer": "Everlight",
+      "description": "SMD LED Clear-Blue;0603"
     },
     "R90": {
       "value": "100K,1%",
@@ -8553,6 +8715,7 @@
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
       "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402",
       "dns": true
     },
     "R74": {
@@ -8563,7 +8726,8 @@
       },
       "mpn": "RC0402JR-072K2L",
       "internal_pn": "301010039",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 2.2K-5%-1/16W;0402"
     },
     "R84": {
       "value": "100K,1%",
@@ -8573,7 +8737,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "S2": {
       "value": "KMR231GLFS",
@@ -8597,7 +8762,8 @@
       },
       "mpn": "KMR231GLFS",
       "internal_pn": "311020198",
-      "manufacturer": "C&K"
+      "manufacturer": "C&K",
+      "description": "SMD Top Button 300gf;4P-L4.6*W2.8*H1.9mm"
     },
     "R60": {
       "value": "100K,1%",
@@ -8608,6 +8774,7 @@
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
       "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402",
       "dns": true
     },
     "R71": {
@@ -8618,7 +8785,8 @@
       },
       "mpn": "RC0402JR-072K2L",
       "internal_pn": "301010039",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 2.2K-5%-1/16W;0402"
     },
     "R59": {
       "value": "100K,1%",
@@ -8629,6 +8797,7 @@
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
       "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402",
       "dns": true
     },
     "R76": {
@@ -8639,7 +8808,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "R85": {
       "value": "100K,1%",
@@ -8649,7 +8819,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "R66": {
       "value": "100K,1%",
@@ -8659,7 +8830,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "R86": {
       "value": "100K,1%",
@@ -8669,7 +8841,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "R93": {
       "value": "100K,1%",
@@ -8680,6 +8853,7 @@
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
       "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402",
       "dns": true
     },
     "R75": {
@@ -8690,7 +8864,8 @@
       },
       "mpn": "RC0402FR-07100RL",
       "internal_pn": "301010442",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100R-1%-1/16W;0402"
     },
     "R87": {
       "value": "100K,1%",
@@ -8700,7 +8875,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "R81": {
       "value": "100K,1%",
@@ -8711,6 +8887,7 @@
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
       "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402",
       "dns": true
     },
     "R69": {
@@ -8722,6 +8899,7 @@
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
       "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402",
       "dns": true
     },
     "D3": {
@@ -8738,7 +8916,8 @@
       },
       "mpn": "19-217/BHC-ZL1M2RY/3T",
       "internal_pn": "304090045",
-      "manufacturer": "Everlight"
+      "manufacturer": "Everlight",
+      "description": "SMD LED Clear-Blue;0603"
     },
     "R88": {
       "value": "100K,1%",
@@ -8748,7 +8927,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "C113": {
       "value": "100nF,16V",
@@ -8758,7 +8938,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "U12": {
       "value": "D2516ECMDXGJD-U",
@@ -9150,7 +9331,8 @@
       },
       "mpn": "D2516ECMDXGJD-U",
       "internal_pn": "310091066",
-      "manufacturer": "Kingston"
+      "manufacturer": "Kingston",
+      "description": "SMD IC Memory-DDR3L 4 Gb(256M x 16)-1866 Mbps-13.5*7.5*1.2mm;FBGA-96"
     },
     "C119": {
       "value": "100nF,16V",
@@ -9160,7 +9342,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "R96": {
       "value": "10K,1%",
@@ -9170,7 +9353,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "C111": {
       "value": "100nF,16V",
@@ -9180,7 +9364,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C116": {
       "value": "100nF,16V",
@@ -9190,7 +9375,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C117": {
       "value": "100nF,16V",
@@ -9200,7 +9386,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C121": {
       "value": "100nF,16V",
@@ -9210,7 +9397,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C122": {
       "value": "10uF,16V",
@@ -9220,7 +9408,8 @@
       },
       "mpn": "CL21A106KOQNNNE",
       "internal_pn": "302010361",
-      "manufacturer": "Samsung"
+      "manufacturer": "Samsung",
+      "description": "SMD CAP Ceramic;10uF-16V-10%-X5R-0805"
     },
     "C109": {
       "value": "100nF,16V",
@@ -9230,7 +9419,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C114": {
       "value": "100nF,16V",
@@ -9240,7 +9430,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C118": {
       "value": "10uF,16V",
@@ -9250,7 +9441,8 @@
       },
       "mpn": "CL21A106KOQNNNE",
       "internal_pn": "302010361",
-      "manufacturer": "Samsung"
+      "manufacturer": "Samsung",
+      "description": "SMD CAP Ceramic;10uF-16V-10%-X5R-0805"
     },
     "R100": {
       "value": "10K,1%",
@@ -9260,7 +9452,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "R98": {
       "value": "10K,1%",
@@ -9270,7 +9463,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "R97": {
       "value": "1.5K,1%",
@@ -9280,7 +9474,8 @@
       },
       "mpn": "RC0402FR-071K5L",
       "internal_pn": "301010567",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 1.5K-1%-1/16W;0402"
     },
     "C107": {
       "value": "100nF,16V",
@@ -9290,7 +9485,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C112": {
       "value": "100nF,16V",
@@ -9300,7 +9496,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C120": {
       "value": "100nF,16V",
@@ -9310,7 +9507,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C110": {
       "value": "100nF,16V",
@@ -9320,7 +9518,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "R99": {
       "value": "240R,1%",
@@ -9330,7 +9529,8 @@
       },
       "mpn": "RC0402FR-07240RL",
       "internal_pn": "301011475",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 240R-1%-1/16W;0402"
     },
     "C115": {
       "value": "100nF,16V",
@@ -9340,7 +9540,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C124": {
       "value": "100nF,16V",
@@ -9350,7 +9551,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C108": {
       "value": "100nF,16V",
@@ -9360,7 +9562,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C123": {
       "value": "1nF,50V",
@@ -9370,7 +9573,8 @@
       },
       "mpn": "CC0402KRX7R9BB102",
       "internal_pn": "302010005",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 1nF-50V-10%-X7R;0402"
     },
     "R15": {
       "value": "33R,5%",
@@ -9380,7 +9584,8 @@
       },
       "mpn": "RC0402JR-0733RL",
       "internal_pn": "301010034",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 33R-5%-1/16W;0402"
     },
     "C153": {
       "value": "10uF,16V",
@@ -9390,7 +9595,8 @@
       },
       "mpn": "CL21A106KOQNNNE",
       "internal_pn": "302010361",
-      "manufacturer": "Samsung"
+      "manufacturer": "Samsung",
+      "description": "SMD CAP Ceramic;10uF-16V-10%-X5R-0805"
     },
     "R152": {
       "value": "10K,1%",
@@ -9400,7 +9606,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "R154": {
       "value": "10K,1%",
@@ -9410,7 +9617,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "C5": {
       "value": "10pF,50V",
@@ -9421,6 +9629,7 @@
       "mpn": "CC0402JRNPO9BN100",
       "internal_pn": "302010001",
       "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 10pF-50V-5%-NPO;0402",
       "dns": true
     },
     "R151": {
@@ -9431,7 +9640,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "P8": {
       "value": "Female Header 2x23Pin 2.54MM",
@@ -9620,7 +9830,8 @@
       },
       "mpn": "FF-1236",
       "internal_pn": "320030424",
-      "manufacturer": "SINOTOP"
+      "manufacturer": "SINOTOP",
+      "description": "DIP Black Female Header;2*23P-2.54*8.5-3.0mm"
     },
     "R155": {
       "value": "10K,1%",
@@ -9630,7 +9841,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "R16": {
       "value": "33R,5%",
@@ -9640,7 +9852,8 @@
       },
       "mpn": "RC0402JR-0733RL",
       "internal_pn": "301010034",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 33R-5%-1/16W;0402"
     },
     "U7": {
       "value": "24LC32AT-I/OT",
@@ -9668,7 +9881,8 @@
       },
       "mpn": "24LC32AT-I/OT",
       "internal_pn": "310090051",
-      "manufacturer": "Microchip"
+      "manufacturer": "Microchip",
+      "description": "SMD IC Memory;SOT-23-5"
     },
     "R2": {
       "value": "33R,5%",
@@ -9678,7 +9892,8 @@
       },
       "mpn": "RC0402JR-0733RL",
       "internal_pn": "301010034",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 33R-5%-1/16W;0402"
     },
     "C154": {
       "value": "100nF,16V",
@@ -9688,7 +9903,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "P10": {
       "value": "YL004-030-001",
@@ -9752,7 +9968,8 @@
       },
       "mpn": "YL004-030-001",
       "internal_pn": "320090416",
-      "manufacturer": "YU LIANG"
+      "manufacturer": "YU LIANG",
+      "description": "SMD SD Card Holder;Reverse-Bottom,8P-14.3*16mm"
     },
     "R31": {
       "value": "33R,5%",
@@ -9762,7 +9979,8 @@
       },
       "mpn": "RC0402JR-0733RL",
       "internal_pn": "301010034",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 33R-5%-1/16W;0402"
     },
     "R153": {
       "value": "10K,1%",
@@ -9772,7 +9990,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "R157": {
       "value": "10K,1%",
@@ -9782,7 +10001,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "R150": {
       "value": "10K,1%",
@@ -9792,7 +10012,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "R156": {
       "value": "10K,1%",
@@ -9802,7 +10023,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "R13": {
       "value": "33R,5%",
@@ -9812,7 +10034,8 @@
       },
       "mpn": "RC0402JR-0733RL",
       "internal_pn": "301010034",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 33R-5%-1/16W;0402"
     },
     "TP4": {
       "value": "Test Point",
@@ -9822,6 +10045,7 @@
           "net": "WP"
         }
       },
+      "description": "DIP Test Point,40mil,60mil",
       "dns": true
     },
     "P9": {
@@ -10011,7 +10235,8 @@
       },
       "mpn": "FF-1236",
       "internal_pn": "320030424",
-      "manufacturer": "SINOTOP"
+      "manufacturer": "SINOTOP",
+      "description": "DIP Black Female Header;2*23P-2.54*8.5-3.0mm"
     },
     "R32": {
       "value": "33R,5%",
@@ -10021,7 +10246,8 @@
       },
       "mpn": "RC0402JR-0733RL",
       "internal_pn": "301010034",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 33R-5%-1/16W;0402"
     },
     "C152": {
       "value": "100nF,16V",
@@ -10031,7 +10257,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "R45": {
       "value": "22R,1%",
@@ -10041,7 +10268,8 @@
       },
       "mpn": "RC0402FR-0722RL",
       "internal_pn": "301010052",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 22R-1%-1/16W;0402"
     },
     "R51": {
       "value": "0R,5%",
@@ -10051,7 +10279,8 @@
       },
       "mpn": "RC0402JR-070RL",
       "internal_pn": "301010000",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 0R-5%-1/16W;0402"
     },
     "R159": {
       "value": "0R,5%",
@@ -10061,7 +10290,8 @@
       },
       "mpn": "RC0402JR-070RL",
       "internal_pn": "301010000",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 0R-5%-1/16W;0402"
     },
     "R27": {
       "value": "0R,5%",
@@ -10071,7 +10301,8 @@
       },
       "mpn": "RC0402JR-070RL",
       "internal_pn": "301010000",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 0R-5%-1/16W;0402"
     },
     "R49": {
       "value": "0R,5%",
@@ -10081,7 +10312,8 @@
       },
       "mpn": "RC0402JR-070RL",
       "internal_pn": "301010000",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 0R-5%-1/16W;0402"
     },
     "TP9": {
       "value": "Test Point",
@@ -10091,6 +10323,7 @@
           "net": "N22488252"
         }
       },
+      "description": "DIP Test Point,35mil,60mil",
       "dns": true
     },
     "R46": {
@@ -10101,7 +10334,8 @@
       },
       "mpn": "RC0402JR-070RL",
       "internal_pn": "301010000",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 0R-5%-1/16W;0402"
     },
     "C36": {
       "value": "100nF,16V",
@@ -10111,7 +10345,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "R165": {
       "value": "100K,1%",
@@ -10121,7 +10356,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "R37": {
       "value": "0R,5%",
@@ -10131,7 +10367,8 @@
       },
       "mpn": "RC0402JR-070RL",
       "internal_pn": "301010000",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 0R-5%-1/16W;0402"
     },
     "R47": {
       "value": "0R,5%",
@@ -10141,7 +10378,8 @@
       },
       "mpn": "RC0402JR-070RL",
       "internal_pn": "301010000",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 0R-5%-1/16W;0402"
     },
     "U8": {
       "value": "TPS2051BDGNR",
@@ -10185,7 +10423,8 @@
       },
       "mpn": "TPS2051BDGNR",
       "internal_pn": "310030211",
-      "manufacturer": "TI"
+      "manufacturer": "TI",
+      "description": "SMD IC PMIC;MSOP-8"
     },
     "C33": {
       "value": "100nF,16V",
@@ -10195,7 +10434,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C32": {
       "value": "1nF,50V",
@@ -10205,7 +10445,8 @@
       },
       "mpn": "CC0402KRX7R9BB102",
       "internal_pn": "302010005",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 1nF-50V-10%-X7R;0402"
     },
     "U9": {
       "value": "TPD4S012DRYR",
@@ -10237,7 +10478,8 @@
       },
       "mpn": "TPD4S012DRYR",
       "internal_pn": "304050020",
-      "manufacturer": "TI"
+      "manufacturer": "TI",
+      "description": "SMD Diode TVS;4-Ch USB ESD Solution with-SON-6(1.45x1)"
     },
     "R48": {
       "value": "0R,5%",
@@ -10247,7 +10489,8 @@
       },
       "mpn": "RC0402JR-070RL",
       "internal_pn": "301010000",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 0R-5%-1/16W;0402"
     },
     "P4": {
       "value": "UX60SC-MB-5ST(80)",
@@ -10291,7 +10534,8 @@
       },
       "mpn": "UX60SC-MB-5ST(80)",
       "internal_pn": "320010900",
-      "manufacturer": "Hirose"
+      "manufacturer": "Hirose",
+      "description": "SMD USB2.0 Mini B Right Angle;5P+4P"
     },
     "C35": {
       "value": "100nF,16V",
@@ -10301,7 +10545,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C34": {
       "value": "100uF,10V",
@@ -10311,7 +10556,8 @@
       },
       "mpn": "CS1A101M-CRE54",
       "internal_pn": "302030050",
-      "manufacturer": "ST"
+      "manufacturer": "ST",
+      "description": "SMD CAP Aluminum 100uF-10V;D6.3*H5.4mm"
     },
     "J1": {
       "value": "Header 1x6Pin 2.54MM",
@@ -10325,7 +10571,8 @@
       },
       "mpn": "P125-1106A1BS116A1",
       "internal_pn": "320020078",
-      "manufacturer": "YXCON"
+      "manufacturer": "YXCON",
+      "description": "DIP Black Male Header VERT;1*6P-2.54-2.54-11.6/3.0mm"
     },
     "U15": {
       "value": "SN74LVC2G241DCUR",
@@ -10365,7 +10612,8 @@
       },
       "mpn": "SN74LVC2G241DCUR",
       "internal_pn": "310050078",
-      "manufacturer": "TI"
+      "manufacturer": "TI",
+      "description": "SMD IC Logic;US8(8-VFSOP)"
     },
     "U10": {
       "value": "TPD4S012DRYR",
@@ -10397,7 +10645,8 @@
       },
       "mpn": "TPD4S012DRYR",
       "internal_pn": "304050020",
-      "manufacturer": "TI"
+      "manufacturer": "TI",
+      "description": "SMD Diode TVS;4-Ch USB ESD Solution with-SON-6(1.45x1)"
     },
     "R26": {
       "value": "4.7K,1%",
@@ -10407,7 +10656,8 @@
       },
       "mpn": "RC0402FR-074K7L",
       "internal_pn": "301010633",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES;4.7K-1%-1/16W-0402"
     },
     "C31": {
       "value": "100nF,16V",
@@ -10417,7 +10667,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "R28": {
       "value": "33R,5%",
@@ -10427,7 +10678,8 @@
       },
       "mpn": "RC0402JR-0733RL",
       "internal_pn": "301010034",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 33R-5%-1/16W;0402"
     },
     "R163": {
       "value": "4.7K,1%",
@@ -10437,7 +10689,8 @@
       },
       "mpn": "RC0402FR-074K7L",
       "internal_pn": "301010633",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES;4.7K-1%-1/16W-0402"
     },
     "FB7": {
       "value": "150R,800mA",
@@ -10447,7 +10700,8 @@
       },
       "mpn": "LI0805H151R-10",
       "internal_pn": "303030029",
-      "manufacturer": "LAIRD"
+      "manufacturer": "LAIRD",
+      "description": "SMD Ferrite Bead;150R-800mA-0805"
     },
     "R53": {
       "value": "10K,1%",
@@ -10457,7 +10711,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "R50": {
       "value": "0R,5%",
@@ -10467,7 +10722,8 @@
       },
       "mpn": "RC0402JR-070RL",
       "internal_pn": "301010000",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 0R-5%-1/16W;0402"
     },
     "C155": {
       "value": "100nF,16V",
@@ -10477,7 +10733,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "R52": {
       "value": "10K,1%",
@@ -10487,7 +10744,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "P3": {
       "value": "UB11123-4H9-4F",
@@ -10519,7 +10777,8 @@
       },
       "mpn": "UB11123-4H9-4F",
       "internal_pn": "320010075",
-      "manufacturer": "Foxconn"
+      "manufacturer": "Foxconn",
+      "description": "DIP USB A TYPE Female;4P-2.0-90D"
     },
     "R164": {
       "value": "4.7K,1%",
@@ -10529,7 +10788,8 @@
       },
       "mpn": "RC0402FR-074K7L",
       "internal_pn": "301010633",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES;4.7K-1%-1/16W-0402"
     },
     "R126": {
       "value": "100R,1%",
@@ -10539,7 +10799,8 @@
       },
       "mpn": "RC0402FR-07100RL",
       "internal_pn": "301010442",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100R-1%-1/16W;0402"
     },
     "R137": {
       "value": "0R,5%",
@@ -10549,7 +10810,8 @@
       },
       "mpn": "RC0402JR-070RL",
       "internal_pn": "301010000",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 0R-5%-1/16W;0402"
     },
     "C136": {
       "value": "470pF,50V",
@@ -10559,7 +10821,8 @@
       },
       "mpn": "CC0402KRX7R9BB471",
       "internal_pn": "302010010",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 470pF-50V-10%-X7R;0402"
     },
     "R132": {
       "value": "470R,5%",
@@ -10569,7 +10832,8 @@
       },
       "mpn": "RC0402JR-07470RL",
       "internal_pn": "301010013",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 470R-5%-1/16W;0402"
     },
     "C132": {
       "value": "100nF,16V",
@@ -10579,7 +10843,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "R38": {
       "value": "33R,5%",
@@ -10589,7 +10854,8 @@
       },
       "mpn": "RC0402JR-0733RL",
       "internal_pn": "301010034",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 33R-5%-1/16W;0402"
     },
     "R131": {
       "value": "100R,1%",
@@ -10599,7 +10865,8 @@
       },
       "mpn": "RC0402FR-07100RL",
       "internal_pn": "301010442",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100R-1%-1/16W;0402"
     },
     "C174": {
       "value": "4.7uF,10V",
@@ -10609,7 +10876,8 @@
       },
       "mpn": "CC0402KRX5R6BB475",
       "internal_pn": "302010407",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 4.7uF-10V-10%-X5R;0402"
     },
     "R130": {
       "value": "470R,5%",
@@ -10619,7 +10887,8 @@
       },
       "mpn": "RC0402JR-07470RL",
       "internal_pn": "301010013",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 470R-5%-1/16W;0402"
     },
     "R125": {
       "value": "100R,1%",
@@ -10629,7 +10898,8 @@
       },
       "mpn": "RC0402FR-07100RL",
       "internal_pn": "301010442",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100R-1%-1/16W;0402"
     },
     "C137": {
       "value": "10pF,50V",
@@ -10639,7 +10909,8 @@
       },
       "mpn": "CC0402JRNPO9BN100",
       "internal_pn": "302010001",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 10pF-50V-5%-NPO;0402"
     },
     "R112": {
       "value": "1.5K,1%",
@@ -10649,7 +10920,8 @@
       },
       "mpn": "RC0402FR-071K5L",
       "internal_pn": "301010567",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 1.5K-1%-1/16W;0402"
     },
     "FB4": {
       "value": "150R,800mA",
@@ -10659,7 +10931,8 @@
       },
       "mpn": "LI0805H151R-10",
       "internal_pn": "303030029",
-      "manufacturer": "LAIRD"
+      "manufacturer": "LAIRD",
+      "description": "SMD Ferrite Bead;150R-800mA-0805"
     },
     "R135": {
       "value": "10K,1%",
@@ -10669,7 +10942,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "Y3": {
       "value": "25MHz,20pF",
@@ -10679,7 +10953,8 @@
       },
       "mpn": "5XBB25000202TF40Q3",
       "internal_pn": "306011036",
-      "manufacturer": "INTERQUIP"
+      "manufacturer": "INTERQUIP",
+      "description": "SMD Crystal;25MHz-20pF-20ppm-2P-5*3.2*0.8mm"
     },
     "R39": {
       "value": "33R,5%",
@@ -10689,7 +10964,8 @@
       },
       "mpn": "RC0402JR-0733RL",
       "internal_pn": "301010034",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 33R-5%-1/16W;0402"
     },
     "R124": {
       "value": "10R,1%",
@@ -10700,6 +10976,7 @@
       "mpn": "RC0402FR-0710RL",
       "internal_pn": "301010444",
       "manufacturer": "YAGEO",
+      "description": "SMD RES 10R-1%-1/16W;0402",
       "dns": true
     },
     "R139": {
@@ -10710,7 +10987,8 @@
       },
       "mpn": "RC0402FR-07100RL",
       "internal_pn": "301010442",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100R-1%-1/16W;0402"
     },
     "C141": {
       "value": "22nF,50V",
@@ -10720,7 +10998,8 @@
       },
       "mpn": "CC0402KRX7R9BB223",
       "internal_pn": "302010242",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 22nF-50V-10%-X7R;0402"
     },
     "R127": {
       "value": "100R,1%",
@@ -10730,7 +11009,8 @@
       },
       "mpn": "RC0402FR-07100RL",
       "internal_pn": "301010442",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100R-1%-1/16W;0402"
     },
     "R116": {
       "value": "10K,1%",
@@ -10740,7 +11020,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "R123": {
       "value": "49.9R,1%",
@@ -10750,7 +11031,8 @@
       },
       "mpn": "RC0402FR-0749R9L",
       "internal_pn": "301010041",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 49.9R-1%-1/16W;0402"
     },
     "R117": {
       "value": "10K,1%",
@@ -10760,7 +11042,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "C23": {
       "value": "100nF,16V",
@@ -10770,7 +11053,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C131": {
       "value": "100nF,16V",
@@ -10780,7 +11064,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C140": {
       "value": "10pF,50V",
@@ -10790,7 +11075,8 @@
       },
       "mpn": "CC0402JRNPO9BN100",
       "internal_pn": "302010001",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 10pF-50V-5%-NPO;0402"
     },
     "R40": {
       "value": "33R,5%",
@@ -10800,7 +11086,8 @@
       },
       "mpn": "RC0402JR-0733RL",
       "internal_pn": "301010034",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 33R-5%-1/16W;0402"
     },
     "P5": {
       "value": "LPJ0011BBNL",
@@ -10864,7 +11151,8 @@
       },
       "mpn": "LPJ0011BBNL",
       "internal_pn": "320140216",
-      "manufacturer": "Link-PP"
+      "manufacturer": "Link-PP",
+      "description": "DIP RJ45 W/P-10/100M;12P-21.25*15.93*13.3mm"
     },
     "R113": {
       "value": "1.5K,1%",
@@ -10874,7 +11162,8 @@
       },
       "mpn": "RC0402FR-071K5L",
       "internal_pn": "301010567",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 1.5K-1%-1/16W;0402"
     },
     "C138": {
       "value": "10pF,50V",
@@ -10884,7 +11173,8 @@
       },
       "mpn": "CC0402JRNPO9BN100",
       "internal_pn": "302010001",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 10pF-50V-5%-NPO;0402"
     },
     "R119": {
       "value": "1.5K,1%",
@@ -10894,7 +11184,8 @@
       },
       "mpn": "RC0402FR-071K5L",
       "internal_pn": "301010567",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 1.5K-1%-1/16W;0402"
     },
     "R34": {
       "value": "10K,1%",
@@ -10904,7 +11195,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "R140": {
       "value": "0R,5%",
@@ -10915,6 +11207,7 @@
       "mpn": "RC0402JR-070RL",
       "internal_pn": "301010000",
       "manufacturer": "YAGEO",
+      "description": "SMD RES 0R-5%-1/16W;0402",
       "dns": true
     },
     "C143": {
@@ -10925,7 +11218,8 @@
       },
       "mpn": "CC0402JRNPO9BN330",
       "internal_pn": "302010000",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 33pF-50V-5%-NPO;0402"
     },
     "R134": {
       "value": "100R,1%",
@@ -10935,7 +11229,8 @@
       },
       "mpn": "RC0402FR-07100RL",
       "internal_pn": "301010442",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100R-1%-1/16W;0402"
     },
     "R122": {
       "value": "49.9R,1%",
@@ -10945,7 +11240,8 @@
       },
       "mpn": "RC0402FR-0749R9L",
       "internal_pn": "301010041",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 49.9R-1%-1/16W;0402"
     },
     "C139": {
       "value": "10pF,50V",
@@ -10955,7 +11251,8 @@
       },
       "mpn": "CC0402JRNPO9BN100",
       "internal_pn": "302010001",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 10pF-50V-5%-NPO;0402"
     },
     "U14": {
       "value": "LAN8710A-EZC-TR",
@@ -11095,7 +11392,8 @@
       },
       "mpn": "LAN8710A-EZC-TR",
       "internal_pn": "310070043",
-      "manufacturer": "Microchip"
+      "manufacturer": "Microchip",
+      "description": "SMD IC Interface;QFN-32(5x5)"
     },
     "R33": {
       "value": "10K,1%",
@@ -11105,7 +11403,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "R145": {
       "value": "10K,1%",
@@ -11115,7 +11414,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "R141": {
       "value": "1M,1%",
@@ -11126,6 +11426,7 @@
       "mpn": "RC0402FR-071ML",
       "internal_pn": "301010043",
       "manufacturer": "YAGEO",
+      "description": "SMD RES 1M-1%-1/16W;0402",
       "dns": true
     },
     "R41": {
@@ -11136,7 +11437,8 @@
       },
       "mpn": "RC0402JR-0733RL",
       "internal_pn": "301010034",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 33R-5%-1/16W;0402"
     },
     "R128": {
       "value": "100R,1%",
@@ -11146,7 +11448,8 @@
       },
       "mpn": "RC0402FR-07100RL",
       "internal_pn": "301010442",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100R-1%-1/16W;0402"
     },
     "R118": {
       "value": "10K,1%",
@@ -11156,7 +11459,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "R129": {
       "value": "100R,1%",
@@ -11166,7 +11470,8 @@
       },
       "mpn": "RC0402FR-07100RL",
       "internal_pn": "301010442",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100R-1%-1/16W;0402"
     },
     "R138": {
       "value": "100R,1%",
@@ -11176,7 +11481,8 @@
       },
       "mpn": "RC0402FR-07100RL",
       "internal_pn": "301010442",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100R-1%-1/16W;0402"
     },
     "R120": {
       "value": "49.9R,1%",
@@ -11186,7 +11492,8 @@
       },
       "mpn": "RC0402FR-0749R9L",
       "internal_pn": "301010041",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 49.9R-1%-1/16W;0402"
     },
     "R115": {
       "value": "10K,1%",
@@ -11196,7 +11503,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "U1": {
       "value": "SN74AHC1G09DCKR",
@@ -11224,7 +11532,8 @@
       },
       "mpn": "SN74AHC1G09DCKR",
       "internal_pn": "310051111",
-      "manufacturer": "TI"
+      "manufacturer": "TI",
+      "description": "SMD IC Logic;Single 2-Input Positive-AND Gate With Open-Drain Output;SC-70-5"
     },
     "R143": {
       "value": "10R,1%",
@@ -11234,7 +11543,8 @@
       },
       "mpn": "RC0402FR-0710RL",
       "internal_pn": "301010444",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10R-1%-1/16W;0402"
     },
     "C142": {
       "value": "33pF,50V",
@@ -11244,7 +11554,8 @@
       },
       "mpn": "CC0402JRNPO9BN330",
       "internal_pn": "302010000",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 33pF-50V-5%-NPO;0402"
     },
     "R133": {
       "value": "100R,1%",
@@ -11254,7 +11565,8 @@
       },
       "mpn": "RC0402FR-07100RL",
       "internal_pn": "301010442",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100R-1%-1/16W;0402"
     },
     "R114": {
       "value": "1.5K,1%",
@@ -11264,7 +11576,8 @@
       },
       "mpn": "RC0402FR-071K5L",
       "internal_pn": "301010567",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 1.5K-1%-1/16W;0402"
     },
     "C135": {
       "value": "100nF,16V",
@@ -11274,7 +11587,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C133": {
       "value": "10uF,16V",
@@ -11284,7 +11598,8 @@
       },
       "mpn": "CL21A106KOQNNNE",
       "internal_pn": "302010361",
-      "manufacturer": "Samsung"
+      "manufacturer": "Samsung",
+      "description": "SMD CAP Ceramic;10uF-16V-10%-X5R-0805"
     },
     "R136": {
       "value": "0.1R,5%",
@@ -11294,7 +11609,8 @@
       },
       "mpn": "RL0805JR-070R1L",
       "internal_pn": "301010264",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 0.1R-5%-1/8W;0805"
     },
     "R42": {
       "value": "33R,5%",
@@ -11304,7 +11620,8 @@
       },
       "mpn": "RC0402JR-0733RL",
       "internal_pn": "301010034",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 33R-5%-1/16W;0402"
     },
     "R121": {
       "value": "49.9R,1%",
@@ -11314,7 +11631,8 @@
       },
       "mpn": "RC0402FR-0749R9L",
       "internal_pn": "301010041",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 49.9R-1%-1/16W;0402"
     },
     "R144": {
       "value": "12.1K,1%",
@@ -11324,7 +11642,8 @@
       },
       "mpn": "RC0402FR-0712K1L",
       "internal_pn": "301011877",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 12.1K-1%-1/16W;0402"
     },
     "R142": {
       "value": "0R,5%",
@@ -11334,7 +11653,8 @@
       },
       "mpn": "RC0402JR-070RL",
       "internal_pn": "301010000",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 0R-5%-1/16W;0402"
     },
     "C134": {
       "value": "1uF,10V",
@@ -11344,7 +11664,8 @@
       },
       "mpn": "CC0402KRX5R6BB105",
       "internal_pn": "302010040",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 1uF-10V-10%-X5R;0402"
     },
     "L3": {
       "value": "2.2uH,1.3A",
@@ -11354,7 +11675,8 @@
       },
       "mpn": "LQM2HPN2R2MG0L",
       "internal_pn": "303010128",
-      "manufacturer": "Murata"
+      "manufacturer": "Murata",
+      "description": "SMD Inductor 2.2uH-20%-1.3A;2P-2520"
     },
     "R10": {
       "value": "470K,1%",
@@ -11364,7 +11686,8 @@
       },
       "mpn": "RC0402FR-07470KL",
       "internal_pn": "301010069",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 470K-1%-1/16W;0402"
     },
     "P1": {
       "value": "DC630-20D01",
@@ -11375,7 +11698,8 @@
       },
       "mpn": "DC630-20D01",
       "internal_pn": "320120067",
-      "manufacturer": "MTCONN"
+      "manufacturer": "MTCONN",
+      "description": "DIP DC Power Jack;3P-2.0-6.3mm;L9*14.7*H11mm"
     },
     "R1": {
       "value": "100K,1%",
@@ -11385,7 +11709,8 @@
       },
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "C17": {
       "value": "2.2uF,10V",
@@ -11395,7 +11720,8 @@
       },
       "mpn": "CC0402KRX5R6BB225",
       "internal_pn": "302012819",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 2.2uF-10V-10%-X5R;0402"
     },
     "U2": {
       "value": "TPS65217CRSLR",
@@ -11599,7 +11925,8 @@
       },
       "mpn": "TPS65217CRSLR",
       "internal_pn": "310030209",
-      "manufacturer": "TI"
+      "manufacturer": "TI",
+      "description": "SMD IC PMIC;VQFN-48"
     },
     "R6": {
       "value": "0R,5%",
@@ -11609,7 +11936,8 @@
       },
       "mpn": "RC0402JR-070RL",
       "internal_pn": "301010000",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 0R-5%-1/16W;0402"
     },
     "R8": {
       "value": "0R,5%",
@@ -11619,7 +11947,8 @@
       },
       "mpn": "RC0402JR-070RL",
       "internal_pn": "301010000",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 0R-5%-1/16W;0402"
     },
     "MTG2": {
       "value": "MHOLE",
@@ -11629,6 +11958,7 @@
           "net": "GND_EARTH"
         }
       },
+      "description": "Plated Hole,125mil,175mil",
       "dns": true
     },
     "C4": {
@@ -11639,7 +11969,8 @@
       },
       "mpn": "CL21A106KOQNNNE",
       "internal_pn": "302010361",
-      "manufacturer": "Samsung"
+      "manufacturer": "Samsung",
+      "description": "SMD CAP Ceramic;10uF-16V-10%-X5R-0805"
     },
     "TP8": {
       "value": "Test Point",
@@ -11649,6 +11980,7 @@
           "net": "DGND"
         }
       },
+      "description": "DIP Test Point,35mil,60mil",
       "dns": true
     },
     "C18": {
@@ -11659,7 +11991,8 @@
       },
       "mpn": "CC0402KRX5R6BB225",
       "internal_pn": "302012819",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 2.2uF-10V-10%-X5R;0402"
     },
     "U4": {
       "value": "TL5209DR",
@@ -11699,7 +12032,8 @@
       },
       "mpn": "TL5209DR",
       "internal_pn": "310030210",
-      "manufacturer": "TI"
+      "manufacturer": "TI",
+      "description": "SMD IC PMIC;LDO-ADJ-500mA;SOIC-8"
     },
     "R11": {
       "value": "280K,1%",
@@ -11709,7 +12043,8 @@
       },
       "mpn": "RC0402FR-07280KL",
       "internal_pn": "301010642",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES;280K-1%-1/16W-0402"
     },
     "C10": {
       "value": "10uF,16V",
@@ -11719,7 +12054,8 @@
       },
       "mpn": "CL21A106KOQNNNE",
       "internal_pn": "302010361",
-      "manufacturer": "Samsung"
+      "manufacturer": "Samsung",
+      "description": "SMD CAP Ceramic;10uF-16V-10%-X5R-0805"
     },
     "C15": {
       "value": "10uF,16V",
@@ -11729,7 +12065,8 @@
       },
       "mpn": "CL21A106KOQNNNE",
       "internal_pn": "302010361",
-      "manufacturer": "Samsung"
+      "manufacturer": "Samsung",
+      "description": "SMD CAP Ceramic;10uF-16V-10%-X5R-0805"
     },
     "R5": {
       "value": "0R,5%",
@@ -11739,7 +12076,8 @@
       },
       "mpn": "RC0402JR-070RL",
       "internal_pn": "301010000",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 0R-5%-1/16W;0402"
     },
     "C1": {
       "value": "10uF,16V",
@@ -11749,7 +12087,8 @@
       },
       "mpn": "CL21A106KOQNNNE",
       "internal_pn": "302010361",
-      "manufacturer": "Samsung"
+      "manufacturer": "Samsung",
+      "description": "SMD CAP Ceramic;10uF-16V-10%-X5R-0805"
     },
     "C7": {
       "value": "10uF,16V",
@@ -11759,7 +12098,8 @@
       },
       "mpn": "CL21A106KOQNNNE",
       "internal_pn": "302010361",
-      "manufacturer": "Samsung"
+      "manufacturer": "Samsung",
+      "description": "SMD CAP Ceramic;10uF-16V-10%-X5R-0805"
     },
     "S3": {
       "value": "KMR231GLFS",
@@ -11783,7 +12123,8 @@
       },
       "mpn": "KMR231GLFS",
       "internal_pn": "311020198",
-      "manufacturer": "C&K"
+      "manufacturer": "C&K",
+      "description": "SMD Top Button 300gf;4P-L4.6*W2.8*H1.9mm"
     },
     "R4": {
       "value": "1.5K,1%",
@@ -11793,7 +12134,8 @@
       },
       "mpn": "RC0402FR-071K5L",
       "internal_pn": "301010567",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 1.5K-1%-1/16W;0402"
     },
     "R7": {
       "value": "0R,5%",
@@ -11803,7 +12145,8 @@
       },
       "mpn": "RC0402JR-070RL",
       "internal_pn": "301010000",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 0R-5%-1/16W;0402"
     },
     "C19": {
       "value": "470pF,50V",
@@ -11813,13 +12156,15 @@
       },
       "mpn": "CC0402KRX7R9BB471",
       "internal_pn": "302010010",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 470pF-50V-10%-X7R;0402"
     },
     "PCB1": {
       "value": "BeagleBone Black PCB",
       "pins": {},
       "mpn": "BeagleBone Black Commercial RevC PCB",
-      "internal_pn": "319014477"
+      "internal_pn": "319014477",
+      "description": "PCB;BeagleBone Black Commercial RevC-Black Soldermask,white Silkscreen-6 layers,Immersion gold-86.36*54.61*1.6mm"
     },
     "D1": {
       "value": "19-217/BHC-ZL1M2RY/3T",
@@ -11835,7 +12180,8 @@
       },
       "mpn": "19-217/BHC-ZL1M2RY/3T",
       "internal_pn": "304090045",
-      "manufacturer": "Everlight"
+      "manufacturer": "Everlight",
+      "description": "SMD LED Clear-Blue;0603"
     },
     "C12": {
       "value": "10uF,16V",
@@ -11845,7 +12191,8 @@
       },
       "mpn": "CL21A106KOQNNNE",
       "internal_pn": "302010361",
-      "manufacturer": "Samsung"
+      "manufacturer": "Samsung",
+      "description": "SMD CAP Ceramic;10uF-16V-10%-X5R-0805"
     },
     "TP7": {
       "value": "Test Point",
@@ -11855,6 +12202,7 @@
           "net": "N22420447"
         }
       },
+      "description": "DIP Test Point,35mil,60mil",
       "dns": true
     },
     "C2": {
@@ -11865,7 +12213,8 @@
       },
       "mpn": "CL21A106KOQNNNE",
       "internal_pn": "302010361",
-      "manufacturer": "Samsung"
+      "manufacturer": "Samsung",
+      "description": "SMD CAP Ceramic;10uF-16V-10%-X5R-0805"
     },
     "L2": {
       "value": "2.2uH,1.3A",
@@ -11875,7 +12224,8 @@
       },
       "mpn": "LQM2HPN2R2MG0L",
       "internal_pn": "303010128",
-      "manufacturer": "Murata"
+      "manufacturer": "Murata",
+      "description": "SMD Inductor 2.2uH-20%-1.3A;2P-2520"
     },
     "TP5": {
       "value": "Test Point",
@@ -11885,6 +12235,7 @@
           "net": "N22420400"
         }
       },
+      "description": "DIP Test Point,35mil,60mil",
       "dns": true
     },
     "MTG3": {
@@ -11895,6 +12246,7 @@
           "net": "GND_EARTH"
         }
       },
+      "description": "Plated Hole,125mil,175mil",
       "dns": true
     },
     "C20": {
@@ -11905,7 +12257,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C13": {
       "value": "10uF,16V",
@@ -11915,7 +12268,8 @@
       },
       "mpn": "CL21A106KOQNNNE",
       "internal_pn": "302010361",
-      "manufacturer": "Samsung"
+      "manufacturer": "Samsung",
+      "description": "SMD CAP Ceramic;10uF-16V-10%-X5R-0805"
     },
     "C9": {
       "value": "10uF,16V",
@@ -11925,7 +12279,8 @@
       },
       "mpn": "CL21A106KOQNNNE",
       "internal_pn": "302010361",
-      "manufacturer": "Samsung"
+      "manufacturer": "Samsung",
+      "description": "SMD CAP Ceramic;10uF-16V-10%-X5R-0805"
     },
     "TP6": {
       "value": "Test Point",
@@ -11935,6 +12290,7 @@
           "net": "N22420444"
         }
       },
+      "description": "DIP Test Point,35mil,60mil",
       "dns": true
     },
     "R12": {
@@ -11945,7 +12301,8 @@
       },
       "mpn": "RC0402JR-07470RL",
       "internal_pn": "301010013",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 470R-5%-1/16W;0402"
     },
     "TP1": {
       "value": "Test Point",
@@ -11955,6 +12312,7 @@
           "net": "DGND"
         }
       },
+      "description": "DIP Test Point,40mil,60mil",
       "dns": true
     },
     "C3": {
@@ -11965,7 +12323,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "MTG1": {
       "value": "MHOLE",
@@ -11975,6 +12334,7 @@
           "net": "GND_EARTH"
         }
       },
+      "description": "Plated Hole,125mil,175mil",
       "dns": true
     },
     "C8": {
@@ -11985,7 +12345,8 @@
       },
       "mpn": "CL21A106KOQNNNE",
       "internal_pn": "302010361",
-      "manufacturer": "Samsung"
+      "manufacturer": "Samsung",
+      "description": "SMD CAP Ceramic;10uF-16V-10%-X5R-0805"
     },
     "R3": {
       "value": "1.5K,1%",
@@ -11995,7 +12356,8 @@
       },
       "mpn": "RC0402FR-071K5L",
       "internal_pn": "301010567",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 1.5K-1%-1/16W;0402"
     },
     "C11": {
       "value": "10uF,16V",
@@ -12005,7 +12367,8 @@
       },
       "mpn": "CL21A106KOQNNNE",
       "internal_pn": "302010361",
-      "manufacturer": "Samsung"
+      "manufacturer": "Samsung",
+      "description": "SMD CAP Ceramic;10uF-16V-10%-X5R-0805"
     },
     "R9": {
       "value": "0R,5%",
@@ -12016,6 +12379,7 @@
       "mpn": "RC0402JR-070RL",
       "internal_pn": "301010000",
       "manufacturer": "YAGEO",
+      "description": "SMD RES 0R-5%-1/16W;0402",
       "dns": true
     },
     "C16": {
@@ -12026,7 +12390,8 @@
       },
       "mpn": "CC0402KRX5R6BB225",
       "internal_pn": "302012819",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 2.2uF-10V-10%-X5R;0402"
     },
     "L1": {
       "value": "2.2uH,1.3A",
@@ -12036,7 +12401,8 @@
       },
       "mpn": "LQM2HPN2R2MG0L",
       "internal_pn": "303010128",
-      "manufacturer": "Murata"
+      "manufacturer": "Murata",
+      "description": "SMD Inductor 2.2uH-20%-1.3A;2P-2520"
     },
     "MTG4": {
       "value": "MHOLE",
@@ -12046,6 +12412,7 @@
           "net": "GND_EARTH"
         }
       },
+      "description": "Plated Hole,125mil,175mil",
       "dns": true
     },
     "C14": {
@@ -12056,7 +12423,8 @@
       },
       "mpn": "CL21A106KOQNNNE",
       "internal_pn": "302010361",
-      "manufacturer": "Samsung"
+      "manufacturer": "Samsung",
+      "description": "SMD CAP Ceramic;10uF-16V-10%-X5R-0805"
     },
     "R23": {
       "value": "4.7K,1%",
@@ -12066,7 +12434,8 @@
       },
       "mpn": "RC0402FR-074K7L",
       "internal_pn": "301010633",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES;4.7K-1%-1/16W-0402"
     },
     "R167": {
       "value": "33R,5%",
@@ -12076,7 +12445,8 @@
       },
       "mpn": "RC0402JR-0733RL",
       "internal_pn": "301010034",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 33R-5%-1/16W;0402"
     },
     "C29": {
       "value": "100nF,16V",
@@ -12086,7 +12456,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "R172": {
       "value": "33R,5%",
@@ -12096,7 +12467,8 @@
       },
       "mpn": "RC0402JR-0733RL",
       "internal_pn": "301010034",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 33R-5%-1/16W;0402"
     },
     "C24": {
       "value": "2.2uF,10V",
@@ -12107,6 +12479,7 @@
       "mpn": "CC0402KRX5R6BB225",
       "internal_pn": "302012819",
       "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 2.2uF-10V-10%-X5R;0402",
       "dns": true
     },
     "R29": {
@@ -12117,7 +12490,8 @@
       },
       "mpn": "RC0402JR-070RL",
       "internal_pn": "301010000",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 0R-5%-1/16W;0402"
     },
     "P2": {
       "value": "Heaader 2x10 1.27mm",
@@ -12203,6 +12577,7 @@
           "net": "DGND"
         }
       },
+      "description": "SMD Black Male Header;2*10P-1.27mm",
       "dns": true
     },
     "R170": {
@@ -12213,7 +12588,8 @@
       },
       "mpn": "RC0402JR-0733RL",
       "internal_pn": "301010034",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 33R-5%-1/16W;0402"
     },
     "R21": {
       "value": "33R,5%",
@@ -12223,7 +12599,8 @@
       },
       "mpn": "RC0402JR-0733RL",
       "internal_pn": "301010034",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 33R-5%-1/16W;0402"
     },
     "R35": {
       "value": "33R,5%",
@@ -12233,7 +12610,8 @@
       },
       "mpn": "RC0402JR-0733RL",
       "internal_pn": "301010034",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 33R-5%-1/16W;0402"
     },
     "R162": {
       "value": "0R,5%",
@@ -12243,7 +12621,8 @@
       },
       "mpn": "RC0402JR-070RL",
       "internal_pn": "301010000",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 0R-5%-1/16W;0402"
     },
     "R168": {
       "value": "33R,5%",
@@ -12253,7 +12632,8 @@
       },
       "mpn": "RC0402JR-0733RL",
       "internal_pn": "301010034",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 33R-5%-1/16W;0402"
     },
     "C21": {
       "value": "18pF,50V",
@@ -12263,7 +12643,8 @@
       },
       "mpn": "CC0402JRNPO9BN180",
       "internal_pn": "302010016",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 18pF-50V-5%-NPO;0402"
     },
     "R43": {
       "value": "33R,5%",
@@ -12273,7 +12654,8 @@
       },
       "mpn": "RC0402JR-0733RL",
       "internal_pn": "301010034",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 33R-5%-1/16W;0402"
     },
     "R36": {
       "value": "33R,5%",
@@ -12283,7 +12665,8 @@
       },
       "mpn": "RC0402JR-0733RL",
       "internal_pn": "301010034",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 33R-5%-1/16W;0402"
     },
     "C159": {
       "value": "100nF,16V",
@@ -12293,7 +12676,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "R24": {
       "value": "4.7K,1%",
@@ -12303,7 +12687,8 @@
       },
       "mpn": "RC0402FR-074K7L",
       "internal_pn": "301010633",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES;4.7K-1%-1/16W-0402"
     },
     "C25": {
       "value": "18pF,50V",
@@ -12313,7 +12698,8 @@
       },
       "mpn": "CC0402JRNPO9BN180",
       "internal_pn": "302010016",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 18pF-50V-5%-NPO;0402"
     },
     "R20": {
       "value": "0R,5%",
@@ -12323,7 +12709,8 @@
       },
       "mpn": "RC0402JR-070RL",
       "internal_pn": "301010000",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 0R-5%-1/16W;0402"
     },
     "U16": {
       "value": "SN74LVC1G07DCKR",
@@ -12351,7 +12738,8 @@
       },
       "mpn": "SN74LVC1G07DCKR",
       "internal_pn": "310050079",
-      "manufacturer": "TI"
+      "manufacturer": "TI",
+      "description": "SMD IC Logic;SC-70-5"
     },
     "R17": {
       "value": "1M,1%",
@@ -12361,7 +12749,8 @@
       },
       "mpn": "RC0402FR-071ML",
       "internal_pn": "301010043",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 1M-1%-1/16W;0402"
     },
     "R173": {
       "value": "33R,5%",
@@ -12371,7 +12760,8 @@
       },
       "mpn": "RC0402JR-0733RL",
       "internal_pn": "301010034",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 33R-5%-1/16W;0402"
     },
     "C27": {
       "value": "100nF,16V",
@@ -12381,7 +12771,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "R19": {
       "value": "0R,5%",
@@ -12391,7 +12782,8 @@
       },
       "mpn": "RC0402JR-070RL",
       "internal_pn": "301010000",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 0R-5%-1/16W;0402"
     },
     "R161": {
       "value": "0R,5%",
@@ -12401,7 +12793,8 @@
       },
       "mpn": "RC0402JR-070RL",
       "internal_pn": "301010000",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 0R-5%-1/16W;0402"
     },
     "C175": {
       "value": "10pF,50V",
@@ -12412,6 +12805,7 @@
       "mpn": "CC0402JRNPO9BN100",
       "internal_pn": "302010001",
       "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 10pF-50V-5%-NPO;0402",
       "dns": true
     },
     "R171": {
@@ -12422,7 +12816,8 @@
       },
       "mpn": "RC0402JR-0733RL",
       "internal_pn": "301010034",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 33R-5%-1/16W;0402"
     },
     "U6": {
       "value": "SN74LVC1G74DCTR",
@@ -12462,7 +12857,8 @@
       },
       "mpn": "SN74LVC1G74DCTR",
       "internal_pn": "310990837",
-      "manufacturer": "TI"
+      "manufacturer": "TI",
+      "description": "SMD IC Single Positive-Edge-Triggered;SM8"
     },
     "R18": {
       "value": "33R,5%",
@@ -12472,7 +12868,8 @@
       },
       "mpn": "RC0402JR-0733RL",
       "internal_pn": "301010034",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 33R-5%-1/16W;0402"
     },
     "C30": {
       "value": "100nF,16V",
@@ -12482,7 +12879,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "R22": {
       "value": "49.9R,1%",
@@ -12492,7 +12890,8 @@
       },
       "mpn": "RC0402FR-0749R9L",
       "internal_pn": "301010041",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 49.9R-1%-1/16W;0402"
     },
     "R169": {
       "value": "33R,5%",
@@ -12502,7 +12901,8 @@
       },
       "mpn": "RC0402JR-0733RL",
       "internal_pn": "301010034",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 33R-5%-1/16W;0402"
     },
     "Y2": {
       "value": "24MHz,20pF",
@@ -12512,7 +12912,8 @@
       },
       "mpn": "5XBB24000202TF50Q3",
       "internal_pn": "306011035",
-      "manufacturer": "INTERQUIP"
+      "manufacturer": "INTERQUIP",
+      "description": "SMD Crystal;24MHz-20pF-20ppm-2P-5*3.2*0.8mm"
     },
     "Y4": {
       "value": "24.576MHz",
@@ -12536,7 +12937,8 @@
       },
       "mpn": "1651-24575-BTBQYA",
       "internal_pn": "306020601",
-      "manufacturer": "INTERQUIP"
+      "manufacturer": "INTERQUIP",
+      "description": "SMD Oscillator;24.576MHz-50ppm-3.3V-4P-2.5*2*1mm"
     },
     "R44": {
       "value": "33R,5%",
@@ -12546,7 +12948,8 @@
       },
       "mpn": "RC0402JR-0733RL",
       "internal_pn": "301010034",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 33R-5%-1/16W;0402"
     },
     "R30": {
       "value": "0R,5%",
@@ -12556,7 +12959,8 @@
       },
       "mpn": "RC0402JR-070RL",
       "internal_pn": "301010000",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 0R-5%-1/16W;0402"
     },
     "Y1": {
       "value": "32.768KHz,12.5pF",
@@ -12568,7 +12972,8 @@
       },
       "mpn": "ABS25-32.768KHZ-T",
       "internal_pn": "306010085",
-      "manufacturer": "Abracon"
+      "manufacturer": "Abracon",
+      "description": "SMD Crystal;32.768KHz-12.5pF-20PPM-50K-8*3.8*2.5mm;SOJ-4"
     },
     "S1": {
       "value": "KMR231GLFS",
@@ -12592,7 +12997,8 @@
       },
       "mpn": "KMR231GLFS",
       "internal_pn": "311020198",
-      "manufacturer": "C&K"
+      "manufacturer": "C&K",
+      "description": "SMD Top Button 300gf;4P-L4.6*W2.8*H1.9mm"
     },
     "R160": {
       "value": "0R,5%",
@@ -12602,7 +13008,8 @@
       },
       "mpn": "RC0402JR-070RL",
       "internal_pn": "301010000",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 0R-5%-1/16W;0402"
     },
     "R14": {
       "value": "10K,1%",
@@ -12612,7 +13019,8 @@
       },
       "mpn": "RC0402FR-0710KL",
       "internal_pn": "301010047",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES 10K-1%-1/16W;0402"
     },
     "U3": {
       "value": "SN74LVC1G06DCKR",
@@ -12640,7 +13048,8 @@
       },
       "mpn": "SN74LVC1G06DCKR",
       "internal_pn": "310050077",
-      "manufacturer": "TI"
+      "manufacturer": "TI",
+      "description": "SMD IC Logic;SC-70-5"
     },
     "R25": {
       "value": "4.7K,1%",
@@ -12650,7 +13059,8 @@
       },
       "mpn": "RC0402FR-074K7L",
       "internal_pn": "301010633",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD RES;4.7K-1%-1/16W-0402"
     },
     "C26": {
       "value": "18pF,50V",
@@ -12660,7 +13070,8 @@
       },
       "mpn": "CC0402JRNPO9BN180",
       "internal_pn": "302010016",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 18pF-50V-5%-NPO;0402"
     },
     "C158": {
       "value": "100nF,16V",
@@ -12670,7 +13081,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C28": {
       "value": "100nF,16V",
@@ -12680,7 +13092,8 @@
       },
       "mpn": "CC0402KRX7R7BB104",
       "internal_pn": "302010004",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 100nF-16V-10%-X7R;0402"
     },
     "C22": {
       "value": "18pF,50V",
@@ -12690,7 +13103,8 @@
       },
       "mpn": "CC0402JRNPO9BN180",
       "internal_pn": "302010016",
-      "manufacturer": "YAGEO"
+      "manufacturer": "YAGEO",
+      "description": "SMD CAP Ceramic 18pF-50V-5%-NPO;0402"
     }
   }
 }

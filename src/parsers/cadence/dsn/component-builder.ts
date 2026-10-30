@@ -1,7 +1,7 @@
 /**
  * Component Builder
  *
- * Builds component details (MPN, value, pins with names) from
+ * Builds component details (MPN, description, value, pins with names) from
  * PlacedInstances and resolved pin connectivity.
  */
 
@@ -65,6 +65,25 @@ const MANUFACTURER_PN_KEYS = [
  * `mpn` from a string into a key. The misspelling is deliberate: it is in use.
  */
 const MANUFACTURER_KEYS = ["Manufacturer", "MANUFACTURER", "Manufacture"] as const;
+
+/**
+ * Property names holding the part's description, in precedence order.
+ *
+ * `Part Description` is first for the same reason `MPN` is last: a record that
+ * carries a more specific spelling alongside the generic one keeps the generic
+ * one stale. A design whose library writes `Part Description` on every part
+ * leaves a `Description` copied from whichever symbol the part was drawn from,
+ * so a ferrite bead there still says it is an inductor. The trailing colon is
+ * a spelling in use. `DESCR` is the name Cadence's own netlist export writes.
+ */
+const DESCRIPTION_KEYS = [
+  "Part Description",
+  "Description",
+  "DESCRIPTION",
+  "description",
+  "DESCR",
+  "Description:",
+] as const;
 
 /**
  * Read the first property named by `keys` that carries a value.
@@ -233,6 +252,7 @@ export function buildComponents(
       const internalPn = readProperty(inst.prefixProperties, strLst, PART_NUMBER_KEYS);
       const mpn = readProperty(inst.prefixProperties, strLst, MANUFACTURER_PN_KEYS);
       const manufacturer = readProperty(inst.prefixProperties, strLst, MANUFACTURER_KEYS);
+      const description = readProperty(inst.prefixProperties, strLst, DESCRIPTION_KEYS);
 
       // Resolve value (3-source priority)
       let value: string | undefined;
@@ -300,6 +320,7 @@ export function buildComponents(
       if (mpn) components[refdes].mpn = mpn;
       if (internalPn) components[refdes].internal_pn = internalPn;
       if (manufacturer) components[refdes].manufacturer = manufacturer;
+      if (description) components[refdes].description = description;
       if (dns) components[refdes].dns = true;
     }
   }
