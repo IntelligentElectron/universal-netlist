@@ -1,0 +1,10 @@
+exit_code,failure,outcome,next,status,note
+0,none,none,,decided,Semconv: error.type only when the exit code is not 0
+0,classifiable,none,,decided,Semconv: error.type only when the exit code is not 0
+0,unclassifiable,none,,decided,Semconv: error.type only when the exit code is not 0
+1,none,internal,,decided,The classifier's fallback: a gap stays visible
+1,classifiable,classified,,decided,The closed vocabulary in error-category.ts
+1,unclassifiable,internal,,decided,The classifier's fallback: a gap stays visible
+2,none,invalid_argument,,decided,"Exit 2 is the usage exit, whatever the message says"
+2,classifiable,invalid_argument,,decided,"Exit 2 is the usage exit, whatever the message says"
+2,unclassifiable,invalid_argument,,decided,"Exit 2 is the usage exit, whatever the message says"

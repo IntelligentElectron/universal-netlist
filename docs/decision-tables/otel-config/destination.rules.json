@@ -1,0 +1,63 @@
+{
+  "name": "otel-destination",
+  "rules": [
+    {
+      "when": {
+        "sdk_disabled": [
+          "unset",
+          "other"
+        ],
+        "selector": [
+          "otlp"
+        ]
+      },
+      "outcome": "otlp",
+      "next": "",
+      "cells": 12
+    },
+    {
+      "when": {
+        "sdk_disabled": [
+          "unset",
+          "other"
+        ],
+        "selector": [
+          "unset",
+          "unsupported"
+        ],
+        "directory": [
+          "set"
+        ]
+      },
+      "outcome": "file",
+      "next": "",
+      "cells": 12
+    },
+    {
+      "when": {
+        "sdk_disabled": [
+          "unset",
+          "other"
+        ],
+        "endpoint": [
+          "env",
+          "build_default"
+        ],
+        "selector": [
+          "unset",
+          "unsupported"
+        ],
+        "directory": [
+          "unset"
+        ]
+      },
+      "outcome": "otlp",
+      "next": "",
+      "cells": 8
+    }
+  ],
+  "default": {
+    "outcome": "off",
+    "next": ""
+  }
+}

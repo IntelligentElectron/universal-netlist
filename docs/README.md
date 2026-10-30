@@ -65,11 +65,11 @@ A `.DSN` saved with a password opens with a password the server reads from its e
 
 ## Command Line
 
-The binary's commands (`update`, `uninstall`, `export-telemetry`, and every tool as a command) are documented in [cli.md](cli.md). `export_design`, a tool of the command line only, writes one build of a design as a versioned `.netlist.json` file, which is itself a design every tool reads.
+The binary's commands (`update`, `uninstall`, and every tool as a command) are documented in [cli.md](cli.md). `export_design`, a tool of the command line only, writes one build of a design as a versioned `.netlist.json` file, which is itself a design every tool reads.
 
 ## Observability
 
-The server can emit OpenTelemetry traces, metrics, and logs for every tool call, so you can integrate your own OTel service. It is disabled by default and configured entirely through standard `OTEL_*` environment variables. Separately, the server keeps a [local usage log](observability.md#local-usage-log) on your disk. See [Observability (OpenTelemetry)](observability.md) for setup and the full list of emitted spans, metrics, and logs.
+The server and its command line can emit OpenTelemetry traces, metrics, and logs for every tool call and command, so you can integrate your own OTel service. It is disabled by default and configured through standard `OTEL_*` environment variables, or `UNIVERSAL_NETLIST_OTEL_DIR` to keep it on disk. See [Observability (OpenTelemetry)](observability.md) for setup and the full list of emitted spans, metrics, and logs.
 
 ## Example Queries
 

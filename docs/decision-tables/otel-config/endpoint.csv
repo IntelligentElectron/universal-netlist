@@ -1,0 +1,9 @@
+signal_env,general_env,build_default,outcome,next,status,note
+empty,empty,empty,sdk default,,decided,OTLP exporter spec: http://localhost:4318/v1/<signal>
+empty,empty,set,build default,,decided,Issue #277: a default applies only when its OTEL_* variable is empty
+empty,set,empty,general env,,decided,"OTLP exporter spec: the general endpoint, with /v1/<signal> appended"
+empty,set,set,general env,,decided,"OTLP exporter spec: the general endpoint, with /v1/<signal> appended"
+set,empty,empty,signal env,,decided,"OTLP exporter spec: the per-signal endpoint wins, verbatim"
+set,empty,set,signal env,,decided,"OTLP exporter spec: the per-signal endpoint wins, verbatim"
+set,set,empty,signal env,,decided,"OTLP exporter spec: the per-signal endpoint wins, verbatim"
+set,set,set,signal env,,decided,"OTLP exporter spec: the per-signal endpoint wins, verbatim"

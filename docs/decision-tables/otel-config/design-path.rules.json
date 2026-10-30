@@ -1,0 +1,25 @@
+{
+  "name": "otel-design-path",
+  "rules": [
+    {
+      "when": {
+        "root": [
+          "set"
+        ],
+        "extension": [
+          "design"
+        ],
+        "location": [
+          "inside_root"
+        ]
+      },
+      "outcome": "relative path",
+      "next": "",
+      "cells": 1
+    }
+  ],
+  "default": {
+    "outcome": "omitted",
+    "next": ""
+  }
+}

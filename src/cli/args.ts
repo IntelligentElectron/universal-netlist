@@ -9,7 +9,7 @@
  */
 
 /** Every command the binary understands, in its word form. */
-export const COMMANDS = ["version", "help", "update", "uninstall", "export-telemetry"] as const;
+export const COMMANDS = ["version", "help", "update", "uninstall"] as const;
 
 const COMMAND_SET = new Set<string>(COMMANDS);
 

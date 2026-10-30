@@ -9,13 +9,47 @@ import {
   type ServerNotification,
   type ServerRequest,
 } from "@modelcontextprotocol/sdk/types.js";
-import { withTelemetry } from "./local.js";
-import { runWithToolRequestState } from "./request-context.js";
+import { instrumentTool } from "./otel.js";
+import { markToolHandlerInstrumented, runWithToolRequestState } from "./request-context.js";
 
 type CallToolHandler = (
   request: CallToolRequest,
   extra: RequestHandlerExtra<ServerRequest, ServerNotification>
 ) => CallToolResult | Promise<CallToolResult>;
+
+/** Read the human-facing message from a formatted MCP error result. */
+const getErrorContentMessage = (result: unknown): string | undefined => {
+  if (typeof result !== "object" || result === null) return undefined;
+  const r = result as { content?: Array<{ text?: string }>; isError?: boolean };
+  if (!Array.isArray(r.content) || r.content.length === 0) return undefined;
+  if (r.isError === true) return r.content[0].text || "Tool call failed";
+  try {
+    const parsed: unknown = JSON.parse(r.content[0].text ?? "");
+    if (typeof parsed !== "object" || parsed === null || !("error" in parsed)) return undefined;
+    return typeof parsed.error === "string" ? parsed.error : undefined;
+  } catch {
+    return undefined;
+  }
+};
+
+/**
+ * Wrap a tool handler in OpenTelemetry's span, metrics and log (no-op unless
+ * configured). The handler runs exactly once, inside the span. Both application
+ * error content and MCP `isError` results created by the SDK for validation and
+ * dispatch failures count as failures.
+ */
+export const withTelemetry = <T extends Record<string, unknown>, R>(
+  toolName: string,
+  handler: (args: T) => Promise<R>
+): ((args: T) => Promise<R>) => {
+  return async (args: T): Promise<R> => {
+    markToolHandlerInstrumented();
+    return instrumentTool(toolName, args as Record<string, unknown>, () => handler(args), {
+      isErrorResult: (result) => getErrorContentMessage(result) !== undefined,
+      getErrorMessage: getErrorContentMessage,
+    });
+  };
+};
 
 /**
  * Install telemetry at the `tools/call` request boundary.

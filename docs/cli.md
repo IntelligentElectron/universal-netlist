@@ -12,7 +12,6 @@ Options:
 Commands:
   update|upgrade       Check for updates and install if available
   uninstall            Remove the binary and its PATH entries
-  export-telemetry     Export telemetry data as a zip file
   <tool> [design] --flag value ...
                        Run a tool and print its JSON result: any MCP tool, or
                        export_design (command line only)
@@ -100,12 +99,8 @@ Checks GitHub for a newer release and replaces the binary in place. The server a
 universal-netlist uninstall
 ```
 
-Removes the binary, its update backups, and the PATH entries `install.sh` added to the shell profile. In the installer's `universal-netlist/bin/` layout it also removes the local telemetry log and `.mcpb` file beside `bin/`, then `bin/` and the install directory once each is empty; a binary anywhere else, such as `/usr/local/bin`, takes nothing else with it. What it cannot remove, such as the running `.exe` on Windows, it lists for removal by hand, and the Windows user PATH entry `install.ps1` added stays. A package-managed install is removed by its package manager, and a copy running under Node.js or Bun points at `npm uninstall -g @intelligentelectron/universal-netlist`; either way the command says so.
+Removes the binary, its update backups, and the PATH entries `install.sh` added to the shell profile. In the installer's `universal-netlist/bin/` layout it also removes the `.mcpb` file and any `telemetry.jsonl` an earlier version left beside `bin/`, then `bin/` and the install directory once each is empty; a binary anywhere else, such as `/usr/local/bin`, takes nothing else with it. What it cannot remove, such as the running `.exe` on Windows, it lists for removal by hand, and the Windows user PATH entry `install.ps1` added stays. A package-managed install is removed by its package manager, and a copy running under Node.js or Bun points at `npm uninstall -g @intelligentelectron/universal-netlist`; either way the command says so.
 
-## export-telemetry
+## Telemetry
 
-```bash
-universal-netlist export-telemetry
-```
-
-Writes the server's [local usage log](observability.md#local-usage-log) as a zip file in the working directory, using `zip` on macOS and Linux and `tar` on Windows. The server records that log each time it starts and on every tool call, whatever the OpenTelemetry settings.
+Every command can report to [OpenTelemetry](observability.md#commands) when the environment asks for it, and to nothing otherwise. `export-telemetry`, which zipped a local usage log, is gone along with that log; set [`UNIVERSAL_NETLIST_OTEL_DIR`](observability.md#files) to keep telemetry on disk.

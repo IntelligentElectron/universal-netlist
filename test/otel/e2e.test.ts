@@ -8,7 +8,7 @@
  *   - per-tool-call span (tool/<name>) with outcome attributes
  *   - tool.calls / tool.duration / tool.errors metrics
  *   - structured log correlated by trace/span id
- *   - log-record attributes mirror enduser.id and, opt-in, tool.args (issue #82)
+ *   - log-record attributes mirror the user and, opt-in, tool.args (issue #82)
  *   - error logs carry the failure message from a fixture-backed MCP result (issue #184)
  *   - SDK input-schema rejections are counted and classified (issue #191)
  *   - failure path: outcome=error, tool result still returned
@@ -17,7 +17,9 @@
  */
 
 import { describe, test, expect, beforeAll, afterAll } from "vitest";
-import { mkdtempSync } from "node:fs";
+import { spawn } from "node:child_process";
+import { createServer as createHttpServer, request as httpRequest } from "node:http";
+import { existsSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir, userInfo } from "node:os";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -28,6 +30,8 @@ import { OtlpReceiver, canListenOnLoopback, waitFor } from "./otlp-receiver.js";
 const HERE = dirname(fileURLToPath(import.meta.url));
 const SERVER_ENTRY = join(HERE, "server-entry.ts");
 const REPO_ROOT = join(HERE, "..", "..");
+const CLI_ENTRY = join(REPO_ROOT, "src", "index.ts");
+const IMPORT_TRACER = join(HERE, "report-sdk-imports.mjs");
 const BROKEN_DESIGN = join(
   REPO_ROOT,
   "test",
@@ -38,9 +42,6 @@ const BROKEN_DESIGN = join(
 const BROKEN_DESIGN_ERROR =
   "pin-on-other-net.netlist.json: net 'VCC' lists C1.1, but C1.1 is on 'GND'";
 const TEST_TIMEOUT = 30_000;
-
-/** A scratch telemetry path so the JSONL logger never touches the real install dir. */
-const scratchTelemetry = () => join(mkdtempSync(join(tmpdir(), "un-otel-")), "telemetry.jsonl");
 
 /** Spawn the server with the given env, run `fn`, then close the client. */
 const withServer = async (
@@ -54,7 +55,6 @@ const withServer = async (
     env: {
       PATH: process.env.PATH ?? "",
       HOME: process.env.HOME ?? "",
-      UNIVERSAL_NETLIST_TELEMETRY_PATH: scratchTelemetry(),
       ...env,
     },
   });
@@ -84,6 +84,78 @@ const otelEnv = (receiver: OtlpReceiver, extra: Record<string, string> = {}) => 
  * can listen, still runs them.
  */
 const loopbackAvailable = await canListenOnLoopback();
+
+/** Run the real command line under Node.js and return what it did. */
+const runCli = (
+  args: string[],
+  env: Record<string, string>,
+  nodeArgs: string[] = []
+): Promise<{ code: number | null; stdout: string; stderr: string }> =>
+  new Promise((resolve) => {
+    const child = spawn(process.execPath, ["--import", "tsx", ...nodeArgs, CLI_ENTRY, ...args], {
+      cwd: REPO_ROOT,
+      env: { PATH: process.env.PATH ?? "", HOME: process.env.HOME ?? "", ...env },
+    });
+    let stdout = "";
+    let stderr = "";
+    child.stdout.on("data", (chunk) => (stdout += chunk));
+    child.stderr.on("data", (chunk) => (stderr += chunk));
+    child.on("close", (code) => resolve({ code, stdout, stderr }));
+  });
+
+describe("command line telemetry on disk", () => {
+  test(
+    "UNIVERSAL_NETLIST_OTEL_DIR writes one OTLP JSON Lines file per signal, stdout untouched",
+    async () => {
+      const directory = mkdtempSync(join(tmpdir(), "un-otel-dir-"));
+      try {
+        const args = ["list_designs", "--path", tmpdir(), "--max_depth", "0"];
+        const plain = await runCli(args, {});
+        const run = await runCli(args, { UNIVERSAL_NETLIST_OTEL_DIR: directory });
+        expect(run.code).toBe(plain.code);
+        expect(run.stdout).toBe(plain.stdout);
+
+        const read = (name: string) =>
+          readFileSync(join(directory, `${name}.jsonl`), "utf8")
+            .trim()
+            .split("\n")
+            .map((line) => JSON.parse(line));
+        expect(read("traces")[0].resourceSpans[0].scopeSpans[0].spans[0].name).toBe(
+          "universal-netlist list_designs"
+        );
+        expect(read("logs")[0]).toHaveProperty("resourceLogs");
+        expect(read("metrics")[0]).toHaveProperty("resourceMetrics");
+      } finally {
+        rmSync(directory, { recursive: true, force: true });
+      }
+    },
+    TEST_TIMEOUT
+  );
+
+  test(
+    "unconfigured: the SDK is never imported and no file appears",
+    async () => {
+      const run = await runCli(["--version"], {}, ["--import", IMPORT_TRACER]);
+      expect(run.code).toBe(0);
+      expect(run.stderr).toContain("sdk imports: 0");
+    },
+    TEST_TIMEOUT
+  );
+
+  test(
+    "OTEL_SDK_DISABLED=true beats the directory",
+    async () => {
+      const directory = join(mkdtempSync(join(tmpdir(), "un-otel-off-")), "telemetry");
+      const run = await runCli(["--version"], {
+        UNIVERSAL_NETLIST_OTEL_DIR: directory,
+        OTEL_SDK_DISABLED: "true",
+      });
+      expect(run.code).toBe(0);
+      expect(existsSync(directory)).toBe(false);
+    },
+    TEST_TIMEOUT
+  );
+});
 
 describe.skipIf(!loopbackAvailable)("OpenTelemetry end-to-end", () => {
   let receiver: OtlpReceiver;
@@ -151,9 +223,11 @@ describe.skipIf(!loopbackAvailable)("OpenTelemetry end-to-end", () => {
       expect(log.attributes.trace_id).toBe(span.traceId);
       expect(log.attributes.span_id).toBe(span.spanId);
 
-      // enduser.id is the host OS account, set at the resource level and
-      // mirrored onto the log record itself for log-only backends.
+      // The host OS account, set at the resource level and mirrored onto the
+      // log record itself for log-only backends.
+      expect(receiver.resourceAttributes()["user.name"]).toBe(userInfo().username);
       expect(receiver.resourceAttributes()["enduser.id"]).toBe(userInfo().username);
+      expect(log.attributes["user.name"]).toBe(userInfo().username);
       expect(log.attributes["enduser.id"]).toBe(userInfo().username);
       // Args are opt-in and were not requested here.
       expect(log.attributes["tool.args"]).toBeUndefined();
@@ -164,10 +238,10 @@ describe.skipIf(!loopbackAvailable)("OpenTelemetry end-to-end", () => {
   );
 
   test(
-    "args capture: OTEL_CAPTURE_TOOL_ARGS puts tool.args on the span and the log record",
+    "args capture: UNIVERSAL_NETLIST_CAPTURE_ARGS puts tool.args on the span and the log record",
     async () => {
       const args = { path: tmpdir(), max_depth: 0 };
-      await withServer(otelEnv(receiver, { OTEL_CAPTURE_TOOL_ARGS: "1" }), async (client) => {
+      await withServer(otelEnv(receiver, { UNIVERSAL_NETLIST_CAPTURE_ARGS: "true" }), async (client) => {
         const res: any = await client.callTool({ name: "list_designs", arguments: args });
         expect(res.isError).toBeFalsy();
       });
@@ -378,4 +452,146 @@ describe.skipIf(!loopbackAvailable)("OpenTelemetry end-to-end", () => {
     },
     TEST_TIMEOUT
   );
+
+  describe("command line", () => {
+    test(
+      "a success emits a CLI-convention span, a duration metric and a correlated log",
+      async () => {
+        const run = await runCli(
+          ["list_designs", "--path", tmpdir(), "--max_depth", "0"],
+          otelEnv(receiver, { OTEL_SERVICE_NAME: "cli-success" })
+        );
+        expect(run.code).toBe(0);
+
+        const name = "universal-netlist list_designs";
+        const got = await waitFor(
+          () =>
+            receiver.spans().some((s) => s.name === name) &&
+            receiver.metrics().some((m) => m.name === "universal_netlist.command.duration") &&
+            receiver.logs().some((l) => l.eventName === "universal_netlist.command.completed")
+        );
+        expect(got).toBe(true);
+
+        const span = receiver.spans().find((s) => s.name === name)!;
+        expect(span.attributes).toMatchObject({
+          "process.executable.name": "universal-netlist",
+          "process.exit.code": 0,
+          "universal_netlist.command": "list_designs",
+        });
+        expect(typeof span.attributes["process.pid"]).toBe("number");
+        expect(span.attributes["error.type"]).toBeUndefined();
+        expect(span.attributes["process.command_args"]).toBeUndefined();
+        expect(receiver.resourceAttributes()["process.command_args"]).toBeUndefined();
+
+        const log = receiver.logs().find((l) => l.body?.startsWith(name))!;
+        expect(log.traceId).toBe(span.traceId);
+        expect(log.spanId).toBe(span.spanId);
+      },
+      TEST_TIMEOUT
+    );
+
+    test(
+      "a failure keeps its exit code and output, and is classified",
+      async () => {
+        const args = ["run_erc", BROKEN_DESIGN];
+        const plain = await runCli(args, {});
+        const run = await runCli(args, otelEnv(receiver));
+        expect(run.code).toBe(1);
+        expect(run.code).toBe(plain.code);
+        expect(run.stdout).toBe(plain.stdout);
+
+        expect(
+          await waitFor(() =>
+            receiver
+              .spans()
+              .some(
+                (s) =>
+                  s.name === "universal-netlist run_erc" &&
+                  s.attributes["error.type"] === "invalid_argument" &&
+                  s.status?.code === 2
+              )
+          )
+        ).toBe(true);
+      },
+      TEST_TIMEOUT
+    );
+
+    test(
+      "an unknown word is labelled unknown, and never recorded by name",
+      async () => {
+        const run = await runCli(["some-secret-word"], otelEnv(receiver));
+        expect(run.code).toBe(2);
+        expect(await waitFor(() => receiver.spans().some((s) => s.name.endsWith(" unknown")))).toBe(
+          true
+        );
+        expect(receiver.spans().some((s) => s.name.includes("some-secret-word"))).toBe(false);
+      },
+      TEST_TIMEOUT
+    );
+
+    test(
+      "an unreachable exporter changes neither the output nor the exit code",
+      async () => {
+        const args = ["list_designs", "--path", tmpdir(), "--max_depth", "0"];
+        const plain = await runCli(args, {});
+        const run = await runCli(args, {
+          OTEL_EXPORTER_OTLP_ENDPOINT: "http://127.0.0.1:1",
+          OTEL_EXPORTER_OTLP_TIMEOUT: "200",
+        });
+        expect(run.code).toBe(plain.code);
+        expect(run.stdout).toBe(plain.stdout);
+        expect(run.stderr).toBe(plain.stderr);
+      },
+      TEST_TIMEOUT
+    );
+
+    // `proxyEnv` arrived in Node.js 22.21; older versions ignore it, as the docs say.
+    const [major, minor] = process.versions.node.split(".").map(Number);
+    test.skipIf(major < 22 || (major === 22 && minor < 21))(
+      "exports through HTTP_PROXY, and NO_PROXY goes around it",
+      async () => {
+        const proxied: string[] = [];
+        const proxy = createHttpServer((req, res) => {
+          proxied.push(req.url ?? "");
+          const url = new URL(req.url ?? "");
+          const upstream = httpRequest(
+            {
+              host: url.hostname,
+              port: url.port,
+              path: url.pathname,
+              method: req.method,
+              headers: req.headers,
+            },
+            (response) => {
+              res.writeHead(response.statusCode ?? 502, response.headers);
+              response.pipe(res);
+            }
+          );
+          req.pipe(upstream);
+        });
+        await new Promise<void>((resolve) => proxy.listen(0, "127.0.0.1", resolve));
+        const port = (proxy.address() as { port: number }).port;
+        const args = ["list_designs", "--path", tmpdir(), "--max_depth", "0"];
+        try {
+          const proxiedRun = await runCli(
+            args,
+            otelEnv(receiver, { HTTP_PROXY: `http://127.0.0.1:${port}` })
+          );
+          expect(proxiedRun.code).toBe(0);
+          expect(proxied.some((url) => url.endsWith("/v1/traces"))).toBe(true);
+
+          proxied.length = 0;
+          await runCli(
+            args,
+            otelEnv(receiver, { HTTP_PROXY: `http://127.0.0.1:${port}`, NO_PROXY: "127.0.0.1" })
+          );
+          expect(proxied).toEqual([]);
+        } finally {
+          proxy.closeAllConnections();
+          await new Promise((resolve) => proxy.close(resolve));
+        }
+      },
+      TEST_TIMEOUT
+    );
+  });
 });

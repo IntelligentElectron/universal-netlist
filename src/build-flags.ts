@@ -8,6 +8,9 @@
 // Injected at compile time via --define (for Bun binaries).
 declare const BUILD_CHANNEL: string | undefined;
 declare const BUILD_VERSION: string | undefined;
+declare const BUILD_OTEL_DEFAULTS: string | undefined;
+
+import type { OtelBuildDefaults } from "./telemetry/otel-config.js";
 
 /**
  * Whether this process is the standalone binary `scripts/build-binary.sh` compiles, the
@@ -36,3 +39,14 @@ export const CHANNEL = typeof BUILD_CHANNEL !== "undefined" ? BUILD_CHANNEL : "g
 
 /** Whether this build may replace its own binary. */
 export const SELF_UPDATE_ENABLED = CHANNEL === "github";
+
+/**
+ * A packager's OpenTelemetry defaults: endpoint, protocol and resource attributes.
+ * Each applies only when its `OTEL_*` variable is empty, and the script holds
+ * them to those keys, so no credential is baked into a binary. A GitHub release
+ * sets none. `scripts/build-binary.sh` validates this JSON.
+ */
+export const OTEL_BUILD_DEFAULTS: OtelBuildDefaults =
+  typeof BUILD_OTEL_DEFAULTS !== "undefined"
+    ? (JSON.parse(BUILD_OTEL_DEFAULTS) as OtelBuildDefaults)
+    : {};

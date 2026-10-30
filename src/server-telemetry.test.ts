@@ -1,5 +1,5 @@
 /**
- * Every registered tool reports each call to both telemetry sinks exactly once, under
+ * Every registered tool reports each call to OpenTelemetry exactly once, under
  * the name the client called, whether the tool runs or its input schema refuses the call,
  * and a tool's failures carry the category of their cause.
  */
@@ -12,7 +12,6 @@ import { logs, type LogRecord, type LoggerProvider } from "@opentelemetry/api";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
 import { createServer } from "./server.js";
-import { initTelemetry } from "./telemetry/local.js";
 import { initOtel, shutdownOtel } from "./telemetry/otel.js";
 import { DSN_PASSWORD, DSN_PASSWORD_FILE } from "./parsers/cadence/dsn/dsn-reader.js";
 import { fixturePath, hasFixtures } from "../test/utils.js";
@@ -62,20 +61,18 @@ const capture: LoggerProvider = {
   }),
 };
 const directory = mkdtempSync(join(tmpdir(), "server-telemetry-"));
-const events = join(directory, "telemetry.jsonl");
+const notADesign = join(directory, "notes.jsonl");
 let client: Client;
 let tools: ListedTool[];
 
 let restoreEnvironment: () => void;
-const shellTelemetryPath = process.env.UNIVERSAL_NETLIST_TELEMETRY_PATH;
 
 beforeAll(async () => {
   restoreEnvironment = useClosedOtelExporter();
-  process.env.UNIVERSAL_NETLIST_TELEMETRY_PATH = events;
+  writeFileSync(notADesign, "");
   await initOtel({ serviceName: "server-telemetry-test", serviceVersion: "0.0.0" });
   logs.disable();
   logs.setGlobalLoggerProvider(capture);
-  initTelemetry("server-telemetry-test");
 
   const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
   client = new Client({ name: "test", version: "0.0.0" });
@@ -87,8 +84,6 @@ afterAll(async () => {
   logs.disable();
   await shutdownOtel();
   restoreEnvironment();
-  if (shellTelemetryPath === undefined) delete process.env.UNIVERSAL_NETLIST_TELEMETRY_PATH;
-  else process.env.UNIVERSAL_NETLIST_TELEMETRY_PATH = shellTelemetryPath;
   rmSync(directory, { recursive: true, force: true });
 });
 
@@ -97,18 +92,13 @@ afterEach(() => {
   vi.unstubAllEnvs();
 });
 
-/** Call a tool and return what each sink recorded for the call alone. */
+/** Call a tool and return what OpenTelemetry recorded for the call alone. */
 const call = async (name: string, args: Record<string, unknown>) => {
   records.length = 0;
-  writeFileSync(events, "");
   const result = (await client.callTool({ name, arguments: args })) as ToolResult;
   const text = result.content?.[0]?.text ?? "";
   const failed = result.isError === true || "error" in (JSON.parse(text) as object);
-  const local = readFileSync(events, "utf-8")
-    .split("\n")
-    .filter(Boolean)
-    .map((line) => JSON.parse(line) as { tool: string; success: boolean });
-  return { failed, local, otel: records.map((record) => record.attributes ?? {}) };
+  return { failed, otel: records.map((record) => record.attributes ?? {}) };
 };
 
 describe("tool call telemetry", () => {
@@ -125,31 +115,25 @@ describe("tool call telemetry", () => {
     expect(missing).toEqual([]);
   });
 
-  it("records a call that runs the tool once in each sink, under its name", async () => {
+  it("records a call that runs the tool once, under its name", async () => {
     for (const tool of tools) {
       const args = Object.fromEntries(
         Object.keys(tool.inputSchema.properties ?? {})
           .filter((argument) => argument in SAMPLES)
           .map((argument) => [argument, SAMPLES[argument]])
       );
-      const { failed, local, otel } = await call(tool.name, args);
+      const { failed, otel } = await call(tool.name, args);
       expect(failed, `${tool.name} failed on ${JSON.stringify(args)}`).toBe(false);
-      expect(local, tool.name).toEqual([
-        expect.objectContaining({ tool: tool.name, success: true }),
-      ]);
       expect(otel, tool.name).toEqual([
         expect.objectContaining({ "tool.name": tool.name, "tool.outcome": "success" }),
       ]);
     }
   });
 
-  it("records a call its input schema refuses once in each sink, as an invalid argument", async () => {
+  it("records a call its input schema refuses once, as an invalid argument", async () => {
     for (const tool of tools) {
-      const { failed, local, otel } = await call(tool.name, { unrecognised_argument: true });
+      const { failed, otel } = await call(tool.name, { unrecognised_argument: true });
       expect(failed, tool.name).toBe(true);
-      expect(local, tool.name).toEqual([
-        expect.objectContaining({ tool: tool.name, success: false }),
-      ]);
       expect(otel, tool.name).toEqual([
         expect.objectContaining({
           "tool.name": tool.name,
@@ -161,9 +145,8 @@ describe("tool call telemetry", () => {
   });
 
   it("records a call to a tool the server does not register as not found", async () => {
-    const { failed, local, otel } = await call("list_variants", {});
+    const { failed, otel } = await call("list_variants", {});
     expect(failed).toBe(true);
-    expect(local).toEqual([expect.objectContaining({ tool: "list_variants", success: false })]);
     expect(otel).toEqual([
       expect.objectContaining({ "tool.name": "list_variants", "error.type": "not_found" }),
     ]);
@@ -188,9 +171,8 @@ describe("tool failure categories", () => {
 
   /** The one category both sinks saw the call fail with. */
   const categoryOf = async (name: string, args: Record<string, unknown>) => {
-    const { failed, local, otel } = await call(name, args);
+    const { failed, otel } = await call(name, args);
     expect(failed).toBe(true);
-    expect(local).toEqual([expect.objectContaining({ tool: name, success: false })]);
     expect(otel).toHaveLength(1);
     return otel[0]["error.type"];
   };
@@ -205,17 +187,17 @@ describe("tool failure categories", () => {
     expect(await categoryOf("list_nets", args)).toBe("permission_denied");
   });
 
-  it.skipIf(!hasFixtures)("keeps passwords out of both sinks", async () => {
-    vi.stubEnv("OTEL_CAPTURE_TOOL_ARGS", "1");
+  it.skipIf(!hasFixtures)("keeps passwords out of telemetry", async () => {
+    vi.stubEnv("UNIVERSAL_NETLIST_CAPTURE_ARGS", "true");
     vi.stubEnv(DSN_PASSWORD_FILE, "");
     protection.password = "synthetic password";
     const args = { design: DSN, design_variant: "Standard" };
     for (const password of ["not the password", "synthetic password"]) {
       vi.stubEnv(DSN_PASSWORD, password);
-      const { failed, local, otel } = await call("list_nets", args);
+      const { failed, otel } = await call("list_nets", args);
       expect(failed).toBe(password !== protection.password);
       expect(otel[0]["tool.args"]).toBe(JSON.stringify(args));
-      expect(JSON.stringify({ local, otel })).not.toContain(password);
+      expect(JSON.stringify(otel)).not.toContain(password);
     }
   });
 
@@ -248,6 +230,6 @@ describe("tool failure categories", () => {
   });
 
   it("refuses a file that is not a design", async () => {
-    expect(await categoryOf("list_nets", { design: events })).toBe("invalid_argument");
+    expect(await categoryOf("list_nets", { design: notADesign })).toBe("invalid_argument");
   });
 });
