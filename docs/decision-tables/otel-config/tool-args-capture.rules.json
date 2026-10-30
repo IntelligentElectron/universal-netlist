@@ -1,0 +1,52 @@
+{
+  "name": "otel-tool-args-capture",
+  "rules": [
+    {
+      "when": {
+        "content": [
+          "EVENT_ONLY"
+        ]
+      },
+      "outcome": "log",
+      "next": "",
+      "cells": 2
+    },
+    {
+      "when": {
+        "content": [
+          "SPAN_AND_EVENT"
+        ]
+      },
+      "outcome": "span and log",
+      "next": "",
+      "cells": 2
+    },
+    {
+      "when": {
+        "content": [
+          "SPAN_ONLY"
+        ]
+      },
+      "outcome": "span",
+      "next": "",
+      "cells": 2
+    },
+    {
+      "when": {
+        "content": [
+          "unset"
+        ],
+        "own_switch": [
+          "on"
+        ]
+      },
+      "outcome": "span and log",
+      "next": "",
+      "cells": 1
+    }
+  ],
+  "default": {
+    "outcome": "none",
+    "next": ""
+  }
+}

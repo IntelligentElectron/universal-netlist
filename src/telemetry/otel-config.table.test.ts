@@ -7,7 +7,14 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { afterAll, describe, expect, it } from "vitest";
 import { cellName, readTable } from "../../test/helpers/decision-table.js";
-import { commandErrorType, designPathAttribute, resolveOtelConfig } from "./otel-config.js";
+import {
+  commandErrorType,
+  designPathAttribute,
+  resolveOtelConfig,
+  toolArgsCapture,
+  toolErrorAttributes,
+  type ToolFailureKind,
+} from "./otel-config.js";
 
 const TABLES = path.resolve(__dirname, "../../docs/decision-tables/otel-config");
 
@@ -104,6 +111,37 @@ describe("golden table: command-error", () => {
     it(cellName(row, dims), () => {
       const got = commandErrorType(Number(row.exit_code), failures[row.failure], classify);
       expect(got ?? "none").toBe(row.outcome);
+    });
+  }
+});
+
+describe("golden table: tool-error", () => {
+  const dims = ["failure", "cause"];
+  const classify = (cause: unknown): string =>
+    cause === "classifiable" ? "classified" : "internal";
+
+  for (const row of readTable(TABLES, "tool-error")) {
+    it(cellName(row, dims), () => {
+      const got = toolErrorAttributes(row.failure as ToolFailureKind, row.cause, classify);
+      expect(got.errorType ? `${got.errorType}, ${got.category}` : "none").toBe(row.outcome);
+    });
+  }
+});
+
+describe("golden table: tool-args-capture", () => {
+  const dims = ["content", "own_switch"];
+  const describeCapture = ({ span, log }: { span: boolean; log: boolean }): string =>
+    span && log ? "span and log" : span ? "span" : log ? "log" : "none";
+
+  for (const row of readTable(TABLES, "tool-args-capture")) {
+    it(cellName(row, dims), () => {
+      const env = {
+        ...(row.content === "unset"
+          ? {}
+          : { OTEL_INSTRUMENTATION_GENAI_CAPTURE_CONTENT: row.content.toLowerCase() }),
+        ...(row.own_switch === "on" ? { UNIVERSAL_NETLIST_CAPTURE_ARGS: "true" } : {}),
+      };
+      expect(describeCapture(toolArgsCapture(env))).toBe(row.outcome);
     });
   }
 });

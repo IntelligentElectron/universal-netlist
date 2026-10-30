@@ -1,0 +1,8 @@
+{
+  "name": "otel-tool-error",
+  "assumes": ["Telemetry is on and the tool call has finished"],
+  "dimensions": {
+    "failure": ["none", "payload", "is_error", "thrown"],
+    "cause": ["classifiable", "unclassifiable"]
+  }
+}

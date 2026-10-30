@@ -30,6 +30,7 @@ export const canListenOnLoopback = async (): Promise<boolean> =>
 /** A decoded OTLP attribute value (only the subset we assert on). */
 type AnyValue = {
   arrayValue?: { values?: AnyValue[] };
+  kvlistValue?: { values?: Array<{ key: string; value: AnyValue }> };
   stringValue?: string;
   intValue?: string | number;
   doubleValue?: number;
@@ -40,14 +41,21 @@ export interface CapturedSpan {
   name: string;
   traceId: string;
   spanId: string;
+  parentSpanId?: string;
+  kind?: number;
   attributes: Record<string, string | number | boolean>;
   status?: { code?: number };
 }
 
 export interface CapturedMetric {
   name: string;
+  unit?: string;
   /** Flattened data points with their decoded attributes and value. */
-  points: Array<{ attributes: Record<string, string | number | boolean>; value: number }>;
+  points: Array<{
+    attributes: Record<string, string | number | boolean>;
+    value: number;
+    explicitBounds?: number[];
+  }>;
 }
 
 export interface CapturedLog {
@@ -57,6 +65,8 @@ export interface CapturedLog {
   traceId?: string;
   spanId?: string;
   attributes: Record<string, string | number | boolean>;
+  /** The attributes sent as a key/value list rather than a scalar. */
+  structuredAttributes: string[];
 }
 
 const decodeAttrs = (
@@ -68,6 +78,9 @@ const decodeAttrs = (
     if (v.arrayValue) {
       // Arrays are asserted on as their joined text.
       out[a.key] = (v.arrayValue.values ?? []).map((item) => item.stringValue).join(" ");
+    } else if (v.kvlistValue) {
+      // A structured value is asserted on as JSON.
+      out[a.key] = JSON.stringify(decodeAttrs(v.kvlistValue.values));
     } else if (v.stringValue !== undefined) out[a.key] = v.stringValue;
     else if (v.intValue !== undefined) out[a.key] = Number(v.intValue);
     else if (v.doubleValue !== undefined) out[a.key] = v.doubleValue;
@@ -132,6 +145,8 @@ export class OtlpReceiver {
               name: s.name,
               traceId: s.traceId,
               spanId: s.spanId,
+              parentSpanId: s.parentSpanId,
+              kind: s.kind,
               attributes: decodeAttrs(s.attributes),
               status: s.status,
             });
@@ -151,8 +166,10 @@ export class OtlpReceiver {
             const dps = m.sum?.dataPoints ?? m.histogram?.dataPoints ?? m.gauge?.dataPoints ?? [];
             out.push({
               name: m.name,
+              unit: m.unit,
               points: dps.map((dp: any) => ({
                 attributes: decodeAttrs(dp.attributes),
+                explicitBounds: dp.explicitBounds,
                 value:
                   dp.asInt !== undefined
                     ? Number(dp.asInt)
@@ -183,6 +200,9 @@ export class OtlpReceiver {
               traceId: lr.traceId,
               spanId: lr.spanId,
               attributes: decodeAttrs(lr.attributes),
+              structuredAttributes: (lr.attributes ?? [])
+                .filter((a: { value?: AnyValue }) => a.value?.kvlistValue)
+                .map((a: { key: string }) => a.key),
             });
           }
         }
