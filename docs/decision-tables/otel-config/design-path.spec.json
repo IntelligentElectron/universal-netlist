@@ -1,8 +1,11 @@
 {
   "name": "otel-design-path",
-  "assumes": ["Telemetry is on and the command or tool names a design"],
+  "assumes": [
+    "Telemetry is on and the command or tool names a design",
+    "'location' is relative to the root that applies: the variable when set, otherwise the built-in value"
+  ],
   "dimensions": {
-    "root": ["unset", "set"],
+    "root": ["unset", "set", "built_in", "built_in_home", "set_over_built_in"],
     "extension": ["design", "other"],
     "location": ["inside_root", "outside_root"]
   }

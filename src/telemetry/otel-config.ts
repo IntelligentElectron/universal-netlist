@@ -15,15 +15,20 @@
 
 import { join, posix, relative, resolve, sep, isAbsolute } from "node:path";
 import { realpathSync } from "node:fs";
+import { homedir } from "node:os";
 
 export const SIGNALS = ["traces", "metrics", "logs"] as const;
 export type Signal = (typeof SIGNALS)[number];
 
-/** A packager's defaults, each used only when its `OTEL_*` variable is empty. */
+/** A packager's defaults, each used only when the environment provides no value. */
 export interface OtelBuildDefaults {
   readonly endpoint?: string;
   readonly protocol?: string;
   readonly resourceAttributes?: Readonly<Record<string, string>>;
+  /** The OTLP exporters' forward proxy, when no proxy variable is set. */
+  readonly proxy?: string;
+  /** `UNIVERSAL_NETLIST_DESIGN_ROOT` when that is empty. A leading `~` is the user's home. */
+  readonly designRoot?: string;
 }
 
 export type OtlpProtocol = "http/protobuf" | "http/json";
@@ -188,6 +193,21 @@ export const resolveOtelConfig = (env: Env, defaults: OtelBuildDefaults = {}): O
   };
 };
 
+const PROXY_VARIABLES = ["HTTPS_PROXY", "https_proxy", "HTTP_PROXY", "http_proxy"];
+
+/**
+ * The variables an OTLP exporter's agent reads its forward proxy from, undefined when
+ * it has no proxy. Any proxy variable leaves the choice to the environment. A built-in
+ * proxy takes all four names and keeps the environment's `NO_PROXY`, in a copy, so
+ * other HTTP traffic never sees it.
+ */
+export const exportProxyEnv = (env: Env, defaults: OtelBuildDefaults = {}): Env | undefined => {
+  if (PROXY_VARIABLES.some((name) => read(env, name))) return env;
+  const { proxy } = defaults;
+  if (!proxy) return undefined;
+  return { ...env, ...Object.fromEntries(PROXY_VARIABLES.map((name) => [name, proxy])) };
+};
+
 /**
  * Whether raw arguments are recorded. `OTEL_CAPTURE_TOOL_ARGS` is the deprecated
  * name, and keeps the `1` it was documented to take.
@@ -268,12 +288,34 @@ const realPath = (path: string): string => {
 };
 
 /**
- * A design's path relative to `UNIVERSAL_NETLIST_DESIGN_ROOT`, forward slashes on
- * every platform. Undefined without a root, for a file that is no design, and for
- * one outside the root: an absolute path is never recorded.
+ * A built-in root with its leading `~` as the user's home, so one value works for every
+ * user. Undefined when the system names no usable home, as under an empty `HOME`:
+ * telemetry must not fail a tool call or record against some other directory.
  */
-export const designPathAttribute = (design: unknown, env: Env): string | undefined => {
-  const root = read(env, "UNIVERSAL_NETLIST_DESIGN_ROOT");
+const expandHome = (root: string): string | undefined => {
+  if (!/^~($|[/\\])/.test(root)) return root;
+  try {
+    const home = homedir();
+    return home && isAbsolute(home) ? join(home, root.slice(1)) : undefined;
+  } catch {
+    return undefined;
+  }
+};
+
+/**
+ * A design's path relative to `UNIVERSAL_NETLIST_DESIGN_ROOT`, or to the build's
+ * `designRoot` when that is empty, forward slashes on every platform. Undefined without
+ * a root, for a file that is no design, and for one outside the root: an absolute path
+ * is never recorded.
+ */
+export const designPathAttribute = (
+  design: unknown,
+  env: Env,
+  defaults: OtelBuildDefaults = {}
+): string | undefined => {
+  const root =
+    read(env, "UNIVERSAL_NETLIST_DESIGN_ROOT") ??
+    (defaults.designRoot ? expandHome(defaults.designRoot) : undefined);
   if (!root || typeof design !== "string") return undefined;
   const lower = design.toLowerCase();
   if (!DESIGN_EXTENSIONS.some((extension) => lower.endsWith(extension))) return undefined;

@@ -7,3 +7,15 @@ set,design,inside_root,relative path,,decided,Relative to the root (issue #277)
 set,design,outside_root,omitted,,decided,"Never an absolute path, and nothing outside the root (issue #277)"
 set,other,inside_root,omitted,,decided,Only recognised design files (issue #277)
 set,other,outside_root,omitted,,decided,Only recognised design files (issue #277)
+built_in,design,inside_root,relative path,,decided,The built-in root applies when the variable is empty (issue #283)
+built_in,design,outside_root,omitted,,decided,"Never an absolute path, and nothing outside the root that applies (issue #283)"
+built_in,other,inside_root,omitted,,decided,"Only recognised design files, from either root (issue #283)"
+built_in,other,outside_root,omitted,,decided,"Only recognised design files, from either root (issue #283)"
+built_in_home,design,inside_root,relative path,,decided,A leading ~ expands to the user's home directory (issue #283)
+built_in_home,design,outside_root,omitted,,decided,"Never an absolute path, and nothing outside the root that applies (issue #283)"
+built_in_home,other,inside_root,omitted,,decided,"Only recognised design files, from either root (issue #283)"
+built_in_home,other,outside_root,omitted,,decided,"Only recognised design files, from either root (issue #283)"
+set_over_built_in,design,inside_root,relative path,,decided,The variable overrides the built-in root (issue #283)
+set_over_built_in,design,outside_root,omitted,,decided,"Never an absolute path, and nothing outside the root that applies; a file inside only the built-in root is outside it here, since the variable wins (issue #283)"
+set_over_built_in,other,inside_root,omitted,,decided,"Only recognised design files, from either root (issue #283)"
+set_over_built_in,other,outside_root,omitted,,decided,"Only recognised design files, from either root (issue #283)"

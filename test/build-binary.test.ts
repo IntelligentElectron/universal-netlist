@@ -212,6 +212,18 @@ describe("BUILD_OTEL_DEFAULTS", () => {
     ["an endpoint that is no URL", '{"endpoint":"collector"}'],
     ["a credential in the endpoint", '{"endpoint":"https://user:token@collector.example"}'],
     ["a resource attribute that is no text", '{"resourceAttributes":{"a":1}}'],
+    ["an empty proxy", '{"proxy":""}'],
+    ["a proxy that is no URL", '{"proxy":"proxy.example:3128"}'],
+    ["a proxy that is no text", '{"proxy":["http://proxy.example:3128"]}'],
+    ["a proxy with another scheme", '{"proxy":"socks5://proxy.example:1080"}'],
+    ["a user name in the proxy", '{"proxy":"http://user@proxy.example:3128"}'],
+    ["a password in the proxy", '{"proxy":"http://user:secret@proxy.example:3128"}'],
+    ["an empty design root", '{"designRoot":""}'],
+    ["a blank design root", '{"designRoot":"  "}'],
+    ["a design root that is no text", '{"designRoot":1}'],
+    ["a relative design root", '{"designRoot":"designs"}'],
+    ["another user's home as the design root", '{"designRoot":"~other/designs"}'],
+    ["whitespace around the design root", '{"designRoot":" ~/designs"}'],
   ])("rejects %s before compiling", (_label, defaults) => {
     const result = build(defaults);
     expect(result.status).not.toBe(0);
@@ -219,9 +231,19 @@ describe("BUILD_OTEL_DEFAULTS", () => {
     expect(result.stdout).not.toContain("Building");
   });
 
-  it.skipIf(!hasBun)("accepts the three keys", () => {
+  it.skipIf(!hasBun).each([
+    ["the home directory", "~"],
+    ["a POSIX path", "/srv/designs"],
+    ["a Windows path, since a build can cross-compile", "C:\\\\designs"],
+  ])("accepts %s as the design root", (_label, root) => {
+    const result = build(`{"designRoot":"${root}"}`);
+    expect(result.stderr).not.toContain("Invalid BUILD_OTEL_DEFAULTS");
+    expect(result.stdout).toContain("Building");
+  });
+
+  it.skipIf(!hasBun)("accepts the five keys", () => {
     const result = build(
-      '{"endpoint":"https://collector.example","protocol":"http/json","resourceAttributes":{"team":"eda"}}'
+      '{"endpoint":"https://collector.example","protocol":"http/json","resourceAttributes":{"team":"eda"},"proxy":"http://localhost:3128","designRoot":"~/designs"}'
     );
     expect(result.stderr).not.toContain("Invalid BUILD_OTEL_DEFAULTS");
     expect(result.stdout).toContain("Building");
