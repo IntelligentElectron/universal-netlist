@@ -380,6 +380,19 @@ export function buildPageCoordMap(
         }
       }
       for (const name of allNames) if (port === undefined) port = busMembers.get(name);
+      // A hierarchical port connects every page of the placement that names the
+      // same net, not only the page that draws the port symbol. Bind by name
+      // here, or the pages without the symbol carry a suffixed local name and
+      // never join the parent net.
+      if (port === undefined) {
+        for (const name of allNames) {
+          const upper = name.toUpperCase();
+          if (page.placement.ports.has(upper)) {
+            port = { port: upper };
+            break;
+          }
+        }
+      }
       if (port !== undefined) {
         group.port = port;
       } else if (!members.some((m) => globalKeys.has(m))) {
