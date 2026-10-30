@@ -13,6 +13,18 @@ The Universal Netlist MCP Server provides tools for querying electronic design n
 | KiCad | `.kicad_pro` (or root `.kicad_sch`) | A committed `kicadsexpr` netlist export (`.net`) beside the project is parsed directly; otherwise the [schematics are read directly](kicad-schematic-reader.md) (KiCad 6 to 10, no KiCad install needed), and `kicad-cli` generates one only when that fails (set `KICAD_CLI_PATH` for a non-standard location). A named KiCad 10 design variant is then applied from the schematic's per-instance variant blocks (`dnp` and field overrides), since kicad-cli's export does not apply them. |
 | Universal Netlist | `.netlist.json` | A versioned file with nested origin metadata, a UTC generation timestamp, and a verified SHA-256 over `nets` and `components` together in the [Universal Netlist schema](schemas/universal-netlist.md). Validated on load: the hash must match, `nets` and `components` must be exact inverses, and every refdes and pin must resolve. See [Loading a Universal Netlist file](schemas/universal-netlist.md#loading-a-universal-netlist-file). |
 
+## Supported Platforms
+
+The standalone binary is released for these platforms:
+
+| Platform | Binary |
+|----------|--------|
+| macOS (Apple Silicon) | `universal-netlist-darwin-arm64` |
+| macOS (Intel) | `universal-netlist-darwin-x64` |
+| Linux (x64) | `universal-netlist-linux-x64` |
+| Linux (ARM64) | `universal-netlist-linux-arm64` |
+| Windows (x64) | `universal-netlist-windows-x64.exe` |
+
 ## Design Philosophy
 
 ### Simple Tools, Smart LLM
