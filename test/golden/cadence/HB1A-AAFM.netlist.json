@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 3,
   "metadata": {
-    "generatedAt": "2026-09-25T15:37:36.526Z",
-    "netlistHash": "sha256:b30765328ccded8fedc4e7f98b187f788f31d7d80603937537a7ad27319d5b35",
+    "generatedAt": "2026-10-30T00:03:16.714Z",
+    "netlistHash": "sha256:a20873f8a0affe1d011c88614a813adf2efe5c77e32357852486efb0f6ae4425",
     "origin": {
       "type": "vendor",
       "source": {
@@ -8841,42 +8841,48 @@
       "pins": {
         "1": "N6950266_CLOCK",
         "2": "GND"
-      }
+      },
+      "description": "Resistor 5.11k Ohm 1% 1/16W 0402 ±100ppm/°C"
     },
     "R151": {
       "value": "40.2",
       "pins": {
         "1": "RIGHT_CCLK_STUB_P_CLOCK",
         "2": "GND"
-      }
+      },
+      "description": "Resistor 40.2 Ohm 1% 1/16W 0402 ±100ppm/°C"
     },
     "R294": {
       "value": "40.2",
       "pins": {
         "1": "LL_CCLK_N",
         "2": "GND"
-      }
+      },
+      "description": "Resistor 40.2 Ohm 1% 1/16W 0402 ±100ppm/°C"
     },
     "R80": {
       "value": "40.2",
       "pins": {
         "1": "LEFT_CCLK_STUB_N_CLOCK",
         "2": "GND"
-      }
+      },
+      "description": "Resistor 40.2 Ohm 1% 1/16W 0402 ±100ppm/°C"
     },
     "R65": {
       "value": "57.6",
       "pins": {
         "1": "XFMC_CLK_N_CLOCK",
         "2": "FMC_CLK0_M2C_N"
-      }
+      },
+      "description": "Resistor 57.6 Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R25": {
       "value": "10K",
       "pins": {
         "1": "FMC_LA_N_32",
         "2": "P3V3"
-      }
+      },
+      "description": "Resistor 10kOhm 1% 1/16W 0402"
     },
     "X1": {
       "value": "25.xx MHz",
@@ -8897,154 +8903,176 @@
           "name": "VDD",
           "net": "P3V3"
         }
-      }
+      },
+      "description": "cmos OSC 25.0000MHZ 3.3V +-45PPM SMD"
     },
     "R3": {
       "value": "100.0",
       "pins": {
         "1": "XLEFT_CCLK_N_CLOCK",
         "2": "P3V3"
-      }
+      },
+      "description": "Resistor 100Ohm 1% 1/16W 0402"
     },
     "R290": {
       "value": "100.0",
       "pins": {
         "1": "XLL_CCLK_P_CLOCK",
         "2": "P3V3"
-      }
+      },
+      "description": "Resistor 100Ohm 1% 1/16W 0402"
     },
     "C29": {
       "value": "0.1 uF",
       "pins": {
         "1": "P3V3",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "R7": {
       "value": "4.12K",
       "pins": {
         "1": "N6950262_CLOCK",
         "2": "GND"
-      }
+      },
+      "description": "Resistor 4.12k Ohm 1% 1/16W Thick Film 0402 ±100ppm/°C"
     },
     "R152": {
       "value": "40.2",
       "pins": {
         "1": "RIGHT_CCLK_STUB_N_CLOCK",
         "2": "GND"
-      }
+      },
+      "description": "Resistor 40.2 Ohm 1% 1/16W 0402 ±100ppm/°C"
     },
     "R291": {
       "value": "57.6",
       "pins": {
         "1": "XLL_CCLK_P_CLOCK",
         "2": "LL_CCLK_P"
-      }
+      },
+      "description": "Resistor 57.6 Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R68": {
       "value": "57.6",
       "pins": {
         "1": "XLEFT_CCLK_P_CLOCK",
         "2": "LEFT_CCLK_STUB_P_CLOCK"
-      }
+      },
+      "description": "Resistor 57.6 Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "C27": {
       "value": "0.1 uF",
       "pins": {
         "1": "P3V3",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C43": {
       "value": "0.22 uF",
       "pins": {
         "1": "N6949518_CLOCK",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor Ceramic 0.22 uF 25V X7R 0603"
     },
     "R26": {
       "value": "3.0K",
       "pins": {
         "1": "N6949474_CLOCK",
         "2": "N6949484_CLOCK"
-      }
+      },
+      "description": "Resistor 3k Ohm 1/16W 1% 0402"
     },
     "C38": {
       "value": "0.1 uF",
       "pins": {
         "1": "GND",
         "2": "N6950148_CLOCK"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C46": {
       "value": "0.1 uF",
       "pins": {
         "1": "P3V3",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "R132": {
       "value": "100.0",
       "pins": {
         "1": "XRIGHT_CCLK_N_CLOCK",
         "2": "P3V3"
-      }
+      },
+      "description": "Resistor 100Ohm 1% 1/16W 0402"
     },
     "R16": {
       "value": "10K",
       "pins": {
         "1": "FMC_LA_N_33",
         "2": "P3V3"
-      }
+      },
+      "description": "Resistor 10kOhm 1% 1/16W 0402"
     },
     "C40": {
       "value": "0.1 uF",
       "pins": {
         "1": "P3V3",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "R130": {
       "value": "57.6",
       "pins": {
         "1": "XRIGHT_CCLK_P_CLOCK",
         "2": "RIGHT_CCLK_STUB_P_CLOCK"
-      }
+      },
+      "description": "Resistor 57.6 Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R4": {
       "value": "100.0",
       "pins": {
         "1": "XLEFT_CCLK_P_CLOCK",
         "2": "P3V3"
-      }
+      },
+      "description": "Resistor 100Ohm 1% 1/16W 0402"
     },
     "C37": {
       "value": "0.1 uF",
       "pins": {
         "1": "P3V3",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C31": {
       "value": "0.1 uF",
       "pins": {
         "1": "P3V3",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "R73": {
       "value": "57.6",
       "pins": {
         "1": "XLEFT_CCLK_N_CLOCK",
         "2": "LEFT_CCLK_STUB_N_CLOCK"
-      }
+      },
+      "description": "Resistor 57.6 Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "C33": {
       "value": "0.1 uF",
       "pins": {
         "1": "P3V3",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "J1": {
       "value": "J003-1V02",
@@ -9053,6 +9081,7 @@
         "2": "FMC_LA_N_33",
         "3": "GND"
       },
+      "description": "Connector Header 3x1 2.54mm Vertical",
       "dns": true
     },
     "R292": {
@@ -9060,35 +9089,40 @@
       "pins": {
         "1": "XLL_CCLK_N_CLOCK",
         "2": "LL_CCLK_N"
-      }
+      },
+      "description": "Resistor 57.6 Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R165": {
       "value": "40.2",
       "pins": {
         "1": "LR_CCLK_P",
         "2": "GND"
-      }
+      },
+      "description": "Resistor 40.2 Ohm 1% 1/16W 0402 ±100ppm/°C"
     },
     "R22": {
       "value": "24.9",
       "pins": {
         "1": "N2_310,180",
         "2": "REF_OSC_CLOCK"
-      }
+      },
+      "description": "Resistor 24.9Ohm 1% 1/16W 0402 "
     },
     "R159": {
       "value": "40.2",
       "pins": {
         "1": "UR_CCLK_P",
         "2": "GND"
-      }
+      },
+      "description": "Resistor 40.2 Ohm 1% 1/16W 0402 ±100ppm/°C"
     },
     "R283": {
       "value": "40.2",
       "pins": {
         "1": "UL_CCLK_P",
         "2": "GND"
-      }
+      },
+      "description": "Resistor 40.2 Ohm 1% 1/16W 0402 ±100ppm/°C"
     },
     "U12": {
       "value": "UCLK-0044",
@@ -9353,105 +9387,120 @@
           "name": "EP",
           "net": "GND"
         }
-      }
+      },
+      "description": "IC CLOCK GEN 2GHZ VCO 64LFCSP"
     },
     "R129": {
       "value": "100.0",
       "pins": {
         "1": "XRIGHT_CCLK_P_CLOCK",
         "2": "P3V3"
-      }
+      },
+      "description": "Resistor 100Ohm 1% 1/16W 0402"
     },
     "R131": {
       "value": "57.6",
       "pins": {
         "1": "XRIGHT_CCLK_N_CLOCK",
         "2": "RIGHT_CCLK_STUB_N_CLOCK"
-      }
+      },
+      "description": "Resistor 57.6 Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R169": {
       "value": "100.0",
       "pins": {
         "1": "XLR_CCLK_N_CLOCK",
         "2": "P3V3"
-      }
+      },
+      "description": "Resistor 100Ohm 1% 1/16W 0402"
     },
     "C28": {
       "value": "0.1 uF",
       "pins": {
         "1": "P3V3",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "R170": {
       "value": "40.2",
       "pins": {
         "1": "LR_CCLK_N",
         "2": "GND"
-      }
+      },
+      "description": "Resistor 40.2 Ohm 1% 1/16W 0402 ±100ppm/°C"
     },
     "R13": {
       "value": "40.2",
       "pins": {
         "1": "FMC_CLK0_M2C_P",
         "2": "GND"
-      }
+      },
+      "description": "Resistor 40.2 Ohm 1% 1/16W 0402 ±100ppm/°C"
     },
     "R163": {
       "value": "100.0",
       "pins": {
         "1": "XUR_CCLK_N_CLOCK",
         "2": "P3V3"
-      }
+      },
+      "description": "Resistor 100Ohm 1% 1/16W 0402"
     },
     "C48": {
       "value": "470.0 pF",
       "pins": {
         "1": "N6949484_CLOCK",
         "2": "N6949518_CLOCK"
-      }
+      },
+      "description": "Capacitor 470pF 50VDC X7R 10% 0402"
     },
     "C41": {
       "value": "0.1 uF",
       "pins": {
         "1": "P3V3",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "R287": {
       "value": "100.0",
       "pins": {
         "1": "XUL_CCLK_N_CLOCK",
         "2": "P3V3"
-      }
+      },
+      "description": "Resistor 100Ohm 1% 1/16W 0402"
     },
     "R295": {
       "value": "0",
       "pins": {
         "1": "GND",
         "2": "N6985801_CLOCK"
-      }
+      },
+      "description": "Resistor 0Ohm 1.5A 0402"
     },
     "C26": {
       "value": "0.1 uF",
       "pins": {
         "1": "P3V3",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "R164": {
       "value": "40.2",
       "pins": {
         "1": "UR_CCLK_N",
         "2": "GND"
-      }
+      },
+      "description": "Resistor 40.2 Ohm 1% 1/16W 0402 ±100ppm/°C"
     },
     "R288": {
       "value": "40.2",
       "pins": {
         "1": "UL_CCLK_N",
         "2": "GND"
-      }
+      },
+      "description": "Resistor 40.2 Ohm 1% 1/16W 0402 ±100ppm/°C"
     },
     "TP10": {
       "value": "J001-1T01",
@@ -9461,6 +9510,7 @@
           "net": "LEFT_CCLK_STUB_P_CLOCK"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "C39": {
@@ -9468,7 +9518,8 @@
       "pins": {
         "1": "P3V3",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "U10": {
       "value": "UIFC-0006",
@@ -9493,91 +9544,104 @@
           "name": "R",
           "net": "REFCLK_C2M_CLOCK"
         }
-      }
+      },
+      "description": "Receiver Differential High Speed w/ integrated Termination"
     },
     "R79": {
       "value": "24.9",
       "pins": {
         "1": "XCPLD_CLK_CLOCK",
         "2": "CPLD_CLK"
-      }
+      },
+      "description": "Resistor 24.9Ohm 1% 1/16W 0402 "
     },
     "R166": {
       "value": "100.0",
       "pins": {
         "1": "XLR_CCLK_P_CLOCK",
         "2": "P3V3"
-      }
+      },
+      "description": "Resistor 100Ohm 1% 1/16W 0402"
     },
     "R67": {
       "value": "100.0",
       "pins": {
         "1": "XFMC_CLK_N_CLOCK",
         "2": "P3V3"
-      }
+      },
+      "description": "Resistor 100Ohm 1% 1/16W 0402"
     },
     "R167": {
       "value": "57.6",
       "pins": {
         "1": "XLR_CCLK_P_CLOCK",
         "2": "LR_CCLK_P"
-      }
+      },
+      "description": "Resistor 57.6 Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R12": {
       "value": "40.2",
       "pins": {
         "1": "FMC_CLK0_M2C_N",
         "2": "GND"
-      }
+      },
+      "description": "Resistor 40.2 Ohm 1% 1/16W 0402 ±100ppm/°C"
     },
     "C35": {
       "value": "0.1 uF",
       "pins": {
         "1": "P3V3",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "R160": {
       "value": "100.0",
       "pins": {
         "1": "XUR_CCLK_P_CLOCK",
         "2": "P3V3"
-      }
+      },
+      "description": "Resistor 100Ohm 1% 1/16W 0402"
     },
     "C44": {
       "value": "820.0 pF",
       "pins": {
         "1": "N6949474_CLOCK",
         "2": "N6949518_CLOCK"
-      }
+      },
+      "description": "Capacitor 820pF 50VDC X7R 10% 0402"
     },
     "R284": {
       "value": "100.0",
       "pins": {
         "1": "XUL_CCLK_P_CLOCK",
         "2": "P3V3"
-      }
+      },
+      "description": "Resistor 100Ohm 1% 1/16W 0402"
     },
     "C22": {
       "value": "0.1 uF",
       "pins": {
         "1": "P3V3",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "R161": {
       "value": "57.6",
       "pins": {
         "1": "XUR_CCLK_P_CLOCK",
         "2": "UR_CCLK_P"
-      }
+      },
+      "description": "Resistor 57.6 Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R285": {
       "value": "57.6",
       "pins": {
         "1": "XUL_CCLK_P_CLOCK",
         "2": "UL_CCLK_P"
-      }
+      },
+      "description": "Resistor 57.6 Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "TP17": {
       "value": "J001-1T01",
@@ -9587,6 +9651,7 @@
           "net": "RIGHT_CCLK_STUB_P_CLOCK"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "C20": {
@@ -9594,35 +9659,40 @@
       "pins": {
         "1": "P3V3",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor Ceramic 22uF 6.3V X7R 1206"
     },
     "C34": {
       "value": "0.1 uF",
       "pins": {
         "1": "P3V3",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "R296": {
       "value": "0",
       "pins": {
         "1": "GND",
         "2": "N6985805_CLOCK"
-      }
+      },
+      "description": "Resistor 0Ohm 1.5A 0402"
     },
     "C23": {
       "value": "0.1 uF",
       "pins": {
         "1": "P3V3",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "R53": {
       "value": "100.0",
       "pins": {
         "1": "XFMC_CLK_P_CLOCK",
         "2": "P3V3"
-      }
+      },
+      "description": "Resistor 100Ohm 1% 1/16W 0402"
     },
     "TP12": {
       "value": "J001-1T01",
@@ -9632,6 +9702,7 @@
           "net": "LEFT_CCLK_STUB_N_CLOCK"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "R289": {
@@ -9639,7 +9710,8 @@
       "pins": {
         "1": "LL_CCLK_P",
         "2": "GND"
-      }
+      },
+      "description": "Resistor 40.2 Ohm 1% 1/16W 0402 ±100ppm/°C"
     },
     "TP8": {
       "value": "J001-1T01",
@@ -9649,6 +9721,7 @@
           "net": "N6964358_CLOCK"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "TP18": {
@@ -9659,6 +9732,7 @@
           "net": "RIGHT_CCLK_STUB_N_CLOCK"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "R23": {
@@ -9666,84 +9740,96 @@
       "pins": {
         "1": "N6949474_CLOCK",
         "2": "N6949746_CLOCK"
-      }
+      },
+      "description": "Resistor 499 Ohm 1% 1/16W 0402"
     },
     "R19": {
       "value": "100.0",
       "pins": {
         "1": "P3V3",
         "2": "N6950180_CLOCK"
-      }
+      },
+      "description": "Resistor 100Ohm 1% 1/16W 0402"
     },
     "R168": {
       "value": "57.6",
       "pins": {
         "1": "XLR_CCLK_N_CLOCK",
         "2": "LR_CCLK_N"
-      }
+      },
+      "description": "Resistor 57.6 Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R66": {
       "value": "40.2",
       "pins": {
         "1": "LEFT_CCLK_STUB_P_CLOCK",
         "2": "GND"
-      }
+      },
+      "description": "Resistor 40.2 Ohm 1% 1/16W 0402 ±100ppm/°C"
     },
     "C25": {
       "value": "0.1 uF",
       "pins": {
         "1": "P3V3",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "R60": {
       "value": "57.6",
       "pins": {
         "1": "XFMC_CLK_P_CLOCK",
         "2": "FMC_CLK0_M2C_P"
-      }
+      },
+      "description": "Resistor 57.6 Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R286": {
       "value": "57.6",
       "pins": {
         "1": "XUL_CCLK_N_CLOCK",
         "2": "UL_CCLK_N"
-      }
+      },
+      "description": "Resistor 57.6 Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "C45": {
       "value": "0.022 uF",
       "pins": {
         "1": "N6949746_CLOCK",
         "2": "N6949518_CLOCK"
-      }
+      },
+      "description": "Capacitor 0.022uF 50VDC X7R 10% 0402"
     },
     "R162": {
       "value": "57.6",
       "pins": {
         "1": "XUR_CCLK_N_CLOCK",
         "2": "UR_CCLK_N"
-      }
+      },
+      "description": "Resistor 57.6 Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R293": {
       "value": "100.0",
       "pins": {
         "1": "XLL_CCLK_N_CLOCK",
         "2": "P3V3"
-      }
+      },
+      "description": "Resistor 100Ohm 1% 1/16W 0402"
     },
     "C16": {
       "value": "22.0 uF",
       "pins": {
         "1": "P3V3",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor Ceramic 22uF 6.3V X7R 1206"
     },
     "C32": {
       "value": "0.1 uF",
       "pins": {
         "1": "P3V3",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "P1": {
       "value": "J400-AV11",
@@ -10150,91 +10236,104 @@
         "D30": "FMC_TDI_CPLD",
         "D31": "FMC_TDO_CPLD",
         "D33": "FMC_TMS_CPLD"
-      }
+      },
+      "description": "Connector 400 Pins (40x10) Vertical 50mils VITA-57 Pb"
     },
     "R17": {
       "value": "0",
       "pins": {
         "1": "N141577_FMC",
         "2": "PVADJ"
-      }
+      },
+      "description": "Resistor 0Ohm 1.5A 0402"
     },
     "R300": {
       "value": "10K",
       "pins": {
         "1": "PVADJ",
         "2": "GBTCLK1_M2C_N_FMC"
-      }
+      },
+      "description": "Resistor 10kOhm 1% 1/16W 0402"
     },
     "R306": {
       "value": "10K",
       "pins": {
         "1": "FMC_CLK1_M2C_N_FMC",
         "2": "PVADJ"
-      }
+      },
+      "description": "Resistor 10kOhm 1% 1/16W 0402"
     },
     "R307": {
       "value": "10K",
       "pins": {
         "1": "FMC_CLK1_M2C_P_FMC",
         "2": "GND"
-      }
+      },
+      "description": "Resistor 10kOhm 1% 1/16W 0402"
     },
     "R302": {
       "value": "10K",
       "pins": {
         "1": "PVADJ",
         "2": "GBTCLK0_M2C_N_FMC"
-      }
+      },
+      "description": "Resistor 10kOhm 1% 1/16W 0402"
     },
     "R301": {
       "value": "10K",
       "pins": {
         "1": "GND",
         "2": "GBTCLK1_M2C_P_FMC"
-      }
+      },
+      "description": "Resistor 10kOhm 1% 1/16W 0402"
     },
     "R18": {
       "value": "0",
       "pins": {
         "1": "N141587_FMC",
         "2": "PVADJ"
-      }
+      },
+      "description": "Resistor 0Ohm 1.5A 0402"
     },
     "R303": {
       "value": "10K",
       "pins": {
         "1": "GND",
         "2": "GBTCLK0_M2C_P_FMC"
-      }
+      },
+      "description": "Resistor 10kOhm 1% 1/16W 0402"
     },
     "R14": {
       "value": "10K",
       "pins": {
         "1": "CLK_DIR_FMC",
         "2": "P3V3"
-      }
+      },
+      "description": "Resistor 10kOhm 1% 1/16W 0402"
     },
     "C157": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C194": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C231": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "U7": {
       "value": "UPRD-0002",
@@ -10905,84 +11004,96 @@
         "C8": "UL_LL_SN_WR_WAIT_P_QUAD ANEMONE",
         "C11": "LL_UL_NS_WR_WAIT_P_QUAD ANEMONE",
         "C10": "LL_UL_NS_WR_WAIT_P_QUAD ANEMONE"
-      }
+      },
+      "description": "Processor, Adapteva, 16-core DSP, 324-pin 0.8mm BGA"
     },
     "C161": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C158": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C172": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C225": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C209": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C179": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C196": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C191": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C154": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C156": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C230": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "TP29": {
       "value": "J001-1T01",
@@ -10992,6 +11103,7 @@
           "net": "LL_FLAG_DSP"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "C229": {
@@ -10999,70 +11111,80 @@
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C206": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C155": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C208": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C211": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C212": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C197": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C177": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C195": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C160": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "TP33": {
       "value": "J001-1T01",
@@ -11072,6 +11194,7 @@
           "net": "MVSS_QUAD ANEMONE_DSP LL"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "C193": {
@@ -11079,35 +11202,40 @@
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C207": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C192": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C159": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C178": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "TP25": {
       "value": "J001-1T01",
@@ -11117,6 +11245,7 @@
           "net": "LL_RESET_L"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "C224": {
@@ -11124,21 +11253,24 @@
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C228": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C227": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "TP31": {
       "value": "J001-1T01",
@@ -11148,6 +11280,7 @@
           "net": "MVDD_QUAD ANEMONE_DSP LL"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "C213": {
@@ -11155,455 +11288,520 @@
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C226": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C173": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C190": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C176": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C174": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C175": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C210": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "R185": {
       "value": "100.0",
       "pins": {
         "1": "TXI_EA_RD_WAIT_P_QUAD ANEMONE_DSP LL",
         "2": "TXI_EA_RD_WAIT_N_QUAD ANEMONE_DSP LL"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R282": {
       "value": "100.0",
       "pins": {
         "1": "RXI_WE_LCLK_P_QUAD ANEMONE_DSP LL",
         "2": "RXI_WE_LCLK_N_QUAD ANEMONE_DSP LL"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R187": {
       "value": "100.0",
       "pins": {
         "1": "LR_LL_WE_DATA_P_5_QUAD ANEMONE",
         "2": "LR_LL_WE_DATA_N_5_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R275": {
       "value": "100.0",
       "pins": {
         "1": "LL_LL_WW_DATA_P_2_QUAD ANEMONE",
         "2": "LL_LL_WW_DATA_N_2_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R192": {
       "value": "100.0",
       "pins": {
         "1": "TXI_EA_WR_WAIT_P_QUAD ANEMONE_DSP LL",
         "2": "TXI_EA_WR_WAIT_N_QUAD ANEMONE_DSP LL"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R277": {
       "value": "100.0",
       "pins": {
         "1": "RXI_WE_FRAME_P_QUAD ANEMONE_DSP LL",
         "2": "RXI_WE_FRAME_N_QUAD ANEMONE_DSP LL"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R193": {
       "value": "100.0",
       "pins": {
         "1": "LR_LL_WE_DATA_P_6_QUAD ANEMONE",
         "2": "LR_LL_WE_DATA_N_6_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R281": {
       "value": "100.0",
       "pins": {
         "1": "LL_LL_WW_DATA_P_3_QUAD ANEMONE",
         "2": "LL_LL_WW_DATA_N_3_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R180": {
       "value": "100.0",
       "pins": {
         "1": "LR_LL_WE_DATA_P_0_QUAD ANEMONE",
         "2": "LR_LL_WE_DATA_N_0_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R174": {
       "value": "10K",
       "pins": {
         "1": "P2V5",
         "2": "N6963106_QUAD ANEMONE_DSP LL"
-      }
+      },
+      "description": "Resistor 10K Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R198": {
       "value": "100.0",
       "pins": {
         "1": "LR_LL_WE_DATA_P_7_QUAD ANEMONE",
         "2": "LR_LL_WE_DATA_N_7_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R254": {
       "value": "100.0",
       "pins": {
         "1": "LL_LL_WW_DATA_P_4_QUAD ANEMONE",
         "2": "LL_LL_WW_DATA_N_4_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R188": {
       "value": "100.0",
       "pins": {
         "1": "LR_LL_WE_DATA_P_1_QUAD ANEMONE",
         "2": "LR_LL_WE_DATA_N_1_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R276": {
       "value": "100.0",
       "pins": {
         "1": "TXI_WE_RD_WAIT_P_QUAD ANEMONE_DSP LL",
         "2": "TXI_WE_RD_WAIT_N_QUAD ANEMONE_DSP LL"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R173": {
       "value": "10K",
       "pins": {
         "1": "GND",
         "2": "N6963102_QUAD ANEMONE_DSP LL"
-      }
+      },
+      "description": "Resistor 10K Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R178": {
       "value": "100.0",
       "pins": {
         "1": "RXI_EA_LCLK_P_QUAD ANEMONE_DSP LL",
         "2": "RXI_EA_LCLK_N_QUAD ANEMONE_DSP LL"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R261": {
       "value": "100.0",
       "pins": {
         "1": "LL_LL_WW_DATA_P_5_QUAD ANEMONE",
         "2": "LL_LL_WW_DATA_N_5_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R194": {
       "value": "100.0",
       "pins": {
         "1": "LR_LL_WE_DATA_P_2_QUAD ANEMONE",
         "2": "LR_LL_WE_DATA_N_2_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R263": {
       "value": "100.0",
       "pins": {
         "1": "TXI_WE_WR_WAIT_P_QUAD ANEMONE_DSP LL",
         "2": "TXI_WE_WR_WAIT_N_QUAD ANEMONE_DSP LL"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R186": {
       "value": "100.0",
       "pins": {
         "1": "RXI_EA_FRAME_P_QUAD ANEMONE_DSP LL",
         "2": "RXI_EA_FRAME_N_QUAD ANEMONE_DSP LL"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R274": {
       "value": "100.0",
       "pins": {
         "1": "LL_LL_WW_DATA_P_6_QUAD ANEMONE",
         "2": "LL_LL_WW_DATA_N_6_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R199": {
       "value": "100.0",
       "pins": {
         "1": "LR_LL_WE_DATA_P_3_QUAD ANEMONE",
         "2": "LR_LL_WE_DATA_N_3_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R255": {
       "value": "100.0",
       "pins": {
         "1": "LL_LL_WW_DATA_P_0_QUAD ANEMONE",
         "2": "LL_LL_WW_DATA_N_0_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R280": {
       "value": "100.0",
       "pins": {
         "1": "LL_LL_WW_DATA_P_7_QUAD ANEMONE",
         "2": "LL_LL_WW_DATA_N_7_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R179": {
       "value": "100.0",
       "pins": {
         "1": "LR_LL_WE_DATA_P_4_QUAD ANEMONE",
         "2": "LR_LL_WE_DATA_N_4_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R262": {
       "value": "100.0",
       "pins": {
         "1": "LL_LL_WW_DATA_P_1_QUAD ANEMONE",
         "2": "LL_LL_WW_DATA_N_1_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R224": {
       "value": "100.0",
       "pins": {
         "1": "UL_LL_SN_DATA_P_7_QUAD ANEMONE",
         "2": "UL_LL_SN_DATA_N_7_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R242": {
       "value": "100.0",
       "pins": {
         "1": "UL_LL_NS_DATA_P_5_QUAD ANEMONE",
         "2": "UL_LL_NS_DATA_N_5_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R258": {
       "value": "100.0",
       "pins": {
         "1": "UL_LL_SN_DATA_P_1_QUAD ANEMONE",
         "2": "UL_LL_SN_DATA_N_1_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R209": {
       "value": "100.0",
       "pins": {
         "1": "TXI_SO_WR_WAIT_P_QUAD ANEMONE_DSP LL",
         "2": "TXI_SO_WR_WAIT_N_QUAD ANEMONE_DSP LL"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R231": {
       "value": "100.0",
       "pins": {
         "1": "RXI_NO_LCLK_P_QUAD ANEMONE_DSP LL",
         "2": "RXI_NO_LCLK_N_QUAD ANEMONE_DSP LL"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R233": {
       "value": "100.0",
       "pins": {
         "1": "UL_LL_NS_DATA_P_6_QUAD ANEMONE",
         "2": "UL_LL_NS_DATA_N_6_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R248": {
       "value": "100.0",
       "pins": {
         "1": "UL_LL_SN_DATA_P_2_QUAD ANEMONE",
         "2": "UL_LL_SN_DATA_N_2_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R267": {
       "value": "100.0",
       "pins": {
         "1": "UL_LL_NS_DATA_P_0_QUAD ANEMONE",
         "2": "UL_LL_NS_DATA_N_0_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R218": {
       "value": "10K",
       "pins": {
         "1": "P2V5",
         "2": "N6941990_QUAD ANEMONE_DSP LL"
-      }
+      },
+      "description": "Resistor 10K Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R223": {
       "value": "100.0",
       "pins": {
         "1": "RXI_NO_FRAME_P_QUAD ANEMONE_DSP LL",
         "2": "RXI_NO_FRAME_N_QUAD ANEMONE_DSP LL"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R225": {
       "value": "100.0",
       "pins": {
         "1": "UL_LL_NS_DATA_P_7_QUAD ANEMONE",
         "2": "UL_LL_NS_DATA_N_7_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R240": {
       "value": "100.0",
       "pins": {
         "1": "UL_LL_SN_DATA_P_3_QUAD ANEMONE",
         "2": "UL_LL_SN_DATA_N_3_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R259": {
       "value": "100.0",
       "pins": {
         "1": "UL_LL_NS_DATA_P_1_QUAD ANEMONE",
         "2": "UL_LL_NS_DATA_N_1_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R213": {
       "value": "10K",
       "pins": {
         "1": "GND",
         "2": "N6941986_QUAD ANEMONE_DSP LL"
-      }
+      },
+      "description": "Resistor 10K Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R234": {
       "value": "100.0",
       "pins": {
         "1": "RXI_SO_LCLK_P_QUAD ANEMONE_DSP LL",
         "2": "RXI_SO_LCLK_N_QUAD ANEMONE_DSP LL"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R247": {
       "value": "100.0",
       "pins": {
         "1": "UL_LL_SN_DATA_P_4_QUAD ANEMONE",
         "2": "UL_LL_SN_DATA_N_4_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R249": {
       "value": "100.0",
       "pins": {
         "1": "UL_LL_NS_DATA_P_2_QUAD ANEMONE",
         "2": "UL_LL_NS_DATA_N_2_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R214": {
       "value": "100.0",
       "pins": {
         "1": "TXI_NO_RD_WAIT_P_QUAD ANEMONE_DSP LL",
         "2": "TXI_NO_RD_WAIT_N_QUAD ANEMONE_DSP LL"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R212": {
       "value": "10K",
       "pins": {
         "1": "P2V5",
         "2": "N6943064_QUAD ANEMONE_DSP LL"
-      }
+      },
+      "description": "Resistor 10K Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R239": {
       "value": "100.0",
       "pins": {
         "1": "UL_LL_SN_DATA_P_5_QUAD ANEMONE",
         "2": "UL_LL_SN_DATA_N_5_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R241": {
       "value": "100.0",
       "pins": {
         "1": "UL_LL_NS_DATA_P_3_QUAD ANEMONE",
         "2": "UL_LL_NS_DATA_N_3_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R226": {
       "value": "100.0",
       "pins": {
         "1": "RXI_SO_FRAME_P_QUAD ANEMONE_DSP LL",
         "2": "RXI_SO_FRAME_N_QUAD ANEMONE_DSP LL"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R208": {
       "value": "100.0",
       "pins": {
         "1": "TXI_NO_WR_WAIT_P_QUAD ANEMONE_DSP LL",
         "2": "TXI_NO_WR_WAIT_N_QUAD ANEMONE_DSP LL"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R232": {
       "value": "100.0",
       "pins": {
         "1": "UL_LL_SN_DATA_P_6_QUAD ANEMONE",
         "2": "UL_LL_SN_DATA_N_6_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R250": {
       "value": "100.0",
       "pins": {
         "1": "UL_LL_NS_DATA_P_4_QUAD ANEMONE",
         "2": "UL_LL_NS_DATA_N_4_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R266": {
       "value": "100.0",
       "pins": {
         "1": "UL_LL_SN_DATA_P_0_QUAD ANEMONE",
         "2": "UL_LL_SN_DATA_N_0_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R217": {
       "value": "10K",
       "pins": {
         "1": "GND",
         "2": "N6943060_QUAD ANEMONE_DSP LL"
-      }
+      },
+      "description": "Resistor 10K Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R205": {
       "value": "100.0",
       "pins": {
         "1": "TXI_SO_RD_WAIT_P_QUAD ANEMONE_DSP LL",
         "2": "TXI_SO_RD_WAIT_N_QUAD ANEMONE_DSP LL"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "C127": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C113": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C99": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "U8": {
       "value": "UPRD-0002",
@@ -12274,84 +12472,96 @@
         "C8": "UR_LR_SN_WR_WAIT_P_QUAD ANEMONE",
         "C11": "LR_UR_NS_WR_WAIT_P_QUAD ANEMONE",
         "C10": "LR_UR_NS_WR_WAIT_P_QUAD ANEMONE"
-      }
+      },
+      "description": "Processor, Adapteva, 16-core DSP, 324-pin 0.8mm BGA"
     },
     "C115": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C79": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C129": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C98": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C80": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C131": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C78": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C61": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C76": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C56": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C60": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "TP21": {
       "value": "J001-1T01",
@@ -12361,6 +12571,7 @@
           "net": "LR_FLAG_DSP"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "C111": {
@@ -12368,70 +12579,80 @@
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C62": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C108": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C93": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C109": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C96": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C92": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C97": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C82": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C130": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "TP16": {
       "value": "J001-1T01",
@@ -12441,6 +12662,7 @@
           "net": "MVSS_QUAD ANEMONE_DSP LR"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "C128": {
@@ -12448,35 +12670,40 @@
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C95": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C132": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C59": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C77": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "TP24": {
       "value": "J001-1T01",
@@ -12486,6 +12713,7 @@
           "net": "LR_RESET_L"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "C64": {
@@ -12493,21 +12721,24 @@
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C133": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C114": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "TP14": {
       "value": "J001-1T01",
@@ -12517,6 +12748,7 @@
           "net": "MVDD_QUAD ANEMONE_DSP LR"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "C66": {
@@ -12524,455 +12756,520 @@
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C134": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C81": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C83": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C94": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C110": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C112": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C63": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "R49": {
       "value": "100.0",
       "pins": {
         "1": "TXI_EA_RD_WAIT_P_QUAD ANEMONE_DSP LR",
         "2": "TXI_EA_RD_WAIT_N_QUAD ANEMONE_DSP LR"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R156": {
       "value": "100.0",
       "pins": {
         "1": "RXI_WE_LCLK_P_QUAD ANEMONE_DSP LR",
         "2": "RXI_WE_LCLK_N_QUAD ANEMONE_DSP LR"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R51": {
       "value": "100.0",
       "pins": {
         "1": "LR_RXI_EA_DATA_P_5",
         "2": "LR_RXI_EA_DATA_N_5"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R138": {
       "value": "100.0",
       "pins": {
         "1": "LL_LR_EW_DATA_P_2_QUAD ANEMONE",
         "2": "LL_LR_EW_DATA_N_2_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R57": {
       "value": "100.0",
       "pins": {
         "1": "TXI_EA_WR_WAIT_P_QUAD ANEMONE_DSP LR",
         "2": "TXI_EA_WR_WAIT_N_QUAD ANEMONE_DSP LR"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R148": {
       "value": "100.0",
       "pins": {
         "1": "RXI_WE_FRAME_P_QUAD ANEMONE_DSP LR",
         "2": "RXI_WE_FRAME_N_QUAD ANEMONE_DSP LR"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R58": {
       "value": "100.0",
       "pins": {
         "1": "LR_RXI_EA_DATA_P_6",
         "2": "LR_RXI_EA_DATA_N_6"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R124": {
       "value": "100.0",
       "pins": {
         "1": "LL_LR_EW_DATA_P_3_QUAD ANEMONE",
         "2": "LL_LR_EW_DATA_N_3_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R44": {
       "value": "100.0",
       "pins": {
         "1": "LR_RXI_EA_DATA_P_0",
         "2": "LR_RXI_EA_DATA_N_0"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R38": {
       "value": "10K",
       "pins": {
         "1": "P2V5",
         "2": "N6963106_QUAD ANEMONE_DSP LR"
-      }
+      },
+      "description": "Resistor 10K Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R63": {
       "value": "100.0",
       "pins": {
         "1": "LR_RXI_EA_DATA_P_7",
         "2": "LR_RXI_EA_DATA_N_7"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R157": {
       "value": "100.0",
       "pins": {
         "1": "LL_LR_EW_DATA_P_4_QUAD ANEMONE",
         "2": "LL_LR_EW_DATA_N_4_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R52": {
       "value": "100.0",
       "pins": {
         "1": "LR_RXI_EA_DATA_P_1",
         "2": "LR_RXI_EA_DATA_N_1"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R147": {
       "value": "100.0",
       "pins": {
         "1": "TXI_WE_RD_WAIT_P_QUAD ANEMONE_DSP LR",
         "2": "TXI_WE_RD_WAIT_N_QUAD ANEMONE_DSP LR"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R37": {
       "value": "10K",
       "pins": {
         "1": "GND",
         "2": "N6963102_QUAD ANEMONE_DSP LR"
-      }
+      },
+      "description": "Resistor 10K Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R42": {
       "value": "100.0",
       "pins": {
         "1": "RXI_EA_LCLK_P_QUAD ANEMONE_DSP LR",
         "2": "RXI_EA_LCLK_N_QUAD ANEMONE_DSP LR"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R149": {
       "value": "100.0",
       "pins": {
         "1": "LL_LR_EW_DATA_P_5_QUAD ANEMONE",
         "2": "LL_LR_EW_DATA_N_5_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R59": {
       "value": "100.0",
       "pins": {
         "1": "LR_RXI_EA_DATA_P_2",
         "2": "LR_RXI_EA_DATA_N_2"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R136": {
       "value": "100.0",
       "pins": {
         "1": "TXI_WE_WR_WAIT_P_QUAD ANEMONE_DSP LR",
         "2": "TXI_WE_WR_WAIT_N_QUAD ANEMONE_DSP LR"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R50": {
       "value": "100.0",
       "pins": {
         "1": "RXI_EA_FRAME_P_QUAD ANEMONE_DSP LR",
         "2": "RXI_EA_FRAME_N_QUAD ANEMONE_DSP LR"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R137": {
       "value": "100.0",
       "pins": {
         "1": "LL_LR_EW_DATA_P_6_QUAD ANEMONE",
         "2": "LL_LR_EW_DATA_N_6_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R64": {
       "value": "100.0",
       "pins": {
         "1": "LR_RXI_EA_DATA_P_3",
         "2": "LR_RXI_EA_DATA_N_3"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R158": {
       "value": "100.0",
       "pins": {
         "1": "LL_LR_EW_DATA_P_0_QUAD ANEMONE",
         "2": "LL_LR_EW_DATA_N_0_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R123": {
       "value": "100.0",
       "pins": {
         "1": "LL_LR_EW_DATA_P_7_QUAD ANEMONE",
         "2": "LL_LR_EW_DATA_N_7_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R43": {
       "value": "100.0",
       "pins": {
         "1": "LR_RXI_EA_DATA_P_4",
         "2": "LR_RXI_EA_DATA_N_4"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R150": {
       "value": "100.0",
       "pins": {
         "1": "LL_LR_EW_DATA_P_1_QUAD ANEMONE",
         "2": "LL_LR_EW_DATA_N_1_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R94": {
       "value": "100.0",
       "pins": {
         "1": "UR_LR_SN_DATA_P_7_QUAD ANEMONE",
         "2": "UR_LR_SN_DATA_N_7_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R112": {
       "value": "100.0",
       "pins": {
         "1": "UR_LR_NS_DATA_P_5_QUAD ANEMONE",
         "2": "UR_LR_NS_DATA_N_5_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R127": {
       "value": "100.0",
       "pins": {
         "1": "UR_LR_SN_DATA_P_1_QUAD ANEMONE",
         "2": "UR_LR_SN_DATA_N_1_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R78": {
       "value": "100.0",
       "pins": {
         "1": "TXI_SO_WR_WAIT_P_QUAD ANEMONE_DSP LR",
         "2": "TXI_SO_WR_WAIT_N_QUAD ANEMONE_DSP LR"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R101": {
       "value": "100.0",
       "pins": {
         "1": "RXI_NO_LCLK_P_QUAD ANEMONE_DSP LR",
         "2": "RXI_NO_LCLK_N_QUAD ANEMONE_DSP LR"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R103": {
       "value": "100.0",
       "pins": {
         "1": "UR_LR_NS_DATA_P_6_QUAD ANEMONE",
         "2": "UR_LR_NS_DATA_N_6_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R118": {
       "value": "100.0",
       "pins": {
         "1": "UR_LR_SN_DATA_P_2_QUAD ANEMONE",
         "2": "UR_LR_SN_DATA_N_2_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R142": {
       "value": "100.0",
       "pins": {
         "1": "UR_LR_NS_DATA_P_0_QUAD ANEMONE",
         "2": "UR_LR_NS_DATA_N_0_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R86": {
       "value": "10K",
       "pins": {
         "1": "P2V5",
         "2": "N6941990_QUAD ANEMONE_DSP LR"
-      }
+      },
+      "description": "Resistor 10K Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R93": {
       "value": "100.0",
       "pins": {
         "1": "RXI_NO_FRAME_P_QUAD ANEMONE_DSP LR",
         "2": "RXI_NO_FRAME_N_QUAD ANEMONE_DSP LR"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R95": {
       "value": "100.0",
       "pins": {
         "1": "UR_LR_NS_DATA_P_7_QUAD ANEMONE",
         "2": "UR_LR_NS_DATA_N_7_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R110": {
       "value": "100.0",
       "pins": {
         "1": "UR_LR_SN_DATA_P_3_QUAD ANEMONE",
         "2": "UR_LR_SN_DATA_N_3_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R128": {
       "value": "100.0",
       "pins": {
         "1": "UR_LR_NS_DATA_P_1_QUAD ANEMONE",
         "2": "UR_LR_NS_DATA_N_1_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R83": {
       "value": "10K",
       "pins": {
         "1": "GND",
         "2": "N6941986_QUAD ANEMONE_DSP LR"
-      }
+      },
+      "description": "Resistor 10K Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R104": {
       "value": "100.0",
       "pins": {
         "1": "RXI_SO_LCLK_P_QUAD ANEMONE_DSP LR",
         "2": "RXI_SO_LCLK_N_QUAD ANEMONE_DSP LR"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R117": {
       "value": "100.0",
       "pins": {
         "1": "UR_LR_SN_DATA_P_4_QUAD ANEMONE",
         "2": "UR_LR_SN_DATA_N_4_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R119": {
       "value": "100.0",
       "pins": {
         "1": "UR_LR_NS_DATA_P_2_QUAD ANEMONE",
         "2": "UR_LR_NS_DATA_N_2_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R71": {
       "value": "100.0",
       "pins": {
         "1": "TXI_NO_RD_WAIT_P_QUAD ANEMONE_DSP LR",
         "2": "TXI_NO_RD_WAIT_N_QUAD ANEMONE_DSP LR"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R82": {
       "value": "10K",
       "pins": {
         "1": "P2V5",
         "2": "N6943064_QUAD ANEMONE_DSP LR"
-      }
+      },
+      "description": "Resistor 10K Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R109": {
       "value": "100.0",
       "pins": {
         "1": "UR_LR_SN_DATA_P_5_QUAD ANEMONE",
         "2": "UR_LR_SN_DATA_N_5_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R111": {
       "value": "100.0",
       "pins": {
         "1": "UR_LR_NS_DATA_P_3_QUAD ANEMONE",
         "2": "UR_LR_NS_DATA_N_3_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R96": {
       "value": "100.0",
       "pins": {
         "1": "RXI_SO_FRAME_P_QUAD ANEMONE_DSP LR",
         "2": "RXI_SO_FRAME_N_QUAD ANEMONE_DSP LR"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R77": {
       "value": "100.0",
       "pins": {
         "1": "TXI_NO_WR_WAIT_P_QUAD ANEMONE_DSP LR",
         "2": "TXI_NO_WR_WAIT_N_QUAD ANEMONE_DSP LR"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R102": {
       "value": "100.0",
       "pins": {
         "1": "UR_LR_SN_DATA_P_6_QUAD ANEMONE",
         "2": "UR_LR_SN_DATA_N_6_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R120": {
       "value": "100.0",
       "pins": {
         "1": "UR_LR_NS_DATA_P_4_QUAD ANEMONE",
         "2": "UR_LR_NS_DATA_N_4_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R141": {
       "value": "100.0",
       "pins": {
         "1": "UR_LR_SN_DATA_P_0_QUAD ANEMONE",
         "2": "UR_LR_SN_DATA_N_0_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R85": {
       "value": "10K",
       "pins": {
         "1": "GND",
         "2": "N6943060_QUAD ANEMONE_DSP LR"
-      }
+      },
+      "description": "Resistor 10K Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R72": {
       "value": "100.0",
       "pins": {
         "1": "TXI_SO_RD_WAIT_P_QUAD ANEMONE_DSP LR",
         "2": "TXI_SO_RD_WAIT_N_QUAD ANEMONE_DSP LR"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "C146": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C90": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C164": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "U3": {
       "value": "UPRD-0002",
@@ -13643,84 +13940,96 @@
         "C8": "LL_UL_SN_WR_WAIT_P_QUAD ANEMONE",
         "C11": "UL_LL_NS_WR_WAIT_P_QUAD ANEMONE",
         "C10": "UL_LL_NS_WR_WAIT_P_QUAD ANEMONE"
-      }
+      },
+      "description": "Processor, Adapteva, 16-core DSP, 324-pin 0.8mm BGA"
     },
     "C221": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C186": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C198": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C202": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C167": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C215": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C200": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C106": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C219": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C184": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C107": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "TP27": {
       "value": "J001-1T01",
@@ -13730,6 +14039,7 @@
           "net": "UL_FLAG_DSP"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "C199": {
@@ -13737,70 +14047,80 @@
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C205": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C151": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C152": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C170": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C168": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C149": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C165": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C169": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C166": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "TP32": {
       "value": "J001-1T01",
@@ -13810,6 +14130,7 @@
           "net": "MVSS_QUAD ANEMONE_DSP UL"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "C204": {
@@ -13817,35 +14138,40 @@
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C150": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C183": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C182": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C188": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "TP28": {
       "value": "J001-1T01",
@@ -13855,6 +14181,7 @@
           "net": "UL_RESET_L"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "C189": {
@@ -13862,21 +14189,24 @@
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C153": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C187": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "TP30": {
       "value": "J001-1T01",
@@ -13886,6 +14216,7 @@
           "net": "MVDD_QUAD ANEMONE_DSP UL"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "C171": {
@@ -13893,455 +14224,520 @@
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C222": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C216": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C217": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C148": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C65": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C218": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C203": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "R181": {
       "value": "100.0",
       "pins": {
         "1": "TXI_EA_RD_WAIT_P_QUAD ANEMONE_DSP UL",
         "2": "TXI_EA_RD_WAIT_N_QUAD ANEMONE_DSP UL"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R278": {
       "value": "100.0",
       "pins": {
         "1": "RXI_WE_LCLK_P_QUAD ANEMONE_DSP UL",
         "2": "RXI_WE_LCLK_N_QUAD ANEMONE_DSP UL"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R183": {
       "value": "100.0",
       "pins": {
         "1": "UR_UL_WE_DATA_P_5_QUAD ANEMONE",
         "2": "UR_UL_WE_DATA_N_5_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R269": {
       "value": "100.0",
       "pins": {
         "1": "UL_UL_WW_DATA_P_2_QUAD ANEMONE",
         "2": "UL_UL_WW_DATA_N_2_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R189": {
       "value": "100.0",
       "pins": {
         "1": "TXI_EA_WR_WAIT_P_QUAD ANEMONE_DSP UL",
         "2": "TXI_EA_WR_WAIT_N_QUAD ANEMONE_DSP UL"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R271": {
       "value": "100.0",
       "pins": {
         "1": "RXI_WE_FRAME_P_QUAD ANEMONE_DSP UL",
         "2": "RXI_WE_FRAME_N_QUAD ANEMONE_DSP UL"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R190": {
       "value": "100.0",
       "pins": {
         "1": "UR_UL_WE_DATA_P_6_QUAD ANEMONE",
         "2": "UR_UL_WE_DATA_N_6_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R253": {
       "value": "100.0",
       "pins": {
         "1": "UL_UL_WW_DATA_P_3_QUAD ANEMONE",
         "2": "UL_UL_WW_DATA_N_3_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R177": {
       "value": "100.0",
       "pins": {
         "1": "UR_UL_WE_DATA_P_0_QUAD ANEMONE",
         "2": "UR_UL_WE_DATA_N_0_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R172": {
       "value": "10K",
       "pins": {
         "1": "P2V5",
         "2": "N6963106_QUAD ANEMONE_DSP UL"
-      }
+      },
+      "description": "Resistor 10K Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R196": {
       "value": "100.0",
       "pins": {
         "1": "UR_UL_WE_DATA_P_7_QUAD ANEMONE",
         "2": "UR_UL_WE_DATA_N_7_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R279": {
       "value": "100.0",
       "pins": {
         "1": "UL_UL_WW_DATA_P_4_QUAD ANEMONE",
         "2": "UL_UL_WW_DATA_N_4_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R184": {
       "value": "100.0",
       "pins": {
         "1": "UR_UL_WE_DATA_P_1_QUAD ANEMONE",
         "2": "UR_UL_WE_DATA_N_1_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R270": {
       "value": "100.0",
       "pins": {
         "1": "TXI_WE_RD_WAIT_P_QUAD ANEMONE_DSP UL",
         "2": "TXI_WE_RD_WAIT_N_QUAD ANEMONE_DSP UL"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R171": {
       "value": "10K",
       "pins": {
         "1": "GND",
         "2": "N6963102_QUAD ANEMONE_DSP UL"
-      }
+      },
+      "description": "Resistor 10K Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R175": {
       "value": "100.0",
       "pins": {
         "1": "RXI_EA_LCLK_P_QUAD ANEMONE_DSP UL",
         "2": "RXI_EA_LCLK_N_QUAD ANEMONE_DSP UL"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R272": {
       "value": "100.0",
       "pins": {
         "1": "UL_UL_WW_DATA_P_5_QUAD ANEMONE",
         "2": "UL_UL_WW_DATA_N_5_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R191": {
       "value": "100.0",
       "pins": {
         "1": "UR_UL_WE_DATA_P_2_QUAD ANEMONE",
         "2": "UR_UL_WE_DATA_N_2_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R260": {
       "value": "100.0",
       "pins": {
         "1": "TXI_WE_WR_WAIT_P_QUAD ANEMONE_DSP UL",
         "2": "TXI_WE_WR_WAIT_N_QUAD ANEMONE_DSP UL"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R182": {
       "value": "100.0",
       "pins": {
         "1": "RXI_EA_FRAME_P_QUAD ANEMONE_DSP UL",
         "2": "RXI_EA_FRAME_N_QUAD ANEMONE_DSP UL"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R268": {
       "value": "100.0",
       "pins": {
         "1": "UL_UL_WW_DATA_P_6_QUAD ANEMONE",
         "2": "UL_UL_WW_DATA_N_6_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R197": {
       "value": "100.0",
       "pins": {
         "1": "UR_UL_WE_DATA_P_3_QUAD ANEMONE",
         "2": "UR_UL_WE_DATA_N_3_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R251": {
       "value": "100.0",
       "pins": {
         "1": "UL_UL_WW_DATA_P_0_QUAD ANEMONE",
         "2": "UL_UL_WW_DATA_N_0_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R252": {
       "value": "100.0",
       "pins": {
         "1": "UL_UL_WW_DATA_P_7_QUAD ANEMONE",
         "2": "UL_UL_WW_DATA_N_7_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R176": {
       "value": "100.0",
       "pins": {
         "1": "UR_UL_WE_DATA_P_4_QUAD ANEMONE",
         "2": "UR_UL_WE_DATA_N_4_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R273": {
       "value": "100.0",
       "pins": {
         "1": "UL_UL_WW_DATA_P_1_QUAD ANEMONE",
         "2": "UL_UL_WW_DATA_N_1_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R220": {
       "value": "100.0",
       "pins": {
         "1": "LL_UL_SN_DATA_P_7_QUAD ANEMONE",
         "2": "LL_UL_SN_DATA_N_7_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R238": {
       "value": "100.0",
       "pins": {
         "1": "LL_UL_NS_DATA_P_5_QUAD ANEMONE",
         "2": "LL_UL_NS_DATA_N_5_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R256": {
       "value": "100.0",
       "pins": {
         "1": "LL_UL_SN_DATA_P_1_QUAD ANEMONE",
         "2": "LL_UL_SN_DATA_N_1_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R207": {
       "value": "100.0",
       "pins": {
         "1": "TXI_SO_WR_WAIT_P_QUAD ANEMONE_DSP UL",
         "2": "TXI_SO_WR_WAIT_N_QUAD ANEMONE_DSP UL"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R227": {
       "value": "100.0",
       "pins": {
         "1": "RXI_NO_LCLK_P_QUAD ANEMONE_DSP UL",
         "2": "RXI_NO_LCLK_N_QUAD ANEMONE_DSP UL"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R229": {
       "value": "100.0",
       "pins": {
         "1": "LL_UL_NS_DATA_P_6_QUAD ANEMONE",
         "2": "LL_UL_NS_DATA_N_6_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R244": {
       "value": "100.0",
       "pins": {
         "1": "LL_UL_SN_DATA_P_2_QUAD ANEMONE",
         "2": "LL_UL_SN_DATA_N_2_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R265": {
       "value": "100.0",
       "pins": {
         "1": "LL_UL_NS_DATA_P_0_QUAD ANEMONE",
         "2": "LL_UL_NS_DATA_N_0_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R216": {
       "value": "10K",
       "pins": {
         "1": "P2V5",
         "2": "N6941990_QUAD ANEMONE_DSP UL"
-      }
+      },
+      "description": "Resistor 10K Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R219": {
       "value": "100.0",
       "pins": {
         "1": "RXI_NO_FRAME_P_QUAD ANEMONE_DSP UL",
         "2": "RXI_NO_FRAME_N_QUAD ANEMONE_DSP UL"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R221": {
       "value": "100.0",
       "pins": {
         "1": "LL_UL_NS_DATA_P_7_QUAD ANEMONE",
         "2": "LL_UL_NS_DATA_N_7_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R236": {
       "value": "100.0",
       "pins": {
         "1": "LL_UL_SN_DATA_P_3_QUAD ANEMONE",
         "2": "LL_UL_SN_DATA_N_3_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R257": {
       "value": "100.0",
       "pins": {
         "1": "LL_UL_NS_DATA_P_1_QUAD ANEMONE",
         "2": "LL_UL_NS_DATA_N_1_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R211": {
       "value": "10K",
       "pins": {
         "1": "GND",
         "2": "N6941986_QUAD ANEMONE_DSP UL"
-      }
+      },
+      "description": "Resistor 10K Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R230": {
       "value": "100.0",
       "pins": {
         "1": "RXI_SO_LCLK_P_QUAD ANEMONE_DSP UL",
         "2": "RXI_SO_LCLK_N_QUAD ANEMONE_DSP UL"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R243": {
       "value": "100.0",
       "pins": {
         "1": "LL_UL_SN_DATA_P_4_QUAD ANEMONE",
         "2": "LL_UL_SN_DATA_N_4_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R245": {
       "value": "100.0",
       "pins": {
         "1": "LL_UL_NS_DATA_P_2_QUAD ANEMONE",
         "2": "LL_UL_NS_DATA_N_2_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R203": {
       "value": "100.0",
       "pins": {
         "1": "TXI_NO_RD_WAIT_P_QUAD ANEMONE_DSP UL",
         "2": "TXI_NO_RD_WAIT_N_QUAD ANEMONE_DSP UL"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R210": {
       "value": "10K",
       "pins": {
         "1": "P2V5",
         "2": "N6943064_QUAD ANEMONE_DSP UL"
-      }
+      },
+      "description": "Resistor 10K Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R235": {
       "value": "100.0",
       "pins": {
         "1": "LL_UL_SN_DATA_P_5_QUAD ANEMONE",
         "2": "LL_UL_SN_DATA_N_5_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R237": {
       "value": "100.0",
       "pins": {
         "1": "LL_UL_NS_DATA_P_3_QUAD ANEMONE",
         "2": "LL_UL_NS_DATA_N_3_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R222": {
       "value": "100.0",
       "pins": {
         "1": "RXI_SO_FRAME_P_QUAD ANEMONE_DSP UL",
         "2": "RXI_SO_FRAME_N_QUAD ANEMONE_DSP UL"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R206": {
       "value": "100.0",
       "pins": {
         "1": "TXI_NO_WR_WAIT_P_QUAD ANEMONE_DSP UL",
         "2": "TXI_NO_WR_WAIT_N_QUAD ANEMONE_DSP UL"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R228": {
       "value": "100.0",
       "pins": {
         "1": "LL_UL_SN_DATA_P_6_QUAD ANEMONE",
         "2": "LL_UL_SN_DATA_N_6_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R246": {
       "value": "100.0",
       "pins": {
         "1": "LL_UL_NS_DATA_P_4_QUAD ANEMONE",
         "2": "LL_UL_NS_DATA_N_4_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R264": {
       "value": "100.0",
       "pins": {
         "1": "LL_UL_SN_DATA_P_0_QUAD ANEMONE",
         "2": "LL_UL_SN_DATA_N_0_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R215": {
       "value": "10K",
       "pins": {
         "1": "GND",
         "2": "N6943060_QUAD ANEMONE_DSP UL"
-      }
+      },
+      "description": "Resistor 10K Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R204": {
       "value": "100.0",
       "pins": {
         "1": "TXI_SO_RD_WAIT_P_QUAD ANEMONE_DSP UL",
         "2": "TXI_SO_RD_WAIT_N_QUAD ANEMONE_DSP UL"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "C75": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C124": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C126": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "U4": {
       "value": "UPRD-0002",
@@ -15012,84 +15408,96 @@
         "C8": "LR_UR_SN_WR_WAIT_P_QUAD ANEMONE",
         "C11": "UR_LR_NS_WR_WAIT_P_QUAD ANEMONE",
         "C10": "UR_LR_NS_WR_WAIT_P_QUAD ANEMONE"
-      }
+      },
+      "description": "Processor, Adapteva, 16-core DSP, 324-pin 0.8mm BGA"
     },
     "C123": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C201": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C55": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C70": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C87": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C147": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C73": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C85": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C91": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C88": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C125": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "TP11": {
       "value": "J001-1T01",
@@ -15099,6 +15507,7 @@
           "net": "UR_FLAG_DSP"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "C72": {
@@ -15106,70 +15515,80 @@
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C68": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C84": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C122": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C86": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C74": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C50": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C104": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C71": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C89": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "TP15": {
       "value": "J001-1T01",
@@ -15179,6 +15598,7 @@
           "net": "MVSS_QUAD ANEMONE_DSP UR"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "C69": {
@@ -15186,35 +15606,40 @@
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C101": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C102": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C119": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C54": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "TP26": {
       "value": "J001-1T01",
@@ -15224,6 +15649,7 @@
           "net": "UR_RESET_L"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "C51": {
@@ -15231,21 +15657,24 @@
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C100": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C220": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "TP13": {
       "value": "J001-1T01",
@@ -15255,6 +15684,7 @@
           "net": "MVDD_QUAD ANEMONE_DSP UR"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "C121": {
@@ -15262,441 +15692,504 @@
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C57": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C185": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C53": {
       "value": "0.1 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C120": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C105": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C52": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "C103": {
       "value": "0.1 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "R45": {
       "value": "100.0",
       "pins": {
         "1": "TXI_EA_RD_WAIT_P_QUAD ANEMONE_DSP UR",
         "2": "TXI_EA_RD_WAIT_N_QUAD ANEMONE_DSP UR"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R153": {
       "value": "100.0",
       "pins": {
         "1": "RXI_WE_LCLK_P_QUAD ANEMONE_DSP UR",
         "2": "RXI_WE_LCLK_N_QUAD ANEMONE_DSP UR"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R47": {
       "value": "100.0",
       "pins": {
         "1": "UR_RXI_EA_DATA_P_5",
         "2": "UR_RXI_EA_DATA_N_5"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R135": {
       "value": "100.0",
       "pins": {
         "1": "UL_UR_EW_DATA_P_2_QUAD ANEMONE",
         "2": "UL_UR_EW_DATA_N_2_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R54": {
       "value": "100.0",
       "pins": {
         "1": "TXI_EA_WR_WAIT_P_QUAD ANEMONE_DSP UR",
         "2": "TXI_EA_WR_WAIT_N_QUAD ANEMONE_DSP UR"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R144": {
       "value": "100.0",
       "pins": {
         "1": "RXI_WE_FRAME_P_QUAD ANEMONE_DSP UR",
         "2": "RXI_WE_FRAME_N_QUAD ANEMONE_DSP UR"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R55": {
       "value": "100.0",
       "pins": {
         "1": "UR_RXI_EA_DATA_P_6",
         "2": "UR_RXI_EA_DATA_N_6"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R122": {
       "value": "100.0",
       "pins": {
         "1": "UL_UR_EW_DATA_P_3_QUAD ANEMONE",
         "2": "UL_UR_EW_DATA_N_3_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R41": {
       "value": "100.0",
       "pins": {
         "1": "UR_RXI_EA_DATA_P_0",
         "2": "UR_RXI_EA_DATA_N_0"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R36": {
       "value": "10K",
       "pins": {
         "1": "P2V5",
         "2": "N6963106_QUAD ANEMONE_DSP UR"
-      }
+      },
+      "description": "Resistor 10K Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R61": {
       "value": "100.0",
       "pins": {
         "1": "UR_RXI_EA_DATA_P_7",
         "2": "UR_RXI_EA_DATA_N_7"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R154": {
       "value": "100.0",
       "pins": {
         "1": "UL_UR_EW_DATA_P_4_QUAD ANEMONE",
         "2": "UL_UR_EW_DATA_N_4_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R48": {
       "value": "100.0",
       "pins": {
         "1": "UR_RXI_EA_DATA_P_1",
         "2": "UR_RXI_EA_DATA_N_1"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R143": {
       "value": "100.0",
       "pins": {
         "1": "TXI_WE_RD_WAIT_P_QUAD ANEMONE_DSP UR",
         "2": "TXI_WE_RD_WAIT_N_QUAD ANEMONE_DSP UR"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R35": {
       "value": "10K",
       "pins": {
         "1": "GND",
         "2": "N6963102_QUAD ANEMONE_DSP UR"
-      }
+      },
+      "description": "Resistor 10K Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R39": {
       "value": "100.0",
       "pins": {
         "1": "RXI_EA_LCLK_P_QUAD ANEMONE_DSP UR",
         "2": "RXI_EA_LCLK_N_QUAD ANEMONE_DSP UR"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R145": {
       "value": "100.0",
       "pins": {
         "1": "UL_UR_EW_DATA_P_5_QUAD ANEMONE",
         "2": "UL_UR_EW_DATA_N_5_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R56": {
       "value": "100.0",
       "pins": {
         "1": "UR_RXI_EA_DATA_P_2",
         "2": "UR_RXI_EA_DATA_N_2"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R133": {
       "value": "100.0",
       "pins": {
         "1": "TXI_WE_WR_WAIT_P_QUAD ANEMONE_DSP UR",
         "2": "TXI_WE_WR_WAIT_N_QUAD ANEMONE_DSP UR"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R46": {
       "value": "100.0",
       "pins": {
         "1": "RXI_EA_FRAME_P_QUAD ANEMONE_DSP UR",
         "2": "RXI_EA_FRAME_N_QUAD ANEMONE_DSP UR"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R134": {
       "value": "100.0",
       "pins": {
         "1": "UL_UR_EW_DATA_P_6_QUAD ANEMONE",
         "2": "UL_UR_EW_DATA_N_6_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R62": {
       "value": "100.0",
       "pins": {
         "1": "UR_RXI_EA_DATA_P_3",
         "2": "UR_RXI_EA_DATA_N_3"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R155": {
       "value": "100.0",
       "pins": {
         "1": "UL_UR_EW_DATA_P_0_QUAD ANEMONE",
         "2": "UL_UR_EW_DATA_N_0_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R121": {
       "value": "100.0",
       "pins": {
         "1": "UL_UR_EW_DATA_P_7_QUAD ANEMONE",
         "2": "UL_UR_EW_DATA_N_7_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R40": {
       "value": "100.0",
       "pins": {
         "1": "UR_RXI_EA_DATA_P_4",
         "2": "UR_RXI_EA_DATA_N_4"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R146": {
       "value": "100.0",
       "pins": {
         "1": "UL_UR_EW_DATA_P_1_QUAD ANEMONE",
         "2": "UL_UR_EW_DATA_N_1_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R90": {
       "value": "100.0",
       "pins": {
         "1": "LR_UR_SN_DATA_P_7_QUAD ANEMONE",
         "2": "LR_UR_SN_DATA_N_7_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R108": {
       "value": "100.0",
       "pins": {
         "1": "LR_UR_NS_DATA_P_5_QUAD ANEMONE",
         "2": "LR_UR_NS_DATA_N_5_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R125": {
       "value": "100.0",
       "pins": {
         "1": "LR_UR_SN_DATA_P_1_QUAD ANEMONE",
         "2": "LR_UR_SN_DATA_N_1_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R76": {
       "value": "100.0",
       "pins": {
         "1": "TXI_SO_WR_WAIT_P_QUAD ANEMONE_DSP UR",
         "2": "TXI_SO_WR_WAIT_N_QUAD ANEMONE_DSP UR"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R97": {
       "value": "100.0",
       "pins": {
         "1": "RXI_NO_LCLK_P_QUAD ANEMONE_DSP UR",
         "2": "RXI_NO_LCLK_N_QUAD ANEMONE_DSP UR"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R99": {
       "value": "100.0",
       "pins": {
         "1": "LR_UR_NS_DATA_P_6_QUAD ANEMONE",
         "2": "LR_UR_NS_DATA_N_6_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R114": {
       "value": "100.0",
       "pins": {
         "1": "LR_UR_SN_DATA_P_2_QUAD ANEMONE",
         "2": "LR_UR_SN_DATA_N_2_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R140": {
       "value": "100.0",
       "pins": {
         "1": "LR_UR_NS_DATA_P_0_QUAD ANEMONE",
         "2": "LR_UR_NS_DATA_N_0_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R84": {
       "value": "10K",
       "pins": {
         "1": "P2V5",
         "2": "N6941990_QUAD ANEMONE_DSP UR"
-      }
+      },
+      "description": "Resistor 10K Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R89": {
       "value": "100.0",
       "pins": {
         "1": "RXI_NO_FRAME_P_QUAD ANEMONE_DSP UR",
         "2": "RXI_NO_FRAME_N_QUAD ANEMONE_DSP UR"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R91": {
       "value": "100.0",
       "pins": {
         "1": "LR_UR_NS_DATA_P_7_QUAD ANEMONE",
         "2": "LR_UR_NS_DATA_N_7_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R106": {
       "value": "100.0",
       "pins": {
         "1": "LR_UR_SN_DATA_P_3_QUAD ANEMONE",
         "2": "LR_UR_SN_DATA_N_3_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R126": {
       "value": "100.0",
       "pins": {
         "1": "LR_UR_NS_DATA_P_1_QUAD ANEMONE",
         "2": "LR_UR_NS_DATA_N_1_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R81": {
       "value": "10K",
       "pins": {
         "1": "GND",
         "2": "N6941986_QUAD ANEMONE_DSP UR"
-      }
+      },
+      "description": "Resistor 10K Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R100": {
       "value": "100.0",
       "pins": {
         "1": "RXI_SO_LCLK_P_QUAD ANEMONE_DSP UR",
         "2": "RXI_SO_LCLK_N_QUAD ANEMONE_DSP UR"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R113": {
       "value": "100.0",
       "pins": {
         "1": "LR_UR_SN_DATA_P_4_QUAD ANEMONE",
         "2": "LR_UR_SN_DATA_N_4_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R115": {
       "value": "100.0",
       "pins": {
         "1": "LR_UR_NS_DATA_P_2_QUAD ANEMONE",
         "2": "LR_UR_NS_DATA_N_2_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R69": {
       "value": "100.0",
       "pins": {
         "1": "TXI_NO_RD_WAIT_P_QUAD ANEMONE_DSP UR",
         "2": "TXI_NO_RD_WAIT_N_QUAD ANEMONE_DSP UR"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R74": {
       "value": "10K",
       "pins": {
         "1": "P2V5",
         "2": "N6943064_QUAD ANEMONE_DSP UR"
-      }
+      },
+      "description": "Resistor 10K Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R105": {
       "value": "100.0",
       "pins": {
         "1": "LR_UR_SN_DATA_P_5_QUAD ANEMONE",
         "2": "LR_UR_SN_DATA_N_5_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R107": {
       "value": "100.0",
       "pins": {
         "1": "LR_UR_NS_DATA_P_3_QUAD ANEMONE",
         "2": "LR_UR_NS_DATA_N_3_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R92": {
       "value": "100.0",
       "pins": {
         "1": "RXI_SO_FRAME_P_QUAD ANEMONE_DSP UR",
         "2": "RXI_SO_FRAME_N_QUAD ANEMONE_DSP UR"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R75": {
       "value": "100.0",
       "pins": {
         "1": "TXI_NO_WR_WAIT_P_QUAD ANEMONE_DSP UR",
         "2": "TXI_NO_WR_WAIT_N_QUAD ANEMONE_DSP UR"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R98": {
       "value": "100.0",
       "pins": {
         "1": "LR_UR_SN_DATA_P_6_QUAD ANEMONE",
         "2": "LR_UR_SN_DATA_N_6_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R116": {
       "value": "100.0",
       "pins": {
         "1": "LR_UR_NS_DATA_P_4_QUAD ANEMONE",
         "2": "LR_UR_NS_DATA_N_4_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R139": {
       "value": "100.0",
       "pins": {
         "1": "LR_UR_SN_DATA_P_0_QUAD ANEMONE",
         "2": "LR_UR_SN_DATA_N_0_QUAD ANEMONE"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R88": {
       "value": "10K",
       "pins": {
         "1": "GND",
         "2": "N6943060_QUAD ANEMONE_DSP UR"
-      }
+      },
+      "description": "Resistor 10K Ohm 1% 1/16W 0402 ±100ppm/°C Thick Film"
     },
     "R70": {
       "value": "100.0",
       "pins": {
         "1": "TXI_SO_RD_WAIT_P_QUAD ANEMONE_DSP UR",
         "2": "TXI_SO_RD_WAIT_N_QUAD ANEMONE_DSP UR"
-      }
+      },
+      "description": "Resistor 100R 1/16W 1% SMD 0402"
     },
     "R8": {
       "value": "100.0",
       "pins": {
         "1": "P3V3",
         "2": "N6723346_CPLD"
-      }
+      },
+      "description": "Resistor 100Ohm 1% 1/16W 0402"
     },
     "R297": {
       "value": "10K",
@@ -15704,6 +16197,7 @@
         "1": "FMC_TMS_CPLD",
         "2": "PVADJ"
       },
+      "description": "Resistor 10kOhm 1% 1/16W 0402",
       "dns": true
     },
     "C30": {
@@ -15711,14 +16205,16 @@
       "pins": {
         "1": "PVADJ",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor Ceramic 22uF 16V X7R 1210 "
     },
     "C181": {
       "value": "0.1 uF",
       "pins": {
         "1": "PVADJ",
         "2": "GND"
-      }
+      },
+      "description": "Cap 0.1uF 16VDC X7R 10% SMD 0402"
     },
     "U9": {
       "value": "UCPA-0002",
@@ -15925,7 +16421,8 @@
         "98": "PGOOD_1V0",
         "99": "CLK_CPLD_CTRL_4",
         "100": "CLK_CPLD_CTRL_5"
-      }
+      },
+      "description": "CPLD MAX II Family 192 Macro Cells Industrial 0.18um Technology 2.5V/3.3V 100-Pin TQFP"
     },
     "TP19": {
       "value": "J001-1T01",
@@ -15935,6 +16432,7 @@
           "net": "SYNC_L"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "R202": {
@@ -15942,84 +16440,96 @@
       "pins": {
         "1": "GND",
         "2": "UL_RESET_L"
-      }
+      },
+      "description": "Resistor 10kOhm 1% 1/16W 0402"
     },
     "D1": {
       "value": "DLED-0004",
       "pins": {
         "A": "N6723350_CPLD",
         "C": "LED4_CPLD"
-      }
+      },
+      "description": "LED Green 570nm SMD Right-Angle"
     },
     "D5": {
       "value": "DLED-0004",
       "pins": {
         "A": "N6723338_CPLD",
         "C": "LED1_CPLD"
-      }
+      },
+      "description": "LED Green 570nm SMD Right-Angle"
     },
     "R6": {
       "value": "100.0",
       "pins": {
         "1": "P3V3",
         "2": "N6723350_CPLD"
-      }
+      },
+      "description": "Resistor 100Ohm 1% 1/16W 0402"
     },
     "C118": {
       "value": "0.1 uF",
       "pins": {
         "1": "PVADJ",
         "2": "GND"
-      }
+      },
+      "description": "Cap 0.1uF 16VDC X7R 10% SMD 0402"
     },
     "R10": {
       "value": "100.0",
       "pins": {
         "1": "P3V3",
         "2": "N6723338_CPLD"
-      }
+      },
+      "description": "Resistor 100Ohm 1% 1/16W 0402"
     },
     "R195": {
       "value": "10K",
       "pins": {
         "1": "GND",
         "2": "LR_RESET_L"
-      }
+      },
+      "description": "Resistor 10kOhm 1% 1/16W 0402"
     },
     "C143": {
       "value": "0.1 uF",
       "pins": {
         "1": "PVADJ",
         "2": "GND"
-      }
+      },
+      "description": "Cap 0.1uF 16VDC X7R 10% SMD 0402"
     },
     "R9": {
       "value": "100.0",
       "pins": {
         "1": "P3V3",
         "2": "N6723354_CPLD"
-      }
+      },
+      "description": "Resistor 100Ohm 1% 1/16W 0402"
     },
     "D2": {
       "value": "DLED-0004",
       "pins": {
         "A": "N6723354_CPLD",
         "C": "LED5_CPLD"
-      }
+      },
+      "description": "LED Green 570nm SMD Right-Angle"
     },
     "D3": {
       "value": "DLED-0004",
       "pins": {
         "A": "N6723342_CPLD",
         "C": "LED2_CPLD"
-      }
+      },
+      "description": "LED Green 570nm SMD Right-Angle"
     },
     "C180": {
       "value": "0.1 uF",
       "pins": {
         "1": "PVADJ",
         "2": "GND"
-      }
+      },
+      "description": "Cap 0.1uF 16VDC X7R 10% SMD 0402"
     },
     "TP22": {
       "value": "J001-1T01",
@@ -16029,6 +16539,7 @@
           "net": "CPLD_GCLK_1_CPLD"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "R200": {
@@ -16036,7 +16547,8 @@
       "pins": {
         "1": "GND",
         "2": "LL_RESET_L"
-      }
+      },
+      "description": "Resistor 10kOhm 1% 1/16W 0402"
     },
     "TP20": {
       "value": "J001-1T01",
@@ -16046,6 +16558,7 @@
           "net": "CPLD_0_CPLD"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "R11": {
@@ -16053,14 +16566,16 @@
       "pins": {
         "1": "P3V3",
         "2": "N6723342_CPLD"
-      }
+      },
+      "description": "Resistor 100Ohm 1% 1/16W 0402"
     },
     "C139": {
       "value": "0.1 uF",
       "pins": {
         "1": "PVADJ",
         "2": "GND"
-      }
+      },
+      "description": "Cap 0.1uF 16VDC X7R 10% SMD 0402"
     },
     "R298": {
       "value": "10K",
@@ -16068,6 +16583,7 @@
         "1": "FMC_TDI_CPLD",
         "2": "PVADJ"
       },
+      "description": "Resistor 10kOhm 1% 1/16W 0402",
       "dns": true
     },
     "C136": {
@@ -16075,7 +16591,8 @@
       "pins": {
         "1": "PVADJ",
         "2": "GND"
-      }
+      },
+      "description": "Cap 0.1uF 16VDC X7R 10% SMD 0402"
     },
     "R299": {
       "value": "1K",
@@ -16083,6 +16600,7 @@
         "1": "FMC_TCK_CPLD",
         "2": "GND"
       },
+      "description": "Resistor 1kOhm 1% 1/16W 0402",
       "dns": true
     },
     "TP23": {
@@ -16093,6 +16611,7 @@
           "net": "CPLD_GCLK_0_CPLD"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "R201": {
@@ -16100,35 +16619,40 @@
       "pins": {
         "1": "GND",
         "2": "UR_RESET_L"
-      }
+      },
+      "description": "Resistor 10kOhm 1% 1/16W 0402"
     },
     "C141": {
       "value": "0.1 uF",
       "pins": {
         "1": "PVADJ",
         "2": "GND"
-      }
+      },
+      "description": "Cap 0.1uF 16VDC X7R 10% SMD 0402"
     },
     "D4": {
       "value": "DLED-0004",
       "pins": {
         "A": "N6723346_CPLD",
         "C": "LED3_CPLD"
-      }
+      },
+      "description": "LED Green 570nm SMD Right-Angle"
     },
     "C36": {
       "value": "22.0 uF",
       "pins": {
         "1": "PVADJ",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor Ceramic 22uF 16V X7R 1210 "
     },
     "C142": {
       "value": "0.1 uF",
       "pins": {
         "1": "PVADJ",
         "2": "GND"
-      }
+      },
+      "description": "Cap 0.1uF 16VDC X7R 10% SMD 0402"
     },
     "R1": {
       "value": "100",
@@ -16136,6 +16660,7 @@
         "1": "PVADJ",
         "2": "GND"
       },
+      "description": "Resistor 100Ohm 1% 1/4W 1206",
       "dns": true
     },
     "C135": {
@@ -16143,42 +16668,48 @@
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 22.0 uF 6.3 0603"
     },
     "C145": {
       "value": "22.0 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 22.0 uF 6.3 0603"
     },
     "R33": {
       "value": "113K",
       "pins": {
         "1": "P3V3",
         "2": "N01900_POWER"
-      }
+      },
+      "description": "Resistor 113kOhm 1% 1/16W 0402"
     },
     "C163": {
       "value": "22.0 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 22.0 uF 6.3 0603"
     },
     "C13": {
       "value": "22.0 uF",
       "pins": {
         "1": "P1V0_LOC",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor Ceramic 22uF 6.3V X7R 1206"
     },
     "R31": {
       "value": "309K",
       "pins": {
         "1": "N01187_POWER",
         "2": "GND"
-      }
+      },
+      "description": "Resistor 309k Ohm 1/16W 1% 0402"
     },
     "C21": {
       "value": "820.0 pF",
@@ -16186,6 +16717,7 @@
         "1": "N05055_POWER",
         "2": "GND"
       },
+      "description": "Capacitor 820pF 50VDC X7R 10% 0402",
       "dns": true
     },
     "R30": {
@@ -16193,56 +16725,64 @@
       "pins": {
         "1": "P1V0_LOC",
         "2": "N01187_POWER"
-      }
+      },
+      "description": "Resistor 232kOhm 1% 1/16W 0402"
     },
     "C7": {
       "value": "100.0 uF",
       "pins": {
         "1": "P3V3",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor Tantalum 100.0 uF 6.3 Tan T"
     },
     "C214": {
       "value": "22.0 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 22.0 uF 6.3 0603"
     },
     "C49": {
       "value": "22.0 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 22.0 uF 6.3 0603"
     },
     "C12": {
       "value": "22.0 uF",
       "pins": {
         "1": "P1V0_LOC",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor Ceramic 22uF 6.3V X7R 1206"
     },
     "C8": {
       "value": "22.0 uF",
       "pins": {
         "1": "P3V3",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor Ceramic 22uF 6.3V X7R 1206"
     },
     "C162": {
       "value": "22.0 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 22.0 uF 6.3 0603"
     },
     "C6": {
       "value": "100.0 uF",
       "pins": {
         "1": "PVADJ",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor Tantalum 100.0 uF 6.3 Tan T"
     },
     "R27": {
       "value": "309K",
@@ -16250,6 +16790,7 @@
         "1": "P3V3",
         "2": "SS_1V0_POWER"
       },
+      "description": "Resistor 309k Ohm 1/16W 1% 0402",
       "dns": true
     },
     "C117": {
@@ -16257,21 +16798,24 @@
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 22.0 uF 6.3 0603"
     },
     "C9": {
       "value": "22.0 uF",
       "pins": {
         "1": "P3V3",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor Ceramic 22uF 6.3V X7R 1206"
     },
     "C11": {
       "value": "22.0 uF",
       "pins": {
         "1": "P1V0_LOC",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor Ceramic 22uF 6.3V X7R 1206"
     },
     "U11": {
       "value": "UREG-0034",
@@ -16376,7 +16920,8 @@
           "name": "PGND (PAD)",
           "net": "GND"
         }
-      }
+      },
+      "description": "IC Voltage Regulator"
     },
     "C19": {
       "value": "33.0 pF",
@@ -16384,6 +16929,7 @@
         "1": "COMP_1V0_POWER",
         "2": "GND"
       },
+      "description": "Capacitor 33pF 50VDC C0G 5% 0402",
       "dns": true
     },
     "R28": {
@@ -16391,63 +16937,72 @@
       "pins": {
         "1": "PVADJ",
         "2": "SS_1V0_POWER"
-      }
+      },
+      "description": "Resistor 232kOhm 1% 1/16W 0402"
     },
     "C138": {
       "value": "22.0 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 22.0 uF 6.3 0603"
     },
     "C58": {
       "value": "22.0 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 22.0 uF 6.3 0603"
     },
     "R32": {
       "value": "121K",
       "pins": {
         "1": "N01900_POWER",
         "2": "GND"
-      }
+      },
+      "description": "Resistor 121kOhm 1% 1/10W 0402"
     },
     "C24": {
       "value": "22.0 uF",
       "pins": {
         "1": "P3V3",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor Ceramic 22uF 6.3V X7R 1206"
     },
     "C5": {
       "value": "22.0 uF",
       "pins": {
         "1": "PVADJ",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor Ceramic 22uF 6.3V X7R 1206"
     },
     "C140": {
       "value": "22.0 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 22.0 uF 6.3 0603"
     },
     "C144": {
       "value": "22.0 uF",
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 22.0 uF 6.3 0603"
     },
     "R29": {
       "value": "309K",
       "pins": {
         "1": "SS_1V0_POWER",
         "2": "GND"
-      }
+      },
+      "description": "Resistor 309k Ohm 1/16W 1% 0402"
     },
     "R5": {
       "value": "15K",
@@ -16455,6 +17010,7 @@
         "1": "N05055_POWER",
         "2": "COMP_1V0_POWER"
       },
+      "description": "Resistor 15kOhm 1% 1/16W 0402 RoHS",
       "dns": true
     },
     "C233": {
@@ -16462,84 +17018,96 @@
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 22.0 uF 6.3 0603"
     },
     "C15": {
       "value": "100.0 uF",
       "pins": {
         "1": "P1V0_LOC",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor Tantalum 100.0 uF 6.3 Tan T"
     },
     "C67": {
       "value": "22.0 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 22.0 uF 6.3 0603"
     },
     "C17": {
       "value": "22.0 uF",
       "pins": {
         "1": "P3V3",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor Ceramic 22uF 6.3V X7R 1206"
     },
     "C116": {
       "value": "22.0 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 22.0 uF 6.3 0603"
     },
     "L1": {
       "value": ".2uH",
       "pins": {
         "1": "N00769_POWER",
         "2": "P1V0_LOC"
-      }
+      },
+      "description": "Low Profile, high Current Inductor .2 uh .003 DC"
     },
     "R24": {
       "value": "113K",
       "pins": {
         "1": "P3V3",
         "2": "PGOOD_1V0"
-      }
+      },
+      "description": "Resistor 113kOhm 1% 1/16W 0402"
     },
     "R2": {
       "value": "0",
       "pins": {
         "1": "P3V3",
         "2": "COMP_1V0_POWER"
-      }
+      },
+      "description": "Resistor 0Ohm 1.5A 0402"
     },
     "C14": {
       "value": "22.0 uF",
       "pins": {
         "1": "P1V0_LOC",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor Ceramic 22uF 6.3V X7R 1206"
     },
     "C232": {
       "value": "22.0 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 22.0 uF 6.3 0603"
     },
     "C18": {
       "value": "22.0 uF",
       "pins": {
         "1": "P3V3",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor Ceramic 22uF 6.3V X7R 1206"
     },
     "C223": {
       "value": "22.0 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 22.0 uF 6.3 0603"
     },
     "SO3": {
       "value": "J001-1T01",
@@ -16549,6 +17117,7 @@
           "net": "GND_EARTH"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "C47": {
@@ -16556,14 +17125,16 @@
       "pins": {
         "1": "P3V3_AUX",
         "2": "GND"
-      }
+      },
+      "description": "Cap 0.1uF 16VDC X7R 10% SMD 0402"
     },
     "C10": {
       "value": "22.0 uF",
       "pins": {
         "1": "P3V3_AUX",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor Ceramic 22uF 6.3V X7R 1206"
     },
     "U6": {
       "value": "UADC-0005",
@@ -16600,7 +17171,8 @@
           "name": "VDD",
           "net": "P3V3_AUX"
         }
-      }
+      },
+      "description": "IC Analog to Digital Converter"
     },
     "SO2": {
       "value": "J001-1T01",
@@ -16610,6 +17182,7 @@
           "net": "GND_EARTH"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "FH1": {
@@ -16620,6 +17193,7 @@
           "net": "GND_EARTH"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "SO4": {
@@ -16630,6 +17204,7 @@
           "net": "GND_EARTH"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "FH5": {
@@ -16640,6 +17215,7 @@
           "net": "GND_EARTH"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "FH9": {
@@ -16650,6 +17226,7 @@
           "net": "GND_EARTH"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "U5": {
@@ -16687,13 +17264,15 @@
           "name": "VCC",
           "net": "P3V3_AUX"
         }
-      }
+      },
+      "description": "Memory EEPROM 1024K Serial 1.8V-5.0V 8-SOIJ"
     },
     "PCB1": {
       "value": "AAFM PCB Revision 1A",
       "pins": {
         "1": "NC"
-      }
+      },
+      "description": "PCB AAFM Rev. 1A"
     },
     "FH2": {
       "value": "J001-1T01",
@@ -16703,6 +17282,7 @@
           "net": "GND_EARTH"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "FH6": {
@@ -16713,6 +17293,7 @@
           "net": "GND_EARTH"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "FH10": {
@@ -16723,6 +17304,7 @@
           "net": "GND_EARTH"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "FH3": {
@@ -16733,6 +17315,7 @@
           "net": "GND_EARTH"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "U13": {
@@ -16770,7 +17353,8 @@
           "name": "+VS",
           "net": "P3V3_AUX"
         }
-      }
+      },
+      "description": "Sensor Temp Digital Serial (2-Wire, I2C) 8-Pin MSOP"
     },
     "FH7": {
       "value": "J001-1T01",
@@ -16780,6 +17364,7 @@
           "net": "GND_EARTH"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "FH12": {
@@ -16790,6 +17375,7 @@
           "net": "GND_EARTH"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "FH11": {
@@ -16800,6 +17386,7 @@
           "net": "GND_EARTH"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "FH4": {
@@ -16810,6 +17397,7 @@
           "net": "GND_EARTH"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "FH8": {
@@ -16820,6 +17408,7 @@
           "net": "GND_EARTH"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "SO1": {
@@ -16830,6 +17419,7 @@
           "net": "GND_EARTH"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "C137": {
@@ -16837,7 +17427,8 @@
       "pins": {
         "1": "P3V3_AUX",
         "2": "GND"
-      }
+      },
+      "description": "Cap 0.1uF 16VDC X7R 10% SMD 0402"
     },
     "FH13": {
       "value": "J001-1T01",
@@ -16847,6 +17438,7 @@
           "net": "GND_EARTH"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "C42": {
@@ -16854,14 +17446,16 @@
       "pins": {
         "1": "P3V3_AUX",
         "2": "GND"
-      }
+      },
+      "description": "Cap 0.1uF 16VDC X7R 10% SMD 0402"
     },
     "R87": {
       "value": "1M",
       "pins": {
         "1": "GND",
         "2": "GND_EARTH"
-      }
+      },
+      "description": "Resistor 1MOhm 1% 3/4W 2kV RoHS"
     },
     "U1": {
       "value": "USEN-0012",
@@ -16886,7 +17480,8 @@
           "name": "RS-",
           "net": "P2V5"
         }
-      }
+      },
+      "description": "OpAmp Current Sense Gain = 20 SOT23-5"
     },
     "TP9": {
       "value": "J001-1T01",
@@ -16896,6 +17491,7 @@
           "net": "GND"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "TP1": {
@@ -16906,6 +17502,7 @@
           "net": "PVADJ"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "TP5": {
@@ -16916,6 +17513,7 @@
           "net": "P3V3"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "TP7": {
@@ -16926,6 +17524,7 @@
           "net": "P2V5"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "TP4": {
@@ -16936,6 +17535,7 @@
           "net": "CURRENT_VCORE_POWER"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "C3": {
@@ -16943,7 +17543,8 @@
       "pins": {
         "1": "P1V0",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor Ceramic 22uF 6.3V X7R 1206"
     },
     "U100": {
       "value": "UREG-0064",
@@ -16960,14 +17561,16 @@
           "name": "VOUT",
           "net": "P2V5"
         }
-      }
+      },
+      "description": "Regulator Voltage 1.8V 2.5% 0.5A LDO TO-220"
     },
     "C4": {
       "value": "0.1 uF",
       "pins": {
         "1": "P3V3",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "TP3": {
       "value": "J001-1T01",
@@ -16977,6 +17580,7 @@
           "net": "P1V0"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "U2": {
@@ -17002,21 +17606,24 @@
           "name": "RS-",
           "net": "P1V0"
         }
-      }
+      },
+      "description": "OpAmp Current Sense Gain = 20 SOT23-5"
     },
     "C1": {
       "value": "22.0 uF",
       "pins": {
         "1": "P2V5",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor Ceramic 22uF 6.3V X7R 1206"
     },
     "R20": {
       "value": "0.05",
       "pins": {
         "1": "PVADJ",
         "2": "P2V5"
-      }
+      },
+      "description": "Resistor 0.05Ohm 1% 1W 2512"
     },
     "TP6": {
       "value": "J001-1T01",
@@ -17026,6 +17633,7 @@
           "net": "P1V0_LOC"
         }
       },
+      "description": "Testpoint",
       "dns": true
     },
     "R21": {
@@ -17033,14 +17641,16 @@
       "pins": {
         "1": "P1V0_LOC",
         "2": "P1V0"
-      }
+      },
+      "description": "Resistor 0.02Ohm 1% 1W 2512"
     },
     "C2": {
       "value": "0.1 uF",
       "pins": {
         "1": "P3V3",
         "2": "GND"
-      }
+      },
+      "description": "Capacitor 0.1uF 10VDC X5R 10% 0402"
     },
     "TP2": {
       "value": "J001-1T01",
@@ -17050,6 +17660,7 @@
           "net": "CURRENT_VIO_POWER"
         }
       },
+      "description": "Testpoint",
       "dns": true
     }
   }

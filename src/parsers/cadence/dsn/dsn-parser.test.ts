@@ -251,3 +251,20 @@ describe("applyVariantStuffing", () => {
     expect(components).toEqual({ R1: { pins: {} } });
   });
 });
+
+const CUTIEPI_DSN = fixturePath("cadence", "CutiePi", "CutiePi_V2.3-20210409.DSN");
+
+/**
+ * Its golden comes from Cadence's netlist export, which carries no
+ * descriptions, so this is what pins them on a real design. Its ferrite beads
+ * store `Part Description` and a stale `Description` in both orders.
+ */
+describe.skipIf(!hasFixtures || !existsSync(CUTIEPI_DSN))("DSN part descriptions", () => {
+  it("describes the ferrite beads by Part Description whatever the record order", () => {
+    const { components } = parseDsnFile(CUTIEPI_DSN);
+    const bead = "0603-120ohm-25%-0.05RDC-2.0IDC/BLM18PG121SH1";
+    expect(components.FB2.description).toBe(bead);
+    expect(components.FB7.description).toBe(bead);
+    expect(components.U501.description).toBe("IC MIC WITH DIGITAL OUTPUT 1.8-3.3V LGA5");
+  });
+});

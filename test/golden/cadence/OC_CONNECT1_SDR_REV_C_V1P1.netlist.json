@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 3,
   "metadata": {
-    "generatedAt": "2026-09-25T15:37:34.928Z",
-    "netlistHash": "sha256:6db51872c3a27ef2fec67001eec9b5217d9889a7ebf701f2229be199d50451bf",
+    "generatedAt": "2026-10-30T00:03:15.538Z",
+    "netlistHash": "sha256:58ca05819a4d071446a31e87a497b1b447a1b2d8347b5a8b3dd4643937cfd573",
     "origin": {
       "type": "vendor",
       "source": {
@@ -12377,7 +12377,8 @@
         "2": "GND_SIGNAL"
       },
       "internal_pn": "GRM033C71C104ME14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "CAP CER 0.1UF 16V X7S 0201"
     },
     "R61": {
       "value": "2.2K",
@@ -12554,7 +12555,8 @@
         "2": "GND_SIGNAL"
       },
       "internal_pn": "GRM033C71C104ME14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "CAP CER 0.1UF 16V X7S 0201"
     },
     "C201": {
       "value": "0.1uF",
@@ -12563,7 +12565,8 @@
         "2": "GND_SIGNAL"
       },
       "internal_pn": "GRM033C71C104ME14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "CAP CER 0.1UF 16V X7S 0201"
     },
     "C188": {
       "value": "0.1µF",
@@ -12571,7 +12574,8 @@
         "1": "N17105",
         "2": "FX3_SSTX+"
       },
-      "internal_pn": "C1005X7R1E104K050BB"
+      "internal_pn": "C1005X7R1E104K050BB",
+      "description": "CAP CER 0.1UF 25V 10% X7R 0402"
     },
     "C192": {
       "value": "12pF",
@@ -12586,7 +12590,8 @@
         "1": "N1469270",
         "2": "GND_SIGNAL"
       },
-      "internal_pn": "C1005X7R1E104K050BB"
+      "internal_pn": "C1005X7R1E104K050BB",
+      "description": "CAP CER 0.1UF 25V 10% X7R 0402"
     },
     "C197": {
       "value": "0.1uF",
@@ -12595,7 +12600,8 @@
         "2": "GND_SIGNAL"
       },
       "internal_pn": "GRM033C71C104ME14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "CAP CER 0.1UF 16V X7S 0201"
     },
     "C199": {
       "value": "0.1uF",
@@ -12604,7 +12610,8 @@
         "2": "GND_SIGNAL"
       },
       "internal_pn": "GRM033C71C104ME14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "CAP CER 0.1UF 16V X7S 0201"
     },
     "S1": {
       "value": "SWITCH",
@@ -12615,7 +12622,8 @@
         "4": "GND_SIGNAL"
       },
       "internal_pn": "MJTP1230",
-      "manufacturer": "Apem Inc."
+      "manufacturer": "Apem Inc.",
+      "description": "SWITCH TACTILE SPST-NO 0.05A 12V"
     },
     "R10877": {
       "value": "0Ohm",
@@ -12687,7 +12695,8 @@
         "2": "GND_SIGNAL"
       },
       "internal_pn": "GRM033C71C104ME14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "CAP CER 0.1UF 16V X7S 0201"
     },
     "C194": {
       "value": "0.1uF",
@@ -12696,7 +12705,8 @@
         "2": "GND_SIGNAL"
       },
       "internal_pn": "GRM033C71C104ME14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "CAP CER 0.1UF 16V X7S 0201"
     },
     "C204": {
       "value": "0.1uF",
@@ -12705,7 +12715,8 @@
         "2": "GND_SIGNAL"
       },
       "internal_pn": "GRM033C71C104ME14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "CAP CER 0.1UF 16V X7S 0201"
     },
     "R10929": {
       "value": "10K",
@@ -12774,7 +12785,8 @@
         "2": "GND_SIGNAL"
       },
       "internal_pn": "GRM033C71C104ME14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "CAP CER 0.1UF 16V X7S 0201"
     },
     "C196": {
       "value": "0.1uF",
@@ -12783,7 +12795,8 @@
         "2": "GND_SIGNAL"
       },
       "internal_pn": "GRM033C71C104ME14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "CAP CER 0.1UF 16V X7S 0201"
     },
     "C206": {
       "value": "22uF",
@@ -12852,7 +12865,8 @@
         "A": "N10018",
         "K": "1P8V _FX3"
       },
-      "internal_pn": "PMEG3010ER,115"
+      "internal_pn": "PMEG3010ER,115",
+      "description": "DIODE SCHOTTKY 30V 1A SOD123W"
     },
     "C207": {
       "value": "22uF",
@@ -12868,7 +12882,8 @@
         "1": "N10018",
         "2": "GND_SIGNAL"
       },
-      "internal_pn": "C1005X7R1E104K050BB"
+      "internal_pn": "C1005X7R1E104K050BB",
+      "description": "CAP CER 0.1UF 25V 10% X7R 0402"
     },
     "R65": {
       "value": "200E",
@@ -12917,7 +12932,8 @@
         "2": "GND_SIGNAL"
       },
       "internal_pn": "GRM033C71C104ME14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "CAP CER 0.1UF 16V X7S 0201"
     },
     "R550": {
       "value": "0Ohm",
@@ -12933,7 +12949,8 @@
         "2": "GND_SIGNAL"
       },
       "internal_pn": "GRM033C71C104ME14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "CAP CER 0.1UF 16V X7S 0201"
     },
     "C189": {
       "value": "0.1µF",
@@ -12941,7 +12958,8 @@
         "1": "N17156",
         "2": "FX3_SSTX-"
       },
-      "internal_pn": "C1005X7R1E104K050BB"
+      "internal_pn": "C1005X7R1E104K050BB",
+      "description": "CAP CER 0.1UF 25V 10% X7R 0402"
     },
     "R159": {
       "value": "100K",
@@ -12971,7 +12989,8 @@
         "2": "SDR_TRXFE_RESET_OUT"
       },
       "internal_pn": "RC0402FR-07121RL",
-      "manufacturer": "Yageo"
+      "manufacturer": "Yageo",
+      "description": "RES SMD 121 OHM 1% 1/16W 0402"
     },
     "R11155": {
       "value": "0Ohm",
@@ -13076,7 +13095,8 @@
         "2": "REG_37_18"
       },
       "internal_pn": "RC0402FR-07121RL",
-      "manufacturer": "Yageo"
+      "manufacturer": "Yageo",
+      "description": "RES SMD 121 OHM 1% 1/16W 0402"
     },
     "R10974": {
       "value": "100K",
@@ -13106,7 +13126,8 @@
         "2": "VCCMGT_VCCO18_VCC33"
       },
       "internal_pn": "RC0402FR-07121RL",
-      "manufacturer": "Yageo"
+      "manufacturer": "Yageo",
+      "description": "RES SMD 121 OHM 1% 1/16W 0402"
     },
     "R11334": {
       "value": "121E",
@@ -13115,7 +13136,8 @@
         "2": "RF_IO_RESET"
       },
       "internal_pn": "RC0402FR-07121RL",
-      "manufacturer": "Yageo"
+      "manufacturer": "Yageo",
+      "description": "RES SMD 121 OHM 1% 1/16W 0402"
     },
     "R10788": {
       "value": "0Ohm",
@@ -13180,7 +13202,8 @@
         "2": "SDR_REG_LDO_PGOOD"
       },
       "internal_pn": "RC0402FR-07121RL",
-      "manufacturer": "Yageo"
+      "manufacturer": "Yageo",
+      "description": "RES SMD 121 OHM 1% 1/16W 0402"
     },
     "R163": {
       "value": "100K",
@@ -13339,7 +13362,8 @@
         "2": "AUX_VCCO18"
       },
       "internal_pn": "RC0402FR-07121RL",
-      "manufacturer": "Yageo"
+      "manufacturer": "Yageo",
+      "description": "RES SMD 121 OHM 1% 1/16W 0402"
     },
     "R10665": {
       "value": "2K",
@@ -13361,7 +13385,8 @@
         }
       },
       "internal_pn": "0.1UF",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "CAP CER 1000PF 100V X7R 0402"
     },
     "R10905": {
       "value": "4.7k",
@@ -13394,7 +13419,8 @@
         "2": "N16881567"
       },
       "internal_pn": "ERJ-2GE0R00X",
-      "manufacturer": "Panasonic Electronic Components"
+      "manufacturer": "Panasonic Electronic Components",
+      "description": "RES 0.0 OHM 1/10W JUMP 0402 SMD"
     },
     "R879": {
       "value": "97.6E",
@@ -13410,7 +13436,8 @@
         "2": "GND"
       },
       "internal_pn": "GRM033C81E104KE14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10uF ±10% 25V Ceramic Capacitor X6S 0201"
     },
     "C4324": {
       "value": "1uF",
@@ -13434,7 +13461,8 @@
         "2": "P3_3V_PLL"
       },
       "internal_pn": "RC0402FR-07121RL",
-      "manufacturer": "Yageo"
+      "manufacturer": "Yageo",
+      "description": "RES SMD 121 OHM 1% 1/16W 0402"
     },
     "C4321": {
       "value": "0.1uF",
@@ -13443,7 +13471,8 @@
         "2": "GND"
       },
       "internal_pn": "GRM033C81E104KE14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10uF ±10% 25V Ceramic Capacitor X6S 0201"
     },
     "C4364": {
       "value": "470PF",
@@ -13452,7 +13481,8 @@
         "2": "GND_SIGNAL"
       },
       "internal_pn": "C0402C471K3RACTU",
-      "manufacturer": "Kemet"
+      "manufacturer": "Kemet",
+      "description": "CAP CER 470PF 25V X7R 0402"
     },
     "C4332": {
       "value": "100uF",
@@ -13489,7 +13519,8 @@
           "net": "N16713388"
         }
       },
-      "manufacturer": "Vectron"
+      "manufacturer": "Vectron",
+      "description": "OSC TCXO 40.000MHZ CMOS SMD"
     },
     "R10902": {
       "value": "0E",
@@ -13505,7 +13536,8 @@
         "1": "P3_3V_PLL",
         "2": "V3P3"
       },
-      "internal_pn": "BLM18KG471SN1D"
+      "internal_pn": "BLM18KG471SN1D",
+      "description": "FERRITE BEAD 470 OHM 0603"
     },
     "R11337": {
       "value": "91E",
@@ -13514,7 +13546,8 @@
         "2": "N16713860"
       },
       "internal_pn": "RC0603JR-0791RL",
-      "manufacturer": "Yageo"
+      "manufacturer": "Yageo",
+      "description": "RES SMD 91 OHM 5% 1/10W 0603"
     },
     "R10959": {
       "value": "1K",
@@ -13548,7 +13581,8 @@
         "2": "GND_SIGNAL"
       },
       "internal_pn": "C0402C471K3RACTU",
-      "manufacturer": "Kemet"
+      "manufacturer": "Kemet",
+      "description": "CAP CER 470PF 25V X7R 0402"
     },
     "C4336": {
       "value": "100uF",
@@ -13635,7 +13669,8 @@
         "2": "GND_SIGNAL"
       },
       "internal_pn": "C0402C471K3RACTU",
-      "manufacturer": "Kemet"
+      "manufacturer": "Kemet",
+      "description": "CAP CER 470PF 25V X7R 0402"
     },
     "R10961": {
       "value": "2.2K",
@@ -13667,7 +13702,8 @@
         "2": "GND_SIGNAL"
       },
       "internal_pn": "C0402C471K3RACTU",
-      "manufacturer": "Kemet"
+      "manufacturer": "Kemet",
+      "description": "CAP CER 470PF 25V X7R 0402"
     },
     "C4322": {
       "value": "0.1uF",
@@ -13676,7 +13712,8 @@
         "2": "GND"
       },
       "internal_pn": "GRM033C81E104KE14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10uF ±10% 25V Ceramic Capacitor X6S 0201"
     },
     "TP96": {
       "value": "T POINT R",
@@ -13693,7 +13730,8 @@
         "1": "N16714084",
         "2": "GND"
       },
-      "internal_pn": "C3216X6S0J476M160AB"
+      "internal_pn": "C3216X6S0J476M160AB",
+      "description": "47µF ±20% 6.3V Ceramic Capacitor X6S 1206 (3216 Metric)"
     },
     "R10904": {
       "value": "1M",
@@ -13709,7 +13747,8 @@
         "1": "N16713864",
         "2": "AUXDAC1"
       },
-      "internal_pn": "ERJ-2GE0R00X"
+      "internal_pn": "ERJ-2GE0R00X",
+      "description": "RES 0.0 OHM 1/10W JUMP 0402 SMD"
     },
     "R10906": {
       "value": "56E",
@@ -13717,7 +13756,8 @@
         "1": "N16714084",
         "2": "N16714370"
       },
-      "internal_pn": "RC0402FR-0756RL"
+      "internal_pn": "RC0402FR-0756RL",
+      "description": "RES SMD 56 OHM 1% 1/16W 0402"
     },
     "C4334": {
       "value": "100uF",
@@ -13749,7 +13789,8 @@
         "2": "N16714354"
       },
       "internal_pn": "GRM033C81E104KE14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10uF ±10% 25V Ceramic Capacitor X6S 0201"
     },
     "U4305": {
       "value": "ADF4002",
@@ -13845,7 +13886,8 @@
       "pins": {
         "1": "N16713388",
         "2": "GND"
-      }
+      },
+      "description": "10uF 16V Ceramic Capacitor X6S 0603 (1608 Metric) 0.063\" L x 0.031\" W (1.60mm x 0.80mm)"
     },
     "C4331": {
       "value": "100uF",
@@ -13860,7 +13902,8 @@
         "1": "P3_3V_PLL",
         "2": "GND"
       },
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "CAP CER 10000PF 50V X7R 0402"
     },
     "TP94": {
       "value": "T POINT R",
@@ -13885,7 +13928,8 @@
         "2": "GND"
       },
       "internal_pn": "GRM033C81E104KE14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10uF ±10% 25V Ceramic Capacitor X6S 0201"
     },
     "C4311": {
       "value": "0.47UF",
@@ -13895,7 +13939,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "R304": {
       "value": "2.49k",
@@ -13925,7 +13970,8 @@
         "2": "GND_SIGNAL"
       },
       "mpn": "EMK212B7475KG-T",
-      "internal_pn": "EMK212B7475KG-T"
+      "internal_pn": "EMK212B7475KG-T",
+      "description": "CAP CER 4.7UF 16V X7R 0805"
     },
     "C4313": {
       "value": "0.47UF",
@@ -13935,7 +13981,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "C4434": {
       "value": "0.1uF",
@@ -13969,7 +14016,8 @@
       },
       "mpn": "GRM32EC70J107ME15L",
       "internal_pn": "GRM32EC70J107ME15L",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "CAP CER 100UF 6.3V X7S 1210"
     },
     "C4315": {
       "value": "0.47UF",
@@ -13979,7 +14027,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "R11091": {
       "value": "100E",
@@ -14740,7 +14789,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "R11148": {
       "value": "0Ohm",
@@ -14765,7 +14815,8 @@
         "2": "GND_SIGNAL"
       },
       "mpn": "EMK212B7475KG-T",
-      "internal_pn": "EMK212B7475KG-T"
+      "internal_pn": "EMK212B7475KG-T",
+      "description": "CAP CER 4.7UF 16V X7R 0805"
     },
     "C117": {
       "value": "4.7uF",
@@ -14774,7 +14825,8 @@
         "2": "VCCINT+VCCBRAM"
       },
       "mpn": "EMK212B7475KG-T",
-      "internal_pn": "EMK212B7475KG-T"
+      "internal_pn": "EMK212B7475KG-T",
+      "description": "CAP CER 4.7UF 16V X7R 0805"
     },
     "C128": {
       "value": "0.47UF",
@@ -14784,7 +14836,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "FB6319": {
       "value": "120E / 2A",
@@ -14793,7 +14846,8 @@
         "2": "VCC_MGTAVTT"
       },
       "internal_pn": "BLM18PG121SN1D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "FERRITE CHIP 120 OHM 2000MA 0603"
     },
     "C133": {
       "value": "0.47UF",
@@ -14803,7 +14857,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "C126": {
       "value": "100uF",
@@ -14813,7 +14868,8 @@
       },
       "mpn": "GRM32EC70J107ME15L",
       "internal_pn": "GRM32EC70J107ME15L",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "CAP CER 100UF 6.3V X7S 1210"
     },
     "C129": {
       "value": "47uF",
@@ -14829,7 +14885,8 @@
         "2": "VCCINT+VCCBRAM"
       },
       "mpn": "EMK212B7475KG-T",
-      "internal_pn": "EMK212B7475KG-T"
+      "internal_pn": "EMK212B7475KG-T",
+      "description": "CAP CER 4.7UF 16V X7R 0805"
     },
     "C164": {
       "value": "0.47UF",
@@ -14839,7 +14896,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "C125": {
       "value": "0.47UF",
@@ -14849,7 +14907,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "C177": {
       "value": "0.47UF",
@@ -14859,7 +14918,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "C4438": {
       "value": "0.1uF",
@@ -14868,7 +14928,8 @@
         "2": "GND_SIGNAL"
       },
       "internal_pn": "GRM188R71C104KA01D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10µF ±10% 16V Ceramic Capacitor X7R 0603 (1608 Metric)"
     },
     "C4442": {
       "value": "0.1uF",
@@ -14877,7 +14938,8 @@
         "2": "GND_SIGNAL"
       },
       "internal_pn": "GRM188R71C104KA01D",
-      "manufacturer": "Murata Electronics North America\r\n"
+      "manufacturer": "Murata Electronics North America\r\n",
+      "description": "0.10µF ±10% 16V Ceramic Capacitor X7R 0603 (1608 Metric)\r\n"
     },
     "C122": {
       "value": "0.47UF",
@@ -14887,7 +14949,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "C168": {
       "value": "4.7uF",
@@ -14896,7 +14959,8 @@
         "2": "GND_SIGNAL"
       },
       "mpn": "EMK212B7475KG-T",
-      "internal_pn": "EMK212B7475KG-T"
+      "internal_pn": "EMK212B7475KG-T",
+      "description": "CAP CER 4.7UF 16V X7R 0805"
     },
     "C171": {
       "value": "0.47UF",
@@ -14906,7 +14970,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "C137": {
       "value": "0.47UF",
@@ -14916,7 +14981,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "C796": {
       "value": "4.7uF",
@@ -14926,7 +14992,8 @@
       },
       "mpn": "C1608X6S1C475K080AC",
       "internal_pn": "C1608X6S1C475K080AC",
-      "manufacturer": "TDK Corporation"
+      "manufacturer": "TDK Corporation",
+      "description": "CAP CER 4.7UF 16V X6S 0603"
     },
     "C161": {
       "value": "4.7uF",
@@ -14935,7 +15002,8 @@
         "2": "GND_SIGNAL"
       },
       "mpn": "EMK212B7475KG-T",
-      "internal_pn": "EMK212B7475KG-T"
+      "internal_pn": "EMK212B7475KG-T",
+      "description": "CAP CER 4.7UF 16V X7R 0805"
     },
     "C114": {
       "value": "4.7uF",
@@ -14944,7 +15012,8 @@
         "2": "VCCINT+VCCBRAM"
       },
       "mpn": "EMK212B7475KG-T",
-      "internal_pn": "EMK212B7475KG-T"
+      "internal_pn": "EMK212B7475KG-T",
+      "description": "CAP CER 4.7UF 16V X7R 0805"
     },
     "C134": {
       "value": "0.47UF",
@@ -14954,7 +15023,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "C120": {
       "value": "0.47UF",
@@ -14964,7 +15034,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "C165": {
       "value": "0.47UF",
@@ -14974,7 +15045,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "C4439": {
       "value": "0.1uF",
@@ -14983,7 +15055,8 @@
         "2": "GND_SIGNAL"
       },
       "internal_pn": "GRM188R71C104KA01D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10µF ±10% 16V Ceramic Capacitor X7R 0603 (1608 Metric)"
     },
     "C178": {
       "value": "0.47UF",
@@ -14993,7 +15066,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "C4443": {
       "value": "0.1uF",
@@ -15002,7 +15076,8 @@
         "2": "GND_SIGNAL"
       },
       "internal_pn": "GRM188R71C104KA01D",
-      "manufacturer": "Murata Electronics North America\r\n"
+      "manufacturer": "Murata Electronics North America\r\n",
+      "description": "0.10µF ±10% 16V Ceramic Capacitor X7R 0603 (1608 Metric)\r\n"
     },
     "C159": {
       "value": "100uF",
@@ -15012,7 +15087,8 @@
       },
       "mpn": "GRM32EC70J107ME15L",
       "internal_pn": "GRM32EC70J107ME15L",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "CAP CER 100UF 6.3V X7S 1210"
     },
     "C123": {
       "value": "0.47UF",
@@ -15022,7 +15098,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "C891": {
       "value": "4.7uF",
@@ -15032,7 +15109,8 @@
       },
       "mpn": "C1608X6S1C475K080AC",
       "internal_pn": "C1608X6S1C475K080AC",
-      "manufacturer": "TDK Corporation"
+      "manufacturer": "TDK Corporation",
+      "description": "CAP CER 4.7UF 16V X6S 0603"
     },
     "C174": {
       "value": "4.7uF",
@@ -15041,7 +15119,8 @@
         "2": "GND_SIGNAL"
       },
       "mpn": "EMK212B7475KG-T",
-      "internal_pn": "EMK212B7475KG-T"
+      "internal_pn": "EMK212B7475KG-T",
+      "description": "CAP CER 4.7UF 16V X7R 0805"
     },
     "C172": {
       "value": "0.47UF",
@@ -15051,7 +15130,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "C121": {
       "value": "0.47UF",
@@ -15061,7 +15141,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "C124": {
       "value": "0.47UF",
@@ -15071,7 +15152,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "C111": {
       "value": "4.7uF",
@@ -15080,7 +15162,8 @@
         "2": "VCCINT+VCCBRAM"
       },
       "mpn": "EMK212B7475KG-T",
-      "internal_pn": "EMK212B7475KG-T"
+      "internal_pn": "EMK212B7475KG-T",
+      "description": "CAP CER 4.7UF 16V X7R 0805"
     },
     "C4435": {
       "value": "0.1uF",
@@ -15089,7 +15172,8 @@
         "2": "GND_SIGNAL"
       },
       "internal_pn": "GRM188R71C104KA01D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10µF ±10% 16V Ceramic Capacitor X7R 0603 (1608 Metric)"
     },
     "C160": {
       "value": "4.7uF",
@@ -15098,7 +15182,8 @@
         "2": "GND_SIGNAL"
       },
       "mpn": "EMK212B7475KG-T",
-      "internal_pn": "EMK212B7475KG-T"
+      "internal_pn": "EMK212B7475KG-T",
+      "description": "CAP CER 4.7UF 16V X7R 0805"
     },
     "R11141": {
       "value": "0E",
@@ -15115,7 +15200,8 @@
         "2": "VCCAUX18"
       },
       "mpn": "EMK212B7475KG-T",
-      "internal_pn": "EMK212B7475KG-T"
+      "internal_pn": "EMK212B7475KG-T",
+      "description": "CAP CER 4.7UF 16V X7R 0805"
     },
     "C162": {
       "value": "0.47UF",
@@ -15125,7 +15211,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "C4440": {
       "value": "0.1uF",
@@ -15134,7 +15221,8 @@
         "2": "GND_SIGNAL"
       },
       "internal_pn": "GRM188R71C104KA01D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10µF ±10% 16V Ceramic Capacitor X7R 0603 (1608 Metric)"
     },
     "C115": {
       "value": "4.7uF",
@@ -15143,7 +15231,8 @@
         "2": "VCCINT+VCCBRAM"
       },
       "mpn": "EMK212B7475KG-T",
-      "internal_pn": "EMK212B7475KG-T"
+      "internal_pn": "EMK212B7475KG-T",
+      "description": "CAP CER 4.7UF 16V X7R 0805"
     },
     "C4444": {
       "value": "0.1uF",
@@ -15152,7 +15241,8 @@
         "2": "GND_SIGNAL"
       },
       "internal_pn": "GRM188R71C104KA01D",
-      "manufacturer": "Murata Electronics North America\r\n"
+      "manufacturer": "Murata Electronics North America\r\n",
+      "description": "0.10µF ±10% 16V Ceramic Capacitor X7R 0603 (1608 Metric)\r\n"
     },
     "C179": {
       "value": "0.47UF",
@@ -15162,7 +15252,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "C176": {
       "value": "0.47UF",
@@ -15172,7 +15263,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "C118": {
       "value": "0.47UF",
@@ -15182,7 +15274,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "C4436": {
       "value": "0.1uF",
@@ -15191,7 +15284,8 @@
         "2": "GND_SIGNAL"
       },
       "internal_pn": "GRM188R71C104KA01D",
-      "manufacturer": "Murata Electronics North America\r\n"
+      "manufacturer": "Murata Electronics North America\r\n",
+      "description": "0.10µF ±10% 16V Ceramic Capacitor X7R 0603 (1608 Metric)\r\n"
     },
     "C175": {
       "value": "4.7uF",
@@ -15200,7 +15294,8 @@
         "2": "GND_SIGNAL"
       },
       "mpn": "EMK212B7475KG-T",
-      "internal_pn": "EMK212B7475KG-T"
+      "internal_pn": "EMK212B7475KG-T",
+      "description": "CAP CER 4.7UF 16V X7R 0805"
     },
     "C166": {
       "value": "100uF",
@@ -15210,7 +15305,8 @@
       },
       "mpn": "GRM32EC70J107ME15L",
       "internal_pn": "GRM32EC70J107ME15L",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "CAP CER 100UF 6.3V X7S 1210"
     },
     "C135": {
       "value": "0.47UF",
@@ -15220,7 +15316,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "C119": {
       "value": "0.47UF",
@@ -15230,7 +15327,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "C169": {
       "value": "0.47UF",
@@ -15240,7 +15338,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "C127": {
       "value": "0.47UF",
@@ -15250,7 +15349,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "C116": {
       "value": "4.7uF",
@@ -15259,7 +15359,8 @@
         "2": "VCCINT+VCCBRAM"
       },
       "mpn": "EMK212B7475KG-T",
-      "internal_pn": "EMK212B7475KG-T"
+      "internal_pn": "EMK212B7475KG-T",
+      "description": "CAP CER 4.7UF 16V X7R 0805"
     },
     "C112": {
       "value": "4.7uF",
@@ -15268,7 +15369,8 @@
         "2": "VCCINT+VCCBRAM"
       },
       "mpn": "EMK212B7475KG-T",
-      "internal_pn": "EMK212B7475KG-T"
+      "internal_pn": "EMK212B7475KG-T",
+      "description": "CAP CER 4.7UF 16V X7R 0805"
     },
     "R11142": {
       "value": "0E",
@@ -15286,7 +15388,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "C4441": {
       "value": "0.1uF",
@@ -15295,7 +15398,8 @@
         "2": "GND_SIGNAL"
       },
       "internal_pn": "GRM188R71C104KA01D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10µF ±10% 16V Ceramic Capacitor X7R 0603 (1608 Metric)"
     },
     "C131": {
       "value": "4.7uF",
@@ -15304,7 +15408,8 @@
         "2": "VCCAUX18"
       },
       "mpn": "EMK212B7475KG-T",
-      "internal_pn": "EMK212B7475KG-T"
+      "internal_pn": "EMK212B7475KG-T",
+      "description": "CAP CER 4.7UF 16V X7R 0805"
     },
     "C4445": {
       "value": "0.1uF",
@@ -15313,7 +15418,8 @@
         "2": "GND_SIGNAL"
       },
       "internal_pn": "GRM188R71C104KA01D",
-      "manufacturer": "Murata Electronics North America\r\n"
+      "manufacturer": "Murata Electronics North America\r\n",
+      "description": "0.10µF ±10% 16V Ceramic Capacitor X7R 0603 (1608 Metric)\r\n"
     },
     "C163": {
       "value": "0.47UF",
@@ -15323,7 +15429,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "FB6320": {
       "value": "120E / 2A",
@@ -15332,7 +15439,8 @@
         "2": "VCCINT+VCCBRAM"
       },
       "internal_pn": "BLM18PG121SN1D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "FERRITE CHIP 120 OHM 2000MA 0603"
     },
     "C110": {
       "value": "330uF",
@@ -15341,7 +15449,8 @@
         "2": "VCCINT+VCCBRAM"
       },
       "mpn": "PMK325AC6337MM-T",
-      "internal_pn": "PMK325AC6337MM-T"
+      "internal_pn": "PMK325AC6337MM-T",
+      "description": "CAP CER 330UF 2.5V X6S 1210"
     },
     "C4437": {
       "value": "0.1uF",
@@ -15350,7 +15459,8 @@
         "2": "GND_SIGNAL"
       },
       "internal_pn": "GRM188R71C104KA01D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10µF ±10% 16V Ceramic Capacitor X7R 0603 (1608 Metric)"
     },
     "C167": {
       "value": "4.7uF",
@@ -15359,7 +15469,8 @@
         "2": "GND_SIGNAL"
       },
       "mpn": "EMK212B7475KG-T",
-      "internal_pn": "EMK212B7475KG-T"
+      "internal_pn": "EMK212B7475KG-T",
+      "description": "CAP CER 4.7UF 16V X7R 0805"
     },
     "C173": {
       "value": "100uF",
@@ -15369,7 +15480,8 @@
       },
       "mpn": "GRM32EC70J107ME15L",
       "internal_pn": "GRM32EC70J107ME15L",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "CAP CER 100UF 6.3V X7S 1210"
     },
     "C170": {
       "value": "0.47UF",
@@ -15379,7 +15491,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "C136": {
       "value": "0.47UF",
@@ -15389,7 +15502,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "R43": {
       "value": "4.7k",
@@ -15435,6 +15549,7 @@
       },
       "internal_pn": "RC0402FR-07121RL",
       "manufacturer": "Yageo",
+      "description": "RES SMD 121 OHM 1% 1/16W 0402",
       "dns": true
     },
     "R11257": {
@@ -15568,7 +15683,8 @@
         "2": "FPGA_CFG_M0"
       },
       "internal_pn": "RC0402JR-070RL",
-      "manufacturer": "Yageo"
+      "manufacturer": "Yageo",
+      "description": "RES SMD 0.0OHM JUMPER 1/16W 0402"
     },
     "R11255": {
       "value": "0E",
@@ -15755,7 +15871,8 @@
         "1": "1.8VD_FPGA",
         "2": "FPGA_CFG_M0"
       },
-      "internal_pn": "RC0402JR-07680RL"
+      "internal_pn": "RC0402JR-07680RL",
+      "description": "RES SMD 680 OHM 5% 1/16W 0402"
     },
     "C4610": {
       "value": "1000pF",
@@ -15841,7 +15958,8 @@
         "1": "1P8V _FX3",
         "2": "GND"
       },
-      "internal_pn": "C1005X7R1E104K050BB"
+      "internal_pn": "C1005X7R1E104K050BB",
+      "description": "CAP CER 0.1UF 25V 10% X7R 0402"
     },
     "R73": {
       "value": "4.7k",
@@ -15857,7 +15975,8 @@
         "2": "FX3_PMODE0"
       },
       "internal_pn": "RC0402JR-070RL",
-      "manufacturer": "Yageo"
+      "manufacturer": "Yageo",
+      "description": "RES SMD 0.0OHM JUMPER 1/16W 0402"
     },
     "TP3009": {
       "value": "T POINT R",
@@ -15881,7 +16000,8 @@
         "1": "1.8VD_FPGA",
         "2": "FX3_PMODE1"
       },
-      "internal_pn": "RC0402JR-0710KL"
+      "internal_pn": "RC0402JR-0710KL",
+      "description": "RES SMD 10K OHM 5% 1/16W 0402"
     },
     "R69": {
       "value": "100E",
@@ -15906,7 +16026,8 @@
         "1": "1P8V _FX3",
         "2": "GND"
       },
-      "internal_pn": "C1005X7R1E104K050BB"
+      "internal_pn": "C1005X7R1E104K050BB",
+      "description": "CAP CER 0.1UF 25V 10% X7R 0402"
     },
     "R10973": {
       "value": "1K",
@@ -15923,7 +16044,8 @@
         "2": "GND"
       },
       "internal_pn": "RC0402JR-070RL",
-      "manufacturer": "Yageo"
+      "manufacturer": "Yageo",
+      "description": "RES SMD 0.0OHM JUMPER 1/16W 0402"
     },
     "R10897": {
       "value": "680E",
@@ -15932,6 +16054,7 @@
         "2": "FPGA_PUDC_B"
       },
       "internal_pn": "RC0402JR-07680RL",
+      "description": "RES SMD 680 OHM 5% 1/16W 0402",
       "dns": true
     },
     "R68": {
@@ -15949,7 +16072,8 @@
         "2": "GND"
       },
       "internal_pn": "RC0402JR-070RL",
-      "manufacturer": "Yageo"
+      "manufacturer": "Yageo",
+      "description": "RES SMD 0.0OHM JUMPER 1/16W 0402"
     },
     "A3": {
       "value": "4-881545-2",
@@ -15961,7 +16085,8 @@
         "1": "1P8V _FX3",
         "2": "GND"
       },
-      "internal_pn": "C1005X7R1E104K050BB"
+      "internal_pn": "C1005X7R1E104K050BB",
+      "description": "CAP CER 0.1UF 25V 10% X7R 0402"
     },
     "C208": {
       "value": "0.1µF",
@@ -15969,7 +16094,8 @@
         "1": "1P8V _FX3",
         "2": "GND"
       },
-      "internal_pn": "C1005X7R1E104K050BB"
+      "internal_pn": "C1005X7R1E104K050BB",
+      "description": "CAP CER 0.1UF 25V 10% X7R 0402"
     },
     "R10898": {
       "value": "680E",
@@ -15977,7 +16103,8 @@
         "1": "FPGA_PUDC_B",
         "2": "GND"
       },
-      "internal_pn": "RC0402JR-07680RL"
+      "internal_pn": "RC0402JR-07680RL",
+      "description": "RES SMD 680 OHM 5% 1/16W 0402"
     },
     "R79": {
       "value": "0Ohm",
@@ -15986,7 +16113,8 @@
         "2": "GND"
       },
       "internal_pn": "RC0402JR-070RL",
-      "manufacturer": "Yageo"
+      "manufacturer": "Yageo",
+      "description": "RES SMD 0.0OHM JUMPER 1/16W 0402"
     },
     "R74": {
       "value": "0Ohm",
@@ -15995,7 +16123,8 @@
         "2": "FX3_PMODE2"
       },
       "internal_pn": "RC0402JR-070RL",
-      "manufacturer": "Yageo"
+      "manufacturer": "Yageo",
+      "description": "RES SMD 0.0OHM JUMPER 1/16W 0402"
     },
     "J3": {
       "pins": {
@@ -16011,7 +16140,8 @@
         "2": "FPGA_CFG_INIT_B"
       },
       "internal_pn": "RC0402JR-070RL",
-      "manufacturer": "Yageo"
+      "manufacturer": "Yageo",
+      "description": "RES SMD 0.0OHM JUMPER 1/16W 0402"
     },
     "R11168": {
       "value": "18E",
@@ -16356,7 +16486,8 @@
         }
       },
       "internal_pn": "SN74LVC1G08DCKR",
-      "manufacturer": "Texas Instruments"
+      "manufacturer": "Texas Instruments",
+      "description": "IC GATE AND 1CH 2-INP SC-70-5"
     },
     "TP91": {
       "value": "T POINT R",
@@ -16452,7 +16583,8 @@
         "2": "TRANS_CODEC_RESET"
       },
       "internal_pn": "RC0402FR-07121RL",
-      "manufacturer": "Yageo"
+      "manufacturer": "Yageo",
+      "description": "RES SMD 121 OHM 1% 1/16W 0402"
     },
     "TP30": {
       "value": "T POINT R",
@@ -16623,6 +16755,7 @@
       },
       "internal_pn": "RC0402FR-07121RL",
       "manufacturer": "Yageo",
+      "description": "RES SMD 121 OHM 1% 1/16W 0402",
       "dns": true
     },
     "TP27": {
@@ -17147,7 +17280,8 @@
         "2": "GND"
       },
       "internal_pn": "GRM188C81C106MA73D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "10uF ±20% 16V Ceramic Capacitor X6S 0603 (1608 Metric)"
     },
     "TP3019": {
       "value": "T POINT R",
@@ -17255,7 +17389,8 @@
         }
       },
       "internal_pn": "B530C-13-F",
-      "manufacturer": "Diodes Incorporated"
+      "manufacturer": "Diodes Incorporated",
+      "description": "DIODE SCHOTTKY 30V 5A SMC"
     },
     "C298": {
       "value": "0.1uF",
@@ -17360,7 +17495,8 @@
         "2": "GND_SIGNAL"
       },
       "mpn": "EMK212B7475KG-T",
-      "internal_pn": "EMK212B7475KG-T"
+      "internal_pn": "EMK212B7475KG-T",
+      "description": "CAP CER 4.7UF 16V X7R 0805"
     },
     "C754": {
       "value": "4.7uF",
@@ -17369,7 +17505,8 @@
         "2": "GND_SIGNAL"
       },
       "mpn": "EMK212B7475KG-T",
-      "internal_pn": "EMK212B7475KG-T"
+      "internal_pn": "EMK212B7475KG-T",
+      "description": "CAP CER 4.7UF 16V X7R 0805"
     },
     "R1652": {
       "value": "0Ohm",
@@ -17470,7 +17607,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "R1790": {
       "value": "0Ohm",
@@ -17503,7 +17641,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "R270": {
       "value": "0Ohm",
@@ -17559,7 +17698,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "R262": {
       "value": "0Ohm",
@@ -17777,7 +17917,8 @@
         "2": "GND_SIGNAL"
       },
       "mpn": "EMK212B7475KG-T",
-      "internal_pn": "EMK212B7475KG-T"
+      "internal_pn": "EMK212B7475KG-T",
+      "description": "CAP CER 4.7UF 16V X7R 0805"
     },
     "C4454": {
       "value": "0.1uF",
@@ -17793,7 +17934,8 @@
         "2": "GND_SIGNAL"
       },
       "mpn": "EMK212B7475KG-T",
-      "internal_pn": "EMK212B7475KG-T"
+      "internal_pn": "EMK212B7475KG-T",
+      "description": "CAP CER 4.7UF 16V X7R 0805"
     },
     "R255": {
       "value": "0Ohm",
@@ -17867,7 +18009,8 @@
       },
       "mpn": "GRM32EC70J107ME15L",
       "internal_pn": "GRM32EC70J107ME15L",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "CAP CER 100UF 6.3V X7S 1210"
     },
     "C751": {
       "value": "0.47UF",
@@ -17877,7 +18020,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "R261": {
       "value": "0Ohm",
@@ -17903,7 +18047,8 @@
       },
       "mpn": "GRM32EC70J107ME15L",
       "internal_pn": "GRM32EC70J107ME15L",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "CAP CER 100UF 6.3V X7S 1210"
     },
     "U7140": {
       "value": "MM8430-2610",
@@ -17965,7 +18110,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "C762": {
       "value": "0.47UF",
@@ -17975,7 +18121,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "R260": {
       "value": "0Ohm",
@@ -18024,7 +18171,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "R259": {
       "value": "0Ohm",
@@ -18042,7 +18190,8 @@
       },
       "mpn": "JMK105B7474KVHF",
       "internal_pn": "JMK105B7474KVHF",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 0.47UF 6.3V X7R 0402"
     },
     "R251": {
       "value": "0Ohm",
@@ -18104,7 +18253,8 @@
         "2": "12VAT10"
       },
       "internal_pn": "RC0402FR-07121RL",
-      "manufacturer": "Yageo"
+      "manufacturer": "Yageo",
+      "description": "RES SMD 121 OHM 1% 1/16W 0402"
     },
     "R178": {
       "value": "10K",
@@ -18248,7 +18398,8 @@
         "2": "12VAT9"
       },
       "internal_pn": "RC0402FR-07121RL",
-      "manufacturer": "Yageo"
+      "manufacturer": "Yageo",
+      "description": "RES SMD 121 OHM 1% 1/16W 0402"
     },
     "C282": {
       "value": "1000pF",
@@ -18799,7 +18950,8 @@
         }
       },
       "internal_pn": "SI7232DN-T1-GE3",
-      "manufacturer": "Vishay Siliconix"
+      "manufacturer": "Vishay Siliconix",
+      "description": "MOSFET 2N-CH 20V 25A PPAK 1212-8"
     },
     "TP12": {
       "value": "T POINT R",
@@ -18830,7 +18982,8 @@
         }
       },
       "internal_pn": "ERJ-2GE0R00X",
-      "manufacturer": "Panasonic Electronic Components"
+      "manufacturer": "Panasonic Electronic Components",
+      "description": "RES 0.0 OHM 1/10W JUMP 0402 SMD"
     },
     "R101": {
       "value": "2K",
@@ -19074,7 +19227,8 @@
         }
       },
       "internal_pn": "UMK212B7105KG-T",
-      "manufacturer": "Taiyo Yuden"
+      "manufacturer": "Taiyo Yuden",
+      "description": "CAP CER 1UF 50V X7R 0805"
     },
     "C257": {
       "value": "1uF",
@@ -19221,7 +19375,8 @@
         }
       },
       "internal_pn": "MMSZ5231B-7-F",
-      "manufacturer": "Diodes Incorporated"
+      "manufacturer": "Diodes Incorporated",
+      "description": "DIODE ZENER 5.1V 500MW SOD123"
     },
     "R125": {
       "value": "20K",
@@ -19267,7 +19422,8 @@
         "2": "GND_SIGNAL"
       },
       "internal_pn": "RMCF0402FT4K42",
-      "manufacturer": "Stackpole Electronics Inc"
+      "manufacturer": "Stackpole Electronics Inc",
+      "description": "RES SMD 4.42K OHM 1% 1/16W 0402"
     },
     "R124": {
       "value": "10K",
@@ -19358,7 +19514,8 @@
         "K": "GND"
       },
       "internal_pn": "LTST-C190KGKT",
-      "manufacturer": "Lite-On Inc"
+      "manufacturer": "Lite-On Inc",
+      "description": "LED GREEN CLEAR 0603 SMD"
     },
     "R135": {
       "value": "10K",
@@ -19375,7 +19532,8 @@
         "2": "N18363244"
       },
       "internal_pn": "ESR10EZPJ621",
-      "manufacturer": "Rohm Semiconductor"
+      "manufacturer": "Rohm Semiconductor",
+      "description": "RES SMD 620 OHM 5% 0.4W 0805"
     },
     "C266": {
       "value": "1000pF",
@@ -19421,7 +19579,8 @@
         "2": "VSUP"
       },
       "internal_pn": "RC6432J471CS",
-      "manufacturer": "Samsung Electro-Mechanics America, Inc"
+      "manufacturer": "Samsung Electro-Mechanics America, Inc",
+      "description": "RES 470 OHM 1W 5% 2512"
     },
     "C267": {
       "value": "1000pF",
@@ -19606,7 +19765,8 @@
         "1": "V1P3_ADI_B",
         "2": "V1P3_B"
       },
-      "internal_pn": "BLM15BA750SN1D"
+      "internal_pn": "BLM15BA750SN1D",
+      "description": "FERRITE BEAD 75 OHM 0402"
     },
     "C1702": {
       "value": "10000pF",
@@ -19645,7 +19805,8 @@
       "pins": {
         "1": "VDD_INTERFACE",
         "2": "GND"
-      }
+      },
+      "description": "10uF 16V Ceramic Capacitor X6S 0603 (1608 Metric) 0.063\" L x 0.031\" W (1.60mm x 0.80mm)"
     },
     "FB6322": {
       "value": "75E",
@@ -19653,7 +19814,8 @@
         "1": "V1P3_ADI_A",
         "2": "V1P3_A"
       },
-      "internal_pn": "BLM15BA750SN1D"
+      "internal_pn": "BLM15BA750SN1D",
+      "description": "FERRITE BEAD 75 OHM 0402"
     },
     "C1701": {
       "value": "1uF",
@@ -19685,7 +19847,8 @@
         "1": "V1P8",
         "2": "VDD_INTERFACE"
       },
-      "internal_pn": "BLM15BA750SN1D"
+      "internal_pn": "BLM15BA750SN1D",
+      "description": "FERRITE BEAD 75 OHM 0402"
     },
     "C1720": {
       "value": "0.1uF",
@@ -19694,7 +19857,8 @@
         "2": "GND"
       },
       "internal_pn": "GRM033C81E104KE14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10uF ±10% 25V Ceramic Capacitor X6S 0201"
     },
     "C1718": {
       "value": "10000pF",
@@ -19719,7 +19883,8 @@
         "2": "GND"
       },
       "internal_pn": "GRM033C81E104KE14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10uF ±10% 25V Ceramic Capacitor X6S 0201"
     },
     "C1707": {
       "value": "10000pF",
@@ -19823,7 +19988,8 @@
         "1": "V3P3",
         "2": "VDDA_GPO"
       },
-      "internal_pn": "BLM15BA750SN1D"
+      "internal_pn": "BLM15BA750SN1D",
+      "description": "FERRITE BEAD 75 OHM 0402"
     },
     "C1714": {
       "value": "10000pF",
@@ -20461,7 +20627,8 @@
         "1": "TRXFE_IN_12V",
         "2": "5VD_B"
       },
-      "manufacturer": "Panasonic Electronic Components"
+      "manufacturer": "Panasonic Electronic Components",
+      "description": "RES SMD 300 OHM 1% 1/4W 0603"
     },
     "C4348": {
       "value": "0.1uF",
@@ -20617,7 +20784,8 @@
         "SH1": "GND",
         "SH2": "GND"
       },
-      "internal_pn": "GSB4211311WEU"
+      "internal_pn": "GSB4211311WEU",
+      "description": "USB3.1 B STD R/A DIP 30U"
     },
     "R200": {
       "value": "100K",
@@ -20634,7 +20802,8 @@
         "3": "N17734707"
       },
       "internal_pn": "CL-SB-12A-01T",
-      "manufacturer": "Copal Electronics Inc."
+      "manufacturer": "Copal Electronics Inc.",
+      "description": "Slide Switch SPDT Surface Mount"
     },
     "R201": {
       "value": "24K",
@@ -20660,7 +20829,8 @@
         "3": "5VD_B"
       },
       "internal_pn": "CL-SB-12A-01T",
-      "manufacturer": "Copal Electronics Inc."
+      "manufacturer": "Copal Electronics Inc.",
+      "description": "Slide Switch SPDT Surface Mount"
     },
     "C291": {
       "value": "0.1uF",
@@ -20685,7 +20855,8 @@
         "4": "NC"
       },
       "internal_pn": "PRTR5V0U2X,215",
-      "manufacturer": "NXP Semiconductors"
+      "manufacturer": "NXP Semiconductors",
+      "description": "TVS DIODE 5.5VWM SOT143B"
     },
     "D10090": {
       "value": "PLVA650A,215",
@@ -20704,7 +20875,8 @@
         }
       },
       "internal_pn": "PLVA650A,215",
-      "manufacturer": "NXP Semiconductors"
+      "manufacturer": "NXP Semiconductors",
+      "description": "DIODE ZENER 5V 250MW SOT23"
     },
     "R194": {
       "value": "10K",
@@ -20784,7 +20956,8 @@
         "1": "TRXFE_IN_12V",
         "2": "5VD_B"
       },
-      "manufacturer": "Panasonic Electronic Components"
+      "manufacturer": "Panasonic Electronic Components",
+      "description": "RES SMD 300 OHM 1% 1/4W 0603"
     },
     "R193": {
       "value": "10K",
@@ -20855,7 +21028,8 @@
         "3": "N17734756"
       },
       "internal_pn": "CL-SB-12A-01T",
-      "manufacturer": "Copal Electronics Inc."
+      "manufacturer": "Copal Electronics Inc.",
+      "description": "Slide Switch SPDT Surface Mount"
     },
     "R208": {
       "value": "0Ohm",
@@ -20916,7 +21090,8 @@
         }
       },
       "internal_pn": "TS3USB221AQRSERQ1",
-      "manufacturer": "Texas Instruments"
+      "manufacturer": "Texas Instruments",
+      "description": "IC USB SWITCH DUAL 1X2 10UQFN"
     },
     "R207": {
       "value": "0Ohm",
@@ -20940,7 +21115,8 @@
         "2": "GND"
       },
       "internal_pn": "19S101-40ML5",
-      "manufacturer": "Rosenberger"
+      "manufacturer": "Rosenberger",
+      "description": "SMP STRAIGHT JACK PCB"
     },
     "C1509": {
       "value": "18pF",
@@ -21018,7 +21194,8 @@
       "pins": {
         "1": "V1P3_A",
         "2": "GND"
-      }
+      },
+      "description": "10uF 16V Ceramic Capacitor X6S 0603 (1608 Metric) 0.063\" L x 0.031\" W (1.60mm x 0.80mm)"
     },
     "C1514": {
       "value": "18pF",
@@ -21145,7 +21322,8 @@
       "pins": {
         "1": "V1P3_A",
         "2": "GND"
-      }
+      },
+      "description": "10uF 16V Ceramic Capacitor X6S 0603 (1608 Metric) 0.063\" L x 0.031\" W (1.60mm x 0.80mm)"
     },
     "C1510": {
       "value": "18pF",
@@ -21175,7 +21353,8 @@
         "2": "GND"
       },
       "internal_pn": "19S101-40ML5",
-      "manufacturer": "Rosenberger"
+      "manufacturer": "Rosenberger",
+      "description": "SMP STRAIGHT JACK PCB"
     },
     "C1511": {
       "value": "1000pF",
@@ -21329,7 +21508,8 @@
         "2": "GND_SIGNAL"
       },
       "internal_pn": "19S101-40ML5",
-      "manufacturer": "Rosenberger"
+      "manufacturer": "Rosenberger",
+      "description": "SMP STRAIGHT JACK PCB"
     },
     "C4410": {
       "value": "10pF",
@@ -21354,7 +21534,8 @@
         "2": "GND_SIGNAL"
       },
       "internal_pn": "19S101-40ML5",
-      "manufacturer": "Rosenberger"
+      "manufacturer": "Rosenberger",
+      "description": "SMP STRAIGHT JACK PCB"
     },
     "C1601": {
       "value": "18pF",
@@ -21422,7 +21603,8 @@
       },
       "mpn": "C1608X6S1C475K080AC",
       "internal_pn": "C1608X6S1C475K080AC",
-      "manufacturer": "TDK Corporation"
+      "manufacturer": "TDK Corporation",
+      "description": "CAP CER 4.7UF 16V X6S 0603"
     },
     "FB6318": {
       "value": "120E / 2A",
@@ -21431,7 +21613,8 @@
         "2": "VCC_MGTAVTT"
       },
       "internal_pn": "BLM18PG121SN1D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "FERRITE CHIP 120 OHM 2000MA 0603"
     },
     "R481": {
       "value": "10K",
@@ -21461,7 +21644,8 @@
         "2": "N19400850"
       },
       "internal_pn": "RC0402FR-0711K8L",
-      "manufacturer": "Yageo"
+      "manufacturer": "Yageo",
+      "description": "RES SMD 11.8K OHM 1% 1/16W 0402"
     },
     "R474": {
       "value": "10K",
@@ -21721,7 +21905,8 @@
       },
       "mpn": "C1608X6S1C475K080AC",
       "internal_pn": "C1608X6S1C475K080AC",
-      "manufacturer": "TDK Corporation"
+      "manufacturer": "TDK Corporation",
+      "description": "CAP CER 4.7UF 16V X6S 0603"
     },
     "C4629": {
       "value": "0.1uF",
@@ -21743,7 +21928,8 @@
         "1": "GND_SIGNAL",
         "2": "N19400850"
       },
-      "internal_pn": "RC0402FR-0710KL"
+      "internal_pn": "RC0402FR-0710KL",
+      "description": "RES SMD 10K OHM 1% 1/16W 0402"
     },
     "R476": {
       "value": "10K",
@@ -21759,7 +21945,8 @@
         "2": "GND_SIGNAL"
       },
       "internal_pn": "RC0201JR-0710RL",
-      "manufacturer": "Yageo"
+      "manufacturer": "Yageo",
+      "description": "RES SMD 10 OHM 5% 1/20W 0201"
     },
     "R1353": {
       "value": "100K",
@@ -21826,7 +22013,8 @@
       "value": "M3 Spacer",
       "pins": {},
       "internal_pn": "9774100360R",
-      "manufacturer": "Wurth Electronics Inc"
+      "manufacturer": "Wurth Electronics Inc",
+      "description": "Round Standoff Threaded M3x0.5 Steel 0.394\" (10.00mm)"
     },
     "R454": {
       "value": "1K",
@@ -22045,7 +22233,8 @@
         }
       },
       "internal_pn": "SN74AVC4T774RGYR",
-      "manufacturer": "Texas Instruments"
+      "manufacturer": "Texas Instruments",
+      "description": "IC BUS TRANSCVR 4BIT DUAL 16QFN"
     },
     "R457": {
       "value": "1K",
@@ -22199,7 +22388,8 @@
       "value": "M3 Spacer",
       "pins": {},
       "internal_pn": "9774100360R",
-      "manufacturer": "Wurth Electronics Inc"
+      "manufacturer": "Wurth Electronics Inc",
+      "description": "Round Standoff Threaded M3x0.5 Steel 0.394\" (10.00mm)"
     },
     "R1352": {
       "value": "100K",
@@ -22261,6 +22451,7 @@
       },
       "internal_pn": "BLM18PG330SN1D",
       "manufacturer": "Murata Electronics North America",
+      "description": "FERRITE BEAD 33 OHM 0603 1LN",
       "dns": true
     },
     "R11095": {
@@ -22278,6 +22469,7 @@
       },
       "internal_pn": "BLM18PG330SN1D",
       "manufacturer": "Murata Electronics North America",
+      "description": "FERRITE BEAD 33 OHM 0603 1LN",
       "dns": true
     },
     "C2032": {
@@ -22293,7 +22485,8 @@
         }
       },
       "internal_pn": "0.1UF",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "CAP CER 1000PF 100V X7R 0402"
     },
     "C599": {
       "value": "0.1uF",
@@ -22309,7 +22502,8 @@
         "K": "GND"
       },
       "internal_pn": "LTST-C190KGKT",
-      "manufacturer": "Lite-On Inc"
+      "manufacturer": "Lite-On Inc",
+      "description": "LED GREEN CLEAR 0603 SMD"
     },
     "R1232": {
       "value": "1M",
@@ -22319,6 +22513,7 @@
       },
       "internal_pn": "RC0402FR-071ML",
       "manufacturer": "Yageo",
+      "description": "RES SMD 1M OHM 1% 1/16W 0402",
       "dns": true
     },
     "R1244": {
@@ -22342,7 +22537,8 @@
         "2": "GND"
       },
       "internal_pn": "RC0402FR-07150KL",
-      "manufacturer": "Yageo"
+      "manufacturer": "Yageo",
+      "description": "RES SMD 150K OHM 1% 1/16W 0402"
     },
     "U7154": {
       "value": "SN74LVC1G08DCKR",
@@ -22369,7 +22565,8 @@
         }
       },
       "internal_pn": "SN74LVC1G08DCKR",
-      "manufacturer": "Texas Instruments"
+      "manufacturer": "Texas Instruments",
+      "description": "IC GATE AND 1CH 2-INP SC-70-5"
     },
     "R1231": {
       "value": "620E",
@@ -22378,7 +22575,8 @@
         "2": "N19265748"
       },
       "internal_pn": "ESR10EZPJ621",
-      "manufacturer": "Rohm Semiconductor"
+      "manufacturer": "Rohm Semiconductor",
+      "description": "RES SMD 620 OHM 5% 0.4W 0805"
     },
     "R4309": {
       "value": "0ohm",
@@ -22437,7 +22635,8 @@
         "2": "GND"
       },
       "internal_pn": "RC0402FR-0782KL",
-      "manufacturer": "Yageo"
+      "manufacturer": "Yageo",
+      "description": "RES SMD 82K OHM 1% 1/16W 0402"
     },
     "R11340": {
       "value": "121E",
@@ -22446,7 +22645,8 @@
         "2": "RF_FE_12V_PWR_CNTRL"
       },
       "internal_pn": "RC0402FR-07121RL",
-      "manufacturer": "Yageo"
+      "manufacturer": "Yageo",
+      "description": "RES SMD 121 OHM 1% 1/16W 0402"
     },
     "C4614": {
       "value": "0.1uF",
@@ -22504,7 +22704,8 @@
         }
       },
       "internal_pn": "TPS259241DRCR",
-      "manufacturer": "Texas Instruments"
+      "manufacturer": "Texas Instruments",
+      "description": "IC EFUSE 12V BFET DVR 5A 10VSON"
     },
     "C598": {
       "value": "0.1uF",
@@ -22571,6 +22772,7 @@
       },
       "internal_pn": "GRM1555C1E180JA01D",
       "manufacturer": "Murata Electronics North America",
+      "description": "18pF ±5% 25V Ceramic Capacitor C0G, NP0 0402 (1005 Metric)",
       "dns": true
     },
     "R10953": {
@@ -22580,7 +22782,8 @@
         "2": "BUFF_CLK_OUT0"
       },
       "internal_pn": "ERJ-2RKF95R3X",
-      "manufacturer": "Panasonic Electronic Components"
+      "manufacturer": "Panasonic Electronic Components",
+      "description": "RES SMD 95.3 OHM 1% 1/10W 0402"
     },
     "R11191": {
       "value": "820E",
@@ -22605,7 +22808,8 @@
         "2": "N19061366"
       },
       "internal_pn": "RC0402FR-0749R9L",
-      "manufacturer": "Yageo"
+      "manufacturer": "Yageo",
+      "description": "RES SMD 49.9 OHM 1% 1/16W 0402"
     },
     "C4487": {
       "value": "12pF",
@@ -22965,7 +23169,8 @@
         "2": "V3P3_CLK"
       },
       "internal_pn": "BLM18PG121SN1D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "FERRITE CHIP 120 OHM 2000MA 0603"
     },
     "C4470": {
       "value": "0.47uF",
@@ -23246,7 +23451,8 @@
       "pins": {
         "1": "FPGA_SCLK",
         "2": "N18654957"
-      }
+      },
+      "description": "RES SMD 22 OHM 1% 1/16W 0402"
     },
     "U7130": {
       "value": "N25Q512A",
@@ -23443,7 +23649,8 @@
         }
       },
       "internal_pn": "TS3A27518ERTWR",
-      "manufacturer": "Texas Instruments"
+      "manufacturer": "Texas Instruments",
+      "description": "IC MUX/DEMUX 6X1 24WQFN"
     },
     "R1194": {
       "value": "10K",
@@ -23511,6 +23718,7 @@
       },
       "internal_pn": "RC0402FR-07121RL",
       "manufacturer": "Yageo",
+      "description": "RES SMD 121 OHM 1% 1/16W 0402",
       "dns": true
     },
     "R1603": {
@@ -23547,6 +23755,7 @@
         "1": "N2997026",
         "2": "GND"
       },
+      "description": "10uF 16V Ceramic Capacitor X6S 0603 (1608 Metric) 0.063\" L x 0.031\" W (1.60mm x 0.80mm)",
       "dns": true
     },
     "L3402": {
@@ -23570,14 +23779,16 @@
         "2": "GND"
       },
       "internal_pn": "GRM033C81E104KE14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10uF ±10% 25V Ceramic Capacitor X6S 0201"
     },
     "FB3401": {
       "value": "42 Ohm",
       "pins": {
         "1": "N2992468",
         "2": "V1P8"
-      }
+      },
+      "description": "FERRITE BEAD 42 OHM 0805"
     },
     "R3414": {
       "value": "10K",
@@ -23598,7 +23809,8 @@
       "pins": {
         "1": "V1P3_B",
         "2": "GND"
-      }
+      },
+      "description": "10uF 16V Ceramic Capacitor X6S 0603 (1608 Metric) 0.063\" L x 0.031\" W (1.60mm x 0.80mm)"
     },
     "R4104": {
       "value": "0E",
@@ -23614,7 +23826,8 @@
         "2": "GND"
       },
       "mpn": "C3216X7S0J476M160AC",
-      "internal_pn": "C3216X7S0J476M160AC"
+      "internal_pn": "C3216X7S0J476M160AC",
+      "description": "CAP CER 47UF 6.3V X7S 1206"
     },
     "R3410": {
       "value": "10K",
@@ -23630,7 +23843,8 @@
         "2": "GND"
       },
       "internal_pn": "GRM033C81E104KE14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10uF ±10% 25V Ceramic Capacitor X6S 0201"
     },
     "TP67": {
       "value": "T POINT R",
@@ -23653,7 +23867,8 @@
       "pins": {
         "1": "N2988808",
         "2": "GND"
-      }
+      },
+      "description": "10uF 16V Ceramic Capacitor X6S 0603 (1608 Metric) 0.063\" L x 0.031\" W (1.60mm x 0.80mm)"
     },
     "C4122": {
       "value": "10uF",
@@ -23661,6 +23876,7 @@
         "1": "N3002699",
         "2": "GND"
       },
+      "description": "10uF 16V Ceramic Capacitor X6S 0603 (1608 Metric) 0.063\" L x 0.031\" W (1.60mm x 0.80mm)",
       "dns": true
     },
     "TP66": {
@@ -23679,14 +23895,16 @@
         "2": "GND"
       },
       "internal_pn": "GRM033C81E104KE14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10uF ±10% 25V Ceramic Capacitor X6S 0201"
     },
     "C3415": {
       "value": "10uF",
       "pins": {
         "1": "V1P3_A",
         "2": "GND"
-      }
+      },
+      "description": "10uF 16V Ceramic Capacitor X6S 0603 (1608 Metric) 0.063\" L x 0.031\" W (1.60mm x 0.80mm)"
     },
     "C3419": {
       "value": "0.1uF",
@@ -23695,14 +23913,16 @@
         "2": "GND"
       },
       "internal_pn": "GRM033C81E104KE14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10uF ±10% 25V Ceramic Capacitor X6S 0201"
     },
     "C3401": {
       "value": "10uF",
       "pins": {
         "1": "3P7V",
         "2": "GND"
-      }
+      },
+      "description": "10uF 16V Ceramic Capacitor X6S 0603 (1608 Metric) 0.063\" L x 0.031\" W (1.60mm x 0.80mm)"
     },
     "R3403": {
       "value": "10K",
@@ -23718,7 +23938,8 @@
         "2": "GND"
       },
       "internal_pn": "GRM033C81E104KE14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10uF ±10% 25V Ceramic Capacitor X6S 0201"
     },
     "C3428": {
       "value": "10000pF",
@@ -23739,7 +23960,8 @@
       "pins": {
         "1": "V1P3_B",
         "2": "GND"
-      }
+      },
+      "description": "10uF 16V Ceramic Capacitor X6S 0603 (1608 Metric) 0.063\" L x 0.031\" W (1.60mm x 0.80mm)"
     },
     "R3415": {
       "value": "10K",
@@ -23769,7 +23991,8 @@
         "2": "GND"
       },
       "mpn": "C3216X7S0J476M160AC",
-      "internal_pn": "C3216X7S0J476M160AC"
+      "internal_pn": "C3216X7S0J476M160AC",
+      "description": "CAP CER 47UF 6.3V X7S 1206"
     },
     "R3401": {
       "value": "10E",
@@ -23793,7 +24016,8 @@
         "2": "GND"
       },
       "internal_pn": "GRM033C81E104KE14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10uF ±10% 25V Ceramic Capacitor X6S 0201"
     },
     "C3423": {
       "value": "0.1uF",
@@ -23802,7 +24026,8 @@
         "2": "GND"
       },
       "internal_pn": "GRM033C81E104KE14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10uF ±10% 25V Ceramic Capacitor X6S 0201"
     },
     "U3402": {
       "value": "ADP1755ACPZ-R7",
@@ -23891,7 +24116,8 @@
         "2": "GND"
       },
       "internal_pn": "GRM033C81E104KE14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10uF ±10% 25V Ceramic Capacitor X6S 0201"
     },
     "C3407": {
       "value": "0.1uF",
@@ -23900,7 +24126,8 @@
         "2": "GND"
       },
       "internal_pn": "GRM033C81E104KE14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10uF ±10% 25V Ceramic Capacitor X6S 0201"
     },
     "U3400": {
       "value": "ADP2164ACPZ-R7",
@@ -23980,7 +24207,8 @@
       "pins": {
         "1": "V1P3_A",
         "2": "GND"
-      }
+      },
+      "description": "10uF 16V Ceramic Capacitor X6S 0603 (1608 Metric) 0.063\" L x 0.031\" W (1.60mm x 0.80mm)"
     },
     "C3420": {
       "value": "0.1uF",
@@ -23989,7 +24217,8 @@
         "2": "GND"
       },
       "internal_pn": "GRM033C81E104KE14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10uF ±10% 25V Ceramic Capacitor X6S 0201"
     },
     "R3404": {
       "value": "10K",
@@ -24005,7 +24234,8 @@
         "2": "GND"
       },
       "internal_pn": "GRM033C81E104KE14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10uF ±10% 25V Ceramic Capacitor X6S 0201"
     },
     "C3424": {
       "value": "0.1uF",
@@ -24014,7 +24244,8 @@
         "2": "GND"
       },
       "internal_pn": "GRM033C81E104KE14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10uF ±10% 25V Ceramic Capacitor X6S 0201"
     },
     "C3414": {
       "value": "0.1uF",
@@ -24023,7 +24254,8 @@
         "2": "GND"
       },
       "internal_pn": "GRM033C81E104KE14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10uF ±10% 25V Ceramic Capacitor X6S 0201"
     },
     "R3408": {
       "value": "3k",
@@ -24046,7 +24278,8 @@
         "2": "GND"
       },
       "mpn": "C3216X7S0J476M160AC",
-      "internal_pn": "C3216X7S0J476M160AC"
+      "internal_pn": "C3216X7S0J476M160AC",
+      "description": "CAP CER 47UF 6.3V X7S 1206"
     },
     "C3412": {
       "value": "1uF",
@@ -24062,7 +24295,8 @@
         "2": "GND"
       },
       "internal_pn": "GRM033C81E104KE14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10uF ±10% 25V Ceramic Capacitor X6S 0201"
     },
     "R3411": {
       "value": "10K",
@@ -24092,7 +24326,8 @@
         "2": "GND"
       },
       "internal_pn": "GRM033C81E104KE14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10uF ±10% 25V Ceramic Capacitor X6S 0201"
     },
     "R3402": {
       "value": "10K",
@@ -24108,7 +24343,8 @@
         "2": "GND"
       },
       "internal_pn": "GRM033C81E104KE14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10uF ±10% 25V Ceramic Capacitor X6S 0201"
     },
     "TP68": {
       "value": "T POINT R",
@@ -24208,7 +24444,8 @@
         "2": "GND"
       },
       "internal_pn": "GRM033C81E104KE14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10uF ±10% 25V Ceramic Capacitor X6S 0201"
     },
     "J3304": {
       "value": "CONNECTOR",
@@ -24475,7 +24712,8 @@
         "2": "ADI_AUXDAC1"
       },
       "internal_pn": "GRM033C81E104KE14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10uF ±10% 25V Ceramic Capacitor X6S 0201"
     },
     "R11210": {
       "value": "0E",
@@ -24694,7 +24932,8 @@
         "2": "N5130062"
       },
       "internal_pn": "ERJ-2RKF71R5X",
-      "manufacturer": "Panasonic Electronic Components"
+      "manufacturer": "Panasonic Electronic Components",
+      "description": "RES SMD 71.5 OHM 1% 1/10W 0402"
     },
     "R11213": {
       "value": "0E",
@@ -24801,6 +25040,7 @@
       },
       "internal_pn": "RC0402FR-07180RL",
       "manufacturer": "Yageo",
+      "description": "RES SMD 180 OHM 1% 1/16W 0402",
       "dns": true
     },
     "C1408": {
@@ -24810,7 +25050,8 @@
         "2": "RPDIF_AUXDAC"
       },
       "internal_pn": "GRM033C81E104KE14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10uF ±10% 25V Ceramic Capacitor X6S 0201"
     },
     "R11214": {
       "value": "0E",
@@ -24835,7 +25076,8 @@
         "2": "N5130062"
       },
       "internal_pn": "ERJ-2RKF95R3X",
-      "manufacturer": "Panasonic Electronic Components"
+      "manufacturer": "Panasonic Electronic Components",
+      "description": "RES SMD 95.3 OHM 1% 1/10W 0402"
     },
     "R11228": {
       "value": "0E",
@@ -25031,7 +25273,8 @@
         }
       },
       "internal_pn": "SN74AVC4T774RGYR",
-      "manufacturer": "Texas Instruments"
+      "manufacturer": "Texas Instruments",
+      "description": "IC BUS TRANSCVR 4BIT DUAL 16QFN"
     },
     "R512": {
       "value": "0E",
@@ -25134,7 +25377,8 @@
         }
       },
       "internal_pn": "SN74AVC4T774RGYR",
-      "manufacturer": "Texas Instruments"
+      "manufacturer": "Texas Instruments",
+      "description": "IC BUS TRANSCVR 4BIT DUAL 16QFN"
     },
     "R511": {
       "value": "0E",
@@ -25395,7 +25639,8 @@
         "2": "GND"
       },
       "internal_pn": "GRM033C81E104KE14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10uF ±10% 25V Ceramic Capacitor X6S 0201"
     },
     "U4000": {
       "value": "LT8640IUDC",
@@ -25526,7 +25771,8 @@
         "2": "GND"
       },
       "internal_pn": "GRM033C81E104KE14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10uF ±10% 25V Ceramic Capacitor X6S 0201"
     },
     "C4107": {
       "value": "0.1uF",
@@ -25535,7 +25781,8 @@
         "2": "GND"
       },
       "internal_pn": "GRM033C81E104KE14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10uF ±10% 25V Ceramic Capacitor X6S 0201"
     },
     "R10883": {
       "value": "0Ohm",
@@ -25564,6 +25811,7 @@
         "1": "N18641977",
         "2": "GND"
       },
+      "description": "10uF 16V Ceramic Capacitor X6S 0603 (1608 Metric) 0.063\" L x 0.031\" W (1.60mm x 0.80mm)",
       "dns": true
     },
     "R4016": {
@@ -25629,7 +25877,8 @@
         "2": "GND"
       },
       "internal_pn": "GRM033C81E104KE14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10uF ±10% 25V Ceramic Capacitor X6S 0201"
     },
     "C4110": {
       "value": "10000pF",
@@ -25666,7 +25915,8 @@
         "2": "GND"
       },
       "internal_pn": "GRM033C81E104KE14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10uF ±10% 25V Ceramic Capacitor X6S 0201"
     },
     "C4003": {
       "value": "0.1uF",
@@ -25733,7 +25983,8 @@
         "2": "GND"
       },
       "internal_pn": "GRM033C81E104KE14D",
-      "manufacturer": "Murata Electronics North America"
+      "manufacturer": "Murata Electronics North America",
+      "description": "0.10uF ±10% 25V Ceramic Capacitor X6S 0201"
     },
     "R4009": {
       "value": "100k",
@@ -25743,7 +25994,8 @@
       },
       "mpn": "AT0402BRD07100KL",
       "internal_pn": "AT0402BRD07100KL",
-      "manufacturer": "Yageo\t"
+      "manufacturer": "Yageo\t",
+      "description": "Thin Film Resistors - SMD 100 Kohm 0.1% Tol. AEC-Q200"
     },
     "C4007": {
       "value": "47uF",
@@ -25772,7 +26024,8 @@
       "pins": {
         "1": "N18641896",
         "2": "GND"
-      }
+      },
+      "description": "10uF 16V Ceramic Capacitor X6S 0603 (1608 Metric) 0.063\" L x 0.031\" W (1.60mm x 0.80mm)"
     },
     "C4484": {
       "value": "0.1uF",
@@ -25853,7 +26106,8 @@
         "2": "GND"
       },
       "internal_pn": "19S101-40ML5",
-      "manufacturer": "Rosenberger"
+      "manufacturer": "Rosenberger",
+      "description": "SMP STRAIGHT JACK PCB"
     },
     "C4413": {
       "value": "10pF",
