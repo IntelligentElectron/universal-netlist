@@ -11,7 +11,6 @@
  *   help, -h           Show help
  *   update|upgrade     Check for and install updates
  *   uninstall          Remove binary and PATH entries
- *   export-telemetry   Export telemetry data as a zip file
  *   <tool> [design] --flag value ...         Run a tool, printing its JSON result: any
  *                                            MCP tool, or export_design (command line only)
  */
@@ -21,7 +20,7 @@ import {
   printHelp,
   handleUpdateCommand,
   handleUninstallCommand,
-  handleExportTelemetryCommand,
+  handleRemovedExportTelemetry,
   handleQueryCommand,
   handleUnknownCommand,
   handleRenamedCommand,
@@ -30,7 +29,39 @@ import { toolNamed } from "./cli/query.js";
 import { autoUpdate, reexec } from "./cli/updater.js";
 import { normalizeCliArgs } from "./cli/args.js";
 import { SELF_UPDATE_ENABLED } from "./build-flags.js";
+import { VERSION, BINARY_NAME } from "./version.js";
+import {
+  initOtel,
+  instrumentCommand,
+  shutdownOtel,
+  type CommandReport,
+} from "./telemetry/index.js";
 import { runServer } from "./server.js";
+
+/**
+ * Run one command under telemetry, flushing before the process exits: a command
+ * lasts seconds, too short for batch intervals. A flush that outlasts its limit
+ * leaves exports holding the event loop, so exit once stdout has drained, with
+ * the exit code the command set. Off, this is a plain call.
+ */
+const runCommand = async (
+  command: string,
+  run: () => Promise<CommandReport | void> | CommandReport | void
+): Promise<void> => {
+  await initOtel({ serviceName: BINARY_NAME, serviceVersion: VERSION, quietExports: true });
+  let flushed = true;
+  try {
+    await instrumentCommand(
+      { executable: BINARY_NAME, command, argv: process.argv.slice(2) },
+      async () => run()
+    );
+  } finally {
+    flushed = await shutdownOtel();
+  }
+  if (!flushed) {
+    process.stdout.write("", () => process.exit(process.exitCode));
+  }
+};
 
 const main = async (): Promise<void> => {
   // A tool's name first is a query, whose tokens are its own: a pattern or a
@@ -38,14 +69,19 @@ const main = async (): Promise<void> => {
   const raw = process.argv.slice(2);
   const tool = toolNamed(raw[0]);
   if (tool) {
-    await handleQueryCommand(tool, raw.slice(1));
+    await runCommand(tool.name, () => handleQueryCommand(tool, raw.slice(1)));
     return;
   }
 
   // export-json became the export_design tool. Say so instead of treating it
   // as a mistyped word, or as a flag that starts the server.
   if (raw[0] === "export-json" || raw[0] === "--export-json") {
-    handleRenamedCommand(raw[0], "export_design");
+    await runCommand("export-json", () => handleRenamedCommand(raw[0], "export_design"));
+    return;
+  }
+
+  if (raw[0] === "export-telemetry" || raw[0] === "--export-telemetry") {
+    await runCommand("export-telemetry", () => handleRemovedExportTelemetry(raw[0]));
     return;
   }
 
@@ -55,38 +91,32 @@ const main = async (): Promise<void> => {
 
   // Handle --version / -v
   if (args.includes("--version") || args.includes("-v")) {
-    printVersion();
+    await runCommand("version", printVersion);
     return;
   }
 
   // Handle --help / -h
   if (args.includes("--help") || args.includes("-h")) {
-    printHelp();
+    await runCommand("help", printHelp);
     return;
   }
 
   // Handle --update
   if (args.includes("--update")) {
-    await handleUpdateCommand();
+    await runCommand("update", handleUpdateCommand);
     return;
   }
 
   // Handle --uninstall
   if (args.includes("--uninstall")) {
-    await handleUninstallCommand();
-    return;
-  }
-
-  // Handle --export-telemetry
-  if (args.includes("--export-telemetry")) {
-    await handleExportTelemetryCommand();
+    await runCommand("uninstall", handleUninstallCommand);
     return;
   }
 
   // Any other word is a mistyped command or tool. Starting the server on it
   // would wait on stdin for a client that is not there.
   if (args[0] !== undefined && !args[0].startsWith("-")) {
-    handleUnknownCommand(args[0]);
+    await runCommand("unknown", () => handleUnknownCommand(args[0]));
     return;
   }
 

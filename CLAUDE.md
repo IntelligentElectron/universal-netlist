@@ -120,6 +120,9 @@ curl -fsSL https://bun.sh/install | bash -s "bun-v$(cat .bun-version)"
 Bump `.bun-version` in its own PR, so the Bun upgrade is visible in history next to the
 first release that shipped with it.
 
+`BUILD_OTEL_DEFAULTS` bakes OpenTelemetry defaults into a packaged binary; see
+[docs/observability.md](docs/observability.md#packaged-builds). Release builds leave it unset.
+
 macOS binaries require code signing with `entitlements.plist` (for Bun JIT) and Apple notarization.
 
 ### Before Committing

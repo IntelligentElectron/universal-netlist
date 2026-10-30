@@ -196,3 +196,34 @@ describe("build-binary.sh version resolution", () => {
     expect(result.stdout).toMatch(/version=\S+, channel=github/);
   });
 });
+
+describe("BUILD_OTEL_DEFAULTS", () => {
+  const build = (defaults: string) =>
+    spawnSync(SCRIPT, [BAD_TARGET, path.join(tmpdir(), "un-otel-defaults")], {
+      encoding: "utf8",
+      env: { ...process.env, BUILD_OTEL_DEFAULTS: defaults },
+    });
+
+  it.skipIf(!hasBun).each([
+    ["text that is no JSON", "{not json"],
+    ["a value that is no object", '"https://collector.example"'],
+    ["a credential", '{"headers":{"Authorization":"Bearer secret"}}'],
+    ["an empty endpoint", '{"endpoint":""}'],
+    ["an endpoint that is no URL", '{"endpoint":"collector"}'],
+    ["a credential in the endpoint", '{"endpoint":"https://user:token@collector.example"}'],
+    ["a resource attribute that is no text", '{"resourceAttributes":{"a":1}}'],
+  ])("rejects %s before compiling", (_label, defaults) => {
+    const result = build(defaults);
+    expect(result.status).not.toBe(0);
+    expect(result.stderr).toContain("Invalid BUILD_OTEL_DEFAULTS");
+    expect(result.stdout).not.toContain("Building");
+  });
+
+  it.skipIf(!hasBun)("accepts the three keys", () => {
+    const result = build(
+      '{"endpoint":"https://collector.example","protocol":"http/json","resourceAttributes":{"team":"eda"}}'
+    );
+    expect(result.stderr).not.toContain("Invalid BUILD_OTEL_DEFAULTS");
+    expect(result.stdout).toContain("Building");
+  });
+});

@@ -1,0 +1,54 @@
+{
+  "name": "otel-endpoint",
+  "rules": [
+    {
+      "when": {
+        "signal_env": [
+          "empty"
+        ],
+        "general_env": [
+          "set"
+        ]
+      },
+      "outcome": "general env",
+      "next": "",
+      "cells": 2
+    },
+    {
+      "when": {
+        "signal_env": [
+          "empty"
+        ],
+        "general_env": [
+          "empty"
+        ],
+        "build_default": [
+          "empty"
+        ]
+      },
+      "outcome": "sdk default",
+      "next": "",
+      "cells": 1
+    },
+    {
+      "when": {
+        "signal_env": [
+          "empty"
+        ],
+        "general_env": [
+          "empty"
+        ],
+        "build_default": [
+          "set"
+        ]
+      },
+      "outcome": "build default",
+      "next": "",
+      "cells": 1
+    }
+  ],
+  "default": {
+    "outcome": "signal env",
+    "next": ""
+  }
+}

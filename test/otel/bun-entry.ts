@@ -5,13 +5,19 @@
  * instrumented call, flushes, and exits. Drive it with OTEL_* env pointed at a
  * receiver; the binary should deliver a span/metric/log and exit 0.
  */
-import { initOtel, instrumentTool, shutdownOtel } from "../../src/telemetry/index.js";
+import {
+  initOtel,
+  instrumentCommand,
+  instrumentTool,
+  shutdownOtel,
+} from "../../src/telemetry/index.js";
 
 const main = async (): Promise<void> => {
   await initOtel({ serviceName: "bun-smoke", serviceVersion: "0.0.0" });
   await instrumentTool("smoke_tool", { hello: "world" }, async () => ({
     content: [{ type: "text", text: "ok" }],
   }));
+  await instrumentCommand({ executable: "bun-smoke", command: "smoke", argv: [] }, async () => {});
   await shutdownOtel();
   process.stderr.write("[bun-entry] done\n");
 };

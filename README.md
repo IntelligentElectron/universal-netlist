@@ -162,9 +162,9 @@ gh skill install IntelligentElectron/universal-netlist universal-netlist --agent
 
 ## Observability (OpenTelemetry)
 
-The server can emit [OpenTelemetry](https://opentelemetry.io/) **traces, metrics, and logs** for every tool call, which report which tools are used, how long they take, and what fails. Any OTLP-compatible backend receives them (an OpenTelemetry Collector, Jaeger, Tempo, Prometheus, Honeycomb, Datadog, or a managed cloud tracing service).
+The server and its command line can emit [OpenTelemetry](https://opentelemetry.io/) **traces, metrics, and logs** for every tool call and command, which report what is used, how long they take, and what fails. Any OTLP-compatible backend receives them (an OpenTelemetry Collector, Jaeger, Tempo, Prometheus, Honeycomb, Datadog, or a managed cloud tracing service).
 
-OpenTelemetry is **disabled by default** and is enabled and configured through the standard `OTEL_*` environment variables, with no code changes. Separately, the server keeps a [local usage log](docs/observability.md#local-usage-log) on your disk.
+OpenTelemetry is **disabled by default** and is enabled and configured through the standard `OTEL_*` environment variables, with no code changes. To keep telemetry on your own disk instead, set `UNIVERSAL_NETLIST_OTEL_DIR`.
 
 See **[Observability (OpenTelemetry)](docs/observability.md)** for setup, configuration, and the full list of emitted spans, metrics, and logs.
 
@@ -176,7 +176,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines.
 
 ## Privacy Policy
 
-The server runs on your machine and sends the author nothing; it keeps a local usage log on your disk. The full policy is [PRIVACY.md](PRIVACY.md).
+The server runs on your machine and sends the author nothing, and keeps no record of its use unless you turn telemetry on. The full policy is [PRIVACY.md](PRIVACY.md).
 
 ## About
 

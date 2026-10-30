@@ -10,7 +10,7 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach } from "vitest";
 import { userInfo } from "node:os";
 import { logs, type LogRecord, type LoggerProvider } from "@opentelemetry/api";
-import { initOtel, instrumentTool, shutdownOtel } from "./otel.js";
+import { initOtel, instrumentCommand, instrumentTool, shutdownOtel } from "./otel.js";
 import { useClosedOtelExporter } from "../../test/helpers/otel-environment.js";
 
 const captured: LogRecord[] = [];
@@ -42,6 +42,9 @@ afterAll(async () => {
 beforeEach(() => {
   captured.length = 0;
   delete process.env.OTEL_CAPTURE_TOOL_ARGS;
+  delete process.env.UNIVERSAL_NETLIST_CAPTURE_ARGS;
+  delete process.env.UNIVERSAL_NETLIST_DESIGN_ROOT;
+  process.exitCode = undefined;
 });
 
 const lastRecord = (): LogRecord => {
@@ -66,14 +69,38 @@ describe("instrumentTool log records", () => {
     expect(record.attributes?.span_id).toBeTypeOf("string");
   });
 
-  it("mirrors enduser.id onto the record", async () => {
+  it("mirrors the user attributes onto the record", async () => {
     await instrumentTool("demo_tool", {}, async () => "ok");
 
-    expect(lastRecord().attributes?.["enduser.id"]).toBe(userInfo().username);
+    expect(lastRecord().attributes).toMatchObject({
+      "user.name": userInfo().username,
+      "enduser.id": userInfo().username,
+    });
   });
 
-  it("captures tool.args on the record when OTEL_CAPTURE_TOOL_ARGS is set", async () => {
+  it("records a design's path relative to the root, only when a root is set", async () => {
+    const root = process.cwd();
+    const design = `${root}/boards/a/board.kicad_pro`;
+
+    await instrumentTool("demo_tool", { design }, async () => "ok");
+    expect(lastRecord().attributes ?? {}).not.toHaveProperty("universal_netlist.design.path");
+
+    captured.length = 0;
+    process.env.UNIVERSAL_NETLIST_DESIGN_ROOT = root;
+    await instrumentTool("demo_tool", { design }, async () => "ok");
+    expect(lastRecord().attributes?.["universal_netlist.design.path"]).toBe(
+      "boards/a/board.kicad_pro"
+    );
+  });
+
+  it("captures tool.args under the deprecated name's documented 1", async () => {
     process.env.OTEL_CAPTURE_TOOL_ARGS = "1";
+    await instrumentTool("demo_tool", { a: 1 }, async () => "ok");
+    expect(lastRecord().attributes?.["tool.args"]).toBe(JSON.stringify({ a: 1 }));
+  });
+
+  it("captures tool.args on the record when UNIVERSAL_NETLIST_CAPTURE_ARGS is true", async () => {
+    process.env.UNIVERSAL_NETLIST_CAPTURE_ARGS = "TRUE";
     const args = { design: "board.kicad_pro", pattern: "^VCC" };
 
     await instrumentTool("demo_tool", args, async () => "ok");
@@ -81,14 +108,14 @@ describe("instrumentTool log records", () => {
     expect(lastRecord().attributes?.["tool.args"]).toBe(JSON.stringify(args));
   });
 
-  it("omits tool.args when OTEL_CAPTURE_TOOL_ARGS is unset", async () => {
+  it("omits tool.args when capture is not asked for", async () => {
     await instrumentTool("demo_tool", { design: "board.kicad_pro" }, async () => "ok");
 
     expect(lastRecord().attributes ?? {}).not.toHaveProperty("tool.args");
   });
 
-  it("keeps enduser.id and args on error records", async () => {
-    process.env.OTEL_CAPTURE_TOOL_ARGS = "true";
+  it("keeps the user and args on error records", async () => {
+    process.env.UNIVERSAL_NETLIST_CAPTURE_ARGS = "true";
 
     await expect(
       instrumentTool("demo_tool", { a: 1 }, async () => {
@@ -188,5 +215,68 @@ describe("instrumentTool log records", () => {
       "error.message": "Unknown error",
     });
     expect(lastRecord().attributes ?? {}).not.toHaveProperty("error.class");
+  });
+});
+
+describe("instrumentCommand log records", () => {
+  const invocation = { executable: "universal-netlist", command: "search_nets", argv: ["a", "b"] };
+
+  it("records a success with the CLI conventions' attributes", async () => {
+    await instrumentCommand(invocation, async () => {});
+
+    const record = lastRecord();
+    expect(record.eventName).toBe("universal_netlist.command.completed");
+    expect(record.severityText).toBe("INFO");
+    expect(record.attributes).toMatchObject({
+      "process.executable.name": "universal-netlist",
+      "process.exit.code": 0,
+      "process.pid": process.pid,
+      "universal_netlist.command": "search_nets",
+    });
+    expect(record.attributes ?? {}).not.toHaveProperty("error.type");
+    expect(record.attributes ?? {}).not.toHaveProperty("process.command_args");
+  });
+
+  it("classifies a failure from the message the command reports", async () => {
+    await instrumentCommand(invocation, async () => {
+      process.exitCode = 1;
+      return { errorMessage: "Design file not found" };
+    });
+
+    expect(lastRecord().severityText).toBe("ERROR");
+    expect(lastRecord().attributes).toMatchObject({
+      "process.exit.code": 1,
+      "error.type": "not_found",
+      "error.message": "Design file not found",
+    });
+  });
+
+  it("keeps the exit code a command set and records its arguments only on request", async () => {
+    process.env.UNIVERSAL_NETLIST_CAPTURE_ARGS = "true";
+    await instrumentCommand(invocation, async () => {
+      process.exitCode = 2;
+      return { errorMessage: "--pattern: required" };
+    });
+
+    expect(process.exitCode).toBe(2);
+    expect(lastRecord().attributes).toMatchObject({
+      "error.type": "invalid_argument",
+      "process.command_args": ["universal-netlist", "a", "b"],
+    });
+  });
+
+  it("records a throw as exit 1 and passes it on", async () => {
+    await expect(
+      instrumentCommand(invocation, async () => {
+        throw new TypeError("boom");
+      })
+    ).rejects.toThrow("boom");
+
+    expect(lastRecord().attributes).toMatchObject({
+      "process.exit.code": 1,
+      "error.type": "internal",
+      "error.class": "TypeError",
+      "error.message": "boom",
+    });
   });
 });

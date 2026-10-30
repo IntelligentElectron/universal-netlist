@@ -37,7 +37,9 @@ const run = async (): Promise<void> => {
     () =>
       receiver.spans().some((s) => s.name === "tool/smoke_tool") &&
       receiver.metrics().some((m) => m.name === "tool.calls") &&
-      receiver.logs().some((l) => l.body === "tool/smoke_tool success"),
+      receiver.logs().some((l) => l.body === "tool/smoke_tool success") &&
+      receiver.spans().some((s) => s.name === "bun-smoke smoke") &&
+      receiver.metrics().some((m) => m.name === "universal_netlist.command.duration"),
     5000
   );
 

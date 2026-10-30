@@ -1,0 +1,8 @@
+{
+  "name": "otel-command-error",
+  "assumes": ["Telemetry is on and the command has finished"],
+  "dimensions": {
+    "exit_code": ["0", "1", "2"],
+    "failure": ["none", "classifiable", "unclassifiable"]
+  }
+}

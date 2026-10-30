@@ -1,0 +1,9 @@
+{
+  "name": "otel-design-path",
+  "assumes": ["Telemetry is on and the command or tool names a design"],
+  "dimensions": {
+    "root": ["unset", "set"],
+    "extension": ["design", "other"],
+    "location": ["inside_root", "outside_root"]
+  }
+}

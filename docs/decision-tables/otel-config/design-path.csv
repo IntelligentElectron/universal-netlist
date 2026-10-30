@@ -1,0 +1,9 @@
+root,extension,location,outcome,next,status,note
+unset,design,inside_root,omitted,,decided,Off by default (issue #277)
+unset,design,outside_root,omitted,,decided,Off by default (issue #277)
+unset,other,inside_root,omitted,,decided,Off by default (issue #277)
+unset,other,outside_root,omitted,,decided,Off by default (issue #277)
+set,design,inside_root,relative path,,decided,Relative to the root (issue #277)
+set,design,outside_root,omitted,,decided,"Never an absolute path, and nothing outside the root (issue #277)"
+set,other,inside_root,omitted,,decided,Only recognised design files (issue #277)
+set,other,outside_root,omitted,,decided,Only recognised design files (issue #277)

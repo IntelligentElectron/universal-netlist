@@ -29,6 +29,7 @@ export const canListenOnLoopback = async (): Promise<boolean> =>
 
 /** A decoded OTLP attribute value (only the subset we assert on). */
 type AnyValue = {
+  arrayValue?: { values?: AnyValue[] };
   stringValue?: string;
   intValue?: string | number;
   doubleValue?: number;
@@ -52,6 +53,9 @@ export interface CapturedMetric {
 export interface CapturedLog {
   body?: string;
   severityText?: string;
+  eventName?: string;
+  traceId?: string;
+  spanId?: string;
   attributes: Record<string, string | number | boolean>;
 }
 
@@ -61,7 +65,10 @@ const decodeAttrs = (
   const out: Record<string, string | number | boolean> = {};
   for (const a of attrs ?? []) {
     const v = a.value ?? {};
-    if (v.stringValue !== undefined) out[a.key] = v.stringValue;
+    if (v.arrayValue) {
+      // Arrays are asserted on as their joined text.
+      out[a.key] = (v.arrayValue.values ?? []).map((item) => item.stringValue).join(" ");
+    } else if (v.stringValue !== undefined) out[a.key] = v.stringValue;
     else if (v.intValue !== undefined) out[a.key] = Number(v.intValue);
     else if (v.doubleValue !== undefined) out[a.key] = v.doubleValue;
     else if (v.boolValue !== undefined) out[a.key] = v.boolValue;
@@ -172,6 +179,9 @@ export class OtlpReceiver {
             out.push({
               body: lr.body?.stringValue,
               severityText: lr.severityText,
+              eventName: lr.eventName,
+              traceId: lr.traceId,
+              spanId: lr.spanId,
               attributes: decodeAttrs(lr.attributes),
             });
           }

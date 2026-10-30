@@ -259,6 +259,10 @@ export interface QueryOutcome {
   readonly exitCode: 0 | 1 | 2;
   readonly stdout?: string;
   readonly stderr?: string;
+  /** Why the call failed, for telemetry. */
+  readonly errorMessage?: string;
+  /** The design the call named. */
+  readonly design?: unknown;
 }
 
 /** Whether a tool's result reports a failure. */
@@ -280,6 +284,7 @@ export const runQuery = async (
   const usageError = (message: string): QueryOutcome => ({
     exitCode: 2,
     stderr: `error: ${message}\nusage: ${usageLine(tool)}\nRun '${BINARY_NAME} ${tool.name} --help' for every flag.`,
+    errorMessage: message,
   });
   if (parsed.kind === "usage") return usageError(parsed.message);
 
@@ -304,7 +309,12 @@ export const runQuery = async (
     result = { error: error instanceof Error ? error.message : String(error) };
   }
   const json = options.isTTY ? JSON.stringify(result, null, 2) : JSON.stringify(result);
-  return { exitCode: isError(result) ? 1 : 0, stdout: json };
+  return {
+    exitCode: isError(result) ? 1 : 0,
+    stdout: json,
+    design: parsed.args.design,
+    ...(isError(result) ? { errorMessage: String((result as { error: unknown }).error) } : {}),
+  };
 };
 
 /** The registry tool a command-line word names, if any. */

@@ -1,0 +1,46 @@
+{
+  "name": "otel-command-error",
+  "rules": [
+    {
+      "when": {
+        "exit_code": [
+          "2"
+        ]
+      },
+      "outcome": "invalid_argument",
+      "next": "",
+      "cells": 3
+    },
+    {
+      "when": {
+        "exit_code": [
+          "1"
+        ],
+        "failure": [
+          "none",
+          "unclassifiable"
+        ]
+      },
+      "outcome": "internal",
+      "next": "",
+      "cells": 2
+    },
+    {
+      "when": {
+        "exit_code": [
+          "1"
+        ],
+        "failure": [
+          "classifiable"
+        ]
+      },
+      "outcome": "classified",
+      "next": "",
+      "cells": 1
+    }
+  ],
+  "default": {
+    "outcome": "none",
+    "next": ""
+  }
+}

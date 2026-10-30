@@ -1,0 +1,9 @@
+{
+  "name": "otel-endpoint",
+  "assumes": ["The signal's destination is OTLP"],
+  "dimensions": {
+    "signal_env": ["empty", "set"],
+    "general_env": ["empty", "set"],
+    "build_default": ["empty", "set"]
+  }
+}

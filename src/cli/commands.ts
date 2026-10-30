@@ -1,13 +1,15 @@
 /**
- * CLI command handlers for --version, --help, --update, --uninstall, --export-telemetry,
- * and the tool commands.
+ * CLI command handlers for --version, --help, --update, --uninstall, and the tool commands.
+ *
+ * A handler that fails sets `process.exitCode` and reports why, rather than calling
+ * `process.exit`: telemetry records and flushes the command once it returns.
  */
 
 import { existsSync, readdirSync, rmdirSync, unlinkSync } from "node:fs";
 import { basename, dirname, join } from "node:path";
 import { VERSION, GITHUB_REPO, BINARY_NAME, NPM_PACKAGE } from "../version.js";
 import { SELF_UPDATE_ENABLED } from "../build-flags.js";
-import { exportTelemetry } from "../telemetry/index.js";
+import type { CommandReport } from "../telemetry/index.js";
 import { checkForUpdate, performUpdate } from "./updater.js";
 import { confirm } from "./prompts.js";
 import { removeFromPath } from "./shell.js";
@@ -22,6 +24,13 @@ import {
   diskCacheMaxBytes,
   resolveDiskCacheDir,
 } from "../service/disk-cache.js";
+
+/** Print why a command failed, exit 1 once it returns, and report it to telemetry. */
+const failCommand = (message: string): CommandReport => {
+  console.error(message);
+  process.exitCode = 1;
+  return { errorMessage: message };
+};
 
 /**
  * Print version information.
@@ -67,7 +76,6 @@ Options:
 Commands:
   update|upgrade       Check for updates and install if available
   uninstall            Remove the binary and its PATH entries
-  export-telemetry     Export telemetry data as a zip file
 
 A tool prints its result as JSON on stdout and exits 1 when the result has an error
 field, 2 on a usage error. --cache, UNIVERSAL_NETLIST_CACHE=1 or UNIVERSAL_NETLIST_CACHE_DIR
@@ -87,7 +95,7 @@ More info:
  * Checks for updates and installs if available.
  * For npm installs, directs users to use npm update instead.
  */
-export const handleUpdateCommand = async (): Promise<void> => {
+export const handleUpdateCommand = async (): Promise<CommandReport | void> => {
   // A packaged build's file belongs to the package manager that installed it,
   // so the update belongs there too.
   if (!SELF_UPDATE_ENABLED) {
@@ -104,8 +112,7 @@ export const handleUpdateCommand = async (): Promise<void> => {
     const check = await checkForUpdate();
 
     if (check.error) {
-      console.error(`Error checking for updates: ${check.error}`);
-      process.exit(1);
+      return failCommand(`Error checking for updates: ${check.error}`);
     }
 
     if (!check.updateAvailable) {
@@ -125,8 +132,7 @@ export const handleUpdateCommand = async (): Promise<void> => {
   const check = await checkForUpdate();
 
   if (check.error) {
-    console.error(`Error checking for updates: ${check.error}`);
-    process.exit(1);
+    return failCommand(`Error checking for updates: ${check.error}`);
   }
 
   if (!check.updateAvailable) {
@@ -137,16 +143,14 @@ export const handleUpdateCommand = async (): Promise<void> => {
   console.log(`Update available: ${VERSION} -> ${check.latestVersion}`);
 
   if (!check.downloadUrl) {
-    console.error("No download URL available for your platform");
-    process.exit(1);
+    return failCommand("No download URL available for your platform");
   }
 
   console.log("Downloading update...");
   const result = await performUpdate(check.downloadUrl, check.latestVersion!);
 
   if (!result.success) {
-    console.error(`Update failed: ${result.error}`);
-    process.exit(1);
+    return failCommand(`Update failed: ${result.error}`);
   }
 
   console.log(`Updated from ${result.previousVersion} to ${result.newVersion}`);
@@ -237,7 +241,7 @@ export const handleUninstallCommand = async (): Promise<void> => {
   console.log(`${BINARY_NAME} has been uninstalled.`);
 };
 
-/** What the installer's directory holds beside `bin/`: the local telemetry log and the `.mcpb` extension package. */
+/** What the installer's directory can hold beside `bin/`: the usage log earlier versions wrote, and the `.mcpb` extension package. */
 const INSTALL_FILES = ["telemetry.jsonl", `${BINARY_NAME}.mcpb`];
 
 const listDirectory = (directory: string): string[] => {
@@ -245,20 +249,6 @@ const listDirectory = (directory: string): string[] => {
     return readdirSync(directory);
   } catch {
     return [];
-  }
-};
-
-/**
- * Handle --export-telemetry command.
- * Exports telemetry data as a zip file in the current working directory.
- */
-export const handleExportTelemetryCommand = async (): Promise<void> => {
-  try {
-    const zipPath = await exportTelemetry();
-    console.log(zipPath);
-  } catch (error) {
-    console.error(error instanceof Error ? error.message : String(error));
-    process.exit(1);
   }
 };
 
@@ -286,7 +276,7 @@ export const queryContext = async (
 export const handleQueryCommand = async (
   tool: AnyToolDefinition,
   tokens: readonly string[]
-): Promise<void> => {
+): Promise<CommandReport> => {
   const outcome = await runQuery(tool, tokens, {
     isTTY: Boolean(process.stdout.isTTY),
     context: (cache) => queryContext(cache),
@@ -299,10 +289,11 @@ export const handleQueryCommand = async (
   if (outcome.stdout !== undefined) process.stdout.write(`${outcome.stdout}\n`);
   if (outcome.stderr !== undefined) process.stderr.write(`${outcome.stderr}\n`);
   process.exitCode = outcome.exitCode;
+  return { errorMessage: outcome.errorMessage, design: outcome.design };
 };
 
 /** A first word that is neither a command nor a tool: say what is, and exit 2. */
-export const handleUnknownCommand = (word: string): void => {
+export const handleUnknownCommand = (word: string): CommandReport => {
   process.stderr.write(
     `error: '${word}' is not a command or a tool.\n` +
       `Tools (run '${BINARY_NAME} <tool> --help' for one's flags):\n${toolList()}\n` +
@@ -310,13 +301,27 @@ export const handleUnknownCommand = (word: string): void => {
       `Run '${BINARY_NAME} help' for the other commands.\n`
   );
   process.exitCode = 2;
+  // Free text from the command line stays out of telemetry.
+  return { errorMessage: "Not a command or a tool" };
 };
 
 /** A command that was renamed: name its new spelling, and exit 2. */
-export const handleRenamedCommand = (word: string, replacement: string): void => {
+export const handleRenamedCommand = (word: string, replacement: string): CommandReport => {
   process.stderr.write(
     `error: '${word}' is now the '${replacement}' tool.\n` +
       `Run '${BINARY_NAME} ${replacement} --help' for its flags.\n`
   );
   process.exitCode = 2;
+  return { errorMessage: `'${word}' is now the '${replacement}' tool` };
+};
+
+/** The command that wrote the usage log, which is gone: say what replaces it, and exit 2. */
+export const handleRemovedExportTelemetry = (word: string): CommandReport => {
+  process.stderr.write(
+    `error: '${word}' was removed along with the local usage log.\n` +
+      `To keep telemetry on disk, set UNIVERSAL_NETLIST_OTEL_DIR; see docs/observability.md.\n` +
+      `A telemetry.jsonl an earlier version wrote is still there, as a plain file.\n`
+  );
+  process.exitCode = 2;
+  return { errorMessage: `'${word}' was removed` };
 };

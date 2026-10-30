@@ -5,16 +5,10 @@
  * Supports Cadence OrCAD/CIS, Altium Designer, KiCad, and Universal Netlist formats.
  */
 
-import crypto from "node:crypto";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { VERSION } from "./version.js";
-import {
-  initTelemetry,
-  withTelemetry,
-  instrumentMcpToolCalls,
-  initOtel,
-} from "./telemetry/index.js";
+import { withTelemetry, instrumentMcpToolCalls, initOtel } from "./telemetry/index.js";
 import { SERVER_INSTRUCTIONS } from "./descriptions.js";
 import { TOOLS } from "./tools/index.js";
 import { serviceContextFromEnvironment, type ServiceContext } from "./service/context.js";
@@ -86,7 +80,6 @@ export const createServer = (
  * Run the MCP server with stdio transport.
  */
 export const runServer = async (): Promise<void> => {
-  initTelemetry(crypto.randomUUID());
   // Opt-in OpenTelemetry (no-op unless OTEL_* env is configured).
   await initOtel({ serviceName: "universal-netlist", serviceVersion: VERSION });
   const server = createServer();

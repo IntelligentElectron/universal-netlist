@@ -18,6 +18,12 @@
 #            Held to A-Za-z0-9 and . + _ ~ : -, the characters a version is
 #            written with, so it cannot break out of the string it compiles
 #            into and leave a binary reporting some truncation of itself.
+#   BUILD_OTEL_DEFAULTS
+#            OpenTelemetry defaults baked into the binary, as a JSON object with
+#            any of the keys endpoint, protocol and resourceAttributes. Each
+#            applies only when its OTEL_* variable is empty. Unset by default,
+#            which leaves telemetry off unless the environment configures it.
+#            Headers are not a key: a credential does not belong in a binary.
 #
 # Examples:
 #   ./scripts/build-binary.sh bun-linux-x64 bin/universal-netlist-linux-x64
@@ -93,6 +99,37 @@ case "$VERSION" in
         ;;
 esac
 
+# Checked here, where the typo was made, and passed on as a JSON string: --define
+# takes source text, so the value must be a string literal holding the JSON.
+OTEL_DEFINE=()
+if [ -n "${BUILD_OTEL_DEFAULTS:-}" ]; then
+    OTEL_LITERAL="$(bun -e '
+        const fail = (message) => { console.error(`Invalid BUILD_OTEL_DEFAULTS: ${message}`); process.exit(1); };
+        let value;
+        try { value = JSON.parse(process.env.BUILD_OTEL_DEFAULTS); } catch (error) { fail(error.message); }
+        if (typeof value !== "object" || value === null || Array.isArray(value)) fail("expected a JSON object");
+        const isText = (text) => typeof text === "string" && text.length > 0;
+        for (const [key, entry] of Object.entries(value)) {
+            if (key === "endpoint" || key === "protocol") {
+                if (!isText(entry)) fail(`${key} must be a non-empty string`);
+                if (key === "endpoint") {
+                    let url;
+                    try { url = new URL(entry); } catch { fail("endpoint must be a URL"); }
+                    if (url.username || url.password) fail("endpoint must not hold a credential");
+                }
+            } else if (key === "resourceAttributes") {
+                if (typeof entry !== "object" || entry === null || Array.isArray(entry) || !Object.values(entry).every(isText)) {
+                    fail("resourceAttributes must map names to non-empty strings");
+                }
+            } else {
+                fail(`unknown key ${key} (allowed: endpoint, protocol, resourceAttributes)`);
+            }
+        }
+        console.log(JSON.stringify(JSON.stringify(value)));
+    ')"
+    OTEL_DEFINE=(--define "BUILD_OTEL_DEFAULTS=$OTEL_LITERAL")
+fi
+
 mkdir -p "$(dirname "$OUTFILE")"
 
 echo "Building $OUTFILE (target=$TARGET, version=$VERSION, channel=$CHANNEL)"
@@ -104,6 +141,7 @@ compile() {
         "$@" \
         --define BUILD_VERSION="\"$VERSION\"" \
         --define BUILD_CHANNEL="\"$CHANNEL\"" \
+        ${OTEL_DEFINE[@]+"${OTEL_DEFINE[@]}"} \
         "$PROJECT_DIR/src/index.ts" \
         --outfile "$OUTFILE"
 }

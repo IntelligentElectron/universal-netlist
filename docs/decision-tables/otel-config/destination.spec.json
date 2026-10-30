@@ -1,0 +1,14 @@
+{
+  "name": "otel-destination",
+  "assumes": [
+    "One signal's destination; each signal resolves on its own, under its own OTEL_*_EXPORTER",
+    "An empty variable reads as unset, as the specification says",
+    "'unsupported' is any exporter value but otlp and none, including console and otlp/stdout"
+  ],
+  "dimensions": {
+    "sdk_disabled": ["unset", "true", "other"],
+    "endpoint": ["none", "env", "build_default"],
+    "selector": ["unset", "otlp", "none", "unsupported"],
+    "directory": ["unset", "set"]
+  }
+}

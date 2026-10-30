@@ -1,0 +1,73 @@
+sdk_disabled,endpoint,selector,directory,outcome,next,status,note
+unset,none,unset,unset,off,,decided,Dormant until something asks for an export (issue #277)
+unset,none,unset,set,file,,decided,"Unset or ignored selector: the directory routes to files, instead of the network"
+unset,none,otlp,unset,otlp,,decided,"The standard selector is explicit, and beats the program's own variable"
+unset,none,otlp,set,otlp,,decided,"The standard selector is explicit, and beats the program's own variable"
+unset,none,none,unset,off,,decided,Dormant until something asks for an export (issue #277)
+unset,none,none,set,off,,decided,"Every signal none: nothing to export, so the SDK never loads. OTEL_*_EXPORTER=none"
+unset,none,unsupported,unset,off,,decided,Dormant until something asks for an export (issue #277)
+unset,none,unsupported,set,file,,decided,"Unset or ignored selector: the directory routes to files, instead of the network"
+unset,env,unset,unset,otlp,,decided,OTel env spec: the default exporter is otlp
+unset,env,unset,set,file,,decided,"Unset or ignored selector: the directory routes to files, instead of the network"
+unset,env,otlp,unset,otlp,,decided,"The standard selector is explicit, and beats the program's own variable"
+unset,env,otlp,set,otlp,,decided,"The standard selector is explicit, and beats the program's own variable"
+unset,env,none,unset,off,,decided,"Every signal none: nothing to export, so the SDK never loads. OTEL_*_EXPORTER=none"
+unset,env,none,set,off,,decided,"Every signal none: nothing to export, so the SDK never loads. OTEL_*_EXPORTER=none"
+unset,env,unsupported,unset,otlp,,decided,OTel env spec: the default exporter is otlp
+unset,env,unsupported,set,file,,decided,"Unset or ignored selector: the directory routes to files, instead of the network"
+unset,build_default,unset,unset,otlp,,decided,OTel env spec: the default exporter is otlp
+unset,build_default,unset,set,file,,decided,"Unset or ignored selector: the directory routes to files, instead of the network"
+unset,build_default,otlp,unset,otlp,,decided,"The standard selector is explicit, and beats the program's own variable"
+unset,build_default,otlp,set,otlp,,decided,"The standard selector is explicit, and beats the program's own variable"
+unset,build_default,none,unset,off,,decided,"Every signal none: nothing to export, so the SDK never loads. OTEL_*_EXPORTER=none"
+unset,build_default,none,set,off,,decided,"Every signal none: nothing to export, so the SDK never loads. OTEL_*_EXPORTER=none"
+unset,build_default,unsupported,unset,otlp,,decided,OTel env spec: the default exporter is otlp
+unset,build_default,unsupported,set,file,,decided,"Unset or ignored selector: the directory routes to files, instead of the network"
+true,none,unset,unset,off,,decided,"OTEL_SDK_DISABLED=true wins over everything; OTel env spec, Boolean: only true is true"
+true,none,unset,set,off,,decided,"OTEL_SDK_DISABLED=true wins over everything; OTel env spec, Boolean: only true is true"
+true,none,otlp,unset,off,,decided,"OTEL_SDK_DISABLED=true wins over everything; OTel env spec, Boolean: only true is true"
+true,none,otlp,set,off,,decided,"OTEL_SDK_DISABLED=true wins over everything; OTel env spec, Boolean: only true is true"
+true,none,none,unset,off,,decided,"OTEL_SDK_DISABLED=true wins over everything; OTel env spec, Boolean: only true is true"
+true,none,none,set,off,,decided,"OTEL_SDK_DISABLED=true wins over everything; OTel env spec, Boolean: only true is true"
+true,none,unsupported,unset,off,,decided,"OTEL_SDK_DISABLED=true wins over everything; OTel env spec, Boolean: only true is true"
+true,none,unsupported,set,off,,decided,"OTEL_SDK_DISABLED=true wins over everything; OTel env spec, Boolean: only true is true"
+true,env,unset,unset,off,,decided,"OTEL_SDK_DISABLED=true wins over everything; OTel env spec, Boolean: only true is true"
+true,env,unset,set,off,,decided,"OTEL_SDK_DISABLED=true wins over everything; OTel env spec, Boolean: only true is true"
+true,env,otlp,unset,off,,decided,"OTEL_SDK_DISABLED=true wins over everything; OTel env spec, Boolean: only true is true"
+true,env,otlp,set,off,,decided,"OTEL_SDK_DISABLED=true wins over everything; OTel env spec, Boolean: only true is true"
+true,env,none,unset,off,,decided,"OTEL_SDK_DISABLED=true wins over everything; OTel env spec, Boolean: only true is true"
+true,env,none,set,off,,decided,"OTEL_SDK_DISABLED=true wins over everything; OTel env spec, Boolean: only true is true"
+true,env,unsupported,unset,off,,decided,"OTEL_SDK_DISABLED=true wins over everything; OTel env spec, Boolean: only true is true"
+true,env,unsupported,set,off,,decided,"OTEL_SDK_DISABLED=true wins over everything; OTel env spec, Boolean: only true is true"
+true,build_default,unset,unset,off,,decided,"OTEL_SDK_DISABLED=true wins over everything; OTel env spec, Boolean: only true is true"
+true,build_default,unset,set,off,,decided,"OTEL_SDK_DISABLED=true wins over everything; OTel env spec, Boolean: only true is true"
+true,build_default,otlp,unset,off,,decided,"OTEL_SDK_DISABLED=true wins over everything; OTel env spec, Boolean: only true is true"
+true,build_default,otlp,set,off,,decided,"OTEL_SDK_DISABLED=true wins over everything; OTel env spec, Boolean: only true is true"
+true,build_default,none,unset,off,,decided,"OTEL_SDK_DISABLED=true wins over everything; OTel env spec, Boolean: only true is true"
+true,build_default,none,set,off,,decided,"OTEL_SDK_DISABLED=true wins over everything; OTel env spec, Boolean: only true is true"
+true,build_default,unsupported,unset,off,,decided,"OTEL_SDK_DISABLED=true wins over everything; OTel env spec, Boolean: only true is true"
+true,build_default,unsupported,set,off,,decided,"OTEL_SDK_DISABLED=true wins over everything; OTel env spec, Boolean: only true is true"
+other,none,unset,unset,off,,decided,Dormant until something asks for an export (issue #277)
+other,none,unset,set,file,,decided,"Unset or ignored selector: the directory routes to files, instead of the network"
+other,none,otlp,unset,otlp,,decided,"The standard selector is explicit, and beats the program's own variable"
+other,none,otlp,set,otlp,,decided,"The standard selector is explicit, and beats the program's own variable"
+other,none,none,unset,off,,decided,Dormant until something asks for an export (issue #277)
+other,none,none,set,off,,decided,"Every signal none: nothing to export, so the SDK never loads. OTEL_*_EXPORTER=none"
+other,none,unsupported,unset,off,,decided,Dormant until something asks for an export (issue #277)
+other,none,unsupported,set,file,,decided,"Unset or ignored selector: the directory routes to files, instead of the network"
+other,env,unset,unset,otlp,,decided,OTel env spec: the default exporter is otlp
+other,env,unset,set,file,,decided,"Unset or ignored selector: the directory routes to files, instead of the network"
+other,env,otlp,unset,otlp,,decided,"The standard selector is explicit, and beats the program's own variable"
+other,env,otlp,set,otlp,,decided,"The standard selector is explicit, and beats the program's own variable"
+other,env,none,unset,off,,decided,"Every signal none: nothing to export, so the SDK never loads. OTEL_*_EXPORTER=none"
+other,env,none,set,off,,decided,"Every signal none: nothing to export, so the SDK never loads. OTEL_*_EXPORTER=none"
+other,env,unsupported,unset,otlp,,decided,OTel env spec: the default exporter is otlp
+other,env,unsupported,set,file,,decided,"Unset or ignored selector: the directory routes to files, instead of the network"
+other,build_default,unset,unset,otlp,,decided,OTel env spec: the default exporter is otlp
+other,build_default,unset,set,file,,decided,"Unset or ignored selector: the directory routes to files, instead of the network"
+other,build_default,otlp,unset,otlp,,decided,"The standard selector is explicit, and beats the program's own variable"
+other,build_default,otlp,set,otlp,,decided,"The standard selector is explicit, and beats the program's own variable"
+other,build_default,none,unset,off,,decided,"Every signal none: nothing to export, so the SDK never loads. OTEL_*_EXPORTER=none"
+other,build_default,none,set,off,,decided,"Every signal none: nothing to export, so the SDK never loads. OTEL_*_EXPORTER=none"
+other,build_default,unsupported,unset,otlp,,decided,OTel env spec: the default exporter is otlp
+other,build_default,unsupported,set,file,,decided,"Unset or ignored selector: the directory routes to files, instead of the network"
