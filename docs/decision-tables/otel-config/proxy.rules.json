@@ -1,0 +1,35 @@
+{
+  "name": "otel-proxy",
+  "rules": [
+    {
+      "when": {
+        "env_proxy": [
+          "unset"
+        ],
+        "build_default": [
+          "set"
+        ]
+      },
+      "outcome": "built-in proxy",
+      "next": "",
+      "cells": 2
+    },
+    {
+      "when": {
+        "env_proxy": [
+          "unset"
+        ],
+        "build_default": [
+          "unset"
+        ]
+      },
+      "outcome": "exporter's own agent",
+      "next": "",
+      "cells": 2
+    }
+  ],
+  "default": {
+    "outcome": "environment proxy",
+    "next": ""
+  }
+}

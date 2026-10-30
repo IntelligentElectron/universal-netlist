@@ -4,7 +4,10 @@
     {
       "when": {
         "root": [
-          "set"
+          "set",
+          "built_in",
+          "built_in_home",
+          "set_over_built_in"
         ],
         "extension": [
           "design"
@@ -15,7 +18,7 @@
       },
       "outcome": "relative path",
       "next": "",
-      "cells": 1
+      "cells": 4
     }
   ],
   "default": {

@@ -1,0 +1,21 @@
+env_proxy,no_proxy,build_default,outcome,next,status,note
+unset,unset,unset,exporter's own agent,,decided,"No proxy anywhere, so NO_PROXY has nothing to exempt; GitHub release builds behave as before (issue #283)"
+unset,unset,set,built-in proxy,,decided,Used only when no proxy variable is set; NO_PROXY still applies (issue #283)
+unset,set,unset,exporter's own agent,,decided,"No proxy anywhere, so NO_PROXY has nothing to exempt; GitHub release builds behave as before (issue #283)"
+unset,set,set,built-in proxy,,decided,Used only when no proxy variable is set; NO_PROXY still applies (issue #283)
+HTTPS_PROXY,unset,unset,environment proxy,,decided,"Any of the four proxy variables overrides the built-in value, and the environment's NO_PROXY applies (issue #283)"
+HTTPS_PROXY,unset,set,environment proxy,,decided,"Any of the four proxy variables overrides the built-in value, and the environment's NO_PROXY applies (issue #283)"
+HTTPS_PROXY,set,unset,environment proxy,,decided,"Any of the four proxy variables overrides the built-in value, and the environment's NO_PROXY applies (issue #283)"
+HTTPS_PROXY,set,set,environment proxy,,decided,"Any of the four proxy variables overrides the built-in value, and the environment's NO_PROXY applies (issue #283)"
+https_proxy,unset,unset,environment proxy,,decided,"Any of the four proxy variables overrides the built-in value, and the environment's NO_PROXY applies (issue #283)"
+https_proxy,unset,set,environment proxy,,decided,"Any of the four proxy variables overrides the built-in value, and the environment's NO_PROXY applies (issue #283)"
+https_proxy,set,unset,environment proxy,,decided,"Any of the four proxy variables overrides the built-in value, and the environment's NO_PROXY applies (issue #283)"
+https_proxy,set,set,environment proxy,,decided,"Any of the four proxy variables overrides the built-in value, and the environment's NO_PROXY applies (issue #283)"
+HTTP_PROXY,unset,unset,environment proxy,,decided,"Any of the four proxy variables overrides the built-in value, and the environment's NO_PROXY applies (issue #283)"
+HTTP_PROXY,unset,set,environment proxy,,decided,"Any of the four proxy variables overrides the built-in value, and the environment's NO_PROXY applies (issue #283)"
+HTTP_PROXY,set,unset,environment proxy,,decided,"Any of the four proxy variables overrides the built-in value, and the environment's NO_PROXY applies (issue #283)"
+HTTP_PROXY,set,set,environment proxy,,decided,"Any of the four proxy variables overrides the built-in value, and the environment's NO_PROXY applies (issue #283)"
+http_proxy,unset,unset,environment proxy,,decided,"Any of the four proxy variables overrides the built-in value, and the environment's NO_PROXY applies (issue #283)"
+http_proxy,unset,set,environment proxy,,decided,"Any of the four proxy variables overrides the built-in value, and the environment's NO_PROXY applies (issue #283)"
+http_proxy,set,unset,environment proxy,,decided,"Any of the four proxy variables overrides the built-in value, and the environment's NO_PROXY applies (issue #283)"
+http_proxy,set,set,environment proxy,,decided,"Any of the four proxy variables overrides the built-in value, and the environment's NO_PROXY applies (issue #283)"

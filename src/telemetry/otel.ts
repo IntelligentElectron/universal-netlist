@@ -43,6 +43,7 @@ import {
   captureArgsEnabled,
   commandErrorType,
   designPathAttribute,
+  exportProxyEnv,
   resolveOtelConfig,
   toolArgsCapture,
   toolErrorAttributes,
@@ -253,17 +254,16 @@ export const initOtel = async (opts: {
   }
 };
 
-const PROXY_VARIABLES = ["HTTPS_PROXY", "https_proxy", "HTTP_PROXY", "http_proxy"];
-
 /**
- * OTLP export through the environment's forward proxy, with `NO_PROXY` honoured.
- * Node.js (from 22.21) and Bun build this into `http.Agent` as `proxyEnv`. A
+ * OTLP export through the environment's forward proxy or the build's, with `NO_PROXY`
+ * honoured. Node.js (from 22.21) and Bun build this into `http.Agent` as `proxyEnv`. A
  * caller's agent options replace the exporter's own, which read its TLS files
- * from the environment, so those are read here. Without a proxy variable the
- * exporter keeps its own agent.
+ * from the environment, so those are read here. Without a proxy the exporter keeps
+ * its own agent.
  */
 const proxyOptions = (signal: Signal): { httpAgentOptions?: Record<string, unknown> } => {
-  if (!PROXY_VARIABLES.some((name) => process.env[name])) return {};
+  const proxyEnv = exportProxyEnv(process.env, OTEL_BUILD_DEFAULTS);
+  if (!proxyEnv) return {};
   const tlsFile = (setting: string): Buffer | undefined => {
     const path =
       process.env[`OTEL_EXPORTER_OTLP_${signal.toUpperCase()}_${setting}`] ||
@@ -273,7 +273,7 @@ const proxyOptions = (signal: Signal): { httpAgentOptions?: Record<string, unkno
   return {
     httpAgentOptions: {
       keepAlive: true,
-      proxyEnv: process.env,
+      proxyEnv,
       ca: tlsFile("CERTIFICATE"),
       cert: tlsFile("CLIENT_CERTIFICATE"),
       key: tlsFile("CLIENT_KEY"),
@@ -443,7 +443,7 @@ export const instrumentTool = async <R>(
     ...(request?.id !== undefined ? { "jsonrpc.request.id": request.id } : {}),
     ...(request?.sessionId ? { "mcp.session.id": request.sessionId } : {}),
   };
-  const design = designPathAttribute(args.design, process.env);
+  const design = designPathAttribute(args.design, process.env, OTEL_BUILD_DEFAULTS);
   const capture = toolArgsCapture(process.env);
   const tracer = trace.getTracer(INSTRUMENTATION_NAME);
   return tracer.startActiveSpan(
@@ -637,7 +637,7 @@ export const instrumentCommand = async (
                 ? normalizeErrorMessage(report.errorMessage)
                 : normalizeErrorMessage(describeError(thrown)),
             seconds: (performance.now() - start) / 1000,
-            design: designPathAttribute(report.design, process.env),
+            design: designPathAttribute(report.design, process.env, OTEL_BUILD_DEFAULTS),
             args: captureArgsEnabled(process.env) ? [executable, ...argv] : undefined,
           })
         );

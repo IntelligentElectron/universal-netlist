@@ -1,6 +1,26 @@
 /** What the golden tables leave out: warnings, per-signal choices, and the build's defaults. */
-import { describe, expect, it } from "vitest";
-import { captureArgsEnabled, designPathAttribute, resolveOtelConfig } from "./otel-config.js";
+import { mkdirSync, mkdtempSync, realpathSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import path from "node:path";
+import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "vitest";
+import {
+  captureArgsEnabled,
+  designPathAttribute,
+  exportProxyEnv,
+  resolveOtelConfig,
+} from "./otel-config.js";
+
+const { homeAnswer } = vi.hoisted(() => ({
+  homeAnswer: { call: undefined as (() => string) | undefined },
+}));
+
+vi.mock("node:os", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("node:os")>();
+  return {
+    ...actual,
+    homedir: () => (homeAnswer.call ?? actual.homedir)(),
+  };
+});
 
 const ENDPOINT = { OTEL_EXPORTER_OTLP_ENDPOINT: "http://collector" };
 
@@ -102,6 +122,11 @@ describe("resolveOtelConfig", () => {
     ).toEqual({});
   });
 
+  it("does not turn on for a built-in proxy or design root alone", () => {
+    const config = resolveOtelConfig({}, { proxy: "http://proxy:3128", designRoot: "~/designs" });
+    expect(config.enabled).toBe(false);
+  });
+
   it("warns that OTEL_CAPTURE_TOOL_ARGS is deprecated", () => {
     const config = resolveOtelConfig({ ...ENDPOINT, OTEL_CAPTURE_TOOL_ARGS: "1" });
     expect(config.warnings.join()).toContain("UNIVERSAL_NETLIST_CAPTURE_ARGS");
@@ -122,8 +147,80 @@ describe("captureArgsEnabled", () => {
   });
 });
 
+describe("exportProxyEnv", () => {
+  const defaults = { proxy: "http://built-in:3128" };
+
+  it("reads a blank proxy variable as unset", () => {
+    expect(exportProxyEnv({ HTTPS_PROXY: " " })).toBeUndefined();
+    expect(exportProxyEnv({ HTTPS_PROXY: " " }, defaults)?.HTTPS_PROXY).toBe(defaults.proxy);
+  });
+
+  it("gives the built-in proxy every name, ahead of a blank lowercase one", () => {
+    expect(exportProxyEnv({ https_proxy: "" }, defaults)?.https_proxy).toBe(defaults.proxy);
+  });
+
+  it("keeps the lowercase no_proxy", () => {
+    expect(exportProxyEnv({ no_proxy: "collector" }, defaults)?.no_proxy).toBe("collector");
+  });
+});
+
 describe("designPathAttribute", () => {
+  const home = realpathSync(mkdtempSync(path.join(tmpdir(), "un-design-home-")));
+  const design = path.join(home, "designs", "board.kicad_pro");
+  mkdirSync(path.dirname(design));
+  writeFileSync(design, "");
+  beforeAll(() => {
+    vi.stubEnv("HOME", home);
+    vi.stubEnv("USERPROFILE", home);
+  });
+  afterEach(() => {
+    homeAnswer.call = undefined;
+  });
+  afterAll(() => {
+    vi.unstubAllEnvs();
+    rmSync(home, { recursive: true, force: true });
+  });
+
   it("ignores an argument that is not a path", () => {
     expect(designPathAttribute(42, { UNIVERSAL_NETLIST_DESIGN_ROOT: "/" })).toBeUndefined();
+  });
+
+  it.each([
+    ["a bare ~", "~", "designs/board.kicad_pro"],
+    ["~/", "~/designs", "board.kicad_pro"],
+  ])("expands %s in a built-in root to the home directory", (_label, designRoot, expected) => {
+    expect(designPathAttribute(design, {}, { designRoot })).toBe(expected);
+  });
+
+  it.runIf(process.platform === "win32")("expands ~ and a backslash on Windows", () => {
+    expect(designPathAttribute(design, {}, { designRoot: "~\\designs" })).toBe("board.kicad_pro");
+  });
+
+  it("leaves ~user alone, which names another user's home", () => {
+    expect(designPathAttribute(design, {}, { designRoot: "~other/designs" })).toBeUndefined();
+  });
+
+  it("reads the variable as written, with no expansion", () => {
+    const env = { UNIVERSAL_NETLIST_DESIGN_ROOT: "~/designs" };
+    expect(designPathAttribute(design, env)).toBeUndefined();
+  });
+
+  it("reads a blank variable as unset, so the built-in root applies", () => {
+    const env = { UNIVERSAL_NETLIST_DESIGN_ROOT: " " };
+    expect(designPathAttribute(design, env, { designRoot: "~/designs" })).toBe("board.kicad_pro");
+  });
+
+  it.each([
+    [
+      "names no home",
+      () => {
+        throw new Error("no home directory");
+      },
+    ],
+    ["answers with an empty home", () => ""],
+    ["answers with a relative home", () => "relative/home"],
+  ])("records nothing when the system %s", (_label, call) => {
+    homeAnswer.call = call;
+    expect(designPathAttribute(design, {}, { designRoot: "~" })).toBeUndefined();
   });
 });

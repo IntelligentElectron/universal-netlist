@@ -48,14 +48,17 @@ the server yourself with the variables in its `env`, and leave the plugin's serv
 
 ### Packaged builds
 
-A packager can build defaults into a binary with `BUILD_OTEL_DEFAULTS`, a JSON object with any of `endpoint`, `protocol` and `resourceAttributes`:
+A packager can build defaults into a binary with `BUILD_OTEL_DEFAULTS`, a JSON object with any of `endpoint`, `protocol`, `resourceAttributes`, `proxy` and `designRoot`:
 
 ```bash
-BUILD_OTEL_DEFAULTS='{"endpoint":"https://collector.example","resourceAttributes":{"team":"eda"}}' \
+BUILD_OTEL_DEFAULTS='{"endpoint":"https://collector.example","proxy":"http://localhost:3128","designRoot":"~/designs","resourceAttributes":{"team":"eda"}}' \
   scripts/build-binary.sh bun-linux-x64 bin/universal-netlist-linux-x64 packaged
 ```
 
-Each applies only when its `OTEL_*` variable is empty, and `OTEL_SDK_DISABLED=true` still turns telemetry off. Headers are refused, so no credential is baked into a binary; set `OTEL_EXPORTER_OTLP_HEADERS` where it runs.
+Each applies only when the environment provides no value, and `OTEL_SDK_DISABLED=true` still turns telemetry off. Headers are refused, so no credential is baked into a binary; set `OTEL_EXPORTER_OTLP_HEADERS` where it runs.
+
+- `proxy` is a forward proxy for the OTLP exporters only, an `http` or `https` URL with no username or password. Other HTTP traffic, such as the updater, does not use it. Any of `HTTPS_PROXY`, `HTTP_PROXY` or their lowercase forms replaces it, and `NO_PROXY` still applies.
+- `designRoot` is the value for `UNIVERSAL_NETLIST_DESIGN_ROOT` when that variable is empty, an absolute path or one starting with `~/`. A leading `~` expands to the home directory of the user running the binary, on every platform, so one value works for every user. The variable itself is read as written.
 
 ## Quick start with a local Collector / Jaeger
 
@@ -121,7 +124,7 @@ These are this program's own, named outside the `OTEL_` prefix the specification
 |----------|---------|
 | `UNIVERSAL_NETLIST_OTEL_DIR` | Write telemetry to [OTLP JSON Lines files](#files) in this directory. |
 | `UNIVERSAL_NETLIST_CAPTURE_ARGS` | `true` also records raw arguments: `gen_ai.tool.call.arguments` for a tool call, `process.command_args` for a command. Off by default, since arguments may be sensitive. |
-| `UNIVERSAL_NETLIST_DESIGN_ROOT` | Records `universal_netlist.design.path`, a design file's path relative to this directory. Unset, it is not recorded. A path outside the root, or a file without a design's extension, is not recorded either, so an absolute path never is. |
+| `UNIVERSAL_NETLIST_DESIGN_ROOT` | Records `universal_netlist.design.path`, a design file's path relative to this directory. Unset, it is not recorded, unless a [packaged build](#packaged-builds) names a `designRoot`. A path outside the root, or a file without a design's extension, is not recorded either, so an absolute path never is. |
 | `OTEL_CAPTURE_TOOL_ARGS` | Deprecated name for `UNIVERSAL_NETLIST_CAPTURE_ARGS`. It still takes `1` or `true`, with a warning, and the new name wins when both are set. |
 
 ## What gets emitted
@@ -148,7 +151,7 @@ One span of kind `SERVER` per call, named `tools/call <tool_name>`. When the req
 | `universal_netlist.error.category` | Present on failure: see [Tool call failures](#tool-call-failures). |
 | `error.class` | Runtime exception class, present only when the handler throws an `Error`. Intended for debugging, not grouping. |
 | `gen_ai.tool.call.arguments` | Full tool arguments as JSON text, since a span attribute cannot hold an object. Only present when [capture](#configuration-reference) asks for it. |
-| `universal_netlist.design.path` | The design's path relative to `UNIVERSAL_NETLIST_DESIGN_ROOT`. Only present when that is set and the path qualifies. |
+| `universal_netlist.design.path` | The design's path relative to `UNIVERSAL_NETLIST_DESIGN_ROOT`, or to a packaged build's `designRoot`. Only present when one of them is set and the path qualifies. |
 
 ### Tool call metrics
 
@@ -233,7 +236,7 @@ One span of kind `INTERNAL`, named `universal-netlist <command>`, the low-cardin
 | `error.type` | On a non-zero exit only: `invalid_argument` for the usage exit 2, otherwise a category from the closed set above. |
 | `error.class` | Runtime exception class, when the command threw. |
 | `process.command_args` | All arguments, starting with the executable. Only present when `UNIVERSAL_NETLIST_CAPTURE_ARGS` is enabled, as the convention asks. |
-| `universal_netlist.design.path` | The design's path relative to `UNIVERSAL_NETLIST_DESIGN_ROOT`. Only present when that is set and the path qualifies. |
+| `universal_netlist.design.path` | The design's path relative to `UNIVERSAL_NETLIST_DESIGN_ROOT`, or to a packaged build's `designRoot`. Only present when one of them is set and the path qualifies. |
 
 One metric, a histogram `universal_netlist.command.duration` in seconds, with the labels `universal_netlist.command` and, on failure, `error.type`. Its count is the number of runs, and `error.type` separates the failures, so no separate counters are needed.
 

@@ -1,0 +1,13 @@
+{
+  "name": "otel-proxy",
+  "assumes": [
+    "The signal's destination is OTLP; a file destination never uses a proxy",
+    "An empty variable reads as unset, as the specification says",
+    "This decides the OTLP exporters' agent only: the process environment is left as it was, so no other HTTP traffic sees the built-in proxy"
+  ],
+  "dimensions": {
+    "env_proxy": ["unset", "HTTPS_PROXY", "https_proxy", "HTTP_PROXY", "http_proxy"],
+    "no_proxy": ["unset", "set"],
+    "build_default": ["unset", "set"]
+  }
+}

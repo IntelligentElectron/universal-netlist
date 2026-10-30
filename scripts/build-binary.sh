@@ -20,10 +20,11 @@
 #            into and leave a binary reporting some truncation of itself.
 #   BUILD_OTEL_DEFAULTS
 #            OpenTelemetry defaults baked into the binary, as a JSON object with
-#            any of the keys endpoint, protocol and resourceAttributes. Each
-#            applies only when its OTEL_* variable is empty. Unset by default,
-#            which leaves telemetry off unless the environment configures it.
-#            Headers are not a key: a credential does not belong in a binary.
+#            any of the keys endpoint, protocol, resourceAttributes, proxy and
+#            designRoot. Each applies only when the environment provides no value.
+#            Unset by default, which leaves telemetry off unless the environment
+#            configures it. Headers are not a key: a credential does not belong in
+#            a binary.
 #
 # Examples:
 #   ./scripts/build-binary.sh bun-linux-x64 bin/universal-netlist-linux-x64
@@ -117,12 +118,21 @@ if [ -n "${BUILD_OTEL_DEFAULTS:-}" ]; then
                     try { url = new URL(entry); } catch { fail("endpoint must be a URL"); }
                     if (url.username || url.password) fail("endpoint must not hold a credential");
                 }
+            } else if (key === "proxy") {
+                const url = isText(entry) && URL.parse(entry);
+                if (!url || (url.protocol !== "http:" && url.protocol !== "https:")) fail("proxy must be an http or https URL");
+                if (url.username || url.password) fail("proxy must not hold a credential");
+            } else if (key === "designRoot") {
+                // A binary runs from any directory, so a relative root means nothing, and
+                // ~user is not expanded. win32 also takes a POSIX absolute path.
+                const usable = isText(entry) && entry === entry.trim() && (/^~($|[/\\])/.test(entry) || require("node:path").win32.isAbsolute(entry));
+                if (!usable) fail("designRoot must be an absolute path or start with ~/");
             } else if (key === "resourceAttributes") {
                 if (typeof entry !== "object" || entry === null || Array.isArray(entry) || !Object.values(entry).every(isText)) {
                     fail("resourceAttributes must map names to non-empty strings");
                 }
             } else {
-                fail(`unknown key ${key} (allowed: endpoint, protocol, resourceAttributes)`);
+                fail(`unknown key ${key} (allowed: endpoint, protocol, resourceAttributes, proxy, designRoot)`);
             }
         }
         console.log(JSON.stringify(JSON.stringify(value)));

@@ -41,10 +41,10 @@ export const CHANNEL = typeof BUILD_CHANNEL !== "undefined" ? BUILD_CHANNEL : "g
 export const SELF_UPDATE_ENABLED = CHANNEL === "github";
 
 /**
- * A packager's OpenTelemetry defaults: endpoint, protocol and resource attributes.
- * Each applies only when its `OTEL_*` variable is empty, and the script holds
- * them to those keys, so no credential is baked into a binary. A GitHub release
- * sets none. `scripts/build-binary.sh` validates this JSON.
+ * A packager's OpenTelemetry defaults: endpoint, protocol, resource attributes, proxy
+ * and design root. Each applies only when the environment provides no value, and the
+ * script holds them to those keys, so no credential is baked into a binary. A GitHub
+ * release sets none. `scripts/build-binary.sh` validates this JSON.
  */
 export const OTEL_BUILD_DEFAULTS: OtelBuildDefaults =
   typeof BUILD_OTEL_DEFAULTS !== "undefined"
