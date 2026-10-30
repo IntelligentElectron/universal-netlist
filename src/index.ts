@@ -49,7 +49,7 @@ const runCommand = async (
   run: () => Promise<CommandReport | void> | CommandReport | void
 ): Promise<void> => {
   await initOtel({ serviceName: BINARY_NAME, serviceVersion: VERSION, quietExports: true });
-  let flushed = true;
+  let flushed: boolean;
   try {
     await instrumentCommand(
       { executable: BINARY_NAME, command, argv: process.argv.slice(2) },
