@@ -67,7 +67,7 @@ what is missing instead of merging it.
 Use Valentino's existing authenticated GitHub CLI session. GitHub permissions are
 attached to the account, not the commit's `user.email`; changing the author email
 cannot grant merge access. Run `git` and `gh` outside the sandbox for network and
-keychain access, as described in `CLAUDE.md`.
+keychain access, as described in `AGENTS.md`.
 
 1. Verify the identity actually used by the API, including any token override:
    ```bash
@@ -179,7 +179,7 @@ which is the check that actually protects the release.
 Absent that ask, do not infer one. Say that the tag is the remaining step, and stop there.
 
 The changelog is the GitHub Release the tag creates: its notes are generated from the
-merged PRs (see CLAUDE.md), and `CHANGELOG.md` is history that releases do not edit.
+merged PRs (see AGENTS.md), and `CHANGELOG.md` is history that releases do not edit.
 
 1. Ensure `main` is clean and all checks pass
 2. Create and push the tag with `scripts/tag-release.sh` (add `--yes` when the session
@@ -228,7 +228,7 @@ in the release report.
 ## Before committing
 
 This repo has no pre-commit hook, so nothing runs on `git commit`. Run the checks
-yourself first, as CLAUDE.md's "Before Committing" says, and do not claim a hook ran:
+yourself first, as AGENTS.md's "Before Committing" says, and do not claim a hook ran:
 
 ```bash
 npm run type-check && npm run lint && npm test
