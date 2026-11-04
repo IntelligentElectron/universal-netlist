@@ -338,3 +338,50 @@ describe("buildOccurrenceRefdes", () => {
     ]);
   });
 });
+
+describe("a block whose pin list cannot be walked record by record", () => {
+  const nested = scope({
+    nets: Array.from({ length: 64 }, (_, i) => [2000 + i, `N${i}`] as [number, string]),
+    occurrences: [{ occurrenceId: 10, dbId: 20, reference: "R1" }],
+  });
+  const blockBytes = Buffer.concat([
+    framing(66),
+    u32(1),
+    u32(2),
+    Buffer.from([0x42]),
+    u32(0),
+    u32(0),
+    str("child"),
+    str("MV1"),
+    u32(0),
+    u16(1),
+    framing(68),
+    u32(1000),
+    u16(0),
+    // A named-port pin the record walk does not account for: four bytes the
+    // scope read below would take as its net count.
+    Buffer.from([0x41, 0x42, 0x43, 0x44]),
+    nested,
+  ]);
+  const topStream = Buffer.concat([
+    Buffer.alloc(9),
+    str("top"),
+    Buffer.alloc(7),
+    u16(0),
+    u16(0),
+    u16(0),
+    u32(0),
+    Buffer.from([0xff, 0xe4, 0x5c, 0x39]),
+    u32(0),
+    u16(1),
+    blockBytes,
+  ]);
+  const parsed = parseHierarchyStream(topStream);
+
+  it("finds the nested scope and keeps its nets and parts", () => {
+    const [block] = [...walkBlockOccurrences(parsed.scope)];
+    expect(block.schematic).toBe("child");
+    expect(block.scope.nets).toHaveLength(64);
+    expect(block.scope.parts.map((part) => part.reference)).toEqual(["R1"]);
+  });
+});

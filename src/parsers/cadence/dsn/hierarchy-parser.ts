@@ -174,14 +174,42 @@ function readOccurrence(reader: BinaryReader, into: HierarchyScope): void {
   reader.skip(4);
 
   const pinCount = reader.readUint16();
+  const pinStart = reader.tell();
   const pins: OccurrencePin[] = [];
-  for (let i = 0; i < pinCount; i++) {
-    const { properties } = readStructure(reader);
-    reader.skip(4); // the pin occurrence's own id
-    pins.push({ ordinal: reader.readUint16(), properties });
-  }
+  const readPins = (): void => {
+    for (let i = 0; i < pinCount; i++) {
+      const { properties } = readStructure(reader);
+      reader.skip(4); // the pin occurrence's own id
+      pins.push({ ordinal: reader.readUint16(), properties });
+    }
+  };
 
-  const scope = readScope(reader);
+  let scope: HierarchyScope;
+  if (schematic === "") {
+    readPins();
+    scope = readScope(reader);
+  } else {
+    // A block's pin list is not used by the expander: the block's pins come
+    // from the parent page's DrawnInstance. Some designs write a pin record
+    // this parser cannot walk (named block ports, mixed record types), which
+    // would leave the reader inside the pin list and misread the scope that
+    // follows. Walk the pins where possible; otherwise find the scope by its
+    // net list, which is unambiguous enough to scan for.
+    try {
+      readPins();
+      scope = readScope(reader);
+      if (scope.nets.length + scope.parts.length + scope.blocks.length === 0) {
+        throw new Error("Block occurrence has an empty scope");
+      }
+    } catch {
+      reader.seek(pinStart);
+      const scanned = findNestedScope(reader, pinStart);
+      if (!scanned) {
+        throw new Error(`Could not locate the nested scope of block '${schematic}'`);
+      }
+      scope = scanned;
+    }
+  }
 
   if (schematic === "") {
     into.parts.push({ occurrenceId, dbId, reference, pins });
@@ -222,6 +250,54 @@ function readScope(reader: BinaryReader, top?: TopLayout): HierarchyScope {
   for (let i = 0; i < occurrenceCount; i++) readOccurrence(reader, scope);
 
   return scope;
+}
+
+/** The smallest net list a block scope must have for the scan to trust it. */
+const MIN_NESTED_SCOPE_NETS = 64;
+
+/** How far past a block's pin list to look for its scope, in bytes. */
+const NESTED_SCOPE_SCAN_BYTES = 256 * 1024;
+
+/**
+ * Locate a block occurrence's nested scope when its pin list cannot be walked
+ * record by record.
+ *
+ * A block's pins are not needed to expand the design: the expander takes them
+ * from the parent page's DrawnInstance. The scope that follows the pin list is
+ * recognized by its net count and the net records under it, which is enough to
+ * find it by scanning. A candidate only counts when the whole scope parses and
+ * yields exactly the net count it declared.
+ */
+function findNestedScope(reader: BinaryReader, start: number): HierarchyScope | undefined {
+  const end = Math.min(reader.tell() + reader.remaining(), start + NESTED_SCOPE_SCAN_BYTES);
+
+  for (let offset = start; offset + 4 <= end; offset++) {
+    reader.seek(offset);
+    let netCount: number;
+    try {
+      netCount = reader.readUint16();
+    } catch {
+      continue;
+    }
+    if (netCount < MIN_NESTED_SCOPE_NETS || netCount > 20000) continue;
+
+    try {
+      const { structType } = readStructure(reader);
+      if (structType !== NET_TYPE) continue;
+    } catch {
+      continue;
+    }
+
+    try {
+      reader.seek(offset);
+      const scope = readScope(reader);
+      if (scope.nets.length === netCount) return scope;
+    } catch {
+      // Not a scope boundary; try the next byte.
+    }
+  }
+
+  return undefined;
 }
 
 function readStream(reader: BinaryReader, top: TopLayout): HierarchyStream {
