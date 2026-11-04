@@ -21,7 +21,7 @@ directory.
 ### Why it is vendored rather than fetched
 
 Our `.DSN` reader in `src/parsers/cadence/dsn/` is a TypeScript port of this C++, and
-`CLAUDE.md` makes reading the corresponding C++ file mandatory before changing any parser
+`AGENTS.md` makes reading the corresponding C++ file mandatory before changing any parser
 file. A reference that carries that much weight should not be able to disappear or drift.
 
 It was previously a gitignored local clone, which meant it existed only on machines that
