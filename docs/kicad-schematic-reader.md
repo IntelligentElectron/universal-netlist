@@ -25,6 +25,10 @@ Every net is named the way KiCad's netlister names it, so a net is reported unde
 - A net no label names is named after a pin, `Net-(R1-Pad1)` or `Net-(U1A-SDA)`; the unit letter appears only beside a pin name. [pin-net-name.rules.md](decision-tables/kicad-schematic/pin-net-name.rules.md)
 - A power symbol's net is its value from KiCad 7 on, its pin's name in a KiCad 6 file. [power-name.rules.md](decision-tables/kicad-schematic/power-name.rules.md)
 
+## Unconnected pins
+
+A pin alone on a no-connect flag, and a pin of electrical type `no_connect` alone on its net, is unconnected: its net is `NC` and it joins no net, so `run_erc` does not report it. KiCad's export names such a pin's one-pin net `unconnected-(...)` and marks the flagged pin's type `+no_connect` (`passive+no_connect`); a saved `.net` and the schematic reader read it the same way. A pin left open with no flag keeps its one-pin `unconnected-(...)` net, which `net.single_pin` reports, as KiCad's ERC does. A flag on a net of two or more pins changes nothing: the net keeps its pins and its name.
+
 ## Parity with kicad-cli
 
 `src/parsers/kicad/schematic/parity.test.ts` reads every KiCad design in `test/fixtures/kicad` with the reader alone and compares the result with KiCad's export, net by net and part by part. Eleven designs match exactly. One fixture ships without one of its sheets and is refused, naming the sheet. Where a fixture's saved export comes from an older KiCad whose netlister differs (yddraig-68k, saved by 10.0.0), `test/golden/kicad-cli/` holds the export of kicad-cli 10.0.5, which the reader follows. With KiCad installed, `KICAD_PARITY=live npm test` compares each design with a fresh export as well.

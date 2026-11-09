@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 3,
   "metadata": {
-    "generatedAt": "2026-09-02T21:16:45.401Z",
-    "netlistHash": "sha256:3d8e97acaeebeadbd336a3db825f09c6e9b59f9136a27220ec0722a7cd2e0313",
+    "generatedAt": "2026-11-09T23:53:58.790Z",
+    "netlistHash": "sha256:6c4ecd299947dcfe6da76eb9ffb895cfe2b9fec43fb2955231c2b20468cbadcd",
     "origin": {
       "type": "vendor",
       "source": {
@@ -2991,66 +2991,6 @@
         "46",
         "52"
       ]
-    },
-    "unconnected-(P2-MountPin-PadMP)": {
-      "P2": [
-        "MP"
-      ]
-    },
-    "unconnected-(T1-NC-Pad5)": {
-      "T1": [
-        "5"
-      ]
-    },
-    "unconnected-(T1-NC-Pad7)": {
-      "T1": [
-        "7"
-      ]
-    },
-    "unconnected-(U1B-???-Pad152)": {
-      "U1": [
-        "152"
-      ]
-    },
-    "unconnected-(U2-NC-Pad47)": {
-      "U2": [
-        "47"
-      ]
-    },
-    "unconnected-(U2-NC{slash}A17-Pad17)": {
-      "U2": [
-        "17"
-      ]
-    },
-    "unconnected-(U2-NC{slash}A19-Pad9)": {
-      "U2": [
-        "9"
-      ]
-    },
-    "unconnected-(U2-NC{slash}A20-Pad10)": {
-      "U2": [
-        "10"
-      ]
-    },
-    "unconnected-(U5-LEDG-Pad8)": {
-      "U5": [
-        "8"
-      ]
-    },
-    "unconnected-(U5-NC-Pad6)": {
-      "U5": [
-        "6"
-      ]
-    },
-    "unconnected-(U5-NC-Pad11)": {
-      "U5": [
-        "11"
-      ]
-    },
-    "unconnected-(U6-Q-Pad5)": {
-      "U6": [
-        "5"
-      ]
     }
   },
   "components": {
@@ -4045,7 +3985,7 @@
         },
         "152": {
           "name": "???",
-          "net": "unconnected-(U1B-???-Pad152)"
+          "net": ""
         },
         "153": {
           "name": "TP3",
@@ -4103,11 +4043,11 @@
         },
         "9": {
           "name": "NC/A19",
-          "net": "unconnected-(U2-NC{slash}A19-Pad9)"
+          "net": ""
         },
         "10": {
           "name": "NC/A20",
-          "net": "unconnected-(U2-NC{slash}A20-Pad10)"
+          "net": ""
         },
         "11": {
           "name": "~{WE}",
@@ -4135,7 +4075,7 @@
         },
         "17": {
           "name": "NC/A17",
-          "net": "unconnected-(U2-NC{slash}A17-Pad17)"
+          "net": ""
         },
         "18": {
           "name": "A7",
@@ -4255,7 +4195,7 @@
         },
         "47": {
           "name": "NC",
-          "net": "unconnected-(U2-NC-Pad47)"
+          "net": ""
         },
         "48": {
           "name": "A16",
@@ -4976,7 +4916,7 @@
         },
         "6": {
           "name": "NC",
-          "net": "unconnected-(U5-NC-Pad6)"
+          "net": ""
         },
         "7": {
           "name": "LEDR",
@@ -4984,7 +4924,7 @@
         },
         "8": {
           "name": "LEDG",
-          "net": "unconnected-(U5-LEDG-Pad8)"
+          "net": ""
         },
         "9": {
           "name": "C1",
@@ -4996,7 +4936,7 @@
         },
         "11": {
           "name": "NC",
-          "net": "unconnected-(U5-NC-Pad11)"
+          "net": ""
         },
         "12": {
           "name": "GND",
@@ -5934,7 +5874,7 @@
         },
         "MP": {
           "name": "MountPin",
-          "net": "unconnected-(P2-MountPin-PadMP)"
+          "net": ""
         }
       },
       "value": "LCD",
@@ -6299,7 +6239,7 @@
         },
         "5": {
           "name": "Q",
-          "net": "unconnected-(U6-Q-Pad5)"
+          "net": ""
         },
         "6": {
           "name": "~{CLR}",
@@ -6889,12 +6829,12 @@
         "4": "Net-(U7A-D)",
         "5": {
           "name": "NC",
-          "net": "unconnected-(T1-NC-Pad5)"
+          "net": ""
         },
         "6": "Net-(R52-Pad2)",
         "7": {
           "name": "NC",
-          "net": "unconnected-(T1-NC-Pad7)"
+          "net": ""
         },
         "8": "GND"
       },

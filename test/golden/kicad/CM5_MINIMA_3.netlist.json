@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 3,
   "metadata": {
-    "generatedAt": "2026-09-03T01:02:27.670Z",
-    "netlistHash": "sha256:c60f7a1ed588d2d7928ae60e2510461ce41c0499e8baa52f32f25c153f93fdcb",
+    "generatedAt": "2026-11-09T23:53:58.764Z",
+    "netlistHash": "sha256:37cd919c477140377f6d44e7a4c0169f1b4acaf1bad2c910a095c015933def83",
     "origin": {
       "type": "vendor",
       "source": {
@@ -171,11 +171,6 @@
         "45"
       ]
     },
-    "/CM5/BT_nDis": {
-      "Module301": [
-        "91"
-      ]
-    },
     "/CM5/CAM_GPIO0": {
       "J802": [
         "17"
@@ -286,56 +281,6 @@
       ],
       "Module302": [
         "141"
-      ]
-    },
-    "/CM5/DPHY1_P.C_N": {
-      "Module302": [
-        "187"
-      ]
-    },
-    "/CM5/DPHY1_P.C_P": {
-      "Module302": [
-        "189"
-      ]
-    },
-    "/CM5/DPHY1_P.D0_N": {
-      "Module302": [
-        "175"
-      ]
-    },
-    "/CM5/DPHY1_P.D0_P": {
-      "Module302": [
-        "177"
-      ]
-    },
-    "/CM5/DPHY1_P.D1_N": {
-      "Module302": [
-        "181"
-      ]
-    },
-    "/CM5/DPHY1_P.D1_P": {
-      "Module302": [
-        "183"
-      ]
-    },
-    "/CM5/DPHY1_P.D2_N": {
-      "Module302": [
-        "193"
-      ]
-    },
-    "/CM5/DPHY1_P.D2_P": {
-      "Module302": [
-        "195"
-      ]
-    },
-    "/CM5/DPHY1_P.D3_N": {
-      "Module302": [
-        "194"
-      ]
-    },
-    "/CM5/DPHY1_P.D3_P": {
-      "Module302": [
-        "196"
       ]
     },
     "/CM5/EEPROM_nWP": {
@@ -455,91 +400,6 @@
         "99"
       ]
     },
-    "/CM5/GPIO4": {
-      "Module301": [
-        "54"
-      ]
-    },
-    "/CM5/GPIO5": {
-      "Module301": [
-        "34"
-      ]
-    },
-    "/CM5/GPIO6": {
-      "Module301": [
-        "30"
-      ]
-    },
-    "/CM5/GPIO7": {
-      "Module301": [
-        "37"
-      ]
-    },
-    "/CM5/GPIO8": {
-      "Module301": [
-        "39"
-      ]
-    },
-    "/CM5/GPIO9": {
-      "Module301": [
-        "40"
-      ]
-    },
-    "/CM5/GPIO10": {
-      "Module301": [
-        "44"
-      ]
-    },
-    "/CM5/GPIO11": {
-      "Module301": [
-        "38"
-      ]
-    },
-    "/CM5/GPIO12": {
-      "Module301": [
-        "31"
-      ]
-    },
-    "/CM5/GPIO13": {
-      "Module301": [
-        "28"
-      ]
-    },
-    "/CM5/GPIO14": {
-      "Module301": [
-        "55"
-      ]
-    },
-    "/CM5/GPIO15": {
-      "Module301": [
-        "51"
-      ]
-    },
-    "/CM5/GPIO16": {
-      "Module301": [
-        "29"
-      ]
-    },
-    "/CM5/GPIO17": {
-      "Module301": [
-        "50"
-      ]
-    },
-    "/CM5/GPIO22": {
-      "Module301": [
-        "46"
-      ]
-    },
-    "/CM5/GPIO23": {
-      "Module301": [
-        "47"
-      ]
-    },
-    "/CM5/GPIO26": {
-      "Module301": [
-        "24"
-      ]
-    },
     "/CM5/GPIO_VREF": {
       "Module301": [
         "78"
@@ -549,66 +409,6 @@
       ],
       "R103": [
         "2"
-      ]
-    },
-    "/CM5/HDMI1_CEC": {
-      "Module302": [
-        "149"
-      ]
-    },
-    "/CM5/HDMI1_CK_N": {
-      "Module302": [
-        "166"
-      ]
-    },
-    "/CM5/HDMI1_CK_P": {
-      "Module302": [
-        "164"
-      ]
-    },
-    "/CM5/HDMI1_D0_N": {
-      "Module302": [
-        "160"
-      ]
-    },
-    "/CM5/HDMI1_D0_P": {
-      "Module302": [
-        "158"
-      ]
-    },
-    "/CM5/HDMI1_D1_N": {
-      "Module302": [
-        "154"
-      ]
-    },
-    "/CM5/HDMI1_D1_P": {
-      "Module302": [
-        "152"
-      ]
-    },
-    "/CM5/HDMI1_D2_N": {
-      "Module302": [
-        "148"
-      ]
-    },
-    "/CM5/HDMI1_D2_P": {
-      "Module302": [
-        "146"
-      ]
-    },
-    "/CM5/HDMI1_HOTPLUG": {
-      "Module302": [
-        "143"
-      ]
-    },
-    "/CM5/HDMI1_SCL": {
-      "Module302": [
-        "147"
-      ]
-    },
-    "/CM5/HDMI1_SDA": {
-      "Module302": [
-        "145"
       ]
     },
     "/CM5/HDMI_PI.CEC": {
@@ -753,16 +553,6 @@
       ],
       "Module302": [
         "199"
-      ]
-    },
-    "/CM5/ID_SC": {
-      "Module301": [
-        "35"
-      ]
-    },
-    "/CM5/ID_SD": {
-      "Module301": [
-        "36"
       ]
     },
     "/CM5/MISO_GPIO19": {
@@ -920,46 +710,6 @@
         "82"
       ]
     },
-    "/CM5/SD_CLK": {
-      "Module301": [
-        "57"
-      ]
-    },
-    "/CM5/SD_CMD": {
-      "Module301": [
-        "62"
-      ]
-    },
-    "/CM5/SD_DAT0": {
-      "Module301": [
-        "63"
-      ]
-    },
-    "/CM5/SD_DAT1": {
-      "Module301": [
-        "67"
-      ]
-    },
-    "/CM5/SD_DAT2": {
-      "Module301": [
-        "69"
-      ]
-    },
-    "/CM5/SD_DAT3": {
-      "Module301": [
-        "61"
-      ]
-    },
-    "/CM5/SD_PWR_ON": {
-      "Module301": [
-        "75"
-      ]
-    },
-    "/CM5/SYNC_OUT": {
-      "Module301": [
-        "18"
-      ]
-    },
     "/CM5/TACHO": {
       "J601": [
         "4"
@@ -992,72 +742,12 @@
         "B6"
       ]
     },
-    "/CM5/USB3-0-RX_N": {
-      "Module302": [
-        "128"
-      ]
-    },
-    "/CM5/USB3-0-RX_P": {
-      "Module302": [
-        "130"
-      ]
-    },
-    "/CM5/USB3-0-TX_N": {
-      "Module302": [
-        "140"
-      ]
-    },
-    "/CM5/USB3-0-TX_P": {
-      "Module302": [
-        "142"
-      ]
-    },
-    "/CM5/USB3-1-D_N": {
-      "Module302": [
-        "165"
-      ]
-    },
-    "/CM5/USB3-1-D_P": {
-      "Module302": [
-        "163"
-      ]
-    },
-    "/CM5/USB3-1-RX_N": {
-      "Module302": [
-        "157"
-      ]
-    },
-    "/CM5/USB3-1-RX_P": {
-      "Module302": [
-        "159"
-      ]
-    },
-    "/CM5/USB3-1-TX_N": {
-      "Module302": [
-        "169"
-      ]
-    },
-    "/CM5/USB3-1-TX_P": {
-      "Module302": [
-        "171"
-      ]
-    },
-    "/CM5/USBOTG_ID": {
-      "Module302": [
-        "101"
-      ]
-    },
     "/CM5/VBUS_EN": {
       "Module302": [
         "111"
       ],
       "U701": [
         "3"
-      ]
-    },
-    "/CM5/WL_nDis": {
-      "Module301": [
-        "89"
       ]
     },
     "/CM5/nLED_ACTIVITY": {
@@ -1643,321 +1333,6 @@
         "B4",
         "B9"
       ]
-    },
-    "unconnected-(CN1-Pad3)": {
-      "CN1": [
-        "3"
-      ]
-    },
-    "unconnected-(CN1-Pad4)": {
-      "CN1": [
-        "4"
-      ]
-    },
-    "unconnected-(J101-SBU1-PadA8)": {
-      "J101": [
-        "A8"
-      ]
-    },
-    "unconnected-(J101-SBU2-PadB8)": {
-      "J101": [
-        "B8"
-      ]
-    },
-    "unconnected-(J501-UTILITY{slash}HEAC+-Pad14)": {
-      "J501": [
-        "14"
-      ]
-    },
-    "unconnected-(J502-MountPin-PadMP)": {
-      "J502": [
-        "MP"
-      ]
-    },
-    "unconnected-(J503-MountPin-PadMP)": {
-      "J503": [
-        "MP"
-      ]
-    },
-    "unconnected-(J701-DEVSLP-Pad38)": {
-      "J701": [
-        "38"
-      ]
-    },
-    "unconnected-(J701-GND2242-PadM2)": {
-      "J701": [
-        "M2"
-      ]
-    },
-    "unconnected-(J701-GND2260-PadM3)": {
-      "J701": [
-        "M3"
-      ]
-    },
-    "unconnected-(J701-GND2280-PadM4)": {
-      "J701": [
-        "M4"
-      ]
-    },
-    "unconnected-(J701-NC-Pad6)": {
-      "J701": [
-        "6"
-      ]
-    },
-    "unconnected-(J701-NC-Pad8)": {
-      "J701": [
-        "8"
-      ]
-    },
-    "unconnected-(J701-NC-Pad20)": {
-      "J701": [
-        "20"
-      ]
-    },
-    "unconnected-(J701-NC-Pad22)": {
-      "J701": [
-        "22"
-      ]
-    },
-    "unconnected-(J701-NC-Pad24)": {
-      "J701": [
-        "24"
-      ]
-    },
-    "unconnected-(J701-NC-Pad26)": {
-      "J701": [
-        "26"
-      ]
-    },
-    "unconnected-(J701-NC-Pad28)": {
-      "J701": [
-        "28"
-      ]
-    },
-    "unconnected-(J701-NC-Pad30)": {
-      "J701": [
-        "30"
-      ]
-    },
-    "unconnected-(J701-NC-Pad32)": {
-      "J701": [
-        "32"
-      ]
-    },
-    "unconnected-(J701-NC-Pad34)": {
-      "J701": [
-        "34"
-      ]
-    },
-    "unconnected-(J701-NC-Pad36)": {
-      "J701": [
-        "36"
-      ]
-    },
-    "unconnected-(J701-NC-Pad40)": {
-      "J701": [
-        "40"
-      ]
-    },
-    "unconnected-(J701-NC-Pad42)": {
-      "J701": [
-        "42"
-      ]
-    },
-    "unconnected-(J701-NC-Pad44)": {
-      "J701": [
-        "44"
-      ]
-    },
-    "unconnected-(J701-NC-Pad46)": {
-      "J701": [
-        "46"
-      ]
-    },
-    "unconnected-(J701-NC-Pad48)": {
-      "J701": [
-        "48"
-      ]
-    },
-    "unconnected-(J701-NC-Pad56)": {
-      "J701": [
-        "56"
-      ]
-    },
-    "unconnected-(J701-NC-Pad58)": {
-      "J701": [
-        "58"
-      ]
-    },
-    "unconnected-(J701-NC-Pad67)": {
-      "J701": [
-        "67"
-      ]
-    },
-    "unconnected-(J701-PEDET-Pad69)": {
-      "J701": [
-        "69"
-      ]
-    },
-    "unconnected-(J701-PERn1-Pad35)": {
-      "J701": [
-        "35"
-      ]
-    },
-    "unconnected-(J701-PERn2-Pad23)": {
-      "J701": [
-        "23"
-      ]
-    },
-    "unconnected-(J701-PERn3-Pad11)": {
-      "J701": [
-        "11"
-      ]
-    },
-    "unconnected-(J701-PERp1-Pad37)": {
-      "J701": [
-        "37"
-      ]
-    },
-    "unconnected-(J701-PERp2-Pad25)": {
-      "J701": [
-        "25"
-      ]
-    },
-    "unconnected-(J701-PERp3-Pad13)": {
-      "J701": [
-        "13"
-      ]
-    },
-    "unconnected-(J701-PETn1-Pad29)": {
-      "J701": [
-        "29"
-      ]
-    },
-    "unconnected-(J701-PETn2-Pad17)": {
-      "J701": [
-        "17"
-      ]
-    },
-    "unconnected-(J701-PETn3-Pad5)": {
-      "J701": [
-        "5"
-      ]
-    },
-    "unconnected-(J701-PETp1-Pad31)": {
-      "J701": [
-        "31"
-      ]
-    },
-    "unconnected-(J701-PETp2-Pad19)": {
-      "J701": [
-        "19"
-      ]
-    },
-    "unconnected-(J701-PETp3-Pad7)": {
-      "J701": [
-        "7"
-      ]
-    },
-    "unconnected-(Module301-SD_DAT4-Pad68)": {
-      "Module301": [
-        "68"
-      ]
-    },
-    "unconnected-(Module301-SD_DAT5-Pad64)": {
-      "Module301": [
-        "64"
-      ]
-    },
-    "unconnected-(Module301-SD_DAT6-Pad72)": {
-      "Module301": [
-        "72"
-      ]
-    },
-    "unconnected-(Module301-SD_DAT7-Pad70)": {
-      "Module301": [
-        "70"
-      ]
-    },
-    "unconnected-(Module301-SD_VDD_Override-Pad73)": {
-      "Module301": [
-        "73"
-      ]
-    },
-    "unconnected-(SW101-Pad2)": {
-      "SW101": [
-        "2"
-      ]
-    },
-    "unconnected-(U1-ADC1-Pad16)": {
-      "U1": [
-        "16"
-      ]
-    },
-    "unconnected-(U1-ADC2-Pad15)": {
-      "U1": [
-        "15"
-      ]
-    },
-    "unconnected-(U1-ADC3-Pad13)": {
-      "U1": [
-        "13"
-      ]
-    },
-    "unconnected-(U1-INT1-Pad11)": {
-      "U1": [
-        "11"
-      ]
-    },
-    "unconnected-(U1-INT2-Pad9)": {
-      "U1": [
-        "9"
-      ]
-    },
-    "unconnected-(U1-NC-Pad2)": {
-      "U1": [
-        "2"
-      ]
-    },
-    "unconnected-(U1-NC-Pad3)": {
-      "U1": [
-        "3"
-      ]
-    },
-    "unconnected-(U405-FAULT-Pad3)": {
-      "U405": [
-        "3"
-      ]
-    },
-    "unconnected-(U602-Pad1)": {
-      "U602": [
-        "1"
-      ]
-    },
-    "unconnected-(U701-nFault-Pad4)": {
-      "U701": [
-        "4"
-      ]
-    },
-    "unconnected-(U702-PG-Pad2)": {
-      "U702": [
-        "2"
-      ]
-    },
-    "unconnected-(U702-nc-Pad5)": {
-      "U702": [
-        "5"
-      ]
-    },
-    "unconnected-(USB701-SUB1-PadA8)": {
-      "USB701": [
-        "A8"
-      ]
-    },
-    "unconnected-(USB701-SUB2-PadB8)": {
-      "USB701": [
-        "B8"
-      ]
     }
   },
   "components": {
@@ -2094,11 +1469,11 @@
         },
         "A8": {
           "name": "SBU1",
-          "net": "unconnected-(J101-SBU1-PadA8)"
+          "net": ""
         },
         "B8": {
           "name": "SBU2",
-          "net": "unconnected-(J101-SBU2-PadB8)"
+          "net": ""
         }
       },
       "value": "TYPEC-305-ACP16H458",
@@ -2140,7 +1515,7 @@
     "SW101": {
       "pins": {
         "1": "GND",
-        "2": "unconnected-(SW101-Pad2)",
+        "2": "",
         "4": "GND",
         "5": "GND",
         "C": "/CM5/nRPIBOOT"
@@ -2193,8 +1568,8 @@
       "pins": {
         "1": "+BATT",
         "2": "GND",
-        "3": "unconnected-(CN1-Pad3)",
-        "4": "unconnected-(CN1-Pad4)"
+        "3": "",
+        "4": ""
       },
       "value": "SM02B-SRSS-TB (LF)(SN)"
     },
@@ -2270,7 +1645,7 @@
         },
         "18": {
           "name": "Ethernet_SYNC_OUT(3.3v)",
-          "net": "/CM5/SYNC_OUT"
+          "net": ""
         },
         "19": {
           "name": "FAN_PWM",
@@ -2294,7 +1669,7 @@
         },
         "24": {
           "name": "GPIO26",
-          "net": "/CM5/GPIO26"
+          "net": ""
         },
         "25": {
           "name": "GPIO21",
@@ -2310,19 +1685,19 @@
         },
         "28": {
           "name": "GPIO13",
-          "net": "/CM5/GPIO13"
+          "net": ""
         },
         "29": {
           "name": "GPIO16",
-          "net": "/CM5/GPIO16"
+          "net": ""
         },
         "30": {
           "name": "GPIO6",
-          "net": "/CM5/GPIO6"
+          "net": ""
         },
         "31": {
           "name": "GPIO12",
-          "net": "/CM5/GPIO12"
+          "net": ""
         },
         "32": {
           "name": "GND",
@@ -2334,31 +1709,31 @@
         },
         "34": {
           "name": "GPIO5",
-          "net": "/CM5/GPIO5"
+          "net": ""
         },
         "35": {
           "name": "ID_SC",
-          "net": "/CM5/ID_SC"
+          "net": ""
         },
         "36": {
           "name": "ID_SD",
-          "net": "/CM5/ID_SD"
+          "net": ""
         },
         "37": {
           "name": "GPIO7",
-          "net": "/CM5/GPIO7"
+          "net": ""
         },
         "38": {
           "name": "GPIO11",
-          "net": "/CM5/GPIO11"
+          "net": ""
         },
         "39": {
           "name": "GPIO8",
-          "net": "/CM5/GPIO8"
+          "net": ""
         },
         "40": {
           "name": "GPIO9",
-          "net": "/CM5/GPIO9"
+          "net": ""
         },
         "41": {
           "name": "GPIO25",
@@ -2374,7 +1749,7 @@
         },
         "44": {
           "name": "GPIO10",
-          "net": "/CM5/GPIO10"
+          "net": ""
         },
         "45": {
           "name": "GPIO24",
@@ -2382,11 +1757,11 @@
         },
         "46": {
           "name": "GPIO22",
-          "net": "/CM5/GPIO22"
+          "net": ""
         },
         "47": {
           "name": "GPIO23",
-          "net": "/CM5/GPIO23"
+          "net": ""
         },
         "48": {
           "name": "GPIO27",
@@ -2398,11 +1773,11 @@
         },
         "50": {
           "name": "GPIO17",
-          "net": "/CM5/GPIO17"
+          "net": ""
         },
         "51": {
           "name": "GPIO15",
-          "net": "/CM5/GPIO15"
+          "net": ""
         },
         "52": {
           "name": "GND",
@@ -2414,11 +1789,11 @@
         },
         "54": {
           "name": "GPIO4",
-          "net": "/CM5/GPIO4"
+          "net": ""
         },
         "55": {
           "name": "GPIO14",
-          "net": "/CM5/GPIO14"
+          "net": ""
         },
         "56": {
           "name": "GPIO3",
@@ -2426,7 +1801,7 @@
         },
         "57": {
           "name": "SD_CLK",
-          "net": "/CM5/SD_CLK"
+          "net": ""
         },
         "58": {
           "name": "GPIO2",
@@ -2442,19 +1817,19 @@
         },
         "61": {
           "name": "SD_DAT3",
-          "net": "/CM5/SD_DAT3"
+          "net": ""
         },
         "62": {
           "name": "SD_CMD",
-          "net": "/CM5/SD_CMD"
+          "net": ""
         },
         "63": {
           "name": "SD_DAT0",
-          "net": "/CM5/SD_DAT0"
+          "net": ""
         },
         "64": {
           "name": "SD_DAT5",
-          "net": "unconnected-(Module301-SD_DAT5-Pad64)"
+          "net": ""
         },
         "65": {
           "name": "GND",
@@ -2466,19 +1841,19 @@
         },
         "67": {
           "name": "SD_DAT1",
-          "net": "/CM5/SD_DAT1"
+          "net": ""
         },
         "68": {
           "name": "SD_DAT4",
-          "net": "unconnected-(Module301-SD_DAT4-Pad68)"
+          "net": ""
         },
         "69": {
           "name": "SD_DAT2",
-          "net": "/CM5/SD_DAT2"
+          "net": ""
         },
         "70": {
           "name": "SD_DAT7",
-          "net": "unconnected-(Module301-SD_DAT7-Pad70)"
+          "net": ""
         },
         "71": {
           "name": "GND",
@@ -2486,11 +1861,11 @@
         },
         "72": {
           "name": "SD_DAT6",
-          "net": "unconnected-(Module301-SD_DAT6-Pad72)"
+          "net": ""
         },
         "73": {
           "name": "SD_VDD_Override",
-          "net": "unconnected-(Module301-SD_VDD_Override-Pad73)"
+          "net": ""
         },
         "74": {
           "name": "GND",
@@ -2498,7 +1873,7 @@
         },
         "75": {
           "name": "SD_PWR_ON",
-          "net": "/CM5/SD_PWR_ON"
+          "net": ""
         },
         "76": {
           "name": "VBAT",
@@ -2554,7 +1929,7 @@
         },
         "89": {
           "name": "WiFi_nDisable",
-          "net": "/CM5/WL_nDis"
+          "net": ""
         },
         "90": {
           "name": "+1.8v_(Output)",
@@ -2562,7 +1937,7 @@
         },
         "91": {
           "name": "BT_nDisable",
-          "net": "/CM5/BT_nDis"
+          "net": ""
         },
         "92": {
           "name": "PWR_BUT",
@@ -2608,7 +1983,7 @@
       "pins": {
         "101": {
           "name": "USB_OTG_ID",
-          "net": "/CM5/USBOTG_ID"
+          "net": ""
         },
         "102": {
           "name": "PCIe_nCLKREQ",
@@ -2716,7 +2091,7 @@
         },
         "128": {
           "name": "USB3-0-RX_N",
-          "net": "/CM5/USB3-0-RX_N"
+          "net": ""
         },
         "129": {
           "name": "MIPI0_C_P",
@@ -2724,7 +2099,7 @@
         },
         "130": {
           "name": "USB3-0-RX_P",
-          "net": "/CM5/USB3-0-RX_P"
+          "net": ""
         },
         "131": {
           "name": "GND",
@@ -2764,7 +2139,7 @@
         },
         "140": {
           "name": "USB3-0-TX_N",
-          "net": "/CM5/USB3-0-TX_N"
+          "net": ""
         },
         "141": {
           "name": "MIPI0_D3_P",
@@ -2772,11 +2147,11 @@
         },
         "142": {
           "name": "USB3-0-TX_P",
-          "net": "/CM5/USB3-0-TX_P"
+          "net": ""
         },
         "143": {
           "name": "HDMI1_HOTPLUG",
-          "net": "/CM5/HDMI1_HOTPLUG"
+          "net": ""
         },
         "144": {
           "name": "GND",
@@ -2784,23 +2159,23 @@
         },
         "145": {
           "name": "HDMI1_SDA",
-          "net": "/CM5/HDMI1_SDA"
+          "net": ""
         },
         "146": {
           "name": "HDMI1_TX2_P",
-          "net": "/CM5/HDMI1_D2_P"
+          "net": ""
         },
         "147": {
           "name": "HDMI1_SCL",
-          "net": "/CM5/HDMI1_SCL"
+          "net": ""
         },
         "148": {
           "name": "HDMI1_TX2_N",
-          "net": "/CM5/HDMI1_D2_N"
+          "net": ""
         },
         "149": {
           "name": "HDMI1_CEC",
-          "net": "/CM5/HDMI1_CEC"
+          "net": ""
         },
         "150": {
           "name": "GND",
@@ -2812,7 +2187,7 @@
         },
         "152": {
           "name": "HDMI1_TX1_P",
-          "net": "/CM5/HDMI1_D1_P"
+          "net": ""
         },
         "153": {
           "name": "HDMI0_HOTPLUG",
@@ -2820,7 +2195,7 @@
         },
         "154": {
           "name": "HDMI1_TX1_N",
-          "net": "/CM5/HDMI1_D1_N"
+          "net": ""
         },
         "155": {
           "name": "GND",
@@ -2832,19 +2207,19 @@
         },
         "157": {
           "name": "USB3-1-RX_N",
-          "net": "/CM5/USB3-1-RX_N"
+          "net": ""
         },
         "158": {
           "name": "HDMI1_TX0_P",
-          "net": "/CM5/HDMI1_D0_P"
+          "net": ""
         },
         "159": {
           "name": "USB3-1-RX_P",
-          "net": "/CM5/USB3-1-RX_P"
+          "net": ""
         },
         "160": {
           "name": "HDMI1_TX0_N",
-          "net": "/CM5/HDMI1_D0_N"
+          "net": ""
         },
         "161": {
           "name": "GND",
@@ -2856,19 +2231,19 @@
         },
         "163": {
           "name": "USB3-1-D_P",
-          "net": "/CM5/USB3-1-D_P"
+          "net": ""
         },
         "164": {
           "name": "HDMI1_CLK_P",
-          "net": "/CM5/HDMI1_CK_P"
+          "net": ""
         },
         "165": {
           "name": "USB3-1-D_N",
-          "net": "/CM5/USB3-1-D_N"
+          "net": ""
         },
         "166": {
           "name": "HDMI1_CLK_N",
-          "net": "/CM5/HDMI1_CK_N"
+          "net": ""
         },
         "167": {
           "name": "GND",
@@ -2880,7 +2255,7 @@
         },
         "169": {
           "name": "USB3-1-TX_N",
-          "net": "/CM5/USB3-1-TX_N"
+          "net": ""
         },
         "170": {
           "name": "HDMI0_TX2_P",
@@ -2888,7 +2263,7 @@
         },
         "171": {
           "name": "USB3-1-TX_P",
-          "net": "/CM5/USB3-1-TX_P"
+          "net": ""
         },
         "172": {
           "name": "HDMI0_TX2_N",
@@ -2904,7 +2279,7 @@
         },
         "175": {
           "name": "MIPI1_D0_N",
-          "net": "/CM5/DPHY1_P.D0_N"
+          "net": ""
         },
         "176": {
           "name": "HDMI0_TX1_P",
@@ -2912,7 +2287,7 @@
         },
         "177": {
           "name": "MIPI1_D0_P",
-          "net": "/CM5/DPHY1_P.D0_P"
+          "net": ""
         },
         "178": {
           "name": "HDMI0_TX1_N",
@@ -2928,7 +2303,7 @@
         },
         "181": {
           "name": "MIPI1_D1_N",
-          "net": "/CM5/DPHY1_P.D1_N"
+          "net": ""
         },
         "182": {
           "name": "HDMI0_TX0_P",
@@ -2936,7 +2311,7 @@
         },
         "183": {
           "name": "MIPI1_D1_P",
-          "net": "/CM5/DPHY1_P.D1_P"
+          "net": ""
         },
         "184": {
           "name": "HDMI0_TX0_N",
@@ -2952,7 +2327,7 @@
         },
         "187": {
           "name": "MIPI1_C_N",
-          "net": "/CM5/DPHY1_P.C_N"
+          "net": ""
         },
         "188": {
           "name": "HDMI0_CLK_P",
@@ -2960,7 +2335,7 @@
         },
         "189": {
           "name": "MIPI1_C_P",
-          "net": "/CM5/DPHY1_P.C_P"
+          "net": ""
         },
         "190": {
           "name": "HDMI0_CLK_N",
@@ -2976,19 +2351,19 @@
         },
         "193": {
           "name": "MIPI1_D2_N",
-          "net": "/CM5/DPHY1_P.D2_N"
+          "net": ""
         },
         "194": {
           "name": "MIPI1_D3_N",
-          "net": "/CM5/DPHY1_P.D3_N"
+          "net": ""
         },
         "195": {
           "name": "MIPI1_D2_P",
-          "net": "/CM5/DPHY1_P.D2_P"
+          "net": ""
         },
         "196": {
           "name": "MIPI1_D3_P",
-          "net": "/CM5/DPHY1_P.D3_P"
+          "net": ""
         },
         "197": {
           "name": "GND",
@@ -3389,7 +2764,7 @@
         },
         "14": {
           "name": "UTILITY/HEAC+",
-          "net": "unconnected-(J501-UTILITY{slash}HEAC+-Pad14)"
+          "net": ""
         },
         "15": {
           "name": "SCL",
@@ -3443,7 +2818,7 @@
         },
         "3": {
           "name": "FAULT",
-          "net": "unconnected-(U405-FAULT-Pad3)"
+          "net": ""
         },
         "4": {
           "name": "EN",
@@ -3538,7 +2913,7 @@
         },
         "MP": {
           "name": "MountPin",
-          "net": "unconnected-(J502-MountPin-PadMP)"
+          "net": ""
         }
       },
       "value": "I2C",
@@ -3588,7 +2963,7 @@
         },
         "MP": {
           "name": "MountPin",
-          "net": "unconnected-(J503-MountPin-PadMP)"
+          "net": ""
         }
       },
       "value": "SPI",
@@ -3682,11 +3057,11 @@
         },
         "2": {
           "name": "NC",
-          "net": "unconnected-(U1-NC-Pad2)"
+          "net": ""
         },
         "3": {
           "name": "NC",
-          "net": "unconnected-(U1-NC-Pad3)"
+          "net": ""
         },
         "4": {
           "name": "SPC",
@@ -3710,7 +3085,7 @@
         },
         "9": {
           "name": "INT2",
-          "net": "unconnected-(U1-INT2-Pad9)"
+          "net": ""
         },
         "10": {
           "name": "RES",
@@ -3718,7 +3093,7 @@
         },
         "11": {
           "name": "INT1",
-          "net": "unconnected-(U1-INT1-Pad11)"
+          "net": ""
         },
         "12": {
           "name": "GND",
@@ -3726,7 +3101,7 @@
         },
         "13": {
           "name": "ADC3",
-          "net": "unconnected-(U1-ADC3-Pad13)"
+          "net": ""
         },
         "14": {
           "name": "VDD",
@@ -3734,11 +3109,11 @@
         },
         "15": {
           "name": "ADC2",
-          "net": "unconnected-(U1-ADC2-Pad15)"
+          "net": ""
         },
         "16": {
           "name": "ADC1",
-          "net": "unconnected-(U1-ADC1-Pad16)"
+          "net": ""
         }
       },
       "value": "LIS3DH",
@@ -3746,7 +3121,7 @@
     },
     "U602": {
       "pins": {
-        "1": "unconnected-(U602-Pad1)",
+        "1": "",
         "2": "/CM5/PI_nLED_PWR",
         "3": {
           "name": "GND",
@@ -3843,7 +3218,7 @@
         },
         "4": {
           "name": "nFault",
-          "net": "unconnected-(U701-nFault-Pad4)"
+          "net": ""
         },
         "5": {
           "name": "ILIM",
@@ -3920,11 +3295,11 @@
         },
         "A8": {
           "name": "SUB1",
-          "net": "unconnected-(USB701-SUB1-PadA8)"
+          "net": ""
         },
         "B8": {
           "name": "SUB2",
-          "net": "unconnected-(USB701-SUB2-PadB8)"
+          "net": ""
         }
       },
       "value": "TYPEC-305-ACP16H458"
@@ -4035,19 +3410,19 @@
         },
         "5": {
           "name": "PETn3",
-          "net": "unconnected-(J701-PETn3-Pad5)"
+          "net": ""
         },
         "6": {
           "name": "NC",
-          "net": "unconnected-(J701-NC-Pad6)"
+          "net": ""
         },
         "7": {
           "name": "PETp3",
-          "net": "unconnected-(J701-PETp3-Pad7)"
+          "net": ""
         },
         "8": {
           "name": "NC",
-          "net": "unconnected-(J701-NC-Pad8)"
+          "net": ""
         },
         "9": {
           "name": "GND",
@@ -4059,7 +3434,7 @@
         },
         "11": {
           "name": "PERn3",
-          "net": "unconnected-(J701-PERn3-Pad11)"
+          "net": ""
         },
         "12": {
           "name": "3.3V",
@@ -4067,7 +3442,7 @@
         },
         "13": {
           "name": "PERp3",
-          "net": "unconnected-(J701-PERp3-Pad13)"
+          "net": ""
         },
         "14": {
           "name": "3.3V",
@@ -4083,7 +3458,7 @@
         },
         "17": {
           "name": "PETn2",
-          "net": "unconnected-(J701-PETn2-Pad17)"
+          "net": ""
         },
         "18": {
           "name": "3.3V",
@@ -4091,11 +3466,11 @@
         },
         "19": {
           "name": "PETp2",
-          "net": "unconnected-(J701-PETp2-Pad19)"
+          "net": ""
         },
         "20": {
           "name": "NC",
-          "net": "unconnected-(J701-NC-Pad20)"
+          "net": ""
         },
         "21": {
           "name": "GND",
@@ -4103,23 +3478,23 @@
         },
         "22": {
           "name": "NC",
-          "net": "unconnected-(J701-NC-Pad22)"
+          "net": ""
         },
         "23": {
           "name": "PERn2",
-          "net": "unconnected-(J701-PERn2-Pad23)"
+          "net": ""
         },
         "24": {
           "name": "NC",
-          "net": "unconnected-(J701-NC-Pad24)"
+          "net": ""
         },
         "25": {
           "name": "PERp2",
-          "net": "unconnected-(J701-PERp2-Pad25)"
+          "net": ""
         },
         "26": {
           "name": "NC",
-          "net": "unconnected-(J701-NC-Pad26)"
+          "net": ""
         },
         "27": {
           "name": "GND",
@@ -4127,23 +3502,23 @@
         },
         "28": {
           "name": "NC",
-          "net": "unconnected-(J701-NC-Pad28)"
+          "net": ""
         },
         "29": {
           "name": "PETn1",
-          "net": "unconnected-(J701-PETn1-Pad29)"
+          "net": ""
         },
         "30": {
           "name": "NC",
-          "net": "unconnected-(J701-NC-Pad30)"
+          "net": ""
         },
         "31": {
           "name": "PETp1",
-          "net": "unconnected-(J701-PETp1-Pad31)"
+          "net": ""
         },
         "32": {
           "name": "NC",
-          "net": "unconnected-(J701-NC-Pad32)"
+          "net": ""
         },
         "33": {
           "name": "GND",
@@ -4151,23 +3526,23 @@
         },
         "34": {
           "name": "NC",
-          "net": "unconnected-(J701-NC-Pad34)"
+          "net": ""
         },
         "35": {
           "name": "PERn1",
-          "net": "unconnected-(J701-PERn1-Pad35)"
+          "net": ""
         },
         "36": {
           "name": "NC",
-          "net": "unconnected-(J701-NC-Pad36)"
+          "net": ""
         },
         "37": {
           "name": "PERp1",
-          "net": "unconnected-(J701-PERp1-Pad37)"
+          "net": ""
         },
         "38": {
           "name": "DEVSLP",
-          "net": "unconnected-(J701-DEVSLP-Pad38)"
+          "net": ""
         },
         "39": {
           "name": "GND",
@@ -4175,7 +3550,7 @@
         },
         "40": {
           "name": "NC",
-          "net": "unconnected-(J701-NC-Pad40)"
+          "net": ""
         },
         "41": {
           "name": "PETn0",
@@ -4183,7 +3558,7 @@
         },
         "42": {
           "name": "NC",
-          "net": "unconnected-(J701-NC-Pad42)"
+          "net": ""
         },
         "43": {
           "name": "PETp0",
@@ -4191,7 +3566,7 @@
         },
         "44": {
           "name": "NC",
-          "net": "unconnected-(J701-NC-Pad44)"
+          "net": ""
         },
         "45": {
           "name": "GND",
@@ -4199,7 +3574,7 @@
         },
         "46": {
           "name": "NC",
-          "net": "unconnected-(J701-NC-Pad46)"
+          "net": ""
         },
         "47": {
           "name": "PERn0",
@@ -4207,7 +3582,7 @@
         },
         "48": {
           "name": "NC",
-          "net": "unconnected-(J701-NC-Pad48)"
+          "net": ""
         },
         "49": {
           "name": "PERp0",
@@ -4239,7 +3614,7 @@
         },
         "56": {
           "name": "NC",
-          "net": "unconnected-(J701-NC-Pad56)"
+          "net": ""
         },
         "57": {
           "name": "GND",
@@ -4247,11 +3622,11 @@
         },
         "58": {
           "name": "NC",
-          "net": "unconnected-(J701-NC-Pad58)"
+          "net": ""
         },
         "67": {
           "name": "NC",
-          "net": "unconnected-(J701-NC-Pad67)"
+          "net": ""
         },
         "68": {
           "name": "SUSCLK",
@@ -4259,7 +3634,7 @@
         },
         "69": {
           "name": "PEDET",
-          "net": "unconnected-(J701-PEDET-Pad69)"
+          "net": ""
         },
         "70": {
           "name": "3.3V",
@@ -4293,15 +3668,15 @@
         "S2": "GND",
         "M2": {
           "name": "GND2242",
-          "net": "unconnected-(J701-GND2242-PadM2)"
+          "net": ""
         },
         "M3": {
           "name": "GND2260",
-          "net": "unconnected-(J701-GND2260-PadM3)"
+          "net": ""
         },
         "M4": {
           "name": "GND2280",
-          "net": "unconnected-(J701-GND2280-PadM4)"
+          "net": ""
         }
       },
       "value": "Bus_M.2_Socket_M",
@@ -4364,7 +3739,7 @@
         },
         "2": {
           "name": "PG",
-          "net": "unconnected-(U702-PG-Pad2)"
+          "net": ""
         },
         "3": {
           "name": "VIN",
@@ -4376,7 +3751,7 @@
         },
         "5": {
           "name": "nc",
-          "net": "unconnected-(U702-nc-Pad5)"
+          "net": ""
         },
         "6": {
           "name": "LX",

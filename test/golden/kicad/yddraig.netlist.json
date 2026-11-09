@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 3,
   "metadata": {
-    "generatedAt": "2026-09-02T21:16:45.481Z",
-    "netlistHash": "sha256:cb070a542f11b42c64ab89f6db68d4a9dc5db900c72e16636dce7729fd7b3e3d",
+    "generatedAt": "2026-11-09T23:53:58.900Z",
+    "netlistHash": "sha256:a51754c912ea2b46c334c61479362814bfebbb95f5d2d4826e35ccd9e45df4f0",
     "origin": {
       "type": "vendor",
       "source": {
@@ -5456,556 +5456,6 @@
       "U506": [
         "6"
       ]
-    },
-    "unconnected-(EXP804-~{IRQ}-PadA28)": {
-      "EXP804": [
-        "A28"
-      ]
-    },
-    "unconnected-(J201-NC-Pad20)": {
-      "J201": [
-        "20"
-      ]
-    },
-    "unconnected-(J501-Pad2)": {
-      "J501": [
-        "2"
-      ]
-    },
-    "unconnected-(J501-Pad6)": {
-      "J501": [
-        "6"
-      ]
-    },
-    "unconnected-(J502-Pad2)": {
-      "J502": [
-        "2"
-      ]
-    },
-    "unconnected-(J502-Pad6)": {
-      "J502": [
-        "6"
-      ]
-    },
-    "unconnected-(J503-Pad1)": {
-      "J503": [
-        "1"
-      ]
-    },
-    "unconnected-(J503-Pad4)": {
-      "J503": [
-        "4"
-      ]
-    },
-    "unconnected-(J503-Pad6)": {
-      "J503": [
-        "6"
-      ]
-    },
-    "unconnected-(J503-Pad9)": {
-      "J503": [
-        "9"
-      ]
-    },
-    "unconnected-(J504-Pad1)": {
-      "J504": [
-        "1"
-      ]
-    },
-    "unconnected-(J504-Pad4)": {
-      "J504": [
-        "4"
-      ]
-    },
-    "unconnected-(J504-Pad6)": {
-      "J504": [
-        "6"
-      ]
-    },
-    "unconnected-(J504-Pad9)": {
-      "J504": [
-        "9"
-      ]
-    },
-    "unconnected-(J505-Pad13)": {
-      "J505": [
-        "13"
-      ]
-    },
-    "unconnected-(J603-IORDY-Pad27)": {
-      "J603": [
-        "27"
-      ]
-    },
-    "unconnected-(J603-PDIAG-Pad34)": {
-      "J603": [
-        "34"
-      ]
-    },
-    "unconnected-(J603-~{IOCS16}-Pad32)": {
-      "J603": [
-        "32"
-      ]
-    },
-    "unconnected-(J701-DP-Pad29)": {
-      "J701": [
-        "29"
-      ]
-    },
-    "unconnected-(J701-QP-Pad26)": {
-      "J701": [
-        "26"
-      ]
-    },
-    "unconnected-(J701-~{CASP}-Pad28)": {
-      "J701": [
-        "28"
-      ]
-    },
-    "unconnected-(J702-DP-Pad29)": {
-      "J702": [
-        "29"
-      ]
-    },
-    "unconnected-(J702-QP-Pad26)": {
-      "J702": [
-        "26"
-      ]
-    },
-    "unconnected-(J702-~{CASP}-Pad28)": {
-      "J702": [
-        "28"
-      ]
-    },
-    "unconnected-(RN601-R4.1-Pad7)": {
-      "RN601": [
-        "7"
-      ]
-    },
-    "unconnected-(RN601-R4.2-Pad8)": {
-      "RN601": [
-        "8"
-      ]
-    },
-    "unconnected-(RN602-R4.1-Pad7)": {
-      "RN602": [
-        "7"
-      ]
-    },
-    "unconnected-(RN602-R4.2-Pad8)": {
-      "RN602": [
-        "8"
-      ]
-    },
-    "unconnected-(RN802-R6-Pad7)": {
-      "RN802": [
-        "7"
-      ]
-    },
-    "unconnected-(RN802-R7-Pad8)": {
-      "RN802": [
-        "8"
-      ]
-    },
-    "unconnected-(RN802-R8-Pad9)": {
-      "RN802": [
-        "9"
-      ]
-    },
-    "unconnected-(RN903-R4.2-Pad13)": {
-      "RN903": [
-        "13"
-      ]
-    },
-    "unconnected-(RN903-R5.2-Pad12)": {
-      "RN903": [
-        "12"
-      ]
-    },
-    "unconnected-(RN903-R6.2-Pad11)": {
-      "RN903": [
-        "11"
-      ]
-    },
-    "unconnected-(RN903-R7.2-Pad10)": {
-      "RN903": [
-        "10"
-      ]
-    },
-    "unconnected-(RN903-R8.2-Pad9)": {
-      "RN903": [
-        "9"
-      ]
-    },
-    "unconnected-(U201-Pad8)": {
-      "U201": [
-        "8"
-      ]
-    },
-    "unconnected-(U201-Pad10)": {
-      "U201": [
-        "10"
-      ]
-    },
-    "unconnected-(U201-Pad12)": {
-      "U201": [
-        "12"
-      ]
-    },
-    "unconnected-(U202B-Q-Pad9)": {
-      "U202": [
-        "9"
-      ]
-    },
-    "unconnected-(U202B-~{Q}-Pad8)": {
-      "U202": [
-        "8"
-      ]
-    },
-    "unconnected-(U301-Pad8)": {
-      "U301": [
-        "8"
-      ]
-    },
-    "unconnected-(U301-Pad10)": {
-      "U301": [
-        "10"
-      ]
-    },
-    "unconnected-(U301-Pad12)": {
-      "U301": [
-        "12"
-      ]
-    },
-    "unconnected-(U303-BG-Pad11)": {
-      "U303": [
-        "11"
-      ]
-    },
-    "unconnected-(U401-Q0-Pad3)": {
-      "U401": [
-        "3"
-      ]
-    },
-    "unconnected-(U401-Q1-Pad4)": {
-      "U401": [
-        "4"
-      ]
-    },
-    "unconnected-(U401-Q2-Pad5)": {
-      "U401": [
-        "5"
-      ]
-    },
-    "unconnected-(U401-Q4-Pad10)": {
-      "U401": [
-        "10"
-      ]
-    },
-    "unconnected-(U401-Q5-Pad11)": {
-      "U401": [
-        "11"
-      ]
-    },
-    "unconnected-(U401-Q6-Pad12)": {
-      "U401": [
-        "12"
-      ]
-    },
-    "unconnected-(U401-Q7-Pad13)": {
-      "U401": [
-        "13"
-      ]
-    },
-    "unconnected-(U403-EO-Pad15)": {
-      "U403": [
-        "15"
-      ]
-    },
-    "unconnected-(U403-GS-Pad14)": {
-      "U403": [
-        "14"
-      ]
-    },
-    "unconnected-(U404-P3-Pad3)": {
-      "U404": [
-        "3"
-      ]
-    },
-    "unconnected-(U404-P14-Pad14)": {
-      "U404": [
-        "14"
-      ]
-    },
-    "unconnected-(U404-P19-Pad19)": {
-      "U404": [
-        "19"
-      ]
-    },
-    "unconnected-(U404-P21-Pad21)": {
-      "U404": [
-        "21"
-      ]
-    },
-    "unconnected-(U404-P36-Pad36)": {
-      "U404": [
-        "36"
-      ]
-    },
-    "unconnected-(U404-P37-Pad37)": {
-      "U404": [
-        "37"
-      ]
-    },
-    "unconnected-(U404-P40-Pad40)": {
-      "U404": [
-        "40"
-      ]
-    },
-    "unconnected-(U404-P41-Pad41)": {
-      "U404": [
-        "41"
-      ]
-    },
-    "unconnected-(U404-P43-Pad43)": {
-      "U404": [
-        "43"
-      ]
-    },
-    "unconnected-(U404-P46-Pad46)": {
-      "U404": [
-        "46"
-      ]
-    },
-    "unconnected-(U404-P47-Pad47)": {
-      "U404": [
-        "47"
-      ]
-    },
-    "unconnected-(U404-P52-Pad52)": {
-      "U404": [
-        "52"
-      ]
-    },
-    "unconnected-(U404-P54-Pad54)": {
-      "U404": [
-        "54"
-      ]
-    },
-    "unconnected-(U404-P67-Pad67)": {
-      "U404": [
-        "67"
-      ]
-    },
-    "unconnected-(U405-Pad8)": {
-      "U405": [
-        "8"
-      ]
-    },
-    "unconnected-(U405-Pad11)": {
-      "U405": [
-        "11"
-      ]
-    },
-    "unconnected-(U406-Pad6)": {
-      "U406": [
-        "6"
-      ]
-    },
-    "unconnected-(U406-Pad8)": {
-      "U406": [
-        "8"
-      ]
-    },
-    "unconnected-(U406-Pad10)": {
-      "U406": [
-        "10"
-      ]
-    },
-    "unconnected-(U406-Pad12)": {
-      "U406": [
-        "12"
-      ]
-    },
-    "unconnected-(U501-OP2-Pad28)": {
-      "U501": [
-        "28"
-      ]
-    },
-    "unconnected-(U501-OP3-Pad13)": {
-      "U501": [
-        "13"
-      ]
-    },
-    "unconnected-(U501-OP4-Pad27)": {
-      "U501": [
-        "27"
-      ]
-    },
-    "unconnected-(U501-OP5-Pad14)": {
-      "U501": [
-        "14"
-      ]
-    },
-    "unconnected-(U501-OP6-Pad26)": {
-      "U501": [
-        "26"
-      ]
-    },
-    "unconnected-(U501-OP7-Pad15)": {
-      "U501": [
-        "15"
-      ]
-    },
-    "unconnected-(U502-(P16)DISP_SEL-Pad33)": {
-      "U502": [
-        "33"
-      ]
-    },
-    "unconnected-(U502-(P17)~{KBD_INH}-Pad34)": {
-      "U502": [
-        "34"
-      ]
-    },
-    "unconnected-(U502-(P20)~{RC}-Pad21)": {
-      "U502": [
-        "21"
-      ]
-    },
-    "unconnected-(U502-(P21)~{GA20}-Pad22)": {
-      "U502": [
-        "22"
-      ]
-    },
-    "unconnected-(U502-JUMP-Pad32)": {
-      "U502": [
-        "32"
-      ]
-    },
-    "unconnected-(U502-P12-Pad29)": {
-      "U502": [
-        "29"
-      ]
-    },
-    "unconnected-(U502-P13-Pad30)": {
-      "U502": [
-        "30"
-      ]
-    },
-    "unconnected-(U502-RAM_SEL-Pad31)": {
-      "U502": [
-        "31"
-      ]
-    },
-    "unconnected-(U502-SYNC-Pad11)": {
-      "U502": [
-        "11"
-      ]
-    },
-    "unconnected-(U505-DMAREQ{slash}PC4-Pad34)": {
-      "U505": [
-        "34"
-      ]
-    },
-    "unconnected-(U505-PB3-Pad20)": {
-      "U505": [
-        "20"
-      ]
-    },
-    "unconnected-(U505-PB4-Pad21)": {
-      "U505": [
-        "21"
-      ]
-    },
-    "unconnected-(U505-PB5-Pad22)": {
-      "U505": [
-        "22"
-      ]
-    },
-    "unconnected-(U505-PB6-Pad23)": {
-      "U505": [
-        "23"
-      ]
-    },
-    "unconnected-(U505-PB7-Pad24)": {
-      "U505": [
-        "24"
-      ]
-    },
-    "unconnected-(U505-PC0-Pad30)": {
-      "U505": [
-        "30"
-      ]
-    },
-    "unconnected-(U505-PC1-Pad31)": {
-      "U505": [
-        "31"
-      ]
-    },
-    "unconnected-(U505-PC6{slash}PIACK-Pad36)": {
-      "U505": [
-        "36"
-      ]
-    },
-    "unconnected-(U505-PC7{slash}TIACK-Pad37)": {
-      "U505": [
-        "37"
-      ]
-    },
-    "unconnected-(U505-TIN{slash}PC2-Pad32)": {
-      "U505": [
-        "32"
-      ]
-    },
-    "unconnected-(U601-(VDD)-Pad16)": {
-      "U601": [
-        "16"
-      ]
-    },
-    "unconnected-(U601-(VDD)-Pad17)": {
-      "U601": [
-        "17"
-      ]
-    },
-    "unconnected-(U601-STD.P-Pad1)": {
-      "U601": [
-        "1"
-      ]
-    },
-    "unconnected-(U602A-O2-Pad6)": {
-      "U602": [
-        "6"
-      ]
-    },
-    "unconnected-(U602A-O3-Pad7)": {
-      "U602": [
-        "7"
-      ]
-    },
-    "unconnected-(U602B-O0-Pad12)": {
-      "U602": [
-        "12"
-      ]
-    },
-    "unconnected-(U602B-O1-Pad11)": {
-      "U602": [
-        "11"
-      ]
-    },
-    "unconnected-(U602B-O2-Pad10)": {
-      "U602": [
-        "10"
-      ]
-    },
-    "unconnected-(U602B-O3-Pad9)": {
-      "U602": [
-        "9"
-      ]
-    },
-    "unconnected-(X401-NC-Pad1)": {
-      "X401": [
-        "1"
-      ]
     }
   },
   "components": {
@@ -6239,11 +5689,11 @@
           "name": "GND",
           "net": "GND"
         },
-        "8": "unconnected-(U301-Pad8)",
+        "8": "",
         "9": "+5V",
-        "10": "unconnected-(U301-Pad10)",
+        "10": "",
         "11": "+5V",
-        "12": "unconnected-(U301-Pad12)",
+        "12": "",
         "13": "+5V",
         "14": {
           "name": "VCC",
@@ -6335,7 +5785,7 @@
         },
         "11": {
           "name": "BG",
-          "net": "unconnected-(U303-BG-Pad11)"
+          "net": ""
         },
         "12": {
           "name": "BGACK",
@@ -7307,7 +6757,7 @@
         },
         "26": {
           "name": "QP",
-          "net": "unconnected-(J701-QP-Pad26)"
+          "net": ""
         },
         "27": {
           "name": "~{RAS}",
@@ -7315,11 +6765,11 @@
         },
         "28": {
           "name": "~{CASP}",
-          "net": "unconnected-(J701-~{CASP}-Pad28)"
+          "net": ""
         },
         "29": {
           "name": "DP",
-          "net": "unconnected-(J701-DP-Pad29)"
+          "net": ""
         },
         "30": {
           "name": "VCC",
@@ -7432,7 +6882,7 @@
         },
         "26": {
           "name": "QP",
-          "net": "unconnected-(J702-QP-Pad26)"
+          "net": ""
         },
         "27": {
           "name": "~{RAS}",
@@ -7440,11 +6890,11 @@
         },
         "28": {
           "name": "~{CASP}",
-          "net": "unconnected-(J702-~{CASP}-Pad28)"
+          "net": ""
         },
         "29": {
           "name": "DP",
-          "net": "unconnected-(J702-DP-Pad29)"
+          "net": ""
         },
         "30": {
           "name": "VCC",
@@ -8183,15 +7633,15 @@
         },
         "3": {
           "name": "Q0",
-          "net": "unconnected-(U401-Q0-Pad3)"
+          "net": ""
         },
         "4": {
           "name": "Q1",
-          "net": "unconnected-(U401-Q1-Pad4)"
+          "net": ""
         },
         "5": {
           "name": "Q2",
-          "net": "unconnected-(U401-Q2-Pad5)"
+          "net": ""
         },
         "6": {
           "name": "Q3",
@@ -8211,19 +7661,19 @@
         },
         "10": {
           "name": "Q4",
-          "net": "unconnected-(U401-Q4-Pad10)"
+          "net": ""
         },
         "11": {
           "name": "Q5",
-          "net": "unconnected-(U401-Q5-Pad11)"
+          "net": ""
         },
         "12": {
           "name": "Q6",
-          "net": "unconnected-(U401-Q6-Pad12)"
+          "net": ""
         },
         "13": {
           "name": "Q7",
-          "net": "unconnected-(U401-Q7-Pad13)"
+          "net": ""
         },
         "14": {
           "name": "VCC",
@@ -8315,11 +7765,11 @@
         },
         "14": {
           "name": "GS",
-          "net": "unconnected-(U403-GS-Pad14)"
+          "net": ""
         },
         "15": {
           "name": "EO",
-          "net": "unconnected-(U403-EO-Pad15)"
+          "net": ""
         },
         "16": {
           "name": "VCC",
@@ -8341,7 +7791,7 @@
         },
         "3": {
           "name": "P3",
-          "net": "unconnected-(U404-P3-Pad3)"
+          "net": ""
         },
         "4": {
           "name": "P4",
@@ -8385,7 +7835,7 @@
         },
         "14": {
           "name": "P14",
-          "net": "unconnected-(U404-P14-Pad14)"
+          "net": ""
         },
         "15": {
           "name": "P15",
@@ -8405,7 +7855,7 @@
         },
         "19": {
           "name": "P19",
-          "net": "unconnected-(U404-P19-Pad19)"
+          "net": ""
         },
         "20": {
           "name": "P20",
@@ -8413,7 +7863,7 @@
         },
         "21": {
           "name": "P21",
-          "net": "unconnected-(U404-P21-Pad21)"
+          "net": ""
         },
         "22": {
           "name": "VCCIO",
@@ -8473,11 +7923,11 @@
         },
         "36": {
           "name": "P36",
-          "net": "unconnected-(U404-P36-Pad36)"
+          "net": ""
         },
         "37": {
           "name": "P37",
-          "net": "unconnected-(U404-P37-Pad37)"
+          "net": ""
         },
         "38": {
           "name": "VCC",
@@ -8489,11 +7939,11 @@
         },
         "40": {
           "name": "P40",
-          "net": "unconnected-(U404-P40-Pad40)"
+          "net": ""
         },
         "41": {
           "name": "P41",
-          "net": "unconnected-(U404-P41-Pad41)"
+          "net": ""
         },
         "42": {
           "name": "GND",
@@ -8501,7 +7951,7 @@
         },
         "43": {
           "name": "P43",
-          "net": "unconnected-(U404-P43-Pad43)"
+          "net": ""
         },
         "44": {
           "name": "P44",
@@ -8513,11 +7963,11 @@
         },
         "46": {
           "name": "P46",
-          "net": "unconnected-(U404-P46-Pad46)"
+          "net": ""
         },
         "47": {
           "name": "P47",
-          "net": "unconnected-(U404-P47-Pad47)"
+          "net": ""
         },
         "48": {
           "name": "P48",
@@ -8537,7 +7987,7 @@
         },
         "52": {
           "name": "P52",
-          "net": "unconnected-(U404-P52-Pad52)"
+          "net": ""
         },
         "53": {
           "name": "P53",
@@ -8545,7 +7995,7 @@
         },
         "54": {
           "name": "P54",
-          "net": "unconnected-(U404-P54-Pad54)"
+          "net": ""
         },
         "55": {
           "name": "P55",
@@ -8597,7 +8047,7 @@
         },
         "67": {
           "name": "P67",
-          "net": "unconnected-(U404-P67-Pad67)"
+          "net": ""
         },
         "68": {
           "name": "P68",
@@ -8683,10 +8133,10 @@
           "name": "GND",
           "net": "GND"
         },
-        "8": "unconnected-(U405-Pad8)",
+        "8": "",
         "9": "GND",
         "10": "GND",
-        "11": "unconnected-(U405-Pad11)",
+        "11": "",
         "12": "GND",
         "13": "GND",
         "14": {
@@ -8704,16 +8154,16 @@
         "3": "/CPU, RAM and ROM/RD~{WR}",
         "4": "/CPU, RAM and ROM/~{RD}WR",
         "5": "GND",
-        "6": "unconnected-(U406-Pad6)",
+        "6": "",
         "7": {
           "name": "GND",
           "net": "GND"
         },
-        "8": "unconnected-(U406-Pad8)",
+        "8": "",
         "9": "GND",
-        "10": "unconnected-(U406-Pad10)",
+        "10": "",
         "11": "GND",
-        "12": "unconnected-(U406-Pad12)",
+        "12": "",
         "13": "GND",
         "14": {
           "name": "VCC",
@@ -8727,7 +8177,7 @@
       "pins": {
         "1": {
           "name": "NC",
-          "net": "unconnected-(X401-NC-Pad1)"
+          "net": ""
         },
         "7": {
           "name": "GND",
@@ -8977,23 +8427,23 @@
         },
         "9": {
           "name": "R8.2",
-          "net": "unconnected-(RN903-R8.2-Pad9)"
+          "net": ""
         },
         "10": {
           "name": "R7.2",
-          "net": "unconnected-(RN903-R7.2-Pad10)"
+          "net": ""
         },
         "11": {
           "name": "R6.2",
-          "net": "unconnected-(RN903-R6.2-Pad11)"
+          "net": ""
         },
         "12": {
           "name": "R5.2",
-          "net": "unconnected-(RN903-R5.2-Pad12)"
+          "net": ""
         },
         "13": {
           "name": "R4.2",
-          "net": "unconnected-(RN903-R4.2-Pad13)"
+          "net": ""
         },
         "14": {
           "name": "R3.2",
@@ -10895,7 +10345,7 @@
         },
         "A28": {
           "name": "~{IRQ}",
-          "net": "unconnected-(EXP804-~{IRQ}-PadA28)"
+          "net": ""
         }
       },
       "value": "D68K_64PIN_PCB",
@@ -10971,15 +10421,15 @@
         },
         "7": {
           "name": "R6",
-          "net": "unconnected-(RN802-R6-Pad7)"
+          "net": ""
         },
         "8": {
           "name": "R7",
-          "net": "unconnected-(RN802-R7-Pad8)"
+          "net": ""
         },
         "9": {
           "name": "R8",
-          "net": "unconnected-(RN802-R8-Pad9)"
+          "net": ""
         }
       },
       "value": "10K",
@@ -11227,7 +10677,7 @@
         },
         "27": {
           "name": "IORDY",
-          "net": "unconnected-(J603-IORDY-Pad27)"
+          "net": ""
         },
         "28": {
           "name": "CABLE_SEL",
@@ -11247,7 +10697,7 @@
         },
         "32": {
           "name": "~{IOCS16}",
-          "net": "unconnected-(J603-~{IOCS16}-Pad32)"
+          "net": ""
         },
         "33": {
           "name": "A1",
@@ -11255,7 +10705,7 @@
         },
         "34": {
           "name": "PDIAG",
-          "net": "unconnected-(J603-PDIAG-Pad34)"
+          "net": ""
         },
         "35": {
           "name": "A0",
@@ -11438,11 +10888,11 @@
         },
         "7": {
           "name": "R4.1",
-          "net": "unconnected-(RN601-R4.1-Pad7)"
+          "net": ""
         },
         "8": {
           "name": "R4.2",
-          "net": "unconnected-(RN601-R4.2-Pad8)"
+          "net": ""
         }
       },
       "value": "22R",
@@ -11476,11 +10926,11 @@
         },
         "7": {
           "name": "R4.1",
-          "net": "unconnected-(RN602-R4.1-Pad7)"
+          "net": ""
         },
         "8": {
           "name": "R4.2",
-          "net": "unconnected-(RN602-R4.2-Pad8)"
+          "net": ""
         }
       },
       "value": "22R",
@@ -11490,7 +10940,7 @@
       "pins": {
         "1": {
           "name": "STD.P",
-          "net": "unconnected-(U601-STD.P-Pad1)"
+          "net": ""
         },
         "2": {
           "name": "~{CS0}",
@@ -11550,11 +11000,11 @@
         },
         "16": {
           "name": "(VDD)",
-          "net": "unconnected-(U601-(VDD)-Pad16)"
+          "net": ""
         },
         "17": {
           "name": "(VDD)",
-          "net": "unconnected-(U601-(VDD)-Pad17)"
+          "net": ""
         },
         "18": {
           "name": "VDD",
@@ -11587,11 +11037,11 @@
         },
         "6": {
           "name": "O2",
-          "net": "unconnected-(U602A-O2-Pad6)"
+          "net": ""
         },
         "7": {
           "name": "O3",
-          "net": "unconnected-(U602A-O3-Pad7)"
+          "net": ""
         },
         "8": {
           "name": "GND",
@@ -11599,19 +11049,19 @@
         },
         "9": {
           "name": "O3",
-          "net": "unconnected-(U602B-O3-Pad9)"
+          "net": ""
         },
         "10": {
           "name": "O2",
-          "net": "unconnected-(U602B-O2-Pad10)"
+          "net": ""
         },
         "11": {
           "name": "O1",
-          "net": "unconnected-(U602B-O1-Pad11)"
+          "net": ""
         },
         "12": {
           "name": "O0",
-          "net": "unconnected-(U602B-O0-Pad12)"
+          "net": ""
         },
         "13": {
           "name": "A1",
@@ -11792,11 +11242,11 @@
     "J501": {
       "pins": {
         "1": "Net-(U502-(P10)KBDI)",
-        "2": "unconnected-(J501-Pad2)",
+        "2": "",
         "3": "GND",
         "4": "+5V",
         "5": "Net-(U502-KBCI(T0))",
-        "6": "unconnected-(J501-Pad6)",
+        "6": "",
         "7": "GND"
       },
       "value": "Keyboard",
@@ -11805,11 +11255,11 @@
     "J502": {
       "pins": {
         "1": "Net-(U502-(P11)MSDI)",
-        "2": "unconnected-(J502-Pad2)",
+        "2": "",
         "3": "GND",
         "4": "+5V",
         "5": "Net-(U502-KBDI(T1))",
-        "6": "unconnected-(J502-Pad6)",
+        "6": "",
         "7": "GND"
       },
       "value": "Mouse",
@@ -11821,15 +11271,15 @@
           "name": "PAD",
           "net": "GND"
         },
-        "1": "unconnected-(J503-Pad1)",
+        "1": "",
         "2": "Net-(U504-R1IN)",
         "3": "Net-(U504-T1OUT)",
-        "4": "unconnected-(J503-Pad4)",
+        "4": "",
         "5": "GND",
-        "6": "unconnected-(J503-Pad6)",
+        "6": "",
         "7": "Net-(U504-T2OUT)",
         "8": "Net-(U504-R2IN)",
-        "9": "unconnected-(J503-Pad9)"
+        "9": ""
       },
       "value": "Serial1",
       "description": "9-pin male D-SUB connector, Mounting Hole"
@@ -11840,15 +11290,15 @@
           "name": "PAD",
           "net": "GND"
         },
-        "1": "unconnected-(J504-Pad1)",
+        "1": "",
         "2": "Net-(U506-R1IN)",
         "3": "Net-(U506-T1OUT)",
-        "4": "unconnected-(J504-Pad4)",
+        "4": "",
         "5": "GND",
-        "6": "unconnected-(J504-Pad6)",
+        "6": "",
         "7": "Net-(U506-T2OUT)",
         "8": "Net-(U506-R2IN)",
-        "9": "unconnected-(J504-Pad9)"
+        "9": ""
       },
       "value": "Serial2",
       "description": "9-pin male D-SUB connector, Mounting Hole"
@@ -11871,7 +11321,7 @@
         "10": "/Peripherals/PPACK",
         "11": "/Peripherals/PPBUSY",
         "12": "/Peripherals/PPPAPER",
-        "13": "unconnected-(J505-Pad13)",
+        "13": "",
         "14": {
           "name": "P14",
           "net": "Net-(J505-P14)"
@@ -12076,15 +11526,15 @@
         },
         "13": {
           "name": "OP3",
-          "net": "unconnected-(U501-OP3-Pad13)"
+          "net": ""
         },
         "14": {
           "name": "OP5",
-          "net": "unconnected-(U501-OP5-Pad14)"
+          "net": ""
         },
         "15": {
           "name": "OP7",
-          "net": "unconnected-(U501-OP7-Pad15)"
+          "net": ""
         },
         "16": {
           "name": "D1",
@@ -12128,15 +11578,15 @@
         },
         "26": {
           "name": "OP6",
-          "net": "unconnected-(U501-OP6-Pad26)"
+          "net": ""
         },
         "27": {
           "name": "OP4",
-          "net": "unconnected-(U501-OP4-Pad27)"
+          "net": ""
         },
         "28": {
           "name": "OP2",
-          "net": "unconnected-(U501-OP2-Pad28)"
+          "net": ""
         },
         "29": {
           "name": "OP0",
@@ -12234,7 +11684,7 @@
         },
         "11": {
           "name": "SYNC",
-          "net": "unconnected-(U502-SYNC-Pad11)"
+          "net": ""
         },
         "12": {
           "name": "DB0",
@@ -12274,11 +11724,11 @@
         },
         "21": {
           "name": "(P20)~{RC}",
-          "net": "unconnected-(U502-(P20)~{RC}-Pad21)"
+          "net": ""
         },
         "22": {
           "name": "(P21)~{GA20}",
-          "net": "unconnected-(U502-(P21)~{GA20}-Pad22)"
+          "net": ""
         },
         "23": {
           "name": "(P22)MSDO",
@@ -12306,27 +11756,27 @@
         },
         "29": {
           "name": "P12",
-          "net": "unconnected-(U502-P12-Pad29)"
+          "net": ""
         },
         "30": {
           "name": "P13",
-          "net": "unconnected-(U502-P13-Pad30)"
+          "net": ""
         },
         "31": {
           "name": "RAM_SEL",
-          "net": "unconnected-(U502-RAM_SEL-Pad31)"
+          "net": ""
         },
         "32": {
           "name": "JUMP",
-          "net": "unconnected-(U502-JUMP-Pad32)"
+          "net": ""
         },
         "33": {
           "name": "(P16)DISP_SEL",
-          "net": "unconnected-(U502-(P16)DISP_SEL-Pad33)"
+          "net": ""
         },
         "34": {
           "name": "(P17)~{KBD_INH}",
-          "net": "unconnected-(U502-(P17)~{KBD_INH}-Pad34)"
+          "net": ""
         },
         "35": {
           "name": "(P24)IRQ1",
@@ -12531,23 +11981,23 @@
         },
         "20": {
           "name": "PB3",
-          "net": "unconnected-(U505-PB3-Pad20)"
+          "net": ""
         },
         "21": {
           "name": "PB4",
-          "net": "unconnected-(U505-PB4-Pad21)"
+          "net": ""
         },
         "22": {
           "name": "PB5",
-          "net": "unconnected-(U505-PB5-Pad22)"
+          "net": ""
         },
         "23": {
           "name": "PB6",
-          "net": "unconnected-(U505-PB6-Pad23)"
+          "net": ""
         },
         "24": {
           "name": "PB7",
-          "net": "unconnected-(U505-PB7-Pad24)"
+          "net": ""
         },
         "25": {
           "name": "RS5",
@@ -12571,15 +12021,15 @@
         },
         "30": {
           "name": "PC0",
-          "net": "unconnected-(U505-PC0-Pad30)"
+          "net": ""
         },
         "31": {
           "name": "PC1",
-          "net": "unconnected-(U505-PC1-Pad31)"
+          "net": ""
         },
         "32": {
           "name": "TIN/PC2",
-          "net": "unconnected-(U505-TIN{slash}PC2-Pad32)"
+          "net": ""
         },
         "33": {
           "name": "PC3/TOUT",
@@ -12587,7 +12037,7 @@
         },
         "34": {
           "name": "DMAREQ/PC4",
-          "net": "unconnected-(U505-DMAREQ{slash}PC4-Pad34)"
+          "net": ""
         },
         "35": {
           "name": "PC5/PIRQ",
@@ -12595,11 +12045,11 @@
         },
         "36": {
           "name": "PC6/PIACK",
-          "net": "unconnected-(U505-PC6{slash}PIACK-Pad36)"
+          "net": ""
         },
         "37": {
           "name": "PC7/TIACK",
-          "net": "unconnected-(U505-PC7{slash}TIACK-Pad37)"
+          "net": ""
         },
         "38": {
           "name": "GND",
@@ -13005,7 +12455,7 @@
         },
         "20": {
           "name": "NC",
-          "net": "unconnected-(J201-NC-Pad20)"
+          "net": ""
         },
         "21": {
           "name": "+5V",
@@ -13161,11 +12611,11 @@
           "name": "GND",
           "net": "GND"
         },
-        "8": "unconnected-(U201-Pad8)",
+        "8": "",
         "9": "+5V_SB",
-        "10": "unconnected-(U201-Pad10)",
+        "10": "",
         "11": "+5V_SB",
-        "12": "unconnected-(U201-Pad12)",
+        "12": "",
         "13": "+5V_SB",
         "14": {
           "name": "VCC",
@@ -13207,11 +12657,11 @@
         },
         "8": {
           "name": "~{Q}",
-          "net": "unconnected-(U202B-~{Q}-Pad8)"
+          "net": ""
         },
         "9": {
           "name": "Q",
-          "net": "unconnected-(U202B-Q-Pad9)"
+          "net": ""
         },
         "10": {
           "name": "~{S}",

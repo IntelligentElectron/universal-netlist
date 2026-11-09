@@ -33,6 +33,12 @@ export interface ResolvedPin {
 export interface ResolvedNet {
   readonly name: string;
   readonly pins: readonly ResolvedPin[];
+  /**
+   * A no-connect flag sits on the net. KiCad then writes each pin's type with
+   * `+no_connect` (`passive+no_connect`), which is how the netlist reader
+   * tells an intentionally open pin from a forgotten one.
+   */
+  readonly noConnect?: boolean;
 }
 
 /** A design's connectivity, on-board parts only, as KiCad's netlister reports it. */
@@ -86,7 +92,7 @@ export const writeKicadNetlist = (design: ResolvedSchematic): string => {
       lines.push(
         `      (node (ref ${quote(pin.reference)}) (pin ${quote(pin.pin)})` +
           (named ? ` (pinfunction ${quote(`${pin.name}_${pin.pin}`)})` : "") +
-          ` (pintype ${quote(pin.type)}))`
+          ` (pintype ${quote(net.noConnect ? `${pin.type}+no_connect` : pin.type)}))`
       );
     }
     lines.push("    )");

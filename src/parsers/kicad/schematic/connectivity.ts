@@ -80,6 +80,8 @@ export interface SchematicComponent {
 export interface SchematicNet {
   name: string;
   pins: { reference: string; pin: string }[];
+  /** A no-connect flag sits on the net: KiCad's export marks its pins' types `+no_connect`. */
+  noConnect?: boolean;
 }
 
 export interface SchematicSheet {
@@ -1076,7 +1078,11 @@ export function analyzeSchematic(
       best.get(rootNode)?.name ??
       defaultNetName(onBoard.length ? onBoard : unique, flagged.has(rootNode));
     if (onBoard.length) {
-      nets.push({ name, pins: onBoard.map((p) => ({ reference: p.reference, pin: p.pin })) });
+      nets.push({
+        name,
+        pins: onBoard.map((p) => ({ reference: p.reference, pin: p.pin })),
+        ...(flagged.has(rootNode) ? { noConnect: true } : {}),
+      });
     }
     for (const p of unique) {
       p.component.pins.push({ number: p.pin, name: p.name, type: p.type, net: name });
@@ -1120,6 +1126,7 @@ export function resolveSchematic(
         const found = pinOf.get(`${reference}\u0000${pin}`);
         return { reference, pin, name: found?.name ?? "", type: found?.type ?? "" };
       }),
+      ...(net.noConnect ? { noConnect: true } : {}),
     })),
   };
 }

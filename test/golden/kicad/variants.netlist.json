@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 3,
   "metadata": {
-    "generatedAt": "2026-09-11T21:02:40.100Z",
-    "netlistHash": "sha256:6db702eaf7368aef808d99ed444ecb0147cad0bba1f4c03f85d4bdf055476aab",
+    "generatedAt": "2026-11-09T23:53:58.797Z",
+    "netlistHash": "sha256:a84f84105648fdc2e74884a35e9b8696caefde6c93f01516c75606ae3ce68417",
     "origin": {
       "type": "vendor",
       "source": {
@@ -532,391 +532,6 @@
       "R7": [
         "1"
       ]
-    },
-    "unconnected-(J1-P6-Pad6)": {
-      "J1": [
-        "6"
-      ]
-    },
-    "unconnected-(J1-P9-Pad9)": {
-      "J1": [
-        "9"
-      ]
-    },
-    "unconnected-(J1-Pad1)": {
-      "J1": [
-        "1"
-      ]
-    },
-    "unconnected-(J1-Pad2)": {
-      "J1": [
-        "2"
-      ]
-    },
-    "unconnected-(P2-Pad2)": {
-      "P2": [
-        "2"
-      ]
-    },
-    "unconnected-(P2-Pad3)": {
-      "P2": [
-        "3"
-      ]
-    },
-    "unconnected-(P2-Pad4)": {
-      "P2": [
-        "4"
-      ]
-    },
-    "unconnected-(P2-Pad5)": {
-      "P2": [
-        "5"
-      ]
-    },
-    "unconnected-(P2-Pad6)": {
-      "P2": [
-        "6"
-      ]
-    },
-    "unconnected-(P2-Pad7)": {
-      "P2": [
-        "7"
-      ]
-    },
-    "unconnected-(P2-Pad9)": {
-      "P2": [
-        "9"
-      ]
-    },
-    "unconnected-(P2-Pad10)": {
-      "P2": [
-        "10"
-      ]
-    },
-    "unconnected-(P2-Pad11)": {
-      "P2": [
-        "11"
-      ]
-    },
-    "unconnected-(P2-Pad12)": {
-      "P2": [
-        "12"
-      ]
-    },
-    "unconnected-(P2-Pad13)": {
-      "P2": [
-        "13"
-      ]
-    },
-    "unconnected-(P2-Pad14)": {
-      "P2": [
-        "14"
-      ]
-    },
-    "unconnected-(P2-Pad15)": {
-      "P2": [
-        "15"
-      ]
-    },
-    "unconnected-(P2-Pad16)": {
-      "P2": [
-        "16"
-      ]
-    },
-    "unconnected-(P2-Pad17)": {
-      "P2": [
-        "17"
-      ]
-    },
-    "unconnected-(P2-Pad18)": {
-      "P2": [
-        "18"
-      ]
-    },
-    "unconnected-(P2-Pad21)": {
-      "P2": [
-        "21"
-      ]
-    },
-    "unconnected-(P2-Pad22)": {
-      "P2": [
-        "22"
-      ]
-    },
-    "unconnected-(P2-Pad23)": {
-      "P2": [
-        "23"
-      ]
-    },
-    "unconnected-(P2-Pad24)": {
-      "P2": [
-        "24"
-      ]
-    },
-    "unconnected-(P2-Pad25)": {
-      "P2": [
-        "25"
-      ]
-    },
-    "unconnected-(P2-Pad26)": {
-      "P2": [
-        "26"
-      ]
-    },
-    "unconnected-(P3-Pad2)": {
-      "P3": [
-        "2"
-      ]
-    },
-    "unconnected-(P3-Pad3)": {
-      "P3": [
-        "3"
-      ]
-    },
-    "unconnected-(P3-Pad4)": {
-      "P3": [
-        "4"
-      ]
-    },
-    "unconnected-(P3-Pad5)": {
-      "P3": [
-        "5"
-      ]
-    },
-    "unconnected-(P3-Pad6)": {
-      "P3": [
-        "6"
-      ]
-    },
-    "unconnected-(P3-Pad7)": {
-      "P3": [
-        "7"
-      ]
-    },
-    "unconnected-(P3-Pad9)": {
-      "P3": [
-        "9"
-      ]
-    },
-    "unconnected-(P3-Pad10)": {
-      "P3": [
-        "10"
-      ]
-    },
-    "unconnected-(P3-Pad13)": {
-      "P3": [
-        "13"
-      ]
-    },
-    "unconnected-(P3-Pad14)": {
-      "P3": [
-        "14"
-      ]
-    },
-    "unconnected-(P3-Pad15)": {
-      "P3": [
-        "15"
-      ]
-    },
-    "unconnected-(P3-Pad16)": {
-      "P3": [
-        "16"
-      ]
-    },
-    "unconnected-(P3-Pad17)": {
-      "P3": [
-        "17"
-      ]
-    },
-    "unconnected-(P3-Pad18)": {
-      "P3": [
-        "18"
-      ]
-    },
-    "unconnected-(P3-Pad19)": {
-      "P3": [
-        "19"
-      ]
-    },
-    "unconnected-(P3-Pad20)": {
-      "P3": [
-        "20"
-      ]
-    },
-    "unconnected-(P3-Pad21)": {
-      "P3": [
-        "21"
-      ]
-    },
-    "unconnected-(P3-Pad22)": {
-      "P3": [
-        "22"
-      ]
-    },
-    "unconnected-(P3-Pad23)": {
-      "P3": [
-        "23"
-      ]
-    },
-    "unconnected-(P3-Pad24)": {
-      "P3": [
-        "24"
-      ]
-    },
-    "unconnected-(P3-Pad25)": {
-      "P3": [
-        "25"
-      ]
-    },
-    "unconnected-(P3-Pad26)": {
-      "P3": [
-        "26"
-      ]
-    },
-    "unconnected-(P3-Pad27)": {
-      "P3": [
-        "27"
-      ]
-    },
-    "unconnected-(P3-Pad28)": {
-      "P3": [
-        "28"
-      ]
-    },
-    "unconnected-(P3-Pad29)": {
-      "P3": [
-        "29"
-      ]
-    },
-    "unconnected-(P3-Pad30)": {
-      "P3": [
-        "30"
-      ]
-    },
-    "unconnected-(P3-Pad33)": {
-      "P3": [
-        "33"
-      ]
-    },
-    "unconnected-(P3-Pad34)": {
-      "P3": [
-        "34"
-      ]
-    },
-    "unconnected-(P3-Pad35)": {
-      "P3": [
-        "35"
-      ]
-    },
-    "unconnected-(P3-Pad36)": {
-      "P3": [
-        "36"
-      ]
-    },
-    "unconnected-(P3-Pad37)": {
-      "P3": [
-        "37"
-      ]
-    },
-    "unconnected-(P3-Pad38)": {
-      "P3": [
-        "38"
-      ]
-    },
-    "unconnected-(U1-WP-Pad7)": {
-      "U1": [
-        "7"
-      ]
-    },
-    "unconnected-(U4-FB--Pad3)": {
-      "U4": [
-        "3"
-      ]
-    },
-    "unconnected-(U4-S{slash}S-Pad4)": {
-      "U4": [
-        "4"
-      ]
-    },
-    "unconnected-(U5-OSC1{slash}CLKI-Pad16)": {
-      "U5": [
-        "16"
-      ]
-    },
-    "unconnected-(U5-OSC2{slash}CLKO-Pad15)": {
-      "U5": [
-        "15"
-      ]
-    },
-    "unconnected-(U5-RA0-Pad17)": {
-      "U5": [
-        "17"
-      ]
-    },
-    "unconnected-(U5-RA1-Pad18)": {
-      "U5": [
-        "18"
-      ]
-    },
-    "unconnected-(U5-RA2-Pad1)": {
-      "U5": [
-        "1"
-      ]
-    },
-    "unconnected-(U5-RA3-Pad2)": {
-      "U5": [
-        "2"
-      ]
-    },
-    "unconnected-(U5-RB0-Pad6)": {
-      "U5": [
-        "6"
-      ]
-    },
-    "unconnected-(U5-RB1-Pad7)": {
-      "U5": [
-        "7"
-      ]
-    },
-    "unconnected-(U5-RB2-Pad8)": {
-      "U5": [
-        "8"
-      ]
-    },
-    "unconnected-(U5-RB3-Pad9)": {
-      "U5": [
-        "9"
-      ]
-    },
-    "unconnected-(U5-RB4-Pad10)": {
-      "U5": [
-        "10"
-      ]
-    },
-    "unconnected-(U5-RB5-Pad11)": {
-      "U5": [
-        "11"
-      ]
-    },
-    "unconnected-(U5-T0ckl-Pad3)": {
-      "U5": [
-        "3"
-      ]
-    },
-    "unconnected-(U6-GP2-Pad5)": {
-      "U6": [
-        "5"
-      ]
-    },
-    "unconnected-(U6-GP4{slash}OSC2-Pad3)": {
-      "U6": [
-        "3"
-      ]
-    },
-    "unconnected-(U6-GP5{slash}OSC1-Pad2)": {
-      "U6": [
-        "2"
-      ]
     }
   },
   "components": {
@@ -1120,14 +735,14 @@
     },
     "J1": {
       "pins": {
-        "1": "unconnected-(J1-Pad1)",
-        "2": "unconnected-(J1-Pad2)",
+        "1": "",
+        "2": "",
         "3": "/VPP_ON",
         "4": "/PC-DATA-OUT",
         "5": "GND",
         "6": {
           "name": "P6",
-          "net": "unconnected-(J1-P6-Pad6)"
+          "net": ""
         },
         "7": {
           "name": "P7",
@@ -1139,7 +754,7 @@
         },
         "9": {
           "name": "P9",
-          "net": "unconnected-(J1-P9-Pad9)"
+          "net": ""
         }
       },
       "value": "DB9-FEMAL"
@@ -1455,11 +1070,11 @@
         },
         "3": {
           "name": "FB-",
-          "net": "unconnected-(U4-FB--Pad3)"
+          "net": ""
         },
         "4": {
           "name": "S/S",
-          "net": "unconnected-(U4-S{slash}S-Pad4)"
+          "net": ""
         },
         "5": {
           "name": "Vin",
@@ -1497,31 +1112,31 @@
     "P2": {
       "pins": {
         "1": "/VPP{slash}MCLR",
-        "2": "unconnected-(P2-Pad2)",
-        "3": "unconnected-(P2-Pad3)",
-        "4": "unconnected-(P2-Pad4)",
-        "5": "unconnected-(P2-Pad5)",
-        "6": "unconnected-(P2-Pad6)",
-        "7": "unconnected-(P2-Pad7)",
+        "2": "",
+        "3": "",
+        "4": "",
+        "5": "",
+        "6": "",
+        "7": "",
         "8": "GND",
-        "9": "unconnected-(P2-Pad9)",
-        "10": "unconnected-(P2-Pad10)",
-        "11": "unconnected-(P2-Pad11)",
-        "12": "unconnected-(P2-Pad12)",
-        "13": "unconnected-(P2-Pad13)",
-        "14": "unconnected-(P2-Pad14)",
-        "15": "unconnected-(P2-Pad15)",
-        "16": "unconnected-(P2-Pad16)",
-        "17": "unconnected-(P2-Pad17)",
-        "18": "unconnected-(P2-Pad18)",
+        "9": "",
+        "10": "",
+        "11": "",
+        "12": "",
+        "13": "",
+        "14": "",
+        "15": "",
+        "16": "",
+        "17": "",
+        "18": "",
         "19": "GND",
         "20": "/pic_sockets/VCC_PIC",
-        "21": "unconnected-(P2-Pad21)",
-        "22": "unconnected-(P2-Pad22)",
-        "23": "unconnected-(P2-Pad23)",
-        "24": "unconnected-(P2-Pad24)",
-        "25": "unconnected-(P2-Pad25)",
-        "26": "unconnected-(P2-Pad26)",
+        "21": "",
+        "22": "",
+        "23": "",
+        "24": "",
+        "25": "",
+        "26": "",
         "27": "/CLOCK-RB6",
         "28": "/DATA-RB7"
       },
@@ -1530,43 +1145,43 @@
     "P3": {
       "pins": {
         "1": "/VPP{slash}MCLR",
-        "2": "unconnected-(P3-Pad2)",
-        "3": "unconnected-(P3-Pad3)",
-        "4": "unconnected-(P3-Pad4)",
-        "5": "unconnected-(P3-Pad5)",
-        "6": "unconnected-(P3-Pad6)",
-        "7": "unconnected-(P3-Pad7)",
+        "2": "",
+        "3": "",
+        "4": "",
+        "5": "",
+        "6": "",
+        "7": "",
         "8": "GND",
-        "9": "unconnected-(P3-Pad9)",
-        "10": "unconnected-(P3-Pad10)",
+        "9": "",
+        "10": "",
         "11": "/pic_sockets/VCC_PIC",
         "12": "GND",
-        "13": "unconnected-(P3-Pad13)",
-        "14": "unconnected-(P3-Pad14)",
-        "15": "unconnected-(P3-Pad15)",
-        "16": "unconnected-(P3-Pad16)",
-        "17": "unconnected-(P3-Pad17)",
-        "18": "unconnected-(P3-Pad18)",
-        "19": "unconnected-(P3-Pad19)",
-        "20": "unconnected-(P3-Pad20)",
-        "21": "unconnected-(P3-Pad21)",
-        "22": "unconnected-(P3-Pad22)",
-        "23": "unconnected-(P3-Pad23)",
-        "24": "unconnected-(P3-Pad24)",
-        "25": "unconnected-(P3-Pad25)",
-        "26": "unconnected-(P3-Pad26)",
-        "27": "unconnected-(P3-Pad27)",
-        "28": "unconnected-(P3-Pad28)",
-        "29": "unconnected-(P3-Pad29)",
-        "30": "unconnected-(P3-Pad30)",
+        "13": "",
+        "14": "",
+        "15": "",
+        "16": "",
+        "17": "",
+        "18": "",
+        "19": "",
+        "20": "",
+        "21": "",
+        "22": "",
+        "23": "",
+        "24": "",
+        "25": "",
+        "26": "",
+        "27": "",
+        "28": "",
+        "29": "",
+        "30": "",
         "31": "GND",
         "32": "/pic_sockets/VCC_PIC",
-        "33": "unconnected-(P3-Pad33)",
-        "34": "unconnected-(P3-Pad34)",
-        "35": "unconnected-(P3-Pad35)",
-        "36": "unconnected-(P3-Pad36)",
-        "37": "unconnected-(P3-Pad37)",
-        "38": "unconnected-(P3-Pad38)",
+        "33": "",
+        "34": "",
+        "35": "",
+        "36": "",
+        "37": "",
+        "38": "",
         "39": "/CLOCK-RB6",
         "40": "/DATA-RB7"
       },
@@ -1600,7 +1215,7 @@
         },
         "7": {
           "name": "WP",
-          "net": "unconnected-(U1-WP-Pad7)"
+          "net": ""
         },
         "8": {
           "name": "VCC",
@@ -1613,15 +1228,15 @@
       "pins": {
         "1": {
           "name": "RA2",
-          "net": "unconnected-(U5-RA2-Pad1)"
+          "net": ""
         },
         "2": {
           "name": "RA3",
-          "net": "unconnected-(U5-RA3-Pad2)"
+          "net": ""
         },
         "3": {
           "name": "T0ckl",
-          "net": "unconnected-(U5-T0ckl-Pad3)"
+          "net": ""
         },
         "4": {
           "name": "MCLR",
@@ -1633,27 +1248,27 @@
         },
         "6": {
           "name": "RB0",
-          "net": "unconnected-(U5-RB0-Pad6)"
+          "net": ""
         },
         "7": {
           "name": "RB1",
-          "net": "unconnected-(U5-RB1-Pad7)"
+          "net": ""
         },
         "8": {
           "name": "RB2",
-          "net": "unconnected-(U5-RB2-Pad8)"
+          "net": ""
         },
         "9": {
           "name": "RB3",
-          "net": "unconnected-(U5-RB3-Pad9)"
+          "net": ""
         },
         "10": {
           "name": "RB4",
-          "net": "unconnected-(U5-RB4-Pad10)"
+          "net": ""
         },
         "11": {
           "name": "RB5",
-          "net": "unconnected-(U5-RB5-Pad11)"
+          "net": ""
         },
         "12": {
           "name": "ICSPC/RB6",
@@ -1669,19 +1284,19 @@
         },
         "15": {
           "name": "OSC2/CLKO",
-          "net": "unconnected-(U5-OSC2{slash}CLKO-Pad15)"
+          "net": ""
         },
         "16": {
           "name": "OSC1/CLKI",
-          "net": "unconnected-(U5-OSC1{slash}CLKI-Pad16)"
+          "net": ""
         },
         "17": {
           "name": "RA0",
-          "net": "unconnected-(U5-RA0-Pad17)"
+          "net": ""
         },
         "18": {
           "name": "RA1",
-          "net": "unconnected-(U5-RA1-Pad18)"
+          "net": ""
         }
       },
       "value": "PIC_18_PINS"
@@ -1694,11 +1309,11 @@
         },
         "2": {
           "name": "GP5/OSC1",
-          "net": "unconnected-(U6-GP5{slash}OSC1-Pad2)"
+          "net": ""
         },
         "3": {
           "name": "GP4/OSC2",
-          "net": "unconnected-(U6-GP4{slash}OSC2-Pad3)"
+          "net": ""
         },
         "4": {
           "name": "GP3/MCLR",
@@ -1706,7 +1321,7 @@
         },
         "5": {
           "name": "GP2",
-          "net": "unconnected-(U6-GP2-Pad5)"
+          "net": ""
         },
         "6": {
           "name": "GP1",

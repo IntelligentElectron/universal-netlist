@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 3,
   "metadata": {
-    "generatedAt": "2026-09-02T21:16:45.425Z",
-    "netlistHash": "sha256:974e24f42c20af6710ee0e68b1189851e7a9f353771deb483a7cbcbe6e3640a5",
+    "generatedAt": "2026-11-09T23:53:58.818Z",
+    "netlistHash": "sha256:d0aa9b6d513fd08ae58043939d59fb39f645485a402c0862056477f0130c548c",
     "origin": {
       "type": "vendor",
       "source": {
@@ -3300,86 +3300,6 @@
       "U18": [
         "6"
       ]
-    },
-    "unconnected-(SW2201-C-Pad3)": {
-      "SW2201": [
-        "3"
-      ]
-    },
-    "unconnected-(SW2202-C-Pad3)": {
-      "SW2202": [
-        "3"
-      ]
-    },
-    "unconnected-(TR2101-Pad2)": {
-      "TR2101": [
-        "2"
-      ]
-    },
-    "unconnected-(TR2102-Pad5)": {
-      "TR2102": [
-        "5"
-      ]
-    },
-    "unconnected-(U3-BAL-Pad5)": {
-      "U3": [
-        "5"
-      ]
-    },
-    "unconnected-(U3-STRB-Pad6)": {
-      "U3": [
-        "6"
-      ]
-    },
-    "unconnected-(U4A-soft_sync-Pad19)": {
-      "U4": [
-        "19"
-      ]
-    },
-    "unconnected-(U4C-pulse_out-Pad30)": {
-      "U4": [
-        "30"
-      ]
-    },
-    "unconnected-(U4F-aux_1_mix-Pad12)": {
-      "U4": [
-        "12"
-      ]
-    },
-    "unconnected-(U4F-aux_in_1-Pad4)": {
-      "U4": [
-        "4"
-      ]
-    },
-    "unconnected-(U7-BAL-Pad5)": {
-      "U7": [
-        "5"
-      ]
-    },
-    "unconnected-(U7-STRB-Pad6)": {
-      "U7": [
-        "6"
-      ]
-    },
-    "unconnected-(U9-CV-Pad5)": {
-      "U9": [
-        "5"
-      ]
-    },
-    "unconnected-(U9-DIS-Pad7)": {
-      "U9": [
-        "7"
-      ]
-    },
-    "unconnected-(U13-BAL-Pad5)": {
-      "U13": [
-        "5"
-      ]
-    },
-    "unconnected-(U13-STRB-Pad6)": {
-      "U13": [
-        "6"
-      ]
     }
   },
   "components": {
@@ -4027,7 +3947,7 @@
         },
         "4": {
           "name": "aux_in_1",
-          "net": "unconnected-(U4F-aux_in_1-Pad4)"
+          "net": ""
         },
         "5": {
           "name": "aux_in_2",
@@ -4059,7 +3979,7 @@
         },
         "12": {
           "name": "aux_1_mix",
-          "net": "unconnected-(U4F-aux_1_mix-Pad12)"
+          "net": ""
         },
         "13": {
           "name": "aux_2_mix",
@@ -4087,7 +4007,7 @@
         },
         "19": {
           "name": "soft_sync",
-          "net": "unconnected-(U4A-soft_sync-Pad19)"
+          "net": ""
         },
         "20": {
           "name": "hft_base",
@@ -4131,7 +4051,7 @@
         },
         "30": {
           "name": "pulse_out",
-          "net": "unconnected-(U4C-pulse_out-Pad30)"
+          "net": ""
         },
         "31": {
           "name": "pwm_in_-",
@@ -4286,11 +4206,11 @@
         },
         "5": {
           "name": "BAL",
-          "net": "unconnected-(U3-BAL-Pad5)"
+          "net": ""
         },
         "6": {
           "name": "STRB",
-          "net": "unconnected-(U3-STRB-Pad6)"
+          "net": ""
         },
         "7": "/main_VCO/VCO_core/TIME_REV_IN",
         "8": {
@@ -5002,11 +4922,11 @@
         },
         "5": {
           "name": "BAL",
-          "net": "unconnected-(U7-BAL-Pad5)"
+          "net": ""
         },
         "6": {
           "name": "STRB",
-          "net": "unconnected-(U7-STRB-Pad6)"
+          "net": ""
         },
         "7": "Net-(R809-Pad2)",
         "8": {
@@ -5443,7 +5363,7 @@
         },
         "5": {
           "name": "CV",
-          "net": "unconnected-(U9-CV-Pad5)"
+          "net": ""
         },
         "6": {
           "name": "THR",
@@ -5451,7 +5371,7 @@
         },
         "7": {
           "name": "DIS",
-          "net": "unconnected-(U9-DIS-Pad7)"
+          "net": ""
         },
         "8": {
           "name": "VCC",
@@ -5888,11 +5808,11 @@
         },
         "5": {
           "name": "BAL",
-          "net": "unconnected-(U13-BAL-Pad5)"
+          "net": ""
         },
         "6": {
           "name": "STRB",
-          "net": "unconnected-(U13-STRB-Pad6)"
+          "net": ""
         },
         "7": "Net-(R1609-Pad2)",
         "8": {
@@ -6647,7 +6567,7 @@
     "TR2101": {
       "pins": {
         "1": "Net-(R2102-Pad2)",
-        "2": "unconnected-(TR2101-Pad2)",
+        "2": "",
         "3": "GND",
         "4": "Net-(D2101-K)",
         "5": "Net-(R2105-Pad2)",
@@ -6662,7 +6582,7 @@
         "2": "GND",
         "3": "Net-(D2101-A)",
         "4": "Net-(R2108-Pad1)",
-        "5": "unconnected-(TR2102-Pad5)",
+        "5": "",
         "6": "GND"
       },
       "value": "Triad_TY_141P",
@@ -6821,7 +6741,7 @@
         },
         "3": {
           "name": "C",
-          "net": "unconnected-(SW2201-C-Pad3)"
+          "net": ""
         }
       },
       "value": "SW_SPDT",
@@ -6839,7 +6759,7 @@
         },
         "3": {
           "name": "C",
-          "net": "unconnected-(SW2202-C-Pad3)"
+          "net": ""
         }
       },
       "value": "SW_SPDT",
