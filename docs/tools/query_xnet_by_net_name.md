@@ -124,7 +124,7 @@ Response:
 }
 ```
 
-Ground nets return massive results that are not useful, so they are blocked. See [Power/Ground Stop Nets](../schemas/shared-types.md#powerground-stop-nets) for the full list.
+Ground nets return massive results that are not useful, so they are blocked. Only a net that is a ground by name is refused: `GND`, `GND1`, `AGND`, `VSS`. A name with a separator, such as `GND_SW`, is traced, and the result's `notes` says it looks like a ground. See [Power/Ground Stop Nets](../schemas/shared-types.md#powerground-stop-nets) for the full rule.
 
 ## Circuit Hash
 
@@ -138,7 +138,7 @@ Identical hashes indicate identical circuit structures, useful for comparing des
 ## Traversal Behavior
 
 - **Traverses through**: 2-pin series components (R, RS, FR, C, L, FB)
-- **Stops at**: Power rails, ground nets, multi-pin ICs
+- **Stops at**: Power rails, ground nets, nets with a ground or supply pin, nets with more than 40 pins
 - **Stop nets**: See [Power/Ground Stop Nets](../schemas/shared-types.md#powerground-stop-nets)
 
 ## skip_types Parameter
