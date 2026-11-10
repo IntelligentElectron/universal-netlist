@@ -1,7 +1,7 @@
 /**
  * A KiCad 10 project with several top-level sheets: each is a page of its own,
  * listed in the project's `schematic.top_level_sheets`, and no sheet symbol
- * links them. Intelligent Electron's drawer writes this layout.
+ * links them.
  *
  * test/kicad/top-level-sheets is a small hand-drawn design, and its .net is the
  * export of kicad-cli 10.0.8:
