@@ -123,7 +123,9 @@ export const readKicadProjectSchematic = async (
       ? [{ uuid, name: typeof name === "string" ? name : "", filename: filename.trim() }]
       : [];
   });
-  return { busAliases, topLevelSheets: sheets.length > 1 ? sheets : [] };
+  // Two or more listed make every one a root, so an entry that cannot be read
+  // drops only itself, never the project's other pages.
+  return { busAliases, topLevelSheets: listed.length > 1 ? sheets : [] };
 };
 
 /**

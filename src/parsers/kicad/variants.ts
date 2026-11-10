@@ -73,7 +73,11 @@ export const readSchematicHierarchy = async (
   rootSchematics: string | readonly string[],
   files: FileReader = nodeFileReader
 ): Promise<string[]> => {
-  const roots = new Set((typeof rootSchematics === "string" ? [rootSchematics] : rootSchematics).map((root) => path.resolve(root)));
+  const roots = new Set(
+    (typeof rootSchematics === "string" ? [rootSchematics] : rootSchematics).map((root) =>
+      path.resolve(root)
+    )
+  );
   const contents: string[] = [];
   const queue = [...roots];
   const visited = new Set<string>();

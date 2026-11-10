@@ -672,9 +672,10 @@ export interface SchematicOptions {
   /**
    * A KiCad 10 project's top-level sheets (`schematic.top_level_sheets`), when
    * it lists two or more: each is a root of its own, its file one of the
-   * sources by name, and its nets' paths start `/<name>/`. Global labels and
-   * power symbols join across them; local and hierarchical labels stay on
-   * their sheet, as in KiCad. With fewer, `sources[0]` is the one root, at `/`.
+   * sources by name, and its nets' paths start `/<name>/` (a `/` in the name
+   * written `{slash}`). Global labels and power symbols join across them;
+   * local and hierarchical labels stay on their sheet, as in KiCad. Without
+   * them, `sources[0]` is the one root, at `/`.
    */
   topLevelSheets?: readonly { uuid: string; name: string; file: string }[];
 }
@@ -1040,7 +1041,8 @@ export function analyzeSchematic(
         child,
         sheet.file,
         childPath,
-        `${humanPath}${sheet.name}/`,
+        // KiCad writes a `/` inside a sheet name as `{slash}` in its nets' names.
+        `${humanPath}${escapeName(sheet.name)}/`,
         depth + 1,
         new Set([...visiting, sheet.file])
       );
@@ -1060,13 +1062,13 @@ export function analyzeSchematic(
     return { hier: hierNodes, local: localNames, hierBus };
   };
 
-  const tops = (options.topLevelSheets?.length ?? 0) > 1 ? options.topLevelSheets! : null;
+  const tops = options.topLevelSheets?.length ? options.topLevelSheets : null;
   if (tops) {
     for (const [i, top] of tops.entries()) {
       const file = fileByName(top.file);
       if (!file) continue;
       const index = sheets.length;
-      visit(file, top.file, `/${top.uuid}`, `/${top.name}/`, 0, new Set([top.file]));
+      visit(file, top.file, `/${top.uuid}`, `/${escapeName(top.name)}/`, 0, new Set([top.file]));
       sheets[index]!.name = top.name;
       sheets[index]!.page = String(i + 1);
     }

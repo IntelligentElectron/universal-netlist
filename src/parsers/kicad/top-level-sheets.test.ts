@@ -107,6 +107,61 @@ describe("KiCad project with several top-level sheets", () => {
       rmSync(one, { recursive: true, force: true });
     }
   });
+
+  /** The fixture's schematics in a fresh directory, under a project file `edit` rewrites. */
+  const withProject = async <T>(
+    edit: (schematic: { top_level_sheets: Record<string, unknown>[] }) => void,
+    run: (project: string, dir: string) => Promise<T>
+  ): Promise<T> => {
+    const dir = mkdtempSync(path.join(tmpdir(), "un-top-level-edit-"));
+    try {
+      for (const file of SHEETS) copyFileSync(path.join(DIR, file), path.join(dir, file));
+      const listed = JSON.parse(await readText(nodeFileReader, PROJECT));
+      edit(listed.schematic);
+      const project = path.join(dir, "top-level-sheets.kicad_pro");
+      writeFileSync(project, JSON.stringify(listed));
+      return await run(project, dir);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  };
+
+  it("writes a / in a sheet name as {slash}, as kicad-cli 10.0.8 does", async () => {
+    // kicad-cli names these nets /Be{slash}ta/SIG and /Be{slash}ta/Gamma/H.
+    const nets = await withProject(
+      (schematic) => (schematic.top_level_sheets[1].name = "Be/ta"),
+      async (project, dir) =>
+        Object.keys(
+          (
+            await readKicadSchematicNetlist(
+              path.join(dir, "top-level-sheets.kicad_sch"),
+              nodeFileReader,
+              project
+            )
+          ).nets
+        ).sort()
+    );
+    expect(nets).toEqual(["/Alpha/SIG", "/Be{slash}ta/Gamma/H", "/Be{slash}ta/SIG", "G"]);
+  });
+
+  it("keeps reading the other pages when one listed entry is malformed", async () => {
+    const nets = await withProject(
+      (schematic) => {
+        delete schematic.top_level_sheets[0].uuid;
+      },
+      async (project, dir) =>
+        Object.keys(
+          (
+            await readKicadSchematicNetlist(
+              path.join(dir, "top-level-sheets.kicad_sch"),
+              nodeFileReader,
+              project
+            )
+          ).nets
+        ).sort()
+    );
+    expect(nets).toEqual(["/Beta/Gamma/H", "/Beta/SIG", "G"]);
+  });
 });
 
 describe.skipIf(process.env.KICAD_PARITY !== "live")(

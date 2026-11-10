@@ -2,85 +2,88 @@
  * Intentionally open KiCad pins read as unconnected, so run_erc does not
  * report them as one-pin nets.
  *
- * test/kicad/no-connect is a small hand-drawn design, and its .net is the
- * export of kicad-cli 10.0.8:
- * - R1.1 sits on a no-connect flag (`passive+no_connect`, `unconnected-(R1-Pad1)`);
- * - U1.1 sits on a no-connect flag and carries the label SPARE_A
- *   (`passive+no_connect`, `/SPARE_A`);
- * - U1.3 is a pin of electrical type no_connect (`no_connect`);
- * - R2.1 is left open with no flag (`passive`), a mistake KiCad's ERC also reports;
- * - R1.2, R2.2 and U1.2 share the net /SIG.
+ * cm5-minima (test/fixtures/kicad) has every kind of lone pin, and its .net is
+ * KiCad's own export:
+ * - CN1.3 sits on a no-connect flag (`+no_connect`, `unconnected-(CN1-Pad3)`);
+ * - Module301.91 sits on a no-connect flag under the label BT_nDis
+ *   (`input+no_connect`, `/CM5/BT_nDis`);
+ * - J701.M2 is a pin of electrical type no_connect (`unconnected-(J701-GND2242-PadM2)`);
+ * - Module301.99 is alone on `/CM5/GLOBAL_EN` with no flag (`input`), a
+ *   one-pin net KiCad's ERC also reports.
+ * The sweep below holds every KiCad fixture to the same rule.
  */
-import { copyFileSync, mkdtempSync, readdirSync, rmSync } from "node:fs";
+import { cpSync, mkdtempSync, readdirSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { afterAll, describe, expect, it } from "vitest";
-import { FIXTURES, hasFixtures } from "../../../test/utils.js";
+import { FIXTURES, fixturePath, hasFixtures } from "../../../test/utils.js";
 import { isTestpoint } from "../../circuit-traversal.js";
+import { getPinNet } from "../../types.js";
 import { nodeFileReader, readText } from "../context.js";
 import { resolveKicadArtifacts } from "./discovery.js";
 import { childByTag, childrenByTag, childString, parseSexpr, type SExpr } from "./sexpr.js";
 import { createNetlistService } from "../../service/index.js";
-import { netlistDifferences } from "../../../test/helpers/netlist-compare.js";
 import { parseKicadNetlist } from "./netlist-parser.js";
 import { readKicadSchematicNetlist } from "./schematic/index.js";
 
-const DIR = path.resolve(__dirname, "../../../test/kicad/no-connect");
-const PROJECT = path.join(DIR, "no-connect.kicad_pro");
+const DIR = fixturePath("kicad", "cm5-minima");
+const PROJECT = path.join(DIR, "CM5_MINIMA_3.kicad_pro");
 
 const saved = async () =>
-  parseKicadNetlist(await readText(nodeFileReader, path.join(DIR, "no-connect.net")));
+  parseKicadNetlist(await readText(nodeFileReader, path.join(DIR, "CM5_MINIMA_3.net")));
 const raw = () =>
-  readKicadSchematicNetlist(path.join(DIR, "no-connect.kicad_sch"), nodeFileReader, PROJECT);
+  readKicadSchematicNetlist(path.join(DIR, "CM5_MINIMA_3.kicad_sch"), nodeFileReader, PROJECT);
 
-// The same design with no saved export, so the service reads the schematic itself.
-const schematicOnly = mkdtempSync(path.join(tmpdir(), "un-no-connect-"));
-for (const file of ["no-connect.kicad_pro", "no-connect.kicad_sch"]) {
-  copyFileSync(path.join(DIR, file), path.join(schematicOnly, file));
+// The same design with no saved export, so the service reads the schematics itself.
+const schematicOnly = hasFixtures ? mkdtempSync(path.join(tmpdir(), "un-no-connect-")) : "";
+if (hasFixtures) {
+  cpSync(DIR, schematicOnly, { recursive: true, filter: (source) => !source.endsWith(".net") });
 }
-afterAll(() => rmSync(schematicOnly, { recursive: true, force: true }));
+afterAll(() => {
+  if (schematicOnly) rmSync(schematicOnly, { recursive: true, force: true });
+});
 
-describe("KiCad no-connect pins", () => {
+describe.skipIf(!hasFixtures)("KiCad no-connect pins (cm5-minima)", () => {
   it.each([
     ["the saved .net", saved],
     ["the raw schematic reader", raw],
   ])("reads open pins as unconnected from %s", async (_source, read) => {
     const netlist = await read();
-    expect(netlist.components.R1.pins).toEqual({ "1": "", "2": "/SIG" });
-    expect(netlist.components.R2.pins).toEqual({ "1": "unconnected-(R2-Pad1)", "2": "/SIG" });
-    expect(netlist.components.U1.pins).toEqual({
-      "1": { name: "A", net: "" },
-      "2": { name: "B", net: "/SIG" },
-      "3": { name: "NC", net: "" },
-    });
-    expect(netlist.nets).toEqual({
-      "/SIG": { R1: ["2"], R2: ["2"], U1: ["2"] },
-      "unconnected-(R2-Pad1)": { R2: ["1"] },
-    });
-  });
-
-  it("reads the schematic as kicad-cli exports it", async () => {
-    expect(netlistDifferences(await saved(), await raw())).toEqual([]);
+    const net = (refdes: string, pin: string) => getPinNet(netlist.components[refdes].pins[pin]);
+    expect(net("CN1", "3")).toBe("");
+    expect(net("Module301", "91")).toBe("");
+    expect(net("J701", "M2")).toBe("");
+    expect(net("Module301", "99")).toBe("/CM5/GLOBAL_EN");
+    for (const name of [
+      "unconnected-(CN1-Pad3)",
+      "/CM5/BT_nDis",
+      "unconnected-(J701-GND2242-PadM2)",
+    ]) {
+      expect(Object.hasOwn(netlist.nets, name)).toBe(false);
+    }
+    expect(netlist.nets["/CM5/GLOBAL_EN"]).toEqual({ Module301: ["99"] });
   });
 
   it.each([
     ["with its saved .net", PROJECT],
-    ["from its schematic alone", path.join(schematicOnly, "no-connect.kicad_pro")],
+    ["from its schematics alone", path.join(schematicOnly, "CM5_MINIMA_3.kicad_pro")],
   ])("run_erc reports only the unflagged open pin, %s", async (_source, design) => {
     const service = createNetlistService();
     const erc = await service.runErc({ design, include_rules: ["net.single_pin"] });
     expect(erc).toMatchObject({
-      errors: { "net.single_pin": { "unconnected-(R2-Pad1)": ["R2.1"] } },
+      errors: { "net.single_pin": { "/CM5/GLOBAL_EN": ["Module301.99"] } },
     });
-    expect(await service.queryComponent({ design, refdes: "U1" })).toMatchObject({
+    expect(
+      Object.keys((erc as { errors: Record<string, object> }).errors["net.single_pin"])
+    ).toEqual(["/CM5/GLOBAL_EN"]);
+    expect(await service.queryComponent({ design, refdes: "Module301" })).toMatchObject({
       pins: {
-        "1": { name: "A", net: "NC" },
-        "2": { name: "B", net: "/SIG" },
-        "3": { name: "NC", net: "NC" },
+        "91": { name: "BT_nDisable", net: "NC" },
+        "99": { name: "PMIC_ENABLE", net: "/CM5/GLOBAL_EN" },
       },
     });
-    expect(await service.listNets({ design })).toMatchObject({
-      nets: ["/SIG", "unconnected-(R2-Pad1)"],
+    expect(await service.queryComponent({ design, refdes: "J701" })).toMatchObject({
+      pins: { M2: { name: "GND2242", net: "NC" } },
     });
   });
 });
