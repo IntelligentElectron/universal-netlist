@@ -2,7 +2,8 @@
  * The raw `.kicad_sch` reader: a KiCad design's netlist from its schematics
  * alone, with no `.net` export and no KiCad install.
  *
- * The root schematic and every sheet it reaches are read through the file
+ * The root schematic (or, in a KiCad 10 project that lists several top-level
+ * sheets, each of them) and every sheet it reaches are read through the file
  * reader, the project's bus aliases from its `.kicad_pro`, and the connectivity
  * engine resolves wires, junctions, labels, power symbols, buses and sheets
  * the way KiCad's netlister does. The result is written as a `kicadsexpr`
@@ -16,6 +17,7 @@ import type { ParsedNetlist } from "../../../types.js";
 import { parseKicadNetlist } from "../netlist-parser.js";
 import { resolveSchematic, type SchematicSource } from "./connectivity.js";
 import { writeKicadNetlist } from "./netlist-writer.js";
+import { readKicadProjectSchematic } from "../discovery.js";
 
 /**
  * The files a schematic's sheets name, from their `Sheetfile` property
@@ -32,26 +34,29 @@ const sheetFiles = (content: string): string[] => {
 };
 
 /**
- * The root schematic and every sheet it reaches, each named as the sheets that
- * use it name it. A sheet's file is looked for beside the sheet that uses it,
- * as the KiCad handler's other readers look for it, then beside the root. A
- * sheet that cannot be read fails the read: a netlist without it would be
+ * The root schematics and every sheet they reach, each named as the sheets
+ * that use it name it, roots first. A design has one root, or one per
+ * top-level sheet of a KiCad 10 project that lists several, named as the
+ * project names it. A sheet's file is looked for beside the sheet that uses
+ * it, as the KiCad handler's other readers look for it, then beside the root.
+ * A sheet that cannot be read fails the read: a netlist without it would be
  * missing that sheet's parts and nets while looking complete, so the KiCad
  * handler falls back to kicad-cli, or reports the missing sheet.
  */
 const readSources = async (
-  rootSchematic: string,
+  roots: readonly { name: string; path: string }[],
   files: FileReader
 ): Promise<SchematicSource[]> => {
-  const rootDir = path.dirname(rootSchematic);
-  const sources: (SchematicSource & { dir: string })[] = [
-    {
-      name: path.basename(rootSchematic),
-      content: await readText(files, rootSchematic),
-      dir: rootDir,
-    },
-  ];
-  const seen = new Set([sources[0].name]);
+  const rootDir = path.dirname(roots[0].path);
+  const sources: (SchematicSource & { dir: string })[] = [];
+  for (const root of roots) {
+    sources.push({
+      name: root.name,
+      content: await readText(files, root.path),
+      dir: path.dirname(root.path),
+    });
+  }
+  const seen = new Set(sources.map((source) => source.name));
   for (let i = 0; i < sources.length; i++) {
     for (const sheetFile of sheetFiles(sources[i].content)) {
       if (seen.has(sheetFile)) continue;
@@ -80,34 +85,33 @@ const readSources = async (
   return sources.map(({ name, content }) => ({ name, content }));
 };
 
-/**
- * Bus aliases the project file defines (`schematic.bus_aliases`), where KiCad
- * 10 keeps them. None when there is no readable project file.
- */
-const readBusAliases = async (
-  projectPath: string,
-  files: FileReader
-): Promise<Record<string, string[]>> => {
-  if (path.extname(projectPath).toLowerCase() !== ".kicad_pro") return {};
-  try {
-    const project = JSON.parse(await readText(files, projectPath)) as {
-      schematic?: { bus_aliases?: Record<string, string[]> };
-    };
-    return project.schematic?.bus_aliases ?? {};
-  } catch {
-    return {};
-  }
-};
-
 /** A KiCad design's netlist from its schematics, read through `files`. */
 export const readKicadSchematicNetlist = async (
   rootSchematic: string,
   files: FileReader,
   projectPath: string
 ): Promise<ParsedNetlist> => {
-  const [sources, busAliases] = await Promise.all([
-    readSources(rootSchematic, files),
-    readBusAliases(projectPath, files),
-  ]);
-  return parseKicadNetlist(writeKicadNetlist(resolveSchematic(sources, { busAliases })));
+  // The project file's bus aliases, where KiCad 10 keeps them, and its
+  // top-level sheets when it lists several. None without a readable project
+  // file. A design given as its root .kicad_sch reads the project beside it.
+  const { busAliases, topLevelSheets } = await readKicadProjectSchematic(projectPath, files);
+  const roots = topLevelSheets.length
+    ? topLevelSheets.map((sheet) => ({
+        name: sheet.filename,
+        path: path.resolve(path.dirname(rootSchematic), sheet.filename),
+      }))
+    : [{ name: path.basename(rootSchematic), path: rootSchematic }];
+  const sources = await readSources(roots, files);
+  return parseKicadNetlist(
+    writeKicadNetlist(
+      resolveSchematic(sources, {
+        busAliases,
+        topLevelSheets: topLevelSheets.map((sheet) => ({
+          uuid: sheet.uuid,
+          name: sheet.name,
+          file: sheet.filename,
+        })),
+      })
+    )
+  );
 };

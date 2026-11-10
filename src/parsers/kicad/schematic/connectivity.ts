@@ -662,17 +662,30 @@ function defaultNetName(pins: PinNode[], flagged: boolean): string {
   })[0]!;
 }
 
+/** What the project file adds to the schematics. */
+export interface SchematicOptions {
+  /**
+   * The project file's bus aliases (`schematic.bus_aliases` in the .kicad_pro):
+   * KiCad 10 keeps them there instead of in the sheets (issue 211).
+   */
+  busAliases?: Record<string, string[]>;
+  /**
+   * A KiCad 10 project's top-level sheets (`schematic.top_level_sheets`), when
+   * it lists two or more: each is a root of its own, its file one of the
+   * sources by name, and its nets' paths start `/<name>/`. Global labels and
+   * power symbols join across them; local and hierarchical labels stay on
+   * their sheet, as in KiCad. With fewer, `sources[0]` is the one root, at `/`.
+   */
+  topLevelSheets?: readonly { uuid: string; name: string; file: string }[];
+}
+
 /**
  * Resolve a design's connectivity. `sources[0]` is the root sheet; the others
  * are found by the names its sheets reference. Missing sheets are skipped.
  */
 export function analyzeSchematic(
   sources: SchematicSource[],
-  /**
-   * The project file's bus aliases (`schematic.bus_aliases` in the .kicad_pro):
-   * KiCad 10 keeps them there instead of in the sheets (issue 211).
-   */
-  options: { busAliases?: Record<string, string[]> } = {}
+  options: SchematicOptions = {}
 ): SchematicDesign {
   if (!sources.length) throw new Error("No schematic");
   const parsed = new Map<string, SheetFile>();
@@ -1047,7 +1060,19 @@ export function analyzeSchematic(
     return { hier: hierNodes, local: localNames, hierBus };
   };
 
-  visit(root, rootName, `/${root.uuid}`, "/", 0, new Set([rootName]));
+  const tops = (options.topLevelSheets?.length ?? 0) > 1 ? options.topLevelSheets! : null;
+  if (tops) {
+    for (const [i, top] of tops.entries()) {
+      const file = fileByName(top.file);
+      if (!file) continue;
+      const index = sheets.length;
+      visit(file, top.file, `/${top.uuid}`, `/${top.name}/`, 0, new Set([top.file]));
+      sheets[index]!.name = top.name;
+      sheets[index]!.page = String(i + 1);
+    }
+  } else {
+    visit(root, rootName, `/${root.uuid}`, "/", 0, new Set([rootName]));
+  }
 
   // Group pins by net and name each net after its strongest driver.
   const best = new Map<number, Driver>();
@@ -1103,7 +1128,7 @@ export function analyzeSchematic(
  */
 export function resolveSchematic(
   sources: SchematicSource[],
-  options: { busAliases?: Record<string, string[]> } = {}
+  options: SchematicOptions = {}
 ): ResolvedSchematic {
   const design = analyzeSchematic(sources, options);
   const parts = design.components.filter((component) => component.onBoard);
