@@ -12,6 +12,10 @@ Returns all net names defined in the design, sorted alphabetically. Use this to 
 |-----------|------|----------|---------|-------------|
 | `design` | string | Yes | - | Path to design file |
 | `design_variant` | string | Conditional | - | Design variant name from `list_designs`' `design_variants`. Required when the design records named variants, which are its only builds. `<Default>` (alias: `default`) is the one build of a design that records none |
+| `max_results` | integer | No | 50 | Max `nets` entries to return |
+| `offset` | integer | No | 0 | Index of the first `nets` entry to return, from `next_offset` |
+
+`nets` is paged. When a page does not hold every entry, `notes` says which entries it holds, and `next_offset` is the offset of the next page while more remain.
 
 ## Response Schema
 

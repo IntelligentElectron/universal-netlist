@@ -15,6 +15,10 @@ Traces circuit connectivity starting from a specific component pin, traversing t
 | `skip_types` | string[] | No | `[]` | Component prefixes to exclude |
 | `include_dns` | boolean | No | `false` | Include DNS components in the traversal; by default a DNS part is treated as absent from the board |
 | `design_variant` | string | Conditional | - | Design variant name from `list_designs`' `design_variants`. Required when the design records named variants, which are its only builds. `<Default>` (alias: `default`) is the one build of a design that records none |
+| `max_results` | integer | No | 50 | Max `components_by_mpn` entries to return |
+| `offset` | integer | No | 0 | Index of the first `components_by_mpn` entry to return, from `next_offset` |
+
+`components_by_mpn` is paged. When a page does not hold every entry, `notes` says which entries it holds, and `next_offset` is the offset of the next page while more remain.
 
 ## Response Schema
 

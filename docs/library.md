@@ -4,7 +4,7 @@ The package is also a library. A host that has its own tool system (an app serve
 
 ## Netlist service
 
-`createNetlistService` from `@intelligentelectron/universal-netlist/service` returns every tool as a method. Each method takes one object whose fields are the tool's own argument names, applies the tool's defaults, and resolves to the tool's result. A failure resolves to an `{ error }` result; the promise does not reject.
+`createNetlistService` from `@intelligentelectron/universal-netlist/service` returns every tool as a method. Each method takes one object whose fields are the tool's own argument names, applies the tool's defaults, and resolves to the tool's result. The list, search and query tools are paged: a method returns `max_results` entries (default 50) from `offset` and sets `next_offset` while more remain, so pass `max_results` for a larger page. The older positional functions exported from the same module return whole lists. A failure resolves to an `{ error }` result; the promise does not reject.
 
 ```ts
 import { createNetlistService } from "@intelligentelectron/universal-netlist/service";

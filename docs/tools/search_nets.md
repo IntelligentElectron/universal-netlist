@@ -13,6 +13,10 @@ Searches all net names in a design using a regular expression pattern. Useful fo
 | `pattern` | string | Yes | - | Regex pattern to match against net names |
 | `design` | string | Yes | - | Path to design file |
 | `design_variant` | string | Conditional | - | Design variant name from `list_designs`' `design_variants`. Required when the design records named variants, which are its only builds. `<Default>` (alias: `default`) is the one build of a design that records none |
+| `max_results` | integer | No | 50 | Max `results` entries to return |
+| `offset` | integer | No | 0 | Index of the first `results` entry to return, from `next_offset` |
+
+`results` is paged. When a page does not hold every entry, `notes` says which entries it holds, and `next_offset` is the offset of the next page while more remain.
 
 ## Response Schema
 
