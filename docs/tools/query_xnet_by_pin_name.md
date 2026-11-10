@@ -113,6 +113,13 @@ Response:
 }
 ```
 
+**Error (duplicated reference designator):**
+```json
+{
+  "error": "Pin 'Q7.1' is ambiguous: reference designator Q7 is duplicated on 2 different parts: NFET-1 (pin 1 on BUTTON_GATE), PFET-1 (pin 1 on WAKE_H). query_component('Q7') lists every part; trace from the net instead."
+}
+```
+
 **Error (pin not found):**
 ```json
 {

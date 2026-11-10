@@ -74,6 +74,8 @@ The result names the design, the build written and the absolute path written:
 {"design":"/work/MyBoard.DSN","design_variant":"Fab-A","output":"/work/out/board.netlist.json"}
 ```
 
+A design in which one reference designator names several different parts, or one part draws a section more than once, is refused with an error naming each: a Universal Netlist keys parts by reference designator. `run_erc` lists them under `refdes.duplicate` and `refdes.section_repeated`.
+
 The written file is itself a design: `list_designs` finds it, and every tool reads it. A file that records a variant lists that one name under `design_variants`, and queries of it name it with `design_variant`, as queries of its source do.
 
 ```bash
