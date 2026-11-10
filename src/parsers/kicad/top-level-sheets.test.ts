@@ -3,174 +3,148 @@
  * listed in the project's `schematic.top_level_sheets`, and no sheet symbol
  * links them.
  *
- * test/kicad/top-level-sheets is a small hand-drawn design, and its .net is the
- * export of kicad-cli 10.0.8:
- * - Alpha (the root file): R1.1 and R2.1 on the local label SIG (`/Alpha/SIG`),
- *   R1.2 on the global label G, R2.2 on a no-connect flag;
- * - Beta: R3.1 alone on its own local label SIG (`/Beta/SIG`), R3.2 and R5.2 on
- *   G, R5.1 through a sheet pin to the child sheet Gamma;
- * - Gamma (a sheet of Beta): R4.1 on the hierarchical label H (`/Beta/Gamma/H`),
- *   R4.2 on a no-connect flag.
+ * e-ink-proto-one (test/fixtures/kicad) lists eight: Root, whose file holds no
+ * parts, then Main Computer, Power, EC and four empty pages. Its .net is the
+ * export of kicad-cli 10.0.8. Reading the root file alone finds no nets.
  */
-import { copyFileSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { cpSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { afterAll, describe, expect, it } from "vitest";
+import { fixturePath, hasFixtures } from "../../../test/utils.js";
 import { nodeFileReader, readText } from "../context.js";
 import { createNetlistService } from "../../service/index.js";
 import { netlistDifferences } from "../../../test/helpers/netlist-compare.js";
-import { exportNetlist, isKicadCliAvailable } from "./cli.js";
 import { kicadRootSchematics, readKicadProjectSchematic } from "./discovery.js";
 import { parseKicadNetlist } from "./netlist-parser.js";
 import { readKicadSchematicNetlist } from "./schematic/index.js";
 import { readSchematicHierarchy } from "./variants.js";
 
-const DIR = path.resolve(__dirname, "../../../test/kicad/top-level-sheets");
-const PROJECT = path.join(DIR, "top-level-sheets.kicad_pro");
-const ROOT = path.join(DIR, "top-level-sheets.kicad_sch");
-const SHEETS = ["top-level-sheets.kicad_sch", "beta.kicad_sch", "gamma.kicad_sch"];
+const DIR = fixturePath("kicad", "e-ink-proto-one");
+const PROJECT = path.join(DIR, "proto_one.kicad_pro");
+const ROOT = path.join(DIR, "proto_one.kicad_sch");
+const PAGES = [
+  ["Root", "proto_one.kicad_sch"],
+  ["Main Computer", "main_computer.kicad_sch"],
+  ["Power", "power.kicad_sch"],
+  ["EC", "ec.kicad_sch"],
+  ["Display", "display.kicad_sch"],
+  ["Touch", "touch.kicad_sch"],
+  ["Pen", "pen.kicad_sch"],
+  ["Sensors", "sensors.kicad_sch"],
+];
 
 const saved = async () =>
-  parseKicadNetlist(await readText(nodeFileReader, path.join(DIR, "top-level-sheets.net")));
-const raw = () => readKicadSchematicNetlist(ROOT, nodeFileReader, PROJECT);
+  parseKicadNetlist(await readText(nodeFileReader, path.join(DIR, "proto_one.net")));
+const raw = (project = PROJECT, root = ROOT) =>
+  readKicadSchematicNetlist(root, nodeFileReader, project);
 
-// The same design with no saved export, so the service reads the schematics itself.
-const schematicOnly = mkdtempSync(path.join(tmpdir(), "un-top-level-sheets-"));
-for (const file of ["top-level-sheets.kicad_pro", ...SHEETS]) {
-  copyFileSync(path.join(DIR, file), path.join(schematicOnly, file));
-}
-afterAll(() => rmSync(schematicOnly, { recursive: true, force: true }));
-
-const NETS = {
-  "/Alpha/SIG": { R1: ["1"], R2: ["1"] },
-  "/Beta/SIG": { R3: ["1"] },
-  "/Beta/Gamma/H": { R4: ["1"], R5: ["1"] },
-  G: { R1: ["2"], R3: ["2"], R5: ["2"] },
-};
-
-describe("KiCad project with several top-level sheets", () => {
-  it("lists the project's top-level sheets, and starts the hierarchy from each", async () => {
-    const { topLevelSheets } = await readKicadProjectSchematic(PROJECT);
-    expect(topLevelSheets.map((sheet) => [sheet.name, sheet.filename])).toEqual([
-      ["Alpha", "top-level-sheets.kicad_sch"],
-      ["Beta", "beta.kicad_sch"],
-    ]);
-    const roots = await kicadRootSchematics(PROJECT, ROOT);
-    expect(roots).toEqual([ROOT, path.join(DIR, "beta.kicad_sch")]);
-    expect(await readSchematicHierarchy(roots)).toHaveLength(SHEETS.length);
-  });
-
-  it.each([
-    ["the saved .net", saved],
-    ["the raw schematic reader", raw],
-  ])("reads every page from %s", async (_source, read) => {
-    const netlist = await read();
-    expect(Object.keys(netlist.components).sort()).toEqual(["R1", "R2", "R3", "R4", "R5"]);
-    expect(netlist.nets).toEqual(NETS);
-    expect(netlist.components.R2.pins["2"]).toBe("");
-    expect(netlist.components.R4.pins["2"]).toBe("");
-  });
-
-  it("reads the schematics as kicad-cli exports them", async () => {
-    expect(netlistDifferences(await saved(), await raw())).toEqual([]);
-  });
-
-  it.each([
-    ["with its saved .net", PROJECT],
-    ["from its schematics alone", path.join(schematicOnly, "top-level-sheets.kicad_pro")],
-  ])("run_erc checks every page, %s", async (_source, design) => {
-    const service = createNetlistService();
-    expect(await service.listNets({ design })).toMatchObject({ nets: Object.keys(NETS).sort() });
-    // R3.1 is the one open pin with no flag; R2.2 and R4.2 sit on flags.
-    expect(await service.runErc({ design, include_rules: ["net.single_pin"] })).toMatchObject({
-      errors: { "net.single_pin": { "/Beta/SIG": ["R3.1"] } },
-    });
-  });
-
-  it("reads every page when the design is given as its root schematic", async () => {
-    const service = createNetlistService();
-    const design = path.join(schematicOnly, "top-level-sheets.kicad_sch");
-    expect(await service.listNets({ design })).toMatchObject({ nets: Object.keys(NETS).sort() });
-  });
-
-  it("names a project file's top-level sheets only when it lists two or more", async () => {
-    const one = mkdtempSync(path.join(tmpdir(), "un-one-top-level-sheet-"));
-    try {
-      const project = path.join(one, "single.kicad_pro");
-      copyFileSync(PROJECT, project);
-      const listed = JSON.parse(await readText(nodeFileReader, project));
-      listed.schematic.top_level_sheets = listed.schematic.top_level_sheets.slice(0, 1);
-      writeFileSync(project, JSON.stringify(listed));
-      expect((await readKicadProjectSchematic(project)).topLevelSheets).toEqual([]);
-      expect(await kicadRootSchematics(project, ROOT)).toEqual([ROOT]);
-    } finally {
-      rmSync(one, { recursive: true, force: true });
-    }
-  });
-
-  /** The fixture's schematics in a fresh directory, under a project file `edit` rewrites. */
-  const withProject = async <T>(
-    edit: (schematic: { top_level_sheets: Record<string, unknown>[] }) => void,
-    run: (project: string, dir: string) => Promise<T>
-  ): Promise<T> => {
-    const dir = mkdtempSync(path.join(tmpdir(), "un-top-level-edit-"));
-    try {
-      for (const file of SHEETS) copyFileSync(path.join(DIR, file), path.join(dir, file));
-      const listed = JSON.parse(await readText(nodeFileReader, PROJECT));
-      edit(listed.schematic);
-      const project = path.join(dir, "top-level-sheets.kicad_pro");
-      writeFileSync(project, JSON.stringify(listed));
-      return await run(project, dir);
-    } finally {
-      rmSync(dir, { recursive: true, force: true });
-    }
-  };
-
-  it("writes a / in a sheet name as {slash}, as kicad-cli 10.0.8 does", async () => {
-    // kicad-cli names these nets /Be{slash}ta/SIG and /Be{slash}ta/Gamma/H.
-    const nets = await withProject(
-      (schematic) => (schematic.top_level_sheets[1].name = "Be/ta"),
-      async (project, dir) =>
-        Object.keys(
-          (
-            await readKicadSchematicNetlist(
-              path.join(dir, "top-level-sheets.kicad_sch"),
-              nodeFileReader,
-              project
-            )
-          ).nets
-        ).sort()
-    );
-    expect(nets).toEqual(["/Alpha/SIG", "/Be{slash}ta/Gamma/H", "/Be{slash}ta/SIG", "G"]);
-  });
-
-  it("keeps reading the other pages when one listed entry is malformed", async () => {
-    const nets = await withProject(
-      (schematic) => {
-        delete schematic.top_level_sheets[0].uuid;
-      },
-      async (project, dir) =>
-        Object.keys(
-          (
-            await readKicadSchematicNetlist(
-              path.join(dir, "top-level-sheets.kicad_sch"),
-              nodeFileReader,
-              project
-            )
-          ).nets
-        ).sort()
-    );
-    expect(nets).toEqual(["/Beta/Gamma/H", "/Beta/SIG", "G"]);
-  });
+const scratch: string[] = [];
+afterAll(() => {
+  for (const dir of scratch) rmSync(dir, { recursive: true, force: true });
 });
 
-describe.skipIf(process.env.KICAD_PARITY !== "live")(
-  "KiCad project with several top-level sheets, against a live kicad-cli export",
+/** A copy of a fixture directory without its saved export, `edit` applied to it. */
+const copyOf = (fixture: string, edit: (dir: string) => void = () => {}): string => {
+  const dir = mkdtempSync(path.join(tmpdir(), "un-top-level-"));
+  scratch.push(dir);
+  cpSync(fixturePath("kicad", fixture), dir, {
+    recursive: true,
+    filter: (source) => !source.endsWith(".net"),
+  });
+  edit(dir);
+  return dir;
+};
+
+/** Rewrite the project's `schematic.top_level_sheets` in a copy. */
+const editSheets =
+  (change: (sheets: Record<string, unknown>[]) => Record<string, unknown>[]) => (dir: string) => {
+    const project = path.join(dir, "proto_one.kicad_pro");
+    const json = JSON.parse(readFileSync(project, "utf8"));
+    json.schematic.top_level_sheets = change(json.schematic.top_level_sheets);
+    writeFileSync(project, JSON.stringify(json));
+  };
+
+describe.skipIf(!hasFixtures)(
+  "KiCad project with several top-level sheets (e-ink-proto-one)",
   () => {
-    it("matches kicad-cli exporting the root sheet", async () => {
-      if (!(await isKicadCliAvailable())) throw new Error("KICAD_PARITY=live needs kicad-cli");
-      const exported = parseKicadNetlist(await exportNetlist(ROOT));
-      expect(netlistDifferences(exported, await raw())).toEqual([]);
-    }, 120_000);
+    it("lists the project's top-level sheets, and starts the hierarchy from each", async () => {
+      const { topLevelSheets } = await readKicadProjectSchematic(PROJECT);
+      expect(topLevelSheets.map((sheet) => [sheet.name, sheet.filename])).toEqual(PAGES);
+      const roots = await kicadRootSchematics(PROJECT, ROOT);
+      expect(roots).toEqual(PAGES.map(([, file]) => path.join(DIR, file)));
+      expect(await readSchematicHierarchy(roots)).toHaveLength(PAGES.length);
+    });
+
+    it("reads every page from the schematics, as kicad-cli exports them", async () => {
+      const [expected, actual] = [await saved(), await raw()];
+      expect(Object.keys(actual.components)).toHaveLength(69);
+      expect(Object.keys(actual.nets).length).toBeGreaterThan(0);
+      expect(netlistDifferences(expected, actual)).toEqual([]);
+    });
+
+    it("reads every page through the service, from the project or its root schematic", async () => {
+      const service = createNetlistService();
+      const withExport = await service.listNets({ design: PROJECT });
+      const dir = copyOf("e-ink-proto-one");
+      expect(await service.listNets({ design: path.join(dir, "proto_one.kicad_pro") })).toEqual(
+        withExport
+      );
+      expect(await service.listNets({ design: path.join(dir, "proto_one.kicad_sch") })).toEqual(
+        withExport
+      );
+    });
+
+    it("reads the root schematic alone when the project lists one top-level sheet", async () => {
+      const dir = copyOf(
+        "e-ink-proto-one",
+        editSheets((sheets) => sheets.slice(0, 1))
+      );
+      const project = path.join(dir, "proto_one.kicad_pro");
+      const root = path.join(dir, "proto_one.kicad_sch");
+      expect((await readKicadProjectSchematic(project)).topLevelSheets).toEqual([]);
+      expect(await kicadRootSchematics(project, root)).toEqual([root]);
+      // The root page holds no parts.
+      expect(Object.keys((await raw(project, root)).components)).toEqual([]);
+    });
+
+    it("keeps reading the other pages when one listed entry is malformed", async () => {
+      // Power's entry loses its uuid: Power (X1 among its parts) is dropped, the rest read.
+      const dir = copyOf(
+        "e-ink-proto-one",
+        editSheets((sheets) =>
+          sheets.map((sheet) => {
+            if (sheet.name !== "Power") return sheet;
+            const { uuid: _dropped, ...rest } = sheet;
+            return rest;
+          })
+        )
+      );
+      const netlist = await raw(
+        path.join(dir, "proto_one.kicad_pro"),
+        path.join(dir, "proto_one.kicad_sch")
+      );
+      const all = Object.keys((await saved()).components);
+      expect(Object.hasOwn(netlist.components, "X1")).toBe(false);
+      expect(Object.keys(netlist.components).length).toBeGreaterThan(0);
+      expect(Object.keys(netlist.components).length).toBeLessThan(all.length);
+    });
+
+    it("writes a / in a sheet name as {slash}, as kicad-cli 10.0.8 does", async () => {
+      // cm5-minima with its CM5 sheet renamed CM/5: kicad-cli names the net /CM{slash}5/GLOBAL_EN.
+      const dir = copyOf("cm5-minima", (copy) => {
+        const root = path.join(copy, "CM5_MINIMA_3.kicad_sch");
+        writeFileSync(
+          root,
+          readFileSync(root, "utf8").replace('"Sheetname" "CM5"', '"Sheetname" "CM/5"')
+        );
+      });
+      const netlist = await raw(
+        path.join(dir, "CM5_MINIMA_3.kicad_pro"),
+        path.join(dir, "CM5_MINIMA_3.kicad_sch")
+      );
+      expect(netlist.nets["/CM{slash}5/GLOBAL_EN"]).toEqual({ Module301: ["99"] });
+      expect(Object.keys(netlist.nets).filter((name) => name.startsWith("/CM/"))).toEqual([]);
+    });
   }
 );

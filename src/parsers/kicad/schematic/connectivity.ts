@@ -79,7 +79,11 @@ export interface SchematicComponent {
 
 export interface SchematicNet {
   name: string;
-  pins: { reference: string; pin: string }[];
+  /**
+   * Each pin with its own name and type. A pin's number need not identify it:
+   * a symbol can leave its pins unnumbered, as KiCad allows (`(number "")`).
+   */
+  pins: { reference: string; pin: string; name: string; type: string }[];
   /** A no-connect flag sits on the net: KiCad's export marks its pins' types `+no_connect`. */
   noConnect?: boolean;
 }
@@ -1097,7 +1101,8 @@ export function analyzeSchematic(
     list.sort((a, b) => natural(a.reference, b.reference) || natural(a.pin, b.pin));
     const seen = new Set<string>();
     const unique = list.filter((p) => {
-      const id = `${p.reference}\u0000${p.pin}`;
+      // An unnumbered pin is told apart by its name (issue #245).
+      const id = `${p.reference}\u0000${p.pin}\u0000${p.pin ? "" : p.name}`;
       return !seen.has(id) && seen.add(id);
     });
     const onBoard = unique.filter((p) => p.component.onBoard);
@@ -1107,7 +1112,12 @@ export function analyzeSchematic(
     if (onBoard.length) {
       nets.push({
         name,
-        pins: onBoard.map((p) => ({ reference: p.reference, pin: p.pin })),
+        pins: onBoard.map((p) => ({
+          reference: p.reference,
+          pin: p.pin,
+          name: p.name,
+          type: p.type,
+        })),
         ...(flagged.has(rootNode) ? { noConnect: true } : {}),
       });
     }
@@ -1134,10 +1144,6 @@ export function resolveSchematic(
 ): ResolvedSchematic {
   const design = analyzeSchematic(sources, options);
   const parts = design.components.filter((component) => component.onBoard);
-  const pinOf = new Map<string, SchematicPin>();
-  for (const component of parts) {
-    for (const pin of component.pins) pinOf.set(`${component.reference}\u0000${pin.number}`, pin);
-  }
   return {
     components: parts.map((component) => ({
       reference: component.reference,
@@ -1149,10 +1155,7 @@ export function resolveSchematic(
     })),
     nets: design.nets.map((net) => ({
       name: net.name,
-      pins: net.pins.map(({ reference, pin }) => {
-        const found = pinOf.get(`${reference}\u0000${pin}`);
-        return { reference, pin, name: found?.name ?? "", type: found?.type ?? "" };
-      }),
+      pins: net.pins,
       ...(net.noConnect ? { noConnect: true } : {}),
     })),
   };

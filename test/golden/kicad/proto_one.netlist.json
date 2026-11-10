@@ -1,0 +1,3145 @@
+{
+  "universalNetlistSchemaVersion": 3,
+  "metadata": {
+    "generatedAt": "2026-11-10T01:03:57.083Z",
+    "netlistHash": "sha256:b886b1c0999da94ab26fd1e1cc5babe9c73136724bdf2ad727631250efe9a7ea",
+    "origin": {
+      "type": "vendor",
+      "source": {
+        "vendor": "KiCad",
+        "fileType": ".kicad_pro"
+      }
+    }
+  },
+  "nets": {
+    "1V1_PICO": {
+      "C14": [
+        "1"
+      ],
+      "C15": [
+        "1"
+      ],
+      "C16": [
+        "1"
+      ],
+      "TP3": [
+        "1"
+      ],
+      "U2": [
+        "23",
+        "45",
+        "50"
+      ]
+    },
+    "3V3_PEN": {
+      "C31": [
+        "2"
+      ],
+      "U9": [
+        "8"
+      ]
+    },
+    "3V3_RAW": {
+      "C10": [
+        "1"
+      ],
+      "C11": [
+        "1"
+      ],
+      "C12": [
+        "1"
+      ],
+      "C13": [
+        "1"
+      ],
+      "C17": [
+        "1"
+      ],
+      "C29": [
+        "2"
+      ],
+      "C3": [
+        "1"
+      ],
+      "C30": [
+        "2"
+      ],
+      "C35": [
+        "2"
+      ],
+      "C4": [
+        "1"
+      ],
+      "C5": [
+        "2"
+      ],
+      "C6": [
+        "1"
+      ],
+      "C7": [
+        "1"
+      ],
+      "C8": [
+        "1"
+      ],
+      "C9": [
+        "1"
+      ],
+      "L1": [
+        "2"
+      ],
+      "R3": [
+        "1"
+      ],
+      "R5": [
+        "2"
+      ],
+      "R6": [
+        "1"
+      ],
+      "TP2": [
+        "1"
+      ],
+      "U10": [
+        "1",
+        "4"
+      ],
+      "U11": [
+        "1",
+        "4"
+      ],
+      "U2": [
+        "1",
+        "10",
+        "22",
+        "33",
+        "42",
+        "43",
+        "44",
+        "48",
+        "49"
+      ],
+      "U3": [
+        "8"
+      ],
+      "U5": [
+        "8"
+      ],
+      "U9": [
+        "1",
+        "4"
+      ]
+    },
+    "3V3_SD": {
+      "C32": [
+        "2"
+      ],
+      "U10": [
+        "8"
+      ]
+    },
+    "3V3_SENSORS": {
+      "C36": [
+        "2"
+      ],
+      "U11": [
+        "8"
+      ]
+    },
+    "5V_CM5": {
+      "C21": [
+        "2"
+      ],
+      "U6": [
+        "8"
+      ]
+    },
+    "5V_DISPLAY": {
+      "C24": [
+        "2"
+      ],
+      "U7": [
+        "8"
+      ]
+    },
+    "5V_RAW": {
+      "C1": [
+        "2"
+      ],
+      "C2": [
+        "1"
+      ],
+      "C20": [
+        "2"
+      ],
+      "C23": [
+        "2"
+      ],
+      "C26": [
+        "2"
+      ],
+      "R1": [
+        "2"
+      ],
+      "R2": [
+        "1"
+      ],
+      "U3": [
+        "1"
+      ],
+      "U4": [
+        "1",
+        "4"
+      ],
+      "U6": [
+        "1",
+        "4"
+      ],
+      "U7": [
+        "1",
+        "4"
+      ],
+      "U8": [
+        "1",
+        "4"
+      ],
+      "X1": [
+        "5V"
+      ]
+    },
+    "5V_TOUCH": {
+      "C27": [
+        "2"
+      ],
+      "U8": [
+        "8"
+      ]
+    },
+    "GND": {
+      "C1": [
+        "1"
+      ],
+      "C10": [
+        "2"
+      ],
+      "C11": [
+        "2"
+      ],
+      "C12": [
+        "2"
+      ],
+      "C13": [
+        "2"
+      ],
+      "C14": [
+        "2"
+      ],
+      "C15": [
+        "2"
+      ],
+      "C16": [
+        "2"
+      ],
+      "C17": [
+        "2"
+      ],
+      "C18": [
+        "2"
+      ],
+      "C19": [
+        "2"
+      ],
+      "C2": [
+        "2"
+      ],
+      "C20": [
+        "1"
+      ],
+      "C21": [
+        "1"
+      ],
+      "C22": [
+        "2"
+      ],
+      "C23": [
+        "1"
+      ],
+      "C24": [
+        "1"
+      ],
+      "C25": [
+        "2"
+      ],
+      "C26": [
+        "1"
+      ],
+      "C27": [
+        "1"
+      ],
+      "C28": [
+        "2"
+      ],
+      "C29": [
+        "1"
+      ],
+      "C3": [
+        "2"
+      ],
+      "C30": [
+        "1"
+      ],
+      "C31": [
+        "1"
+      ],
+      "C32": [
+        "1"
+      ],
+      "C33": [
+        "2"
+      ],
+      "C34": [
+        "2"
+      ],
+      "C35": [
+        "1"
+      ],
+      "C36": [
+        "1"
+      ],
+      "C37": [
+        "2"
+      ],
+      "C5": [
+        "1"
+      ],
+      "C6": [
+        "2"
+      ],
+      "C7": [
+        "2"
+      ],
+      "C8": [
+        "2"
+      ],
+      "C9": [
+        "2"
+      ],
+      "J1": [
+        "1"
+      ],
+      "J2": [
+        "2"
+      ],
+      "R4": [
+        "2"
+      ],
+      "TP5": [
+        "1"
+      ],
+      "U10": [
+        "5"
+      ],
+      "U11": [
+        "5"
+      ],
+      "U2": [
+        "57"
+      ],
+      "U3": [
+        "4"
+      ],
+      "U4": [
+        "2"
+      ],
+      "U5": [
+        "4"
+      ],
+      "U6": [
+        "5"
+      ],
+      "U7": [
+        "5"
+      ],
+      "U8": [
+        "5"
+      ],
+      "U9": [
+        "5"
+      ],
+      "Y1": [
+        "2",
+        "4"
+      ],
+      "X1": [
+        "GND"
+      ]
+    },
+    "Net-(C19-Pad1)": {
+      "C19": [
+        "1"
+      ],
+      "R10": [
+        "2"
+      ],
+      "Y1": [
+        "3"
+      ]
+    },
+    "Net-(J1-Pin_2)": {
+      "J1": [
+        "2"
+      ],
+      "R9": [
+        "1"
+      ]
+    },
+    "Net-(J2-Pin_1)": {
+      "J2": [
+        "1"
+      ],
+      "X1": [
+        "PWR_BUTTON"
+      ]
+    },
+    "Net-(J3-Pin_1)": {
+      "J3": [
+        "1"
+      ],
+      "U2": [
+        "25"
+      ]
+    },
+    "Net-(J3-Pin_2)": {
+      "J3": [
+        "2"
+      ],
+      "U2": [
+        "24"
+      ]
+    },
+    "Net-(U1A-GND[51]-Pad1)": {
+      "U1": [
+        "1",
+        "107",
+        "108",
+        "113",
+        "114",
+        "119",
+        "120",
+        "125",
+        "126",
+        "13",
+        "131",
+        "132",
+        "137",
+        "138",
+        "14",
+        "144",
+        "150",
+        "155",
+        "156",
+        "161",
+        "162",
+        "167",
+        "168",
+        "173",
+        "174",
+        "179",
+        "180",
+        "185",
+        "186",
+        "191",
+        "192",
+        "197",
+        "198",
+        "2",
+        "22",
+        "23",
+        "32",
+        "33",
+        "42",
+        "43",
+        "52",
+        "53",
+        "59",
+        "60",
+        "65",
+        "66",
+        "7",
+        "71",
+        "74",
+        "8",
+        "98"
+      ]
+    },
+    "Net-(U2-USB_DM)": {
+      "R7": [
+        "2"
+      ],
+      "U2": [
+        "46"
+      ]
+    },
+    "Net-(U2-USB_DP)": {
+      "R8": [
+        "2"
+      ],
+      "U2": [
+        "47"
+      ]
+    },
+    "Net-(U3-SCLA)": {
+      "R1": [
+        "1"
+      ],
+      "U3": [
+        "2"
+      ],
+      "X1": [
+        "SDA"
+      ]
+    },
+    "Net-(U3-SDAA)": {
+      "R2": [
+        "2"
+      ],
+      "U3": [
+        "3"
+      ],
+      "X1": [
+        "SCL"
+      ]
+    },
+    "Net-(U4-FB)": {
+      "C4": [
+        "2"
+      ],
+      "R3": [
+        "2"
+      ],
+      "R4": [
+        "1"
+      ],
+      "U4": [
+        "5"
+      ]
+    },
+    "Net-(U4-SW)": {
+      "L1": [
+        "1"
+      ],
+      "U4": [
+        "3"
+      ]
+    },
+    "Net-(U6-CT)": {
+      "C22": [
+        "1"
+      ],
+      "U6": [
+        "6"
+      ]
+    },
+    "Net-(U7-CT)": {
+      "C25": [
+        "1"
+      ],
+      "U7": [
+        "6"
+      ]
+    },
+    "Net-(U8-CT)": {
+      "C28": [
+        "1"
+      ],
+      "U8": [
+        "6"
+      ]
+    },
+    "Net-(U9-CT)": {
+      "C33": [
+        "1"
+      ],
+      "U9": [
+        "6"
+      ]
+    },
+    "Net-(U10-CT)": {
+      "C34": [
+        "1"
+      ],
+      "U10": [
+        "6"
+      ]
+    },
+    "Net-(U11-CT)": {
+      "C37": [
+        "1"
+      ],
+      "U11": [
+        "6"
+      ]
+    },
+    "PICO_QSPI_SCLK": {
+      "U2": [
+        "52"
+      ],
+      "U5": [
+        "6"
+      ]
+    },
+    "PICO_QSPI_SD0": {
+      "U2": [
+        "53"
+      ],
+      "U5": [
+        "5"
+      ]
+    },
+    "PICO_QSPI_SD1": {
+      "U2": [
+        "55"
+      ],
+      "U5": [
+        "2"
+      ]
+    },
+    "PICO_QSPI_SD2": {
+      "U2": [
+        "54"
+      ],
+      "U5": [
+        "3"
+      ]
+    },
+    "PICO_QSPI_SD3": {
+      "U2": [
+        "51"
+      ],
+      "U5": [
+        "7"
+      ]
+    },
+    "PICO_QSPI_SS": {
+      "R9": [
+        "2"
+      ],
+      "U2": [
+        "56"
+      ],
+      "U5": [
+        "1"
+      ]
+    },
+    "PICO_RUN": {
+      "TP4": [
+        "1"
+      ],
+      "U2": [
+        "26"
+      ]
+    },
+    "PICO_USB_MINUS": {
+      "R7": [
+        "1"
+      ]
+    },
+    "PICO_USB_PLUS": {
+      "R8": [
+        "1"
+      ]
+    },
+    "PICO_XIN": {
+      "C18": [
+        "1"
+      ],
+      "U2": [
+        "20"
+      ],
+      "Y1": [
+        "1"
+      ]
+    },
+    "PICO_XOUT": {
+      "R10": [
+        "1"
+      ],
+      "U2": [
+        "21"
+      ]
+    },
+    "POWER_3V3_DET": {
+      "U2": [
+        "4"
+      ],
+      "X1": [
+        "3v3_DET"
+      ]
+    },
+    "POWER_AC_DET": {
+      "U2": [
+        "6"
+      ],
+      "X1": [
+        "AC_DET"
+      ]
+    },
+    "POWER_CHARGE_CTRL": {
+      "U2": [
+        "5"
+      ],
+      "X1": [
+        "CHARGE_CTRL"
+      ]
+    },
+    "POWER_SCL": {
+      "R5": [
+        "1"
+      ],
+      "U2": [
+        "3"
+      ],
+      "U3": [
+        "7"
+      ]
+    },
+    "POWER_SDA": {
+      "R6": [
+        "2"
+      ],
+      "U2": [
+        "2"
+      ],
+      "U3": [
+        "6"
+      ]
+    },
+    "SWITCH_CM5": {
+      "U6": [
+        "3"
+      ]
+    },
+    "SWITCH_DISPLAY": {
+      "U7": [
+        "3"
+      ]
+    },
+    "SWITCH_PEN": {
+      "U9": [
+        "3"
+      ]
+    },
+    "SWITCH_SD": {
+      "U10": [
+        "3"
+      ]
+    },
+    "SWITCH_SENSORS": {
+      "U11": [
+        "3"
+      ]
+    },
+    "SWITCH_TOUCH": {
+      "U8": [
+        "3"
+      ]
+    },
+    "unconnected-(U1A-+5V-Pad77)": {
+      "U1": [
+        "77"
+      ]
+    },
+    "unconnected-(U1A-+5V-Pad79)": {
+      "U1": [
+        "79"
+      ]
+    },
+    "unconnected-(U1A-+5V-Pad81)": {
+      "U1": [
+        "81"
+      ]
+    },
+    "unconnected-(U1A-+5V-Pad83)": {
+      "U1": [
+        "83"
+      ]
+    },
+    "unconnected-(U1A-+5V-Pad85)": {
+      "U1": [
+        "85"
+      ]
+    },
+    "unconnected-(U1A-+5V-Pad87)": {
+      "U1": [
+        "87"
+      ]
+    },
+    "unconnected-(U1A-CM4_1.8V_Out_1-Pad88)": {
+      "U1": [
+        "88"
+      ]
+    },
+    "unconnected-(U1A-CM4_1.8V_Out_2-Pad90)": {
+      "U1": [
+        "90"
+      ]
+    },
+    "unconnected-(U1A-CM4_3.3V_Out_1-Pad84)": {
+      "U1": [
+        "84"
+      ]
+    },
+    "unconnected-(U1A-CM4_3.3V_Out_2-Pad86)": {
+      "U1": [
+        "86"
+      ]
+    },
+    "unconnected-(U1B-GPIO2-Pad58)": {
+      "U1": [
+        "58"
+      ]
+    },
+    "unconnected-(U1B-GPIO3-Pad56)": {
+      "U1": [
+        "56"
+      ]
+    },
+    "unconnected-(U1B-GPIO4-Pad54)": {
+      "U1": [
+        "54"
+      ]
+    },
+    "unconnected-(U1B-GPIO5-Pad34)": {
+      "U1": [
+        "34"
+      ]
+    },
+    "unconnected-(U1B-GPIO6-Pad30)": {
+      "U1": [
+        "30"
+      ]
+    },
+    "unconnected-(U1B-GPIO7-Pad37)": {
+      "U1": [
+        "37"
+      ]
+    },
+    "unconnected-(U1B-GPIO8-Pad39)": {
+      "U1": [
+        "39"
+      ]
+    },
+    "unconnected-(U1B-GPIO9-Pad40)": {
+      "U1": [
+        "40"
+      ]
+    },
+    "unconnected-(U1B-GPIO10-Pad44)": {
+      "U1": [
+        "44"
+      ]
+    },
+    "unconnected-(U1B-GPIO11-Pad38)": {
+      "U1": [
+        "38"
+      ]
+    },
+    "unconnected-(U1B-GPIO12-Pad31)": {
+      "U1": [
+        "31"
+      ]
+    },
+    "unconnected-(U1B-GPIO13-Pad28)": {
+      "U1": [
+        "28"
+      ]
+    },
+    "unconnected-(U1B-GPIO14-Pad55)": {
+      "U1": [
+        "55"
+      ]
+    },
+    "unconnected-(U1B-GPIO15-Pad51)": {
+      "U1": [
+        "51"
+      ]
+    },
+    "unconnected-(U1B-GPIO16-Pad29)": {
+      "U1": [
+        "29"
+      ]
+    },
+    "unconnected-(U1B-GPIO17-Pad50)": {
+      "U1": [
+        "50"
+      ]
+    },
+    "unconnected-(U1B-GPIO18-Pad49)": {
+      "U1": [
+        "49"
+      ]
+    },
+    "unconnected-(U1B-GPIO19-Pad26)": {
+      "U1": [
+        "26"
+      ]
+    },
+    "unconnected-(U1B-GPIO20-Pad27)": {
+      "U1": [
+        "27"
+      ]
+    },
+    "unconnected-(U1B-GPIO21-Pad25)": {
+      "U1": [
+        "25"
+      ]
+    },
+    "unconnected-(U1B-GPIO22-Pad46)": {
+      "U1": [
+        "46"
+      ]
+    },
+    "unconnected-(U1B-GPIO23-Pad47)": {
+      "U1": [
+        "47"
+      ]
+    },
+    "unconnected-(U1B-GPIO24-Pad45)": {
+      "U1": [
+        "45"
+      ]
+    },
+    "unconnected-(U1B-GPIO25-Pad41)": {
+      "U1": [
+        "41"
+      ]
+    },
+    "unconnected-(U1B-GPIO26-Pad24)": {
+      "U1": [
+        "24"
+      ]
+    },
+    "unconnected-(U1B-GPIO27-Pad48)": {
+      "U1": [
+        "48"
+      ]
+    },
+    "unconnected-(U1B-GPIO_VREF-Pad78)": {
+      "U1": [
+        "78"
+      ]
+    },
+    "unconnected-(U1B-ID_SC-Pad35)": {
+      "U1": [
+        "35"
+      ]
+    },
+    "unconnected-(U1B-ID_SD-Pad36)": {
+      "U1": [
+        "36"
+      ]
+    },
+    "unconnected-(U1D-USB_N-Pad103)": {
+      "U1": [
+        "103"
+      ]
+    },
+    "unconnected-(U1D-USB_OTG_ID-Pad101)": {
+      "U1": [
+        "101"
+      ]
+    },
+    "unconnected-(U1D-USB_P-Pad105)": {
+      "U1": [
+        "105"
+      ]
+    },
+    "unconnected-(U1I-SD_CLK-Pad57)": {
+      "U1": [
+        "57"
+      ]
+    },
+    "unconnected-(U1I-SD_CMD-Pad62)": {
+      "U1": [
+        "62"
+      ]
+    },
+    "unconnected-(U1I-SD_DAT0-Pad63)": {
+      "U1": [
+        "63"
+      ]
+    },
+    "unconnected-(U1I-SD_DAT1-Pad67)": {
+      "U1": [
+        "67"
+      ]
+    },
+    "unconnected-(U1I-SD_DAT2-Pad69)": {
+      "U1": [
+        "69"
+      ]
+    },
+    "unconnected-(U1I-SD_DAT3-Pad61)": {
+      "U1": [
+        "61"
+      ]
+    },
+    "unconnected-(U1I-SD_DAT4-Pad68)": {
+      "U1": [
+        "68"
+      ]
+    },
+    "unconnected-(U1I-SD_DAT5-Pad64)": {
+      "U1": [
+        "64"
+      ]
+    },
+    "unconnected-(U1I-SD_DAT6-Pad72)": {
+      "U1": [
+        "72"
+      ]
+    },
+    "unconnected-(U1I-SD_DAT7-Pad70)": {
+      "U1": [
+        "70"
+      ]
+    },
+    "unconnected-(U1I-SD_PWR_ON-Pad75)": {
+      "U1": [
+        "75"
+      ]
+    },
+    "unconnected-(U1I-SD_VDD_Override-Pad73)": {
+      "U1": [
+        "73"
+      ]
+    },
+    "unconnected-(U1J-CAM_GPIO0-Pad97)": {
+      "U1": [
+        "97"
+      ]
+    },
+    "unconnected-(U1J-CAM_GPIO1-Pad100)": {
+      "U1": [
+        "100"
+      ]
+    },
+    "unconnected-(U1J-CC1-Pad94)": {
+      "U1": [
+        "94"
+      ]
+    },
+    "unconnected-(U1J-CC2-Pad96)": {
+      "U1": [
+        "96"
+      ]
+    },
+    "unconnected-(U1J-EEPROM_nWP-Pad20)": {
+      "U1": [
+        "20"
+      ]
+    },
+    "unconnected-(U1J-Fan_PWM-Pad19)": {
+      "U1": [
+        "19"
+      ]
+    },
+    "unconnected-(U1J-Fan_tacho-Pad16)": {
+      "U1": [
+        "16"
+      ]
+    },
+    "unconnected-(U1J-I2C_SCL0-Pad80)": {
+      "U1": [
+        "80"
+      ]
+    },
+    "unconnected-(U1J-I2C_SDA0-Pad82)": {
+      "U1": [
+        "82"
+      ]
+    },
+    "unconnected-(U1J-PMIC_ENABLE-Pad99)": {
+      "U1": [
+        "99"
+      ]
+    },
+    "unconnected-(U1J-PWR_Button-Pad92)": {
+      "U1": [
+        "92"
+      ]
+    },
+    "unconnected-(U1J-VBAT-Pad76)": {
+      "U1": [
+        "76"
+      ]
+    },
+    "unconnected-(U1J-~{BT_nDisable}-Pad91)": {
+      "U1": [
+        "91"
+      ]
+    },
+    "unconnected-(U1J-~{PI_LED_nPWR}-Pad95)": {
+      "U1": [
+        "95"
+      ]
+    },
+    "unconnected-(U1J-~{Pi_nLED_Activity}-Pad21)": {
+      "U1": [
+        "21"
+      ]
+    },
+    "unconnected-(U1J-~{WL_nDisable}-Pad89)": {
+      "U1": [
+        "89"
+      ]
+    },
+    "unconnected-(U1J-~{nRPIBOOT}-Pad93)": {
+      "U1": [
+        "93"
+      ]
+    },
+    "unconnected-(U1K-USB3-0-DM-Pad136)": {
+      "U1": [
+        "136"
+      ]
+    },
+    "unconnected-(U1K-USB3-0-DP-Pad134)": {
+      "U1": [
+        "134"
+      ]
+    },
+    "unconnected-(U1K-USB3-0-RX_N-Pad128)": {
+      "U1": [
+        "128"
+      ]
+    },
+    "unconnected-(U1K-USB3-0-RX_P-Pad130)": {
+      "U1": [
+        "130"
+      ]
+    },
+    "unconnected-(U1K-USB3-0-TX_N-Pad140)": {
+      "U1": [
+        "140"
+      ]
+    },
+    "unconnected-(U1K-USB3-0-TX_P-Pad142)": {
+      "U1": [
+        "142"
+      ]
+    },
+    "unconnected-(U1K-VBUS_EN-Pad111)": {
+      "U1": [
+        "111"
+      ]
+    },
+    "unconnected-(U1L-USB3-1-DM-Pad165)": {
+      "U1": [
+        "165"
+      ]
+    },
+    "unconnected-(U1L-USB3-1-DP-Pad163)": {
+      "U1": [
+        "163"
+      ]
+    },
+    "unconnected-(U1L-USB3-1-RX_N-Pad157)": {
+      "U1": [
+        "157"
+      ]
+    },
+    "unconnected-(U1L-USB3-1-RX_P-Pad159)": {
+      "U1": [
+        "159"
+      ]
+    },
+    "unconnected-(U1L-USB3-1-TX_N-Pad169)": {
+      "U1": [
+        "169"
+      ]
+    },
+    "unconnected-(U1L-USB3-1-TX_P-Pad171)": {
+      "U1": [
+        "171"
+      ]
+    },
+    "unconnected-(U2-GPIO5-Pad7)": {
+      "U2": [
+        "7"
+      ]
+    },
+    "unconnected-(U2-GPIO6-Pad8)": {
+      "U2": [
+        "8"
+      ]
+    },
+    "unconnected-(U2-GPIO7-Pad9)": {
+      "U2": [
+        "9"
+      ]
+    },
+    "unconnected-(U2-GPIO8-Pad11)": {
+      "U2": [
+        "11"
+      ]
+    },
+    "unconnected-(U2-GPIO9-Pad12)": {
+      "U2": [
+        "12"
+      ]
+    },
+    "unconnected-(U2-GPIO10-Pad13)": {
+      "U2": [
+        "13"
+      ]
+    },
+    "unconnected-(U2-GPIO11-Pad14)": {
+      "U2": [
+        "14"
+      ]
+    },
+    "unconnected-(U2-GPIO12-Pad15)": {
+      "U2": [
+        "15"
+      ]
+    },
+    "unconnected-(U2-GPIO13-Pad16)": {
+      "U2": [
+        "16"
+      ]
+    },
+    "unconnected-(U2-GPIO14-Pad17)": {
+      "U2": [
+        "17"
+      ]
+    },
+    "unconnected-(U2-GPIO15-Pad18)": {
+      "U2": [
+        "18"
+      ]
+    },
+    "unconnected-(U2-GPIO16-Pad27)": {
+      "U2": [
+        "27"
+      ]
+    },
+    "unconnected-(U2-GPIO17-Pad28)": {
+      "U2": [
+        "28"
+      ]
+    },
+    "unconnected-(U2-GPIO18-Pad29)": {
+      "U2": [
+        "29"
+      ]
+    },
+    "unconnected-(U2-GPIO19-Pad30)": {
+      "U2": [
+        "30"
+      ]
+    },
+    "unconnected-(U2-GPIO20-Pad31)": {
+      "U2": [
+        "31"
+      ]
+    },
+    "unconnected-(U2-GPIO21-Pad32)": {
+      "U2": [
+        "32"
+      ]
+    },
+    "unconnected-(U2-GPIO22-Pad34)": {
+      "U2": [
+        "34"
+      ]
+    },
+    "unconnected-(U2-GPIO23-Pad35)": {
+      "U2": [
+        "35"
+      ]
+    },
+    "unconnected-(U2-GPIO24-Pad36)": {
+      "U2": [
+        "36"
+      ]
+    },
+    "unconnected-(U2-GPIO25-Pad37)": {
+      "U2": [
+        "37"
+      ]
+    },
+    "unconnected-(U2-GPIO26{slash}ADC0-Pad38)": {
+      "U2": [
+        "38"
+      ]
+    },
+    "unconnected-(U2-GPIO27{slash}ADC1-Pad39)": {
+      "U2": [
+        "39"
+      ]
+    },
+    "unconnected-(U2-GPIO28{slash}ADC2-Pad40)": {
+      "U2": [
+        "40"
+      ]
+    },
+    "unconnected-(U2-GPIO29{slash}ADC3-Pad41)": {
+      "U2": [
+        "41"
+      ]
+    },
+    "unconnected-(U3-EN-Pad5)": {
+      "U3": [
+        "5"
+      ]
+    },
+    "unconnected-(U12-EN-Pad)": {
+      "U12": [
+        "EN"
+      ]
+    },
+    "unconnected-(U12-FAULT-Pad)": {
+      "U12": [
+        "FAULT"
+      ]
+    },
+    "unconnected-(U12-GND-Pad)": {
+      "U12": [
+        "GND"
+      ]
+    },
+    "unconnected-(U12-ILIM-Pad)": {
+      "U12": [
+        "ILIM"
+      ]
+    },
+    "unconnected-(U12-IN-Pad)": {
+      "U12": [
+        "IN"
+      ]
+    },
+    "unconnected-(U12-OUT-Pad)": {
+      "U12": [
+        "OUT"
+      ]
+    },
+    "unconnected-(U12-PP-Pad)": {
+      "U12": [
+        "PP"
+      ]
+    }
+  },
+  "components": {
+    "U1": {
+      "pins": {
+        "1": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "2": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "3": {
+          "name": "Ethernet_Pair3_P",
+          "net": ""
+        },
+        "4": {
+          "name": "Ethernet_Pair1_P",
+          "net": ""
+        },
+        "5": {
+          "name": "Ethernet_Pair3_N",
+          "net": ""
+        },
+        "6": {
+          "name": "Ethernet_Pair1_N",
+          "net": ""
+        },
+        "7": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "8": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "9": {
+          "name": "Ethernet_Pair2_N",
+          "net": ""
+        },
+        "10": {
+          "name": "Ethernet_Pair0_N",
+          "net": ""
+        },
+        "11": {
+          "name": "Ethernet_Pair2_P",
+          "net": ""
+        },
+        "12": {
+          "name": "Ethernet_Pair0_P",
+          "net": ""
+        },
+        "13": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "14": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "15": {
+          "name": "~{Ethernet_nLED3}",
+          "net": ""
+        },
+        "16": {
+          "name": "Fan_tacho",
+          "net": "unconnected-(U1J-Fan_tacho-Pad16)"
+        },
+        "17": {
+          "name": "~{Ethernet_nLED2}",
+          "net": ""
+        },
+        "18": {
+          "name": "Ethernet_SYNC_OUT",
+          "net": ""
+        },
+        "19": {
+          "name": "Fan_PWM",
+          "net": "unconnected-(U1J-Fan_PWM-Pad19)"
+        },
+        "20": {
+          "name": "EEPROM_nWP",
+          "net": "unconnected-(U1J-EEPROM_nWP-Pad20)"
+        },
+        "21": {
+          "name": "~{Pi_nLED_Activity}",
+          "net": "unconnected-(U1J-~{Pi_nLED_Activity}-Pad21)"
+        },
+        "22": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "23": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "24": {
+          "name": "GPIO26",
+          "net": "unconnected-(U1B-GPIO26-Pad24)"
+        },
+        "25": {
+          "name": "GPIO21",
+          "net": "unconnected-(U1B-GPIO21-Pad25)"
+        },
+        "26": {
+          "name": "GPIO19",
+          "net": "unconnected-(U1B-GPIO19-Pad26)"
+        },
+        "27": {
+          "name": "GPIO20",
+          "net": "unconnected-(U1B-GPIO20-Pad27)"
+        },
+        "28": {
+          "name": "GPIO13",
+          "net": "unconnected-(U1B-GPIO13-Pad28)"
+        },
+        "29": {
+          "name": "GPIO16",
+          "net": "unconnected-(U1B-GPIO16-Pad29)"
+        },
+        "30": {
+          "name": "GPIO6",
+          "net": "unconnected-(U1B-GPIO6-Pad30)"
+        },
+        "31": {
+          "name": "GPIO12",
+          "net": "unconnected-(U1B-GPIO12-Pad31)"
+        },
+        "32": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "33": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "34": {
+          "name": "GPIO5",
+          "net": "unconnected-(U1B-GPIO5-Pad34)"
+        },
+        "35": {
+          "name": "ID_SC",
+          "net": "unconnected-(U1B-ID_SC-Pad35)"
+        },
+        "36": {
+          "name": "ID_SD",
+          "net": "unconnected-(U1B-ID_SD-Pad36)"
+        },
+        "37": {
+          "name": "GPIO7",
+          "net": "unconnected-(U1B-GPIO7-Pad37)"
+        },
+        "38": {
+          "name": "GPIO11",
+          "net": "unconnected-(U1B-GPIO11-Pad38)"
+        },
+        "39": {
+          "name": "GPIO8",
+          "net": "unconnected-(U1B-GPIO8-Pad39)"
+        },
+        "40": {
+          "name": "GPIO9",
+          "net": "unconnected-(U1B-GPIO9-Pad40)"
+        },
+        "41": {
+          "name": "GPIO25",
+          "net": "unconnected-(U1B-GPIO25-Pad41)"
+        },
+        "42": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "43": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "44": {
+          "name": "GPIO10",
+          "net": "unconnected-(U1B-GPIO10-Pad44)"
+        },
+        "45": {
+          "name": "GPIO24",
+          "net": "unconnected-(U1B-GPIO24-Pad45)"
+        },
+        "46": {
+          "name": "GPIO22",
+          "net": "unconnected-(U1B-GPIO22-Pad46)"
+        },
+        "47": {
+          "name": "GPIO23",
+          "net": "unconnected-(U1B-GPIO23-Pad47)"
+        },
+        "48": {
+          "name": "GPIO27",
+          "net": "unconnected-(U1B-GPIO27-Pad48)"
+        },
+        "49": {
+          "name": "GPIO18",
+          "net": "unconnected-(U1B-GPIO18-Pad49)"
+        },
+        "50": {
+          "name": "GPIO17",
+          "net": "unconnected-(U1B-GPIO17-Pad50)"
+        },
+        "51": {
+          "name": "GPIO15",
+          "net": "unconnected-(U1B-GPIO15-Pad51)"
+        },
+        "52": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "53": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "54": {
+          "name": "GPIO4",
+          "net": "unconnected-(U1B-GPIO4-Pad54)"
+        },
+        "55": {
+          "name": "GPIO14",
+          "net": "unconnected-(U1B-GPIO14-Pad55)"
+        },
+        "56": {
+          "name": "GPIO3",
+          "net": "unconnected-(U1B-GPIO3-Pad56)"
+        },
+        "57": {
+          "name": "SD_CLK",
+          "net": "unconnected-(U1I-SD_CLK-Pad57)"
+        },
+        "58": {
+          "name": "GPIO2",
+          "net": "unconnected-(U1B-GPIO2-Pad58)"
+        },
+        "59": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "60": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "61": {
+          "name": "SD_DAT3",
+          "net": "unconnected-(U1I-SD_DAT3-Pad61)"
+        },
+        "62": {
+          "name": "SD_CMD",
+          "net": "unconnected-(U1I-SD_CMD-Pad62)"
+        },
+        "63": {
+          "name": "SD_DAT0",
+          "net": "unconnected-(U1I-SD_DAT0-Pad63)"
+        },
+        "64": {
+          "name": "SD_DAT5",
+          "net": "unconnected-(U1I-SD_DAT5-Pad64)"
+        },
+        "65": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "66": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "67": {
+          "name": "SD_DAT1",
+          "net": "unconnected-(U1I-SD_DAT1-Pad67)"
+        },
+        "68": {
+          "name": "SD_DAT4",
+          "net": "unconnected-(U1I-SD_DAT4-Pad68)"
+        },
+        "69": {
+          "name": "SD_DAT2",
+          "net": "unconnected-(U1I-SD_DAT2-Pad69)"
+        },
+        "70": {
+          "name": "SD_DAT7",
+          "net": "unconnected-(U1I-SD_DAT7-Pad70)"
+        },
+        "71": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "72": {
+          "name": "SD_DAT6",
+          "net": "unconnected-(U1I-SD_DAT6-Pad72)"
+        },
+        "73": {
+          "name": "SD_VDD_Override",
+          "net": "unconnected-(U1I-SD_VDD_Override-Pad73)"
+        },
+        "74": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "75": {
+          "name": "SD_PWR_ON",
+          "net": "unconnected-(U1I-SD_PWR_ON-Pad75)"
+        },
+        "76": {
+          "name": "VBAT",
+          "net": "unconnected-(U1J-VBAT-Pad76)"
+        },
+        "77": {
+          "name": "+5V",
+          "net": "unconnected-(U1A-+5V-Pad77)"
+        },
+        "78": {
+          "name": "GPIO_VREF",
+          "net": "unconnected-(U1B-GPIO_VREF-Pad78)"
+        },
+        "79": {
+          "name": "+5V",
+          "net": "unconnected-(U1A-+5V-Pad79)"
+        },
+        "80": {
+          "name": "I2C_SCL0",
+          "net": "unconnected-(U1J-I2C_SCL0-Pad80)"
+        },
+        "81": {
+          "name": "+5V",
+          "net": "unconnected-(U1A-+5V-Pad81)"
+        },
+        "82": {
+          "name": "I2C_SDA0",
+          "net": "unconnected-(U1J-I2C_SDA0-Pad82)"
+        },
+        "83": {
+          "name": "+5V",
+          "net": "unconnected-(U1A-+5V-Pad83)"
+        },
+        "84": {
+          "name": "CM4_3.3V_Out_1",
+          "net": "unconnected-(U1A-CM4_3.3V_Out_1-Pad84)"
+        },
+        "85": {
+          "name": "+5V",
+          "net": "unconnected-(U1A-+5V-Pad85)"
+        },
+        "86": {
+          "name": "CM4_3.3V_Out_2",
+          "net": "unconnected-(U1A-CM4_3.3V_Out_2-Pad86)"
+        },
+        "87": {
+          "name": "+5V",
+          "net": "unconnected-(U1A-+5V-Pad87)"
+        },
+        "88": {
+          "name": "CM4_1.8V_Out_1",
+          "net": "unconnected-(U1A-CM4_1.8V_Out_1-Pad88)"
+        },
+        "89": {
+          "name": "~{WL_nDisable}",
+          "net": "unconnected-(U1J-~{WL_nDisable}-Pad89)"
+        },
+        "90": {
+          "name": "CM4_1.8V_Out_2",
+          "net": "unconnected-(U1A-CM4_1.8V_Out_2-Pad90)"
+        },
+        "91": {
+          "name": "~{BT_nDisable}",
+          "net": "unconnected-(U1J-~{BT_nDisable}-Pad91)"
+        },
+        "92": {
+          "name": "PWR_Button",
+          "net": "unconnected-(U1J-PWR_Button-Pad92)"
+        },
+        "93": {
+          "name": "~{nRPIBOOT}",
+          "net": "unconnected-(U1J-~{nRPIBOOT}-Pad93)"
+        },
+        "94": {
+          "name": "CC1",
+          "net": "unconnected-(U1J-CC1-Pad94)"
+        },
+        "95": {
+          "name": "~{PI_LED_nPWR}",
+          "net": "unconnected-(U1J-~{PI_LED_nPWR}-Pad95)"
+        },
+        "96": {
+          "name": "CC2",
+          "net": "unconnected-(U1J-CC2-Pad96)"
+        },
+        "97": {
+          "name": "CAM_GPIO0",
+          "net": "unconnected-(U1J-CAM_GPIO0-Pad97)"
+        },
+        "98": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "99": {
+          "name": "PMIC_ENABLE",
+          "net": "unconnected-(U1J-PMIC_ENABLE-Pad99)"
+        },
+        "100": {
+          "name": "CAM_GPIO1",
+          "net": "unconnected-(U1J-CAM_GPIO1-Pad100)"
+        },
+        "101": {
+          "name": "USB_OTG_ID",
+          "net": "unconnected-(U1D-USB_OTG_ID-Pad101)"
+        },
+        "102": {
+          "name": "~{PCIe_CLK_nREQ}",
+          "net": ""
+        },
+        "103": {
+          "name": "USB_N",
+          "net": "unconnected-(U1D-USB_N-Pad103)"
+        },
+        "104": {
+          "name": "PCIE_DET_nWAKE",
+          "net": ""
+        },
+        "105": {
+          "name": "USB_P",
+          "net": "unconnected-(U1D-USB_P-Pad105)"
+        },
+        "106": {
+          "name": "PCIE_PWR_EN",
+          "net": ""
+        },
+        "107": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "108": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "109": {
+          "name": "~{PCIe_nRST}",
+          "net": ""
+        },
+        "110": {
+          "name": "PCIe_CLK_P",
+          "net": ""
+        },
+        "111": {
+          "name": "VBUS_EN",
+          "net": "unconnected-(U1K-VBUS_EN-Pad111)"
+        },
+        "112": {
+          "name": "PCIe_CLK_N",
+          "net": ""
+        },
+        "113": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "114": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "115": {
+          "name": "MIPI0_D0_N",
+          "net": ""
+        },
+        "116": {
+          "name": "PCIe_RX_P",
+          "net": ""
+        },
+        "117": {
+          "name": "MIPI0_D0_P",
+          "net": ""
+        },
+        "118": {
+          "name": "PCIe_RX_N",
+          "net": ""
+        },
+        "119": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "120": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "121": {
+          "name": "MIPI0_D1_N",
+          "net": ""
+        },
+        "122": {
+          "name": "PCIe_TX_P",
+          "net": ""
+        },
+        "123": {
+          "name": "MIPI0_D1_P",
+          "net": ""
+        },
+        "124": {
+          "name": "PCIe_TX_N",
+          "net": ""
+        },
+        "125": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "126": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "127": {
+          "name": "MIPI0_C_N",
+          "net": ""
+        },
+        "128": {
+          "name": "USB3-0-RX_N",
+          "net": "unconnected-(U1K-USB3-0-RX_N-Pad128)"
+        },
+        "129": {
+          "name": "MIPI0_C_P",
+          "net": ""
+        },
+        "130": {
+          "name": "USB3-0-RX_P",
+          "net": "unconnected-(U1K-USB3-0-RX_P-Pad130)"
+        },
+        "131": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "132": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "133": {
+          "name": "MIPI0_D2_N",
+          "net": ""
+        },
+        "134": {
+          "name": "USB3-0-DP",
+          "net": "unconnected-(U1K-USB3-0-DP-Pad134)"
+        },
+        "135": {
+          "name": "MIPI0_D2_P",
+          "net": ""
+        },
+        "136": {
+          "name": "USB3-0-DM",
+          "net": "unconnected-(U1K-USB3-0-DM-Pad136)"
+        },
+        "137": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "138": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "139": {
+          "name": "MIPI0_D3_N",
+          "net": ""
+        },
+        "140": {
+          "name": "USB3-0-TX_N",
+          "net": "unconnected-(U1K-USB3-0-TX_N-Pad140)"
+        },
+        "141": {
+          "name": "MIPI0_D3_P",
+          "net": ""
+        },
+        "142": {
+          "name": "USB3-0-TX_P",
+          "net": "unconnected-(U1K-USB3-0-TX_P-Pad142)"
+        },
+        "143": {
+          "name": "HDMI1_HOTPLUG",
+          "net": ""
+        },
+        "144": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "145": {
+          "name": "HDMI1_SDA",
+          "net": ""
+        },
+        "146": {
+          "name": "HDMI1_TX2_P",
+          "net": ""
+        },
+        "147": {
+          "name": "HDMI1_SCL",
+          "net": ""
+        },
+        "148": {
+          "name": "HDMI1_TX2_N",
+          "net": ""
+        },
+        "149": {
+          "name": "HDMI1_CEC",
+          "net": ""
+        },
+        "150": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "151": {
+          "name": "HDMI0_CEC",
+          "net": ""
+        },
+        "152": {
+          "name": "HDMI1_TX1_P",
+          "net": ""
+        },
+        "153": {
+          "name": "HDMI0_HOTPLUG",
+          "net": ""
+        },
+        "154": {
+          "name": "HDMI1_TX1_N",
+          "net": ""
+        },
+        "155": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "156": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "157": {
+          "name": "USB3-1-RX_N",
+          "net": "unconnected-(U1L-USB3-1-RX_N-Pad157)"
+        },
+        "158": {
+          "name": "HDMI1_TX0_P",
+          "net": ""
+        },
+        "159": {
+          "name": "USB3-1-RX_P",
+          "net": "unconnected-(U1L-USB3-1-RX_P-Pad159)"
+        },
+        "160": {
+          "name": "HDMI1_TX0_N",
+          "net": ""
+        },
+        "161": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "162": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "163": {
+          "name": "USB3-1-DP",
+          "net": "unconnected-(U1L-USB3-1-DP-Pad163)"
+        },
+        "164": {
+          "name": "HDMI1_CLK_P",
+          "net": ""
+        },
+        "165": {
+          "name": "USB3-1-DM",
+          "net": "unconnected-(U1L-USB3-1-DM-Pad165)"
+        },
+        "166": {
+          "name": "HDMI1_CLK_N",
+          "net": ""
+        },
+        "167": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "168": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "169": {
+          "name": "USB3-1-TX_N",
+          "net": "unconnected-(U1L-USB3-1-TX_N-Pad169)"
+        },
+        "170": {
+          "name": "HDMI0_TX2_P",
+          "net": ""
+        },
+        "171": {
+          "name": "USB3-1-TX_P",
+          "net": "unconnected-(U1L-USB3-1-TX_P-Pad171)"
+        },
+        "172": {
+          "name": "HDMI0_TX2_N",
+          "net": ""
+        },
+        "173": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "174": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "175": {
+          "name": "MIPI1_D0_N",
+          "net": ""
+        },
+        "176": {
+          "name": "HDMI0_TX1_P",
+          "net": ""
+        },
+        "177": {
+          "name": "MIPI1_D0_P",
+          "net": ""
+        },
+        "178": {
+          "name": "HDMI0_TX1_N",
+          "net": ""
+        },
+        "179": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "180": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "181": {
+          "name": "MIPI1_D1_N",
+          "net": ""
+        },
+        "182": {
+          "name": "HDMI0_TX0_P",
+          "net": ""
+        },
+        "183": {
+          "name": "MIPI1_D1_P",
+          "net": ""
+        },
+        "184": {
+          "name": "HDMI0_TX0_N",
+          "net": ""
+        },
+        "185": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "186": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "187": {
+          "name": "MIPI1_C_N",
+          "net": ""
+        },
+        "188": {
+          "name": "HDMI0_CLK_P",
+          "net": ""
+        },
+        "189": {
+          "name": "MIPI1_C_P",
+          "net": ""
+        },
+        "190": {
+          "name": "HDMI0_CLK_N",
+          "net": ""
+        },
+        "191": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "192": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "193": {
+          "name": "MIPI1_D2_N",
+          "net": ""
+        },
+        "194": {
+          "name": "MIPI1_D3_N",
+          "net": ""
+        },
+        "195": {
+          "name": "MIPI1_D2_P",
+          "net": ""
+        },
+        "196": {
+          "name": "MIPI1_D3_P",
+          "net": ""
+        },
+        "197": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "198": {
+          "name": "GND[51]",
+          "net": "Net-(U1A-GND[51]-Pad1)"
+        },
+        "199": {
+          "name": "HDMI0_SDA",
+          "net": ""
+        },
+        "200": {
+          "name": "HDMI0_SCL",
+          "net": ""
+        }
+      },
+      "value": "Compute_Module_5_Functional"
+    },
+    "C1": {
+      "pins": {
+        "1": "GND",
+        "2": "5V_RAW"
+      },
+      "value": "100 nF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C2": {
+      "pins": {
+        "1": "5V_RAW",
+        "2": "GND"
+      },
+      "value": "4.7 uF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C3": {
+      "pins": {
+        "1": "3V3_RAW",
+        "2": "GND"
+      },
+      "value": "10 uF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C4": {
+      "pins": {
+        "1": "3V3_RAW",
+        "2": "Net-(U4-FB)"
+      },
+      "value": "6.8pF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C5": {
+      "pins": {
+        "1": "GND",
+        "2": "3V3_RAW"
+      },
+      "value": "100 nF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C20": {
+      "pins": {
+        "1": "GND",
+        "2": "5V_RAW"
+      },
+      "value": "22 uF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C21": {
+      "pins": {
+        "1": "GND",
+        "2": "5V_CM5"
+      },
+      "value": "2.2 uF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C22": {
+      "pins": {
+        "1": "Net-(U6-CT)",
+        "2": "GND"
+      },
+      "value": "1 nF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C23": {
+      "pins": {
+        "1": "GND",
+        "2": "5V_RAW"
+      },
+      "value": "10 uF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C24": {
+      "pins": {
+        "1": "GND",
+        "2": "5V_DISPLAY"
+      },
+      "value": "1 uF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C25": {
+      "pins": {
+        "1": "Net-(U7-CT)",
+        "2": "GND"
+      },
+      "value": "1 nF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C26": {
+      "pins": {
+        "1": "GND",
+        "2": "5V_RAW"
+      },
+      "value": "10 uF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C27": {
+      "pins": {
+        "1": "GND",
+        "2": "5V_TOUCH"
+      },
+      "value": "1 uF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C28": {
+      "pins": {
+        "1": "Net-(U8-CT)",
+        "2": "GND"
+      },
+      "value": "1 nF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C29": {
+      "pins": {
+        "1": "GND",
+        "2": "3V3_RAW"
+      },
+      "value": "10 uF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C30": {
+      "pins": {
+        "1": "GND",
+        "2": "3V3_RAW"
+      },
+      "value": "10 uF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C31": {
+      "pins": {
+        "1": "GND",
+        "2": "3V3_PEN"
+      },
+      "value": "1 uF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C32": {
+      "pins": {
+        "1": "GND",
+        "2": "3V3_SD"
+      },
+      "value": "1 uF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C33": {
+      "pins": {
+        "1": "Net-(U9-CT)",
+        "2": "GND"
+      },
+      "value": "1 nF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C34": {
+      "pins": {
+        "1": "Net-(U10-CT)",
+        "2": "GND"
+      },
+      "value": "1 nF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C35": {
+      "pins": {
+        "1": "GND",
+        "2": "3V3_RAW"
+      },
+      "value": "10 uF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C36": {
+      "pins": {
+        "1": "GND",
+        "2": "3V3_SENSORS"
+      },
+      "value": "1 uF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C37": {
+      "pins": {
+        "1": "Net-(U11-CT)",
+        "2": "GND"
+      },
+      "value": "1 nF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "J2": {
+      "pins": {
+        "1": {
+          "name": "Pin_1",
+          "net": "Net-(J2-Pin_1)"
+        },
+        "2": {
+          "name": "Pin_2",
+          "net": "GND"
+        }
+      },
+      "value": "Conn_01x02",
+      "description": "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+    },
+    "L1": {
+      "pins": {
+        "1": "Net-(U4-SW)",
+        "2": "3V3_RAW"
+      },
+      "value": "2.2 uH",
+      "description": "Inductor"
+    },
+    "R1": {
+      "pins": {
+        "1": "Net-(U3-SCLA)",
+        "2": "5V_RAW"
+      },
+      "value": "10 kOhm",
+      "description": "Resistor"
+    },
+    "R2": {
+      "pins": {
+        "1": "5V_RAW",
+        "2": "Net-(U3-SDAA)"
+      },
+      "value": "10 kOhm",
+      "description": "Resistor"
+    },
+    "R3": {
+      "pins": {
+        "1": "3V3_RAW",
+        "2": "Net-(U4-FB)"
+      },
+      "value": "453 kOhm",
+      "description": "Resistor"
+    },
+    "R4": {
+      "pins": {
+        "1": "Net-(U4-FB)",
+        "2": "GND"
+      },
+      "value": "100 kOhm",
+      "description": "Resistor"
+    },
+    "R5": {
+      "pins": {
+        "1": "POWER_SCL",
+        "2": "3V3_RAW"
+      },
+      "value": "10 kOhm",
+      "description": "Resistor"
+    },
+    "R6": {
+      "pins": {
+        "1": "3V3_RAW",
+        "2": "POWER_SDA"
+      },
+      "value": "10 kOhm",
+      "description": "Resistor"
+    },
+    "U3": {
+      "pins": {
+        "1": {
+          "name": "VCCA",
+          "net": "5V_RAW"
+        },
+        "2": {
+          "name": "SCLA",
+          "net": "Net-(U3-SCLA)"
+        },
+        "3": {
+          "name": "SDAA",
+          "net": "Net-(U3-SDAA)"
+        },
+        "4": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "5": {
+          "name": "EN",
+          "net": "unconnected-(U3-EN-Pad5)"
+        },
+        "6": {
+          "name": "SDAB",
+          "net": "POWER_SDA"
+        },
+        "7": {
+          "name": "SCLB",
+          "net": "POWER_SCL"
+        },
+        "8": {
+          "name": "VCCB",
+          "net": "3V3_RAW"
+        }
+      },
+      "value": "TCA9517ADGK",
+      "description": "Level-Translating I2C Bus Buffer/Repeater, VSSOP-8"
+    },
+    "U4": {
+      "pins": {
+        "1": {
+          "name": "EN",
+          "net": "5V_RAW"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "3": {
+          "name": "SW",
+          "net": "Net-(U4-SW)"
+        },
+        "4": {
+          "name": "VIN",
+          "net": "5V_RAW"
+        },
+        "5": {
+          "name": "FB",
+          "net": "Net-(U4-FB)"
+        }
+      },
+      "value": "TLV62569DBV",
+      "description": "High Efficiency Synchronous Buck Converter, Adjustable Output 0.6V-5.5V, 2A, SOT-23-5"
+    },
+    "U6": {
+      "pins": {
+        "1": {
+          "name": "VIN",
+          "net": "5V_RAW"
+        },
+        "3": {
+          "name": "ON",
+          "net": "SWITCH_CM5"
+        },
+        "4": {
+          "name": "VBIAS",
+          "net": "5V_RAW"
+        },
+        "5": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "6": {
+          "name": "CT",
+          "net": "Net-(U6-CT)"
+        },
+        "8": {
+          "name": "VOUT",
+          "net": "5V_CM5"
+        }
+      },
+      "value": "~"
+    },
+    "U7": {
+      "pins": {
+        "1": {
+          "name": "VIN",
+          "net": "5V_RAW"
+        },
+        "3": {
+          "name": "ON",
+          "net": "SWITCH_DISPLAY"
+        },
+        "4": {
+          "name": "VBIAS",
+          "net": "5V_RAW"
+        },
+        "5": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "6": {
+          "name": "CT",
+          "net": "Net-(U7-CT)"
+        },
+        "8": {
+          "name": "VOUT",
+          "net": "5V_DISPLAY"
+        }
+      },
+      "value": "~"
+    },
+    "U8": {
+      "pins": {
+        "1": {
+          "name": "VIN",
+          "net": "5V_RAW"
+        },
+        "3": {
+          "name": "ON",
+          "net": "SWITCH_TOUCH"
+        },
+        "4": {
+          "name": "VBIAS",
+          "net": "5V_RAW"
+        },
+        "5": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "6": {
+          "name": "CT",
+          "net": "Net-(U8-CT)"
+        },
+        "8": {
+          "name": "VOUT",
+          "net": "5V_TOUCH"
+        }
+      },
+      "value": "~"
+    },
+    "U9": {
+      "pins": {
+        "1": {
+          "name": "VIN",
+          "net": "3V3_RAW"
+        },
+        "3": {
+          "name": "ON",
+          "net": "SWITCH_PEN"
+        },
+        "4": {
+          "name": "VBIAS",
+          "net": "3V3_RAW"
+        },
+        "5": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "6": {
+          "name": "CT",
+          "net": "Net-(U9-CT)"
+        },
+        "8": {
+          "name": "VOUT",
+          "net": "3V3_PEN"
+        }
+      },
+      "value": "~"
+    },
+    "U10": {
+      "pins": {
+        "1": {
+          "name": "VIN",
+          "net": "3V3_RAW"
+        },
+        "3": {
+          "name": "ON",
+          "net": "SWITCH_SD"
+        },
+        "4": {
+          "name": "VBIAS",
+          "net": "3V3_RAW"
+        },
+        "5": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "6": {
+          "name": "CT",
+          "net": "Net-(U10-CT)"
+        },
+        "8": {
+          "name": "VOUT",
+          "net": "3V3_SD"
+        }
+      },
+      "value": "~"
+    },
+    "U11": {
+      "pins": {
+        "1": {
+          "name": "VIN",
+          "net": "3V3_RAW"
+        },
+        "3": {
+          "name": "ON",
+          "net": "SWITCH_SENSORS"
+        },
+        "4": {
+          "name": "VBIAS",
+          "net": "3V3_RAW"
+        },
+        "5": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "6": {
+          "name": "CT",
+          "net": "Net-(U11-CT)"
+        },
+        "8": {
+          "name": "VOUT",
+          "net": "3V3_SENSORS"
+        }
+      },
+      "value": "~"
+    },
+    "U12": {
+      "pins": {
+        "EN": "unconnected-(U12-EN-Pad)",
+        "FAULT": "unconnected-(U12-FAULT-Pad)",
+        "GND": "unconnected-(U12-GND-Pad)",
+        "ILIM": "unconnected-(U12-ILIM-Pad)",
+        "IN": "unconnected-(U12-IN-Pad)",
+        "OUT": "unconnected-(U12-OUT-Pad)",
+        "PP": "unconnected-(U12-PP-Pad)"
+      },
+      "value": "~"
+    },
+    "X1": {
+      "pins": {
+        "5V": "5V_RAW",
+        "GND": "GND",
+        "PWR_BUTTON": "Net-(J2-Pin_1)",
+        "SDA": "Net-(U3-SCLA)",
+        "SCL": "Net-(U3-SDAA)",
+        "3v3_DET": "POWER_3V3_DET",
+        "AC_DET": "POWER_AC_DET",
+        "CHARGE_CTRL": "POWER_CHARGE_CTRL"
+      },
+      "value": "~"
+    },
+    "C6": {
+      "pins": {
+        "1": "3V3_RAW",
+        "2": "GND"
+      },
+      "value": "100 nF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C7": {
+      "pins": {
+        "1": "3V3_RAW",
+        "2": "GND"
+      },
+      "value": "100 nF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C8": {
+      "pins": {
+        "1": "3V3_RAW",
+        "2": "GND"
+      },
+      "value": "100 nF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C9": {
+      "pins": {
+        "1": "3V3_RAW",
+        "2": "GND"
+      },
+      "value": "100 nF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C10": {
+      "pins": {
+        "1": "3V3_RAW",
+        "2": "GND"
+      },
+      "value": "100 nF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C11": {
+      "pins": {
+        "1": "3V3_RAW",
+        "2": "GND"
+      },
+      "value": "100 nF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C12": {
+      "pins": {
+        "1": "3V3_RAW",
+        "2": "GND"
+      },
+      "value": "100 nF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C13": {
+      "pins": {
+        "1": "3V3_RAW",
+        "2": "GND"
+      },
+      "value": "1 uF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C14": {
+      "pins": {
+        "1": "1V1_PICO",
+        "2": "GND"
+      },
+      "value": "1 uF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C15": {
+      "pins": {
+        "1": "1V1_PICO",
+        "2": "GND"
+      },
+      "value": "100 nF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C16": {
+      "pins": {
+        "1": "1V1_PICO",
+        "2": "GND"
+      },
+      "value": "100 nF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C17": {
+      "pins": {
+        "1": "3V3_RAW",
+        "2": "GND"
+      },
+      "value": "100 nF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C18": {
+      "pins": {
+        "1": "PICO_XIN",
+        "2": "GND"
+      },
+      "value": "15 pF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "C19": {
+      "pins": {
+        "1": "Net-(C19-Pad1)",
+        "2": "GND"
+      },
+      "value": "15 pF",
+      "description": "Unpolarized capacitor, small symbol"
+    },
+    "J1": {
+      "pins": {
+        "1": {
+          "name": "Pin_1",
+          "net": "GND"
+        },
+        "2": {
+          "name": "Pin_2",
+          "net": "Net-(J1-Pin_2)"
+        }
+      },
+      "value": "Conn_01x02",
+      "description": "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+    },
+    "J3": {
+      "pins": {
+        "1": {
+          "name": "Pin_1",
+          "net": "Net-(J3-Pin_1)"
+        },
+        "2": {
+          "name": "Pin_2",
+          "net": "Net-(J3-Pin_2)"
+        }
+      },
+      "value": "Conn_01x02",
+      "description": "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+    },
+    "R7": {
+      "pins": {
+        "1": "PICO_USB_MINUS",
+        "2": "Net-(U2-USB_DM)"
+      },
+      "value": "27 Ohm",
+      "description": "Resistor"
+    },
+    "R8": {
+      "pins": {
+        "1": "PICO_USB_PLUS",
+        "2": "Net-(U2-USB_DP)"
+      },
+      "value": "27 Ohm",
+      "description": "Resistor"
+    },
+    "R9": {
+      "pins": {
+        "1": "Net-(J1-Pin_2)",
+        "2": "PICO_QSPI_SS"
+      },
+      "value": "1 kOhm",
+      "description": "Resistor"
+    },
+    "R10": {
+      "pins": {
+        "1": "PICO_XOUT",
+        "2": "Net-(C19-Pad1)"
+      },
+      "value": "1 kOhm",
+      "description": "Resistor"
+    },
+    "TP2": {
+      "pins": {
+        "1": "3V3_RAW"
+      },
+      "value": "3v3",
+      "description": "test point"
+    },
+    "TP3": {
+      "pins": {
+        "1": "1V1_PICO"
+      },
+      "value": "1v1",
+      "description": "test point"
+    },
+    "TP4": {
+      "pins": {
+        "1": "PICO_RUN"
+      },
+      "value": "Run",
+      "description": "test point"
+    },
+    "TP5": {
+      "pins": {
+        "1": "GND"
+      },
+      "value": "Gnd",
+      "description": "test point"
+    },
+    "U2": {
+      "pins": {
+        "1": {
+          "name": "IOVDD",
+          "net": "3V3_RAW"
+        },
+        "2": {
+          "name": "GPIO0",
+          "net": "POWER_SDA"
+        },
+        "3": {
+          "name": "GPIO1",
+          "net": "POWER_SCL"
+        },
+        "4": {
+          "name": "GPIO2",
+          "net": "POWER_3V3_DET"
+        },
+        "5": {
+          "name": "GPIO3",
+          "net": "POWER_CHARGE_CTRL"
+        },
+        "6": {
+          "name": "GPIO4",
+          "net": "POWER_AC_DET"
+        },
+        "7": {
+          "name": "GPIO5",
+          "net": "unconnected-(U2-GPIO5-Pad7)"
+        },
+        "8": {
+          "name": "GPIO6",
+          "net": "unconnected-(U2-GPIO6-Pad8)"
+        },
+        "9": {
+          "name": "GPIO7",
+          "net": "unconnected-(U2-GPIO7-Pad9)"
+        },
+        "10": {
+          "name": "IOVDD",
+          "net": "3V3_RAW"
+        },
+        "11": {
+          "name": "GPIO8",
+          "net": "unconnected-(U2-GPIO8-Pad11)"
+        },
+        "12": {
+          "name": "GPIO9",
+          "net": "unconnected-(U2-GPIO9-Pad12)"
+        },
+        "13": {
+          "name": "GPIO10",
+          "net": "unconnected-(U2-GPIO10-Pad13)"
+        },
+        "14": {
+          "name": "GPIO11",
+          "net": "unconnected-(U2-GPIO11-Pad14)"
+        },
+        "15": {
+          "name": "GPIO12",
+          "net": "unconnected-(U2-GPIO12-Pad15)"
+        },
+        "16": {
+          "name": "GPIO13",
+          "net": "unconnected-(U2-GPIO13-Pad16)"
+        },
+        "17": {
+          "name": "GPIO14",
+          "net": "unconnected-(U2-GPIO14-Pad17)"
+        },
+        "18": {
+          "name": "GPIO15",
+          "net": "unconnected-(U2-GPIO15-Pad18)"
+        },
+        "19": {
+          "name": "TESTEN",
+          "net": ""
+        },
+        "20": {
+          "name": "XIN",
+          "net": "PICO_XIN"
+        },
+        "21": {
+          "name": "XOUT",
+          "net": "PICO_XOUT"
+        },
+        "22": {
+          "name": "IOVDD",
+          "net": "3V3_RAW"
+        },
+        "23": {
+          "name": "DVDD",
+          "net": "1V1_PICO"
+        },
+        "24": {
+          "name": "SWCLK",
+          "net": "Net-(J3-Pin_2)"
+        },
+        "25": {
+          "name": "SWDIO",
+          "net": "Net-(J3-Pin_1)"
+        },
+        "26": {
+          "name": "RUN",
+          "net": "PICO_RUN"
+        },
+        "27": {
+          "name": "GPIO16",
+          "net": "unconnected-(U2-GPIO16-Pad27)"
+        },
+        "28": {
+          "name": "GPIO17",
+          "net": "unconnected-(U2-GPIO17-Pad28)"
+        },
+        "29": {
+          "name": "GPIO18",
+          "net": "unconnected-(U2-GPIO18-Pad29)"
+        },
+        "30": {
+          "name": "GPIO19",
+          "net": "unconnected-(U2-GPIO19-Pad30)"
+        },
+        "31": {
+          "name": "GPIO20",
+          "net": "unconnected-(U2-GPIO20-Pad31)"
+        },
+        "32": {
+          "name": "GPIO21",
+          "net": "unconnected-(U2-GPIO21-Pad32)"
+        },
+        "33": {
+          "name": "IOVDD",
+          "net": "3V3_RAW"
+        },
+        "34": {
+          "name": "GPIO22",
+          "net": "unconnected-(U2-GPIO22-Pad34)"
+        },
+        "35": {
+          "name": "GPIO23",
+          "net": "unconnected-(U2-GPIO23-Pad35)"
+        },
+        "36": {
+          "name": "GPIO24",
+          "net": "unconnected-(U2-GPIO24-Pad36)"
+        },
+        "37": {
+          "name": "GPIO25",
+          "net": "unconnected-(U2-GPIO25-Pad37)"
+        },
+        "38": {
+          "name": "GPIO26/ADC0",
+          "net": "unconnected-(U2-GPIO26{slash}ADC0-Pad38)"
+        },
+        "39": {
+          "name": "GPIO27/ADC1",
+          "net": "unconnected-(U2-GPIO27{slash}ADC1-Pad39)"
+        },
+        "40": {
+          "name": "GPIO28/ADC2",
+          "net": "unconnected-(U2-GPIO28{slash}ADC2-Pad40)"
+        },
+        "41": {
+          "name": "GPIO29/ADC3",
+          "net": "unconnected-(U2-GPIO29{slash}ADC3-Pad41)"
+        },
+        "42": {
+          "name": "IOVDD",
+          "net": "3V3_RAW"
+        },
+        "43": {
+          "name": "ADC_AVDD",
+          "net": "3V3_RAW"
+        },
+        "44": {
+          "name": "VREG_VIN",
+          "net": "3V3_RAW"
+        },
+        "45": {
+          "name": "VREG_VOUT",
+          "net": "1V1_PICO"
+        },
+        "46": {
+          "name": "USB_DM",
+          "net": "Net-(U2-USB_DM)"
+        },
+        "47": {
+          "name": "USB_DP",
+          "net": "Net-(U2-USB_DP)"
+        },
+        "48": {
+          "name": "USB_VDD",
+          "net": "3V3_RAW"
+        },
+        "49": {
+          "name": "IOVDD",
+          "net": "3V3_RAW"
+        },
+        "50": {
+          "name": "DVDD",
+          "net": "1V1_PICO"
+        },
+        "51": {
+          "name": "QSPI_SD3",
+          "net": "PICO_QSPI_SD3"
+        },
+        "52": {
+          "name": "QSPI_SCLK",
+          "net": "PICO_QSPI_SCLK"
+        },
+        "53": {
+          "name": "QSPI_SD0",
+          "net": "PICO_QSPI_SD0"
+        },
+        "54": {
+          "name": "QSPI_SD2",
+          "net": "PICO_QSPI_SD2"
+        },
+        "55": {
+          "name": "QSPI_SD1",
+          "net": "PICO_QSPI_SD1"
+        },
+        "56": {
+          "name": "~{QSPI_SS}",
+          "net": "PICO_QSPI_SS"
+        },
+        "57": {
+          "name": "GND",
+          "net": "GND"
+        }
+      },
+      "value": "RP2040",
+      "description": "A microcontroller by Raspberry Pi, Dual ARM Cortex-M0+, 133MHz, no flash, 264KB SRAM, 8 PIO state machines, VQFN-56"
+    },
+    "U5": {
+      "pins": {
+        "1": {
+          "name": "~{CS}",
+          "net": "PICO_QSPI_SS"
+        },
+        "2": {
+          "name": "DO/IO_{1}",
+          "net": "PICO_QSPI_SD1"
+        },
+        "3": {
+          "name": "~{WP}/IO_{2}",
+          "net": "PICO_QSPI_SD2"
+        },
+        "4": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "5": {
+          "name": "DI/IO_{0}",
+          "net": "PICO_QSPI_SD0"
+        },
+        "6": {
+          "name": "CLK",
+          "net": "PICO_QSPI_SCLK"
+        },
+        "7": {
+          "name": "~{HOLD}/~{RESET}/IO_{3}",
+          "net": "PICO_QSPI_SD3"
+        },
+        "8": {
+          "name": "VCC",
+          "net": "3V3_RAW"
+        }
+      },
+      "value": "W25Q128JVS",
+      "description": "128Mbit / 16MiB Serial Flash Memory, Standard/Dual/Quad SPI, 2.7-3.6V, SOIC-8"
+    },
+    "Y1": {
+      "pins": {
+        "1": "PICO_XIN",
+        "2": {
+          "name": "G",
+          "net": "GND"
+        },
+        "3": "Net-(C19-Pad1)",
+        "4": {
+          "name": "G",
+          "net": "GND"
+        }
+      },
+      "value": "ABM8-272-T3",
+      "description": "Four pin crystal, GND on pins 2 and 4"
+    }
+  }
+}

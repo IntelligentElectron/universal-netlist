@@ -33,7 +33,7 @@ A pin alone on a no-connect flag, and a pin of electrical type `no_connect` alon
 
 ## Parity with kicad-cli
 
-`src/parsers/kicad/schematic/parity.test.ts` reads every KiCad design in `test/fixtures/kicad` with the reader alone and compares the result with KiCad's export, net by net and part by part. Eleven designs match exactly. One fixture ships without one of its sheets and is refused, naming the sheet. Where a fixture's saved export comes from an older KiCad whose netlister differs (yddraig-68k, saved by 10.0.0), `test/golden/kicad-cli/` holds the export of kicad-cli 10.0.5, which the reader follows. With KiCad installed, `KICAD_PARITY=live npm test` compares each design with a fresh export as well.
+`src/parsers/kicad/schematic/parity.test.ts` reads every KiCad design in `test/fixtures/kicad` with the reader alone and compares the result with KiCad's export, net by net and part by part. Twelve designs match exactly. One fixture ships without one of its sheets and is refused, naming the sheet. Where a fixture's saved export comes from an older KiCad whose netlister differs (yddraig-68k, saved by 10.0.0), `test/golden/kicad-cli/` holds the export of kicad-cli 10.0.5, which the reader follows. With KiCad installed, `KICAD_PARITY=live npm test` compares each design with a fresh export as well.
 
 ## Provenance
 
