@@ -1,0 +1,69 @@
+{
+  "name": "classify",
+  "rules": [
+    {
+      "when": {
+        "role": [
+          "start"
+        ],
+        "name": [
+          "power",
+          "signal"
+        ]
+      },
+      "outcome": "traced",
+      "next": "",
+      "cells": 12
+    },
+    {
+      "when": {
+        "role": [
+          "start"
+        ],
+        "name": [
+          "ground"
+        ]
+      },
+      "outcome": "refused as a ground",
+      "next": "",
+      "cells": 6
+    },
+    {
+      "when": {
+        "role": [
+          "start"
+        ],
+        "name": [
+          "separated_ground"
+        ]
+      },
+      "outcome": "traced, with a ground-name note",
+      "next": "",
+      "cells": 6
+    },
+    {
+      "when": {
+        "role": [
+          "reached"
+        ],
+        "name": [
+          "separated_ground",
+          "signal"
+        ],
+        "pin": [
+          "none"
+        ],
+        "size": [
+          "small"
+        ]
+      },
+      "outcome": "trace continues",
+      "next": "",
+      "cells": 2
+    }
+  ],
+  "default": {
+    "outcome": "trace stops here",
+    "next": ""
+  }
+}
