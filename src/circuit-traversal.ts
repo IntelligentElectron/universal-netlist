@@ -11,14 +11,13 @@ import type { NetConnections, ComponentDetails, CircuitComponent } from "./types
 // A "stop" net is any power or ground rail, so the three patterns below are
 // derived from these shared alternation fragments to keep them in sync — adding
 // a rail to POWER_NET_ALTERNATIVES automatically extends STOP_NET_PATTERN too.
-// Ground tokens allow a trailing `\w*` so suffixed grounds are caught the same
-// way the power rails are (e.g. KiCad's default `GNDREF`, plus `GNDD`, `GNDS`,
-// `GNDPWR`, `AGND1`). The leading `^` anchor keeps this a prefix match, so a
-// signal-ground like `SIG_GND` is still NOT classified as ground.
-// Trade-off: because `\w` includes `_`, names like `GND_SENSE`/`GND_RETURN` now
-// classify as ground. This is intentional — such names are almost always real
-// ground domains (`GND_DIGITAL`, `GND_ANALOG`, `GND_CHASSIS`), and a missed
-// ground that floods traversal is far worse than a false positive here.
+// A ground token may carry letters and digits (KiCad's `GNDREF`, `GNDD`,
+// `AGND1`) but no separator: `GND_SW`, `GND_23` and `GND_SIGNAL` are local
+// links named after the ground they lead to, not grounds, so a name with `_`
+// or any other separator is a signal by name. hasGroundPin also recognizes a
+// ground by its pins, which stops a trace but never refuses a query. The
+// leading `^` keeps this a prefix match, so `SIG_GND`
+// is not ground either.
 // Server/VR board rails are named `PVCCIN_CPU0`, `PVNN_TERM_CPU0`, `P3V3_AUX`,
 // `P12V`, `P1V8_BMC` — the `^` anchor means `VCC\w*` never sees past the leading
 // `P`, so all of these used to expand like ordinary signals and flood traversal
@@ -27,7 +26,9 @@ import type { NetConnections, ComponentDetails, CircuitComponent } from "./types
 // accepted — a missed rail is far worse than a false positive, and the
 // structural pin-count guard (stopNetPinThreshold) is the primary defense here;
 // free-form rail names like `E610_P1V8` are beyond any regex.
-const GROUND_NET_ALTERNATIVES = "GND\\w*|VSS\\w*|AGND\\w*|DGND\\w*|PGND\\w*|SGND\\w*|CGND\\w*";
+const GROUND_NET_ALTERNATIVES =
+  "GND[A-Z0-9]*|VSS[A-Z0-9]*|AGND[A-Z0-9]*|DGND[A-Z0-9]*|PGND[A-Z0-9]*|SGND[A-Z0-9]*|CGND[A-Z0-9]*";
+const GROUND_PREFIX_PATTERN = /^(GND|VSS|AGND|DGND|PGND|SGND|CGND)/i;
 const POWER_NET_ALTERNATIVES =
   "VCC\\w*|VDD\\w*|VIN\\w*|VOUT\\w*|VBAT\\w*|VBUS\\w*|VSYS\\w*|VREG\\w*|PWR_\\w+|RAIL_\\w+|PP\\w*|PN\\w*|LD_PP\\w*|LD_PN\\w*|PVCC\\w*|PVNN\\w*|P\\d+V\\w*|[+-]?\\d+V\\d*\\w*|[+-].+";
 
@@ -76,6 +77,55 @@ export const isPowerNet = (netName: string): boolean =>
  */
 export const isStopNet = (netName: string): boolean =>
   STOP_NET_PATTERN.test(classifiedName(netName));
+
+/**
+ * A supply pin's function name: `VDD`, `VCC`, `AVDD`, `PVDD`, `VDDIO`, `VCCB`,
+ * with letters and digits but no separator, as for a ground, or `VBAT`,
+ * `VBATT`, `VBUS1`, `VSYS` with at most digits after them, so that the
+ * `VBUSDET` detect input is not one. The power net pattern is not used here:
+ * an IC names signal pins `VOUT`, `VIN`, `+IN` and `PWR_EN` too.
+ */
+const POWER_PIN_PATTERN = /^(A|D|P|IO)?(VCC|VDD)[A-Z0-9]*$|^(VBATT?|VBUS|VSYS)\d*$/i;
+
+/** Whether a pin on the net has a function name `pattern` matches. `GND#10` is a repeated `GND`. */
+const hasPinNamed = (
+  nets: NetConnections,
+  components: ComponentDetails,
+  netName: string,
+  pattern: RegExp
+): boolean =>
+  Object.entries(nets[netName] ?? {}).some(([refdes, pins]) =>
+    pins.some((pin) => {
+      const entry = components[refdes]?.pins[pin];
+      if (entry === undefined || typeof entry === "string") return false;
+      return pattern.test(entry.name.replace(/#[^#]*$/, "").trim());
+    })
+  );
+
+/**
+ * Whether a pin on the net has a ground function name, by the same rule as a
+ * ground net name: `GND`, `GND1`, `PGND`, `VSSA`, but not `GND_BRIDGE`.
+ */
+export const hasGroundPin = (
+  nets: NetConnections,
+  components: ComponentDetails,
+  netName: string
+): boolean => hasPinNamed(nets, components, netName, GROUND_NET_PATTERN);
+
+/** Whether a pin on the net is a supply pin (see POWER_PIN_PATTERN). */
+export const hasPowerPin = (
+  nets: NetConnections,
+  components: ComponentDetails,
+  netName: string
+): boolean => hasPinNamed(nets, components, netName, POWER_PIN_PATTERN);
+
+/** Whether a net is named after a ground (`GND_SW`) without being one by name. */
+export const looksLikeGround = (netName: string): boolean =>
+  GROUND_PREFIX_PATTERN.test(classifiedName(netName)) && !isGroundNet(netName);
+
+/** The note a trace carries when it starts on a net named like a ground that is not one. */
+export const groundNameNote = (netName: string): string =>
+  `${netName} is named like a ground, but its name has a separator, so it is answered instead of refused.`;
 
 /**
  * Determine if a component is a traversable passive (R/RS, L, C, FB).
@@ -415,7 +465,7 @@ export const traverseCircuitFromNet = (
   // The same net is checked many times in one traversal, so count lazily and
   // memoize per call.
   const netPinCounts = new Map<string, number>();
-  const countNetPins = (netName: string): number => {
+  const pinCount = (netName: string): number => {
     const cached = netPinCounts.get(netName);
     if (cached !== undefined) return cached;
     const count = Object.values(nets[netName] ?? {}).reduce((sum, pins) => sum + pins.length, 0);
@@ -430,8 +480,10 @@ export const traverseCircuitFromNet = (
   // stays exempt: querying a rail explicitly should still expand it.
   const shouldStopAtNet = (netName: string): boolean =>
     isStopNet(netName) ||
+    hasGroundPin(nets, components, netName) ||
+    hasPowerPin(nets, components, netName) ||
     stripSheetPath(netName).toUpperCase() === "NC" ||
-    countNetPins(netName) > stopNetPinThreshold;
+    pinCount(netName) > stopNetPinThreshold;
 
   const visitedNets = new Set<string>([startNet]);
   const visitedPins = new Set<string>();

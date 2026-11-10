@@ -119,12 +119,11 @@ export const QUERY_XNET_BY_NET_NAME_DESCRIPTION = `\
 Get full XNET (Extended Net) connectivity for a net. \
 Traces through series components, so the result is the whole electrical node rather \
 than the one net; \`circuit_hash\` identifies unique topologies. Traversal stops at \
-power and ground nets, recognised by name (VCC*, VDD*, 3V3, GND*, VSS*, ...) or by \
-carrying more than 40 pins. A rail named outside that, such as VDIO_LMS, is traversed \
-like a signal, so a query that pulls up to one returns its whole pull-up network; \
-\`visited_nets\` names every net the result crossed. \`skip_types\` leaves series \
-passives out; \`skip_types=['C','L','R']\` removes all three from the result. \
-Rejects ground nets (GND, AGND, DGND, etc.) with an error. \
+power and ground nets: recognised by name (VCC*, VDD*, 3V3, GND, GND1, VSS, ...), by a \
+supply or ground pin on the net (VDD, AVDD, VBUS, GND, PGND, ...), or by carrying more \
+than 40 pins. \`visited_nets\` names every net the result crossed. \`skip_types\` leaves \
+series passives out; \`skip_types=['C','L','R']\` removes all three from the result. \
+Rejects a net named as a ground (GND, GND1, AGND, VSS, ...; not GND_SW) with an error. \
 A name that matches no net exactly is matched ignoring leading and trailing whitespace, \
 then as the 31-character name a PSTWRITER 16.6 Allegro export gives a longer net; \
 \`notes\` says when that happened, and a name that could mean several nets returns them. \
@@ -135,13 +134,13 @@ export const QUERY_XNET_BY_PIN_NAME_DESCRIPTION = `\
 Get full XNET connectivity starting from a component pin, named REFDES.PIN \
 (e.g. U1.A5, R10.1). Traces through series components, so the result is the whole \
 electrical node; \`circuit_hash\` identifies unique topologies. Traversal stops at power \
-and ground nets, recognised by name (VCC*, VDD*, 3V3, GND*, VSS*, ...) or by carrying \
-more than 40 pins; a rail named outside that is traversed like a signal, and \
-\`visited_nets\` names every net the result crossed. \`skip_types\` leaves series \
-passives out, for example \`skip_types=['C','L','R']\`. \
+and ground nets, recognised by name (VCC*, VDD*, 3V3, GND, GND1, VSS, ...), by a supply \
+or ground pin on the net, or by carrying more than 40 pins; \`visited_nets\` names every \
+net the result crossed. \`skip_types\` leaves series passives out, for example \
+\`skip_types=['C','L','R']\`. \
 A pin on no net reads as the net \`NC\` and returns an empty result. \
 \`component_notes\` names the parts with no MPN. \
-Rejects pins connected to ground nets (GND, AGND, DGND, etc.) with an error.`;
+Rejects pins on a net named as a ground (GND, GND1, AGND, VSS, ...) with an error.`;
 
 export const QUERY_COMPONENT_DESCRIPTION = `\
 Get full component details including all pin connections. \

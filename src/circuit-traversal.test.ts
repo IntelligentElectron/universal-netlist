@@ -5,6 +5,9 @@
 import { describe, it, expect } from "vitest";
 import {
   isGroundNet,
+  hasGroundPin,
+  hasPowerPin,
+  looksLikeGround,
   isPowerNet,
   isStopNet,
   isPassive,
@@ -63,12 +66,15 @@ describe("isGroundNet", () => {
     expect(isGroundNet("VSSA")).toBe(true);
   });
 
-  it("should match underscore-suffixed ground domains (intentional)", () => {
-    // `\w` includes `_`, so GND_* names classify as ground. Almost always a real
-    // ground domain; a missed ground that floods traversal is worse than this.
-    expect(isGroundNet("GND_SENSE")).toBe(true);
-    expect(isGroundNet("GND_RETURN")).toBe(true);
-    expect(isGroundNet("GND_DIGITAL")).toBe(true);
+  it("should not match a ground name with a separator in it", () => {
+    // `GND_SW`, `GND_23` and `GND_SIGNAL` are links named after a ground;
+    // only hasGroundPin can make them ground, and only for traversal.
+    expect(isGroundNet("GND_REF")).toBe(false);
+    expect(isGroundNet("GND_SW")).toBe(false);
+    expect(isGroundNet("GND_ANALOG")).toBe(false);
+    expect(isGroundNet("GND-ISO")).toBe(false);
+    expect(isGroundNet("AGND.1")).toBe(false);
+    expect(isGroundNet("/Power/GND_SENSE")).toBe(false);
   });
 
   it("should match hierarchical (sheet-path-prefixed) ground nets", () => {
@@ -491,6 +497,83 @@ describe("naturalSort", () => {
   });
 });
 
+describe("hasGroundPin", () => {
+  const nets: NetConnections = {
+    GND: { R1: ["2"] },
+    GND_ANALOG: { U1: ["7"], C1: ["2"] },
+    GND_FPC1: { J1: ["1", "2", "3"] },
+    GND_SW: { Q1: ["3"], TP1: ["1"] },
+    GND_LB: { J2: ["1", "MTB1"] },
+    GND_POWER: { U3: ["5"] },
+    N1234: { U2: ["10"], C2: ["2"] },
+    SIG: { U2: ["11"], R1: ["1"] },
+  };
+  const components: ComponentDetails = {
+    R1: { pins: { "1": "SIG", "2": "GND" } },
+    U1: { pins: { "7": { name: "AGND", net: "GND_ANALOG" } } },
+    C1: { pins: { "2": "GND_ANALOG" } },
+    J1: { pins: { "1": "GND_FPC1", "2": "GND_FPC1", "3": "GND_FPC1" } },
+    Q1: { pins: { "3": { name: "D", net: "GND_SW" } } },
+    TP1: { pins: { "1": "GND_SW" } },
+    U2: { pins: { "10": { name: "VSS#10", net: "N1234" }, "11": { name: "SDA", net: "SIG" } } },
+    C2: { pins: { "2": "N1234" } },
+    J2: { pins: { "1": "GND_LB", MTB1: { name: "GND1", net: "GND_LB" } } },
+    U3: { pins: { "5": { name: "GND_BRIDGE", net: "GND_POWER" } } },
+  };
+
+  it.each([
+    ["GND_ANALOG", true, "an AGND pin on it"],
+    ["N1234", true, "a VSS pin on it, under a repeated-pin-name suffix"],
+    ["GND_LB", true, "a connector's GND1 mounting pin on it"],
+    ["GND_POWER", false, "a GND_BRIDGE pin, which has a separator too"],
+    ["GND_FPC1", false, "a separator, and only numbered connector pins"],
+    ["GND_SW", false, "a separator, and a drain and a test point"],
+    ["SIG", false, "neither"],
+  ])("%s -> %s (%s)", (name, expected) => {
+    expect(hasGroundPin(nets, components, name)).toBe(expected);
+  });
+
+  it("flags a ground-named net that is not ground, for the trace note", () => {
+    expect(looksLikeGround("GND_SW")).toBe(true);
+    expect(looksLikeGround("GND")).toBe(false);
+    expect(looksLikeGround("SIG_GND")).toBe(false);
+  });
+});
+
+describe("hasPowerPin", () => {
+  const nets: NetConnections = {
+    AFE_L_VDD: { U1: ["4"], C1: ["1"] },
+    USB_VBUS: { J1: ["A4"] },
+    V_IO: { U2: ["9"] },
+    BV_00_ANODE_FB: { U3: ["3"] },
+    SLG_EN: { U4: ["7"] },
+    AUX_EN: { U5: ["2"] },
+    USB_DET: { U6: ["4"] },
+  };
+  const components: ComponentDetails = {
+    U1: { pins: { "4": { name: "AVDD", net: "AFE_L_VDD" } } },
+    C1: { pins: { "1": "AFE_L_VDD" } },
+    J1: { pins: { A4: { name: "VBUS1", net: "USB_VBUS" } } },
+    U2: { pins: { "9": { name: "VDDIO#9", net: "V_IO" } } },
+    U3: { pins: { "3": { name: "+IN1", net: "BV_00_ANODE_FB" } } },
+    U4: { pins: { "7": { name: "VOUT7", net: "SLG_EN" } } },
+    U5: { pins: { "2": { name: "PWR_EN", net: "AUX_EN" } } },
+    U6: { pins: { "4": { name: "VBUSDET", net: "USB_DET" } } },
+  };
+
+  it.each([
+    ["AFE_L_VDD", true, "an AVDD pin"],
+    ["USB_VBUS", true, "a VBUS1 pin"],
+    ["V_IO", true, "a repeated VDDIO pin"],
+    ["BV_00_ANODE_FB", false, "an op-amp +IN1 input"],
+    ["SLG_EN", false, "a VOUT7 output that drives an enable"],
+    ["AUX_EN", false, "a PWR_EN input"],
+    ["USB_DET", false, "a VBUSDET detect input"],
+  ])("%s -> %s (%s)", (name, expected) => {
+    expect(hasPowerPin(nets, components, name)).toBe(expected);
+  });
+});
+
 describe("traverseCircuitFromNet", () => {
   describe("stop net behavior", () => {
     it("should stop traversal at GND and not find components through it", () => {
@@ -547,6 +630,60 @@ describe("traverseCircuitFromNet", () => {
 
       expect(result.components.length).toBe(1);
       expect(result.visited_nets).toContain("+3V3");
+      expect(result.visited_nets).not.toContain("OTHER");
+    });
+
+    it("should traverse a small switched ground like GND_SW", () => {
+      const nets: NetConnections = {
+        SIGNAL: { R1: ["1"] },
+        GND_SW: { R1: ["2"], Q1: ["3"], R2: ["1"] },
+        OTHER: { R2: ["2"] },
+      };
+      const components: ComponentDetails = {
+        R1: { pins: { "1": "SIGNAL", "2": "GND_SW" }, mpn: "10k" },
+        Q1: { pins: { "3": "GND_SW" }, mpn: "NFET-1" },
+        R2: { pins: { "1": "GND_SW", "2": "OTHER" }, mpn: "10k" },
+      };
+
+      const result = traverseCircuitFromNet("SIGNAL", nets, components);
+
+      expect(result.components.map((c) => c.refdes).sort(naturalSort)).toEqual(["Q1", "R1", "R2"]);
+      expect(result.visited_nets).toContain("OTHER");
+    });
+
+    it("should stop at a rail named like a signal when a supply pin sits on it", () => {
+      const nets: NetConnections = {
+        SIGNAL: { R1: ["1"] },
+        AFE_L_VDD: { R1: ["2"], R2: ["1"], U1: ["4"] },
+        OTHER: { R2: ["2"] },
+      };
+      const components: ComponentDetails = {
+        R1: { pins: { "1": "SIGNAL", "2": "AFE_L_VDD" }, mpn: "10k" },
+        R2: { pins: { "1": "AFE_L_VDD", "2": "OTHER" }, mpn: "10k" },
+        U1: { pins: { "4": { name: "AVDD", net: "AFE_L_VDD" } }, mpn: "AFE" },
+      };
+
+      const result = traverseCircuitFromNet("SIGNAL", nets, components);
+
+      expect(result.visited_nets).toContain("AFE_L_VDD");
+      expect(result.visited_nets).not.toContain("OTHER");
+    });
+
+    it("should stop at a GND_* net that carries a ground pin", () => {
+      const nets: NetConnections = {
+        SIGNAL: { R1: ["1"] },
+        GND_ANALOG: { R1: ["2"], R2: ["1"], U1: ["7"] },
+        OTHER: { R2: ["2"] },
+      };
+      const components: ComponentDetails = {
+        R1: { pins: { "1": "SIGNAL", "2": "GND_ANALOG" }, mpn: "10k" },
+        R2: { pins: { "1": "GND_ANALOG", "2": "OTHER" }, mpn: "10k" },
+        U1: { pins: { "7": { name: "AGND", net: "GND_ANALOG" } }, mpn: "ADC" },
+      };
+
+      const result = traverseCircuitFromNet("SIGNAL", nets, components);
+
+      expect(result.visited_nets).toContain("GND_ANALOG");
       expect(result.visited_nets).not.toContain("OTHER");
     });
   });
