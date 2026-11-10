@@ -26,6 +26,8 @@ import { createNetlistService } from "../../service/index.js";
 import { parseKicadNetlist } from "./netlist-parser.js";
 import { readKicadSchematicNetlist } from "./schematic/index.js";
 
+const ALL = Number.MAX_SAFE_INTEGER;
+
 const DIR = fixturePath("kicad", "cm5-minima");
 const PROJECT = path.join(DIR, "CM5_MINIMA_3.kicad_pro");
 
@@ -69,20 +71,28 @@ describe.skipIf(!hasFixtures)("KiCad no-connect pins (cm5-minima)", () => {
     ["from its schematics alone", path.join(schematicOnly, "CM5_MINIMA_3.kicad_pro")],
   ])("run_erc reports only the unflagged open pin, %s", async (_source, design) => {
     const service = createNetlistService();
-    const erc = await service.runErc({ design, include_rules: ["net.single_pin"] });
+    const erc = await service.runErc({
+      design,
+      include_rules: ["net.single_pin"],
+      max_results: ALL,
+    });
     expect(erc).toMatchObject({
       errors: { "net.single_pin": { "/CM5/GLOBAL_EN": ["Module301.99"] } },
     });
     expect(
       Object.keys((erc as { errors: Record<string, object> }).errors["net.single_pin"])
     ).toEqual(["/CM5/GLOBAL_EN"]);
-    expect(await service.queryComponent({ design, refdes: "Module301" })).toMatchObject({
+    expect(
+      await service.queryComponent({ design, refdes: "Module301", max_results: ALL })
+    ).toMatchObject({
       pins: {
         "91": { name: "BT_nDisable", net: "NC" },
         "99": { name: "PMIC_ENABLE", net: "/CM5/GLOBAL_EN" },
       },
     });
-    expect(await service.queryComponent({ design, refdes: "J701" })).toMatchObject({
+    expect(
+      await service.queryComponent({ design, refdes: "J701", max_results: ALL })
+    ).toMatchObject({
       pins: { M2: { name: "GND2242", net: "NC" } },
     });
   });
@@ -136,6 +146,7 @@ describe.skipIf(!hasFixtures)("KiCad fixtures: no-connect pins and run_erc", () 
         design_variant,
         include_dns: true,
         include_rules: ["net.single_pin"],
+        max_results: ALL,
       })) as { errors?: { "net.single_pin"?: Record<string, string[]> } };
       const reported = Object.values(erc.errors?.["net.single_pin"] ?? {}).flat();
       expect(reported.filter((endpoint) => open.includes(endpoint))).toEqual([]);

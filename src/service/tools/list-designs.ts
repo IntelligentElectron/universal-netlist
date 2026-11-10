@@ -3,6 +3,7 @@ import { UnsupportedDesignError } from "../../parsers/errors.js";
 import { DEFAULT_VARIANT } from "../../parsers/variants.js";
 import { resolvePath } from "../../paths.js";
 import { parseRegexPattern } from "../regex-helpers.js";
+import { pageEntries } from "../pagination.js";
 import type { DesignVariantInfo, ErrorResult, ListDesignsResult } from "../../types.js";
 import type { ServiceContext } from "../context.js";
 
@@ -14,6 +15,7 @@ export interface ListDesignsOptions {
   pattern?: string;
   maxDepth?: number;
   maxResults?: number;
+  offset?: number;
 }
 
 /**
@@ -52,10 +54,10 @@ const listDesignVariants = async (
  * List all designs in a directory.
  */
 export const listDesigns = async (
-  options: ListDesignsOptions & { maxResults: number },
+  options: ListDesignsOptions & { maxResults: number; offset?: number },
   context: ServiceContext
 ): Promise<ListDesignsResult | ErrorResult> => {
-  const { searchPath, pattern = ".*", maxDepth, maxResults } = options;
+  const { searchPath, pattern = ".*", maxDepth, maxResults, offset = 0 } = options;
   // A blank string is not a directory, and it reaches the working directory by
   // the same route an absent argument does: `path.normalize("")` is ".". Treated
   // as a path it would resolve to that default while skipping the note saying
@@ -78,7 +80,7 @@ export const listDesigns = async (
   }
 
   const filtered = designs.filter((design) => regex.test(design.name));
-  const limited = filtered.slice(0, maxResults);
+  const page = pageEntries(filtered, "designs", maxResults, offset);
 
   const notes: string[] = [];
   // A caller who names no directory rarely means "wherever this server happens
@@ -94,15 +96,10 @@ export const listDesigns = async (
         `Pass 'path' to search a directory you choose.`
     );
   }
-  if (filtered.length > limited.length) {
-    notes.push(
-      `Showing ${limited.length} of ${filtered.length} designs. ` +
-        `Narrow the search with a more specific 'path', a 'pattern', or a smaller 'max_depth'.`
-    );
-  }
+  if (page.note) notes.push(page.note);
 
   const entries = await Promise.all(
-    limited.map(async (design) => {
+    page.items.map(async (design) => {
       const variants = await listDesignVariants(design.sourcePath, context);
       return {
         name: design.name,
@@ -123,5 +120,6 @@ export const listDesigns = async (
     root: resolvedPath,
     designs: entries,
     ...(notes.length > 0 ? { notes } : {}),
+    ...(page.next_offset !== undefined && { next_offset: page.next_offset }),
   };
 };

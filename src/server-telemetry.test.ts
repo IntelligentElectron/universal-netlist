@@ -205,7 +205,11 @@ describe("tool failure categories", () => {
       vi.stubEnv(DSN_PASSWORD, password);
       const { failed, otel } = await call("list_nets", args);
       expect(failed).toBe(password !== protection.password);
-      expect(otel[0]["gen_ai.tool.call.arguments"]).toEqual(args);
+      expect(otel[0]["gen_ai.tool.call.arguments"]).toEqual({
+        ...args,
+        max_results: 50,
+        offset: 0,
+      });
       expect(JSON.stringify(otel)).not.toContain(password);
     }
   });

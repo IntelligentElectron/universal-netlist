@@ -441,12 +441,12 @@ describe("listDesigns maxResults", () => {
       schdocPaths: [],
     }));
 
-  it("defaults to 50 results", async () => {
+  it("returns every design by default", async () => {
     vi.mocked(parsers.discoverDesigns).mockResolvedValue(makeDesigns(100));
 
     const result = await listDesigns();
 
-    expect(designsOf(result).length).toBe(50);
+    expect(designsOf(result).length).toBe(100);
   });
 
   it("respects custom maxResults", async () => {
@@ -585,7 +585,19 @@ describe("listDesigns truncation notes", () => {
 
     const result = await listDesigns({ searchPath: "sub", maxResults: 10 });
 
-    expect(notesOf(result).join(" ")).toContain("Showing 10 of 100 designs");
+    expect(notesOf(result).join(" ")).toContain(
+      "designs shows entries 1-10 of 100. Pass offset=10"
+    );
+  });
+
+  it("returns the next page from offset", async () => {
+    vi.mocked(parsers.discoverDesigns).mockResolvedValue(makeDesigns(25));
+
+    const result = await listDesigns({ searchPath: "sub", maxResults: 10, offset: 20 });
+
+    expect((result as { designs: unknown[] }).designs).toHaveLength(5);
+    expect(notesOf(result).join(" ")).toContain("designs shows entries 21-25 of 25.");
+    expect(result).not.toHaveProperty("next_offset");
   });
 
   // The count is of designs that matched the pattern, not of everything found,
@@ -599,7 +611,7 @@ describe("listDesigns truncation notes", () => {
 
     const result = await listDesigns({ searchPath: "sub", pattern: "^Design", maxResults: 10 });
 
-    expect(notesOf(result).join(" ")).toContain("Showing 10 of 40 designs");
+    expect(notesOf(result).join(" ")).toContain("designs shows entries 1-10 of 40.");
   });
 
   it("says nothing when every design fits", async () => {

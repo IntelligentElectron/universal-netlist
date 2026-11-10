@@ -40,6 +40,10 @@ Supported formats:
 // Tool Descriptions
 // =============================================================================
 
+const paged = (field: string): string =>
+  `\`${field}\` is paged: \`max_results\` entries (default 50) from \`offset\`, and ` +
+  `\`next_offset\` is set when there are more.`;
+
 export const LIST_DESIGNS_DESCRIPTION = `\
 List the design projects in a directory, one path each: a .DSN, a .PrjPcb, a .kicad_pro, \
 or a Universal Netlist .netlist.json. That path is what every other tool takes; use this \
@@ -47,7 +51,7 @@ tool instead of searching the filesystem.
 
 \`path\` is optional. Omitted or blank, it searches the server's working directory, so \
 check \`root\` for the directory actually searched. A misspelled argument name is refused \
-with an error naming it. A result cut short by \`max_results\` says so in its notes.
+with an error naming it. ${paged("designs")}
 
 \`design_variants\` lists each design's builds: its native variants (Altium, Cadence CIS, \
 KiCad; \`fabrication\` where the vendor marks one a build assembly), or \`<Default>\` alone \
@@ -74,11 +78,12 @@ MPN, description, comment and value all agree, so every field a group reports is
 every part in it. \`component_notes\` names the parts with no MPN. \
 If no components match, the error lists the prefixes the same query would return, and \
 names apart any prefix whose components are all DNS. A prefix whose components are all \
-DNS returns an empty list with a note saying so; pass include_dns=true to list them.`;
+DNS returns an empty list with a note saying so; pass include_dns=true to list them. \
+${paged("components")}`;
 
 export const LIST_NETS_DESCRIPTION = `\
 List all net names in a design, sorted alphabetically. \
-The result can be large. Prefer search_nets for targeted queries.`;
+Prefer search_nets for targeted queries. ${paged("nets")}`;
 
 export const SEARCH_NETS_DESCRIPTION = `\
 Search for nets matching a regex pattern. \
@@ -89,7 +94,7 @@ KiCad nets declared inside a hierarchical sheet are sheet-path-prefixed \
 (e.g. a "D0" data line on the Peripherals sheet is named "/Peripherals/D0", not "/D0"), \
 so prefer unanchored patterns like "D0" over "^/D0$" or you may miss bussed/hierarchical nets. \
 A name with leading or trailing whitespace also matches as trimmed, so "^SIG$" finds "SIG ". \
-Rejects patterns that match all items; use list_nets for full results.`;
+Rejects patterns that match all items; use list_nets for full results. ${paged("results")}`;
 
 export const SEARCH_COMPONENTS_BY_REFDES_DESCRIPTION = `\
 Search for components by refdes pattern. Matching is case-insensitive. \
@@ -97,7 +102,8 @@ Identical components are grouped for compact output, on MPN, description, commen
 value together, so every field a group reports is true of every part in it. \
 \`component_notes\` names the parts with no MPN. \
 A notes field is returned when nothing matches. \
-Rejects patterns that match all items; use list_components for full results.`;
+Rejects patterns that match all items; use list_components for full results. \
+${paged("results")}`;
 
 export const SEARCH_COMPONENTS_BY_MPN_DESCRIPTION = `\
 Search for components by MPN (Manufacturer Part Number) pattern. \
@@ -105,7 +111,8 @@ Not all netlists include MPN data; if unavailable, \
 fall back to search_components_by_refdes or search_components_by_description, \
 or ask the user for a BOM. \
 \`component_notes\` names the parts with no MPN. \
-Rejects patterns that match all items; use list_components for full results.`;
+Rejects patterns that match all items; use list_components for full results. \
+${paged("results")}`;
 
 export const SEARCH_COMPONENTS_BY_DESCRIPTION_DESCRIPTION = `\
 Search for components by description pattern. \
@@ -113,7 +120,8 @@ Not all netlists include description data; if unavailable, \
 fall back to search_components_by_refdes or search_components_by_mpn, \
 or ask the user for a BOM. \
 \`component_notes\` names the parts with no MPN. \
-Rejects patterns that match all items; use list_components for full results.`;
+Rejects patterns that match all items; use list_components for full results. \
+${paged("results")}`;
 
 export const QUERY_XNET_BY_NET_NAME_DESCRIPTION = `\
 Get full XNET (Extended Net) connectivity for a net. \
@@ -124,6 +132,7 @@ supply or ground pin on the net (VDD, AVDD, VBUS, GND, PGND, ...), or by carryin
 than 40 pins. \`visited_nets\` names every net the result crossed. \`skip_types\` leaves \
 series passives out; \`skip_types=['C','L','R']\` removes all three from the result. \
 Rejects a net named as a ground (GND, GND1, AGND, VSS, ...; not GND_SW) with an error. \
+${paged("components_by_mpn")} \
 A name that matches no net exactly is matched ignoring leading and trailing whitespace, \
 then as the 31-character name a PSTWRITER 16.6 Allegro export gives a longer net; \
 \`notes\` says when that happened, and a name that could mean several nets returns them. \
@@ -137,7 +146,7 @@ electrical node; \`circuit_hash\` identifies unique topologies. Traversal stops 
 and ground nets, recognised by name (VCC*, VDD*, 3V3, GND, GND1, VSS, ...), by a supply \
 or ground pin on the net, or by carrying more than 40 pins; \`visited_nets\` names every \
 net the result crossed. \`skip_types\` leaves series passives out, for example \
-\`skip_types=['C','L','R']\`. \
+\`skip_types=['C','L','R']\`. \`components_by_mpn\` is paged like query_xnet_by_net_name's. \
 A pin on no net reads as the net \`NC\` and returns an empty result. \
 \`component_notes\` names the parts with no MPN. \
 Rejects pins on a net named as a ground (GND, GND1, AGND, VSS, ...) with an error.`;
@@ -150,6 +159,7 @@ Each pin maps to its net name, or to {name, net} where the pin has a function na
 differs from its number. A pin on no net reads as the net "NC", a marker and not a queryable net. \
 If the schematic gives the refdes to several different parts, the result lists every part \
 under \`components\`, each carrying \`error\`: "Reference designator is duplicated". \
+${paged("pins")} A duplicated refdes counts its parts' pins together. \
 If the refdes is not found, \`search_components_by_refdes\` finds it; \
 errors include guidance and suggestions.`;
 
@@ -172,7 +182,8 @@ After a successful export the netlist sits beside the design; \
 
 export const RUN_ERC_DESCRIPTION = `\
 Run electrical rule checks (ERC) on a design's netlist and return findings grouped \
-by severity (\`errors\`, \`warnings\`) then rule id. Full output, never truncated. \
+by severity (\`errors\`, \`warnings\`) then rule id. ${paged("findings")} Findings are \
+counted across every rule, errors first, and \`totals\` gives every rule's count on each page. \
 Rules: \`net.single_pin\` (error: a net with one functional pin and no test point), \
 \`net.testpoint_orphan\` (error: a net touched only by test points), \
 \`net.testpoint_stub\` (warning: one functional pin plus test point(s)), \

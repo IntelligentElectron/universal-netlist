@@ -289,6 +289,8 @@ export interface AggregatedCircuitResult {
   notes?: string[];
   /** Nets in this result whose names a netlister writes differently. */
   net_name_warnings?: NetNameWarning[];
+  /** The offset of the next page of `components_by_mpn`, when this page is not the last. */
+  next_offset?: number;
 }
 
 // Re-export format-specific discovered design types for consumers
@@ -342,6 +344,8 @@ export interface ListDesignsResult {
   root: string;
   designs: DesignInfo[];
   notes?: string[];
+  /** The offset of the next page, when there are more entries. */
+  next_offset?: number;
 }
 
 /**
@@ -373,6 +377,8 @@ export interface ListComponentsResult {
   /** Notes about some of the components, each with the refdes it applies to. */
   component_notes?: ComponentNote[];
   notes?: string[];
+  /** The offset of the next page, when there are more entries. */
+  next_offset?: number;
 }
 
 /**
@@ -384,6 +390,9 @@ export interface ListNetsResult {
   nets: string[];
   /** Nets in this result whose names a netlister writes differently. */
   net_name_warnings?: NetNameWarning[];
+  notes?: string[];
+  /** The offset of the next page, when there are more entries. */
+  next_offset?: number;
 }
 
 /**
@@ -396,6 +405,8 @@ export interface SearchComponentsResult {
   /** Notes about some of the components, each with the refdes it applies to. */
   component_notes?: ComponentNote[];
   notes?: string[];
+  /** The offset of the next page, when there are more entries. */
+  next_offset?: number;
 }
 
 /**
@@ -408,6 +419,8 @@ export interface SearchNetsResult {
   notes?: string[];
   /** Nets in this result whose names a netlister writes differently. */
   net_name_warnings?: NetNameWarning[];
+  /** The offset of the next page, when there are more entries. */
+  next_offset?: number;
 }
 
 /**
@@ -416,6 +429,8 @@ export interface SearchNetsResult {
 export interface QueryComponentResult extends ComponentDetailsResult {
   /** The design variant this result describes: a native name or `<Default>`. */
   design_variant: string;
+  /** The offset of the next page of pins, when there are more. */
+  next_offset?: number;
 }
 
 /** query_component for a refdes the schematic gives to several different parts. */
@@ -425,6 +440,9 @@ export interface DuplicateComponentResult {
   refdes: string;
   /** Every part with this refdes, each carrying DUPLICATE_REFDES_ERROR. */
   components: ComponentDetailsResult[];
+  notes?: string[];
+  /** The offset of the next page of pins, counted across the parts, when there are more. */
+  next_offset?: number;
 }
 
 /** One part's details (pins mapped to nets). */

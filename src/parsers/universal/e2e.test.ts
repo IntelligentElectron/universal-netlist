@@ -95,6 +95,7 @@ describe("a Universal Netlist file as a design", () => {
         "net.testpoint_stub": { "Net-(U2-Pad5)": ["TP1.1", "U2.5"] },
         "net.unnamed": ["Net-(R3-Pad1)"],
       },
+      totals: { "net.single_pin": 2, "net.testpoint_stub": 1, "net.unnamed": 1 },
     });
   });
 
