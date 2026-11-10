@@ -19,6 +19,7 @@
  * base build.
  */
 
+import { describeDuplicates } from "../duplicate-refdes.js";
 import { writeFileSync } from "node:fs";
 import { basename, extname, resolve } from "node:path";
 import { z } from "zod";
@@ -95,6 +96,12 @@ export const exportDesignTool = defineTool({
     const designPath = resolvePath(args.design, context.root);
     const loaded = await loadNetlist(designPath, args.design_variant, context);
     if ("error" in loaded) return loaded;
+    // A Universal Netlist keys parts by refdes, so it has no way to hold two.
+    if (loaded.duplicateRefdes || loaded.repeatedSections) {
+      return {
+        error: `${describeDuplicates(loaded)}. A Universal Netlist keys parts by reference designator, so this design cannot be exported until each part has a unique reference and each section is placed once.`,
+      };
+    }
 
     // A Universal Netlist is one build already, and its provenance carries
     // over. The load above has validated the file.

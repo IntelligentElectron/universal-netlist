@@ -2,6 +2,7 @@
  * TypeScript type definitions for netlist parsing and circuit analysis
  */
 
+import type { DuplicatePart, RepeatedSection } from "./duplicate-refdes.js";
 import type { ParserContext } from "./parsers/context.js";
 
 // Import format-specific discovered design types from their parsers
@@ -101,6 +102,18 @@ export interface ParsedNetlist {
    * only for such nets; it is omitted when there are none.
    */
   netLabelSources?: Record<string, NetLabelSource[]>;
+  /**
+   * Reference designators the schematic gives to more than one different part,
+   * each with its parts' internal keys (`<refdes>~<n>`) and pages. Only the
+   * Cadence .DSN parser fills it, and it is omitted when there are none.
+   */
+  duplicateRefdes?: Record<string, DuplicatePart[]>;
+  /**
+   * The sections a part draws more than once, by refdes (or by internal key
+   * for a part that also shares its refdes with others). Only the Cadence .DSN
+   * parser fills it, and it is omitted when there are none.
+   */
+  repeatedSections?: Record<string, RepeatedSection[]>;
 }
 
 /** A schematic object that names a net, and where it sits. */
@@ -241,6 +254,8 @@ export interface AggregatedComponent {
   alternate_part?: boolean;
   total_count: number;
   refdes?: string[];
+  /** DUPLICATE_REFDES_ERROR when this is one of several parts sharing its refdes. */
+  error?: string;
   connections?: PinNetConnection[];
   orientations?: OrientationVariant[];
 }
@@ -334,6 +349,8 @@ export interface ListDesignsResult {
  */
 export interface ComponentGroup {
   refdes: string[];
+  /** DUPLICATE_REFDES_ERROR when this is one of several parts sharing its refdes. */
+  error?: string;
   count: number;
   mpn?: string;
   internal_pn?: string;
@@ -396,10 +413,25 @@ export interface SearchNetsResult {
 /**
  * Query component details (pins mapped to nets).
  */
-export interface QueryComponentResult {
+export interface QueryComponentResult extends ComponentDetailsResult {
+  /** The design variant this result describes: a native name or `<Default>`. */
+  design_variant: string;
+}
+
+/** query_component for a refdes the schematic gives to several different parts. */
+export interface DuplicateComponentResult {
   /** The design variant this result describes: a native name or `<Default>`. */
   design_variant: string;
   refdes: string;
+  /** Every part with this refdes, each carrying DUPLICATE_REFDES_ERROR. */
+  components: ComponentDetailsResult[];
+}
+
+/** One part's details (pins mapped to nets). */
+export interface ComponentDetailsResult {
+  refdes: string;
+  /** DUPLICATE_REFDES_ERROR when this is one of several parts sharing its refdes. */
+  error?: string;
   mpn?: string;
   internal_pn?: string;
   manufacturer?: string;

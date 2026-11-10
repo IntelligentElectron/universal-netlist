@@ -12,7 +12,11 @@ import type { ComponentDetails, ParsedNetlist, ParseDesignOptions } from "../../
 import type { OleDirectoryPath } from "../../ole-reader/types.js";
 import type { CachedLibraryPart, PinMapData } from "./structure-types.js";
 import { parsePage, parsePackageStream } from "./page-parser.js";
-import { parseHierarchyStream, type HierarchyStream } from "./hierarchy-parser.js";
+import {
+  parseHierarchyStream,
+  walkPartOccurrences,
+  type HierarchyStream,
+} from "./hierarchy-parser.js";
 import { expandHierarchy } from "./hierarchy-expander.js";
 import type { PageData } from "./page-parser.js";
 import { parseCacheStream, indexLibraryPart, listDeviceUnits } from "./cache-parser.js";
@@ -25,6 +29,7 @@ import {
 import { buildDeviceIndexMap } from "./pin-resolver.js";
 import { buildNetConnectivity } from "./net-builder.js";
 import { buildComponents } from "./component-builder.js";
+import { mergeRepeatedSections, separateDuplicateRefdes } from "./duplicate-refdes.js";
 import { readVariantStuffing, type VariantStuffing } from "./variant-store.js";
 
 /** The root Library stream, as DsnReader decrypts it: not a page that is also named "Library". */
@@ -205,6 +210,18 @@ function parseDsnStreams(
   }
 
   // Build netlist from parsed data
+  const separation = separateDuplicateRefdes(pages, strLst);
+  const { renamed } = separation;
+  // A variant names parts by occurrence, so a renamed part's occurrences must
+  // resolve to its key or its stuffing lands on the other part.
+  if (renamed.size > 0) {
+    for (const root of roots) {
+      for (const part of walkPartOccurrences(root.scope)) {
+        const key = renamed.get(`${part.dbId}|${occurrenceRefdes.get(part.occurrenceId)}`);
+        if (key) occurrenceRefdes.set(part.occurrenceId, key);
+      }
+    }
+  }
   const deviceIndexMap = buildDeviceIndexMap(pages);
   const { nets, componentPins, netLabelSources } = buildNetConnectivity(
     pages,
@@ -222,6 +239,9 @@ function parseDsnStreams(
     deviceIndexMap
   );
 
+  const repeatedSections = mergeRepeatedSections(separation, nets, components, occurrenceRefdes);
+  const duplicateRefdes = separation.duplicates;
+
   // A design's variants carry their own stuffing, which the properties the
   // components were built from say nothing about.
   applyVariantStuffing(
@@ -229,7 +249,10 @@ function parseDsnStreams(
     readVariantStuffing(ole, entries, occurrenceRefdes, options?.variant)
   );
 
-  return { nets, components, netLabelSources };
+  const netlist: ParsedNetlist = { nets, components, netLabelSources };
+  if (Object.keys(duplicateRefdes).length > 0) netlist.duplicateRefdes = duplicateRefdes;
+  if (Object.keys(repeatedSections).length > 0) netlist.repeatedSections = repeatedSections;
+  return netlist;
 }
 
 /**

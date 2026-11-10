@@ -3,6 +3,7 @@ import { getDesignName } from "../../paths.js";
 import { loadNetlist } from "../load-netlist.js";
 import { aggregateCircuitByMpn, componentNotes } from "../component-grouping.js";
 import { describeAmbiguity, describeResolution, indexNetNames } from "../net-names.js";
+import { componentError, displayRefdes, isDuplicateKey } from "../../duplicate-refdes.js";
 import {
   naturalSort,
   traverseCircuitFromNet,
@@ -67,7 +68,9 @@ export const queryXnetByNetName = async (
   });
 
   const circuitHash = computeCircuitHash(traversal.components);
-  const aggregated = aggregateCircuitByMpn(traversal.components);
+  const aggregated = aggregateCircuitByMpn(traversal.components, (key) =>
+    componentError(netlist, key)
+  );
 
   const response: AggregatedCircuitResult = {
     design_variant: netlist.design_variant,
@@ -127,9 +130,25 @@ export const queryXnetByPinName = async (
   }
 
   const [refdesInput, pinInput] = parts;
-  const refdesEntry = Object.entries(netlist.components).find(
-    ([refdes]) => refdes.toLowerCase() === refdesInput.trim().toLowerCase()
+  const matches = Object.entries(netlist.components).filter(
+    ([refdes]) => displayRefdes(refdes).toLowerCase() === refdesInput.trim().toLowerCase()
   );
+  const refdesEntry = matches[0];
+
+  if (matches.some(([key]) => isDuplicateKey(key))) {
+    const refdes = displayRefdes(refdesEntry[0]);
+    const pin = pinInput.trim().toLowerCase();
+    const candidates = matches.map(([, component]) => {
+      const pinKey = Object.keys(component.pins).find((p) => p.toLowerCase() === pin);
+      const where = pinKey
+        ? `pin ${pinKey} on ${getPinNet(component.pins[pinKey])}`
+        : "no such pin";
+      return `${component.mpn?.trim() || component.value?.trim() || "part"} (${where})`;
+    });
+    return {
+      error: `Pin '${pinSpec}' is ambiguous: reference designator ${refdes} is duplicated on ${matches.length} different parts: ${candidates.join(", ")}. query_component('${refdes}') lists every part; trace from the net instead.`,
+    };
+  }
 
   if (!refdesEntry) {
     const designName = getDesignName(design, context.root);
@@ -151,7 +170,6 @@ export const queryXnetByPinName = async (
   }
 
   const connectedNet = getPinNet(component.pins[pinKey]);
-
   if (isGroundNet(connectedNet)) {
     return {
       error: `Pin ${resolvedRefdes}.${pinKey} is connected to ${connectedNet} (ground) and cannot be queried.`,
@@ -178,7 +196,9 @@ export const queryXnetByPinName = async (
   });
 
   const circuitHash = computeCircuitHash(traversal.components);
-  const aggregated = aggregateCircuitByMpn(traversal.components);
+  const aggregated = aggregateCircuitByMpn(traversal.components, (key) =>
+    componentError(netlist, key)
+  );
 
   const response: AggregatedCircuitResult = {
     design_variant: netlist.design_variant,

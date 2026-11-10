@@ -83,6 +83,8 @@ describe("a Universal Netlist file as a design", () => {
         "net.testpoint_stub",
         "net.whitespace_in_name",
         "net.whitespace_name_collision",
+        "refdes.duplicate",
+        "refdes.section_repeated",
         "net.unnamed",
       ],
       skipped: { dns: 1 },
