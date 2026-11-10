@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 3,
   "metadata": {
-    "generatedAt": "2026-09-02T21:16:45.407Z",
-    "netlistHash": "sha256:28360ab83770f22e9f30a22e4492c90b696cb2fcb483ec459503a8d61912567c",
+    "generatedAt": "2026-11-09T23:53:58.795Z",
+    "netlistHash": "sha256:04963b3d7a6b3cb54900f65f69d30340730f71db3a3dde8f4504f24f6b88c61f",
     "origin": {
       "type": "vendor",
       "source": {
@@ -271,41 +271,6 @@
       "U2": [
         "2"
       ]
-    },
-    "unconnected-(P2-SD-Pad4)": {
-      "P2": [
-        "4"
-      ]
-    },
-    "unconnected-(P2-VDD-Pad1)": {
-      "P2": [
-        "1"
-      ]
-    },
-    "unconnected-(P3-SD-Pad4)": {
-      "P3": [
-        "4"
-      ]
-    },
-    "unconnected-(P3-VDD-Pad1)": {
-      "P3": [
-        "1"
-      ]
-    },
-    "unconnected-(P4-SD-Pad4)": {
-      "P4": [
-        "4"
-      ]
-    },
-    "unconnected-(P4-VDD-Pad1)": {
-      "P4": [
-        "1"
-      ]
-    },
-    "unconnected-(U1-TCMP-Pad24)": {
-      "U1": [
-        "24"
-      ]
     }
   },
   "components": {
@@ -381,7 +346,7 @@
       "pins": {
         "1": {
           "name": "VDD",
-          "net": "unconnected-(P2-VDD-Pad1)"
+          "net": ""
         },
         "2": {
           "name": "SO",
@@ -393,7 +358,7 @@
         },
         "4": {
           "name": "SD",
-          "net": "unconnected-(P2-SD-Pad4)"
+          "net": ""
         },
         "5": {
           "name": "SC",
@@ -412,7 +377,7 @@
       "pins": {
         "1": {
           "name": "VDD",
-          "net": "unconnected-(P3-VDD-Pad1)"
+          "net": ""
         },
         "2": {
           "name": "SO",
@@ -424,7 +389,7 @@
         },
         "4": {
           "name": "SD",
-          "net": "unconnected-(P3-SD-Pad4)"
+          "net": ""
         },
         "5": {
           "name": "SC",
@@ -443,7 +408,7 @@
       "pins": {
         "1": {
           "name": "VDD",
-          "net": "unconnected-(P4-VDD-Pad1)"
+          "net": ""
         },
         "2": {
           "name": "SO",
@@ -455,7 +420,7 @@
         },
         "4": {
           "name": "SD",
-          "net": "unconnected-(P4-SD-Pad4)"
+          "net": ""
         },
         "5": {
           "name": "SC",
@@ -691,7 +656,7 @@
         },
         "24": {
           "name": "TCMP",
-          "net": "unconnected-(U1-TCMP-Pad24)"
+          "net": ""
         },
         "25": {
           "name": "TCAP/PD7",

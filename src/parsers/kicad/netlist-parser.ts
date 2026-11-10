@@ -202,6 +202,14 @@ const componentDescription = (comp: SExpr[]): string | undefined => {
 };
 
 /**
+ * Whether a node's `pintype` marks the pin intentionally open: the pin's own
+ * type is `no_connect`, or KiCad appended `+no_connect` because a no-connect
+ * flag sits on its net (`passive+no_connect`).
+ */
+const isNoConnectPinType = (pintype: string | undefined): boolean =>
+  pintype === "no_connect" || (pintype?.endsWith("+no_connect") ?? false);
+
+/**
  * Parse a kicadsexpr netlist export (file contents) into a ParsedNetlist.
  * Pure function: same input always yields the same output.
  */
@@ -276,7 +284,7 @@ export const parseKicadNetlist = (content: string): ParsedNetlist => {
   // pins are placed once every numbered pin is.
   const unnumbered: {
     netName: string;
-    membership: NetConnections[string];
+    membership: NetConnections[string] | undefined;
     alone: boolean;
     refdes: string;
     name: string;
@@ -285,21 +293,36 @@ export const parseKicadNetlist = (content: string): ParsedNetlist => {
     const netName = childString(net, "name");
     if (!netName) continue;
 
-    const membership: NetConnections[string] = Object.hasOwn(nets, netName)
-      ? nets[netName]
-      : (nets[netName] = {});
     const nodes = childrenByTag(net, "node");
+    // A pin alone on its net and intentionally open is unconnected: its net is
+    // "" (the loader shows it as NC) and it joins no net, as an open pin of
+    // the other formats does. Open means a no-connect flag sits on the net
+    // (KiCad's `+no_connect` pin type) or the pin's own type is no_connect.
+    // A lone pin with neither stays a one-pin net, an error KiCad also reports.
+    const open = nodes.length === 1 && isNoConnectPinType(childString(nodes[0], "pintype"));
+    const pinNet = open ? "" : netName;
+    const membership: NetConnections[string] | undefined = open
+      ? undefined
+      : Object.hasOwn(nets, netName)
+        ? nets[netName]
+        : (nets[netName] = {});
     for (const node of nodes) {
       const refdes = childString(node, "ref");
       const number = childString(node, "pin") ?? "";
       const name = pinName(childString(node, "pinfunction"), number);
       if (!refdes) continue;
       if (number) {
-        list(membership, refdes, number);
+        if (membership) list(membership, refdes, number);
         // Component pin → net mapping, with the symbol pin name when meaningful.
-        componentOf(refdes).pins[number] = createPinEntry(number, name, netName);
+        componentOf(refdes).pins[number] = createPinEntry(number, name, pinNet);
       } else if (name) {
-        unnumbered.push({ netName, membership, alone: nodes.length === 1, refdes, name });
+        unnumbered.push({
+          netName: pinNet,
+          membership,
+          alone: nodes.length === 1,
+          refdes,
+          name,
+        });
       }
     }
   }
@@ -314,7 +337,7 @@ export const parseKicadNetlist = (content: string): ParsedNetlist => {
     const pins = componentOf(refdes).pins;
     const placed = Object.hasOwn(pins, name) ? getPinNet(pins[name]) : undefined;
     if (placed !== undefined && placed !== netName) continue;
-    list(membership, refdes, name);
+    if (membership) list(membership, refdes, name);
     // The name is the key, so the entry is the plain net name.
     if (placed === undefined) pins[name] = netName;
   }

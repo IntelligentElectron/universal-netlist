@@ -12,6 +12,8 @@ The order is a golden decision table: [resolve.rules.md](decision-tables/kicad-s
 
 Wires and junctions; local, global and hierarchical labels; sheet pins and sheets used more than once; global and local power symbols, and the invisible power-input pins KiCad joins to a global net of the pin's name; multi-unit and De Morgan symbols, rotated and mirrored; no-connect pins and flags; buses (vectors such as `D[0..15]`, groups such as `I2C{SDA SCL}`, bus aliases from the project file or the sheets), joined across the hierarchy member by member; symbols excluded from the board, which KiCad leaves out of its netlist. Each part's fields map exactly as a saved `.net` does: the reader writes its result as a KiCad netlist and reads it with the same parser.
 
+A KiCad 10 project can hold several top-level sheets, listed in its `.kicad_pro` under `schematic.top_level_sheets`, with no sheet symbol linking them; each is a page of its own. When the project lists two or more, the reader reads every one of them and the sheets each reaches, as kicad-cli does. Each top-level sheet starts its nets' paths with its name, `/<name>/`, so a local label `SIG` on the sheet `Beta` names `/Beta/SIG`, and a sheet below it `/Beta/Gamma/H`. A `/` inside a sheet name, top-level or not, is written `{slash}`, as KiCad writes it: `/Be{slash}ta/SIG`. Global labels and power symbols join across the top-level sheets; local and hierarchical labels stay on their sheet. A project that lists one top-level sheet is read from its root schematic, at `/`. Design variants are read from every top-level sheet as well. A design given as its root `.kicad_sch` reads the `.kicad_pro` of its name beside it for its top-level sheets and bus aliases, as kicad-cli does.
+
 KiCad 6 files (schematic format before `20230121`) are read as KiCad reads them: each symbol instance's reference, unit, value and footprint come from the root sheet's `symbol_instances`, sheets name their file in `Sheet file`, and a power symbol names its net after its power pin rather than its value.
 
 A sheet that cannot be read fails the read instead of leaving that sheet's parts and nets out of a netlist that would look complete.
@@ -25,9 +27,13 @@ Every net is named the way KiCad's netlister names it, so a net is reported unde
 - A net no label names is named after a pin, `Net-(R1-Pad1)` or `Net-(U1A-SDA)`; the unit letter appears only beside a pin name. [pin-net-name.rules.md](decision-tables/kicad-schematic/pin-net-name.rules.md)
 - A power symbol's net is its value from KiCad 7 on, its pin's name in a KiCad 6 file. [power-name.rules.md](decision-tables/kicad-schematic/power-name.rules.md)
 
+## Unconnected pins
+
+A pin alone on a no-connect flag, and a pin of electrical type `no_connect` alone on its net, is unconnected: its net is `NC` and it joins no net, so `run_erc` does not report it. KiCad's export names such a pin's one-pin net `unconnected-(...)` and marks the flagged pin's type `+no_connect` (`passive+no_connect`); a saved `.net` and the schematic reader read it the same way. A pin left open with no flag keeps its one-pin `unconnected-(...)` net, which `net.single_pin` reports, as KiCad's ERC does. A flag on a net of two or more pins changes nothing: the net keeps its pins and its name.
+
 ## Parity with kicad-cli
 
-`src/parsers/kicad/schematic/parity.test.ts` reads every KiCad design in `test/fixtures/kicad` with the reader alone and compares the result with KiCad's export, net by net and part by part. Eleven designs match exactly. One fixture ships without one of its sheets and is refused, naming the sheet. Where a fixture's saved export comes from an older KiCad whose netlister differs (yddraig-68k, saved by 10.0.0), `test/golden/kicad-cli/` holds the export of kicad-cli 10.0.5, which the reader follows. With KiCad installed, `KICAD_PARITY=live npm test` compares each design with a fresh export as well.
+`src/parsers/kicad/schematic/parity.test.ts` reads every KiCad design in `test/fixtures/kicad` with the reader alone and compares the result with KiCad's export, net by net and part by part. Twelve designs match exactly. One fixture ships without one of its sheets and is refused, naming the sheet. Where a fixture's saved export comes from an older KiCad whose netlister differs (yddraig-68k, saved by 10.0.0), `test/golden/kicad-cli/` holds the export of kicad-cli 10.0.5, which the reader follows. With KiCad installed, `KICAD_PARITY=live npm test` compares each design with a fresh export as well.
 
 ## Provenance
 

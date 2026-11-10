@@ -14,7 +14,7 @@
 
 import path from "node:path";
 import type { DiscoverDesignsOptions } from "../../types.js";
-import { listDir, nodeFileReader, type FileReader } from "../context.js";
+import { listDir, nodeFileReader, readText, type FileReader } from "../context.js";
 
 /** Extensions a caller may hand directly to the KiCad handler. */
 export const KICAD_EXTENSIONS = [".kicad_pro", ".kicad_sch"] as const;
@@ -61,6 +61,87 @@ export const resolveKicadArtifacts = async (
   const netlistExport = (await files.exists(candidateExport)) ? candidateExport : null;
 
   return { name: base, rootSchematic, netlistExport };
+};
+
+/** A sheet a KiCad 10 project lists in `schematic.top_level_sheets`. */
+export interface KicadTopLevelSheet {
+  readonly uuid: string;
+  /** The sheet's name, which starts its nets' paths: `/<name>/`. */
+  readonly name: string;
+  /** The sheet's file, relative to the project. */
+  readonly filename: string;
+}
+
+/** What a project file says about its schematics. */
+export interface KicadProjectSchematic {
+  /** Bus aliases (`schematic.bus_aliases`), where KiCad 10 keeps them (issue 211). */
+  readonly busAliases: Record<string, string[]>;
+  /**
+   * The top-level sheets, in project order, when the project lists two or
+   * more; empty otherwise. KiCad 10 lets a project hold several top-level
+   * sheets that no sheet symbol links, each a page of its own and a root of
+   * its own hierarchy. With one, the root schematic is the design, as before.
+   */
+  readonly topLevelSheets: readonly KicadTopLevelSheet[];
+}
+
+const NO_PROJECT_SCHEMATIC: KicadProjectSchematic = { busAliases: {}, topLevelSheets: [] };
+
+/**
+ * The schematic settings of a design's project file: bus aliases and
+ * top-level sheets. A `.kicad_pro` is read itself; a root `.kicad_sch` reads
+ * the project of its name beside it, as kicad-cli does. Nothing for any other
+ * path, or a project file that cannot be read.
+ */
+export const readKicadProjectSchematic = async (
+  designPath: string,
+  files: FileReader = nodeFileReader
+): Promise<KicadProjectSchematic> => {
+  const rawExt = path.extname(designPath);
+  const ext = rawExt.toLowerCase();
+  if (ext !== ".kicad_pro" && ext !== ".kicad_sch") return NO_PROJECT_SCHEMATIC;
+  const projectPath =
+    ext === ".kicad_pro"
+      ? designPath
+      : path.join(path.dirname(designPath), `${path.basename(designPath, rawExt)}.kicad_pro`);
+  if (ext === ".kicad_sch" && !(await files.exists(projectPath))) return NO_PROJECT_SCHEMATIC;
+  let schematic: { bus_aliases?: unknown; top_level_sheets?: unknown } | undefined;
+  try {
+    schematic = (JSON.parse(await readText(files, projectPath)) as { schematic?: typeof schematic })
+      .schematic;
+  } catch {
+    return NO_PROJECT_SCHEMATIC;
+  }
+  const busAliases =
+    schematic?.bus_aliases && typeof schematic.bus_aliases === "object"
+      ? (schematic.bus_aliases as Record<string, string[]>)
+      : {};
+  const listed = Array.isArray(schematic?.top_level_sheets) ? schematic.top_level_sheets : [];
+  const sheets = listed.flatMap((entry: unknown): KicadTopLevelSheet[] => {
+    const { uuid, name, filename } = (entry ?? {}) as Record<string, unknown>;
+    return typeof uuid === "string" && typeof filename === "string" && filename.trim()
+      ? [{ uuid, name: typeof name === "string" ? name : "", filename: filename.trim() }]
+      : [];
+  });
+  // Two or more listed make every one a root, so an entry that cannot be read
+  // drops only itself, never the project's other pages.
+  return { busAliases, topLevelSheets: listed.length > 1 ? sheets : [] };
+};
+
+/**
+ * The schematics a design's hierarchy starts from: each top-level sheet of a
+ * project that lists two or more, otherwise the root schematic alone.
+ */
+export const kicadRootSchematics = async (
+  designPath: string,
+  rootSchematic: string,
+  files: FileReader = nodeFileReader
+): Promise<string[]> => {
+  const { topLevelSheets } = await readKicadProjectSchematic(designPath, files);
+  // The listed files are relative to the project, which sits beside the root schematic.
+  return topLevelSheets.length
+    ? topLevelSheets.map((sheet) => path.resolve(path.dirname(rootSchematic), sheet.filename))
+    : [rootSchematic];
 };
 
 /**

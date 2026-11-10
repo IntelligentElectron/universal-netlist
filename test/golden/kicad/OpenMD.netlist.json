@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 3,
   "metadata": {
-    "generatedAt": "2026-09-02T21:16:45.436Z",
-    "netlistHash": "sha256:849c26eca97ddbb844688b1526a60f6d6866d5f393fbb4eed498862369379487",
+    "generatedAt": "2026-11-09T23:53:58.839Z",
+    "netlistHash": "sha256:55300b91883c72fe5133bf31d5db291add20780364f2c25f0cd83eb52a9947e9",
     "origin": {
       "type": "vendor",
       "source": {
@@ -1606,31 +1606,6 @@
       "U7": [
         "1"
       ]
-    },
-    "unconnected-(J3-Pin_11-Pad11)": {
-      "J3": [
-        "11"
-      ]
-    },
-    "unconnected-(U1-NC-PadC4)": {
-      "U1": [
-        "C4"
-      ]
-    },
-    "unconnected-(U2-NC-PadC4)": {
-      "U2": [
-        "C4"
-      ]
-    },
-    "unconnected-(U3-NC-PadC4)": {
-      "U3": [
-        "C4"
-      ]
-    },
-    "unconnected-(U4-PGOOD-Pad6)": {
-      "U4": [
-        "6"
-      ]
     }
   },
   "components": {
@@ -1840,7 +1815,7 @@
         },
         "11": {
           "name": "Pin_11",
-          "net": "unconnected-(J3-Pin_11-Pad11)"
+          "net": ""
         },
         "12": {
           "name": "Pin_12",
@@ -2616,7 +2591,7 @@
         },
         "6": {
           "name": "PGOOD",
-          "net": "unconnected-(U4-PGOOD-Pad6)"
+          "net": ""
         },
         "7": {
           "name": "BST",
@@ -3621,7 +3596,7 @@
         },
         "C4": {
           "name": "NC",
-          "net": "unconnected-(U1-NC-PadC4)"
+          "net": ""
         }
       },
       "value": "LM1205",
@@ -3768,7 +3743,7 @@
         },
         "C4": {
           "name": "NC",
-          "net": "unconnected-(U2-NC-PadC4)"
+          "net": ""
         }
       },
       "value": "LM1205",
@@ -3915,7 +3890,7 @@
         },
         "C4": {
           "name": "NC",
-          "net": "unconnected-(U3-NC-PadC4)"
+          "net": ""
         }
       },
       "value": "LM1205",

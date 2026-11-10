@@ -79,7 +79,13 @@ export interface SchematicComponent {
 
 export interface SchematicNet {
   name: string;
-  pins: { reference: string; pin: string }[];
+  /**
+   * Each pin with its own name and type. A pin's number need not identify it:
+   * a symbol can leave its pins unnumbered, as KiCad allows (`(number "")`).
+   */
+  pins: { reference: string; pin: string; name: string; type: string }[];
+  /** A no-connect flag sits on the net: KiCad's export marks its pins' types `+no_connect`. */
+  noConnect?: boolean;
 }
 
 export interface SchematicSheet {
@@ -660,17 +666,31 @@ function defaultNetName(pins: PinNode[], flagged: boolean): string {
   })[0]!;
 }
 
+/** What the project file adds to the schematics. */
+export interface SchematicOptions {
+  /**
+   * The project file's bus aliases (`schematic.bus_aliases` in the .kicad_pro):
+   * KiCad 10 keeps them there instead of in the sheets (issue 211).
+   */
+  busAliases?: Record<string, string[]>;
+  /**
+   * A KiCad 10 project's top-level sheets (`schematic.top_level_sheets`), when
+   * it lists two or more: each is a root of its own, its file one of the
+   * sources by name, and its nets' paths start `/<name>/` (a `/` in the name
+   * written `{slash}`). Global labels and power symbols join across them;
+   * local and hierarchical labels stay on their sheet, as in KiCad. Without
+   * them, `sources[0]` is the one root, at `/`.
+   */
+  topLevelSheets?: readonly { uuid: string; name: string; file: string }[];
+}
+
 /**
  * Resolve a design's connectivity. `sources[0]` is the root sheet; the others
  * are found by the names its sheets reference. Missing sheets are skipped.
  */
 export function analyzeSchematic(
   sources: SchematicSource[],
-  /**
-   * The project file's bus aliases (`schematic.bus_aliases` in the .kicad_pro):
-   * KiCad 10 keeps them there instead of in the sheets (issue 211).
-   */
-  options: { busAliases?: Record<string, string[]> } = {}
+  options: SchematicOptions = {}
 ): SchematicDesign {
   if (!sources.length) throw new Error("No schematic");
   const parsed = new Map<string, SheetFile>();
@@ -1025,7 +1045,8 @@ export function analyzeSchematic(
         child,
         sheet.file,
         childPath,
-        `${humanPath}${sheet.name}/`,
+        // KiCad writes a `/` inside a sheet name as `{slash}` in its nets' names.
+        `${humanPath}${escapeName(sheet.name)}/`,
         depth + 1,
         new Set([...visiting, sheet.file])
       );
@@ -1045,7 +1066,19 @@ export function analyzeSchematic(
     return { hier: hierNodes, local: localNames, hierBus };
   };
 
-  visit(root, rootName, `/${root.uuid}`, "/", 0, new Set([rootName]));
+  const tops = options.topLevelSheets?.length ? options.topLevelSheets : null;
+  if (tops) {
+    for (const [i, top] of tops.entries()) {
+      const file = fileByName(top.file);
+      if (!file) continue;
+      const index = sheets.length;
+      visit(file, top.file, `/${top.uuid}`, `/${escapeName(top.name)}/`, 0, new Set([top.file]));
+      sheets[index]!.name = top.name;
+      sheets[index]!.page = String(i + 1);
+    }
+  } else {
+    visit(root, rootName, `/${root.uuid}`, "/", 0, new Set([rootName]));
+  }
 
   // Group pins by net and name each net after its strongest driver.
   const best = new Map<number, Driver>();
@@ -1068,7 +1101,8 @@ export function analyzeSchematic(
     list.sort((a, b) => natural(a.reference, b.reference) || natural(a.pin, b.pin));
     const seen = new Set<string>();
     const unique = list.filter((p) => {
-      const id = `${p.reference}\u0000${p.pin}`;
+      // An unnumbered pin is told apart by its name (issue #245).
+      const id = `${p.reference}\u0000${p.pin}\u0000${p.pin ? "" : p.name}`;
       return !seen.has(id) && seen.add(id);
     });
     const onBoard = unique.filter((p) => p.component.onBoard);
@@ -1076,7 +1110,16 @@ export function analyzeSchematic(
       best.get(rootNode)?.name ??
       defaultNetName(onBoard.length ? onBoard : unique, flagged.has(rootNode));
     if (onBoard.length) {
-      nets.push({ name, pins: onBoard.map((p) => ({ reference: p.reference, pin: p.pin })) });
+      nets.push({
+        name,
+        pins: onBoard.map((p) => ({
+          reference: p.reference,
+          pin: p.pin,
+          name: p.name,
+          type: p.type,
+        })),
+        ...(flagged.has(rootNode) ? { noConnect: true } : {}),
+      });
     }
     for (const p of unique) {
       p.component.pins.push({ number: p.pin, name: p.name, type: p.type, net: name });
@@ -1097,14 +1140,10 @@ export function analyzeSchematic(
  */
 export function resolveSchematic(
   sources: SchematicSource[],
-  options: { busAliases?: Record<string, string[]> } = {}
+  options: SchematicOptions = {}
 ): ResolvedSchematic {
   const design = analyzeSchematic(sources, options);
   const parts = design.components.filter((component) => component.onBoard);
-  const pinOf = new Map<string, SchematicPin>();
-  for (const component of parts) {
-    for (const pin of component.pins) pinOf.set(`${component.reference}\u0000${pin.number}`, pin);
-  }
   return {
     components: parts.map((component) => ({
       reference: component.reference,
@@ -1116,10 +1155,8 @@ export function resolveSchematic(
     })),
     nets: design.nets.map((net) => ({
       name: net.name,
-      pins: net.pins.map(({ reference, pin }) => {
-        const found = pinOf.get(`${reference}\u0000${pin}`);
-        return { reference, pin, name: found?.name ?? "", type: found?.type ?? "" };
-      }),
+      pins: net.pins,
+      ...(net.noConnect ? { noConnect: true } : {}),
     })),
   };
 }

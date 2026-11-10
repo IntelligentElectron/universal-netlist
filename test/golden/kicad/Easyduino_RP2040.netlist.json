@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 3,
   "metadata": {
-    "generatedAt": "2026-09-02T21:16:45.396Z",
-    "netlistHash": "sha256:d60a1e041907346c3df0372ea01af0fd23b309bbae8518f8a1494a131179b88b",
+    "generatedAt": "2026-11-09T23:53:58.785Z",
+    "netlistHash": "sha256:095797745f5eb8b8de9d69f366e5730623dd3c2c9f8a8945ebeb5b1d27040b1c",
     "origin": {
       "type": "vendor",
       "source": {
@@ -739,21 +739,6 @@
       "U1": [
         "3"
       ]
-    },
-    "unconnected-(J1-SBU1-PadA8)": {
-      "J1": [
-        "A8"
-      ]
-    },
-    "unconnected-(J1-SBU2-PadB8)": {
-      "J1": [
-        "B8"
-      ]
-    },
-    "unconnected-(U3-EP-Pad9)": {
-      "U3": [
-        "9"
-      ]
     }
   },
   "components": {
@@ -1033,11 +1018,11 @@
         },
         "A8": {
           "name": "SBU1",
-          "net": "unconnected-(J1-SBU1-PadA8)"
+          "net": ""
         },
         "B8": {
           "name": "SBU2",
-          "net": "unconnected-(J1-SBU2-PadB8)"
+          "net": ""
         }
       },
       "value": "USB_C_Receptacle_USB2.0"
@@ -1765,7 +1750,7 @@
         },
         "9": {
           "name": "EP",
-          "net": "unconnected-(U3-EP-Pad9)"
+          "net": ""
         }
       },
       "value": "W25Q16JVUXIQ",

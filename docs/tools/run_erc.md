@@ -101,7 +101,7 @@ Clean design (every checked rule passed, nothing skipped):
 
 - Endpoints use the `REFDES.PIN` form, the same spec `query_xnet_by_pin_name` accepts, so a finding's endpoint can be fed straight back into a query.
 - Endpoint arrays are always arrays, even for a single endpoint, so the shape is uniform for every finding.
-- Unconnected pins without a no-connect symbol are **not** checked: the parsers cannot reliably distinguish them from intentional no-connects (KiCad omits unconnected pins entirely; Altium normalizes both to `NC`).
+- Pins on `NC` are not checked. `NC` is the net of a pin the design leaves unconnected, as `query_component` shows it, and it joins no net the rules scan. A KiCad pin reads as `NC` when it is alone on a no-connect flag, or alone on its net with electrical type `no_connect`: an engineer-drawn no-connect is never a `net.single_pin` error. A KiCad pin left open with no flag stays a one-pin net such as `unconnected-(R2-Pad1)`, and `net.single_pin` reports it, as KiCad's own ERC does. Cadence and Altium designs read an open pin as `NC` whether or not a no-connect symbol marks it, so an open pin there is not reported.
 - Test point detection is heuristic (the `TP` refdes prefix).
 - `design_variant` selects the assembly to check. A design that records named variants requires it on every call; those variants are its only builds and `<Default>` is refused on it. `<Default>` (alias `default`) is the one build of a design that records no variant, the design with every part's own Do Not Stuff state. A part the selected variant marks Not Fitted is a DNS part for the run.
 

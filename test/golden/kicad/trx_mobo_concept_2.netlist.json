@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 3,
   "metadata": {
-    "generatedAt": "2026-09-03T02:00:47.116Z",
-    "netlistHash": "sha256:9355e02b5b8cdfd55963bf119b41e3a2a48467d49690f61bd3d7c33361e9cfec",
+    "generatedAt": "2026-11-09T23:53:58.806Z",
+    "netlistHash": "sha256:ffbd1ce00161586bfdebddb30d57b24f0f27bff9706b6e57267605e332ab6743",
     "origin": {
       "type": "vendor",
       "source": {
@@ -3346,86 +3346,6 @@
       "VR301": [
         "2"
       ]
-    },
-    "unconnected-(CR1801-Pad2)": {
-      "CR1801": [
-        "2"
-      ]
-    },
-    "unconnected-(CR1802-Pad2)": {
-      "CR1802": [
-        "2"
-      ]
-    },
-    "unconnected-(CR2201-Pad2)": {
-      "CR2201": [
-        "2"
-      ]
-    },
-    "unconnected-(CR2202-Pad2)": {
-      "CR2202": [
-        "2"
-      ]
-    },
-    "unconnected-(CR2203-Pad2)": {
-      "CR2203": [
-        "2"
-      ]
-    },
-    "unconnected-(CR2204-Pad2)": {
-      "CR2204": [
-        "2"
-      ]
-    },
-    "unconnected-(U301-NC-Pad5)": {
-      "U301": [
-        "5"
-      ]
-    },
-    "unconnected-(U401-IO2-Pad6)": {
-      "U401": [
-        "6"
-      ]
-    },
-    "unconnected-(U401-IO4-Pad9)": {
-      "U401": [
-        "9"
-      ]
-    },
-    "unconnected-(U401-IO5-Pad10)": {
-      "U401": [
-        "10"
-      ]
-    },
-    "unconnected-(U401-IO6-Pad11)": {
-      "U401": [
-        "11"
-      ]
-    },
-    "unconnected-(U401-~{INT}-Pad13)": {
-      "U401": [
-        "13"
-      ]
-    },
-    "unconnected-(U2101---Pad6)": {
-      "U2101": [
-        "6"
-      ]
-    },
-    "unconnected-(U2101-NC1-Pad9)": {
-      "U2101": [
-        "9"
-      ]
-    },
-    "unconnected-(U2101-NC2-Pad13)": {
-      "U2101": [
-        "13"
-      ]
-    },
-    "unconnected-(U2201-NC-Pad5)": {
-      "U2201": [
-        "5"
-      ]
     }
   },
   "components": {
@@ -3549,7 +3469,7 @@
         },
         "5": {
           "name": "NC",
-          "net": "unconnected-(U301-NC-Pad5)"
+          "net": ""
         }
       },
       "value": "24CW640",
@@ -3695,7 +3615,7 @@
         },
         "6": {
           "name": "IO2",
-          "net": "unconnected-(U401-IO2-Pad6)"
+          "net": ""
         },
         "7": {
           "name": "IO3",
@@ -3707,15 +3627,15 @@
         },
         "9": {
           "name": "IO4",
-          "net": "unconnected-(U401-IO4-Pad9)"
+          "net": ""
         },
         "10": {
           "name": "IO5",
-          "net": "unconnected-(U401-IO5-Pad10)"
+          "net": ""
         },
         "11": {
           "name": "IO6",
-          "net": "unconnected-(U401-IO6-Pad11)"
+          "net": ""
         },
         "12": {
           "name": "IO7",
@@ -3723,7 +3643,7 @@
         },
         "13": {
           "name": "~{INT}",
-          "net": "unconnected-(U401-~{INT}-Pad13)"
+          "net": ""
         },
         "14": {
           "name": "SCL",
@@ -6261,7 +6181,7 @@
           "name": "A",
           "net": "Net-(CR1801-A)"
         },
-        "2": "unconnected-(CR1801-Pad2)",
+        "2": "",
         "3": {
           "name": "C",
           "net": "/top/radio/ifagc/AGC_IN"
@@ -6276,7 +6196,7 @@
           "name": "A",
           "net": "/top/P13V8_TX"
         },
-        "2": "unconnected-(CR1802-Pad2)",
+        "2": "",
         "3": {
           "name": "C",
           "net": "/top/radio/ifagc/AGC_IN"
@@ -6967,20 +6887,20 @@
         "5": "GND",
         "6": {
           "name": "-",
-          "net": "unconnected-(U2101---Pad6)"
+          "net": ""
         },
         "7": "GND",
         "8": "Net-(C2105-Pad1)",
         "9": {
           "name": "NC1",
-          "net": "unconnected-(U2101-NC1-Pad9)"
+          "net": ""
         },
         "10": "GND",
         "11": "GND",
         "12": "GND",
         "13": {
           "name": "NC2",
-          "net": "unconnected-(U2101-NC2-Pad13)"
+          "net": ""
         },
         "14": "/top/P13V8"
       },
@@ -7081,7 +7001,7 @@
           "name": "A",
           "net": "Net-(CR2201-A)"
         },
-        "2": "unconnected-(CR2201-Pad2)",
+        "2": "",
         "3": {
           "name": "C",
           "net": "Net-(CR2201-C)"
@@ -7096,7 +7016,7 @@
           "name": "A",
           "net": "Net-(CR2201-A)"
         },
-        "2": "unconnected-(CR2202-Pad2)",
+        "2": "",
         "3": {
           "name": "C",
           "net": "Net-(CR2202-C)"
@@ -7111,7 +7031,7 @@
           "name": "A",
           "net": "Net-(CR2201-A)"
         },
-        "2": "unconnected-(CR2203-Pad2)",
+        "2": "",
         "3": {
           "name": "C",
           "net": "/top/IF_GAIN_WIPER"
@@ -7126,7 +7046,7 @@
           "name": "A",
           "net": "Net-(CR2204-A)"
         },
-        "2": "unconnected-(CR2204-Pad2)",
+        "2": "",
         "3": {
           "name": "C",
           "net": "/top/radio/ifagc/AGC_IN"
@@ -7237,7 +7157,7 @@
         },
         "5": {
           "name": "NC",
-          "net": "unconnected-(U2201-NC-Pad5)"
+          "net": ""
         },
         "6": {
           "name": "IN",

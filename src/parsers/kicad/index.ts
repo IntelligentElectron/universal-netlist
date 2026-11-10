@@ -20,6 +20,7 @@ import { exportNetlist } from "./cli.js";
 import {
   discoverKicadDesigns,
   isKicadFile,
+  kicadRootSchematics,
   resolveKicadArtifacts,
   KICAD_EXTENSIONS,
 } from "./discovery.js";
@@ -127,7 +128,10 @@ export const parseKicadDesign = async (
           kicadCli: async () => {
             // kicad-cli reads the sheets itself; reading them through the
             // reader first lets a parse cache see every file the netlist came from.
-            await readSchematicHierarchy(rootSchematic, files);
+            await readSchematicHierarchy(
+              await kicadRootSchematics(designPath, rootSchematic, files),
+              files
+            );
             return parseKicadNetlist(await exportNetlist(rootSchematic, kicadCli));
           },
         }
