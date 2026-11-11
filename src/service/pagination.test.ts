@@ -52,6 +52,24 @@ describe("pageField", () => {
     expect(page.components_by_mpn).toEqual([]);
     expect(page.notes?.[0]).toContain("past the last of 10");
   });
+
+  it("keeps only the component notes and net name warnings for what is on the page", () => {
+    const result: AggregatedCircuitResult = {
+      ...circuit(4),
+      visited_nets: ["GND_POWER", " SIG"],
+      component_notes: [
+        { note: "MPN not found", refdes: ["U0", "U3"] },
+        { note: "Do not stuff", refdes: ["U2"] },
+      ],
+      net_name_warnings: [
+        { net: " SIG", problem: "leading_whitespace", message: "padded" },
+        { net: " OTHER", problem: "leading_whitespace", message: "padded" },
+      ],
+    };
+    const page = pageField(result, "components_by_mpn", 2, 0) as AggregatedCircuitResult;
+    expect(page.component_notes).toEqual([{ note: "MPN not found", refdes: ["U0"] }]);
+    expect(page.net_name_warnings?.map((w) => w.net)).toEqual([" SIG"]);
+  });
 });
 
 describe("pageResults", () => {

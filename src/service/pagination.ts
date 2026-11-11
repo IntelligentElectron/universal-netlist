@@ -1,9 +1,16 @@
-import { isErrorResult, type ErrorResult } from "../types.js";
+import {
+  isErrorResult,
+  type ComponentNote,
+  type ErrorResult,
+  type NetNameWarning,
+} from "../types.js";
 
-/** The fields a paged result adds. */
+/** The fields a paged result adds, and the notes it trims to the page. */
 export interface Paged {
   notes?: string[];
   next_offset?: number;
+  component_notes?: ComponentNote[];
+  net_name_warnings?: NetNameWarning[];
 }
 
 /**
@@ -101,17 +108,35 @@ export const pagePins = <
     : withPage(result, "pins", paged[0]?.pins ?? {}, page);
 };
 
+/** Every string in a value, at any depth. */
+const stringsIn = (value: unknown, found = new Set<string>()): Set<string> => {
+  if (typeof value === "string") found.add(value);
+  else if (Array.isArray(value)) for (const v of value) stringsIn(v, found);
+  else if (value && typeof value === "object")
+    for (const v of Object.values(value)) stringsIn(v, found);
+  return found;
+};
+
+/** A page, with the component notes and net name warnings cut to the parts and nets it shows. */
 const withPage = <R extends Paged, K extends keyof R>(
   result: R,
   field: K,
   items: R[K],
   page: { note?: string; next_offset?: number }
-): R =>
-  page.note === undefined
-    ? result
-    : {
-        ...result,
-        [field]: items,
-        notes: [...(result.notes ?? []), page.note],
-        ...(page.next_offset !== undefined && { next_offset: page.next_offset }),
-      };
+): R => {
+  if (page.note === undefined) return result;
+  const { component_notes: _c, net_name_warnings: _w, ...rest } = result;
+  const shown = stringsIn({ ...rest, [field]: items });
+  const componentNotes = result.component_notes
+    ?.map((n) => ({ ...n, refdes: n.refdes.filter((r) => shown.has(r)) }))
+    .filter((n) => n.refdes.length > 0);
+  const warnings = result.net_name_warnings?.filter((w) => shown.has(w.net));
+  return {
+    ...rest,
+    [field]: items,
+    ...(componentNotes?.length && { component_notes: componentNotes }),
+    ...(warnings?.length && { net_name_warnings: warnings }),
+    notes: [...(result.notes ?? []), page.note],
+    ...(page.next_offset !== undefined && { next_offset: page.next_offset }),
+  } as R;
+};

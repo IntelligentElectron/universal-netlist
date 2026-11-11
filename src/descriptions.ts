@@ -42,7 +42,7 @@ Supported formats:
 
 const paged = (field: string): string =>
   `\`${field}\` is paged: \`max_results\` entries (default 50) from \`offset\`, and ` +
-  `\`next_offset\` is set when there are more.`;
+  `\`next_offset\` is set when there are more. Notes about parts and nets cover the page only.`;
 
 export const LIST_DESIGNS_DESCRIPTION = `\
 List the design projects in a directory, one path each: a .DSN, a .PrjPcb, a .kicad_pro, \
