@@ -505,6 +505,7 @@ describe("hasGroundPin", () => {
     GND_SW: { Q1: ["3"], TP1: ["1"] },
     GND_LB: { J2: ["1", "MTB1"] },
     GND_POWER: { U3: ["5"] },
+    LOCAL_RET: { U4: ["GND"], R2: ["2"] },
     N1234: { U2: ["10"], C2: ["2"] },
     SIG: { U2: ["11"], R1: ["1"] },
   };
@@ -519,6 +520,8 @@ describe("hasGroundPin", () => {
     C2: { pins: { "2": "N1234" } },
     J2: { pins: { "1": "GND_LB", MTB1: { name: "GND1", net: "GND_LB" } } },
     U3: { pins: { "5": { name: "GND_BRIDGE", net: "GND_POWER" } } },
+    U4: { pins: { GND: "LOCAL_RET" } },
+    R2: { pins: { "2": "LOCAL_RET" } },
   };
 
   it.each([
@@ -526,6 +529,7 @@ describe("hasGroundPin", () => {
     ["N1234", true, "a VSS pin on it, under a repeated-pin-name suffix"],
     ["GND_LB", true, "a connector's GND1 mounting pin on it"],
     ["GND_POWER", false, "a GND_BRIDGE pin, which has a separator too"],
+    ["LOCAL_RET", true, "a pin numbered GND, stored without a name"],
     ["GND_FPC1", false, "a separator, and only numbered connector pins"],
     ["GND_SW", false, "a separator, and a drain and a test point"],
     ["SIG", false, "neither"],

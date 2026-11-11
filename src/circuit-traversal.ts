@@ -87,7 +87,10 @@ export const isStopNet = (netName: string): boolean =>
  */
 const POWER_PIN_PATTERN = /^(A|D|P|IO)?(VCC|VDD)[A-Z0-9]*$|^(VBATT?|VBUS|VSYS)\d*$/i;
 
-/** Whether a pin on the net has a function name `pattern` matches. `GND#10` is a repeated `GND`. */
+/**
+ * Whether a pin on the net has a function name `pattern` matches. `GND#10` is a
+ * repeated `GND`; a pin stored without a name is named by its number.
+ */
 const hasPinNamed = (
   nets: NetConnections,
   components: ComponentDetails,
@@ -97,8 +100,9 @@ const hasPinNamed = (
   Object.entries(nets[netName] ?? {}).some(([refdes, pins]) =>
     pins.some((pin) => {
       const entry = components[refdes]?.pins[pin];
-      if (entry === undefined || typeof entry === "string") return false;
-      return pattern.test(entry.name.replace(/#[^#]*$/, "").trim());
+      if (entry === undefined) return false;
+      const name = typeof entry === "string" ? pin : entry.name;
+      return pattern.test(name.replace(/#[^#]*$/, "").trim());
     })
   );
 
