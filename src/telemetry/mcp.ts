@@ -12,6 +12,7 @@ import {
   type ServerRequest,
 } from "@modelcontextprotocol/sdk/types.js";
 import { instrumentTool } from "./otel.js";
+import { isErrorResult } from "../types.js";
 import {
   markToolHandlerInstrumented,
   runWithToolRequestState,
@@ -31,8 +32,7 @@ const getErrorContentMessage = (result: unknown): string | undefined => {
   if (r.isError === true) return r.content[0].text || "Tool call failed";
   try {
     const parsed: unknown = JSON.parse(r.content[0].text ?? "");
-    if (typeof parsed !== "object" || parsed === null || !("error" in parsed)) return undefined;
-    return typeof parsed.error === "string" ? parsed.error : undefined;
+    return isErrorResult(parsed) ? parsed.error : undefined;
   } catch {
     return undefined;
   }

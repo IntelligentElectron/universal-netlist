@@ -23,6 +23,7 @@ import { BINARY_NAME } from "../version.js";
 import { TOOLS, findTool, type AnyToolDefinition } from "../tools/index.js";
 import { exportDesignTool } from "./export-design.js";
 import type { ServiceContext } from "../service/context.js";
+import { isErrorResult } from "../types.js";
 
 // =============================================================================
 // Flags from a schema
@@ -265,10 +266,6 @@ export interface QueryOutcome {
   readonly design?: unknown;
 }
 
-/** Whether a tool's result reports a failure. */
-const isError = (result: unknown): boolean =>
-  typeof result === "object" && result !== null && "error" in result;
-
 /**
  * Run a tool's command line. `context` builds the service context, given
  * whether `--cache` asked for the disk cache.
@@ -310,10 +307,10 @@ export const runQuery = async (
   }
   const json = options.isTTY ? JSON.stringify(result, null, 2) : JSON.stringify(result);
   return {
-    exitCode: isError(result) ? 1 : 0,
+    exitCode: isErrorResult(result) ? 1 : 0,
     stdout: json,
     design: parsed.args.design,
-    ...(isError(result) ? { errorMessage: String((result as { error: unknown }).error) } : {}),
+    ...(isErrorResult(result) ? { errorMessage: result.error } : {}),
   };
 };
 

@@ -448,10 +448,14 @@ export interface ComponentDetailsResult {
 }
 
 /**
- * Type guard to check if result is an error
+ * Whether a result is a failure. A record can carry its own `error` (a
+ * duplicated refdes) beside its data; a failure carries nothing else.
  */
 export const isErrorResult = (result: unknown): result is ErrorResult =>
-  Boolean(result && typeof (result as ErrorResult).error === "string");
+  typeof result === "object" &&
+  result !== null &&
+  typeof (result as ErrorResult).error === "string" &&
+  Object.keys(result).length === 1;
 
 /**
  * Options for design discovery.
