@@ -154,7 +154,7 @@ The same call with `design_variant: "<Default>"` returns the base part (here a 5
 }
 ```
 
-A part that draws one of its sections more than once, with no pin wired to two different nets, is one part: it returns one record, and its `error` names the section and the pages, as in `"Section F is placed twice (pages 15_POWER, 18_DISPLAY)"`. A pin left unconnected on one copy takes the other copy's net. Pages are named as the schematic names them.
+A part that draws one of its sections more than once, with no pin wired to two different nets, is one part: it returns one record, and its `error` names the section and the pages, as in `"Section F is placed twice (pages 15_POWER, 18_DISPLAY)"`. One part of a duplicated refdes that does so carries both, separated by `; `. A pin left unconnected on one copy takes the other copy's net. Pages are named as the schematic names them.
 
 **Error (component not found):**
 ```json

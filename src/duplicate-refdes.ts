@@ -48,7 +48,7 @@ export interface DuplicateRefdesFinding {
 
 export const duplicateFinding = (parts: DuplicatePart[]): DuplicateRefdesFinding => ({
   part_count: parts.length,
-  pages: parts.flatMap((part) => part.pages).sort(naturalSort),
+  pages: [...new Set(parts.flatMap((part) => part.pages))].sort(naturalSort),
 });
 
 const times = (n: number): string => (n === 2 ? "twice" : `${n} times`);
@@ -71,12 +71,14 @@ export const describeDuplicates = (netlist: ParsedNetlist): string =>
 
 /**
  * The error a component's record carries: DUPLICATE_REFDES_ERROR for a part
- * that shares its refdes with another, or what it draws more than once.
+ * that shares its refdes with another, and what it draws more than once.
  */
 export const componentError = (netlist: ParsedNetlist, key: string): string | undefined => {
-  if (isDuplicateKey(key)) return DUPLICATE_REFDES_ERROR;
-  const repeats = netlist.repeatedSections?.[key];
-  return repeats ? repeats.map(describeRepeatedSection).join("; ") : undefined;
+  const errors = [
+    ...(isDuplicateKey(key) ? [DUPLICATE_REFDES_ERROR] : []),
+    ...(netlist.repeatedSections?.[key] ?? []).map(describeRepeatedSection),
+  ];
+  return errors.length > 0 ? errors.join("; ") : undefined;
 };
 
 /** The default for callers without a netlist: only a duplicated refdes is known. */

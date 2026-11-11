@@ -133,4 +133,27 @@ describe("a refdes the schematic gives to two different parts", () => {
     });
     expect(result).not.toHaveProperty("components");
   });
+
+  it("query_component names the repeated section of one part of a duplicated refdes", async () => {
+    vi.spyOn(parsersModule, "findHandler").mockReturnValue({
+      name: "mock",
+      extensions: [".dsn"],
+      canHandle: () => true,
+      discoverDesigns: vi.fn(),
+      parse: vi.fn(),
+    });
+    vi.spyOn(parsersModule, "parseDesign").mockResolvedValue({
+      ...structuredClone(NETLIST),
+      repeatedSections: { "Q7~2": [{ pages: ["07_CLOCKS", "08_RESET"] }] },
+    });
+
+    const result = await queryComponent(DESIGN, "Q7");
+
+    expect(result).toMatchObject({
+      components: [
+        { error: DUPLICATE_REFDES_ERROR },
+        { error: `${DUPLICATE_REFDES_ERROR}; Placed twice (pages 07_CLOCKS, 08_RESET)` },
+      ],
+    });
+  });
 });

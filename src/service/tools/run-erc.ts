@@ -170,15 +170,22 @@ const RULES: Rule[] = [
     id: "refdes.section_repeated",
     severity: "error",
     shape: "obj",
-    run: (_scan, _names, netlist) =>
-      Object.entries(netlist.repeatedSections ?? {}).map(([key, repeats]) => ({
-        net: displayRefdes(key),
-        detail: repeats.map((repeat) => ({
-          ...(repeat.section && { section: repeat.section }),
-          placements: repeat.pages.length,
-          pages: repeat.pages,
-        })),
-      })),
+    run: (_scan, _names, netlist) => {
+      // The parts of a duplicated refdes share one entry.
+      const byRefdes = new Map<string, SectionRepeatFinding[]>();
+      for (const [key, repeats] of Object.entries(netlist.repeatedSections ?? {})) {
+        const refdes = displayRefdes(key);
+        byRefdes.set(refdes, [
+          ...(byRefdes.get(refdes) ?? []),
+          ...repeats.map((repeat) => ({
+            ...(repeat.section && { section: repeat.section }),
+            placements: repeat.pages.length,
+            pages: repeat.pages,
+          })),
+        ]);
+      }
+      return [...byRefdes].map(([net, detail]) => ({ net, detail }));
+    },
   },
   {
     id: "net.unnamed",

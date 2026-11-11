@@ -170,6 +170,20 @@ describe("runErc rule selection", () => {
     });
   });
 
+  it("lists a page once when the parts of a duplicated refdes share it", async () => {
+    const r = await erc({
+      nets: {},
+      components: { "R4~1": { pins: {} }, "R4~2": { pins: {} } },
+      duplicateRefdes: {
+        R4: [
+          { key: "R4~1", pages: ["25_LDO"] },
+          { key: "R4~2", pages: ["25_LDO"] },
+        ],
+      },
+    });
+    expect(r.errors?.["refdes.duplicate"]).toEqual({ R4: { part_count: 2, pages: ["25_LDO"] } });
+  });
+
   it("names the block placement of a page reused by several blocks", async () => {
     const r = await erc({
       nets: {},
@@ -197,6 +211,23 @@ describe("runErc rule selection", () => {
     });
     expect(r.errors?.["refdes.section_repeated"]).toEqual({
       U13: [{ section: "F", placements: 2, pages: ["15_POWER", "18_DISPLAY"] }],
+    });
+  });
+
+  it("keeps the repeated sections of every part of a duplicated refdes", async () => {
+    const r = await erc({
+      nets: {},
+      components: { "C4~1": { pins: {} }, "C4~2": { pins: {} } },
+      repeatedSections: {
+        "C4~1": [{ pages: ["P1", "P2"] }],
+        "C4~2": [{ pages: ["P3", "P4"] }],
+      },
+    });
+    expect(r.errors?.["refdes.section_repeated"]).toEqual({
+      C4: [
+        { placements: 2, pages: ["P1", "P2"] },
+        { placements: 2, pages: ["P3", "P4"] },
+      ],
     });
   });
 
