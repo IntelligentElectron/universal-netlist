@@ -7,7 +7,9 @@ import {
   naturalSort,
   traverseCircuitFromNet,
   computeCircuitHash,
+  groundNameNote,
   isGroundNet,
+  looksLikeGround,
 } from "../../circuit-traversal.js";
 import {
   isErrorResult,
@@ -82,10 +84,13 @@ export const queryXnetByNetName = async (
     response.skipped = traversal.skipped;
   }
 
+  const notes: string[] = [];
   if (resolution.status !== "exact") {
     response.net = net;
-    response.notes = [describeResolution(netName, resolution)];
+    notes.push(describeResolution(netName, resolution));
   }
+  if (looksLikeGround(net)) notes.push(groundNameNote(net));
+  if (notes.length > 0) response.notes = notes;
   const warnings = names.warningsFor([net, ...traversal.visited_nets]);
   if (warnings.length > 0) response.net_name_warnings = warnings;
 
@@ -190,6 +195,8 @@ export const queryXnetByPinName = async (
   if (Object.keys(traversal.skipped).length > 0) {
     response.skipped = traversal.skipped;
   }
+
+  if (looksLikeGround(connectedNet)) response.notes = [groundNameNote(connectedNet)];
 
   const warnings = indexNetNames(netlist).warningsFor([connectedNet, ...traversal.visited_nets]);
   if (warnings.length > 0) response.net_name_warnings = warnings;

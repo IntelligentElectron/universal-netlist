@@ -1,0 +1,16 @@
+{
+  "name": "classify",
+  "assumes": [
+    "a net in the design other than NC, which a trace never crosses",
+    "role start is the net query_xnet_by_net_name names, or the net under the pin query_xnet_by_pin_name names; role reached is a net a trace arrives at through a series passive",
+    "name ground is a ground token with letters and digits only (GND, GND1, GNDREF, AGND, VSS); separated_ground starts with a ground token and has a separator (GND_SW); power is a power rail name (VCC_3V3, 3V3); signal is anything else",
+    "pin ground_pin is a pin whose function name is a ground by the same rule (GND, GND1, PGND); supply_pin is VCC or VDD with letters and digits (AVDD, VDDIO) or VBAT, VBATT, VBUS, VSYS with at most digits after",
+    "size over_40 means more than 40 pins on the net"
+  ],
+  "dimensions": {
+    "role": ["start", "reached"],
+    "name": ["ground", "separated_ground", "power", "signal"],
+    "pin": ["none", "ground_pin", "supply_pin"],
+    "size": ["small", "over_40"]
+  }
+}

@@ -134,7 +134,7 @@ Response:
 }
 ```
 
-Ground nets return massive results that are not useful, so pins connected to them are blocked. See [Power/Ground Stop Nets](../schemas/shared-types.md#powerground-stop-nets) for the full list.
+Ground nets return massive results that are not useful, so pins connected to them are blocked. Only a net that is a ground by name is refused: `GND`, `GND1`, `AGND`, `VSS`. A pin on a net such as `GND_SW` is traced, and the result's `notes` says the net looks like a ground. See [Power/Ground Stop Nets](../schemas/shared-types.md#powerground-stop-nets) for the full rule.
 
 ## Pin Name Format
 

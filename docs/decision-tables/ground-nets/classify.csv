@@ -1,0 +1,49 @@
+role,name,pin,size,outcome,next,status,note
+start,ground,none,small,refused as a ground,,decided,decided: only a ground name with no separator is refused; pin evidence never refuses a query. query-xnet.ts: isGroundNet
+start,ground,none,over_40,refused as a ground,,decided,decided: only a ground name with no separator is refused; pin evidence never refuses a query. query-xnet.ts: isGroundNet
+start,ground,ground_pin,small,refused as a ground,,decided,decided: only a ground name with no separator is refused; pin evidence never refuses a query. query-xnet.ts: isGroundNet
+start,ground,ground_pin,over_40,refused as a ground,,decided,decided: only a ground name with no separator is refused; pin evidence never refuses a query. query-xnet.ts: isGroundNet
+start,ground,supply_pin,small,refused as a ground,,decided,decided: only a ground name with no separator is refused; pin evidence never refuses a query. query-xnet.ts: isGroundNet
+start,ground,supply_pin,over_40,refused as a ground,,decided,decided: only a ground name with no separator is refused; pin evidence never refuses a query. query-xnet.ts: isGroundNet
+start,separated_ground,none,small,"traced, with a ground-name note",,decided,"decided: a name with a separator is a signal by name, answered with a note. query-xnet.ts: looksLikeGround, groundNameNote"
+start,separated_ground,none,over_40,"traced, with a ground-name note",,decided,"decided: a name with a separator is a signal by name, answered with a note. query-xnet.ts: looksLikeGround, groundNameNote"
+start,separated_ground,ground_pin,small,"traced, with a ground-name note",,decided,"decided: a name with a separator is a signal by name, answered with a note. query-xnet.ts: looksLikeGround, groundNameNote"
+start,separated_ground,ground_pin,over_40,"traced, with a ground-name note",,decided,"decided: a name with a separator is a signal by name, answered with a note. query-xnet.ts: looksLikeGround, groundNameNote"
+start,separated_ground,supply_pin,small,"traced, with a ground-name note",,decided,"decided: a name with a separator is a signal by name, answered with a note. query-xnet.ts: looksLikeGround, groundNameNote"
+start,separated_ground,supply_pin,over_40,"traced, with a ground-name note",,decided,"decided: a name with a separator is a signal by name, answered with a note. query-xnet.ts: looksLikeGround, groundNameNote"
+start,power,none,small,traced,,draft,circuit-traversal.ts traverseCircuitFromNet: the start net is exempt from every stop rule
+start,power,none,over_40,traced,,draft,circuit-traversal.ts traverseCircuitFromNet: the start net is exempt from every stop rule
+start,power,ground_pin,small,traced,,draft,circuit-traversal.ts traverseCircuitFromNet: the start net is exempt from every stop rule
+start,power,ground_pin,over_40,traced,,draft,circuit-traversal.ts traverseCircuitFromNet: the start net is exempt from every stop rule
+start,power,supply_pin,small,traced,,draft,circuit-traversal.ts traverseCircuitFromNet: the start net is exempt from every stop rule
+start,power,supply_pin,over_40,traced,,draft,circuit-traversal.ts traverseCircuitFromNet: the start net is exempt from every stop rule
+start,signal,none,small,traced,,draft,circuit-traversal.ts traverseCircuitFromNet: the start net is exempt from every stop rule
+start,signal,none,over_40,traced,,draft,circuit-traversal.ts traverseCircuitFromNet: the start net is exempt from every stop rule
+start,signal,ground_pin,small,traced,,draft,circuit-traversal.ts traverseCircuitFromNet: the start net is exempt from every stop rule
+start,signal,ground_pin,over_40,traced,,draft,circuit-traversal.ts traverseCircuitFromNet: the start net is exempt from every stop rule
+start,signal,supply_pin,small,traced,,draft,circuit-traversal.ts traverseCircuitFromNet: the start net is exempt from every stop rule
+start,signal,supply_pin,over_40,traced,,draft,circuit-traversal.ts traverseCircuitFromNet: the start net is exempt from every stop rule
+reached,ground,none,small,trace stops here,,draft,circuit-traversal.ts shouldStopAtNet: isStopNet
+reached,ground,none,over_40,trace stops here,,draft,circuit-traversal.ts shouldStopAtNet: isStopNet
+reached,ground,ground_pin,small,trace stops here,,draft,circuit-traversal.ts shouldStopAtNet: isStopNet
+reached,ground,ground_pin,over_40,trace stops here,,draft,circuit-traversal.ts shouldStopAtNet: isStopNet
+reached,ground,supply_pin,small,trace stops here,,draft,circuit-traversal.ts shouldStopAtNet: isStopNet
+reached,ground,supply_pin,over_40,trace stops here,,draft,circuit-traversal.ts shouldStopAtNet: isStopNet
+reached,separated_ground,none,small,trace continues,,decided,decided: GND_SW is traced like a signal
+reached,separated_ground,none,over_40,trace stops here,,draft,shouldStopAtNet: pinCount > stopNetPinThreshold (40)
+reached,separated_ground,ground_pin,small,trace stops here,,decided,"decided: a ground or supply pin, by the same name rule, stops a trace. shouldStopAtNet: hasGroundPin, hasPowerPin"
+reached,separated_ground,ground_pin,over_40,trace stops here,,decided,"decided: a ground or supply pin, by the same name rule, stops a trace. shouldStopAtNet: hasGroundPin, hasPowerPin"
+reached,separated_ground,supply_pin,small,trace stops here,,decided,"decided: a ground or supply pin, by the same name rule, stops a trace. shouldStopAtNet: hasGroundPin, hasPowerPin"
+reached,separated_ground,supply_pin,over_40,trace stops here,,decided,"decided: a ground or supply pin, by the same name rule, stops a trace. shouldStopAtNet: hasGroundPin, hasPowerPin"
+reached,power,none,small,trace stops here,,draft,circuit-traversal.ts shouldStopAtNet: isStopNet
+reached,power,none,over_40,trace stops here,,draft,circuit-traversal.ts shouldStopAtNet: isStopNet
+reached,power,ground_pin,small,trace stops here,,draft,circuit-traversal.ts shouldStopAtNet: isStopNet
+reached,power,ground_pin,over_40,trace stops here,,draft,circuit-traversal.ts shouldStopAtNet: isStopNet
+reached,power,supply_pin,small,trace stops here,,draft,circuit-traversal.ts shouldStopAtNet: isStopNet
+reached,power,supply_pin,over_40,trace stops here,,draft,circuit-traversal.ts shouldStopAtNet: isStopNet
+reached,signal,none,small,trace continues,,draft,shouldStopAtNet: no stop rule applies
+reached,signal,none,over_40,trace stops here,,draft,shouldStopAtNet: pinCount > stopNetPinThreshold (40)
+reached,signal,ground_pin,small,trace stops here,,decided,"decided: a ground or supply pin, by the same name rule, stops a trace. shouldStopAtNet: hasGroundPin, hasPowerPin"
+reached,signal,ground_pin,over_40,trace stops here,,decided,"decided: a ground or supply pin, by the same name rule, stops a trace. shouldStopAtNet: hasGroundPin, hasPowerPin"
+reached,signal,supply_pin,small,trace stops here,,decided,"decided: a ground or supply pin, by the same name rule, stops a trace. shouldStopAtNet: hasGroundPin, hasPowerPin"
+reached,signal,supply_pin,over_40,trace stops here,,decided,"decided: a ground or supply pin, by the same name rule, stops a trace. shouldStopAtNet: hasGroundPin, hasPowerPin"

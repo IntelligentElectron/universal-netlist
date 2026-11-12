@@ -46,6 +46,40 @@ describe("queryXnetByNetName - ground net blocking", () => {
     expect((result as ErrorResult).error).toContain("cannot be queried");
   });
 
+  it("should trace a small GND_* net and note its ground-like name", async () => {
+    const mockNetlist: ParsedNetlist = {
+      nets: { GND_SW: { Q1: ["3"], TP1: ["1"] } },
+      components: {
+        Q1: { pins: { "3": "GND_SW" }, mpn: "NFET-1" },
+        TP1: { pins: { "1": "GND_SW" } },
+      },
+    };
+    vi.spyOn(parsersModule, "parseDesign").mockResolvedValue(mockNetlist);
+
+    const result = await queryXnetByNetName("/mock/design.dsn", "GND_SW");
+
+    expect(isErrorResult(result)).toBe(false);
+    expect(result).toMatchObject({ total_components: 2 });
+    expect((result as { notes?: string[] }).notes?.[0]).toContain("named like a ground");
+  });
+
+  it("should trace a GND_* net that only its pins call ground, such as a floating return", async () => {
+    // easyinverter's Source_HSA: a high-side sensor's GND pin rides the switch node.
+    const mockNetlist: ParsedNetlist = {
+      nets: { Source_HSA: { U3A: ["3"], HS1A: ["3"] } },
+      components: {
+        U3A: { pins: { "3": { name: "GND", net: "Source_HSA" } }, mpn: "MCP9700" },
+        HS1A: { pins: { "3": { name: "S", net: "Source_HSA" } }, mpn: "MOSFET" },
+      },
+    };
+    vi.spyOn(parsersModule, "parseDesign").mockResolvedValue(mockNetlist);
+
+    const result = await queryXnetByNetName("/mock/design.dsn", "Source_HSA");
+
+    expect(isErrorResult(result)).toBe(false);
+    expect(result).toMatchObject({ total_components: 2 });
+  });
+
   it("should return error for DGND net", async () => {
     const mockNetlist: ParsedNetlist = {
       nets: { DGND: { U1: ["1"] } },
@@ -149,6 +183,23 @@ describe("queryXnetByPinName - ground net blocking", () => {
     expect((result as ErrorResult).error).toContain("(ground)");
     expect((result as ErrorResult).error).toContain("cannot be queried");
     expect((result as ErrorResult).error).toContain("R1.2");
+  });
+
+  it("should trace from a pin on a small GND_* net", async () => {
+    const mockNetlist: ParsedNetlist = {
+      nets: { GND_SW: { Q1: ["3"], TP1: ["1"] } },
+      components: {
+        Q1: { pins: { "3": "GND_SW" }, mpn: "NFET-1" },
+        TP1: { pins: { "1": "GND_SW" } },
+      },
+    };
+    vi.spyOn(parsersModule, "parseDesign").mockResolvedValue(mockNetlist);
+
+    const result = await queryXnetByPinName("/mock/design.dsn", "Q1.3");
+
+    expect(isErrorResult(result)).toBe(false);
+    expect(result).toMatchObject({ net: "GND_SW", total_components: 2 });
+    expect((result as { notes?: string[] }).notes?.[0]).toContain("named like a ground");
   });
 
   it("should return error when pin is connected to GNDREF", async () => {

@@ -570,7 +570,11 @@ The Cadence schematic parser reads both markers and variants. The regression sui
 Circuit traversal (`query_xnet_*`) stops at power and ground nets to prevent unbounded exploration.
 
 **Ground nets:**
-- `GND`, `VSS`, `AGND`, `DGND`, `PGND`, `SGND`, `CGND`
+- `GND`, `VSS`, `AGND`, `DGND`, `PGND`, `SGND`, `CGND`, followed by letters and digits only: `GND1`, `GNDREF`, `AGND2`, `VSSA`
+- A name with a separator is not a ground by name: `GND_SW`, `GND_23` and `GND_SIGNAL` are signals, usually local links named after the ground they lead to. A query starting on one is answered, with a note that it looks like a ground.
+- The query tools refuse only a net that is a ground by name.
+
+**Ground and supply pins:** traversal also stops at a net with a pin whose function name is a ground by the same rule (`GND`, `GND1`, `PGND`, `VSSA`, but not `GND_BRIDGE`), or a supply pin: `VCC` or `VDD` with letters and digits after them and an optional `A`, `D`, `P` or `IO` before (`AVDD`, `VDDIO`, `VCCB`), or `VBAT`, `VBATT`, `VBUS`, `VSYS` with at most digits after them. A repeated pin name such as `GND#10` counts as `GND`. The pin rule stops a trace but never refuses a query.
 
 **Power rail patterns:**
 - `VCC*`, `VDD*` - Standard power rails
@@ -584,8 +588,10 @@ Circuit traversal (`query_xnet_*`) stops at power and ground nets to prevent unb
 
 **Regex pattern (for reference):**
 ```regex
-/^(GND|VSS|AGND|DGND|PGND|SGND|CGND|VCC\w*|VDD\w*|VIN\w*|VOUT\w*|VBAT\w*|VBUS\w*|VSYS\w*|PWR_\w+|RAIL_\w+|PP\w*|PN\w*|LD_PP\w*|LD_PN\w*|[+-]?\d+V\d*\w*|[+-].+)$/i
+/^(GND[A-Z0-9]*|VSS[A-Z0-9]*|AGND[A-Z0-9]*|DGND[A-Z0-9]*|PGND[A-Z0-9]*|SGND[A-Z0-9]*|CGND[A-Z0-9]*|VCC\w*|VDD\w*|VIN\w*|VOUT\w*|VBAT\w*|VBUS\w*|VSYS\w*|PWR_\w+|RAIL_\w+|PP\w*|PN\w*|LD_PP\w*|LD_PN\w*|[+-]?\d+V\d*\w*|[+-].+)$/i
 ```
+
+**Pin count:** a net with more than 40 pins also stops traversal, whatever its name. The net a query starts on is exempt from every stop rule.
 
 **Note:** `NC` (No Connect) is not a stop net but is handled specially - pins connected to NC return an empty circuit.
 
@@ -601,6 +607,7 @@ A note about particular components is in `component_notes`; see
 | `"No nets matched pattern '...'"` | Search returned empty results |
 | `"All N components with prefix '...' ... are DNS ..."` | `list_components` was called with `include_dns: false`, found the prefix, and every part under it is DNS; pass `include_dns: true` (the default) to list them |
 | `"This netlist has no MPN data..."` | Design has no MPN information |
+| `"... is named like a ground, but its name has a separator, so it is answered instead of refused."` | `query_xnet_*` started on a net such as `GND_SW`; see [Power/Ground Stop Nets](#powerground-stop-nets) |
 | `"No net is named ... exactly. It matched ..."` | `query_xnet_by_net_name` matched the name ignoring leading and trailing whitespace, or as a 31-character PSTWRITER 16.6 name; see [Net Name Warnings](#net-name-warnings) |
 
 ## Case Sensitivity
