@@ -21,7 +21,10 @@ Every design reports one path to query. For Cadence, it is the `.DSN` schematic,
 | `path` | string | No | Current working directory | Path to directory to search |
 | `pattern` | string | No | `".*"` | Regex pattern to filter design names |
 | `max_depth` | integer | No | Unlimited | Max directory recursion depth (0 = no recursion) |
-| `max_results` | integer | No | 50 | Max designs to return |
+| `max_results` | integer | No | 50 | Max `designs` entries to return |
+| `offset` | integer | No | 0 | Index of the first `designs` entry to return, from `next_offset` |
+
+`designs` is paged. When a page does not hold every entry, `notes` says which entries it holds, and `next_offset` is the offset of the next page while more remain.
 
 ## Response Schema
 
@@ -86,7 +89,7 @@ Returns the directory searched, the designs found in it, and notes about the sea
     "notes": {
       "type": "array",
       "items": { "type": "string" },
-      "description": "Present when no directory was named, or when the result was cut short by max_results"
+      "description": "Present when no directory was named, or when the result is one page of a longer list"
     }
   },
   "required": ["root", "designs"]

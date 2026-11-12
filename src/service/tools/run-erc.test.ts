@@ -277,3 +277,29 @@ describe.skipIf(!hasRdimm)("runErc integration (rdimm-ddr4-tester)", () => {
     expect(() => JSON.stringify(r)).not.toThrow();
   });
 });
+
+describe("runErc paging", () => {
+  it("pages findings across rules, errors before warnings", async () => {
+    const netlist: ParsedNetlist = {
+      nets: { STUB: { U1: ["5"], TP1: ["1"] }, A: { R1: ["1"] }, B: { R2: ["1"] } },
+      components: {
+        U1: { pins: { "5": "STUB" } },
+        TP1: { pins: { "1": "STUB" } },
+        R1: { pins: { "1": "A" } },
+        R2: { pins: { "1": "B" } },
+      },
+    };
+
+    const first = await erc(netlist, { maxResults: 2 });
+    expect(first.errors).toEqual({ "net.single_pin": { A: ["R1.1"], B: ["R2.1"] } });
+    expect(first.warnings).toBeUndefined();
+    expect(first.next_offset).toBe(2);
+    expect(first.totals).toEqual({ "net.single_pin": 2, "net.testpoint_stub": 1 });
+
+    const last = await erc(netlist, { maxResults: 2, offset: 2 });
+    expect(last.errors).toBeUndefined();
+    expect(Object.keys(last.warnings ?? {})).toEqual(["net.testpoint_stub"]);
+    expect(last.notes).toEqual(["findings shows entries 3-3 of 3."]);
+    expect(last.checked).toEqual(first.checked);
+  });
+});

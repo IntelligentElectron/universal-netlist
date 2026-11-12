@@ -8,6 +8,7 @@ import {
   type DuplicateRefdesFinding,
 } from "../../duplicate-refdes.js";
 import { indexNetNames, type NetNameIndex } from "../net-names.js";
+import { pageGroups } from "../pagination.js";
 import {
   isErrorResult,
   type NetConnections,
@@ -37,6 +38,9 @@ export interface ErcOptions {
   includeRules?: string[];
   excludeRules?: string[];
   designVariant?: string;
+  /** Findings per page, counted across every rule. Omit for all of them. */
+  maxResults?: number;
+  offset?: number;
 }
 
 export interface ErcResult {
@@ -50,6 +54,11 @@ export interface ErcResult {
   // value is { [refdes]: DuplicateRefdesFinding }.
   errors?: ErcFindings;
   warnings?: ErcFindings;
+  /** Findings per rule across every page, for the rules that found any. */
+  totals?: Record<string, number>;
+  notes?: string[];
+  /** The offset of the next page of findings, when there are more. */
+  next_offset?: number;
 }
 
 /** Per-net endpoints split by kind, computed once and shared by every rule. */
@@ -225,7 +234,8 @@ const buildScan = (
 };
 
 /**
- * Run electrical rule checks over a design's netlist. Full output, never truncated.
+ * Run electrical rule checks over a design's netlist. Findings are paged across
+ * every rule, errors before warnings.
  */
 export const runErc = async (
   design: string,
@@ -265,21 +275,34 @@ export const runErc = async (
   const errors: ErcFindings = {};
   const warnings: ErcFindings = {};
   const names = indexNetNames(netlist);
-  for (const rule of selected) {
-    const findings = rule.run(scan, names, netlist);
+  const bySeverity = [...selected].sort(
+    (a, b) => Number(a.severity !== "error") - Number(b.severity !== "error")
+  );
+  const found = bySeverity.map(
+    (rule) =>
+      [rule, [...rule.run(scan, names, netlist)].sort((a, b) => naturalSort(a.net, b.net))] as const
+  );
+  const totals = Object.fromEntries(
+    found.filter(([, findings]) => findings.length > 0).map(([rule, f]) => [rule.id, f.length])
+  );
+  const page = pageGroups(
+    found,
+    "findings",
+    opts.maxResults ?? Number.MAX_SAFE_INTEGER,
+    opts.offset ?? 0
+  );
+  for (const [rule, findings] of page.groups) {
     if (findings.length === 0) continue;
     const bucket = rule.severity === "error" ? errors : warnings;
     if (rule.shape === "arr") {
-      bucket[rule.id] = findings.map((f) => f.net).sort(naturalSort);
+      bucket[rule.id] = findings.map((f) => f.net);
     } else if (rule.shape === "obj") {
-      bucket[rule.id] = Object.fromEntries(
-        [...findings].sort((a, b) => naturalSort(a.net, b.net)).map((f) => [f.net, f.detail!])
-      );
+      bucket[rule.id] = Object.fromEntries(findings.map((f) => [f.net, f.detail!]));
     } else {
       // Endpoint lists are ALWAYS arrays here, even at length 1. Do not "simplify"
       // single-element endpoints to a bare string; the ERC contract is uniform arrays.
       const map: Record<string, string[]> = {};
-      for (const f of [...findings].sort((a, b) => naturalSort(a.net, b.net))) {
+      for (const f of findings) {
         map[f.net] = f.endpoints ?? [];
       }
       bucket[rule.id] = map;
@@ -296,5 +319,8 @@ export const runErc = async (
   };
   if (Object.keys(errors).length > 0) result.errors = errors;
   if (Object.keys(warnings).length > 0) result.warnings = warnings;
+  if (Object.keys(totals).length > 0) result.totals = totals;
+  if (page.note) result.notes = [page.note];
+  if (page.next_offset !== undefined) result.next_offset = page.next_offset;
   return result;
 };

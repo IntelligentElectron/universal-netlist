@@ -16,6 +16,10 @@ The prefix is matched whole, not as a leading substring: `U` returns `U1` and `U
 | `type` | string | Yes | - | Whole refdes prefix: `U`, `C`, `R`, `L`, `J`, `D`, `Q`, `TP`, `USB`, etc. |
 | `include_dns` | boolean | No | `true` | Include DNS (Do Not Stuff) components, flagged `dns: true`; pass `false` to list only fitted parts |
 | `design_variant` | string | Conditional | - | Design variant name from `list_designs`' `design_variants`. Required when the design records named variants, which are its only builds. `<Default>` (alias: `default`) is the one build of a design that records none |
+| `max_results` | integer | No | 50 | Max `components` entries to return |
+| `offset` | integer | No | 0 | Index of the first `components` entry to return, from `next_offset` |
+
+`components` is paged. When a page does not hold every entry, `notes` says which entries it holds, and `next_offset` is the offset of the next page while more remain.
 
 ## Response Schema
 

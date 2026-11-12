@@ -58,12 +58,24 @@ describe("tool registry", () => {
 
   it("applies each argument's default in the schema, before the tool runs", () => {
     const parsed = findTool("list_components")!.inputSchema.parse({ design: "a.DSN", type: "U" });
-    expect(parsed).toEqual({ design: "a.DSN", type: "U", include_dns: true });
+    expect(parsed).toEqual({
+      design: "a.DSN",
+      type: "U",
+      include_dns: true,
+      max_results: 50,
+      offset: 0,
+    });
     const traced = findTool("query_xnet_by_net_name")!.inputSchema.parse({
       design: "a.DSN",
       net_name: "GND",
     });
-    expect(traced).toEqual({ design: "a.DSN", net_name: "GND", include_dns: false });
+    expect(traced).toEqual({
+      design: "a.DSN",
+      net_name: "GND",
+      include_dns: false,
+      max_results: 50,
+      offset: 0,
+    });
   });
 
   it("refuses to let a host change the shared annotations", () => {

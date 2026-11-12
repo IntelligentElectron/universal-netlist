@@ -39,6 +39,9 @@ const run = <R>(name: string, args: Record<string, unknown>): Promise<R | ErrorR
     serviceContextFromEnvironment()
   ) as Promise<R | ErrorResult>;
 
+/** Every entry of a paged list: these functions return whole lists unless asked for a page. */
+const ALL = Number.MAX_SAFE_INTEGER;
+
 export const listDesigns = (
   options: ListDesignsOptions = {}
 ): Promise<ListDesignsResult | ErrorResult> =>
@@ -46,7 +49,8 @@ export const listDesigns = (
     path: options.searchPath,
     pattern: options.pattern,
     max_depth: options.maxDepth,
-    max_results: options.maxResults,
+    max_results: options.maxResults ?? ALL,
+    offset: options.offset,
   });
 
 export const listComponents = (
@@ -60,20 +64,21 @@ export const listComponents = (
     type,
     include_dns: includeDns,
     design_variant: designVariant,
+    max_results: ALL,
   });
 
 export const listNets = (
   design: string,
   designVariant?: string
 ): Promise<ListNetsResult | ErrorResult> =>
-  run("list_nets", { design, design_variant: designVariant });
+  run("list_nets", { design, design_variant: designVariant, max_results: ALL });
 
 export const searchNets = (
   pattern: string,
   design: string,
   designVariant?: string
 ): Promise<SearchNetsResult | ErrorResult> =>
-  run("search_nets", { pattern, design, design_variant: designVariant });
+  run("search_nets", { pattern, design, design_variant: designVariant, max_results: ALL });
 
 const searchComponents =
   (name: string) =>
@@ -83,7 +88,13 @@ const searchComponents =
     includeDns?: boolean,
     designVariant?: string
   ): Promise<SearchComponentsResult | ErrorResult> =>
-    run(name, { pattern, design, include_dns: includeDns, design_variant: designVariant });
+    run(name, {
+      pattern,
+      design,
+      include_dns: includeDns,
+      design_variant: designVariant,
+      max_results: ALL,
+    });
 
 export const searchComponentsByRefdes = searchComponents("search_components_by_refdes");
 export const searchComponentsByMpn = searchComponents("search_components_by_mpn");
@@ -94,7 +105,7 @@ export const queryComponent = (
   refdes: string,
   designVariant?: string
 ): Promise<QueryComponentResult | ErrorResult> =>
-  run("query_component", { design, refdes, design_variant: designVariant });
+  run("query_component", { design, refdes, design_variant: designVariant, max_results: ALL });
 
 const queryXnet =
   (name: string, key: "net_name" | "pin_name") =>
@@ -111,6 +122,7 @@ const queryXnet =
       skip_types: skipTypes,
       include_dns: includeDns,
       design_variant: designVariant,
+      max_results: ALL,
     });
 
 export const queryXnetByNetName = queryXnet("query_xnet_by_net_name", "net_name");
@@ -123,4 +135,6 @@ export const runErc = (design: string, opts: ErcOptions = {}): Promise<ErcResult
     include_rules: opts.includeRules,
     exclude_rules: opts.excludeRules,
     design_variant: opts.designVariant,
+    max_results: opts.maxResults ?? ALL,
+    offset: opts.offset,
   });

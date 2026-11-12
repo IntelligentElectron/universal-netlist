@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
-import type { ParsedNetlist } from "../../types.js";
+import { isErrorResult, type ParsedNetlist } from "../../types.js";
 import * as parsersModule from "../../parsers/index.js";
 import {
   queryComponent,
@@ -155,5 +155,14 @@ describe("a refdes the schematic gives to two different parts", () => {
         { error: `${DUPLICATE_REFDES_ERROR}; Placed twice (pages 07_CLOCKS, 08_RESET)` },
       ],
     });
+  });
+});
+
+describe("isErrorResult", () => {
+  it("is a failure only when error is the result's sole field", () => {
+    expect(isErrorResult({ error: "Net 'X' not found" })).toBe(true);
+    expect(isErrorResult({ refdes: "U13", error: "Section F is placed twice", pins: {} })).toBe(
+      false
+    );
   });
 });

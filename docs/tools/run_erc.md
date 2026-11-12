@@ -4,7 +4,7 @@ Run electrical rule checks (ERC) on a design's netlist.
 
 ## Description
 
-Evaluates deterministic connectivity rules over the parsed netlist and returns findings grouped by severity (`errors`, `warnings`) then rule id. Output is complete and never truncated.
+Evaluates deterministic connectivity rules over the parsed netlist and returns findings grouped by severity (`errors`, `warnings`) then rule id. Findings are paged across every rule, errors first: `max_results` findings (default 50) from `offset`, with `next_offset` set while more remain and a note saying which findings the page holds. `totals` gives every rule's finding count on each page, so a rule whose findings fall on a later page is still visible on the first. `checked` lists every rule that ran.
 
 Test points are identified by the `TP` reference-designator prefix. "Functional pins" are all non-test-point pins on a net.
 
@@ -34,6 +34,10 @@ An auto-generated name is one the EDA tool derived from a pin rather than a labe
 | `include_rules` | string[] | No | all | Run only these rule ids (e.g. `["net.single_pin"]`) |
 | `exclude_rules` | string[] | No | none | Skip these rule ids (applied after `include_rules`) |
 | `design_variant` | string | Conditional | - | Design variant name from `list_designs`' `design_variants`. Required when the design records named variants, which are its only builds. `<Default>` (alias: `default`) is the one build of a design that records none |
+| `max_results` | integer | No | 50 | Max `findings` entries to return |
+| `offset` | integer | No | 0 | Index of the first `findings` entry to return, from `next_offset` |
+
+`findings` is paged. When a page does not hold every entry, `notes` says which entries it holds, and `next_offset` is the offset of the next page while more remain.
 
 An unknown rule id in `include_rules` or `exclude_rules` returns an `ErrorResult` listing the valid ids, rather than silently checking nothing (which would look like a clean design). An empty `include_rules` array is likewise rejected: omit the field to run all rules.
 

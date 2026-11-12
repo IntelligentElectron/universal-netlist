@@ -45,6 +45,7 @@ import {
   searchComponentsByRefdes,
 } from "../service/tools/search-components.js";
 import { searchNets } from "../service/tools/search-nets.js";
+import { pageField, pagePins, pageResults } from "../service/pagination.js";
 import { serviceContextFromEnvironment, type ServiceContext } from "../service/context.js";
 import { resolvePath } from "../paths.js";
 
@@ -149,6 +150,24 @@ const INCLUDE_DNS_IN_TRAVERSAL = z
   .default(false)
   .describe("Include DNS components");
 
+const maxResults = (field: string) =>
+  z
+    .number()
+    .int()
+    .min(1)
+    .optional()
+    .default(50)
+    .describe(`Max ${field} entries to return. Default: 50.`);
+
+const offset = (field: string) =>
+  z
+    .number()
+    .int()
+    .min(0)
+    .optional()
+    .default(0)
+    .describe(`Index of the first ${field} entry to return, from next_offset. Default: 0.`);
+
 // =============================================================================
 // Tools
 // =============================================================================
@@ -167,17 +186,12 @@ export const listDesignsTool = defineTool({
       .min(0)
       .optional()
       .describe("Max directory recursion depth (0 = no recursion). Omit for unlimited."),
-    max_results: z
-      .number()
-      .int()
-      .min(1)
-      .optional()
-      .default(50)
-      .describe("Max designs to return. Default: 50."),
+    max_results: maxResults("designs"),
+    offset: offset("designs"),
   }),
-  run: ({ path, pattern, max_depth, max_results }, context) =>
+  run: ({ path, pattern, max_depth, max_results, offset }, context) =>
     listDesigns(
-      { searchPath: path, pattern, maxDepth: max_depth, maxResults: max_results },
+      { searchPath: path, pattern, maxDepth: max_depth, maxResults: max_results, offset },
       context
     ),
 });
@@ -198,9 +212,16 @@ export const listComponentsTool = defineTool({
         "Include DNS (Do Not Stuff) components, flagged dns=true. Pass false to list only fitted parts"
       ),
     design_variant: DESIGN_VARIANT_ARGUMENT,
+    max_results: maxResults("components"),
+    offset: offset("components"),
   }),
-  run: ({ design, type, include_dns, design_variant }, context) =>
-    listComponents(design, type, include_dns, design_variant, context),
+  run: async ({ design, type, include_dns, design_variant, max_results, offset }, context) =>
+    pageField(
+      await listComponents(design, type, include_dns, design_variant, context),
+      "components",
+      max_results,
+      offset
+    ),
 });
 
 export const listNetsTool = defineTool({
@@ -211,8 +232,11 @@ export const listNetsTool = defineTool({
   inputSchema: z.strictObject({
     design: z.string().describe("Path to design file"),
     design_variant: DESIGN_VARIANT_ARGUMENT,
+    max_results: maxResults("nets"),
+    offset: offset("nets"),
   }),
-  run: ({ design, design_variant }, context) => listNets(design, design_variant, context),
+  run: async ({ design, design_variant, max_results, offset }, context) =>
+    pageField(await listNets(design, design_variant, context), "nets", max_results, offset),
 });
 
 export const searchNetsTool = defineTool({
@@ -224,9 +248,11 @@ export const searchNetsTool = defineTool({
     pattern: z.string().describe("Regex pattern"),
     design: z.string().describe("Path to design file"),
     design_variant: DESIGN_VARIANT_ARGUMENT,
+    max_results: maxResults("results"),
+    offset: offset("results"),
   }),
-  run: ({ pattern, design, design_variant }, context) =>
-    searchNets(pattern, design, design_variant, context),
+  run: async ({ pattern, design, design_variant, max_results, offset }, context) =>
+    pageResults(await searchNets(pattern, design, design_variant, context), max_results, offset),
 });
 
 export const searchComponentsByRefdesTool = defineTool({
@@ -239,9 +265,15 @@ export const searchComponentsByRefdesTool = defineTool({
     design: z.string().describe("Path to design file"),
     include_dns: INCLUDE_DNS_IN_SEARCH,
     design_variant: DESIGN_VARIANT_ARGUMENT,
+    max_results: maxResults("results"),
+    offset: offset("results"),
   }),
-  run: ({ pattern, design, include_dns, design_variant }, context) =>
-    searchComponentsByRefdes(pattern, design, include_dns, design_variant, context),
+  run: async ({ pattern, design, include_dns, design_variant, max_results, offset }, context) =>
+    pageResults(
+      await searchComponentsByRefdes(pattern, design, include_dns, design_variant, context),
+      max_results,
+      offset
+    ),
 });
 
 export const searchComponentsByMpnTool = defineTool({
@@ -254,9 +286,15 @@ export const searchComponentsByMpnTool = defineTool({
     design: z.string().describe("Path to design file"),
     include_dns: INCLUDE_DNS_IN_SEARCH,
     design_variant: DESIGN_VARIANT_ARGUMENT,
+    max_results: maxResults("results"),
+    offset: offset("results"),
   }),
-  run: ({ pattern, design, include_dns, design_variant }, context) =>
-    searchComponentsByMpn(pattern, design, include_dns, design_variant, context),
+  run: async ({ pattern, design, include_dns, design_variant, max_results, offset }, context) =>
+    pageResults(
+      await searchComponentsByMpn(pattern, design, include_dns, design_variant, context),
+      max_results,
+      offset
+    ),
 });
 
 export const searchComponentsByDescriptionTool = defineTool({
@@ -269,9 +307,15 @@ export const searchComponentsByDescriptionTool = defineTool({
     design: z.string().describe("Path to design file"),
     include_dns: INCLUDE_DNS_IN_SEARCH,
     design_variant: DESIGN_VARIANT_ARGUMENT,
+    max_results: maxResults("results"),
+    offset: offset("results"),
   }),
-  run: ({ pattern, design, include_dns, design_variant }, context) =>
-    searchComponentsByDescription(pattern, design, include_dns, design_variant, context),
+  run: async ({ pattern, design, include_dns, design_variant, max_results, offset }, context) =>
+    pageResults(
+      await searchComponentsByDescription(pattern, design, include_dns, design_variant, context),
+      max_results,
+      offset
+    ),
 });
 
 export const queryXnetByNetNameTool = defineTool({
@@ -292,9 +336,19 @@ export const queryXnetByNetNameTool = defineTool({
       .describe("Component prefixes to exclude (e.g., ['C', 'L'])"),
     include_dns: INCLUDE_DNS_IN_TRAVERSAL,
     design_variant: DESIGN_VARIANT_ARGUMENT,
+    max_results: maxResults("components_by_mpn"),
+    offset: offset("components_by_mpn"),
   }),
-  run: ({ design, net_name, skip_types, include_dns, design_variant }, context) =>
-    queryXnetByNetName(design, net_name, skip_types, include_dns, design_variant, context),
+  run: async (
+    { design, net_name, skip_types, include_dns, design_variant, max_results, offset },
+    context
+  ) =>
+    pageField(
+      await queryXnetByNetName(design, net_name, skip_types, include_dns, design_variant, context),
+      "components_by_mpn",
+      max_results,
+      offset
+    ),
 });
 
 export const queryXnetByPinNameTool = defineTool({
@@ -308,9 +362,19 @@ export const queryXnetByPinNameTool = defineTool({
     skip_types: z.array(z.string()).optional().describe("Component prefixes to exclude"),
     include_dns: INCLUDE_DNS_IN_TRAVERSAL,
     design_variant: DESIGN_VARIANT_ARGUMENT,
+    max_results: maxResults("components_by_mpn"),
+    offset: offset("components_by_mpn"),
   }),
-  run: ({ design, pin_name, skip_types, include_dns, design_variant }, context) =>
-    queryXnetByPinName(design, pin_name, skip_types, include_dns, design_variant, context),
+  run: async (
+    { design, pin_name, skip_types, include_dns, design_variant, max_results, offset },
+    context
+  ) =>
+    pageField(
+      await queryXnetByPinName(design, pin_name, skip_types, include_dns, design_variant, context),
+      "components_by_mpn",
+      max_results,
+      offset
+    ),
 });
 
 export const queryComponentTool = defineTool({
@@ -322,9 +386,11 @@ export const queryComponentTool = defineTool({
     design: z.string().describe("Path to design file"),
     refdes: z.string().describe("Component reference designator"),
     design_variant: DESIGN_VARIANT_ARGUMENT,
+    max_results: maxResults("pins"),
+    offset: offset("pins"),
   }),
-  run: ({ design, refdes, design_variant }, context) =>
-    queryComponent(design, refdes, design_variant, context),
+  run: async ({ design, refdes, design_variant, max_results, offset }, context) =>
+    pagePins(await queryComponent(design, refdes, design_variant, context), max_results, offset),
 });
 
 export const runErcTool = defineTool({
@@ -345,8 +411,13 @@ export const runErcTool = defineTool({
       .describe("Only run these rule ids (e.g., ['net.single_pin']). Omit for all"),
     exclude_rules: z.array(z.string()).optional().describe("Skip these rule ids"),
     design_variant: DESIGN_VARIANT_ARGUMENT,
+    max_results: maxResults("findings"),
+    offset: offset("findings"),
   }),
-  run: ({ design, include_dns, include_rules, exclude_rules, design_variant }, context) =>
+  run: (
+    { design, include_dns, include_rules, exclude_rules, design_variant, max_results, offset },
+    context
+  ) =>
     runErc(
       design,
       {
@@ -354,6 +425,8 @@ export const runErcTool = defineTool({
         includeRules: include_rules,
         excludeRules: exclude_rules,
         designVariant: design_variant,
+        maxResults: max_results,
+        offset,
       },
       context
     ),
