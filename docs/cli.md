@@ -40,7 +40,7 @@ The result is the tool's JSON on stdout: indented on a terminal, one compact lin
 | Exit | Meaning |
 |------|---------|
 | 0 | The result answers the query |
-| 1 | The result has an `error` field |
+| 1 | The result is an error: `error` is its only field. A record that answers the query and carries its own `error` beside its data, such as a part with a duplicated reference designator, exits 0 |
 | 2 | A usage error: an unknown, repeated or missing flag, or a value of the wrong kind. The message and the tool's usage line go to stderr, and the tool does not run |
 
 `--help` (or `-h`) anywhere after the tool's name prints its description and every flag instead. A first word that is neither a command nor a tool exits 2 with the list of tools; it never starts the server. Query commands never update the binary.
@@ -73,6 +73,8 @@ The result names the design, the build written and the absolute path written:
 ```json
 {"design":"/work/MyBoard.DSN","design_variant":"Fab-A","output":"/work/out/board.netlist.json"}
 ```
+
+A design in which one reference designator names several different parts, or one part draws a section more than once, is refused with an error naming each: a Universal Netlist keys parts by reference designator. `run_erc` lists them under `refdes.duplicate` and `refdes.section_repeated`.
 
 The written file is itself a design: `list_designs` finds it, and every tool reads it. A file that records a variant lists that one name under `design_variants`, and queries of it name it with `design_variant`, as queries of its source do.
 

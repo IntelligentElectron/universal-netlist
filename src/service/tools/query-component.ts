@@ -2,10 +2,14 @@ import type { ServiceContext } from "../context.js";
 import { getDesignName } from "../../paths.js";
 import { loadNetlist } from "../load-netlist.js";
 import { MPN_MISSING_NOTE } from "../component-grouping.js";
-import { indexNetNames } from "../net-names.js";
+import { indexNetNames, type NetNameIndex } from "../net-names.js";
+import { componentError, displayRefdes, isDuplicateKey } from "../../duplicate-refdes.js";
 import {
   isErrorResult,
   getPinNet,
+  type ComponentDetails,
+  type ComponentDetailsResult,
+  type DuplicateComponentResult,
   type QueryComponentResult,
   type ErrorResult,
 } from "../../types.js";
@@ -22,31 +26,46 @@ export const queryComponent = async (
   refdes: string,
   designVariant: string | undefined,
   context: ServiceContext
-): Promise<QueryComponentResult | ErrorResult> => {
+): Promise<QueryComponentResult | DuplicateComponentResult | ErrorResult> => {
   const netlist = await loadNetlist(design, designVariant, context);
   if (isErrorResult(netlist)) {
     return netlist;
   }
 
-  const targetRefdes = refdes.trim();
-  const componentEntry = Object.entries(netlist.components).find(
-    ([key]) => key.toLowerCase() === targetRefdes.toLowerCase()
+  const targetRefdes = refdes.trim().toLowerCase();
+  const matches = Object.entries(netlist.components).filter(
+    ([key]) => displayRefdes(key).toLowerCase() === targetRefdes
   );
 
-  if (!componentEntry) {
+  if (matches.length === 0) {
     const designName = getDesignName(design, context.root);
     return {
       error: `Component '${refdes}' not found in design '${designName}'. Use list_components() or search_components_by_refdes() to find available components.`,
     };
   }
 
-  const [resolvedRefdes, component] = componentEntry;
-  const mpn = component.mpn?.trim() || undefined;
-  const dns = component.dns ?? false;
+  const names = indexNetNames(netlist);
+  const parts = matches.map(([key, component]) =>
+    describeComponent(key, component, names, componentError(netlist, key))
+  );
+  if (parts.length === 1 && !isDuplicateKey(matches[0][0])) {
+    return { design_variant: netlist.design_variant, ...parts[0] };
+  }
+  // One refdes on several different parts: every part, each with the error.
+  return { design_variant: netlist.design_variant, refdes: parts[0].refdes, components: parts };
+};
 
-  const result: QueryComponentResult = {
-    design_variant: netlist.design_variant,
-    refdes: resolvedRefdes,
+/** One part's details, as query_component reports them. */
+const describeComponent = (
+  key: string,
+  component: ComponentDetails[string],
+  names: NetNameIndex,
+  error: string | undefined
+): ComponentDetailsResult => {
+  const mpn = component.mpn?.trim() || undefined;
+  const result: ComponentDetailsResult = {
+    refdes: displayRefdes(key),
+    ...(error && { error }),
     pins: component.pins,
   };
 
@@ -73,7 +92,7 @@ export const queryComponent = async (
   if (component.value !== undefined) {
     result.value = component.value;
   }
-  if (dns) {
+  if (component.dns) {
     result.dns = true;
   }
   if (component.alternate_part) {
@@ -83,7 +102,7 @@ export const queryComponent = async (
     result.notes = [MPN_MISSING_NOTE];
   }
 
-  const warnings = indexNetNames(netlist).warningsFor(Object.values(component.pins).map(getPinNet));
+  const warnings = names.warningsFor(Object.values(component.pins).map(getPinNet));
   if (warnings.length > 0) result.net_name_warnings = warnings;
 
   return result;

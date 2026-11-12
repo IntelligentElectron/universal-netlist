@@ -29,7 +29,7 @@ import { resolvePinNumber, isPinIgnored } from "./pin-resolver.js";
  * records list the same properties in different orders then report part numbers
  * from different namespaces.
  */
-const PART_NUMBER_KEYS = ["PART_NUMBER", "Part Number", "PART NUMBER", "PN"] as const;
+export const PART_NUMBER_KEYS = ["PART_NUMBER", "Part Number", "PART NUMBER", "PN"] as const;
 
 /**
  * Property names holding the manufacturer's own part number, in precedence order.
@@ -48,7 +48,7 @@ const PART_NUMBER_KEYS = ["PART_NUMBER", "Part Number", "PART NUMBER", "PN"] as 
  * third namespace, neither the design's number nor the manufacturer's, and
  * putting one here would misattribute it to the manufacturer.
  */
-const MANUFACTURER_PN_KEYS = [
+export const MANUFACTURER_PN_KEYS = [
   "Manufacturer PN",
   "MANUFACTURER_PN",
   "Manufacturer Part Number",
@@ -93,7 +93,7 @@ const DESCRIPTION_KEYS = [
  * whitespace is a property left blank, so it falls through to the next name
  * rather than hiding the value a later spelling carries.
  */
-function readProperty(
+export function readProperty(
   prefixProperties: readonly PrefixPropertyPair[],
   strLst: string[],
   keys: readonly string[]

@@ -2,6 +2,7 @@ import type { ServiceContext } from "../context.js";
 import { getDesignName } from "../../paths.js";
 import { loadNetlist } from "../load-netlist.js";
 import { componentNotes, groupComponentsByMpn } from "../component-grouping.js";
+import { componentError } from "../../duplicate-refdes.js";
 import { matchesRefdesType, getRefdesPrefix } from "../../circuit-traversal.js";
 import { isErrorResult, type ListComponentsResult, type ErrorResult } from "../../types.js";
 
@@ -66,7 +67,9 @@ export const listComponents = async (
     };
   }
 
-  const components = groupComponentsByMpn(entries, includeDns);
+  const components = groupComponentsByMpn(entries, includeDns, (key) =>
+    componentError(netlist, key)
+  );
 
   // The prefix exists, and every part under it is DNS. An empty list here
   // reads as "the design has none", which is the opposite of the truth, so

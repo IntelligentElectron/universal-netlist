@@ -148,6 +148,8 @@ Refdes lookup is case-insensitive. \
 Returns MPN, description, value, and pin-to-net mappings when available. \
 Each pin maps to its net name, or to {name, net} where the pin has a function name that \
 differs from its number. A pin on no net reads as the net "NC", a marker and not a queryable net. \
+If the schematic gives the refdes to several different parts, the result lists every part \
+under \`components\`, each carrying \`error\`: "Reference designator is duplicated". \
 If the refdes is not found, \`search_components_by_refdes\` finds it; \
 errors include guidance and suggestions.`;
 
@@ -178,6 +180,10 @@ Rules: \`net.single_pin\` (error: a net with one functional pin and no test poin
 for Cadence, the Allegro netlister trims it), \
 \`net.whitespace_name_collision\` (error: separate nets whose names read the same once \
 trimmed, such as " SIG" and SIG), \
+\`refdes.duplicate\` (error: one refdes on several different parts; keyed by the refdes, \
+each value is {part_count, pages}), \
+\`refdes.section_repeated\` (error: one part drawing a section more than once; keyed by \
+the refdes, each value lists {section, placements, pages}), \
 \`net.unnamed\` (warning: an auto-generated net name on a real 2+-pin net). \
 Test points are identified by the \`TP\` refdes prefix. Findings key each net to its \
 \`REFDES.PIN\` endpoints (always arrays); \`net.unnamed\` lists bare net names. \

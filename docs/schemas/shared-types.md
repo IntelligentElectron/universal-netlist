@@ -41,6 +41,10 @@ Used in `list_components` and `search_components_by_*` results. Groups component
       "type": "integer",
       "description": "Number of components in group"
     },
+    "error": {
+      "type": "string",
+      "description": "The part's own problem, when it has one: \"Reference designator is duplicated\" or a section it draws more than once. A part with an error is grouped alone"
+    },
     "mpn": {
       "type": "string",
       "description": "The manufacturer's part number (omitted if the design records none)"

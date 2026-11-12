@@ -115,7 +115,12 @@ describe("Parser Golden Output", { timeout: PARSE_TIMEOUT }, async () => {
             ? parseCadenceDatDesign(parsePath)
             : parseDesign(parsePath));
 
-          expect(actual).toEqual(golden);
+          // A golden records what a Universal Netlist does: the nets and the
+          // components. The parser's findings about the drawing stay out of it.
+          expect({ nets: actual.nets, components: actual.components }).toEqual({
+            nets: golden.nets,
+            components: golden.components,
+          });
         });
       });
     }

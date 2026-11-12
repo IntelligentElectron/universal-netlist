@@ -13,7 +13,47 @@
       },
       "outcome": "usage on stderr, exit 2",
       "next": "",
-      "cells": 12
+      "cells": 16
+    },
+    {
+      "when": {
+        "help": [
+          "absent"
+        ],
+        "args": [
+          "valid"
+        ],
+        "result": [
+          "ok",
+          "error_beside_data"
+        ],
+        "stdout": [
+          "pipe"
+        ]
+      },
+      "outcome": "compact JSON on stdout, exit 0",
+      "next": "",
+      "cells": 2
+    },
+    {
+      "when": {
+        "help": [
+          "absent"
+        ],
+        "args": [
+          "valid"
+        ],
+        "result": [
+          "ok",
+          "error_beside_data"
+        ],
+        "stdout": [
+          "tty"
+        ]
+      },
+      "outcome": "indented JSON on stdout, exit 0",
+      "next": "",
+      "cells": 2
     },
     {
       "when": {
@@ -54,44 +94,6 @@
       "outcome": "indented JSON on stdout, exit 1",
       "next": "",
       "cells": 2
-    },
-    {
-      "when": {
-        "help": [
-          "absent"
-        ],
-        "args": [
-          "valid"
-        ],
-        "result": [
-          "ok"
-        ],
-        "stdout": [
-          "pipe"
-        ]
-      },
-      "outcome": "compact JSON on stdout, exit 0",
-      "next": "",
-      "cells": 1
-    },
-    {
-      "when": {
-        "help": [
-          "absent"
-        ],
-        "args": [
-          "valid"
-        ],
-        "result": [
-          "ok"
-        ],
-        "stdout": [
-          "tty"
-        ]
-      },
-      "outcome": "indented JSON on stdout, exit 0",
-      "next": "",
-      "cells": 1
     }
   ],
   "default": {

@@ -1,0 +1,16 @@
+{
+  "name": "parts",
+  "assumes": [
+    "two placed instances in a Cadence design carry the same reference designator; the first is already a part",
+    "package compares the instances' source packages case-insensitively, ignoring a trailing _<n> (PAD_1x9 and PAD_1X9_2 are the same)",
+    "part_number compares the part-number properties: one_missing means one instance records none",
+    "section new means the second instance draws a section the part has not drawn; repeat means one it already has",
+    "wiring compares pins the two copies share: agree means the same net, nc_vs_net means one copy leaves the pin unconnected and the other wires it, conflict means two different real nets"
+  ],
+  "dimensions": {
+    "package": ["same", "different"],
+    "part_number": ["same", "one_missing", "different"],
+    "section": ["new", "repeat"],
+    "wiring": ["agree", "nc_vs_net", "conflict"]
+  }
+}

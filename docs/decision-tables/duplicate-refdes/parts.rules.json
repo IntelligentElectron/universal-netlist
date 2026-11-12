@@ -1,0 +1,47 @@
+{
+  "name": "parts",
+  "rules": [
+    {
+      "when": {
+        "package": [
+          "same"
+        ],
+        "part_number": [
+          "same",
+          "one_missing"
+        ],
+        "section": [
+          "repeat"
+        ],
+        "wiring": [
+          "agree",
+          "nc_vs_net"
+        ]
+      },
+      "outcome": "one part, refdes.section_repeated",
+      "next": "",
+      "cells": 4
+    },
+    {
+      "when": {
+        "package": [
+          "same"
+        ],
+        "part_number": [
+          "same",
+          "one_missing"
+        ],
+        "section": [
+          "new"
+        ]
+      },
+      "outcome": "one part",
+      "next": "",
+      "cells": 2
+    }
+  ],
+  "default": {
+    "outcome": "separate parts, refdes.duplicate",
+    "next": ""
+  }
+}

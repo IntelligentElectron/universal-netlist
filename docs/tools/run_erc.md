@@ -16,6 +16,8 @@ Test points are identified by the `TP` reference-designator prefix. "Functional 
 | `net.whitespace_in_name` | warning | a net's name has leading or trailing whitespace | `REFDES.PIN` endpoints |
 | `net.whitespace_name_collision` | error | two or more nets have names that read the same once leading and trailing whitespace is trimmed | `REFDES.PIN` endpoints, one entry per net |
 | `net.unnamed` | warning | a net with 2+ functional pins carries an auto-generated name | bare net names |
+| `refdes.duplicate` | error | the schematic gives one reference designator to several different parts | keyed by the refdes: `{ "part_count": 2, "pages": ["07_CLOCKS", "11_BUTTONS"] }` |
+| `refdes.section_repeated` | error | one part draws the same section more than once, with no pin wired to two different nets | keyed by the refdes: `[{ "section": "F", "placements": 2, "pages": ["15_POWER", "18_DISPLAY"] }]`; `section` is omitted for a part with one section |
 
 `net.unnamed` only flags real multi-pin nets, so a single-pin auto-named net is reported once (as `net.single_pin`), not twice. The three degenerate rules are mutually exclusive by construction.
 

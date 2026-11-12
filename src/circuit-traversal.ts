@@ -147,7 +147,7 @@ export const isTestpoint = (refdes: string): boolean => getRefdesPrefix(refdes) 
  * Check if a string is a valid refdes (letters followed by alphanumerics).
  * Filters out Cadence instance paths like "@DESIGN.SHEET:INS123@PART".
  */
-export const isValidRefdes = (refdes: string): boolean => /^[A-Z][A-Z0-9_]*$/i.test(refdes);
+export const isValidRefdes = (refdes: string): boolean => /^[A-Z][A-Z0-9_]*(~\d+)?$/i.test(refdes);
 
 /**
  * Extract a refdes prefix (letters only).

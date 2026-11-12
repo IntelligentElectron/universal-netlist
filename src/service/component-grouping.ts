@@ -1,3 +1,4 @@
+import { displayRefdes, keyError } from "../duplicate-refdes.js";
 import { naturalSort } from "../circuit-traversal.js";
 import {
   type ComponentDetails,
@@ -35,7 +36,8 @@ export const componentNotes = (
  */
 export const groupComponentsByMpn = (
   entries: Array<[string, ComponentDetails[string]]>,
-  includeDns: boolean
+  includeDns: boolean,
+  errorOf: (key: string) => string | undefined = keyError
 ): ComponentGroup[] => {
   const groups = new Map<
     string,
@@ -48,11 +50,13 @@ export const groupComponentsByMpn = (
       value?: string;
       dns?: boolean;
       alternate_part?: boolean;
+      error?: string;
       refdes: string[];
     }
   >();
 
   for (const [refdes, component] of entries) {
+    const error = errorOf(refdes);
     const dns = component.dns ?? false;
     if (!includeDns && dns) {
       continue;
@@ -72,7 +76,8 @@ export const groupComponentsByMpn = (
     // every capacitor, `N.A.` for anything unassigned — and the group then
     // reported the first member's value for all of them, answering 5.1R for
     // 271 resistors of which the first was 0R.
-    const keyBase = mpnTrimmed ? `mpn:${mpnTrimmed}` : `refdes:${refdes}`;
+    // A part with an error stands alone, so the error names it only.
+    const keyBase = mpnTrimmed && !error ? `mpn:${mpnTrimmed}` : `refdes:${refdes}`;
     const groupKey = [
       keyBase,
       `ipn:${internalPn ?? ""}`,
@@ -94,11 +99,12 @@ export const groupComponentsByMpn = (
         value: valueValue,
         dns: dns || undefined,
         alternate_part: alternatePart || undefined,
+        ...(error && { error }),
         refdes: [],
       });
     }
 
-    groups.get(groupKey)!.refdes.push(refdes);
+    groups.get(groupKey)!.refdes.push(displayRefdes(refdes));
   }
 
   return Array.from(groups.values())
@@ -107,6 +113,10 @@ export const groupComponentsByMpn = (
         count: group.refdes.length,
         refdes: group.refdes.sort(naturalSort),
       };
+
+      if (group.error !== undefined) {
+        entry.error = group.error;
+      }
 
       if (group.mpn !== undefined) {
         entry.mpn = group.mpn;
@@ -149,7 +159,8 @@ export const groupComponentsByMpn = (
  * Aggregate circuit components by MPN for compact output.
  */
 export const aggregateCircuitByMpn = (
-  components: CircuitComponent[]
+  components: CircuitComponent[],
+  errorOf: (key: string) => string | undefined = keyError
 ): AggregatedCircuitResult["components_by_mpn"] => {
   const groups = new Map<
     string,
@@ -162,6 +173,7 @@ export const aggregateCircuitByMpn = (
       value?: string;
       dns?: boolean;
       alternate_part?: boolean;
+      error?: string;
       orientations: Map<
         string,
         {
@@ -183,9 +195,12 @@ export const aggregateCircuitByMpn = (
     const value = comp.value?.trim() || undefined;
     const dnsFlag = comp.dns ? true : undefined;
     const alternateFlag = comp.alternate_part ? true : undefined;
+    const error = errorOf(comp.refdes);
 
     let aggregationKey: string;
-    if (mpn) {
+    if (error) {
+      aggregationKey = `refdes:${comp.refdes}`;
+    } else if (mpn) {
       aggregationKey = `mpn:${mpn}`;
     } else if (description) {
       aggregationKey = `desc:${description}`;
@@ -220,6 +235,7 @@ export const aggregateCircuitByMpn = (
         value,
         dns: dnsFlag,
         alternate_part: alternateFlag,
+        ...(error && { error }),
         orientations: new Map(),
       });
     }
@@ -238,7 +254,7 @@ export const aggregateCircuitByMpn = (
     const orientation = group.orientations.get(orientationKey)!;
     orientation.count++;
     if (comp.refdes) {
-      orientation.refdes.push(comp.refdes);
+      orientation.refdes.push(displayRefdes(comp.refdes));
     }
   }
 
@@ -281,6 +297,9 @@ export const aggregateCircuitByMpn = (
     }
     if (group.alternate_part !== undefined) {
       aggregated.alternate_part = group.alternate_part;
+    }
+    if (group.error !== undefined) {
+      aggregated.error = group.error;
     }
 
     if (orientationsList.length === 1) {

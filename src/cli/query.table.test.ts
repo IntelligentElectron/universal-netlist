@@ -137,7 +137,10 @@ describe("golden table: exit", () => {
     it(cellName(row, dims), async () => {
       const tool = fixture(async () => {
         if (row.result === "throws") throw new Error("boom");
-        return row.result === "ok" ? { nets: ["A"] } : { error: "not found" };
+        if (row.result === "ok") return { nets: ["A"] };
+        if (row.result === "error_beside_data")
+          return { refdes: "U1", error: "duplicated", pins: {} };
+        return { error: "not found" };
       });
       const tokens = {
         valid: ["board.DSN", "--count", "2"],

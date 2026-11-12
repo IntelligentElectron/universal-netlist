@@ -22,6 +22,7 @@ Returns component details with pin-to-net mappings using [`PinEntry`](../schemas
 {
   "design_variant": "<Default>", // The variant described: a native name or <Default>
   "refdes": "string",
+  "error": "string",            // optional, the part's own problem, such as a section it draws twice
   "mpn": "string",              // optional, the manufacturer's part number
   "internal_pn": "string",      // optional, the design owner's part number
   "manufacturer": "string",     // optional, the manufacturer's name
@@ -137,6 +138,23 @@ Response:
 ```
 
 The same call with `design_variant: "<Default>"` returns the base part (here a 5.6k Yageo `RC0805FR-075K6L`) with no `alternate_part` field.
+
+**Duplicated reference designator:** when the schematic gives the refdes to several different parts (a Cadence design can), the result lists every part under `components`, each with all its fields and pins and `error: "Reference designator is duplicated"`:
+
+```json
+{
+  "design_variant": "<Default>",
+  "refdes": "Q7",
+  "components": [
+    { "refdes": "Q7", "error": "Reference designator is duplicated", "mpn": "NFET-1",
+      "pins": { "1": { "name": "G", "net": "BUTTON_GATE" }, "2": { "name": "S", "net": "GND" }, "3": { "name": "D", "net": "BUTTON_IN" } } },
+    { "refdes": "Q7", "error": "Reference designator is duplicated", "mpn": "PFET-1",
+      "pins": { "1": { "name": "GATE", "net": "WAKE_H" }, "2": { "name": "SOURCE", "net": "RESET_L" }, "3": { "name": "DRAIN", "net": "GND" } } }
+  ]
+}
+```
+
+A part that draws one of its sections more than once, with no pin wired to two different nets, is one part: it returns one record, and its `error` names the section and the pages, as in `"Section F is placed twice (pages 15_POWER, 18_DISPLAY)"`. One part of a duplicated refdes that does so carries both, separated by `; `. A pin left unconnected on one copy takes the other copy's net. Pages are named as the schematic names them.
 
 **Error (component not found):**
 ```json

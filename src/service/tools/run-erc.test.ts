@@ -151,6 +151,86 @@ describe("runErc rule selection", () => {
     expect((r as { error: string }).error).toContain("empty");
   });
 
+  it("flags refdes.duplicate with the part count and the pages it appears on", async () => {
+    const r = await erc({
+      nets: { SIG: { "Q1~1": ["1"], "Q1~2": ["1"] } },
+      components: {
+        "Q1~1": { pins: { "1": "SIG" }, mpn: "NFET-1" },
+        "Q1~2": { pins: { "1": "SIG" }, mpn: "PFET-1" },
+      },
+      duplicateRefdes: {
+        Q1: [
+          { key: "Q1~1", pages: ["11_BUTTONS"] },
+          { key: "Q1~2", pages: ["07_CLOCKS"] },
+        ],
+      },
+    });
+    expect(r.errors?.["refdes.duplicate"]).toEqual({
+      Q1: { part_count: 2, pages: ["07_CLOCKS", "11_BUTTONS"] },
+    });
+  });
+
+  it("lists a page once when the parts of a duplicated refdes share it", async () => {
+    const r = await erc({
+      nets: {},
+      components: { "R4~1": { pins: {} }, "R4~2": { pins: {} } },
+      duplicateRefdes: {
+        R4: [
+          { key: "R4~1", pages: ["25_LDO"] },
+          { key: "R4~2", pages: ["25_LDO"] },
+        ],
+      },
+    });
+    expect(r.errors?.["refdes.duplicate"]).toEqual({ R4: { part_count: 2, pages: ["25_LDO"] } });
+  });
+
+  it("names the block placement of a page reused by several blocks", async () => {
+    const r = await erc({
+      nets: {},
+      components: { "U7~1": { pins: {} }, "U7~2": { pins: {} } },
+      duplicateRefdes: {
+        U7: [
+          { key: "U7~1", pages: ["TILE (block U_TILE/CLOCK0)"] },
+          { key: "U7~2", pages: ["TILE (block U_TILE/CLOCK1)"] },
+        ],
+      },
+    });
+    expect(r.errors?.["refdes.duplicate"]).toEqual({
+      U7: {
+        part_count: 2,
+        pages: ["TILE (block U_TILE/CLOCK0)", "TILE (block U_TILE/CLOCK1)"],
+      },
+    });
+  });
+
+  it("flags refdes.section_repeated with each section's placements and pages", async () => {
+    const r = await erc({
+      nets: {},
+      components: { U13: { pins: {} } },
+      repeatedSections: { U13: [{ section: "F", pages: ["15_POWER", "18_DISPLAY"] }] },
+    });
+    expect(r.errors?.["refdes.section_repeated"]).toEqual({
+      U13: [{ section: "F", placements: 2, pages: ["15_POWER", "18_DISPLAY"] }],
+    });
+  });
+
+  it("keeps the repeated sections of every part of a duplicated refdes", async () => {
+    const r = await erc({
+      nets: {},
+      components: { "C4~1": { pins: {} }, "C4~2": { pins: {} } },
+      repeatedSections: {
+        "C4~1": [{ pages: ["P1", "P2"] }],
+        "C4~2": [{ pages: ["P3", "P4"] }],
+      },
+    });
+    expect(r.errors?.["refdes.section_repeated"]).toEqual({
+      C4: [
+        { placements: 2, pages: ["P1", "P2"] },
+        { placements: 2, pages: ["P3", "P4"] },
+      ],
+    });
+  });
+
   it("an empty design still lists all rules in checked with no findings", async () => {
     const r = await erc({ nets: {}, components: {} });
     expect(r.checked).toEqual([
@@ -159,6 +239,8 @@ describe("runErc rule selection", () => {
       "net.testpoint_stub",
       "net.whitespace_in_name",
       "net.whitespace_name_collision",
+      "refdes.duplicate",
+      "refdes.section_repeated",
       "net.unnamed",
     ]);
     expect(r.errors).toBeUndefined();
@@ -187,7 +269,7 @@ describe.skipIf(!hasRdimm)("runErc integration (rdimm-ddr4-tester)", () => {
     expect(isErrorResult(result)).toBe(false);
     const r = result as ErcResult;
 
-    expect(r.checked).toHaveLength(6);
+    expect(r.checked).toHaveLength(8);
     nonEmptyMap(r.errors?.["net.single_pin"]); // R=1 nets
     nonEmptyMap(r.warnings?.["net.testpoint_stub"]); // real TP-on-single-pin nets
     const unnamed = r.warnings?.["net.unnamed"] as string[];

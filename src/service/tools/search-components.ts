@@ -3,6 +3,7 @@ import { getDesignName } from "../../paths.js";
 import { loadNetlist } from "../load-netlist.js";
 import { componentNotes, groupComponentsByMpn } from "../component-grouping.js";
 import { parseRegexPattern, tooManyMatchesError } from "../regex-helpers.js";
+import { componentError, displayRefdes } from "../../duplicate-refdes.js";
 import { isErrorResult, type SearchComponentsResult, type ErrorResult } from "../../types.js";
 
 /**
@@ -31,13 +32,13 @@ export const searchComponentsByRefdes = async (
 
   const designName = getDesignName(design, context.root);
   const allEntries = Object.entries(netlist.components);
-  const entries = allEntries.filter(([refdes]) => regex.test(refdes));
+  const entries = allEntries.filter(([refdes]) => regex.test(displayRefdes(refdes)));
 
   if (entries.length > 0 && entries.length === allEntries.length) {
     return tooManyMatchesError(pattern, entries.length, "list_components");
   }
 
-  const grouped = groupComponentsByMpn(entries, includeDns);
+  const grouped = groupComponentsByMpn(entries, includeDns, (key) => componentError(netlist, key));
 
   if (grouped.length === 0) {
     return {
@@ -105,7 +106,7 @@ export const searchComponentsByMpn = async (
     return tooManyMatchesError(pattern, entries.length, "list_components");
   }
 
-  const grouped = groupComponentsByMpn(entries, includeDns);
+  const grouped = groupComponentsByMpn(entries, includeDns, (key) => componentError(netlist, key));
 
   // Case 2: MPN data exists but pattern didn't match
   if (grouped.length === 0) {
@@ -169,7 +170,7 @@ export const searchComponentsByDescription = async (
     return tooManyMatchesError(pattern, entries.length, "list_components");
   }
 
-  const grouped = groupComponentsByMpn(entries, includeDns);
+  const grouped = groupComponentsByMpn(entries, includeDns, (key) => componentError(netlist, key));
 
   // Case 2: Description data exists but pattern didn't match
   if (grouped.length === 0) {
