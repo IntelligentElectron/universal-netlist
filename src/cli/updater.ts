@@ -329,32 +329,24 @@ export const performUpdate = async (
 };
 
 /**
- * Re-execute the current process with the same arguments.
+ * Re-execute the current process with the same arguments: the updated binary
+ * runs as a child on this process's stdio, and this process exits with the
+ * child's code. The promise never settles, so the caller waits here and never
+ * goes on to serve beside the child.
  */
-export const reexec = (): never => {
-  const execPath = getCurrentExecutablePath();
-  const args = process.argv.slice(2);
-
-  // Spawn the new process
-  const child = spawn(execPath, args, {
-    stdio: "inherit",
-    detached: false,
+export const reexec = (): Promise<never> =>
+  new Promise<never>(() => {
+    const child = spawn(getCurrentExecutablePath(), process.argv.slice(2), {
+      stdio: "inherit",
+    });
+    child.on("exit", (code) => {
+      process.exit(code ?? 1);
+    });
+    child.on("error", (err) => {
+      console.error("Failed to restart:", err.message);
+      process.exit(1);
+    });
   });
-
-  // Exit this process when child exits
-  child.on("exit", (code) => {
-    process.exit(code ?? 0);
-  });
-
-  child.on("error", (err) => {
-    console.error("Failed to restart:", err.message);
-    process.exit(1);
-  });
-
-  // This line is reached but we've set up handlers to exit
-  // TypeScript needs the never return type satisfied
-  throw new Error("Process should have been replaced");
-};
 
 /**
  * Check for updates and apply if available.
