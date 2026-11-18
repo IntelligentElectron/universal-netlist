@@ -135,7 +135,7 @@ const main = async (): Promise<void> => {
   if (SELF_UPDATE_ENABLED) {
     const updated = await autoUpdate();
     if (updated) {
-      reexec();
+      await reexec();
     }
   }
 
