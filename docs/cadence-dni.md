@@ -10,7 +10,7 @@ not written there.
 This page describes all three, what each leaves on disk, and what that means
 when the exported netlist is what gets shared. For the byte-level
 layout of the streams involved, see
-[section 11 of the DSN format specification](dsn-format.md#11-cis-variant-store).
+[section 10 of the DSN format specification](cadence-dsn-format.md#10-cis-storages).
 
 MCP queries read the `.DSN` schematic directly. DAT examples below explain the
 reference exports that developer coverage scripts and regression tests compare
@@ -194,6 +194,6 @@ else, and no Cadence part is ever flagged `alternate_part`.
 
 ## See also
 
-- [DSN format specification, section 11](dsn-format.md#11-cis-variant-store) - byte layout of the variant store, the occurrence numbering, and its join to a refdes
+- [DSN format specification, section 10](cadence-dsn-format.md#10-cis-storages) - byte layout of the variant store, the occurrence numbering, and its join to a refdes
 - [DNS Detection](schemas/shared-types.md#dns-detection) - the markers and phrases recognised across all formats
 - [Net Naming Conventions](net-naming-conventions.md#dns-do-not-stuff-markers) - how to mark parts so every reader agrees

@@ -2,7 +2,7 @@
 
 How Altium Designer schematics are written and how Altium connects and names what they draw:
 files and records, geometry, cross-sheet connectivity, net naming, buses, multi-channel sheets,
-signal harnesses, components and design variants. Companion to [`dsn-format.md`](dsn-format.md),
+signal harnesses, components and design variants. Companion to [`cadence-dsn-format.md`](cadence-dsn-format.md),
 which covers Cadence.
 
 ## Files
