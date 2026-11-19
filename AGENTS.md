@@ -227,13 +227,15 @@ npm publishing uses OIDC trusted publishing (configured on npmjs.com) - no token
 
 **MANDATORY**: Before modifying ANY file under `src/parsers/cadence/dsn/`, you MUST read the corresponding C++ reference implementation in `references/OpenOrCadParser/`. Do not skip this step. The C++ source is the ground truth for how the binary format works, and our TypeScript is a port of it.
 
-The reference is vendored into this repository, so it is present after a plain `git clone` with no submodule init and no network fetch, in CI and sandboxes as much as locally. It is an unmodified copy of upstream's final commit before the project was archived; see [references/README.md](references/README.md) for provenance and licence. Treat it as read-only: never edit it to match our behaviour. Where our port intentionally diverges, that belongs in `docs/dsn-format.md`.
+The reference is vendored into this repository, so it is present after a plain `git clone` with no submodule init and no network fetch, in CI and sandboxes as much as locally. It is an unmodified copy of upstream's final commit before the project was archived; see [references/README.md](references/README.md) for provenance and licence. Treat it as read-only: never edit it to match our behaviour. Where our port intentionally diverges, that belongs in `docs/cadence-dsn-format.md`.
 
 ### Reference workflow
 
-1. **Read `docs/dsn-format.md`** for the binary format spec
+1. **Read `docs/cadence-dsn-format.md`** for the binary format spec
 2. **Read the corresponding C++ file** in `references/OpenOrCadParser/` before writing any code
 3. Cross-reference `docs/olb.xsd` for structure/field names if needed
+
+Every fact in `docs/cadence-dsn-format.md` carries its evidence level (E export, S structural, T test, O observed). Add or change a fact only with the check that proves it, and move a disproved claim to its Refuted table instead of deleting it.
 
 ### C++ reference mapping
 
