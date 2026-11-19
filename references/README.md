@@ -47,7 +47,7 @@ The vendored subtree stays MIT. It is not relicensed by its inclusion here, and 
 
 None. All 258 files match upstream's blob hashes exactly. Keeping it that way is
 deliberate: a reference is only useful as ground truth if it is what upstream actually
-says. Anything we learn that upstream does not state belongs in `docs/dsn-format.md`,
+says. Anything we learn that upstream does not state belongs in `docs/cadence-dsn-format.md`,
 which is where our own findings — including the places our port intentionally diverges,
 such as the `pin_map` null-placeholder in §9.2 — are written down.
 
