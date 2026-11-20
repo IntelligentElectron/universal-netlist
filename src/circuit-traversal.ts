@@ -144,17 +144,18 @@ export const isPassive = (refdes: string): boolean => PASSIVE_PREFIXES.has(getRe
 export const isTestpoint = (refdes: string): boolean => getRefdesPrefix(refdes) === "TP";
 
 /**
- * Check if a string is a valid refdes (letters followed by alphanumerics).
+ * Check if a string is a valid refdes (optional leading hyphen, then letters and alphanumerics).
  * Filters out Cadence instance paths like "@DESIGN.SHEET:INS123@PART".
  */
-export const isValidRefdes = (refdes: string): boolean => /^[A-Z][A-Z0-9_]*(~\d+)?$/i.test(refdes);
+export const isValidRefdes = (refdes: string): boolean =>
+  /^-?[A-Z][A-Z0-9_]*(~\d+)?$/i.test(refdes);
 
 /**
  * Extract a refdes prefix (letters only).
  */
 export const getRefdesPrefix = (refdes: string): string => {
-  const match = refdes.toUpperCase().match(/^[A-Z]+/);
-  return match ? match[0] : refdes.toUpperCase();
+  const match = refdes.toUpperCase().match(/^-?([A-Z]+)/);
+  return match ? match[1] : refdes.toUpperCase();
 };
 
 /**
