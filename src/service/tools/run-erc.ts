@@ -1,3 +1,4 @@
+import { topologyNotes } from "../topology-notes.js";
 import type { ServiceContext } from "../context.js";
 import { loadNetlist } from "../load-netlist.js";
 import { isTestpoint, naturalSort } from "../../circuit-traversal.js";
@@ -322,5 +323,7 @@ export const runErc = async (
   if (Object.keys(totals).length > 0) result.totals = totals;
   if (page.note) result.notes = [page.note];
   if (page.next_offset !== undefined) result.next_offset = page.next_offset;
+  const limits = topologyNotes(netlist);
+  if (limits.length) result.notes = [...(result.notes ?? []), ...limits];
   return result;
 };

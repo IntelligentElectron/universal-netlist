@@ -88,7 +88,7 @@ const page = (spec: Partial<PageData> & { name: string }): PageData => ({
 });
 
 const pmd: PinMapData = {
-  pinMaps: new Map(),
+  pinMaps: new Map([["X", ["1", "2"]]]),
   cachePinMaps: new Map(),
   deviceUnitRefs: new Map(),
   pinIgnores: new Map(),
@@ -210,7 +210,7 @@ describe("buildNetConnectivity over expanded placements", () => {
 const busChild = page({
   name: "PAGE1",
   wires: [
-    wire(700, 690, 10, 10, 40, 10),
+    { ...wire(700, 690, 10, 10, 40, 10), kind: "bus" },
     wire(701, 691, 10, 40, 40, 40),
     wire(702, 692, 10, 60, 40, 60),
   ],
@@ -242,8 +242,8 @@ const busTop = page({
   wires: [
     wire(500, 490, 10, 10, 60, 10),
     wire(501, 491, 10, 30, 60, 30),
-    wire(600, 590, 100, 50, 150, 50),
-    wire(601, 591, 100, 80, 150, 80),
+    { ...wire(600, 590, 100, 50, 150, 50), kind: "bus" },
+    { ...wire(601, 591, 100, 80, 150, 80), kind: "bus" },
     wire(800, 790, 180, 200, 200, 200),
     wire(801, 791, 180, 230, 200, 230),
   ],
@@ -374,4 +374,109 @@ describe("buildNetConnectivity over bus ports and nested placements", () => {
   it("follows a pin that sits on a port symbol with no wire", () => {
     expect(nets.TOPRST).toEqual({ R2: ["2"], U16: ["2"] });
   });
+});
+
+describe("typed bus topology across hierarchy", () => {
+  it.each([false, true])(
+    "binds repeated child bus terminals and entries (scalar port: %s)",
+    (scalarPort) => {
+      const busPin = (index: number, x: number, y: number, id: number): T0x10 => ({
+        ...pin(index, x, y, id),
+        kind: "bus",
+      });
+      const topBus = page({
+        name: "TOP",
+        netTable: new Map([
+          [10, ["BUS_A"]],
+          [20, ["BUS_B"]],
+          [50, ["LANE_A"]],
+          [60, ["LANE_B"]],
+        ]),
+        wires: [
+          { ...wire(10, 10, 0, 0, 20, 0), kind: "bus" },
+          { ...wire(20, 20, 0, 100, 20, 100), kind: "bus" },
+          ...(scalarPort ? [wire(50, 50, 0, 20, 20, 20), wire(60, 60, 0, 120, 20, 120)] : []),
+        ],
+        placedInstances: [
+          part(1, "U1", [busPin(1, 0, 0, 10), ...(scalarPort ? [pin(2, 0, 20, 50)] : [])]),
+          part(2, "U2", [busPin(1, 0, 100, 20), ...(scalarPort ? [pin(2, 0, 120, 60)] : [])]),
+        ],
+        drawnInstances: [
+          block(
+            17,
+            "MV1",
+            ["PORT", "LANE"],
+            [busPin(1, 20, 0, 10), ...(scalarPort ? [pin(2, 20, 20, 50)] : [])]
+          ),
+          block(
+            39,
+            "MV2",
+            ["PORT", "LANE"],
+            [busPin(1, 20, 100, 20), ...(scalarPort ? [pin(2, 20, 120, 60)] : [])]
+          ),
+        ],
+      });
+      const childBus = page({
+        name: "CHILD",
+        netTable: new Map([
+          [30, ["PORT"]],
+          [40, ["LANE"]],
+        ]),
+        wires: [{ ...wire(30, 30, 0, 0, 40, 0), kind: "bus" }, wire(40, 40, 10, 10, 20, 10)],
+        placedInstances: [part(275, "U3", [busPin(1, 40, 0, 30), pin(2, 20, 10, 40)])],
+        ports: [symbol(1, 99, 0, 0), ...(scalarPort ? [symbol(2, 98, 10, 10)] : [])],
+        busEntries: [{ startX: 10, startY: 0, endX: 10, endY: 10 }],
+      });
+      const occurrence = (dbId: number, id: number, reference: string) => ({
+        occurrenceId: id,
+        dbId,
+        schematic: "child",
+        reference: "",
+        scope: {
+          nets: [],
+          blocks: [],
+          parts: [{ occurrenceId: id * 10, dbId: 275, reference, pins: [] }],
+        },
+      });
+      const expanded = expandHierarchy(
+        [
+          {
+            schematic: "top",
+            scope: {
+              nets: [],
+              parts: [],
+              blocks: [occurrence(17, 3, "U3"), occurrence(39, 4, "U4")],
+            },
+          },
+        ],
+        new Map([
+          ["top", [topBus]],
+          ["child", [childBus]],
+        ]),
+        ["", "PORT", "LANE"]
+      );
+      const result = buildNetConnectivity(
+        expanded.pages,
+        expanded.canonicalNetNames,
+        pmd,
+        new Map(),
+        ["", "PORT", "LANE"]
+      );
+      expect(Object.keys(result.buses).sort()).toEqual(["BUS_A", "BUS_B"]);
+      expect(Object.keys(result.buses.BUS_A).sort()).toEqual(["U1", "U3"]);
+      expect(Object.keys(result.buses.BUS_B).sort()).toEqual(["U2", "U4"]);
+      expect(result.busEntries.map((e) => [e.bus, e.net])).toEqual([
+        ["BUS_A", scalarPort ? "LANE_A" : "LANE_MV1"],
+        ["BUS_B", scalarPort ? "LANE_B" : "LANE_MV2"],
+      ]);
+      expect(result.nets[scalarPort ? "LANE_A" : "LANE_MV1"]).toEqual({
+        ...(scalarPort ? { U1: ["2"] } : {}),
+        U3: ["2"],
+      });
+      expect(result.nets[scalarPort ? "LANE_B" : "LANE_MV2"]).toEqual({
+        ...(scalarPort ? { U2: ["2"] } : {}),
+        U4: ["2"],
+      });
+    }
+  );
 });

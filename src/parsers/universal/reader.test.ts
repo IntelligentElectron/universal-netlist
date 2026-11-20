@@ -378,7 +378,7 @@ describe("parseUniversalNetlist", () => {
         designVariant: "Fab-A",
       });
       const document = parseUniversalNetlistDocument(text);
-      expect(document.universalNetlistSchemaVersion).toBe(3);
+      expect(document.universalNetlistSchemaVersion).toBe(UNIVERSAL_NETLIST_SCHEMA_VERSION);
       expect(document.metadata.designVariant).toBe("Fab-A");
       expect(document.metadata.netlistHash).toBe(calculateUniversalNetlistHash(parsed));
     });

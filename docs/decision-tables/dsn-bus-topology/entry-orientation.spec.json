@@ -1,0 +1,20 @@
+{
+  "name": "entry-orientation",
+  "assumes": [
+    "Valid framed DSN records or otherwise valid Universal Netlist payload; all outcomes preserve scalar/bus separation."
+  ],
+  "dimensions": {
+    "start": [
+      "none",
+      "scalar",
+      "bus",
+      "both"
+    ],
+    "end": [
+      "none",
+      "scalar",
+      "bus",
+      "both"
+    ]
+  }
+}

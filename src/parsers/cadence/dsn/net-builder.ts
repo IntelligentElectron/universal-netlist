@@ -9,12 +9,17 @@
  * off-page connectors carry.
  */
 
-import type { NetConnections, NetLabelSource } from "../../../types.js";
+import type {
+  NetConnections,
+  NetLabelSource,
+  BusEntryConnection,
+  BusMember,
+} from "../../../types.js";
 import type { PinMapData } from "./structure-types.js";
 import type { PageData } from "./page-parser.js";
 import { symbolKey } from "./symbol-attachment.js";
 import { buildPageCoordMap, renameGroups, type PageCoordMap } from "./page-groups.js";
-import { collectPins } from "./net-pins.js";
+import { collectPins, bindThroughPorts } from "./net-pins.js";
 import { assembleNets } from "./net-assembly.js";
 import { collectPaddedNetLabelSources } from "./net-label-sources.js";
 
@@ -61,15 +66,18 @@ function buildOpcNameMap(
 }
 
 /** Build pin-to-net mapping from parsed page data. */
-export function buildNetConnectivity(
+function buildTypedConnectivity(
   pages: PageData[],
   canonicalNetNames: Set<string>,
   pmd: PinMapData,
   deviceIndexMap: Map<number, number>,
-  strLst: string[]
+  strLst: string[],
+  bus = false,
+  parentBusMaps?: PageCoordMap[]
 ): {
   nets: NetConnections;
   componentPins: Map<string, Map<string, string>>;
+  pageCoordMaps: PageCoordMap[];
   /** Nets named by text with leading or trailing whitespace, to the objects carrying it. */
   netLabelSources?: Record<string, NetLabelSource[]>;
 } {
@@ -79,7 +87,7 @@ export function buildNetConnectivity(
   // and two symbols both drawn as `VCC_BAR` carry `VDD_PLL1` and `VDD_PLL2`.
   const symbolNets = new Map<number, string>();
   for (const page of pages) {
-    for (const sym of [...page.globals, ...page.ports]) {
+    for (const sym of [...(bus ? [] : page.globals), ...page.ports]) {
       if (symbolNets.has(sym.pairingId)) continue;
       const name = strLst[sym.pairingId];
       if (name) symbolNets.set(sym.pairingId, name.toUpperCase());
@@ -88,8 +96,13 @@ export function buildNetConnectivity(
 
   // A placement's own scope names its nets; the root's list names everything else.
   const pageCoordMaps = pages.map((page) =>
-    buildPageCoordMap(page, page.placement?.canonicalNetNames ?? canonicalNetNames, symbolNets)
+    buildPageCoordMap(page, page.placement?.canonicalNetNames ?? canonicalNetNames, symbolNets, bus)
   );
+
+  if (parentBusMaps)
+    pageCoordMaps.forEach((map, i) => {
+      map.busGroups = parentBusMaps[i].groups;
+    });
 
   // Apply cross-page OPC name equivalences (creates new maps to avoid mutation)
   const opcNameMap = buildOpcNameMap(pages, pageCoordMaps, canonicalNetNames);
@@ -151,7 +164,8 @@ export function buildNetConnectivity(
     deviceIndexMap,
     globalPairingNets,
     opcPairingNets,
-    symbolNets
+    symbolNets,
+    bus
   );
   const { nets, componentPins } = assembleNets(allPins, canonicalNetNames);
   const netLabelSources = collectPaddedNetLabelSources(
@@ -162,5 +176,114 @@ export function buildNetConnectivity(
     strLst,
     nets
   );
-  return { nets, componentPins, netLabelSources };
+  return { nets, componentPins, netLabelSources, pageCoordMaps: resolvedCoordMaps };
+}
+
+/** Coordinate associations follow exactly the same ports as component terminals. */
+function bindGroupNames(pages: PageData[], maps: PageCoordMap[], kind: "scalar" | "bus"): void {
+  const virtualIds = new Map<string, number>();
+  const names = maps.map(
+    (map, pageIdx) =>
+      new Map(
+        [...new Set(map.groups.values())].map((group) => [
+          group,
+          bindThroughPorts(
+            {
+              kind,
+              refdes: "",
+              pinNumber: "",
+              netId: (group.netId ?? 0) + (pages[pageIdx].placement?.netIdOffset ?? 0),
+              pageIdx,
+              coord: group.rep,
+              coordNet: group.name,
+            },
+            pages,
+            maps,
+            virtualIds
+          ).coordNet ?? group.name,
+        ])
+      )
+  );
+  maps.forEach((map, i) => {
+    for (const [coord, group] of map.groups) map.coordToNet.set(coord, names[i].get(group)!);
+    for (const [group, name] of names[i]) group.name = name;
+  });
+}
+
+/** Build independent electrical and bus graphs, sharing only explicit hierarchical member bindings. */
+export function buildNetConnectivity(
+  pages: PageData[],
+  canonicalNetNames: Set<string>,
+  pmd: PinMapData,
+  deviceIndexMap: Map<number, number>,
+  strLst: string[]
+) {
+  const bus = buildTypedConnectivity(pages, canonicalNetNames, pmd, deviceIndexMap, strLst, true);
+  // Keep local base/range names so scalar members can still translate bus indices.
+  bindGroupNames(pages, bus.pageCoordMaps, "bus");
+  // A bus terminal following a bus port reads the bus graph on both pages.
+  const scalar = buildTypedConnectivity(
+    pages,
+    canonicalNetNames,
+    pmd,
+    deviceIndexMap,
+    strLst,
+    false,
+    bus.pageCoordMaps
+  );
+  bindGroupNames(pages, scalar.pageCoordMaps, "scalar");
+  for (const map of bus.pageCoordMaps)
+    for (const name of map.coordToNet.values()) bus.nets[name] ??= {};
+  const busEntries: BusEntryConnection[] = [];
+  const busMembers: BusMember[] = [];
+  pages.forEach((page, i) => {
+    const scalarMap = scalar.pageCoordMaps[i].coordToNet;
+    const busMap = bus.pageCoordMaps[i].coordToNet;
+    const pageName = page.name + (page.placement?.suffix ?? "");
+    for (const entry of page.busEntries ?? []) {
+      const ends = [`${entry.startX},${entry.startY}`, `${entry.endX},${entry.endY}`];
+      const pairs = [
+        [0, 1],
+        [1, 0],
+      ].flatMap(([a, b]) => {
+        const net = scalar.pageCoordMaps[i].ambiguousEntryPoints?.has(ends[a])
+          ? undefined
+          : scalarMap.get(ends[a]);
+        const busName = bus.pageCoordMaps[i].ambiguousEntryPoints?.has(ends[b])
+          ? undefined
+          : busMap.get(ends[b]);
+        return net && busName ? [{ net, bus: busName }] : [];
+      });
+      const resolved = pairs.length === 1 ? pairs[0] : undefined;
+      busEntries.push({
+        page: pageName,
+        start: [entry.startX, entry.startY],
+        end: [entry.endX, entry.endY],
+        ...resolved,
+      });
+      if (resolved) scalar.nets[resolved.net] ??= {};
+    }
+    for (const [id, members] of page.busMembers ?? []) {
+      const wire = page.wires.find((w) => w.kind === "bus" && w.id === id);
+      const name =
+        (wire && busMap.get(`${wire.startX},${wire.startY}`)) ??
+        (page.netTable.get(id)?.[0] ?? `B${id}`) + (page.placement?.suffix ?? "");
+      bus.nets[name] ??= {};
+      for (const netId of members) {
+        const scalarWire = page.wires.find((w) => w.kind !== "bus" && w.id === netId);
+        const net = scalarWire && scalarMap.get(`${scalarWire.startX},${scalarWire.startY}`);
+        busMembers.push({ page: pageName, bus: name, netId, ...(net ? { net } : {}) });
+        if (net) scalar.nets[net] ??= {};
+      }
+    }
+  });
+  return {
+    nets: scalar.nets,
+    componentPins: scalar.componentPins,
+    netLabelSources: scalar.netLabelSources,
+    buses: bus.nets,
+    busComponentPins: bus.componentPins,
+    busEntries,
+    busMembers,
+  };
 }

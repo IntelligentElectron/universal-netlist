@@ -9,12 +9,13 @@
 import { isValidRefdes } from "../../../circuit-traversal.js";
 import type { PinMapData } from "./structure-types.js";
 import type { PageData } from "./page-parser.js";
-import { resolvePinNumber, isPinIgnored } from "./pin-resolver.js";
+import { resolvePinKeys, isPinIgnored } from "./pin-resolver.js";
 import { parseBusName } from "./bus-name.js";
 import type { PageCoordMap, PortMembership } from "./page-groups.js";
 
 export interface PinInfo {
   refdes: string;
+  kind?: "scalar" | "bus";
   pinNumber: string;
   netId: number;
   pageIdx: number;
@@ -72,7 +73,10 @@ export function bindThroughPorts(
     if (!binding) break;
     const parentIdx = binding.pageIdx;
     const parentMap = pageCoordMaps[parentIdx];
-    const parentGroup = parentMap.groups.get(binding.coord);
+    const parentGroup =
+      (pin.kind === "bus" || port.index !== undefined) && parentMap.busGroups
+        ? parentMap.busGroups.get(binding.coord)
+        : parentMap.groups.get(binding.coord);
 
     if (port.index === undefined) {
       if (binding.netId === NO_CONNECT && !parentGroup) {
@@ -132,7 +136,8 @@ export function collectPins(
   deviceIndexMap: Map<number, number>,
   globalPairingNets: Map<number, string>,
   opcPairingNets: Map<number, string>,
-  symbolNets: Map<number, string>
+  symbolNets: Map<number, string>,
+  bus = false
 ): PinInfo[] {
   const pins: PinInfo[] = [];
   const virtualNetIds = new Map<string, number>();
@@ -143,7 +148,9 @@ export function collectPins(
       const refdes = inst.reference;
       if (!refdes || !isValidRefdes(refdes)) continue;
       const deviceIndex = deviceIndexMap.get(inst.dbId);
+      const pinKeys = resolvePinKeys(inst, pmd, deviceIndex);
       for (const pin of inst.t0x10s) {
+        if ((pin.kind === "bus") !== bus) continue;
         // A pin this section of the package has no pad for is not a pin of the
         // component; reporting it would invent a connection on a pad that does
         // not exist. Cadence leaves such pins out of its own netlist.
@@ -162,7 +169,7 @@ export function collectPins(
         // power net the whole design shares.
         let port: PortMembership | undefined;
         if (!coordNet && pin.netId === 0xffffffff) {
-          for (const sym of [...pages[i].globals, ...pages[i].ports]) {
+          for (const sym of [...(bus ? [] : pages[i].globals), ...pages[i].ports]) {
             const minX = Math.min(sym.x1, sym.x2);
             const maxX = Math.max(sym.x1, sym.x2);
             const minY = Math.min(sym.y1, sym.y2);
@@ -218,8 +225,16 @@ export function collectPins(
           }
         }
 
-        const pinNumber = resolvePinNumber(pin, inst, pmd, deviceIndex);
-        const info: PinInfo = { refdes, pinNumber, netId: pin.netId, pageIdx: i, coord, coordNet };
+        const pinNumber = pinKeys.get(pin.pinIndex)!;
+        const info: PinInfo = {
+          kind: pin.kind,
+          refdes,
+          pinNumber,
+          netId: pin.netId,
+          pageIdx: i,
+          coord,
+          coordNet,
+        };
         if (port) info.port = port;
         pins.push(placement ? bindThroughPorts(info, pages, pageCoordMaps, virtualNetIds) : info);
       }

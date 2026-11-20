@@ -1,0 +1,37 @@
+{
+  "name": "typed-connectivity",
+  "rules": [
+    {
+      "when": {
+        "pin": [
+          "bus"
+        ],
+        "wire": [
+          "legacy",
+          "scalar"
+        ]
+      },
+      "outcome": "unconnected",
+      "next": "",
+      "cells": 2
+    },
+    {
+      "when": {
+        "pin": [
+          "legacy",
+          "scalar"
+        ],
+        "wire": [
+          "bus"
+        ]
+      },
+      "outcome": "unconnected",
+      "next": "",
+      "cells": 2
+    }
+  ],
+  "default": {
+    "outcome": "connected",
+    "next": ""
+  }
+}

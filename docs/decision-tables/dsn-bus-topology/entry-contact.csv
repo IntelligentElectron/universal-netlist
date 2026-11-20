@@ -1,0 +1,9 @@
+kind,contacts,outcome,next,status,note
+scalar,none,unresolved,,draft,src/parsers/cadence/dsn/page-groups.ts:333; entry geometry cannot union otherwise separate conductors
+scalar,one,resolved,,draft,src/parsers/cadence/dsn/page-groups.ts:333; entry geometry cannot union otherwise separate conductors
+scalar,linked,resolved,,draft,src/parsers/cadence/dsn/page-groups.ts:333; entry geometry cannot union otherwise separate conductors
+scalar,crossing,unresolved,,draft,src/parsers/cadence/dsn/page-groups.ts:333; entry geometry cannot union otherwise separate conductors
+bus,none,unresolved,,draft,src/parsers/cadence/dsn/page-groups.ts:333; entry geometry cannot union otherwise separate conductors
+bus,one,resolved,,draft,src/parsers/cadence/dsn/page-groups.ts:333; entry geometry cannot union otherwise separate conductors
+bus,linked,resolved,,draft,src/parsers/cadence/dsn/page-groups.ts:333; entry geometry cannot union otherwise separate conductors
+bus,crossing,unresolved,,draft,src/parsers/cadence/dsn/page-groups.ts:333; entry geometry cannot union otherwise separate conductors

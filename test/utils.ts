@@ -150,10 +150,7 @@ export const saveGolden = async (
       await fs.readFile(goldenPath, "utf-8"),
       path.basename(goldenPath)
     );
-    const existing = {
-      nets: existingDocument.nets,
-      components: existingDocument.components,
-    };
+    const { universalNetlistSchemaVersion: _v, metadata: _m, ...existing } = existingDocument;
     if (
       existingDocument.universalNetlistSchemaVersion === UNIVERSAL_NETLIST_SCHEMA_VERSION &&
       deepEqual(existing, roundTripped) &&

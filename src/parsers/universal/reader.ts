@@ -10,7 +10,15 @@
  */
 
 import { createHash } from "node:crypto";
-import type { ComponentDetails, NetConnections, ParsedNetlist, PinEntry } from "../../types.js";
+import type {
+  ComponentDetails,
+  NetConnections,
+  ParsedNetlist,
+  PinEntry,
+  BusEntryConnection,
+  BusMember,
+  PinIdentity,
+} from "../../types.js";
 import { UNIVERSAL_NETLIST_SCHEMA_VERSION } from "../../universal-format.js";
 import { isDefaultVariantLiteral } from "../variants.js";
 
@@ -110,6 +118,7 @@ const VERSION_2_COMPONENT_TEXT_FIELDS: readonly ComponentTextField[] = [
 interface VersionShape {
   readonly componentTextFields: readonly ComponentTextField[];
   readonly metadataKeys: ReadonlySet<string>;
+  readonly topology?: boolean;
 }
 
 const VERSION_1: VersionShape = {
@@ -121,6 +130,7 @@ const VERSION_2: VersionShape = {
   componentTextFields: VERSION_2_COMPONENT_TEXT_FIELDS,
 };
 const VERSION_3: VersionShape = { ...VERSION_2, metadataKeys: VERSION_3_METADATA_KEYS };
+const VERSION_4: VersionShape = { ...VERSION_3, topology: true };
 
 type Fail = (message: string) => never;
 
@@ -166,6 +176,9 @@ export const calculateUniversalNetlistHash = (netlist: ParsedNetlist): string =>
     canonicalize({
       nets: netlist.nets,
       components: netlist.components,
+      ...(netlist.buses !== undefined ? { buses: netlist.buses } : {}),
+      ...(netlist.busEntries !== undefined ? { busEntries: netlist.busEntries } : {}),
+      ...(netlist.busMembers !== undefined ? { busMembers: netlist.busMembers } : {}),
     })
   );
   return `sha256:${createHash("sha256").update(canonical, "utf8").digest("hex")}`;
@@ -294,7 +307,7 @@ const netOf = (entry: PinEntry): string => (typeof entry === "string" ? entry : 
  * string is read as a one-element array, which is the form every tool works on.
  */
 const makeVersionReader =
-  ({ componentTextFields, metadataKeys }: VersionShape) =>
+  ({ componentTextFields, metadataKeys, topology }: VersionShape) =>
   (raw: Record<string, unknown>, fail: Fail): ParsedNetlist => {
     if (!isObject(raw.metadata)) fail("`metadata` must be an object");
     rejectUnexpectedKeys(raw.metadata, metadataKeys, "metadata", fail);
@@ -315,7 +328,10 @@ const makeVersionReader =
       fail("`nets` and `components` must be objects");
     }
     for (const key of Object.keys(raw)) {
-      if (!TOP_LEVEL_KEYS.has(key)) {
+      if (
+        !TOP_LEVEL_KEYS.has(key) &&
+        !(topology && ["buses", "busEntries", "busMembers"].includes(key))
+      ) {
         fail(
           `unexpected top-level key '${key}'; a Universal Netlist has only ` +
             "`universalNetlistSchemaVersion`, `metadata`, `nets`, and `components`"
@@ -427,7 +443,8 @@ const makeVersionReader =
       }
     }
 
-    const netlist = { nets, components };
+    const netlist: ParsedNetlist = { nets, components };
+    if (topology) readTopology(raw, netlist, fail);
     const expectedHash = calculateUniversalNetlistHash(netlist);
     if (raw.metadata.netlistHash !== expectedHash) {
       fail("`metadata.netlistHash` does not match the canonical nets and components");
@@ -435,6 +452,148 @@ const makeVersionReader =
 
     return netlist;
   };
+
+/** Validate and retain schema 4 topology, with independent inverse bus/pin maps. */
+function readTopology(raw: Record<string, unknown>, netlist: ParsedNetlist, fail: Fail): void {
+  const readPins = (value: unknown, where: string): Record<string, PinEntry> => {
+    if (!isObject(value)) fail(`${where} must be a pin map`);
+    const pins: Record<string, PinEntry> = {};
+    for (const [key, entry] of Object.entries(value)) {
+      if (!key) fail(`${where} has an empty terminal key`);
+      if (typeof entry === "string") pins[key] = entry;
+      else if (
+        isObject(entry) &&
+        typeof entry.name === "string" &&
+        typeof entry.net === "string" &&
+        Object.keys(entry).length === 2
+      ) {
+        pins[key] = { name: entry.name, net: entry.net };
+      } else fail(`${where}.${key} must be a net name or {name, net}`);
+    }
+    return pins;
+  };
+  for (const [refdes, value] of Object.entries(
+    raw.components as Record<string, Record<string, unknown>>
+  )) {
+    const component = netlist.components[refdes];
+    if (value.busPins !== undefined) {
+      component.busPins = readPins(value.busPins, `${refdes}.busPins`);
+      for (const key of Object.keys(component.busPins))
+        if (key in component.pins) fail(`${refdes}.${key} is both scalar and bus`);
+    }
+    if (value.pinIdentities !== undefined) {
+      if (!isObject(value.pinIdentities)) fail(`${refdes}.pinIdentities must be an object`);
+      const identities: Record<string, PinIdentity> = {};
+      for (const [key, identity] of Object.entries(value.pinIdentities)) {
+        if (!(key in component.pins) && !(key in (component.busPins ?? {})))
+          fail(`${refdes}.${key} identity names no terminal`);
+        if (
+          !isObject(identity) ||
+          !Number.isSafeInteger(identity.instanceId) ||
+          (identity.instanceId as number) < 0 ||
+          !Number.isSafeInteger(identity.index) ||
+          (identity.index as number) < 0 ||
+          (identity.number !== undefined &&
+            (typeof identity.number !== "string" || !identity.number.trim()))
+        ) {
+          fail(`${refdes}.${key} has an invalid source identity`);
+        }
+        rejectUnexpectedKeys(
+          identity,
+          new Set(["instanceId", "index", "number"]),
+          "pin identity",
+          fail
+        );
+        if (key !== `@${identity.instanceId}:${identity.index}`)
+          fail(`${refdes}.${key} does not match its source identity`);
+        identities[key] = {
+          instanceId: identity.instanceId as number,
+          index: identity.index as number,
+          ...(identity.number !== undefined ? { number: identity.number as string } : {}),
+        };
+      }
+      component.pinIdentities = identities;
+    }
+  }
+  const hasPins = Object.values(netlist.components).some((c) => c.busPins !== undefined);
+  if (raw.buses !== undefined || hasPins) {
+    if (!isObject(raw.buses)) fail("busPins require a buses object");
+    const buses: NetConnections = {};
+    for (const [name, members] of Object.entries(raw.buses)) {
+      if (!name || !isObject(members)) fail("buses must map nonempty names to member objects");
+      const out: Record<string, string[]> = {};
+      for (const [refdes, pins] of Object.entries(members)) {
+        if (
+          !Array.isArray(pins) ||
+          !pins.length ||
+          pins.some((p) => typeof p !== "string" || !p) ||
+          new Set(pins).size !== pins.length
+        )
+          fail(`bus '${name}' has invalid terminal keys`);
+        for (const key of pins as string[]) {
+          const entry = netlist.components[refdes]?.busPins?.[key];
+          if (entry === undefined || netOf(entry) !== name)
+            fail(`bus '${name}' member ${refdes}.${key} has no inverse bus pin`);
+        }
+        out[refdes] = [...(pins as string[])];
+      }
+      buses[name] = out;
+    }
+    for (const [refdes, component] of Object.entries(netlist.components)) {
+      for (const [key, entry] of Object.entries(component.busPins ?? {})) {
+        const name = netOf(entry);
+        if (name === "") continue;
+        if (!buses[name]?.[refdes]?.includes(key))
+          fail(`${refdes}.${key} has no inverse bus membership`);
+      }
+    }
+    netlist.buses = buses;
+  }
+  const point = (v: unknown): v is [number, number] =>
+    Array.isArray(v) && v.length === 2 && v.every(Number.isFinite);
+  if (raw.busEntries !== undefined) {
+    if (!Array.isArray(raw.busEntries)) fail("busEntries must be an array");
+    netlist.busEntries = raw.busEntries.map((e): BusEntryConnection => {
+      if (!isObject(e) || typeof e.page !== "string" || !point(e.start) || !point(e.end))
+        fail("bus entry requires page and finite coordinate pairs");
+      rejectUnexpectedKeys(e, new Set(["page", "start", "end", "bus", "net"]), "bus entry", fail);
+      if ((e.bus === undefined) !== (e.net === undefined))
+        fail("a bus entry must resolve both endpoints or neither");
+      if (e.bus !== undefined && (typeof e.bus !== "string" || !netlist.buses?.[e.bus]))
+        fail("bus entry references unknown bus");
+      if (e.net !== undefined && (typeof e.net !== "string" || !netlist.nets[e.net]))
+        fail("bus entry references unknown scalar net");
+      return {
+        page: e.page,
+        start: [...e.start],
+        end: [...e.end],
+        ...(e.bus !== undefined ? { bus: e.bus as string, net: e.net as string } : {}),
+      };
+    });
+  }
+  if (raw.busMembers !== undefined) {
+    if (!Array.isArray(raw.busMembers)) fail("busMembers must be an array");
+    netlist.busMembers = raw.busMembers.map((m): BusMember => {
+      if (
+        !isObject(m) ||
+        typeof m.page !== "string" ||
+        typeof m.bus !== "string" ||
+        !netlist.buses?.[m.bus] ||
+        !Number.isSafeInteger(m.netId) ||
+        (m.netId as number) < 0 ||
+        (m.net !== undefined && (typeof m.net !== "string" || !netlist.nets[m.net]))
+      )
+        fail("invalid native bus membership");
+      rejectUnexpectedKeys(m, new Set(["page", "bus", "netId", "net"]), "bus member", fail);
+      return {
+        page: m.page,
+        bus: m.bus,
+        netId: m.netId as number,
+        ...(m.net !== undefined ? { net: m.net as string } : {}),
+      };
+    });
+  }
+}
 
 /**
  * Drop the component fields a schema version does not define.
@@ -446,9 +605,15 @@ const makeVersionReader =
  */
 const projectComponents = (
   netlist: ParsedNetlist,
-  componentTextFields: readonly ComponentTextField[]
+  componentTextFields: readonly ComponentTextField[],
+  topology = false
 ): ParsedNetlist => {
-  const carried = new Set<string>([...componentTextFields, "pins", "dns"]);
+  const carried = new Set<string>([
+    ...componentTextFields,
+    "pins",
+    "dns",
+    ...(topology ? ["busPins", "pinIdentities"] : []),
+  ]);
   const components: ComponentDetails = {};
   for (const [refdes, body] of Object.entries(netlist.components)) {
     // Copied in the component's own key order. Order carries no meaning to any
@@ -463,7 +628,13 @@ const projectComponents = (
     if (!("pins" in projected)) projected.pins = body.pins;
     components[refdes] = projected as ComponentDetails[string];
   }
-  return { nets: netlist.nets, components };
+  return {
+    nets: netlist.nets,
+    components,
+    ...(topology && netlist.buses !== undefined ? { buses: netlist.buses } : {}),
+    ...(topology && netlist.busEntries !== undefined ? { busEntries: netlist.busEntries } : {}),
+    ...(topology && netlist.busMembers !== undefined ? { busMembers: netlist.busMembers } : {}),
+  };
 };
 
 const makeVersionCodec = (version: number, shape: VersionShape): UniversalNetlistSchemaCodec => ({
@@ -476,7 +647,18 @@ const makeVersionCodec = (version: number, shape: VersionShape): UniversalNetlis
         `Universal Netlist schema version ${version} cannot record design variant '${designVariant}'`
       );
     }
-    const projected = projectComponents(netlist, shape.componentTextFields);
+    if (
+      !shape.topology &&
+      (netlist.buses ||
+        netlist.busEntries ||
+        netlist.busMembers ||
+        Object.values(netlist.components).some((c) => c.busPins || c.pinIdentities))
+    ) {
+      throw new Error(
+        `Universal Netlist schema version ${version} cannot preserve bus topology or source pin identities`
+      );
+    }
+    const projected = projectComponents(netlist, shape.componentTextFields, shape.topology);
     return {
       universalNetlistSchemaVersion: version,
       metadata: {
@@ -485,8 +667,7 @@ const makeVersionCodec = (version: number, shape: VersionShape): UniversalNetlis
         origin,
         ...(designVariant !== undefined ? { designVariant } : {}),
       },
-      nets: projected.nets,
-      components: projected.components,
+      ...projected,
     };
   },
 });
@@ -501,6 +682,7 @@ const SCHEMA_CODECS: ReadonlyMap<number, UniversalNetlistSchemaCodec> = new Map(
   [1, makeVersionCodec(1, VERSION_1)],
   [2, makeVersionCodec(2, VERSION_2)],
   [3, makeVersionCodec(3, VERSION_3)],
+  [4, makeVersionCodec(4, VERSION_4)],
 ]);
 
 /** Versions accepted by this build, in ascending order. */
@@ -589,13 +771,16 @@ export const parseUniversalNetlistDocument = (
         ? { designVariant: document.metadata.designVariant }
         : {}),
     },
-    nets: netlist.nets,
-    components: netlist.components,
+    ...netlist,
   };
 };
 
 /** Parse JSON text as a Universal Netlist. `source` names the file in errors. */
 export const parseUniversalNetlist = (text: string, source = "netlist"): ParsedNetlist => {
-  const { nets, components } = parseUniversalNetlistDocument(text, source);
-  return { nets, components };
+  const {
+    universalNetlistSchemaVersion: _v,
+    metadata: _m,
+    ...netlist
+  } = parseUniversalNetlistDocument(text, source);
+  return netlist;
 };

@@ -1,3 +1,4 @@
+import { topologyNotes } from "../topology-notes.js";
 import type { ServiceContext } from "../context.js";
 import { getDesignName } from "../../paths.js";
 import { loadNetlist } from "../load-netlist.js";
@@ -44,6 +45,11 @@ export const queryXnetByNetName = async (
   const { nets, components } = netlist;
   const names = indexNetNames(netlist);
 
+  if (!netlist.nets[netName] && netlist.buses?.[netName]) {
+    return {
+      error: `'${netName}' is a bus, not a scalar electrical net. query_component() reports bus topology; scalar traversal cannot infer its lanes.`,
+    };
+  }
   const resolution = names.resolve(netName);
   if (resolution.status === "missing") {
     const designName = getDesignName(design, context.root);
@@ -87,7 +93,7 @@ export const queryXnetByNetName = async (
     response.skipped = traversal.skipped;
   }
 
-  const notes: string[] = [];
+  const notes: string[] = topologyNotes(netlist);
   if (resolution.status !== "exact") {
     response.net = net;
     notes.push(describeResolution(netName, resolution));
@@ -162,6 +168,16 @@ export const queryXnetByPinName = async (
     (pin) => pin.toLowerCase() === pinInput.trim().toLowerCase()
   );
 
+  if (
+    !pinKey &&
+    Object.keys(component.busPins ?? {}).some(
+      (p) => p.toLowerCase() === pinInput.trim().toLowerCase()
+    )
+  ) {
+    return {
+      error: `Pin '${pinSpec}' is a bus terminal; query_component() reports its topology. Scalar XNET traversal cannot infer its lanes.`,
+    };
+  }
   if (!pinKey) {
     const pins = Object.keys(component.pins).sort(naturalSort);
     return {
@@ -186,6 +202,7 @@ export const queryXnetByPinName = async (
       components_by_mpn: [],
       visited_nets: ["NC"],
       circuit_hash: `nc-${resolvedRefdes}.${pinKey}`,
+      ...(topologyNotes(netlist).length ? { notes: topologyNotes(netlist) } : {}),
     };
   }
 
@@ -216,7 +233,9 @@ export const queryXnetByPinName = async (
     response.skipped = traversal.skipped;
   }
 
-  if (looksLikeGround(connectedNet)) response.notes = [groundNameNote(connectedNet)];
+  const notes = topologyNotes(netlist);
+  if (looksLikeGround(connectedNet)) notes.push(groundNameNote(connectedNet));
+  if (notes.length) response.notes = notes;
 
   const warnings = indexNetNames(netlist).warningsFor([connectedNet, ...traversal.visited_nets]);
   if (warnings.length > 0) response.net_name_warnings = warnings;

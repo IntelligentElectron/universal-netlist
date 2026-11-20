@@ -1,0 +1,54 @@
+{
+  "name": "pin-identity",
+  "rules": [
+    {
+      "when": {
+        "label": [
+          "missing",
+          "blank",
+          "duplicate",
+          "reserved"
+        ],
+        "ignored": [
+          "no"
+        ]
+      },
+      "outcome": "source",
+      "next": "",
+      "cells": 8
+    },
+    {
+      "when": {
+        "kind": [
+          "bus"
+        ],
+        "ignored": [
+          "no"
+        ]
+      },
+      "outcome": "source",
+      "next": "",
+      "cells": 1
+    },
+    {
+      "when": {
+        "kind": [
+          "scalar"
+        ],
+        "label": [
+          "unique"
+        ],
+        "ignored": [
+          "no"
+        ]
+      },
+      "outcome": "physical",
+      "next": "",
+      "cells": 1
+    }
+  ],
+  "default": {
+    "outcome": "omit",
+    "next": ""
+  }
+}

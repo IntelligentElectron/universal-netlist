@@ -45,6 +45,10 @@ export interface WireGroup {
 export interface PageCoordMap {
   /** Coordinate or symbol key to the net name of the wire group it is in. */
   coordToNet: Map<string, string>;
+  /** Entry endpoints touching several separate same-kind groups cannot identify one net. */
+  ambiguousEntryPoints?: Set<string>;
+  /** Parallel bus coordinates for hierarchical scalar-member bindings. */
+  busGroups?: Map<string, WireGroup>;
   /** Coordinate or symbol key to the wire group it is in. */
   groups: Map<string, WireGroup>;
   /** Unsuffixed name to the wire group that carries it. */
@@ -93,8 +97,23 @@ export interface PageCoordMap {
 export function buildPageCoordMap(
   page: PageData,
   canonicalNetNames: Set<string>,
-  symbolNets: Map<number, string>
+  symbolNets: Map<number, string>,
+  bus = false
 ): PageCoordMap {
+  // Kind is part of connectivity identity, including at shared coordinates.
+  page = {
+    ...page,
+    wires: page.wires.filter((w) => (w.kind === "bus") === bus),
+    placedInstances: page.placedInstances.map((inst) => ({
+      ...inst,
+      t0x10s: inst.t0x10s.filter((p) => (p.kind === "bus") === bus),
+    })),
+    drawnInstances: page.drawnInstances.map((inst) => ({
+      ...inst,
+      pins: inst.pins.filter((p) => (p.kind === "bus") === bus),
+    })),
+    globals: bus ? [] : page.globals,
+  };
   const uf = new CoordUnionFind();
 
   // Connect wire endpoints into groups.
@@ -309,6 +328,35 @@ export function buildPageCoordMap(
     }
   }
 
+  // Geometry can associate an entry with one existing group, never join two
+  // conductors crossing without a junction. Several segments of one group are fine.
+  const ambiguousEntryPoints = new Set<string>();
+  for (const entry of page.busEntries ?? []) {
+    for (const [x, y] of [
+      [entry.startX, entry.startY],
+      [entry.endX, entry.endY],
+    ]) {
+      const contacts = new Map<string, string>();
+      for (const wire of page.wires) {
+        const dx = wire.endX - wire.startX,
+          dy = wire.endY - wire.startY;
+        if (
+          (x - wire.startX) * dy === (y - wire.startY) * dx &&
+          x >= Math.min(wire.startX, wire.endX) &&
+          x <= Math.max(wire.startX, wire.endX) &&
+          y >= Math.min(wire.startY, wire.endY) &&
+          y <= Math.max(wire.startY, wire.endY)
+        ) {
+          const coord = `${wire.startX},${wire.startY}`;
+          contacts.set(uf.find(coord), coord);
+        }
+      }
+      const key = `${x},${y}`;
+      if (contacts.size === 1) uf.union(key, contacts.values().next().value!);
+      else if (contacts.size > 1) ambiguousEntryPoints.add(key);
+    }
+  }
+
   // What a placement's groups attach to: a hierarchical port, by the net name
   // the Library string list gives its symbol or by membership of a bus port's
   // range, or a global.
@@ -379,7 +427,10 @@ export function buildPageCoordMap(
           break;
         }
       }
-      for (const name of allNames) if (port === undefined) port = busMembers.get(name);
+      for (const name of allNames)
+        if (port === undefined) {
+          port = bus && page.placement.ports.has(name) ? { port: name } : busMembers.get(name);
+        }
       if (port !== undefined) {
         group.port = port;
       } else if (!members.some((m) => globalKeys.has(m))) {
@@ -395,7 +446,7 @@ export function buildPageCoordMap(
     if (!byBase.has(group.base)) byBase.set(group.base, group);
   }
 
-  return { coordToNet, groups, byBase, busMemberOf };
+  return { coordToNet, groups, byBase, busMemberOf, ambiguousEntryPoints };
 }
 
 /** A copy of the page map with every group's names passed through `rename`. */
@@ -415,5 +466,12 @@ export function renameGroups(map: PageCoordMap, rename: (name: string) => string
   for (const [base, group] of map.byBase) byBase.set(rename(base), of(group));
   const coordToNet = new Map<string, string>();
   for (const [key, name] of map.coordToNet) coordToNet.set(key, rename(name));
-  return { coordToNet, groups, byBase, busMemberOf: map.busMemberOf };
+  return {
+    coordToNet,
+    groups,
+    byBase,
+    busMemberOf: map.busMemberOf,
+    ...(map.busGroups ? { busGroups: map.busGroups } : {}),
+    ambiguousEntryPoints: map.ambiguousEntryPoints,
+  };
 }

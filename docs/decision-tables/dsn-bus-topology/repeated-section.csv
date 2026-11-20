@@ -1,0 +1,7 @@
+kind,wiring,outcome,next,status,note
+scalar,agree,merge,,draft,src/parsers/cadence/dsn/duplicate-refdes.ts:176; a terminal cannot belong to two distinct nets
+scalar,nc_vs_net,merge,,draft,src/parsers/cadence/dsn/duplicate-refdes.ts:176; a terminal cannot belong to two distinct nets
+scalar,conflict,separate,,draft,src/parsers/cadence/dsn/duplicate-refdes.ts:176; a terminal cannot belong to two distinct nets
+bus,agree,merge,,draft,src/parsers/cadence/dsn/duplicate-refdes.ts:176; a terminal cannot belong to two distinct nets
+bus,nc_vs_net,merge,,draft,src/parsers/cadence/dsn/duplicate-refdes.ts:176; a terminal cannot belong to two distinct nets
+bus,conflict,separate,,draft,src/parsers/cadence/dsn/duplicate-refdes.ts:176; a terminal cannot belong to two distinct nets

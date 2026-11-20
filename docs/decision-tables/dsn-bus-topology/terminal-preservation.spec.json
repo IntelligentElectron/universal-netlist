@@ -1,0 +1,21 @@
+{
+  "name": "terminal-preservation",
+  "assumes": [
+    "Valid framed DSN records or otherwise valid Universal Netlist payload; all outcomes preserve scalar/bus separation."
+  ],
+  "dimensions": {
+    "id": [
+      "zero",
+      "sentinel",
+      "normal"
+    ],
+    "geometry": [
+      "none",
+      "wire"
+    ],
+    "count": [
+      "one",
+      "two"
+    ]
+  }
+}

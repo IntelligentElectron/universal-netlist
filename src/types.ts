@@ -48,9 +48,32 @@ export const createPinEntry = (
 export const getPinNet = (entry: PinEntry): string =>
   typeof entry === "string" ? entry : entry.net;
 
-/**
- * Component details from netlist
- */
+/** A retained source-symbol terminal whose physical pad identity is not a dictionary key. */
+export interface PinIdentity {
+  instanceId: number;
+  index: number;
+  /** Source label, omitted when no physical number was resolved. */
+  number?: string;
+}
+
+export interface BusEntryConnection {
+  page: string;
+  start: [number, number];
+  end: [number, number];
+  /** Both omitted when the endpoint orientation does not resolve uniquely. */
+  bus?: string;
+  net?: string;
+}
+
+export interface BusMember {
+  page: string;
+  bus: string;
+  /** Native schematic-net ID; order is not asserted to be a physical lane. */
+  netId: number;
+  net?: string;
+}
+
+/** Component details, with bus topology separate from scalar electrical pins. */
 export interface ComponentDetails {
   [refdes: string]: {
     /**
@@ -82,6 +105,9 @@ export interface ComponentDetails {
     /** Set when the selected design variant substitutes another part for the base one. */
     alternate_part?: boolean;
     pins: Record<string, PinEntry>;
+    /** Bus terminals are topology, never scalar electrical pins. */
+    busPins?: Record<string, PinEntry>;
+    pinIdentities?: Record<string, PinIdentity>;
   };
 }
 
@@ -96,6 +122,9 @@ export interface ComponentDetails {
 export interface ParsedNetlist {
   nets: NetConnections;
   components: ComponentDetails;
+  buses?: NetConnections;
+  busEntries?: BusEntryConnection[];
+  busMembers?: BusMember[];
   /**
    * The schematic objects that give a net a name with leading or trailing
    * whitespace, keyed by that net. Only the Cadence .DSN parser fills it, and
@@ -460,6 +489,12 @@ export interface ComponentDetailsResult {
   /** Set when the selected design variant substitutes another part for the base one. */
   alternate_part?: boolean;
   pins: Record<string, PinEntry>;
+  busPins?: Record<string, PinEntry>;
+  pinIdentities?: Record<string, PinIdentity>;
+  buses?: Record<
+    string,
+    { terminals: NetConnections[string]; entries: BusEntryConnection[]; members: BusMember[] }
+  >;
   notes?: string[];
   /** Nets in this result whose names a netlister writes differently. */
   net_name_warnings?: NetNameWarning[];

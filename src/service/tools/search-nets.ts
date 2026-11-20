@@ -1,3 +1,4 @@
+import { topologyNotes } from "../topology-notes.js";
 import type { ServiceContext } from "../context.js";
 import { getDesignName } from "../../paths.js";
 import { loadNetlist } from "../load-netlist.js";
@@ -43,7 +44,7 @@ export const searchNets = async (
     return {
       design_variant: netlist.design_variant,
       results: { [designName]: [] },
-      notes: [`No nets matched pattern '${pattern}'`],
+      notes: [...topologyNotes(netlist), `No nets matched pattern '${pattern}'`],
     };
   }
 
@@ -53,5 +54,7 @@ export const searchNets = async (
   };
   const warnings = indexNetNames(netlist).warningsFor(sorted);
   if (warnings.length > 0) result.net_name_warnings = warnings;
+  const limits = topologyNotes(netlist);
+  if (limits.length) result.notes = [...(result.notes ?? []), ...limits];
   return result;
 };

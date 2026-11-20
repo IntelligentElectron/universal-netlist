@@ -32,7 +32,16 @@ export interface Alias {
   name: string;
 }
 
+export interface BusEntry {
+  startX: number;
+  startY: number;
+  endX: number;
+  endY: number;
+}
+
 export interface Wire {
+  /** Absent only for legacy in-memory callers, which mean scalar. */
+  kind?: "scalar" | "bus";
   segmentId: number;
   id: number;
   startX: number;
@@ -43,6 +52,7 @@ export interface Wire {
 }
 
 export interface T0x10 {
+  kind?: "scalar" | "bus";
   pinIndex: number; // 1-based logical pin index for pinMap lookup
   pointX: number;
   pointY: number;
@@ -178,7 +188,11 @@ export function parseAlias(reader: BinaryReader): Alias {
 
 export function parseWire(reader: BinaryReader): Wire {
   const futureData = new FutureDataList(reader);
-  autoReadPrefixes(reader, futureData); // accepts WireScalar or WireBus
+  const { structType } = autoReadPrefixes(reader, futureData);
+  if (structType !== StructureType.WireScalar && structType !== StructureType.WireBus) {
+    throw new Error(`Expected scalar or bus wire, got ${structType}`);
+  }
+  const kind = structType === StructureType.WireBus ? "bus" : "scalar";
   readPreamble(reader);
   futureData.checkpoint();
 
@@ -207,14 +221,26 @@ export function parseWire(reader: BinaryReader): Wire {
 
   futureData.checkpoint();
 
-  return { segmentId, id, startX, startY, endX, endY, aliases };
+  return { kind, segmentId, id, startX, startY, endX, endY, aliases };
 }
 
-/**
- * Parse a pin record: a T0x10 on a PlacedInstance, or a T0x10 or T0x11 on a
- * DrawnInstance. The two types share one body; a DrawnInstance draws some of
- * its pins under each.
- */
+/** Geometry associates a scalar conductor with a bus; it never shorts the two. */
+export function parseBusEntry(reader: BinaryReader): BusEntry {
+  const futureData = new FutureDataList(reader);
+  autoReadPrefixes(reader, futureData, StructureType.BusEntry);
+  readPreamble(reader);
+  futureData.checkpoint();
+  reader.skip(4); // color
+  const startX = reader.readInt32(),
+    startY = reader.readInt32();
+  const endX = reader.readInt32(),
+    endY = reader.readInt32();
+  reader.skip(8); // unknown, per StructBusEntry.cpp
+  futureData.checkpoint();
+  return { startX, startY, endX, endY };
+}
+
+/** Parse a scalar (0x10) or bus (0x11) pin record, retaining its kind. */
 export function parseT0x10(reader: BinaryReader): T0x10 {
   const futureData = new FutureDataList(reader);
   const { structType } = autoReadPrefixes(reader, futureData);
@@ -241,7 +267,14 @@ export function parseT0x10(reader: BinaryReader): T0x10 {
 
   futureData.checkpoint();
 
-  return { pinIndex, pointX, pointY, netId, symbolDisplayProps };
+  return {
+    kind: structType === StructureType.T0x11 ? "bus" : "scalar",
+    pinIndex,
+    pointX,
+    pointY,
+    netId,
+    symbolDisplayProps,
+  };
 }
 
 export function parsePlacedInstance(reader: BinaryReader): PlacedInstance {

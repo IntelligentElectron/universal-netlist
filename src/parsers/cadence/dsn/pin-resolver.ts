@@ -172,10 +172,8 @@ export function isPinIgnored(
  * the physical pin number in the Device.pinMap array, preferring the
  * `Packages/` stream and falling back to the Cache stream.
  *
- * The pinIndex value itself is only used when neither stream maps it. That
- * value is the symbol's pin record order, which equals the physical pin number
- * only for parts whose symbol order matches their package numbering, so it is a
- * last resort rather than a peer of the two maps.
+ * An unresolved or explicitly blank physical label stays unresolved. Storage
+ * uses resolvePinKey instead of presenting symbol order as a package number.
  */
 export function resolvePinNumber(
   pin: T0x10,
@@ -186,25 +184,61 @@ export function resolvePinNumber(
   // The occurrence's own numbering wins: a part shared by several placements
   // of a block is drawn once but uses a different section in each.
   const assigned = inst.pinNumbers?.get(pin.pinIndex);
-  if (assigned !== undefined) return assigned;
+  if (assigned !== undefined) return assigned.trim() ? assigned : "";
 
-  if (pin.pinIndex <= 0) return String(pin.pinIndex || 1);
+  if (pin.pinIndex <= 0) return "";
 
   // A map entry that is empty is no answer: a library part saved without pin
   // numbers writes one per pin, and reporting it would fold every pin of the
   // part into one nameless pin.
   const selected = selectPinMap(inst, pmd, deviceIndex);
   const selectedPin = lookupPin(selected?.map, pin.pinIndex);
-  if (selectedPin) return selectedPin;
+  if (selectedPin?.trim()) return selectedPin;
 
   // The chosen map has no entry at this index. The other stream may still carry
-  // one, so try it before falling back to the symbol's own record order.
+  // one, so try it before leaving the physical label unresolved.
   for (const maps of [pmd.pinMaps, pmd.cachePinMaps]) {
     const other = lookupPin(findPinMap(inst, maps, pmd.deviceUnitRefs, deviceIndex), pin.pinIndex);
-    if (other) return other;
+    if (other?.trim()) return other;
   }
 
-  return String(pin.pinIndex);
+  return "";
+}
+
+/** Resolve once per instance, keeping source identities outside the physical-label namespace. */
+export function resolvePinKeys(
+  inst: PlacedInstance,
+  pmd: PinMapData,
+  deviceIndex?: number
+): Map<number, string> {
+  const numbers = new Map<number, string>();
+  const counts = new Map<string, number>();
+  for (const pin of inst.t0x10s) {
+    if (isPinIgnored(pin, inst, pmd, deviceIndex)) continue;
+    const number = resolvePinNumber(pin, inst, pmd, deviceIndex);
+    numbers.set(pin.pinIndex, number);
+    if (number) counts.set(number, (counts.get(number) ?? 0) + 1);
+  }
+  return new Map(
+    inst.t0x10s
+      .filter((pin) => numbers.has(pin.pinIndex))
+      .map((pin) => {
+        const number = numbers.get(pin.pinIndex)!;
+        const sourceIdentity =
+          pin.kind === "bus" || !number || counts.get(number)! > 1 || /^@\d+:\d+$/.test(number);
+        return [pin.pinIndex, sourceIdentity ? `@${inst.dbId}:${pin.pinIndex}` : number];
+      })
+  );
+}
+
+/** Stable storage identity without asserting a physical pad for a bus/ambiguous terminal. */
+export function resolvePinKey(
+  pin: T0x10,
+  inst: PlacedInstance,
+  pmd: PinMapData,
+  deviceIndex?: number
+): string {
+  return resolvePinKeys(inst, pmd, deviceIndex).get(pin.pinIndex)!;
 }
 
 /**

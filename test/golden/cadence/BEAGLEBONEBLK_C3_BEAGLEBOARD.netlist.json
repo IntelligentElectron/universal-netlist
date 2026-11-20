@@ -1,8 +1,8 @@
 {
-  "universalNetlistSchemaVersion": 3,
+  "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-10-30T00:03:13.568Z",
-    "netlistHash": "sha256:f8c6acf6302aac370e9bdf372a6136531ddf8dab93564716609846572439b3cf",
+    "generatedAt": "2026-11-20T09:39:21.663Z",
+    "netlistHash": "sha256:0fed5c849677fa367b224bb5612374a3216d1da4f4286c37b2f467c2ca57a709",
     "origin": {
       "type": "vendor",
       "source": {
@@ -6573,8 +6573,8 @@
           "net": "VDD_MPUON"
         }
       },
-      "description": "SMD Test Point,50mil,Circle",
-      "dns": true
+      "dns": true,
+      "description": "SMD Test Point,50mil,Circle"
     },
     "C82": {
       "value": "100nF,16V",
@@ -6623,17 +6623,6 @@
     "U5": {
       "value": "AM3358BZCZ100",
       "pins": {
-        "M5": {
-          "name": "VPP",
-          "net": "NC"
-        },
-        "M15": "NC",
-        "F16": "NC",
-        "P18": "NC",
-        "A2": {
-          "name": "VDD_MPU_MON",
-          "net": "VDD_MPUON"
-        },
         "A1": {
           "name": "VSS1",
           "net": "DGND"
@@ -6942,6 +6931,10 @@
           "name": "CAP_VDD_SRAM_MPU",
           "net": "CAP_VDD_SRAM_MPU"
         },
+        "M5": {
+          "name": "VPP",
+          "net": "NC"
+        },
         "H15": {
           "name": "VDDS_PLL_MPU",
           "net": "VDD_PLL"
@@ -7110,206 +7103,822 @@
           "name": "VDDS7",
           "net": "VDDS"
         },
-        "V5": "LCDPCLK",
-        "P15": "N22155575",
-        "P17": "USB1_ID",
-        "E17": "N22488252",
-        "U5": "LCDVSYNC",
-        "R5": "LCDVHYNC",
-        "R6": "LCDDE",
-        "B6": "AIN0",
-        "C7": "AIN1",
-        "B7": "AIN2",
-        "A7": "AIN3",
-        "C8": "AIN4",
-        "B8": "AIN5",
-        "A8": "AIN6",
-        "C9": "AIN7",
-        "B9": "VREFP_ADC",
-        "A9": "GNDA_ADC",
-        "E16": "UART0_TX",
-        "E15": "UART0_RX",
-        "E18": "ETH_RST_GPIO1_8",
-        "N17": "USB0_DP",
-        "N18": "USB0_DM",
-        "R17": "USB1_DP",
-        "R18": "USB1_DM",
-        "P16": "USB0_ID",
-        "T18": "USB1_VBUS",
-        "F15": "USB1_DRVVBUS",
-        "H16": "MII1_COL",
-        "H17": "MII1_CRS_DV",
-        "K17": "MII1_TXD0",
-        "K16": "MII1_TXD1",
-        "K15": "MII1_TXD2",
-        "J18": "MII1_TXD3",
-        "K18": "MII1_TXCLK",
-        "J16": "MII1_TXEN",
-        "J15": "MII1_RXERR",
-        "J17": "MII1_RXDV",
-        "L18": "MII1_RXCLK",
-        "M16": "MII1_RXD0",
-        "L15": "MII1_RXD1",
-        "L16": "MII1_RXD2",
-        "L17": "MII1_RXD3",
-        "H18": "U5_H18",
-        "M18": "MDIO_CLK",
-        "M17": "MDIO_DATA",
-        "D15": "UART1_TXD",
-        "D16": "UART1_RXD",
-        "D18": "I2C2_SDA",
-        "D17": "I2C2_SCL",
-        "C16": "I2C0_SCL",
-        "C17": "I2C0_SDA",
-        "R1": "LCD_DATA0",
-        "R2": "LCD_DATA1",
-        "R3": "LCD_DATA2",
-        "R4": "LCD_DATA3",
-        "T1": "LCD_DATA4",
-        "T2": "LCD_DATA5",
-        "T3": "LCD_DATA6",
-        "T4": "LCD_DATA7",
-        "U1": "LCD_DATA8",
-        "U2": "LCD_DATA9",
-        "U3": "LCD_DATA10",
-        "U4": "LCD_DATA11",
-        "V2": "LCD_DATA12",
-        "V3": "LCD_DATA13",
-        "V4": "LCD_DATA14",
-        "T5": "LCD_DATA15",
-        "A17": "UART2_RXD",
-        "B17": "UART2_TXD",
-        "B16": "I2C1_SDA",
-        "A16": "I2C1_SCL",
-        "C15": "MMC0_CD",
-        "C6": "PMIC_POWR_EN",
-        "C5": "WAKEUP",
-        "A14": "GPIO3_21",
-        "A13": "SPI1_SCLK",
-        "B13": "SPI1_D0",
-        "D12": "SPI1_D1",
-        "C12": "SPI1_CS0",
-        "B12": "GPIO3_18",
-        "C13": "GPIO3_19",
-        "D13": "GPIO3_20",
-        "C18": "GPIO0_7SRC",
-        "R9": "AM3_MMC1_DAT6",
-        "U8": "AM3_MMC1_DAT4",
-        "U9": "AM3_MMC1_CLK",
-        "A6": "OSC1_IN",
-        "A4": "OSC1_OUT",
-        "V10": "OSC0_IN",
-        "U11": "OSC0_OUT",
-        "V12": "GPIO2_1",
-        "V6": "GPIO1_29",
-        "V9": "AM3_MMC1_CMD",
-        "U6": "TIMER6",
-        "T7": "TIMER7",
-        "T13": "U5_T13",
-        "R7": "TIMER4",
-        "T6": "TIMER5",
-        "U18": "GPIO1_28",
-        "T17": "UART4_RXD",
-        "U7": "AM3_MMC1_DAT0",
-        "V7": "AM3_MMC1_DAT1",
-        "R8": "AM3_MMC1_DAT2",
-        "T8": "AM3_MMC1_DAT3",
-        "V8": "AM3_MMC1_DAT5",
-        "T9": "AM3_MMC1_DAT7",
-        "U10": "EHRPWM2A",
-        "T10": "EHRPWM2B",
-        "T11": "GPIO0_26",
-        "U12": "GPIO0_27",
-        "T12": "GPIO1_12",
-        "R12": "GPIO1_13",
-        "V13": "GPIO1_14",
-        "U13": "GPIO1_15",
-        "R13": "U5_R13",
-        "V14": "GPIO1_17",
-        "U14": "EHRPWM1A",
-        "T14": "EHRPWM1B",
-        "R14": "N22287555",
-        "V15": "USR0",
-        "U15": "USR1",
-        "T15": "USR2",
-        "V16": "USR3",
-        "U16": "HDMI_INT",
-        "T16": "USB1_OCN",
-        "V17": "HDMICLK_DISN",
-        "G17": "MMC0_CLKO",
-        "G18": "MMC0_CMD",
-        "G16": "MMC0_DAT0",
-        "G15": "MMC0_DAT1",
-        "F18": "MMC0_DAT2",
-        "F17": "MMC0_DAT3",
-        "B15": "PMIC_PGOOD",
-        "A10": "SYS_RESETN",
-        "B18": "PMIC_INT",
-        "A15": "PROC_A15",
-        "D14": "CLKOUT_SRC",
-        "C11": "JTAG_TMS",
-        "B10": "JTAG_TRSTN",
-        "A12": "JTAG_TCK",
-        "B11": "JTAG_TDI",
-        "A11": "JTAG_TDO",
-        "C14": "JTAG_EMU0",
-        "F3": "DDR_A0",
-        "H1": "DDR_A1",
-        "E4": "DDR_A2",
-        "C3": "DDR_A3",
-        "C2": "DDR_A4",
-        "B1": "DDR_A5",
-        "D5": "DDR_A6",
-        "E2": "DDR_A7",
-        "D4": "DDR_A8",
-        "C1": "DDR_A9",
-        "F4": "DDR_A10",
-        "F2": "DDR_A11",
-        "E3": "DDR_A12",
-        "H3": "DDR_A13",
-        "H4": "DDR_A14",
-        "M3": "DDR_D0",
-        "M4": "DDR_D1",
-        "N1": "DDR_D2",
-        "N2": "DDR_D3",
-        "N3": "DDR_D4",
-        "N4": "DDR_D5",
-        "P3": "DDR_D6",
-        "P4": "DDR_D7",
-        "J1": "DDR_D8",
-        "K1": "DDR_D9",
-        "K2": "DDR_D10",
-        "K3": "DDR_D11",
-        "K4": "DDR_D12",
-        "L3": "DDR_D13",
-        "L4": "DDR_D14",
-        "M1": "DDR_D15",
-        "D2": "DDR_CLK",
-        "D1": "DDR_CLKN",
-        "H2": "DDR_CSN",
-        "F1": "DDR_CASN",
-        "G4": "DDR_RASN",
-        "B2": "DDR_WEN",
-        "C4": "DDR_BA0",
-        "E1": "DDR_BA1",
-        "B3": "DDR_BA2",
-        "M2": "DDR_DQM0",
-        "P1": "DDR_DQS0",
-        "P2": "DDR_DQSN0",
-        "J2": "DDR_DQM1",
-        "L1": "DDR_DQS1",
-        "L2": "DDR_DQSN1",
-        "G1": "DDR_ODT",
-        "B14": "JTAG_EMU1",
-        "A5": "GND_OSC1",
-        "V11": "GND_OSC0",
-        "U17": "UART4_TXD",
-        "G3": "DDR_CKE",
-        "G2": "DDR_RESETN",
-        "J3": "DDR_VTP",
-        "D3": "DDR_A15",
-        "B5": "LDO_PGOOD",
-        "J4": "DDR_VREF"
+        "A2": {
+          "name": "VDD_MPU_MON",
+          "net": "VDD_MPUON"
+        },
+        "B6": {
+          "name": "AIN0",
+          "net": "AIN0"
+        },
+        "C7": {
+          "name": "AIN1",
+          "net": "AIN1"
+        },
+        "B7": {
+          "name": "AIN2",
+          "net": "AIN2"
+        },
+        "A7": {
+          "name": "AIN3",
+          "net": "AIN3"
+        },
+        "C8": {
+          "name": "AIN4",
+          "net": "AIN4"
+        },
+        "B8": {
+          "name": "AIN5",
+          "net": "AIN5"
+        },
+        "A8": {
+          "name": "AIN6",
+          "net": "AIN6"
+        },
+        "C9": {
+          "name": "AIN7",
+          "net": "AIN7"
+        },
+        "B9": {
+          "name": "VREFP",
+          "net": "VREFP_ADC"
+        },
+        "A9": {
+          "name": "VREFN",
+          "net": "GNDA_ADC"
+        },
+        "E16": {
+          "name": "UART0_TXD/SPI1_CS1/DCAN0_RX/I2C2_SCL/ECAP1_IN_PWM1_OUT/PR1_PRU1_PRU_R30_15/PR1_PRU1_PRU_R31_15/GPIO1_11",
+          "net": "UART0_TX"
+        },
+        "E15": {
+          "name": "UART0_RXD/SPI1_CS0/DCAN0_TX/I2C2_SDA/ECAP2_IN_PWM2_OUT/PR1_PRU1_PRU_R30_14/PR1_PRU1_PRU_R31_14/GPIO1_10",
+          "net": "UART0_RX"
+        },
+        "E18": {
+          "name": "UART0_CTSN/UART4_RXD/DCAN1_TX/I2C1_SDA/SPI1_D0/TIMER7/PR1_EDC_SYNC0_OUT/GPIO1_8",
+          "net": "ETH_RST_GPIO1_8"
+        },
+        "E17": {
+          "name": "UART0_RTSN/UART4_TXD/DCAN1_RX/I2C1_SCL/SPI1_D1/SPI1_CS0/PR1_EDC_SYNC1_OUT/GPIO1_9",
+          "net": "N22488252"
+        },
+        "N17": {
+          "name": "USB0_DP",
+          "net": "USB0_DP"
+        },
+        "N18": {
+          "name": "USB0_DM",
+          "net": "USB0_DM"
+        },
+        "M15": {
+          "name": "USB0_CE",
+          "net": "NC"
+        },
+        "P15": {
+          "name": "USB0_VBUS",
+          "net": "N22155575"
+        },
+        "F16": {
+          "name": "USB0_DRVVBUS/GPIO0_18",
+          "net": "NC"
+        },
+        "R17": {
+          "name": "USB1_DP",
+          "net": "USB1_DP"
+        },
+        "R18": {
+          "name": "USB1_DM",
+          "net": "USB1_DM"
+        },
+        "P17": {
+          "name": "USB1_ID",
+          "net": "USB1_ID"
+        },
+        "P16": {
+          "name": "USB0_ID",
+          "net": "USB0_ID"
+        },
+        "P18": {
+          "name": "USB1_CE",
+          "net": "NC"
+        },
+        "T18": {
+          "name": "USB1_VBUS",
+          "net": "USB1_VBUS"
+        },
+        "F15": {
+          "name": "USB1_DRVVBUS/GPIO3_13",
+          "net": "USB1_DRVVBUS"
+        },
+        "H16": {
+          "name": "GMII1_COL/RMII2_REFCLK/SPI1_SCLK/UART5_RXD/MCASP1_AXR2/MMC2_DAT3/MCASP0_AXR2/GPIO3_0",
+          "net": "MII1_COL"
+        },
+        "H17": {
+          "name": "GMII1_CRS/RMII1_CRS_DV/SPI1_D0/I2C1_SDA/MCASP1_ACLKX/UART5_CTSN/UART2_RXD/GPIO3_1",
+          "net": "MII1_CRS_DV"
+        },
+        "K17": {
+          "name": "GMII1_TXD0/RMII1_TXD0/RGMII1_TD0/MCASP1_AXR2/MCASP1_ACLKR/EQEP0B_IN/MMC1_CLK/GPIO0_28",
+          "net": "MII1_TXD0"
+        },
+        "K16": {
+          "name": "GMII1_TXD1/RMII1_TXD1/RGMII1_TD1/MCASP1_FSR/MCASP1_AXR1/EQEP0A_IN/MMC1_CMD/GPIO0_21",
+          "net": "MII1_TXD1"
+        },
+        "K15": {
+          "name": "GMII1_TXD2/DCAN0_RX/RGMII1_TD2/UART4_TXD/MCASP1_AXR0/MMC2_DAT2/MCASP0_AHCLKX/GPIO0_17",
+          "net": "MII1_TXD2"
+        },
+        "J18": {
+          "name": "GMII1_TXD3/DCAN0_TX/RGMII1_TD3/UART4_RXD/MCASP1_FSX/MMC2_DAT1/MCASP0_FSR/GPIO0_16",
+          "net": "MII1_TXD3"
+        },
+        "K18": {
+          "name": "GMII1_TXCLK/UART2_RXD/RGMII1_TCLK/MMC0_DAT7/MMC1_DAT0/UART1_DCDN/MCASP0_ACLKX/GPIO3_9",
+          "net": "MII1_TXCLK"
+        },
+        "J16": {
+          "name": "GMII1_TXEN/RMII1_TXEN/RGMII1_TCTL/TIMER4/MCASP1_AXR0/EQEP0_INDEX/MMC2_CMD/GPIO3_3",
+          "net": "MII1_TXEN"
+        },
+        "J15": {
+          "name": "GMII1_RXERR/RMII1_RXERR/SPI1_D1/I2C1_SCL/MCASP1_FSX/UART5_RTSN/UART2_TXD/GPIO3_2",
+          "net": "MII1_RXERR"
+        },
+        "J17": {
+          "name": "GMII1_RXDV/LCD_MEMORY_CLK/RGMII1_RCTL/UART5_TXD/MCASP1_ACLKX/MMC2_DAT0/MCASP0_ACLKR/GPIO3_4",
+          "net": "MII1_RXDV"
+        },
+        "L18": {
+          "name": "GMII1_RXCLK/UART2_TXD/RGMII1_RCLK/MMC0_DAT6/MMC1_DAT1/UART1_DSRN/MCASP0_FSX/GPIO3_10",
+          "net": "MII1_RXCLK"
+        },
+        "M16": {
+          "name": "GMII1_RXD0/RMII1_RXD0/RGMII1_RD0/MCASP1_AHCLKX/MCASP1_AHCLKR/MCASP1_ACLKR/MCASP0_AXR3/GPIO2_21",
+          "net": "MII1_RXD0"
+        },
+        "L15": {
+          "name": "GMII1_RXD1/RMII1_RXD1/RGMII1_RD1/MCASP1_AXR3/MCASP1_FSR/EQEP0_STROBE/MMC2_CLK/GPIO2_20",
+          "net": "MII1_RXD1"
+        },
+        "L16": {
+          "name": "GMII1_RXD2/UART3_TXD/RGMII1_RD2/MMC0_DAT4/MMC1_DAT3/UART1_RIN/MCASP0_AXR1/GPIO2_19",
+          "net": "MII1_RXD2"
+        },
+        "L17": {
+          "name": "GMII1_RXD3/UART3_RXD/RGMII1_RD3/MMC0_DAT5/MMC1_DAT2/UART1_DTRN/MCASP0_AXR0/GPIO2_18",
+          "net": "MII1_RXD3"
+        },
+        "H18": {
+          "name": "RMII1_REFCLK/XDMA_EVENT_INTR2/SPI1_CS0/UART5_TXD/MCASP1_AXR3/MMC0_POW/MCASP1_AHCLKX/GPIO0_29",
+          "net": "U5_H18"
+        },
+        "M18": {
+          "name": "MDIO_CLK/TIMER5/UART5_TXD/UART3_RTSN/MMC0_SDWP/MMC1_CLK/MMC2_CLK/GPIO0_1",
+          "net": "MDIO_CLK"
+        },
+        "M17": {
+          "name": "MDIO_DATA/TIMER6/UART5_RXD/UART3_CTSN/MMC0_SDCD/MMC1_CMD/MMC2_CMD/GPIO0_0",
+          "net": "MDIO_DATA"
+        },
+        "D15": {
+          "name": "UART1_TXD/MMC2_SDWP/DCAN1_RX/I2C1_SCL//PR1_UART0_TXD/PR1_PRU0_PRU_R31_16/GPIO0_15",
+          "net": "UART1_TXD"
+        },
+        "D16": {
+          "name": "UART1_RXD/MMC1_SDWP/DCAN1_TX/I2C1_SDA//PR1_UART0_RXD/PR1_PRU1_PRU_R31_16/GPIO0_14",
+          "net": "UART1_RXD"
+        },
+        "D18": {
+          "name": "UART1_CTSN/TIMER6/DCAN0_TX/I2C2_SDA/SPI1_CS0/PR1_UART0_CTS_N/PR1_EDC_LATCH0_IN/GPIO0_12",
+          "net": "I2C2_SDA"
+        },
+        "D17": {
+          "name": "UART1_RTSN/TIMER5/DCAN0_RX/I2C2_SCL/SPI1_CS1/PR1_UART0_RTS_N/PR1_EDC_LATCH1_IN/GPIO0_13",
+          "net": "I2C2_SCL"
+        },
+        "C16": {
+          "name": "I2C0_SCL/TIMER7/UART2_RTSN/ECAP1_IN_PWM1_OUT////GPIO3_6",
+          "net": "I2C0_SCL"
+        },
+        "C17": {
+          "name": "I2C0_SDA/TIMER4/UART2_CTSN/ECAP2_IN_PWM2_OUT////GPIO3_5",
+          "net": "I2C0_SDA"
+        },
+        "R1": {
+          "name": "LCD_DATA0/GPMC_A0//EHRPWM2A//PR1_PRU1_PRU_R30_0/PR1_PRU1_PRU_R31_0/GPIO2_6",
+          "net": "LCD_DATA0"
+        },
+        "R2": {
+          "name": "LCD_DATA1/GPMC_A1//EHRPWM2B//PR1_PRU1_PRU_R30_1/PR1_PRU1_PRU_R31_1/GPIO2_7",
+          "net": "LCD_DATA1"
+        },
+        "R3": {
+          "name": "LCD_DATA2/GPMC_A2//EHRPWM2_TRIPZONE_INPUT//PR1_PRU1_PRU_R30_2/PR1_PRU1_PRU_R31_2/GPIO2_8",
+          "net": "LCD_DATA2"
+        },
+        "R4": {
+          "name": "LCD_DATA3/GPMC_A3//EHRPWM2_SYNCI_O//PR1_PRU1_PRU_R30_3/PR1_PRU1_PRU_R31_3/GPIO2_9",
+          "net": "LCD_DATA3"
+        },
+        "T1": {
+          "name": "LCD_DATA4/GPMC_A4//EQEP2A_IN//PR1_PRU1_PRU_R30_4/PR1_PRU1_PRU_R31_4/GPIO2_10",
+          "net": "LCD_DATA4"
+        },
+        "T2": {
+          "name": "LCD_DATA5/GPMC_A5//EQEP2B_IN//PR1_PRU1_PRU_R30_5/PR1_PRU1_PRU_R31_5/GPIO2_11",
+          "net": "LCD_DATA5"
+        },
+        "T3": {
+          "name": "LCD_DATA6/GPMC_A6/PR1_EDIO_DATA_IN6/EQEP2_INDEX/PR1_EDIO_DATA_OUT6/PR1_PRU1_PRU_R30_6/PR1_PRU1_PRU_R31_6/GPIO2_12",
+          "net": "LCD_DATA6"
+        },
+        "T4": {
+          "name": "LCD_DATA7/GPMC_A7/PR1_EDIO_DATA_IN7/EQEP2_STROBE/PR1_EDIO_DATA_OUT7/PR1_PRU1_PRU_R30_7/PR1_PRU1_PRU_R31_7/GPIO2_13",
+          "net": "LCD_DATA7"
+        },
+        "U1": {
+          "name": "LCD_DATA8/GPMC_A12/EHRPWM1_TRIPZONE_INPUT/MCASP0_ACLKX/UART5_TXD/PR1_MII0_RXD3/UART2_CTSN/GPIO2_14",
+          "net": "LCD_DATA8"
+        },
+        "U2": {
+          "name": "LCD_DATA9/GPMC_A13/EHRPWM1_SYNCI_O/MCASP0_FSX/UART5_RXD/PR1_MII0_RXD2/UART2_RTSN/GPIO2_15",
+          "net": "LCD_DATA9"
+        },
+        "U3": {
+          "name": "LCD_DATA10/GPMC_A14/EHRPWM1A/MCASP0_AXR0//PR1_MII0_RXD1/UART3_CTSN/GPIO2_16",
+          "net": "LCD_DATA10"
+        },
+        "U4": {
+          "name": "LCD_DATA11/GPMC_A15/EHRPWM1B/MCASP0_AHCLKR/MCASP0_AXR2/PR1_MII0_RXD0/UART3_RTSN/GPIO2_17",
+          "net": "LCD_DATA11"
+        },
+        "V2": {
+          "name": "LCD_DATA12/GPMC_A16/EQEP1A_IN/MCASP0_ACLKR/MCASP0_AXR2/PR1_MII0_RXLINK/UART4_CTSN/GPIO0_8",
+          "net": "LCD_DATA12"
+        },
+        "V3": {
+          "name": "LCD_DATA13/GPMC_A17/EQEP1B_IN/MCASP0_FSR/MCASP0_AXR3/PR1_MII0_RXER/UART4_RTSN/GPIO0_9",
+          "net": "LCD_DATA13"
+        },
+        "V4": {
+          "name": "LCD_DATA14/GPMC_A18/EQEP1_INDEX/MCASP0_AXR1/UART5_RXD/PR1_MII_MR0_CLK/UART5_CTSN/GPIO0_10",
+          "net": "LCD_DATA14"
+        },
+        "T5": {
+          "name": "LCD_DATA15/GPMC_A19/EQEP1_STROBE/MCASP0_AHCLKX/MCASP0_AXR3/PR1_MII0_RXDV/UART5_RTSN/GPIO0_11",
+          "net": "LCD_DATA15"
+        },
+        "V5": {
+          "name": "LCD_PCLK/GPMC_A10//PR1_EDIO_DATA_IN4/PR1_EDIO_DATA_OUT4/PR1_PRU1_PRU_R30_10/PR1_PRU1_PRU_R31_10/GPIO2_24",
+          "net": "LCDPCLK"
+        },
+        "U5": {
+          "name": "LCD_VSYNC/GPMC_A8//PR1_EDIO_DATA_IN2/PR1_EDIO_DATA_OUT2/PR1_PRU1_PRU_R30_8/PR1_PRU1_PRU_R31_8/GPIO2_22",
+          "net": "LCDVSYNC"
+        },
+        "R5": {
+          "name": "LCD_HSYNC/GPMC_A9//PR1_EDIO_DATA_IN3/PR1_EDIO_DATA_OUT3/PR1_PRU1_PRU_R30_9/PR1_PRU1_PRU_R31_9/GPIO2_23",
+          "net": "LCDVHYNC"
+        },
+        "R6": {
+          "name": "LCD_AC_BIAS_EN/GPMC_A11//PR1_EDIO_DATA_IN5/PR1_EDIO_DATA_OUT5/PR1_PRU1_PRU_R30_11/PR1_PRU1_PRU_R31_11/GPIO2_25",
+          "net": "LCDDE"
+        },
+        "A17": {
+          "name": "SPI0_SCLK/UART2_RXD/I2C2_SDA/EHRPWM0A/PR1_UART0_CTS_N/PR1_EDIO_SOF/EMU2/GPIO0_2",
+          "net": "UART2_RXD"
+        },
+        "B17": {
+          "name": "SPI0_D0/UART2_TXD/I2C2_SCL/EHRPWM0B/PR1_UART0_RTS_N/PR1_EDIO_LATCH_IN/EMU3/GPIO0_3",
+          "net": "UART2_TXD"
+        },
+        "B16": {
+          "name": "SPI0_D1/MMC1_SDWP/I2C1_SDA/EHRPWM0_TRIPZONE_INPUT/PR1_UART0_RXD/PR1_EDIO_DATA_IN0/PR1_EDIO_DATA_OUT0/GPIO0_4",
+          "net": "I2C1_SDA"
+        },
+        "A16": {
+          "name": "SPI0_CS0/MMC2_SDWP/I2C1_SCL/EHRPWM0_SYNCI_O/PR1_UART0_TXD/PR1_EDIO_DATA_IN1/PR1_EDIO_DATA_OUT1/GPIO0_5",
+          "net": "I2C1_SCL"
+        },
+        "C15": {
+          "name": "SPI0_CS1/UART3_RXD/ECAP1_IN_PWM1_OUT/MMC0_POW/XDMA_EVENT_INTR2/MMC0_SDCD/EMU4/GPIO0_6",
+          "net": "MMC0_CD"
+        },
+        "C6": {
+          "name": "PMIC_POWER_EN",
+          "net": "PMIC_POWR_EN"
+        },
+        "C5": {
+          "name": "EXT_WAKEUP",
+          "net": "WAKEUP"
+        },
+        "A14": {
+          "name": "MCASP0_AHCLKX/EQEP0_STROBE/MCASP0_AXR3/MCASP1_AXR1/EMU4/PR1_PRU0_PRU_R30_7/PR1_PRU0_PRU_R31_7/GPIO3_21",
+          "net": "GPIO3_21"
+        },
+        "A13": {
+          "name": "MCASP0_ACLKX/EHRPWM0A//SPI1_SCLK/MMC0_SDCD/PR1_PRU0_PRU_R30_0/PR1_PRU0_PRU_R31_0/GPIO3_14",
+          "net": "SPI1_SCLK"
+        },
+        "B13": {
+          "name": "MCASP0_FSX/EHRPWM0B//SPI1_D0/MMC1_SDCD/PR1_PRU0_PRU_R30_1/PR1_PRU0_PRU_R31_1/GPIO3_15",
+          "net": "SPI1_D0"
+        },
+        "D12": {
+          "name": "MCASP0_AXR0/EHRPWM0_TRIPZONE_INPUT//SPI1_D1/MMC2_SDCD/PR1_PRU0_PRU_R30_2/PR1_PRU0_PRU_R31_2/GPIO3_16",
+          "net": "SPI1_D1"
+        },
+        "C12": {
+          "name": "MCASP0_AHCLKR/EHRPWM0_SYNCI_O/MCASP0_AXR2/SPI1_CS0/ECAP2_IN_PWM2_OUT/PR1_PRU0_PRU_R30_3/PR1_PRU0_PRU_R31_3/GPIO3_17",
+          "net": "SPI1_CS0"
+        },
+        "B12": {
+          "name": "MCASP0_ACLKR/EQEP0A_IN/MCASP0_AXR2/MCASP1_ACLKX/MMC0_SDWP/PR1_PRU0_PRU_R30_4/PR1_PRU0_PRU_R31_4/GPIO3_18",
+          "net": "GPIO3_18"
+        },
+        "C13": {
+          "name": "MCASP0_FSR/EQEP0B_IN/MCASP0_AXR3/MCASP1_FSX/EMU2/PR1_PRU0_PRU_R30_5/PR1_PRU0_PRU_R31_5/GPIO3_19",
+          "net": "GPIO3_19"
+        },
+        "D13": {
+          "name": "MCASP0_AXR1/EQEP0_INDEX//MCASP1_AXR0/EMU3/PR1_PRU0_PRU_R30_6/PR1_PRU0_PRU_R31_6/GPIO3_20",
+          "net": "GPIO3_20"
+        },
+        "C18": {
+          "name": "ECAP0_IN_PWM0_OUT/UART3_TXD/SPI1_CS1/PR1_ECAP0_ECAP_CAPIN_APWM_O/SPI1_SCLK/MMC0_SDWP/XDMA_EVENT_INTR2/GPIO0_7",
+          "net": "GPIO0_7SRC"
+        },
+        "A6": {
+          "name": "OSC1_IN",
+          "net": "OSC1_IN"
+        },
+        "A4": {
+          "name": "OSC1_OUT",
+          "net": "OSC1_OUT"
+        },
+        "V10": {
+          "name": "OSC0_IN",
+          "net": "OSC0_IN"
+        },
+        "U11": {
+          "name": "OSC0_OUT",
+          "net": "OSC0_OUT"
+        },
+        "V12": {
+          "name": "GPMC_CLK/LCD_MEM_CLK/GPMC_WAIT1/MMC2_CLK/PRT1_MII1_TXEN/MCASP0_FSR/GPIO2_1",
+          "net": "GPIO2_1"
+        },
+        "V6": {
+          "name": "GPMC_CSN0/GPIO1_29",
+          "net": "GPIO1_29"
+        },
+        "U9": {
+          "name": "GPMC_CSN1/GPMC_CLK/MMC1_CLK/PRT1EDIO_DATA_IN6/PRT1_EDIO_DATA_OUT6/PR1_PRU1_PRU_R30_12/PR1_PRU1_PRU_R31_12/GPIO1_30",
+          "net": "AM3_MMC1_CLK"
+        },
+        "V9": {
+          "name": "GPMC_CSN2/GPMC_BE1N/MMC1_CMD/PR1_EDIO_DATA_IN7/PR1_EDIO_DATA_OUT7/PR1_PRU1_PRU_R30_13/PR1_PRU1_PRU_R31_13/GPIO1_31",
+          "net": "AM3_MMC1_CMD"
+        },
+        "U6": {
+          "name": "GPMC_WEN/TIMER6/GPIO2_4",
+          "net": "TIMER6"
+        },
+        "T7": {
+          "name": "GPMC_OEN_REN/TIMER7/EMU4/GPIO2_3",
+          "net": "TIMER7"
+        },
+        "T13": {
+          "name": "GPMC_CSN3/MMC2_CMD/PR1_MDIO_DATA/GPIO2_0",
+          "net": "U5_T13"
+        },
+        "R7": {
+          "name": "GPMC_ADVN_ALE/TIMER4/GPIO2_2",
+          "net": "TIMER4"
+        },
+        "T6": {
+          "name": "GPMC_BE0N_CLE/TIMER5/GPIO2_5",
+          "net": "TIMER5"
+        },
+        "U18": {
+          "name": "GPMC_BE1N/GMII2_COL/GPMC_CSN6/MMC2_DAT3/GPMC_DIR/PR1_MII1_RXLINK/MCASP0_ACLKR/GPIO1_28",
+          "net": "GPIO1_28"
+        },
+        "T17": {
+          "name": "GPMC_WAIT0/GM112_CRS/GPMC_CSN4/RMII2_CRS_DV/MMC1_SDCD/PR1_MII1_RXDV/UART4_RXD/GPIO0_30",
+          "net": "UART4_RXD"
+        },
+        "U7": {
+          "name": "GPMC_AD0/MMC1_DAT0//////GPIO1_0",
+          "net": "AM3_MMC1_DAT0"
+        },
+        "V7": {
+          "name": "GPMC_AD1/MMC1_DAT1//////GPIO1_1",
+          "net": "AM3_MMC1_DAT1"
+        },
+        "R8": {
+          "name": "GPMC_AD2/MMC1_DAT2//////GPIO1_2",
+          "net": "AM3_MMC1_DAT2"
+        },
+        "T8": {
+          "name": "GPMC_AD3/MMC1_DAT3//////GPIO1_3",
+          "net": "AM3_MMC1_DAT3"
+        },
+        "U8": {
+          "name": "GPMC_AD4/MMC1_DAT4//////GPIO1_4",
+          "net": "AM3_MMC1_DAT4"
+        },
+        "V8": {
+          "name": "GPMC_AD5/MMC1_DAT5//////GPIO1_5",
+          "net": "AM3_MMC1_DAT5"
+        },
+        "R9": {
+          "name": "GPMC_AD6/MMC1_DAT6//////GPIO1_6",
+          "net": "AM3_MMC1_DAT6"
+        },
+        "T9": {
+          "name": "GPMC_AD7/MMC1_DAT7//////GPIO1_7",
+          "net": "AM3_MMC1_DAT7"
+        },
+        "U10": {
+          "name": "GPMC_AD8/LCD_DATA23/MMC1_DAT0/MMC2_DAT4/EHRPWM2A/PR1_MII_MT0_CLK//GPIO0_22",
+          "net": "EHRPWM2A"
+        },
+        "T10": {
+          "name": "GPMC_AD9/LCD_DATA22/MMC1_DAT1/MMC2_DAT5/EHRPWM2B/PR1_MII0_CRS//GPIO0_23",
+          "net": "EHRPWM2B"
+        },
+        "T11": {
+          "name": "GPMC_AD10/LCD_DATA21/MMC1_DAT2/MMC2_DAT6/EHRPWM2_TRIPZONE_INPUT/PR1_MII0_TXEN//GPIO0_26",
+          "net": "GPIO0_26"
+        },
+        "U12": {
+          "name": "GPMC_AD11/LCD_DATA20/MMC1_DAT3/MMC2_DAT7/EHRPWM2_SYNCI_O/PR1_MII0_TXD3//GPIO0_27",
+          "net": "GPIO0_27"
+        },
+        "T12": {
+          "name": "GPMC_AD12/LCD_DATA19/MMC1_DAT4/MMC2_DAT0/EQEP2A_IN/PR1_MII0_TXD2/PR1_PRU0_PRU_R30_14/GPIO1_12",
+          "net": "GPIO1_12"
+        },
+        "R12": {
+          "name": "GPMC_AD13/LCD_DATA18/MMC1_DAT5/MMC2_DAT1/EQEP2B_IN/PR1_MII0_TXD1/PR1_PRU0_PRU_R30_15/GPIO1_13",
+          "net": "GPIO1_13"
+        },
+        "V13": {
+          "name": "GPMC_AD14/LCD_DATA17/MMC1_DAT6/MMC2_DAT2/EQEP2_INDEX/PR1_MII0_TXD0/PR1_PRU0_PRU_R31_14/GPIO1_14",
+          "net": "GPIO1_14"
+        },
+        "U13": {
+          "name": "GPMC_AD15/LCD_DATA16/MMC1_DAT7/MMC2_DAT3/EQEP2_STROBE/PR1_ECAP0_ECAP_CAPIN_APWM_O/PR1_PRU0_PRU_R31_15/GPIO1_15",
+          "net": "GPIO1_15"
+        },
+        "R13": {
+          "name": "GPMC_A0/GMII2_TXEN/RGMII2_TCTL/RMII2_TXEN/GPMC_A16/PR1_MII_MT1_CLK/EHRPWM1_TRIPZONE_INPUT/GPIO1_16",
+          "net": "U5_R13"
+        },
+        "V14": {
+          "name": "GPMC_A1/GMII2_RXDV/RGMII2_RCTL/MMC2_DAT0/GPMC_A17/PR1_MII1_TXD3/EHRPWM1_SYNCI_O/GPIO1_17",
+          "net": "GPIO1_17"
+        },
+        "U14": {
+          "name": "GPMC_A2/GMII2_TXD3/RGMII2_TD3/MMC2_DAT1/GPMC_A18/PR1_MII1_TXD2/EHRPWM1A/GPIO1_18",
+          "net": "EHRPWM1A"
+        },
+        "T14": {
+          "name": "GPMC_A3/GMII2_TXD2/RGMII2_TD2/MMC2_DAT2/GPMC_A19/PR1_MII1_TXD1/EHRPWM1B/GPIO1_19",
+          "net": "EHRPWM1B"
+        },
+        "R14": {
+          "name": "GPMC_A4/GMII2_TXD1/RGMII2_TD1/RMII2_TXD1/GPMC_A20/PR1_MII1_TXD0/EQEP1A_IN/GPIO1_20",
+          "net": "N22287555"
+        },
+        "V15": {
+          "name": "GPMC_A5/GMII2_TXD0/RGMII2_TD0/RMII2_TXD0/GPMC_A21/PR1_MII1_RXD3/EQEP1B_IN/GPIO1_21",
+          "net": "USR0"
+        },
+        "U15": {
+          "name": "GPMC_A6/GMII2_TXCLK/RGMII2_TCLK/MMC2_DAT4/GPMC_A22/PR1_MII1_RXD2/EQEP1_INDEX/GPIO1_22",
+          "net": "USR1"
+        },
+        "T15": {
+          "name": "GPMC_A7/GMII2_RXCLK/RGMII2_RCLK/MMC2_DAT5/GPMC_A23/PR1_MII1_RXD1/EQEP1_STROBE/GPIO1_23",
+          "net": "USR2"
+        },
+        "V16": {
+          "name": "GPMC_A8/GMII2_RXD3/RGMII2_RD3/MMC2_DAT6/GPMC_A24/PR1_MII1_RXD0/MCASP0_ACLKX/GPIO1_24",
+          "net": "USR3"
+        },
+        "U16": {
+          "name": "GPMC_A9/GMII2_RXD2/RGMII2_RD2/MMC2_DAT7/GPMC_A25/PR1_MII_MR1_CLK/MCASP0_FSX/GPIO1_25",
+          "net": "HDMI_INT"
+        },
+        "T16": {
+          "name": "GPMC_A10/GMII2_RXD1/RGMII2_RD1/RMII2_RXD1/GPMC_A26/PR1_MII1_CRS/MCASP0_AXR0/GPIO1_26",
+          "net": "USB1_OCN"
+        },
+        "V17": {
+          "name": "GPMC_A11/GMII2_RXD0/RGMII2_RD0/RMII2_RXD0/GPMC_A27/PR1_MII1_RXER/MCASP0_AXR1/GPIO1_27",
+          "net": "HDMICLK_DISN"
+        },
+        "G17": {
+          "name": "MMC0_CLK/GPMC_A24/UART3_CTSN/UART2_RXD/DCAN1_TX/PR1_PRU0_PRU_R30_12/PR1_PRU0_PRU_R31_12/GPIO2_30",
+          "net": "MMC0_CLKO"
+        },
+        "G18": {
+          "name": "MMC0_CMD/GPMC_A25/UART3_RTSN/UART2_TXD/DCAN1_RX/PR1_PRU0_PRU_R30_13/PR1_PRU0_PRU_R31_13/GPIO2_31",
+          "net": "MMC0_CMD"
+        },
+        "G16": {
+          "name": "MMC0_DAT0/GPMC_A23/UART5_RTSN/UART3_TXD/UART1_RIN/PR1_PRU0_PRU_R30_11/PR1_PRU0_PRU_R31_11/GPIO2_29",
+          "net": "MMC0_DAT0"
+        },
+        "G15": {
+          "name": "MMC0_DAT1/GPMC_A22/UART5_CTSN/UART3_RXD/UART1_DTRN/PR1_PRU0_PRU_R30_10/PR1_PRU0_PRU_R31_10/GPIO2_28",
+          "net": "MMC0_DAT1"
+        },
+        "F18": {
+          "name": "MMC0_DAT2/GPMC_A21/UART4_RTSN/TIMER6/UART1_DSRN/PR1_PRU0_PRU_R30_9/PR1_PRU0_PRU_R31_9/GPIO2_27",
+          "net": "MMC0_DAT2"
+        },
+        "F17": {
+          "name": "MMC0_DAT3/GPMC_A20/UART4_CTSN/TIMER5/UART1_DCDN/PR1_PRU0_PRU_R30_8/PR1_PRU0_PRU_R31_8/GPIO2_26",
+          "net": "MMC0_DAT3"
+        },
+        "B15": {
+          "name": "PORZN",
+          "net": "PMIC_PGOOD"
+        },
+        "A10": {
+          "name": "NRESET_INOUT",
+          "net": "SYS_RESETN"
+        },
+        "B18": {
+          "name": "NNMI",
+          "net": "PMIC_INT"
+        },
+        "A15": {
+          "name": "EVENT_INTR0/TIMER4/CLKOUT1/SPI1_CS1/PR1PRU1R31_16/EMU2/GPIO0_19",
+          "net": "PROC_A15"
+        },
+        "D14": {
+          "name": "EVENT_INTR1/TCLKIN/CLKOUT2/TIMER7/PR1PRU0_PRUR31_16/EMU3/GPIO0_20",
+          "net": "CLKOUT_SRC"
+        },
+        "C11": {
+          "name": "TMS",
+          "net": "JTAG_TMS"
+        },
+        "B10": {
+          "name": "NTRST",
+          "net": "JTAG_TRSTN"
+        },
+        "A12": {
+          "name": "TCK",
+          "net": "JTAG_TCK"
+        },
+        "B11": {
+          "name": "TDI",
+          "net": "JTAG_TDI"
+        },
+        "A11": {
+          "name": "TDO",
+          "net": "JTAG_TDO"
+        },
+        "C14": {
+          "name": "EMU0/GPIO3_7",
+          "net": "JTAG_EMU0"
+        },
+        "F3": {
+          "name": "DDR_A0",
+          "net": "DDR_A0"
+        },
+        "H1": {
+          "name": "DDR_A1",
+          "net": "DDR_A1"
+        },
+        "E4": {
+          "name": "DDR_A2",
+          "net": "DDR_A2"
+        },
+        "C3": {
+          "name": "DDR_A3",
+          "net": "DDR_A3"
+        },
+        "C2": {
+          "name": "DDR_A4",
+          "net": "DDR_A4"
+        },
+        "B1": {
+          "name": "DDR_A5",
+          "net": "DDR_A5"
+        },
+        "D5": {
+          "name": "DDR_A6",
+          "net": "DDR_A6"
+        },
+        "E2": {
+          "name": "DDR_A7",
+          "net": "DDR_A7"
+        },
+        "D4": {
+          "name": "DDR_A8",
+          "net": "DDR_A8"
+        },
+        "C1": {
+          "name": "DDR_A9",
+          "net": "DDR_A9"
+        },
+        "F4": {
+          "name": "DDR_A10",
+          "net": "DDR_A10"
+        },
+        "F2": {
+          "name": "DDR_A11",
+          "net": "DDR_A11"
+        },
+        "E3": {
+          "name": "DDR_A12",
+          "net": "DDR_A12"
+        },
+        "H3": {
+          "name": "DDR_A13",
+          "net": "DDR_A13"
+        },
+        "H4": {
+          "name": "DDR_A14",
+          "net": "DDR_A14"
+        },
+        "M3": {
+          "name": "DDR_D0",
+          "net": "DDR_D0"
+        },
+        "M4": {
+          "name": "DDR_D1",
+          "net": "DDR_D1"
+        },
+        "N1": {
+          "name": "DDR_D2",
+          "net": "DDR_D2"
+        },
+        "N2": {
+          "name": "DDR_D3",
+          "net": "DDR_D3"
+        },
+        "N3": {
+          "name": "DDR_D4",
+          "net": "DDR_D4"
+        },
+        "N4": {
+          "name": "DDR_D5",
+          "net": "DDR_D5"
+        },
+        "P3": {
+          "name": "DDR_D6",
+          "net": "DDR_D6"
+        },
+        "P4": {
+          "name": "DDR_D7",
+          "net": "DDR_D7"
+        },
+        "J1": {
+          "name": "DDR_D8",
+          "net": "DDR_D8"
+        },
+        "K1": {
+          "name": "DDR_D9",
+          "net": "DDR_D9"
+        },
+        "K2": {
+          "name": "DDR_D10",
+          "net": "DDR_D10"
+        },
+        "K3": {
+          "name": "DDR_D11",
+          "net": "DDR_D11"
+        },
+        "K4": {
+          "name": "DDR_D12",
+          "net": "DDR_D12"
+        },
+        "L3": {
+          "name": "DDR_D13",
+          "net": "DDR_D13"
+        },
+        "L4": {
+          "name": "DDR_D14",
+          "net": "DDR_D14"
+        },
+        "M1": {
+          "name": "DDR_D15",
+          "net": "DDR_D15"
+        },
+        "D2": {
+          "name": "DDR_CK",
+          "net": "DDR_CLK"
+        },
+        "D1": {
+          "name": "DDR_NCK",
+          "net": "DDR_CLKN"
+        },
+        "H2": {
+          "name": "DDR_CSN0",
+          "net": "DDR_CSN"
+        },
+        "F1": {
+          "name": "DDR_CASN",
+          "net": "DDR_CASN"
+        },
+        "G4": {
+          "name": "DDR_RASN",
+          "net": "DDR_RASN"
+        },
+        "B2": {
+          "name": "DDR_WEN",
+          "net": "DDR_WEN"
+        },
+        "C4": {
+          "name": "DDR_BA0",
+          "net": "DDR_BA0"
+        },
+        "E1": {
+          "name": "DDR_BA1",
+          "net": "DDR_BA1"
+        },
+        "B3": {
+          "name": "DDR_BA2",
+          "net": "DDR_BA2"
+        },
+        "M2": {
+          "name": "DDR_DQM0",
+          "net": "DDR_DQM0"
+        },
+        "P1": {
+          "name": "DDR_DQS0",
+          "net": "DDR_DQS0"
+        },
+        "P2": {
+          "name": "DDR_DQSN0",
+          "net": "DDR_DQSN0"
+        },
+        "J2": {
+          "name": "DDR_DQM1",
+          "net": "DDR_DQM1"
+        },
+        "L1": {
+          "name": "DDR_DQS1",
+          "net": "DDR_DQS1"
+        },
+        "L2": {
+          "name": "DDR_DQSN1",
+          "net": "DDR_DQSN1"
+        },
+        "G1": {
+          "name": "DDR_ODT",
+          "net": "DDR_ODT"
+        },
+        "B14": {
+          "name": "EMU1/GPIO3_8",
+          "net": "JTAG_EMU1"
+        },
+        "A5": {
+          "name": "VSS_RTC",
+          "net": "GND_OSC1"
+        },
+        "V11": {
+          "name": "VSS_OSC0",
+          "net": "GND_OSC0"
+        },
+        "U17": {
+          "name": "GPMC_WPN/GMII2_RXERR/GPMC_CSN5/RMII2_RXERR/MMC2_SDCD/PR1_MDIO_MDCLK/UART4_TXD/GPIO0_31",
+          "net": "UART4_TXD"
+        },
+        "G3": {
+          "name": "DDR_CKE",
+          "net": "DDR_CKE"
+        },
+        "G2": {
+          "name": "DDR_RESETN",
+          "net": "DDR_RESETN"
+        },
+        "J3": {
+          "name": "DDR_VTP",
+          "net": "DDR_VTP"
+        },
+        "D3": {
+          "name": "DDR_A15",
+          "net": "DDR_A15"
+        },
+        "B5": {
+          "name": "RTC_PORZN",
+          "net": "LDO_PGOOD"
+        },
+        "J4": {
+          "name": "VREFSSTL",
+          "net": "DDR_VREF"
+        }
       },
       "mpn": "AM3358BZCZ100",
       "internal_pn": "310010099",
@@ -7346,8 +7955,8 @@
           "net": "TESTOUT"
         }
       },
-      "description": "SMD Test Point,50mil,Circle",
-      "dns": true
+      "dns": true,
+      "description": "SMD Test Point,50mil,Circle"
     },
     "C69": {
       "value": "100nF,16V",
@@ -7624,6 +8233,22 @@
           "name": "NC4",
           "net": "NC"
         },
+        "A3": {
+          "name": "DAT0",
+          "net": "MMC1_DAT0"
+        },
+        "A4": {
+          "name": "DAT1",
+          "net": "MMC1_DAT1"
+        },
+        "A5": {
+          "name": "DAT2",
+          "net": "MMC1_DAT2"
+        },
+        "A6": {
+          "name": "NC5/VSS",
+          "net": "DGND"
+        },
         "A7": {
           "name": "NC6",
           "net": "NC"
@@ -7659,6 +8284,26 @@
         "B1": {
           "name": "NC90",
           "net": "NC"
+        },
+        "B2": {
+          "name": "DAT3",
+          "net": "MMC1_DAT3"
+        },
+        "B3": {
+          "name": "DAT4",
+          "net": "MMC1_DAT4"
+        },
+        "B4": {
+          "name": "DAT5",
+          "net": "MMC1_DAT5"
+        },
+        "B5": {
+          "name": "DAT6",
+          "net": "MMC1_DAT6"
+        },
+        "B6": {
+          "name": "DAT7",
+          "net": "MMC1_DAT7"
         },
         "B7": {
           "name": "NC89",
@@ -7696,13 +8341,25 @@
           "name": "NC34",
           "net": "NC"
         },
+        "C2": {
+          "name": "VCCI",
+          "net": "EMMC_VCCI"
+        },
         "C3": {
           "name": "NC33",
           "net": "NC"
         },
+        "C4": {
+          "name": "VSSQ4",
+          "net": "DGND"
+        },
         "C5": {
           "name": "NC32",
           "net": "NC"
+        },
+        "C6": {
+          "name": "VCCQ4",
+          "net": "VDD_3V3B"
         },
         "C7": {
           "name": "NC31",
@@ -7776,6 +8433,18 @@
           "name": "NC3",
           "net": "NC"
         },
+        "E6": {
+          "name": "VCC3",
+          "net": "VDD_3V3B"
+        },
+        "E7": {
+          "name": "VSS2",
+          "net": "DGND"
+        },
+        "N5": {
+          "name": "VSS5",
+          "net": "DGND"
+        },
         "E8": {
           "name": "NC8",
           "net": "NC"
@@ -7812,6 +8481,10 @@
           "name": "NC17",
           "net": "NC"
         },
+        "F5": {
+          "name": "VCC2",
+          "net": "VDD_3V3B"
+        },
         "F10": {
           "name": "NC24",
           "net": "NC"
@@ -7835,6 +8508,10 @@
         "G2": {
           "name": "NC81",
           "net": "NC"
+        },
+        "G5": {
+          "name": "VSS1",
+          "net": "DGND"
         },
         "G10": {
           "name": "NC78",
@@ -7868,6 +8545,10 @@
           "name": "NC45",
           "net": "NC"
         },
+        "H10": {
+          "name": "VSS3",
+          "net": "DGND"
+        },
         "H12": {
           "name": "NC54",
           "net": "NC"
@@ -7896,6 +8577,10 @@
           "name": "NC59",
           "net": "NC"
         },
+        "J5": {
+          "name": "NC60/VSS",
+          "net": "DGND"
+        },
         "J13": {
           "name": "NC69",
           "net": "NC"
@@ -7919,6 +8604,14 @@
         "K7": {
           "name": "NC77",
           "net": "NC"
+        },
+        "K8": {
+          "name": "VSS4",
+          "net": "DGND"
+        },
+        "K9": {
+          "name": "VCC1",
+          "net": "VDD_3V3B"
         },
         "K10": {
           "name": "NC80",
@@ -7972,6 +8665,18 @@
           "name": "NC101",
           "net": "NC"
         },
+        "M4": {
+          "name": "VCCQ5",
+          "net": "VDD_3V3B"
+        },
+        "M5": {
+          "name": "CMD",
+          "net": "MMC1_CMD"
+        },
+        "M6": {
+          "name": "CLK",
+          "net": "MMC1_CLK"
+        },
         "M7": {
           "name": "NC105",
           "net": "NC"
@@ -8008,9 +8713,17 @@
           "name": "NC113",
           "net": "NC"
         },
+        "N2": {
+          "name": "VSSQ1",
+          "net": "DGND"
+        },
         "N3": {
           "name": "NC115",
           "net": "NC"
+        },
+        "N4": {
+          "name": "VCCQ3",
+          "net": "VDD_3V3B"
         },
         "J12": {
           "name": "NC117",
@@ -8056,6 +8769,22 @@
           "name": "NC64",
           "net": "NC"
         },
+        "P3": {
+          "name": "VCCQ1",
+          "net": "VDD_3V3B"
+        },
+        "P4": {
+          "name": "VSSQ3",
+          "net": "DGND"
+        },
+        "P5": {
+          "name": "VCCQ2",
+          "net": "VDD_3V3B"
+        },
+        "P6": {
+          "name": "VSSQ2",
+          "net": "DGND"
+        },
         "P7": {
           "name": "NC63",
           "net": "NC"
@@ -8088,6 +8817,14 @@
           "name": "NC116",
           "net": "NC"
         },
+        "K5": {
+          "name": "R\\S\\T\\",
+          "net": "EMMC_RSTN"
+        },
+        "J10": {
+          "name": "VCC0",
+          "net": "VDD_3V3B"
+        },
         "E5": {
           "name": "NC121",
           "net": "NC"
@@ -8099,134 +8836,6 @@
         "K6": {
           "name": "NC123",
           "net": "NC"
-        },
-        "A3": {
-          "name": "DAT0",
-          "net": "MMC1_DAT0"
-        },
-        "A4": {
-          "name": "DAT1",
-          "net": "MMC1_DAT1"
-        },
-        "A5": {
-          "name": "DAT2",
-          "net": "MMC1_DAT2"
-        },
-        "A6": {
-          "name": "NC5/VSS",
-          "net": "DGND"
-        },
-        "B2": {
-          "name": "DAT3",
-          "net": "MMC1_DAT3"
-        },
-        "B3": {
-          "name": "DAT4",
-          "net": "MMC1_DAT4"
-        },
-        "B4": {
-          "name": "DAT5",
-          "net": "MMC1_DAT5"
-        },
-        "B5": {
-          "name": "DAT6",
-          "net": "MMC1_DAT6"
-        },
-        "B6": {
-          "name": "DAT7",
-          "net": "MMC1_DAT7"
-        },
-        "C2": {
-          "name": "VCCI",
-          "net": "EMMC_VCCI"
-        },
-        "C4": {
-          "name": "VSSQ4",
-          "net": "DGND"
-        },
-        "C6": {
-          "name": "VCCQ4",
-          "net": "VDD_3V3B"
-        },
-        "E6": {
-          "name": "VCC3",
-          "net": "VDD_3V3B"
-        },
-        "E7": {
-          "name": "VSS2",
-          "net": "DGND"
-        },
-        "N5": {
-          "name": "VSS5",
-          "net": "DGND"
-        },
-        "F5": {
-          "name": "VCC2",
-          "net": "VDD_3V3B"
-        },
-        "G5": {
-          "name": "VSS1",
-          "net": "DGND"
-        },
-        "H10": {
-          "name": "VSS3",
-          "net": "DGND"
-        },
-        "J5": {
-          "name": "NC60/VSS",
-          "net": "DGND"
-        },
-        "K8": {
-          "name": "VSS4",
-          "net": "DGND"
-        },
-        "K9": {
-          "name": "VCC1",
-          "net": "VDD_3V3B"
-        },
-        "M4": {
-          "name": "VCCQ5",
-          "net": "VDD_3V3B"
-        },
-        "M5": {
-          "name": "CMD",
-          "net": "MMC1_CMD"
-        },
-        "M6": {
-          "name": "CLK",
-          "net": "MMC1_CLK"
-        },
-        "N2": {
-          "name": "VSSQ1",
-          "net": "DGND"
-        },
-        "N4": {
-          "name": "VCCQ3",
-          "net": "VDD_3V3B"
-        },
-        "P3": {
-          "name": "VCCQ1",
-          "net": "VDD_3V3B"
-        },
-        "P4": {
-          "name": "VSSQ3",
-          "net": "DGND"
-        },
-        "P5": {
-          "name": "VCCQ2",
-          "net": "VDD_3V3B"
-        },
-        "P6": {
-          "name": "VSSQ2",
-          "net": "DGND"
-        },
-        "K5": {
-          "name": "R\\S\\T\\",
-          "net": "EMMC_RSTN"
-        },
-        "J10": {
-          "name": "VCC0",
-          "net": "VDD_3V3B"
         }
       },
       "mpn": "EMMC04G-M627",
@@ -8381,8 +8990,8 @@
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
       "manufacturer": "YAGEO",
-      "description": "SMD RES 100K-1%-1/16W;0402",
-      "dns": true
+      "dns": true,
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "R55": {
       "value": "100K,1%",
@@ -8393,8 +9002,8 @@
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
       "manufacturer": "YAGEO",
-      "description": "SMD RES 100K-1%-1/16W;0402",
-      "dns": true
+      "dns": true,
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "R72": {
       "value": "2.2K,5%",
@@ -8477,8 +9086,8 @@
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
       "manufacturer": "YAGEO",
-      "description": "SMD RES 100K-1%-1/16W;0402",
-      "dns": true
+      "dns": true,
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "R95": {
       "value": "100K,1%",
@@ -8500,8 +9109,8 @@
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
       "manufacturer": "YAGEO",
-      "description": "SMD RES 100K-1%-1/16W;0402",
-      "dns": true
+      "dns": true,
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "R58": {
       "value": "100K,1%",
@@ -8512,8 +9121,8 @@
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
       "manufacturer": "YAGEO",
-      "description": "SMD RES 100K-1%-1/16W;0402",
-      "dns": true
+      "dns": true,
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "R82": {
       "value": "100K,1%",
@@ -8546,8 +9155,8 @@
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
       "manufacturer": "YAGEO",
-      "description": "SMD RES 100K-1%-1/16W;0402",
-      "dns": true
+      "dns": true,
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "R62": {
       "value": "100K,1%",
@@ -8558,8 +9167,8 @@
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
       "manufacturer": "YAGEO",
-      "description": "SMD RES 100K-1%-1/16W;0402",
-      "dns": true
+      "dns": true,
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "R80": {
       "value": "100K,1%",
@@ -8616,8 +9225,8 @@
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
       "manufacturer": "YAGEO",
-      "description": "SMD RES 100K-1%-1/16W;0402",
-      "dns": true
+      "dns": true,
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "R70": {
       "value": "100K,1%",
@@ -8628,8 +9237,8 @@
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
       "manufacturer": "YAGEO",
-      "description": "SMD RES 100K-1%-1/16W;0402",
-      "dns": true
+      "dns": true,
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "Q2": {
       "value": "DDC114YU-7-F",
@@ -8664,8 +9273,8 @@
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
       "manufacturer": "YAGEO",
-      "description": "SMD RES 100K-1%-1/16W;0402",
-      "dns": true
+      "dns": true,
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "R67": {
       "value": "100K,1%",
@@ -8715,8 +9324,8 @@
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
       "manufacturer": "YAGEO",
-      "description": "SMD RES 100K-1%-1/16W;0402",
-      "dns": true
+      "dns": true,
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "R74": {
       "value": "2.2K,5%",
@@ -8774,8 +9383,8 @@
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
       "manufacturer": "YAGEO",
-      "description": "SMD RES 100K-1%-1/16W;0402",
-      "dns": true
+      "dns": true,
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "R71": {
       "value": "2.2K,5%",
@@ -8797,8 +9406,8 @@
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
       "manufacturer": "YAGEO",
-      "description": "SMD RES 100K-1%-1/16W;0402",
-      "dns": true
+      "dns": true,
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "R76": {
       "value": "100K,1%",
@@ -8853,8 +9462,8 @@
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
       "manufacturer": "YAGEO",
-      "description": "SMD RES 100K-1%-1/16W;0402",
-      "dns": true
+      "dns": true,
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "R75": {
       "value": "100R,1%",
@@ -8887,8 +9496,8 @@
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
       "manufacturer": "YAGEO",
-      "description": "SMD RES 100K-1%-1/16W;0402",
-      "dns": true
+      "dns": true,
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "R69": {
       "value": "100K,1%",
@@ -8899,8 +9508,8 @@
       "mpn": "RC0402FR-07100KL",
       "internal_pn": "301010456",
       "manufacturer": "YAGEO",
-      "description": "SMD RES 100K-1%-1/16W;0402",
-      "dns": true
+      "dns": true,
+      "description": "SMD RES 100K-1%-1/16W;0402"
     },
     "D3": {
       "value": "19-217/BHC-ZL1M2RY/3T",
@@ -8944,22 +9553,6 @@
     "U12": {
       "value": "D2516ECMDXGJD-U",
       "pins": {
-        "J1": {
-          "name": "NC1",
-          "net": "NC"
-        },
-        "J9": {
-          "name": "NC2",
-          "net": "NC"
-        },
-        "L1": {
-          "name": "NC3",
-          "net": "NC"
-        },
-        "L9": {
-          "name": "NC4",
-          "net": "NC"
-        },
         "J7": {
           "name": "CK",
           "net": "DDR_CLK"
@@ -9252,6 +9845,14 @@
           "name": "VDDQ10",
           "net": "VDDS_DDR"
         },
+        "J1": {
+          "name": "NC1",
+          "net": "NC"
+        },
+        "J9": {
+          "name": "NC2",
+          "net": "NC"
+        },
         "J2": {
           "name": "VSS5",
           "net": "DGND"
@@ -9268,9 +9869,17 @@
           "name": "VDD5",
           "net": "VDDS_DDR"
         },
+        "L1": {
+          "name": "NC3",
+          "net": "NC"
+        },
         "L8": {
           "name": "ZQ",
           "net": "ZQ"
+        },
+        "L9": {
+          "name": "NC4",
+          "net": "NC"
         },
         "M1": {
           "name": "VSS7",
@@ -9629,8 +10238,8 @@
       "mpn": "CC0402JRNPO9BN100",
       "internal_pn": "302010001",
       "manufacturer": "YAGEO",
-      "description": "SMD CAP Ceramic 10pF-50V-5%-NPO;0402",
-      "dns": true
+      "dns": true,
+      "description": "SMD CAP Ceramic 10pF-50V-5%-NPO;0402"
     },
     "R151": {
       "value": "10K,1%",
@@ -9949,13 +10558,13 @@
           "name": "SW_B",
           "net": "MMC0_CD"
         },
-        "S2": {
-          "name": "SHD2",
-          "net": "NC"
-        },
         "S1": {
           "name": "SHD1",
           "net": "GND_EARTH"
+        },
+        "S2": {
+          "name": "SHD2",
+          "net": "NC"
         },
         "S3": {
           "name": "SHD3",
@@ -10045,8 +10654,8 @@
           "net": "WP"
         }
       },
-      "description": "DIP Test Point,40mil,60mil",
-      "dns": true
+      "dns": true,
+      "description": "DIP Test Point,40mil,60mil"
     },
     "P9": {
       "value": "Female Header 2x23Pin 2.54MM",
@@ -10323,8 +10932,8 @@
           "net": "N22488252"
         }
       },
-      "description": "DIP Test Point,35mil,60mil",
-      "dns": true
+      "dns": true,
+      "description": "DIP Test Point,35mil,60mil"
     },
     "R46": {
       "value": "0R,5%",
@@ -10976,8 +11585,8 @@
       "mpn": "RC0402FR-0710RL",
       "internal_pn": "301010444",
       "manufacturer": "YAGEO",
-      "description": "SMD RES 10R-1%-1/16W;0402",
-      "dns": true
+      "dns": true,
+      "description": "SMD RES 10R-1%-1/16W;0402"
     },
     "R139": {
       "value": "100R,1%",
@@ -11207,8 +11816,8 @@
       "mpn": "RC0402JR-070RL",
       "internal_pn": "301010000",
       "manufacturer": "YAGEO",
-      "description": "SMD RES 0R-5%-1/16W;0402",
-      "dns": true
+      "dns": true,
+      "description": "SMD RES 0R-5%-1/16W;0402"
     },
     "C143": {
       "value": "33pF,50V",
@@ -11426,8 +12035,8 @@
       "mpn": "RC0402FR-071ML",
       "internal_pn": "301010043",
       "manufacturer": "YAGEO",
-      "description": "SMD RES 1M-1%-1/16W;0402",
-      "dns": true
+      "dns": true,
+      "description": "SMD RES 1M-1%-1/16W;0402"
     },
     "R41": {
       "value": "33R,5%",
@@ -11958,8 +12567,8 @@
           "net": "GND_EARTH"
         }
       },
-      "description": "Plated Hole,125mil,175mil",
-      "dns": true
+      "dns": true,
+      "description": "Plated Hole,125mil,175mil"
     },
     "C4": {
       "value": "10uF,16V",
@@ -11980,8 +12589,8 @@
           "net": "DGND"
         }
       },
-      "description": "DIP Test Point,35mil,60mil",
-      "dns": true
+      "dns": true,
+      "description": "DIP Test Point,35mil,60mil"
     },
     "C18": {
       "value": "2.2uF,10V",
@@ -12202,8 +12811,8 @@
           "net": "N22420447"
         }
       },
-      "description": "DIP Test Point,35mil,60mil",
-      "dns": true
+      "dns": true,
+      "description": "DIP Test Point,35mil,60mil"
     },
     "C2": {
       "value": "10uF,16V",
@@ -12235,8 +12844,8 @@
           "net": "N22420400"
         }
       },
-      "description": "DIP Test Point,35mil,60mil",
-      "dns": true
+      "dns": true,
+      "description": "DIP Test Point,35mil,60mil"
     },
     "MTG3": {
       "value": "MHOLE",
@@ -12246,8 +12855,8 @@
           "net": "GND_EARTH"
         }
       },
-      "description": "Plated Hole,125mil,175mil",
-      "dns": true
+      "dns": true,
+      "description": "Plated Hole,125mil,175mil"
     },
     "C20": {
       "value": "100nF,16V",
@@ -12290,8 +12899,8 @@
           "net": "N22420444"
         }
       },
-      "description": "DIP Test Point,35mil,60mil",
-      "dns": true
+      "dns": true,
+      "description": "DIP Test Point,35mil,60mil"
     },
     "R12": {
       "value": "470R,5%",
@@ -12312,8 +12921,8 @@
           "net": "DGND"
         }
       },
-      "description": "DIP Test Point,40mil,60mil",
-      "dns": true
+      "dns": true,
+      "description": "DIP Test Point,40mil,60mil"
     },
     "C3": {
       "value": "100nF,16V",
@@ -12334,8 +12943,8 @@
           "net": "GND_EARTH"
         }
       },
-      "description": "Plated Hole,125mil,175mil",
-      "dns": true
+      "dns": true,
+      "description": "Plated Hole,125mil,175mil"
     },
     "C8": {
       "value": "10uF,16V",
@@ -12379,8 +12988,8 @@
       "mpn": "RC0402JR-070RL",
       "internal_pn": "301010000",
       "manufacturer": "YAGEO",
-      "description": "SMD RES 0R-5%-1/16W;0402",
-      "dns": true
+      "dns": true,
+      "description": "SMD RES 0R-5%-1/16W;0402"
     },
     "C16": {
       "value": "2.2uF,10V",
@@ -12412,8 +13021,8 @@
           "net": "GND_EARTH"
         }
       },
-      "description": "Plated Hole,125mil,175mil",
-      "dns": true
+      "dns": true,
+      "description": "Plated Hole,125mil,175mil"
     },
     "C14": {
       "value": "10uF,16V",
@@ -12479,8 +13088,8 @@
       "mpn": "CC0402KRX5R6BB225",
       "internal_pn": "302012819",
       "manufacturer": "YAGEO",
-      "description": "SMD CAP Ceramic 2.2uF-10V-10%-X5R;0402",
-      "dns": true
+      "dns": true,
+      "description": "SMD CAP Ceramic 2.2uF-10V-10%-X5R;0402"
     },
     "R29": {
       "value": "0R,5%",
@@ -12577,8 +13186,8 @@
           "net": "DGND"
         }
       },
-      "description": "SMD Black Male Header;2*10P-1.27mm",
-      "dns": true
+      "dns": true,
+      "description": "SMD Black Male Header;2*10P-1.27mm"
     },
     "R170": {
       "value": "33R,5%",
@@ -12805,8 +13414,8 @@
       "mpn": "CC0402JRNPO9BN100",
       "internal_pn": "302010001",
       "manufacturer": "YAGEO",
-      "description": "SMD CAP Ceramic 10pF-50V-5%-NPO;0402",
-      "dns": true
+      "dns": true,
+      "description": "SMD CAP Ceramic 10pF-50V-5%-NPO;0402"
     },
     "R171": {
       "value": "33R,5%",
@@ -13106,5 +13715,1344 @@
       "manufacturer": "YAGEO",
       "description": "SMD CAP Ceramic 18pF-50V-5%-NPO;0402"
     }
-  }
+  },
+  "buses": {
+    "DDR_BA[2..0]": {},
+    "DDR_D[15..0]": {},
+    "DDR_A[15..0]": {}
+  },
+  "busEntries": [
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        920,
+        110
+      ],
+      "end": [
+        910,
+        120
+      ],
+      "net": "DDR_A4",
+      "bus": "DDR_A[15..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        920,
+        130
+      ],
+      "end": [
+        910,
+        140
+      ],
+      "net": "DDR_A6",
+      "bus": "DDR_A[15..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        920,
+        120
+      ],
+      "end": [
+        910,
+        130
+      ],
+      "net": "DDR_A5",
+      "bus": "DDR_A[15..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        920,
+        100
+      ],
+      "end": [
+        910,
+        110
+      ],
+      "net": "DDR_A3",
+      "bus": "DDR_A[15..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        920,
+        90
+      ],
+      "end": [
+        910,
+        100
+      ],
+      "net": "DDR_A2",
+      "bus": "DDR_A[15..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        920,
+        80
+      ],
+      "end": [
+        910,
+        90
+      ],
+      "net": "DDR_A1",
+      "bus": "DDR_A[15..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        920,
+        70
+      ],
+      "end": [
+        910,
+        80
+      ],
+      "net": "DDR_A0",
+      "bus": "DDR_A[15..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        920,
+        210
+      ],
+      "end": [
+        910,
+        220
+      ],
+      "net": "DDR_A14",
+      "bus": "DDR_A[15..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        920,
+        200
+      ],
+      "end": [
+        910,
+        210
+      ],
+      "net": "DDR_A13",
+      "bus": "DDR_A[15..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        920,
+        190
+      ],
+      "end": [
+        910,
+        200
+      ],
+      "net": "DDR_A12",
+      "bus": "DDR_A[15..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        920,
+        180
+      ],
+      "end": [
+        910,
+        190
+      ],
+      "net": "DDR_A11",
+      "bus": "DDR_A[15..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        920,
+        170
+      ],
+      "end": [
+        910,
+        180
+      ],
+      "net": "DDR_A10",
+      "bus": "DDR_A[15..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        920,
+        160
+      ],
+      "end": [
+        910,
+        170
+      ],
+      "net": "DDR_A9",
+      "bus": "DDR_A[15..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        920,
+        150
+      ],
+      "end": [
+        910,
+        160
+      ],
+      "net": "DDR_A8",
+      "bus": "DDR_A[15..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        920,
+        140
+      ],
+      "end": [
+        910,
+        150
+      ],
+      "net": "DDR_A7",
+      "bus": "DDR_A[15..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        920,
+        230
+      ],
+      "end": [
+        910,
+        240
+      ],
+      "net": "DDR_BA0",
+      "bus": "DDR_BA[2..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        920,
+        250
+      ],
+      "end": [
+        910,
+        260
+      ],
+      "net": "DDR_BA2",
+      "bus": "DDR_BA[2..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        920,
+        240
+      ],
+      "end": [
+        910,
+        250
+      ],
+      "net": "DDR_BA1",
+      "bus": "DDR_BA[2..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        510,
+        300
+      ],
+      "end": [
+        500,
+        290
+      ],
+      "net": "DDR_D14",
+      "bus": "DDR_D[15..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        510,
+        310
+      ],
+      "end": [
+        500,
+        300
+      ],
+      "net": "DDR_D15",
+      "bus": "DDR_D[15..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        510,
+        240
+      ],
+      "end": [
+        500,
+        230
+      ],
+      "net": "DDR_D8",
+      "bus": "DDR_D[15..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        510,
+        250
+      ],
+      "end": [
+        500,
+        240
+      ],
+      "net": "DDR_D9",
+      "bus": "DDR_D[15..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        510,
+        260
+      ],
+      "end": [
+        500,
+        250
+      ],
+      "net": "DDR_D10",
+      "bus": "DDR_D[15..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        510,
+        270
+      ],
+      "end": [
+        500,
+        260
+      ],
+      "net": "DDR_D11",
+      "bus": "DDR_D[15..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        510,
+        280
+      ],
+      "end": [
+        500,
+        270
+      ],
+      "net": "DDR_D12",
+      "bus": "DDR_D[15..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        510,
+        290
+      ],
+      "end": [
+        500,
+        280
+      ],
+      "net": "DDR_D13",
+      "bus": "DDR_D[15..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        510,
+        160
+      ],
+      "end": [
+        500,
+        150
+      ],
+      "net": "DDR_D0",
+      "bus": "DDR_D[15..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        510,
+        170
+      ],
+      "end": [
+        500,
+        160
+      ],
+      "net": "DDR_D1",
+      "bus": "DDR_D[15..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        510,
+        180
+      ],
+      "end": [
+        500,
+        170
+      ],
+      "net": "DDR_D2",
+      "bus": "DDR_D[15..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        510,
+        190
+      ],
+      "end": [
+        500,
+        180
+      ],
+      "net": "DDR_D3",
+      "bus": "DDR_D[15..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        510,
+        200
+      ],
+      "end": [
+        500,
+        190
+      ],
+      "net": "DDR_D4",
+      "bus": "DDR_D[15..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        510,
+        210
+      ],
+      "end": [
+        500,
+        200
+      ],
+      "net": "DDR_D5",
+      "bus": "DDR_D[15..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        510,
+        220
+      ],
+      "end": [
+        500,
+        210
+      ],
+      "net": "DDR_D6",
+      "bus": "DDR_D[15..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        510,
+        230
+      ],
+      "end": [
+        500,
+        220
+      ],
+      "net": "DDR_D7",
+      "bus": "DDR_D[15..0]"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "start": [
+        920,
+        220
+      ],
+      "end": [
+        910,
+        230
+      ],
+      "net": "DDR_A15",
+      "bus": "DDR_A[15..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        270,
+        740
+      ],
+      "end": [
+        260,
+        730
+      ],
+      "net": "DDR_D9",
+      "bus": "DDR_D[15..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        270,
+        750
+      ],
+      "end": [
+        260,
+        740
+      ],
+      "net": "DDR_D10",
+      "bus": "DDR_D[15..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        270,
+        770
+      ],
+      "end": [
+        260,
+        760
+      ],
+      "net": "DDR_D12",
+      "bus": "DDR_D[15..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        270,
+        760
+      ],
+      "end": [
+        260,
+        750
+      ],
+      "net": "DDR_D11",
+      "bus": "DDR_D[15..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        270,
+        780
+      ],
+      "end": [
+        260,
+        770
+      ],
+      "net": "DDR_D13",
+      "bus": "DDR_D[15..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        270,
+        790
+      ],
+      "end": [
+        260,
+        780
+      ],
+      "net": "DDR_D14",
+      "bus": "DDR_D[15..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        270,
+        800
+      ],
+      "end": [
+        260,
+        790
+      ],
+      "net": "DDR_D15",
+      "bus": "DDR_D[15..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        300,
+        540
+      ],
+      "end": [
+        290,
+        530
+      ],
+      "net": "DDR_A9",
+      "bus": "DDR_A[15..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        300,
+        550
+      ],
+      "end": [
+        290,
+        540
+      ],
+      "net": "DDR_A10",
+      "bus": "DDR_A[15..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        300,
+        560
+      ],
+      "end": [
+        290,
+        550
+      ],
+      "net": "DDR_A11",
+      "bus": "DDR_A[15..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        300,
+        570
+      ],
+      "end": [
+        290,
+        560
+      ],
+      "net": "DDR_A12",
+      "bus": "DDR_A[15..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        300,
+        580
+      ],
+      "end": [
+        290,
+        570
+      ],
+      "net": "DDR_A13",
+      "bus": "DDR_A[15..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        280,
+        620
+      ],
+      "end": [
+        270,
+        610
+      ],
+      "net": "DDR_BA1",
+      "bus": "DDR_BA[2..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        280,
+        610
+      ],
+      "end": [
+        270,
+        600
+      ],
+      "net": "DDR_BA0",
+      "bus": "DDR_BA[2..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        270,
+        700
+      ],
+      "end": [
+        260,
+        690
+      ],
+      "net": "DDR_D5",
+      "bus": "DDR_D[15..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        270,
+        690
+      ],
+      "end": [
+        260,
+        680
+      ],
+      "net": "DDR_D4",
+      "bus": "DDR_D[15..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        270,
+        680
+      ],
+      "end": [
+        260,
+        670
+      ],
+      "net": "DDR_D3",
+      "bus": "DDR_D[15..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        270,
+        670
+      ],
+      "end": [
+        260,
+        660
+      ],
+      "net": "DDR_D2",
+      "bus": "DDR_D[15..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        270,
+        660
+      ],
+      "end": [
+        260,
+        650
+      ],
+      "net": "DDR_D1",
+      "bus": "DDR_D[15..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        270,
+        650
+      ],
+      "end": [
+        260,
+        640
+      ],
+      "net": "DDR_D0",
+      "bus": "DDR_D[15..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        270,
+        710
+      ],
+      "end": [
+        260,
+        700
+      ],
+      "net": "DDR_D6",
+      "bus": "DDR_D[15..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        270,
+        720
+      ],
+      "end": [
+        260,
+        710
+      ],
+      "net": "DDR_D7",
+      "bus": "DDR_D[15..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        270,
+        730
+      ],
+      "end": [
+        260,
+        720
+      ],
+      "net": "DDR_D8",
+      "bus": "DDR_D[15..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        280,
+        630
+      ],
+      "end": [
+        270,
+        620
+      ],
+      "net": "DDR_BA2",
+      "bus": "DDR_BA[2..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        300,
+        450
+      ],
+      "end": [
+        290,
+        440
+      ],
+      "net": "DDR_A0",
+      "bus": "DDR_A[15..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        300,
+        460
+      ],
+      "end": [
+        290,
+        450
+      ],
+      "net": "DDR_A1",
+      "bus": "DDR_A[15..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        300,
+        480
+      ],
+      "end": [
+        290,
+        470
+      ],
+      "net": "DDR_A3",
+      "bus": "DDR_A[15..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        300,
+        470
+      ],
+      "end": [
+        290,
+        460
+      ],
+      "net": "DDR_A2",
+      "bus": "DDR_A[15..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        300,
+        490
+      ],
+      "end": [
+        290,
+        480
+      ],
+      "net": "DDR_A4",
+      "bus": "DDR_A[15..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        300,
+        500
+      ],
+      "end": [
+        290,
+        490
+      ],
+      "net": "DDR_A5",
+      "bus": "DDR_A[15..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        300,
+        520
+      ],
+      "end": [
+        290,
+        510
+      ],
+      "net": "DDR_A7",
+      "bus": "DDR_A[15..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        300,
+        510
+      ],
+      "end": [
+        290,
+        500
+      ],
+      "net": "DDR_A6",
+      "bus": "DDR_A[15..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        300,
+        530
+      ],
+      "end": [
+        290,
+        520
+      ],
+      "net": "DDR_A8",
+      "bus": "DDR_A[15..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        300,
+        590
+      ],
+      "end": [
+        290,
+        580
+      ],
+      "net": "DDR_A14",
+      "bus": "DDR_A[15..0]"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "start": [
+        300,
+        600
+      ],
+      "end": [
+        290,
+        590
+      ],
+      "net": "DDR_A15",
+      "bus": "DDR_A[15..0]"
+    }
+  ],
+  "busMembers": [
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_A[15..0]",
+      "netId": 22760225,
+      "net": "DDR_A15"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_A[15..0]",
+      "netId": 22760248,
+      "net": "DDR_A14"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_A[15..0]",
+      "netId": 22760187,
+      "net": "DDR_A13"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_A[15..0]",
+      "netId": 22760097,
+      "net": "DDR_A12"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_A[15..0]",
+      "netId": 22760071,
+      "net": "DDR_A11"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_A[15..0]",
+      "netId": 22760282,
+      "net": "DDR_A10"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_A[15..0]",
+      "netId": 22760215,
+      "net": "DDR_A9"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_A[15..0]",
+      "netId": 22760221,
+      "net": "DDR_A8"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_A[15..0]",
+      "netId": 22760160,
+      "net": "DDR_A7"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_A[15..0]",
+      "netId": 22760080,
+      "net": "DDR_A6"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_A[15..0]",
+      "netId": 22760214,
+      "net": "DDR_A5"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_A[15..0]",
+      "netId": 22760211,
+      "net": "DDR_A4"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_A[15..0]",
+      "netId": 22760207,
+      "net": "DDR_A3"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_A[15..0]",
+      "netId": 22760110,
+      "net": "DDR_A2"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_A[15..0]",
+      "netId": 22760184,
+      "net": "DDR_A1"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_A[15..0]",
+      "netId": 22760226,
+      "net": "DDR_A0"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_BA[2..0]",
+      "netId": 22760074,
+      "net": "DDR_BA2"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_BA[2..0]",
+      "netId": 22760183,
+      "net": "DDR_BA1"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_BA[2..0]",
+      "netId": 22760289,
+      "net": "DDR_BA0"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_D[15..0]",
+      "netId": 22760081,
+      "net": "DDR_D15"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_D[15..0]",
+      "netId": 22760079,
+      "net": "DDR_D14"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_D[15..0]",
+      "netId": 22760093,
+      "net": "DDR_D13"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_D[15..0]",
+      "netId": 22760117,
+      "net": "DDR_D12"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_D[15..0]",
+      "netId": 22760068,
+      "net": "DDR_D11"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_D[15..0]",
+      "netId": 22760273,
+      "net": "DDR_D10"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_D[15..0]",
+      "netId": 22760245,
+      "net": "DDR_D9"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_D[15..0]",
+      "netId": 22760101,
+      "net": "DDR_D8"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_D[15..0]",
+      "netId": 22760243,
+      "net": "DDR_D7"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_D[15..0]",
+      "netId": 22760153,
+      "net": "DDR_D6"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_D[15..0]",
+      "netId": 22760167,
+      "net": "DDR_D5"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_D[15..0]",
+      "netId": 22760174,
+      "net": "DDR_D4"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_D[15..0]",
+      "netId": 22760137,
+      "net": "DDR_D3"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_D[15..0]",
+      "netId": 22760145,
+      "net": "DDR_D2"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_D[15..0]",
+      "netId": 22760253,
+      "net": "DDR_D1"
+    },
+    {
+      "page": "P07_DDR3 Memory",
+      "bus": "DDR_D[15..0]",
+      "netId": 22760171,
+      "net": "DDR_D0"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_A[15..0]",
+      "netId": 22762086,
+      "net": "DDR_A15"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_A[15..0]",
+      "netId": 22761957,
+      "net": "DDR_A14"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_A[15..0]",
+      "netId": 22762031,
+      "net": "DDR_A13"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_A[15..0]",
+      "netId": 22762044,
+      "net": "DDR_A12"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_A[15..0]",
+      "netId": 22762053,
+      "net": "DDR_A11"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_A[15..0]",
+      "netId": 22761888,
+      "net": "DDR_A10"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_A[15..0]",
+      "netId": 22761961,
+      "net": "DDR_A9"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_A[15..0]",
+      "netId": 22762060,
+      "net": "DDR_A8"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_A[15..0]",
+      "netId": 22762040,
+      "net": "DDR_A7"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_A[15..0]",
+      "netId": 22761924,
+      "net": "DDR_A6"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_A[15..0]",
+      "netId": 22761866,
+      "net": "DDR_A5"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_A[15..0]",
+      "netId": 22761920,
+      "net": "DDR_A4"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_A[15..0]",
+      "netId": 22762088,
+      "net": "DDR_A3"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_A[15..0]",
+      "netId": 22762004,
+      "net": "DDR_A2"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_A[15..0]",
+      "netId": 22762082,
+      "net": "DDR_A1"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_A[15..0]",
+      "netId": 22762020,
+      "net": "DDR_A0"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_BA[2..0]",
+      "netId": 22761939,
+      "net": "DDR_BA2"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_BA[2..0]",
+      "netId": 22762028,
+      "net": "DDR_BA1"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_BA[2..0]",
+      "netId": 22762037,
+      "net": "DDR_BA0"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_D[15..0]",
+      "netId": 22761889,
+      "net": "DDR_D15"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_D[15..0]",
+      "netId": 22762062,
+      "net": "DDR_D14"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_D[15..0]",
+      "netId": 22761878,
+      "net": "DDR_D13"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_D[15..0]",
+      "netId": 22761968,
+      "net": "DDR_D12"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_D[15..0]",
+      "netId": 22761934,
+      "net": "DDR_D11"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_D[15..0]",
+      "netId": 22762013,
+      "net": "DDR_D10"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_D[15..0]",
+      "netId": 22762079,
+      "net": "DDR_D9"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_D[15..0]",
+      "netId": 22762070,
+      "net": "DDR_D8"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_D[15..0]",
+      "netId": 22762090,
+      "net": "DDR_D7"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_D[15..0]",
+      "netId": 22761918,
+      "net": "DDR_D6"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_D[15..0]",
+      "netId": 22761948,
+      "net": "DDR_D5"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_D[15..0]",
+      "netId": 22761930,
+      "net": "DDR_D4"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_D[15..0]",
+      "netId": 22761842,
+      "net": "DDR_D3"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_D[15..0]",
+      "netId": 22762026,
+      "net": "DDR_D2"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_D[15..0]",
+      "netId": 22761885,
+      "net": "DDR_D1"
+    },
+    {
+      "page": "P03_AM335x 1/3, JTAG",
+      "bus": "DDR_D[15..0]",
+      "netId": 22762024,
+      "net": "DDR_D0"
+    }
+  ]
 }

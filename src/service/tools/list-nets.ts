@@ -1,3 +1,4 @@
+import { topologyNotes } from "../topology-notes.js";
 import type { ServiceContext } from "../context.js";
 import { loadNetlist } from "../load-netlist.js";
 import { indexNetNames } from "../net-names.js";
@@ -22,5 +23,7 @@ export const listNets = async (
   const result: ListNetsResult = { design_variant: netlist.design_variant, nets };
   const warnings = indexNetNames(netlist).warningsFor(nets);
   if (warnings.length > 0) result.net_name_warnings = warnings;
+  const limits = topologyNotes(netlist);
+  if (limits.length) result.notes = [...(result.notes ?? []), ...limits];
   return result;
 };

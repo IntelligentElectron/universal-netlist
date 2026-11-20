@@ -12,6 +12,7 @@ import { StructureType } from "./structure-types.js";
 import { FutureDataList, autoReadPrefixes, readPreamble, skipStructure } from "./generic-parser.js";
 import type {
   Wire,
+  BusEntry,
   PlacedInstance,
   DrawnInstance,
   GraphicInst,
@@ -21,6 +22,7 @@ import type {
 import type { Placement } from "./hierarchy-expander.js";
 import {
   parseWire,
+  parseBusEntry,
   parsePlacedInstance,
   parseDrawnInstance,
   parseGlobal,
@@ -48,19 +50,16 @@ function skipT0x34(reader: BinaryReader): void {
 }
 
 /**
- * Skip a T0x35 primitive structure.
+ * Read the native NetBus ID and member list from a T0x35 primitive structure.
  * Layout: same as T0x34, plus uint16 len + len*4 bytes
  */
-function skipT0x35(reader: BinaryReader): void {
-  reader.skip(9); // 1 type + 4 structLen + 4 zeros
-  reader.skip(4); // id
-  reader.readStringLenZeroTerm(); // unknownStr
-  reader.skip(4); // unknownInt
-  reader.skip(4); // color
-  reader.skip(4); // lineStyle
-  reader.skip(4); // lineWidth
-  const len0 = reader.readUint16();
-  reader.skip(len0 * 4);
+function readNetBus(reader: BinaryReader): { id: number; members: number[] } {
+  reader.skip(9);
+  const id = reader.readUint32();
+  reader.readStringLenZeroTerm();
+  reader.skip(16); // reserved, color, lineStyle, lineWidth
+  const count = reader.readUint16();
+  return { id, members: Array.from({ length: count }, () => reader.readUint32()) };
 }
 
 export interface PageData {
@@ -73,6 +72,8 @@ export interface PageData {
   ports: GraphicInst[];
   globals: GraphicInst[];
   offPageConnectors: GraphicInst[];
+  busEntries?: BusEntry[];
+  busMembers?: Map<number, number[]>;
   /**
    * Set on a copy of the page made for one placement of the hierarchical block
    * that draws its schematic; absent on a page read as it is. See
@@ -109,8 +110,10 @@ export function parsePage(buffer: Buffer): PageData {
 
   // T0x35s (primitive structures, no prefix/preamble)
   const lenT0x35s = reader.readUint16();
+  const busMembers = new Map<number, number[]>();
   for (let i = 0; i < lenT0x35s; i++) {
-    skipT0x35(reader);
+    const bus = readNetBus(reader);
+    busMembers.set(bus.id, bus.members);
   }
 
   // Net name/ID table (uppercased to match Cadence Allegro export convention).
@@ -181,7 +184,11 @@ export function parsePage(buffer: Buffer): PageData {
     reader.skip(5); // 5 unknown bytes after each OffPageConnector
   }
 
-  // Remaining sections (ERC, bus entries, graphics, etc.) are skipped
+  const lenERCObjects = reader.readUint16();
+  for (let i = 0; i < lenERCObjects; i++) skipStructure(reader);
+  const lenBusEntries = reader.readUint16();
+  const busEntries = Array.from({ length: lenBusEntries }, () => parseBusEntry(reader));
+  // Remaining graphical sections do not contribute connectivity.
 
   return {
     name,
@@ -192,6 +199,8 @@ export function parsePage(buffer: Buffer): PageData {
     ports,
     globals,
     offPageConnectors,
+    busEntries,
+    busMembers,
   };
 }
 

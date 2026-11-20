@@ -5,17 +5,38 @@ tracks the **schema** only: the shape of the document, its fields, and what they
 mean. Parser and server behaviour that does not change the document is out of
 scope.
 
-The current version is **3**. Readers for every earlier version stay registered,
+The current version is **4**. Readers for every earlier version stay registered,
 so a file written by any released build remains loadable.
 
 | Version | Date | Status |
 |---|---|---|
-| [3](#version-3) | 2026-10-28 | Current |
+| [4](#version-4) | 2026-11-20 | Current |
+| [3](#version-3) | 2026-10-28 | Supported |
 | [2](#version-2) | 2026-09-02 | Supported |
 | [1](#version-1) | 2026-09-01 | Supported |
 | [Pre-schema](#pre-schema) | 2026-03-10 | Not loadable |
 
 ---
+
+## Version 4
+
+**2026-11-20**
+
+Preserves bus topology separately from scalar electrical connectivity and retains
+source-terminal identities when a physical pin label cannot safely be a key.
+
+| Field | Change |
+|---|---|
+| `buses` | Optional independent inverse graph for bus terminals. |
+| `components.*.busPins` | Optional bus terminal map, separate from scalar `pins`. |
+| `components.*.pinIdentities` | Optional source instance/index and original nonblank physical label for `@instanceId:pinIndex` keys. |
+| `busEntries` | Optional page and endpoint geometry, plus scalar net and bus when unambiguous. |
+| `busMembers` | Optional native bus/scalar member IDs, with a resolved scalar name when available. |
+
+All retained topology participates in `netlistHash`. Entries associate lanes with
+buses without merging scalar nets or asserting connector lane order. Missing physical
+numbers stay unresolved. Readers 1–3 retain their historical shapes and remain
+registered; older builds reject version 4 instead of silently dropping topology.
 
 ## Version 3
 

@@ -1,0 +1,13 @@
+id,geometry,count,outcome,next,status,note
+zero,none,one,NC,,draft,src/parsers/cadence/dsn/net-assembly.ts:261; every non-ignored source terminal must have an explicit connectivity result
+zero,none,two,NC,,draft,src/parsers/cadence/dsn/net-assembly.ts:261; every non-ignored source terminal must have an explicit connectivity result
+zero,wire,one,wire,,draft,src/parsers/cadence/dsn/net-assembly.ts:261; every non-ignored source terminal must have an explicit connectivity result
+zero,wire,two,wire,,draft,src/parsers/cadence/dsn/net-assembly.ts:261; every non-ignored source terminal must have an explicit connectivity result
+sentinel,none,one,NC,,draft,src/parsers/cadence/dsn/net-assembly.ts:261; every non-ignored source terminal must have an explicit connectivity result
+sentinel,none,two,overlap,,draft,src/parsers/cadence/dsn/net-assembly.ts:261; every non-ignored source terminal must have an explicit connectivity result
+sentinel,wire,one,wire,,draft,src/parsers/cadence/dsn/net-assembly.ts:261; every non-ignored source terminal must have an explicit connectivity result
+sentinel,wire,two,wire,,draft,src/parsers/cadence/dsn/net-assembly.ts:261; every non-ignored source terminal must have an explicit connectivity result
+normal,none,one,native,,draft,src/parsers/cadence/dsn/net-assembly.ts:261; every non-ignored source terminal must have an explicit connectivity result
+normal,none,two,native,,draft,src/parsers/cadence/dsn/net-assembly.ts:261; every non-ignored source terminal must have an explicit connectivity result
+normal,wire,one,wire,,draft,src/parsers/cadence/dsn/net-assembly.ts:261; every non-ignored source terminal must have an explicit connectivity result
+normal,wire,two,wire,,draft,src/parsers/cadence/dsn/net-assembly.ts:261; every non-ignored source terminal must have an explicit connectivity result

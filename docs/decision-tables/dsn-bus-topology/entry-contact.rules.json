@@ -1,0 +1,20 @@
+{
+  "name": "entry-contact",
+  "rules": [
+    {
+      "when": {
+        "contacts": [
+          "one",
+          "linked"
+        ]
+      },
+      "outcome": "resolved",
+      "next": "",
+      "cells": 4
+    }
+  ],
+  "default": {
+    "outcome": "unresolved",
+    "next": ""
+  }
+}

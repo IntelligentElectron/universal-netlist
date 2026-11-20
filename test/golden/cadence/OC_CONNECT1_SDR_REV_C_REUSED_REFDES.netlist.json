@@ -1,8 +1,8 @@
 {
-  "universalNetlistSchemaVersion": 3,
+  "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-10T19:31:04.729Z",
-    "netlistHash": "sha256:8a0ba40b17c3b2adec7b011bbf1054b3be71c0ca5a04f018a9f08a5f32057ba3",
+    "generatedAt": "2026-11-20T09:39:25.660Z",
+    "netlistHash": "sha256:1dd759b3386d303266b7bba17bcbccbe31cd6dd1349688c8352cde421cb417de",
     "origin": {
       "type": "vendor",
       "source": {
@@ -12391,10 +12391,6 @@
     "U13": {
       "value": "CYUSB3014",
       "pins": {
-        "C9": "NC",
-        "E10": "NC",
-        "D7": "NC",
-        "A11": "NC",
         "D9": {
           "name": "I2C_SCL",
           "net": "FX3_SCL"
@@ -12431,114 +12427,454 @@
           "name": "VIO5",
           "net": "1P8V _FX3"
         },
-        "D4": "FX3_SCLK",
-        "C1": "FX3_CE",
-        "C2": "FX3_MISO",
-        "D5": "FX3_MOSI",
-        "C4": "USB_VBUS",
-        "B1": "1P8V _FX3",
-        "B5": "1P2V _FX3",
-        "A2": "1P2V _FX3",
-        "A4": "N3370776",
-        "A3": "N738545",
-        "A5": "N17105",
-        "A6": "N17156",
-        "A9": "FX3_USB2_DP",
-        "A10": "FX3_USB2_DN",
-        "E11": "N1469270",
-        "A1": "GND_SIGNAL",
-        "B3": "N13061",
-        "D6": "N17124549",
-        "B2": "GND_SIGNAL",
-        "B4": "GND_SIGNAL",
-        "E6": "GND_SIGNAL",
-        "C5": "N10018",
-        "C6": "N10516",
-        "C7": "N10530",
-        "B6": "1P8V _FX3",
-        "A7": "1P2V _FX3",
-        "B10": "1P2V _FX3",
-        "C3": "1P2V _FX3",
-        "E9": "1P2V _FX3",
-        "F11": "1P2V _FX3",
-        "H1": "1P2V _FX3",
-        "L7": "1P2V _FX3",
-        "J11": "1P2V _FX3",
-        "L5": "1P2V _FX3",
-        "B7": "GND_SIGNAL",
-        "B8": "GND_SIGNAL",
-        "B9": "GND_SIGNAL",
-        "K4": "GND_SIGNAL",
-        "L3": "GND_SIGNAL",
-        "K3": "GND_SIGNAL",
-        "L2": "GND_SIGNAL",
-        "A8": "GND_SIGNAL",
-        "D8": "GND_SIGNAL",
-        "E2": "GND_SIGNAL",
-        "G1": "GND_SIGNAL",
-        "G11": "GND_SIGNAL",
-        "L1": "GND_SIGNAL",
-        "L6": "GND_SIGNAL",
-        "L11": "GND_SIGNAL",
-        "C8": "N12811",
-        "F10": "GPIF_D00",
-        "F9": "GPIF_D01",
-        "F7": "GPIF_D02",
-        "G10": "GPIF_D03",
-        "G9": "GPIF_D04",
-        "F8": "GPIF_D05",
-        "H10": "GPIF_D06",
-        "H9": "GPIF_D07",
-        "J10": "GPIF_D08",
-        "J9": "GPIF_D09",
-        "K11": "GPIF_D10",
-        "L10": "GPIF_D11",
-        "K10": "GPIF_D12",
-        "K9": "GPIF_D13",
-        "J8": "GPIF_D14",
-        "G8": "GPIF_D15",
-        "J6": "IFCLK",
-        "K8": "GPIF_CTL0",
-        "K7": "GPIF_CTL1",
-        "J7": "GPIF_CTL2",
-        "H7": "GPIF_CTL3",
-        "G7": "GPIF_CTL4",
-        "G6": "GPIF_CTL5",
-        "K6": "GPIF_CTL6",
-        "H8": "GPIF_CTL7",
-        "G5": "GPIF_CTL8",
-        "H6": "GPIF_CTL9",
-        "K5": "FPGA_CFG_DONE",
-        "J5": "GPIF_CTL11",
-        "H5": "GPIF_CTL12",
-        "G4": "FX3_PMODE0",
-        "H4": "FX3_PMODE1",
-        "L4": "FX3_PMODE2",
-        "L8": "FX3_EXTINT",
-        "H11": "1P8V _FX3",
-        "L9": "1P8V _FX3",
-        "F5": "GPIF_D28",
-        "E1": "GPIF_D29",
-        "E5": "GPIF_D30",
-        "E4": "GPIF_D31",
-        "D1": "FPGA_CFG_INIT_B_R",
-        "D2": "AUX_PWR_ON_LV",
-        "D3": "N57267",
-        "E3": "1P8V _FX3",
-        "K2": "GPIF_D16",
-        "J4": "GPIF_D17",
-        "K1": "GPIF_D18",
-        "J2": "GPIF_D19",
-        "J3": "GPIF_D20",
-        "J1": "GPIF_D21",
-        "H2": "GPIF_D22",
-        "H3": "GPIF_D23",
-        "F4": "GPIF_D24",
-        "G2": "GPIF_D25",
-        "G3": "GPIF_D26",
-        "F3": "GPIF_D27",
-        "F2": "FPGA_CFG_PROG_B",
-        "F1": "1P8V _FX3"
+        "D4": {
+          "name": "GPIO[53]/SPI_SCK/UART_RTS",
+          "net": "FX3_SCLK"
+        },
+        "C1": {
+          "name": "GPIO[54]/SPI_SSN/UART_CTS/I2S_CLK",
+          "net": "FX3_CE"
+        },
+        "C2": {
+          "name": "GPIO[55]/SPI_MISO/UART_TX/I2S_SD",
+          "net": "FX3_MISO"
+        },
+        "D5": {
+          "name": "GPIO[56]/SPI_MOSI/UART_RX/I2S_WS",
+          "net": "FX3_MOSI"
+        },
+        "C4": {
+          "name": "GPIO[57]/I2S_MCLK",
+          "net": "USB_VBUS"
+        },
+        "B1": {
+          "name": "VIO4",
+          "net": "1P8V _FX3"
+        },
+        "B5": {
+          "name": "U3TXVDDQ",
+          "net": "1P2V _FX3"
+        },
+        "A2": {
+          "name": "U3RXVDDQ",
+          "net": "1P2V _FX3"
+        },
+        "A4": {
+          "name": "SSRX+",
+          "net": "N3370776"
+        },
+        "A3": {
+          "name": "S\\S\\R\\X\\-\\",
+          "net": "N738545"
+        },
+        "A5": {
+          "name": "SSTX+",
+          "net": "N17105"
+        },
+        "A6": {
+          "name": "S\\S\\T\\X\\-\\",
+          "net": "N17156"
+        },
+        "A9": {
+          "name": "D+",
+          "net": "FX3_USB2_DP"
+        },
+        "A10": {
+          "name": "D\\-\\",
+          "net": "FX3_USB2_DN"
+        },
+        "C9": {
+          "name": "OTG_ID",
+          "net": "NC"
+        },
+        "E10": {
+          "name": "VBATT",
+          "net": "NC"
+        },
+        "E11": {
+          "name": "VBUS",
+          "net": "N1469270"
+        },
+        "A1": {
+          "name": "U3VSSQ",
+          "net": "GND_SIGNAL"
+        },
+        "B2": {
+          "name": "FSLC[0]",
+          "net": "GND_SIGNAL"
+        },
+        "B4": {
+          "name": "FSLC[1]",
+          "net": "GND_SIGNAL"
+        },
+        "E6": {
+          "name": "FSLC[2]",
+          "net": "GND_SIGNAL"
+        },
+        "C5": {
+          "name": "R\\E\\S\\E\\T\\#\\",
+          "net": "N10018"
+        },
+        "C6": {
+          "name": "XTALIN",
+          "net": "N10516"
+        },
+        "C7": {
+          "name": "XTALOUT",
+          "net": "N10530"
+        },
+        "D7": {
+          "name": "CLKIN",
+          "net": "NC"
+        },
+        "D6": {
+          "name": "CLKIN_32",
+          "net": "N17124549"
+        },
+        "A11": {
+          "name": "NC",
+          "net": "NC"
+        },
+        "B6": {
+          "name": "CVDDQ",
+          "net": "1P8V _FX3"
+        },
+        "A7": {
+          "name": "AVDD",
+          "net": "1P2V _FX3"
+        },
+        "B10": {
+          "name": "VDD_1",
+          "net": "1P2V _FX3"
+        },
+        "C3": {
+          "name": "VDD_2",
+          "net": "1P2V _FX3"
+        },
+        "E9": {
+          "name": "VDD_3",
+          "net": "1P2V _FX3"
+        },
+        "F11": {
+          "name": "VDD_4",
+          "net": "1P2V _FX3"
+        },
+        "H1": {
+          "name": "VDD_5",
+          "net": "1P2V _FX3"
+        },
+        "L7": {
+          "name": "VDD_6",
+          "net": "1P2V _FX3"
+        },
+        "J11": {
+          "name": "VDD_7",
+          "net": "1P2V _FX3"
+        },
+        "L5": {
+          "name": "VDD_8",
+          "net": "1P2V _FX3"
+        },
+        "B7": {
+          "name": "AVSS",
+          "net": "GND_SIGNAL"
+        },
+        "B8": {
+          "name": "VSS_1",
+          "net": "GND_SIGNAL"
+        },
+        "B9": {
+          "name": "VSS_2",
+          "net": "GND_SIGNAL"
+        },
+        "K4": {
+          "name": "VSS_3",
+          "net": "GND_SIGNAL"
+        },
+        "L3": {
+          "name": "VSS_4",
+          "net": "GND_SIGNAL"
+        },
+        "K3": {
+          "name": "VSS_5",
+          "net": "GND_SIGNAL"
+        },
+        "L2": {
+          "name": "VSS_6",
+          "net": "GND_SIGNAL"
+        },
+        "A8": {
+          "name": "VSS_7",
+          "net": "GND_SIGNAL"
+        },
+        "D8": {
+          "name": "VSS_8",
+          "net": "GND_SIGNAL"
+        },
+        "E2": {
+          "name": "VSS_9",
+          "net": "GND_SIGNAL"
+        },
+        "G1": {
+          "name": "VSS_10",
+          "net": "GND_SIGNAL"
+        },
+        "G11": {
+          "name": "VSS_11",
+          "net": "GND_SIGNAL"
+        },
+        "L1": {
+          "name": "VSS_12",
+          "net": "GND_SIGNAL"
+        },
+        "L6": {
+          "name": "VSS_13",
+          "net": "GND_SIGNAL"
+        },
+        "L11": {
+          "name": "VSS_14",
+          "net": "GND_SIGNAL"
+        },
+        "C8": {
+          "name": "R_USB2",
+          "net": "N12811"
+        },
+        "B3": {
+          "name": "R_USB3",
+          "net": "N13061"
+        },
+        "F10": {
+          "name": "DQ[0]",
+          "net": "GPIF_D00"
+        },
+        "F9": {
+          "name": "DQ[1]",
+          "net": "GPIF_D01"
+        },
+        "F7": {
+          "name": "DQ[2]",
+          "net": "GPIF_D02"
+        },
+        "G10": {
+          "name": "DQ[3]",
+          "net": "GPIF_D03"
+        },
+        "G9": {
+          "name": "DQ[4]",
+          "net": "GPIF_D04"
+        },
+        "F8": {
+          "name": "DQ[5]",
+          "net": "GPIF_D05"
+        },
+        "H10": {
+          "name": "DQ[6]",
+          "net": "GPIF_D06"
+        },
+        "H9": {
+          "name": "DQ[7]",
+          "net": "GPIF_D07"
+        },
+        "J10": {
+          "name": "DQ[8]",
+          "net": "GPIF_D08"
+        },
+        "J9": {
+          "name": "DQ[9]",
+          "net": "GPIF_D09"
+        },
+        "K11": {
+          "name": "DQ[10]",
+          "net": "GPIF_D10"
+        },
+        "L10": {
+          "name": "DQ[11]",
+          "net": "GPIF_D11"
+        },
+        "K10": {
+          "name": "DQ[12]",
+          "net": "GPIF_D12"
+        },
+        "K9": {
+          "name": "DQ[13]",
+          "net": "GPIF_D13"
+        },
+        "J8": {
+          "name": "DQ[14]",
+          "net": "GPIF_D14"
+        },
+        "G8": {
+          "name": "DQ[15]",
+          "net": "GPIF_D15"
+        },
+        "J6": {
+          "name": "PCLK/CLK",
+          "net": "IFCLK"
+        },
+        "K8": {
+          "name": "CTL[0]/S\\L\\C\\S\\#\\",
+          "net": "GPIF_CTL0"
+        },
+        "K7": {
+          "name": "CTL[1]/S\\L\\W\\R\\#\\",
+          "net": "GPIF_CTL1"
+        },
+        "J7": {
+          "name": "CTL[2]/S\\L\\O\\E\\#\\",
+          "net": "GPIF_CTL2"
+        },
+        "H7": {
+          "name": "CTL[3]/S\\L\\R\\D\\#\\",
+          "net": "GPIF_CTL3"
+        },
+        "G7": {
+          "name": "CTL[4]/FLAGA",
+          "net": "GPIF_CTL4"
+        },
+        "G6": {
+          "name": "CTL[5]/FLAGB",
+          "net": "GPIF_CTL5"
+        },
+        "K6": {
+          "name": "CTL[6]/GPIO",
+          "net": "GPIF_CTL6"
+        },
+        "H8": {
+          "name": "CTL[7]/P\\K\\T\\E\\N\\D\\#\\",
+          "net": "GPIF_CTL7"
+        },
+        "G5": {
+          "name": "CTL[8]/GPIO",
+          "net": "GPIF_CTL8"
+        },
+        "H6": {
+          "name": "CTL[9]/GPIO",
+          "net": "GPIF_CTL9"
+        },
+        "K5": {
+          "name": "CTL[10]/GPIO",
+          "net": "FPGA_CFG_DONE"
+        },
+        "J5": {
+          "name": "CTL[11]/A1",
+          "net": "GPIF_CTL11"
+        },
+        "H5": {
+          "name": "CTL[12]/A0",
+          "net": "GPIF_CTL12"
+        },
+        "G4": {
+          "name": "PMODE[0]",
+          "net": "FX3_PMODE0"
+        },
+        "H4": {
+          "name": "PMODE[1]",
+          "net": "FX3_PMODE1"
+        },
+        "L4": {
+          "name": "PMODE[2]",
+          "net": "FX3_PMODE2"
+        },
+        "L8": {
+          "name": "CTL[15]/I\\N\\T\\#\\",
+          "net": "FX3_EXTINT"
+        },
+        "H11": {
+          "name": "VIO1_1",
+          "net": "1P8V _FX3"
+        },
+        "L9": {
+          "name": "VIO1_2",
+          "net": "1P8V _FX3"
+        },
+        "F5": {
+          "name": "DQ[28]/UART_RTS",
+          "net": "GPIF_D28"
+        },
+        "E1": {
+          "name": "DQ[29]/UART_CTS",
+          "net": "GPIF_D29"
+        },
+        "E5": {
+          "name": "DQ[30]/UART_TX",
+          "net": "GPIF_D30"
+        },
+        "E4": {
+          "name": "DQ[31]/UART_RX",
+          "net": "GPIF_D31"
+        },
+        "D1": {
+          "name": "GPIO[50]/I2S_CLK",
+          "net": "FPGA_CFG_INIT_B_R"
+        },
+        "D2": {
+          "name": "GPIO[51]/I2S_SD",
+          "net": "AUX_PWR_ON_LV"
+        },
+        "D3": {
+          "name": "GPIO[52]/I2S_WS",
+          "net": "N57267"
+        },
+        "E3": {
+          "name": "VIO3",
+          "net": "1P8V _FX3"
+        },
+        "K2": {
+          "name": "DQ[16]",
+          "net": "GPIF_D16"
+        },
+        "J4": {
+          "name": "DQ[17]",
+          "net": "GPIF_D17"
+        },
+        "K1": {
+          "name": "DQ[18]",
+          "net": "GPIF_D18"
+        },
+        "J2": {
+          "name": "DQ[19]",
+          "net": "GPIF_D19"
+        },
+        "J3": {
+          "name": "DQ[20]",
+          "net": "GPIF_D20"
+        },
+        "J1": {
+          "name": "DQ[21]",
+          "net": "GPIF_D21"
+        },
+        "H2": {
+          "name": "DQ[22]",
+          "net": "GPIF_D22"
+        },
+        "H3": {
+          "name": "DQ[23]",
+          "net": "GPIF_D23"
+        },
+        "F4": {
+          "name": "DQ[24]",
+          "net": "GPIF_D24"
+        },
+        "G2": {
+          "name": "DQ[25]",
+          "net": "GPIF_D25"
+        },
+        "G3": {
+          "name": "DQ[26]",
+          "net": "GPIF_D26"
+        },
+        "F3": {
+          "name": "DQ[27]",
+          "net": "GPIF_D27"
+        },
+        "F2": {
+          "name": "GPIO[45]",
+          "net": "FPGA_CFG_PROG_B"
+        },
+        "F1": {
+          "name": "VIO2",
+          "net": "1P8V _FX3"
+        }
       }
     },
     "R11344": {
@@ -14819,8 +15155,8 @@
       },
       "internal_pn": "RC0402FR-07121RL",
       "manufacturer": "Yageo",
-      "description": "RES SMD 121 OHM 1% 1/16W 0402",
-      "dns": true
+      "dns": true,
+      "description": "RES SMD 121 OHM 1% 1/16W 0402"
     },
     "R11257": {
       "value": "0E",
@@ -15324,8 +15660,8 @@
         "2": "FPGA_PUDC_B"
       },
       "internal_pn": "RC0402JR-07680RL",
-      "description": "RES SMD 680 OHM 5% 1/16W 0402",
-      "dns": true
+      "dns": true,
+      "description": "RES SMD 680 OHM 5% 1/16W 0402"
     },
     "R68": {
       "value": "100E",
@@ -15491,29 +15827,9 @@
     "U1400": {
       "value": "AD9361",
       "pins": {
-        "M3": "NC",
-        "A3": "NC",
-        "G7": "NC",
-        "H11": "NC",
         "J4": {
           "name": "SPI_MOSI",
           "net": "N18921752"
-        },
-        "D5": {
-          "name": "CTRL_IN3",
-          "net": "N16361998"
-        },
-        "E4": {
-          "name": "CTRL_OUT1",
-          "net": "N16361944"
-        },
-        "F6": {
-          "name": "CTRL_OUT4",
-          "net": "N16361928"
-        },
-        "G4": {
-          "name": "CTRL_OUT7",
-          "net": "N16361932"
         },
         "L6": {
           "name": "SPI_MISO",
@@ -15559,6 +15875,10 @@
           "name": "CTRL_IN1",
           "net": "N16361990"
         },
+        "D5": {
+          "name": "CTRL_IN3",
+          "net": "N16361998"
+        },
         "D6": {
           "name": "CTRL_IN2",
           "net": "N16361994"
@@ -15566,6 +15886,10 @@
         "D4": {
           "name": "CTRL_OUT0",
           "net": "N16361956"
+        },
+        "E4": {
+          "name": "CTRL_OUT1",
+          "net": "N16361944"
         },
         "E5": {
           "name": "CTRL_OUT2",
@@ -15575,6 +15899,10 @@
           "name": "CTRL_OUT3",
           "net": "N16361940"
         },
+        "F6": {
+          "name": "CTRL_OUT4",
+          "net": "N16361928"
+        },
         "F5": {
           "name": "CTRL_OUT5",
           "net": "N16361952"
@@ -15583,124 +15911,498 @@
           "name": "CTRL_OUT6",
           "net": "N16361948"
         },
-        "A11": "N3686966",
-        "B8": "VDDA_GPO",
-        "B9": "V1P3_ADI_A",
-        "B10": "V1P3_ADI_A",
-        "B11": "N3686966",
-        "D2": "V1P3_ADI_B",
-        "D3": "V1P3_ADI_B",
-        "E2": "V1P3_ADI_A",
-        "E3": "V1P3_ADI_B",
-        "F2": "V1P3_ADI_A",
-        "F12": "V1P3_ADI_B",
-        "G2": "N3687951",
-        "G3": "N3687951",
-        "H12": "VDD_INTERFACE",
-        "J3": "V1P3_ADI_A",
-        "K3": "V1P3_ADI_A",
-        "K4": "V1P3_ADI_B",
-        "D12": "GND",
-        "F7": "GND",
-        "F9": "GND",
-        "F11": "GND",
-        "G12": "GND",
-        "H7": "GND",
-        "H10": "GND",
-        "K12": "GND",
-        "A6": "GND",
-        "B1": "GND",
-        "B2": "GND",
-        "B12": "GND",
-        "C2": "GND",
-        "C7": "GND",
-        "C8": "GND",
-        "C9": "GND",
-        "C10": "GND",
-        "C11": "GND",
-        "C12": "GND",
-        "F3": "GND",
-        "H2": "GND",
-        "H3": "GND",
-        "J2": "GND",
-        "K2": "GND",
-        "L2": "GND",
-        "L3": "GND",
-        "L7": "GND",
-        "L8": "GND",
-        "L9": "GND",
-        "L10": "GND",
-        "L11": "GND",
-        "L12": "GND",
-        "M6": "GND",
-        "M7": "N3378459",
-        "M8": "N3378439",
-        "M9": "N2495196",
-        "M10": "N2495200",
-        "M5": "GND",
-        "A12": "TX_EXT_LO_IN",
-        "A8": "N3790330",
-        "A7": "N2496538",
-        "A10": "N2495312",
-        "A9": "N3790300",
-        "A5": "GND",
-        "A1": "N3688753",
-        "M1": "ADI_RX1A_P",
-        "M2": "N18093945",
-        "H1": "GND",
-        "J1": "GND",
-        "K1": "GND",
-        "L1": "GND",
-        "M4": "GND",
-        "G1": "N18932476",
-        "H6": "GND",
-        "A2": "N2497231",
-        "E1": "GND",
-        "F1": "GND",
-        "C1": "GND",
-        "D1": "GND",
-        "A4": "GND",
-        "J12": "N19161631",
-        "G8": "N16363103",
-        "K7": "N19161834",
-        "D11": "N16362547",
-        "F8": "N19161544",
-        "K9": "N19161747",
-        "E9": "N16362523",
-        "E10": "N16362535",
-        "H8": "N19161921",
-        "J7": "N19161892",
-        "J8": "N19161863",
-        "J9": "N19161805",
-        "K8": "N19161776",
-        "J10": "N19161718",
-        "J11": "N19161689",
-        "K10": "N19161660",
-        "K11": "N19161602",
-        "E7": "N19161573",
-        "E8": "N19161486",
-        "D8": "N16362517",
-        "D9": "N16362529",
-        "D10": "N16362541",
-        "E11": "N16362565",
-        "E12": "N16362433",
-        "F10": "N16362571",
-        "G10": "GND",
-        "G9": "N16363281",
-        "H9": "GND",
-        "G11": "N16363297",
-        "D7": "N19161515",
-        "B7": "ADI_GPO_0",
-        "B6": "ADI_GPO_1",
-        "B5": "ADI_GPO_2",
-        "B4": "ADI_GPO_3",
-        "B3": "ADI_AUXDAC1",
-        "C3": "RPDIF_AUXDAC",
-        "L5": "N18653435",
-        "J6": "N16980507",
-        "L4": "N3789732",
-        "M11": "ADI_XTALP",
-        "M12": "N5129672"
+        "G4": {
+          "name": "CTRL_OUT7",
+          "net": "N16361932"
+        },
+        "A11": {
+          "name": "VDDA1P1_TX_VCO",
+          "net": "N3686966"
+        },
+        "B8": {
+          "name": "VDDA_GPO",
+          "net": "VDDA_GPO"
+        },
+        "B9": {
+          "name": "VDDA1P3_TX_LO",
+          "net": "V1P3_ADI_A"
+        },
+        "B10": {
+          "name": "VDDA1P3_TX_VCO_LDO",
+          "net": "V1P3_ADI_A"
+        },
+        "B11": {
+          "name": "TX_VCO_LDO_OUT",
+          "net": "N3686966"
+        },
+        "D2": {
+          "name": "VDDA1P3_RX_RF",
+          "net": "V1P3_ADI_B"
+        },
+        "D3": {
+          "name": "VDDA1P3_RX_TX",
+          "net": "V1P3_ADI_B"
+        },
+        "E2": {
+          "name": "VDDA1P3_RX_LO",
+          "net": "V1P3_ADI_A"
+        },
+        "E3": {
+          "name": "VDDA1P3_TX_LO_BUFFER",
+          "net": "V1P3_ADI_B"
+        },
+        "F2": {
+          "name": "VDDA1P3_RX_VCO_LDO",
+          "net": "V1P3_ADI_A"
+        },
+        "F12": {
+          "name": "VDDD1P3_DIG",
+          "net": "V1P3_ADI_B"
+        },
+        "G2": {
+          "name": "RX_VCO_LDO_OUT",
+          "net": "N3687951"
+        },
+        "G3": {
+          "name": "VDDA1P1_RX_VCO",
+          "net": "N3687951"
+        },
+        "H12": {
+          "name": "VDD_INTERFACE",
+          "net": "VDD_INTERFACE"
+        },
+        "J3": {
+          "name": "VDDA1P3_RX_SYNTH",
+          "net": "V1P3_ADI_A"
+        },
+        "K3": {
+          "name": "VDDA1P3_TX_SYNTH",
+          "net": "V1P3_ADI_A"
+        },
+        "K4": {
+          "name": "VDDA1P3_BB",
+          "net": "V1P3_ADI_B"
+        },
+        "D12": {
+          "name": "VSSD_1",
+          "net": "GND"
+        },
+        "F7": {
+          "name": "VSSD_2",
+          "net": "GND"
+        },
+        "F9": {
+          "name": "VSSD_3",
+          "net": "GND"
+        },
+        "F11": {
+          "name": "VSSD_4",
+          "net": "GND"
+        },
+        "G12": {
+          "name": "VSSD_5",
+          "net": "GND"
+        },
+        "H7": {
+          "name": "VSSD_6",
+          "net": "GND"
+        },
+        "H10": {
+          "name": "VSSD_7",
+          "net": "GND"
+        },
+        "K12": {
+          "name": "VSSD_8",
+          "net": "GND"
+        },
+        "A6": {
+          "name": "VSSA_1",
+          "net": "GND"
+        },
+        "B1": {
+          "name": "VSSA_2",
+          "net": "GND"
+        },
+        "B2": {
+          "name": "VSSA_3",
+          "net": "GND"
+        },
+        "B12": {
+          "name": "VSSA_4",
+          "net": "GND"
+        },
+        "C2": {
+          "name": "VSSA_5",
+          "net": "GND"
+        },
+        "C7": {
+          "name": "VSSA_6",
+          "net": "GND"
+        },
+        "C8": {
+          "name": "VSSA_7",
+          "net": "GND"
+        },
+        "C9": {
+          "name": "VSSA_8",
+          "net": "GND"
+        },
+        "C10": {
+          "name": "VSSA_9",
+          "net": "GND"
+        },
+        "C11": {
+          "name": "VSSA_10",
+          "net": "GND"
+        },
+        "C12": {
+          "name": "VSSA_11",
+          "net": "GND"
+        },
+        "F3": {
+          "name": "VSSA_12",
+          "net": "GND"
+        },
+        "H2": {
+          "name": "VSSA_13",
+          "net": "GND"
+        },
+        "H3": {
+          "name": "VSSA_14",
+          "net": "GND"
+        },
+        "J2": {
+          "name": "VSSA_15",
+          "net": "GND"
+        },
+        "K2": {
+          "name": "VSSA_16",
+          "net": "GND"
+        },
+        "L2": {
+          "name": "VSSA_17",
+          "net": "GND"
+        },
+        "L3": {
+          "name": "VSSA_18",
+          "net": "GND"
+        },
+        "L7": {
+          "name": "VSSA_19",
+          "net": "GND"
+        },
+        "L8": {
+          "name": "VSSA_20",
+          "net": "GND"
+        },
+        "L9": {
+          "name": "VSSA_21",
+          "net": "GND"
+        },
+        "L10": {
+          "name": "VSSA_22",
+          "net": "GND"
+        },
+        "L11": {
+          "name": "VSSA_23",
+          "net": "GND"
+        },
+        "L12": {
+          "name": "VSSA_24",
+          "net": "GND"
+        },
+        "M6": {
+          "name": "VSSA_25",
+          "net": "GND"
+        },
+        "M7": {
+          "name": "TX1A_P",
+          "net": "N3378459"
+        },
+        "M8": {
+          "name": "T\\X\\1\\A\\_\\N\\",
+          "net": "N3378439"
+        },
+        "M9": {
+          "name": "TX1B_P",
+          "net": "N2495196"
+        },
+        "M10": {
+          "name": "T\\X\\1\\B\\_\\N\\",
+          "net": "N2495200"
+        },
+        "M5": {
+          "name": "TX_MON1",
+          "net": "GND"
+        },
+        "A12": {
+          "name": "TX_EXT_LO_IN",
+          "net": "TX_EXT_LO_IN"
+        },
+        "A8": {
+          "name": "TX2A_P",
+          "net": "N3790330"
+        },
+        "A7": {
+          "name": "T\\X\\2\\A\\_\\N\\",
+          "net": "N2496538"
+        },
+        "A10": {
+          "name": "TX2B_P",
+          "net": "N2495312"
+        },
+        "A9": {
+          "name": "T\\X\\2\\B\\_\\N\\",
+          "net": "N3790300"
+        },
+        "A5": {
+          "name": "TX_MON2",
+          "net": "GND"
+        },
+        "M1": {
+          "name": "RX1A_P",
+          "net": "ADI_RX1A_P"
+        },
+        "M2": {
+          "name": "R\\X\\1\\A\\_\\N\\",
+          "net": "N18093945"
+        },
+        "H1": {
+          "name": "RX1B_P",
+          "net": "GND"
+        },
+        "J1": {
+          "name": "R\\X\\1\\B\\_\\N\\",
+          "net": "GND"
+        },
+        "K1": {
+          "name": "RX1C_P",
+          "net": "GND"
+        },
+        "L1": {
+          "name": "R\\X\\1\\C\\_\\N\\",
+          "net": "GND"
+        },
+        "M4": {
+          "name": "VSSA_26",
+          "net": "GND"
+        },
+        "M3": {
+          "name": "NC_1",
+          "net": "NC"
+        },
+        "G1": {
+          "name": "RX_EXT_LO_IN",
+          "net": "N18932476"
+        },
+        "H6": {
+          "name": "VSSA_27",
+          "net": "GND"
+        },
+        "A2": {
+          "name": "RX2A_P",
+          "net": "N2497231"
+        },
+        "A1": {
+          "name": "R\\X\\2\\A\\_\\N\\",
+          "net": "N3688753"
+        },
+        "E1": {
+          "name": "RX2B_P",
+          "net": "GND"
+        },
+        "F1": {
+          "name": "R\\X\\2\\B\\_\\N\\",
+          "net": "GND"
+        },
+        "C1": {
+          "name": "RX2C_P",
+          "net": "GND"
+        },
+        "D1": {
+          "name": "R\\X\\2\\C\\_\\N\\",
+          "net": "GND"
+        },
+        "A4": {
+          "name": "VSSA_28",
+          "net": "GND"
+        },
+        "A3": {
+          "name": "NC_2",
+          "net": "NC"
+        },
+        "H8": {
+          "name": "P1_D11/RX_D5_P",
+          "net": "N19161921"
+        },
+        "J7": {
+          "name": "P1_D10/R\\X\\_\\D\\5\\_\\N\\",
+          "net": "N19161892"
+        },
+        "J8": {
+          "name": "P1_D9/RX_D4_P",
+          "net": "N19161863"
+        },
+        "K7": {
+          "name": "P1_D8/R\\X\\_\\D\\4\\_\\N\\",
+          "net": "N19161834"
+        },
+        "J9": {
+          "name": "P1_D7/RX_D3_P",
+          "net": "N19161805"
+        },
+        "K8": {
+          "name": "P1_D6/R\\X\\_\\D\\3\\_\\N\\",
+          "net": "N19161776"
+        },
+        "J10": {
+          "name": "P1_D5/RX_D2_P",
+          "net": "N19161718"
+        },
+        "K9": {
+          "name": "P1_D4/R\\X\\_\\D\\2\\_\\N\\",
+          "net": "N19161747"
+        },
+        "J11": {
+          "name": "P1_D3/RX_D1_P",
+          "net": "N19161689"
+        },
+        "K10": {
+          "name": "P1_D2/R\\X\\_\\D\\1\\_\\N\\",
+          "net": "N19161660"
+        },
+        "J12": {
+          "name": "P1_D1/RX_D0_P",
+          "net": "N19161631"
+        },
+        "K11": {
+          "name": "P1_D0/R\\X\\_\\D\\0\\_\\N\\",
+          "net": "N19161602"
+        },
+        "E7": {
+          "name": "P0_D11/TX_D5_P",
+          "net": "N19161573"
+        },
+        "F8": {
+          "name": "P0_D10/T\\X\\_\\D\\5\\_\\N\\",
+          "net": "N19161544"
+        },
+        "E8": {
+          "name": "P0_D8/T\\X\\_\\D\\4\\_\\N\\",
+          "net": "N19161486"
+        },
+        "D8": {
+          "name": "P0_D7/TX_D3_P",
+          "net": "N16362517"
+        },
+        "E9": {
+          "name": "P0_D6/T\\X\\_\\D\\3\\_\\N\\",
+          "net": "N16362523"
+        },
+        "D9": {
+          "name": "P0_D5/TX_D2_P",
+          "net": "N16362529"
+        },
+        "E10": {
+          "name": "P0_D4/T\\X\\_\\D\\2\\_\\N\\",
+          "net": "N16362535"
+        },
+        "D10": {
+          "name": "P0_D3/TX_D1_P",
+          "net": "N16362541"
+        },
+        "E11": {
+          "name": "P0_D2/T\\X\\_\\D\\1\\_\\N\\",
+          "net": "N16362565"
+        },
+        "D11": {
+          "name": "P0_D1/TX_D0_P",
+          "net": "N16362547"
+        },
+        "E12": {
+          "name": "P0_D0/T\\X\\_\\D\\0\\_\\N\\",
+          "net": "N16362433"
+        },
+        "F10": {
+          "name": "FB_CLK_P",
+          "net": "N16362571"
+        },
+        "G10": {
+          "name": "F\\B\\_\\C\\L\\K\\_\\N\\",
+          "net": "GND"
+        },
+        "G7": {
+          "name": "R\\X\\_\\F\\R\\A\\M\\E\\_\\N\\",
+          "net": "NC"
+        },
+        "G8": {
+          "name": "RX_FRAME_P",
+          "net": "N16363103"
+        },
+        "G9": {
+          "name": "TX_FRAME_P",
+          "net": "N16363281"
+        },
+        "H9": {
+          "name": "T\\X\\_\\F\\R\\A\\M\\E\\_\\N\\",
+          "net": "GND"
+        },
+        "G11": {
+          "name": "DATA_CLK_P",
+          "net": "N16363297"
+        },
+        "H11": {
+          "name": "D\\A\\T\\A\\_\\C\\L\\K\\_\\N\\",
+          "net": "NC"
+        },
+        "D7": {
+          "name": "P0_D9/TX_D4_P",
+          "net": "N19161515"
+        },
+        "B7": {
+          "name": "GPO_0",
+          "net": "ADI_GPO_0"
+        },
+        "B6": {
+          "name": "GPO_1",
+          "net": "ADI_GPO_1"
+        },
+        "B5": {
+          "name": "GPO_2",
+          "net": "ADI_GPO_2"
+        },
+        "B4": {
+          "name": "GPO_3",
+          "net": "ADI_GPO_3"
+        },
+        "B3": {
+          "name": "AUXDAC1",
+          "net": "ADI_AUXDAC1"
+        },
+        "C3": {
+          "name": "AUXDAC2",
+          "net": "RPDIF_AUXDAC"
+        },
+        "L5": {
+          "name": "AUXADC",
+          "net": "N18653435"
+        },
+        "J6": {
+          "name": "CLOCK_OUT",
+          "net": "N16980507"
+        },
+        "L4": {
+          "name": "RBIAS",
+          "net": "N3789732"
+        },
+        "M11": {
+          "name": "XTALP",
+          "net": "ADI_XTALP"
+        },
+        "M12": {
+          "name": "XTALN",
+          "net": "N5129672"
+        }
       },
       "internal_pn": "AD9361BBCZ"
     },
@@ -16025,8 +16727,8 @@
       },
       "internal_pn": "RC0402FR-07121RL",
       "manufacturer": "Yageo",
-      "description": "RES SMD 121 OHM 1% 1/16W 0402",
-      "dns": true
+      "dns": true,
+      "description": "RES SMD 121 OHM 1% 1/16W 0402"
     },
     "TP27": {
       "value": "T POINT R",
@@ -16382,40 +17084,20 @@
     "J4": {
       "value": "HDAM-11-17-S-13-2",
       "pins": {
-        "J3": "NC",
-        "C1": "NC",
-        "C3": "NC",
-        "C5": "NC",
-        "C7": "NC",
-        "I5": "NC",
-        "I9": "NC",
-        "L11": "NC",
-        "G10": "NC",
-        "G11": "NC",
-        "B1": "NC",
-        "B3": "NC",
-        "B5": "NC",
-        "B7": "NC",
-        "K5": "NC",
-        "M10": "NC",
-        "M11": "NC",
-        "SH2": "NC",
-        "SH1": "NC",
-        "H1": "N19335807",
         "F1": "N3373504",
-        "F7": "N3374518",
         "F2": "GND",
         "F3": "TRXFE_USB3_TX0_N",
         "F4": "GND",
         "F5": "USB_DN0",
         "F6": "GND",
+        "F7": "N3374518",
         "F8": "GND",
         "F9": "N19218189",
         "F10": "GND",
         "F11": "GND",
-        "E7": "N3374408",
         "J1": "SDR_RESET_IN",
         "J2": "SDR_REG_LDO_PGOOD",
+        "J3": "NC",
         "J4": "IRQ_INT",
         "J5": "SYNC_RESET",
         "J6": "V3P3",
@@ -16424,13 +17106,18 @@
         "J9": "N19317101",
         "J10": "VCC_IN_12V",
         "J11": "VCC_IN_12V",
+        "C1": "NC",
         "C2": "GND",
+        "C3": "NC",
         "C4": "GND",
+        "C5": "NC",
         "C6": "GND",
+        "C7": "NC",
         "C8": "GND",
         "C9": "N3373966",
         "C10": "GND",
         "C11": "N19166908",
+        "H1": "N19335807",
         "H2": "N19335021",
         "H3": "3P3VD_TIVA",
         "H4": "3P3VD_TIVA",
@@ -16441,14 +17128,15 @@
         "H9": "2G_MODULE_POWER_OFF",
         "H10": "VCC_IN_12V",
         "H11": "VCC_IN_12V",
-        "B9": "N3373944",
         "I1": "GND",
         "I2": "GND",
         "I3": "TIVA_2G_MODULE_POWER_ON",
         "I4": "SYNCCONN_GPIO1",
+        "I5": "NC",
         "I6": "V3P3",
         "I7": "V3P3",
         "I8": "V3P3",
+        "I9": "NC",
         "I10": "VCC_IN_12V",
         "I11": "VCC_IN_12V",
         "L1": "N3373448",
@@ -16461,7 +17149,7 @@
         "L8": "N18612043",
         "L9": "GND",
         "L10": "GND",
-        "K1": "N19334136",
+        "L11": "NC",
         "G1": "GND",
         "G2": "GND",
         "G3": "GND",
@@ -16471,16 +17159,24 @@
         "G7": "GND",
         "G8": "GND",
         "G9": "GND",
+        "G10": "NC",
+        "G11": "NC",
+        "B1": "NC",
         "B2": "GND",
+        "B3": "NC",
         "B4": "GND",
+        "B5": "NC",
         "B6": "GND",
+        "B7": "NC",
         "B8": "GND",
+        "B9": "N3373944",
         "B10": "GND",
         "B11": "N19166763",
-        "E9": "N3374572",
+        "K1": "N19334136",
         "K2": "N19334828",
         "K3": "UART_RX",
         "K4": "GND",
+        "K5": "NC",
         "K6": "GND",
         "K7": "I2C_SDA",
         "K8": "GND",
@@ -16496,13 +17192,17 @@
         "M7": "GND",
         "M8": "N18612081",
         "M9": "GND",
+        "M10": "NC",
+        "M11": "NC",
         "E1": "N3373546",
         "E2": "GND",
         "E3": "TRXFE_USB3_TX0_P",
         "E4": "GND",
         "E5": "USB_DP0",
         "E6": "GND",
+        "E7": "N3374408",
         "E8": "GND",
+        "E9": "N3374572",
         "E10": "L_TRXFE_RESET",
         "E11": "SYNC_INT#",
         "D1": "GND",
@@ -16526,7 +17226,9 @@
         "A8": "TIVA_MODULE_UART1_RTS",
         "A9": "GND",
         "A10": "TIVA_MODULE_UART1_TXD",
-        "A11": "TIVA_MODULE_UART1_CTS"
+        "A11": "TIVA_MODULE_UART1_CTS",
+        "SH2": "NC",
+        "SH1": "NC"
       }
     },
     "R752": {
@@ -21721,8 +22423,8 @@
       },
       "internal_pn": "BLM18PG330SN1D",
       "manufacturer": "Murata Electronics North America",
-      "description": "FERRITE BEAD 33 OHM 0603 1LN",
-      "dns": true
+      "dns": true,
+      "description": "FERRITE BEAD 33 OHM 0603 1LN"
     },
     "R11095": {
       "value": "100K",
@@ -21739,8 +22441,8 @@
       },
       "internal_pn": "BLM18PG330SN1D",
       "manufacturer": "Murata Electronics North America",
-      "description": "FERRITE BEAD 33 OHM 0603 1LN",
-      "dns": true
+      "dns": true,
+      "description": "FERRITE BEAD 33 OHM 0603 1LN"
     },
     "C2032": {
       "value": "1NF",
@@ -21783,8 +22485,8 @@
       },
       "internal_pn": "RC0402FR-071ML",
       "manufacturer": "Yageo",
-      "description": "RES SMD 1M OHM 1% 1/16W 0402",
-      "dns": true
+      "dns": true,
+      "description": "RES SMD 1M OHM 1% 1/16W 0402"
     },
     "R1244": {
       "value": "0ohm",
@@ -22042,8 +22744,8 @@
       },
       "internal_pn": "GRM1555C1E180JA01D",
       "manufacturer": "Murata Electronics North America",
-      "description": "18pF ±5% 25V Ceramic Capacitor C0G, NP0 0402 (1005 Metric)",
-      "dns": true
+      "dns": true,
+      "description": "18pF ±5% 25V Ceramic Capacitor C0G, NP0 0402 (1005 Metric)"
     },
     "R10953": {
       "value": "95.3",
@@ -22988,8 +23690,8 @@
       },
       "internal_pn": "RC0402FR-07121RL",
       "manufacturer": "Yageo",
-      "description": "RES SMD 121 OHM 1% 1/16W 0402",
-      "dns": true
+      "dns": true,
+      "description": "RES SMD 121 OHM 1% 1/16W 0402"
     },
     "R1603": {
       "value": "0E",
@@ -23025,8 +23727,8 @@
         "1": "N2997026",
         "2": "GND"
       },
-      "description": "10uF 16V Ceramic Capacitor X6S 0603 (1608 Metric) 0.063\" L x 0.031\" W (1.60mm x 0.80mm)",
-      "dns": true
+      "dns": true,
+      "description": "10uF 16V Ceramic Capacitor X6S 0603 (1608 Metric) 0.063\" L x 0.031\" W (1.60mm x 0.80mm)"
     },
     "L3402": {
       "value": "2.2uH",
@@ -23146,8 +23848,8 @@
         "1": "N3002699",
         "2": "GND"
       },
-      "description": "10uF 16V Ceramic Capacitor X6S 0603 (1608 Metric) 0.063\" L x 0.031\" W (1.60mm x 0.80mm)",
-      "dns": true
+      "dns": true,
+      "description": "10uF 16V Ceramic Capacitor X6S 0603 (1608 Metric) 0.063\" L x 0.031\" W (1.60mm x 0.80mm)"
     },
     "TP66": {
       "value": "T POINT R",
@@ -23736,7 +24438,6 @@
         "E14": "FGA_CH2_RX_ATTN_8DB",
         "E15": "FGA_CH2_RX_ATTN_4DB",
         "E16": "FGA_CH2_RX_ATTN_2DB",
-        "D13": "N19245765",
         "D1": "GND_SIGNAL",
         "D2": "PA_CNTRL2",
         "D3": "GND_SIGNAL",
@@ -23749,6 +24450,7 @@
         "D10": "FGA_CH2_TX_ATTN_P5DB",
         "D11": "GND_SIGNAL",
         "D12": "FGA_CH2_TX_ATTN_1DB",
+        "D13": "N19245765",
         "D14": "FGA_CH2_RX_ATTN_1DB",
         "D15": "GND_SIGNAL",
         "D16": "FGA_CH1_RX_ATTN_1DB",
@@ -23768,7 +24470,6 @@
         "F14": "GND_SIGNAL",
         "F15": "FGA_CH1_RX_ATTN_2DB",
         "F16": "GND_SIGNAL",
-        "B12": "N19242757",
         "B1": "FGA_CH1_TX_ATTN_2DB",
         "B2": "FGA_CH1_TX_ATTN_4DB",
         "B3": "FGA_CH1_TX_ATTN_8DB",
@@ -23780,6 +24481,7 @@
         "B9": "RF_IN_12V",
         "B10": "RF_IN_12V",
         "B11": "PA_CNTRL3",
+        "B12": "N19242757",
         "B13": "GND_SIGNAL",
         "B14": "GND_SIGNAL",
         "B15": "CLK_OUT_10MHZ",
@@ -24310,8 +25012,8 @@
       },
       "internal_pn": "RC0402FR-07180RL",
       "manufacturer": "Yageo",
-      "description": "RES SMD 180 OHM 1% 1/16W 0402",
-      "dns": true
+      "dns": true,
+      "description": "RES SMD 180 OHM 1% 1/16W 0402"
     },
     "C1408": {
       "value": "0.1uF",
@@ -25081,8 +25783,8 @@
         "1": "N18641977",
         "2": "GND"
       },
-      "description": "10uF 16V Ceramic Capacitor X6S 0603 (1608 Metric) 0.063\" L x 0.031\" W (1.60mm x 0.80mm)",
-      "dns": true
+      "dns": true,
+      "description": "10uF 16V Ceramic Capacitor X6S 0603 (1608 Metric) 0.063\" L x 0.031\" W (1.60mm x 0.80mm)"
     },
     "R4016": {
       "value": "10K",
@@ -25484,102 +26186,13 @@
     "U9": {
       "value": "XC7A100T-2FGG484I7006",
       "pins": {
-        "V15": {
-          "name": "IO_L14N_T2_SRCC_13",
-          "net": "NC"
-        },
-        "C2": {
-          "name": "IO_L2P_T0_AD12P_35",
-          "net": "NC"
-        },
-        "U15": {
-          "name": "IO_L14P_T2_SRCC_13",
-          "net": "NC"
-        },
-        "B6": {
-          "name": "MGTPTXP2_216",
-          "net": "NC"
-        },
-        "U16": {
-          "name": "IO_L17N_T2_13",
-          "net": "NC"
-        },
-        "A6": {
-          "name": "MGTPTXN2_216",
-          "net": "NC"
-        },
-        "E10": {
-          "name": "MGTREFCLK1N_216",
-          "net": "NC"
-        },
-        "A4": {
-          "name": "MGTPTXN0_216",
-          "net": "NC"
-        },
-        "B4": {
-          "name": "MGTPTXP0_216",
-          "net": "NC"
-        },
-        "C5": {
-          "name": "MGTPTXN1_216",
-          "net": "NC"
-        },
-        "D5": {
-          "name": "MGTPTXP1_216",
-          "net": "NC"
-        },
-        "F10": {
-          "name": "MGTREFCLK1P_216",
-          "net": "NC"
-        },
-        "B2": {
-          "name": "IO_L2N_T0_AD12N_35",
-          "net": "NC"
-        },
-        "G3": {
-          "name": "IO_L11N_T1_SRCC_35",
-          "net": "NC"
-        },
-        "Y17": {
-          "name": "IO_0_13",
-          "net": "NC"
-        },
-        "G4": "NC",
-        "D1": "NC",
-        "D2": "NC",
-        "E1": "NC",
-        "E2": "NC",
-        "J6": "NC",
-        "K3": "NC",
-        "K6": "NC",
-        "L1": "NC",
-        "L4": "NC",
-        "L5": "NC",
-        "M1": "NC",
-        "M2": "NC",
-        "M3": "NC",
-        "M5": "NC",
-        "N3": "NC",
-        "N5": "NC",
-        "P6": "NC",
-        "F3": "NC",
-        "P1": "NC",
-        "P5": "NC",
-        "P4": "NC",
-        "P2": "NC",
-        "N2": "NC",
-        "M6": "NC",
-        "AB2": "NC",
-        "Y3": "NC",
-        "AA3": "NC",
-        "T3": "NC",
-        "A19": "NC",
-        "Y1": "NC",
-        "U3": "NC",
-        "U1": "NC",
         "F4": {
           "name": "IO_0_35",
           "net": "CAT_CE"
+        },
+        "V15": {
+          "name": "IO_L14N_T2_SRCC_13",
+          "net": "NC"
         },
         "AA15": {
           "name": "IO_L4P_T0_13",
@@ -25589,6 +26202,10 @@
           "name": "IO_L5P_T0_13",
           "net": "CODEC_D20"
         },
+        "C2": {
+          "name": "IO_L2P_T0_AD12P_35",
+          "net": "NC"
+        },
         "E6": {
           "name": "MGTREFCLK0N_216",
           "net": "PCIE0_GBE_CLKN"
@@ -25596,6 +26213,10 @@
         "F6": {
           "name": "MGTREFCLK0P_216",
           "net": "PCIE0_GBE_CLKP"
+        },
+        "U15": {
+          "name": "IO_L14P_T2_SRCC_13",
+          "net": "NC"
         },
         "T16": {
           "name": "IO_L17P_T2_13",
@@ -25636,6 +26257,14 @@
         "D7": {
           "name": "MGTPTXP3_216",
           "net": "PCIE_FPGA_TXP"
+        },
+        "B6": {
+          "name": "MGTPTXP2_216",
+          "net": "NC"
+        },
+        "U16": {
+          "name": "IO_L17N_T2_13",
+          "net": "NC"
         },
         "W15": {
           "name": "IO_L16P_T2_13",
@@ -25704,6 +26333,10 @@
         "AA10": {
           "name": "IO_L9P_T1_DQS_13",
           "net": "CODEC_D4"
+        },
+        "A6": {
+          "name": "MGTPTXN2_216",
+          "net": "NC"
         },
         "V10": {
           "name": "IO_L10P_T1_13",
@@ -25785,6 +26418,10 @@
           "name": "IO_L3N_T0_DQS_EMCCLK_14",
           "net": "CODEC_CTRL_OUT0"
         },
+        "E10": {
+          "name": "MGTREFCLK1N_216",
+          "net": "NC"
+        },
         "T21": {
           "name": "IO_L4P_T0_D04_14",
           "net": "CODEC_CTRL_OUT1"
@@ -25793,9 +26430,33 @@
           "name": "IO_L7P_T1_D09_14",
           "net": "CODEC_CTRL_OUT6"
         },
+        "A4": {
+          "name": "MGTPTXN0_216",
+          "net": "NC"
+        },
+        "B4": {
+          "name": "MGTPTXP0_216",
+          "net": "NC"
+        },
+        "C5": {
+          "name": "MGTPTXN1_216",
+          "net": "NC"
+        },
+        "D5": {
+          "name": "MGTPTXP1_216",
+          "net": "NC"
+        },
+        "F10": {
+          "name": "MGTREFCLK1P_216",
+          "net": "NC"
+        },
         "T19": {
           "name": "IO_L6P_T0_FCS_B_14",
           "net": "EEPROM_SPI_CS"
+        },
+        "B2": {
+          "name": "IO_L2N_T0_AD12N_35",
+          "net": "NC"
         },
         "Y11": {
           "name": "IO_L11P_T1_SRCC_13",
@@ -25804,6 +26465,10 @@
         "T14": {
           "name": "IO_L15P_T2_DQS_13",
           "net": "CODEC_SYNC"
+        },
+        "G3": {
+          "name": "IO_L11N_T1_SRCC_35",
+          "net": "NC"
         },
         "H3": {
           "name": "IO_L11P_T1_SRCC_35",
@@ -25837,286 +26502,1262 @@
           "name": "VCCO_13_5",
           "net": "1.8VD_FPGA"
         },
-        "D6": "VCCINT+VCCBRAM_FB",
-        "D10": "VCCINT+VCCBRAM_FB",
-        "F7": "VCCINT+VCCBRAM_FB",
-        "F9": "VCCINT+VCCBRAM_FB",
-        "E8": "VCCINT+VCCBRAM_FB",
-        "B5": "VCC_MGTAVTT_FB",
-        "B7": "VCC_MGTAVTT_FB",
-        "B9": "VCC_MGTAVTT_FB",
-        "B11": "VCC_MGTAVTT_FB",
-        "C4": "VCC_MGTAVTT_FB",
-        "C8": "VCC_MGTAVTT_FB",
-        "D8": "GND_SIGNAL",
-        "A2": "GND_SIGNAL",
-        "A3": "GND_SIGNAL",
-        "A5": "GND_SIGNAL",
-        "A7": "GND_SIGNAL",
-        "A9": "GND_SIGNAL",
-        "A11": "GND_SIGNAL",
-        "A12": "GND_SIGNAL",
-        "A22": "GND_SIGNAL",
-        "AA2": "GND_SIGNAL",
-        "AA12": "GND_SIGNAL",
-        "AA22": "GND_SIGNAL",
-        "AB9": "GND_SIGNAL",
-        "AB19": "GND_SIGNAL",
-        "B3": "GND_SIGNAL",
-        "B12": "GND_SIGNAL",
-        "B19": "GND_SIGNAL",
-        "C3": "GND_SIGNAL",
-        "C6": "GND_SIGNAL",
-        "C10": "GND_SIGNAL",
-        "C12": "GND_SIGNAL",
-        "C16": "GND_SIGNAL",
-        "D3": "GND_SIGNAL",
-        "D4": "GND_SIGNAL",
-        "D12": "GND_SIGNAL",
-        "D13": "GND_SIGNAL",
-        "E4": "GND_SIGNAL",
-        "E5": "GND_SIGNAL",
-        "E7": "GND_SIGNAL",
-        "E9": "GND_SIGNAL",
-        "H1": "GND_SIGNAL",
-        "G14": "GND_SIGNAL",
-        "G12": "GND_SIGNAL",
-        "G10": "GND_SIGNAL",
-        "G9": "GND_SIGNAL",
-        "G8": "GND_SIGNAL",
-        "G7": "GND_SIGNAL",
-        "G6": "GND_SIGNAL",
-        "G5": "GND_SIGNAL",
-        "F17": "GND_SIGNAL",
-        "F11": "GND_SIGNAL",
-        "F5": "GND_SIGNAL",
-        "E20": "GND_SIGNAL",
-        "E11": "GND_SIGNAL",
-        "H9": "GND_SIGNAL",
-        "H11": "GND_SIGNAL",
-        "H21": "GND_SIGNAL",
-        "J8": "GND_SIGNAL",
-        "J10": "GND_SIGNAL",
-        "J12": "GND_SIGNAL",
-        "J18": "GND_SIGNAL",
-        "K5": "GND_SIGNAL",
-        "K7": "GND_SIGNAL",
-        "K11": "GND_SIGNAL",
-        "K15": "GND_SIGNAL",
-        "L2": "GND_SIGNAL",
-        "L8": "GND_SIGNAL",
-        "L22": "GND_SIGNAL",
-        "M7": "GND_SIGNAL",
-        "N8": "GND_SIGNAL",
-        "N16": "GND_SIGNAL",
-        "P3": "GND_SIGNAL",
-        "P7": "GND_SIGNAL",
-        "P9": "GND_SIGNAL",
-        "P11": "GND_SIGNAL",
-        "P13": "GND_SIGNAL",
-        "R12": "GND_SIGNAL",
-        "T7": "GND_SIGNAL",
-        "T11": "GND_SIGNAL",
-        "T17": "GND_SIGNAL",
-        "U4": "GND_SIGNAL",
-        "U14": "GND_SIGNAL",
-        "V1": "GND_SIGNAL",
-        "V11": "GND_SIGNAL",
-        "V21": "GND_SIGNAL",
-        "W8": "GND_SIGNAL",
-        "W18": "GND_SIGNAL",
-        "Y5": "GND_SIGNAL",
-        "Y15": "GND_SIGNAL",
-        "M11": "GND_SIGNAL",
-        "M19": "GND_SIGNAL",
-        "N6": "GND_SIGNAL",
-        "R8": "GND_SIGNAL",
-        "R20": "GND_SIGNAL",
-        "T9": "GND_SIGNAL",
-        "R10": "GND_SIGNAL",
-        "H7": "GND_SIGNAL",
-        "H8": "VCCINT+VCCBRAM",
-        "H10": "VCCINT+VCCBRAM",
-        "J7": "VCCINT+VCCBRAM",
-        "J9": "VCCINT+VCCBRAM",
-        "K8": "VCCINT+VCCBRAM",
-        "L7": "VCCINT+VCCBRAM",
-        "M8": "VCCINT+VCCBRAM",
-        "N7": "VCCINT+VCCBRAM",
-        "P8": "VCCINT+VCCBRAM",
-        "P10": "VCCINT+VCCBRAM",
-        "R7": "VCCINT+VCCBRAM",
-        "R9": "VCCINT+VCCBRAM",
-        "T8": "VCCINT+VCCBRAM",
-        "T10": "VCCINT+VCCBRAM",
-        "H12": "VCCAUX18",
-        "K12": "VCCAUX18",
-        "M12": "VCCAUX18",
-        "P12": "VCCAUX18",
-        "R11": "VCCAUX18",
-        "J11": "VCCINT+VCCBRAM",
-        "L11": "VCCINT+VCCBRAM",
-        "N11": "VCCINT+VCCBRAM",
-        "U12": "N3365568",
-        "G11": "FPGA_CFG_DONE",
-        "V12": "FPGA_TCK",
-        "E12": "VBAT",
-        "M9": "N3363833",
-        "M10": "N1570921",
-        "K9": "N1570921",
-        "K10": "N3365071",
-        "N10": "GND_SIGNAL",
-        "L12": "FPGA_SCLK",
-        "L10": "N3363845",
-        "L9": "GND_SIGNAL",
-        "F12": "1.8VD_FPGA",
-        "T12": "1.8VD_FPGA",
-        "U9": "FPGA_CFG_M2",
-        "U8": "GND_SIGNAL",
-        "N12": "FPGA_CFG_PROG_B",
-        "T13": "FPGA_TMS",
-        "U11": "FPGA_CFG_M0",
-        "U10": "FPGA_CFG_M1",
-        "R13": "FPGA_TDI",
-        "U13": "FPGA_TDO",
-        "N9": "GND_SIGNAL",
-        "N4": "N16984467",
-        "J22": "GPIF_D00",
-        "G17": "GPIF_CTL7",
-        "H20": "GPIF_D02",
-        "H22": "GPIF_D01",
-        "G15": "GPIF_CTL3",
-        "G13": "GPIF_CTL2",
-        "E3": "PLL_LOCK",
-        "G1": "PLL_CE",
-        "K1": "FPGA_RXD0",
-        "J1": "FPGA_TXD0",
-        "K21": "GPIF_D04",
-        "G20": "GPIF_D03",
-        "L21": "GPIF_D07",
-        "M21": "GPIF_D06",
-        "K22": "GPIF_D05",
-        "K4": "SIN_CLK_BUFF_OUT3",
-        "J21": "GPIF_D09",
-        "J14": "GPIF_CTL5",
-        "H4": "CAT_CLKOUT_FPGA",
-        "L3": "PLL_SCLK",
-        "L6": "TX_ENABLE1",
-        "N22": "GPIF_D16",
-        "L20": "GPIF_D15",
-        "L19": "GPIF_D14",
-        "F1": "PLL_MOSI",
-        "C1": "1.8VD_FPGA",
-        "F2": "1.8VD_FPGA",
-        "H6": "1.8VD_FPGA",
-        "J3": "1.8VD_FPGA",
-        "M4": "1.8VD_FPGA",
-        "N1": "1.8VD_FPGA",
-        "R1": "N16984481",
-        "Y9": "N19268253",
-        "D19": "N18996570",
-        "W1": "N18744166",
-        "AA5": "N18996032",
-        "AB6": "N18560396",
-        "U5": "N18623302",
-        "W5": "N18998877",
-        "R3": "N18744296",
-        "D17": "N18995659",
-        "AB5": "N18996054",
-        "Y7": "N18553819",
-        "AB7": "N18560393",
-        "A21": "N19009826",
-        "Y8": "N18553822",
-        "W7": "N18560390",
-        "R2": "N18744265",
-        "W4": "N18996158",
-        "T4": "N18623261",
-        "U7": "N19268308",
-        "C17": "N18996297",
-        "AB8": "N18553825",
-        "V7": "N18560695",
-        "B21": "N19009831",
-        "W2": "N18744234",
-        "AA6": "N18560684",
-        "T1": "N18744389",
-        "W9": "N18553814",
-        "B15": "DEBUG13",
-        "C13": "DEBUG15",
-        "D15": "DEBUG12",
-        "B16": "DEBUG14",
-        "D16": "DEBUG10",
-        "D14": "DEBUG11",
-        "E14": "DEBUG08",
-        "E16": "DEBUG09",
-        "C15": "DEBUG06",
-        "F16": "DEBUG03",
-        "E17": "DEBUG04",
-        "F13": "DEBUG01",
-        "G21": "FPGA_SOC_IO_6",
-        "C14": "DEBUG05",
-        "E13": "DEBUG07",
-        "B18": "DEBUG22",
-        "F15": "DEBUG00",
-        "G22": "FPGA_SOC_IO_5",
-        "B17": "DEBUG21",
-        "E18": "DEBUG30",
-        "E19": "N18996558",
-        "F18": "DEBUG29",
-        "B20": "DEBUG31",
-        "C19": "N18996442",
-        "C18": "N18996457",
-        "A14": "DEBUG20",
-        "B22": "DEBUG27",
-        "F20": "DEBUG28",
-        "F19": "SYNC_FPGA_OUT",
-        "D20": "DEBUG23",
-        "D22": "DEBUG24",
-        "E22": "DEBUG26",
-        "C22": "DEBUG25",
-        "C20": "AUX_PWR_ON",
-        "A16": "DEBUG18",
-        "A13": "DEBUG19",
-        "B13": "DEBUG16",
-        "A15": "DEBUG17",
-        "F21": "N18744358",
-        "V2": "N18744327",
-        "Y2": "N18744203",
-        "V3": "N19268352",
-        "AA1": "FPGA_SOC_IO_2",
-        "AB1": "FPGA_SOC_IO_3",
-        "AB3": "FPGA_SOC_IO_4",
-        "U2": "RF_TEMP_CS_ALERT_FPGA",
-        "A18": "DEBUG_CLK1",
-        "D21": "N19009836",
-        "A20": "DEBUG_CLK0",
-        "E21": "N19009841",
-        "A17": "3.3VD_FPGA",
-        "B14": "3.3VD_FPGA",
-        "C21": "3.3VD_FPGA",
-        "D18": "3.3VD_FPGA",
-        "E15": "3.3VD_FPGA",
-        "F22": "3.3VD_FPGA",
-        "AA7": "3.3VD_FPGA",
-        "AB4": "3.3VD_FPGA",
-        "R5": "3.3VD_FPGA",
-        "T2": "3.3VD_FPGA",
-        "V6": "3.3VD_FPGA",
-        "W3": "3.3VD_FPGA",
-        "Y4": "RF_PGOOD_LDO_FPGA",
-        "AA4": "FPGA_SOC_IO_1",
-        "V4": "LTE_MODULE_1_PPS_OUT",
-        "R4": "WTDG_SYS_ALERT_FPGA",
-        "T5": "SDR_RF_FRAME_SYNC_R",
-        "W6": "SDR_TEMP_CS_ALERT_FPGA",
-        "U6": "RF_FE_IO_RESET_FPGA",
-        "V5": "N18560670",
-        "R6": "N18560673",
-        "T6": "N18560676",
-        "Y6": "N18560679",
-        "V9": "N18560399",
-        "V8": "N18560402",
-        "AA8": "N18560413",
-        "F14": "DEBUG02",
+        "Y17": {
+          "name": "IO_0_13",
+          "net": "NC"
+        },
+        "D6": {
+          "name": "MGTAVCC_1",
+          "net": "VCCINT+VCCBRAM_FB"
+        },
+        "D10": {
+          "name": "MGTAVCC_2",
+          "net": "VCCINT+VCCBRAM_FB"
+        },
+        "F7": {
+          "name": "MGTAVCC_3",
+          "net": "VCCINT+VCCBRAM_FB"
+        },
+        "F9": {
+          "name": "MGTAVCC_4",
+          "net": "VCCINT+VCCBRAM_FB"
+        },
+        "E8": {
+          "name": "MGTAVCC_5",
+          "net": "VCCINT+VCCBRAM_FB"
+        },
+        "B5": {
+          "name": "MGTAVTT_1",
+          "net": "VCC_MGTAVTT_FB"
+        },
+        "B7": {
+          "name": "MGTAVTT_2",
+          "net": "VCC_MGTAVTT_FB"
+        },
+        "B9": {
+          "name": "MGTAVTT_3",
+          "net": "VCC_MGTAVTT_FB"
+        },
+        "B11": {
+          "name": "MGTAVTT_4",
+          "net": "VCC_MGTAVTT_FB"
+        },
+        "C4": {
+          "name": "MGTAVTT_5",
+          "net": "VCC_MGTAVTT_FB"
+        },
+        "C8": {
+          "name": "MGTAVTT_6",
+          "net": "VCC_MGTAVTT_FB"
+        },
+        "D8": {
+          "name": "GND_1",
+          "net": "GND_SIGNAL"
+        },
+        "A2": {
+          "name": "GND_2",
+          "net": "GND_SIGNAL"
+        },
+        "A3": {
+          "name": "GND_3",
+          "net": "GND_SIGNAL"
+        },
+        "A5": {
+          "name": "GND_4",
+          "net": "GND_SIGNAL"
+        },
+        "A7": {
+          "name": "GND_5",
+          "net": "GND_SIGNAL"
+        },
+        "A9": {
+          "name": "GND_6",
+          "net": "GND_SIGNAL"
+        },
+        "A11": {
+          "name": "GND_7",
+          "net": "GND_SIGNAL"
+        },
+        "A12": {
+          "name": "GND_8",
+          "net": "GND_SIGNAL"
+        },
+        "A22": {
+          "name": "GND_9",
+          "net": "GND_SIGNAL"
+        },
+        "AA2": {
+          "name": "GND_10",
+          "net": "GND_SIGNAL"
+        },
+        "AA12": {
+          "name": "GND_11",
+          "net": "GND_SIGNAL"
+        },
+        "AA22": {
+          "name": "GND_12",
+          "net": "GND_SIGNAL"
+        },
+        "AB9": {
+          "name": "GND_13",
+          "net": "GND_SIGNAL"
+        },
+        "AB19": {
+          "name": "GND_14",
+          "net": "GND_SIGNAL"
+        },
+        "B3": {
+          "name": "GND_15",
+          "net": "GND_SIGNAL"
+        },
+        "B12": {
+          "name": "GND_16",
+          "net": "GND_SIGNAL"
+        },
+        "B19": {
+          "name": "GND_17",
+          "net": "GND_SIGNAL"
+        },
+        "C3": {
+          "name": "GND_18",
+          "net": "GND_SIGNAL"
+        },
+        "C6": {
+          "name": "GND_19",
+          "net": "GND_SIGNAL"
+        },
+        "C10": {
+          "name": "GND_20",
+          "net": "GND_SIGNAL"
+        },
+        "C12": {
+          "name": "GND_21",
+          "net": "GND_SIGNAL"
+        },
+        "C16": {
+          "name": "GND_22",
+          "net": "GND_SIGNAL"
+        },
+        "D3": {
+          "name": "GND_23",
+          "net": "GND_SIGNAL"
+        },
+        "D4": {
+          "name": "GND_24",
+          "net": "GND_SIGNAL"
+        },
+        "D12": {
+          "name": "GND_25",
+          "net": "GND_SIGNAL"
+        },
+        "D13": {
+          "name": "GND_26",
+          "net": "GND_SIGNAL"
+        },
+        "E4": {
+          "name": "GND_27",
+          "net": "GND_SIGNAL"
+        },
+        "E5": {
+          "name": "GND_28",
+          "net": "GND_SIGNAL"
+        },
+        "E7": {
+          "name": "GND_29",
+          "net": "GND_SIGNAL"
+        },
+        "E9": {
+          "name": "GND_30",
+          "net": "GND_SIGNAL"
+        },
+        "H1": {
+          "name": "GND_44",
+          "net": "GND_SIGNAL"
+        },
+        "G14": {
+          "name": "GND_43",
+          "net": "GND_SIGNAL"
+        },
+        "G12": {
+          "name": "GND_42",
+          "net": "GND_SIGNAL"
+        },
+        "G10": {
+          "name": "GND_41",
+          "net": "GND_SIGNAL"
+        },
+        "G9": {
+          "name": "GND_40",
+          "net": "GND_SIGNAL"
+        },
+        "G8": {
+          "name": "GND_39",
+          "net": "GND_SIGNAL"
+        },
+        "G7": {
+          "name": "GND_38",
+          "net": "GND_SIGNAL"
+        },
+        "G6": {
+          "name": "GND_37",
+          "net": "GND_SIGNAL"
+        },
+        "G5": {
+          "name": "GND_36",
+          "net": "GND_SIGNAL"
+        },
+        "F17": {
+          "name": "GND_35",
+          "net": "GND_SIGNAL"
+        },
+        "F11": {
+          "name": "GND_34",
+          "net": "GND_SIGNAL"
+        },
+        "F5": {
+          "name": "GND_33",
+          "net": "GND_SIGNAL"
+        },
+        "E20": {
+          "name": "GND_32",
+          "net": "GND_SIGNAL"
+        },
+        "E11": {
+          "name": "GND_31",
+          "net": "GND_SIGNAL"
+        },
+        "H9": {
+          "name": "GND_46",
+          "net": "GND_SIGNAL"
+        },
+        "H11": {
+          "name": "GND_47",
+          "net": "GND_SIGNAL"
+        },
+        "H21": {
+          "name": "GND_48",
+          "net": "GND_SIGNAL"
+        },
+        "J8": {
+          "name": "GND_49",
+          "net": "GND_SIGNAL"
+        },
+        "J10": {
+          "name": "GND_50",
+          "net": "GND_SIGNAL"
+        },
+        "J12": {
+          "name": "GND_51",
+          "net": "GND_SIGNAL"
+        },
+        "J18": {
+          "name": "GND_52",
+          "net": "GND_SIGNAL"
+        },
+        "K5": {
+          "name": "GND_53",
+          "net": "GND_SIGNAL"
+        },
+        "K7": {
+          "name": "GND_54",
+          "net": "GND_SIGNAL"
+        },
+        "K11": {
+          "name": "GND_55",
+          "net": "GND_SIGNAL"
+        },
+        "K15": {
+          "name": "GND_56",
+          "net": "GND_SIGNAL"
+        },
+        "L2": {
+          "name": "GND_57",
+          "net": "GND_SIGNAL"
+        },
+        "L8": {
+          "name": "GND_58",
+          "net": "GND_SIGNAL"
+        },
+        "L22": {
+          "name": "GND_59",
+          "net": "GND_SIGNAL"
+        },
+        "M7": {
+          "name": "GND_60",
+          "net": "GND_SIGNAL"
+        },
+        "N8": {
+          "name": "GND_64",
+          "net": "GND_SIGNAL"
+        },
+        "N16": {
+          "name": "GND_65",
+          "net": "GND_SIGNAL"
+        },
+        "P3": {
+          "name": "GND_66",
+          "net": "GND_SIGNAL"
+        },
+        "P7": {
+          "name": "GND_67",
+          "net": "GND_SIGNAL"
+        },
+        "P9": {
+          "name": "GND_68",
+          "net": "GND_SIGNAL"
+        },
+        "P11": {
+          "name": "GND_69",
+          "net": "GND_SIGNAL"
+        },
+        "P13": {
+          "name": "GND_70",
+          "net": "GND_SIGNAL"
+        },
+        "R12": {
+          "name": "GND_73",
+          "net": "GND_SIGNAL"
+        },
+        "T7": {
+          "name": "GND_75",
+          "net": "GND_SIGNAL"
+        },
+        "T11": {
+          "name": "GND_77",
+          "net": "GND_SIGNAL"
+        },
+        "T17": {
+          "name": "GND_78",
+          "net": "GND_SIGNAL"
+        },
+        "U4": {
+          "name": "GND_79",
+          "net": "GND_SIGNAL"
+        },
+        "U14": {
+          "name": "GND_80",
+          "net": "GND_SIGNAL"
+        },
+        "V1": {
+          "name": "GND_81",
+          "net": "GND_SIGNAL"
+        },
+        "V11": {
+          "name": "GND_82",
+          "net": "GND_SIGNAL"
+        },
+        "V21": {
+          "name": "GND_83",
+          "net": "GND_SIGNAL"
+        },
+        "W8": {
+          "name": "GND_84",
+          "net": "GND_SIGNAL"
+        },
+        "W18": {
+          "name": "GND_85",
+          "net": "GND_SIGNAL"
+        },
+        "Y5": {
+          "name": "GND_86",
+          "net": "GND_SIGNAL"
+        },
+        "Y15": {
+          "name": "GND_87",
+          "net": "GND_SIGNAL"
+        },
+        "M11": {
+          "name": "GND_61",
+          "net": "GND_SIGNAL"
+        },
+        "M19": {
+          "name": "GND_62",
+          "net": "GND_SIGNAL"
+        },
+        "N6": {
+          "name": "GND_63",
+          "net": "GND_SIGNAL"
+        },
+        "R8": {
+          "name": "GND_71",
+          "net": "GND_SIGNAL"
+        },
+        "R20": {
+          "name": "GND_74",
+          "net": "GND_SIGNAL"
+        },
+        "T9": {
+          "name": "GND_76",
+          "net": "GND_SIGNAL"
+        },
+        "R10": {
+          "name": "GND_72",
+          "net": "GND_SIGNAL"
+        },
+        "H7": {
+          "name": "GND_45",
+          "net": "GND_SIGNAL"
+        },
+        "H8": {
+          "name": "VCCINT_1",
+          "net": "VCCINT+VCCBRAM"
+        },
+        "H10": {
+          "name": "VCCINT_2",
+          "net": "VCCINT+VCCBRAM"
+        },
+        "J7": {
+          "name": "VCCINT_3",
+          "net": "VCCINT+VCCBRAM"
+        },
+        "J9": {
+          "name": "VCCINT_4",
+          "net": "VCCINT+VCCBRAM"
+        },
+        "K8": {
+          "name": "VCCINT_5",
+          "net": "VCCINT+VCCBRAM"
+        },
+        "L7": {
+          "name": "VCCINT_6",
+          "net": "VCCINT+VCCBRAM"
+        },
+        "M8": {
+          "name": "VCCINT_7",
+          "net": "VCCINT+VCCBRAM"
+        },
+        "N7": {
+          "name": "VCCINT_8",
+          "net": "VCCINT+VCCBRAM"
+        },
+        "P8": {
+          "name": "VCCINT_9",
+          "net": "VCCINT+VCCBRAM"
+        },
+        "P10": {
+          "name": "VCCINT_10",
+          "net": "VCCINT+VCCBRAM"
+        },
+        "R7": {
+          "name": "VCCINT_11",
+          "net": "VCCINT+VCCBRAM"
+        },
+        "R9": {
+          "name": "VCCINT_12",
+          "net": "VCCINT+VCCBRAM"
+        },
+        "T8": {
+          "name": "VCCINT_13",
+          "net": "VCCINT+VCCBRAM"
+        },
+        "T10": {
+          "name": "VCCINT_14",
+          "net": "VCCINT+VCCBRAM"
+        },
+        "H12": {
+          "name": "VCCAUX_1",
+          "net": "VCCAUX18"
+        },
+        "K12": {
+          "name": "VCCAUX_2",
+          "net": "VCCAUX18"
+        },
+        "M12": {
+          "name": "VCCAUX_3",
+          "net": "VCCAUX18"
+        },
+        "P12": {
+          "name": "VCCAUX_4",
+          "net": "VCCAUX18"
+        },
+        "R11": {
+          "name": "VCCAUX_5",
+          "net": "VCCAUX18"
+        },
+        "J11": {
+          "name": "VCCBRAM_1",
+          "net": "VCCINT+VCCBRAM"
+        },
+        "L11": {
+          "name": "VCCBRAM_2",
+          "net": "VCCINT+VCCBRAM"
+        },
+        "N11": {
+          "name": "VCCBRAM_3",
+          "net": "VCCINT+VCCBRAM"
+        },
+        "G11": {
+          "name": "DONE_0",
+          "net": "FPGA_CFG_DONE"
+        },
+        "V12": {
+          "name": "TCK_0",
+          "net": "FPGA_TCK"
+        },
+        "E12": {
+          "name": "VCCBATT_0",
+          "net": "VBAT"
+        },
+        "M9": {
+          "name": "VN_0",
+          "net": "N3363833"
+        },
+        "M10": {
+          "name": "VREFP_0",
+          "net": "N1570921"
+        },
+        "K9": {
+          "name": "GNDADC_0",
+          "net": "N1570921"
+        },
+        "K10": {
+          "name": "VCCADC_0",
+          "net": "N3365071"
+        },
+        "N10": {
+          "name": "DXP_0",
+          "net": "GND_SIGNAL"
+        },
+        "L12": {
+          "name": "CCLK_0",
+          "net": "FPGA_SCLK"
+        },
+        "L10": {
+          "name": "VP_0",
+          "net": "N3363845"
+        },
+        "L9": {
+          "name": "VREFN_0",
+          "net": "GND_SIGNAL"
+        },
+        "F12": {
+          "name": "VCCO_0_1",
+          "net": "1.8VD_FPGA"
+        },
+        "T12": {
+          "name": "VCCO_0_2",
+          "net": "1.8VD_FPGA"
+        },
+        "U9": {
+          "name": "M2_0",
+          "net": "FPGA_CFG_M2"
+        },
+        "U8": {
+          "name": "CFGBVS_0",
+          "net": "GND_SIGNAL"
+        },
+        "N12": {
+          "name": "PROGRAM_B_0",
+          "net": "FPGA_CFG_PROG_B"
+        },
+        "T13": {
+          "name": "TMS_0",
+          "net": "FPGA_TMS"
+        },
+        "U11": {
+          "name": "M0_0",
+          "net": "FPGA_CFG_M0"
+        },
+        "U10": {
+          "name": "M1_0",
+          "net": "FPGA_CFG_M1"
+        },
+        "U12": {
+          "name": "INIT_B_0",
+          "net": "N3365568"
+        },
+        "R13": {
+          "name": "TDI_0",
+          "net": "FPGA_TDI"
+        },
+        "U13": {
+          "name": "TDO_0",
+          "net": "FPGA_TDO"
+        },
+        "N9": {
+          "name": "DXN_0",
+          "net": "GND_SIGNAL"
+        },
+        "J22": {
+          "name": "IO_L7P_T1_AD2P_15",
+          "net": "GPIF_D00"
+        },
+        "G17": {
+          "name": "IO_L4P_T0_15",
+          "net": "GPIF_CTL7"
+        },
+        "H20": {
+          "name": "IO_L8P_T1_AD10P_15",
+          "net": "GPIF_D02"
+        },
+        "H22": {
+          "name": "IO_L7N_T1_AD2N_15",
+          "net": "GPIF_D01"
+        },
+        "G15": {
+          "name": "IO_L2P_T0_AD8P_15",
+          "net": "GPIF_CTL3"
+        },
+        "G13": {
+          "name": "IO_L1N_T0_AD0N_15",
+          "net": "GPIF_CTL2"
+        },
+        "G4": {
+          "name": "IO_L12N_T1_MRCC_35",
+          "net": "NC"
+        },
+        "E3": {
+          "name": "IO_L6N_T0_VREF_35",
+          "net": "PLL_LOCK"
+        },
+        "G1": {
+          "name": "IO_L5P_T0_AD13P_35",
+          "net": "PLL_CE"
+        },
+        "K1": {
+          "name": "IO_L7P_T1_AD6P_35",
+          "net": "FPGA_RXD0"
+        },
+        "J1": {
+          "name": "IO_L7N_T1_AD6N_35",
+          "net": "FPGA_TXD0"
+        },
+        "K21": {
+          "name": "IO_L9P_T1_DQS_AD3P_15",
+          "net": "GPIF_D04"
+        },
+        "G20": {
+          "name": "IO_L8N_T1_AD10N_15",
+          "net": "GPIF_D03"
+        },
+        "L21": {
+          "name": "IO_L10N_T1_AD11N_15",
+          "net": "GPIF_D07"
+        },
+        "M21": {
+          "name": "IO_L10P_T1_AD11P_15",
+          "net": "GPIF_D06"
+        },
+        "K22": {
+          "name": "IO_L9N_T1_DQS_AD3N_15",
+          "net": "GPIF_D05"
+        },
+        "K4": {
+          "name": "IO_L13P_T2_MRCC_35",
+          "net": "SIN_CLK_BUFF_OUT3"
+        },
+        "J21": {
+          "name": "IO_L11N_T1_SRCC_15",
+          "net": "GPIF_D09"
+        },
+        "J14": {
+          "name": "IO_L3P_T0_DQS_AD1P_15",
+          "net": "GPIF_CTL5"
+        },
+        "D1": {
+          "name": "IO_L3N_T0_DQS_AD5N_35",
+          "net": "NC"
+        },
+        "D2": {
+          "name": "IO_L4N_T0_35",
+          "net": "NC"
+        },
+        "E1": {
+          "name": "IO_L3P_T0_DQS_AD5P_35",
+          "net": "NC"
+        },
+        "E2": {
+          "name": "IO_L4P_T0_35",
+          "net": "NC"
+        },
+        "H4": {
+          "name": "IO_L12P_T1_MRCC_35",
+          "net": "CAT_CLKOUT_FPGA"
+        },
+        "J6": {
+          "name": "IO_L17N_T2_35",
+          "net": "NC"
+        },
+        "K3": {
+          "name": "IO_L14N_T2_SRCC_35",
+          "net": "NC"
+        },
+        "K6": {
+          "name": "IO_L17P_T2_35",
+          "net": "NC"
+        },
+        "L1": {
+          "name": "IO_L15N_T2_DQS_35",
+          "net": "NC"
+        },
+        "L3": {
+          "name": "IO_L14P_T2_SRCC_35",
+          "net": "PLL_SCLK"
+        },
+        "L4": {
+          "name": "IO_L18N_T2_35",
+          "net": "NC"
+        },
+        "L5": {
+          "name": "IO_L18P_T2_35",
+          "net": "NC"
+        },
+        "L6": {
+          "name": "IO_25_35",
+          "net": "TX_ENABLE1"
+        },
+        "M1": {
+          "name": "IO_L15P_T2_DQS_35",
+          "net": "NC"
+        },
+        "M2": {
+          "name": "IO_L16N_T2_35",
+          "net": "NC"
+        },
+        "M3": {
+          "name": "IO_L16P_T2_35",
+          "net": "NC"
+        },
+        "M5": {
+          "name": "IO_L23N_T3_35",
+          "net": "NC"
+        },
+        "N3": {
+          "name": "IO_L19N_T3_VREF_35",
+          "net": "NC"
+        },
+        "N5": {
+          "name": "IO_L24N_T3_35",
+          "net": "NC"
+        },
+        "P6": {
+          "name": "IO_L24P_T3_35",
+          "net": "NC"
+        },
+        "F3": {
+          "name": "IO_L6P_T0_35",
+          "net": "NC"
+        },
+        "N22": {
+          "name": "IO_L15P_T2_DQS_15",
+          "net": "GPIF_D16"
+        },
+        "L20": {
+          "name": "IO_L14N_T2_SRCC_15",
+          "net": "GPIF_D15"
+        },
+        "L19": {
+          "name": "IO_L14P_T2_SRCC_15",
+          "net": "GPIF_D14"
+        },
+        "F1": {
+          "name": "IO_L5N_T0_AD13N_35",
+          "net": "PLL_MOSI"
+        },
+        "C1": {
+          "name": "VCCO_35_1",
+          "net": "1.8VD_FPGA"
+        },
+        "F2": {
+          "name": "VCCO_35_2",
+          "net": "1.8VD_FPGA"
+        },
+        "H6": {
+          "name": "VCCO_35_3",
+          "net": "1.8VD_FPGA"
+        },
+        "J3": {
+          "name": "VCCO_35_4",
+          "net": "1.8VD_FPGA"
+        },
+        "M4": {
+          "name": "VCCO_35_5",
+          "net": "1.8VD_FPGA"
+        },
+        "N1": {
+          "name": "VCCO_35_6",
+          "net": "1.8VD_FPGA"
+        },
+        "N4": {
+          "name": "IO_L19P_T3_35",
+          "net": "N16984467"
+        },
+        "R1": {
+          "name": "IO_L20P_T3_35",
+          "net": "N16984481"
+        },
+        "P1": {
+          "name": "IO_L20N_T3_35",
+          "net": "NC"
+        },
+        "P5": {
+          "name": "IO_L21P_T3_DQS_35",
+          "net": "NC"
+        },
+        "P4": {
+          "name": "IO_L21N_T3_DQS_35",
+          "net": "NC"
+        },
+        "P2": {
+          "name": "IO_L22P_T3_35",
+          "net": "NC"
+        },
+        "N2": {
+          "name": "IO_L22N_T3_35",
+          "net": "NC"
+        },
+        "M6": {
+          "name": "IO_L23P_T3_35",
+          "net": "NC"
+        },
+        "B15": {
+          "name": "IO_L7P_T1_16",
+          "net": "DEBUG13"
+        },
+        "C13": {
+          "name": "IO_L8P_T1_16",
+          "net": "DEBUG15"
+        },
+        "D15": {
+          "name": "IO_L6N_T0_VREF_16",
+          "net": "DEBUG12"
+        },
+        "B16": {
+          "name": "IO_L7N_T1_16",
+          "net": "DEBUG14"
+        },
+        "D16": {
+          "name": "IO_L5N_T0_16",
+          "net": "DEBUG10"
+        },
+        "D14": {
+          "name": "IO_L6P_T0_16",
+          "net": "DEBUG11"
+        },
+        "E14": {
+          "name": "IO_L4N_T0_16",
+          "net": "DEBUG08"
+        },
+        "E16": {
+          "name": "IO_L5P_T0_16",
+          "net": "DEBUG09"
+        },
+        "C15": {
+          "name": "IO_L3N_T0_DQS_16",
+          "net": "DEBUG06"
+        },
+        "AB2": {
+          "name": "IO_L8N_T1_34",
+          "net": "NC"
+        },
+        "Y3": {
+          "name": "IO_L9P_T1_DQS_34",
+          "net": "NC"
+        },
+        "F16": {
+          "name": "IO_L2P_T0_16",
+          "net": "DEBUG03"
+        },
+        "E17": {
+          "name": "IO_L2N_T0_16",
+          "net": "DEBUG04"
+        },
+        "F13": {
+          "name": "IO_L1P_T0_16",
+          "net": "DEBUG01"
+        },
+        "AA3": {
+          "name": "IO_L9N_T1_DQS_34",
+          "net": "NC"
+        },
+        "G21": {
+          "name": "IO_L24P_T3_16",
+          "net": "FPGA_SOC_IO_6"
+        },
+        "C14": {
+          "name": "IO_L3P_T0_DQS_16",
+          "net": "DEBUG05"
+        },
+        "E13": {
+          "name": "IO_L4P_T0_16",
+          "net": "DEBUG07"
+        },
+        "B18": {
+          "name": "IO_L11N_T1_SRCC_16",
+          "net": "DEBUG22"
+        },
+        "F15": {
+          "name": "IO_0_16",
+          "net": "DEBUG00"
+        },
+        "G22": {
+          "name": "IO_L24N_T3_16",
+          "net": "FPGA_SOC_IO_5"
+        },
+        "T3": {
+          "name": "IO_0_34",
+          "net": "NC"
+        },
+        "B17": {
+          "name": "IO_L11P_T1_SRCC_16",
+          "net": "DEBUG21"
+        },
+        "E18": {
+          "name": "IO_L15N_T2_DQS_16",
+          "net": "DEBUG30"
+        },
+        "E19": {
+          "name": "IO_L14P_T2_SRCC_16",
+          "net": "N18996558"
+        },
+        "D19": {
+          "name": "IO_L14N_T2_SRCC_16",
+          "net": "N18996570"
+        },
+        "F18": {
+          "name": "IO_L15P_T2_DQS_16",
+          "net": "DEBUG29"
+        },
+        "B20": {
+          "name": "IO_L16P_T2_16",
+          "net": "DEBUG31"
+        },
+        "D17": {
+          "name": "IO_L12P_T1_MRCC_16",
+          "net": "N18995659"
+        },
+        "C17": {
+          "name": "IO_L12N_T1_MRCC_16",
+          "net": "N18996297"
+        },
+        "C19": {
+          "name": "IO_L13N_T2_MRCC_16",
+          "net": "N18996442"
+        },
+        "C18": {
+          "name": "IO_L13P_T2_MRCC_16",
+          "net": "N18996457"
+        },
+        "A14": {
+          "name": "IO_L10N_T1_16",
+          "net": "DEBUG20"
+        },
+        "B22": {
+          "name": "IO_L20N_T3_16",
+          "net": "DEBUG27"
+        },
+        "F20": {
+          "name": "IO_L18N_T2_16",
+          "net": "DEBUG28"
+        },
+        "A19": {
+          "name": "IO_L17N_T2_16",
+          "net": "NC"
+        },
+        "F19": {
+          "name": "IO_L18P_T2_16",
+          "net": "SYNC_FPGA_OUT"
+        },
+        "D20": {
+          "name": "IO_L19P_T3_16",
+          "net": "DEBUG23"
+        },
+        "D22": {
+          "name": "IO_L22N_T3_16",
+          "net": "DEBUG24"
+        },
+        "E22": {
+          "name": "IO_L22P_T3_16",
+          "net": "DEBUG26"
+        },
+        "C22": {
+          "name": "IO_L20P_T3_16",
+          "net": "DEBUG25"
+        },
+        "C20": {
+          "name": "IO_L19N_T3_VREF_16",
+          "net": "AUX_PWR_ON"
+        },
+        "A16": {
+          "name": "IO_L9N_T1_DQS_16",
+          "net": "DEBUG18"
+        },
+        "A13": {
+          "name": "IO_L10P_T1_16",
+          "net": "DEBUG19"
+        },
+        "B13": {
+          "name": "IO_L8N_T1_16",
+          "net": "DEBUG16"
+        },
+        "A15": {
+          "name": "IO_L9P_T1_DQS_16",
+          "net": "DEBUG17"
+        },
+        "T1": {
+          "name": "IO_L1P_T0_34",
+          "net": "N18744389"
+        },
+        "F21": {
+          "name": "IO_25_16",
+          "net": "N18744358"
+        },
+        "V2": {
+          "name": "IO_L2N_T0_34",
+          "net": "N18744327"
+        },
+        "R3": {
+          "name": "IO_L3P_T0_DQS_34",
+          "net": "N18744296"
+        },
+        "R2": {
+          "name": "IO_L3N_T0_DQS_34",
+          "net": "N18744265"
+        },
+        "W2": {
+          "name": "IO_L4P_T0_34",
+          "net": "N18744234"
+        },
+        "Y2": {
+          "name": "IO_L4N_T0_34",
+          "net": "N18744203"
+        },
+        "W1": {
+          "name": "IO_L5P_T0_34",
+          "net": "N18744166"
+        },
+        "Y1": {
+          "name": "IO_L5N_T0_34",
+          "net": "NC"
+        },
+        "U3": {
+          "name": "IO_L6P_T0_34",
+          "net": "NC"
+        },
+        "V3": {
+          "name": "IO_L6N_T0_VREF_34",
+          "net": "N19268352"
+        },
+        "AA1": {
+          "name": "IO_L7P_T1_34",
+          "net": "FPGA_SOC_IO_2"
+        },
+        "AB1": {
+          "name": "IO_L7N_T1_34",
+          "net": "FPGA_SOC_IO_3"
+        },
+        "AB3": {
+          "name": "IO_L8P_T1_34",
+          "net": "FPGA_SOC_IO_4"
+        },
+        "U2": {
+          "name": "IO_L2P_T0_34",
+          "net": "RF_TEMP_CS_ALERT_FPGA"
+        },
+        "U1": {
+          "name": "IO_L1N_T0_34",
+          "net": "NC"
+        },
+        "A21": {
+          "name": "IO_L21N_T3_DQS_16",
+          "net": "N19009826"
+        },
+        "B21": {
+          "name": "IO_L21P_T3_DQS_16",
+          "net": "N19009831"
+        },
+        "A18": {
+          "name": "IO_L17P_T2_16",
+          "net": "DEBUG_CLK1"
+        },
+        "D21": {
+          "name": "IO_L23N_T3_16",
+          "net": "N19009836"
+        },
+        "A20": {
+          "name": "IO_L16N_T2_16",
+          "net": "DEBUG_CLK0"
+        },
+        "E21": {
+          "name": "IO_L23P_T3_16",
+          "net": "N19009841"
+        },
+        "A17": {
+          "name": "VCCO_16_1",
+          "net": "3.3VD_FPGA"
+        },
+        "B14": {
+          "name": "VCCO_16_2",
+          "net": "3.3VD_FPGA"
+        },
+        "C21": {
+          "name": "VCCO_16_3",
+          "net": "3.3VD_FPGA"
+        },
+        "D18": {
+          "name": "VCCO_16_4",
+          "net": "3.3VD_FPGA"
+        },
+        "E15": {
+          "name": "VCCO_16_5",
+          "net": "3.3VD_FPGA"
+        },
+        "F22": {
+          "name": "VCCO_16_6",
+          "net": "3.3VD_FPGA"
+        },
+        "AA7": {
+          "name": "VCCO_34_1",
+          "net": "3.3VD_FPGA"
+        },
+        "AB4": {
+          "name": "VCCO_34_2",
+          "net": "3.3VD_FPGA"
+        },
+        "R5": {
+          "name": "VCCO_34_3",
+          "net": "3.3VD_FPGA"
+        },
+        "T2": {
+          "name": "VCCO_34_4",
+          "net": "3.3VD_FPGA"
+        },
+        "V6": {
+          "name": "VCCO_34_5",
+          "net": "3.3VD_FPGA"
+        },
+        "W3": {
+          "name": "VCCO_34_6",
+          "net": "3.3VD_FPGA"
+        },
+        "AA5": {
+          "name": "IO_L10P_T1_34",
+          "net": "N18996032"
+        },
+        "AB5": {
+          "name": "IO_L10N_T1_34",
+          "net": "N18996054"
+        },
+        "Y4": {
+          "name": "IO_L11P_T1_SRCC_34",
+          "net": "RF_PGOOD_LDO_FPGA"
+        },
+        "AA4": {
+          "name": "IO_L11N_T1_SRCC_34",
+          "net": "FPGA_SOC_IO_1"
+        },
+        "V4": {
+          "name": "IO_L12P_T1_MRCC_34",
+          "net": "LTE_MODULE_1_PPS_OUT"
+        },
+        "W4": {
+          "name": "IO_L12N_T1_MRCC_34",
+          "net": "N18996158"
+        },
+        "R4": {
+          "name": "IO_L13P_T2_MRCC_34",
+          "net": "WTDG_SYS_ALERT_FPGA"
+        },
+        "T4": {
+          "name": "IO_L13N_T2_MRCC_34",
+          "net": "N18623261"
+        },
+        "T5": {
+          "name": "IO_L14P_T2_SRCC_34",
+          "net": "SDR_RF_FRAME_SYNC_R"
+        },
+        "U5": {
+          "name": "IO_L14N_T2_SRCC_34",
+          "net": "N18623302"
+        },
+        "W6": {
+          "name": "IO_L15P_T2_DQS_34",
+          "net": "SDR_TEMP_CS_ALERT_FPGA"
+        },
+        "W5": {
+          "name": "IO_L15N_T2_DQS_34",
+          "net": "N18998877"
+        },
+        "U6": {
+          "name": "IO_L16P_T2_34",
+          "net": "RF_FE_IO_RESET_FPGA"
+        },
+        "V5": {
+          "name": "IO_L16N_T2_34",
+          "net": "N18560670"
+        },
+        "R6": {
+          "name": "IO_L17P_T2_34",
+          "net": "N18560673"
+        },
+        "T6": {
+          "name": "IO_L17N_T2_34",
+          "net": "N18560676"
+        },
+        "Y6": {
+          "name": "IO_L18P_T2_34",
+          "net": "N18560679"
+        },
+        "AA6": {
+          "name": "IO_L18N_T2_34",
+          "net": "N18560684"
+        },
+        "V7": {
+          "name": "IO_L19P_T3_34",
+          "net": "N18560695"
+        },
+        "W7": {
+          "name": "IO_L19N_T3_VREF_34",
+          "net": "N18560390"
+        },
+        "AB7": {
+          "name": "IO_L20P_T3_34",
+          "net": "N18560393"
+        },
+        "AB6": {
+          "name": "IO_L20N_T3_34",
+          "net": "N18560396"
+        },
+        "V9": {
+          "name": "IO_L21P_T3_DQS_34",
+          "net": "N18560399"
+        },
+        "V8": {
+          "name": "IO_L21N_T3_DQS_34",
+          "net": "N18560402"
+        },
+        "AA8": {
+          "name": "IO_L22P_T3_34",
+          "net": "N18560413"
+        },
+        "AB8": {
+          "name": "IO_L22N_T3_34",
+          "net": "N18553825"
+        },
+        "Y8": {
+          "name": "IO_L23P_T3_34",
+          "net": "N18553822"
+        },
+        "Y7": {
+          "name": "IO_L23N_T3_34",
+          "net": "N18553819"
+        },
+        "W9": {
+          "name": "IO_L24P_T3_34",
+          "net": "N18553814"
+        },
+        "Y9": {
+          "name": "IO_L24N_T3_34",
+          "net": "N19268253"
+        },
+        "F14": {
+          "name": "IO_L1N_T0_16",
+          "net": "DEBUG02"
+        },
+        "U7": {
+          "name": "IO_25_34",
+          "net": "N19268308"
+        },
         "AA18": {
           "name": "IO_L17P_T2_A14_D30_14",
           "net": "NC"
@@ -26125,6 +27766,10 @@
           "name": "IO_L15P_T2_DQS_RDWR_B_1",
           "net": "NC"
         },
+        "AA20": {
+          "name": "IO_L8P_T1_D11_14",
+          "net": "FX3_EXTINT"
+        },
         "AA21": {
           "name": "IO_L8N_T1_D12_14",
           "net": "NC"
@@ -26132,6 +27777,10 @@
         "AB18": {
           "name": "IO_L17N_T2_A13_D29_14",
           "net": "NC"
+        },
+        "AB20": {
+          "name": "IO_L15N_T2_DQS_DOUT_CSO",
+          "net": "FX3_MISO"
         },
         "AB21": {
           "name": "IO_L10P_T1_D14_14",
@@ -26164,6 +27813,14 @@
         "P14": {
           "name": "IO_L19P_T3_A10_D26_14",
           "net": "NC"
+        },
+        "P15": {
+          "name": "IO_L22P_T3_A05_D21_14",
+          "net": "CODEC_CTRL_OUT5"
+        },
+        "P16": {
+          "name": "IO_L24P_T3_A01_D17_14",
+          "net": "CODEC_CTRL_IN1"
         },
         "P17": {
           "name": "IO_L21N_T3_DQS_A06_D22_",
@@ -26201,6 +27858,10 @@
           "name": "IO_L20P_T3_A08_D24_14",
           "net": "NC"
         },
+        "R22": {
+          "name": "IO_L1N_T0_D01_DIN_14",
+          "net": "FPGA_MOSI_DIN"
+        },
         "T18": {
           "name": "IO_L20N_T3_A07_D23_14",
           "net": "NC"
@@ -26217,85 +27878,13 @@
           "name": "IO_L18N_T2_A11_D27_14",
           "net": "NC"
         },
-        "U20": {
-          "name": "IO_L11P_T1_SRCC_14",
-          "net": "NC"
-        },
-        "V19": {
-          "name": "IO_L14N_T2_SRCC_14",
-          "net": "NC"
-        },
-        "V20": {
-          "name": "IO_L11N_T1_SRCC_14",
-          "net": "NC"
-        },
-        "G2": {
-          "name": "IO_L8N_T1_AD14N_35",
-          "net": "NC"
-        },
-        "W17": {
-          "name": "IO_L16N_T2_A15_D31_14",
-          "net": "NC"
-        },
-        "W19": {
-          "name": "IO_L12P_T1_MRCC_14",
-          "net": "NC"
-        },
-        "W20": {
-          "name": "IO_L12N_T1_MRCC_14",
-          "net": "NC"
-        },
-        "Y18": {
-          "name": "IO_L13P_T2_MRCC_14",
-          "net": "NC"
-        },
-        "Y19": {
-          "name": "IO_L13N_T2_MRCC_14",
-          "net": "NC"
-        },
-        "H15": {
-          "name": "IO_L5N_T0_AD9N_15",
-          "net": "NC"
-        },
-        "K16": {
-          "name": "IO_L23N_T3_FWE_B_15",
-          "net": "NC"
-        },
-        "M15": {
-          "name": "IO_L24P_T3_RS1_15",
-          "net": "NC"
-        },
-        "M16": {
-          "name": "IO_L24N_T3_RS0_15",
-          "net": "NC"
-        },
-        "M17": {
-          "name": "IO_25_15",
-          "net": "NC"
-        },
-        "AA20": {
-          "name": "IO_L8P_T1_D11_14",
-          "net": "FX3_EXTINT"
-        },
-        "AB20": {
-          "name": "IO_L15N_T2_DQS_DOUT_CSO",
-          "net": "FX3_MISO"
-        },
-        "P15": {
-          "name": "IO_L22P_T3_A05_D21_14",
-          "net": "CODEC_CTRL_OUT5"
-        },
-        "P16": {
-          "name": "IO_L24P_T3_A01_D17_14",
-          "net": "CODEC_CTRL_IN1"
-        },
-        "R22": {
-          "name": "IO_L1N_T0_D01_DIN_14",
-          "net": "FPGA_MOSI_DIN"
-        },
         "L15": {
           "name": "IO_L22N_T3_A16_15",
           "net": "GPIF_D31"
+        },
+        "U20": {
+          "name": "IO_L11P_T1_SRCC_14",
+          "net": "NC"
         },
         "U22": {
           "name": "IO_L3P_T0_DQS_PUDC_B_14",
@@ -26345,6 +27934,10 @@
           "name": "IO_0_15",
           "net": "GPIF_CTL0"
         },
+        "V19": {
+          "name": "IO_L14N_T2_SRCC_14",
+          "net": "NC"
+        },
         "K19": {
           "name": "IO_L13N_T2_MRCC_15",
           "net": "GPIF_D13"
@@ -26365,6 +27958,10 @@
           "name": "IO_L13P_T2_MRCC_15",
           "net": "GPIF_D12"
         },
+        "V20": {
+          "name": "IO_L11N_T1_SRCC_14",
+          "net": "NC"
+        },
         "J19": {
           "name": "IO_L12P_T1_MRCC_15",
           "net": "IFCLK"
@@ -26377,17 +27974,61 @@
           "name": "IO_L4N_T0_15",
           "net": "GPIF_CTL8"
         },
+        "G2": {
+          "name": "IO_L8N_T1_AD14N_35",
+          "net": "NC"
+        },
+        "W17": {
+          "name": "IO_L16N_T2_A15_D31_14",
+          "net": "NC"
+        },
+        "W19": {
+          "name": "IO_L12P_T1_MRCC_14",
+          "net": "NC"
+        },
         "G16": {
           "name": "IO_L2N_T0_AD8N_15",
           "net": "GPIF_CTL4"
+        },
+        "W20": {
+          "name": "IO_L12N_T1_MRCC_14",
+          "net": "NC"
+        },
+        "Y18": {
+          "name": "IO_L13P_T2_MRCC_14",
+          "net": "NC"
         },
         "L18": {
           "name": "IO_L16N_T2_A27_15",
           "net": "GPIF_D19"
         },
+        "Y19": {
+          "name": "IO_L13N_T2_MRCC_14",
+          "net": "NC"
+        },
         "J20": {
           "name": "IO_L11P_T1_SRCC_15",
           "net": "GPIF_D08"
+        },
+        "H15": {
+          "name": "IO_L5N_T0_AD9N_15",
+          "net": "NC"
+        },
+        "K16": {
+          "name": "IO_L23N_T3_FWE_B_15",
+          "net": "NC"
+        },
+        "M15": {
+          "name": "IO_L24P_T3_RS1_15",
+          "net": "NC"
+        },
+        "M16": {
+          "name": "IO_L24N_T3_RS0_15",
+          "net": "NC"
+        },
+        "M17": {
+          "name": "IO_25_15",
+          "net": "NC"
         },
         "J4": {
           "name": "IO_L13N_T2_MRCC_35",

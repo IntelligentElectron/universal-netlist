@@ -25,16 +25,18 @@ import {
  */
 const normalizeUnconnectedPins = (netlist: ParsedNetlist): ParsedNetlist => {
   for (const component of Object.values(netlist.components)) {
-    for (const [pin, net] of Object.entries(component.pins)) {
-      if (typeof net === "string") {
-        if (net === "") {
-          component.pins[pin] = "NC";
+    for (const pins of [component.pins, component.busPins ?? {}]) {
+      for (const [pin, net] of Object.entries(pins)) {
+        if (typeof net === "string") {
+          if (net === "") {
+            pins[pin] = "NC";
+          }
+          continue;
         }
-        continue;
-      }
 
-      if (net?.net === "") {
-        net.net = "NC";
+        if (net?.net === "") {
+          net.net = "NC";
+        }
       }
     }
   }

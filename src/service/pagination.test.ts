@@ -122,3 +122,31 @@ describe("pagePins", () => {
     expect(page.next_offset).toBe(4);
   });
 });
+
+it("pages scalar and bus terminals together, with only the selected identities and topology", () => {
+  const result = {
+    pins: { "1": "VCC" },
+    busPins: { "@1:2": "BUS" },
+    pinIdentities: { "@1:2": { instanceId: 1, index: 2 } },
+    buses: { BUS: { terminals: { U1: ["@1:2"] }, entries: [], members: [] } },
+  };
+  expect(pagePins(result, 1, 0)).toMatchObject({
+    pins: { "1": "VCC" },
+    busPins: {},
+    pinIdentities: {},
+    buses: {},
+    next_offset: 1,
+  });
+  expect(pagePins(result, 1, 1)).toMatchObject({
+    pins: {},
+    busPins: result.busPins,
+    pinIdentities: result.pinIdentities,
+    buses: result.buses,
+  });
+  expect(pagePins(result, 1, 2)).toMatchObject({
+    pins: {},
+    busPins: {},
+    pinIdentities: {},
+    buses: {},
+  });
+});

@@ -190,7 +190,7 @@ Source: INT §12.1.
 
 - A `Packages/<p>` Device map can describe the physical package, whose pad count differs from the symbol's pin count (a 4-pad crystal with 2 schematic pins: `Packages/` map `1, 3, 2, 4`, Cache map `1, 2`).
 - It can also be shorter than the pin list and transposed: `CON_HDMI_RA` (23 pins) has a 20-entry `Packages/` map with entries 17 and 18 swapped; the Cache map has 23 entries in order.
-- Rule: a placed pin's physical number is `map[ordinal − 1]`. Use the map whose length equals the instance's pin count. When the `Packages/` length differs and the Cache length matches, use the Cache. When neither matches, prefer the Cache if `Packages/` is longer. When the chosen map has no entry or an empty slot at the position, try the other map. Only then use the ordinal itself.
+- Rule: a placed pin's physical number is `map[ordinal − 1]`. Use the map whose length equals the instance's pin count. When the `Packages/` length differs and the Cache length matches, use the Cache. When neither matches, prefer the Cache if `Packages/` is longer. When the chosen map has no entry or an empty slot at the position, try the other map. An absent physical number is unresolved; the ordinal alone does not establish a physical pad (T: `bus-connectivity.test.ts`, `bus-topology.table.test.ts`).
 
 ### 6.3 Repeated reference designators: T
 
@@ -316,12 +316,29 @@ No design in our data stores `CIS/VariantStore/Groups/<group>/<sub>/<sub>`. EXT 
 
 ---
 
+### 10.3 Typed connectivity and source-terminal identity: T
+
+Synthetic framed records in `bus-connectivity.test.ts` prove consecutive type 16/17
+records retain alignment and kind. `bus-topology.table.test.ts` replays separate
+scalar/bus graphs even at shared coordinates. A BusEntry preserves both endpoints;
+only one unambiguous scalar-to-bus orientation yields an association. The endpoints
+are never unioned. Native NetBus member IDs are retained even without a drawn wire;
+no physical lane order is inferred. Repeated hierarchy placements bind entries and
+bus terminals to each parent's bus (`hierarchy-connectivity.test.ts`).
+
+A blank, missing, repeated, bus, or reserved-looking (`@digits:digits`) physical label
+uses `@instanceId:pinIndex` as its storage key, retaining the original nonblank label
+separately. This key is a source-symbol identity, never a physical pad claim. Lone
+unwired sentinel terminals remain explicit unconnected terminals rather than being
+dropped. Pin Ignore still omits terminals absent from that package section.
+
 ## Refuted claims
 
 Claims from either spec that our checks contradict.
 
 | Claim | Source | Finding |
 | --- | --- | --- |
+| An unresolved physical pin number can be replaced by its ordinal | INT §12.1 | An ordinal identifies the source symbol terminal, not a physical pad. Synthetic blank-map and repeated-label cases preserve distinct source identities (`bus-connectivity.test.ts`). |
 | Bus nets have no net-name row | EXT §6.7, §6.8 | 1,212 rows name a NetBus. |
 | NetBus member count is 0 | EXT §6.7 | 1,212 non-empty lists, 12,130 members. |
 | Port trailer byte +4 and Global/off-page tail byte +4 are always 0 | EXT §7.9, §7.10 | 0 or 1 (§5.2). |

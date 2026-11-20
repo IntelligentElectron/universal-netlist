@@ -18,7 +18,11 @@ import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
 import { createServer } from "../../server.js";
 import { parseDesign } from "../index.js";
 import { parseUniversalDesign } from "./index.js";
-import { serializeUniversalNetlist, toUniversalNetlistDocument } from "./reader.js";
+import {
+  serializeUniversalNetlist,
+  toUniversalNetlistDocument,
+  UNIVERSAL_NETLIST_SCHEMA_VERSION,
+} from "./reader.js";
 import { fixturePath, hasFixtures } from "../../../test/utils.js";
 
 const TEST_DIR = path.dirname(new URL(import.meta.url).pathname);
@@ -204,7 +208,7 @@ describe("every golden file is a Universal Netlist", () => {
           origin: raw.metadata.origin,
         }),
         filePath
-      ).toEqual(raw);
+      ).toEqual({ ...raw, universalNetlistSchemaVersion: UNIVERSAL_NETLIST_SCHEMA_VERSION });
       count += 1;
     }
     expect(count).toBeGreaterThan(0);

@@ -6,7 +6,7 @@ Every on-disk Universal Netlist is named `*.netlist.json`. Its top-level
 `universalNetlistSchemaVersion` identifies the document and schema; its nested
 `metadata` records when the document was generated, the origin of its content,
 the design variant whose build it holds, and a verified SHA-256 identity for
-`nets` and `components` together. The current version is `3`; ordinary JSON files are not Universal Netlists, even if
+the complete payload, including optional topology. The current version is `4`; ordinary JSON files are not Universal Netlists, even if
 they happen to contain keys named `nets` or `components`.
 
 ### Schema evolution
@@ -42,7 +42,7 @@ kept at version 1 as the fixture proving older files still load.
 
 ```
 UniversalNetlistDocument
-├── universalNetlistSchemaVersion: 3
+├── universalNetlistSchemaVersion: 4
 ├── metadata
 │   ├── generatedAt: "2026-09-01T12:34:56.789Z"
 │   ├── netlistHash: "sha256:<64 lowercase hex digits>"
@@ -50,8 +50,11 @@ UniversalNetlistDocument
 │   └── designVariant?: "Fab-A"
 ├── nets: NetConnections
 │   └── {netName}: { refdes: pin(s) }
+├── buses?: NetConnections
+├── busEntries?: BusEntryConnection[]
+├── busMembers?: BusMember[]
 └── components: ComponentDetails
-    └── {refdes}: { mpn, internal_pn, manufacturer, description, pins: { pinNum: PinEntry } }
+    └── {refdes}: { mpn, internal_pn, manufacturer, description, pins, busPins?, pinIdentities? }
 ```
 
 ## UniversalNetlistDocument
@@ -64,7 +67,7 @@ The root schema representing a complete netlist.
   "type": "object",
   "properties": {
     "universalNetlistSchemaVersion": {
-      "const": 3
+      "const": 4
     },
     "metadata": {
       "type": "object",
@@ -123,7 +126,10 @@ The root schema representing a complete netlist.
     },
     "components": {
       "$ref": "#/$defs/ComponentDetails"
-    }
+    },
+    "buses": { "$ref": "#/$defs/NetConnections" },
+    "busEntries": { "type": "array", "items": { "$ref": "#/$defs/BusEntryConnection" } },
+    "busMembers": { "type": "array", "items": { "$ref": "#/$defs/BusMember" } }
   },
   "required": [
     "universalNetlistSchemaVersion",
@@ -139,7 +145,7 @@ The root schema representing a complete netlist.
 
 ```json
 {
-  "universalNetlistSchemaVersion": 3,
+  "universalNetlistSchemaVersion": 4,
   "metadata": {
     "generatedAt": "2026-09-01T12:34:56.789Z",
     "netlistHash": "sha256:d162573135e49348295f639ec3485dc0cb233cebbb56bbbb4f8055bc202e3649",
@@ -260,9 +266,27 @@ Maps reference designators to component information including pin-to-net mapping
         "type": "string",
         "description": "Component value (e.g., '10uF', '4.7k')"
       },
+      "busPins": {
+        "type": "object",
+        "description": "Source-terminal key to bus mapping; separate inverse graph in buses.",
+        "additionalProperties": { "$ref": "#/$defs/PinEntry" }
+      },
+      "pinIdentities": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "instanceId": { "type": "integer", "minimum": 0, "maximum": 9007199254740991 },
+            "index": { "type": "integer", "minimum": 0, "maximum": 9007199254740991 },
+            "number": { "type": "string", "pattern": "\\S" }
+          },
+          "required": ["instanceId", "index"],
+          "additionalProperties": false
+        }
+      },
       "pins": {
         "type": "object",
-        "description": "Pin number to net mapping",
+        "description": "Scalar terminal key to net mapping",
         "additionalProperties": {
           "$ref": "#/$defs/PinEntry"
         }
@@ -392,7 +416,8 @@ This reduces output size by ~30% for typical designs while preserving important 
 ## Metadata, content hash, and origin
 
 `metadata.netlistHash` is SHA-256 over one canonical JSON object containing the
-complete normalized `nets` and `components` payload together. Object keys are
+complete normalized `nets` and `components` payload, plus `buses`, `busEntries`,
+and `busMembers` when present (version 4). Object keys are
 sorted recursively before hashing; array order is preserved. The schema version
 and complete `metadata` object are excluded, so identical electrical content
 has the same hash regardless of its generation time or provenance. Readers
@@ -449,3 +474,32 @@ The file is validated on load, because the EDA parsers build a consistent netlis
 - a component pin names a net that is not declared, or one that does not list that pin
 
 A pin whose net is `""` is unconnected: it belongs to no net, and the server reports it as `NC`. Component fields outside the schema are dropped. A net member written as one pin number string is read as a one-element array.
+
+## Bus topology and source identities (version 4)
+
+`nets` and component `pins` describe scalar electrical connections. Optional
+`buses` uses the same inverse-graph shape for component `busPins`; its member
+lists are arrays of terminal keys, and a wire-only bus may have an empty object.
+A terminal key cannot occur in both `pins` and `busPins` on one component.
+
+A physical label that is missing, blank, repeated within a source instance, or
+looks like the reserved key syntax uses `@instanceId:pinIndex`. Every bus terminal
+also uses this identity. `pinIdentities[key]` records `{instanceId, index, number?}`;
+`number` retains the original nonblank label when resolved. The key must match the
+nonnegative safe-integer source instance and index. These keys identify source
+symbol terminals, not package pads. Unknown pad numbers are never invented.
+
+`BusEntryConnection` is `{page, start: [x,y], end: [x,y], bus?, net?}`. Coordinates
+must be finite. Both names appear together only when a unique endpoint orientation
+resolves; otherwise geometry alone is retained. Names must reference existing bus
+and scalar graphs. An association does not electrically join scalar lanes.
+
+`BusMember` is `{page, bus, netId, net?}`. It retains a native page-local scalar
+member ID (a nonnegative safe integer), even if no scalar name can be resolved.
+The bus must exist; a provided net must exist. No lane order or physical mapping
+is inferred from these records.
+
+All optional fields participate in the canonical hash. Historical scalar documents
+remain readable through their version-specific codecs. `query_component` exposes
+bus peers, entry geometry, native members, and source identities; XNET and ERC
+operate on scalar electrical nets and report the bus-analysis limit.

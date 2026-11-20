@@ -124,7 +124,7 @@ Rejects patterns that match all items; use list_components for full results. \
 ${paged("results")}`;
 
 export const QUERY_XNET_BY_NET_NAME_DESCRIPTION = `\
-Get full XNET (Extended Net) connectivity for a net. \
+Get full XNET (Extended Net) connectivity for a scalar net. Buses are reported by query_component; traversal does not infer their electrical lanes. \
 Traces through series components, so the result is the whole electrical node rather \
 than the one net; \`circuit_hash\` identifies unique topologies. Traversal stops at \
 power and ground nets: recognised by name (VCC*, VDD*, 3V3, GND, GND1, VSS, ...), by a \
@@ -140,7 +140,7 @@ then as the 31-character name a PSTWRITER 16.6 Allegro export gives a longer net
 If the net is not found, \`search_nets\` finds the name.`;
 
 export const QUERY_XNET_BY_PIN_NAME_DESCRIPTION = `\
-Get full XNET connectivity starting from a component pin, named REFDES.PIN \
+Get full XNET connectivity starting from a scalar component pin, named REFDES.PIN \
 (e.g. U1.A5, R10.1). Traces through series components, so the result is the whole \
 electrical node; \`circuit_hash\` identifies unique topologies. Traversal stops at power \
 and ground nets, recognised by name (VCC*, VDD*, 3V3, GND, GND1, VSS, ...), by a supply \
@@ -155,11 +155,14 @@ export const QUERY_COMPONENT_DESCRIPTION = `\
 Get full component details including all pin connections. \
 Refdes lookup is case-insensitive. \
 Returns MPN, description, value, and pin-to-net mappings when available. \
+Bus terminals appear separately in \`busPins\`; \`buses\` gives peer terminals, geometric bus-entry associations and native member records. \
+Keys \`@instanceId:pinIndex\` identify source-symbol terminals; \`pinIdentities\` retains their source labels, with \`number\` omitted when the physical pin number is unresolved. \
+Repeated labels remain distinct terminals. Bus associations never short scalar lanes together. \
 Each pin maps to its net name, or to {name, net} where the pin has a function name that \
 differs from its number. A pin on no net reads as the net "NC", a marker and not a queryable net. \
 If the schematic gives the refdes to several different parts, the result lists every part \
 under \`components\`, each carrying \`error\`: "Reference designator is duplicated". \
-${paged("pins")} A duplicated refdes counts its parts' pins together. \
+${paged("pins")} Scalar and bus terminals count together. A duplicated refdes counts its parts' terminals together. \
 If the refdes is not found, \`search_components_by_refdes\` finds it; \
 errors include guidance and suggestions.`;
 
@@ -181,7 +184,7 @@ After a successful export the netlist sits beside the design; \
 \`list_designs\` keeps reporting the .DSN, which is what to query.`;
 
 export const RUN_ERC_DESCRIPTION = `\
-Run electrical rule checks (ERC) on a design's netlist and return findings grouped \
+Run electrical rule checks (ERC) on scalar electrical nets and return findings grouped \
 by severity (\`errors\`, \`warnings\`) then rule id. ${paged("findings")} Findings are \
 counted across every rule, errors first, and \`totals\` gives every rule's count on each page. \
 Rules: \`net.single_pin\` (error: a net with one functional pin and no test point), \
@@ -203,4 +206,4 @@ and \`skipped\` counts the parts left out of the run, such as Do-Not-Stuff ones.
 Use \`include_rules\`/\`exclude_rules\` (rule ids) to scope the run and \`include_dns\` to \
 count Do-Not-Stuff parts; an unknown rule id returns an error rather than silently \
 checking nothing. Unconnected pins without a no-connect symbol are NOT checked: \
-the parsers cannot reliably tell them apart from intentional no-connects.`;
+the parsers cannot reliably tell them apart from intentional no-connects. Bus topology is preserved separately; ERC does not infer lanes through buses.`;

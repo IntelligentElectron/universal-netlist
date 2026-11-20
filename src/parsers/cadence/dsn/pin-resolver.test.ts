@@ -86,7 +86,7 @@ describe("resolvePinNumber", () => {
     const bare = pinMapData({ FET: ["", "", ""] });
 
     expect(resolvePinNumber(pin(2), inst, cached)).toBe("2");
-    expect(resolvePinNumber(pin(3), inst, bare)).toBe("3");
+    expect(resolvePinNumber(pin(3), inst, bare)).toBe("");
   });
 
   it("takes the number the occurrence assigns over every map", () => {
@@ -99,26 +99,26 @@ describe("resolvePinNumber", () => {
     expect(resolvePinNumber(pin(2), inst, pmd)).toBe("2");
   });
 
-  it("uses the symbol record order only when neither map resolves the pin", () => {
+  it("leaves physical numbering unresolved when neither map resolves the pin", () => {
     const inst = instance("UNKNOWN_PART", 2);
     const pmd = pinMapData({});
 
-    expect(resolvePinNumber(pin(1), inst, pmd)).toBe("1");
-    expect(resolvePinNumber(pin(2), inst, pmd)).toBe("2");
+    expect(resolvePinNumber(pin(1), inst, pmd)).toBe("");
+    expect(resolvePinNumber(pin(2), inst, pmd)).toBe("");
   });
 
   it("does not consult the Cache map past its end", () => {
     const inst = instance("SHORT", 4);
     const pmd = pinMapData({}, { SHORT: ["1", "2"] });
 
-    expect(resolvePinNumber(pin(3), inst, pmd)).toBe("3");
+    expect(resolvePinNumber(pin(3), inst, pmd)).toBe("");
   });
 
-  it("treats a non-positive pin index as pin 1", () => {
+  it("leaves a non-positive pin index unresolved", () => {
     const inst = instance("RES", 2);
     const pmd = pinMapData({ RES: ["5", "6"] });
 
-    expect(resolvePinNumber(pin(0), inst, pmd)).toBe("1");
+    expect(resolvePinNumber(pin(0), inst, pmd)).toBe("");
   });
 });
 

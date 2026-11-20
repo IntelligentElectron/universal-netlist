@@ -1,3 +1,4 @@
+import { topologyNotes } from "../topology-notes.js";
 import type { ServiceContext } from "../context.js";
 import { getDesignName } from "../../paths.js";
 import { loadNetlist } from "../load-netlist.js";
@@ -8,6 +9,7 @@ import {
   isErrorResult,
   getPinNet,
   type ComponentDetails,
+  type ParsedNetlist,
   type ComponentDetailsResult,
   type DuplicateComponentResult,
   type QueryComponentResult,
@@ -46,7 +48,7 @@ export const queryComponent = async (
 
   const names = indexNetNames(netlist);
   const parts = matches.map(([key, component]) =>
-    describeComponent(key, component, names, componentError(netlist, key))
+    describeComponent(key, component, names, componentError(netlist, key), netlist)
   );
   if (parts.length === 1 && !isDuplicateKey(matches[0][0])) {
     return { design_variant: netlist.design_variant, ...parts[0] };
@@ -60,7 +62,8 @@ const describeComponent = (
   key: string,
   component: ComponentDetails[string],
   names: NetNameIndex,
-  error: string | undefined
+  error: string | undefined,
+  netlist: ParsedNetlist
 ): ComponentDetailsResult => {
   const mpn = component.mpn?.trim() || undefined;
   const result: ComponentDetailsResult = {
@@ -98,8 +101,22 @@ const describeComponent = (
   if (component.alternate_part) {
     result.alternate_part = true;
   }
-  if (!mpn) {
-    result.notes = [MPN_MISSING_NOTE];
+  const notes = topologyNotes(netlist);
+  if (!mpn) notes.push(MPN_MISSING_NOTE);
+  if (notes.length) result.notes = notes;
+  if (component.pinIdentities) result.pinIdentities = component.pinIdentities;
+  if (component.busPins) {
+    result.busPins = component.busPins;
+    result.buses = {};
+    for (const entry of Object.values(component.busPins)) {
+      const bus = getPinNet(entry);
+      if (!bus || bus === "NC") continue;
+      result.buses[bus] = {
+        terminals: netlist.buses?.[bus] ?? {},
+        entries: (netlist.busEntries ?? []).filter((e) => e.bus === bus),
+        members: (netlist.busMembers ?? []).filter((m) => m.bus === bus),
+      };
+    }
   }
 
   const warnings = names.warningsFor(Object.values(component.pins).map(getPinNet));

@@ -121,6 +121,11 @@ describe("Parser Golden Output", { timeout: PARSE_TIMEOUT }, async () => {
             nets: golden.nets,
             components: golden.components,
           });
+          // A DAT reference has no bus graph. DSN-generated schema-4 goldens
+          // additionally lock the topology they explicitly record.
+          for (const field of ["buses", "busEntries", "busMembers"] as const) {
+            if (golden[field] !== undefined) expect(actual[field]).toEqual(golden[field]);
+          }
         });
       });
     }

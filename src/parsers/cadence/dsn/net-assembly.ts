@@ -255,6 +255,14 @@ export function assembleNets(
     }
   }
 
+  // A lone sentinel has neither a wire, a symbol attachment nor another terminal
+  // at its coordinate. Preserve it as unconnected, just like an unwired netId=0.
+  // A sentinel is not a missing record: omitting it loses the source terminal.
+  for (const pins of sentinelWireless.values()) {
+    if (pins.length === 1)
+      addPinToNet(nets, componentPins, "NC", pins[0].refdes, pins[0].pinNumber);
+  }
+
   // 4. Pin-to-pin sentinel connections (wireless overlaps)
   const wirelessNets = resolveWirelessSentinelNets(
     sentinelWireless,

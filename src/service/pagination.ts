@@ -94,18 +94,74 @@ export const pagePins = <
   offset: number
 ): R | ErrorResult => {
   if (isErrorResult(result)) return result;
-  const parts = result.components ?? [result as { pins: Record<string, unknown> }];
+  type Part = {
+    pins: Record<string, unknown>;
+    busPins?: Record<string, unknown>;
+    pinIdentities?: Record<string, unknown>;
+    buses?: Record<string, unknown>;
+  };
+  const parts = (result.components ?? [result]) as Part[];
   const page = pageGroups(
-    parts.map((part) => [part, Object.entries(part.pins)] as const),
+    parts.map(
+      (part) =>
+        [
+          part,
+          [
+            ...Object.entries(part.pins).map(([key, value]) => ({
+              field: "pins" as const,
+              key,
+              value,
+            })),
+            ...Object.entries(part.busPins ?? {}).map(([key, value]) => ({
+              field: "busPins" as const,
+              key,
+              value,
+            })),
+          ],
+        ] as const
+    ),
     "pins",
     maxResults,
     offset
   );
   if (page.note === undefined) return result;
-  const paged = page.groups.map(([part, pins]) => ({ ...part, pins: Object.fromEntries(pins) }));
-  return result.components
-    ? withPage(result, "components", paged as R["components"], page)
-    : withPage(result, "pins", paged[0]?.pins ?? {}, page);
+  const paged = page.groups.map(([part, terminals]) => {
+    const pins = Object.fromEntries(
+      terminals.filter((t) => t.field === "pins").map((t) => [t.key, t.value])
+    );
+    const busPins = Object.fromEntries(
+      terminals.filter((t) => t.field === "busPins").map((t) => [t.key, t.value])
+    );
+    const keys = new Set(terminals.map((t) => t.key));
+    const names = new Set(
+      Object.values(busPins).map((e) => (typeof e === "string" ? e : (e as { net: string }).net))
+    );
+    return {
+      ...part,
+      pins,
+      ...(part.busPins ? { busPins } : {}),
+      ...(part.pinIdentities
+        ? {
+            pinIdentities: Object.fromEntries(
+              Object.entries(part.pinIdentities).filter(([k]) => keys.has(k))
+            ),
+          }
+        : {}),
+      ...(part.buses
+        ? { buses: Object.fromEntries(Object.entries(part.buses).filter(([k]) => names.has(k))) }
+        : {}),
+    };
+  });
+  if (result.components) return withPage(result, "components", paged as R["components"], page);
+  const part = parts[0];
+  const selected = {
+    ...result,
+    pins: paged[0]?.pins ?? {},
+    ...(part.busPins ? { busPins: paged[0]?.busPins ?? {} } : {}),
+    ...(part.pinIdentities ? { pinIdentities: paged[0]?.pinIdentities ?? {} } : {}),
+    ...(part.buses ? { buses: paged[0]?.buses ?? {} } : {}),
+  };
+  return withPage(selected, "pins", selected.pins, page);
 };
 
 /** Every string in a value, at any depth. */

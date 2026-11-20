@@ -1,0 +1,17 @@
+start,end,outcome,next,status,note
+none,none,unresolved,,draft,src/parsers/cadence/dsn/net-builder.ts:245; only a unique scalar-to-bus orientation establishes association
+none,scalar,unresolved,,draft,src/parsers/cadence/dsn/net-builder.ts:245; only a unique scalar-to-bus orientation establishes association
+none,bus,unresolved,,draft,src/parsers/cadence/dsn/net-builder.ts:245; only a unique scalar-to-bus orientation establishes association
+none,both,unresolved,,draft,src/parsers/cadence/dsn/net-builder.ts:245; only a unique scalar-to-bus orientation establishes association
+scalar,none,unresolved,,draft,src/parsers/cadence/dsn/net-builder.ts:245; only a unique scalar-to-bus orientation establishes association
+scalar,scalar,unresolved,,draft,src/parsers/cadence/dsn/net-builder.ts:245; only a unique scalar-to-bus orientation establishes association
+scalar,bus,forward,,draft,src/parsers/cadence/dsn/net-builder.ts:245; only a unique scalar-to-bus orientation establishes association
+scalar,both,forward,,draft,src/parsers/cadence/dsn/net-builder.ts:245; only a unique scalar-to-bus orientation establishes association
+bus,none,unresolved,,draft,src/parsers/cadence/dsn/net-builder.ts:245; only a unique scalar-to-bus orientation establishes association
+bus,scalar,reverse,,draft,src/parsers/cadence/dsn/net-builder.ts:245; only a unique scalar-to-bus orientation establishes association
+bus,bus,unresolved,,draft,src/parsers/cadence/dsn/net-builder.ts:245; only a unique scalar-to-bus orientation establishes association
+bus,both,reverse,,draft,src/parsers/cadence/dsn/net-builder.ts:245; only a unique scalar-to-bus orientation establishes association
+both,none,unresolved,,draft,src/parsers/cadence/dsn/net-builder.ts:245; only a unique scalar-to-bus orientation establishes association
+both,scalar,reverse,,draft,src/parsers/cadence/dsn/net-builder.ts:245; only a unique scalar-to-bus orientation establishes association
+both,bus,forward,,draft,src/parsers/cadence/dsn/net-builder.ts:245; only a unique scalar-to-bus orientation establishes association
+both,both,unresolved,,draft,src/parsers/cadence/dsn/net-builder.ts:245; only a unique scalar-to-bus orientation establishes association

@@ -6,7 +6,7 @@
  */
 
 import type { ComponentDetails } from "../../../types.js";
-import { createPinEntry, type PinEntry } from "../../../types.js";
+import { createPinEntry } from "../../../types.js";
 import {
   isValidRefdes,
   hasDnsPropertyMarker,
@@ -16,7 +16,7 @@ import type { PrefixPropertyPair } from "./generic-parser.js";
 import type { CachedLibraryPart, PinMapData } from "./structure-types.js";
 import type { PlacedInstance } from "./structures.js";
 import type { PageData } from "./page-parser.js";
-import { resolvePinNumber, isPinIgnored } from "./pin-resolver.js";
+import { resolvePinNumber, resolvePinKeys, isPinIgnored } from "./pin-resolver.js";
 
 /**
  * Property names holding the design's own part number, in precedence order.
@@ -207,7 +207,8 @@ export function buildComponents(
   strLst: string[],
   cachedParts: Map<string, CachedLibraryPart>,
   pmd: PinMapData,
-  deviceIndexMap: Map<number, number>
+  deviceIndexMap: Map<number, number>,
+  busComponentPins = new Map<string, Map<string, string>>()
 ): ComponentDetails {
   const components: ComponentDetails = {};
 
@@ -216,40 +217,7 @@ export function buildComponents(
       const refdes = inst.reference;
       if (!refdes || !isValidRefdes(refdes)) continue;
       const deviceIndex = deviceIndexMap.get(inst.dbId);
-
-      // For multi-unit components (same refdes, multiple PlacedInstances),
-      // merge pins from each unit into the existing component entry.
-      if (components[refdes]) {
-        const existing = components[refdes];
-        // A library may describe a part on one of its units and leave the
-        // others blank, so whichever unit carries it describes the part.
-        if (!existing.description) {
-          const description = readProperty(inst.prefixProperties, strLst, DESCRIPTION_KEYS);
-          if (description) existing.description = description;
-        }
-        const pinNets = componentPins.get(refdes);
-        if (pinNets) {
-          const unitCachedPart = findCachedPart(inst, cachedParts);
-          const pinNumToIndex = new Map<string, number>();
-          for (const t0x10 of inst.t0x10s) {
-            if (t0x10.pinIndex > 0 && !isPinIgnored(t0x10, inst, pmd, deviceIndex)) {
-              pinNumToIndex.set(resolvePinNumber(t0x10, inst, pmd, deviceIndex), t0x10.pinIndex);
-            }
-          }
-          for (const [pinNumber, netName] of pinNets) {
-            if (existing.pins[pinNumber]) continue;
-            let pinName: string | undefined;
-            if (unitCachedPart) {
-              const idx = pinNumToIndex.get(pinNumber);
-              if (idx !== undefined && idx - 1 < unitCachedPart.pinNames.length) {
-                pinName = unitCachedPart.pinNames[idx - 1]?.toUpperCase();
-              }
-            }
-            existing.pins[pinNumber] = createPinEntry(pinNumber, pinName, netName);
-          }
-        }
-        continue;
-      }
+      const pinKeys = resolvePinKeys(inst, pmd, deviceIndex);
 
       // Two part numbers in two namespaces, reported as two fields. One
       // manufacturer number maps to several internal ones, so neither can be
@@ -295,41 +263,34 @@ export function buildComponents(
       }
       if (!dns) dns = hasDnsProperty(inst.prefixProperties, strLst);
 
-      // Build pins with names from cached library parts
-      const pinNets = componentPins.get(refdes);
-      const pins: Record<string, PinEntry> = {};
-      const cachedPart = findCachedPart(inst, cachedParts);
-
-      if (pinNets) {
-        // Build pinNumber -> pinIndex map for pin name lookup
-        const pinNumToIndex = new Map<string, number>();
-        // A pin the section has no pad for is absent from every net, so it must
-        // not claim a pin-number slot here either: it would relabel the real pin
-        // that shares that number with the ignored pin's function name.
-        for (const t0x10 of inst.t0x10s) {
-          if (t0x10.pinIndex > 0 && !isPinIgnored(t0x10, inst, pmd, deviceIndex)) {
-            pinNumToIndex.set(resolvePinNumber(t0x10, inst, pmd, deviceIndex), t0x10.pinIndex);
-          }
-        }
-
-        for (const [pinNumber, netName] of pinNets) {
-          let pinName: string | undefined;
-          if (cachedPart) {
-            const idx = pinNumToIndex.get(pinNumber);
-            if (idx !== undefined && idx - 1 < cachedPart.pinNames.length) {
-              pinName = cachedPart.pinNames[idx - 1]?.toUpperCase();
-            }
-          }
-          pins[pinNumber] = createPinEntry(pinNumber, pinName, netName);
-        }
+      let component = components[refdes];
+      if (!component) {
+        component = { ...(value !== undefined ? { value } : {}), pins: {} };
+        components[refdes] = component;
+        if (mpn) component.mpn = mpn;
+        if (internalPn) component.internal_pn = internalPn;
+        if (manufacturer) component.manufacturer = manufacturer;
+        if (dns) component.dns = true;
       }
-
-      components[refdes] = { value, pins };
-      if (mpn) components[refdes].mpn = mpn;
-      if (internalPn) components[refdes].internal_pn = internalPn;
-      if (manufacturer) components[refdes].manufacturer = manufacturer;
-      if (description) components[refdes].description = description;
-      if (dns) components[refdes].dns = true;
+      if (description && !component.description) component.description = description;
+      const cachedPart = findCachedPart(inst, cachedParts);
+      for (const pin of inst.t0x10s) {
+        if (isPinIgnored(pin, inst, pmd, deviceIndex)) continue;
+        const key = pinKeys.get(pin.pinIndex)!;
+        const number = resolvePinNumber(pin, inst, pmd, deviceIndex);
+        const isBus = pin.kind === "bus";
+        const net = (isBus ? busComponentPins : componentPins).get(refdes)?.get(key);
+        if (net === undefined) throw new Error(`Unresolved source terminal ${refdes}.${key}`);
+        const name = cachedPart?.pinNames[pin.pinIndex - 1]?.toUpperCase();
+        const target = isBus ? (component.busPins ??= {}) : component.pins;
+        target[key] = createPinEntry(key, name, net);
+        if (key !== number)
+          (component.pinIdentities ??= {})[key] = {
+            instanceId: inst.dbId,
+            index: pin.pinIndex,
+            ...(number ? { number } : {}),
+          };
+      }
     }
   }
 

@@ -1,0 +1,17 @@
+{
+  "name": "repeated-section",
+  "assumes": [
+    "Valid framed DSN records or otherwise valid Universal Netlist payload; all outcomes preserve scalar/bus separation."
+  ],
+  "dimensions": {
+    "kind": [
+      "scalar",
+      "bus"
+    ],
+    "wiring": [
+      "agree",
+      "nc_vs_net",
+      "conflict"
+    ]
+  }
+}

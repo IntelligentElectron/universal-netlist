@@ -1,0 +1,10 @@
+pin,wire,outcome,next,status,note
+legacy,legacy,connected,,draft,src/parsers/cadence/dsn/page-groups.ts:97; wire and pin type form separate connectivity graphs
+legacy,scalar,connected,,draft,src/parsers/cadence/dsn/page-groups.ts:97; wire and pin type form separate connectivity graphs
+legacy,bus,unconnected,,draft,src/parsers/cadence/dsn/page-groups.ts:97; wire and pin type form separate connectivity graphs
+scalar,legacy,connected,,draft,src/parsers/cadence/dsn/page-groups.ts:97; wire and pin type form separate connectivity graphs
+scalar,scalar,connected,,draft,src/parsers/cadence/dsn/page-groups.ts:97; wire and pin type form separate connectivity graphs
+scalar,bus,unconnected,,draft,src/parsers/cadence/dsn/page-groups.ts:97; wire and pin type form separate connectivity graphs
+bus,legacy,unconnected,,draft,src/parsers/cadence/dsn/page-groups.ts:97; wire and pin type form separate connectivity graphs
+bus,scalar,unconnected,,draft,src/parsers/cadence/dsn/page-groups.ts:97; wire and pin type form separate connectivity graphs
+bus,bus,connected,,draft,src/parsers/cadence/dsn/page-groups.ts:97; wire and pin type form separate connectivity graphs

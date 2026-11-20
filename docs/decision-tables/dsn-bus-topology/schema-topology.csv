@@ -1,0 +1,9 @@
+version,topology,outcome,next,status,note
+1,absent,accept,,draft,src/parsers/universal/reader.ts:332; historical codecs retain their established shape
+1,present,reject,,draft,src/parsers/universal/reader.ts:332; historical codecs retain their established shape
+2,absent,accept,,draft,src/parsers/universal/reader.ts:332; historical codecs retain their established shape
+2,present,reject,,draft,src/parsers/universal/reader.ts:332; historical codecs retain their established shape
+3,absent,accept,,draft,src/parsers/universal/reader.ts:332; historical codecs retain their established shape
+3,present,reject,,draft,src/parsers/universal/reader.ts:332; historical codecs retain their established shape
+4,absent,accept,,draft,src/parsers/universal/reader.ts:332; historical codecs retain their established shape
+4,present,accept,,draft,src/parsers/universal/reader.ts:332; historical codecs retain their established shape

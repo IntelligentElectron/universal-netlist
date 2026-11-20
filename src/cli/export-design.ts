@@ -64,16 +64,29 @@ export interface ExportDesignResult {
 const withUnconnectedPinsEmpty = (netlist: ParsedNetlist): ParsedNetlist => {
   const components: ComponentDetails = {};
   for (const [refdes, component] of Object.entries(netlist.components)) {
-    const onNcNet = netlist.nets.NC?.[refdes] ?? [];
-    const pins: Record<string, PinEntry> = {};
-    for (const [pin, entry] of Object.entries(component.pins)) {
-      const net = typeof entry === "string" ? entry : entry.net;
-      if (net !== "NC" || onNcNet.includes(pin)) pins[pin] = entry;
-      else pins[pin] = typeof entry === "string" ? "" : { name: entry.name, net: "" };
-    }
-    components[refdes] = { ...component, pins };
+    const emptyPins = (entries: Record<string, PinEntry>, inverse: ParsedNetlist["nets"]) => {
+      const onNcNet = inverse.NC?.[refdes] ?? [];
+      return Object.fromEntries(
+        Object.entries(entries).map(([pin, entry]) => {
+          const net = typeof entry === "string" ? entry : entry.net;
+          return [
+            pin,
+            net !== "NC" || onNcNet.includes(pin)
+              ? entry
+              : typeof entry === "string"
+                ? ""
+                : { name: entry.name, net: "" },
+          ];
+        })
+      );
+    };
+    components[refdes] = {
+      ...component,
+      pins: emptyPins(component.pins, netlist.nets),
+      ...(component.busPins ? { busPins: emptyPins(component.busPins, netlist.buses ?? {}) } : {}),
+    };
   }
-  return { nets: netlist.nets, components };
+  return { ...netlist, components };
 };
 
 export const exportDesignTool = defineTool({

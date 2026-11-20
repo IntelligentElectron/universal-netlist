@@ -1,0 +1,19 @@
+{
+  "name": "repeated-section",
+  "rules": [
+    {
+      "when": {
+        "wiring": [
+          "conflict"
+        ]
+      },
+      "outcome": "separate",
+      "next": "",
+      "cells": 2
+    }
+  ],
+  "default": {
+    "outcome": "merge",
+    "next": ""
+  }
+}

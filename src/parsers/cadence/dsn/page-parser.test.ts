@@ -127,6 +127,8 @@ const page = (instances: Buffer[], ports: Buffer[]): Buffer =>
     ...ports,
     uint16(0), // Globals
     uint16(0), // OffPageConnectors
+    uint16(0), // ERCObjects
+    uint16(0), // BusEntries
   ]);
 
 describe("parsePage", () => {

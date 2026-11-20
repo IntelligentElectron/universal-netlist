@@ -1,0 +1,21 @@
+kind,label,ignored,outcome,next,status,note
+scalar,unique,no,physical,,draft,src/parsers/cadence/dsn/pin-resolver.ts:209; no invented physical pad and no overwritten source terminal
+scalar,unique,yes,omit,,draft,src/parsers/cadence/dsn/pin-resolver.ts:209; no invented physical pad and no overwritten source terminal
+scalar,missing,no,source,,draft,src/parsers/cadence/dsn/pin-resolver.ts:209; no invented physical pad and no overwritten source terminal
+scalar,missing,yes,omit,,draft,src/parsers/cadence/dsn/pin-resolver.ts:209; no invented physical pad and no overwritten source terminal
+scalar,blank,no,source,,draft,src/parsers/cadence/dsn/pin-resolver.ts:209; no invented physical pad and no overwritten source terminal
+scalar,blank,yes,omit,,draft,src/parsers/cadence/dsn/pin-resolver.ts:209; no invented physical pad and no overwritten source terminal
+scalar,duplicate,no,source,,draft,src/parsers/cadence/dsn/pin-resolver.ts:209; no invented physical pad and no overwritten source terminal
+scalar,duplicate,yes,omit,,draft,src/parsers/cadence/dsn/pin-resolver.ts:209; no invented physical pad and no overwritten source terminal
+scalar,reserved,no,source,,draft,src/parsers/cadence/dsn/pin-resolver.ts:209; no invented physical pad and no overwritten source terminal
+scalar,reserved,yes,omit,,draft,src/parsers/cadence/dsn/pin-resolver.ts:209; no invented physical pad and no overwritten source terminal
+bus,unique,no,source,,draft,src/parsers/cadence/dsn/pin-resolver.ts:209; no invented physical pad and no overwritten source terminal
+bus,unique,yes,omit,,draft,src/parsers/cadence/dsn/pin-resolver.ts:209; no invented physical pad and no overwritten source terminal
+bus,missing,no,source,,draft,src/parsers/cadence/dsn/pin-resolver.ts:209; no invented physical pad and no overwritten source terminal
+bus,missing,yes,omit,,draft,src/parsers/cadence/dsn/pin-resolver.ts:209; no invented physical pad and no overwritten source terminal
+bus,blank,no,source,,draft,src/parsers/cadence/dsn/pin-resolver.ts:209; no invented physical pad and no overwritten source terminal
+bus,blank,yes,omit,,draft,src/parsers/cadence/dsn/pin-resolver.ts:209; no invented physical pad and no overwritten source terminal
+bus,duplicate,no,source,,draft,src/parsers/cadence/dsn/pin-resolver.ts:209; no invented physical pad and no overwritten source terminal
+bus,duplicate,yes,omit,,draft,src/parsers/cadence/dsn/pin-resolver.ts:209; no invented physical pad and no overwritten source terminal
+bus,reserved,no,source,,draft,src/parsers/cadence/dsn/pin-resolver.ts:209; no invented physical pad and no overwritten source terminal
+bus,reserved,yes,omit,,draft,src/parsers/cadence/dsn/pin-resolver.ts:209; no invented physical pad and no overwritten source terminal

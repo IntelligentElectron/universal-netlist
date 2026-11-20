@@ -223,23 +223,25 @@ function parseDsnStreams(
     }
   }
   const deviceIndexMap = buildDeviceIndexMap(pages);
-  const { nets, componentPins, netLabelSources } = buildNetConnectivity(
-    pages,
-    canonicalNetNames,
-    pmd,
-    deviceIndexMap,
-    strLst
-  );
+  const { nets, componentPins, netLabelSources, buses, busComponentPins, busEntries, busMembers } =
+    buildNetConnectivity(pages, canonicalNetNames, pmd, deviceIndexMap, strLst);
   const components = buildComponents(
     pages,
     componentPins,
     strLst,
     cachedParts,
     pmd,
-    deviceIndexMap
+    deviceIndexMap,
+    busComponentPins
   );
 
-  const repeatedSections = mergeRepeatedSections(separation, nets, components, occurrenceRefdes);
+  const repeatedSections = mergeRepeatedSections(
+    separation,
+    nets,
+    components,
+    occurrenceRefdes,
+    buses
+  );
   const duplicateRefdes = separation.duplicates;
 
   // A design's variants carry their own stuffing, which the properties the
@@ -250,6 +252,9 @@ function parseDsnStreams(
   );
 
   const netlist: ParsedNetlist = { nets, components, netLabelSources };
+  if (Object.keys(buses).length) netlist.buses = buses;
+  if (busEntries.length) netlist.busEntries = busEntries;
+  if (busMembers.length) netlist.busMembers = busMembers;
   if (Object.keys(duplicateRefdes).length > 0) netlist.duplicateRefdes = duplicateRefdes;
   if (Object.keys(repeatedSections).length > 0) netlist.repeatedSections = repeatedSections;
   return netlist;

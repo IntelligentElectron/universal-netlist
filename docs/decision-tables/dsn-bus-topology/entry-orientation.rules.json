@@ -1,0 +1,63 @@
+{
+  "name": "entry-orientation",
+  "rules": [
+    {
+      "when": {
+        "start": [
+          "scalar",
+          "both"
+        ],
+        "end": [
+          "bus"
+        ]
+      },
+      "outcome": "forward",
+      "next": "",
+      "cells": 2
+    },
+    {
+      "when": {
+        "start": [
+          "bus",
+          "both"
+        ],
+        "end": [
+          "scalar"
+        ]
+      },
+      "outcome": "reverse",
+      "next": "",
+      "cells": 2
+    },
+    {
+      "when": {
+        "start": [
+          "bus"
+        ],
+        "end": [
+          "both"
+        ]
+      },
+      "outcome": "reverse",
+      "next": "",
+      "cells": 1
+    },
+    {
+      "when": {
+        "start": [
+          "scalar"
+        ],
+        "end": [
+          "both"
+        ]
+      },
+      "outcome": "forward",
+      "next": "",
+      "cells": 1
+    }
+  ],
+  "default": {
+    "outcome": "unresolved",
+    "next": ""
+  }
+}

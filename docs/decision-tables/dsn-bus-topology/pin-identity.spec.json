@@ -1,0 +1,23 @@
+{
+  "name": "pin-identity",
+  "assumes": [
+    "Valid framed DSN records or otherwise valid Universal Netlist payload; all outcomes preserve scalar/bus separation."
+  ],
+  "dimensions": {
+    "kind": [
+      "scalar",
+      "bus"
+    ],
+    "label": [
+      "unique",
+      "missing",
+      "blank",
+      "duplicate",
+      "reserved"
+    ],
+    "ignored": [
+      "no",
+      "yes"
+    ]
+  }
+}

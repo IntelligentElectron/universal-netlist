@@ -154,7 +154,8 @@ export function mergeRepeatedSections(
   result: DuplicateRefdesResult,
   nets: NetConnections,
   components: ComponentDetails,
-  occurrenceRefdes: Map<number, string>
+  occurrenceRefdes: Map<number, string>,
+  buses: NetConnections = {}
 ): Record<string, RepeatedSection[]> {
   const repeated: Record<string, RepeatedSection[]> = {};
   const renameOccurrences = (from: string, to: string): void => {
@@ -172,26 +173,39 @@ export function mergeRepeatedSections(
       const into = components[parts[j].key];
       const from = components[parts[k].key];
       if (!into || !from) return;
-      const conflict = Object.entries(from.pins).some(([pin, entry]) => {
-        const theirs = into.pins[pin];
-        if (theirs === undefined) return false;
-        const a = getPinNet(entry);
-        const b = getPinNet(theirs);
-        return a !== b && a !== "NC" && b !== "NC";
-      });
+      const conflict = (["pins", "busPins"] as const).some((field) =>
+        Object.entries(from[field] ?? {}).some(([pin, entry]) => {
+          const theirs = into[field]?.[pin];
+          if (theirs === undefined) return false;
+          const a = getPinNet(entry);
+          const b = getPinNet(theirs);
+          return a !== b && a !== "NC" && b !== "NC";
+        })
+      );
       if (conflict) return;
 
       for (const [pin, entry] of Object.entries(from.pins)) {
         if (into.pins[pin] === undefined || getPinNet(into.pins[pin]) === "NC")
           into.pins[pin] = entry;
       }
+      for (const [pin, entry] of Object.entries(from.busPins ?? {})) {
+        const target = (into.busPins ??= {});
+        if (target[pin] === undefined || getPinNet(target[pin]) === "NC") target[pin] = entry;
+      }
+      if (from.pinIdentities) Object.assign((into.pinIdentities ??= {}), from.pinIdentities);
       renameInNets(nets, parts[k].key, parts[j].key);
-      const nc = nets.NC?.[parts[j].key];
-      if (nc) {
-        const still = nc.filter((pin) => getPinNet(into.pins[pin]) === "NC");
-        if (still.length > 0) nets.NC[parts[j].key] = still;
-        else delete nets.NC[parts[j].key];
-        if (Object.keys(nets.NC).length === 0) delete nets.NC;
+      renameInNets(buses, parts[k].key, parts[j].key);
+      for (const [graph, pins] of [
+        [nets, into.pins],
+        [buses, into.busPins ?? {}],
+      ] as const) {
+        const nc = graph.NC?.[parts[j].key];
+        if (nc) {
+          const still = nc.filter((pin) => getPinNet(pins[pin]) === "NC");
+          if (still.length > 0) graph.NC[parts[j].key] = still;
+          else delete graph.NC[parts[j].key];
+          if (Object.keys(graph.NC).length === 0) delete graph.NC;
+        }
       }
       delete components[parts[k].key];
       renameOccurrences(parts[k].key, parts[j].key);
@@ -230,6 +244,7 @@ export function mergeRepeatedSections(
     components[refdes] = components[key];
     delete components[key];
     renameInNets(nets, key, refdes);
+    renameInNets(buses, key, refdes);
     renameOccurrences(key, refdes);
   }
   return repeated;
