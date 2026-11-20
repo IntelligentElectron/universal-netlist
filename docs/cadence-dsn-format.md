@@ -112,6 +112,16 @@ Source: EXT §5.2. Read to the exact end in all 106 Cache streams.
 - Zero-variant groups occur in every table and at the end of the stream (28,167 seen).
 - Every table-2 group name ends in `.Normal` or `.Convert`.
 
+### 4.1 Scanner navigation after a failed metadata read: T
+
+Test: `cache-parser.test.ts`, "Cache metadata scan boundary". The sequential
+reader's speculative metadata string can encompass the bytes of a valid Package,
+then fail later inside that Package. Its scanner must resume at the entry's
+starting offset, not the partially consumed failure cursor. The synthetic
+regression recovers the real Device map `1, 2`; a truncated candidate remains
+unindexed. This is a parser-navigation invariant, not a change to the Cache
+layout above or to package-map precedence.
+
 ## 5. Page stream
 
 ### 5.1 Layout: S

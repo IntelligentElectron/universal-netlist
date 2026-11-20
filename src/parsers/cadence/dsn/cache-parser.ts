@@ -231,6 +231,7 @@ export function parseCacheStream(
   reader.skip(4);
 
   while (!reader.isEof()) {
+    const entryStart = reader.tell();
     try {
       // Variable-length metadata: probe to detect format variant.
       // Variant 1: string follows immediately (name directly)
@@ -314,6 +315,10 @@ export function parseCacheStream(
     } catch {
       // Metadata parsing failed; fall through to brute-force scan for
       // remaining Package and LibraryPart structures via preamble magic.
+      // A false-positive metadata string can consume a valid Package before
+      // a later read fails. Restart at the last entry boundary so the scanner
+      // does not miss the consumed record and its physical pin map.
+      reader.seek(entryStart);
       scanForStructures(reader, buffer, pmd, cachedParts, exactNames);
       return;
     }

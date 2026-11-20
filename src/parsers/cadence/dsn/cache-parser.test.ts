@@ -8,7 +8,7 @@
  */
 
 import { describe, expect, it } from "vitest";
-import { indexLibraryPart, listDeviceUnits } from "./cache-parser.js";
+import { indexLibraryPart, listDeviceUnits, parseCacheStream } from "./cache-parser.js";
 import type { CachedLibraryPart, PinMapData } from "./structure-types.js";
 
 const part = (name: string, pinNames: string[]) => ({ name, pinNames });
@@ -91,5 +91,70 @@ describe("listDeviceUnits", () => {
 
     expect(data.deviceUnitRefs.get("RPAK")).toEqual(["A", "B"]);
     expect(data.deviceUnitRefs.get("RPAK_2")).toEqual(["A", "B", "C"]);
+  });
+});
+
+describe("Cache metadata scan boundary", () => {
+  it("finds a package consumed by a false-positive metadata string before a later read fails", () => {
+    const u16 = (value: number): Buffer => {
+      const b = Buffer.alloc(2);
+      b.writeUInt16LE(value);
+      return b;
+    };
+    const str = (value: string): Buffer =>
+      Buffer.concat([u16(value.length), Buffer.from(value), Buffer.alloc(1)]);
+    const pkg = Buffer.concat([
+      Buffer.from([0x1f, 0, 0, 0xff, 0xe4, 0x5c, 0x39, 0, 0, 0, 0]),
+      str("DEMO"),
+      str(""),
+      str("C"),
+      str(""),
+      str(""),
+      u16(1),
+      Buffer.from([0x20, 0, 0]),
+      str(""),
+      str("C"),
+      u16(2),
+      str("1"),
+      Buffer.alloc(1),
+      str("2"),
+      Buffer.alloc(1),
+    ]);
+    // The old scanner started after pkg: the first metadata string appears
+    // valid because the Package's final zero also terminates that string.
+    const cache = Buffer.concat([
+      Buffer.alloc(4),
+      u16(8 + pkg.length - 1),
+      Buffer.alloc(8, 0x41),
+      pkg,
+      Buffer.alloc(8),
+      u16(0x9999),
+      Buffer.from([0x70, 1, 0]),
+    ]);
+    const pmd: PinMapData = {
+      pinMaps: new Map(),
+      cachePinMaps: new Map(),
+      deviceUnitRefs: new Map(),
+      pinIgnores: new Map(),
+      cachePinIgnores: new Map(),
+    };
+    parseCacheStream(cache, pmd, new Map());
+    expect(pmd.cachePinMaps.get("DEMO")).toEqual(["1", "2"]);
+  });
+  it("does not index a truncated candidate while rescanning failed metadata", () => {
+    const pmd: PinMapData = {
+      pinMaps: new Map(),
+      cachePinMaps: new Map(),
+      deviceUnitRefs: new Map(),
+      pinIgnores: new Map(),
+      cachePinIgnores: new Map(),
+    };
+    const cache = Buffer.concat([
+      Buffer.alloc(4),
+      Buffer.from([0x1f, 0, 0, 0xff, 0xe4, 0x5c, 0x39, 0, 0, 0, 0, 4, 0, 0x44]),
+    ]);
+    parseCacheStream(cache, pmd, new Map());
+    expect(pmd.pinMaps.size).toBe(0);
+    expect(pmd.cachePinMaps.size).toBe(0);
   });
 });
