@@ -2407,7 +2407,8 @@ Partial claims whose value lists the corpus exceeds are stated with the values s
 | What the parser does | What the files show | Impact | Ids |
 | --- | --- | --- | --- |
 | Names pin +0x06 `netId` (`structures.ts:233`) and skips +0x0A as `unknownInt` (`structures.ts:234`) | +0x06 is the `wire_id`, a wire `db_id`; +0x0A is the pin's SchematicNet id | Naming: net assembly groups pins by this wire id, so fixture nets still match 4601/4601. The 934 pins whose net is given only by +0x0A (840 with `wire_id = 0xFFFFFFFF`, 94 with `wire_id = 0`) are not linked through that field. `hierarchy-expander.ts` offsets the wire id as if it were a net id. | <!-- EXT-7.4-007 INT-7.7.1-006 --> |
-| In `parseGraphicInstBase` (`structures.ts:374-379`, types 23, 37, 38) reads S+0x04 as `locY`, S+0x06 as `locX`, S+0x08 `y2`, S+0x0A `x2`, S+0x0C `x1`, S+0x0E `y1` | S+0x04/06 are bbox y1/x1 and S+0x0C/0E are loc x/loc y; the box is y1, x1, y2, x2 | `symbol-attachment.ts:64-67` takes min/max over the misnamed pair, so the box it searches for a port, Global or off-page connector runs from the true location to (x2, y2) instead of the stored box; its comment that the location lies outside the box for a third of symbols is an effect of the misnaming (the location is inside every non-zero box, §7.2). Placed and drawn instances (`structures.ts:261-262`, `327-328`) read loc x/y correctly. | <!-- EXT-7.1-006 EXT-7.1-007 EXT-7.1-010 EXT-7.1-011 --> |
+
+Resolved: `parseGraphicInstBase` (`structures.ts`) now reads the box corners y1, x1, y2, x2 and then the location x, y, so ports, Globals and off-page connectors carry their stored box and true location. `symbol-attachment.ts`, `net-pins.ts` and `page-groups.ts` therefore test the stored box. **E**: netlist coverage against Capture's exports is unchanged by the fix (fixtures 100% on every measure; corpus designs with exports unchanged). <!-- EXT-7.1-006 EXT-7.1-007 EXT-7.1-010 EXT-7.1-011 --> |
 
 ### Unverified
 
@@ -2910,9 +2911,7 @@ GraphicOleEmbedInst (89):
 
 ### Parser divergences
 
-| Parser | Files show | Impact | ids |
-| --- | --- | --- | --- |
-| `parseGraphicInstBase` reads S+0x04..S+0x0F as `locY, locX, y2, x2, x1, y1` (`src/parsers/cadence/dsn/structures.ts:374-379`), following INT's order. | The order is bbox y1, x1, y2, x2, then loc_x, loc_y. The parser's `locX, locY` are the bbox minimum corner and its `x1, y1` are the location. | Naming, plus box tests: `net-pins.ts:166-200` and `page-groups.ts:178-277` build a box from the parser's `x1..x2`, which spans the location to the maximum corner, a sub-box of the stored box; `net-pins.ts:208` and `page-groups.ts:193` match the minimum corner as "loc". The export-level netlist checks (**E**) pass on the fixtures; the effect on other designs is not measured here. | <!-- INT-7.8-008 INT-7.8-009 INT-7.8-012 INT-7.8-013 --> |
+Resolved: `parseGraphicInstBase` (`structures.ts`) now reads the box corners y1, x1, y2, x2 and then the location x, y, so ports, Globals and off-page connectors carry their stored box and true location. `symbol-attachment.ts`, `net-pins.ts` and `page-groups.ts` therefore test the stored box. **E**: netlist coverage against Capture's exports is unchanged by the fix (fixtures 100% on every measure; corpus designs with exports unchanged). <!-- INT-7.8-008 INT-7.8-009 INT-7.8-012 INT-7.8-013 --> |
 
 <!-- meta: EXT-0.2-011 EXT-8-001 EXT-8-006 EXT-8.1-010 EXT-8.6.8-018 INT-7.8-001 -->
 
@@ -4981,8 +4980,9 @@ occurrence id  --Hierarchy part occurrence-->  reference, or dbId --PlacedInstan
 
 | Parser behaviour | What the files show | Impact | Ids |
 | --- | --- | --- | --- |
-| `parseVariantNames` (`src/parsers/cadence/dsn/variant-store.ts:109-124`) ignores `count`, reads `lstr` to the end, and returns a non-empty trailer as a name | `count` is exact and a separate trailer `lstr` always follows (21/21) | None: `parseVariantNames` has no production caller, only `variant-store.test.ts` | <!-- EXT-14.3-003 EXT-14.3-005 EXT-14.3-012 INT-11-015 --> |
 | `parseVariantGroup` (`variant-store.ts:88`) drops an entry without `~` | EXT advises reading it as present; no such entry exists in our data | None on the corpus | <!-- EXT-14.9-011 --> |
+
+Resolved: the parser no longer has a `VariantNames` reader; the stream is not read (no production code needed it). <!-- EXT-14.3-003 EXT-14.3-005 EXT-14.3-012 INT-11-015 --> |
 
 ### Unverified
 
