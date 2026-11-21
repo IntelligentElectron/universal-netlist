@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T20:27:49.751Z",
-    "netlistHash": "sha256:3528b8a36b9383f5665596728e5f2fd5765fe1997f77a1f2711e9fb149fae9c9",
+    "generatedAt": "2026-11-21T21:40:46.349Z",
+    "netlistHash": "sha256:129cd951b61d1d24ec4cbc32a8d241d61961ec5eb5dfd742b8f770642b3061c2",
     "origin": {
       "type": "vendor",
       "source": {
@@ -716,13 +716,34 @@
   "components": {
     "J1": {
       "pins": {
-        "1": "VCC12V",
-        "2": "FLAG_OUT_N",
-        "3": "BSE2",
-        "4": "BSE1",
-        "5": "TPS2",
-        "6": "TPS1",
-        "7": "GND"
+        "1": {
+          "net": "VCC12V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "FLAG_OUT_N",
+          "type": "passive"
+        },
+        "3": {
+          "net": "BSE2",
+          "type": "passive"
+        },
+        "4": {
+          "net": "BSE1",
+          "type": "passive"
+        },
+        "5": {
+          "net": "TPS2",
+          "type": "passive"
+        },
+        "6": {
+          "net": "TPS1",
+          "type": "passive"
+        },
+        "7": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "manufacturer": "Molex",
       "description": "CONN HEADER R/A 7POS 2.54MM",
@@ -730,31 +751,46 @@
     },
     "TP24": {
       "pins": {
-        "1": "TPS1"
+        "1": {
+          "net": "TPS1",
+          "type": "passive"
+        }
       },
       "comment": "Test Point"
     },
     "TP25": {
       "pins": {
-        "1": "TPS2"
+        "1": {
+          "net": "TPS2",
+          "type": "passive"
+        }
       },
       "comment": "Test Point"
     },
     "TP26": {
       "pins": {
-        "1": "BSE1"
+        "1": {
+          "net": "BSE1",
+          "type": "passive"
+        }
       },
       "comment": "Test Point"
     },
     "TP27": {
       "pins": {
-        "1": "BSE2"
+        "1": {
+          "net": "BSE2",
+          "type": "passive"
+        }
       },
       "comment": "Test Point"
     },
     "TP23": {
       "pins": {
-        "1": "FLAG_OUT_N"
+        "1": {
+          "net": "FLAG_OUT_N",
+          "type": "passive"
+        }
       },
       "comment": "Test Point"
     },
@@ -762,15 +798,18 @@
       "pins": {
         "1": {
           "name": "A",
-          "net": "VCC5V"
+          "net": "VCC5V",
+          "type": "passive"
         },
         "2": {
           "name": "TAP",
-          "net": "TPS1_ADJ"
+          "net": "TPS1_ADJ",
+          "type": "passive"
         },
         "3": {
           "name": "B",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "50k 10% Trimmer Potentiometer 25-Turn Cermet",
@@ -780,15 +819,18 @@
       "pins": {
         "1": {
           "name": "A",
-          "net": "VCC5V"
+          "net": "VCC5V",
+          "type": "passive"
         },
         "2": {
           "name": "TAP",
-          "net": "TPS2_ADJ"
+          "net": "TPS2_ADJ",
+          "type": "passive"
         },
         "3": {
           "name": "B",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "50k 10% Trimmer Potentiometer 25-Turn Cermet",
@@ -798,15 +840,18 @@
       "pins": {
         "1": {
           "name": "A",
-          "net": "VCC5V"
+          "net": "VCC5V",
+          "type": "passive"
         },
         "2": {
           "name": "TAP",
-          "net": "BSE1_ADJ"
+          "net": "BSE1_ADJ",
+          "type": "passive"
         },
         "3": {
           "name": "B",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "50k 10% Trimmer Potentiometer 25-Turn Cermet",
@@ -816,15 +861,18 @@
       "pins": {
         "1": {
           "name": "A",
-          "net": "VCC5V"
+          "net": "VCC5V",
+          "type": "passive"
         },
         "2": {
           "name": "TAP",
-          "net": "BSE2_ADJ"
+          "net": "BSE2_ADJ",
+          "type": "passive"
         },
         "3": {
           "name": "B",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "50k 10% Trimmer Potentiometer 25-Turn Cermet",
@@ -832,20 +880,32 @@
     },
     "TP6": {
       "pins": {
-        "1": "TPS2D_N"
+        "1": {
+          "net": "TPS2D_N",
+          "type": "passive"
+        }
       },
       "comment": "Test Point"
     },
     "TP5": {
       "pins": {
-        "1": "TPS1D_N"
+        "1": {
+          "net": "TPS1D_N",
+          "type": "passive"
+        }
       },
       "comment": "Test Point"
     },
     "R21": {
       "pins": {
-        "1": "TPS1D_N",
-        "2": "VCC5V"
+        "1": {
+          "net": "TPS1D_N",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VCC5V",
+          "type": "passive"
+        }
       },
       "manufacturer": "Yageo",
       "description": "RES SMD 30K OHM 0.5% 1/8W 0805",
@@ -853,8 +913,14 @@
     },
     "R19": {
       "pins": {
-        "1": "TPS2D_N",
-        "2": "VCC5V"
+        "1": {
+          "net": "TPS2D_N",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VCC5V",
+          "type": "passive"
+        }
       },
       "manufacturer": "Yageo",
       "description": "RES SMD 30K OHM 0.5% 1/8W 0805",
@@ -862,8 +928,14 @@
     },
     "R20": {
       "pins": {
-        "1": "NetR20_1",
-        "2": "VCC5V"
+        "1": {
+          "net": "NetR20_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VCC5V",
+          "type": "passive"
+        }
       },
       "manufacturer": "Yageo",
       "description": "RES SMD 30K OHM 0.5% 1/8W 0805",
@@ -871,8 +943,14 @@
     },
     "R18": {
       "pins": {
-        "1": "NetR18_1",
-        "2": "VCC5V"
+        "1": {
+          "net": "NetR18_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VCC5V",
+          "type": "passive"
+        }
       },
       "manufacturer": "Yageo",
       "description": "RES SMD 30K OHM 0.5% 1/8W 0805",
@@ -880,13 +958,19 @@
     },
     "TP7": {
       "pins": {
-        "1": "NetR20_1"
+        "1": {
+          "net": "NetR20_1",
+          "type": "passive"
+        }
       },
       "comment": "Test Point"
     },
     "TP8": {
       "pins": {
-        "1": "NetR18_1"
+        "1": {
+          "net": "NetR18_1",
+          "type": "passive"
+        }
       },
       "comment": "Test Point"
     },
@@ -894,59 +978,73 @@
       "pins": {
         "1": {
           "name": "1A",
-          "net": "TPS2D_N"
+          "net": "TPS2D_N",
+          "type": "input"
         },
         "2": {
           "name": "1\\Y\\",
-          "net": "TPS2D"
+          "net": "TPS2D",
+          "type": "output"
         },
         "3": {
           "name": "2A",
-          "net": "TPS1D_N"
+          "net": "TPS1D_N",
+          "type": "input"
         },
         "4": {
           "name": "2\\Y\\",
-          "net": "TPS1D"
+          "net": "TPS1D",
+          "type": "output"
         },
         "5": {
           "name": "3A",
-          "net": "NetR20_1"
+          "net": "NetR20_1",
+          "type": "input"
         },
         "6": {
           "name": "3\\Y\\",
-          "net": "BSE1D"
+          "net": "BSE1D",
+          "type": "output"
         },
         "7": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "8": {
           "name": "4\\Y\\",
-          "net": "BSE2D"
+          "net": "BSE2D",
+          "type": "output"
         },
         "9": {
           "name": "4A",
-          "net": "NetR18_1"
+          "net": "NetR18_1",
+          "type": "input"
         },
         "10": {
           "name": "5\\Y\\",
-          "net": "TRIG_N"
+          "net": "TRIG_N",
+          "type": "output"
         },
         "11": {
           "name": "5A",
-          "net": "NetU2_11"
+          "net": "NetU2_11",
+          "type": "input"
         },
         "12": {
           "name": "6\\Y\\",
-          "net": ""
+          "net": "",
+          "type": "output"
         },
         "13": {
           "name": "6A",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "14": {
           "name": "VCC",
-          "net": "VCC5V"
+          "net": "VCC5V",
+          "type": "power"
         }
       },
       "description": "TEXAS INSTRUMENTS - SN74LS04D - HEX INVERTER, SMD, 74LS04, SOIC14",
@@ -954,25 +1052,37 @@
     },
     "TP10": {
       "pins": {
-        "1": "TPS2D"
+        "1": {
+          "net": "TPS2D",
+          "type": "passive"
+        }
       },
       "comment": "Test Point"
     },
     "TP9": {
       "pins": {
-        "1": "TPS1D"
+        "1": {
+          "net": "TPS1D",
+          "type": "passive"
+        }
       },
       "comment": "Test Point"
     },
     "TP11": {
       "pins": {
-        "1": "BSE1D"
+        "1": {
+          "net": "BSE1D",
+          "type": "passive"
+        }
       },
       "comment": "Test Point"
     },
     "TP12": {
       "pins": {
-        "1": "BSE2D"
+        "1": {
+          "net": "BSE2D",
+          "type": "passive"
+        }
       },
       "comment": "Test Point"
     },
@@ -980,59 +1090,73 @@
       "pins": {
         "1": {
           "name": "OUT2",
-          "net": "TPS1D_N"
+          "net": "TPS1D_N",
+          "type": "output"
         },
         "2": {
           "name": "OUT1",
-          "net": "TPS2D_N"
+          "net": "TPS2D_N",
+          "type": "output"
         },
         "3": {
           "name": "V+",
-          "net": "VCC5V"
+          "net": "VCC5V",
+          "type": "power"
         },
         "4": {
           "name": "IN1-",
-          "net": "TPS2_ADJ"
+          "net": "TPS2_ADJ",
+          "type": "input"
         },
         "5": {
           "name": "IN1+",
-          "net": "TPS2"
+          "net": "TPS2",
+          "type": "input"
         },
         "6": {
           "name": "IN2-",
-          "net": "TPS1"
+          "net": "TPS1",
+          "type": "input"
         },
         "7": {
           "name": "IN2+",
-          "net": "TPS1_ADJ"
+          "net": "TPS1_ADJ",
+          "type": "input"
         },
         "8": {
           "name": "IN3-",
-          "net": "BSE1"
+          "net": "BSE1",
+          "type": "input"
         },
         "9": {
           "name": "IN3+",
-          "net": "BSE1_ADJ"
+          "net": "BSE1_ADJ",
+          "type": "input"
         },
         "10": {
           "name": "IN4-",
-          "net": "BSE2"
+          "net": "BSE2",
+          "type": "input"
         },
         "11": {
           "name": "IN4+",
-          "net": "BSE2_ADJ"
+          "net": "BSE2_ADJ",
+          "type": "input"
         },
         "12": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "13": {
           "name": "OUT4",
-          "net": "NetR18_1"
+          "net": "NetR18_1",
+          "type": "output"
         },
         "14": {
           "name": "OUT3",
-          "net": "NetR20_1"
+          "net": "NetR20_1",
+          "type": "output"
         }
       },
       "description": "TEXAS INSTRUMENTS   LP339M/NOPB   LOW POWER COMPARATOR, QUAD, 8 uS, SOIC-14",
@@ -1042,59 +1166,73 @@
       "pins": {
         "1": {
           "name": "A",
-          "net": "TPS2D"
+          "net": "TPS2D",
+          "type": "input"
         },
         "2": {
           "name": "B",
-          "net": "TPS1D"
+          "net": "TPS1D",
+          "type": "input"
         },
         "3": {
           "name": "J",
-          "net": "TPS_ON"
+          "net": "TPS_ON",
+          "type": "output"
         },
         "4": {
           "name": "K",
-          "net": "BSE_ON"
+          "net": "BSE_ON",
+          "type": "output"
         },
         "5": {
           "name": "C",
-          "net": "BSE1D"
+          "net": "BSE1D",
+          "type": "input"
         },
         "6": {
           "name": "D",
-          "net": "BSE2D"
+          "net": "BSE2D",
+          "type": "input"
         },
         "7": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "8": {
           "name": "E",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "9": {
           "name": "F",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "10": {
           "name": "L",
-          "net": ""
+          "net": "",
+          "type": "output"
         },
         "11": {
           "name": "M",
-          "net": ""
+          "net": "",
+          "type": "output"
         },
         "12": {
           "name": "G",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "13": {
           "name": "H",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "14": {
           "name": "VDD",
-          "net": "VCC5V"
+          "net": "VCC5V",
+          "type": "power"
         }
       },
       "description": "OR Gate 4-Element 2-IN CMOS 14-Pin SOIC T/R",
@@ -1102,13 +1240,19 @@
     },
     "TP13": {
       "pins": {
-        "1": "TPS_ON"
+        "1": {
+          "net": "TPS_ON",
+          "type": "passive"
+        }
       },
       "comment": "Test Point"
     },
     "TP14": {
       "pins": {
-        "1": "BSE_ON"
+        "1": {
+          "net": "BSE_ON",
+          "type": "passive"
+        }
       },
       "comment": "Test Point"
     },
@@ -1116,59 +1260,73 @@
       "pins": {
         "1": {
           "name": "A",
-          "net": "TPS_ON"
+          "net": "TPS_ON",
+          "type": "input"
         },
         "2": {
           "name": "B",
-          "net": "BSE_ON"
+          "net": "BSE_ON",
+          "type": "input"
         },
         "3": {
           "name": "J",
-          "net": "BOTH_ON"
+          "net": "BOTH_ON",
+          "type": "output"
         },
         "4": {
           "name": "K",
-          "net": ""
+          "net": "",
+          "type": "input"
         },
         "5": {
           "name": "C",
-          "net": "VCC5V"
+          "net": "VCC5V",
+          "type": "input"
         },
         "6": {
           "name": "D",
-          "net": "VCC5V"
+          "net": "VCC5V",
+          "type": "output"
         },
         "7": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "8": {
           "name": "E",
-          "net": "VCC5V"
+          "net": "VCC5V",
+          "type": "input"
         },
         "9": {
           "name": "F",
-          "net": "VCC5V"
+          "net": "VCC5V",
+          "type": "input"
         },
         "10": {
           "name": "L",
-          "net": ""
+          "net": "",
+          "type": "output"
         },
         "11": {
           "name": "M",
-          "net": ""
+          "net": "",
+          "type": "output"
         },
         "12": {
           "name": "G",
-          "net": "VCC5V"
+          "net": "VCC5V",
+          "type": "input"
         },
         "13": {
           "name": "H",
-          "net": "VCC5V"
+          "net": "VCC5V",
+          "type": "input"
         },
         "14": {
           "name": "VDD",
-          "net": "VCC5V"
+          "net": "VCC5V",
+          "type": "power"
         }
       },
       "description": "TEXAS INSTRUMENTS - CD4081BM96 - AND Gate, CD4081, 8 Input, 6.8 mA, 3 V to 18 V, SOIC-14",
@@ -1176,7 +1334,10 @@
     },
     "TP15": {
       "pins": {
-        "1": "BOTH_ON"
+        "1": {
+          "net": "BOTH_ON",
+          "type": "passive"
+        }
       },
       "comment": "Test Point"
     },
@@ -1184,59 +1345,73 @@
       "pins": {
         "1": {
           "name": "OUT2",
-          "net": "NetU2_11"
+          "net": "NetU2_11",
+          "type": "output"
         },
         "2": {
           "name": "OUT1",
-          "net": "NetU2_11"
+          "net": "NetU2_11",
+          "type": "output"
         },
         "3": {
           "name": "V+",
-          "net": "VCC5V"
+          "net": "VCC5V",
+          "type": "power"
         },
         "4": {
           "name": "IN1-",
-          "net": "NetU2_11"
+          "net": "NetU2_11",
+          "type": "input"
         },
         "5": {
           "name": "IN1+",
-          "net": "BOTH_TRIG"
+          "net": "BOTH_TRIG",
+          "type": "input"
         },
         "6": {
           "name": "IN2-",
-          "net": "NetU2_11"
+          "net": "NetU2_11",
+          "type": "input"
         },
         "7": {
           "name": "IN2+",
-          "net": "SENSOR_TRIG"
+          "net": "SENSOR_TRIG",
+          "type": "input"
         },
         "8": {
           "name": "IN3-",
-          "net": "NetR27_1"
+          "net": "NetR27_1",
+          "type": "input"
         },
         "9": {
           "name": "IN3+",
-          "net": "NetR28_2"
+          "net": "NetR28_2",
+          "type": "input"
         },
         "10": {
           "name": "IN4-",
-          "net": "NetR29_1"
+          "net": "NetR29_1",
+          "type": "input"
         },
         "11": {
           "name": "IN4+",
-          "net": "NetR30_2"
+          "net": "NetR30_2",
+          "type": "input"
         },
         "12": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "13": {
           "name": "OUT4",
-          "net": ""
+          "net": "",
+          "type": "output"
         },
         "14": {
           "name": "OUT3",
-          "net": ""
+          "net": "",
+          "type": "output"
         }
       },
       "description": "TEXAS INSTRUMENTS   LP339M/NOPB   LOW POWER COMPARATOR, QUAD, 8 uS, SOIC-14",
@@ -1246,59 +1421,73 @@
       "pins": {
         "1": {
           "name": "OUT2",
-          "net": "SENSOR_DC"
+          "net": "SENSOR_DC",
+          "type": "output"
         },
         "2": {
           "name": "OUT1",
-          "net": "SENSOR_DC"
+          "net": "SENSOR_DC",
+          "type": "output"
         },
         "3": {
           "name": "V+",
-          "net": "VCC5V"
+          "net": "VCC5V",
+          "type": "power"
         },
         "4": {
           "name": "IN1-",
-          "net": "NetR17_1"
+          "net": "NetR17_1",
+          "type": "input"
         },
         "5": {
           "name": "IN1+",
-          "net": "TPS1"
+          "net": "TPS1",
+          "type": "input"
         },
         "6": {
           "name": "IN2-",
-          "net": "NetR17_1"
+          "net": "NetR17_1",
+          "type": "input"
         },
         "7": {
           "name": "IN2+",
-          "net": "TPS2"
+          "net": "TPS2",
+          "type": "input"
         },
         "8": {
           "name": "IN3-",
-          "net": "NetR17_1"
+          "net": "NetR17_1",
+          "type": "input"
         },
         "9": {
           "name": "IN3+",
-          "net": "BSE1"
+          "net": "BSE1",
+          "type": "input"
         },
         "10": {
           "name": "IN4-",
-          "net": "NetR17_1"
+          "net": "NetR17_1",
+          "type": "input"
         },
         "11": {
           "name": "IN4+",
-          "net": "BSE2"
+          "net": "BSE2",
+          "type": "input"
         },
         "12": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "13": {
           "name": "OUT4",
-          "net": "SENSOR_DC"
+          "net": "SENSOR_DC",
+          "type": "output"
         },
         "14": {
           "name": "OUT3",
-          "net": "SENSOR_DC"
+          "net": "SENSOR_DC",
+          "type": "output"
         }
       },
       "description": "TEXAS INSTRUMENTS   LP339M/NOPB   LOW POWER COMPARATOR, QUAD, 8 uS, SOIC-14",
@@ -1306,14 +1495,23 @@
     },
     "TP17": {
       "pins": {
-        "1": "BOTH_TRIG"
+        "1": {
+          "net": "BOTH_TRIG",
+          "type": "passive"
+        }
       },
       "comment": "Test Point"
     },
     "R17": {
       "pins": {
-        "1": "NetR17_1",
-        "2": "VCC5V"
+        "1": {
+          "net": "NetR17_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VCC5V",
+          "type": "passive"
+        }
       },
       "manufacturer": "Yageo",
       "description": "RES SMD 499K OHM 1% 1/8W 0805",
@@ -1321,8 +1519,14 @@
     },
     "R22": {
       "pins": {
-        "1": "GND",
-        "2": "NetR17_1"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR17_1",
+          "type": "passive"
+        }
       },
       "manufacturer": "Yageo",
       "description": "RES SMD 2K OHM 1% 1/8W 0805",
@@ -1332,27 +1536,33 @@
       "pins": {
         "1": {
           "name": "IN",
-          "net": "SENSOR_DC"
+          "net": "SENSOR_DC",
+          "type": "input"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "3": {
           "name": "SET",
-          "net": "NetR36_2"
+          "net": "NetR36_2",
+          "type": "passive"
         },
         "4": {
           "name": "DIV",
-          "net": "NetR34_2"
+          "net": "NetR34_2",
+          "type": "input"
         },
         "5": {
           "name": "V+",
-          "net": "VCC5V"
+          "net": "VCC5V",
+          "type": "power"
         },
         "6": {
           "name": "OUT",
-          "net": "SENSOR_TRIG"
+          "net": "SENSOR_TRIG",
+          "type": "output"
         }
       },
       "description": "Programmable Delay Block 6-Pin TSOT-23 T/R",
@@ -1362,27 +1572,33 @@
       "pins": {
         "1": {
           "name": "IN",
-          "net": "BOTH_ON"
+          "net": "BOTH_ON",
+          "type": "input"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "3": {
           "name": "SET",
-          "net": "NetR33_2"
+          "net": "NetR33_2",
+          "type": "passive"
         },
         "4": {
           "name": "DIV",
-          "net": "NetR31_2"
+          "net": "NetR31_2",
+          "type": "input"
         },
         "5": {
           "name": "V+",
-          "net": "VCC5V"
+          "net": "VCC5V",
+          "type": "power"
         },
         "6": {
           "name": "OUT",
-          "net": "BOTH_TRIG"
+          "net": "BOTH_TRIG",
+          "type": "output"
         }
       },
       "description": "Programmable Delay Block 6-Pin TSOT-23 T/R",
@@ -1390,20 +1606,32 @@
     },
     "TP18": {
       "pins": {
-        "1": "SENSOR_TRIG"
+        "1": {
+          "net": "SENSOR_TRIG",
+          "type": "passive"
+        }
       },
       "comment": "Test Point"
     },
     "TP16": {
       "pins": {
-        "1": "SENSOR_DC"
+        "1": {
+          "net": "SENSOR_DC",
+          "type": "passive"
+        }
       },
       "comment": "Test Point"
     },
     "R23": {
       "pins": {
-        "1": "GND",
-        "2": "BSE2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "BSE2",
+          "type": "passive"
+        }
       },
       "manufacturer": "Stackpole Electronics Inc",
       "description": "RES 1K OHM 0.1% 1/10W 0805",
@@ -1411,8 +1639,14 @@
     },
     "R24": {
       "pins": {
-        "1": "GND",
-        "2": "BSE1"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "BSE1",
+          "type": "passive"
+        }
       },
       "manufacturer": "Stackpole Electronics Inc",
       "description": "RES 1K OHM 0.1% 1/10W 0805",
@@ -1420,8 +1654,14 @@
     },
     "R25": {
       "pins": {
-        "1": "GND",
-        "2": "TPS2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "TPS2",
+          "type": "passive"
+        }
       },
       "manufacturer": "Stackpole Electronics Inc",
       "description": "RES 1K OHM 0.1% 1/10W 0805",
@@ -1429,8 +1669,14 @@
     },
     "R26": {
       "pins": {
-        "1": "GND",
-        "2": "TPS1"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "TPS1",
+          "type": "passive"
+        }
       },
       "manufacturer": "Stackpole Electronics Inc",
       "description": "RES 1K OHM 0.1% 1/10W 0805",
@@ -1440,67 +1686,83 @@
       "pins": {
         "1": {
           "name": "Q4",
-          "net": ""
+          "net": "",
+          "type": "output"
         },
         "2": {
           "name": "NC",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "3": {
           "name": "S1",
-          "net": "TRIG_N"
+          "net": "TRIG_N",
+          "type": "input"
         },
         "4": {
           "name": "R1",
-          "net": "RESET"
+          "net": "RESET",
+          "type": "input"
         },
         "5": {
           "name": "ENABLE",
-          "net": "VCC5V"
+          "net": "VCC5V",
+          "type": "input"
         },
         "6": {
           "name": "R2",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "7": {
           "name": "S2",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "8": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "9": {
           "name": "Q2",
-          "net": ""
+          "net": "",
+          "type": "input"
         },
         "10": {
           "name": "Q3",
-          "net": ""
+          "net": "",
+          "type": "input"
         },
         "11": {
           "name": "S3",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "12": {
           "name": "R3",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "13": {
           "name": "Q1",
-          "net": "FLAG_OUT_N"
+          "net": "FLAG_OUT_N",
+          "type": "output"
         },
         "14": {
           "name": "R4",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "15": {
           "name": "S4",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "16": {
           "name": "VDD",
-          "net": "VCC5V"
+          "net": "VCC5V",
+          "type": "power"
         }
       },
       "description": "IC, QUAD NAND R/S-LATCH, 3-STATE, SOP-16, FULL REEL; Latch Type:SR; Output Current:-; Propagation Delay:50ns; Supply Voltage Min:3V; Supply Voltage Max:18V; Logic Case Style:SOIC; No. of Pins:16; No. of Bits:4bit ;RoHS Compliant: Yes",
@@ -1510,19 +1772,23 @@
       "pins": {
         "1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "2": {
           "name": "OUT",
-          "net": "VCC5V"
+          "net": "VCC5V",
+          "type": "power"
         },
         "3": {
           "name": "IN",
-          "net": "VCC12V"
+          "net": "VCC12V",
+          "type": "power"
         },
         "4": {
           "name": "TAB",
-          "net": "VCC5V"
+          "net": "VCC5V",
+          "type": "power"
         }
       },
       "description": "800-mA 15-V linear voltage regulator 4-SOT-223 0 to 125",
@@ -1530,8 +1796,14 @@
     },
     "C2": {
       "pins": {
-        "1": "VCC5V",
-        "2": "GND"
+        "1": {
+          "net": "VCC5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "manufacturer": "Panasonic Electronic Components",
       "description": "CAP ALUM 10UF 20% 50V SMD",
@@ -1539,8 +1811,14 @@
     },
     "C1": {
       "pins": {
-        "1": "VCC12V",
-        "2": "GND"
+        "1": {
+          "net": "VCC12V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "manufacturer": "Panasonic Electronic Components",
       "description": "CAP ALUM 10UF 20% 50V SMD",
@@ -1548,14 +1826,23 @@
     },
     "TP19": {
       "pins": {
-        "1": "TRIG_N"
+        "1": {
+          "net": "TRIG_N",
+          "type": "passive"
+        }
       },
       "comment": "Test Point"
     },
     "R27": {
       "pins": {
-        "1": "NetR27_1",
-        "2": "VCC5V"
+        "1": {
+          "net": "NetR27_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VCC5V",
+          "type": "passive"
+        }
       },
       "manufacturer": "Yageo",
       "description": "RES SMD 10K OHM 1% 1/8W 0805",
@@ -1563,8 +1850,14 @@
     },
     "R28": {
       "pins": {
-        "1": "GND",
-        "2": "NetR28_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR28_2",
+          "type": "passive"
+        }
       },
       "manufacturer": "Yageo",
       "description": "RES SMD 10K OHM 1% 1/8W 0805",
@@ -1572,8 +1865,14 @@
     },
     "R29": {
       "pins": {
-        "1": "NetR29_1",
-        "2": "VCC5V"
+        "1": {
+          "net": "NetR29_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VCC5V",
+          "type": "passive"
+        }
       },
       "manufacturer": "Yageo",
       "description": "RES SMD 10K OHM 1% 1/8W 0805",
@@ -1581,8 +1880,14 @@
     },
     "R30": {
       "pins": {
-        "1": "GND",
-        "2": "NetR30_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR30_2",
+          "type": "passive"
+        }
       },
       "manufacturer": "Yageo",
       "description": "RES SMD 10K OHM 1% 1/8W 0805",
@@ -1590,8 +1895,14 @@
     },
     "R41": {
       "pins": {
-        "1": "GND",
-        "2": "FLAG_OUT_N"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "FLAG_OUT_N",
+          "type": "passive"
+        }
       },
       "manufacturer": "Yageo",
       "description": "RES SMD 10K OHM 1% 1/8W 0805",
@@ -1599,8 +1910,14 @@
     },
     "C4": {
       "pins": {
-        "1": "GND",
-        "2": "VCC5V"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VCC5V",
+          "type": "passive"
+        }
       },
       "manufacturer": "Vishay Vitramon",
       "description": "CAP CER 0.1UF 25V X7R 0805",
@@ -1608,8 +1925,14 @@
     },
     "R36": {
       "pins": {
-        "1": "GND",
-        "2": "NetR36_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR36_2",
+          "type": "passive"
+        }
       },
       "manufacturer": "Yageo",
       "description": "RES SMD 154K OHM 1% 1/8W 0805",
@@ -1617,8 +1940,14 @@
     },
     "C3": {
       "pins": {
-        "1": "GND",
-        "2": "VCC5V"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VCC5V",
+          "type": "passive"
+        }
       },
       "manufacturer": "Vishay Vitramon",
       "description": "CAP CER 0.1UF 25V X7R 0805",
@@ -1626,8 +1955,14 @@
     },
     "R34": {
       "pins": {
-        "1": "VCC5V",
-        "2": "NetR34_2"
+        "1": {
+          "net": "VCC5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR34_2",
+          "type": "passive"
+        }
       },
       "manufacturer": "Yageo",
       "description": "RES SMD 1M OHM 1% 1/8W 0805",
@@ -1635,8 +1970,14 @@
     },
     "R35": {
       "pins": {
-        "1": "GND",
-        "2": "NetR34_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR34_2",
+          "type": "passive"
+        }
       },
       "manufacturer": "Yageo",
       "description": "RES SMD 523K OHM 1% 1/8W 0805",
@@ -1644,8 +1985,14 @@
     },
     "R31": {
       "pins": {
-        "1": "VCC5V",
-        "2": "NetR31_2"
+        "1": {
+          "net": "VCC5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR31_2",
+          "type": "passive"
+        }
       },
       "manufacturer": "Yageo",
       "description": "RES SMD 1M OHM 1% 1/8W 0805",
@@ -1653,8 +2000,14 @@
     },
     "R33": {
       "pins": {
-        "1": "GND",
-        "2": "NetR33_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR33_2",
+          "type": "passive"
+        }
       },
       "manufacturer": "Yageo",
       "description": "RES SMD 191K OHM 1% 1/8W 0805",
@@ -1662,8 +2015,14 @@
     },
     "R32": {
       "pins": {
-        "1": "GND",
-        "2": "NetR31_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR31_2",
+          "type": "passive"
+        }
       },
       "manufacturer": "Stackpole Electronics Inc",
       "description": "RES 681K OHM 1% 1/8W 0805",
@@ -1673,35 +2032,43 @@
       "pins": {
         "1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "2": {
           "name": "TRIG",
-          "net": "NetC8_1"
+          "net": "NetC8_1",
+          "type": "input"
         },
         "3": {
           "name": "OUT",
-          "net": "NetR40_2"
+          "net": "NetR40_2",
+          "type": "output"
         },
         "4": {
           "name": "RST",
-          "net": "VCC5V"
+          "net": "VCC5V",
+          "type": "input"
         },
         "5": {
           "name": "CVOLT",
-          "net": "NetC5_2"
+          "net": "NetC5_2",
+          "type": "passive"
         },
         "6": {
           "name": "THR",
-          "net": "NetC7_1"
+          "net": "NetC7_1",
+          "type": "input"
         },
         "7": {
           "name": "DIS",
-          "net": "NetC6_1"
+          "net": "NetC6_1",
+          "type": "open_collector"
         },
         "8": {
           "name": "+VCC",
-          "net": "VCC5V"
+          "net": "VCC5V",
+          "type": "power"
         }
       },
       "description": "IC OSC SGL TIMER 100KHZ 8-SOIC",
@@ -1709,8 +2076,14 @@
     },
     "C6": {
       "pins": {
-        "1": "NetC6_1",
-        "2": "GND"
+        "1": {
+          "net": "NetC6_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "manufacturer": "Taiyo Yuden",
       "description": "CAP CER 4.7UF 25V X5R 0805",
@@ -1718,8 +2091,14 @@
     },
     "R39": {
       "pins": {
-        "1": "GND",
-        "2": "VCC5V"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VCC5V",
+          "type": "passive"
+        }
       },
       "manufacturer": "Yageo",
       "description": "RES SMD 10K OHM 1% 1/8W 0805",
@@ -1727,8 +2106,14 @@
     },
     "R38": {
       "pins": {
-        "1": "NetC7_1",
-        "2": "VCC5V"
+        "1": {
+          "net": "NetC7_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VCC5V",
+          "type": "passive"
+        }
       },
       "manufacturer": "Yageo",
       "description": "RES SMD 10K OHM 1% 1/8W 0805",
@@ -1736,8 +2121,14 @@
     },
     "C7": {
       "pins": {
-        "1": "NetC7_1",
-        "2": "GND"
+        "1": {
+          "net": "NetC7_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "manufacturer": "Taiyo Yuden",
       "description": "CAP CER 4.7UF 25V X5R 0805",
@@ -1745,8 +2136,14 @@
     },
     "C5": {
       "pins": {
-        "1": "GND",
-        "2": "NetC5_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC5_2",
+          "type": "passive"
+        }
       },
       "manufacturer": "Vishay Vitramon",
       "description": "CAP CER 0.1UF 25V X7R 0805",
@@ -1754,8 +2151,14 @@
     },
     "R37": {
       "pins": {
-        "1": "GND",
-        "2": "NetC8_1"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC8_1",
+          "type": "passive"
+        }
       },
       "manufacturer": "Yageo",
       "description": "RES SMD 10K OHM 1% 1/8W 0805",
@@ -1763,8 +2166,14 @@
     },
     "C8": {
       "pins": {
-        "1": "NetC8_1",
-        "2": "VCC5V"
+        "1": {
+          "net": "NetC8_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VCC5V",
+          "type": "passive"
+        }
       },
       "manufacturer": "Vishay Vitramon",
       "description": "CAP CER 1UF 25V X7R 0805",
@@ -1772,22 +2181,37 @@
     },
     "TP20": {
       "pins": {
-        "1": "RESET"
+        "1": {
+          "net": "RESET",
+          "type": "passive"
+        }
       },
       "comment": "Test Point"
     },
     "SW1": {
       "pins": {
-        "1": "NetR40_2",
-        "2": "RESET"
+        "1": {
+          "net": "NetR40_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "RESET",
+          "type": "passive"
+        }
       },
       "description": "Switch DIP OFF ON SPST 1 Raised Slide 0.1A 24VDC Gull Wing 1000Cycles SMD Tube",
       "comment": "SDA01H1SBD"
     },
     "R40": {
       "pins": {
-        "1": "RESET",
-        "2": "NetR40_2"
+        "1": {
+          "net": "RESET",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR40_2",
+          "type": "passive"
+        }
       },
       "manufacturer": "Stackpole Electronics Inc",
       "description": "RES 1K OHM 0.1% 1/10W 0805",
@@ -1795,25 +2219,37 @@
     },
     "TP1": {
       "pins": {
-        "1": "TPS1_ADJ"
+        "1": {
+          "net": "TPS1_ADJ",
+          "type": "passive"
+        }
       },
       "comment": "Test Point"
     },
     "TP2": {
       "pins": {
-        "1": "TPS2_ADJ"
+        "1": {
+          "net": "TPS2_ADJ",
+          "type": "passive"
+        }
       },
       "comment": "Test Point"
     },
     "TP3": {
       "pins": {
-        "1": "BSE1_ADJ"
+        "1": {
+          "net": "BSE1_ADJ",
+          "type": "passive"
+        }
       },
       "comment": "Test Point"
     },
     "TP4": {
       "pins": {
-        "1": "BSE2_ADJ"
+        "1": {
+          "net": "BSE2_ADJ",
+          "type": "passive"
+        }
       },
       "comment": "Test Point"
     }

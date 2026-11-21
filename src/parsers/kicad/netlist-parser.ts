@@ -32,7 +32,9 @@ import {
 import {
   createPinEntry,
   getPinNet,
+  PIN_TYPES,
   type ParsedNetlist,
+  type PinType,
   type ComponentDetails,
   type NetConnections,
 } from "../../types.js";
@@ -210,6 +212,17 @@ const isNoConnectPinType = (pintype: string | undefined): boolean =>
   pintype === "no_connect" || (pintype?.endsWith("+no_connect") ?? false);
 
 /**
+ * A node's electrical type: its `pintype` without the `+no_connect` KiCad adds
+ * for a no-connect flag on the net, with `tri_state` spelled `tristate`. A value
+ * outside the known types reads as no type.
+ */
+const kicadPinType = (pintype: string | undefined): PinType | undefined => {
+  const base = pintype?.replace(/\+no_connect$/, "");
+  const type = base === "tri_state" ? "tristate" : base;
+  return (PIN_TYPES as readonly string[]).includes(type ?? "") ? (type as PinType) : undefined;
+};
+
+/**
  * Parse a kicadsexpr netlist export (file contents) into a ParsedNetlist.
  * Pure function: same input always yields the same output.
  */
@@ -288,6 +301,7 @@ export const parseKicadNetlist = (content: string): ParsedNetlist => {
     alone: boolean;
     refdes: string;
     name: string;
+    type: PinType | undefined;
   }[] = [];
   for (const net of childrenByTag(netsNode, "net")) {
     const netName = childString(net, "name");
@@ -310,11 +324,12 @@ export const parseKicadNetlist = (content: string): ParsedNetlist => {
       const refdes = childString(node, "ref");
       const number = childString(node, "pin") ?? "";
       const name = pinName(childString(node, "pinfunction"), number);
+      const type = kicadPinType(childString(node, "pintype"));
       if (!refdes) continue;
       if (number) {
         if (membership) list(membership, refdes, number);
         // Component pin → net mapping, with the symbol pin name when meaningful.
-        componentOf(refdes).pins[number] = createPinEntry(number, name, pinNet);
+        componentOf(refdes).pins[number] = createPinEntry(number, name, pinNet, { type });
       } else if (name) {
         unnumbered.push({
           netName: pinNet,
@@ -322,6 +337,7 @@ export const parseKicadNetlist = (content: string): ParsedNetlist => {
           alone: nodes.length === 1,
           refdes,
           name,
+          type,
         });
       }
     }
@@ -333,13 +349,13 @@ export const parseKicadNetlist = (content: string): ParsedNetlist => {
   // left off this one. KiCad lists nets by name, so its one-pin
   // `unconnected-(...)` stubs for open pins can come before the real net.
   unnumbered.sort((a, b) => Number(a.alone) - Number(b.alone));
-  for (const { netName, membership, refdes, name } of unnumbered) {
+  for (const { netName, membership, refdes, name, type } of unnumbered) {
     const pins = componentOf(refdes).pins;
     const placed = Object.hasOwn(pins, name) ? getPinNet(pins[name]) : undefined;
     if (placed !== undefined && placed !== netName) continue;
     if (membership) list(membership, refdes, name);
-    // The name is the key, so the entry is the plain net name.
-    if (placed === undefined) pins[name] = netName;
+    // The name is the key, so the entry carries no name of its own.
+    if (placed === undefined) pins[name] = createPinEntry(name, name, netName, { type });
   }
 
   return { nets, components };

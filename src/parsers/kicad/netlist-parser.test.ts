@@ -77,8 +77,8 @@ describe("parseKicadNetlist", () => {
 
   it("strips the _<pinNumber> suffix from pinfunction to recover the pin name", () => {
     // U1 pin 1 named OUT → object with name.
-    expect(result.components.U1.pins["1"]).toEqual({ name: "OUT", net: "VOUT" });
-    expect(result.components.U1.pins["4"]).toEqual({ name: "V-", net: "GND" });
+    expect(result.components.U1.pins["1"]).toEqual({ name: "OUT", net: "VOUT", type: "output" });
+    expect(result.components.U1.pins["4"]).toEqual({ name: "V-", net: "GND", type: "power_in" });
   });
 
   it("strips the suffix from overbar pinfunctions (~{...})", () => {
@@ -135,9 +135,9 @@ describe("parseKicadNetlist", () => {
     // Unnamed as well as unnumbered: no key, so the pin is left out.
     expect(unnumbered.nets.LOST).toEqual({ C1: ["1"] });
     expect(unnumbered.components.U1.pins).toEqual({
-      Vin: "VIN",
-      GND: "GND",
-      "~{EN}_": "Net-(U1-~{EN}_)",
+      Vin: { net: "VIN", type: "input" },
+      GND: { net: "GND", type: "input" },
+      "~{EN}_": { net: "Net-(U1-~{EN}_)", type: "input" },
     });
   });
 
@@ -242,11 +242,34 @@ describe("parseKicadNetlist", () => {
     expect(short.nets.VDD).toEqual({ U1: ["7"] });
   });
 
-  it("uses a plain net string when the pin name equals the pin number", () => {
-    // TP1 pin 1, pinfunction "1_1" → name "1" == number → plain string.
-    expect(result.components.TP1.pins["1"]).toBe("VOUT");
-    // R1 pins have no pinfunction → plain strings.
-    expect(result.components.R1.pins).toEqual({ "1": "VOUT", "2": "GND" });
+  it("drops a pin name equal to the pin number, keeping the pin's type", () => {
+    // TP1 pin 1, pinfunction "1_1" → name "1" == number → no name.
+    expect(result.components.TP1.pins["1"]).toEqual({ net: "VOUT", type: "passive" });
+    // R1 pins have no pinfunction → net and type only.
+    expect(result.components.R1.pins).toEqual({
+      "1": { net: "VOUT", type: "passive" },
+      "2": { net: "GND", type: "passive" },
+    });
+  });
+
+  it("reads pintype as the pin's electrical type", () => {
+    const typed = parseKicadNetlist(`(export (version "E")
+  (components
+    (comp (ref "U1") (value "X") (libsource (lib "L") (part "X"))))
+  (nets
+    (net (code "1") (name "A")
+      (node (ref "U1") (pin "1") (pintype "tri_state"))
+      (node (ref "U1") (pin "2") (pintype "power_out"))
+      (node (ref "U1") (pin "3") (pintype "open_emitter+no_connect"))
+      (node (ref "U1") (pin "4") (pintype "made_up"))
+      (node (ref "U1") (pin "5")))))`);
+    expect(typed.components.U1.pins).toEqual({
+      "1": { net: "A", type: "tristate" },
+      "2": { net: "A", type: "power_out" },
+      "3": { net: "A", type: "open_emitter" },
+      "4": "A",
+      "5": "A",
+    });
   });
 
   it("throws when the input is not a netlist export", () => {

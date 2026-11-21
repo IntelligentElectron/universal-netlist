@@ -320,3 +320,27 @@ describe("Do Not Stuff written into Value", () => {
     expect(extractComponents(withValue("R3", "10K")).R3?.dns).toBeUndefined();
   });
 });
+
+describe("pin electrical types", () => {
+  it("reads each pin's Electrical code, an absent one as input", () => {
+    const u1 = part(0, "U1");
+    const pin = (index: number, designator: string, electrical?: string): AltiumRecord => ({
+      index,
+      RECORD: "2",
+      OwnerIndex: "0",
+      Designator: designator,
+      ...(electrical !== undefined && { Electrical: electrical }),
+    });
+    u1.children!.push(pin(2, "1"), pin(3, "2", "2"), pin(4, "3", "5"), pin(5, "4", "7"));
+    u1.children!.push({ ...pin(6, "5"), ELECTRICAL: "3" }, pin(7, "6", "X"), pin(8, "7", "9"));
+    expect(extractComponents(schematic(u1)).U1.pins).toEqual({
+      "1": { net: "", type: "input" },
+      "2": { net: "", type: "output" },
+      "3": { net: "", type: "tristate" },
+      "4": { net: "", type: "power" },
+      "5": { net: "", type: "open_collector" },
+      "6": "",
+      "7": "",
+    });
+  });
+});

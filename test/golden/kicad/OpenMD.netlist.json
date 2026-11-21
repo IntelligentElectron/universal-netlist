@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T20:27:50.086Z",
-    "netlistHash": "sha256:55300b91883c72fe5133bf31d5db291add20780364f2c25f0cd83eb52a9947e9",
+    "generatedAt": "2026-11-21T21:40:46.709Z",
+    "netlistHash": "sha256:5429bcd9d01e2646f8070e1313374fcf191664dd075e422de09172f9caf8858e",
     "origin": {
       "type": "vendor",
       "source": {
@@ -1611,16 +1611,28 @@
   "components": {
     "C63": {
       "pins": {
-        "1": "/V_SENSE",
-        "2": "/GND"
+        "1": {
+          "net": "/V_SENSE",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor"
     },
     "C77": {
       "pins": {
-        "1": "/DRV_TEMP_SENSE",
-        "2": "/GND"
+        "1": {
+          "net": "/DRV_TEMP_SENSE",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor"
@@ -1663,7 +1675,10 @@
     },
     "H1": {
       "pins": {
-        "1": "/GND"
+        "1": {
+          "net": "/GND",
+          "type": "input"
+        }
       },
       "value": "M3",
       "description": "Mounting Hole with connection",
@@ -1671,7 +1686,10 @@
     },
     "H2": {
       "pins": {
-        "1": "/GND"
+        "1": {
+          "net": "/GND",
+          "type": "input"
+        }
       },
       "value": "M3",
       "description": "Mounting Hole with connection",
@@ -1679,7 +1697,10 @@
     },
     "H3": {
       "pins": {
-        "1": "/GND"
+        "1": {
+          "net": "/GND",
+          "type": "input"
+        }
       },
       "value": "M3",
       "description": "Mounting Hole with connection",
@@ -1687,7 +1708,10 @@
     },
     "H4": {
       "pins": {
-        "1": "/GND"
+        "1": {
+          "net": "/GND",
+          "type": "input"
+        }
       },
       "value": "M3",
       "description": "Mounting Hole with connection",
@@ -1695,7 +1719,10 @@
     },
     "H5": {
       "pins": {
-        "1": "/GND"
+        "1": {
+          "net": "/GND",
+          "type": "input"
+        }
       },
       "value": "M2",
       "description": "Mounting Hole with connection",
@@ -1703,7 +1730,10 @@
     },
     "H6": {
       "pins": {
-        "1": "/GND"
+        "1": {
+          "net": "/GND",
+          "type": "input"
+        }
       },
       "value": "M2",
       "description": "Mounting Hole with connection",
@@ -1711,7 +1741,10 @@
     },
     "H7": {
       "pins": {
-        "1": "/GND"
+        "1": {
+          "net": "/GND",
+          "type": "input"
+        }
       },
       "value": "M2",
       "description": "Mounting Hole with connection",
@@ -1721,7 +1754,8 @@
       "pins": {
         "1": {
           "name": "Pin_1",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         }
       },
       "value": "GND",
@@ -1732,39 +1766,48 @@
       "pins": {
         "1": {
           "name": "Pin_1",
-          "net": "/ENABLE"
+          "net": "/ENABLE",
+          "type": "passive"
         },
         "2": {
           "name": "Pin_2",
-          "net": "/INPUT.AL"
+          "net": "/INPUT.AL",
+          "type": "passive"
         },
         "3": {
           "name": "Pin_3",
-          "net": "/INPUT.AH"
+          "net": "/INPUT.AH",
+          "type": "passive"
         },
         "4": {
           "name": "Pin_4",
-          "net": "/INPUT.BL"
+          "net": "/INPUT.BL",
+          "type": "passive"
         },
         "5": {
           "name": "Pin_5",
-          "net": "/INPUT.BH"
+          "net": "/INPUT.BH",
+          "type": "passive"
         },
         "6": {
           "name": "Pin_6",
-          "net": "/INPUT.CL"
+          "net": "/INPUT.CL",
+          "type": "passive"
         },
         "7": {
           "name": "Pin_7",
-          "net": "/INPUT.CH"
+          "net": "/INPUT.CH",
+          "type": "passive"
         },
         "8": {
           "name": "Pin_8",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         },
         "MP": {
           "name": "MountPin",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         }
       },
       "value": "Digital",
@@ -1775,55 +1818,68 @@
       "pins": {
         "1": {
           "name": "Pin_1",
-          "net": "/V_{ANA}"
+          "net": "/V_{ANA}",
+          "type": "passive"
         },
         "2": {
           "name": "Pin_2",
-          "net": "/V_SENSE"
+          "net": "/V_SENSE",
+          "type": "passive"
         },
         "3": {
           "name": "Pin_3",
-          "net": "/I_SENSE.A"
+          "net": "/I_SENSE.A",
+          "type": "passive"
         },
         "4": {
           "name": "Pin_4",
-          "net": "/I_SENSE.B"
+          "net": "/I_SENSE.B",
+          "type": "passive"
         },
         "5": {
           "name": "Pin_5",
-          "net": "/I_SENSE.C"
+          "net": "/I_SENSE.C",
+          "type": "passive"
         },
         "6": {
           "name": "Pin_6",
-          "net": "/DRV_TEMP_SENSE"
+          "net": "/DRV_TEMP_SENSE",
+          "type": "passive"
         },
         "7": {
           "name": "Pin_7",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         },
         "8": {
           "name": "Pin_8",
-          "net": "/V_SENSE.A"
+          "net": "/V_SENSE.A",
+          "type": "passive"
         },
         "9": {
           "name": "Pin_9",
-          "net": "/V_SENSE.B"
+          "net": "/V_SENSE.B",
+          "type": "passive"
         },
         "10": {
           "name": "Pin_10",
-          "net": "/V_SENSE.C"
+          "net": "/V_SENSE.C",
+          "type": "passive"
         },
         "11": {
           "name": "Pin_11",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "12": {
           "name": "Pin_12",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         },
         "MP": {
           "name": "MountPin",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         }
       },
       "value": "Analog",
@@ -1834,7 +1890,8 @@
       "pins": {
         "1": {
           "name": "Pin_1",
-          "net": "/A"
+          "net": "/A",
+          "type": "passive"
         }
       },
       "value": "A",
@@ -1845,7 +1902,8 @@
       "pins": {
         "1": {
           "name": "Pin_1",
-          "net": "/B"
+          "net": "/B",
+          "type": "passive"
         }
       },
       "value": "B",
@@ -1856,7 +1914,8 @@
       "pins": {
         "1": {
           "name": "Pin_1",
-          "net": "/C"
+          "net": "/C",
+          "type": "passive"
         }
       },
       "value": "C",
@@ -1867,7 +1926,8 @@
       "pins": {
         "1": {
           "name": "Pin_1",
-          "net": "/V_{MOTOR}"
+          "net": "/V_{MOTOR}",
+          "type": "passive"
         }
       },
       "value": "V_{MOTOR}",
@@ -1876,8 +1936,14 @@
     },
     "R31": {
       "pins": {
-        "1": "/V_SENSE",
-        "2": "/GND"
+        "1": {
+          "net": "/V_SENSE",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10k",
       "description": "Resistor, US symbol",
@@ -1885,8 +1951,14 @@
     },
     "R32": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/V_SENSE"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/V_SENSE",
+          "type": "passive"
+        }
       },
       "value": "240k",
       "description": "Resistor, US symbol",
@@ -1894,8 +1966,14 @@
     },
     "R34": {
       "pins": {
-        "1": "/V_{ANA}",
-        "2": "/DRV_TEMP_SENSE"
+        "1": {
+          "net": "/V_{ANA}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/DRV_TEMP_SENSE",
+          "type": "passive"
+        }
       },
       "value": "10k",
       "description": "Resistor, US symbol",
@@ -1909,8 +1987,14 @@
     },
     "TH1": {
       "pins": {
-        "1": "/DRV_TEMP_SENSE",
-        "2": "/GND"
+        "1": {
+          "net": "/DRV_TEMP_SENSE",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10k NTC",
       "description": "Temperature dependent resistor, negative temperature coefficient, US symbol",
@@ -1918,8 +2002,14 @@
     },
     "C2": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -1927,8 +2017,14 @@
     },
     "C3": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -1936,8 +2032,14 @@
     },
     "C6": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -1945,8 +2047,14 @@
     },
     "C7": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -1954,8 +2062,14 @@
     },
     "C8": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -1963,8 +2077,14 @@
     },
     "C9": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -1972,8 +2092,14 @@
     },
     "C12": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -1981,8 +2107,14 @@
     },
     "C15": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -1990,8 +2122,14 @@
     },
     "C18": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -1999,8 +2137,14 @@
     },
     "C19": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -2008,8 +2152,14 @@
     },
     "C21": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -2017,8 +2167,14 @@
     },
     "C23": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -2026,8 +2182,14 @@
     },
     "C24": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -2035,8 +2197,14 @@
     },
     "C26": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -2044,8 +2212,14 @@
     },
     "C27": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -2053,8 +2227,14 @@
     },
     "C78": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -2062,8 +2242,14 @@
     },
     "C79": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -2071,8 +2257,14 @@
     },
     "C80": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -2080,8 +2272,14 @@
     },
     "C81": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -2089,8 +2287,14 @@
     },
     "C82": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -2098,8 +2302,14 @@
     },
     "C86": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -2107,8 +2317,14 @@
     },
     "C87": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -2116,8 +2332,14 @@
     },
     "C88": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -2125,8 +2347,14 @@
     },
     "C89": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -2134,8 +2362,14 @@
     },
     "C91": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -2143,8 +2377,14 @@
     },
     "C93": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -2152,8 +2392,14 @@
     },
     "C94": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -2161,8 +2407,14 @@
     },
     "C98": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -2170,8 +2422,14 @@
     },
     "C99": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -2179,8 +2437,14 @@
     },
     "C100": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -2188,8 +2452,14 @@
     },
     "C101": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -2197,8 +2467,14 @@
     },
     "C102": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -2206,8 +2482,14 @@
     },
     "C103": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -2215,8 +2497,14 @@
     },
     "C104": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -2224,8 +2512,14 @@
     },
     "C105": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -2233,8 +2527,14 @@
     },
     "C106": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -2242,8 +2542,14 @@
     },
     "C107": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -2251,8 +2557,14 @@
     },
     "C108": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -2260,8 +2572,14 @@
     },
     "C67": {
       "pins": {
-        "1": "Net-(U5-+)",
-        "2": "/GND"
+        "1": {
+          "net": "Net-(U5-+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10nF",
       "description": "Unpolarized capacitor, small symbol",
@@ -2269,8 +2587,14 @@
     },
     "C68": {
       "pins": {
-        "1": "Net-(U6-+)",
-        "2": "/GND"
+        "1": {
+          "net": "Net-(U6-+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10nF",
       "description": "Unpolarized capacitor, small symbol",
@@ -2278,8 +2602,14 @@
     },
     "C69": {
       "pins": {
-        "1": "Net-(U7-+)",
-        "2": "/GND"
+        "1": {
+          "net": "Net-(U7-+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10nF",
       "description": "Unpolarized capacitor, small symbol",
@@ -2287,8 +2617,14 @@
     },
     "C95": {
       "pins": {
-        "1": "/V_{ANA}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{ANA}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10nF",
       "description": "Unpolarized capacitor, small symbol",
@@ -2296,8 +2632,14 @@
     },
     "C96": {
       "pins": {
-        "1": "/V_{ANA}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{ANA}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10nF",
       "description": "Unpolarized capacitor, small symbol",
@@ -2305,8 +2647,14 @@
     },
     "C97": {
       "pins": {
-        "1": "/V_{ANA}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{ANA}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10nF",
       "description": "Unpolarized capacitor, small symbol",
@@ -2314,8 +2662,14 @@
     },
     "R16": {
       "pins": {
-        "1": "/A",
-        "2": "Net-(U5-+)"
+        "1": {
+          "net": "/A",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U5-+)",
+          "type": "passive"
+        }
       },
       "value": "240k",
       "description": "Resistor, US symbol",
@@ -2323,8 +2677,14 @@
     },
     "R17": {
       "pins": {
-        "1": "Net-(U5-+)",
-        "2": "/GND"
+        "1": {
+          "net": "Net-(U5-+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10k",
       "description": "Resistor, US symbol",
@@ -2332,8 +2692,14 @@
     },
     "R18": {
       "pins": {
-        "1": "/B",
-        "2": "Net-(U6-+)"
+        "1": {
+          "net": "/B",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U6-+)",
+          "type": "passive"
+        }
       },
       "value": "240k",
       "description": "Resistor, US symbol",
@@ -2341,8 +2707,14 @@
     },
     "R19": {
       "pins": {
-        "1": "Net-(U6-+)",
-        "2": "/GND"
+        "1": {
+          "net": "Net-(U6-+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10k",
       "description": "Resistor, US symbol",
@@ -2350,8 +2722,14 @@
     },
     "R20": {
       "pins": {
-        "1": "/C",
-        "2": "Net-(U7-+)"
+        "1": {
+          "net": "/C",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U7-+)",
+          "type": "passive"
+        }
       },
       "value": "240k",
       "description": "Resistor, US symbol",
@@ -2359,8 +2737,14 @@
     },
     "R21": {
       "pins": {
-        "1": "Net-(U7-+)",
-        "2": "/GND"
+        "1": {
+          "net": "Net-(U7-+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10k",
       "description": "Resistor, US symbol",
@@ -2370,20 +2754,27 @@
       "pins": {
         "1": {
           "name": "+",
-          "net": "Net-(U5-+)"
+          "net": "Net-(U5-+)",
+          "type": "input"
         },
         "2": {
           "name": "V-",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "power_in"
         },
         "3": {
           "name": "-",
-          "net": "/V_SENSE.A"
+          "net": "/V_SENSE.A",
+          "type": "input"
         },
-        "4": "/V_SENSE.A",
+        "4": {
+          "net": "/V_SENSE.A",
+          "type": "output"
+        },
         "5": {
           "name": "V+",
-          "net": "/V_{ANA}"
+          "net": "/V_{ANA}",
+          "type": "power_in"
         }
       },
       "value": "OPA310xDCK",
@@ -2393,20 +2784,27 @@
       "pins": {
         "1": {
           "name": "+",
-          "net": "Net-(U6-+)"
+          "net": "Net-(U6-+)",
+          "type": "input"
         },
         "2": {
           "name": "V-",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "power_in"
         },
         "3": {
           "name": "-",
-          "net": "/V_SENSE.B"
+          "net": "/V_SENSE.B",
+          "type": "input"
         },
-        "4": "/V_SENSE.B",
+        "4": {
+          "net": "/V_SENSE.B",
+          "type": "output"
+        },
         "5": {
           "name": "V+",
-          "net": "/V_{ANA}"
+          "net": "/V_{ANA}",
+          "type": "power_in"
         }
       },
       "value": "OPA310xDCK",
@@ -2416,20 +2814,27 @@
       "pins": {
         "1": {
           "name": "+",
-          "net": "Net-(U7-+)"
+          "net": "Net-(U7-+)",
+          "type": "input"
         },
         "2": {
           "name": "V-",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "power_in"
         },
         "3": {
           "name": "-",
-          "net": "/V_SENSE.C"
+          "net": "/V_SENSE.C",
+          "type": "input"
         },
-        "4": "/V_SENSE.C",
+        "4": {
+          "net": "/V_SENSE.C",
+          "type": "output"
+        },
         "5": {
           "name": "V+",
-          "net": "/V_{ANA}"
+          "net": "/V_{ANA}",
+          "type": "power_in"
         }
       },
       "value": "OPA310xDCK",
@@ -2437,8 +2842,14 @@
     },
     "C1": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor",
@@ -2446,16 +2857,28 @@
     },
     "C11": {
       "pins": {
-        "1": "/V_{DRV}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{DRV}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor, small symbol"
     },
     "C62": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -2463,8 +2886,14 @@
     },
     "C64": {
       "pins": {
-        "1": "/V_{DRV}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{DRV}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "4.7uF",
       "description": "Unpolarized capacitor",
@@ -2472,8 +2901,14 @@
     },
     "C65": {
       "pins": {
-        "1": "/V_{DRV}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{DRV}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "4.7uF",
       "description": "Unpolarized capacitor",
@@ -2481,16 +2916,28 @@
     },
     "C76": {
       "pins": {
-        "1": "Net-(U4-BST)",
-        "2": "/Predriver Voltage Supply/SW"
+        "1": {
+          "net": "Net-(U4-BST)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/Predriver Voltage Supply/SW",
+          "type": "passive"
+        }
       },
       "value": "2.2nF",
       "description": "Unpolarized capacitor, small symbol"
     },
     "C90": {
       "pins": {
-        "1": "/V_{DRV}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{DRV}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "4.7uF",
       "description": "Unpolarized capacitor",
@@ -2498,8 +2945,14 @@
     },
     "C92": {
       "pins": {
-        "1": "/V_{DRV}",
-        "2": "/Predriver Voltage Supply/FB"
+        "1": {
+          "net": "/V_{DRV}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/Predriver Voltage Supply/FB",
+          "type": "passive"
+        }
       },
       "value": "20pF",
       "description": "Unpolarized capacitor, small symbol"
@@ -2508,11 +2961,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "/V_{DRV}"
+          "net": "/V_{DRV}",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         }
       },
       "value": "6V",
@@ -2523,11 +2978,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "/V_{MOTOR}"
+          "net": "/V_{MOTOR}",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         }
       },
       "value": "100V",
@@ -2536,8 +2993,14 @@
     },
     "L1": {
       "pins": {
-        "1": "/Predriver Voltage Supply/SW",
-        "2": "/V_{DRV}"
+        "1": {
+          "net": "/Predriver Voltage Supply/SW",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/V_{DRV}",
+          "type": "passive"
+        }
       },
       "value": "68uH",
       "description": "Inductor",
@@ -2545,24 +3008,42 @@
     },
     "R5": {
       "pins": {
-        "1": "/V_{DRV}",
-        "2": "/Predriver Voltage Supply/FB"
+        "1": {
+          "net": "/V_{DRV}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/Predriver Voltage Supply/FB",
+          "type": "passive"
+        }
       },
       "value": "240k",
       "description": "Resistor, small US symbol"
     },
     "R10": {
       "pins": {
-        "1": "/Predriver Voltage Supply/FB",
-        "2": "/GND"
+        "1": {
+          "net": "/Predriver Voltage Supply/FB",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "72k",
       "description": "Resistor, small US symbol"
     },
     "R15": {
       "pins": {
-        "1": "Net-(U4-RON)",
-        "2": "/GND"
+        "1": {
+          "net": "Net-(U4-RON)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "27k",
       "description": "Resistor, small US symbol"
@@ -2571,39 +3052,48 @@
       "pins": {
         "1": {
           "name": "GND",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "power_in"
         },
         "2": {
           "name": "VIN",
-          "net": "/V_{MOTOR}"
+          "net": "/V_{MOTOR}",
+          "type": "power_in"
         },
         "3": {
           "name": "EN/UVLO",
-          "net": "/ENABLE"
+          "net": "/ENABLE",
+          "type": "input"
         },
         "4": {
           "name": "RON",
-          "net": "Net-(U4-RON)"
+          "net": "Net-(U4-RON)",
+          "type": "passive"
         },
         "5": {
           "name": "FB",
-          "net": "/Predriver Voltage Supply/FB"
+          "net": "/Predriver Voltage Supply/FB",
+          "type": "input"
         },
         "6": {
           "name": "PGOOD",
-          "net": ""
+          "net": "",
+          "type": "open_collector"
         },
         "7": {
           "name": "BST",
-          "net": "Net-(U4-BST)"
+          "net": "Net-(U4-BST)",
+          "type": "passive"
         },
         "8": {
           "name": "SW",
-          "net": "/Predriver Voltage Supply/SW"
+          "net": "/Predriver Voltage Supply/SW",
+          "type": "power_out"
         },
         "9": {
           "name": "EP",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         }
       },
       "value": "LM5164DDA",
@@ -2611,8 +3101,14 @@
     },
     "C4": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -2620,8 +3116,14 @@
     },
     "C5": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -2629,8 +3131,14 @@
     },
     "C14": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -2638,8 +3146,14 @@
     },
     "C20": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -2647,8 +3161,14 @@
     },
     "C22": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -2656,16 +3176,28 @@
     },
     "C28": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor"
     },
     "C30": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -2673,16 +3205,28 @@
     },
     "C32": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor"
     },
     "C46": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -2690,8 +3234,14 @@
     },
     "C48": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -2699,8 +3249,14 @@
     },
     "C56": {
       "pins": {
-        "1": "Net-(C56-Pad1)",
-        "2": "/SW.A"
+        "1": {
+          "net": "Net-(C56-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/SW.A",
+          "type": "passive"
+        }
       },
       "value": "C",
       "description": "Unpolarized capacitor",
@@ -2709,8 +3265,14 @@
     },
     "C73": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -2718,8 +3280,14 @@
     },
     "C83": {
       "pins": {
-        "1": "Net-(C83-Pad1)",
-        "2": "/GND"
+        "1": {
+          "net": "Net-(C83-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "C",
       "description": "Unpolarized capacitor",
@@ -2728,8 +3296,14 @@
     },
     "C109": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -2737,8 +3311,14 @@
     },
     "C112": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -2746,8 +3326,14 @@
     },
     "C115": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -2755,8 +3341,14 @@
     },
     "C118": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -2764,8 +3356,14 @@
     },
     "C121": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -2775,11 +3373,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "/AH"
+          "net": "/AH",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "/SW.A"
+          "net": "/SW.A",
+          "type": "passive"
         }
       },
       "value": "6V",
@@ -2790,11 +3390,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "/AL"
+          "net": "/AL",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         }
       },
       "value": "6V",
@@ -2805,31 +3407,38 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "/AL"
+          "net": "/AL",
+          "type": "passive"
         },
         "2": {
           "name": "S",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         },
         "3": {
           "name": "D",
-          "net": "/SW.A"
+          "net": "/SW.A",
+          "type": "passive"
         },
         "4": {
           "name": "S",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         },
         "5": {
           "name": "D",
-          "net": "/SW.A"
+          "net": "/SW.A",
+          "type": "passive"
         },
         "6": {
           "name": "S",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         },
         "7": {
           "name": "D",
-          "net": "/SW.A"
+          "net": "/SW.A",
+          "type": "passive"
         }
       },
       "value": "EPC2361",
@@ -2840,31 +3449,38 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "/AH"
+          "net": "/AH",
+          "type": "passive"
         },
         "2": {
           "name": "S",
-          "net": "/SW.A"
+          "net": "/SW.A",
+          "type": "passive"
         },
         "3": {
           "name": "D",
-          "net": "/V_{MOTOR}"
+          "net": "/V_{MOTOR}",
+          "type": "passive"
         },
         "4": {
           "name": "S",
-          "net": "/SW.A"
+          "net": "/SW.A",
+          "type": "passive"
         },
         "5": {
           "name": "D",
-          "net": "/V_{MOTOR}"
+          "net": "/V_{MOTOR}",
+          "type": "passive"
         },
         "6": {
           "name": "S",
-          "net": "/SW.A"
+          "net": "/SW.A",
+          "type": "passive"
         },
         "7": {
           "name": "D",
-          "net": "/V_{MOTOR}"
+          "net": "/V_{MOTOR}",
+          "type": "passive"
         }
       },
       "value": "EPC2361",
@@ -2873,8 +3489,14 @@
     },
     "R38": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "Net-(C56-Pad1)"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C56-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "R",
       "description": "Resistor, US symbol",
@@ -2883,8 +3505,14 @@
     },
     "R41": {
       "pins": {
-        "1": "/SW.A",
-        "2": "Net-(C83-Pad1)"
+        "1": {
+          "net": "/SW.A",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C83-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "R",
       "description": "Resistor, US symbol",
@@ -2893,8 +3521,14 @@
     },
     "C10": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -2902,8 +3536,14 @@
     },
     "C16": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -2911,8 +3551,14 @@
     },
     "C25": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -2920,16 +3566,28 @@
     },
     "C29": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor"
     },
     "C33": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -2937,16 +3595,28 @@
     },
     "C34": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor"
     },
     "C50": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -2954,8 +3624,14 @@
     },
     "C51": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -2963,8 +3639,14 @@
     },
     "C53": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -2972,8 +3654,14 @@
     },
     "C61": {
       "pins": {
-        "1": "Net-(C61-Pad1)",
-        "2": "/SW.B"
+        "1": {
+          "net": "Net-(C61-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/SW.B",
+          "type": "passive"
+        }
       },
       "value": "C",
       "description": "Unpolarized capacitor",
@@ -2982,8 +3670,14 @@
     },
     "C70": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -2991,8 +3685,14 @@
     },
     "C74": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -3000,8 +3700,14 @@
     },
     "C84": {
       "pins": {
-        "1": "Net-(C84-Pad1)",
-        "2": "/GND"
+        "1": {
+          "net": "Net-(C84-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "C",
       "description": "Unpolarized capacitor",
@@ -3010,8 +3716,14 @@
     },
     "C110": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -3019,8 +3731,14 @@
     },
     "C113": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -3028,8 +3746,14 @@
     },
     "C116": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -3037,8 +3761,14 @@
     },
     "C119": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -3046,8 +3776,14 @@
     },
     "C122": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -3057,11 +3793,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "/BH"
+          "net": "/BH",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "/SW.B"
+          "net": "/SW.B",
+          "type": "passive"
         }
       },
       "value": "6V",
@@ -3072,11 +3810,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "/BL"
+          "net": "/BL",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         }
       },
       "value": "6V",
@@ -3087,31 +3827,38 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "/BL"
+          "net": "/BL",
+          "type": "passive"
         },
         "2": {
           "name": "S",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         },
         "3": {
           "name": "D",
-          "net": "/SW.B"
+          "net": "/SW.B",
+          "type": "passive"
         },
         "4": {
           "name": "S",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         },
         "5": {
           "name": "D",
-          "net": "/SW.B"
+          "net": "/SW.B",
+          "type": "passive"
         },
         "6": {
           "name": "S",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         },
         "7": {
           "name": "D",
-          "net": "/SW.B"
+          "net": "/SW.B",
+          "type": "passive"
         }
       },
       "value": "EPC2361",
@@ -3122,31 +3869,38 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "/BH"
+          "net": "/BH",
+          "type": "passive"
         },
         "2": {
           "name": "S",
-          "net": "/SW.B"
+          "net": "/SW.B",
+          "type": "passive"
         },
         "3": {
           "name": "D",
-          "net": "/V_{MOTOR}"
+          "net": "/V_{MOTOR}",
+          "type": "passive"
         },
         "4": {
           "name": "S",
-          "net": "/SW.B"
+          "net": "/SW.B",
+          "type": "passive"
         },
         "5": {
           "name": "D",
-          "net": "/V_{MOTOR}"
+          "net": "/V_{MOTOR}",
+          "type": "passive"
         },
         "6": {
           "name": "S",
-          "net": "/SW.B"
+          "net": "/SW.B",
+          "type": "passive"
         },
         "7": {
           "name": "D",
-          "net": "/V_{MOTOR}"
+          "net": "/V_{MOTOR}",
+          "type": "passive"
         }
       },
       "value": "EPC2361",
@@ -3155,8 +3909,14 @@
     },
     "R39": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "Net-(C61-Pad1)"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C61-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "R",
       "description": "Resistor, US symbol",
@@ -3165,8 +3925,14 @@
     },
     "R42": {
       "pins": {
-        "1": "/SW.B",
-        "2": "Net-(C84-Pad1)"
+        "1": {
+          "net": "/SW.B",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C84-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "R",
       "description": "Resistor, US symbol",
@@ -3175,8 +3941,14 @@
     },
     "C13": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -3184,8 +3956,14 @@
     },
     "C17": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -3193,24 +3971,42 @@
     },
     "C31": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor"
     },
     "C35": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "10uF",
       "description": "Unpolarized capacitor"
     },
     "C36": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -3218,8 +4014,14 @@
     },
     "C55": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -3227,8 +4029,14 @@
     },
     "C58": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -3236,8 +4044,14 @@
     },
     "C60": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -3245,8 +4059,14 @@
     },
     "C66": {
       "pins": {
-        "1": "Net-(C66-Pad1)",
-        "2": "/SW.C"
+        "1": {
+          "net": "Net-(C66-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/SW.C",
+          "type": "passive"
+        }
       },
       "value": "C",
       "description": "Unpolarized capacitor",
@@ -3255,8 +4075,14 @@
     },
     "C71": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -3264,8 +4090,14 @@
     },
     "C72": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -3273,8 +4105,14 @@
     },
     "C75": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -3282,8 +4120,14 @@
     },
     "C85": {
       "pins": {
-        "1": "Net-(C85-Pad1)",
-        "2": "/GND"
+        "1": {
+          "net": "Net-(C85-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "C",
       "description": "Unpolarized capacitor",
@@ -3292,8 +4136,14 @@
     },
     "C111": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -3301,8 +4151,14 @@
     },
     "C114": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -3310,8 +4166,14 @@
     },
     "C117": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -3319,8 +4181,14 @@
     },
     "C120": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -3328,8 +4196,14 @@
     },
     "C123": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -3339,11 +4213,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "/CH"
+          "net": "/CH",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "/SW.C"
+          "net": "/SW.C",
+          "type": "passive"
         }
       },
       "value": "6V",
@@ -3354,11 +4230,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "/CL"
+          "net": "/CL",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         }
       },
       "value": "6V",
@@ -3369,31 +4247,38 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "/CL"
+          "net": "/CL",
+          "type": "passive"
         },
         "2": {
           "name": "S",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         },
         "3": {
           "name": "D",
-          "net": "/SW.C"
+          "net": "/SW.C",
+          "type": "passive"
         },
         "4": {
           "name": "S",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         },
         "5": {
           "name": "D",
-          "net": "/SW.C"
+          "net": "/SW.C",
+          "type": "passive"
         },
         "6": {
           "name": "S",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         },
         "7": {
           "name": "D",
-          "net": "/SW.C"
+          "net": "/SW.C",
+          "type": "passive"
         }
       },
       "value": "EPC2361",
@@ -3404,31 +4289,38 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "/CH"
+          "net": "/CH",
+          "type": "passive"
         },
         "2": {
           "name": "S",
-          "net": "/SW.C"
+          "net": "/SW.C",
+          "type": "passive"
         },
         "3": {
           "name": "D",
-          "net": "/V_{MOTOR}"
+          "net": "/V_{MOTOR}",
+          "type": "passive"
         },
         "4": {
           "name": "S",
-          "net": "/SW.C"
+          "net": "/SW.C",
+          "type": "passive"
         },
         "5": {
           "name": "D",
-          "net": "/V_{MOTOR}"
+          "net": "/V_{MOTOR}",
+          "type": "passive"
         },
         "6": {
           "name": "S",
-          "net": "/SW.C"
+          "net": "/SW.C",
+          "type": "passive"
         },
         "7": {
           "name": "D",
-          "net": "/V_{MOTOR}"
+          "net": "/V_{MOTOR}",
+          "type": "passive"
         }
       },
       "value": "EPC2361",
@@ -3437,8 +4329,14 @@
     },
     "R40": {
       "pins": {
-        "1": "/V_{MOTOR}",
-        "2": "Net-(C66-Pad1)"
+        "1": {
+          "net": "/V_{MOTOR}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C66-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "R",
       "description": "Resistor, US symbol",
@@ -3447,8 +4345,14 @@
     },
     "R43": {
       "pins": {
-        "1": "/SW.C",
-        "2": "Net-(C85-Pad1)"
+        "1": {
+          "net": "/SW.C",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C85-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "R",
       "description": "Resistor, US symbol",
@@ -3457,8 +4361,14 @@
     },
     "C37": {
       "pins": {
-        "1": "/V_{DRV}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{DRV}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "4.7uF",
       "description": "Unpolarized capacitor",
@@ -3466,8 +4376,14 @@
     },
     "C38": {
       "pins": {
-        "1": "/V_{DRV}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{DRV}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -3475,8 +4391,14 @@
     },
     "C39": {
       "pins": {
-        "1": "/Predrivers/Gate Driver A/BOOT",
-        "2": "/SW.A"
+        "1": {
+          "net": "/Predrivers/Gate Driver A/BOOT",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/SW.A",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -3486,11 +4408,13 @@
       "pins": {
         "1": {
           "name": "A1",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         },
         "2": {
           "name": "A2",
-          "net": "/INPUT.AH"
+          "net": "/INPUT.AH",
+          "type": "passive"
         }
       },
       "value": "5V",
@@ -3501,11 +4425,13 @@
       "pins": {
         "1": {
           "name": "A1",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         },
         "2": {
           "name": "A2",
-          "net": "/INPUT.AL"
+          "net": "/INPUT.AL",
+          "type": "passive"
         }
       },
       "value": "5V",
@@ -3514,8 +4440,14 @@
     },
     "R1": {
       "pins": {
-        "1": "/Predrivers/Gate Driver A/LGH",
-        "2": "/AL"
+        "1": {
+          "net": "/Predrivers/Gate Driver A/LGH",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/AL",
+          "type": "passive"
+        }
       },
       "value": "1",
       "description": "Resistor, US symbol",
@@ -3523,8 +4455,14 @@
     },
     "R2": {
       "pins": {
-        "1": "/AL",
-        "2": "/Predrivers/Gate Driver A/LGL"
+        "1": {
+          "net": "/AL",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/Predrivers/Gate Driver A/LGL",
+          "type": "passive"
+        }
       },
       "value": "0",
       "description": "Resistor, US symbol",
@@ -3532,8 +4470,14 @@
     },
     "R3": {
       "pins": {
-        "1": "/Predrivers/Gate Driver A/UGL",
-        "2": "/AH"
+        "1": {
+          "net": "/Predrivers/Gate Driver A/UGL",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/AH",
+          "type": "passive"
+        }
       },
       "value": "0",
       "description": "Resistor, US symbol",
@@ -3541,8 +4485,14 @@
     },
     "R4": {
       "pins": {
-        "1": "/Predrivers/Gate Driver A/UGH",
-        "2": "/AH"
+        "1": {
+          "net": "/Predrivers/Gate Driver A/UGH",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/AH",
+          "type": "passive"
+        }
       },
       "value": "1",
       "description": "Resistor, US symbol",
@@ -3552,51 +4502,63 @@
       "pins": {
         "A2": {
           "name": "GND",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "power_out"
         },
         "B4": {
           "name": "HI",
-          "net": "/INPUT.AH"
+          "net": "/INPUT.AH",
+          "type": "input"
         },
         "A4": {
           "name": "LI",
-          "net": "/INPUT.AL"
+          "net": "/INPUT.AL",
+          "type": "input"
         },
         "D3": {
           "name": "BOOT",
-          "net": "/Predrivers/Gate Driver A/BOOT"
+          "net": "/Predrivers/Gate Driver A/BOOT",
+          "type": "power_in"
         },
         "B1": {
           "name": "LGH",
-          "net": "/Predrivers/Gate Driver A/LGH"
+          "net": "/Predrivers/Gate Driver A/LGH",
+          "type": "output"
         },
         "A1": {
           "name": "LGL",
-          "net": "/Predrivers/Gate Driver A/LGL"
+          "net": "/Predrivers/Gate Driver A/LGL",
+          "type": "output"
         },
         "D2": {
           "name": "UGH",
-          "net": "/Predrivers/Gate Driver A/UGH"
+          "net": "/Predrivers/Gate Driver A/UGH",
+          "type": "output"
         },
         "D1": {
           "name": "UGL",
-          "net": "/Predrivers/Gate Driver A/UGL"
+          "net": "/Predrivers/Gate Driver A/UGL",
+          "type": "output"
         },
         "C1": {
           "name": "PHASE",
-          "net": "/SW.A"
+          "net": "/SW.A",
+          "type": "unspecified"
         },
         "D4": {
           "name": "PHASE",
-          "net": "/SW.A"
+          "net": "/SW.A",
+          "type": "unspecified"
         },
         "A3": {
           "name": "VCC",
-          "net": "/V_{DRV}"
+          "net": "/V_{DRV}",
+          "type": "power_in"
         },
         "C4": {
           "name": "NC",
-          "net": ""
+          "net": "",
+          "type": "no_connect"
         }
       },
       "value": "LM1205",
@@ -3604,8 +4566,14 @@
     },
     "C40": {
       "pins": {
-        "1": "/V_{DRV}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{DRV}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "4.7uF",
       "description": "Unpolarized capacitor",
@@ -3613,8 +4581,14 @@
     },
     "C41": {
       "pins": {
-        "1": "/V_{DRV}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{DRV}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -3622,8 +4596,14 @@
     },
     "C42": {
       "pins": {
-        "1": "/Predrivers/Gate Driver B/BOOT",
-        "2": "/SW.B"
+        "1": {
+          "net": "/Predrivers/Gate Driver B/BOOT",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/SW.B",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -3633,11 +4613,13 @@
       "pins": {
         "1": {
           "name": "A1",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         },
         "2": {
           "name": "A2",
-          "net": "/INPUT.BH"
+          "net": "/INPUT.BH",
+          "type": "passive"
         }
       },
       "value": "5V",
@@ -3648,11 +4630,13 @@
       "pins": {
         "1": {
           "name": "A1",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         },
         "2": {
           "name": "A2",
-          "net": "/INPUT.BL"
+          "net": "/INPUT.BL",
+          "type": "passive"
         }
       },
       "value": "5V",
@@ -3661,8 +4645,14 @@
     },
     "R6": {
       "pins": {
-        "1": "/Predrivers/Gate Driver B/LGH",
-        "2": "/BL"
+        "1": {
+          "net": "/Predrivers/Gate Driver B/LGH",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/BL",
+          "type": "passive"
+        }
       },
       "value": "1",
       "description": "Resistor, US symbol",
@@ -3670,8 +4660,14 @@
     },
     "R7": {
       "pins": {
-        "1": "/BL",
-        "2": "/Predrivers/Gate Driver B/LGL"
+        "1": {
+          "net": "/BL",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/Predrivers/Gate Driver B/LGL",
+          "type": "passive"
+        }
       },
       "value": "0",
       "description": "Resistor, US symbol",
@@ -3679,8 +4675,14 @@
     },
     "R8": {
       "pins": {
-        "1": "/Predrivers/Gate Driver B/UGL",
-        "2": "/BH"
+        "1": {
+          "net": "/Predrivers/Gate Driver B/UGL",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/BH",
+          "type": "passive"
+        }
       },
       "value": "0",
       "description": "Resistor, US symbol",
@@ -3688,8 +4690,14 @@
     },
     "R9": {
       "pins": {
-        "1": "/Predrivers/Gate Driver B/UGH",
-        "2": "/BH"
+        "1": {
+          "net": "/Predrivers/Gate Driver B/UGH",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/BH",
+          "type": "passive"
+        }
       },
       "value": "1",
       "description": "Resistor, US symbol",
@@ -3699,51 +4707,63 @@
       "pins": {
         "A2": {
           "name": "GND",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "power_out"
         },
         "B4": {
           "name": "HI",
-          "net": "/INPUT.BH"
+          "net": "/INPUT.BH",
+          "type": "input"
         },
         "A4": {
           "name": "LI",
-          "net": "/INPUT.BL"
+          "net": "/INPUT.BL",
+          "type": "input"
         },
         "D3": {
           "name": "BOOT",
-          "net": "/Predrivers/Gate Driver B/BOOT"
+          "net": "/Predrivers/Gate Driver B/BOOT",
+          "type": "power_in"
         },
         "B1": {
           "name": "LGH",
-          "net": "/Predrivers/Gate Driver B/LGH"
+          "net": "/Predrivers/Gate Driver B/LGH",
+          "type": "output"
         },
         "A1": {
           "name": "LGL",
-          "net": "/Predrivers/Gate Driver B/LGL"
+          "net": "/Predrivers/Gate Driver B/LGL",
+          "type": "output"
         },
         "D2": {
           "name": "UGH",
-          "net": "/Predrivers/Gate Driver B/UGH"
+          "net": "/Predrivers/Gate Driver B/UGH",
+          "type": "output"
         },
         "D1": {
           "name": "UGL",
-          "net": "/Predrivers/Gate Driver B/UGL"
+          "net": "/Predrivers/Gate Driver B/UGL",
+          "type": "output"
         },
         "C1": {
           "name": "PHASE",
-          "net": "/SW.B"
+          "net": "/SW.B",
+          "type": "unspecified"
         },
         "D4": {
           "name": "PHASE",
-          "net": "/SW.B"
+          "net": "/SW.B",
+          "type": "unspecified"
         },
         "A3": {
           "name": "VCC",
-          "net": "/V_{DRV}"
+          "net": "/V_{DRV}",
+          "type": "power_in"
         },
         "C4": {
           "name": "NC",
-          "net": ""
+          "net": "",
+          "type": "no_connect"
         }
       },
       "value": "LM1205",
@@ -3751,8 +4771,14 @@
     },
     "C43": {
       "pins": {
-        "1": "/V_{DRV}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{DRV}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "4.7uF",
       "description": "Unpolarized capacitor",
@@ -3760,8 +4786,14 @@
     },
     "C44": {
       "pins": {
-        "1": "/V_{DRV}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{DRV}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -3769,8 +4801,14 @@
     },
     "C45": {
       "pins": {
-        "1": "/Predrivers/Gate Driver C/BOOT",
-        "2": "/SW.C"
+        "1": {
+          "net": "/Predrivers/Gate Driver C/BOOT",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/SW.C",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor",
@@ -3780,11 +4818,13 @@
       "pins": {
         "1": {
           "name": "A1",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         },
         "2": {
           "name": "A2",
-          "net": "/INPUT.CH"
+          "net": "/INPUT.CH",
+          "type": "passive"
         }
       },
       "value": "5V",
@@ -3795,11 +4835,13 @@
       "pins": {
         "1": {
           "name": "A1",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         },
         "2": {
           "name": "A2",
-          "net": "/INPUT.CL"
+          "net": "/INPUT.CL",
+          "type": "passive"
         }
       },
       "value": "5V",
@@ -3808,8 +4850,14 @@
     },
     "R11": {
       "pins": {
-        "1": "/Predrivers/Gate Driver C/LGH",
-        "2": "/CL"
+        "1": {
+          "net": "/Predrivers/Gate Driver C/LGH",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/CL",
+          "type": "passive"
+        }
       },
       "value": "1",
       "description": "Resistor, US symbol",
@@ -3817,8 +4865,14 @@
     },
     "R12": {
       "pins": {
-        "1": "/CL",
-        "2": "/Predrivers/Gate Driver C/LGL"
+        "1": {
+          "net": "/CL",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/Predrivers/Gate Driver C/LGL",
+          "type": "passive"
+        }
       },
       "value": "0",
       "description": "Resistor, US symbol",
@@ -3826,8 +4880,14 @@
     },
     "R13": {
       "pins": {
-        "1": "/Predrivers/Gate Driver C/UGL",
-        "2": "/CH"
+        "1": {
+          "net": "/Predrivers/Gate Driver C/UGL",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/CH",
+          "type": "passive"
+        }
       },
       "value": "0",
       "description": "Resistor, US symbol",
@@ -3835,8 +4895,14 @@
     },
     "R14": {
       "pins": {
-        "1": "/Predrivers/Gate Driver C/UGH",
-        "2": "/CH"
+        "1": {
+          "net": "/Predrivers/Gate Driver C/UGH",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/CH",
+          "type": "passive"
+        }
       },
       "value": "1",
       "description": "Resistor, US symbol",
@@ -3846,51 +4912,63 @@
       "pins": {
         "A2": {
           "name": "GND",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "power_out"
         },
         "B4": {
           "name": "HI",
-          "net": "/INPUT.CH"
+          "net": "/INPUT.CH",
+          "type": "input"
         },
         "A4": {
           "name": "LI",
-          "net": "/INPUT.CL"
+          "net": "/INPUT.CL",
+          "type": "input"
         },
         "D3": {
           "name": "BOOT",
-          "net": "/Predrivers/Gate Driver C/BOOT"
+          "net": "/Predrivers/Gate Driver C/BOOT",
+          "type": "power_in"
         },
         "B1": {
           "name": "LGH",
-          "net": "/Predrivers/Gate Driver C/LGH"
+          "net": "/Predrivers/Gate Driver C/LGH",
+          "type": "output"
         },
         "A1": {
           "name": "LGL",
-          "net": "/Predrivers/Gate Driver C/LGL"
+          "net": "/Predrivers/Gate Driver C/LGL",
+          "type": "output"
         },
         "D2": {
           "name": "UGH",
-          "net": "/Predrivers/Gate Driver C/UGH"
+          "net": "/Predrivers/Gate Driver C/UGH",
+          "type": "output"
         },
         "D1": {
           "name": "UGL",
-          "net": "/Predrivers/Gate Driver C/UGL"
+          "net": "/Predrivers/Gate Driver C/UGL",
+          "type": "output"
         },
         "C1": {
           "name": "PHASE",
-          "net": "/SW.C"
+          "net": "/SW.C",
+          "type": "unspecified"
         },
         "D4": {
           "name": "PHASE",
-          "net": "/SW.C"
+          "net": "/SW.C",
+          "type": "unspecified"
         },
         "A3": {
           "name": "VCC",
-          "net": "/V_{DRV}"
+          "net": "/V_{DRV}",
+          "type": "power_in"
         },
         "C4": {
           "name": "NC",
-          "net": ""
+          "net": "",
+          "type": "no_connect"
         }
       },
       "value": "LM1205",
@@ -3898,8 +4976,14 @@
     },
     "C47": {
       "pins": {
-        "1": "/V_{ANA}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{ANA}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor, small symbol",
@@ -3907,8 +4991,14 @@
     },
     "C49": {
       "pins": {
-        "1": "/Phase Current Sensors/Current Sense A/V+",
-        "2": "/Phase Current Sensors/Current Sense A/V-"
+        "1": {
+          "net": "/Phase Current Sensors/Current Sense A/V+",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/Phase Current Sensors/Current Sense A/V-",
+          "type": "passive"
+        }
       },
       "value": "10nF",
       "description": "Unpolarized capacitor, small symbol",
@@ -3918,11 +5008,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "/A"
+          "net": "/A",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         }
       },
       "value": "100V",
@@ -3930,8 +5022,14 @@
     },
     "R22": {
       "pins": {
-        "1": "/SW.A",
-        "2": "/Phase Current Sensors/Current Sense A/V+"
+        "1": {
+          "net": "/SW.A",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/Phase Current Sensors/Current Sense A/V+",
+          "type": "passive"
+        }
       },
       "value": "10",
       "description": "Resistor, small US symbol",
@@ -3939,8 +5037,14 @@
     },
     "R23": {
       "pins": {
-        "1": "/SW.A",
-        "2": "/A"
+        "1": {
+          "net": "/SW.A",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/A",
+          "type": "passive"
+        }
       },
       "value": ".5m",
       "description": "Resistor, US symbol",
@@ -3948,8 +5052,14 @@
     },
     "R24": {
       "pins": {
-        "1": "/A",
-        "2": "/Phase Current Sensors/Current Sense A/V-"
+        "1": {
+          "net": "/A",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/Phase Current Sensors/Current Sense A/V-",
+          "type": "passive"
+        }
       },
       "value": "10",
       "description": "Resistor, small US symbol",
@@ -3959,32 +5069,42 @@
       "pins": {
         "1": {
           "name": "-",
-          "net": "/Phase Current Sensors/Current Sense A/V-"
+          "net": "/Phase Current Sensors/Current Sense A/V-",
+          "type": "input"
         },
         "2": {
           "name": "GND",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "power_in"
         },
         "3": {
           "name": "REF2",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         },
         "4": {
           "name": "GND",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         },
-        "5": "/I_SENSE.A",
+        "5": {
+          "net": "/I_SENSE.A",
+          "type": "output"
+        },
         "6": {
           "name": "V+",
-          "net": "/V_{ANA}"
+          "net": "/V_{ANA}",
+          "type": "power_in"
         },
         "7": {
           "name": "REF1",
-          "net": "/V_{ANA}"
+          "net": "/V_{ANA}",
+          "type": "passive"
         },
         "8": {
           "name": "+",
-          "net": "/Phase Current Sensors/Current Sense A/V+"
+          "net": "/Phase Current Sensors/Current Sense A/V+",
+          "type": "input"
         }
       },
       "value": "INA241A2",
@@ -3993,8 +5113,14 @@
     },
     "C52": {
       "pins": {
-        "1": "/V_{ANA}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{ANA}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor, small symbol",
@@ -4002,8 +5128,14 @@
     },
     "C54": {
       "pins": {
-        "1": "/Phase Current Sensors/Current Sense B/V+",
-        "2": "/Phase Current Sensors/Current Sense B/V-"
+        "1": {
+          "net": "/Phase Current Sensors/Current Sense B/V+",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/Phase Current Sensors/Current Sense B/V-",
+          "type": "passive"
+        }
       },
       "value": "10nF",
       "description": "Unpolarized capacitor, small symbol",
@@ -4013,11 +5145,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "/B"
+          "net": "/B",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         }
       },
       "value": "100V",
@@ -4025,8 +5159,14 @@
     },
     "R25": {
       "pins": {
-        "1": "/SW.B",
-        "2": "/Phase Current Sensors/Current Sense B/V+"
+        "1": {
+          "net": "/SW.B",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/Phase Current Sensors/Current Sense B/V+",
+          "type": "passive"
+        }
       },
       "value": "10",
       "description": "Resistor, small US symbol",
@@ -4034,8 +5174,14 @@
     },
     "R26": {
       "pins": {
-        "1": "/SW.B",
-        "2": "/B"
+        "1": {
+          "net": "/SW.B",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/B",
+          "type": "passive"
+        }
       },
       "value": ".5m",
       "description": "Resistor, US symbol",
@@ -4043,8 +5189,14 @@
     },
     "R27": {
       "pins": {
-        "1": "/B",
-        "2": "/Phase Current Sensors/Current Sense B/V-"
+        "1": {
+          "net": "/B",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/Phase Current Sensors/Current Sense B/V-",
+          "type": "passive"
+        }
       },
       "value": "10",
       "description": "Resistor, small US symbol",
@@ -4054,32 +5206,42 @@
       "pins": {
         "1": {
           "name": "-",
-          "net": "/Phase Current Sensors/Current Sense B/V-"
+          "net": "/Phase Current Sensors/Current Sense B/V-",
+          "type": "input"
         },
         "2": {
           "name": "GND",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "power_in"
         },
         "3": {
           "name": "REF2",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         },
         "4": {
           "name": "GND",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         },
-        "5": "/I_SENSE.B",
+        "5": {
+          "net": "/I_SENSE.B",
+          "type": "output"
+        },
         "6": {
           "name": "V+",
-          "net": "/V_{ANA}"
+          "net": "/V_{ANA}",
+          "type": "power_in"
         },
         "7": {
           "name": "REF1",
-          "net": "/V_{ANA}"
+          "net": "/V_{ANA}",
+          "type": "passive"
         },
         "8": {
           "name": "+",
-          "net": "/Phase Current Sensors/Current Sense B/V+"
+          "net": "/Phase Current Sensors/Current Sense B/V+",
+          "type": "input"
         }
       },
       "value": "INA241A2",
@@ -4088,8 +5250,14 @@
     },
     "C57": {
       "pins": {
-        "1": "/V_{ANA}",
-        "2": "/GND"
+        "1": {
+          "net": "/V_{ANA}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor, small symbol",
@@ -4097,8 +5265,14 @@
     },
     "C59": {
       "pins": {
-        "1": "/Phase Current Sensors/Current Sense C/V+",
-        "2": "/Phase Current Sensors/Current Sense C/V-"
+        "1": {
+          "net": "/Phase Current Sensors/Current Sense C/V+",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/Phase Current Sensors/Current Sense C/V-",
+          "type": "passive"
+        }
       },
       "value": "10nF",
       "description": "Unpolarized capacitor, small symbol",
@@ -4108,11 +5282,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "/C"
+          "net": "/C",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         }
       },
       "value": "100V",
@@ -4120,8 +5296,14 @@
     },
     "R28": {
       "pins": {
-        "1": "/SW.C",
-        "2": "/Phase Current Sensors/Current Sense C/V+"
+        "1": {
+          "net": "/SW.C",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/Phase Current Sensors/Current Sense C/V+",
+          "type": "passive"
+        }
       },
       "value": "10",
       "description": "Resistor, small US symbol",
@@ -4129,8 +5311,14 @@
     },
     "R29": {
       "pins": {
-        "1": "/SW.C",
-        "2": "/C"
+        "1": {
+          "net": "/SW.C",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/C",
+          "type": "passive"
+        }
       },
       "value": ".5m",
       "description": "Resistor, US symbol",
@@ -4138,8 +5326,14 @@
     },
     "R30": {
       "pins": {
-        "1": "/C",
-        "2": "/Phase Current Sensors/Current Sense C/V-"
+        "1": {
+          "net": "/C",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/Phase Current Sensors/Current Sense C/V-",
+          "type": "passive"
+        }
       },
       "value": "10",
       "description": "Resistor, small US symbol",
@@ -4149,32 +5343,42 @@
       "pins": {
         "1": {
           "name": "-",
-          "net": "/Phase Current Sensors/Current Sense C/V-"
+          "net": "/Phase Current Sensors/Current Sense C/V-",
+          "type": "input"
         },
         "2": {
           "name": "GND",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "power_in"
         },
         "3": {
           "name": "REF2",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         },
         "4": {
           "name": "GND",
-          "net": "/GND"
+          "net": "/GND",
+          "type": "passive"
         },
-        "5": "/I_SENSE.C",
+        "5": {
+          "net": "/I_SENSE.C",
+          "type": "output"
+        },
         "6": {
           "name": "V+",
-          "net": "/V_{ANA}"
+          "net": "/V_{ANA}",
+          "type": "power_in"
         },
         "7": {
           "name": "REF1",
-          "net": "/V_{ANA}"
+          "net": "/V_{ANA}",
+          "type": "passive"
         },
         "8": {
           "name": "+",
-          "net": "/Phase Current Sensors/Current Sense C/V+"
+          "net": "/Phase Current Sensors/Current Sense C/V+",
+          "type": "input"
         }
       },
       "value": "INA241A2",

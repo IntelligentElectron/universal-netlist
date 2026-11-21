@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T20:27:50.066Z",
-    "netlistHash": "sha256:d0aa9b6d513fd08ae58043939d59fb39f645485a402c0862056477f0130c548c",
+    "generatedAt": "2026-11-21T21:40:46.688Z",
+    "netlistHash": "sha256:cc42da25f6218900da5650a10115a4eb9c8387a15681ec34c0d17369da184c8e",
     "origin": {
       "type": "vendor",
       "source": {
@@ -3307,15 +3307,18 @@
       "pins": {
         "1": {
           "name": "Pin_1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "Pin_2",
-          "net": "/PWM_LFO_SQR"
+          "net": "/PWM_LFO_SQR",
+          "type": "passive"
         },
         "3": {
           "name": "Pin_3",
-          "net": "/main_VCO/RIBBON_CV"
+          "net": "/main_VCO/RIBBON_CV",
+          "type": "passive"
         }
       },
       "value": "ribbon_port",
@@ -3325,11 +3328,13 @@
       "pins": {
         "1": {
           "name": "Pin_1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "Pin_2",
-          "net": "/MOD_OSC"
+          "net": "/MOD_OSC",
+          "type": "passive"
         }
       },
       "value": "modosc_port",
@@ -3339,15 +3344,18 @@
       "pins": {
         "1": {
           "name": "Pin_1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "Pin_2",
-          "net": "/main_VCO/MOD_ENV_DOWN"
+          "net": "/main_VCO/MOD_ENV_DOWN",
+          "type": "passive"
         },
         "3": {
           "name": "Pin_3",
-          "net": "/main_VCO/MOD_ENV_UP"
+          "net": "/main_VCO/MOD_ENV_UP",
+          "type": "passive"
         }
       },
       "value": "ADSR_port",
@@ -3357,27 +3365,33 @@
       "pins": {
         "1": {
           "name": "Pin_1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "Pin_2",
-          "net": "/PWM_LFO_TRI"
+          "net": "/PWM_LFO_TRI",
+          "type": "passive"
         },
         "3": {
           "name": "Pin_3",
-          "net": "/OCTAVE_0"
+          "net": "/OCTAVE_0",
+          "type": "passive"
         },
         "4": {
           "name": "Pin_4",
-          "net": "/NOISE"
+          "net": "/NOISE",
+          "type": "passive"
         },
         "5": {
           "name": "Pin_5",
-          "net": "/main_VCO/S_AND_H_MIXER"
+          "net": "/main_VCO/S_AND_H_MIXER",
+          "type": "passive"
         },
         "6": {
           "name": "Pin_6",
-          "net": "/main_VCO/S_AND_H"
+          "net": "/main_VCO/S_AND_H",
+          "type": "passive"
         }
       },
       "value": "S&H_port",
@@ -3387,15 +3401,18 @@
       "pins": {
         "1": {
           "name": "Pin_1",
-          "net": "/EXT_AUDIO"
+          "net": "/EXT_AUDIO",
+          "type": "passive"
         },
         "2": {
           "name": "Pin_2",
-          "net": "/main_VCO/EXT_CV"
+          "net": "/main_VCO/EXT_CV",
+          "type": "passive"
         },
         "3": {
           "name": "Pin_3",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "value": "ext_con",
@@ -3405,15 +3422,18 @@
       "pins": {
         "1": {
           "name": "Pin_1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "Pin_2",
-          "net": "/OCTAVE_0"
+          "net": "/OCTAVE_0",
+          "type": "passive"
         },
         "3": {
           "name": "Pin_3",
-          "net": "/audio_mixer/OUT"
+          "net": "/audio_mixer/OUT",
+          "type": "passive"
         }
       },
       "value": "vcf_port",
@@ -3423,15 +3443,18 @@
       "pins": {
         "1": {
           "name": "A",
-          "net": "/OCTAVE_2"
+          "net": "/OCTAVE_2",
+          "type": "passive"
         },
         "2": {
           "name": "C",
-          "net": "/ring_modulator/X_IN"
+          "net": "/ring_modulator/X_IN",
+          "type": "passive"
         },
         "3": {
           "name": "B",
-          "net": "/OCTAVE_0"
+          "net": "/OCTAVE_0",
+          "type": "passive"
         }
       },
       "value": "rm_x_select",
@@ -3439,252 +3462,430 @@
     },
     "TP101": {
       "pins": {
-        "1": "/PWM_generator/PWM_CV_OUT"
+        "1": {
+          "net": "/PWM_generator/PWM_CV_OUT",
+          "type": "passive"
+        }
       },
       "value": "pwm_cv",
       "description": "test point"
     },
     "TP102": {
       "pins": {
-        "1": "/OCTAVE_0"
+        "1": {
+          "net": "/OCTAVE_0",
+          "type": "passive"
+        }
       },
       "value": "oct_0",
       "description": "test point"
     },
     "TP103": {
       "pins": {
-        "1": "/OCTAVE_1"
+        "1": {
+          "net": "/OCTAVE_1",
+          "type": "passive"
+        }
       },
       "value": "oct_1",
       "description": "test point"
     },
     "TP104": {
       "pins": {
-        "1": "/OCTAVE_2"
+        "1": {
+          "net": "/OCTAVE_2",
+          "type": "passive"
+        }
       },
       "value": "oct_2",
       "description": "test point"
     },
     "TP105": {
       "pins": {
-        "1": "/audio_mixer/RING_MOD"
+        "1": {
+          "net": "/audio_mixer/RING_MOD",
+          "type": "passive"
+        }
       },
       "value": "ring_mod",
       "description": "test point"
     },
     "TP106": {
       "pins": {
-        "1": "/audio_mixer/OUT"
+        "1": {
+          "net": "/audio_mixer/OUT",
+          "type": "passive"
+        }
       },
       "value": "mix",
       "description": "test point"
     },
     "C201": {
       "pins": {
-        "1": "Net-(U2A--)",
-        "2": "Net-(C201-Pad2)"
+        "1": {
+          "net": "Net-(U2A--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C201-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "100p",
       "description": "Unpolarized capacitor"
     },
     "C202": {
       "pins": {
-        "1": "Net-(C201-Pad2)",
-        "2": "/OCTAVE_0"
+        "1": {
+          "net": "Net-(C201-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/OCTAVE_0",
+          "type": "passive"
+        }
       },
       "value": "1u",
       "description": "Unpolarized capacitor"
     },
     "R201": {
       "pins": {
-        "1": "/PWM_generator/PWM_CV_OUT",
-        "2": "/main_VCO/VCO_core/PWM_CV_IN"
+        "1": {
+          "net": "/PWM_generator/PWM_CV_OUT",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/main_VCO/VCO_core/PWM_CV_IN",
+          "type": "passive"
+        }
       },
       "value": "150k",
       "description": "Resistor"
     },
     "R202": {
       "pins": {
-        "1": "/main_VCO/VCO_core/PWM_CV_IN",
-        "2": "GND"
+        "1": {
+          "net": "/main_VCO/VCO_core/PWM_CV_IN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "56k",
       "description": "Resistor"
     },
     "R203": {
       "pins": {
-        "1": "+5V_REF",
-        "2": "/main_VCO/VCO_core/PWM_CV_IN"
+        "1": {
+          "net": "+5V_REF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/main_VCO/VCO_core/PWM_CV_IN",
+          "type": "passive"
+        }
       },
       "value": "120k",
       "description": "Resistor"
     },
     "R204": {
       "pins": {
-        "1": "/main_VCO/VCO_core/SWITCHED_OUT",
-        "2": "Net-(U2A--)"
+        "1": {
+          "net": "/main_VCO/VCO_core/SWITCHED_OUT",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U2A--)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R205": {
       "pins": {
-        "1": "/main_VCO/VCO_core/SWITCHED_OUT",
-        "2": "Net-(U2A--)"
+        "1": {
+          "net": "/main_VCO/VCO_core/SWITCHED_OUT",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U2A--)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R206": {
       "pins": {
-        "1": "Net-(U2A--)",
-        "2": "Net-(C201-Pad2)"
+        "1": {
+          "net": "Net-(U2A--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C201-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "200k",
       "description": "Resistor"
     },
     "RV201": {
       "pins": {
-        "1": "-5V_REF",
-        "2": "/main_VCO/VCO_core/FINE_TUNE_IN",
-        "3": "+5V_REF"
+        "1": {
+          "net": "-5V_REF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/main_VCO/VCO_core/FINE_TUNE_IN",
+          "type": "passive"
+        },
+        "3": {
+          "net": "+5V_REF",
+          "type": "passive"
+        }
       },
       "value": "10k",
       "description": "Potentiometer"
     },
     "RV202": {
       "pins": {
-        "1": "-5V_REF",
-        "2": "/main_VCO/VCO_core/COARSE_TUNE_IN",
-        "3": "+5V_REF"
+        "1": {
+          "net": "-5V_REF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/main_VCO/VCO_core/COARSE_TUNE_IN",
+          "type": "passive"
+        },
+        "3": {
+          "net": "+5V_REF",
+          "type": "passive"
+        }
       },
       "value": "10k",
       "description": "Potentiometer"
     },
     "RV203": {
       "pins": {
-        "1": "GND",
-        "2": "Net-(RV203-Pad2)",
-        "3": "/MOD_OSC"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(RV203-Pad2)",
+          "type": "passive"
+        },
+        "3": {
+          "net": "/MOD_OSC",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Potentiometer"
     },
     "RV204": {
       "pins": {
-        "1": "GND",
-        "2": "/main_VCO/VCO_core/V_PER_OCT_IN_3",
-        "3": "Net-(RV204-Pad3)"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/main_VCO/VCO_core/V_PER_OCT_IN_3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "Net-(RV204-Pad3)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Potentiometer"
     },
     "RV205": {
       "pins": {
-        "1": "GND",
-        "2": "/main_VCO/VCO_core/V_PER_OCT_IN_4",
-        "3": "Net-(RV205-Pad3)"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/main_VCO/VCO_core/V_PER_OCT_IN_4",
+          "type": "passive"
+        },
+        "3": {
+          "net": "Net-(RV205-Pad3)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Potentiometer"
     },
     "SW201": {
       "pins": {
-        "1": "/main_VCO/MOD_ENV_UP",
-        "2": "Net-(RV204-Pad3)",
-        "3": "/main_VCO/MOD_ENV_DOWN"
+        "1": {
+          "net": "/main_VCO/MOD_ENV_UP",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(RV204-Pad3)",
+          "type": "passive"
+        },
+        "3": {
+          "net": "/main_VCO/MOD_ENV_DOWN",
+          "type": "passive"
+        }
       },
       "value": "SW_SPDT_CO",
       "description": "Switch, single pole double throw, center OFF position"
     },
     "SW202": {
       "pins": {
-        "1": "/main_VCO/S_AND_H",
-        "2": "Net-(RV205-Pad3)",
-        "3": "/main_VCO/S_AND_H_MIXER"
+        "1": {
+          "net": "/main_VCO/S_AND_H",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(RV205-Pad3)",
+          "type": "passive"
+        },
+        "3": {
+          "net": "/main_VCO/S_AND_H_MIXER",
+          "type": "passive"
+        }
       },
       "value": "SW_SPDT_CO",
       "description": "Switch, single pole double throw, center OFF position"
     },
     "SW203": {
       "pins": {
-        "1": "/main_VCO/VCO_core/V_PER_OCT_IN_5",
-        "2": "Net-(RV203-Pad2)",
-        "3": "/main_VCO/lin_FM_conditioner/LIN_FM_IN"
+        "1": {
+          "net": "/main_VCO/VCO_core/V_PER_OCT_IN_5",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(RV203-Pad2)",
+          "type": "passive"
+        },
+        "3": {
+          "net": "/main_VCO/lin_FM_conditioner/LIN_FM_IN",
+          "type": "passive"
+        }
       },
       "value": "SW_SPDT_CO",
       "description": "Switch, single pole double throw, center OFF position"
     },
     "U2": {
       "pins": {
-        "1": "Net-(C201-Pad2)",
+        "1": {
+          "net": "Net-(C201-Pad2)",
+          "type": "output"
+        },
         "2": {
           "name": "-",
-          "net": "Net-(U2A--)"
+          "net": "Net-(U2A--)",
+          "type": "input"
         },
         "3": {
           "name": "+",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "4": {
           "name": "V+",
-          "net": "+15V"
+          "net": "+15V",
+          "type": "power_in"
         },
         "5": {
           "name": "+",
-          "net": "Net-(U2B-+)"
+          "net": "Net-(U2B-+)",
+          "type": "input"
         },
         "6": {
           "name": "-",
-          "net": "Net-(U2B--)"
+          "net": "Net-(U2B--)",
+          "type": "input"
         },
-        "7": "/sub_osc_1/OCT_DWN_SAW",
-        "8": "/main_VCO/VCO_core/LIN_FM_IN",
+        "7": {
+          "net": "/sub_osc_1/OCT_DWN_SAW",
+          "type": "output"
+        },
+        "8": {
+          "net": "/main_VCO/VCO_core/LIN_FM_IN",
+          "type": "output"
+        },
         "9": {
           "name": "-",
-          "net": "Net-(U2C--)"
+          "net": "Net-(U2C--)",
+          "type": "input"
         },
         "10": {
           "name": "+",
-          "net": "Net-(Q401-D)"
+          "net": "Net-(Q401-D)",
+          "type": "input"
         },
         "11": {
           "name": "V-",
-          "net": "-15V"
+          "net": "-15V",
+          "type": "power_in"
         },
         "12": {
           "name": "+",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "13": {
           "name": "-",
-          "net": "Net-(U2D--)"
+          "net": "Net-(U2D--)",
+          "type": "input"
         },
-        "14": "Net-(U3--)"
+        "14": {
+          "net": "Net-(U3--)",
+          "type": "output"
+        }
       },
       "value": "TL074",
       "description": "Quad Low-Noise JFET-Input Operational Amplifiers, DIP-14/SOIC-14"
     },
     "C301": {
       "pins": {
-        "1": "Net-(C301-Pad1)",
-        "2": "+5V"
+        "1": {
+          "net": "Net-(C301-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5V",
+          "type": "passive"
+        }
       },
       "value": "10u",
       "description": "Unpolarized capacitor"
     },
     "C302": {
       "pins": {
-        "1": "Net-(C302-Pad1)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(C302-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "10n",
       "description": "Unpolarized capacitor"
     },
     "C303": {
       "pins": {
-        "1": "Net-(U4A-tcap)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(U4A-tcap)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "3N9 COG",
       "description": "Unpolarized capacitor"
@@ -3693,11 +3894,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "+5V"
+          "net": "+5V",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "Net-(D301-A)"
+          "net": "Net-(D301-A)",
+          "type": "passive"
         }
       },
       "value": "1N4148W",
@@ -3707,11 +3910,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "Net-(D301-A)"
+          "net": "Net-(D301-A)",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "value": "1N4148W",
@@ -3719,214 +3924,388 @@
     },
     "R301": {
       "pins": {
-        "1": "Net-(C301-Pad1)",
-        "2": "Net-(D301-A)"
+        "1": {
+          "net": "Net-(C301-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(D301-A)",
+          "type": "passive"
+        }
       },
       "value": "10k",
       "description": "Resistor"
     },
     "R302": {
       "pins": {
-        "1": "Net-(D301-A)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(D301-A)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "10k",
       "description": "Resistor"
     },
     "R303": {
       "pins": {
-        "1": "Net-(U4D-expo_freq)",
-        "2": "+2V5_REF"
+        "1": {
+          "net": "Net-(U4D-expo_freq)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+2V5_REF",
+          "type": "passive"
+        }
       },
       "value": "33k",
       "description": "Resistor"
     },
     "R304": {
       "pins": {
-        "1": "Net-(U4D-expo_freq)",
-        "2": "/main_VCO/VCO_core/COARSE_TUNE_IN"
+        "1": {
+          "net": "Net-(U4D-expo_freq)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/main_VCO/VCO_core/COARSE_TUNE_IN",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R305": {
       "pins": {
-        "1": "Net-(U4D-expo_freq)",
-        "2": "/main_VCO/VCO_core/FINE_TUNE_IN"
+        "1": {
+          "net": "Net-(U4D-expo_freq)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/main_VCO/VCO_core/FINE_TUNE_IN",
+          "type": "passive"
+        }
       },
       "value": "1M",
       "description": "Resistor"
     },
     "R306": {
       "pins": {
-        "1": "Net-(U4D-expo_freq)",
-        "2": "/main_VCO/EXT_CV"
+        "1": {
+          "net": "Net-(U4D-expo_freq)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/main_VCO/EXT_CV",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R307": {
       "pins": {
-        "1": "Net-(U4D-expo_freq)",
-        "2": "/main_VCO/RIBBON_CV"
+        "1": {
+          "net": "Net-(U4D-expo_freq)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/main_VCO/RIBBON_CV",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R308": {
       "pins": {
-        "1": "Net-(U4D-expo_freq)",
-        "2": "/main_VCO/VCO_core/V_PER_OCT_IN_3"
+        "1": {
+          "net": "Net-(U4D-expo_freq)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/main_VCO/VCO_core/V_PER_OCT_IN_3",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R309": {
       "pins": {
-        "1": "Net-(U4D-expo_freq)",
-        "2": "/main_VCO/VCO_core/V_PER_OCT_IN_4"
+        "1": {
+          "net": "Net-(U4D-expo_freq)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/main_VCO/VCO_core/V_PER_OCT_IN_4",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R310": {
       "pins": {
-        "1": "Net-(U4D-expo_freq)",
-        "2": "/main_VCO/VCO_core/V_PER_OCT_IN_5"
+        "1": {
+          "net": "Net-(U4D-expo_freq)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/main_VCO/VCO_core/V_PER_OCT_IN_5",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R311": {
       "pins": {
-        "1": "Net-(U4D-expo_freq)",
-        "2": "Net-(R311-Pad2)"
+        "1": {
+          "net": "Net-(U4D-expo_freq)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R311-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R312": {
       "pins": {
-        "1": "Net-(R312-Pad1)",
-        "2": "Net-(U4D-expo_freq)"
+        "1": {
+          "net": "Net-(R312-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U4D-expo_freq)",
+          "type": "passive"
+        }
       },
       "value": "270k",
       "description": "Resistor"
     },
     "R313": {
       "pins": {
-        "1": "Net-(R313-Pad1)",
-        "2": "Net-(U4D-expo_scale)"
+        "1": {
+          "net": "Net-(R313-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U4D-expo_scale)",
+          "type": "passive"
+        }
       },
       "value": "47k",
       "description": "Resistor"
     },
     "R314": {
       "pins": {
-        "1": "Net-(U4D-bw_comp)",
-        "2": "Net-(C302-Pad1)"
+        "1": {
+          "net": "Net-(U4D-bw_comp)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C302-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "270",
       "description": "Resistor"
     },
     "R315": {
       "pins": {
-        "1": "Net-(U4A-lin_freq)",
-        "2": "/main_VCO/VCO_core/LIN_FM_IN"
+        "1": {
+          "net": "Net-(U4A-lin_freq)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/main_VCO/VCO_core/LIN_FM_IN",
+          "type": "passive"
+        }
       },
       "value": "470k",
       "description": "Resistor"
     },
     "R316": {
       "pins": {
-        "1": "/sub_osc_1/SQUARE_IN",
-        "2": "+5V"
+        "1": {
+          "net": "/sub_osc_1/SQUARE_IN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5V",
+          "type": "passive"
+        }
       },
       "value": "4k7",
       "description": "Resistor"
     },
     "R317": {
       "pins": {
-        "1": "+5V",
-        "2": "Net-(R317-Pad2)"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R317-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R318": {
       "pins": {
-        "1": "Net-(U4E-sine_in_+)",
-        "2": "Net-(U4A-tri_out)"
+        "1": {
+          "net": "Net-(U4E-sine_in_+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U4A-tri_out)",
+          "type": "passive"
+        }
       },
       "value": "3k9",
       "description": "Resistor"
     },
     "R319": {
       "pins": {
-        "1": "GND",
-        "2": "Net-(U4E-sine_in_+)"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U4E-sine_in_+)",
+          "type": "passive"
+        }
       },
       "value": "4k7",
       "description": "Resistor"
     },
     "R320": {
       "pins": {
-        "1": "Net-(U4E-sine_in_-)",
-        "2": "+2V5_REF"
+        "1": {
+          "net": "Net-(U4E-sine_in_-)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+2V5_REF",
+          "type": "passive"
+        }
       },
       "value": "12k",
       "description": "Resistor"
     },
     "R321": {
       "pins": {
-        "1": "GND",
-        "2": "Net-(U4E-sine_in_-)"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U4E-sine_in_-)",
+          "type": "passive"
+        }
       },
       "value": "4k7",
       "description": "Resistor"
     },
     "R322": {
       "pins": {
-        "1": "GND",
-        "2": "/main_VCO/VCO_core/SWITCHED_OUT"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/main_VCO/VCO_core/SWITCHED_OUT",
+          "type": "passive"
+        }
       },
       "value": "18k",
       "description": "Resistor"
     },
     "RV301": {
       "pins": {
-        "1": "GND",
-        "2": "Net-(R311-Pad2)",
-        "3": "+2V5_REF"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R311-Pad2)",
+          "type": "passive"
+        },
+        "3": {
+          "net": "+2V5_REF",
+          "type": "passive"
+        }
       },
       "value": "5k",
       "description": "Trim-potentiometer"
     },
     "RV302": {
       "pins": {
-        "1": "Net-(R313-Pad1)",
-        "2": "+2V5_REF",
-        "3": "+2V5_REF"
+        "1": {
+          "net": "Net-(R313-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+2V5_REF",
+          "type": "passive"
+        },
+        "3": {
+          "net": "+2V5_REF",
+          "type": "passive"
+        }
       },
       "value": "5k",
       "description": "Trim-potentiometer"
     },
     "RV303": {
       "pins": {
-        "1": "GND",
-        "2": "Net-(R312-Pad1)",
-        "3": "Net-(U4A-hf_track)"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R312-Pad1)",
+          "type": "passive"
+        },
+        "3": {
+          "net": "Net-(U4A-hf_track)",
+          "type": "passive"
+        }
       },
       "value": "5k",
       "description": "Trim-potentiometer"
     },
     "SW301": {
       "pins": {
-        "1": "Net-(R317-Pad2)",
-        "2": "Net-(U4F-aux_2_mix)",
-        "3": "Net-(U4F-tri_mix)",
-        "4": "Net-(U4F-saw_mix)",
-        "5": "Net-(U4F-pulse_mix)"
+        "1": {
+          "net": "Net-(R317-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U4F-aux_2_mix)",
+          "type": "passive"
+        },
+        "3": {
+          "net": "Net-(U4F-tri_mix)",
+          "type": "passive"
+        },
+        "4": {
+          "net": "Net-(U4F-saw_mix)",
+          "type": "passive"
+        },
+        "5": {
+          "net": "Net-(U4F-pulse_mix)",
+          "type": "passive"
+        }
       },
       "value": "SR1712F-0204",
       "description": "3 rotary switches with 4 positions"
@@ -3935,163 +4314,219 @@
       "pins": {
         "1": {
           "name": "tri_out",
-          "net": "Net-(U4A-tri_out)"
+          "net": "Net-(U4A-tri_out)",
+          "type": "output"
         },
         "2": {
           "name": "sine_in_+",
-          "net": "Net-(U4E-sine_in_+)"
+          "net": "Net-(U4E-sine_in_+)",
+          "type": "input"
         },
         "3": {
           "name": "sine_in_-",
-          "net": "Net-(U4E-sine_in_-)"
+          "net": "Net-(U4E-sine_in_-)",
+          "type": "input"
         },
         "4": {
           "name": "aux_in_1",
-          "net": ""
+          "net": "",
+          "type": "input"
         },
         "5": {
           "name": "aux_in_2",
-          "net": "Net-(U4E-sine_out)"
+          "net": "Net-(U4E-sine_out)",
+          "type": "input"
         },
         "6": {
           "name": "hf_track",
-          "net": "Net-(U4A-hf_track)"
+          "net": "Net-(U4A-hf_track)",
+          "type": "input"
         },
         "7": {
           "name": "expo_freq",
-          "net": "Net-(U4D-expo_freq)"
+          "net": "Net-(U4D-expo_freq)",
+          "type": "input"
         },
         "8": {
           "name": "V-",
-          "net": "-5V"
+          "net": "-5V",
+          "type": "power_in"
         },
         "9": {
           "name": "tri_mix",
-          "net": "Net-(U4F-tri_mix)"
+          "net": "Net-(U4F-tri_mix)",
+          "type": "input"
         },
         "10": {
           "name": "saw_mix",
-          "net": "Net-(U4F-saw_mix)"
+          "net": "Net-(U4F-saw_mix)",
+          "type": "input"
         },
         "11": {
           "name": "pulse_mix",
-          "net": "Net-(U4F-pulse_mix)"
+          "net": "Net-(U4F-pulse_mix)",
+          "type": "input"
         },
         "12": {
           "name": "aux_1_mix",
-          "net": ""
+          "net": "",
+          "type": "input"
         },
         "13": {
           "name": "aux_2_mix",
-          "net": "Net-(U4F-aux_2_mix)"
+          "net": "Net-(U4F-aux_2_mix)",
+          "type": "input"
         },
         "14": {
           "name": "tcap",
-          "net": "Net-(U4A-tcap)"
+          "net": "Net-(U4A-tcap)",
+          "type": "input"
         },
         "15": {
           "name": "dgnd",
-          "net": "GND"
+          "net": "GND",
+          "type": "power_in"
         },
         "16": {
           "name": "agnd",
-          "net": "GND"
+          "net": "GND",
+          "type": "power_in"
         },
         "17": {
           "name": "hard_sync",
-          "net": "Net-(D301-A)"
+          "net": "Net-(D301-A)",
+          "type": "input"
         },
         "18": {
           "name": "time_rev",
-          "net": "/main_VCO/VCO_core/TIME_REV_IN"
+          "net": "/main_VCO/VCO_core/TIME_REV_IN",
+          "type": "input"
         },
         "19": {
           "name": "soft_sync",
-          "net": ""
+          "net": "",
+          "type": "input"
         },
         "20": {
           "name": "hft_base",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "21": {
           "name": "lin_freq",
-          "net": "Net-(U4A-lin_freq)"
+          "net": "Net-(U4A-lin_freq)",
+          "type": "input"
         },
         "22": {
           "name": "expo_scale",
-          "net": "Net-(U4D-expo_scale)"
+          "net": "Net-(U4D-expo_scale)",
+          "type": "input"
         },
         "23": {
           "name": "vref",
-          "net": "+2V5_REF"
+          "net": "+2V5_REF",
+          "type": "input"
         },
         "24": {
           "name": "sine_out",
-          "net": "Net-(U4E-sine_out)"
+          "net": "Net-(U4E-sine_out)",
+          "type": "output"
         },
         "25": {
           "name": "mix_out",
-          "net": "/main_VCO/VCO_core/SWITCHED_OUT"
+          "net": "/main_VCO/VCO_core/SWITCHED_OUT",
+          "type": "output"
         },
         "26": {
           "name": "bw_comp",
-          "net": "Net-(U4D-bw_comp)"
+          "net": "Net-(U4D-bw_comp)",
+          "type": "input"
         },
         "27": {
           "name": "V+",
-          "net": "+5V"
+          "net": "+5V",
+          "type": "power_in"
         },
         "28": {
           "name": "square_out",
-          "net": "/sub_osc_1/SQUARE_IN"
+          "net": "/sub_osc_1/SQUARE_IN",
+          "type": "output"
         },
         "29": {
           "name": "saw_out",
-          "net": "/sub_osc_1/SAW_IN"
+          "net": "/sub_osc_1/SAW_IN",
+          "type": "output"
         },
         "30": {
           "name": "pulse_out",
-          "net": ""
+          "net": "",
+          "type": "output"
         },
         "31": {
           "name": "pwm_in_-",
-          "net": "Net-(U4A-tri_out)"
+          "net": "Net-(U4A-tri_out)",
+          "type": "input"
         },
         "32": {
           "name": "pwm_in_+",
-          "net": "/main_VCO/VCO_core/PWM_CV_IN"
+          "net": "/main_VCO/VCO_core/PWM_CV_IN",
+          "type": "input"
         }
       },
       "value": "SSI2130"
     },
     "C401": {
       "pins": {
-        "1": "Net-(C401-Pad1)",
-        "2": "/main_VCO/lin_FM_conditioner/LIN_FM_IN"
+        "1": {
+          "net": "Net-(C401-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/main_VCO/lin_FM_conditioner/LIN_FM_IN",
+          "type": "passive"
+        }
       },
       "value": "10u BP",
       "description": "Unpolarized capacitor"
     },
     "C402": {
       "pins": {
-        "1": "Net-(U3--)",
-        "2": "Net-(U2D--)"
+        "1": {
+          "net": "Net-(U3--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U2D--)",
+          "type": "passive"
+        }
       },
       "value": "100p",
       "description": "Unpolarized capacitor"
     },
     "C403": {
       "pins": {
-        "1": "/main_VCO/VCO_core/TIME_REV_IN",
-        "2": "Net-(C403-Pad2)"
+        "1": {
+          "net": "/main_VCO/VCO_core/TIME_REV_IN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C403-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "100p",
       "description": "Unpolarized capacitor"
     },
     "C404": {
       "pins": {
-        "1": "/main_VCO/VCO_core/LIN_FM_IN",
-        "2": "Net-(U2C--)"
+        "1": {
+          "net": "/main_VCO/VCO_core/LIN_FM_IN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U2C--)",
+          "type": "passive"
+        }
       },
       "value": "100p",
       "description": "Unpolarized capacitor"
@@ -4100,15 +4535,18 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "/main_VCO/VCO_core/TIME_REV_IN"
+          "net": "/main_VCO/VCO_core/TIME_REV_IN",
+          "type": "input"
         },
         "2": {
           "name": "S",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "3": {
           "name": "D",
-          "net": "Net-(Q401-D)"
+          "net": "Net-(Q401-D)",
+          "type": "passive"
         }
       },
       "value": "2N7002",
@@ -4116,72 +4554,126 @@
     },
     "R401": {
       "pins": {
-        "1": "Net-(U2D--)",
-        "2": "+2V5_REF"
+        "1": {
+          "net": "Net-(U2D--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+2V5_REF",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R402": {
       "pins": {
-        "1": "Net-(U2D--)",
-        "2": "Net-(C401-Pad1)"
+        "1": {
+          "net": "Net-(U2D--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C401-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "33k",
       "description": "Resistor"
     },
     "R403": {
       "pins": {
-        "1": "Net-(U3--)",
-        "2": "Net-(U2D--)"
+        "1": {
+          "net": "Net-(U3--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U2D--)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R404": {
       "pins": {
-        "1": "GND",
-        "2": "Net-(U3-+)"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U3-+)",
+          "type": "passive"
+        }
       },
       "value": "100",
       "description": "Resistor"
     },
     "R405": {
       "pins": {
-        "1": "Net-(C403-Pad2)",
-        "2": "Net-(U3-+)"
+        "1": {
+          "net": "Net-(C403-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U3-+)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R406": {
       "pins": {
-        "1": "/main_VCO/VCO_core/TIME_REV_IN",
-        "2": "+5V"
+        "1": {
+          "net": "/main_VCO/VCO_core/TIME_REV_IN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5V",
+          "type": "passive"
+        }
       },
       "value": "10k",
       "description": "Resistor"
     },
     "R407": {
       "pins": {
-        "1": "Net-(U2C--)",
-        "2": "Net-(U3--)"
+        "1": {
+          "net": "Net-(U2C--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U3--)",
+          "type": "passive"
+        }
       },
       "value": "20k",
       "description": "Resistor"
     },
     "R408": {
       "pins": {
-        "1": "Net-(Q401-D)",
-        "2": "Net-(U3--)"
+        "1": {
+          "net": "Net-(Q401-D)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U3--)",
+          "type": "passive"
+        }
       },
       "value": "20k",
       "description": "Resistor"
     },
     "R409": {
       "pins": {
-        "1": "/main_VCO/VCO_core/LIN_FM_IN",
-        "2": "Net-(U2C--)"
+        "1": {
+          "net": "/main_VCO/VCO_core/LIN_FM_IN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U2C--)",
+          "type": "passive"
+        }
       },
       "value": "20k",
       "description": "Resistor"
@@ -4190,32 +4682,42 @@
       "pins": {
         "1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "+",
-          "net": "Net-(U3-+)"
+          "net": "Net-(U3-+)",
+          "type": "input"
         },
         "3": {
           "name": "-",
-          "net": "Net-(U3--)"
+          "net": "Net-(U3--)",
+          "type": "input"
         },
         "4": {
           "name": "V-",
-          "net": "-15V"
+          "net": "-15V",
+          "type": "power_in"
         },
         "5": {
           "name": "BAL",
-          "net": ""
+          "net": "",
+          "type": "input"
         },
         "6": {
           "name": "STRB",
-          "net": ""
+          "net": "",
+          "type": "input"
         },
-        "7": "/main_VCO/VCO_core/TIME_REV_IN",
+        "7": {
+          "net": "/main_VCO/VCO_core/TIME_REV_IN",
+          "type": "open_collector"
+        },
         "8": {
           "name": "V+",
-          "net": "+15V"
+          "net": "+15V",
+          "type": "power_in"
         }
       },
       "value": "LM311",
@@ -4223,16 +4725,28 @@
     },
     "C501": {
       "pins": {
-        "1": "Net-(U1B--)",
-        "2": "/PWM_LFO_TRI"
+        "1": {
+          "net": "Net-(U1B--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/PWM_LFO_TRI",
+          "type": "passive"
+        }
       },
       "value": "220n",
       "description": "Unpolarized capacitor"
     },
     "C502": {
       "pins": {
-        "1": "Net-(U1C--)",
-        "2": "Net-(C502-Pad2)"
+        "1": {
+          "net": "Net-(U1C--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C502-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "100p",
       "description": "Unpolarized capacitor"
@@ -4241,11 +4755,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "+5V"
+          "net": "+5V",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "/PWM_generator/PWM_CV_OUT"
+          "net": "/PWM_generator/PWM_CV_OUT",
+          "type": "passive"
         }
       },
       "value": "BAT48ZFILM",
@@ -4255,11 +4771,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "/PWM_generator/PWM_CV_OUT"
+          "net": "/PWM_generator/PWM_CV_OUT",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "-5V"
+          "net": "-5V",
+          "type": "passive"
         }
       },
       "value": "BAT48ZFILM",
@@ -4269,11 +4787,13 @@
       "pins": {
         "1": {
           "name": "Pin_1",
-          "net": "Net-(J501-Pin_1)"
+          "net": "Net-(J501-Pin_1)",
+          "type": "passive"
         },
         "2": {
           "name": "Pin_2",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "value": "aux_pwm",
@@ -4281,173 +4801,294 @@
     },
     "R501": {
       "pins": {
-        "1": "Net-(U1A-+)",
-        "2": "/PWM_LFO_TRI"
+        "1": {
+          "net": "Net-(U1A-+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/PWM_LFO_TRI",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R502": {
       "pins": {
-        "1": "Net-(U1A-+)",
-        "2": "Net-(R502-Pad2)"
+        "1": {
+          "net": "Net-(U1A-+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R502-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "270k",
       "description": "Resistor"
     },
     "R503": {
       "pins": {
-        "1": "Net-(R503-Pad1)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(R503-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100",
       "description": "Resistor"
     },
     "R504": {
       "pins": {
-        "1": "/PWM_LFO_SQR",
-        "2": "Net-(R502-Pad2)"
+        "1": {
+          "net": "/PWM_LFO_SQR",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R502-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "2k2",
       "description": "Resistor"
     },
     "R505": {
       "pins": {
-        "1": "Net-(R505-Pad1)",
-        "2": "Net-(U1B--)"
+        "1": {
+          "net": "Net-(R505-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U1B--)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R506": {
       "pins": {
-        "1": "Net-(R506-Pad1)",
-        "2": "Net-(U1C--)"
+        "1": {
+          "net": "Net-(R506-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U1C--)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R507": {
       "pins": {
-        "1": "Net-(R507-Pad1)",
-        "2": "Net-(U1C--)"
+        "1": {
+          "net": "Net-(R507-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U1C--)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R508": {
       "pins": {
-        "1": "Net-(J501-Pin_1)",
-        "2": "Net-(U1C--)"
+        "1": {
+          "net": "Net-(J501-Pin_1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U1C--)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R509": {
       "pins": {
-        "1": "Net-(U1C--)",
-        "2": "Net-(C502-Pad2)"
+        "1": {
+          "net": "Net-(U1C--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C502-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R510": {
       "pins": {
-        "1": "Net-(C502-Pad2)",
-        "2": "/PWM_generator/PWM_CV_OUT"
+        "1": {
+          "net": "Net-(C502-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/PWM_generator/PWM_CV_OUT",
+          "type": "passive"
+        }
       },
       "value": "1k",
       "description": "Resistor"
     },
     "R511": {
       "pins": {
-        "1": "GND",
-        "2": "/PWM_LFO_SQR"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/PWM_LFO_SQR",
+          "type": "passive"
+        }
       },
       "value": "1k",
       "description": "Resistor"
     },
     "RV501": {
       "pins": {
-        "1": "Net-(R503-Pad1)",
-        "2": "Net-(R505-Pad1)",
-        "3": "Net-(R502-Pad2)"
+        "1": {
+          "net": "Net-(R503-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R505-Pad1)",
+          "type": "passive"
+        },
+        "3": {
+          "net": "Net-(R502-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Potentiometer"
     },
     "RV502": {
       "pins": {
-        "1": "GND",
-        "2": "Net-(R506-Pad1)",
-        "3": "/PWM_LFO_TRI"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R506-Pad1)",
+          "type": "passive"
+        },
+        "3": {
+          "net": "/PWM_LFO_TRI",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Potentiometer"
     },
     "RV503": {
       "pins": {
-        "1": "-5V_REF",
-        "2": "Net-(R507-Pad1)",
-        "3": "+5V_REF"
+        "1": {
+          "net": "-5V_REF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R507-Pad1)",
+          "type": "passive"
+        },
+        "3": {
+          "net": "+5V_REF",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Potentiometer"
     },
     "U1": {
       "pins": {
-        "1": "Net-(R502-Pad2)",
+        "1": {
+          "net": "Net-(R502-Pad2)",
+          "type": "output"
+        },
         "2": {
           "name": "-",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "3": {
           "name": "+",
-          "net": "Net-(U1A-+)"
+          "net": "Net-(U1A-+)",
+          "type": "input"
         },
         "4": {
           "name": "V+",
-          "net": "+15V"
+          "net": "+15V",
+          "type": "power_in"
         },
         "5": {
           "name": "+",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "6": {
           "name": "-",
-          "net": "Net-(U1B--)"
+          "net": "Net-(U1B--)",
+          "type": "input"
         },
-        "7": "/PWM_LFO_TRI",
-        "8": "Net-(C502-Pad2)",
+        "7": {
+          "net": "/PWM_LFO_TRI",
+          "type": "output"
+        },
+        "8": {
+          "net": "Net-(C502-Pad2)",
+          "type": "output"
+        },
         "9": {
           "name": "-",
-          "net": "Net-(U1C--)"
+          "net": "Net-(U1C--)",
+          "type": "input"
         },
         "10": {
           "name": "+",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "11": {
           "name": "V-",
-          "net": "-15V"
+          "net": "-15V",
+          "type": "power_in"
         },
         "12": {
           "name": "+",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "13": {
           "name": "-",
-          "net": "Net-(U1D--)"
+          "net": "Net-(U1D--)",
+          "type": "input"
         },
-        "14": "Net-(U1D--)"
+        "14": {
+          "net": "Net-(U1D--)",
+          "type": "output"
+        }
       },
       "value": "TL074",
       "description": "Quad Low-Noise JFET-Input Operational Amplifiers, DIP-14/SOIC-14"
     },
     "C601": {
       "pins": {
-        "1": "Net-(C601-Pad1)",
-        "2": "/OCTAVE_1"
+        "1": {
+          "net": "Net-(C601-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/OCTAVE_1",
+          "type": "passive"
+        }
       },
       "value": "1u",
       "description": "Unpolarized capacitor"
@@ -4456,11 +5097,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "/sub_osc_1/passthrough_switching/SWITCH_1"
+          "net": "/sub_osc_1/passthrough_switching/SWITCH_1",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "/sub_osc_1/~{OUTPUT_ENABLE}"
+          "net": "/sub_osc_1/~{OUTPUT_ENABLE}",
+          "type": "passive"
         }
       },
       "value": "1N4148W",
@@ -4470,11 +5113,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "/sub_osc_1/passthrough_switching/SWITCH_0"
+          "net": "/sub_osc_1/passthrough_switching/SWITCH_0",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "/sub_osc_1/~{OUTPUT_ENABLE}"
+          "net": "/sub_osc_1/~{OUTPUT_ENABLE}",
+          "type": "passive"
         }
       },
       "value": "1N4148W",
@@ -4482,141 +5127,261 @@
     },
     "R601": {
       "pins": {
-        "1": "/sub_osc_1/saw_animator_1/RATE_R_1",
-        "2": "/sub_osc_1/saw_animator_1/RATE_R_2"
+        "1": {
+          "net": "/sub_osc_1/saw_animator_1/RATE_R_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_1/saw_animator_1/RATE_R_2",
+          "type": "passive"
+        }
       },
       "value": "1M5",
       "description": "Resistor"
     },
     "R602": {
       "pins": {
-        "1": "/sub_osc_1/~{OUTPUT_ENABLE}",
-        "2": "+5V"
+        "1": {
+          "net": "/sub_osc_1/~{OUTPUT_ENABLE}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5V",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R603": {
       "pins": {
-        "1": "+5V",
-        "2": "/sub_osc_1/passthrough_switching/SWITCH_1"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_1/passthrough_switching/SWITCH_1",
+          "type": "passive"
+        }
       },
       "value": "10k",
       "description": "Resistor"
     },
     "R604": {
       "pins": {
-        "1": "+5V",
-        "2": "/sub_osc_1/passthrough_switching/SWITCH_0"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_1/passthrough_switching/SWITCH_0",
+          "type": "passive"
+        }
       },
       "value": "10k",
       "description": "Resistor"
     },
     "SW601": {
       "pins": {
-        "1": "/sub_osc_1/SAW_IN",
-        "2": "/sub_osc_1/saw_animator_1/SAW_IN",
-        "3": "/sub_osc_1/OCT_DWN_SAW",
-        "4": "/sub_osc_1/passthrough_switching/SWITCH_1",
-        "5": "GND",
-        "6": "/sub_osc_1/passthrough_switching/SWITCH_0"
+        "1": {
+          "net": "/sub_osc_1/SAW_IN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_1/saw_animator_1/SAW_IN",
+          "type": "passive"
+        },
+        "3": {
+          "net": "/sub_osc_1/OCT_DWN_SAW",
+          "type": "passive"
+        },
+        "4": {
+          "net": "/sub_osc_1/passthrough_switching/SWITCH_1",
+          "type": "passive"
+        },
+        "5": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "6": {
+          "net": "/sub_osc_1/passthrough_switching/SWITCH_0",
+          "type": "passive"
+        }
       },
       "value": "SW_DPDT_CO",
       "description": "Switch, single pole double throw, center OFF position"
     },
     "SW602": {
       "pins": {
-        "1": "Net-(SW602-Pad1)",
-        "2": "/sub_osc_1/SINE",
-        "3": "/sub_osc_1/basic_pulse_shaper/SIGNAL_IN",
-        "4": "/sub_osc_1/level_shifter_1/OUT",
-        "5": "/sub_osc_1/basic_pulse_shaper/PULSE_OUT"
+        "1": {
+          "net": "Net-(SW602-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_1/SINE",
+          "type": "passive"
+        },
+        "3": {
+          "net": "/sub_osc_1/basic_pulse_shaper/SIGNAL_IN",
+          "type": "passive"
+        },
+        "4": {
+          "net": "/sub_osc_1/level_shifter_1/OUT",
+          "type": "passive"
+        },
+        "5": {
+          "net": "/sub_osc_1/basic_pulse_shaper/PULSE_OUT",
+          "type": "passive"
+        }
       },
       "value": "SR1712F-0204",
       "description": "3 rotary switches with 4 positions"
     },
     "U19": {
       "pins": {
-        "1": "Net-(SW602-Pad1)",
+        "1": {
+          "net": "Net-(SW602-Pad1)",
+          "type": "bidirectional"
+        },
         "2": {
           "name": "V-",
-          "net": "-15V"
+          "net": "-15V",
+          "type": "power_in"
         },
-        "3": "/sub_osc_1/~{OUTPUT_ENABLE}",
+        "3": {
+          "net": "/sub_osc_1/~{OUTPUT_ENABLE}",
+          "type": "input"
+        },
         "4": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power_in"
         },
         "5": {
           "name": "V+",
-          "net": "+15V"
+          "net": "+15V",
+          "type": "power_in"
         },
-        "6": "Net-(C601-Pad1)"
+        "6": {
+          "net": "Net-(C601-Pad1)",
+          "type": "bidirectional"
+        }
       },
       "value": "DG447DV",
       "description": "Quad SPST Monolithic CMOS Analog Switches, normally 2xON + 2xOFF, 17Ohm Ron, SOIC-16"
     },
     "C701": {
       "pins": {
-        "1": "Net-(U2B--)",
-        "2": "/sub_osc_1/OCT_DWN_SAW"
+        "1": {
+          "net": "Net-(U2B--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_1/OCT_DWN_SAW",
+          "type": "passive"
+        }
       },
       "value": "10p",
       "description": "Unpolarized capacitor"
     },
     "R701": {
       "pins": {
-        "1": "Net-(R701-Pad1)",
-        "2": "Net-(U2B--)"
+        "1": {
+          "net": "Net-(R701-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U2B--)",
+          "type": "passive"
+        }
       },
       "value": "180k",
       "description": "Resistor"
     },
     "R702": {
       "pins": {
-        "1": "/sub_osc_1/SAW_IN",
-        "2": "Net-(U2B-+)"
+        "1": {
+          "net": "/sub_osc_1/SAW_IN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U2B-+)",
+          "type": "passive"
+        }
       },
       "value": "200k",
       "description": "Resistor"
     },
     "R703": {
       "pins": {
-        "1": "-5V_REF",
-        "2": "Net-(U2B--)"
+        "1": {
+          "net": "-5V_REF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U2B--)",
+          "type": "passive"
+        }
       },
       "value": "200k",
       "description": "Resistor"
     },
     "R704": {
       "pins": {
-        "1": "Net-(U2B-+)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(U2B-+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R705": {
       "pins": {
-        "1": "Net-(U2B--)",
-        "2": "/sub_osc_1/OCT_DWN_SAW"
+        "1": {
+          "net": "Net-(U2B--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_1/OCT_DWN_SAW",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R706": {
       "pins": {
-        "1": "Net-(U2B--)",
-        "2": "/sub_osc_1/OCT_DWN_SAW"
+        "1": {
+          "net": "Net-(U2B--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_1/OCT_DWN_SAW",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "RV701": {
       "pins": {
-        "1": "/sub_osc_1/OCT_DWN_SQR",
-        "2": "Net-(R701-Pad1)",
-        "3": "Net-(R701-Pad1)"
+        "1": {
+          "net": "/sub_osc_1/OCT_DWN_SQR",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R701-Pad1)",
+          "type": "passive"
+        },
+        "3": {
+          "net": "Net-(R701-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "50k",
       "description": "Trim-potentiometer"
@@ -4625,59 +5390,73 @@
       "pins": {
         "1": {
           "name": "Q",
-          "net": "/sub_osc_1/OCT_DWN_SQR"
+          "net": "/sub_osc_1/OCT_DWN_SQR",
+          "type": "output"
         },
         "2": {
           "name": "~{Q}",
-          "net": "Net-(U5A-D)"
+          "net": "Net-(U5A-D)",
+          "type": "output"
         },
         "3": {
           "name": "C",
-          "net": "/sub_osc_1/SQUARE_IN"
+          "net": "/sub_osc_1/SQUARE_IN",
+          "type": "input"
         },
         "4": {
           "name": "R",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "5": {
           "name": "D",
-          "net": "Net-(U5A-D)"
+          "net": "Net-(U5A-D)",
+          "type": "input"
         },
         "6": {
           "name": "S",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "7": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "power_in"
         },
         "8": {
           "name": "S",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "9": {
           "name": "D",
-          "net": "Net-(U5B-D)"
+          "net": "Net-(U5B-D)",
+          "type": "input"
         },
         "10": {
           "name": "R",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "11": {
           "name": "C",
-          "net": "/sub_osc_1/SQUARE_OUT"
+          "net": "/sub_osc_1/SQUARE_OUT",
+          "type": "input"
         },
         "12": {
           "name": "~{Q}",
-          "net": "Net-(U5B-D)"
+          "net": "Net-(U5B-D)",
+          "type": "output"
         },
         "13": {
           "name": "Q",
-          "net": "/sub_osc_2/octave_divider_2/OCTAVE_DOWN_SQR_OUT"
+          "net": "/sub_osc_2/octave_divider_2/OCTAVE_DOWN_SQR_OUT",
+          "type": "output"
         },
         "14": {
           "name": "VDD",
-          "net": "+5V"
+          "net": "+5V",
+          "type": "power_in"
         }
       },
       "value": "4013",
@@ -4685,219 +5464,370 @@
     },
     "C801": {
       "pins": {
-        "1": "Net-(U6A--)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(U6A--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "10u",
       "description": "Unpolarized capacitor"
     },
     "C802": {
       "pins": {
-        "1": "Net-(U6B--)",
-        "2": "Net-(U7--)"
+        "1": {
+          "net": "Net-(U6B--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U7--)",
+          "type": "passive"
+        }
       },
       "value": "10u BP",
       "description": "Unpolarized capacitor"
     },
     "C803": {
       "pins": {
-        "1": "Net-(U7-+)",
-        "2": "Net-(C803-Pad2)"
+        "1": {
+          "net": "Net-(U7-+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C803-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "100p",
       "description": "Unpolarized capacitor"
     },
     "R801": {
       "pins": {
-        "1": "+5V",
-        "2": "Net-(U6A--)"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U6A--)",
+          "type": "passive"
+        }
       },
       "value": "8k2",
       "description": "Resistor"
     },
     "R802": {
       "pins": {
-        "1": "Net-(U6A--)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(U6A--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "2k7",
       "description": "Resistor"
     },
     "R803": {
       "pins": {
-        "1": "Net-(U6A-+)",
-        "2": "Net-(U7--)"
+        "1": {
+          "net": "Net-(U6A-+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U7--)",
+          "type": "passive"
+        }
       },
       "value": "10k",
       "description": "Resistor"
     },
     "R804": {
       "pins": {
-        "1": "Net-(U6A-+)",
-        "2": "/sub_osc_1/saw_animator_1/RATE_R_1"
+        "1": {
+          "net": "Net-(U6A-+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_1/saw_animator_1/RATE_R_1",
+          "type": "passive"
+        }
       },
       "value": "120k",
       "description": "Resistor"
     },
     "R805": {
       "pins": {
-        "1": "/sub_osc_1/saw_animator_1/RATE_R_2",
-        "2": "Net-(U6B--)"
+        "1": {
+          "net": "/sub_osc_1/saw_animator_1/RATE_R_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U6B--)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R806": {
       "pins": {
-        "1": "/sub_osc_1/saw_animator_1/SAW_IN",
-        "2": "Net-(U7-+)"
+        "1": {
+          "net": "/sub_osc_1/saw_animator_1/SAW_IN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U7-+)",
+          "type": "passive"
+        }
       },
       "value": "1k",
       "description": "Resistor"
     },
     "R807": {
       "pins": {
-        "1": "/sub_osc_1/saw_animator_1/SAW_IN",
-        "2": "Net-(U6D--)"
+        "1": {
+          "net": "/sub_osc_1/saw_animator_1/SAW_IN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U6D--)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R808": {
       "pins": {
-        "1": "Net-(U6D--)",
-        "2": "Net-(R808-Pad2)"
+        "1": {
+          "net": "Net-(U6D--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R808-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R809": {
       "pins": {
-        "1": "Net-(C803-Pad2)",
-        "2": "Net-(R809-Pad2)"
+        "1": {
+          "net": "Net-(C803-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R809-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R810": {
       "pins": {
-        "1": "Net-(R809-Pad2)",
-        "2": "+5V"
+        "1": {
+          "net": "Net-(R809-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5V",
+          "type": "passive"
+        }
       },
       "value": "1k",
       "description": "Resistor"
     },
     "R811": {
       "pins": {
-        "1": "Net-(R808-Pad2)",
-        "2": "Net-(U6C--)"
+        "1": {
+          "net": "Net-(R808-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U6C--)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R812": {
       "pins": {
-        "1": "Net-(R812-Pad1)",
-        "2": "Net-(U6C--)"
+        "1": {
+          "net": "Net-(R812-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U6C--)",
+          "type": "passive"
+        }
       },
       "value": "180k",
       "description": "Resistor"
     },
     "R813": {
       "pins": {
-        "1": "Net-(U6C--)",
-        "2": "Net-(U7--)"
+        "1": {
+          "net": "Net-(U6C--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U7--)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R814": {
       "pins": {
-        "1": "Net-(R814-Pad1)",
-        "2": "Net-(U6C--)"
+        "1": {
+          "net": "Net-(R814-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U6C--)",
+          "type": "passive"
+        }
       },
       "value": "200k",
       "description": "Resistor"
     },
     "R815": {
       "pins": {
-        "1": "Net-(U6C--)",
-        "2": "/sub_osc_1/level_shifter_1/IN"
+        "1": {
+          "net": "Net-(U6C--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_1/level_shifter_1/IN",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "RV801": {
       "pins": {
-        "1": "Net-(R809-Pad2)",
-        "2": "Net-(R812-Pad1)",
-        "3": "Net-(R812-Pad1)"
+        "1": {
+          "net": "Net-(R809-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R812-Pad1)",
+          "type": "passive"
+        },
+        "3": {
+          "net": "Net-(R812-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "50k",
       "description": "Trim-potentiometer"
     },
     "RV802": {
       "pins": {
-        "1": "GND",
-        "2": "Net-(R814-Pad1)",
-        "3": "-5V_REF"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R814-Pad1)",
+          "type": "passive"
+        },
+        "3": {
+          "net": "-5V_REF",
+          "type": "passive"
+        }
       },
       "value": "5k",
       "description": "Trim-potentiometer"
     },
     "TP801": {
       "pins": {
-        "1": "Net-(U7--)"
+        "1": {
+          "net": "Net-(U7--)",
+          "type": "passive"
+        }
       },
       "value": "anim_LFO",
       "description": "test point"
     },
     "U6": {
       "pins": {
-        "1": "/sub_osc_1/saw_animator_1/RATE_R_1",
+        "1": {
+          "net": "/sub_osc_1/saw_animator_1/RATE_R_1",
+          "type": "output"
+        },
         "2": {
           "name": "-",
-          "net": "Net-(U6A--)"
+          "net": "Net-(U6A--)",
+          "type": "input"
         },
         "3": {
           "name": "+",
-          "net": "Net-(U6A-+)"
+          "net": "Net-(U6A-+)",
+          "type": "input"
         },
         "4": {
           "name": "V+",
-          "net": "+15V"
+          "net": "+15V",
+          "type": "power_in"
         },
         "5": {
           "name": "+",
-          "net": "Net-(U6A--)"
+          "net": "Net-(U6A--)",
+          "type": "input"
         },
         "6": {
           "name": "-",
-          "net": "Net-(U6B--)"
+          "net": "Net-(U6B--)",
+          "type": "input"
         },
-        "7": "Net-(U7--)",
-        "8": "/sub_osc_1/level_shifter_1/IN",
+        "7": {
+          "net": "Net-(U7--)",
+          "type": "output"
+        },
+        "8": {
+          "net": "/sub_osc_1/level_shifter_1/IN",
+          "type": "output"
+        },
         "9": {
           "name": "-",
-          "net": "Net-(U6C--)"
+          "net": "Net-(U6C--)",
+          "type": "input"
         },
         "10": {
           "name": "+",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "11": {
           "name": "V-",
-          "net": "-15V"
+          "net": "-15V",
+          "type": "power_in"
         },
         "12": {
           "name": "+",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "13": {
           "name": "-",
-          "net": "Net-(U6D--)"
+          "net": "Net-(U6D--)",
+          "type": "input"
         },
-        "14": "Net-(R808-Pad2)"
+        "14": {
+          "net": "Net-(R808-Pad2)",
+          "type": "output"
+        }
       },
       "value": "TL074",
       "description": "Quad Low-Noise JFET-Input Operational Amplifiers, DIP-14/SOIC-14"
@@ -4906,32 +5836,42 @@
       "pins": {
         "1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "+",
-          "net": "Net-(U7-+)"
+          "net": "Net-(U7-+)",
+          "type": "input"
         },
         "3": {
           "name": "-",
-          "net": "Net-(U7--)"
+          "net": "Net-(U7--)",
+          "type": "input"
         },
         "4": {
           "name": "V-",
-          "net": "GND"
+          "net": "GND",
+          "type": "power_in"
         },
         "5": {
           "name": "BAL",
-          "net": ""
+          "net": "",
+          "type": "input"
         },
         "6": {
           "name": "STRB",
-          "net": ""
+          "net": "",
+          "type": "input"
         },
-        "7": "Net-(R809-Pad2)",
+        "7": {
+          "net": "Net-(R809-Pad2)",
+          "type": "open_collector"
+        },
         "8": {
           "name": "V+",
-          "net": "+5V"
+          "net": "+5V",
+          "type": "power_in"
         }
       },
       "value": "LM311",
@@ -4939,82 +5879,128 @@
     },
     "C901": {
       "pins": {
-        "1": "Net-(U14C--)",
-        "2": "/sub_osc_1/level_shifter_1/OUT"
+        "1": {
+          "net": "Net-(U14C--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_1/level_shifter_1/OUT",
+          "type": "passive"
+        }
       },
       "value": "100p",
       "description": "Unpolarized capacitor"
     },
     "R901": {
       "pins": {
-        "1": "GND",
-        "2": "Net-(U14C--)"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U14C--)",
+          "type": "passive"
+        }
       },
       "value": "33k",
       "description": "Resistor"
     },
     "R902": {
       "pins": {
-        "1": "Net-(U14C--)",
-        "2": "/sub_osc_1/level_shifter_1/OUT"
+        "1": {
+          "net": "Net-(U14C--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_1/level_shifter_1/OUT",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "U14": {
       "pins": {
-        "1": "Net-(C2104-Pad2)",
+        "1": {
+          "net": "Net-(C2104-Pad2)",
+          "type": "output"
+        },
         "2": {
           "name": "-",
-          "net": "Net-(U14A--)"
+          "net": "Net-(U14A--)",
+          "type": "input"
         },
         "3": {
           "name": "+",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "4": {
           "name": "V+",
-          "net": "+15V"
+          "net": "+15V",
+          "type": "power_in"
         },
         "5": {
           "name": "+",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "6": {
           "name": "-",
-          "net": "Net-(U14B--)"
+          "net": "Net-(U14B--)",
+          "type": "input"
         },
-        "7": "Net-(C2103-Pad2)",
-        "8": "/sub_osc_1/level_shifter_1/OUT",
+        "7": {
+          "net": "Net-(C2103-Pad2)",
+          "type": "output"
+        },
+        "8": {
+          "net": "/sub_osc_1/level_shifter_1/OUT",
+          "type": "output"
+        },
         "9": {
           "name": "-",
-          "net": "Net-(U14C--)"
+          "net": "Net-(U14C--)",
+          "type": "input"
         },
         "10": {
           "name": "+",
-          "net": "/sub_osc_1/level_shifter_1/IN"
+          "net": "/sub_osc_1/level_shifter_1/IN",
+          "type": "input"
         },
         "11": {
           "name": "V-",
-          "net": "-15V"
+          "net": "-15V",
+          "type": "power_in"
         },
         "12": {
           "name": "+",
-          "net": "Net-(Q1902-C)"
+          "net": "Net-(Q1902-C)",
+          "type": "input"
         },
         "13": {
           "name": "-",
-          "net": "Net-(Q1901-C)"
+          "net": "Net-(Q1901-C)",
+          "type": "input"
         },
-        "14": "/sub_osc_2/SINE"
+        "14": {
+          "net": "/sub_osc_2/SINE",
+          "type": "output"
+        }
       },
       "value": "TL074",
       "description": "Quad Low-Noise JFET-Input Operational Amplifiers, DIP-14/SOIC-14"
     },
     "C1001": {
       "pins": {
-        "1": "Net-(U8D--)",
-        "2": "/sub_osc_1/basic_pulse_shaper/SIGNAL_IN"
+        "1": {
+          "net": "Net-(U8D--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_1/basic_pulse_shaper/SIGNAL_IN",
+          "type": "passive"
+        }
       },
       "value": "100p",
       "description": "Unpolarized capacitor"
@@ -5023,11 +6009,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "Net-(D1001-K)"
+          "net": "Net-(D1001-K)",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "Net-(D1001-A)"
+          "net": "Net-(D1001-A)",
+          "type": "passive"
         }
       },
       "value": "1N4148W",
@@ -5037,11 +6025,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "Net-(D1001-A)"
+          "net": "Net-(D1001-A)",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "Net-(D1002-A)"
+          "net": "Net-(D1002-A)",
+          "type": "passive"
         }
       },
       "value": "1N4148W",
@@ -5049,106 +6039,170 @@
     },
     "R1001": {
       "pins": {
-        "1": "Net-(D1001-K)",
-        "2": "/sub_osc_1/level_shifter_1/IN"
+        "1": {
+          "net": "Net-(D1001-K)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_1/level_shifter_1/IN",
+          "type": "passive"
+        }
       },
       "value": "15k",
       "description": "Resistor"
     },
     "R1002": {
       "pins": {
-        "1": "Net-(D1002-A)",
-        "2": "Net-(D1001-K)"
+        "1": {
+          "net": "Net-(D1002-A)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(D1001-K)",
+          "type": "passive"
+        }
       },
       "value": "15k",
       "description": "Resistor"
     },
     "R1003": {
       "pins": {
-        "1": "Net-(U8D--)",
-        "2": "Net-(D1002-A)"
+        "1": {
+          "net": "Net-(U8D--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(D1002-A)",
+          "type": "passive"
+        }
       },
       "value": "7k5",
       "description": "Resistor"
     },
     "R1004": {
       "pins": {
-        "1": "Net-(U8D--)",
-        "2": "+5V_REF"
+        "1": {
+          "net": "Net-(U8D--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5V_REF",
+          "type": "passive"
+        }
       },
       "value": "120k",
       "description": "Resistor"
     },
     "R1005": {
       "pins": {
-        "1": "Net-(U8D--)",
-        "2": "/sub_osc_1/level_shifter_1/IN"
+        "1": {
+          "net": "Net-(U8D--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_1/level_shifter_1/IN",
+          "type": "passive"
+        }
       },
       "value": "15k",
       "description": "Resistor"
     },
     "R1006": {
       "pins": {
-        "1": "/sub_osc_1/basic_pulse_shaper/SIGNAL_IN",
-        "2": "Net-(U8D--)"
+        "1": {
+          "net": "/sub_osc_1/basic_pulse_shaper/SIGNAL_IN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U8D--)",
+          "type": "passive"
+        }
       },
       "value": "120k",
       "description": "Resistor"
     },
     "U8": {
       "pins": {
-        "1": "/sub_osc_1/SINE",
+        "1": {
+          "net": "/sub_osc_1/SINE",
+          "type": "output"
+        },
         "2": {
           "name": "-",
-          "net": "Net-(Q1101-C)"
+          "net": "Net-(Q1101-C)",
+          "type": "input"
         },
         "3": {
           "name": "+",
-          "net": "Net-(Q1102-C)"
+          "net": "Net-(Q1102-C)",
+          "type": "input"
         },
         "4": {
           "name": "V+",
-          "net": "+15V"
+          "net": "+15V",
+          "type": "power_in"
         },
         "5": {
           "name": "+",
-          "net": "Net-(U8B-+)"
+          "net": "Net-(U8B-+)",
+          "type": "input"
         },
         "6": {
           "name": "-",
-          "net": "Net-(U8B--)"
+          "net": "Net-(U8B--)",
+          "type": "input"
         },
-        "7": "Net-(C1201-Pad2)",
-        "8": "Net-(D1001-A)",
+        "7": {
+          "net": "Net-(C1201-Pad2)",
+          "type": "output"
+        },
+        "8": {
+          "net": "Net-(D1001-A)",
+          "type": "output"
+        },
         "9": {
           "name": "-",
-          "net": "Net-(D1001-K)"
+          "net": "Net-(D1001-K)",
+          "type": "input"
         },
         "10": {
           "name": "+",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "11": {
           "name": "V-",
-          "net": "-15V"
+          "net": "-15V",
+          "type": "power_in"
         },
         "12": {
           "name": "+",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "13": {
           "name": "-",
-          "net": "Net-(U8D--)"
+          "net": "Net-(U8D--)",
+          "type": "input"
         },
-        "14": "/sub_osc_1/basic_pulse_shaper/SIGNAL_IN"
+        "14": {
+          "net": "/sub_osc_1/basic_pulse_shaper/SIGNAL_IN",
+          "type": "output"
+        }
       },
       "value": "TL074",
       "description": "Quad Low-Noise JFET-Input Operational Amplifiers, DIP-14/SOIC-14"
     },
     "C1101": {
       "pins": {
-        "1": "Net-(Q1101-C)",
-        "2": "/sub_osc_1/SINE"
+        "1": {
+          "net": "Net-(Q1101-C)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_1/SINE",
+          "type": "passive"
+        }
       },
       "value": "10n",
       "description": "Unpolarized capacitor"
@@ -5157,15 +6211,18 @@
       "pins": {
         "1": {
           "name": "B",
-          "net": "Net-(Q1101-B)"
+          "net": "Net-(Q1101-B)",
+          "type": "input"
         },
         "2": {
           "name": "E",
-          "net": "Net-(Q1101-E)"
+          "net": "Net-(Q1101-E)",
+          "type": "passive"
         },
         "3": {
           "name": "C",
-          "net": "Net-(Q1101-C)"
+          "net": "Net-(Q1101-C)",
+          "type": "passive"
         }
       },
       "value": "MMBT3904",
@@ -5175,15 +6232,18 @@
       "pins": {
         "1": {
           "name": "B",
-          "net": "Net-(Q1102-B)"
+          "net": "Net-(Q1102-B)",
+          "type": "input"
         },
         "2": {
           "name": "E",
-          "net": "Net-(Q1102-E)"
+          "net": "Net-(Q1102-E)",
+          "type": "passive"
         },
         "3": {
           "name": "C",
-          "net": "Net-(Q1102-C)"
+          "net": "Net-(Q1102-C)",
+          "type": "passive"
         }
       },
       "value": "MMBT3904",
@@ -5191,154 +6251,274 @@
     },
     "R1101": {
       "pins": {
-        "1": "Net-(R1101-Pad1)",
-        "2": "Net-(Q1101-B)"
+        "1": {
+          "net": "Net-(R1101-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q1101-B)",
+          "type": "passive"
+        }
       },
       "value": "27k",
       "description": "Resistor"
     },
     "R1102": {
       "pins": {
-        "1": "Net-(Q1101-B)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(Q1101-B)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "2k2",
       "description": "Resistor"
     },
     "R1103": {
       "pins": {
-        "1": "+15V",
-        "2": "Net-(Q1101-C)"
+        "1": {
+          "net": "+15V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q1101-C)",
+          "type": "passive"
+        }
       },
       "value": "10k",
       "description": "Resistor"
     },
     "R1104": {
       "pins": {
-        "1": "Net-(Q1101-E)",
-        "2": "Net-(Q1102-E)"
+        "1": {
+          "net": "Net-(Q1101-E)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q1102-E)",
+          "type": "passive"
+        }
       },
       "value": "390",
       "description": "Resistor"
     },
     "R1105": {
       "pins": {
-        "1": "Net-(R1105-Pad1)",
-        "2": "-15V"
+        "1": {
+          "net": "Net-(R1105-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "-15V",
+          "type": "passive"
+        }
       },
       "value": "18k",
       "description": "Resistor"
     },
     "R1106": {
       "pins": {
-        "1": "+15V",
-        "2": "Net-(Q1102-C)"
+        "1": {
+          "net": "+15V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q1102-C)",
+          "type": "passive"
+        }
       },
       "value": "10k",
       "description": "Resistor"
     },
     "R1107": {
       "pins": {
-        "1": "Net-(Q1102-B)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(Q1102-B)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "2k2",
       "description": "Resistor"
     },
     "R1108": {
       "pins": {
-        "1": "GND",
-        "2": "Net-(Q1102-C)"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q1102-C)",
+          "type": "passive"
+        }
       },
       "value": "12k",
       "description": "Resistor"
     },
     "R1109": {
       "pins": {
-        "1": "Net-(Q1101-C)",
-        "2": "/sub_osc_1/SINE"
+        "1": {
+          "net": "Net-(Q1101-C)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_1/SINE",
+          "type": "passive"
+        }
       },
       "value": "12k",
       "description": "Resistor"
     },
     "RV1101": {
       "pins": {
-        "1": "Net-(R1101-Pad1)",
-        "2": "/sub_osc_1/basic_pulse_shaper/SIGNAL_IN",
-        "3": "/sub_osc_1/basic_pulse_shaper/SIGNAL_IN"
+        "1": {
+          "net": "Net-(R1101-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_1/basic_pulse_shaper/SIGNAL_IN",
+          "type": "passive"
+        },
+        "3": {
+          "net": "/sub_osc_1/basic_pulse_shaper/SIGNAL_IN",
+          "type": "passive"
+        }
       },
       "value": "50k",
       "description": "Trim-potentiometer"
     },
     "RV1102": {
       "pins": {
-        "1": "Net-(Q1102-E)",
-        "2": "Net-(R1105-Pad1)",
-        "3": "Net-(Q1101-E)"
+        "1": {
+          "net": "Net-(Q1102-E)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R1105-Pad1)",
+          "type": "passive"
+        },
+        "3": {
+          "net": "Net-(Q1101-E)",
+          "type": "passive"
+        }
       },
       "value": "50k",
       "description": "Trim-potentiometer"
     },
     "C1201": {
       "pins": {
-        "1": "Net-(U8B-+)",
-        "2": "Net-(C1201-Pad2)"
+        "1": {
+          "net": "Net-(U8B-+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C1201-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "10p",
       "description": "Unpolarized capacitor"
     },
     "C1202": {
       "pins": {
-        "1": "GND",
-        "2": "/sub_osc_1/basic_pulse_shaper/PULSE_OUT"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_1/basic_pulse_shaper/PULSE_OUT",
+          "type": "passive"
+        }
       },
       "value": "10n",
       "description": "Unpolarized capacitor"
     },
     "R1201": {
       "pins": {
-        "1": "/sub_osc_1/basic_pulse_shaper/SIGNAL_IN",
-        "2": "Net-(U8B-+)"
+        "1": {
+          "net": "/sub_osc_1/basic_pulse_shaper/SIGNAL_IN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U8B-+)",
+          "type": "passive"
+        }
       },
       "value": "10k",
       "description": "Resistor"
     },
     "R1202": {
       "pins": {
-        "1": "/PWM_generator/PWM_CV_OUT",
-        "2": "Net-(U8B--)"
+        "1": {
+          "net": "/PWM_generator/PWM_CV_OUT",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U8B--)",
+          "type": "passive"
+        }
       },
       "value": "15k",
       "description": "Resistor"
     },
     "R1203": {
       "pins": {
-        "1": "Net-(U8B--)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(U8B--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R1204": {
       "pins": {
-        "1": "Net-(U8B-+)",
-        "2": "Net-(C1201-Pad2)"
+        "1": {
+          "net": "Net-(U8B-+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C1201-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "10M",
       "description": "Resistor"
     },
     "R1205": {
       "pins": {
-        "1": "Net-(C1201-Pad2)",
-        "2": "/sub_osc_1/basic_pulse_shaper/PULSE_OUT"
+        "1": {
+          "net": "Net-(C1201-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_1/basic_pulse_shaper/PULSE_OUT",
+          "type": "passive"
+        }
       },
       "value": "2k2",
       "description": "Resistor"
     },
     "R1206": {
       "pins": {
-        "1": "GND",
-        "2": "/sub_osc_1/basic_pulse_shaper/PULSE_OUT"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_1/basic_pulse_shaper/PULSE_OUT",
+          "type": "passive"
+        }
       },
       "value": "1k",
       "description": "Resistor"
@@ -5347,35 +6527,43 @@
       "pins": {
         "1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power_in"
         },
         "2": {
           "name": "TR",
-          "net": "/sub_osc_1/passthrough_switching/SWITCH_0"
+          "net": "/sub_osc_1/passthrough_switching/SWITCH_0",
+          "type": "input"
         },
         "3": {
           "name": "Q",
-          "net": "/sub_osc_1/passthrough_switching/SWITCH_CTL"
+          "net": "/sub_osc_1/passthrough_switching/SWITCH_CTL",
+          "type": "output"
         },
         "4": {
           "name": "R",
-          "net": "/sub_osc_1/passthrough_switching/SWITCH_1"
+          "net": "/sub_osc_1/passthrough_switching/SWITCH_1",
+          "type": "input"
         },
         "5": {
           "name": "CV",
-          "net": ""
+          "net": "",
+          "type": "input"
         },
         "6": {
           "name": "THR",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "7": {
           "name": "DIS",
-          "net": ""
+          "net": "",
+          "type": "input"
         },
         "8": {
           "name": "VCC",
-          "net": "+5V"
+          "net": "+5V",
+          "type": "power_in"
         }
       },
       "value": "LM555xM",
@@ -5383,407 +6571,716 @@
     },
     "U10": {
       "pins": {
-        "1": "/sub_osc_1/passthrough_switching/SWITCH_CTL",
-        "2": "/sub_osc_1/OCT_DWN_SAW",
-        "3": "/sub_osc_1/STATIC_SAW_OUT",
+        "1": {
+          "net": "/sub_osc_1/passthrough_switching/SWITCH_CTL",
+          "type": "input"
+        },
+        "2": {
+          "net": "/sub_osc_1/OCT_DWN_SAW",
+          "type": "passive"
+        },
+        "3": {
+          "net": "/sub_osc_1/STATIC_SAW_OUT",
+          "type": "passive"
+        },
         "4": {
           "name": "V-",
-          "net": "-15V"
+          "net": "-15V",
+          "type": "power_in"
         },
         "5": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power_in"
         },
-        "6": "/sub_osc_1/OCT_DWN_SQR",
-        "7": "/sub_osc_1/SQUARE_OUT",
-        "8": "/sub_osc_1/passthrough_switching/SWITCH_CTL",
-        "9": "/sub_osc_1/passthrough_switching/SWITCH_CTL",
-        "10": "/sub_osc_1/SQUARE_IN",
-        "11": "/sub_osc_1/SQUARE_OUT",
+        "6": {
+          "net": "/sub_osc_1/OCT_DWN_SQR",
+          "type": "passive"
+        },
+        "7": {
+          "net": "/sub_osc_1/SQUARE_OUT",
+          "type": "passive"
+        },
+        "8": {
+          "net": "/sub_osc_1/passthrough_switching/SWITCH_CTL",
+          "type": "input"
+        },
+        "9": {
+          "net": "/sub_osc_1/passthrough_switching/SWITCH_CTL",
+          "type": "input"
+        },
+        "10": {
+          "net": "/sub_osc_1/SQUARE_IN",
+          "type": "passive"
+        },
+        "11": {
+          "net": "/sub_osc_1/SQUARE_OUT",
+          "type": "passive"
+        },
         "12": {
           "name": "VL",
-          "net": "+5V"
+          "net": "+5V",
+          "type": "power_in"
         },
         "13": {
           "name": "V+",
-          "net": "+15V"
+          "net": "+15V",
+          "type": "power_in"
         },
-        "14": "/sub_osc_1/STATIC_SAW_OUT",
-        "15": "/sub_osc_1/SAW_IN",
-        "16": "/sub_osc_1/passthrough_switching/SWITCH_CTL"
+        "14": {
+          "net": "/sub_osc_1/STATIC_SAW_OUT",
+          "type": "passive"
+        },
+        "15": {
+          "net": "/sub_osc_1/SAW_IN",
+          "type": "passive"
+        },
+        "16": {
+          "net": "/sub_osc_1/passthrough_switching/SWITCH_CTL",
+          "type": "input"
+        }
       },
       "value": "DG413xY",
       "description": "Quad SPST Monolithic CMOS Analog Switches, normally 2xON + 2xOFF, 17Ohm Ron, SOIC-16"
     },
     "C1401": {
       "pins": {
-        "1": "Net-(C1401-Pad1)",
-        "2": "/OCTAVE_2"
+        "1": {
+          "net": "Net-(C1401-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/OCTAVE_2",
+          "type": "passive"
+        }
       },
       "value": "1u",
       "description": "Unpolarized capacitor"
     },
     "R1401": {
       "pins": {
-        "1": "/sub_osc_2/saw_animator_2/RATE_R_1",
-        "2": "/sub_osc_2/saw_animator_2/RATE_R_2"
+        "1": {
+          "net": "/sub_osc_2/saw_animator_2/RATE_R_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_2/saw_animator_2/RATE_R_2",
+          "type": "passive"
+        }
       },
       "value": "2M2",
       "description": "Resistor"
     },
     "SW1401": {
       "pins": {
-        "1": "/sub_osc_1/STATIC_SAW_OUT",
-        "2": "/sub_osc_2/saw_animator_2/SAW_IN",
-        "3": "/sub_osc_2/octave_divider_2/OCTAVE_DOWN_SAW_OUT",
-        "4": "Net-(SW1401-Pad4)",
-        "5": "Net-(C1401-Pad1)",
-        "6": "Net-(SW1401-Pad4)"
+        "1": {
+          "net": "/sub_osc_1/STATIC_SAW_OUT",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_2/saw_animator_2/SAW_IN",
+          "type": "passive"
+        },
+        "3": {
+          "net": "/sub_osc_2/octave_divider_2/OCTAVE_DOWN_SAW_OUT",
+          "type": "passive"
+        },
+        "4": {
+          "net": "Net-(SW1401-Pad4)",
+          "type": "passive"
+        },
+        "5": {
+          "net": "Net-(C1401-Pad1)",
+          "type": "passive"
+        },
+        "6": {
+          "net": "Net-(SW1401-Pad4)",
+          "type": "passive"
+        }
       },
       "value": "SW_DPDT_CO",
       "description": "Switch, single pole double throw, center OFF position"
     },
     "SW1402": {
       "pins": {
-        "1": "Net-(SW1401-Pad4)",
-        "2": "/sub_osc_2/SINE",
-        "3": "/sub_osc_2/harmonic_pulse_shaper/SIGNAL_IN",
-        "4": "/sub_osc_2/level_shifter_2/OUT",
-        "5": "/sub_osc_2/harmonic_pulse_shaper/PULSE_OUT"
+        "1": {
+          "net": "Net-(SW1401-Pad4)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_2/SINE",
+          "type": "passive"
+        },
+        "3": {
+          "net": "/sub_osc_2/harmonic_pulse_shaper/SIGNAL_IN",
+          "type": "passive"
+        },
+        "4": {
+          "net": "/sub_osc_2/level_shifter_2/OUT",
+          "type": "passive"
+        },
+        "5": {
+          "net": "/sub_osc_2/harmonic_pulse_shaper/PULSE_OUT",
+          "type": "passive"
+        }
       },
       "value": "SR1712F-0204",
       "description": "3 rotary switches with 4 positions"
     },
     "C1501": {
       "pins": {
-        "1": "Net-(U11B--)",
-        "2": "/sub_osc_2/octave_divider_2/OCTAVE_DOWN_SAW_OUT"
+        "1": {
+          "net": "Net-(U11B--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_2/octave_divider_2/OCTAVE_DOWN_SAW_OUT",
+          "type": "passive"
+        }
       },
       "value": "10p",
       "description": "Unpolarized capacitor"
     },
     "R1501": {
       "pins": {
-        "1": "Net-(R1501-Pad1)",
-        "2": "Net-(U11B--)"
+        "1": {
+          "net": "Net-(R1501-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U11B--)",
+          "type": "passive"
+        }
       },
       "value": "180k",
       "description": "Resistor"
     },
     "R1502": {
       "pins": {
-        "1": "/sub_osc_1/STATIC_SAW_OUT",
-        "2": "Net-(U11B-+)"
+        "1": {
+          "net": "/sub_osc_1/STATIC_SAW_OUT",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U11B-+)",
+          "type": "passive"
+        }
       },
       "value": "200k",
       "description": "Resistor"
     },
     "R1503": {
       "pins": {
-        "1": "-5V_REF",
-        "2": "Net-(U11B--)"
+        "1": {
+          "net": "-5V_REF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U11B--)",
+          "type": "passive"
+        }
       },
       "value": "200k",
       "description": "Resistor"
     },
     "R1504": {
       "pins": {
-        "1": "Net-(U11B-+)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(U11B-+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R1505": {
       "pins": {
-        "1": "Net-(U11B--)",
-        "2": "/sub_osc_2/octave_divider_2/OCTAVE_DOWN_SAW_OUT"
+        "1": {
+          "net": "Net-(U11B--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_2/octave_divider_2/OCTAVE_DOWN_SAW_OUT",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R1506": {
       "pins": {
-        "1": "Net-(U11B--)",
-        "2": "/sub_osc_2/octave_divider_2/OCTAVE_DOWN_SAW_OUT"
+        "1": {
+          "net": "Net-(U11B--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_2/octave_divider_2/OCTAVE_DOWN_SAW_OUT",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "RV1501": {
       "pins": {
-        "1": "/sub_osc_2/octave_divider_2/OCTAVE_DOWN_SQR_OUT",
-        "2": "Net-(R1501-Pad1)",
-        "3": "Net-(R1501-Pad1)"
+        "1": {
+          "net": "/sub_osc_2/octave_divider_2/OCTAVE_DOWN_SQR_OUT",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R1501-Pad1)",
+          "type": "passive"
+        },
+        "3": {
+          "net": "Net-(R1501-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "50k",
       "description": "Trim-potentiometer"
     },
     "U11": {
       "pins": {
-        "1": "/sub_osc_2/level_shifter_2/OUT",
+        "1": {
+          "net": "/sub_osc_2/level_shifter_2/OUT",
+          "type": "output"
+        },
         "2": {
           "name": "-",
-          "net": "Net-(U11A--)"
+          "net": "Net-(U11A--)",
+          "type": "input"
         },
         "3": {
           "name": "+",
-          "net": "/sub_osc_2/level_shifter_2/IN"
+          "net": "/sub_osc_2/level_shifter_2/IN",
+          "type": "input"
         },
         "4": {
           "name": "V+",
-          "net": "+15V"
+          "net": "+15V",
+          "type": "power_in"
         },
         "5": {
           "name": "+",
-          "net": "Net-(U11B-+)"
+          "net": "Net-(U11B-+)",
+          "type": "input"
         },
         "6": {
           "name": "-",
-          "net": "Net-(U11B--)"
+          "net": "Net-(U11B--)",
+          "type": "input"
         },
-        "7": "/sub_osc_2/octave_divider_2/OCTAVE_DOWN_SAW_OUT",
-        "8": "Net-(D1801-A)",
+        "7": {
+          "net": "/sub_osc_2/octave_divider_2/OCTAVE_DOWN_SAW_OUT",
+          "type": "output"
+        },
+        "8": {
+          "net": "Net-(D1801-A)",
+          "type": "output"
+        },
         "9": {
           "name": "-",
-          "net": "Net-(D1801-K)"
+          "net": "Net-(D1801-K)",
+          "type": "input"
         },
         "10": {
           "name": "+",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "11": {
           "name": "V-",
-          "net": "-15V"
+          "net": "-15V",
+          "type": "power_in"
         },
         "12": {
           "name": "+",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "13": {
           "name": "-",
-          "net": "Net-(U11D--)"
+          "net": "Net-(U11D--)",
+          "type": "input"
         },
-        "14": "/sub_osc_2/harmonic_pulse_shaper/SIGNAL_IN"
+        "14": {
+          "net": "/sub_osc_2/harmonic_pulse_shaper/SIGNAL_IN",
+          "type": "output"
+        }
       },
       "value": "TL074",
       "description": "Quad Low-Noise JFET-Input Operational Amplifiers, DIP-14/SOIC-14"
     },
     "C1601": {
       "pins": {
-        "1": "Net-(U12A--)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(U12A--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "10u",
       "description": "Unpolarized capacitor"
     },
     "C1602": {
       "pins": {
-        "1": "Net-(U12B--)",
-        "2": "Net-(U13--)"
+        "1": {
+          "net": "Net-(U12B--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U13--)",
+          "type": "passive"
+        }
       },
       "value": "10u BP",
       "description": "Unpolarized capacitor"
     },
     "C1603": {
       "pins": {
-        "1": "Net-(U13-+)",
-        "2": "Net-(C1603-Pad2)"
+        "1": {
+          "net": "Net-(U13-+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C1603-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "100p",
       "description": "Unpolarized capacitor"
     },
     "R1601": {
       "pins": {
-        "1": "+5V",
-        "2": "Net-(U12A--)"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U12A--)",
+          "type": "passive"
+        }
       },
       "value": "8k2",
       "description": "Resistor"
     },
     "R1602": {
       "pins": {
-        "1": "Net-(U12A--)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(U12A--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "2k7",
       "description": "Resistor"
     },
     "R1603": {
       "pins": {
-        "1": "Net-(U12A-+)",
-        "2": "Net-(U13--)"
+        "1": {
+          "net": "Net-(U12A-+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U13--)",
+          "type": "passive"
+        }
       },
       "value": "10k",
       "description": "Resistor"
     },
     "R1604": {
       "pins": {
-        "1": "Net-(U12A-+)",
-        "2": "/sub_osc_2/saw_animator_2/RATE_R_1"
+        "1": {
+          "net": "Net-(U12A-+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_2/saw_animator_2/RATE_R_1",
+          "type": "passive"
+        }
       },
       "value": "120k",
       "description": "Resistor"
     },
     "R1605": {
       "pins": {
-        "1": "/sub_osc_2/saw_animator_2/RATE_R_2",
-        "2": "Net-(U12B--)"
+        "1": {
+          "net": "/sub_osc_2/saw_animator_2/RATE_R_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U12B--)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R1606": {
       "pins": {
-        "1": "/sub_osc_2/saw_animator_2/SAW_IN",
-        "2": "Net-(U13-+)"
+        "1": {
+          "net": "/sub_osc_2/saw_animator_2/SAW_IN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U13-+)",
+          "type": "passive"
+        }
       },
       "value": "1k",
       "description": "Resistor"
     },
     "R1607": {
       "pins": {
-        "1": "/sub_osc_2/saw_animator_2/SAW_IN",
-        "2": "Net-(U12D--)"
+        "1": {
+          "net": "/sub_osc_2/saw_animator_2/SAW_IN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U12D--)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R1608": {
       "pins": {
-        "1": "Net-(U12D--)",
-        "2": "Net-(R1608-Pad2)"
+        "1": {
+          "net": "Net-(U12D--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R1608-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R1609": {
       "pins": {
-        "1": "Net-(C1603-Pad2)",
-        "2": "Net-(R1609-Pad2)"
+        "1": {
+          "net": "Net-(C1603-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R1609-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R1610": {
       "pins": {
-        "1": "Net-(R1609-Pad2)",
-        "2": "+5V"
+        "1": {
+          "net": "Net-(R1609-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5V",
+          "type": "passive"
+        }
       },
       "value": "1k",
       "description": "Resistor"
     },
     "R1611": {
       "pins": {
-        "1": "Net-(R1608-Pad2)",
-        "2": "Net-(U12C--)"
+        "1": {
+          "net": "Net-(R1608-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U12C--)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R1612": {
       "pins": {
-        "1": "Net-(R1612-Pad1)",
-        "2": "Net-(U12C--)"
+        "1": {
+          "net": "Net-(R1612-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U12C--)",
+          "type": "passive"
+        }
       },
       "value": "180k",
       "description": "Resistor"
     },
     "R1613": {
       "pins": {
-        "1": "Net-(U12C--)",
-        "2": "Net-(U13--)"
+        "1": {
+          "net": "Net-(U12C--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U13--)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R1614": {
       "pins": {
-        "1": "Net-(R1614-Pad1)",
-        "2": "Net-(U12C--)"
+        "1": {
+          "net": "Net-(R1614-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U12C--)",
+          "type": "passive"
+        }
       },
       "value": "200k",
       "description": "Resistor"
     },
     "R1615": {
       "pins": {
-        "1": "Net-(U12C--)",
-        "2": "/sub_osc_2/level_shifter_2/IN"
+        "1": {
+          "net": "Net-(U12C--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_2/level_shifter_2/IN",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "RV1601": {
       "pins": {
-        "1": "Net-(R1609-Pad2)",
-        "2": "Net-(R1612-Pad1)",
-        "3": "Net-(R1612-Pad1)"
+        "1": {
+          "net": "Net-(R1609-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R1612-Pad1)",
+          "type": "passive"
+        },
+        "3": {
+          "net": "Net-(R1612-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "50k",
       "description": "Trim-potentiometer"
     },
     "RV1602": {
       "pins": {
-        "1": "GND",
-        "2": "Net-(R1614-Pad1)",
-        "3": "-5V_REF"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R1614-Pad1)",
+          "type": "passive"
+        },
+        "3": {
+          "net": "-5V_REF",
+          "type": "passive"
+        }
       },
       "value": "5k",
       "description": "Trim-potentiometer"
     },
     "TP1601": {
       "pins": {
-        "1": "Net-(U13--)"
+        "1": {
+          "net": "Net-(U13--)",
+          "type": "passive"
+        }
       },
       "value": "anim_LFO",
       "description": "test point"
     },
     "U12": {
       "pins": {
-        "1": "/sub_osc_2/saw_animator_2/RATE_R_1",
+        "1": {
+          "net": "/sub_osc_2/saw_animator_2/RATE_R_1",
+          "type": "output"
+        },
         "2": {
           "name": "-",
-          "net": "Net-(U12A--)"
+          "net": "Net-(U12A--)",
+          "type": "input"
         },
         "3": {
           "name": "+",
-          "net": "Net-(U12A-+)"
+          "net": "Net-(U12A-+)",
+          "type": "input"
         },
         "4": {
           "name": "V+",
-          "net": "+15V"
+          "net": "+15V",
+          "type": "power_in"
         },
         "5": {
           "name": "+",
-          "net": "Net-(U12A--)"
+          "net": "Net-(U12A--)",
+          "type": "input"
         },
         "6": {
           "name": "-",
-          "net": "Net-(U12B--)"
+          "net": "Net-(U12B--)",
+          "type": "input"
         },
-        "7": "Net-(U13--)",
-        "8": "/sub_osc_2/level_shifter_2/IN",
+        "7": {
+          "net": "Net-(U13--)",
+          "type": "output"
+        },
+        "8": {
+          "net": "/sub_osc_2/level_shifter_2/IN",
+          "type": "output"
+        },
         "9": {
           "name": "-",
-          "net": "Net-(U12C--)"
+          "net": "Net-(U12C--)",
+          "type": "input"
         },
         "10": {
           "name": "+",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "11": {
           "name": "V-",
-          "net": "-15V"
+          "net": "-15V",
+          "type": "power_in"
         },
         "12": {
           "name": "+",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "13": {
           "name": "-",
-          "net": "Net-(U12D--)"
+          "net": "Net-(U12D--)",
+          "type": "input"
         },
-        "14": "Net-(R1608-Pad2)"
+        "14": {
+          "net": "Net-(R1608-Pad2)",
+          "type": "output"
+        }
       },
       "value": "TL074",
       "description": "Quad Low-Noise JFET-Input Operational Amplifiers, DIP-14/SOIC-14"
@@ -5792,32 +7289,42 @@
       "pins": {
         "1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "+",
-          "net": "Net-(U13-+)"
+          "net": "Net-(U13-+)",
+          "type": "input"
         },
         "3": {
           "name": "-",
-          "net": "Net-(U13--)"
+          "net": "Net-(U13--)",
+          "type": "input"
         },
         "4": {
           "name": "V-",
-          "net": "GND"
+          "net": "GND",
+          "type": "power_in"
         },
         "5": {
           "name": "BAL",
-          "net": ""
+          "net": "",
+          "type": "input"
         },
         "6": {
           "name": "STRB",
-          "net": ""
+          "net": "",
+          "type": "input"
         },
-        "7": "Net-(R1609-Pad2)",
+        "7": {
+          "net": "Net-(R1609-Pad2)",
+          "type": "open_collector"
+        },
         "8": {
           "name": "V+",
-          "net": "+5V"
+          "net": "+5V",
+          "type": "power_in"
         }
       },
       "value": "LM311",
@@ -5825,32 +7332,56 @@
     },
     "C1701": {
       "pins": {
-        "1": "Net-(U11A--)",
-        "2": "/sub_osc_2/level_shifter_2/OUT"
+        "1": {
+          "net": "Net-(U11A--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_2/level_shifter_2/OUT",
+          "type": "passive"
+        }
       },
       "value": "100p",
       "description": "Unpolarized capacitor"
     },
     "R1701": {
       "pins": {
-        "1": "GND",
-        "2": "Net-(U11A--)"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U11A--)",
+          "type": "passive"
+        }
       },
       "value": "33k",
       "description": "Resistor"
     },
     "R1702": {
       "pins": {
-        "1": "Net-(U11A--)",
-        "2": "/sub_osc_2/level_shifter_2/OUT"
+        "1": {
+          "net": "Net-(U11A--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_2/level_shifter_2/OUT",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "C1801": {
       "pins": {
-        "1": "Net-(U11D--)",
-        "2": "/sub_osc_2/harmonic_pulse_shaper/SIGNAL_IN"
+        "1": {
+          "net": "Net-(U11D--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_2/harmonic_pulse_shaper/SIGNAL_IN",
+          "type": "passive"
+        }
       },
       "value": "100p",
       "description": "Unpolarized capacitor"
@@ -5859,11 +7390,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "Net-(D1801-K)"
+          "net": "Net-(D1801-K)",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "Net-(D1801-A)"
+          "net": "Net-(D1801-A)",
+          "type": "passive"
         }
       },
       "value": "1N4148W",
@@ -5873,11 +7406,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "Net-(D1801-A)"
+          "net": "Net-(D1801-A)",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "Net-(D1802-A)"
+          "net": "Net-(D1802-A)",
+          "type": "passive"
         }
       },
       "value": "1N4148W",
@@ -5885,56 +7420,98 @@
     },
     "R1801": {
       "pins": {
-        "1": "Net-(D1801-K)",
-        "2": "/sub_osc_2/level_shifter_2/IN"
+        "1": {
+          "net": "Net-(D1801-K)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_2/level_shifter_2/IN",
+          "type": "passive"
+        }
       },
       "value": "15k",
       "description": "Resistor"
     },
     "R1802": {
       "pins": {
-        "1": "Net-(D1802-A)",
-        "2": "Net-(D1801-K)"
+        "1": {
+          "net": "Net-(D1802-A)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(D1801-K)",
+          "type": "passive"
+        }
       },
       "value": "15k",
       "description": "Resistor"
     },
     "R1803": {
       "pins": {
-        "1": "Net-(U11D--)",
-        "2": "Net-(D1802-A)"
+        "1": {
+          "net": "Net-(U11D--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(D1802-A)",
+          "type": "passive"
+        }
       },
       "value": "7k5",
       "description": "Resistor"
     },
     "R1804": {
       "pins": {
-        "1": "Net-(U11D--)",
-        "2": "+5V_REF"
+        "1": {
+          "net": "Net-(U11D--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5V_REF",
+          "type": "passive"
+        }
       },
       "value": "120k",
       "description": "Resistor"
     },
     "R1805": {
       "pins": {
-        "1": "Net-(U11D--)",
-        "2": "/sub_osc_2/level_shifter_2/IN"
+        "1": {
+          "net": "Net-(U11D--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_2/level_shifter_2/IN",
+          "type": "passive"
+        }
       },
       "value": "15k",
       "description": "Resistor"
     },
     "R1806": {
       "pins": {
-        "1": "/sub_osc_2/harmonic_pulse_shaper/SIGNAL_IN",
-        "2": "Net-(U11D--)"
+        "1": {
+          "net": "/sub_osc_2/harmonic_pulse_shaper/SIGNAL_IN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U11D--)",
+          "type": "passive"
+        }
       },
       "value": "120k",
       "description": "Resistor"
     },
     "C1901": {
       "pins": {
-        "1": "Net-(Q1901-C)",
-        "2": "/sub_osc_2/SINE"
+        "1": {
+          "net": "Net-(Q1901-C)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_2/SINE",
+          "type": "passive"
+        }
       },
       "value": "10n",
       "description": "Unpolarized capacitor"
@@ -5943,15 +7520,18 @@
       "pins": {
         "1": {
           "name": "B",
-          "net": "Net-(Q1901-B)"
+          "net": "Net-(Q1901-B)",
+          "type": "input"
         },
         "2": {
           "name": "E",
-          "net": "Net-(Q1901-E)"
+          "net": "Net-(Q1901-E)",
+          "type": "passive"
         },
         "3": {
           "name": "C",
-          "net": "Net-(Q1901-C)"
+          "net": "Net-(Q1901-C)",
+          "type": "passive"
         }
       },
       "value": "MMBT3904",
@@ -5961,15 +7541,18 @@
       "pins": {
         "1": {
           "name": "B",
-          "net": "Net-(Q1902-B)"
+          "net": "Net-(Q1902-B)",
+          "type": "input"
         },
         "2": {
           "name": "E",
-          "net": "Net-(Q1902-E)"
+          "net": "Net-(Q1902-E)",
+          "type": "passive"
         },
         "3": {
           "name": "C",
-          "net": "Net-(Q1902-C)"
+          "net": "Net-(Q1902-C)",
+          "type": "passive"
         }
       },
       "value": "MMBT3904",
@@ -5977,407 +7560,688 @@
     },
     "R1901": {
       "pins": {
-        "1": "Net-(R1901-Pad1)",
-        "2": "Net-(Q1901-B)"
+        "1": {
+          "net": "Net-(R1901-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q1901-B)",
+          "type": "passive"
+        }
       },
       "value": "27k",
       "description": "Resistor"
     },
     "R1902": {
       "pins": {
-        "1": "Net-(Q1901-B)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(Q1901-B)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "2k2",
       "description": "Resistor"
     },
     "R1903": {
       "pins": {
-        "1": "+15V",
-        "2": "Net-(Q1901-C)"
+        "1": {
+          "net": "+15V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q1901-C)",
+          "type": "passive"
+        }
       },
       "value": "10k",
       "description": "Resistor"
     },
     "R1904": {
       "pins": {
-        "1": "Net-(Q1901-E)",
-        "2": "Net-(Q1902-E)"
+        "1": {
+          "net": "Net-(Q1901-E)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q1902-E)",
+          "type": "passive"
+        }
       },
       "value": "390",
       "description": "Resistor"
     },
     "R1905": {
       "pins": {
-        "1": "Net-(R1905-Pad1)",
-        "2": "-15V"
+        "1": {
+          "net": "Net-(R1905-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "-15V",
+          "type": "passive"
+        }
       },
       "value": "18k",
       "description": "Resistor"
     },
     "R1906": {
       "pins": {
-        "1": "+15V",
-        "2": "Net-(Q1902-C)"
+        "1": {
+          "net": "+15V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q1902-C)",
+          "type": "passive"
+        }
       },
       "value": "10k",
       "description": "Resistor"
     },
     "R1907": {
       "pins": {
-        "1": "Net-(Q1902-B)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(Q1902-B)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "2k2",
       "description": "Resistor"
     },
     "R1908": {
       "pins": {
-        "1": "GND",
-        "2": "Net-(Q1902-C)"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q1902-C)",
+          "type": "passive"
+        }
       },
       "value": "12k",
       "description": "Resistor"
     },
     "R1909": {
       "pins": {
-        "1": "Net-(Q1901-C)",
-        "2": "/sub_osc_2/SINE"
+        "1": {
+          "net": "Net-(Q1901-C)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_2/SINE",
+          "type": "passive"
+        }
       },
       "value": "12k",
       "description": "Resistor"
     },
     "RV1901": {
       "pins": {
-        "1": "Net-(R1901-Pad1)",
-        "2": "/sub_osc_2/harmonic_pulse_shaper/SIGNAL_IN",
-        "3": "/sub_osc_2/harmonic_pulse_shaper/SIGNAL_IN"
+        "1": {
+          "net": "Net-(R1901-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_2/harmonic_pulse_shaper/SIGNAL_IN",
+          "type": "passive"
+        },
+        "3": {
+          "net": "/sub_osc_2/harmonic_pulse_shaper/SIGNAL_IN",
+          "type": "passive"
+        }
       },
       "value": "50k",
       "description": "Trim-potentiometer"
     },
     "RV1902": {
       "pins": {
-        "1": "Net-(Q1902-E)",
-        "2": "Net-(R1905-Pad1)",
-        "3": "Net-(Q1901-E)"
+        "1": {
+          "net": "Net-(Q1902-E)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R1905-Pad1)",
+          "type": "passive"
+        },
+        "3": {
+          "net": "Net-(Q1901-E)",
+          "type": "passive"
+        }
       },
       "value": "50k",
       "description": "Trim-potentiometer"
     },
     "C2001": {
       "pins": {
-        "1": "Net-(U15B-+)",
-        "2": "Net-(C2001-Pad2)"
+        "1": {
+          "net": "Net-(U15B-+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C2001-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "10p",
       "description": "Unpolarized capacitor"
     },
     "C2002": {
       "pins": {
-        "1": "Net-(U15A--)",
-        "2": "Net-(C2002-Pad2)"
+        "1": {
+          "net": "Net-(U15A--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C2002-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "10p",
       "description": "Unpolarized capacitor"
     },
     "C2003": {
       "pins": {
-        "1": "Net-(U16B--)",
-        "2": "Net-(U15C-+)"
+        "1": {
+          "net": "Net-(U16B--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U15C-+)",
+          "type": "passive"
+        }
       },
       "value": "100p",
       "description": "Unpolarized capacitor"
     },
     "C2004": {
       "pins": {
-        "1": "Net-(U16A--)",
-        "2": "Net-(U15D-+)"
+        "1": {
+          "net": "Net-(U16A--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U15D-+)",
+          "type": "passive"
+        }
       },
       "value": "100p",
       "description": "Unpolarized capacitor"
     },
     "C2005": {
       "pins": {
-        "1": "Net-(U16C--)",
-        "2": "Net-(C2005-Pad2)"
+        "1": {
+          "net": "Net-(U16C--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C2005-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "100p",
       "description": "Unpolarized capacitor"
     },
     "C2006": {
       "pins": {
-        "1": "Net-(U16D--)",
-        "2": "/sub_osc_2/harmonic_pulse_shaper/PULSE_OUT"
+        "1": {
+          "net": "Net-(U16D--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_2/harmonic_pulse_shaper/PULSE_OUT",
+          "type": "passive"
+        }
       },
       "value": "100p",
       "description": "Unpolarized capacitor"
     },
     "R2001": {
       "pins": {
-        "1": "/sub_osc_2/harmonic_pulse_shaper/SIGNAL_IN",
-        "2": "Net-(U15B-+)"
+        "1": {
+          "net": "/sub_osc_2/harmonic_pulse_shaper/SIGNAL_IN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U15B-+)",
+          "type": "passive"
+        }
       },
       "value": "10k",
       "description": "Resistor"
     },
     "R2002": {
       "pins": {
-        "1": "/sub_osc_2/harmonic_pulse_shaper/SIGNAL_IN",
-        "2": "Net-(U15A--)"
+        "1": {
+          "net": "/sub_osc_2/harmonic_pulse_shaper/SIGNAL_IN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U15A--)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R2003": {
       "pins": {
-        "1": "Net-(U15B-+)",
-        "2": "Net-(C2001-Pad2)"
+        "1": {
+          "net": "Net-(U15B-+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C2001-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "10M",
       "description": "Resistor"
     },
     "R2004": {
       "pins": {
-        "1": "Net-(U15A--)",
-        "2": "Net-(C2002-Pad2)"
+        "1": {
+          "net": "Net-(U15A--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C2002-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R2005": {
       "pins": {
-        "1": "+5V_REF",
-        "2": "Net-(U16B--)"
+        "1": {
+          "net": "+5V_REF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U16B--)",
+          "type": "passive"
+        }
       },
       "value": "200k",
       "description": "Resistor"
     },
     "R2006": {
       "pins": {
-        "1": "/PWM_generator/PWM_CV_OUT",
-        "2": "Net-(U16B--)"
+        "1": {
+          "net": "/PWM_generator/PWM_CV_OUT",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U16B--)",
+          "type": "passive"
+        }
       },
       "value": "200k",
       "description": "Resistor"
     },
     "R2007": {
       "pins": {
-        "1": "Net-(C2002-Pad2)",
-        "2": "Net-(U15C--)"
+        "1": {
+          "net": "Net-(C2002-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U15C--)",
+          "type": "passive"
+        }
       },
       "value": "2k2",
       "description": "Resistor"
     },
     "R2008": {
       "pins": {
-        "1": "Net-(U16B--)",
-        "2": "Net-(U15C-+)"
+        "1": {
+          "net": "Net-(U16B--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U15C-+)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R2009": {
       "pins": {
-        "1": "Net-(U15C-+)",
-        "2": "Net-(U16A--)"
+        "1": {
+          "net": "Net-(U15C-+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U16A--)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R2010": {
       "pins": {
-        "1": "Net-(U16A--)",
-        "2": "Net-(U15D-+)"
+        "1": {
+          "net": "Net-(U16A--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U15D-+)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R2011": {
       "pins": {
-        "1": "Net-(R2011-Pad1)",
-        "2": "Net-(U16C--)"
+        "1": {
+          "net": "Net-(R2011-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U16C--)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R2012": {
       "pins": {
-        "1": "Net-(R2012-Pad1)",
-        "2": "Net-(U16C--)"
+        "1": {
+          "net": "Net-(R2012-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U16C--)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R2013": {
       "pins": {
-        "1": "Net-(U16C--)",
-        "2": "Net-(C2005-Pad2)"
+        "1": {
+          "net": "Net-(U16C--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C2005-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "20k",
       "description": "Resistor"
     },
     "R2014": {
       "pins": {
-        "1": "Net-(R2014-Pad1)",
-        "2": "Net-(U16D--)"
+        "1": {
+          "net": "Net-(R2014-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U16D--)",
+          "type": "passive"
+        }
       },
       "value": "220k",
       "description": "Resistor"
     },
     "R2015": {
       "pins": {
-        "1": "Net-(C2005-Pad2)",
-        "2": "Net-(U16D--)"
+        "1": {
+          "net": "Net-(C2005-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U16D--)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R2016": {
       "pins": {
-        "1": "Net-(U16D--)",
-        "2": "/sub_osc_2/harmonic_pulse_shaper/PULSE_OUT"
+        "1": {
+          "net": "Net-(U16D--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/sub_osc_2/harmonic_pulse_shaper/PULSE_OUT",
+          "type": "passive"
+        }
       },
       "value": "180k",
       "description": "Resistor"
     },
     "RV2001": {
       "pins": {
-        "1": "GND",
-        "2": "Net-(R2014-Pad1)",
-        "3": "Net-(C2001-Pad2)"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R2014-Pad1)",
+          "type": "passive"
+        },
+        "3": {
+          "net": "Net-(C2001-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "50k",
       "description": "Trim-potentiometer"
     },
     "U15": {
       "pins": {
-        "1": "Net-(C2002-Pad2)",
+        "1": {
+          "net": "Net-(C2002-Pad2)",
+          "type": "output"
+        },
         "2": {
           "name": "-",
-          "net": "Net-(U15A--)"
+          "net": "Net-(U15A--)",
+          "type": "input"
         },
         "3": {
           "name": "+",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "4": {
           "name": "V+",
-          "net": "+15V"
+          "net": "+15V",
+          "type": "power_in"
         },
         "5": {
           "name": "+",
-          "net": "Net-(U15B-+)"
+          "net": "Net-(U15B-+)",
+          "type": "input"
         },
         "6": {
           "name": "-",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
-        "7": "Net-(C2001-Pad2)",
-        "8": "Net-(R2011-Pad1)",
+        "7": {
+          "net": "Net-(C2001-Pad2)",
+          "type": "output"
+        },
+        "8": {
+          "net": "Net-(R2011-Pad1)",
+          "type": "output"
+        },
         "9": {
           "name": "-",
-          "net": "Net-(U15C--)"
+          "net": "Net-(U15C--)",
+          "type": "input"
         },
         "10": {
           "name": "+",
-          "net": "Net-(U15C-+)"
+          "net": "Net-(U15C-+)",
+          "type": "input"
         },
         "11": {
           "name": "V-",
-          "net": "-15V"
+          "net": "-15V",
+          "type": "power_in"
         },
         "12": {
           "name": "+",
-          "net": "Net-(U15D-+)"
+          "net": "Net-(U15D-+)",
+          "type": "input"
         },
         "13": {
           "name": "-",
-          "net": "Net-(U15C--)"
+          "net": "Net-(U15C--)",
+          "type": "input"
         },
-        "14": "Net-(R2012-Pad1)"
+        "14": {
+          "net": "Net-(R2012-Pad1)",
+          "type": "output"
+        }
       },
       "value": "TL074",
       "description": "Quad Low-Noise JFET-Input Operational Amplifiers, DIP-14/SOIC-14"
     },
     "U16": {
       "pins": {
-        "1": "Net-(U15D-+)",
+        "1": {
+          "net": "Net-(U15D-+)",
+          "type": "output"
+        },
         "2": {
           "name": "-",
-          "net": "Net-(U16A--)"
+          "net": "Net-(U16A--)",
+          "type": "input"
         },
         "3": {
           "name": "+",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "4": {
           "name": "V+",
-          "net": "+15V"
+          "net": "+15V",
+          "type": "power_in"
         },
         "5": {
           "name": "+",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "6": {
           "name": "-",
-          "net": "Net-(U16B--)"
+          "net": "Net-(U16B--)",
+          "type": "input"
         },
-        "7": "Net-(U15C-+)",
-        "8": "Net-(C2005-Pad2)",
+        "7": {
+          "net": "Net-(U15C-+)",
+          "type": "output"
+        },
+        "8": {
+          "net": "Net-(C2005-Pad2)",
+          "type": "output"
+        },
         "9": {
           "name": "-",
-          "net": "Net-(U16C--)"
+          "net": "Net-(U16C--)",
+          "type": "input"
         },
         "10": {
           "name": "+",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "11": {
           "name": "V-",
-          "net": "-15V"
+          "net": "-15V",
+          "type": "power_in"
         },
         "12": {
           "name": "+",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "13": {
           "name": "-",
-          "net": "Net-(U16D--)"
+          "net": "Net-(U16D--)",
+          "type": "input"
         },
-        "14": "/sub_osc_2/harmonic_pulse_shaper/PULSE_OUT"
+        "14": {
+          "net": "/sub_osc_2/harmonic_pulse_shaper/PULSE_OUT",
+          "type": "output"
+        }
       },
       "value": "TL074",
       "description": "Quad Low-Noise JFET-Input Operational Amplifiers, DIP-14/SOIC-14"
     },
     "C2101": {
       "pins": {
-        "1": "Net-(U17A--)",
-        "2": "Net-(C2101-Pad2)"
+        "1": {
+          "net": "Net-(U17A--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C2101-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "100p",
       "description": "Unpolarized capacitor"
     },
     "C2102": {
       "pins": {
-        "1": "Net-(U17B--)",
-        "2": "Net-(C2102-Pad2)"
+        "1": {
+          "net": "Net-(U17B--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C2102-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "100p",
       "description": "Unpolarized capacitor"
     },
     "C2103": {
       "pins": {
-        "1": "Net-(U14B--)",
-        "2": "Net-(C2103-Pad2)"
+        "1": {
+          "net": "Net-(U14B--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C2103-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "100p",
       "description": "Unpolarized capacitor"
     },
     "C2104": {
       "pins": {
-        "1": "Net-(U14A--)",
-        "2": "Net-(C2104-Pad2)"
+        "1": {
+          "net": "Net-(U14A--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C2104-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "100p",
       "description": "Unpolarized capacitor"
@@ -6386,11 +8250,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "Net-(D2101-K)"
+          "net": "Net-(D2101-K)",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "Net-(D2101-A)"
+          "net": "Net-(D2101-A)",
+          "type": "passive"
         }
       },
       "value": "BAT48ZFILM",
@@ -6400,11 +8266,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "Net-(D2101-A)"
+          "net": "Net-(D2101-A)",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "Net-(D2102-A)"
+          "net": "Net-(D2102-A)",
+          "type": "passive"
         }
       },
       "value": "BAT48ZFILM",
@@ -6414,11 +8282,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "Net-(D2103-K)"
+          "net": "Net-(D2103-K)",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "Net-(D2101-K)"
+          "net": "Net-(D2101-K)",
+          "type": "passive"
         }
       },
       "value": "BAT48ZFILM",
@@ -6428,11 +8298,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "Net-(D2102-A)"
+          "net": "Net-(D2102-A)",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "Net-(D2103-K)"
+          "net": "Net-(D2103-K)",
+          "type": "passive"
         }
       },
       "value": "BAT48ZFILM",
@@ -6440,181 +8312,337 @@
     },
     "R2101": {
       "pins": {
-        "1": "/ring_modulator/X_IN",
-        "2": "Net-(U17A--)"
+        "1": {
+          "net": "/ring_modulator/X_IN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U17A--)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R2102": {
       "pins": {
-        "1": "Net-(U17A--)",
-        "2": "Net-(R2102-Pad2)"
+        "1": {
+          "net": "Net-(U17A--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R2102-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R2103": {
       "pins": {
-        "1": "Net-(R2103-Pad1)",
-        "2": "Net-(U17B--)"
+        "1": {
+          "net": "Net-(R2103-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U17B--)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R2104": {
       "pins": {
-        "1": "Net-(C2101-Pad2)",
-        "2": "Net-(R2102-Pad2)"
+        "1": {
+          "net": "Net-(C2101-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R2102-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "330",
       "description": "Resistor"
     },
     "R2105": {
       "pins": {
-        "1": "Net-(U17B--)",
-        "2": "Net-(R2105-Pad2)"
+        "1": {
+          "net": "Net-(U17B--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R2105-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R2106": {
       "pins": {
-        "1": "Net-(C2102-Pad2)",
-        "2": "Net-(R2105-Pad2)"
+        "1": {
+          "net": "Net-(C2102-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R2105-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "330",
       "description": "Resistor"
     },
     "R2107": {
       "pins": {
-        "1": "Net-(R2102-Pad2)",
-        "2": "Net-(R2107-Pad2)"
+        "1": {
+          "net": "Net-(R2102-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R2107-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R2108": {
       "pins": {
-        "1": "Net-(R2108-Pad1)",
-        "2": "Net-(U14B--)"
+        "1": {
+          "net": "Net-(R2108-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U14B--)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R2109": {
       "pins": {
-        "1": "Net-(R2105-Pad2)",
-        "2": "Net-(R2109-Pad2)"
+        "1": {
+          "net": "Net-(R2105-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R2109-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R2110": {
       "pins": {
-        "1": "Net-(U14B--)",
-        "2": "Net-(C2103-Pad2)"
+        "1": {
+          "net": "Net-(U14B--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C2103-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R2111": {
       "pins": {
-        "1": "Net-(C2103-Pad2)",
-        "2": "Net-(U14A--)"
+        "1": {
+          "net": "Net-(C2103-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U14A--)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R2112": {
       "pins": {
-        "1": "Net-(U14A--)",
-        "2": "Net-(C2104-Pad2)"
+        "1": {
+          "net": "Net-(U14A--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C2104-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "560k",
       "description": "Resistor"
     },
     "RV2101": {
       "pins": {
-        "1": "Net-(U14B--)",
-        "2": "Net-(R2107-Pad2)",
-        "3": "Net-(U14A--)"
+        "1": {
+          "net": "Net-(U14B--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R2107-Pad2)",
+          "type": "passive"
+        },
+        "3": {
+          "net": "Net-(U14A--)",
+          "type": "passive"
+        }
       },
       "value": "50k",
       "description": "Trim-potentiometer"
     },
     "RV2102": {
       "pins": {
-        "1": "Net-(U14B--)",
-        "2": "Net-(R2109-Pad2)",
-        "3": "Net-(U14A--)"
+        "1": {
+          "net": "Net-(U14B--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R2109-Pad2)",
+          "type": "passive"
+        },
+        "3": {
+          "net": "Net-(U14A--)",
+          "type": "passive"
+        }
       },
       "value": "50k",
       "description": "Trim-potentiometer"
     },
     "SW2101": {
       "pins": {
-        "1": "/MOD_OSC",
-        "2": "Net-(R2103-Pad1)",
-        "3": "/OCTAVE_1",
-        "4": "Net-(C2104-Pad2)",
-        "5": "/audio_mixer/RING_MOD",
-        "6": "Net-(C2104-Pad2)"
+        "1": {
+          "net": "/MOD_OSC",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R2103-Pad1)",
+          "type": "passive"
+        },
+        "3": {
+          "net": "/OCTAVE_1",
+          "type": "passive"
+        },
+        "4": {
+          "net": "Net-(C2104-Pad2)",
+          "type": "passive"
+        },
+        "5": {
+          "net": "/audio_mixer/RING_MOD",
+          "type": "passive"
+        },
+        "6": {
+          "net": "Net-(C2104-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "SW_DPDT_CO",
       "description": "Switch, single pole double throw, center OFF position"
     },
     "TR2101": {
       "pins": {
-        "1": "Net-(R2102-Pad2)",
-        "2": "",
-        "3": "GND",
-        "4": "Net-(D2101-K)",
-        "5": "Net-(R2105-Pad2)",
-        "6": "Net-(D2102-A)"
+        "1": {
+          "net": "Net-(R2102-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "",
+          "type": "passive"
+        },
+        "3": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "4": {
+          "net": "Net-(D2101-K)",
+          "type": "passive"
+        },
+        "5": {
+          "net": "Net-(R2105-Pad2)",
+          "type": "passive"
+        },
+        "6": {
+          "net": "Net-(D2102-A)",
+          "type": "passive"
+        }
       },
       "value": "Triad_TY_141P",
       "description": "0.3-300MHz 1:1 RF Transformer, Unbalanced to Balanced Center Tap at Primary/Secondary, CD542"
     },
     "TR2102": {
       "pins": {
-        "1": "Net-(D2103-K)",
-        "2": "GND",
-        "3": "Net-(D2101-A)",
-        "4": "Net-(R2108-Pad1)",
-        "5": "",
-        "6": "GND"
+        "1": {
+          "net": "Net-(D2103-K)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "3": {
+          "net": "Net-(D2101-A)",
+          "type": "passive"
+        },
+        "4": {
+          "net": "Net-(R2108-Pad1)",
+          "type": "passive"
+        },
+        "5": {
+          "net": "",
+          "type": "passive"
+        },
+        "6": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "Triad_TY_141P",
       "description": "0.3-300MHz 1:1 RF Transformer, Unbalanced to Balanced Center Tap at Primary/Secondary, CD542"
     },
     "U17": {
       "pins": {
-        "1": "Net-(C2101-Pad2)",
+        "1": {
+          "net": "Net-(C2101-Pad2)",
+          "type": "output"
+        },
         "2": {
           "name": "-",
-          "net": "Net-(U17A--)"
+          "net": "Net-(U17A--)",
+          "type": "input"
         },
         "3": {
           "name": "+",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "4": {
           "name": "V-",
-          "net": "-15V"
+          "net": "-15V",
+          "type": "power_in"
         },
         "5": {
           "name": "+",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "6": {
           "name": "-",
-          "net": "Net-(U17B--)"
+          "net": "Net-(U17B--)",
+          "type": "input"
         },
-        "7": "Net-(C2102-Pad2)",
+        "7": {
+          "net": "Net-(C2102-Pad2)",
+          "type": "output"
+        },
         "8": {
           "name": "V+",
-          "net": "+15V"
+          "net": "+15V",
+          "type": "power_in"
         }
       },
       "value": "NE5532",
@@ -6622,109 +8650,202 @@
     },
     "C2201": {
       "pins": {
-        "1": "Net-(U18A--)",
-        "2": "/audio_mixer/OUT"
+        "1": {
+          "net": "Net-(U18A--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/audio_mixer/OUT",
+          "type": "passive"
+        }
       },
       "value": "10p",
       "description": "Unpolarized capacitor"
     },
     "R2201": {
       "pins": {
-        "1": "/EXT_AUDIO",
-        "2": "Net-(U18A--)"
+        "1": {
+          "net": "/EXT_AUDIO",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U18A--)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R2202": {
       "pins": {
-        "1": "Net-(R2202-Pad1)",
-        "2": "Net-(U18A--)"
+        "1": {
+          "net": "Net-(R2202-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U18A--)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R2203": {
       "pins": {
-        "1": "Net-(R2203-Pad1)",
-        "2": "Net-(U18A--)"
+        "1": {
+          "net": "Net-(R2203-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U18A--)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R2204": {
       "pins": {
-        "1": "Net-(R2204-Pad1)",
-        "2": "Net-(U18A--)"
+        "1": {
+          "net": "Net-(R2204-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U18A--)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R2205": {
       "pins": {
-        "1": "Net-(R2205-Pad1)",
-        "2": "Net-(U18A--)"
+        "1": {
+          "net": "Net-(R2205-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U18A--)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R2206": {
       "pins": {
-        "1": "Net-(R2206-Pad1)",
-        "2": "Net-(U18A--)"
+        "1": {
+          "net": "Net-(R2206-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U18A--)",
+          "type": "passive"
+        }
       },
       "value": "33k",
       "description": "Resistor"
     },
     "R2207": {
       "pins": {
-        "1": "Net-(U18A--)",
-        "2": "/audio_mixer/OUT"
+        "1": {
+          "net": "Net-(U18A--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/audio_mixer/OUT",
+          "type": "passive"
+        }
       },
       "value": "82k",
       "description": "Resistor"
     },
     "RV2201": {
       "pins": {
-        "1": "GND",
-        "2": "Net-(R2202-Pad1)",
-        "3": "Net-(SW2201-B)"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R2202-Pad1)",
+          "type": "passive"
+        },
+        "3": {
+          "net": "Net-(SW2201-B)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Potentiometer"
     },
     "RV2202": {
       "pins": {
-        "1": "GND",
-        "2": "Net-(R2203-Pad1)",
-        "3": "/OCTAVE_1"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R2203-Pad1)",
+          "type": "passive"
+        },
+        "3": {
+          "net": "/OCTAVE_1",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Potentiometer"
     },
     "RV2203": {
       "pins": {
-        "1": "GND",
-        "2": "Net-(R2204-Pad1)",
-        "3": "/OCTAVE_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R2204-Pad1)",
+          "type": "passive"
+        },
+        "3": {
+          "net": "/OCTAVE_2",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Potentiometer"
     },
     "RV2204": {
       "pins": {
-        "1": "GND",
-        "2": "Net-(R2205-Pad1)",
-        "3": "/audio_mixer/RING_MOD"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R2205-Pad1)",
+          "type": "passive"
+        },
+        "3": {
+          "net": "/audio_mixer/RING_MOD",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Potentiometer"
     },
     "RV2205": {
       "pins": {
-        "1": "GND",
-        "2": "Net-(R2206-Pad1)",
-        "3": "Net-(SW2202-B)"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R2206-Pad1)",
+          "type": "passive"
+        },
+        "3": {
+          "net": "Net-(SW2202-B)",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Potentiometer"
@@ -6733,15 +8854,18 @@
       "pins": {
         "1": {
           "name": "A",
-          "net": "/OCTAVE_0"
+          "net": "/OCTAVE_0",
+          "type": "passive"
         },
         "2": {
           "name": "B",
-          "net": "Net-(SW2201-B)"
+          "net": "Net-(SW2201-B)",
+          "type": "passive"
         },
         "3": {
           "name": "C",
-          "net": ""
+          "net": "",
+          "type": "passive"
         }
       },
       "value": "SW_SPDT",
@@ -6751,15 +8875,18 @@
       "pins": {
         "1": {
           "name": "A",
-          "net": "/NOISE"
+          "net": "/NOISE",
+          "type": "passive"
         },
         "2": {
           "name": "B",
-          "net": "Net-(SW2202-B)"
+          "net": "Net-(SW2202-B)",
+          "type": "passive"
         },
         "3": {
           "name": "C",
-          "net": ""
+          "net": "",
+          "type": "passive"
         }
       },
       "value": "SW_SPDT",
@@ -6767,31 +8894,43 @@
     },
     "U18": {
       "pins": {
-        "1": "/audio_mixer/OUT",
+        "1": {
+          "net": "/audio_mixer/OUT",
+          "type": "output"
+        },
         "2": {
           "name": "-",
-          "net": "Net-(U18A--)"
+          "net": "Net-(U18A--)",
+          "type": "input"
         },
         "3": {
           "name": "+",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "4": {
           "name": "V-",
-          "net": "-15V"
+          "net": "-15V",
+          "type": "power_in"
         },
         "5": {
           "name": "+",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "6": {
           "name": "-",
-          "net": "Net-(U18B--)"
+          "net": "Net-(U18B--)",
+          "type": "input"
         },
-        "7": "-5V_REF",
+        "7": {
+          "net": "-5V_REF",
+          "type": "output"
+        },
         "8": {
           "name": "V+",
-          "net": "+15V"
+          "net": "+15V",
+          "type": "power_in"
         }
       },
       "value": "TL072",
@@ -6799,336 +8938,588 @@
     },
     "C2301": {
       "pins": {
-        "1": "+15V",
-        "2": "GND"
+        "1": {
+          "net": "+15V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2302": {
       "pins": {
-        "1": "GND",
-        "2": "-15V"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "-15V",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2303": {
       "pins": {
-        "1": "+15V",
-        "2": "GND"
+        "1": {
+          "net": "+15V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2304": {
       "pins": {
-        "1": "GND",
-        "2": "-15V"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "-15V",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2305": {
       "pins": {
-        "1": "+15V",
-        "2": "GND"
+        "1": {
+          "net": "+15V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2306": {
       "pins": {
-        "1": "GND",
-        "2": "-15V"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "-15V",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2307": {
       "pins": {
-        "1": "+15V",
-        "2": "GND"
+        "1": {
+          "net": "+15V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2308": {
       "pins": {
-        "1": "GND",
-        "2": "-15V"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "-15V",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2309": {
       "pins": {
-        "1": "+15V",
-        "2": "GND"
+        "1": {
+          "net": "+15V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2310": {
       "pins": {
-        "1": "GND",
-        "2": "-15V"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "-15V",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2311": {
       "pins": {
-        "1": "+15V",
-        "2": "GND"
+        "1": {
+          "net": "+15V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "10u",
       "description": "Polarized capacitor"
     },
     "C2312": {
       "pins": {
-        "1": "GND",
-        "2": "-15V"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "-15V",
+          "type": "passive"
+        }
       },
       "value": "10u",
       "description": "Polarized capacitor"
     },
     "C2313": {
       "pins": {
-        "1": "+15V",
-        "2": "GND"
+        "1": {
+          "net": "+15V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2314": {
       "pins": {
-        "1": "GND",
-        "2": "-15V"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "-15V",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2315": {
       "pins": {
-        "1": "+15V",
-        "2": "GND"
+        "1": {
+          "net": "+15V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2316": {
       "pins": {
-        "1": "GND",
-        "2": "-15V"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "-15V",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2317": {
       "pins": {
-        "1": "+15V",
-        "2": "GND"
+        "1": {
+          "net": "+15V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2318": {
       "pins": {
-        "1": "GND",
-        "2": "-15V"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "-15V",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2319": {
       "pins": {
-        "1": "+15V",
-        "2": "GND"
+        "1": {
+          "net": "+15V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "470n",
       "description": "Unpolarized capacitor"
     },
     "C2320": {
       "pins": {
-        "1": "GND",
-        "2": "-15V"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "-15V",
+          "type": "passive"
+        }
       },
       "value": "470n",
       "description": "Unpolarized capacitor"
     },
     "C2321": {
       "pins": {
-        "1": "+15V",
-        "2": "GND"
+        "1": {
+          "net": "+15V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2322": {
       "pins": {
-        "1": "GND",
-        "2": "-15V"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "-15V",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2323": {
       "pins": {
-        "1": "+15V",
-        "2": "GND"
+        "1": {
+          "net": "+15V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2324": {
       "pins": {
-        "1": "GND",
-        "2": "-15V"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "-15V",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2325": {
       "pins": {
-        "1": "+5V",
-        "2": "GND"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2326": {
       "pins": {
-        "1": "GND",
-        "2": "-5V"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "-5V",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2327": {
       "pins": {
-        "1": "+15V",
-        "2": "GND"
+        "1": {
+          "net": "+15V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2328": {
       "pins": {
-        "1": "GND",
-        "2": "-15V"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "-15V",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2329": {
       "pins": {
-        "1": "+2V5_REF",
-        "2": "GND"
+        "1": {
+          "net": "+2V5_REF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2330": {
       "pins": {
-        "1": "+5V",
-        "2": "GND"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2331": {
       "pins": {
-        "1": "GND",
-        "2": "-5V"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "-5V",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2332": {
       "pins": {
-        "1": "+5V",
-        "2": "GND"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2333": {
       "pins": {
-        "1": "+5V_REF",
-        "2": "GND"
+        "1": {
+          "net": "+5V_REF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2334": {
       "pins": {
-        "1": "+5V",
-        "2": "GND"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2335": {
       "pins": {
-        "1": "+5V",
-        "2": "GND"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2336": {
       "pins": {
-        "1": "+15V",
-        "2": "GND"
+        "1": {
+          "net": "+15V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2337": {
       "pins": {
-        "1": "GND",
-        "2": "-15V"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "-15V",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2338": {
       "pins": {
-        "1": "-5V_REF",
-        "2": "Net-(U18B--)"
+        "1": {
+          "net": "-5V_REF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U18B--)",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2339": {
       "pins": {
-        "1": "+5V",
-        "2": "GND"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2340": {
       "pins": {
-        "1": "GND",
-        "2": "-15V"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "-15V",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2341": {
       "pins": {
-        "1": "+15V",
-        "2": "GND"
+        "1": {
+          "net": "+15V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C2342": {
       "pins": {
-        "1": "GND",
-        "2": "-5V"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "-5V",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
@@ -7137,43 +9528,53 @@
       "pins": {
         "1": {
           "name": "Pin_1",
-          "net": "-15V"
+          "net": "-15V",
+          "type": "passive"
         },
         "2": {
           "name": "Pin_2",
-          "net": "-15V"
+          "net": "-15V",
+          "type": "passive"
         },
         "3": {
           "name": "Pin_3",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "4": {
           "name": "Pin_4",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "5": {
           "name": "Pin_5",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "6": {
           "name": "Pin_6",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "7": {
           "name": "Pin_7",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "8": {
           "name": "Pin_8",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "9": {
           "name": "Pin_9",
-          "net": "+15V"
+          "net": "+15V",
+          "type": "passive"
         },
         "10": {
           "name": "Pin_10",
-          "net": "+15V"
+          "net": "+15V",
+          "type": "passive"
         }
       },
       "value": "power_entry",
@@ -7181,88 +9582,136 @@
     },
     "R2301": {
       "pins": {
-        "1": "+5V",
-        "2": "+2V5_REF"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+2V5_REF",
+          "type": "passive"
+        }
       },
       "value": "1k8",
       "description": "Resistor"
     },
     "R2302": {
       "pins": {
-        "1": "+15V",
-        "2": "+5V_REF"
+        "1": {
+          "net": "+15V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5V_REF",
+          "type": "passive"
+        }
       },
       "value": "4k7",
       "description": "Resistor"
     },
     "R2303": {
       "pins": {
-        "1": "Net-(U18B--)",
-        "2": "+5V_REF"
+        "1": {
+          "net": "Net-(U18B--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5V_REF",
+          "type": "passive"
+        }
       },
       "value": "10k",
       "description": "Resistor"
     },
     "R2304": {
       "pins": {
-        "1": "-5V_REF",
-        "2": "Net-(U18B--)"
+        "1": {
+          "net": "-5V_REF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U18B--)",
+          "type": "passive"
+        }
       },
       "value": "10k",
       "description": "Resistor"
     },
     "TP2301": {
       "pins": {
-        "1": "+15V"
+        "1": {
+          "net": "+15V",
+          "type": "passive"
+        }
       },
       "value": "V+",
       "description": "test point"
     },
     "TP2302": {
       "pins": {
-        "1": "-15V"
+        "1": {
+          "net": "-15V",
+          "type": "passive"
+        }
       },
       "value": "V-",
       "description": "test point"
     },
     "TP2303": {
       "pins": {
-        "1": "GND"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "GND",
       "description": "test point"
     },
     "TP2304": {
       "pins": {
-        "1": "+5V_REF"
+        "1": {
+          "net": "+5V_REF",
+          "type": "passive"
+        }
       },
       "value": "+5_REF",
       "description": "test point"
     },
     "TP2305": {
       "pins": {
-        "1": "+2V5_REF"
+        "1": {
+          "net": "+2V5_REF",
+          "type": "passive"
+        }
       },
       "value": "+2V5",
       "description": "test point"
     },
     "TP2306": {
       "pins": {
-        "1": "-5V_REF"
+        "1": {
+          "net": "-5V_REF",
+          "type": "passive"
+        }
       },
       "value": "-5_REF",
       "description": "test point"
     },
     "TP2307": {
       "pins": {
-        "1": "+5V"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        }
       },
       "value": "+5",
       "description": "test point"
     },
     "TP2308": {
       "pins": {
-        "1": "-5V"
+        "1": {
+          "net": "-5V",
+          "type": "passive"
+        }
       },
       "value": "-5",
       "description": "test point"
@@ -7271,15 +9720,18 @@
       "pins": {
         "1": {
           "name": "OUT",
-          "net": "+5V"
+          "net": "+5V",
+          "type": "power_out"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power_in"
         },
         "3": {
           "name": "IN",
-          "net": "+15V"
+          "net": "+15V",
+          "type": "power_in"
         }
       },
       "value": "L78L05_SOT89",
@@ -7289,15 +9741,18 @@
       "pins": {
         "1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power_in"
         },
         "2": {
           "name": "VI",
-          "net": "-15V"
+          "net": "-15V",
+          "type": "power_in"
         },
         "3": {
           "name": "VO",
-          "net": "-5V"
+          "net": "-5V",
+          "type": "power_out"
         }
       },
       "value": "L79L05_SOT89",
@@ -7307,11 +9762,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "+2V5_REF"
+          "net": "+2V5_REF",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "value": "LM4040C-2.5",
@@ -7321,11 +9778,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "+5V_REF"
+          "net": "+5V_REF",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "value": "LM4040DBZ-5",

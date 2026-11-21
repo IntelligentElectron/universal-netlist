@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T20:27:50.054Z",
-    "netlistHash": "sha256:ffbd1ce00161586bfdebddb30d57b24f0f27bff9706b6e57267605e332ab6743",
+    "generatedAt": "2026-11-21T21:40:46.676Z",
+    "netlistHash": "sha256:14c7b8f2546fd7af6b180bf6370d2a982ec458d961bc235e40c83ad10908f8da",
     "origin": {
       "type": "vendor",
       "source": {
@@ -3351,40 +3351,70 @@
   "components": {
     "C301": {
       "pins": {
-        "1": "P3V3",
-        "2": "GND"
+        "1": {
+          "net": "P3V3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C302": {
       "pins": {
-        "1": "/top/P5V0",
-        "2": "GND"
+        "1": {
+          "net": "/top/P5V0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C303": {
       "pins": {
-        "1": "P3V3",
-        "2": "GND"
+        "1": {
+          "net": "P3V3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C304": {
       "pins": {
-        "1": "/top/P5V0",
-        "2": "GND"
+        "1": {
+          "net": "/top/P5V0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "1u",
       "internal_pn": "800238-105"
     },
     "C305": {
       "pins": {
-        "1": "P3V3",
-        "2": "GND"
+        "1": {
+          "net": "P3V3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "10u",
       "internal_pn": "800003-106"
@@ -3393,15 +3423,18 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "P3V3"
+          "net": "P3V3",
+          "type": "passive"
         },
         "2": {
           "name": "S",
-          "net": "/top/SCL_I2C_3V3"
+          "net": "/top/SCL_I2C_3V3",
+          "type": "passive"
         },
         "3": {
           "name": "D",
-          "net": "/top/i2c/SCL_I2C_5V0"
+          "net": "/top/i2c/SCL_I2C_5V0",
+          "type": "passive"
         }
       },
       "value": "BSS138",
@@ -3411,15 +3444,18 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "P3V3"
+          "net": "P3V3",
+          "type": "passive"
         },
         "2": {
           "name": "S",
-          "net": "/top/SDA_I2C_3V3"
+          "net": "/top/SDA_I2C_3V3",
+          "type": "passive"
         },
         "3": {
           "name": "D",
-          "net": "/top/i2c/SDA_I2C_5V0"
+          "net": "/top/i2c/SDA_I2C_5V0",
+          "type": "passive"
         }
       },
       "value": "BSS138",
@@ -3427,24 +3463,42 @@
     },
     "R301": {
       "pins": {
-        "1": "/top/P5V0",
-        "2": "/top/i2c/SCL_I2C_5V0"
+        "1": {
+          "net": "/top/P5V0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/i2c/SCL_I2C_5V0",
+          "type": "passive"
+        }
       },
       "value": "10K",
       "internal_pn": "800235-103"
     },
     "R302": {
       "pins": {
-        "1": "/top/P5V0",
-        "2": "/top/i2c/SDA_I2C_5V0"
+        "1": {
+          "net": "/top/P5V0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/i2c/SDA_I2C_5V0",
+          "type": "passive"
+        }
       },
       "value": "10K",
       "internal_pn": "800235-103"
     },
     "R303": {
       "pins": {
-        "1": "/top/i2c/TX_IF_GAIN",
-        "2": "Net-(U302-VOUT)"
+        "1": {
+          "net": "/top/i2c/TX_IF_GAIN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U302-VOUT)",
+          "type": "passive"
+        }
       },
       "value": "100",
       "internal_pn": "800235-101"
@@ -3453,23 +3507,28 @@
       "pins": {
         "1": {
           "name": "SCL",
-          "net": "/top/SCL_I2C_3V3"
+          "net": "/top/SCL_I2C_3V3",
+          "type": "input"
         },
         "2": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "power_in"
         },
         "3": {
           "name": "SDA",
-          "net": "/top/SDA_I2C_3V3"
+          "net": "/top/SDA_I2C_3V3",
+          "type": "bidirectional"
         },
         "4": {
           "name": "VCC",
-          "net": "P3V3"
+          "net": "P3V3",
+          "type": "power_in"
         },
         "5": {
           "name": "NC",
-          "net": ""
+          "net": "",
+          "type": "no_connect"
         }
       },
       "value": "24CW640",
@@ -3479,27 +3538,33 @@
       "pins": {
         "1": {
           "name": "VOUT",
-          "net": "Net-(U302-VOUT)"
+          "net": "Net-(U302-VOUT)",
+          "type": "passive"
         },
         "2": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "power_in"
         },
         "3": {
           "name": "VDD",
-          "net": "/top/P5V0"
+          "net": "/top/P5V0",
+          "type": "power_in"
         },
         "4": {
           "name": "SDA",
-          "net": "/top/i2c/SDA_I2C_5V0"
+          "net": "/top/i2c/SDA_I2C_5V0",
+          "type": "bidirectional"
         },
         "5": {
           "name": "SCL",
-          "net": "/top/i2c/SCL_I2C_5V0"
+          "net": "/top/i2c/SCL_I2C_5V0",
+          "type": "bidirectional"
         },
         "6": {
           "name": "A0",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         }
       },
       "value": "MCP4725",
@@ -3507,11 +3572,26 @@
     },
     "U303": {
       "pins": {
-        "1": "/top/PTT_3V3",
-        "2": "/top/PTT_3V3",
-        "3": "GND",
-        "4": "/top/PTT_3V3_N",
-        "5": "P3V3"
+        "1": {
+          "net": "/top/PTT_3V3",
+          "type": "input"
+        },
+        "2": {
+          "net": "/top/PTT_3V3",
+          "type": "input"
+        },
+        "3": {
+          "net": "GND",
+          "type": "power_in"
+        },
+        "4": {
+          "net": "/top/PTT_3V3_N",
+          "type": "output"
+        },
+        "5": {
+          "net": "P3V3",
+          "type": "power_in"
+        }
       },
       "value": "74LVC1G00",
       "description": "Single NAND Gate, Low-Voltage CMOS",
@@ -3521,15 +3601,18 @@
       "pins": {
         "1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power_in"
         },
         "2": {
           "name": "OUT",
-          "net": "P3V3"
+          "net": "P3V3",
+          "type": "power_out"
         },
         "3": {
           "name": "IN",
-          "net": "/top/P5V0"
+          "net": "/top/P5V0",
+          "type": "power_in"
         }
       },
       "value": "ME6211A33M3G-N",
@@ -3537,56 +3620,98 @@
     },
     "C401": {
       "pins": {
-        "1": "P3V3",
-        "2": "GND"
+        "1": {
+          "net": "P3V3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "R401": {
       "pins": {
-        "1": "P3V3",
-        "2": "/top/SCL_I2C_3V3"
+        "1": {
+          "net": "P3V3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/SCL_I2C_3V3",
+          "type": "passive"
+        }
       },
       "value": "10K",
       "internal_pn": "800235-103"
     },
     "R402": {
       "pins": {
-        "1": "P3V3",
-        "2": "/top/SDA_I2C_3V3"
+        "1": {
+          "net": "P3V3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/SDA_I2C_3V3",
+          "type": "passive"
+        }
       },
       "value": "10K",
       "internal_pn": "800235-103"
     },
     "R403": {
       "pins": {
-        "1": "/top/ENA_TUNE_OSC_3V3",
-        "2": "GND"
+        "1": {
+          "net": "/top/ENA_TUNE_OSC_3V3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "1K",
       "internal_pn": "800235-102"
     },
     "R404": {
       "pins": {
-        "1": "/top/DIS_AGC_3V3",
-        "2": "GND"
+        "1": {
+          "net": "/top/DIS_AGC_3V3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "1K",
       "internal_pn": "800235-102"
     },
     "R405": {
       "pins": {
-        "1": "/top/radio/MUTE_RX_AUDIO",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/MUTE_RX_AUDIO",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "1K",
       "internal_pn": "800235-102"
     },
     "R406": {
       "pins": {
-        "1": "/top/PTT_3V3",
-        "2": "GND"
+        "1": {
+          "net": "/top/PTT_3V3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "1K",
       "internal_pn": "800235-102"
@@ -3595,67 +3720,83 @@
       "pins": {
         "1": {
           "name": "A0",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "2": {
           "name": "A1",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "3": {
           "name": "A2",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "4": {
           "name": "IO0",
-          "net": "/top/ENA_TUNE_OSC_3V3"
+          "net": "/top/ENA_TUNE_OSC_3V3",
+          "type": "tristate"
         },
         "5": {
           "name": "IO1",
-          "net": "/top/DIS_AGC_3V3"
+          "net": "/top/DIS_AGC_3V3",
+          "type": "tristate"
         },
         "6": {
           "name": "IO2",
-          "net": ""
+          "net": "",
+          "type": "tristate"
         },
         "7": {
           "name": "IO3",
-          "net": "/top/radio/MUTE_RX_AUDIO"
+          "net": "/top/radio/MUTE_RX_AUDIO",
+          "type": "tristate"
         },
         "8": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "power_in"
         },
         "9": {
           "name": "IO4",
-          "net": ""
+          "net": "",
+          "type": "tristate"
         },
         "10": {
           "name": "IO5",
-          "net": ""
+          "net": "",
+          "type": "tristate"
         },
         "11": {
           "name": "IO6",
-          "net": ""
+          "net": "",
+          "type": "tristate"
         },
         "12": {
           "name": "IO7",
-          "net": "/top/PTT_3V3"
+          "net": "/top/PTT_3V3",
+          "type": "tristate"
         },
         "13": {
           "name": "~{INT}",
-          "net": ""
+          "net": "",
+          "type": "open_collector"
         },
         "14": {
           "name": "SCL",
-          "net": "/top/SCL_I2C_3V3"
+          "net": "/top/SCL_I2C_3V3",
+          "type": "input"
         },
         "15": {
           "name": "SDA",
-          "net": "/top/SDA_I2C_3V3"
+          "net": "/top/SDA_I2C_3V3",
+          "type": "passive"
         },
         "16": {
           "name": "VDD",
-          "net": "P3V3"
+          "net": "P3V3",
+          "type": "power_in"
         }
       },
       "value": "PCA9554APW",
@@ -3663,56 +3804,98 @@
     },
     "C801": {
       "pins": {
-        "1": "/top/P5V0",
-        "2": "GND"
+        "1": {
+          "net": "/top/P5V0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "22u",
       "internal_pn": "800267-226"
     },
     "C802": {
       "pins": {
-        "1": "/top/P5V0",
-        "2": "GND"
+        "1": {
+          "net": "/top/P5V0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C803": {
       "pins": {
-        "1": "/top/P13V8",
-        "2": "GND"
+        "1": {
+          "net": "/top/P13V8",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "4.7u",
       "internal_pn": "800003-475"
     },
     "C804": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/P8V0_RX",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/P8V0_RX",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C805": {
       "pins": {
-        "1": "/top/P13V8",
-        "2": "GND"
+        "1": {
+          "net": "/top/P13V8",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "4.7u",
       "internal_pn": "800003-475"
     },
     "C806": {
       "pins": {
-        "1": "Net-(Q802-S)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(Q802-S)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "4.7u",
       "internal_pn": "800003-475"
     },
     "C807": {
       "pins": {
-        "1": "/top/connectors/P8V0_TX",
-        "2": "GND"
+        "1": {
+          "net": "/top/connectors/P8V0_TX",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
@@ -3721,15 +3904,18 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "Net-(Q801-G)"
+          "net": "Net-(Q801-G)",
+          "type": "passive"
         },
         "2": {
           "name": "S",
-          "net": "/top/P13V8"
+          "net": "/top/P13V8",
+          "type": "passive"
         },
         "3": {
           "name": "D",
-          "net": "/top/P13V8_TX"
+          "net": "/top/P13V8_TX",
+          "type": "passive"
         }
       },
       "value": "SI2369",
@@ -3740,15 +3926,18 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "/top/P13V8_TX"
+          "net": "/top/P13V8_TX",
+          "type": "passive"
         },
         "2": {
           "name": "S",
-          "net": "Net-(Q802-S)"
+          "net": "Net-(Q802-S)",
+          "type": "passive"
         },
         "3": {
           "name": "D",
-          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/P8V0_RX"
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/P8V0_RX",
+          "type": "passive"
         }
       },
       "value": "SI2369",
@@ -3759,15 +3948,18 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "Net-(Q803-G)"
+          "net": "Net-(Q803-G)",
+          "type": "passive"
         },
         "2": {
           "name": "S",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "3": {
           "name": "D",
-          "net": "Net-(Q803-D)"
+          "net": "Net-(Q803-D)",
+          "type": "passive"
         }
       },
       "value": "BSS138",
@@ -3777,15 +3969,18 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "/top/P13V8_RX"
+          "net": "/top/P13V8_RX",
+          "type": "passive"
         },
         "2": {
           "name": "S",
-          "net": "Net-(Q802-S)"
+          "net": "Net-(Q802-S)",
+          "type": "passive"
         },
         "3": {
           "name": "D",
-          "net": "/top/connectors/P8V0_TX"
+          "net": "/top/connectors/P8V0_TX",
+          "type": "passive"
         }
       },
       "value": "SI2369",
@@ -3796,15 +3991,18 @@
       "pins": {
         "1": {
           "name": "B",
-          "net": "Net-(Q805-B)"
+          "net": "Net-(Q805-B)",
+          "type": "passive"
         },
         "2": {
           "name": "E",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "3": {
           "name": "C",
-          "net": "Net-(Q803-G)"
+          "net": "Net-(Q803-G)",
+          "type": "passive"
         }
       },
       "value": "MMBT3904",
@@ -3814,15 +4012,18 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "Net-(Q806-G)"
+          "net": "Net-(Q806-G)",
+          "type": "passive"
         },
         "2": {
           "name": "S",
-          "net": "/top/P13V8"
+          "net": "/top/P13V8",
+          "type": "passive"
         },
         "3": {
           "name": "D",
-          "net": "/top/P13V8_RX"
+          "net": "/top/P13V8_RX",
+          "type": "passive"
         }
       },
       "value": "SI2369",
@@ -3833,15 +4034,18 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "Net-(Q807-G)"
+          "net": "Net-(Q807-G)",
+          "type": "passive"
         },
         "2": {
           "name": "S",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "3": {
           "name": "D",
-          "net": "Net-(Q807-D)"
+          "net": "Net-(Q807-D)",
+          "type": "passive"
         }
       },
       "value": "BSS138",
@@ -3851,15 +4055,18 @@
       "pins": {
         "1": {
           "name": "B",
-          "net": "Net-(Q808-B)"
+          "net": "Net-(Q808-B)",
+          "type": "passive"
         },
         "2": {
           "name": "E",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "3": {
           "name": "C",
-          "net": "Net-(Q807-G)"
+          "net": "Net-(Q807-G)",
+          "type": "passive"
         }
       },
       "value": "MMBT3904",
@@ -3867,88 +4074,154 @@
     },
     "R801": {
       "pins": {
-        "1": "/top/P5V0",
-        "2": "GND"
+        "1": {
+          "net": "/top/P5V0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "470",
       "internal_pn": "800235-471"
     },
     "R802": {
       "pins": {
-        "1": "/top/P13V8",
-        "2": "Net-(Q801-G)"
+        "1": {
+          "net": "/top/P13V8",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q801-G)",
+          "type": "passive"
+        }
       },
       "value": "10K",
       "internal_pn": "800235-103"
     },
     "R803": {
       "pins": {
-        "1": "/top/P13V8_TX",
-        "2": "Net-(Q803-D)"
+        "1": {
+          "net": "/top/P13V8_TX",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q803-D)",
+          "type": "passive"
+        }
       },
       "value": "10",
       "internal_pn": "800235-100"
     },
     "R804": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/P8V0_RX",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/P8V0_RX",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "10K",
       "internal_pn": "800235-103"
     },
     "R805": {
       "pins": {
-        "1": "Net-(Q801-G)",
-        "2": "Net-(Q803-G)"
+        "1": {
+          "net": "Net-(Q801-G)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q803-G)",
+          "type": "passive"
+        }
       },
       "value": "100",
       "internal_pn": "800235-101"
     },
     "R806": {
       "pins": {
-        "1": "Net-(Q805-B)",
-        "2": "/top/PTT_3V3"
+        "1": {
+          "net": "Net-(Q805-B)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/PTT_3V3",
+          "type": "passive"
+        }
       },
       "value": "10K",
       "internal_pn": "800235-103"
     },
     "R807": {
       "pins": {
-        "1": "/top/connectors/P8V0_TX",
-        "2": "GND"
+        "1": {
+          "net": "/top/connectors/P8V0_TX",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "10K",
       "internal_pn": "800235-103"
     },
     "R808": {
       "pins": {
-        "1": "/top/P13V8",
-        "2": "Net-(Q806-G)"
+        "1": {
+          "net": "/top/P13V8",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q806-G)",
+          "type": "passive"
+        }
       },
       "value": "10K",
       "internal_pn": "800235-103"
     },
     "R809": {
       "pins": {
-        "1": "/top/P13V8_RX",
-        "2": "Net-(Q807-D)"
+        "1": {
+          "net": "/top/P13V8_RX",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q807-D)",
+          "type": "passive"
+        }
       },
       "value": "10",
       "internal_pn": "800235-100"
     },
     "R810": {
       "pins": {
-        "1": "Net-(Q806-G)",
-        "2": "Net-(Q807-G)"
+        "1": {
+          "net": "Net-(Q806-G)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q807-G)",
+          "type": "passive"
+        }
       },
       "value": "100",
       "internal_pn": "800235-101"
     },
     "R811": {
       "pins": {
-        "1": "Net-(Q808-B)",
-        "2": "/top/PTT_3V3_N"
+        "1": {
+          "net": "Net-(Q808-B)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/PTT_3V3_N",
+          "type": "passive"
+        }
       },
       "value": "10K",
       "internal_pn": "800235-103"
@@ -3957,7 +4230,8 @@
       "pins": {
         "1": {
           "name": "TP",
-          "net": "/top/P5V0"
+          "net": "/top/P5V0",
+          "type": "passive"
         }
       },
       "value": "TESTPINTPSQ025",
@@ -3967,7 +4241,8 @@
       "pins": {
         "1": {
           "name": "TP",
-          "net": "/top/P13V8_TX"
+          "net": "/top/P13V8_TX",
+          "type": "passive"
         }
       },
       "value": "TESTPINTPSQ025",
@@ -3977,7 +4252,8 @@
       "pins": {
         "1": {
           "name": "TP",
-          "net": "/top/P13V8_RX"
+          "net": "/top/P13V8_RX",
+          "type": "passive"
         }
       },
       "value": "TESTPINTPSQ025",
@@ -3987,15 +4263,18 @@
       "pins": {
         "1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power_in"
         },
         "2": {
           "name": "OUT",
-          "net": "/top/P5V0"
+          "net": "/top/P5V0",
+          "type": "power_out"
         },
         "3": {
           "name": "IN",
-          "net": "/top/P13V8"
+          "net": "/top/P13V8",
+          "type": "power_in"
         }
       },
       "value": "NCP1117-5.0_SOT223",
@@ -4005,15 +4284,18 @@
       "pins": {
         "1": {
           "name": "IN",
-          "net": "/top/P13V8"
+          "net": "/top/P13V8",
+          "type": "power_in"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power_in"
         },
         "3": {
           "name": "OUT",
-          "net": "Net-(Q802-S)"
+          "net": "Net-(Q802-S)",
+          "type": "power_out"
         }
       },
       "value": "MC78M08CDTRKG",
@@ -4021,152 +4303,266 @@
     },
     "C901": {
       "pins": {
-        "1": "Net-(U901A-V+)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(U901A-V+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C902": {
       "pins": {
-        "1": "Net-(U901A-V+)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(U901A-V+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100u",
       "internal_pn": "800268-107"
     },
     "C903": {
       "pins": {
-        "1": "Net-(C903-Pad1)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(C903-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "22u",
       "internal_pn": "800267-226"
     },
     "C904": {
       "pins": {
-        "1": "Net-(U901B--)",
-        "2": "Net-(C904-Pad2)"
+        "1": {
+          "net": "Net-(U901B--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C904-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "0.01u",
       "internal_pn": "800239-103"
     },
     "C905": {
       "pins": {
-        "1": "Net-(C905-Pad1)",
-        "2": "/top/TX_AUDIO_IN"
+        "1": {
+          "net": "Net-(C905-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/TX_AUDIO_IN",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C906": {
       "pins": {
-        "1": "Net-(U901A-+)",
-        "2": "Net-(C906-Pad2)"
+        "1": {
+          "net": "Net-(U901A-+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C906-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C907": {
       "pins": {
-        "1": "Net-(U901B--)",
-        "2": "Net-(C907-Pad2)"
+        "1": {
+          "net": "Net-(U901B--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C907-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "22u",
       "internal_pn": "800267-226"
     },
     "C908": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/speech_amp/AUDIO_OUT",
-        "2": "Net-(C907-Pad2)"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/speech_amp/AUDIO_OUT",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C907-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "22u",
       "internal_pn": "800267-226"
     },
     "C909": {
       "pins": {
-        "1": "Net-(U901B-+)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(U901B-+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.0027u",
       "internal_pn": "800239-272"
     },
     "C910": {
       "pins": {
-        "1": "Net-(C910-Pad1)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(C910-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "22u",
       "internal_pn": "800267-226"
     },
     "C911": {
       "pins": {
-        "1": "Net-(C911-Pad1)",
-        "2": "Net-(TP902-TP)"
+        "1": {
+          "net": "Net-(C911-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(TP902-TP)",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C912": {
       "pins": {
-        "1": "Net-(C912-Pad1)",
-        "2": "Net-(C912-Pad2)"
+        "1": {
+          "net": "Net-(C912-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C912-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C913": {
       "pins": {
-        "1": "Net-(C913-Pad1)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(C913-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "22u",
       "internal_pn": "800267-226"
     },
     "C914": {
       "pins": {
-        "1": "Net-(C914-Pad1)",
-        "2": "Net-(Q902-C)"
+        "1": {
+          "net": "Net-(C914-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q902-C)",
+          "type": "passive"
+        }
       },
       "value": "0.0027u",
       "internal_pn": "800239-272"
     },
     "C915": {
       "pins": {
-        "1": "Net-(C915-Pad1)",
-        "2": "Net-(C914-Pad1)"
+        "1": {
+          "net": "Net-(C915-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C914-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "0.0027u",
       "internal_pn": "800239-272"
     },
     "C916": {
       "pins": {
-        "1": "Net-(C916-Pad1)",
-        "2": "Net-(C915-Pad1)"
+        "1": {
+          "net": "Net-(C916-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C915-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "0.0027u",
       "internal_pn": "800239-272"
     },
     "C917": {
       "pins": {
-        "1": "Net-(Q902-B)",
-        "2": "Net-(C916-Pad1)"
+        "1": {
+          "net": "Net-(Q902-B)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C916-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "0.0027u",
       "internal_pn": "800239-272"
     },
     "C918": {
       "pins": {
-        "1": "Net-(C918-Pad1)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(C918-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "22u",
       "internal_pn": "800267-226"
     },
     "C919": {
       "pins": {
-        "1": "Net-(C919-Pad1)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(C919-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.01u",
       "internal_pn": "800239-103"
@@ -4175,15 +4571,18 @@
       "pins": {
         "1": {
           "name": "B",
-          "net": "Net-(Q901-B)"
+          "net": "Net-(Q901-B)",
+          "type": "input"
         },
         "2": {
           "name": "E",
-          "net": "/top/P13V8_TX"
+          "net": "/top/P13V8_TX",
+          "type": "passive"
         },
         "3": {
           "name": "C",
-          "net": "Net-(Q901-C)"
+          "net": "Net-(Q901-C)",
+          "type": "passive"
         }
       },
       "value": "MMBT3906",
@@ -4193,15 +4592,18 @@
       "pins": {
         "1": {
           "name": "B",
-          "net": "Net-(Q902-B)"
+          "net": "Net-(Q902-B)",
+          "type": "passive"
         },
         "2": {
           "name": "E",
-          "net": "Net-(Q902-E)"
+          "net": "Net-(Q902-E)",
+          "type": "passive"
         },
         "3": {
           "name": "C",
-          "net": "Net-(Q902-C)"
+          "net": "Net-(Q902-C)",
+          "type": "passive"
         }
       },
       "value": "MMBT3904",
@@ -4211,15 +4613,18 @@
       "pins": {
         "1": {
           "name": "B",
-          "net": "Net-(Q903-B)"
+          "net": "Net-(Q903-B)",
+          "type": "passive"
         },
         "2": {
           "name": "E",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "3": {
           "name": "C",
-          "net": "Net-(Q903-C)"
+          "net": "Net-(Q903-C)",
+          "type": "passive"
         }
       },
       "value": "MMBT3904",
@@ -4227,218 +4632,386 @@
     },
     "R901": {
       "pins": {
-        "1": "Net-(U901A-V+)",
-        "2": "/top/P13V8_TX"
+        "1": {
+          "net": "Net-(U901A-V+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/P13V8_TX",
+          "type": "passive"
+        }
       },
       "value": "100",
       "internal_pn": "800235-101"
     },
     "R902": {
       "pins": {
-        "1": "Net-(U901A-V+)",
-        "2": "Net-(C903-Pad1)"
+        "1": {
+          "net": "Net-(U901A-V+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C903-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "10K",
       "internal_pn": "800235-103"
     },
     "R903": {
       "pins": {
-        "1": "Net-(C903-Pad1)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(C903-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "10K",
       "internal_pn": "800235-103"
     },
     "R904": {
       "pins": {
-        "1": "Net-(U901A-+)",
-        "2": "Net-(C903-Pad1)"
+        "1": {
+          "net": "Net-(U901A-+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C903-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "10K",
       "internal_pn": "800235-103"
     },
     "R905": {
       "pins": {
-        "1": "GND",
-        "2": "Net-(C906-Pad2)",
-        "3": "Net-(C905-Pad1)"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C906-Pad2)",
+          "type": "passive"
+        },
+        "3": {
+          "net": "Net-(C905-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "20K",
       "internal_pn": "800249-203"
     },
     "R906": {
       "pins": {
-        "1": "Net-(C904-Pad2)",
-        "2": "Net-(R906-Pad2)"
+        "1": {
+          "net": "Net-(C904-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R906-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "10K",
       "internal_pn": "800235-103"
     },
     "R907": {
       "pins": {
-        "1": "Net-(U901B-+)",
-        "2": "Net-(C904-Pad2)"
+        "1": {
+          "net": "Net-(U901B-+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C904-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "10K",
       "internal_pn": "800235-103"
     },
     "R908": {
       "pins": {
-        "1": "Net-(U901A--)",
-        "2": "Net-(C903-Pad1)"
+        "1": {
+          "net": "Net-(U901A--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C903-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "680",
       "internal_pn": "800235-681"
     },
     "R909": {
       "pins": {
-        "1": "Net-(C907-Pad2)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(C907-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "2K",
       "internal_pn": "800235-202"
     },
     "R910": {
       "pins": {
-        "1": "Net-(R906-Pad2)",
-        "2": "Net-(U901A--)"
+        "1": {
+          "net": "Net-(R906-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U901A--)",
+          "type": "passive"
+        }
       },
       "value": "270K",
       "internal_pn": "800235-274"
     },
     "R911": {
       "pins": {
-        "1": "Net-(C910-Pad1)",
-        "2": "/top/connectors/P8V0_TX"
+        "1": {
+          "net": "Net-(C910-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/connectors/P8V0_TX",
+          "type": "passive"
+        }
       },
       "value": "100",
       "internal_pn": "800235-101"
     },
     "R912": {
       "pins": {
-        "1": "/top/TX_AUDIO_IN",
-        "2": "Net-(C910-Pad1)"
+        "1": {
+          "net": "/top/TX_AUDIO_IN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C910-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "DNI",
       "internal_pn": "800235-682"
     },
     "R913": {
       "pins": {
-        "1": "Net-(U901A--)",
-        "2": "Net-(C919-Pad1)"
+        "1": {
+          "net": "Net-(U901A--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C919-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "100K",
       "internal_pn": "800235-104"
     },
     "R914": {
       "pins": {
-        "1": "Net-(C911-Pad1)",
-        "2": "Net-(U901A--)"
+        "1": {
+          "net": "Net-(C911-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U901A--)",
+          "type": "passive"
+        }
       },
       "value": "100K",
       "internal_pn": "800235-104"
     },
     "R915": {
       "pins": {
-        "1": "Net-(C913-Pad1)",
-        "2": "Net-(Q901-C)"
+        "1": {
+          "net": "Net-(C913-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q901-C)",
+          "type": "passive"
+        }
       },
       "value": "1K",
       "internal_pn": "800235-102"
     },
     "R916": {
       "pins": {
-        "1": "Net-(C913-Pad1)",
-        "2": "Net-(C912-Pad2)",
-        "3": "Net-(Q902-C)"
+        "1": {
+          "net": "Net-(C913-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C912-Pad2)",
+          "type": "passive"
+        },
+        "3": {
+          "net": "Net-(Q902-C)",
+          "type": "passive"
+        }
       },
       "value": "20K",
       "internal_pn": "800249-203"
     },
     "R917": {
       "pins": {
-        "1": "Net-(C919-Pad1)",
-        "2": "Net-(C912-Pad1)"
+        "1": {
+          "net": "Net-(C919-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C912-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "47K",
       "internal_pn": "800235-473"
     },
     "R918": {
       "pins": {
-        "1": "Net-(C913-Pad1)",
-        "2": "Net-(Q902-B)"
+        "1": {
+          "net": "Net-(C913-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q902-B)",
+          "type": "passive"
+        }
       },
       "value": "75K",
       "internal_pn": "800235-753"
     },
     "R919": {
       "pins": {
-        "1": "Net-(C913-Pad1)",
-        "2": "Net-(Q902-C)"
+        "1": {
+          "net": "Net-(C913-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q902-C)",
+          "type": "passive"
+        }
       },
       "value": "22K",
       "internal_pn": "800235-223"
     },
     "R920": {
       "pins": {
-        "1": "Net-(Q901-B)",
-        "2": "Net-(Q903-C)"
+        "1": {
+          "net": "Net-(Q901-B)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q903-C)",
+          "type": "passive"
+        }
       },
       "value": "47K",
       "internal_pn": "800235-473"
     },
     "R921": {
       "pins": {
-        "1": "Net-(C918-Pad1)",
-        "2": "Net-(Q902-E)"
+        "1": {
+          "net": "Net-(C918-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q902-E)",
+          "type": "passive"
+        }
       },
       "value": "100",
       "internal_pn": "800235-101"
     },
     "R922": {
       "pins": {
-        "1": "Net-(Q903-B)",
-        "2": "/top/ENA_TUNE_OSC_3V3"
+        "1": {
+          "net": "Net-(Q903-B)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/ENA_TUNE_OSC_3V3",
+          "type": "passive"
+        }
       },
       "value": "47K",
       "internal_pn": "800235-473"
     },
     "R923": {
       "pins": {
-        "1": "Net-(C914-Pad1)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(C914-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "47K",
       "internal_pn": "800235-473"
     },
     "R924": {
       "pins": {
-        "1": "Net-(C915-Pad1)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(C915-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "47K",
       "internal_pn": "800235-473"
     },
     "R925": {
       "pins": {
-        "1": "Net-(C916-Pad1)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(C916-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "47K",
       "internal_pn": "800235-473"
     },
     "R926": {
       "pins": {
-        "1": "Net-(Q902-B)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(Q902-B)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "39K",
       "internal_pn": "800235-393"
     },
     "R927": {
       "pins": {
-        "1": "Net-(Q902-E)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(Q902-E)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "10K",
       "internal_pn": "800235-103"
@@ -4447,7 +5020,8 @@
       "pins": {
         "1": {
           "name": "TP",
-          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/speech_amp/AUDIO_OUT"
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/speech_amp/AUDIO_OUT",
+          "type": "passive"
         }
       },
       "value": "TESTPINTPSQ025",
@@ -4457,7 +5031,8 @@
       "pins": {
         "1": {
           "name": "TP",
-          "net": "Net-(TP902-TP)"
+          "net": "Net-(TP902-TP)",
+          "type": "passive"
         }
       },
       "value": "TESTPINTPSQ025",
@@ -4465,31 +5040,43 @@
     },
     "U901": {
       "pins": {
-        "1": "Net-(R906-Pad2)",
+        "1": {
+          "net": "Net-(R906-Pad2)",
+          "type": "output"
+        },
         "2": {
           "name": "-",
-          "net": "Net-(U901A--)"
+          "net": "Net-(U901A--)",
+          "type": "input"
         },
         "3": {
           "name": "+",
-          "net": "Net-(U901A-+)"
+          "net": "Net-(U901A-+)",
+          "type": "input"
         },
         "4": {
           "name": "V-",
-          "net": "GND"
+          "net": "GND",
+          "type": "power_in"
         },
         "5": {
           "name": "+",
-          "net": "Net-(U901B-+)"
+          "net": "Net-(U901B-+)",
+          "type": "input"
         },
         "6": {
           "name": "-",
-          "net": "Net-(U901B--)"
+          "net": "Net-(U901B--)",
+          "type": "input"
         },
-        "7": "Net-(U901B--)",
+        "7": {
+          "net": "Net-(U901B--)",
+          "type": "output"
+        },
         "8": {
           "name": "V+",
-          "net": "Net-(U901A-V+)"
+          "net": "Net-(U901A-V+)",
+          "type": "power_in"
         }
       },
       "value": "LMC6482",
@@ -4497,156 +5084,270 @@
     },
     "C1001": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/U1801_C_RF",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/C1802_RF"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/U1801_C_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/C1802_RF",
+          "type": "passive"
+        }
       },
       "value": "0.01u",
       "internal_pn": "800239-103"
     },
     "C1002": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/U1802_C_RF",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/U1801_NO_RF"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/U1802_C_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/U1801_NO_RF",
+          "type": "passive"
+        }
       },
       "value": "0.01u",
       "internal_pn": "800239-103"
     },
     "C1003": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/U1801_NC_RF",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/C1805_RF"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/U1801_NC_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/C1805_RF",
+          "type": "passive"
+        }
       },
       "value": "1000p",
       "internal_pn": "800239-102"
     },
     "C1004": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/U1802_NC_RF",
-        "2": "Net-(C1004-Pad2)"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/U1802_NC_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C1004-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C1005": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/C1805_RF",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/L1802_RF"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/C1805_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/L1802_RF",
+          "type": "passive"
+        }
       },
       "value": "150p",
       "internal_pn": "800239-151"
     },
     "L1001": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/C1805_RF",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/L1802_RF"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/C1805_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/L1802_RF",
+          "type": "passive"
+        }
       },
       "value": "81nH",
       "internal_pn": "8XXXXX-XXX"
     },
     "L1002": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/L1802_RF",
-        "2": "Net-(L1002-Pad2)"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/L1802_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(L1002-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "27uH",
       "internal_pn": "800257-023"
     },
     "R1001": {
       "pins": {
-        "1": "/top/radio/mixamp/RX_IF_IN_45R1",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/C1805_RF"
+        "1": {
+          "net": "/top/radio/mixamp/RX_IF_IN_45R1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/C1805_RF",
+          "type": "passive"
+        }
       },
       "value": "0",
       "internal_pn": "800235-000"
     },
     "R1002": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/C1805_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/C1805_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "DNI",
       "internal_pn": "800XXX-XXX"
     },
     "R1003": {
       "pins": {
-        "1": "/top/radio/mixamp/RX_IF_IN_45R1",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/mixamp/RX_IF_IN_45R1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "DNI",
       "internal_pn": "800XXX-XXX"
     },
     "R1004": {
       "pins": {
-        "1": "Net-(C1004-Pad2)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(C1004-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "51",
       "internal_pn": "800235-510"
     },
     "R1005": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/TRX_IF_45R1",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/C1802_RF"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/TRX_IF_45R1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/C1802_RF",
+          "type": "passive"
+        }
       },
       "value": "0",
       "internal_pn": "800235-000"
     },
     "R1006": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/C1802_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/C1802_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "DNI",
       "internal_pn": "800XXX-XXX"
     },
     "R1007": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/TRX_IF_45R1",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/TRX_IF_45R1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "DNI",
       "internal_pn": "800XXX-XXX"
     },
     "R1008": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/L1802_RF",
-        "2": "Net-(L1002-Pad2)"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/L1802_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(L1002-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "2.2K",
       "internal_pn": "800235-222"
     },
     "R1009": {
       "pins": {
-        "1": "Net-(L1002-Pad2)",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/speech_amp/AUDIO_OUT"
+        "1": {
+          "net": "Net-(L1002-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/speech_amp/AUDIO_OUT",
+          "type": "passive"
+        }
       },
       "value": "1K",
       "internal_pn": "800235-102"
     },
     "R1010": {
       "pins": {
-        "1": "Net-(L1002-Pad2)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(L1002-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "51",
       "internal_pn": "800235-510"
     },
     "U1001": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/U1801_NC_RF",
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/U1801_NC_RF",
+          "type": "passive"
+        },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
-        "3": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/U1801_NO_RF",
+        "3": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/U1801_NO_RF",
+          "type": "passive"
+        },
         "4": {
           "name": "V1",
-          "net": "/top/PTT_3V3_N"
+          "net": "/top/PTT_3V3_N",
+          "type": "passive"
         },
-        "5": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/U1801_C_RF",
+        "5": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/U1801_C_RF",
+          "type": "passive"
+        },
         "6": {
           "name": "V2",
-          "net": "/top/PTT_3V3"
+          "net": "/top/PTT_3V3",
+          "type": "passive"
         }
       },
       "value": "AS169-73",
@@ -4654,20 +5355,32 @@
     },
     "U1002": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/U1802_NC_RF",
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/U1802_NC_RF",
+          "type": "passive"
+        },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
-        "3": "/top/radio/prod_det_tx_mix/TX_IF_OUT_45R1",
+        "3": {
+          "net": "/top/radio/prod_det_tx_mix/TX_IF_OUT_45R1",
+          "type": "passive"
+        },
         "4": {
           "name": "V1",
-          "net": "/top/PTT_3V3_N"
+          "net": "/top/PTT_3V3_N",
+          "type": "passive"
         },
-        "5": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/U1802_C_RF",
+        "5": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/trx_switch/U1802_C_RF",
+          "type": "passive"
+        },
         "6": {
           "name": "V2",
-          "net": "/top/PTT_3V3"
+          "net": "/top/PTT_3V3",
+          "type": "passive"
         }
       },
       "value": "AS169-73",
@@ -4675,152 +5388,266 @@
     },
     "C1201": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/L2RRF_IN_C",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/L2RRF_IN"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/L2RRF_IN_C",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/L2RRF_IN",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C1202": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/U2301_C_RF",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/R2301_RF"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/U2301_C_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/R2301_RF",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C1203": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/C2303_RF",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/U2302_C_RF"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/C2303_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/U2302_C_RF",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C1204": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/R2L_RF_OUT",
-        "2": "Net-(C1204-Pad2)"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/R2L_RF_OUT",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C1204-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C1205": {
       "pins": {
-        "1": "Net-(U1202-V2)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(U1202-V2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "1000p",
       "internal_pn": "800239-102"
     },
     "C1206": {
       "pins": {
-        "1": "Net-(U1202-V1)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(U1202-V1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "1000p",
       "internal_pn": "800239-102"
     },
     "C1207": {
       "pins": {
-        "1": "Net-(U1201-V2)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(U1201-V2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "1000p",
       "internal_pn": "800239-102"
     },
     "C1208": {
       "pins": {
-        "1": "Net-(U1201-V1)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(U1201-V1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "1000p",
       "internal_pn": "800239-102"
     },
     "C1209": {
       "pins": {
-        "1": "/top/connectors/P8V0_TX",
-        "2": "GND"
+        "1": {
+          "net": "/top/connectors/P8V0_TX",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C1210": {
       "pins": {
-        "1": "Net-(T1201-S1)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(T1201-S1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C1211": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/C2311_RF",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/T2301_RF"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/C2311_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/T2301_RF",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C1212": {
       "pins": {
-        "1": "Net-(C1212-Pad1)",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/C2314_RF"
+        "1": {
+          "net": "Net-(C1212-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/C2314_RF",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C1213": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/R2306_RF",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/R2L_RF_OUT"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/R2306_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/R2L_RF_OUT",
+          "type": "passive"
+        }
       },
       "value": "150p",
       "internal_pn": "800239-151"
     },
     "C1214": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/C2314_RF",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/R2L_RF_IN"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/C2314_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/R2L_RF_IN",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C1215": {
       "pins": {
-        "1": "Net-(Q1201-E)",
-        "2": "Net-(C1215-Pad2)"
+        "1": {
+          "net": "Net-(Q1201-E)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C1215-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "E1201": {
       "pins": {
-        "1": "Net-(U1201-V2)",
-        "2": "Net-(U1202-V2)"
+        "1": {
+          "net": "Net-(U1201-V2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U1202-V2)",
+          "type": "passive"
+        }
       },
       "value": "FB0805",
       "internal_pn": "800245-601"
     },
     "E1202": {
       "pins": {
-        "1": "Net-(U1201-V1)",
-        "2": "Net-(U1202-V1)"
+        "1": {
+          "net": "Net-(U1201-V1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U1202-V1)",
+          "type": "passive"
+        }
       },
       "value": "FB0805",
       "internal_pn": "800245-601"
     },
     "E1203": {
       "pins": {
-        "1": "/top/connectors/P8V0_TX",
-        "2": "Net-(T1201-S1)"
+        "1": {
+          "net": "/top/connectors/P8V0_TX",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(T1201-S1)",
+          "type": "passive"
+        }
       },
       "value": "FB0805",
       "internal_pn": "800245-601"
     },
     "L1201": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/R2306_RF",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/R2L_RF_OUT"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/R2306_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/R2L_RF_OUT",
+          "type": "passive"
+        }
       },
       "value": "81nH",
       "internal_pn": "8XXXXX-XXX"
@@ -4829,15 +5656,18 @@
       "pins": {
         "1": {
           "name": "B",
-          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/C2314_RF"
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/C2314_RF",
+          "type": "passive"
         },
         "2": {
           "name": "C",
-          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/Q2301_RF"
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/Q2301_RF",
+          "type": "passive"
         },
         "3": {
           "name": "E",
-          "net": "Net-(Q1201-E)"
+          "net": "Net-(Q1201-E)",
+          "type": "passive"
         }
       },
       "value": "2SC3357",
@@ -4845,96 +5675,168 @@
     },
     "R1201": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/R2301_RF",
-        "2": "/top/TRX_RF"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/R2301_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/TRX_RF",
+          "type": "passive"
+        }
       },
       "value": "0",
       "internal_pn": "800235-000"
     },
     "R1202": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/BDA_RIGHT",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/C2303_RF"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/BDA_RIGHT",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/C2303_RF",
+          "type": "passive"
+        }
       },
       "value": "0",
       "internal_pn": "800235-000"
     },
     "R1203": {
       "pins": {
-        "1": "Net-(U1201-V2)",
-        "2": "/top/PTT_3V3"
+        "1": {
+          "net": "Net-(U1201-V2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/PTT_3V3",
+          "type": "passive"
+        }
       },
       "value": "33",
       "internal_pn": "800235-330"
     },
     "R1204": {
       "pins": {
-        "1": "Net-(U1201-V1)",
-        "2": "/top/PTT_3V3_N"
+        "1": {
+          "net": "Net-(U1201-V1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/PTT_3V3_N",
+          "type": "passive"
+        }
       },
       "value": "33",
       "internal_pn": "800235-330"
     },
     "R1205": {
       "pins": {
-        "1": "Net-(T1201-S1)",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/C2314_RF"
+        "1": {
+          "net": "Net-(T1201-S1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/C2314_RF",
+          "type": "passive"
+        }
       },
       "value": "1.1K",
       "internal_pn": "800235-112"
     },
     "R1206": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/R2306_RF",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/C2311_RF"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/R2306_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/C2311_RF",
+          "type": "passive"
+        }
       },
       "value": "36",
       "internal_pn": "800235-360"
     },
     "R1207": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/Q2301_RF",
-        "2": "Net-(C1212-Pad1)"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/Q2301_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C1212-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "910",
       "internal_pn": "800235-911"
     },
     "R1208": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/C2311_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/C2311_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "150",
       "internal_pn": "800235-151"
     },
     "R1209": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/R2306_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/R2306_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "150",
       "internal_pn": "800235-151"
     },
     "R1210": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/C2314_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/C2314_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "360",
       "internal_pn": "800235-361"
     },
     "R1211": {
       "pins": {
-        "1": "Net-(C1215-Pad2)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(C1215-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "10",
       "internal_pn": "800235-100"
     },
     "R1212": {
       "pins": {
-        "1": "Net-(Q1201-E)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(Q1201-E)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "30",
       "internal_pn": "800235-300"
@@ -4943,19 +5845,23 @@
       "pins": {
         "1": {
           "name": "PR1",
-          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/T2301_RF"
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/T2301_RF",
+          "type": "passive"
         },
         "2": {
           "name": "PR2",
-          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/Q2301_RF"
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/Q2301_RF",
+          "type": "passive"
         },
         "3": {
           "name": "S1",
-          "net": "Net-(T1201-S1)"
+          "net": "Net-(T1201-S1)",
+          "type": "passive"
         },
         "4": {
           "name": "S2",
-          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/T2301_RF"
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/T2301_RF",
+          "type": "passive"
         }
       },
       "value": "XFMR_RF_BIFILAR",
@@ -4963,20 +5869,32 @@
     },
     "U1201": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/L2RRF_IN",
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/L2RRF_IN",
+          "type": "passive"
+        },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
-        "3": "Net-(C1204-Pad2)",
+        "3": {
+          "net": "Net-(C1204-Pad2)",
+          "type": "passive"
+        },
         "4": {
           "name": "V1",
-          "net": "Net-(U1201-V1)"
+          "net": "Net-(U1201-V1)",
+          "type": "passive"
         },
-        "5": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/U2301_C_RF",
+        "5": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/U2301_C_RF",
+          "type": "passive"
+        },
         "6": {
           "name": "V2",
-          "net": "Net-(U1201-V2)"
+          "net": "Net-(U1201-V2)",
+          "type": "passive"
         }
       },
       "value": "AS169-73",
@@ -4984,20 +5902,32 @@
     },
     "U1202": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/L2RRF_IN_C",
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/L2RRF_IN_C",
+          "type": "passive"
+        },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
-        "3": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/R2L_RF_IN",
+        "3": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/R2L_RF_IN",
+          "type": "passive"
+        },
         "4": {
           "name": "V1",
-          "net": "Net-(U1202-V1)"
+          "net": "Net-(U1202-V1)",
+          "type": "passive"
         },
-        "5": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/U2302_C_RF",
+        "5": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/U2302_C_RF",
+          "type": "passive"
+        },
         "6": {
           "name": "V2",
-          "net": "Net-(U1202-V2)"
+          "net": "Net-(U1202-V2)",
+          "type": "passive"
         }
       },
       "value": "AS169-73",
@@ -5005,24 +5935,42 @@
     },
     "R1301": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/THIRD_MIXER/R2201_RF",
-        "2": "/top/connectors/LO_THIRD"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/THIRD_MIXER/R2201_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/connectors/LO_THIRD",
+          "type": "passive"
+        }
       },
       "value": "18",
       "internal_pn": "800235-180"
     },
     "R1302": {
       "pins": {
-        "1": "/top/connectors/LO_THIRD",
-        "2": "GND"
+        "1": {
+          "net": "/top/connectors/LO_THIRD",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "300",
       "internal_pn": "800235-301"
     },
     "R1303": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/THIRD_MIXER/R2201_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/THIRD_MIXER/R2201_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "300",
       "internal_pn": "800235-301"
@@ -5031,24 +5979,32 @@
       "pins": {
         "1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "IF",
-          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/THIRD_MIXER/IF"
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/THIRD_MIXER/IF",
+          "type": "passive"
         },
         "3": {
           "name": "RF",
-          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/BDA_RIGHT"
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/BD_RF_AMP/BDA_RIGHT",
+          "type": "passive"
         },
-        "4": "GND",
+        "4": {
+          "net": "GND",
+          "type": "passive"
+        },
         "5": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "6": {
           "name": "LO",
-          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/THIRD_MIXER/R2201_RF"
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/THIRD_MIXER/R2201_RF",
+          "type": "passive"
         }
       },
       "value": "ADE-1",
@@ -5056,200 +6012,350 @@
     },
     "C1401": {
       "pins": {
-        "1": "Net-(T1401-S1)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(T1401-S1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.01u",
       "internal_pn": "800239-103"
     },
     "C1402": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/P8V0_RX",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/P8V0_RX",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.01u",
       "internal_pn": "800239-103"
     },
     "C1403": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2103_RF",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/T2101_RF"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2103_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/T2101_RF",
+          "type": "passive"
+        }
       },
       "value": "0.01u",
       "internal_pn": "800239-103"
     },
     "C1404": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2104_RF",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2102_RF"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2104_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2102_RF",
+          "type": "passive"
+        }
       },
       "value": "0.01u",
       "internal_pn": "800239-103"
     },
     "C1405": {
       "pins": {
-        "1": "Net-(C1405-Pad1)",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2106_RF"
+        "1": {
+          "net": "Net-(C1405-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2106_RF",
+          "type": "passive"
+        }
       },
       "value": "0.01u",
       "internal_pn": "800239-103"
     },
     "C1406": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2106_RF",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/L2RRF_IN"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2106_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/L2RRF_IN",
+          "type": "passive"
+        }
       },
       "value": "0.01u",
       "internal_pn": "800239-103"
     },
     "C1407": {
       "pins": {
-        "1": "Net-(Q1401-E)",
-        "2": "Net-(C1407-Pad2)"
+        "1": {
+          "net": "Net-(Q1401-E)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C1407-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "0.01u",
       "internal_pn": "800239-103"
     },
     "C1408": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2108_RF",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2106_RF"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2108_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2106_RF",
+          "type": "passive"
+        }
       },
       "value": "0.01u",
       "internal_pn": "800239-103"
     },
     "C1409": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/BDA_RIGHT",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/U2102_RF"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/BDA_RIGHT",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/U2102_RF",
+          "type": "passive"
+        }
       },
       "value": "0.01u",
       "internal_pn": "800239-103"
     },
     "C1410": {
       "pins": {
-        "1": "Net-(U1402-V2)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(U1402-V2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "1000p",
       "internal_pn": "800239-102"
     },
     "C1411": {
       "pins": {
-        "1": "Net-(U1402-V1)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(U1402-V1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "1000p",
       "internal_pn": "800239-102"
     },
     "C1412": {
       "pins": {
-        "1": "Net-(U1401-V2)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(U1401-V2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "1000p",
       "internal_pn": "800239-102"
     },
     "C1413": {
       "pins": {
-        "1": "Net-(U1401-V1)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(U1401-V1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "1000p",
       "internal_pn": "800239-102"
     },
     "C1414": {
       "pins": {
-        "1": "/top/connectors/P8V0_TX",
-        "2": "GND"
+        "1": {
+          "net": "/top/connectors/P8V0_TX",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.01u",
       "internal_pn": "800239-103"
     },
     "C1415": {
       "pins": {
-        "1": "Net-(T1402-S1)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(T1402-S1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.01u",
       "internal_pn": "800239-103"
     },
     "C1416": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2116_RF",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/T2102_RF"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2116_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/T2102_RF",
+          "type": "passive"
+        }
       },
       "value": "0.01u",
       "internal_pn": "800239-103"
     },
     "C1417": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2L_RF_OUT",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2114_RF"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2L_RF_OUT",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2114_RF",
+          "type": "passive"
+        }
       },
       "value": "0.01u",
       "internal_pn": "800239-103"
     },
     "C1418": {
       "pins": {
-        "1": "Net-(C1418-Pad1)",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2120_RF"
+        "1": {
+          "net": "Net-(C1418-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2120_RF",
+          "type": "passive"
+        }
       },
       "value": "0.01u",
       "internal_pn": "800239-103"
     },
     "C1419": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2119_RF",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2L_RF_IN"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2119_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2L_RF_IN",
+          "type": "passive"
+        }
       },
       "value": "0.01u",
       "internal_pn": "800239-103"
     },
     "C1420": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2120_RF",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2118_RF"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2120_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2118_RF",
+          "type": "passive"
+        }
       },
       "value": "0.01u",
       "internal_pn": "800239-103"
     },
     "C1421": {
       "pins": {
-        "1": "Net-(Q1402-E)",
-        "2": "Net-(C1421-Pad2)"
+        "1": {
+          "net": "Net-(Q1402-E)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C1421-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "0.01u",
       "internal_pn": "800239-103"
     },
     "E1401": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/P8V0_RX",
-        "2": "Net-(T1401-S1)"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/P8V0_RX",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(T1401-S1)",
+          "type": "passive"
+        }
       },
       "value": "FB0805",
       "internal_pn": "800245-601"
     },
     "E1402": {
       "pins": {
-        "1": "Net-(U1401-V2)",
-        "2": "Net-(U1402-V2)"
+        "1": {
+          "net": "Net-(U1401-V2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U1402-V2)",
+          "type": "passive"
+        }
       },
       "value": "FB0805",
       "internal_pn": "800245-601"
     },
     "E1403": {
       "pins": {
-        "1": "Net-(U1401-V1)",
-        "2": "Net-(U1402-V1)"
+        "1": {
+          "net": "Net-(U1401-V1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U1402-V1)",
+          "type": "passive"
+        }
       },
       "value": "FB0805",
       "internal_pn": "800245-601"
     },
     "E1404": {
       "pins": {
-        "1": "/top/connectors/P8V0_TX",
-        "2": "Net-(T1402-S1)"
+        "1": {
+          "net": "/top/connectors/P8V0_TX",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(T1402-S1)",
+          "type": "passive"
+        }
       },
       "value": "FB0805",
       "internal_pn": "800245-601"
@@ -5258,15 +6364,18 @@
       "pins": {
         "1": {
           "name": "B",
-          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2106_RF"
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2106_RF",
+          "type": "passive"
         },
         "2": {
           "name": "C",
-          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/Q2101_RF"
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/Q2101_RF",
+          "type": "passive"
         },
         "3": {
           "name": "E",
-          "net": "Net-(Q1401-E)"
+          "net": "Net-(Q1401-E)",
+          "type": "passive"
         }
       },
       "value": "2SC3357",
@@ -5276,15 +6385,18 @@
       "pins": {
         "1": {
           "name": "B",
-          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2120_RF"
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2120_RF",
+          "type": "passive"
         },
         "2": {
           "name": "C",
-          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/Q2102_RF"
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/Q2102_RF",
+          "type": "passive"
         },
         "3": {
           "name": "E",
-          "net": "Net-(Q1402-E)"
+          "net": "Net-(Q1402-E)",
+          "type": "passive"
         }
       },
       "value": "2SC3357",
@@ -5292,176 +6404,308 @@
     },
     "R1401": {
       "pins": {
-        "1": "Net-(T1401-S1)",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2106_RF"
+        "1": {
+          "net": "Net-(T1401-S1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2106_RF",
+          "type": "passive"
+        }
       },
       "value": "1.1K",
       "internal_pn": "800235-112"
     },
     "R1402": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2102_RF",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2103_RF"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2102_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2103_RF",
+          "type": "passive"
+        }
       },
       "value": "36",
       "internal_pn": "800235-360"
     },
     "R1403": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2103_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2103_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "150",
       "internal_pn": "800235-151"
     },
     "R1404": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2102_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2102_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "150",
       "internal_pn": "800235-151"
     },
     "R1405": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/Q2101_RF",
-        "2": "Net-(C1405-Pad1)"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/Q2101_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C1405-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "1.6K",
       "internal_pn": "800235-162"
     },
     "R1406": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2106_RF",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/THIRD_MIXER/IF"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2106_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/THIRD_MIXER/IF",
+          "type": "passive"
+        }
       },
       "value": "0",
       "internal_pn": "800235-000"
     },
     "R1407": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2106_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2106_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "360",
       "internal_pn": "800235-361"
     },
     "R1408": {
       "pins": {
-        "1": "Net-(C1407-Pad2)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(C1407-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "6.8",
       "internal_pn": "800235-068"
     },
     "R1409": {
       "pins": {
-        "1": "Net-(Q1401-E)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(Q1401-E)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "30",
       "internal_pn": "800235-300"
     },
     "R1410": {
       "pins": {
-        "1": "Net-(U1401-V2)",
-        "2": "/top/PTT_3V3"
+        "1": {
+          "net": "Net-(U1401-V2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/PTT_3V3",
+          "type": "passive"
+        }
       },
       "value": "33",
       "internal_pn": "800235-330"
     },
     "R1411": {
       "pins": {
-        "1": "Net-(U1401-V1)",
-        "2": "/top/PTT_3V3_N"
+        "1": {
+          "net": "Net-(U1401-V1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/PTT_3V3_N",
+          "type": "passive"
+        }
       },
       "value": "33",
       "internal_pn": "800235-330"
     },
     "R1412": {
       "pins": {
-        "1": "Net-(T1402-S1)",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2120_RF"
+        "1": {
+          "net": "Net-(T1402-S1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2120_RF",
+          "type": "passive"
+        }
       },
       "value": "1.1K",
       "internal_pn": "800235-112"
     },
     "R1413": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2114_RF",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2116_RF"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2114_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2116_RF",
+          "type": "passive"
+        }
       },
       "value": "36",
       "internal_pn": "800235-360"
     },
     "R1414": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/Q2102_RF",
-        "2": "Net-(C1418-Pad1)"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/Q2102_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C1418-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "1.6K",
       "internal_pn": "800235-162"
     },
     "R1415": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2118_RF",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2119_RF"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2118_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2119_RF",
+          "type": "passive"
+        }
       },
       "value": "36",
       "internal_pn": "800235-360"
     },
     "R1416": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2116_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2116_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "150",
       "internal_pn": "800235-151"
     },
     "R1417": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2114_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2114_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "150",
       "internal_pn": "800235-151"
     },
     "R1418": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2120_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2120_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "360",
       "internal_pn": "800235-361"
     },
     "R1419": {
       "pins": {
-        "1": "Net-(C1421-Pad2)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(C1421-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "6.8",
       "internal_pn": "800235-068"
     },
     "R1420": {
       "pins": {
-        "1": "Net-(Q1402-E)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(Q1402-E)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "30",
       "internal_pn": "800235-300"
     },
     "R1421": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2119_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2119_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "150",
       "internal_pn": "800235-151"
     },
     "R1422": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2118_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2118_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "150",
       "internal_pn": "800235-151"
@@ -5470,19 +6714,23 @@
       "pins": {
         "1": {
           "name": "PR1",
-          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/T2101_RF"
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/T2101_RF",
+          "type": "passive"
         },
         "2": {
           "name": "PR2",
-          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/Q2101_RF"
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/Q2101_RF",
+          "type": "passive"
         },
         "3": {
           "name": "S1",
-          "net": "Net-(T1401-S1)"
+          "net": "Net-(T1401-S1)",
+          "type": "passive"
         },
         "4": {
           "name": "S2",
-          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/T2101_RF"
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/T2101_RF",
+          "type": "passive"
         }
       },
       "value": "XFMR_RF_BIFILAR",
@@ -5492,19 +6740,23 @@
       "pins": {
         "1": {
           "name": "PR1",
-          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/T2102_RF"
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/T2102_RF",
+          "type": "passive"
         },
         "2": {
           "name": "PR2",
-          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/Q2102_RF"
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/Q2102_RF",
+          "type": "passive"
         },
         "3": {
           "name": "S1",
-          "net": "Net-(T1402-S1)"
+          "net": "Net-(T1402-S1)",
+          "type": "passive"
         },
         "4": {
           "name": "S2",
-          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/T2102_RF"
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/T2102_RF",
+          "type": "passive"
         }
       },
       "value": "XFMR_RF_BIFILAR",
@@ -5512,20 +6764,32 @@
     },
     "U1401": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/L2RRF_IN",
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/L2RRF_IN",
+          "type": "passive"
+        },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
-        "3": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2L_RF_OUT",
+        "3": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2L_RF_OUT",
+          "type": "passive"
+        },
         "4": {
           "name": "V1",
-          "net": "Net-(U1401-V1)"
+          "net": "Net-(U1401-V1)",
+          "type": "passive"
         },
-        "5": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2108_RF",
+        "5": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2108_RF",
+          "type": "passive"
+        },
         "6": {
           "name": "V2",
-          "net": "Net-(U1401-V2)"
+          "net": "Net-(U1401-V2)",
+          "type": "passive"
         }
       },
       "value": "AS169-73",
@@ -5533,20 +6797,32 @@
     },
     "U1402": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2104_RF",
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/C2104_RF",
+          "type": "passive"
+        },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
-        "3": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2L_RF_IN",
+        "3": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/R2L_RF_IN",
+          "type": "passive"
+        },
         "4": {
           "name": "V1",
-          "net": "Net-(U1402-V1)"
+          "net": "Net-(U1402-V1)",
+          "type": "passive"
         },
-        "5": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/U2102_RF",
+        "5": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/U2102_RF",
+          "type": "passive"
+        },
         "6": {
           "name": "V2",
-          "net": "Net-(U1402-V2)"
+          "net": "Net-(U1402-V2)",
+          "type": "passive"
         }
       },
       "value": "AS169-73",
@@ -5554,32 +6830,56 @@
     },
     "C1501": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/roofing_filter/L2001_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/roofing_filter/L2001_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "16p",
       "internal_pn": "800239-160"
     },
     "C1502": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/roofing_filter/Y2001_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/roofing_filter/Y2001_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "13p",
       "internal_pn": "800239-130"
     },
     "C1503": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/roofing_filter/Y2002_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/roofing_filter/Y2002_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "16p",
       "internal_pn": "800239-160"
     },
     "L1501": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/roofing_filter/R2001_RF",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/roofing_filter/L2001_RF"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/roofing_filter/R2001_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/roofing_filter/L2001_RF",
+          "type": "passive"
+        }
       },
       "value": "0.563uH",
       "description": "Inductor",
@@ -5587,8 +6887,14 @@
     },
     "L1502": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/roofing_filter/Y2002_RF",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/roofing_filter/L2002_RF"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/roofing_filter/Y2002_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/roofing_filter/L2002_RF",
+          "type": "passive"
+        }
       },
       "value": "0.563uH",
       "description": "Inductor",
@@ -5596,25 +6902,46 @@
     },
     "R1501": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/roofing_filter/R2001_RF",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/BDA_RIGHT"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/roofing_filter/R2001_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/bd_amp_45R1/BDA_RIGHT",
+          "type": "passive"
+        }
       },
       "value": "0",
       "internal_pn": "800235-000"
     },
     "R1502": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/TRX_IF_45R1",
-        "2": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/roofing_filter/L2002_RF"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/if_45r1_mic_amp_tune_osc/TRX_IF_45R1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/roofing_filter/L2002_RF",
+          "type": "passive"
+        }
       },
       "value": "0",
       "internal_pn": "800235-000"
     },
     "Y1501": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/roofing_filter/L2001_RF",
-        "2": "GND",
-        "3": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/roofing_filter/Y2001_RF"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/roofing_filter/L2001_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "3": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/roofing_filter/Y2001_RF",
+          "type": "passive"
+        }
       },
       "value": "45.1 MHz",
       "description": "Three pin crystal, one ground/package pins (pin2) small symbol",
@@ -5622,9 +6949,18 @@
     },
     "Y1502": {
       "pins": {
-        "1": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/roofing_filter/Y2002_RF",
-        "2": "GND",
-        "3": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/roofing_filter/Y2001_RF"
+        "1": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/roofing_filter/Y2002_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "3": {
+          "net": "/top/radio/rf_45r1_mic_amp_tune_osc/transverter/roofing_filter/Y2001_RF",
+          "type": "passive"
+        }
       },
       "value": "45.1 MHz",
       "description": "Three pin crystal, one ground/package pins (pin2) small symbol",
@@ -5632,48 +6968,84 @@
     },
     "C1601": {
       "pins": {
-        "1": "/top/radio/mixamp/R801_PWR",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/mixamp/R801_PWR",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C1602": {
       "pins": {
-        "1": "Net-(C1602-Pad1)",
-        "2": "/top/radio/mixamp/Q801_B_RF"
+        "1": {
+          "net": "Net-(C1602-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/mixamp/Q801_B_RF",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C1603": {
       "pins": {
-        "1": "/top/radio/mixamp/Q801_B_RF",
-        "2": "/top/radio/mixamp/U801_RF"
+        "1": {
+          "net": "/top/radio/mixamp/Q801_B_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/mixamp/U801_RF",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C1604": {
       "pins": {
-        "1": "Net-(Q1601-E)",
-        "2": "Net-(C1604-Pad2)"
+        "1": {
+          "net": "Net-(Q1601-E)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C1604-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C1605": {
       "pins": {
-        "1": "/top/radio/mixamp/C805_RF",
-        "2": "/top/radio/mixamp/T801_RF"
+        "1": {
+          "net": "/top/radio/mixamp/C805_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/mixamp/T801_RF",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C1606": {
       "pins": {
-        "1": "/top/radio/mixamp/IF_OUT_12R288",
-        "2": "/top/radio/mixamp/C806_RF"
+        "1": {
+          "net": "/top/radio/mixamp/IF_OUT_12R288",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/mixamp/C806_RF",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
@@ -5682,15 +7054,18 @@
       "pins": {
         "1": {
           "name": "B",
-          "net": "/top/radio/mixamp/Q801_B_RF"
+          "net": "/top/radio/mixamp/Q801_B_RF",
+          "type": "passive"
         },
         "2": {
           "name": "E",
-          "net": "Net-(Q1601-E)"
+          "net": "Net-(Q1601-E)",
+          "type": "passive"
         },
         "3": {
           "name": "C",
-          "net": "/top/radio/mixamp/Q810_C_RF"
+          "net": "/top/radio/mixamp/Q810_C_RF",
+          "type": "passive"
         }
       },
       "value": "MMBT3904",
@@ -5698,96 +7073,168 @@
     },
     "R1601": {
       "pins": {
-        "1": "/top/radio/mixamp/R801_PWR",
-        "2": "/top/P13V8"
+        "1": {
+          "net": "/top/radio/mixamp/R801_PWR",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/P13V8",
+          "type": "passive"
+        }
       },
       "value": "10",
       "internal_pn": "800235-100"
     },
     "R1602": {
       "pins": {
-        "1": "/top/radio/mixamp/U801_LO",
-        "2": "/top/LO_FIRST"
+        "1": {
+          "net": "/top/radio/mixamp/U801_LO",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/LO_FIRST",
+          "type": "passive"
+        }
       },
       "value": "18",
       "internal_pn": "800235-180"
     },
     "R1603": {
       "pins": {
-        "1": "/top/radio/mixamp/R801_PWR",
-        "2": "/top/radio/mixamp/Q801_B_RF"
+        "1": {
+          "net": "/top/radio/mixamp/R801_PWR",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/mixamp/Q801_B_RF",
+          "type": "passive"
+        }
       },
       "value": "8.2K",
       "internal_pn": "800235-822"
     },
     "R1604": {
       "pins": {
-        "1": "/top/LO_FIRST",
-        "2": "GND"
+        "1": {
+          "net": "/top/LO_FIRST",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "300",
       "internal_pn": "800235-301"
     },
     "R1605": {
       "pins": {
-        "1": "/top/radio/mixamp/U801_LO",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/mixamp/U801_LO",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "300",
       "internal_pn": "800235-301"
     },
     "R1606": {
       "pins": {
-        "1": "/top/radio/mixamp/Q810_C_RF",
-        "2": "Net-(C1602-Pad1)"
+        "1": {
+          "net": "/top/radio/mixamp/Q810_C_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C1602-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "1.6K",
       "internal_pn": "800235-162"
     },
     "R1607": {
       "pins": {
-        "1": "/top/radio/mixamp/Q801_B_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/mixamp/Q801_B_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "1.5K",
       "internal_pn": "800235-152"
     },
     "R1608": {
       "pins": {
-        "1": "Net-(C1604-Pad2)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(C1604-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "6.8",
       "internal_pn": "800235-068"
     },
     "R1609": {
       "pins": {
-        "1": "Net-(Q1601-E)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(Q1601-E)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "120",
       "internal_pn": "800235-121"
     },
     "R1610": {
       "pins": {
-        "1": "/top/radio/mixamp/C806_RF",
-        "2": "/top/radio/mixamp/C805_RF"
+        "1": {
+          "net": "/top/radio/mixamp/C806_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/mixamp/C805_RF",
+          "type": "passive"
+        }
       },
       "value": "36",
       "internal_pn": "800235-360"
     },
     "R1611": {
       "pins": {
-        "1": "/top/radio/mixamp/C805_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/mixamp/C805_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "150",
       "internal_pn": "800235-151"
     },
     "R1612": {
       "pins": {
-        "1": "/top/radio/mixamp/C806_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/mixamp/C806_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "150",
       "internal_pn": "800235-151"
@@ -5796,19 +7243,23 @@
       "pins": {
         "1": {
           "name": "PR1",
-          "net": "/top/radio/mixamp/T801_RF"
+          "net": "/top/radio/mixamp/T801_RF",
+          "type": "passive"
         },
         "2": {
           "name": "PR2",
-          "net": "/top/radio/mixamp/Q810_C_RF"
+          "net": "/top/radio/mixamp/Q810_C_RF",
+          "type": "passive"
         },
         "3": {
           "name": "S1",
-          "net": "/top/radio/mixamp/R801_PWR"
+          "net": "/top/radio/mixamp/R801_PWR",
+          "type": "passive"
         },
         "4": {
           "name": "S2",
-          "net": "/top/radio/mixamp/T801_RF"
+          "net": "/top/radio/mixamp/T801_RF",
+          "type": "passive"
         }
       },
       "value": "XFMR_RF_BIFILAR",
@@ -5818,24 +7269,32 @@
       "pins": {
         "1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "IF",
-          "net": "/top/radio/mixamp/RX_IF_IN_45R1"
+          "net": "/top/radio/mixamp/RX_IF_IN_45R1",
+          "type": "passive"
         },
         "3": {
           "name": "RF",
-          "net": "/top/radio/mixamp/U801_RF"
+          "net": "/top/radio/mixamp/U801_RF",
+          "type": "passive"
         },
-        "4": "GND",
+        "4": {
+          "net": "GND",
+          "type": "passive"
+        },
         "5": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "6": {
           "name": "LO",
-          "net": "/top/radio/mixamp/U801_LO"
+          "net": "/top/radio/mixamp/U801_LO",
+          "type": "passive"
         }
       },
       "value": "ADE-1",
@@ -5843,168 +7302,294 @@
     },
     "C1701": {
       "pins": {
-        "1": "/top/radio/xtal_filter/C701_RF",
-        "2": "/top/radio/xtal_filter/Y703_RF"
+        "1": {
+          "net": "/top/radio/xtal_filter/C701_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/xtal_filter/Y703_RF",
+          "type": "passive"
+        }
       },
       "value": "430p",
       "internal_pn": "800239-431"
     },
     "C1702": {
       "pins": {
-        "1": "/top/radio/xtal_filter/C702_RF",
-        "2": "/top/radio/xtal_filter/C701_RF"
+        "1": {
+          "net": "/top/radio/xtal_filter/C702_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/xtal_filter/C701_RF",
+          "type": "passive"
+        }
       },
       "value": "430p",
       "internal_pn": "800239-431"
     },
     "C1703": {
       "pins": {
-        "1": "/top/radio/xtal_filter/C701_RF",
-        "2": "/top/radio/xtal_filter/Y703_RF"
+        "1": {
+          "net": "/top/radio/xtal_filter/C701_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/xtal_filter/Y703_RF",
+          "type": "passive"
+        }
       },
       "value": "15p",
       "internal_pn": "800239-150"
     },
     "C1704": {
       "pins": {
-        "1": "/top/radio/xtal_filter/C702_RF",
-        "2": "/top/radio/xtal_filter/C701_RF"
+        "1": {
+          "net": "/top/radio/xtal_filter/C702_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/xtal_filter/C701_RF",
+          "type": "passive"
+        }
       },
       "value": "15p",
       "internal_pn": "800239-150"
     },
     "C1705": {
       "pins": {
-        "1": "/top/radio/xtal_filter/Y701_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/xtal_filter/Y701_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "120p",
       "internal_pn": "800239-121"
     },
     "C1706": {
       "pins": {
-        "1": "/top/radio/xtal_filter/Y702_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/xtal_filter/Y702_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "150p",
       "internal_pn": "800239-151"
     },
     "C1707": {
       "pins": {
-        "1": "/top/radio/xtal_filter/Y702_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/xtal_filter/Y702_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "10p",
       "internal_pn": "800239-100"
     },
     "C1708": {
       "pins": {
-        "1": "/top/radio/xtal_filter/Y704_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/xtal_filter/Y704_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "10p",
       "internal_pn": "800239-100"
     },
     "C1709": {
       "pins": {
-        "1": "/top/radio/xtal_filter/Y704_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/xtal_filter/Y704_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "150P",
       "internal_pn": "800239-151"
     },
     "C1710": {
       "pins": {
-        "1": "/top/radio/xtal_filter/Y705_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/xtal_filter/Y705_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "120p",
       "internal_pn": "800239-121"
     },
     "C1711": {
       "pins": {
-        "1": "/top/radio/xtal_filter/C701_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/xtal_filter/C701_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "18p",
       "internal_pn": "800239-180"
     },
     "C1712": {
       "pins": {
-        "1": "/top/radio/xtal_filter/C701_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/xtal_filter/C701_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "150p",
       "internal_pn": "800239-151"
     },
     "C1713": {
       "pins": {
-        "1": "/top/radio/xtal_filter/C713_RF",
-        "2": "/top/radio/xtal_filter/C719_RF"
+        "1": {
+          "net": "/top/radio/xtal_filter/C713_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/xtal_filter/C719_RF",
+          "type": "passive"
+        }
       },
       "value": "150p",
       "internal_pn": "800239-151"
     },
     "C1714": {
       "pins": {
-        "1": "/top/radio/xtal_filter/C713_RF",
-        "2": "/top/radio/xtal_filter/C719_RF"
+        "1": {
+          "net": "/top/radio/xtal_filter/C713_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/xtal_filter/C719_RF",
+          "type": "passive"
+        }
       },
       "value": "10p",
       "internal_pn": "800239-100"
     },
     "C1715": {
       "pins": {
-        "1": "/top/radio/xtal_filter/Y706_RF",
-        "2": "/top/radio/xtal_filter/C715_RF"
+        "1": {
+          "net": "/top/radio/xtal_filter/Y706_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/xtal_filter/C715_RF",
+          "type": "passive"
+        }
       },
       "value": "10p",
       "internal_pn": "800239-100"
     },
     "C1716": {
       "pins": {
-        "1": "/top/radio/xtal_filter/Y706_RF",
-        "2": "/top/radio/xtal_filter/C715_RF"
+        "1": {
+          "net": "/top/radio/xtal_filter/Y706_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/xtal_filter/C715_RF",
+          "type": "passive"
+        }
       },
       "value": "150P",
       "internal_pn": "800239-151"
     },
     "C1717": {
       "pins": {
-        "1": "/top/radio/xtal_filter/C715_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/xtal_filter/C715_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "150p",
       "internal_pn": "800239-151"
     },
     "C1718": {
       "pins": {
-        "1": "/top/radio/xtal_filter/C715_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/xtal_filter/C715_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "20p",
       "internal_pn": "800239-200"
     },
     "C1719": {
       "pins": {
-        "1": "/top/radio/xtal_filter/C719_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/xtal_filter/C719_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "150p",
       "internal_pn": "800239-151"
     },
     "C1720": {
       "pins": {
-        "1": "/top/radio/xtal_filter/C719_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/xtal_filter/C719_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "20p",
       "internal_pn": "800239-200"
     },
     "L1701": {
       "pins": {
-        "1": "/top/radio/xtal_filter/L701_RF",
-        "2": "/top/radio/xtal_filter/C715_RF"
+        "1": {
+          "net": "/top/radio/xtal_filter/L701_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/xtal_filter/C715_RF",
+          "type": "passive"
+        }
       },
       "value": "0.97uH",
       "description": "Inductor",
@@ -6012,8 +7597,14 @@
     },
     "L1702": {
       "pins": {
-        "1": "/top/radio/xtal_filter/C719_RF",
-        "2": "/top/radio/xtal_filter/R702_RF"
+        "1": {
+          "net": "/top/radio/xtal_filter/C719_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/xtal_filter/R702_RF",
+          "type": "passive"
+        }
       },
       "value": "0.97uH",
       "description": "Inductor",
@@ -6021,25 +7612,46 @@
     },
     "R1701": {
       "pins": {
-        "1": "/top/radio/xtal_filter/L701_RF",
-        "2": "/top/radio/ifagc/IF_IN"
+        "1": {
+          "net": "/top/radio/xtal_filter/L701_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/ifagc/IF_IN",
+          "type": "passive"
+        }
       },
       "value": "0",
       "internal_pn": "800235-000"
     },
     "R1702": {
       "pins": {
-        "1": "/top/radio/mixamp/IF_OUT_12R288",
-        "2": "/top/radio/xtal_filter/R702_RF"
+        "1": {
+          "net": "/top/radio/mixamp/IF_OUT_12R288",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/xtal_filter/R702_RF",
+          "type": "passive"
+        }
       },
       "value": "0",
       "internal_pn": "800235-000"
     },
     "Y1701": {
       "pins": {
-        "1": "/top/radio/xtal_filter/C713_RF",
-        "2": "GND",
-        "3": "/top/radio/xtal_filter/Y701_RF"
+        "1": {
+          "net": "/top/radio/xtal_filter/C713_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "3": {
+          "net": "/top/radio/xtal_filter/Y701_RF",
+          "type": "passive"
+        }
       },
       "value": "12.288 MHz",
       "description": "Three pin crystal, one ground/package pins (pin2) small symbol",
@@ -6047,9 +7659,18 @@
     },
     "Y1702": {
       "pins": {
-        "1": "/top/radio/xtal_filter/Y701_RF",
-        "2": "GND",
-        "3": "/top/radio/xtal_filter/Y702_RF"
+        "1": {
+          "net": "/top/radio/xtal_filter/Y701_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "3": {
+          "net": "/top/radio/xtal_filter/Y702_RF",
+          "type": "passive"
+        }
       },
       "value": "12.288 MHz",
       "description": "Three pin crystal, one ground/package pins (pin2) small symbol",
@@ -6057,9 +7678,18 @@
     },
     "Y1703": {
       "pins": {
-        "1": "/top/radio/xtal_filter/Y702_RF",
-        "2": "GND",
-        "3": "/top/radio/xtal_filter/Y703_RF"
+        "1": {
+          "net": "/top/radio/xtal_filter/Y702_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "3": {
+          "net": "/top/radio/xtal_filter/Y703_RF",
+          "type": "passive"
+        }
       },
       "value": "12.288 MHz",
       "description": "Three pin crystal, one ground/package pins (pin2) small symbol",
@@ -6067,9 +7697,18 @@
     },
     "Y1704": {
       "pins": {
-        "1": "/top/radio/xtal_filter/C702_RF",
-        "2": "GND",
-        "3": "/top/radio/xtal_filter/Y704_RF"
+        "1": {
+          "net": "/top/radio/xtal_filter/C702_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "3": {
+          "net": "/top/radio/xtal_filter/Y704_RF",
+          "type": "passive"
+        }
       },
       "value": "12.288 MHz",
       "description": "Three pin crystal, one ground/package pins (pin2) small symbol",
@@ -6077,9 +7716,18 @@
     },
     "Y1705": {
       "pins": {
-        "1": "/top/radio/xtal_filter/Y704_RF",
-        "2": "GND",
-        "3": "/top/radio/xtal_filter/Y705_RF"
+        "1": {
+          "net": "/top/radio/xtal_filter/Y704_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "3": {
+          "net": "/top/radio/xtal_filter/Y705_RF",
+          "type": "passive"
+        }
       },
       "value": "12.288 MHz",
       "description": "Three pin crystal, one ground/package pins (pin2) small symbol",
@@ -6087,9 +7735,18 @@
     },
     "Y1706": {
       "pins": {
-        "1": "/top/radio/xtal_filter/Y705_RF",
-        "2": "GND",
-        "3": "/top/radio/xtal_filter/Y706_RF"
+        "1": {
+          "net": "/top/radio/xtal_filter/Y705_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "3": {
+          "net": "/top/radio/xtal_filter/Y706_RF",
+          "type": "passive"
+        }
       },
       "value": "12.288 MHz",
       "description": "Three pin crystal, one ground/package pins (pin2) small symbol",
@@ -6097,80 +7754,140 @@
     },
     "C1801": {
       "pins": {
-        "1": "Net-(C1801-Pad1)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(C1801-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C1802": {
       "pins": {
-        "1": "Net-(T1801-PR1)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(T1801-PR1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C1803": {
       "pins": {
-        "1": "/top/radio/ifagc/C903_RF",
-        "2": "/top/radio/ifagc/R904_RF"
+        "1": {
+          "net": "/top/radio/ifagc/C903_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/ifagc/R904_RF",
+          "type": "passive"
+        }
       },
       "value": "0.01u",
       "internal_pn": "800239-103"
     },
     "C1804": {
       "pins": {
-        "1": "/top/radio/ifagc/C904_RF",
-        "2": "/top/radio/ifagc/L902_RF"
+        "1": {
+          "net": "/top/radio/ifagc/C904_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/ifagc/L902_RF",
+          "type": "passive"
+        }
       },
       "value": "0.01u",
       "internal_pn": "800239-103"
     },
     "C1805": {
       "pins": {
-        "1": "/top/radio/ifagc/L902_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/ifagc/L902_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "60p",
       "internal_pn": "800241-600"
     },
     "C1806": {
       "pins": {
-        "1": "Net-(Q1801-S)",
-        "2": "Net-(Q1803-C)"
+        "1": {
+          "net": "Net-(Q1801-S)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q1803-C)",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C1807": {
       "pins": {
-        "1": "Net-(Q1802-S)",
-        "2": "Net-(Q1804-C)"
+        "1": {
+          "net": "Net-(Q1802-S)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q1804-C)",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C1808": {
       "pins": {
-        "1": "Net-(CR1801-A)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(CR1801-A)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C1809": {
       "pins": {
-        "1": "/top/P5V0",
-        "2": "GND"
+        "1": {
+          "net": "/top/P5V0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C1810": {
       "pins": {
-        "1": "Net-(C1810-Pad1)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(C1810-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
@@ -6179,12 +7896,17 @@
       "pins": {
         "1": {
           "name": "A",
-          "net": "Net-(CR1801-A)"
+          "net": "Net-(CR1801-A)",
+          "type": "passive"
         },
-        "2": "",
+        "2": {
+          "net": "",
+          "type": "no_connect"
+        },
         "3": {
           "name": "C",
-          "net": "/top/radio/ifagc/AGC_IN"
+          "net": "/top/radio/ifagc/AGC_IN",
+          "type": "passive"
         }
       },
       "value": "BAT54",
@@ -6194,12 +7916,17 @@
       "pins": {
         "1": {
           "name": "A",
-          "net": "/top/P13V8_TX"
+          "net": "/top/P13V8_TX",
+          "type": "passive"
         },
-        "2": "",
+        "2": {
+          "net": "",
+          "type": "no_connect"
+        },
         "3": {
           "name": "C",
-          "net": "/top/radio/ifagc/AGC_IN"
+          "net": "/top/radio/ifagc/AGC_IN",
+          "type": "passive"
         }
       },
       "value": "BAT54",
@@ -6207,24 +7934,42 @@
     },
     "E1801": {
       "pins": {
-        "1": "/top/P5V0",
-        "2": "Net-(C1810-Pad1)"
+        "1": {
+          "net": "/top/P5V0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C1810-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "FB0805",
       "internal_pn": "800245-601"
     },
     "L1801": {
       "pins": {
-        "1": "Net-(C1801-Pad1)",
-        "2": "/top/radio/ifagc/R904_RF"
+        "1": {
+          "net": "Net-(C1801-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/ifagc/R904_RF",
+          "type": "passive"
+        }
       },
       "value": "27uH",
       "internal_pn": "800257-023"
     },
     "L1802": {
       "pins": {
-        "1": "/top/radio/ifagc/L902_RF",
-        "2": "/top/radio/ifagc/IF_IN"
+        "1": {
+          "net": "/top/radio/ifagc/L902_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/ifagc/IF_IN",
+          "type": "passive"
+        }
       },
       "value": "4.13uH",
       "internal_pn": "800307-101"
@@ -6233,15 +7978,18 @@
       "pins": {
         "1": {
           "name": "D",
-          "net": "/top/radio/ifagc/Q901_RF"
+          "net": "/top/radio/ifagc/Q901_RF",
+          "type": "passive"
         },
         "2": {
           "name": "S",
-          "net": "Net-(Q1801-S)"
+          "net": "Net-(Q1801-S)",
+          "type": "passive"
         },
         "3": {
           "name": "G",
-          "net": "/top/radio/ifagc/C904_RF"
+          "net": "/top/radio/ifagc/C904_RF",
+          "type": "input"
         }
       },
       "value": "MMBFJ310",
@@ -6252,15 +8000,18 @@
       "pins": {
         "1": {
           "name": "D",
-          "net": "/top/radio/ifagc/Q902_RF"
+          "net": "/top/radio/ifagc/Q902_RF",
+          "type": "passive"
         },
         "2": {
           "name": "S",
-          "net": "Net-(Q1802-S)"
+          "net": "Net-(Q1802-S)",
+          "type": "passive"
         },
         "3": {
           "name": "G",
-          "net": "/top/radio/ifagc/C903_RF"
+          "net": "/top/radio/ifagc/C903_RF",
+          "type": "input"
         }
       },
       "value": "MMBFJ310",
@@ -6271,15 +8022,18 @@
       "pins": {
         "1": {
           "name": "B",
-          "net": "Net-(Q1803-B)"
+          "net": "Net-(Q1803-B)",
+          "type": "passive"
         },
         "2": {
           "name": "E",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "3": {
           "name": "C",
-          "net": "Net-(Q1803-C)"
+          "net": "Net-(Q1803-C)",
+          "type": "passive"
         }
       },
       "value": "MMBT3904",
@@ -6289,15 +8043,18 @@
       "pins": {
         "1": {
           "name": "B",
-          "net": "Net-(Q1804-B)"
+          "net": "Net-(Q1804-B)",
+          "type": "passive"
         },
         "2": {
           "name": "E",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "3": {
           "name": "C",
-          "net": "Net-(Q1804-C)"
+          "net": "Net-(Q1804-C)",
+          "type": "passive"
         }
       },
       "value": "MMBT3904",
@@ -6307,15 +8064,18 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "Net-(Q1805-G)"
+          "net": "Net-(Q1805-G)",
+          "type": "passive"
         },
         "2": {
           "name": "S",
-          "net": "/top/i2c/TX_IF_GAIN"
+          "net": "/top/i2c/TX_IF_GAIN",
+          "type": "passive"
         },
         "3": {
           "name": "D",
-          "net": "Net-(CR1801-A)"
+          "net": "Net-(CR1801-A)",
+          "type": "passive"
         }
       },
       "value": "BSS138",
@@ -6323,145 +8083,256 @@
     },
     "R1801": {
       "pins": {
-        "1": "Net-(C1801-Pad1)",
-        "2": "/top/P13V8"
+        "1": {
+          "net": "Net-(C1801-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/P13V8",
+          "type": "passive"
+        }
       },
       "value": "82",
       "internal_pn": "800235-820"
     },
     "R1802": {
       "pins": {
-        "1": "Net-(T1801-PR1)",
-        "2": "/top/P13V8"
+        "1": {
+          "net": "Net-(T1801-PR1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/P13V8",
+          "type": "passive"
+        }
       },
       "value": "82",
       "internal_pn": "800235-820"
     },
     "R1803": {
       "pins": {
-        "1": "Net-(C1801-Pad1)",
-        "2": "/top/radio/ifagc/R904_RF"
+        "1": {
+          "net": "Net-(C1801-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/ifagc/R904_RF",
+          "type": "passive"
+        }
       },
       "value": "2.2K",
       "internal_pn": "800235-222"
     },
     "R1804": {
       "pins": {
-        "1": "/top/radio/ifagc/R904_RF",
-        "2": "/top/radio/ifagc/Q901_RF"
+        "1": {
+          "net": "/top/radio/ifagc/R904_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/ifagc/Q901_RF",
+          "type": "passive"
+        }
       },
       "value": "82",
       "internal_pn": "800235-820"
     },
     "R1805": {
       "pins": {
-        "1": "/top/radio/ifagc/R905_RF",
-        "2": "/top/radio/ifagc/Q902_RF"
+        "1": {
+          "net": "/top/radio/ifagc/R905_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/ifagc/Q902_RF",
+          "type": "passive"
+        }
       },
       "value": "82",
       "internal_pn": "800235-820"
     },
     "R1806": {
       "pins": {
-        "1": "/top/radio/ifagc/L902_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/ifagc/L902_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "2.2K",
       "internal_pn": "800235-222"
     },
     "R1807": {
       "pins": {
-        "1": "/top/radio/ifagc/C904_RF",
-        "2": "Net-(CR1801-A)"
+        "1": {
+          "net": "/top/radio/ifagc/C904_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(CR1801-A)",
+          "type": "passive"
+        }
       },
       "value": "39K",
       "internal_pn": "800235-393"
     },
     "R1808": {
       "pins": {
-        "1": "Net-(C1801-Pad1)",
-        "2": "Net-(Q1803-C)"
+        "1": {
+          "net": "Net-(C1801-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q1803-C)",
+          "type": "passive"
+        }
       },
       "value": "39K",
       "internal_pn": "800235-393"
     },
     "R1809": {
       "pins": {
-        "1": "Net-(Q1801-S)",
-        "2": "Net-(C1810-Pad1)"
+        "1": {
+          "net": "Net-(Q1801-S)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C1810-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "390",
       "internal_pn": "800235-391"
     },
     "R1810": {
       "pins": {
-        "1": "/top/radio/ifagc/C903_RF",
-        "2": "Net-(CR1801-A)"
+        "1": {
+          "net": "/top/radio/ifagc/C903_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(CR1801-A)",
+          "type": "passive"
+        }
       },
       "value": "39K",
       "internal_pn": "800235-393"
     },
     "R1811": {
       "pins": {
-        "1": "Net-(T1801-PR1)",
-        "2": "Net-(Q1804-C)"
+        "1": {
+          "net": "Net-(T1801-PR1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q1804-C)",
+          "type": "passive"
+        }
       },
       "value": "39K",
       "internal_pn": "800235-393"
     },
     "R1812": {
       "pins": {
-        "1": "Net-(Q1802-S)",
-        "2": "Net-(C1810-Pad1)"
+        "1": {
+          "net": "Net-(Q1802-S)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C1810-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "390",
       "internal_pn": "800235-391"
     },
     "R1813": {
       "pins": {
-        "1": "Net-(CR1801-A)",
-        "2": "Net-(C1810-Pad1)"
+        "1": {
+          "net": "Net-(CR1801-A)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C1810-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "270K",
       "internal_pn": "800235-274"
     },
     "R1814": {
       "pins": {
-        "1": "/top/P13V8_TX",
-        "2": "Net-(Q1805-G)"
+        "1": {
+          "net": "/top/P13V8_TX",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q1805-G)",
+          "type": "passive"
+        }
       },
       "value": "270K",
       "internal_pn": "800235-274"
     },
     "R1815": {
       "pins": {
-        "1": "Net-(Q1803-B)",
-        "2": "/top/P13V8_RX"
+        "1": {
+          "net": "Net-(Q1803-B)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/P13V8_RX",
+          "type": "passive"
+        }
       },
       "value": "10K",
       "internal_pn": "800235-103"
     },
     "R1816": {
       "pins": {
-        "1": "Net-(Q1804-B)",
-        "2": "/top/P13V8_RX"
+        "1": {
+          "net": "Net-(Q1804-B)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/P13V8_RX",
+          "type": "passive"
+        }
       },
       "value": "10K",
       "internal_pn": "800235-103"
     },
     "R1817": {
       "pins": {
-        "1": "Net-(R1817-Pad1)",
-        "2": "/top/i2c/TX_IF_GAIN"
+        "1": {
+          "net": "Net-(R1817-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/i2c/TX_IF_GAIN",
+          "type": "passive"
+        }
       },
       "value": "DNI",
       "internal_pn": "800235-000"
     },
     "R1818": {
       "pins": {
-        "1": "GND",
-        "2": "Net-(R1817-Pad1)",
-        "3": "Net-(C1810-Pad1)"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(R1817-Pad1)",
+          "type": "passive"
+        },
+        "3": {
+          "net": "Net-(C1810-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "DNI",
       "internal_pn": "800249-203"
@@ -6470,19 +8341,23 @@
       "pins": {
         "1": {
           "name": "PR1",
-          "net": "Net-(T1801-PR1)"
+          "net": "Net-(T1801-PR1)",
+          "type": "passive"
         },
         "2": {
           "name": "PR2",
-          "net": "/top/radio/ifagc/R905_RF"
+          "net": "/top/radio/ifagc/R905_RF",
+          "type": "passive"
         },
         "3": {
           "name": "S1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "4": {
           "name": "S2",
-          "net": "/top/radio/ifagc/IF_OUT"
+          "net": "/top/radio/ifagc/IF_OUT",
+          "type": "passive"
         }
       },
       "value": "FT37-43",
@@ -6490,80 +8365,140 @@
     },
     "C2001": {
       "pins": {
-        "1": "/top/radio/prod_det_tx_mix/TX_IF_OUT_45R1",
-        "2": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/R1305_RF"
+        "1": {
+          "net": "/top/radio/prod_det_tx_mix/TX_IF_OUT_45R1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/R1305_RF",
+          "type": "passive"
+        }
       },
       "value": "1000p",
       "internal_pn": "800239-102"
     },
     "C2002": {
       "pins": {
-        "1": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/R1305_RF",
-        "2": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/L1301_RF"
+        "1": {
+          "net": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/R1305_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/L1301_RF",
+          "type": "passive"
+        }
       },
       "value": "150p",
       "internal_pn": "800239-151"
     },
     "C2003": {
       "pins": {
-        "1": "Net-(Q2002-E)",
-        "2": "Net-(C2003-Pad2)"
+        "1": {
+          "net": "Net-(Q2002-E)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C2003-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "22u",
       "internal_pn": "800267-226"
     },
     "C2004": {
       "pins": {
-        "1": "Net-(C2003-Pad2)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(C2003-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C2005": {
       "pins": {
-        "1": "Net-(Q2002-B)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(Q2002-B)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "22u",
       "internal_pn": "800267-226"
     },
     "C2006": {
       "pins": {
-        "1": "Net-(Q2001-B)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(Q2001-B)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "22u",
       "internal_pn": "800267-226"
     },
     "C2007": {
       "pins": {
-        "1": "Net-(C2007-Pad1)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(C2007-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "22u",
       "internal_pn": "800267-226"
     },
     "C2008": {
       "pins": {
-        "1": "Net-(C2008-Pad1)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(C2008-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "22u",
       "internal_pn": "800267-226"
     },
     "L2001": {
       "pins": {
-        "1": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/R1305_RF",
-        "2": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/L1301_RF"
+        "1": {
+          "net": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/R1305_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/L1301_RF",
+          "type": "passive"
+        }
       },
       "value": "81nH",
       "internal_pn": "8XXXXX-XXX"
     },
     "L2002": {
       "pins": {
-        "1": "Net-(C2003-Pad2)",
-        "2": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/L1301_RF"
+        "1": {
+          "net": "Net-(C2003-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/L1301_RF",
+          "type": "passive"
+        }
       },
       "value": "15uH",
       "internal_pn": "800257-023"
@@ -6572,15 +8507,18 @@
       "pins": {
         "1": {
           "name": "B",
-          "net": "Net-(Q2001-B)"
+          "net": "Net-(Q2001-B)",
+          "type": "passive"
         },
         "2": {
           "name": "E",
-          "net": "Net-(Q2001-E)"
+          "net": "Net-(Q2001-E)",
+          "type": "passive"
         },
         "3": {
           "name": "C",
-          "net": "/top/P13V8_RX"
+          "net": "/top/P13V8_RX",
+          "type": "passive"
         }
       },
       "value": "MMBT3904",
@@ -6590,15 +8528,18 @@
       "pins": {
         "1": {
           "name": "B",
-          "net": "Net-(Q2002-B)"
+          "net": "Net-(Q2002-B)",
+          "type": "passive"
         },
         "2": {
           "name": "E",
-          "net": "Net-(Q2002-E)"
+          "net": "Net-(Q2002-E)",
+          "type": "passive"
         },
         "3": {
           "name": "C",
-          "net": "Net-(Q2002-C)"
+          "net": "Net-(Q2002-C)",
+          "type": "passive"
         }
       },
       "value": "MMBT3904",
@@ -6608,15 +8549,18 @@
       "pins": {
         "1": {
           "name": "B",
-          "net": "Net-(Q2002-C)"
+          "net": "Net-(Q2002-C)",
+          "type": "passive"
         },
         "2": {
           "name": "E",
-          "net": "Net-(Q2003-E)"
+          "net": "Net-(Q2003-E)",
+          "type": "passive"
         },
         "3": {
           "name": "C",
-          "net": "/top/radio/prod_det_tx_mix/agc/LL_RX_AUDIO"
+          "net": "/top/radio/prod_det_tx_mix/agc/LL_RX_AUDIO",
+          "type": "passive"
         }
       },
       "value": "MMBT3904",
@@ -6624,152 +8568,266 @@
     },
     "R2001": {
       "pins": {
-        "1": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/R1301_RF",
-        "2": "/top/LO_SECOND"
+        "1": {
+          "net": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/R1301_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/LO_SECOND",
+          "type": "passive"
+        }
       },
       "value": "18",
       "internal_pn": "800235-180"
     },
     "R2002": {
       "pins": {
-        "1": "/top/LO_SECOND",
-        "2": "GND"
+        "1": {
+          "net": "/top/LO_SECOND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "300",
       "internal_pn": "800235-301"
     },
     "R2003": {
       "pins": {
-        "1": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/R1301_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/R1301_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "300",
       "internal_pn": "800235-301"
     },
     "R2004": {
       "pins": {
-        "1": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/R1304_RF",
-        "2": "/top/radio/ifagc/IF_OUT"
+        "1": {
+          "net": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/R1304_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/ifagc/IF_OUT",
+          "type": "passive"
+        }
       },
       "value": "18",
       "internal_pn": "800235-180"
     },
     "R2005": {
       "pins": {
-        "1": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/R1305_RF",
-        "2": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/U1301_RF"
+        "1": {
+          "net": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/R1305_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/U1301_RF",
+          "type": "passive"
+        }
       },
       "value": "36",
       "internal_pn": "800235-360"
     },
     "R2006": {
       "pins": {
-        "1": "/top/radio/ifagc/IF_OUT",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/ifagc/IF_OUT",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "300",
       "internal_pn": "800235-301"
     },
     "R2007": {
       "pins": {
-        "1": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/R1304_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/R1304_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "300",
       "internal_pn": "800235-301"
     },
     "R2008": {
       "pins": {
-        "1": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/U1301_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/U1301_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "150",
       "internal_pn": "800235-151"
     },
     "R2009": {
       "pins": {
-        "1": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/R1305_RF",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/R1305_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "150",
       "internal_pn": "800235-151"
     },
     "R2010": {
       "pins": {
-        "1": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/L1301_RF",
-        "2": "Net-(C2003-Pad2)"
+        "1": {
+          "net": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/L1301_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C2003-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "2.2K",
       "internal_pn": "800235-222"
     },
     "R2011": {
       "pins": {
-        "1": "/top/P13V8_RX",
-        "2": "Net-(Q2001-B)"
+        "1": {
+          "net": "/top/P13V8_RX",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q2001-B)",
+          "type": "passive"
+        }
       },
       "value": "47K",
       "internal_pn": "800235-473"
     },
     "R2012": {
       "pins": {
-        "1": "/top/P13V8_RX",
-        "2": "Net-(C2007-Pad1)"
+        "1": {
+          "net": "/top/P13V8_RX",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C2007-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "1K",
       "internal_pn": "800235-102"
     },
     "R2013": {
       "pins": {
-        "1": "GND",
-        "2": "Net-(Q2002-B)"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q2002-B)",
+          "type": "passive"
+        }
       },
       "value": "3.3K",
       "internal_pn": "800235-332"
     },
     "R2014": {
       "pins": {
-        "1": "Net-(C2007-Pad1)",
-        "2": "/top/radio/prod_det_tx_mix/agc/LL_RX_AUDIO"
+        "1": {
+          "net": "Net-(C2007-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/prod_det_tx_mix/agc/LL_RX_AUDIO",
+          "type": "passive"
+        }
       },
       "value": "1K",
       "internal_pn": "800235-102"
     },
     "R2015": {
       "pins": {
-        "1": "Net-(Q2001-E)",
-        "2": "Net-(Q2002-B)"
+        "1": {
+          "net": "Net-(Q2001-E)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q2002-B)",
+          "type": "passive"
+        }
       },
       "value": "10K",
       "internal_pn": "800235-103"
     },
     "R2016": {
       "pins": {
-        "1": "Net-(Q2001-E)",
-        "2": "Net-(Q2002-C)"
+        "1": {
+          "net": "Net-(Q2001-E)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q2002-C)",
+          "type": "passive"
+        }
       },
       "value": "6.8K",
       "internal_pn": "800235-682"
     },
     "R2017": {
       "pins": {
-        "1": "Net-(Q2002-E)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(Q2002-E)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "3.3K",
       "internal_pn": "800235-332"
     },
     "R2018": {
       "pins": {
-        "1": "Net-(Q2003-E)",
-        "2": "Net-(C2008-Pad1)"
+        "1": {
+          "net": "Net-(Q2003-E)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C2008-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "100",
       "internal_pn": "800235-101"
     },
     "R2019": {
       "pins": {
-        "1": "Net-(Q2003-E)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(Q2003-E)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "4.7K",
       "internal_pn": "800235-472"
@@ -6778,24 +8836,32 @@
       "pins": {
         "1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "IF",
-          "net": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/U1301_RF"
+          "net": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/U1301_RF",
+          "type": "passive"
         },
         "3": {
           "name": "RF",
-          "net": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/R1304_RF"
+          "net": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/R1304_RF",
+          "type": "passive"
         },
-        "4": "GND",
+        "4": {
+          "net": "GND",
+          "type": "passive"
+        },
         "5": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "6": {
           "name": "LO",
-          "net": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/R1301_RF"
+          "net": "/top/radio/prod_det_tx_mix/second_mixer_audio_preamp/R1301_RF",
+          "type": "passive"
         }
       },
       "value": "ADE-1",
@@ -6803,48 +8869,84 @@
     },
     "C2101": {
       "pins": {
-        "1": "/top/P13V8",
-        "2": "GND"
+        "1": {
+          "net": "/top/P13V8",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C2102": {
       "pins": {
-        "1": "/top/P13V8",
-        "2": "GND"
+        "1": {
+          "net": "/top/P13V8",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "470u",
       "internal_pn": "800270-477"
     },
     "C2103": {
       "pins": {
-        "1": "Net-(C2103-Pad1)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(C2103-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "4.7u",
       "internal_pn": "800003-475"
     },
     "C2104": {
       "pins": {
-        "1": "Net-(U2101-+)",
-        "2": "/top/RX_AUDIO_WIPER"
+        "1": {
+          "net": "Net-(U2101-+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/RX_AUDIO_WIPER",
+          "type": "passive"
+        }
       },
       "value": "4.7u",
       "internal_pn": "800003-475"
     },
     "C2105": {
       "pins": {
-        "1": "Net-(C2105-Pad1)",
-        "2": "/top/RX_AUDIO_SPEAKER"
+        "1": {
+          "net": "Net-(C2105-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/RX_AUDIO_SPEAKER",
+          "type": "passive"
+        }
       },
       "value": "470u",
       "internal_pn": "800270-477"
     },
     "C2106": {
       "pins": {
-        "1": "Net-(C2106-Pad1)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(C2106-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
@@ -6853,15 +8955,18 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "/top/radio/MUTE_RX_AUDIO"
+          "net": "/top/radio/MUTE_RX_AUDIO",
+          "type": "passive"
         },
         "2": {
           "name": "S",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "3": {
           "name": "D",
-          "net": "/top/RX_AUDIO_WIPER"
+          "net": "/top/RX_AUDIO_WIPER",
+          "type": "passive"
         }
       },
       "value": "BSS138",
@@ -6869,128 +8974,234 @@
     },
     "R2101": {
       "pins": {
-        "1": "Net-(C2105-Pad1)",
-        "2": "Net-(C2106-Pad1)"
+        "1": {
+          "net": "Net-(C2105-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C2106-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "2.7",
       "internal_pn": "800235-027"
     },
     "U2101": {
       "pins": {
-        "1": "Net-(C2103-Pad1)",
+        "1": {
+          "net": "Net-(C2103-Pad1)",
+          "type": "passive"
+        },
         "2": {
           "name": "+",
-          "net": "Net-(U2101-+)"
+          "net": "Net-(U2101-+)",
+          "type": "passive"
         },
-        "3": "GND",
-        "4": "GND",
-        "5": "GND",
+        "3": {
+          "net": "GND",
+          "type": "power_in"
+        },
+        "4": {
+          "net": "GND",
+          "type": "power_in"
+        },
+        "5": {
+          "net": "GND",
+          "type": "power_in"
+        },
         "6": {
           "name": "-",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
-        "7": "GND",
-        "8": "Net-(C2105-Pad1)",
+        "7": {
+          "net": "GND",
+          "type": "power_in"
+        },
+        "8": {
+          "net": "Net-(C2105-Pad1)",
+          "type": "passive"
+        },
         "9": {
           "name": "NC1",
-          "net": ""
+          "net": "",
+          "type": "no_connect"
         },
-        "10": "GND",
-        "11": "GND",
-        "12": "GND",
+        "10": {
+          "net": "GND",
+          "type": "power_in"
+        },
+        "11": {
+          "net": "GND",
+          "type": "power_in"
+        },
+        "12": {
+          "net": "GND",
+          "type": "power_in"
+        },
         "13": {
           "name": "NC2",
-          "net": ""
+          "net": "",
+          "type": "no_connect"
         },
-        "14": "/top/P13V8"
+        "14": {
+          "net": "/top/P13V8",
+          "type": "power_in"
+        }
       },
       "value": "LM380N",
       "internal_pn": "800269-101"
     },
     "C2201": {
       "pins": {
-        "1": "/top/P5V0",
-        "2": "GND"
+        "1": {
+          "net": "/top/P5V0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C2202": {
       "pins": {
-        "1": "/top/radio/prod_det_tx_mix/agc/APBIAS",
-        "2": "GND"
+        "1": {
+          "net": "/top/radio/prod_det_tx_mix/agc/APBIAS",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "22u",
       "internal_pn": "800267-226"
     },
     "C2203": {
       "pins": {
-        "1": "/top/P5V0",
-        "2": "GND"
+        "1": {
+          "net": "/top/P5V0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "22u",
       "internal_pn": "800267-226"
     },
     "C2204": {
       "pins": {
-        "1": "Net-(U2202A-V+)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(U2202A-V+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100u",
       "internal_pn": "800268-107"
     },
     "C2205": {
       "pins": {
-        "1": "/top/P13V8",
-        "2": "GND"
+        "1": {
+          "net": "/top/P13V8",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C2206": {
       "pins": {
-        "1": "Net-(U2202A-V+)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(U2202A-V+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C2207": {
       "pins": {
-        "1": "Net-(U2202A-V+)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(U2202A-V+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C2208": {
       "pins": {
-        "1": "Net-(U2202A-+)",
-        "2": "Net-(C2208-Pad2)"
+        "1": {
+          "net": "Net-(U2202A-+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C2208-Pad2)",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C2209": {
       "pins": {
-        "1": "Net-(C2209-Pad1)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(C2209-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "22u",
       "internal_pn": "800267-226"
     },
     "C2210": {
       "pins": {
-        "1": "Net-(C2210-Pad1)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(C2210-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "1u",
       "internal_pn": "800238-105"
     },
     "C2211": {
       "pins": {
-        "1": "/top/RX_AUDIO_TOP",
-        "2": "/top/radio/prod_det_tx_mix/agc/LL_RX_AUDIO"
+        "1": {
+          "net": "/top/RX_AUDIO_TOP",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/prod_det_tx_mix/agc/LL_RX_AUDIO",
+          "type": "passive"
+        }
       },
       "value": "4.7u",
       "internal_pn": "800003-475"
@@ -6999,12 +9210,17 @@
       "pins": {
         "1": {
           "name": "A",
-          "net": "Net-(CR2201-A)"
+          "net": "Net-(CR2201-A)",
+          "type": "passive"
         },
-        "2": "",
+        "2": {
+          "net": "",
+          "type": "no_connect"
+        },
         "3": {
           "name": "C",
-          "net": "Net-(CR2201-C)"
+          "net": "Net-(CR2201-C)",
+          "type": "passive"
         }
       },
       "value": "BAT54",
@@ -7014,12 +9230,17 @@
       "pins": {
         "1": {
           "name": "A",
-          "net": "Net-(CR2201-A)"
+          "net": "Net-(CR2201-A)",
+          "type": "passive"
         },
-        "2": "",
+        "2": {
+          "net": "",
+          "type": "no_connect"
+        },
         "3": {
           "name": "C",
-          "net": "Net-(CR2202-C)"
+          "net": "Net-(CR2202-C)",
+          "type": "passive"
         }
       },
       "value": "BAT54",
@@ -7029,12 +9250,17 @@
       "pins": {
         "1": {
           "name": "A",
-          "net": "Net-(CR2201-A)"
+          "net": "Net-(CR2201-A)",
+          "type": "passive"
         },
-        "2": "",
+        "2": {
+          "net": "",
+          "type": "no_connect"
+        },
         "3": {
           "name": "C",
-          "net": "/top/IF_GAIN_WIPER"
+          "net": "/top/IF_GAIN_WIPER",
+          "type": "passive"
         }
       },
       "value": "BAT54",
@@ -7044,12 +9270,17 @@
       "pins": {
         "1": {
           "name": "A",
-          "net": "Net-(CR2204-A)"
+          "net": "Net-(CR2204-A)",
+          "type": "passive"
         },
-        "2": "",
+        "2": {
+          "net": "",
+          "type": "no_connect"
+        },
         "3": {
           "name": "C",
-          "net": "/top/radio/ifagc/AGC_IN"
+          "net": "/top/radio/ifagc/AGC_IN",
+          "type": "passive"
         }
       },
       "value": "BAT54",
@@ -7057,148 +9288,240 @@
     },
     "R2201": {
       "pins": {
-        "1": "/top/radio/prod_det_tx_mix/agc/APBIAS",
-        "2": "/top/P13V8"
+        "1": {
+          "net": "/top/radio/prod_det_tx_mix/agc/APBIAS",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/P13V8",
+          "type": "passive"
+        }
       },
       "value": "10K",
       "internal_pn": "800235-103"
     },
     "R2202": {
       "pins": {
-        "1": "GND",
-        "2": "/top/radio/prod_det_tx_mix/agc/APBIAS"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/prod_det_tx_mix/agc/APBIAS",
+          "type": "passive"
+        }
       },
       "value": "10K",
       "internal_pn": "800235-103"
     },
     "R2203": {
       "pins": {
-        "1": "Net-(U2202A-V+)",
-        "2": "/top/P13V8"
+        "1": {
+          "net": "Net-(U2202A-V+)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/P13V8",
+          "type": "passive"
+        }
       },
       "value": "100",
       "internal_pn": "800235-101"
     },
     "R2204": {
       "pins": {
-        "1": "/top/P5V0",
-        "2": "Net-(U2202A-+)"
+        "1": {
+          "net": "/top/P5V0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U2202A-+)",
+          "type": "passive"
+        }
       },
       "value": "100K",
       "internal_pn": "800235-104"
     },
     "R2205": {
       "pins": {
-        "1": "Net-(CR2201-A)",
-        "2": "/top/P13V8"
+        "1": {
+          "net": "Net-(CR2201-A)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/P13V8",
+          "type": "passive"
+        }
       },
       "value": "2.2M",
       "internal_pn": "800235-225"
     },
     "R2206": {
       "pins": {
-        "1": "Net-(U2202B--)",
-        "2": "Net-(CR2201-C)"
+        "1": {
+          "net": "Net-(U2202B--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(CR2201-C)",
+          "type": "passive"
+        }
       },
       "value": "10K",
       "internal_pn": "800235-103"
     },
     "R2207": {
       "pins": {
-        "1": "Net-(U2202A--)",
-        "2": "Net-(C2209-Pad1)"
+        "1": {
+          "net": "Net-(U2202A--)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C2209-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "10K",
       "internal_pn": "800235-103"
     },
     "R2208": {
       "pins": {
-        "1": "Net-(CR2201-C)",
-        "2": "Net-(U2202A--)"
+        "1": {
+          "net": "Net-(CR2201-C)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U2202A--)",
+          "type": "passive"
+        }
       },
       "value": "100K",
       "internal_pn": "800235-104"
     },
     "R2209": {
       "pins": {
-        "1": "Net-(CR2201-A)",
-        "2": "Net-(C2210-Pad1)"
+        "1": {
+          "net": "Net-(CR2201-A)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C2210-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "1K",
       "internal_pn": "800235-102"
     },
     "R2210": {
       "pins": {
-        "1": "Net-(CR2202-C)",
-        "2": "Net-(U2202B--)"
+        "1": {
+          "net": "Net-(CR2202-C)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U2202B--)",
+          "type": "passive"
+        }
       },
       "value": "10K",
       "internal_pn": "800235-103"
     },
     "R2211": {
       "pins": {
-        "1": "GND",
-        "2": "/top/radio/ifagc/AGC_IN"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/ifagc/AGC_IN",
+          "type": "passive"
+        }
       },
       "value": "10K",
       "internal_pn": "800235-103"
     },
     "U2201": {
       "pins": {
-        "1": "Net-(C2208-Pad2)",
-        "2": "/top/radio/prod_det_tx_mix/agc/LL_RX_AUDIO",
+        "1": {
+          "net": "Net-(C2208-Pad2)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/radio/prod_det_tx_mix/agc/LL_RX_AUDIO",
+          "type": "passive"
+        },
         "3": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power_in"
         },
         "4": {
           "name": "V+",
-          "net": "/top/P13V8"
+          "net": "/top/P13V8",
+          "type": "power_in"
         },
         "5": {
           "name": "NC",
-          "net": ""
+          "net": "",
+          "type": "no_connect"
         },
         "6": {
           "name": "IN",
-          "net": "/top/DIS_AGC_3V3"
+          "net": "/top/DIS_AGC_3V3",
+          "type": "passive"
         },
         "7": {
           "name": "V-",
-          "net": "GND"
+          "net": "GND",
+          "type": "power_in"
         },
-        "8": "/top/P5V0"
+        "8": {
+          "net": "/top/P5V0",
+          "type": "passive"
+        }
       },
       "value": "DG449DS-T1-E3",
       "internal_pn": "800271-101"
     },
     "U2202": {
       "pins": {
-        "1": "Net-(CR2201-C)",
+        "1": {
+          "net": "Net-(CR2201-C)",
+          "type": "output"
+        },
         "2": {
           "name": "-",
-          "net": "Net-(U2202A--)"
+          "net": "Net-(U2202A--)",
+          "type": "input"
         },
         "3": {
           "name": "+",
-          "net": "Net-(U2202A-+)"
+          "net": "Net-(U2202A-+)",
+          "type": "input"
         },
         "4": {
           "name": "V-",
-          "net": "GND"
+          "net": "GND",
+          "type": "power_in"
         },
         "5": {
           "name": "+",
-          "net": "/top/P5V0"
+          "net": "/top/P5V0",
+          "type": "input"
         },
         "6": {
           "name": "-",
-          "net": "Net-(U2202B--)"
+          "net": "Net-(U2202B--)",
+          "type": "input"
         },
-        "7": "Net-(CR2202-C)",
+        "7": {
+          "net": "Net-(CR2202-C)",
+          "type": "output"
+        },
         "8": {
           "name": "V+",
-          "net": "Net-(U2202A-V+)"
+          "net": "Net-(U2202A-V+)",
+          "type": "power_in"
         }
       },
       "value": "LMC6482",
@@ -7206,31 +9529,43 @@
     },
     "U2203": {
       "pins": {
-        "1": "Net-(CR2204-A)",
+        "1": {
+          "net": "Net-(CR2204-A)",
+          "type": "output"
+        },
         "2": {
           "name": "-",
-          "net": "Net-(CR2204-A)"
+          "net": "Net-(CR2204-A)",
+          "type": "input"
         },
         "3": {
           "name": "+",
-          "net": "Net-(CR2201-A)"
+          "net": "Net-(CR2201-A)",
+          "type": "input"
         },
         "4": {
           "name": "V-",
-          "net": "GND"
+          "net": "GND",
+          "type": "power_in"
         },
         "5": {
           "name": "+",
-          "net": "Net-(CR2204-A)"
+          "net": "Net-(CR2204-A)",
+          "type": "input"
         },
         "6": {
           "name": "-",
-          "net": "/top/S_METER"
+          "net": "/top/S_METER",
+          "type": "input"
         },
-        "7": "/top/S_METER",
+        "7": {
+          "net": "/top/S_METER",
+          "type": "output"
+        },
         "8": {
           "name": "V+",
-          "net": "Net-(U2202A-V+)"
+          "net": "Net-(U2202A-V+)",
+          "type": "power_in"
         }
       },
       "value": "LMC6482",
@@ -7238,255 +9573,480 @@
     },
     "C2301": {
       "pins": {
-        "1": "/top/IF_GAIN_WIPER",
-        "2": "GND"
+        "1": {
+          "net": "/top/IF_GAIN_WIPER",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C2302": {
       "pins": {
-        "1": "/top/P13V8_RX",
-        "2": "GND"
+        "1": {
+          "net": "/top/P13V8_RX",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C2303": {
       "pins": {
-        "1": "/top/P13V8_RX",
-        "2": "GND"
+        "1": {
+          "net": "/top/P13V8_RX",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "10u",
       "internal_pn": "800003-106"
     },
     "C2304": {
       "pins": {
-        "1": "/top/TX_AUDIO_IN",
-        "2": "GND"
+        "1": {
+          "net": "/top/TX_AUDIO_IN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "1000p",
       "internal_pn": "800239-102"
     },
     "C2305": {
       "pins": {
-        "1": "/top/connectors/P8V0_TX",
-        "2": "GND"
+        "1": {
+          "net": "/top/connectors/P8V0_TX",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C2306": {
       "pins": {
-        "1": "/top/P13V8_TX",
-        "2": "GND"
+        "1": {
+          "net": "/top/P13V8_TX",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C2307": {
       "pins": {
-        "1": "/top/P13V8_TX",
-        "2": "GND"
+        "1": {
+          "net": "/top/P13V8_TX",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "10u",
       "internal_pn": "800003-106"
     },
     "C2308": {
       "pins": {
-        "1": "/top/SDA_I2C_3V3",
-        "2": "GND"
+        "1": {
+          "net": "/top/SDA_I2C_3V3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "DNI",
       "internal_pn": "800239-101"
     },
     "C2309": {
       "pins": {
-        "1": "/top/SCL_I2C_3V3",
-        "2": "GND"
+        "1": {
+          "net": "/top/SCL_I2C_3V3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "DNI",
       "internal_pn": "800239-101"
     },
     "C2310": {
       "pins": {
-        "1": "Net-(C2310-Pad1)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(C2310-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "C2311": {
       "pins": {
-        "1": "/top/P13V8",
-        "2": "GND"
+        "1": {
+          "net": "/top/P13V8",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0.1u",
       "internal_pn": "800238-104"
     },
     "E2301": {
       "pins": {
-        "1": "/top/connectors/SDA_I2C_CONN_3V3",
-        "2": "/top/SDA_I2C_3V3"
+        "1": {
+          "net": "/top/connectors/SDA_I2C_CONN_3V3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/SDA_I2C_3V3",
+          "type": "passive"
+        }
       },
       "value": "FB0805",
       "internal_pn": "800245-601"
     },
     "E2302": {
       "pins": {
-        "1": "/top/connectors/SCL_I2C_CONN_3V3",
-        "2": "/top/SCL_I2C_3V3"
+        "1": {
+          "net": "/top/connectors/SCL_I2C_CONN_3V3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/SCL_I2C_3V3",
+          "type": "passive"
+        }
       },
       "value": "FB0805",
       "internal_pn": "800245-601"
     },
     "E2303": {
       "pins": {
-        "1": "Net-(C2310-Pad1)",
-        "2": "/top/P13V8"
+        "1": {
+          "net": "Net-(C2310-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/P13V8",
+          "type": "passive"
+        }
       },
       "value": "FB0805",
       "internal_pn": "800245-601"
     },
     "J2301": {
       "pins": {
-        "1": "/top/LO_FIRST",
-        "2": "GND",
-        "3": "GND",
-        "4": "GND",
-        "5": "GND"
+        "1": {
+          "net": "/top/LO_FIRST",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "3": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "4": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "5": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "CONN_SMA_VERT",
       "internal_pn": "800253-101"
     },
     "J2302": {
       "pins": {
-        "1": "GND",
-        "2": "/top/RX_AUDIO_SPEAKER"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/RX_AUDIO_SPEAKER",
+          "type": "passive"
+        }
       },
       "value": "CONN2",
       "internal_pn": "800114-102"
     },
     "J2303": {
       "pins": {
-        "1": "GND",
-        "2": "/top/S_METER"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/S_METER",
+          "type": "passive"
+        }
       },
       "value": "CONN2",
       "internal_pn": "800114-102"
     },
     "J2304": {
       "pins": {
-        "1": "/top/LO_SECOND",
-        "2": "GND",
-        "3": "GND",
-        "4": "GND",
-        "5": "GND"
+        "1": {
+          "net": "/top/LO_SECOND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "3": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "4": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "5": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "CONN_SMA_VERT",
       "internal_pn": "800253-101"
     },
     "J2305": {
       "pins": {
-        "1": "GND",
-        "2": "/top/RX_AUDIO_WIPER",
-        "3": "/top/RX_AUDIO_TOP"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/RX_AUDIO_WIPER",
+          "type": "passive"
+        },
+        "3": {
+          "net": "/top/RX_AUDIO_TOP",
+          "type": "passive"
+        }
       },
       "value": "CONN3",
       "internal_pn": "800114-103"
     },
     "J2306": {
       "pins": {
-        "1": "/top/TRX_RF",
-        "2": "GND",
-        "3": "GND",
-        "4": "GND",
-        "5": "GND"
+        "1": {
+          "net": "/top/TRX_RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "3": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "4": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "5": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "CONN_SMA_VERT",
       "internal_pn": "800253-101"
     },
     "J2307": {
       "pins": {
-        "1": "GND",
-        "2": "/top/IF_GAIN_WIPER",
-        "3": "Net-(J2307-Pad3)"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/IF_GAIN_WIPER",
+          "type": "passive"
+        },
+        "3": {
+          "net": "Net-(J2307-Pad3)",
+          "type": "passive"
+        }
       },
       "value": "CONN3",
       "internal_pn": "800114-103"
     },
     "J2308": {
       "pins": {
-        "1": "/top/connectors/LO_THIRD",
-        "2": "GND",
-        "3": "GND",
-        "4": "GND",
-        "5": "GND"
+        "1": {
+          "net": "/top/connectors/LO_THIRD",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "3": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "4": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "5": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "CONN_SMA_VERT",
       "internal_pn": "800253-101"
     },
     "J2309": {
       "pins": {
-        "1": "GND",
-        "2": "/top/TX_AUDIO_IN",
-        "3": "/top/connectors/P8V0_TX"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/TX_AUDIO_IN",
+          "type": "passive"
+        },
+        "3": {
+          "net": "/top/connectors/P8V0_TX",
+          "type": "passive"
+        }
       },
       "value": "CONN3",
       "internal_pn": "800114-103"
     },
     "J2310": {
       "pins": {
-        "1": "Net-(C2310-Pad1)",
-        "2": "/top/connectors/~{TX}",
-        "3": "/top/P13V8_TX",
-        "4": "/top/P13V8_RX",
-        "5": "/top/connectors/SCL_I2C_CONN_3V3",
-        "6": "/top/connectors/SDA_I2C_CONN_3V3",
-        "7": "GND",
-        "8": "GND"
+        "1": {
+          "net": "Net-(C2310-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/top/connectors/~{TX}",
+          "type": "passive"
+        },
+        "3": {
+          "net": "/top/P13V8_TX",
+          "type": "passive"
+        },
+        "4": {
+          "net": "/top/P13V8_RX",
+          "type": "passive"
+        },
+        "5": {
+          "net": "/top/connectors/SCL_I2C_CONN_3V3",
+          "type": "passive"
+        },
+        "6": {
+          "net": "/top/connectors/SDA_I2C_CONN_3V3",
+          "type": "passive"
+        },
+        "7": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "8": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "CONN8",
       "internal_pn": "800114-108"
     },
     "MH2301": {
       "pins": {
-        "1": "GND"
+        "1": {
+          "net": "GND",
+          "type": "input"
+        }
       },
       "value": "MountingHole_Pad",
       "description": "Mounting Hole with connection"
     },
     "MH2302": {
       "pins": {
-        "1": "GND"
+        "1": {
+          "net": "GND",
+          "type": "input"
+        }
       },
       "value": "MountingHole_Pad",
       "description": "Mounting Hole with connection"
     },
     "MH2303": {
       "pins": {
-        "1": "GND"
+        "1": {
+          "net": "GND",
+          "type": "input"
+        }
       },
       "value": "MountingHole_Pad",
       "description": "Mounting Hole with connection"
     },
     "MH2304": {
       "pins": {
-        "1": "GND"
+        "1": {
+          "net": "GND",
+          "type": "input"
+        }
       },
       "value": "MountingHole_Pad",
       "description": "Mounting Hole with connection"
     },
     "MH2305": {
       "pins": {
-        "1": "GND"
+        "1": {
+          "net": "GND",
+          "type": "input"
+        }
       },
       "value": "MountingHole_Pad",
       "description": "Mounting Hole with connection"
     },
     "MH2306": {
       "pins": {
-        "1": "GND"
+        "1": {
+          "net": "GND",
+          "type": "input"
+        }
       },
       "value": "MountingHole_Pad",
       "description": "Mounting Hole with connection"
@@ -7495,15 +10055,18 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "/top/P13V8_TX"
+          "net": "/top/P13V8_TX",
+          "type": "passive"
         },
         "2": {
           "name": "S",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "3": {
           "name": "D",
-          "net": "/top/connectors/~{TX}"
+          "net": "/top/connectors/~{TX}",
+          "type": "passive"
         }
       },
       "value": "BSS138",
@@ -7511,8 +10074,14 @@
     },
     "R2301": {
       "pins": {
-        "1": "/top/P13V8",
-        "2": "Net-(J2307-Pad3)"
+        "1": {
+          "net": "/top/P13V8",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(J2307-Pad3)",
+          "type": "passive"
+        }
       },
       "value": "10K",
       "internal_pn": "800235-103"
@@ -7521,7 +10090,8 @@
       "pins": {
         "1": {
           "name": "TP",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "value": "TESTPINTPSQ025",
@@ -7531,7 +10101,8 @@
       "pins": {
         "1": {
           "name": "TP",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "value": "TESTPINTPSQ025",
@@ -7541,7 +10112,8 @@
       "pins": {
         "1": {
           "name": "TP",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "value": "TESTPINTPSQ025",
@@ -7551,7 +10123,8 @@
       "pins": {
         "1": {
           "name": "TP",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "value": "TESTPINTPSQ025",

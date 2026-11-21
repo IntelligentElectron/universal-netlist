@@ -24,7 +24,7 @@ Test points are identified by the `TP` reference-designator prefix. "Functional 
 | `pin.power_undirected_unconnected` | warning | an undirected `power` pin is the only functional pin on its net, or is unconnected: an unpowered supply input, or an unused supply output | the power pins' `REFDES.PIN` endpoints; unconnected ones under `NC` |
 | `refdes.section_repeated` | error | one part draws the same section more than once, with no pin wired to two different nets | keyed by the refdes: `[{ "section": "F", "placements": 2, "pages": ["15_POWER", "18_DISPLAY"] }]`; `section` is omitted for a part with one section |
 
-The four `pin.*` rules read each pin's electrical `type` (see [query_component](query_component.md)) and are the same for every format; the golden tables in [docs/decision-tables/pin-erc](../decision-tables/pin-erc/net.rules.md) define them cell by cell. Pins are grouped by what they can do to a net:
+The five `pin.*` rules read each pin's electrical `type` (see [query_component](query_component.md)) and are the same for every format; the golden tables in [docs/decision-tables/pin-erc](../decision-tables/pin-erc/net.rules.md) define them cell by cell. Pins are grouped by what they can do to a net:
 
 - **drive and fight:** `output` (push-pull), `power_out` (a supply output) and `power` (an undirected supply pin: a supply input or output whose direction and polarity are not recorded);
 - **pull one way:** `open_collector`, `open_emitter`;

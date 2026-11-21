@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T20:27:49.410Z",
-    "netlistHash": "sha256:8fa0439a010cdf94fe3a4a20611da51b8bc0ec57dcc839c2d9ae7d1f08ec2f98",
+    "generatedAt": "2026-11-21T21:40:45.972Z",
+    "netlistHash": "sha256:57574055901e4d0b928dd08103d36ee653bb5722f39f320a8abc2c74c5652f6c",
     "origin": {
       "type": "vendor",
       "source": {
@@ -1642,63 +1642,83 @@
   "components": {
     "DD5": {
       "pins": {
-        "1": "A3",
-        "2": "A2",
+        "1": {
+          "net": "A3",
+          "type": "input"
+        },
+        "2": {
+          "net": "A2",
+          "type": "input"
+        },
         "3": {
           "name": "4",
-          "net": "A1"
+          "net": "A1",
+          "type": "input"
         },
         "4": {
           "name": "G\\2\\A\\",
-          "net": "S\\Y\\N\\C\\"
+          "net": "S\\Y\\N\\C\\",
+          "type": "input"
         },
         "5": {
           "name": "G\\2\\B\\",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "6": {
           "name": "G1",
-          "net": "ADDR_DT"
+          "net": "ADDR_DT",
+          "type": "input"
         },
         "7": {
           "name": "Y\\7\\",
-          "net": "C\\S\\5"
+          "net": "C\\S\\5",
+          "type": "output"
         },
         "8": {
           "name": "GND",
-          "net": ""
+          "net": "",
+          "type": "power"
         },
         "9": {
           "name": "Y\\6\\",
-          "net": "C\\S\\1"
+          "net": "C\\S\\1",
+          "type": "output"
         },
         "10": {
           "name": "Y\\5\\",
-          "net": "C\\S\\3"
+          "net": "C\\S\\3",
+          "type": "output"
         },
         "11": {
           "name": "Y\\4\\",
-          "net": "C\\S\\_\\A\\Y\\2"
+          "net": "C\\S\\_\\A\\Y\\2",
+          "type": "output"
         },
         "12": {
           "name": "Y\\3\\",
-          "net": "C\\S\\4"
+          "net": "C\\S\\4",
+          "type": "output"
         },
         "13": {
           "name": "Y\\2\\",
-          "net": "C\\S\\_\\A\\Y\\3"
+          "net": "C\\S\\_\\A\\Y\\3",
+          "type": "output"
         },
         "14": {
           "name": "Y\\1\\",
-          "net": "C\\S\\2"
+          "net": "C\\S\\2",
+          "type": "output"
         },
         "15": {
           "name": "Y\\0\\",
-          "net": "C\\S\\_\\A\\Y\\1"
+          "net": "C\\S\\_\\A\\Y\\1",
+          "type": "output"
         },
         "16": {
           "name": "+5",
-          "net": ""
+          "net": "",
+          "type": "power"
         }
       },
       "description": "ИД7 3 to 8 DEMUX",
@@ -1707,22 +1727,51 @@
     },
     "DD9": {
       "pins": {
-        "1": "A5",
-        "2": "A4",
-        "3": "A7",
-        "4": "A11",
-        "5": "A10",
-        "6": "A12",
+        "1": {
+          "net": "A5",
+          "type": "input"
+        },
+        "2": {
+          "net": "A4",
+          "type": "input"
+        },
+        "3": {
+          "net": "A7",
+          "type": "input"
+        },
+        "4": {
+          "net": "A11",
+          "type": "input"
+        },
+        "5": {
+          "net": "A10",
+          "type": "input"
+        },
+        "6": {
+          "net": "A12",
+          "type": "input"
+        },
         "7": {
           "name": "GND",
-          "net": ""
+          "net": "",
+          "type": "power"
         },
-        "8": "A4-7_9-12",
-        "11": "A9",
-        "12": "A6",
+        "8": {
+          "net": "A4-7_9-12",
+          "type": "output"
+        },
+        "11": {
+          "net": "A9",
+          "type": "input"
+        },
+        "12": {
+          "net": "A6",
+          "type": "input"
+        },
         "14": {
           "name": "+5",
-          "net": ""
+          "net": "",
+          "type": "power"
         }
       },
       "description": "ЛА2 8NAND",
@@ -1731,25 +1780,63 @@
     },
     "DD6": {
       "pins": {
-        "1": "B\\S\\7\\",
-        "2": "A8",
-        "3": "C\\S\\_\\A\\Y\\3",
-        "4": "C\\S\\_\\A\\Y\\3",
-        "5": "C\\S\\_\\A\\Y\\3",
-        "6": "CS_AY3",
+        "1": {
+          "net": "B\\S\\7\\",
+          "type": "input"
+        },
+        "2": {
+          "net": "A8",
+          "type": "input"
+        },
+        "3": {
+          "net": "C\\S\\_\\A\\Y\\3",
+          "type": "input"
+        },
+        "4": {
+          "net": "C\\S\\_\\A\\Y\\3",
+          "type": "input"
+        },
+        "5": {
+          "net": "C\\S\\_\\A\\Y\\3",
+          "type": "input"
+        },
+        "6": {
+          "net": "CS_AY3",
+          "type": "output"
+        },
         "7": {
           "name": "GND",
-          "net": ""
+          "net": "",
+          "type": "power"
         },
-        "8": "CS_AY2",
-        "9": "C\\S\\_\\A\\Y\\2",
-        "10": "C\\S\\_\\A\\Y\\2",
-        "11": "C\\S\\_\\A\\Y\\2",
-        "12": "ADDR_DT",
-        "13": "A4-7_9-12",
+        "8": {
+          "net": "CS_AY2",
+          "type": "output"
+        },
+        "9": {
+          "net": "C\\S\\_\\A\\Y\\2",
+          "type": "input"
+        },
+        "10": {
+          "net": "C\\S\\_\\A\\Y\\2",
+          "type": "input"
+        },
+        "11": {
+          "net": "C\\S\\_\\A\\Y\\2",
+          "type": "input"
+        },
+        "12": {
+          "net": "ADDR_DT",
+          "type": "output"
+        },
+        "13": {
+          "net": "A4-7_9-12",
+          "type": "input"
+        },
         "14": {
           "name": "+5V",
-          "net": ""
+          "net": "",
+          "type": "power"
         }
       },
       "description": "ЛЕ4 3x3NOR",
@@ -1758,25 +1845,63 @@
     },
     "DD7": {
       "pins": {
-        "1": "D\\I\\N\\",
-        "2": "D\\I\\N\\",
-        "3": "NetDD7_3",
-        "4": "NetDD7_3",
-        "5": "DINOUT",
-        "6": "BDIR",
+        "1": {
+          "net": "D\\I\\N\\",
+          "type": "input"
+        },
+        "2": {
+          "net": "D\\I\\N\\",
+          "type": "input"
+        },
+        "3": {
+          "net": "NetDD7_3",
+          "type": "output"
+        },
+        "4": {
+          "net": "NetDD7_3",
+          "type": "input"
+        },
+        "5": {
+          "net": "DINOUT",
+          "type": "input"
+        },
+        "6": {
+          "net": "BDIR",
+          "type": "output"
+        },
         "7": {
           "name": "GND",
-          "net": ""
+          "net": "",
+          "type": "power"
         },
-        "8": "BC1",
-        "9": "DINOUT",
-        "10": "W\\T\\B\\T\\",
-        "11": "T/R\\",
-        "12": "ADDR_DT",
-        "13": "DIN",
+        "8": {
+          "net": "BC1",
+          "type": "output"
+        },
+        "9": {
+          "net": "DINOUT",
+          "type": "input"
+        },
+        "10": {
+          "net": "W\\T\\B\\T\\",
+          "type": "input"
+        },
+        "11": {
+          "net": "T/R\\",
+          "type": "output"
+        },
+        "12": {
+          "net": "ADDR_DT",
+          "type": "input"
+        },
+        "13": {
+          "net": "DIN",
+          "type": "input"
+        },
         "14": {
           "name": "+5V",
-          "net": ""
+          "net": "",
+          "type": "power"
         }
       },
       "description": "ЛИ1 4x2AND",
@@ -1785,8 +1910,14 @@
     },
     "R1": {
       "pins": {
-        "1": "+5",
-        "2": "DINOUT"
+        "1": {
+          "net": "+5",
+          "type": "passive"
+        },
+        "2": {
+          "net": "DINOUT",
+          "type": "passive"
+        }
       },
       "comment": "2.2K"
     },
@@ -1794,83 +1925,103 @@
       "pins": {
         "1": {
           "name": "E\\O\\",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "2": {
           "name": "D0",
-          "net": "AD11"
+          "net": "AD11",
+          "type": "input"
         },
         "3": {
           "name": "D1",
-          "net": "AD8"
+          "net": "AD8",
+          "type": "input"
         },
         "4": {
           "name": "D2",
-          "net": "AD9"
+          "net": "AD9",
+          "type": "input"
         },
         "5": {
           "name": "D3",
-          "net": "AD6"
+          "net": "AD6",
+          "type": "input"
         },
         "6": {
           "name": "D4",
-          "net": "AD7"
+          "net": "AD7",
+          "type": "input"
         },
         "7": {
           "name": "D5",
-          "net": "AD4"
+          "net": "AD4",
+          "type": "input"
         },
         "8": {
           "name": "D6",
-          "net": "AD5"
+          "net": "AD5",
+          "type": "input"
         },
         "9": {
           "name": "D7",
-          "net": "eB\\S\\7\\"
+          "net": "eB\\S\\7\\",
+          "type": "input"
         },
         "10": {
           "name": "GND",
-          "net": ""
+          "net": "",
+          "type": "power"
         },
         "11": {
           "name": "PE",
-          "net": "S\\Y\\N\\C\\"
+          "net": "S\\Y\\N\\C\\",
+          "type": "input"
         },
         "12": {
           "name": "Q7",
-          "net": "B\\S\\7\\"
+          "net": "B\\S\\7\\",
+          "type": "tristate"
         },
         "13": {
           "name": "Q6",
-          "net": "A5"
+          "net": "A5",
+          "type": "tristate"
         },
         "14": {
           "name": "Q5",
-          "net": "A4"
+          "net": "A4",
+          "type": "tristate"
         },
         "15": {
           "name": "Q4",
-          "net": "A7"
+          "net": "A7",
+          "type": "tristate"
         },
         "16": {
           "name": "Q3",
-          "net": "A6"
+          "net": "A6",
+          "type": "tristate"
         },
         "17": {
           "name": "Q2",
-          "net": "A9"
+          "net": "A9",
+          "type": "tristate"
         },
         "18": {
           "name": "Q1",
-          "net": "A8"
+          "net": "A8",
+          "type": "tristate"
         },
         "19": {
           "name": "Q0",
-          "net": "A11"
+          "net": "A11",
+          "type": "tristate"
         },
         "20": {
           "name": "+5V",
-          "net": ""
+          "net": "",
+          "type": "power"
         }
       },
       "description": "ИР22 transparent latch",
@@ -1881,83 +2032,103 @@
       "pins": {
         "1": {
           "name": "E\\O\\",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "2": {
           "name": "D0",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "3": {
           "name": "D1",
-          "net": "AD12"
+          "net": "AD12",
+          "type": "input"
         },
         "4": {
           "name": "D2",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "5": {
           "name": "D3",
-          "net": "AD0"
+          "net": "AD0",
+          "type": "input"
         },
         "6": {
           "name": "D4",
-          "net": "AD1"
+          "net": "AD1",
+          "type": "input"
         },
         "7": {
           "name": "D5",
-          "net": "AD2"
+          "net": "AD2",
+          "type": "input"
         },
         "8": {
           "name": "D6",
-          "net": "AD3"
+          "net": "AD3",
+          "type": "input"
         },
         "9": {
           "name": "D7",
-          "net": "AD10"
+          "net": "AD10",
+          "type": "input"
         },
         "10": {
           "name": "GND",
-          "net": ""
+          "net": "",
+          "type": "power"
         },
         "11": {
           "name": "PE",
-          "net": "S\\Y\\N\\C\\"
+          "net": "S\\Y\\N\\C\\",
+          "type": "input"
         },
         "12": {
           "name": "Q7",
-          "net": "A10"
+          "net": "A10",
+          "type": "tristate"
         },
         "13": {
           "name": "Q6",
-          "net": "A3"
+          "net": "A3",
+          "type": "tristate"
         },
         "14": {
           "name": "Q5",
-          "net": "A2"
+          "net": "A2",
+          "type": "tristate"
         },
         "15": {
           "name": "Q4",
-          "net": "A1"
+          "net": "A1",
+          "type": "tristate"
         },
         "16": {
           "name": "Q3",
-          "net": "A0"
+          "net": "A0",
+          "type": "tristate"
         },
         "17": {
           "name": "Q2",
-          "net": ""
+          "net": "",
+          "type": "tristate"
         },
         "18": {
           "name": "Q1",
-          "net": "A12"
+          "net": "A12",
+          "type": "tristate"
         },
         "19": {
           "name": "Q0",
-          "net": ""
+          "net": "",
+          "type": "tristate"
         },
         "20": {
           "name": "+5V",
-          "net": ""
+          "net": "",
+          "type": "power"
         }
       },
       "description": "ИР22 transparent latch",
@@ -1966,25 +2137,63 @@
     },
     "DD8": {
       "pins": {
-        "1": "DLDIO",
-        "2": "ADDR_DT",
-        "3": "R\\P\\L\\Y\\",
-        "4": "D\\I\\N\\",
-        "5": "D\\O\\U\\T\\",
-        "6": "DINOUT",
+        "1": {
+          "net": "DLDIO",
+          "type": "input"
+        },
+        "2": {
+          "net": "ADDR_DT",
+          "type": "input"
+        },
+        "3": {
+          "net": "R\\P\\L\\Y\\",
+          "type": "open_collector"
+        },
+        "4": {
+          "net": "D\\I\\N\\",
+          "type": "input"
+        },
+        "5": {
+          "net": "D\\O\\U\\T\\",
+          "type": "input"
+        },
+        "6": {
+          "net": "DINOUT",
+          "type": "open_collector"
+        },
         "7": {
           "name": "GND",
-          "net": ""
+          "net": "",
+          "type": "power"
         },
-        "8": "CS_AY1",
-        "9": "C\\S\\_\\A\\Y\\1",
-        "10": "C\\S\\_\\A\\Y\\1",
-        "11": "DIN",
-        "12": "D\\I\\N\\",
-        "13": "D\\I\\N\\",
+        "8": {
+          "net": "CS_AY1",
+          "type": "open_collector"
+        },
+        "9": {
+          "net": "C\\S\\_\\A\\Y\\1",
+          "type": "input"
+        },
+        "10": {
+          "net": "C\\S\\_\\A\\Y\\1",
+          "type": "input"
+        },
+        "11": {
+          "net": "DIN",
+          "type": "open_collector"
+        },
+        "12": {
+          "net": "D\\I\\N\\",
+          "type": "input"
+        },
+        "13": {
+          "net": "D\\I\\N\\",
+          "type": "input"
+        },
         "14": {
           "name": "+5",
-          "net": ""
+          "net": "",
+          "type": "power"
         }
       },
       "description": "ЛА13 4x2NAND O.C.",
@@ -1993,8 +2202,14 @@
     },
     "R3": {
       "pins": {
-        "1": "+5",
-        "2": "DIN"
+        "1": {
+          "net": "+5",
+          "type": "passive"
+        },
+        "2": {
+          "net": "DIN",
+          "type": "passive"
+        }
       },
       "comment": "2.2K"
     },
@@ -2002,59 +2217,73 @@
       "pins": {
         "1": {
           "name": "С",
-          "net": "NetDD11_1"
+          "net": "NetDD11_1",
+          "type": "input"
         },
         "2": {
           "name": "R",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "3": {
           "name": "Q0",
-          "net": ""
+          "net": "",
+          "type": "output"
         },
         "4": {
           "name": "Q1",
-          "net": "3.58MHz"
+          "net": "3.58MHz",
+          "type": "output"
         },
         "5": {
           "name": "Q2",
-          "net": "CLK_AY1"
+          "net": "CLK_AY1",
+          "type": "output"
         },
         "6": {
           "name": "Q3",
-          "net": ""
+          "net": "",
+          "type": "output"
         },
         "7": {
           "name": "GND",
-          "net": ""
+          "net": "",
+          "type": "power"
         },
         "8": {
           "name": "Q3",
-          "net": ""
+          "net": "",
+          "type": "output"
         },
         "9": {
           "name": "Q2",
-          "net": ""
+          "net": "",
+          "type": "output"
         },
         "10": {
           "name": "Q1",
-          "net": ""
+          "net": "",
+          "type": "output"
         },
         "11": {
           "name": "Q0",
-          "net": ""
+          "net": "",
+          "type": "output"
         },
         "12": {
           "name": "R",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "13": {
           "name": "С",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "14": {
           "name": "+5",
-          "net": ""
+          "net": "",
+          "type": "power"
         }
       },
       "description": "ИЕ19",
@@ -2063,8 +2292,14 @@
     },
     "C14": {
       "pins": {
-        "1": "GND",
-        "2": "S\\Y\\N\\C\\"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "S\\Y\\N\\C\\",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "200"
@@ -2073,190 +2308,328 @@
       "pins": {
         "1": {
           "name": "N.C.",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "4": {
           "name": "GND",
-          "net": ""
+          "net": "",
+          "type": "power"
         },
-        "5": "NetDD11_1",
+        "5": {
+          "net": "NetDD11_1",
+          "type": "output"
+        },
         "8": {
           "name": "+5",
-          "net": ""
+          "net": "",
+          "type": "passive"
         }
       },
       "comment": "CXO"
     },
     "C9": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "0.1u"
     },
     "C10": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "4.7u"
     },
     "C11": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "0.1u"
     },
     "C12": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "4.7u"
     },
     "C15": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "0.1u"
     },
     "C16": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "4.7u"
     },
     "C18": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "0.1u"
     },
     "C19": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "4.7u"
     },
     "C20": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "0.1u"
     },
     "C21": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "4.7u"
     },
     "C22": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "0.1u"
     },
     "C23": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "4.7u"
     },
     "VD1": {
       "pins": {
-        "1": "DLDIO",
-        "2": "DINOUT"
+        "1": {
+          "net": "DLDIO",
+          "type": "passive"
+        },
+        "2": {
+          "net": "DINOUT",
+          "type": "passive"
+        }
       },
       "comment": "D9B"
     },
     "C13": {
       "pins": {
-        "1": "GND",
-        "2": "DLDIO"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "DLDIO",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "62"
     },
     "R14": {
       "pins": {
-        "1": "+5",
-        "2": "DLDIO"
+        "1": {
+          "net": "+5",
+          "type": "passive"
+        },
+        "2": {
+          "net": "DLDIO",
+          "type": "passive"
+        }
       },
       "comment": "10K"
     },
     "C40": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "0.1u"
     },
     "C41": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "4.7u"
     },
     "C42": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "0.1u"
     },
     "C43": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "4.7u"
     },
     "C44": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "0.1u"
     },
     "C45": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "4.7u"
     },
     "R2": {
       "pins": {
-        "1": "+5",
-        "2": "CS_AY1"
+        "1": {
+          "net": "+5",
+          "type": "passive"
+        },
+        "2": {
+          "net": "CS_AY1",
+          "type": "passive"
+        }
       },
       "comment": "2.2K"
     },
@@ -2266,36 +2639,66 @@
     },
     "R4_AY1": {
       "pins": {
-        "1": "L_IN1",
-        "2": "NetDD12_AY1_5"
+        "1": {
+          "net": "L_IN1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetDD12_AY1_5",
+          "type": "passive"
+        }
       },
       "comment": "1K"
     },
     "R5_AY1": {
       "pins": {
-        "1": "L_IN1",
-        "2": "NetDD12_AY1_4"
+        "1": {
+          "net": "L_IN1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetDD12_AY1_4",
+          "type": "passive"
+        }
       },
       "comment": "2.2K"
     },
     "R6_AY1": {
       "pins": {
-        "1": "R_IN1",
-        "2": "NetDD12_AY1_4"
+        "1": {
+          "net": "R_IN1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetDD12_AY1_4",
+          "type": "passive"
+        }
       },
       "comment": "2.2K"
     },
     "R7_AY1": {
       "pins": {
-        "1": "R_IN1",
-        "2": "NetDD12_AY1_1"
+        "1": {
+          "net": "R_IN1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetDD12_AY1_1",
+          "type": "passive"
+        }
       },
       "comment": "1K"
     },
     "C24_AY1": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "10u"
@@ -2304,115 +2707,143 @@
       "pins": {
         "1": {
           "name": "CH C",
-          "net": "NetDD12_AY1_1"
+          "net": "NetDD12_AY1_1",
+          "type": "output"
         },
         "2": {
           "name": "TST1",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "3": {
           "name": "Vcc",
-          "net": ""
+          "net": "",
+          "type": "power"
         },
         "4": {
           "name": "CH B",
-          "net": "NetDD12_AY1_4"
+          "net": "NetDD12_AY1_4",
+          "type": "output"
         },
         "5": {
           "name": "CH A",
-          "net": "NetDD12_AY1_5"
+          "net": "NetDD12_AY1_5",
+          "type": "output"
         },
         "6": {
           "name": "Vss",
-          "net": ""
+          "net": "",
+          "type": "power"
         },
         "7": {
           "name": "IOA7",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "8": {
           "name": "IOA6",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "9": {
           "name": "IOA5",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "10": {
           "name": "IOA4",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "11": {
           "name": "IOA3",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "12": {
           "name": "IOA2",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "13": {
           "name": "IOA1",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "14": {
           "name": "IOA0",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "15": {
           "name": "CLK",
-          "net": "CLK_AY1"
+          "net": "CLK_AY1",
+          "type": "input"
         },
         "16": {
           "name": "R\\S\\T\\",
-          "net": "I\\N\\I\\T\\"
+          "net": "I\\N\\I\\T\\",
+          "type": "input"
         },
         "17": {
           "name": "A8",
-          "net": "CS_AY1"
+          "net": "CS_AY1",
+          "type": "input"
         },
         "18": {
           "name": "BDIR",
-          "net": "BDIR"
+          "net": "BDIR",
+          "type": "input"
         },
         "19": {
           "name": "BC2",
-          "net": "+5"
+          "net": "+5",
+          "type": "input"
         },
         "20": {
           "name": "BC1",
-          "net": "BC1"
+          "net": "BC1",
+          "type": "input"
         },
         "21": {
           "name": "DA7",
-          "net": "AD7"
+          "net": "AD7",
+          "type": "bidirectional"
         },
         "22": {
           "name": "DA6",
-          "net": "AD6"
+          "net": "AD6",
+          "type": "bidirectional"
         },
         "23": {
           "name": "DA5",
-          "net": "AD5"
+          "net": "AD5",
+          "type": "bidirectional"
         },
         "24": {
           "name": "DA4",
-          "net": "AD4"
+          "net": "AD4",
+          "type": "bidirectional"
         },
         "25": {
           "name": "DA3",
-          "net": "AD3"
+          "net": "AD3",
+          "type": "bidirectional"
         },
         "26": {
           "name": "DA2",
-          "net": "AD2"
+          "net": "AD2",
+          "type": "bidirectional"
         },
         "27": {
           "name": "DA1",
-          "net": "AD1"
+          "net": "AD1",
+          "type": "bidirectional"
         },
         "28": {
           "name": "DA0",
-          "net": "AD0"
+          "net": "AD0",
+          "type": "bidirectional"
         }
       },
       "comment": "AY-3-8912",
@@ -2420,52 +2851,94 @@
     },
     "C25_AY1": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "0.1u"
     },
     "C26_AY1": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "4.7u"
     },
     "R4_AY2": {
       "pins": {
-        "1": "L_IN1",
-        "2": "NetDD12_AY2_5"
+        "1": {
+          "net": "L_IN1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetDD12_AY2_5",
+          "type": "passive"
+        }
       },
       "comment": "1K"
     },
     "R5_AY2": {
       "pins": {
-        "1": "L_IN1",
-        "2": "NetDD12_AY2_4"
+        "1": {
+          "net": "L_IN1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetDD12_AY2_4",
+          "type": "passive"
+        }
       },
       "comment": "2.2K"
     },
     "R6_AY2": {
       "pins": {
-        "1": "R_IN1",
-        "2": "NetDD12_AY2_4"
+        "1": {
+          "net": "R_IN1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetDD12_AY2_4",
+          "type": "passive"
+        }
       },
       "comment": "2.2K"
     },
     "R7_AY2": {
       "pins": {
-        "1": "R_IN1",
-        "2": "NetDD12_AY2_1"
+        "1": {
+          "net": "R_IN1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetDD12_AY2_1",
+          "type": "passive"
+        }
       },
       "comment": "1K"
     },
     "C24_AY2": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "10u"
@@ -2474,115 +2947,143 @@
       "pins": {
         "1": {
           "name": "CH C",
-          "net": "NetDD12_AY2_1"
+          "net": "NetDD12_AY2_1",
+          "type": "output"
         },
         "2": {
           "name": "TST1",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "3": {
           "name": "Vcc",
-          "net": ""
+          "net": "",
+          "type": "power"
         },
         "4": {
           "name": "CH B",
-          "net": "NetDD12_AY2_4"
+          "net": "NetDD12_AY2_4",
+          "type": "output"
         },
         "5": {
           "name": "CH A",
-          "net": "NetDD12_AY2_5"
+          "net": "NetDD12_AY2_5",
+          "type": "output"
         },
         "6": {
           "name": "Vss",
-          "net": ""
+          "net": "",
+          "type": "power"
         },
         "7": {
           "name": "IOA7",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "8": {
           "name": "IOA6",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "9": {
           "name": "IOA5",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "10": {
           "name": "IOA4",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "11": {
           "name": "IOA3",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "12": {
           "name": "IOA2",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "13": {
           "name": "IOA1",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "14": {
           "name": "IOA0",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "15": {
           "name": "CLK",
-          "net": "CLK_AY1"
+          "net": "CLK_AY1",
+          "type": "input"
         },
         "16": {
           "name": "R\\S\\T\\",
-          "net": "I\\N\\I\\T\\"
+          "net": "I\\N\\I\\T\\",
+          "type": "input"
         },
         "17": {
           "name": "A8",
-          "net": "CS_AY2"
+          "net": "CS_AY2",
+          "type": "input"
         },
         "18": {
           "name": "BDIR",
-          "net": "BDIR"
+          "net": "BDIR",
+          "type": "input"
         },
         "19": {
           "name": "BC2",
-          "net": "+5"
+          "net": "+5",
+          "type": "input"
         },
         "20": {
           "name": "BC1",
-          "net": "BC1"
+          "net": "BC1",
+          "type": "input"
         },
         "21": {
           "name": "DA7",
-          "net": "AD7"
+          "net": "AD7",
+          "type": "bidirectional"
         },
         "22": {
           "name": "DA6",
-          "net": "AD6"
+          "net": "AD6",
+          "type": "bidirectional"
         },
         "23": {
           "name": "DA5",
-          "net": "AD5"
+          "net": "AD5",
+          "type": "bidirectional"
         },
         "24": {
           "name": "DA4",
-          "net": "AD4"
+          "net": "AD4",
+          "type": "bidirectional"
         },
         "25": {
           "name": "DA3",
-          "net": "AD3"
+          "net": "AD3",
+          "type": "bidirectional"
         },
         "26": {
           "name": "DA2",
-          "net": "AD2"
+          "net": "AD2",
+          "type": "bidirectional"
         },
         "27": {
           "name": "DA1",
-          "net": "AD1"
+          "net": "AD1",
+          "type": "bidirectional"
         },
         "28": {
           "name": "DA0",
-          "net": "AD0"
+          "net": "AD0",
+          "type": "bidirectional"
         }
       },
       "comment": "AY-3-8912",
@@ -2590,52 +3091,94 @@
     },
     "C25_AY2": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "0.1u"
     },
     "C26_AY2": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "4.7u"
     },
     "R4_AY3": {
       "pins": {
-        "1": "L_IN1",
-        "2": "NetDD12_AY3_5"
+        "1": {
+          "net": "L_IN1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetDD12_AY3_5",
+          "type": "passive"
+        }
       },
       "comment": "1K"
     },
     "R5_AY3": {
       "pins": {
-        "1": "L_IN1",
-        "2": "NetDD12_AY3_4"
+        "1": {
+          "net": "L_IN1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetDD12_AY3_4",
+          "type": "passive"
+        }
       },
       "comment": "2.2K"
     },
     "R6_AY3": {
       "pins": {
-        "1": "R_IN1",
-        "2": "NetDD12_AY3_4"
+        "1": {
+          "net": "R_IN1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetDD12_AY3_4",
+          "type": "passive"
+        }
       },
       "comment": "2.2K"
     },
     "R7_AY3": {
       "pins": {
-        "1": "R_IN1",
-        "2": "NetDD12_AY3_1"
+        "1": {
+          "net": "R_IN1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetDD12_AY3_1",
+          "type": "passive"
+        }
       },
       "comment": "1K"
     },
     "C24_AY3": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "10u"
@@ -2644,115 +3187,143 @@
       "pins": {
         "1": {
           "name": "CH C",
-          "net": "NetDD12_AY3_1"
+          "net": "NetDD12_AY3_1",
+          "type": "output"
         },
         "2": {
           "name": "TST1",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "3": {
           "name": "Vcc",
-          "net": ""
+          "net": "",
+          "type": "power"
         },
         "4": {
           "name": "CH B",
-          "net": "NetDD12_AY3_4"
+          "net": "NetDD12_AY3_4",
+          "type": "output"
         },
         "5": {
           "name": "CH A",
-          "net": "NetDD12_AY3_5"
+          "net": "NetDD12_AY3_5",
+          "type": "output"
         },
         "6": {
           "name": "Vss",
-          "net": ""
+          "net": "",
+          "type": "power"
         },
         "7": {
           "name": "IOA7",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "8": {
           "name": "IOA6",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "9": {
           "name": "IOA5",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "10": {
           "name": "IOA4",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "11": {
           "name": "IOA3",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "12": {
           "name": "IOA2",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "13": {
           "name": "IOA1",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "14": {
           "name": "IOA0",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "15": {
           "name": "CLK",
-          "net": "CLK_AY1"
+          "net": "CLK_AY1",
+          "type": "input"
         },
         "16": {
           "name": "R\\S\\T\\",
-          "net": "I\\N\\I\\T\\"
+          "net": "I\\N\\I\\T\\",
+          "type": "input"
         },
         "17": {
           "name": "A8",
-          "net": "CS_AY3"
+          "net": "CS_AY3",
+          "type": "input"
         },
         "18": {
           "name": "BDIR",
-          "net": "BDIR"
+          "net": "BDIR",
+          "type": "input"
         },
         "19": {
           "name": "BC2",
-          "net": "+5"
+          "net": "+5",
+          "type": "input"
         },
         "20": {
           "name": "BC1",
-          "net": "BC1"
+          "net": "BC1",
+          "type": "input"
         },
         "21": {
           "name": "DA7",
-          "net": "AD7"
+          "net": "AD7",
+          "type": "bidirectional"
         },
         "22": {
           "name": "DA6",
-          "net": "AD6"
+          "net": "AD6",
+          "type": "bidirectional"
         },
         "23": {
           "name": "DA5",
-          "net": "AD5"
+          "net": "AD5",
+          "type": "bidirectional"
         },
         "24": {
           "name": "DA4",
-          "net": "AD4"
+          "net": "AD4",
+          "type": "bidirectional"
         },
         "25": {
           "name": "DA3",
-          "net": "AD3"
+          "net": "AD3",
+          "type": "bidirectional"
         },
         "26": {
           "name": "DA2",
-          "net": "AD2"
+          "net": "AD2",
+          "type": "bidirectional"
         },
         "27": {
           "name": "DA1",
-          "net": "AD1"
+          "net": "AD1",
+          "type": "bidirectional"
         },
         "28": {
           "name": "DA0",
-          "net": "AD0"
+          "net": "AD0",
+          "type": "bidirectional"
         }
       },
       "comment": "AY-3-8912",
@@ -2760,82 +3331,274 @@
     },
     "C25_AY3": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "0.1u"
     },
     "C26_AY3": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "4.7u"
     },
     "P2": {
       "pins": {
-        "1": "GND",
-        "2": "GND",
-        "3": "4MHz",
-        "4": "D\\O\\U\\T\\",
-        "5": "C\\E\\0",
-        "6": "D\\I\\N\\",
-        "7": "C\\E\\2",
-        "8": "",
-        "9": "C\\E\\3",
-        "10": "",
-        "11": "C\\E\\1",
-        "12": "",
-        "13": "W\\T\\B\\T\\",
-        "14": "I\\N\\I\\T\\",
-        "15": "C\\S\\2",
-        "16": "C\\S\\3",
-        "17": "C\\S\\4",
-        "18": "C\\S\\1",
-        "19": "R\\P\\L\\Y\\",
-        "20": "S\\Y\\N\\C\\",
-        "21": "",
-        "22": "C\\S\\5",
-        "23": "",
-        "24": "",
-        "25": "B\\S\\7\\",
-        "26": "AD15",
-        "27": "A5",
-        "28": "AD5",
-        "29": "A4",
-        "30": "AD4",
-        "31": "A7",
-        "32": "AD7",
-        "33": "A6",
-        "34": "AD6",
-        "35": "A9",
-        "36": "AD9",
-        "37": "A8",
-        "38": "AD8",
-        "39": "A11",
-        "40": "AD11",
-        "41": "A10",
-        "42": "AD10",
-        "43": "A3",
-        "44": "AD3",
-        "45": "A2",
-        "46": "AD2",
-        "47": "A1",
-        "48": "AD1",
-        "49": "A0",
-        "50": "AD0",
-        "51": "",
-        "52": "AD13",
-        "53": "A12",
-        "54": "AD12",
-        "55": "3.58MHz",
-        "56": "AD14",
-        "57": "GND",
-        "58": "GND",
-        "59": "+5",
-        "60": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "3": {
+          "net": "4MHz",
+          "type": "passive"
+        },
+        "4": {
+          "net": "D\\O\\U\\T\\",
+          "type": "passive"
+        },
+        "5": {
+          "net": "C\\E\\0",
+          "type": "passive"
+        },
+        "6": {
+          "net": "D\\I\\N\\",
+          "type": "passive"
+        },
+        "7": {
+          "net": "C\\E\\2",
+          "type": "passive"
+        },
+        "8": {
+          "net": "",
+          "type": "passive"
+        },
+        "9": {
+          "net": "C\\E\\3",
+          "type": "passive"
+        },
+        "10": {
+          "net": "",
+          "type": "passive"
+        },
+        "11": {
+          "net": "C\\E\\1",
+          "type": "passive"
+        },
+        "12": {
+          "net": "",
+          "type": "passive"
+        },
+        "13": {
+          "net": "W\\T\\B\\T\\",
+          "type": "passive"
+        },
+        "14": {
+          "net": "I\\N\\I\\T\\",
+          "type": "passive"
+        },
+        "15": {
+          "net": "C\\S\\2",
+          "type": "passive"
+        },
+        "16": {
+          "net": "C\\S\\3",
+          "type": "passive"
+        },
+        "17": {
+          "net": "C\\S\\4",
+          "type": "passive"
+        },
+        "18": {
+          "net": "C\\S\\1",
+          "type": "passive"
+        },
+        "19": {
+          "net": "R\\P\\L\\Y\\",
+          "type": "passive"
+        },
+        "20": {
+          "net": "S\\Y\\N\\C\\",
+          "type": "passive"
+        },
+        "21": {
+          "net": "",
+          "type": "passive"
+        },
+        "22": {
+          "net": "C\\S\\5",
+          "type": "passive"
+        },
+        "23": {
+          "net": "",
+          "type": "passive"
+        },
+        "24": {
+          "net": "",
+          "type": "passive"
+        },
+        "25": {
+          "net": "B\\S\\7\\",
+          "type": "passive"
+        },
+        "26": {
+          "net": "AD15",
+          "type": "passive"
+        },
+        "27": {
+          "net": "A5",
+          "type": "passive"
+        },
+        "28": {
+          "net": "AD5",
+          "type": "passive"
+        },
+        "29": {
+          "net": "A4",
+          "type": "passive"
+        },
+        "30": {
+          "net": "AD4",
+          "type": "passive"
+        },
+        "31": {
+          "net": "A7",
+          "type": "passive"
+        },
+        "32": {
+          "net": "AD7",
+          "type": "passive"
+        },
+        "33": {
+          "net": "A6",
+          "type": "passive"
+        },
+        "34": {
+          "net": "AD6",
+          "type": "passive"
+        },
+        "35": {
+          "net": "A9",
+          "type": "passive"
+        },
+        "36": {
+          "net": "AD9",
+          "type": "passive"
+        },
+        "37": {
+          "net": "A8",
+          "type": "passive"
+        },
+        "38": {
+          "net": "AD8",
+          "type": "passive"
+        },
+        "39": {
+          "net": "A11",
+          "type": "passive"
+        },
+        "40": {
+          "net": "AD11",
+          "type": "passive"
+        },
+        "41": {
+          "net": "A10",
+          "type": "passive"
+        },
+        "42": {
+          "net": "AD10",
+          "type": "passive"
+        },
+        "43": {
+          "net": "A3",
+          "type": "passive"
+        },
+        "44": {
+          "net": "AD3",
+          "type": "passive"
+        },
+        "45": {
+          "net": "A2",
+          "type": "passive"
+        },
+        "46": {
+          "net": "AD2",
+          "type": "passive"
+        },
+        "47": {
+          "net": "A1",
+          "type": "passive"
+        },
+        "48": {
+          "net": "AD1",
+          "type": "passive"
+        },
+        "49": {
+          "net": "A0",
+          "type": "passive"
+        },
+        "50": {
+          "net": "AD0",
+          "type": "passive"
+        },
+        "51": {
+          "net": "",
+          "type": "passive"
+        },
+        "52": {
+          "net": "AD13",
+          "type": "passive"
+        },
+        "53": {
+          "net": "A12",
+          "type": "passive"
+        },
+        "54": {
+          "net": "AD12",
+          "type": "passive"
+        },
+        "55": {
+          "net": "3.58MHz",
+          "type": "passive"
+        },
+        "56": {
+          "net": "AD14",
+          "type": "passive"
+        },
+        "57": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "58": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "59": {
+          "net": "+5",
+          "type": "passive"
+        },
+        "60": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "comment": "PLD60",
       "value": "*"
@@ -2844,134 +3607,226 @@
       "pins": {
         "1": {
           "name": "Aout",
-          "net": "NetC27_1"
+          "net": "NetC27_1",
+          "type": "passive"
         },
         "2": {
           "name": "A-",
-          "net": "NetC38_2"
+          "net": "NetC38_2",
+          "type": "passive"
         },
         "3": {
           "name": "A+",
-          "net": "NetC32_2"
+          "net": "NetC32_2",
+          "type": "passive"
         },
         "4": {
           "name": "GND",
-          "net": ""
+          "net": "",
+          "type": "power"
         },
         "5": {
           "name": "B+",
-          "net": "NetC32_2"
+          "net": "NetC32_2",
+          "type": "passive"
         },
         "6": {
           "name": "B-",
-          "net": "NetC39_2"
+          "net": "NetC39_2",
+          "type": "passive"
         },
         "7": {
           "name": "Bout",
-          "net": "NetC36_1"
+          "net": "NetC36_1",
+          "type": "passive"
         },
         "8": {
           "name": "V+",
-          "net": ""
+          "net": "",
+          "type": "power"
         }
       },
       "comment": "LM358N"
     },
     "R11": {
       "pins": {
-        "1": "L_IN1",
-        "2": "GND"
+        "1": {
+          "net": "L_IN1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "comment": "510"
     },
     "R23": {
       "pins": {
-        "1": "R_IN1",
-        "2": "GND"
+        "1": {
+          "net": "R_IN1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "comment": "510"
     },
     "R8": {
       "pins": {
-        "1": "NetC38_2",
-        "2": "NetC28_2"
+        "1": {
+          "net": "NetC38_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC28_2",
+          "type": "passive"
+        }
       },
       "comment": "24k"
     },
     "R10": {
       "pins": {
-        "1": "NetC27_1",
-        "2": "NetC38_2"
+        "1": {
+          "net": "NetC27_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC38_2",
+          "type": "passive"
+        }
       },
       "comment": "10K"
     },
     "R22": {
       "pins": {
-        "1": "NetC36_1",
-        "2": "NetC39_2"
+        "1": {
+          "net": "NetC36_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC39_2",
+          "type": "passive"
+        }
       },
       "comment": "10K"
     },
     "R21": {
       "pins": {
-        "1": "NetC39_2",
-        "2": "NetC37_2"
+        "1": {
+          "net": "NetC39_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC37_2",
+          "type": "passive"
+        }
       },
       "comment": "24k"
     },
     "R13": {
       "pins": {
-        "1": "+5",
-        "2": "NetC32_2"
+        "1": {
+          "net": "+5",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC32_2",
+          "type": "passive"
+        }
       },
       "comment": "1K"
     },
     "R17": {
       "pins": {
-        "1": "NetC32_2",
-        "2": "GND"
+        "1": {
+          "net": "NetC32_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "comment": "1K"
     },
     "R18": {
       "pins": {
-        "1": "NetC39_2",
-        "2": "NetC35_2"
+        "1": {
+          "net": "NetC39_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC35_2",
+          "type": "passive"
+        }
       },
       "comment": "24k"
     },
     "R12": {
       "pins": {
-        "1": "NetC38_2",
-        "2": "NetC29_2"
+        "1": {
+          "net": "NetC38_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC29_2",
+          "type": "passive"
+        }
       },
       "comment": "24k"
     },
     "R9": {
       "pins": {
-        "1": "NetC38_2",
-        "2": "NetC31_2"
+        "1": {
+          "net": "NetC38_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC31_2",
+          "type": "passive"
+        }
       },
       "comment": "100K"
     },
     "R20": {
       "pins": {
-        "1": "NetC39_2",
-        "2": "NetC31_2"
+        "1": {
+          "net": "NetC39_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC31_2",
+          "type": "passive"
+        }
       },
       "comment": "100K"
     },
     "R19": {
       "pins": {
-        "1": "NetC17_2",
-        "2": "GND"
+        "1": {
+          "net": "NetC17_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "comment": "510"
     },
     "R15": {
       "pins": {
-        "1": "NetC17_2",
-        "2": "Beeper"
+        "1": {
+          "net": "NetC17_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Beeper",
+          "type": "passive"
+        }
       },
       "comment": "510"
     },
@@ -2979,111 +3834,186 @@
       "pins": {
         "1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "2": {
           "name": "R",
-          "net": "NetC36_2"
+          "net": "NetC36_2",
+          "type": "input"
         },
         "3": {
           "name": "L",
-          "net": "NetC27_2"
+          "net": "NetC27_2",
+          "type": "input"
         }
       },
       "comment": "3.5mm audio socket"
     },
     "C28": {
       "pins": {
-        "1": "L_IN1",
-        "2": "NetC28_2"
+        "1": {
+          "net": "L_IN1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC28_2",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "10u"
     },
     "C37": {
       "pins": {
-        "1": "R_IN1",
-        "2": "NetC37_2"
+        "1": {
+          "net": "R_IN1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC37_2",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "10u"
     },
     "C29": {
       "pins": {
-        "1": "NetC29_1",
-        "2": "NetC29_2"
+        "1": {
+          "net": "NetC29_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC29_2",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "10u"
     },
     "C35": {
       "pins": {
-        "1": "NetC35_1",
-        "2": "NetC35_2"
+        "1": {
+          "net": "NetC35_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC35_2",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "10u"
     },
     "C31": {
       "pins": {
-        "1": "NetC17_2",
-        "2": "NetC31_2"
+        "1": {
+          "net": "NetC17_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC31_2",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "10u"
     },
     "C27": {
       "pins": {
-        "1": "NetC27_1",
-        "2": "NetC27_2"
+        "1": {
+          "net": "NetC27_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC27_2",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "10u"
     },
     "C36": {
       "pins": {
-        "1": "NetC36_1",
-        "2": "NetC36_2"
+        "1": {
+          "net": "NetC36_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC36_2",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "10u"
     },
     "C32": {
       "pins": {
-        "1": "GND",
-        "2": "NetC32_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC32_2",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "10u"
     },
     "C30": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "10u"
     },
     "C33": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "0.1u"
     },
     "C34": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "4.7u"
     },
     "C39": {
       "pins": {
-        "1": "NetC36_1",
-        "2": "NetC39_2"
+        "1": {
+          "net": "NetC36_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC39_2",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "1200 NC",
@@ -3091,8 +4021,14 @@
     },
     "C38": {
       "pins": {
-        "1": "NetC27_1",
-        "2": "NetC38_2"
+        "1": {
+          "net": "NetC27_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC38_2",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "1200 NC",
@@ -3100,18 +4036,36 @@
     },
     "C17": {
       "pins": {
-        "1": "GND",
-        "2": "NetC17_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC17_2",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "Cap"
     },
     "P4": {
       "pins": {
-        "1": "NetC35_1",
-        "2": "GND",
-        "3": "GND",
-        "4": "NetC29_1"
+        "1": {
+          "net": "NetC35_1",
+          "type": "power"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "3": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetC29_1",
+          "type": "passive"
+        }
       },
       "comment": "Header 4"
     },
@@ -3119,186 +4073,240 @@
       "pins": {
         "B1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "B2": {
           "name": "AA",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "B3": {
           "name": "40/80",
-          "net": ""
+          "net": "",
+          "type": "output"
         },
         "B4": {
           "name": "H\\A\\L\\T\\",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
-        "B5": "Beeper",
+        "B5": {
+          "net": "Beeper",
+          "type": "tristate"
+        },
         "B6": {
           "name": "D\\M\\R\\",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "B7": {
           "name": "D\\M\\G\\O\\",
-          "net": ""
+          "net": "",
+          "type": "output"
         },
         "B8": {
           "name": "D\\O\\U\\T\\",
-          "net": "eD\\O\\U\\T\\"
+          "net": "eD\\O\\U\\T\\",
+          "type": "output"
         },
         "B9": {
           "name": "A\\L\\C\\O\\",
-          "net": ""
+          "net": "",
+          "type": "output"
         },
         "B10": {
           "name": "I\\N\\I\\T\\",
-          "net": "eI\\N\\I\\T\\"
+          "net": "eI\\N\\I\\T\\",
+          "type": "output"
         },
         "B11": {
           "name": "I\\N\\D\\E\\X\\",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "B12": {
           "name": "C\\E\\0\\",
-          "net": "C\\E\\0"
+          "net": "C\\E\\0",
+          "type": "output"
         },
         "B13": {
           "name": "C\\E\\2\\",
-          "net": "C\\E\\2"
+          "net": "C\\E\\2",
+          "type": "output"
         },
         "B14": {
           "name": "C\\E\\1\\",
-          "net": "C\\E\\1"
+          "net": "C\\E\\1",
+          "type": "output"
         },
         "B15": {
           "name": "R\\P\\L\\Y\\",
-          "net": "R\\P\\L\\Y\\"
+          "net": "R\\P\\L\\Y\\",
+          "type": "input"
         },
         "B16": {
           "name": "A\\D\\4\\",
-          "net": "A\\D\\4\\"
+          "net": "A\\D\\4\\",
+          "type": "bidirectional"
         },
         "B17": {
           "name": "A\\D\\6\\",
-          "net": "A\\D\\6\\"
+          "net": "A\\D\\6\\",
+          "type": "bidirectional"
         },
         "B18": {
           "name": "A\\D\\8\\",
-          "net": "A\\D\\8\\"
+          "net": "A\\D\\8\\",
+          "type": "bidirectional"
         },
         "B19": {
           "name": "A\\D\\1\\0\\",
-          "net": "A\\D\\1\\0\\"
+          "net": "A\\D\\1\\0\\",
+          "type": "bidirectional"
         },
         "B20": {
           "name": "A\\D\\2\\",
-          "net": "A\\D\\2\\"
+          "net": "A\\D\\2\\",
+          "type": "bidirectional"
         },
         "B21": {
           "name": "A\\D\\0\\",
-          "net": "A\\D\\0\\"
+          "net": "A\\D\\0\\",
+          "type": "bidirectional"
         },
         "B22": {
           "name": "A\\D\\1\\2\\",
-          "net": "A\\D\\1\\2\\"
+          "net": "A\\D\\1\\2\\",
+          "type": "bidirectional"
         },
         "B23": {
           "name": "A\\D\\1\\4\\",
-          "net": "A\\D\\1\\4\\"
+          "net": "A\\D\\1\\4\\",
+          "type": "bidirectional"
         },
         "B24": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "A1": {
           "name": "+5",
-          "net": "+5"
+          "net": "+5",
+          "type": "power"
         },
         "A2": {
           "name": "A\\D\\1\\5\\",
-          "net": "A\\D\\1\\5\\"
+          "net": "A\\D\\1\\5\\",
+          "type": "bidirectional"
         },
         "A3": {
           "name": "A\\1\\6\\",
-          "net": ""
+          "net": "",
+          "type": "output"
         },
         "A4": {
           "name": "4MHz",
-          "net": "e4MHz"
+          "net": "e4MHz",
+          "type": "output"
         },
         "A5": {
           "name": "I\\A\\K\\O\\",
-          "net": ""
+          "net": "",
+          "type": "output"
         },
         "A6": {
           "name": "B\\S\\7\\",
-          "net": "eB\\S\\7\\"
+          "net": "eB\\S\\7\\",
+          "type": "output"
         },
         "A7": {
           "name": "S\\A\\C\\K\\",
-          "net": ""
+          "net": "",
+          "type": "output"
         },
         "A8": {
           "name": "W\\T\\B\\T\\",
-          "net": "eW\\T\\B\\T\\"
+          "net": "eW\\T\\B\\T\\",
+          "type": "output"
         },
         "A9": {
           "name": "D\\L\\C\\O\\",
-          "net": ""
+          "net": "",
+          "type": "output"
         },
         "A10": {
           "name": "V\\I\\R\\Q\\",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
-        "A11": "",
+        "A11": {
+          "net": "",
+          "type": "tristate"
+        },
         "A12": {
           "name": "C\\E\\3\\",
-          "net": "C\\E\\3"
+          "net": "C\\E\\3",
+          "type": "output"
         },
-        "A13": "",
+        "A13": {
+          "net": "",
+          "type": "tristate"
+        },
         "A14": {
           "name": "D\\I\\N\\",
-          "net": "eD\\I\\N\\"
+          "net": "eD\\I\\N\\",
+          "type": "output"
         },
         "A15": {
           "name": "S\\Y\\N\\C\\",
-          "net": "eS\\Y\\N\\C\\"
+          "net": "eS\\Y\\N\\C\\",
+          "type": "output"
         },
         "A16": {
           "name": "A\\D\\5\\",
-          "net": "A\\D\\5\\"
+          "net": "A\\D\\5\\",
+          "type": "bidirectional"
         },
         "A17": {
           "name": "A\\D\\7\\",
-          "net": "A\\D\\7\\"
+          "net": "A\\D\\7\\",
+          "type": "bidirectional"
         },
         "A18": {
           "name": "A\\D\\9\\",
-          "net": "A\\D\\9\\"
+          "net": "A\\D\\9\\",
+          "type": "bidirectional"
         },
         "A19": {
           "name": "A\\D\\1\\1\\",
-          "net": "A\\D\\1\\1\\"
+          "net": "A\\D\\1\\1\\",
+          "type": "bidirectional"
         },
         "A20": {
           "name": "A\\D\\3\\",
-          "net": "A\\D\\3\\"
+          "net": "A\\D\\3\\",
+          "type": "bidirectional"
         },
         "A21": {
           "name": "A\\D\\1\\",
-          "net": "A\\D\\1\\"
+          "net": "A\\D\\1\\",
+          "type": "bidirectional"
         },
         "A22": {
           "name": "A\\D\\1\\3\\",
-          "net": "A\\D\\1\\3\\"
+          "net": "A\\D\\1\\3\\",
+          "type": "bidirectional"
         },
         "A23": {
           "name": "BB",
-          "net": ""
+          "net": "",
+          "type": "tristate"
         },
         "A24": {
           "name": "+5",
-          "net": "+5"
+          "net": "+5",
+          "type": "power"
         }
       },
       "comment": "EDGE",
@@ -3308,83 +4316,103 @@
       "pins": {
         "1": {
           "name": "T/R\\",
-          "net": "T/R\\"
+          "net": "T/R\\",
+          "type": "input"
         },
         "2": {
           "name": "0",
-          "net": "AD11"
+          "net": "AD11",
+          "type": "bidirectional"
         },
         "3": {
           "name": "1",
-          "net": "AD8"
+          "net": "AD8",
+          "type": "bidirectional"
         },
         "4": {
           "name": "2",
-          "net": "AD9"
+          "net": "AD9",
+          "type": "bidirectional"
         },
         "5": {
           "name": "3",
-          "net": "AD6"
+          "net": "AD6",
+          "type": "bidirectional"
         },
         "6": {
           "name": "4",
-          "net": "AD7"
+          "net": "AD7",
+          "type": "bidirectional"
         },
         "7": {
           "name": "5",
-          "net": "AD4"
+          "net": "AD4",
+          "type": "bidirectional"
         },
         "8": {
           "name": "6",
-          "net": "AD5"
+          "net": "AD5",
+          "type": "bidirectional"
         },
         "9": {
           "name": "7",
-          "net": "AD15"
+          "net": "AD15",
+          "type": "bidirectional"
         },
         "10": {
           "name": "GND",
-          "net": ""
+          "net": "",
+          "type": "power"
         },
         "11": {
           "name": "7",
-          "net": "A\\D\\1\\5\\"
+          "net": "A\\D\\1\\5\\",
+          "type": "bidirectional"
         },
         "12": {
           "name": "6",
-          "net": "A\\D\\5\\"
+          "net": "A\\D\\5\\",
+          "type": "bidirectional"
         },
         "13": {
           "name": "5",
-          "net": "A\\D\\4\\"
+          "net": "A\\D\\4\\",
+          "type": "bidirectional"
         },
         "14": {
           "name": "4",
-          "net": "A\\D\\7\\"
+          "net": "A\\D\\7\\",
+          "type": "bidirectional"
         },
         "15": {
           "name": "3",
-          "net": "A\\D\\6\\"
+          "net": "A\\D\\6\\",
+          "type": "bidirectional"
         },
         "16": {
           "name": "2",
-          "net": "A\\D\\9\\"
+          "net": "A\\D\\9\\",
+          "type": "bidirectional"
         },
         "17": {
           "name": "1",
-          "net": "A\\D\\8\\"
+          "net": "A\\D\\8\\",
+          "type": "bidirectional"
         },
         "18": {
           "name": "0",
-          "net": "A\\D\\1\\1\\"
+          "net": "A\\D\\1\\1\\",
+          "type": "bidirectional"
         },
         "19": {
           "name": "E\\O\\",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "20": {
           "name": "Vcc",
-          "net": ""
+          "net": "",
+          "type": "power"
         }
       },
       "comment": "74F642N",
@@ -3394,83 +4422,103 @@
       "pins": {
         "1": {
           "name": "T/R\\",
-          "net": "T/R\\"
+          "net": "T/R\\",
+          "type": "input"
         },
         "2": {
           "name": "0",
-          "net": "AD14"
+          "net": "AD14",
+          "type": "bidirectional"
         },
         "3": {
           "name": "1",
-          "net": "AD12"
+          "net": "AD12",
+          "type": "bidirectional"
         },
         "4": {
           "name": "2",
-          "net": "AD13"
+          "net": "AD13",
+          "type": "bidirectional"
         },
         "5": {
           "name": "3",
-          "net": "AD0"
+          "net": "AD0",
+          "type": "bidirectional"
         },
         "6": {
           "name": "4",
-          "net": "AD1"
+          "net": "AD1",
+          "type": "bidirectional"
         },
         "7": {
           "name": "5",
-          "net": "AD2"
+          "net": "AD2",
+          "type": "bidirectional"
         },
         "8": {
           "name": "6",
-          "net": "AD3"
+          "net": "AD3",
+          "type": "bidirectional"
         },
         "9": {
           "name": "7",
-          "net": "AD10"
+          "net": "AD10",
+          "type": "bidirectional"
         },
         "10": {
           "name": "GND",
-          "net": ""
+          "net": "",
+          "type": "power"
         },
         "11": {
           "name": "7",
-          "net": "A\\D\\1\\0\\"
+          "net": "A\\D\\1\\0\\",
+          "type": "bidirectional"
         },
         "12": {
           "name": "6",
-          "net": "A\\D\\3\\"
+          "net": "A\\D\\3\\",
+          "type": "bidirectional"
         },
         "13": {
           "name": "5",
-          "net": "A\\D\\2\\"
+          "net": "A\\D\\2\\",
+          "type": "bidirectional"
         },
         "14": {
           "name": "4",
-          "net": "A\\D\\1\\"
+          "net": "A\\D\\1\\",
+          "type": "bidirectional"
         },
         "15": {
           "name": "3",
-          "net": "A\\D\\0\\"
+          "net": "A\\D\\0\\",
+          "type": "bidirectional"
         },
         "16": {
           "name": "2",
-          "net": "A\\D\\1\\3\\"
+          "net": "A\\D\\1\\3\\",
+          "type": "bidirectional"
         },
         "17": {
           "name": "1",
-          "net": "A\\D\\1\\2\\"
+          "net": "A\\D\\1\\2\\",
+          "type": "bidirectional"
         },
         "18": {
           "name": "0",
-          "net": "A\\D\\1\\4\\"
+          "net": "A\\D\\1\\4\\",
+          "type": "bidirectional"
         },
         "19": {
           "name": "E\\O\\",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "20": {
           "name": "Vcc",
-          "net": ""
+          "net": "",
+          "type": "power"
         }
       },
       "comment": "74F642N",
@@ -3480,59 +4528,73 @@
       "pins": {
         "1": {
           "name": "1A",
-          "net": "eD\\I\\N\\"
+          "net": "eD\\I\\N\\",
+          "type": "input"
         },
         "2": {
           "name": "1Y",
-          "net": "D\\I\\N\\"
+          "net": "D\\I\\N\\",
+          "type": "output"
         },
         "3": {
           "name": "2A",
-          "net": "eD\\O\\U\\T\\"
+          "net": "eD\\O\\U\\T\\",
+          "type": "input"
         },
         "4": {
           "name": "2Y",
-          "net": "D\\O\\U\\T\\"
+          "net": "D\\O\\U\\T\\",
+          "type": "output"
         },
         "5": {
           "name": "3A",
-          "net": "eW\\T\\B\\T\\"
+          "net": "eW\\T\\B\\T\\",
+          "type": "input"
         },
         "6": {
           "name": "3Y",
-          "net": "W\\T\\B\\T\\"
+          "net": "W\\T\\B\\T\\",
+          "type": "output"
         },
         "7": {
           "name": "GND",
-          "net": ""
+          "net": "",
+          "type": "power"
         },
         "8": {
           "name": "4Y",
-          "net": "4MHz"
+          "net": "4MHz",
+          "type": "output"
         },
         "9": {
           "name": "4A",
-          "net": "e4MHz"
+          "net": "e4MHz",
+          "type": "input"
         },
         "10": {
           "name": "5Y",
-          "net": "I\\N\\I\\T\\"
+          "net": "I\\N\\I\\T\\",
+          "type": "output"
         },
         "11": {
           "name": "5A",
-          "net": "eI\\N\\I\\T\\"
+          "net": "eI\\N\\I\\T\\",
+          "type": "input"
         },
         "12": {
           "name": "6Y",
-          "net": "S\\Y\\N\\C\\"
+          "net": "S\\Y\\N\\C\\",
+          "type": "output"
         },
         "13": {
           "name": "6A",
-          "net": "eS\\Y\\N\\C\\"
+          "net": "eS\\Y\\N\\C\\",
+          "type": "input"
         },
         "14": {
           "name": "+5",
-          "net": ""
+          "net": "",
+          "type": "power"
         }
       },
       "description": "ЛП19 6 buffers",
@@ -3541,92 +4603,194 @@
     },
     "DR2": {
       "pins": {
-        "1": "+5",
-        "2": "AD14",
-        "3": "AD12",
-        "4": "AD13",
-        "5": "AD0",
-        "6": "AD1",
-        "7": "AD2",
-        "8": "AD3",
-        "9": "AD10"
+        "1": {
+          "net": "+5",
+          "type": "passive"
+        },
+        "2": {
+          "net": "AD14",
+          "type": "passive"
+        },
+        "3": {
+          "net": "AD12",
+          "type": "passive"
+        },
+        "4": {
+          "net": "AD13",
+          "type": "passive"
+        },
+        "5": {
+          "net": "AD0",
+          "type": "passive"
+        },
+        "6": {
+          "net": "AD1",
+          "type": "passive"
+        },
+        "7": {
+          "net": "AD2",
+          "type": "passive"
+        },
+        "8": {
+          "net": "AD3",
+          "type": "passive"
+        },
+        "9": {
+          "net": "AD10",
+          "type": "passive"
+        }
       },
       "comment": "RNA8"
     },
     "DR1": {
       "pins": {
-        "1": "+5",
-        "2": "AD11",
-        "3": "AD8",
-        "4": "AD9",
-        "5": "AD6",
-        "6": "AD7",
-        "7": "AD4",
-        "8": "AD5",
-        "9": "AD15"
+        "1": {
+          "net": "+5",
+          "type": "passive"
+        },
+        "2": {
+          "net": "AD11",
+          "type": "passive"
+        },
+        "3": {
+          "net": "AD8",
+          "type": "passive"
+        },
+        "4": {
+          "net": "AD9",
+          "type": "passive"
+        },
+        "5": {
+          "net": "AD6",
+          "type": "passive"
+        },
+        "6": {
+          "net": "AD7",
+          "type": "passive"
+        },
+        "7": {
+          "net": "AD4",
+          "type": "passive"
+        },
+        "8": {
+          "net": "AD5",
+          "type": "passive"
+        },
+        "9": {
+          "net": "AD15",
+          "type": "passive"
+        }
       },
       "comment": "RNA8"
     },
     "C3": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "10u"
     },
     "C4": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "10u"
     },
     "C1": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "0.1u"
     },
     "C2": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "4.7u"
     },
     "C5": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "0.1u"
     },
     "C7": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "4.7u"
     },
     "C6": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "0.1u"
     },
     "C8": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Murata ceramic capacitor",
       "comment": "4.7u"
