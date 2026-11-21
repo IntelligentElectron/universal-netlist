@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T21:40:46.624Z",
-    "netlistHash": "sha256:7ecaf869b36f639f3f254a2f92ff45f0df451926bd76dfe9e541ceb3aeeb82ee",
+    "generatedAt": "2026-11-21T23:30:38.765Z",
+    "netlistHash": "sha256:b94ce4f916db3885ba127ef93ecb2477b220970213c661b35b0ee9dc0f0f959f",
     "origin": {
       "type": "vendor",
       "source": {
@@ -1450,17 +1450,20 @@
         "A9": {
           "name": "VBUS",
           "net": "+5V",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B4": {
           "name": "VBUS",
           "net": "+5V",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B9": {
           "name": "VBUS",
           "net": "+5V",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "A5": {
           "name": "CC1",
@@ -1500,17 +1503,20 @@
         "A12": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B1": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B12": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "A8": {
           "name": "SBU1",
@@ -2874,24 +2880,29 @@
         },
         "6": {
           "net": "/CM5/ETH_PI.TRD1_N",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "7": {
           "net": "/CM5/ETH_PI.TRD1_P",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "8": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "9": {
           "net": "/CM5/ETH_PI.TRD0_N",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "10": {
           "net": "/CM5/ETH_PI.TRD0_P",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         }
       },
       "value": "TPD4EUSB30",
@@ -2926,24 +2937,29 @@
         },
         "6": {
           "net": "/CM5/ETH_PI.TRD3_N",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "7": {
           "net": "/CM5/ETH_PI.TRD3_P",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "8": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "9": {
           "net": "/CM5/ETH_PI.TRD2_N",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "10": {
           "net": "/CM5/ETH_PI.TRD2_P",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         }
       },
       "value": "TPD4EUSB30",
@@ -3007,27 +3023,32 @@
         "6": {
           "name": "NC",
           "net": "/CM5/HDMI_PI.CK_N",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "7": {
           "name": "NC",
           "net": "/CM5/HDMI_PI.CK_P",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "8": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "9": {
           "name": "NC",
           "net": "/CM5/HDMI_PI.D0_N",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "10": {
           "name": "NC",
           "net": "/CM5/HDMI_PI.D0_P",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         }
       },
       "value": "PUSB3F96X"
@@ -3062,27 +3083,32 @@
         "6": {
           "name": "NC",
           "net": "/CM5/HDMI_PI.D1_N",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "7": {
           "name": "NC",
           "net": "/CM5/HDMI_PI.D1_P",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "8": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "9": {
           "name": "NC",
           "net": "/CM5/HDMI_PI.D2_N",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "10": {
           "name": "NC",
           "net": "/CM5/HDMI_PI.D2_P",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         }
       },
       "value": "PUSB3F96X"
@@ -3117,27 +3143,32 @@
         "6": {
           "name": "NC",
           "net": "/CM5/HDMI_PI.SCL",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "7": {
           "name": "NC",
           "net": "/CM5/HDMI_PI.SDA",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "8": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "9": {
           "name": "NC",
           "net": "/CM5/HDMI_PI.HOTPLUG",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "10": {
           "name": "NC",
           "net": "/CM5/HDMI_PI.CEC",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         }
       },
       "value": "PUSB3F96X"
@@ -3611,12 +3642,14 @@
         "2": {
           "name": "NC",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "3": {
           "name": "NC",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "4": {
           "name": "SPC",
@@ -3661,7 +3694,8 @@
         "12": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "13": {
           "name": "ADC3",
@@ -3691,7 +3725,8 @@
       "pins": {
         "1": {
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "2": {
           "net": "/CM5/PI_nLED_PWR",
@@ -4440,17 +4475,20 @@
         "M2": {
           "name": "GND2242",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "M3": {
           "name": "GND2260",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "M4": {
           "name": "GND2280",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         }
       },
       "value": "Bus_M.2_Socket_M",
@@ -4725,6 +4763,116 @@
       },
       "value": "Conn_01x22_Female",
       "description": "Generic connector, single row, 01x22, script generated"
+    }
+  },
+  "netProperties": {
+    "/CM5/DPHY0_P.C_P": {
+      "DIFFERENTIAL_PAIR": "/CM5/DPHY0_P.C"
+    },
+    "/CM5/DPHY0_P.C_N": {
+      "DIFFERENTIAL_PAIR": "/CM5/DPHY0_P.C"
+    },
+    "/CM5/DPHY0_P.D0_P": {
+      "DIFFERENTIAL_PAIR": "/CM5/DPHY0_P.D0"
+    },
+    "/CM5/DPHY0_P.D0_N": {
+      "DIFFERENTIAL_PAIR": "/CM5/DPHY0_P.D0"
+    },
+    "/CM5/DPHY0_P.D1_P": {
+      "DIFFERENTIAL_PAIR": "/CM5/DPHY0_P.D1"
+    },
+    "/CM5/DPHY0_P.D1_N": {
+      "DIFFERENTIAL_PAIR": "/CM5/DPHY0_P.D1"
+    },
+    "/CM5/DPHY0_P.D2_P": {
+      "DIFFERENTIAL_PAIR": "/CM5/DPHY0_P.D2"
+    },
+    "/CM5/DPHY0_P.D2_N": {
+      "DIFFERENTIAL_PAIR": "/CM5/DPHY0_P.D2"
+    },
+    "/CM5/DPHY0_P.D3_P": {
+      "DIFFERENTIAL_PAIR": "/CM5/DPHY0_P.D3"
+    },
+    "/CM5/DPHY0_P.D3_N": {
+      "DIFFERENTIAL_PAIR": "/CM5/DPHY0_P.D3"
+    },
+    "/CM5/ETH_PI.TRD0_P": {
+      "DIFFERENTIAL_PAIR": "/CM5/ETH_PI.TRD0"
+    },
+    "/CM5/ETH_PI.TRD0_N": {
+      "DIFFERENTIAL_PAIR": "/CM5/ETH_PI.TRD0"
+    },
+    "/CM5/ETH_PI.TRD1_P": {
+      "DIFFERENTIAL_PAIR": "/CM5/ETH_PI.TRD1"
+    },
+    "/CM5/ETH_PI.TRD1_N": {
+      "DIFFERENTIAL_PAIR": "/CM5/ETH_PI.TRD1"
+    },
+    "/CM5/ETH_PI.TRD2_P": {
+      "DIFFERENTIAL_PAIR": "/CM5/ETH_PI.TRD2"
+    },
+    "/CM5/ETH_PI.TRD2_N": {
+      "DIFFERENTIAL_PAIR": "/CM5/ETH_PI.TRD2"
+    },
+    "/CM5/ETH_PI.TRD3_P": {
+      "DIFFERENTIAL_PAIR": "/CM5/ETH_PI.TRD3"
+    },
+    "/CM5/ETH_PI.TRD3_N": {
+      "DIFFERENTIAL_PAIR": "/CM5/ETH_PI.TRD3"
+    },
+    "/CM5/HDMI_PI.CK_P": {
+      "DIFFERENTIAL_PAIR": "/CM5/HDMI_PI.CK"
+    },
+    "/CM5/HDMI_PI.CK_N": {
+      "DIFFERENTIAL_PAIR": "/CM5/HDMI_PI.CK"
+    },
+    "/CM5/HDMI_PI.D0_P": {
+      "DIFFERENTIAL_PAIR": "/CM5/HDMI_PI.D0"
+    },
+    "/CM5/HDMI_PI.D0_N": {
+      "DIFFERENTIAL_PAIR": "/CM5/HDMI_PI.D0"
+    },
+    "/CM5/HDMI_PI.D1_P": {
+      "DIFFERENTIAL_PAIR": "/CM5/HDMI_PI.D1"
+    },
+    "/CM5/HDMI_PI.D1_N": {
+      "DIFFERENTIAL_PAIR": "/CM5/HDMI_PI.D1"
+    },
+    "/CM5/HDMI_PI.D2_P": {
+      "DIFFERENTIAL_PAIR": "/CM5/HDMI_PI.D2"
+    },
+    "/CM5/HDMI_PI.D2_N": {
+      "DIFFERENTIAL_PAIR": "/CM5/HDMI_PI.D2"
+    },
+    "/CM5/PCIE_PI.CLK_P": {
+      "DIFFERENTIAL_PAIR": "/CM5/PCIE_PI.CLK"
+    },
+    "/CM5/PCIE_PI.CLK_N": {
+      "DIFFERENTIAL_PAIR": "/CM5/PCIE_PI.CLK"
+    },
+    "/CM5/PCIE_PI.RX_P": {
+      "DIFFERENTIAL_PAIR": "/CM5/PCIE_PI.RX"
+    },
+    "/CM5/PCIE_PI.RX_N": {
+      "DIFFERENTIAL_PAIR": "/CM5/PCIE_PI.RX"
+    },
+    "/CM5/PCIE_PI.TX_P": {
+      "DIFFERENTIAL_PAIR": "/CM5/PCIE_PI.TX"
+    },
+    "/CM5/PCIE_PI.TX_N": {
+      "DIFFERENTIAL_PAIR": "/CM5/PCIE_PI.TX"
+    },
+    "/CM5/USB2P.D_P": {
+      "DIFFERENTIAL_PAIR": "/CM5/USB2P.D"
+    },
+    "/CM5/USB2P.D_N": {
+      "DIFFERENTIAL_PAIR": "/CM5/USB2P.D"
+    },
+    "/USB_C.D_P": {
+      "DIFFERENTIAL_PAIR": "/USB_C.D"
+    },
+    "/USB_C.D_N": {
+      "DIFFERENTIAL_PAIR": "/USB_C.D"
     }
   }
 }

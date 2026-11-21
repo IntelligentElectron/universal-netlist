@@ -211,10 +211,15 @@ export const channelDocument = (
   const renameKeys = <T>(map: ReadonlyMap<string, T>): Map<string, T> =>
     new Map([...map].map(([name, value]) => [rename(name), value]));
 
+  const netProperties =
+    base.netlist.netProperties &&
+    Object.fromEntries(
+      Object.entries(base.netlist.netProperties).map(([name, value]) => [rename(name), value])
+    );
   return {
     ...base,
     placement: instance.key,
-    netlist: { nets, components },
+    netlist: { nets, components, ...(netProperties && { netProperties }) },
     links,
     nameSources: renameKeys<NetNameSource>(base.nameSources),
     netIdentifiers: renameKeys<NetIdentifierKinds>(base.netIdentifiers),

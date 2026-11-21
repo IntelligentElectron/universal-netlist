@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T21:40:46.779Z",
-    "netlistHash": "sha256:d690c8b4cbe992b18c9f5c40beaa2f353207c6c725108506199a8c43f9a3eaae",
+    "generatedAt": "2026-11-21T23:17:33.798Z",
+    "netlistHash": "sha256:98c334729c76b6cb019c1cfe5bdd59e936f42fcfe27c15f98bdd8b2fc851d27d",
     "origin": {
       "type": "vendor",
       "source": {
@@ -6381,7 +6381,8 @@
         "16": {
           "name": "GND",
           "net": "GND",
-          "type": "power_in"
+          "type": "power_in",
+          "hidden": true
         },
         "17": {
           "name": "D3",
@@ -6461,7 +6462,8 @@
         "32": {
           "name": "VCC",
           "net": "+5V",
-          "type": "power_in"
+          "type": "power_in",
+          "hidden": true
         }
       },
       "value": "SST39SF040",
@@ -6547,7 +6549,8 @@
         "16": {
           "name": "GND",
           "net": "GND",
-          "type": "power_in"
+          "type": "power_in",
+          "hidden": true
         },
         "17": {
           "name": "D3",
@@ -6627,7 +6630,8 @@
         "32": {
           "name": "VCC",
           "net": "+5V",
-          "type": "power_in"
+          "type": "power_in",
+          "hidden": true
         }
       },
       "value": "SST39SF040",
@@ -9166,7 +9170,8 @@
         "1": {
           "name": "NC",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "7": {
           "name": "GND",
@@ -12765,12 +12770,14 @@
         "16": {
           "name": "(VDD)",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "17": {
           "name": "(VDD)",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "18": {
           "name": "VDD",
@@ -14744,7 +14751,8 @@
         "2": {
           "name": "+3.3V",
           "net": "+3V3",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "3": {
           "name": "GND",
@@ -14759,17 +14767,20 @@
         "5": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "6": {
           "name": "+5V",
           "net": "+5V",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "7": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "8": {
           "name": "PWR_OK",
@@ -14789,17 +14800,20 @@
         "11": {
           "name": "+12V",
           "net": "+12V",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "12": {
           "name": "+3.3V",
           "net": "+3V3",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "13": {
           "name": "+3.3V",
           "net": "+3V3",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "14": {
           "name": "-12V",
@@ -14809,7 +14823,8 @@
         "15": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "16": {
           "name": "PS_ON#",
@@ -14819,42 +14834,50 @@
         "17": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "18": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "19": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "20": {
           "name": "NC",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "21": {
           "name": "+5V",
           "net": "+5V",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "22": {
           "name": "+5V",
           "net": "+5V",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "23": {
           "name": "+5V",
           "net": "+5V",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "24": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         }
       },
       "value": "ATX-24",

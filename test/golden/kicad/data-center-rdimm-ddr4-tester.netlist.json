@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T21:40:46.752Z",
-    "netlistHash": "sha256:e596efdc1e615787f43d82bfaf6b4020d7d7752a6d068b2359b2fb06be534a9c",
+    "generatedAt": "2026-11-21T23:30:39.129Z",
+    "netlistHash": "sha256:c72ae1c66e36f25ac9584aa30f03d3968be2be51075bef756780040709dfa146",
     "origin": {
       "type": "vendor",
       "source": {
@@ -8742,7 +8742,8 @@
         "E4": {
           "name": "VCCQ",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B3": {
           "name": "VSS",
@@ -8757,7 +8758,8 @@
         "E5": {
           "name": "VSSQ",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B1": {
           "name": "CK-",
@@ -8827,27 +8829,32 @@
         "A2": {
           "name": "NC",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "A5": {
           "name": "NC",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "B5": {
           "name": "NC",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "C2": {
           "name": "NC",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "C5": {
           "name": "NC",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         }
       },
       "value": "S27KL0641DABHI023",
@@ -8934,22 +8941,26 @@
         "1": {
           "name": "D1+",
           "net": "TMS_JTAG",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "2": {
           "name": "D1-",
           "net": "TCK_JTAG",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "3": {
           "name": "D2+",
           "net": "unconnected-(D4-D2+-Pad12)",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "4": {
           "name": "D2-",
           "net": "unconnected-(D4-D2--Pad11)",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "5": {
           "name": "GND",
@@ -8959,12 +8970,14 @@
         "6": {
           "name": "D3+",
           "net": "TDO_JTAG",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "7": {
           "name": "D3-",
           "net": "TDI_JTAG",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "8": {
           "name": "D3-",
@@ -8979,7 +8992,8 @@
         "10": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "11": {
           "name": "D2-",
@@ -9619,7 +9633,8 @@
         "9": {
           "name": "EP",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         }
       },
       "value": "S25FL128SAGNFI000",
@@ -9677,17 +9692,20 @@
         "E6": {
           "name": "MGTAVCC",
           "net": "1V0_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "G6": {
           "name": "MGTAVCC",
           "net": "1V0_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "J6": {
           "name": "MGTAVCC",
           "net": "1V0_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "J9": {
           "name": "VCCINT",
@@ -9697,52 +9715,62 @@
         "K10": {
           "name": "VCCINT",
           "net": "1V0_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "K12": {
           "name": "VCCINT",
           "net": "1V0_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "K14": {
           "name": "VCCINT",
           "net": "1V0_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "K8": {
           "name": "VCCINT",
           "net": "1V0_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "L13": {
           "name": "VCCINT",
           "net": "1V0_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "L15": {
           "name": "VCCINT",
           "net": "1V0_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "L6": {
           "name": "MGTAVCC",
           "net": "1V0_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "L9": {
           "name": "VCCINT",
           "net": "1V0_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "M14": {
           "name": "VCCINT",
           "net": "1V0_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "M8": {
           "name": "VCCINT",
           "net": "1V0_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "N13": {
           "name": "VCCBRAM",
@@ -9752,47 +9780,56 @@
         "N15": {
           "name": "VCCINT",
           "net": "1V0_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "N9": {
           "name": "VCCINT",
           "net": "1V0_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "P14": {
           "name": "VCCINT",
           "net": "1V0_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "R13": {
           "name": "VCCBRAM",
           "net": "1V0_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "R15": {
           "name": "VCCINT",
           "net": "1V0_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "T12": {
           "name": "VCCBRAM",
           "net": "1V0_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "T14": {
           "name": "VCCINT",
           "net": "1V0_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "U13": {
           "name": "VCCBRAM",
           "net": "1V0_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "U15": {
           "name": "VCCINT",
           "net": "1V0_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B3": {
           "name": "MGTAVTT",
@@ -9802,32 +9839,38 @@
         "C2": {
           "name": "MGTAVTT",
           "net": "1V2_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "D3": {
           "name": "MGTAVTT",
           "net": "1V2_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "G2": {
           "name": "MGTAVTT",
           "net": "1V2_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "H3": {
           "name": "MGTAVTT",
           "net": "1V2_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "L2": {
           "name": "MGTAVTT",
           "net": "1V2_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "M3": {
           "name": "MGTAVTT",
           "net": "1V2_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "M5": {
           "name": "MGTAVTTRCAL_115",
@@ -9847,7 +9890,8 @@
         "M10": {
           "name": "VCCAUX",
           "net": "1V8_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "M12": {
           "name": "VCCADC_0",
@@ -9862,7 +9906,8 @@
         "P10": {
           "name": "VCCAUX",
           "net": "1V8_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "P8": {
           "name": "VCCAUX_IO_G0",
@@ -9872,22 +9917,26 @@
         "R9": {
           "name": "VCCAUX_IO_G0",
           "net": "1V8_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "T10": {
           "name": "VCCAUX",
           "net": "1V8_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "T8": {
           "name": "VCCAUX_IO_G0",
           "net": "1V8_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "U11": {
           "name": "VCCAUX",
           "net": "1V8_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "A11": {
           "name": "VCCO_16",
@@ -9907,17 +9956,20 @@
         "AC25": {
           "name": "VCCO_12",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "AD22": {
           "name": "VCCO_12",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "AF26": {
           "name": "VCCO_12",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B18": {
           "name": "VCCO_15",
@@ -9927,77 +9979,92 @@
         "B8": {
           "name": "VCCO_16",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "C15": {
           "name": "VCCO_16",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "C25": {
           "name": "VCCO_14",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "D12": {
           "name": "VCCO_16",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "D22": {
           "name": "VCCO_14",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "E19": {
           "name": "VCCO_15",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "E9": {
           "name": "VCCO_16",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "F16": {
           "name": "VCCO_15",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "F26": {
           "name": "VCCO_14",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "G13": {
           "name": "VCCO_16",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "G23": {
           "name": "VCCO_14",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "H10": {
           "name": "VCCO_16",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "H20": {
           "name": "VCCO_15",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "J17": {
           "name": "VCCO_15",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "L21": {
           "name": "VCCO_14",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "L7": {
           "name": "VCCO_0",
@@ -10007,27 +10074,32 @@
         "M18": {
           "name": "VCCO_15",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "T6": {
           "name": "VCCO_0",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "U23": {
           "name": "VCCO_12",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "V20": {
           "name": "VCCO_12",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "Y24": {
           "name": "VCCO_12",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "AF10": {
           "name": "IO_L24P_T3_33",
@@ -11132,362 +11204,434 @@
         "A16": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "A2": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "A26": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "A5": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "A6": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "A7": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "AA16": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "AA26": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "AA6": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "AB13": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "AB23": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "AB3": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "AC10": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "AC20": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "AD17": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "AD7": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "AE14": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "AE24": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "AE4": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "AF1": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "AF11": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "AF21": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B13": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B23": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B4": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B7": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "C1": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "C10": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "C20": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "C5": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "C7": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "D17": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "D4": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "D7": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "E1": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "E14": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "E2": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "E24": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "E5": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "E7": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "F11": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "F21": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "F3": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "F4": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "F7": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "G1": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "G18": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "G5": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "G8": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "H15": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "H25": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "H4": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "H7": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "J1": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "J12": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "J2": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "J22": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "J5": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "K11": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "K13": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "K19": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "K3": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "K4": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "K7": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "K9": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "L1": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "L10": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "L12": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "L14": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "L16": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "L26": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "L5": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "M11": {
           "name": "GNDADC_0",
@@ -11497,42 +11641,50 @@
         "M13": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "M15": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "M23": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "M4": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "M7": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "M9": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "N1": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "N10": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "N11": {
           "name": "VREFN_0",
@@ -11547,27 +11699,32 @@
         "N14": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "N2": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "N20": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "N5": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "N7": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "P11": {
           "name": "VN_0",
@@ -11582,42 +11739,50 @@
         "P13": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "P15": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "P17": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "P3": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "P4": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "P9": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "R1": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "R10": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "R11": {
           "name": "DXN_0",
@@ -11632,132 +11797,158 @@
         "R14": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "R2": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "R24": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "R5": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "R8": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "T1": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "T11": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "T13": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "T15": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "T21": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "T3": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "T4": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "T9": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "U10": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "U12": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "U14": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "U18": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "U8": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "V15": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "V25": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "V5": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "W12": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "W2": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "W22": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "Y19": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "Y9": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B5": {
           "name": "MGTXRXN3_116",
@@ -12257,47 +12448,56 @@
         "AB8": {
           "name": "VCCO_33",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "AC15": {
           "name": "VCCO_32",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "AC5": {
           "name": "VCCO_34",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "AD12": {
           "name": "VCCO_33",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "AD2": {
           "name": "VCCO_34",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "AE19": {
           "name": "VCCO_32",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "AE9": {
           "name": "VCCO_33",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "AF16": {
           "name": "VCCO_32",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "AF6": {
           "name": "VCCO_34",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "K24": {
           "name": "VCCO_13",
@@ -12307,57 +12507,68 @@
         "N25": {
           "name": "VCCO_13",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "P22": {
           "name": "VCCO_13",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "R19": {
           "name": "VCCO_13",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "T16": {
           "name": "VCCO_13",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "T26": {
           "name": "VCCO_13",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "U3": {
           "name": "VCCO_34",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "V10": {
           "name": "VCCO_33",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "W17": {
           "name": "VCCO_32",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "W7": {
           "name": "VCCO_33",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "Y14": {
           "name": "VCCO_32",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "Y4": {
           "name": "VCCO_34",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "AE11": {
           "name": "IO_L19N_T3_VREF_33",
@@ -13596,7 +13807,8 @@
         "2": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "3": {
           "name": "DQ4",
@@ -13606,7 +13818,8 @@
         "4": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "5": {
           "name": "DQ0",
@@ -13616,7 +13829,8 @@
         "6": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "7": {
           "name": "DQS9_t",
@@ -13631,7 +13845,8 @@
         "9": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "10": {
           "name": "DQ6",
@@ -13641,7 +13856,8 @@
         "11": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "12": {
           "name": "DQ2",
@@ -13651,7 +13867,8 @@
         "13": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "14": {
           "name": "DQ12",
@@ -13661,7 +13878,8 @@
         "15": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "16": {
           "name": "DQ8",
@@ -13671,7 +13889,8 @@
         "17": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "18": {
           "name": "DQS10_t",
@@ -13686,7 +13905,8 @@
         "20": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "21": {
           "name": "DQ14",
@@ -13696,7 +13916,8 @@
         "22": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "23": {
           "name": "DQ10",
@@ -13706,7 +13927,8 @@
         "24": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "25": {
           "name": "DQ20",
@@ -13716,7 +13938,8 @@
         "26": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "27": {
           "name": "DQ16",
@@ -13726,7 +13949,8 @@
         "28": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "29": {
           "name": "DQS11_t",
@@ -13741,7 +13965,8 @@
         "31": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "32": {
           "name": "DQ22",
@@ -13751,7 +13976,8 @@
         "33": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "34": {
           "name": "DQ18",
@@ -13761,7 +13987,8 @@
         "35": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "36": {
           "name": "DQ28",
@@ -13771,7 +13998,8 @@
         "37": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "38": {
           "name": "DQ24",
@@ -13781,7 +14009,8 @@
         "39": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "40": {
           "name": "DQS12_t",
@@ -13796,7 +14025,8 @@
         "42": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "43": {
           "name": "DQ30",
@@ -13806,7 +14036,8 @@
         "44": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "45": {
           "name": "DQ26",
@@ -13816,7 +14047,8 @@
         "46": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "47": {
           "name": "CB4",
@@ -13826,7 +14058,8 @@
         "48": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "49": {
           "name": "CB0",
@@ -13836,7 +14069,8 @@
         "50": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "51": {
           "name": "DQS17_t",
@@ -13851,7 +14085,8 @@
         "53": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "54": {
           "name": "CB6",
@@ -13861,7 +14096,8 @@
         "55": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "56": {
           "name": "CB2",
@@ -13881,7 +14117,8 @@
         "59": {
           "name": "VDD",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "60": {
           "name": "CKE0",
@@ -13891,7 +14128,8 @@
         "61": {
           "name": "VDD",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "62": {
           "name": "ACT_n",
@@ -13906,7 +14144,8 @@
         "64": {
           "name": "VDD",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "65": {
           "name": "A12/BC_n",
@@ -13921,7 +14160,8 @@
         "67": {
           "name": "VDD",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "68": {
           "name": "A8",
@@ -13936,7 +14176,8 @@
         "70": {
           "name": "VDD",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "71": {
           "name": "A3",
@@ -13951,7 +14192,8 @@
         "73": {
           "name": "VDD",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "74": {
           "name": "CK0_t",
@@ -13966,12 +14208,14 @@
         "76": {
           "name": "VDD",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "77": {
           "name": "VTT",
           "net": "VTT",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "78": {
           "name": "EVENT_n",
@@ -13986,7 +14230,8 @@
         "80": {
           "name": "VDD",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "81": {
           "name": "BA0",
@@ -14001,7 +14246,8 @@
         "83": {
           "name": "VDD",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "84": {
           "name": "CS0_n",
@@ -14011,7 +14257,8 @@
         "85": {
           "name": "VDD",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "86": {
           "name": "CAS_n/A15",
@@ -14026,7 +14273,8 @@
         "88": {
           "name": "VDD",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "89": {
           "name": "CS1_n",
@@ -14036,7 +14284,8 @@
         "90": {
           "name": "VDD",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "91": {
           "name": "ODT1",
@@ -14046,7 +14295,8 @@
         "92": {
           "name": "VDD",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "93": {
           "name": "C0/CS2_n",
@@ -14056,7 +14306,8 @@
         "94": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "95": {
           "name": "DQ36",
@@ -14066,7 +14317,8 @@
         "96": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "97": {
           "name": "DQ32",
@@ -14076,7 +14328,8 @@
         "98": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "99": {
           "name": "DQS13_t",
@@ -14101,7 +14354,8 @@
         "103": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "104": {
           "name": "DQ34",
@@ -14111,7 +14365,8 @@
         "105": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "106": {
           "name": "DQ44",
@@ -14121,7 +14376,8 @@
         "107": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "108": {
           "name": "DQ40",
@@ -14131,7 +14387,8 @@
         "109": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "110": {
           "name": "DQS14_t",
@@ -14146,7 +14403,8 @@
         "112": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "113": {
           "name": "DQ46",
@@ -14156,7 +14414,8 @@
         "114": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "115": {
           "name": "DQ42",
@@ -14166,7 +14425,8 @@
         "116": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "117": {
           "name": "DQ52",
@@ -14176,7 +14436,8 @@
         "118": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "119": {
           "name": "DQ48",
@@ -14186,7 +14447,8 @@
         "120": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "121": {
           "name": "DQS15_t",
@@ -14201,7 +14463,8 @@
         "123": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "124": {
           "name": "DQ54",
@@ -14211,7 +14474,8 @@
         "125": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "126": {
           "name": "DQ50",
@@ -14221,7 +14485,8 @@
         "127": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "128": {
           "name": "DQ60",
@@ -14231,7 +14496,8 @@
         "129": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "130": {
           "name": "DQ56",
@@ -14241,7 +14507,8 @@
         "131": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "132": {
           "name": "DQS16_t",
@@ -14256,7 +14523,8 @@
         "134": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "135": {
           "name": "DQ62",
@@ -14266,7 +14534,8 @@
         "136": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "137": {
           "name": "DQ58",
@@ -14276,7 +14545,8 @@
         "138": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "139": {
           "name": "SA0",
@@ -14301,17 +14571,20 @@
         "143": {
           "name": "VPP",
           "net": "VPP",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "144": {
           "name": "RFU",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "145": {
           "name": "12V/NC",
           "net": "NC",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "146": {
           "name": "VREFCA",
@@ -14321,7 +14594,8 @@
         "147": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "148": {
           "name": "DQ5",
@@ -14331,7 +14605,8 @@
         "149": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "150": {
           "name": "DQ1",
@@ -14341,7 +14616,8 @@
         "151": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "152": {
           "name": "DQS0_c",
@@ -14356,7 +14632,8 @@
         "154": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "155": {
           "name": "DQ7",
@@ -14366,7 +14643,8 @@
         "156": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "157": {
           "name": "DQ3",
@@ -14376,7 +14654,8 @@
         "158": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "159": {
           "name": "DQ13",
@@ -14386,7 +14665,8 @@
         "160": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "161": {
           "name": "DQ9",
@@ -14396,7 +14676,8 @@
         "162": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "163": {
           "name": "DQS1_c",
@@ -14411,7 +14692,8 @@
         "165": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "166": {
           "name": "DQ15",
@@ -14421,7 +14703,8 @@
         "167": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "168": {
           "name": "DQ11",
@@ -14431,7 +14714,8 @@
         "169": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "170": {
           "name": "DQ21",
@@ -14441,7 +14725,8 @@
         "171": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "172": {
           "name": "DQ17",
@@ -14451,7 +14736,8 @@
         "173": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "174": {
           "name": "DQS2_c",
@@ -14466,7 +14752,8 @@
         "176": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "177": {
           "name": "DQ23",
@@ -14476,7 +14763,8 @@
         "178": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "179": {
           "name": "DQ19",
@@ -14486,7 +14774,8 @@
         "180": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "181": {
           "name": "DQ29",
@@ -14496,7 +14785,8 @@
         "182": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "183": {
           "name": "DQ25",
@@ -14506,7 +14796,8 @@
         "184": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "185": {
           "name": "DQS3_c",
@@ -14521,7 +14812,8 @@
         "187": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "188": {
           "name": "DQ31",
@@ -14531,7 +14823,8 @@
         "189": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "190": {
           "name": "DQ27",
@@ -14541,7 +14834,8 @@
         "191": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "192": {
           "name": "CB5",
@@ -14551,7 +14845,8 @@
         "193": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "194": {
           "name": "CB1",
@@ -14561,7 +14856,8 @@
         "195": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "196": {
           "name": "DQS8_c",
@@ -14576,7 +14872,8 @@
         "198": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "199": {
           "name": "CB7",
@@ -14586,7 +14883,8 @@
         "200": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "201": {
           "name": "CB3",
@@ -14596,7 +14894,8 @@
         "202": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "203": {
           "name": "CKE1",
@@ -14611,12 +14910,14 @@
         "205": {
           "name": "RFU",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "206": {
           "name": "VDD",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "207": {
           "name": "BG1",
@@ -14631,7 +14932,8 @@
         "209": {
           "name": "VDD",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "210": {
           "name": "A11",
@@ -14646,7 +14948,8 @@
         "212": {
           "name": "VDD",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "213": {
           "name": "A5",
@@ -14661,7 +14964,8 @@
         "215": {
           "name": "VDD",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "216": {
           "name": "A2",
@@ -14671,7 +14975,8 @@
         "217": {
           "name": "VDD",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "218": {
           "name": "CK1_t",
@@ -14686,7 +14991,8 @@
         "220": {
           "name": "VDD",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "221": {
           "name": "VTT",
@@ -14701,7 +15007,8 @@
         "223": {
           "name": "VDD",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "224": {
           "name": "BA1",
@@ -14716,12 +15023,14 @@
         "226": {
           "name": "VDD",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "227": {
           "name": "RFU",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "228": {
           "name": "WE_n/A14",
@@ -14731,7 +15040,8 @@
         "229": {
           "name": "VDD",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "230": {
           "name": "SAVE_n",
@@ -14741,7 +15051,8 @@
         "231": {
           "name": "VDD",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "232": {
           "name": "A13",
@@ -14751,7 +15062,8 @@
         "233": {
           "name": "VDD",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "234": {
           "name": "NC/A17",
@@ -14766,7 +15078,8 @@
         "236": {
           "name": "VDD",
           "net": "VDDQ",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "237": {
           "name": "CS3_n/C1",
@@ -14781,7 +15094,8 @@
         "239": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "240": {
           "name": "DQ37",
@@ -14791,7 +15105,8 @@
         "241": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "242": {
           "name": "DQ33",
@@ -14801,7 +15116,8 @@
         "243": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "244": {
           "name": "DQS4_c",
@@ -14816,7 +15132,8 @@
         "246": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "247": {
           "name": "DQ39",
@@ -14826,7 +15143,8 @@
         "248": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "249": {
           "name": "DQ35",
@@ -14836,7 +15154,8 @@
         "250": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "251": {
           "name": "DQ45",
@@ -14846,7 +15165,8 @@
         "252": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "253": {
           "name": "DQ41",
@@ -14856,7 +15176,8 @@
         "254": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "255": {
           "name": "DQS5_c",
@@ -14871,7 +15192,8 @@
         "257": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "258": {
           "name": "DQ47",
@@ -14881,7 +15203,8 @@
         "259": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "260": {
           "name": "DQ43",
@@ -14891,7 +15214,8 @@
         "261": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "262": {
           "name": "DQ53",
@@ -14901,7 +15225,8 @@
         "263": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "264": {
           "name": "DQ49",
@@ -14911,7 +15236,8 @@
         "265": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "266": {
           "name": "DQS6_c",
@@ -14926,7 +15252,8 @@
         "268": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "269": {
           "name": "DQ55",
@@ -14936,7 +15263,8 @@
         "270": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "271": {
           "name": "DQ51",
@@ -14946,7 +15274,8 @@
         "272": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "273": {
           "name": "DQ61",
@@ -14956,7 +15285,8 @@
         "274": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "275": {
           "name": "DQ57",
@@ -14966,7 +15296,8 @@
         "276": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "277": {
           "name": "DQS7_c",
@@ -14981,7 +15312,8 @@
         "279": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "280": {
           "name": "DQ63",
@@ -14991,7 +15323,8 @@
         "281": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "282": {
           "name": "DQ59",
@@ -15001,7 +15334,8 @@
         "283": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "284": {
           "name": "VDDSPD",
@@ -15016,17 +15350,20 @@
         "286": {
           "name": "VPP",
           "net": "VPP",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "287": {
           "name": "VPP",
           "net": "VPP",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "288": {
           "name": "VPP",
           "net": "VPP",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "MP1": {
           "name": "MP",
@@ -17241,7 +17578,8 @@
         "5": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "6": {
           "name": "D1-",
@@ -17256,7 +17594,8 @@
         "8": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "9": {
           "name": "D2-",
@@ -17271,7 +17610,8 @@
         "11": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "12": {
           "name": "D3-",
@@ -17286,12 +17626,14 @@
         "14": {
           "name": "NC",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "15": {
           "name": "VCC",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         }
       },
       "value": "TPD8S009DSMR",
@@ -17472,7 +17814,8 @@
         "B7": {
           "name": "D-",
           "net": "DBG_USB_N",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "A6": {
           "name": "D+",
@@ -17482,7 +17825,8 @@
         "B6": {
           "name": "D+",
           "net": "DBG_USB_P",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "A1": {
           "name": "GND",
@@ -17492,17 +17836,20 @@
         "A12": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B1": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B12": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "SH": {
           "name": "SHIELD",
@@ -17527,17 +17874,20 @@
         "A9": {
           "name": "VBUS",
           "net": "VBUS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B4": {
           "name": "VBUS",
           "net": "VBUS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B9": {
           "name": "VBUS",
           "net": "VBUS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "A8": {
           "name": "SBU1",
@@ -18677,7 +19027,8 @@
         "31": {
           "name": "V_{CORE}",
           "net": "1V8_FT",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "32": {
           "name": "CDBUS0",
@@ -18702,7 +19053,8 @@
         "36": {
           "name": "V_{CCIO}",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "37": {
           "name": "CDBUS4",
@@ -18727,7 +19079,8 @@
         "41": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "42": {
           "name": "DDBUS0",
@@ -18747,7 +19100,8 @@
         "45": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "46": {
           "name": "DDBUS1",
@@ -18772,7 +19126,8 @@
         "50": {
           "name": "V_{CCIO}",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "51": {
           "name": "DDBUS5",
@@ -18807,7 +19162,8 @@
         "57": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         }
       },
       "value": "FT4232H_VQFN",
@@ -18843,7 +19199,8 @@
         "4": {
           "name": "SH",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         }
       },
       "value": "Oscillator_SMD_12MHz_KX-7",
@@ -19801,7 +20158,8 @@
         "20": {
           "name": "SHIELD",
           "net": "GNDS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         }
       },
       "value": "Bus_RJ45_5-2337992-8",
@@ -20834,7 +21192,8 @@
         "9": {
           "name": "AVDDL",
           "net": "/Ethernet/AVDDL",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "10": {
           "name": "TXRXP_D",
@@ -20849,12 +21208,14 @@
         "12": {
           "name": "AVDDH",
           "net": "/Ethernet/AVDDH",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "13": {
           "name": "NC",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "14": {
           "name": "DVDDL",
@@ -20879,7 +21240,8 @@
         "18": {
           "name": "DVDDL",
           "net": "1V2_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "19": {
           "name": "TXD0",
@@ -20904,7 +21266,8 @@
         "23": {
           "name": "DVDDL",
           "net": "1V2_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "24": {
           "name": "GTX_CLK",
@@ -20919,7 +21282,8 @@
         "26": {
           "name": "DVDDL",
           "net": "1V2_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "27": {
           "name": "RXD3/MODE3",
@@ -20939,7 +21303,8 @@
         "30": {
           "name": "DVDDL",
           "net": "1V2_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "31": {
           "name": "RXD1/MODE1",
@@ -20959,7 +21324,8 @@
         "34": {
           "name": "DVDDH",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "35": {
           "name": "RX_CLK/PHYAD2",
@@ -20984,12 +21350,14 @@
         "39": {
           "name": "DVDDL",
           "net": "1V2_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "40": {
           "name": "DVDDH",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "41": {
           "name": "CLK125_NDO/LED_MODE",
@@ -21024,7 +21392,8 @@
         "47": {
           "name": "NC",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "48": {
           "name": "ISET",
@@ -21112,12 +21481,14 @@
         "14": {
           "name": "NC",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "15": {
           "name": "NC",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "16": {
           "name": "IRSHDL_EN",
@@ -21142,7 +21513,8 @@
         "20": {
           "name": "NC",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "21": {
           "name": "PAD_VSSC",
@@ -21175,17 +21547,20 @@
         "4": {
           "name": "VCC",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "5": {
           "name": "NC",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "6": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "7": {
           "name": "A2",
@@ -21200,7 +21575,8 @@
         "9": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "10": {
           "name": "VCC",
@@ -21220,7 +21596,8 @@
         "13": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "14": {
           "name": "A6",
@@ -21235,7 +21612,8 @@
         "16": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "17": {
           "name": "SEL",
@@ -21245,7 +21623,8 @@
         "18": {
           "name": "VCC",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "19": {
           "name": "LED0",
@@ -21260,7 +21639,8 @@
         "21": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "22": {
           "name": "0LED1",
@@ -21275,7 +21655,8 @@
         "24": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "25": {
           "name": "0LED2",
@@ -21290,12 +21671,14 @@
         "27": {
           "name": "VCC",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "28": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "29": {
           "name": "7B2",
@@ -21320,7 +21703,8 @@
         "33": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "34": {
           "name": "5B2",
@@ -21345,12 +21729,14 @@
         "38": {
           "name": "VCC",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "39": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "40": {
           "name": "3B2",
@@ -21375,7 +21761,8 @@
         "44": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "45": {
           "name": "1B2",
@@ -21400,12 +21787,14 @@
         "49": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "50": {
           "name": "VCC",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "51": {
           "name": "2LED2",
@@ -21420,7 +21809,8 @@
         "53": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "54": {
           "name": "LED2",
@@ -21430,12 +21820,14 @@
         "55": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "56": {
           "name": "VCC",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "57": {
           "name": "EP",
@@ -21466,7 +21858,8 @@
         "4": {
           "name": "SH",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         }
       },
       "value": "Oscillator_SMD_25MHz_KX-7",
@@ -23054,7 +23447,8 @@
         },
         "2": {
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "3": {
           "net": "Net-(U27-~{OE})",
@@ -23145,7 +23539,8 @@
         "11": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         }
       },
       "value": "TPS54561QDPRRQ1",
@@ -24719,7 +25114,8 @@
         "16": {
           "name": "PGND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "17": {
           "name": "SW",
@@ -25079,7 +25475,8 @@
         "17": {
           "name": "EP",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         }
       },
       "value": "PAC1954T-E_VQFN",
@@ -25172,7 +25569,8 @@
         "17": {
           "name": "EP",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         }
       },
       "value": "PAC1954T-E_VQFN",
@@ -25330,7 +25728,8 @@
         "4": {
           "name": "NC",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "5": {
           "name": "V_{OUT}",
@@ -25960,17 +26359,20 @@
         "D36": {
           "name": "3P3V",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "D38": {
           "name": "3P3V",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "D40": {
           "name": "3P3V",
           "net": "3V3_SYS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "C35": {
           "name": "12P0V",
@@ -25980,7 +26382,8 @@
         "C37": {
           "name": "12P0V",
           "net": "12P0V",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "D34": {
           "name": "TRST_L",
@@ -26310,197 +26713,236 @@
         "A12": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "A13": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "A16": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "A17": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "A20": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "A21": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "A24": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "A25": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "A28": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "A29": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "A32": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "A33": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "A36": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "A37": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "A4": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "A40": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "A5": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "A8": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "A9": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B10": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B11": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B14": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B15": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B18": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B19": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B2": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B22": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B23": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B26": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B27": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B3": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B30": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B31": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B34": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B35": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B38": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B39": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B6": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B7": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "C1": {
           "name": "GND",
@@ -26510,162 +26952,194 @@
         "C12": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "C13": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "C16": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "C17": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "C20": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "C21": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "C24": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "C25": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "C28": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "C29": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "C32": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "C33": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "C36": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "C38": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "C4": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "C40": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "C5": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "C8": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "C9": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "D10": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "D13": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "D16": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "D19": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "D2": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "D22": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "D25": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "D28": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "D3": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "D37": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "D39": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "D6": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "D7": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "E1": {
           "name": "GND",
@@ -26675,142 +27149,170 @@
         "E11": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "E14": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "E17": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "E20": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "E23": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "E26": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "E29": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "E32": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "E35": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "E38": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "E4": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "E40": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "E5": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "E8": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "F12": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "F15": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "F18": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "F2": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "F21": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "F24": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "F27": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "F3": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "F30": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "F33": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "F36": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "F39": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "F6": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "F9": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "G1": {
           "name": "GND",
@@ -26820,137 +27322,164 @@
         "G11": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "G14": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "G17": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "G20": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "G23": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "G26": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "G29": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "G32": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "G35": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "G38": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "G4": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "G40": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "G5": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "G8": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "H12": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "H15": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "H18": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "H21": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "H24": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "H27": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "H3": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "H30": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "H33": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "H36": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "H39": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "H6": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "H9": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "J1": {
           "name": "GND",
@@ -26960,142 +27489,170 @@
         "J11": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "J14": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "J17": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "J20": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "J23": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "J26": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "J29": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "J32": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "J35": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "J38": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "J4": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "J40": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "J5": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "J8": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "K12": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "K15": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "K18": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "K2": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "K21": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "K24": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "K27": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "K3": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "K30": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "K33": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "K36": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "K39": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "K6": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "K9": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "C7": {
           "name": "DP0_{M2C}-",
@@ -28075,6 +28632,698 @@
       },
       "value": "TP_0.75mm_SMD",
       "description": "Test Point 0.75mm"
+    }
+  },
+  "netProperties": {
+    "/Ethernet/ETH1_BP_P": {
+      "DIFFERENTIAL_PAIR": "/Ethernet/ETH1_BP"
+    },
+    "/Ethernet/ETH1_BP_N": {
+      "DIFFERENTIAL_PAIR": "/Ethernet/ETH1_BP"
+    },
+    "/Ethernet/ETH1_P": {
+      "DIFFERENTIAL_PAIR": "/Ethernet/ETH1"
+    },
+    "/Ethernet/ETH1_N": {
+      "DIFFERENTIAL_PAIR": "/Ethernet/ETH1"
+    },
+    "/Ethernet/ETH2_BP_P": {
+      "DIFFERENTIAL_PAIR": "/Ethernet/ETH2_BP"
+    },
+    "/Ethernet/ETH2_BP_N": {
+      "DIFFERENTIAL_PAIR": "/Ethernet/ETH2_BP"
+    },
+    "/Ethernet/ETH2_P": {
+      "DIFFERENTIAL_PAIR": "/Ethernet/ETH2"
+    },
+    "/Ethernet/ETH2_N": {
+      "DIFFERENTIAL_PAIR": "/Ethernet/ETH2"
+    },
+    "/Ethernet/ETH3_BP_P": {
+      "DIFFERENTIAL_PAIR": "/Ethernet/ETH3_BP"
+    },
+    "/Ethernet/ETH3_BP_N": {
+      "DIFFERENTIAL_PAIR": "/Ethernet/ETH3_BP"
+    },
+    "/Ethernet/ETH3_P": {
+      "DIFFERENTIAL_PAIR": "/Ethernet/ETH3"
+    },
+    "/Ethernet/ETH3_N": {
+      "DIFFERENTIAL_PAIR": "/Ethernet/ETH3"
+    },
+    "/Ethernet/ETH4_BP_P": {
+      "DIFFERENTIAL_PAIR": "/Ethernet/ETH4_BP"
+    },
+    "/Ethernet/ETH4_BP_N": {
+      "DIFFERENTIAL_PAIR": "/Ethernet/ETH4_BP"
+    },
+    "/Ethernet/ETH4_P": {
+      "DIFFERENTIAL_PAIR": "/Ethernet/ETH4"
+    },
+    "/Ethernet/ETH4_N": {
+      "DIFFERENTIAL_PAIR": "/Ethernet/ETH4"
+    },
+    "/Ethernet/INT_ETH1_P": {
+      "DIFFERENTIAL_PAIR": "/Ethernet/INT_ETH1"
+    },
+    "/Ethernet/INT_ETH1_N": {
+      "DIFFERENTIAL_PAIR": "/Ethernet/INT_ETH1"
+    },
+    "/Ethernet/INT_ETH2_P": {
+      "DIFFERENTIAL_PAIR": "/Ethernet/INT_ETH2"
+    },
+    "/Ethernet/INT_ETH2_N": {
+      "DIFFERENTIAL_PAIR": "/Ethernet/INT_ETH2"
+    },
+    "/Ethernet/INT_ETH3_P": {
+      "DIFFERENTIAL_PAIR": "/Ethernet/INT_ETH3"
+    },
+    "/Ethernet/INT_ETH3_N": {
+      "DIFFERENTIAL_PAIR": "/Ethernet/INT_ETH3"
+    },
+    "/Ethernet/INT_ETH4_P": {
+      "DIFFERENTIAL_PAIR": "/Ethernet/INT_ETH4"
+    },
+    "/Ethernet/INT_ETH4_N": {
+      "DIFFERENTIAL_PAIR": "/Ethernet/INT_ETH4"
+    },
+    "/FMC HPC/GTR_REFCLK0_R_P": {
+      "DIFFERENTIAL_PAIR": "/FMC HPC/GTR_REFCLK0_R"
+    },
+    "/FMC HPC/GTR_REFCLK0_R_N": {
+      "DIFFERENTIAL_PAIR": "/FMC HPC/GTR_REFCLK0_R"
+    },
+    "/FMC HPC/GTR_REFCLK1_R_P": {
+      "DIFFERENTIAL_PAIR": "/FMC HPC/GTR_REFCLK1_R"
+    },
+    "/FMC HPC/GTR_REFCLK1_R_N": {
+      "DIFFERENTIAL_PAIR": "/FMC HPC/GTR_REFCLK1_R"
+    },
+    "/FMC HPC/GTR_REFCLK2_R_P": {
+      "DIFFERENTIAL_PAIR": "/FMC HPC/GTR_REFCLK2_R"
+    },
+    "/FMC HPC/GTR_REFCLK2_R_N": {
+      "DIFFERENTIAL_PAIR": "/FMC HPC/GTR_REFCLK2_R"
+    },
+    "/FMC HPC/GTR_REFCLK3_R_P": {
+      "DIFFERENTIAL_PAIR": "/FMC HPC/GTR_REFCLK3_R"
+    },
+    "/FMC HPC/GTR_REFCLK3_R_N": {
+      "DIFFERENTIAL_PAIR": "/FMC HPC/GTR_REFCLK3_R"
+    },
+    "/FMC HPC/GTX_TX0_C_P": {
+      "DIFFERENTIAL_PAIR": "/FMC HPC/GTX_TX0_C"
+    },
+    "/FMC HPC/GTX_TX0_C_N": {
+      "DIFFERENTIAL_PAIR": "/FMC HPC/GTX_TX0_C"
+    },
+    "/FMC HPC/GTX_TX1_C_P": {
+      "DIFFERENTIAL_PAIR": "/FMC HPC/GTX_TX1_C"
+    },
+    "/FMC HPC/GTX_TX1_C_N": {
+      "DIFFERENTIAL_PAIR": "/FMC HPC/GTX_TX1_C"
+    },
+    "/FMC HPC/GTX_TX2_C_P": {
+      "DIFFERENTIAL_PAIR": "/FMC HPC/GTX_TX2_C"
+    },
+    "/FMC HPC/GTX_TX2_C_N": {
+      "DIFFERENTIAL_PAIR": "/FMC HPC/GTX_TX2_C"
+    },
+    "/FMC HPC/GTX_TX3_C_P": {
+      "DIFFERENTIAL_PAIR": "/FMC HPC/GTX_TX3_C"
+    },
+    "/FMC HPC/GTX_TX3_C_N": {
+      "DIFFERENTIAL_PAIR": "/FMC HPC/GTX_TX3_C"
+    },
+    "/FMC HPC/GTX_TX4_C_P": {
+      "DIFFERENTIAL_PAIR": "/FMC HPC/GTX_TX4_C"
+    },
+    "/FMC HPC/GTX_TX4_C_N": {
+      "DIFFERENTIAL_PAIR": "/FMC HPC/GTX_TX4_C"
+    },
+    "/FMC HPC/GTX_TX5_C_P": {
+      "DIFFERENTIAL_PAIR": "/FMC HPC/GTX_TX5_C"
+    },
+    "/FMC HPC/GTX_TX5_C_N": {
+      "DIFFERENTIAL_PAIR": "/FMC HPC/GTX_TX5_C"
+    },
+    "/FMC HPC/GTX_TX6_C_P": {
+      "DIFFERENTIAL_PAIR": "/FMC HPC/GTX_TX6_C"
+    },
+    "/FMC HPC/GTX_TX6_C_N": {
+      "DIFFERENTIAL_PAIR": "/FMC HPC/GTX_TX6_C"
+    },
+    "/FMC HPC/GTX_TX7_C_P": {
+      "DIFFERENTIAL_PAIR": "/FMC HPC/GTX_TX7_C"
+    },
+    "/FMC HPC/GTX_TX7_C_N": {
+      "DIFFERENTIAL_PAIR": "/FMC HPC/GTX_TX7_C"
+    },
+    "/FPGA banks 115-116/GTR_REFCLK0_P": {
+      "DIFFERENTIAL_PAIR": "/FPGA banks 115-116/GTR_REFCLK0"
+    },
+    "/FPGA banks 115-116/GTR_REFCLK0_N": {
+      "DIFFERENTIAL_PAIR": "/FPGA banks 115-116/GTR_REFCLK0"
+    },
+    "/FPGA banks 115-116/GTR_REFCLK1_P": {
+      "DIFFERENTIAL_PAIR": "/FPGA banks 115-116/GTR_REFCLK1"
+    },
+    "/FPGA banks 115-116/GTR_REFCLK1_N": {
+      "DIFFERENTIAL_PAIR": "/FPGA banks 115-116/GTR_REFCLK1"
+    },
+    "/FPGA banks 115-116/GTR_REFCLK2_P": {
+      "DIFFERENTIAL_PAIR": "/FPGA banks 115-116/GTR_REFCLK2"
+    },
+    "/FPGA banks 115-116/GTR_REFCLK2_N": {
+      "DIFFERENTIAL_PAIR": "/FPGA banks 115-116/GTR_REFCLK2"
+    },
+    "/FPGA banks 115-116/GTR_REFCLK3_P": {
+      "DIFFERENTIAL_PAIR": "/FPGA banks 115-116/GTR_REFCLK3"
+    },
+    "/FPGA banks 115-116/GTR_REFCLK3_N": {
+      "DIFFERENTIAL_PAIR": "/FPGA banks 115-116/GTR_REFCLK3"
+    },
+    "/Supply/1V0_SEN_+": {
+      "DIFFERENTIAL_PAIR": "/Supply/1V0_SEN"
+    },
+    "/Supply/1V0_SEN_-": {
+      "DIFFERENTIAL_PAIR": "/Supply/1V0_SEN"
+    },
+    "/Supply/1V8_SEN_+": {
+      "DIFFERENTIAL_PAIR": "/Supply/1V8_SEN"
+    },
+    "/Supply/1V8_SEN_-": {
+      "DIFFERENTIAL_PAIR": "/Supply/1V8_SEN"
+    },
+    "/Supply/3V3_SEN_+": {
+      "DIFFERENTIAL_PAIR": "/Supply/3V3_SEN"
+    },
+    "/Supply/3V3_SEN_-": {
+      "DIFFERENTIAL_PAIR": "/Supply/3V3_SEN"
+    },
+    "/Supply/5V0_SEN_+": {
+      "DIFFERENTIAL_PAIR": "/Supply/5V0_SEN"
+    },
+    "/Supply/5V0_SEN_-": {
+      "DIFFERENTIAL_PAIR": "/Supply/5V0_SEN"
+    },
+    "/Supply/VCC1V2_SEN_+": {
+      "DIFFERENTIAL_PAIR": "/Supply/VCC1V2_SEN"
+    },
+    "/Supply/VCC1V2_SEN_-": {
+      "DIFFERENTIAL_PAIR": "/Supply/VCC1V2_SEN"
+    },
+    "/Supply/VDDQ_SEN_+": {
+      "DIFFERENTIAL_PAIR": "/Supply/VDDQ_SEN"
+    },
+    "/Supply/VDDQ_SEN_-": {
+      "DIFFERENTIAL_PAIR": "/Supply/VDDQ_SEN"
+    },
+    "/Supply/VPP_SEN_+": {
+      "DIFFERENTIAL_PAIR": "/Supply/VPP_SEN"
+    },
+    "/Supply/VPP_SEN_-": {
+      "DIFFERENTIAL_PAIR": "/Supply/VPP_SEN"
+    },
+    "/Supply/VTT_SEN_+": {
+      "DIFFERENTIAL_PAIR": "/Supply/VTT_SEN"
+    },
+    "/Supply/VTT_SEN_-": {
+      "DIFFERENTIAL_PAIR": "/Supply/VTT_SEN"
+    },
+    "CK0_P": {
+      "DIFFERENTIAL_PAIR": "CK0"
+    },
+    "CK0_N": {
+      "DIFFERENTIAL_PAIR": "CK0"
+    },
+    "CK1_P": {
+      "DIFFERENTIAL_PAIR": "CK1"
+    },
+    "CK1_N": {
+      "DIFFERENTIAL_PAIR": "CK1"
+    },
+    "C_TMDS_CLK_P": {
+      "DIFFERENTIAL_PAIR": "C_TMDS_CLK"
+    },
+    "C_TMDS_CLK_N": {
+      "DIFFERENTIAL_PAIR": "C_TMDS_CLK"
+    },
+    "C_TMDS_D0_P": {
+      "DIFFERENTIAL_PAIR": "C_TMDS_D0"
+    },
+    "C_TMDS_D0_N": {
+      "DIFFERENTIAL_PAIR": "C_TMDS_D0"
+    },
+    "C_TMDS_D1_P": {
+      "DIFFERENTIAL_PAIR": "C_TMDS_D1"
+    },
+    "C_TMDS_D1_N": {
+      "DIFFERENTIAL_PAIR": "C_TMDS_D1"
+    },
+    "C_TMDS_D2_P": {
+      "DIFFERENTIAL_PAIR": "C_TMDS_D2"
+    },
+    "C_TMDS_D2_N": {
+      "DIFFERENTIAL_PAIR": "C_TMDS_D2"
+    },
+    "DBG_USB_P": {
+      "DIFFERENTIAL_PAIR": "DBG_USB"
+    },
+    "DBG_USB_N": {
+      "DIFFERENTIAL_PAIR": "DBG_USB"
+    },
+    "DQS0_P": {
+      "DIFFERENTIAL_PAIR": "DQS0"
+    },
+    "DQS0_N": {
+      "DIFFERENTIAL_PAIR": "DQS0"
+    },
+    "DQS1_P": {
+      "DIFFERENTIAL_PAIR": "DQS1"
+    },
+    "DQS1_N": {
+      "DIFFERENTIAL_PAIR": "DQS1"
+    },
+    "DQS2_P": {
+      "DIFFERENTIAL_PAIR": "DQS2"
+    },
+    "DQS2_N": {
+      "DIFFERENTIAL_PAIR": "DQS2"
+    },
+    "DQS3_P": {
+      "DIFFERENTIAL_PAIR": "DQS3"
+    },
+    "DQS3_N": {
+      "DIFFERENTIAL_PAIR": "DQS3"
+    },
+    "DQS4_P": {
+      "DIFFERENTIAL_PAIR": "DQS4"
+    },
+    "DQS4_N": {
+      "DIFFERENTIAL_PAIR": "DQS4"
+    },
+    "DQS5_P": {
+      "DIFFERENTIAL_PAIR": "DQS5"
+    },
+    "DQS5_N": {
+      "DIFFERENTIAL_PAIR": "DQS5"
+    },
+    "DQS6_P": {
+      "DIFFERENTIAL_PAIR": "DQS6"
+    },
+    "DQS6_N": {
+      "DIFFERENTIAL_PAIR": "DQS6"
+    },
+    "DQS7_P": {
+      "DIFFERENTIAL_PAIR": "DQS7"
+    },
+    "DQS7_N": {
+      "DIFFERENTIAL_PAIR": "DQS7"
+    },
+    "DQS8_P": {
+      "DIFFERENTIAL_PAIR": "DQS8"
+    },
+    "DQS8_N": {
+      "DIFFERENTIAL_PAIR": "DQS8"
+    },
+    "DQS9_P": {
+      "DIFFERENTIAL_PAIR": "DQS9"
+    },
+    "DQS9_N": {
+      "DIFFERENTIAL_PAIR": "DQS9"
+    },
+    "DQS10_P": {
+      "DIFFERENTIAL_PAIR": "DQS10"
+    },
+    "DQS10_N": {
+      "DIFFERENTIAL_PAIR": "DQS10"
+    },
+    "DQS11_P": {
+      "DIFFERENTIAL_PAIR": "DQS11"
+    },
+    "DQS11_N": {
+      "DIFFERENTIAL_PAIR": "DQS11"
+    },
+    "DQS12_P": {
+      "DIFFERENTIAL_PAIR": "DQS12"
+    },
+    "DQS12_N": {
+      "DIFFERENTIAL_PAIR": "DQS12"
+    },
+    "DQS13_P": {
+      "DIFFERENTIAL_PAIR": "DQS13"
+    },
+    "DQS13_N": {
+      "DIFFERENTIAL_PAIR": "DQS13"
+    },
+    "DQS14_P": {
+      "DIFFERENTIAL_PAIR": "DQS14"
+    },
+    "DQS14_N": {
+      "DIFFERENTIAL_PAIR": "DQS14"
+    },
+    "DQS15_P": {
+      "DIFFERENTIAL_PAIR": "DQS15"
+    },
+    "DQS15_N": {
+      "DIFFERENTIAL_PAIR": "DQS15"
+    },
+    "DQS16_P": {
+      "DIFFERENTIAL_PAIR": "DQS16"
+    },
+    "DQS16_N": {
+      "DIFFERENTIAL_PAIR": "DQS16"
+    },
+    "DQS17_P": {
+      "DIFFERENTIAL_PAIR": "DQS17"
+    },
+    "DQS17_N": {
+      "DIFFERENTIAL_PAIR": "DQS17"
+    },
+    "EXT_ETH1_P": {
+      "DIFFERENTIAL_PAIR": "EXT_ETH1"
+    },
+    "EXT_ETH1_N": {
+      "DIFFERENTIAL_PAIR": "EXT_ETH1"
+    },
+    "EXT_ETH2_P": {
+      "DIFFERENTIAL_PAIR": "EXT_ETH2"
+    },
+    "EXT_ETH2_N": {
+      "DIFFERENTIAL_PAIR": "EXT_ETH2"
+    },
+    "EXT_ETH3_P": {
+      "DIFFERENTIAL_PAIR": "EXT_ETH3"
+    },
+    "EXT_ETH3_N": {
+      "DIFFERENTIAL_PAIR": "EXT_ETH3"
+    },
+    "EXT_ETH4_P": {
+      "DIFFERENTIAL_PAIR": "EXT_ETH4"
+    },
+    "EXT_ETH4_N": {
+      "DIFFERENTIAL_PAIR": "EXT_ETH4"
+    },
+    "FMC_IO_1_P": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_1"
+    },
+    "FMC_IO_1_N": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_1"
+    },
+    "FMC_IO_2_P": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_2"
+    },
+    "FMC_IO_2_N": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_2"
+    },
+    "FMC_IO_3_P": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_3"
+    },
+    "FMC_IO_3_N": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_3"
+    },
+    "FMC_IO_4_P": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_4"
+    },
+    "FMC_IO_4_N": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_4"
+    },
+    "FMC_IO_5_P": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_5"
+    },
+    "FMC_IO_5_N": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_5"
+    },
+    "FMC_IO_6_P": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_6"
+    },
+    "FMC_IO_6_N": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_6"
+    },
+    "FMC_IO_7_P": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_7"
+    },
+    "FMC_IO_7_N": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_7"
+    },
+    "FMC_IO_8_P": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_8"
+    },
+    "FMC_IO_8_N": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_8"
+    },
+    "FMC_IO_9_P": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_9"
+    },
+    "FMC_IO_9_N": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_9"
+    },
+    "FMC_IO_10_P": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_10"
+    },
+    "FMC_IO_10_N": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_10"
+    },
+    "FMC_IO_11_P": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_11"
+    },
+    "FMC_IO_11_N": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_11"
+    },
+    "FMC_IO_12_P": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_12"
+    },
+    "FMC_IO_12_N": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_12"
+    },
+    "FMC_IO_13_P": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_13"
+    },
+    "FMC_IO_13_N": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_13"
+    },
+    "FMC_IO_14_P": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_14"
+    },
+    "FMC_IO_14_N": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_14"
+    },
+    "FMC_IO_15_P": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_15"
+    },
+    "FMC_IO_15_N": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_15"
+    },
+    "FMC_IO_16_P": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_16"
+    },
+    "FMC_IO_16_N": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_16"
+    },
+    "FMC_IO_17_P": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_17"
+    },
+    "FMC_IO_17_N": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_17"
+    },
+    "FMC_IO_18_P": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_18"
+    },
+    "FMC_IO_18_N": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_18"
+    },
+    "FMC_IO_19_P": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_19"
+    },
+    "FMC_IO_19_N": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_19"
+    },
+    "FMC_IO_20_P": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_20"
+    },
+    "FMC_IO_20_N": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_20"
+    },
+    "FMC_IO_21_P": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_21"
+    },
+    "FMC_IO_21_N": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_21"
+    },
+    "FMC_IO_22_P": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_22"
+    },
+    "FMC_IO_22_N": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_22"
+    },
+    "FMC_IO_23_P": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_23"
+    },
+    "FMC_IO_23_N": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_23"
+    },
+    "FMC_IO_24_P": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_24"
+    },
+    "FMC_IO_24_N": {
+      "DIFFERENTIAL_PAIR": "FMC_IO_24"
+    },
+    "GTR_REFCLK0_C_P": {
+      "DIFFERENTIAL_PAIR": "GTR_REFCLK0_C"
+    },
+    "GTR_REFCLK0_C_N": {
+      "DIFFERENTIAL_PAIR": "GTR_REFCLK0_C"
+    },
+    "GTR_REFCLK1_C_P": {
+      "DIFFERENTIAL_PAIR": "GTR_REFCLK1_C"
+    },
+    "GTR_REFCLK1_C_N": {
+      "DIFFERENTIAL_PAIR": "GTR_REFCLK1_C"
+    },
+    "GTR_REFCLK2_C_P": {
+      "DIFFERENTIAL_PAIR": "GTR_REFCLK2_C"
+    },
+    "GTR_REFCLK2_C_N": {
+      "DIFFERENTIAL_PAIR": "GTR_REFCLK2_C"
+    },
+    "GTR_REFCLK3_C_P": {
+      "DIFFERENTIAL_PAIR": "GTR_REFCLK3_C"
+    },
+    "GTR_REFCLK3_C_N": {
+      "DIFFERENTIAL_PAIR": "GTR_REFCLK3_C"
+    },
+    "GTX_RX0_P": {
+      "DIFFERENTIAL_PAIR": "GTX_RX0"
+    },
+    "GTX_RX0_N": {
+      "DIFFERENTIAL_PAIR": "GTX_RX0"
+    },
+    "GTX_RX1_P": {
+      "DIFFERENTIAL_PAIR": "GTX_RX1"
+    },
+    "GTX_RX1_N": {
+      "DIFFERENTIAL_PAIR": "GTX_RX1"
+    },
+    "GTX_RX2_P": {
+      "DIFFERENTIAL_PAIR": "GTX_RX2"
+    },
+    "GTX_RX2_N": {
+      "DIFFERENTIAL_PAIR": "GTX_RX2"
+    },
+    "GTX_RX3_P": {
+      "DIFFERENTIAL_PAIR": "GTX_RX3"
+    },
+    "GTX_RX3_N": {
+      "DIFFERENTIAL_PAIR": "GTX_RX3"
+    },
+    "GTX_RX4_P": {
+      "DIFFERENTIAL_PAIR": "GTX_RX4"
+    },
+    "GTX_RX4_N": {
+      "DIFFERENTIAL_PAIR": "GTX_RX4"
+    },
+    "GTX_RX5_P": {
+      "DIFFERENTIAL_PAIR": "GTX_RX5"
+    },
+    "GTX_RX5_N": {
+      "DIFFERENTIAL_PAIR": "GTX_RX5"
+    },
+    "GTX_RX6_P": {
+      "DIFFERENTIAL_PAIR": "GTX_RX6"
+    },
+    "GTX_RX6_N": {
+      "DIFFERENTIAL_PAIR": "GTX_RX6"
+    },
+    "GTX_RX7_P": {
+      "DIFFERENTIAL_PAIR": "GTX_RX7"
+    },
+    "GTX_RX7_N": {
+      "DIFFERENTIAL_PAIR": "GTX_RX7"
+    },
+    "GTX_TX0_P": {
+      "DIFFERENTIAL_PAIR": "GTX_TX0"
+    },
+    "GTX_TX0_N": {
+      "DIFFERENTIAL_PAIR": "GTX_TX0"
+    },
+    "GTX_TX1_P": {
+      "DIFFERENTIAL_PAIR": "GTX_TX1"
+    },
+    "GTX_TX1_N": {
+      "DIFFERENTIAL_PAIR": "GTX_TX1"
+    },
+    "GTX_TX2_P": {
+      "DIFFERENTIAL_PAIR": "GTX_TX2"
+    },
+    "GTX_TX2_N": {
+      "DIFFERENTIAL_PAIR": "GTX_TX2"
+    },
+    "GTX_TX3_P": {
+      "DIFFERENTIAL_PAIR": "GTX_TX3"
+    },
+    "GTX_TX3_N": {
+      "DIFFERENTIAL_PAIR": "GTX_TX3"
+    },
+    "GTX_TX4_P": {
+      "DIFFERENTIAL_PAIR": "GTX_TX4"
+    },
+    "GTX_TX4_N": {
+      "DIFFERENTIAL_PAIR": "GTX_TX4"
+    },
+    "GTX_TX5_P": {
+      "DIFFERENTIAL_PAIR": "GTX_TX5"
+    },
+    "GTX_TX5_N": {
+      "DIFFERENTIAL_PAIR": "GTX_TX5"
+    },
+    "GTX_TX6_P": {
+      "DIFFERENTIAL_PAIR": "GTX_TX6"
+    },
+    "GTX_TX6_N": {
+      "DIFFERENTIAL_PAIR": "GTX_TX6"
+    },
+    "GTX_TX7_P": {
+      "DIFFERENTIAL_PAIR": "GTX_TX7"
+    },
+    "GTX_TX7_N": {
+      "DIFFERENTIAL_PAIR": "GTX_TX7"
+    },
+    "HR_CKP": {
+      "DIFFERENTIAL_PAIR": "HR_CK"
+    },
+    "HR_CKN": {
+      "DIFFERENTIAL_PAIR": "HR_CK"
+    },
+    "TMDS_CLK_P": {
+      "DIFFERENTIAL_PAIR": "TMDS_CLK"
+    },
+    "TMDS_CLK_N": {
+      "DIFFERENTIAL_PAIR": "TMDS_CLK"
+    },
+    "TMDS_D0_P": {
+      "DIFFERENTIAL_PAIR": "TMDS_D0"
+    },
+    "TMDS_D0_N": {
+      "DIFFERENTIAL_PAIR": "TMDS_D0"
+    },
+    "TMDS_D1_P": {
+      "DIFFERENTIAL_PAIR": "TMDS_D1"
+    },
+    "TMDS_D1_N": {
+      "DIFFERENTIAL_PAIR": "TMDS_D1"
+    },
+    "TMDS_D2_P": {
+      "DIFFERENTIAL_PAIR": "TMDS_D2"
+    },
+    "TMDS_D2_N": {
+      "DIFFERENTIAL_PAIR": "TMDS_D2"
+    },
+    "VRP": {
+      "DIFFERENTIAL_PAIR": "VR"
+    },
+    "VRN": {
+      "DIFFERENTIAL_PAIR": "VR"
     }
   }
 }

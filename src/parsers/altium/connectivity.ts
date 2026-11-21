@@ -5,6 +5,7 @@
 import { RECORD_TYPES, type AltiumRecord } from "./types.js";
 import { identifierKey } from "./notation.js";
 import { fieldText } from "./records.js";
+import { hiddenPinNetName } from "./components.js";
 import {
   COORDINATE_SCALE,
   TOUCH_TOLERANCE,
@@ -86,9 +87,14 @@ class SpatialIndex {
 /**
  * The key under which a record joins others without a wire. Net labels and power ports
  * of one name are one net, and so are ports of one name; a port never joins a label by
- * name, and a sheet entry never joins by name at all.
+ * name, and a sheet entry never joins by name at all. A hidden pin with a Connect To joins
+ * the labels and power ports of that name.
  */
 const namedDeviceKey = (device: AltiumRecord): string | undefined => {
+  if (device.RECORD === RECORD_TYPES.PIN) {
+    const hiddenNet = hiddenPinNetName(device);
+    return hiddenNet === undefined ? undefined : `label:${identifierKey(hiddenNet)}`;
+  }
   const name = fieldText(device, "Text", "Name");
   if (name === undefined) return undefined;
   if (device.RECORD === RECORD_TYPES.POWER_PORT || device.RECORD === RECORD_TYPES.NET_LABEL) {

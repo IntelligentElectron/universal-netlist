@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T20:27:48.175Z",
-    "netlistHash": "sha256:87af4640d88864cd3ed0dfcb41d01692ee13cc8b152cf99f56050c31048f51ea",
+    "generatedAt": "2026-11-21T23:30:36.750Z",
+    "netlistHash": "sha256:3a65dc689b7216e8808b23bac63f9bb462aeb09082d59bd41dfed71e23727a3c",
     "origin": {
       "type": "vendor",
       "source": {
@@ -25675,6 +25675,356 @@
         }
       },
       "description": "RES SMD 100 OHM 1% 1/16W 0402"
+    }
+  },
+  "netProperties": {
+    "NO_LCLK_OUT_N3": {
+      "DIFFERENTIAL_PAIR": "NO LCLK OUT3"
+    },
+    "SO_LCLK_OUT_P1": {
+      "DIFFERENTIAL_PAIR": "SO LCLK OUT1"
+    },
+    "NO_LCLK_OUT_N2": {
+      "DIFFERENTIAL_PAIR": "NO LCLK OUT2"
+    },
+    "SO_LCLK_IN_N1": {
+      "DIFFERENTIAL_PAIR": "SO LCLK IN1"
+    },
+    "NO_LCLK_OUT_N1": {
+      "DIFFERENTIAL_PAIR": "NO LCLK OUT1"
+    },
+    "NO_LCLK_IN_P3": {
+      "DIFFERENTIAL_PAIR": "NO LCLK IN3"
+    },
+    "SO_LCLK_OUT_N1": {
+      "DIFFERENTIAL_PAIR": "SO LCLK OUT1"
+    },
+    "SO_LCLK_IN_P2": {
+      "DIFFERENTIAL_PAIR": "SO LCLK IN2"
+    },
+    "SO_LCLK_OUT_P3": {
+      "DIFFERENTIAL_PAIR": "SO LCLK OUT3"
+    },
+    "SO_LCLK_IN_P1": {
+      "DIFFERENTIAL_PAIR": "SO LCLK IN1"
+    },
+    "SO_LCLK_IN_P0": {
+      "DIFFERENTIAL_PAIR": "SO LCLK IN0"
+    },
+    "NO_LCLK_OUT_P0": {
+      "DIFFERENTIAL_PAIR": "NO LCLK OUT0"
+    },
+    "SO_LCLK_OUT_N0": {
+      "DIFFERENTIAL_PAIR": "SO LCLK OUT0"
+    },
+    "NO_LCLK_OUT_P1": {
+      "DIFFERENTIAL_PAIR": "NO LCLK OUT1"
+    },
+    "SO_LCLK_IN_N2": {
+      "DIFFERENTIAL_PAIR": "SO LCLK IN2"
+    },
+    "NO_LCLK_IN_P0": {
+      "DIFFERENTIAL_PAIR": "NO LCLK IN0"
+    },
+    "SO_LCLK_OUT_N2": {
+      "DIFFERENTIAL_PAIR": "SO LCLK OUT2"
+    },
+    "SO_LCLK_IN_N0": {
+      "DIFFERENTIAL_PAIR": "SO LCLK IN0"
+    },
+    "NO_LCLK_IN_P1": {
+      "DIFFERENTIAL_PAIR": "NO LCLK IN1"
+    },
+    "SO_LCLK_OUT_P2": {
+      "DIFFERENTIAL_PAIR": "SO LCLK OUT2"
+    },
+    "SO_LCLK_IN_P3": {
+      "DIFFERENTIAL_PAIR": "SO LCLK IN3"
+    },
+    "SO_LCLK_OUT_P0": {
+      "DIFFERENTIAL_PAIR": "SO LCLK OUT0"
+    },
+    "SO_LCLK_IN_N3": {
+      "DIFFERENTIAL_PAIR": "SO LCLK IN3"
+    },
+    "NO_LCLK_OUT_P3": {
+      "DIFFERENTIAL_PAIR": "NO LCLK OUT3"
+    },
+    "SO_LCLK_OUT_N3": {
+      "DIFFERENTIAL_PAIR": "SO LCLK OUT3"
+    },
+    "NO_LCLK_OUT_N0": {
+      "DIFFERENTIAL_PAIR": "NO LCLK OUT0"
+    },
+    "NO_LCLK_IN_P2": {
+      "DIFFERENTIAL_PAIR": "NO LCLK IN2"
+    },
+    "NO_LCLK_OUT_P2": {
+      "DIFFERENTIAL_PAIR": "NO LCLK OUT2"
+    },
+    "WE_LCLK_IN_N1": {
+      "DIFFERENTIAL_PAIR": "WE LCLK IN1"
+    },
+    "WE_LCLK_IN_N0": {
+      "DIFFERENTIAL_PAIR": "WE LCLK IN0"
+    },
+    "WE_LCLK_IN_N3": {
+      "DIFFERENTIAL_PAIR": "WE LCLK IN3"
+    },
+    "WE_LCLK_IN_N2": {
+      "DIFFERENTIAL_PAIR": "WE LCLK IN2"
+    },
+    "NO_LCLK_IN_N3": {
+      "DIFFERENTIAL_PAIR": "NO LCLK IN3"
+    },
+    "NO_LCLK_IN_N0": {
+      "DIFFERENTIAL_PAIR": "NO LCLK IN0"
+    },
+    "NO_LCLK_IN_N2": {
+      "DIFFERENTIAL_PAIR": "NO LCLK IN2"
+    },
+    "NO_LCLK_IN_N1": {
+      "DIFFERENTIAL_PAIR": "NO LCLK IN1"
+    },
+    "WE_LCLK_IN_P0": {
+      "DIFFERENTIAL_PAIR": "WE LCLK IN0"
+    },
+    "WE_LCLK_IN_P3": {
+      "DIFFERENTIAL_PAIR": "WE LCLK IN3"
+    },
+    "WE_LCLK_IN_P2": {
+      "DIFFERENTIAL_PAIR": "WE LCLK IN2"
+    },
+    "WE_LCLK_IN_P1": {
+      "DIFFERENTIAL_PAIR": "WE LCLK IN1"
+    },
+    "WE_LCLK_OUT_N3": {
+      "DIFFERENTIAL_PAIR": "WE LCLK OUT3"
+    },
+    "WE_LCLK_OUT_N0": {
+      "DIFFERENTIAL_PAIR": "WE LCLK OUT0"
+    },
+    "WE_LCLK_OUT_N1": {
+      "DIFFERENTIAL_PAIR": "WE LCLK OUT1"
+    },
+    "WE_LCLK_OUT_N2": {
+      "DIFFERENTIAL_PAIR": "WE LCLK OUT2"
+    },
+    "CLK_N6": {
+      "DIFFERENTIAL_PAIR": "CLK6"
+    },
+    "CLK_N4": {
+      "DIFFERENTIAL_PAIR": "CLK4"
+    },
+    "CLK_N1": {
+      "DIFFERENTIAL_PAIR": "CLK1"
+    },
+    "CLK_N7": {
+      "DIFFERENTIAL_PAIR": "CLK7"
+    },
+    "CLK_N0": {
+      "DIFFERENTIAL_PAIR": "CLK0"
+    },
+    "CLK_N5": {
+      "DIFFERENTIAL_PAIR": "CLK5"
+    },
+    "CLK_N3": {
+      "DIFFERENTIAL_PAIR": "CLK3"
+    },
+    "CLK_N2": {
+      "DIFFERENTIAL_PAIR": "CLK2"
+    },
+    "CLK_P7": {
+      "DIFFERENTIAL_PAIR": "CLK7"
+    },
+    "CLK_P0": {
+      "DIFFERENTIAL_PAIR": "CLK0"
+    },
+    "CLK_P5": {
+      "DIFFERENTIAL_PAIR": "CLK5"
+    },
+    "CLK_P6": {
+      "DIFFERENTIAL_PAIR": "CLK6"
+    },
+    "CLK_P3": {
+      "DIFFERENTIAL_PAIR": "CLK3"
+    },
+    "CLK_P1": {
+      "DIFFERENTIAL_PAIR": "CLK1"
+    },
+    "CLK_P2": {
+      "DIFFERENTIAL_PAIR": "CLK2"
+    },
+    "CLK_P4": {
+      "DIFFERENTIAL_PAIR": "CLK4"
+    },
+    "CLK_N11": {
+      "DIFFERENTIAL_PAIR": "CLK11"
+    },
+    "CLK_N8": {
+      "DIFFERENTIAL_PAIR": "CLK8"
+    },
+    "CLK_N14": {
+      "DIFFERENTIAL_PAIR": "CLK14"
+    },
+    "CLK_N13": {
+      "DIFFERENTIAL_PAIR": "CLK13"
+    },
+    "CLK_N12": {
+      "DIFFERENTIAL_PAIR": "CLK12"
+    },
+    "CLK_N9": {
+      "DIFFERENTIAL_PAIR": "CLK9"
+    },
+    "CLK_N15": {
+      "DIFFERENTIAL_PAIR": "CLK15"
+    },
+    "CLK_N10": {
+      "DIFFERENTIAL_PAIR": "CLK10"
+    },
+    "CLK_P13": {
+      "DIFFERENTIAL_PAIR": "CLK13"
+    },
+    "CLK_P14": {
+      "DIFFERENTIAL_PAIR": "CLK14"
+    },
+    "CLK_P11": {
+      "DIFFERENTIAL_PAIR": "CLK11"
+    },
+    "CLK_P8": {
+      "DIFFERENTIAL_PAIR": "CLK8"
+    },
+    "CLK_P9": {
+      "DIFFERENTIAL_PAIR": "CLK9"
+    },
+    "CLK_P15": {
+      "DIFFERENTIAL_PAIR": "CLK15"
+    },
+    "CLK_P12": {
+      "DIFFERENTIAL_PAIR": "CLK12"
+    },
+    "CLK_P10": {
+      "DIFFERENTIAL_PAIR": "CLK10"
+    },
+    "WE_LCLK_OUT_P0": {
+      "DIFFERENTIAL_PAIR": "WE LCLK OUT0"
+    },
+    "WE_LCLK_OUT_P2": {
+      "DIFFERENTIAL_PAIR": "WE LCLK OUT2"
+    },
+    "WE_LCLK_OUT_P1": {
+      "DIFFERENTIAL_PAIR": "WE LCLK OUT1"
+    },
+    "WE_LCLK_OUT_P3": {
+      "DIFFERENTIAL_PAIR": "WE LCLK OUT3"
+    },
+    "EA_LCLK_IN_N0": {
+      "DIFFERENTIAL_PAIR": "EA LCLK IN0"
+    },
+    "EA_LCLK_IN_N1": {
+      "DIFFERENTIAL_PAIR": "EA LCLK IN1"
+    },
+    "EA_LCLK_IN_P0": {
+      "DIFFERENTIAL_PAIR": "EA LCLK IN0"
+    },
+    "EA_LCLK_IN_P2": {
+      "DIFFERENTIAL_PAIR": "EA LCLK IN2"
+    },
+    "EA_LCLK_IN_P3": {
+      "DIFFERENTIAL_PAIR": "EA LCLK IN3"
+    },
+    "EA_LCLK_IN_P1": {
+      "DIFFERENTIAL_PAIR": "EA LCLK IN1"
+    },
+    "EA_LCLK_OUT_N3": {
+      "DIFFERENTIAL_PAIR": "EA LCLK OUT3"
+    },
+    "EA_LCLK_OUT_N2": {
+      "DIFFERENTIAL_PAIR": "EA LCLK OUT2"
+    },
+    "EA_LCLK_OUT_N1": {
+      "DIFFERENTIAL_PAIR": "EA LCLK OUT1"
+    },
+    "EA_LCLK_OUT_N0": {
+      "DIFFERENTIAL_PAIR": "EA LCLK OUT0"
+    },
+    "EA_LCLK_OUT_P0": {
+      "DIFFERENTIAL_PAIR": "EA LCLK OUT0"
+    },
+    "EA_LCLK_OUT_P2": {
+      "DIFFERENTIAL_PAIR": "EA LCLK OUT2"
+    },
+    "EA_LCLK_IN_N2": {
+      "DIFFERENTIAL_PAIR": "EA LCLK IN2"
+    },
+    "EA_LCLK_IN_N3": {
+      "DIFFERENTIAL_PAIR": "EA LCLK IN3"
+    },
+    "EA_LCLK_OUT_P3": {
+      "DIFFERENTIAL_PAIR": "EA LCLK OUT3"
+    },
+    "EA_LCLK_OUT_P1": {
+      "DIFFERENTIAL_PAIR": "EA LCLK OUT1"
+    },
+    "CLKIN_N0": {
+      "DIFFERENTIAL_PAIR": "CLKIN0"
+    },
+    "CLKIN_P0": {
+      "DIFFERENTIAL_PAIR": "CLKIN0"
+    },
+    "CLKIN_N1": {
+      "DIFFERENTIAL_PAIR": "CLKIN1"
+    },
+    "CLKIN_P1": {
+      "DIFFERENTIAL_PAIR": "CLKIN1"
+    },
+    "OSC_IN_CLOCK0": {
+      "DIFFERENTIAL_PAIR": "OSC_IN_CLOCK"
+    },
+    "OSC_IN_B_CLOCK0": {
+      "DIFFERENTIAL_PAIR": "OSC_IN_CLOCK"
+    },
+    "REFB_1_CLOCK0": {
+      "DIFFERENTIAL_PAIR": "REFB_CLOCK"
+    },
+    "REFB_B1_CLOCK0": {
+      "DIFFERENTIAL_PAIR": "REFB_CLOCK"
+    },
+    "OSC_IN_1_CLOCK0": {
+      "DIFFERENTIAL_PAIR": "OSC_IN1_CLOCK"
+    },
+    "OSC_IN_B1_CLOCK0": {
+      "DIFFERENTIAL_PAIR": "OSC_IN1_CLOCK"
+    },
+    "CLKREF_N_CLOCK0": {
+      "DIFFERENTIAL_PAIR": "CLKREF_CLOCK"
+    },
+    "CLKREF_P_CLOCK0": {
+      "DIFFERENTIAL_PAIR": "CLKREF_CLOCK"
+    },
+    "OSC_IN_B_CLOCK1": {
+      "DIFFERENTIAL_PAIR": "OSC_IN_CLOCK1"
+    },
+    "OSC_IN_CLOCK1": {
+      "DIFFERENTIAL_PAIR": "OSC_IN_CLOCK1"
+    },
+    "REFB_1_CLOCK1": {
+      "DIFFERENTIAL_PAIR": "REFB_CLOCK1"
+    },
+    "REFB_B1_CLOCK1": {
+      "DIFFERENTIAL_PAIR": "REFB_CLOCK1"
+    },
+    "OSC_IN_1_CLOCK1": {
+      "DIFFERENTIAL_PAIR": "OSC_IN1_CLOCK1"
+    },
+    "OSC_IN_B1_CLOCK1": {
+      "DIFFERENTIAL_PAIR": "OSC_IN1_CLOCK1"
+    },
+    "CLKREF_N_CLOCK1": {
+      "DIFFERENTIAL_PAIR": "CLKREF_CLOCK1"
+    },
+    "CLKREF_P_CLOCK1": {
+      "DIFFERENTIAL_PAIR": "CLKREF_CLOCK1"
     }
   }
 }

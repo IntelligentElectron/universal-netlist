@@ -4,7 +4,7 @@
 
 import { RECORD_TYPES, type AltiumNet, type AltiumRecord, type AltiumSchematic } from "./types.js";
 import { field, fieldText, toNumber } from "./records.js";
-import { duplicateInstanceIndices, pinIsLive } from "./components.js";
+import { duplicateInstanceIndices, hiddenPinNetName, pinIsLive } from "./components.js";
 import { findAllConnectedComponents } from "./connectivity.js";
 import { attachBusMembers } from "./bus.js";
 import { nameSheetNets, NAME_FROM_ANY, type NetNamingOptions } from "./net-naming.js";
@@ -61,8 +61,21 @@ const connectionPoints = (schematic: AltiumSchematic): AltiumRecord[] => {
           break;
         case RECORD_TYPES.PIN:
           if (!pinIsLive(record, schematic, duplicates)) continue;
-          record.coords = pinEnds(record);
-          devices.push(record);
+          {
+            // A hidden pin with a "Connect To" joins that net by name alone, as a power port
+            // of that name would, and touches nothing where it is drawn.
+            const hiddenNet = hiddenPinNetName(record);
+            record.coords = hiddenNet ? [] : pinEnds(record);
+            devices.push(record);
+            if (hiddenNet) {
+              devices.push({
+                index: -1 - devices.length,
+                RECORD: RECORD_TYPES.POWER_PORT,
+                Text: hiddenNet,
+                coords: [],
+              });
+            }
+          }
           break;
         case RECORD_TYPES.PORT:
           record.coords = portEnds(record);

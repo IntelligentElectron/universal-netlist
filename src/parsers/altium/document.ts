@@ -5,14 +5,22 @@
 import path from "path";
 import type { NetConnections, ComponentDetails, ParsedNetlist } from "../../types.js";
 import { OleReader, readOptionalOleStream } from "../ole-reader/ole-reader.js";
-import { RECORD_TYPES, type AltiumNet, type AltiumSchematic, type NetNameSource } from "./types.js";
+import {
+  RECORD_TYPES,
+  type AltiumNet,
+  type AltiumRecord,
+  type AltiumSchematic,
+  type NetNameSource,
+} from "./types.js";
+import { isConnected } from "./connectivity.js";
+import { scaledPoint } from "./coordinates.js";
 import { buildHierarchy, field, fieldText, ownerIndex, parseRecords } from "./records.js";
 import { assignHarnessSignals, readHarnessConnectors } from "./harness.js";
 import { extractComponents, pinDesignator, pinNumber } from "./components.js";
 import { extractNets } from "./net-extractor.js";
 import { NAME_FROM_ANY, type NetNamingOptions } from "./net-naming.js";
 import { collectNetLinks, type NetLinkGroup } from "./links.js";
-import { applyNetRenames, reconcileNetlist } from "./netlist.js";
+import { applyNetRenames, DIFFERENTIAL_PAIR, reconcileNetlist } from "./netlist.js";
 import { noNetIdentifiers, type NetIdentifierKinds } from "./net-scoping.js";
 
 /** A document's records, read once. */
@@ -156,6 +164,38 @@ const collectNetIdentifiers = (nets: AltiumNet[]): Map<string, NetIdentifierKind
   return identifiers;
 };
 
+/** Whether a parameter set is a Differential Pair directive: it owns `DifferentialPair=True`. */
+const isDifferentialPairDirective = (record: AltiumRecord): boolean =>
+  record.RECORD === RECORD_TYPES.PARAMETER_SET &&
+  (record.children ?? []).some(
+    (child) =>
+      child.RECORD === RECORD_TYPES.PARAMETER &&
+      fieldText(child, "Name")?.toLowerCase() === "differentialpair" &&
+      fieldText(child, "Text")?.toLowerCase() === "true"
+  );
+
+/**
+ * The named nets a Differential Pair directive sits on, each marked with an empty
+ * `DIFFERENTIAL_PAIR` until the project pairs them by name (see `pairDifferentialNets`).
+ * A directive sits where its location touches the net.
+ */
+const differentialPairMarks = (
+  nets: readonly AltiumNet[],
+  schematic: AltiumSchematic
+): Record<string, Record<string, string>> | undefined => {
+  const marks: Record<string, Record<string, string>> = {};
+  for (const record of schematic.records) {
+    if (!isDifferentialPairDirective(record)) continue;
+    const tip: AltiumRecord = { index: -1, coords: [scaledPoint(record)] };
+    for (const net of nets) {
+      if (net.name && net.devices.some((device) => isConnected(tip, device))) {
+        marks[net.name] = { [DIFFERENTIAL_PAIR]: "" };
+      }
+    }
+  }
+  return Object.keys(marks).length > 0 ? marks : undefined;
+};
+
 /** Parse a document as the instance `placement`. */
 export const parseDocument = (
   read: ReadDocument,
@@ -173,10 +213,11 @@ export const parseDocument = (
   for (const { name, nameSource } of nets)
     if (name && nameSource) nameSources.set(name, nameSource);
 
+  const netProperties = differentialPairMarks(nets, schematic);
   return {
     name: read.name,
     placement,
-    netlist: { nets: connections, components },
+    netlist: { nets: connections, components, ...(netProperties && { netProperties }) },
     nets,
     links: collectNetLinks(nets, schematic, connections),
     nameSources,

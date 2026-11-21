@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T21:40:46.709Z",
-    "netlistHash": "sha256:5429bcd9d01e2646f8070e1313374fcf191664dd075e422de09172f9caf8858e",
+    "generatedAt": "2026-11-21T23:30:38.991Z",
+    "netlistHash": "sha256:1482141202bad839163c297e344c9f93ffd4262fabb04e6fa7791aebb320876a",
     "origin": {
       "type": "vendor",
       "source": {
@@ -5085,7 +5085,8 @@
         "4": {
           "name": "GND",
           "net": "/GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "5": {
           "net": "/I_SENSE.A",
@@ -5222,7 +5223,8 @@
         "4": {
           "name": "GND",
           "net": "/GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "5": {
           "net": "/I_SENSE.B",
@@ -5359,7 +5361,8 @@
         "4": {
           "name": "GND",
           "net": "/GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "5": {
           "net": "/I_SENSE.C",
@@ -5384,6 +5387,26 @@
       "value": "INA241A2",
       "description": "High- and Low-Side, Bidirectional, Zero-Drift, Current-Sense Amplifier With Enhanced PWM Rejection, 20V/V, ±0.01% Gain Accuracy, ±10 μV Offset Voltage, SOIC-8",
       "mpn": "INA241A2DDFR"
+    }
+  },
+  "netProperties": {
+    "/Phase Current Sensors/Current Sense A/V+": {
+      "DIFFERENTIAL_PAIR": "/Phase Current Sensors/Current Sense A/V"
+    },
+    "/Phase Current Sensors/Current Sense A/V-": {
+      "DIFFERENTIAL_PAIR": "/Phase Current Sensors/Current Sense A/V"
+    },
+    "/Phase Current Sensors/Current Sense B/V+": {
+      "DIFFERENTIAL_PAIR": "/Phase Current Sensors/Current Sense B/V"
+    },
+    "/Phase Current Sensors/Current Sense B/V-": {
+      "DIFFERENTIAL_PAIR": "/Phase Current Sensors/Current Sense B/V"
+    },
+    "/Phase Current Sensors/Current Sense C/V+": {
+      "DIFFERENTIAL_PAIR": "/Phase Current Sensors/Current Sense C/V"
+    },
+    "/Phase Current Sensors/Current Sense C/V-": {
+      "DIFFERENTIAL_PAIR": "/Phase Current Sensors/Current Sense C/V"
     }
   }
 }

@@ -347,7 +347,7 @@ A pin is keyed by its number. A symbol pin with no number (KiCad writes `(pin ""
         },
         "hidden": {
           "const": true,
-          "description": "Set on a power pin the symbol does not draw, which joins its net by name; the parsers write it together with `type`"
+          "description": "Set on a pin the symbol does not draw; the parsers write it together with `type`"
         }
       },
       "required": ["net"],

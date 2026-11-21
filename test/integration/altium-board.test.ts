@@ -28,9 +28,6 @@ interface BoardCase {
   sameName: number;
 }
 
-/** The 32 channel letters of a Repeat() sheet: A to Z, then the characters after Z. */
-const CHANNELS_32 = Array.from({ length: 32 }, (_, i) => String.fromCharCode(65 + i));
-
 const CASES: BoardCase[] = [
   {
     // Single sheet: the parser and the board agree completely.
@@ -67,12 +64,11 @@ const CASES: BoardCase[] = [
     // top sheet labels FMC1_P[32..1] and the like into entries called
     // Repeat(FMC_P): the members join by index, and the wires that carry them
     // never touch the bus. The board carries every channel's physical
-    // designator (IC49A ... IC49`). Parser defect: IC51 pins 3 (GND) and 5
-    // (P3V3) are on no net in every channel.
+    // designator (IC49A ... IC49`). IC51's hidden pins 3 (GND) and 5 (P3V3)
+    // join their nets by their Connect To names in every channel.
     name: "FMC DIO 32ch LVDS",
     project: "fmc-dio-32chlvdsa/FMC_DIO_32ch_lvds_a.PrjPcb",
     board: "fmc-dio-32chlvdsa/PCB-Layout/FMC_DIO_32ch_lvds_a.PcbDoc",
-    unconnected: CHANNELS_32.flatMap((channel) => [`IC51${channel}.3`, `IC51${channel}.5`]),
     sameName: 1877,
   },
   {
@@ -101,14 +97,13 @@ const CASES: BoardCase[] = [
     sameName: 243,
   },
   {
-    // Parser defect: U11.7 and the crystal pads X1.2, X1.4, X3.2 and X3.4 are on
-    // GND on the board and on no net here.
+    // U11.7 and the crystal pads X1.2, X1.4, X3.2 and X3.4 are hidden pins that
+    // join GND by their Connect To name, as on the board.
     name: "nRF52840 DK pca10056",
     project:
       "nRF52840-Development-Kit/PCA10056-nRF52840 Development Board 3_0_3/Altium Designer files/pca10056.PrjPCB",
     board:
       "nRF52840-Development-Kit/PCA10056-nRF52840 Development Board 3_0_3/Altium Designer files/400236.PcbDoc",
-    unconnected: ["U11.7", "X1.2", "X1.4", "X3.2", "X3.4"],
     sameName: 1066,
   },
 ];

@@ -8,6 +8,7 @@ import { ALTIUM_EXTENSIONS, discoverAltiumDesigns, isAltiumFile } from "./discov
 import { listAltiumVariants } from "./project-variants.js";
 import { parseDocument, readDocument } from "./document.js";
 import { parseAltiumProject } from "./project.js";
+import { pairDifferentialNets } from "./netlist.js";
 import { contextOrDefault } from "../context.js";
 
 const isSchDoc = (designPath: string): boolean =>
@@ -20,13 +21,11 @@ export const altiumHandler: EDAProjectFormatHandler = {
   discoverDesigns: discoverAltiumDesigns,
   listVariants: async (designPath, context) =>
     isSchDoc(designPath) ? [] : listAltiumVariants(designPath, context?.files),
-  parse: async (designPath, options) =>
-    isSchDoc(designPath)
-      ? parseDocument(
-          readDocument(
-            designPath,
-            await contextOrDefault(options?.context).files.readFile(designPath)
-          )
-        ).netlist
-      : parseAltiumProject(designPath, options),
+  parse: async (designPath, options) => {
+    if (!isSchDoc(designPath)) return parseAltiumProject(designPath, options);
+    const { files } = contextOrDefault(options?.context);
+    const { netlist } = parseDocument(readDocument(designPath, await files.readFile(designPath)));
+    pairDifferentialNets(netlist);
+    return netlist;
+  },
 };

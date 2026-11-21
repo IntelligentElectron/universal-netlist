@@ -1,0 +1,16 @@
+{
+  "name": "pair",
+  "assumes": [
+    "two nets of a KiCad or Altium design after connectivity, each with at least one pin; Cadence pairs come from Capture's own DIFFERENTIAL_PAIR property and are outside this table",
+    "naming paired: the format's pair naming holds and the partner net exists. KiCad: past trailing digits and _, the name ends in +, -, P or N and the partner swaps it (KiCad's BOARD::MatchDpSuffix). Altium: the names are <pair>_P and <pair>_N, ignoring case. lone: the naming holds but no partner net exists. plain: the naming does not hold",
+    "directive: how many of the two nets carry an Altium Differential Pair directive (a parameter set owning DifferentialPair=True whose location touches the net). KiCad has no directive, so only none occurs for it",
+    "supply supply_pin: a pin on either net is of electrical type power, power_in or power_out",
+    "outcome pair: both nets get net_properties {DIFFERENTIAL_PAIR: <pair>}; KiCad names the pair without the polarity character and a _ it leaves dangling, and names two pairs that would share that name each after its positive net (D+/D- and DP/DN become D+ and DP)"
+  ],
+  "dimensions": {
+    "format": ["kicad", "altium"],
+    "naming": ["paired", "lone", "plain"],
+    "directive": ["both", "one", "none"],
+    "supply": ["none", "supply_pin"]
+  }
+}
