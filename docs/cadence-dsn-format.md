@@ -3628,6 +3628,7 @@ Repeated-block naming in another description's terms agrees: a copy of a child s
 - Whether suffix bytes after the JSON object are leftovers of an earlier, longer payload: no suffix bytes observed.
 - Which page numbers an IREF lists, what its `!` marker means, and whether the enclosure reflects a display option: no occurrence IREF exists.
 - The order of root-level occurrences: not id order on 92 of 104 streams, not page order.
+- How an instance link (66) property relates to the part's own property of the same name. They occur in 8 designs (footprint, part number, manufacturer, value, DNP and others), and the parser does not apply them. They are not plain overrides: in the OpenCellular SDR fixture, U9's link `Part Number` is `XC7A100T-3FGG484E`, while the part's own property and the design's assembly BOM both say `XC7A100T-2FGG484I7006`, so a link property can be stale. Data needed: every design with both link properties and a Capture part export (`pstxprt.dat`), compared property by property.
 - Which ids the Schematic `id_registry` holds beyond page objects: belongs to the directories chapter.
 - DrawnInstance unknown bytes (our earlier spec counts 30): another description names them; the page chapter owns the layout.
 - Our earlier spec's heuristics, with what the data now show:
