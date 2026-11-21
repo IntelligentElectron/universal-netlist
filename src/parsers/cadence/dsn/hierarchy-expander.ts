@@ -34,7 +34,7 @@ export interface PortBinding {
   pageIdx: number;
   /** The block pin's position on the parent page, as `"x,y"`. */
   coord: string;
-  /** The block pin's net id, already in the parent placement's range. */
+  /** The block pin's wire id (its net-group key), already in the parent placement's range. */
   netId: number;
 }
 
@@ -84,8 +84,8 @@ const NO_CONNECT = 0;
 const SENTINEL = 0xffffffff;
 
 function shiftPin(pin: T0x10, offset: number): T0x10 {
-  if (offset === 0 || pin.netId === NO_CONNECT || pin.netId === SENTINEL) return pin;
-  return { ...pin, netId: pin.netId + offset };
+  if (offset === 0 || pin.wireId === NO_CONNECT || pin.wireId === SENTINEL) return pin;
+  return { ...pin, wireId: pin.wireId + offset };
 }
 
 /** The property that names an occurrence pin's number. */
@@ -246,7 +246,7 @@ export function expandHierarchy(
           ports.set(name.toUpperCase(), {
             pageIdx,
             coord: `${pin.pointX},${pin.pointY}`,
-            netId: pin.netId,
+            netId: pin.wireId,
           });
         }
 

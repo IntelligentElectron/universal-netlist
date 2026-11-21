@@ -14,11 +14,12 @@ import type { DrawnInstance, GraphicInst, PlacedInstance, T0x10, Wire } from "./
 
 const SENTINEL = 0xffffffff;
 
-const pin = (pinIndex: number, x: number, y: number, netId: number): T0x10 => ({
+const pin = (pinIndex: number, x: number, y: number, wireId: number): T0x10 => ({
   pinIndex,
   pointX: x,
   pointY: y,
-  netId,
+  wireId,
+  netId: 0,
   symbolDisplayProps: [],
 });
 
