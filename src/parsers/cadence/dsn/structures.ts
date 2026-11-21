@@ -132,6 +132,12 @@ export interface GraphicInst {
    * connection point, from the trailer; 0 when no wire touches it (§7.10, §7.11).
    */
   wireId?: number;
+  /**
+   * Ports, Globals and off-page connectors: the connection point, its cached
+   * symbol's single pin hot point placed on the page (§7.7, §11.4); undefined
+   * when the Cache holds no such symbol.
+   */
+  connection?: [number, number];
 }
 
 /** A rectangle in page coordinates (1/100 inch). */

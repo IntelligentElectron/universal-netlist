@@ -10,7 +10,13 @@ import type { LibraryFonts } from "./library-parser.js";
 import type { PageData } from "./page-parser.js";
 import type { PageView } from "./page-views.js";
 import type { GraphicInst, SymbolDisplayProp } from "./structures.js";
-import type { Primitive, SymbolGraphics } from "./symbol-graphics.js";
+import {
+  placement,
+  type Point,
+  type Primitive,
+  type SymbolGraphics,
+  type Transform,
+} from "./symbol-graphics.js";
 
 export interface RenderContext {
   symbols: ReadonlyMap<string, SymbolGraphics>;
@@ -18,66 +24,12 @@ export interface RenderContext {
   fonts: LibraryFonts;
 }
 
-type Point = [number, number];
-type Transform = (p: Point) => Point;
-
 // A plain palette: the colour indexes in the file have no verified meaning (§9.4).
 const PART = "#1a1a1a";
 const WIRE = "#1f4fd1";
 const TEXT = "#1a1a1a";
 const PIN_NUMBER = "#6b6b6b";
 const BORDER = "#9a9a9a";
-
-/** Round up to a multiple of 10. */
-const snap = (v: number): number => Math.ceil(v / 10) * 10;
-
-/** The placement extent of one axis of a symbol box (§7.7). */
-const extent = (lo: number, hi: number): [number, number] =>
-  lo >= 0 ? [0, snap(lo + hi)] : [lo, lo + snap(hi - lo)];
-
-/** Mirror negates x, then each quarter turn maps (x, y) to (y, -x). */
-const orient =
-  (rotation: number, mirrored: boolean): Transform =>
-  ([x0, y]) => {
-    const x = mirrored ? -x0 : x0;
-    switch (rotation & 3) {
-      case 1:
-        return [y, -x];
-      case 2:
-        return [-x, -y];
-      case 3:
-        return [-y, x];
-      default:
-        return [x, y];
-    }
-  };
-
-/** Symbol coordinates to page coordinates for one placement (§7.7). */
-export function placement(
-  box: SymbolGraphics["box"],
-  locX: number,
-  locY: number,
-  rotation: number,
-  mirrored: boolean
-): Transform {
-  const o = orient(rotation, mirrored);
-  const [xLo, xHi] = extent(box.x1, box.x2);
-  const [yLo, yHi] = extent(box.y1, box.y2);
-  const corners = (
-    [
-      [xLo, yLo],
-      [xHi, yLo],
-      [xLo, yHi],
-      [xHi, yHi],
-    ] as Point[]
-  ).map(o);
-  const ox = locX - Math.min(...corners.map((c) => c[0]));
-  const oy = locY - Math.min(...corners.map((c) => c[1]));
-  return (p) => {
-    const [x, y] = o(p);
-    return [x + ox, y + oy];
-  };
-}
 
 const esc = (text: string): string =>
   text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
