@@ -452,6 +452,11 @@ describe("parseUniversalNetlist", () => {
       expect(document.metadata.netlistHash).toBe(calculateUniversalNetlistHash(detailed()));
     });
 
+    it("gives net properties to the netlist parseUniversalNetlist returns", () => {
+      const text = serializeUniversalNetlist(detailed(), { generatedAt: GENERATED_AT });
+      expect(parseUniversalNetlist(text).netProperties).toEqual({ VCC: { VOLTAGE: "3.3V" } });
+    });
+
     it("keeps an empty pin name a version 3 file may carry", () => {
       const v3: ParsedNetlist = {
         nets: { GND: { U1: ["2"] } },

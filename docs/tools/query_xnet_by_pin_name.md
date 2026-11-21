@@ -36,7 +36,8 @@ Returns circuit traversal results starting from a pin. See [`AggregatedComponent
   "visited_nets": ["net1", "net2"],
   "circuit_hash": "string",
   "skipped": { "C": 5, "L": 2 },        // Optional
-  "net_name_warnings": [NetNameWarning, ...] // Optional: visited nets whose names have leading or trailing whitespace
+  "net_name_warnings": [NetNameWarning, ...], // Optional: visited nets whose names have leading or trailing whitespace
+  "net_properties": { "USB_DP": { "DIFFERENTIAL_PAIR": "USB" } } // Optional: the design's own properties of the visited nets that have any
 }
 ```
 

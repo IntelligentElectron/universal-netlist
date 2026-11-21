@@ -2,6 +2,7 @@ import type { ServiceContext } from "../context.js";
 import { getDesignName } from "../../paths.js";
 import { loadNetlist } from "../load-netlist.js";
 import { aggregateCircuitByMpn, componentNotes } from "../component-grouping.js";
+import { netPropertiesOf } from "../net-properties.js";
 import { describeAmbiguity, describeResolution, indexNetNames } from "../net-names.js";
 import { componentError, displayRefdes, isDuplicateKey } from "../../duplicate-refdes.js";
 import {
@@ -96,6 +97,8 @@ export const queryXnetByNetName = async (
   if (notes.length > 0) response.notes = notes;
   const warnings = names.warningsFor([net, ...traversal.visited_nets]);
   if (warnings.length > 0) response.net_name_warnings = warnings;
+  const properties = netPropertiesOf(netlist, [net, ...traversal.visited_nets]);
+  if (properties) response.net_properties = properties;
 
   return response;
 };
@@ -220,6 +223,8 @@ export const queryXnetByPinName = async (
 
   const warnings = indexNetNames(netlist).warningsFor([connectedNet, ...traversal.visited_nets]);
   if (warnings.length > 0) response.net_name_warnings = warnings;
+  const properties = netPropertiesOf(netlist, [connectedNet, ...traversal.visited_nets]);
+  if (properties) response.net_properties = properties;
 
   return response;
 };

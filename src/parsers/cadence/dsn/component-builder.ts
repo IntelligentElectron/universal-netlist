@@ -6,7 +6,12 @@
  */
 
 import type { ComponentDetails } from "../../../types.js";
-import { createPinEntry, PIN_TYPE_BY_CODE, type PinDetails, type PinEntry } from "../../../types.js";
+import {
+  createPinEntry,
+  PIN_TYPE_BY_CODE,
+  type PinDetails,
+  type PinEntry,
+} from "../../../types.js";
 import {
   isValidRefdes,
   hasDnsPropertyMarker,
@@ -190,7 +195,9 @@ export const libraryPinDetails = (
   const shape = part.pinShapes?.[pinIndex - 1];
   return {
     ...(type !== undefined && { type }),
-    ...(type !== undefined && shape !== undefined && !(shape & PIN_VISIBLE) && { hidden: true as const }),
+    ...(type !== undefined &&
+      shape !== undefined &&
+      !(shape & PIN_VISIBLE) && { hidden: true as const }),
   };
 };
 
