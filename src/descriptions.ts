@@ -97,9 +97,17 @@ export const GET_PAGE_DESCRIPTION = `\
 One schematic page of a Cadence .DSN design as drawn: its parts (refdes, value, symbol, \
 location, rotation, mirror, box, and pins with their electrical types and nets), wires with their nets, \
 net labels, hierarchical ports, globals (power and ground symbols), off-page connectors, \
-bus entries, hierarchical blocks, and the title-block fields. Net names match list_nets. \
+bus entries, hierarchical blocks, the title-block fields, and text_notes (free text the \
+designer placed on the page, such as jumper defaults and current ratings). Net names match list_nets. \
 Coordinates are in 1/100 inch, x to the right and y down. \
 Name the page as list_pages reports it.`;
+
+export const SEARCH_NOTES_DESCRIPTION = `\
+Search the notes on every schematic page of a Cadence .DSN design: free text the designer \
+placed on a page, such as default jumper settings, current ratings, assembly options and \
+references to other sheets, which no netlist carries. Returns each note matching a regex \
+pattern (case-insensitive) with its page, as list_pages names it, and its position in \
+1/100 inch. Search a net or part name to find the notes that mention it. ${paged("text_notes")}`;
 
 export const RENDER_PAGE_DESCRIPTION = `\
 Render one schematic page of a Cadence .DSN design as a PNG image, drawn from the design \

@@ -49,7 +49,8 @@ Coordinates are page coordinates in 1/100 inch, x to the right and y down, on ev
   "ports": [{ "name": "SDA", "x": 1010, "y": 230, "net": "SDA" }],
   "globals": [{ "name": "3V3_RASP", "x": 870, "y": 160, "net": "3V3_RASP" }],
   "off_page_connectors": [],
-  "bus_entries": []
+  "bus_entries": [],
+  "text_notes": [{ "text": "Pull-ups fitted on\nthe main board", "x": 640, "y": 410 }]
 }
 ```
 
@@ -63,6 +64,7 @@ Coordinates are page coordinates in 1/100 inch, x to the right and y down, on ev
 | `wires[].net`, `*.net` | The net, named as `list_nets` names it; omitted where the object joins none of the netlist's nets: a bus wire or bus port, which carries several, and a wire that reaches no pin |
 | `blocks` | Hierarchical blocks on the page, each placing a child schematic |
 | `title_block.fields` | The title block's fields, such as `Title`, `Doc`, `RevCode`, `OrgName` |
+| `text_notes` | Free text the designer placed on the page, each with its baseline-left position; lines are separated by `\n`. [`search_notes`](search_notes.md) searches them across every page |
 
 **Error (page not found):**
 ```json
