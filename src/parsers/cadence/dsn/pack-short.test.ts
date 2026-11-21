@@ -25,12 +25,12 @@ const netOf = (nets: Record<string, Record<string, string[]>>, ref: string, pin:
   Object.keys(nets).find((n) => nets[n][ref]?.includes(pin));
 
 describe.skipIf(!hasClay)("pins a part's package shorts together", () => {
+  const ours = parseDsnFile(TOP).nets;
   const SHORTED = ["J3", "J4", "J5", "J6"].flatMap((ref) =>
     ["5", "6", "7", "8"].map((pin) => [ref, pin] as const)
   );
 
   it("puts every PACK_SHORT pin on the net Capture's export gives it", async () => {
-    const ours = parseDsnFile(TOP).nets;
     const exported = await parsePstxnet(EXPORT);
 
     for (const [ref, pin] of SHORTED) {
@@ -41,7 +41,6 @@ describe.skipIf(!hasClay)("pins a part's package shorts together", () => {
   });
 
   it("joins VDD1 and VDD2 to VDD's net, and GND1 and GND2 to GND's", () => {
-    const ours = parseDsnFile(TOP).nets;
     expect(netOf(ours, "J3", "5")).toBe(netOf(ours, "J3", "4"));
     expect(netOf(ours, "J3", "8")).toBe(netOf(ours, "J3", "9"));
   });
