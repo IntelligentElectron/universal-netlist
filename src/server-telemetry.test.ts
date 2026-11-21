@@ -59,7 +59,7 @@ const DSN_DESIGN = join(
   "MULTIO.DSN"
 );
 const samplesFor = (tool: string): Record<string, unknown> =>
-  ["list_pages", "get_page", "render_page"].includes(tool)
+  ["list_pages", "get_page", "search_notes", "render_page"].includes(tool)
     ? { ...SAMPLES, design: DSN_DESIGN }
     : SAMPLES;
 

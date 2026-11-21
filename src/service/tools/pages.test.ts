@@ -125,6 +125,57 @@ describe("list_pages and get_page", () => {
   }, 60_000);
 });
 
+describe("text notes", () => {
+  type Notes = {
+    text_notes: { page: string; text: string; x: number; y: number }[];
+    next_offset?: number;
+  };
+
+  it("gives get_page the page's notes, with line breaks as \\n", async () => {
+    const view = (await callTool("get_page", { design: HB1A, page: "AAFM Top" })) as PageView;
+    expect(view.text_notes).toContainEqual({
+      text: "FMC_CPLD_[3:0] used as\n4-bit bidir bus",
+      x: 350,
+      y: 490,
+    });
+    expect(view.text_notes.every((note) => note.text.trim() && !note.text.includes("\r"))).toBe(
+      true
+    );
+  }, 60_000);
+
+  it("finds a note on any page by a case-insensitive pattern, and pages the matches", async () => {
+    const found = (await callTool("search_notes", { design: HB1A, pattern: "BIDIR BUS" })) as Notes;
+    expect(found.text_notes.map((note) => note.page)).toEqual([
+      "AAFM Top",
+      "MAX II CPLD (block CPLD)",
+    ]);
+    expect(found.text_notes[0]).toEqual({
+      page: "AAFM Top",
+      text: "FMC_CPLD_[3:0] used as\n4-bit bidir bus",
+      x: 350,
+      y: 490,
+    });
+    const all = (await callTool("search_notes", {
+      design: HB1A,
+      pattern: ".",
+      max_results: 10,
+    })) as Notes;
+    expect(all.text_notes).toHaveLength(10);
+    expect(all.next_offset).toBe(10);
+  }, 60_000);
+
+  it("refuses a bad pattern and a design that is not a .DSN", async () => {
+    expect(await callTool("search_notes", { design: HB1A, pattern: "(" })).toEqual({
+      error: "Invalid regex pattern '('",
+    });
+    expect(
+      await callTool("search_notes", { design: "board.kicad_pro", pattern: "x" })
+    ).toMatchObject({
+      error: expect.stringContaining(".DSN schematics only"),
+    });
+  });
+});
+
 describe("findPage", () => {
   const view = (page: string, name: string, schematic = "S") =>
     ({ page, name, schematic }) as PageView;

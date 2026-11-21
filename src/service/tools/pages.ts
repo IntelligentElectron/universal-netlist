@@ -1,10 +1,12 @@
 import { parseDsnPages, type DesignPages } from "../../parsers/cadence/dsn/dsn-parser.js";
-import type { PageView } from "../../parsers/cadence/dsn/page-views.js";
+import type { PageNote, PageView } from "../../parsers/cadence/dsn/page-views.js";
 import { readOnce } from "../../parsers/context.js";
 import { resolvePath } from "../../paths.js";
 import type { ErrorResult } from "../../types.js";
 import { cached } from "../cache.js";
 import type { ServiceContext } from "../context.js";
+import { parseRegexPattern } from "../regex-helpers.js";
+import type { Paged } from "../pagination.js";
 
 /** Coordinates in page results: 1/100 inch, x to the right, y down. */
 export const PAGE_UNITS = "0.01 in, x right, y down";
@@ -110,4 +112,28 @@ export const getPage = async (
   const found = findPage(loaded.pages, page);
   if ("error" in found) return found;
   return { design: loaded.designPath, units: PAGE_UNITS, ...found };
+};
+
+/** Every note on a design's pages that matches `pattern`, case-insensitive, page by page. */
+export const searchNotes = async (
+  design: string,
+  pattern: string,
+  context: ServiceContext
+): Promise<
+  | (Paged & { design: string; units: string; text_notes: (PageNote & { page: string })[] })
+  | ErrorResult
+> => {
+  const parsed = parseRegexPattern(pattern, "i");
+  if ("error" in parsed) return parsed;
+  const loaded = await loadPages(design, context);
+  if ("error" in loaded) return loaded;
+  return {
+    design: loaded.designPath,
+    units: PAGE_UNITS,
+    text_notes: loaded.pages.flatMap((page) =>
+      page.text_notes
+        .filter((note) => parsed.regex.test(note.text))
+        .map((note) => ({ page: page.page, ...note }))
+    ),
+  };
 };
