@@ -165,6 +165,15 @@ export function isPinIgnored(
   return selected?.ignores?.[pin.pinIndex - 1] ?? false;
 }
 
+/**
+ * Whether the instance is a section of a package with several devices. There
+ * an ignored slot is a pad that section does not have, never a shorted one.
+ */
+export const isMultiSection = (inst: PlacedInstance, pmd: PinMapData): boolean =>
+  [inst.sourcePackage, inst.sourcePackage.replace(/_\d+$/, "")].some((name) =>
+    pmd.deviceUnitRefs.has(name)
+  );
+
 /** Whether the part's PACK_SHORT ties this pin to others (§5.8). */
 export const isPackShorted = (pin: T0x10, inst: PlacedInstance): boolean =>
   inst.packShort?.some((group) => group.includes(pin.pinIndex)) ?? false;

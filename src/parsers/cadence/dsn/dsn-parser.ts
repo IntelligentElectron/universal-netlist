@@ -27,7 +27,7 @@ import {
   readLibraryFonts,
   readLibraryVersion,
 } from "./library-parser.js";
-import { buildDeviceIndexMap, packShortGroups } from "./pin-resolver.js";
+import { buildDeviceIndexMap, isMultiSection, packShortGroups } from "./pin-resolver.js";
 import { buildNetConnectivity } from "./net-builder.js";
 import type { PageCoordMap } from "./page-groups.js";
 import type { PinInfo } from "./net-pins.js";
@@ -295,8 +295,10 @@ function parseDsnStreams(
     }
   }
 
+  // PACK_SHORT ties a single-section part's ignored pins to a placed pin (§5.8).
   for (const page of pages) {
     for (const inst of page.placedInstances) {
+      if (isMultiSection(inst, pmd)) continue;
       const groups = packShortGroups(findCachedPart(inst, cachedParts), strLst);
       if (groups) inst.packShort = groups;
     }

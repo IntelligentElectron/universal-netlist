@@ -4,6 +4,7 @@ import {
   findPinMap,
   extractUnitRef,
   buildDeviceIndexMap,
+  isMultiSection,
   isPinIgnored,
   packShortGroups,
 } from "./pin-resolver.js";
@@ -436,5 +437,15 @@ describe("packShortGroups", () => {
   it("returns nothing for a part without the property", () => {
     expect(packShortGroups({ pinNames: ["1"] }, [])).toBeUndefined();
     expect(packShortGroups(undefined, [])).toBeUndefined();
+  });
+});
+
+describe("isMultiSection", () => {
+  it("tells a section of a multi-device package from a single-device part", () => {
+    const pmd = pinMapData({ "RJ45-1": ["A1"], SI7617DN: ["4", "5", "1", "2", "3"] });
+    pmd.deviceUnitRefs.set("RJ45", ["-1", "-2", "-3", "-4"]);
+
+    expect(isMultiSection(instance("RJ45_0", 1, "RJ45-1.Normal"), pmd)).toBe(true);
+    expect(isMultiSection(instance("SI7617DN", 5), pmd)).toBe(false);
   });
 });
