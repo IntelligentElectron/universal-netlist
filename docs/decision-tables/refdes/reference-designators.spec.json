@@ -1,0 +1,25 @@
+{
+  "name": "reference-designators",
+  "assumes": [
+    "Input is a source component reference or an internally disambiguated component key. Preserve source spelling; hierarchy instance paths are not reference designators."
+  ],
+  "dimensions": {
+    "stem": [
+      "letters",
+      "underscore",
+      "hierarchy path",
+      "digit first",
+      "empty"
+    ],
+    "leading": [
+      "none",
+      "one hyphen",
+      "two hyphens"
+    ],
+    "suffix": [
+      "none",
+      "duplicate index",
+      "non-numeric"
+    ]
+  }
+}
