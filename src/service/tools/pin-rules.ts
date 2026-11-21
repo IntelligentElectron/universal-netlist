@@ -45,10 +45,7 @@ export const classifyNet = (types: readonly (PinType | undefined)[]): NetCell =>
 export const netOutcome = ({ push_pull, rail, other, sinks }: NetCell): NetOutcome => {
   const driven = push_pull !== "none" || rail !== "none";
   if (push_pull === "many") return "conflict error";
-  if (push_pull === "one" && other === "open") return "conflict error";
-  if (push_pull === "one" && (rail === "power_out" || rail === "many_power_out")) {
-    return "conflict error";
-  }
+  if (push_pull === "one" && (other === "open" || rail === "power_out")) return "conflict error";
   if (rail === "many_power_out") return "conflict error";
   if (rail === "power_out" && other === "open") return "conflict error";
   // An undirected power pin may be a supply input or output of either polarity,
