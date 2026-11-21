@@ -30,6 +30,9 @@ const instance = (sourcePackage: string, pinCount: number, pkgName?: string): Pl
   symbolDisplayProps: [],
   t0x10s: Array.from({ length: pinCount }, (_, i) => pin(i + 1)),
   sectionIndex: 0,
+  box: { x1: 0, y1: 0, x2: 0, y2: 0 },
+  rotation: 0,
+  mirrored: false,
 });
 
 const pinMapData = (
@@ -181,12 +184,19 @@ describe("buildDeviceIndexMap", () => {
     reference,
     dbId,
     sectionIndex,
+    box: { x1: 0, y1: 0, x2: 0, y2: 0 },
+    rotation: 0,
+    mirrored: false,
   });
 
   const page = (placedInstances: PlacedInstance[]): PageData =>
     ({
       name: "P1",
       netTable: new Map(),
+      sizeName: "A",
+      widthInches: 11,
+      heightInches: 8.5,
+      busEntries: [],
       wires: [],
       placedInstances,
       drawnInstances: [],

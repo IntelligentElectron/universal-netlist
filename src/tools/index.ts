@@ -22,6 +22,8 @@ import {
   EXPORT_CADENCE_NETLIST_DESCRIPTION,
   LIST_COMPONENTS_DESCRIPTION,
   LIST_DESIGNS_DESCRIPTION,
+  LIST_PAGES_DESCRIPTION,
+  GET_PAGE_DESCRIPTION,
   LIST_NETS_DESCRIPTION,
   QUERY_COMPONENT_DESCRIPTION,
   QUERY_XNET_BY_NET_NAME_DESCRIPTION,
@@ -36,6 +38,7 @@ import { exportCadenceNetlist } from "../service/tools/cadence-export.js";
 import { listComponents } from "../service/tools/list-components.js";
 import { listDesigns } from "../service/tools/list-designs.js";
 import { listNets } from "../service/tools/list-nets.js";
+import { getPage, listPages } from "../service/tools/pages.js";
 import { queryComponent } from "../service/tools/query-component.js";
 import { queryXnetByNetName, queryXnetByPinName } from "../service/tools/query-xnet.js";
 import { runErc } from "../service/tools/run-erc.js";
@@ -444,6 +447,34 @@ export const exportCadenceNetlistTool = defineTool({
   run: ({ design }, context) => exportCadenceNetlist(resolvePath(design, context.root)),
 });
 
+export const listPagesTool = defineTool({
+  name: "list_pages",
+  title: "List pages",
+  description: LIST_PAGES_DESCRIPTION,
+  annotations: READ_ONLY,
+  inputSchema: z.strictObject({
+    design: z.string().describe("Path to a .DSN design, as returned by list_designs"),
+  }),
+  run: ({ design }, context) => listPages(design, context),
+});
+
+export const getPageTool = defineTool({
+  name: "get_page",
+  title: "Get page",
+  description: GET_PAGE_DESCRIPTION,
+  annotations: READ_ONLY,
+  inputSchema: z.strictObject({
+    design: z.string().describe("Path to a .DSN design, as returned by list_designs"),
+    page: z
+      .string()
+      .min(1)
+      .describe(
+        "Page as list_pages names it; its plain name, or <schematic>/<page>, when only one page has that name"
+      ),
+  }),
+  run: ({ design, page }, context) => getPage(design, page, context),
+});
+
 // =============================================================================
 // Registry
 // =============================================================================
@@ -471,6 +502,8 @@ export const TOOLS: readonly AnyToolDefinition[] = Object.freeze(
       queryXnetByPinNameTool,
       queryComponentTool,
       runErcTool,
+      listPagesTool,
+      getPageTool,
       exportCadenceNetlistTool,
     ] as AnyToolDefinition[]
   ).filter((tool) => FEATURE_FLAGS[tool.name] ?? true)

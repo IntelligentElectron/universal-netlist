@@ -45,7 +45,21 @@ const SAMPLES: Record<string, unknown> = {
   net_name: "PP5V",
   pin_name: "U1.1",
   refdes: "U1",
+  page: "P1: PI",
 };
+
+/** Pages are read from .DSN schematics only, so the page tools get one. */
+const DSN_DESIGN = join(
+  import.meta.dirname,
+  "..",
+  "test",
+  "fixtures",
+  "cadence",
+  "multio",
+  "MULTIO.DSN"
+);
+const samplesFor = (tool: string): Record<string, unknown> =>
+  tool === "list_pages" || tool === "get_page" ? { ...SAMPLES, design: DSN_DESIGN } : SAMPLES;
 
 type ListedTool = {
   name: string;
@@ -117,10 +131,11 @@ describe("tool call telemetry", () => {
 
   it("records a call that runs the tool once, under its name", async () => {
     for (const tool of tools) {
+      const samples = samplesFor(tool.name);
       const args = Object.fromEntries(
         Object.keys(tool.inputSchema.properties ?? {})
-          .filter((argument) => argument in SAMPLES)
-          .map((argument) => [argument, SAMPLES[argument]])
+          .filter((argument) => argument in samples)
+          .map((argument) => [argument, samples[argument]])
       );
       const { failed, otel } = await call(tool.name, args);
       expect(failed, `${tool.name} failed on ${JSON.stringify(args)}`).toBe(false);
