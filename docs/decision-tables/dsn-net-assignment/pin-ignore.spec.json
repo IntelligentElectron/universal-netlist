@@ -1,0 +1,9 @@
+{
+  "name": "pin-ignore",
+  "assumes": "A placed part's pin. Ignored means its device pin flag has bit 7 (Pin Ignore) in the pin map that supplied its number; PACK_SHORT is the library part's property listing pins shorted in the package (docs/cadence-dsn-format.md §5.8).",
+  "dimensions": {
+    "pin_ignored": ["yes", "no"],
+    "named_in_pack_short": ["yes", "no"],
+    "group_has_placed_pin": ["yes", "no"]
+  }
+}

@@ -9,7 +9,8 @@
 import { isValidRefdes } from "../../../circuit-traversal.js";
 import type { PinMapData } from "./structure-types.js";
 import type { PageData } from "./page-parser.js";
-import { resolvePinNumber, isPinIgnored } from "./pin-resolver.js";
+import type { T0x10 } from "./structures.js";
+import { resolvePinNumber, isPinIgnored, isPackShorted } from "./pin-resolver.js";
 import { parseBusName } from "./bus-name.js";
 import { offPageUnderPin, symbolUnderPin } from "./symbol-attachment.js";
 import type { PageCoordMap, PortMembership } from "./page-groups.js";
@@ -171,11 +172,17 @@ export function collectPins(
       const refdes = inst.reference;
       if (!refdes || !isValidRefdes(refdes)) continue;
       const deviceIndex = deviceIndexMap.get(inst.dbId);
+      const shorted: T0x10[] = [];
+      const placed = new Map<number, PinInfo>();
       for (const pin of inst.t0x10s) {
         // A pin this section of the package has no pad for is not a pin of the
         // component; reporting it would invent a connection on a pad that does
-        // not exist. Cadence leaves such pins out of its own netlist.
-        if (isPinIgnored(pin, inst, pmd, deviceIndex)) continue;
+        // not exist. Cadence leaves such pins out of its own netlist, unless
+        // the part's PACK_SHORT ties it to another pin (§5.8).
+        if (isPinIgnored(pin, inst, pmd, deviceIndex)) {
+          if (isPackShorted(pin, inst)) shorted.push(pin);
+          continue;
+        }
         const coord = `${pin.pointX},${pin.pointY}`;
         let coordNet = coordToNet.get(coord);
 
@@ -255,7 +262,23 @@ export function collectPins(
           drawn: { pageIdx: i, coord },
         };
         if (port) info.port = port;
-        pins.push(placement ? bindThroughPorts(info, pages, pageCoordMaps, virtualNetIds) : info);
+        const bound = placement
+          ? bindThroughPorts(info, pages, pageCoordMaps, virtualNetIds)
+          : info;
+        placed.set(pin.pinIndex, bound);
+        pins.push(bound);
+      }
+
+      // A shorted pin is on the net of the first pin of its group that is placed.
+      for (const pin of shorted) {
+        const group = inst.packShort!.find((g) => g.includes(pin.pinIndex))!;
+        const sibling = group.map((idx) => placed.get(idx)).find((p) => p !== undefined);
+        if (!sibling) continue;
+        pins.push({
+          ...sibling,
+          pinNumber: resolvePinNumber(pin, inst, pmd, deviceIndex),
+          drawn: { pageIdx: i, coord: `${pin.pointX},${pin.pointY}` },
+        });
       }
     }
   }
