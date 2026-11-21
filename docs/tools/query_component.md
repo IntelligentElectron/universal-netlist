@@ -79,6 +79,24 @@ Response:
 }
 ```
 
+**A Cadence part, whose pins carry their electrical types:**
+```json
+{
+  "design_variant": "<Default>",
+  "refdes": "U1",
+  "pins": {
+    "1": { "name": "1A", "net": "CLK_IN", "type": "input" },
+    "3": { "name": "1Y", "net": "CLK_BUF", "type": "output" },
+    "7": { "name": "GND", "net": "GND", "type": "power", "hidden": true },
+    "14": { "name": "VCC", "net": "VCC", "type": "power", "hidden": true }
+  }
+}
+```
+
+`type` is the electrical type the pin's library symbol declares, and `hidden: true` marks
+a power pin the symbol does not draw, which joins its net by name. Both are read from
+Cadence designs today.
+
 **Resistor with simple pins:**
 ```json
 {

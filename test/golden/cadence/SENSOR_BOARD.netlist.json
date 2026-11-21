@@ -1,8 +1,8 @@
 {
-  "universalNetlistSchemaVersion": 3,
+  "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T01:56:23.669Z",
-    "netlistHash": "sha256:b6e67aa0a12a7831766339c6ca5076920ffbb1cdabdf2503db8745d1ba68ceaa",
+    "generatedAt": "2026-11-21T20:27:48.312Z",
+    "netlistHash": "sha256:1207e6d1a85ab409d121fa3cda00c00be2dca3ad563385b74f2f4ad521327965",
     "origin": {
       "type": "vendor",
       "source": {
@@ -1570,8 +1570,14 @@
     "C1": {
       "value": "100uF",
       "pins": {
-        "1": "VCC",
-        "2": "GND"
+        "1": {
+          "net": "VCC",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "Q1": {
@@ -1579,35 +1585,50 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "N18612"
+          "net": "N18612",
+          "type": "passive"
         },
         "2": {
           "name": "S",
-          "net": "VCC"
+          "net": "VCC",
+          "type": "passive"
         },
         "3": {
           "name": "D",
-          "net": "N18545"
+          "net": "N18545",
+          "type": "passive"
         }
       }
     },
     "TP20": {
       "value": "VCC",
       "pins": {
-        "1": "VCC"
+        "1": {
+          "net": "VCC",
+          "type": "passive"
+        }
       }
     },
     "J2": {
       "value": "JUMPER",
       "pins": {
-        "1": "VIN",
-        "2": "N18545"
+        "1": {
+          "net": "VIN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N18545",
+          "type": "passive"
+        }
       }
     },
     "TP21": {
       "value": "GND",
       "pins": {
-        "1": "GND"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "U1": {
@@ -1615,1592 +1636,2826 @@
       "pins": {
         "1": {
           "name": "PB12",
-          "net": "NCS"
+          "net": "NCS",
+          "type": "passive"
         },
         "2": {
           "name": "PB13",
-          "net": "SCK"
+          "net": "SCK",
+          "type": "passive"
         },
         "3": {
           "name": "PB14",
-          "net": "MISO"
+          "net": "MISO",
+          "type": "passive"
         },
         "4": {
           "name": "PB15",
-          "net": "MOSI"
+          "net": "MOSI",
+          "type": "passive"
         },
         "5": {
           "name": "PA8",
-          "net": "NC"
+          "net": "NC",
+          "type": "passive"
         },
         "6": {
           "name": "PA9",
-          "net": "NC"
+          "net": "NC",
+          "type": "passive"
         },
         "7": {
           "name": "PA10",
-          "net": "NC"
+          "net": "NC",
+          "type": "passive"
         },
         "8": {
           "name": "PA11",
-          "net": "NC"
+          "net": "NC",
+          "type": "passive"
         },
         "9": {
           "name": "PA12",
-          "net": "NC"
+          "net": "NC",
+          "type": "passive"
         },
         "10": {
           "name": "PA15",
-          "net": "NC"
+          "net": "NC",
+          "type": "passive"
         },
         "11": {
           "name": "PB3",
-          "net": "COL_SELECT_4"
+          "net": "COL_SELECT_4",
+          "type": "passive"
         },
         "12": {
           "name": "PB4",
-          "net": "COL_SELECT_5"
+          "net": "COL_SELECT_5",
+          "type": "passive"
         },
         "13": {
           "name": "PB5",
-          "net": "COL_SELECT_6"
+          "net": "COL_SELECT_6",
+          "type": "passive"
         },
         "14": {
           "name": "PB6",
-          "net": "COL_SELECT_7"
+          "net": "COL_SELECT_7",
+          "type": "passive"
         },
         "15": {
           "name": "PB7",
-          "net": "COL_SELECT_8"
+          "net": "COL_SELECT_8",
+          "type": "passive"
         },
         "16": {
           "name": "PB8",
-          "net": "COL_SELECT_9"
+          "net": "COL_SELECT_9",
+          "type": "passive"
         },
         "17": {
           "name": "PB9",
-          "net": "COL_SELECT_10"
+          "net": "COL_SELECT_10",
+          "type": "passive"
         },
         "18": {
           "name": "5V#18",
-          "net": "5V"
+          "net": "5V",
+          "type": "power"
         },
         "19": {
           "name": "GND#19",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "20": {
           "name": "3V3#20",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         },
         "21": {
           "name": "VBAT",
-          "net": "NC"
+          "net": "NC",
+          "type": "passive"
         },
         "22": {
           "name": "PC13",
-          "net": "NC"
+          "net": "NC",
+          "type": "passive"
         },
         "23": {
           "name": "PC14",
-          "net": "NC"
+          "net": "NC",
+          "type": "passive"
         },
         "24": {
           "name": "PC15",
-          "net": "NC"
+          "net": "NC",
+          "type": "passive"
         },
         "25": {
           "name": "RESET",
-          "net": "NC"
+          "net": "NC",
+          "type": "passive"
         },
         "26": {
           "name": "PA0",
-          "net": "ADC0"
+          "net": "ADC0",
+          "type": "passive"
         },
         "27": {
           "name": "PA1",
-          "net": "ADC1"
+          "net": "ADC1",
+          "type": "passive"
         },
         "28": {
           "name": "PA2",
-          "net": "ADC2"
+          "net": "ADC2",
+          "type": "passive"
         },
         "29": {
           "name": "PA3",
-          "net": "ADC3"
+          "net": "ADC3",
+          "type": "passive"
         },
         "30": {
           "name": "PA4",
-          "net": "ADC4"
+          "net": "ADC4",
+          "type": "passive"
         },
         "31": {
           "name": "PA5",
-          "net": "ADC5"
+          "net": "ADC5",
+          "type": "passive"
         },
         "32": {
           "name": "PA6",
-          "net": "ADC6"
+          "net": "ADC6",
+          "type": "passive"
         },
         "33": {
           "name": "PA7",
-          "net": "ADC7"
+          "net": "ADC7",
+          "type": "passive"
         },
         "34": {
           "name": "PB0",
-          "net": "COL_SELECT_3"
+          "net": "COL_SELECT_3",
+          "type": "passive"
         },
         "35": {
           "name": "PB1",
-          "net": "COL_SELECT_2"
+          "net": "COL_SELECT_2",
+          "type": "passive"
         },
         "36": {
           "name": "PB2",
-          "net": "COL_SELECT_1"
+          "net": "COL_SELECT_1",
+          "type": "passive"
         },
         "37": {
           "name": "PB10",
-          "net": "COL_SELECT_0"
+          "net": "COL_SELECT_0",
+          "type": "passive"
         },
         "38": {
           "name": "3V3#38",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         },
         "39": {
           "name": "GND#39",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "40": {
           "name": "5V#40",
-          "net": "5V"
+          "net": "5V",
+          "type": "power"
         }
       }
     },
     "J3": {
       "value": "JUMPER Selector",
       "pins": {
-        "1": "5V",
-        "2": "VCC",
-        "3": "3V3"
+        "1": {
+          "net": "5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VCC",
+          "type": "passive"
+        },
+        "3": {
+          "net": "3V3",
+          "type": "passive"
+        }
       }
     },
     "J1": {
       "value": "CON6",
       "pins": {
-        "1": "VIN",
-        "2": "MOSI",
-        "3": "MISO",
-        "4": "SCK",
-        "5": "NCS",
-        "6": "GND"
+        "1": {
+          "net": "VIN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "MOSI",
+          "type": "passive"
+        },
+        "3": {
+          "net": "MISO",
+          "type": "passive"
+        },
+        "4": {
+          "net": "SCK",
+          "type": "passive"
+        },
+        "5": {
+          "net": "NCS",
+          "type": "passive"
+        },
+        "6": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "R1": {
       "value": "100",
       "pins": {
-        "1": "N18612",
-        "2": "GND"
+        "1": {
+          "net": "N18612",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "TP16": {
       "value": "COL8",
       "pins": {
-        "1": "COL_SELECT_8"
+        "1": {
+          "net": "COL_SELECT_8",
+          "type": "passive"
+        }
       }
     },
     "TP8": {
       "value": "ROW7",
       "pins": {
-        "1": "ADC7"
+        "1": {
+          "net": "ADC7",
+          "type": "passive"
+        }
       }
     },
     "TP10": {
       "value": "COL5",
       "pins": {
-        "1": "COL_SELECT_5"
+        "1": {
+          "net": "COL_SELECT_5",
+          "type": "passive"
+        }
       }
     },
     "TP5": {
       "value": "ROW4",
       "pins": {
-        "1": "ADC4"
+        "1": {
+          "net": "ADC4",
+          "type": "passive"
+        }
       }
     },
     "TP13": {
       "value": "COL2",
       "pins": {
-        "1": "COL_SELECT_2"
+        "1": {
+          "net": "COL_SELECT_2",
+          "type": "passive"
+        }
       }
     },
     "TP1": {
       "value": "ROW0",
       "pins": {
-        "1": "ADC0"
+        "1": {
+          "net": "ADC0",
+          "type": "passive"
+        }
       }
     },
     "TP18": {
       "value": "COL9",
       "pins": {
-        "1": "COL_SELECT_9"
+        "1": {
+          "net": "COL_SELECT_9",
+          "type": "passive"
+        }
       }
     },
     "TP9": {
       "value": "COL0",
       "pins": {
-        "1": "COL_SELECT_0"
+        "1": {
+          "net": "COL_SELECT_0",
+          "type": "passive"
+        }
       }
     },
     "R97": {
       "value": "1k",
       "pins": {
-        "1": "ADC7",
-        "2": "GND"
+        "1": {
+          "net": "ADC7",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "R96": {
       "value": "1k",
       "pins": {
-        "1": "ADC6",
-        "2": "GND"
+        "1": {
+          "net": "ADC6",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "TP3": {
       "value": "ROW2",
       "pins": {
-        "1": "ADC2"
+        "1": {
+          "net": "ADC2",
+          "type": "passive"
+        }
       }
     },
     "R95": {
       "value": "1k",
       "pins": {
-        "1": "ADC5",
-        "2": "GND"
+        "1": {
+          "net": "ADC5",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "TP12": {
       "value": "COL6",
       "pins": {
-        "1": "COL_SELECT_6"
+        "1": {
+          "net": "COL_SELECT_6",
+          "type": "passive"
+        }
       }
     },
     "R94": {
       "value": "1k",
       "pins": {
-        "1": "ADC4",
-        "2": "GND"
+        "1": {
+          "net": "ADC4",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "TP6": {
       "value": "ROW5",
       "pins": {
-        "1": "ADC5"
+        "1": {
+          "net": "ADC5",
+          "type": "passive"
+        }
       }
     },
     "TP15": {
       "value": "COL3",
       "pins": {
-        "1": "COL_SELECT_3"
+        "1": {
+          "net": "COL_SELECT_3",
+          "type": "passive"
+        }
       }
     },
     "R93": {
       "value": "1k",
       "pins": {
-        "1": "ADC3",
-        "2": "GND"
+        "1": {
+          "net": "ADC3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "TP2": {
       "value": "ROW1",
       "pins": {
-        "1": "ADC1"
+        "1": {
+          "net": "ADC1",
+          "type": "passive"
+        }
       }
     },
     "TP19": {
       "value": "COL10",
       "pins": {
-        "1": "COL_SELECT_10"
+        "1": {
+          "net": "COL_SELECT_10",
+          "type": "passive"
+        }
       }
     },
     "R92": {
       "value": "1k",
       "pins": {
-        "1": "ADC2",
-        "2": "GND"
+        "1": {
+          "net": "ADC2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "R91": {
       "value": "1k",
       "pins": {
-        "1": "ADC1",
-        "2": "GND"
+        "1": {
+          "net": "ADC1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "TP14": {
       "value": "COL7",
       "pins": {
-        "1": "COL_SELECT_7"
+        "1": {
+          "net": "COL_SELECT_7",
+          "type": "passive"
+        }
       }
     },
     "R90": {
       "value": "1k",
       "pins": {
-        "1": "ADC0",
-        "2": "GND"
+        "1": {
+          "net": "ADC0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "TP7": {
       "value": "ROW6",
       "pins": {
-        "1": "ADC6"
+        "1": {
+          "net": "ADC6",
+          "type": "passive"
+        }
       }
     },
     "TP17": {
       "value": "COL4",
       "pins": {
-        "1": "COL_SELECT_4"
+        "1": {
+          "net": "COL_SELECT_4",
+          "type": "passive"
+        }
       }
     },
     "TP4": {
       "value": "ROW3",
       "pins": {
-        "1": "ADC3"
+        "1": {
+          "net": "ADC3",
+          "type": "passive"
+        }
       }
     },
     "TP11": {
       "value": "COL1",
       "pins": {
-        "1": "COL_SELECT_1"
+        "1": {
+          "net": "COL_SELECT_1",
+          "type": "passive"
+        }
       }
     },
     "R55": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_9",
-        "2": "N00105_M1_COL10_R-D77"
+        "1": {
+          "net": "COL_SELECT_9",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL10_R-D77",
+          "type": "passive"
+        }
       }
     },
     "D54": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL10_R-D77",
-        "2": "ADC4"
+        "1": {
+          "net": "N00105_M1_COL10_R-D77",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC4",
+          "type": "passive"
+        }
       }
     },
     "R66": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_9",
-        "2": "N00105_M1_COL10_R-D78"
+        "1": {
+          "net": "COL_SELECT_9",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL10_R-D78",
+          "type": "passive"
+        }
       }
     },
     "D65": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL10_R-D78",
-        "2": "ADC5"
+        "1": {
+          "net": "N00105_M1_COL10_R-D78",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC5",
+          "type": "passive"
+        }
       }
     },
     "R11": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_9",
-        "2": "N00105_M1_COL10_R-D73"
+        "1": {
+          "net": "COL_SELECT_9",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL10_R-D73",
+          "type": "passive"
+        }
       }
     },
     "D10": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL10_R-D73",
-        "2": "ADC0"
+        "1": {
+          "net": "N00105_M1_COL10_R-D73",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC0",
+          "type": "passive"
+        }
       }
     },
     "R22": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_9",
-        "2": "N00105_M1_COL10_R-D74"
+        "1": {
+          "net": "COL_SELECT_9",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL10_R-D74",
+          "type": "passive"
+        }
       }
     },
     "D21": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL10_R-D74",
-        "2": "ADC1"
+        "1": {
+          "net": "N00105_M1_COL10_R-D74",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC1",
+          "type": "passive"
+        }
       }
     },
     "R77": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_9",
-        "2": "N00105_M1_COL10_R-D79"
+        "1": {
+          "net": "COL_SELECT_9",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL10_R-D79",
+          "type": "passive"
+        }
       }
     },
     "D76": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL10_R-D79",
-        "2": "ADC6"
+        "1": {
+          "net": "N00105_M1_COL10_R-D79",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC6",
+          "type": "passive"
+        }
       }
     },
     "R33": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_9",
-        "2": "N00105_M1_COL10_R-D75"
+        "1": {
+          "net": "COL_SELECT_9",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL10_R-D75",
+          "type": "passive"
+        }
       }
     },
     "D32": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL10_R-D75",
-        "2": "ADC2"
+        "1": {
+          "net": "N00105_M1_COL10_R-D75",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC2",
+          "type": "passive"
+        }
       }
     },
     "R88": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_9",
-        "2": "N00105_M1_COL10_R-D80"
+        "1": {
+          "net": "COL_SELECT_9",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL10_R-D80",
+          "type": "passive"
+        }
       }
     },
     "D87": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL10_R-D80",
-        "2": "ADC7"
+        "1": {
+          "net": "N00105_M1_COL10_R-D80",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC7",
+          "type": "passive"
+        }
       }
     },
     "R44": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_9",
-        "2": "N00105_M1_COL10_R-D76"
+        "1": {
+          "net": "COL_SELECT_9",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL10_R-D76",
+          "type": "passive"
+        }
       }
     },
     "D43": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL10_R-D76",
-        "2": "ADC3"
+        "1": {
+          "net": "N00105_M1_COL10_R-D76",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC3",
+          "type": "passive"
+        }
       }
     },
     "R47": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_1",
-        "2": "N00105_M1_COL3_R-D13"
+        "1": {
+          "net": "COL_SELECT_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL3_R-D13",
+          "type": "passive"
+        }
       }
     },
     "D46": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL3_R-D13",
-        "2": "ADC4"
+        "1": {
+          "net": "N00105_M1_COL3_R-D13",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC4",
+          "type": "passive"
+        }
       }
     },
     "R58": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_1",
-        "2": "N00105_M1_COL3_R-D14"
+        "1": {
+          "net": "COL_SELECT_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL3_R-D14",
+          "type": "passive"
+        }
       }
     },
     "D57": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL3_R-D14",
-        "2": "ADC5"
+        "1": {
+          "net": "N00105_M1_COL3_R-D14",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC5",
+          "type": "passive"
+        }
       }
     },
     "R3": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_1",
-        "2": "N00105_M1_COL3_R-D9"
+        "1": {
+          "net": "COL_SELECT_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL3_R-D9",
+          "type": "passive"
+        }
       }
     },
     "D2": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL3_R-D9",
-        "2": "ADC0"
+        "1": {
+          "net": "N00105_M1_COL3_R-D9",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC0",
+          "type": "passive"
+        }
       }
     },
     "R14": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_1",
-        "2": "N00105_M1_COL3_R-D10"
+        "1": {
+          "net": "COL_SELECT_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL3_R-D10",
+          "type": "passive"
+        }
       }
     },
     "D13": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL3_R-D10",
-        "2": "ADC1"
+        "1": {
+          "net": "N00105_M1_COL3_R-D10",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC1",
+          "type": "passive"
+        }
       }
     },
     "R69": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_1",
-        "2": "N00105_M1_COL3_R-D15"
+        "1": {
+          "net": "COL_SELECT_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL3_R-D15",
+          "type": "passive"
+        }
       }
     },
     "D68": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL3_R-D15",
-        "2": "ADC6"
+        "1": {
+          "net": "N00105_M1_COL3_R-D15",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC6",
+          "type": "passive"
+        }
       }
     },
     "R25": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_1",
-        "2": "N00105_M1_COL3_R-D11"
+        "1": {
+          "net": "COL_SELECT_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL3_R-D11",
+          "type": "passive"
+        }
       }
     },
     "D24": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL3_R-D11",
-        "2": "ADC2"
+        "1": {
+          "net": "N00105_M1_COL3_R-D11",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC2",
+          "type": "passive"
+        }
       }
     },
     "R80": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_1",
-        "2": "N00105_M1_COL3_R-D16"
+        "1": {
+          "net": "COL_SELECT_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL3_R-D16",
+          "type": "passive"
+        }
       }
     },
     "D79": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL3_R-D16",
-        "2": "ADC7"
+        "1": {
+          "net": "N00105_M1_COL3_R-D16",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC7",
+          "type": "passive"
+        }
       }
     },
     "R36": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_1",
-        "2": "N00105_M1_COL3_R-D12"
+        "1": {
+          "net": "COL_SELECT_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL3_R-D12",
+          "type": "passive"
+        }
       }
     },
     "D35": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL3_R-D12",
-        "2": "ADC3"
+        "1": {
+          "net": "N00105_M1_COL3_R-D12",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC3",
+          "type": "passive"
+        }
       }
     },
     "R50": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_4",
-        "2": "N00105_M1_COL9_R-D37"
+        "1": {
+          "net": "COL_SELECT_4",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL9_R-D37",
+          "type": "passive"
+        }
       }
     },
     "D49": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL9_R-D37",
-        "2": "ADC4"
+        "1": {
+          "net": "N00105_M1_COL9_R-D37",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC4",
+          "type": "passive"
+        }
       }
     },
     "R61": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_4",
-        "2": "N00105_M1_COL9_R-D38"
+        "1": {
+          "net": "COL_SELECT_4",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL9_R-D38",
+          "type": "passive"
+        }
       }
     },
     "D60": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL9_R-D38",
-        "2": "ADC5"
+        "1": {
+          "net": "N00105_M1_COL9_R-D38",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC5",
+          "type": "passive"
+        }
       }
     },
     "R6": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_4",
-        "2": "N00105_M1_COL9_R-D33"
+        "1": {
+          "net": "COL_SELECT_4",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL9_R-D33",
+          "type": "passive"
+        }
       }
     },
     "D5": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL9_R-D33",
-        "2": "ADC0"
+        "1": {
+          "net": "N00105_M1_COL9_R-D33",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC0",
+          "type": "passive"
+        }
       }
     },
     "R17": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_4",
-        "2": "N00105_M1_COL9_R-D34"
+        "1": {
+          "net": "COL_SELECT_4",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL9_R-D34",
+          "type": "passive"
+        }
       }
     },
     "D16": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL9_R-D34",
-        "2": "ADC1"
+        "1": {
+          "net": "N00105_M1_COL9_R-D34",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC1",
+          "type": "passive"
+        }
       }
     },
     "R72": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_4",
-        "2": "N00105_M1_COL9_R-D39"
+        "1": {
+          "net": "COL_SELECT_4",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL9_R-D39",
+          "type": "passive"
+        }
       }
     },
     "D71": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL9_R-D39",
-        "2": "ADC6"
+        "1": {
+          "net": "N00105_M1_COL9_R-D39",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC6",
+          "type": "passive"
+        }
       }
     },
     "R28": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_4",
-        "2": "N00105_M1_COL9_R-D35"
+        "1": {
+          "net": "COL_SELECT_4",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL9_R-D35",
+          "type": "passive"
+        }
       }
     },
     "D27": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL9_R-D35",
-        "2": "ADC2"
+        "1": {
+          "net": "N00105_M1_COL9_R-D35",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC2",
+          "type": "passive"
+        }
       }
     },
     "R83": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_4",
-        "2": "N00105_M1_COL9_R-D40"
+        "1": {
+          "net": "COL_SELECT_4",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL9_R-D40",
+          "type": "passive"
+        }
       }
     },
     "D82": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL9_R-D40",
-        "2": "ADC7"
+        "1": {
+          "net": "N00105_M1_COL9_R-D40",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC7",
+          "type": "passive"
+        }
       }
     },
     "R39": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_4",
-        "2": "N00105_M1_COL9_R-D36"
+        "1": {
+          "net": "COL_SELECT_4",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL9_R-D36",
+          "type": "passive"
+        }
       }
     },
     "D38": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL9_R-D36",
-        "2": "ADC3"
+        "1": {
+          "net": "N00105_M1_COL9_R-D36",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC3",
+          "type": "passive"
+        }
       }
     },
     "R54": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_8",
-        "2": "N00105_M1_COL8_R-D69"
+        "1": {
+          "net": "COL_SELECT_8",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL8_R-D69",
+          "type": "passive"
+        }
       }
     },
     "D53": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL8_R-D69",
-        "2": "ADC4"
+        "1": {
+          "net": "N00105_M1_COL8_R-D69",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC4",
+          "type": "passive"
+        }
       }
     },
     "R65": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_8",
-        "2": "N00105_M1_COL8_R-D70"
+        "1": {
+          "net": "COL_SELECT_8",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL8_R-D70",
+          "type": "passive"
+        }
       }
     },
     "D64": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL8_R-D70",
-        "2": "ADC5"
+        "1": {
+          "net": "N00105_M1_COL8_R-D70",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC5",
+          "type": "passive"
+        }
       }
     },
     "R10": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_8",
-        "2": "N00105_M1_COL8_R-D65"
+        "1": {
+          "net": "COL_SELECT_8",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL8_R-D65",
+          "type": "passive"
+        }
       }
     },
     "D9": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL8_R-D65",
-        "2": "ADC0"
+        "1": {
+          "net": "N00105_M1_COL8_R-D65",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC0",
+          "type": "passive"
+        }
       }
     },
     "R21": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_8",
-        "2": "N00105_M1_COL8_R-D66"
+        "1": {
+          "net": "COL_SELECT_8",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL8_R-D66",
+          "type": "passive"
+        }
       }
     },
     "D20": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL8_R-D66",
-        "2": "ADC1"
+        "1": {
+          "net": "N00105_M1_COL8_R-D66",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC1",
+          "type": "passive"
+        }
       }
     },
     "R76": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_8",
-        "2": "N00105_M1_COL8_R-D71"
+        "1": {
+          "net": "COL_SELECT_8",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL8_R-D71",
+          "type": "passive"
+        }
       }
     },
     "D75": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL8_R-D71",
-        "2": "ADC6"
+        "1": {
+          "net": "N00105_M1_COL8_R-D71",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC6",
+          "type": "passive"
+        }
       }
     },
     "R32": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_8",
-        "2": "N00105_M1_COL8_R-D67"
+        "1": {
+          "net": "COL_SELECT_8",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL8_R-D67",
+          "type": "passive"
+        }
       }
     },
     "D31": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL8_R-D67",
-        "2": "ADC2"
+        "1": {
+          "net": "N00105_M1_COL8_R-D67",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC2",
+          "type": "passive"
+        }
       }
     },
     "R87": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_8",
-        "2": "N00105_M1_COL8_R-D72"
+        "1": {
+          "net": "COL_SELECT_8",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL8_R-D72",
+          "type": "passive"
+        }
       }
     },
     "D86": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL8_R-D72",
-        "2": "ADC7"
+        "1": {
+          "net": "N00105_M1_COL8_R-D72",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC7",
+          "type": "passive"
+        }
       }
     },
     "R43": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_8",
-        "2": "N00105_M1_COL8_R-D68"
+        "1": {
+          "net": "COL_SELECT_8",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL8_R-D68",
+          "type": "passive"
+        }
       }
     },
     "D42": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL8_R-D68",
-        "2": "ADC3"
+        "1": {
+          "net": "N00105_M1_COL8_R-D68",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC3",
+          "type": "passive"
+        }
       }
     },
     "R51": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_5",
-        "2": "N00105_M1_COL2_R-D45"
+        "1": {
+          "net": "COL_SELECT_5",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL2_R-D45",
+          "type": "passive"
+        }
       }
     },
     "D50": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL2_R-D45",
-        "2": "ADC4"
+        "1": {
+          "net": "N00105_M1_COL2_R-D45",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC4",
+          "type": "passive"
+        }
       }
     },
     "R62": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_5",
-        "2": "N00105_M1_COL2_R-D46"
+        "1": {
+          "net": "COL_SELECT_5",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL2_R-D46",
+          "type": "passive"
+        }
       }
     },
     "D61": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL2_R-D46",
-        "2": "ADC5"
+        "1": {
+          "net": "N00105_M1_COL2_R-D46",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC5",
+          "type": "passive"
+        }
       }
     },
     "R7": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_5",
-        "2": "N00105_M1_COL2_R-D41"
+        "1": {
+          "net": "COL_SELECT_5",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL2_R-D41",
+          "type": "passive"
+        }
       }
     },
     "D6": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL2_R-D41",
-        "2": "ADC0"
+        "1": {
+          "net": "N00105_M1_COL2_R-D41",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC0",
+          "type": "passive"
+        }
       }
     },
     "R18": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_5",
-        "2": "N00105_M1_COL2_R-D42"
+        "1": {
+          "net": "COL_SELECT_5",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL2_R-D42",
+          "type": "passive"
+        }
       }
     },
     "D17": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL2_R-D42",
-        "2": "ADC1"
+        "1": {
+          "net": "N00105_M1_COL2_R-D42",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC1",
+          "type": "passive"
+        }
       }
     },
     "R73": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_5",
-        "2": "N00105_M1_COL2_R-D47"
+        "1": {
+          "net": "COL_SELECT_5",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL2_R-D47",
+          "type": "passive"
+        }
       }
     },
     "D72": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL2_R-D47",
-        "2": "ADC6"
+        "1": {
+          "net": "N00105_M1_COL2_R-D47",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC6",
+          "type": "passive"
+        }
       }
     },
     "R29": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_5",
-        "2": "N00105_M1_COL2_R-D43"
+        "1": {
+          "net": "COL_SELECT_5",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL2_R-D43",
+          "type": "passive"
+        }
       }
     },
     "D28": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL2_R-D43",
-        "2": "ADC2"
+        "1": {
+          "net": "N00105_M1_COL2_R-D43",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC2",
+          "type": "passive"
+        }
       }
     },
     "R84": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_5",
-        "2": "N00105_M1_COL2_R-D48"
+        "1": {
+          "net": "COL_SELECT_5",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL2_R-D48",
+          "type": "passive"
+        }
       }
     },
     "D83": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL2_R-D48",
-        "2": "ADC7"
+        "1": {
+          "net": "N00105_M1_COL2_R-D48",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC7",
+          "type": "passive"
+        }
       }
     },
     "R40": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_5",
-        "2": "N00105_M1_COL2_R-D44"
+        "1": {
+          "net": "COL_SELECT_5",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL2_R-D44",
+          "type": "passive"
+        }
       }
     },
     "D39": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL2_R-D44",
-        "2": "ADC3"
+        "1": {
+          "net": "N00105_M1_COL2_R-D44",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC3",
+          "type": "passive"
+        }
       }
     },
     "R56": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_10",
-        "2": "N00105_M1_COL11_R-D85"
+        "1": {
+          "net": "COL_SELECT_10",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL11_R-D85",
+          "type": "passive"
+        }
       }
     },
     "D55": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL11_R-D85",
-        "2": "ADC4"
+        "1": {
+          "net": "N00105_M1_COL11_R-D85",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC4",
+          "type": "passive"
+        }
       }
     },
     "R67": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_10",
-        "2": "N00105_M1_COL11_R-D86"
+        "1": {
+          "net": "COL_SELECT_10",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL11_R-D86",
+          "type": "passive"
+        }
       }
     },
     "D66": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL11_R-D86",
-        "2": "ADC5"
+        "1": {
+          "net": "N00105_M1_COL11_R-D86",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC5",
+          "type": "passive"
+        }
       }
     },
     "R12": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_10",
-        "2": "N00105_M1_COL11_R-D81"
+        "1": {
+          "net": "COL_SELECT_10",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL11_R-D81",
+          "type": "passive"
+        }
       }
     },
     "D11": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL11_R-D81",
-        "2": "ADC0"
+        "1": {
+          "net": "N00105_M1_COL11_R-D81",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC0",
+          "type": "passive"
+        }
       }
     },
     "R23": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_10",
-        "2": "N00105_M1_COL11_R-D82"
+        "1": {
+          "net": "COL_SELECT_10",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL11_R-D82",
+          "type": "passive"
+        }
       }
     },
     "D22": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL11_R-D82",
-        "2": "ADC1"
+        "1": {
+          "net": "N00105_M1_COL11_R-D82",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC1",
+          "type": "passive"
+        }
       }
     },
     "R78": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_10",
-        "2": "N00105_M1_COL11_R-D87"
+        "1": {
+          "net": "COL_SELECT_10",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL11_R-D87",
+          "type": "passive"
+        }
       }
     },
     "D77": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL11_R-D87",
-        "2": "ADC6"
+        "1": {
+          "net": "N00105_M1_COL11_R-D87",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC6",
+          "type": "passive"
+        }
       }
     },
     "R34": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_10",
-        "2": "N00105_M1_COL11_R-D83"
+        "1": {
+          "net": "COL_SELECT_10",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL11_R-D83",
+          "type": "passive"
+        }
       }
     },
     "D33": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL11_R-D83",
-        "2": "ADC2"
+        "1": {
+          "net": "N00105_M1_COL11_R-D83",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC2",
+          "type": "passive"
+        }
       }
     },
     "R89": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_10",
-        "2": "N00105_M1_COL11_R-D88"
+        "1": {
+          "net": "COL_SELECT_10",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL11_R-D88",
+          "type": "passive"
+        }
       }
     },
     "D88": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL11_R-D88",
-        "2": "ADC7"
+        "1": {
+          "net": "N00105_M1_COL11_R-D88",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC7",
+          "type": "passive"
+        }
       }
     },
     "R45": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_10",
-        "2": "N00105_M1_COL11_R-D84"
+        "1": {
+          "net": "COL_SELECT_10",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL11_R-D84",
+          "type": "passive"
+        }
       }
     },
     "D44": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL11_R-D84",
-        "2": "ADC3"
+        "1": {
+          "net": "N00105_M1_COL11_R-D84",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC3",
+          "type": "passive"
+        }
       }
     },
     "R49": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_3",
-        "2": "N00105_M1_COL7_R-D29"
+        "1": {
+          "net": "COL_SELECT_3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL7_R-D29",
+          "type": "passive"
+        }
       }
     },
     "D48": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL7_R-D29",
-        "2": "ADC4"
+        "1": {
+          "net": "N00105_M1_COL7_R-D29",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC4",
+          "type": "passive"
+        }
       }
     },
     "R60": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_3",
-        "2": "N00105_M1_COL7_R-D30"
+        "1": {
+          "net": "COL_SELECT_3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL7_R-D30",
+          "type": "passive"
+        }
       }
     },
     "D59": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL7_R-D30",
-        "2": "ADC5"
+        "1": {
+          "net": "N00105_M1_COL7_R-D30",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC5",
+          "type": "passive"
+        }
       }
     },
     "R5": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_3",
-        "2": "N00105_M1_COL7_R-D25"
+        "1": {
+          "net": "COL_SELECT_3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL7_R-D25",
+          "type": "passive"
+        }
       }
     },
     "D4": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL7_R-D25",
-        "2": "ADC0"
+        "1": {
+          "net": "N00105_M1_COL7_R-D25",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC0",
+          "type": "passive"
+        }
       }
     },
     "R16": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_3",
-        "2": "N00105_M1_COL7_R-D26"
+        "1": {
+          "net": "COL_SELECT_3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL7_R-D26",
+          "type": "passive"
+        }
       }
     },
     "D15": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL7_R-D26",
-        "2": "ADC1"
+        "1": {
+          "net": "N00105_M1_COL7_R-D26",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC1",
+          "type": "passive"
+        }
       }
     },
     "R71": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_3",
-        "2": "N00105_M1_COL7_R-D31"
+        "1": {
+          "net": "COL_SELECT_3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL7_R-D31",
+          "type": "passive"
+        }
       }
     },
     "D70": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL7_R-D31",
-        "2": "ADC6"
+        "1": {
+          "net": "N00105_M1_COL7_R-D31",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC6",
+          "type": "passive"
+        }
       }
     },
     "R27": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_3",
-        "2": "N00105_M1_COL7_R-D27"
+        "1": {
+          "net": "COL_SELECT_3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL7_R-D27",
+          "type": "passive"
+        }
       }
     },
     "D26": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL7_R-D27",
-        "2": "ADC2"
+        "1": {
+          "net": "N00105_M1_COL7_R-D27",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC2",
+          "type": "passive"
+        }
       }
     },
     "R82": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_3",
-        "2": "N00105_M1_COL7_R-D32"
+        "1": {
+          "net": "COL_SELECT_3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL7_R-D32",
+          "type": "passive"
+        }
       }
     },
     "D81": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL7_R-D32",
-        "2": "ADC7"
+        "1": {
+          "net": "N00105_M1_COL7_R-D32",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC7",
+          "type": "passive"
+        }
       }
     },
     "R38": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_3",
-        "2": "N00105_M1_COL7_R-D28"
+        "1": {
+          "net": "COL_SELECT_3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL7_R-D28",
+          "type": "passive"
+        }
       }
     },
     "D37": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL7_R-D28",
-        "2": "ADC3"
+        "1": {
+          "net": "N00105_M1_COL7_R-D28",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC3",
+          "type": "passive"
+        }
       }
     },
     "R46": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_0",
-        "2": "N00105_M1_COL1_R-D5"
+        "1": {
+          "net": "COL_SELECT_0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL1_R-D5",
+          "type": "passive"
+        }
       }
     },
     "D45": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL1_R-D5",
-        "2": "ADC4"
+        "1": {
+          "net": "N00105_M1_COL1_R-D5",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC4",
+          "type": "passive"
+        }
       }
     },
     "R57": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_0",
-        "2": "N00105_M1_COL1_R-D6"
+        "1": {
+          "net": "COL_SELECT_0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL1_R-D6",
+          "type": "passive"
+        }
       }
     },
     "D56": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL1_R-D6",
-        "2": "ADC5"
+        "1": {
+          "net": "N00105_M1_COL1_R-D6",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC5",
+          "type": "passive"
+        }
       }
     },
     "R2": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_0",
-        "2": "N00105_M1_COL1_R-D1"
+        "1": {
+          "net": "COL_SELECT_0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL1_R-D1",
+          "type": "passive"
+        }
       }
     },
     "D1": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL1_R-D1",
-        "2": "ADC0"
+        "1": {
+          "net": "N00105_M1_COL1_R-D1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC0",
+          "type": "passive"
+        }
       }
     },
     "R13": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_0",
-        "2": "N00105_M1_COL1_R-D2"
+        "1": {
+          "net": "COL_SELECT_0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL1_R-D2",
+          "type": "passive"
+        }
       }
     },
     "D12": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL1_R-D2",
-        "2": "ADC1"
+        "1": {
+          "net": "N00105_M1_COL1_R-D2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC1",
+          "type": "passive"
+        }
       }
     },
     "R68": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_0",
-        "2": "N00105_M1_COL1_R-D7"
+        "1": {
+          "net": "COL_SELECT_0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL1_R-D7",
+          "type": "passive"
+        }
       }
     },
     "D67": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL1_R-D7",
-        "2": "ADC6"
+        "1": {
+          "net": "N00105_M1_COL1_R-D7",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC6",
+          "type": "passive"
+        }
       }
     },
     "R24": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_0",
-        "2": "N00105_M1_COL1_R-D3"
+        "1": {
+          "net": "COL_SELECT_0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL1_R-D3",
+          "type": "passive"
+        }
       }
     },
     "D23": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL1_R-D3",
-        "2": "ADC2"
+        "1": {
+          "net": "N00105_M1_COL1_R-D3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC2",
+          "type": "passive"
+        }
       }
     },
     "R79": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_0",
-        "2": "N00105_M1_COL1_R-D8"
+        "1": {
+          "net": "COL_SELECT_0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL1_R-D8",
+          "type": "passive"
+        }
       }
     },
     "D78": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL1_R-D8",
-        "2": "ADC7"
+        "1": {
+          "net": "N00105_M1_COL1_R-D8",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC7",
+          "type": "passive"
+        }
       }
     },
     "R35": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_0",
-        "2": "N00105_M1_COL1_R-D4"
+        "1": {
+          "net": "COL_SELECT_0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL1_R-D4",
+          "type": "passive"
+        }
       }
     },
     "D34": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL1_R-D4",
-        "2": "ADC3"
+        "1": {
+          "net": "N00105_M1_COL1_R-D4",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC3",
+          "type": "passive"
+        }
       }
     },
     "R53": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_7",
-        "2": "N00105_M1_COL6_R-D61"
+        "1": {
+          "net": "COL_SELECT_7",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL6_R-D61",
+          "type": "passive"
+        }
       }
     },
     "D52": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL6_R-D61",
-        "2": "ADC4"
+        "1": {
+          "net": "N00105_M1_COL6_R-D61",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC4",
+          "type": "passive"
+        }
       }
     },
     "R64": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_7",
-        "2": "N00105_M1_COL6_R-D62"
+        "1": {
+          "net": "COL_SELECT_7",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL6_R-D62",
+          "type": "passive"
+        }
       }
     },
     "D63": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL6_R-D62",
-        "2": "ADC5"
+        "1": {
+          "net": "N00105_M1_COL6_R-D62",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC5",
+          "type": "passive"
+        }
       }
     },
     "R9": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_7",
-        "2": "N00105_M1_COL6_R-D57"
+        "1": {
+          "net": "COL_SELECT_7",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL6_R-D57",
+          "type": "passive"
+        }
       }
     },
     "D8": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL6_R-D57",
-        "2": "ADC0"
+        "1": {
+          "net": "N00105_M1_COL6_R-D57",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC0",
+          "type": "passive"
+        }
       }
     },
     "R20": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_7",
-        "2": "N00105_M1_COL6_R-D58"
+        "1": {
+          "net": "COL_SELECT_7",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL6_R-D58",
+          "type": "passive"
+        }
       }
     },
     "D19": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL6_R-D58",
-        "2": "ADC1"
+        "1": {
+          "net": "N00105_M1_COL6_R-D58",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC1",
+          "type": "passive"
+        }
       }
     },
     "R75": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_7",
-        "2": "N00105_M1_COL6_R-D63"
+        "1": {
+          "net": "COL_SELECT_7",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL6_R-D63",
+          "type": "passive"
+        }
       }
     },
     "D74": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL6_R-D63",
-        "2": "ADC6"
+        "1": {
+          "net": "N00105_M1_COL6_R-D63",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC6",
+          "type": "passive"
+        }
       }
     },
     "R31": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_7",
-        "2": "N00105_M1_COL6_R-D59"
+        "1": {
+          "net": "COL_SELECT_7",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL6_R-D59",
+          "type": "passive"
+        }
       }
     },
     "D30": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL6_R-D59",
-        "2": "ADC2"
+        "1": {
+          "net": "N00105_M1_COL6_R-D59",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC2",
+          "type": "passive"
+        }
       }
     },
     "R86": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_7",
-        "2": "N00105_M1_COL6_R-D64"
+        "1": {
+          "net": "COL_SELECT_7",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL6_R-D64",
+          "type": "passive"
+        }
       }
     },
     "D85": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL6_R-D64",
-        "2": "ADC7"
+        "1": {
+          "net": "N00105_M1_COL6_R-D64",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC7",
+          "type": "passive"
+        }
       }
     },
     "R42": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_7",
-        "2": "N00105_M1_COL6_R-D60"
+        "1": {
+          "net": "COL_SELECT_7",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL6_R-D60",
+          "type": "passive"
+        }
       }
     },
     "D41": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL6_R-D60",
-        "2": "ADC3"
+        "1": {
+          "net": "N00105_M1_COL6_R-D60",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC3",
+          "type": "passive"
+        }
       }
     },
     "R48": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_2",
-        "2": "N00105_M1_COL5_R-D21"
+        "1": {
+          "net": "COL_SELECT_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL5_R-D21",
+          "type": "passive"
+        }
       }
     },
     "D47": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL5_R-D21",
-        "2": "ADC4"
+        "1": {
+          "net": "N00105_M1_COL5_R-D21",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC4",
+          "type": "passive"
+        }
       }
     },
     "R59": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_2",
-        "2": "N00105_M1_COL5_R-D22"
+        "1": {
+          "net": "COL_SELECT_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL5_R-D22",
+          "type": "passive"
+        }
       }
     },
     "D58": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL5_R-D22",
-        "2": "ADC5"
+        "1": {
+          "net": "N00105_M1_COL5_R-D22",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC5",
+          "type": "passive"
+        }
       }
     },
     "R4": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_2",
-        "2": "N00105_M1_COL5_R-D17"
+        "1": {
+          "net": "COL_SELECT_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL5_R-D17",
+          "type": "passive"
+        }
       }
     },
     "D3": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL5_R-D17",
-        "2": "ADC0"
+        "1": {
+          "net": "N00105_M1_COL5_R-D17",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC0",
+          "type": "passive"
+        }
       }
     },
     "R15": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_2",
-        "2": "N00105_M1_COL5_R-D18"
+        "1": {
+          "net": "COL_SELECT_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL5_R-D18",
+          "type": "passive"
+        }
       }
     },
     "D14": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL5_R-D18",
-        "2": "ADC1"
+        "1": {
+          "net": "N00105_M1_COL5_R-D18",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC1",
+          "type": "passive"
+        }
       }
     },
     "R70": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_2",
-        "2": "N00105_M1_COL5_R-D23"
+        "1": {
+          "net": "COL_SELECT_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL5_R-D23",
+          "type": "passive"
+        }
       }
     },
     "D69": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL5_R-D23",
-        "2": "ADC6"
+        "1": {
+          "net": "N00105_M1_COL5_R-D23",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC6",
+          "type": "passive"
+        }
       }
     },
     "R26": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_2",
-        "2": "N00105_M1_COL5_R-D19"
+        "1": {
+          "net": "COL_SELECT_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL5_R-D19",
+          "type": "passive"
+        }
       }
     },
     "D25": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL5_R-D19",
-        "2": "ADC2"
+        "1": {
+          "net": "N00105_M1_COL5_R-D19",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC2",
+          "type": "passive"
+        }
       }
     },
     "R81": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_2",
-        "2": "N00105_M1_COL5_R-D24"
+        "1": {
+          "net": "COL_SELECT_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL5_R-D24",
+          "type": "passive"
+        }
       }
     },
     "D80": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL5_R-D24",
-        "2": "ADC7"
+        "1": {
+          "net": "N00105_M1_COL5_R-D24",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC7",
+          "type": "passive"
+        }
       }
     },
     "R37": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_2",
-        "2": "N00105_M1_COL5_R-D20"
+        "1": {
+          "net": "COL_SELECT_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL5_R-D20",
+          "type": "passive"
+        }
       }
     },
     "D36": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL5_R-D20",
-        "2": "ADC3"
+        "1": {
+          "net": "N00105_M1_COL5_R-D20",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC3",
+          "type": "passive"
+        }
       }
     },
     "R52": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_6",
-        "2": "N00105_M1_COL4_R-D53"
+        "1": {
+          "net": "COL_SELECT_6",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL4_R-D53",
+          "type": "passive"
+        }
       }
     },
     "D51": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL4_R-D53",
-        "2": "ADC4"
+        "1": {
+          "net": "N00105_M1_COL4_R-D53",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC4",
+          "type": "passive"
+        }
       }
     },
     "R63": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_6",
-        "2": "N00105_M1_COL4_R-D54"
+        "1": {
+          "net": "COL_SELECT_6",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL4_R-D54",
+          "type": "passive"
+        }
       }
     },
     "D62": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL4_R-D54",
-        "2": "ADC5"
+        "1": {
+          "net": "N00105_M1_COL4_R-D54",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC5",
+          "type": "passive"
+        }
       }
     },
     "R8": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_6",
-        "2": "N00105_M1_COL4_R-D49"
+        "1": {
+          "net": "COL_SELECT_6",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL4_R-D49",
+          "type": "passive"
+        }
       }
     },
     "D7": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL4_R-D49",
-        "2": "ADC0"
+        "1": {
+          "net": "N00105_M1_COL4_R-D49",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC0",
+          "type": "passive"
+        }
       }
     },
     "R19": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_6",
-        "2": "N00105_M1_COL4_R-D50"
+        "1": {
+          "net": "COL_SELECT_6",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL4_R-D50",
+          "type": "passive"
+        }
       }
     },
     "D18": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL4_R-D50",
-        "2": "ADC1"
+        "1": {
+          "net": "N00105_M1_COL4_R-D50",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC1",
+          "type": "passive"
+        }
       }
     },
     "R74": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_6",
-        "2": "N00105_M1_COL4_R-D55"
+        "1": {
+          "net": "COL_SELECT_6",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL4_R-D55",
+          "type": "passive"
+        }
       }
     },
     "D73": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL4_R-D55",
-        "2": "ADC6"
+        "1": {
+          "net": "N00105_M1_COL4_R-D55",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC6",
+          "type": "passive"
+        }
       }
     },
     "R30": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_6",
-        "2": "N00105_M1_COL4_R-D51"
+        "1": {
+          "net": "COL_SELECT_6",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL4_R-D51",
+          "type": "passive"
+        }
       }
     },
     "D29": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL4_R-D51",
-        "2": "ADC2"
+        "1": {
+          "net": "N00105_M1_COL4_R-D51",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC2",
+          "type": "passive"
+        }
       }
     },
     "R85": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_6",
-        "2": "N00105_M1_COL4_R-D56"
+        "1": {
+          "net": "COL_SELECT_6",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL4_R-D56",
+          "type": "passive"
+        }
       }
     },
     "D84": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL4_R-D56",
-        "2": "ADC7"
+        "1": {
+          "net": "N00105_M1_COL4_R-D56",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC7",
+          "type": "passive"
+        }
       }
     },
     "R41": {
       "value": "5k-20k",
       "pins": {
-        "1": "COL_SELECT_6",
-        "2": "N00105_M1_COL4_R-D52"
+        "1": {
+          "net": "COL_SELECT_6",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00105_M1_COL4_R-D52",
+          "type": "passive"
+        }
       }
     },
     "D40": {
       "value": "D1N4148",
       "pins": {
-        "1": "N00105_M1_COL4_R-D52",
-        "2": "ADC3"
+        "1": {
+          "net": "N00105_M1_COL4_R-D52",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ADC3",
+          "type": "passive"
+        }
       }
     }
   }

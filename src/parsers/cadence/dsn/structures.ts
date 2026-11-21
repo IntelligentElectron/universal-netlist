@@ -661,6 +661,10 @@ export function parseSymbolPin(reader: BinaryReader): SymbolPin {
 export interface LibraryPart {
   name: string;
   pinNames: string[];
+  /** Each pin slot's `pin_type` (§5.2.5), -1 for an empty slot; parallel to `pinNames`. */
+  pinTypes: number[];
+  /** Each pin slot's shape bits (§5.2.5), 0 for an empty slot; parallel to `pinNames`. */
+  pinShapes: number[];
   defaultValue?: string;
   /** The short prefix's (name, value) string-list index pairs, such as PACK_SHORT. */
   properties: PrefixPropertyPair[];
@@ -686,6 +690,8 @@ export function parseLibraryPart(reader: BinaryReader): LibraryPart {
 
   const lenSymbolPins = reader.readUint16();
   const pinNames: string[] = [];
+  const pinTypes: number[] = [];
+  const pinShapes: number[] = [];
   for (let i = 0; i < lenSymbolPins; i++) {
     // C++ reference: 0x00 byte marks a "convert view" pin placeholder.
     // Skip the marker and push empty string to maintain index alignment
@@ -693,10 +699,14 @@ export function parseLibraryPart(reader: BinaryReader): LibraryPart {
     if (reader.peek(1)[0] === 0x00) {
       reader.skip(1);
       pinNames.push("");
+      pinTypes.push(-1);
+      pinShapes.push(0);
       continue;
     }
     const pin = parseSymbolPin(reader);
     pinNames.push(pin.name);
+    pinTypes.push(pin.pinType);
+    pinShapes.push(pin.shape);
   }
 
   const lenSdps = reader.readUint16();
@@ -720,5 +730,5 @@ export function parseLibraryPart(reader: BinaryReader): LibraryPart {
     // GeneralProperties is optional
   }
 
-  return { name, pinNames, defaultValue, properties };
+  return { name, pinNames, pinTypes, pinShapes, defaultValue, properties };
 }

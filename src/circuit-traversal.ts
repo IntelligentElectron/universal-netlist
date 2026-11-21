@@ -101,7 +101,7 @@ const hasPinNamed = (
     pins.some((pin) => {
       const entry = components[refdes]?.pins[pin];
       if (entry === undefined) return false;
-      const name = typeof entry === "string" ? pin : entry.name;
+      const name = typeof entry === "string" ? pin : (entry.name ?? pin);
       return pattern.test(name.replace(/#[^#]*$/, "").trim());
     })
   );
