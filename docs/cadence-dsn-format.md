@@ -361,9 +361,9 @@ The Library font table holds 60-byte LOGFONTA rows. **S** (the Library decodes t
 
 | Reader | Form | Cap | Use | Ids |
 | --- | --- | --- | --- | --- |
-| `readStringLenZeroTerm` | `lstr` | throws when n > 400 (the Library reader, `library-parser.ts:79`, bypasses the cap); throws on a non-`00` terminator | every DSN string | <!-- INT-3.1-010 INT-3.1-013 --> |
+| `readStringLenZeroTerm` | `lstr` | any `u16` length (the 400-byte cap was removed 2026-11-21); throws on a non-`00` terminator | every DSN string, the Library's included | <!-- INT-3.1-010 INT-3.1-013 --> |
 | `readStringZeroTerm` | NUL-terminated, no length | 3500 characters | not called by any DSN parser | <!-- INT-3.1-007 INT-3.1-009 --> |
-| `readStringLenTerm` | length-prefixed, no terminator | 400 characters | not called by any DSN parser | <!-- INT-3.1-008 INT-3.1-009 --> |
+| `readStringLenTerm` | length-prefixed, no terminator | 400 characters | was not called by any DSN parser; deleted 2026-11-21 | <!-- INT-3.1-008 INT-3.1-009 --> |
 
 The caps, the terminator check and the absence of callers are **O**: `checks/base/code_check.ts` reads a 400-byte `lstr`, throws on 401 bytes and on a non-`00` terminator, and finds 0 call sites of the other two readers in `src/` and `scripts/`. <!-- INT-3.1-009 INT-3.1-010 INT-3.1-013 -->
 
