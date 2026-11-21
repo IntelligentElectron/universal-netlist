@@ -3635,6 +3635,7 @@ Repeated-block naming in EXT's terms agrees: a copy of a child schematic instant
 - Whether suffix bytes after the JSON object are leftovers of an earlier, longer payload: no suffix bytes observed. <!-- EXT-10.5.7-027 -->
 - Which page numbers an IREF lists, what its `!` marker means, and whether the enclosure reflects a display option: no occurrence IREF exists. <!-- EXT-10.oq-008 EXT-10.9-003 EXT-10.9-006 EXT-16.8.5-004 EXT-16.8.5-005 -->
 - The order of root-level occurrences: not id order on 92 of 104 streams, not page order. <!-- EXT-10.oq-009 -->
+- How an instance link (66) property relates to the part's own property of the same name. They occur in 8 designs (footprint, part number, manufacturer, value, DNP and others), and the parser does not apply them. They are not plain overrides: in the OpenCellular SDR fixture, U9's link `Part Number` is `XC7A100T-3FGG484E`, while the part's own property and the design's assembly BOM both say `XC7A100T-2FGG484I7006`, so a link property can be stale. Data needed: every design with both link properties and a Capture part export (`pstxprt.dat`), compared property by property (`private/m2/occ-props.ts`).
 - Which ids the Schematic `id_registry` holds beyond page objects: belongs to the directories chapter. <!-- EXT-18.oq-003 -->
 - DrawnInstance unknown bytes (INT counts 30): EXT §7.5 names them; the page chapter owns the layout. <!-- INT-13.3-015 -->
 - INT heuristics, with what the data now show:
