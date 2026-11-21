@@ -229,8 +229,8 @@ describe("buildNetConnectivity over expanded placements", () => {
  * share the bus `Y_D[1:0]`, which no scalar wire on the top level breaks
  * out; MV4's bus pin is not wired at all. R2 is wired to SNOW1's ports `CLK`
  * and `RST`; SNOW1 draws TILE1 inside it, and TILE1 draws U1, whose second
- * pin sits on the `RST` port symbol with no wire. Pins key by the wire's
- * segment id, as in the files; the TOPCLK wire's segment id equals the X_D1
+ * pin sits on the `RST` port symbol with no wire. Top-level pins key by the
+ * wire's segment id, as in the files; the TOPCLK wire's segment id equals the X_D1
  * wire's SchematicNet id, so a bus member keyed by the wrong id space lands on TOPCLK.
  */
 const busChild = page({
