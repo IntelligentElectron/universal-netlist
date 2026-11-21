@@ -60,7 +60,7 @@ Coordinates are page coordinates in 1/100 inch, x to the right and y down, on ev
 | `parts[].box` | The stored bounding box, `[x1, y1, x2, y2]`; all zero on a few parts |
 | `parts[].pins` | Each pin with its number, its name where it differs, its position and its net |
 | `wires[].bus` | True for a bus wire |
-| `wires[].net`, `*.net` | The net, named as `list_nets` names it; omitted where the object joins none |
+| `wires[].net`, `*.net` | The net, named as `list_nets` names it; omitted where the object joins none of the netlist's nets: a bus wire or bus port, which carries several, and a wire that reaches no pin |
 | `blocks` | Hierarchical blocks on the page, each placing a child schematic |
 | `title_block.fields` | The title block's fields, such as `Title`, `Doc`, `RevCode`, `OrgName` |
 
