@@ -46,10 +46,11 @@ Coordinates are page coordinates in 1/100 inch, x to the right and y down, on ev
   "blocks": [],
   "wires": [{ "x1": 880, "y1": 180, "x2": 880, "y2": 170, "bus": false, "net": "3V3_RASP" }],
   "net_labels": [{ "name": "GPIO0/2", "x": 820, "y": 240 }],
-  "ports": [{ "name": "SDA", "x": 1010, "y": 230, "net": "SDA" }],
+  "ports": [{ "name": "SDA", "type": "bidirectional", "x": 1010, "y": 230, "net": "SDA" }],
   "globals": [{ "name": "3V3_RASP", "x": 870, "y": 160, "net": "3V3_RASP" }],
   "off_page_connectors": [],
   "bus_entries": [],
+  "erc_markers": [],
   "text_notes": [{ "text": "Pull-ups fitted on\nthe main board", "x": 640, "y": 410 }]
 }
 ```
@@ -64,6 +65,8 @@ Coordinates are page coordinates in 1/100 inch, x to the right and y down, on ev
 | `wires[].net`, `*.net` | The net, named as `list_nets` names it; omitted where the object joins none of the netlist's nets: a bus wire or bus port, which carries several, and a wire that reaches no pin |
 | `blocks` | Hierarchical blocks on the page, each placing a child schematic |
 | `title_block.fields` | The title block's fields, such as `Title`, `Doc`, `RevCode`, `OrgName` |
+| `ports[].type` | The port's direction: `input`, `output`, `bidirectional`, `passive`, `power`, or another of the pin types |
+| `erc_markers` | Markers Capture's design rules check left on the page and that were still there when the file was saved: `message` (such as `WARNING(ORCAP-1600): Net has fewer than two connections`), `detail` (often the net or pin), `location` (the page and position as Capture writes it, sometimes empty), and `x`, `y`. A marker with no text is left out. `run_erc` lists them as `capture.erc_error` and `capture.erc_warning` |
 | `text_notes` | Free text the designer placed on the page, each with its baseline-left position; lines are separated by `\n`. [`search_notes`](search_notes.md) searches them across every page |
 
 **Error (page not found):**

@@ -11,12 +11,12 @@ import {
   displayRefdes,
   isDuplicateKey,
 } from "../../../duplicate-refdes.js";
-import type { ComponentDetails, PinType } from "../../../types.js";
+import { PIN_TYPE_BY_CODE, type ComponentDetails, type PinType } from "../../../types.js";
 import type { PageCoordMap } from "./page-groups.js";
 import type { PageData } from "./page-parser.js";
 import type { PinInfo } from "./net-pins.js";
 import { symbolKey } from "./symbol-attachment.js";
-import type { GraphicInst } from "./structures.js";
+import type { ErcMarker, GraphicInst } from "./structures.js";
 
 export interface PagePin {
   number: string;
@@ -47,6 +47,8 @@ export interface PagePart {
 
 export interface PageConnector {
   name: string;
+  /** Ports: the direction, in the pin types' terms (input, output, bidirectional, passive, power...). */
+  type?: PinType;
   x: number;
   y: number;
   net?: string;
@@ -70,6 +72,8 @@ export interface PageView {
   bus_entries: { x1: number; y1: number; x2: number; y2: number }[];
   /** Free text the designer placed on the page, at its baseline-left anchor. */
   text_notes: PageNote[];
+  /** Markers Capture's design rules check left on the page, open when the file was saved. */
+  erc_markers: ErcMarker[];
 }
 
 export interface PageNote {
@@ -172,6 +176,7 @@ export function buildPageViews(
 
     const connector = (sym: GraphicInst, key: string): PageConnector => ({
       name: strLst[sym.pairingId] ?? sym.name,
+      ...optional("type", sym.portType === undefined ? undefined : PIN_TYPE_BY_CODE[sym.portType]),
       x: sym.locX,
       y: sym.locY,
       ...optional("net", connectorNet(key)),
@@ -255,6 +260,15 @@ export function buildPageViews(
           ? [{ text: g.text.replace(/\r\n?/g, "\n"), x: g.x, y: g.y }]
           : []
       ),
+      // A marker with no text at all says nothing.
+      erc_markers: page.ercMarkers
+        .map((m) => ({
+          ...m,
+          message: m.message.trim(),
+          detail: m.detail.trim(),
+          location: m.location.trim(),
+        }))
+        .filter((m) => m.message || m.detail || m.location),
     };
   });
 }

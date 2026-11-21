@@ -28,6 +28,8 @@ import {
   parseDrawnInstance,
   parseGlobal,
   parsePort,
+  parseErcObject,
+  type ErcMarker,
   parseOffPageConnector,
   parseTitleBlock,
   parseBusEntry,
@@ -79,6 +81,7 @@ export interface PageData {
   heightInches: number;
   titleBlock?: TitleBlock;
   busEntries: BusEntry[];
+  ercMarkers: ErcMarker[];
   /** Free text and shapes drawn on the page, in page coordinates. */
   graphics: Primitive[];
   netTable: Map<number, string[]>;
@@ -212,13 +215,15 @@ export function parsePage(buffer: Buffer): PageData {
   // ERC objects, then bus entries. Best-effort: they carry no connectivity, so
   // a page whose tail will not read keeps everything above.
   const busEntries: BusEntry[] = [];
+  const ercMarkers: ErcMarker[] = [];
   try {
     const lenErcObjects = reader.readUint16();
-    for (let i = 0; i < lenErcObjects; i++) skipStructure(reader);
+    for (let i = 0; i < lenErcObjects; i++) ercMarkers.push(parseErcObject(reader));
     const lenBusEntries = reader.readUint16();
     for (let i = 0; i < lenBusEntries; i++) busEntries.push(parseBusEntry(reader));
   } catch {
     busEntries.length = 0;
+    ercMarkers.length = 0;
   }
 
   // Page graphics (list 12), best-effort for the same reason.
@@ -240,6 +245,7 @@ export function parsePage(buffer: Buffer): PageData {
     heightInches,
     ...(titleBlock ? { titleBlock } : {}),
     busEntries,
+    ercMarkers,
     graphics,
     netTable,
     wires,

@@ -138,6 +138,8 @@ export interface GraphicInst {
    * connection point, from the trailer; 0 when no wire touches it (§7.10, §7.11).
    */
   wireId?: number;
+  /** Ports: the port type code from the trailer (§7.10). */
+  portType?: number;
   /**
    * Ports, Globals and off-page connectors: the connection point, its cached
    * symbol's single pin hot point placed on the page (§7.7, §11.4); undefined
@@ -543,10 +545,32 @@ export function parsePort(reader: BinaryReader): GraphicInst {
   autoReadPrefixes(reader, futureData, StructureType.Port);
   const inst = parseGraphicInstBase(reader, futureData);
   inst.wireId = reader.readUint32();
-  reader.skip(5); // flag, port type (§7.10)
+  reader.skip(1); // flag (§7.10)
+  inst.portType = reader.readUint32();
   futureData.checkpoint();
 
   return inst;
+}
+
+/** A marker Capture's design rules check left on a page (§7.14). */
+export interface ErcMarker {
+  message: string;
+  detail: string;
+  location: string;
+  x: number;
+  y: number;
+}
+
+/** An ErcObject: the graphic-instance base, then three strings (§7.14). */
+export function parseErcObject(reader: BinaryReader): ErcMarker {
+  const futureData = new FutureDataList(reader);
+  autoReadPrefixes(reader, futureData, StructureType.ERCObject);
+  const inst = parseGraphicInstBase(reader, futureData);
+  const message = reader.readStringLenZeroTerm();
+  const detail = reader.readStringLenZeroTerm();
+  const location = reader.readStringLenZeroTerm();
+  futureData.checkpoint();
+  return { message, detail, location, x: inst.locX, y: inst.locY };
 }
 
 export function parseOffPageConnector(reader: BinaryReader): GraphicInst {

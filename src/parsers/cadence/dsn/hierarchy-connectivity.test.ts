@@ -101,6 +101,7 @@ const page = (spec: Partial<PageData> & { name: string }): PageData => ({
   widthInches: 11,
   heightInches: 8.5,
   busEntries: [],
+  ercMarkers: [],
   graphics: [],
   wires: [],
   placedInstances: [],
