@@ -56,10 +56,10 @@ export interface PageCoordMap {
    */
   busMemberOf: (base: string) => PortMembership | undefined;
   /**
-   * A Global's or port's symbol key to a pin that sits on it where no wire
+   * A Global's or port's symbol key to the pins that sit on it where no wire
    * reaches: how a page shows the net of a connector that touches only pins.
    */
-  pinOnSymbol: Map<string, string>;
+  pinsOnSymbol: Map<string, string[]>;
 }
 
 /**
@@ -201,7 +201,7 @@ export function buildPageCoordMap(
   // bbox containment (for globals) and point-on-segment (for wire bodies).
   // A hierarchical block's pins are wired exactly like a part's, and the
   // placement they open reads its parent net off this same map.
-  const pinOnSymbol = new Map<string, string>();
+  const pinsOnSymbol = new Map<string, string[]>();
   const pins = [
     ...page.placedInstances.flatMap((inst) => inst.t0x10s),
     ...page.drawnInstances.flatMap((drawn) => drawn.pins),
@@ -220,7 +220,7 @@ export function buildPageCoordMap(
         if (pin.pointX >= minX && pin.pointX <= maxX && pin.pointY >= minY && pin.pointY <= maxY) {
           uf.find(coord);
           uf.union(coord, symbolKey(sym));
-          if (!pinOnSymbol.has(symbolKey(sym))) pinOnSymbol.set(symbolKey(sym), coord);
+          pinsOnSymbol.set(symbolKey(sym), [...(pinsOnSymbol.get(symbolKey(sym)) ?? []), coord]);
           break;
         }
       }
@@ -338,7 +338,7 @@ export function buildPageCoordMap(
     if (!byBase.has(group.base)) byBase.set(group.base, group);
   }
 
-  return { coordToNet, groups, byBase, busMemberOf, pinOnSymbol };
+  return { coordToNet, groups, byBase, busMemberOf, pinsOnSymbol };
 }
 
 /** A copy of the page map with every group's names passed through `rename`. */

@@ -68,6 +68,34 @@ describe("list_pages and get_page", () => {
     ]);
   }, 60_000);
 
+  it("reports only nets that list_nets reports, on every page of a hierarchical design", async () => {
+    const { nets } = (await callTool("list_nets", {
+      design: META_CARRIER,
+      max_results: 100_000,
+    })) as { nets: string[] };
+    const known = new Set(nets);
+    const { pages } = (await callTool("list_pages", { design: META_CARRIER })) as Pages;
+    const unknown: string[] = [];
+    let checked = 0;
+    for (const { page } of pages) {
+      const view = (await callTool("get_page", { design: META_CARRIER, page })) as PageView;
+      const objects = [
+        ...view.wires,
+        ...view.ports,
+        ...view.globals,
+        ...view.off_page_connectors,
+        ...view.parts.flatMap((part) => part.pins),
+      ];
+      for (const { net } of objects) {
+        if (net === undefined) continue;
+        checked++;
+        if (!known.has(net)) unknown.push(`${page}: ${net}`);
+      }
+    }
+    expect(unknown).toEqual([]);
+    expect(checked).toBeGreaterThan(1000);
+  }, 120_000);
+
   it("gives a Global that touches only pins the net of those pins", async () => {
     const view = (await callTool("get_page", { design: LAUNCHXL, page: "4_XDS110" })) as PageView;
     const gnd = view.globals.find((g) => g.x === 710 && g.y === 290);
