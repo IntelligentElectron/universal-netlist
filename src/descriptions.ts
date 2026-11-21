@@ -208,24 +208,25 @@ After a successful export the netlist sits beside the design; \
 export const RUN_ERC_DESCRIPTION = `\
 Run electrical rule checks (ERC) on a design's netlist and return findings grouped \
 by severity (\`errors\`, \`warnings\`) then rule id. ${paged("findings")} Findings are \
-counted across every rule, errors first, and \`totals\` gives every rule's count on each page. \
-Rules: \`net.single_pin\` (error: a net with one functional pin and no test point), \
-\`net.testpoint_orphan\` (error: a net touched only by test points), \
-\`net.testpoint_stub\` (warning: one functional pin plus test point(s)), \
-\`net.whitespace_in_name\` (warning: a net name with leading or trailing whitespace; \
-for Cadence, the Allegro netlister trims it), \
-\`net.whitespace_name_collision\` (error: separate nets whose names read the same once \
-trimmed, such as " SIG" and SIG), \
-\`refdes.duplicate\` (error: one refdes on several different parts; keyed by the refdes, \
-each value is {part_count, pages}), \
-\`refdes.section_repeated\` (error: one part drawing a section more than once; keyed by \
-the refdes, each value lists {section, placements, pages}), \
-\`net.unnamed\` (warning: an auto-generated net name on a real 2+-pin net). \
-Test points are identified by the \`TP\` refdes prefix. Findings key each net to its \
+counted across every rule, errors first; \`totals\` gives every rule's count. \
+Rules: \`net.single_pin\` (error: one functional pin, no test point), \
+\`net.testpoint_orphan\` (error: only test points), \
+\`net.testpoint_stub\` (warning: one functional pin plus test points), \
+\`net.whitespace_in_name\` (warning: leading or trailing whitespace in a net name), \
+\`net.whitespace_name_collision\` (error: separate nets whose names match once trimmed), \
+\`refdes.duplicate\` (error: one refdes on several parts; keyed by refdes, {part_count, pages}), \
+\`refdes.section_repeated\` (error: a part drawing a section twice; keyed by refdes, \
+[{section, placements, pages}]), \
+\`net.unnamed\` (warning: an auto-generated name on a 2+-pin net), and from pin \
+electrical types (an untyped pin never conflicts and may drive): \
+\`pin.output_conflict\` (error: drivers that short, such as two outputs), \
+\`pin.output_contention\` (warning: a possible fight, such as a three-state pin on a driven net), \
+\`pin.input_undriven\` (error: inputs nothing can drive), \
+\`pin.power_unconnected\` (error: a power_in pin alone on its net, or under NC), \
+\`pin.power_undirected_unconnected\` (warning: the same for an undirected power pin). \
+Test points have the \`TP\` refdes prefix. Findings key each net to its \
 \`REFDES.PIN\` endpoints (always arrays); \`net.unnamed\` lists bare net names. \
-\`checked\` lists the rules that ran, so a rule absent from the findings found nothing, \
-and \`skipped\` counts the parts left out of the run, such as Do-Not-Stuff ones. \
-Use \`include_rules\`/\`exclude_rules\` (rule ids) to scope the run and \`include_dns\` to \
-count Do-Not-Stuff parts; an unknown rule id returns an error rather than silently \
-checking nothing. Unconnected pins without a no-connect symbol are NOT checked: \
-the parsers cannot reliably tell them apart from intentional no-connects.`;
+\`checked\` lists the rules that ran; \`skipped\` counts parts left out, such as \
+Do-Not-Stuff ones. \`include_rules\`/\`exclude_rules\` scope the run, \`include_dns\` counts \
+Do-Not-Stuff parts; an unknown rule id returns an error. Other unconnected pins are not \
+checked: they cannot be told apart from intentional no-connects.`;

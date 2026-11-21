@@ -1,0 +1,97 @@
+push_pull,rail,other,sinks,outcome,next,status,note
+none,none,none,none,clean,,decided,no fight and no floating input
+none,none,none,some,undriven error,,decided,inputs with no pin that can drive them float at an undefined level
+none,none,open,none,clean,,decided,no fight and no floating input
+none,none,open,some,clean,,decided,no fight and no floating input
+none,none,bus,none,clean,,decided,no fight and no floating input
+none,none,bus,some,clean,,decided,no fight and no floating input
+none,none,other,none,clean,,decided,no fight and no floating input
+none,none,other,some,clean,,decided,no fight and no floating input
+none,power,none,none,clean,,decided,no fight and no floating input
+none,power,none,some,clean,,decided,no fight and no floating input
+none,power,open,none,contention warning,,decided,an undirected power pin may be a supply input or output of either polarity; an open collector or emitter on it shorts the rail only if the rail is the level it pulls away from
+none,power,open,some,contention warning,,decided,an undirected power pin may be a supply input or output of either polarity; an open collector or emitter on it shorts the rail only if the rail is the level it pulls away from
+none,power,bus,none,contention warning,,decided,a bidirectional or three-state pin fights the output or supply whenever it drives; it is safe only while it stays an input or high impedance
+none,power,bus,some,contention warning,,decided,a bidirectional or three-state pin fights the output or supply whenever it drives; it is safe only while it stays an input or high impedance
+none,power,other,none,clean,,decided,no fight and no floating input
+none,power,other,some,clean,,decided,no fight and no floating input
+none,power_out,none,none,clean,,decided,no fight and no floating input
+none,power_out,none,some,clean,,decided,no fight and no floating input
+none,power_out,open,none,conflict error,,decided,an open collector or emitter shorts a supply output when it turns on
+none,power_out,open,some,conflict error,,decided,an open collector or emitter shorts a supply output when it turns on
+none,power_out,bus,none,contention warning,,decided,a bidirectional or three-state pin fights the output or supply whenever it drives; it is safe only while it stays an input or high impedance
+none,power_out,bus,some,contention warning,,decided,a bidirectional or three-state pin fights the output or supply whenever it drives; it is safe only while it stays an input or high impedance
+none,power_out,other,none,clean,,decided,no fight and no floating input
+none,power_out,other,some,clean,,decided,no fight and no floating input
+none,many_power_out,none,none,conflict error,,decided,two supply outputs on one net fight over its voltage
+none,many_power_out,none,some,conflict error,,decided,two supply outputs on one net fight over its voltage
+none,many_power_out,open,none,conflict error,,decided,two supply outputs on one net fight over its voltage
+none,many_power_out,open,some,conflict error,,decided,two supply outputs on one net fight over its voltage
+none,many_power_out,bus,none,conflict error,,decided,two supply outputs on one net fight over its voltage
+none,many_power_out,bus,some,conflict error,,decided,two supply outputs on one net fight over its voltage
+none,many_power_out,other,none,conflict error,,decided,two supply outputs on one net fight over its voltage
+none,many_power_out,other,some,conflict error,,decided,two supply outputs on one net fight over its voltage
+one,none,none,none,clean,,decided,no fight and no floating input
+one,none,none,some,clean,,decided,no fight and no floating input
+one,none,open,none,conflict error,,decided,an open collector or emitter shorts a push-pull output driving the opposite level when it turns on
+one,none,open,some,conflict error,,decided,an open collector or emitter shorts a push-pull output driving the opposite level when it turns on
+one,none,bus,none,contention warning,,decided,a bidirectional or three-state pin fights the output or supply whenever it drives; it is safe only while it stays an input or high impedance
+one,none,bus,some,contention warning,,decided,a bidirectional or three-state pin fights the output or supply whenever it drives; it is safe only while it stays an input or high impedance
+one,none,other,none,clean,,decided,no fight and no floating input
+one,none,other,some,clean,,decided,no fight and no floating input
+one,power,none,none,contention warning,,decided,"an undirected power pin may be a supply input the output powers, which is sound, or a supply output it shorts"
+one,power,none,some,contention warning,,decided,"an undirected power pin may be a supply input the output powers, which is sound, or a supply output it shorts"
+one,power,open,none,conflict error,,decided,an open collector or emitter shorts a push-pull output driving the opposite level when it turns on
+one,power,open,some,conflict error,,decided,an open collector or emitter shorts a push-pull output driving the opposite level when it turns on
+one,power,bus,none,contention warning,,decided,"an undirected power pin may be a supply input the output powers, which is sound, or a supply output it shorts"
+one,power,bus,some,contention warning,,decided,"an undirected power pin may be a supply input the output powers, which is sound, or a supply output it shorts"
+one,power,other,none,contention warning,,decided,"an undirected power pin may be a supply input the output powers, which is sound, or a supply output it shorts"
+one,power,other,some,contention warning,,decided,"an undirected power pin may be a supply input the output powers, which is sound, or a supply output it shorts"
+one,power_out,none,none,conflict error,,decided,a push-pull output tied to a supply output shorts it whenever it drives the opposite level
+one,power_out,none,some,conflict error,,decided,a push-pull output tied to a supply output shorts it whenever it drives the opposite level
+one,power_out,open,none,conflict error,,decided,an open collector or emitter shorts a push-pull output driving the opposite level when it turns on
+one,power_out,open,some,conflict error,,decided,an open collector or emitter shorts a push-pull output driving the opposite level when it turns on
+one,power_out,bus,none,conflict error,,decided,a push-pull output tied to a supply output shorts it whenever it drives the opposite level
+one,power_out,bus,some,conflict error,,decided,a push-pull output tied to a supply output shorts it whenever it drives the opposite level
+one,power_out,other,none,conflict error,,decided,a push-pull output tied to a supply output shorts it whenever it drives the opposite level
+one,power_out,other,some,conflict error,,decided,a push-pull output tied to a supply output shorts it whenever it drives the opposite level
+one,many_power_out,none,none,conflict error,,decided,a push-pull output tied to a supply output shorts it whenever it drives the opposite level
+one,many_power_out,none,some,conflict error,,decided,a push-pull output tied to a supply output shorts it whenever it drives the opposite level
+one,many_power_out,open,none,conflict error,,decided,an open collector or emitter shorts a push-pull output driving the opposite level when it turns on
+one,many_power_out,open,some,conflict error,,decided,an open collector or emitter shorts a push-pull output driving the opposite level when it turns on
+one,many_power_out,bus,none,conflict error,,decided,a push-pull output tied to a supply output shorts it whenever it drives the opposite level
+one,many_power_out,bus,some,conflict error,,decided,a push-pull output tied to a supply output shorts it whenever it drives the opposite level
+one,many_power_out,other,none,conflict error,,decided,a push-pull output tied to a supply output shorts it whenever it drives the opposite level
+one,many_power_out,other,some,conflict error,,decided,a push-pull output tied to a supply output shorts it whenever it drives the opposite level
+many,none,none,none,conflict error,,decided,two push-pull outputs short whenever they drive opposite levels
+many,none,none,some,conflict error,,decided,two push-pull outputs short whenever they drive opposite levels
+many,none,open,none,conflict error,,decided,two push-pull outputs short whenever they drive opposite levels
+many,none,open,some,conflict error,,decided,two push-pull outputs short whenever they drive opposite levels
+many,none,bus,none,conflict error,,decided,two push-pull outputs short whenever they drive opposite levels
+many,none,bus,some,conflict error,,decided,two push-pull outputs short whenever they drive opposite levels
+many,none,other,none,conflict error,,decided,two push-pull outputs short whenever they drive opposite levels
+many,none,other,some,conflict error,,decided,two push-pull outputs short whenever they drive opposite levels
+many,power,none,none,conflict error,,decided,two push-pull outputs short whenever they drive opposite levels
+many,power,none,some,conflict error,,decided,two push-pull outputs short whenever they drive opposite levels
+many,power,open,none,conflict error,,decided,two push-pull outputs short whenever they drive opposite levels
+many,power,open,some,conflict error,,decided,two push-pull outputs short whenever they drive opposite levels
+many,power,bus,none,conflict error,,decided,two push-pull outputs short whenever they drive opposite levels
+many,power,bus,some,conflict error,,decided,two push-pull outputs short whenever they drive opposite levels
+many,power,other,none,conflict error,,decided,two push-pull outputs short whenever they drive opposite levels
+many,power,other,some,conflict error,,decided,two push-pull outputs short whenever they drive opposite levels
+many,power_out,none,none,conflict error,,decided,two push-pull outputs short whenever they drive opposite levels
+many,power_out,none,some,conflict error,,decided,two push-pull outputs short whenever they drive opposite levels
+many,power_out,open,none,conflict error,,decided,two push-pull outputs short whenever they drive opposite levels
+many,power_out,open,some,conflict error,,decided,two push-pull outputs short whenever they drive opposite levels
+many,power_out,bus,none,conflict error,,decided,two push-pull outputs short whenever they drive opposite levels
+many,power_out,bus,some,conflict error,,decided,two push-pull outputs short whenever they drive opposite levels
+many,power_out,other,none,conflict error,,decided,two push-pull outputs short whenever they drive opposite levels
+many,power_out,other,some,conflict error,,decided,two push-pull outputs short whenever they drive opposite levels
+many,many_power_out,none,none,conflict error,,decided,two push-pull outputs short whenever they drive opposite levels
+many,many_power_out,none,some,conflict error,,decided,two push-pull outputs short whenever they drive opposite levels
+many,many_power_out,open,none,conflict error,,decided,two push-pull outputs short whenever they drive opposite levels
+many,many_power_out,open,some,conflict error,,decided,two push-pull outputs short whenever they drive opposite levels
+many,many_power_out,bus,none,conflict error,,decided,two push-pull outputs short whenever they drive opposite levels
+many,many_power_out,bus,some,conflict error,,decided,two push-pull outputs short whenever they drive opposite levels
+many,many_power_out,other,none,conflict error,,decided,two push-pull outputs short whenever they drive opposite levels
+many,many_power_out,other,some,conflict error,,decided,two push-pull outputs short whenever they drive opposite levels
