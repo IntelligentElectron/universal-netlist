@@ -3,7 +3,7 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { DsnReader } from "../../parsers/cadence/dsn/dsn-reader.js";
 import { parsePage } from "../../parsers/cadence/dsn/page-parser.js";
-import { placement } from "../../parsers/cadence/dsn/page-render.js";
+import { placement } from "../../parsers/cadence/dsn/symbol-graphics.js";
 import type { PageView } from "../../parsers/cadence/dsn/page-views.js";
 import { readCacheSymbols } from "../../parsers/cadence/dsn/symbol-graphics.js";
 import { callTool } from "../../tools/index.js";
