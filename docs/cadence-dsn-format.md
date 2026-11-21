@@ -355,7 +355,7 @@ The Library font table holds 60-byte LOGFONTA rows. **S** (the Library decodes t
 
 - A Windows-1252 byte such as `B5` (µ in `0.1µF`) occurs in the data and reads as written under Windows-1252. **O** (1 file holds `B5 46`). That Capture writes the ANSI code page of the saving machine is not provable from the files (Open questions below). <!-- INT-3.1-003 -->
 - The parser decodes every string as Windows-1252, a byte-to-character bijection on 0 to 255 in its decoder, so a design saved under another code page (GBK, for example) reads as the Windows-1252 form of its bytes and re-encoding as Windows-1252 recovers the original bytes. **T** (`binary-reader.ts:28`; 804 GBK-valid strings exist). <!-- INT-3.1-004 -->
-- The external source advises Latin-1 (each byte to the code point of the same value) when the code page is unknown. Latin-1 and the parser's Windows-1252 both preserve every byte (Parser divergences). **T** (`binary-reader.test.ts` 'decodes every byte to its own character, so none is lost'). <!-- EXT-2.3.2-007 -->
+- The external source advises Latin-1 (each byte to the code point of the same value) when the code page is unknown. Latin-1 and the parser's Windows-1252 both preserve every byte; the parser keeps Windows-1252 (Parser divergences, Resolved). **T** (`binary-reader.test.ts` 'decodes every byte to its own character, so none is lost'). <!-- EXT-2.3.2-007 -->
 
 **Parser string helpers.** `BinaryReader` (`binary-reader.ts`) had three string readers, ported from the C++ reference:
 
@@ -524,9 +524,9 @@ A primitive list entry starts with its primitive kind code. **S** (first byte = 
 
 ### Parser divergences
 
-| Parser behaviour | What the files show | Impact | Ids |
-| --- | --- | --- | --- |
-| Decodes strings as Windows-1252 (`binary-reader.ts:28`) | The external source advises Latin-1; both are byte-preserving | Bytes 0x80 to 0x9F map to different characters; no bytes are lost | <!-- EXT-2.3.2-007 --> |
+None.
+
+Resolved (2026-11-21): the parser keeps Windows-1252, the reading the files support. The two decodings differ only on bytes 0x80 to 0x9F. In the Library string tables, which hold a design's names and values, one entry in the corpus holds such a byte: `CALEIDOSCOP.DSN` writes `96 20 43 41 50 31 39 36`, which Windows-1252 reads as `– CAP196` (an en dash) and Latin-1 as the C1 control U+0096 followed by ` CAP196`. **O** (1 entry in the Library string tables of 191 files; no other byte in that range occurs there; Cache, page and Hierarchy strings were not scanned; `checks/base/c1_bytes.py`). The external source's Latin-1 advice applies when the code page is unknown; a Capture design is written by a Windows ANSI application, and the one in-range byte reads as text only under Windows-1252. **T** (`binary-reader.test.ts` 'decodes bytes above 0x7F as Windows-1252': `96` reads as `–`). <!-- EXT-2.3.2-007 -->
 
 Resolved (2026-11-21): `readStringLenZeroTerm` accepts any `u16` length and keeps the terminator check, the Library reads its strings with it (its separate uncapped reader is gone), and `readStringLenTerm`, which nothing called, is deleted. **O**: instrumented across all 192 corpus and fixture DSNs, in the netlist and the drawn-page paths, the 400-byte cap never fired once the Cache was read by its tables (PR 299), so it guarded nothing; removing it leaves every design's nets identical. **T** (`binary-reader.test.ts`: a 1,421-byte `lstr` reads; a non-`00` terminator still throws). <!-- EXT-2.3.2-006 -->
 
@@ -1820,9 +1820,9 @@ So bit 7 marks a pin with no schematic connection of its own: in a multi-section
 
 ### Parser divergences
 
-| Parser does | Files show | Impact |
-| --- | --- | --- |
-| Reads the Device's second string as `refDes` (`structures.ts:436`); the value is unused. | It is the part cell name (§5.4). | Naming only; netlist output unaffected. |
+None.
+
+Resolved (2026-11-21): the parser names the Device's second string `cellName`, the part cell name (§5.4), where it was named `refDes` (`parseDevice` in `structures.ts`). Nothing reads the value, so netlist output is unchanged.
 
 Resolved: an ignored pin that its part's `PACK_SHORT` names joins the net of its group's placed pin (`packShortGroups` in `pin-resolver.ts`, `collectPins` in `net-pins.ts`); an ignored pin no group names, or one on a section of a package with several devices (`isMultiSection`), is still left out. **E**: 68 pins on 11 corpus designs gain a net and none moves or is lost; all 46 of them on designs with an export (`ONYXPSU.DSN`, both `CLAYR6.DSN`) match it. **T** (`net-assignment.table.test.ts` replays the table `pin-ignore`; `pin-resolver.test.ts` 'packShortGroups').
 
@@ -3886,9 +3886,9 @@ None: every INT and EXT conflict in this chapter was decided by the data.
 
 ### Parser divergences
 
-| Parser does | Files show | Impact | ids |
-| --- | --- | --- | --- |
-| Parses bus ranges with non-negative indices only, and also accepts `-` as separator (`bus-name.ts:17`) | Syntax seen is `:` and `..`; no negative index or `-` separator occurs | None on the corpus | <!-- EXT-11.6-002 EXT-11.6-004 --> |
+None.
+
+Resolved (2026-11-21): `parseBusName` (`bus-name.ts`) reads signed indices, so `D[-1..1]` lists `D-1`, `D0`, `D1` and `D[1:-1]` lists them in reverse. It still accepts `-` as a separator (`A[7-4]`, and `D[0--2]` for 0 to −2): a name the files never show, accepted beside the two they do, contradicts no fact. A range wider than 65,535 members (the external source's bound) is not read as a bus, so a damaged name cannot expand without limit. Every corpus bus name has non-negative indices and a narrow range, so nets are unchanged. **T** (`bus-name.test.ts` 'reads the signed indices'). <!-- EXT-11.6-002 EXT-11.6-004 -->
 
 Resolved: ports, Globals and off-page connectors join the wire their trailer `wire_id` names (`page-groups.ts`); a trailer `wire_id` of 0 attaches the connector to no wire, and a pin sitting on such a connector is still matched by the connector's box (`page-groups.ts`, `net-pins.ts`). Connector-to-wire attachment no longer uses the box ranking (`symbol-attachment.ts`) or the five fixed off-page points. Resolved too: an unwired pin joins the connector whose computed connection point (§11.4, by the §7.7 rule with the stored box) it sits on (`pinOnSymbol`, `pinOnOffPage`); the box and edge midpoints remain only for a connector with no single-pin cached symbol, which no corpus connector lacks. **E**: of 414 unwired pins the box matched, 83 went to the wrong neighbour; on the three designs with Capture exports among the four that change (`STRAIN GAUGE BOARD`, `ONYXPSU`, `ROHM_SENSOR_PLATFORM_BASE_BOARD`), all 17 changed pins now match the export and none did before. **T** (`connection-point.test.ts`: every fixture connector with a trailer wire has its connection point on that wire's end, except the 8 known OpenCellular GND symbols). **S**: across all 192 corpus and fixture DSNs one pin changes, `CC1310LAUNCHPAD.DSN` (SmartGarden) R32.2 from `N75036` to `5V`: its 5V Global has `wire_id` 0, and the box ranking had joined it to the neighbouring LED wire, bridging a GPIO net into the resistor. **O**: the rendered page shows R32 drawn like its two sibling LED and resistor pairs, whose resistor pin 2 sits on a 5V symbol and is on 5V. No design with a Capture export changes. <!-- EXT-7.10-009 EXT-11.1.4-003 --> <!-- EXT-11.2-009 -->
 
@@ -4251,9 +4251,9 @@ A `Symbols/<n>` stream is one record of type 35, 64 or 75; types 33, 34 and 76, 
 
 ### Parser divergences
 
-| What the parser does | What the files show | Impact | Ids |
-| --- | --- | --- | --- |
-| Takes the Library only at the exact root path `Library` (`src/parsers/cadence/dsn/dsn-parser.ts:37`), where INT says any path ending `/Library` | The root stream is the Library; a page may be named `Library` | None: the parser is right and INT's wording is wrong | (Refuted table) |
+None.
+
+Resolved (2026-11-21): the parser takes the Library only at the exact root path `Library` (`dsn-parser.ts`), which is what the files show: the root stream is the Library, and a page may itself be named `Library`. INT's wording (any path ending `/Library`) is in the Refuted table; the parser was already right, so no code changed.
 
 Parser coverage: universal-netlist locates the page, Hierarchy, `Packages/<p>`, Cache and Library streams by path and reads the CIS variant streams; it reads none of the seven `* Directory` streams, the `Schematic` headers, `DsnStream`, `HSObjects`, `NetBundleMapData`, `BundleMapData`, `AdminData`, `AnnotateCtrl`, `LayoutReuse/ReuseSchematics.txt` or the `$Types$` streams.
 
@@ -5002,9 +5002,9 @@ occurrence id  --Hierarchy part occurrence-->  reference, or dbId --PlacedInstan
 
 ### Parser divergences
 
-| Parser behaviour | What the files show | Impact | Ids |
-| --- | --- | --- | --- |
-| `parseVariantGroup` (`variant-store.ts:88`) drops an entry without `~` | EXT advises reading it as present; no such entry exists in our data | None on the corpus | <!-- EXT-14.9-011 --> |
+None.
+
+Resolved (2026-11-21): `parseVariantGroup` (`variant-store.ts`) reads an entry without `~status` as present, as the external source advises. Such an entry takes the status the group's other entries carry, since every group writes one status throughout (14/14, above); a group with no status-bearing entry, or with both statuses, gives it none, and it is left out rather than stuffed or unstuffed on a guess. The leading flag, the first token, is skipped only when it is `0` or `1`, so a stream written without one keeps its first entry; an occurrence id is decimal digits only. No such entry exists in the corpus, so the Do Not Stuff sets are unchanged. **T** (`variant-store.test.ts` 'reads an entry with no status as a member carrying its group's status', 'leaves out bare entries when the group carries no status to give them'). <!-- EXT-14.9-011 -->
 
 Resolved: the parser no longer has a `VariantNames` reader; the stream is not read (no production code needed it). <!-- EXT-14.3-003 EXT-14.3-005 EXT-14.3-012 INT-11-015 --> |
 
