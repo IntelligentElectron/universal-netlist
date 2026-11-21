@@ -495,3 +495,38 @@ describe("connectors join the wire their trailer names", () => {
     expect(nets.RAIL).toEqual({ R5: ["1"], R6: ["1"] });
   });
 });
+
+describe("buildNetConnectivity over PACK_SHORT pins", () => {
+  // Q1's package marks S2 and S3 Pin Ignore; PACK_SHORT (S1,S2,S3) ties them
+  // to S1, which is wired to R1. Q2 has the same flags and no PACK_SHORT.
+  const ignoring: PinMapData = {
+    ...pmd,
+    pinMaps: new Map([["X", ["1", "2", "3"]]]),
+    pinIgnores: new Map([["X", [false, true, true]]]),
+  };
+  const shorted = page({
+    name: "PAGE1",
+    wires: [wire(10, 1, 0, 0, 50, 0)],
+    placedInstances: [
+      part(1, "R1", [pin(1, 0, 0, 1)]),
+      {
+        ...part(2, "Q1", [pin(1, 50, 0, 1), pin(2, 60, 0, 0), pin(3, 70, 0, 0)]),
+        packShort: [[1, 2, 3]],
+      },
+      part(3, "Q2", [pin(1, 200, 0, 0), pin(2, 210, 0, 0), pin(3, 220, 0, 0)]),
+    ],
+  });
+  const { nets } = buildNetConnectivity([shorted], new Set(), ignoring, new Map(), []);
+  const netOf = (ref: string, p: string) =>
+    Object.keys(nets).find((n) => nets[n][ref]?.includes(p));
+
+  it("puts an ignored pin that PACK_SHORT names on its group's placed pin's net", () => {
+    expect(netOf("Q1", "2")).toBe(netOf("R1", "1"));
+    expect(netOf("Q1", "3")).toBe(netOf("R1", "1"));
+  });
+
+  it("still leaves out an ignored pin that no PACK_SHORT names", () => {
+    expect(netOf("Q2", "2")).toBeUndefined();
+    expect(netOf("Q2", "3")).toBeUndefined();
+  });
+});

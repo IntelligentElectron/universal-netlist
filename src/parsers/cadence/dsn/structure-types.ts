@@ -5,6 +5,8 @@
  * Only netlist-critical types are included.
  */
 
+import type { PrefixPropertyPair } from "./generic-parser.js";
+
 export enum StructureType {
   SthInPages0 = 2,
   PartCell = 6,
@@ -43,6 +45,7 @@ export enum StructureType {
 export interface CachedLibraryPart {
   pinNames: string[];
   defaultValue?: string;
+  properties?: PrefixPropertyPair[];
 }
 
 export interface PinMapData {
