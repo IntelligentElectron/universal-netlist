@@ -6,7 +6,7 @@ import { DsnReader } from "./dsn-reader.js";
 import { readLibraryVersion } from "./library-parser.js";
 import { parsePage } from "./page-parser.js";
 import { connectionPoint, readCacheSymbols } from "./symbol-graphics.js";
-import { pinOnSymbol } from "./symbol-attachment.js";
+import { symbolUnderPin } from "./symbol-attachment.js";
 
 const FIXTURES = join(import.meta.dirname, "../../../../test/fixtures/cadence");
 const designs = execSync(`find "${FIXTURES}" -iname '*.dsn'`).toString().trim().split("\n");
@@ -46,7 +46,7 @@ describe("connectionPoint (§7.7, §11.4)", () => {
   }, 120_000);
 });
 
-describe("pinOnSymbol", () => {
+describe("symbolUnderPin", () => {
   // Two ports one grid step apart, each box two steps tall, as on HB1A's link
   // ports: the pin at (260, 330) lies in both boxes but on only one connection point.
   const port = (y: number, connection?: [number, number]) => ({
@@ -59,15 +59,15 @@ describe("pinOnSymbol", () => {
     connection,
   });
 
-  it("matches a pin only at the connection point when the connector has one", () => {
+  it("picks the connector whose connection point the pin is on, over an earlier box", () => {
     const upper = port(320, [260, 320]);
     const lower = port(330, [260, 330]);
-    expect(pinOnSymbol(upper, 260, 330)).toBe(false);
-    expect(pinOnSymbol(lower, 260, 330)).toBe(true);
+    expect(symbolUnderPin([upper, lower], 260, 330)).toBe(lower);
   });
 
-  it("falls back to the box for a connector with no cached symbol", () => {
-    expect(pinOnSymbol(port(320), 260, 330)).toBe(true);
-    expect(pinOnSymbol(port(320), 300, 330)).toBe(false);
+  it("falls back to a box only when no connector's point is under the pin", () => {
+    const noSymbol = port(320);
+    expect(symbolUnderPin([noSymbol], 260, 330)).toBe(noSymbol);
+    expect(symbolUnderPin([noSymbol], 300, 330)).toBeUndefined();
   });
 });

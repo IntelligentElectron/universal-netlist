@@ -247,17 +247,22 @@ export function parseSymbolGraphics(buffer: Buffer): SymbolGraphics {
 /** Record types that hold symbols in the Cache's tables 1 and 2. */
 const SYMBOL_TYPES = new Set([24, 33, 34, 35, 64, 75]);
 
+/** Global (33), port (34) and off-page (35) symbols: the ones connectors place (§11.4). */
+export const CONNECTOR_SYMBOL_TYPES = new Set([33, 34, 35]);
+
 /**
  * The Cache's symbols by name (§5.1), keeping the first variant of each group,
- * and only the names in `only` when given. A symbol that will not decode is left out.
+ * of the record `types` given, and only the names in `only` when given. A
+ * symbol that will not decode is left out.
  */
 export function readCacheSymbols(
   buffer: Buffer,
-  only?: ReadonlySet<string>
+  only?: ReadonlySet<string>,
+  types: ReadonlySet<number> = SYMBOL_TYPES
 ): Map<string, SymbolGraphics> {
   const symbols = new Map<string, SymbolGraphics>();
   walkCacheTables(buffer, (type, name, record) => {
-    if (!SYMBOL_TYPES.has(type) || symbols.has(name) || (only && !only.has(name))) return;
+    if (!types.has(type) || symbols.has(name) || (only && !only.has(name))) return;
     try {
       symbols.set(name, parseSymbolGraphics(record));
     } catch {

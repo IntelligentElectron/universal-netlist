@@ -33,7 +33,7 @@ import type { PageCoordMap } from "./page-groups.js";
 import type { PinInfo } from "./net-pins.js";
 import { buildPageViews, type PageView } from "./page-views.js";
 import { renderPageSvg } from "./page-render.js";
-import { connectionPoint, readCacheSymbols } from "./symbol-graphics.js";
+import { CONNECTOR_SYMBOL_TYPES, connectionPoint, readCacheSymbols } from "./symbol-graphics.js";
 import { buildComponents } from "./component-builder.js";
 import { mergeRepeatedSections, separateDuplicateRefdes } from "./duplicate-refdes.js";
 import { readVariantStuffing, type VariantStuffing } from "./variant-store.js";
@@ -182,7 +182,8 @@ function parseDsnStreams(
     try {
       const symbols = readCacheSymbols(
         ole.readStreamByPath(cacheStream.path),
-        new Set(connectors.map((sym) => sym.name))
+        new Set(connectors.map((sym) => sym.name)),
+        CONNECTOR_SYMBOL_TYPES
       );
       for (const sym of connectors) sym.connection = connectionPoint(sym, symbols);
     } catch {

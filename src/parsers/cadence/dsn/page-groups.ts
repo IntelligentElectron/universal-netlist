@@ -10,7 +10,7 @@ import type { PageData } from "./page-parser.js";
 import type { GraphicInst } from "./structures.js";
 import { CoordUnionFind } from "./coord-union-find.js";
 import { parseBusName } from "./bus-name.js";
-import { pinOnSymbol, symbolKey } from "./symbol-attachment.js";
+import { symbolKey, symbolUnderPin } from "./symbol-attachment.js";
 
 /**
  * The name Capture gives a net nobody named: `N` and the segment id, padded to
@@ -212,13 +212,11 @@ export function buildPageCoordMap(
       if (allWireCoords.has(coord)) continue; // already connected via wire endpoint
 
       // A pin on a Global's or port's connection point joins it.
-      for (const sym of [...page.globals, ...page.ports]) {
-        if (pinOnSymbol(sym, pin.pointX, pin.pointY)) {
-          uf.find(coord);
-          uf.union(coord, symbolKey(sym));
-          pinsOnSymbol.set(symbolKey(sym), [...(pinsOnSymbol.get(symbolKey(sym)) ?? []), coord]);
-          break;
-        }
+      const sym = symbolUnderPin([...page.globals, ...page.ports], pin.pointX, pin.pointY);
+      if (sym) {
+        uf.find(coord);
+        uf.union(coord, symbolKey(sym));
+        pinsOnSymbol.set(symbolKey(sym), [...(pinsOnSymbol.get(symbolKey(sym)) ?? []), coord]);
       }
 
       // Check wire body: point on axis-aligned segment (not at an endpoint)

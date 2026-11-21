@@ -24,35 +24,53 @@ export function symbolKey(sym: Pick<GraphicInst, "pairingId" | "dbId">): string 
 
 type Connector = Pick<GraphicInst, "x1" | "y1" | "x2" | "y2" | "locX" | "locY" | "connection">;
 
+const atPoint = (sym: Connector, x: number, y: number): boolean =>
+  sym.connection !== undefined && sym.connection[0] === x && sym.connection[1] === y;
+
 /**
- * Whether a pin at `(x, y)` sits on a Global or port: at its connection point
- * (§11.4). A connector with no cached symbol falls back to its box.
+ * The Global or port a pin at `(x, y)` sits on: the one whose connection point
+ * it is on (§11.4). Only when no connector's point is there, the first whose
+ * box holds it, which serves connectors with no cached symbol.
  */
-export function pinOnSymbol(sym: Connector, x: number, y: number): boolean {
-  if (sym.connection) return sym.connection[0] === x && sym.connection[1] === y;
+export function symbolUnderPin<T extends Connector>(
+  syms: T[],
+  x: number,
+  y: number
+): T | undefined {
   return (
-    x >= Math.min(sym.x1, sym.x2) &&
-    x <= Math.max(sym.x1, sym.x2) &&
-    y >= Math.min(sym.y1, sym.y2) &&
-    y <= Math.max(sym.y1, sym.y2)
+    syms.find((sym) => atPoint(sym, x, y)) ??
+    syms.find(
+      (sym) =>
+        x >= Math.min(sym.x1, sym.x2) &&
+        x <= Math.max(sym.x1, sym.x2) &&
+        y >= Math.min(sym.y1, sym.y2) &&
+        y <= Math.max(sym.y1, sym.y2)
+    )
   );
 }
 
 /**
- * Whether a pin at `(x, y)` sits on an off-page connector: at its connection
- * point (§11.4). Without a cached symbol, at a box edge midpoint or its location.
+ * The off-page connector a pin at `(x, y)` sits on: the one whose connection
+ * point it is on (§11.4). Only when no connector's point is there, one with the
+ * pin at a box edge midpoint or at its location.
  */
-export function pinOnOffPage(opc: Connector, x: number, y: number): boolean {
-  if (opc.connection) return opc.connection[0] === x && opc.connection[1] === y;
-  const minX = Math.min(opc.x1, opc.x2);
-  const maxX = Math.max(opc.x1, opc.x2);
-  const minY = Math.min(opc.y1, opc.y2);
-  const maxY = Math.max(opc.y1, opc.y2);
-  const midX = Math.round((minX + maxX) / 2);
-  const midY = Math.round((minY + maxY) / 2);
-  return (
-    (y === midY && (x === maxX || x === minX)) ||
-    (x === midX && (y === maxY || y === minY)) ||
-    (x === opc.locX && y === opc.locY)
-  );
+export function offPageUnderPin<T extends Connector>(
+  opcs: T[],
+  x: number,
+  y: number
+): T | undefined {
+  const atBoxPoint = (opc: T): boolean => {
+    const minX = Math.min(opc.x1, opc.x2);
+    const maxX = Math.max(opc.x1, opc.x2);
+    const minY = Math.min(opc.y1, opc.y2);
+    const maxY = Math.max(opc.y1, opc.y2);
+    const midX = Math.round((minX + maxX) / 2);
+    const midY = Math.round((minY + maxY) / 2);
+    return (
+      (y === midY && (x === maxX || x === minX)) ||
+      (x === midX && (y === maxY || y === minY)) ||
+      (x === opc.locX && y === opc.locY)
+    );
+  };
+  return opcs.find((opc) => atPoint(opc, x, y)) ?? opcs.find(atBoxPoint);
 }

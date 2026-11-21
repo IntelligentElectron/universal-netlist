@@ -11,7 +11,7 @@ import type { PinMapData } from "./structure-types.js";
 import type { PageData } from "./page-parser.js";
 import { resolvePinNumber, isPinIgnored } from "./pin-resolver.js";
 import { parseBusName } from "./bus-name.js";
-import { pinOnOffPage, pinOnSymbol } from "./symbol-attachment.js";
+import { offPageUnderPin, symbolUnderPin } from "./symbol-attachment.js";
 import type { PageCoordMap, PortMembership } from "./page-groups.js";
 
 export interface PinInfo {
@@ -189,20 +189,20 @@ export function collectPins(
         // power net the whole design shares.
         let port: PortMembership | undefined;
         if (!coordNet && pin.wireId === 0xffffffff) {
-          for (const sym of [...pages[i].globals, ...pages[i].ports]) {
-            if (pinOnSymbol(sym, pin.pointX, pin.pointY)) {
-              coordNet = globalPairingNets.get(sym.pairingId);
-              if (!coordNet) continue;
-              if (placement && pages[i].ports.includes(sym)) {
-                const portName = symbolNets.get(sym.pairingId) ?? coordNet;
-                if (placement.ports.has(portName)) {
-                  coordNet = portName;
-                  port = { port: portName };
-                } else {
-                  coordNet = portName + placement.suffix;
-                }
+          const named = [...pages[i].globals, ...pages[i].ports].filter((sym) =>
+            globalPairingNets.has(sym.pairingId)
+          );
+          const sym = symbolUnderPin(named, pin.pointX, pin.pointY);
+          if (sym) {
+            coordNet = globalPairingNets.get(sym.pairingId);
+            if (placement && pages[i].ports.includes(sym)) {
+              const portName = symbolNets.get(sym.pairingId) ?? coordNet!;
+              if (placement.ports.has(portName)) {
+                coordNet = portName;
+                port = { port: portName };
+              } else {
+                coordNet = portName + placement.suffix;
               }
-              break;
             }
           }
         }
@@ -210,16 +210,15 @@ export function collectPins(
         // Fallback: sentinel pins at an OPC's connection point (direct
         // pin-to-OPC, no wire), named via strLst[pairingId].
         if (!coordNet && pin.wireId === 0xffffffff) {
-          for (const opc of pages[i].offPageConnectors) {
-            if (pinOnOffPage(opc, pin.pointX, pin.pointY)) {
-              coordNet = opcPairingNets.get(opc.pairingId);
-              if (coordNet) {
-                // The string list's name is the block's own; in a placement it
-                // names that placement's net.
-                if (placement) coordNet += placement.suffix;
-                break;
-              }
-            }
+          const named = pages[i].offPageConnectors.filter((opc) =>
+            opcPairingNets.has(opc.pairingId)
+          );
+          const opc = offPageUnderPin(named, pin.pointX, pin.pointY);
+          if (opc) {
+            coordNet = opcPairingNets.get(opc.pairingId);
+            // The string list's name is the block's own; in a placement it
+            // names that placement's net.
+            if (placement) coordNet += placement.suffix;
           }
         }
 

@@ -7,6 +7,7 @@ import { findPage } from "./pages.js";
 const FIXTURES = join(import.meta.dirname, "../../../test/fixtures/cadence");
 const MULTIO = join(FIXTURES, "multio/MULTIO.DSN");
 const META_CARRIER = join(FIXTURES, "parallella-meta-carrier/meta_carrier_sch_rev1.dsn");
+const HB1A = join(FIXTURES, "parallella-aafm/HB1A-AAFM.DSN");
 const LAUNCHXL = join(
   FIXTURES,
   "LAUNCHXL-CC1310/doc/hardware/cc1310/launchpad/design_files/Cadence/LAUNCHXL-CC1310.DSN"
@@ -100,6 +101,20 @@ describe("list_pages and get_page", () => {
     const view = (await callTool("get_page", { design: LAUNCHXL, page: "4_XDS110" })) as PageView;
     const gnd = view.globals.find((g) => g.x === 710 && g.y === 290);
     expect(gnd).toMatchObject({ name: "GND", net: "GND" });
+  }, 60_000);
+
+  it("joins closely spaced ports to the pins at their connection points", async () => {
+    // Each port's box also covers its neighbour's pin; only its connection point is exact.
+    const view = (await callTool("get_page", {
+      design: HB1A,
+      page: "Link Ports EAST/WEST (block QUAD ANEMONE/DSP LL)",
+    })) as PageView;
+    const portNet = (name: string) => view.ports.find((p) => p.name === name)?.net;
+    const u7 = view.parts.find((part) => part.refdes === "U7");
+    const pinNet = (n: string) => u7?.pins.find((pin) => pin.number === n)?.net;
+    expect(portNet("RXI_WE_LCLK_P")).toBe(pinNet("M1"));
+    expect(portNet("RXI_WE_LCLK_N")).toBe(pinNet("N1"));
+    expect(pinNet("M1")).not.toBe(pinNet("N1"));
   }, 60_000);
 
   it("refuses a design that is not a .DSN schematic", async () => {
