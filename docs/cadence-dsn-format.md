@@ -3531,6 +3531,7 @@ Displayed reference, in order:
 - Child schematic pages carry hierarchical ports (type 23) whose names equal the block's port names as a set on 303 pages, form a subset on 35, and are absent on 22. **S** <!-- EXT-10.8-006 -->
 - **Block pin positions.** For an unrotated, unmirrored block, a port's connection point is the block location plus the stored port hotpoint: 4,548 of 4,548 pins. For rotated or mirrored blocks the plain sum fails on 134 of 136 pins (for example `buddy_sch_rev1.dsn`, transform 0x730); location plus the transformed hotpoint matches 34 of them. **S** <!-- EXT-2.5.2-011 EXT-10.8-007 EXT-11.1.5-001 -->
 - Block pins carry wire ids as part pins do: 3,096 wired (900 of them on bus wires) and 204 unwired. An unwired block pin binds nothing, and the port's net stays local. **S** <!-- INT-12.6-024 -->
+- A block pin's `net_id` (+0x0A, §7.4) is always 0, wired or not: 4,462 wired and 222 unwired block pins across the expanded pages of the 106 readable corpus and fixture designs (`private/m2/block-pins.ts`). An unwired block pin therefore names no SchematicNet, and the parser binds a port from the block pin's `wire_id` alone. **S**
 - **Port type** (the u32 in the port trailer): values 0 (555), 1 (624), 2 (579), 4 (196) and 7 (62); 3, 5 and 6 never occur on 2,016 ports. **O** <!-- EXT-7.9.1-006 --> It equals the same-named block pin's type on 4,368 of 4,412, and the pin type of the port's cached PortSymbol on only 1,240 of 2,016. **S**
 
 ### 10.15 Expanding blocks: page copies and placement-local nets
@@ -3640,6 +3641,8 @@ Repeated-block naming in EXT's terms agrees: a copy of a child schematic instant
 ### Parser divergences
 
 None in this chapter: no verdict found the parser contradicting the files here.
+
+Resolved: a bus port member that follows the parent's member wire took the wire group's lowest SchematicNet id (`Wire.id`) as its net-group key, while every pin keys by the wire `db_id` its `wire_id` names (76,727 of 76,727 wired pins on the 106 readable designs match a page wire's `db_id`, none a `Wire.id`; `private/m2/key-space.ts`). The two id spaces overlap, so the member could join an unrelated wire's group. The group key is now the group's lowest wire `db_id` (`page-groups.ts`). **T** (`hierarchy-connectivity.test.ts`: the TOPCLK wire's `db_id` equals the X_D1 wire's SchematicNet id, and C6.1 lands on TOPCLK under the old key); nets are identical on every readable corpus and fixture design, so none hit the overlap. The same walk, when the parent's member has no wire, added the parent placement's offset to a block pin wire id the expander had already shifted; it now keeps that id (`net-pins.test.ts`).
 
 <!-- meta: EXT-10.10-010 EXT-16.8.1-001 EXT-16.8.5-001 INT-12.6-007 INT-13.8-009 -->
 

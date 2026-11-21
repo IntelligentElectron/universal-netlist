@@ -102,7 +102,8 @@ export function bindThroughPorts(
     const carried = parentMap.byBase.get(member);
     pageIdx = parentIdx;
     if (carried) {
-      netId = (carried.netId ?? binding.netId) + parentOffset;
+      // binding.netId is a parent block pin's wire id, already in the parent's range.
+      netId = carried.netId === undefined ? binding.netId : carried.netId + parentOffset;
       coord = carried.rep;
       name = carried.name;
       base = carried.base;
