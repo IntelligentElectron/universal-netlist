@@ -95,7 +95,7 @@ named \`<page> (block <path>)\`. Use get_page for one page's contents.`;
 
 export const GET_PAGE_DESCRIPTION = `\
 One schematic page of a Cadence .DSN design as drawn: its parts (refdes, value, symbol, \
-location, rotation, mirror, box, and pins with their nets), wires with their nets, \
+location, rotation, mirror, box, and pins with their electrical types and nets), wires with their nets, \
 net labels, hierarchical ports, globals (power and ground symbols), off-page connectors, \
 bus entries, hierarchical blocks, and the title-block fields. Net names match list_nets. \
 Coordinates are in 1/100 inch, x to the right and y down. \
@@ -178,8 +178,10 @@ export const QUERY_COMPONENT_DESCRIPTION = `\
 Get full component details including all pin connections. \
 Refdes lookup is case-insensitive. \
 Returns MPN, description, value, and pin-to-net mappings when available. \
-Each pin maps to its net name, or to {name, net} where the pin has a function name that \
-differs from its number. A pin on no net reads as the net "NC", a marker and not a queryable net. \
+Each pin maps to its net name, or to {name, net, type, hidden} carrying whichever of these \
+it has: a function name that differs from its number, the electrical type its symbol declares \
+(input, output, bidirectional, tristate, open_collector, open_emitter, passive, power and the \
+like), and hidden: true for a power pin the symbol does not draw. A pin on no net reads as the net "NC", a marker and not a queryable net. \
 If the schematic gives the refdes to several different parts, the result lists every part \
 under \`components\`, each carrying \`error\`: "Reference designator is duplicated". \
 ${paged("pins")} A duplicated refdes counts its parts' pins together. \

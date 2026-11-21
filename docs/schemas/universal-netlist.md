@@ -6,7 +6,7 @@ Every on-disk Universal Netlist is named `*.netlist.json`. Its top-level
 `universalNetlistSchemaVersion` identifies the document and schema; its nested
 `metadata` records when the document was generated, the origin of its content,
 the design variant whose build it holds, and a verified SHA-256 identity for
-`nets` and `components` together. The current version is `3`; ordinary JSON files are not Universal Netlists, even if
+`nets`, `components` and `netProperties` together. The current version is `4`; ordinary JSON files are not Universal Netlists, even if
 they happen to contain keys named `nets` or `components`.
 
 ### Schema evolution
@@ -42,7 +42,7 @@ kept at version 1 as the fixture proving older files still load.
 
 ```
 UniversalNetlistDocument
-├── universalNetlistSchemaVersion: 3
+├── universalNetlistSchemaVersion: 4
 ├── metadata
 │   ├── generatedAt: "2026-09-01T12:34:56.789Z"
 │   ├── netlistHash: "sha256:<64 lowercase hex digits>"
@@ -50,8 +50,9 @@ UniversalNetlistDocument
 │   └── designVariant?: "Fab-A"
 ├── nets: NetConnections
 │   └── {netName}: { refdes: pin(s) }
-└── components: ComponentDetails
-    └── {refdes}: { mpn, internal_pn, manufacturer, description, pins: { pinNum: PinEntry } }
+├── components: ComponentDetails
+│   └── {refdes}: { mpn, internal_pn, manufacturer, description, pins: { pinNum: PinEntry } }
+└── netProperties?: { netName: { propertyName: value } }
 ```
 
 ## UniversalNetlistDocument
@@ -64,7 +65,7 @@ The root schema representing a complete netlist.
   "type": "object",
   "properties": {
     "universalNetlistSchemaVersion": {
-      "const": 3
+      "const": 4
     },
     "metadata": {
       "type": "object",
@@ -123,6 +124,15 @@ The root schema representing a complete netlist.
     },
     "components": {
       "$ref": "#/$defs/ComponentDetails"
+    },
+    "netProperties": {
+      "type": "object",
+      "description": "Properties the design attaches to a net, by net name. Every key is a declared net. Omitted when no net has any.",
+      "additionalProperties": {
+        "type": "object",
+        "minProperties": 1,
+        "additionalProperties": { "type": "string" }
+      }
     }
   },
   "required": [
@@ -139,7 +149,7 @@ The root schema representing a complete netlist.
 
 ```json
 {
-  "universalNetlistSchemaVersion": 3,
+  "universalNetlistSchemaVersion": 4,
   "metadata": {
     "generatedAt": "2026-09-01T12:34:56.789Z",
     "netlistHash": "sha256:d162573135e49348295f639ec3485dc0cb233cebbb56bbbb4f8055bc202e3649",
@@ -304,7 +314,7 @@ Maps reference designators to component information including pin-to-net mapping
 
 ## PinEntry
 
-Represents a pin-to-net connection. Uses a string for simple pins, or an object when the pin name differs from the pin number.
+Represents a pin-to-net connection. Uses a string for a pin with nothing to say beyond its net, or an object when the pin has a name that differs from its number, an electrical type, or is hidden.
 
 A pin is keyed by its number. A symbol pin with no number (KiCad writes `(pin "")`; an Altium pin with no designator) is keyed by its name instead, and is then a plain net string. A part whose unnumbered pins share a name has one pin under that name, on the first net with other pins on it.
 
@@ -314,21 +324,38 @@ A pin is keyed by its number. A symbol pin with no number (KiCad writes `(pin ""
   "oneOf": [
     {
       "type": "string",
-      "description": "Net name (used when pin name equals pin number or is not meaningful)"
+      "description": "Net name (used when the pin has no meaningful name, no type and is not hidden)"
     },
     {
       "type": "object",
       "properties": {
         "name": {
           "type": "string",
-          "description": "Pin name (e.g., 'VIN', 'GND', 'EN')"
+          "description": "Pin name (e.g., 'VIN', 'GND', 'EN'), when it differs from the pin number"
         },
         "net": {
           "type": "string",
           "description": "Connected net name"
+        },
+        "type": {
+          "enum": [
+            "input", "output", "bidirectional", "tristate", "open_collector",
+            "open_emitter", "passive", "power", "power_in", "power_out",
+            "unspecified", "free", "no_connect"
+          ],
+          "description": "Electrical type the pin's library symbol declares"
+        },
+        "hidden": {
+          "const": true,
+          "description": "Set on a power pin the symbol does not draw, which joins its net by name; the parsers write it together with `type`"
         }
       },
-      "required": ["name", "net"],
+      "required": ["net"],
+      "anyOf": [
+        { "required": ["name"] },
+        { "required": ["type"] },
+        { "required": ["hidden"] }
+      ],
       "additionalProperties": false
     }
   ]
@@ -338,18 +365,31 @@ A pin is keyed by its number. A symbol pin with no number (KiCad writes `(pin ""
 **Examples:**
 
 ```json
-// Simple pin - pin name not meaningful or equals pin number
+// Simple pin: no meaningful name, no type
 "1": "GND"
 
-// Named pin - pin name adds context
-"1": { "name": "VIN", "net": "PP5V" }
+// Named pin with its electrical type
+"1": { "name": "VIN", "net": "PP5V", "type": "power" }
+
+// A resistor pin: the number is its name, so only the type is written
+"2": { "net": "PP5V", "type": "passive" }
+
+// A hidden power pin on a logic gate, joined to GND by name
+"7": { "name": "GND", "net": "GND", "type": "power", "hidden": true }
 ```
+
+`type` is one of the electrical types a library symbol can declare. Cadence Capture
+declares `input`, `output`, `bidirectional`, `tristate`, `open_collector`,
+`open_emitter`, `passive` and `power`. `power_in`, `power_out`, `unspecified`,
+`free` and `no_connect` are the further types KiCad and Altium symbols can declare.
+A pin that no placed symbol draws, such as a pad of a section nobody placed, has no
+type.
 
 ## Format-Specific Behavior
 
 ### Cadence OrCAD/CIS
 
-- Component properties, net connections, and pin names come directly from the `.DSN` binary schematic
+- Component properties, net connections, pin names, pin types and hidden power pins come directly from the `.DSN` binary schematic
 - CIS BOM names, exact group membership, and stuffing information come from the schematic's variant store; the store carries stuffing only, so no Cadence part is ever flagged `alternate_part`
 - MCP queries use the `.DSN` path returned by `list_designs`
 
@@ -384,15 +424,16 @@ Both are populated during parsing to enable efficient queries without runtime tr
 
 The `PinEntry` union type balances information density with token efficiency:
 
-- **String format**: Used for passives (resistors, capacitors) where pin names are just numbers
-- **Object format**: Used for ICs where pin names (VIN, EN, SW) provide semantic meaning
+- **String format**: Used for a pin whose name is just its number and whose type is unknown
+- **Object format**: Used when the pin has a meaningful name (VIN, EN, SW), an electrical type, or is hidden
 
-This reduces output size by ~30% for typical designs while preserving important pin name information.
+A format that records no pin types keeps the short string form for most passives.
 
 ## Metadata, content hash, and origin
 
 `metadata.netlistHash` is SHA-256 over one canonical JSON object containing the
-complete normalized `nets` and `components` payload together. Object keys are
+complete normalized `nets` and `components` payload together, and `netProperties`
+when the document has any. Object keys are
 sorted recursively before hashing; array order is preserved. The schema version
 and complete `metadata` object are excluded, so identical electrical content
 has the same hash regardless of its generation time or provenance. Readers
@@ -441,9 +482,10 @@ The file is validated on load, because the EDA parsers build a consistent netlis
 - `metadata.generatedAt` is missing or is not a canonical ISO 8601 UTC timestamp
 - `metadata.origin` is not a valid native or vendor origin, or vendor source metadata is incomplete
 - `metadata.designVariant` is present but empty, padded with whitespace, `<Default>`, or not a string (version 3 and later; earlier versions refuse the key)
-- `nets` or `components` is not an object, or the document carries any other top-level or metadata key
+- `nets` or `components` is not an object, or the document carries any other top-level or metadata key (`netProperties` is allowed from version 4)
 - a component has no `pins` object, a text field (`mpn`, `internal_pn`, `manufacturer`, `description`, `comment`, `value`) that is not a string, or a `dns` that is not a boolean
-- a pin entry is neither a net name nor an object with exactly `name` and `net`
+- a pin entry is neither a net name nor an object with `net` and at least one of `name`, `type` and `hidden` (versions 1 to 3: exactly `name` and `net`), or its `type` is not one of the listed types, or `hidden` is not `true`
+- `netProperties` names a net that is not declared, or gives a net no properties or a property whose value is not a string
 - a net member is neither a pin number nor an array of pin numbers, is empty, or lists the same pin twice
 - a net lists a component or a pin that is not declared, or a pin whose component entry puts it on a different net
 - a component pin names a net that is not declared, or one that does not list that pin

@@ -11,7 +11,7 @@ import {
   displayRefdes,
   isDuplicateKey,
 } from "../../../duplicate-refdes.js";
-import type { ComponentDetails } from "../../../types.js";
+import type { ComponentDetails, PinType } from "../../../types.js";
 import type { PageCoordMap } from "./page-groups.js";
 import type { PageData } from "./page-parser.js";
 import type { PinInfo } from "./net-pins.js";
@@ -21,6 +21,8 @@ import type { GraphicInst } from "./structures.js";
 export interface PagePin {
   number: string;
   name?: string;
+  /** The electrical type the part's library symbol declares, as query_component reports it. */
+  type?: PinType;
   x: number;
   y: number;
   net?: string;
@@ -213,6 +215,7 @@ export function buildPageViews(
               return {
                 number: pin.pinNumber,
                 ...optional("name", typeof entry === "object" ? entry.name : undefined),
+                ...optional("type", typeof entry === "object" ? entry.type : undefined),
                 x,
                 y,
                 ...optional("net", netOf(entry)),

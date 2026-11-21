@@ -104,6 +104,8 @@ export function indexLibraryPart(
   lp: {
     name: string;
     pinNames: string[];
+    pinTypes?: number[];
+    pinShapes?: number[];
     defaultValue?: string;
     properties?: PrefixPropertyPair[];
   },
@@ -112,6 +114,8 @@ export function indexLibraryPart(
 ): void {
   const entry: CachedLibraryPart = {
     pinNames: lp.pinNames,
+    pinTypes: lp.pinTypes,
+    pinShapes: lp.pinShapes,
     defaultValue: lp.defaultValue,
     properties: lp.properties,
   };

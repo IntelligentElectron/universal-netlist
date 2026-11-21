@@ -44,6 +44,10 @@ export enum StructureType {
 
 export interface CachedLibraryPart {
   pinNames: string[];
+  /** Each pin slot's `pin_type`, -1 for an empty slot; parallel to `pinNames`. */
+  pinTypes?: number[];
+  /** Each pin slot's shape bits; parallel to `pinNames`. */
+  pinShapes?: number[];
   defaultValue?: string;
   properties?: PrefixPropertyPair[];
 }
