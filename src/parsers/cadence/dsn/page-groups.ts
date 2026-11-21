@@ -95,11 +95,17 @@ export interface PageCoordMap {
  * symbol is a power net the whole design shares and keeps its name. Every
  * other group is local to the placement and gets the placement's suffix, which
  * is how two placements of one drawing report two nets rather than one.
+ *
+ * A group with no port symbol is still on a scalar port when it carries the
+ * port's name, or a name `namedPorts` gives a port-bound group on another page
+ * of the placement: Capture joins a schematic's same-named nets across its
+ * pages, as it does bus members.
  */
 export function buildPageCoordMap(
   page: PageData,
   canonicalNetNames: Set<string>,
-  symbolNets: Map<number, string>
+  symbolNets: Map<number, string>,
+  namedPorts: ReadonlyMap<string, string> = new Map()
 ): PageCoordMap {
   const uf = new CoordUnionFind();
 
@@ -245,6 +251,7 @@ export function buildPageCoordMap(
   // range, or a global.
   const portByKey = new Map<string, string>();
   const busMembers = new Map<string, PortMembership>();
+  const portByName = new Map<string, string>();
   const globalKeys = new Set<string>();
   if (page.placement) {
     for (const sym of page.ports) {
@@ -255,9 +262,13 @@ export function buildPageCoordMap(
     }
     for (const port of page.placement.ports.keys()) {
       const bus = parseBusName(port);
-      if (!bus) continue;
+      if (!bus) {
+        portByName.set(port, port);
+        continue;
+      }
       for (const index of bus.indices) busMembers.set(bus.base + index, { port, index });
     }
+    for (const [name, port] of namedPorts) if (!portByName.has(name)) portByName.set(name, port);
     for (const sym of page.globals) globalKeys.add(symbolKey(sym));
   }
   const busMemberOf = (base: string): PortMembership | undefined => busMembers.get(base);
@@ -302,9 +313,15 @@ export function buildPageCoordMap(
         }
       }
       for (const name of allNames) if (port === undefined) port = busMembers.get(name);
+      const onGlobal = members.some((m) => globalKeys.has(m));
+      for (const name of allNames) {
+        if (port !== undefined || onGlobal) break;
+        const named = portByName.get(name.toUpperCase());
+        if (named !== undefined) port = { port: named };
+      }
       if (port !== undefined) {
         group.port = port;
-      } else if (!members.some((m) => globalKeys.has(m))) {
+      } else if (!onGlobal) {
         group.name += page.placement.suffix;
       }
     }
