@@ -88,6 +88,16 @@ describe("parseVariantGroup", () => {
 
   it("leaves out bare entries when the group carries no status to give them", () => {
     expect(parseVariantGroup(groupStream("0\xb020919\xb0"))).toEqual([]);
+    expect(parseVariantGroup(groupStream("0\xb01~0\xb02~1\xb020919\xb0"))).toEqual([
+      { occurrenceId: 1, stuffed: false },
+      { occurrenceId: 2, stuffed: true },
+    ]);
+  });
+
+  it("reads the first entry of a stream written without a flag", () => {
+    expect(parseVariantGroup(groupStream("20922~0\xb0"))).toEqual([
+      { occurrenceId: 20922, stuffed: false },
+    ]);
   });
 
   it("returns nothing for a stream too short to carry a length", () => {

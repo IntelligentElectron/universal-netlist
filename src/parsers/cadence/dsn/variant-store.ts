@@ -77,18 +77,21 @@ function readPayload(buffer: Buffer): string {
  * Parse a variant group stream into the occurrences it names
  * (docs/cadence-dsn-format.md §14.10).
  *
- * The first token is the group's flag, never an occurrence. Entries read as
+ * A first token with no `~` is the group's flag, never an occurrence. Entries read as
  * `<id>~0` or `<id>~1`; a token carrying any other state is left out, so a
  * state this corpus has never shown cannot be mistaken for the one that
  * unstuffs a part. An entry written as a bare `<id>` is still a member: it
  * takes the status the group's other entries carry, since every group writes
- * one status throughout, and is left out when the group carries none.
+ * one status throughout, and is left out when the group carries none or more
+ * than one.
  */
 export function parseVariantGroup(buffer: Buffer): VariantGroupEntry[] {
   const entries: VariantGroupEntry[] = [];
   const bare: number[] = [];
 
-  for (const token of readPayload(buffer).split(GROUP_SEPARATOR).slice(1)) {
+  const tokens = readPayload(buffer).split(GROUP_SEPARATOR);
+  if (!tokens[0].includes("~")) tokens.shift();
+  for (const token of tokens) {
     const tilde = token.indexOf("~");
     const occurrenceId = Number(tilde < 0 ? token : token.slice(0, tilde));
     if (token === "" || !Number.isInteger(occurrenceId) || occurrenceId <= 0) continue;
@@ -103,8 +106,9 @@ export function parseVariantGroup(buffer: Buffer): VariantGroupEntry[] {
     entries.push({ occurrenceId, stuffed: state === "1" });
   }
 
-  if (entries.length > 0) {
-    const stuffed = entries[0].stuffed;
+  const statuses = new Set(entries.map((e) => e.stuffed));
+  if (statuses.size === 1) {
+    const [stuffed] = statuses;
     for (const occurrenceId of bare) entries.push({ occurrenceId, stuffed });
   }
   return entries;
