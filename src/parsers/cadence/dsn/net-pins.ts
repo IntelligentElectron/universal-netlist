@@ -250,6 +250,8 @@ export function collectPins(
           pinNetSource(pin.wireId, pin.netId, coordNet !== undefined, wireNet !== undefined)
         ) {
           case "wire-net":
+            // shortcut: takes the wire group's name but not its port, so inside a
+            // placed block such a pin stays on the block's net; never seen in the corpus.
             coordNet = wireNet;
             break;
           case "net-id":
