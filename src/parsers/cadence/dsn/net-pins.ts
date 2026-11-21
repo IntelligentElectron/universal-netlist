@@ -22,6 +22,8 @@ export interface PinInfo {
   coordNet?: string;
   /** For a pin sitting on a hierarchical port symbol with no wire: that port. */
   port?: PortMembership;
+  /** Where the pin is drawn; `pageIdx` and `coord` move to the parent page as it follows a port. */
+  drawn?: { pageIdx: number; coord: string };
 }
 
 /** A pin with this net id touches no net of its own. */
@@ -264,7 +266,15 @@ export function collectPins(
         }
 
         const pinNumber = resolvePinNumber(pin, inst, pmd, deviceIndex);
-        const info: PinInfo = { refdes, pinNumber, netId, pageIdx: i, coord, coordNet };
+        const info: PinInfo = {
+          refdes,
+          pinNumber,
+          netId,
+          pageIdx: i,
+          coord,
+          coordNet,
+          drawn: { pageIdx: i, coord },
+        };
         if (port) info.port = port;
         pins.push(placement ? bindThroughPorts(info, pages, pageCoordMaps, virtualNetIds) : info);
       }
