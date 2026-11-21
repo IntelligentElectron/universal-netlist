@@ -127,6 +127,11 @@ export interface GraphicInst {
   rotation: number;
   mirrored: boolean;
   symbolDisplayProps: SymbolDisplayProp[];
+  /**
+   * Ports, Globals and off-page connectors: the `db_id` of the wire at the
+   * connection point, from the trailer; 0 when no wire touches it (§7.10, §7.11).
+   */
+  wireId?: number;
 }
 
 /** A rectangle in page coordinates (1/100 inch). */
@@ -524,7 +529,8 @@ export function parsePort(reader: BinaryReader): GraphicInst {
   const futureData = new FutureDataList(reader);
   autoReadPrefixes(reader, futureData, StructureType.Port);
   const inst = parseGraphicInstBase(reader, futureData);
-  reader.skip(9); // unknown (Port-specific)
+  inst.wireId = reader.readUint32();
+  reader.skip(5); // flag, port type (§7.10)
   futureData.checkpoint();
 
   return inst;

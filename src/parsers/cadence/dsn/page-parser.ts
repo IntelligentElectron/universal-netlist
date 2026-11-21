@@ -197,16 +197,16 @@ export function parsePage(buffer: Buffer): PageData {
   const lenGlobals = reader.readUint16();
   const globals: GraphicInst[] = [];
   for (let i = 0; i < lenGlobals; i++) {
-    globals.push(parseGlobal(reader));
-    reader.skip(5); // 5 unknown bytes after each Global
+    globals.push({ ...parseGlobal(reader), wireId: reader.readUint32() });
+    reader.skip(1); // flag (§7.11)
   }
 
   // OffPageConnectors
   const lenOffPageConnectors = reader.readUint16();
   const offPageConnectors: GraphicInst[] = [];
   for (let i = 0; i < lenOffPageConnectors; i++) {
-    offPageConnectors.push(parseOffPageConnector(reader));
-    reader.skip(5); // 5 unknown bytes after each OffPageConnector
+    offPageConnectors.push({ ...parseOffPageConnector(reader), wireId: reader.readUint32() });
+    reader.skip(1); // flag, 1 when the tail wire is a bus wire (§7.11)
   }
 
   // ERC objects, then bus entries. Best-effort: they carry no connectivity, so

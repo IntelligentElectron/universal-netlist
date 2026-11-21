@@ -3877,9 +3877,9 @@ None: every INT and EXT conflict in this chapter was decided by the data.
 
 | Parser does | Files show | Impact | ids |
 | --- | --- | --- | --- |
-| Attaches a Global or port to a wire by ranking in-box wire coordinates by distance to the bounding-box centre (`symbol-attachment.ts:58`) | The connection point is the computed hotpoint of §11.4 (matches tail wires on 8,013 of 8,013 Globals, 1,725 of 1,725 ports) | Same nets on all fixtures; risk on dense rail fan-outs | <!-- EXT-7.10-009 EXT-11.1.4-003 --> |
-| Matches off-page connectors at five fixed points (`page-groups.ts:165`) and Globals by box ranking | Connectors join at the computed connection point, a wire end or pin | Same nets on fixtures; 192 off-page misses of the computed rule are unexamined | <!-- EXT-11.2-009 --> |
 | Parses bus ranges with non-negative indices only, and also accepts `-` as separator (`bus-name.ts:17`) | Syntax seen is `:` and `..`; no negative index or `-` separator occurs | None on the corpus | <!-- EXT-11.6-002 EXT-11.6-004 --> |
+
+Resolved: ports, Globals and off-page connectors join the wire their trailer `wire_id` names (`page-groups.ts`); a trailer `wire_id` of 0 attaches the connector to no wire, and a pin sitting on such a connector is still matched by the connector's box (`page-groups.ts`, `net-pins.ts`). Connector-to-wire attachment no longer uses the box ranking (`symbol-attachment.ts`) or the five fixed off-page points; pin-to-connector matching for unwired pins still uses the connector's box, and an off-page connector's edge midpoints (`net-pins.ts`). **S**: across all 192 corpus and fixture DSNs one pin changes, `CC1310LAUNCHPAD.DSN` (SmartGarden) R32.2 from `N75036` to `5V`: its 5V Global has `wire_id` 0, and the box ranking had joined it to the neighbouring LED wire, bridging a GPIO net into the resistor. **O**: the rendered page shows R32 drawn like its two sibling LED and resistor pairs, whose resistor pin 2 sits on a 5V symbol and is on 5V. No design with a Capture export changes. <!-- EXT-7.10-009 EXT-11.1.4-003 --> <!-- EXT-11.2-009 -->
 
 <!-- meta: EXT-11.4-010 INT-12-001 INT-12.3-001 INT-12.4-024 INT-13.8-010 INT-13.8-011 -->
 
@@ -5187,10 +5187,10 @@ Areas the INTERNAL spec listed as unknown, with what our data now shows and what
 | Area | Data now | Parser | Ids |
 | --- | --- | --- | --- |
 | PlacedInstance: 10 unknown bytes per part | **S** contents library index (`u32`, 0 on 14,984/14,988), contents view index (`u32`, 0 on 14,930), primitive word (`u16`, IsPrimitive 2 on 14,984) | skips them (`structures.ts:276`) | <!-- INT-13.1-002 --> |
-| Port: 9 trailing bytes | **O** wire id `u32`, one byte, port type `u32` on every port | skips them (`structures.ts:415`) | <!-- INT-13.1-003 --> |
-| Global and off-page connector: 5 trailing bytes | **O** wire id `u32` and one byte; the connector sits on that wire's endpoint on 16,238, misses on 196 | skips them (`page-parser.ts:173`, `:181`) | <!-- INT-13.1-004 --> |
+| Port: 9 trailing bytes | **O** wire id `u32`, one byte, port type `u32` on every port | reads the wire id and attaches the port to that wire (`structures.ts` `parsePort`, `page-groups.ts`) | <!-- INT-13.1-003 --> |
+| Global and off-page connector: 5 trailing bytes | **O** wire id `u32` and one byte; the connector sits on that wire's endpoint on 16,238, misses on 196 | reads the wire id and attaches the connector to that wire (`page-parser.ts`, `page-groups.ts`) | <!-- INT-13.1-004 --> |
 | Occurrence records: 12 unknown bytes | **S** an independent reader walks every occurrence (18,375) to the exact end of 108/109 Hierarchy streams | skips 8- and 4-byte blocks (`hierarchy-parser.ts:170-235`) | <!-- INT-13.1-005 --> |
-| Pin `unknown_int` (pin +0x0A) | **S** the pin's net id: 0 on all 55,363 wired pins, and every non-zero value names a SchematicNet | skips it; see Parser divergences | <!-- INT-13.1-006 --> |
+| Pin `unknown_int` (pin +0x0A) | **S** the pin's net id: 0 on all 55,363 wired pins, and every non-zero value names a SchematicNet | reads it as `netId` and joins an unwired pin to that net (§7.4) | <!-- INT-13.1-006 --> |
 | Page tail after the off-page connectors | **S** lists 10 to 14 (ERC objects, bus entries, graphics, two empty lists) walk to the exact page end on 450/451 pages | skips everything after the off-page connectors (`page-parser.ts:184`) | <!-- INT-13.1-007 --> |
 | ERC objects | **S** ErcObject (type 77) records, three strings each, end at their stop | not parsed (`page-parser.ts:184`) | <!-- INT-13.2-001 --> |
 
