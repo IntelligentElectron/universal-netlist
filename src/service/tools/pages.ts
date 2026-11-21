@@ -1,4 +1,4 @@
-import { parseDsnPages } from "../../parsers/cadence/dsn/dsn-parser.js";
+import { parseDsnPages, type DesignPages } from "../../parsers/cadence/dsn/dsn-parser.js";
 import type { PageView } from "../../parsers/cadence/dsn/page-views.js";
 import { readOnce } from "../../parsers/context.js";
 import { resolvePath } from "../../paths.js";
@@ -22,10 +22,10 @@ export interface PageSummary {
   off_page_connectors: number;
 }
 
-const loadPages = async (
+export const loadPages = async (
   design: string,
   context: ServiceContext
-): Promise<{ designPath: string; pages: PageView[] } | ErrorResult> => {
+): Promise<({ designPath: string } & DesignPages) | ErrorResult> => {
   const designPath = resolvePath(design, context.root);
   // A suffix test, not path.extname, which reads a file named `.DSN` as having no extension.
   if (!designPath.toLowerCase().endsWith(".dsn")) {
@@ -33,13 +33,13 @@ const loadPages = async (
   }
   const parser = { ...context.parser, files: readOnce(context.parser.files) };
   try {
-    const pages = await cached(
+    const design = await cached(
       context.cache,
       { kind: "pages", path: designPath },
       parser,
       async (p) => parseDsnPages(await p.files.readFile(designPath), p.dsnPasswords)
     );
-    return { designPath, pages };
+    return { designPath, ...design };
   } catch (error) {
     return { error: error instanceof Error ? error.message : String(error) };
   }

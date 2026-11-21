@@ -175,3 +175,26 @@ function readRootSchematic(buffer: Buffer, reader: BinaryReader): string | undef
     return undefined;
   }
 }
+
+/** The Library font table, as far as drawing text needs it (docs/cadence-dsn-format.md §4.5, §4.6). */
+export interface LibraryFonts {
+  /** `lfHeight` of each font row; a font reference k selects `heights[k - 1]`. */
+  heights: number[];
+  /** The 24 default-font slots, each a row number (0 for none). */
+  defaultSlots: number[];
+}
+
+/** Read the font rows' heights and the default-font slots that follow them. */
+export function readLibraryFonts(buffer: Buffer): LibraryFonts {
+  const reader = new BinaryReader(buffer);
+  reader.skip(48);
+  const fontCount = reader.readUint16();
+  const heights: number[] = [];
+  for (let i = 1; i < fontCount; i++) {
+    heights.push(reader.readInt32());
+    reader.skip(56);
+  }
+  const slotCount = reader.readUint16();
+  const defaultSlots = Array.from({ length: slotCount }, () => reader.readUint16());
+  return { heights, defaultSlots };
+}

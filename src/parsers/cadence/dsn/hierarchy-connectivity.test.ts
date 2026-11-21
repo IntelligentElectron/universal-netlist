@@ -55,6 +55,7 @@ const wire = (
   endY: y2,
   aliases: [],
   bus: false,
+  junctions: 0,
 });
 
 /** A symbol whose box is 20 units around `(x, y)`; `pairingId` indexes strLst. */
@@ -80,6 +81,7 @@ const block = (dbId: number, reference: string, ports: string[], pins: T0x10[]):
   pins,
   locX: 0,
   locY: 0,
+  box: { x1: 0, y1: 0, x2: 0, y2: 0 },
 });
 
 const page = (spec: Partial<PageData> & { name: string }): PageData => ({
@@ -88,6 +90,7 @@ const page = (spec: Partial<PageData> & { name: string }): PageData => ({
   widthInches: 11,
   heightInches: 8.5,
   busEntries: [],
+  graphics: [],
   wires: [],
   placedInstances: [],
   drawnInstances: [],

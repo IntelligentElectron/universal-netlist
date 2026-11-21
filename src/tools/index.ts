@@ -24,6 +24,7 @@ import {
   LIST_DESIGNS_DESCRIPTION,
   LIST_PAGES_DESCRIPTION,
   GET_PAGE_DESCRIPTION,
+  RENDER_PAGE_DESCRIPTION,
   LIST_NETS_DESCRIPTION,
   QUERY_COMPONENT_DESCRIPTION,
   QUERY_XNET_BY_NET_NAME_DESCRIPTION,
@@ -39,6 +40,7 @@ import { listComponents } from "../service/tools/list-components.js";
 import { listDesigns } from "../service/tools/list-designs.js";
 import { listNets } from "../service/tools/list-nets.js";
 import { getPage, listPages } from "../service/tools/pages.js";
+import { renderPage } from "../service/tools/render-page.js";
 import { queryComponent } from "../service/tools/query-component.js";
 import { queryXnetByNetName, queryXnetByPinName } from "../service/tools/query-xnet.js";
 import { runErc } from "../service/tools/run-erc.js";
@@ -475,6 +477,28 @@ export const getPageTool = defineTool({
   run: ({ design, page }, context) => getPage(design, page, context),
 });
 
+/** render_page's arguments; the command line adds --output. */
+export const RENDER_PAGE_ARGUMENTS = {
+  design: z.string().describe("Path to a .DSN design, as returned by list_designs"),
+  page: z.string().min(1).describe("Page as list_pages names it"),
+  focus: z
+    .string()
+    .min(1)
+    .optional()
+    .describe(
+      "A refdes or net name on the page: crop to that part, or to everything on that net. Omit for the whole page"
+    ),
+};
+
+export const renderPageTool = defineTool({
+  name: "render_page",
+  title: "Render page",
+  description: RENDER_PAGE_DESCRIPTION,
+  annotations: READ_ONLY,
+  inputSchema: z.strictObject(RENDER_PAGE_ARGUMENTS),
+  run: ({ design, page, focus }, context) => renderPage(design, page, focus, context),
+});
+
 // =============================================================================
 // Registry
 // =============================================================================
@@ -504,6 +528,7 @@ export const TOOLS: readonly AnyToolDefinition[] = Object.freeze(
       runErcTool,
       listPagesTool,
       getPageTool,
+      renderPageTool,
       exportCadenceNetlistTool,
     ] as AnyToolDefinition[]
   ).filter((tool) => FEATURE_FLAGS[tool.name] ?? true)

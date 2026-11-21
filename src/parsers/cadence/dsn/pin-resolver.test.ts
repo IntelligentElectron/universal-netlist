@@ -197,6 +197,7 @@ describe("buildDeviceIndexMap", () => {
       widthInches: 11,
       heightInches: 8.5,
       busEntries: [],
+      graphics: [],
       wires: [],
       placedInstances,
       drawnInstances: [],

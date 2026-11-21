@@ -17,12 +17,24 @@ import { serviceContextFromEnvironment, type ServiceContext } from "./service/co
 // Helper Functions
 // =============================================================================
 
+type Content = { type: "text"; text: string } | { type: "image"; data: string; mimeType: string };
+
 /**
- * Format a result as MCP tool response content.
+ * Format a result as MCP tool response content. A result carrying an `image`
+ * (render_page) sends it as image content, followed by the rest as JSON text.
  */
-const formatResult = (result: unknown): { content: { type: "text"; text: string }[] } => ({
-  content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
-});
+export const formatResult = (result: unknown): { content: Content[] } => {
+  if (result && typeof result === "object" && "image" in result) {
+    const { image, ...rest } = result as { image: { data: string; mimeType: string } };
+    return {
+      content: [
+        { type: "image", data: image.data, mimeType: image.mimeType },
+        { type: "text", text: JSON.stringify(rest, null, 2) },
+      ],
+    };
+  }
+  return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+};
 
 // =============================================================================
 // Server Setup

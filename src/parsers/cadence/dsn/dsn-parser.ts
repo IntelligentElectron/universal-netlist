@@ -24,6 +24,7 @@ import {
   assertReadableLibraryVersion,
   describeParseFailure,
   parseLibraryStream,
+  readLibraryFonts,
   readLibraryVersion,
 } from "./library-parser.js";
 import { buildDeviceIndexMap } from "./pin-resolver.js";
@@ -31,6 +32,8 @@ import { buildNetConnectivity } from "./net-builder.js";
 import type { PageCoordMap } from "./page-groups.js";
 import type { PinInfo } from "./net-pins.js";
 import { buildPageViews, type PageView } from "./page-views.js";
+import { renderPageSvg } from "./page-render.js";
+import { readCacheSymbols } from "./symbol-graphics.js";
 import { buildComponents } from "./component-builder.js";
 import { mergeRepeatedSections, separateDuplicateRefdes } from "./duplicate-refdes.js";
 import { readVariantStuffing, type VariantStuffing } from "./variant-store.js";
@@ -76,11 +79,17 @@ export function parseDsnFile(
   }
 }
 
+/** A design's pages as drawn: one view and one SVG drawing per page, in the same order. */
+export interface DesignPages {
+  pages: PageView[];
+  svgs: string[];
+}
+
 /**
  * Parse a design's schematic pages as drawn, with every net named as the
  * netlist names it. Pages do not depend on a design variant.
  */
-export function parseDsnPages(source: Uint8Array | string, passwords?: DsnPasswords): PageView[] {
+export function parseDsnPages(source: Uint8Array | string, passwords?: DsnPasswords): DesignPages {
   const ole = new DsnReader(source, passwords);
   const entries = ole.listAllEntries();
   const libEntry = findRootLibrary(entries);
@@ -93,7 +102,14 @@ export function parseDsnPages(source: Uint8Array | string, passwords?: DsnPasswo
       entries,
       library
     );
-    return buildPageViews(pages, coordMaps, pins, netlist.components, strLst, refdesRenames);
+    const views = buildPageViews(pages, coordMaps, pins, netlist.components, strLst, refdesRenames);
+    const cache = entries.find((e) => e.path === "Cache" && e.entry.type === 2);
+    const context = {
+      symbols: cache ? readCacheSymbols(ole.readStreamByPath(cache.path)) : new Map(),
+      strLst,
+      fonts: library ? readLibraryFonts(library) : { heights: [], defaultSlots: [] },
+    };
+    return { pages: views, svgs: pages.map((page, i) => renderPageSvg(page, views[i], context)) };
   } catch (error) {
     throw describeParseFailure(version, error);
   }

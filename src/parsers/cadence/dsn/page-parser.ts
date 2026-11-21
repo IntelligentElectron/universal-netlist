@@ -21,6 +21,7 @@ import type {
   BusEntry,
 } from "./structures.js";
 import type { Placement } from "./hierarchy-expander.js";
+import { parsePageGraphic, type Primitive } from "./symbol-graphics.js";
 import {
   parseWire,
   parsePlacedInstance,
@@ -78,6 +79,8 @@ export interface PageData {
   heightInches: number;
   titleBlock?: TitleBlock;
   busEntries: BusEntry[];
+  /** Free text and shapes drawn on the page, in page coordinates. */
+  graphics: Primitive[];
   netTable: Map<number, string[]>;
   wires: Wire[];
   placedInstances: PlacedInstance[];
@@ -218,6 +221,18 @@ export function parsePage(buffer: Buffer): PageData {
     busEntries.length = 0;
   }
 
+  // Page graphics (list 12), best-effort for the same reason.
+  const graphics: Primitive[] = [];
+  try {
+    const lenGraphics = reader.readUint16();
+    for (let i = 0; i < lenGraphics; i++) {
+      const graphic = parsePageGraphic(reader);
+      if (graphic) graphics.push(graphic);
+    }
+  } catch {
+    graphics.length = 0;
+  }
+
   return {
     name,
     sizeName,
@@ -225,6 +240,7 @@ export function parsePage(buffer: Buffer): PageData {
     heightInches,
     ...(titleBlock ? { titleBlock } : {}),
     busEntries,
+    graphics,
     netTable,
     wires,
     placedInstances,
