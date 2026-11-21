@@ -30,6 +30,7 @@ const page = (name: string, offPageConnectors: GraphicInst[], placement?: Placem
     widthInches: 11,
     heightInches: 8.5,
     busEntries: [],
+    ercMarkers: [],
     graphics: [],
     wires: [],
     placedInstances: [],

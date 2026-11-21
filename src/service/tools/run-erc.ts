@@ -9,6 +9,8 @@ import {
 } from "../../duplicate-refdes.js";
 import { indexNetNames, type NetNameIndex } from "../net-names.js";
 import { pageGroups } from "../pagination.js";
+import { loadPages } from "./pages.js";
+import type { ErcMarker } from "../../parsers/cadence/dsn/structures.js";
 import {
   classifyNet,
   DRIVING_TYPES,
@@ -35,11 +37,14 @@ interface SectionRepeatFinding {
   pages: string[];
 }
 
+/** One marker Capture's design rules check left on a page, as capture.erc_* reports it. */
+type CaptureMarkerFinding = ErcMarker;
+
 type ErcFindings = Record<
   string,
   | Record<string, string[]>
   | string[]
-  | Record<string, DuplicateRefdesFinding | SectionRepeatFinding[]>
+  | Record<string, DuplicateRefdesFinding | SectionRepeatFinding[] | CaptureMarkerFinding[]>
 >;
 
 export interface ErcOptions {
@@ -80,7 +85,7 @@ interface NetScan {
 interface RuleFinding {
   net: string;
   endpoints?: string[]; // omitted for net.unnamed (bare net-name list)
-  detail?: DuplicateRefdesFinding | SectionRepeatFinding[]; // the "obj" shape's value
+  detail?: DuplicateRefdesFinding | SectionRepeatFinding[] | CaptureMarkerFinding[]; // the "obj" shape's value
 }
 
 interface Rule {
@@ -92,9 +97,21 @@ interface Rule {
     scan: Map<string, NetScan>,
     names: NetNameIndex,
     netlist: ParsedNetlist,
-    nc: NetScan
+    extra: { nc: NetScan; markers: [page: string, markers: ErcMarker[]][] }
   ) => RuleFinding[];
 }
+
+/** Capture's markers of one level, page by page; a marker whose message names neither level is a warning. */
+const captureMarkers = (
+  markers: [string, ErcMarker[]][],
+  level: "error" | "warning"
+): RuleFinding[] =>
+  // One finding per marker, so paging counts markers; the output groups them by page again.
+  markers.flatMap(([page, list]) =>
+    list
+      .filter((m) => (/^\s*ERROR\b/i.test(m.message) ? "error" : "warning") === level)
+      .map((m) => ({ net: page, detail: [m] }))
+  );
 
 /** The nets the pin-type table gives `outcome`, each naming its pins of the given types. */
 const byOutcome = (
@@ -265,13 +282,27 @@ const RULES: Rule[] = [
     id: "pin.power_unconnected",
     severity: "error",
     shape: "map",
-    run: (scan, _names, _netlist, nc) => unconnectedSupplies(scan, nc, "error"),
+    run: (scan, _names, _netlist, { nc }) => unconnectedSupplies(scan, nc, "error"),
   },
   {
     id: "pin.power_undirected_unconnected",
     severity: "warning",
     shape: "map",
-    run: (scan, _names, _netlist, nc) => unconnectedSupplies(scan, nc, "warning"),
+    run: (scan, _names, _netlist, { nc }) => unconnectedSupplies(scan, nc, "warning"),
+  },
+  {
+    // Markers Capture's own design rules check left on the pages, still there
+    // when the file was saved. Keyed by page; Cadence designs only.
+    id: "capture.erc_error",
+    severity: "error",
+    shape: "obj",
+    run: (_scan, _names, _netlist, { markers }) => captureMarkers(markers, "error"),
+  },
+  {
+    id: "capture.erc_warning",
+    severity: "warning",
+    shape: "obj",
+    run: (_scan, _names, _netlist, { markers }) => captureMarkers(markers, "warning"),
   },
   {
     id: "net.unnamed",
@@ -320,6 +351,27 @@ const buildScan = (
 };
 
 /**
+ * The ERC markers on a Cadence design's pages, each schematic page once: a page
+ * a reused block places several times stores its markers once. Other formats
+ * store none, and a page read that fails gives none.
+ */
+const ercMarkers = async (
+  design: string,
+  context: ServiceContext
+): Promise<[string, ErcMarker[]][]> => {
+  if (!design.toLowerCase().endsWith(".dsn")) return [];
+  const loaded = await loadPages(design, context);
+  if ("error" in loaded) return [];
+  const seen = new Set<string>();
+  return loaded.pages.flatMap((page) => {
+    const key = `${page.schematic}\0${page.name}`;
+    if (seen.has(key) || page.erc_markers.length === 0) return [];
+    seen.add(key);
+    return [[page.page, page.erc_markers] as [string, ErcMarker[]]];
+  });
+};
+
+/**
  * Run electrical rule checks over a design's netlist. Findings are paged across
  * every rule, errors before warnings.
  */
@@ -358,6 +410,10 @@ export const runErc = async (
 
   const selected = RULES.filter((r) => (!inc || inc.includes(r.id)) && !exc.has(r.id));
 
+  const markers = selected.some((r) => r.id.startsWith("capture."))
+    ? await ercMarkers(design, context)
+    : [];
+
   const errors: ErcFindings = {};
   const warnings: ErcFindings = {};
   const names = indexNetNames(netlist);
@@ -366,7 +422,12 @@ export const runErc = async (
   );
   const found = bySeverity.map(
     (rule) =>
-      [rule, [...rule.run(scan, names, netlist, nc)].sort((a, b) => naturalSort(a.net, b.net))] as const
+      [
+        rule,
+        [...rule.run(scan, names, netlist, { nc, markers })].sort((a, b) =>
+          naturalSort(a.net, b.net)
+        ),
+      ] as const
   );
   const totals = Object.fromEntries(
     found.filter(([, findings]) => findings.length > 0).map(([rule, f]) => [rule.id, f.length])
@@ -383,7 +444,16 @@ export const runErc = async (
     if (rule.shape === "arr") {
       bucket[rule.id] = findings.map((f) => f.net);
     } else if (rule.shape === "obj") {
-      bucket[rule.id] = Object.fromEntries(findings.map((f) => [f.net, f.detail!]));
+      // Findings under one key are one entry; list details are joined.
+      const merged: Record<string, NonNullable<RuleFinding["detail"]>> = {};
+      for (const f of findings) {
+        const prior = merged[f.net];
+        merged[f.net] =
+          Array.isArray(prior) && Array.isArray(f.detail)
+            ? ([...prior, ...f.detail] as typeof prior)
+            : f.detail!;
+      }
+      bucket[rule.id] = merged;
     } else {
       // Endpoint lists are ALWAYS arrays here, even at length 1. Do not "simplify"
       // single-element endpoints to a bare string; the ERC contract is uniform arrays.

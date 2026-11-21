@@ -33,6 +33,7 @@ describe("golden table: reference-designators", () => {
         widthInches: 11,
         heightInches: 8.5,
         busEntries: [],
+        ercMarkers: [],
         graphics: [],
         wires: [],
         drawnInstances: [],
