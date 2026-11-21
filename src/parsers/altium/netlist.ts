@@ -9,8 +9,24 @@ import { compareNaturalKeys, firstFreeName, identifierKey, naturalKey } from "./
 
 const pinNet = (entry: PinEntry): string => (typeof entry === "string" ? entry : entry.net);
 
+/** The net property naming the differential pair a net belongs to. */
+export const DIFFERENTIAL_PAIR = "DIFFERENTIAL_PAIR";
+
+/** Fold `source` net properties into `target`'s, keyed by each net's new name. */
+const mergeNetProperties = (
+  target: ParsedNetlist,
+  source: Readonly<Record<string, Record<string, string>>>,
+  rename: (name: string) => string = (name) => name
+): void => {
+  for (const [netName, properties] of Object.entries(source)) {
+    const merged = ((target.netProperties ??= {})[rename(netName)] ??= {});
+    Object.assign(merged, properties);
+  }
+};
+
 /** Fold `source` into `target`: nets by name, components by designator, first reading first. */
 export const mergeNetlistInto = (target: ParsedNetlist, source: ParsedNetlist): void => {
+  if (source.netProperties) mergeNetProperties(target, source.netProperties);
   for (const [netName, connections] of Object.entries(source.nets)) {
     const merged = (target.nets[netName] ??= {});
     for (const [refdes, pins] of Object.entries(connections)) {
@@ -62,6 +78,11 @@ export const applyNetRenames = (
   renames: ReadonlyMap<string, string>
 ): void => {
   if (renames.size === 0) return;
+  if (netlist.netProperties) {
+    const properties = netlist.netProperties;
+    netlist.netProperties = {};
+    mergeNetProperties(netlist, properties, (name) => renames.get(name) ?? name);
+  }
   for (const [from, to] of renames) {
     const connections = netlist.nets[from];
     if (!connections) continue;
@@ -176,4 +197,27 @@ export const settleProvisionalNames = (nets: NetConnections): Map<string, string
     taken.add(identifierKey(numbered));
   }
   return renames;
+};
+
+/**
+ * Turn Differential Pair directive marks into pairs, as Altium pairs them: two nets that
+ * both carry a directive and are named `<pair>_P` and `<pair>_N` form the pair `<pair>`,
+ * ignoring case. A mark on any other net, or on a net no pin is on, is dropped.
+ */
+export const pairDifferentialNets = (netlist: ParsedNetlist): void => {
+  const marked = new Map(
+    Object.keys(netlist.netProperties ?? {})
+      .filter((name) => Object.hasOwn(netlist.nets, name))
+      .map((name) => [identifierKey(name), name])
+  );
+  const paired: Record<string, Record<string, string>> = {};
+  for (const name of marked.values()) {
+    const pair = /^(.+)_P$/i.exec(name)?.[1];
+    const partner = pair === undefined ? undefined : marked.get(identifierKey(`${pair}_N`));
+    if (pair === undefined || partner === undefined) continue;
+    paired[name] = { [DIFFERENTIAL_PAIR]: pair };
+    paired[partner] = { [DIFFERENTIAL_PAIR]: pair };
+  }
+  if (Object.keys(paired).length > 0) netlist.netProperties = paired;
+  else delete netlist.netProperties;
 };

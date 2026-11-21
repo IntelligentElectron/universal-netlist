@@ -20,6 +20,7 @@
  *         (node (ref "R1") (pin "2") (pinfunction "~") (pintype "passive")))))
  */
 
+import { kicadDifferentialPairs } from "./diff-pairs.js";
 import {
   parseSexpr,
   tag,
@@ -358,5 +359,6 @@ export const parseKicadNetlist = (content: string): ParsedNetlist => {
     if (placed === undefined) pins[name] = createPinEntry(name, name, netName, { type });
   }
 
-  return { nets, components };
+  const netProperties = kicadDifferentialPairs(nets, components);
+  return { nets, components, ...(netProperties && { netProperties }) };
 };

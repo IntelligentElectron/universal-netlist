@@ -49,7 +49,7 @@ Searches all net names in a design using a regular expression pattern. Useful fo
     },
     "net_properties": {
       "type": "object",
-      "description": "The design's own properties of the nets listed, by net, such as DIFFERENTIAL_PAIR (the pair the net belongs to) and VOLTAGE; omitted when none of them has any. Read from Cadence designs and from Universal Netlist files that carry them",
+      "description": "The design's own properties of the nets listed, by net, such as DIFFERENTIAL_PAIR (the pair the net belongs to) and VOLTAGE; omitted when none of them has any. Read from Cadence designs (Capture's net properties), Altium designs (a Differential Pair directive on two nets named <pair>_P and <pair>_N), KiCad designs (nets KiCad's router pairs by their +/- or P/N names, less pairs that carry a supply pin), and Universal Netlist files that carry them",
       "additionalProperties": { "type": "object", "additionalProperties": { "type": "string" } }
     }
   },

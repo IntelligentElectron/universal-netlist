@@ -9,6 +9,7 @@ import { RECORD_TYPES, type NetNameSource } from "./types.js";
 import { fieldText, flattenHierarchy } from "./records.js";
 import { identifierKey } from "./notation.js";
 import { findAltiumSchDocs } from "./discovery.js";
+import { hiddenPinNetName } from "./components.js";
 import {
   netLabelsAreGlobal,
   parseProjectOptions,
@@ -44,6 +45,7 @@ import {
   canonicalNetName,
   mergeNetGroups,
   mergeNetlistInto,
+  pairDifferentialNets,
   reconcileNetlist,
   settleProvisionalNames,
 } from "./netlist.js";
@@ -159,6 +161,9 @@ export const parseAltiumProject = async (
       else if (record.RECORD === RECORD_TYPES.PORT) shape.hasPorts = true;
       else if (record.RECORD === RECORD_TYPES.POWER_PORT) {
         powerNames.add(identifierKey(fieldText(record, "Text") ?? ""));
+      } else if (record.RECORD === RECORD_TYPES.PIN) {
+        const hiddenNet = hiddenPinNetName(record);
+        if (hiddenNet) powerNames.add(identifierKey(hiddenNet));
       }
     }
   }
@@ -244,6 +249,7 @@ export const parseAltiumProject = async (
   applyNetRenames(netlist, restoreLocalNames(netlist.nets));
   applyNetRenames(netlist, settleProvisionalNames(netlist.nets));
   reconcileNetlist(netlist);
+  pairDifferentialNets(netlist);
 
   applyAltiumVariant(
     netlist.components,

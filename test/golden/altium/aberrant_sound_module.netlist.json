@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T21:40:45.972Z",
-    "netlistHash": "sha256:57574055901e4d0b928dd08103d36ee653bb5722f39f320a8abc2c74c5652f6c",
+    "generatedAt": "2026-11-21T23:17:32.725Z",
+    "netlistHash": "sha256:7c48c68a78aaae78ba2936751415fc148e6b7381e845c85666d6b7ac61f85811",
     "origin": {
       "type": "vendor",
       "source": {
@@ -14,21 +14,40 @@
   "nets": {
     "GND": {
       "DD5": [
+        "8",
         "5"
       ],
+      "DD9": [
+        "7"
+      ],
+      "DD6": [
+        "7"
+      ],
+      "DD7": [
+        "7"
+      ],
       "DD4": [
+        "10",
         "1"
       ],
       "DD10": [
+        "10",
         "1"
+      ],
+      "DD8": [
+        "7"
       ],
       "DD11": [
         "2",
+        "7",
         "12",
         "13"
       ],
       "C14": [
         "1"
+      ],
+      "G1": [
+        "4"
       ],
       "C9": [
         "1"
@@ -90,6 +109,9 @@
       "C24_AY1": [
         "1"
       ],
+      "DD12_AY1": [
+        "6"
+      ],
       "C25_AY1": [
         "1"
       ],
@@ -99,6 +121,9 @@
       "C24_AY2": [
         "1"
       ],
+      "DD12_AY2": [
+        "6"
+      ],
       "C25_AY2": [
         "1"
       ],
@@ -107,6 +132,9 @@
       ],
       "C24_AY3": [
         "1"
+      ],
+      "DD12_AY3": [
+        "6"
       ],
       "C25_AY3": [
         "1"
@@ -119,6 +147,9 @@
         "57",
         "2",
         "58"
+      ],
+      "U1": [
+        "4"
       ],
       "R11": [
         "2"
@@ -159,10 +190,15 @@
         "B24"
       ],
       "DD1": [
+        "10",
         "19"
       ],
       "DD3": [
+        "10",
         "19"
+      ],
+      "DD2": [
+        "7"
       ],
       "C3": [
         "1"
@@ -189,18 +225,39 @@
         "1"
       ]
     },
-    "NetDD7_3": {
-      "DD7": [
-        "4",
-        "3"
-      ]
-    },
     "+5": {
+      "DD5": [
+        "16"
+      ],
+      "DD9": [
+        "14"
+      ],
+      "DD6": [
+        "14"
+      ],
+      "DD7": [
+        "14"
+      ],
       "R1": [
         "1"
       ],
+      "DD4": [
+        "20"
+      ],
+      "DD10": [
+        "20"
+      ],
+      "DD8": [
+        "14"
+      ],
       "R3": [
         "1"
+      ],
+      "DD11": [
+        "14"
+      ],
+      "G1": [
+        "8"
       ],
       "C9": [
         "2"
@@ -266,6 +323,7 @@
         "2"
       ],
       "DD12_AY1": [
+        "3",
         "19"
       ],
       "C25_AY1": [
@@ -278,6 +336,7 @@
         "2"
       ],
       "DD12_AY2": [
+        "3",
         "19"
       ],
       "C25_AY2": [
@@ -290,6 +349,7 @@
         "2"
       ],
       "DD12_AY3": [
+        "3",
         "19"
       ],
       "C25_AY3": [
@@ -301,6 +361,9 @@
       "P2": [
         "59",
         "60"
+      ],
+      "U1": [
+        "8"
       ],
       "R13": [
         "1"
@@ -317,6 +380,15 @@
       "P1": [
         "A1",
         "A24"
+      ],
+      "DD1": [
+        "20"
+      ],
+      "DD3": [
+        "20"
+      ],
+      "DD2": [
+        "14"
       ],
       "DR2": [
         "1"
@@ -347,6 +419,12 @@
       ],
       "C8": [
         "2"
+      ]
+    },
+    "NetDD7_3": {
+      "DD7": [
+        "4",
+        "3"
       ]
     },
     "NetDD11_1": {
@@ -1677,8 +1755,9 @@
         },
         "8": {
           "name": "GND",
-          "net": "",
-          "type": "power"
+          "net": "GND",
+          "type": "power",
+          "hidden": true
         },
         "9": {
           "name": "Y\\6\\",
@@ -1717,8 +1796,9 @@
         },
         "16": {
           "name": "+5",
-          "net": "",
-          "type": "power"
+          "net": "+5",
+          "type": "power",
+          "hidden": true
         }
       },
       "description": "ИД7 3 to 8 DEMUX",
@@ -1753,8 +1833,9 @@
         },
         "7": {
           "name": "GND",
-          "net": "",
-          "type": "power"
+          "net": "GND",
+          "type": "power",
+          "hidden": true
         },
         "8": {
           "net": "A4-7_9-12",
@@ -1770,8 +1851,9 @@
         },
         "14": {
           "name": "+5",
-          "net": "",
-          "type": "power"
+          "net": "+5",
+          "type": "power",
+          "hidden": true
         }
       },
       "description": "ЛА2 8NAND",
@@ -1806,8 +1888,9 @@
         },
         "7": {
           "name": "GND",
-          "net": "",
-          "type": "power"
+          "net": "GND",
+          "type": "power",
+          "hidden": true
         },
         "8": {
           "net": "CS_AY2",
@@ -1835,8 +1918,9 @@
         },
         "14": {
           "name": "+5V",
-          "net": "",
-          "type": "power"
+          "net": "+5",
+          "type": "power",
+          "hidden": true
         }
       },
       "description": "ЛЕ4 3x3NOR",
@@ -1871,8 +1955,9 @@
         },
         "7": {
           "name": "GND",
-          "net": "",
-          "type": "power"
+          "net": "GND",
+          "type": "power",
+          "hidden": true
         },
         "8": {
           "net": "BC1",
@@ -1900,8 +1985,9 @@
         },
         "14": {
           "name": "+5V",
-          "net": "",
-          "type": "power"
+          "net": "+5",
+          "type": "power",
+          "hidden": true
         }
       },
       "description": "ЛИ1 4x2AND",
@@ -1970,8 +2056,9 @@
         },
         "10": {
           "name": "GND",
-          "net": "",
-          "type": "power"
+          "net": "GND",
+          "type": "power",
+          "hidden": true
         },
         "11": {
           "name": "PE",
@@ -2020,8 +2107,9 @@
         },
         "20": {
           "name": "+5V",
-          "net": "",
-          "type": "power"
+          "net": "+5",
+          "type": "power",
+          "hidden": true
         }
       },
       "description": "ИР22 transparent latch",
@@ -2077,8 +2165,9 @@
         },
         "10": {
           "name": "GND",
-          "net": "",
-          "type": "power"
+          "net": "GND",
+          "type": "power",
+          "hidden": true
         },
         "11": {
           "name": "PE",
@@ -2127,8 +2216,9 @@
         },
         "20": {
           "name": "+5V",
-          "net": "",
-          "type": "power"
+          "net": "+5",
+          "type": "power",
+          "hidden": true
         }
       },
       "description": "ИР22 transparent latch",
@@ -2163,8 +2253,9 @@
         },
         "7": {
           "name": "GND",
-          "net": "",
-          "type": "power"
+          "net": "GND",
+          "type": "power",
+          "hidden": true
         },
         "8": {
           "net": "CS_AY1",
@@ -2192,8 +2283,9 @@
         },
         "14": {
           "name": "+5",
-          "net": "",
-          "type": "power"
+          "net": "+5",
+          "type": "power",
+          "hidden": true
         }
       },
       "description": "ЛА13 4x2NAND O.C.",
@@ -2247,8 +2339,9 @@
         },
         "7": {
           "name": "GND",
-          "net": "",
-          "type": "power"
+          "net": "GND",
+          "type": "power",
+          "hidden": true
         },
         "8": {
           "name": "Q3",
@@ -2282,8 +2375,9 @@
         },
         "14": {
           "name": "+5",
-          "net": "",
-          "type": "power"
+          "net": "+5",
+          "type": "power",
+          "hidden": true
         }
       },
       "description": "ИЕ19",
@@ -2309,12 +2403,14 @@
         "1": {
           "name": "N.C.",
           "net": "",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "4": {
           "name": "GND",
-          "net": "",
-          "type": "power"
+          "net": "GND",
+          "type": "power",
+          "hidden": true
         },
         "5": {
           "net": "NetDD11_1",
@@ -2322,8 +2418,9 @@
         },
         "8": {
           "name": "+5",
-          "net": "",
-          "type": "passive"
+          "net": "+5",
+          "type": "passive",
+          "hidden": true
         }
       },
       "comment": "CXO"
@@ -2717,8 +2814,9 @@
         },
         "3": {
           "name": "Vcc",
-          "net": "",
-          "type": "power"
+          "net": "+5",
+          "type": "power",
+          "hidden": true
         },
         "4": {
           "name": "CH B",
@@ -2732,8 +2830,9 @@
         },
         "6": {
           "name": "Vss",
-          "net": "",
-          "type": "power"
+          "net": "GND",
+          "type": "power",
+          "hidden": true
         },
         "7": {
           "name": "IOA7",
@@ -2957,8 +3056,9 @@
         },
         "3": {
           "name": "Vcc",
-          "net": "",
-          "type": "power"
+          "net": "+5",
+          "type": "power",
+          "hidden": true
         },
         "4": {
           "name": "CH B",
@@ -2972,8 +3072,9 @@
         },
         "6": {
           "name": "Vss",
-          "net": "",
-          "type": "power"
+          "net": "GND",
+          "type": "power",
+          "hidden": true
         },
         "7": {
           "name": "IOA7",
@@ -3197,8 +3298,9 @@
         },
         "3": {
           "name": "Vcc",
-          "net": "",
-          "type": "power"
+          "net": "+5",
+          "type": "power",
+          "hidden": true
         },
         "4": {
           "name": "CH B",
@@ -3212,8 +3314,9 @@
         },
         "6": {
           "name": "Vss",
-          "net": "",
-          "type": "power"
+          "net": "GND",
+          "type": "power",
+          "hidden": true
         },
         "7": {
           "name": "IOA7",
@@ -3622,8 +3725,9 @@
         },
         "4": {
           "name": "GND",
-          "net": "",
-          "type": "power"
+          "net": "GND",
+          "type": "power",
+          "hidden": true
         },
         "5": {
           "name": "B+",
@@ -3642,8 +3746,9 @@
         },
         "8": {
           "name": "V+",
-          "net": "",
-          "type": "power"
+          "net": "+5",
+          "type": "power",
+          "hidden": true
         }
       },
       "comment": "LM358N"
@@ -4361,8 +4466,9 @@
         },
         "10": {
           "name": "GND",
-          "net": "",
-          "type": "power"
+          "net": "GND",
+          "type": "power",
+          "hidden": true
         },
         "11": {
           "name": "7",
@@ -4411,8 +4517,9 @@
         },
         "20": {
           "name": "Vcc",
-          "net": "",
-          "type": "power"
+          "net": "+5",
+          "type": "power",
+          "hidden": true
         }
       },
       "comment": "74F642N",
@@ -4467,8 +4574,9 @@
         },
         "10": {
           "name": "GND",
-          "net": "",
-          "type": "power"
+          "net": "GND",
+          "type": "power",
+          "hidden": true
         },
         "11": {
           "name": "7",
@@ -4517,8 +4625,9 @@
         },
         "20": {
           "name": "Vcc",
-          "net": "",
-          "type": "power"
+          "net": "+5",
+          "type": "power",
+          "hidden": true
         }
       },
       "comment": "74F642N",
@@ -4558,8 +4667,9 @@
         },
         "7": {
           "name": "GND",
-          "net": "",
-          "type": "power"
+          "net": "GND",
+          "type": "power",
+          "hidden": true
         },
         "8": {
           "name": "4Y",
@@ -4593,8 +4703,9 @@
         },
         "14": {
           "name": "+5",
-          "net": "",
-          "type": "power"
+          "net": "+5",
+          "type": "power",
+          "hidden": true
         }
       },
       "description": "ЛП19 6 buffers",

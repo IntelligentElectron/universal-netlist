@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T21:40:46.651Z",
-    "netlistHash": "sha256:53e88fd9ac5bca2bceda60998419941ff2f69b964be8218737176cffffe400d3",
+    "generatedAt": "2026-11-21T23:30:38.842Z",
+    "netlistHash": "sha256:b8940a25bd63f9e71bfa132519f9850aa109820070fecf6c5202c4a2b1718dad",
     "origin": {
       "type": "vendor",
       "source": {
@@ -1104,17 +1104,20 @@
         "A12": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B1": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B12": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "SH": {
           "name": "SHIELD",
@@ -1129,17 +1132,20 @@
         "A9": {
           "name": "VBUS",
           "net": "VBUS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B4": {
           "name": "VBUS",
           "net": "VBUS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B9": {
           "name": "VBUS",
           "net": "VBUS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "A8": {
           "name": "SBU1",
@@ -1851,7 +1857,8 @@
         "10": {
           "name": "IOVDD",
           "net": "+3.3V",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "11": {
           "name": "GPIO8",
@@ -1911,7 +1918,8 @@
         "22": {
           "name": "IOVDD",
           "net": "+3.3V",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "23": {
           "name": "DVDD",
@@ -1966,7 +1974,8 @@
         "33": {
           "name": "IOVDD",
           "net": "+3.3V",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "34": {
           "name": "GPIO22",
@@ -2011,7 +2020,8 @@
         "42": {
           "name": "IOVDD",
           "net": "+3.3V",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "43": {
           "name": "ADC_AVDD",
@@ -2046,12 +2056,14 @@
         "49": {
           "name": "IOVDD",
           "net": "+3.3V",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "50": {
           "name": "DVDD",
           "net": "+1V1",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "51": {
           "name": "QSPI_SD3",
@@ -2161,11 +2173,26 @@
         "4": {
           "name": "G",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         }
       },
       "value": "12MHz",
       "description": "Four pin crystal, GND on pins 2 and 4"
+    }
+  },
+  "netProperties": {
+    "/USB_DP": {
+      "DIFFERENTIAL_PAIR": "/USB_D"
+    },
+    "/USB_DN": {
+      "DIFFERENTIAL_PAIR": "/USB_D"
+    },
+    "/USB_R_DP": {
+      "DIFFERENTIAL_PAIR": "/USB_R_D"
+    },
+    "/USB_R_DN": {
+      "DIFFERENTIAL_PAIR": "/USB_R_D"
     }
   }
 }

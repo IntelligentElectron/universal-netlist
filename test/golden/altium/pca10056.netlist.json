@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T21:40:46.321Z",
-    "netlistHash": "sha256:f72e5d8279df4eb45647a5a6cf0a9518e83aef9aa35dd1ec766025b86a2f01b1",
+    "generatedAt": "2026-11-21T23:30:38.451Z",
+    "netlistHash": "sha256:50efd8fc36ffb4a54c9c90f555c3ab49c3432717861a9fcbf37048bb58a64221",
     "origin": {
       "type": "vendor",
       "source": {
@@ -23,6 +23,10 @@
         "F23",
         "B7",
         "74"
+      ],
+      "X1": [
+        "2",
+        "4"
       ],
       "C1": [
         "2"
@@ -143,6 +147,10 @@
       ],
       "R9": [
         "2"
+      ],
+      "X3": [
+        "2",
+        "4"
       ],
       "J4": [
         "3"
@@ -460,6 +468,7 @@
         "1"
       ],
       "U11": [
+        "7",
         "5",
         "2"
       ],
@@ -4078,8 +4087,9 @@
         },
         "2": {
           "name": "GND",
-          "net": "",
-          "type": "passive"
+          "net": "GND",
+          "type": "passive",
+          "hidden": true
         },
         "3": {
           "name": "out",
@@ -4088,8 +4098,9 @@
         },
         "4": {
           "name": "GND",
-          "net": "",
-          "type": "passive"
+          "net": "GND",
+          "type": "passive",
+          "hidden": true
         }
       },
       "mpn": "MP12308",
@@ -5829,8 +5840,9 @@
         },
         "2": {
           "name": "GND",
-          "net": "",
-          "type": "passive"
+          "net": "GND",
+          "type": "passive",
+          "hidden": true
         },
         "3": {
           "name": "out",
@@ -5839,8 +5851,9 @@
         },
         "4": {
           "name": "GND",
-          "net": "",
-          "type": "passive"
+          "net": "GND",
+          "type": "passive",
+          "hidden": true
         }
       },
       "mpn": "MP12308",
@@ -7151,7 +7164,8 @@
         "9": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         }
       },
       "mpn": "MX25R6435FZNIL0",
@@ -10427,8 +10441,9 @@
         },
         "7": {
           "name": "VSS",
-          "net": "",
-          "type": "power"
+          "net": "GND",
+          "type": "power",
+          "hidden": true
         }
       },
       "mpn": "XC9236D08CER-G",
@@ -11721,6 +11736,20 @@
       "manufacturer": "N.A.",
       "value": "N.C.",
       "dns": true
+    }
+  },
+  "netProperties": {
+    "D_P": {
+      "DIFFERENTIAL_PAIR": "D"
+    },
+    "D_N": {
+      "DIFFERENTIAL_PAIR": "D"
+    },
+    "IMCU_P": {
+      "DIFFERENTIAL_PAIR": "IMCU"
+    },
+    "IMCU_N": {
+      "DIFFERENTIAL_PAIR": "IMCU"
     }
   }
 }

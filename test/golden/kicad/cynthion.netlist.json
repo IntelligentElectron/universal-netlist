@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T21:40:46.636Z",
-    "netlistHash": "sha256:09054ab5ee229e6e3c6a3228ea5bf5a93f7b48ea10062be037f9acac61c85239",
+    "generatedAt": "2026-11-21T23:30:38.811Z",
+    "netlistHash": "sha256:5cb47a7f4bbada9a0ee8cd72ca31bc9a98166d463244bb54b2b712345b99b29b",
     "origin": {
       "type": "vendor",
       "source": {
@@ -4398,17 +4398,20 @@
         "A9": {
           "name": "VBUS",
           "net": "CONTROL_VBUS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B4": {
           "name": "VBUS",
           "net": "CONTROL_VBUS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B9": {
           "name": "VBUS",
           "net": "CONTROL_VBUS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "A1": {
           "name": "GND",
@@ -4418,17 +4421,20 @@
         "A12": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B1": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B12": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "S1": {
           "name": "SHIELD",
@@ -5134,17 +5140,20 @@
         "A9": {
           "name": "VBUS",
           "net": "AUX_VBUS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B4": {
           "name": "VBUS",
           "net": "AUX_VBUS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B9": {
           "name": "VBUS",
           "net": "AUX_VBUS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "A1": {
           "name": "GND",
@@ -5154,17 +5163,20 @@
         "A12": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B1": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B12": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "S1": {
           "name": "SHIELD",
@@ -5818,7 +5830,8 @@
         "4": {
           "name": "VDD",
           "net": "+3V3",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "5": {
           "name": "INT_N",
@@ -5843,7 +5856,8 @@
         "9": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "10": {
           "name": "CC1",
@@ -5853,7 +5867,8 @@
         "11": {
           "name": "CC1",
           "net": "/AUX Port/AUX Type C Controller/CC1S",
-          "type": "bidirectional"
+          "type": "bidirectional",
+          "hidden": true
         },
         "12": {
           "name": "VCONN",
@@ -5868,12 +5883,14 @@
         "14": {
           "name": "CC2",
           "net": "/AUX Port/AUX Type C Controller/CC2S",
-          "type": "bidirectional"
+          "type": "bidirectional",
+          "hidden": true
         },
         "15": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         }
       },
       "value": "FUSB302B",
@@ -6139,17 +6156,20 @@
         "A12": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B1": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B12": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "S1": {
           "name": "SHIELD",
@@ -6164,17 +6184,20 @@
         "A9": {
           "name": "VBUS",
           "net": "TARGET_C_VBUS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B4": {
           "name": "VBUS",
           "net": "TARGET_C_VBUS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "B9": {
           "name": "VBUS",
           "net": "TARGET_C_VBUS",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         }
       },
       "value": "USB_C",
@@ -6865,7 +6888,8 @@
         "4": {
           "name": "VDD",
           "net": "+3V3",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "5": {
           "name": "INT_N",
@@ -6890,7 +6914,8 @@
         "9": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "10": {
           "name": "CC1",
@@ -6900,7 +6925,8 @@
         "11": {
           "name": "CC1",
           "net": "/TARGET Port/TARGET Type C Controller/CC1S",
-          "type": "bidirectional"
+          "type": "bidirectional",
+          "hidden": true
         },
         "12": {
           "name": "VCONN",
@@ -6915,12 +6941,14 @@
         "14": {
           "name": "CC2",
           "net": "/TARGET Port/TARGET Type C Controller/CC2S",
-          "type": "bidirectional"
+          "type": "bidirectional",
+          "hidden": true
         },
         "15": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         }
       },
       "value": "FUSB302B",
@@ -10068,7 +10096,8 @@
         "5": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "6": {
           "name": "SWO/TDO",
@@ -10078,7 +10107,8 @@
         "7": {
           "name": "KEY",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "8": {
           "name": "NC/TDI",
@@ -11248,7 +11278,8 @@
         "4": {
           "name": "NC",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "5": {
           "name": "VOUT",
@@ -11281,7 +11312,8 @@
         "4": {
           "name": "NC",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "5": {
           "name": "VOUT",
@@ -11314,7 +11346,8 @@
         "4": {
           "name": "NC",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "5": {
           "name": "VOUT",
@@ -12932,7 +12965,8 @@
         "17": {
           "name": "GND",
           "net": "GND",
-          "type": "power_in"
+          "type": "power_in",
+          "hidden": true
         }
       },
       "value": "PAC1954",
@@ -13147,6 +13181,86 @@
       "description": "MEMS OSC XO 60.0000MHZ H/LV-CMOS",
       "internal_pn": "SIT1602BC-23-33E-60.000000E",
       "manufacturer": "SiTIME"
+    }
+  },
+  "netProperties": {
+    "/AUX Port/AUX PHY/PHY_D+": {
+      "DIFFERENTIAL_PAIR": "/AUX Port/AUX PHY/PHY_D"
+    },
+    "/AUX Port/AUX PHY/PHY_D-": {
+      "DIFFERENTIAL_PAIR": "/AUX Port/AUX PHY/PHY_D"
+    },
+    "/AUX Port/AUX_D+": {
+      "DIFFERENTIAL_PAIR": "/AUX Port/AUX_D"
+    },
+    "/AUX Port/AUX_D-": {
+      "DIFFERENTIAL_PAIR": "/AUX Port/AUX_D"
+    },
+    "/CONTROL Port/CONTROL PHY/PHY_D+": {
+      "DIFFERENTIAL_PAIR": "/CONTROL Port/CONTROL PHY/PHY_D"
+    },
+    "/CONTROL Port/CONTROL PHY/PHY_D-": {
+      "DIFFERENTIAL_PAIR": "/CONTROL Port/CONTROL PHY/PHY_D"
+    },
+    "/CONTROL Port/CONTROL_D+": {
+      "DIFFERENTIAL_PAIR": "/CONTROL Port/CONTROL_D"
+    },
+    "/CONTROL Port/CONTROL_D-": {
+      "DIFFERENTIAL_PAIR": "/CONTROL Port/CONTROL_D"
+    },
+    "/CONTROL Port/CONTROL_MCU_D+": {
+      "DIFFERENTIAL_PAIR": "/CONTROL Port/CONTROL_MCU_D"
+    },
+    "/CONTROL Port/CONTROL_MCU_D-": {
+      "DIFFERENTIAL_PAIR": "/CONTROL Port/CONTROL_MCU_D"
+    },
+    "/FPGA Banks 6 and 7/TARGET_FS_MONITOR_D+": {
+      "DIFFERENTIAL_PAIR": "/FPGA Banks 6 and 7/TARGET_FS_MONITOR_D"
+    },
+    "/FPGA Banks 6 and 7/TARGET_FS_MONITOR_D-": {
+      "DIFFERENTIAL_PAIR": "/FPGA Banks 6 and 7/TARGET_FS_MONITOR_D"
+    },
+    "/TARGET Port/TARGET PHY/PHY_D+": {
+      "DIFFERENTIAL_PAIR": "/TARGET Port/TARGET PHY/PHY_D"
+    },
+    "/TARGET Port/TARGET PHY/PHY_D-": {
+      "DIFFERENTIAL_PAIR": "/TARGET Port/TARGET PHY/PHY_D"
+    },
+    "/TARGET Port/TARGET_A_D+": {
+      "DIFFERENTIAL_PAIR": "/TARGET Port/TARGET_A_D"
+    },
+    "/TARGET Port/TARGET_A_D-": {
+      "DIFFERENTIAL_PAIR": "/TARGET Port/TARGET_A_D"
+    },
+    "/TARGET Port/TARGET_C_D+": {
+      "DIFFERENTIAL_PAIR": "/TARGET Port/TARGET_C_D"
+    },
+    "/TARGET Port/TARGET_C_D-": {
+      "DIFFERENTIAL_PAIR": "/TARGET Port/TARGET_C_D"
+    },
+    "AUX_SENSE+": {
+      "DIFFERENTIAL_PAIR": "AUX_SENSE"
+    },
+    "AUX_SENSE-": {
+      "DIFFERENTIAL_PAIR": "AUX_SENSE"
+    },
+    "CONTROL_SENSE+": {
+      "DIFFERENTIAL_PAIR": "CONTROL_SENSE"
+    },
+    "CONTROL_SENSE-": {
+      "DIFFERENTIAL_PAIR": "CONTROL_SENSE"
+    },
+    "TARGET_A_SENSE+": {
+      "DIFFERENTIAL_PAIR": "TARGET_A_SENSE"
+    },
+    "TARGET_A_SENSE-": {
+      "DIFFERENTIAL_PAIR": "TARGET_A_SENSE"
+    },
+    "TARGET_C_SENSE+": {
+      "DIFFERENTIAL_PAIR": "TARGET_C_SENSE"
+    },
+    "TARGET_C_SENSE-": {
+      "DIFFERENTIAL_PAIR": "TARGET_C_SENSE"
     }
   }
 }

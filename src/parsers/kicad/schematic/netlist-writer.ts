@@ -18,6 +18,8 @@ export interface ResolvedComponent {
   /** Every field, Reference and Value included, in file order. */
   readonly properties: readonly { readonly name: string; readonly value: string }[];
   readonly dnp: boolean;
+  /** The pins, by number (by name where unnumbered), the symbol does not draw. The netlist does not record them. */
+  readonly hiddenPins?: readonly string[];
 }
 
 /** One pin on a net. */

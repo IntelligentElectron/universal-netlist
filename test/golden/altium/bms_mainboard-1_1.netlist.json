@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T21:40:46.594Z",
-    "netlistHash": "sha256:80b615ed2457773dd244d835f5fb574cf595cb37ea3912828013d0385555ab8f",
+    "generatedAt": "2026-11-21T23:30:38.710Z",
+    "netlistHash": "sha256:fdd16e9154a5aa1cc043f51be79337511bd437dfd9f2bb2943686bd0dbaaf424",
     "origin": {
       "type": "vendor",
       "source": {
@@ -25290,6 +25290,164 @@
       },
       "mpn": "CL10A106MA8NRNC",
       "manufacturer": "Samsung Electro-Mechanics"
+    }
+  },
+  "netProperties": {
+    "CAN2_MDI._P": {
+      "DIFFERENTIAL_PAIR": "CAN2_MDI."
+    },
+    "CAN2_MDI._N": {
+      "DIFFERENTIAL_PAIR": "CAN2_MDI."
+    },
+    "ETH_P1.TX_P": {
+      "DIFFERENTIAL_PAIR": "ETH_P1.TX"
+    },
+    "ETH_P1.TX_N": {
+      "DIFFERENTIAL_PAIR": "ETH_P1.TX"
+    },
+    "ETH_P1.RX_P": {
+      "DIFFERENTIAL_PAIR": "ETH_P1.RX"
+    },
+    "ETH_P1.RX_N": {
+      "DIFFERENTIAL_PAIR": "ETH_P1.RX"
+    },
+    "ETH_P2.TX_P": {
+      "DIFFERENTIAL_PAIR": "ETH_P2.TX"
+    },
+    "ETH_P2.TX_N": {
+      "DIFFERENTIAL_PAIR": "ETH_P2.TX"
+    },
+    "ETH_P2.RX_P": {
+      "DIFFERENTIAL_PAIR": "ETH_P2.RX"
+    },
+    "ETH_P2.RX_N": {
+      "DIFFERENTIAL_PAIR": "ETH_P2.RX"
+    },
+    "ETH_P3.TX_P": {
+      "DIFFERENTIAL_PAIR": "ETH_P3.TX"
+    },
+    "ETH_P3.TX_N": {
+      "DIFFERENTIAL_PAIR": "ETH_P3.TX"
+    },
+    "ETH_P3.RX_P": {
+      "DIFFERENTIAL_PAIR": "ETH_P3.RX"
+    },
+    "ETH_P3.RX_N": {
+      "DIFFERENTIAL_PAIR": "ETH_P3.RX"
+    },
+    "CAN1_MDI._P": {
+      "DIFFERENTIAL_PAIR": "CAN1_MDI."
+    },
+    "CAN1_MDI._N": {
+      "DIFFERENTIAL_PAIR": "CAN1_MDI."
+    },
+    "10B-T1S_MDI._P": {
+      "DIFFERENTIAL_PAIR": "10B-T1S_MDI."
+    },
+    "10B-T1S_MDI._N": {
+      "DIFFERENTIAL_PAIR": "10B-T1S_MDI."
+    },
+    "COMMA_P": {
+      "DIFFERENTIAL_PAIR": "COMMA"
+    },
+    "COMMA_N": {
+      "DIFFERENTIAL_PAIR": "COMMA"
+    },
+    "COMMB_P": {
+      "DIFFERENTIAL_PAIR": "COMMB"
+    },
+    "COMMB_N": {
+      "DIFFERENTIAL_PAIR": "COMMB"
+    },
+    "TRX_P": {
+      "DIFFERENTIAL_PAIR": "TRX"
+    },
+    "TRX_N": {
+      "DIFFERENTIAL_PAIR": "TRX"
+    },
+    "P1_MDI_PHY.TX_P": {
+      "DIFFERENTIAL_PAIR": "P1_MDI_PHY.TX"
+    },
+    "P1_MDI_PHY.TX_N": {
+      "DIFFERENTIAL_PAIR": "P1_MDI_PHY.TX"
+    },
+    "P1_MDI_PHY.RX_P": {
+      "DIFFERENTIAL_PAIR": "P1_MDI_PHY.RX"
+    },
+    "P1_MDI_PHY.RX_N": {
+      "DIFFERENTIAL_PAIR": "P1_MDI_PHY.RX"
+    },
+    "P2_MDI_PHY.TX_P": {
+      "DIFFERENTIAL_PAIR": "P2_MDI_PHY.TX"
+    },
+    "P2_MDI_PHY.TX_N": {
+      "DIFFERENTIAL_PAIR": "P2_MDI_PHY.TX"
+    },
+    "P2_MDI_PHY.RX_P": {
+      "DIFFERENTIAL_PAIR": "P2_MDI_PHY.RX"
+    },
+    "P2_MDI_PHY.RX_N": {
+      "DIFFERENTIAL_PAIR": "P2_MDI_PHY.RX"
+    },
+    "P3_MDI_PHY.TX_P": {
+      "DIFFERENTIAL_PAIR": "P3_MDI_PHY.TX"
+    },
+    "P3_MDI_PHY.TX_N": {
+      "DIFFERENTIAL_PAIR": "P3_MDI_PHY.TX"
+    },
+    "P3_MDI_PHY.RX_P": {
+      "DIFFERENTIAL_PAIR": "P3_MDI_PHY.RX"
+    },
+    "P3_MDI_PHY.RX_N": {
+      "DIFFERENTIAL_PAIR": "P3_MDI_PHY.RX"
+    },
+    "TX4_P": {
+      "DIFFERENTIAL_PAIR": "TX4"
+    },
+    "TX4_N": {
+      "DIFFERENTIAL_PAIR": "TX4"
+    },
+    "RX4_P": {
+      "DIFFERENTIAL_PAIR": "RX4"
+    },
+    "RX4_N": {
+      "DIFFERENTIAL_PAIR": "RX4"
+    },
+    "CH0._P": {
+      "DIFFERENTIAL_PAIR": "CH0."
+    },
+    "CH0._N": {
+      "DIFFERENTIAL_PAIR": "CH0."
+    },
+    "CH2._P": {
+      "DIFFERENTIAL_PAIR": "CH2."
+    },
+    "CH2._N": {
+      "DIFFERENTIAL_PAIR": "CH2."
+    },
+    "CH3._P": {
+      "DIFFERENTIAL_PAIR": "CH3."
+    },
+    "CH3._N": {
+      "DIFFERENTIAL_PAIR": "CH3."
+    },
+    "CH4._P": {
+      "DIFFERENTIAL_PAIR": "CH4."
+    },
+    "CH4._N": {
+      "DIFFERENTIAL_PAIR": "CH4."
+    },
+    "CH5._P": {
+      "DIFFERENTIAL_PAIR": "CH5."
+    },
+    "CH5._N": {
+      "DIFFERENTIAL_PAIR": "CH5."
+    },
+    "USB_DFP1._1_P": {
+      "DIFFERENTIAL_PAIR": "USB_DFP1._1"
+    },
+    "USB_DFP1._1_N": {
+      "DIFFERENTIAL_PAIR": "USB_DFP1._1"
     }
   }
 }

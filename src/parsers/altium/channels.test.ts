@@ -1,11 +1,14 @@
 import { describe, expect, it } from "vitest";
 import {
   applyChannelFormat,
+  channelDocument,
   channelNetScope,
   planChannelNetNames,
   type ChannelNetScope,
 } from "./channels.js";
 import { RECORD_TYPES } from "./types.js";
+import type { ParsedDocument } from "./document.js";
+import type { DocumentInstance } from "./sheet-hierarchy.js";
 import type { AltiumNet, AltiumRecord } from "./types.js";
 
 /**
@@ -250,5 +253,34 @@ describe("channelNetScope", () => {
   it("shares a parent's signal only on a net reaching the parent", () => {
     const shared = channelNetScope(nets, new Set(["AGND", "CHANNEL.AGND", "EN"]), true).sharedNames;
     expect([...shared].sort()).toEqual(["CHANNEL.AGND", "EN"]);
+  });
+});
+
+describe("channelDocument", () => {
+  it("carries a differential pair mark to the channel's name for the net", () => {
+    const mark = { DIFFERENTIAL_PAIR: "" };
+    const base: ParsedDocument = {
+      name: "lvds.schdoc",
+      placement: "lvds.schdoc",
+      netlist: {
+        nets: { RX_P: { U1: ["1"] }, RX_N: { U1: ["2"] } },
+        components: { U1: { pins: { "1": "RX_P", "2": "RX_N" } } },
+        netProperties: { RX_P: mark, RX_N: mark },
+      },
+      nets: [],
+      links: [],
+      nameSources: new Map(),
+      bundleLinks: [],
+      netIdentifiers: new Map(),
+    };
+    const instance: DocumentInstance = {
+      key: "lvds.schdoc/3@2",
+      path: [],
+      room: "CH2",
+      ordinal: 2,
+    };
+    const { netlist } = channelDocument(base, instance, "$Component_$RoomName", emptyScope());
+    expect(Object.keys(netlist.netProperties!).sort()).toEqual(Object.keys(netlist.nets).sort());
+    expect(Object.keys(netlist.nets)).not.toContain("RX_P");
   });
 });

@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T21:40:44.859Z",
-    "netlistHash": "sha256:fa06b72675bff2099c9cd704d799d36f09f3313e6303619f99f8decb82128064",
+    "generatedAt": "2026-11-21T23:30:36.919Z",
+    "netlistHash": "sha256:3ff6611c74997f5b00ae8610ac2eb2bdc7b67d82cbefe70acaef616d7e2b51c0",
     "origin": {
       "type": "vendor",
       "source": {
@@ -1419,6 +1419,14 @@
       },
       "description": "CONN HEADER SMD R/A 6POS 1.25MM",
       "comment": "SM06B-GHS-TB(LF)(SN)"
+    }
+  },
+  "netProperties": {
+    "USB_D_P": {
+      "DIFFERENTIAL_PAIR": "USB_D"
+    },
+    "USB_D_N": {
+      "DIFFERENTIAL_PAIR": "USB_D"
     }
   }
 }

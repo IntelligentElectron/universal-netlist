@@ -51,6 +51,8 @@ export interface SchematicPin {
   /** KiCad electrical type: input, output, bidirectional, passive, power_in, ... */
   type: string;
   net: string;
+  /** The symbol does not draw the pin (its `hide` flag). */
+  hidden?: true;
 }
 
 export interface SchematicComponent {
@@ -521,6 +523,7 @@ export interface PinNode {
   pin: string;
   name: string;
   type: string;
+  hidden: boolean;
   sharesName: boolean;
   component: SchematicComponent;
 }
@@ -892,6 +895,7 @@ export function analyzeSchematic(
           pin: pin.number,
           name: pin.name,
           type: pin.type,
+          hidden: pin.hidden,
           // Another pin of the unit shares its name: KiCad then keeps the pad number in the net name.
           sharesName:
             pin.type !== "no_connect" &&
@@ -1122,7 +1126,13 @@ export function analyzeSchematic(
       });
     }
     for (const p of unique) {
-      p.component.pins.push({ number: p.pin, name: p.name, type: p.type, net: name });
+      p.component.pins.push({
+        number: p.pin,
+        name: p.name,
+        type: p.type,
+        net: name,
+        ...(p.hidden && { hidden: true as const }),
+      });
     }
   }
   nets.sort((a, b) => natural(a.name, b.name));
@@ -1152,6 +1162,7 @@ export function resolveSchematic(
       libDescription: component.libDescription,
       properties: component.properties,
       dnp: component.dnp,
+      hiddenPins: component.pins.filter((pin) => pin.hidden).map((pin) => pin.number || pin.name),
     })),
     nets: design.nets.map((net) => ({
       name: net.name,

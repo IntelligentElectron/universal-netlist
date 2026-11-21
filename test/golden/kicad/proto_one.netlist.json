@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T21:40:46.647Z",
-    "netlistHash": "sha256:b80becc1123519b0c899248d23cf4036bd6a0c231bcc740cc0ed6e22f11f9b79",
+    "generatedAt": "2026-11-21T23:17:33.446Z",
+    "netlistHash": "sha256:886e0e40a698e1efb3278c5e128a21ca0e7ae0a5961788d8abc2403a076f486a",
     "origin": {
       "type": "vendor",
       "source": {
@@ -3503,7 +3503,8 @@
         "10": {
           "name": "IOVDD",
           "net": "3V3_RAW",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "11": {
           "name": "GPIO8",
@@ -3563,7 +3564,8 @@
         "22": {
           "name": "IOVDD",
           "net": "3V3_RAW",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "23": {
           "name": "DVDD",
@@ -3618,7 +3620,8 @@
         "33": {
           "name": "IOVDD",
           "net": "3V3_RAW",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "34": {
           "name": "GPIO22",
@@ -3663,7 +3666,8 @@
         "42": {
           "name": "IOVDD",
           "net": "3V3_RAW",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "43": {
           "name": "ADC_AVDD",
@@ -3698,12 +3702,14 @@
         "49": {
           "name": "IOVDD",
           "net": "3V3_RAW",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "50": {
           "name": "DVDD",
           "net": "1V1_PICO",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "51": {
           "name": "QSPI_SD3",
@@ -3808,7 +3814,8 @@
         "4": {
           "name": "G",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         }
       },
       "value": "ABM8-272-T3",

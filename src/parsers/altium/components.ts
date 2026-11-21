@@ -15,7 +15,7 @@ import type { ComponentDetails, PinEntry } from "../../types.js";
 import { createPinEntry, PIN_TYPE_BY_CODE } from "../../types.js";
 import { hasDnsValueMarker, isDnsComponent, stripDnsMarkers } from "../../circuit-traversal.js";
 import { RECORD_TYPES, type AltiumRecord, type AltiumSchematic } from "./types.js";
-import { field, fieldText, ownerOf } from "./records.js";
+import { field, fieldText, ownerOf, toNumber } from "./records.js";
 
 type Component = ComponentDetails[string];
 
@@ -39,6 +39,27 @@ export const componentDesignator = (part: AltiumRecord): string | undefined => {
 /** A pin's number, or its name where it has none. */
 export const pinNumber = (pin: AltiumRecord): string | undefined =>
   fieldText(pin, "Designator", "Name");
+
+/** `PinConglomerate` bit 2: the symbol does not draw the pin. */
+const PIN_HIDDEN = 0x04;
+
+/** Whether the symbol hides the pin. */
+export const pinIsHidden = (pin: AltiumRecord): boolean =>
+  (toNumber(field(pin, "PinConglomerate")) & PIN_HIDDEN) !== 0;
+
+/**
+ * The net a hidden pin connects to by name, its "Connect To" (a `HiddenNetName`
+ * parameter the pin owns), as a power port of that name would.
+ */
+export const hiddenPinNetName = (pin: AltiumRecord): string | undefined => {
+  if (!pinIsHidden(pin)) return undefined;
+  const parameter = pin.children?.find(
+    (child) =>
+      child.RECORD === RECORD_TYPES.PARAMETER &&
+      fieldText(child, "Name")?.toLowerCase() === "hiddennetname"
+  );
+  return (parameter && fieldText(parameter, "Text")?.trim()) || undefined;
+};
 
 /** The designator of the component a pin belongs to. */
 export const pinDesignator = (
@@ -160,7 +181,10 @@ export const extractComponents = (schematic: AltiumSchematic): ComponentDetails 
       // value that is not a code gives no type.
       const electrical = field(child, "Electrical") ?? "0";
       const type = /^\d$/.test(String(electrical)) ? PIN_TYPE_BY_CODE[Number(electrical)] : undefined;
-      if (number) pins[number] = createPinEntry(number, fieldText(child, "Name"), "", { type });
+      const hidden = pinIsHidden(child) || undefined;
+      if (number) {
+        pins[number] = createPinEntry(number, fieldText(child, "Name"), "", { type, hidden });
+      }
     }
 
     const component: Component = { pins };

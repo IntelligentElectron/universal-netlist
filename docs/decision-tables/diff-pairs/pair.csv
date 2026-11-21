@@ -1,0 +1,37 @@
+format,naming,directive,supply,outcome,next,status,note
+kicad,paired,both,none,n/a,,decided,KiCad has no directive
+kicad,paired,both,supply_pin,n/a,,decided,KiCad has no directive
+kicad,paired,one,none,n/a,,decided,KiCad has no directive
+kicad,paired,one,supply_pin,n/a,,decided,KiCad has no directive
+kicad,paired,none,none,pair,,decided,"decided 2026-11-21: KiCad's own name rule, as its router and DRC pair nets (diff-pairs.ts)"
+kicad,paired,none,supply_pin,no pair,,decided,"decided 2026-11-21: a name pair carrying a supply pin is a supply (V+/V-, BAT+/BAT-), not a pair (diff-pairs.ts carriesSupply)"
+kicad,lone,both,none,n/a,,decided,KiCad has no directive
+kicad,lone,both,supply_pin,n/a,,decided,KiCad has no directive
+kicad,lone,one,none,n/a,,decided,KiCad has no directive
+kicad,lone,one,supply_pin,n/a,,decided,KiCad has no directive
+kicad,lone,none,none,no pair,,decided,decided: KiCad pairs only a name with its partner present (diff-pairs.ts kicadDifferentialPairs)
+kicad,lone,none,supply_pin,no pair,,decided,decided: KiCad pairs only a name with its partner present (diff-pairs.ts kicadDifferentialPairs)
+kicad,plain,both,none,n/a,,decided,KiCad has no directive
+kicad,plain,both,supply_pin,n/a,,decided,KiCad has no directive
+kicad,plain,one,none,n/a,,decided,KiCad has no directive
+kicad,plain,one,supply_pin,n/a,,decided,KiCad has no directive
+kicad,plain,none,none,no pair,,decided,decided: KiCad pairs only a name with its partner present (diff-pairs.ts kicadDifferentialPairs)
+kicad,plain,none,supply_pin,no pair,,decided,decided: KiCad pairs only a name with its partner present (diff-pairs.ts kicadDifferentialPairs)
+altium,paired,both,none,pair,,decided,"decided: Altium pairs <pair>_P and <pair>_N when both carry a directive; a supply pin does not matter, the directive is the designer's declaration (netlist.ts pairDifferentialNets)"
+altium,paired,both,supply_pin,pair,,decided,"decided: Altium pairs <pair>_P and <pair>_N when both carry a directive; a supply pin does not matter, the directive is the designer's declaration (netlist.ts pairDifferentialNets)"
+altium,paired,one,none,no pair,,decided,decided: Altium needs a directive on both nets and the _P/_N names; 78 corpus directives on other names form no pair (netlist.ts pairDifferentialNets)
+altium,paired,one,supply_pin,no pair,,decided,decided: Altium needs a directive on both nets and the _P/_N names; 78 corpus directives on other names form no pair (netlist.ts pairDifferentialNets)
+altium,paired,none,none,no pair,,decided,decided: Altium needs a directive on both nets and the _P/_N names; 78 corpus directives on other names form no pair (netlist.ts pairDifferentialNets)
+altium,paired,none,supply_pin,no pair,,decided,decided: Altium needs a directive on both nets and the _P/_N names; 78 corpus directives on other names form no pair (netlist.ts pairDifferentialNets)
+altium,lone,both,none,n/a,,decided,both nets carrying a directive needs a partner net
+altium,lone,both,supply_pin,n/a,,decided,both nets carrying a directive needs a partner net
+altium,lone,one,none,no pair,,decided,decided: Altium needs a directive on both nets and the _P/_N names; 78 corpus directives on other names form no pair (netlist.ts pairDifferentialNets)
+altium,lone,one,supply_pin,no pair,,decided,decided: Altium needs a directive on both nets and the _P/_N names; 78 corpus directives on other names form no pair (netlist.ts pairDifferentialNets)
+altium,lone,none,none,no pair,,decided,decided: Altium needs a directive on both nets and the _P/_N names; 78 corpus directives on other names form no pair (netlist.ts pairDifferentialNets)
+altium,lone,none,supply_pin,no pair,,decided,decided: Altium needs a directive on both nets and the _P/_N names; 78 corpus directives on other names form no pair (netlist.ts pairDifferentialNets)
+altium,plain,both,none,n/a,,decided,both nets carrying a directive needs a partner net
+altium,plain,both,supply_pin,n/a,,decided,both nets carrying a directive needs a partner net
+altium,plain,one,none,no pair,,decided,decided: Altium needs a directive on both nets and the _P/_N names; 78 corpus directives on other names form no pair (netlist.ts pairDifferentialNets)
+altium,plain,one,supply_pin,no pair,,decided,decided: Altium needs a directive on both nets and the _P/_N names; 78 corpus directives on other names form no pair (netlist.ts pairDifferentialNets)
+altium,plain,none,none,no pair,,decided,decided: Altium needs a directive on both nets and the _P/_N names; 78 corpus directives on other names form no pair (netlist.ts pairDifferentialNets)
+altium,plain,none,supply_pin,no pair,,decided,decided: Altium needs a directive on both nets and the _P/_N names; 78 corpus directives on other names form no pair (netlist.ts pairDifferentialNets)
