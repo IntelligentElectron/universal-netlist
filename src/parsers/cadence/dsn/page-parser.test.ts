@@ -76,14 +76,14 @@ const placedInstance = (reference: string): Buffer =>
   ]);
 
 /** A pin record as a PlacedInstance or DrawnInstance carries it. */
-const pin = (pinIndex: number, x: number, y: number, netId: number): Buffer =>
+const pin = (pinIndex: number, x: number, y: number, wireId: number): Buffer =>
   Buffer.concat([
     shortPrefix(StructureType.T0x10),
     uint16(pinIndex),
     int16(x),
     int16(y),
-    uint32(netId),
-    uint32(0),
+    uint32(wireId),
+    uint32(0), // net id: 0 on a wired pin
     uint16(0), // SymbolDisplayProp count
   ]);
 
@@ -168,7 +168,8 @@ describe("parsePage", () => {
       pinIndex: 1,
       pointX: 450,
       pointY: 360,
-      netId: 799,
+      wireId: 799,
+      netId: 0,
     });
   });
 });

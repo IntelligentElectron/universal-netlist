@@ -52,6 +52,9 @@ export interface T0x10 {
   pinIndex: number; // 1-based logical pin index for pinMap lookup
   pointX: number;
   pointY: number;
+  /** +0x06: the `db_id` of the wire ending at the pin; 0 or 0xFFFFFFFF for none (§7.4). */
+  wireId: number;
+  /** +0x0A: the pin's SchematicNet id when no wire gives it one, else 0 (§7.4). */
   netId: number;
   symbolDisplayProps: SymbolDisplayProp[];
 }
@@ -288,8 +291,8 @@ export function parseT0x10(reader: BinaryReader): T0x10 {
   const pinIndex = sth < 32768 ? sth : 65536 - sth;
   const pointX = reader.readInt16();
   const pointY = reader.readInt16();
+  const wireId = reader.readUint32();
   const netId = reader.readUint32();
-  reader.skip(4); // unknownInt
 
   const lenSymbolDisplayProps = reader.readUint16();
   const symbolDisplayProps: SymbolDisplayProp[] = [];
@@ -299,7 +302,7 @@ export function parseT0x10(reader: BinaryReader): T0x10 {
 
   futureData.checkpoint();
 
-  return { pinIndex, pointX, pointY, netId, symbolDisplayProps };
+  return { pinIndex, pointX, pointY, wireId, netId, symbolDisplayProps };
 }
 
 export function parsePlacedInstance(reader: BinaryReader): PlacedInstance {

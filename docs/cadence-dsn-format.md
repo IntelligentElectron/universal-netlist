@@ -2222,6 +2222,8 @@ Scope of the table: all 63616 part and block pins on 451 pages in 105 files, wit
 
 **Connection fields.** `net_id` is non-zero only on pins with no wire in `wire_id`: the 840 pins with `wire_id = 0xFFFFFFFF` (every one of them) and 94 pins with `wire_id = 0`. Of these 934, 933 have no scalar wire at the pin point and 1 sits at a scalar wire end (`DECADECOUNTER.DSN` PAGE1, pin at (400,140)). **S**. No pin names a wire that does not end at it, and none holds a non-wire id in `wire_id`. **S**. `wire_id = 0` means no wire touches the pin on 4262 of 4265 such pins; the exceptions are that same `DECADECOUNTER.DSN` pin at a scalar wire end and 2 pins on a wire body (`reServer industrial J401 Carrier Board v11.DSN` pages 27 and 28). **S**.
 
+A pin with no wire is on the SchematicNet its `net_id` names. Where a page wire carries that id, the pin is on that wire's net; where none does, the pins sharing the `net_id` form one net. **E** (Capture's exports on 31 corpus designs: every such pin on a multi-pin export net is on that net, including hidden power pins such as `SENSOR_BOARD.DSN` U1.18 on 5V and U1.20 on 3V3).
+
 ### 7.6 DrawnInstance (12)
 
 A DrawnInstance is a hierarchical block drawn on a page, one placement of a child schematic. It sits in list 6 with the placed instances and shares their layout up to the display properties; where a placed instance goes on to its reference, a drawn instance embeds the block's symbol as an inline LibraryPart. **S** (174 records). It has exactly 3 full prefixes (174/174). **S**. Its preamble is always present: extension empty on 118, 39 bytes on 56. **S**.
@@ -2406,9 +2408,7 @@ Partial claims whose value lists the corpus exceeds are stated with the values s
 
 ### Parser divergences
 
-| What the parser does | What the files show | Impact |
-| --- | --- | --- |
-| Names pin +0x06 `netId` (`structures.ts:233`) and skips +0x0A as `unknownInt` (`structures.ts:234`) | +0x06 is the `wire_id`, a wire `db_id`; +0x0A is the pin's SchematicNet id | Naming: net assembly groups pins by this wire id, so fixture nets still match 4601/4601. The 934 pins whose net is given only by +0x0A (840 with `wire_id = 0xFFFFFFFF`, 94 with `wire_id = 0`) are not linked through that field. `hierarchy-expander.ts` offsets the wire id as if it were a net id. |
+Resolved: the parser reads pin +0x06 as `wireId` and +0x0A as `netId` (`structures.ts`). A pin no wire reaches joins the net its `net_id` names (the golden table `pin-net` in `docs/decision-tables/dsn-net-assignment`, replayed by `net-assignment.table.test.ts`): the net a page wire with that id carries, or for `wire_id = 0` a net shared with the pins of the same `net_id`; a sentinel pin with no such wire keeps the pin-to-pin rule (§13). **E**: on the 31 corpus designs with Capture exports, every such pin the export puts on a multi-pin net is on a net (4 were left unconnected before, `SENSOR_BOARD` U1.18, U1.20, U1.38, U1.40 on 5V and 3V3); across all 192 corpus and fixture DSNs, 19 designs change, each only by pins leaving NC for a net, and no pin moves between nets.
 
 Resolved: `parseGraphicInstBase` (`structures.ts`) now reads the box corners y1, x1, y2, x2 and then the location x, y, so ports, Globals and off-page connectors carry their stored box and true location. `symbol-attachment.ts`, `net-pins.ts` and `page-groups.ts` therefore test the stored box. **E**: netlist coverage against Capture's exports is unchanged by the fix (fixtures 100% on every measure; corpus designs with exports unchanged). |
 
@@ -5200,9 +5200,7 @@ None of these areas affects nets, pin numbers, pin names or values (15.3).
 
 ### Parser divergences
 
-| Parser | Files | Impact |
-| --- | --- | --- |
-| `structures.ts:233-234` reads pin +0x06 as `netId` and skips pin +0x0A as `unknownInt` | +0x06 is the wire id; +0x0A is the net id (0 on all 55,363 wired pins) | naming only; netlist output unaffected (connectivity reaches 100% through the wire) |
+Resolved: the parser reads pin +0x06 as `wireId` and +0x0A as `netId` (`structures.ts`). A pin no wire reaches joins the net its `net_id` names (the golden table `pin-net` in `docs/decision-tables/dsn-net-assignment`, replayed by `net-assignment.table.test.ts`): the net a page wire with that id carries, or for `wire_id = 0` a net shared with the pins of the same `net_id`; a sentinel pin with no such wire keeps the pin-to-pin rule (§13). **E**: on the 31 corpus designs with Capture exports, every such pin the export puts on a multi-pin net is on a net (4 were left unconnected before, `SENSOR_BOARD` U1.18, U1.20, U1.38, U1.40 on 5V and 3V3); across all 192 corpus and fixture DSNs, 19 designs change, each only by pins leaving NC for a net, and no pin moves between nets.
 
 
 
@@ -5933,9 +5931,7 @@ These two parts from real designs show how a pin's number comes from the device 
 
 ### Parser divergences
 
-| Parser | Files | Impact |
-| --- | --- | --- |
-| `structures.ts:233-234` reads pin +0x06 as `netId` and skips pin +0x0A as `unknownInt` | +0x06 is the wire id (it names a wire ending at the pin point on 58,511 pins); +0x0A is the net id, 0 on all 55,363 wired pins | naming only; netlist output unaffected |
+Resolved: the parser reads pin +0x06 as `wireId` and +0x0A as `netId` (`structures.ts`). A pin no wire reaches joins the net its `net_id` names (the golden table `pin-net` in `docs/decision-tables/dsn-net-assignment`, replayed by `net-assignment.table.test.ts`): the net a page wire with that id carries, or for `wire_id = 0` a net shared with the pins of the same `net_id`; a sentinel pin with no such wire keeps the pin-to-pin rule (§13). **E**: on the 31 corpus designs with Capture exports, every such pin the export puts on a multi-pin net is on a net (4 were left unconnected before, `SENSOR_BOARD` U1.18, U1.20, U1.38, U1.40 on 5V and 3V3); across all 192 corpus and fixture DSNs, 19 designs change, each only by pins leaving NC for a net, and no pin moves between nets.
 
 
 

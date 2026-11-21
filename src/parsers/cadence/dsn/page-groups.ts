@@ -35,7 +35,7 @@ export interface WireGroup {
   base: string;
   /** One coordinate of the group, to address it by. */
   rep: string;
-  /** The lowest wire id in the group: the net id its pins carry, unshifted. */
+  /** The lowest SchematicNet id among the group's wires, unshifted. */
   netId: number | undefined;
   /** Set when the group is on one of the placement's hierarchical ports. */
   port?: PortMembership;

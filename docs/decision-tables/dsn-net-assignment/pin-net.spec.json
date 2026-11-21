@@ -1,0 +1,10 @@
+{
+  "name": "pin-net",
+  "assumes": "A placed part's pin on a version-3 page that its section has a pad for (not ignored). Ids are the pin record's +0x06 wire id and +0x0A net id (docs/cadence-dsn-format.md §7.4).",
+  "dimensions": {
+    "wire_id": ["wire", "zero", "sentinel"],
+    "net_id": ["zero", "nonzero"],
+    "net_at_point": ["yes", "no"],
+    "net_on_a_wire": ["yes", "no"]
+  }
+}
