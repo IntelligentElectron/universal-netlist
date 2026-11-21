@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
 import { existsSync } from "node:fs";
-import type { ParsedNetlist } from "../../types.js";
+import type { ParsedNetlist, PinType } from "../../types.js";
 import { isErrorResult } from "../../types.js";
 import * as parsersModule from "../../parsers/index.js";
 import { runErc, type ErcResult } from "../index.js";
@@ -241,6 +241,10 @@ describe("runErc rule selection", () => {
       "net.whitespace_name_collision",
       "refdes.duplicate",
       "refdes.section_repeated",
+      "pin.output_conflict",
+      "pin.output_contention",
+      "pin.input_undriven",
+      "pin.power_unconnected",
       "net.unnamed",
     ]);
     expect(r.errors).toBeUndefined();
@@ -269,7 +273,7 @@ describe.skipIf(!hasRdimm)("runErc integration (rdimm-ddr4-tester)", () => {
     expect(isErrorResult(result)).toBe(false);
     const r = result as ErcResult;
 
-    expect(r.checked).toHaveLength(8);
+    expect(r.checked).toHaveLength(12);
     nonEmptyMap(r.errors?.["net.single_pin"]); // R=1 nets
     nonEmptyMap(r.warnings?.["net.testpoint_stub"]); // real TP-on-single-pin nets
     const unnamed = r.warnings?.["net.unnamed"] as string[];
@@ -301,5 +305,93 @@ describe("runErc paging", () => {
     expect(Object.keys(last.warnings ?? {})).toEqual(["net.testpoint_stub"]);
     expect(last.notes).toEqual(["findings shows entries 3-3 of 3."]);
     expect(last.checked).toEqual(first.checked);
+  });
+});
+
+describe("runErc pin-type rules", () => {
+  const pin = (net: string, type?: PinType, name?: string) =>
+    type ? { ...(name && { name }), net, type } : net;
+
+  it("reports two outputs as a conflict, naming only the driving pins", async () => {
+    const r = await erc({
+      nets: { SIG: { U1: ["1"], U2: ["3"], U3: ["2"] }, GND: { U1: ["2"], U2: ["4"] } },
+      components: {
+        U1: { pins: { "1": pin("SIG", "output"), "2": pin("GND", "power") } },
+        U2: { pins: { "3": pin("SIG", "output"), "4": pin("GND", "power") } },
+        U3: { pins: { "2": pin("SIG", "input") } },
+      },
+    });
+    expect(r.errors?.["pin.output_conflict"]).toEqual({ SIG: ["U1.1", "U2.3"] });
+    expect(r.warnings?.["pin.output_contention"]).toBeUndefined();
+  });
+
+  it("warns about a bus pin on a driven net and an open collector on an undirected rail", async () => {
+    const r = await erc({
+      nets: { BUS: { U1: ["1"], U2: ["1"] }, VCC: { U1: ["2"], U2: ["2"], U3: ["1"] } },
+      components: {
+        U1: { pins: { "1": pin("BUS", "output"), "2": pin("VCC", "power") } },
+        U2: { pins: { "1": pin("BUS", "bidirectional"), "2": pin("VCC", "power") } },
+        U3: { pins: { "1": pin("VCC", "open_collector") } },
+      },
+    });
+    expect(r.warnings?.["pin.output_contention"]).toEqual({
+      BUS: ["U1.1", "U2.1"],
+      VCC: ["U3.1"],
+    });
+    expect(r.errors?.["pin.output_conflict"]).toBeUndefined();
+  });
+
+  it("reports inputs with no driver, and not when an untyped pin or a fitted pull-up may drive", async () => {
+    const r = await erc({
+      nets: {
+        EN: { U1: ["1"], U2: ["1"] },
+        RST: { U1: ["2"], J1: ["1"] },
+        CS: { U1: ["3"], R1: ["1"] },
+      },
+      components: {
+        U1: {
+          pins: { "1": pin("EN", "input"), "2": pin("RST", "input"), "3": pin("CS", "input") },
+        },
+        U2: { pins: { "1": pin("EN", "input") } },
+        J1: { pins: { "1": "RST" } },
+        R1: { pins: { "1": pin("CS", "passive") }, dns: true },
+      },
+    });
+    // R1 is DNS, so nothing drives CS in this build.
+    expect(r.errors?.["pin.input_undriven"]).toEqual({ CS: ["U1.3"], EN: ["U1.1", "U2.1"] });
+  });
+
+  it("reports a supply input alone on its net or drawn unconnected, not a shared or output one", async () => {
+    const r = await erc({
+      nets: {
+        VDDA: { U1: ["1"], TP1: ["1"] },
+        VCC: { U1: ["2"], C1: ["1"] },
+        VOUT: { U2: ["1"] },
+        NC: { U1: ["3", "4"] },
+      },
+      components: {
+        U1: {
+          pins: {
+            "1": pin("VDDA", "power_in"),
+            "2": pin("VCC", "power"),
+            "3": pin("NC", "power"),
+            "4": pin("NC", "input"),
+          },
+        },
+        U2: { pins: { "1": pin("VOUT", "power_out") } },
+        C1: { pins: { "1": pin("VCC", "passive") } },
+        TP1: { pins: { "1": "VDDA" } },
+      },
+    });
+    expect(r.errors?.["pin.power_unconnected"]).toEqual({ NC: ["U1.3"], VDDA: ["U1.1"] });
+  });
+
+  it("finds nothing on a design whose pins carry no type", async () => {
+    const r = await erc({
+      nets: { A: { U1: ["1"], U2: ["1"] } },
+      components: { U1: { pins: { "1": "A" } }, U2: { pins: { "1": "A" } } },
+    });
+    expect(r.errors).toBeUndefined();
+    expect(r.warnings).toBeUndefined();
   });
 });

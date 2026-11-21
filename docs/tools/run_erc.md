@@ -17,7 +17,22 @@ Test points are identified by the `TP` reference-designator prefix. "Functional 
 | `net.whitespace_name_collision` | error | two or more nets have names that read the same once leading and trailing whitespace is trimmed | `REFDES.PIN` endpoints, one entry per net |
 | `net.unnamed` | warning | a net with 2+ functional pins carries an auto-generated name | bare net names |
 | `refdes.duplicate` | error | the schematic gives one reference designator to several different parts | keyed by the refdes: `{ "part_count": 2, "pages": ["07_CLOCKS", "11_BUTTONS"] }` |
+| `pin.output_conflict` | error | pins that drive the net short each other: two or more outputs, an output beside a supply pin or an open collector or emitter, two or more supply outputs, or a supply output beside an open collector or emitter | the driving pins' `REFDES.PIN` endpoints |
+| `pin.output_contention` | warning | a bidirectional or three-state pin on a net an output or supply drives, or an open collector or emitter on an undirected power pin | the driving pins' `REFDES.PIN` endpoints |
+| `pin.input_undriven` | error | a net has input or supply-input pins and no pin that can drive it | the input pins' `REFDES.PIN` endpoints |
+| `pin.power_unconnected` | error | a supply input (`power` or `power_in`) is the only functional pin on its net, or is unconnected | the supply pins' `REFDES.PIN` endpoints; unconnected ones under `NC` |
 | `refdes.section_repeated` | error | one part draws the same section more than once, with no pin wired to two different nets | keyed by the refdes: `[{ "section": "F", "placements": 2, "pages": ["15_POWER", "18_DISPLAY"] }]`; `section` is omitted for a part with one section |
+
+The four `pin.*` rules read each pin's electrical `type` (see [query_component](query_component.md)) and are the same for every format; the golden tables in [docs/decision-tables/pin-erc](../decision-tables/pin-erc/net.rules.md) define them cell by cell. Pins are grouped by what they can do to a net:
+
+- **drive and fight:** `output` (push-pull), `power_out` (a supply output) and `power` (an undirected supply pin: a supply input or output whose direction and polarity are not recorded);
+- **pull one way:** `open_collector`, `open_emitter`;
+- **drive at times:** `bidirectional`, `tristate`;
+- **may drive, direction unknown:** `passive`, `unspecified`, `free`, and a pin with no `type`;
+- **load only:** `input`, `power_in`;
+- **neither:** `no_connect`.
+
+A pin with no type never makes a conflict, and since it may drive, it keeps a net from being reported as undriven. A design whose pins carry no type gets no `pin.*` findings. Test points neither drive nor load a net for these rules, and DNS parts are absent unless `include_dns` is set, so an input whose only pull-up is DNS is undriven. A conflict or contention names the driving pins, leaving out `power` pins (the net is a rail). `pin.power_unconnected` overlaps with `net.single_pin` on a supply input alone on its net, and both report it.
 
 `net.unnamed` only flags real multi-pin nets, so a single-pin auto-named net is reported once (as `net.single_pin`), not twice. The three degenerate rules are mutually exclusive by construction.
 
@@ -107,7 +122,7 @@ Clean design (every checked rule passed, nothing skipped):
 
 - Endpoints use the `REFDES.PIN` form, the same spec `query_xnet_by_pin_name` accepts, so a finding's endpoint can be fed straight back into a query.
 - Endpoint arrays are always arrays, even for a single endpoint, so the shape is uniform for every finding.
-- Pins on `NC` are not checked. `NC` is the net of a pin the design leaves unconnected, as `query_component` shows it, and it joins no net the rules scan. A KiCad pin reads as `NC` when it is alone on a no-connect flag, or alone on its net with electrical type `no_connect`: an engineer-drawn no-connect is never a `net.single_pin` error. A KiCad pin left open with no flag stays a one-pin net such as `unconnected-(R2-Pad1)`, and `net.single_pin` reports it, as KiCad's own ERC does. Cadence and Altium designs read an open pin as `NC` whether or not a no-connect symbol marks it, so an open pin there is not reported.
+- Pins on `NC` are not checked, except by `pin.power_unconnected`, which reports a supply input there. `NC` is the net of a pin the design leaves unconnected, as `query_component` shows it, and it joins no net the rules scan. A KiCad pin reads as `NC` when it is alone on a no-connect flag, or alone on its net with electrical type `no_connect`: an engineer-drawn no-connect is never a `net.single_pin` error. A KiCad pin left open with no flag stays a one-pin net such as `unconnected-(R2-Pad1)`, and `net.single_pin` reports it, as KiCad's own ERC does. Cadence and Altium designs read an open pin as `NC` whether or not a no-connect symbol marks it, so an open pin there is not reported.
 - Test point detection is heuristic (the `TP` refdes prefix).
 - `design_variant` selects the assembly to check. A design that records named variants requires it on every call; those variants are its only builds and `<Default>` is refused on it. `<Default>` (alias `default`) is the one build of a design that records no variant, the design with every part's own Do Not Stuff state. A part the selected variant marks Not Fitted is a DNS part for the run.
 

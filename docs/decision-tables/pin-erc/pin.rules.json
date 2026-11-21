@@ -1,0 +1,24 @@
+{
+  "name": "pin",
+  "rules": [
+    {
+      "when": {
+        "type": [
+          "power",
+          "power_in"
+        ],
+        "placement": [
+          "nc",
+          "alone"
+        ]
+      },
+      "outcome": "unconnected error",
+      "next": "",
+      "cells": 4
+    }
+  ],
+  "default": {
+    "outcome": "clean",
+    "next": ""
+  }
+}

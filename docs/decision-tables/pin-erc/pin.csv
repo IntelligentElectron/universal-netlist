@@ -1,0 +1,13 @@
+type,placement,outcome,next,status,note
+power,nc,unconnected error,,decided,a supply input with no other pin on its net leaves the part unpowered
+power,alone,unconnected error,,decided,a supply input with no other pin on its net leaves the part unpowered
+power,shared,clean,,decided,a shared supply pin is connected; a power_out with no load is an unused output; other types are out of scope
+power_in,nc,unconnected error,,decided,a supply input with no other pin on its net leaves the part unpowered
+power_in,alone,unconnected error,,decided,a supply input with no other pin on its net leaves the part unpowered
+power_in,shared,clean,,decided,a shared supply pin is connected; a power_out with no load is an unused output; other types are out of scope
+power_out,nc,clean,,decided,a shared supply pin is connected; a power_out with no load is an unused output; other types are out of scope
+power_out,alone,clean,,decided,a shared supply pin is connected; a power_out with no load is an unused output; other types are out of scope
+power_out,shared,clean,,decided,a shared supply pin is connected; a power_out with no load is an unused output; other types are out of scope
+other,nc,clean,,decided,a shared supply pin is connected; a power_out with no load is an unused output; other types are out of scope
+other,alone,clean,,decided,a shared supply pin is connected; a power_out with no load is an unused output; other types are out of scope
+other,shared,clean,,decided,a shared supply pin is connected; a power_out with no load is an unused output; other types are out of scope

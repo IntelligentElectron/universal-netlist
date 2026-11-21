@@ -10,11 +10,20 @@ import {
 import { indexNetNames, type NetNameIndex } from "../net-names.js";
 import { pageGroups } from "../pagination.js";
 import {
+  classifyNet,
+  DRIVING_TYPES,
+  isUnconnectedSupply,
+  netOutcome,
+  SINK_TYPES,
+  type NetOutcome,
+} from "./pin-rules.js";
+import {
   isErrorResult,
   type NetConnections,
   type ComponentDetails,
   type ErrorResult,
   type ParsedNetlist,
+  type PinType,
 } from "../../types.js";
 
 export type Severity = "error" | "warning";
@@ -65,6 +74,7 @@ export interface ErcResult {
 interface NetScan {
   functional: string[]; // "REFDES.PIN" for non-testpoint pins
   testpoints: string[]; // "REFDES.PIN" for TP* pins
+  types: (PinType | undefined)[]; // the electrical type of each functional pin, in order
 }
 
 interface RuleFinding {
@@ -78,8 +88,26 @@ interface Rule {
   severity: Severity;
   // "arr" → bare net[]; "map" → { [net]: endpoints[] }; "obj" → { [refdes]: detail }
   shape: "map" | "arr" | "obj";
-  run: (scan: Map<string, NetScan>, names: NetNameIndex, netlist: ParsedNetlist) => RuleFinding[];
+  run: (
+    scan: Map<string, NetScan>,
+    names: NetNameIndex,
+    netlist: ParsedNetlist,
+    nc: NetScan
+  ) => RuleFinding[];
 }
+
+/** The nets the pin-type table gives `outcome`, each naming its pins of the given types. */
+const byOutcome = (
+  scan: Map<string, NetScan>,
+  outcome: NetOutcome,
+  named: ReadonlySet<PinType | undefined>
+): RuleFinding[] =>
+  [...scan.entries()]
+    .filter(([, s]) => netOutcome(classifyNet(s.types)) === outcome)
+    .map(([net, s]) => ({
+      net,
+      endpoints: s.functional.filter((_, i) => named.has(s.types[i])).sort(naturalSort),
+    }));
 
 const collect = (
   scan: Map<string, NetScan>,
@@ -197,6 +225,42 @@ const RULES: Rule[] = [
     },
   },
   {
+    // Pin electrical types, judged by docs/decision-tables/pin-erc. A pin with
+    // no type has an unknown direction: it never makes a conflict, and it may
+    // drive, so it keeps a net from being undriven.
+    id: "pin.output_conflict",
+    severity: "error",
+    shape: "map",
+    run: (scan) => byOutcome(scan, "conflict error", DRIVING_TYPES),
+  },
+  {
+    id: "pin.output_contention",
+    severity: "warning",
+    shape: "map",
+    run: (scan) => byOutcome(scan, "contention warning", DRIVING_TYPES),
+  },
+  {
+    id: "pin.input_undriven",
+    severity: "error",
+    shape: "map",
+    run: (scan) => byOutcome(scan, "undriven error", SINK_TYPES),
+  },
+  {
+    // Supply inputs drawn unconnected are listed under NC.
+    id: "pin.power_unconnected",
+    severity: "error",
+    shape: "map",
+    run: (scan, _names, _netlist, nc) => {
+      const supplies = (s: NetScan, placement: "nc" | "alone") =>
+        s.functional.filter((_, i) => isUnconnectedSupply(s.types[i], placement));
+      const findings = [...scan.entries()]
+        .filter(([, s]) => s.functional.length === 1)
+        .map(([net, s]) => ({ net, endpoints: supplies(s, "alone") }));
+      findings.push({ net: "NC", endpoints: supplies(nc, "nc").sort(naturalSort) });
+      return findings.filter((f) => f.endpoints.length > 0);
+    },
+  },
+  {
     id: "net.unnamed",
     severity: "warning",
     shape: "arr",
@@ -213,24 +277,33 @@ const buildScan = (
   nets: NetConnections,
   components: ComponentDetails,
   includeDns: boolean
-): { scan: Map<string, NetScan>; skippedDns: number } => {
+): { scan: Map<string, NetScan>; nc: NetScan; skippedDns: number } => {
   const scan = new Map<string, NetScan>();
+  let nc: NetScan = { functional: [], testpoints: [], types: [] };
   const skippedDns = new Set<string>();
   for (const [net, conns] of Object.entries(nets)) {
-    if (net === "NC") continue; // normalized no-connect placeholder, not a real net
     const functional: string[] = [];
     const testpoints: string[] = [];
+    const types: (PinType | undefined)[] = [];
     for (const [refdes, pins] of Object.entries(conns)) {
       if (!includeDns && components[refdes]?.dns) {
         skippedDns.add(refdes);
         continue;
       }
-      const bucket = isTestpoint(refdes) ? testpoints : functional;
-      for (const pin of pins) bucket.push(`${displayRefdes(refdes)}.${pin}`);
+      const testpoint = isTestpoint(refdes);
+      for (const pin of pins) {
+        (testpoint ? testpoints : functional).push(`${displayRefdes(refdes)}.${pin}`);
+        if (testpoint) continue;
+        const entry = components[refdes]?.pins[pin];
+        types.push(typeof entry === "object" ? entry.type : undefined);
+      }
     }
-    scan.set(net, { functional, testpoints });
+    // NC is the normalized no-connect placeholder, not a real net: only the
+    // unconnected-pin rules look at it.
+    if (net === "NC") nc = { functional, testpoints, types };
+    else scan.set(net, { functional, testpoints, types });
   }
-  return { scan, skippedDns: skippedDns.size };
+  return { scan, nc, skippedDns: skippedDns.size };
 };
 
 /**
@@ -246,7 +319,7 @@ export const runErc = async (
   if (isErrorResult(netlist)) return netlist;
 
   const includeDns = opts.includeDns === true;
-  const { scan, skippedDns } = buildScan(netlist.nets, netlist.components, includeDns);
+  const { scan, nc, skippedDns } = buildScan(netlist.nets, netlist.components, includeDns);
 
   const inc = opts.includeRules;
   const exc = new Set(opts.excludeRules ?? []);
@@ -280,7 +353,7 @@ export const runErc = async (
   );
   const found = bySeverity.map(
     (rule) =>
-      [rule, [...rule.run(scan, names, netlist)].sort((a, b) => naturalSort(a.net, b.net))] as const
+      [rule, [...rule.run(scan, names, netlist, nc)].sort((a, b) => naturalSort(a.net, b.net))] as const
   );
   const totals = Object.fromEntries(
     found.filter(([, findings]) => findings.length > 0).map(([rule, f]) => [rule.id, f.length])
