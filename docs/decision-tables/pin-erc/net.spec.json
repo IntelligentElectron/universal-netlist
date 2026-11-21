@@ -1,0 +1,33 @@
+{
+  "name": "net",
+  "assumes": [
+    "a net other than NC, after DNS parts are left out (unless include_dns) and test point pins are set aside: a test point does not drive or load the net in the product",
+    "push_pull counts pins of type output",
+    "rail is the supply pins on the net: power is an undirected supply pin (a supply input or output, direction unknown), power_out a supply output; power_in is a supply input and counts under sinks, not here. power_out beside power counts as power_out",
+    "other is open when any open_collector or open_emitter pin is present; otherwise bus when any bidirectional or tristate pin is present; otherwise other when any passive, unspecified, free or untyped pin is present (it may drive, or its direction is unknown); otherwise none. A no_connect pin neither drives nor loads",
+    "sinks is some when any input or power_in pin is present"
+  ],
+  "dimensions": {
+    "push_pull": [
+      "none",
+      "one",
+      "many"
+    ],
+    "rail": [
+      "none",
+      "power",
+      "power_out",
+      "many_power_out"
+    ],
+    "other": [
+      "none",
+      "open",
+      "bus",
+      "other"
+    ],
+    "sinks": [
+      "none",
+      "some"
+    ]
+  }
+}

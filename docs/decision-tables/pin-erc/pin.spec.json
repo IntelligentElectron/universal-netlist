@@ -1,0 +1,12 @@
+{
+  "name": "pin",
+  "assumes": [
+    "a pin of a part that is not DNS (unless include_dns) and is not a test point",
+    "placement nc means the pin is on the NC net (drawn unconnected); alone means no other pin of a fitted part, test points aside, shares its net; shared means at least one does",
+    "a hidden pin connects by name to its global net, so it is never nc; it is judged by the same placement"
+  ],
+  "dimensions": {
+    "type": ["power", "power_in", "power_out", "other"],
+    "placement": ["nc", "alone", "shared"]
+  }
+}

@@ -160,7 +160,8 @@ describe.skipIf(!hasFixtures)("variant Do Not Stuff", { timeout: 60_000 }, () =>
   it("counts every unstuffed part in an ERC run on the selected build", async () => {
     expect(await runErc(J401_V11, { designVariant: "version A" })).toMatchObject({
       design_variant: "version A",
-      skipped: { dns: 287 },
+      // 291 parts are unstuffed; two (MH14, MH15) have pins only on NC and two on no net.
+      skipped: { dns: 289 },
     });
   });
 });
