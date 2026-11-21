@@ -50,10 +50,7 @@ export interface WirePoint {
  * the box stays eligible rather than none.
  *
  * Ranking is by distance to the centre of the bounding box, tie-broken on the
- * coordinate itself, so the result never depends on iteration order. The
- * symbol's `locX/locY` is deliberately not the anchor: it is a placement
- * origin that lies outside the symbol's own box for about a third of the
- * symbols in the fixture corpus.
+ * coordinate itself, so the result never depends on iteration order.
  */
 export function chooseSymbolAttachment(
   sym: Pick<GraphicInst, "x1" | "y1" | "x2" | "y2">,

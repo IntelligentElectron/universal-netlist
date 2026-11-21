@@ -43,12 +43,12 @@ const port = (pairingId: number, dbId: number): Buffer =>
     uint32(0), // library string index
     stringLenZeroTerm("PORT"),
     uint32(dbId),
-    int16(20), // locY
+    int16(5), // y1
+    int16(0), // x1
+    int16(25), // y2
+    int16(30), // x2
     int16(10), // locX
-    int16(21), // y2
-    int16(11), // x2
-    int16(9), // x1
-    int16(19), // y1
+    int16(20), // locY
     Buffer.alloc(4), // color and unknown bytes
     uint16(0), // SymbolDisplayProp count
     Buffer.from([0x00]), // unknown flag
@@ -136,6 +136,13 @@ describe("parsePage", () => {
     expect(parsed.ports).toHaveLength(2);
     expect(parsed.ports.map((item) => item.pairingId)).toEqual([1001, 1002]);
     expect(parsed.ports.map((item) => item.dbId)).toEqual([2001, 2002]);
+  });
+
+  it("reads the box corners before the location, so the location lies inside the box", () => {
+    const [p] = parsePage(page([], [port(1001, 2001)])).ports;
+
+    expect({ x1: p.x1, y1: p.y1, x2: p.x2, y2: p.y2 }).toEqual({ x1: 0, y1: 5, x2: 30, y2: 25 });
+    expect({ locX: p.locX, locY: p.locY }).toEqual({ locX: 10, locY: 20 });
   });
 
   it("skips a DrawnInstance it cannot read by its own boundary, keeping the page", () => {

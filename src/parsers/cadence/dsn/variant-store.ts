@@ -100,31 +100,6 @@ export function parseVariantGroup(buffer: Buffer): VariantGroupEntry[] {
 }
 
 /**
- * Parse the VariantNames stream into the names it lists.
- *
- * The list repeats itself: it names variants, the groups they draw on, and
- * each `bom-<variant>` the BOM storage holds, so a name can appear more than
- * once and is returned as often as it is written.
- */
-export function parseVariantNames(buffer: Buffer): string[] {
-  if (buffer.length < 8) return [];
-
-  const names: string[] = [];
-  let offset = 8; // uint32 magic, uint32 count
-
-  while (offset + 2 <= buffer.length) {
-    const length = buffer.readUInt16LE(offset);
-    offset += 2;
-    if (length === 0 || offset + length > buffer.length) break;
-    names.push(buffer.subarray(offset, offset + length).toString("latin1"));
-    offset += length;
-    if (buffer[offset] === 0x00) offset += 1; // NUL terminator
-  }
-
-  return names;
-}
-
-/**
  * Parse the group names that make up one BOM variant.
  *
  * The payload is latin1 fields separated by 0xF9: a count followed by that

@@ -225,30 +225,22 @@ npm publishing uses OIDC trusted publishing (configured on npmjs.com) - no token
 
 ## DSN Parser Reference
 
-**MANDATORY**: Before modifying ANY file under `src/parsers/cadence/dsn/`, you MUST read the corresponding C++ reference implementation in `references/OpenOrCadParser/`. Do not skip this step. The C++ source is the ground truth for how the binary format works, and our TypeScript is a port of it.
+**`docs/cadence-dsn-format.md` is the authority for the `.DSN` format.** Read the chapter
+for the structure you are about to change before modifying any file under
+`src/parsers/cadence/dsn/`. Every fact in it was checked against real files and carries
+its evidence level (E export, S structural, T test, O observed).
 
-The reference is vendored into this repository, so it is present after a plain `git clone` with no submodule init and no network fetch, in CI and sandboxes as much as locally. It is an unmodified copy of upstream's final commit before the project was archived; see [references/README.md](references/README.md) for provenance and licence. Treat it as read-only: never edit it to match our behaviour. Where our port intentionally diverges, that belongs in `docs/cadence-dsn-format.md`.
+- A verified fact that the parser implements is final: do not edit it.
+- Change the parser only toward what the spec states. Where the spec lists a fact as
+  unverified or open, verify it on real files first (`test/fixtures`, the corpus,
+  Capture's exports), then record the result in the spec.
+- Move a disproved claim to the chapter's Refuted table instead of deleting it.
+- Each chapter's Parser divergences table lists where the parser still differs from the
+  files.
 
-### Reference workflow
-
-1. **Read `docs/cadence-dsn-format.md`** for the binary format spec
-2. **Read the corresponding C++ file** in `references/OpenOrCadParser/` before writing any code
-3. Cross-reference `docs/olb.xsd` for structure/field names if needed
-
-Every fact in `docs/cadence-dsn-format.md` carries its evidence level (E export, S structural, T test, O observed). Add or change a fact only with the check that proves it, and move a disproved claim to its Refuted table instead of deleting it.
-
-### C++ reference mapping
-
-The TypeScript files in `src/parsers/cadence/dsn/` map to C++ files in `references/OpenOrCadParser/`:
-
-| TypeScript | C++ reference (read this FIRST) |
-|---|---|
-| `cache-parser.ts` | `src/Streams/StreamCache.cpp` |
-| `page-parser.ts` | `src/Streams/StreamPage.cpp` |
-| `package-parser.ts` | `src/Streams/StreamPackage.cpp` |
-| `library-parser.ts` | `src/Streams/StreamLibrary.cpp` |
-| Any structure parsing | `src/Structures/` (e.g., `StructPlacedInstance.cpp`, `StructT0x10.cpp`, `StructWire.cpp`) |
-| Prefix/preamble logic | `src/GenericParser.cpp` |
+`references/OpenOrCadParser/` is the C++ project our parser was first ported from. It is
+historical: it gets several layouts wrong (for example the graphic-instance bounding box),
+so it is not a source of truth and is not required reading. Treat it as read-only.
 
 ### Additional resources
 

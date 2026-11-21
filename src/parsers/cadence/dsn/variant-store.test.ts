@@ -13,7 +13,6 @@ import {
   listCadenceVariants,
   parseBomVariantGroups,
   parseVariantGroup,
-  parseVariantNames,
   resolveDnsRefdes,
   resolveVariantStuffing,
 } from "./variant-store.js";
@@ -77,25 +76,6 @@ describe("parseVariantGroup", () => {
 
   it("returns nothing for a stream too short to carry a length", () => {
     expect(parseVariantGroup(Buffer.from([0x00, 0x01]))).toEqual([]);
-  });
-});
-
-describe("parseVariantNames", () => {
-  it("reads the length-prefixed names the stream lists", () => {
-    // Verbatim from reServer J2032: magic, count, then each name and its NUL.
-    const buffer = Buffer.concat([
-      Buffer.from([0x84, 0x03, 0x00, 0x00, 0x05, 0x00, 0x00, 0x00]),
-      Buffer.from([0x03, 0x00]),
-      Buffer.from("DNP\0", "latin1"),
-      Buffer.from([0x08, 0x00]),
-      Buffer.from("bom-Main\0", "latin1"),
-    ]);
-
-    expect(parseVariantNames(buffer)).toEqual(["DNP", "bom-Main"]);
-  });
-
-  it("returns nothing for the empty store a design without variants writes", () => {
-    expect(parseVariantNames(Buffer.from([0x84, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00]))).toEqual([]);
   });
 });
 

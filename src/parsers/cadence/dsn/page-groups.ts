@@ -161,10 +161,8 @@ export function buildPageCoordMap(
   }
 
   // OPC connectivity: match each OPC to its wire connection point.
-  // The connection point is at one of 3 candidate positions:
-  //   1. Right edge midpoint: (maxX, midY)
-  //   2. Left edge midpoint: (minX, midY)
-  //   3. locX, locY (sometimes coincides with a corner)
+  // The connection point is one of the stored box's four edge midpoints or the
+  // connector's location.
   // Only checking specific points (not all edge points) avoids false unions
   // when OPC bboxes overlap vertically on dense schematics.
   const allWireCoords = new Set<string>();
@@ -190,7 +188,7 @@ export function buildPageCoordMap(
       `${minX},${midY}`, // left edge midpoint
       `${midX},${maxY}`, // bottom edge midpoint (vertical OPCs)
       `${midX},${minY}`, // top edge midpoint (vertical OPCs)
-      `${opc.locX},${opc.locY}`, // loc (sometimes at bbox corner)
+      `${opc.locX},${opc.locY}`, // location
     ];
 
     const opcKey = `opc:${opc.pairingId}:${opc.dbId}`;
