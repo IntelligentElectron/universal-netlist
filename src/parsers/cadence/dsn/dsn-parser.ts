@@ -104,12 +104,23 @@ export function parseDsnPages(source: Uint8Array | string, passwords?: DsnPasswo
     );
     const views = buildPageViews(pages, coordMaps, pins, netlist.components, strLst, refdesRenames);
     const cache = entries.find((e) => e.path === "Cache" && e.entry.type === 2);
-    const context = {
-      symbols: cache ? readCacheSymbols(ole.readStreamByPath(cache.path)) : new Map(),
-      strLst,
-      fonts: library ? readLibraryFonts(library) : { heights: [], defaultSlots: [] },
+    // Drawing is best-effort: a failure costs that drawing, never the page views.
+    const attempt = <T>(fn: () => T, fallback: T): T => {
+      try {
+        return fn();
+      } catch {
+        return fallback;
+      }
     };
-    return { pages: views, svgs: pages.map((page, i) => renderPageSvg(page, views[i], context)) };
+    const context = {
+      symbols: cache
+        ? attempt(() => readCacheSymbols(ole.readStreamByPath(cache.path)), new Map())
+        : new Map(),
+      strLst,
+      fonts: attempt(() => readLibraryFonts(library!), { heights: [], defaultSlots: [] }),
+    };
+    const svgs = pages.map((page, i) => attempt(() => renderPageSvg(page, views[i], context), ""));
+    return { pages: views, svgs };
   } catch (error) {
     throw describeParseFailure(version, error);
   }

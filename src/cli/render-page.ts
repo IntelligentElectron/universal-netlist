@@ -12,7 +12,7 @@ import { defineTool, READ_ONLY, RENDER_PAGE_ARGUMENTS } from "../tools/index.js"
 import { resolvePath } from "../paths.js";
 
 /** A file name from a page name: the characters a file system takes, with `_` for the rest. */
-const fileNameOf = (page: string): string =>
+export const fileNameOf = (page: string): string =>
   `${
     page
       .trim()

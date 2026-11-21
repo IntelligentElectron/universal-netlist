@@ -75,6 +75,7 @@ export const renderPage = async (
   const view = findPage(loaded.pages, page);
   if ("error" in view) return view;
   let svg = loaded.svgs[loaded.pages.indexOf(view)];
+  if (!svg) return { error: `Page '${view.page}' could not be drawn. get_page() still reads it.` };
   // A whole sheet at about 180 pixels per inch; a crop at least 1000 pixels wide.
   let width = Math.round(view.size.width_in * 180);
   if (focus !== undefined) {
