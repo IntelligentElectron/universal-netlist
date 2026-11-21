@@ -68,6 +68,14 @@ export interface PageView {
   globals: PageConnector[];
   off_page_connectors: PageConnector[];
   bus_entries: { x1: number; y1: number; x2: number; y2: number }[];
+  /** Free text the designer placed on the page, at its baseline-left anchor. */
+  text_notes: PageNote[];
+}
+
+export interface PageNote {
+  text: string;
+  x: number;
+  y: number;
 }
 
 /** The page a view describes: its name, and the block placement for a reused schematic. */
@@ -241,6 +249,12 @@ export function buildPageViews(
         connector(opc, `opc:${opc.pairingId}:${opc.dbId}`)
       ),
       bus_entries: page.busEntries.map(({ x1, y1, x2, y2 }) => ({ x1, y1, x2, y2 })),
+      text_notes: page.graphics.flatMap((g) =>
+        // Capture ends a line with CR LF or a bare CR.
+        g.kind === "text" && g.text.trim()
+          ? [{ text: g.text.replace(/\r\n?/g, "\n"), x: g.x, y: g.y }]
+          : []
+      ),
     };
   });
 }

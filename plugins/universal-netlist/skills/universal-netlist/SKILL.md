@@ -80,7 +80,7 @@ universal-netlist query_xnet_by_net_name hardware/board.DSN --net_name SPI_CLK -
 
 Each description is the MCP tool's own.
 
-Every tool but `list_designs` also takes `--design`, and every tool but `list_designs`, `list_pages`, `get_page` and `render_page` also takes `--design_variant`; neither is repeated below, and `--design` may be the first argument instead:
+Every tool but `list_designs` also takes `--design`, and every tool but `list_designs`, `list_pages`, `get_page`, `search_notes` and `render_page` also takes `--design_variant`; neither is repeated below, and `--design` may be the first argument instead:
 
 - `--design` (required; string). Path to design file, as returned by list_designs.
 - `--design_variant` (string). Design variant name from list_designs' design_variants. Required when the design records named variants, which are its only builds. <Default> (alias: default) is the one build of a design that records none.
@@ -198,9 +198,17 @@ List the schematic pages of a Cadence .DSN design, in the order the netlist read
 
 ### get_page
 
-One schematic page of a Cadence .DSN design as drawn: its parts (refdes, value, symbol, location, rotation, mirror, box, and pins with their electrical types and nets), wires with their nets, net labels, hierarchical ports, globals (power and ground symbols), off-page connectors, bus entries, hierarchical blocks, and the title-block fields. Net names match list_nets. Coordinates are in 1/100 inch, x to the right and y down. Name the page as list_pages reports it.
+One schematic page of a Cadence .DSN design as drawn: its parts (refdes, value, symbol, location, rotation, mirror, box, and pins with their electrical types and nets), wires with their nets, net labels, hierarchical ports, globals (power and ground symbols), off-page connectors, bus entries, hierarchical blocks, the title-block fields, and text_notes (free text the designer placed on the page, such as jumper defaults and current ratings). Net names match list_nets. Coordinates are in 1/100 inch, x to the right and y down. Name the page as list_pages reports it.
 
 - `--page` (required; string). Page as list_pages names it; its plain name, or <schematic>/<page>, when only one page has that name.
+
+### search_notes
+
+Search the notes on every schematic page of a Cadence .DSN design: free text the designer placed on a page, such as default jumper settings, current ratings, assembly options and references to other sheets, which no netlist carries. Returns each note matching a regex pattern (case-insensitive) with its page, as list_pages names it, and its position in 1/100 inch. Search a net or part name to find the notes that mention it. `text_notes` is paged: `max_results` entries (default 50) from `offset`, and `next_offset` is set when there are more. Notes about parts and nets cover the page only.
+
+- `--pattern` (required; string). Regex pattern, matched case-insensitively against each note.
+- `--max_results` (number; default 50). Max text_notes entries to return. Default: 50.
+- `--offset` (number; default 0). Index of the first text_notes entry to return, from next_offset. Default: 0.
 
 ### render_page
 

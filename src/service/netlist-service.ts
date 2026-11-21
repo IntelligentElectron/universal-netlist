@@ -19,6 +19,7 @@ import {
   type listNetsTool,
   type listPagesTool,
   type getPageTool,
+  type searchNotesTool,
   type renderPageTool,
   type queryComponentTool,
   type queryXnetByNetNameTool,
@@ -107,6 +108,7 @@ export interface NetlistService {
   runErc: Method<typeof runErcTool>;
   listPages: Method<typeof listPagesTool>;
   getPage: Method<typeof getPageTool>;
+  searchNotes: Method<typeof searchNotesTool>;
   renderPage: Method<typeof renderPageTool>;
   /** Call a tool by its snake_case name, as an MCP client would. */
   call(name: string, args?: unknown): Promise<unknown>;
@@ -144,6 +146,7 @@ export const serviceFor = (context: ServiceContext): NetlistService => {
     runErc: method<typeof runErcTool>("run_erc"),
     listPages: method<typeof listPagesTool>("list_pages"),
     getPage: method<typeof getPageTool>("get_page"),
+    searchNotes: method<typeof searchNotesTool>("search_notes"),
     renderPage: method<typeof renderPageTool>("render_page"),
     call,
     tools: TOOLS,

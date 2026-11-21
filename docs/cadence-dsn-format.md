@@ -2932,7 +2932,7 @@ Resolved: `parseGraphicInstBase` (`structures.ts`) now reads the box corners y1,
 
 Parser coverage: the parser reads the graphic-instance base of Globals, Ports and off-page connectors (name and library indices, symbol name, db_id, box and location under INT's field names, display records, symbol kind) and the 9-byte Port and 5-byte Global/off-page tails; it reads a primitive list's count and skips the list by its boundary without decoding any primitive (INT-13.2-005), skips the transform word, and does not read page graphic instances, GraphicObjects, bitmaps, OLE objects or SymbolVectors (the page parser stops before list 12). <!-- INT-13.2-005 -->
 
-Page rendering (`render_page`) additionally decodes every primitive kind it draws (Rect, Ellipse, Line, Arc, Polygon, Polyline, Bezier, CommentText, SymbolVector) in both entry forms by the common end rule, and the page-graphics list (list 12); Bitmap and OLE entries are skipped by length and not drawn.
+Page rendering (`render_page`) additionally decodes every primitive kind it draws (Rect, Ellipse, Line, Arc, Polygon, Polyline, Bezier, CommentText, SymbolVector) in both entry forms by the common end rule, and the page-graphics list (list 12); Bitmap and OLE entries are skipped by length and not drawn. The page tools return each non-blank CommentText of list 12 as a text note (`get_page` `text_notes`, `search_notes`), with its position and its CR LF or bare CR line ends written as LF; 4,337 notes in 60 corpus designs.
 
 ---
 

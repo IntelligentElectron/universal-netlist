@@ -24,6 +24,7 @@ import {
   LIST_DESIGNS_DESCRIPTION,
   LIST_PAGES_DESCRIPTION,
   GET_PAGE_DESCRIPTION,
+  SEARCH_NOTES_DESCRIPTION,
   RENDER_PAGE_DESCRIPTION,
   LIST_NETS_DESCRIPTION,
   QUERY_COMPONENT_DESCRIPTION,
@@ -39,7 +40,7 @@ import { exportCadenceNetlist } from "../service/tools/cadence-export.js";
 import { listComponents } from "../service/tools/list-components.js";
 import { listDesigns } from "../service/tools/list-designs.js";
 import { listNets } from "../service/tools/list-nets.js";
-import { getPage, listPages } from "../service/tools/pages.js";
+import { getPage, listPages, searchNotes } from "../service/tools/pages.js";
 import { renderPage } from "../service/tools/render-page.js";
 import { queryComponent } from "../service/tools/query-component.js";
 import { queryXnetByNetName, queryXnetByPinName } from "../service/tools/query-xnet.js";
@@ -477,6 +478,21 @@ export const getPageTool = defineTool({
   run: ({ design, page }, context) => getPage(design, page, context),
 });
 
+export const searchNotesTool = defineTool({
+  name: "search_notes",
+  title: "Search notes",
+  description: SEARCH_NOTES_DESCRIPTION,
+  annotations: READ_ONLY,
+  inputSchema: z.strictObject({
+    design: z.string().describe("Path to a .DSN design, as returned by list_designs"),
+    pattern: z.string().describe("Regex pattern, matched case-insensitively against each note"),
+    max_results: maxResults("text_notes"),
+    offset: offset("text_notes"),
+  }),
+  run: async ({ design, pattern, max_results, offset }, context) =>
+    pageField(await searchNotes(design, pattern, context), "text_notes", max_results, offset),
+});
+
 /** render_page's arguments; the command line adds --output. */
 export const RENDER_PAGE_ARGUMENTS = {
   design: z.string().describe("Path to a .DSN design, as returned by list_designs"),
@@ -528,6 +544,7 @@ export const TOOLS: readonly AnyToolDefinition[] = Object.freeze(
       runErcTool,
       listPagesTool,
       getPageTool,
+      searchNotesTool,
       renderPageTool,
       exportCadenceNetlistTool,
     ] as AnyToolDefinition[]
