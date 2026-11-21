@@ -122,7 +122,7 @@ function readBody(reader: BinaryReader, kind: number): Primitive | undefined {
       const x = reader.readInt32();
       const y = reader.readInt32();
       const font = reader.readUint32() & 0xffff;
-      return { kind: "text", x, y, text: reader.readStringLenZeroTerm(0xffff), font };
+      return { kind: "text", x, y, text: reader.readStringLenZeroTerm(), font };
     }
     default:
       return undefined; // bitmaps and OLE objects are not drawn

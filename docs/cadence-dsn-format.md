@@ -357,7 +357,7 @@ The Library font table holds 60-byte LOGFONTA rows. **S** (the Library decodes t
 - The parser decodes every string as Windows-1252, a byte-to-character bijection on 0 to 255 in its decoder, so a design saved under another code page (GBK, for example) reads as the Windows-1252 form of its bytes and re-encoding as Windows-1252 recovers the original bytes. **T** (`binary-reader.ts:28`; 804 GBK-valid strings exist). <!-- INT-3.1-004 -->
 - The external source advises Latin-1 (each byte to the code point of the same value) when the code page is unknown. Latin-1 and the parser's Windows-1252 both preserve every byte (Parser divergences). **T** (`binary-reader.test.ts` 'decodes every byte to its own character, so none is lost'). <!-- EXT-2.3.2-007 -->
 
-**Parser string helpers.** `BinaryReader` (`binary-reader.ts`) has three string readers, ported from the C++ reference:
+**Parser string helpers.** `BinaryReader` (`binary-reader.ts`) had three string readers, ported from the C++ reference:
 
 | Reader | Form | Cap | Use | Ids |
 | --- | --- | --- | --- | --- |
@@ -366,6 +366,8 @@ The Library font table holds 60-byte LOGFONTA rows. **S** (the Library decodes t
 | `readStringLenTerm` | length-prefixed, no terminator | 400 characters | not called by any DSN parser | <!-- INT-3.1-008 INT-3.1-009 --> |
 
 The caps, the terminator check and the absence of callers are **O**: `checks/base/code_check.ts` reads a 400-byte `lstr`, throws on 401 bytes and on a non-`00` terminator, and finds 0 call sites of the other two readers in `src/` and `scripts/`. <!-- INT-3.1-009 INT-3.1-010 INT-3.1-013 -->
+
+The 400-byte cap and `readStringLenTerm` are now removed (Parser divergences, Resolved).
 
 ### 2.3 String-table references
 
@@ -524,8 +526,9 @@ A primitive list entry starts with its primitive kind code. **S** (first byte = 
 
 | Parser behaviour | What the files show | Impact | Ids |
 | --- | --- | --- | --- |
-| `readStringLenZeroTerm` throws when an `lstr` is longer than 400 bytes (`binary-reader.ts:161`); only the Library reader bypasses it | `lstr` payloads reach 1,421 bytes in the Library string table; the format allows 65,535 | A page or Cache string over 400 bytes would abort the read; none seen outside the Library | <!-- EXT-2.3.2-006 --> |
 | Decodes strings as Windows-1252 (`binary-reader.ts:28`) | The external source advises Latin-1; both are byte-preserving | Bytes 0x80 to 0x9F map to different characters; no bytes are lost | <!-- EXT-2.3.2-007 --> |
+
+Resolved (2026-11-21): `readStringLenZeroTerm` accepts any `u16` length and keeps the terminator check, the Library reads its strings with it (its separate uncapped reader is gone), and `readStringLenTerm`, which nothing called, is deleted. **O**: instrumented across all 192 corpus and fixture DSNs, in the netlist and the drawn-page paths, the 400-byte cap never fired once the Cache was read by its tables (PR 299), so it guarded nothing; removing it leaves every design's nets identical. **T** (`binary-reader.test.ts`: a 1,421-byte `lstr` reads; a non-`00` terminator still throws). <!-- EXT-2.3.2-006 -->
 
 Parser coverage: the parser reads integers, `lstr` strings, string-table references, `i16`/`i32` coordinates (with the y-first bbox) and the transform word's rotation and mirror bits, and applies the pin-word threshold. It skips every primitive list to its boundary (`structures.ts:534-536`), so the primitive entry header, kinds, SymbolVector children and extensions are not read, and it does not decode `filetime64`, `unixtime32`, `fixstr`, `l32bytes`, `l32str` or `dstr`.
 
