@@ -8,11 +8,12 @@ import type { HierarchyScope, HierarchyStream, PartOccurrence } from "./hierarch
 import type { PageData } from "./page-parser.js";
 import type { DrawnInstance, PlacedInstance, T0x10 } from "./structures.js";
 
-const pin = (pinIndex: number, x: number, y: number, netId: number): T0x10 => ({
+const pin = (pinIndex: number, x: number, y: number, wireId: number): T0x10 => ({
   pinIndex,
   pointX: x,
   pointY: y,
-  netId,
+  wireId,
+  netId: 0,
   symbolDisplayProps: [],
 });
 
@@ -177,12 +178,12 @@ describe("expandHierarchy", () => {
       ])
     );
 
-    expect(out[1].placedInstances[0].t0x10s.map((p) => p.netId)).toEqual([
+    expect(out[1].placedInstances[0].t0x10s.map((p) => p.wireId)).toEqual([
       3997 + SPAN,
       0,
       0xffffffff,
     ]);
-    expect(out[2].placedInstances[0].t0x10s.map((p) => p.netId)).toEqual([
+    expect(out[2].placedInstances[0].t0x10s.map((p) => p.wireId)).toEqual([
       3997 + 2 * SPAN,
       0,
       0xffffffff,

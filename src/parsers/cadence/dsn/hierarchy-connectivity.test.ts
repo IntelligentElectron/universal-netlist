@@ -14,11 +14,12 @@ import type { DrawnInstance, GraphicInst, PlacedInstance, T0x10, Wire } from "./
 
 const SENTINEL = 0xffffffff;
 
-const pin = (pinIndex: number, x: number, y: number, netId: number): T0x10 => ({
+const pin = (pinIndex: number, x: number, y: number, wireId: number): T0x10 => ({
   pinIndex,
   pointX: x,
   pointY: y,
-  netId,
+  wireId,
+  netId: 0,
   symbolDisplayProps: [],
 });
 
@@ -386,5 +387,68 @@ describe("buildNetConnectivity over bus ports and nested placements", () => {
 
   it("follows a pin that sits on a port symbol with no wire", () => {
     expect(nets.TOPRST).toEqual({ R2: ["2"], U16: ["2"] });
+  });
+});
+
+/** A pin that no wire reaches, carrying only its SchematicNet id at +0x0A (§7.4). */
+const hiddenPin = (pinIndex: number, x: number, y: number, netId: number): T0x10 => ({
+  ...pin(pinIndex, x, y, 0),
+  netId,
+});
+
+describe("pins joined only by their net id, in a block placed twice", () => {
+  // U1.1 and U2.1 meet pin to pin (net id 5000, no wire); U2.2 is a hidden pin
+  // on the net the LOCAL wire carries (net id 4001).
+  const drawing = page({
+    name: "PAGE1",
+    netTable: new Map([[4001, ["LOCAL"]]]),
+    wires: [wire(4001, 4000, 50, 40, 80, 40)],
+    placedInstances: [
+      part(275, "U1", [hiddenPin(1, 200, 200, 5000), pin(2, 50, 40, 4000)]),
+      part(276, "U2", [hiddenPin(1, 200, 200, 5000), hiddenPin(2, 300, 300, 4001)]),
+    ],
+  });
+  const occurrence = (occurrenceId: number, dbId: number, u1: string, u2: string) => ({
+    ...placement(occurrenceId, dbId, u1, u2),
+    scope: {
+      nets: [{ dbId: 11, name: "LOCAL" }],
+      parts: [
+        { occurrenceId: occurrenceId * 10, dbId: 275, reference: u1, pins: [] },
+        { occurrenceId: occurrenceId * 10 + 1, dbId: 276, reference: u2, pins: [] },
+      ],
+      blocks: [],
+    },
+  });
+  const tree: HierarchyStream = {
+    ...root,
+    scope: {
+      ...root.scope,
+      blocks: [occurrence(3, 17, "U11", "U12"), occurrence(4, 39, "U21", "U22")],
+    },
+  };
+  const expanded = expandHierarchy(
+    [tree],
+    new Map([
+      ["top", [top]],
+      ["child", [drawing]],
+    ]),
+    strLst
+  );
+  const { nets } = buildNetConnectivity(
+    expanded.pages,
+    expanded.canonicalNetNames,
+    pmd,
+    new Map(),
+    strLst
+  );
+
+  it("gives each placement its own pin-to-pin net, named from the file's id", () => {
+    expect(nets.N5000_MV1).toEqual({ U11: ["1"], U12: ["1"] });
+    expect(nets.N5000_MV2).toEqual({ U21: ["1"], U22: ["1"] });
+  });
+
+  it("puts a hidden pin on the net a wire with its net id carries", () => {
+    expect(nets.LOCAL_MV1).toEqual({ U11: ["2"], U12: ["2"] });
+    expect(nets.LOCAL_MV2).toEqual({ U21: ["2"], U22: ["2"] });
   });
 });

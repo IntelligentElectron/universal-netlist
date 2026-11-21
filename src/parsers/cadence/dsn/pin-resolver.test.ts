@@ -14,6 +14,7 @@ const pin = (pinIndex: number): T0x10 => ({
   pinIndex,
   pointX: 0,
   pointY: 0,
+  wireId: 0,
   netId: 0,
   symbolDisplayProps: [],
 });

@@ -2,11 +2,13 @@
  * Replays the golden decision tables in docs/decision-tables/dsn-net-assignment
  * against the code, one test per cell, so the tables and the code cannot drift:
  * which root views the hierarchy expander reads, and which section's pin map a
- * placed instance of a multi-section package resolves to.
+ * placed instance of a multi-section package resolves to, and where a pin's
+ * net comes from.
  */
 import path from "path";
 import { describe, expect, it } from "vitest";
 import { expandHierarchy } from "./hierarchy-expander.js";
+import { pinNetSource } from "./net-pins.js";
 import { findPinMap } from "./pin-resolver.js";
 import type { BlockOccurrence, HierarchyScope, HierarchyStream } from "./hierarchy-parser.js";
 import type { PageData } from "./page-parser.js";
@@ -167,6 +169,31 @@ describe("golden table: section-pin-map", () => {
       }
 
       expect(findPinMap(inst, maps, unitRefs, indexOf[row.section_index])).toEqual(expected);
+    });
+  }
+});
+
+describe("pin-net: where a pin's net comes from", () => {
+  const dims = ["wire_id", "net_id", "net_at_point", "net_on_a_wire"] as const;
+  const wireIdOf: Record<string, number> = { wire: 4242, zero: 0, sentinel: 0xffffffff };
+  const sourceOf: Record<string, string> = {
+    "the net at its point": "point",
+    "the net a wire with its net id carries": "wire-net",
+    "its own net shared with pins of the same net id": "net-id",
+    "a pin-to-pin net named from the Hierarchy": "hierarchy",
+    "no connect": "no-connect",
+  };
+
+  for (const row of readTable(TABLES, "pin-net").filter((r) => r.outcome !== "n/a")) {
+    it(cellName(row, dims), () => {
+      expect(sourceOf[row.outcome], `unknown outcome ${row.outcome}`).toBeDefined();
+      const source = pinNetSource(
+        wireIdOf[row.wire_id],
+        row.net_id === "zero" ? 0 : 777,
+        row.net_at_point === "yes",
+        row.net_on_a_wire === "yes"
+      );
+      expect(source).toBe(sourceOf[row.outcome]);
     });
   }
 });

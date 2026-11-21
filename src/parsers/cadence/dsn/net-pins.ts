@@ -124,6 +124,27 @@ export function bindThroughPorts(
   return { ...pin, netId, pageIdx, coord, coordNet: name };
 }
 
+/** Where a pin's net comes from; see the golden table pin-net in docs/decision-tables/dsn-net-assignment. */
+export type PinNetSource = "point" | "wire-net" | "net-id" | "hierarchy" | "no-connect";
+
+/**
+ * The rules of the pin-net table, in order: a net found at the pin's point
+ * wins; then the net a page wire with the pin's net id carries; then an
+ * unwired pin's own net id, or for a sentinel the pin-to-pin rule.
+ */
+export function pinNetSource(
+  wireId: number,
+  netId: number,
+  netAtPoint: boolean,
+  netOnWire: boolean
+): PinNetSource {
+  if (netAtPoint) return "point";
+  if (netOnWire) return "wire-net";
+  if (wireId === 0xffffffff) return "hierarchy";
+  if (wireId === 0) return netId === 0 ? "no-connect" : "net-id";
+  return "point";
+}
+
 /** Collect all component pins across pages with their coordinate-resolved net names. */
 export function collectPins(
   pages: PageData[],
@@ -139,6 +160,9 @@ export function collectPins(
   for (let i = 0; i < pages.length; i++) {
     const { coordToNet } = pageCoordMaps[i];
     const placement = pages[i].placement;
+    // A coordinate on a wire of each SchematicNet, for pins that name a net but no wire.
+    const wireOfNet = new Map<number, string>();
+    for (const w of pages[i].wires) wireOfNet.set(w.id, `${w.startX},${w.startY}`);
     for (const inst of pages[i].placedInstances) {
       const refdes = inst.reference;
       if (!refdes || !isValidRefdes(refdes)) continue;
@@ -161,7 +185,7 @@ export function collectPins(
         // a net local to the placement otherwise. A global symbol names a
         // power net the whole design shares.
         let port: PortMembership | undefined;
-        if (!coordNet && pin.netId === 0xffffffff) {
+        if (!coordNet && pin.wireId === 0xffffffff) {
           for (const sym of [...pages[i].globals, ...pages[i].ports]) {
             const minX = Math.min(sym.x1, sym.x2);
             const maxX = Math.max(sym.x1, sym.x2);
@@ -192,7 +216,7 @@ export function collectPins(
         // Fallback: sentinel pins at OPC connection points (direct pin-to-OPC,
         // no wire). Match by checking if the pin coordinate equals an OPC edge
         // midpoint, then resolve the net name via strLst[pairingId].
-        if (!coordNet && pin.netId === 0xffffffff) {
+        if (!coordNet && pin.wireId === 0xffffffff) {
           for (const opc of pages[i].offPageConnectors) {
             const minX = Math.min(opc.x1, opc.x2);
             const maxX = Math.max(opc.x1, opc.x2);
@@ -218,8 +242,29 @@ export function collectPins(
           }
         }
 
+        // A pin no wire reaches still names its SchematicNet at +0x0A (§7.4).
+        const wireNet =
+          pin.netId === 0 ? undefined : coordToNet.get(wireOfNet.get(pin.netId) ?? "");
+        let netId = pin.wireId;
+        const source = pinNetSource(
+          pin.wireId,
+          pin.netId,
+          coordNet !== undefined,
+          wireNet !== undefined
+        );
+        if (source === "wire-net") {
+          // shortcut: takes the wire group's name but not its port, so inside a
+          // placed block such a pin stays on the block's net; never seen in the corpus.
+          coordNet = wireNet;
+        } else if (source === "net-id") {
+          // The key moves into the placement's range as the expander moved wire
+          // ids; the name keeps the file's id and takes the placement's suffix.
+          netId = pin.netId + (placement?.netIdOffset ?? 0);
+          coordNet = `N${pin.netId}${placement?.suffix ?? ""}`;
+        }
+
         const pinNumber = resolvePinNumber(pin, inst, pmd, deviceIndex);
-        const info: PinInfo = { refdes, pinNumber, netId: pin.netId, pageIdx: i, coord, coordNet };
+        const info: PinInfo = { refdes, pinNumber, netId, pageIdx: i, coord, coordNet };
         if (port) info.port = port;
         pins.push(placement ? bindThroughPorts(info, pages, pageCoordMaps, virtualNetIds) : info);
       }

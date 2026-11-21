@@ -11,7 +11,7 @@
  *   summary                        Wire/pin statistics
  *   component <REFDES>             Pin details for a component
  *   net <NET_NAME>                 All pins on a net
- *   netid <ID>                     Trace a T0x10 netId
+ *   netid <ID>                     Trace a pin wire id (+0x06)
  *   unnamed                        List unnamed wire groups
  *   nettable [filter]              Per-page net table entries
  *   symbols [page]                 Ports, globals, OPCs with full detail
@@ -69,8 +69,8 @@ function parseT0x10Full(reader: BinaryReader) {
   const sth = reader.readUint16();
   const pointX = reader.readInt16();
   const pointY = reader.readInt16();
-  const netId = reader.readUint32();
-  reader.readUint32(); // unknownInt
+  const wireId = reader.readUint32(); // +0x06, a wire db_id (golden spec §7.4)
+  reader.readUint32(); // +0x0A, the pin's SchematicNet id when it has no wire
 
   const lenSymbolDisplayProps = reader.readUint16();
   for (let i = 0; i < lenSymbolDisplayProps; i++) {
@@ -79,7 +79,7 @@ function parseT0x10Full(reader: BinaryReader) {
 
   futureData.checkpoint();
 
-  return { pointX, pointY, netId, sth };
+  return { pointX, pointY, wireId, sth };
 }
 
 // ---------------------------------------------------------------------------
@@ -96,7 +96,7 @@ interface PageInfo {
     pinIdx: number;
     x: number;
     y: number;
-    netId: number;
+    wireId: number;
     sth: number;
     coordNet?: string;
   }[];
@@ -185,7 +185,7 @@ function collectPages(dsnPath: string): PageInfo[] {
             pinIdx: j,
             x: pin.pointX,
             y: pin.pointY,
-            netId: pin.netId,
+            wireId: pin.wireId,
             sth: pin.sth,
             coordNet: coordToNet.get(`${pin.pointX},${pin.pointY}`),
           });
@@ -256,7 +256,7 @@ function cmdSummary(pages: PageInfo[]) {
     for (const pin of page.pins) {
       totalPins++;
       refdesSet.add(pin.refdes);
-      netIdSet.add(pin.netId);
+      netIdSet.add(pin.wireId);
       if (pin.coordNet) pinsWithCoord++;
       else pinsWithoutCoord++;
     }
@@ -273,7 +273,7 @@ function cmdSummary(pages: PageInfo[]) {
   console.log(`Pins: ${totalPins}`);
   console.log(`  With coordinate match: ${pinsWithCoord}`);
   console.log(`  Without coordinate match: ${pinsWithoutCoord}`);
-  console.log(`Unique net IDs (T0x10.netId): ${netIdSet.size}`);
+  console.log(`Unique net IDs (pin +0x06 wire ids): ${netIdSet.size}`);
 }
 
 function cmdComponent(pages: PageInfo[], refdesFilter: string) {
@@ -282,8 +282,8 @@ function cmdComponent(pages: PageInfo[], refdesFilter: string) {
   const netIdNames = new Map<number, string>();
   for (const page of pages) {
     for (const pin of page.pins) {
-      if (pin.coordNet && !netIdNames.has(pin.netId)) {
-        netIdNames.set(pin.netId, pin.coordNet);
+      if (pin.coordNet && !netIdNames.has(pin.wireId)) {
+        netIdNames.set(pin.wireId, pin.coordNet);
       }
     }
   }
@@ -297,12 +297,12 @@ function cmdComponent(pages: PageInfo[], refdesFilter: string) {
     console.log("---  ---  --------------  ------------  -------------------  -------------------");
 
     for (const pin of compPins) {
-      const resolved = netIdNames.get(pin.netId) || `N${pin.netId}`;
+      const resolved = netIdNames.get(pin.wireId) || `N${pin.wireId}`;
       const match = pin.coordNet === resolved ? "" : pin.coordNet ? " !" : "";
       console.log(
         `${String(pin.pinIdx).padStart(3)}  ${String(pin.sth).padStart(3)}  ` +
           `(${String(pin.x).padStart(5)},${String(pin.y).padStart(5)})  ` +
-          `${String(pin.netId).padStart(12)}  ` +
+          `${String(pin.wireId).padStart(12)}  ` +
           `${(pin.coordNet || "(none)").padEnd(20)} ${resolved}${match}`
       );
     }
@@ -320,7 +320,7 @@ function cmdNet(pages: PageInfo[], netNameFilter: string) {
 
     console.log(`Page: ${page.name}`);
     for (const pin of matching) {
-      console.log(`  ${pin.refdes} pin[${pin.pinIdx}] at (${pin.x},${pin.y}) netId=${pin.netId}`);
+      console.log(`  ${pin.refdes} pin[${pin.pinIdx}] at (${pin.x},${pin.y}) wireId=${pin.wireId}`);
     }
   }
 
@@ -344,7 +344,7 @@ function cmdNetId(pages: PageInfo[], netIdStr: string) {
   console.log(`\n=== NetId: ${netId} ===\n`);
 
   const allPins = pages.flatMap((page) =>
-    page.pins.filter((p) => p.netId === netId).map((p) => ({ ...p, page: page.name }))
+    page.pins.filter((p) => p.wireId === netId).map((p) => ({ ...p, page: page.name }))
   );
 
   if (allPins.length === 0) {
@@ -395,7 +395,7 @@ function cmdUnnamed(pages: PageInfo[]) {
             (pin.x === w.endX && pin.y === w.endY)
           ) {
             console.log(
-              `    -> ${pin.refdes} pin[${pin.pinIdx}] at (${pin.x},${pin.y}) netId=${pin.netId}`
+              `    -> ${pin.refdes} pin[${pin.pinIdx}] at (${pin.x},${pin.y}) wireId=${pin.wireId}`
             );
           }
         }
@@ -741,7 +741,7 @@ if (args.length < 2) {
   console.log("  summary                        Wire/pin statistics");
   console.log("  component <REFDES>             Pin details for a component");
   console.log("  net <NET_NAME>                 All pins on a net");
-  console.log("  netid <ID>                     Trace a T0x10 netId");
+  console.log("  netid <ID>                     Trace a pin wire id (+0x06)");
   console.log("  unnamed                        List unnamed wire groups");
   console.log("  nettable [filter]              Per-page net table entries");
   console.log("  symbols [page]                 Ports, globals, OPCs with full detail");
