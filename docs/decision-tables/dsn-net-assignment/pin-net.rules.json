@@ -26,7 +26,7 @@
           "no"
         ]
       },
-      "outcome": "a pin-to-pin net named from the Hierarchy",
+      "outcome": "a pin-to-pin net named by its first pin's part and pin",
       "next": "",
       "cells": 1
     },

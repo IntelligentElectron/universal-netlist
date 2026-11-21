@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 3,
   "metadata": {
-    "generatedAt": "2026-11-21T03:14:45.590Z",
-    "netlistHash": "sha256:45d5dfabe2fa2ca4c4da77a5450c08684e5c113637133a4252dd6b4586fe132d",
+    "generatedAt": "2026-11-21T06:07:01.009Z",
+    "netlistHash": "sha256:4e87cbfc8529168292cfaa48bd9a71ec9185349639218e6d175d8977fc5e980c",
     "origin": {
       "type": "vendor",
       "source": {
@@ -1460,6 +1460,14 @@
       ],
       "C2": [
         "2"
+      ]
+    },
+    "N69496142_CLOCK": {
+      "X1": [
+        "3"
+      ],
+      "R22": [
+        "1"
       ]
     },
     "P3V3": {
@@ -9145,14 +9153,6 @@
       "U2": [
         "2"
       ]
-    },
-    "N2_310,180": {
-      "X1": [
-        "3"
-      ],
-      "R22": [
-        "1"
-      ]
     }
   },
   "components": {
@@ -9217,7 +9217,7 @@
         },
         "3": {
           "name": "OUT",
-          "net": "N2_310,180"
+          "net": "N69496142_CLOCK"
         },
         "4": {
           "name": "VDD",
@@ -9423,7 +9423,7 @@
     "R22": {
       "value": "24.9",
       "pins": {
-        "1": "N2_310,180",
+        "1": "N69496142_CLOCK",
         "2": "REF_OSC_CLOCK"
       },
       "description": "Resistor 24.9Ohm 1% 1/16W 0402 "
@@ -10242,6 +10242,8 @@
         "E36": "NC",
         "E37": "NC",
         "D34": "NC",
+        "H38": "FMC_LA_N_32",
+        "G37": "FMC_LA_N_33",
         "H1": "N196599_FMC",
         "H2": "GND",
         "H3": "GND",
@@ -10279,7 +10281,6 @@
         "H35": "FMC_LA_N_30",
         "H36": "GND",
         "H37": "FMC_LA_P_32",
-        "H38": "FMC_LA_N_32",
         "H39": "GND",
         "H40": "PVADJ",
         "C1": "GND",
@@ -10491,7 +10492,6 @@
         "G34": "FMC_LA_N_31",
         "G35": "GND",
         "G36": "FMC_LA_P_33",
-        "G37": "FMC_LA_N_33",
         "G38": "GND",
         "G39": "PVADJ",
         "G40": "GND",
