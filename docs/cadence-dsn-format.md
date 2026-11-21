@@ -20,6 +20,8 @@ Every claim of both sources (5,160 in all) was inventoried in a claim ledger and
 | **T** | **Test.** A unit or integration test in universal-netlist reproduces it. A test on synthetic data proves our implementation, not Capture's behaviour; such facts stay unverified until a real file confirms them. |
 | **O** | **Observed.** Holds on every case in our data, with a stated count, but is not tied to an export or a full-stream read. |
 
+Checks cited as `checks/<area>/<script>` belong to our private verification harness, which runs on the corpus below. They are named so each fact can be traced to the check that produced it.
+
 ## Corpus
 
 Counts are over these files unless a fact says otherwise (checked 2026-11-20):
