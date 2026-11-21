@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T20:27:49.462Z",
-    "netlistHash": "sha256:155e3b409dca071f9a875749fe5d0b301a4bce38d0b54ab24e250cd7c9863e86",
+    "generatedAt": "2026-11-21T21:40:46.032Z",
+    "netlistHash": "sha256:e982f71ad017f496e549a4a12f513e70b269c6679341f3918a72e4e167b786d1",
     "origin": {
       "type": "vendor",
       "source": {
@@ -825,7 +825,10 @@
   "components": {
     "J1": {
       "pins": {
-        "1": "+DC_link"
+        "1": {
+          "net": "+DC_link",
+          "type": "power"
+        }
       },
       "description": "TERM SCREW M4 6 PIN PCB",
       "comment": "Power connector",
@@ -833,7 +836,10 @@
     },
     "J2": {
       "pins": {
-        "1": "NetC1_2"
+        "1": {
+          "net": "NetC1_2",
+          "type": "power"
+        }
       },
       "description": "TERM SCREW M4 6 PIN PCB",
       "comment": "Power connector",
@@ -841,15 +847,24 @@
     },
     "D2": {
       "pins": {
-        "1": "NetC1_2",
-        "2": "+DC_link"
+        "1": {
+          "net": "NetC1_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+DC_link",
+          "type": "passive"
+        }
       },
       "description": "TVS DIODE 495V 760V DO214AC",
       "value": "SMAJ550-E3/61"
     },
     "J3": {
       "pins": {
-        "1": "-DC_link"
+        "1": {
+          "net": "-DC_link",
+          "type": "power"
+        }
       },
       "description": "TERM SCREW M4 6 PIN PCB",
       "comment": "Power connector",
@@ -857,16 +872,28 @@
     },
     "D3": {
       "pins": {
-        "1": "-DC_link",
-        "2": "NetC1_2"
+        "1": {
+          "net": "-DC_link",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC1_2",
+          "type": "passive"
+        }
       },
       "description": "TVS DIODE 495V 760V DO214AC",
       "value": "SMAJ550-E3/61"
     },
     "C4": {
       "pins": {
-        "1": "+DC_link",
-        "2": "-DC_link"
+        "1": {
+          "net": "+DC_link",
+          "type": "passive"
+        },
+        "2": {
+          "net": "-DC_link",
+          "type": "passive"
+        }
       },
       "description": "High Voltage Ceramic SMD capacitor, two part numbers, 100nF",
       "comment": "ceramic HV",
@@ -874,8 +901,14 @@
     },
     "C5": {
       "pins": {
-        "1": "+DC_link",
-        "2": "-DC_link"
+        "1": {
+          "net": "+DC_link",
+          "type": "passive"
+        },
+        "2": {
+          "net": "-DC_link",
+          "type": "passive"
+        }
       },
       "description": "Metalized Film Capacitor, two part numbers",
       "comment": "Film Capacitor",
@@ -883,8 +916,14 @@
     },
     "C7": {
       "pins": {
-        "1": "NetC1_2",
-        "2": "-DC_link"
+        "1": {
+          "net": "NetC1_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "-DC_link",
+          "type": "passive"
+        }
       },
       "description": "Aluminum Electrolytic Capacitor 1000UF 20% 250V SNAP",
       "comment": "MAL215953102E3",
@@ -892,8 +931,14 @@
     },
     "C8": {
       "pins": {
-        "1": "NetC1_2",
-        "2": "-DC_link"
+        "1": {
+          "net": "NetC1_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "-DC_link",
+          "type": "passive"
+        }
       },
       "description": "Aluminum Electrolytic Capacitor 1000UF 20% 250V SNAP",
       "comment": "MAL215953102E3",
@@ -901,8 +946,14 @@
     },
     "C2": {
       "pins": {
-        "1": "+DC_link",
-        "2": "NetC1_2"
+        "1": {
+          "net": "+DC_link",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC1_2",
+          "type": "passive"
+        }
       },
       "description": "Aluminum Electrolytic Capacitor 1000UF 20% 250V SNAP",
       "comment": "MAL215953102E3",
@@ -910,8 +961,14 @@
     },
     "C1": {
       "pins": {
-        "1": "+DC_link",
-        "2": "NetC1_2"
+        "1": {
+          "net": "+DC_link",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC1_2",
+          "type": "passive"
+        }
       },
       "description": "Aluminum Electrolytic Capacitor 1000UF 20% 250V SNAP",
       "comment": "MAL215953102E3",
@@ -919,8 +976,14 @@
     },
     "C6": {
       "pins": {
-        "1": "+DC_link",
-        "2": "-DC_link"
+        "1": {
+          "net": "+DC_link",
+          "type": "passive"
+        },
+        "2": {
+          "net": "-DC_link",
+          "type": "passive"
+        }
       },
       "description": "High Voltage Ceramic SMD capacitor, two part numbers, 100nF",
       "comment": "ceramic HV",
@@ -928,8 +991,14 @@
     },
     "R2": {
       "pins": {
-        "1": "-DC_link",
-        "2": "NetC1_2"
+        "1": {
+          "net": "-DC_link",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC1_2",
+          "type": "passive"
+        }
       },
       "description": "SMD resistor 2512, 150kOhm",
       "comment": "CRCW2512150KFKEG",
@@ -937,8 +1006,14 @@
     },
     "R1": {
       "pins": {
-        "1": "NetC1_2",
-        "2": "+DC_link"
+        "1": {
+          "net": "NetC1_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+DC_link",
+          "type": "passive"
+        }
       },
       "description": "SMD resistor 2512, 150kOhm",
       "comment": "CRCW2512150KFKEG",
@@ -946,8 +1021,14 @@
     },
     "C22": {
       "pins": {
-        "1": "+DC_link",
-        "2": "-DC_link"
+        "1": {
+          "net": "+DC_link",
+          "type": "passive"
+        },
+        "2": {
+          "net": "-DC_link",
+          "type": "passive"
+        }
       },
       "description": "Metalized Film Capacitor, two part numbers",
       "comment": "Film Capacitor",
@@ -955,7 +1036,10 @@
     },
     "ENA": {
       "pins": {
-        "1": "Enable"
+        "1": {
+          "net": "Enable",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -963,7 +1047,10 @@
     },
     "ERRORA": {
       "pins": {
-        "1": "NetERRORA_1"
+        "1": {
+          "net": "NetERRORA_1",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -971,7 +1058,10 @@
     },
     "PW_12A": {
       "pins": {
-        "1": "+12V"
+        "1": {
+          "net": "+12V",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -979,7 +1069,10 @@
     },
     "PW_5A": {
       "pins": {
-        "1": "+5V"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -987,7 +1080,10 @@
     },
     "PW_0A": {
       "pins": {
-        "1": "GND"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -995,7 +1091,10 @@
     },
     "IN_LSA": {
       "pins": {
-        "1": "NetIN_LSA_1"
+        "1": {
+          "net": "NetIN_LSA_1",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1003,7 +1102,10 @@
     },
     "IN_HSA": {
       "pins": {
-        "1": "NetIN_HSA_1"
+        "1": {
+          "net": "NetIN_HSA_1",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1011,7 +1113,10 @@
     },
     "D_LSA": {
       "pins": {
-        "1": "Source_HSA"
+        "1": {
+          "net": "Source_HSA",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1019,7 +1124,10 @@
     },
     "G_LS_1A": {
       "pins": {
-        "1": "Gate_LS_1A"
+        "1": {
+          "net": "Gate_LS_1A",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1027,7 +1135,10 @@
     },
     "S_LS_1A": {
       "pins": {
-        "1": "-DC_link"
+        "1": {
+          "net": "-DC_link",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1035,7 +1146,10 @@
     },
     "G_LS_2A": {
       "pins": {
-        "1": "Gate_LS_2A"
+        "1": {
+          "net": "Gate_LS_2A",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1043,7 +1157,10 @@
     },
     "S_LS_2A": {
       "pins": {
-        "1": "-DC_link"
+        "1": {
+          "net": "-DC_link",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1051,7 +1168,10 @@
     },
     "D_HSA": {
       "pins": {
-        "1": "+DC_link"
+        "1": {
+          "net": "+DC_link",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1059,7 +1179,10 @@
     },
     "G_HS_1A": {
       "pins": {
-        "1": "Gate_HS_1A"
+        "1": {
+          "net": "Gate_HS_1A",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1067,7 +1190,10 @@
     },
     "S_HS_1A": {
       "pins": {
-        "1": "Source_HSA"
+        "1": {
+          "net": "Source_HSA",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1075,7 +1201,10 @@
     },
     "G_HS_2A": {
       "pins": {
-        "1": "Gate_HS_2A"
+        "1": {
+          "net": "Gate_HS_2A",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1083,7 +1212,10 @@
     },
     "S_HS_2A": {
       "pins": {
-        "1": "Source_HSA"
+        "1": {
+          "net": "Source_HSA",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1091,7 +1223,10 @@
     },
     "VCC_ISO_LSA": {
       "pins": {
-        "1": "5V_LSA"
+        "1": {
+          "net": "5V_LSA",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1099,7 +1234,10 @@
     },
     "V_TEMP_LSA": {
       "pins": {
-        "1": "Temp_LSA"
+        "1": {
+          "net": "Temp_LSA",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1119,7 +1257,10 @@
     },
     "BD2A": {
       "pins": {
-        "1": "-DC_link"
+        "1": {
+          "net": "-DC_link",
+          "type": "passive"
+        }
       },
       "description": "Used to connect carry the currents  from the GND logic plane back to the -DC_link plane, which is originated by parasitic capacitive coupling between Halfbridge output and GND plane",
       "comment": "Place far from sensitive circuits",
@@ -1127,7 +1268,10 @@
     },
     "VCC_ISO_HSA": {
       "pins": {
-        "1": "5V_HSA"
+        "1": {
+          "net": "5V_HSA",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1135,7 +1279,10 @@
     },
     "V_TEMP_HSA": {
       "pins": {
-        "1": "Temp_HSA"
+        "1": {
+          "net": "Temp_HSA",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1143,7 +1290,10 @@
     },
     "GND_SENSE_HSA": {
       "pins": {
-        "1": "Source_HSA"
+        "1": {
+          "net": "Source_HSA",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1151,7 +1301,10 @@
     },
     "GND_SENSE_LSA": {
       "pins": {
-        "1": "-DC_link"
+        "1": {
+          "net": "-DC_link",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1159,7 +1312,10 @@
     },
     "ENB": {
       "pins": {
-        "1": "Enable"
+        "1": {
+          "net": "Enable",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1167,7 +1323,10 @@
     },
     "ERRORB": {
       "pins": {
-        "1": "NetERRORB_1"
+        "1": {
+          "net": "NetERRORB_1",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1175,7 +1334,10 @@
     },
     "PW_12B": {
       "pins": {
-        "1": "+12V"
+        "1": {
+          "net": "+12V",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1183,7 +1345,10 @@
     },
     "PW_5B": {
       "pins": {
-        "1": "+5V"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1191,7 +1356,10 @@
     },
     "PW_0B": {
       "pins": {
-        "1": "GND"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1199,7 +1367,10 @@
     },
     "IN_LSB": {
       "pins": {
-        "1": "NetIN_LSB_1"
+        "1": {
+          "net": "NetIN_LSB_1",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1207,7 +1378,10 @@
     },
     "IN_HSB": {
       "pins": {
-        "1": "NetIN_HSB_1"
+        "1": {
+          "net": "NetIN_HSB_1",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1215,7 +1389,10 @@
     },
     "D_LSB": {
       "pins": {
-        "1": "Source_HSB"
+        "1": {
+          "net": "Source_HSB",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1223,7 +1400,10 @@
     },
     "G_LS_1B": {
       "pins": {
-        "1": "Gate_LS_1B"
+        "1": {
+          "net": "Gate_LS_1B",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1231,7 +1411,10 @@
     },
     "S_LS_1B": {
       "pins": {
-        "1": "-DC_link"
+        "1": {
+          "net": "-DC_link",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1239,7 +1422,10 @@
     },
     "G_LS_2B": {
       "pins": {
-        "1": "Gate_LS_2B"
+        "1": {
+          "net": "Gate_LS_2B",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1247,7 +1433,10 @@
     },
     "S_LS_2B": {
       "pins": {
-        "1": "-DC_link"
+        "1": {
+          "net": "-DC_link",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1255,7 +1444,10 @@
     },
     "D_HSB": {
       "pins": {
-        "1": "+DC_link"
+        "1": {
+          "net": "+DC_link",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1263,7 +1455,10 @@
     },
     "G_HS_1B": {
       "pins": {
-        "1": "Gate_HS_1B"
+        "1": {
+          "net": "Gate_HS_1B",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1271,7 +1466,10 @@
     },
     "S_HS_1B": {
       "pins": {
-        "1": "Source_HSB"
+        "1": {
+          "net": "Source_HSB",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1279,7 +1477,10 @@
     },
     "G_HS_2B": {
       "pins": {
-        "1": "Gate_HS_2B"
+        "1": {
+          "net": "Gate_HS_2B",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1287,7 +1488,10 @@
     },
     "S_HS_2B": {
       "pins": {
-        "1": "Source_HSB"
+        "1": {
+          "net": "Source_HSB",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1295,7 +1499,10 @@
     },
     "VCC_ISO_LSB": {
       "pins": {
-        "1": "5V_LSB"
+        "1": {
+          "net": "5V_LSB",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1303,7 +1510,10 @@
     },
     "V_TEMP_LSB": {
       "pins": {
-        "1": "Temp_LSB"
+        "1": {
+          "net": "Temp_LSB",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1323,7 +1533,10 @@
     },
     "BD2B": {
       "pins": {
-        "1": "-DC_link"
+        "1": {
+          "net": "-DC_link",
+          "type": "passive"
+        }
       },
       "description": "Used to connect carry the currents  from the GND logic plane back to the -DC_link plane, which is originated by parasitic capacitive coupling between Halfbridge output and GND plane",
       "comment": "Place far from sensitive circuits",
@@ -1331,7 +1544,10 @@
     },
     "VCC_ISO_HSB": {
       "pins": {
-        "1": "5V_HSB"
+        "1": {
+          "net": "5V_HSB",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1339,7 +1555,10 @@
     },
     "V_TEMP_HSB": {
       "pins": {
-        "1": "Temp_HSB"
+        "1": {
+          "net": "Temp_HSB",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1347,7 +1566,10 @@
     },
     "GND_SENSE_HSB": {
       "pins": {
-        "1": "Source_HSB"
+        "1": {
+          "net": "Source_HSB",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1355,7 +1577,10 @@
     },
     "GND_SENSE_LSB": {
       "pins": {
-        "1": "-DC_link"
+        "1": {
+          "net": "-DC_link",
+          "type": "passive"
+        }
       },
       "description": "Interconection between gatedriver and main board",
       "comment": "Board interconection",
@@ -1365,15 +1590,18 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "Gate_HS_1A"
+          "net": "Gate_HS_1A",
+          "type": "passive"
         },
         "2": {
           "name": "D",
-          "net": "+DC_link"
+          "net": "+DC_link",
+          "type": "passive"
         },
         "3": {
           "name": "S",
-          "net": "Source_HSA"
+          "net": "Source_HSA",
+          "type": "passive"
         }
       },
       "description": "Power Mosfet N channel, TO-247, multiple part numbers",
@@ -1384,15 +1612,18 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "Gate_LS_1A"
+          "net": "Gate_LS_1A",
+          "type": "passive"
         },
         "2": {
           "name": "D",
-          "net": "Source_HSA"
+          "net": "Source_HSA",
+          "type": "passive"
         },
         "3": {
           "name": "S",
-          "net": "-DC_link"
+          "net": "-DC_link",
+          "type": "passive"
         }
       },
       "description": "Power Mosfet N channel, TO-247, multiple part numbers",
@@ -1401,7 +1632,10 @@
     },
     "OUTA": {
       "pins": {
-        "1": "Source_HSA"
+        "1": {
+          "net": "Source_HSA",
+          "type": "power"
+        }
       },
       "description": "TERM SCREW M4 6 PIN PCB",
       "comment": "Power connector",
@@ -1411,15 +1645,18 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "Gate_HS_2A"
+          "net": "Gate_HS_2A",
+          "type": "passive"
         },
         "2": {
           "name": "D",
-          "net": "+DC_link"
+          "net": "+DC_link",
+          "type": "passive"
         },
         "3": {
           "name": "S",
-          "net": "Source_HSA"
+          "net": "Source_HSA",
+          "type": "passive"
         }
       },
       "description": "Power Mosfet N channel, TO-247, multiple part numbers",
@@ -1430,15 +1667,18 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "Gate_LS_2A"
+          "net": "Gate_LS_2A",
+          "type": "passive"
         },
         "2": {
           "name": "D",
-          "net": "Source_HSA"
+          "net": "Source_HSA",
+          "type": "passive"
         },
         "3": {
           "name": "S",
-          "net": "-DC_link"
+          "net": "-DC_link",
+          "type": "passive"
         }
       },
       "description": "Power Mosfet N channel, TO-247, multiple part numbers",
@@ -1447,7 +1687,10 @@
     },
     "BD1A": {
       "pins": {
-        "1": "Heatsink"
+        "1": {
+          "net": "Heatsink",
+          "type": "passive"
+        }
       },
       "description": "Used to connect the net to the heatsink below board",
       "comment": "Place near output plane",
@@ -1455,8 +1698,14 @@
     },
     "C9A": {
       "pins": {
-        "1": "Heatsink",
-        "2": "-DC_link"
+        "1": {
+          "net": "Heatsink",
+          "type": "passive"
+        },
+        "2": {
+          "net": "-DC_link",
+          "type": "passive"
+        }
       },
       "description": "High Voltage Capacitor to filter EMC from heatsink",
       "comment": "Capacitor type Y",
@@ -1464,105 +1713,150 @@
     },
     "TP7A": {
       "pins": {
-        "1": "Gate_HS_2A"
+        "1": {
+          "net": "Gate_HS_2A",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Test point"
     },
     "TP1A": {
       "pins": {
-        "1": "Gate_HS_1A"
+        "1": {
+          "net": "Gate_HS_1A",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Test point"
     },
     "TP9A": {
       "pins": {
-        "1": "+DC_link"
+        "1": {
+          "net": "+DC_link",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Test point"
     },
     "TP4A": {
       "pins": {
-        "1": "+DC_link"
+        "1": {
+          "net": "+DC_link",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Test point"
     },
     "TP5A": {
       "pins": {
-        "1": "Source_HSA"
+        "1": {
+          "net": "Source_HSA",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Test point"
     },
     "TP10A": {
       "pins": {
-        "1": "Source_HSA"
+        "1": {
+          "net": "Source_HSA",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Test point"
     },
     "TP11A": {
       "pins": {
-        "1": "Source_HSA"
+        "1": {
+          "net": "Source_HSA",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Test point"
     },
     "TP6A": {
       "pins": {
-        "1": "-DC_link"
+        "1": {
+          "net": "-DC_link",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Test point"
     },
     "TP12A": {
       "pins": {
-        "1": "-DC_link"
+        "1": {
+          "net": "-DC_link",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Test point"
     },
     "TP8A": {
       "pins": {
-        "1": "Gate_LS_2A"
+        "1": {
+          "net": "Gate_LS_2A",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Test point"
     },
     "TP2A": {
       "pins": {
-        "1": "Gate_LS_1A"
+        "1": {
+          "net": "Gate_LS_1A",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Test point"
     },
     "TP13A": {
       "pins": {
-        "1": "Source_HSA"
+        "1": {
+          "net": "Source_HSA",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Test point"
     },
     "TP15A": {
       "pins": {
-        "1": "Source_HSA"
+        "1": {
+          "net": "Source_HSA",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Test point"
     },
     "TP16A": {
       "pins": {
-        "1": "-DC_link"
+        "1": {
+          "net": "-DC_link",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Test point"
     },
     "TP14A": {
       "pins": {
-        "1": "-DC_link"
+        "1": {
+          "net": "-DC_link",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Test point"
@@ -1571,15 +1865,18 @@
       "pins": {
         "1": {
           "name": "VDD",
-          "net": "5V_HSA"
+          "net": "5V_HSA",
+          "type": "power"
         },
         "2": {
           "name": "VOUT",
-          "net": "Temp_HSA"
+          "net": "Temp_HSA",
+          "type": "power"
         },
         "3": {
           "name": "GND",
-          "net": "Source_HSA"
+          "net": "Source_HSA",
+          "type": "power"
         }
       },
       "description": "Low-Power Linear Active Thermistor IC, 3-Pin SOT-23, Extended Temperature, Tape and Reel",
@@ -1590,15 +1887,18 @@
       "pins": {
         "1": {
           "name": "VDD",
-          "net": "5V_LSA"
+          "net": "5V_LSA",
+          "type": "power"
         },
         "2": {
           "name": "VOUT",
-          "net": "Temp_LSA"
+          "net": "Temp_LSA",
+          "type": "power"
         },
         "3": {
           "name": "GND",
-          "net": "-DC_link"
+          "net": "-DC_link",
+          "type": "power"
         }
       },
       "description": "Low-Power Linear Active Thermistor IC, 3-Pin SOT-23, Extended Temperature, Tape and Reel",
@@ -1607,15 +1907,24 @@
     },
     "TP3A": {
       "pins": {
-        "1": "Source_HSA"
+        "1": {
+          "net": "Source_HSA",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Test point"
     },
     "C3A": {
       "pins": {
-        "1": "5V_HSA",
-        "2": "Source_HSA"
+        "1": {
+          "net": "5V_HSA",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Source_HSA",
+          "type": "passive"
+        }
       },
       "description": "SMD ceramic capacitor 0805",
       "comment": "0805",
@@ -1623,8 +1932,14 @@
     },
     "C24A": {
       "pins": {
-        "1": "5V_HSA",
-        "2": "Source_HSA"
+        "1": {
+          "net": "5V_HSA",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Source_HSA",
+          "type": "passive"
+        }
       },
       "description": "SMD ceramic capacitor 0805",
       "comment": "0805",
@@ -1632,8 +1947,14 @@
     },
     "C23A": {
       "pins": {
-        "1": "5V_LSA",
-        "2": "-DC_link"
+        "1": {
+          "net": "5V_LSA",
+          "type": "passive"
+        },
+        "2": {
+          "net": "-DC_link",
+          "type": "passive"
+        }
       },
       "description": "SMD ceramic capacitor 0805",
       "comment": "0805",
@@ -1641,8 +1962,14 @@
     },
     "C25A": {
       "pins": {
-        "1": "5V_LSA",
-        "2": "-DC_link"
+        "1": {
+          "net": "5V_LSA",
+          "type": "passive"
+        },
+        "2": {
+          "net": "-DC_link",
+          "type": "passive"
+        }
       },
       "description": "SMD ceramic capacitor 0805",
       "comment": "0805",
@@ -1652,15 +1979,18 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "Gate_HS_1B"
+          "net": "Gate_HS_1B",
+          "type": "passive"
         },
         "2": {
           "name": "D",
-          "net": "+DC_link"
+          "net": "+DC_link",
+          "type": "passive"
         },
         "3": {
           "name": "S",
-          "net": "Source_HSB"
+          "net": "Source_HSB",
+          "type": "passive"
         }
       },
       "description": "Power Mosfet N channel, TO-247, multiple part numbers",
@@ -1671,15 +2001,18 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "Gate_LS_1B"
+          "net": "Gate_LS_1B",
+          "type": "passive"
         },
         "2": {
           "name": "D",
-          "net": "Source_HSB"
+          "net": "Source_HSB",
+          "type": "passive"
         },
         "3": {
           "name": "S",
-          "net": "-DC_link"
+          "net": "-DC_link",
+          "type": "passive"
         }
       },
       "description": "Power Mosfet N channel, TO-247, multiple part numbers",
@@ -1688,7 +2021,10 @@
     },
     "OUTB": {
       "pins": {
-        "1": "Source_HSB"
+        "1": {
+          "net": "Source_HSB",
+          "type": "power"
+        }
       },
       "description": "TERM SCREW M4 6 PIN PCB",
       "comment": "Power connector",
@@ -1698,15 +2034,18 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "Gate_HS_2B"
+          "net": "Gate_HS_2B",
+          "type": "passive"
         },
         "2": {
           "name": "D",
-          "net": "+DC_link"
+          "net": "+DC_link",
+          "type": "passive"
         },
         "3": {
           "name": "S",
-          "net": "Source_HSB"
+          "net": "Source_HSB",
+          "type": "passive"
         }
       },
       "description": "Power Mosfet N channel, TO-247, multiple part numbers",
@@ -1717,15 +2056,18 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "Gate_LS_2B"
+          "net": "Gate_LS_2B",
+          "type": "passive"
         },
         "2": {
           "name": "D",
-          "net": "Source_HSB"
+          "net": "Source_HSB",
+          "type": "passive"
         },
         "3": {
           "name": "S",
-          "net": "-DC_link"
+          "net": "-DC_link",
+          "type": "passive"
         }
       },
       "description": "Power Mosfet N channel, TO-247, multiple part numbers",
@@ -1734,7 +2076,10 @@
     },
     "BD1B": {
       "pins": {
-        "1": "Heatsink"
+        "1": {
+          "net": "Heatsink",
+          "type": "passive"
+        }
       },
       "description": "Used to connect the net to the heatsink below board",
       "comment": "Place near output plane",
@@ -1742,8 +2087,14 @@
     },
     "C9B": {
       "pins": {
-        "1": "Heatsink",
-        "2": "-DC_link"
+        "1": {
+          "net": "Heatsink",
+          "type": "passive"
+        },
+        "2": {
+          "net": "-DC_link",
+          "type": "passive"
+        }
       },
       "description": "High Voltage Capacitor to filter EMC from heatsink",
       "comment": "Capacitor type Y",
@@ -1751,105 +2102,150 @@
     },
     "TP7B": {
       "pins": {
-        "1": "Gate_HS_2B"
+        "1": {
+          "net": "Gate_HS_2B",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Test point"
     },
     "TP1B": {
       "pins": {
-        "1": "Gate_HS_1B"
+        "1": {
+          "net": "Gate_HS_1B",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Test point"
     },
     "TP9B": {
       "pins": {
-        "1": "+DC_link"
+        "1": {
+          "net": "+DC_link",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Test point"
     },
     "TP4B": {
       "pins": {
-        "1": "+DC_link"
+        "1": {
+          "net": "+DC_link",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Test point"
     },
     "TP5B": {
       "pins": {
-        "1": "Source_HSB"
+        "1": {
+          "net": "Source_HSB",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Test point"
     },
     "TP10B": {
       "pins": {
-        "1": "Source_HSB"
+        "1": {
+          "net": "Source_HSB",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Test point"
     },
     "TP11B": {
       "pins": {
-        "1": "Source_HSB"
+        "1": {
+          "net": "Source_HSB",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Test point"
     },
     "TP6B": {
       "pins": {
-        "1": "-DC_link"
+        "1": {
+          "net": "-DC_link",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Test point"
     },
     "TP12B": {
       "pins": {
-        "1": "-DC_link"
+        "1": {
+          "net": "-DC_link",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Test point"
     },
     "TP8B": {
       "pins": {
-        "1": "Gate_LS_2B"
+        "1": {
+          "net": "Gate_LS_2B",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Test point"
     },
     "TP2B": {
       "pins": {
-        "1": "Gate_LS_1B"
+        "1": {
+          "net": "Gate_LS_1B",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Test point"
     },
     "TP13B": {
       "pins": {
-        "1": "Source_HSB"
+        "1": {
+          "net": "Source_HSB",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Test point"
     },
     "TP15B": {
       "pins": {
-        "1": "Source_HSB"
+        "1": {
+          "net": "Source_HSB",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Test point"
     },
     "TP16B": {
       "pins": {
-        "1": "-DC_link"
+        "1": {
+          "net": "-DC_link",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Test point"
     },
     "TP14B": {
       "pins": {
-        "1": "-DC_link"
+        "1": {
+          "net": "-DC_link",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Test point"
@@ -1858,15 +2254,18 @@
       "pins": {
         "1": {
           "name": "VDD",
-          "net": "5V_HSB"
+          "net": "5V_HSB",
+          "type": "power"
         },
         "2": {
           "name": "VOUT",
-          "net": "Temp_HSB"
+          "net": "Temp_HSB",
+          "type": "power"
         },
         "3": {
           "name": "GND",
-          "net": "Source_HSB"
+          "net": "Source_HSB",
+          "type": "power"
         }
       },
       "description": "Low-Power Linear Active Thermistor IC, 3-Pin SOT-23, Extended Temperature, Tape and Reel",
@@ -1877,15 +2276,18 @@
       "pins": {
         "1": {
           "name": "VDD",
-          "net": "5V_LSB"
+          "net": "5V_LSB",
+          "type": "power"
         },
         "2": {
           "name": "VOUT",
-          "net": "Temp_LSB"
+          "net": "Temp_LSB",
+          "type": "power"
         },
         "3": {
           "name": "GND",
-          "net": "-DC_link"
+          "net": "-DC_link",
+          "type": "power"
         }
       },
       "description": "Low-Power Linear Active Thermistor IC, 3-Pin SOT-23, Extended Temperature, Tape and Reel",
@@ -1894,15 +2296,24 @@
     },
     "TP3B": {
       "pins": {
-        "1": "Source_HSB"
+        "1": {
+          "net": "Source_HSB",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Test point"
     },
     "C3B": {
       "pins": {
-        "1": "5V_HSB",
-        "2": "Source_HSB"
+        "1": {
+          "net": "5V_HSB",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Source_HSB",
+          "type": "passive"
+        }
       },
       "description": "SMD ceramic capacitor 0805",
       "comment": "0805",
@@ -1910,8 +2321,14 @@
     },
     "C24B": {
       "pins": {
-        "1": "5V_HSB",
-        "2": "Source_HSB"
+        "1": {
+          "net": "5V_HSB",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Source_HSB",
+          "type": "passive"
+        }
       },
       "description": "SMD ceramic capacitor 0805",
       "comment": "0805",
@@ -1919,8 +2336,14 @@
     },
     "C23B": {
       "pins": {
-        "1": "5V_LSB",
-        "2": "-DC_link"
+        "1": {
+          "net": "5V_LSB",
+          "type": "passive"
+        },
+        "2": {
+          "net": "-DC_link",
+          "type": "passive"
+        }
       },
       "description": "SMD ceramic capacitor 0805",
       "comment": "0805",
@@ -1928,8 +2351,14 @@
     },
     "C25B": {
       "pins": {
-        "1": "5V_LSB",
-        "2": "-DC_link"
+        "1": {
+          "net": "5V_LSB",
+          "type": "passive"
+        },
+        "2": {
+          "net": "-DC_link",
+          "type": "passive"
+        }
       },
       "description": "SMD ceramic capacitor 0805",
       "comment": "0805",
@@ -1937,27 +2366,54 @@
     },
     "P1": {
       "pins": {
-        "1": "NetIN_HSA_1",
-        "2": "NetIN_LSA_1",
-        "3": "NetERRORA_1"
+        "1": {
+          "net": "NetIN_HSA_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetIN_LSA_1",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetERRORA_1",
+          "type": "passive"
+        }
       },
       "description": "Header 2.54mm 3 pins",
       "comment": "HEADER 3 pins"
     },
     "P2": {
       "pins": {
-        "1": "NetERRORB_1",
-        "2": "NetIN_LSB_1",
-        "3": "NetIN_HSB_1"
+        "1": {
+          "net": "NetERRORB_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetIN_LSB_1",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetIN_HSB_1",
+          "type": "passive"
+        }
       },
       "description": "Header 2.54mm 3 pins",
       "comment": "HEADER 3 pins"
     },
     "P4": {
       "pins": {
-        "1": "+5V",
-        "2": "Enable",
-        "3": "GND"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Enable",
+          "type": "passive"
+        },
+        "3": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "Header 2.54mm 3 pins",
       "comment": "HEADER 3 pins"
@@ -1966,47 +2422,58 @@
       "pins": {
         "1": {
           "name": "VIN",
-          "net": "Vin"
+          "net": "Vin",
+          "type": "power"
         },
         "2": {
           "name": "RT",
-          "net": "NetR3_2"
+          "net": "NetR3_2",
+          "type": "input"
         },
         "3": {
           "name": "PGD",
-          "net": "NetR5_2"
+          "net": "NetR5_2",
+          "type": "output"
         },
         "4": {
           "name": "SS",
-          "net": "NetC16_1"
+          "net": "NetC16_1",
+          "type": "input"
         },
         "5": {
           "name": "SGND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "6": {
           "name": "FB",
-          "net": "NetR4_1"
+          "net": "NetR4_1",
+          "type": "input"
         },
         "7": {
           "name": "CSG",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "8": {
           "name": "CS",
-          "net": "NetD1_1"
+          "net": "NetD1_1",
+          "type": "input"
         },
         "9": {
           "name": "SW",
-          "net": "Buck_SW"
+          "net": "Buck_SW",
+          "type": "output"
         },
         "10": {
           "name": "BST",
-          "net": "NetC11_1"
+          "net": "NetC11_1",
+          "type": "input"
         },
         "11": {
           "name": "TH_PAD",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "description": "IC REG BUCK ADJ 2A 10MSOP",
@@ -2015,8 +2482,14 @@
     },
     "C17": {
       "pins": {
-        "1": "Vin",
-        "2": "GND"
+        "1": {
+          "net": "Vin",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "SMD ceramic capacitor 0805",
       "comment": "Place close to input",
@@ -2024,8 +2497,14 @@
     },
     "C10": {
       "pins": {
-        "1": "Vin",
-        "2": "GND"
+        "1": {
+          "net": "Vin",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "SMD ceramic capacitor 0805",
       "comment": "Place close to buck IC",
@@ -2033,8 +2512,14 @@
     },
     "C16": {
       "pins": {
-        "1": "NetC16_1",
-        "2": "GND"
+        "1": {
+          "net": "NetC16_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "SMD ceramic capacitor 0805",
       "comment": "Capacitor 0805",
@@ -2042,8 +2527,14 @@
     },
     "R5": {
       "pins": {
-        "1": "+5V",
-        "2": "NetR5_2"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR5_2",
+          "type": "passive"
+        }
       },
       "description": "SMD resistor 0805",
       "comment": "Resistor 0805",
@@ -2051,8 +2542,14 @@
     },
     "R3": {
       "pins": {
-        "1": "Vin",
-        "2": "NetR3_2"
+        "1": {
+          "net": "Vin",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR3_2",
+          "type": "passive"
+        }
       },
       "description": "SMD resistor 0805",
       "comment": "Resistor 0805",
@@ -2060,8 +2557,14 @@
     },
     "C11": {
       "pins": {
-        "1": "NetC11_1",
-        "2": "Buck_SW"
+        "1": {
+          "net": "NetC11_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Buck_SW",
+          "type": "passive"
+        }
       },
       "description": "SMD ceramic capacitor 0805",
       "comment": "Capacitor 0805",
@@ -2069,8 +2572,14 @@
     },
     "L1": {
       "pins": {
-        "1": "Buck_SW",
-        "2": "+12V"
+        "1": {
+          "net": "Buck_SW",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+12V",
+          "type": "passive"
+        }
       },
       "description": "Inductor 10UH 3.1A 50 mΩ SMD",
       "comment": "SRN8040-100M",
@@ -2078,8 +2587,14 @@
     },
     "R4": {
       "pins": {
-        "1": "NetR4_1",
-        "2": "+12V"
+        "1": {
+          "net": "NetR4_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+12V",
+          "type": "passive"
+        }
       },
       "description": "SMD resistor 0805",
       "comment": "Resistor 0805",
@@ -2087,8 +2602,14 @@
     },
     "R7": {
       "pins": {
-        "1": "GND",
-        "2": "NetR4_1"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR4_1",
+          "type": "passive"
+        }
       },
       "description": "SMD resistor 0805",
       "comment": "Resistor 0805",
@@ -2096,8 +2617,14 @@
     },
     "C12": {
       "pins": {
-        "1": "+12V",
-        "2": "GND"
+        "1": {
+          "net": "+12V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "SMD ceramic capacitor 0805",
       "comment": "Capacitor 0805",
@@ -2105,8 +2632,14 @@
     },
     "C13": {
       "pins": {
-        "1": "+12V",
-        "2": "GND"
+        "1": {
+          "net": "+12V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "SMD ceramic capacitor 0805",
       "comment": "Capacitor 0805",
@@ -2114,8 +2647,14 @@
     },
     "C14": {
       "pins": {
-        "1": "+12V",
-        "2": "GND"
+        "1": {
+          "net": "+12V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "SMD ceramic capacitor 0805",
       "comment": "Capacitor 0805",
@@ -2123,8 +2662,14 @@
     },
     "C15": {
       "pins": {
-        "1": "+12V",
-        "2": "GND"
+        "1": {
+          "net": "+12V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "SMD ceramic capacitor 0805",
       "comment": "Capacitor 0805",
@@ -2134,15 +2679,18 @@
       "pins": {
         "1": {
           "name": "IN",
-          "net": "+12V"
+          "net": "+12V",
+          "type": "power"
         },
         "2": {
           "name": "COM",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "3": {
           "name": "OUT",
-          "net": "+5V"
+          "net": "+5V",
+          "type": "power"
         }
       },
       "description": "IC REG LINEAR 5V 1A DPAK-3",
@@ -2151,8 +2699,14 @@
     },
     "R9": {
       "pins": {
-        "1": "NetLE1_1",
-        "2": "+5V"
+        "1": {
+          "net": "NetLE1_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5V",
+          "type": "passive"
+        }
       },
       "description": "SMD resistor 0805",
       "comment": "Resistor 0805",
@@ -2160,8 +2714,14 @@
     },
     "C19": {
       "pins": {
-        "1": "+12V",
-        "2": "GND"
+        "1": {
+          "net": "+12V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "SMD ceramic capacitor 0805",
       "comment": "Place close do MC7805",
@@ -2169,8 +2729,14 @@
     },
     "C18": {
       "pins": {
-        "1": "+5V",
-        "2": "GND"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "SMD ceramic capacitor 0805",
       "comment": "Place close do MC7805",
@@ -2180,11 +2746,13 @@
       "pins": {
         "1": {
           "name": "A",
-          "net": "NetD1_1"
+          "net": "NetD1_1",
+          "type": "passive"
         },
         "2": {
           "name": "K",
-          "net": "Buck_SW"
+          "net": "Buck_SW",
+          "type": "passive"
         }
       },
       "description": "DIODE SCHOTTKY 60V 3A SOD128",
@@ -2192,17 +2760,32 @@
     },
     "P3": {
       "pins": {
-        "1": "GND",
-        "2": "Vin",
-        "3": "Earth"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Vin",
+          "type": "passive"
+        },
+        "3": {
+          "net": "Earth",
+          "type": "passive"
+        }
       },
       "description": "Header 2.54mm 3 pins",
       "comment": "HEADER 3 pins"
     },
     "LE1": {
       "pins": {
-        "1": "NetLE1_1",
-        "2": "GND"
+        "1": {
+          "net": "NetLE1_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "LEDSMD 0805",
       "comment": "LEDSMD 0805",
@@ -2210,8 +2793,14 @@
     },
     "R6": {
       "pins": {
-        "1": "GND",
-        "2": "NetD1_1"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetD1_1",
+          "type": "passive"
+        }
       },
       "description": "RESISTOR 0.05 OHM 1% 1W SMD 1206",
       "comment": "MCS1632R050FER",
@@ -2219,8 +2808,14 @@
     },
     "H1": {
       "pins": {
-        "1": "+12V",
-        "2": "GND"
+        "1": {
+          "net": "+12V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "Screw Terminal 2 pins",
       "comment": "Screw Terminal 2 pins",
@@ -2228,8 +2823,14 @@
     },
     "H2": {
       "pins": {
-        "1": "GND",
-        "2": "Vin"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Vin",
+          "type": "passive"
+        }
       },
       "description": "Screw Terminal 2 pins",
       "comment": "Screw Terminal 2 pins",
@@ -2237,8 +2838,14 @@
     },
     "C20": {
       "pins": {
-        "1": "Vin",
-        "2": "GND"
+        "1": {
+          "net": "Vin",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "SMD ceramic capacitor 0805",
       "comment": "Place close to buck IC",
@@ -2246,8 +2853,14 @@
     },
     "C21": {
       "pins": {
-        "1": "+5V",
-        "2": "GND"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "SMD ceramic capacitor 0805",
       "comment": "Place close do MC7805",
@@ -2255,28 +2868,40 @@
     },
     "TP18": {
       "pins": {
-        "1": "GND"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Name of signal"
     },
     "TP17": {
       "pins": {
-        "1": "+5V"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Name of signal"
     },
     "TP19": {
       "pins": {
-        "1": "+12V"
+        "1": {
+          "net": "+12V",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Name of signal"
     },
     "TP20": {
       "pins": {
-        "1": "GND"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "Test point to probe with oscilloscope",
       "comment": "Name of signal"

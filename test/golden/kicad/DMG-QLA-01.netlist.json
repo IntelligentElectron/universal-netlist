@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T20:27:50.042Z",
-    "netlistHash": "sha256:04963b3d7a6b3cb54900f65f69d30340730f71db3a3dde8f4504f24f6b88c61f",
+    "generatedAt": "2026-11-21T21:40:46.665Z",
+    "netlistHash": "sha256:99629e2ffd95d00c4550e88dcbb1b3f9799c6ac0c6bff7d132322332a8d41eaf",
     "origin": {
       "type": "vendor",
       "source": {
@@ -276,32 +276,56 @@
   "components": {
     "C1": {
       "pins": {
-        "1": "+5V",
-        "2": "GND"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "10u",
       "description": "Polarized capacitor"
     },
     "C2": {
       "pins": {
-        "1": "/~{RESET}",
-        "2": "GND"
+        "1": {
+          "net": "/~{RESET}",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100n",
       "description": "Unpolarized capacitor"
     },
     "C3": {
       "pins": {
-        "1": "/XO",
-        "2": "GND"
+        "1": {
+          "net": "/XO",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "33p",
       "description": "Unpolarized capacitor"
     },
     "C4": {
       "pins": {
-        "1": "/XI",
-        "2": "GND"
+        "1": {
+          "net": "/XI",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "33p",
       "description": "Unpolarized capacitor"
@@ -310,7 +334,8 @@
       "pins": {
         "1": {
           "name": "Pin_1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "value": "Conn_01x01",
@@ -320,23 +345,28 @@
       "pins": {
         "1": {
           "name": "Pin_1",
-          "net": "/P1.SC"
+          "net": "/P1.SC",
+          "type": "passive"
         },
         "2": {
           "name": "Pin_2",
-          "net": "+5V"
+          "net": "+5V",
+          "type": "passive"
         },
         "3": {
           "name": "Pin_3",
-          "net": "/P1.SI"
+          "net": "/P1.SI",
+          "type": "passive"
         },
         "4": {
           "name": "Pin_4",
-          "net": "/P1.SO"
+          "net": "/P1.SO",
+          "type": "passive"
         },
         "5": {
           "name": "Pin_5",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "value": "Conn_01x05",
@@ -346,29 +376,38 @@
       "pins": {
         "1": {
           "name": "VDD",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "2": {
           "name": "SO",
-          "net": "/P2.SO"
+          "net": "/P2.SO",
+          "type": "passive"
         },
         "3": {
           "name": "SI",
-          "net": "/P2.SI"
+          "net": "/P2.SI",
+          "type": "passive"
         },
         "4": {
           "name": "SD",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "5": {
           "name": "SC",
-          "net": "/P2.SC"
+          "net": "/P2.SC",
+          "type": "passive"
         },
         "6": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
-        "SH": "GND"
+        "SH": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "GameBoy_LinkPort",
       "description": "Game Boy link port"
@@ -377,29 +416,38 @@
       "pins": {
         "1": {
           "name": "VDD",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "2": {
           "name": "SO",
-          "net": "/P3.SO"
+          "net": "/P3.SO",
+          "type": "passive"
         },
         "3": {
           "name": "SI",
-          "net": "/P3.SI"
+          "net": "/P3.SI",
+          "type": "passive"
         },
         "4": {
           "name": "SD",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "5": {
           "name": "SC",
-          "net": "/P3.SC"
+          "net": "/P3.SC",
+          "type": "passive"
         },
         "6": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
-        "SH": "GND"
+        "SH": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "GameBoy_LinkPort",
       "description": "Game Boy link port"
@@ -408,154 +456,232 @@
       "pins": {
         "1": {
           "name": "VDD",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "2": {
           "name": "SO",
-          "net": "/P4.SO"
+          "net": "/P4.SO",
+          "type": "passive"
         },
         "3": {
           "name": "SI",
-          "net": "/P4.SI"
+          "net": "/P4.SI",
+          "type": "passive"
         },
         "4": {
           "name": "SD",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "5": {
           "name": "SC",
-          "net": "/P4.SC"
+          "net": "/P4.SC",
+          "type": "passive"
         },
         "6": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
-        "SH": "GND"
+        "SH": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "GameBoy_LinkPort",
       "description": "Game Boy link port"
     },
     "R1": {
       "pins": {
-        "1": "/P1.SI",
-        "2": "GND"
+        "1": {
+          "net": "/P1.SI",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R2": {
       "pins": {
-        "1": "/P2.SI",
-        "2": "GND"
+        "1": {
+          "net": "/P2.SI",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R3": {
       "pins": {
-        "1": "/P3.SI",
-        "2": "GND"
+        "1": {
+          "net": "/P3.SI",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R4": {
       "pins": {
-        "1": "/P4.SI",
-        "2": "GND"
+        "1": {
+          "net": "/P4.SI",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R5": {
       "pins": {
-        "1": "+5V",
-        "2": "/~{RESET}"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/~{RESET}",
+          "type": "passive"
+        }
       },
       "value": "100k",
       "description": "Resistor"
     },
     "R6": {
       "pins": {
-        "1": "/XI",
-        "2": "/XO"
+        "1": {
+          "net": "/XI",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/XO",
+          "type": "passive"
+        }
       },
       "value": "1M",
       "description": "Resistor"
     },
     "TP1": {
       "pins": {
-        "1": "+5V"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        }
       },
       "value": "P1.+5V",
       "description": "test point"
     },
     "TP2": {
       "pins": {
-        "1": "/P1.SC"
+        "1": {
+          "net": "/P1.SC",
+          "type": "passive"
+        }
       },
       "value": "P1.SC",
       "description": "test point"
     },
     "TP3": {
       "pins": {
-        "1": "/P1.SI"
+        "1": {
+          "net": "/P1.SI",
+          "type": "passive"
+        }
       },
       "value": "P1.SI",
       "description": "test point"
     },
     "TP4": {
       "pins": {
-        "1": "/P1.SO"
+        "1": {
+          "net": "/P1.SO",
+          "type": "passive"
+        }
       },
       "value": "P1.SO",
       "description": "test point"
     },
     "TP5": {
       "pins": {
-        "1": "GND"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "P1.GND",
       "description": "test point"
     },
     "TP6": {
       "pins": {
-        "1": "/P2.SC"
+        "1": {
+          "net": "/P2.SC",
+          "type": "passive"
+        }
       },
       "value": "P2.SC",
       "description": "test point"
     },
     "TP7": {
       "pins": {
-        "1": "/P2.SO"
+        "1": {
+          "net": "/P2.SO",
+          "type": "passive"
+        }
       },
       "value": "P2.SO",
       "description": "test point"
     },
     "TP8": {
       "pins": {
-        "1": "/P3.SO"
+        "1": {
+          "net": "/P3.SO",
+          "type": "passive"
+        }
       },
       "value": "P3.SO",
       "description": "test point"
     },
     "TP9": {
       "pins": {
-        "1": "/P3.SC"
+        "1": {
+          "net": "/P3.SC",
+          "type": "passive"
+        }
       },
       "value": "P3.SC",
       "description": "test point"
     },
     "TP10": {
       "pins": {
-        "1": "/P4.SO"
+        "1": {
+          "net": "/P4.SO",
+          "type": "passive"
+        }
       },
       "value": "P4.SO",
       "description": "test point"
     },
     "TP11": {
       "pins": {
-        "1": "/P4.SC"
+        "1": {
+          "net": "/P4.SC",
+          "type": "passive"
+        }
       },
       "value": "P4.SC",
       "description": "test point"
@@ -564,115 +690,143 @@
       "pins": {
         "1": {
           "name": "~{RESET}",
-          "net": "/~{RESET}"
+          "net": "/~{RESET}",
+          "type": "input"
         },
         "2": {
           "name": "~{IRQ}",
-          "net": "+5V"
+          "net": "+5V",
+          "type": "input"
         },
         "3": {
           "name": "PA7",
-          "net": "/P4.SI"
+          "net": "/P4.SI",
+          "type": "bidirectional"
         },
         "4": {
           "name": "PA6",
-          "net": "/P3.SI"
+          "net": "/P3.SI",
+          "type": "bidirectional"
         },
         "5": {
           "name": "PA5",
-          "net": "/P2.SI"
+          "net": "/P2.SI",
+          "type": "bidirectional"
         },
         "6": {
           "name": "PA4",
-          "net": "/P1.SI"
+          "net": "/P1.SI",
+          "type": "bidirectional"
         },
         "7": {
           "name": "PA3",
-          "net": "/P4.SO"
+          "net": "/P4.SO",
+          "type": "bidirectional"
         },
         "8": {
           "name": "PA2",
-          "net": "/P3.SO"
+          "net": "/P3.SO",
+          "type": "bidirectional"
         },
         "9": {
           "name": "PA1",
-          "net": "/P2.SO"
+          "net": "/P2.SO",
+          "type": "bidirectional"
         },
         "10": {
           "name": "PA0",
-          "net": "/P1.SO"
+          "net": "/P1.SO",
+          "type": "bidirectional"
         },
         "11": {
           "name": "PB5/SDO",
-          "net": "GND"
+          "net": "GND",
+          "type": "bidirectional"
         },
         "12": {
           "name": "PB6/SDI",
-          "net": "GND"
+          "net": "GND",
+          "type": "bidirectional"
         },
         "13": {
           "name": "PB7/SCK",
-          "net": "GND"
+          "net": "GND",
+          "type": "bidirectional"
         },
         "14": {
           "name": "V_{SS}",
-          "net": "GND"
+          "net": "GND",
+          "type": "power_in"
         },
         "15": {
           "name": "PC7",
-          "net": "+5V"
+          "net": "+5V",
+          "type": "bidirectional"
         },
         "16": {
           "name": "PC6",
-          "net": "+5V"
+          "net": "+5V",
+          "type": "bidirectional"
         },
         "17": {
           "name": "PC5",
-          "net": "+5V"
+          "net": "+5V",
+          "type": "bidirectional"
         },
         "18": {
           "name": "PC4",
-          "net": "+5V"
+          "net": "+5V",
+          "type": "bidirectional"
         },
         "19": {
           "name": "PC3",
-          "net": "/P1.SC"
+          "net": "/P1.SC",
+          "type": "bidirectional"
         },
         "20": {
           "name": "PC2",
-          "net": "/P2.SC"
+          "net": "/P2.SC",
+          "type": "bidirectional"
         },
         "21": {
           "name": "PC1",
-          "net": "/P4.SC"
+          "net": "/P4.SC",
+          "type": "bidirectional"
         },
         "22": {
           "name": "PC0",
-          "net": "/P3.SC"
+          "net": "/P3.SC",
+          "type": "bidirectional"
         },
         "23": {
           "name": "PD5",
-          "net": "+5V"
+          "net": "+5V",
+          "type": "bidirectional"
         },
         "24": {
           "name": "TCMP",
-          "net": ""
+          "net": "",
+          "type": "output"
         },
         "25": {
           "name": "TCAP/PD7",
-          "net": "+5V"
+          "net": "+5V",
+          "type": "input"
         },
         "26": {
           "name": "OSC2",
-          "net": "/XO"
+          "net": "/XO",
+          "type": "output"
         },
         "27": {
           "name": "OSC1",
-          "net": "/XI"
+          "net": "/XI",
+          "type": "input"
         },
         "28": {
           "name": "V_{DD}",
-          "net": "+5V"
+          "net": "+5V",
+          "type": "power_in"
         }
       },
       "value": "402038"
@@ -681,15 +835,18 @@
       "pins": {
         "1": {
           "name": "V_{CC}",
-          "net": "+5V"
+          "net": "+5V",
+          "type": "power_in"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power_in"
         },
         "3": {
           "name": "OUT",
-          "net": "/~{RESET}"
+          "net": "/~{RESET}",
+          "type": "open_collector"
         }
       },
       "value": "PST529G",
@@ -697,8 +854,14 @@
     },
     "X1": {
       "pins": {
-        "1": "/XI",
-        "2": "/XO"
+        "1": {
+          "net": "/XI",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/XO",
+          "type": "passive"
+        }
       },
       "value": "3.0MHz",
       "description": "Two pin crystal"

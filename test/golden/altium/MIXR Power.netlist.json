@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T20:27:49.644Z",
-    "netlistHash": "sha256:10c3e5f014d89dcb2023f73a7244dda1416044e7b45648b5d91cffc3774547b5",
+    "generatedAt": "2026-11-21T21:40:46.232Z",
+    "netlistHash": "sha256:55b2029baddfbfac665cecd802a513d6ebbaf97fe17f8440f7aee37c06b43b8f",
     "origin": {
       "type": "vendor",
       "source": {
@@ -1271,31 +1271,38 @@
       "pins": {
         "1": {
           "name": "FB",
-          "net": "NetR9_2"
+          "net": "NetR9_2",
+          "type": "passive"
         },
         "2": {
           "name": "COMP",
-          "net": "NetR12_1"
+          "net": "NetR12_1",
+          "type": "passive"
         },
         "3": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "4": {
           "name": "SW",
-          "net": "NetC8_1"
+          "net": "NetC8_1",
+          "type": "passive"
         },
         "5": {
           "name": "CTRL",
-          "net": "49V2_EN_7"
+          "net": "49V2_EN_7",
+          "type": "passive"
         },
         "6": {
           "name": "VIN",
-          "net": "NetC11_1"
+          "net": "NetC11_1",
+          "type": "passive"
         },
         "7": {
           "name": "PAD (GND)",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "mpn": "TPS61170DRVR",
@@ -1305,8 +1312,14 @@
     },
     "R9": {
       "pins": {
-        "1": "49V2",
-        "2": "NetR9_2"
+        "1": {
+          "net": "49V2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR9_2",
+          "type": "passive"
+        }
       },
       "mpn": "RT0603DRE07390KL",
       "manufacturer": "Yageo",
@@ -1315,16 +1328,28 @@
     },
     "R11": {
       "pins": {
-        "1": "NetR9_2",
-        "2": "GND"
+        "1": {
+          "net": "NetR9_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "RES SMD 10K OHM 1% 1/10W 0603",
       "comment": "RES 10K OHM 1% 1/10W 0603"
     },
     "L2": {
       "pins": {
-        "1": "NetC11_1",
-        "2": "NetC8_1"
+        "1": {
+          "net": "NetC11_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC8_1",
+          "type": "passive"
+        }
       },
       "mpn": "74438356220",
       "manufacturer": "Wurth Electronics",
@@ -1333,8 +1358,14 @@
     },
     "C8": {
       "pins": {
-        "1": "NetC8_1",
-        "2": "NetC8_2"
+        "1": {
+          "net": "NetC8_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC8_2",
+          "type": "passive"
+        }
       },
       "mpn": "CL31B105KCHNNNE",
       "manufacturer": "Samsung",
@@ -1343,8 +1374,14 @@
     },
     "D3": {
       "pins": {
-        "1": "NetC8_2",
-        "2": "NetC9_2"
+        "1": {
+          "net": "NetC8_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC9_2",
+          "type": "passive"
+        }
       },
       "mpn": "SL110PL-TP",
       "manufacturer": "MCC",
@@ -1353,8 +1390,14 @@
     },
     "D4": {
       "pins": {
-        "1": "NetC9_2",
-        "2": "NetC8_1"
+        "1": {
+          "net": "NetC9_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC8_1",
+          "type": "passive"
+        }
       },
       "mpn": "SL110PL-TP",
       "manufacturer": "MCC",
@@ -1363,8 +1406,14 @@
     },
     "D2": {
       "pins": {
-        "1": "49V2",
-        "2": "NetC8_2"
+        "1": {
+          "net": "49V2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC8_2",
+          "type": "passive"
+        }
       },
       "mpn": "SL110PL-TP",
       "manufacturer": "MCC",
@@ -1373,80 +1422,140 @@
     },
     "C9": {
       "pins": {
-        "1": "49V2",
-        "2": "NetC9_2"
+        "1": {
+          "net": "49V2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC9_2",
+          "type": "passive"
+        }
       },
       "description": "2.2µF ±20% 100V Ceramic Capacitor X7R 1206 (3216 Metric)",
       "comment": "CAP CER 2.2UF 100V ±20% X7R 1206"
     },
     "C10": {
       "pins": {
-        "1": "49V2",
-        "2": "NetC9_2"
+        "1": {
+          "net": "49V2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC9_2",
+          "type": "passive"
+        }
       },
       "description": "2.2µF ±20% 100V Ceramic Capacitor X7R 1206 (3216 Metric)",
       "comment": "CAP CER 2.2UF 100V ±20% X7R 1206"
     },
     "C15": {
       "pins": {
-        "1": "NetC9_2",
-        "2": "GND"
+        "1": {
+          "net": "NetC9_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "2.2µF ±20% 100V Ceramic Capacitor X7R 1206 (3216 Metric)",
       "comment": "CAP CER 2.2UF 100V ±20% X7R 1206"
     },
     "C16": {
       "pins": {
-        "1": "NetC9_2",
-        "2": "GND"
+        "1": {
+          "net": "NetC9_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "2.2µF ±20% 100V Ceramic Capacitor X7R 1206 (3216 Metric)",
       "comment": "CAP CER 2.2UF 100V ±20% X7R 1206"
     },
     "R12": {
       "pins": {
-        "1": "NetR12_1",
-        "2": "NetC17_1"
+        "1": {
+          "net": "NetR12_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC17_1",
+          "type": "passive"
+        }
       },
       "description": "RES SMD 10K OHM 1% 1/10W 0603",
       "comment": "RES 10K OHM 1% 1/10W 0603"
     },
     "C17": {
       "pins": {
-        "1": "NetC17_1",
-        "2": "GND"
+        "1": {
+          "net": "NetC17_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "10000pF ±5% 50V Ceramic Capacitor U2J 0603 (1608 Metric)",
       "comment": "CAP CER 10nF 50V 5% X7R 0603"
     },
     "C12": {
       "pins": {
-        "1": "NetC11_1",
-        "2": "GND"
+        "1": {
+          "net": "NetC11_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "2.2µF ±20% 100V Ceramic Capacitor X7R 1206 (3216 Metric)",
       "comment": "CAP CER 2.2UF 100V ±20% X7R 1206"
     },
     "C13": {
       "pins": {
-        "1": "NetC11_1",
-        "2": "GND"
+        "1": {
+          "net": "NetC11_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "2.2µF ±20% 100V Ceramic Capacitor X7R 1206 (3216 Metric)",
       "comment": "CAP CER 2.2UF 100V ±20% X7R 1206"
     },
     "C14": {
       "pins": {
-        "1": "NetC11_1",
-        "2": "GND"
+        "1": {
+          "net": "NetC11_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "1µF ±10% 50V Ceramic Capacitor X7R 0603 (1608 Metric)",
       "comment": "CAP CER 1UF 50V 10% X7R 0603"
     },
     "C11": {
       "pins": {
-        "1": "NetC11_1",
-        "2": "GND"
+        "1": {
+          "net": "NetC11_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "GRM155R71E104KE14D",
       "manufacturer": "Murata",
@@ -1455,8 +1564,14 @@
     },
     "F2": {
       "pins": {
-        "1": "V_SYS",
-        "2": "NetC11_1"
+        "1": {
+          "net": "V_SYS",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC11_1",
+          "type": "passive"
+        }
       },
       "mpn": "0466.375NR",
       "manufacturer": "Littelfuse",
@@ -1467,23 +1582,28 @@
       "pins": {
         "1": {
           "name": "VIN",
-          "net": "49V2"
+          "net": "49V2",
+          "type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "3": {
           "name": "SHDN",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "4": {
           "name": "FB",
-          "net": "NetC20_2"
+          "net": "NetC20_2",
+          "type": "passive"
         },
         "5": {
           "name": "VOUT",
-          "net": "48V"
+          "net": "48V",
+          "type": "passive"
         }
       },
       "mpn": "RT9072BGB",
@@ -1493,24 +1613,42 @@
     },
     "C21": {
       "pins": {
-        "1": "49V2",
-        "2": "GND"
+        "1": {
+          "net": "49V2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "0.1µF ±10% 100V Ceramic Capacitor X7R 0805 (2012 Metric)",
       "comment": "CAP CER 0.1UF 100V 10% X7R 0805"
     },
     "C22": {
       "pins": {
-        "1": "49V2",
-        "2": "GND"
+        "1": {
+          "net": "49V2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "0.1µF ±10% 100V Ceramic Capacitor X7R 0805 (2012 Metric)",
       "comment": "CAP CER 0.1UF 100V 10% X7R 0805"
     },
     "C18": {
       "pins": {
-        "1": "48V",
-        "2": "GND"
+        "1": {
+          "net": "48V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "CL31B105KCHNNNE",
       "manufacturer": "Samsung",
@@ -1519,8 +1657,14 @@
     },
     "C19": {
       "pins": {
-        "1": "48V",
-        "2": "GND"
+        "1": {
+          "net": "48V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "CL31B105KCHNNNE",
       "manufacturer": "Samsung",
@@ -1529,8 +1673,14 @@
     },
     "R15": {
       "pins": {
-        "1": "48V",
-        "2": "NetC20_2"
+        "1": {
+          "net": "48V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC20_2",
+          "type": "passive"
+        }
       },
       "mpn": "RT0603BRD071ML",
       "manufacturer": "Yageo",
@@ -1539,8 +1689,14 @@
     },
     "R16": {
       "pins": {
-        "1": "NetC20_2",
-        "2": "GND"
+        "1": {
+          "net": "NetC20_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "ERJ-PB3B2672V",
       "manufacturer": "Panasonic",
@@ -1549,8 +1705,14 @@
     },
     "C20": {
       "pins": {
-        "1": "48V",
-        "2": "NetC20_2"
+        "1": {
+          "net": "48V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC20_2",
+          "type": "passive"
+        }
       },
       "mpn": "CC0603JRNPO0BN270",
       "manufacturer": "Yageo",
@@ -1561,19 +1723,23 @@
       "pins": {
         "1": {
           "name": "+Control",
-          "net": "NetR17_2"
+          "net": "NetR17_2",
+          "type": "passive"
         },
         "2": {
           "name": "-Control",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "3": {
           "name": "Load",
-          "net": "48V_SW"
+          "net": "48V_SW",
+          "type": "passive"
         },
         "4": {
           "name": "Load",
-          "net": "48V"
+          "net": "48V",
+          "type": "passive"
         }
       },
       "mpn": "CPC1017NTR",
@@ -1583,8 +1749,14 @@
     },
     "R17": {
       "pins": {
-        "1": "ESP32_PWR_PE_GP1_PHANTOM_PWR_EN",
-        "2": "NetR17_2"
+        "1": {
+          "net": "ESP32_PWR_PE_GP1_PHANTOM_PWR_EN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR17_2",
+          "type": "passive"
+        }
       },
       "mpn": "RT0402BRE071KL",
       "manufacturer": "Yageo",
@@ -1595,15 +1767,18 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "NetQ1_1"
+          "net": "NetQ1_1",
+          "type": "passive"
         },
         "2": {
           "name": "S",
-          "net": "NetC11_1"
+          "net": "NetC11_1",
+          "type": "passive"
         },
         "3": {
           "name": "D",
-          "net": "49V2_EN_7"
+          "net": "49V2_EN_7",
+          "type": "passive"
         }
       },
       "mpn": "DMP3099L-7",
@@ -1615,15 +1790,18 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "NetQ2_1"
+          "net": "NetQ2_1",
+          "type": "passive"
         },
         "2": {
           "name": "S",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "3": {
           "name": "D",
-          "net": "NetQ1_1"
+          "net": "NetQ1_1",
+          "type": "passive"
         }
       },
       "mpn": "DMN3023L-7",
@@ -1633,8 +1811,14 @@
     },
     "R10": {
       "pins": {
-        "1": "NetC11_1",
-        "2": "NetQ1_1"
+        "1": {
+          "net": "NetC11_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetQ1_1",
+          "type": "passive"
+        }
       },
       "mpn": "RC0402FR-07162KL",
       "manufacturer": "Yageo",
@@ -1643,8 +1827,14 @@
     },
     "R14": {
       "pins": {
-        "1": "49V2_EN_7",
-        "2": "GND"
+        "1": {
+          "net": "49V2_EN_7",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "RC0402FR-07162KL",
       "manufacturer": "Yageo",
@@ -1653,8 +1843,14 @@
     },
     "R13": {
       "pins": {
-        "1": "ESP32_PWR_PE_GP2_49V2_REG_EN",
-        "2": "NetQ2_1"
+        "1": {
+          "net": "ESP32_PWR_PE_GP2_49V2_REG_EN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetQ2_1",
+          "type": "passive"
+        }
       },
       "mpn": "RC0402FR-0722R1L",
       "manufacturer": "Yageo",
@@ -1665,15 +1861,22 @@
       "pins": {
         "TH_TP": {
           "name": "1",
-          "net": "49V2"
+          "net": "49V2",
+          "type": "passive"
         }
       },
       "comment": "Thru Test Point"
     },
     "L3": {
       "pins": {
-        "1": "NetC29_1",
-        "2": "NetL3_2"
+        "1": {
+          "net": "NetC29_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetL3_2",
+          "type": "passive"
+        }
       },
       "mpn": "74437334010",
       "manufacturer": "Wurth Electronics",
@@ -1684,31 +1887,38 @@
       "pins": {
         "1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "SW",
-          "net": "NetL3_2"
+          "net": "NetL3_2",
+          "type": "passive"
         },
         "3": {
           "name": "VOUT",
-          "net": "+5V"
+          "net": "+5V",
+          "type": "passive"
         },
         "4": {
           "name": "FB",
-          "net": "NetC28_2"
+          "net": "NetC28_2",
+          "type": "passive"
         },
         "5": {
           "name": "EN",
-          "net": "NetC29_1"
+          "net": "NetC29_1",
+          "type": "passive"
         },
         "6": {
           "name": "MODE",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "7": {
           "name": "VIN",
-          "net": "NetC29_1"
+          "net": "NetC29_1",
+          "type": "passive"
         }
       },
       "mpn": "TPS61022RWUT",
@@ -1718,8 +1928,14 @@
     },
     "C29": {
       "pins": {
-        "1": "NetC29_1",
-        "2": "GND"
+        "1": {
+          "net": "NetC29_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "GRM155R71E104KE14D",
       "manufacturer": "Murata",
@@ -1728,8 +1944,14 @@
     },
     "C31": {
       "pins": {
-        "1": "NetC29_1",
-        "2": "GND"
+        "1": {
+          "net": "NetC29_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "GRT31CR61H106ME01L",
       "manufacturer": "Murata",
@@ -1738,8 +1960,14 @@
     },
     "C30": {
       "pins": {
-        "1": "NetC29_1",
-        "2": "GND"
+        "1": {
+          "net": "NetC29_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "GCM155R71E103KA37D",
       "manufacturer": "Murata",
@@ -1748,8 +1976,14 @@
     },
     "R21": {
       "pins": {
-        "1": "V_SYS",
-        "2": "NetC29_1"
+        "1": {
+          "net": "V_SYS",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC29_1",
+          "type": "passive"
+        }
       },
       "mpn": "CRF0805-FZ-R005ELF",
       "manufacturer": "Bourns",
@@ -1758,8 +1992,14 @@
     },
     "R25": {
       "pins": {
-        "1": "NetC28_2",
-        "2": "GND"
+        "1": {
+          "net": "NetC28_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "RT0402BRD07100KL",
       "manufacturer": "Yageo",
@@ -1768,8 +2008,14 @@
     },
     "R22": {
       "pins": {
-        "1": "+5V",
-        "2": "NetC28_2"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC28_2",
+          "type": "passive"
+        }
       },
       "mpn": "RC0402FR-07750KL",
       "manufacturer": "Yageo",
@@ -1778,8 +2024,14 @@
     },
     "C28": {
       "pins": {
-        "1": "+5V",
-        "2": "NetC28_2"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC28_2",
+          "type": "passive"
+        }
       },
       "mpn": "CL05C200JB5NNNC",
       "manufacturer": "Samsung",
@@ -1788,8 +2040,14 @@
     },
     "C33": {
       "pins": {
-        "1": "+5V",
-        "2": "GND"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "GRM155R71E104KE14D",
       "manufacturer": "Murata",
@@ -1798,8 +2056,14 @@
     },
     "C32": {
       "pins": {
-        "1": "+5V",
-        "2": "GND"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "GCM155R71E103KA37D",
       "manufacturer": "Murata",
@@ -1808,24 +2072,42 @@
     },
     "C34": {
       "pins": {
-        "1": "+5V",
-        "2": "GND"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "22µF ±10% 6.3V Ceramic Capacitor X7R 1206 (3216 Metric)",
       "comment": "CAP CER 22UF 6.3V ±10% X7R 1206"
     },
     "C35": {
       "pins": {
-        "1": "+5V",
-        "2": "GND"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "22µF ±10% 6.3V Ceramic Capacitor X7R 1206 (3216 Metric)",
       "comment": "CAP CER 22UF 6.3V ±10% X7R 1206"
     },
     "C36": {
       "pins": {
-        "1": "+5V",
-        "2": "GND"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "22µF ±10% 6.3V Ceramic Capacitor X7R 1206 (3216 Metric)",
       "comment": "CAP CER 22UF 6.3V ±10% X7R 1206"
@@ -1834,39 +2116,48 @@
       "pins": {
         "1": {
           "name": "EN",
-          "net": "NetC37_1"
+          "net": "NetC37_1",
+          "type": "passive"
         },
         "2": {
           "name": "PG",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "3": {
           "name": "VIN",
-          "net": "NetC37_1"
+          "net": "NetC37_1",
+          "type": "passive"
         },
         "4": {
           "name": "VIN",
-          "net": "NetC37_1"
+          "net": "NetC37_1",
+          "type": "passive"
         },
         "5": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "6": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "7": {
           "name": "FB",
-          "net": "NetR28_2"
+          "net": "NetR28_2",
+          "type": "passive"
         },
         "8": {
           "name": "VOUT",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "9": {
           "name": "PAD (GND)",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "mpn": "TPS82084SILR",
@@ -1876,8 +2167,14 @@
     },
     "R27": {
       "pins": {
-        "1": "+5V",
-        "2": "NetC37_1"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC37_1",
+          "type": "passive"
+        }
       },
       "mpn": "CRF0805-FZ-R005ELF",
       "manufacturer": "Bourns",
@@ -1886,8 +2183,14 @@
     },
     "C37": {
       "pins": {
-        "1": "NetC37_1",
-        "2": "GND"
+        "1": {
+          "net": "NetC37_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "GRM155R71E104KE14D",
       "manufacturer": "Murata",
@@ -1896,8 +2199,14 @@
     },
     "C41": {
       "pins": {
-        "1": "NetC37_1",
-        "2": "GND"
+        "1": {
+          "net": "NetC37_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "GRT31CR61H106ME01L",
       "manufacturer": "Murata",
@@ -1906,8 +2215,14 @@
     },
     "C38": {
       "pins": {
-        "1": "NetC37_1",
-        "2": "GND"
+        "1": {
+          "net": "NetC37_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "GCM155R71E103KA37D",
       "manufacturer": "Murata",
@@ -1916,8 +2231,14 @@
     },
     "R28": {
       "pins": {
-        "1": "3V3",
-        "2": "NetR28_2"
+        "1": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR28_2",
+          "type": "passive"
+        }
       },
       "mpn": "RC0402FR-07523KL",
       "manufacturer": "Yageo",
@@ -1926,8 +2247,14 @@
     },
     "R31": {
       "pins": {
-        "1": "NetR28_2",
-        "2": "GND"
+        "1": {
+          "net": "NetR28_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "RC0402FR-07162KL",
       "manufacturer": "Yageo",
@@ -1936,8 +2263,14 @@
     },
     "C42": {
       "pins": {
-        "1": "3V3",
-        "2": "GND"
+        "1": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "GRM155R71E104KE14D",
       "manufacturer": "Murata",
@@ -1946,8 +2279,14 @@
     },
     "C39": {
       "pins": {
-        "1": "+5V",
-        "2": "GND"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "GRT31CR61H106ME01L",
       "manufacturer": "Murata",
@@ -1956,8 +2295,14 @@
     },
     "C40": {
       "pins": {
-        "1": "+5V",
-        "2": "GND"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "GRT31CR61H106ME01L",
       "manufacturer": "Murata",
@@ -1966,16 +2311,28 @@
     },
     "C43": {
       "pins": {
-        "1": "3V3",
-        "2": "GND"
+        "1": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "22µF ±10% 6.3V Ceramic Capacitor X7R 1206 (3216 Metric)",
       "comment": "CAP CER 22UF 6.3V ±10% X7R 1206"
     },
     "C44": {
       "pins": {
-        "1": "3V3",
-        "2": "GND"
+        "1": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "22µF ±10% 6.3V Ceramic Capacitor X7R 1206 (3216 Metric)",
       "comment": "CAP CER 22UF 6.3V ±10% X7R 1206"
@@ -1984,39 +2341,48 @@
       "pins": {
         "1": {
           "name": "VIN",
-          "net": "+5V"
+          "net": "+5V",
+          "type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "3": {
           "name": "CPOUT",
-          "net": "NetC50_1"
+          "net": "NetC50_1",
+          "type": "passive"
         },
         "4": {
           "name": "VOUT",
-          "net": "-5V_SW"
+          "net": "-5V_SW",
+          "type": "passive"
         },
         "5": {
           "name": "VFB",
-          "net": "NetR36_2"
+          "net": "NetR36_2",
+          "type": "passive"
         },
         "6": {
           "name": "EN",
-          "net": "NetQ5_1"
+          "net": "NetQ5_1",
+          "type": "passive"
         },
         "7": {
           "name": "C1-",
-          "net": "NetC47_2"
+          "net": "NetC47_2",
+          "type": "passive"
         },
         "8": {
           "name": "C1+",
-          "net": "NetC47_1"
+          "net": "NetC47_1",
+          "type": "passive"
         },
         "9": {
           "name": "PAD (GND)",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "mpn": "LM27761DSGR",
@@ -2026,16 +2392,28 @@
     },
     "C47": {
       "pins": {
-        "1": "NetC47_1",
-        "2": "NetC47_2"
+        "1": {
+          "net": "NetC47_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC47_2",
+          "type": "passive"
+        }
       },
       "description": "1µF ±10% 50V Ceramic Capacitor X7R 0603 (1608 Metric)",
       "comment": "CAP CER 1UF 50V 10% X7R 0603"
     },
     "R36": {
       "pins": {
-        "1": "-5V_SW",
-        "2": "NetR36_2"
+        "1": {
+          "net": "-5V_SW",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR36_2",
+          "type": "passive"
+        }
       },
       "mpn": "RC0402FR-07523KL",
       "manufacturer": "Yageo",
@@ -2044,8 +2422,14 @@
     },
     "C46": {
       "pins": {
-        "1": "+5V",
-        "2": "GND"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "4.7µF ±20% 50V Ceramic Capacitor X5R 0805 (2012 Metric)",
       "comment": "CAP CER 4.7UF 50V 10% X5R 0805",
@@ -2053,8 +2437,14 @@
     },
     "C45": {
       "pins": {
-        "1": "+5V",
-        "2": "GND"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "GRM155R71E104KE14D",
       "manufacturer": "Murata",
@@ -2063,8 +2453,14 @@
     },
     "C50": {
       "pins": {
-        "1": "NetC50_1",
-        "2": "GND"
+        "1": {
+          "net": "NetC50_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "GRT31CR61H106ME01L",
       "manufacturer": "Murata",
@@ -2073,8 +2469,14 @@
     },
     "R38": {
       "pins": {
-        "1": "NetR36_2",
-        "2": "NetR38_2"
+        "1": {
+          "net": "NetR36_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR38_2",
+          "type": "passive"
+        }
       },
       "mpn": "RC0402FR-07162KL",
       "manufacturer": "Yageo",
@@ -2083,8 +2485,14 @@
     },
     "R40": {
       "pins": {
-        "1": "NetR38_2",
-        "2": "GND"
+        "1": {
+          "net": "NetR38_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "RC0402FR-0710KL",
       "manufacturer": "Yageo",
@@ -2093,24 +2501,42 @@
     },
     "C48": {
       "pins": {
-        "1": "-5V_SW",
-        "2": "GND"
+        "1": {
+          "net": "-5V_SW",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "2.2µF ±10% 25V Ceramic Capacitor X5R 0603 (1608 Metric)",
       "comment": "CAP CER 2.2UF 25V 10% X5R 0603"
     },
     "C49": {
       "pins": {
-        "1": "-5V_SW",
-        "2": "GND"
+        "1": {
+          "net": "-5V_SW",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "2.2µF ±10% 25V Ceramic Capacitor X5R 0603 (1608 Metric)",
       "comment": "CAP CER 2.2UF 25V 10% X5R 0603"
     },
     "R34": {
       "pins": {
-        "1": "+5V_SW",
-        "2": "NetLED3_1"
+        "1": {
+          "net": "+5V_SW",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetLED3_1",
+          "type": "passive"
+        }
       },
       "mpn": "RC0402FR-074K7L",
       "manufacturer": "Yageo",
@@ -2121,11 +2547,13 @@
       "pins": {
         "1": {
           "name": "A",
-          "net": "NetLED3_1"
+          "net": "NetLED3_1",
+          "type": "passive"
         },
         "2": {
           "name": "K",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "mpn": "150060VS75000",
@@ -2135,8 +2563,14 @@
     },
     "R33": {
       "pins": {
-        "1": "-5V_SW",
-        "2": "NetLED2_2"
+        "1": {
+          "net": "-5V_SW",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetLED2_2",
+          "type": "passive"
+        }
       },
       "mpn": "RC0402FR-074K7L",
       "manufacturer": "Yageo",
@@ -2147,11 +2581,13 @@
       "pins": {
         "1": {
           "name": "A",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "K",
-          "net": "NetLED2_2"
+          "net": "NetLED2_2",
+          "type": "passive"
         }
       },
       "mpn": "150060VS75000",
@@ -2161,8 +2597,14 @@
     },
     "R35": {
       "pins": {
-        "1": "3V3_SW",
-        "2": "NetLED4_1"
+        "1": {
+          "net": "3V3_SW",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetLED4_1",
+          "type": "passive"
+        }
       },
       "mpn": "RC0402FR-074K7L",
       "manufacturer": "Yageo",
@@ -2173,11 +2615,13 @@
       "pins": {
         "1": {
           "name": "A",
-          "net": "NetLED4_1"
+          "net": "NetLED4_1",
+          "type": "passive"
         },
         "2": {
           "name": "K",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "mpn": "150060VS75000",
@@ -2189,27 +2633,33 @@
       "pins": {
         "1": {
           "name": "S",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "G",
-          "net": "NetQ3_2"
+          "net": "NetQ3_2",
+          "type": "passive"
         },
         "3": {
           "name": "D",
-          "net": "+5V_SW"
+          "net": "+5V_SW",
+          "type": "passive"
         },
         "4": {
           "name": "S",
-          "net": "+5V"
+          "net": "+5V",
+          "type": "passive"
         },
         "5": {
           "name": "G2",
-          "net": "NetQ3_5"
+          "net": "NetQ3_5",
+          "type": "passive"
         },
         "6": {
           "name": "D",
-          "net": "NetQ3_5"
+          "net": "NetQ3_5",
+          "type": "passive"
         }
       },
       "mpn": "SIA527DJ-T1-GE3",
@@ -2219,8 +2669,14 @@
     },
     "R23": {
       "pins": {
-        "1": "+5V",
-        "2": "NetQ3_5"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetQ3_5",
+          "type": "passive"
+        }
       },
       "mpn": "RC0402FR-0710KL",
       "manufacturer": "Yageo",
@@ -2231,27 +2687,33 @@
       "pins": {
         "1": {
           "name": "S",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "G",
-          "net": "NetQ4_2"
+          "net": "NetQ4_2",
+          "type": "passive"
         },
         "3": {
           "name": "D",
-          "net": "3V3_SW"
+          "net": "3V3_SW",
+          "type": "passive"
         },
         "4": {
           "name": "S",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "5": {
           "name": "G2",
-          "net": "NetQ4_5"
+          "net": "NetQ4_5",
+          "type": "passive"
         },
         "6": {
           "name": "D",
-          "net": "NetQ4_5"
+          "net": "NetQ4_5",
+          "type": "passive"
         }
       },
       "mpn": "SIA527DJ-T1-GE3",
@@ -2261,8 +2723,14 @@
     },
     "R29": {
       "pins": {
-        "1": "3V3",
-        "2": "NetQ4_5"
+        "1": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetQ4_5",
+          "type": "passive"
+        }
       },
       "mpn": "RC0402FR-0710KL",
       "manufacturer": "Yageo",
@@ -2271,8 +2739,14 @@
     },
     "R30": {
       "pins": {
-        "1": "3V3",
-        "2": "ESP32_PWR_PE_GP0_nSW_EN"
+        "1": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ESP32_PWR_PE_GP0_nSW_EN",
+          "type": "passive"
+        }
       },
       "mpn": "RC0402FR-0710KL",
       "manufacturer": "Yageo",
@@ -2281,8 +2755,14 @@
     },
     "R37": {
       "pins": {
-        "1": "+5V",
-        "2": "NetQ5_1"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetQ5_1",
+          "type": "passive"
+        }
       },
       "mpn": "RC0402FR-0710KL",
       "manufacturer": "Yageo",
@@ -2293,15 +2773,18 @@
       "pins": {
         "1": {
           "name": "D",
-          "net": "NetQ5_1"
+          "net": "NetQ5_1",
+          "type": "passive"
         },
         "2": {
           "name": "S",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "3": {
           "name": "G",
-          "net": "NetQ5_3"
+          "net": "NetQ5_3",
+          "type": "passive"
         }
       },
       "mpn": "DMN6140L-7",
@@ -2311,8 +2794,14 @@
     },
     "R26": {
       "pins": {
-        "1": "ESP32_PWR_PE_GP0_nSW_EN",
-        "2": "NetQ3_2"
+        "1": {
+          "net": "ESP32_PWR_PE_GP0_nSW_EN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetQ3_2",
+          "type": "passive"
+        }
       },
       "mpn": "RC0402FR-0722R1L",
       "manufacturer": "Yageo",
@@ -2321,8 +2810,14 @@
     },
     "R32": {
       "pins": {
-        "1": "ESP32_PWR_PE_GP0_nSW_EN",
-        "2": "NetQ4_2"
+        "1": {
+          "net": "ESP32_PWR_PE_GP0_nSW_EN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetQ4_2",
+          "type": "passive"
+        }
       },
       "mpn": "RC0402FR-0722R1L",
       "manufacturer": "Yageo",
@@ -2331,8 +2826,14 @@
     },
     "R39": {
       "pins": {
-        "1": "ESP32_PWR_PE_GP0_nSW_EN",
-        "2": "NetQ5_3"
+        "1": {
+          "net": "ESP32_PWR_PE_GP0_nSW_EN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetQ5_3",
+          "type": "passive"
+        }
       },
       "mpn": "RC0402FR-0722R1L",
       "manufacturer": "Yageo",
@@ -2341,24 +2842,42 @@
     },
     "R4": {
       "pins": {
-        "1": "REGN",
-        "2": "NetR4_2"
+        "1": {
+          "net": "REGN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR4_2",
+          "type": "passive"
+        }
       },
       "description": "RES SMD 10K OHM 1% 1/10W 0603",
       "comment": "RES 10K OHM 1% 1/10W 0603"
     },
     "R5": {
       "pins": {
-        "1": "NetR4_2",
-        "2": "GND"
+        "1": {
+          "net": "NetR4_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "RES SMD 10K OHM 1% 1/10W 0603",
       "comment": "RES 10K OHM 1% 1/10W 0603"
     },
     "C3": {
       "pins": {
-        "1": "NetC3_1",
-        "2": "NetC3_2"
+        "1": {
+          "net": "NetC3_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC3_2",
+          "type": "passive"
+        }
       },
       "mpn": "C0603C473K3RACTU",
       "manufacturer": "KEMET",
@@ -2367,8 +2886,14 @@
     },
     "C5": {
       "pins": {
-        "1": "REGN",
-        "2": "GND"
+        "1": {
+          "net": "REGN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "4.7µF ±20% 50V Ceramic Capacitor X5R 0805 (2012 Metric)",
       "comment": "CAP CER 4.7UF 50V 10% X5R 0805",
@@ -2376,8 +2901,14 @@
     },
     "R7": {
       "pins": {
-        "1": "NetR7_1",
-        "2": "GND"
+        "1": {
+          "net": "NetR7_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "CRGCQ0603F330R",
       "manufacturer": "TE Connectivity",
@@ -2387,8 +2918,14 @@
     },
     "R6": {
       "pins": {
-        "1": "NetR6_1",
-        "2": "NetR6_2"
+        "1": {
+          "net": "NetR6_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR6_2",
+          "type": "passive"
+        }
       },
       "mpn": "RC0603FR-07220RL",
       "manufacturer": "Yageo",
@@ -2397,8 +2934,14 @@
     },
     "R8": {
       "pins": {
-        "1": "NetR6_2",
-        "2": "GND"
+        "1": {
+          "net": "NetR6_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "RES SMD 40.2 OHM 0.5% 1/10W 0603",
       "comment": "RES 40.2 OHM 0.5% 1/10W 0603"
@@ -2407,103 +2950,128 @@
       "pins": {
         "1": {
           "name": "VAC",
-          "net": "V_CHG_USB_PROT"
+          "net": "V_CHG_USB_PROT",
+          "type": "passive"
         },
         "2": {
           "name": "NC",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "3": {
           "name": "D+",
-          "net": "USB_D+"
+          "net": "USB_D+",
+          "type": "passive"
         },
         "4": {
           "name": "D-",
-          "net": "USB_D-"
+          "net": "USB_D-",
+          "type": "passive"
         },
         "5": {
           "name": "STAT",
-          "net": "ESP32_PWR_PE_GP6_BAT_CHG_STATUS"
+          "net": "ESP32_PWR_PE_GP6_BAT_CHG_STATUS",
+          "type": "passive"
         },
         "6": {
           "name": "OTG",
-          "net": "NetR3_2"
+          "net": "NetR3_2",
+          "type": "passive"
         },
         "7": {
           "name": "P\\G\\",
-          "net": "ESP32_PWR_PE_GP5_BAT_CHG_nPG"
+          "net": "ESP32_PWR_PE_GP5_BAT_CHG_nPG",
+          "type": "passive"
         },
         "8": {
           "name": "ILIM",
-          "net": "NetR6_1"
+          "net": "NetR6_1",
+          "type": "passive"
         },
         "9": {
           "name": "C\\E\\",
-          "net": "ESP32_PWR_PE_GP3_nBAT_CHG_EN"
+          "net": "ESP32_PWR_PE_GP3_nBAT_CHG_EN",
+          "type": "passive"
         },
         "10": {
           "name": "ICHG",
-          "net": "NetR7_1"
+          "net": "NetR7_1",
+          "type": "passive"
         },
         "11": {
           "name": "TS",
-          "net": "NetR4_2"
+          "net": "NetR4_2",
+          "type": "passive"
         },
         "12": {
           "name": "VSET",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "13": {
           "name": "BAT",
-          "net": "VBAT_PROT"
+          "net": "VBAT_PROT",
+          "type": "passive"
         },
         "14": {
           "name": "BAT",
-          "net": "VBAT_PROT"
+          "net": "VBAT_PROT",
+          "type": "passive"
         },
         "15": {
           "name": "SYS",
-          "net": "V_SYS"
+          "net": "V_SYS",
+          "type": "passive"
         },
         "16": {
           "name": "SYS",
-          "net": "V_SYS"
+          "net": "V_SYS",
+          "type": "passive"
         },
         "17": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "18": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "19": {
           "name": "SW",
-          "net": "NetC3_1"
+          "net": "NetC3_1",
+          "type": "passive"
         },
         "20": {
           "name": "SW",
-          "net": "NetC3_1"
+          "net": "NetC3_1",
+          "type": "passive"
         },
         "21": {
           "name": "BTST",
-          "net": "NetC3_2"
+          "net": "NetC3_2",
+          "type": "passive"
         },
         "22": {
           "name": "REGN",
-          "net": "REGN"
+          "net": "REGN",
+          "type": "passive"
         },
         "23": {
           "name": "PMID",
-          "net": "NetC7_1"
+          "net": "NetC7_1",
+          "type": "passive"
         },
         "24": {
           "name": "VBUS",
-          "net": "V_CHG_USB_PROT"
+          "net": "V_CHG_USB_PROT",
+          "type": "passive"
         },
         "25": {
           "name": "PAD",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "mpn": "BQ25606RGER",
@@ -2513,8 +3081,14 @@
     },
     "C2": {
       "pins": {
-        "1": "V_CHG_USB_PROT",
-        "2": "GND"
+        "1": {
+          "net": "V_CHG_USB_PROT",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "1µF ±10% 50V Ceramic Capacitor X7R 0603 (1608 Metric)",
       "comment": "CAP CER 1UF 50V 10% X7R 0603"
@@ -2523,7 +3097,8 @@
       "pins": {
         "TH_TP": {
           "name": "1",
-          "net": "V_SYS"
+          "net": "V_SYS",
+          "type": "passive"
         }
       },
       "comment": "Thru Test Point"
@@ -2532,15 +3107,22 @@
       "pins": {
         "TP": {
           "name": "1",
-          "net": "REGN"
+          "net": "REGN",
+          "type": "passive"
         }
       },
       "comment": "Test Point"
     },
     "L1": {
       "pins": {
-        "1": "NetC3_1",
-        "2": "V_SYS"
+        "1": {
+          "net": "NetC3_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "V_SYS",
+          "type": "passive"
+        }
       },
       "mpn": "74437334010",
       "manufacturer": "Wurth Electronics",
@@ -2549,8 +3131,14 @@
     },
     "R3": {
       "pins": {
-        "1": "GND",
-        "2": "NetR3_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR3_2",
+          "type": "passive"
+        }
       },
       "mpn": "RC0402FR-0710KL",
       "manufacturer": "Yageo",
@@ -2559,8 +3147,14 @@
     },
     "C6": {
       "pins": {
-        "1": "VBAT_PROT",
-        "2": "GND"
+        "1": {
+          "net": "VBAT_PROT",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "GRT31CR61H106ME01L",
       "manufacturer": "Murata",
@@ -2569,8 +3163,14 @@
     },
     "C7": {
       "pins": {
-        "1": "NetC7_1",
-        "2": "GND"
+        "1": {
+          "net": "NetC7_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "GRT31CR61H106ME01L",
       "manufacturer": "Murata",
@@ -2579,8 +3179,14 @@
     },
     "C4": {
       "pins": {
-        "1": "V_SYS",
-        "2": "GND"
+        "1": {
+          "net": "V_SYS",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "GRT31CR61H106ME01L",
       "manufacturer": "Murata",
@@ -2591,63 +3197,78 @@
       "pins": {
         "1": {
           "name": "TH",
-          "net": "NetRT1_1"
+          "net": "NetRT1_1",
+          "type": "passive"
         },
         "2": {
           "name": "NC",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "3": {
           "name": "NC",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "4": {
           "name": "NC",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "5": {
           "name": "NC",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "6": {
           "name": "BATT",
-          "net": "NetD5_2"
+          "net": "NetD5_2",
+          "type": "passive"
         },
         "7": {
           "name": "CSN",
-          "net": "NetD5_2"
+          "net": "NetD5_2",
+          "type": "passive"
         },
         "8": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "9": {
           "name": "CSPL",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "10": {
           "name": "CSPH",
-          "net": "VBAT_PROT"
+          "net": "VBAT_PROT",
+          "type": "passive"
         },
         "11": {
           "name": "REG",
-          "net": "NetC27_1"
+          "net": "NetC27_1",
+          "type": "passive"
         },
         "12": {
           "name": "ALRT",
-          "net": "ESP32_PWR_PE_GP4_BAT_GAUGE_ALRT"
+          "net": "ESP32_PWR_PE_GP4_BAT_GAUGE_ALRT",
+          "type": "passive"
         },
         "13": {
           "name": "SDA",
-          "net": "ESP32_IO21_I2C1_SDA"
+          "net": "ESP32_IO21_I2C1_SDA",
+          "type": "passive"
         },
         "14": {
           "name": "SCL",
-          "net": "ESP32_IO22_I2C1_SCL"
+          "net": "ESP32_IO22_I2C1_SCL",
+          "type": "passive"
         },
         "15": {
           "name": "PAD (GND)",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "mpn": "MAX17260SETD+T",
@@ -2657,8 +3278,14 @@
     },
     "R20": {
       "pins": {
-        "1": "NetD5_2",
-        "2": "VBAT_PROT"
+        "1": {
+          "net": "NetD5_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VBAT_PROT",
+          "type": "passive"
+        }
       },
       "mpn": "CRF0805-FZ-R005ELF",
       "manufacturer": "Bourns",
@@ -2667,8 +3294,14 @@
     },
     "RT1": {
       "pins": {
-        "1": "NetRT1_1",
-        "2": "GND"
+        "1": {
+          "net": "NetRT1_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "NXRT15XH103FA1B030",
       "manufacturer": "Murata Electronics North America",
@@ -2677,8 +3310,14 @@
     },
     "C27": {
       "pins": {
-        "1": "NetC27_1",
-        "2": "GND"
+        "1": {
+          "net": "NetC27_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "LMK105B7474KV-F",
       "manufacturer": "Taiyo Yuden",
@@ -2689,11 +3328,13 @@
       "pins": {
         "1": {
           "name": "+",
-          "net": "NetF3_1"
+          "net": "NetF3_1",
+          "type": "passive"
         },
         "2": {
           "name": "-",
-          "net": "NetC51_2"
+          "net": "NetC51_2",
+          "type": "passive"
         }
       },
       "mpn": "1043P",
@@ -2703,8 +3344,14 @@
     },
     "F3": {
       "pins": {
-        "1": "NetF3_1",
-        "2": "NetD5_2"
+        "1": {
+          "net": "NetF3_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetD5_2",
+          "type": "passive"
+        }
       },
       "mpn": "C1F5",
       "manufacturer": "Bel TRP",
@@ -2713,8 +3360,14 @@
     },
     "D5": {
       "pins": {
-        "1": "GND",
-        "2": "NetD5_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetD5_2",
+          "type": "passive"
+        }
       },
       "mpn": "SMBJ5.0D-M3/H",
       "manufacturer": "Vishay Semiconductor Diodes Division",
@@ -2725,27 +3378,33 @@
       "pins": {
         "1": {
           "name": "DO",
-          "net": "NetQ6_2"
+          "net": "NetQ6_2",
+          "type": "passive"
         },
         "2": {
           "name": "VM",
-          "net": "NetR42_1"
+          "net": "NetR42_1",
+          "type": "passive"
         },
         "3": {
           "name": "CO",
-          "net": "NetQ6_3"
+          "net": "NetQ6_3",
+          "type": "passive"
         },
         "4": {
           "name": "NC",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "5": {
           "name": "VDD",
-          "net": "NetC51_1"
+          "net": "NetC51_1",
+          "type": "passive"
         },
         "6": {
           "name": "VSS",
-          "net": "NetC51_2"
+          "net": "NetC51_2",
+          "type": "passive"
         }
       },
       "mpn": "AP9101CK6-AYTRG1",
@@ -2757,23 +3416,28 @@
       "pins": {
         "1": {
           "name": "S1",
-          "net": "NetC51_2"
+          "net": "NetC51_2",
+          "type": "passive"
         },
         "2": {
           "name": "G1",
-          "net": "NetQ6_2"
+          "net": "NetQ6_2",
+          "type": "passive"
         },
         "3": {
           "name": "G2",
-          "net": "NetQ6_3"
+          "net": "NetQ6_3",
+          "type": "passive"
         },
         "4": {
           "name": "S2",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "5": {
           "name": "D",
-          "net": ""
+          "net": "",
+          "type": "passive"
         }
       },
       "mpn": "DMN2014LHAB-7",
@@ -2783,8 +3447,14 @@
     },
     "R42": {
       "pins": {
-        "1": "NetR42_1",
-        "2": "GND"
+        "1": {
+          "net": "NetR42_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "ERJ-2RKF2701X",
       "manufacturer": "Panasonic",
@@ -2793,8 +3463,14 @@
     },
     "R41": {
       "pins": {
-        "1": "NetD5_2",
-        "2": "NetC51_1"
+        "1": {
+          "net": "NetD5_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC51_1",
+          "type": "passive"
+        }
       },
       "mpn": "330R",
       "manufacturer": "TE Connectivity",
@@ -2803,8 +3479,14 @@
     },
     "C51": {
       "pins": {
-        "1": "NetC51_1",
-        "2": "NetC51_2"
+        "1": {
+          "net": "NetC51_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC51_2",
+          "type": "passive"
+        }
       },
       "mpn": "GRM155R71E104KE14D",
       "manufacturer": "Murata",
@@ -2813,8 +3495,14 @@
     },
     "JP1": {
       "pins": {
-        "1": "NetC51_2",
-        "2": "GND"
+        "1": {
+          "net": "NetC51_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "XG8T-0231",
       "manufacturer": "Omron Electronics Inc-EMC Div",
@@ -2825,71 +3513,88 @@
       "pins": {
         "A4": {
           "name": "VBUS",
-          "net": "NetF1_1"
+          "net": "NetF1_1",
+          "type": "power"
         },
         "A5": {
           "name": "CC1",
-          "net": "USB_CC1_3"
+          "net": "USB_CC1_3",
+          "type": "bidirectional"
         },
         "B5": {
           "name": "CC2",
-          "net": "USB_CC2_3"
+          "net": "USB_CC2_3",
+          "type": "bidirectional"
         },
         "A6": {
           "name": "DP1",
-          "net": "NetD1_1"
+          "net": "NetD1_1",
+          "type": "bidirectional"
         },
         "B6": {
           "name": "DP2",
-          "net": "NetD1_1"
+          "net": "NetD1_1",
+          "type": "bidirectional"
         },
         "A7": {
           "name": "DN1",
-          "net": "NetD1_3"
+          "net": "NetD1_3",
+          "type": "bidirectional"
         },
         "B7": {
           "name": "DN2",
-          "net": "NetD1_3"
+          "net": "NetD1_3",
+          "type": "bidirectional"
         },
         "A8": {
           "name": "SBU1",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "B8": {
           "name": "SBU2",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "A12": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "P1": {
           "name": "SHELL",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "A1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "B1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "B12": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "A9": {
           "name": "VBUS",
-          "net": "NetF1_1"
+          "net": "NetF1_1",
+          "type": "power"
         },
         "B4": {
           "name": "VBUS",
-          "net": "NetF1_1"
+          "net": "NetF1_1",
+          "type": "power"
         },
         "B9": {
           "name": "VBUS",
-          "net": "NetF1_1"
+          "net": "NetF1_1",
+          "type": "power"
         }
       },
       "mpn": "USB4085-GF-A",
@@ -2901,27 +3606,33 @@
       "pins": {
         "1": {
           "name": "Cathode3",
-          "net": "NetD1_1"
+          "net": "NetD1_1",
+          "type": "passive"
         },
         "2": {
           "name": "Cathode2",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "3": {
           "name": "Cathode1",
-          "net": "NetD1_3"
+          "net": "NetD1_3",
+          "type": "passive"
         },
         "4": {
           "name": "Cathode2",
-          "net": "USB_D-"
+          "net": "USB_D-",
+          "type": "passive"
         },
         "5": {
           "name": "Cathode4",
-          "net": "V_CHG_USB_PROT"
+          "net": "V_CHG_USB_PROT",
+          "type": "passive"
         },
         "6": {
           "name": "Cathode3",
-          "net": "USB_D+"
+          "net": "USB_D+",
+          "type": "passive"
         }
       },
       "description": "17V Clamp 5A (8/20µs) Ipp Tvs Diode Surface Mount SOT-23-6 ",
@@ -2929,16 +3640,28 @@
     },
     "C1": {
       "pins": {
-        "1": "V_CHG_USB_PROT",
-        "2": "GND"
+        "1": {
+          "net": "V_CHG_USB_PROT",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "0.10µF ±10% 50V Ceramic Capacitor X7R 0603 (1608 Metric)",
       "comment": "CAP CER 0.1UF 50V 10% X7R 0603"
     },
     "F1": {
       "pins": {
-        "1": "NetF1_1",
-        "2": "V_CHG_USB_PROT"
+        "1": {
+          "net": "NetF1_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "V_CHG_USB_PROT",
+          "type": "passive"
+        }
       },
       "description": "2.5A 32V AC 32V DC Fuse Board Mount (Cartridge Style Excluded) Surface Mount 1206 (3216 Metric)",
       "comment": "FUSE 2.5A 32VDC 1206"
@@ -2947,7 +3670,8 @@
       "pins": {
         "TP": {
           "name": "1",
-          "net": "V_CHG_USB_PROT"
+          "net": "V_CHG_USB_PROT",
+          "type": "passive"
         }
       },
       "comment": "Test Point"
@@ -2956,7 +3680,8 @@
       "pins": {
         "TP": {
           "name": "1",
-          "net": "USB_D+"
+          "net": "USB_D+",
+          "type": "passive"
         }
       },
       "comment": "Test Point"
@@ -2965,15 +3690,22 @@
       "pins": {
         "TP": {
           "name": "1",
-          "net": "USB_D-"
+          "net": "USB_D-",
+          "type": "passive"
         }
       },
       "comment": "Test Point"
     },
     "R1": {
       "pins": {
-        "1": "USB_CC2_3",
-        "2": "GND"
+        "1": {
+          "net": "USB_CC2_3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "RMCF0402FT5K10",
       "manufacturer": "Stackpole Electronics",
@@ -2982,8 +3714,14 @@
     },
     "R2": {
       "pins": {
-        "1": "USB_CC1_3",
-        "2": "GND"
+        "1": {
+          "net": "USB_CC1_3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "RMCF0402FT5K10",
       "manufacturer": "Stackpole Electronics",
@@ -2992,22 +3730,70 @@
     },
     "P2": {
       "pins": {
-        "1": "3V3_SW",
-        "2": "3V3_SW",
-        "3": "ESP32_IO22_I2C1_SCL",
-        "4": "ESP32_IO21_I2C1_SDA",
-        "5": "ESP32_IO26_POWER_I2C_PE_INT",
-        "6": "PWR_BOARD_SPARE_2",
-        "7": "PWR_BOARD_SPARE_3",
-        "8": "GND",
-        "9": "GND",
-        "10": "48V_SW",
-        "11": "",
-        "12": "-5V_SW",
-        "13": "+5V_SW",
-        "14": "+5V",
-        "15": "3V3",
-        "16": "3V3"
+        "1": {
+          "net": "3V3_SW",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3_SW",
+          "type": "passive"
+        },
+        "3": {
+          "net": "ESP32_IO22_I2C1_SCL",
+          "type": "passive"
+        },
+        "4": {
+          "net": "ESP32_IO21_I2C1_SDA",
+          "type": "passive"
+        },
+        "5": {
+          "net": "ESP32_IO26_POWER_I2C_PE_INT",
+          "type": "passive"
+        },
+        "6": {
+          "net": "PWR_BOARD_SPARE_2",
+          "type": "passive"
+        },
+        "7": {
+          "net": "PWR_BOARD_SPARE_3",
+          "type": "passive"
+        },
+        "8": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "9": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "10": {
+          "net": "48V_SW",
+          "type": "passive"
+        },
+        "11": {
+          "net": "",
+          "type": "passive"
+        },
+        "12": {
+          "net": "-5V_SW",
+          "type": "passive"
+        },
+        "13": {
+          "net": "+5V_SW",
+          "type": "passive"
+        },
+        "14": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "15": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "16": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "mpn": "ESQ-108-12-T-D",
       "manufacturer": "Samtec",
@@ -3018,87 +3804,108 @@
       "pins": {
         "1": {
           "name": "A2",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "2": {
           "name": "A1",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "3": {
           "name": "A0",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "4": {
           "name": "R\\E\\S\\E\\T\\",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "input"
         },
         "5": {
           "name": "NC",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "6": {
           "name": "NC",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "7": {
           "name": "INT",
-          "net": "ESP32_IO26_POWER_I2C_PE_INT"
+          "net": "ESP32_IO26_POWER_I2C_PE_INT",
+          "type": "output"
         },
         "8": {
           "name": "NC",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "9": {
           "name": "GP0",
-          "net": "ESP32_PWR_PE_GP0_nSW_EN"
+          "net": "ESP32_PWR_PE_GP0_nSW_EN",
+          "type": "bidirectional"
         },
         "10": {
           "name": "GP1",
-          "net": "ESP32_PWR_PE_GP1_PHANTOM_PWR_EN"
+          "net": "ESP32_PWR_PE_GP1_PHANTOM_PWR_EN",
+          "type": "bidirectional"
         },
         "11": {
           "name": "GP2",
-          "net": "ESP32_PWR_PE_GP2_49V2_REG_EN"
+          "net": "ESP32_PWR_PE_GP2_49V2_REG_EN",
+          "type": "bidirectional"
         },
         "12": {
           "name": "GP3",
-          "net": "ESP32_PWR_PE_GP3_nBAT_CHG_EN"
+          "net": "ESP32_PWR_PE_GP3_nBAT_CHG_EN",
+          "type": "bidirectional"
         },
         "13": {
           "name": "GP4",
-          "net": "ESP32_PWR_PE_GP4_BAT_GAUGE_ALRT"
+          "net": "ESP32_PWR_PE_GP4_BAT_GAUGE_ALRT",
+          "type": "bidirectional"
         },
         "14": {
           "name": "GP5",
-          "net": "ESP32_PWR_PE_GP5_BAT_CHG_nPG"
+          "net": "ESP32_PWR_PE_GP5_BAT_CHG_nPG",
+          "type": "bidirectional"
         },
         "15": {
           "name": "GP6",
-          "net": "ESP32_PWR_PE_GP6_BAT_CHG_STATUS"
+          "net": "ESP32_PWR_PE_GP6_BAT_CHG_STATUS",
+          "type": "bidirectional"
         },
         "16": {
           "name": "GP7",
-          "net": "ESP32_PWR_PE_GP7_DEBUG_LEG_8"
+          "net": "ESP32_PWR_PE_GP7_DEBUG_LEG_8",
+          "type": "bidirectional"
         },
         "17": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "18": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         },
         "19": {
           "name": "SCL",
-          "net": "ESP32_IO22_I2C1_SCL"
+          "net": "ESP32_IO22_I2C1_SCL",
+          "type": "bidirectional"
         },
         "20": {
           "name": "SDA",
-          "net": "ESP32_IO21_I2C1_SDA"
+          "net": "ESP32_IO21_I2C1_SDA",
+          "type": "bidirectional"
         },
         "21": {
           "name": "PAD (GND)",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "description": "I/O Expander 8 I²C 1.7MHz 20-QFN-EP (4x4) \r\n",
@@ -3106,8 +3913,14 @@
     },
     "C24": {
       "pins": {
-        "1": "3V3",
-        "2": "GND"
+        "1": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "GRM155R71E104KE14D",
       "manufacturer": "Murata",
@@ -3116,30 +3929,84 @@
     },
     "C23": {
       "pins": {
-        "1": "3V3",
-        "2": "GND"
+        "1": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "1µF ±10% 50V Ceramic Capacitor X7R 0603 (1608 Metric)",
       "comment": "CAP CER 1UF 50V 10% X7R 0603"
     },
     "R18": {
       "pins": {
-        "1": "GND",
-        "2": "GND",
-        "3": "GND",
-        "4": "3V3",
-        "5": "3V3",
-        "6": "3V3",
-        "7": "NetLED1_1",
-        "8": "NetLED1_1",
-        "9": "ESP32_PWR_PE_GP7_DEBUG_LEG_8",
-        "10": "ESP32_PWR_PE_GP7_DEBUG_LEG_8",
-        "11": "ESP32_PWR_PE_GP6_BAT_CHG_STATUS",
-        "12": "ESP32_PWR_PE_GP5_BAT_CHG_nPG",
-        "13": "ESP32_PWR_PE_GP4_BAT_GAUGE_ALRT",
-        "14": "ESP32_PWR_PE_GP3_nBAT_CHG_EN",
-        "15": "ESP32_PWR_PE_GP2_49V2_REG_EN",
-        "16": "ESP32_PWR_PE_GP0_nSW_EN"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "3": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "4": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "5": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "6": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "7": {
+          "net": "NetLED1_1",
+          "type": "passive"
+        },
+        "8": {
+          "net": "NetLED1_1",
+          "type": "passive"
+        },
+        "9": {
+          "net": "ESP32_PWR_PE_GP7_DEBUG_LEG_8",
+          "type": "passive"
+        },
+        "10": {
+          "net": "ESP32_PWR_PE_GP7_DEBUG_LEG_8",
+          "type": "passive"
+        },
+        "11": {
+          "net": "ESP32_PWR_PE_GP6_BAT_CHG_STATUS",
+          "type": "passive"
+        },
+        "12": {
+          "net": "ESP32_PWR_PE_GP5_BAT_CHG_nPG",
+          "type": "passive"
+        },
+        "13": {
+          "net": "ESP32_PWR_PE_GP4_BAT_GAUGE_ALRT",
+          "type": "passive"
+        },
+        "14": {
+          "net": "ESP32_PWR_PE_GP3_nBAT_CHG_EN",
+          "type": "passive"
+        },
+        "15": {
+          "net": "ESP32_PWR_PE_GP2_49V2_REG_EN",
+          "type": "passive"
+        },
+        "16": {
+          "net": "ESP32_PWR_PE_GP0_nSW_EN",
+          "type": "passive"
+        }
       },
       "mpn": "EXB-2HV103JV",
       "manufacturer": "Panasonic Electronic Components",
@@ -3151,11 +4018,13 @@
       "pins": {
         "1": {
           "name": "A",
-          "net": "NetLED1_1"
+          "net": "NetLED1_1",
+          "type": "passive"
         },
         "2": {
           "name": "K",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Blue 470nm LED Indication - Discrete 2.8V 0603 (1608 Metric)",
@@ -3163,8 +4032,14 @@
     },
     "R19": {
       "pins": {
-        "1": "GND",
-        "2": "ESP32_IO26_POWER_I2C_PE_INT"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "ESP32_IO26_POWER_I2C_PE_INT",
+          "type": "passive"
+        }
       },
       "mpn": "RC0402FR-0710KL",
       "manufacturer": "Yageo",

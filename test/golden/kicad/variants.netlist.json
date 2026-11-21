@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T20:27:50.045Z",
-    "netlistHash": "sha256:a84f84105648fdc2e74884a35e9b8696caefde6c93f01516c75606ae3ce68417",
+    "generatedAt": "2026-11-21T21:40:46.668Z",
+    "netlistHash": "sha256:9c8adc5c27484f55f17f9152cba37757b8275a6004324894683e0141f4ea07fb",
     "origin": {
       "type": "vendor",
       "source": {
@@ -537,43 +537,79 @@
   "components": {
     "C1": {
       "pins": {
-        "1": "VCC",
-        "2": "GND"
+        "1": {
+          "net": "VCC",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100µF"
     },
     "C2": {
       "pins": {
-        "1": "Net-(D1-K)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(D1-K)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "220uF"
     },
     "C3": {
       "pins": {
-        "1": "VPP",
-        "2": "GND"
+        "1": {
+          "net": "VPP",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "22uF/25V"
     },
     "C4": {
       "pins": {
-        "1": "Net-(U4-Vc)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(U4-Vc)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "0"
     },
     "C5": {
       "pins": {
-        "1": "Net-(C5-Pad1)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(C5-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "10nF"
     },
     "C9": {
       "pins": {
-        "1": "VPP",
-        "2": "Net-(Q2-B)"
+        "1": {
+          "net": "VPP",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q2-B)",
+          "type": "passive"
+        }
       },
       "value": "220nF"
     },
@@ -581,11 +617,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "Net-(D1-K)"
+          "net": "Net-(D1-K)",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "Net-(D1-A)"
+          "net": "Net-(D1-A)",
+          "type": "passive"
         }
       },
       "value": "1N4004"
@@ -594,11 +632,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "VCC"
+          "net": "VCC",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "Net-(D2-A)"
+          "net": "Net-(D2-A)",
+          "type": "passive"
         }
       },
       "value": "BAT43"
@@ -607,11 +647,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "Net-(D2-A)"
+          "net": "Net-(D2-A)",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "value": "BAT43"
@@ -620,11 +662,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "VCC"
+          "net": "VCC",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "Net-(D4-A)"
+          "net": "Net-(D4-A)",
+          "type": "passive"
         }
       },
       "value": "BAT43"
@@ -633,11 +677,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "Net-(D4-A)"
+          "net": "Net-(D4-A)",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "value": "BAT43"
@@ -646,11 +692,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "VCC"
+          "net": "VCC",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "Net-(D6-A)"
+          "net": "Net-(D6-A)",
+          "type": "passive"
         }
       },
       "value": "BAT43"
@@ -659,11 +707,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "Net-(D6-A)"
+          "net": "Net-(D6-A)",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "value": "BAT43"
@@ -672,11 +722,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "Net-(D8-A)"
+          "net": "Net-(D8-A)",
+          "type": "passive"
         }
       },
       "value": "RED-LED"
@@ -685,11 +737,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "Net-(D9-A)"
+          "net": "Net-(D9-A)",
+          "type": "passive"
         }
       },
       "value": "GREEN-LED"
@@ -698,11 +752,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "VPP"
+          "net": "VPP",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "Net-(D10-A)"
+          "net": "Net-(D10-A)",
+          "type": "passive"
         }
       },
       "value": "SCHOTTKY"
@@ -711,11 +767,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "Net-(D11-K)"
+          "net": "Net-(D11-K)",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "Net-(D11-A)"
+          "net": "Net-(D11-A)",
+          "type": "passive"
         }
       },
       "value": "BAT43"
@@ -724,52 +782,85 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "Net-(D12-A)"
+          "net": "Net-(D12-A)",
+          "type": "passive"
         }
       },
       "value": "YELLOW-LED"
     },
     "J1": {
       "pins": {
-        "1": "",
-        "2": "",
-        "3": "/VPP_ON",
-        "4": "/PC-DATA-OUT",
-        "5": "GND",
+        "1": {
+          "net": "",
+          "type": "passive"
+        },
+        "2": {
+          "net": "",
+          "type": "passive"
+        },
+        "3": {
+          "net": "/VPP_ON",
+          "type": "passive"
+        },
+        "4": {
+          "net": "/PC-DATA-OUT",
+          "type": "passive"
+        },
+        "5": {
+          "net": "GND",
+          "type": "passive"
+        },
         "6": {
           "name": "P6",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "7": {
           "name": "P7",
-          "net": "/PC-CLOCK-OUT"
+          "net": "/PC-CLOCK-OUT",
+          "type": "passive"
         },
         "8": {
           "name": "P8",
-          "net": "/PC-DATA-IN"
+          "net": "/PC-DATA-IN",
+          "type": "passive"
         },
         "9": {
           "name": "P9",
-          "net": ""
+          "net": "",
+          "type": "passive"
         }
       },
       "value": "DB9-FEMAL"
     },
     "JP1": {
       "pins": {
-        "1": "VCC",
-        "2": "/pic_sockets/VCC_PIC"
+        "1": {
+          "net": "VCC",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/pic_sockets/VCC_PIC",
+          "type": "passive"
+        }
       },
       "value": "JUMPER"
     },
     "L1": {
       "pins": {
-        "1": "Net-(D10-A)",
-        "2": "VCC"
+        "1": {
+          "net": "Net-(D10-A)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VCC",
+          "type": "passive"
+        }
       },
       "value": "22uH"
     },
@@ -777,11 +868,13 @@
       "pins": {
         "1": {
           "name": "P1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "PM",
-          "net": "Net-(D1-A)"
+          "net": "Net-(D1-A)",
+          "type": "passive"
         }
       },
       "value": "CONN_2"
@@ -814,15 +907,18 @@
       "pins": {
         "1": {
           "name": "C",
-          "net": "Net-(D11-K)"
+          "net": "Net-(D11-K)",
+          "type": "passive"
         },
         "2": {
           "name": "B",
-          "net": "Net-(Q1-B)"
+          "net": "Net-(Q1-B)",
+          "type": "input"
         },
         "3": {
           "name": "E",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "value": "BC237"
@@ -831,15 +927,18 @@
       "pins": {
         "1": {
           "name": "C",
-          "net": "Net-(Q2-C)"
+          "net": "Net-(Q2-C)",
+          "type": "passive"
         },
         "2": {
           "name": "B",
-          "net": "Net-(Q2-B)"
+          "net": "Net-(Q2-B)",
+          "type": "input"
         },
         "3": {
           "name": "E",
-          "net": "VPP"
+          "net": "VPP",
+          "type": "passive"
         }
       },
       "value": "BC307"
@@ -848,195 +947,371 @@
       "pins": {
         "1": {
           "name": "C",
-          "net": "/pic_sockets/VCC_PIC"
+          "net": "/pic_sockets/VCC_PIC",
+          "type": "passive"
         },
         "2": {
           "name": "B",
-          "net": "Net-(Q3-B)"
+          "net": "Net-(Q3-B)",
+          "type": "input"
         },
         "3": {
           "name": "E",
-          "net": "VCC"
+          "net": "VCC",
+          "type": "passive"
         }
       },
       "value": "BC307"
     },
     "R1": {
       "pins": {
-        "1": "/VPP_ON",
-        "2": "Net-(D2-A)"
+        "1": {
+          "net": "/VPP_ON",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(D2-A)",
+          "type": "passive"
+        }
       },
       "value": "10K"
     },
     "R2": {
       "pins": {
-        "1": "/VPP_ON",
-        "2": "GND"
+        "1": {
+          "net": "/VPP_ON",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "10K"
     },
     "R3": {
       "pins": {
-        "1": "/PC-DATA-OUT",
-        "2": "Net-(D4-A)"
+        "1": {
+          "net": "/PC-DATA-OUT",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(D4-A)",
+          "type": "passive"
+        }
       },
       "value": "10K"
     },
     "R4": {
       "pins": {
-        "1": "/PC-DATA-OUT",
-        "2": "GND"
+        "1": {
+          "net": "/PC-DATA-OUT",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "10K"
     },
     "R5": {
       "pins": {
-        "1": "/PC-CLOCK-OUT",
-        "2": "Net-(D6-A)"
+        "1": {
+          "net": "/PC-CLOCK-OUT",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(D6-A)",
+          "type": "passive"
+        }
       },
       "value": "10K"
     },
     "R6": {
       "pins": {
-        "1": "/PC-CLOCK-OUT",
-        "2": "GND"
+        "1": {
+          "net": "/PC-CLOCK-OUT",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "10K"
     },
     "R7": {
       "pins": {
-        "1": "VPP",
-        "2": "Net-(Q2-B)"
+        "1": {
+          "net": "VPP",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q2-B)",
+          "type": "passive"
+        }
       },
       "value": "10K"
     },
     "R8": {
       "pins": {
-        "1": "Net-(R8-Pad1)",
-        "2": "Net-(Q1-B)"
+        "1": {
+          "net": "Net-(R8-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q1-B)",
+          "type": "passive"
+        }
       },
       "value": "1K"
     },
     "R9": {
       "pins": {
-        "1": "Net-(Q2-C)",
-        "2": "Net-(D8-A)"
+        "1": {
+          "net": "Net-(Q2-C)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(D8-A)",
+          "type": "passive"
+        }
       },
       "value": "2.2K"
     },
     "R10": {
       "pins": {
-        "1": "Net-(U4-Vc)",
-        "2": "Net-(C5-Pad1)"
+        "1": {
+          "net": "Net-(U4-Vc)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(C5-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "5,1K"
     },
     "R11": {
       "pins": {
-        "1": "Net-(D11-K)",
-        "2": "Net-(Q2-B)"
+        "1": {
+          "net": "Net-(D11-K)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q2-B)",
+          "type": "passive"
+        }
       },
       "value": "22K"
     },
     "R12": {
       "pins": {
-        "1": "Net-(R12-Pad1)",
-        "2": "/DATA-RB7"
+        "1": {
+          "net": "Net-(R12-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/DATA-RB7",
+          "type": "passive"
+        }
       },
       "value": "2k"
     },
     "R13": {
       "pins": {
-        "1": "Net-(R13-Pad1)",
-        "2": "/CLOCK-RB6"
+        "1": {
+          "net": "Net-(R13-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/CLOCK-RB6",
+          "type": "passive"
+        }
       },
       "value": "4k"
     },
     "R14": {
       "pins": {
-        "1": "VCC",
-        "2": "Net-(D9-A)"
+        "1": {
+          "net": "VCC",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(D9-A)",
+          "type": "passive"
+        }
       },
       "value": "470"
     },
     "R15": {
       "pins": {
-        "1": "Net-(R15-Pad1)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(R15-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "6.2K"
     },
     "R16": {
       "pins": {
-        "1": "Net-(R16-Pad1)",
-        "2": "VPP"
+        "1": {
+          "net": "Net-(R16-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VPP",
+          "type": "passive"
+        }
       },
       "value": "62K"
     },
     "R17": {
       "pins": {
-        "1": "Net-(Q2-C)",
-        "2": "GND"
+        "1": {
+          "net": "Net-(Q2-C)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "22K"
     },
     "R18": {
       "pins": {
-        "1": "Net-(Q2-C)",
-        "2": "/VPP{slash}MCLR"
+        "1": {
+          "net": "Net-(Q2-C)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/VPP{slash}MCLR",
+          "type": "passive"
+        }
       },
       "value": "220"
     },
     "R19": {
       "pins": {
-        "1": "Net-(D11-A)",
-        "2": "Net-(Q3-B)"
+        "1": {
+          "net": "Net-(D11-A)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q3-B)",
+          "type": "passive"
+        }
       },
       "value": "2.2K"
     },
     "R20": {
       "pins": {
-        "1": "VCC",
-        "2": "Net-(Q3-B)"
+        "1": {
+          "net": "VCC",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(Q3-B)",
+          "type": "passive"
+        }
       },
       "value": "2.2K"
     },
     "R21": {
       "pins": {
-        "1": "Net-(D12-A)",
-        "2": "/pic_sockets/VCC_PIC"
+        "1": {
+          "net": "Net-(D12-A)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/pic_sockets/VCC_PIC",
+          "type": "passive"
+        }
       },
       "value": "470"
     },
     "RV1": {
       "pins": {
-        "1": "Net-(R15-Pad1)",
-        "2": "Net-(U4-FB+)",
-        "3": "Net-(R16-Pad1)"
+        "1": {
+          "net": "Net-(R15-Pad1)",
+          "type": "passive"
+        },
+        "2": {
+          "net": "Net-(U4-FB+)",
+          "type": "passive"
+        },
+        "3": {
+          "net": "Net-(R16-Pad1)",
+          "type": "passive"
+        }
       },
       "value": "1K"
     },
     "U2": {
       "pins": {
-        "1": "GND",
-        "2": "Net-(D2-A)",
-        "3": "Net-(R8-Pad1)",
-        "4": "GND",
-        "5": "Net-(D4-A)",
-        "6": "Net-(R12-Pad1)",
+        "1": {
+          "net": "GND",
+          "type": "input"
+        },
+        "2": {
+          "net": "Net-(D2-A)",
+          "type": "input"
+        },
+        "3": {
+          "net": "Net-(R8-Pad1)",
+          "type": "tristate"
+        },
+        "4": {
+          "net": "GND",
+          "type": "input"
+        },
+        "5": {
+          "net": "Net-(D4-A)",
+          "type": "input"
+        },
+        "6": {
+          "net": "Net-(R12-Pad1)",
+          "type": "tristate"
+        },
         "7": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power_in"
         },
-        "8": "Net-(R13-Pad1)",
-        "9": "Net-(D6-A)",
-        "10": "GND",
-        "11": "/PC-DATA-IN",
-        "12": "/DATA-RB7",
-        "13": "GND",
+        "8": {
+          "net": "Net-(R13-Pad1)",
+          "type": "tristate"
+        },
+        "9": {
+          "net": "Net-(D6-A)",
+          "type": "input"
+        },
+        "10": {
+          "net": "GND",
+          "type": "input"
+        },
+        "11": {
+          "net": "/PC-DATA-IN",
+          "type": "tristate"
+        },
+        "12": {
+          "net": "/DATA-RB7",
+          "type": "input"
+        },
+        "13": {
+          "net": "GND",
+          "type": "input"
+        },
         "14": {
           "name": "VCC",
-          "net": "VCC"
+          "net": "VCC",
+          "type": "power_in"
         }
       },
       "value": "74HC125"
@@ -1045,15 +1320,18 @@
       "pins": {
         "1": {
           "name": "VI",
-          "net": "Net-(D1-K)"
+          "net": "Net-(D1-K)",
+          "type": "input"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "3": {
           "name": "VO",
-          "net": "VCC"
+          "net": "VCC",
+          "type": "power_out"
         }
       },
       "value": "7805"
@@ -1062,128 +1340,352 @@
       "pins": {
         "1": {
           "name": "Vc",
-          "net": "Net-(U4-Vc)"
+          "net": "Net-(U4-Vc)",
+          "type": "input"
         },
         "2": {
           "name": "FB+",
-          "net": "Net-(U4-FB+)"
+          "net": "Net-(U4-FB+)",
+          "type": "input"
         },
         "3": {
           "name": "FB-",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "4": {
           "name": "S/S",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "5": {
           "name": "Vin",
-          "net": "VCC"
+          "net": "VCC",
+          "type": "power_in"
         },
         "6": {
           "name": "GND_S",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "7": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "8": {
           "name": "Vsw",
-          "net": "Net-(D10-A)"
+          "net": "Net-(D10-A)",
+          "type": "input"
         }
       },
       "value": "LT1373"
     },
     "C6": {
       "pins": {
-        "1": "/pic_sockets/VCC_PIC",
-        "2": "GND"
+        "1": {
+          "net": "/pic_sockets/VCC_PIC",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100nF"
     },
     "C7": {
       "pins": {
-        "1": "/pic_sockets/VCC_PIC",
-        "2": "GND"
+        "1": {
+          "net": "/pic_sockets/VCC_PIC",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100nF"
     },
     "P2": {
       "pins": {
-        "1": "/VPP{slash}MCLR",
-        "2": "",
-        "3": "",
-        "4": "",
-        "5": "",
-        "6": "",
-        "7": "",
-        "8": "GND",
-        "9": "",
-        "10": "",
-        "11": "",
-        "12": "",
-        "13": "",
-        "14": "",
-        "15": "",
-        "16": "",
-        "17": "",
-        "18": "",
-        "19": "GND",
-        "20": "/pic_sockets/VCC_PIC",
-        "21": "",
-        "22": "",
-        "23": "",
-        "24": "",
-        "25": "",
-        "26": "",
-        "27": "/CLOCK-RB6",
-        "28": "/DATA-RB7"
+        "1": {
+          "net": "/VPP{slash}MCLR",
+          "type": "passive"
+        },
+        "2": {
+          "net": "",
+          "type": "passive"
+        },
+        "3": {
+          "net": "",
+          "type": "passive"
+        },
+        "4": {
+          "net": "",
+          "type": "passive"
+        },
+        "5": {
+          "net": "",
+          "type": "passive"
+        },
+        "6": {
+          "net": "",
+          "type": "passive"
+        },
+        "7": {
+          "net": "",
+          "type": "passive"
+        },
+        "8": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "9": {
+          "net": "",
+          "type": "passive"
+        },
+        "10": {
+          "net": "",
+          "type": "passive"
+        },
+        "11": {
+          "net": "",
+          "type": "passive"
+        },
+        "12": {
+          "net": "",
+          "type": "passive"
+        },
+        "13": {
+          "net": "",
+          "type": "passive"
+        },
+        "14": {
+          "net": "",
+          "type": "passive"
+        },
+        "15": {
+          "net": "",
+          "type": "passive"
+        },
+        "16": {
+          "net": "",
+          "type": "passive"
+        },
+        "17": {
+          "net": "",
+          "type": "passive"
+        },
+        "18": {
+          "net": "",
+          "type": "passive"
+        },
+        "19": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "20": {
+          "net": "/pic_sockets/VCC_PIC",
+          "type": "passive"
+        },
+        "21": {
+          "net": "",
+          "type": "passive"
+        },
+        "22": {
+          "net": "",
+          "type": "passive"
+        },
+        "23": {
+          "net": "",
+          "type": "passive"
+        },
+        "24": {
+          "net": "",
+          "type": "passive"
+        },
+        "25": {
+          "net": "",
+          "type": "passive"
+        },
+        "26": {
+          "net": "",
+          "type": "passive"
+        },
+        "27": {
+          "net": "/CLOCK-RB6",
+          "type": "passive"
+        },
+        "28": {
+          "net": "/DATA-RB7",
+          "type": "passive"
+        }
       },
       "value": "SUPP28"
     },
     "P3": {
       "pins": {
-        "1": "/VPP{slash}MCLR",
-        "2": "",
-        "3": "",
-        "4": "",
-        "5": "",
-        "6": "",
-        "7": "",
-        "8": "GND",
-        "9": "",
-        "10": "",
-        "11": "/pic_sockets/VCC_PIC",
-        "12": "GND",
-        "13": "",
-        "14": "",
-        "15": "",
-        "16": "",
-        "17": "",
-        "18": "",
-        "19": "",
-        "20": "",
-        "21": "",
-        "22": "",
-        "23": "",
-        "24": "",
-        "25": "",
-        "26": "",
-        "27": "",
-        "28": "",
-        "29": "",
-        "30": "",
-        "31": "GND",
-        "32": "/pic_sockets/VCC_PIC",
-        "33": "",
-        "34": "",
-        "35": "",
-        "36": "",
-        "37": "",
-        "38": "",
-        "39": "/CLOCK-RB6",
-        "40": "/DATA-RB7"
+        "1": {
+          "net": "/VPP{slash}MCLR",
+          "type": "passive"
+        },
+        "2": {
+          "net": "",
+          "type": "passive"
+        },
+        "3": {
+          "net": "",
+          "type": "passive"
+        },
+        "4": {
+          "net": "",
+          "type": "passive"
+        },
+        "5": {
+          "net": "",
+          "type": "passive"
+        },
+        "6": {
+          "net": "",
+          "type": "passive"
+        },
+        "7": {
+          "net": "",
+          "type": "passive"
+        },
+        "8": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "9": {
+          "net": "",
+          "type": "passive"
+        },
+        "10": {
+          "net": "",
+          "type": "passive"
+        },
+        "11": {
+          "net": "/pic_sockets/VCC_PIC",
+          "type": "passive"
+        },
+        "12": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "13": {
+          "net": "",
+          "type": "passive"
+        },
+        "14": {
+          "net": "",
+          "type": "passive"
+        },
+        "15": {
+          "net": "",
+          "type": "passive"
+        },
+        "16": {
+          "net": "",
+          "type": "passive"
+        },
+        "17": {
+          "net": "",
+          "type": "passive"
+        },
+        "18": {
+          "net": "",
+          "type": "passive"
+        },
+        "19": {
+          "net": "",
+          "type": "passive"
+        },
+        "20": {
+          "net": "",
+          "type": "passive"
+        },
+        "21": {
+          "net": "",
+          "type": "passive"
+        },
+        "22": {
+          "net": "",
+          "type": "passive"
+        },
+        "23": {
+          "net": "",
+          "type": "passive"
+        },
+        "24": {
+          "net": "",
+          "type": "passive"
+        },
+        "25": {
+          "net": "",
+          "type": "passive"
+        },
+        "26": {
+          "net": "",
+          "type": "passive"
+        },
+        "27": {
+          "net": "",
+          "type": "passive"
+        },
+        "28": {
+          "net": "",
+          "type": "passive"
+        },
+        "29": {
+          "net": "",
+          "type": "passive"
+        },
+        "30": {
+          "net": "",
+          "type": "passive"
+        },
+        "31": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "32": {
+          "net": "/pic_sockets/VCC_PIC",
+          "type": "passive"
+        },
+        "33": {
+          "net": "",
+          "type": "passive"
+        },
+        "34": {
+          "net": "",
+          "type": "passive"
+        },
+        "35": {
+          "net": "",
+          "type": "passive"
+        },
+        "36": {
+          "net": "",
+          "type": "passive"
+        },
+        "37": {
+          "net": "",
+          "type": "passive"
+        },
+        "38": {
+          "net": "",
+          "type": "passive"
+        },
+        "39": {
+          "net": "/CLOCK-RB6",
+          "type": "passive"
+        },
+        "40": {
+          "net": "/DATA-RB7",
+          "type": "passive"
+        }
       },
       "value": "SUPP40"
     },
@@ -1191,35 +1693,43 @@
       "pins": {
         "1": {
           "name": "A0",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "2": {
           "name": "A1",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "3": {
           "name": "A2",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "4": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power_in"
         },
         "5": {
           "name": "SDA",
-          "net": "/DATA-RB7"
+          "net": "/DATA-RB7",
+          "type": "bidirectional"
         },
         "6": {
           "name": "SCL",
-          "net": "/CLOCK-RB6"
+          "net": "/CLOCK-RB6",
+          "type": "input"
         },
         "7": {
           "name": "WP",
-          "net": ""
+          "net": "",
+          "type": "input"
         },
         "8": {
           "name": "VCC",
-          "net": "/pic_sockets/VCC_PIC"
+          "net": "/pic_sockets/VCC_PIC",
+          "type": "power_in"
         }
       },
       "value": "24Cxx"
@@ -1228,75 +1738,93 @@
       "pins": {
         "1": {
           "name": "RA2",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "2": {
           "name": "RA3",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "3": {
           "name": "T0ckl",
-          "net": ""
+          "net": "",
+          "type": "output"
         },
         "4": {
           "name": "MCLR",
-          "net": "/VPP{slash}MCLR"
+          "net": "/VPP{slash}MCLR",
+          "type": "input"
         },
         "5": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "power_in"
         },
         "6": {
           "name": "RB0",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "7": {
           "name": "RB1",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "8": {
           "name": "RB2",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "9": {
           "name": "RB3",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "10": {
           "name": "RB4",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "11": {
           "name": "RB5",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "12": {
           "name": "ICSPC/RB6",
-          "net": "/CLOCK-RB6"
+          "net": "/CLOCK-RB6",
+          "type": "bidirectional"
         },
         "13": {
           "name": "ICSPD/RB7",
-          "net": "/DATA-RB7"
+          "net": "/DATA-RB7",
+          "type": "bidirectional"
         },
         "14": {
           "name": "VDD",
-          "net": "/pic_sockets/VCC_PIC"
+          "net": "/pic_sockets/VCC_PIC",
+          "type": "power_in"
         },
         "15": {
           "name": "OSC2/CLKO",
-          "net": ""
+          "net": "",
+          "type": "output"
         },
         "16": {
           "name": "OSC1/CLKI",
-          "net": ""
+          "net": "",
+          "type": "input"
         },
         "17": {
           "name": "RA0",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "18": {
           "name": "RA1",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         }
       },
       "value": "PIC_18_PINS"
@@ -1305,35 +1833,43 @@
       "pins": {
         "1": {
           "name": "VDD",
-          "net": "/pic_sockets/VCC_PIC"
+          "net": "/pic_sockets/VCC_PIC",
+          "type": "power_in"
         },
         "2": {
           "name": "GP5/OSC1",
-          "net": ""
+          "net": "",
+          "type": "input"
         },
         "3": {
           "name": "GP4/OSC2",
-          "net": ""
+          "net": "",
+          "type": "input"
         },
         "4": {
           "name": "GP3/MCLR",
-          "net": "/VPP{slash}MCLR"
+          "net": "/VPP{slash}MCLR",
+          "type": "input"
         },
         "5": {
           "name": "GP2",
-          "net": ""
+          "net": "",
+          "type": "input"
         },
         "6": {
           "name": "GP1",
-          "net": "/CLOCK-RB6"
+          "net": "/CLOCK-RB6",
+          "type": "input"
         },
         "7": {
           "name": "GP0",
-          "net": "/DATA-RB7"
+          "net": "/DATA-RB7",
+          "type": "input"
         },
         "8": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "power_in"
         }
       },
       "value": "PIC_8_PINS"

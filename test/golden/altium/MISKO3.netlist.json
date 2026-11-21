@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T20:27:49.604Z",
-    "netlistHash": "sha256:f3fe4c536f6699c4f498b3b15d266e810b118fb12398957ce79a695d7ff4558d",
+    "generatedAt": "2026-11-21T21:40:46.189Z",
+    "netlistHash": "sha256:0d067cce3e19c60a4dd00fa71fc1567bbf32324b5f4217054aca18334927b5fc",
     "origin": {
       "type": "vendor",
       "source": {
@@ -2781,136 +2781,400 @@
     },
     "J7": {
       "pins": {
-        "1": "PWM8",
-        "2": "PWM9",
-        "3": "PWM10",
-        "4": "PWM11",
-        "5": "PWM12",
-        "6": "PWM13",
-        "7": "GND",
-        "8": "AREF",
-        "9": "I2C1_SDA",
-        "10": "I2C1_SCL"
+        "1": {
+          "net": "PWM8",
+          "type": "passive"
+        },
+        "2": {
+          "net": "PWM9",
+          "type": "passive"
+        },
+        "3": {
+          "net": "PWM10",
+          "type": "passive"
+        },
+        "4": {
+          "net": "PWM11",
+          "type": "passive"
+        },
+        "5": {
+          "net": "PWM12",
+          "type": "passive"
+        },
+        "6": {
+          "net": "PWM13",
+          "type": "passive"
+        },
+        "7": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "8": {
+          "net": "AREF",
+          "type": "passive"
+        },
+        "9": {
+          "net": "I2C1_SDA",
+          "type": "passive"
+        },
+        "10": {
+          "net": "I2C1_SCL",
+          "type": "passive"
+        }
       },
       "description": "PINHD-1X10",
       "comment": "10x1F-H8.5"
     },
     "J6": {
       "pins": {
-        "1": "USART1_RX",
-        "2": "USART1_TX",
-        "3": "PWM2",
-        "4": "PWM3",
-        "5": "PWM4",
-        "6": "PWM5",
-        "7": "PWM6",
-        "8": "PWM7"
+        "1": {
+          "net": "USART1_RX",
+          "type": "passive"
+        },
+        "2": {
+          "net": "USART1_TX",
+          "type": "passive"
+        },
+        "3": {
+          "net": "PWM2",
+          "type": "passive"
+        },
+        "4": {
+          "net": "PWM3",
+          "type": "passive"
+        },
+        "5": {
+          "net": "PWM4",
+          "type": "passive"
+        },
+        "6": {
+          "net": "PWM5",
+          "type": "passive"
+        },
+        "7": {
+          "net": "PWM6",
+          "type": "passive"
+        },
+        "8": {
+          "net": "PWM7",
+          "type": "passive"
+        }
       },
       "description": "PINHD-1X8",
       "comment": "8x1F-H8.5"
     },
     "J4": {
       "pins": {
-        "1": "I2C2_SCL",
-        "2": "I2C2_SDA",
-        "3": "USART2_RX",
-        "4": "T_SWO",
-        "5": "UART4_RX",
-        "6": "UART4_TX",
-        "7": "USART5_RX",
-        "8": "USART5_TX"
+        "1": {
+          "net": "I2C2_SCL",
+          "type": "passive"
+        },
+        "2": {
+          "net": "I2C2_SDA",
+          "type": "passive"
+        },
+        "3": {
+          "net": "USART2_RX",
+          "type": "passive"
+        },
+        "4": {
+          "net": "T_SWO",
+          "type": "passive"
+        },
+        "5": {
+          "net": "UART4_RX",
+          "type": "passive"
+        },
+        "6": {
+          "net": "UART4_TX",
+          "type": "passive"
+        },
+        "7": {
+          "net": "USART5_RX",
+          "type": "passive"
+        },
+        "8": {
+          "net": "USART5_TX",
+          "type": "passive"
+        }
       },
       "description": "PINHD-1X8",
       "comment": "8x1F-H8.5"
     },
     "J9": {
       "pins": {
-        "1": "",
-        "2": "+3V3",
-        "3": "NRST",
-        "4": "+3V3",
-        "5": "+5",
-        "6": "GND",
-        "7": "GND",
-        "8": "+12"
+        "1": {
+          "net": "",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NRST",
+          "type": "passive"
+        },
+        "4": {
+          "net": "+3V3",
+          "type": "passive"
+        },
+        "5": {
+          "net": "+5",
+          "type": "passive"
+        },
+        "6": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "7": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "8": {
+          "net": "+12",
+          "type": "passive"
+        }
       },
       "description": "PINHD-1X8",
       "comment": "8x1F-H8.5"
     },
     "J8": {
       "pins": {
-        "1": "AD0",
-        "2": "AD1",
-        "3": "AD2",
-        "4": "AD3",
-        "5": "AD4",
-        "6": "AD5",
-        "7": "AD6",
-        "8": "AD7"
+        "1": {
+          "net": "AD0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "AD1",
+          "type": "passive"
+        },
+        "3": {
+          "net": "AD2",
+          "type": "passive"
+        },
+        "4": {
+          "net": "AD3",
+          "type": "passive"
+        },
+        "5": {
+          "net": "AD4",
+          "type": "passive"
+        },
+        "6": {
+          "net": "AD5",
+          "type": "passive"
+        },
+        "7": {
+          "net": "AD6",
+          "type": "passive"
+        },
+        "8": {
+          "net": "AD7",
+          "type": "passive"
+        }
       },
       "description": "PINHD-1X8",
       "comment": "8x1F-H8.5"
     },
     "J10": {
       "pins": {
-        "1": "AD8",
-        "2": "AD9",
-        "3": "AD10",
-        "4": "AD11",
-        "5": "DAC1",
-        "6": "DAC2",
-        "7": "CANL",
-        "8": "CANH"
+        "1": {
+          "net": "AD8",
+          "type": "passive"
+        },
+        "2": {
+          "net": "AD9",
+          "type": "passive"
+        },
+        "3": {
+          "net": "AD10",
+          "type": "passive"
+        },
+        "4": {
+          "net": "AD11",
+          "type": "passive"
+        },
+        "5": {
+          "net": "DAC1",
+          "type": "passive"
+        },
+        "6": {
+          "net": "DAC2",
+          "type": "passive"
+        },
+        "7": {
+          "net": "CANL",
+          "type": "passive"
+        },
+        "8": {
+          "net": "CANH",
+          "type": "passive"
+        }
       },
       "description": "PINHD-1X8",
       "comment": "8x1F-H8.5"
     },
     "J5": {
       "pins": {
-        "1": "+5",
-        "2": "+5",
-        "3": "FMC_D8",
-        "4": "FMC_D9",
-        "5": "FMC_D10",
-        "6": "FMC_D11",
-        "7": "FMC_D12",
-        "8": "FMC_D13",
-        "9": "FMC_D14",
-        "10": "FMC_D15",
-        "11": "FMC_D7",
-        "12": "FMC_D6",
-        "13": "FMC_D5",
-        "14": "FMC_D4",
-        "15": "FMC_D3",
-        "16": "FMC_D2",
-        "17": "FMC_D1",
-        "18": "FMC_D0",
-        "19": "LCD_RS",
-        "20": "LCD_WR",
-        "21": "ARDUINO_CS",
-        "22": "LCD_RST",
-        "23": "LIN_BUS",
-        "24": "LCD_RD",
-        "25": "TCH_PENIRQ",
-        "26": "FLASH_CS",
-        "27": "QSPI_IO0",
-        "28": "QSPI_IO1",
-        "29": "LCD_BKLT",
-        "30": "QSPI_IO2",
-        "31": "MISO",
-        "32": "MOSI",
-        "33": "SCK",
-        "34": "TCH_CS",
-        "35": "GND",
-        "36": "GND"
+        "1": {
+          "net": "+5",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        },
+        "3": {
+          "net": "FMC_D8",
+          "type": "passive"
+        },
+        "4": {
+          "net": "FMC_D9",
+          "type": "passive"
+        },
+        "5": {
+          "net": "FMC_D10",
+          "type": "passive"
+        },
+        "6": {
+          "net": "FMC_D11",
+          "type": "passive"
+        },
+        "7": {
+          "net": "FMC_D12",
+          "type": "passive"
+        },
+        "8": {
+          "net": "FMC_D13",
+          "type": "passive"
+        },
+        "9": {
+          "net": "FMC_D14",
+          "type": "passive"
+        },
+        "10": {
+          "net": "FMC_D15",
+          "type": "passive"
+        },
+        "11": {
+          "net": "FMC_D7",
+          "type": "passive"
+        },
+        "12": {
+          "net": "FMC_D6",
+          "type": "passive"
+        },
+        "13": {
+          "net": "FMC_D5",
+          "type": "passive"
+        },
+        "14": {
+          "net": "FMC_D4",
+          "type": "passive"
+        },
+        "15": {
+          "net": "FMC_D3",
+          "type": "passive"
+        },
+        "16": {
+          "net": "FMC_D2",
+          "type": "passive"
+        },
+        "17": {
+          "net": "FMC_D1",
+          "type": "passive"
+        },
+        "18": {
+          "net": "FMC_D0",
+          "type": "passive"
+        },
+        "19": {
+          "net": "LCD_RS",
+          "type": "passive"
+        },
+        "20": {
+          "net": "LCD_WR",
+          "type": "passive"
+        },
+        "21": {
+          "net": "ARDUINO_CS",
+          "type": "passive"
+        },
+        "22": {
+          "net": "LCD_RST",
+          "type": "passive"
+        },
+        "23": {
+          "net": "LIN_BUS",
+          "type": "passive"
+        },
+        "24": {
+          "net": "LCD_RD",
+          "type": "passive"
+        },
+        "25": {
+          "net": "TCH_PENIRQ",
+          "type": "passive"
+        },
+        "26": {
+          "net": "FLASH_CS",
+          "type": "passive"
+        },
+        "27": {
+          "net": "QSPI_IO0",
+          "type": "passive"
+        },
+        "28": {
+          "net": "QSPI_IO1",
+          "type": "passive"
+        },
+        "29": {
+          "net": "LCD_BKLT",
+          "type": "passive"
+        },
+        "30": {
+          "net": "QSPI_IO2",
+          "type": "passive"
+        },
+        "31": {
+          "net": "MISO",
+          "type": "passive"
+        },
+        "32": {
+          "net": "MOSI",
+          "type": "passive"
+        },
+        "33": {
+          "net": "SCK",
+          "type": "passive"
+        },
+        "34": {
+          "net": "TCH_CS",
+          "type": "passive"
+        },
+        "35": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "36": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "PINHD-2X18",
       "comment": "18x2F-H8.5"
     },
     "BTN_RIGHT1": {
       "pins": {
-        "1": "NetBTN_RIGHT1_1",
-        "3": "GND"
+        "1": {
+          "net": "NetBTN_RIGHT1_1",
+          "type": "passive"
+        },
+        "3": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "Tactile switch SMD",
       "comment": "Button_6x6",
@@ -2918,8 +3182,14 @@
     },
     "R90": {
       "pins": {
-        "1": "NetC47_2",
-        "2": "NetBTN_RIGHT1_1"
+        "1": {
+          "net": "NetC47_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetBTN_RIGHT1_1",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
@@ -2931,11 +3201,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "NetBTN_RIGHT1_1"
+          "net": "NetBTN_RIGHT1_1",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "TVS Diode (Uni-directional)",
@@ -2945,11 +3217,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "NetBTN_DOWN1_1"
+          "net": "NetBTN_DOWN1_1",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "TVS Diode (Uni-directional)",
@@ -2959,11 +3233,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "NetBTN_LEFT1_1"
+          "net": "NetBTN_LEFT1_1",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "TVS Diode (Uni-directional)",
@@ -2973,11 +3249,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "NetBTN_UP1_1"
+          "net": "NetBTN_UP1_1",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "TVS Diode (Uni-directional)",
@@ -2987,11 +3265,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "NetA1_1"
+          "net": "NetA1_1",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "TVS Diode (Uni-directional)",
@@ -2999,80 +3279,140 @@
     },
     "C47": {
       "pins": {
-        "1": "GND",
-        "2": "NetC47_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC47_2",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "NP"
     },
     "C44": {
       "pins": {
-        "1": "GND",
-        "2": "NetC44_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC44_2",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "NP"
     },
     "C45": {
       "pins": {
-        "1": "GND",
-        "2": "NetC45_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC45_2",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "NP"
     },
     "C43": {
       "pins": {
-        "1": "GND",
-        "2": "NetC43_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC43_2",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "NP"
     },
     "C46": {
       "pins": {
-        "1": "GND",
-        "2": "NRST"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NRST",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "100n"
     },
     "R87": {
       "pins": {
-        "1": "NetC44_2",
-        "2": "NetBTN_DOWN1_1"
+        "1": {
+          "net": "NetC44_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetBTN_DOWN1_1",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "R89": {
       "pins": {
-        "1": "NRST",
-        "2": "NetA1_1"
+        "1": {
+          "net": "NRST",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetA1_1",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "56"
     },
     "R88": {
       "pins": {
-        "1": "NetC45_2",
-        "2": "NetBTN_LEFT1_1"
+        "1": {
+          "net": "NetC45_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetBTN_LEFT1_1",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "R86": {
       "pins": {
-        "1": "NetC43_2",
-        "2": "NetBTN_UP1_1"
+        "1": {
+          "net": "NetC43_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetBTN_UP1_1",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "BTN_DOWN1": {
       "pins": {
-        "1": "NetBTN_DOWN1_1",
-        "3": "GND"
+        "1": {
+          "net": "NetBTN_DOWN1_1",
+          "type": "passive"
+        },
+        "3": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "Tactile switch SMD",
       "comment": "Button_6x6",
@@ -3080,8 +3420,14 @@
     },
     "A1": {
       "pins": {
-        "1": "NetA1_1",
-        "3": "GND"
+        "1": {
+          "net": "NetA1_1",
+          "type": "passive"
+        },
+        "3": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "Tactile switch SMD",
       "comment": "Button_6x6",
@@ -3089,8 +3435,14 @@
     },
     "BTN_LEFT1": {
       "pins": {
-        "1": "NetBTN_LEFT1_1",
-        "3": "GND"
+        "1": {
+          "net": "NetBTN_LEFT1_1",
+          "type": "passive"
+        },
+        "3": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "Tactile switch SMD",
       "comment": "Button_6x6",
@@ -3098,8 +3450,14 @@
     },
     "BTN_UP1": {
       "pins": {
-        "1": "NetBTN_UP1_1",
-        "3": "GND"
+        "1": {
+          "net": "NetBTN_UP1_1",
+          "type": "passive"
+        },
+        "3": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "Tactile switch SMD",
       "comment": "Button_6x6",
@@ -3109,11 +3467,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "NetBTN_OK1_1"
+          "net": "NetBTN_OK1_1",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "TVS Diode (Uni-directional)",
@@ -3121,24 +3481,42 @@
     },
     "C48": {
       "pins": {
-        "1": "GND",
-        "2": "NetC48_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC48_2",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "NP"
     },
     "R91": {
       "pins": {
-        "1": "NetC48_2",
-        "2": "NetBTN_OK1_1"
+        "1": {
+          "net": "NetC48_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetBTN_OK1_1",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "BTN_OK1": {
       "pins": {
-        "1": "NetBTN_OK1_1",
-        "3": "GND"
+        "1": {
+          "net": "NetBTN_OK1_1",
+          "type": "passive"
+        },
+        "3": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "Tactile switch SMD",
       "comment": "Button_6x6",
@@ -3148,11 +3526,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "NetBTN_ESC1_1"
+          "net": "NetBTN_ESC1_1",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "TVS Diode (Uni-directional)",
@@ -3160,24 +3540,42 @@
     },
     "C49": {
       "pins": {
-        "1": "GND",
-        "2": "NetC49_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC49_2",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "NP"
     },
     "R92": {
       "pins": {
-        "1": "NetC49_2",
-        "2": "NetBTN_ESC1_1"
+        "1": {
+          "net": "NetC49_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetBTN_ESC1_1",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "BTN_ESC1": {
       "pins": {
-        "1": "NetBTN_ESC1_1",
-        "3": "GND"
+        "1": {
+          "net": "NetBTN_ESC1_1",
+          "type": "passive"
+        },
+        "3": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "Tactile switch SMD",
       "comment": "Button_6x6",
@@ -3187,35 +3585,43 @@
       "pins": {
         "1": {
           "name": "RXD",
-          "net": "USART5_RX"
+          "net": "USART5_RX",
+          "type": "passive"
         },
         "2": {
           "name": "SLP_N",
-          "net": "LIN_SLP"
+          "net": "LIN_SLP",
+          "type": "passive"
         },
         "3": {
           "name": "N.C._1",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "4": {
           "name": "TXD",
-          "net": "USART5_TX"
+          "net": "USART5_TX",
+          "type": "passive"
         },
         "5": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "6": {
           "name": "LIN",
-          "net": "LIN_BUS"
+          "net": "LIN_BUS",
+          "type": "passive"
         },
         "7": {
           "name": "VBAT",
-          "net": "VBAT_8"
+          "net": "VBAT_8",
+          "type": "passive"
         },
         "8": {
           "name": "N.C._2",
-          "net": ""
+          "net": "",
+          "type": "passive"
         }
       },
       "description": "Integrated Circuit, LIN Transciever\r\n\r\nDataSheet:\r\nhttps://www.nxp.com/docs/en/data-sheet/TJA1027.pdf",
@@ -3223,8 +3629,14 @@
     },
     "C37": {
       "pins": {
-        "1": "LIN_BUS",
-        "2": "GND"
+        "1": {
+          "net": "LIN_BUS",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "1n"
@@ -3233,11 +3645,13 @@
       "pins": {
         "1": {
           "name": "C1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "C2",
-          "net": "LIN_BUS"
+          "net": "LIN_BUS",
+          "type": "passive"
         }
       },
       "description": "LIN-bus ESD protection diode",
@@ -3247,35 +3661,43 @@
       "pins": {
         "1": {
           "name": "TXD",
-          "net": "CAN2_TX"
+          "net": "CAN2_TX",
+          "type": "bidirectional"
         },
         "2": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "3": {
           "name": "VDD",
-          "net": "+5"
+          "net": "+5",
+          "type": "power"
         },
         "4": {
           "name": "RXD",
-          "net": "CAN2_RX"
+          "net": "CAN2_RX",
+          "type": "bidirectional"
         },
         "5": {
           "name": "VIO",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "power"
         },
         "6": {
           "name": "CANL",
-          "net": "CANL"
+          "net": "CANL",
+          "type": "bidirectional"
         },
         "7": {
           "name": "CANH",
-          "net": "CANH"
+          "net": "CANH",
+          "type": "bidirectional"
         },
         "8": {
           "name": "STBY",
-          "net": "CAN_STBY"
+          "net": "CAN_STBY",
+          "type": "input"
         }
       },
       "description": "IC TRANSCEIVER 1/1 8SOIC",
@@ -3286,64 +3708,112 @@
     },
     "R58": {
       "pins": {
-        "1": "+3V3",
-        "2": "LIN_SLP"
+        "1": {
+          "net": "+3V3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "LIN_SLP",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "10k"
     },
     "R57": {
       "pins": {
-        "1": "+3V3",
-        "2": "USART5_TX"
+        "1": {
+          "net": "+3V3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "USART5_TX",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "10k"
     },
     "R59": {
       "pins": {
-        "1": "+3V3",
-        "2": "USART5_RX"
+        "1": {
+          "net": "+3V3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "USART5_RX",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "10k"
     },
     "R62": {
       "pins": {
-        "1": "+3V3",
-        "2": "CAN2_RX"
+        "1": {
+          "net": "+3V3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "CAN2_RX",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "10k"
     },
     "R63": {
       "pins": {
-        "1": "+3V3",
-        "2": "CAN2_TX"
+        "1": {
+          "net": "+3V3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "CAN2_TX",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "10k"
     },
     "R66": {
       "pins": {
-        "1": "CAN_STBY",
-        "2": "GND"
+        "1": {
+          "net": "CAN_STBY",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "NP"
     },
     "R64": {
       "pins": {
-        "1": "CANH",
-        "2": "NetR64_2"
+        "1": {
+          "net": "CANH",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR64_2",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "56"
     },
     "R65": {
       "pins": {
-        "1": "CANL",
-        "2": "NetR64_2"
+        "1": {
+          "net": "CANL",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR64_2",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "56"
@@ -3352,11 +3822,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "VBAT_8"
+          "net": "VBAT_8",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "+5"
+          "net": "+5",
+          "type": "passive"
         }
       },
       "mpn": "BAT54HT1G",
@@ -3368,11 +3840,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "VBAT_8"
+          "net": "VBAT_8",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "+12"
+          "net": "+12",
+          "type": "passive"
         }
       },
       "mpn": "BAT54HT1G",
@@ -3384,11 +3858,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "NetD5_1"
+          "net": "NetD5_1",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "VBAT_8"
+          "net": "VBAT_8",
+          "type": "passive"
         }
       },
       "mpn": "BAT54HT1G",
@@ -3398,32 +3874,56 @@
     },
     "R60": {
       "pins": {
-        "1": "NetD5_1",
-        "2": "LIN_BUS"
+        "1": {
+          "net": "NetD5_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "LIN_BUS",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "C35": {
       "pins": {
-        "1": "GND",
-        "2": "VBAT_8"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VBAT_8",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "100n"
     },
     "C36": {
       "pins": {
-        "1": "GND",
-        "2": "VBAT_8"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VBAT_8",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "4u7"
     },
     "R61": {
       "pins": {
-        "1": "GND",
-        "2": "LIN_SLP"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "LIN_SLP",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "NP"
@@ -3432,19 +3932,27 @@
       "pins": {
         "1": {
           "name": "37",
-          "net": "NetR64_2"
+          "net": "NetR64_2",
+          "type": "passive"
         },
         "2": {
           "name": "38",
-          "net": "NetR64_2"
+          "net": "NetR64_2",
+          "type": "passive"
         }
       },
       "comment": "SD_JUMP"
     },
     "C38": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "100n"
@@ -3453,15 +3961,18 @@
       "pins": {
         "1": {
           "name": "CANL",
-          "net": "CANH"
+          "net": "CANH",
+          "type": "passive"
         },
         "2": {
           "name": "CANH",
-          "net": "CANL"
+          "net": "CANL",
+          "type": "passive"
         },
         "3": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "SOT23127P600-8N\r\nDual Line Automotive Bus protection\r\n\r\nDatasheet: https://www.onsemi.com/pdf/datasheet/nup2125-d.pdf",
@@ -3472,21 +3983,30 @@
     },
     "FID1": {
       "pins": {
-        "F": ""
+        "F": {
+          "net": "",
+          "type": "power"
+        }
       },
       "description": "according to IPC-7351 - is a 1mm diameter round dot with 2mm solder mask opening",
       "comment": "Fiducial"
     },
     "FID2": {
       "pins": {
-        "F": ""
+        "F": {
+          "net": "",
+          "type": "power"
+        }
       },
       "description": "according to IPC-7351 - is a 1mm diameter round dot with 2mm solder mask opening",
       "comment": "Fiducial"
     },
     "FID3": {
       "pins": {
-        "F": ""
+        "F": {
+          "net": "",
+          "type": "power"
+        }
       },
       "description": "according to IPC-7351 - is a 1mm diameter round dot with 2mm solder mask opening",
       "comment": "Fiducial"
@@ -3495,11 +4015,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "NetD10_1"
+          "net": "NetD10_1",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "TVS Diode (Uni-directional)",
@@ -3510,144 +4032,252 @@
     },
     "R67": {
       "pins": {
-        "1": "JOY_Y",
-        "2": "NetD9_1"
+        "1": {
+          "net": "JOY_Y",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetD9_1",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "R69": {
       "pins": {
-        "1": "JOY_X",
-        "2": "NetD8_1"
+        "1": {
+          "net": "JOY_X",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetD8_1",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "R77": {
       "pins": {
-        "1": "NetR77_1",
-        "2": "LED0"
+        "1": {
+          "net": "NetR77_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "LED0",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "R85": {
       "pins": {
-        "1": "NetLED13_2",
-        "2": "NetR77_1"
+        "1": {
+          "net": "NetLED13_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR77_1",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "R76": {
       "pins": {
-        "1": "NetR76_1",
-        "2": "LED1"
+        "1": {
+          "net": "NetR76_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "LED1",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "R84": {
       "pins": {
-        "1": "NetLED12_2",
-        "2": "NetR76_1"
+        "1": {
+          "net": "NetLED12_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR76_1",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "R75": {
       "pins": {
-        "1": "NetR75_1",
-        "2": "LED2"
+        "1": {
+          "net": "NetR75_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "LED2",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "R83": {
       "pins": {
-        "1": "NetLED11_2",
-        "2": "NetR75_1"
+        "1": {
+          "net": "NetLED11_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR75_1",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "R74": {
       "pins": {
-        "1": "NetR74_1",
-        "2": "LED3"
+        "1": {
+          "net": "NetR74_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "LED3",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "R82": {
       "pins": {
-        "1": "NetLED10_2",
-        "2": "NetR74_1"
+        "1": {
+          "net": "NetLED10_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR74_1",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "R73": {
       "pins": {
-        "1": "NetR73_1",
-        "2": "LED4"
+        "1": {
+          "net": "NetR73_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "LED4",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "R81": {
       "pins": {
-        "1": "NetLED9_2",
-        "2": "NetR73_1"
+        "1": {
+          "net": "NetLED9_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR73_1",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "R72": {
       "pins": {
-        "1": "NetR72_1",
-        "2": "LED5"
+        "1": {
+          "net": "NetR72_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "LED5",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "R80": {
       "pins": {
-        "1": "NetLED8_2",
-        "2": "NetR72_1"
+        "1": {
+          "net": "NetLED8_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR72_1",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "R71": {
       "pins": {
-        "1": "NetR71_1",
-        "2": "LED6"
+        "1": {
+          "net": "NetR71_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "LED6",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "R79": {
       "pins": {
-        "1": "NetLED7_2",
-        "2": "NetR71_1"
+        "1": {
+          "net": "NetLED7_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR71_1",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "R70": {
       "pins": {
-        "1": "NetR70_1",
-        "2": "LED7"
+        "1": {
+          "net": "NetR70_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "LED7",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "R78": {
       "pins": {
-        "1": "NetLED6_2",
-        "2": "NetR70_1"
+        "1": {
+          "net": "NetLED6_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR70_1",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
@@ -3656,11 +4286,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "NetD8_1"
+          "net": "NetD8_1",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "TVS Diode (Uni-directional)",
@@ -3668,16 +4300,28 @@
     },
     "C40": {
       "pins": {
-        "1": "GND",
-        "2": "JOY_Y"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "JOY_Y",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "100n"
     },
     "C42": {
       "pins": {
-        "1": "GND",
-        "2": "JOY_X"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "JOY_X",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "100n"
@@ -3686,11 +4330,13 @@
       "pins": {
         "1": {
           "name": "KATODE",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "ANODE",
-          "net": "NetLED13_2"
+          "net": "NetLED13_2",
+          "type": "passive"
         }
       },
       "description": "LED",
@@ -3700,11 +4346,13 @@
       "pins": {
         "1": {
           "name": "KATODE",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "ANODE",
-          "net": "NetLED12_2"
+          "net": "NetLED12_2",
+          "type": "passive"
         }
       },
       "description": "LED",
@@ -3714,11 +4362,13 @@
       "pins": {
         "1": {
           "name": "KATODE",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "ANODE",
-          "net": "NetLED11_2"
+          "net": "NetLED11_2",
+          "type": "passive"
         }
       },
       "description": "LED",
@@ -3728,11 +4378,13 @@
       "pins": {
         "1": {
           "name": "KATODE",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "ANODE",
-          "net": "NetLED10_2"
+          "net": "NetLED10_2",
+          "type": "passive"
         }
       },
       "description": "LED",
@@ -3742,11 +4394,13 @@
       "pins": {
         "1": {
           "name": "KATODE",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "ANODE",
-          "net": "NetLED9_2"
+          "net": "NetLED9_2",
+          "type": "passive"
         }
       },
       "description": "LED",
@@ -3756,11 +4410,13 @@
       "pins": {
         "1": {
           "name": "KATODE",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "ANODE",
-          "net": "NetLED8_2"
+          "net": "NetLED8_2",
+          "type": "passive"
         }
       },
       "description": "LED",
@@ -3770,11 +4426,13 @@
       "pins": {
         "1": {
           "name": "KATODE",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "ANODE",
-          "net": "NetLED7_2"
+          "net": "NetLED7_2",
+          "type": "passive"
         }
       },
       "description": "LED",
@@ -3784,11 +4442,13 @@
       "pins": {
         "1": {
           "name": "KATODE",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "ANODE",
-          "net": "NetLED6_2"
+          "net": "NetLED6_2",
+          "type": "passive"
         }
       },
       "description": "LED",
@@ -3798,11 +4458,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "NetD9_1"
+          "net": "NetD9_1",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "TVS Diode (Uni-directional)",
@@ -3810,8 +4472,14 @@
     },
     "R68": {
       "pins": {
-        "1": "JOY_BTN",
-        "2": "NetD10_1"
+        "1": {
+          "net": "JOY_BTN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetD10_1",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
@@ -3820,37 +4488,71 @@
       "pins": {
         "0": {
           "name": "Shield",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
-        "1": "NetD9_1",
-        "2": "GND",
-        "3": "NetD10_1",
-        "4": "NetD8_1",
-        "5": "+3V3"
+        "1": {
+          "net": "NetD9_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetD10_1",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetD8_1",
+          "type": "passive"
+        },
+        "5": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "description": "TE connectivity  FPC 5 pin 0.5 mm ZIF top contact female connector 1734839-5",
       "comment": "FPC 5 pin"
     },
     "C41": {
       "pins": {
-        "1": "GND",
-        "2": "JOY_BTN"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "JOY_BTN",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "NP"
     },
     "C39": {
       "pins": {
-        "1": "GND",
-        "2": "+3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "100n"
     },
     "R53": {
       "pins": {
-        "1": "NetM1_D",
-        "2": "NetR53_2"
+        "1": {
+          "net": "NetM1_D",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR53_2",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "56"
@@ -3859,67 +4561,83 @@
       "pins": {
         "1": {
           "name": "VCC",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "bidirectional"
         },
         "2": {
           "name": "XP",
-          "net": "XR_7"
+          "net": "XR_7",
+          "type": "bidirectional"
         },
         "3": {
           "name": "YP",
-          "net": "YD_7"
+          "net": "YD_7",
+          "type": "bidirectional"
         },
         "4": {
           "name": "XN",
-          "net": "XL_7"
+          "net": "XL_7",
+          "type": "bidirectional"
         },
         "5": {
           "name": "YN",
-          "net": "YU_7"
+          "net": "YU_7",
+          "type": "bidirectional"
         },
         "6": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "bidirectional"
         },
         "7": {
           "name": "VBAT",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "8": {
           "name": "AUX",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "9": {
           "name": "VREF",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "bidirectional"
         },
         "10": {
           "name": "IOVDD",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "bidirectional"
         },
         "11": {
           "name": "/PENIRQ",
-          "net": "TCH_PENIRQ"
+          "net": "TCH_PENIRQ",
+          "type": "bidirectional"
         },
         "12": {
           "name": "DOUT",
-          "net": "MISO"
+          "net": "MISO",
+          "type": "bidirectional"
         },
         "13": {
           "name": "BUSY",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "14": {
           "name": "DIN",
-          "net": "MOSI"
+          "net": "MOSI",
+          "type": "bidirectional"
         },
         "15": {
           "name": "/CS",
-          "net": "TCH_CS"
+          "net": "TCH_CS",
+          "type": "bidirectional"
         },
         "16": {
           "name": "DCLK",
-          "net": "SCK"
+          "net": "SCK",
+          "type": "bidirectional"
         }
       },
       "description": "LCD touch controller",
@@ -3931,65 +4649,116 @@
     },
     "R54": {
       "pins": {
-        "1": "NetM1_D",
-        "2": "NetR54_2"
+        "1": {
+          "net": "NetM1_D",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR54_2",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "56"
     },
     "R55": {
       "pins": {
-        "1": "NetM1_D",
-        "2": "NetR55_2"
+        "1": {
+          "net": "NetM1_D",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR55_2",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "56"
     },
     "R56": {
       "pins": {
-        "1": "NetM1_D",
-        "2": "NetR56_2"
+        "1": {
+          "net": "NetM1_D",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR56_2",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "56"
     },
     "C27": {
       "pins": {
-        "1": "GND",
-        "2": "+3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "100n"
     },
     "C28": {
       "pins": {
-        "1": "GND",
-        "2": "+3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "100n"
     },
     "C29": {
       "pins": {
-        "1": "GND",
-        "2": "+3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "4u7"
     },
     "C30": {
       "pins": {
-        "1": "GND",
-        "2": "+3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "4u7"
     },
     "M1": {
       "pins": {
-        "G": "LCD_BKLT",
-        "S": "GND",
-        "D": "NetM1_D"
+        "G": {
+          "net": "LCD_BKLT",
+          "type": "passive"
+        },
+        "S": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "D": {
+          "net": "NetM1_D",
+          "type": "passive"
+        }
       },
       "description": "BSH103-T/R (NMOS)",
       "comment": "BSS138"
@@ -3998,51 +4767,83 @@
       "pins": {
         "1": {
           "name": "37",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "38",
-          "net": "NetR52_1"
+          "net": "NetR52_1",
+          "type": "passive"
         }
       },
       "comment": "SD_JUMP"
     },
     "R52": {
       "pins": {
-        "1": "NetR52_1",
-        "2": "+3V3"
+        "1": {
+          "net": "NetR52_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "10k"
     },
     "C31": {
       "pins": {
-        "1": "GND",
-        "2": "YU_7"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "YU_7",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "NP"
     },
     "C32": {
       "pins": {
-        "1": "GND",
-        "2": "XL_7"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "XL_7",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "NP"
     },
     "C33": {
       "pins": {
-        "1": "GND",
-        "2": "YD_7"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "YD_7",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "NP"
     },
     "C34": {
       "pins": {
-        "1": "GND",
-        "2": "XR_7"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "XR_7",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "NP"
@@ -4051,151 +4852,188 @@
       "pins": {
         "1": {
           "name": "DB8",
-          "net": "FMC_D8"
+          "net": "FMC_D8",
+          "type": "passive"
         },
         "2": {
           "name": "DB9",
-          "net": "FMC_D9"
+          "net": "FMC_D9",
+          "type": "passive"
         },
         "3": {
           "name": "DB10",
-          "net": "FMC_D10"
+          "net": "FMC_D10",
+          "type": "passive"
         },
         "4": {
           "name": "DB11",
-          "net": "FMC_D11"
+          "net": "FMC_D11",
+          "type": "passive"
         },
         "5": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "6": {
           "name": "IOvcc",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "passive"
         },
         "7": {
           "name": "C\\S\\",
-          "net": "LCD_CS"
+          "net": "LCD_CS",
+          "type": "passive"
         },
         "8": {
           "name": "RS",
-          "net": "LCD_RS"
+          "net": "LCD_RS",
+          "type": "passive"
         },
         "9": {
           "name": "W\\R\\",
-          "net": "LCD_WR"
+          "net": "LCD_WR",
+          "type": "passive"
         },
         "10": {
           "name": "R\\D\\",
-          "net": "LCD_RD"
+          "net": "LCD_RD",
+          "type": "passive"
         },
         "11": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "12": {
           "name": "XL",
-          "net": "XL_7"
+          "net": "XL_7",
+          "type": "passive"
         },
         "13": {
           "name": "YU",
-          "net": "YU_7"
+          "net": "YU_7",
+          "type": "passive"
         },
         "14": {
           "name": "XR",
-          "net": "XR_7"
+          "net": "XR_7",
+          "type": "passive"
         },
         "15": {
           "name": "YD",
-          "net": "YD_7"
+          "net": "YD_7",
+          "type": "passive"
         },
         "16": {
           "name": "LEDA",
-          "net": "+5"
+          "net": "+5",
+          "type": "passive"
         },
         "17": {
           "name": "LEDK1",
-          "net": "NetR53_2"
+          "net": "NetR53_2",
+          "type": "passive"
         },
         "18": {
           "name": "LEDK2",
-          "net": "NetR54_2"
+          "net": "NetR54_2",
+          "type": "passive"
         },
         "19": {
           "name": "LEDK3",
-          "net": "NetR55_2"
+          "net": "NetR55_2",
+          "type": "passive"
         },
         "20": {
           "name": "LEDK4",
-          "net": "NetR56_2"
+          "net": "NetR56_2",
+          "type": "passive"
         },
         "21": {
           "name": "IM0",
-          "net": "NetR52_1"
+          "net": "NetR52_1",
+          "type": "passive"
         },
         "22": {
           "name": "DB12",
-          "net": "FMC_D12"
+          "net": "FMC_D12",
+          "type": "passive"
         },
         "23": {
           "name": "DB0",
-          "net": "FMC_D0"
+          "net": "FMC_D0",
+          "type": "passive"
         },
         "24": {
           "name": "DB1",
-          "net": "FMC_D1"
+          "net": "FMC_D1",
+          "type": "passive"
         },
         "25": {
           "name": "DB2",
-          "net": "FMC_D2"
+          "net": "FMC_D2",
+          "type": "passive"
         },
         "26": {
           "name": "DB3",
-          "net": "FMC_D3"
+          "net": "FMC_D3",
+          "type": "passive"
         },
         "27": {
           "name": "DB4",
-          "net": "FMC_D4"
+          "net": "FMC_D4",
+          "type": "passive"
         },
         "28": {
           "name": "DB5",
-          "net": "FMC_D5"
+          "net": "FMC_D5",
+          "type": "passive"
         },
         "29": {
           "name": "DB6",
-          "net": "FMC_D6"
+          "net": "FMC_D6",
+          "type": "passive"
         },
         "30": {
           "name": "DB7",
-          "net": "FMC_D7"
+          "net": "FMC_D7",
+          "type": "passive"
         },
         "31": {
           "name": "R\\S\\T\\",
-          "net": "LCD_RST"
+          "net": "LCD_RST",
+          "type": "passive"
         },
         "32": {
           "name": "VCC",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "passive"
         },
         "33": {
           "name": "VCC",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "passive"
         },
         "34": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "35": {
           "name": "DB13",
-          "net": "FMC_D13"
+          "net": "FMC_D13",
+          "type": "passive"
         },
         "36": {
           "name": "DB14",
-          "net": "FMC_D14"
+          "net": "FMC_D14",
+          "type": "passive"
         },
         "37": {
           "name": "DB15",
-          "net": "FMC_D15"
+          "net": "FMC_D15",
+          "type": "passive"
         }
       },
       "comment": "LCD_TFT_2.8inch"
@@ -4205,96 +5043,168 @@
     },
     "C53": {
       "pins": {
-        "1": "GND",
-        "2": "+3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "100n"
     },
     "C54": {
       "pins": {
-        "1": "GND",
-        "2": "+3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "100n"
     },
     "C55": {
       "pins": {
-        "1": "GND",
-        "2": "+3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "100n"
     },
     "C56": {
       "pins": {
-        "1": "GND",
-        "2": "+3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "100n"
     },
     "C57": {
       "pins": {
-        "1": "GND",
-        "2": "+3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "100n"
     },
     "C58": {
       "pins": {
-        "1": "GND",
-        "2": "+3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "100n"
     },
     "C59": {
       "pins": {
-        "1": "GND",
-        "2": "+3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "100n"
     },
     "C60": {
       "pins": {
-        "1": "GND",
-        "2": "+3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "100n"
     },
     "C51": {
       "pins": {
-        "1": "GND",
-        "2": "AREF"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "AREF",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "100n"
     },
     "FB2": {
       "pins": {
-        "1": "AREF",
-        "2": "+3V3"
+        "1": {
+          "net": "AREF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "description": "Chip Ferrite Bead, 0805, 200Ω @ 100MHz, 0.26Ω, 25%, 500mA",
       "comment": "BLM21BB201SN1D"
     },
     "R93": {
       "pins": {
-        "1": "+3V3",
-        "2": "NRST"
+        "1": {
+          "net": "+3V3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NRST",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "C50": {
       "pins": {
-        "1": "GND",
-        "2": "NRST"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NRST",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "100n"
@@ -4303,515 +5213,643 @@
       "pins": {
         "1": {
           "name": "PE2",
-          "net": "NetJ12_12"
+          "net": "NetJ12_12",
+          "type": "passive"
         },
         "2": {
           "name": "PE3",
-          "net": "NetJ12_14"
+          "net": "NetJ12_14",
+          "type": "passive"
         },
         "3": {
           "name": "PE4",
-          "net": "NetJ12_16"
+          "net": "NetJ12_16",
+          "type": "passive"
         },
         "4": {
           "name": "PE5",
-          "net": "NetJ12_18"
+          "net": "NetJ12_18",
+          "type": "passive"
         },
         "5": {
           "name": "PE6",
-          "net": "NetJ12_20"
+          "net": "NetJ12_20",
+          "type": "passive"
         },
         "6": {
           "name": "VBAT",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "7": {
           "name": "PC13",
-          "net": "JOY_BTN"
+          "net": "JOY_BTN",
+          "type": "passive"
         },
         "8": {
           "name": "PC14-OSC32_IN",
-          "net": "NetC49_2"
+          "net": "NetC49_2",
+          "type": "passive"
         },
         "9": {
           "name": "PC15-OSC32_OUT",
-          "net": "NetC48_2"
+          "net": "NetC48_2",
+          "type": "passive"
         },
         "10": {
           "name": "PF3",
-          "net": "LED1"
+          "net": "LED1",
+          "type": "passive"
         },
         "11": {
           "name": "PF4",
-          "net": "LED2"
+          "net": "LED2",
+          "type": "passive"
         },
         "12": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "13": {
           "name": "VDD",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "passive"
         },
         "14": {
           "name": "PF5",
-          "net": "LED3"
+          "net": "LED3",
+          "type": "passive"
         },
         "15": {
           "name": "PF7",
-          "net": "PWM2"
+          "net": "PWM2",
+          "type": "passive"
         },
         "16": {
           "name": "PF8",
-          "net": "PWM3"
+          "net": "PWM3",
+          "type": "passive"
         },
         "17": {
           "name": "PF9",
-          "net": "PWM4"
+          "net": "PWM4",
+          "type": "passive"
         },
         "18": {
           "name": "PF10",
-          "net": "PWM5"
+          "net": "PWM5",
+          "type": "passive"
         },
         "19": {
           "name": "PF0-OSC_IN",
-          "net": "MCI"
+          "net": "MCI",
+          "type": "passive"
         },
         "20": {
           "name": "PF1-OSC_OUT",
-          "net": "AD5"
+          "net": "AD5",
+          "type": "passive"
         },
         "21": {
           "name": "PG10-NRST",
-          "net": "NRST"
+          "net": "NRST",
+          "type": "passive"
         },
         "22": {
           "name": "PC0",
-          "net": "LED4"
+          "net": "LED4",
+          "type": "passive"
         },
         "23": {
           "name": "PC1",
-          "net": "LED5"
+          "net": "LED5",
+          "type": "passive"
         },
         "24": {
           "name": "PC2",
-          "net": "LED6"
+          "net": "LED6",
+          "type": "passive"
         },
         "25": {
           "name": "PC3",
-          "net": "LED7"
+          "net": "LED7",
+          "type": "passive"
         },
         "26": {
           "name": "PF2",
-          "net": "LED0"
+          "net": "LED0",
+          "type": "passive"
         },
         "27": {
           "name": "PA0",
-          "net": "AD0"
+          "net": "AD0",
+          "type": "passive"
         },
         "28": {
           "name": "PA1",
-          "net": "AD1"
+          "net": "AD1",
+          "type": "passive"
         },
         "29": {
           "name": "PA2",
-          "net": "AD2"
+          "net": "AD2",
+          "type": "passive"
         },
         "30": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "31": {
           "name": "VDD",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "passive"
         },
         "32": {
           "name": "PA3",
-          "net": "AD3"
+          "net": "AD3",
+          "type": "passive"
         },
         "33": {
           "name": "PA4",
-          "net": "DAC1"
+          "net": "DAC1",
+          "type": "passive"
         },
         "34": {
           "name": "PA5",
-          "net": "AD8"
+          "net": "AD8",
+          "type": "passive"
         },
         "35": {
           "name": "PA6",
-          "net": "DAC2"
+          "net": "DAC2",
+          "type": "passive"
         },
         "36": {
           "name": "PA7",
-          "net": "QSPI_IO2"
+          "net": "QSPI_IO2",
+          "type": "passive"
         },
         "37": {
           "name": "PC4",
-          "net": "AD4"
+          "net": "AD4",
+          "type": "passive"
         },
         "38": {
           "name": "PC5",
-          "net": "AD6"
+          "net": "AD6",
+          "type": "passive"
         },
         "39": {
           "name": "PB0",
-          "net": "QSPI_IO1"
+          "net": "QSPI_IO1",
+          "type": "passive"
         },
         "40": {
           "name": "PB1",
-          "net": "QSPI_IO0"
+          "net": "QSPI_IO0",
+          "type": "passive"
         },
         "41": {
           "name": "PB2",
-          "net": "AD7"
+          "net": "AD7",
+          "type": "passive"
         },
         "42": {
           "name": "VSSA",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "43": {
           "name": "VREF+_1",
-          "net": "AREF"
+          "net": "AREF",
+          "type": "passive"
         },
         "44": {
           "name": "VREF+_2",
-          "net": "AREF"
+          "net": "AREF",
+          "type": "passive"
         },
         "45": {
           "name": "VDDA",
-          "net": "AREF"
+          "net": "AREF",
+          "type": "passive"
         },
         "46": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "47": {
           "name": "VDD",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "passive"
         },
         "48": {
           "name": "PF11",
-          "net": "ARDUINO_CS"
+          "net": "ARDUINO_CS",
+          "type": "passive"
         },
         "49": {
           "name": "PF12",
-          "net": "PWM6"
+          "net": "PWM6",
+          "type": "passive"
         },
         "50": {
           "name": "PF13",
-          "net": "PWM7"
+          "net": "PWM7",
+          "type": "passive"
         },
         "51": {
           "name": "PF14",
-          "net": "PWM8"
+          "net": "PWM8",
+          "type": "passive"
         },
         "52": {
           "name": "PF15",
-          "net": "PWM9"
+          "net": "PWM9",
+          "type": "passive"
         },
         "53": {
           "name": "PE7",
-          "net": "FMC_D4"
+          "net": "FMC_D4",
+          "type": "passive"
         },
         "54": {
           "name": "PE8",
-          "net": "FMC_D5"
+          "net": "FMC_D5",
+          "type": "passive"
         },
         "55": {
           "name": "PE9",
-          "net": "FMC_D6"
+          "net": "FMC_D6",
+          "type": "passive"
         },
         "56": {
           "name": "PE10",
-          "net": "FMC_D7"
+          "net": "FMC_D7",
+          "type": "passive"
         },
         "57": {
           "name": "PE11",
-          "net": "FMC_D8"
+          "net": "FMC_D8",
+          "type": "passive"
         },
         "58": {
           "name": "PE12",
-          "net": "FMC_D9"
+          "net": "FMC_D9",
+          "type": "passive"
         },
         "59": {
           "name": "PE13",
-          "net": "FMC_D10"
+          "net": "FMC_D10",
+          "type": "passive"
         },
         "60": {
           "name": "PE14",
-          "net": "FMC_D11"
+          "net": "FMC_D11",
+          "type": "passive"
         },
         "61": {
           "name": "PE15",
-          "net": "FMC_D12"
+          "net": "FMC_D12",
+          "type": "passive"
         },
         "62": {
           "name": "PB10",
-          "net": "NetIC1_6"
+          "net": "NetIC1_6",
+          "type": "passive"
         },
         "63": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "64": {
           "name": "VDD",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "passive"
         },
         "65": {
           "name": "PB11",
-          "net": "NetIC1_1"
+          "net": "NetIC1_1",
+          "type": "passive"
         },
         "66": {
           "name": "PB12",
-          "net": "CAN2_RX"
+          "net": "CAN2_RX",
+          "type": "passive"
         },
         "67": {
           "name": "PB13",
-          "net": "CAN2_TX"
+          "net": "CAN2_TX",
+          "type": "passive"
         },
         "68": {
           "name": "PB14",
-          "net": "JOY_X"
+          "net": "JOY_X",
+          "type": "passive"
         },
         "69": {
           "name": "PB15",
-          "net": "JOY_Y"
+          "net": "JOY_Y",
+          "type": "passive"
         },
         "70": {
           "name": "PD8",
-          "net": "FMC_D13"
+          "net": "FMC_D13",
+          "type": "passive"
         },
         "71": {
           "name": "PD9",
-          "net": "FMC_D14"
+          "net": "FMC_D14",
+          "type": "passive"
         },
         "72": {
           "name": "PD10",
-          "net": "FMC_D15"
+          "net": "FMC_D15",
+          "type": "passive"
         },
         "73": {
           "name": "PD11",
-          "net": "AD9"
+          "net": "AD9",
+          "type": "passive"
         },
         "74": {
           "name": "PD12",
-          "net": "AD10"
+          "net": "AD10",
+          "type": "passive"
         },
         "75": {
           "name": "PD13",
-          "net": "AD11"
+          "net": "AD11",
+          "type": "passive"
         },
         "76": {
           "name": "PD14",
-          "net": "FMC_D0"
+          "net": "FMC_D0",
+          "type": "passive"
         },
         "77": {
           "name": "PD15",
-          "net": "FMC_D1"
+          "net": "FMC_D1",
+          "type": "passive"
         },
         "78": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "79": {
           "name": "VDD",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "passive"
         },
         "80": {
           "name": "PC6",
-          "net": "PWM10"
+          "net": "PWM10",
+          "type": "passive"
         },
         "81": {
           "name": "PC7",
-          "net": "PWM11"
+          "net": "PWM11",
+          "type": "passive"
         },
         "82": {
           "name": "PG0",
-          "net": "NetC43_2"
+          "net": "NetC43_2",
+          "type": "passive"
         },
         "83": {
           "name": "PG1",
-          "net": "NetC44_2"
+          "net": "NetC44_2",
+          "type": "passive"
         },
         "84": {
           "name": "PG2",
-          "net": "SCK"
+          "net": "SCK",
+          "type": "passive"
         },
         "85": {
           "name": "PG3",
-          "net": "MISO"
+          "net": "MISO",
+          "type": "passive"
         },
         "86": {
           "name": "PG4",
-          "net": "MOSI"
+          "net": "MOSI",
+          "type": "passive"
         },
         "87": {
           "name": "PC8",
-          "net": "PWM12"
+          "net": "PWM12",
+          "type": "passive"
         },
         "88": {
           "name": "PC9",
-          "net": "PWM13"
+          "net": "PWM13",
+          "type": "passive"
         },
         "89": {
           "name": "PA8",
-          "net": "I2C2_SDA"
+          "net": "I2C2_SDA",
+          "type": "passive"
         },
         "90": {
           "name": "PA9",
-          "net": "I2C2_SCL"
+          "net": "I2C2_SCL",
+          "type": "passive"
         },
         "91": {
           "name": "PA10",
-          "net": "USART1_RX"
+          "net": "USART1_RX",
+          "type": "passive"
         },
         "92": {
           "name": "PA11",
-          "net": "USB2_N"
+          "net": "USB2_N",
+          "type": "passive"
         },
         "93": {
           "name": "PA12",
-          "net": "USB2_P"
+          "net": "USB2_P",
+          "type": "passive"
         },
         "94": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "95": {
           "name": "VDD",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "passive"
         },
         "96": {
           "name": "PA13",
-          "net": "T_JTMS"
+          "net": "T_JTMS",
+          "type": "passive"
         },
         "97": {
           "name": "PF6",
-          "net": "QSPI_IO3"
+          "net": "QSPI_IO3",
+          "type": "passive"
         },
         "98": {
           "name": "PA14",
-          "net": "T_JTCK"
+          "net": "T_JTCK",
+          "type": "passive"
         },
         "99": {
           "name": "PA15",
-          "net": "I2C1_SCL"
+          "net": "I2C1_SCL",
+          "type": "passive"
         },
         "100": {
           "name": "PC10",
-          "net": "UART4_TX"
+          "net": "UART4_TX",
+          "type": "passive"
         },
         "101": {
           "name": "PC11",
-          "net": "UART4_RX"
+          "net": "UART4_RX",
+          "type": "passive"
         },
         "102": {
           "name": "PC12",
-          "net": "USART5_TX"
+          "net": "USART5_TX",
+          "type": "passive"
         },
         "103": {
           "name": "PG5",
-          "net": "LCD_RS"
+          "net": "LCD_RS",
+          "type": "passive"
         },
         "104": {
           "name": "PG6",
-          "net": "NetC45_2"
+          "net": "NetC45_2",
+          "type": "passive"
         },
         "105": {
           "name": "PG7",
-          "net": "CAN_STBY"
+          "net": "CAN_STBY",
+          "type": "passive"
         },
         "106": {
           "name": "PG8",
-          "net": "NetC47_2"
+          "net": "NetC47_2",
+          "type": "passive"
         },
         "107": {
           "name": "PG9",
-          "net": "USART1_TX"
+          "net": "USART1_TX",
+          "type": "passive"
         },
         "108": {
           "name": "PD0",
-          "net": "FMC_D2"
+          "net": "FMC_D2",
+          "type": "passive"
         },
         "109": {
           "name": "PD1",
-          "net": "FMC_D3"
+          "net": "FMC_D3",
+          "type": "passive"
         },
         "110": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "111": {
           "name": "VDD",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "passive"
         },
         "112": {
           "name": "PD2",
-          "net": "USART5_RX"
+          "net": "USART5_RX",
+          "type": "passive"
         },
         "113": {
           "name": "PD3",
-          "net": "LCD_RST"
+          "net": "LCD_RST",
+          "type": "passive"
         },
         "114": {
           "name": "PD4",
-          "net": "LCD_RD"
+          "net": "LCD_RD",
+          "type": "passive"
         },
         "115": {
           "name": "PD5",
-          "net": "LCD_WR"
+          "net": "LCD_WR",
+          "type": "passive"
         },
         "116": {
           "name": "PD6",
-          "net": "TCH_PENIRQ"
+          "net": "TCH_PENIRQ",
+          "type": "passive"
         },
         "117": {
           "name": "PD7",
-          "net": "LCD_CS"
+          "net": "LCD_CS",
+          "type": "passive"
         },
         "118": {
           "name": "PB3",
-          "net": "T_SWO"
+          "net": "T_SWO",
+          "type": "passive"
         },
         "119": {
           "name": "PB4",
-          "net": "USART2_RX"
+          "net": "USART2_RX",
+          "type": "passive"
         },
         "120": {
           "name": "PB5",
-          "net": "FLASH_CS"
+          "net": "FLASH_CS",
+          "type": "passive"
         },
         "121": {
           "name": "PB6",
-          "net": "LCD_BKLT"
+          "net": "LCD_BKLT",
+          "type": "passive"
         },
         "122": {
           "name": "PB7",
-          "net": "I2C1_SDA"
+          "net": "I2C1_SDA",
+          "type": "passive"
         },
         "123": {
           "name": "PB8-BOOT0",
-          "net": "USART3_RX"
+          "net": "USART3_RX",
+          "type": "passive"
         },
         "124": {
           "name": "PB9",
-          "net": "USART3_TX"
+          "net": "USART3_TX",
+          "type": "passive"
         },
         "125": {
           "name": "PE0",
-          "net": "LIN_SLP"
+          "net": "LIN_SLP",
+          "type": "passive"
         },
         "126": {
           "name": "PE1",
-          "net": "TCH_CS"
+          "net": "TCH_CS",
+          "type": "passive"
         },
         "127": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "128": {
           "name": "VDD",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "passive"
         }
       },
       "description": "Mainstream Arm Cortex - M3 MCU 170Mhz with 512 Kbytes of Flash memory, Math Accelerator, HR timer, High Analog level integration\r\n\r\nDataSheet:\r\nhttps://www.st.com/en/microcontrollers-microprocessors/stm32g474qe.html",
@@ -4821,19 +5859,27 @@
       "pins": {
         "1": {
           "name": "37",
-          "net": "AREF"
+          "net": "AREF",
+          "type": "passive"
         },
         "2": {
           "name": "38",
-          "net": "AREF"
+          "net": "AREF",
+          "type": "passive"
         }
       },
       "comment": "SD_JUMP"
     },
     "C52": {
       "pins": {
-        "1": "GND",
-        "2": "AREF"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "AREF",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "100n"
@@ -4842,19 +5888,23 @@
       "pins": {
         "1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "2": {
           "name": "OUT",
-          "net": "+3V3HUB"
+          "net": "+3V3HUB",
+          "type": "power"
         },
         "3": {
           "name": "IN",
-          "net": "+5"
+          "net": "+5",
+          "type": "power"
         },
         "4": {
           "name": "TAB",
-          "net": "+3V3HUB"
+          "net": "+3V3HUB",
+          "type": "power"
         }
       },
       "manufacturer": "Texas Instruments",
@@ -4865,11 +5915,13 @@
       "pins": {
         "1": {
           "name": "KATODE",
-          "net": "CUR_LIMIT"
+          "net": "CUR_LIMIT",
+          "type": "passive"
         },
         "2": {
           "name": "ANODE",
-          "net": "NetLED2_2"
+          "net": "NetLED2_2",
+          "type": "passive"
         }
       },
       "description": "Red light-emitting diode",
@@ -4877,8 +5929,14 @@
     },
     "R8": {
       "pins": {
-        "1": "NetR8_1",
-        "2": "+3V3HUB"
+        "1": {
+          "net": "NetR8_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3HUB",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
@@ -4888,88 +5946,154 @@
     },
     "C6": {
       "pins": {
-        "1": "GND",
-        "2": "+3V3HUB"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3HUB",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "4u7"
     },
     "R9": {
       "pins": {
-        "1": "NetLED2_2",
-        "2": "NetR8_1"
+        "1": {
+          "net": "NetLED2_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR8_1",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "C8": {
       "pins": {
-        "1": "GND",
-        "2": "+3V3HUB"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3HUB",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "100n"
     },
     "R11": {
       "pins": {
-        "1": "GND",
-        "2": "NetR10_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR10_2",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "R10": {
       "pins": {
-        "1": "GND",
-        "2": "NetR10_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR10_2",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "C5": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "4u7"
     },
     "C4": {
       "pins": {
-        "1": "GND",
-        "2": "+5"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "4u7"
     },
     "C7": {
       "pins": {
-        "1": "GND",
-        "2": "+3V3HUB"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3HUB",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "4u7"
     },
     "R12": {
       "pins": {
-        "1": "NetR12_1",
-        "2": "NetR10_2"
+        "1": {
+          "net": "NetR12_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR10_2",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "56"
     },
     "C9": {
       "pins": {
-        "1": "GND",
-        "2": "NetC9_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC9_2",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "1u"
     },
     "R13": {
       "pins": {
-        "1": "NetC9_2",
-        "2": "NetR12_1"
+        "1": {
+          "net": "NetC9_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR12_1",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "56"
@@ -4978,11 +6102,13 @@
       "pins": {
         "1": {
           "name": "KATODE",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "ANODE",
-          "net": "NetLED1_2"
+          "net": "NetLED1_2",
+          "type": "passive"
         }
       },
       "description": "Green light-emitting diode",
@@ -4990,24 +6116,42 @@
     },
     "R7": {
       "pins": {
-        "1": "NetR6_2",
-        "2": "NetLED1_2"
+        "1": {
+          "net": "NetR6_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetLED1_2",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "R6": {
       "pins": {
-        "1": "+3V3HUB",
-        "2": "NetR6_2"
+        "1": {
+          "net": "+3V3HUB",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR6_2",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "FB1": {
       "pins": {
-        "1": "V_BUS",
-        "2": "+5"
+        "1": {
+          "net": "V_BUS",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "Chip Ferrite Bead, 0805, 200Ω @ 100MHz, 0.26Ω, 25%, 500mA",
       "comment": "BLM21BB201SN1D"
@@ -5016,35 +6160,43 @@
       "pins": {
         "1": {
           "name": "EN",
-          "net": "BC_EN1"
+          "net": "BC_EN1",
+          "type": "input"
         },
         "2": {
           "name": "F\\L\\G\\",
-          "net": "CUR_LIMIT"
+          "net": "CUR_LIMIT",
+          "type": "open_collector"
         },
         "3": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "4": {
           "name": "ILIM",
-          "net": "NetR10_2"
+          "net": "NetR10_2",
+          "type": "passive"
         },
         "5": {
           "name": "NC",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "6": {
           "name": "OUT",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "power"
         },
         "7": {
           "name": "IN",
-          "net": "+3V3HUB"
+          "net": "+3V3HUB",
+          "type": "power"
         },
         "8": {
           "name": "OUT",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "power"
         }
       },
       "mpn": "MIC2544-1YMM-TR",
@@ -5054,8 +6206,14 @@
     },
     "R95": {
       "pins": {
-        "1": "+3V3",
-        "2": "QSPI_IO3"
+        "1": {
+          "net": "+3V3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "QSPI_IO3",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "10k"
@@ -5064,35 +6222,43 @@
       "pins": {
         "1": {
           "name": "/CS",
-          "net": "NetIC1_1"
+          "net": "NetIC1_1",
+          "type": "passive"
         },
         "2": {
           "name": "DO(IO1)",
-          "net": "QSPI_IO1"
+          "net": "QSPI_IO1",
+          "type": "passive"
         },
         "3": {
           "name": "/WP(IO2)",
-          "net": "QSPI_IO2"
+          "net": "QSPI_IO2",
+          "type": "passive"
         },
         "4": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "5": {
           "name": "DI(IO0)",
-          "net": "QSPI_IO0"
+          "net": "QSPI_IO0",
+          "type": "passive"
         },
         "6": {
           "name": "CLK",
-          "net": "NetIC1_6"
+          "net": "NetIC1_6",
+          "type": "passive"
         },
         "7": {
           "name": "/RST(IO3)",
-          "net": "QSPI_IO3"
+          "net": "QSPI_IO3",
+          "type": "passive"
         },
         "8": {
           "name": "VCC",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "passive"
         }
       },
       "description": "FLASH - NOR Memory IC 128Mb (16M x 8) SPI - Quad I/O, QPI, DTR 133MHz 8-SOIC",
@@ -5100,8 +6266,14 @@
     },
     "R94": {
       "pins": {
-        "1": "NetIC1_1",
-        "2": "GND"
+        "1": {
+          "net": "NetIC1_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "10k"
@@ -5113,195 +6285,243 @@
       "pins": {
         "1": {
           "name": "VBAT",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "power"
         },
         "2": {
           "name": "PC13-TAMPER-RTC",
-          "net": "NetR43_1"
+          "net": "NetR43_1",
+          "type": "bidirectional"
         },
         "3": {
           "name": "PC14-OSC32_IN",
-          "net": "NetR44_1"
+          "net": "NetR44_1",
+          "type": "bidirectional"
         },
         "4": {
           "name": "PC15-OSC32_OUT",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "5": {
           "name": "PD0-OSC_IN",
-          "net": "NetC24_2"
+          "net": "NetC24_2",
+          "type": "bidirectional"
         },
         "6": {
           "name": "PD1-OSC_OUT",
-          "net": "NetC25_2"
+          "net": "NetC25_2",
+          "type": "bidirectional"
         },
         "7": {
           "name": "NRST",
-          "net": "STM_JRST"
+          "net": "STM_JRST",
+          "type": "bidirectional"
         },
         "8": {
           "name": "VSSA",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "9": {
           "name": "VDDA",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "power"
         },
         "10": {
           "name": "PA0-WKUP",
-          "net": "NetD2_1"
+          "net": "NetD2_1",
+          "type": "bidirectional"
         },
         "11": {
           "name": "PA1",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "12": {
           "name": "PA2",
-          "net": "USART3_RX"
+          "net": "USART3_RX",
+          "type": "bidirectional"
         },
         "13": {
           "name": "PA3",
-          "net": "USART3_TX"
+          "net": "USART3_TX",
+          "type": "bidirectional"
         },
         "14": {
           "name": "PA4",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "15": {
           "name": "PA5",
-          "net": "T_JTCK"
+          "net": "T_JTCK",
+          "type": "bidirectional"
         },
         "16": {
           "name": "PA6",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "17": {
           "name": "PA7",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "18": {
           "name": "PB0",
-          "net": "NRST"
+          "net": "NRST",
+          "type": "bidirectional"
         },
         "19": {
           "name": "PB1",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "20": {
           "name": "PB2",
-          "net": "GND"
+          "net": "GND",
+          "type": "bidirectional"
         },
         "21": {
           "name": "PB10",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "22": {
           "name": "PB11",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "23": {
           "name": "VSS_1",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "24": {
           "name": "VDD_1",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "power"
         },
         "25": {
           "name": "PB12",
-          "net": "T_SWDIO_IN_5"
+          "net": "T_SWDIO_IN_5",
+          "type": "bidirectional"
         },
         "26": {
           "name": "PB13",
-          "net": "T_JTCK"
+          "net": "T_JTCK",
+          "type": "bidirectional"
         },
         "27": {
           "name": "PB14",
-          "net": "T_JTMS"
+          "net": "T_JTMS",
+          "type": "bidirectional"
         },
         "28": {
           "name": "PB15",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "29": {
           "name": "PA8",
-          "net": "NetR42_2"
+          "net": "NetR42_2",
+          "type": "bidirectional"
         },
         "30": {
           "name": "PA9",
-          "net": "LED_5"
+          "net": "LED_5",
+          "type": "bidirectional"
         },
         "31": {
           "name": "PA10",
-          "net": "T_SWO"
+          "net": "T_SWO",
+          "type": "bidirectional"
         },
         "32": {
           "name": "PA11",
-          "net": "USB_STLINK_N"
+          "net": "USB_STLINK_N",
+          "type": "bidirectional"
         },
         "33": {
           "name": "PA12",
-          "net": "USB_STLINK_P"
+          "net": "USB_STLINK_P",
+          "type": "bidirectional"
         },
         "34": {
           "name": "PA13",
-          "net": "STM_JTMS_5"
+          "net": "STM_JTMS_5",
+          "type": "bidirectional"
         },
         "35": {
           "name": "VSS_2",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "36": {
           "name": "VDD_2",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "power"
         },
         "37": {
           "name": "PA14",
-          "net": "STM_JTCK_5"
+          "net": "STM_JTCK_5",
+          "type": "bidirectional"
         },
         "38": {
           "name": "PA15",
-          "net": "USB_RENUM_5"
+          "net": "USB_RENUM_5",
+          "type": "bidirectional"
         },
         "39": {
           "name": "PB3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "bidirectional"
         },
         "40": {
           "name": "PB4",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "41": {
           "name": "PB5",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "42": {
           "name": "PB6",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "43": {
           "name": "PB7",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "44": {
           "name": "BOOT0",
-          "net": "NetR45_2"
+          "net": "NetR45_2",
+          "type": "input"
         },
         "45": {
           "name": "PB8",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "46": {
           "name": "PB9",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "47": {
           "name": "VSS_3",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "48": {
           "name": "VDD_3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "power"
         }
       },
       "mpn": "STM32F103CBT6",
@@ -5313,11 +6533,13 @@
       "pins": {
         "1": {
           "name": "KATODE",
-          "net": "LED_5"
+          "net": "LED_5",
+          "type": "passive"
         },
         "2": {
           "name": "ANODE",
-          "net": "NetLED4_2"
+          "net": "NetLED4_2",
+          "type": "passive"
         }
       },
       "description": "Green light-emitting diode",
@@ -5327,11 +6549,13 @@
       "pins": {
         "1": {
           "name": "KATODE",
-          "net": "NetLED5_1"
+          "net": "NetLED5_1",
+          "type": "passive"
         },
         "2": {
           "name": "ANODE",
-          "net": "LED_5"
+          "net": "LED_5",
+          "type": "passive"
         }
       },
       "description": "Red light-emitting diode",
@@ -5339,244 +6563,436 @@
     },
     "R26": {
       "pins": {
-        "1": "+3V3",
-        "2": "NetD2_1"
+        "1": {
+          "net": "+3V3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetD2_1",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "10k"
     },
     "R29": {
       "pins": {
-        "1": "GND",
-        "2": "NetD2_1"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetD2_1",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "10k"
     },
     "R34": {
       "pins": {
-        "1": "NetQ1_1",
-        "2": "USB_RENUM_5"
+        "1": {
+          "net": "NetQ1_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "USB_RENUM_5",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "56"
     },
     "R32": {
       "pins": {
-        "1": "+5",
-        "2": "NetQ1_1"
+        "1": {
+          "net": "+5",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetQ1_1",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "10k"
     },
     "R35": {
       "pins": {
-        "1": "NetQ1_1",
-        "2": "GND"
+        "1": {
+          "net": "NetQ1_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "100k"
     },
     "R43": {
       "pins": {
-        "1": "NetR43_1",
-        "2": "GND"
+        "1": {
+          "net": "NetR43_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "10k"
     },
     "R44": {
       "pins": {
-        "1": "NetR44_1",
-        "2": "GND"
+        "1": {
+          "net": "NetR44_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "10k"
     },
     "R41": {
       "pins": {
-        "1": "+3V3",
-        "2": "STM_JRST"
+        "1": {
+          "net": "+3V3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "STM_JRST",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "10k"
     },
     "R47": {
       "pins": {
-        "1": "NetR47_1",
-        "2": "+3V3"
+        "1": {
+          "net": "NetR47_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "R49": {
       "pins": {
-        "1": "NetLED4_2",
-        "2": "NetR47_1"
+        "1": {
+          "net": "NetLED4_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR47_1",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "R51": {
       "pins": {
-        "1": "NetR50_2",
-        "2": "GND"
+        "1": {
+          "net": "NetR50_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "R50": {
       "pins": {
-        "1": "NetLED5_1",
-        "2": "NetR50_2"
+        "1": {
+          "net": "NetLED5_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR50_2",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "R45": {
       "pins": {
-        "1": "GND",
-        "2": "NetR45_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR45_2",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "100k"
     },
     "R36": {
       "pins": {
-        "1": "NetR36_1",
-        "2": "NetQ1_2"
+        "1": {
+          "net": "NetR36_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetQ1_2",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "R37": {
       "pins": {
-        "1": "NetR36_1",
-        "2": "NetQ1_2"
+        "1": {
+          "net": "NetR36_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetQ1_2",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "R38": {
       "pins": {
-        "1": "USB_STLINK_P",
-        "2": "NetR36_1"
+        "1": {
+          "net": "USB_STLINK_P",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR36_1",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "C17": {
       "pins": {
-        "1": "GND",
-        "2": "+3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "100n"
     },
     "C18": {
       "pins": {
-        "1": "GND",
-        "2": "+3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "100n"
     },
     "C19": {
       "pins": {
-        "1": "GND",
-        "2": "+3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "100n"
     },
     "C20": {
       "pins": {
-        "1": "GND",
-        "2": "+3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "100n"
     },
     "C21": {
       "pins": {
-        "1": "GND",
-        "2": "+3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "100n"
     },
     "C24": {
       "pins": {
-        "1": "GND",
-        "2": "NetC24_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC24_2",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "10p"
     },
     "C25": {
       "pins": {
-        "1": "GND",
-        "2": "NetC25_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC25_2",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "10p"
     },
     "C23": {
       "pins": {
-        "1": "GND",
-        "2": "STM_JRST"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "STM_JRST",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "100n"
     },
     "J2": {
       "pins": {
-        "1": "NetJ2_1",
-        "2": "NetJ2_2",
-        "3": "GND",
-        "4": "NetJ2_4",
-        "5": "NetJ2_5",
-        "6": "NetJ2_6"
+        "1": {
+          "net": "NetJ2_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetJ2_2",
+          "type": "passive"
+        },
+        "3": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetJ2_4",
+          "type": "passive"
+        },
+        "5": {
+          "net": "NetJ2_5",
+          "type": "passive"
+        },
+        "6": {
+          "net": "NetJ2_6",
+          "type": "passive"
+        }
       },
       "description": "Header 1x6 (male)",
       "comment": "Header 1x6 (male)"
     },
     "R28": {
       "pins": {
-        "1": "NetJ2_2",
-        "2": "T_JTCK"
+        "1": {
+          "net": "NetJ2_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "T_JTCK",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "56"
     },
     "R30": {
       "pins": {
-        "1": "NetJ2_4",
-        "2": "T_JTMS"
+        "1": {
+          "net": "NetJ2_4",
+          "type": "passive"
+        },
+        "2": {
+          "net": "T_JTMS",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "56"
     },
     "R31": {
       "pins": {
-        "1": "NetJ2_5",
-        "2": "NRST"
+        "1": {
+          "net": "NetJ2_5",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NRST",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "56"
     },
     "R33": {
       "pins": {
-        "1": "NetJ2_6",
-        "2": "T_SWO"
+        "1": {
+          "net": "NetJ2_6",
+          "type": "passive"
+        },
+        "2": {
+          "net": "T_SWO",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "56"
     },
     "R27": {
       "pins": {
-        "1": "GND",
-        "2": "NetD2_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetD2_2",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "10k"
@@ -5585,11 +7001,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "NetD2_1"
+          "net": "NetD2_1",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "NetD2_2"
+          "net": "NetD2_2",
+          "type": "passive"
         }
       },
       "mpn": "BAT54HT1G",
@@ -5601,11 +7019,13 @@
       "pins": {
         "1": {
           "name": "37",
-          "net": "T_SWO"
+          "net": "T_SWO",
+          "type": "passive"
         },
         "2": {
           "name": "38",
-          "net": "T_SWO"
+          "net": "T_SWO",
+          "type": "passive"
         }
       },
       "comment": "SD_JUMP"
@@ -5614,11 +7034,13 @@
       "pins": {
         "1": {
           "name": "37",
-          "net": "NRST"
+          "net": "NRST",
+          "type": "passive"
         },
         "2": {
           "name": "38",
-          "net": "NRST"
+          "net": "NRST",
+          "type": "passive"
         }
       },
       "comment": "SD_JUMP"
@@ -5627,11 +7049,13 @@
       "pins": {
         "1": {
           "name": "37",
-          "net": "T_JTMS"
+          "net": "T_JTMS",
+          "type": "passive"
         },
         "2": {
           "name": "38",
-          "net": "T_JTMS"
+          "net": "T_JTMS",
+          "type": "passive"
         }
       },
       "comment": "SD_JUMP"
@@ -5640,19 +7064,27 @@
       "pins": {
         "1": {
           "name": "37",
-          "net": "T_JTCK"
+          "net": "T_JTCK",
+          "type": "passive"
         },
         "2": {
           "name": "38",
-          "net": "T_JTCK"
+          "net": "T_JTCK",
+          "type": "passive"
         }
       },
       "comment": "SD_JUMP"
     },
     "R42": {
       "pins": {
-        "1": "MCI",
-        "2": "NetR42_2"
+        "1": {
+          "net": "MCI",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR42_2",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "56"
@@ -5661,15 +7093,18 @@
       "pins": {
         "1": {
           "name": "B",
-          "net": "NetQ1_1"
+          "net": "NetQ1_1",
+          "type": "passive"
         },
         "2": {
           "name": "E",
-          "net": "NetQ1_2"
+          "net": "NetQ1_2",
+          "type": "passive"
         },
         "3": {
           "name": "C",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "passive"
         }
       },
       "description": "Bipolar (BJT) Transistor NPN 45V 100mA 100MHz 250mW Surface Mount TO-236AB",
@@ -5678,44 +7113,86 @@
     },
     "J3": {
       "pins": {
-        "1": "",
-        "2": "STM_JRST",
-        "3": "STM_JTMS_5",
-        "4": "GND",
-        "5": "STM_JTCK_5",
-        "6": "+3V3"
+        "1": {
+          "net": "",
+          "type": "passive"
+        },
+        "2": {
+          "net": "STM_JRST",
+          "type": "passive"
+        },
+        "3": {
+          "net": "STM_JTMS_5",
+          "type": "passive"
+        },
+        "4": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "5": {
+          "net": "STM_JTCK_5",
+          "type": "passive"
+        },
+        "6": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "description": "Header 1x6 (male)",
       "comment": "Header 1x6 (male)"
     },
     "R39": {
       "pins": {
-        "1": "T_SWDIO_IN_5",
-        "2": "NetR39_2"
+        "1": {
+          "net": "T_SWDIO_IN_5",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR39_2",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "56"
     },
     "R40": {
       "pins": {
-        "1": "NetR39_2",
-        "2": "T_JTMS"
+        "1": {
+          "net": "NetR39_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "T_JTMS",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "56"
     },
     "C22": {
       "pins": {
-        "1": "GND",
-        "2": "MCI"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "MCI",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "10p"
     },
     "R25": {
       "pins": {
-        "1": "NetJ2_1",
-        "2": "NetD2_2"
+        "1": {
+          "net": "NetJ2_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetD2_2",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "56"
@@ -5727,44 +7204,69 @@
       "pins": {
         "1": {
           "name": "OUT",
-          "net": "NetC24_2"
+          "net": "NetC24_2",
+          "type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "3": {
           "name": "IN",
-          "net": "NetC25_2"
+          "net": "NetC25_2",
+          "type": "passive"
         },
         "4": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "comment": "CFPX-104 8MHZ"
     },
     "R48": {
       "pins": {
-        "1": "NetR42_2",
-        "2": "NetM2_G"
+        "1": {
+          "net": "NetR42_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetM2_G",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "100k"
     },
     "R46": {
       "pins": {
-        "1": "NetM2_G",
-        "2": "GND"
+        "1": {
+          "net": "NetM2_G",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "100k"
     },
     "M2": {
       "pins": {
-        "G": "NetM2_G",
-        "S": "GND",
-        "D": "NRST"
+        "G": {
+          "net": "NetM2_G",
+          "type": "passive"
+        },
+        "S": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "D": {
+          "net": "NRST",
+          "type": "passive"
+        }
       },
       "description": "BSH103-T/R (NMOS)",
       "comment": "BSS138"
@@ -5773,83 +7275,103 @@
       "pins": {
         "1": {
           "name": "VTref",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "passive"
         },
         "2": {
           "name": "SWDIO",
-          "net": "T_JTMS"
+          "net": "T_JTMS",
+          "type": "passive"
         },
         "3": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "4": {
           "name": "SWDCLK",
-          "net": "T_JTCK"
+          "net": "T_JTCK",
+          "type": "passive"
         },
         "5": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "6": {
           "name": "SWO",
-          "net": "T_SWO"
+          "net": "T_SWO",
+          "type": "passive"
         },
         "7": {
           "name": "KEY",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "8": {
           "name": "NC",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "9": {
           "name": "GNDdet",
-          "net": "STM_JRST"
+          "net": "STM_JRST",
+          "type": "passive"
         },
         "10": {
           "name": "nRST",
-          "net": "NRST"
+          "net": "NRST",
+          "type": "passive"
         },
         "11": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "12": {
           "name": "TR_CLK",
-          "net": "NetJ12_12"
+          "net": "NetJ12_12",
+          "type": "passive"
         },
         "13": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "14": {
           "name": "TR[0]",
-          "net": "NetJ12_14"
+          "net": "NetJ12_14",
+          "type": "passive"
         },
         "15": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "16": {
           "name": "TR[1]",
-          "net": "NetJ12_16"
+          "net": "NetJ12_16",
+          "type": "passive"
         },
         "17": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "18": {
           "name": "TR[2]",
-          "net": "NetJ12_18"
+          "net": "NetJ12_18",
+          "type": "passive"
         },
         "19": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "20": {
           "name": "TR[3]",
-          "net": "NetJ12_20"
+          "net": "NetJ12_20",
+          "type": "passive"
         }
       },
       "description": "Trace/JTAG/SW connector",
@@ -5862,27 +7384,33 @@
       "pins": {
         "1": {
           "name": "I/O 1",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "2": {
           "name": "GND",
-          "net": "SHLD"
+          "net": "SHLD",
+          "type": "power"
         },
         "3": {
           "name": "I/O 2",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "4": {
           "name": "I/O 3",
-          "net": "USB_P"
+          "net": "USB_P",
+          "type": "bidirectional"
         },
         "5": {
           "name": "VCC",
-          "net": "V_BUS"
+          "net": "V_BUS",
+          "type": "power"
         },
         "6": {
           "name": "I/O 4",
-          "net": "USB_N"
+          "net": "USB_N",
+          "type": "bidirectional"
         }
       },
       "mpn": "SP3051-04HTG",
@@ -5892,16 +7420,28 @@
     },
     "C3": {
       "pins": {
-        "1": "GND",
-        "2": "SHLD"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "SHLD",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "1n/2kV"
     },
     "C2": {
       "pins": {
-        "1": "GND",
-        "2": "V_BUS"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "V_BUS",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "4u7"
@@ -5911,48 +7451,84 @@
     },
     "R5": {
       "pins": {
-        "1": "SHLD",
-        "2": "GND"
+        "1": {
+          "net": "SHLD",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1M"
     },
     "R1": {
       "pins": {
-        "1": "NetJ1_A5",
-        "2": "GND"
+        "1": {
+          "net": "NetJ1_A5",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "10k"
     },
     "R2": {
       "pins": {
-        "1": "NetJ1_A5",
-        "2": "GND"
+        "1": {
+          "net": "NetJ1_A5",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "10k"
     },
     "R4": {
       "pins": {
-        "1": "NetJ1_B5",
-        "2": "GND"
+        "1": {
+          "net": "NetJ1_B5",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "10k"
     },
     "R3": {
       "pins": {
-        "1": "NetJ1_B5",
-        "2": "GND"
+        "1": {
+          "net": "NetJ1_B5",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "10k"
     },
     "C1": {
       "pins": {
-        "1": "GND",
-        "2": "V_BUS"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "V_BUS",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "4u7"
@@ -5961,111 +7537,138 @@
       "pins": {
         "A1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "A2": {
           "name": "SSTXp1",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "A3": {
           "name": "SSTXn1",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "A4": {
           "name": "VBUS",
-          "net": "V_BUS"
+          "net": "V_BUS",
+          "type": "passive"
         },
         "A5": {
           "name": "CC1",
-          "net": "NetJ1_A5"
+          "net": "NetJ1_A5",
+          "type": "passive"
         },
         "A6": {
           "name": "Dp1",
-          "net": "USB_P"
+          "net": "USB_P",
+          "type": "passive"
         },
         "A7": {
           "name": "Dn1",
-          "net": "USB_N"
+          "net": "USB_N",
+          "type": "passive"
         },
         "A8": {
           "name": "SBU1",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "A9": {
           "name": "VBUS",
-          "net": "V_BUS"
+          "net": "V_BUS",
+          "type": "passive"
         },
         "A10": {
           "name": "SSRXn2",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "A11": {
           "name": "SSRXp2",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "A12": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "B1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "B2": {
           "name": "SSTXp2",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "B3": {
           "name": "SSTXn2",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "B4": {
           "name": "VBUS",
-          "net": "V_BUS"
+          "net": "V_BUS",
+          "type": "passive"
         },
         "B5": {
           "name": "CC2",
-          "net": "NetJ1_B5"
+          "net": "NetJ1_B5",
+          "type": "passive"
         },
         "B8": {
           "name": "SBU2",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "B9": {
           "name": "VBUS",
-          "net": "V_BUS"
+          "net": "V_BUS",
+          "type": "passive"
         },
         "B10": {
           "name": "SSRXn1",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "B11": {
           "name": "SSRXp1",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "B12": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "B6": {
           "name": "Dp2",
-          "net": "USB_P"
+          "net": "USB_P",
+          "type": "passive"
         },
         "B7": {
           "name": "Dn2",
-          "net": "USB_N"
+          "net": "USB_N",
+          "type": "passive"
         },
         "Shell": {
           "name": "Shield",
-          "net": "SHLD"
+          "net": "SHLD",
+          "type": "passive"
         },
         "G1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "G2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "mpn": "632723300011",
@@ -6077,11 +7680,13 @@
       "pins": {
         "1": {
           "name": "KATODE",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "ANODE",
-          "net": "NetLED3_2"
+          "net": "NetLED3_2",
+          "type": "passive"
         }
       },
       "description": "Green light-emitting diode",
@@ -6089,8 +7694,14 @@
     },
     "R14": {
       "pins": {
-        "1": "NetR14_1",
-        "2": "+5"
+        "1": {
+          "net": "NetR14_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "10k"
@@ -6100,120 +7711,210 @@
     },
     "C14": {
       "pins": {
-        "1": "GND",
-        "2": "+3V3HUB"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3HUB",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "1u"
     },
     "C15": {
       "pins": {
-        "1": "GND",
-        "2": "+3V3HUB"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3HUB",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "1u"
     },
     "C16": {
       "pins": {
-        "1": "GND",
-        "2": "+3V3HUB"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3HUB",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "1u"
     },
     "C12": {
       "pins": {
-        "1": "GND",
-        "2": "NetC12_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC12_2",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "10p"
     },
     "C13": {
       "pins": {
-        "1": "GND",
-        "2": "NetC13_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC13_2",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "10p"
     },
     "C10": {
       "pins": {
-        "1": "NetC10_1",
-        "2": "GND"
+        "1": {
+          "net": "NetC10_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "1u"
     },
     "C11": {
       "pins": {
-        "1": "NetC11_1",
-        "2": "GND"
+        "1": {
+          "net": "NetC11_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "Capacitor",
       "value": "100n"
     },
     "R16": {
       "pins": {
-        "1": "GND",
-        "2": "NetR14_1"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR14_1",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "10k"
     },
     "R22": {
       "pins": {
-        "1": "NetR20_2",
-        "2": "NetLED3_2"
+        "1": {
+          "net": "NetR20_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetLED3_2",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "R20": {
       "pins": {
-        "1": "NetR20_1",
-        "2": "NetR20_2"
+        "1": {
+          "net": "NetR20_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR20_2",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "R24": {
       "pins": {
-        "1": "GND",
-        "2": "NetR23_1"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR23_1",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "R23": {
       "pins": {
-        "1": "NetR23_1",
-        "2": "NetR21_2"
+        "1": {
+          "net": "NetR23_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR21_2",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "1k"
     },
     "R17": {
       "pins": {
-        "1": "+3V3HUB",
-        "2": "NetR17_2"
+        "1": {
+          "net": "+3V3HUB",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR17_2",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "100k"
     },
     "R19": {
       "pins": {
-        "1": "GND",
-        "2": "NetR19_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR19_2",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "100k"
     },
     "R21": {
       "pins": {
-        "1": "NetR21_1",
-        "2": "NetR21_2"
+        "1": {
+          "net": "NetR21_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR21_2",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "10k"
@@ -6222,103 +7923,128 @@
       "pins": {
         "1": {
           "name": "VDD33",
-          "net": "+3V3HUB"
+          "net": "+3V3HUB",
+          "type": "power"
         },
         "2": {
           "name": "USBDM DN1/PRT DIS M1",
-          "net": "USB_STLINK_N"
+          "net": "USB_STLINK_N",
+          "type": "bidirectional"
         },
         "3": {
           "name": "USBDP DN1/PRT DIS P1",
-          "net": "USB_STLINK_P"
+          "net": "USB_STLINK_P",
+          "type": "bidirectional"
         },
         "4": {
           "name": "USBDM DN2/PRT DIS M2",
-          "net": "USB2_N"
+          "net": "USB2_N",
+          "type": "bidirectional"
         },
         "5": {
           "name": "USBDP DN2/PRT DIS P2",
-          "net": "USB2_P"
+          "net": "USB2_P",
+          "type": "bidirectional"
         },
         "6": {
           "name": "NC",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "7": {
           "name": "PRTPWR1/(BC EN1)",
-          "net": "BC_EN1"
+          "net": "BC_EN1",
+          "type": "bidirectional"
         },
         "8": {
           "name": "OCS1 N",
-          "net": "CUR_LIMIT"
+          "net": "CUR_LIMIT",
+          "type": "input"
         },
         "9": {
           "name": "VDD33",
-          "net": "+3V3HUB"
+          "net": "+3V3HUB",
+          "type": "power"
         },
         "10": {
           "name": "CRFILT",
-          "net": "NetC10_1"
+          "net": "NetC10_1",
+          "type": "passive"
         },
         "11": {
           "name": "PRTPWR2",
-          "net": ""
+          "net": "",
+          "type": "output"
         },
         "12": {
           "name": "OCS2 N",
-          "net": ""
+          "net": "",
+          "type": "input"
         },
         "13": {
           "name": "SMBDATA/NON REM1",
-          "net": "NetR17_2"
+          "net": "NetR17_2",
+          "type": "bidirectional"
         },
         "14": {
           "name": "SMBCLK/CFG SEL0",
-          "net": "NetR19_2"
+          "net": "NetR19_2",
+          "type": "bidirectional"
         },
         "15": {
           "name": "R\\E\\S\\E\\T\\",
-          "net": "NetR18_1"
+          "net": "NetR18_1",
+          "type": "input"
         },
         "16": {
           "name": "VBUS DET",
-          "net": "NetR14_1"
+          "net": "NetR14_1",
+          "type": "power"
         },
         "17": {
           "name": "SUSP IND/LOCAL PWR/(NON REM0)",
-          "net": "NetR20_1"
+          "net": "NetR20_1",
+          "type": "bidirectional"
         },
         "18": {
           "name": "VDD33",
-          "net": "+3V3HUB"
+          "net": "+3V3HUB",
+          "type": "power"
         },
         "19": {
           "name": "USBDM UP",
-          "net": "USB_N"
+          "net": "USB_N",
+          "type": "bidirectional"
         },
         "20": {
           "name": "USBDP UP",
-          "net": "USB_P"
+          "net": "USB_P",
+          "type": "bidirectional"
         },
         "21": {
           "name": "XTALOUT/(CLKIN EN)",
-          "net": "NetC12_2"
+          "net": "NetC12_2",
+          "type": "output"
         },
         "22": {
           "name": "XTALIN/CLKIN",
-          "net": "NetC13_2"
+          "net": "NetC13_2",
+          "type": "input"
         },
         "23": {
           "name": "PLLFILT",
-          "net": "NetC11_1"
+          "net": "NetC11_1",
+          "type": "passive"
         },
         "24": {
           "name": "RBIAS",
-          "net": "NetR21_1"
+          "net": "NetR21_1",
+          "type": "passive"
         },
         "25": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "description": "IC HUB CTLR USB 2.0 24QFN\r\n\r\nDataSheet:\r\nhttp://ww1.microchip.com/downloads/en/devicedoc/00001726b.pdf",
@@ -6326,16 +8052,28 @@
     },
     "R15": {
       "pins": {
-        "1": "BC_EN1",
-        "2": "+3V3HUB"
+        "1": {
+          "net": "BC_EN1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3HUB",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "10k"
     },
     "R18": {
       "pins": {
-        "1": "NetR18_1",
-        "2": "+3V3HUB"
+        "1": {
+          "net": "NetR18_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3HUB",
+          "type": "passive"
+        }
       },
       "description": "R",
       "value": "10k"
@@ -6344,19 +8082,23 @@
       "pins": {
         "1": {
           "name": "OUT",
-          "net": "NetC12_2"
+          "net": "NetC12_2",
+          "type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "3": {
           "name": "IN",
-          "net": "NetC13_2"
+          "net": "NetC13_2",
+          "type": "passive"
         },
         "4": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "comment": "CFPX-104 24MHz"

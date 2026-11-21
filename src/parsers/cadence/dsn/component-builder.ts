@@ -6,7 +6,7 @@
  */
 
 import type { ComponentDetails } from "../../../types.js";
-import { createPinEntry, type PinDetails, type PinEntry, type PinType } from "../../../types.js";
+import { createPinEntry, PIN_TYPE_BY_CODE, type PinDetails, type PinEntry } from "../../../types.js";
 import {
   isValidRefdes,
   hasDnsPropertyMarker,
@@ -177,18 +177,6 @@ export function findCachedPart(
   return undefined;
 }
 
-/** Capture's `pin_type` values, in order (docs/cadence-dsn-format.md §5.2.5). */
-const CAPTURE_PIN_TYPES: readonly PinType[] = [
-  "input",
-  "bidirectional",
-  "output",
-  "open_collector",
-  "passive",
-  "tristate",
-  "open_emitter",
-  "power",
-];
-
 /** Shape bit 5: the pin is drawn. Clear only on hidden power pins (§5.2.5). */
 const PIN_VISIBLE = 0x20;
 
@@ -198,7 +186,7 @@ export const libraryPinDetails = (
   pinIndex: number | undefined
 ): Omit<PinDetails, "name"> => {
   if (!part || pinIndex === undefined) return {};
-  const type = CAPTURE_PIN_TYPES[part.pinTypes?.[pinIndex - 1] ?? -1];
+  const type = PIN_TYPE_BY_CODE[part.pinTypes?.[pinIndex - 1] ?? -1];
   const shape = part.pinShapes?.[pinIndex - 1];
   return {
     ...(type !== undefined && { type }),

@@ -94,8 +94,8 @@ Response:
 ```
 
 `type` is the electrical type the pin's library symbol declares, and `hidden: true` marks
-a power pin the symbol does not draw, which joins its net by name. Both are read from
-Cadence designs today.
+a power pin the symbol does not draw, which joins its net by name. `type` is read from
+Cadence, KiCad and Altium designs; `hidden` from Cadence designs.
 
 **Resistor with simple pins:**
 ```json

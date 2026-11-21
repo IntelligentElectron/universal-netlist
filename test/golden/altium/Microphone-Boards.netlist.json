@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T20:27:49.537Z",
-    "netlistHash": "sha256:b4b15dbe5237e10c13908ce46adc2194676c73e23e795e0aeafc638278e706a7",
+    "generatedAt": "2026-11-21T21:40:46.115Z",
+    "netlistHash": "sha256:ebde4bbffa42af5d2054f08db6c22f0ea0ccf829003b1e4a637793dfd076a224",
     "origin": {
       "type": "vendor",
       "source": {
@@ -2996,25 +2996,46 @@
   "components": {
     "M2A": {
       "pins": {
-        "1": "NetM2A_1"
+        "1": {
+          "net": "NetM2A_1",
+          "type": "passive"
+        }
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
     },
     "X2A": {
       "pins": {
-        "1": "GND",
-        "2": "3V3",
-        "3": "NetU2A_1",
-        "4": "NetU2A_4"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetU2A_1",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetU2A_4",
+          "type": "passive"
+        }
       },
       "description": "Wire To Board Connector (1x4P 1.0mm)",
       "comment": "1.0-4PWB"
     },
     "C5A": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "100nF"
@@ -3023,15 +3044,18 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "2": {
           "name": "COMMON1",
-          "net": "NetR3A_1"
+          "net": "NetR3A_1",
+          "type": "passive"
         },
         "3": {
           "name": "NO1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Miniature Slide Switch",
@@ -3039,16 +3063,28 @@
     },
     "C6A": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "10µF"
     },
     "C4A": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "CAP-MK",
       "comment": "10nF"
@@ -3057,19 +3093,23 @@
       "pins": {
         "1": {
           "name": "RC",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "RA",
-          "net": "NetP2A_2"
+          "net": "NetP2A_2",
+          "type": "passive"
         },
         "3": {
           "name": "WC",
-          "net": "NetP2A_3"
+          "net": "NetP2A_3",
+          "type": "passive"
         },
         "4": {
           "name": "WA",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         }
       },
       "description": "LED Red/White",
@@ -3077,16 +3117,28 @@
     },
     "R4A": {
       "pins": {
-        "1": "NetR3A_1",
-        "2": "NetP2A_2"
+        "1": {
+          "net": "NetR3A_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP2A_2",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "820"
     },
     "R3A": {
       "pins": {
-        "1": "NetR3A_1",
-        "2": "NetP2A_3"
+        "1": {
+          "net": "NetR3A_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP2A_3",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "390"
@@ -3095,23 +3147,28 @@
       "pins": {
         "1": {
           "name": "DOUT",
-          "net": "NetU2A_1"
+          "net": "NetU2A_1",
+          "type": "output"
         },
         "2": {
           "name": "LR",
-          "net": "NetR3A_1"
+          "net": "NetR3A_1",
+          "type": "input"
         },
         "3": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "4": {
           "name": "CLK",
-          "net": "NetU2A_4"
+          "net": "NetU2A_4",
+          "type": "input"
         },
         "5": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         }
       },
       "description": "Digital PDM MEMS Microphone (Bottom Port)",
@@ -3119,25 +3176,46 @@
     },
     "M2B": {
       "pins": {
-        "1": "NetM2B_1"
+        "1": {
+          "net": "NetM2B_1",
+          "type": "passive"
+        }
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
     },
     "X2B": {
       "pins": {
-        "1": "GND",
-        "2": "3V3",
-        "3": "NetU2B_1",
-        "4": "NetU2B_4"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetU2B_1",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetU2B_4",
+          "type": "passive"
+        }
       },
       "description": "Wire To Board Connector (1x4P 1.0mm)",
       "comment": "1.0-4PWB"
     },
     "C5B": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "100nF"
@@ -3146,15 +3224,18 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "2": {
           "name": "COMMON1",
-          "net": "NetR3B_1"
+          "net": "NetR3B_1",
+          "type": "passive"
         },
         "3": {
           "name": "NO1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Miniature Slide Switch",
@@ -3162,16 +3243,28 @@
     },
     "C6B": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "10µF"
     },
     "C4B": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "CAP-MK",
       "comment": "10nF"
@@ -3180,19 +3273,23 @@
       "pins": {
         "1": {
           "name": "RC",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "RA",
-          "net": "NetP2B_2"
+          "net": "NetP2B_2",
+          "type": "passive"
         },
         "3": {
           "name": "WC",
-          "net": "NetP2B_3"
+          "net": "NetP2B_3",
+          "type": "passive"
         },
         "4": {
           "name": "WA",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         }
       },
       "description": "LED Red/White",
@@ -3200,16 +3297,28 @@
     },
     "R4B": {
       "pins": {
-        "1": "NetR3B_1",
-        "2": "NetP2B_2"
+        "1": {
+          "net": "NetR3B_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP2B_2",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "820"
     },
     "R3B": {
       "pins": {
-        "1": "NetR3B_1",
-        "2": "NetP2B_3"
+        "1": {
+          "net": "NetR3B_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP2B_3",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "390"
@@ -3218,23 +3327,28 @@
       "pins": {
         "1": {
           "name": "DOUT",
-          "net": "NetU2B_1"
+          "net": "NetU2B_1",
+          "type": "output"
         },
         "2": {
           "name": "LR",
-          "net": "NetR3B_1"
+          "net": "NetR3B_1",
+          "type": "input"
         },
         "3": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "4": {
           "name": "CLK",
-          "net": "NetU2B_4"
+          "net": "NetU2B_4",
+          "type": "input"
         },
         "5": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         }
       },
       "description": "Digital PDM MEMS Microphone (Bottom Port)",
@@ -3242,25 +3356,46 @@
     },
     "M2C": {
       "pins": {
-        "1": "NetM2C_1"
+        "1": {
+          "net": "NetM2C_1",
+          "type": "passive"
+        }
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
     },
     "X2C": {
       "pins": {
-        "1": "GND",
-        "2": "3V3",
-        "3": "NetU2C_1",
-        "4": "NetU2C_4"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetU2C_1",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetU2C_4",
+          "type": "passive"
+        }
       },
       "description": "Wire To Board Connector (1x4P 1.0mm)",
       "comment": "1.0-4PWB"
     },
     "C5C": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "100nF"
@@ -3269,15 +3404,18 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "2": {
           "name": "COMMON1",
-          "net": "NetR3C_1"
+          "net": "NetR3C_1",
+          "type": "passive"
         },
         "3": {
           "name": "NO1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Miniature Slide Switch",
@@ -3285,16 +3423,28 @@
     },
     "C6C": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "10µF"
     },
     "C4C": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "CAP-MK",
       "comment": "10nF"
@@ -3303,19 +3453,23 @@
       "pins": {
         "1": {
           "name": "RC",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "RA",
-          "net": "NetP2C_2"
+          "net": "NetP2C_2",
+          "type": "passive"
         },
         "3": {
           "name": "WC",
-          "net": "NetP2C_3"
+          "net": "NetP2C_3",
+          "type": "passive"
         },
         "4": {
           "name": "WA",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         }
       },
       "description": "LED Red/White",
@@ -3323,16 +3477,28 @@
     },
     "R4C": {
       "pins": {
-        "1": "NetR3C_1",
-        "2": "NetP2C_2"
+        "1": {
+          "net": "NetR3C_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP2C_2",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "820"
     },
     "R3C": {
       "pins": {
-        "1": "NetR3C_1",
-        "2": "NetP2C_3"
+        "1": {
+          "net": "NetR3C_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP2C_3",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "390"
@@ -3341,23 +3507,28 @@
       "pins": {
         "1": {
           "name": "DOUT",
-          "net": "NetU2C_1"
+          "net": "NetU2C_1",
+          "type": "output"
         },
         "2": {
           "name": "LR",
-          "net": "NetR3C_1"
+          "net": "NetR3C_1",
+          "type": "input"
         },
         "3": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "4": {
           "name": "CLK",
-          "net": "NetU2C_4"
+          "net": "NetU2C_4",
+          "type": "input"
         },
         "5": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         }
       },
       "description": "Digital PDM MEMS Microphone (Bottom Port)",
@@ -3365,25 +3536,46 @@
     },
     "M2D": {
       "pins": {
-        "1": "NetM2D_1"
+        "1": {
+          "net": "NetM2D_1",
+          "type": "passive"
+        }
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
     },
     "X2D": {
       "pins": {
-        "1": "GND",
-        "2": "3V3",
-        "3": "NetU2D_1",
-        "4": "NetU2D_4"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetU2D_1",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetU2D_4",
+          "type": "passive"
+        }
       },
       "description": "Wire To Board Connector (1x4P 1.0mm)",
       "comment": "1.0-4PWB"
     },
     "C5D": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "100nF"
@@ -3392,15 +3584,18 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "2": {
           "name": "COMMON1",
-          "net": "NetR3D_1"
+          "net": "NetR3D_1",
+          "type": "passive"
         },
         "3": {
           "name": "NO1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Miniature Slide Switch",
@@ -3408,16 +3603,28 @@
     },
     "C6D": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "10µF"
     },
     "C4D": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "CAP-MK",
       "comment": "10nF"
@@ -3426,19 +3633,23 @@
       "pins": {
         "1": {
           "name": "RC",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "RA",
-          "net": "NetP2D_2"
+          "net": "NetP2D_2",
+          "type": "passive"
         },
         "3": {
           "name": "WC",
-          "net": "NetP2D_3"
+          "net": "NetP2D_3",
+          "type": "passive"
         },
         "4": {
           "name": "WA",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         }
       },
       "description": "LED Red/White",
@@ -3446,16 +3657,28 @@
     },
     "R4D": {
       "pins": {
-        "1": "NetR3D_1",
-        "2": "NetP2D_2"
+        "1": {
+          "net": "NetR3D_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP2D_2",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "820"
     },
     "R3D": {
       "pins": {
-        "1": "NetR3D_1",
-        "2": "NetP2D_3"
+        "1": {
+          "net": "NetR3D_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP2D_3",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "390"
@@ -3464,23 +3687,28 @@
       "pins": {
         "1": {
           "name": "DOUT",
-          "net": "NetU2D_1"
+          "net": "NetU2D_1",
+          "type": "output"
         },
         "2": {
           "name": "LR",
-          "net": "NetR3D_1"
+          "net": "NetR3D_1",
+          "type": "input"
         },
         "3": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "4": {
           "name": "CLK",
-          "net": "NetU2D_4"
+          "net": "NetU2D_4",
+          "type": "input"
         },
         "5": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         }
       },
       "description": "Digital PDM MEMS Microphone (Bottom Port)",
@@ -3488,25 +3716,46 @@
     },
     "M2E": {
       "pins": {
-        "1": "NetM2E_1"
+        "1": {
+          "net": "NetM2E_1",
+          "type": "passive"
+        }
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
     },
     "X2E": {
       "pins": {
-        "1": "GND",
-        "2": "3V3",
-        "3": "NetU2E_1",
-        "4": "NetU2E_4"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetU2E_1",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetU2E_4",
+          "type": "passive"
+        }
       },
       "description": "Wire To Board Connector (1x4P 1.0mm)",
       "comment": "1.0-4PWB"
     },
     "C5E": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "100nF"
@@ -3515,15 +3764,18 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "2": {
           "name": "COMMON1",
-          "net": "NetR3E_1"
+          "net": "NetR3E_1",
+          "type": "passive"
         },
         "3": {
           "name": "NO1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Miniature Slide Switch",
@@ -3531,16 +3783,28 @@
     },
     "C6E": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "10µF"
     },
     "C4E": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "CAP-MK",
       "comment": "10nF"
@@ -3549,19 +3813,23 @@
       "pins": {
         "1": {
           "name": "RC",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "RA",
-          "net": "NetP2E_2"
+          "net": "NetP2E_2",
+          "type": "passive"
         },
         "3": {
           "name": "WC",
-          "net": "NetP2E_3"
+          "net": "NetP2E_3",
+          "type": "passive"
         },
         "4": {
           "name": "WA",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         }
       },
       "description": "LED Red/White",
@@ -3569,16 +3837,28 @@
     },
     "R4E": {
       "pins": {
-        "1": "NetR3E_1",
-        "2": "NetP2E_2"
+        "1": {
+          "net": "NetR3E_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP2E_2",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "820"
     },
     "R3E": {
       "pins": {
-        "1": "NetR3E_1",
-        "2": "NetP2E_3"
+        "1": {
+          "net": "NetR3E_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP2E_3",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "390"
@@ -3587,23 +3867,28 @@
       "pins": {
         "1": {
           "name": "DOUT",
-          "net": "NetU2E_1"
+          "net": "NetU2E_1",
+          "type": "output"
         },
         "2": {
           "name": "LR",
-          "net": "NetR3E_1"
+          "net": "NetR3E_1",
+          "type": "input"
         },
         "3": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "4": {
           "name": "CLK",
-          "net": "NetU2E_4"
+          "net": "NetU2E_4",
+          "type": "input"
         },
         "5": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         }
       },
       "description": "Digital PDM MEMS Microphone (Bottom Port)",
@@ -3611,25 +3896,46 @@
     },
     "M2F": {
       "pins": {
-        "1": "NetM2F_1"
+        "1": {
+          "net": "NetM2F_1",
+          "type": "passive"
+        }
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
     },
     "X2F": {
       "pins": {
-        "1": "GND",
-        "2": "3V3",
-        "3": "NetU2F_1",
-        "4": "NetU2F_4"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetU2F_1",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetU2F_4",
+          "type": "passive"
+        }
       },
       "description": "Wire To Board Connector (1x4P 1.0mm)",
       "comment": "1.0-4PWB"
     },
     "C5F": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "100nF"
@@ -3638,15 +3944,18 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "2": {
           "name": "COMMON1",
-          "net": "NetR3F_1"
+          "net": "NetR3F_1",
+          "type": "passive"
         },
         "3": {
           "name": "NO1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Miniature Slide Switch",
@@ -3654,16 +3963,28 @@
     },
     "C6F": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "10µF"
     },
     "C4F": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "CAP-MK",
       "comment": "10nF"
@@ -3672,19 +3993,23 @@
       "pins": {
         "1": {
           "name": "RC",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "RA",
-          "net": "NetP2F_2"
+          "net": "NetP2F_2",
+          "type": "passive"
         },
         "3": {
           "name": "WC",
-          "net": "NetP2F_3"
+          "net": "NetP2F_3",
+          "type": "passive"
         },
         "4": {
           "name": "WA",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         }
       },
       "description": "LED Red/White",
@@ -3692,16 +4017,28 @@
     },
     "R4F": {
       "pins": {
-        "1": "NetR3F_1",
-        "2": "NetP2F_2"
+        "1": {
+          "net": "NetR3F_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP2F_2",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "820"
     },
     "R3F": {
       "pins": {
-        "1": "NetR3F_1",
-        "2": "NetP2F_3"
+        "1": {
+          "net": "NetR3F_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP2F_3",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "390"
@@ -3710,23 +4047,28 @@
       "pins": {
         "1": {
           "name": "DOUT",
-          "net": "NetU2F_1"
+          "net": "NetU2F_1",
+          "type": "output"
         },
         "2": {
           "name": "LR",
-          "net": "NetR3F_1"
+          "net": "NetR3F_1",
+          "type": "input"
         },
         "3": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "4": {
           "name": "CLK",
-          "net": "NetU2F_4"
+          "net": "NetU2F_4",
+          "type": "input"
         },
         "5": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         }
       },
       "description": "Digital PDM MEMS Microphone (Bottom Port)",
@@ -3734,25 +4076,46 @@
     },
     "M2G": {
       "pins": {
-        "1": "NetM2G_1"
+        "1": {
+          "net": "NetM2G_1",
+          "type": "passive"
+        }
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
     },
     "X2G": {
       "pins": {
-        "1": "GND",
-        "2": "3V3",
-        "3": "NetU2G_1",
-        "4": "NetU2G_4"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetU2G_1",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetU2G_4",
+          "type": "passive"
+        }
       },
       "description": "Wire To Board Connector (1x4P 1.0mm)",
       "comment": "1.0-4PWB"
     },
     "C5G": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "100nF"
@@ -3761,15 +4124,18 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "2": {
           "name": "COMMON1",
-          "net": "NetR3G_1"
+          "net": "NetR3G_1",
+          "type": "passive"
         },
         "3": {
           "name": "NO1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Miniature Slide Switch",
@@ -3777,16 +4143,28 @@
     },
     "C6G": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "10µF"
     },
     "C4G": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "CAP-MK",
       "comment": "10nF"
@@ -3795,19 +4173,23 @@
       "pins": {
         "1": {
           "name": "RC",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "RA",
-          "net": "NetP2G_2"
+          "net": "NetP2G_2",
+          "type": "passive"
         },
         "3": {
           "name": "WC",
-          "net": "NetP2G_3"
+          "net": "NetP2G_3",
+          "type": "passive"
         },
         "4": {
           "name": "WA",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         }
       },
       "description": "LED Red/White",
@@ -3815,16 +4197,28 @@
     },
     "R4G": {
       "pins": {
-        "1": "NetR3G_1",
-        "2": "NetP2G_2"
+        "1": {
+          "net": "NetR3G_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP2G_2",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "820"
     },
     "R3G": {
       "pins": {
-        "1": "NetR3G_1",
-        "2": "NetP2G_3"
+        "1": {
+          "net": "NetR3G_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP2G_3",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "390"
@@ -3833,23 +4227,28 @@
       "pins": {
         "1": {
           "name": "DOUT",
-          "net": "NetU2G_1"
+          "net": "NetU2G_1",
+          "type": "output"
         },
         "2": {
           "name": "LR",
-          "net": "NetR3G_1"
+          "net": "NetR3G_1",
+          "type": "input"
         },
         "3": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "4": {
           "name": "CLK",
-          "net": "NetU2G_4"
+          "net": "NetU2G_4",
+          "type": "input"
         },
         "5": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         }
       },
       "description": "Digital PDM MEMS Microphone (Bottom Port)",
@@ -3857,25 +4256,46 @@
     },
     "M2H": {
       "pins": {
-        "1": "NetM2H_1"
+        "1": {
+          "net": "NetM2H_1",
+          "type": "passive"
+        }
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
     },
     "X2H": {
       "pins": {
-        "1": "GND",
-        "2": "3V3",
-        "3": "NetU2H_1",
-        "4": "NetU2H_4"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetU2H_1",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetU2H_4",
+          "type": "passive"
+        }
       },
       "description": "Wire To Board Connector (1x4P 1.0mm)",
       "comment": "1.0-4PWB"
     },
     "C5H": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "100nF"
@@ -3884,15 +4304,18 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "2": {
           "name": "COMMON1",
-          "net": "NetR3H_1"
+          "net": "NetR3H_1",
+          "type": "passive"
         },
         "3": {
           "name": "NO1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Miniature Slide Switch",
@@ -3900,16 +4323,28 @@
     },
     "C6H": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "10µF"
     },
     "C4H": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "CAP-MK",
       "comment": "10nF"
@@ -3918,19 +4353,23 @@
       "pins": {
         "1": {
           "name": "RC",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "RA",
-          "net": "NetP2H_2"
+          "net": "NetP2H_2",
+          "type": "passive"
         },
         "3": {
           "name": "WC",
-          "net": "NetP2H_3"
+          "net": "NetP2H_3",
+          "type": "passive"
         },
         "4": {
           "name": "WA",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         }
       },
       "description": "LED Red/White",
@@ -3938,16 +4377,28 @@
     },
     "R4H": {
       "pins": {
-        "1": "NetR3H_1",
-        "2": "NetP2H_2"
+        "1": {
+          "net": "NetR3H_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP2H_2",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "820"
     },
     "R3H": {
       "pins": {
-        "1": "NetR3H_1",
-        "2": "NetP2H_3"
+        "1": {
+          "net": "NetR3H_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP2H_3",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "390"
@@ -3956,23 +4407,28 @@
       "pins": {
         "1": {
           "name": "DOUT",
-          "net": "NetU2H_1"
+          "net": "NetU2H_1",
+          "type": "output"
         },
         "2": {
           "name": "LR",
-          "net": "NetR3H_1"
+          "net": "NetR3H_1",
+          "type": "input"
         },
         "3": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "4": {
           "name": "CLK",
-          "net": "NetU2H_4"
+          "net": "NetU2H_4",
+          "type": "input"
         },
         "5": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         }
       },
       "description": "Digital PDM MEMS Microphone (Bottom Port)",
@@ -3980,25 +4436,46 @@
     },
     "M3A": {
       "pins": {
-        "1": "NetM3A_1"
+        "1": {
+          "net": "NetM3A_1",
+          "type": "passive"
+        }
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
     },
     "X3A": {
       "pins": {
-        "1": "GND",
-        "2": "3V3",
-        "3": "NetU3A_4",
-        "4": "NetU3A_3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetU3A_4",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetU3A_3",
+          "type": "passive"
+        }
       },
       "description": "Wire To Board Connector (1x4P 1.0mm)",
       "comment": "1.0-4PWB"
     },
     "C8A": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "100nF"
@@ -4007,15 +4484,18 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "2": {
           "name": "COMMON1",
-          "net": "NetR5A_1"
+          "net": "NetR5A_1",
+          "type": "passive"
         },
         "3": {
           "name": "NO1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Miniature Slide Switch",
@@ -4023,16 +4503,28 @@
     },
     "C9A": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "10µF"
     },
     "C7A": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "CAP-MK",
       "comment": "10nF"
@@ -4041,19 +4533,23 @@
       "pins": {
         "1": {
           "name": "RC",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "RA",
-          "net": "NetP3A_2"
+          "net": "NetP3A_2",
+          "type": "passive"
         },
         "3": {
           "name": "WC",
-          "net": "NetP3A_3"
+          "net": "NetP3A_3",
+          "type": "passive"
         },
         "4": {
           "name": "WA",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         }
       },
       "description": "LED Red/White",
@@ -4061,16 +4557,28 @@
     },
     "R6A": {
       "pins": {
-        "1": "NetR5A_1",
-        "2": "NetP3A_2"
+        "1": {
+          "net": "NetR5A_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP3A_2",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "820"
     },
     "R5A": {
       "pins": {
-        "1": "NetR5A_1",
-        "2": "NetP3A_3"
+        "1": {
+          "net": "NetR5A_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP3A_3",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "390"
@@ -4079,23 +4587,28 @@
       "pins": {
         "1": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         },
         "2": {
           "name": "LR",
-          "net": "NetR5A_1"
+          "net": "NetR5A_1",
+          "type": "input"
         },
         "3": {
           "name": "CLK",
-          "net": "NetU3A_3"
+          "net": "NetU3A_3",
+          "type": "input"
         },
         "4": {
           "name": "DOUT",
-          "net": "NetU3A_4"
+          "net": "NetU3A_4",
+          "type": "output"
         },
         "5": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "description": "Digital PDM MEMS Microphone (Top Port)",
@@ -4103,25 +4616,46 @@
     },
     "M3B": {
       "pins": {
-        "1": "NetM3B_1"
+        "1": {
+          "net": "NetM3B_1",
+          "type": "passive"
+        }
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
     },
     "X3B": {
       "pins": {
-        "1": "GND",
-        "2": "3V3",
-        "3": "NetU3B_4",
-        "4": "NetU3B_3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetU3B_4",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetU3B_3",
+          "type": "passive"
+        }
       },
       "description": "Wire To Board Connector (1x4P 1.0mm)",
       "comment": "1.0-4PWB"
     },
     "C8B": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "100nF"
@@ -4130,15 +4664,18 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "2": {
           "name": "COMMON1",
-          "net": "NetR5B_1"
+          "net": "NetR5B_1",
+          "type": "passive"
         },
         "3": {
           "name": "NO1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Miniature Slide Switch",
@@ -4146,16 +4683,28 @@
     },
     "C9B": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "10µF"
     },
     "C7B": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "CAP-MK",
       "comment": "10nF"
@@ -4164,19 +4713,23 @@
       "pins": {
         "1": {
           "name": "RC",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "RA",
-          "net": "NetP3B_2"
+          "net": "NetP3B_2",
+          "type": "passive"
         },
         "3": {
           "name": "WC",
-          "net": "NetP3B_3"
+          "net": "NetP3B_3",
+          "type": "passive"
         },
         "4": {
           "name": "WA",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         }
       },
       "description": "LED Red/White",
@@ -4184,16 +4737,28 @@
     },
     "R6B": {
       "pins": {
-        "1": "NetR5B_1",
-        "2": "NetP3B_2"
+        "1": {
+          "net": "NetR5B_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP3B_2",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "820"
     },
     "R5B": {
       "pins": {
-        "1": "NetR5B_1",
-        "2": "NetP3B_3"
+        "1": {
+          "net": "NetR5B_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP3B_3",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "390"
@@ -4202,23 +4767,28 @@
       "pins": {
         "1": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         },
         "2": {
           "name": "LR",
-          "net": "NetR5B_1"
+          "net": "NetR5B_1",
+          "type": "input"
         },
         "3": {
           "name": "CLK",
-          "net": "NetU3B_3"
+          "net": "NetU3B_3",
+          "type": "input"
         },
         "4": {
           "name": "DOUT",
-          "net": "NetU3B_4"
+          "net": "NetU3B_4",
+          "type": "output"
         },
         "5": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "description": "Digital PDM MEMS Microphone (Top Port)",
@@ -4226,25 +4796,46 @@
     },
     "M3C": {
       "pins": {
-        "1": "NetM3C_1"
+        "1": {
+          "net": "NetM3C_1",
+          "type": "passive"
+        }
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
     },
     "X3C": {
       "pins": {
-        "1": "GND",
-        "2": "3V3",
-        "3": "NetU3C_4",
-        "4": "NetU3C_3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetU3C_4",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetU3C_3",
+          "type": "passive"
+        }
       },
       "description": "Wire To Board Connector (1x4P 1.0mm)",
       "comment": "1.0-4PWB"
     },
     "C8C": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "100nF"
@@ -4253,15 +4844,18 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "2": {
           "name": "COMMON1",
-          "net": "NetR5C_1"
+          "net": "NetR5C_1",
+          "type": "passive"
         },
         "3": {
           "name": "NO1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Miniature Slide Switch",
@@ -4269,16 +4863,28 @@
     },
     "C9C": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "10µF"
     },
     "C7C": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "CAP-MK",
       "comment": "10nF"
@@ -4287,19 +4893,23 @@
       "pins": {
         "1": {
           "name": "RC",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "RA",
-          "net": "NetP3C_2"
+          "net": "NetP3C_2",
+          "type": "passive"
         },
         "3": {
           "name": "WC",
-          "net": "NetP3C_3"
+          "net": "NetP3C_3",
+          "type": "passive"
         },
         "4": {
           "name": "WA",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         }
       },
       "description": "LED Red/White",
@@ -4307,16 +4917,28 @@
     },
     "R6C": {
       "pins": {
-        "1": "NetR5C_1",
-        "2": "NetP3C_2"
+        "1": {
+          "net": "NetR5C_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP3C_2",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "820"
     },
     "R5C": {
       "pins": {
-        "1": "NetR5C_1",
-        "2": "NetP3C_3"
+        "1": {
+          "net": "NetR5C_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP3C_3",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "390"
@@ -4325,23 +4947,28 @@
       "pins": {
         "1": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         },
         "2": {
           "name": "LR",
-          "net": "NetR5C_1"
+          "net": "NetR5C_1",
+          "type": "input"
         },
         "3": {
           "name": "CLK",
-          "net": "NetU3C_3"
+          "net": "NetU3C_3",
+          "type": "input"
         },
         "4": {
           "name": "DOUT",
-          "net": "NetU3C_4"
+          "net": "NetU3C_4",
+          "type": "output"
         },
         "5": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "description": "Digital PDM MEMS Microphone (Top Port)",
@@ -4349,25 +4976,46 @@
     },
     "M3D": {
       "pins": {
-        "1": "NetM3D_1"
+        "1": {
+          "net": "NetM3D_1",
+          "type": "passive"
+        }
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
     },
     "X3D": {
       "pins": {
-        "1": "GND",
-        "2": "3V3",
-        "3": "NetU3D_4",
-        "4": "NetU3D_3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetU3D_4",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetU3D_3",
+          "type": "passive"
+        }
       },
       "description": "Wire To Board Connector (1x4P 1.0mm)",
       "comment": "1.0-4PWB"
     },
     "C8D": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "100nF"
@@ -4376,15 +5024,18 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "2": {
           "name": "COMMON1",
-          "net": "NetR5D_1"
+          "net": "NetR5D_1",
+          "type": "passive"
         },
         "3": {
           "name": "NO1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Miniature Slide Switch",
@@ -4392,16 +5043,28 @@
     },
     "C9D": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "10µF"
     },
     "C7D": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "CAP-MK",
       "comment": "10nF"
@@ -4410,19 +5073,23 @@
       "pins": {
         "1": {
           "name": "RC",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "RA",
-          "net": "NetP3D_2"
+          "net": "NetP3D_2",
+          "type": "passive"
         },
         "3": {
           "name": "WC",
-          "net": "NetP3D_3"
+          "net": "NetP3D_3",
+          "type": "passive"
         },
         "4": {
           "name": "WA",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         }
       },
       "description": "LED Red/White",
@@ -4430,16 +5097,28 @@
     },
     "R6D": {
       "pins": {
-        "1": "NetR5D_1",
-        "2": "NetP3D_2"
+        "1": {
+          "net": "NetR5D_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP3D_2",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "820"
     },
     "R5D": {
       "pins": {
-        "1": "NetR5D_1",
-        "2": "NetP3D_3"
+        "1": {
+          "net": "NetR5D_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP3D_3",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "390"
@@ -4448,23 +5127,28 @@
       "pins": {
         "1": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         },
         "2": {
           "name": "LR",
-          "net": "NetR5D_1"
+          "net": "NetR5D_1",
+          "type": "input"
         },
         "3": {
           "name": "CLK",
-          "net": "NetU3D_3"
+          "net": "NetU3D_3",
+          "type": "input"
         },
         "4": {
           "name": "DOUT",
-          "net": "NetU3D_4"
+          "net": "NetU3D_4",
+          "type": "output"
         },
         "5": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "description": "Digital PDM MEMS Microphone (Top Port)",
@@ -4472,25 +5156,46 @@
     },
     "M3E": {
       "pins": {
-        "1": "NetM3E_1"
+        "1": {
+          "net": "NetM3E_1",
+          "type": "passive"
+        }
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
     },
     "X3E": {
       "pins": {
-        "1": "GND",
-        "2": "3V3",
-        "3": "NetU3E_4",
-        "4": "NetU3E_3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetU3E_4",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetU3E_3",
+          "type": "passive"
+        }
       },
       "description": "Wire To Board Connector (1x4P 1.0mm)",
       "comment": "1.0-4PWB"
     },
     "C8E": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "100nF"
@@ -4499,15 +5204,18 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "2": {
           "name": "COMMON1",
-          "net": "NetR5E_1"
+          "net": "NetR5E_1",
+          "type": "passive"
         },
         "3": {
           "name": "NO1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Miniature Slide Switch",
@@ -4515,16 +5223,28 @@
     },
     "C9E": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "10µF"
     },
     "C7E": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "CAP-MK",
       "comment": "10nF"
@@ -4533,19 +5253,23 @@
       "pins": {
         "1": {
           "name": "RC",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "RA",
-          "net": "NetP3E_2"
+          "net": "NetP3E_2",
+          "type": "passive"
         },
         "3": {
           "name": "WC",
-          "net": "NetP3E_3"
+          "net": "NetP3E_3",
+          "type": "passive"
         },
         "4": {
           "name": "WA",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         }
       },
       "description": "LED Red/White",
@@ -4553,16 +5277,28 @@
     },
     "R6E": {
       "pins": {
-        "1": "NetR5E_1",
-        "2": "NetP3E_2"
+        "1": {
+          "net": "NetR5E_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP3E_2",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "820"
     },
     "R5E": {
       "pins": {
-        "1": "NetR5E_1",
-        "2": "NetP3E_3"
+        "1": {
+          "net": "NetR5E_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP3E_3",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "390"
@@ -4571,23 +5307,28 @@
       "pins": {
         "1": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         },
         "2": {
           "name": "LR",
-          "net": "NetR5E_1"
+          "net": "NetR5E_1",
+          "type": "input"
         },
         "3": {
           "name": "CLK",
-          "net": "NetU3E_3"
+          "net": "NetU3E_3",
+          "type": "input"
         },
         "4": {
           "name": "DOUT",
-          "net": "NetU3E_4"
+          "net": "NetU3E_4",
+          "type": "output"
         },
         "5": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "description": "Digital PDM MEMS Microphone (Top Port)",
@@ -4595,25 +5336,46 @@
     },
     "M3F": {
       "pins": {
-        "1": "NetM3F_1"
+        "1": {
+          "net": "NetM3F_1",
+          "type": "passive"
+        }
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
     },
     "X3F": {
       "pins": {
-        "1": "GND",
-        "2": "3V3",
-        "3": "NetU3F_4",
-        "4": "NetU3F_3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetU3F_4",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetU3F_3",
+          "type": "passive"
+        }
       },
       "description": "Wire To Board Connector (1x4P 1.0mm)",
       "comment": "1.0-4PWB"
     },
     "C8F": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "100nF"
@@ -4622,15 +5384,18 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "2": {
           "name": "COMMON1",
-          "net": "NetR5F_1"
+          "net": "NetR5F_1",
+          "type": "passive"
         },
         "3": {
           "name": "NO1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Miniature Slide Switch",
@@ -4638,16 +5403,28 @@
     },
     "C9F": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "10µF"
     },
     "C7F": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "CAP-MK",
       "comment": "10nF"
@@ -4656,19 +5433,23 @@
       "pins": {
         "1": {
           "name": "RC",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "RA",
-          "net": "NetP3F_2"
+          "net": "NetP3F_2",
+          "type": "passive"
         },
         "3": {
           "name": "WC",
-          "net": "NetP3F_3"
+          "net": "NetP3F_3",
+          "type": "passive"
         },
         "4": {
           "name": "WA",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         }
       },
       "description": "LED Red/White",
@@ -4676,16 +5457,28 @@
     },
     "R6F": {
       "pins": {
-        "1": "NetR5F_1",
-        "2": "NetP3F_2"
+        "1": {
+          "net": "NetR5F_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP3F_2",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "820"
     },
     "R5F": {
       "pins": {
-        "1": "NetR5F_1",
-        "2": "NetP3F_3"
+        "1": {
+          "net": "NetR5F_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP3F_3",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "390"
@@ -4694,23 +5487,28 @@
       "pins": {
         "1": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         },
         "2": {
           "name": "LR",
-          "net": "NetR5F_1"
+          "net": "NetR5F_1",
+          "type": "input"
         },
         "3": {
           "name": "CLK",
-          "net": "NetU3F_3"
+          "net": "NetU3F_3",
+          "type": "input"
         },
         "4": {
           "name": "DOUT",
-          "net": "NetU3F_4"
+          "net": "NetU3F_4",
+          "type": "output"
         },
         "5": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "description": "Digital PDM MEMS Microphone (Top Port)",
@@ -4718,25 +5516,46 @@
     },
     "M3G": {
       "pins": {
-        "1": "NetM3G_1"
+        "1": {
+          "net": "NetM3G_1",
+          "type": "passive"
+        }
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
     },
     "X3G": {
       "pins": {
-        "1": "GND",
-        "2": "3V3",
-        "3": "NetU3G_4",
-        "4": "NetU3G_3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetU3G_4",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetU3G_3",
+          "type": "passive"
+        }
       },
       "description": "Wire To Board Connector (1x4P 1.0mm)",
       "comment": "1.0-4PWB"
     },
     "C8G": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "100nF"
@@ -4745,15 +5564,18 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "2": {
           "name": "COMMON1",
-          "net": "NetR5G_1"
+          "net": "NetR5G_1",
+          "type": "passive"
         },
         "3": {
           "name": "NO1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Miniature Slide Switch",
@@ -4761,16 +5583,28 @@
     },
     "C9G": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "10µF"
     },
     "C7G": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "CAP-MK",
       "comment": "10nF"
@@ -4779,19 +5613,23 @@
       "pins": {
         "1": {
           "name": "RC",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "RA",
-          "net": "NetP3G_2"
+          "net": "NetP3G_2",
+          "type": "passive"
         },
         "3": {
           "name": "WC",
-          "net": "NetP3G_3"
+          "net": "NetP3G_3",
+          "type": "passive"
         },
         "4": {
           "name": "WA",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         }
       },
       "description": "LED Red/White",
@@ -4799,16 +5637,28 @@
     },
     "R6G": {
       "pins": {
-        "1": "NetR5G_1",
-        "2": "NetP3G_2"
+        "1": {
+          "net": "NetR5G_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP3G_2",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "820"
     },
     "R5G": {
       "pins": {
-        "1": "NetR5G_1",
-        "2": "NetP3G_3"
+        "1": {
+          "net": "NetR5G_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP3G_3",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "390"
@@ -4817,23 +5667,28 @@
       "pins": {
         "1": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         },
         "2": {
           "name": "LR",
-          "net": "NetR5G_1"
+          "net": "NetR5G_1",
+          "type": "input"
         },
         "3": {
           "name": "CLK",
-          "net": "NetU3G_3"
+          "net": "NetU3G_3",
+          "type": "input"
         },
         "4": {
           "name": "DOUT",
-          "net": "NetU3G_4"
+          "net": "NetU3G_4",
+          "type": "output"
         },
         "5": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "description": "Digital PDM MEMS Microphone (Top Port)",
@@ -4841,25 +5696,46 @@
     },
     "M3H": {
       "pins": {
-        "1": "NetM3H_1"
+        "1": {
+          "net": "NetM3H_1",
+          "type": "passive"
+        }
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
     },
     "X3H": {
       "pins": {
-        "1": "GND",
-        "2": "3V3",
-        "3": "NetU3H_4",
-        "4": "NetU3H_3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetU3H_4",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetU3H_3",
+          "type": "passive"
+        }
       },
       "description": "Wire To Board Connector (1x4P 1.0mm)",
       "comment": "1.0-4PWB"
     },
     "C8H": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "100nF"
@@ -4868,15 +5744,18 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "2": {
           "name": "COMMON1",
-          "net": "NetR5H_1"
+          "net": "NetR5H_1",
+          "type": "passive"
         },
         "3": {
           "name": "NO1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Miniature Slide Switch",
@@ -4884,16 +5763,28 @@
     },
     "C9H": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "10µF"
     },
     "C7H": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "CAP-MK",
       "comment": "10nF"
@@ -4902,19 +5793,23 @@
       "pins": {
         "1": {
           "name": "RC",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "RA",
-          "net": "NetP3H_2"
+          "net": "NetP3H_2",
+          "type": "passive"
         },
         "3": {
           "name": "WC",
-          "net": "NetP3H_3"
+          "net": "NetP3H_3",
+          "type": "passive"
         },
         "4": {
           "name": "WA",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         }
       },
       "description": "LED Red/White",
@@ -4922,16 +5817,28 @@
     },
     "R6H": {
       "pins": {
-        "1": "NetR5H_1",
-        "2": "NetP3H_2"
+        "1": {
+          "net": "NetR5H_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP3H_2",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "820"
     },
     "R5H": {
       "pins": {
-        "1": "NetR5H_1",
-        "2": "NetP3H_3"
+        "1": {
+          "net": "NetR5H_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP3H_3",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "390"
@@ -4940,23 +5847,28 @@
       "pins": {
         "1": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         },
         "2": {
           "name": "LR",
-          "net": "NetR5H_1"
+          "net": "NetR5H_1",
+          "type": "input"
         },
         "3": {
           "name": "CLK",
-          "net": "NetU3H_3"
+          "net": "NetU3H_3",
+          "type": "input"
         },
         "4": {
           "name": "DOUT",
-          "net": "NetU3H_4"
+          "net": "NetU3H_4",
+          "type": "output"
         },
         "5": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "description": "Digital PDM MEMS Microphone (Top Port)",
@@ -4964,25 +5876,46 @@
     },
     "M1A": {
       "pins": {
-        "1": "NetM1A_1"
+        "1": {
+          "net": "NetM1A_1",
+          "type": "passive"
+        }
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
     },
     "X1A": {
       "pins": {
-        "1": "GND",
-        "2": "3V3",
-        "3": "NetU1A_4",
-        "4": "NetU1A_3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetU1A_4",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetU1A_3",
+          "type": "passive"
+        }
       },
       "description": "Wire To Board Connector (1x4P 1.0mm)",
       "comment": "1.0-4PWB"
     },
     "C2A": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "100nF"
@@ -4991,15 +5924,18 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "2": {
           "name": "COMMON1",
-          "net": "NetR1A_1"
+          "net": "NetR1A_1",
+          "type": "passive"
         },
         "3": {
           "name": "NO1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Miniature Slide Switch",
@@ -5007,16 +5943,28 @@
     },
     "C3A": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "10µF"
     },
     "C1A": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "CAP-MK",
       "comment": "10nF"
@@ -5025,19 +5973,23 @@
       "pins": {
         "1": {
           "name": "RC",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "RA",
-          "net": "NetP1A_2"
+          "net": "NetP1A_2",
+          "type": "passive"
         },
         "3": {
           "name": "WC",
-          "net": "NetP1A_3"
+          "net": "NetP1A_3",
+          "type": "passive"
         },
         "4": {
           "name": "WA",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         }
       },
       "description": "LED Red/White",
@@ -5045,16 +5997,28 @@
     },
     "R2A": {
       "pins": {
-        "1": "NetR1A_1",
-        "2": "NetP1A_2"
+        "1": {
+          "net": "NetR1A_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP1A_2",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "820"
     },
     "R1A": {
       "pins": {
-        "1": "NetR1A_1",
-        "2": "NetP1A_3"
+        "1": {
+          "net": "NetR1A_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP1A_3",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "390"
@@ -5063,23 +6027,28 @@
       "pins": {
         "1": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         },
         "2": {
           "name": "LR",
-          "net": "NetR1A_1"
+          "net": "NetR1A_1",
+          "type": "input"
         },
         "3": {
           "name": "CLK",
-          "net": "NetU1A_3"
+          "net": "NetU1A_3",
+          "type": "input"
         },
         "4": {
           "name": "DOUT",
-          "net": "NetU1A_4"
+          "net": "NetU1A_4",
+          "type": "output"
         },
         "5": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "description": "Digital PDM MEMS Microphone (Top Port)",
@@ -5087,25 +6056,46 @@
     },
     "M1B": {
       "pins": {
-        "1": "NetM1B_1"
+        "1": {
+          "net": "NetM1B_1",
+          "type": "passive"
+        }
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
     },
     "X1B": {
       "pins": {
-        "1": "GND",
-        "2": "3V3",
-        "3": "NetU1B_4",
-        "4": "NetU1B_3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetU1B_4",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetU1B_3",
+          "type": "passive"
+        }
       },
       "description": "Wire To Board Connector (1x4P 1.0mm)",
       "comment": "1.0-4PWB"
     },
     "C2B": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "100nF"
@@ -5114,15 +6104,18 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "2": {
           "name": "COMMON1",
-          "net": "NetR1B_1"
+          "net": "NetR1B_1",
+          "type": "passive"
         },
         "3": {
           "name": "NO1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Miniature Slide Switch",
@@ -5130,16 +6123,28 @@
     },
     "C3B": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "10µF"
     },
     "C1B": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "CAP-MK",
       "comment": "10nF"
@@ -5148,19 +6153,23 @@
       "pins": {
         "1": {
           "name": "RC",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "RA",
-          "net": "NetP1B_2"
+          "net": "NetP1B_2",
+          "type": "passive"
         },
         "3": {
           "name": "WC",
-          "net": "NetP1B_3"
+          "net": "NetP1B_3",
+          "type": "passive"
         },
         "4": {
           "name": "WA",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         }
       },
       "description": "LED Red/White",
@@ -5168,16 +6177,28 @@
     },
     "R2B": {
       "pins": {
-        "1": "NetR1B_1",
-        "2": "NetP1B_2"
+        "1": {
+          "net": "NetR1B_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP1B_2",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "820"
     },
     "R1B": {
       "pins": {
-        "1": "NetR1B_1",
-        "2": "NetP1B_3"
+        "1": {
+          "net": "NetR1B_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP1B_3",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "390"
@@ -5186,23 +6207,28 @@
       "pins": {
         "1": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         },
         "2": {
           "name": "LR",
-          "net": "NetR1B_1"
+          "net": "NetR1B_1",
+          "type": "input"
         },
         "3": {
           "name": "CLK",
-          "net": "NetU1B_3"
+          "net": "NetU1B_3",
+          "type": "input"
         },
         "4": {
           "name": "DOUT",
-          "net": "NetU1B_4"
+          "net": "NetU1B_4",
+          "type": "output"
         },
         "5": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "description": "Digital PDM MEMS Microphone (Top Port)",
@@ -5210,25 +6236,46 @@
     },
     "M1C": {
       "pins": {
-        "1": "NetM1C_1"
+        "1": {
+          "net": "NetM1C_1",
+          "type": "passive"
+        }
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
     },
     "X1C": {
       "pins": {
-        "1": "GND",
-        "2": "3V3",
-        "3": "NetU1C_4",
-        "4": "NetU1C_3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetU1C_4",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetU1C_3",
+          "type": "passive"
+        }
       },
       "description": "Wire To Board Connector (1x4P 1.0mm)",
       "comment": "1.0-4PWB"
     },
     "C2C": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "100nF"
@@ -5237,15 +6284,18 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "2": {
           "name": "COMMON1",
-          "net": "NetR1C_1"
+          "net": "NetR1C_1",
+          "type": "passive"
         },
         "3": {
           "name": "NO1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Miniature Slide Switch",
@@ -5253,16 +6303,28 @@
     },
     "C3C": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "10µF"
     },
     "C1C": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "CAP-MK",
       "comment": "10nF"
@@ -5271,19 +6333,23 @@
       "pins": {
         "1": {
           "name": "RC",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "RA",
-          "net": "NetP1C_2"
+          "net": "NetP1C_2",
+          "type": "passive"
         },
         "3": {
           "name": "WC",
-          "net": "NetP1C_3"
+          "net": "NetP1C_3",
+          "type": "passive"
         },
         "4": {
           "name": "WA",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         }
       },
       "description": "LED Red/White",
@@ -5291,16 +6357,28 @@
     },
     "R2C": {
       "pins": {
-        "1": "NetR1C_1",
-        "2": "NetP1C_2"
+        "1": {
+          "net": "NetR1C_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP1C_2",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "820"
     },
     "R1C": {
       "pins": {
-        "1": "NetR1C_1",
-        "2": "NetP1C_3"
+        "1": {
+          "net": "NetR1C_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP1C_3",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "390"
@@ -5309,23 +6387,28 @@
       "pins": {
         "1": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         },
         "2": {
           "name": "LR",
-          "net": "NetR1C_1"
+          "net": "NetR1C_1",
+          "type": "input"
         },
         "3": {
           "name": "CLK",
-          "net": "NetU1C_3"
+          "net": "NetU1C_3",
+          "type": "input"
         },
         "4": {
           "name": "DOUT",
-          "net": "NetU1C_4"
+          "net": "NetU1C_4",
+          "type": "output"
         },
         "5": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "description": "Digital PDM MEMS Microphone (Top Port)",
@@ -5333,25 +6416,46 @@
     },
     "M1D": {
       "pins": {
-        "1": "NetM1D_1"
+        "1": {
+          "net": "NetM1D_1",
+          "type": "passive"
+        }
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
     },
     "X1D": {
       "pins": {
-        "1": "GND",
-        "2": "3V3",
-        "3": "NetU1D_4",
-        "4": "NetU1D_3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetU1D_4",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetU1D_3",
+          "type": "passive"
+        }
       },
       "description": "Wire To Board Connector (1x4P 1.0mm)",
       "comment": "1.0-4PWB"
     },
     "C2D": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "100nF"
@@ -5360,15 +6464,18 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "2": {
           "name": "COMMON1",
-          "net": "NetR1D_1"
+          "net": "NetR1D_1",
+          "type": "passive"
         },
         "3": {
           "name": "NO1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Miniature Slide Switch",
@@ -5376,16 +6483,28 @@
     },
     "C3D": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "10µF"
     },
     "C1D": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "CAP-MK",
       "comment": "10nF"
@@ -5394,19 +6513,23 @@
       "pins": {
         "1": {
           "name": "RC",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "RA",
-          "net": "NetP1D_2"
+          "net": "NetP1D_2",
+          "type": "passive"
         },
         "3": {
           "name": "WC",
-          "net": "NetP1D_3"
+          "net": "NetP1D_3",
+          "type": "passive"
         },
         "4": {
           "name": "WA",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         }
       },
       "description": "LED Red/White",
@@ -5414,16 +6537,28 @@
     },
     "R2D": {
       "pins": {
-        "1": "NetR1D_1",
-        "2": "NetP1D_2"
+        "1": {
+          "net": "NetR1D_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP1D_2",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "820"
     },
     "R1D": {
       "pins": {
-        "1": "NetR1D_1",
-        "2": "NetP1D_3"
+        "1": {
+          "net": "NetR1D_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP1D_3",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "390"
@@ -5432,23 +6567,28 @@
       "pins": {
         "1": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         },
         "2": {
           "name": "LR",
-          "net": "NetR1D_1"
+          "net": "NetR1D_1",
+          "type": "input"
         },
         "3": {
           "name": "CLK",
-          "net": "NetU1D_3"
+          "net": "NetU1D_3",
+          "type": "input"
         },
         "4": {
           "name": "DOUT",
-          "net": "NetU1D_4"
+          "net": "NetU1D_4",
+          "type": "output"
         },
         "5": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "description": "Digital PDM MEMS Microphone (Top Port)",
@@ -5456,25 +6596,46 @@
     },
     "M1E": {
       "pins": {
-        "1": "NetM1E_1"
+        "1": {
+          "net": "NetM1E_1",
+          "type": "passive"
+        }
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
     },
     "X1E": {
       "pins": {
-        "1": "GND",
-        "2": "3V3",
-        "3": "NetU1E_4",
-        "4": "NetU1E_3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetU1E_4",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetU1E_3",
+          "type": "passive"
+        }
       },
       "description": "Wire To Board Connector (1x4P 1.0mm)",
       "comment": "1.0-4PWB"
     },
     "C2E": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "100nF"
@@ -5483,15 +6644,18 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "2": {
           "name": "COMMON1",
-          "net": "NetR1E_1"
+          "net": "NetR1E_1",
+          "type": "passive"
         },
         "3": {
           "name": "NO1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Miniature Slide Switch",
@@ -5499,16 +6663,28 @@
     },
     "C3E": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "10µF"
     },
     "C1E": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "CAP-MK",
       "comment": "10nF"
@@ -5517,19 +6693,23 @@
       "pins": {
         "1": {
           "name": "RC",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "RA",
-          "net": "NetP1E_2"
+          "net": "NetP1E_2",
+          "type": "passive"
         },
         "3": {
           "name": "WC",
-          "net": "NetP1E_3"
+          "net": "NetP1E_3",
+          "type": "passive"
         },
         "4": {
           "name": "WA",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         }
       },
       "description": "LED Red/White",
@@ -5537,16 +6717,28 @@
     },
     "R2E": {
       "pins": {
-        "1": "NetR1E_1",
-        "2": "NetP1E_2"
+        "1": {
+          "net": "NetR1E_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP1E_2",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "820"
     },
     "R1E": {
       "pins": {
-        "1": "NetR1E_1",
-        "2": "NetP1E_3"
+        "1": {
+          "net": "NetR1E_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP1E_3",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "390"
@@ -5555,23 +6747,28 @@
       "pins": {
         "1": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         },
         "2": {
           "name": "LR",
-          "net": "NetR1E_1"
+          "net": "NetR1E_1",
+          "type": "input"
         },
         "3": {
           "name": "CLK",
-          "net": "NetU1E_3"
+          "net": "NetU1E_3",
+          "type": "input"
         },
         "4": {
           "name": "DOUT",
-          "net": "NetU1E_4"
+          "net": "NetU1E_4",
+          "type": "output"
         },
         "5": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "description": "Digital PDM MEMS Microphone (Top Port)",
@@ -5579,25 +6776,46 @@
     },
     "M1F": {
       "pins": {
-        "1": "NetM1F_1"
+        "1": {
+          "net": "NetM1F_1",
+          "type": "passive"
+        }
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
     },
     "X1F": {
       "pins": {
-        "1": "GND",
-        "2": "3V3",
-        "3": "NetU1F_4",
-        "4": "NetU1F_3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetU1F_4",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetU1F_3",
+          "type": "passive"
+        }
       },
       "description": "Wire To Board Connector (1x4P 1.0mm)",
       "comment": "1.0-4PWB"
     },
     "C2F": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "100nF"
@@ -5606,15 +6824,18 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "2": {
           "name": "COMMON1",
-          "net": "NetR1F_1"
+          "net": "NetR1F_1",
+          "type": "passive"
         },
         "3": {
           "name": "NO1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Miniature Slide Switch",
@@ -5622,16 +6843,28 @@
     },
     "C3F": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "10µF"
     },
     "C1F": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "CAP-MK",
       "comment": "10nF"
@@ -5640,19 +6873,23 @@
       "pins": {
         "1": {
           "name": "RC",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "RA",
-          "net": "NetP1F_2"
+          "net": "NetP1F_2",
+          "type": "passive"
         },
         "3": {
           "name": "WC",
-          "net": "NetP1F_3"
+          "net": "NetP1F_3",
+          "type": "passive"
         },
         "4": {
           "name": "WA",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         }
       },
       "description": "LED Red/White",
@@ -5660,16 +6897,28 @@
     },
     "R2F": {
       "pins": {
-        "1": "NetR1F_1",
-        "2": "NetP1F_2"
+        "1": {
+          "net": "NetR1F_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP1F_2",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "820"
     },
     "R1F": {
       "pins": {
-        "1": "NetR1F_1",
-        "2": "NetP1F_3"
+        "1": {
+          "net": "NetR1F_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP1F_3",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "390"
@@ -5678,23 +6927,28 @@
       "pins": {
         "1": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         },
         "2": {
           "name": "LR",
-          "net": "NetR1F_1"
+          "net": "NetR1F_1",
+          "type": "input"
         },
         "3": {
           "name": "CLK",
-          "net": "NetU1F_3"
+          "net": "NetU1F_3",
+          "type": "input"
         },
         "4": {
           "name": "DOUT",
-          "net": "NetU1F_4"
+          "net": "NetU1F_4",
+          "type": "output"
         },
         "5": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "description": "Digital PDM MEMS Microphone (Top Port)",
@@ -5702,25 +6956,46 @@
     },
     "M1G": {
       "pins": {
-        "1": "NetM1G_1"
+        "1": {
+          "net": "NetM1G_1",
+          "type": "passive"
+        }
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
     },
     "X1G": {
       "pins": {
-        "1": "GND",
-        "2": "3V3",
-        "3": "NetU1G_4",
-        "4": "NetU1G_3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetU1G_4",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetU1G_3",
+          "type": "passive"
+        }
       },
       "description": "Wire To Board Connector (1x4P 1.0mm)",
       "comment": "1.0-4PWB"
     },
     "C2G": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "100nF"
@@ -5729,15 +7004,18 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "2": {
           "name": "COMMON1",
-          "net": "NetR1G_1"
+          "net": "NetR1G_1",
+          "type": "passive"
         },
         "3": {
           "name": "NO1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Miniature Slide Switch",
@@ -5745,16 +7023,28 @@
     },
     "C3G": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "10µF"
     },
     "C1G": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "CAP-MK",
       "comment": "10nF"
@@ -5763,19 +7053,23 @@
       "pins": {
         "1": {
           "name": "RC",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "RA",
-          "net": "NetP1G_2"
+          "net": "NetP1G_2",
+          "type": "passive"
         },
         "3": {
           "name": "WC",
-          "net": "NetP1G_3"
+          "net": "NetP1G_3",
+          "type": "passive"
         },
         "4": {
           "name": "WA",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         }
       },
       "description": "LED Red/White",
@@ -5783,16 +7077,28 @@
     },
     "R2G": {
       "pins": {
-        "1": "NetR1G_1",
-        "2": "NetP1G_2"
+        "1": {
+          "net": "NetR1G_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP1G_2",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "820"
     },
     "R1G": {
       "pins": {
-        "1": "NetR1G_1",
-        "2": "NetP1G_3"
+        "1": {
+          "net": "NetR1G_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP1G_3",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "390"
@@ -5801,23 +7107,28 @@
       "pins": {
         "1": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         },
         "2": {
           "name": "LR",
-          "net": "NetR1G_1"
+          "net": "NetR1G_1",
+          "type": "input"
         },
         "3": {
           "name": "CLK",
-          "net": "NetU1G_3"
+          "net": "NetU1G_3",
+          "type": "input"
         },
         "4": {
           "name": "DOUT",
-          "net": "NetU1G_4"
+          "net": "NetU1G_4",
+          "type": "output"
         },
         "5": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "description": "Digital PDM MEMS Microphone (Top Port)",
@@ -5825,25 +7136,46 @@
     },
     "M1H": {
       "pins": {
-        "1": "NetM1H_1"
+        "1": {
+          "net": "NetM1H_1",
+          "type": "passive"
+        }
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
     },
     "X1H": {
       "pins": {
-        "1": "GND",
-        "2": "3V3",
-        "3": "NetU1H_4",
-        "4": "NetU1H_3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetU1H_4",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetU1H_3",
+          "type": "passive"
+        }
       },
       "description": "Wire To Board Connector (1x4P 1.0mm)",
       "comment": "1.0-4PWB"
     },
     "C2H": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "100nF"
@@ -5852,15 +7184,18 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "2": {
           "name": "COMMON1",
-          "net": "NetR1H_1"
+          "net": "NetR1H_1",
+          "type": "passive"
         },
         "3": {
           "name": "NO1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Miniature Slide Switch",
@@ -5868,16 +7203,28 @@
     },
     "C3H": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "10µF"
     },
     "C1H": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "CAP-MK",
       "comment": "10nF"
@@ -5886,19 +7233,23 @@
       "pins": {
         "1": {
           "name": "RC",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "RA",
-          "net": "NetP1H_2"
+          "net": "NetP1H_2",
+          "type": "passive"
         },
         "3": {
           "name": "WC",
-          "net": "NetP1H_3"
+          "net": "NetP1H_3",
+          "type": "passive"
         },
         "4": {
           "name": "WA",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         }
       },
       "description": "LED Red/White",
@@ -5906,16 +7257,28 @@
     },
     "R2H": {
       "pins": {
-        "1": "NetR1H_1",
-        "2": "NetP1H_2"
+        "1": {
+          "net": "NetR1H_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP1H_2",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "820"
     },
     "R1H": {
       "pins": {
-        "1": "NetR1H_1",
-        "2": "NetP1H_3"
+        "1": {
+          "net": "NetR1H_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP1H_3",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "390"
@@ -5924,23 +7287,28 @@
       "pins": {
         "1": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         },
         "2": {
           "name": "LR",
-          "net": "NetR1H_1"
+          "net": "NetR1H_1",
+          "type": "input"
         },
         "3": {
           "name": "CLK",
-          "net": "NetU1H_3"
+          "net": "NetU1H_3",
+          "type": "input"
         },
         "4": {
           "name": "DOUT",
-          "net": "NetU1H_4"
+          "net": "NetU1H_4",
+          "type": "output"
         },
         "5": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "description": "Digital PDM MEMS Microphone (Top Port)",
@@ -5948,25 +7316,46 @@
     },
     "M4A": {
       "pins": {
-        "1": "NetM4A_1"
+        "1": {
+          "net": "NetM4A_1",
+          "type": "passive"
+        }
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
     },
     "X4A": {
       "pins": {
-        "1": "GND",
-        "2": "3V3",
-        "3": "NetU4A_1",
-        "4": "NetU4A_4"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetU4A_1",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetU4A_4",
+          "type": "passive"
+        }
       },
       "description": "Wire To Board Connector (1x4P 1.0mm)",
       "comment": "1.0-4PWB"
     },
     "C11A": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "100nF"
@@ -5975,15 +7364,18 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "2": {
           "name": "COMMON1",
-          "net": "NetR7A_1"
+          "net": "NetR7A_1",
+          "type": "passive"
         },
         "3": {
           "name": "NO1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Miniature Slide Switch",
@@ -5991,16 +7383,28 @@
     },
     "C12A": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "10µF"
     },
     "C10A": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "CAP-MK",
       "comment": "10nF"
@@ -6009,19 +7413,23 @@
       "pins": {
         "1": {
           "name": "RC",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "RA",
-          "net": "NetP4A_2"
+          "net": "NetP4A_2",
+          "type": "passive"
         },
         "3": {
           "name": "WC",
-          "net": "NetP4A_3"
+          "net": "NetP4A_3",
+          "type": "passive"
         },
         "4": {
           "name": "WA",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         }
       },
       "description": "LED Red/White",
@@ -6029,16 +7437,28 @@
     },
     "R8A": {
       "pins": {
-        "1": "NetR7A_1",
-        "2": "NetP4A_2"
+        "1": {
+          "net": "NetR7A_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP4A_2",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "820"
     },
     "R7A": {
       "pins": {
-        "1": "NetR7A_1",
-        "2": "NetP4A_3"
+        "1": {
+          "net": "NetR7A_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP4A_3",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "390"
@@ -6047,23 +7467,28 @@
       "pins": {
         "1": {
           "name": "DOUT",
-          "net": "NetU4A_1"
+          "net": "NetU4A_1",
+          "type": "output"
         },
         "2": {
           "name": "LR",
-          "net": "NetR7A_1"
+          "net": "NetR7A_1",
+          "type": "input"
         },
         "3": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "4": {
           "name": "CLK",
-          "net": "NetU4A_4"
+          "net": "NetU4A_4",
+          "type": "input"
         },
         "5": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         }
       },
       "description": "Digital PDM MEMS Microphone (Bottom Port)",
@@ -6071,25 +7496,46 @@
     },
     "M4B": {
       "pins": {
-        "1": "NetM4B_1"
+        "1": {
+          "net": "NetM4B_1",
+          "type": "passive"
+        }
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
     },
     "X4B": {
       "pins": {
-        "1": "GND",
-        "2": "3V3",
-        "3": "NetU4B_1",
-        "4": "NetU4B_4"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetU4B_1",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetU4B_4",
+          "type": "passive"
+        }
       },
       "description": "Wire To Board Connector (1x4P 1.0mm)",
       "comment": "1.0-4PWB"
     },
     "C11B": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "100nF"
@@ -6098,15 +7544,18 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "2": {
           "name": "COMMON1",
-          "net": "NetR7B_1"
+          "net": "NetR7B_1",
+          "type": "passive"
         },
         "3": {
           "name": "NO1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Miniature Slide Switch",
@@ -6114,16 +7563,28 @@
     },
     "C12B": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "10µF"
     },
     "C10B": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "CAP-MK",
       "comment": "10nF"
@@ -6132,19 +7593,23 @@
       "pins": {
         "1": {
           "name": "RC",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "RA",
-          "net": "NetP4B_2"
+          "net": "NetP4B_2",
+          "type": "passive"
         },
         "3": {
           "name": "WC",
-          "net": "NetP4B_3"
+          "net": "NetP4B_3",
+          "type": "passive"
         },
         "4": {
           "name": "WA",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         }
       },
       "description": "LED Red/White",
@@ -6152,16 +7617,28 @@
     },
     "R8B": {
       "pins": {
-        "1": "NetR7B_1",
-        "2": "NetP4B_2"
+        "1": {
+          "net": "NetR7B_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP4B_2",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "820"
     },
     "R7B": {
       "pins": {
-        "1": "NetR7B_1",
-        "2": "NetP4B_3"
+        "1": {
+          "net": "NetR7B_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP4B_3",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "390"
@@ -6170,23 +7647,28 @@
       "pins": {
         "1": {
           "name": "DOUT",
-          "net": "NetU4B_1"
+          "net": "NetU4B_1",
+          "type": "output"
         },
         "2": {
           "name": "LR",
-          "net": "NetR7B_1"
+          "net": "NetR7B_1",
+          "type": "input"
         },
         "3": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "4": {
           "name": "CLK",
-          "net": "NetU4B_4"
+          "net": "NetU4B_4",
+          "type": "input"
         },
         "5": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         }
       },
       "description": "Digital PDM MEMS Microphone (Bottom Port)",
@@ -6194,25 +7676,46 @@
     },
     "M4C": {
       "pins": {
-        "1": "NetM4C_1"
+        "1": {
+          "net": "NetM4C_1",
+          "type": "passive"
+        }
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
     },
     "X4C": {
       "pins": {
-        "1": "GND",
-        "2": "3V3",
-        "3": "NetU4C_1",
-        "4": "NetU4C_4"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetU4C_1",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetU4C_4",
+          "type": "passive"
+        }
       },
       "description": "Wire To Board Connector (1x4P 1.0mm)",
       "comment": "1.0-4PWB"
     },
     "C11C": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "100nF"
@@ -6221,15 +7724,18 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "2": {
           "name": "COMMON1",
-          "net": "NetR7C_1"
+          "net": "NetR7C_1",
+          "type": "passive"
         },
         "3": {
           "name": "NO1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Miniature Slide Switch",
@@ -6237,16 +7743,28 @@
     },
     "C12C": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "10µF"
     },
     "C10C": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "CAP-MK",
       "comment": "10nF"
@@ -6255,19 +7773,23 @@
       "pins": {
         "1": {
           "name": "RC",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "RA",
-          "net": "NetP4C_2"
+          "net": "NetP4C_2",
+          "type": "passive"
         },
         "3": {
           "name": "WC",
-          "net": "NetP4C_3"
+          "net": "NetP4C_3",
+          "type": "passive"
         },
         "4": {
           "name": "WA",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         }
       },
       "description": "LED Red/White",
@@ -6275,16 +7797,28 @@
     },
     "R8C": {
       "pins": {
-        "1": "NetR7C_1",
-        "2": "NetP4C_2"
+        "1": {
+          "net": "NetR7C_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP4C_2",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "820"
     },
     "R7C": {
       "pins": {
-        "1": "NetR7C_1",
-        "2": "NetP4C_3"
+        "1": {
+          "net": "NetR7C_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP4C_3",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "390"
@@ -6293,23 +7827,28 @@
       "pins": {
         "1": {
           "name": "DOUT",
-          "net": "NetU4C_1"
+          "net": "NetU4C_1",
+          "type": "output"
         },
         "2": {
           "name": "LR",
-          "net": "NetR7C_1"
+          "net": "NetR7C_1",
+          "type": "input"
         },
         "3": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "4": {
           "name": "CLK",
-          "net": "NetU4C_4"
+          "net": "NetU4C_4",
+          "type": "input"
         },
         "5": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         }
       },
       "description": "Digital PDM MEMS Microphone (Bottom Port)",
@@ -6317,25 +7856,46 @@
     },
     "M4D": {
       "pins": {
-        "1": "NetM4D_1"
+        "1": {
+          "net": "NetM4D_1",
+          "type": "passive"
+        }
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
     },
     "X4D": {
       "pins": {
-        "1": "GND",
-        "2": "3V3",
-        "3": "NetU4D_1",
-        "4": "NetU4D_4"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetU4D_1",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetU4D_4",
+          "type": "passive"
+        }
       },
       "description": "Wire To Board Connector (1x4P 1.0mm)",
       "comment": "1.0-4PWB"
     },
     "C11D": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "100nF"
@@ -6344,15 +7904,18 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "2": {
           "name": "COMMON1",
-          "net": "NetR7D_1"
+          "net": "NetR7D_1",
+          "type": "passive"
         },
         "3": {
           "name": "NO1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Miniature Slide Switch",
@@ -6360,16 +7923,28 @@
     },
     "C12D": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "10µF"
     },
     "C10D": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "CAP-MK",
       "comment": "10nF"
@@ -6378,19 +7953,23 @@
       "pins": {
         "1": {
           "name": "RC",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "RA",
-          "net": "NetP4D_2"
+          "net": "NetP4D_2",
+          "type": "passive"
         },
         "3": {
           "name": "WC",
-          "net": "NetP4D_3"
+          "net": "NetP4D_3",
+          "type": "passive"
         },
         "4": {
           "name": "WA",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         }
       },
       "description": "LED Red/White",
@@ -6398,16 +7977,28 @@
     },
     "R8D": {
       "pins": {
-        "1": "NetR7D_1",
-        "2": "NetP4D_2"
+        "1": {
+          "net": "NetR7D_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP4D_2",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "820"
     },
     "R7D": {
       "pins": {
-        "1": "NetR7D_1",
-        "2": "NetP4D_3"
+        "1": {
+          "net": "NetR7D_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP4D_3",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "390"
@@ -6416,23 +8007,28 @@
       "pins": {
         "1": {
           "name": "DOUT",
-          "net": "NetU4D_1"
+          "net": "NetU4D_1",
+          "type": "output"
         },
         "2": {
           "name": "LR",
-          "net": "NetR7D_1"
+          "net": "NetR7D_1",
+          "type": "input"
         },
         "3": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "4": {
           "name": "CLK",
-          "net": "NetU4D_4"
+          "net": "NetU4D_4",
+          "type": "input"
         },
         "5": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         }
       },
       "description": "Digital PDM MEMS Microphone (Bottom Port)",
@@ -6440,25 +8036,46 @@
     },
     "M4E": {
       "pins": {
-        "1": "NetM4E_1"
+        "1": {
+          "net": "NetM4E_1",
+          "type": "passive"
+        }
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
     },
     "X4E": {
       "pins": {
-        "1": "GND",
-        "2": "3V3",
-        "3": "NetU4E_1",
-        "4": "NetU4E_4"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetU4E_1",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetU4E_4",
+          "type": "passive"
+        }
       },
       "description": "Wire To Board Connector (1x4P 1.0mm)",
       "comment": "1.0-4PWB"
     },
     "C11E": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "100nF"
@@ -6467,15 +8084,18 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "2": {
           "name": "COMMON1",
-          "net": "NetR7E_1"
+          "net": "NetR7E_1",
+          "type": "passive"
         },
         "3": {
           "name": "NO1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Miniature Slide Switch",
@@ -6483,16 +8103,28 @@
     },
     "C12E": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "10µF"
     },
     "C10E": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "CAP-MK",
       "comment": "10nF"
@@ -6501,19 +8133,23 @@
       "pins": {
         "1": {
           "name": "RC",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "RA",
-          "net": "NetP4E_2"
+          "net": "NetP4E_2",
+          "type": "passive"
         },
         "3": {
           "name": "WC",
-          "net": "NetP4E_3"
+          "net": "NetP4E_3",
+          "type": "passive"
         },
         "4": {
           "name": "WA",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         }
       },
       "description": "LED Red/White",
@@ -6521,16 +8157,28 @@
     },
     "R8E": {
       "pins": {
-        "1": "NetR7E_1",
-        "2": "NetP4E_2"
+        "1": {
+          "net": "NetR7E_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP4E_2",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "820"
     },
     "R7E": {
       "pins": {
-        "1": "NetR7E_1",
-        "2": "NetP4E_3"
+        "1": {
+          "net": "NetR7E_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP4E_3",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "390"
@@ -6539,23 +8187,28 @@
       "pins": {
         "1": {
           "name": "DOUT",
-          "net": "NetU4E_1"
+          "net": "NetU4E_1",
+          "type": "output"
         },
         "2": {
           "name": "LR",
-          "net": "NetR7E_1"
+          "net": "NetR7E_1",
+          "type": "input"
         },
         "3": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "4": {
           "name": "CLK",
-          "net": "NetU4E_4"
+          "net": "NetU4E_4",
+          "type": "input"
         },
         "5": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         }
       },
       "description": "Digital PDM MEMS Microphone (Bottom Port)",
@@ -6563,25 +8216,46 @@
     },
     "M4F": {
       "pins": {
-        "1": "NetM4F_1"
+        "1": {
+          "net": "NetM4F_1",
+          "type": "passive"
+        }
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
     },
     "X4F": {
       "pins": {
-        "1": "GND",
-        "2": "3V3",
-        "3": "NetU4F_1",
-        "4": "NetU4F_4"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetU4F_1",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetU4F_4",
+          "type": "passive"
+        }
       },
       "description": "Wire To Board Connector (1x4P 1.0mm)",
       "comment": "1.0-4PWB"
     },
     "C11F": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "100nF"
@@ -6590,15 +8264,18 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "2": {
           "name": "COMMON1",
-          "net": "NetR7F_1"
+          "net": "NetR7F_1",
+          "type": "passive"
         },
         "3": {
           "name": "NO1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Miniature Slide Switch",
@@ -6606,16 +8283,28 @@
     },
     "C12F": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "10µF"
     },
     "C10F": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "CAP-MK",
       "comment": "10nF"
@@ -6624,19 +8313,23 @@
       "pins": {
         "1": {
           "name": "RC",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "RA",
-          "net": "NetP4F_2"
+          "net": "NetP4F_2",
+          "type": "passive"
         },
         "3": {
           "name": "WC",
-          "net": "NetP4F_3"
+          "net": "NetP4F_3",
+          "type": "passive"
         },
         "4": {
           "name": "WA",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         }
       },
       "description": "LED Red/White",
@@ -6644,16 +8337,28 @@
     },
     "R8F": {
       "pins": {
-        "1": "NetR7F_1",
-        "2": "NetP4F_2"
+        "1": {
+          "net": "NetR7F_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP4F_2",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "820"
     },
     "R7F": {
       "pins": {
-        "1": "NetR7F_1",
-        "2": "NetP4F_3"
+        "1": {
+          "net": "NetR7F_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP4F_3",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "390"
@@ -6662,23 +8367,28 @@
       "pins": {
         "1": {
           "name": "DOUT",
-          "net": "NetU4F_1"
+          "net": "NetU4F_1",
+          "type": "output"
         },
         "2": {
           "name": "LR",
-          "net": "NetR7F_1"
+          "net": "NetR7F_1",
+          "type": "input"
         },
         "3": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "4": {
           "name": "CLK",
-          "net": "NetU4F_4"
+          "net": "NetU4F_4",
+          "type": "input"
         },
         "5": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         }
       },
       "description": "Digital PDM MEMS Microphone (Bottom Port)",
@@ -6686,25 +8396,46 @@
     },
     "M4G": {
       "pins": {
-        "1": "NetM4G_1"
+        "1": {
+          "net": "NetM4G_1",
+          "type": "passive"
+        }
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
     },
     "X4G": {
       "pins": {
-        "1": "GND",
-        "2": "3V3",
-        "3": "NetU4G_1",
-        "4": "NetU4G_4"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetU4G_1",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetU4G_4",
+          "type": "passive"
+        }
       },
       "description": "Wire To Board Connector (1x4P 1.0mm)",
       "comment": "1.0-4PWB"
     },
     "C11G": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "100nF"
@@ -6713,15 +8444,18 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "2": {
           "name": "COMMON1",
-          "net": "NetR7G_1"
+          "net": "NetR7G_1",
+          "type": "passive"
         },
         "3": {
           "name": "NO1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Miniature Slide Switch",
@@ -6729,16 +8463,28 @@
     },
     "C12G": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "10µF"
     },
     "C10G": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "CAP-MK",
       "comment": "10nF"
@@ -6747,19 +8493,23 @@
       "pins": {
         "1": {
           "name": "RC",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "RA",
-          "net": "NetP4G_2"
+          "net": "NetP4G_2",
+          "type": "passive"
         },
         "3": {
           "name": "WC",
-          "net": "NetP4G_3"
+          "net": "NetP4G_3",
+          "type": "passive"
         },
         "4": {
           "name": "WA",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         }
       },
       "description": "LED Red/White",
@@ -6767,16 +8517,28 @@
     },
     "R8G": {
       "pins": {
-        "1": "NetR7G_1",
-        "2": "NetP4G_2"
+        "1": {
+          "net": "NetR7G_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP4G_2",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "820"
     },
     "R7G": {
       "pins": {
-        "1": "NetR7G_1",
-        "2": "NetP4G_3"
+        "1": {
+          "net": "NetR7G_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP4G_3",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "390"
@@ -6785,23 +8547,28 @@
       "pins": {
         "1": {
           "name": "DOUT",
-          "net": "NetU4G_1"
+          "net": "NetU4G_1",
+          "type": "output"
         },
         "2": {
           "name": "LR",
-          "net": "NetR7G_1"
+          "net": "NetR7G_1",
+          "type": "input"
         },
         "3": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "4": {
           "name": "CLK",
-          "net": "NetU4G_4"
+          "net": "NetU4G_4",
+          "type": "input"
         },
         "5": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         }
       },
       "description": "Digital PDM MEMS Microphone (Bottom Port)",
@@ -6809,25 +8576,46 @@
     },
     "M4H": {
       "pins": {
-        "1": "NetM4H_1"
+        "1": {
+          "net": "NetM4H_1",
+          "type": "passive"
+        }
       },
       "description": "Solderable Standoff Nut",
       "comment": "SMTSO-M3-3ET"
     },
     "X4H": {
       "pins": {
-        "1": "GND",
-        "2": "3V3",
-        "3": "NetU4H_1",
-        "4": "NetU4H_4"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetU4H_1",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetU4H_4",
+          "type": "passive"
+        }
       },
       "description": "Wire To Board Connector (1x4P 1.0mm)",
       "comment": "1.0-4PWB"
     },
     "C11H": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "100nF"
@@ -6836,15 +8624,18 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         },
         "2": {
           "name": "COMMON1",
-          "net": "NetR7H_1"
+          "net": "NetR7H_1",
+          "type": "passive"
         },
         "3": {
           "name": "NO1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "description": "Miniature Slide Switch",
@@ -6852,16 +8643,28 @@
     },
     "C12H": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "SMD Ceramic Capacitor E6",
       "comment": "10µF"
     },
     "C10H": {
       "pins": {
-        "1": "GND",
-        "2": "3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "3V3",
+          "type": "passive"
+        }
       },
       "description": "CAP-MK",
       "comment": "10nF"
@@ -6870,19 +8673,23 @@
       "pins": {
         "1": {
           "name": "RC",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "RA",
-          "net": "NetP4H_2"
+          "net": "NetP4H_2",
+          "type": "passive"
         },
         "3": {
           "name": "WC",
-          "net": "NetP4H_3"
+          "net": "NetP4H_3",
+          "type": "passive"
         },
         "4": {
           "name": "WA",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "passive"
         }
       },
       "description": "LED Red/White",
@@ -6890,16 +8697,28 @@
     },
     "R8H": {
       "pins": {
-        "1": "NetR7H_1",
-        "2": "NetP4H_2"
+        "1": {
+          "net": "NetR7H_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP4H_2",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "820"
     },
     "R7H": {
       "pins": {
-        "1": "NetR7H_1",
-        "2": "NetP4H_3"
+        "1": {
+          "net": "NetR7H_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP4H_3",
+          "type": "passive"
+        }
       },
       "description": "SMD-Widerstand 1/4W",
       "comment": "390"
@@ -6908,23 +8727,28 @@
       "pins": {
         "1": {
           "name": "DOUT",
-          "net": "NetU4H_1"
+          "net": "NetU4H_1",
+          "type": "output"
         },
         "2": {
           "name": "LR",
-          "net": "NetR7H_1"
+          "net": "NetR7H_1",
+          "type": "input"
         },
         "3": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "4": {
           "name": "CLK",
-          "net": "NetU4H_4"
+          "net": "NetU4H_4",
+          "type": "input"
         },
         "5": {
           "name": "VDD",
-          "net": "3V3"
+          "net": "3V3",
+          "type": "power"
         }
       },
       "description": "Digital PDM MEMS Microphone (Bottom Port)",

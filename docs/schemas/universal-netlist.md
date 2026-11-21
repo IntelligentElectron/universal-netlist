@@ -379,9 +379,10 @@ A pin is keyed by its number. A symbol pin with no number (KiCad writes `(pin ""
 ```
 
 `type` is one of the electrical types a library symbol can declare. Cadence Capture
-declares `input`, `output`, `bidirectional`, `tristate`, `open_collector`,
-`open_emitter`, `passive` and `power`. `power_in`, `power_out`, `unspecified`,
-`free` and `no_connect` are the further types KiCad and Altium symbols can declare.
+and Altium declare `input`, `output`, `bidirectional`, `tristate`, `open_collector`,
+`open_emitter`, `passive` and `power` (a supply pin of either direction). KiCad
+declares the first seven and `power_in`, `power_out`, `unspecified`, `free` and
+`no_connect`.
 A pin that no placed symbol draws, such as a pad of a section nobody placed, has no
 type.
 
@@ -398,6 +399,7 @@ type.
 - Component properties parsed from `.SchDoc` XML
 - Net connections derived from wire/junction analysis
 - Pin names come from component library definitions
+- Pin types come from each pin record's `Electrical` code (0 input, written as no field; 1 bidirectional; 2 output; 3 open collector; 4 passive; 5 three-state, Altium's HiZ; 6 open emitter; 7 power)
 - A selected design variant applies the `.PrjPcb` rows for that variant: `Kind=1` Not Fitted rows mark `dns`, `Kind=2` Alternate Part rows mark `alternate_part`, and `ParamVariationN` parameter overrides land on `value`, `description`, `manufacturer`, and `mpn`
 
 ### KiCad
@@ -405,7 +407,7 @@ type.
 - Component properties come from each `comp` record's `value`, `description`, and MPN-style fields
 - Manufacturer-specific and internal part numbers are kept separate; see [KiCad field mapping](shared-types.md#kicad-part-number-fields)
 - Net connections come from the `nets` section of the resolved `kicadsexpr` export
-- Pin names come from the `node` entries' `pinfunction`
+- Pin names come from the `node` entries' `pinfunction`, and pin types from their `pintype` (`tri_state` written as `tristate`; the `+no_connect` KiCad adds when a no-connect flag sits on the net is dropped)
 - Nets declared inside a hierarchical sheet carry the sheet path in their name (e.g. `/Peripherals/D0`)
 - KiCad 10 named variants are discovered across the schematic hierarchy and applied from the per-instance variant blocks: `(dnp yes)` marks `dns: true`, and a `Value`, part-number, or manufacturer field override substitutes the part and sets `alternate_part: true`. kicad-cli's netlist export ignores `--variant` (measured on 10.0.5), so the base export is read and the overlay is applied by the parser
 

@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T20:27:50.030Z",
-    "netlistHash": "sha256:095797745f5eb8b8de9d69f366e5730623dd3c2c9f8a8945ebeb5b1d27040b1c",
+    "generatedAt": "2026-11-21T21:40:46.651Z",
+    "netlistHash": "sha256:53e88fd9ac5bca2bceda60998419941ff2f69b964be8218737176cffffe400d3",
     "origin": {
       "type": "vendor",
       "source": {
@@ -744,136 +744,238 @@
   "components": {
     "C1": {
       "pins": {
-        "1": "+1V1",
-        "2": "GND"
+        "1": {
+          "net": "+1V1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor"
     },
     "C2": {
       "pins": {
-        "1": "+1V1",
-        "2": "GND"
+        "1": {
+          "net": "+1V1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor"
     },
     "C3": {
       "pins": {
-        "1": "+1V1",
-        "2": "GND"
+        "1": {
+          "net": "+1V1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "1uF",
       "description": "Unpolarized capacitor"
     },
     "C4": {
       "pins": {
-        "1": "+3.3V",
-        "2": "GND"
+        "1": {
+          "net": "+3.3V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "1uF",
       "description": "Unpolarized capacitor"
     },
     "C5": {
       "pins": {
-        "1": "+3.3V",
-        "2": "GND"
+        "1": {
+          "net": "+3.3V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor"
     },
     "C6": {
       "pins": {
-        "1": "+3.3V",
-        "2": "GND"
+        "1": {
+          "net": "+3.3V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor"
     },
     "C7": {
       "pins": {
-        "1": "+3.3V",
-        "2": "GND"
+        "1": {
+          "net": "+3.3V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor"
     },
     "C8": {
       "pins": {
-        "1": "+3.3V",
-        "2": "GND"
+        "1": {
+          "net": "+3.3V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor"
     },
     "C9": {
       "pins": {
-        "1": "+3.3V",
-        "2": "GND"
+        "1": {
+          "net": "+3.3V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor"
     },
     "C10": {
       "pins": {
-        "1": "+3.3V",
-        "2": "GND"
+        "1": {
+          "net": "+3.3V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor"
     },
     "C11": {
       "pins": {
-        "1": "+3.3V",
-        "2": "GND"
+        "1": {
+          "net": "+3.3V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor"
     },
     "C12": {
       "pins": {
-        "1": "+3.3V",
-        "2": "GND"
+        "1": {
+          "net": "+3.3V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor"
     },
     "C13": {
       "pins": {
-        "1": "VCC",
-        "2": "GND"
+        "1": {
+          "net": "VCC",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "1uF",
       "description": "Unpolarized capacitor"
     },
     "C14": {
       "pins": {
-        "1": "+3.3V",
-        "2": "GND"
+        "1": {
+          "net": "+3.3V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "1uF",
       "description": "Unpolarized capacitor"
     },
     "C15": {
       "pins": {
-        "1": "+3.3V",
-        "2": "GND"
+        "1": {
+          "net": "+3.3V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "100nF",
       "description": "Unpolarized capacitor"
     },
     "C16": {
       "pins": {
-        "1": "/Xin",
-        "2": "GND"
+        "1": {
+          "net": "/Xin",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "27p",
       "description": "Unpolarized capacitor"
     },
     "C17": {
       "pins": {
-        "1": "/XoutR",
-        "2": "GND"
+        "1": {
+          "net": "/XoutR",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "27p",
       "description": "Unpolarized capacitor"
@@ -882,11 +984,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "VCC"
+          "net": "VCC",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "VBUS"
+          "net": "VBUS",
+          "type": "passive"
         }
       },
       "value": "D_Schottky",
@@ -896,11 +1000,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "/LED_3V3"
+          "net": "/LED_3V3",
+          "type": "passive"
         }
       },
       "value": "LED",
@@ -910,11 +1016,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "/LED_BUILT_IN2"
+          "net": "/LED_BUILT_IN2",
+          "type": "passive"
         }
       },
       "value": "LED",
@@ -924,11 +1032,13 @@
       "pins": {
         "1": {
           "name": "K",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "/LED_BUILT_IN1"
+          "net": "/LED_BUILT_IN1",
+          "type": "passive"
         }
       },
       "value": "LED",
@@ -958,71 +1068,88 @@
       "pins": {
         "A5": {
           "name": "CC1",
-          "net": "/CC1"
+          "net": "/CC1",
+          "type": "bidirectional"
         },
         "B5": {
           "name": "CC2",
-          "net": "/CC2"
+          "net": "/CC2",
+          "type": "bidirectional"
         },
         "A7": {
           "name": "D-",
-          "net": "/USB_DN"
+          "net": "/USB_DN",
+          "type": "bidirectional"
         },
         "B7": {
           "name": "D-",
-          "net": "/USB_DN"
+          "net": "/USB_DN",
+          "type": "bidirectional"
         },
         "A6": {
           "name": "D+",
-          "net": "/USB_DP"
+          "net": "/USB_DP",
+          "type": "bidirectional"
         },
         "B6": {
           "name": "D+",
-          "net": "/USB_DP"
+          "net": "/USB_DP",
+          "type": "bidirectional"
         },
         "A1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "A12": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "B1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "B12": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "SH": {
           "name": "SHIELD",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "A4": {
           "name": "VBUS",
-          "net": "VBUS"
+          "net": "VBUS",
+          "type": "passive"
         },
         "A9": {
           "name": "VBUS",
-          "net": "VBUS"
+          "net": "VBUS",
+          "type": "passive"
         },
         "B4": {
           "name": "VBUS",
-          "net": "VBUS"
+          "net": "VBUS",
+          "type": "passive"
         },
         "B9": {
           "name": "VBUS",
-          "net": "VBUS"
+          "net": "VBUS",
+          "type": "passive"
         },
         "A8": {
           "name": "SBU1",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "B8": {
           "name": "SBU2",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         }
       },
       "value": "USB_C_Receptacle_USB2.0"
@@ -1031,83 +1158,103 @@
       "pins": {
         "1": {
           "name": "Pin_1",
-          "net": "/GPIO0"
+          "net": "/GPIO0",
+          "type": "passive"
         },
         "2": {
           "name": "Pin_2",
-          "net": "/GPIO1"
+          "net": "/GPIO1",
+          "type": "passive"
         },
         "3": {
           "name": "Pin_3",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "4": {
           "name": "Pin_4",
-          "net": "/GPIO2"
+          "net": "/GPIO2",
+          "type": "passive"
         },
         "5": {
           "name": "Pin_5",
-          "net": "/GPIO3"
+          "net": "/GPIO3",
+          "type": "passive"
         },
         "6": {
           "name": "Pin_6",
-          "net": "/GPIO4"
+          "net": "/GPIO4",
+          "type": "passive"
         },
         "7": {
           "name": "Pin_7",
-          "net": "/GPIO5"
+          "net": "/GPIO5",
+          "type": "passive"
         },
         "8": {
           "name": "Pin_8",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "9": {
           "name": "Pin_9",
-          "net": "/GPIO6"
+          "net": "/GPIO6",
+          "type": "passive"
         },
         "10": {
           "name": "Pin_10",
-          "net": "/GPIO7"
+          "net": "/GPIO7",
+          "type": "passive"
         },
         "11": {
           "name": "Pin_11",
-          "net": "/GPIO8"
+          "net": "/GPIO8",
+          "type": "passive"
         },
         "12": {
           "name": "Pin_12",
-          "net": "/GPIO9"
+          "net": "/GPIO9",
+          "type": "passive"
         },
         "13": {
           "name": "Pin_13",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "14": {
           "name": "Pin_14",
-          "net": "/GPIO10"
+          "net": "/GPIO10",
+          "type": "passive"
         },
         "15": {
           "name": "Pin_15",
-          "net": "/GPIO11"
+          "net": "/GPIO11",
+          "type": "passive"
         },
         "16": {
           "name": "Pin_16",
-          "net": "/GPIO12"
+          "net": "/GPIO12",
+          "type": "passive"
         },
         "17": {
           "name": "Pin_17",
-          "net": "/GPIO13"
+          "net": "/GPIO13",
+          "type": "passive"
         },
         "18": {
           "name": "Pin_18",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "19": {
           "name": "Pin_19",
-          "net": "/GPIO14"
+          "net": "/GPIO14",
+          "type": "passive"
         },
         "20": {
           "name": "Pin_20",
-          "net": "/GPIO15"
+          "net": "/GPIO15",
+          "type": "passive"
         }
       },
       "value": "Conn_01x20",
@@ -1117,83 +1264,103 @@
       "pins": {
         "1": {
           "name": "Pin_1",
-          "net": "VBUS"
+          "net": "VBUS",
+          "type": "passive"
         },
         "2": {
           "name": "Pin_2",
-          "net": "VCC"
+          "net": "VCC",
+          "type": "passive"
         },
         "3": {
           "name": "Pin_3",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "4": {
           "name": "Pin_4",
-          "net": "+3.3V"
+          "net": "+3.3V",
+          "type": "passive"
         },
         "5": {
           "name": "Pin_5",
-          "net": "+3.3V"
+          "net": "+3.3V",
+          "type": "passive"
         },
         "6": {
           "name": "Pin_6",
-          "net": "+3.3V"
+          "net": "+3.3V",
+          "type": "passive"
         },
         "7": {
           "name": "Pin_7",
-          "net": "/GPIO29_ADC3"
+          "net": "/GPIO29_ADC3",
+          "type": "passive"
         },
         "8": {
           "name": "Pin_8",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "9": {
           "name": "Pin_9",
-          "net": "/GPIO28_ADC2"
+          "net": "/GPIO28_ADC2",
+          "type": "passive"
         },
         "10": {
           "name": "Pin_10",
-          "net": "/GPIO27_ADC1"
+          "net": "/GPIO27_ADC1",
+          "type": "passive"
         },
         "11": {
           "name": "Pin_11",
-          "net": "/GPIO26_ADC0"
+          "net": "/GPIO26_ADC0",
+          "type": "passive"
         },
         "12": {
           "name": "Pin_12",
-          "net": "/GPIO22"
+          "net": "/GPIO22",
+          "type": "passive"
         },
         "13": {
           "name": "Pin_13",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "14": {
           "name": "Pin_14",
-          "net": "/GPIO21"
+          "net": "/GPIO21",
+          "type": "passive"
         },
         "15": {
           "name": "Pin_15",
-          "net": "/GPIO20"
+          "net": "/GPIO20",
+          "type": "passive"
         },
         "16": {
           "name": "Pin_16",
-          "net": "/GPIO19"
+          "net": "/GPIO19",
+          "type": "passive"
         },
         "17": {
           "name": "Pin_17",
-          "net": "/GPIO18"
+          "net": "/GPIO18",
+          "type": "passive"
         },
         "18": {
           "name": "Pin_18",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "19": {
           "name": "Pin_19",
-          "net": "/GPIO17"
+          "net": "/GPIO17",
+          "type": "passive"
         },
         "20": {
           "name": "Pin_20",
-          "net": "/GPIO16"
+          "net": "/GPIO16",
+          "type": "passive"
         }
       },
       "value": "Conn_01x20",
@@ -1203,15 +1370,18 @@
       "pins": {
         "1": {
           "name": "Pin_1",
-          "net": "/SWCLK"
+          "net": "/SWCLK",
+          "type": "passive"
         },
         "2": {
           "name": "Pin_2",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "3": {
           "name": "Pin_3",
-          "net": "/SWD"
+          "net": "/SWD",
+          "type": "passive"
         }
       },
       "value": "Conn_01x03",
@@ -1221,19 +1391,23 @@
       "pins": {
         "1": {
           "name": "Pin_1",
-          "net": "/SWCLK"
+          "net": "/SWCLK",
+          "type": "passive"
         },
         "2": {
           "name": "Pin_2",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "3": {
           "name": "Pin_3",
-          "net": "/SWD"
+          "net": "/SWD",
+          "type": "passive"
         },
         "MP": {
           "name": "MountPin",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "value": "Conn_01x03_MountingPin",
@@ -1241,64 +1415,112 @@
     },
     "R1": {
       "pins": {
-        "1": "/CC1",
-        "2": "GND"
+        "1": {
+          "net": "/CC1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "5.1k",
       "description": "Resistor"
     },
     "R2": {
       "pins": {
-        "1": "/CC2",
-        "2": "GND"
+        "1": {
+          "net": "/CC2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "5.1k",
       "description": "Resistor"
     },
     "R3": {
       "pins": {
-        "1": "/GPIO24",
-        "2": "VBUS"
+        "1": {
+          "net": "/GPIO24",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VBUS",
+          "type": "passive"
+        }
       },
       "value": "5.1k",
       "description": "Resistor"
     },
     "R4": {
       "pins": {
-        "1": "/USB_DP",
-        "2": "/USB_R_DP"
+        "1": {
+          "net": "/USB_DP",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/USB_R_DP",
+          "type": "passive"
+        }
       },
       "value": "27R",
       "description": "Resistor"
     },
     "R5": {
       "pins": {
-        "1": "/USB_DN",
-        "2": "/USB_R_DN"
+        "1": {
+          "net": "/USB_DN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/USB_R_DN",
+          "type": "passive"
+        }
       },
       "value": "27R",
       "description": "Resistor"
     },
     "R6": {
       "pins": {
-        "1": "/RDIV",
-        "2": "/GPIO24"
+        "1": {
+          "net": "/RDIV",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/GPIO24",
+          "type": "passive"
+        }
       },
       "value": "5.1k",
       "description": "Resistor"
     },
     "R7": {
       "pins": {
-        "1": "GND",
-        "2": "/RDIV"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/RDIV",
+          "type": "passive"
+        }
       },
       "value": "5.1k",
       "description": "Resistor"
     },
     "R8": {
       "pins": {
-        "1": "/Xin",
-        "2": "/XoutR"
+        "1": {
+          "net": "/Xin",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/XoutR",
+          "type": "passive"
+        }
       },
       "value": "1k",
       "description": "Resistor",
@@ -1306,16 +1528,28 @@
     },
     "R9": {
       "pins": {
-        "1": "/XoutR",
-        "2": "/Xout"
+        "1": {
+          "net": "/XoutR",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/Xout",
+          "type": "passive"
+        }
       },
       "value": "1k",
       "description": "Resistor"
     },
     "R10": {
       "pins": {
-        "1": "+3.3V",
-        "2": "/QSPI_SS"
+        "1": {
+          "net": "+3.3V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/QSPI_SS",
+          "type": "passive"
+        }
       },
       "value": "1k",
       "description": "Resistor",
@@ -1323,8 +1557,14 @@
     },
     "R11": {
       "pins": {
-        "1": "+3.3V",
-        "2": "/RUN"
+        "1": {
+          "net": "+3.3V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/RUN",
+          "type": "passive"
+        }
       },
       "value": "1k",
       "description": "Resistor",
@@ -1332,133 +1572,211 @@
     },
     "R12": {
       "pins": {
-        "1": "+3.3V",
-        "2": "/LED_3V3"
+        "1": {
+          "net": "+3.3V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/LED_3V3",
+          "type": "passive"
+        }
       },
       "value": "1k",
       "description": "Resistor"
     },
     "R13": {
       "pins": {
-        "1": "/GPIO23",
-        "2": "/LED_BUILT_IN2"
+        "1": {
+          "net": "/GPIO23",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/LED_BUILT_IN2",
+          "type": "passive"
+        }
       },
       "value": "1k",
       "description": "Resistor"
     },
     "R14": {
       "pins": {
-        "1": "/GPIO25",
-        "2": "/LED_BUILT_IN1"
+        "1": {
+          "net": "/GPIO25",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/LED_BUILT_IN1",
+          "type": "passive"
+        }
       },
       "value": "1k",
       "description": "Resistor"
     },
     "R15": {
       "pins": {
-        "1": "/QSPI_SS",
-        "2": "/SW1_{PULL-UP}"
+        "1": {
+          "net": "/QSPI_SS",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/SW1_{PULL-UP}",
+          "type": "passive"
+        }
       },
       "value": "1k",
       "description": "Resistor"
     },
     "SW1": {
       "pins": {
-        "1": "GND",
-        "2": "/SW1_{PULL-UP}"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/SW1_{PULL-UP}",
+          "type": "passive"
+        }
       },
       "value": "SW_Push",
       "description": "Push button switch, generic, two pins"
     },
     "SW2": {
       "pins": {
-        "1": "GND",
-        "2": "/RUN"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "/RUN",
+          "type": "passive"
+        }
       },
       "value": "SW_Push",
       "description": "Push button switch, generic, two pins"
     },
     "TP1": {
       "pins": {
-        "1": "VCC"
+        "1": {
+          "net": "VCC",
+          "type": "passive"
+        }
       },
       "value": "~"
     },
     "TP2": {
       "pins": {
-        "1": "+3.3V"
+        "1": {
+          "net": "+3.3V",
+          "type": "passive"
+        }
       },
       "value": "~"
     },
     "TP3": {
       "pins": {
-        "1": "/Xin"
+        "1": {
+          "net": "/Xin",
+          "type": "passive"
+        }
       },
       "value": "~"
     },
     "TP4": {
       "pins": {
-        "1": "/XoutR"
+        "1": {
+          "net": "/XoutR",
+          "type": "passive"
+        }
       },
       "value": "~"
     },
     "TP5": {
       "pins": {
-        "1": "/SWCLK"
+        "1": {
+          "net": "/SWCLK",
+          "type": "passive"
+        }
       },
       "value": "~"
     },
     "TP6": {
       "pins": {
-        "1": "/SWD"
+        "1": {
+          "net": "/SWD",
+          "type": "passive"
+        }
       },
       "value": "~"
     },
     "TP7": {
       "pins": {
-        "1": "GND"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "~"
     },
     "TP8": {
       "pins": {
-        "1": "/QSPI_SS"
+        "1": {
+          "net": "/QSPI_SS",
+          "type": "passive"
+        }
       },
       "value": "~"
     },
     "TP9": {
       "pins": {
-        "1": "/QSPI_SCLK"
+        "1": {
+          "net": "/QSPI_SCLK",
+          "type": "passive"
+        }
       },
       "value": "~"
     },
     "TP10": {
       "pins": {
-        "1": "/QSPI_SD0"
+        "1": {
+          "net": "/QSPI_SD0",
+          "type": "passive"
+        }
       },
       "value": "~"
     },
     "TP11": {
       "pins": {
-        "1": "/QSPI_SD1"
+        "1": {
+          "net": "/QSPI_SD1",
+          "type": "passive"
+        }
       },
       "value": "~"
     },
     "TP12": {
       "pins": {
-        "1": "/QSPI_SD2"
+        "1": {
+          "net": "/QSPI_SD2",
+          "type": "passive"
+        }
       },
       "value": "~"
     },
     "TP13": {
       "pins": {
-        "1": "/QSPI_SD3"
+        "1": {
+          "net": "/QSPI_SD3",
+          "type": "passive"
+        }
       },
       "value": "~"
     },
     "TP14": {
       "pins": {
-        "1": "GND"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "value": "~"
     },
@@ -1466,15 +1784,18 @@
       "pins": {
         "1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power_in"
         },
         "2": {
           "name": "VO",
-          "net": "+3.3V"
+          "net": "+3.3V",
+          "type": "power_out"
         },
         "3": {
           "name": "VI",
-          "net": "VCC"
+          "net": "VCC",
+          "type": "power_in"
         }
       },
       "value": "XC6206P332MR",
@@ -1484,231 +1805,288 @@
       "pins": {
         "1": {
           "name": "IOVDD",
-          "net": "+3.3V"
+          "net": "+3.3V",
+          "type": "power_in"
         },
         "2": {
           "name": "GPIO0",
-          "net": "/GPIO0"
+          "net": "/GPIO0",
+          "type": "bidirectional"
         },
         "3": {
           "name": "GPIO1",
-          "net": "/GPIO1"
+          "net": "/GPIO1",
+          "type": "bidirectional"
         },
         "4": {
           "name": "GPIO2",
-          "net": "/GPIO2"
+          "net": "/GPIO2",
+          "type": "bidirectional"
         },
         "5": {
           "name": "GPIO3",
-          "net": "/GPIO3"
+          "net": "/GPIO3",
+          "type": "bidirectional"
         },
         "6": {
           "name": "GPIO4",
-          "net": "/GPIO4"
+          "net": "/GPIO4",
+          "type": "bidirectional"
         },
         "7": {
           "name": "GPIO5",
-          "net": "/GPIO5"
+          "net": "/GPIO5",
+          "type": "bidirectional"
         },
         "8": {
           "name": "GPIO6",
-          "net": "/GPIO6"
+          "net": "/GPIO6",
+          "type": "bidirectional"
         },
         "9": {
           "name": "GPIO7",
-          "net": "/GPIO7"
+          "net": "/GPIO7",
+          "type": "bidirectional"
         },
         "10": {
           "name": "IOVDD",
-          "net": "+3.3V"
+          "net": "+3.3V",
+          "type": "passive"
         },
         "11": {
           "name": "GPIO8",
-          "net": "/GPIO8"
+          "net": "/GPIO8",
+          "type": "bidirectional"
         },
         "12": {
           "name": "GPIO9",
-          "net": "/GPIO9"
+          "net": "/GPIO9",
+          "type": "bidirectional"
         },
         "13": {
           "name": "GPIO10",
-          "net": "/GPIO10"
+          "net": "/GPIO10",
+          "type": "bidirectional"
         },
         "14": {
           "name": "GPIO11",
-          "net": "/GPIO11"
+          "net": "/GPIO11",
+          "type": "bidirectional"
         },
         "15": {
           "name": "GPIO12",
-          "net": "/GPIO12"
+          "net": "/GPIO12",
+          "type": "bidirectional"
         },
         "16": {
           "name": "GPIO13",
-          "net": "/GPIO13"
+          "net": "/GPIO13",
+          "type": "bidirectional"
         },
         "17": {
           "name": "GPIO14",
-          "net": "/GPIO14"
+          "net": "/GPIO14",
+          "type": "bidirectional"
         },
         "18": {
           "name": "GPIO15",
-          "net": "/GPIO15"
+          "net": "/GPIO15",
+          "type": "bidirectional"
         },
         "19": {
           "name": "TESTEN",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "20": {
           "name": "XIN",
-          "net": "/Xin"
+          "net": "/Xin",
+          "type": "input"
         },
         "21": {
           "name": "XOUT",
-          "net": "/Xout"
+          "net": "/Xout",
+          "type": "passive"
         },
         "22": {
           "name": "IOVDD",
-          "net": "+3.3V"
+          "net": "+3.3V",
+          "type": "passive"
         },
         "23": {
           "name": "DVDD",
-          "net": "+1V1"
+          "net": "+1V1",
+          "type": "power_in"
         },
         "24": {
           "name": "SWCLK",
-          "net": "/SWCLK"
+          "net": "/SWCLK",
+          "type": "output"
         },
         "25": {
           "name": "SWD",
-          "net": "/SWD"
+          "net": "/SWD",
+          "type": "bidirectional"
         },
         "26": {
           "name": "RUN",
-          "net": "/RUN"
+          "net": "/RUN",
+          "type": "input"
         },
         "27": {
           "name": "GPIO16",
-          "net": "/GPIO16"
+          "net": "/GPIO16",
+          "type": "bidirectional"
         },
         "28": {
           "name": "GPIO17",
-          "net": "/GPIO17"
+          "net": "/GPIO17",
+          "type": "bidirectional"
         },
         "29": {
           "name": "GPIO18",
-          "net": "/GPIO18"
+          "net": "/GPIO18",
+          "type": "bidirectional"
         },
         "30": {
           "name": "GPIO19",
-          "net": "/GPIO19"
+          "net": "/GPIO19",
+          "type": "bidirectional"
         },
         "31": {
           "name": "GPIO20",
-          "net": "/GPIO20"
+          "net": "/GPIO20",
+          "type": "bidirectional"
         },
         "32": {
           "name": "GPIO21",
-          "net": "/GPIO21"
+          "net": "/GPIO21",
+          "type": "bidirectional"
         },
         "33": {
           "name": "IOVDD",
-          "net": "+3.3V"
+          "net": "+3.3V",
+          "type": "passive"
         },
         "34": {
           "name": "GPIO22",
-          "net": "/GPIO22"
+          "net": "/GPIO22",
+          "type": "bidirectional"
         },
         "35": {
           "name": "GPIO23",
-          "net": "/GPIO23"
+          "net": "/GPIO23",
+          "type": "bidirectional"
         },
         "36": {
           "name": "GPIO24",
-          "net": "/GPIO24"
+          "net": "/GPIO24",
+          "type": "bidirectional"
         },
         "37": {
           "name": "GPIO25",
-          "net": "/GPIO25"
+          "net": "/GPIO25",
+          "type": "bidirectional"
         },
         "38": {
           "name": "GPIO26_ADC0",
-          "net": "/GPIO26_ADC0"
+          "net": "/GPIO26_ADC0",
+          "type": "bidirectional"
         },
         "39": {
           "name": "GPIO27_ADC1",
-          "net": "/GPIO27_ADC1"
+          "net": "/GPIO27_ADC1",
+          "type": "bidirectional"
         },
         "40": {
           "name": "GPIO28_ADC2",
-          "net": "/GPIO28_ADC2"
+          "net": "/GPIO28_ADC2",
+          "type": "bidirectional"
         },
         "41": {
           "name": "GPIO29_ADC3",
-          "net": "/GPIO29_ADC3"
+          "net": "/GPIO29_ADC3",
+          "type": "bidirectional"
         },
         "42": {
           "name": "IOVDD",
-          "net": "+3.3V"
+          "net": "+3.3V",
+          "type": "passive"
         },
         "43": {
           "name": "ADC_AVDD",
-          "net": "+3.3V"
+          "net": "+3.3V",
+          "type": "power_in"
         },
         "44": {
           "name": "VREG_IN",
-          "net": "+3.3V"
+          "net": "+3.3V",
+          "type": "power_in"
         },
         "45": {
           "name": "VREG_VOUT",
-          "net": "+1V1"
+          "net": "+1V1",
+          "type": "power_out"
         },
         "46": {
           "name": "USB_DM",
-          "net": "/USB_R_DN"
+          "net": "/USB_R_DN",
+          "type": "bidirectional"
         },
         "47": {
           "name": "USB_DP",
-          "net": "/USB_R_DP"
+          "net": "/USB_R_DP",
+          "type": "bidirectional"
         },
         "48": {
           "name": "USB_VDD",
-          "net": "+3.3V"
+          "net": "+3.3V",
+          "type": "power_in"
         },
         "49": {
           "name": "IOVDD",
-          "net": "+3.3V"
+          "net": "+3.3V",
+          "type": "passive"
         },
         "50": {
           "name": "DVDD",
-          "net": "+1V1"
+          "net": "+1V1",
+          "type": "passive"
         },
         "51": {
           "name": "QSPI_SD3",
-          "net": "/QSPI_SD3"
+          "net": "/QSPI_SD3",
+          "type": "bidirectional"
         },
         "52": {
           "name": "QSPI_SCLK",
-          "net": "/QSPI_SCLK"
+          "net": "/QSPI_SCLK",
+          "type": "output"
         },
         "53": {
           "name": "QSPI_SD0",
-          "net": "/QSPI_SD0"
+          "net": "/QSPI_SD0",
+          "type": "bidirectional"
         },
         "54": {
           "name": "QSPI_SD2",
-          "net": "/QSPI_SD2"
+          "net": "/QSPI_SD2",
+          "type": "bidirectional"
         },
         "55": {
           "name": "QSPI_SD1",
-          "net": "/QSPI_SD1"
+          "net": "/QSPI_SD1",
+          "type": "bidirectional"
         },
         "56": {
           "name": "QSPI_SS",
-          "net": "/QSPI_SS"
+          "net": "/QSPI_SS",
+          "type": "bidirectional"
         },
         "57": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power_in"
         }
       },
       "value": "RP2040",
@@ -1718,39 +2096,48 @@
       "pins": {
         "1": {
           "name": "~{CS}",
-          "net": "/QSPI_SS"
+          "net": "/QSPI_SS",
+          "type": "input"
         },
         "2": {
           "name": "DO(IO1)",
-          "net": "/QSPI_SD1"
+          "net": "/QSPI_SD1",
+          "type": "bidirectional"
         },
         "3": {
           "name": "IO2",
-          "net": "/QSPI_SD2"
+          "net": "/QSPI_SD2",
+          "type": "bidirectional"
         },
         "4": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power_in"
         },
         "5": {
           "name": "DI(IO0)",
-          "net": "/QSPI_SD0"
+          "net": "/QSPI_SD0",
+          "type": "bidirectional"
         },
         "6": {
           "name": "CLK",
-          "net": "/QSPI_SCLK"
+          "net": "/QSPI_SCLK",
+          "type": "input"
         },
         "7": {
           "name": "IO3",
-          "net": "/QSPI_SD3"
+          "net": "/QSPI_SD3",
+          "type": "bidirectional"
         },
         "8": {
           "name": "VCC",
-          "net": "+3.3V"
+          "net": "+3.3V",
+          "type": "power_in"
         },
         "9": {
           "name": "EP",
-          "net": ""
+          "net": "",
+          "type": "passive"
         }
       },
       "value": "W25Q16JVUXIQ",
@@ -1758,15 +2145,23 @@
     },
     "Y1": {
       "pins": {
-        "1": "/Xin",
+        "1": {
+          "net": "/Xin",
+          "type": "passive"
+        },
         "2": {
           "name": "G",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
-        "3": "/XoutR",
+        "3": {
+          "net": "/XoutR",
+          "type": "passive"
+        },
         "4": {
           "name": "G",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "value": "12MHz",
