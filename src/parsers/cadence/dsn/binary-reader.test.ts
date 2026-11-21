@@ -90,12 +90,20 @@ describe("BinaryReader", () => {
       expect(r.readStringZeroTerm()).toBe("world");
     });
 
-    it("should read length-prefixed string (no null)", () => {
-      const buf = Buffer.alloc(7);
-      buf.writeUInt16LE(5, 0); // length = 5
-      buf.write("ABCDE", 2, "ascii");
-      const r = new BinaryReader(buf);
-      expect(r.readStringLenTerm()).toBe("ABCDE");
+    // The Library holds strings up to 1,421 bytes and a u16 length allows 65,535 (§2.3.2).
+    it("reads a length-prefixed null-terminated string longer than 400 bytes", () => {
+      const text = "X".repeat(1421);
+      const buf = Buffer.concat([
+        Buffer.from([1421 & 0xff, 1421 >> 8]),
+        Buffer.from(text),
+        Buffer.from([0]),
+      ]);
+      expect(new BinaryReader(buf).readStringLenZeroTerm()).toBe(text);
+    });
+
+    it("rejects a misframed string whose terminator is not zero", () => {
+      const buf = Buffer.from([3, 0, 0x41, 0x42, 0x43, 0x44]);
+      expect(() => new BinaryReader(buf).readStringLenZeroTerm()).toThrow();
     });
 
     it("should read length-prefixed null-terminated string", () => {
@@ -120,8 +128,6 @@ describe("BinaryReader", () => {
       const expected = "V±5V µ’–€";
       const lenZero = Buffer.from([text.length, 0, ...text, 0]);
       expect(new BinaryReader(lenZero).readStringLenZeroTerm()).toBe(expected);
-      const lenTerm = Buffer.from([text.length, 0, ...text]);
-      expect(new BinaryReader(lenTerm).readStringLenTerm()).toBe(expected);
       expect(new BinaryReader(Buffer.from([...text, 0])).readStringZeroTerm()).toBe(expected);
     });
 
