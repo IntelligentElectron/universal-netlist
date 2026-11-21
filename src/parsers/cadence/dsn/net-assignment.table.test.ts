@@ -27,6 +27,9 @@ const instance = (dbId: number, reference: string, sourcePackage = "R"): PlacedI
   symbolDisplayProps: [],
   t0x10s: [],
   sectionIndex: 0,
+  box: { x1: 0, y1: 0, x2: 0, y2: 0 },
+  rotation: 0,
+  mirrored: false,
 });
 
 const drawn = (dbId: number): DrawnInstance => ({
@@ -41,6 +44,10 @@ const drawn = (dbId: number): DrawnInstance => ({
 const page = (name: string, drawnInstances: DrawnInstance[] = []): PageData => ({
   name,
   netTable: new Map(),
+  sizeName: "A",
+  widthInches: 11,
+  heightInches: 8.5,
+  busEntries: [],
   wires: [],
   placedInstances: [instance(1, name)],
   drawnInstances,

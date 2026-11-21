@@ -56,6 +56,7 @@ Parsing a large design takes a second or two; a query on a parsed design takes m
 2. `search_nets` and `search_components_by_*` find things by pattern.
 3. `query_component` and `query_xnet_by_*` give detail and connectivity.
 4. `run_erc` runs the electrical rule checks.
+5. `list_pages` and `get_page` read a Cadence `.DSN` page as drawn: what sits where, and its nets.
 
 Answer questions about a design with these query tools. `export_design` writes a whole design as a `.netlist.json` file, and is only for a program that post-processes the netlist in that format; see [Command-line-only tools](#command-line-only-tools).
 
@@ -79,7 +80,7 @@ universal-netlist query_xnet_by_net_name hardware/board.DSN --net_name SPI_CLK -
 
 Each description is the MCP tool's own.
 
-Every tool but `list_designs` also takes these two flags, not repeated below; `--design` may be the first argument instead:
+Every tool but `list_designs` also takes `--design`, and every tool but `list_designs`, `list_pages` and `get_page` also takes `--design_variant`; neither is repeated below, and `--design` may be the first argument instead:
 
 - `--design` (required; string). Path to design file, as returned by list_designs.
 - `--design_variant` (string). Design variant name from list_designs' design_variants. Required when the design records named variants, which are its only builds. <Default> (alias: default) is the one build of a design that records none.
@@ -190,6 +191,16 @@ Run electrical rule checks (ERC) on a design's netlist and return findings group
 - `--exclude_rules` (text, repeat the flag for each). Skip these rule ids.
 - `--max_results` (number; default 50). Max findings entries to return. Default: 50.
 - `--offset` (number; default 0). Index of the first findings entry to return, from next_offset. Default: 0.
+
+### list_pages
+
+List the schematic pages of a Cadence .DSN design, in the order the netlist reads them. Each page has its name, schematic, sheet size, title and page number from its title block, and counts of parts, nets, ports and off-page connectors. A schematic placed by several hierarchical blocks appears once per placement, named `<page> (block <path>)`. Use get_page for one page's contents.
+
+### get_page
+
+One schematic page of a Cadence .DSN design as drawn: its parts (refdes, value, symbol, location, rotation, mirror, box, and pins with their nets), wires with their nets, net labels, hierarchical ports, globals (power and ground symbols), off-page connectors, bus entries, hierarchical blocks, and the title-block fields. Net names match list_nets. Coordinates are in 1/100 inch, x to the right and y down. Name the page as list_pages reports it.
+
+- `--page` (required; string). Page as list_pages names it; its plain name, or <schematic>/<page>, when only one page has that name.
 
 ## Command-line-only tools
 

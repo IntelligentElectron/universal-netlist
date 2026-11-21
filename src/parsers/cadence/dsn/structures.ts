@@ -33,6 +33,8 @@ export interface Alias {
 }
 
 export interface Wire {
+  /** A bus wire (type 21) rather than a scalar one (type 20). */
+  bus: boolean;
   segmentId: number;
   id: number;
   startX: number;
@@ -59,6 +61,11 @@ export interface PlacedInstance {
   prefixProperties: PrefixPropertyPair[];
   locX: number;
   locY: number;
+  /** Stored bounding box, page coordinates: all zero on a few records. */
+  box: Box;
+  /** Quarter turns counterclockwise, 0 to 3, applied after the mirror. */
+  rotation: number;
+  mirrored: boolean;
   symbolDisplayProps: SymbolDisplayProp[];
   t0x10s: T0x10[];
   /**
@@ -107,8 +114,41 @@ export interface GraphicInst {
   y2: number;
   /** strLst index for the net name (first uint32 of body). OPCs with the same index share the same net. */
   pairingId: number;
+  /** Quarter turns counterclockwise, 0 to 3, applied after the mirror. */
+  rotation: number;
+  mirrored: boolean;
   symbolDisplayProps: SymbolDisplayProp[];
 }
+
+/** A rectangle in page coordinates (1/100 inch). */
+export interface Box {
+  x1: number;
+  y1: number;
+  x2: number;
+  y2: number;
+}
+
+/** The page's title block: its fields and where the page sits in the set. */
+export interface TitleBlock {
+  /** The title-block fields, as `(name index, value index)` string-table pairs. */
+  properties: PrefixPropertyPair[];
+  pageNumber: number;
+  pageCount: number;
+}
+
+/** A 45-degree stub joining a wire to a bus. */
+export interface BusEntry {
+  x1: number;
+  y1: number;
+  x2: number;
+  y2: number;
+}
+
+/** Bits 8-9 of the transform word are quarter turns, bit 10 the mirror. */
+const decodeTransform = (word: number) => ({
+  rotation: (word >> 8) & 3,
+  mirrored: (word & 0x400) !== 0,
+});
 
 export interface Device {
   unitRef: string;
@@ -178,7 +218,7 @@ export function parseAlias(reader: BinaryReader): Alias {
 
 export function parseWire(reader: BinaryReader): Wire {
   const futureData = new FutureDataList(reader);
-  autoReadPrefixes(reader, futureData); // accepts WireScalar or WireBus
+  const { structType } = autoReadPrefixes(reader, futureData); // WireScalar or WireBus
   readPreamble(reader);
   futureData.checkpoint();
 
@@ -207,7 +247,16 @@ export function parseWire(reader: BinaryReader): Wire {
 
   futureData.checkpoint();
 
-  return { segmentId, id, startX, startY, endX, endY, aliases };
+  return {
+    bus: structType === StructureType.WireBus,
+    segmentId,
+    id,
+    startX,
+    startY,
+    endX,
+    endY,
+    aliases,
+  };
 }
 
 /**
@@ -257,10 +306,11 @@ export function parsePlacedInstance(reader: BinaryReader): PlacedInstance {
   reader.skip(8); // unknown
   const pkgName = reader.readStringLenZeroTerm();
   const dbId = reader.readUint32();
-  reader.skip(8); // unknown
+  const box = readBox(reader);
   const locX = reader.readInt16();
   const locY = reader.readInt16();
-  reader.skip(4); // unknown
+  const { rotation, mirrored } = decodeTransform(reader.readUint16());
+  reader.skip(2); // type echo, reserved byte
 
   const lenSymbolDisplayProps = reader.readUint16();
   const symbolDisplayProps: SymbolDisplayProp[] = [];
@@ -297,6 +347,9 @@ export function parsePlacedInstance(reader: BinaryReader): PlacedInstance {
     prefixProperties,
     locX,
     locY,
+    box,
+    rotation,
+    mirrored,
     symbolDisplayProps,
     t0x10s,
     sectionIndex,
@@ -373,16 +426,11 @@ function parseGraphicInstBase(reader: BinaryReader, futureData: FutureDataList):
   // Box corners Y before X, then the location X before Y. OpenOrCadParser reads
   // this as loc, y2, x2, x1, y1; the location then falls inside the box on every
   // record (docs/cadence-dsn-format.md chapter 7).
-  const y1 = reader.readInt16();
-  const x1 = reader.readInt16();
-  const y2 = reader.readInt16();
-  const x2 = reader.readInt16();
+  const { x1, y1, x2, y2 } = readBox(reader);
   const locX = reader.readInt16();
   const locY = reader.readInt16();
-  reader.skip(1); // color (uint8)
-  reader.skip(1); // unknown
-  reader.skip(1); // unknown (probably structure ID)
-  reader.skip(1); // unknown
+  const { rotation, mirrored } = decodeTransform(reader.readUint16());
+  reader.skip(2); // type echo, reserved byte
 
   const lenSymbolDisplayProps = reader.readUint16();
   const symbolDisplayProps: SymbolDisplayProp[] = [];
@@ -399,7 +447,57 @@ function parseGraphicInstBase(reader: BinaryReader, futureData: FutureDataList):
 
   futureData.checkpoint();
 
-  return { name, dbId, locX, locY, x1, y1, x2, y2, pairingId, symbolDisplayProps };
+  return {
+    name,
+    dbId,
+    locX,
+    locY,
+    x1,
+    y1,
+    x2,
+    y2,
+    pairingId,
+    rotation,
+    mirrored,
+    symbolDisplayProps,
+  };
+}
+
+/** A stored bounding box: corners y before x (docs/cadence-dsn-format.md §7.2). */
+function readBox(reader: BinaryReader): Box {
+  const y1 = reader.readInt16();
+  const x1 = reader.readInt16();
+  const y2 = reader.readInt16();
+  const x2 = reader.readInt16();
+  return { x1, y1, x2, y2 };
+}
+
+/** A TitleBlock (65): graphic-instance base, then a 12-byte trailer (§7.13). */
+export function parseTitleBlock(reader: BinaryReader): TitleBlock {
+  const futureData = new FutureDataList(reader);
+  const { properties } = autoReadPrefixes(reader, futureData, StructureType.TitleBlock);
+  parseGraphicInstBase(reader, futureData);
+  reader.skip(4); // keep in lower-right corner
+  const pageCount = reader.readUint32();
+  const pageNumber = reader.readUint32();
+  futureData.checkpoint();
+  return { properties, pageNumber, pageCount };
+}
+
+/** A BusEntry (29): a 28-byte body holding its two end points (§7.12). */
+export function parseBusEntry(reader: BinaryReader): BusEntry {
+  const futureData = new FutureDataList(reader);
+  autoReadPrefixes(reader, futureData, StructureType.BusEntry);
+  readPreamble(reader);
+  futureData.checkpoint();
+  reader.skip(4); // header word, 48 on every record
+  const x1 = reader.readInt32();
+  const y1 = reader.readInt32();
+  const x2 = reader.readInt32();
+  const y2 = reader.readInt32();
+  reader.skip(8); // reserved
+  futureData.checkpoint();
+  return { x1, y1, x2, y2 };
 }
 
 export function parseGlobal(reader: BinaryReader): GraphicInst {

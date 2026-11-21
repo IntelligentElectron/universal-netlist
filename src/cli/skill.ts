@@ -83,6 +83,15 @@ export const SHARED_FLAGS = ["design", "design_variant"] as const;
 
 const isShared = (name: string): boolean => (SHARED_FLAGS as readonly string[]).includes(name);
 
+/** The tools that do not take a shared flag, as Markdown code spans. */
+const toolsWithout = (name: string): string[] =>
+  TOOLS.filter((tool) => !flagsOf(tool).some((flag) => flag.name === name)).map(
+    (tool) => `\`${tool.name}\``
+  );
+
+const joinNames = (names: string[]): string =>
+  names.length < 2 ? names.join("") : `${names.slice(0, -1).join(", ")} and ${names.at(-1)}`;
+
 /** The shared flags' lines, rendered from the first tool that takes them, as every flag is. */
 const sharedFlagLines = (): string[] =>
   SHARED_FLAGS.map((name) => {
@@ -164,6 +173,7 @@ export const renderSkill = (): string => {
     "2. `search_nets` and `search_components_by_*` find things by pattern.",
     "3. `query_component` and `query_xnet_by_*` give detail and connectivity.",
     "4. `run_erc` runs the electrical rule checks.",
+    "5. `list_pages` and `get_page` read a Cadence `.DSN` page as drawn: what sits where, and its nets.",
     "",
     "Answer questions about a design with these query tools. `export_design` writes a whole design as a `.netlist.json` file, and is only for a program that post-processes the netlist in that format; see [Command-line-only tools](#command-line-only-tools).",
     "",
@@ -182,7 +192,7 @@ export const renderSkill = (): string => {
     "",
     "Each description is the MCP tool's own.",
     "",
-    "Every tool but `list_designs` also takes these two flags, not repeated below; `--design` may be the first argument instead:",
+    `Every tool but ${joinNames(toolsWithout("design"))} also takes \`--design\`, and every tool but ${joinNames(toolsWithout("design_variant"))} also takes \`--design_variant\`; neither is repeated below, and \`--design\` may be the first argument instead:`,
     "",
     ...sharedFlagLines(),
   ];
