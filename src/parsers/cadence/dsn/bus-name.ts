@@ -13,13 +13,14 @@ export interface BusName {
  * Capture also accepts `..` and `-` as the range separator, and names the
  * members by appending the index to the base: `DATA7`, `DATA6`, and so on.
  * Indices are signed (docs/cadence-dsn-format.md §11.6): `D[-1..1]` lists
- * `D-1`, `D0`, `D1`.
+ * `D-1`, `D0`, `D1`. A range wider than 65,535 members is refused.
  */
 export function parseBusName(name: string): BusName | undefined {
   const match = /^(.*)\[\s*(-?\d+)\s*(?::|\.\.|-)\s*(-?\d+)\s*\]$/.exec(name);
   if (!match) return undefined;
   const first = Number(match[2]);
   const last = Number(match[3]);
+  if (Math.abs(last - first) >= 65535) return undefined;
   const step = first <= last ? 1 : -1;
   const indices: number[] = [];
   for (let i = first; step > 0 ? i <= last : i >= last; i += step) indices.push(i);

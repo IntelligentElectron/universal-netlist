@@ -77,7 +77,7 @@ function readPayload(buffer: Buffer): string {
  * Parse a variant group stream into the occurrences it names
  * (docs/cadence-dsn-format.md §14.10).
  *
- * A first token with no `~` is the group's flag, never an occurrence. Entries read as
+ * A first token of `0` or `1` is the group's flag, never an occurrence. Entries read as
  * `<id>~0` or `<id>~1`; a token carrying any other state is left out, so a
  * state this corpus has never shown cannot be mistaken for the one that
  * unstuffs a part. An entry written as a bare `<id>` is still a member: it
@@ -90,11 +90,12 @@ export function parseVariantGroup(buffer: Buffer): VariantGroupEntry[] {
   const bare: number[] = [];
 
   const tokens = readPayload(buffer).split(GROUP_SEPARATOR);
-  if (!tokens[0].includes("~")) tokens.shift();
+  if (tokens[0] === "0" || tokens[0] === "1") tokens.shift();
   for (const token of tokens) {
     const tilde = token.indexOf("~");
-    const occurrenceId = Number(tilde < 0 ? token : token.slice(0, tilde));
-    if (token === "" || !Number.isInteger(occurrenceId) || occurrenceId <= 0) continue;
+    const id = tilde < 0 ? token : token.slice(0, tilde);
+    const occurrenceId = Number(id);
+    if (!/^\d+$/.test(id) || occurrenceId <= 0) continue;
     if (tilde < 0) {
       bare.push(occurrenceId);
       continue;

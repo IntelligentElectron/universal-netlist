@@ -98,6 +98,16 @@ describe("parseVariantGroup", () => {
     expect(parseVariantGroup(groupStream("20922~0\xb0"))).toEqual([
       { occurrenceId: 20922, stuffed: false },
     ]);
+    expect(parseVariantGroup(groupStream("20922\xb020919~0\xb0"))).toEqual([
+      { occurrenceId: 20919, stuffed: false },
+      { occurrenceId: 20922, stuffed: false },
+    ]);
+  });
+
+  it("takes only decimal digits for an occurrence id", () => {
+    expect(parseVariantGroup(groupStream("0\xb05~0\xb01e3\xb00x10~0\xb0 42\xb0"))).toEqual([
+      { occurrenceId: 5, stuffed: false },
+    ]);
   });
 
   it("returns nothing for a stream too short to carry a length", () => {
