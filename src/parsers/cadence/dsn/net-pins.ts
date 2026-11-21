@@ -246,20 +246,21 @@ export function collectPins(
         const wireNet =
           pin.netId === 0 ? undefined : coordToNet.get(wireOfNet.get(pin.netId) ?? "");
         let netId = pin.wireId;
-        switch (
-          pinNetSource(pin.wireId, pin.netId, coordNet !== undefined, wireNet !== undefined)
-        ) {
-          case "wire-net":
-            // shortcut: takes the wire group's name but not its port, so inside a
-            // placed block such a pin stays on the block's net; never seen in the corpus.
-            coordNet = wireNet;
-            break;
-          case "net-id":
-            // Moved into the placement's range, as the expander moved wire ids.
-            netId = pin.netId + (placement?.netIdOffset ?? 0);
-            break;
-          default:
-          // "point", "hierarchy" and "no-connect" follow from the wire id downstream.
+        const source = pinNetSource(
+          pin.wireId,
+          pin.netId,
+          coordNet !== undefined,
+          wireNet !== undefined
+        );
+        if (source === "wire-net") {
+          // shortcut: takes the wire group's name but not its port, so inside a
+          // placed block such a pin stays on the block's net; never seen in the corpus.
+          coordNet = wireNet;
+        } else if (source === "net-id") {
+          // The key moves into the placement's range as the expander moved wire
+          // ids; the name keeps the file's id and takes the placement's suffix.
+          netId = pin.netId + (placement?.netIdOffset ?? 0);
+          coordNet = `N${pin.netId}${placement?.suffix ?? ""}`;
         }
 
         const pinNumber = resolvePinNumber(pin, inst, pmd, deviceIndex);
