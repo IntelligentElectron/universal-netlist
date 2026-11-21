@@ -7,6 +7,7 @@
  */
 
 import { BinaryReader } from "./binary-reader.js";
+import { walkCacheTables } from "./cache-parser.js";
 import { FutureDataList, autoReadPrefixes, readPreamble, skipStructure } from "./generic-parser.js";
 import { StructureType } from "./structure-types.js";
 import {
@@ -243,35 +244,19 @@ export function parseSymbolGraphics(buffer: Buffer): SymbolGraphics {
 const SYMBOL_TYPES = new Set([24, 33, 34, 35, 64, 75]);
 
 /**
- * Read the Cache's five directory tables (§5.1) into its symbols by name,
- * keeping the first variant of each group. A symbol that will not decode is
- * left out; the walk itself skips every body by its first full prefix.
+ * The Cache's symbols by name (§5.1), keeping the first variant of each group.
+ * A symbol that will not decode is left out.
  */
 export function readCacheSymbols(buffer: Buffer): Map<string, SymbolGraphics> {
   const symbols = new Map<string, SymbolGraphics>();
-  const reader = new BinaryReader(buffer);
-  for (let table = 0; table < 5 && reader.tell() < buffer.length; table++) {
-    const groups = reader.readUint16();
-    for (let g = 0; g < groups; g++) {
-      const name = reader.readStringLenZeroTerm();
-      const variants = reader.readUint16();
-      for (let v = 0; v < variants; v++) {
-        reader.readStringLenZeroTerm(); // source library
-        reader.skip(8); // id, id copy
-        const type = reader.readUint16();
-        const start = reader.tell();
-        const end = start + 9 + buffer.readUInt32LE(start + 1);
-        if (v === 0 && SYMBOL_TYPES.has(type) && !symbols.has(name)) {
-          try {
-            symbols.set(name, parseSymbolGraphics(buffer.subarray(start, end)));
-          } catch {
-            // Drawn without this symbol.
-          }
-        }
-        reader.seek(end);
-      }
+  walkCacheTables(buffer, (type, name, record) => {
+    if (!SYMBOL_TYPES.has(type) || symbols.has(name)) return;
+    try {
+      symbols.set(name, parseSymbolGraphics(record));
+    } catch {
+      // Drawn without this symbol.
     }
-  }
+  });
   return symbols;
 }
 
