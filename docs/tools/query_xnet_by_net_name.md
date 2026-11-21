@@ -37,7 +37,8 @@ Returns circuit traversal results with components grouped by MPN. See [`Aggregat
   "skipped": { "C": 5, "L": 2 },        // Skipped component counts by type (optional)
   "net": "string",                      // Optional: the net matched, when the name was not exact
   "notes": ["..."],                     // Optional: how a name that was not exact was matched
-  "net_name_warnings": [NetNameWarning, ...] // Optional: visited nets whose names have leading or trailing whitespace
+  "net_name_warnings": [NetNameWarning, ...], // Optional: visited nets whose names have leading or trailing whitespace
+  "net_properties": { "USB_DP": { "DIFFERENTIAL_PAIR": "USB" } } // Optional: the design's own properties of the visited nets that have any
 }
 ```
 

@@ -70,6 +70,11 @@ export interface ExpandedDesign {
   canonicalNetNames: Set<string>;
   /** Occurrence id to the refdes reported for it, for the CIS variant store. */
   occurrenceRefdes: Map<number, string>;
+  /**
+   * Each design net property, under the name the net has in its placement
+   * (uppercase, with the block suffix inside a block), as Library string indexes.
+   */
+  netProperties: { net: string; name: number; value: number }[];
 }
 
 /**
@@ -191,6 +196,7 @@ export function expandHierarchy(
 ): ExpandedDesign {
   const pages: PageData[] = [];
   const canonicalNetNames = new Set<string>();
+  const netProperties: ExpandedDesign["netProperties"] = [];
   const usableRoots = designRoots(roots, pagesBySchematic, rootSchematic);
   const open: string[] = [];
   let placements = 0;
@@ -199,6 +205,16 @@ export function expandHierarchy(
     const source = pagesBySchematic.get(schematic.toLowerCase());
     if (!source) return;
     open.push(schematic.toLowerCase());
+
+    for (const net of scope.nets) {
+      for (const [name, value] of net.properties) {
+        netProperties.push({
+          net: (net.name + (placement?.suffix ?? "")).toUpperCase(),
+          name,
+          value,
+        });
+      }
+    }
 
     const references = new Map<number, string>();
     const pinNumbers = new Map<number, Map<number, string>>();
@@ -276,5 +292,10 @@ export function expandHierarchy(
   }
 
   const inline = inlineReferences([...pagesBySchematic.values()].flat());
-  return { pages, canonicalNetNames, occurrenceRefdes: buildOccurrenceRefdes(usableRoots, inline) };
+  return {
+    pages,
+    canonicalNetNames,
+    occurrenceRefdes: buildOccurrenceRefdes(usableRoots, inline),
+    netProperties,
+  };
 }

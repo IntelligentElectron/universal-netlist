@@ -46,6 +46,11 @@ Searches all net names in a design using a regular expression pattern. Useful fo
       "type": "array",
       "items": { "$ref": "../schemas/shared-types.md#net-name-warnings" },
       "description": "Nets listed whose names have leading or trailing whitespace; omitted when none"
+    },
+    "net_properties": {
+      "type": "object",
+      "description": "The design's own properties of the nets listed, by net, such as DIFFERENTIAL_PAIR (the pair the net belongs to) and VOLTAGE; omitted when none of them has any. Read from Cadence designs and from Universal Netlist files that carry them",
+      "additionalProperties": { "type": "object", "additionalProperties": { "type": "string" } }
     }
   },
   "required": ["design_variant", "results"]

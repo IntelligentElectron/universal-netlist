@@ -147,8 +147,8 @@ describe("parseHierarchyStream", () => {
 
     expect(parsed.schematic).toBe("Main");
     expect(parsed.scope.nets).toEqual([
-      { dbId: 67, name: "GND" },
-      { dbId: 107, name: "N00776" },
+      { dbId: 67, name: "GND", properties: [] },
+      { dbId: 107, name: "N00776", properties: [] },
     ]);
     expect(parsed.scope.parts.map((p) => [p.occurrenceId, p.dbId, p.reference])).toEqual([
       [41, 246, "C2"],

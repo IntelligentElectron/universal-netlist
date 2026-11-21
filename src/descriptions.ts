@@ -126,6 +126,8 @@ KiCad nets declared inside a hierarchical sheet are sheet-path-prefixed \
 (e.g. a "D0" data line on the Peripherals sheet is named "/Peripherals/D0", not "/D0"), \
 so prefer unanchored patterns like "D0" over "^/D0$" or you may miss bussed/hierarchical nets. \
 A name with leading or trailing whitespace also matches as trimmed, so "^SIG$" finds "SIG ". \
+\`net_properties\` gives the design's own properties of the nets listed, such as \
+DIFFERENTIAL_PAIR (the pair a net belongs to) and VOLTAGE, where the design sets them. \
 Rejects patterns that match all items; use list_nets for full results. ${paged("results")}`;
 
 export const SEARCH_COMPONENTS_BY_REFDES_DESCRIPTION = `\
@@ -169,6 +171,8 @@ A name that matches no net exactly is matched ignoring leading and trailing whit
 then as the 31-character name a PSTWRITER 16.6 Allegro export gives a longer net; \
 \`notes\` says when that happened, and a name that could mean several nets returns them. \
 \`component_notes\` names the parts with no MPN. \
+\`net_properties\` gives the design's own properties of the nets listed, such as \
+DIFFERENTIAL_PAIR (the pair a net belongs to) and VOLTAGE, where the design sets them. \
 If the net is not found, \`search_nets\` finds the name.`;
 
 export const QUERY_XNET_BY_PIN_NAME_DESCRIPTION = `\
@@ -181,6 +185,8 @@ net the result crossed. \`skip_types\` leaves series passives out, for example \
 \`skip_types=['C','L','R']\`. \`components_by_mpn\` is paged like query_xnet_by_net_name's. \
 A pin on no net reads as the net \`NC\` and returns an empty result. \
 \`component_notes\` names the parts with no MPN. \
+\`net_properties\` gives the design's own properties of the nets listed, such as \
+DIFFERENTIAL_PAIR (the pair a net belongs to) and VOLTAGE, where the design sets them. \
 Rejects pins on a net named as a ground (GND, GND1, AGND, VSS, ...) with an error.`;
 
 export const QUERY_COMPONENT_DESCRIPTION = `\

@@ -77,7 +77,7 @@ const scope = (
   blocks: HierarchyScope["blocks"] = [],
   nets: string[] = []
 ): HierarchyScope => ({
-  nets: nets.map((name, i) => ({ dbId: i + 1, name })),
+  nets: nets.map((name, i) => ({ dbId: i + 1, name, properties: [] })),
   parts,
   blocks,
 });
