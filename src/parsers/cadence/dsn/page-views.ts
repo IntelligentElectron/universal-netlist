@@ -6,6 +6,11 @@
  * 1/100 inch, x to the right and y down (docs/cadence-dsn-format.md §6.4.1).
  */
 
+import {
+  DUPLICATE_REFDES_ERROR,
+  displayRefdes,
+  isDuplicateKey,
+} from "../../../duplicate-refdes.js";
 import type { ComponentDetails } from "../../../types.js";
 import type { PageCoordMap } from "./page-groups.js";
 import type { PageData } from "./page-parser.js";
@@ -23,6 +28,8 @@ export interface PagePin {
 
 export interface PagePart {
   refdes: string;
+  /** Set, as query_component sets it, when several different parts share this refdes. */
+  error?: string;
   value?: string;
   /** The library symbol drawn, such as `RES.Normal`. */
   symbol: string;
@@ -76,8 +83,15 @@ export function buildPageViews(
   coordMaps: PageCoordMap[],
   pins: PinInfo[],
   components: ComponentDetails,
-  strLst: string[]
+  strLst: string[],
+  refdesRenames: ReadonlyMap<string, string> = new Map()
 ): PageView[] {
+  // A section split off as a duplicate and later merged back answers to its part's key.
+  const finalRefdes = (refdes: string): string => {
+    let key = refdes;
+    for (let hops = 0; refdesRenames.has(key) && hops < 100; hops++) key = refdesRenames.get(key)!;
+    return key;
+  };
   const pinsByPage = pages.map((): PinInfo[] => []);
   for (const pin of pins) pinsByPage[pin.pageIdx]?.push(pin);
 
@@ -90,7 +104,7 @@ export function buildPageViews(
     const groupNet = new Map<string, string>();
     for (const pin of pagePins) {
       const group = coordToNet.get(pin.coord);
-      const net = netOf(components[pin.refdes]?.pins[pin.pinNumber]);
+      const net = netOf(components[finalRefdes(pin.refdes)]?.pins[pin.pinNumber]);
       if (group && net && !groupNet.has(group)) groupNet.set(group, net);
     }
     const netAt = (key: string): string | undefined => {
@@ -136,9 +150,13 @@ export function buildPageViews(
           }
         : {}),
       parts: page.placedInstances.map((inst) => {
-        const component = components[inst.reference];
+        const refdes = finalRefdes(inst.reference);
+        const component = components[refdes];
+        // Sections of one part on one page share a refdes; each keeps the pins it draws.
+        const points = new Set(inst.t0x10s.map((t) => `${t.pointX},${t.pointY}`));
         return {
-          refdes: inst.reference,
+          refdes: displayRefdes(refdes),
+          ...optional("error", isDuplicateKey(refdes) ? DUPLICATE_REFDES_ERROR : undefined),
           ...optional("value", component?.value),
           symbol: inst.pkgName,
           x: inst.locX,
@@ -146,17 +164,19 @@ export function buildPageViews(
           rotation: inst.rotation * 90,
           mirrored: inst.mirrored,
           box: [inst.box.x1, inst.box.y1, inst.box.x2, inst.box.y2],
-          pins: (pinsByRefdes.get(inst.reference) ?? []).map((pin) => {
-            const entry = component?.pins[pin.pinNumber];
-            const [x, y] = pin.coord.split(",").map(Number);
-            return {
-              number: pin.pinNumber,
-              ...optional("name", typeof entry === "object" ? entry.name : undefined),
-              x,
-              y,
-              ...optional("net", netOf(entry)),
-            };
-          }),
+          pins: (pinsByRefdes.get(inst.reference) ?? [])
+            .filter((pin) => points.has(pin.coord))
+            .map((pin) => {
+              const entry = component?.pins[pin.pinNumber];
+              const [x, y] = pin.coord.split(",").map(Number);
+              return {
+                number: pin.pinNumber,
+                ...optional("name", typeof entry === "object" ? entry.name : undefined),
+                x,
+                y,
+                ...optional("net", netOf(entry)),
+              };
+            }),
         };
       }),
       blocks: page.drawnInstances.map((b) => ({ refdes: b.reference, x: b.locX, y: b.locY })),

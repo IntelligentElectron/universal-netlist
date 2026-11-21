@@ -4,7 +4,9 @@ import { callTool } from "../../tools/index.js";
 import type { PageView } from "../../parsers/cadence/dsn/page-views.js";
 import { findPage } from "./pages.js";
 
-const MULTIO = join(import.meta.dirname, "../../../test/fixtures/cadence/multio/MULTIO.DSN");
+const FIXTURES = join(import.meta.dirname, "../../../test/fixtures/cadence");
+const MULTIO = join(FIXTURES, "multio/MULTIO.DSN");
+const META_CARRIER = join(FIXTURES, "parallella-meta-carrier/meta_carrier_sch_rev1.dsn");
 
 type Pages = { pages: { page: string; parts: number }[] };
 
@@ -36,6 +38,17 @@ describe("list_pages and get_page", () => {
       }
     }
     expect(checked).toBeGreaterThan(100);
+  });
+
+  it("gives each section of a part on one page only the pins it draws", async () => {
+    const view = (await callTool("get_page", {
+      design: META_CARRIER,
+      page: "02-META-CONNECTORS",
+    })) as PageView;
+    const sections = view.parts.filter((part) => part.refdes === "J2");
+    expect(sections.length).toBeGreaterThan(1);
+    const numbers = sections.flatMap((part) => part.pins.map((pin) => pin.number));
+    expect(new Set(numbers).size).toBe(numbers.length);
   });
 
   it("refuses a design that is not a .DSN schematic", async () => {

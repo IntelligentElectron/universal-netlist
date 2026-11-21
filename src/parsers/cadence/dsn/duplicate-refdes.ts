@@ -144,16 +144,18 @@ const renameInNets = (nets: NetConnections, from: string, to: string): void => {
  *
  * Updates `result.duplicates`, the nets and components, and the occurrence
  * refdes a variant resolves through, and returns the sections each refdes
- * draws more than once.
+ * draws more than once. `renames` receives each key folded into another.
  */
 export function mergeRepeatedSections(
   result: DuplicateRefdesResult,
   nets: NetConnections,
   components: ComponentDetails,
-  occurrenceRefdes: Map<number, string>
+  occurrenceRefdes: Map<number, string>,
+  renames?: Map<string, string>
 ): Record<string, RepeatedSection[]> {
   const repeated: Record<string, RepeatedSection[]> = {};
   const renameOccurrences = (from: string, to: string): void => {
+    renames?.set(from, to);
     for (const [id, refdes] of occurrenceRefdes) if (refdes === from) occurrenceRefdes.set(id, to);
   };
 

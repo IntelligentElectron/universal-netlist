@@ -88,8 +88,12 @@ export function parseDsnPages(source: Uint8Array | string, passwords?: DsnPasswo
   const version = library ? readLibraryVersion(library) : undefined;
   assertReadableLibraryVersion(version);
   try {
-    const { netlist, pages, coordMaps, pins, strLst } = parseDsnStreams(ole, entries, library);
-    return buildPageViews(pages, coordMaps, pins, netlist.components, strLst);
+    const { netlist, pages, coordMaps, pins, strLst, refdesRenames } = parseDsnStreams(
+      ole,
+      entries,
+      library
+    );
+    return buildPageViews(pages, coordMaps, pins, netlist.components, strLst, refdesRenames);
   } catch (error) {
     throw describeParseFailure(version, error);
   }
@@ -107,6 +111,8 @@ function parseDsnStreams(
   coordMaps: PageCoordMap[];
   pins: PinInfo[];
   strLst: string[];
+  /** Part keys folded into another by the section merge, to the key they became. */
+  refdesRenames: Map<string, string>;
 } {
   // Each view's Hierarchy stream is its occurrence tree: the root schematic's
   // nets and parts, and one nested scope per placement of every hierarchical
@@ -267,7 +273,14 @@ function parseDsnStreams(
     deviceIndexMap
   );
 
-  const repeatedSections = mergeRepeatedSections(separation, nets, components, occurrenceRefdes);
+  const refdesRenames = new Map<string, string>();
+  const repeatedSections = mergeRepeatedSections(
+    separation,
+    nets,
+    components,
+    occurrenceRefdes,
+    refdesRenames
+  );
   const duplicateRefdes = separation.duplicates;
 
   // A design's variants carry their own stuffing, which the properties the
@@ -280,7 +293,7 @@ function parseDsnStreams(
   const netlist: ParsedNetlist = { nets, components, netLabelSources };
   if (Object.keys(duplicateRefdes).length > 0) netlist.duplicateRefdes = duplicateRefdes;
   if (Object.keys(repeatedSections).length > 0) netlist.repeatedSections = repeatedSections;
-  return { netlist, pages, coordMaps, pins, strLst };
+  return { netlist, pages, coordMaps, pins, strLst, refdesRenames };
 }
 
 /**
