@@ -53,11 +53,15 @@ describe("agent skill", () => {
       expect(skill).toContain(tool.description.split(/[.:]/)[0]);
     }
     expect(skill).toContain("`--net_name`");
-    // The shared flags are described once, so every tool but list_designs must take them.
+    // The shared flags are described once: every tool but list_designs takes a required
+    // design, and a tool without design_variant is named where the flags are described.
+    const sharedIntro = skill.split("\n").find((line) => line.includes("also takes `--design`"));
     for (const tool of TOOLS.filter((t) => t.name !== "list_designs")) {
       const names = flagsOf(tool).map((flag) => flag.name);
-      for (const shared of SHARED_FLAGS) expect(names, tool.name).toContain(shared);
       expect(flagsOf(tool).find((flag) => flag.name === "design")?.required, tool.name).toBe(true);
+      for (const shared of SHARED_FLAGS) {
+        if (!names.includes(shared)) expect(sharedIntro, tool.name).toContain(`\`${tool.name}\``);
+      }
     }
     expect(skill).not.toMatch(/export_cadence_netlist|\bDAT\b|pstxnet/);
     // Arguments are spelled as flags, never as MCP's name=value.

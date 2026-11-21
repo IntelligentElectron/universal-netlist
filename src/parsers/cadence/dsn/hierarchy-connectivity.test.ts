@@ -34,6 +34,9 @@ const part = (dbId: number, reference: string, pins: T0x10[]): PlacedInstance =>
   symbolDisplayProps: [],
   t0x10s: pins,
   sectionIndex: 0,
+  box: { x1: 0, y1: 0, x2: 0, y2: 0 },
+  rotation: 0,
+  mirrored: false,
 });
 
 const wire = (
@@ -51,6 +54,7 @@ const wire = (
   endX: x2,
   endY: y2,
   aliases: [],
+  bus: false,
 });
 
 /** A symbol whose box is 20 units around `(x, y)`; `pairingId` indexes strLst. */
@@ -64,6 +68,8 @@ const symbol = (pairingId: number, dbId: number, x: number, y: number): GraphicI
   x2: x + 10,
   y2: y + 10,
   pairingId,
+  rotation: 0,
+  mirrored: false,
   symbolDisplayProps: [],
 });
 
@@ -78,6 +84,10 @@ const block = (dbId: number, reference: string, ports: string[], pins: T0x10[]):
 
 const page = (spec: Partial<PageData> & { name: string }): PageData => ({
   netTable: new Map(),
+  sizeName: "A",
+  widthInches: 11,
+  heightInches: 8.5,
+  busEntries: [],
   wires: [],
   placedInstances: [],
   drawnInstances: [],

@@ -24,6 +24,7 @@ Supported formats:
 2. \`search_nets\` and \`search_components_by_*\` to find things by pattern
 3. \`query_component\` and \`query_xnet_*\` for detail and connectivity
 4. \`run_erc\` for electrical rule checks
+5. \`list_pages\` and \`get_page\` to read a Cadence .DSN page as drawn: what sits where, and its nets
 
 ## Conventions
 
@@ -84,6 +85,21 @@ ${paged("components")}`;
 export const LIST_NETS_DESCRIPTION = `\
 List all net names in a design, sorted alphabetically. \
 Prefer search_nets for targeted queries. ${paged("nets")}`;
+
+export const LIST_PAGES_DESCRIPTION = `\
+List the schematic pages of a Cadence .DSN design, in the order the netlist reads them. \
+Each page has its name, schematic, sheet size, title and page number from its title block, \
+and counts of parts, nets, ports and off-page connectors. \
+A schematic placed by several hierarchical blocks appears once per placement, \
+named \`<page> (block <path>)\`. Use get_page for one page's contents.`;
+
+export const GET_PAGE_DESCRIPTION = `\
+One schematic page of a Cadence .DSN design as drawn: its parts (refdes, value, symbol, \
+location, rotation, mirror, box, and pins with their nets), wires with their nets, \
+net labels, hierarchical ports, globals (power and ground symbols), off-page connectors, \
+bus entries, hierarchical blocks, and the title-block fields. Net names match list_nets. \
+Coordinates are in 1/100 inch, x to the right and y down. \
+Name the page as list_pages reports it.`;
 
 export const SEARCH_NETS_DESCRIPTION = `\
 Search for nets matching a regex pattern. \

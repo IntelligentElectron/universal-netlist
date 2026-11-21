@@ -2060,7 +2060,7 @@ The partial claims behind the "known values" columns above also overstate their 
 
 
 
-Parser coverage: the parser reads the frame, page name and size name, skips PageSettings as 156 opaque bytes, and reads lists 1 to 9 (title blocks skipped by structure, net headers, NetBus member ids, net-name rows, wires, instances, ports, Globals and off-page connectors with their 5-byte tails); it does not read lists 10 to 14 (ERC objects, bus entries, page graphics) and decodes no PageSettings field.
+Parser coverage: the parser reads the frame, page name and size name, the PageSettings width, height and IsMetric (to give the sheet size in inches), and lists 1 to 11 (title blocks with their fields, net headers, NetBus member ids, net-name rows, wires, instances, ports, Globals and off-page connectors with their 5-byte tails, ERC objects skipped by structure, bus entries); it does not read list 12 (page graphics) or the other PageSettings fields.
 
 ---
 
@@ -2346,7 +2346,9 @@ A bus entry body is exactly 28 bytes; it has F = 2, a short-prefix count of 0 an
 
 ### 7.13 TitleBlock (65)
 
-A page has zero or one TitleBlock record in list 1 (0 on 8 pages, 1 on 443; 2 not seen). **S**. It uses three full prefixes (443). **S**. The body is the graphic-instance base (name index = the `Name` property, library index = source library, symbol name = cached TitleBlockSymbol): symbol kind 64, mirror 0, colour 48, 5–12 displays, and R2 ends after the kind byte on 443/443; rotation 0 on all but one (`buddy_sch_rev1.dsn` DUT_PARALLEL, rotation 1); the `Name` equals the symbol name on 434 of 443. **O**. A 12-byte trailer follows:
+A page has zero or one TitleBlock record in list 1 (0 on 8 pages, 1 on 443; 2 not seen). **S**. It uses three full prefixes (443). **S**. The body is the graphic-instance base (name index = the `Name` property, library index = source library, symbol name = cached TitleBlockSymbol): symbol kind 64, mirror 0, colour 48, 5–12 displays, and R2 ends after the kind byte on 443/443; rotation 0 on all but one (`buddy_sch_rev1.dsn` DUT_PARALLEL, rotation 1); the `Name` equals the symbol name on 434 of 443. **O**. The TitleBlock's short prefix carries the title-block fields as `(name, value)` string-table pairs: the names resolve to field names on every title block, among them `RevCode` (417 of 417 distinct title blocks), `Page Count` (341), `Page Number` (335), `OrgName` (303), `Title` (281), `Cage Code` (243), `OrgAddr1` to `OrgAddr4` (about 235 each), `Doc` (169) and `Drawing` (116). **O** (new; 417 distinct pages, duplicate copies counted once).
+
+A 12-byte trailer follows:
 
 | Trailer offset | Type | Field | Values | Evidence |
 | --- | --- | --- | --- | --- |
@@ -2435,7 +2437,7 @@ Resolved: `parseGraphicInstBase` (`structures.ts`) now reads the box corners y1,
 
 
 
-Parser coverage: the parser reads placed and drawn instances (name and symbol strings, `db_id`, location, displays, reference, value index, pins with ordinal, point and +0x06, source package, device index, property pairs), wires (ids and end points; colour, junction byte, displays, width and style read and discarded) with their aliases, and the base of ports, Globals and off-page connectors with their trailers; it skips title blocks by structure, skips the bbox, transform, pin +0x0A and primitive word, and does not read ERC objects, bus entries or page graphics.
+Parser coverage: the parser reads placed and drawn instances (name and symbol strings, `db_id`, location, displays, reference, value index, pins with ordinal, point and +0x06, source package, device index, property pairs), wires (scalar or bus, ids and end points; colour, junction byte, displays, width and style read and discarded) with their aliases, the base of ports, Globals and off-page connectors with their trailers, the bbox and transform (rotation and mirror) of placed instances and connectors, title blocks (property pairs and the page count and number of the trailer) and bus entries; it skips pin +0x0A, the primitive word and ERC objects, and does not read page graphics.
 
 ---
 

@@ -14,7 +14,7 @@ import type { PinMapData } from "./structure-types.js";
 import type { PageData } from "./page-parser.js";
 import { symbolKey } from "./symbol-attachment.js";
 import { buildPageCoordMap, renameGroups, type PageCoordMap } from "./page-groups.js";
-import { collectPins } from "./net-pins.js";
+import { collectPins, type PinInfo } from "./net-pins.js";
 import { assembleNets } from "./net-assembly.js";
 import { collectPaddedNetLabelSources } from "./net-label-sources.js";
 
@@ -72,6 +72,10 @@ export function buildNetConnectivity(
   componentPins: Map<string, Map<string, string>>;
   /** Nets named by text with leading or trailing whitespace, to the objects carrying it. */
   netLabelSources?: Record<string, NetLabelSource[]>;
+  /** Each page's resolved wire groups, as connectivity used them. */
+  coordMaps: PageCoordMap[];
+  /** Every pin with its page and coordinate. */
+  pins: PinInfo[];
 } {
   // A global/port symbol's pairingId indexes the Library string list, which
   // holds its net name. The symbol's own `name` field is the schematic symbol
@@ -162,5 +166,5 @@ export function buildNetConnectivity(
     strLst,
     nets
   );
-  return { nets, componentPins, netLabelSources };
+  return { nets, componentPins, netLabelSources, coordMaps: resolvedCoordMaps, pins: allPins };
 }

@@ -15,6 +15,7 @@
  * when no pin of the two copies sits on two different nets.
  */
 
+import { pageLabel } from "./page-views.js";
 import type { PageData } from "./page-parser.js";
 import type { PlacedInstance } from "./structures.js";
 import { MANUFACTURER_PN_KEYS, PART_NUMBER_KEYS, readProperty } from "./component-builder.js";
@@ -39,11 +40,6 @@ interface PartGroup {
 /** Two part numbers disagree only when both are recorded: a unit may leave them blank. */
 const differs = (a: string | undefined, b: string | undefined): boolean =>
   a !== undefined && b !== undefined && a.trim() !== b.trim();
-
-const pageLabel = (page: PageData): string => {
-  const block = page.placement?.path.join("/");
-  return block ? `${page.name} (block ${block})` : page.name;
-};
 
 const unique = (pages: string[]): string[] => [...new Set(pages)];
 
@@ -148,16 +144,18 @@ const renameInNets = (nets: NetConnections, from: string, to: string): void => {
  *
  * Updates `result.duplicates`, the nets and components, and the occurrence
  * refdes a variant resolves through, and returns the sections each refdes
- * draws more than once.
+ * draws more than once. `renames` receives each key folded into another.
  */
 export function mergeRepeatedSections(
   result: DuplicateRefdesResult,
   nets: NetConnections,
   components: ComponentDetails,
-  occurrenceRefdes: Map<number, string>
+  occurrenceRefdes: Map<number, string>,
+  renames?: Map<string, string>
 ): Record<string, RepeatedSection[]> {
   const repeated: Record<string, RepeatedSection[]> = {};
   const renameOccurrences = (from: string, to: string): void => {
+    renames?.set(from, to);
     for (const [id, refdes] of occurrenceRefdes) if (refdes === from) occurrenceRefdes.set(id, to);
   };
 

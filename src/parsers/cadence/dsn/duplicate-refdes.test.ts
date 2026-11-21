@@ -30,6 +30,9 @@ const inst = (
   symbolDisplayProps: [],
   t0x10s: [],
   sectionIndex,
+  box: { x1: 0, y1: 0, x2: 0, y2: 0 },
+  rotation: 0,
+  mirrored: false,
 });
 
 const page = (name: string, ...placedInstances: PlacedInstance[]): PageData =>

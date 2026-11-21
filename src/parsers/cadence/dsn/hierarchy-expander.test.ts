@@ -28,6 +28,9 @@ const instance = (dbId: number, reference: string, pins: T0x10[] = []): PlacedIn
   symbolDisplayProps: [],
   t0x10s: pins,
   sectionIndex: 0,
+  box: { x1: 0, y1: 0, x2: 0, y2: 0 },
+  rotation: 0,
+  mirrored: false,
 });
 
 const block = (dbId: number, reference: string, ports: string[], pins: T0x10[]): DrawnInstance => ({
@@ -46,6 +49,10 @@ const page = (
 ): PageData => ({
   name,
   netTable: new Map(),
+  sizeName: "A",
+  widthInches: 11,
+  heightInches: 8.5,
+  busEntries: [],
   wires: [],
   placedInstances,
   drawnInstances,
