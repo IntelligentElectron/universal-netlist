@@ -1,0 +1,546 @@
+{
+  "universalNetlistSchemaVersion": 3,
+  "metadata": {
+    "generatedAt": "2026-11-21T05:52:03.125Z",
+    "netlistHash": "sha256:2a4e9e32745275b5791be7da0efb4c7dccd3c9e7e8b50b7024ef6b2a97d93cd5",
+    "origin": {
+      "type": "vendor",
+      "source": {
+        "vendor": "Cadence",
+        "fileType": ".dsn"
+      }
+    }
+  },
+  "nets": {
+    "VBAT": {
+      "J2": [
+        "1"
+      ]
+    },
+    "GND": {
+      "J2": [
+        "2"
+      ],
+      "SW2": [
+        "1"
+      ],
+      "DS1": [
+        "1"
+      ],
+      "J3": [
+        "9",
+        "7",
+        "8"
+      ],
+      "J1": [
+        "2"
+      ],
+      "J6": [
+        "9",
+        "7",
+        "8"
+      ],
+      "J4": [
+        "9",
+        "7",
+        "8"
+      ],
+      "J5": [
+        "9",
+        "7",
+        "8"
+      ]
+    },
+    "N33141": {
+      "DS3": [
+        "2"
+      ],
+      "R3": [
+        "1"
+      ]
+    },
+    "LED2": {
+      "DS3": [
+        "1"
+      ]
+    },
+    "N59301": {
+      "SW2": [
+        "2"
+      ],
+      "R4": [
+        "1"
+      ]
+    },
+    "N08912": {
+      "D1": [
+        "2"
+      ],
+      "J1": [
+        "1"
+      ]
+    },
+    "N08855": {
+      "D1": [
+        "1"
+      ],
+      "R1": [
+        "2"
+      ]
+    },
+    "VCC": {
+      "R3": [
+        "2"
+      ],
+      "J3": [
+        "4",
+        "5",
+        "6"
+      ],
+      "J6": [
+        "4",
+        "5",
+        "6"
+      ],
+      "J4": [
+        "4",
+        "5",
+        "6"
+      ],
+      "R2": [
+        "2"
+      ],
+      "R4": [
+        "2"
+      ],
+      "J5": [
+        "4",
+        "5",
+        "6"
+      ]
+    },
+    "N33179": {
+      "DS1": [
+        "2"
+      ],
+      "R1": [
+        "1"
+      ]
+    },
+    "N29732": {
+      "J3": [
+        "1"
+      ]
+    },
+    "N22156": {
+      "J3": [
+        "2"
+      ]
+    },
+    "N22160": {
+      "J3": [
+        "3"
+      ]
+    },
+    "N25749": {
+      "J6": [
+        "1"
+      ]
+    },
+    "N25751": {
+      "J6": [
+        "2"
+      ]
+    },
+    "N25753": {
+      "J6": [
+        "3"
+      ]
+    },
+    "N58139": {
+      "W1": [
+        "1"
+      ]
+    },
+    "N26831": {
+      "J4": [
+        "1"
+      ]
+    },
+    "N26833": {
+      "J4": [
+        "2"
+      ]
+    },
+    "N26835": {
+      "J4": [
+        "3"
+      ]
+    },
+    "N33119": {
+      "R2": [
+        "1"
+      ],
+      "DS2": [
+        "2"
+      ]
+    },
+    "LED1": {
+      "DS2": [
+        "1"
+      ]
+    },
+    "N28499": {
+      "J5": [
+        "1"
+      ]
+    },
+    "N28501": {
+      "J5": [
+        "2"
+      ]
+    },
+    "N28503": {
+      "J5": [
+        "3"
+      ]
+    }
+  },
+  "components": {
+    "J2": {
+      "value": "S2B-PH-K-S(LF)(SN)",
+      "pins": {
+        "1": "VBAT",
+        "2": "GND"
+      },
+      "mpn": "S2B-PH-K-S(LF)(SN)",
+      "internal_pn": "JST2_SIDE_TH",
+      "manufacturer": "JST Sales America Inc.",
+      "description": "CONN HEADER PH SIDE 2POS 2mm"
+    },
+    "DS3": {
+      "value": "LB_QH9G_N100_35_1",
+      "pins": {
+        "1": {
+          "name": "C",
+          "net": "LED2"
+        },
+        "2": {
+          "name": "A",
+          "net": "N33141"
+        }
+      },
+      "mpn": "LB_QH9G-N100-35-1",
+      "internal_pn": "LB QH9G-N100-35-1",
+      "manufacturer": "OSRAM Semiconductors",
+      "description": "LED Blue Diffused 0402"
+    },
+    "SW2": {
+      "value": "B3U-1000P",
+      "pins": {
+        "1": "GND",
+        "2": "N59301"
+      },
+      "mpn": "B3U-1000P",
+      "internal_pn": "B3U-1000P",
+      "manufacturer": "Omron Electronics",
+      "description": "SWITCH TACTILE SPST-NO 0.05A 12V"
+    },
+    "D1": {
+      "value": "SE20AFJ-M3/6A",
+      "pins": {
+        "1": {
+          "name": "C",
+          "net": "N08855"
+        },
+        "2": {
+          "name": "A",
+          "net": "N08912"
+        }
+      },
+      "mpn": "SE20AFJ-M3/6A",
+      "internal_pn": "SE20AFJ_M3_6A",
+      "manufacturer": "Vishay Semiconductor Diodes Division",
+      "description": "DIODE GEN PURP 600V 2A DO221AC"
+    },
+    "R3": {
+      "value": "30",
+      "pins": {
+        "1": "N33141",
+        "2": "VCC"
+      },
+      "mpn": "CRCW040230R0FKED",
+      "internal_pn": "CRCW040230R0FKED",
+      "manufacturer": "Vishay/Dale",
+      "description": "RES SMD 30 OHM 1% 1/16W 0402"
+    },
+    "DS1": {
+      "value": "LB_QH9G_N100_35_1",
+      "pins": {
+        "1": {
+          "name": "C",
+          "net": "GND"
+        },
+        "2": {
+          "name": "A",
+          "net": "N33179"
+        }
+      },
+      "mpn": "LB_QH9G-N100-35-1",
+      "internal_pn": "LB QH9G-N100-35-1",
+      "manufacturer": "OSRAM Semiconductors",
+      "description": "LED Blue Diffused 0402"
+    },
+    "R1": {
+      "value": "30",
+      "pins": {
+        "1": "N33179",
+        "2": "N08855"
+      },
+      "mpn": "CRCW040230R0FKED",
+      "internal_pn": "CRCW040230R0FKED",
+      "manufacturer": "Vishay/Dale",
+      "description": "RES SMD 30 OHM 1% 1/16W 0402"
+    },
+    "J3": {
+      "value": "GPIO_3x3_100",
+      "pins": {
+        "1": {
+          "name": "GPIO1",
+          "net": "N29732"
+        },
+        "2": {
+          "name": "GPIO2",
+          "net": "N22156"
+        },
+        "3": {
+          "name": "GPIO3",
+          "net": "N22160"
+        },
+        "4": {
+          "name": "VDD",
+          "net": "VCC"
+        },
+        "5": {
+          "name": "VDD1",
+          "net": "VCC"
+        },
+        "6": {
+          "name": "VDD2",
+          "net": "VCC"
+        },
+        "7": {
+          "name": "GND2",
+          "net": "GND"
+        },
+        "8": {
+          "name": "GND1",
+          "net": "GND"
+        },
+        "9": {
+          "name": "GND",
+          "net": "GND"
+        }
+      },
+      "mpn": "n/a",
+      "internal_pn": "GPIO_3x3_100",
+      "manufacturer": "n/a",
+      "description": "3x3 Array .1\" header"
+    },
+    "J1": {
+      "value": "640456-2",
+      "pins": {
+        "1": "N08912",
+        "2": "GND"
+      },
+      "mpn": "640456-2",
+      "internal_pn": "640456_2",
+      "manufacturer": "TE Connectivity",
+      "description": "CONN HEADER VERT 2POS .100 TIN"
+    },
+    "J6": {
+      "value": "GPIO_3x3_100",
+      "pins": {
+        "1": {
+          "name": "GPIO1",
+          "net": "N25749"
+        },
+        "2": {
+          "name": "GPIO2",
+          "net": "N25751"
+        },
+        "3": {
+          "name": "GPIO3",
+          "net": "N25753"
+        },
+        "4": {
+          "name": "VDD",
+          "net": "VCC"
+        },
+        "5": {
+          "name": "VDD1",
+          "net": "VCC"
+        },
+        "6": {
+          "name": "VDD2",
+          "net": "VCC"
+        },
+        "7": {
+          "name": "GND2",
+          "net": "GND"
+        },
+        "8": {
+          "name": "GND1",
+          "net": "GND"
+        },
+        "9": {
+          "name": "GND",
+          "net": "GND"
+        }
+      },
+      "mpn": "n/a",
+      "internal_pn": "GPIO_3x3_100",
+      "manufacturer": "n/a",
+      "description": "3x3 Array .1\" header"
+    },
+    "W1": {
+      "value": "26AWG",
+      "pins": {
+        "1": "N58139"
+      },
+      "mpn": "N/A",
+      "internal_pn": "WIRE_26AWG",
+      "manufacturer": "N/A",
+      "description": "Wire Hole, 22AWG"
+    },
+    "J4": {
+      "value": "GPIO_3x3_100",
+      "pins": {
+        "1": {
+          "name": "GPIO1",
+          "net": "N26831"
+        },
+        "2": {
+          "name": "GPIO2",
+          "net": "N26833"
+        },
+        "3": {
+          "name": "GPIO3",
+          "net": "N26835"
+        },
+        "4": {
+          "name": "VDD",
+          "net": "VCC"
+        },
+        "5": {
+          "name": "VDD1",
+          "net": "VCC"
+        },
+        "6": {
+          "name": "VDD2",
+          "net": "VCC"
+        },
+        "7": {
+          "name": "GND2",
+          "net": "GND"
+        },
+        "8": {
+          "name": "GND1",
+          "net": "GND"
+        },
+        "9": {
+          "name": "GND",
+          "net": "GND"
+        }
+      },
+      "mpn": "n/a",
+      "internal_pn": "GPIO_3x3_100",
+      "manufacturer": "n/a",
+      "description": "3x3 Array .1\" header"
+    },
+    "R2": {
+      "value": "30",
+      "pins": {
+        "1": "N33119",
+        "2": "VCC"
+      },
+      "mpn": "CRCW040230R0FKED",
+      "internal_pn": "CRCW040230R0FKED",
+      "manufacturer": "Vishay/Dale",
+      "description": "RES SMD 30 OHM 1% 1/16W 0402"
+    },
+    "DS2": {
+      "value": "LB_QH9G_N100_35_1",
+      "pins": {
+        "1": {
+          "name": "C",
+          "net": "LED1"
+        },
+        "2": {
+          "name": "A",
+          "net": "N33119"
+        }
+      },
+      "mpn": "LB_QH9G-N100-35-1",
+      "internal_pn": "LB QH9G-N100-35-1",
+      "manufacturer": "OSRAM Semiconductors",
+      "description": "LED Blue Diffused 0402"
+    },
+    "R4": {
+      "value": "10k",
+      "pins": {
+        "1": "N59301",
+        "2": "VCC"
+      },
+      "mpn": "CRCW040210K0FKED",
+      "internal_pn": "CRCW040210K0FKED",
+      "manufacturer": "Vishay/Dale",
+      "description": "RES SMD 10k OHM 1% 1/16W 0402"
+    },
+    "J5": {
+      "value": "GPIO_3x3_100",
+      "pins": {
+        "1": {
+          "name": "GPIO1",
+          "net": "N28499"
+        },
+        "2": {
+          "name": "GPIO2",
+          "net": "N28501"
+        },
+        "3": {
+          "name": "GPIO3",
+          "net": "N28503"
+        },
+        "4": {
+          "name": "VDD",
+          "net": "VCC"
+        },
+        "5": {
+          "name": "VDD1",
+          "net": "VCC"
+        },
+        "6": {
+          "name": "VDD2",
+          "net": "VCC"
+        },
+        "7": {
+          "name": "GND2",
+          "net": "GND"
+        },
+        "8": {
+          "name": "GND1",
+          "net": "GND"
+        },
+        "9": {
+          "name": "GND",
+          "net": "GND"
+        }
+      },
+      "mpn": "n/a",
+      "internal_pn": "GPIO_3x3_100",
+      "manufacturer": "n/a",
+      "description": "3x3 Array .1\" header"
+    }
+  }
+}
