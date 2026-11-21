@@ -315,8 +315,8 @@ const readPinDetails = (entry: unknown, pin: string, fail: Fail): PinEntry => {
   if (!isObject(entry)) fail(`pin ${pin} must be a net name or an object`);
   rejectUnexpectedKeys(entry, PIN_DETAIL_KEYS, `pin ${pin}`, fail);
   if (typeof entry.net !== "string") fail(`pin ${pin} must have a string \`net\``);
-  if (entry.name !== undefined && (typeof entry.name !== "string" || !entry.name)) {
-    fail(`pin ${pin} field 'name' must be a non-empty string`);
+  if (entry.name !== undefined && typeof entry.name !== "string") {
+    fail(`pin ${pin} field 'name' must be a string`);
   }
   if (entry.type !== undefined && !PIN_TYPE_SET.has(entry.type as string)) {
     fail(`pin ${pin} field 'type' must be one of ${PIN_TYPES.join(", ")}`);

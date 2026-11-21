@@ -452,6 +452,15 @@ describe("parseUniversalNetlist", () => {
       expect(document.metadata.netlistHash).toBe(calculateUniversalNetlistHash(detailed()));
     });
 
+    it("keeps an empty pin name a version 3 file may carry", () => {
+      const v3: ParsedNetlist = {
+        nets: { GND: { U1: ["2"] } },
+        components: { U1: { pins: { "2": { name: "", net: "GND" } } } },
+      };
+      const text = serializeUniversalNetlist(v3, { generatedAt: GENERATED_AT });
+      expect(parseUniversalNetlist(text).components.U1.pins["2"]).toEqual({ name: "", net: "GND" });
+    });
+
     it("leaves the hash of a netlist without net properties as it was", () => {
       const plain = validateUniversalNetlist(valid());
       expect(calculateUniversalNetlistHash({ ...plain, netProperties: {} })).toBe(

@@ -331,7 +331,6 @@ A pin is keyed by its number. A symbol pin with no number (KiCad writes `(pin ""
       "properties": {
         "name": {
           "type": "string",
-          "minLength": 1,
           "description": "Pin name (e.g., 'VIN', 'GND', 'EN'), when it differs from the pin number"
         },
         "net": {
@@ -348,7 +347,7 @@ A pin is keyed by its number. A symbol pin with no number (KiCad writes `(pin ""
         },
         "hidden": {
           "const": true,
-          "description": "Set on a power pin the symbol does not draw, which joins its net by name"
+          "description": "Set on a power pin the symbol does not draw, which joins its net by name; the parsers write it together with `type`"
         }
       },
       "required": ["net"],
