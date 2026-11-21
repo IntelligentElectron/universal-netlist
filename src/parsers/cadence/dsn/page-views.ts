@@ -92,8 +92,13 @@ export function buildPageViews(
     for (let hops = 0; refdesRenames.has(key) && hops < 100; hops++) key = refdesRenames.get(key)!;
     return key;
   };
+  // Pins by the page that draws them, at the point drawn: a pin that follows a
+  // hierarchical port carries its parent page's index and coordinate instead.
   const pinsByPage = pages.map((): PinInfo[] => []);
-  for (const pin of pins) pinsByPage[pin.pageIdx]?.push(pin);
+  for (const pin of pins) {
+    const drawn = pin.drawn ? { ...pin, ...pin.drawn } : pin;
+    pinsByPage[drawn.pageIdx]?.push(drawn);
+  }
 
   return pages.map((page, i) => {
     const coordToNet = coordMaps[i]?.coordToNet ?? new Map<string, string>();
@@ -111,6 +116,15 @@ export function buildPageViews(
       const group = coordToNet.get(key);
       return group === undefined ? undefined : (groupNet.get(group) ?? group);
     };
+    // A connector touching only pins has no wire group: it is on the net of a pin on it.
+    const pinNet = new Map<string, string>();
+    for (const pin of pagePins) {
+      const net = netOf(components[finalRefdes(pin.refdes)]?.pins[pin.pinNumber]);
+      if (net && net !== "NC" && !pinNet.has(pin.coord)) pinNet.set(pin.coord, net);
+    }
+    const pinOnSymbol = coordMaps[i]?.pinOnSymbol;
+    const connectorNet = (key: string): string | undefined =>
+      netAt(key) ?? pinNet.get(pinOnSymbol?.get(key) ?? "");
 
     const pinsByRefdes = new Map<string, PinInfo[]>();
     for (const pin of pagePins) {
@@ -123,7 +137,7 @@ export function buildPageViews(
       name: strLst[sym.pairingId] ?? sym.name,
       x: sym.locX,
       y: sym.locY,
-      ...optional("net", netAt(key)),
+      ...optional("net", connectorNet(key)),
     });
 
     const titleBlock = page.titleBlock;

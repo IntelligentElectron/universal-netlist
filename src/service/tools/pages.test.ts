@@ -7,6 +7,10 @@ import { findPage } from "./pages.js";
 const FIXTURES = join(import.meta.dirname, "../../../test/fixtures/cadence");
 const MULTIO = join(FIXTURES, "multio/MULTIO.DSN");
 const META_CARRIER = join(FIXTURES, "parallella-meta-carrier/meta_carrier_sch_rev1.dsn");
+const LAUNCHXL = join(
+  FIXTURES,
+  "LAUNCHXL-CC1310/doc/hardware/cc1310/launchpad/design_files/Cadence/LAUNCHXL-CC1310.DSN"
+);
 
 type Pages = { pages: { page: string; parts: number }[] };
 
@@ -49,6 +53,25 @@ describe("list_pages and get_page", () => {
     expect(sections.length).toBeGreaterThan(1);
     const numbers = sections.flatMap((part) => part.pins.map((pin) => pin.number));
     expect(new Set(numbers).size).toBe(numbers.length);
+  }, 60_000);
+
+  it("shows the pins of parts inside a placed block, ports included", async () => {
+    const view = (await callTool("get_page", {
+      design: META_CARRIER,
+      page: "LINK4 (block LINK4-W)",
+    })) as PageView;
+    expect(view.parts.filter((part) => part.pins.length === 0)).toEqual([]);
+    const r143 = view.parts.find((part) => part.refdes === "R143");
+    expect(r143?.pins.map((pin) => [pin.number, pin.net])).toEqual([
+      ["1", "WE_FRAME_IN_N0"],
+      ["2", "Q0_VDDIO"],
+    ]);
+  }, 60_000);
+
+  it("gives a Global that touches only pins the net of those pins", async () => {
+    const view = (await callTool("get_page", { design: LAUNCHXL, page: "4_XDS110" })) as PageView;
+    const gnd = view.globals.find((g) => g.x === 710 && g.y === 290);
+    expect(gnd).toMatchObject({ name: "GND", net: "GND" });
   }, 60_000);
 
   it("refuses a design that is not a .DSN schematic", async () => {
