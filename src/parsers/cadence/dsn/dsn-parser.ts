@@ -79,9 +79,10 @@ export function parseDsnFile(
   }
 }
 
-/** A design's pages as drawn: one view and one SVG drawing per page, in the same order. */
+/** A design's pages: one view per page and, when drawn, one SVG per page in the same order. */
 export interface DesignPages {
   pages: PageView[];
+  /** Empty unless the pages were drawn; "" for a page that could not be. */
   svgs: string[];
 }
 
@@ -89,7 +90,11 @@ export interface DesignPages {
  * Parse a design's schematic pages as drawn, with every net named as the
  * netlist names it. Pages do not depend on a design variant.
  */
-export function parseDsnPages(source: Uint8Array | string, passwords?: DsnPasswords): DesignPages {
+export function parseDsnPages(
+  source: Uint8Array | string,
+  passwords?: DsnPasswords,
+  draw = false
+): DesignPages {
   const ole = new DsnReader(source, passwords);
   const entries = ole.listAllEntries();
   const libEntry = findRootLibrary(entries);
@@ -103,6 +108,7 @@ export function parseDsnPages(source: Uint8Array | string, passwords?: DsnPasswo
       library
     );
     const views = buildPageViews(pages, coordMaps, pins, netlist.components, strLst, refdesRenames);
+    if (!draw) return { pages: views, svgs: [] };
     const cache = entries.find((e) => e.path === "Cache" && e.entry.type === 2);
     // Drawing is best-effort: a failure costs that drawing, never the page views.
     const attempt = <T>(fn: () => T, fallback: T): T => {

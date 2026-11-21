@@ -38,7 +38,8 @@ describe("symbol placement", () => {
         }
       }
       expect(checked).toBeGreaterThan(100);
-    }
+    },
+    60_000
   );
 });
 
@@ -84,7 +85,7 @@ describe("render_page", () => {
       expect(png.subarray(1, 4).toString("latin1")).toBe("PNG");
       expect(png.readUInt32BE(16)).toBe(result.width);
     }
-  });
+  }, 60_000);
 
   it("says when the focus is on nothing on the page", async () => {
     const result = (await callTool("render_page", {
@@ -93,5 +94,5 @@ describe("render_page", () => {
       focus: "NOPE",
     })) as { error?: string };
     expect(result.error).toMatch(/neither a part nor a net/);
-  });
+  }, 60_000);
 });

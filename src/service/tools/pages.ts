@@ -24,7 +24,8 @@ export interface PageSummary {
 
 export const loadPages = async (
   design: string,
-  context: ServiceContext
+  context: ServiceContext,
+  draw = false
 ): Promise<({ designPath: string } & DesignPages) | ErrorResult> => {
   const designPath = resolvePath(design, context.root);
   // A suffix test, not path.extname, which reads a file named `.DSN` as having no extension.
@@ -35,9 +36,9 @@ export const loadPages = async (
   try {
     const design = await cached(
       context.cache,
-      { kind: "pages", path: designPath },
+      { kind: draw ? "drawings" : "pages", path: designPath },
       parser,
-      async (p) => parseDsnPages(await p.files.readFile(designPath), p.dsnPasswords)
+      async (p) => parseDsnPages(await p.files.readFile(designPath), p.dsnPasswords, draw)
     );
     return { designPath, ...design };
   } catch (error) {

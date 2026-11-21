@@ -70,7 +70,7 @@ export const renderPage = async (
   focus: string | undefined,
   context: ServiceContext
 ): Promise<RenderPageResult | ErrorResult> => {
-  const loaded = await loadPages(design, context);
+  const loaded = await loadPages(design, context, true);
   if ("error" in loaded) return loaded;
   const view = findPage(loaded.pages, page);
   if ("error" in view) return view;

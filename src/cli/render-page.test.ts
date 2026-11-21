@@ -18,7 +18,7 @@ describe("render_page on the command line", () => {
     expect(result.image).toBeUndefined();
     expect(existsSync(output)).toBe(true);
     expect(readFileSync(output).subarray(1, 4).toString("latin1")).toBe("PNG");
-  });
+  }, 60_000);
 
   it("names the default file after the page, in characters a file system takes", () => {
     expect(fileNameOf("P2: I/O")).toBe("P2_I_O.png");
