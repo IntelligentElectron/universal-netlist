@@ -12,10 +12,10 @@
  */
 
 import type { ComponentDetails, PinEntry } from "../../types.js";
-import { createPinEntry } from "../../types.js";
+import { createPinEntry, PIN_TYPE_BY_CODE } from "../../types.js";
 import { hasDnsValueMarker, isDnsComponent, stripDnsMarkers } from "../../circuit-traversal.js";
 import { RECORD_TYPES, type AltiumRecord, type AltiumSchematic } from "./types.js";
-import { fieldText, ownerOf } from "./records.js";
+import { field, fieldText, ownerOf } from "./records.js";
 
 type Component = ComponentDetails[string];
 
@@ -156,7 +156,11 @@ export const extractComponents = (schematic: AltiumSchematic): ComponentDetails 
     for (const child of part.children ?? []) {
       if (child.RECORD !== RECORD_TYPES.PIN || !pinBelongsToInstance(child, part)) continue;
       const number = pinNumber(child);
-      if (number) pins[number] = createPinEntry(number, fieldText(child, "Name"), "");
+      // `Electrical` uses Capture's codes; Altium leaves it out for 0, input. A
+      // value that is not a code gives no type.
+      const electrical = field(child, "Electrical") ?? "0";
+      const type = /^\d$/.test(String(electrical)) ? PIN_TYPE_BY_CODE[Number(electrical)] : undefined;
+      if (number) pins[number] = createPinEntry(number, fieldText(child, "Name"), "", { type });
     }
 
     const component: Component = { pins };

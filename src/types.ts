@@ -24,9 +24,10 @@ export interface NetConnections {
 /**
  * A pin's electrical type, as its library symbol declares it.
  *
- * The first eight are Cadence Capture's pin types (docs/cadence-dsn-format.md
- * §5.2.5). `power_in`, `power_out`, `unspecified`, `free` and `no_connect` are
- * the further types KiCad and Altium symbols can declare.
+ * The first eight are the types Cadence Capture and Altium declare, `power`
+ * being a supply pin of either direction. `power_in`, `power_out`,
+ * `unspecified`, `free` and `no_connect` are the further types of KiCad, which
+ * also declares the first seven.
  */
 export const PIN_TYPES = [
   "input",
@@ -44,6 +45,21 @@ export const PIN_TYPES = [
   "no_connect",
 ] as const;
 export type PinType = (typeof PIN_TYPES)[number];
+
+/**
+ * Pin types by the code Capture (`pin_type`, docs/cadence-dsn-format.md §5.2.5)
+ * and Altium (a pin record's `Electrical`, absent for 0) both write.
+ */
+export const PIN_TYPE_BY_CODE: readonly PinType[] = [
+  "input",
+  "bidirectional",
+  "output",
+  "open_collector",
+  "passive",
+  "tristate",
+  "open_emitter",
+  "power",
+];
 
 /** What a pin entry says about a pin beyond its net. */
 export interface PinDetails {

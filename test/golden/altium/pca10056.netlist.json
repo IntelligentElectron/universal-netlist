@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T20:27:49.726Z",
-    "netlistHash": "sha256:b80db7f39b3c20044ec9005559562044c7c69d57359fe3198046eab0cd6a5cb8",
+    "generatedAt": "2026-11-21T21:40:46.321Z",
+    "netlistHash": "sha256:f72e5d8279df4eb45647a5a6cf0a9518e83aef9aa35dd1ec766025b86a2f01b1",
     "origin": {
       "type": "vendor",
       "source": {
@@ -3654,8 +3654,14 @@
     },
     "C23": {
       "pins": {
-        "1": "ANT",
-        "2": "GND"
+        "1": {
+          "net": "ANT",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -3666,15 +3672,18 @@
       "pins": {
         "1": {
           "name": "IN",
-          "net": "RF"
+          "net": "RF",
+          "type": "passive"
         },
         "2": {
           "name": "Shield",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "3": {
           "name": "OUT",
-          "net": "ANT"
+          "net": "ANT",
+          "type": "passive"
         }
       },
       "mpn": "MM8130-2600",
@@ -3686,299 +3695,373 @@
       "pins": {
         "74": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "C1": {
           "name": "DEC1",
-          "net": "DEC1"
+          "net": "DEC1",
+          "type": "power"
         },
         "W1": {
           "name": "VDD",
-          "net": "VDD_nRF"
+          "net": "VDD_nRF",
+          "type": "power"
         },
         "F23": {
           "name": "VSS_PA",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "H23": {
           "name": "ANT",
-          "net": "NetC3_2"
+          "net": "NetC3_2",
+          "type": "bidirectional"
         },
         "E24": {
           "name": "DEC6",
-          "net": "DEC4_6"
+          "net": "DEC4_6",
+          "type": "power"
         },
         "D23": {
           "name": "DEC3",
-          "net": "DEC3"
+          "net": "DEC3",
+          "type": "power"
         },
         "B24": {
           "name": "XC1",
-          "net": "XC1"
+          "net": "XC1",
+          "type": "input"
         },
         "A23": {
           "name": "XC2",
-          "net": "XC2"
+          "net": "XC2",
+          "type": "output"
         },
         "A22": {
           "name": "VDD",
-          "net": "VDD_nRF"
+          "net": "VDD_nRF",
+          "type": "power"
         },
         "A20": {
           "name": "P1.10",
-          "net": "P1.10"
+          "net": "P1.10",
+          "type": "bidirectional"
         },
         "D2": {
           "name": "P0.00/XL1",
-          "net": "P0.00/XL1"
+          "net": "P0.00/XL1",
+          "type": "bidirectional"
         },
         "F2": {
           "name": "P0.01/XL2",
-          "net": "P0.01/XL2"
+          "net": "P0.01/XL2",
+          "type": "bidirectional"
         },
         "B11": {
           "name": "P0.28/AIN4",
-          "net": "P0.28/AIN4"
+          "net": "P0.28/AIN4",
+          "type": "bidirectional"
         },
         "B5": {
           "name": "DEC4",
-          "net": "DEC4_6"
+          "net": "DEC4_6",
+          "type": "power"
         },
         "B7": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "B1": {
           "name": "VDD",
-          "net": "VDD_nRF"
+          "net": "VDD_nRF",
+          "type": "power"
         },
         "B3": {
           "name": "DCC",
-          "net": "NetL2_2"
+          "net": "NetL2_2",
+          "type": "output"
         },
         "AA24": {
           "name": "SWDCLK",
-          "net": "SWDCLK"
+          "net": "SWDCLK",
+          "type": "input"
         },
         "AC24": {
           "name": "SWDIO",
-          "net": "SWDIO"
+          "net": "SWDIO",
+          "type": "bidirectional"
         },
         "Y23": {
           "name": "P1.01",
-          "net": "P1.01"
+          "net": "P1.01",
+          "type": "bidirectional"
         },
         "AD4": {
           "name": "D-",
-          "net": "D_N"
+          "net": "D_N",
+          "type": "bidirectional"
         },
         "AC15": {
           "name": "P0.19",
-          "net": "P0.19"
+          "net": "P0.19",
+          "type": "bidirectional"
         },
         "Y2": {
           "name": "VDDH",
-          "net": "VDD_HV"
+          "net": "VDD_HV",
+          "type": "power"
         },
         "AB2": {
           "name": "DCCH",
-          "net": "NetL4_2"
+          "net": "NetL4_2",
+          "type": "power"
         },
         "AD2": {
           "name": "VBUS",
-          "net": "VBUS_nRF"
+          "net": "VBUS_nRF",
+          "type": "power"
         },
         "AC5": {
           "name": "DECUSB",
-          "net": "NetC20_1"
+          "net": "NetC20_1",
+          "type": "power"
         },
         "AD6": {
           "name": "D+",
-          "net": "D_P"
+          "net": "D_P",
+          "type": "bidirectional"
         },
         "AD16": {
           "name": "P0.20",
-          "net": "P0.20"
+          "net": "P0.20",
+          "type": "bidirectional"
         },
         "AC17": {
           "name": "P0.21",
-          "net": "P0.21"
+          "net": "P0.21",
+          "type": "bidirectional"
         },
         "AD18": {
           "name": "P0.22",
-          "net": "P0.22"
+          "net": "P0.22",
+          "type": "bidirectional"
         },
         "AC19": {
           "name": "P0.23",
-          "net": "P0.23"
+          "net": "P0.23",
+          "type": "bidirectional"
         },
         "AD20": {
           "name": "P0.24",
-          "net": "P0.24"
+          "net": "P0.24",
+          "type": "bidirectional"
         },
         "AD23": {
           "name": "VDD",
-          "net": "VDD_nRF"
+          "net": "VDD_nRF",
+          "type": "power"
         },
         "L24": {
           "name": "P0.09/NFC1",
-          "net": "P0.09/NFC1"
+          "net": "P0.09/NFC1",
+          "type": "bidirectional"
         },
         "R1": {
           "name": "P1.09",
-          "net": "P1.09"
+          "net": "P1.09",
+          "type": "bidirectional"
         },
         "AC21": {
           "name": "P0.25",
-          "net": "P0.25"
+          "net": "P0.25",
+          "type": "bidirectional"
         },
         "AD22": {
           "name": "P1.00",
-          "net": "P1.00"
+          "net": "P1.00",
+          "type": "bidirectional"
         },
         "G1": {
           "name": "P0.26",
-          "net": "P0.26"
+          "net": "P0.26",
+          "type": "bidirectional"
         },
         "H2": {
           "name": "P0.27",
-          "net": "P0.27"
+          "net": "P0.27",
+          "type": "bidirectional"
         },
         "J1": {
           "name": "P0.04/AIN2",
-          "net": "P0.04/AIN2"
+          "net": "P0.04/AIN2",
+          "type": "bidirectional"
         },
         "K2": {
           "name": "P0.05/AIN3",
-          "net": "P0.05/AIN3"
+          "net": "P0.05/AIN3",
+          "type": "bidirectional"
         },
         "L1": {
           "name": "P0.06",
-          "net": "P0.06"
+          "net": "P0.06",
+          "type": "bidirectional"
         },
         "M2": {
           "name": "P0.07",
-          "net": "P0.07"
+          "net": "P0.07",
+          "type": "bidirectional"
         },
         "N1": {
           "name": "P0.08",
-          "net": "P0.08"
+          "net": "P0.08",
+          "type": "bidirectional"
         },
         "P2": {
           "name": "P1.08",
-          "net": "P1.08"
+          "net": "P1.08",
+          "type": "bidirectional"
         },
         "AD8": {
           "name": "P0.13",
-          "net": "P0.13"
+          "net": "P0.13",
+          "type": "bidirectional"
         },
         "AC9": {
           "name": "P0.14",
-          "net": "P0.14"
+          "net": "P0.14",
+          "type": "bidirectional"
         },
         "AD10": {
           "name": "P0.15",
-          "net": "P0.15"
+          "net": "P0.15",
+          "type": "bidirectional"
         },
         "AC11": {
           "name": "P0.16",
-          "net": "P0.16"
+          "net": "P0.16",
+          "type": "bidirectional"
         },
         "T2": {
           "name": "P0.11",
-          "net": "P0.11"
+          "net": "P0.11",
+          "type": "bidirectional"
         },
         "U1": {
           "name": "P0.12",
-          "net": "P0.12"
+          "net": "P0.12",
+          "type": "bidirectional"
         },
         "AD12": {
           "name": "P0.17",
-          "net": "P0.17"
+          "net": "P0.17",
+          "type": "bidirectional"
         },
         "AC13": {
           "name": "P0.18/RESET",
-          "net": "P0.18/RESET"
+          "net": "P0.18/RESET",
+          "type": "bidirectional"
         },
         "N24": {
           "name": "DEC5",
-          "net": "NetC9_1"
+          "net": "NetC9_1",
+          "type": "power"
         },
         "J24": {
           "name": "P0.10/NFC2",
-          "net": "P0.10/NFC2"
+          "net": "P0.10/NFC2",
+          "type": "bidirectional"
         },
         "B13": {
           "name": "P0.03/AIN1",
-          "net": "P0.03/AIN1"
+          "net": "P0.03/AIN1",
+          "type": "bidirectional"
         },
         "A12": {
           "name": "P0.02/AIN0",
-          "net": "P0.02/AIN0"
+          "net": "P0.02/AIN0",
+          "type": "bidirectional"
         },
         "A10": {
           "name": "P0.29/AIN5",
-          "net": "P0.29/AIN5"
+          "net": "P0.29/AIN5",
+          "type": "bidirectional"
         },
         "B9": {
           "name": "P0.30/AIN6",
-          "net": "P0.30/AIN6"
+          "net": "P0.30/AIN6",
+          "type": "bidirectional"
         },
         "A8": {
           "name": "P0.31/AIN7",
-          "net": "P0.31/AIN7"
+          "net": "P0.31/AIN7",
+          "type": "bidirectional"
         },
         "AD14": {
           "name": "VDD",
-          "net": "VDD_nRF"
+          "net": "VDD_nRF",
+          "type": "power"
         },
         "W24": {
           "name": "P1.02",
-          "net": "P1.02"
+          "net": "P1.02",
+          "type": "bidirectional"
         },
         "V23": {
           "name": "P1.03",
-          "net": "P1.03"
+          "net": "P1.03",
+          "type": "bidirectional"
         },
         "U24": {
           "name": "P1.04",
-          "net": "P1.04"
+          "net": "P1.04",
+          "type": "bidirectional"
         },
         "T23": {
           "name": "P1.05",
-          "net": "P1.05"
+          "net": "P1.05",
+          "type": "bidirectional"
         },
         "R24": {
           "name": "P1.06",
-          "net": "P1.06"
+          "net": "P1.06",
+          "type": "bidirectional"
         },
         "P23": {
           "name": "P1.07",
-          "net": "P1.07"
+          "net": "P1.07",
+          "type": "bidirectional"
         },
         "B19": {
           "name": "P1.11",
-          "net": "P1.11"
+          "net": "P1.11",
+          "type": "bidirectional"
         },
         "B17": {
           "name": "P1.12",
-          "net": "P1.12"
+          "net": "P1.12",
+          "type": "bidirectional"
         },
         "A16": {
           "name": "P1.13",
-          "net": "P1.13"
+          "net": "P1.13",
+          "type": "bidirectional"
         },
         "B15": {
           "name": "P1.14",
-          "net": "P1.14"
+          "net": "P1.14",
+          "type": "bidirectional"
         },
         "A14": {
           "name": "P1.15",
-          "net": "P1.15"
+          "net": "P1.15",
+          "type": "bidirectional"
         },
         "A18": {
           "name": "DEC2",
-          "net": "NetC13_1"
+          "net": "NetC13_1",
+          "type": "power"
         }
       },
       "mpn": "nRF52840-QIAAF0",
@@ -3990,19 +4073,23 @@
       "pins": {
         "1": {
           "name": "inp",
-          "net": "XC1"
+          "net": "XC1",
+          "type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "3": {
           "name": "out",
-          "net": "XC2"
+          "net": "XC2",
+          "type": "passive"
         },
         "4": {
           "name": "GND",
-          "net": ""
+          "net": "",
+          "type": "passive"
         }
       },
       "mpn": "MP12308",
@@ -4012,8 +4099,14 @@
     },
     "C1": {
       "pins": {
-        "1": "XC1",
-        "2": "GND"
+        "1": {
+          "net": "XC1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4022,8 +4115,14 @@
     },
     "C2": {
       "pins": {
-        "1": "XC2",
-        "2": "GND"
+        "1": {
+          "net": "XC2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4032,8 +4131,14 @@
     },
     "C11": {
       "pins": {
-        "1": "DEC3",
-        "2": "GND"
+        "1": {
+          "net": "DEC3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4042,8 +4147,14 @@
     },
     "C5": {
       "pins": {
-        "1": "DEC1",
-        "2": "GND"
+        "1": {
+          "net": "DEC1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4052,8 +4163,14 @@
     },
     "C20": {
       "pins": {
-        "1": "NetC20_1",
-        "2": "GND"
+        "1": {
+          "net": "NetC20_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "CL10B475KQ8NQNC",
       "manufacturer": "Samsung Electro-Mechanics America",
@@ -4062,8 +4179,14 @@
     },
     "L2": {
       "pins": {
-        "1": "NetL2_1",
-        "2": "NetL2_2"
+        "1": {
+          "net": "NetL2_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetL2_2",
+          "type": "passive"
+        }
       },
       "mpn": "MLZ1608M100WTD25",
       "manufacturer": "TDK Corporation",
@@ -4072,8 +4195,14 @@
     },
     "C15": {
       "pins": {
-        "1": "GND",
-        "2": "DEC4_6"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "DEC4_6",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4082,8 +4211,14 @@
     },
     "C3": {
       "pins": {
-        "1": "GND",
-        "2": "NetC3_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC3_2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4092,8 +4227,14 @@
     },
     "C10": {
       "pins": {
-        "1": "GND",
-        "2": "DEC4_6"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "DEC4_6",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4102,8 +4243,14 @@
     },
     "C18": {
       "pins": {
-        "1": "GND",
-        "2": "NetC18_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC18_2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4112,8 +4259,14 @@
     },
     "C17": {
       "pins": {
-        "1": "GND",
-        "2": "NetC17_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC17_2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4122,8 +4275,14 @@
     },
     "L4": {
       "pins": {
-        "1": "VDD_nRF",
-        "2": "NetL4_2"
+        "1": {
+          "net": "VDD_nRF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetL4_2",
+          "type": "passive"
+        }
       },
       "mpn": "MLZ1608M100WTD25",
       "manufacturer": "TDK Corporation",
@@ -4132,8 +4291,14 @@
     },
     "C7": {
       "pins": {
-        "1": "VDD_nRF",
-        "2": "GND"
+        "1": {
+          "net": "VDD_nRF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4142,8 +4307,14 @@
     },
     "C21": {
       "pins": {
-        "1": "VBUS_nRF",
-        "2": "GND"
+        "1": {
+          "net": "VBUS_nRF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4152,8 +4323,14 @@
     },
     "C8": {
       "pins": {
-        "1": "VDD_nRF",
-        "2": "GND"
+        "1": {
+          "net": "VDD_nRF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4162,8 +4339,14 @@
     },
     "C9": {
       "pins": {
-        "1": "NetC9_1",
-        "2": "GND"
+        "1": {
+          "net": "NetC9_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4172,8 +4355,14 @@
     },
     "C12": {
       "pins": {
-        "1": "VDD_nRF",
-        "2": "GND"
+        "1": {
+          "net": "VDD_nRF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4182,8 +4371,14 @@
     },
     "C13": {
       "pins": {
-        "1": "NetC13_1",
-        "2": "GND"
+        "1": {
+          "net": "NetC13_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4192,8 +4387,14 @@
     },
     "C19": {
       "pins": {
-        "1": "VDD_HV",
-        "2": "GND"
+        "1": {
+          "net": "VDD_HV",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4202,8 +4403,14 @@
     },
     "C4": {
       "pins": {
-        "1": "GND",
-        "2": "RF"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "RF",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4212,8 +4419,14 @@
     },
     "C14": {
       "pins": {
-        "1": "VDD_nRF",
-        "2": "GND"
+        "1": {
+          "net": "VDD_nRF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4222,8 +4435,14 @@
     },
     "C6": {
       "pins": {
-        "1": "VDD_nRF",
-        "2": "GND"
+        "1": {
+          "net": "VDD_nRF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "CL10B475KQ8NQNC",
       "manufacturer": "Samsung Electro-Mechanics America",
@@ -4232,8 +4451,14 @@
     },
     "C16": {
       "pins": {
-        "1": "DEC4_6",
-        "2": "GND"
+        "1": {
+          "net": "DEC4_6",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4244,11 +4469,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "P0.01/XL2"
+          "net": "P0.01/XL2",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "P0.01"
+          "net": "P0.01",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -4260,11 +4487,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "P0.00/XL1"
+          "net": "P0.00/XL1",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "P0.00"
+          "net": "P0.00",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -4276,11 +4505,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "NetC18_2"
+          "net": "NetC18_2",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "P0.01/XL2"
+          "net": "P0.01/XL2",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -4292,11 +4523,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "NetC17_2"
+          "net": "NetC17_2",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "P0.00/XL1"
+          "net": "P0.00/XL1",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -4308,11 +4541,13 @@
       "pins": {
         "1": {
           "name": "inp",
-          "net": "NetC17_2"
+          "net": "NetC17_2",
+          "type": "passive"
         },
         "2": {
           "name": "out",
-          "net": "NetC18_2"
+          "net": "NetC18_2",
+          "type": "passive"
         }
       },
       "mpn": "NX3215SA-32.768K-STD-MUA-9",
@@ -4322,8 +4557,14 @@
     },
     "C22": {
       "pins": {
-        "1": "RF",
-        "2": "GND"
+        "1": {
+          "net": "RF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4334,11 +4575,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "P0.17"
+          "net": "P0.17",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "NetP24_7"
+          "net": "NetP24_7",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -4350,11 +4593,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "P0.22"
+          "net": "P0.22",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "NetSB15_2"
+          "net": "NetSB15_2",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -4366,11 +4611,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "P0.19"
+          "net": "P0.19",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "NetSB11_2"
+          "net": "NetSB11_2",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -4382,11 +4629,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "P0.20"
+          "net": "P0.20",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "NetSB12_2"
+          "net": "NetSB12_2",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -4398,11 +4647,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "P0.17"
+          "net": "P0.17",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "NetSB13_2"
+          "net": "NetSB13_2",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -4414,11 +4665,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "P0.21"
+          "net": "P0.21",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "NetSB14_2"
+          "net": "NetSB14_2",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -4430,11 +4683,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "P0.23"
+          "net": "P0.23",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "NetSB10_2"
+          "net": "NetSB10_2",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -4444,8 +4699,14 @@
     },
     "R1": {
       "pins": {
-        "1": "SDA",
-        "2": "P0.26"
+        "1": {
+          "net": "SDA",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P0.26",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4454,8 +4715,14 @@
     },
     "R2": {
       "pins": {
-        "1": "SCL",
-        "2": "P0.27"
+        "1": {
+          "net": "SCL",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P0.27",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4464,8 +4731,14 @@
     },
     "C51": {
       "pins": {
-        "1": "GND",
-        "2": "P0.26"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P0.26",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4474,8 +4747,14 @@
     },
     "C52": {
       "pins": {
-        "1": "GND",
-        "2": "P0.27"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P0.27",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4486,11 +4765,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "P0.19"
+          "net": "P0.19",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "NetP24_9"
+          "net": "NetP24_9",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -4502,11 +4783,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "P0.20"
+          "net": "P0.20",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "NetP24_10"
+          "net": "NetP24_10",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -4518,11 +4801,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "P0.21"
+          "net": "P0.21",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "NetP24_11"
+          "net": "NetP24_11",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -4534,11 +4819,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "P0.23"
+          "net": "P0.23",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "NetP24_13"
+          "net": "NetP24_13",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -4550,11 +4837,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "P0.22"
+          "net": "P0.22",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "NetP24_12"
+          "net": "NetP24_12",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -4564,8 +4853,14 @@
     },
     "R43": {
       "pins": {
-        "1": "NetP6_7",
-        "2": "P0.09/NFC1"
+        "1": {
+          "net": "NetP6_7",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P0.09/NFC1",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4574,8 +4869,14 @@
     },
     "R45": {
       "pins": {
-        "1": "NetP6_8",
-        "2": "P0.10/NFC2"
+        "1": {
+          "net": "NetP6_8",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P0.10/NFC2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4584,8 +4885,14 @@
     },
     "L3": {
       "pins": {
-        "1": "DEC4_6",
-        "2": "NetL2_1"
+        "1": {
+          "net": "DEC4_6",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetL2_1",
+          "type": "passive"
+        }
       },
       "mpn": "LQG15HS15NJ02D",
       "manufacturer": "Murata",
@@ -4594,8 +4901,14 @@
     },
     "L1": {
       "pins": {
-        "1": "NetC3_2",
-        "2": "RF"
+        "1": {
+          "net": "NetC3_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "RF",
+          "type": "passive"
+        }
       },
       "mpn": "LQG15HS4N7B02D",
       "manufacturer": "Murata",
@@ -4604,8 +4917,14 @@
     },
     "R10": {
       "pins": {
-        "1": "VCOM_CTS",
-        "2": "GND"
+        "1": {
+          "net": "VCOM_CTS",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4614,8 +4933,14 @@
     },
     "R16": {
       "pins": {
-        "1": "SWD1_IO",
-        "2": "NetP20_4"
+        "1": {
+          "net": "SWD1_IO",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP20_4",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4624,8 +4949,14 @@
     },
     "R20": {
       "pins": {
-        "1": "NetP20_3",
-        "2": "GND"
+        "1": {
+          "net": "NetP20_3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4634,8 +4965,14 @@
     },
     "R17": {
       "pins": {
-        "1": "SWD1_CLK",
-        "2": "NetP20_5"
+        "1": {
+          "net": "SWD1_CLK",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP20_5",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4644,8 +4981,14 @@
     },
     "R18": {
       "pins": {
-        "1": "SWD1_SWO",
-        "2": "NetP20_6"
+        "1": {
+          "net": "SWD1_SWO",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP20_6",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4654,8 +4997,14 @@
     },
     "R19": {
       "pins": {
-        "1": "SWD1_RESET",
-        "2": "NetP20_7"
+        "1": {
+          "net": "SWD1_RESET",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP20_7",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4664,8 +5013,14 @@
     },
     "R11": {
       "pins": {
-        "1": "SWD0_IO",
-        "2": "NetP19_2"
+        "1": {
+          "net": "SWD0_IO",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP19_2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4674,8 +5029,14 @@
     },
     "R12": {
       "pins": {
-        "1": "SWD0_CLK",
-        "2": "NetP19_4"
+        "1": {
+          "net": "SWD0_CLK",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP19_4",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4684,8 +5045,14 @@
     },
     "R14": {
       "pins": {
-        "1": "SWD0_SWO",
-        "2": "NetP19_6"
+        "1": {
+          "net": "SWD0_SWO",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP19_6",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4694,8 +5061,14 @@
     },
     "R15": {
       "pins": {
-        "1": "SWD0_RESET",
-        "2": "NetP19_10"
+        "1": {
+          "net": "SWD0_RESET",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP19_10",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4706,15 +5079,18 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "NetP20_3"
+          "net": "NetP20_3",
+          "type": "passive"
         },
         "2": {
           "name": "S",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "3": {
           "name": "D",
-          "net": "SWD1_SEL"
+          "net": "SWD1_SEL",
+          "type": "passive"
         }
       },
       "mpn": "RV2C010UNT2L",
@@ -4724,8 +5100,14 @@
     },
     "C30": {
       "pins": {
-        "1": "NetC29_2",
-        "2": "GND"
+        "1": {
+          "net": "NetC29_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4734,8 +5116,14 @@
     },
     "C39": {
       "pins": {
-        "1": "NetC39_1",
-        "2": "GND"
+        "1": {
+          "net": "NetC39_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4744,8 +5132,14 @@
     },
     "C31": {
       "pins": {
-        "1": "VDD_IMCU",
-        "2": "GND"
+        "1": {
+          "net": "VDD_IMCU",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4754,8 +5148,14 @@
     },
     "C32": {
       "pins": {
-        "1": "VDD_IMCU",
-        "2": "GND"
+        "1": {
+          "net": "VDD_IMCU",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4764,8 +5164,14 @@
     },
     "C37": {
       "pins": {
-        "1": "NetC37_1",
-        "2": "GND"
+        "1": {
+          "net": "NetC37_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4774,8 +5180,14 @@
     },
     "C38": {
       "pins": {
-        "1": "NetC38_1",
-        "2": "GND"
+        "1": {
+          "net": "NetC38_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "CL10B475KQ8NQNC",
       "manufacturer": "Samsung Electro-Mechanics America",
@@ -4784,8 +5196,14 @@
     },
     "C33": {
       "pins": {
-        "1": "VDD_IMCU",
-        "2": "GND"
+        "1": {
+          "net": "VDD_IMCU",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4794,8 +5212,14 @@
     },
     "C34": {
       "pins": {
-        "1": "VDD_IMCU",
-        "2": "GND"
+        "1": {
+          "net": "VDD_IMCU",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4804,8 +5228,14 @@
     },
     "C24": {
       "pins": {
-        "1": "VDD_IMCU",
-        "2": "GND"
+        "1": {
+          "net": "VDD_IMCU",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -4816,395 +5246,493 @@
       "pins": {
         "104": {
           "name": "VSS_PAD",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "AJ31": {
           "name": "VDD",
-          "net": "VDD_IMCU"
+          "net": "VDD_IMCU",
+          "type": "power"
         },
         "G31": {
           "name": "DECRF",
-          "net": "NetC29_2"
+          "net": "NetC29_2",
+          "type": "power"
         },
         "N31": {
           "name": "VDD",
-          "net": "VDD_IMCU"
+          "net": "VDD_IMCU",
+          "type": "power"
         },
         "AL11": {
           "name": "VDD",
-          "net": "VDD_IMCU"
+          "net": "VDD_IMCU",
+          "type": "power"
         },
         "A21": {
           "name": "DCC",
-          "net": ""
+          "net": "",
+          "type": "output"
         },
         "J1": {
           "name": "DCCH",
-          "net": ""
+          "net": "",
+          "type": "power"
         },
         "A5": {
           "name": "VBUS",
-          "net": "NetC37_1"
+          "net": "NetC37_1",
+          "type": "power"
         },
         "B6": {
           "name": "DECUSB",
-          "net": "NetC38_1"
+          "net": "NetC38_1",
+          "type": "power"
         },
         "AL25": {
           "name": "VDD",
-          "net": "VDD_IMCU"
+          "net": "VDD_IMCU",
+          "type": "power"
         },
         "A27": {
           "name": "DECR",
-          "net": "NetC29_2"
+          "net": "NetC29_2",
+          "type": "power"
         },
         "B10": {
           "name": "DCCD",
-          "net": ""
+          "net": "",
+          "type": "power"
         },
         "A15": {
           "name": "DECD",
-          "net": "NetC36_2"
+          "net": "NetC36_2",
+          "type": "power"
         },
         "AL17": {
           "name": "VDD",
-          "net": "VDD_IMCU"
+          "net": "VDD_IMCU",
+          "type": "power"
         },
         "A13": {
           "name": "DECA",
-          "net": "NetC40_2"
+          "net": "NetC40_2",
+          "type": "power"
         },
         "A23": {
           "name": "DECN",
-          "net": "NetC39_1"
+          "net": "NetC39_1",
+          "type": "power"
         },
         "L1": {
           "name": "VDD",
-          "net": "VDD_IMCU"
+          "net": "VDD_IMCU",
+          "type": "power"
         },
         "E1": {
           "name": "VDDH",
-          "net": "VDD_IMCU"
+          "net": "VDD_IMCU",
+          "type": "power"
         },
         "U1": {
           "name": "VDD",
-          "net": "VDD_IMCU"
+          "net": "VDD_IMCU",
+          "type": "power"
         },
         "C1": {
           "name": "VDD",
-          "net": "VDD_IMCU"
+          "net": "VDD_IMCU",
+          "type": "power"
         },
         "E31": {
           "name": "VDD",
-          "net": "VDD_IMCU"
+          "net": "VDD_IMCU",
+          "type": "power"
         },
         "AL7": {
           "name": "VDD",
-          "net": "VDD_IMCU"
+          "net": "VDD_IMCU",
+          "type": "power"
         },
         "AL3": {
           "name": "VDD",
-          "net": "VDD_IMCU"
+          "net": "VDD_IMCU",
+          "type": "power"
         },
         "AC1": {
           "name": "VDD",
-          "net": "VDD_IMCU"
+          "net": "VDD_IMCU",
+          "type": "power"
         },
         "A19": {
           "name": "VDD",
-          "net": "VDD_IMCU"
+          "net": "VDD_IMCU",
+          "type": "power"
         },
         "B8": {
           "name": "VDD",
-          "net": "VDD_IMCU"
+          "net": "VDD_IMCU",
+          "type": "power"
         },
         "AG1": {
           "name": "VDD",
-          "net": "VDD_IMCU"
+          "net": "VDD_IMCU",
+          "type": "power"
         },
         "B28": {
           "name": "VDD",
-          "net": "VDD_IMCU"
+          "net": "VDD_IMCU",
+          "type": "power"
         },
         "L31": {
           "name": "ANT",
-          "net": "NetR9_1"
+          "net": "NetR9_1",
+          "type": "bidirectional"
         },
         "C31": {
           "name": "XC1",
-          "net": "NetU2_C31"
+          "net": "NetU2_C31",
+          "type": "input"
         },
         "B30": {
           "name": "XC2",
-          "net": "NetU2_B30"
+          "net": "NetU2_B30",
+          "type": "output"
         },
         "W31": {
           "name": "SWDCLK",
-          "net": "IMCU_SWDCLK"
+          "net": "IMCU_SWDCLK",
+          "type": "input"
         },
         "AA31": {
           "name": "SWDIO",
-          "net": "IMCU_SWDIO"
+          "net": "IMCU_SWDIO",
+          "type": "bidirectional"
         },
         "B4": {
           "name": "D-",
-          "net": "IMCU_N"
+          "net": "IMCU_N",
+          "type": "bidirectional"
         },
         "B2": {
           "name": "D+",
-          "net": "IMCU_P"
+          "net": "IMCU_P",
+          "type": "bidirectional"
         },
         "AC31": {
           "name": "R\\E\\S\\E\\T\\",
-          "net": "IMCU_RESET"
+          "net": "IMCU_RESET",
+          "type": "input"
         },
         "N1": {
           "name": "P0.00/XL1",
-          "net": "SWD3_IO"
+          "net": "SWD3_IO",
+          "type": "bidirectional"
         },
         "R1": {
           "name": "P0.01/XL2",
-          "net": "SWD3_CLK"
+          "net": "SWD3_CLK",
+          "type": "bidirectional"
         },
         "AL29": {
           "name": "P0.26/AIN5",
-          "net": "IMCU_LED"
+          "net": "IMCU_LED",
+          "type": "bidirectional"
         },
         "AK30": {
           "name": "P0.27/AIN6",
-          "net": "SWD1_IO"
+          "net": "SWD1_IO",
+          "type": "bidirectional"
         },
         "AB2": {
           "name": "P0.06/AIN2",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "AH2": {
           "name": "P0.08/TRACEDATA[3]",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "AL9": {
           "name": "P0.16/QSPI[3]",
-          "net": "VCOM_CTS"
+          "net": "VCOM_CTS",
+          "type": "bidirectional"
         },
         "W1": {
           "name": "P0.02/NFC1",
-          "net": "SWD3_SWO"
+          "net": "SWD3_SWO",
+          "type": "bidirectional"
         },
         "AK16": {
           "name": "P0.20",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "V2": {
           "name": "P0.04/AIN0",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "Y2": {
           "name": "P0.05/AIN1",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "AK18": {
           "name": "P0.22",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "AK20": {
           "name": "P0.23",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "AL27": {
           "name": "P0.24",
-          "net": "IMCU_BOOT"
+          "net": "IMCU_BOOT",
+          "type": "bidirectional"
         },
         "AK28": {
           "name": "P0.25/AIN4",
-          "net": "SWD1_CLK"
+          "net": "SWD1_CLK",
+          "type": "bidirectional"
         },
         "AL13": {
           "name": "P0.19",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "AK12": {
           "name": "P0.17/QSPI_CLK",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "AA1": {
           "name": "P0.03/NFC2",
-          "net": "SWD3_RESET"
+          "net": "SWD3_RESET",
+          "type": "bidirectional"
         },
         "AK14": {
           "name": "P0.18/QSPI_CS",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "AD2": {
           "name": "P0.07/AIN3",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "AJ1": {
           "name": "P0.09/TRACEDATA[2]",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "AK4": {
           "name": "P0.11/TRACEDATA[0]",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "AK6": {
           "name": "P0.12/TRACECLK",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "AL5": {
           "name": "P0.13/QSPI[0]",
-          "net": "VCOM_RTS"
+          "net": "VCOM_RTS",
+          "type": "bidirectional"
         },
         "AK8": {
           "name": "P0.14/QSPI[1]",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "AK10": {
           "name": "P0.15/QSPI[2]",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "AL15": {
           "name": "P0.21",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "AE31": {
           "name": "P0.28/AIN7",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "B24": {
           "name": "P0.30",
-          "net": "SWD0_SEL"
+          "net": "SWD0_SEL",
+          "type": "bidirectional"
         },
         "B22": {
           "name": "P0.31",
-          "net": "SWD0_RESET"
+          "net": "SWD0_RESET",
+          "type": "bidirectional"
         },
         "U31": {
           "name": "P0.29",
-          "net": "VCOM_TxD"
+          "net": "VCOM_TxD",
+          "type": "bidirectional"
         },
         "AK2": {
           "name": "P0.10/TRACEDATA[1]",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "B20": {
           "name": "P1.11",
-          "net": "SWD0_SWO"
+          "net": "SWD0_SWO",
+          "type": "bidirectional"
         },
         "R31": {
           "name": "P1.10",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "AK26": {
           "name": "P1.09",
-          "net": "SWD1_SWO"
+          "net": "SWD1_SWO",
+          "type": "bidirectional"
         },
         "P2": {
           "name": "P1.01",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "AE1": {
           "name": "P1.02/TWI",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "AF2": {
           "name": "P1.03/TWI",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "AL21": {
           "name": "P1.06",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "AK24": {
           "name": "P1.07",
-          "net": "SWD1_RESET"
+          "net": "SWD1_RESET",
+          "type": "bidirectional"
         },
         "AL23": {
           "name": "P1.08",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "B18": {
           "name": "P1.12",
-          "net": "SWD0_CLK"
+          "net": "SWD0_CLK",
+          "type": "bidirectional"
         },
         "A17": {
           "name": "P1.13",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "B16": {
           "name": "P1.14",
-          "net": "SWD0_IO"
+          "net": "SWD0_IO",
+          "type": "bidirectional"
         },
         "B14": {
           "name": "P1.15",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "M2": {
           "name": "P1.00",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "AK22": {
           "name": "P1.05",
-          "net": "SWD1_SEL"
+          "net": "SWD1_SEL",
+          "type": "bidirectional"
         },
         "AL19": {
           "name": "P1.04",
-          "net": "VCOM_RxD"
+          "net": "VCOM_RxD",
+          "type": "bidirectional"
         },
         "G1": {
           "name": "N.C.",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "B26": {
           "name": "N.C.",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "H2": {
           "name": "N.C.",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "B12": {
           "name": "N.C.",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "A25": {
           "name": "N.C.",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "J31": {
           "name": "N.C.",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "D2": {
           "name": "N.C.",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "F2": {
           "name": "N.C.",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "T2": {
           "name": "N.C.",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "AG31": {
           "name": "N.C.",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "A1": {
           "name": "N.C.",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "A31": {
           "name": "N.C.",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "AL1": {
           "name": "N.C.",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "AL31": {
           "name": "N.C.",
-          "net": ""
+          "net": "",
+          "type": "passive"
         }
       },
       "mpn": "nRF5340-QKAAD0",
@@ -5214,8 +5742,14 @@
     },
     "C25": {
       "pins": {
-        "1": "VDD_IMCU",
-        "2": "GND"
+        "1": {
+          "net": "VDD_IMCU",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -5224,8 +5758,14 @@
     },
     "C26": {
       "pins": {
-        "1": "VDD_IMCU",
-        "2": "GND"
+        "1": {
+          "net": "VDD_IMCU",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -5234,8 +5774,14 @@
     },
     "C27": {
       "pins": {
-        "1": "VDD_IMCU",
-        "2": "GND"
+        "1": {
+          "net": "VDD_IMCU",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -5244,8 +5790,14 @@
     },
     "R13": {
       "pins": {
-        "1": "VBUS_IMCU",
-        "2": "NetC37_1"
+        "1": {
+          "net": "VBUS_IMCU",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC37_1",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -5254,8 +5806,14 @@
     },
     "R9": {
       "pins": {
-        "1": "NetR9_1",
-        "2": "GND"
+        "1": {
+          "net": "NetR9_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -5266,19 +5824,23 @@
       "pins": {
         "1": {
           "name": "inp",
-          "net": "NetU2_C31"
+          "net": "NetU2_C31",
+          "type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "3": {
           "name": "out",
-          "net": "NetU2_B30"
+          "net": "NetU2_B30",
+          "type": "passive"
         },
         "4": {
           "name": "GND",
-          "net": ""
+          "net": "",
+          "type": "passive"
         }
       },
       "mpn": "MP12308",
@@ -5288,16 +5850,46 @@
     },
     "J4": {
       "pins": {
-        "1": "VDD_IMCU",
-        "2": "IMCU_SWDIO",
-        "3": "GND",
-        "4": "IMCU_SWDCLK",
-        "5": "VBUS",
-        "6": "",
-        "7": "",
-        "8": "",
-        "9": "",
-        "10": "IMCU_RESET"
+        "1": {
+          "net": "VDD_IMCU",
+          "type": "passive"
+        },
+        "2": {
+          "net": "IMCU_SWDIO",
+          "type": "passive"
+        },
+        "3": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "4": {
+          "net": "IMCU_SWDCLK",
+          "type": "passive"
+        },
+        "5": {
+          "net": "VBUS",
+          "type": "passive"
+        },
+        "6": {
+          "net": "",
+          "type": "passive"
+        },
+        "7": {
+          "net": "",
+          "type": "passive"
+        },
+        "8": {
+          "net": "",
+          "type": "passive"
+        },
+        "9": {
+          "net": "",
+          "type": "passive"
+        },
+        "10": {
+          "net": "IMCU_RESET",
+          "type": "passive"
+        }
       },
       "mpn": "TC2050-IDC-NLFP",
       "manufacturer": "Tag-Connect LLC",
@@ -5306,8 +5898,14 @@
     },
     "R8": {
       "pins": {
-        "1": "IMCU_RESET",
-        "2": "VDD_IMCU"
+        "1": {
+          "net": "IMCU_RESET",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VDD_IMCU",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -5316,7 +5914,10 @@
     },
     "TP50": {
       "pins": {
-        "1": "IMCU_RESET"
+        "1": {
+          "net": "IMCU_RESET",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -5325,7 +5926,10 @@
     },
     "TP49": {
       "pins": {
-        "1": "IMCU_SWDIO"
+        "1": {
+          "net": "IMCU_SWDIO",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -5334,7 +5938,10 @@
     },
     "TP51": {
       "pins": {
-        "1": "IMCU_SWDCLK"
+        "1": {
+          "net": "IMCU_SWDCLK",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -5343,7 +5950,10 @@
     },
     "TP48": {
       "pins": {
-        "1": "VDD_IMCU"
+        "1": {
+          "net": "VDD_IMCU",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -5354,11 +5964,13 @@
       "pins": {
         "1": {
           "name": "C",
-          "net": "NetLED5_1"
+          "net": "NetLED5_1",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "NetLED5_2"
+          "net": "NetLED5_2",
+          "type": "passive"
         }
       },
       "mpn": "VS 25C7M5",
@@ -5368,8 +5980,14 @@
     },
     "R7": {
       "pins": {
-        "1": "NetLED5_2",
-        "2": "VBUS_IMCU"
+        "1": {
+          "net": "NetLED5_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VBUS_IMCU",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -5380,15 +5998,18 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "IMCU_LED"
+          "net": "IMCU_LED",
+          "type": "passive"
         },
         "2": {
           "name": "S",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "3": {
           "name": "D",
-          "net": "NetLED5_1"
+          "net": "NetLED5_1",
+          "type": "passive"
         }
       },
       "mpn": "RV2C010UNT2L",
@@ -5398,8 +6019,14 @@
     },
     "C28": {
       "pins": {
-        "1": "VDD_IMCU",
-        "2": "GND"
+        "1": {
+          "net": "VDD_IMCU",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -5408,8 +6035,14 @@
     },
     "C29": {
       "pins": {
-        "1": "GND",
-        "2": "NetC29_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC29_2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -5418,8 +6051,14 @@
     },
     "C35": {
       "pins": {
-        "1": "GND",
-        "2": "VDD_IMCU"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VDD_IMCU",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -5428,8 +6067,14 @@
     },
     "C36": {
       "pins": {
-        "1": "GND",
-        "2": "NetC36_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC36_2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -5438,8 +6083,14 @@
     },
     "C40": {
       "pins": {
-        "1": "GND",
-        "2": "NetC40_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC40_2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -5448,7 +6099,10 @@
     },
     "TP3": {
       "pins": {
-        "1": "VCOM_RTS"
+        "1": {
+          "net": "VCOM_RTS",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -5457,7 +6111,10 @@
     },
     "TP2": {
       "pins": {
-        "1": "VCOM_RxD"
+        "1": {
+          "net": "VCOM_RxD",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -5466,7 +6123,10 @@
     },
     "TP4": {
       "pins": {
-        "1": "VCOM_TxD"
+        "1": {
+          "net": "VCOM_TxD",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -5475,7 +6135,10 @@
     },
     "TP1": {
       "pins": {
-        "1": "VCOM_CTS"
+        "1": {
+          "net": "VCOM_CTS",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -5486,11 +6149,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "P0.05/AIN3"
+          "net": "P0.05/AIN3",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "NetSB51_2"
+          "net": "NetSB51_2",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -5502,11 +6167,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "P0.06"
+          "net": "P0.06",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "NetSB53_2"
+          "net": "NetSB53_2",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -5518,11 +6185,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "CTS"
+          "net": "CTS",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "NetSB50_2"
+          "net": "NetSB50_2",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -5534,11 +6203,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "P0.08"
+          "net": "P0.08",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "NetSB52_2"
+          "net": "NetSB52_2",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -5550,67 +6221,83 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "2": {
           "name": "IN 1-2",
-          "net": "I\\F\\_\\O\\F\\F\\"
+          "net": "I\\F\\_\\O\\F\\F\\",
+          "type": "input"
         },
         "3": {
           "name": "NO2",
-          "net": "SWD3_CLK"
+          "net": "SWD3_CLK",
+          "type": "bidirectional"
         },
         "4": {
           "name": "COM2",
-          "net": "NetSB55_2"
+          "net": "NetSB55_2",
+          "type": "bidirectional"
         },
         "5": {
           "name": "NC2",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "6": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "7": {
           "name": "NO3",
-          "net": "SWD3_RESET"
+          "net": "SWD3_RESET",
+          "type": "bidirectional"
         },
         "8": {
           "name": "COM3",
-          "net": "NetSB56_2"
+          "net": "NetSB56_2",
+          "type": "bidirectional"
         },
         "9": {
           "name": "NC3",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "10": {
           "name": "IN 3-4",
-          "net": "I\\F\\_\\O\\F\\F\\"
+          "net": "I\\F\\_\\O\\F\\F\\",
+          "type": "input"
         },
         "11": {
           "name": "NO4",
-          "net": "SWD3_SWO"
+          "net": "SWD3_SWO",
+          "type": "bidirectional"
         },
         "12": {
           "name": "COM4",
-          "net": "NetSB57_2"
+          "net": "NetSB57_2",
+          "type": "bidirectional"
         },
         "13": {
           "name": "NC4",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "14": {
           "name": "VCC",
-          "net": "VDD"
+          "net": "VDD",
+          "type": "power"
         },
         "15": {
           "name": "NO1",
-          "net": "SWD3_IO"
+          "net": "SWD3_IO",
+          "type": "bidirectional"
         },
         "16": {
           "name": "COM1",
-          "net": "NetSB54_2"
+          "net": "NetSB54_2",
+          "type": "bidirectional"
         }
       },
       "mpn": "FSA2466UMX",
@@ -5620,8 +6307,14 @@
     },
     "C45": {
       "pins": {
-        "1": "GND",
-        "2": "VDD"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VDD",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -5632,67 +6325,83 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "2": {
           "name": "IN 1-2",
-          "net": "U\\A\\R\\T\\_\\F\\C\\_\\O\\F\\F\\"
+          "net": "U\\A\\R\\T\\_\\F\\C\\_\\O\\F\\F\\",
+          "type": "input"
         },
         "3": {
           "name": "NO2",
-          "net": "NetSB51_2"
+          "net": "NetSB51_2",
+          "type": "bidirectional"
         },
         "4": {
           "name": "COM2",
-          "net": "VCOM_CTS"
+          "net": "VCOM_CTS",
+          "type": "bidirectional"
         },
         "5": {
           "name": "NC2",
-          "net": "GND"
+          "net": "GND",
+          "type": "bidirectional"
         },
         "6": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "7": {
           "name": "NO3",
-          "net": "VCOM_TxD"
+          "net": "VCOM_TxD",
+          "type": "bidirectional"
         },
         "8": {
           "name": "COM3",
-          "net": "NetSB52_2"
+          "net": "NetSB52_2",
+          "type": "bidirectional"
         },
         "9": {
           "name": "NC3",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "10": {
           "name": "IN 3-4",
-          "net": "I\\F\\_\\O\\F\\F\\"
+          "net": "I\\F\\_\\O\\F\\F\\",
+          "type": "input"
         },
         "11": {
           "name": "NO4",
-          "net": "VCOM_RxD"
+          "net": "VCOM_RxD",
+          "type": "bidirectional"
         },
         "12": {
           "name": "COM4",
-          "net": "NetSB53_2"
+          "net": "NetSB53_2",
+          "type": "bidirectional"
         },
         "13": {
           "name": "NC4",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "14": {
           "name": "VCC",
-          "net": "VDD"
+          "net": "VDD",
+          "type": "power"
         },
         "15": {
           "name": "NO1",
-          "net": "NetSB50_2"
+          "net": "NetSB50_2",
+          "type": "bidirectional"
         },
         "16": {
           "name": "COM1",
-          "net": "VCOM_RTS"
+          "net": "VCOM_RTS",
+          "type": "bidirectional"
         }
       },
       "mpn": "FSA2466UMX",
@@ -5704,67 +6413,83 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "NetSB42_1"
+          "net": "NetSB42_1",
+          "type": "bidirectional"
         },
         "2": {
           "name": "IN 1-2",
-          "net": "I\\F\\_\\O\\F\\F\\"
+          "net": "I\\F\\_\\O\\F\\F\\",
+          "type": "input"
         },
         "3": {
           "name": "NO2",
-          "net": "NetSB46_1"
+          "net": "NetSB46_1",
+          "type": "bidirectional"
         },
         "4": {
           "name": "COM2",
-          "net": "RESET_PIN"
+          "net": "RESET_PIN",
+          "type": "bidirectional"
         },
         "5": {
           "name": "NC2",
-          "net": "NetSB45_1"
+          "net": "NetSB45_1",
+          "type": "bidirectional"
         },
         "6": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "7": {
           "name": "NO3",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "8": {
           "name": "COM3",
-          "net": "SDA"
+          "net": "SDA",
+          "type": "bidirectional"
         },
         "9": {
           "name": "NC3",
-          "net": "NetR52_2"
+          "net": "NetR52_2",
+          "type": "bidirectional"
         },
         "10": {
           "name": "IN 3-4",
-          "net": "NetR68_1"
+          "net": "NetR68_1",
+          "type": "input"
         },
         "11": {
           "name": "NO4",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "12": {
           "name": "COM4",
-          "net": "SCL"
+          "net": "SCL",
+          "type": "bidirectional"
         },
         "13": {
           "name": "NC4",
-          "net": "NetR53_2"
+          "net": "NetR53_2",
+          "type": "bidirectional"
         },
         "14": {
           "name": "VCC",
-          "net": "VDD"
+          "net": "VDD",
+          "type": "power"
         },
         "15": {
           "name": "NO1",
-          "net": "IMCU_BOOT"
+          "net": "IMCU_BOOT",
+          "type": "bidirectional"
         },
         "16": {
           "name": "COM1",
-          "net": "BOOT/RESET"
+          "net": "BOOT/RESET",
+          "type": "bidirectional"
         }
       },
       "mpn": "FSA2466UMX",
@@ -5774,8 +6499,14 @@
     },
     "C42": {
       "pins": {
-        "1": "GND",
-        "2": "VDD"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VDD",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -5784,8 +6515,14 @@
     },
     "C48": {
       "pins": {
-        "1": "GND",
-        "2": "VDD"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VDD",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -5796,67 +6533,83 @@
       "pins": {
         "1": {
           "name": "NC1",
-          "net": "P0.07"
+          "net": "P0.07",
+          "type": "bidirectional"
         },
         "2": {
           "name": "IN 1-2",
-          "net": "TRACE_SW"
+          "net": "TRACE_SW",
+          "type": "input"
         },
         "3": {
           "name": "NO2",
-          "net": "P1.07"
+          "net": "P1.07",
+          "type": "bidirectional"
         },
         "4": {
           "name": "COM2",
-          "net": "BUTTON1"
+          "net": "BUTTON1",
+          "type": "bidirectional"
         },
         "5": {
           "name": "NC2",
-          "net": "P0.11"
+          "net": "P0.11",
+          "type": "bidirectional"
         },
         "6": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "7": {
           "name": "NO3",
-          "net": "P1.08"
+          "net": "P1.08",
+          "type": "bidirectional"
         },
         "8": {
           "name": "COM3",
-          "net": "BUTTON2"
+          "net": "BUTTON2",
+          "type": "bidirectional"
         },
         "9": {
           "name": "NC3",
-          "net": "P0.12"
+          "net": "P0.12",
+          "type": "bidirectional"
         },
         "10": {
           "name": "IN 3-4",
-          "net": "TRACE_SW"
+          "net": "TRACE_SW",
+          "type": "input"
         },
         "11": {
           "name": "NO4",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "12": {
           "name": "COM4",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "13": {
           "name": "NC4",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "14": {
           "name": "VCC",
-          "net": "VDD"
+          "net": "VDD",
+          "type": "power"
         },
         "15": {
           "name": "NO1",
-          "net": "P0.04/AIN2"
+          "net": "P0.04/AIN2",
+          "type": "bidirectional"
         },
         "16": {
           "name": "COM1",
-          "net": "CTS"
+          "net": "CTS",
+          "type": "bidirectional"
         }
       },
       "mpn": "FSA2466UMX",
@@ -5866,8 +6619,14 @@
     },
     "C50": {
       "pins": {
-        "1": "GND",
-        "2": "VDD"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VDD",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -5878,15 +6637,18 @@
       "pins": {
         "1": {
           "name": "N.C",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "COM",
-          "net": "NetR4_2"
+          "net": "NetR4_2",
+          "type": "passive"
         },
         "3": {
           "name": "N.O",
-          "net": "VDD"
+          "net": "VDD",
+          "type": "passive"
         }
       },
       "mpn": "CJS-1200TA",
@@ -5896,8 +6658,14 @@
     },
     "R48": {
       "pins": {
-        "1": "NetLED2_2",
-        "2": "VDD_PER"
+        "1": {
+          "net": "NetLED2_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VDD_PER",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -5906,8 +6674,14 @@
     },
     "R47": {
       "pins": {
-        "1": "NetLED1_2",
-        "2": "VDD_PER"
+        "1": {
+          "net": "NetLED1_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VDD_PER",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -5918,11 +6692,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "P0.14"
+          "net": "P0.14",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "NetLED2_1"
+          "net": "NetLED2_1",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -5932,8 +6708,14 @@
     },
     "R50": {
       "pins": {
-        "1": "NetLED3_2",
-        "2": "VDD_PER"
+        "1": {
+          "net": "NetLED3_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VDD_PER",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -5944,11 +6726,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "P0.15"
+          "net": "P0.15",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "NetLED3_1"
+          "net": "NetLED3_1",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -5958,8 +6742,14 @@
     },
     "R51": {
       "pins": {
-        "1": "NetLED4_2",
-        "2": "VDD_PER"
+        "1": {
+          "net": "NetLED4_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VDD_PER",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -5970,11 +6760,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "P0.16"
+          "net": "P0.16",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "NetLED4_1"
+          "net": "NetLED4_1",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -5986,11 +6778,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "P0.13"
+          "net": "P0.13",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "NetLED1_1"
+          "net": "NetLED1_1",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -6002,11 +6796,13 @@
       "pins": {
         "1": {
           "name": "C",
-          "net": "NetLED1_1"
+          "net": "NetLED1_1",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "NetLED1_2"
+          "net": "NetLED1_2",
+          "type": "passive"
         }
       },
       "mpn": "VS 25C7M5",
@@ -6018,11 +6814,13 @@
       "pins": {
         "1": {
           "name": "C",
-          "net": "NetLED2_1"
+          "net": "NetLED2_1",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "NetLED2_2"
+          "net": "NetLED2_2",
+          "type": "passive"
         }
       },
       "mpn": "VS 25C7M5",
@@ -6034,11 +6832,13 @@
       "pins": {
         "1": {
           "name": "C",
-          "net": "NetLED3_1"
+          "net": "NetLED3_1",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "NetLED3_2"
+          "net": "NetLED3_2",
+          "type": "passive"
         }
       },
       "mpn": "VS 25C7M5",
@@ -6050,11 +6850,13 @@
       "pins": {
         "1": {
           "name": "C",
-          "net": "NetLED4_1"
+          "net": "NetLED4_1",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "NetLED4_2"
+          "net": "NetLED4_2",
+          "type": "passive"
         }
       },
       "mpn": "VS 25C7M5",
@@ -6066,11 +6868,13 @@
       "pins": {
         "1": {
           "name": "N.O",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "COM",
-          "net": "BOOT/RESET"
+          "net": "BOOT/RESET",
+          "type": "passive"
         }
       },
       "mpn": "TS604VM1-025BR-R",
@@ -6082,27 +6886,33 @@
       "pins": {
         "1": {
           "name": "N.O-1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "COM-1",
-          "net": "I\\F\\_\\O\\F\\F\\"
+          "net": "I\\F\\_\\O\\F\\F\\",
+          "type": "passive"
         },
         "3": {
           "name": "N.C-1",
-          "net": "USB_DETECT"
+          "net": "USB_DETECT",
+          "type": "passive"
         },
         "4": {
           "name": "N.O-2",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "5": {
           "name": "COM-2",
-          "net": "NetR3_2"
+          "net": "NetR3_2",
+          "type": "passive"
         },
         "6": {
           "name": "N.C-2",
-          "net": "VDD"
+          "net": "VDD",
+          "type": "passive"
         }
       },
       "mpn": "MKH-22D14-G2-B",
@@ -6114,11 +6924,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "VDD"
+          "net": "VDD",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "VDD_PER"
+          "net": "VDD_PER",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -6130,19 +6942,23 @@
       "pins": {
         "A2": {
           "name": "VIN",
-          "net": "VDD"
+          "net": "VDD",
+          "type": "power"
         },
         "A1": {
           "name": "VOUT",
-          "net": "VDD_PER"
+          "net": "VDD_PER",
+          "type": "power"
         },
         "B2": {
           "name": "CTRL",
-          "net": "n\\R\\F\\_\\O\\N\\L\\Y\\"
+          "net": "n\\R\\F\\_\\O\\N\\L\\Y\\",
+          "type": "input"
         },
         "B1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "mpn": "TCK106AG,LF",
@@ -6152,8 +6968,14 @@
     },
     "R41": {
       "pins": {
-        "1": "VDD",
-        "2": "NetQ40_5"
+        "1": {
+          "net": "VDD",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetQ40_5",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -6162,8 +6984,14 @@
     },
     "R40": {
       "pins": {
-        "1": "VBUS",
-        "2": "GND"
+        "1": {
+          "net": "VBUS",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -6174,11 +7002,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "VDD"
+          "net": "VDD",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "USB_DETECT"
+          "net": "USB_DETECT",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -6190,11 +7020,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "NetSB46_1"
+          "net": "NetSB46_1",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "IMCU_BOOT"
+          "net": "IMCU_BOOT",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -6206,11 +7038,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "NetSB45_1"
+          "net": "NetSB45_1",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "P0.18/RESET"
+          "net": "P0.18/RESET",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -6222,11 +7056,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "NetSB42_1"
+          "net": "NetSB42_1",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "P0.18/RESET"
+          "net": "P0.18/RESET",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -6238,11 +7074,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "BOOT/RESET"
+          "net": "BOOT/RESET",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "RESET_PIN"
+          "net": "RESET_PIN",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -6254,11 +7092,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "RESET_PIN"
+          "net": "RESET_PIN",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "P0.18/RESET"
+          "net": "P0.18/RESET",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -6270,39 +7110,48 @@
       "pins": {
         "1": {
           "name": "C\\S\\",
-          "net": "NetSB13_2"
+          "net": "NetSB13_2",
+          "type": "passive"
         },
         "2": {
           "name": "SIO1/SO",
-          "net": "NetSB14_2"
+          "net": "NetSB14_2",
+          "type": "passive"
         },
         "3": {
           "name": "SIO2/W\\P\\",
-          "net": "NetSB15_2"
+          "net": "NetSB15_2",
+          "type": "passive"
         },
         "4": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "5": {
           "name": "SIO0/SI",
-          "net": "NetSB12_2"
+          "net": "NetSB12_2",
+          "type": "passive"
         },
         "6": {
           "name": "SCLK",
-          "net": "NetSB11_2"
+          "net": "NetSB11_2",
+          "type": "passive"
         },
         "7": {
           "name": "SIO3/R\\E\\S\\E\\T\\",
-          "net": "NetSB10_2"
+          "net": "NetSB10_2",
+          "type": "passive"
         },
         "8": {
           "name": "VCC",
-          "net": "NetC49_2"
+          "net": "NetC49_2",
+          "type": "passive"
         },
         "9": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "mpn": "MX25R6435FZNIL0",
@@ -6312,8 +7161,14 @@
     },
     "C49": {
       "pins": {
-        "1": "GND",
-        "2": "NetC49_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC49_2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -6322,8 +7177,14 @@
     },
     "R46": {
       "pins": {
-        "1": "NFC2",
-        "2": "P0.10/NFC2"
+        "1": {
+          "net": "NFC2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P0.10/NFC2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -6332,8 +7193,14 @@
     },
     "R44": {
       "pins": {
-        "1": "NFC1",
-        "2": "P0.09/NFC1"
+        "1": {
+          "net": "NFC1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P0.09/NFC1",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -6342,8 +7209,14 @@
     },
     "C46": {
       "pins": {
-        "1": "NFC1",
-        "2": "GND"
+        "1": {
+          "net": "NFC1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -6352,8 +7225,14 @@
     },
     "C47": {
       "pins": {
-        "1": "GND",
-        "2": "NFC2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NFC2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -6364,11 +7243,13 @@
       "pins": {
         "1": {
           "name": "N.O",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "COM",
-          "net": "BUTTON1"
+          "net": "BUTTON1",
+          "type": "passive"
         }
       },
       "mpn": "TS604VM1-025BR-R",
@@ -6380,11 +7261,13 @@
       "pins": {
         "1": {
           "name": "N.O",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "COM",
-          "net": "BUTTON2"
+          "net": "BUTTON2",
+          "type": "passive"
         }
       },
       "mpn": "TS604VM1-025BR-R",
@@ -6396,11 +7279,13 @@
       "pins": {
         "1": {
           "name": "N.O",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "COM",
-          "net": "P0.24"
+          "net": "P0.24",
+          "type": "passive"
         }
       },
       "mpn": "TS604VM1-025BR-R",
@@ -6412,11 +7297,13 @@
       "pins": {
         "1": {
           "name": "N.O",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "COM",
-          "net": "P0.25"
+          "net": "P0.25",
+          "type": "passive"
         }
       },
       "mpn": "TS604VM1-025BR-R",
@@ -6428,35 +7315,43 @@
       "pins": {
         "1": {
           "name": "OUT1",
-          "net": "NetQ80_1"
+          "net": "NetQ80_1",
+          "type": "output"
         },
         "2": {
           "name": "IN1-",
-          "net": "NetQ80_3"
+          "net": "NetQ80_3",
+          "type": "input"
         },
         "3": {
           "name": "IN1+",
-          "net": "VDD_nRF_SENSE"
+          "net": "VDD_nRF_SENSE",
+          "type": "input"
         },
         "4": {
           "name": "V-",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "5": {
           "name": "IN2+",
-          "net": "NetP28_1"
+          "net": "NetP28_1",
+          "type": "input"
         },
         "6": {
           "name": "IN2-",
-          "net": "NetP28_2"
+          "net": "NetP28_2",
+          "type": "input"
         },
         "7": {
           "name": "OUT2",
-          "net": "NetP28_3"
+          "net": "NetP28_3",
+          "type": "output"
         },
         "8": {
           "name": "V+",
-          "net": "V5V"
+          "net": "V5V",
+          "type": "power"
         }
       },
       "mpn": "TS27L2IPT",
@@ -6466,9 +7361,18 @@
     },
     "P28": {
       "pins": {
-        "1": "NetP28_1",
-        "2": "NetP28_2",
-        "3": "NetP28_3"
+        "1": {
+          "net": "NetP28_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP28_2",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetP28_3",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -6477,8 +7381,14 @@
     },
     "R26": {
       "pins": {
-        "1": "USB_DETECT",
-        "2": "GND"
+        "1": {
+          "net": "USB_DETECT",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -6487,8 +7397,14 @@
     },
     "R52": {
       "pins": {
-        "1": "VDD",
-        "2": "NetR52_2"
+        "1": {
+          "net": "VDD",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR52_2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -6497,8 +7413,14 @@
     },
     "R53": {
       "pins": {
-        "1": "VDD",
-        "2": "NetR53_2"
+        "1": {
+          "net": "VDD",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR53_2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -6509,11 +7431,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "VDD"
+          "net": "VDD",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "NetC49_2"
+          "net": "NetC49_2",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -6525,11 +7449,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "VDD_PER"
+          "net": "VDD_PER",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "NetC49_2"
+          "net": "NetC49_2",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -6541,11 +7467,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "VDD_nRF"
+          "net": "VDD_nRF",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "NetC49_2"
+          "net": "NetC49_2",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -6555,8 +7483,14 @@
     },
     "R54": {
       "pins": {
-        "1": "BOOT/RESET",
-        "2": "VDD"
+        "1": {
+          "net": "BOOT/RESET",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VDD",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -6565,7 +7499,10 @@
     },
     "TP22": {
       "pins": {
-        "1": "n\\R\\F\\_\\O\\N\\L\\Y\\"
+        "1": {
+          "net": "n\\R\\F\\_\\O\\N\\L\\Y\\",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -6574,8 +7511,14 @@
     },
     "R3": {
       "pins": {
-        "1": "n\\R\\F\\_\\O\\N\\L\\Y\\",
-        "2": "NetR3_2"
+        "1": {
+          "net": "n\\R\\F\\_\\O\\N\\L\\Y\\",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR3_2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -6584,7 +7527,10 @@
     },
     "TP23": {
       "pins": {
-        "1": "TRACE_SW"
+        "1": {
+          "net": "TRACE_SW",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -6593,8 +7539,14 @@
     },
     "R4": {
       "pins": {
-        "1": "TRACE_SW",
-        "2": "NetR4_2"
+        "1": {
+          "net": "TRACE_SW",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR4_2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -6603,7 +7555,10 @@
     },
     "TP21": {
       "pins": {
-        "1": "BUTTON2"
+        "1": {
+          "net": "BUTTON2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -6612,7 +7567,10 @@
     },
     "TP20": {
       "pins": {
-        "1": "BUTTON1"
+        "1": {
+          "net": "BUTTON1",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -6623,27 +7581,33 @@
       "pins": {
         "1": {
           "name": "S1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "G1",
-          "net": "VBUS"
+          "net": "VBUS",
+          "type": "passive"
         },
         "3": {
           "name": "D2",
-          "net": "USB_DETECT"
+          "net": "USB_DETECT",
+          "type": "passive"
         },
         "4": {
           "name": "S2",
-          "net": "VDD"
+          "net": "VDD",
+          "type": "passive"
         },
         "5": {
           "name": "G2",
-          "net": "NetQ40_5"
+          "net": "NetQ40_5",
+          "type": "passive"
         },
         "6": {
           "name": "D1",
-          "net": "NetQ40_5"
+          "net": "NetQ40_5",
+          "type": "passive"
         }
       },
       "mpn": "PMCPB5530X,115",
@@ -6653,7 +7617,10 @@
     },
     "TP5": {
       "pins": {
-        "1": "SWD3_IO"
+        "1": {
+          "net": "SWD3_IO",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -6662,7 +7629,10 @@
     },
     "TP6": {
       "pins": {
-        "1": "SWD3_CLK"
+        "1": {
+          "net": "SWD3_CLK",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -6671,7 +7641,10 @@
     },
     "TP7": {
       "pins": {
-        "1": "SWD3_RESET"
+        "1": {
+          "net": "SWD3_RESET",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -6682,11 +7655,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "SWDIO"
+          "net": "SWDIO",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "NetSB54_2"
+          "net": "NetSB54_2",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -6698,11 +7673,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "SWDCLK"
+          "net": "SWDCLK",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "NetSB55_2"
+          "net": "NetSB55_2",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -6714,11 +7691,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "P1.00"
+          "net": "P1.00",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "NetSB57_2"
+          "net": "NetSB57_2",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -6730,11 +7709,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "P0.18/RESET"
+          "net": "P0.18/RESET",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "NetSB56_2"
+          "net": "NetSB56_2",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -6744,7 +7725,10 @@
     },
     "TP8": {
       "pins": {
-        "1": "SWD3_SWO"
+        "1": {
+          "net": "SWD3_SWO",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -6755,15 +7739,18 @@
       "pins": {
         "1": {
           "name": "N.C",
-          "net": "I\\F\\_\\O\\F\\F\\"
+          "net": "I\\F\\_\\O\\F\\F\\",
+          "type": "passive"
         },
         "2": {
           "name": "COM",
-          "net": "U\\A\\R\\T\\_\\F\\C\\_\\O\\F\\F\\"
+          "net": "U\\A\\R\\T\\_\\F\\C\\_\\O\\F\\F\\",
+          "type": "passive"
         },
         "3": {
           "name": "N.O",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "mpn": "CJS-1200TA",
@@ -6773,14 +7760,38 @@
     },
     "P7": {
       "pins": {
-        "1": "VIO",
-        "2": "VIO",
-        "3": "RESET_PIN",
-        "4": "VIO",
-        "5": "V5V",
-        "6": "GND",
-        "7": "GND",
-        "8": "VIN"
+        "1": {
+          "net": "VIO",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VIO",
+          "type": "passive"
+        },
+        "3": {
+          "net": "RESET_PIN",
+          "type": "passive"
+        },
+        "4": {
+          "net": "VIO",
+          "type": "passive"
+        },
+        "5": {
+          "net": "V5V",
+          "type": "passive"
+        },
+        "6": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "7": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "8": {
+          "net": "VIN",
+          "type": "passive"
+        }
       },
       "mpn": "1125-1108S0M116CR04",
       "manufacturer": "WCON",
@@ -6789,12 +7800,30 @@
     },
     "P11": {
       "pins": {
-        "1": "P1.14",
-        "2": "V5V",
-        "3": "P1.15",
-        "4": "P1.13",
-        "5": "RESET_PIN",
-        "6": "NetP5_6"
+        "1": {
+          "net": "P1.14",
+          "type": "passive"
+        },
+        "2": {
+          "net": "V5V",
+          "type": "passive"
+        },
+        "3": {
+          "net": "P1.15",
+          "type": "passive"
+        },
+        "4": {
+          "net": "P1.13",
+          "type": "passive"
+        },
+        "5": {
+          "net": "RESET_PIN",
+          "type": "passive"
+        },
+        "6": {
+          "net": "NetP5_6",
+          "type": "passive"
+        }
       },
       "mpn": "2171-203MS0CUNR3",
       "manufacturer": "WCON",
@@ -6803,18 +7832,54 @@
     },
     "P14": {
       "pins": {
-        "1": "GND",
-        "2": "P0.03/AIN1",
-        "3": "GND",
-        "4": "P0.04/AIN2",
-        "5": "GND",
-        "6": "P0.28/AIN4",
-        "7": "GND",
-        "8": "P0.29/AIN5",
-        "9": "GND",
-        "10": "P0.30/AIN6",
-        "11": "GND",
-        "12": "P0.31/AIN7"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P0.03/AIN1",
+          "type": "passive"
+        },
+        "3": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "4": {
+          "net": "P0.04/AIN2",
+          "type": "passive"
+        },
+        "5": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "6": {
+          "net": "P0.28/AIN4",
+          "type": "passive"
+        },
+        "7": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "8": {
+          "net": "P0.29/AIN5",
+          "type": "passive"
+        },
+        "9": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "10": {
+          "net": "P0.30/AIN6",
+          "type": "passive"
+        },
+        "11": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "12": {
+          "net": "P0.31/AIN7",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -6823,22 +7888,70 @@
     },
     "P15": {
       "pins": {
-        "1": "GND",
-        "2": "P1.01",
-        "3": "GND",
-        "4": "P1.02",
-        "5": "GND",
-        "6": "P1.03",
-        "7": "GND",
-        "8": "P1.04",
-        "9": "GND",
-        "10": "P1.05",
-        "11": "GND",
-        "12": "P1.06",
-        "13": "GND",
-        "14": "P1.07",
-        "15": "GND",
-        "16": "P1.08"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P1.01",
+          "type": "passive"
+        },
+        "3": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "4": {
+          "net": "P1.02",
+          "type": "passive"
+        },
+        "5": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "6": {
+          "net": "P1.03",
+          "type": "passive"
+        },
+        "7": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "8": {
+          "net": "P1.04",
+          "type": "passive"
+        },
+        "9": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "10": {
+          "net": "P1.05",
+          "type": "passive"
+        },
+        "11": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "12": {
+          "net": "P1.06",
+          "type": "passive"
+        },
+        "13": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "14": {
+          "net": "P1.07",
+          "type": "passive"
+        },
+        "15": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "16": {
+          "net": "P1.08",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -6847,26 +7960,86 @@
     },
     "P16": {
       "pins": {
-        "1": "GND",
-        "2": "P1.10",
-        "3": "GND",
-        "4": "P1.11",
-        "5": "GND",
-        "6": "P1.12",
-        "7": "GND",
-        "8": "P1.13",
-        "9": "GND",
-        "10": "P1.14",
-        "11": "GND",
-        "12": "P1.15",
-        "13": "GND",
-        "14": "GND",
-        "15": "GND",
-        "16": "P0.02/AIN0",
-        "17": "GND",
-        "18": "SDA",
-        "19": "GND",
-        "20": "SCL"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P1.10",
+          "type": "passive"
+        },
+        "3": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "4": {
+          "net": "P1.11",
+          "type": "passive"
+        },
+        "5": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "6": {
+          "net": "P1.12",
+          "type": "passive"
+        },
+        "7": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "8": {
+          "net": "P1.13",
+          "type": "passive"
+        },
+        "9": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "10": {
+          "net": "P1.14",
+          "type": "passive"
+        },
+        "11": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "12": {
+          "net": "P1.15",
+          "type": "passive"
+        },
+        "13": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "14": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "15": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "16": {
+          "net": "P0.02/AIN0",
+          "type": "passive"
+        },
+        "17": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "18": {
+          "net": "SDA",
+          "type": "passive"
+        },
+        "19": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "20": {
+          "net": "SCL",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -6875,22 +8048,70 @@
     },
     "P13": {
       "pins": {
-        "1": "GND",
-        "2": "VIO",
-        "3": "GND",
-        "4": "VIO",
-        "5": "GND",
-        "6": "RESET_PIN",
-        "7": "GND",
-        "8": "VIO",
-        "9": "GND",
-        "10": "V5V",
-        "11": "GND",
-        "12": "GND",
-        "13": "GND",
-        "14": "GND",
-        "15": "GND",
-        "16": "VIN"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VIO",
+          "type": "passive"
+        },
+        "3": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "4": {
+          "net": "VIO",
+          "type": "passive"
+        },
+        "5": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "6": {
+          "net": "RESET_PIN",
+          "type": "passive"
+        },
+        "7": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "8": {
+          "net": "VIO",
+          "type": "passive"
+        },
+        "9": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "10": {
+          "net": "V5V",
+          "type": "passive"
+        },
+        "11": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "12": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "13": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "14": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "15": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "16": {
+          "net": "VIN",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -6899,22 +8120,70 @@
     },
     "P17": {
       "pins": {
-        "1": "GND",
-        "2": "P0.00",
-        "3": "GND",
-        "4": "P0.01",
-        "5": "GND",
-        "6": "P0.05/AIN3",
-        "7": "GND",
-        "8": "P0.06",
-        "9": "GND",
-        "10": "P0.07",
-        "11": "GND",
-        "12": "P0.08",
-        "13": "GND",
-        "14": "NetP6_7",
-        "15": "GND",
-        "16": "NetP6_8"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P0.00",
+          "type": "passive"
+        },
+        "3": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "4": {
+          "net": "P0.01",
+          "type": "passive"
+        },
+        "5": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "6": {
+          "net": "P0.05/AIN3",
+          "type": "passive"
+        },
+        "7": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "8": {
+          "net": "P0.06",
+          "type": "passive"
+        },
+        "9": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "10": {
+          "net": "P0.07",
+          "type": "passive"
+        },
+        "11": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "12": {
+          "net": "P0.08",
+          "type": "passive"
+        },
+        "13": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "14": {
+          "net": "NetP6_7",
+          "type": "passive"
+        },
+        "15": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "16": {
+          "net": "NetP6_8",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -6923,8 +8192,14 @@
     },
     "C67": {
       "pins": {
-        "1": "GND",
-        "2": "NetC67_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC67_2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -6935,19 +8210,23 @@
       "pins": {
         "1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "IO1",
-          "net": "IMCU_N"
+          "net": "IMCU_N",
+          "type": "passive"
         },
         "3": {
           "name": "IO2",
-          "net": "IMCU_P"
+          "net": "IMCU_P",
+          "type": "passive"
         },
         "4": {
           "name": "VCC",
-          "net": "NetC63_1"
+          "net": "NetC63_1",
+          "type": "passive"
         }
       },
       "mpn": "PRTR5V0U2X",
@@ -6957,7 +8236,10 @@
     },
     "TP12": {
       "pins": {
-        "1": "GND"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -6966,8 +8248,14 @@
     },
     "C64": {
       "pins": {
-        "1": "GND",
-        "2": "NetC63_1"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC63_1",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -6976,7 +8264,10 @@
     },
     "TP11": {
       "pins": {
-        "1": "NetC63_1"
+        "1": {
+          "net": "NetC63_1",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -6985,8 +8276,14 @@
     },
     "C65": {
       "pins": {
-        "1": "GND",
-        "2": "NetC63_1"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC63_1",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -6995,7 +8292,10 @@
     },
     "TP9": {
       "pins": {
-        "1": "IMCU_P"
+        "1": {
+          "net": "IMCU_P",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -7004,7 +8304,10 @@
     },
     "TP10": {
       "pins": {
-        "1": "IMCU_N"
+        "1": {
+          "net": "IMCU_N",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -7015,11 +8318,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "NetP5_6"
+          "net": "NetP5_6",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -7031,11 +8336,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "NetP5_6"
+          "net": "NetP5_6",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "NetR68_1"
+          "net": "NetR68_1",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -7045,8 +8352,14 @@
     },
     "R68": {
       "pins": {
-        "1": "NetR68_1",
-        "2": "VDD"
+        "1": {
+          "net": "NetR68_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VDD",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -7055,7 +8368,10 @@
     },
     "TP19": {
       "pins": {
-        "1": "NetR68_1"
+        "1": {
+          "net": "NetR68_1",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -7066,27 +8382,33 @@
       "pins": {
         "1": {
           "name": "VBUS",
-          "net": "NetC63_1"
+          "net": "NetC63_1",
+          "type": "power"
         },
         "2": {
           "name": "D-",
-          "net": "IMCU_N"
+          "net": "IMCU_N",
+          "type": "passive"
         },
         "3": {
           "name": "D+",
-          "net": "IMCU_P"
+          "net": "IMCU_P",
+          "type": "passive"
         },
         "4": {
           "name": "ID",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "5": {
           "name": "GND",
-          "net": "NetFB63_1"
+          "net": "NetFB63_1",
+          "type": "power"
         },
         "6": {
           "name": "Shield",
-          "net": "NetC67_2"
+          "net": "NetC67_2",
+          "type": "power"
         }
       },
       "mpn": "AJU55-BS2111-L",
@@ -7096,12 +8418,30 @@
     },
     "P5": {
       "pins": {
-        "1": "P1.14",
-        "2": "V5V",
-        "3": "P1.15",
-        "4": "P1.13",
-        "5": "RESET_PIN",
-        "6": "NetP5_6"
+        "1": {
+          "net": "P1.14",
+          "type": "passive"
+        },
+        "2": {
+          "net": "V5V",
+          "type": "passive"
+        },
+        "3": {
+          "net": "P1.15",
+          "type": "passive"
+        },
+        "4": {
+          "net": "P1.13",
+          "type": "passive"
+        },
+        "5": {
+          "net": "RESET_PIN",
+          "type": "passive"
+        },
+        "6": {
+          "net": "NetP5_6",
+          "type": "passive"
+        }
       },
       "mpn": "1125-1203S0M116CR03",
       "manufacturer": "WCON",
@@ -7110,16 +8450,46 @@
     },
     "P18": {
       "pins": {
-        "1": "VDBG",
-        "2": "SWDIO",
-        "3": "GND",
-        "4": "SWDCLK",
-        "5": "GND",
-        "6": "P1.00",
-        "7": "",
-        "8": "",
-        "9": "GND",
-        "10": "P0.18/RESET"
+        "1": {
+          "net": "VDBG",
+          "type": "passive"
+        },
+        "2": {
+          "net": "SWDIO",
+          "type": "passive"
+        },
+        "3": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "4": {
+          "net": "SWDCLK",
+          "type": "passive"
+        },
+        "5": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "6": {
+          "net": "P1.00",
+          "type": "passive"
+        },
+        "7": {
+          "net": "",
+          "type": "passive"
+        },
+        "8": {
+          "net": "",
+          "type": "passive"
+        },
+        "9": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "10": {
+          "net": "P0.18/RESET",
+          "type": "passive"
+        }
       },
       "mpn": "3132-10MS0BK00R5",
       "manufacturer": "WCON",
@@ -7128,16 +8498,46 @@
     },
     "P19": {
       "pins": {
-        "1": "NetP19_1",
-        "2": "NetP19_2",
-        "3": "SWD0_SEL",
-        "4": "NetP19_4",
-        "5": "GND",
-        "6": "NetP19_6",
-        "7": "",
-        "8": "",
-        "9": "",
-        "10": "NetP19_10"
+        "1": {
+          "net": "NetP19_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP19_2",
+          "type": "passive"
+        },
+        "3": {
+          "net": "SWD0_SEL",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetP19_4",
+          "type": "passive"
+        },
+        "5": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "6": {
+          "net": "NetP19_6",
+          "type": "passive"
+        },
+        "7": {
+          "net": "",
+          "type": "passive"
+        },
+        "8": {
+          "net": "",
+          "type": "passive"
+        },
+        "9": {
+          "net": "",
+          "type": "passive"
+        },
+        "10": {
+          "net": "NetP19_10",
+          "type": "passive"
+        }
       },
       "mpn": "3132-10MS0BK00R5",
       "manufacturer": "WCON",
@@ -7146,24 +8546,78 @@
     },
     "P24": {
       "pins": {
-        "1": "P0.11",
-        "2": "P0.12",
-        "3": "P0.13",
-        "4": "P0.14",
-        "5": "P0.15",
-        "6": "P0.16",
-        "7": "NetP24_7",
-        "8": "P0.18/RESET",
-        "9": "NetP24_9",
-        "10": "NetP24_10",
-        "11": "NetP24_11",
-        "12": "NetP24_12",
-        "13": "NetP24_13",
-        "14": "P0.24",
-        "15": "P0.25",
-        "16": "P1.00",
-        "17": "P1.09",
-        "18": "GND"
+        "1": {
+          "net": "P0.11",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P0.12",
+          "type": "passive"
+        },
+        "3": {
+          "net": "P0.13",
+          "type": "passive"
+        },
+        "4": {
+          "net": "P0.14",
+          "type": "passive"
+        },
+        "5": {
+          "net": "P0.15",
+          "type": "passive"
+        },
+        "6": {
+          "net": "P0.16",
+          "type": "passive"
+        },
+        "7": {
+          "net": "NetP24_7",
+          "type": "passive"
+        },
+        "8": {
+          "net": "P0.18/RESET",
+          "type": "passive"
+        },
+        "9": {
+          "net": "NetP24_9",
+          "type": "passive"
+        },
+        "10": {
+          "net": "NetP24_10",
+          "type": "passive"
+        },
+        "11": {
+          "net": "NetP24_11",
+          "type": "passive"
+        },
+        "12": {
+          "net": "NetP24_12",
+          "type": "passive"
+        },
+        "13": {
+          "net": "NetP24_13",
+          "type": "passive"
+        },
+        "14": {
+          "net": "P0.24",
+          "type": "passive"
+        },
+        "15": {
+          "net": "P0.25",
+          "type": "passive"
+        },
+        "16": {
+          "net": "P1.00",
+          "type": "passive"
+        },
+        "17": {
+          "net": "P1.09",
+          "type": "passive"
+        },
+        "18": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "2171-209MS0CUNR3",
       "manufacturer": "WCON",
@@ -7172,26 +8626,86 @@
     },
     "P25": {
       "pins": {
-        "1": "VDBG",
-        "2": "SWDIO",
-        "3": "GND",
-        "4": "SWDCLK",
-        "5": "GND",
-        "6": "P1.00",
-        "7": "",
-        "8": "",
-        "9": "GND",
-        "10": "P0.18/RESET",
-        "11": "",
-        "12": "P0.07",
-        "13": "",
-        "14": "P1.00",
-        "15": "GND",
-        "16": "P0.12",
-        "17": "GND",
-        "18": "P0.11",
-        "19": "GND",
-        "20": "P1.09"
+        "1": {
+          "net": "VDBG",
+          "type": "passive"
+        },
+        "2": {
+          "net": "SWDIO",
+          "type": "passive"
+        },
+        "3": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "4": {
+          "net": "SWDCLK",
+          "type": "passive"
+        },
+        "5": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "6": {
+          "net": "P1.00",
+          "type": "passive"
+        },
+        "7": {
+          "net": "",
+          "type": "passive"
+        },
+        "8": {
+          "net": "",
+          "type": "passive"
+        },
+        "9": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "10": {
+          "net": "P0.18/RESET",
+          "type": "passive"
+        },
+        "11": {
+          "net": "",
+          "type": "passive"
+        },
+        "12": {
+          "net": "P0.07",
+          "type": "passive"
+        },
+        "13": {
+          "net": "",
+          "type": "passive"
+        },
+        "14": {
+          "net": "P1.00",
+          "type": "passive"
+        },
+        "15": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "16": {
+          "net": "P0.12",
+          "type": "passive"
+        },
+        "17": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "18": {
+          "net": "P0.11",
+          "type": "passive"
+        },
+        "19": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "20": {
+          "net": "P1.09",
+          "type": "passive"
+        }
       },
       "mpn": "3132-20MS0BK00R1",
       "manufacturer": "WCON",
@@ -7200,11 +8714,26 @@
     },
     "J5": {
       "pins": {
-        "1": "",
-        "2": "NFC1",
-        "3": "",
-        "4": "NFC2",
-        "5": ""
+        "1": {
+          "net": "",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NFC1",
+          "type": "passive"
+        },
+        "3": {
+          "net": "",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NFC2",
+          "type": "passive"
+        },
+        "5": {
+          "net": "",
+          "type": "passive"
+        }
       },
       "mpn": "5141-05RZDNWR03",
       "manufacturer": "WCON",
@@ -7213,8 +8742,14 @@
     },
     "C66": {
       "pins": {
-        "1": "GND",
-        "2": "NetC66_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC66_2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -7225,27 +8760,33 @@
       "pins": {
         "1": {
           "name": "VBUS",
-          "net": "NetC60_2"
+          "net": "NetC60_2",
+          "type": "power"
         },
         "2": {
           "name": "D-",
-          "net": "D_N"
+          "net": "D_N",
+          "type": "passive"
         },
         "3": {
           "name": "D+",
-          "net": "D_P"
+          "net": "D_P",
+          "type": "passive"
         },
         "4": {
           "name": "ID",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "5": {
           "name": "GND",
-          "net": "NetFB62_1"
+          "net": "NetFB62_1",
+          "type": "power"
         },
         "6": {
           "name": "Shield",
-          "net": "NetC66_2"
+          "net": "NetC66_2",
+          "type": "power"
         }
       },
       "mpn": "AJU55-BS2111-L",
@@ -7255,8 +8796,14 @@
     },
     "J6": {
       "pins": {
-        "1": "GND",
-        "2": "VLi-Ion"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VLi-Ion",
+          "type": "passive"
+        }
       },
       "mpn": "SM02B-SRSS-TB(LF)(SN)",
       "manufacturer": "JST Sales America Inc.",
@@ -7265,8 +8812,14 @@
     },
     "P27": {
       "pins": {
-        "1": "GND",
-        "2": "VLi-Ion"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VLi-Ion",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -7275,19 +8828,58 @@
     },
     "P26": {
       "pins": {
-        "1": "VDD_nRF",
-        "2": "VDD_nRF'",
-        "3": "NetP20_3",
-        "4": "NetP20_4",
-        "5": "NetP20_5",
-        "6": "NetP20_6",
-        "7": "NetP20_7",
-        "8": "NetP20_8",
-        "9": "VIN3-5V",
-        "10": "VDD_HV",
-        "11": "VDD_HV'",
-        "12": "VIO_REF",
-        "13": "NetP20_13"
+        "1": {
+          "net": "VDD_nRF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VDD_nRF'",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetP20_3",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetP20_4",
+          "type": "passive"
+        },
+        "5": {
+          "net": "NetP20_5",
+          "type": "passive"
+        },
+        "6": {
+          "net": "NetP20_6",
+          "type": "passive"
+        },
+        "7": {
+          "net": "NetP20_7",
+          "type": "passive"
+        },
+        "8": {
+          "net": "NetP20_8",
+          "type": "passive"
+        },
+        "9": {
+          "net": "VIN3-5V",
+          "type": "passive"
+        },
+        "10": {
+          "net": "VDD_HV",
+          "type": "passive"
+        },
+        "11": {
+          "net": "VDD_HV'",
+          "type": "passive"
+        },
+        "12": {
+          "net": "VIO_REF",
+          "type": "passive"
+        },
+        "13": {
+          "net": "NetP20_13",
+          "type": "passive"
+        }
       },
       "mpn": "2171-113MS0CUNR1",
       "manufacturer": "WCON",
@@ -7298,19 +8890,23 @@
       "pins": {
         "1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "IO1",
-          "net": "D_N"
+          "net": "D_N",
+          "type": "passive"
         },
         "3": {
           "name": "IO2",
-          "net": "D_P"
+          "net": "D_P",
+          "type": "passive"
         },
         "4": {
           "name": "VCC",
-          "net": "NetC60_2"
+          "net": "NetC60_2",
+          "type": "passive"
         }
       },
       "mpn": "PRTR5V0U2X",
@@ -7320,8 +8916,14 @@
     },
     "C61": {
       "pins": {
-        "1": "GND",
-        "2": "NetC60_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC60_2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -7330,8 +8932,14 @@
     },
     "C62": {
       "pins": {
-        "1": "GND",
-        "2": "NetC60_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC60_2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -7340,8 +8948,14 @@
     },
     "FB64": {
       "pins": {
-        "1": "NetC66_2",
-        "2": "GND"
+        "1": {
+          "net": "NetC66_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "BLM15AG121SN1D",
       "manufacturer": "Murata",
@@ -7350,8 +8964,14 @@
     },
     "FB60": {
       "pins": {
-        "1": "NetC60_2",
-        "2": "VBUS_nRF'"
+        "1": {
+          "net": "NetC60_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VBUS_nRF'",
+          "type": "passive"
+        }
       },
       "mpn": "BLM15AG121SN1D",
       "manufacturer": "Murata",
@@ -7360,8 +8980,14 @@
     },
     "C60": {
       "pins": {
-        "1": "GND",
-        "2": "NetC60_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC60_2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -7370,8 +8996,14 @@
     },
     "FB62": {
       "pins": {
-        "1": "NetFB62_1",
-        "2": "GND"
+        "1": {
+          "net": "NetFB62_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "BLM15AG121SN1D",
       "manufacturer": "Murata",
@@ -7380,8 +9012,14 @@
     },
     "FB63": {
       "pins": {
-        "1": "NetFB63_1",
-        "2": "GND"
+        "1": {
+          "net": "NetFB63_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "BLM15AG121SN1D",
       "manufacturer": "Murata",
@@ -7390,8 +9028,14 @@
     },
     "FB61": {
       "pins": {
-        "1": "NetC63_1",
-        "2": "VBUS"
+        "1": {
+          "net": "NetC63_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VBUS",
+          "type": "passive"
+        }
       },
       "mpn": "BLM15AG121SN1D",
       "manufacturer": "Murata",
@@ -7400,8 +9044,14 @@
     },
     "C63": {
       "pins": {
-        "1": "NetC63_1",
-        "2": "GND"
+        "1": {
+          "net": "NetC63_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -7410,8 +9060,14 @@
     },
     "FB65": {
       "pins": {
-        "1": "NetC67_2",
-        "2": "GND"
+        "1": {
+          "net": "NetC67_2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "BLM15AG121SN1D",
       "manufacturer": "Murata",
@@ -7420,7 +9076,10 @@
     },
     "TP13": {
       "pins": {
-        "1": "D_N"
+        "1": {
+          "net": "D_N",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -7429,7 +9088,10 @@
     },
     "TP14": {
       "pins": {
-        "1": "D_P"
+        "1": {
+          "net": "D_P",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -7438,7 +9100,10 @@
     },
     "TP18": {
       "pins": {
-        "1": "NFC2"
+        "1": {
+          "net": "NFC2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -7447,7 +9112,10 @@
     },
     "TP17": {
       "pins": {
-        "1": "NFC1"
+        "1": {
+          "net": "NFC1",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -7456,7 +9124,10 @@
     },
     "TP31": {
       "pins": {
-        "1": "VLi-Ion"
+        "1": {
+          "net": "VLi-Ion",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -7465,8 +9136,14 @@
     },
     "C69": {
       "pins": {
-        "1": "GND",
-        "2": "VBUS"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VBUS",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -7475,8 +9152,14 @@
     },
     "C68": {
       "pins": {
-        "1": "GND",
-        "2": "VBUS_nRF'"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VBUS_nRF'",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -7487,11 +9170,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "VDD"
+          "net": "VDD",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "NetP19_1"
+          "net": "NetP19_1",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -7501,7 +9186,10 @@
     },
     "TP16": {
       "pins": {
-        "1": "NetFB62_1"
+        "1": {
+          "net": "NetFB62_1",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -7510,7 +9198,10 @@
     },
     "TP15": {
       "pins": {
-        "1": "NetC60_2"
+        "1": {
+          "net": "NetC60_2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -7521,11 +9212,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "VDBG"
+          "net": "VDBG",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "VDD_nRF'"
+          "net": "VDD_nRF'",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -7537,11 +9230,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "VDBG"
+          "net": "VDBG",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "VDD"
+          "net": "VDD",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -7551,7 +9246,10 @@
     },
     "TP42": {
       "pins": {
-        "1": "P0.03/AIN1"
+        "1": {
+          "net": "P0.03/AIN1",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -7560,7 +9258,10 @@
     },
     "TP43": {
       "pins": {
-        "1": "P0.04/AIN2"
+        "1": {
+          "net": "P0.04/AIN2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -7569,7 +9270,10 @@
     },
     "TP44": {
       "pins": {
-        "1": "P0.28/AIN4"
+        "1": {
+          "net": "P0.28/AIN4",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -7578,7 +9282,10 @@
     },
     "TP45": {
       "pins": {
-        "1": "P0.29/AIN5"
+        "1": {
+          "net": "P0.29/AIN5",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -7587,7 +9294,10 @@
     },
     "TP46": {
       "pins": {
-        "1": "P0.30/AIN6"
+        "1": {
+          "net": "P0.30/AIN6",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -7596,7 +9306,10 @@
     },
     "TP47": {
       "pins": {
-        "1": "P0.31/AIN7"
+        "1": {
+          "net": "P0.31/AIN7",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -7605,8 +9318,14 @@
     },
     "R63": {
       "pins": {
-        "1": "GND",
-        "2": "NetC67_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC67_2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -7615,8 +9334,14 @@
     },
     "R62": {
       "pins": {
-        "1": "GND",
-        "2": "NetC66_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC66_2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -7625,8 +9350,14 @@
     },
     "R69": {
       "pins": {
-        "1": "GND",
-        "2": "NetP20_13"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP20_13",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -7637,11 +9368,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "NetP19_1"
+          "net": "NetP19_1",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "VIO_REF"
+          "net": "VIO_REF",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -7651,14 +9384,38 @@
     },
     "P1": {
       "pins": {
-        "1": "VIO",
-        "2": "VIO",
-        "3": "RESET_PIN",
-        "4": "VIO",
-        "5": "V5V",
-        "6": "GND",
-        "7": "GND",
-        "8": "VIN"
+        "1": {
+          "net": "VIO",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VIO",
+          "type": "passive"
+        },
+        "3": {
+          "net": "RESET_PIN",
+          "type": "passive"
+        },
+        "4": {
+          "net": "VIO",
+          "type": "passive"
+        },
+        "5": {
+          "net": "V5V",
+          "type": "passive"
+        },
+        "6": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "7": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "8": {
+          "net": "VIN",
+          "type": "passive"
+        }
       },
       "mpn": "2171-108MS0CUNR3",
       "manufacturer": "WCON",
@@ -7667,12 +9424,30 @@
     },
     "P2": {
       "pins": {
-        "1": "P0.03/AIN1",
-        "2": "P0.04/AIN2",
-        "3": "P0.28/AIN4",
-        "4": "P0.29/AIN5",
-        "5": "P0.30/AIN6",
-        "6": "P0.31/AIN7"
+        "1": {
+          "net": "P0.03/AIN1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P0.04/AIN2",
+          "type": "passive"
+        },
+        "3": {
+          "net": "P0.28/AIN4",
+          "type": "passive"
+        },
+        "4": {
+          "net": "P0.29/AIN5",
+          "type": "passive"
+        },
+        "5": {
+          "net": "P0.30/AIN6",
+          "type": "passive"
+        },
+        "6": {
+          "net": "P0.31/AIN7",
+          "type": "passive"
+        }
       },
       "mpn": "2171-106MS0CUNR3",
       "manufacturer": "WCON",
@@ -7681,12 +9456,30 @@
     },
     "P8": {
       "pins": {
-        "1": "P0.03/AIN1",
-        "2": "P0.04/AIN2",
-        "3": "P0.28/AIN4",
-        "4": "P0.29/AIN5",
-        "5": "P0.30/AIN6",
-        "6": "P0.31/AIN7"
+        "1": {
+          "net": "P0.03/AIN1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P0.04/AIN2",
+          "type": "passive"
+        },
+        "3": {
+          "net": "P0.28/AIN4",
+          "type": "passive"
+        },
+        "4": {
+          "net": "P0.29/AIN5",
+          "type": "passive"
+        },
+        "5": {
+          "net": "P0.30/AIN6",
+          "type": "passive"
+        },
+        "6": {
+          "net": "P0.31/AIN7",
+          "type": "passive"
+        }
       },
       "mpn": "1125-1106S0M116R2",
       "manufacturer": "WCON",
@@ -7695,14 +9488,38 @@
     },
     "P9": {
       "pins": {
-        "1": "P1.01",
-        "2": "P1.02",
-        "3": "P1.03",
-        "4": "P1.04",
-        "5": "P1.05",
-        "6": "P1.06",
-        "7": "P1.07",
-        "8": "P1.08"
+        "1": {
+          "net": "P1.01",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P1.02",
+          "type": "passive"
+        },
+        "3": {
+          "net": "P1.03",
+          "type": "passive"
+        },
+        "4": {
+          "net": "P1.04",
+          "type": "passive"
+        },
+        "5": {
+          "net": "P1.05",
+          "type": "passive"
+        },
+        "6": {
+          "net": "P1.06",
+          "type": "passive"
+        },
+        "7": {
+          "net": "P1.07",
+          "type": "passive"
+        },
+        "8": {
+          "net": "P1.08",
+          "type": "passive"
+        }
       },
       "mpn": "1125-1108S0M116CR04",
       "manufacturer": "WCON",
@@ -7711,14 +9528,38 @@
     },
     "P3": {
       "pins": {
-        "1": "P1.01",
-        "2": "P1.02",
-        "3": "P1.03",
-        "4": "P1.04",
-        "5": "P1.05",
-        "6": "P1.06",
-        "7": "P1.07",
-        "8": "P1.08"
+        "1": {
+          "net": "P1.01",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P1.02",
+          "type": "passive"
+        },
+        "3": {
+          "net": "P1.03",
+          "type": "passive"
+        },
+        "4": {
+          "net": "P1.04",
+          "type": "passive"
+        },
+        "5": {
+          "net": "P1.05",
+          "type": "passive"
+        },
+        "6": {
+          "net": "P1.06",
+          "type": "passive"
+        },
+        "7": {
+          "net": "P1.07",
+          "type": "passive"
+        },
+        "8": {
+          "net": "P1.08",
+          "type": "passive"
+        }
       },
       "mpn": "2171-108MS0CUNR3",
       "manufacturer": "WCON",
@@ -7727,16 +9568,46 @@
     },
     "P10": {
       "pins": {
-        "1": "P1.10",
-        "2": "P1.11",
-        "3": "P1.12",
-        "4": "P1.13",
-        "5": "P1.14",
-        "6": "P1.15",
-        "7": "GND",
-        "8": "P0.02/AIN0",
-        "9": "SDA",
-        "10": "SCL"
+        "1": {
+          "net": "P1.10",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P1.11",
+          "type": "passive"
+        },
+        "3": {
+          "net": "P1.12",
+          "type": "passive"
+        },
+        "4": {
+          "net": "P1.13",
+          "type": "passive"
+        },
+        "5": {
+          "net": "P1.14",
+          "type": "passive"
+        },
+        "6": {
+          "net": "P1.15",
+          "type": "passive"
+        },
+        "7": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "8": {
+          "net": "P0.02/AIN0",
+          "type": "passive"
+        },
+        "9": {
+          "net": "SDA",
+          "type": "passive"
+        },
+        "10": {
+          "net": "SCL",
+          "type": "passive"
+        }
       },
       "mpn": "1125-1110S0M116R2",
       "manufacturer": "WCON",
@@ -7745,16 +9616,46 @@
     },
     "P4": {
       "pins": {
-        "1": "P1.10",
-        "2": "P1.11",
-        "3": "P1.12",
-        "4": "P1.13",
-        "5": "P1.14",
-        "6": "P1.15",
-        "7": "GND",
-        "8": "P0.02/AIN0",
-        "9": "SDA",
-        "10": "SCL"
+        "1": {
+          "net": "P1.10",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P1.11",
+          "type": "passive"
+        },
+        "3": {
+          "net": "P1.12",
+          "type": "passive"
+        },
+        "4": {
+          "net": "P1.13",
+          "type": "passive"
+        },
+        "5": {
+          "net": "P1.14",
+          "type": "passive"
+        },
+        "6": {
+          "net": "P1.15",
+          "type": "passive"
+        },
+        "7": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "8": {
+          "net": "P0.02/AIN0",
+          "type": "passive"
+        },
+        "9": {
+          "net": "SDA",
+          "type": "passive"
+        },
+        "10": {
+          "net": "SCL",
+          "type": "passive"
+        }
       },
       "mpn": "2171-110MS0CUNR3",
       "manufacturer": "WCON",
@@ -7763,14 +9664,38 @@
     },
     "P12": {
       "pins": {
-        "1": "P0.00",
-        "2": "P0.01",
-        "3": "P0.05/AIN3",
-        "4": "P0.06",
-        "5": "P0.07",
-        "6": "P0.08",
-        "7": "NetP6_7",
-        "8": "NetP6_8"
+        "1": {
+          "net": "P0.00",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P0.01",
+          "type": "passive"
+        },
+        "3": {
+          "net": "P0.05/AIN3",
+          "type": "passive"
+        },
+        "4": {
+          "net": "P0.06",
+          "type": "passive"
+        },
+        "5": {
+          "net": "P0.07",
+          "type": "passive"
+        },
+        "6": {
+          "net": "P0.08",
+          "type": "passive"
+        },
+        "7": {
+          "net": "NetP6_7",
+          "type": "passive"
+        },
+        "8": {
+          "net": "NetP6_8",
+          "type": "passive"
+        }
       },
       "mpn": "1125-1108S0M116CR04",
       "manufacturer": "WCON",
@@ -7779,14 +9704,38 @@
     },
     "P6": {
       "pins": {
-        "1": "P0.00",
-        "2": "P0.01",
-        "3": "P0.05/AIN3",
-        "4": "P0.06",
-        "5": "P0.07",
-        "6": "P0.08",
-        "7": "NetP6_7",
-        "8": "NetP6_8"
+        "1": {
+          "net": "P0.00",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P0.01",
+          "type": "passive"
+        },
+        "3": {
+          "net": "P0.05/AIN3",
+          "type": "passive"
+        },
+        "4": {
+          "net": "P0.06",
+          "type": "passive"
+        },
+        "5": {
+          "net": "P0.07",
+          "type": "passive"
+        },
+        "6": {
+          "net": "P0.08",
+          "type": "passive"
+        },
+        "7": {
+          "net": "NetP6_7",
+          "type": "passive"
+        },
+        "8": {
+          "net": "NetP6_8",
+          "type": "passive"
+        }
       },
       "mpn": "2171-108MS0CUNR3",
       "manufacturer": "WCON",
@@ -7795,19 +9744,58 @@
     },
     "P20": {
       "pins": {
-        "1": "VDD_nRF",
-        "2": "VDD_nRF'",
-        "3": "NetP20_3",
-        "4": "NetP20_4",
-        "5": "NetP20_5",
-        "6": "NetP20_6",
-        "7": "NetP20_7",
-        "8": "NetP20_8",
-        "9": "VIN3-5V",
-        "10": "VDD_HV",
-        "11": "VDD_HV'",
-        "12": "VIO_REF",
-        "13": "NetP20_13"
+        "1": {
+          "net": "VDD_nRF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VDD_nRF'",
+          "type": "passive"
+        },
+        "3": {
+          "net": "NetP20_3",
+          "type": "passive"
+        },
+        "4": {
+          "net": "NetP20_4",
+          "type": "passive"
+        },
+        "5": {
+          "net": "NetP20_5",
+          "type": "passive"
+        },
+        "6": {
+          "net": "NetP20_6",
+          "type": "passive"
+        },
+        "7": {
+          "net": "NetP20_7",
+          "type": "passive"
+        },
+        "8": {
+          "net": "NetP20_8",
+          "type": "passive"
+        },
+        "9": {
+          "net": "VIN3-5V",
+          "type": "passive"
+        },
+        "10": {
+          "net": "VDD_HV",
+          "type": "passive"
+        },
+        "11": {
+          "net": "VDD_HV'",
+          "type": "passive"
+        },
+        "12": {
+          "net": "VIO_REF",
+          "type": "passive"
+        },
+        "13": {
+          "net": "NetP20_13",
+          "type": "passive"
+        }
       },
       "mpn": "1125-1113S0M116CR04",
       "manufacturer": "WCON",
@@ -7818,11 +9806,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "VSUPPLY"
+          "net": "VSUPPLY",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "VREG"
+          "net": "VREG",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -7834,11 +9824,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "VSUPPLY"
+          "net": "VSUPPLY",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "VEXT"
+          "net": "VEXT",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -7848,7 +9840,10 @@
     },
     "TP30": {
       "pins": {
-        "1": "VSENSE_SW_OUT"
+        "1": {
+          "net": "VSENSE_SW_OUT",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -7857,7 +9852,10 @@
     },
     "TP40": {
       "pins": {
-        "1": "GND"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -7866,7 +9864,10 @@
     },
     "TP41": {
       "pins": {
-        "1": "GND"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -7877,27 +9878,33 @@
       "pins": {
         "1": {
           "name": "N.O-1",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "2": {
           "name": "COM-1",
-          "net": "VSENSE_SW_OUT"
+          "net": "VSENSE_SW_OUT",
+          "type": "passive"
         },
         "3": {
           "name": "N.C-1",
-          "net": "VDD"
+          "net": "VDD",
+          "type": "passive"
         },
         "4": {
           "name": "N.O-2",
-          "net": "NetQ83_1"
+          "net": "NetQ83_1",
+          "type": "passive"
         },
         "5": {
           "name": "COM-2",
-          "net": "VBOOST_SRC'"
+          "net": "VBOOST_SRC'",
+          "type": "passive"
         },
         "6": {
           "name": "N.C-2",
-          "net": "VBOOST_SRC"
+          "net": "VBOOST_SRC",
+          "type": "passive"
         }
       },
       "mpn": "MKH-22D14-G2-B",
@@ -7907,8 +9914,14 @@
     },
     "P21": {
       "pins": {
-        "1": "GND",
-        "2": "NetP21_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetP21_2",
+          "type": "passive"
+        }
       },
       "mpn": "1125B-1102S0Z135CR06",
       "manufacturer": "WCON",
@@ -7919,27 +9932,33 @@
       "pins": {
         "1": {
           "name": "S1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "G1",
-          "net": "VREG_EN"
+          "net": "VREG_EN",
+          "type": "passive"
         },
         "3": {
           "name": "D2",
-          "net": "VEXT_EN_INV"
+          "net": "VEXT_EN_INV",
+          "type": "passive"
         },
         "4": {
           "name": "S2",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "5": {
           "name": "G2",
-          "net": "VEXT_EN"
+          "net": "VEXT_EN",
+          "type": "passive"
         },
         "6": {
           "name": "D1",
-          "net": "VREG_EN_INV"
+          "net": "VREG_EN_INV",
+          "type": "passive"
         }
       },
       "mpn": "TSM250N02DCQ RFG",
@@ -7949,8 +9968,14 @@
     },
     "R86": {
       "pins": {
-        "1": "VSUPPLY",
-        "2": "VREG_EN_INV"
+        "1": {
+          "net": "VSUPPLY",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VREG_EN_INV",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -7961,19 +9986,23 @@
       "pins": {
         "A2": {
           "name": "VIN",
-          "net": "VSUPPLY"
+          "net": "VSUPPLY",
+          "type": "power"
         },
         "A1": {
           "name": "VOUT",
-          "net": "VEXT"
+          "net": "VEXT",
+          "type": "power"
         },
         "B2": {
           "name": "CTRL",
-          "net": "VEXT_EN"
+          "net": "VEXT_EN",
+          "type": "input"
         },
         "B1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "mpn": "TCK106AG,LF",
@@ -7985,19 +10014,23 @@
       "pins": {
         "A2": {
           "name": "VIN",
-          "net": "NetQ84_3"
+          "net": "NetQ84_3",
+          "type": "power"
         },
         "A1": {
           "name": "VOUT",
-          "net": "VBAT"
+          "net": "VBAT",
+          "type": "power"
         },
         "B2": {
           "name": "CTRL",
-          "net": "VBAT_EN"
+          "net": "VBAT_EN",
+          "type": "input"
         },
         "B1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "mpn": "TCK106AG,LF",
@@ -8009,19 +10042,23 @@
       "pins": {
         "A2": {
           "name": "VIN",
-          "net": "VSUPPLY"
+          "net": "VSUPPLY",
+          "type": "power"
         },
         "A1": {
           "name": "VOUT",
-          "net": "VREG"
+          "net": "VREG",
+          "type": "power"
         },
         "B2": {
           "name": "CTRL",
-          "net": "NetU13_B2"
+          "net": "NetU13_B2",
+          "type": "input"
         },
         "B1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "mpn": "TCK106AG,LF",
@@ -8033,11 +10070,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "VIO"
+          "net": "VIO",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "VDD"
+          "net": "VDD",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -8047,8 +10086,14 @@
     },
     "C85": {
       "pins": {
-        "1": "GND",
-        "2": "V5V"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "V5V",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -8059,19 +10104,23 @@
       "pins": {
         "A2": {
           "name": "VIN",
-          "net": "VSENSE_SW_OUT"
+          "net": "VSENSE_SW_OUT",
+          "type": "power"
         },
         "A1": {
           "name": "VOUT",
-          "net": "NetQ80_3"
+          "net": "NetQ80_3",
+          "type": "power"
         },
         "B2": {
           "name": "CTRL",
-          "net": "NetC53_2"
+          "net": "NetC53_2",
+          "type": "input"
         },
         "B1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "mpn": "TCK106AG,LF",
@@ -8081,8 +10130,14 @@
     },
     "R88": {
       "pins": {
-        "1": "VDD_nRF_SENSE",
-        "2": "GND"
+        "1": {
+          "net": "VDD_nRF_SENSE",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -8093,19 +10148,23 @@
       "pins": {
         "A2": {
           "name": "VIN",
-          "net": "VSUPPLY"
+          "net": "VSUPPLY",
+          "type": "power"
         },
         "A1": {
           "name": "VOUT",
-          "net": "VSENSE_SW_OUT"
+          "net": "VSENSE_SW_OUT",
+          "type": "power"
         },
         "B2": {
           "name": "CTRL",
-          "net": "VSUPPLY_EN"
+          "net": "VSUPPLY_EN",
+          "type": "input"
         },
         "B1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "mpn": "TCK106AG,LF",
@@ -8117,15 +10176,18 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "NetC53_2"
+          "net": "NetC53_2",
+          "type": "passive"
         },
         "2": {
           "name": "S",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "3": {
           "name": "D",
-          "net": "VSUPPLY_EN"
+          "net": "VSUPPLY_EN",
+          "type": "passive"
         }
       },
       "mpn": "RV2C010UNT2L",
@@ -8135,8 +10197,14 @@
     },
     "R87": {
       "pins": {
-        "1": "VSUPPLY",
-        "2": "VSUPPLY_EN"
+        "1": {
+          "net": "VSUPPLY",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VSUPPLY_EN",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -8145,8 +10213,14 @@
     },
     "R89": {
       "pins": {
-        "1": "VSUPPLY",
-        "2": "VEXT_EN_INV"
+        "1": {
+          "net": "VSUPPLY",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VEXT_EN_INV",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -8157,11 +10231,13 @@
       "pins": {
         "1": {
           "name": "C",
-          "net": "VBOOST_SRC'"
+          "net": "VBOOST_SRC'",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "VBUS_nRF'"
+          "net": "VBUS_nRF'",
+          "type": "passive"
         }
       },
       "mpn": "NSR0620P2T5G",
@@ -8173,11 +10249,13 @@
       "pins": {
         "1": {
           "name": "C",
-          "net": "VBOOST_SRC'"
+          "net": "VBOOST_SRC'",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "VBUS"
+          "net": "VBUS",
+          "type": "passive"
         }
       },
       "mpn": "NSR0620P2T5G",
@@ -8189,11 +10267,13 @@
       "pins": {
         "1": {
           "name": "C",
-          "net": "VBOOST_SRC'"
+          "net": "VBOOST_SRC'",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "VLi-Ion"
+          "net": "VLi-Ion",
+          "type": "passive"
         }
       },
       "mpn": "NSR0620P2T5G",
@@ -8203,8 +10283,14 @@
     },
     "C80": {
       "pins": {
-        "1": "GND",
-        "2": "VBOOST_SRC"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VBOOST_SRC",
+          "type": "passive"
+        }
       },
       "mpn": "CL10A106MA8NRNC",
       "manufacturer": "Samsung Electro-Mechanics America",
@@ -8213,8 +10299,14 @@
     },
     "C82": {
       "pins": {
-        "1": "GND",
-        "2": "V5V"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "V5V",
+          "type": "passive"
+        }
       },
       "mpn": "CL10A106MA8NRNC",
       "manufacturer": "Samsung Electro-Mechanics America",
@@ -8223,8 +10315,14 @@
     },
     "R84": {
       "pins": {
-        "1": "GND",
-        "2": "NetC87_1"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC87_1",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -8233,8 +10331,14 @@
     },
     "R82": {
       "pins": {
-        "1": "NetC87_1",
-        "2": "VREG"
+        "1": {
+          "net": "NetC87_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VREG",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -8243,8 +10347,14 @@
     },
     "L81": {
       "pins": {
-        "1": "NetL81_1",
-        "2": "VREG"
+        "1": {
+          "net": "NetL81_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VREG",
+          "type": "passive"
+        }
       },
       "mpn": "NR3015T4R7M",
       "manufacturer": "Taiyo Yuden",
@@ -8253,8 +10363,14 @@
     },
     "C88": {
       "pins": {
-        "1": "GND",
-        "2": "VREG"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VREG",
+          "type": "passive"
+        }
       },
       "mpn": "CL10A106MA8NRNC",
       "manufacturer": "Samsung Electro-Mechanics America",
@@ -8263,8 +10379,14 @@
     },
     "C86": {
       "pins": {
-        "1": "GND",
-        "2": "NetC86_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC86_2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -8275,31 +10397,38 @@
       "pins": {
         "1": {
           "name": "LX",
-          "net": "NetL81_1"
+          "net": "NetL81_1",
+          "type": "passive"
         },
         "2": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "3": {
           "name": "FB",
-          "net": "NetC87_1"
+          "net": "NetC87_1",
+          "type": "power"
         },
         "4": {
           "name": "CE/MODE",
-          "net": "NetC86_2"
+          "net": "NetC86_2",
+          "type": "input"
         },
         "5": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "6": {
           "name": "VIN",
-          "net": "NetC86_2"
+          "net": "NetC86_2",
+          "type": "power"
         },
         "7": {
           "name": "VSS",
-          "net": ""
+          "net": "",
+          "type": "power"
         }
       },
       "mpn": "XC9236D08CER-G",
@@ -8309,8 +10438,14 @@
     },
     "C87": {
       "pins": {
-        "1": "NetC87_1",
-        "2": "VREG"
+        "1": {
+          "net": "NetC87_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VREG",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -8321,11 +10456,13 @@
       "pins": {
         "1": {
           "name": "C",
-          "net": "VBOOST_SRC'"
+          "net": "VBOOST_SRC'",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "VIN3-5V"
+          "net": "VIN3-5V",
+          "type": "passive"
         }
       },
       "mpn": "NSR0620P2T5G",
@@ -8337,15 +10474,18 @@
       "pins": {
         "1": {
           "name": "B",
-          "net": "NetQ80_1"
+          "net": "NetQ80_1",
+          "type": "passive"
         },
         "2": {
           "name": "C",
-          "net": "V5V"
+          "net": "V5V",
+          "type": "power"
         },
         "3": {
           "name": "E",
-          "net": "NetQ80_3"
+          "net": "NetQ80_3",
+          "type": "power"
         }
       },
       "mpn": "FCX690BTA",
@@ -8357,11 +10497,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "VDD_IMCU"
+          "net": "VDD_IMCU",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "VDD"
+          "net": "VDD",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -8373,19 +10515,23 @@
       "pins": {
         "A2": {
           "name": "VIN",
-          "net": "VDD"
+          "net": "VDD",
+          "type": "power"
         },
         "A1": {
           "name": "VOUT",
-          "net": "VDD_IMCU"
+          "net": "VDD_IMCU",
+          "type": "power"
         },
         "B2": {
           "name": "CTRL",
-          "net": "I\\F\\_\\O\\F\\F\\"
+          "net": "I\\F\\_\\O\\F\\F\\",
+          "type": "input"
         },
         "B1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "mpn": "TCK106AG,LF",
@@ -8395,8 +10541,14 @@
     },
     "R83": {
       "pins": {
-        "1": "V5V",
-        "2": "VREG_EN"
+        "1": {
+          "net": "V5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VREG_EN",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -8405,8 +10557,14 @@
     },
     "R85": {
       "pins": {
-        "1": "VREG_EN",
-        "2": "GND"
+        "1": {
+          "net": "VREG_EN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -8415,8 +10573,14 @@
     },
     "C89": {
       "pins": {
-        "1": "GND",
-        "2": "VSUPPLY"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VSUPPLY",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -8425,8 +10589,14 @@
     },
     "C90": {
       "pins": {
-        "1": "GND",
-        "2": "VSUPPLY"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VSUPPLY",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -8435,8 +10605,14 @@
     },
     "C83": {
       "pins": {
-        "1": "GND",
-        "2": "V5V"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "V5V",
+          "type": "passive"
+        }
       },
       "mpn": "CL10A106MA8NRNC",
       "manufacturer": "Samsung Electro-Mechanics America",
@@ -8447,11 +10623,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "VSENSE_SW_OUT"
+          "net": "VSENSE_SW_OUT",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "VSUPPLY"
+          "net": "VSUPPLY",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -8463,27 +10641,33 @@
       "pins": {
         "1": {
           "name": "N.O-1",
-          "net": "NetSB58_2"
+          "net": "NetSB58_2",
+          "type": "passive"
         },
         "2": {
           "name": "COM-1",
-          "net": "NetP21_2"
+          "net": "NetP21_2",
+          "type": "passive"
         },
         "3": {
           "name": "N.C-1",
-          "net": "VEXT"
+          "net": "VEXT",
+          "type": "passive"
         },
         "4": {
           "name": "N.O-2",
-          "net": "NetP21_2"
+          "net": "NetP21_2",
+          "type": "passive"
         },
         "5": {
           "name": "COM-2",
-          "net": "VSRC_NRF"
+          "net": "VSRC_NRF",
+          "type": "passive"
         },
         "6": {
           "name": "N.C-2",
-          "net": "VDD"
+          "net": "VDD",
+          "type": "passive"
         }
       },
       "mpn": "CAS-220TA",
@@ -8495,11 +10679,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "VBUS_IMCU"
+          "net": "VBUS_IMCU",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "VBUS"
+          "net": "VBUS",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -8511,19 +10697,23 @@
       "pins": {
         "A2": {
           "name": "VIN",
-          "net": "VBUS"
+          "net": "VBUS",
+          "type": "power"
         },
         "A1": {
           "name": "VOUT",
-          "net": "VBUS_IMCU"
+          "net": "VBUS_IMCU",
+          "type": "power"
         },
         "B2": {
           "name": "CTRL",
-          "net": "I\\F\\_\\O\\F\\F\\"
+          "net": "I\\F\\_\\O\\F\\F\\",
+          "type": "input"
         },
         "B1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "mpn": "TCK106AG,LF",
@@ -8535,23 +10725,28 @@
       "pins": {
         "1": {
           "name": "A",
-          "net": "VEXT"
+          "net": "VEXT",
+          "type": "passive"
         },
         "2": {
           "name": "B",
-          "net": "VREG_EN_INV"
+          "net": "VREG_EN_INV",
+          "type": "passive"
         },
         "3": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "4": {
           "name": "Y",
-          "net": "VEXT_EN"
+          "net": "VEXT_EN",
+          "type": "passive"
         },
         "5": {
           "name": "VCC",
-          "net": "VSUPPLY"
+          "net": "VSUPPLY",
+          "type": "power"
         }
       },
       "mpn": "74LVC1G08GW",
@@ -8563,27 +10758,33 @@
       "pins": {
         "1": {
           "name": "A",
-          "net": "NetR95_2"
+          "net": "NetR95_2",
+          "type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "3": {
           "name": "B",
-          "net": "VREG_EN_INV"
+          "net": "VREG_EN_INV",
+          "type": "passive"
         },
         "4": {
           "name": "Y",
-          "net": "VBAT_EN"
+          "net": "VBAT_EN",
+          "type": "passive"
         },
         "5": {
           "name": "VCC",
-          "net": "VSUPPLY"
+          "net": "VSUPPLY",
+          "type": "power"
         },
         "6": {
           "name": "C",
-          "net": "VEXT_EN_INV"
+          "net": "VEXT_EN_INV",
+          "type": "passive"
         }
       },
       "mpn": "74LVC1G11GW",
@@ -8595,23 +10796,28 @@
       "pins": {
         "1": {
           "name": "A",
-          "net": "VSUPPLY_EN"
+          "net": "VSUPPLY_EN",
+          "type": "passive"
         },
         "2": {
           "name": "B",
-          "net": "VREG_EN"
+          "net": "VREG_EN",
+          "type": "passive"
         },
         "3": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "4": {
           "name": "Y",
-          "net": "NetU13_B2"
+          "net": "NetU13_B2",
+          "type": "passive"
         },
         "5": {
           "name": "VCC",
-          "net": "VSUPPLY"
+          "net": "VSUPPLY",
+          "type": "power"
         }
       },
       "mpn": "74LVC1G08GW",
@@ -8621,8 +10827,14 @@
     },
     "C93": {
       "pins": {
-        "1": "GND",
-        "2": "VSUPPLY"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VSUPPLY",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -8631,8 +10843,14 @@
     },
     "R92": {
       "pins": {
-        "1": "VEXT",
-        "2": "GND"
+        "1": {
+          "net": "VEXT",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -8643,11 +10861,13 @@
       "pins": {
         "1": {
           "name": "C",
-          "net": "NetC86_2"
+          "net": "NetC86_2",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "V5V"
+          "net": "V5V",
+          "type": "passive"
         }
       },
       "mpn": "LS14",
@@ -8659,15 +10879,18 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "NetQ83_1"
+          "net": "NetQ83_1",
+          "type": "passive"
         },
         "2": {
           "name": "S",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "3": {
           "name": "D",
-          "net": "NetQ83_3"
+          "net": "NetQ83_3",
+          "type": "passive"
         }
       },
       "mpn": "RV2C010UNT2L",
@@ -8677,8 +10900,14 @@
     },
     "R93": {
       "pins": {
-        "1": "V5V",
-        "2": "NetQ83_3"
+        "1": {
+          "net": "V5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetQ83_3",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -8687,8 +10916,14 @@
     },
     "R94": {
       "pins": {
-        "1": "NetQ83_1",
-        "2": "GND"
+        "1": {
+          "net": "NetQ83_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -8697,7 +10932,10 @@
     },
     "TP27": {
       "pins": {
-        "1": "NetP21_2"
+        "1": {
+          "net": "NetP21_2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -8706,7 +10944,10 @@
     },
     "TP26": {
       "pins": {
-        "1": "VBAT"
+        "1": {
+          "net": "VBAT",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -8715,7 +10956,10 @@
     },
     "TP33": {
       "pins": {
-        "1": "VDD_nRF_SENSE"
+        "1": {
+          "net": "VDD_nRF_SENSE",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -8724,7 +10968,10 @@
     },
     "TP34": {
       "pins": {
-        "1": "NetQ80_3"
+        "1": {
+          "net": "NetQ80_3",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -8733,7 +10980,10 @@
     },
     "TP32": {
       "pins": {
-        "1": "VBOOST_SRC'"
+        "1": {
+          "net": "VBOOST_SRC'",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -8742,7 +10992,10 @@
     },
     "TP35": {
       "pins": {
-        "1": "VDD_IMCU"
+        "1": {
+          "net": "VDD_IMCU",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -8751,7 +11004,10 @@
     },
     "TP28": {
       "pins": {
-        "1": "VBOOST_SRC"
+        "1": {
+          "net": "VBOOST_SRC",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -8760,7 +11016,10 @@
     },
     "TP36": {
       "pins": {
-        "1": "V5V"
+        "1": {
+          "net": "V5V",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -8769,7 +11028,10 @@
     },
     "TP29": {
       "pins": {
-        "1": "VSUPPLY"
+        "1": {
+          "net": "VSUPPLY",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -8780,11 +11042,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "VDD_nRF_SENSE"
+          "net": "VDD_nRF_SENSE",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "NetSB58_2"
+          "net": "NetSB58_2",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -8794,8 +11058,14 @@
     },
     "R96": {
       "pins": {
-        "1": "VSUPPLY",
-        "2": "NetQ84_5"
+        "1": {
+          "net": "VSUPPLY",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetQ84_5",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -8804,8 +11074,14 @@
     },
     "R95": {
       "pins": {
-        "1": "VBAT",
-        "2": "NetR95_2"
+        "1": {
+          "net": "VBAT",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR95_2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -8814,8 +11090,14 @@
     },
     "C94": {
       "pins": {
-        "1": "GND",
-        "2": "VSUPPLY"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VSUPPLY",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -8826,27 +11108,33 @@
       "pins": {
         "1": {
           "name": "A",
-          "net": "NetR95_2"
+          "net": "NetR95_2",
+          "type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "3": {
           "name": "B",
-          "net": "VREG_EN_INV"
+          "net": "VREG_EN_INV",
+          "type": "passive"
         },
         "4": {
           "name": "Y",
-          "net": "NetQ84_2"
+          "net": "NetQ84_2",
+          "type": "passive"
         },
         "5": {
           "name": "VCC",
-          "net": "VSUPPLY"
+          "net": "VSUPPLY",
+          "type": "power"
         },
         "6": {
           "name": "C",
-          "net": "VEXT_EN_INV"
+          "net": "VEXT_EN_INV",
+          "type": "passive"
         }
       },
       "mpn": "74LVC1G11GW",
@@ -8858,35 +11146,43 @@
       "pins": {
         "1": {
           "name": "N.O",
-          "net": "VDD_nRF_SENSE"
+          "net": "VDD_nRF_SENSE",
+          "type": "passive"
         },
         "2": {
           "name": "N.C",
-          "net": "VSRC_NRF"
+          "net": "VSRC_NRF",
+          "type": "passive"
         },
         "3": {
           "name": "COM",
-          "net": "VDD_nRF'"
+          "net": "VDD_nRF'",
+          "type": "passive"
         },
         "4": {
           "name": "N.O",
-          "net": "VDD_nRF_SENSE"
+          "net": "VDD_nRF_SENSE",
+          "type": "passive"
         },
         "5": {
           "name": "N.O",
-          "net": "VLi-Ion"
+          "net": "VLi-Ion",
+          "type": "passive"
         },
         "6": {
           "name": "N.C",
-          "net": "VDD_nRF"
+          "net": "VDD_nRF",
+          "type": "passive"
         },
         "7": {
           "name": "COM",
-          "net": "NetC92_2"
+          "net": "NetC92_2",
+          "type": "passive"
         },
         "8": {
           "name": "N.O",
-          "net": "NetR97_2"
+          "net": "NetR97_2",
+          "type": "passive"
         }
       },
       "mpn": "JS203011JCQN",
@@ -8896,8 +11192,14 @@
     },
     "R90": {
       "pins": {
-        "1": "VDD_nRF'",
-        "2": "VDD_nRF"
+        "1": {
+          "net": "VDD_nRF'",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VDD_nRF",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -8908,11 +11210,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "VDD_nRF"
+          "net": "VDD_nRF",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "VDD_nRF'"
+          "net": "VDD_nRF'",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -8922,8 +11226,14 @@
     },
     "P22": {
       "pins": {
-        "1": "VDD_nRF",
-        "2": "VDD_nRF'"
+        "1": {
+          "net": "VDD_nRF",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VDD_nRF'",
+          "type": "passive"
+        }
       },
       "mpn": "1125B-1102S0Z135CR06",
       "manufacturer": "WCON",
@@ -8932,8 +11242,14 @@
     },
     "R91": {
       "pins": {
-        "1": "VDD_HV'",
-        "2": "VDD_HV"
+        "1": {
+          "net": "VDD_HV'",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VDD_HV",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -8944,11 +11260,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "VDD_HV"
+          "net": "VDD_HV",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "VDD_HV'"
+          "net": "VDD_HV'",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -8958,8 +11276,14 @@
     },
     "P23": {
       "pins": {
-        "1": "VDD_HV",
-        "2": "VDD_HV'"
+        "1": {
+          "net": "VDD_HV",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VDD_HV'",
+          "type": "passive"
+        }
       },
       "mpn": "1125B-1102S0Z135CR06",
       "manufacturer": "WCON",
@@ -8968,8 +11292,14 @@
     },
     "C92": {
       "pins": {
-        "1": "GND",
-        "2": "NetC92_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC92_2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -8980,11 +11310,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "VDD_HV'"
+          "net": "VDD_HV'",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "NetC92_2"
+          "net": "NetC92_2",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -8994,8 +11326,14 @@
     },
     "C91": {
       "pins": {
-        "1": "GND",
-        "2": "VBUS_nRF'"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VBUS_nRF'",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -9006,11 +11344,13 @@
       "pins": {
         "1": {
           "name": "0",
-          "net": "NetR98_1"
+          "net": "NetR98_1",
+          "type": "passive"
         },
         "2": {
           "name": "1",
-          "net": "VBUS_nRF'"
+          "net": "VBUS_nRF'",
+          "type": "passive"
         }
       },
       "mpn": "N.A.",
@@ -9020,7 +11360,10 @@
     },
     "TP38": {
       "pins": {
-        "1": "NetR98_1"
+        "1": {
+          "net": "NetR98_1",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -9029,7 +11372,10 @@
     },
     "TP24": {
       "pins": {
-        "1": "VDD_nRF"
+        "1": {
+          "net": "VDD_nRF",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -9038,7 +11384,10 @@
     },
     "TP25": {
       "pins": {
-        "1": "VDD_HV"
+        "1": {
+          "net": "VDD_HV",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -9047,7 +11396,10 @@
     },
     "TP37": {
       "pins": {
-        "1": "VDD"
+        "1": {
+          "net": "VDD",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -9056,7 +11408,10 @@
     },
     "TP39": {
       "pins": {
-        "1": "GND"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "Nordic Semiconductor",
@@ -9065,8 +11420,14 @@
     },
     "R97": {
       "pins": {
-        "1": "VBUS_nRF'",
-        "2": "NetR97_2"
+        "1": {
+          "net": "VBUS_nRF'",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetR97_2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -9075,8 +11436,14 @@
     },
     "R98": {
       "pins": {
-        "1": "NetR98_1",
-        "2": "VBUS_nRF"
+        "1": {
+          "net": "NetR98_1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VBUS_nRF",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -9085,8 +11452,14 @@
     },
     "Bat1": {
       "pins": {
-        "1": "VBAT",
-        "2": "GND"
+        "1": {
+          "net": "VBAT",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "L-KLS5-CR2032-23-B1",
       "manufacturer": "KLS Electronic",
@@ -9095,8 +11468,14 @@
     },
     "R99": {
       "pins": {
-        "1": "VDD_nRF_SENSE",
-        "2": "VIO_REF"
+        "1": {
+          "net": "VDD_nRF_SENSE",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VIO_REF",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -9107,27 +11486,33 @@
       "pins": {
         "1": {
           "name": "S1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "G1",
-          "net": "NetQ84_2"
+          "net": "NetQ84_2",
+          "type": "passive"
         },
         "3": {
           "name": "D2",
-          "net": "NetQ84_3"
+          "net": "NetQ84_3",
+          "type": "passive"
         },
         "4": {
           "name": "S2",
-          "net": "VSUPPLY"
+          "net": "VSUPPLY",
+          "type": "passive"
         },
         "5": {
           "name": "G2",
-          "net": "NetQ84_5"
+          "net": "NetQ84_5",
+          "type": "passive"
         },
         "6": {
           "name": "D1",
-          "net": "NetQ84_5"
+          "net": "NetQ84_5",
+          "type": "passive"
         }
       },
       "mpn": "PMCPB5530X,115",
@@ -9139,15 +11524,18 @@
       "pins": {
         "1": {
           "name": "G",
-          "net": "VSUPPLY_EN"
+          "net": "VSUPPLY_EN",
+          "type": "passive"
         },
         "2": {
           "name": "S",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "3": {
           "name": "D",
-          "net": "NetQ1_3"
+          "net": "NetQ1_3",
+          "type": "passive"
         }
       },
       "mpn": "RV2C010UNT2L",
@@ -9157,8 +11545,14 @@
     },
     "R6": {
       "pins": {
-        "1": "NetQ1_3",
-        "2": "VDD_nRF_SENSE"
+        "1": {
+          "net": "NetQ1_3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VDD_nRF_SENSE",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -9167,8 +11561,14 @@
     },
     "C53": {
       "pins": {
-        "1": "GND",
-        "2": "NetC53_2"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC53_2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -9177,8 +11577,14 @@
     },
     "R5": {
       "pins": {
-        "1": "VDD_nRF_SENSE",
-        "2": "NetC53_2"
+        "1": {
+          "net": "VDD_nRF_SENSE",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetC53_2",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",
@@ -9189,19 +11595,23 @@
       "pins": {
         "A2": {
           "name": "VIN",
-          "net": "NetC92_2"
+          "net": "NetC92_2",
+          "type": "power"
         },
         "A1": {
           "name": "VOUT",
-          "net": "VDD_HV'"
+          "net": "VDD_HV'",
+          "type": "power"
         },
         "B2": {
           "name": "CTRL",
-          "net": "VDD"
+          "net": "VDD",
+          "type": "input"
         },
         "B1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "mpn": "TCK106AG,LF",
@@ -9213,19 +11623,23 @@
       "pins": {
         "A2": {
           "name": "VIN",
-          "net": "VBUS_nRF'"
+          "net": "VBUS_nRF'",
+          "type": "power"
         },
         "A1": {
           "name": "VOUT",
-          "net": "NetR98_1"
+          "net": "NetR98_1",
+          "type": "power"
         },
         "B2": {
           "name": "CTRL",
-          "net": "VDD"
+          "net": "VDD",
+          "type": "input"
         },
         "B1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "mpn": "TCK106AG,LF",
@@ -9237,31 +11651,38 @@
       "pins": {
         "1": {
           "name": "BAT",
-          "net": "VBOOST_SRC"
+          "net": "VBOOST_SRC",
+          "type": "power"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "3": {
           "name": "CE",
-          "net": "VBOOST_SRC"
+          "net": "VBOOST_SRC",
+          "type": "passive"
         },
         "4": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "5": {
           "name": "LX",
-          "net": "NetL80_2"
+          "net": "NetL80_2",
+          "type": "passive"
         },
         "6": {
           "name": "Vout",
-          "net": "V5V"
+          "net": "V5V",
+          "type": "open_emitter"
         },
         "7": {
           "name": "PAD",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "mpn": "XC9148A50CER-G",
@@ -9271,8 +11692,14 @@
     },
     "L80": {
       "pins": {
-        "1": "VBOOST_SRC",
-        "2": "NetL80_2"
+        "1": {
+          "net": "VBOOST_SRC",
+          "type": "passive"
+        },
+        "2": {
+          "net": "NetL80_2",
+          "type": "passive"
+        }
       },
       "mpn": "VLS3012HBX-4R7M-N",
       "manufacturer": "TDK Corporation",
@@ -9281,8 +11708,14 @@
     },
     "C96": {
       "pins": {
-        "1": "GND",
-        "2": "V5V"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "V5V",
+          "type": "passive"
+        }
       },
       "mpn": "N.A.",
       "manufacturer": "N.A.",

@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T20:27:48.339Z",
-    "netlistHash": "sha256:89df2fa98fd8f83673f8403103191990cf5c30ae3ed74435a6c6ccd0def73fe7",
+    "generatedAt": "2026-11-21T21:40:44.859Z",
+    "netlistHash": "sha256:fa06b72675bff2099c9cd704d799d36f09f3313e6303619f99f8decb82128064",
     "origin": {
       "type": "vendor",
       "source": {
@@ -402,199 +402,248 @@
       "pins": {
         "1": {
           "name": "VBAT",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "power"
         },
         "2": {
           "name": "PC13-ANTI_TAMP",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "3": {
           "name": "PC14-OSC32_IN",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "4": {
           "name": "PC15-OSC32_OUT",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "5": {
           "name": "PH0-OSC_IN",
-          "net": "MCU OSC IN"
+          "net": "MCU OSC IN",
+          "type": "bidirectional"
         },
         "6": {
           "name": "PH1-OSC_OUT",
-          "net": "MCU OSC OUT"
+          "net": "MCU OSC OUT",
+          "type": "bidirectional"
         },
         "7": {
           "name": "NRST",
-          "net": "MCU_NRST"
+          "net": "MCU_NRST",
+          "type": "bidirectional"
         },
         "8": {
           "name": "VSSA",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "9": {
           "name": "VREF+",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "power"
         },
         "10": {
           "name": "PA0-WKUP",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "11": {
           "name": "PA1",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "12": {
           "name": "PA2",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "13": {
           "name": "PA3",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "14": {
           "name": "PA4",
-          "net": "MCU_PA4"
+          "net": "MCU_PA4",
+          "type": "bidirectional"
         },
         "15": {
           "name": "PA5",
-          "net": "MCU_PA5"
+          "net": "MCU_PA5",
+          "type": "bidirectional"
         },
         "16": {
           "name": "PA6",
-          "net": "MCU_PA6"
+          "net": "MCU_PA6",
+          "type": "bidirectional"
         },
         "17": {
           "name": "PA7",
-          "net": "MCU_PA7"
+          "net": "MCU_PA7",
+          "type": "bidirectional"
         },
         "18": {
           "name": "PB0",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "19": {
           "name": "PB1",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "20": {
           "name": "PB2",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "21": {
           "name": "PB10",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "22": {
           "name": "VCAP1",
-          "net": "MCU_VCAP1"
+          "net": "MCU_VCAP1",
+          "type": "passive"
         },
         "23": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "24": {
           "name": "VDD",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "power"
         },
         "25": {
           "name": "PB12",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "26": {
           "name": "PB13",
-          "net": "MCU_LED_A"
+          "net": "MCU_LED_A",
+          "type": "bidirectional"
         },
         "27": {
           "name": "PB14",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "28": {
           "name": "PB15",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "29": {
           "name": "PA8",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "30": {
           "name": "PA9",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "31": {
           "name": "PA10",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "32": {
           "name": "PA11",
-          "net": "USB_D_N"
+          "net": "USB_D_N",
+          "type": "bidirectional"
         },
         "33": {
           "name": "PA12",
-          "net": "USB_D_P"
+          "net": "USB_D_P",
+          "type": "bidirectional"
         },
         "34": {
           "name": "PA13",
-          "net": "MCU_SWDIO"
+          "net": "MCU_SWDIO",
+          "type": "bidirectional"
         },
         "35": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "36": {
           "name": "VDD",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "power"
         },
         "37": {
           "name": "PA14",
-          "net": "MCU_SCLK"
+          "net": "MCU_SCLK",
+          "type": "bidirectional"
         },
         "38": {
           "name": "PA15",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "39": {
           "name": "PB3",
-          "net": "MCU_SWO"
+          "net": "MCU_SWO",
+          "type": "bidirectional"
         },
         "40": {
           "name": "PB4",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "41": {
           "name": "PB5",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "42": {
           "name": "PB6",
-          "net": "IMU _SCL"
+          "net": "IMU _SCL",
+          "type": "bidirectional"
         },
         "43": {
           "name": "PB7",
-          "net": "IMU _SDA"
+          "net": "IMU _SDA",
+          "type": "bidirectional"
         },
         "44": {
           "name": "BOOT0",
-          "net": "MCU_BOOT0"
+          "net": "MCU_BOOT0",
+          "type": "input"
         },
         "45": {
           "name": "PB8",
-          "net": "IMU INT"
+          "net": "IMU INT",
+          "type": "bidirectional"
         },
         "46": {
           "name": "PB9",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "47": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "48": {
           "name": "VDD",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "power"
         },
         "49": {
           "name": "EP",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "description": "ARM Cortex-M4 32-bit MCU+FPU, 512 KB Flash, 128 KB RAM, 36 I/Os, 48-Pin UFQFPN, -40 to 85 degC, Tray",
@@ -604,19 +653,23 @@
       "pins": {
         "1": {
           "name": "X1",
-          "net": "MCU OSC IN"
+          "net": "MCU OSC IN",
+          "type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "3": {
           "name": "X2",
-          "net": "XTAL IN"
+          "net": "XTAL IN",
+          "type": "passive"
         },
         "4": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "manufacturer": "Epson",
@@ -625,8 +678,14 @@
     },
     "C9": {
       "pins": {
-        "1": "GND",
-        "2": "+3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "mpn": "GRM155R71C104KA88D",
       "manufacturer": "Murata",
@@ -636,8 +695,14 @@
     },
     "C10": {
       "pins": {
-        "1": "GND",
-        "2": "+3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "mpn": "GRM155R71C104KA88D",
       "manufacturer": "Murata",
@@ -647,8 +712,14 @@
     },
     "C11": {
       "pins": {
-        "1": "GND",
-        "2": "+3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "mpn": "GRM155R71C104KA88D",
       "manufacturer": "Murata",
@@ -658,8 +729,14 @@
     },
     "C12": {
       "pins": {
-        "1": "GND",
-        "2": "+3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "mpn": "GRM155R71C104KA88D",
       "manufacturer": "Murata",
@@ -669,8 +746,14 @@
     },
     "C13": {
       "pins": {
-        "1": "GND",
-        "2": "+3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "mpn": "GRM155R71C104KA88D",
       "manufacturer": "Murata",
@@ -680,8 +763,14 @@
     },
     "C14": {
       "pins": {
-        "1": "GND",
-        "2": "+3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "mpn": "GRM155R71C104KA88D",
       "manufacturer": "Murata",
@@ -691,8 +780,14 @@
     },
     "C15": {
       "pins": {
-        "1": "GND",
-        "2": "MCU_VCAP1"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "MCU_VCAP1",
+          "type": "passive"
+        }
       },
       "mpn": "GRM155R71C104KA88D",
       "manufacturer": "Murata",
@@ -702,8 +797,14 @@
     },
     "C16": {
       "pins": {
-        "1": "GND",
-        "2": "MCU_NRST"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "MCU_NRST",
+          "type": "passive"
+        }
       },
       "mpn": "GRM155R71C104KA88D",
       "manufacturer": "Murata",
@@ -713,24 +814,42 @@
     },
     "R7": {
       "pins": {
-        "1": "GND",
-        "2": "MCU_BOOT0"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "MCU_BOOT0",
+          "type": "passive"
+        }
       },
       "description": "RES Thick Film, 0Ω, 0.063W, 0402",
       "comment": "10k"
     },
     "R5": {
       "pins": {
-        "1": "MCU_NRST",
-        "2": "+3V3"
+        "1": {
+          "net": "MCU_NRST",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "description": "RES Thick Film, 0Ω, 0.063W, 0402",
       "comment": "10k"
     },
     "C17": {
       "pins": {
-        "1": "GND",
-        "2": "MCU OSC IN"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "MCU OSC IN",
+          "type": "passive"
+        }
       },
       "mpn": "GRM155R71C104KA88D",
       "manufacturer": "Murata",
@@ -740,8 +859,14 @@
     },
     "C18": {
       "pins": {
-        "1": "GND",
-        "2": "XTAL IN"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "XTAL IN",
+          "type": "passive"
+        }
       },
       "mpn": "GRM155R71C104KA88D",
       "manufacturer": "Murata",
@@ -751,8 +876,14 @@
     },
     "R6": {
       "pins": {
-        "1": "MCU OSC OUT",
-        "2": "XTAL IN"
+        "1": {
+          "net": "MCU OSC OUT",
+          "type": "passive"
+        },
+        "2": {
+          "net": "XTAL IN",
+          "type": "passive"
+        }
       },
       "description": "RES Thick Film, 0Ω, 0.063W, 0402",
       "comment": "0R"
@@ -761,103 +892,128 @@
       "pins": {
         "1": {
           "name": "CLKIN",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "2": {
           "name": "NC",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "3": {
           "name": "NC",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "4": {
           "name": "NC",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "5": {
           "name": "NC",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "6": {
           "name": "AUX_DA",
-          "net": ""
+          "net": "",
+          "type": "bidirectional"
         },
         "7": {
           "name": "AUX_CL",
-          "net": ""
+          "net": "",
+          "type": "output"
         },
         "8": {
           "name": "VLOGIC",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "power"
         },
         "9": {
           "name": "AD0",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "10": {
           "name": "REGOUT",
-          "net": "IMU REGOUT"
+          "net": "IMU REGOUT",
+          "type": "passive"
         },
         "11": {
           "name": "FSYNC",
-          "net": "GND"
+          "net": "GND",
+          "type": "input"
         },
         "12": {
           "name": "INT",
-          "net": "IMU INT"
+          "net": "IMU INT",
+          "type": "open_collector"
         },
         "13": {
           "name": "VDD",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "power"
         },
         "14": {
           "name": "NC",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "15": {
           "name": "NC",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "16": {
           "name": "NC",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "17": {
           "name": "NC",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "18": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "19": {
           "name": "RESV",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "20": {
           "name": "CPOUT",
-          "net": "IMU CPOUT"
+          "net": "IMU CPOUT",
+          "type": "passive"
         },
         "21": {
           "name": "RESV",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "22": {
           "name": "CLKOUT",
-          "net": ""
+          "net": "",
+          "type": "output"
         },
         "23": {
           "name": "SCL",
-          "net": "IMU _SCL"
+          "net": "IMU _SCL",
+          "type": "input"
         },
         "24": {
           "name": "SDA",
-          "net": "IMU _SDA"
+          "net": "IMU _SDA",
+          "type": "bidirectional"
         },
         "25": {
           "name": "EP",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         }
       },
       "manufacturer": "InvenSense",
@@ -866,8 +1022,14 @@
     },
     "C8": {
       "pins": {
-        "1": "GND",
-        "2": "+3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "mpn": "GRM155R71C104KA88D",
       "manufacturer": "Murata",
@@ -877,8 +1039,14 @@
     },
     "C5": {
       "pins": {
-        "1": "GND",
-        "2": "IMU REGOUT"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "IMU REGOUT",
+          "type": "passive"
+        }
       },
       "mpn": "GRM155R71C104KA88D",
       "manufacturer": "Murata",
@@ -888,8 +1056,14 @@
     },
     "C6": {
       "pins": {
-        "1": "GND",
-        "2": "+3V3"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "mpn": "GRM155R71C104KA88D",
       "manufacturer": "Murata",
@@ -899,8 +1073,14 @@
     },
     "C7": {
       "pins": {
-        "1": "GND",
-        "2": "IMU CPOUT"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "IMU CPOUT",
+          "type": "passive"
+        }
       },
       "mpn": "GRM155R71C104KA88D",
       "manufacturer": "Murata",
@@ -912,47 +1092,58 @@
       "pins": {
         "1": {
           "name": "VBUS",
-          "net": "VBUS"
+          "net": "VBUS",
+          "type": "power"
         },
         "2": {
           "name": "D-",
-          "net": "USB_D_N"
+          "net": "USB_D_N",
+          "type": "bidirectional"
         },
         "3": {
           "name": "D+",
-          "net": "USB_D_P"
+          "net": "USB_D_P",
+          "type": "bidirectional"
         },
         "4": {
           "name": "ID",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "5": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "6": {
           "name": "MNT 1",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "7": {
           "name": "MNT 2",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "8": {
           "name": "MNT 3",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "9": {
           "name": "MNT 4",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "10": {
           "name": "MNT 5",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "11": {
           "name": "MNT 6",
-          "net": ""
+          "net": "",
+          "type": "passive"
         }
       },
       "mpn": "473460001",
@@ -964,19 +1155,23 @@
       "pins": {
         "1": {
           "name": "Ground",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "2": {
           "name": "VOUT",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "passive"
         },
         "3": {
           "name": "VIN",
-          "net": "+5V"
+          "net": "+5V",
+          "type": "power"
         },
         "4": {
           "name": "VOUT",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "passive"
         }
       },
       "mpn": "AMS1117-3.3",
@@ -986,16 +1181,28 @@
     },
     "FB1": {
       "pins": {
-        "1": "VBUS",
-        "2": "+5V"
+        "1": {
+          "net": "VBUS",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5V",
+          "type": "passive"
+        }
       },
       "description": "Chip Ferrite Bead, 0603, 5Ω @ 100MHz, 0.05Ω, 25%, 800mA",
       "comment": "120R"
     },
     "C1": {
       "pins": {
-        "1": "GND",
-        "2": "VBUS"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VBUS",
+          "type": "passive"
+        }
       },
       "mpn": "GRM155R71C104KA88D",
       "manufacturer": "Murata",
@@ -1005,8 +1212,14 @@
     },
     "C2": {
       "pins": {
-        "1": "GND",
-        "2": "+5V"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+5V",
+          "type": "passive"
+        }
       },
       "mpn": "GRM155R71C104KA88D",
       "manufacturer": "Murata",
@@ -1016,16 +1229,28 @@
     },
     "C3": {
       "pins": {
-        "1": "+5V",
-        "2": "GND"
+        "1": {
+          "net": "+5V",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "General Purpose Ceramic Capacitor, 0805, 100nF, 10%, X7R, 0.15, 50V",
       "comment": "22u"
     },
     "C4": {
       "pins": {
-        "1": "+3V3",
-        "2": "GND"
+        "1": {
+          "net": "+3V3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "General Purpose Ceramic Capacitor, 0805, 100nF, 10%, X7R, 0.15, 50V",
       "comment": "22u"
@@ -1034,11 +1259,13 @@
       "pins": {
         "1": {
           "name": "C",
-          "net": "LED_P_K"
+          "net": "LED_P_K",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "passive"
         }
       },
       "description": "LED YELLOW/GREEN CLEAR 1006 SMD",
@@ -1046,8 +1273,14 @@
     },
     "R1": {
       "pins": {
-        "1": "GND",
-        "2": "LED_P_K"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "LED_P_K",
+          "type": "passive"
+        }
       },
       "description": "RES Thick Film, 0Ω, 0.063W, 0402",
       "comment": "1k"
@@ -1056,11 +1289,13 @@
       "pins": {
         "1": {
           "name": "C",
-          "net": "MCU_LED_K"
+          "net": "MCU_LED_K",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "MCU_LED_A"
+          "net": "MCU_LED_A",
+          "type": "passive"
         }
       },
       "description": "LED RED CLEAR 1006 SMD",
@@ -1068,24 +1303,42 @@
     },
     "R4": {
       "pins": {
-        "1": "MCU_LED_K",
-        "2": "GND"
+        "1": {
+          "net": "MCU_LED_K",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "description": "RES Thick Film, 0Ω, 0.063W, 0402",
       "comment": "1k"
     },
     "R2": {
       "pins": {
-        "1": "IMU _SCL",
-        "2": "+3V3"
+        "1": {
+          "net": "IMU _SCL",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "description": "RES Thick Film, 0Ω, 0.063W, 0402",
       "comment": "2.2k"
     },
     "R3": {
       "pins": {
-        "1": "IMU _SDA",
-        "2": "+3V3"
+        "1": {
+          "net": "IMU _SDA",
+          "type": "passive"
+        },
+        "2": {
+          "net": "+3V3",
+          "type": "passive"
+        }
       },
       "description": "RES Thick Film, 0Ω, 0.063W, 0402",
       "comment": "2.2k"
@@ -1094,27 +1347,33 @@
       "pins": {
         "1": {
           "name": "VCC",
-          "net": "+3V3"
+          "net": "+3V3",
+          "type": "bidirectional"
         },
         "2": {
           "name": "TMS",
-          "net": "MCU_SWDIO"
+          "net": "MCU_SWDIO",
+          "type": "bidirectional"
         },
         "3": {
           "name": "R\\E\\S\\E\\T\\\\",
-          "net": "MCU_NRST"
+          "net": "MCU_NRST",
+          "type": "bidirectional"
         },
         "4": {
           "name": "TCK",
-          "net": "MCU_SCLK"
+          "net": "MCU_SCLK",
+          "type": "bidirectional"
         },
         "5": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "bidirectional"
         },
         "6": {
           "name": "TDO",
-          "net": "MCU_SWO"
+          "net": "MCU_SWO",
+          "type": "bidirectional"
         }
       },
       "description": "CortexÂ® Plug-Of-Nailsâ„¢ Adapter Cable",
@@ -1123,19 +1382,39 @@
     },
     "J2": {
       "pins": {
-        "1": "+3V3",
-        "2": "MCU_PA4",
-        "3": "MCU_PA5",
-        "4": "MCU_PA6",
-        "5": "MCU_PA7",
-        "6": "GND",
+        "1": {
+          "net": "+3V3",
+          "type": "passive"
+        },
+        "2": {
+          "net": "MCU_PA4",
+          "type": "passive"
+        },
+        "3": {
+          "net": "MCU_PA5",
+          "type": "passive"
+        },
+        "4": {
+          "net": "MCU_PA6",
+          "type": "passive"
+        },
+        "5": {
+          "net": "MCU_PA7",
+          "type": "passive"
+        },
+        "6": {
+          "net": "GND",
+          "type": "passive"
+        },
         "7": {
           "name": "MNT 1",
-          "net": ""
+          "net": "",
+          "type": "passive"
         },
         "8": {
           "name": "MNT 2",
-          "net": ""
+          "net": "",
+          "type": "passive"
         }
       },
       "description": "CONN HEADER SMD R/A 6POS 1.25MM",

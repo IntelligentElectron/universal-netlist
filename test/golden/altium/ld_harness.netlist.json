@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T20:27:48.357Z",
-    "netlistHash": "sha256:0f4cf81c96ac4cc1b56c9efce61773baddb6012ce47d20ef2813e074dcf3ab71",
+    "generatedAt": "2026-11-21T21:40:44.878Z",
+    "netlistHash": "sha256:1b0b51f88be0c854345f8e39a182ac1be292ed0884cea14fa718fcf906584ebe",
     "origin": {
       "type": "vendor",
       "source": {
@@ -1257,62 +1257,115 @@
       "pins": {
         "1": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN1",
+          "type": "passive"
         },
         "3": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "4": {
           "name": "3V3_P",
-          "net": "_3V3_CHAN1_P"
+          "net": "_3V3_CHAN1_P",
+          "type": "passive"
         },
         "5": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN1"
+          "net": "_OP_O_CHAN1",
+          "type": "passive"
         },
         "6": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN1"
+          "net": "_P_OUT_CHAN1",
+          "type": "passive"
         },
         "7": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN1"
+          "net": "_P_IN_CHAN1",
+          "type": "passive"
         },
         "8": {
           "name": "AGND",
-          "net": "AGND_CHAN1"
+          "net": "AGND_CHAN1",
+          "type": "passive"
         },
         "9": {
           "name": "V5V",
-          "net": "_VDD5_CHAN1"
+          "net": "_VDD5_CHAN1",
+          "type": "passive"
         },
         "10": {
           "name": "STDN",
-          "net": "_STDN_CHAN1"
+          "net": "_STDN_CHAN1",
+          "type": "passive"
         },
         "11": {
           "name": "TEMP",
-          "net": "_TEMP_CHAN1"
+          "net": "_TEMP_CHAN1",
+          "type": "passive"
         },
-        "1_G": "CHANNEL_INTERFACE.AGND",
-        "2_G": "CHANNEL_INTERFACE.V_LASER_P",
-        "3_G": "CHANNEL_INTERFACE.AGND",
-        "4_G": "CHANNEL_INTERFACE.3V3_P",
-        "5_G": "OP_OUT_P1",
-        "6_G": "PULSE_OUT_A1",
-        "7_G": "PULSE_IN_A",
-        "8_G": "CHANNEL_INTERFACE.AGND",
-        "9_G": "CHANNEL_INTERFACE.VDD5_A",
-        "10_G": "STDN_A",
-        "11_G": "TEMP_A1",
-        "AGND": "AGND_CHAN1",
-        "AGND_G": "CHANNEL_INTERFACE.AGND",
-        "PGND": "CHANNEL_INTERFACE.AGND"
+        "1_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "2_G": {
+          "net": "CHANNEL_INTERFACE.V_LASER_P",
+          "type": "passive"
+        },
+        "3_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "4_G": {
+          "net": "CHANNEL_INTERFACE.3V3_P",
+          "type": "passive"
+        },
+        "5_G": {
+          "net": "OP_OUT_P1",
+          "type": "passive"
+        },
+        "6_G": {
+          "net": "PULSE_OUT_A1",
+          "type": "passive"
+        },
+        "7_G": {
+          "net": "PULSE_IN_A",
+          "type": "passive"
+        },
+        "8_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "9_G": {
+          "net": "CHANNEL_INTERFACE.VDD5_A",
+          "type": "passive"
+        },
+        "10_G": {
+          "net": "STDN_A",
+          "type": "passive"
+        },
+        "11_G": {
+          "net": "TEMP_A1",
+          "type": "passive"
+        },
+        "AGND": {
+          "net": "AGND_CHAN1",
+          "type": "passive"
+        },
+        "AGND_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "PGND": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        }
       },
       "description": "footprint LD driver",
       "comment": "LD_driver_footprint"
@@ -1321,75 +1374,93 @@
       "pins": {
         "1": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN1",
+          "type": "passive"
         },
         "3": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "4": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN1",
+          "type": "passive"
         },
         "5": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "6": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN1"
+          "net": "V_LASER_CHAN1",
+          "type": "passive"
         },
         "7": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "8": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN1"
+          "net": "_OP_O_CHAN1",
+          "type": "passive"
         },
         "9": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "10": {
           "name": "3V3_P",
-          "net": "_3V3_CHAN1_P"
+          "net": "_3V3_CHAN1_P",
+          "type": "passive"
         },
         "11": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN1"
+          "net": "_P_OUT_CHAN1",
+          "type": "passive"
         },
         "12": {
           "name": "AGND",
-          "net": "AGND_CHAN1"
+          "net": "AGND_CHAN1",
+          "type": "passive"
         },
         "13": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN1"
+          "net": "_P_IN_CHAN1",
+          "type": "passive"
         },
         "14": {
           "name": "AGND",
-          "net": "AGND_CHAN1"
+          "net": "AGND_CHAN1",
+          "type": "passive"
         },
         "15": {
           "name": "VDD5",
-          "net": "_VDD5_CHAN1"
+          "net": "_VDD5_CHAN1",
+          "type": "passive"
         },
         "16": {
           "name": "STDN",
-          "net": "_STDN_CHAN1"
+          "net": "_STDN_CHAN1",
+          "type": "passive"
         },
         "17": {
           "name": "TEMPOUT",
-          "net": "_TEMP_CHAN1"
+          "net": "_TEMP_CHAN1",
+          "type": "passive"
         },
         "18": {
           "name": "AGND",
-          "net": "AGND_CHAN1"
+          "net": "AGND_CHAN1",
+          "type": "passive"
         }
       },
       "description": "Connector FPC, 18 pin, 0.5mm pitch",
@@ -1399,62 +1470,115 @@
       "pins": {
         "1": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN2"
+          "net": "V_LASER_CHAN2",
+          "type": "passive"
         },
         "3": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "4": {
           "name": "3V3_P",
-          "net": "_3V3_CHAN2_P"
+          "net": "_3V3_CHAN2_P",
+          "type": "passive"
         },
         "5": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN2"
+          "net": "_OP_O_CHAN2",
+          "type": "passive"
         },
         "6": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN2"
+          "net": "_P_OUT_CHAN2",
+          "type": "passive"
         },
         "7": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN2"
+          "net": "_P_IN_CHAN2",
+          "type": "passive"
         },
         "8": {
           "name": "AGND",
-          "net": "AGND_CHAN2"
+          "net": "AGND_CHAN2",
+          "type": "passive"
         },
         "9": {
           "name": "V5V",
-          "net": "_VDD5_CHAN2"
+          "net": "_VDD5_CHAN2",
+          "type": "passive"
         },
         "10": {
           "name": "STDN",
-          "net": "_STDN_CHAN2"
+          "net": "_STDN_CHAN2",
+          "type": "passive"
         },
         "11": {
           "name": "TEMP",
-          "net": "_TEMP_CHAN2"
+          "net": "_TEMP_CHAN2",
+          "type": "passive"
         },
-        "1_G": "CHANNEL_INTERFACE.AGND",
-        "2_G": "CHANNEL_INTERFACE.V_LASER_P",
-        "3_G": "CHANNEL_INTERFACE.AGND",
-        "4_G": "CHANNEL_INTERFACE.3V3_P",
-        "5_G": "OP_OUT_P2",
-        "6_G": "PULSE_OUT_A2",
-        "7_G": "PULSE_IN_A",
-        "8_G": "CHANNEL_INTERFACE.AGND",
-        "9_G": "CHANNEL_INTERFACE.VDD5_A",
-        "10_G": "STDN_A",
-        "11_G": "TEMP_A2",
-        "AGND": "AGND_CHAN2",
-        "AGND_G": "CHANNEL_INTERFACE.AGND",
-        "PGND": "CHANNEL_INTERFACE.AGND"
+        "1_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "2_G": {
+          "net": "CHANNEL_INTERFACE.V_LASER_P",
+          "type": "passive"
+        },
+        "3_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "4_G": {
+          "net": "CHANNEL_INTERFACE.3V3_P",
+          "type": "passive"
+        },
+        "5_G": {
+          "net": "OP_OUT_P2",
+          "type": "passive"
+        },
+        "6_G": {
+          "net": "PULSE_OUT_A2",
+          "type": "passive"
+        },
+        "7_G": {
+          "net": "PULSE_IN_A",
+          "type": "passive"
+        },
+        "8_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "9_G": {
+          "net": "CHANNEL_INTERFACE.VDD5_A",
+          "type": "passive"
+        },
+        "10_G": {
+          "net": "STDN_A",
+          "type": "passive"
+        },
+        "11_G": {
+          "net": "TEMP_A2",
+          "type": "passive"
+        },
+        "AGND": {
+          "net": "AGND_CHAN2",
+          "type": "passive"
+        },
+        "AGND_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "PGND": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        }
       },
       "description": "footprint LD driver",
       "comment": "LD_driver_footprint"
@@ -1463,75 +1587,93 @@
       "pins": {
         "1": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN2"
+          "net": "V_LASER_CHAN2",
+          "type": "passive"
         },
         "3": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "4": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN2"
+          "net": "V_LASER_CHAN2",
+          "type": "passive"
         },
         "5": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "6": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN2"
+          "net": "V_LASER_CHAN2",
+          "type": "passive"
         },
         "7": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "8": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN2"
+          "net": "_OP_O_CHAN2",
+          "type": "passive"
         },
         "9": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "10": {
           "name": "3V3_P",
-          "net": "_3V3_CHAN2_P"
+          "net": "_3V3_CHAN2_P",
+          "type": "passive"
         },
         "11": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN2"
+          "net": "_P_OUT_CHAN2",
+          "type": "passive"
         },
         "12": {
           "name": "AGND",
-          "net": "AGND_CHAN2"
+          "net": "AGND_CHAN2",
+          "type": "passive"
         },
         "13": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN2"
+          "net": "_P_IN_CHAN2",
+          "type": "passive"
         },
         "14": {
           "name": "AGND",
-          "net": "AGND_CHAN2"
+          "net": "AGND_CHAN2",
+          "type": "passive"
         },
         "15": {
           "name": "VDD5",
-          "net": "_VDD5_CHAN2"
+          "net": "_VDD5_CHAN2",
+          "type": "passive"
         },
         "16": {
           "name": "STDN",
-          "net": "_STDN_CHAN2"
+          "net": "_STDN_CHAN2",
+          "type": "passive"
         },
         "17": {
           "name": "TEMPOUT",
-          "net": "_TEMP_CHAN2"
+          "net": "_TEMP_CHAN2",
+          "type": "passive"
         },
         "18": {
           "name": "AGND",
-          "net": "AGND_CHAN2"
+          "net": "AGND_CHAN2",
+          "type": "passive"
         }
       },
       "description": "Connector FPC, 18 pin, 0.5mm pitch",
@@ -1541,62 +1683,115 @@
       "pins": {
         "1": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN3"
+          "net": "V_LASER_CHAN3",
+          "type": "passive"
         },
         "3": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "4": {
           "name": "3V3_P",
-          "net": "_3V3_CHAN3_P"
+          "net": "_3V3_CHAN3_P",
+          "type": "passive"
         },
         "5": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN3"
+          "net": "_OP_O_CHAN3",
+          "type": "passive"
         },
         "6": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN3"
+          "net": "_P_OUT_CHAN3",
+          "type": "passive"
         },
         "7": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN3"
+          "net": "_P_IN_CHAN3",
+          "type": "passive"
         },
         "8": {
           "name": "AGND",
-          "net": "AGND_CHAN3"
+          "net": "AGND_CHAN3",
+          "type": "passive"
         },
         "9": {
           "name": "V5V",
-          "net": "_VDD5_CHAN3"
+          "net": "_VDD5_CHAN3",
+          "type": "passive"
         },
         "10": {
           "name": "STDN",
-          "net": "_STDN_CHAN3"
+          "net": "_STDN_CHAN3",
+          "type": "passive"
         },
         "11": {
           "name": "TEMP",
-          "net": "_TEMP_CHAN3"
+          "net": "_TEMP_CHAN3",
+          "type": "passive"
         },
-        "1_G": "CHANNEL_INTERFACE.AGND",
-        "2_G": "CHANNEL_INTERFACE.V_LASER_P",
-        "3_G": "CHANNEL_INTERFACE.AGND",
-        "4_G": "CHANNEL_INTERFACE.3V3_P",
-        "5_G": "OP_OUT_P3",
-        "6_G": "PULSE_OUT_A3",
-        "7_G": "PULSE_IN_A",
-        "8_G": "CHANNEL_INTERFACE.AGND",
-        "9_G": "CHANNEL_INTERFACE.VDD5_A",
-        "10_G": "STDN_A",
-        "11_G": "TEMP_A3",
-        "AGND": "AGND_CHAN3",
-        "AGND_G": "CHANNEL_INTERFACE.AGND",
-        "PGND": "CHANNEL_INTERFACE.AGND"
+        "1_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "2_G": {
+          "net": "CHANNEL_INTERFACE.V_LASER_P",
+          "type": "passive"
+        },
+        "3_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "4_G": {
+          "net": "CHANNEL_INTERFACE.3V3_P",
+          "type": "passive"
+        },
+        "5_G": {
+          "net": "OP_OUT_P3",
+          "type": "passive"
+        },
+        "6_G": {
+          "net": "PULSE_OUT_A3",
+          "type": "passive"
+        },
+        "7_G": {
+          "net": "PULSE_IN_A",
+          "type": "passive"
+        },
+        "8_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "9_G": {
+          "net": "CHANNEL_INTERFACE.VDD5_A",
+          "type": "passive"
+        },
+        "10_G": {
+          "net": "STDN_A",
+          "type": "passive"
+        },
+        "11_G": {
+          "net": "TEMP_A3",
+          "type": "passive"
+        },
+        "AGND": {
+          "net": "AGND_CHAN3",
+          "type": "passive"
+        },
+        "AGND_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "PGND": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        }
       },
       "description": "footprint LD driver",
       "comment": "LD_driver_footprint"
@@ -1605,75 +1800,93 @@
       "pins": {
         "1": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN3"
+          "net": "V_LASER_CHAN3",
+          "type": "passive"
         },
         "3": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "4": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN3"
+          "net": "V_LASER_CHAN3",
+          "type": "passive"
         },
         "5": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "6": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN3"
+          "net": "V_LASER_CHAN3",
+          "type": "passive"
         },
         "7": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "8": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN3"
+          "net": "_OP_O_CHAN3",
+          "type": "passive"
         },
         "9": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "10": {
           "name": "3V3_P",
-          "net": "_3V3_CHAN3_P"
+          "net": "_3V3_CHAN3_P",
+          "type": "passive"
         },
         "11": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN3"
+          "net": "_P_OUT_CHAN3",
+          "type": "passive"
         },
         "12": {
           "name": "AGND",
-          "net": "AGND_CHAN3"
+          "net": "AGND_CHAN3",
+          "type": "passive"
         },
         "13": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN3"
+          "net": "_P_IN_CHAN3",
+          "type": "passive"
         },
         "14": {
           "name": "AGND",
-          "net": "AGND_CHAN3"
+          "net": "AGND_CHAN3",
+          "type": "passive"
         },
         "15": {
           "name": "VDD5",
-          "net": "_VDD5_CHAN3"
+          "net": "_VDD5_CHAN3",
+          "type": "passive"
         },
         "16": {
           "name": "STDN",
-          "net": "_STDN_CHAN3"
+          "net": "_STDN_CHAN3",
+          "type": "passive"
         },
         "17": {
           "name": "TEMPOUT",
-          "net": "_TEMP_CHAN3"
+          "net": "_TEMP_CHAN3",
+          "type": "passive"
         },
         "18": {
           "name": "AGND",
-          "net": "AGND_CHAN3"
+          "net": "AGND_CHAN3",
+          "type": "passive"
         }
       },
       "description": "Connector FPC, 18 pin, 0.5mm pitch",
@@ -1683,62 +1896,115 @@
       "pins": {
         "1": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN4"
+          "net": "V_LASER_CHAN4",
+          "type": "passive"
         },
         "3": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "4": {
           "name": "3V3_P",
-          "net": "_3V3_CHAN4_P"
+          "net": "_3V3_CHAN4_P",
+          "type": "passive"
         },
         "5": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN4"
+          "net": "_OP_O_CHAN4",
+          "type": "passive"
         },
         "6": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN4"
+          "net": "_P_OUT_CHAN4",
+          "type": "passive"
         },
         "7": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN4"
+          "net": "_P_IN_CHAN4",
+          "type": "passive"
         },
         "8": {
           "name": "AGND",
-          "net": "AGND_CHAN4"
+          "net": "AGND_CHAN4",
+          "type": "passive"
         },
         "9": {
           "name": "V5V",
-          "net": "_VDD5_CHAN4"
+          "net": "_VDD5_CHAN4",
+          "type": "passive"
         },
         "10": {
           "name": "STDN",
-          "net": "_STDN_CHAN4"
+          "net": "_STDN_CHAN4",
+          "type": "passive"
         },
         "11": {
           "name": "TEMP",
-          "net": "_TEMP_CHAN4"
+          "net": "_TEMP_CHAN4",
+          "type": "passive"
         },
-        "1_G": "CHANNEL_INTERFACE.AGND",
-        "2_G": "CHANNEL_INTERFACE.V_LASER_P",
-        "3_G": "CHANNEL_INTERFACE.AGND",
-        "4_G": "CHANNEL_INTERFACE.3V3_P",
-        "5_G": "OP_OUT_P4",
-        "6_G": "PULSE_OUT_A4",
-        "7_G": "PULSE_IN_A",
-        "8_G": "CHANNEL_INTERFACE.AGND",
-        "9_G": "CHANNEL_INTERFACE.VDD5_A",
-        "10_G": "STDN_A",
-        "11_G": "TEMP_A4",
-        "AGND": "AGND_CHAN4",
-        "AGND_G": "CHANNEL_INTERFACE.AGND",
-        "PGND": "CHANNEL_INTERFACE.AGND"
+        "1_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "2_G": {
+          "net": "CHANNEL_INTERFACE.V_LASER_P",
+          "type": "passive"
+        },
+        "3_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "4_G": {
+          "net": "CHANNEL_INTERFACE.3V3_P",
+          "type": "passive"
+        },
+        "5_G": {
+          "net": "OP_OUT_P4",
+          "type": "passive"
+        },
+        "6_G": {
+          "net": "PULSE_OUT_A4",
+          "type": "passive"
+        },
+        "7_G": {
+          "net": "PULSE_IN_A",
+          "type": "passive"
+        },
+        "8_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "9_G": {
+          "net": "CHANNEL_INTERFACE.VDD5_A",
+          "type": "passive"
+        },
+        "10_G": {
+          "net": "STDN_A",
+          "type": "passive"
+        },
+        "11_G": {
+          "net": "TEMP_A4",
+          "type": "passive"
+        },
+        "AGND": {
+          "net": "AGND_CHAN4",
+          "type": "passive"
+        },
+        "AGND_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "PGND": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        }
       },
       "description": "footprint LD driver",
       "comment": "LD_driver_footprint"
@@ -1747,75 +2013,93 @@
       "pins": {
         "1": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN4"
+          "net": "V_LASER_CHAN4",
+          "type": "passive"
         },
         "3": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "4": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN4"
+          "net": "V_LASER_CHAN4",
+          "type": "passive"
         },
         "5": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "6": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN4"
+          "net": "V_LASER_CHAN4",
+          "type": "passive"
         },
         "7": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "8": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN4"
+          "net": "_OP_O_CHAN4",
+          "type": "passive"
         },
         "9": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "10": {
           "name": "3V3_P",
-          "net": "_3V3_CHAN4_P"
+          "net": "_3V3_CHAN4_P",
+          "type": "passive"
         },
         "11": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN4"
+          "net": "_P_OUT_CHAN4",
+          "type": "passive"
         },
         "12": {
           "name": "AGND",
-          "net": "AGND_CHAN4"
+          "net": "AGND_CHAN4",
+          "type": "passive"
         },
         "13": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN4"
+          "net": "_P_IN_CHAN4",
+          "type": "passive"
         },
         "14": {
           "name": "AGND",
-          "net": "AGND_CHAN4"
+          "net": "AGND_CHAN4",
+          "type": "passive"
         },
         "15": {
           "name": "VDD5",
-          "net": "_VDD5_CHAN4"
+          "net": "_VDD5_CHAN4",
+          "type": "passive"
         },
         "16": {
           "name": "STDN",
-          "net": "_STDN_CHAN4"
+          "net": "_STDN_CHAN4",
+          "type": "passive"
         },
         "17": {
           "name": "TEMPOUT",
-          "net": "_TEMP_CHAN4"
+          "net": "_TEMP_CHAN4",
+          "type": "passive"
         },
         "18": {
           "name": "AGND",
-          "net": "AGND_CHAN4"
+          "net": "AGND_CHAN4",
+          "type": "passive"
         }
       },
       "description": "Connector FPC, 18 pin, 0.5mm pitch",
@@ -1825,62 +2109,115 @@
       "pins": {
         "1": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN5"
+          "net": "V_LASER_CHAN5",
+          "type": "passive"
         },
         "3": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "4": {
           "name": "3V3_P",
-          "net": "_3V3_CHAN5_P"
+          "net": "_3V3_CHAN5_P",
+          "type": "passive"
         },
         "5": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN5"
+          "net": "_OP_O_CHAN5",
+          "type": "passive"
         },
         "6": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN5"
+          "net": "_P_OUT_CHAN5",
+          "type": "passive"
         },
         "7": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN5"
+          "net": "_P_IN_CHAN5",
+          "type": "passive"
         },
         "8": {
           "name": "AGND",
-          "net": "AGND_CHAN5"
+          "net": "AGND_CHAN5",
+          "type": "passive"
         },
         "9": {
           "name": "V5V",
-          "net": "_VDD5_CHAN5"
+          "net": "_VDD5_CHAN5",
+          "type": "passive"
         },
         "10": {
           "name": "STDN",
-          "net": "_STDN_CHAN5"
+          "net": "_STDN_CHAN5",
+          "type": "passive"
         },
         "11": {
           "name": "TEMP",
-          "net": "_TEMP_CHAN5"
+          "net": "_TEMP_CHAN5",
+          "type": "passive"
         },
-        "1_G": "CHANNEL_INTERFACE.AGND",
-        "2_G": "CHANNEL_INTERFACE.V_LASER_P",
-        "3_G": "CHANNEL_INTERFACE.AGND",
-        "4_G": "CHANNEL_INTERFACE.3V3_P",
-        "5_G": "OP_OUT_P5",
-        "6_G": "PULSE_OUT_A5",
-        "7_G": "PULSE_IN_A",
-        "8_G": "CHANNEL_INTERFACE.AGND",
-        "9_G": "CHANNEL_INTERFACE.VDD5_A",
-        "10_G": "STDN_A",
-        "11_G": "TEMP_A5",
-        "AGND": "AGND_CHAN5",
-        "AGND_G": "CHANNEL_INTERFACE.AGND",
-        "PGND": "CHANNEL_INTERFACE.AGND"
+        "1_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "2_G": {
+          "net": "CHANNEL_INTERFACE.V_LASER_P",
+          "type": "passive"
+        },
+        "3_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "4_G": {
+          "net": "CHANNEL_INTERFACE.3V3_P",
+          "type": "passive"
+        },
+        "5_G": {
+          "net": "OP_OUT_P5",
+          "type": "passive"
+        },
+        "6_G": {
+          "net": "PULSE_OUT_A5",
+          "type": "passive"
+        },
+        "7_G": {
+          "net": "PULSE_IN_A",
+          "type": "passive"
+        },
+        "8_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "9_G": {
+          "net": "CHANNEL_INTERFACE.VDD5_A",
+          "type": "passive"
+        },
+        "10_G": {
+          "net": "STDN_A",
+          "type": "passive"
+        },
+        "11_G": {
+          "net": "TEMP_A5",
+          "type": "passive"
+        },
+        "AGND": {
+          "net": "AGND_CHAN5",
+          "type": "passive"
+        },
+        "AGND_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "PGND": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        }
       },
       "description": "footprint LD driver",
       "comment": "LD_driver_footprint"
@@ -1889,75 +2226,93 @@
       "pins": {
         "1": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN5"
+          "net": "V_LASER_CHAN5",
+          "type": "passive"
         },
         "3": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "4": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN5"
+          "net": "V_LASER_CHAN5",
+          "type": "passive"
         },
         "5": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "6": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN5"
+          "net": "V_LASER_CHAN5",
+          "type": "passive"
         },
         "7": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "8": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN5"
+          "net": "_OP_O_CHAN5",
+          "type": "passive"
         },
         "9": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "10": {
           "name": "3V3_P",
-          "net": "_3V3_CHAN5_P"
+          "net": "_3V3_CHAN5_P",
+          "type": "passive"
         },
         "11": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN5"
+          "net": "_P_OUT_CHAN5",
+          "type": "passive"
         },
         "12": {
           "name": "AGND",
-          "net": "AGND_CHAN5"
+          "net": "AGND_CHAN5",
+          "type": "passive"
         },
         "13": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN5"
+          "net": "_P_IN_CHAN5",
+          "type": "passive"
         },
         "14": {
           "name": "AGND",
-          "net": "AGND_CHAN5"
+          "net": "AGND_CHAN5",
+          "type": "passive"
         },
         "15": {
           "name": "VDD5",
-          "net": "_VDD5_CHAN5"
+          "net": "_VDD5_CHAN5",
+          "type": "passive"
         },
         "16": {
           "name": "STDN",
-          "net": "_STDN_CHAN5"
+          "net": "_STDN_CHAN5",
+          "type": "passive"
         },
         "17": {
           "name": "TEMPOUT",
-          "net": "_TEMP_CHAN5"
+          "net": "_TEMP_CHAN5",
+          "type": "passive"
         },
         "18": {
           "name": "AGND",
-          "net": "AGND_CHAN5"
+          "net": "AGND_CHAN5",
+          "type": "passive"
         }
       },
       "description": "Connector FPC, 18 pin, 0.5mm pitch",
@@ -1967,62 +2322,115 @@
       "pins": {
         "1": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN6"
+          "net": "V_LASER_CHAN6",
+          "type": "passive"
         },
         "3": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "4": {
           "name": "3V3_P",
-          "net": "_3V3_CHAN6_P"
+          "net": "_3V3_CHAN6_P",
+          "type": "passive"
         },
         "5": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN6"
+          "net": "_OP_O_CHAN6",
+          "type": "passive"
         },
         "6": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN6"
+          "net": "_P_OUT_CHAN6",
+          "type": "passive"
         },
         "7": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN6"
+          "net": "_P_IN_CHAN6",
+          "type": "passive"
         },
         "8": {
           "name": "AGND",
-          "net": "AGND_CHAN6"
+          "net": "AGND_CHAN6",
+          "type": "passive"
         },
         "9": {
           "name": "V5V",
-          "net": "_VDD5_CHAN6"
+          "net": "_VDD5_CHAN6",
+          "type": "passive"
         },
         "10": {
           "name": "STDN",
-          "net": "_STDN_CHAN6"
+          "net": "_STDN_CHAN6",
+          "type": "passive"
         },
         "11": {
           "name": "TEMP",
-          "net": "_TEMP_CHAN6"
+          "net": "_TEMP_CHAN6",
+          "type": "passive"
         },
-        "1_G": "CHANNEL_INTERFACE.AGND",
-        "2_G": "CHANNEL_INTERFACE.V_LASER_P",
-        "3_G": "CHANNEL_INTERFACE.AGND",
-        "4_G": "CHANNEL_INTERFACE.3V3_P",
-        "5_G": "OP_OUT_P6",
-        "6_G": "PULSE_OUT_A6",
-        "7_G": "PULSE_IN_A",
-        "8_G": "CHANNEL_INTERFACE.AGND",
-        "9_G": "CHANNEL_INTERFACE.VDD5_A",
-        "10_G": "STDN_A",
-        "11_G": "TEMP_A6",
-        "AGND": "AGND_CHAN6",
-        "AGND_G": "CHANNEL_INTERFACE.AGND",
-        "PGND": "CHANNEL_INTERFACE.AGND"
+        "1_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "2_G": {
+          "net": "CHANNEL_INTERFACE.V_LASER_P",
+          "type": "passive"
+        },
+        "3_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "4_G": {
+          "net": "CHANNEL_INTERFACE.3V3_P",
+          "type": "passive"
+        },
+        "5_G": {
+          "net": "OP_OUT_P6",
+          "type": "passive"
+        },
+        "6_G": {
+          "net": "PULSE_OUT_A6",
+          "type": "passive"
+        },
+        "7_G": {
+          "net": "PULSE_IN_A",
+          "type": "passive"
+        },
+        "8_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "9_G": {
+          "net": "CHANNEL_INTERFACE.VDD5_A",
+          "type": "passive"
+        },
+        "10_G": {
+          "net": "STDN_A",
+          "type": "passive"
+        },
+        "11_G": {
+          "net": "TEMP_A6",
+          "type": "passive"
+        },
+        "AGND": {
+          "net": "AGND_CHAN6",
+          "type": "passive"
+        },
+        "AGND_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "PGND": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        }
       },
       "description": "footprint LD driver",
       "comment": "LD_driver_footprint"
@@ -2031,75 +2439,93 @@
       "pins": {
         "1": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN6"
+          "net": "V_LASER_CHAN6",
+          "type": "passive"
         },
         "3": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "4": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN6"
+          "net": "V_LASER_CHAN6",
+          "type": "passive"
         },
         "5": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "6": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN6"
+          "net": "V_LASER_CHAN6",
+          "type": "passive"
         },
         "7": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "8": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN6"
+          "net": "_OP_O_CHAN6",
+          "type": "passive"
         },
         "9": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "10": {
           "name": "3V3_P",
-          "net": "_3V3_CHAN6_P"
+          "net": "_3V3_CHAN6_P",
+          "type": "passive"
         },
         "11": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN6"
+          "net": "_P_OUT_CHAN6",
+          "type": "passive"
         },
         "12": {
           "name": "AGND",
-          "net": "AGND_CHAN6"
+          "net": "AGND_CHAN6",
+          "type": "passive"
         },
         "13": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN6"
+          "net": "_P_IN_CHAN6",
+          "type": "passive"
         },
         "14": {
           "name": "AGND",
-          "net": "AGND_CHAN6"
+          "net": "AGND_CHAN6",
+          "type": "passive"
         },
         "15": {
           "name": "VDD5",
-          "net": "_VDD5_CHAN6"
+          "net": "_VDD5_CHAN6",
+          "type": "passive"
         },
         "16": {
           "name": "STDN",
-          "net": "_STDN_CHAN6"
+          "net": "_STDN_CHAN6",
+          "type": "passive"
         },
         "17": {
           "name": "TEMPOUT",
-          "net": "_TEMP_CHAN6"
+          "net": "_TEMP_CHAN6",
+          "type": "passive"
         },
         "18": {
           "name": "AGND",
-          "net": "AGND_CHAN6"
+          "net": "AGND_CHAN6",
+          "type": "passive"
         }
       },
       "description": "Connector FPC, 18 pin, 0.5mm pitch",
@@ -2109,62 +2535,115 @@
       "pins": {
         "1": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN7"
+          "net": "V_LASER_CHAN7",
+          "type": "passive"
         },
         "3": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "4": {
           "name": "3V3_P",
-          "net": "_3V3_CHAN7_P"
+          "net": "_3V3_CHAN7_P",
+          "type": "passive"
         },
         "5": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN7"
+          "net": "_OP_O_CHAN7",
+          "type": "passive"
         },
         "6": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN7"
+          "net": "_P_OUT_CHAN7",
+          "type": "passive"
         },
         "7": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN7"
+          "net": "_P_IN_CHAN7",
+          "type": "passive"
         },
         "8": {
           "name": "AGND",
-          "net": "AGND_CHAN7"
+          "net": "AGND_CHAN7",
+          "type": "passive"
         },
         "9": {
           "name": "V5V",
-          "net": "_VDD5_CHAN7"
+          "net": "_VDD5_CHAN7",
+          "type": "passive"
         },
         "10": {
           "name": "STDN",
-          "net": "_STDN_CHAN7"
+          "net": "_STDN_CHAN7",
+          "type": "passive"
         },
         "11": {
           "name": "TEMP",
-          "net": "_TEMP_CHAN7"
+          "net": "_TEMP_CHAN7",
+          "type": "passive"
         },
-        "1_G": "CHANNEL_INTERFACE.AGND",
-        "2_G": "CHANNEL_INTERFACE.V_LASER_P",
-        "3_G": "CHANNEL_INTERFACE.AGND",
-        "4_G": "CHANNEL_INTERFACE.3V3_P",
-        "5_G": "OP_OUT_P7",
-        "6_G": "PULSE_OUT_A7",
-        "7_G": "PULSE_IN_A",
-        "8_G": "CHANNEL_INTERFACE.AGND",
-        "9_G": "CHANNEL_INTERFACE.VDD5_A",
-        "10_G": "STDN_A",
-        "11_G": "TEMP_A7",
-        "AGND": "AGND_CHAN7",
-        "AGND_G": "CHANNEL_INTERFACE.AGND",
-        "PGND": "CHANNEL_INTERFACE.AGND"
+        "1_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "2_G": {
+          "net": "CHANNEL_INTERFACE.V_LASER_P",
+          "type": "passive"
+        },
+        "3_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "4_G": {
+          "net": "CHANNEL_INTERFACE.3V3_P",
+          "type": "passive"
+        },
+        "5_G": {
+          "net": "OP_OUT_P7",
+          "type": "passive"
+        },
+        "6_G": {
+          "net": "PULSE_OUT_A7",
+          "type": "passive"
+        },
+        "7_G": {
+          "net": "PULSE_IN_A",
+          "type": "passive"
+        },
+        "8_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "9_G": {
+          "net": "CHANNEL_INTERFACE.VDD5_A",
+          "type": "passive"
+        },
+        "10_G": {
+          "net": "STDN_A",
+          "type": "passive"
+        },
+        "11_G": {
+          "net": "TEMP_A7",
+          "type": "passive"
+        },
+        "AGND": {
+          "net": "AGND_CHAN7",
+          "type": "passive"
+        },
+        "AGND_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "PGND": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        }
       },
       "description": "footprint LD driver",
       "comment": "LD_driver_footprint"
@@ -2173,75 +2652,93 @@
       "pins": {
         "1": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN7"
+          "net": "V_LASER_CHAN7",
+          "type": "passive"
         },
         "3": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "4": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN7"
+          "net": "V_LASER_CHAN7",
+          "type": "passive"
         },
         "5": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "6": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN7"
+          "net": "V_LASER_CHAN7",
+          "type": "passive"
         },
         "7": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "8": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN7"
+          "net": "_OP_O_CHAN7",
+          "type": "passive"
         },
         "9": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "10": {
           "name": "3V3_P",
-          "net": "_3V3_CHAN7_P"
+          "net": "_3V3_CHAN7_P",
+          "type": "passive"
         },
         "11": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN7"
+          "net": "_P_OUT_CHAN7",
+          "type": "passive"
         },
         "12": {
           "name": "AGND",
-          "net": "AGND_CHAN7"
+          "net": "AGND_CHAN7",
+          "type": "passive"
         },
         "13": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN7"
+          "net": "_P_IN_CHAN7",
+          "type": "passive"
         },
         "14": {
           "name": "AGND",
-          "net": "AGND_CHAN7"
+          "net": "AGND_CHAN7",
+          "type": "passive"
         },
         "15": {
           "name": "VDD5",
-          "net": "_VDD5_CHAN7"
+          "net": "_VDD5_CHAN7",
+          "type": "passive"
         },
         "16": {
           "name": "STDN",
-          "net": "_STDN_CHAN7"
+          "net": "_STDN_CHAN7",
+          "type": "passive"
         },
         "17": {
           "name": "TEMPOUT",
-          "net": "_TEMP_CHAN7"
+          "net": "_TEMP_CHAN7",
+          "type": "passive"
         },
         "18": {
           "name": "AGND",
-          "net": "AGND_CHAN7"
+          "net": "AGND_CHAN7",
+          "type": "passive"
         }
       },
       "description": "Connector FPC, 18 pin, 0.5mm pitch",
@@ -2251,62 +2748,115 @@
       "pins": {
         "1": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN8"
+          "net": "V_LASER_CHAN8",
+          "type": "passive"
         },
         "3": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "4": {
           "name": "3V3_P",
-          "net": "_3V3_CHAN8_P"
+          "net": "_3V3_CHAN8_P",
+          "type": "passive"
         },
         "5": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN8"
+          "net": "_OP_O_CHAN8",
+          "type": "passive"
         },
         "6": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN8"
+          "net": "_P_OUT_CHAN8",
+          "type": "passive"
         },
         "7": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN8"
+          "net": "_P_IN_CHAN8",
+          "type": "passive"
         },
         "8": {
           "name": "AGND",
-          "net": "AGND_CHAN8"
+          "net": "AGND_CHAN8",
+          "type": "passive"
         },
         "9": {
           "name": "V5V",
-          "net": "_VDD5_CHAN8"
+          "net": "_VDD5_CHAN8",
+          "type": "passive"
         },
         "10": {
           "name": "STDN",
-          "net": "_STDN_CHAN8"
+          "net": "_STDN_CHAN8",
+          "type": "passive"
         },
         "11": {
           "name": "TEMP",
-          "net": "_TEMP_CHAN8"
+          "net": "_TEMP_CHAN8",
+          "type": "passive"
         },
-        "1_G": "CHANNEL_INTERFACE.AGND",
-        "2_G": "CHANNEL_INTERFACE.V_LASER_P",
-        "3_G": "CHANNEL_INTERFACE.AGND",
-        "4_G": "CHANNEL_INTERFACE.3V3_P",
-        "5_G": "OP_OUT_P8",
-        "6_G": "PULSE_OUT_A8",
-        "7_G": "PULSE_IN_A",
-        "8_G": "CHANNEL_INTERFACE.AGND",
-        "9_G": "CHANNEL_INTERFACE.VDD5_A",
-        "10_G": "STDN_A",
-        "11_G": "TEMP_A8",
-        "AGND": "AGND_CHAN8",
-        "AGND_G": "CHANNEL_INTERFACE.AGND",
-        "PGND": "CHANNEL_INTERFACE.AGND"
+        "1_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "2_G": {
+          "net": "CHANNEL_INTERFACE.V_LASER_P",
+          "type": "passive"
+        },
+        "3_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "4_G": {
+          "net": "CHANNEL_INTERFACE.3V3_P",
+          "type": "passive"
+        },
+        "5_G": {
+          "net": "OP_OUT_P8",
+          "type": "passive"
+        },
+        "6_G": {
+          "net": "PULSE_OUT_A8",
+          "type": "passive"
+        },
+        "7_G": {
+          "net": "PULSE_IN_A",
+          "type": "passive"
+        },
+        "8_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "9_G": {
+          "net": "CHANNEL_INTERFACE.VDD5_A",
+          "type": "passive"
+        },
+        "10_G": {
+          "net": "STDN_A",
+          "type": "passive"
+        },
+        "11_G": {
+          "net": "TEMP_A8",
+          "type": "passive"
+        },
+        "AGND": {
+          "net": "AGND_CHAN8",
+          "type": "passive"
+        },
+        "AGND_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "PGND": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        }
       },
       "description": "footprint LD driver",
       "comment": "LD_driver_footprint"
@@ -2315,75 +2865,93 @@
       "pins": {
         "1": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN8"
+          "net": "V_LASER_CHAN8",
+          "type": "passive"
         },
         "3": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "4": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN8"
+          "net": "V_LASER_CHAN8",
+          "type": "passive"
         },
         "5": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "6": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN8"
+          "net": "V_LASER_CHAN8",
+          "type": "passive"
         },
         "7": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "8": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN8"
+          "net": "_OP_O_CHAN8",
+          "type": "passive"
         },
         "9": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "10": {
           "name": "3V3_P",
-          "net": "_3V3_CHAN8_P"
+          "net": "_3V3_CHAN8_P",
+          "type": "passive"
         },
         "11": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN8"
+          "net": "_P_OUT_CHAN8",
+          "type": "passive"
         },
         "12": {
           "name": "AGND",
-          "net": "AGND_CHAN8"
+          "net": "AGND_CHAN8",
+          "type": "passive"
         },
         "13": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN8"
+          "net": "_P_IN_CHAN8",
+          "type": "passive"
         },
         "14": {
           "name": "AGND",
-          "net": "AGND_CHAN8"
+          "net": "AGND_CHAN8",
+          "type": "passive"
         },
         "15": {
           "name": "VDD5",
-          "net": "_VDD5_CHAN8"
+          "net": "_VDD5_CHAN8",
+          "type": "passive"
         },
         "16": {
           "name": "STDN",
-          "net": "_STDN_CHAN8"
+          "net": "_STDN_CHAN8",
+          "type": "passive"
         },
         "17": {
           "name": "TEMPOUT",
-          "net": "_TEMP_CHAN8"
+          "net": "_TEMP_CHAN8",
+          "type": "passive"
         },
         "18": {
           "name": "AGND",
-          "net": "AGND_CHAN8"
+          "net": "AGND_CHAN8",
+          "type": "passive"
         }
       },
       "description": "Connector FPC, 18 pin, 0.5mm pitch",
@@ -2393,62 +2961,115 @@
       "pins": {
         "1": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN9"
+          "net": "V_LASER_CHAN9",
+          "type": "passive"
         },
         "3": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "4": {
           "name": "3V3_P",
-          "net": "_3V3_CHAN9_P"
+          "net": "_3V3_CHAN9_P",
+          "type": "passive"
         },
         "5": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN9"
+          "net": "_OP_O_CHAN9",
+          "type": "passive"
         },
         "6": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN9"
+          "net": "_P_OUT_CHAN9",
+          "type": "passive"
         },
         "7": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN9"
+          "net": "_P_IN_CHAN9",
+          "type": "passive"
         },
         "8": {
           "name": "AGND",
-          "net": "AGND_CHAN9"
+          "net": "AGND_CHAN9",
+          "type": "passive"
         },
         "9": {
           "name": "V5V",
-          "net": "_VDD5_CHAN9"
+          "net": "_VDD5_CHAN9",
+          "type": "passive"
         },
         "10": {
           "name": "STDN",
-          "net": "_STDN_CHAN9"
+          "net": "_STDN_CHAN9",
+          "type": "passive"
         },
         "11": {
           "name": "TEMP",
-          "net": "_TEMP_CHAN9"
+          "net": "_TEMP_CHAN9",
+          "type": "passive"
         },
-        "1_G": "CHANNEL_INTERFACE.AGND",
-        "2_G": "CHANNEL_INTERFACE.V_LASER_P",
-        "3_G": "CHANNEL_INTERFACE.AGND",
-        "4_G": "CHANNEL_INTERFACE.3V3_P",
-        "5_G": "OP_OUT_P9",
-        "6_G": "PULSE_OUT_A9",
-        "7_G": "PULSE_IN_A",
-        "8_G": "CHANNEL_INTERFACE.AGND",
-        "9_G": "CHANNEL_INTERFACE.VDD5_A",
-        "10_G": "STDN_A",
-        "11_G": "TEMP_A9",
-        "AGND": "AGND_CHAN9",
-        "AGND_G": "CHANNEL_INTERFACE.AGND",
-        "PGND": "CHANNEL_INTERFACE.AGND"
+        "1_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "2_G": {
+          "net": "CHANNEL_INTERFACE.V_LASER_P",
+          "type": "passive"
+        },
+        "3_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "4_G": {
+          "net": "CHANNEL_INTERFACE.3V3_P",
+          "type": "passive"
+        },
+        "5_G": {
+          "net": "OP_OUT_P9",
+          "type": "passive"
+        },
+        "6_G": {
+          "net": "PULSE_OUT_A9",
+          "type": "passive"
+        },
+        "7_G": {
+          "net": "PULSE_IN_A",
+          "type": "passive"
+        },
+        "8_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "9_G": {
+          "net": "CHANNEL_INTERFACE.VDD5_A",
+          "type": "passive"
+        },
+        "10_G": {
+          "net": "STDN_A",
+          "type": "passive"
+        },
+        "11_G": {
+          "net": "TEMP_A9",
+          "type": "passive"
+        },
+        "AGND": {
+          "net": "AGND_CHAN9",
+          "type": "passive"
+        },
+        "AGND_G": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "PGND": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        }
       },
       "description": "footprint LD driver",
       "comment": "LD_driver_footprint"
@@ -2457,75 +3078,93 @@
       "pins": {
         "1": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "2": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN9"
+          "net": "V_LASER_CHAN9",
+          "type": "passive"
         },
         "3": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "4": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN9"
+          "net": "V_LASER_CHAN9",
+          "type": "passive"
         },
         "5": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "6": {
           "name": "V_LASER",
-          "net": "V_LASER_CHAN9"
+          "net": "V_LASER_CHAN9",
+          "type": "passive"
         },
         "7": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "8": {
           "name": "OP_OUT",
-          "net": "_OP_O_CHAN9"
+          "net": "_OP_O_CHAN9",
+          "type": "passive"
         },
         "9": {
           "name": "PGND",
-          "net": "CHANNEL_INTERFACE.AGND"
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
         },
         "10": {
           "name": "3V3_P",
-          "net": "_3V3_CHAN9_P"
+          "net": "_3V3_CHAN9_P",
+          "type": "passive"
         },
         "11": {
           "name": "PULSE_OUT",
-          "net": "_P_OUT_CHAN9"
+          "net": "_P_OUT_CHAN9",
+          "type": "passive"
         },
         "12": {
           "name": "AGND",
-          "net": "AGND_CHAN9"
+          "net": "AGND_CHAN9",
+          "type": "passive"
         },
         "13": {
           "name": "PULSE_IN",
-          "net": "_P_IN_CHAN9"
+          "net": "_P_IN_CHAN9",
+          "type": "passive"
         },
         "14": {
           "name": "AGND",
-          "net": "AGND_CHAN9"
+          "net": "AGND_CHAN9",
+          "type": "passive"
         },
         "15": {
           "name": "VDD5",
-          "net": "_VDD5_CHAN9"
+          "net": "_VDD5_CHAN9",
+          "type": "passive"
         },
         "16": {
           "name": "STDN",
-          "net": "_STDN_CHAN9"
+          "net": "_STDN_CHAN9",
+          "type": "passive"
         },
         "17": {
           "name": "TEMPOUT",
-          "net": "_TEMP_CHAN9"
+          "net": "_TEMP_CHAN9",
+          "type": "passive"
         },
         "18": {
           "name": "AGND",
-          "net": "AGND_CHAN9"
+          "net": "AGND_CHAN9",
+          "type": "passive"
         }
       },
       "description": "Connector FPC, 18 pin, 0.5mm pitch",
@@ -2533,68 +3172,218 @@
     },
     "J1": {
       "pins": {
-        "1": "STDN_A",
-        "2": "CHANNEL_INTERFACE.VDD5_A",
-        "3": "CHANNEL_INTERFACE.AGND",
-        "4": "PULSE_IN_A",
-        "5": "CHANNEL_INTERFACE.AGND",
-        "6": "CHANNEL_INTERFACE.3V3_P",
-        "7": "CHANNEL_INTERFACE.AGND",
-        "8": "CHANNEL_INTERFACE.V_LASER_P",
-        "9": "CHANNEL_INTERFACE.AGND",
-        "10": "CHANNEL_INTERFACE.V_LASER_P",
-        "11": "CHANNEL_INTERFACE.AGND",
-        "12": "CHANNEL_INTERFACE.V_LASER_P",
-        "13": "CHANNEL_INTERFACE.AGND",
-        "14": "CHANNEL_INTERFACE.V_LASER_P"
+        "1": {
+          "net": "STDN_A",
+          "type": "passive"
+        },
+        "2": {
+          "net": "CHANNEL_INTERFACE.VDD5_A",
+          "type": "passive"
+        },
+        "3": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "4": {
+          "net": "PULSE_IN_A",
+          "type": "passive"
+        },
+        "5": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "6": {
+          "net": "CHANNEL_INTERFACE.3V3_P",
+          "type": "passive"
+        },
+        "7": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "8": {
+          "net": "CHANNEL_INTERFACE.V_LASER_P",
+          "type": "passive"
+        },
+        "9": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "10": {
+          "net": "CHANNEL_INTERFACE.V_LASER_P",
+          "type": "passive"
+        },
+        "11": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "12": {
+          "net": "CHANNEL_INTERFACE.V_LASER_P",
+          "type": "passive"
+        },
+        "13": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "14": {
+          "net": "CHANNEL_INTERFACE.V_LASER_P",
+          "type": "passive"
+        }
       },
       "description": "Connector FPC, 14 pin, 1mm pitch",
       "comment": "FPC_conn"
     },
     "J2": {
       "pins": {
-        "1": "CHANNEL_INTERFACE.AGND",
-        "2": "OP_OUT_P1",
-        "3": "OP_OUT_P2",
-        "4": "OP_OUT_P3",
-        "5": "OP_OUT_P4",
-        "6": "OP_OUT_P5",
-        "7": "CHANNEL_INTERFACE.AGND",
-        "8": "PULSE_OUT_A1",
-        "9": "PULSE_OUT_A2",
-        "10": "PULSE_OUT_A3",
-        "11": "PULSE_OUT_A4",
-        "12": "PULSE_OUT_A5",
-        "13": "CHANNEL_INTERFACE.AGND",
-        "14": "TEMP_A1",
-        "15": "TEMP_A2",
-        "16": "TEMP_A3",
-        "17": "TEMP_A4",
-        "18": "TEMP_A5"
+        "1": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "OP_OUT_P1",
+          "type": "passive"
+        },
+        "3": {
+          "net": "OP_OUT_P2",
+          "type": "passive"
+        },
+        "4": {
+          "net": "OP_OUT_P3",
+          "type": "passive"
+        },
+        "5": {
+          "net": "OP_OUT_P4",
+          "type": "passive"
+        },
+        "6": {
+          "net": "OP_OUT_P5",
+          "type": "passive"
+        },
+        "7": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "8": {
+          "net": "PULSE_OUT_A1",
+          "type": "passive"
+        },
+        "9": {
+          "net": "PULSE_OUT_A2",
+          "type": "passive"
+        },
+        "10": {
+          "net": "PULSE_OUT_A3",
+          "type": "passive"
+        },
+        "11": {
+          "net": "PULSE_OUT_A4",
+          "type": "passive"
+        },
+        "12": {
+          "net": "PULSE_OUT_A5",
+          "type": "passive"
+        },
+        "13": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "14": {
+          "net": "TEMP_A1",
+          "type": "passive"
+        },
+        "15": {
+          "net": "TEMP_A2",
+          "type": "passive"
+        },
+        "16": {
+          "net": "TEMP_A3",
+          "type": "passive"
+        },
+        "17": {
+          "net": "TEMP_A4",
+          "type": "passive"
+        },
+        "18": {
+          "net": "TEMP_A5",
+          "type": "passive"
+        }
       },
       "description": "Connector FPC, 18 pin, 0.5mm pitch",
       "comment": "FPC_conn"
     },
     "J3": {
       "pins": {
-        "1": "CHANNEL_INTERFACE.AGND",
-        "2": "OP_OUT_P6",
-        "3": "OP_OUT_P7",
-        "4": "PULSE_OUT_A6",
-        "5": "CHANNEL_INTERFACE.AGND",
-        "6": "CHANNEL_INTERFACE.AGND",
-        "7": "PULSE_OUT_A7",
-        "8": "TEMP_A6",
-        "9": "TEMP_A7",
-        "10": "CHANNEL_INTERFACE.AGND",
-        "11": "OP_OUT_P8",
-        "12": "OP_OUT_P9",
-        "13": "PULSE_OUT_A8",
-        "14": "CHANNEL_INTERFACE.AGND",
-        "15": "PULSE_OUT_A9",
-        "16": "TEMP_A8",
-        "17": "TEMP_A9",
-        "18": "CHANNEL_INTERFACE.AGND"
+        "1": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "OP_OUT_P6",
+          "type": "passive"
+        },
+        "3": {
+          "net": "OP_OUT_P7",
+          "type": "passive"
+        },
+        "4": {
+          "net": "PULSE_OUT_A6",
+          "type": "passive"
+        },
+        "5": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "6": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "7": {
+          "net": "PULSE_OUT_A7",
+          "type": "passive"
+        },
+        "8": {
+          "net": "TEMP_A6",
+          "type": "passive"
+        },
+        "9": {
+          "net": "TEMP_A7",
+          "type": "passive"
+        },
+        "10": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "11": {
+          "net": "OP_OUT_P8",
+          "type": "passive"
+        },
+        "12": {
+          "net": "OP_OUT_P9",
+          "type": "passive"
+        },
+        "13": {
+          "net": "PULSE_OUT_A8",
+          "type": "passive"
+        },
+        "14": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        },
+        "15": {
+          "net": "PULSE_OUT_A9",
+          "type": "passive"
+        },
+        "16": {
+          "net": "TEMP_A8",
+          "type": "passive"
+        },
+        "17": {
+          "net": "TEMP_A9",
+          "type": "passive"
+        },
+        "18": {
+          "net": "CHANNEL_INTERFACE.AGND",
+          "type": "passive"
+        }
       },
       "description": "Connector FPC, 18 pin, 0.5mm pitch",
       "comment": "FPC_conn"

@@ -43,10 +43,10 @@ describe.skipIf(!hasFixtures)("kicadHandler against fixtures", () => {
     expect(Object.keys(netlist.components)).toHaveLength(29);
     // 24 nets in the export, less the 7 one-pin stubs of pins on a no-connect flag.
     expect(Object.keys(netlist.nets)).toHaveLength(17);
-    expect(netlist.components["P2"]?.pins["4"]).toEqual({ name: "SD", net: "" });
+    expect(netlist.components["P2"]?.pins["4"]).toEqual({ name: "SD", net: "", type: "passive" });
     // Spot-check a known connection and a stripped pin name.
     expect(netlist.nets["+5V"]?.["U1"]).toContain("15");
-    expect(netlist.components["U1"]?.pins["15"]).toEqual({ name: "PC7", net: "+5V" });
+    expect(netlist.components["U1"]?.pins["15"]).toEqual({ name: "PC7", net: "+5V", type: "bidirectional" });
   });
 
   it("does not false-positive DNP on a user-defined 'DNP' BOM field", async () => {

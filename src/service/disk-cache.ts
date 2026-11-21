@@ -33,8 +33,8 @@ import { randomBytes } from "node:crypto";
 import { VERSION } from "../version.js";
 import type { CacheEntry, CacheStore, Probe } from "./cache.js";
 
-/** Bumped whenever an entry's layout changes, so an old entry is a miss. */
-export const DISK_CACHE_FORMAT_VERSION = 2;
+/** Bumped whenever an entry's layout or a parser's output changes, so an old entry is a miss. */
+export const DISK_CACHE_FORMAT_VERSION = 3;
 const FORMAT = "universal-netlist-parse-cache";
 
 /** Default cap on the directory's entries: 256 MiB. */
