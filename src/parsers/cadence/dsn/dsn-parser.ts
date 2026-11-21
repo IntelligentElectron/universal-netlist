@@ -33,7 +33,7 @@ import type { PageCoordMap } from "./page-groups.js";
 import type { PinInfo } from "./net-pins.js";
 import { buildPageViews, type PageView } from "./page-views.js";
 import { renderPageSvg } from "./page-render.js";
-import { readCacheSymbols } from "./symbol-graphics.js";
+import { CONNECTOR_SYMBOL_TYPES, connectionPoint, readCacheSymbols } from "./symbol-graphics.js";
 import { buildComponents } from "./component-builder.js";
 import { mergeRepeatedSections, separateDuplicateRefdes } from "./duplicate-refdes.js";
 import { readVariantStuffing, type VariantStuffing } from "./variant-store.js";
@@ -170,6 +170,25 @@ function parseDsnStreams(
     const list = pagesBySchematic.get(schematic) ?? [];
     list.push({ ...parsePage(ole.readStreamByPath(entry.path)), schematic: match[1] });
     pagesBySchematic.set(schematic, list);
+  }
+
+  // Each connector's connection point, from its cached symbol (§7.7, §11.4).
+  // Best-effort: without the Cache, pins join connectors by their box instead.
+  const connectors = [...pagesBySchematic.values()]
+    .flat()
+    .flatMap((page) => [...page.globals, ...page.ports, ...page.offPageConnectors]);
+  const cacheStream = entries.find((e) => e.path === "Cache" && e.entry.type === 2);
+  if (cacheStream && connectors.length > 0) {
+    try {
+      const symbols = readCacheSymbols(
+        ole.readStreamByPath(cacheStream.path),
+        new Set(connectors.map((sym) => sym.name)),
+        CONNECTOR_SYMBOL_TYPES
+      );
+      for (const sym of connectors) sym.connection = connectionPoint(sym, symbols);
+    } catch {
+      // Pins join connectors by their box.
+    }
   }
 
   // Parse Library stream for strLst string table, and the root schematic a

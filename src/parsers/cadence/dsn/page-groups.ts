@@ -10,7 +10,7 @@ import type { PageData } from "./page-parser.js";
 import type { GraphicInst } from "./structures.js";
 import { CoordUnionFind } from "./coord-union-find.js";
 import { parseBusName } from "./bus-name.js";
-import { symbolKey } from "./symbol-attachment.js";
+import { symbolKey, symbolUnderPin } from "./symbol-attachment.js";
 
 /**
  * The name Capture gives a net nobody named: `N` and the segment id, padded to
@@ -211,18 +211,12 @@ export function buildPageCoordMap(
       const coord = `${pin.pointX},${pin.pointY}`;
       if (allWireCoords.has(coord)) continue; // already connected via wire endpoint
 
-      // Check global/port bbox containment
-      for (const sym of [...page.globals, ...page.ports]) {
-        const minX = Math.min(sym.x1, sym.x2);
-        const maxX = Math.max(sym.x1, sym.x2);
-        const minY = Math.min(sym.y1, sym.y2);
-        const maxY = Math.max(sym.y1, sym.y2);
-        if (pin.pointX >= minX && pin.pointX <= maxX && pin.pointY >= minY && pin.pointY <= maxY) {
-          uf.find(coord);
-          uf.union(coord, symbolKey(sym));
-          pinsOnSymbol.set(symbolKey(sym), [...(pinsOnSymbol.get(symbolKey(sym)) ?? []), coord]);
-          break;
-        }
+      // A pin on a Global's or port's connection point joins it.
+      const sym = symbolUnderPin([...page.globals, ...page.ports], pin.pointX, pin.pointY);
+      if (sym) {
+        uf.find(coord);
+        uf.union(coord, symbolKey(sym));
+        pinsOnSymbol.set(symbolKey(sym), [...(pinsOnSymbol.get(symbolKey(sym)) ?? []), coord]);
       }
 
       // Check wire body: point on axis-aligned segment (not at an endpoint)

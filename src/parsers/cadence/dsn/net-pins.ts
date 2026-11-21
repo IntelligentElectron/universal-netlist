@@ -11,6 +11,7 @@ import type { PinMapData } from "./structure-types.js";
 import type { PageData } from "./page-parser.js";
 import { resolvePinNumber, isPinIgnored } from "./pin-resolver.js";
 import { parseBusName } from "./bus-name.js";
+import { offPageUnderPin, symbolUnderPin } from "./symbol-attachment.js";
 import type { PageCoordMap, PortMembership } from "./page-groups.js";
 
 export interface PinInfo {
@@ -179,8 +180,8 @@ export function collectPins(
 
         // Fallback: sentinel pins overlapping global/port power symbols.
         // These pins connect to power nets via the symbol, not via wires.
-        // Match by checking if the pin coordinate falls within a symbol's
-        // bounding box, then resolve the net via the symbol's pairingId.
+        // Match the pin to the symbol whose connection point it sits on (§11.4),
+        // then resolve the net via the symbol's pairingId.
         //
         // In a placement, a port symbol names the placement's own net: one of
         // the block's ports, which the pin then follows up to the parent, or
@@ -188,59 +189,36 @@ export function collectPins(
         // power net the whole design shares.
         let port: PortMembership | undefined;
         if (!coordNet && pin.wireId === 0xffffffff) {
-          for (const sym of [...pages[i].globals, ...pages[i].ports]) {
-            const minX = Math.min(sym.x1, sym.x2);
-            const maxX = Math.max(sym.x1, sym.x2);
-            const minY = Math.min(sym.y1, sym.y2);
-            const maxY = Math.max(sym.y1, sym.y2);
-            if (
-              pin.pointX >= minX &&
-              pin.pointX <= maxX &&
-              pin.pointY >= minY &&
-              pin.pointY <= maxY
-            ) {
-              coordNet = globalPairingNets.get(sym.pairingId);
-              if (!coordNet) continue;
-              if (placement && pages[i].ports.includes(sym)) {
-                const portName = symbolNets.get(sym.pairingId) ?? coordNet;
-                if (placement.ports.has(portName)) {
-                  coordNet = portName;
-                  port = { port: portName };
-                } else {
-                  coordNet = portName + placement.suffix;
-                }
+          const named = [...pages[i].globals, ...pages[i].ports].filter((sym) =>
+            globalPairingNets.has(sym.pairingId)
+          );
+          const sym = symbolUnderPin(named, pin.pointX, pin.pointY);
+          if (sym) {
+            coordNet = globalPairingNets.get(sym.pairingId);
+            if (placement && pages[i].ports.includes(sym)) {
+              const portName = symbolNets.get(sym.pairingId) ?? coordNet!;
+              if (placement.ports.has(portName)) {
+                coordNet = portName;
+                port = { port: portName };
+              } else {
+                coordNet = portName + placement.suffix;
               }
-              break;
             }
           }
         }
 
-        // Fallback: sentinel pins at OPC connection points (direct pin-to-OPC,
-        // no wire). Match by checking if the pin coordinate equals an OPC edge
-        // midpoint, then resolve the net name via strLst[pairingId].
+        // Fallback: sentinel pins at an OPC's connection point (direct
+        // pin-to-OPC, no wire), named via strLst[pairingId].
         if (!coordNet && pin.wireId === 0xffffffff) {
-          for (const opc of pages[i].offPageConnectors) {
-            const minX = Math.min(opc.x1, opc.x2);
-            const maxX = Math.max(opc.x1, opc.x2);
-            const minY = Math.min(opc.y1, opc.y2);
-            const maxY = Math.max(opc.y1, opc.y2);
-            const midX = Math.round((minX + maxX) / 2);
-            const midY = Math.round((minY + maxY) / 2);
-            if (
-              coord === `${maxX},${midY}` ||
-              coord === `${minX},${midY}` ||
-              coord === `${midX},${maxY}` ||
-              coord === `${midX},${minY}` ||
-              coord === `${opc.locX},${opc.locY}`
-            ) {
-              coordNet = opcPairingNets.get(opc.pairingId);
-              if (coordNet) {
-                // The string list's name is the block's own; in a placement it
-                // names that placement's net.
-                if (placement) coordNet += placement.suffix;
-                break;
-              }
-            }
+          const named = pages[i].offPageConnectors.filter((opc) =>
+            opcPairingNets.has(opc.pairingId)
+          );
+          const opc = offPageUnderPin(named, pin.pointX, pin.pointY);
+          if (opc) {
+            coordNet = opcPairingNets.get(opc.pairingId);
+            // The string list's name is the block's own; in a placement it
+            // names that placement's net.
+            if (placement) coordNet += placement.suffix;
           }
         }
 
