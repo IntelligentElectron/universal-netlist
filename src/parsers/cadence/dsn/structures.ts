@@ -370,13 +370,15 @@ function parseGraphicInstBase(reader: BinaryReader, futureData: FutureDataList):
   const name = reader.readStringLenZeroTerm();
   const dbId = reader.readUint32();
 
-  // Y before X!
-  const locY = reader.readInt16();
-  const locX = reader.readInt16();
+  // Box corners Y before X, then the location X before Y. OpenOrCadParser reads
+  // this as loc, y2, x2, x1, y1; the location then falls inside the box on every
+  // record (docs/cadence-dsn-format.md chapter 7).
+  const y1 = reader.readInt16();
+  const x1 = reader.readInt16();
   const y2 = reader.readInt16();
   const x2 = reader.readInt16();
-  const x1 = reader.readInt16();
-  const y1 = reader.readInt16();
+  const locX = reader.readInt16();
+  const locY = reader.readInt16();
   reader.skip(1); // color (uint8)
   reader.skip(1); // unknown
   reader.skip(1); // unknown (probably structure ID)
