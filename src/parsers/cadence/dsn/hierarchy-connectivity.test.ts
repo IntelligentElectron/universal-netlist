@@ -59,8 +59,17 @@ const wire = (
   junctions: 0,
 });
 
-/** A symbol whose box is 20 units around `(x, y)`; `pairingId` indexes strLst. */
-const symbol = (pairingId: number, dbId: number, x: number, y: number): GraphicInst => ({
+/**
+ * A symbol whose box is 20 units around `(x, y)`; `pairingId` indexes strLst,
+ * and `wireId` is its trailer's wire, the `db_id` (segment id) of the wire it touches.
+ */
+const symbol = (
+  pairingId: number,
+  dbId: number,
+  x: number,
+  y: number,
+  wireId = 0
+): GraphicInst => ({
   name: "SYMBOL",
   dbId,
   locX: x,
@@ -73,6 +82,7 @@ const symbol = (pairingId: number, dbId: number, x: number, y: number): GraphicI
   rotation: 0,
   mirrored: false,
   symbolDisplayProps: [],
+  wireId,
 });
 
 const block = (dbId: number, reference: string, ports: string[], pins: T0x10[]): DrawnInstance => ({
@@ -138,7 +148,7 @@ const child = page({
     part(275, "C1", [pin(1, 50, 10, 3997), pin(2, 50, 40, 4001)]),
     part(276, "R2", [pin(1, 80, 40, 4001), pin(2, 80, 70, SENTINEL)]),
   ],
-  ports: [symbol(5, 900, 10, 10)],
+  ports: [symbol(5, 900, 10, 10, 3990)],
   globals: [symbol(6, 901, 80, 70)],
 });
 
@@ -234,21 +244,21 @@ const busChild = page({
     [702, ["D0"]],
   ]),
   placedInstances: [part(275, "C1", [pin(1, 40, 40, 701), pin(2, 40, 60, 702)])],
-  ports: [symbol(5, 900, 10, 10)],
+  ports: [symbol(5, 900, 10, 10, 690)],
 });
 
 const inner = page({
   name: "PAGE1",
   wires: [wire(950, 940, 10, 10, 30, 10)],
   placedInstances: [part(3, "U1", [pin(1, 30, 10, 950), pin(2, 10, 30, SENTINEL)])],
-  ports: [symbol(7, 910, 10, 10), symbol(8, 911, 10, 30)],
+  ports: [symbol(7, 910, 10, 10, 940), symbol(8, 911, 10, 30)],
 });
 
 const outer = page({
   name: "PAGE1",
   wires: [wire(900, 890, 10, 10, 50, 10), wire(901, 891, 10, 30, 50, 30)],
   drawnInstances: [block(22, "TILE1", ["CLK", "RST"], [pin(1, 50, 10, 900), pin(2, 50, 30, 901)])],
-  ports: [symbol(7, 920, 10, 10), symbol(8, 921, 10, 30)],
+  ports: [symbol(7, 920, 10, 10, 890), symbol(8, 921, 10, 30, 891)],
 });
 
 const busTop = page({
@@ -450,5 +460,36 @@ describe("pins joined only by their net id, in a block placed twice", () => {
   it("puts a hidden pin on the net a wire with its net id carries", () => {
     expect(nets.LOCAL_MV1).toEqual({ U11: ["2"], U12: ["2"] });
     expect(nets.LOCAL_MV2).toEqual({ U21: ["2"], U22: ["2"] });
+  });
+});
+
+describe("connectors join the wire their trailer names", () => {
+  // strLst 6 is VCC. D1.1 ends the LED wire at (100,0). R5.1 sits on a VCC
+  // Global whose box also covers that wire end but whose trailer names no wire,
+  // as on SmartGarden's CC1310LAUNCHPAD R32. A second VCC Global names the far
+  // rail wire although its box is nowhere near it.
+  const sheet = page({
+    name: "PAGE1",
+    netTable: new Map([
+      [61, ["LED_NET"]],
+      [62, ["RAIL"]],
+    ]),
+    wires: [wire(61, 51, 0, 0, 100, 0), wire(62, 52, 0, 500, 100, 500)],
+    placedInstances: [
+      part(1, "D1", [pin(1, 100, 0, 51)]),
+      part(2, "R5", [pin(1, 105, 5, SENTINEL)]),
+      part(3, "R6", [pin(1, 0, 500, 52)]),
+    ],
+    globals: [symbol(6, 901, 105, 5), symbol(6, 902, 900, 900, 52)],
+  });
+  const { nets } = buildNetConnectivity([sheet], new Set(), pmd, new Map(), strLst);
+
+  it("keeps a connector whose trailer names no wire off the wire its box covers", () => {
+    expect(nets.LED_NET).toEqual({ D1: ["1"] });
+  });
+
+  it("joins a connector to its trailer's wire wherever its box lies", () => {
+    // R5 reaches the rail through the two VCC Globals; the rail keeps its wire name.
+    expect(nets.RAIL).toEqual({ R5: ["1"], R6: ["1"] });
   });
 });

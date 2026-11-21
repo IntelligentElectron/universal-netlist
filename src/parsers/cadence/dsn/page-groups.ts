@@ -7,9 +7,10 @@
  */
 
 import type { PageData } from "./page-parser.js";
+import type { GraphicInst } from "./structures.js";
 import { CoordUnionFind } from "./coord-union-find.js";
 import { parseBusName } from "./bus-name.js";
-import { chooseSymbolAttachment, symbolKey, type WirePoint } from "./symbol-attachment.js";
+import { symbolKey } from "./symbol-attachment.js";
 
 /**
  * The name Capture gives a net nobody named: `N` and the segment id, padded to
@@ -70,9 +71,9 @@ export interface PageCoordMap {
  *
  * Global/port/OPC symbols are NOT used for naming: their `.name` field is the
  * schematic symbol type (e.g. "VCC_BAR", "GND_SIGNAL"), not the net name.
- * They are registered in the Union-Find for connectivity only. `symbolNets`
- * carries their real net names, read from the Library string list, and steers
- * each symbol to the one wire it belongs to (see chooseSymbolAttachment).
+ * They are registered in the Union-Find for connectivity only, each joined to
+ * the wire its trailer names. `symbolNets` carries their real net names, read
+ * from the Library string list.
  *
  * When canonicalNetNames is provided (from the Hierarchy stream), hierarchy
  * names take priority over non-hierarchy names. This resolves cross-page
@@ -160,96 +161,33 @@ export function buildPageCoordMap(
     if (curE === undefined || wire.segmentId < curE) coordMinSegId.set(e, wire.segmentId);
   }
 
-  // OPC connectivity: match each OPC to its wire connection point.
-  // The connection point is one of the stored box's four edge midpoints or the
-  // connector's location.
-  // Only checking specific points (not all edge points) avoids false unions
-  // when OPC bboxes overlap vertically on dense schematics.
+  // A connector's trailer names the wire at its connection point (§7.10, §7.11),
+  // so it joins that wire's group. A trailer naming no wire (id 0) means no wire
+  // touches the connector; pins on it are matched below.
+  const wireEnd = new Map<number, string>();
+  for (const wire of page.wires) wireEnd.set(wire.segmentId, `${wire.startX},${wire.startY}`);
+  const attach = (key: string, sym: GraphicInst) => {
+    uf.find(key);
+    const coord = sym.wireId ? wireEnd.get(sym.wireId) : undefined;
+    if (coord) uf.union(key, coord);
+  };
+
+  // Off-page connectors sharing a pairingId are one net.
+  const opcPairRep = new Map<number, string>(); // pairingId -> representative key
+  for (const opc of page.offPageConnectors) {
+    const opcKey = `opc:${opc.pairingId}:${opc.dbId}`;
+    attach(opcKey, opc);
+    const rep = opcPairRep.get(opc.pairingId);
+    if (rep) uf.union(rep, opcKey);
+    else opcPairRep.set(opc.pairingId, opcKey);
+  }
+
+  for (const sym of [...page.globals, ...page.ports]) attach(symbolKey(sym), sym);
+
   const allWireCoords = new Set<string>();
   for (const wire of page.wires) {
     allWireCoords.add(`${wire.startX},${wire.startY}`);
     allWireCoords.add(`${wire.endX},${wire.endY}`);
-  }
-
-  const opcPairRep = new Map<number, string>(); // pairingId -> representative coord
-  for (const opc of page.offPageConnectors) {
-    const minX = Math.min(opc.x1, opc.x2);
-    const maxX = Math.max(opc.x1, opc.x2);
-    const minY = Math.min(opc.y1, opc.y2);
-    const maxY = Math.max(opc.y1, opc.y2);
-    const midX = Math.round((minX + maxX) / 2);
-    const midY = Math.round((minY + maxY) / 2);
-
-    // Find the OPC's wire connection point among candidates.
-    // OPCs can be horizontal (wire on left/right edge) or vertical
-    // (wire on top/bottom edge), so check all 4 edge midpoints.
-    const candidates = [
-      `${maxX},${midY}`, // right edge midpoint
-      `${minX},${midY}`, // left edge midpoint
-      `${midX},${maxY}`, // bottom edge midpoint (vertical OPCs)
-      `${midX},${minY}`, // top edge midpoint (vertical OPCs)
-      `${opc.locX},${opc.locY}`, // location
-    ];
-
-    const opcKey = `opc:${opc.pairingId}:${opc.dbId}`;
-    uf.find(opcKey);
-
-    for (const coord of candidates) {
-      if (allWireCoords.has(coord)) {
-        uf.union(opcKey, coord);
-        break; // use first match only
-      }
-    }
-
-    // Union OPC pairs sharing the same pairingId
-    const rep = opcPairRep.get(opc.pairingId);
-    if (rep) {
-      uf.union(rep, opcKey);
-    } else {
-      opcPairRep.set(opc.pairingId, opcKey);
-    }
-  }
-
-  // Connect global/port symbols to the wire graph.
-  // A symbol's locXY is its placement origin, which often differs from its
-  // electrical pin position, so the wire it touches is found within its
-  // bounding box. Each symbol attaches to exactly one coordinate.
-  //
-  // Coordinates are parsed once for the page rather than per symbol: a dense
-  // sheet has hundreds of symbols and hundreds of wire endpoints, and splitting
-  // every key for every symbol dominated the whole net-building phase.
-  const wirePoints: WirePoint[] = [];
-  for (const coord of allWireCoords) {
-    const comma = coord.indexOf(",");
-    wirePoints.push({
-      coord,
-      x: Number(coord.slice(0, comma)),
-      y: Number(coord.slice(comma + 1)),
-    });
-  }
-
-  // Names per wire group, not per coordinate. Every wire and OPC union has
-  // already run, so a group here is the final electrical group a symbol can
-  // join, and a rail labelled once at its far end is recognised along its
-  // whole length.
-  const groupNames = new Map<string, Set<string>>();
-  for (const [coord, names] of wireNames) {
-    const root = uf.find(coord);
-    let set = groupNames.get(root);
-    if (!set) groupNames.set(root, (set = new Set()));
-    for (const name of names) set.add(name);
-  }
-  const namesOfGroup = (coord: string): ReadonlySet<string> | undefined =>
-    groupNames.get(uf.find(coord));
-
-  for (const sym of [...page.globals, ...page.ports]) {
-    const attach = chooseSymbolAttachment(
-      sym,
-      symbolNets.get(sym.pairingId),
-      wirePoints,
-      namesOfGroup
-    );
-    if (attach) uf.union(symbolKey(sym), attach);
   }
 
   // Connect component pin coordinates to globals and wire bodies.
