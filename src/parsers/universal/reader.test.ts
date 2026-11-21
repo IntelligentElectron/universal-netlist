@@ -1,3 +1,4 @@
+import type { ParsedNetlist } from "../../types.js";
 import { describe, it, expect } from "vitest";
 import {
   calculateUniversalNetlistHash,
@@ -222,14 +223,19 @@ describe("validateUniversalNetlist", () => {
   it("rejects a malformed pin entry", () => {
     const raw = valid();
     (raw.components.U1.pins as Record<string, unknown>)["2"] = { name: "GND" };
-    rejects(raw, "pin U1.2 must be a net name or an object with exactly `name` and `net`");
+    rejects(raw, "pin U1.2 must have a string `net`");
     const extra = valid();
-    (extra.components.U1.pins as Record<string, unknown>)["2"] = {
-      name: "GND",
-      net: "GND",
-      type: "power",
-    };
-    rejects(extra, "pin U1.2 must be a net name");
+    (extra.components.U1.pins as Record<string, unknown>)["2"] = { net: "GND", colour: "red" };
+    rejects(extra, "unexpected pin U1.2 key 'colour'");
+    const badType = valid();
+    (badType.components.U1.pins as Record<string, unknown>)["2"] = { net: "GND", type: "ground" };
+    rejects(badType, "pin U1.2 field 'type' must be one of input, output");
+    const badHidden = valid();
+    (badHidden.components.U1.pins as Record<string, unknown>)["2"] = { net: "GND", hidden: false };
+    rejects(badHidden, "pin U1.2 field 'hidden' must be true when present");
+    const bare = valid();
+    (bare.components.U1.pins as Record<string, unknown>)["2"] = { net: "GND" };
+    rejects(bare, "write its net name instead");
   });
 
   it("rejects a net member that is not a pin list", () => {
@@ -378,7 +384,7 @@ describe("parseUniversalNetlist", () => {
         designVariant: "Fab-A",
       });
       const document = parseUniversalNetlistDocument(text);
-      expect(document.universalNetlistSchemaVersion).toBe(3);
+      expect(document.universalNetlistSchemaVersion).toBe(UNIVERSAL_NETLIST_SCHEMA_VERSION);
       expect(document.metadata.designVariant).toBe("Fab-A");
       expect(document.metadata.netlistHash).toBe(calculateUniversalNetlistHash(parsed));
     });
@@ -414,6 +420,62 @@ describe("parseUniversalNetlist", () => {
       const document = withVariant("Fab-A") as unknown as Record<string, unknown>;
       document.universalNetlistSchemaVersion = 2;
       rejects(document, "unexpected metadata key 'designVariant'");
+    });
+  });
+
+  /**
+   * A pin's electrical type and hidden flag, and the nets' own properties, are
+   * why schema version 4 exists. Version 3 refuses a pin object with any key but
+   * `name` and `net`, and any top-level key it does not define.
+   */
+  describe("pin details and net properties", () => {
+    const detailed = (): ParsedNetlist => ({
+      nets: { VCC: { U1: ["1"], C1: ["1"] }, GND: { U1: ["2"], C1: ["2"] } },
+      components: {
+        U1: {
+          pins: {
+            "1": { name: "VIN", net: "VCC", type: "power" },
+            "2": { net: "GND", type: "power", hidden: true },
+          },
+        },
+        C1: { pins: { "1": { net: "VCC", type: "passive" }, "2": "GND" } },
+      },
+      netProperties: { VCC: { VOLTAGE: "3.3V" } },
+    });
+
+    it("survives a write and read at the current schema version", () => {
+      const text = serializeUniversalNetlist(detailed(), { generatedAt: GENERATED_AT });
+      const document = parseUniversalNetlistDocument(text);
+      expect(document.universalNetlistSchemaVersion).toBe(4);
+      expect(document.components).toEqual(detailed().components);
+      expect(document.netProperties).toEqual({ VCC: { VOLTAGE: "3.3V" } });
+      expect(document.metadata.netlistHash).toBe(calculateUniversalNetlistHash(detailed()));
+    });
+
+    it("leaves the hash of a netlist without net properties as it was", () => {
+      const plain = validateUniversalNetlist(valid());
+      expect(calculateUniversalNetlistHash({ ...plain, netProperties: {} })).toBe(
+        calculateUniversalNetlistHash(plain)
+      );
+    });
+
+    it("refuses net properties of an undeclared net, or that are not strings", () => {
+      const a = JSON.parse(serializeUniversalNetlist(detailed(), { generatedAt: GENERATED_AT }));
+      a.netProperties = { NOPE: { VOLTAGE: "1V" } };
+      rejects(a, "`netProperties` names net 'NOPE', which is not declared");
+      const b = JSON.parse(serializeUniversalNetlist(detailed(), { generatedAt: GENERATED_AT }));
+      b.netProperties = { VCC: { VOLTAGE: 3 } };
+      rejects(b, "must map property names to strings");
+    });
+
+    it("is not accepted into a version 3 document", () => {
+      const document = JSON.parse(
+        serializeUniversalNetlist(detailed(), { generatedAt: GENERATED_AT })
+      );
+      document.universalNetlistSchemaVersion = 3;
+      rejects(document, "unexpected top-level key 'netProperties'");
+      delete document.netProperties;
+      rejects(document, "pin U1.1 must be a net name or an object with exactly `name` and `net`");
     });
   });
 

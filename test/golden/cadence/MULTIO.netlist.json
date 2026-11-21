@@ -1,8 +1,8 @@
 {
-  "universalNetlistSchemaVersion": 3,
+  "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-09-21T20:32:44.967Z",
-    "netlistHash": "sha256:0b11f1c632975bf1c6b90a3a328628403eb79cb8f975c56791d20639d1291971",
+    "generatedAt": "2026-11-21T20:27:42.427Z",
+    "netlistHash": "sha256:fcc79bb95820c3e7a57b9ad004ce971e646af1eb234bbfcab1e61a35d4695a6a",
     "origin": {
       "type": "vendor",
       "source": {
@@ -1608,86 +1608,194 @@
       "pins": {
         "1": {
           "name": "SOURCE",
-          "net": "GPIO1/3"
+          "net": "GPIO1/3",
+          "type": "passive"
         },
         "2": {
           "name": "GATE",
-          "net": "3V3_RASP"
+          "net": "3V3_RASP",
+          "type": "passive"
         },
         "3": {
           "name": "DRAIN",
-          "net": "SCL"
+          "net": "SCL",
+          "type": "passive"
         }
       }
     },
     "R2": {
       "value": "2K7",
       "pins": {
-        "1": "V_POW",
-        "2": "SCL"
+        "1": {
+          "net": "V_POW",
+          "type": "passive"
+        },
+        "2": {
+          "net": "SCL",
+          "type": "passive"
+        }
       }
     },
     "MH65": {
       "value": "HOLE_M3",
       "pins": {
-        "1": "NC"
+        "1": {
+          "net": "NC",
+          "type": "passive"
+        }
       }
     },
     "R12": {
       "value": "240",
       "pins": {
-        "1": "PN2",
-        "2": "N13044263"
+        "1": {
+          "net": "PN2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N13044263",
+          "type": "passive"
+        }
       }
     },
     "J22": {
       "value": "HEADER 1",
       "pins": {
-        "1": "PN2"
+        "1": {
+          "net": "PN2",
+          "type": "passive"
+        }
       }
     },
     "R15": {
       "value": "68K",
       "pins": {
-        "1": "V_POW",
-        "2": "RSTN"
+        "1": {
+          "net": "V_POW",
+          "type": "passive"
+        },
+        "2": {
+          "net": "RSTN",
+          "type": "passive"
+        }
       }
     },
     "MH64": {
       "value": "HOLE_M3",
       "pins": {
-        "1": "NC"
+        "1": {
+          "net": "NC",
+          "type": "passive"
+        }
       }
     },
     "J1": {
       "value": "HEADER 13X2",
       "pins": {
-        "1": "3V3_RASP",
-        "2": "5V_RASP",
-        "3": "GPIO0/2",
-        "4": "5V_RASP",
-        "5": "GPIO1/3",
-        "6": "GND",
-        "7": "IRQA_N",
-        "8": "GPIO14",
-        "9": "NC",
-        "10": "NC",
-        "11": "NC",
-        "12": "NC",
-        "13": "NC",
-        "14": "NC",
-        "15": "NC",
-        "16": "NC",
-        "17": "NC",
-        "18": "NC",
-        "19": "NC",
-        "20": "NC",
-        "21": "NC",
-        "22": "NC",
-        "23": "NC",
-        "24": "NC",
-        "25": "NC",
-        "26": "NC"
+        "1": {
+          "net": "3V3_RASP",
+          "type": "passive"
+        },
+        "2": {
+          "net": "5V_RASP",
+          "type": "passive"
+        },
+        "3": {
+          "net": "GPIO0/2",
+          "type": "passive"
+        },
+        "4": {
+          "net": "5V_RASP",
+          "type": "passive"
+        },
+        "5": {
+          "net": "GPIO1/3",
+          "type": "passive"
+        },
+        "6": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "7": {
+          "net": "IRQA_N",
+          "type": "passive"
+        },
+        "8": {
+          "net": "GPIO14",
+          "type": "passive"
+        },
+        "9": {
+          "net": "NC",
+          "type": "passive"
+        },
+        "10": {
+          "net": "NC",
+          "type": "passive"
+        },
+        "11": {
+          "net": "NC",
+          "type": "passive"
+        },
+        "12": {
+          "net": "NC",
+          "type": "passive"
+        },
+        "13": {
+          "net": "NC",
+          "type": "passive"
+        },
+        "14": {
+          "net": "NC",
+          "type": "passive"
+        },
+        "15": {
+          "net": "NC",
+          "type": "passive"
+        },
+        "16": {
+          "net": "NC",
+          "type": "passive"
+        },
+        "17": {
+          "net": "NC",
+          "type": "passive"
+        },
+        "18": {
+          "net": "NC",
+          "type": "passive"
+        },
+        "19": {
+          "net": "NC",
+          "type": "passive"
+        },
+        "20": {
+          "net": "NC",
+          "type": "passive"
+        },
+        "21": {
+          "net": "NC",
+          "type": "passive"
+        },
+        "22": {
+          "net": "NC",
+          "type": "passive"
+        },
+        "23": {
+          "net": "NC",
+          "type": "passive"
+        },
+        "24": {
+          "net": "NC",
+          "type": "passive"
+        },
+        "25": {
+          "net": "NC",
+          "type": "passive"
+        },
+        "26": {
+          "net": "NC",
+          "type": "passive"
+        }
       }
     },
     "D1": {
@@ -1695,77 +1803,124 @@
       "pins": {
         "1": {
           "name": "ANODE",
-          "net": "N13048414"
+          "net": "N13048414",
+          "type": "passive"
         },
         "2": {
           "name": "CATHODE",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       }
     },
     "MH58": {
       "value": "HOLE_M3",
       "pins": {
-        "1": "NC"
+        "1": {
+          "net": "NC",
+          "type": "passive"
+        }
       }
     },
     "R13": {
       "value": "706/386",
       "pins": {
-        "1": "GND",
-        "2": "N13044263"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N13044263",
+          "type": "passive"
+        }
       }
     },
     "C18": {
       "value": "100nF",
       "pins": {
-        "1": "PN2",
-        "2": "GND"
+        "1": {
+          "net": "PN2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "MH63": {
       "value": "HOLE_M3",
       "pins": {
-        "1": "NC"
+        "1": {
+          "net": "NC",
+          "type": "passive"
+        }
       }
     },
     "C19": {
       "value": "100uF_6V3",
       "pins": {
-        "1": "PN2",
-        "2": "GND"
+        "1": {
+          "net": "PN2",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "C20": {
       "value": "100uF_10V",
       "pins": {
-        "1": "PN1",
-        "2": "GND"
+        "1": {
+          "net": "PN1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "J21": {
       "value": "HEADER 1",
       "pins": {
-        "1": "3V3_RASP"
+        "1": {
+          "net": "3V3_RASP",
+          "type": "passive"
+        }
       }
     },
     "MH59": {
       "value": "HOLE_M3",
       "pins": {
-        "1": "NC"
+        "1": {
+          "net": "NC",
+          "type": "passive"
+        }
       }
     },
     "MH62": {
       "value": "HOLE_M3",
       "pins": {
-        "1": "NC"
+        "1": {
+          "net": "NC",
+          "type": "passive"
+        }
       }
     },
     "R16": {
       "value": "2K7",
       "pins": {
-        "1": "3V3_RASP",
-        "2": "IRQB_N"
+        "1": {
+          "net": "3V3_RASP",
+          "type": "passive"
+        },
+        "2": {
+          "net": "IRQB_N",
+          "type": "passive"
+        }
       }
     },
     "Q1": {
@@ -1773,48 +1928,72 @@
       "pins": {
         "1": {
           "name": "SOURCE",
-          "net": "GPIO0/2"
+          "net": "GPIO0/2",
+          "type": "passive"
         },
         "2": {
           "name": "GATE",
-          "net": "3V3_RASP"
+          "net": "3V3_RASP",
+          "type": "passive"
         },
         "3": {
           "name": "DRAIN",
-          "net": "SDA"
+          "net": "SDA",
+          "type": "passive"
         }
       }
     },
     "MH60": {
       "value": "HOLE_M3",
       "pins": {
-        "1": "NC"
+        "1": {
+          "net": "NC",
+          "type": "passive"
+        }
       }
     },
     "R14": {
       "value": "1K2_0603",
       "pins": {
-        "1": "N13048414",
-        "2": "V_POW"
+        "1": {
+          "net": "N13048414",
+          "type": "passive"
+        },
+        "2": {
+          "net": "V_POW",
+          "type": "passive"
+        }
       }
     },
     "J19": {
       "value": "HEADER 1",
       "pins": {
-        "1": "V_POW"
+        "1": {
+          "net": "V_POW",
+          "type": "passive"
+        }
       }
     },
     "J23": {
       "value": "CON2",
       "pins": {
-        "1": "GPIO14",
-        "2": "IRQB_N"
+        "1": {
+          "net": "GPIO14",
+          "type": "passive"
+        },
+        "2": {
+          "net": "IRQB_N",
+          "type": "passive"
+        }
       }
     },
     "J20": {
       "value": "HEADER 1",
       "pins": {
-        "1": "5V_RASP"
+        "1": {
+          "net": "5V_RASP",
+          "type": "passive"
+        }
       }
     },
     "D2": {
@@ -1822,11 +2001,13 @@
       "pins": {
         "1": {
           "name": "A",
-          "net": "PN1"
+          "net": "PN1",
+          "type": "passive"
         },
         "2": {
           "name": "K",
-          "net": "PN0"
+          "net": "PN0",
+          "type": "passive"
         }
       },
       "internal_pn": "054-000002"
@@ -1834,36 +2015,66 @@
     "MH61": {
       "value": "HOLE_M3",
       "pins": {
-        "1": "NC"
+        "1": {
+          "net": "NC",
+          "type": "passive"
+        }
       }
     },
     "R3": {
       "value": "2K7",
       "pins": {
-        "1": "3V3_RASP",
-        "2": "IRQA_N"
+        "1": {
+          "net": "3V3_RASP",
+          "type": "passive"
+        },
+        "2": {
+          "net": "IRQA_N",
+          "type": "passive"
+        }
       }
     },
     "C17": {
       "value": "100nF",
       "pins": {
-        "1": "PN1",
-        "2": "GND"
+        "1": {
+          "net": "PN1",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "J18": {
       "value": "CON_PWR3",
       "pins": {
-        "1": "PN0",
-        "2": "GND",
-        "3": "GND"
+        "1": {
+          "net": "PN0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "3": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "C21": {
       "value": "220nF",
       "pins": {
-        "1": "RSTN",
-        "2": "GND"
+        "1": {
+          "net": "RSTN",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "U9": {
@@ -1871,27 +2082,37 @@
       "pins": {
         "1": {
           "name": "GND",
-          "net": "N13044263"
+          "net": "N13044263",
+          "type": "passive"
         },
         "2": {
           "name": "VOUT#2",
-          "net": "PN2"
+          "net": "PN2",
+          "type": "passive"
         },
         "3": {
           "name": "VIN",
-          "net": "PN1"
+          "net": "PN1",
+          "type": "passive"
         },
         "4": {
           "name": "VOUT#4",
-          "net": "PN2"
+          "net": "PN2",
+          "type": "passive"
         }
       }
     },
     "R1": {
       "value": "2K7",
       "pins": {
-        "1": "V_POW",
-        "2": "SDA"
+        "1": {
+          "net": "V_POW",
+          "type": "passive"
+        },
+        "2": {
+          "net": "SDA",
+          "type": "passive"
+        }
       }
     },
     "U13": {
@@ -1899,179 +2120,306 @@
       "pins": {
         "1": {
           "name": "GP1.0",
-          "net": "P5.1.0"
+          "net": "P5.1.0",
+          "type": "bidirectional"
         },
         "2": {
           "name": "GP1.1",
-          "net": "P5.1.1"
+          "net": "P5.1.1",
+          "type": "bidirectional"
         },
         "3": {
           "name": "GP1.2",
-          "net": "P5.1.2"
+          "net": "P5.1.2",
+          "type": "bidirectional"
         },
         "4": {
           "name": "GP1.3",
-          "net": "P5.1.3"
+          "net": "P5.1.3",
+          "type": "bidirectional"
         },
         "5": {
           "name": "GP1.4",
-          "net": "P5.1.4"
+          "net": "P5.1.4",
+          "type": "bidirectional"
         },
         "6": {
           "name": "GP1.5",
-          "net": "P5.1.5"
+          "net": "P5.1.5",
+          "type": "bidirectional"
         },
         "7": {
           "name": "GP1.6",
-          "net": "P5.1.6"
+          "net": "P5.1.6",
+          "type": "bidirectional"
         },
         "8": {
           "name": "GP1.7",
-          "net": "P5.1.7"
+          "net": "P5.1.7",
+          "type": "bidirectional"
         },
         "9": {
           "name": "VDD",
-          "net": "V_POW"
+          "net": "V_POW",
+          "type": "power"
         },
         "10": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "11": {
           "name": "NC#11",
-          "net": "NC"
+          "net": "NC",
+          "type": "passive"
         },
         "12": {
           "name": "SCL",
-          "net": "SCL"
+          "net": "SCL",
+          "type": "passive"
         },
         "13": {
           "name": "SDA",
-          "net": "SDA"
+          "net": "SDA",
+          "type": "passive"
         },
         "14": {
           "name": "NC#14",
-          "net": "NC"
+          "net": "NC",
+          "type": "output"
         },
         "15": {
           "name": "A0",
-          "net": "V_POW"
+          "net": "V_POW",
+          "type": "passive"
         },
         "16": {
           "name": "A1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "17": {
           "name": "A2",
-          "net": "V_POW"
+          "net": "V_POW",
+          "type": "passive"
         },
         "18": {
           "name": "RESETN",
-          "net": "RSTN"
+          "net": "RSTN",
+          "type": "input"
         },
         "19": {
           "name": "INTBN",
-          "net": "IRQB_N"
+          "net": "IRQB_N",
+          "type": "open_collector"
         },
         "20": {
           "name": "INTAN",
-          "net": "IRQA_N"
+          "net": "IRQA_N",
+          "type": "open_collector"
         },
         "21": {
           "name": "GP0.0",
-          "net": "P5.0.0"
+          "net": "P5.0.0",
+          "type": "bidirectional"
         },
         "22": {
           "name": "GP0.1",
-          "net": "P5.0.1"
+          "net": "P5.0.1",
+          "type": "bidirectional"
         },
         "23": {
           "name": "GP0.2",
-          "net": "P5.0.2"
+          "net": "P5.0.2",
+          "type": "bidirectional"
         },
         "24": {
           "name": "GP0.3",
-          "net": "P5.0.3"
+          "net": "P5.0.3",
+          "type": "bidirectional"
         },
         "25": {
           "name": "GP0.4",
-          "net": "P5.0.4"
+          "net": "P5.0.4",
+          "type": "bidirectional"
         },
         "26": {
           "name": "GP0.5",
-          "net": "P5.0.5"
+          "net": "P5.0.5",
+          "type": "bidirectional"
         },
         "27": {
           "name": "GP0.6",
-          "net": "P5.0.6"
+          "net": "P5.0.6",
+          "type": "bidirectional"
         },
         "28": {
           "name": "GP0.7",
-          "net": "P5.0.7"
+          "net": "P5.0.7",
+          "type": "bidirectional"
         }
       }
     },
     "J11": {
       "value": "TERM9",
       "pins": {
-        "1": "P3.1.0",
-        "2": "P3.1.1",
-        "3": "P3.1.2",
-        "4": "P3.1.3",
-        "5": "P3.1.4",
-        "6": "P3.1.5",
-        "7": "P3.1.6",
-        "8": "P3.1.7",
-        "9": "GND"
+        "1": {
+          "net": "P3.1.0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P3.1.1",
+          "type": "passive"
+        },
+        "3": {
+          "net": "P3.1.2",
+          "type": "passive"
+        },
+        "4": {
+          "net": "P3.1.3",
+          "type": "passive"
+        },
+        "5": {
+          "net": "P3.1.4",
+          "type": "passive"
+        },
+        "6": {
+          "net": "P3.1.5",
+          "type": "passive"
+        },
+        "7": {
+          "net": "P3.1.6",
+          "type": "passive"
+        },
+        "8": {
+          "net": "P3.1.7",
+          "type": "passive"
+        },
+        "9": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "C16": {
       "value": "220nF",
       "pins": {
-        "1": "V_POW",
-        "2": "GND"
+        "1": {
+          "net": "V_POW",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "J4": {
       "value": "TERM9",
       "pins": {
-        "1": "P2.0.0",
-        "2": "P2.0.1",
-        "3": "P2.0.2",
-        "4": "P2.0.3",
-        "5": "P2.0.4",
-        "6": "P2.0.5",
-        "7": "P2.0.6",
-        "8": "P2.0.7",
-        "9": "GND"
+        "1": {
+          "net": "P2.0.0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P2.0.1",
+          "type": "passive"
+        },
+        "3": {
+          "net": "P2.0.2",
+          "type": "passive"
+        },
+        "4": {
+          "net": "P2.0.3",
+          "type": "passive"
+        },
+        "5": {
+          "net": "P2.0.4",
+          "type": "passive"
+        },
+        "6": {
+          "net": "P2.0.5",
+          "type": "passive"
+        },
+        "7": {
+          "net": "P2.0.6",
+          "type": "passive"
+        },
+        "8": {
+          "net": "P2.0.7",
+          "type": "passive"
+        },
+        "9": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "J13": {
       "value": "TERM9",
       "pins": {
-        "1": "P5.1.0",
-        "2": "P5.1.1",
-        "3": "P5.1.2",
-        "4": "P5.1.3",
-        "5": "P5.1.4",
-        "6": "P5.1.5",
-        "7": "P5.1.6",
-        "8": "P5.1.7",
-        "9": "GND"
+        "1": {
+          "net": "P5.1.0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P5.1.1",
+          "type": "passive"
+        },
+        "3": {
+          "net": "P5.1.2",
+          "type": "passive"
+        },
+        "4": {
+          "net": "P5.1.3",
+          "type": "passive"
+        },
+        "5": {
+          "net": "P5.1.4",
+          "type": "passive"
+        },
+        "6": {
+          "net": "P5.1.5",
+          "type": "passive"
+        },
+        "7": {
+          "net": "P5.1.6",
+          "type": "passive"
+        },
+        "8": {
+          "net": "P5.1.7",
+          "type": "passive"
+        },
+        "9": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "C15": {
       "value": "220nF",
       "pins": {
-        "1": "V_POW",
-        "2": "GND"
+        "1": {
+          "net": "V_POW",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "C14": {
       "value": "220nF",
       "pins": {
-        "1": "V_POW",
-        "2": "GND"
+        "1": {
+          "net": "V_POW",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "U14": {
@@ -2079,123 +2427,157 @@
       "pins": {
         "1": {
           "name": "GP1.0",
-          "net": "P4.1.0"
+          "net": "P4.1.0",
+          "type": "bidirectional"
         },
         "2": {
           "name": "GP1.1",
-          "net": "P4.1.1"
+          "net": "P4.1.1",
+          "type": "bidirectional"
         },
         "3": {
           "name": "GP1.2",
-          "net": "P4.1.2"
+          "net": "P4.1.2",
+          "type": "bidirectional"
         },
         "4": {
           "name": "GP1.3",
-          "net": "P4.1.3"
+          "net": "P4.1.3",
+          "type": "bidirectional"
         },
         "5": {
           "name": "GP1.4",
-          "net": "P4.1.4"
+          "net": "P4.1.4",
+          "type": "bidirectional"
         },
         "6": {
           "name": "GP1.5",
-          "net": "P4.1.5"
+          "net": "P4.1.5",
+          "type": "bidirectional"
         },
         "7": {
           "name": "GP1.6",
-          "net": "P4.1.6"
+          "net": "P4.1.6",
+          "type": "bidirectional"
         },
         "8": {
           "name": "GP1.7",
-          "net": "P4.1.7"
+          "net": "P4.1.7",
+          "type": "bidirectional"
         },
         "9": {
           "name": "VDD",
-          "net": "V_POW"
+          "net": "V_POW",
+          "type": "power"
         },
         "10": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "11": {
           "name": "NC#11",
-          "net": "NC"
+          "net": "NC",
+          "type": "passive"
         },
         "12": {
           "name": "SCL",
-          "net": "SCL"
+          "net": "SCL",
+          "type": "passive"
         },
         "13": {
           "name": "SDA",
-          "net": "SDA"
+          "net": "SDA",
+          "type": "passive"
         },
         "14": {
           "name": "NC#14",
-          "net": "NC"
+          "net": "NC",
+          "type": "output"
         },
         "15": {
           "name": "A0",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "16": {
           "name": "A1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "17": {
           "name": "A2",
-          "net": "V_POW"
+          "net": "V_POW",
+          "type": "passive"
         },
         "18": {
           "name": "RESETN",
-          "net": "RSTN"
+          "net": "RSTN",
+          "type": "input"
         },
         "19": {
           "name": "INTBN",
-          "net": "IRQB_N"
+          "net": "IRQB_N",
+          "type": "open_collector"
         },
         "20": {
           "name": "INTAN",
-          "net": "IRQA_N"
+          "net": "IRQA_N",
+          "type": "open_collector"
         },
         "21": {
           "name": "GP0.0",
-          "net": "P4.0.0"
+          "net": "P4.0.0",
+          "type": "bidirectional"
         },
         "22": {
           "name": "GP0.1",
-          "net": "P4.0.1"
+          "net": "P4.0.1",
+          "type": "bidirectional"
         },
         "23": {
           "name": "GP0.2",
-          "net": "P4.0.2"
+          "net": "P4.0.2",
+          "type": "bidirectional"
         },
         "24": {
           "name": "GP0.3",
-          "net": "P4.0.3"
+          "net": "P4.0.3",
+          "type": "bidirectional"
         },
         "25": {
           "name": "GP0.4",
-          "net": "P4.0.4"
+          "net": "P4.0.4",
+          "type": "bidirectional"
         },
         "26": {
           "name": "GP0.5",
-          "net": "P4.0.5"
+          "net": "P4.0.5",
+          "type": "bidirectional"
         },
         "27": {
           "name": "GP0.6",
-          "net": "P4.0.6"
+          "net": "P4.0.6",
+          "type": "bidirectional"
         },
         "28": {
           "name": "GP0.7",
-          "net": "P4.0.7"
+          "net": "P4.0.7",
+          "type": "bidirectional"
         }
       }
     },
     "C13": {
       "value": "220nF",
       "pins": {
-        "1": "V_POW",
-        "2": "GND"
+        "1": {
+          "net": "V_POW",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "U15": {
@@ -2203,130 +2585,185 @@
       "pins": {
         "1": {
           "name": "GP1.0",
-          "net": "P3.1.0"
+          "net": "P3.1.0",
+          "type": "bidirectional"
         },
         "2": {
           "name": "GP1.1",
-          "net": "P3.1.1"
+          "net": "P3.1.1",
+          "type": "bidirectional"
         },
         "3": {
           "name": "GP1.2",
-          "net": "P3.1.2"
+          "net": "P3.1.2",
+          "type": "bidirectional"
         },
         "4": {
           "name": "GP1.3",
-          "net": "P3.1.3"
+          "net": "P3.1.3",
+          "type": "bidirectional"
         },
         "5": {
           "name": "GP1.4",
-          "net": "P3.1.4"
+          "net": "P3.1.4",
+          "type": "bidirectional"
         },
         "6": {
           "name": "GP1.5",
-          "net": "P3.1.5"
+          "net": "P3.1.5",
+          "type": "bidirectional"
         },
         "7": {
           "name": "GP1.6",
-          "net": "P3.1.6"
+          "net": "P3.1.6",
+          "type": "bidirectional"
         },
         "8": {
           "name": "GP1.7",
-          "net": "P3.1.7"
+          "net": "P3.1.7",
+          "type": "bidirectional"
         },
         "9": {
           "name": "VDD",
-          "net": "V_POW"
+          "net": "V_POW",
+          "type": "power"
         },
         "10": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "11": {
           "name": "NC#11",
-          "net": "NC"
+          "net": "NC",
+          "type": "passive"
         },
         "12": {
           "name": "SCL",
-          "net": "SCL"
+          "net": "SCL",
+          "type": "passive"
         },
         "13": {
           "name": "SDA",
-          "net": "SDA"
+          "net": "SDA",
+          "type": "passive"
         },
         "14": {
           "name": "NC#14",
-          "net": "NC"
+          "net": "NC",
+          "type": "output"
         },
         "15": {
           "name": "A0",
-          "net": "V_POW"
+          "net": "V_POW",
+          "type": "passive"
         },
         "16": {
           "name": "A1",
-          "net": "V_POW"
+          "net": "V_POW",
+          "type": "passive"
         },
         "17": {
           "name": "A2",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "18": {
           "name": "RESETN",
-          "net": "RSTN"
+          "net": "RSTN",
+          "type": "input"
         },
         "19": {
           "name": "INTBN",
-          "net": "IRQB_N"
+          "net": "IRQB_N",
+          "type": "open_collector"
         },
         "20": {
           "name": "INTAN",
-          "net": "IRQA_N"
+          "net": "IRQA_N",
+          "type": "open_collector"
         },
         "21": {
           "name": "GP0.0",
-          "net": "P3.0.0"
+          "net": "P3.0.0",
+          "type": "bidirectional"
         },
         "22": {
           "name": "GP0.1",
-          "net": "P3.0.1"
+          "net": "P3.0.1",
+          "type": "bidirectional"
         },
         "23": {
           "name": "GP0.2",
-          "net": "P3.0.2"
+          "net": "P3.0.2",
+          "type": "bidirectional"
         },
         "24": {
           "name": "GP0.3",
-          "net": "P3.0.3"
+          "net": "P3.0.3",
+          "type": "bidirectional"
         },
         "25": {
           "name": "GP0.4",
-          "net": "P3.0.4"
+          "net": "P3.0.4",
+          "type": "bidirectional"
         },
         "26": {
           "name": "GP0.5",
-          "net": "P3.0.5"
+          "net": "P3.0.5",
+          "type": "bidirectional"
         },
         "27": {
           "name": "GP0.6",
-          "net": "P3.0.6"
+          "net": "P3.0.6",
+          "type": "bidirectional"
         },
         "28": {
           "name": "GP0.7",
-          "net": "P3.0.7"
+          "net": "P3.0.7",
+          "type": "bidirectional"
         }
       }
     },
     "J6": {
       "value": "TERM9",
       "pins": {
-        "1": "P1.1.0",
-        "2": "P1.1.1",
-        "3": "P1.1.2",
-        "4": "P1.1.3",
-        "5": "P1.1.4",
-        "6": "P1.1.5",
-        "7": "P1.1.6",
-        "8": "P1.1.7",
-        "9": "GND"
+        "1": {
+          "net": "P1.1.0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P1.1.1",
+          "type": "passive"
+        },
+        "3": {
+          "net": "P1.1.2",
+          "type": "passive"
+        },
+        "4": {
+          "net": "P1.1.3",
+          "type": "passive"
+        },
+        "5": {
+          "net": "P1.1.4",
+          "type": "passive"
+        },
+        "6": {
+          "net": "P1.1.5",
+          "type": "passive"
+        },
+        "7": {
+          "net": "P1.1.6",
+          "type": "passive"
+        },
+        "8": {
+          "net": "P1.1.7",
+          "type": "passive"
+        },
+        "9": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "U16": {
@@ -2334,151 +2771,239 @@
       "pins": {
         "1": {
           "name": "GP1.0",
-          "net": "P6.1.0"
+          "net": "P6.1.0",
+          "type": "bidirectional"
         },
         "2": {
           "name": "GP1.1",
-          "net": "P6.1.1"
+          "net": "P6.1.1",
+          "type": "bidirectional"
         },
         "3": {
           "name": "GP1.2",
-          "net": "P6.1.2"
+          "net": "P6.1.2",
+          "type": "bidirectional"
         },
         "4": {
           "name": "GP1.3",
-          "net": "P6.1.3"
+          "net": "P6.1.3",
+          "type": "bidirectional"
         },
         "5": {
           "name": "GP1.4",
-          "net": "P6.1.4"
+          "net": "P6.1.4",
+          "type": "bidirectional"
         },
         "6": {
           "name": "GP1.5",
-          "net": "P6.1.5"
+          "net": "P6.1.5",
+          "type": "bidirectional"
         },
         "7": {
           "name": "GP1.6",
-          "net": "P6.1.6"
+          "net": "P6.1.6",
+          "type": "bidirectional"
         },
         "8": {
           "name": "GP1.7",
-          "net": "P6.1.7"
+          "net": "P6.1.7",
+          "type": "bidirectional"
         },
         "9": {
           "name": "VDD",
-          "net": "V_POW"
+          "net": "V_POW",
+          "type": "power"
         },
         "10": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "11": {
           "name": "NC#11",
-          "net": "NC"
+          "net": "NC",
+          "type": "passive"
         },
         "12": {
           "name": "SCL",
-          "net": "SCL"
+          "net": "SCL",
+          "type": "passive"
         },
         "13": {
           "name": "SDA",
-          "net": "SDA"
+          "net": "SDA",
+          "type": "passive"
         },
         "14": {
           "name": "NC#14",
-          "net": "NC"
+          "net": "NC",
+          "type": "output"
         },
         "15": {
           "name": "A0",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "16": {
           "name": "A1",
-          "net": "V_POW"
+          "net": "V_POW",
+          "type": "passive"
         },
         "17": {
           "name": "A2",
-          "net": "V_POW"
+          "net": "V_POW",
+          "type": "passive"
         },
         "18": {
           "name": "RESETN",
-          "net": "RSTN"
+          "net": "RSTN",
+          "type": "input"
         },
         "19": {
           "name": "INTBN",
-          "net": "IRQB_N"
+          "net": "IRQB_N",
+          "type": "open_collector"
         },
         "20": {
           "name": "INTAN",
-          "net": "IRQA_N"
+          "net": "IRQA_N",
+          "type": "open_collector"
         },
         "21": {
           "name": "GP0.0",
-          "net": "P6.0.0"
+          "net": "P6.0.0",
+          "type": "bidirectional"
         },
         "22": {
           "name": "GP0.1",
-          "net": "P6.0.1"
+          "net": "P6.0.1",
+          "type": "bidirectional"
         },
         "23": {
           "name": "GP0.2",
-          "net": "P6.0.2"
+          "net": "P6.0.2",
+          "type": "bidirectional"
         },
         "24": {
           "name": "GP0.3",
-          "net": "P6.0.3"
+          "net": "P6.0.3",
+          "type": "bidirectional"
         },
         "25": {
           "name": "GP0.4",
-          "net": "P6.0.4"
+          "net": "P6.0.4",
+          "type": "bidirectional"
         },
         "26": {
           "name": "GP0.5",
-          "net": "P6.0.5"
+          "net": "P6.0.5",
+          "type": "bidirectional"
         },
         "27": {
           "name": "GP0.6",
-          "net": "P6.0.6"
+          "net": "P6.0.6",
+          "type": "bidirectional"
         },
         "28": {
           "name": "GP0.7",
-          "net": "P6.0.7"
+          "net": "P6.0.7",
+          "type": "bidirectional"
         }
       }
     },
     "J2": {
       "value": "TERM9",
       "pins": {
-        "1": "P0.0.0",
-        "2": "P0.0.1",
-        "3": "P0.0.2",
-        "4": "P0.0.3",
-        "5": "P0.0.4",
-        "6": "P0.0.5",
-        "7": "P0.0.6",
-        "8": "P0.0.7",
-        "9": "GND"
+        "1": {
+          "net": "P0.0.0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P0.0.1",
+          "type": "passive"
+        },
+        "3": {
+          "net": "P0.0.2",
+          "type": "passive"
+        },
+        "4": {
+          "net": "P0.0.3",
+          "type": "passive"
+        },
+        "5": {
+          "net": "P0.0.4",
+          "type": "passive"
+        },
+        "6": {
+          "net": "P0.0.5",
+          "type": "passive"
+        },
+        "7": {
+          "net": "P0.0.6",
+          "type": "passive"
+        },
+        "8": {
+          "net": "P0.0.7",
+          "type": "passive"
+        },
+        "9": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "C12": {
       "value": "220nF",
       "pins": {
-        "1": "V_POW",
-        "2": "GND"
+        "1": {
+          "net": "V_POW",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "J8": {
       "value": "TERM9",
       "pins": {
-        "1": "P3.0.0",
-        "2": "P3.0.1",
-        "3": "P3.0.2",
-        "4": "P3.0.3",
-        "5": "P3.0.4",
-        "6": "P3.0.5",
-        "7": "P3.0.6",
-        "8": "P3.0.7",
-        "9": "GND"
+        "1": {
+          "net": "P3.0.0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P3.0.1",
+          "type": "passive"
+        },
+        "3": {
+          "net": "P3.0.2",
+          "type": "passive"
+        },
+        "4": {
+          "net": "P3.0.3",
+          "type": "passive"
+        },
+        "5": {
+          "net": "P3.0.4",
+          "type": "passive"
+        },
+        "6": {
+          "net": "P3.0.5",
+          "type": "passive"
+        },
+        "7": {
+          "net": "P3.0.6",
+          "type": "passive"
+        },
+        "8": {
+          "net": "P3.0.7",
+          "type": "passive"
+        },
+        "9": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "U17": {
@@ -2486,221 +3011,429 @@
       "pins": {
         "1": {
           "name": "GP1.0",
-          "net": "P7.1.0"
+          "net": "P7.1.0",
+          "type": "bidirectional"
         },
         "2": {
           "name": "GP1.1",
-          "net": "P7.1.1"
+          "net": "P7.1.1",
+          "type": "bidirectional"
         },
         "3": {
           "name": "GP1.2",
-          "net": "P7.1.2"
+          "net": "P7.1.2",
+          "type": "bidirectional"
         },
         "4": {
           "name": "GP1.3",
-          "net": "P7.1.3"
+          "net": "P7.1.3",
+          "type": "bidirectional"
         },
         "5": {
           "name": "GP1.4",
-          "net": "P7.1.4"
+          "net": "P7.1.4",
+          "type": "bidirectional"
         },
         "6": {
           "name": "GP1.5",
-          "net": "P7.1.5"
+          "net": "P7.1.5",
+          "type": "bidirectional"
         },
         "7": {
           "name": "GP1.6",
-          "net": "P7.1.6"
+          "net": "P7.1.6",
+          "type": "bidirectional"
         },
         "8": {
           "name": "GP1.7",
-          "net": "P7.1.7"
+          "net": "P7.1.7",
+          "type": "bidirectional"
         },
         "9": {
           "name": "VDD",
-          "net": "V_POW"
+          "net": "V_POW",
+          "type": "power"
         },
         "10": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "11": {
           "name": "NC#11",
-          "net": "NC"
+          "net": "NC",
+          "type": "passive"
         },
         "12": {
           "name": "SCL",
-          "net": "SCL"
+          "net": "SCL",
+          "type": "passive"
         },
         "13": {
           "name": "SDA",
-          "net": "SDA"
+          "net": "SDA",
+          "type": "passive"
         },
         "14": {
           "name": "NC#14",
-          "net": "NC"
+          "net": "NC",
+          "type": "output"
         },
         "15": {
           "name": "A0",
-          "net": "V_POW"
+          "net": "V_POW",
+          "type": "passive"
         },
         "16": {
           "name": "A1",
-          "net": "V_POW"
+          "net": "V_POW",
+          "type": "passive"
         },
         "17": {
           "name": "A2",
-          "net": "V_POW"
+          "net": "V_POW",
+          "type": "passive"
         },
         "18": {
           "name": "RESETN",
-          "net": "RSTN"
+          "net": "RSTN",
+          "type": "input"
         },
         "19": {
           "name": "INTBN",
-          "net": "IRQB_N"
+          "net": "IRQB_N",
+          "type": "open_collector"
         },
         "20": {
           "name": "INTAN",
-          "net": "IRQA_N"
+          "net": "IRQA_N",
+          "type": "open_collector"
         },
         "21": {
           "name": "GP0.0",
-          "net": "P7.0.0"
+          "net": "P7.0.0",
+          "type": "bidirectional"
         },
         "22": {
           "name": "GP0.1",
-          "net": "P7.0.1"
+          "net": "P7.0.1",
+          "type": "bidirectional"
         },
         "23": {
           "name": "GP0.2",
-          "net": "P7.0.2"
+          "net": "P7.0.2",
+          "type": "bidirectional"
         },
         "24": {
           "name": "GP0.3",
-          "net": "P7.0.3"
+          "net": "P7.0.3",
+          "type": "bidirectional"
         },
         "25": {
           "name": "GP0.4",
-          "net": "P7.0.4"
+          "net": "P7.0.4",
+          "type": "bidirectional"
         },
         "26": {
           "name": "GP0.5",
-          "net": "P7.0.5"
+          "net": "P7.0.5",
+          "type": "bidirectional"
         },
         "27": {
           "name": "GP0.6",
-          "net": "P7.0.6"
+          "net": "P7.0.6",
+          "type": "bidirectional"
         },
         "28": {
           "name": "GP0.7",
-          "net": "P7.0.7"
+          "net": "P7.0.7",
+          "type": "bidirectional"
         }
       }
     },
     "C11": {
       "value": "220nF",
       "pins": {
-        "1": "V_POW",
-        "2": "GND"
+        "1": {
+          "net": "V_POW",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "C10": {
       "value": "220nF",
       "pins": {
-        "1": "V_POW",
-        "2": "GND"
+        "1": {
+          "net": "V_POW",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "J16": {
       "value": "TERM9",
       "pins": {
-        "1": "P6.1.0",
-        "2": "P6.1.1",
-        "3": "P6.1.2",
-        "4": "P6.1.3",
-        "5": "P6.1.4",
-        "6": "P6.1.5",
-        "7": "P6.1.6",
-        "8": "P6.1.7",
-        "9": "GND"
+        "1": {
+          "net": "P6.1.0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P6.1.1",
+          "type": "passive"
+        },
+        "3": {
+          "net": "P6.1.2",
+          "type": "passive"
+        },
+        "4": {
+          "net": "P6.1.3",
+          "type": "passive"
+        },
+        "5": {
+          "net": "P6.1.4",
+          "type": "passive"
+        },
+        "6": {
+          "net": "P6.1.5",
+          "type": "passive"
+        },
+        "7": {
+          "net": "P6.1.6",
+          "type": "passive"
+        },
+        "8": {
+          "net": "P6.1.7",
+          "type": "passive"
+        },
+        "9": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "C9": {
       "value": "220nF",
       "pins": {
-        "1": "V_POW",
-        "2": "GND"
+        "1": {
+          "net": "V_POW",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "J12": {
       "value": "TERM9",
       "pins": {
-        "1": "P4.1.0",
-        "2": "P4.1.1",
-        "3": "P4.1.2",
-        "4": "P4.1.3",
-        "5": "P4.1.4",
-        "6": "P4.1.5",
-        "7": "P4.1.6",
-        "8": "P4.1.7",
-        "9": "GND"
+        "1": {
+          "net": "P4.1.0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P4.1.1",
+          "type": "passive"
+        },
+        "3": {
+          "net": "P4.1.2",
+          "type": "passive"
+        },
+        "4": {
+          "net": "P4.1.3",
+          "type": "passive"
+        },
+        "5": {
+          "net": "P4.1.4",
+          "type": "passive"
+        },
+        "6": {
+          "net": "P4.1.5",
+          "type": "passive"
+        },
+        "7": {
+          "net": "P4.1.6",
+          "type": "passive"
+        },
+        "8": {
+          "net": "P4.1.7",
+          "type": "passive"
+        },
+        "9": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "J10": {
       "value": "TERM9",
       "pins": {
-        "1": "P5.0.0",
-        "2": "P5.0.1",
-        "3": "P5.0.2",
-        "4": "P5.0.3",
-        "5": "P5.0.4",
-        "6": "P5.0.5",
-        "7": "P5.0.6",
-        "8": "P5.0.7",
-        "9": "GND"
+        "1": {
+          "net": "P5.0.0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P5.0.1",
+          "type": "passive"
+        },
+        "3": {
+          "net": "P5.0.2",
+          "type": "passive"
+        },
+        "4": {
+          "net": "P5.0.3",
+          "type": "passive"
+        },
+        "5": {
+          "net": "P5.0.4",
+          "type": "passive"
+        },
+        "6": {
+          "net": "P5.0.5",
+          "type": "passive"
+        },
+        "7": {
+          "net": "P5.0.6",
+          "type": "passive"
+        },
+        "8": {
+          "net": "P5.0.7",
+          "type": "passive"
+        },
+        "9": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "J17": {
       "value": "TERM9",
       "pins": {
-        "1": "P7.1.0",
-        "2": "P7.1.1",
-        "3": "P7.1.2",
-        "4": "P7.1.3",
-        "5": "P7.1.4",
-        "6": "P7.1.5",
-        "7": "P7.1.6",
-        "8": "P7.1.7",
-        "9": "GND"
+        "1": {
+          "net": "P7.1.0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P7.1.1",
+          "type": "passive"
+        },
+        "3": {
+          "net": "P7.1.2",
+          "type": "passive"
+        },
+        "4": {
+          "net": "P7.1.3",
+          "type": "passive"
+        },
+        "5": {
+          "net": "P7.1.4",
+          "type": "passive"
+        },
+        "6": {
+          "net": "P7.1.5",
+          "type": "passive"
+        },
+        "7": {
+          "net": "P7.1.6",
+          "type": "passive"
+        },
+        "8": {
+          "net": "P7.1.7",
+          "type": "passive"
+        },
+        "9": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "J5": {
       "value": "TERM9",
       "pins": {
-        "1": "P0.1.0",
-        "2": "P0.1.1",
-        "3": "P0.1.2",
-        "4": "P0.1.3",
-        "5": "P0.1.4",
-        "6": "P0.1.5",
-        "7": "P0.1.6",
-        "8": "P0.1.7",
-        "9": "GND"
+        "1": {
+          "net": "P0.1.0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P0.1.1",
+          "type": "passive"
+        },
+        "3": {
+          "net": "P0.1.2",
+          "type": "passive"
+        },
+        "4": {
+          "net": "P0.1.3",
+          "type": "passive"
+        },
+        "5": {
+          "net": "P0.1.4",
+          "type": "passive"
+        },
+        "6": {
+          "net": "P0.1.5",
+          "type": "passive"
+        },
+        "7": {
+          "net": "P0.1.6",
+          "type": "passive"
+        },
+        "8": {
+          "net": "P0.1.7",
+          "type": "passive"
+        },
+        "9": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "J3": {
       "value": "TERM9",
       "pins": {
-        "1": "P1.0.0",
-        "2": "P1.0.1",
-        "3": "P1.0.2",
-        "4": "P1.0.3",
-        "5": "P1.0.4",
-        "6": "P1.0.5",
-        "7": "P1.0.6",
-        "8": "P1.0.7",
-        "9": "GND"
+        "1": {
+          "net": "P1.0.0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P1.0.1",
+          "type": "passive"
+        },
+        "3": {
+          "net": "P1.0.2",
+          "type": "passive"
+        },
+        "4": {
+          "net": "P1.0.3",
+          "type": "passive"
+        },
+        "5": {
+          "net": "P1.0.4",
+          "type": "passive"
+        },
+        "6": {
+          "net": "P1.0.5",
+          "type": "passive"
+        },
+        "7": {
+          "net": "P1.0.6",
+          "type": "passive"
+        },
+        "8": {
+          "net": "P1.0.7",
+          "type": "passive"
+        },
+        "9": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "U10": {
@@ -2708,130 +3441,185 @@
       "pins": {
         "1": {
           "name": "GP1.0",
-          "net": "P0.1.0"
+          "net": "P0.1.0",
+          "type": "bidirectional"
         },
         "2": {
           "name": "GP1.1",
-          "net": "P0.1.1"
+          "net": "P0.1.1",
+          "type": "bidirectional"
         },
         "3": {
           "name": "GP1.2",
-          "net": "P0.1.2"
+          "net": "P0.1.2",
+          "type": "bidirectional"
         },
         "4": {
           "name": "GP1.3",
-          "net": "P0.1.3"
+          "net": "P0.1.3",
+          "type": "bidirectional"
         },
         "5": {
           "name": "GP1.4",
-          "net": "P0.1.4"
+          "net": "P0.1.4",
+          "type": "bidirectional"
         },
         "6": {
           "name": "GP1.5",
-          "net": "P0.1.5"
+          "net": "P0.1.5",
+          "type": "bidirectional"
         },
         "7": {
           "name": "GP1.6",
-          "net": "P0.1.6"
+          "net": "P0.1.6",
+          "type": "bidirectional"
         },
         "8": {
           "name": "GP1.7",
-          "net": "P0.1.7"
+          "net": "P0.1.7",
+          "type": "bidirectional"
         },
         "9": {
           "name": "VDD",
-          "net": "V_POW"
+          "net": "V_POW",
+          "type": "power"
         },
         "10": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "11": {
           "name": "NC#11",
-          "net": "NC"
+          "net": "NC",
+          "type": "passive"
         },
         "12": {
           "name": "SCL",
-          "net": "SCL"
+          "net": "SCL",
+          "type": "passive"
         },
         "13": {
           "name": "SDA",
-          "net": "SDA"
+          "net": "SDA",
+          "type": "passive"
         },
         "14": {
           "name": "NC#14",
-          "net": "NC"
+          "net": "NC",
+          "type": "output"
         },
         "15": {
           "name": "A0",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "16": {
           "name": "A1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "17": {
           "name": "A2",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "18": {
           "name": "RESETN",
-          "net": "RSTN"
+          "net": "RSTN",
+          "type": "input"
         },
         "19": {
           "name": "INTBN",
-          "net": "IRQB_N"
+          "net": "IRQB_N",
+          "type": "open_collector"
         },
         "20": {
           "name": "INTAN",
-          "net": "IRQA_N"
+          "net": "IRQA_N",
+          "type": "open_collector"
         },
         "21": {
           "name": "GP0.0",
-          "net": "P0.0.0"
+          "net": "P0.0.0",
+          "type": "bidirectional"
         },
         "22": {
           "name": "GP0.1",
-          "net": "P0.0.1"
+          "net": "P0.0.1",
+          "type": "bidirectional"
         },
         "23": {
           "name": "GP0.2",
-          "net": "P0.0.2"
+          "net": "P0.0.2",
+          "type": "bidirectional"
         },
         "24": {
           "name": "GP0.3",
-          "net": "P0.0.3"
+          "net": "P0.0.3",
+          "type": "bidirectional"
         },
         "25": {
           "name": "GP0.4",
-          "net": "P0.0.4"
+          "net": "P0.0.4",
+          "type": "bidirectional"
         },
         "26": {
           "name": "GP0.5",
-          "net": "P0.0.5"
+          "net": "P0.0.5",
+          "type": "bidirectional"
         },
         "27": {
           "name": "GP0.6",
-          "net": "P0.0.6"
+          "net": "P0.0.6",
+          "type": "bidirectional"
         },
         "28": {
           "name": "GP0.7",
-          "net": "P0.0.7"
+          "net": "P0.0.7",
+          "type": "bidirectional"
         }
       }
     },
     "J7": {
       "value": "TERM9",
       "pins": {
-        "1": "P2.1.0",
-        "2": "P2.1.1",
-        "3": "P2.1.2",
-        "4": "P2.1.3",
-        "5": "P2.1.4",
-        "6": "P2.1.5",
-        "7": "P2.1.6",
-        "8": "P2.1.7",
-        "9": "GND"
+        "1": {
+          "net": "P2.1.0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P2.1.1",
+          "type": "passive"
+        },
+        "3": {
+          "net": "P2.1.2",
+          "type": "passive"
+        },
+        "4": {
+          "net": "P2.1.3",
+          "type": "passive"
+        },
+        "5": {
+          "net": "P2.1.4",
+          "type": "passive"
+        },
+        "6": {
+          "net": "P2.1.5",
+          "type": "passive"
+        },
+        "7": {
+          "net": "P2.1.6",
+          "type": "passive"
+        },
+        "8": {
+          "net": "P2.1.7",
+          "type": "passive"
+        },
+        "9": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "U11": {
@@ -2839,158 +3627,267 @@
       "pins": {
         "1": {
           "name": "GP1.0",
-          "net": "P1.1.0"
+          "net": "P1.1.0",
+          "type": "bidirectional"
         },
         "2": {
           "name": "GP1.1",
-          "net": "P1.1.1"
+          "net": "P1.1.1",
+          "type": "bidirectional"
         },
         "3": {
           "name": "GP1.2",
-          "net": "P1.1.2"
+          "net": "P1.1.2",
+          "type": "bidirectional"
         },
         "4": {
           "name": "GP1.3",
-          "net": "P1.1.3"
+          "net": "P1.1.3",
+          "type": "bidirectional"
         },
         "5": {
           "name": "GP1.4",
-          "net": "P1.1.4"
+          "net": "P1.1.4",
+          "type": "bidirectional"
         },
         "6": {
           "name": "GP1.5",
-          "net": "P1.1.5"
+          "net": "P1.1.5",
+          "type": "bidirectional"
         },
         "7": {
           "name": "GP1.6",
-          "net": "P1.1.6"
+          "net": "P1.1.6",
+          "type": "bidirectional"
         },
         "8": {
           "name": "GP1.7",
-          "net": "P1.1.7"
+          "net": "P1.1.7",
+          "type": "bidirectional"
         },
         "9": {
           "name": "VDD",
-          "net": "V_POW"
+          "net": "V_POW",
+          "type": "power"
         },
         "10": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "11": {
           "name": "NC#11",
-          "net": "NC"
+          "net": "NC",
+          "type": "passive"
         },
         "12": {
           "name": "SCL",
-          "net": "SCL"
+          "net": "SCL",
+          "type": "passive"
         },
         "13": {
           "name": "SDA",
-          "net": "SDA"
+          "net": "SDA",
+          "type": "passive"
         },
         "14": {
           "name": "NC#14",
-          "net": "NC"
+          "net": "NC",
+          "type": "output"
         },
         "15": {
           "name": "A0",
-          "net": "V_POW"
+          "net": "V_POW",
+          "type": "passive"
         },
         "16": {
           "name": "A1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "17": {
           "name": "A2",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "18": {
           "name": "RESETN",
-          "net": "RSTN"
+          "net": "RSTN",
+          "type": "input"
         },
         "19": {
           "name": "INTBN",
-          "net": "IRQB_N"
+          "net": "IRQB_N",
+          "type": "open_collector"
         },
         "20": {
           "name": "INTAN",
-          "net": "IRQA_N"
+          "net": "IRQA_N",
+          "type": "open_collector"
         },
         "21": {
           "name": "GP0.0",
-          "net": "P1.0.0"
+          "net": "P1.0.0",
+          "type": "bidirectional"
         },
         "22": {
           "name": "GP0.1",
-          "net": "P1.0.1"
+          "net": "P1.0.1",
+          "type": "bidirectional"
         },
         "23": {
           "name": "GP0.2",
-          "net": "P1.0.2"
+          "net": "P1.0.2",
+          "type": "bidirectional"
         },
         "24": {
           "name": "GP0.3",
-          "net": "P1.0.3"
+          "net": "P1.0.3",
+          "type": "bidirectional"
         },
         "25": {
           "name": "GP0.4",
-          "net": "P1.0.4"
+          "net": "P1.0.4",
+          "type": "bidirectional"
         },
         "26": {
           "name": "GP0.5",
-          "net": "P1.0.5"
+          "net": "P1.0.5",
+          "type": "bidirectional"
         },
         "27": {
           "name": "GP0.6",
-          "net": "P1.0.6"
+          "net": "P1.0.6",
+          "type": "bidirectional"
         },
         "28": {
           "name": "GP0.7",
-          "net": "P1.0.7"
+          "net": "P1.0.7",
+          "type": "bidirectional"
         }
       }
     },
     "J9": {
       "value": "TERM9",
       "pins": {
-        "1": "P4.0.0",
-        "2": "P4.0.1",
-        "3": "P4.0.2",
-        "4": "P4.0.3",
-        "5": "P4.0.4",
-        "6": "P4.0.5",
-        "7": "P4.0.6",
-        "8": "P4.0.7",
-        "9": "GND"
+        "1": {
+          "net": "P4.0.0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P4.0.1",
+          "type": "passive"
+        },
+        "3": {
+          "net": "P4.0.2",
+          "type": "passive"
+        },
+        "4": {
+          "net": "P4.0.3",
+          "type": "passive"
+        },
+        "5": {
+          "net": "P4.0.4",
+          "type": "passive"
+        },
+        "6": {
+          "net": "P4.0.5",
+          "type": "passive"
+        },
+        "7": {
+          "net": "P4.0.6",
+          "type": "passive"
+        },
+        "8": {
+          "net": "P4.0.7",
+          "type": "passive"
+        },
+        "9": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "J14": {
       "value": "TERM9",
       "pins": {
-        "1": "P6.0.0",
-        "2": "P6.0.1",
-        "3": "P6.0.2",
-        "4": "P6.0.3",
-        "5": "P6.0.4",
-        "6": "P6.0.5",
-        "7": "P6.0.6",
-        "8": "P6.0.7",
-        "9": "GND"
+        "1": {
+          "net": "P6.0.0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P6.0.1",
+          "type": "passive"
+        },
+        "3": {
+          "net": "P6.0.2",
+          "type": "passive"
+        },
+        "4": {
+          "net": "P6.0.3",
+          "type": "passive"
+        },
+        "5": {
+          "net": "P6.0.4",
+          "type": "passive"
+        },
+        "6": {
+          "net": "P6.0.5",
+          "type": "passive"
+        },
+        "7": {
+          "net": "P6.0.6",
+          "type": "passive"
+        },
+        "8": {
+          "net": "P6.0.7",
+          "type": "passive"
+        },
+        "9": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "J15": {
       "value": "TERM9",
       "pins": {
-        "1": "P7.0.0",
-        "2": "P7.0.1",
-        "3": "P7.0.2",
-        "4": "P7.0.3",
-        "5": "P7.0.4",
-        "6": "P7.0.5",
-        "7": "P7.0.6",
-        "8": "P7.0.7",
-        "9": "GND"
+        "1": {
+          "net": "P7.0.0",
+          "type": "passive"
+        },
+        "2": {
+          "net": "P7.0.1",
+          "type": "passive"
+        },
+        "3": {
+          "net": "P7.0.2",
+          "type": "passive"
+        },
+        "4": {
+          "net": "P7.0.3",
+          "type": "passive"
+        },
+        "5": {
+          "net": "P7.0.4",
+          "type": "passive"
+        },
+        "6": {
+          "net": "P7.0.5",
+          "type": "passive"
+        },
+        "7": {
+          "net": "P7.0.6",
+          "type": "passive"
+        },
+        "8": {
+          "net": "P7.0.7",
+          "type": "passive"
+        },
+        "9": {
+          "net": "GND",
+          "type": "passive"
+        }
       }
     },
     "U12": {
@@ -2998,115 +3895,143 @@
       "pins": {
         "1": {
           "name": "GP1.0",
-          "net": "P2.1.0"
+          "net": "P2.1.0",
+          "type": "bidirectional"
         },
         "2": {
           "name": "GP1.1",
-          "net": "P2.1.1"
+          "net": "P2.1.1",
+          "type": "bidirectional"
         },
         "3": {
           "name": "GP1.2",
-          "net": "P2.1.2"
+          "net": "P2.1.2",
+          "type": "bidirectional"
         },
         "4": {
           "name": "GP1.3",
-          "net": "P2.1.3"
+          "net": "P2.1.3",
+          "type": "bidirectional"
         },
         "5": {
           "name": "GP1.4",
-          "net": "P2.1.4"
+          "net": "P2.1.4",
+          "type": "bidirectional"
         },
         "6": {
           "name": "GP1.5",
-          "net": "P2.1.5"
+          "net": "P2.1.5",
+          "type": "bidirectional"
         },
         "7": {
           "name": "GP1.6",
-          "net": "P2.1.6"
+          "net": "P2.1.6",
+          "type": "bidirectional"
         },
         "8": {
           "name": "GP1.7",
-          "net": "P2.1.7"
+          "net": "P2.1.7",
+          "type": "bidirectional"
         },
         "9": {
           "name": "VDD",
-          "net": "V_POW"
+          "net": "V_POW",
+          "type": "power"
         },
         "10": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "type": "power"
         },
         "11": {
           "name": "NC#11",
-          "net": "NC"
+          "net": "NC",
+          "type": "passive"
         },
         "12": {
           "name": "SCL",
-          "net": "SCL"
+          "net": "SCL",
+          "type": "passive"
         },
         "13": {
           "name": "SDA",
-          "net": "SDA"
+          "net": "SDA",
+          "type": "passive"
         },
         "14": {
           "name": "NC#14",
-          "net": "NC"
+          "net": "NC",
+          "type": "output"
         },
         "15": {
           "name": "A0",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "16": {
           "name": "A1",
-          "net": "V_POW"
+          "net": "V_POW",
+          "type": "passive"
         },
         "17": {
           "name": "A2",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "18": {
           "name": "RESETN",
-          "net": "RSTN"
+          "net": "RSTN",
+          "type": "input"
         },
         "19": {
           "name": "INTBN",
-          "net": "IRQB_N"
+          "net": "IRQB_N",
+          "type": "open_collector"
         },
         "20": {
           "name": "INTAN",
-          "net": "IRQA_N"
+          "net": "IRQA_N",
+          "type": "open_collector"
         },
         "21": {
           "name": "GP0.0",
-          "net": "P2.0.0"
+          "net": "P2.0.0",
+          "type": "bidirectional"
         },
         "22": {
           "name": "GP0.1",
-          "net": "P2.0.1"
+          "net": "P2.0.1",
+          "type": "bidirectional"
         },
         "23": {
           "name": "GP0.2",
-          "net": "P2.0.2"
+          "net": "P2.0.2",
+          "type": "bidirectional"
         },
         "24": {
           "name": "GP0.3",
-          "net": "P2.0.3"
+          "net": "P2.0.3",
+          "type": "bidirectional"
         },
         "25": {
           "name": "GP0.4",
-          "net": "P2.0.4"
+          "net": "P2.0.4",
+          "type": "bidirectional"
         },
         "26": {
           "name": "GP0.5",
-          "net": "P2.0.5"
+          "net": "P2.0.5",
+          "type": "bidirectional"
         },
         "27": {
           "name": "GP0.6",
-          "net": "P2.0.6"
+          "net": "P2.0.6",
+          "type": "bidirectional"
         },
         "28": {
           "name": "GP0.7",
-          "net": "P2.0.7"
+          "net": "P2.0.7",
+          "type": "bidirectional"
         }
       }
     }

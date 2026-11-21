@@ -176,7 +176,7 @@ Get full XNET connectivity starting from a component pin, named REFDES.PIN (e.g.
 
 ### query_component
 
-Get full component details including all pin connections. Refdes lookup is case-insensitive. Returns MPN, description, value, and pin-to-net mappings when available. Each pin maps to its net name, or to {name, net} where the pin has a function name that differs from its number. A pin on no net reads as the net "NC", a marker and not a queryable net. If the schematic gives the refdes to several different parts, the result lists every part under `components`, each carrying `error`: "Reference designator is duplicated". `pins` is paged: `max_results` entries (default 50) from `offset`, and `next_offset` is set when there are more. Notes about parts and nets cover the page only. A duplicated refdes counts its parts' pins together. If the refdes is not found, `search_components_by_refdes` finds it; errors include guidance and suggestions.
+Get full component details including all pin connections. Refdes lookup is case-insensitive. Returns MPN, description, value, and pin-to-net mappings when available. Each pin maps to its net name, or to {name, net, type, hidden} carrying whichever of these it has: a function name that differs from its number, the electrical type its symbol declares (input, output, bidirectional, tristate, open_collector, open_emitter, passive, power and the like), and hidden: true for a power pin the symbol does not draw. A pin on no net reads as the net "NC", a marker and not a queryable net. If the schematic gives the refdes to several different parts, the result lists every part under `components`, each carrying `error`: "Reference designator is duplicated". `pins` is paged: `max_results` entries (default 50) from `offset`, and `next_offset` is set when there are more. Notes about parts and nets cover the page only. A duplicated refdes counts its parts' pins together. If the refdes is not found, `search_components_by_refdes` finds it; errors include guidance and suggestions.
 
 - `--refdes` (required; string). Component reference designator.
 - `--max_results` (number; default 50). Max pins entries to return. Default: 50.
@@ -198,7 +198,7 @@ List the schematic pages of a Cadence .DSN design, in the order the netlist read
 
 ### get_page
 
-One schematic page of a Cadence .DSN design as drawn: its parts (refdes, value, symbol, location, rotation, mirror, box, and pins with their nets), wires with their nets, net labels, hierarchical ports, globals (power and ground symbols), off-page connectors, bus entries, hierarchical blocks, and the title-block fields. Net names match list_nets. Coordinates are in 1/100 inch, x to the right and y down. Name the page as list_pages reports it.
+One schematic page of a Cadence .DSN design as drawn: its parts (refdes, value, symbol, location, rotation, mirror, box, and pins with their electrical types and nets), wires with their nets, net labels, hierarchical ports, globals (power and ground symbols), off-page connectors, bus entries, hierarchical blocks, and the title-block fields. Net names match list_nets. Coordinates are in 1/100 inch, x to the right and y down. Name the page as list_pages reports it.
 
 - `--page` (required; string). Page as list_pages names it; its plain name, or <schematic>/<page>, when only one page has that name.
 

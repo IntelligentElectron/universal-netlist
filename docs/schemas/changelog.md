@@ -5,15 +5,42 @@ tracks the **schema** only: the shape of the document, its fields, and what they
 mean. Parser and server behaviour that does not change the document is out of
 scope.
 
-The current version is **3**. Readers for every earlier version stay registered,
+The current version is **4**. Readers for every earlier version stay registered,
 so a file written by any released build remains loadable.
 
 | Version | Date | Status |
 |---|---|---|
-| [3](#version-3) | 2026-10-28 | Current |
+| [4](#version-4) | 2026-11-21 | Current |
+| [3](#version-3) | 2026-10-28 | Supported |
 | [2](#version-2) | 2026-09-02 | Supported |
 | [1](#version-1) | 2026-09-01 | Supported |
 | [Pre-schema](#pre-schema) | 2026-03-10 | Not loadable |
+
+---
+
+## Version 4
+
+**2026-11-21**
+
+Records each pin's electrical type, hidden power pins, and properties of nets.
+
+| Field | Change |
+|---|---|
+| pin entry `type` | Added. The electrical type the pin's library symbol declares: `input`, `output`, `bidirectional`, `tristate`, `open_collector`, `open_emitter`, `passive`, `power`, `power_in`, `power_out`, `unspecified`, `free` or `no_connect`. |
+| pin entry `hidden` | Added. `true` on a power pin the symbol does not draw, which joins its net by name. |
+| pin entry `name` | Now optional in the object form, so a pin can carry a type without a name. An object must carry at least one of `name`, `type` and `hidden`. |
+| `netProperties` | Added. Properties the design attaches to a net, by net name, such as `DIFFERENTIAL_PAIR`. Omitted when no net has any; included in `netlistHash` when present. |
+
+Pin types let electrical rule checks see which pins drive a net and which only
+load it, and let a reviewer tell inputs from outputs without the datasheet.
+Hidden power pins are pins a reader of the drawn page cannot see, so a netlist
+that marks them shows where a part takes its supply.
+
+**Compatibility.** A version 3 document cannot carry these fields: its reader
+refuses a pin object with any key but `name` and `net`, and any top-level key it
+does not define. Version 1 to 3 files stay readable, and their pins have no type.
+Builds that predate version 4 refuse version 4 files, naming the versions they
+support.
 
 ---
 

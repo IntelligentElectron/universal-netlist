@@ -1,7 +1,7 @@
 {
-  "universalNetlistSchemaVersion": 3,
+  "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-10T01:03:57.083Z",
+    "generatedAt": "2026-11-21T20:27:50.026Z",
     "netlistHash": "sha256:b886b1c0999da94ab26fd1e1cc5babe9c73136724bdf2ad727631250efe9a7ea",
     "origin": {
       "type": "vendor",

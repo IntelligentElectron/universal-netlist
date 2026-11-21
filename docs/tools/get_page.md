@@ -40,7 +40,7 @@ Coordinates are page coordinates in 1/100 inch, x to the right and y down, on ev
       "rotation": 270,
       "mirrored": false,
       "box": [885, 325, 970, 403],
-      "pins": [{ "number": "3", "name": "DRAIN", "x": 950, "y": 370, "net": "SCL" }]
+      "pins": [{ "number": "3", "name": "DRAIN", "type": "passive", "x": 950, "y": 370, "net": "SCL" }]
     }
   ],
   "blocks": [],
@@ -58,7 +58,7 @@ Coordinates are page coordinates in 1/100 inch, x to the right and y down, on ev
 | `parts[].symbol` | The library symbol drawn, such as `RES.Normal` |
 | `parts[].rotation` | Counterclockwise, in degrees (0, 90, 180 or 270), applied after the mirror |
 | `parts[].box` | The stored bounding box, `[x1, y1, x2, y2]`; all zero on a few parts |
-| `parts[].pins` | Each pin with its number, its name where it differs, its position and its net |
+| `parts[].pins` | Each pin with its number, its name where it differs, its electrical type as `query_component` reports it, its position and its net |
 | `wires[].bus` | True for a bus wire |
 | `wires[].net`, `*.net` | The net, named as `list_nets` names it; omitted where the object joins none of the netlist's nets: a bus wire or bus port, which carries several, and a wire that reaches no pin |
 | `blocks` | Hierarchical blocks on the page, each placing a child schematic |

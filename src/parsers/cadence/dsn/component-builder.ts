@@ -6,7 +6,7 @@
  */
 
 import type { ComponentDetails } from "../../../types.js";
-import { createPinEntry, type PinEntry } from "../../../types.js";
+import { createPinEntry, type PinDetails, type PinEntry, type PinType } from "../../../types.js";
 import {
   isValidRefdes,
   hasDnsPropertyMarker,
@@ -177,6 +177,35 @@ export function findCachedPart(
   return undefined;
 }
 
+/** Capture's `pin_type` values, in order (docs/cadence-dsn-format.md §5.2.5). */
+const CAPTURE_PIN_TYPES: readonly PinType[] = [
+  "input",
+  "bidirectional",
+  "output",
+  "open_collector",
+  "passive",
+  "tristate",
+  "open_emitter",
+  "power",
+];
+
+/** Shape bit 5: the pin is drawn. Clear only on hidden power pins (§5.2.5). */
+const PIN_VISIBLE = 0x20;
+
+/** The type and visibility a part's library symbol gives the pin at `pinIndex`. */
+export const libraryPinDetails = (
+  part: CachedLibraryPart | undefined,
+  pinIndex: number | undefined
+): Omit<PinDetails, "name"> => {
+  if (!part || pinIndex === undefined) return {};
+  const type = CAPTURE_PIN_TYPES[part.pinTypes?.[pinIndex - 1] ?? -1];
+  const shape = part.pinShapes?.[pinIndex - 1];
+  return {
+    ...(type !== undefined && { type }),
+    ...(type !== undefined && shape !== undefined && !(shape & PIN_VISIBLE) && { hidden: true as const }),
+  };
+};
+
 /**
  * Disambiguate duplicate pin names within each component by appending #pinNum.
  * Matches Cadence DAT export behavior (e.g., GND appears on pins 10 and 11
@@ -193,8 +222,8 @@ function disambiguatePinNames(components: ComponentDetails): void {
 
     // Append #pinNum to duplicates
     for (const [pinNum, entry] of Object.entries(comp.pins)) {
-      if (typeof entry !== "string" && nameCounts.get(entry.name)! > 1) {
-        comp.pins[pinNum] = { name: `${entry.name}#${pinNum}`, net: entry.net };
+      if (typeof entry !== "string" && entry.name && nameCounts.get(entry.name)! > 1) {
+        comp.pins[pinNum] = { ...entry, name: `${entry.name}#${pinNum}` };
       }
     }
   }
@@ -248,7 +277,12 @@ export function buildComponents(
                 pinName = unitCachedPart.pinNames[idx - 1]?.toUpperCase();
               }
             }
-            existing.pins[pinNumber] = createPinEntry(pinNumber, pinName, netName);
+            existing.pins[pinNumber] = createPinEntry(
+              pinNumber,
+              pinName,
+              netName,
+              libraryPinDetails(unitCachedPart, pinNumToIndex.get(pinNumber))
+            );
           }
         }
         continue;
@@ -326,7 +360,12 @@ export function buildComponents(
               pinName = cachedPart.pinNames[idx - 1]?.toUpperCase();
             }
           }
-          pins[pinNumber] = createPinEntry(pinNumber, pinName, netName);
+          pins[pinNumber] = createPinEntry(
+            pinNumber,
+            pinName,
+            netName,
+            libraryPinDetails(cachedPart, pinNumToIndex.get(pinNumber))
+          );
         }
       }
 

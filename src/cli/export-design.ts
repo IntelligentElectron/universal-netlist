@@ -69,11 +69,11 @@ const withUnconnectedPinsEmpty = (netlist: ParsedNetlist): ParsedNetlist => {
     for (const [pin, entry] of Object.entries(component.pins)) {
       const net = typeof entry === "string" ? entry : entry.net;
       if (net !== "NC" || onNcNet.includes(pin)) pins[pin] = entry;
-      else pins[pin] = typeof entry === "string" ? "" : { name: entry.name, net: "" };
+      else pins[pin] = typeof entry === "string" ? "" : { ...entry, net: "" };
     }
     components[refdes] = { ...component, pins };
   }
-  return { nets: netlist.nets, components };
+  return { nets: netlist.nets, components, netProperties: netlist.netProperties };
 };
 
 export const exportDesignTool = defineTool({

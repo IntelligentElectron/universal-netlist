@@ -10,7 +10,14 @@
  */
 
 import { createHash } from "node:crypto";
-import type { ComponentDetails, NetConnections, ParsedNetlist, PinEntry } from "../../types.js";
+import {
+  PIN_TYPES,
+  type ComponentDetails,
+  type NetConnections,
+  type ParsedNetlist,
+  type PinEntry,
+  type PinType,
+} from "../../types.js";
 import { UNIVERSAL_NETLIST_SCHEMA_VERSION } from "../../universal-format.js";
 import { isDefaultVariantLiteral } from "../variants.js";
 
@@ -62,6 +69,8 @@ const isObject = (value: unknown): value is Record<string, unknown> =>
   typeof value === "object" && value !== null && !Array.isArray(value);
 
 const TOP_LEVEL_KEYS = new Set(["universalNetlistSchemaVersion", "metadata", "nets", "components"]);
+const VERSION_4_TOP_LEVEL_KEYS = new Set([...TOP_LEVEL_KEYS, "netProperties"]);
+const PIN_TYPE_SET: ReadonlySet<string> = new Set(PIN_TYPES);
 const VERSION_1_METADATA_KEYS = new Set(["generatedAt", "netlistHash", "origin"]);
 const VERSION_3_METADATA_KEYS = new Set([...VERSION_1_METADATA_KEYS, "designVariant"]);
 const NATIVE_ORIGIN_KEYS = new Set(["type"]);
@@ -106,21 +115,32 @@ const VERSION_2_COMPONENT_TEXT_FIELDS: readonly ComponentTextField[] = [
  * variants says which build it is. It could not be added to version 2: that
  * reader refuses any metadata key it does not define, so a version 2 file
  * carrying it would be rejected by every build that already exists.
+ *
+ * Version 4 adds a pin's electrical `type` and `hidden` flag to the pin object,
+ * and the top-level `netProperties`. Version 3 refuses a pin object with any key
+ * but `name` and `net`, and any top-level key it does not define.
  */
 interface VersionShape {
   readonly componentTextFields: readonly ComponentTextField[];
   readonly metadataKeys: ReadonlySet<string>;
+  /** Whether a pin object may carry `type` and `hidden`, and omit `name`. */
+  readonly pinDetails: boolean;
+  /** Whether the document may carry `netProperties`. */
+  readonly netProperties: boolean;
 }
 
 const VERSION_1: VersionShape = {
   componentTextFields: VERSION_1_COMPONENT_TEXT_FIELDS,
   metadataKeys: VERSION_1_METADATA_KEYS,
+  pinDetails: false,
+  netProperties: false,
 };
 const VERSION_2: VersionShape = {
   ...VERSION_1,
   componentTextFields: VERSION_2_COMPONENT_TEXT_FIELDS,
 };
 const VERSION_3: VersionShape = { ...VERSION_2, metadataKeys: VERSION_3_METADATA_KEYS };
+const VERSION_4: VersionShape = { ...VERSION_3, pinDetails: true, netProperties: true };
 
 type Fail = (message: string) => never;
 
@@ -154,10 +174,14 @@ const canonicalize = (value: unknown): unknown => {
   return ordered;
 };
 
+const hasNetProperties = (netlist: ParsedNetlist): boolean =>
+  netlist.netProperties !== undefined && Object.keys(netlist.netProperties).length > 0;
+
 /**
  * Hash the stable content of a Universal Netlist.
  *
- * `nets` and `components` are canonicalized and hashed together. The schema
+ * `nets`, `components` and, when present, `netProperties` are canonicalized
+ * and hashed together. The schema
  * envelope and all metadata are intentionally excluded, so metadata-only
  * changes do not alter the electrical netlist's identity.
  */
@@ -166,6 +190,8 @@ export const calculateUniversalNetlistHash = (netlist: ParsedNetlist): string =>
     canonicalize({
       nets: netlist.nets,
       components: netlist.components,
+      // Absent when empty, so a netlist with none hashes as it did before version 4.
+      netProperties: hasNetProperties(netlist) ? netlist.netProperties : undefined,
     })
   );
   return `sha256:${createHash("sha256").update(canonical, "utf8").digest("hex")}`;
@@ -279,6 +305,59 @@ const normalizeDesignVariant = (value: string | undefined): string | undefined =
  */
 const netOf = (entry: PinEntry): string => (typeof entry === "string" ? entry : entry.net);
 
+const PIN_DETAIL_KEYS = new Set(["name", "net", "type", "hidden"]);
+
+/**
+ * Read a version 4 pin object: `net`, and at least one of `name`, `type` and
+ * `hidden`. A pin with none of them is written as its net name alone.
+ */
+const readPinDetails = (entry: unknown, pin: string, fail: Fail): PinEntry => {
+  if (!isObject(entry)) fail(`pin ${pin} must be a net name or an object`);
+  rejectUnexpectedKeys(entry, PIN_DETAIL_KEYS, `pin ${pin}`, fail);
+  if (typeof entry.net !== "string") fail(`pin ${pin} must have a string \`net\``);
+  if (entry.name !== undefined && (typeof entry.name !== "string" || !entry.name)) {
+    fail(`pin ${pin} field 'name' must be a non-empty string`);
+  }
+  if (entry.type !== undefined && !PIN_TYPE_SET.has(entry.type as string)) {
+    fail(`pin ${pin} field 'type' must be one of ${PIN_TYPES.join(", ")}`);
+  }
+  if (entry.hidden !== undefined && entry.hidden !== true) {
+    fail(`pin ${pin} field 'hidden' must be true when present`);
+  }
+  if (entry.name === undefined && entry.type === undefined && entry.hidden === undefined) {
+    fail(`pin ${pin} is an object with only \`net\`; write its net name instead`);
+  }
+  return {
+    ...(entry.name !== undefined && { name: entry.name as string }),
+    net: entry.net,
+    ...(entry.type !== undefined && { type: entry.type as PinType }),
+    ...(entry.hidden === true && { hidden: true as const }),
+  };
+};
+
+/** Read `netProperties`: string properties of declared nets, none of them empty. */
+const readNetProperties = (
+  raw: unknown,
+  nets: NetConnections,
+  fail: Fail
+): Record<string, Record<string, string>> => {
+  if (!isObject(raw)) fail("`netProperties` must be an object");
+  const out: Record<string, Record<string, string>> = {};
+  for (const [net, properties] of Object.entries(raw)) {
+    if (!(net in nets)) fail(`\`netProperties\` names net '${net}', which is not declared`);
+    if (!isObject(properties) || Object.keys(properties).length === 0) {
+      fail(`\`netProperties\` of net '${net}' must be a non-empty object`);
+    }
+    for (const [name, value] of Object.entries(properties)) {
+      if (!name || typeof value !== "string") {
+        fail(`\`netProperties\` of net '${net}' must map property names to strings`);
+      }
+    }
+    out[net] = { ...(properties as Record<string, string>) };
+  }
+  return out;
+};
+
 /**
  * Build the reader for one schema version.
  *
@@ -294,7 +373,7 @@ const netOf = (entry: PinEntry): string => (typeof entry === "string" ? entry : 
  * string is read as a one-element array, which is the form every tool works on.
  */
 const makeVersionReader =
-  ({ componentTextFields, metadataKeys }: VersionShape) =>
+  ({ componentTextFields, metadataKeys, pinDetails, netProperties: allowsNetProperties }: VersionShape) =>
   (raw: Record<string, unknown>, fail: Fail): ParsedNetlist => {
     if (!isObject(raw.metadata)) fail("`metadata` must be an object");
     rejectUnexpectedKeys(raw.metadata, metadataKeys, "metadata", fail);
@@ -314,11 +393,12 @@ const makeVersionReader =
     if (!isObject(raw.nets) || !isObject(raw.components)) {
       fail("`nets` and `components` must be objects");
     }
+    const topLevelKeys = allowsNetProperties ? VERSION_4_TOP_LEVEL_KEYS : TOP_LEVEL_KEYS;
     for (const key of Object.keys(raw)) {
-      if (!TOP_LEVEL_KEYS.has(key)) {
+      if (!topLevelKeys.has(key)) {
         fail(
-          `unexpected top-level key '${key}'; a Universal Netlist has only ` +
-            "`universalNetlistSchemaVersion`, `metadata`, `nets`, and `components`"
+          `unexpected top-level key '${key}'; this schema version has only ` +
+            [...topLevelKeys].map((k) => `\`${k}\``).join(", ")
         );
       }
     }
@@ -343,6 +423,8 @@ const makeVersionReader =
         if (!pin) fail(`component '${refdes}' has a pin with an empty number`);
         if (typeof entry === "string") {
           pins[pin] = entry;
+        } else if (pinDetails) {
+          pins[pin] = readPinDetails(entry, `${refdes}.${pin}`, fail);
         } else if (
           isObject(entry) &&
           typeof entry.name === "string" &&
@@ -427,7 +509,10 @@ const makeVersionReader =
       }
     }
 
-    const netlist = { nets, components };
+    const netlist: ParsedNetlist = { nets, components };
+    if (raw.netProperties !== undefined) {
+      netlist.netProperties = readNetProperties(raw.netProperties, nets, fail);
+    }
     const expectedHash = calculateUniversalNetlistHash(netlist);
     if (raw.metadata.netlistHash !== expectedHash) {
       fail("`metadata.netlistHash` does not match the canonical nets and components");
@@ -446,7 +531,7 @@ const makeVersionReader =
  */
 const projectComponents = (
   netlist: ParsedNetlist,
-  componentTextFields: readonly ComponentTextField[]
+  { componentTextFields, pinDetails, netProperties }: VersionShape
 ): ParsedNetlist => {
   const carried = new Set<string>([...componentTextFields, "pins", "dns"]);
   const components: ComponentDetails = {};
@@ -461,10 +546,26 @@ const projectComponents = (
       projected[key] = value;
     }
     if (!("pins" in projected)) projected.pins = body.pins;
+    if (!pinDetails) projected.pins = withoutPinDetails(body.pins);
     components[refdes] = projected as ComponentDetails[string];
   }
-  return { nets: netlist.nets, components };
+  return {
+    nets: netlist.nets,
+    components,
+    ...(netProperties && hasNetProperties(netlist) && { netProperties: netlist.netProperties }),
+  };
 };
+
+/** A version before 4 carries a pin's name and net only. */
+const withoutPinDetails = (pins: Record<string, PinEntry>): Record<string, PinEntry> =>
+  Object.fromEntries(
+    Object.entries(pins).map(([pin, entry]) => [
+      pin,
+      typeof entry === "string" || entry.name === undefined
+        ? netOf(entry)
+        : { name: entry.name, net: entry.net },
+    ])
+  );
 
 const makeVersionCodec = (version: number, shape: VersionShape): UniversalNetlistSchemaCodec => ({
   read: makeVersionReader(shape),
@@ -476,7 +577,7 @@ const makeVersionCodec = (version: number, shape: VersionShape): UniversalNetlis
         `Universal Netlist schema version ${version} cannot record design variant '${designVariant}'`
       );
     }
-    const projected = projectComponents(netlist, shape.componentTextFields);
+    const projected = projectComponents(netlist, shape);
     return {
       universalNetlistSchemaVersion: version,
       metadata: {
@@ -487,6 +588,7 @@ const makeVersionCodec = (version: number, shape: VersionShape): UniversalNetlis
       },
       nets: projected.nets,
       components: projected.components,
+      ...(projected.netProperties && { netProperties: projected.netProperties }),
     };
   },
 });
@@ -501,6 +603,7 @@ const SCHEMA_CODECS: ReadonlyMap<number, UniversalNetlistSchemaCodec> = new Map(
   [1, makeVersionCodec(1, VERSION_1)],
   [2, makeVersionCodec(2, VERSION_2)],
   [3, makeVersionCodec(3, VERSION_3)],
+  [4, makeVersionCodec(4, VERSION_4)],
 ]);
 
 /** Versions accepted by this build, in ascending order. */
@@ -591,6 +694,7 @@ export const parseUniversalNetlistDocument = (
     },
     nets: netlist.nets,
     components: netlist.components,
+    ...(netlist.netProperties && { netProperties: netlist.netProperties }),
   };
 };
 

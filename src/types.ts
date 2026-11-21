@@ -22,24 +22,65 @@ export interface NetConnections {
 }
 
 /**
- * Pin entry for component pin mappings.
- * Uses a string net name for simple pins, or an object when pin name adds meaning.
+ * A pin's electrical type, as its library symbol declares it.
+ *
+ * The first eight are Cadence Capture's pin types (docs/cadence-dsn-format.md
+ * §5.2.5). `power_in`, `power_out`, `unspecified`, `free` and `no_connect` are
+ * the further types KiCad and Altium symbols can declare.
  */
-export type PinEntry = string | { name: string; net: string };
+export const PIN_TYPES = [
+  "input",
+  "output",
+  "bidirectional",
+  "tristate",
+  "open_collector",
+  "open_emitter",
+  "passive",
+  "power",
+  "power_in",
+  "power_out",
+  "unspecified",
+  "free",
+  "no_connect",
+] as const;
+export type PinType = (typeof PIN_TYPES)[number];
+
+/** What a pin entry says about a pin beyond its net. */
+export interface PinDetails {
+  /** The pin's function name, set only when it differs from the pin number. */
+  name?: string;
+  /** The electrical type the pin's library symbol declares. */
+  type?: PinType;
+  /** Set on a power pin the symbol hides, which joins its net by name. */
+  hidden?: true;
+}
 
 /**
- * Create a pin entry, using an object only when the pin name differs from the pin number.
+ * Pin entry for component pin mappings.
+ * Uses a string net name for a pin with nothing else to say, or an object with
+ * the net and whichever of name, type and hidden the pin carries.
+ */
+export type PinEntry = string | (PinDetails & { net: string });
+
+/**
+ * Create a pin entry: a plain net name, or an object when the pin has a name
+ * that differs from its number, a type, or is hidden.
  */
 export const createPinEntry = (
   pinNumber: string,
   pinName: string | undefined,
-  netName: string
+  netName: string,
+  details: Omit<PinDetails, "name"> = {}
 ): PinEntry => {
   const normalizedName = pinName?.trim();
-  if (normalizedName && normalizedName !== pinNumber) {
-    return { name: normalizedName, net: netName };
-  }
-  return netName;
+  const name = normalizedName && normalizedName !== pinNumber ? normalizedName : undefined;
+  if (name === undefined && details.type === undefined && !details.hidden) return netName;
+  return {
+    ...(name !== undefined && { name }),
+    net: netName,
+    ...(details.type !== undefined && { type: details.type }),
+    ...(details.hidden && { hidden: true as const }),
+  };
 };
 
 /**
@@ -96,6 +137,11 @@ export interface ComponentDetails {
 export interface ParsedNetlist {
   nets: NetConnections;
   components: ComponentDetails;
+  /**
+   * Properties the design attaches to a net, keyed by net name and then by
+   * property name, such as `DIFFERENTIAL_PAIR`. Omitted when no net has any.
+   */
+  netProperties?: Record<string, Record<string, string>>;
   /**
    * The schematic objects that give a net a name with leading or trailing
    * whitespace, keyed by that net. Only the Cadence .DSN parser fills it, and

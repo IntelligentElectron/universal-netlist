@@ -1,8 +1,8 @@
 {
-  "universalNetlistSchemaVersion": 3,
+  "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T05:52:03.125Z",
-    "netlistHash": "sha256:2a4e9e32745275b5791be7da0efb4c7dccd3c9e7e8b50b7024ef6b2a97d93cd5",
+    "generatedAt": "2026-11-21T20:27:42.334Z",
+    "netlistHash": "sha256:76acc839190cbf27efaaedf507ad3f712a2c9b39c3de0b55e4474b5e4c9f4722",
     "origin": {
       "type": "vendor",
       "source": {
@@ -210,8 +210,14 @@
     "J2": {
       "value": "S2B-PH-K-S(LF)(SN)",
       "pins": {
-        "1": "VBAT",
-        "2": "GND"
+        "1": {
+          "net": "VBAT",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "S2B-PH-K-S(LF)(SN)",
       "internal_pn": "JST2_SIDE_TH",
@@ -223,11 +229,13 @@
       "pins": {
         "1": {
           "name": "C",
-          "net": "LED2"
+          "net": "LED2",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "N33141"
+          "net": "N33141",
+          "type": "passive"
         }
       },
       "mpn": "LB_QH9G-N100-35-1",
@@ -238,8 +246,14 @@
     "SW2": {
       "value": "B3U-1000P",
       "pins": {
-        "1": "GND",
-        "2": "N59301"
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N59301",
+          "type": "passive"
+        }
       },
       "mpn": "B3U-1000P",
       "internal_pn": "B3U-1000P",
@@ -251,11 +265,13 @@
       "pins": {
         "1": {
           "name": "C",
-          "net": "N08855"
+          "net": "N08855",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "N08912"
+          "net": "N08912",
+          "type": "passive"
         }
       },
       "mpn": "SE20AFJ-M3/6A",
@@ -266,8 +282,14 @@
     "R3": {
       "value": "30",
       "pins": {
-        "1": "N33141",
-        "2": "VCC"
+        "1": {
+          "net": "N33141",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VCC",
+          "type": "passive"
+        }
       },
       "mpn": "CRCW040230R0FKED",
       "internal_pn": "CRCW040230R0FKED",
@@ -279,11 +301,13 @@
       "pins": {
         "1": {
           "name": "C",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "N33179"
+          "net": "N33179",
+          "type": "passive"
         }
       },
       "mpn": "LB_QH9G-N100-35-1",
@@ -294,8 +318,14 @@
     "R1": {
       "value": "30",
       "pins": {
-        "1": "N33179",
-        "2": "N08855"
+        "1": {
+          "net": "N33179",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N08855",
+          "type": "passive"
+        }
       },
       "mpn": "CRCW040230R0FKED",
       "internal_pn": "CRCW040230R0FKED",
@@ -307,39 +337,48 @@
       "pins": {
         "1": {
           "name": "GPIO1",
-          "net": "N29732"
+          "net": "N29732",
+          "type": "passive"
         },
         "2": {
           "name": "GPIO2",
-          "net": "N22156"
+          "net": "N22156",
+          "type": "passive"
         },
         "3": {
           "name": "GPIO3",
-          "net": "N22160"
+          "net": "N22160",
+          "type": "passive"
         },
         "4": {
           "name": "VDD",
-          "net": "VCC"
+          "net": "VCC",
+          "type": "passive"
         },
         "5": {
           "name": "VDD1",
-          "net": "VCC"
+          "net": "VCC",
+          "type": "passive"
         },
         "6": {
           "name": "VDD2",
-          "net": "VCC"
+          "net": "VCC",
+          "type": "passive"
         },
         "7": {
           "name": "GND2",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "8": {
           "name": "GND1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "9": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "mpn": "n/a",
@@ -350,8 +389,14 @@
     "J1": {
       "value": "640456-2",
       "pins": {
-        "1": "N08912",
-        "2": "GND"
+        "1": {
+          "net": "N08912",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
       },
       "mpn": "640456-2",
       "internal_pn": "640456_2",
@@ -363,39 +408,48 @@
       "pins": {
         "1": {
           "name": "GPIO1",
-          "net": "N25749"
+          "net": "N25749",
+          "type": "passive"
         },
         "2": {
           "name": "GPIO2",
-          "net": "N25751"
+          "net": "N25751",
+          "type": "passive"
         },
         "3": {
           "name": "GPIO3",
-          "net": "N25753"
+          "net": "N25753",
+          "type": "passive"
         },
         "4": {
           "name": "VDD",
-          "net": "VCC"
+          "net": "VCC",
+          "type": "passive"
         },
         "5": {
           "name": "VDD1",
-          "net": "VCC"
+          "net": "VCC",
+          "type": "passive"
         },
         "6": {
           "name": "VDD2",
-          "net": "VCC"
+          "net": "VCC",
+          "type": "passive"
         },
         "7": {
           "name": "GND2",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "8": {
           "name": "GND1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "9": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "mpn": "n/a",
@@ -406,7 +460,10 @@
     "W1": {
       "value": "26AWG",
       "pins": {
-        "1": "N58139"
+        "1": {
+          "net": "N58139",
+          "type": "passive"
+        }
       },
       "mpn": "N/A",
       "internal_pn": "WIRE_26AWG",
@@ -418,39 +475,48 @@
       "pins": {
         "1": {
           "name": "GPIO1",
-          "net": "N26831"
+          "net": "N26831",
+          "type": "passive"
         },
         "2": {
           "name": "GPIO2",
-          "net": "N26833"
+          "net": "N26833",
+          "type": "passive"
         },
         "3": {
           "name": "GPIO3",
-          "net": "N26835"
+          "net": "N26835",
+          "type": "passive"
         },
         "4": {
           "name": "VDD",
-          "net": "VCC"
+          "net": "VCC",
+          "type": "passive"
         },
         "5": {
           "name": "VDD1",
-          "net": "VCC"
+          "net": "VCC",
+          "type": "passive"
         },
         "6": {
           "name": "VDD2",
-          "net": "VCC"
+          "net": "VCC",
+          "type": "passive"
         },
         "7": {
           "name": "GND2",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "8": {
           "name": "GND1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "9": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "mpn": "n/a",
@@ -461,8 +527,14 @@
     "R2": {
       "value": "30",
       "pins": {
-        "1": "N33119",
-        "2": "VCC"
+        "1": {
+          "net": "N33119",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VCC",
+          "type": "passive"
+        }
       },
       "mpn": "CRCW040230R0FKED",
       "internal_pn": "CRCW040230R0FKED",
@@ -474,11 +546,13 @@
       "pins": {
         "1": {
           "name": "C",
-          "net": "LED1"
+          "net": "LED1",
+          "type": "passive"
         },
         "2": {
           "name": "A",
-          "net": "N33119"
+          "net": "N33119",
+          "type": "passive"
         }
       },
       "mpn": "LB_QH9G-N100-35-1",
@@ -489,8 +563,14 @@
     "R4": {
       "value": "10k",
       "pins": {
-        "1": "N59301",
-        "2": "VCC"
+        "1": {
+          "net": "N59301",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VCC",
+          "type": "passive"
+        }
       },
       "mpn": "CRCW040210K0FKED",
       "internal_pn": "CRCW040210K0FKED",
@@ -502,39 +582,48 @@
       "pins": {
         "1": {
           "name": "GPIO1",
-          "net": "N28499"
+          "net": "N28499",
+          "type": "passive"
         },
         "2": {
           "name": "GPIO2",
-          "net": "N28501"
+          "net": "N28501",
+          "type": "passive"
         },
         "3": {
           "name": "GPIO3",
-          "net": "N28503"
+          "net": "N28503",
+          "type": "passive"
         },
         "4": {
           "name": "VDD",
-          "net": "VCC"
+          "net": "VCC",
+          "type": "passive"
         },
         "5": {
           "name": "VDD1",
-          "net": "VCC"
+          "net": "VCC",
+          "type": "passive"
         },
         "6": {
           "name": "VDD2",
-          "net": "VCC"
+          "net": "VCC",
+          "type": "passive"
         },
         "7": {
           "name": "GND2",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "8": {
           "name": "GND1",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         },
         "9": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "type": "passive"
         }
       },
       "mpn": "n/a",
