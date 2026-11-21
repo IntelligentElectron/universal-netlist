@@ -17,8 +17,11 @@ import type {
   GraphicInst,
   LibraryPart,
   Package,
+  TitleBlock,
+  BusEntry,
 } from "./structures.js";
 import type { Placement } from "./hierarchy-expander.js";
+import { parsePageGraphic, type Primitive } from "./symbol-graphics.js";
 import {
   parseWire,
   parsePlacedInstance,
@@ -26,6 +29,8 @@ import {
   parseGlobal,
   parsePort,
   parseOffPageConnector,
+  parseTitleBlock,
+  parseBusEntry,
   parsePackage,
   parseLibraryPart,
 } from "./structures.js";
@@ -65,6 +70,17 @@ function skipT0x35(reader: BinaryReader): void {
 
 export interface PageData {
   name: string;
+  /** The schematic folder under `Views/` the page belongs to; set by the design parser. */
+  schematic?: string;
+  /** The sheet size name, such as `A`, `B`, `A3` or `Custom`. */
+  sizeName: string;
+  /** Sheet width and height in inches (PageSettings, docs/cadence-dsn-format.md §6.4). */
+  widthInches: number;
+  heightInches: number;
+  titleBlock?: TitleBlock;
+  busEntries: BusEntry[];
+  /** Free text and shapes drawn on the page, in page coordinates. */
+  graphics: Primitive[];
   netTable: Map<number, string[]>;
   wires: Wire[];
   placedInstances: PlacedInstance[];
@@ -92,13 +108,25 @@ export function parsePage(buffer: Buffer): PageData {
   futureData.checkpoint();
 
   const name = reader.readStringLenZeroTerm();
-  reader.readStringLenZeroTerm(); // pageSize (skip)
-  reader.skip(PAGE_SETTINGS_SIZE); // PageSettings
+  const sizeName = reader.readStringLenZeroTerm();
+  const settingsStart = reader.tell();
+  reader.skip(PAGE_SETTINGS_SIZE);
+  // Width and height are mils on an imperial page and micrometres on a metric one.
+  const unitsPerInch = buffer.readUInt32LE(settingsStart + 0x7c) === 1 ? 25400 : 1000;
+  const widthInches = buffer.readUInt32LE(settingsStart + 0x18) / unitsPerInch;
+  const heightInches = buffer.readUInt32LE(settingsStart + 0x1c) / unitsPerInch;
 
-  // TitleBlocks
+  // TitleBlocks: zero or one. A record this parser cannot read is skipped by its boundary.
+  let titleBlock: TitleBlock | undefined;
   const lenTitleBlocks = reader.readUint16();
   for (let i = 0; i < lenTitleBlocks; i++) {
-    skipStructure(reader);
+    const start = reader.tell();
+    try {
+      titleBlock ??= parseTitleBlock(reader);
+    } catch {
+      reader.seek(start);
+      skipStructure(reader);
+    }
   }
 
   // T0x34s (primitive structures, no prefix/preamble)
@@ -169,22 +197,50 @@ export function parsePage(buffer: Buffer): PageData {
   const lenGlobals = reader.readUint16();
   const globals: GraphicInst[] = [];
   for (let i = 0; i < lenGlobals; i++) {
-    globals.push(parseGlobal(reader));
-    reader.skip(5); // 5 unknown bytes after each Global
+    globals.push({ ...parseGlobal(reader), wireId: reader.readUint32() });
+    reader.skip(1); // flag (§7.11)
   }
 
   // OffPageConnectors
   const lenOffPageConnectors = reader.readUint16();
   const offPageConnectors: GraphicInst[] = [];
   for (let i = 0; i < lenOffPageConnectors; i++) {
-    offPageConnectors.push(parseOffPageConnector(reader));
-    reader.skip(5); // 5 unknown bytes after each OffPageConnector
+    offPageConnectors.push({ ...parseOffPageConnector(reader), wireId: reader.readUint32() });
+    reader.skip(1); // flag, 1 when the tail wire is a bus wire (§7.11)
   }
 
-  // Remaining sections (ERC, bus entries, graphics, etc.) are skipped
+  // ERC objects, then bus entries. Best-effort: they carry no connectivity, so
+  // a page whose tail will not read keeps everything above.
+  const busEntries: BusEntry[] = [];
+  try {
+    const lenErcObjects = reader.readUint16();
+    for (let i = 0; i < lenErcObjects; i++) skipStructure(reader);
+    const lenBusEntries = reader.readUint16();
+    for (let i = 0; i < lenBusEntries; i++) busEntries.push(parseBusEntry(reader));
+  } catch {
+    busEntries.length = 0;
+  }
+
+  // Page graphics (list 12), best-effort for the same reason.
+  const graphics: Primitive[] = [];
+  try {
+    const lenGraphics = reader.readUint16();
+    for (let i = 0; i < lenGraphics; i++) {
+      const graphic = parsePageGraphic(reader);
+      if (graphic) graphics.push(graphic);
+    }
+  } catch {
+    graphics.length = 0;
+  }
 
   return {
     name,
+    sizeName,
+    widthInches,
+    heightInches,
+    ...(titleBlock ? { titleBlock } : {}),
+    busEntries,
+    graphics,
     netTable,
     wires,
     placedInstances,

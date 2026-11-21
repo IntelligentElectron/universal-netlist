@@ -8,11 +8,12 @@ import type { HierarchyScope, HierarchyStream, PartOccurrence } from "./hierarch
 import type { PageData } from "./page-parser.js";
 import type { DrawnInstance, PlacedInstance, T0x10 } from "./structures.js";
 
-const pin = (pinIndex: number, x: number, y: number, netId: number): T0x10 => ({
+const pin = (pinIndex: number, x: number, y: number, wireId: number): T0x10 => ({
   pinIndex,
   pointX: x,
   pointY: y,
-  netId,
+  wireId,
+  netId: 0,
   symbolDisplayProps: [],
 });
 
@@ -28,6 +29,9 @@ const instance = (dbId: number, reference: string, pins: T0x10[] = []): PlacedIn
   symbolDisplayProps: [],
   t0x10s: pins,
   sectionIndex: 0,
+  box: { x1: 0, y1: 0, x2: 0, y2: 0 },
+  rotation: 0,
+  mirrored: false,
 });
 
 const block = (dbId: number, reference: string, ports: string[], pins: T0x10[]): DrawnInstance => ({
@@ -37,6 +41,7 @@ const block = (dbId: number, reference: string, ports: string[], pins: T0x10[]):
   pins,
   locX: 0,
   locY: 0,
+  box: { x1: 0, y1: 0, x2: 0, y2: 0 },
 });
 
 const page = (
@@ -46,6 +51,11 @@ const page = (
 ): PageData => ({
   name,
   netTable: new Map(),
+  sizeName: "A",
+  widthInches: 11,
+  heightInches: 8.5,
+  busEntries: [],
+  graphics: [],
   wires: [],
   placedInstances,
   drawnInstances,
@@ -168,12 +178,12 @@ describe("expandHierarchy", () => {
       ])
     );
 
-    expect(out[1].placedInstances[0].t0x10s.map((p) => p.netId)).toEqual([
+    expect(out[1].placedInstances[0].t0x10s.map((p) => p.wireId)).toEqual([
       3997 + SPAN,
       0,
       0xffffffff,
     ]);
-    expect(out[2].placedInstances[0].t0x10s.map((p) => p.netId)).toEqual([
+    expect(out[2].placedInstances[0].t0x10s.map((p) => p.wireId)).toEqual([
       3997 + 2 * SPAN,
       0,
       0xffffffff,

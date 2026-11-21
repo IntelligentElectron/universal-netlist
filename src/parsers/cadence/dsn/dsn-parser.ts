@@ -24,11 +24,17 @@ import {
   assertReadableLibraryVersion,
   describeParseFailure,
   parseLibraryStream,
+  readLibraryFonts,
   readLibraryVersion,
 } from "./library-parser.js";
-import { buildDeviceIndexMap } from "./pin-resolver.js";
+import { buildDeviceIndexMap, isMultiSection, packShortGroups } from "./pin-resolver.js";
 import { buildNetConnectivity } from "./net-builder.js";
-import { buildComponents } from "./component-builder.js";
+import type { PageCoordMap } from "./page-groups.js";
+import type { PinInfo } from "./net-pins.js";
+import { buildPageViews, type PageView } from "./page-views.js";
+import { renderPageSvg } from "./page-render.js";
+import { CONNECTOR_SYMBOL_TYPES, connectionPoint, readCacheSymbols } from "./symbol-graphics.js";
+import { buildComponents, findCachedPart } from "./component-builder.js";
 import { mergeRepeatedSections, separateDuplicateRefdes } from "./duplicate-refdes.js";
 import { readVariantStuffing, type VariantStuffing } from "./variant-store.js";
 
@@ -67,19 +73,80 @@ export function parseDsnFile(
   const version = library ? readLibraryVersion(library) : undefined;
   assertReadableLibraryVersion(version);
   try {
-    return parseDsnStreams(ole, entries, library, options);
+    return parseDsnStreams(ole, entries, library, options).netlist;
   } catch (error) {
     throw describeParseFailure(version, error);
   }
 }
 
-/** Parse a design's streams into a ParsedNetlist. */
+/** A design's pages: one view per page and, when drawn, one SVG per page in the same order. */
+export interface DesignPages {
+  pages: PageView[];
+  /** Empty unless the pages were drawn; "" for a page that could not be. */
+  svgs: string[];
+}
+
+/**
+ * Parse a design's schematic pages as drawn, with every net named as the
+ * netlist names it. Pages do not depend on a design variant.
+ */
+export function parseDsnPages(
+  source: Uint8Array | string,
+  passwords?: DsnPasswords,
+  draw = false
+): DesignPages {
+  const ole = new DsnReader(source, passwords);
+  const entries = ole.listAllEntries();
+  const libEntry = findRootLibrary(entries);
+  const library = libEntry ? ole.readStreamByPath(libEntry.path) : undefined;
+  const version = library ? readLibraryVersion(library) : undefined;
+  assertReadableLibraryVersion(version);
+  try {
+    const { netlist, pages, coordMaps, pins, strLst, refdesRenames } = parseDsnStreams(
+      ole,
+      entries,
+      library
+    );
+    const views = buildPageViews(pages, coordMaps, pins, netlist.components, strLst, refdesRenames);
+    if (!draw) return { pages: views, svgs: [] };
+    const cache = entries.find((e) => e.path === "Cache" && e.entry.type === 2);
+    // Drawing is best-effort: a failure costs that drawing, never the page views.
+    const attempt = <T>(fn: () => T, fallback: T): T => {
+      try {
+        return fn();
+      } catch {
+        return fallback;
+      }
+    };
+    const context = {
+      symbols: cache
+        ? attempt(() => readCacheSymbols(ole.readStreamByPath(cache.path)), new Map())
+        : new Map(),
+      strLst,
+      fonts: attempt(() => readLibraryFonts(library!), { heights: [], defaultSlots: [] }),
+    };
+    const svgs = pages.map((page, i) => attempt(() => renderPageSvg(page, views[i], context), ""));
+    return { pages: views, svgs };
+  } catch (error) {
+    throw describeParseFailure(version, error);
+  }
+}
+
+/** Parse a design's streams into a ParsedNetlist, with the pages it was built from. */
 function parseDsnStreams(
   ole: DsnReader,
   entries: OleDirectoryPath[],
   library: Buffer | undefined,
   options?: ParseDesignOptions
-): ParsedNetlist {
+): {
+  netlist: ParsedNetlist;
+  pages: PageData[];
+  coordMaps: PageCoordMap[];
+  pins: PinInfo[];
+  strLst: string[];
+  /** Part keys folded into another by the section merge, to the key they became. */
+  refdesRenames: Map<string, string>;
+} {
   // Each view's Hierarchy stream is its occurrence tree: the root schematic's
   // nets and parts, and one nested scope per placement of every hierarchical
   // block. Best-effort: a view whose stream will not parse is read flat.
@@ -101,8 +168,27 @@ function parseDsnStreams(
     if (!match || entry.entry.type !== 2) continue;
     const schematic = match[1].toLowerCase();
     const list = pagesBySchematic.get(schematic) ?? [];
-    list.push(parsePage(ole.readStreamByPath(entry.path)));
+    list.push({ ...parsePage(ole.readStreamByPath(entry.path)), schematic: match[1] });
     pagesBySchematic.set(schematic, list);
+  }
+
+  // Each connector's connection point, from its cached symbol (§7.7, §11.4).
+  // Best-effort: without the Cache, pins join connectors by their box instead.
+  const connectors = [...pagesBySchematic.values()]
+    .flat()
+    .flatMap((page) => [...page.globals, ...page.ports, ...page.offPageConnectors]);
+  const cacheStream = entries.find((e) => e.path === "Cache" && e.entry.type === 2);
+  if (cacheStream && connectors.length > 0) {
+    try {
+      const symbols = readCacheSymbols(
+        ole.readStreamByPath(cacheStream.path),
+        new Set(connectors.map((sym) => sym.name)),
+        CONNECTOR_SYMBOL_TYPES
+      );
+      for (const sym of connectors) sym.connection = connectionPoint(sym, symbols);
+    } catch {
+      // Pins join connectors by their box.
+    }
   }
 
   // Parse Library stream for strLst string table, and the root schematic a
@@ -209,6 +295,15 @@ function parseDsnStreams(
     }
   }
 
+  // PACK_SHORT ties a single-section part's ignored pins to a placed pin (§5.8).
+  for (const page of pages) {
+    for (const inst of page.placedInstances) {
+      if (isMultiSection(inst, pmd)) continue;
+      const groups = packShortGroups(findCachedPart(inst, cachedParts), strLst);
+      if (groups) inst.packShort = groups;
+    }
+  }
+
   // Build netlist from parsed data
   const separation = separateDuplicateRefdes(pages, strLst);
   const { renamed } = separation;
@@ -223,7 +318,7 @@ function parseDsnStreams(
     }
   }
   const deviceIndexMap = buildDeviceIndexMap(pages);
-  const { nets, componentPins, netLabelSources } = buildNetConnectivity(
+  const { nets, componentPins, netLabelSources, coordMaps, pins } = buildNetConnectivity(
     pages,
     canonicalNetNames,
     pmd,
@@ -239,7 +334,14 @@ function parseDsnStreams(
     deviceIndexMap
   );
 
-  const repeatedSections = mergeRepeatedSections(separation, nets, components, occurrenceRefdes);
+  const refdesRenames = new Map<string, string>();
+  const repeatedSections = mergeRepeatedSections(
+    separation,
+    nets,
+    components,
+    occurrenceRefdes,
+    refdesRenames
+  );
   const duplicateRefdes = separation.duplicates;
 
   // A design's variants carry their own stuffing, which the properties the
@@ -252,7 +354,7 @@ function parseDsnStreams(
   const netlist: ParsedNetlist = { nets, components, netLabelSources };
   if (Object.keys(duplicateRefdes).length > 0) netlist.duplicateRefdes = duplicateRefdes;
   if (Object.keys(repeatedSections).length > 0) netlist.repeatedSections = repeatedSections;
-  return netlist;
+  return { netlist, pages, coordMaps, pins, strLst, refdesRenames };
 }
 
 /**

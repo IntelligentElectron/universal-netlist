@@ -1,0 +1,18 @@
+{
+  "name": "pin-ignore",
+  "rules": [
+    {
+      "when": { "pin_ignored": ["no"] },
+      "outcome": "its own net",
+      "next": "",
+      "cells": 3
+    },
+    {
+      "when": { "named_in_pack_short": ["yes"], "group_has_placed_pin": ["yes"] },
+      "outcome": "the net of its group's placed pin",
+      "next": "",
+      "cells": 1
+    }
+  ],
+  "default": { "outcome": "left out", "next": "" }
+}

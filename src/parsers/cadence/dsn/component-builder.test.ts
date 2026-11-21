@@ -59,10 +59,18 @@ const build = (
     symbolDisplayProps: [],
     t0x10s: [],
     sectionIndex: 0,
+    box: { x1: 0, y1: 0, x2: 0, y2: 0 },
+    rotation: 0,
+    mirrored: false,
   };
   const page: PageData = {
     name: "page1",
     netTable: new Map(),
+    sizeName: "A",
+    widthInches: 11,
+    heightInches: 8.5,
+    busEntries: [],
+    graphics: [],
     wires: [],
     placedInstances: [instance],
     drawnInstances: [],
@@ -274,9 +282,7 @@ describe("description", () => {
       ]).description
     ).toBe("SMD CAP Ceramic 1uF");
     expect(build("R1", [["Description", ""]])).not.toHaveProperty("description");
-    expect(build("R2", [["DescriptiveText", "silkscreen note"]])).not.toHaveProperty(
-      "description"
-    );
+    expect(build("R2", [["DescriptiveText", "silkscreen note"]])).not.toHaveProperty("description");
   });
 
   it("takes the description from whichever unit of a part carries it", () => {
@@ -296,10 +302,18 @@ describe("description", () => {
       symbolDisplayProps: [],
       t0x10s: [],
       sectionIndex: 0,
+      box: { x1: 0, y1: 0, x2: 0, y2: 0 },
+      rotation: 0,
+      mirrored: false,
     });
     const page: PageData = {
       name: "page1",
       netTable: new Map(),
+      sizeName: "A",
+      widthInches: 11,
+      heightInches: 8.5,
+      busEntries: [],
+      graphics: [],
       wires: [],
       placedInstances: [unit("OPAMP_A.Normal", [pairs[0]]), unit("OPAMP_B.Normal", [pairs[1]])],
       drawnInstances: [],

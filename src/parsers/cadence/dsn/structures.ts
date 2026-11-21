@@ -24,6 +24,8 @@ export interface SymbolDisplayProp {
   textFontIdx: number;
   rotation: number;
   propColor: number;
+  /** 0 hidden, 1 value, 2 name and value, 3 name (docs/cadence-dsn-format.md §9.1.2). */
+  displayMode: number;
 }
 
 export interface Alias {
@@ -33,6 +35,10 @@ export interface Alias {
 }
 
 export interface Wire {
+  /** A bus wire (type 21) rather than a scalar one (type 20). */
+  bus: boolean;
+  /** Junction dots: bit 0 at the start, bit 1 at the end. */
+  junctions: number;
   segmentId: number;
   id: number;
   startX: number;
@@ -46,6 +52,9 @@ export interface T0x10 {
   pinIndex: number; // 1-based logical pin index for pinMap lookup
   pointX: number;
   pointY: number;
+  /** +0x06: the `db_id` of the wire ending at the pin; 0 or 0xFFFFFFFF for none (§7.4). */
+  wireId: number;
+  /** +0x0A: the pin's SchematicNet id when no wire gives it one, else 0 (§7.4). */
   netId: number;
   symbolDisplayProps: SymbolDisplayProp[];
 }
@@ -59,6 +68,11 @@ export interface PlacedInstance {
   prefixProperties: PrefixPropertyPair[];
   locX: number;
   locY: number;
+  /** Stored bounding box, page coordinates: all zero on a few records. */
+  box: Box;
+  /** Quarter turns counterclockwise, 0 to 3, applied after the mirror. */
+  rotation: number;
+  mirrored: boolean;
   symbolDisplayProps: SymbolDisplayProp[];
   t0x10s: T0x10[];
   /**
@@ -73,6 +87,12 @@ export interface PlacedInstance {
    * read as it is.
    */
   pinNumbers?: ReadonlyMap<number, string>;
+  /**
+   * The part's PACK_SHORT groups as pin indices: the pins of each group are
+   * shorted inside the package (§5.8). Set from the library part; absent when
+   * it has none.
+   */
+  packShort?: number[][];
 }
 
 /**
@@ -93,6 +113,8 @@ export interface DrawnInstance {
   pins: T0x10[];
   locX: number;
   locY: number;
+  /** The block's stored outline, page coordinates. */
+  box: Box;
 }
 
 export interface GraphicInst {
@@ -107,8 +129,54 @@ export interface GraphicInst {
   y2: number;
   /** strLst index for the net name (first uint32 of body). OPCs with the same index share the same net. */
   pairingId: number;
+  /** Quarter turns counterclockwise, 0 to 3, applied after the mirror. */
+  rotation: number;
+  mirrored: boolean;
   symbolDisplayProps: SymbolDisplayProp[];
+  /**
+   * Ports, Globals and off-page connectors: the `db_id` of the wire at the
+   * connection point, from the trailer; 0 when no wire touches it (§7.10, §7.11).
+   */
+  wireId?: number;
+  /**
+   * Ports, Globals and off-page connectors: the connection point, its cached
+   * symbol's single pin hot point placed on the page (§7.7, §11.4); undefined
+   * when the Cache holds no such symbol.
+   */
+  connection?: [number, number];
 }
+
+/** A rectangle in page coordinates (1/100 inch). */
+export interface Box {
+  x1: number;
+  y1: number;
+  x2: number;
+  y2: number;
+}
+
+/** The page's title block: its fields and where the page sits in the set. */
+export interface TitleBlock {
+  /** The title-block fields, as `(name index, value index)` string-table pairs. */
+  properties: PrefixPropertyPair[];
+  /** Its graphic-instance base: symbol name, location, box, transform and displays. */
+  base: GraphicInst;
+  pageNumber: number;
+  pageCount: number;
+}
+
+/** A 45-degree stub joining a wire to a bus. */
+export interface BusEntry {
+  x1: number;
+  y1: number;
+  x2: number;
+  y2: number;
+}
+
+/** Bits 8-9 of the transform word are quarter turns, bit 10 the mirror. */
+const decodeTransform = (word: number) => ({
+  rotation: (word >> 8) & 3,
+  mirrored: (word & 0x400) !== 0,
+});
 
 export interface Device {
   unitRef: string;
@@ -150,12 +218,12 @@ export function parseSymbolDisplayProp(reader: BinaryReader): SymbolDisplayProp 
   const rotation = rotFontBitField >> 14;
 
   const propColor = reader.readUint8();
-  reader.skip(2); // visibility
-  reader.skip(1); // assumed 0x00
+  reader.skip(1); // opaque byte
+  const displayMode = reader.readUint16();
 
   futureData.checkpoint();
 
-  return { nameIdx, x, y, textFontIdx, rotation, propColor };
+  return { nameIdx, x, y, textFontIdx, rotation, propColor, displayMode };
 }
 
 export function parseAlias(reader: BinaryReader): Alias {
@@ -178,7 +246,7 @@ export function parseAlias(reader: BinaryReader): Alias {
 
 export function parseWire(reader: BinaryReader): Wire {
   const futureData = new FutureDataList(reader);
-  autoReadPrefixes(reader, futureData); // accepts WireScalar or WireBus
+  const { structType } = autoReadPrefixes(reader, futureData); // WireScalar or WireBus
   readPreamble(reader);
   futureData.checkpoint();
 
@@ -189,7 +257,7 @@ export function parseWire(reader: BinaryReader): Wire {
   const startY = reader.readInt32();
   const endX = reader.readInt32();
   const endY = reader.readInt32();
-  reader.skip(1); // unknown
+  const junctions = reader.readUint8(); // bit 0 dot at start, bit 1 dot at end (§7.8)
 
   const lenAliases = reader.readUint16();
   const aliases: Alias[] = [];
@@ -207,7 +275,17 @@ export function parseWire(reader: BinaryReader): Wire {
 
   futureData.checkpoint();
 
-  return { segmentId, id, startX, startY, endX, endY, aliases };
+  return {
+    bus: structType === StructureType.WireBus,
+    junctions,
+    segmentId,
+    id,
+    startX,
+    startY,
+    endX,
+    endY,
+    aliases,
+  };
 }
 
 /**
@@ -230,8 +308,8 @@ export function parseT0x10(reader: BinaryReader): T0x10 {
   const pinIndex = sth < 32768 ? sth : 65536 - sth;
   const pointX = reader.readInt16();
   const pointY = reader.readInt16();
+  const wireId = reader.readUint32();
   const netId = reader.readUint32();
-  reader.skip(4); // unknownInt
 
   const lenSymbolDisplayProps = reader.readUint16();
   const symbolDisplayProps: SymbolDisplayProp[] = [];
@@ -241,7 +319,7 @@ export function parseT0x10(reader: BinaryReader): T0x10 {
 
   futureData.checkpoint();
 
-  return { pinIndex, pointX, pointY, netId, symbolDisplayProps };
+  return { pinIndex, pointX, pointY, wireId, netId, symbolDisplayProps };
 }
 
 export function parsePlacedInstance(reader: BinaryReader): PlacedInstance {
@@ -257,10 +335,11 @@ export function parsePlacedInstance(reader: BinaryReader): PlacedInstance {
   reader.skip(8); // unknown
   const pkgName = reader.readStringLenZeroTerm();
   const dbId = reader.readUint32();
-  reader.skip(8); // unknown
+  const box = readBox(reader);
   const locX = reader.readInt16();
   const locY = reader.readInt16();
-  reader.skip(4); // unknown
+  const { rotation, mirrored } = decodeTransform(reader.readUint16());
+  reader.skip(2); // type echo, reserved byte
 
   const lenSymbolDisplayProps = reader.readUint16();
   const symbolDisplayProps: SymbolDisplayProp[] = [];
@@ -297,6 +376,9 @@ export function parsePlacedInstance(reader: BinaryReader): PlacedInstance {
     prefixProperties,
     locX,
     locY,
+    box,
+    rotation,
+    mirrored,
     symbolDisplayProps,
     t0x10s,
     sectionIndex,
@@ -323,7 +405,7 @@ export function parseDrawnInstance(reader: BinaryReader): DrawnInstance {
   reader.skip(8); // unknown
   reader.readStringLenZeroTerm(); // package name, empty on a drawn instance
   const dbId = reader.readUint32();
-  reader.skip(8); // unknown
+  const box = readBox(reader);
   const locX = reader.readInt16();
   const locY = reader.readInt16();
   reader.skip(4); // unknown
@@ -352,7 +434,7 @@ export function parseDrawnInstance(reader: BinaryReader): DrawnInstance {
 
   futureData.readRestOfStructure();
 
-  return { dbId, reference, ports, pins, locX, locY };
+  return { dbId, reference, ports, pins, locX, locY, box };
 }
 
 /**
@@ -370,17 +452,14 @@ function parseGraphicInstBase(reader: BinaryReader, futureData: FutureDataList):
   const name = reader.readStringLenZeroTerm();
   const dbId = reader.readUint32();
 
-  // Y before X!
-  const locY = reader.readInt16();
+  // Box corners Y before X, then the location X before Y. OpenOrCadParser reads
+  // this as loc, y2, x2, x1, y1; the location then falls inside the box on every
+  // record (docs/cadence-dsn-format.md chapter 7).
+  const { x1, y1, x2, y2 } = readBox(reader);
   const locX = reader.readInt16();
-  const y2 = reader.readInt16();
-  const x2 = reader.readInt16();
-  const x1 = reader.readInt16();
-  const y1 = reader.readInt16();
-  reader.skip(1); // color (uint8)
-  reader.skip(1); // unknown
-  reader.skip(1); // unknown (probably structure ID)
-  reader.skip(1); // unknown
+  const locY = reader.readInt16();
+  const { rotation, mirrored } = decodeTransform(reader.readUint16());
+  reader.skip(2); // type echo, reserved byte
 
   const lenSymbolDisplayProps = reader.readUint16();
   const symbolDisplayProps: SymbolDisplayProp[] = [];
@@ -397,7 +476,57 @@ function parseGraphicInstBase(reader: BinaryReader, futureData: FutureDataList):
 
   futureData.checkpoint();
 
-  return { name, dbId, locX, locY, x1, y1, x2, y2, pairingId, symbolDisplayProps };
+  return {
+    name,
+    dbId,
+    locX,
+    locY,
+    x1,
+    y1,
+    x2,
+    y2,
+    pairingId,
+    rotation,
+    mirrored,
+    symbolDisplayProps,
+  };
+}
+
+/** A stored bounding box: corners y before x (docs/cadence-dsn-format.md §7.2). */
+function readBox(reader: BinaryReader): Box {
+  const y1 = reader.readInt16();
+  const x1 = reader.readInt16();
+  const y2 = reader.readInt16();
+  const x2 = reader.readInt16();
+  return { x1, y1, x2, y2 };
+}
+
+/** A TitleBlock (65): graphic-instance base, then a 12-byte trailer (§7.13). */
+export function parseTitleBlock(reader: BinaryReader): TitleBlock {
+  const futureData = new FutureDataList(reader);
+  const { properties } = autoReadPrefixes(reader, futureData, StructureType.TitleBlock);
+  const base = parseGraphicInstBase(reader, futureData);
+  reader.skip(4); // keep in lower-right corner
+  const pageCount = reader.readUint32();
+  const pageNumber = reader.readUint32();
+  futureData.checkpoint();
+  return { properties, base, pageNumber, pageCount };
+}
+
+/** A BusEntry (29): a 28-byte body holding its two end points (§7.12). */
+export function parseBusEntry(reader: BinaryReader): BusEntry {
+  const futureData = new FutureDataList(reader);
+  autoReadPrefixes(reader, futureData, StructureType.BusEntry);
+  readPreamble(reader);
+  futureData.checkpoint();
+  reader.skip(4); // header word, 48 on every record
+  const x1 = reader.readInt32();
+  const y1 = reader.readInt32();
+  const x2 = reader.readInt32();
+  const y2 = reader.readInt32();
+  reader.skip(8); // reserved
+  futureData.checkpoint();
+  return { x1, y1, x2, y2 };
 }
 
 export function parseGlobal(reader: BinaryReader): GraphicInst {
@@ -412,7 +541,8 @@ export function parsePort(reader: BinaryReader): GraphicInst {
   const futureData = new FutureDataList(reader);
   autoReadPrefixes(reader, futureData, StructureType.Port);
   const inst = parseGraphicInstBase(reader, futureData);
-  reader.skip(9); // unknown (Port-specific)
+  inst.wireId = reader.readUint32();
+  reader.skip(5); // flag, port type (§7.10)
   futureData.checkpoint();
 
   return inst;
@@ -490,6 +620,15 @@ export function parsePackage(reader: BinaryReader): Package {
 
 export interface SymbolPin {
   name: string;
+  /** Inner end of the pin line, symbol coordinates. */
+  startX: number;
+  startY: number;
+  /** The connection point. */
+  hotX: number;
+  hotY: number;
+  /** Shape bits: 0x20 visible, 0x80 global (docs/cadence-dsn-format.md §5.2.5). */
+  shape: number;
+  pinType: number;
 }
 
 export function parseSymbolPin(reader: BinaryReader): SymbolPin {
@@ -499,8 +638,14 @@ export function parseSymbolPin(reader: BinaryReader): SymbolPin {
   futureData.checkpoint();
 
   const name = reader.readStringLenZeroTerm();
-  // start_x(4) + start_y(4) + hotpt_x(4) + hotpt_y(4) + pin_shape(2) + unknown(2) + port_type(4) + unknown(4)
-  reader.skip(28);
+  const startX = reader.readInt32();
+  const startY = reader.readInt32();
+  const hotX = reader.readInt32();
+  const hotY = reader.readInt32();
+  const shape = reader.readUint16();
+  reader.skip(2); // opaque word
+  const pinType = reader.readUint32();
+  reader.skip(4); // type tag and opaque bytes
 
   const lenSymbolDisplayProps = reader.readUint16();
   for (let i = 0; i < lenSymbolDisplayProps; i++) {
@@ -509,18 +654,20 @@ export function parseSymbolPin(reader: BinaryReader): SymbolPin {
 
   futureData.checkpoint();
 
-  return { name };
+  return { name, startX, startY, hotX, hotY, shape, pinType };
 }
 
 export interface LibraryPart {
   name: string;
   pinNames: string[];
   defaultValue?: string;
+  /** The short prefix's (name, value) string-list index pairs, such as PACK_SHORT. */
+  properties: PrefixPropertyPair[];
 }
 
 export function parseLibraryPart(reader: BinaryReader): LibraryPart {
   const futureData = new FutureDataList(reader);
-  autoReadPrefixes(reader, futureData, StructureType.LibraryPart);
+  const { properties } = autoReadPrefixes(reader, futureData, StructureType.LibraryPart);
   readPreamble(reader);
   futureData.checkpoint();
 
@@ -572,5 +719,5 @@ export function parseLibraryPart(reader: BinaryReader): LibraryPart {
     // GeneralProperties is optional
   }
 
-  return { name, pinNames, defaultValue };
+  return { name, pinNames, defaultValue, properties };
 }

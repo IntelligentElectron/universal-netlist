@@ -1,0 +1,25 @@
+wire_id,net_id,net_at_point,net_on_a_wire,outcome,next,status,note
+wire,zero,yes,yes,n/a,,draft,"no net id, so no wire can carry it"
+wire,zero,yes,no,the net at its point,,draft,"net-pins.ts collectPins: coordToNet, global, port and off-page fallbacks; a geometry net is never overridden"
+wire,zero,no,yes,n/a,,draft,"no net id, so no wire can carry it"
+wire,zero,no,no,n/a,,draft,no pin names a wire that does not end at it (docs/cadence-dsn-format.md §7.4)
+wire,nonzero,yes,yes,n/a,,draft,"net id is non-zero only on pins with no wire (docs/cadence-dsn-format.md §7.4, 934/934)"
+wire,nonzero,yes,no,n/a,,draft,"net id is non-zero only on pins with no wire (docs/cadence-dsn-format.md §7.4, 934/934)"
+wire,nonzero,no,yes,n/a,,draft,"net id is non-zero only on pins with no wire (docs/cadence-dsn-format.md §7.4, 934/934)"
+wire,nonzero,no,no,n/a,,draft,"net id is non-zero only on pins with no wire (docs/cadence-dsn-format.md §7.4, 934/934)"
+zero,zero,yes,yes,n/a,,draft,"no net id, so no wire can carry it"
+zero,zero,yes,no,the net at its point,,draft,"net-pins.ts collectPins: coordToNet, global, port and off-page fallbacks; a geometry net is never overridden"
+zero,zero,no,yes,n/a,,draft,"no net id, so no wire can carry it"
+zero,zero,no,no,no connect,,draft,net-assembly.ts classifyPins: wire id 0 and no net
+zero,nonzero,yes,yes,the net at its point,,draft,"net-pins.ts collectPins: coordToNet, global, port and off-page fallbacks; a geometry net is never overridden"
+zero,nonzero,yes,no,the net at its point,,draft,"net-pins.ts collectPins: coordToNet, global, port and off-page fallbacks; a geometry net is never overridden"
+zero,nonzero,no,yes,the net a wire with its net id carries,,draft,"net-pins.ts pinNetSource; Capture export agrees (SENSOR_BOARD U1.18 5V, DECADECOUNTER U1.14 VCC)"
+zero,nonzero,no,no,its own net shared with pins of the same net id,,draft,net-pins.ts pinNetSource; Capture export lists these pins on one net (VGA J2.4/11/12/15)
+sentinel,zero,yes,yes,n/a,,draft,"no net id, so no wire can carry it"
+sentinel,zero,yes,no,n/a,,draft,"every pin with wire id 0xFFFFFFFF has a non-zero net id (docs/cadence-dsn-format.md §7.4, 840/840)"
+sentinel,zero,no,yes,n/a,,draft,"no net id, so no wire can carry it"
+sentinel,zero,no,no,n/a,,draft,"every pin with wire id 0xFFFFFFFF has a non-zero net id (docs/cadence-dsn-format.md §7.4, 840/840)"
+sentinel,nonzero,yes,yes,the net at its point,,draft,"net-pins.ts collectPins: coordToNet, global, port and off-page fallbacks; a geometry net is never overridden"
+sentinel,nonzero,yes,no,the net at its point,,draft,"net-pins.ts collectPins: coordToNet, global, port and off-page fallbacks; a geometry net is never overridden"
+sentinel,nonzero,no,yes,the net a wire with its net id carries,,draft,"net-pins.ts pinNetSource; Capture export agrees (SENSOR_BOARD U1.18 5V, DECADECOUNTER U1.14 VCC)"
+sentinel,nonzero,no,no,a pin-to-pin net named by its first pin's part and pin,,draft,"net-pins.ts pinToPinNames: N, the part db_id padded to 5 digits, then the pin index minus 1, of the pin with the smallest part db_id at the point (docs/cadence-dsn-format.md §11.7 step 5); 70 of 70 renamed export pins match"

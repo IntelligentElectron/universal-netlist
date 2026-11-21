@@ -45,7 +45,23 @@ const SAMPLES: Record<string, unknown> = {
   net_name: "PP5V",
   pin_name: "U1.1",
   refdes: "U1",
+  page: "P1: PI",
 };
+
+/** Pages are read from .DSN schematics only, so the page tools get one. */
+const DSN_DESIGN = join(
+  import.meta.dirname,
+  "..",
+  "test",
+  "fixtures",
+  "cadence",
+  "multio",
+  "MULTIO.DSN"
+);
+const samplesFor = (tool: string): Record<string, unknown> =>
+  ["list_pages", "get_page", "render_page"].includes(tool)
+    ? { ...SAMPLES, design: DSN_DESIGN }
+    : SAMPLES;
 
 type ListedTool = {
   name: string;
@@ -96,7 +112,8 @@ afterEach(() => {
 const call = async (name: string, args: Record<string, unknown>) => {
   records.length = 0;
   const result = (await client.callTool({ name, arguments: args })) as ToolResult;
-  const text = result.content?.[0]?.text ?? "";
+  // render_page sends its image first; the JSON is the first text item.
+  const text = result.content?.find((item) => item.text !== undefined)?.text ?? "";
   const failed = result.isError === true || "error" in (JSON.parse(text) as object);
   return { failed, otel: records.map((record) => record.attributes ?? {}) };
 };
@@ -117,10 +134,11 @@ describe("tool call telemetry", () => {
 
   it("records a call that runs the tool once, under its name", async () => {
     for (const tool of tools) {
+      const samples = samplesFor(tool.name);
       const args = Object.fromEntries(
         Object.keys(tool.inputSchema.properties ?? {})
-          .filter((argument) => argument in SAMPLES)
-          .map((argument) => [argument, SAMPLES[argument]])
+          .filter((argument) => argument in samples)
+          .map((argument) => [argument, samples[argument]])
       );
       const { failed, otel } = await call(tool.name, args);
       expect(failed, `${tool.name} failed on ${JSON.stringify(args)}`).toBe(false);

@@ -17,6 +17,9 @@ import {
   type listComponentsTool,
   type listDesignsTool,
   type listNetsTool,
+  type listPagesTool,
+  type getPageTool,
+  type renderPageTool,
   type queryComponentTool,
   type queryXnetByNetNameTool,
   type queryXnetByPinNameTool,
@@ -102,6 +105,9 @@ export interface NetlistService {
   queryXnetByPinName: Method<typeof queryXnetByPinNameTool>;
   queryComponent: Method<typeof queryComponentTool>;
   runErc: Method<typeof runErcTool>;
+  listPages: Method<typeof listPagesTool>;
+  getPage: Method<typeof getPageTool>;
+  renderPage: Method<typeof renderPageTool>;
   /** Call a tool by its snake_case name, as an MCP client would. */
   call(name: string, args?: unknown): Promise<unknown>;
   /** The tools this service offers. */
@@ -136,6 +142,9 @@ export const serviceFor = (context: ServiceContext): NetlistService => {
     queryXnetByPinName: method<typeof queryXnetByPinNameTool>("query_xnet_by_pin_name"),
     queryComponent: method<typeof queryComponentTool>("query_component"),
     runErc: method<typeof runErcTool>("run_erc"),
+    listPages: method<typeof listPagesTool>("list_pages"),
+    getPage: method<typeof getPageTool>("get_page"),
+    renderPage: method<typeof renderPageTool>("render_page"),
     call,
     tools: TOOLS,
     context,

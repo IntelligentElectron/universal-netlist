@@ -36,23 +36,38 @@ const emptyBoundedStructure = (type: StructureType): Buffer => {
   return Buffer.concat([longPrefix, shortPrefix(type)]);
 };
 
-const port = (pairingId: number, dbId: number): Buffer =>
+/** The graphic-instance base a Port, Global or off-page connector starts with. */
+const connectorBase = (type: StructureType, pairingId: number, dbId: number): Buffer[] => [
+  shortPrefix(type),
+  uint32(pairingId),
+  uint32(0), // library string index
+  stringLenZeroTerm("SYM"),
+  uint32(dbId),
+  int16(5), // y1
+  int16(0), // x1
+  int16(25), // y2
+  int16(30), // x2
+  int16(10), // locX
+  int16(20), // locY
+  Buffer.alloc(4), // color and unknown bytes
+  uint16(0), // SymbolDisplayProp count
+  Buffer.from([0x00]), // symbol kind
+];
+
+/** A Global and its 5-byte tail: wire id, flag (§7.11). */
+const global = (pairingId: number, dbId: number, wireId: number): Buffer =>
   Buffer.concat([
-    shortPrefix(StructureType.Port),
-    uint32(pairingId),
-    uint32(0), // library string index
-    stringLenZeroTerm("PORT"),
-    uint32(dbId),
-    int16(20), // locY
-    int16(10), // locX
-    int16(21), // y2
-    int16(11), // x2
-    int16(9), // x1
-    int16(19), // y1
-    Buffer.alloc(4), // color and unknown bytes
-    uint16(0), // SymbolDisplayProp count
-    Buffer.from([0x00]), // unknown flag
-    Buffer.alloc(9), // Port-specific trailing bytes
+    ...connectorBase(StructureType.Global, pairingId, dbId),
+    uint32(wireId),
+    Buffer.from([0x00]),
+  ]);
+
+const port = (pairingId: number, dbId: number, wireId = 0): Buffer =>
+  Buffer.concat([
+    ...connectorBase(StructureType.Port, pairingId, dbId),
+    uint32(wireId), // trailer: wire id, flag, port type (§7.10)
+    Buffer.from([0x00]),
+    uint32(2),
   ]);
 
 const placedInstance = (reference: string): Buffer =>
@@ -76,14 +91,14 @@ const placedInstance = (reference: string): Buffer =>
   ]);
 
 /** A pin record as a PlacedInstance or DrawnInstance carries it. */
-const pin = (pinIndex: number, x: number, y: number, netId: number): Buffer =>
+const pin = (pinIndex: number, x: number, y: number, wireId: number): Buffer =>
   Buffer.concat([
     shortPrefix(StructureType.T0x10),
     uint16(pinIndex),
     int16(x),
     int16(y),
-    uint32(netId),
-    uint32(0),
+    uint32(wireId),
+    uint32(0), // net id: 0 on a wired pin
     uint16(0), // SymbolDisplayProp count
   ]);
 
@@ -110,7 +125,7 @@ const drawnInstance = (dbId: number, reference: string, pins: Buffer[]): Buffer 
     ...pins,
   ]);
 
-const page = (instances: Buffer[], ports: Buffer[]): Buffer =>
+const page = (instances: Buffer[], ports: Buffer[], globals: Buffer[] = []): Buffer =>
   Buffer.concat([
     shortPrefix(StructureType.Page),
     stringLenZeroTerm("Synthetic"),
@@ -125,7 +140,8 @@ const page = (instances: Buffer[], ports: Buffer[]): Buffer =>
     ...instances,
     uint16(ports.length),
     ...ports,
-    uint16(0), // Globals
+    uint16(globals.length),
+    ...globals,
     uint16(0), // OffPageConnectors
   ]);
 
@@ -136,6 +152,25 @@ describe("parsePage", () => {
     expect(parsed.ports).toHaveLength(2);
     expect(parsed.ports.map((item) => item.pairingId)).toEqual([1001, 1002]);
     expect(parsed.ports.map((item) => item.dbId)).toEqual([2001, 2002]);
+  });
+
+  it("reads the wire id each connector's trailer names (§7.10, §7.11)", () => {
+    const parsed = parsePage(
+      page([], [port(1001, 2001, 777)], [global(6, 3001, 888), global(6, 3002, 0)])
+    );
+
+    expect(parsed.ports.map((p) => p.wireId)).toEqual([777]);
+    expect(parsed.globals.map((g) => [g.dbId, g.wireId])).toEqual([
+      [3001, 888],
+      [3002, 0],
+    ]);
+  });
+
+  it("reads the box corners before the location, so the location lies inside the box", () => {
+    const [p] = parsePage(page([], [port(1001, 2001)])).ports;
+
+    expect({ x1: p.x1, y1: p.y1, x2: p.x2, y2: p.y2 }).toEqual({ x1: 0, y1: 5, x2: 30, y2: 25 });
+    expect({ locX: p.locX, locY: p.locY }).toEqual({ locX: 10, locY: 20 });
   });
 
   it("skips a DrawnInstance it cannot read by its own boundary, keeping the page", () => {
@@ -161,7 +196,8 @@ describe("parsePage", () => {
       pinIndex: 1,
       pointX: 450,
       pointY: 360,
-      netId: 799,
+      wireId: 799,
+      netId: 0,
     });
   });
 });

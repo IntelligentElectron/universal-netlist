@@ -54,6 +54,9 @@ The schema captures identification (MPN, description) but not electrical specifi
 | [`query_xnet_by_net_name`](tools/query_xnet_by_net_name.md) | Trace circuit connectivity from a net |
 | [`query_xnet_by_pin_name`](tools/query_xnet_by_pin_name.md) | Trace circuit connectivity from a component pin |
 | [`run_erc`](tools/run_erc.md) | Run electrical rule checks (ERC) on the netlist |
+| [`list_pages`](tools/list_pages.md) | List the schematic pages of a Cadence `.DSN` design |
+| [`get_page`](tools/get_page.md) | Read one schematic page as drawn: parts, wires, labels and connectors with their nets |
+| [`render_page`](tools/render_page.md) | Render a schematic page, or one part or net on it, as a PNG image |
 
 ## Schematic Authoring
 

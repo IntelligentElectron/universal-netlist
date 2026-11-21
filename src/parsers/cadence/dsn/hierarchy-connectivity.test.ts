@@ -14,11 +14,12 @@ import type { DrawnInstance, GraphicInst, PlacedInstance, T0x10, Wire } from "./
 
 const SENTINEL = 0xffffffff;
 
-const pin = (pinIndex: number, x: number, y: number, netId: number): T0x10 => ({
+const pin = (pinIndex: number, x: number, y: number, wireId: number): T0x10 => ({
   pinIndex,
   pointX: x,
   pointY: y,
-  netId,
+  wireId,
+  netId: 0,
   symbolDisplayProps: [],
 });
 
@@ -34,6 +35,9 @@ const part = (dbId: number, reference: string, pins: T0x10[]): PlacedInstance =>
   symbolDisplayProps: [],
   t0x10s: pins,
   sectionIndex: 0,
+  box: { x1: 0, y1: 0, x2: 0, y2: 0 },
+  rotation: 0,
+  mirrored: false,
 });
 
 const wire = (
@@ -51,10 +55,21 @@ const wire = (
   endX: x2,
   endY: y2,
   aliases: [],
+  bus: false,
+  junctions: 0,
 });
 
-/** A symbol whose box is 20 units around `(x, y)`; `pairingId` indexes strLst. */
-const symbol = (pairingId: number, dbId: number, x: number, y: number): GraphicInst => ({
+/**
+ * A symbol whose box is 20 units around `(x, y)`; `pairingId` indexes strLst,
+ * and `wireId` is its trailer's wire, the `db_id` (segment id) of the wire it touches.
+ */
+const symbol = (
+  pairingId: number,
+  dbId: number,
+  x: number,
+  y: number,
+  wireId = 0
+): GraphicInst => ({
   name: "SYMBOL",
   dbId,
   locX: x,
@@ -64,7 +79,10 @@ const symbol = (pairingId: number, dbId: number, x: number, y: number): GraphicI
   x2: x + 10,
   y2: y + 10,
   pairingId,
+  rotation: 0,
+  mirrored: false,
   symbolDisplayProps: [],
+  wireId,
 });
 
 const block = (dbId: number, reference: string, ports: string[], pins: T0x10[]): DrawnInstance => ({
@@ -74,10 +92,16 @@ const block = (dbId: number, reference: string, ports: string[], pins: T0x10[]):
   pins,
   locX: 0,
   locY: 0,
+  box: { x1: 0, y1: 0, x2: 0, y2: 0 },
 });
 
 const page = (spec: Partial<PageData> & { name: string }): PageData => ({
   netTable: new Map(),
+  sizeName: "A",
+  widthInches: 11,
+  heightInches: 8.5,
+  busEntries: [],
+  graphics: [],
   wires: [],
   placedInstances: [],
   drawnInstances: [],
@@ -124,7 +148,7 @@ const child = page({
     part(275, "C1", [pin(1, 50, 10, 3997), pin(2, 50, 40, 4001)]),
     part(276, "R2", [pin(1, 80, 40, 4001), pin(2, 80, 70, SENTINEL)]),
   ],
-  ports: [symbol(5, 900, 10, 10)],
+  ports: [symbol(5, 900, 10, 10, 3990)],
   globals: [symbol(6, 901, 80, 70)],
 });
 
@@ -205,7 +229,9 @@ describe("buildNetConnectivity over expanded placements", () => {
  * share the bus `Y_D[1:0]`, which no scalar wire on the top level breaks
  * out; MV4's bus pin is not wired at all. R2 is wired to SNOW1's ports `CLK`
  * and `RST`; SNOW1 draws TILE1 inside it, and TILE1 draws U1, whose second
- * pin sits on the `RST` port symbol with no wire.
+ * pin sits on the `RST` port symbol with no wire. Top-level pins key by the
+ * wire's segment id, as in the files; the TOPCLK wire's segment id equals the X_D1
+ * wire's SchematicNet id, so a bus member keyed by the wrong id space lands on TOPCLK.
  */
 const busChild = page({
   name: "PAGE1",
@@ -220,21 +246,21 @@ const busChild = page({
     [702, ["D0"]],
   ]),
   placedInstances: [part(275, "C1", [pin(1, 40, 40, 701), pin(2, 40, 60, 702)])],
-  ports: [symbol(5, 900, 10, 10)],
+  ports: [symbol(5, 900, 10, 10, 690)],
 });
 
 const inner = page({
   name: "PAGE1",
   wires: [wire(950, 940, 10, 10, 30, 10)],
   placedInstances: [part(3, "U1", [pin(1, 30, 10, 950), pin(2, 10, 30, SENTINEL)])],
-  ports: [symbol(7, 910, 10, 10), symbol(8, 911, 10, 30)],
+  ports: [symbol(7, 910, 10, 10, 940), symbol(8, 911, 10, 30)],
 });
 
 const outer = page({
   name: "PAGE1",
   wires: [wire(900, 890, 10, 10, 50, 10), wire(901, 891, 10, 30, 50, 30)],
   drawnInstances: [block(22, "TILE1", ["CLK", "RST"], [pin(1, 50, 10, 900), pin(2, 50, 30, 901)])],
-  ports: [symbol(7, 920, 10, 10), symbol(8, 921, 10, 30)],
+  ports: [symbol(7, 920, 10, 10, 890), symbol(8, 921, 10, 30, 891)],
 });
 
 const busTop = page({
@@ -244,7 +270,7 @@ const busTop = page({
     wire(501, 491, 10, 30, 60, 30),
     wire(600, 590, 100, 50, 150, 50),
     wire(601, 591, 100, 80, 150, 80),
-    wire(800, 790, 180, 200, 200, 200),
+    wire(800, 500, 180, 200, 200, 200),
     wire(801, 791, 180, 230, 200, 230),
   ],
   netTable: new Map([
@@ -256,16 +282,16 @@ const busTop = page({
     [801, ["TOPRST"]],
   ]),
   placedInstances: [
-    part(1, "R1", [pin(1, 10, 10, 500)]),
-    part(2, "R3", [pin(1, 10, 30, 501)]),
-    part(4, "R2", [pin(1, 180, 200, 800), pin(2, 180, 230, 801)]),
+    part(1, "R1", [pin(1, 10, 10, 490)]),
+    part(2, "R3", [pin(1, 10, 30, 491)]),
+    part(4, "R2", [pin(1, 180, 200, 500), pin(2, 180, 230, 791)]),
   ],
   drawnInstances: [
-    block(17, "MV1", ["D[1:0]"], [pin(1, 150, 50, 600)]),
-    block(39, "MV2", ["D[1:0]"], [pin(1, 150, 80, 601)]),
-    block(41, "MV3", ["D[1:0]"], [pin(1, 100, 80, 601)]),
+    block(17, "MV1", ["D[1:0]"], [pin(1, 150, 50, 590)]),
+    block(39, "MV2", ["D[1:0]"], [pin(1, 150, 80, 591)]),
+    block(41, "MV3", ["D[1:0]"], [pin(1, 100, 80, 591)]),
     block(43, "MV4", ["D[1:0]"], [pin(1, 300, 300, 0)]),
-    block(11, "SNOW1", ["CLK", "RST"], [pin(1, 200, 200, 800), pin(2, 200, 230, 801)]),
+    block(11, "SNOW1", ["CLK", "RST"], [pin(1, 200, 200, 500), pin(2, 200, 230, 791)]),
   ],
 });
 
@@ -373,5 +399,134 @@ describe("buildNetConnectivity over bus ports and nested placements", () => {
 
   it("follows a pin that sits on a port symbol with no wire", () => {
     expect(nets.TOPRST).toEqual({ R2: ["2"], U16: ["2"] });
+  });
+});
+
+/** A pin that no wire reaches, carrying only its SchematicNet id at +0x0A (§7.4). */
+const hiddenPin = (pinIndex: number, x: number, y: number, netId: number): T0x10 => ({
+  ...pin(pinIndex, x, y, 0),
+  netId,
+});
+
+describe("pins joined only by their net id, in a block placed twice", () => {
+  // U1.1 and U2.1 meet pin to pin (net id 5000, no wire); U2.2 is a hidden pin
+  // on the net the LOCAL wire carries (net id 4001).
+  const drawing = page({
+    name: "PAGE1",
+    netTable: new Map([[4001, ["LOCAL"]]]),
+    wires: [wire(4001, 4000, 50, 40, 80, 40)],
+    placedInstances: [
+      part(275, "U1", [hiddenPin(1, 200, 200, 5000), pin(2, 50, 40, 4000)]),
+      part(276, "U2", [hiddenPin(1, 200, 200, 5000), hiddenPin(2, 300, 300, 4001)]),
+    ],
+  });
+  const occurrence = (occurrenceId: number, dbId: number, u1: string, u2: string) => ({
+    ...placement(occurrenceId, dbId, u1, u2),
+    scope: {
+      nets: [{ dbId: 11, name: "LOCAL" }],
+      parts: [
+        { occurrenceId: occurrenceId * 10, dbId: 275, reference: u1, pins: [] },
+        { occurrenceId: occurrenceId * 10 + 1, dbId: 276, reference: u2, pins: [] },
+      ],
+      blocks: [],
+    },
+  });
+  const tree: HierarchyStream = {
+    ...root,
+    scope: {
+      ...root.scope,
+      blocks: [occurrence(3, 17, "U11", "U12"), occurrence(4, 39, "U21", "U22")],
+    },
+  };
+  const expanded = expandHierarchy(
+    [tree],
+    new Map([
+      ["top", [top]],
+      ["child", [drawing]],
+    ]),
+    strLst
+  );
+  const { nets } = buildNetConnectivity(
+    expanded.pages,
+    expanded.canonicalNetNames,
+    pmd,
+    new Map(),
+    strLst
+  );
+
+  it("gives each placement its own pin-to-pin net, named from the file's id", () => {
+    expect(nets.N5000_MV1).toEqual({ U11: ["1"], U12: ["1"] });
+    expect(nets.N5000_MV2).toEqual({ U21: ["1"], U22: ["1"] });
+  });
+
+  it("puts a hidden pin on the net a wire with its net id carries", () => {
+    expect(nets.LOCAL_MV1).toEqual({ U11: ["2"], U12: ["2"] });
+    expect(nets.LOCAL_MV2).toEqual({ U21: ["2"], U22: ["2"] });
+  });
+});
+
+describe("connectors join the wire their trailer names", () => {
+  // strLst 6 is VCC. D1.1 ends the LED wire at (100,0). R5.1 sits on a VCC
+  // Global whose box also covers that wire end but whose trailer names no wire,
+  // as on SmartGarden's CC1310LAUNCHPAD R32. A second VCC Global names the far
+  // rail wire although its box is nowhere near it.
+  const sheet = page({
+    name: "PAGE1",
+    netTable: new Map([
+      [61, ["LED_NET"]],
+      [62, ["RAIL"]],
+    ]),
+    wires: [wire(61, 51, 0, 0, 100, 0), wire(62, 52, 0, 500, 100, 500)],
+    placedInstances: [
+      part(1, "D1", [pin(1, 100, 0, 51)]),
+      part(2, "R5", [pin(1, 105, 5, SENTINEL)]),
+      part(3, "R6", [pin(1, 0, 500, 52)]),
+    ],
+    globals: [symbol(6, 901, 105, 5), symbol(6, 902, 900, 900, 52)],
+  });
+  const { nets } = buildNetConnectivity([sheet], new Set(), pmd, new Map(), strLst);
+
+  it("keeps a connector whose trailer names no wire off the wire its box covers", () => {
+    expect(nets.LED_NET).toEqual({ D1: ["1"] });
+  });
+
+  it("joins a connector to its trailer's wire wherever its box lies", () => {
+    // R5 reaches the rail through the two VCC Globals; the rail keeps its wire name.
+    expect(nets.RAIL).toEqual({ R5: ["1"], R6: ["1"] });
+  });
+});
+
+describe("buildNetConnectivity over PACK_SHORT pins", () => {
+  // Q1's package marks S2 and S3 Pin Ignore; PACK_SHORT (S1,S2,S3) ties them
+  // to S1, which is wired to R1. Q2 has the same flags and no PACK_SHORT.
+  const ignoring: PinMapData = {
+    ...pmd,
+    pinMaps: new Map([["X", ["1", "2", "3"]]]),
+    pinIgnores: new Map([["X", [false, true, true]]]),
+  };
+  const shorted = page({
+    name: "PAGE1",
+    wires: [wire(10, 1, 0, 0, 50, 0)],
+    placedInstances: [
+      part(1, "R1", [pin(1, 0, 0, 1)]),
+      {
+        ...part(2, "Q1", [pin(1, 50, 0, 1), pin(2, 60, 0, 0), pin(3, 70, 0, 0)]),
+        packShort: [[1, 2, 3]],
+      },
+      part(3, "Q2", [pin(1, 200, 0, 0), pin(2, 210, 0, 0), pin(3, 220, 0, 0)]),
+    ],
+  });
+  const { nets } = buildNetConnectivity([shorted], new Set(), ignoring, new Map(), []);
+  const netOf = (ref: string, p: string) =>
+    Object.keys(nets).find((n) => nets[n][ref]?.includes(p));
+
+  it("puts an ignored pin that PACK_SHORT names on its group's placed pin's net", () => {
+    expect(netOf("Q1", "2")).toBe(netOf("R1", "1"));
+    expect(netOf("Q1", "3")).toBe(netOf("R1", "1"));
+  });
+
+  it("still leaves out an ignored pin that no PACK_SHORT names", () => {
+    expect(netOf("Q2", "2")).toBeUndefined();
+    expect(netOf("Q2", "3")).toBeUndefined();
   });
 });

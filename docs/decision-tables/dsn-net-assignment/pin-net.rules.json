@@ -1,0 +1,70 @@
+{
+  "name": "pin-net",
+  "rules": [
+    {
+      "when": {
+        "net_at_point": [
+          "no"
+        ],
+        "net_on_a_wire": [
+          "yes"
+        ]
+      },
+      "outcome": "the net a wire with its net id carries",
+      "next": "",
+      "cells": 2
+    },
+    {
+      "when": {
+        "wire_id": [
+          "sentinel"
+        ],
+        "net_at_point": [
+          "no"
+        ],
+        "net_on_a_wire": [
+          "no"
+        ]
+      },
+      "outcome": "a pin-to-pin net named by its first pin's part and pin",
+      "next": "",
+      "cells": 1
+    },
+    {
+      "when": {
+        "wire_id": [
+          "zero"
+        ],
+        "net_id": [
+          "nonzero"
+        ],
+        "net_at_point": [
+          "no"
+        ],
+        "net_on_a_wire": [
+          "no"
+        ]
+      },
+      "outcome": "its own net shared with pins of the same net id",
+      "next": "",
+      "cells": 1
+    },
+    {
+      "when": {
+        "net_id": [
+          "zero"
+        ],
+        "net_at_point": [
+          "no"
+        ]
+      },
+      "outcome": "no connect",
+      "next": "",
+      "cells": 1
+    }
+  ],
+  "default": {
+    "outcome": "the net at its point",
+    "next": ""
+  }
+}

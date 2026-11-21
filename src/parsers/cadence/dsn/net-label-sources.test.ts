@@ -17,6 +17,8 @@ const opc = (pairingId: number, dbId: number, x: number, y: number): GraphicInst
   x2: 0,
   y2: 0,
   pairingId,
+  rotation: 0,
+  mirrored: false,
   symbolDisplayProps: [],
 });
 
@@ -24,6 +26,11 @@ const page = (name: string, offPageConnectors: GraphicInst[], placement?: Placem
   ({
     name,
     netTable: new Map(),
+    sizeName: "A",
+    widthInches: 11,
+    heightInches: 8.5,
+    busEntries: [],
+    graphics: [],
     wires: [],
     placedInstances: [],
     drawnInstances: [],

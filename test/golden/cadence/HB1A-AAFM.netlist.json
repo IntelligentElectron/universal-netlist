@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 3,
   "metadata": {
-    "generatedAt": "2026-10-30T00:03:16.714Z",
-    "netlistHash": "sha256:a20873f8a0affe1d011c88614a813adf2efe5c77e32357852486efb0f6ae4425",
+    "generatedAt": "2026-11-21T06:07:01.009Z",
+    "netlistHash": "sha256:4e87cbfc8529168292cfaa48bd9a71ec9185349639218e6d175d8977fc5e980c",
     "origin": {
       "type": "vendor",
       "source": {
@@ -30,13 +30,10 @@
       "P1": [
         "401",
         "402",
-        "H1",
         "C2",
         "C3",
         "C6",
         "C7",
-        "C35",
-        "C37",
         "F13",
         "F14",
         "F16",
@@ -96,7 +93,6 @@
         "J34",
         "J36",
         "J37",
-        "K1",
         "K16",
         "K17",
         "K19",
@@ -1466,6 +1462,14 @@
         "2"
       ]
     },
+    "N69496142_CLOCK": {
+      "X1": [
+        "3"
+      ],
+      "R22": [
+        "1"
+      ]
+    },
     "P3V3": {
       "R3": [
         "2"
@@ -1702,6 +1706,9 @@
       ],
       "R292": [
         "2"
+      ],
+      "U7": [
+        "K1"
       ]
     },
     "LEFT_CCLK_STUB_N_CLOCK": {
@@ -1808,8 +1815,7 @@
         "1"
       ],
       "U7": [
-        "J1",
-        "K1"
+        "J1"
       ]
     },
     "XLEFT_CCLK_P_CLOCK": {
@@ -1939,8 +1945,7 @@
         "2"
       ],
       "U8": [
-        "J1",
-        "K1"
+        "J1"
       ]
     },
     "REF_OSC_CLOCK": {
@@ -1959,8 +1964,7 @@
         "2"
       ],
       "U4": [
-        "J1",
-        "K1"
+        "J1"
       ]
     },
     "UL_CCLK_P": {
@@ -1971,8 +1975,7 @@
         "2"
       ],
       "U3": [
-        "J1",
-        "K1"
+        "J1"
       ]
     },
     "REFCLK_C2M_CLOCK": {
@@ -2157,6 +2160,9 @@
       ],
       "R168": [
         "2"
+      ],
+      "U8": [
+        "K1"
       ]
     },
     "FMC_CLK0_M2C_P": {
@@ -2176,6 +2182,9 @@
       ],
       "R162": [
         "2"
+      ],
+      "U4": [
+        "K1"
       ]
     },
     "UL_CCLK_N": {
@@ -2184,6 +2193,9 @@
       ],
       "R286": [
         "2"
+      ],
+      "U3": [
+        "K1"
       ]
     },
     "FMC_CLK2_BIDIR_N": {
@@ -2216,6 +2228,11 @@
       ],
       "C45": [
         "1"
+      ]
+    },
+    "N196599_FMC": {
+      "P1": [
+        "H1"
       ]
     },
     "UR_TXO_EA_DATA_P_1": {
@@ -2269,6 +2286,9 @@
     "UR_TXI_EA_WR_WAIT_P": {
       "P1": [
         "H16"
+      ],
+      "U4": [
+        "J16"
       ]
     },
     "UR_TXI_EA_WR_WAIT_N": {
@@ -2276,7 +2296,6 @@
         "H17"
       ],
       "U4": [
-        "J16",
         "H16"
       ]
     },
@@ -2365,6 +2384,9 @@
     "UR_RXO_EA_WR_WAIT_P": {
       "P1": [
         "H31"
+      ],
+      "U4": [
+        "L16"
       ]
     },
     "UR_RXO_EA_WR_WAIT_N": {
@@ -2372,7 +2394,6 @@
         "H32"
       ],
       "U4": [
-        "L16",
         "K16"
       ]
     },
@@ -2517,13 +2538,15 @@
         "C14"
       ],
       "U4": [
-        "H17",
-        "G17"
+        "H17"
       ]
     },
     "UR_TXI_EA_RD_WAIT_N": {
       "P1": [
         "C15"
+      ],
+      "U4": [
+        "G17"
       ]
     },
     "FMC_LA_P_14": {
@@ -2569,13 +2592,15 @@
         "C26"
       ],
       "U4": [
-        "K17",
-        "J17"
+        "K17"
       ]
     },
     "UR_RXO_EA_RD_WAIT_N": {
       "P1": [
         "C27"
+      ],
+      "U4": [
+        "J17"
       ]
     },
     "FMC_SCL": {
@@ -2617,6 +2642,12 @@
         "6"
       ]
     },
+    "N196598_FMC": {
+      "P1": [
+        "C35",
+        "C37"
+      ]
+    },
     "FMC_PG_M2C": {
       "P1": [
         "F1"
@@ -2628,6 +2659,9 @@
     "LR_TXO_EA_LCLK_P": {
       "P1": [
         "F4"
+      ],
+      "U8": [
+        "G18"
       ]
     },
     "LR_TXO_EA_LCLK_N": {
@@ -2635,7 +2669,6 @@
         "F5"
       ],
       "U8": [
-        "G18",
         "F18"
       ]
     },
@@ -2836,6 +2869,9 @@
     "UR_TXO_EA_FRAME_P": {
       "P1": [
         "D14"
+      ],
+      "U4": [
+        "K15"
       ]
     },
     "UR_TXO_EA_FRAME_N": {
@@ -2843,7 +2879,6 @@
         "D15"
       ],
       "U4": [
-        "K15",
         "J15"
       ]
     },
@@ -2868,13 +2903,15 @@
         "D20"
       ],
       "U4": [
-        "N18",
-        "M18"
+        "N18"
       ]
     },
     "UR_RXI_EA_LCLK_N": {
       "P1": [
         "D21"
+      ],
+      "U4": [
+        "M18"
       ]
     },
     "UR_RXI_EA_DATA_P_5": {
@@ -2904,13 +2941,15 @@
         "D26"
       ],
       "U4": [
-        "M17",
-        "L17"
+        "M17"
       ]
     },
     "UR_RXI_EA_FRAME_N": {
       "P1": [
         "D27"
+      ],
+      "U4": [
+        "L17"
       ]
     },
     "P3V3_AUX": {
@@ -3004,6 +3043,9 @@
     "LR_TXI_EA_WR_WAIT_P": {
       "P1": [
         "J12"
+      ],
+      "U8": [
+        "J16"
       ]
     },
     "LR_TXI_EA_WR_WAIT_N": {
@@ -3011,7 +3053,6 @@
         "J13"
       ],
       "U8": [
-        "J16",
         "H16"
       ]
     },
@@ -3062,6 +3103,9 @@
     "LR_RXO_EA_WR_WAIT_P": {
       "P1": [
         "J30"
+      ],
+      "U8": [
+        "L16"
       ]
     },
     "LR_RXO_EA_WR_WAIT_N": {
@@ -3069,7 +3113,6 @@
         "J31"
       ],
       "U8": [
-        "L16",
         "K16"
       ]
     },
@@ -3084,6 +3127,9 @@
     "UR_TXO_EA_LCLK_P": {
       "P1": [
         "G6"
+      ],
+      "U4": [
+        "G18"
       ]
     },
     "UR_TXO_EA_LCLK_N": {
@@ -3091,7 +3137,6 @@
         "G7"
       ],
       "U4": [
-        "G18",
         "F18"
       ]
     },
@@ -3265,6 +3310,11 @@
         "36"
       ]
     },
+    "N196597_FMC": {
+      "P1": [
+        "K1"
+      ]
+    },
     "LR_TXO_EA_DATA_P_1": {
       "P1": [
         "K7"
@@ -3302,13 +3352,15 @@
         "K13"
       ],
       "U8": [
-        "H17",
-        "G17"
+        "H17"
       ]
     },
     "LR_TXI_EA_RD_WAIT_N": {
       "P1": [
         "K14"
+      ],
+      "U8": [
+        "G17"
       ]
     },
     "LR_RXI_EA_LCLK_P": {
@@ -3316,13 +3368,15 @@
         "K25"
       ],
       "U8": [
-        "N18",
-        "M18"
+        "N18"
       ]
     },
     "LR_RXI_EA_LCLK_N": {
       "P1": [
         "K26"
+      ],
+      "U8": [
+        "M18"
       ]
     },
     "LR_RXI_EA_DATA_P_5": {
@@ -3352,13 +3406,15 @@
         "K31"
       ],
       "U8": [
-        "K17",
-        "J17"
+        "K17"
       ]
     },
     "LR_RXO_EA_RD_WAIT_N": {
       "P1": [
         "K32"
+      ],
+      "U8": [
+        "J17"
       ]
     },
     "LR_TXO_EA_DATA_P_0": {
@@ -3396,6 +3452,9 @@
     "LR_TXO_EA_FRAME_P": {
       "P1": [
         "E9"
+      ],
+      "U8": [
+        "K15"
       ]
     },
     "LR_TXO_EA_FRAME_N": {
@@ -3403,7 +3462,6 @@
         "E10"
       ],
       "U8": [
-        "K15",
         "J15"
       ]
     },
@@ -3456,13 +3514,15 @@
         "E27"
       ],
       "U8": [
-        "M17",
-        "L17"
+        "M17"
       ]
     },
     "LR_RXI_EA_FRAME_N": {
       "P1": [
         "E28"
+      ],
+      "U8": [
+        "L17"
       ]
     },
     "P2V5": {
@@ -4624,36 +4684,48 @@
     "LL_LL_WW_LCLK_P_QUAD ANEMONE": {
       "U7": [
         "F1",
+        "M1"
+      ]
+    },
+    "LL_LL_WW_LCLK_N_QUAD ANEMONE": {
+      "U7": [
         "G1",
-        "M1",
         "N1"
       ]
     },
     "LL_LL_WW_FRAME_P_QUAD ANEMONE": {
       "U7": [
         "J4",
-        "K4",
-        "L2",
-        "M2"
+        "L2"
       ]
     },
-    "LL_LL_WW_WR_WAIT_N_QUAD ANEMONE": {
+    "LL_LL_WW_FRAME_N_QUAD ANEMONE": {
       "U7": [
-        "K3",
-        "L3"
+        "K4",
+        "M2"
       ]
     },
     "LL_LL_WW_WR_WAIT_P_QUAD ANEMONE": {
       "U7": [
-        "H3",
+        "K3",
+        "H3"
+      ]
+    },
+    "LL_LL_WW_WR_WAIT_N_QUAD ANEMONE": {
+      "U7": [
+        "L3",
         "J3"
       ]
     },
     "LL_LL_WW_RD_WAIT_P_QUAD ANEMONE": {
       "U7": [
         "J2",
+        "G2"
+      ]
+    },
+    "LL_LL_WW_RD_WAIT_N_QUAD ANEMONE": {
+      "U7": [
         "K2",
-        "G2",
         "H2"
       ]
     },
@@ -4959,72 +5031,132 @@
         "F4"
       ]
     },
+    "LL_LR_EW_LCLK_P_QUAD ANEMONE": {
+      "U7": [
+        "G18"
+      ],
+      "U8": [
+        "M1"
+      ]
+    },
     "LL_LR_EW_LCLK_N_QUAD ANEMONE": {
       "U7": [
-        "G18",
         "F18"
+      ],
+      "U8": [
+        "N1"
       ]
     },
     "LR_LL_WE_LCLK_P_QUAD ANEMONE": {
       "U7": [
-        "N18",
+        "N18"
+      ],
+      "U8": [
+        "F1"
+      ]
+    },
+    "LR_LL_WE_LCLK_N_QUAD ANEMONE": {
+      "U7": [
         "M18"
       ],
       "U8": [
-        "F1",
         "G1"
+      ]
+    },
+    "LL_LR_EW_FRAME_P_QUAD ANEMONE": {
+      "U7": [
+        "K15"
+      ],
+      "U8": [
+        "L2"
       ]
     },
     "LL_LR_EW_FRAME_N_QUAD ANEMONE": {
       "U7": [
-        "K15",
         "J15"
+      ],
+      "U8": [
+        "M2"
       ]
     },
     "LR_LL_WE_FRAME_P_QUAD ANEMONE": {
       "U7": [
-        "M17",
+        "M17"
+      ],
+      "U8": [
+        "J4"
+      ]
+    },
+    "LR_LL_WE_FRAME_N_QUAD ANEMONE": {
+      "U7": [
         "L17"
       ],
       "U8": [
-        "J4",
         "K4"
       ]
     },
     "LR_LL_WE_RD_WAIT_P_QUAD ANEMONE": {
       "U7": [
-        "K17",
+        "K17"
+      ],
+      "U8": [
+        "G2"
+      ]
+    },
+    "LR_LL_WE_RD_WAIT_N_QUAD ANEMONE": {
+      "U7": [
         "J17"
       ],
       "U8": [
-        "G2",
         "H2"
       ]
     },
     "LL_LR_EW_RD_WAIT_P_QUAD ANEMONE": {
       "U7": [
-        "H17",
+        "H17"
+      ],
+      "U8": [
+        "J2"
+      ]
+    },
+    "LL_LR_EW_RD_WAIT_N_QUAD ANEMONE": {
+      "U7": [
         "G17"
       ],
       "U8": [
-        "J2",
         "K2"
+      ]
+    },
+    "LL_LR_EW_WR_WAIT_P_QUAD ANEMONE": {
+      "U7": [
+        "J16"
+      ],
+      "U8": [
+        "K3"
       ]
     },
     "LL_LR_EW_WR_WAIT_N_QUAD ANEMONE": {
       "U7": [
-        "J16",
         "H16"
       ],
       "U8": [
-        "K3",
         "L3"
+      ]
+    },
+    "LR_LL_WE_WR_WAIT_P_QUAD ANEMONE": {
+      "U7": [
+        "L16"
+      ],
+      "U8": [
+        "H3"
       ]
     },
     "LR_LL_WE_WR_WAIT_N_QUAD ANEMONE": {
       "U7": [
-        "L16",
         "K16"
+      ],
+      "U8": [
+        "J3"
       ]
     },
     "RXI_EA_FRAME_P_QUAD ANEMONE_DSP LL": {
@@ -5477,50 +5609,98 @@
     },
     "LL_UL_SN_LCLK_P_QUAD ANEMONE": {
       "U7": [
-        "V12",
+        "V12"
+      ],
+      "U3": [
+        "A7"
+      ]
+    },
+    "LL_UL_SN_LCLK_N_QUAD ANEMONE": {
+      "U7": [
         "V13"
+      ],
+      "U3": [
+        "A6"
+      ]
+    },
+    "UL_LL_NS_LCLK_P_QUAD ANEMONE": {
+      "U7": [
+        "V6"
+      ],
+      "U3": [
+        "A13"
       ]
     },
     "UL_LL_NS_LCLK_N_QUAD ANEMONE": {
       "U7": [
-        "V6",
         "V7"
       ],
       "U3": [
-        "A13",
         "A12"
+      ]
+    },
+    "LL_UL_SN_FRAME_P_QUAD ANEMONE": {
+      "U7": [
+        "R9"
+      ],
+      "U3": [
+        "B8"
       ]
     },
     "LL_UL_SN_FRAME_N_QUAD ANEMONE": {
       "U7": [
-        "R9",
         "R10"
+      ],
+      "U3": [
+        "B7"
       ]
     },
     "UL_LL_NS_FRAME_P_QUAD ANEMONE": {
       "U7": [
-        "U7",
+        "U7"
+      ],
+      "U3": [
+        "D10"
+      ]
+    },
+    "UL_LL_NS_FRAME_N_QUAD ANEMONE": {
+      "U7": [
         "U8"
       ],
       "U3": [
-        "D10",
         "D9"
+      ]
+    },
+    "UL_LL_NS_RD_WAIT_P_QUAD ANEMONE": {
+      "U7": [
+        "U9"
+      ],
+      "U3": [
+        "B12"
       ]
     },
     "UL_LL_NS_RD_WAIT_N_QUAD ANEMONE": {
       "U7": [
-        "U9",
         "U10"
       ],
       "U3": [
-        "B12",
         "B11"
       ]
     },
     "LL_UL_SN_RD_WAIT_P_QUAD ANEMONE": {
       "U7": [
-        "U11",
+        "U11"
+      ],
+      "U3": [
+        "B10"
+      ]
+    },
+    "LL_UL_SN_RD_WAIT_N_QUAD ANEMONE": {
+      "U7": [
         "U12"
+      ],
+      "U3": [
+        "B9"
       ]
     },
     "N6941990_QUAD ANEMONE_DSP LL": {
@@ -5539,19 +5719,35 @@
         "2"
       ]
     },
+    "UL_LL_NS_WR_WAIT_P_QUAD ANEMONE": {
+      "U7": [
+        "T8"
+      ],
+      "U3": [
+        "C11"
+      ]
+    },
     "UL_LL_NS_WR_WAIT_N_QUAD ANEMONE": {
       "U7": [
-        "T8",
         "T9"
+      ],
+      "U3": [
+        "C10"
       ]
     },
     "LL_UL_SN_WR_WAIT_P_QUAD ANEMONE": {
       "U7": [
-        "T10",
+        "T10"
+      ],
+      "U3": [
+        "C9"
+      ]
+    },
+    "LL_UL_SN_WR_WAIT_N_QUAD ANEMONE": {
+      "U7": [
         "T11"
       ],
       "U3": [
-        "C9",
         "C8"
       ]
     },
@@ -5917,68 +6113,132 @@
         "2"
       ]
     },
+    "LL_UL_NS_LCLK_P_QUAD ANEMONE": {
+      "U7": [
+        "A13"
+      ],
+      "U3": [
+        "V6"
+      ]
+    },
     "LL_UL_NS_LCLK_N_QUAD ANEMONE": {
       "U7": [
-        "A13",
         "A12"
       ],
       "U3": [
-        "V6",
         "V7"
+      ]
+    },
+    "UL_LL_SN_LCLK_P_QUAD ANEMONE": {
+      "U7": [
+        "A7"
+      ],
+      "U3": [
+        "V12"
       ]
     },
     "UL_LL_SN_LCLK_N_QUAD ANEMONE": {
       "U7": [
-        "A7",
         "A6"
+      ],
+      "U3": [
+        "V13"
       ]
     },
     "LL_UL_NS_FRAME_P_QUAD ANEMONE": {
       "U7": [
-        "D10",
+        "D10"
+      ],
+      "U3": [
+        "U7"
+      ]
+    },
+    "LL_UL_NS_FRAME_N_QUAD ANEMONE": {
+      "U7": [
         "D9"
       ],
       "U3": [
-        "U7",
         "U8"
       ]
     },
     "UL_LL_SN_FRAME_P_QUAD ANEMONE": {
       "U7": [
-        "B8",
+        "B8"
+      ],
+      "U3": [
+        "R9"
+      ]
+    },
+    "UL_LL_SN_FRAME_N_QUAD ANEMONE": {
+      "U7": [
         "B7"
+      ],
+      "U3": [
+        "R10"
+      ]
+    },
+    "UL_LL_SN_RD_WAIT_P_QUAD ANEMONE": {
+      "U7": [
+        "B10"
+      ],
+      "U3": [
+        "U11"
       ]
     },
     "UL_LL_SN_RD_WAIT_N_QUAD ANEMONE": {
       "U7": [
-        "B10",
         "B9"
+      ],
+      "U3": [
+        "U12"
+      ]
+    },
+    "LL_UL_NS_RD_WAIT_P_QUAD ANEMONE": {
+      "U7": [
+        "B12"
+      ],
+      "U3": [
+        "U9"
       ]
     },
     "LL_UL_NS_RD_WAIT_N_QUAD ANEMONE": {
       "U7": [
-        "B12",
         "B11"
       ],
       "U3": [
-        "U9",
         "U10"
       ]
     },
     "UL_LL_SN_WR_WAIT_P_QUAD ANEMONE": {
       "U7": [
-        "C9",
+        "C9"
+      ],
+      "U3": [
+        "T10"
+      ]
+    },
+    "UL_LL_SN_WR_WAIT_N_QUAD ANEMONE": {
+      "U7": [
         "C8"
       ],
       "U3": [
-        "T10",
         "T11"
       ]
     },
     "LL_UL_NS_WR_WAIT_P_QUAD ANEMONE": {
       "U7": [
-        "C11",
+        "C11"
+      ],
+      "U3": [
+        "T8"
+      ]
+    },
+    "LL_UL_NS_WR_WAIT_N_QUAD ANEMONE": {
+      "U7": [
         "C10"
+      ],
+      "U3": [
+        "T9"
       ]
     },
     "MVDD_QUAD ANEMONE_DSP LR": {
@@ -6132,24 +6392,6 @@
       ],
       "U8": [
         "K18"
-      ]
-    },
-    "LL_LR_EW_LCLK_P_QUAD ANEMONE": {
-      "U8": [
-        "M1",
-        "N1"
-      ]
-    },
-    "LL_LR_EW_FRAME_P_QUAD ANEMONE": {
-      "U8": [
-        "L2",
-        "M2"
-      ]
-    },
-    "LR_LL_WE_WR_WAIT_P_QUAD ANEMONE": {
-      "U8": [
-        "H3",
-        "J3"
       ]
     },
     "TXI_WE_RD_WAIT_P_QUAD ANEMONE_DSP LR": {
@@ -6640,50 +6882,98 @@
     },
     "LR_UR_SN_LCLK_P_QUAD ANEMONE": {
       "U8": [
-        "V12",
+        "V12"
+      ],
+      "U4": [
+        "A7"
+      ]
+    },
+    "LR_UR_SN_LCLK_N_QUAD ANEMONE": {
+      "U8": [
         "V13"
+      ],
+      "U4": [
+        "A6"
+      ]
+    },
+    "UR_LR_NS_LCLK_P_QUAD ANEMONE": {
+      "U8": [
+        "V6"
+      ],
+      "U4": [
+        "A13"
       ]
     },
     "UR_LR_NS_LCLK_N_QUAD ANEMONE": {
       "U8": [
-        "V6",
         "V7"
       ],
       "U4": [
-        "A13",
         "A12"
+      ]
+    },
+    "LR_UR_SN_FRAME_P_QUAD ANEMONE": {
+      "U8": [
+        "R9"
+      ],
+      "U4": [
+        "B8"
       ]
     },
     "LR_UR_SN_FRAME_N_QUAD ANEMONE": {
       "U8": [
-        "R9",
         "R10"
+      ],
+      "U4": [
+        "B7"
       ]
     },
     "UR_LR_NS_FRAME_P_QUAD ANEMONE": {
       "U8": [
-        "U7",
+        "U7"
+      ],
+      "U4": [
+        "D10"
+      ]
+    },
+    "UR_LR_NS_FRAME_N_QUAD ANEMONE": {
+      "U8": [
         "U8"
       ],
       "U4": [
-        "D10",
         "D9"
+      ]
+    },
+    "UR_LR_NS_RD_WAIT_P_QUAD ANEMONE": {
+      "U8": [
+        "U9"
+      ],
+      "U4": [
+        "B12"
       ]
     },
     "UR_LR_NS_RD_WAIT_N_QUAD ANEMONE": {
       "U8": [
-        "U9",
         "U10"
       ],
       "U4": [
-        "B12",
         "B11"
       ]
     },
     "LR_UR_SN_RD_WAIT_P_QUAD ANEMONE": {
       "U8": [
-        "U11",
+        "U11"
+      ],
+      "U4": [
+        "B10"
+      ]
+    },
+    "LR_UR_SN_RD_WAIT_N_QUAD ANEMONE": {
+      "U8": [
         "U12"
+      ],
+      "U4": [
+        "B9"
       ]
     },
     "N6941990_QUAD ANEMONE_DSP LR": {
@@ -6702,19 +6992,35 @@
         "2"
       ]
     },
+    "UR_LR_NS_WR_WAIT_P_QUAD ANEMONE": {
+      "U8": [
+        "T8"
+      ],
+      "U4": [
+        "C11"
+      ]
+    },
     "UR_LR_NS_WR_WAIT_N_QUAD ANEMONE": {
       "U8": [
-        "T8",
         "T9"
+      ],
+      "U4": [
+        "C10"
       ]
     },
     "LR_UR_SN_WR_WAIT_P_QUAD ANEMONE": {
       "U8": [
-        "T10",
+        "T10"
+      ],
+      "U4": [
+        "C9"
+      ]
+    },
+    "LR_UR_SN_WR_WAIT_N_QUAD ANEMONE": {
+      "U8": [
         "T11"
       ],
       "U4": [
-        "C9",
         "C8"
       ]
     },
@@ -7080,68 +7386,132 @@
         "2"
       ]
     },
+    "LR_UR_NS_LCLK_P_QUAD ANEMONE": {
+      "U8": [
+        "A13"
+      ],
+      "U4": [
+        "V6"
+      ]
+    },
     "LR_UR_NS_LCLK_N_QUAD ANEMONE": {
       "U8": [
-        "A13",
         "A12"
       ],
       "U4": [
-        "V6",
         "V7"
+      ]
+    },
+    "UR_LR_SN_LCLK_P_QUAD ANEMONE": {
+      "U8": [
+        "A7"
+      ],
+      "U4": [
+        "V12"
       ]
     },
     "UR_LR_SN_LCLK_N_QUAD ANEMONE": {
       "U8": [
-        "A7",
         "A6"
+      ],
+      "U4": [
+        "V13"
       ]
     },
     "LR_UR_NS_FRAME_P_QUAD ANEMONE": {
       "U8": [
-        "D10",
+        "D10"
+      ],
+      "U4": [
+        "U7"
+      ]
+    },
+    "LR_UR_NS_FRAME_N_QUAD ANEMONE": {
+      "U8": [
         "D9"
       ],
       "U4": [
-        "U7",
         "U8"
       ]
     },
     "UR_LR_SN_FRAME_P_QUAD ANEMONE": {
       "U8": [
-        "B8",
+        "B8"
+      ],
+      "U4": [
+        "R9"
+      ]
+    },
+    "UR_LR_SN_FRAME_N_QUAD ANEMONE": {
+      "U8": [
         "B7"
+      ],
+      "U4": [
+        "R10"
+      ]
+    },
+    "UR_LR_SN_RD_WAIT_P_QUAD ANEMONE": {
+      "U8": [
+        "B10"
+      ],
+      "U4": [
+        "U11"
       ]
     },
     "UR_LR_SN_RD_WAIT_N_QUAD ANEMONE": {
       "U8": [
-        "B10",
         "B9"
+      ],
+      "U4": [
+        "U12"
+      ]
+    },
+    "LR_UR_NS_RD_WAIT_P_QUAD ANEMONE": {
+      "U8": [
+        "B12"
+      ],
+      "U4": [
+        "U9"
       ]
     },
     "LR_UR_NS_RD_WAIT_N_QUAD ANEMONE": {
       "U8": [
-        "B12",
         "B11"
       ],
       "U4": [
-        "U9",
         "U10"
       ]
     },
     "UR_LR_SN_WR_WAIT_P_QUAD ANEMONE": {
       "U8": [
-        "C9",
+        "C9"
+      ],
+      "U4": [
+        "T10"
+      ]
+    },
+    "UR_LR_SN_WR_WAIT_N_QUAD ANEMONE": {
+      "U8": [
         "C8"
       ],
       "U4": [
-        "T10",
         "T11"
       ]
     },
     "LR_UR_NS_WR_WAIT_P_QUAD ANEMONE": {
       "U8": [
-        "C11",
+        "C11"
+      ],
+      "U4": [
+        "T8"
+      ]
+    },
+    "LR_UR_NS_WR_WAIT_N_QUAD ANEMONE": {
+      "U8": [
         "C10"
+      ],
+      "U4": [
+        "T9"
       ]
     },
     "MVDD_QUAD ANEMONE_DSP UL": {
@@ -7532,36 +7902,48 @@
     "UL_UL_WW_LCLK_P_QUAD ANEMONE": {
       "U3": [
         "F1",
+        "M1"
+      ]
+    },
+    "UL_UL_WW_LCLK_N_QUAD ANEMONE": {
+      "U3": [
         "G1",
-        "M1",
         "N1"
       ]
     },
     "UL_UL_WW_FRAME_P_QUAD ANEMONE": {
       "U3": [
         "J4",
-        "K4",
-        "L2",
-        "M2"
+        "L2"
       ]
     },
-    "UL_UL_WW_WR_WAIT_N_QUAD ANEMONE": {
+    "UL_UL_WW_FRAME_N_QUAD ANEMONE": {
       "U3": [
-        "K3",
-        "L3"
+        "K4",
+        "M2"
       ]
     },
     "UL_UL_WW_WR_WAIT_P_QUAD ANEMONE": {
       "U3": [
-        "H3",
+        "K3",
+        "H3"
+      ]
+    },
+    "UL_UL_WW_WR_WAIT_N_QUAD ANEMONE": {
+      "U3": [
+        "L3",
         "J3"
       ]
     },
     "UL_UL_WW_RD_WAIT_P_QUAD ANEMONE": {
       "U3": [
         "J2",
+        "G2"
+      ]
+    },
+    "UL_UL_WW_RD_WAIT_N_QUAD ANEMONE": {
+      "U3": [
         "K2",
-        "G2",
         "H2"
       ]
     },
@@ -7867,72 +8249,132 @@
         "F4"
       ]
     },
+    "UL_UR_EW_LCLK_P_QUAD ANEMONE": {
+      "U3": [
+        "G18"
+      ],
+      "U4": [
+        "M1"
+      ]
+    },
     "UL_UR_EW_LCLK_N_QUAD ANEMONE": {
       "U3": [
-        "G18",
         "F18"
+      ],
+      "U4": [
+        "N1"
       ]
     },
     "UR_UL_WE_LCLK_P_QUAD ANEMONE": {
       "U3": [
-        "N18",
+        "N18"
+      ],
+      "U4": [
+        "F1"
+      ]
+    },
+    "UR_UL_WE_LCLK_N_QUAD ANEMONE": {
+      "U3": [
         "M18"
       ],
       "U4": [
-        "F1",
         "G1"
+      ]
+    },
+    "UL_UR_EW_FRAME_P_QUAD ANEMONE": {
+      "U3": [
+        "K15"
+      ],
+      "U4": [
+        "L2"
       ]
     },
     "UL_UR_EW_FRAME_N_QUAD ANEMONE": {
       "U3": [
-        "K15",
         "J15"
+      ],
+      "U4": [
+        "M2"
       ]
     },
     "UR_UL_WE_FRAME_P_QUAD ANEMONE": {
       "U3": [
-        "M17",
+        "M17"
+      ],
+      "U4": [
+        "J4"
+      ]
+    },
+    "UR_UL_WE_FRAME_N_QUAD ANEMONE": {
+      "U3": [
         "L17"
       ],
       "U4": [
-        "J4",
         "K4"
       ]
     },
     "UR_UL_WE_RD_WAIT_P_QUAD ANEMONE": {
       "U3": [
-        "K17",
+        "K17"
+      ],
+      "U4": [
+        "G2"
+      ]
+    },
+    "UR_UL_WE_RD_WAIT_N_QUAD ANEMONE": {
+      "U3": [
         "J17"
       ],
       "U4": [
-        "G2",
         "H2"
       ]
     },
     "UL_UR_EW_RD_WAIT_P_QUAD ANEMONE": {
       "U3": [
-        "H17",
+        "H17"
+      ],
+      "U4": [
+        "J2"
+      ]
+    },
+    "UL_UR_EW_RD_WAIT_N_QUAD ANEMONE": {
+      "U3": [
         "G17"
       ],
       "U4": [
-        "J2",
         "K2"
+      ]
+    },
+    "UL_UR_EW_WR_WAIT_P_QUAD ANEMONE": {
+      "U3": [
+        "J16"
+      ],
+      "U4": [
+        "K3"
       ]
     },
     "UL_UR_EW_WR_WAIT_N_QUAD ANEMONE": {
       "U3": [
-        "J16",
         "H16"
       ],
       "U4": [
-        "K3",
         "L3"
+      ]
+    },
+    "UR_UL_WE_WR_WAIT_P_QUAD ANEMONE": {
+      "U3": [
+        "L16"
+      ],
+      "U4": [
+        "H3"
       ]
     },
     "UR_UL_WE_WR_WAIT_N_QUAD ANEMONE": {
       "U3": [
-        "L16",
         "K16"
+      ],
+      "U4": [
+        "J3"
       ]
     },
     "RXI_EA_FRAME_P_QUAD ANEMONE_DSP UL": {
@@ -7965,24 +8407,6 @@
         "2"
       ]
     },
-    "UL_LL_SN_LCLK_P_QUAD ANEMONE": {
-      "U3": [
-        "V12",
-        "V13"
-      ]
-    },
-    "UL_LL_SN_FRAME_N_QUAD ANEMONE": {
-      "U3": [
-        "R9",
-        "R10"
-      ]
-    },
-    "UL_LL_SN_RD_WAIT_P_QUAD ANEMONE": {
-      "U3": [
-        "U11",
-        "U12"
-      ]
-    },
     "N6941990_QUAD ANEMONE_DSP UL": {
       "U3": [
         "V9"
@@ -7997,12 +8421,6 @@
       ],
       "R211": [
         "2"
-      ]
-    },
-    "LL_UL_NS_WR_WAIT_N_QUAD ANEMONE": {
-      "U3": [
-        "T8",
-        "T9"
       ]
     },
     "RXI_NO_FRAME_P_QUAD ANEMONE_DSP UL": {
@@ -8079,30 +8497,6 @@
     "TXI_SO_RD_WAIT_N_QUAD ANEMONE_DSP UL": {
       "R204": [
         "2"
-      ]
-    },
-    "LL_UL_SN_LCLK_N_QUAD ANEMONE": {
-      "U3": [
-        "A7",
-        "A6"
-      ]
-    },
-    "LL_UL_SN_FRAME_P_QUAD ANEMONE": {
-      "U3": [
-        "B8",
-        "B7"
-      ]
-    },
-    "LL_UL_SN_RD_WAIT_N_QUAD ANEMONE": {
-      "U3": [
-        "B10",
-        "B9"
-      ]
-    },
-    "UL_LL_NS_WR_WAIT_P_QUAD ANEMONE": {
-      "U3": [
-        "C11",
-        "C10"
       ]
     },
     "MVDD_QUAD ANEMONE_DSP UR": {
@@ -8258,24 +8652,6 @@
         "K18"
       ]
     },
-    "UL_UR_EW_LCLK_P_QUAD ANEMONE": {
-      "U4": [
-        "M1",
-        "N1"
-      ]
-    },
-    "UL_UR_EW_FRAME_P_QUAD ANEMONE": {
-      "U4": [
-        "L2",
-        "M2"
-      ]
-    },
-    "UR_UL_WE_WR_WAIT_P_QUAD ANEMONE": {
-      "U4": [
-        "H3",
-        "J3"
-      ]
-    },
     "TXI_WE_RD_WAIT_P_QUAD ANEMONE_DSP UR": {
       "R143": [
         "1"
@@ -8344,24 +8720,6 @@
         "2"
       ]
     },
-    "UR_LR_SN_LCLK_P_QUAD ANEMONE": {
-      "U4": [
-        "V12",
-        "V13"
-      ]
-    },
-    "UR_LR_SN_FRAME_N_QUAD ANEMONE": {
-      "U4": [
-        "R9",
-        "R10"
-      ]
-    },
-    "UR_LR_SN_RD_WAIT_P_QUAD ANEMONE": {
-      "U4": [
-        "U11",
-        "U12"
-      ]
-    },
     "N6941990_QUAD ANEMONE_DSP UR": {
       "U4": [
         "V9"
@@ -8376,12 +8734,6 @@
       ],
       "R81": [
         "2"
-      ]
-    },
-    "LR_UR_NS_WR_WAIT_N_QUAD ANEMONE": {
-      "U4": [
-        "T8",
-        "T9"
       ]
     },
     "RXI_NO_FRAME_P_QUAD ANEMONE_DSP UR": {
@@ -8458,30 +8810,6 @@
     "TXI_SO_RD_WAIT_N_QUAD ANEMONE_DSP UR": {
       "R70": [
         "2"
-      ]
-    },
-    "LR_UR_SN_LCLK_N_QUAD ANEMONE": {
-      "U4": [
-        "A7",
-        "A6"
-      ]
-    },
-    "LR_UR_SN_FRAME_P_QUAD ANEMONE": {
-      "U4": [
-        "B8",
-        "B7"
-      ]
-    },
-    "LR_UR_SN_RD_WAIT_N_QUAD ANEMONE": {
-      "U4": [
-        "B10",
-        "B9"
-      ]
-    },
-    "UR_LR_NS_WR_WAIT_P_QUAD ANEMONE": {
-      "U4": [
-        "C11",
-        "C10"
       ]
     },
     "N6723346_CPLD": {
@@ -8825,14 +9153,6 @@
       "U2": [
         "2"
       ]
-    },
-    "N2_310,180": {
-      "X1": [
-        "3"
-      ],
-      "R22": [
-        "1"
-      ]
     }
   },
   "components": {
@@ -8897,7 +9217,7 @@
         },
         "3": {
           "name": "OUT",
-          "net": "N2_310,180"
+          "net": "N69496142_CLOCK"
         },
         "4": {
           "name": "VDD",
@@ -9103,7 +9423,7 @@
     "R22": {
       "value": "24.9",
       "pins": {
-        "1": "N2_310,180",
+        "1": "N69496142_CLOCK",
         "2": "REF_OSC_CLOCK"
       },
       "description": "Resistor 24.9Ohm 1% 1/16W 0402 "
@@ -9836,13 +10156,10 @@
       "pins": {
         "401": "NC",
         "402": "NC",
-        "H1": "NC",
         "C2": "NC",
         "C3": "NC",
         "C6": "NC",
         "C7": "NC",
-        "C35": "NC",
-        "C37": "NC",
         "F13": "NC",
         "F14": "NC",
         "F16": "NC",
@@ -9902,7 +10219,6 @@
         "J34": "NC",
         "J36": "NC",
         "J37": "NC",
-        "K1": "NC",
         "K16": "NC",
         "K17": "NC",
         "K19": "NC",
@@ -9926,6 +10242,9 @@
         "E36": "NC",
         "E37": "NC",
         "D34": "NC",
+        "H38": "FMC_LA_N_32",
+        "G37": "FMC_LA_N_33",
+        "H1": "N196599_FMC",
         "H2": "GND",
         "H3": "GND",
         "H4": "FMC_CLK0_M2C_P",
@@ -9962,7 +10281,6 @@
         "H35": "FMC_LA_N_30",
         "H36": "GND",
         "H37": "FMC_LA_P_32",
-        "H38": "FMC_LA_N_32",
         "H39": "GND",
         "H40": "PVADJ",
         "C1": "GND",
@@ -9995,6 +10313,8 @@
         "C32": "GND",
         "C33": "GND",
         "C34": "FMC_GA_0",
+        "C35": "N196598_FMC",
+        "C37": "N196598_FMC",
         "C36": "GND",
         "C38": "GND",
         "C39": "P3V3",
@@ -10172,10 +10492,10 @@
         "G34": "FMC_LA_N_31",
         "G35": "GND",
         "G36": "FMC_LA_P_33",
-        "G37": "FMC_LA_N_33",
         "G38": "GND",
         "G39": "PVADJ",
         "G40": "GND",
+        "K1": "N196597_FMC",
         "K2": "GND",
         "K3": "GND",
         "K4": "FMC_CLK2_BIDIR_P",
@@ -10846,23 +11166,23 @@
         "C1": "LL_LL_WW_DATA_N_7_QUAD ANEMONE",
         "M4": "LL_LL_WW_DATA_N_7_QUAD ANEMONE",
         "F1": "LL_LL_WW_LCLK_P_QUAD ANEMONE",
-        "G1": "LL_LL_WW_LCLK_P_QUAD ANEMONE",
+        "G1": "LL_LL_WW_LCLK_N_QUAD ANEMONE",
         "M1": "LL_LL_WW_LCLK_P_QUAD ANEMONE",
-        "N1": "LL_LL_WW_LCLK_P_QUAD ANEMONE",
+        "N1": "LL_LL_WW_LCLK_N_QUAD ANEMONE",
         "J4": "LL_LL_WW_FRAME_P_QUAD ANEMONE",
-        "K4": "LL_LL_WW_FRAME_P_QUAD ANEMONE",
+        "K4": "LL_LL_WW_FRAME_N_QUAD ANEMONE",
         "L2": "LL_LL_WW_FRAME_P_QUAD ANEMONE",
-        "M2": "LL_LL_WW_FRAME_P_QUAD ANEMONE",
-        "K3": "LL_LL_WW_WR_WAIT_N_QUAD ANEMONE",
+        "M2": "LL_LL_WW_FRAME_N_QUAD ANEMONE",
+        "K3": "LL_LL_WW_WR_WAIT_P_QUAD ANEMONE",
         "L3": "LL_LL_WW_WR_WAIT_N_QUAD ANEMONE",
         "H3": "LL_LL_WW_WR_WAIT_P_QUAD ANEMONE",
-        "J3": "LL_LL_WW_WR_WAIT_P_QUAD ANEMONE",
+        "J3": "LL_LL_WW_WR_WAIT_N_QUAD ANEMONE",
         "J1": "LL_CCLK_P",
-        "K1": "LL_CCLK_P",
+        "K1": "LL_CCLK_N",
         "J2": "LL_LL_WW_RD_WAIT_P_QUAD ANEMONE",
-        "K2": "LL_LL_WW_RD_WAIT_P_QUAD ANEMONE",
+        "K2": "LL_LL_WW_RD_WAIT_N_QUAD ANEMONE",
         "G2": "LL_LL_WW_RD_WAIT_P_QUAD ANEMONE",
-        "H2": "LL_LL_WW_RD_WAIT_P_QUAD ANEMONE",
+        "H2": "LL_LL_WW_RD_WAIT_N_QUAD ANEMONE",
         "T17": "LR_LL_WE_DATA_P_1_QUAD ANEMONE",
         "R17": "LR_LL_WE_DATA_N_1_QUAD ANEMONE",
         "J18": "N6963102_QUAD ANEMONE_DSP LL",
@@ -10888,21 +11208,21 @@
         "R18": "LR_LL_WE_DATA_P_4_QUAD ANEMONE",
         "N15": "LR_LL_WE_DATA_N_3_QUAD ANEMONE",
         "P18": "LR_LL_WE_DATA_N_4_QUAD ANEMONE",
-        "G18": "LL_LR_EW_LCLK_N_QUAD ANEMONE",
+        "G18": "LL_LR_EW_LCLK_P_QUAD ANEMONE",
         "F18": "LL_LR_EW_LCLK_N_QUAD ANEMONE",
         "N18": "LR_LL_WE_LCLK_P_QUAD ANEMONE",
-        "M18": "LR_LL_WE_LCLK_P_QUAD ANEMONE",
-        "K15": "LL_LR_EW_FRAME_N_QUAD ANEMONE",
+        "M18": "LR_LL_WE_LCLK_N_QUAD ANEMONE",
+        "K15": "LL_LR_EW_FRAME_P_QUAD ANEMONE",
         "J15": "LL_LR_EW_FRAME_N_QUAD ANEMONE",
         "M17": "LR_LL_WE_FRAME_P_QUAD ANEMONE",
-        "L17": "LR_LL_WE_FRAME_P_QUAD ANEMONE",
+        "L17": "LR_LL_WE_FRAME_N_QUAD ANEMONE",
         "K17": "LR_LL_WE_RD_WAIT_P_QUAD ANEMONE",
-        "J17": "LR_LL_WE_RD_WAIT_P_QUAD ANEMONE",
+        "J17": "LR_LL_WE_RD_WAIT_N_QUAD ANEMONE",
         "H17": "LL_LR_EW_RD_WAIT_P_QUAD ANEMONE",
-        "G17": "LL_LR_EW_RD_WAIT_P_QUAD ANEMONE",
-        "J16": "LL_LR_EW_WR_WAIT_N_QUAD ANEMONE",
+        "G17": "LL_LR_EW_RD_WAIT_N_QUAD ANEMONE",
+        "J16": "LL_LR_EW_WR_WAIT_P_QUAD ANEMONE",
         "H16": "LL_LR_EW_WR_WAIT_N_QUAD ANEMONE",
-        "L16": "LR_LL_WE_WR_WAIT_N_QUAD ANEMONE",
+        "L16": "LR_LL_WE_WR_WAIT_P_QUAD ANEMONE",
         "K16": "LR_LL_WE_WR_WAIT_N_QUAD ANEMONE",
         "D8": "UL_LL_SN_DATA_P_7_QUAD ANEMONE",
         "D7": "UL_LL_SN_DATA_N_7_QUAD ANEMONE",
@@ -10943,23 +11263,23 @@
         "V5": "UL_LL_NS_DATA_N_4_QUAD ANEMONE",
         "R8": "UL_LL_NS_DATA_N_7_QUAD ANEMONE",
         "V12": "LL_UL_SN_LCLK_P_QUAD ANEMONE",
-        "V13": "LL_UL_SN_LCLK_P_QUAD ANEMONE",
-        "V6": "UL_LL_NS_LCLK_N_QUAD ANEMONE",
+        "V13": "LL_UL_SN_LCLK_N_QUAD ANEMONE",
+        "V6": "UL_LL_NS_LCLK_P_QUAD ANEMONE",
         "V7": "UL_LL_NS_LCLK_N_QUAD ANEMONE",
-        "R9": "LL_UL_SN_FRAME_N_QUAD ANEMONE",
+        "R9": "LL_UL_SN_FRAME_P_QUAD ANEMONE",
         "R10": "LL_UL_SN_FRAME_N_QUAD ANEMONE",
         "U7": "UL_LL_NS_FRAME_P_QUAD ANEMONE",
-        "U8": "UL_LL_NS_FRAME_P_QUAD ANEMONE",
-        "U9": "UL_LL_NS_RD_WAIT_N_QUAD ANEMONE",
+        "U8": "UL_LL_NS_FRAME_N_QUAD ANEMONE",
+        "U9": "UL_LL_NS_RD_WAIT_P_QUAD ANEMONE",
         "U10": "UL_LL_NS_RD_WAIT_N_QUAD ANEMONE",
         "U11": "LL_UL_SN_RD_WAIT_P_QUAD ANEMONE",
-        "U12": "LL_UL_SN_RD_WAIT_P_QUAD ANEMONE",
+        "U12": "LL_UL_SN_RD_WAIT_N_QUAD ANEMONE",
         "V9": "N6941990_QUAD ANEMONE_DSP LL",
         "V10": "N6941986_QUAD ANEMONE_DSP LL",
-        "T8": "UL_LL_NS_WR_WAIT_N_QUAD ANEMONE",
+        "T8": "UL_LL_NS_WR_WAIT_P_QUAD ANEMONE",
         "T9": "UL_LL_NS_WR_WAIT_N_QUAD ANEMONE",
         "T10": "LL_UL_SN_WR_WAIT_P_QUAD ANEMONE",
-        "T11": "LL_UL_SN_WR_WAIT_P_QUAD ANEMONE",
+        "T11": "LL_UL_SN_WR_WAIT_N_QUAD ANEMONE",
         "D6": "UL_LL_SN_DATA_P_3_QUAD ANEMONE",
         "D5": "UL_LL_SN_DATA_N_3_QUAD ANEMONE",
         "A5": "UL_LL_SN_DATA_P_4_QUAD ANEMONE",
@@ -10988,22 +11308,22 @@
         "C14": "LL_UL_NS_DATA_N_5_QUAD ANEMONE",
         "B15": "LL_UL_NS_DATA_N_6_QUAD ANEMONE",
         "A16": "LL_UL_NS_DATA_N_7_QUAD ANEMONE",
-        "A13": "LL_UL_NS_LCLK_N_QUAD ANEMONE",
+        "A13": "LL_UL_NS_LCLK_P_QUAD ANEMONE",
         "A12": "LL_UL_NS_LCLK_N_QUAD ANEMONE",
-        "A7": "UL_LL_SN_LCLK_N_QUAD ANEMONE",
+        "A7": "UL_LL_SN_LCLK_P_QUAD ANEMONE",
         "A6": "UL_LL_SN_LCLK_N_QUAD ANEMONE",
         "D10": "LL_UL_NS_FRAME_P_QUAD ANEMONE",
-        "D9": "LL_UL_NS_FRAME_P_QUAD ANEMONE",
+        "D9": "LL_UL_NS_FRAME_N_QUAD ANEMONE",
         "B8": "UL_LL_SN_FRAME_P_QUAD ANEMONE",
-        "B7": "UL_LL_SN_FRAME_P_QUAD ANEMONE",
-        "B10": "UL_LL_SN_RD_WAIT_N_QUAD ANEMONE",
+        "B7": "UL_LL_SN_FRAME_N_QUAD ANEMONE",
+        "B10": "UL_LL_SN_RD_WAIT_P_QUAD ANEMONE",
         "B9": "UL_LL_SN_RD_WAIT_N_QUAD ANEMONE",
-        "B12": "LL_UL_NS_RD_WAIT_N_QUAD ANEMONE",
+        "B12": "LL_UL_NS_RD_WAIT_P_QUAD ANEMONE",
         "B11": "LL_UL_NS_RD_WAIT_N_QUAD ANEMONE",
         "C9": "UL_LL_SN_WR_WAIT_P_QUAD ANEMONE",
-        "C8": "UL_LL_SN_WR_WAIT_P_QUAD ANEMONE",
+        "C8": "UL_LL_SN_WR_WAIT_N_QUAD ANEMONE",
         "C11": "LL_UL_NS_WR_WAIT_P_QUAD ANEMONE",
-        "C10": "LL_UL_NS_WR_WAIT_P_QUAD ANEMONE"
+        "C10": "LL_UL_NS_WR_WAIT_N_QUAD ANEMONE"
       },
       "description": "Processor, Adapteva, 16-core DSP, 324-pin 0.8mm BGA"
     },
@@ -11806,7 +12126,7 @@
     "U8": {
       "value": "UPRD-0002",
       "pins": {
-        "G18": "LR_TXO_EA_LCLK_N",
+        "G18": "LR_TXO_EA_LCLK_P",
         "F18": "LR_TXO_EA_LCLK_N",
         "E18": "LR_TXO_EA_DATA_P_3",
         "D18": "LR_TXO_EA_DATA_N_3",
@@ -11822,38 +12142,38 @@
         "E17": "LR_TXO_EA_DATA_N_2",
         "D17": "LR_TXO_EA_DATA_P_6",
         "C17": "LR_TXO_EA_DATA_N_6",
-        "J16": "LR_TXI_EA_WR_WAIT_N",
+        "J16": "LR_TXI_EA_WR_WAIT_P",
         "H16": "LR_TXI_EA_WR_WAIT_N",
         "U18": "LR_RXI_EA_DATA_P_0",
         "T18": "LR_RXI_EA_DATA_N_0",
         "N16": "LR_RXI_EA_DATA_P_6",
         "M16": "LR_RXI_EA_DATA_N_6",
-        "L16": "LR_RXO_EA_WR_WAIT_N",
+        "L16": "LR_RXO_EA_WR_WAIT_P",
         "K16": "LR_RXO_EA_WR_WAIT_N",
         "G16": "LR_TXO_EA_DATA_P_1",
         "F16": "LR_TXO_EA_DATA_N_1",
         "E16": "LR_TXO_EA_DATA_P_5",
         "D16": "LR_TXO_EA_DATA_N_5",
         "H17": "LR_TXI_EA_RD_WAIT_P",
-        "G17": "LR_TXI_EA_RD_WAIT_P",
+        "G17": "LR_TXI_EA_RD_WAIT_N",
         "N18": "LR_RXI_EA_LCLK_P",
-        "M18": "LR_RXI_EA_LCLK_P",
+        "M18": "LR_RXI_EA_LCLK_N",
         "P17": "LR_RXI_EA_DATA_P_5",
         "N17": "LR_RXI_EA_DATA_N_5",
         "K17": "LR_RXO_EA_RD_WAIT_P",
-        "J17": "LR_RXO_EA_RD_WAIT_P",
+        "J17": "LR_RXO_EA_RD_WAIT_N",
         "H15": "LR_TXO_EA_DATA_P_0",
         "G15": "LR_TXO_EA_DATA_N_0",
         "F15": "LR_TXO_EA_DATA_P_4",
         "E15": "LR_TXO_EA_DATA_N_4",
-        "K15": "LR_TXO_EA_FRAME_N",
+        "K15": "LR_TXO_EA_FRAME_P",
         "J15": "LR_TXO_EA_FRAME_N",
         "R16": "LR_RXI_EA_DATA_P_2",
         "P16": "LR_RXI_EA_DATA_N_2",
         "R18": "LR_RXI_EA_DATA_P_4",
         "P18": "LR_RXI_EA_DATA_N_4",
         "M17": "LR_RXI_EA_FRAME_P",
-        "L17": "LR_RXI_EA_FRAME_P",
+        "L17": "LR_RXI_EA_FRAME_N",
         "D3": "LR_LL_WE_DATA_P_5_QUAD ANEMONE",
         "E3": "LR_LL_WE_DATA_N_5_QUAD ANEMONE",
         "C2": "LR_LL_WE_DATA_P_6_QUAD ANEMONE",
@@ -11886,16 +12206,22 @@
         "E4": "LR_LL_WE_DATA_P_4_QUAD ANEMONE",
         "E1": "LR_LL_WE_DATA_N_3_QUAD ANEMONE",
         "F4": "LR_LL_WE_DATA_N_4_QUAD ANEMONE",
+        "M1": "LL_LR_EW_LCLK_P_QUAD ANEMONE",
+        "N1": "LL_LR_EW_LCLK_N_QUAD ANEMONE",
         "F1": "LR_LL_WE_LCLK_P_QUAD ANEMONE",
-        "G1": "LR_LL_WE_LCLK_P_QUAD ANEMONE",
+        "G1": "LR_LL_WE_LCLK_N_QUAD ANEMONE",
+        "L2": "LL_LR_EW_FRAME_P_QUAD ANEMONE",
+        "M2": "LL_LR_EW_FRAME_N_QUAD ANEMONE",
         "J4": "LR_LL_WE_FRAME_P_QUAD ANEMONE",
-        "K4": "LR_LL_WE_FRAME_P_QUAD ANEMONE",
+        "K4": "LR_LL_WE_FRAME_N_QUAD ANEMONE",
         "G2": "LR_LL_WE_RD_WAIT_P_QUAD ANEMONE",
-        "H2": "LR_LL_WE_RD_WAIT_P_QUAD ANEMONE",
+        "H2": "LR_LL_WE_RD_WAIT_N_QUAD ANEMONE",
         "J2": "LL_LR_EW_RD_WAIT_P_QUAD ANEMONE",
-        "K2": "LL_LR_EW_RD_WAIT_P_QUAD ANEMONE",
-        "K3": "LL_LR_EW_WR_WAIT_N_QUAD ANEMONE",
+        "K2": "LL_LR_EW_RD_WAIT_N_QUAD ANEMONE",
+        "K3": "LL_LR_EW_WR_WAIT_P_QUAD ANEMONE",
         "L3": "LL_LR_EW_WR_WAIT_N_QUAD ANEMONE",
+        "H3": "LR_LL_WE_WR_WAIT_P_QUAD ANEMONE",
+        "J3": "LR_LL_WE_WR_WAIT_N_QUAD ANEMONE",
         "G5": {
           "name": "DVDD#G5",
           "net": "P2V5"
@@ -12363,14 +12689,8 @@
         "E8": "LR_SCLKI_XID1",
         "E11": "LR_SCLKO_YID1",
         "K18": "N6963106_QUAD ANEMONE_DSP LR",
-        "M1": "LL_LR_EW_LCLK_P_QUAD ANEMONE",
-        "N1": "LL_LR_EW_LCLK_P_QUAD ANEMONE",
-        "L2": "LL_LR_EW_FRAME_P_QUAD ANEMONE",
-        "M2": "LL_LR_EW_FRAME_P_QUAD ANEMONE",
-        "H3": "LR_LL_WE_WR_WAIT_P_QUAD ANEMONE",
-        "J3": "LR_LL_WE_WR_WAIT_P_QUAD ANEMONE",
         "J1": "LR_CCLK_P",
-        "K1": "LR_CCLK_P",
+        "K1": "LR_CCLK_N",
         "J18": "N6963102_QUAD ANEMONE_DSP LR",
         "D8": "UR_LR_SN_DATA_P_7_QUAD ANEMONE",
         "D7": "UR_LR_SN_DATA_N_7_QUAD ANEMONE",
@@ -12411,23 +12731,23 @@
         "V5": "UR_LR_NS_DATA_N_4_QUAD ANEMONE",
         "R8": "UR_LR_NS_DATA_N_7_QUAD ANEMONE",
         "V12": "LR_UR_SN_LCLK_P_QUAD ANEMONE",
-        "V13": "LR_UR_SN_LCLK_P_QUAD ANEMONE",
-        "V6": "UR_LR_NS_LCLK_N_QUAD ANEMONE",
+        "V13": "LR_UR_SN_LCLK_N_QUAD ANEMONE",
+        "V6": "UR_LR_NS_LCLK_P_QUAD ANEMONE",
         "V7": "UR_LR_NS_LCLK_N_QUAD ANEMONE",
-        "R9": "LR_UR_SN_FRAME_N_QUAD ANEMONE",
+        "R9": "LR_UR_SN_FRAME_P_QUAD ANEMONE",
         "R10": "LR_UR_SN_FRAME_N_QUAD ANEMONE",
         "U7": "UR_LR_NS_FRAME_P_QUAD ANEMONE",
-        "U8": "UR_LR_NS_FRAME_P_QUAD ANEMONE",
-        "U9": "UR_LR_NS_RD_WAIT_N_QUAD ANEMONE",
+        "U8": "UR_LR_NS_FRAME_N_QUAD ANEMONE",
+        "U9": "UR_LR_NS_RD_WAIT_P_QUAD ANEMONE",
         "U10": "UR_LR_NS_RD_WAIT_N_QUAD ANEMONE",
         "U11": "LR_UR_SN_RD_WAIT_P_QUAD ANEMONE",
-        "U12": "LR_UR_SN_RD_WAIT_P_QUAD ANEMONE",
+        "U12": "LR_UR_SN_RD_WAIT_N_QUAD ANEMONE",
         "V9": "N6941990_QUAD ANEMONE_DSP LR",
         "V10": "N6941986_QUAD ANEMONE_DSP LR",
-        "T8": "UR_LR_NS_WR_WAIT_N_QUAD ANEMONE",
+        "T8": "UR_LR_NS_WR_WAIT_P_QUAD ANEMONE",
         "T9": "UR_LR_NS_WR_WAIT_N_QUAD ANEMONE",
         "T10": "LR_UR_SN_WR_WAIT_P_QUAD ANEMONE",
-        "T11": "LR_UR_SN_WR_WAIT_P_QUAD ANEMONE",
+        "T11": "LR_UR_SN_WR_WAIT_N_QUAD ANEMONE",
         "D6": "UR_LR_SN_DATA_P_3_QUAD ANEMONE",
         "D5": "UR_LR_SN_DATA_N_3_QUAD ANEMONE",
         "A5": "UR_LR_SN_DATA_P_4_QUAD ANEMONE",
@@ -12456,22 +12776,22 @@
         "C14": "LR_UR_NS_DATA_N_5_QUAD ANEMONE",
         "B15": "LR_UR_NS_DATA_N_6_QUAD ANEMONE",
         "A16": "LR_UR_NS_DATA_N_7_QUAD ANEMONE",
-        "A13": "LR_UR_NS_LCLK_N_QUAD ANEMONE",
+        "A13": "LR_UR_NS_LCLK_P_QUAD ANEMONE",
         "A12": "LR_UR_NS_LCLK_N_QUAD ANEMONE",
-        "A7": "UR_LR_SN_LCLK_N_QUAD ANEMONE",
+        "A7": "UR_LR_SN_LCLK_P_QUAD ANEMONE",
         "A6": "UR_LR_SN_LCLK_N_QUAD ANEMONE",
         "D10": "LR_UR_NS_FRAME_P_QUAD ANEMONE",
-        "D9": "LR_UR_NS_FRAME_P_QUAD ANEMONE",
+        "D9": "LR_UR_NS_FRAME_N_QUAD ANEMONE",
         "B8": "UR_LR_SN_FRAME_P_QUAD ANEMONE",
-        "B7": "UR_LR_SN_FRAME_P_QUAD ANEMONE",
-        "B10": "UR_LR_SN_RD_WAIT_N_QUAD ANEMONE",
+        "B7": "UR_LR_SN_FRAME_N_QUAD ANEMONE",
+        "B10": "UR_LR_SN_RD_WAIT_P_QUAD ANEMONE",
         "B9": "UR_LR_SN_RD_WAIT_N_QUAD ANEMONE",
-        "B12": "LR_UR_NS_RD_WAIT_N_QUAD ANEMONE",
+        "B12": "LR_UR_NS_RD_WAIT_P_QUAD ANEMONE",
         "B11": "LR_UR_NS_RD_WAIT_N_QUAD ANEMONE",
         "C9": "UR_LR_SN_WR_WAIT_P_QUAD ANEMONE",
-        "C8": "UR_LR_SN_WR_WAIT_P_QUAD ANEMONE",
+        "C8": "UR_LR_SN_WR_WAIT_N_QUAD ANEMONE",
         "C11": "LR_UR_NS_WR_WAIT_P_QUAD ANEMONE",
-        "C10": "LR_UR_NS_WR_WAIT_P_QUAD ANEMONE"
+        "C10": "LR_UR_NS_WR_WAIT_N_QUAD ANEMONE"
       },
       "description": "Processor, Adapteva, 16-core DSP, 324-pin 0.8mm BGA"
     },
@@ -13782,23 +14102,23 @@
         "C1": "UL_UL_WW_DATA_N_7_QUAD ANEMONE",
         "M4": "UL_UL_WW_DATA_N_7_QUAD ANEMONE",
         "F1": "UL_UL_WW_LCLK_P_QUAD ANEMONE",
-        "G1": "UL_UL_WW_LCLK_P_QUAD ANEMONE",
+        "G1": "UL_UL_WW_LCLK_N_QUAD ANEMONE",
         "M1": "UL_UL_WW_LCLK_P_QUAD ANEMONE",
-        "N1": "UL_UL_WW_LCLK_P_QUAD ANEMONE",
+        "N1": "UL_UL_WW_LCLK_N_QUAD ANEMONE",
         "J4": "UL_UL_WW_FRAME_P_QUAD ANEMONE",
-        "K4": "UL_UL_WW_FRAME_P_QUAD ANEMONE",
+        "K4": "UL_UL_WW_FRAME_N_QUAD ANEMONE",
         "L2": "UL_UL_WW_FRAME_P_QUAD ANEMONE",
-        "M2": "UL_UL_WW_FRAME_P_QUAD ANEMONE",
-        "K3": "UL_UL_WW_WR_WAIT_N_QUAD ANEMONE",
+        "M2": "UL_UL_WW_FRAME_N_QUAD ANEMONE",
+        "K3": "UL_UL_WW_WR_WAIT_P_QUAD ANEMONE",
         "L3": "UL_UL_WW_WR_WAIT_N_QUAD ANEMONE",
         "H3": "UL_UL_WW_WR_WAIT_P_QUAD ANEMONE",
-        "J3": "UL_UL_WW_WR_WAIT_P_QUAD ANEMONE",
+        "J3": "UL_UL_WW_WR_WAIT_N_QUAD ANEMONE",
         "J1": "UL_CCLK_P",
-        "K1": "UL_CCLK_P",
+        "K1": "UL_CCLK_N",
         "J2": "UL_UL_WW_RD_WAIT_P_QUAD ANEMONE",
-        "K2": "UL_UL_WW_RD_WAIT_P_QUAD ANEMONE",
+        "K2": "UL_UL_WW_RD_WAIT_N_QUAD ANEMONE",
         "G2": "UL_UL_WW_RD_WAIT_P_QUAD ANEMONE",
-        "H2": "UL_UL_WW_RD_WAIT_P_QUAD ANEMONE",
+        "H2": "UL_UL_WW_RD_WAIT_N_QUAD ANEMONE",
         "T17": "UR_UL_WE_DATA_P_1_QUAD ANEMONE",
         "R17": "UR_UL_WE_DATA_N_1_QUAD ANEMONE",
         "J18": "N6963102_QUAD ANEMONE_DSP UL",
@@ -13824,21 +14144,21 @@
         "R18": "UR_UL_WE_DATA_P_4_QUAD ANEMONE",
         "N15": "UR_UL_WE_DATA_N_3_QUAD ANEMONE",
         "P18": "UR_UL_WE_DATA_N_4_QUAD ANEMONE",
-        "G18": "UL_UR_EW_LCLK_N_QUAD ANEMONE",
+        "G18": "UL_UR_EW_LCLK_P_QUAD ANEMONE",
         "F18": "UL_UR_EW_LCLK_N_QUAD ANEMONE",
         "N18": "UR_UL_WE_LCLK_P_QUAD ANEMONE",
-        "M18": "UR_UL_WE_LCLK_P_QUAD ANEMONE",
-        "K15": "UL_UR_EW_FRAME_N_QUAD ANEMONE",
+        "M18": "UR_UL_WE_LCLK_N_QUAD ANEMONE",
+        "K15": "UL_UR_EW_FRAME_P_QUAD ANEMONE",
         "J15": "UL_UR_EW_FRAME_N_QUAD ANEMONE",
         "M17": "UR_UL_WE_FRAME_P_QUAD ANEMONE",
-        "L17": "UR_UL_WE_FRAME_P_QUAD ANEMONE",
+        "L17": "UR_UL_WE_FRAME_N_QUAD ANEMONE",
         "K17": "UR_UL_WE_RD_WAIT_P_QUAD ANEMONE",
-        "J17": "UR_UL_WE_RD_WAIT_P_QUAD ANEMONE",
+        "J17": "UR_UL_WE_RD_WAIT_N_QUAD ANEMONE",
         "H17": "UL_UR_EW_RD_WAIT_P_QUAD ANEMONE",
-        "G17": "UL_UR_EW_RD_WAIT_P_QUAD ANEMONE",
-        "J16": "UL_UR_EW_WR_WAIT_N_QUAD ANEMONE",
+        "G17": "UL_UR_EW_RD_WAIT_N_QUAD ANEMONE",
+        "J16": "UL_UR_EW_WR_WAIT_P_QUAD ANEMONE",
         "H16": "UL_UR_EW_WR_WAIT_N_QUAD ANEMONE",
-        "L16": "UR_UL_WE_WR_WAIT_N_QUAD ANEMONE",
+        "L16": "UR_UL_WE_WR_WAIT_P_QUAD ANEMONE",
         "K16": "UR_UL_WE_WR_WAIT_N_QUAD ANEMONE",
         "D8": "LL_UL_SN_DATA_P_7_QUAD ANEMONE",
         "D7": "LL_UL_SN_DATA_N_7_QUAD ANEMONE",
@@ -13879,23 +14199,23 @@
         "V5": "LL_UL_NS_DATA_N_4_QUAD ANEMONE",
         "R8": "LL_UL_NS_DATA_N_7_QUAD ANEMONE",
         "V12": "UL_LL_SN_LCLK_P_QUAD ANEMONE",
-        "V13": "UL_LL_SN_LCLK_P_QUAD ANEMONE",
-        "V6": "LL_UL_NS_LCLK_N_QUAD ANEMONE",
+        "V13": "UL_LL_SN_LCLK_N_QUAD ANEMONE",
+        "V6": "LL_UL_NS_LCLK_P_QUAD ANEMONE",
         "V7": "LL_UL_NS_LCLK_N_QUAD ANEMONE",
-        "R9": "UL_LL_SN_FRAME_N_QUAD ANEMONE",
+        "R9": "UL_LL_SN_FRAME_P_QUAD ANEMONE",
         "R10": "UL_LL_SN_FRAME_N_QUAD ANEMONE",
         "U7": "LL_UL_NS_FRAME_P_QUAD ANEMONE",
-        "U8": "LL_UL_NS_FRAME_P_QUAD ANEMONE",
-        "U9": "LL_UL_NS_RD_WAIT_N_QUAD ANEMONE",
+        "U8": "LL_UL_NS_FRAME_N_QUAD ANEMONE",
+        "U9": "LL_UL_NS_RD_WAIT_P_QUAD ANEMONE",
         "U10": "LL_UL_NS_RD_WAIT_N_QUAD ANEMONE",
         "U11": "UL_LL_SN_RD_WAIT_P_QUAD ANEMONE",
-        "U12": "UL_LL_SN_RD_WAIT_P_QUAD ANEMONE",
+        "U12": "UL_LL_SN_RD_WAIT_N_QUAD ANEMONE",
         "V9": "N6941990_QUAD ANEMONE_DSP UL",
         "V10": "N6941986_QUAD ANEMONE_DSP UL",
-        "T8": "LL_UL_NS_WR_WAIT_N_QUAD ANEMONE",
+        "T8": "LL_UL_NS_WR_WAIT_P_QUAD ANEMONE",
         "T9": "LL_UL_NS_WR_WAIT_N_QUAD ANEMONE",
         "T10": "UL_LL_SN_WR_WAIT_P_QUAD ANEMONE",
-        "T11": "UL_LL_SN_WR_WAIT_P_QUAD ANEMONE",
+        "T11": "UL_LL_SN_WR_WAIT_N_QUAD ANEMONE",
         "D6": "LL_UL_SN_DATA_P_3_QUAD ANEMONE",
         "D5": "LL_UL_SN_DATA_N_3_QUAD ANEMONE",
         "A5": "LL_UL_SN_DATA_P_4_QUAD ANEMONE",
@@ -13924,22 +14244,22 @@
         "C14": "UL_LL_NS_DATA_N_5_QUAD ANEMONE",
         "B15": "UL_LL_NS_DATA_N_6_QUAD ANEMONE",
         "A16": "UL_LL_NS_DATA_N_7_QUAD ANEMONE",
-        "A13": "UL_LL_NS_LCLK_N_QUAD ANEMONE",
+        "A13": "UL_LL_NS_LCLK_P_QUAD ANEMONE",
         "A12": "UL_LL_NS_LCLK_N_QUAD ANEMONE",
-        "A7": "LL_UL_SN_LCLK_N_QUAD ANEMONE",
+        "A7": "LL_UL_SN_LCLK_P_QUAD ANEMONE",
         "A6": "LL_UL_SN_LCLK_N_QUAD ANEMONE",
         "D10": "UL_LL_NS_FRAME_P_QUAD ANEMONE",
-        "D9": "UL_LL_NS_FRAME_P_QUAD ANEMONE",
+        "D9": "UL_LL_NS_FRAME_N_QUAD ANEMONE",
         "B8": "LL_UL_SN_FRAME_P_QUAD ANEMONE",
-        "B7": "LL_UL_SN_FRAME_P_QUAD ANEMONE",
-        "B10": "LL_UL_SN_RD_WAIT_N_QUAD ANEMONE",
+        "B7": "LL_UL_SN_FRAME_N_QUAD ANEMONE",
+        "B10": "LL_UL_SN_RD_WAIT_P_QUAD ANEMONE",
         "B9": "LL_UL_SN_RD_WAIT_N_QUAD ANEMONE",
-        "B12": "UL_LL_NS_RD_WAIT_N_QUAD ANEMONE",
+        "B12": "UL_LL_NS_RD_WAIT_P_QUAD ANEMONE",
         "B11": "UL_LL_NS_RD_WAIT_N_QUAD ANEMONE",
         "C9": "LL_UL_SN_WR_WAIT_P_QUAD ANEMONE",
-        "C8": "LL_UL_SN_WR_WAIT_P_QUAD ANEMONE",
+        "C8": "LL_UL_SN_WR_WAIT_N_QUAD ANEMONE",
         "C11": "UL_LL_NS_WR_WAIT_P_QUAD ANEMONE",
-        "C10": "UL_LL_NS_WR_WAIT_P_QUAD ANEMONE"
+        "C10": "UL_LL_NS_WR_WAIT_N_QUAD ANEMONE"
       },
       "description": "Processor, Adapteva, 16-core DSP, 324-pin 0.8mm BGA"
     },
@@ -14748,7 +15068,7 @@
         "D18": "UR_TXO_EA_DATA_N_3",
         "D17": "UR_TXO_EA_DATA_P_6",
         "C17": "UR_TXO_EA_DATA_N_6",
-        "J16": "UR_TXI_EA_WR_WAIT_N",
+        "J16": "UR_TXI_EA_WR_WAIT_P",
         "H16": "UR_TXI_EA_WR_WAIT_N",
         "T17": "UR_RXI_EA_DATA_P_1",
         "R17": "UR_RXI_EA_DATA_N_1",
@@ -14756,29 +15076,29 @@
         "N15": "UR_RXI_EA_DATA_N_3",
         "N16": "UR_RXI_EA_DATA_P_6",
         "M16": "UR_RXI_EA_DATA_N_6",
-        "L16": "UR_RXO_EA_WR_WAIT_N",
+        "L16": "UR_RXO_EA_WR_WAIT_P",
         "K16": "UR_RXO_EA_WR_WAIT_N",
         "E16": "UR_TXO_EA_DATA_P_5",
         "D16": "UR_TXO_EA_DATA_N_5",
         "H17": "UR_TXI_EA_RD_WAIT_P",
-        "G17": "UR_TXI_EA_RD_WAIT_P",
+        "G17": "UR_TXI_EA_RD_WAIT_N",
         "U18": "UR_RXI_EA_DATA_P_0",
         "T18": "UR_RXI_EA_DATA_N_0",
         "K17": "UR_RXO_EA_RD_WAIT_P",
-        "J17": "UR_RXO_EA_RD_WAIT_P",
+        "J17": "UR_RXO_EA_RD_WAIT_N",
         "H15": "UR_TXO_EA_DATA_P_0",
         "G15": "UR_TXO_EA_DATA_N_0",
         "F15": "UR_TXO_EA_DATA_P_4",
         "E15": "UR_TXO_EA_DATA_N_4",
-        "K15": "UR_TXO_EA_FRAME_N",
+        "K15": "UR_TXO_EA_FRAME_P",
         "J15": "UR_TXO_EA_FRAME_N",
         "N18": "UR_RXI_EA_LCLK_P",
-        "M18": "UR_RXI_EA_LCLK_P",
+        "M18": "UR_RXI_EA_LCLK_N",
         "P17": "UR_RXI_EA_DATA_P_5",
         "N17": "UR_RXI_EA_DATA_N_5",
         "M17": "UR_RXI_EA_FRAME_P",
-        "L17": "UR_RXI_EA_FRAME_P",
-        "G18": "UR_TXO_EA_LCLK_N",
+        "L17": "UR_RXI_EA_FRAME_N",
+        "G18": "UR_TXO_EA_LCLK_P",
         "F18": "UR_TXO_EA_LCLK_N",
         "F17": "UR_TXO_EA_DATA_P_2",
         "E17": "UR_TXO_EA_DATA_N_2",
@@ -14822,14 +15142,18 @@
         "E4": "UR_UL_WE_DATA_P_4_QUAD ANEMONE",
         "E1": "UR_UL_WE_DATA_N_3_QUAD ANEMONE",
         "F4": "UR_UL_WE_DATA_N_4_QUAD ANEMONE",
+        "M1": "UL_UR_EW_LCLK_P_QUAD ANEMONE",
+        "N1": "UL_UR_EW_LCLK_N_QUAD ANEMONE",
         "F1": "UR_UL_WE_LCLK_P_QUAD ANEMONE",
-        "G1": "UR_UL_WE_LCLK_P_QUAD ANEMONE",
+        "G1": "UR_UL_WE_LCLK_N_QUAD ANEMONE",
         "G2": "UR_UL_WE_RD_WAIT_P_QUAD ANEMONE",
-        "H2": "UR_UL_WE_RD_WAIT_P_QUAD ANEMONE",
+        "H2": "UR_UL_WE_RD_WAIT_N_QUAD ANEMONE",
         "J2": "UL_UR_EW_RD_WAIT_P_QUAD ANEMONE",
-        "K2": "UL_UR_EW_RD_WAIT_P_QUAD ANEMONE",
-        "K3": "UL_UR_EW_WR_WAIT_N_QUAD ANEMONE",
+        "K2": "UL_UR_EW_RD_WAIT_N_QUAD ANEMONE",
+        "K3": "UL_UR_EW_WR_WAIT_P_QUAD ANEMONE",
         "L3": "UL_UR_EW_WR_WAIT_N_QUAD ANEMONE",
+        "H3": "UR_UL_WE_WR_WAIT_P_QUAD ANEMONE",
+        "J3": "UR_UL_WE_WR_WAIT_N_QUAD ANEMONE",
         "G5": {
           "name": "DVDD#G5",
           "net": "P2V5"
@@ -15297,16 +15621,12 @@
         "E8": "UR_SCLKI_XID1",
         "E11": "UR_SCLKO_YID1",
         "K18": "N6963106_QUAD ANEMONE_DSP UR",
-        "M1": "UL_UR_EW_LCLK_P_QUAD ANEMONE",
-        "N1": "UL_UR_EW_LCLK_P_QUAD ANEMONE",
         "J4": "UR_UL_WE_FRAME_P_QUAD ANEMONE",
-        "K4": "UR_UL_WE_FRAME_P_QUAD ANEMONE",
+        "K4": "UR_UL_WE_FRAME_N_QUAD ANEMONE",
         "L2": "UL_UR_EW_FRAME_P_QUAD ANEMONE",
-        "M2": "UL_UR_EW_FRAME_P_QUAD ANEMONE",
-        "H3": "UR_UL_WE_WR_WAIT_P_QUAD ANEMONE",
-        "J3": "UR_UL_WE_WR_WAIT_P_QUAD ANEMONE",
+        "M2": "UL_UR_EW_FRAME_N_QUAD ANEMONE",
         "J1": "UR_CCLK_P",
-        "K1": "UR_CCLK_P",
+        "K1": "UR_CCLK_N",
         "J18": "N6963102_QUAD ANEMONE_DSP UR",
         "D8": "LR_UR_SN_DATA_P_7_QUAD ANEMONE",
         "D7": "LR_UR_SN_DATA_N_7_QUAD ANEMONE",
@@ -15347,23 +15667,23 @@
         "V5": "LR_UR_NS_DATA_N_4_QUAD ANEMONE",
         "R8": "LR_UR_NS_DATA_N_7_QUAD ANEMONE",
         "V12": "UR_LR_SN_LCLK_P_QUAD ANEMONE",
-        "V13": "UR_LR_SN_LCLK_P_QUAD ANEMONE",
-        "V6": "LR_UR_NS_LCLK_N_QUAD ANEMONE",
+        "V13": "UR_LR_SN_LCLK_N_QUAD ANEMONE",
+        "V6": "LR_UR_NS_LCLK_P_QUAD ANEMONE",
         "V7": "LR_UR_NS_LCLK_N_QUAD ANEMONE",
-        "R9": "UR_LR_SN_FRAME_N_QUAD ANEMONE",
+        "R9": "UR_LR_SN_FRAME_P_QUAD ANEMONE",
         "R10": "UR_LR_SN_FRAME_N_QUAD ANEMONE",
         "U7": "LR_UR_NS_FRAME_P_QUAD ANEMONE",
-        "U8": "LR_UR_NS_FRAME_P_QUAD ANEMONE",
-        "U9": "LR_UR_NS_RD_WAIT_N_QUAD ANEMONE",
+        "U8": "LR_UR_NS_FRAME_N_QUAD ANEMONE",
+        "U9": "LR_UR_NS_RD_WAIT_P_QUAD ANEMONE",
         "U10": "LR_UR_NS_RD_WAIT_N_QUAD ANEMONE",
         "U11": "UR_LR_SN_RD_WAIT_P_QUAD ANEMONE",
-        "U12": "UR_LR_SN_RD_WAIT_P_QUAD ANEMONE",
+        "U12": "UR_LR_SN_RD_WAIT_N_QUAD ANEMONE",
         "V9": "N6941990_QUAD ANEMONE_DSP UR",
         "V10": "N6941986_QUAD ANEMONE_DSP UR",
-        "T8": "LR_UR_NS_WR_WAIT_N_QUAD ANEMONE",
+        "T8": "LR_UR_NS_WR_WAIT_P_QUAD ANEMONE",
         "T9": "LR_UR_NS_WR_WAIT_N_QUAD ANEMONE",
         "T10": "UR_LR_SN_WR_WAIT_P_QUAD ANEMONE",
-        "T11": "UR_LR_SN_WR_WAIT_P_QUAD ANEMONE",
+        "T11": "UR_LR_SN_WR_WAIT_N_QUAD ANEMONE",
         "D6": "LR_UR_SN_DATA_P_3_QUAD ANEMONE",
         "D5": "LR_UR_SN_DATA_N_3_QUAD ANEMONE",
         "A5": "LR_UR_SN_DATA_P_4_QUAD ANEMONE",
@@ -15392,22 +15712,22 @@
         "C14": "UR_LR_NS_DATA_N_5_QUAD ANEMONE",
         "B15": "UR_LR_NS_DATA_N_6_QUAD ANEMONE",
         "A16": "UR_LR_NS_DATA_N_7_QUAD ANEMONE",
-        "A13": "UR_LR_NS_LCLK_N_QUAD ANEMONE",
+        "A13": "UR_LR_NS_LCLK_P_QUAD ANEMONE",
         "A12": "UR_LR_NS_LCLK_N_QUAD ANEMONE",
-        "A7": "LR_UR_SN_LCLK_N_QUAD ANEMONE",
+        "A7": "LR_UR_SN_LCLK_P_QUAD ANEMONE",
         "A6": "LR_UR_SN_LCLK_N_QUAD ANEMONE",
         "D10": "UR_LR_NS_FRAME_P_QUAD ANEMONE",
-        "D9": "UR_LR_NS_FRAME_P_QUAD ANEMONE",
+        "D9": "UR_LR_NS_FRAME_N_QUAD ANEMONE",
         "B8": "LR_UR_SN_FRAME_P_QUAD ANEMONE",
-        "B7": "LR_UR_SN_FRAME_P_QUAD ANEMONE",
-        "B10": "LR_UR_SN_RD_WAIT_N_QUAD ANEMONE",
+        "B7": "LR_UR_SN_FRAME_N_QUAD ANEMONE",
+        "B10": "LR_UR_SN_RD_WAIT_P_QUAD ANEMONE",
         "B9": "LR_UR_SN_RD_WAIT_N_QUAD ANEMONE",
-        "B12": "UR_LR_NS_RD_WAIT_N_QUAD ANEMONE",
+        "B12": "UR_LR_NS_RD_WAIT_P_QUAD ANEMONE",
         "B11": "UR_LR_NS_RD_WAIT_N_QUAD ANEMONE",
         "C9": "LR_UR_SN_WR_WAIT_P_QUAD ANEMONE",
-        "C8": "LR_UR_SN_WR_WAIT_P_QUAD ANEMONE",
+        "C8": "LR_UR_SN_WR_WAIT_N_QUAD ANEMONE",
         "C11": "UR_LR_NS_WR_WAIT_P_QUAD ANEMONE",
-        "C10": "UR_LR_NS_WR_WAIT_P_QUAD ANEMONE"
+        "C10": "UR_LR_NS_WR_WAIT_N_QUAD ANEMONE"
       },
       "description": "Processor, Adapteva, 16-core DSP, 324-pin 0.8mm BGA"
     },
