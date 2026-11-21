@@ -36,7 +36,7 @@ export interface WireGroup {
   base: string;
   /** One coordinate of the group, to address it by. */
   rep: string;
-  /** The lowest SchematicNet id among the group's wires, unshifted. */
+  /** The lowest wire db_id among the group's wires, unshifted: the id space of a pin's +0x06 key. */
   netId: number | undefined;
   /** Set when the group is on one of the placement's hierarchical ports. */
   port?: PortMembership;
@@ -131,16 +131,10 @@ export function buildPageCoordMap(
   // Built before the symbols are attached because the attachment rule reads it.
   const wireNames = new Map<string, Set<string>>();
   const coordMinSegId = new Map<string, number>();
-  const coordMinWireId = new Map<string, number>();
 
   for (const wire of page.wires) {
     const s = `${wire.startX},${wire.startY}`;
     const e = `${wire.endX},${wire.endY}`;
-    for (const coord of [s, e]) {
-      const cur = coordMinWireId.get(coord);
-      if (cur === undefined || wire.id < cur) coordMinWireId.set(coord, wire.id);
-    }
-
     for (const alias of wire.aliases) {
       const name = alias.name.toUpperCase();
       if (!wireNames.has(s)) wireNames.set(s, new Set());
@@ -274,9 +268,11 @@ export function buildPageCoordMap(
   const byBase = new Map<string, WireGroup>();
   for (const [, members] of uf.groups()) {
     const allNames = new Set<string>();
+    let minSegId = Infinity;
     for (const m of members) {
       const names = wireNames.get(m);
       if (names) for (const n of names) allNames.add(n);
+      minSegId = Math.min(minSegId, coordMinSegId.get(m) ?? Infinity);
     }
 
     let canonicalName: string;
@@ -286,26 +282,15 @@ export function buildPageCoordMap(
       canonicalName = hierMatches.length > 0 ? hierMatches.sort()[0] : [...allNames].sort()[0];
     } else {
       // Unnamed wire group: use minimum segmentId (matches Cadence DAT export)
-      let minSegId = Infinity;
-      for (const m of members) {
-        const segId = coordMinSegId.get(m);
-        if (segId !== undefined && segId < minSegId) minSegId = segId;
-      }
       if (minSegId === Infinity) continue;
       canonicalName = autoNetName(minSegId);
-    }
-
-    let netId: number | undefined;
-    for (const m of members) {
-      const id = coordMinWireId.get(m);
-      if (id !== undefined && (netId === undefined || id < netId)) netId = id;
     }
 
     const group: WireGroup = {
       name: canonicalName,
       base: canonicalName,
       rep: members[0],
-      netId,
+      netId: minSegId === Infinity ? undefined : minSegId,
     };
     if (page.placement) {
       let port: PortMembership | undefined;

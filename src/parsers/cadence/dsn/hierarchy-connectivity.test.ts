@@ -229,7 +229,9 @@ describe("buildNetConnectivity over expanded placements", () => {
  * share the bus `Y_D[1:0]`, which no scalar wire on the top level breaks
  * out; MV4's bus pin is not wired at all. R2 is wired to SNOW1's ports `CLK`
  * and `RST`; SNOW1 draws TILE1 inside it, and TILE1 draws U1, whose second
- * pin sits on the `RST` port symbol with no wire.
+ * pin sits on the `RST` port symbol with no wire. Top-level pins key by the
+ * wire's segment id, as in the files; the TOPCLK wire's segment id equals the X_D1
+ * wire's SchematicNet id, so a bus member keyed by the wrong id space lands on TOPCLK.
  */
 const busChild = page({
   name: "PAGE1",
@@ -268,7 +270,7 @@ const busTop = page({
     wire(501, 491, 10, 30, 60, 30),
     wire(600, 590, 100, 50, 150, 50),
     wire(601, 591, 100, 80, 150, 80),
-    wire(800, 790, 180, 200, 200, 200),
+    wire(800, 500, 180, 200, 200, 200),
     wire(801, 791, 180, 230, 200, 230),
   ],
   netTable: new Map([
@@ -280,16 +282,16 @@ const busTop = page({
     [801, ["TOPRST"]],
   ]),
   placedInstances: [
-    part(1, "R1", [pin(1, 10, 10, 500)]),
-    part(2, "R3", [pin(1, 10, 30, 501)]),
-    part(4, "R2", [pin(1, 180, 200, 800), pin(2, 180, 230, 801)]),
+    part(1, "R1", [pin(1, 10, 10, 490)]),
+    part(2, "R3", [pin(1, 10, 30, 491)]),
+    part(4, "R2", [pin(1, 180, 200, 500), pin(2, 180, 230, 791)]),
   ],
   drawnInstances: [
-    block(17, "MV1", ["D[1:0]"], [pin(1, 150, 50, 600)]),
-    block(39, "MV2", ["D[1:0]"], [pin(1, 150, 80, 601)]),
-    block(41, "MV3", ["D[1:0]"], [pin(1, 100, 80, 601)]),
+    block(17, "MV1", ["D[1:0]"], [pin(1, 150, 50, 590)]),
+    block(39, "MV2", ["D[1:0]"], [pin(1, 150, 80, 591)]),
+    block(41, "MV3", ["D[1:0]"], [pin(1, 100, 80, 591)]),
     block(43, "MV4", ["D[1:0]"], [pin(1, 300, 300, 0)]),
-    block(11, "SNOW1", ["CLK", "RST"], [pin(1, 200, 200, 800), pin(2, 200, 230, 801)]),
+    block(11, "SNOW1", ["CLK", "RST"], [pin(1, 200, 200, 500), pin(2, 200, 230, 791)]),
   ],
 });
 
