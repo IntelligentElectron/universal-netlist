@@ -150,7 +150,7 @@ export const probesHold = async (probes: readonly Probe[], files: FileReader): P
 
 /** What an entry is of: a design's variant list, or one parsed build. */
 export interface CacheSlot {
-  readonly kind: "variants" | "netlist" | "pages";
+  readonly kind: "variants" | "netlist" | "pages" | "drawings";
   /** The design's absolute path. */
   readonly path: string;
   /** The build, for a netlist entry. */

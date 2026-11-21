@@ -13,7 +13,7 @@
 import { SERVER_INSTRUCTIONS } from "../descriptions.js";
 import { GITHUB_REPO, NPM_PACKAGE } from "../version.js";
 import { TOOLS } from "../tools/index.js";
-import { CLI_ONLY_TOOLS, flagsOf } from "./query.js";
+import { CLI_ONLY_TOOLS, CLI_VARIANTS, flagsOf } from "./query.js";
 
 /** The skill's directory, from the repository root. */
 export const SKILL_DIR = "plugins/universal-netlist/skills/universal-netlist";
@@ -173,7 +173,7 @@ export const renderSkill = (): string => {
     "2. `search_nets` and `search_components_by_*` find things by pattern.",
     "3. `query_component` and `query_xnet_by_*` give detail and connectivity.",
     "4. `run_erc` runs the electrical rule checks.",
-    "5. `list_pages` and `get_page` read a Cadence `.DSN` page as drawn: what sits where, and its nets.",
+    "5. `list_pages` and `get_page` read a Cadence `.DSN` page as drawn: what sits where, and its nets; `render_page` writes it as a PNG (`--output`).",
     "",
     "Answer questions about a design with these query tools. `export_design` writes a whole design as a `.netlist.json` file, and is only for a program that post-processes the netlist in that format; see [Command-line-only tools](#command-line-only-tools).",
     "",
@@ -196,7 +196,9 @@ export const renderSkill = (): string => {
     "",
     ...sharedFlagLines(),
   ];
-  for (const tool of TOOLS) {
+  for (const registered of TOOLS) {
+    // The command line's own form where it has one: render_page adds --output.
+    const tool = CLI_VARIANTS[registered.name] ?? registered;
     lines.push("", `### ${tool.name}`, "", asFlags(tool.description));
     const own = flagsOf(tool).filter((flag) => !isShared(flag.name));
     if (own.length > 0) lines.push("", ...own.map(flagLine));

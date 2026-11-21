@@ -1241,6 +1241,8 @@ None. The parser reads the parts of the Library it uses as the files show them.
 
 Parser coverage: universal-netlist reads the Library version, the string table and the root schematic name, skips the introduction, times, font table, default slots, flags, part fields and page settings by offset, checks only the `OrCAD Windows Design` prefix (a library is recognised by its absence), tolerates a `font_count` of 0, refuses versions below 3, and reads `Packages/<p>` streams (excluding `_pDboPackage_Copy_`) and LibraryPart records with their primitives skipped; it does not read `Symbols/<s>`, `Symbols/$Types$` or the part aliases' content.
 
+Page rendering (`render_page`) additionally reads each font row's `lfHeight` and the default-font slots (`readLibraryFonts`), and draws text at `|lfHeight|` page units.
+
 <!-- meta: EXT-0.4-002 EXT-1.3.3-006 EXT-2.7-003 EXT-2.7-006 EXT-4-003 EXT-4.1-001 EXT-4.10-011 EXT-4.12-012 EXT-4.13-001 EXT-4.2-005 EXT-4.5-021 EXT-4.5-022 EXT-4.5-023 EXT-4.5-024 EXT-4.7-001 EXT-16.4.4-009 INT-6-001 INT-9.3-001 -->
 
 ---
@@ -1823,6 +1825,8 @@ So bit 7 marks a pin with no schematic connection of its own: in a multi-section
 
 Parser coverage: the parser reads Package and Device records (name, refdes prefix, footprint, `unit_ref`, pin numbers, pin flag) and LibraryPart pin names from both the Cache and `Packages/<p>`, and applies the pin-map choice and duplicate-refdes rules; it skips PartCells, terminal symbols, the primitive list and bbox, pin geometry, shape bits and `pin_type`, the part trailer flags, `Symbols/<s>`, `Symbols/$Types$` and the `_pDboPackage_Copy_` streams.
 
+Page rendering (`render_page`) additionally reads the Cache's five tables (`readCacheSymbols`) and decodes every symbol-shaped record of types 24, 33, 34, 35, 64 and 75: primitive list, stored box, pin slots with start, hot point, shape and `pin_type`, and display records. Every such record in every version-3 Cache decodes (2,969 of 2,969 bodies in 96 distinct Cache streams); the 14 that do not are in Library 2.0 files, which the page tools refuse. **S**.
+
 ---
 
 ## 6. Page stream
@@ -2268,6 +2272,8 @@ The box to use is the symbol's stored `bbox` field, not the box of its primitive
 A placed part's stored pin points follow this anchoring rule on 14053/14841 instances; 788 miss under the primitive box (84 miss under the stored box, which hits 14757/14841). **O**. <!-- EXT-2.5.2-010 EXT-7.3-008 --> Pins of a placed part are spaced by multiples of 10 coordinate units on both kinds of page, apart from 9 exceptions: 14014/14023 placed and 168/168 drawn instances with at least two pins. One unit is 254 µm, so the metric pin-to-pin pitch of 2540 µm is 10 units. **O**. <!-- EXT-2.5.1-011 -->
 
 The rule is not fully verified: 8 connectors and 84 parts in the first pass, and 84 parts in the second, do not fit, and why is not established.
+
+The page renderer places every symbol by this rule with the stored box. A test (`render-page.test.ts`) puts every cached pin's hot point exactly on the page pin it draws for every placed part with a cached symbol on the `MULTIO.DSN` and `meta_carrier_sch_rev1.dsn` fixtures. **T**.
 
 ### 7.8 Wires (20, 21)
 
@@ -2919,6 +2925,8 @@ Resolved: `parseGraphicInstBase` (`structures.ts`) now reads the box corners y1,
 
 Parser coverage: the parser reads the graphic-instance base of Globals, Ports and off-page connectors (name and library indices, symbol name, db_id, box and location under INT's field names, display records, symbol kind) and the 9-byte Port and 5-byte Global/off-page tails; it reads a primitive list's count and skips the list by its boundary without decoding any primitive (INT-13.2-005), skips the transform word, and does not read page graphic instances, GraphicObjects, bitmaps, OLE objects or SymbolVectors (the page parser stops before list 12). <!-- INT-13.2-005 -->
 
+Page rendering (`render_page`) additionally decodes every primitive kind it draws (Rect, Ellipse, Line, Arc, Polygon, Polyline, Bezier, CommentText, SymbolVector) in both entry forms by the common end rule, and the page-graphics list (list 12); Bitmap and OLE entries are skipped by length and not drawn.
+
 ---
 
 ## 9. Text, fonts, colours and display
@@ -3115,6 +3123,7 @@ LineStyle 4 occurs on 3 page Lines and 2 page Polylines. <!-- EXT-16.3.1-012 -->
 Fill (`u32`) and Hatch (`i32`) are stored on Rect, Ellipse and Polygon only; every other kind decodes without them. **S** <!-- EXT-9.5-001 EXT-9.5-002 EXT-9.5-008 EXT-16.3.3-001 EXT-16.3.4-001 -->
 
 - Fill values: 0 (2,052), 1 (6,160), 2 (143); 3 and above never occur. **O** <!-- EXT-9.5-007 EXT-16.3.3-005 -->
+- Fill 0 is solid and fill 1 hollow: drawing with that reading (the names EXT gives) reproduces the symbols as Capture shows them on the rendered fixture pages, with IC, connector and title-block outlines hollow and arrowheads and diode bodies filled, while the opposite reading fills every IC body. **O** (new; rendered pages of `MULTIO.DSN` and `meta_carrier_sch_rev1.dsn`). Fill 2 is drawn hollow; its meaning stays open.
 - Fill 2 always pairs with hatch 3, 4 or 5 (2/3: 2, 2/4: 124, 2/5: 17). **O** (143 of 143). EXT's name "Hatched" for it is unconfirmed. <!-- EXT-16.3.3-004 -->
 - Hatch values: -1 (132, with fill 0 or 1), 0 (8,069), 2 (4 Polygons in the Cache, fill 0), 3 (2), 4 (131), 5 (17); nothing outside -1 to 6, and 6 never occurs. **O** <!-- EXT-9.5-016 EXT-16.3.4-009 -->
 
@@ -3246,6 +3255,8 @@ Hierarchy nets carry their display overrides as text properties, not as binary f
 <!-- meta: EXT-16.4.1-009 EXT-4.6-011 EXT-5.3.6-001 EXT-5.3.6-022 EXT-7.0.5-003 EXT-9.1.2-010 EXT-9.1.4-009 EXT-9.1.5-007 EXT-9.2.2-008 EXT-9.2.2-009 EXT-9.2.3-006 EXT-9.9-015 EXT-9.9-016 EXT-16.2.1-006 EXT-16.2.4-016 EXT-16.3.1-011 -->
 
 Parser coverage: the parser decodes every SymbolDisplayProp (name index, x, y, font reference, rotation, colour) and attaches it to its owner, but nothing downstream reads those fields; it does not read the display mode, extensions, attribute-lock records, the transform word, wire or net style and width fields, the Library font table or default slots, or any fill and hatch. <!-- INT-13.2-012 -->
+
+Page rendering (`render_page`) additionally reads the display mode and draws a display's value (mode 1), `name=value` (mode 2) or name (mode 3) at the owner's location plus the display offset, turned by its rotation; mode 0 is not drawn.
 
 ---
 

@@ -15,3 +15,4 @@
 | [`run_erc`](run_erc.md) | Run electrical rule checks (ERC) on the netlist |
 | [`list_pages`](list_pages.md) | List the schematic pages of a Cadence `.DSN` design |
 | [`get_page`](get_page.md) | Read one schematic page as drawn: parts, wires, labels and connectors with their nets |
+| [`render_page`](render_page.md) | Render a schematic page, or one part or net on it, as a PNG image |

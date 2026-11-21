@@ -156,10 +156,11 @@ export class BinaryReader {
    * Format: uint16 length + chars + null terminator.
    * The length should match the string length (not counting the null).
    */
-  readStringLenZeroTerm(): string {
+  readStringLenZeroTerm(maxLength = 400): string {
     const len = this.readUint16();
-    if (len > 400) {
-      throw new Error(`String length ${len} exceeds limit of 400 at offset ${this.pos - 2}`);
+    // The 400 default rejects misframed reads early; a caller that knows it holds text passes more.
+    if (len > maxLength) {
+      throw new Error(`String length ${len} exceeds limit of ${maxLength} at offset ${this.pos - 2}`);
     }
     if (len === 0) {
       // Empty string: just a null terminator

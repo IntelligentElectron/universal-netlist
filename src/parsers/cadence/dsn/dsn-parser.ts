@@ -24,6 +24,7 @@ import {
   assertReadableLibraryVersion,
   describeParseFailure,
   parseLibraryStream,
+  readLibraryFonts,
   readLibraryVersion,
 } from "./library-parser.js";
 import { buildDeviceIndexMap } from "./pin-resolver.js";
@@ -31,6 +32,8 @@ import { buildNetConnectivity } from "./net-builder.js";
 import type { PageCoordMap } from "./page-groups.js";
 import type { PinInfo } from "./net-pins.js";
 import { buildPageViews, type PageView } from "./page-views.js";
+import { renderPageSvg } from "./page-render.js";
+import { readCacheSymbols } from "./symbol-graphics.js";
 import { buildComponents } from "./component-builder.js";
 import { mergeRepeatedSections, separateDuplicateRefdes } from "./duplicate-refdes.js";
 import { readVariantStuffing, type VariantStuffing } from "./variant-store.js";
@@ -76,11 +79,22 @@ export function parseDsnFile(
   }
 }
 
+/** A design's pages: one view per page and, when drawn, one SVG per page in the same order. */
+export interface DesignPages {
+  pages: PageView[];
+  /** Empty unless the pages were drawn; "" for a page that could not be. */
+  svgs: string[];
+}
+
 /**
  * Parse a design's schematic pages as drawn, with every net named as the
  * netlist names it. Pages do not depend on a design variant.
  */
-export function parseDsnPages(source: Uint8Array | string, passwords?: DsnPasswords): PageView[] {
+export function parseDsnPages(
+  source: Uint8Array | string,
+  passwords?: DsnPasswords,
+  draw = false
+): DesignPages {
   const ole = new DsnReader(source, passwords);
   const entries = ole.listAllEntries();
   const libEntry = findRootLibrary(entries);
@@ -93,7 +107,26 @@ export function parseDsnPages(source: Uint8Array | string, passwords?: DsnPasswo
       entries,
       library
     );
-    return buildPageViews(pages, coordMaps, pins, netlist.components, strLst, refdesRenames);
+    const views = buildPageViews(pages, coordMaps, pins, netlist.components, strLst, refdesRenames);
+    if (!draw) return { pages: views, svgs: [] };
+    const cache = entries.find((e) => e.path === "Cache" && e.entry.type === 2);
+    // Drawing is best-effort: a failure costs that drawing, never the page views.
+    const attempt = <T>(fn: () => T, fallback: T): T => {
+      try {
+        return fn();
+      } catch {
+        return fallback;
+      }
+    };
+    const context = {
+      symbols: cache
+        ? attempt(() => readCacheSymbols(ole.readStreamByPath(cache.path)), new Map())
+        : new Map(),
+      strLst,
+      fonts: attempt(() => readLibraryFonts(library!), { heights: [], defaultSlots: [] }),
+    };
+    const svgs = pages.map((page, i) => attempt(() => renderPageSvg(page, views[i], context), ""));
+    return { pages: views, svgs };
   } catch (error) {
     throw describeParseFailure(version, error);
   }

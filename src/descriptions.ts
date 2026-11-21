@@ -24,7 +24,7 @@ Supported formats:
 2. \`search_nets\` and \`search_components_by_*\` to find things by pattern
 3. \`query_component\` and \`query_xnet_*\` for detail and connectivity
 4. \`run_erc\` for electrical rule checks
-5. \`list_pages\` and \`get_page\` to read a Cadence .DSN page as drawn: what sits where, and its nets
+5. \`list_pages\` and \`get_page\` to read a Cadence .DSN page as drawn: what sits where, and its nets; \`render_page\` to see it as an image
 
 ## Conventions
 
@@ -99,6 +99,13 @@ location, rotation, mirror, box, and pins with their nets), wires with their net
 net labels, hierarchical ports, globals (power and ground symbols), off-page connectors, \
 bus entries, hierarchical blocks, and the title-block fields. Net names match list_nets. \
 Coordinates are in 1/100 inch, x to the right and y down. \
+Name the page as list_pages reports it.`;
+
+export const RENDER_PAGE_DESCRIPTION = `\
+Render one schematic page of a Cadence .DSN design as a PNG image, drawn from the design \
+file: symbols, pins with their numbers and names, wires, junctions, net labels, ports, \
+power and ground symbols, off-page connectors, text and the title block. \
+Pass focus to crop to one part (a refdes) or everything on one net, with a margin. \
 Name the page as list_pages reports it.`;
 
 export const SEARCH_NETS_DESCRIPTION = `\

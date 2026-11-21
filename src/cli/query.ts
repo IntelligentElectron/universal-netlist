@@ -18,6 +18,7 @@
  * stderr with the tool's usage line and exits 2.
  */
 
+import { renderPageCliTool } from "./render-page.js";
 import { z } from "zod";
 import { BINARY_NAME } from "../version.js";
 import { TOOLS, findTool, type AnyToolDefinition } from "../tools/index.js";
@@ -314,8 +315,16 @@ export const runQuery = async (
   };
 };
 
-/** The registry tool a command-line word names, if any. */
+/**
+ * Registry tools whose command line differs from their MCP form: render_page
+ * writes its PNG to a file, so it takes --output.
+ */
+export const CLI_VARIANTS: Readonly<Record<string, AnyToolDefinition>> = Object.freeze({
+  render_page: renderPageCliTool as unknown as AnyToolDefinition,
+});
+
+/** The tool a command-line word names, if any: its command-line variant first. */
 export const toolNamed = (word: string | undefined): AnyToolDefinition | undefined =>
   word === undefined
     ? undefined
-    : (findTool(word) ?? CLI_ONLY_TOOLS.find((tool) => tool.name === word));
+    : (CLI_VARIANTS[word] ?? findTool(word) ?? CLI_ONLY_TOOLS.find((tool) => tool.name === word));
