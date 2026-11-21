@@ -22,4 +22,4 @@ sentinel,zero,no,no,n/a,,draft,"every pin with wire id 0xFFFFFFFF has a non-zero
 sentinel,nonzero,yes,yes,the net at its point,,draft,"net-pins.ts collectPins: coordToNet, global, port and off-page fallbacks; a geometry net is never overridden"
 sentinel,nonzero,yes,no,the net at its point,,draft,"net-pins.ts collectPins: coordToNet, global, port and off-page fallbacks; a geometry net is never overridden"
 sentinel,nonzero,no,yes,the net a wire with its net id carries,,draft,"net-pins.ts pinNetSource; Capture export agrees (SENSOR_BOARD U1.18 5V, DECADECOUNTER U1.14 VCC)"
-sentinel,nonzero,no,no,a pin-to-pin net named from the Hierarchy,,draft,"net-assembly.ts resolveWirelessSentinelNets: grouped by point, named by sort order (golden spec §13 pin-to-pin nodes)"
+sentinel,nonzero,no,no,a pin-to-pin net named by its first pin's part and pin,,draft,"net-pins.ts pinToPinNames: N, the part db_id padded to 5 digits, then the pin index minus 1, of the pin with the smallest part db_id at the point (docs/cadence-dsn-format.md §11.7 step 5); 70 of 70 renamed export pins match"

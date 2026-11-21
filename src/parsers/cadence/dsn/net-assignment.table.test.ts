@@ -182,7 +182,7 @@ describe("pin-net: where a pin's net comes from", () => {
     "the net at its point": "point",
     "the net a wire with its net id carries": "wire-net",
     "its own net shared with pins of the same net id": "net-id",
-    "a pin-to-pin net named from the Hierarchy": "hierarchy",
+    "a pin-to-pin net named by its first pin's part and pin": "pin-to-pin",
     "no connect": "no-connect",
   };
 
