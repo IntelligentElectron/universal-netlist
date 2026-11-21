@@ -1810,9 +1810,10 @@ So bit 7 marks a pin with no schematic connection of its own: in a multi-section
 
 | Parser does | Files show | Impact |
 | --- | --- | --- |
-| Walks the Cache as a 4-byte header plus probed per-entry metadata, with a magic-scan fallback (`cache-parser.ts:231-313`). | Five directory tables of groups and variants that read to the exact end with no heuristic (§5.1). | The walk fails mid-stream on 3 fixtures (CutiePi, LAUNCHXL-CC1310, reServer J2032) and the scanner misses 1 LibraryPart on CutiePi and LAUNCHXL-CC1310 and 1 Package on J2032, so those parts can lose pin names or fall back to the `Packages/` map. Every other design reads fully. |
 | Drops every pin whose device pin flag has bit 7 set from all nets (`net-pins.ts:150`). | In single-section parts these are real pads that Capture's export writes and ties to a sibling pin's net (§5.8, Unresolved conflicts). | 30 export-backed pins lost on `ONYXPSU.DSN` (14) and `CLAYR6.DSN` (16); no fixture covers it. |
 | Reads the Device's second string as `refDes` (`structures.ts:436`); the value is unused. | It is the part cell name (§5.4). | Naming only; netlist output unaffected. |
+
+Resolved: the parser reads the Cache as its five directory tables (`walkCacheTables`, `cache-parser.ts`), the same walk the page renderer uses; the magic scan remains only for a stream whose tables will not walk, which no version-3 file in the corpus is. Netlist output is unchanged: exported netlists are identical on all 90 exportable corpus designs, and coverage against Capture's exports is unchanged on the fixtures and the corpus. **T** (`cache-tables.test.ts`: every version-3 fixture Cache ends exactly at its stream end).
 
 
 
@@ -3241,9 +3242,8 @@ Hierarchy nets carry their display overrides as text properties, not as binary f
 
 ### Parser divergences
 
-| Parser | Files show | Impact |
-| --- | --- | --- |
-| `parseSymbolDisplayProp` skips body +0x0B..+0x0C as "visibility" and +0x0D as an assumed zero (`src/parsers/cadence/dsn/structures.ts:153-154`). | +0x0B is opaque; +0x0C..+0x0D is the `u16` display mode. | Naming only; the record extent is right and the display mode is not exposed. |
+
+Resolved: `parseSymbolDisplayProp` reads +0x0B as an opaque byte and +0x0C as the `u16` display mode, which the page renderer uses. |
 
 
 

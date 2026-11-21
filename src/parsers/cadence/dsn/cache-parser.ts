@@ -9,7 +9,6 @@
 
 import { BinaryReader } from "./binary-reader.js";
 import { StructureType, type CachedLibraryPart, type PinMapData } from "./structure-types.js";
-import { skipStructure } from "./generic-parser.js";
 import { parsePackage, parseLibraryPart } from "./structures.js";
 
 /**
@@ -194,14 +193,43 @@ function scanForStructures(
 }
 
 /**
- * Parse the Cache stream sequentially, extracting Package (pin maps) and
- * LibraryPart (pin names) structures.
- *
- * The Cache contains all component definitions in a sequential format:
- * 4-byte header, then entries with variable-length metadata, twin IDs,
- * a structure type uint16, and a standard prefix-chain + body structure.
- *
- * Reference: OpenOrCadParser StreamCache.cpp
+ * Walk the Cache's five directory tables (docs/cadence-dsn-format.md §5.1),
+ * handing every variant's record to `visit` as its own buffer. Tables: 0 empty,
+ * 1 terminal symbols, 2 part views (24), 3 part cells (6), 4 packages (31). A
+ * group is a name, a variant count, and per variant a source library, an id
+ * twice, a type and one framed record bounded by its first full prefix.
+ * Returns the offset where the tables end: the stream's length on every file.
+ */
+export function walkCacheTables(
+  buffer: Buffer,
+  visit: (type: number, name: string, record: Buffer) => void
+): number {
+  const reader = new BinaryReader(buffer);
+  for (let table = 0; table < 5 && !reader.isEof(); table++) {
+    const groups = reader.readUint16();
+    for (let g = 0; g < groups; g++) {
+      const name = reader.readStringLenZeroTerm();
+      const variants = reader.readUint16();
+      for (let v = 0; v < variants; v++) {
+        reader.readStringLenZeroTerm(); // source library
+        reader.skip(8); // id, id copy
+        const type = reader.readUint16();
+        const start = reader.tell();
+        const end = start + 9 + buffer.readUInt32LE(start + 1);
+        if (end > buffer.length) throw new Error(`Cache record at ${start} runs past the stream`);
+        visit(type, name, buffer.subarray(start, end));
+        reader.seek(end);
+      }
+    }
+  }
+  return reader.tell();
+}
+
+/**
+ * Index the Cache's packages (pin maps) and part views (pin names, default
+ * values) by walking its directory tables. A record that will not parse is
+ * skipped; a stream whose tables will not walk falls back to scanning for
+ * Package and LibraryPart records.
  */
 export function parseCacheStream(
   buffer: Buffer,
@@ -209,113 +237,20 @@ export function parseCacheStream(
   cachedParts: Map<string, CachedLibraryPart>,
   exactNames: Set<string> = new Set()
 ): void {
-  const reader = new BinaryReader(buffer);
-
-  /** Probe: run fn, always reset position. Returns true if fn succeeded. */
-  function tryRead(fn: () => void): boolean {
-    const saved = reader.tell();
-    try {
-      fn();
-    } catch {
-      reader.seek(saved);
-      return false;
-    }
-    reader.seek(saved);
-    return true;
-  }
-
-  // Empty cache: <= 10 bytes
-  if (buffer.length <= 10) return;
-
-  // Header: 2 zero bytes + 2 unknown bytes
-  reader.skip(4);
-
-  while (!reader.isEof()) {
-    try {
-      // Variable-length metadata: probe to detect format variant.
-      // Variant 1: string follows immediately (name directly)
-      // Variant 2: 2 unknown + 3-char refDes string + 2 unknown, then name
-      // Variant 3: 2 unknown bytes, then name
-      const hasStrNow = tryRead(() => reader.readStringLenZeroTerm());
-
-      if (!hasStrNow) {
-        const hasStrAfter8 = tryRead(() => {
-          reader.skip(8);
-          reader.readStringLenZeroTerm();
-        });
-
-        if (hasStrAfter8) {
-          reader.skip(2); // unknown
-          reader.readStringLenZeroTerm(); // refDes-like descriptor ("LED", "VDC", etc.)
-        }
-
-        reader.skip(2); // unknown
-      }
-
-      reader.readStringLenZeroTerm(); // entry name
-
-      // Twin ID check: peek 8 bytes
-      const ids = reader.peek(8);
-      const id0 = ids.readUInt32LE(0);
-      const id1 = ids.readUInt32LE(4);
-
-      if (id0 !== id1) {
-        // Sub-loop: package names + source library references
-        let someVal: number;
-        do {
-          someVal = reader.readUint16();
-          if (reader.isEof()) return;
-
-          // Check: exactly 1 byte left? Skip it and exit.
-          const isLastByte = tryRead(() => {
-            reader.skip(1);
-            if (!reader.isEof()) throw new Error();
-          });
-          if (isLastByte) {
-            reader.skip(1);
-            return;
-          }
-
-          // Check: can we read a string directly, or are there 2 mystery bytes first?
-          if (!tryRead(() => reader.readStringLenZeroTerm())) {
-            reader.skip(2);
-          }
-
-          reader.readStringLenZeroTerm(); // package name or source library
-        } while (someVal === 0);
-
-        if (reader.isEof()) return;
-      }
-
-      // Twin IDs
-      reader.readUint32(); // someId0
-      reader.readUint32(); // someId1
-
-      // Structure type (uint16; low byte matches prefix chain type byte)
-      const structType = reader.readUint16();
-
-      // Parse or skip the structure
-      const structStart = reader.tell();
+  if (buffer.length <= 10) return; // five empty tables
+  try {
+    walkCacheTables(buffer, (type, _name, record) => {
       try {
-        if (structType === StructureType.Package) {
-          const pkg = parsePackage(reader);
-          indexCachePackage(pkg, pmd);
-        } else if (structType === StructureType.LibraryPart) {
-          const lp = parseLibraryPart(reader);
-          indexLibraryPart(lp, cachedParts, exactNames);
-        } else {
-          skipStructure(reader);
+        if (type === StructureType.Package) {
+          indexCachePackage(parsePackage(new BinaryReader(record)), pmd);
+        } else if (type === StructureType.LibraryPart) {
+          indexLibraryPart(parseLibraryPart(new BinaryReader(record)), cachedParts, exactNames);
         }
       } catch {
-        // Structure parsing failed; skip via prefix chain
-        reader.seek(structStart);
-        skipStructure(reader);
+        // One record that will not parse costs that record.
       }
-    } catch {
-      // Metadata parsing failed; fall through to brute-force scan for
-      // remaining Package and LibraryPart structures via preamble magic.
-      scanForStructures(reader, buffer, pmd, cachedParts, exactNames);
-      return;
-    }
+    });
+  } catch {
+    scanForStructures(new BinaryReader(buffer), buffer, pmd, cachedParts, exactNames);
   }
 }
