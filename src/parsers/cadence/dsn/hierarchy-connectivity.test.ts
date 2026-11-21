@@ -160,9 +160,9 @@ const placement = (occurrenceId: number, dbId: number, c: string, r: string) => 
   reference: "",
   scope: {
     nets: [
-      { dbId: 10, name: "SIG_IN" },
-      { dbId: 11, name: "LOCAL" },
-      { dbId: 12, name: "VCC" },
+      { dbId: 10, name: "SIG_IN", properties: [] },
+      { dbId: 11, name: "LOCAL", properties: [] },
+      { dbId: 12, name: "VCC", properties: [] },
     ],
     parts: [
       { occurrenceId: occurrenceId * 10, dbId: 275, reference: c, pins: [] },
@@ -176,8 +176,8 @@ const root: HierarchyStream = {
   schematic: "top",
   scope: {
     nets: [
-      { dbId: 1, name: "N00776" },
-      { dbId: 2, name: "N00870" },
+      { dbId: 1, name: "N00776", properties: [] },
+      { dbId: 2, name: "N00870", properties: [] },
     ],
     parts: [
       { occurrenceId: 1, dbId: 1, reference: "R1", pins: [] },
@@ -303,9 +303,9 @@ const busPlacement = (occurrenceId: number, dbId: number, c: string) => ({
   reference: "",
   scope: {
     nets: [
-      { dbId: 10, name: "D[1:0]" },
-      { dbId: 11, name: "D1" },
-      { dbId: 12, name: "D0" },
+      { dbId: 10, name: "D[1:0]", properties: [] },
+      { dbId: 11, name: "D1", properties: [] },
+      { dbId: 12, name: "D0", properties: [] },
     ],
     parts: [{ occurrenceId: occurrenceId * 10, dbId: 275, reference: c, pins: [] }],
     blocks: [],
@@ -318,6 +318,7 @@ const busRoot: HierarchyStream = {
     nets: ["X_D1", "X_D0", "Y_D1", "Y_D0", "TOPCLK", "TOPRST"].map((name, i) => ({
       dbId: i,
       name,
+      properties: [],
     })),
     parts: [
       { occurrenceId: 1, dbId: 1, reference: "R1", pins: [] },
@@ -335,7 +336,7 @@ const busRoot: HierarchyStream = {
         schematic: "outer",
         reference: "",
         scope: {
-          nets: [{ dbId: 20, name: "CLK" }],
+          nets: [{ dbId: 20, name: "CLK", properties: [] }],
           parts: [],
           blocks: [
             {
@@ -344,7 +345,7 @@ const busRoot: HierarchyStream = {
               schematic: "inner",
               reference: "",
               scope: {
-                nets: [{ dbId: 30, name: "CLK" }],
+                nets: [{ dbId: 30, name: "CLK", properties: [] }],
                 parts: [{ occurrenceId: 90, dbId: 3, reference: "U16", pins: [] }],
                 blocks: [],
               },
@@ -424,7 +425,7 @@ describe("pins joined only by their net id, in a block placed twice", () => {
   const occurrence = (occurrenceId: number, dbId: number, u1: string, u2: string) => ({
     ...placement(occurrenceId, dbId, u1, u2),
     scope: {
-      nets: [{ dbId: 11, name: "LOCAL" }],
+      nets: [{ dbId: 11, name: "LOCAL", properties: [] }],
       parts: [
         { occurrenceId: occurrenceId * 10, dbId: 275, reference: u1, pins: [] },
         { occurrenceId: occurrenceId * 10 + 1, dbId: 276, reference: u2, pins: [] },
@@ -563,7 +564,7 @@ describe.each([
   const portRoot: HierarchyStream = {
     schematic: "porttop",
     scope: {
-      nets: [{ dbId: 1, name: "N00776" }],
+      nets: [{ dbId: 1, name: "N00776", properties: [] }],
       parts: [{ occurrenceId: 1, dbId: 11, reference: "R1", pins: [] }],
       blocks: [
         {
@@ -572,7 +573,7 @@ describe.each([
           schematic: "portchild",
           reference: "",
           scope: {
-            nets: [{ dbId: 10, name: "SIG_IN" }],
+            nets: [{ dbId: 10, name: "SIG_IN", properties: [] }],
             parts: [
               { occurrenceId: 710, dbId: 281, reference: "C6", pins: [] },
               { occurrenceId: 711, dbId: 282, reference: "C106", pins: [] },

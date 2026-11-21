@@ -700,6 +700,6 @@ export const parseUniversalNetlistDocument = (
 
 /** Parse JSON text as a Universal Netlist. `source` names the file in errors. */
 export const parseUniversalNetlist = (text: string, source = "netlist"): ParsedNetlist => {
-  const { nets, components } = parseUniversalNetlistDocument(text, source);
-  return { nets, components };
+  const { nets, components, netProperties } = parseUniversalNetlistDocument(text, source);
+  return { nets, components, ...(netProperties && { netProperties }) };
 };

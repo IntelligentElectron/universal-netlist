@@ -8,7 +8,12 @@
 import { DsnReader, isEncryptedStream, ROOT_LIBRARY } from "./dsn-reader.js";
 import type { OleReader } from "../../ole-reader/ole-reader.js";
 import type { DsnPasswords } from "../../context.js";
-import type { ComponentDetails, ParsedNetlist, ParseDesignOptions } from "../../../types.js";
+import type {
+  ComponentDetails,
+  NetConnections,
+  ParsedNetlist,
+  ParseDesignOptions,
+} from "../../../types.js";
 import type { OleDirectoryPath } from "../../ole-reader/types.js";
 import type { CachedLibraryPart, PinMapData } from "./structure-types.js";
 import { parsePage, parsePackageStream } from "./page-parser.js";
@@ -205,7 +210,7 @@ function parseDsnStreams(
 
   // One copy of a child schematic's pages per placement of the block that
   // draws it, carrying that placement's reference designators.
-  const { pages, canonicalNetNames, occurrenceRefdes } = expandHierarchy(
+  const { pages, canonicalNetNames, occurrenceRefdes, netProperties } = expandHierarchy(
     roots,
     pagesBySchematic,
     strLst,
@@ -352,9 +357,38 @@ function parseDsnStreams(
   );
 
   const netlist: ParsedNetlist = { nets, components, netLabelSources };
+  const properties = resolveNetProperties(netProperties, nets, strLst);
+  if (Object.keys(properties).length > 0) netlist.netProperties = properties;
   if (Object.keys(duplicateRefdes).length > 0) netlist.duplicateRefdes = duplicateRefdes;
   if (Object.keys(repeatedSections).length > 0) netlist.repeatedSections = repeatedSections;
   return { netlist, pages, coordMaps, pins, strLst, refdesRenames };
+}
+
+/** Properties that only set how Capture draws a net. */
+const DRAWING_PROPERTIES = new Set(["Color", "Line Width", "Line Style"]);
+
+/**
+ * The design's net properties by netlist net (§10.12): `DIFFERENTIAL_PAIR`,
+ * `VOLTAGE` and the like, as Capture's netlister exports them. A property with
+ * an empty value is not exported, nor is one that only sets drawing. A block
+ * net that joins its parent's net through a port has no net of its own name,
+ * so its properties are left out.
+ */
+export function resolveNetProperties(
+  properties: { net: string; name: number; value: number }[],
+  nets: NetConnections,
+  strLst: readonly string[]
+): Record<string, Record<string, string>> {
+  const byUpper = new Map(Object.keys(nets).map((net) => [net.toUpperCase(), net]));
+  const result: Record<string, Record<string, string>> = {};
+  for (const property of properties) {
+    const net = byUpper.get(property.net);
+    const name = strLst[property.name];
+    const value = strLst[property.value];
+    if (!net || !name || !value || DRAWING_PROPERTIES.has(name)) continue;
+    (result[net] ??= {})[name] = value;
+  }
+  return result;
 }
 
 /**

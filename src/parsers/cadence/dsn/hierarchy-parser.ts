@@ -69,6 +69,8 @@ import {
 export interface HierarchyNet {
   dbId: number;
   name: string;
+  /** The net's properties, (name, value) pairs into the Library string list (§10.12). */
+  properties: PrefixPropertyPair[];
 }
 
 /**
@@ -195,10 +197,10 @@ function readScope(reader: BinaryReader, top?: TopLayout): HierarchyScope {
 
   const netCount = reader.readUint16();
   for (let i = 0; i < netCount; i++) {
-    const { structType: type } = readStructure(reader);
+    const { structType: type, properties } = readStructure(reader);
     if (type !== NET_TYPE) throw new Error(`Expected net (type ${NET_TYPE}), got ${type}`);
     const dbId = reader.readUint32();
-    scope.nets.push({ dbId, name: reader.readStringLenZeroTerm() });
+    scope.nets.push({ dbId, name: reader.readStringLenZeroTerm(), properties });
   }
 
   const auxCount = reader.readUint16();

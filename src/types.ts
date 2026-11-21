@@ -351,6 +351,8 @@ export interface AggregatedCircuitResult {
   notes?: string[];
   /** Nets in this result whose names a netlister writes differently. */
   net_name_warnings?: NetNameWarning[];
+  /** The design's own properties of nets in this result, such as DIFFERENTIAL_PAIR and VOLTAGE. */
+  net_properties?: Record<string, Record<string, string>>;
   /** The offset of the next page of `components_by_mpn`, when this page is not the last. */
   next_offset?: number;
 }
@@ -481,6 +483,8 @@ export interface SearchNetsResult {
   notes?: string[];
   /** Nets in this result whose names a netlister writes differently. */
   net_name_warnings?: NetNameWarning[];
+  /** The design's own properties of nets in this result, such as DIFFERENTIAL_PAIR and VOLTAGE. */
+  net_properties?: Record<string, Record<string, string>>;
   /** The offset of the next page, when there are more entries. */
   next_offset?: number;
 }

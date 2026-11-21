@@ -3,6 +3,7 @@ import { getDesignName } from "../../paths.js";
 import { loadNetlist } from "../load-netlist.js";
 import { parseRegexPattern, tooManyMatchesError } from "../regex-helpers.js";
 import { indexNetNames } from "../net-names.js";
+import { netPropertiesOf } from "../net-properties.js";
 import { isErrorResult, type SearchNetsResult, type ErrorResult } from "../../types.js";
 
 /**
@@ -53,5 +54,7 @@ export const searchNets = async (
   };
   const warnings = indexNetNames(netlist).warningsFor(sorted);
   if (warnings.length > 0) result.net_name_warnings = warnings;
+  const properties = netPropertiesOf(netlist, sorted);
+  if (properties) result.net_properties = properties;
   return result;
 };

@@ -3494,6 +3494,7 @@ A part occurrence and a block occurrence are one record type; which it is follow
 - Every framed Hierarchy record can carry properties in its short prefix as `(u32 name_index, u32 value_index)` pairs into the Library string table; all 10,743 pairs on 66, 67, 68, 82 and 91 records resolve. **S**
 - Occurrence properties are values of that occurrence layered over the page object's own: the pin `Number` property overrides the pin number, and with it our parser matches export pin numbers 100% on the fixtures. **E**
 - Design net (67) properties seen: `DIFFERENTIAL_PAIR` (1,338), `VOLTAGE` (10), `Color`, `Line Width`, `Line Style` (4 each). **O**
+- A design net's `DIFFERENTIAL_PAIR` and `VOLTAGE` properties are the net properties Capture's Allegro netlister exports: on `MIC_ARRAY_RELEASE.DSN`, all 7 non-empty ones (`VOLTAGE` on 2.5V, 3.3V, 5V, 12V and 5V_EXT, `DIFFERENTIAL_PAIR='USB_OTG_FS'` on USB_OTG_FS_DP and USB_OTG_FS_DM) appear on the same nets with the same values in its `pstxnet.dat`, and the one with an empty value (`U5V_USB`) does not. `DIFFERENTIAL_PAIR` names a pair: every value names exactly two nets (794 pairs in 4 designs). A property of a net inside a block belongs to the net named with the block's placement suffix (`OSC_IN` in block CLOCK0 is `OSC_IN_CLOCK0`); all 368 such properties land on a netlist net. **E** (export), **O** (pairs, block nets).
 - Instance link (66) properties seen include `Value` (35) and `PCB Footprint`, with many user properties (`BuildOptions`, `Assembly`, `Part Number`, `Manufacturer`, `DNP`, …). **O**
 - Pin occurrence (68) properties seen: only `Number` (27). **S**
 - **Net format properties.** A design net carrying one of `Color`, `Line Width`, `Line Style` carries all three as short-prefix pairs (4 of 4 nets). **O**
@@ -3645,7 +3646,7 @@ Resolved: a bus port member that follows the parent's member wire took the wire 
 
 
 
-Parser coverage: `hierarchy-parser.ts` reads the root name, header port names, the scope lists (design net ids and names; it skips 82 and 91 bodies), the occurrence tree with references, `contents`, pin occurrences and their `Number` properties, and the nested block scopes, and `hierarchy-expander.ts` implements root choice and §10.15; the parser skips `designator_index` as unknown, does not read root data, link extensions beyond their length, the watermark, header port ids, net format properties or IREF.
+Parser coverage: `hierarchy-parser.ts` reads the root name, header port names, the scope lists (design net ids, names and properties; it skips 82 and 91 bodies), the occurrence tree with references, `contents`, pin occurrences and their `Number` properties, and the nested block scopes, and `hierarchy-expander.ts` implements root choice and §10.15 and names each design net property's net with its placement suffix; `resolveNetProperties` in `dsn-parser.ts` gives the netlist every non-empty design net property but the net format properties (`Color`, `Line Width`, `Line Style`), under the net's netlist name, which `search_nets` and the XNET queries return as `net_properties`. The parser skips `designator_index` as unknown, and does not read root data, link extensions beyond their length, the watermark, header port ids or IREF.
 
 ---
 
