@@ -39,6 +39,7 @@ const drawn = (dbId: number): DrawnInstance => ({
   pins: [],
   locX: 0,
   locY: 0,
+  box: { x1: 0, y1: 0, x2: 0, y2: 0 },
 });
 
 const page = (name: string, drawnInstances: DrawnInstance[] = []): PageData => ({
@@ -48,6 +49,7 @@ const page = (name: string, drawnInstances: DrawnInstance[] = []): PageData => (
   widthInches: 11,
   heightInches: 8.5,
   busEntries: [],
+  graphics: [],
   wires: [],
   placedInstances: [instance(1, name)],
   drawnInstances,

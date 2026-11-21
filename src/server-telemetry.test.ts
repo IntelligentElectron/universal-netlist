@@ -59,7 +59,9 @@ const DSN_DESIGN = join(
   "MULTIO.DSN"
 );
 const samplesFor = (tool: string): Record<string, unknown> =>
-  tool === "list_pages" || tool === "get_page" ? { ...SAMPLES, design: DSN_DESIGN } : SAMPLES;
+  ["list_pages", "get_page", "render_page"].includes(tool)
+    ? { ...SAMPLES, design: DSN_DESIGN }
+    : SAMPLES;
 
 type ListedTool = {
   name: string;
@@ -110,7 +112,8 @@ afterEach(() => {
 const call = async (name: string, args: Record<string, unknown>) => {
   records.length = 0;
   const result = (await client.callTool({ name, arguments: args })) as ToolResult;
-  const text = result.content?.[0]?.text ?? "";
+  // render_page sends its image first; the JSON is the first text item.
+  const text = result.content?.find((item) => item.text !== undefined)?.text ?? "";
   const failed = result.isError === true || "error" in (JSON.parse(text) as object);
   return { failed, otel: records.map((record) => record.attributes ?? {}) };
 };

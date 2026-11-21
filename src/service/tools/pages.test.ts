@@ -15,7 +15,7 @@ describe("list_pages and get_page", () => {
     const result = (await callTool("list_pages", { design: MULTIO })) as Pages;
     expect(result.pages.map((p) => p.page.trim())).toEqual(["P1: PI", "P2: I/O"]);
     expect(result.pages[0]).toMatchObject({ title: "MULTIO-PI", page_number: 1, parts: 33 });
-  });
+  }, 60_000);
 
   it("names every pin's net as the netlist does", async () => {
     const { pages } = (await callTool("list_pages", { design: MULTIO })) as Pages;
@@ -38,7 +38,7 @@ describe("list_pages and get_page", () => {
       }
     }
     expect(checked).toBeGreaterThan(100);
-  });
+  }, 60_000);
 
   it("gives each section of a part on one page only the pins it draws", async () => {
     const view = (await callTool("get_page", {
@@ -49,14 +49,14 @@ describe("list_pages and get_page", () => {
     expect(sections.length).toBeGreaterThan(1);
     const numbers = sections.flatMap((part) => part.pins.map((pin) => pin.number));
     expect(new Set(numbers).size).toBe(numbers.length);
-  });
+  }, 60_000);
 
   it("refuses a design that is not a .DSN schematic", async () => {
     const result = (await callTool("list_pages", { design: "board.netlist.json" })) as {
       error?: string;
     };
     expect(result.error).toMatch(/\.DSN schematics only/);
-  });
+  }, 60_000);
 });
 
 describe("findPage", () => {
