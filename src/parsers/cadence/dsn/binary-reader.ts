@@ -137,31 +137,13 @@ export class BinaryReader {
   }
 
   /**
-   * Read a length-prefixed string (uint16 length, no null terminator).
-   * Safety limit of 400 chars (matching C++ reference).
-   */
-  readStringLenTerm(): string {
-    const len = this.readUint16();
-    if (len > 400) {
-      throw new Error(`String length ${len} exceeds limit of 400 at offset ${this.pos - 2}`);
-    }
-    this.ensureAvailable(len);
-    const str = decodeString(this.buf, this.pos, this.pos + len);
-    this.pos += len;
-    return str;
-  }
-
-  /**
    * Read a length-prefixed, null-terminated string.
    * Format: uint16 length + chars + null terminator.
    * The length should match the string length (not counting the null).
+   * Any u16 length is valid (§2.3.2); the terminator check catches a misframed read.
    */
-  readStringLenZeroTerm(maxLength = 400): string {
+  readStringLenZeroTerm(): string {
     const len = this.readUint16();
-    // The 400 default rejects misframed reads early; a caller that knows it holds text passes more.
-    if (len > maxLength) {
-      throw new Error(`String length ${len} exceeds limit of ${maxLength} at offset ${this.pos - 2}`);
-    }
     if (len === 0) {
       // Empty string: just a null terminator
       const b = this.readUint8();

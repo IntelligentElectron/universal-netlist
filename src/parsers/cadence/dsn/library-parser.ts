@@ -7,7 +7,7 @@
  */
 
 import { UnsupportedDesignError } from "../../errors.js";
-import { BinaryReader, decodeString } from "./binary-reader.js";
+import { BinaryReader } from "./binary-reader.js";
 
 const PAGE_SETTINGS_SIZE = 156;
 
@@ -73,18 +73,6 @@ export function describeParseFailure(version: LibraryVersion | undefined, error:
   return error;
 }
 
-/** Read a length-prefixed, null-terminated string, without the 400-character cap. */
-function readLibraryString(reader: BinaryReader): string {
-  const len = reader.readUint16();
-  if (len === 0) {
-    reader.skip(1); // null terminator
-    return "";
-  }
-  const bytes = reader.readBytes(len);
-  reader.skip(1); // null terminator
-  return decodeString(bytes);
-}
-
 /**
  * Read the Library stream from its start through the strLst string table,
  * leaving the reader just past the table.
@@ -116,7 +104,7 @@ function readThroughStrLst(reader: BinaryReader): string[] {
 
   // 8 strings (str_lst_part_field entries)
   for (let i = 0; i < 8; i++) {
-    readLibraryString(reader);
+    reader.readStringLenZeroTerm();
   }
 
   // PageSettings
@@ -126,7 +114,7 @@ function readThroughStrLst(reader: BinaryReader): string[] {
   const strLstLen = reader.readUint32();
   const strLst: string[] = [];
   for (let i = 0; i < strLstLen; i++) {
-    strLst.push(readLibraryString(reader));
+    strLst.push(reader.readStringLenZeroTerm());
   }
 
   return strLst;
@@ -165,11 +153,11 @@ function readRootSchematic(buffer: Buffer, reader: BinaryReader): string | undef
   try {
     const aliasLstLen = reader.readUint16();
     for (let i = 0; i < aliasLstLen; i++) {
-      readLibraryString(reader); // alias
-      readLibraryString(reader); // package
+      reader.readStringLenZeroTerm(); // alias
+      reader.readStringLenZeroTerm(); // package
     }
     reader.skip(8);
-    const name = readLibraryString(reader);
+    const name = reader.readStringLenZeroTerm();
     return name && reader.isEof() ? name : undefined;
   } catch {
     return undefined;
