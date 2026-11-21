@@ -530,3 +530,79 @@ describe("buildNetConnectivity over PACK_SHORT pins", () => {
     expect(netOf("Q2", "3")).toBeUndefined();
   });
 });
+/**
+ * A port net can span several pages of a block while the port symbol is drawn
+ * on only one of them. The other pages name the same net in their net tables,
+ * and that name is what connects them to the port: the port's own name, or any
+ * other name its net carries. Reported in #274 by @freerly2026.
+ */
+describe.each([
+  ["the port's own name", "SIG_IN"],
+  ["another name of the port's net", "SIG_LOCAL"],
+])("a port net named on a page that does not draw the port symbol, by %s", (_, net) => {
+  const portTop = page({
+    name: "PORT_TOP",
+    wires: [wire(801, 776, 100, 100, 450, 360)],
+    placedInstances: [part(11, "R1", [pin(1, 100, 100, 801)])],
+    drawnInstances: [block(71, "MV1", ["SIG_IN"], [pin(1, 450, 360, 801)])],
+  });
+  const portPage = page({
+    name: "PORT_PAGE",
+    netTable: new Map([[5001, [net]]]),
+    wires: [wire(5001, 5000, 10, 10, 50, 10)],
+    placedInstances: [part(281, "C1", [pin(1, 50, 10, 5001)])],
+    ports: [symbol(5, 910, 10, 10, 5000)],
+  });
+  const powerPage = page({
+    name: "POWER_PAGE",
+    netTable: new Map([[5002, [net]]]),
+    wires: [wire(5002, 5000, 10, 10, 50, 10)],
+    placedInstances: [part(282, "C2", [pin(1, 50, 10, 5002)])],
+  });
+  const portRoot: HierarchyStream = {
+    schematic: "porttop",
+    scope: {
+      nets: [{ dbId: 1, name: "N00776" }],
+      parts: [{ occurrenceId: 1, dbId: 11, reference: "R1", pins: [] }],
+      blocks: [
+        {
+          occurrenceId: 71,
+          dbId: 71,
+          schematic: "portchild",
+          reference: "",
+          scope: {
+            nets: [{ dbId: 10, name: "SIG_IN" }],
+            parts: [
+              { occurrenceId: 710, dbId: 281, reference: "C6", pins: [] },
+              { occurrenceId: 711, dbId: 282, reference: "C106", pins: [] },
+            ],
+            blocks: [],
+          },
+        },
+      ],
+    },
+  };
+  const expanded = expandHierarchy(
+    [portRoot],
+    new Map([
+      ["porttop", [portTop]],
+      ["portchild", [portPage, powerPage]],
+    ]),
+    strLst
+  );
+  const { nets } = buildNetConnectivity(
+    expanded.pages,
+    expanded.canonicalNetNames,
+    pmd,
+    new Map(),
+    strLst
+  );
+
+  it("joins the named net on every page of the placement to the parent", () => {
+    expect(nets.N00776).toEqual({ R1: ["1"], C6: ["1"], C106: ["1"] });
+  });
+
+  it("leaves no suffixed copy of the port net", () => {
+    expect(Object.keys(nets).filter((n) => n.startsWith(net))).toEqual([]);
+  });
+});
