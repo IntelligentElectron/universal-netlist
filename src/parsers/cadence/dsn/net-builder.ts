@@ -12,6 +12,7 @@
 import type { NetConnections, NetLabelSource } from "../../../types.js";
 import type { PinMapData } from "./structure-types.js";
 import type { PageData } from "./page-parser.js";
+import type { Placement } from "./hierarchy-expander.js";
 import { symbolKey } from "./symbol-attachment.js";
 import { buildPageCoordMap, renameGroups, type PageCoordMap } from "./page-groups.js";
 import { collectPins, type PinInfo } from "./net-pins.js";
@@ -91,9 +92,37 @@ export function buildNetConnectivity(
   }
 
   // A placement's own scope names its nets; the root's list names everything else.
-  const pageCoordMaps = pages.map((page) =>
+  let pageCoordMaps = pages.map((page) =>
     buildPageCoordMap(page, page.placement?.canonicalNetNames ?? canonicalNetNames, symbolNets)
   );
+  // A placement's local group that carries a name of one of its port-bound
+  // groups, on any of its pages, is on that port too (see buildPageCoordMap).
+  // Rebuilt until no page gains a port, since a joined group brings its own names.
+  for (let changed = true; changed;) {
+    changed = false;
+    const namedPorts = new Map<Placement, Map<string, string>>();
+    pages.forEach((page, i) => {
+      if (!page.placement) return;
+      const names = namedPorts.get(page.placement) ?? new Map<string, string>();
+      namedPorts.set(page.placement, names);
+      for (const [name, group] of pageCoordMaps[i].byBase) {
+        if (group.port && group.port.index === undefined)
+          names.set(name.toUpperCase(), group.port.port);
+      }
+    });
+    pageCoordMaps = pageCoordMaps.map((map, i) => {
+      const page = pages[i];
+      const names = page.placement && namedPorts.get(page.placement);
+      if (!names) return map;
+      // A local group is suffixed; a global one keeps its name and stays global.
+      const joins = [...map.byBase].some(
+        ([name, group]) => !group.port && group.name !== group.base && names.has(name.toUpperCase())
+      );
+      if (!joins) return map;
+      changed = true;
+      return buildPageCoordMap(page, page.placement!.canonicalNetNames, symbolNets, names);
+    });
+  }
 
   // Apply cross-page OPC name equivalences (creates new maps to avoid mutation)
   const opcNameMap = buildOpcNameMap(pages, pageCoordMaps, canonicalNetNames);
