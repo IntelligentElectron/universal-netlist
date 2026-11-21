@@ -27,14 +27,14 @@ import {
   readLibraryFonts,
   readLibraryVersion,
 } from "./library-parser.js";
-import { buildDeviceIndexMap } from "./pin-resolver.js";
+import { buildDeviceIndexMap, isMultiSection, packShortGroups } from "./pin-resolver.js";
 import { buildNetConnectivity } from "./net-builder.js";
 import type { PageCoordMap } from "./page-groups.js";
 import type { PinInfo } from "./net-pins.js";
 import { buildPageViews, type PageView } from "./page-views.js";
 import { renderPageSvg } from "./page-render.js";
 import { CONNECTOR_SYMBOL_TYPES, connectionPoint, readCacheSymbols } from "./symbol-graphics.js";
-import { buildComponents } from "./component-builder.js";
+import { buildComponents, findCachedPart } from "./component-builder.js";
 import { mergeRepeatedSections, separateDuplicateRefdes } from "./duplicate-refdes.js";
 import { readVariantStuffing, type VariantStuffing } from "./variant-store.js";
 
@@ -292,6 +292,15 @@ function parseDsnStreams(
       parseCacheStream(cacheBuf, pmd, cachedParts, exactPartNames);
     } catch {
       // Cache parsing is best-effort
+    }
+  }
+
+  // PACK_SHORT ties a single-section part's ignored pins to a placed pin (§5.8).
+  for (const page of pages) {
+    for (const inst of page.placedInstances) {
+      if (isMultiSection(inst, pmd)) continue;
+      const groups = packShortGroups(findCachedPart(inst, cachedParts), strLst);
+      if (groups) inst.packShort = groups;
     }
   }
 

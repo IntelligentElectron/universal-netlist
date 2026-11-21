@@ -4,7 +4,9 @@ import {
   findPinMap,
   extractUnitRef,
   buildDeviceIndexMap,
+  isMultiSection,
   isPinIgnored,
+  packShortGroups,
 } from "./pin-resolver.js";
 import type { PinMapData } from "./structure-types.js";
 import type { PlacedInstance, T0x10 } from "./structures.js";
@@ -406,5 +408,44 @@ describe("Pin Ignore flags follow the map that supplied the pin number", () => {
 
     expect(isPinIgnored(pin(3), inst, pmd)).toBe(true);
     expect(isPinIgnored(pin(2), inst, pmd)).toBe(false);
+  });
+});
+
+describe("packShortGroups", () => {
+  // String list: 1 names the property, 2 holds its value.
+  const groups = (value: string, pinNames: string[]) =>
+    packShortGroups({ pinNames, properties: [[1, 2]] }, ["", "PACK_SHORT", value]);
+
+  it("reads one group per parentheses as pin indices", () => {
+    const pins = ["GPIO1", "VDD", "VDD1", "VDD2", "GND2", "GND1", "GND"];
+    expect(groups("(VDD,VDD1,VDD2)(GND,GND1,GND2)", pins)).toEqual([
+      [2, 3, 4],
+      [5, 6, 7],
+    ]);
+  });
+
+  it("reads a bare list as one group and matches names case-insensitively", () => {
+    expect(groups("S1,S2,S3", ["G", "D", "s1", "S2", "S3"])).toEqual([[3, 4, 5]]);
+    expect(groups("(PAD,VIN)", ["Vin", "EN", "PAD"])).toEqual([[1, 3]]);
+  });
+
+  it("drops a group that names fewer than two of the part's pins", () => {
+    expect(groups("(A,B)(GND,GND4)", ["1", "GND4", "3", "GND"])).toEqual([[2, 4]]);
+    expect(groups("(A,B)", ["1", "2"])).toBeUndefined();
+  });
+
+  it("returns nothing for a part without the property", () => {
+    expect(packShortGroups({ pinNames: ["1"] }, [])).toBeUndefined();
+    expect(packShortGroups(undefined, [])).toBeUndefined();
+  });
+});
+
+describe("isMultiSection", () => {
+  it("tells a section of a multi-device package from a single-device part", () => {
+    const pmd = pinMapData({ "RJ45-1": ["A1"], SI7617DN: ["4", "5", "1", "2", "3"] });
+    pmd.deviceUnitRefs.set("RJ45", ["-1", "-2", "-3", "-4"]);
+
+    expect(isMultiSection(instance("RJ45_0", 1, "RJ45-1.Normal"), pmd)).toBe(true);
+    expect(isMultiSection(instance("SI7617DN", 5), pmd)).toBe(false);
   });
 });

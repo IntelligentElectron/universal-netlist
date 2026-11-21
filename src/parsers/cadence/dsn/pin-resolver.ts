@@ -6,7 +6,7 @@
  */
 
 import type { T0x10, PlacedInstance } from "./structures.js";
-import type { PinMapData } from "./structure-types.js";
+import type { CachedLibraryPart, PinMapData } from "./structure-types.js";
 import { isValidRefdes } from "../../../circuit-traversal.js";
 import type { PageData } from "./page-parser.js";
 
@@ -163,6 +163,44 @@ export function isPinIgnored(
   if (pin.pinIndex <= 0) return false;
   const selected = selectPinMap(inst, pmd, deviceIndex);
   return selected?.ignores?.[pin.pinIndex - 1] ?? false;
+}
+
+/**
+ * Whether the instance is a section of a package with several devices. There
+ * an ignored slot is a pad that section does not have, never a shorted one.
+ */
+export const isMultiSection = (inst: PlacedInstance, pmd: PinMapData): boolean =>
+  [inst.sourcePackage, inst.sourcePackage.replace(/_\d+$/, "")].some((name) =>
+    pmd.deviceUnitRefs.has(name)
+  );
+
+/** Whether the part's PACK_SHORT ties this pin to others (§5.8). */
+export const isPackShorted = (pin: T0x10, inst: PlacedInstance): boolean =>
+  inst.packShort?.some((group) => group.includes(pin.pinIndex)) ?? false;
+
+/**
+ * A library part's PACK_SHORT groups as 1-based pin indices, or undefined when
+ * it has none. The value names pins shorted inside the package, one group per
+ * parentheses, `(VDD,VDD1,VDD2)(GND,GND1,GND2)`, or a bare list for one group,
+ * `S1,S2,S3`; names match the part's pin names case-insensitively (§5.8).
+ */
+export function packShortGroups(
+  part: CachedLibraryPart | undefined,
+  strLst: readonly string[]
+): number[][] | undefined {
+  const pair = part?.properties?.find(([name]) => strLst[name]?.toUpperCase() === "PACK_SHORT");
+  const value = pair && strLst[pair[1]];
+  if (!value) return undefined;
+  const lists = value.includes("(")
+    ? [...value.matchAll(/\(([^)]*)\)/g)].map((m) => m[1])
+    : [value];
+  const groups = lists
+    .map((list) => {
+      const names = new Set(list.split(",").map((n) => n.trim().toUpperCase()));
+      return part!.pinNames.flatMap((n, i) => (names.has(n.toUpperCase()) ? [i + 1] : []));
+    })
+    .filter((group) => group.length > 1);
+  return groups.length > 0 ? groups : undefined;
 }
 
 /**

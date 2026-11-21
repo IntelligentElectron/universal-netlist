@@ -16,7 +16,7 @@ import type { PrefixPropertyPair } from "./generic-parser.js";
 import type { CachedLibraryPart, PinMapData } from "./structure-types.js";
 import type { PlacedInstance } from "./structures.js";
 import type { PageData } from "./page-parser.js";
-import { resolvePinNumber, isPinIgnored } from "./pin-resolver.js";
+import { resolvePinNumber, isPinIgnored, isPackShorted } from "./pin-resolver.js";
 
 /**
  * Property names holding the design's own part number, in precedence order.
@@ -149,7 +149,7 @@ function cleanDnsFromValue(value: string): string {
  * 2. sourcePackage + ".Normal" (when pkgName has unit suffix like "FOO_0A.Normal")
  * 3. Suffix-stripped sourcePackage + ".Normal"
  */
-function findCachedPart(
+export function findCachedPart(
   inst: PlacedInstance,
   cachedParts: Map<string, CachedLibraryPart>
 ): CachedLibraryPart | undefined {
@@ -232,7 +232,10 @@ export function buildComponents(
           const unitCachedPart = findCachedPart(inst, cachedParts);
           const pinNumToIndex = new Map<string, number>();
           for (const t0x10 of inst.t0x10s) {
-            if (t0x10.pinIndex > 0 && !isPinIgnored(t0x10, inst, pmd, deviceIndex)) {
+            if (
+              t0x10.pinIndex > 0 &&
+              (!isPinIgnored(t0x10, inst, pmd, deviceIndex) || isPackShorted(t0x10, inst))
+            ) {
               pinNumToIndex.set(resolvePinNumber(t0x10, inst, pmd, deviceIndex), t0x10.pinIndex);
             }
           }
@@ -307,7 +310,10 @@ export function buildComponents(
         // not claim a pin-number slot here either: it would relabel the real pin
         // that shares that number with the ignored pin's function name.
         for (const t0x10 of inst.t0x10s) {
-          if (t0x10.pinIndex > 0 && !isPinIgnored(t0x10, inst, pmd, deviceIndex)) {
+          if (
+            t0x10.pinIndex > 0 &&
+            (!isPinIgnored(t0x10, inst, pmd, deviceIndex) || isPackShorted(t0x10, inst))
+          ) {
             pinNumToIndex.set(resolvePinNumber(t0x10, inst, pmd, deviceIndex), t0x10.pinIndex);
           }
         }

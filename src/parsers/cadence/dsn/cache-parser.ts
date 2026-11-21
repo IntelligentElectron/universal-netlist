@@ -9,6 +9,7 @@
 
 import { BinaryReader } from "./binary-reader.js";
 import { StructureType, type CachedLibraryPart, type PinMapData } from "./structure-types.js";
+import type { PrefixPropertyPair } from "./generic-parser.js";
 import { parsePackage, parseLibraryPart } from "./structures.js";
 
 /**
@@ -100,11 +101,20 @@ function indexCachePackage(pkg: import("./structures.js").Package, pmd: PinMapDa
  * name so a later alias cannot displace it and an alias cannot outrank it.
  */
 export function indexLibraryPart(
-  lp: { name: string; pinNames: string[]; defaultValue?: string },
+  lp: {
+    name: string;
+    pinNames: string[];
+    defaultValue?: string;
+    properties?: PrefixPropertyPair[];
+  },
   cachedParts: Map<string, CachedLibraryPart>,
   exactNames: Set<string>
 ): void {
-  const entry: CachedLibraryPart = { pinNames: lp.pinNames, defaultValue: lp.defaultValue };
+  const entry: CachedLibraryPart = {
+    pinNames: lp.pinNames,
+    defaultValue: lp.defaultValue,
+    properties: lp.properties,
+  };
 
   if (!exactNames.has(lp.name)) {
     cachedParts.set(lp.name, entry);

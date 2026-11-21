@@ -87,6 +87,12 @@ export interface PlacedInstance {
    * read as it is.
    */
   pinNumbers?: ReadonlyMap<number, string>;
+  /**
+   * The part's PACK_SHORT groups as pin indices: the pins of each group are
+   * shorted inside the package (§5.8). Set from the library part; absent when
+   * it has none.
+   */
+  packShort?: number[][];
 }
 
 /**
@@ -655,11 +661,13 @@ export interface LibraryPart {
   name: string;
   pinNames: string[];
   defaultValue?: string;
+  /** The short prefix's (name, value) string-list index pairs, such as PACK_SHORT. */
+  properties: PrefixPropertyPair[];
 }
 
 export function parseLibraryPart(reader: BinaryReader): LibraryPart {
   const futureData = new FutureDataList(reader);
-  autoReadPrefixes(reader, futureData, StructureType.LibraryPart);
+  const { properties } = autoReadPrefixes(reader, futureData, StructureType.LibraryPart);
   readPreamble(reader);
   futureData.checkpoint();
 
@@ -711,5 +719,5 @@ export function parseLibraryPart(reader: BinaryReader): LibraryPart {
     // GeneralProperties is optional
   }
 
-  return { name, pinNames, defaultValue };
+  return { name, pinNames, defaultValue, properties };
 }

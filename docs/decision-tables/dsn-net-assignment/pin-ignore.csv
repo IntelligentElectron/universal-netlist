@@ -1,0 +1,9 @@
+pin_ignored,named_in_pack_short,group_has_placed_pin,outcome,next,status,note
+yes,yes,yes,the net of its group's placed pin,,draft,"net-pins.ts collectPins: the first placed pin of the group in PACK_SHORT order; matches Capture's export on 46 of 46 pins (ONYXPSU, both CLAYR6)"
+yes,yes,no,left out,,draft,"no pin of the group reaches a net to share"
+yes,no,yes,n/a,,draft,"a pin no PACK_SHORT names has no group"
+yes,no,no,left out,,draft,"Cadence leaves it out: the RJ45 sections without the pad (pstchip 0,0,0,S5), ANTENNA NC (pstchip NC_PINS)"
+no,yes,yes,its own net,,draft,"a placed pin keeps the net its drawing gives it; every corpus group has exactly one placed pin"
+no,yes,no,its own net,,draft,"it is the group's placed pin"
+no,no,yes,n/a,,draft,"a pin no PACK_SHORT names has no group"
+no,no,no,its own net,,draft,"the ordinary case"
