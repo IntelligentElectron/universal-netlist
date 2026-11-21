@@ -14,6 +14,19 @@ describe("parseBusName", () => {
     expect(parseBusName(name)).toEqual({ base: "A", indices: [7, 6, 5, 4] });
   });
 
+  it.each([
+    ["D[-1..1]", [-1, 0, 1]],
+    ["D[1:-1]", [1, 0, -1]],
+    ["D[0--2]", [0, -1, -2]],
+  ])("reads the signed indices in %s", (name, indices) => {
+    expect(parseBusName(name)).toEqual({ base: "D", indices });
+  });
+
+  it("refuses a range wider than 65,535 members", () => {
+    expect(parseBusName("N[0:65534]")?.indices).toHaveLength(65535);
+    expect(parseBusName("N[0:65535]")).toBeUndefined();
+  });
+
   it("keeps a trailing underscore in the base", () => {
     expect(parseBusName("FMC_GA_[1:0]")).toEqual({ base: "FMC_GA_", indices: [1, 0] });
   });

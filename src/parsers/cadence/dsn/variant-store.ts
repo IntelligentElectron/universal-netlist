@@ -74,21 +74,32 @@ function readPayload(buffer: Buffer): string {
 }
 
 /**
- * Parse a variant group stream into the occurrences it names.
+ * Parse a variant group stream into the occurrences it names
+ * (docs/cadence-dsn-format.md §14.10).
  *
- * Only `<id>~0` and `<id>~1` are read. A token carrying any other state is
- * left out, so a state this corpus has never shown cannot be mistaken for the
- * one that unstuffs a part.
+ * A first token of `0` or `1` is the group's flag, never an occurrence. Entries read as
+ * `<id>~0` or `<id>~1`; a token carrying any other state is left out, so a
+ * state this corpus has never shown cannot be mistaken for the one that
+ * unstuffs a part. An entry written as a bare `<id>` is still a member: it
+ * takes the status the group's other entries carry, since every group writes
+ * one status throughout, and is left out when the group carries none or more
+ * than one.
  */
 export function parseVariantGroup(buffer: Buffer): VariantGroupEntry[] {
   const entries: VariantGroupEntry[] = [];
+  const bare: number[] = [];
 
-  for (const token of readPayload(buffer).split(GROUP_SEPARATOR)) {
+  const tokens = readPayload(buffer).split(GROUP_SEPARATOR);
+  if (tokens[0] === "0" || tokens[0] === "1") tokens.shift();
+  for (const token of tokens) {
     const tilde = token.indexOf("~");
-    if (tilde <= 0) continue;
-
-    const occurrenceId = Number(token.slice(0, tilde));
-    if (!Number.isInteger(occurrenceId) || occurrenceId <= 0) continue;
+    const id = tilde < 0 ? token : token.slice(0, tilde);
+    const occurrenceId = Number(id);
+    if (!/^\d+$/.test(id) || occurrenceId <= 0) continue;
+    if (tilde < 0) {
+      bare.push(occurrenceId);
+      continue;
+    }
 
     const state = token.slice(tilde + 1);
     if (state !== "0" && state !== "1") continue;
@@ -96,6 +107,11 @@ export function parseVariantGroup(buffer: Buffer): VariantGroupEntry[] {
     entries.push({ occurrenceId, stuffed: state === "1" });
   }
 
+  const statuses = new Set(entries.map((e) => e.stuffed));
+  if (statuses.size === 1) {
+    const [stuffed] = statuses;
+    for (const occurrenceId of bare) entries.push({ occurrenceId, stuffed });
+  }
   return entries;
 }
 

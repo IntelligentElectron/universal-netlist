@@ -66,7 +66,7 @@ for (const dsn of dsnFiles) {
             .filter(Boolean)
             .slice(0, 8);
           console.log(
-            `    device: unitRef=${d.unitRef} refDes=${d.refDes} pins(${d.pinMap.length}): [${pinSample.join(", ")}${d.pinMap.length > 8 ? ", ..." : ""}]`
+            `    device: unitRef=${d.unitRef} cellName=${d.cellName} pins(${d.pinMap.length}): [${pinSample.join(", ")}${d.pinMap.length > 8 ? ", ..." : ""}]`
           );
         }
       }
