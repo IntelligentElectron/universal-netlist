@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T21:40:46.676Z",
-    "netlistHash": "sha256:14c7b8f2546fd7af6b180bf6370d2a982ec458d961bc235e40c83ad10908f8da",
+    "generatedAt": "2026-11-21T23:17:33.519Z",
+    "netlistHash": "sha256:0cd1f6cbe373181c80050043d8e162a483d37d3f7da03f00369d673398f5130d",
     "origin": {
       "type": "vendor",
       "source": {
@@ -7901,7 +7901,8 @@
         },
         "2": {
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "3": {
           "name": "C",
@@ -7921,7 +7922,8 @@
         },
         "2": {
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "3": {
           "name": "C",
@@ -9025,7 +9027,8 @@
         "9": {
           "name": "NC1",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "10": {
           "net": "GND",
@@ -9042,7 +9045,8 @@
         "13": {
           "name": "NC2",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "14": {
           "net": "/top/P13V8",
@@ -9215,7 +9219,8 @@
         },
         "2": {
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "3": {
           "name": "C",
@@ -9235,7 +9240,8 @@
         },
         "2": {
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "3": {
           "name": "C",
@@ -9255,7 +9261,8 @@
         },
         "2": {
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "3": {
           "name": "C",
@@ -9275,7 +9282,8 @@
         },
         "2": {
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "3": {
           "name": "C",
@@ -9463,7 +9471,8 @@
         "5": {
           "name": "NC",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "6": {
           "name": "IN",

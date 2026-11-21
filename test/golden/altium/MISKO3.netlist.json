@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T21:40:46.189Z",
-    "netlistHash": "sha256:0d067cce3e19c60a4dd00fa71fc1567bbf32324b5f4217054aca18334927b5fc",
+    "generatedAt": "2026-11-21T23:30:38.321Z",
+    "netlistHash": "sha256:c3a14ac9e4b133657bceb1cb733be6d5bbb01b883937b58a92e97ac96f20cadf",
     "origin": {
       "type": "vendor",
       "source": {
@@ -8102,6 +8102,26 @@
         }
       },
       "comment": "CFPX-104 24MHz"
+    }
+  },
+  "netProperties": {
+    "USB2_P": {
+      "DIFFERENTIAL_PAIR": "USB2"
+    },
+    "USB2_N": {
+      "DIFFERENTIAL_PAIR": "USB2"
+    },
+    "USB_STLINK_P": {
+      "DIFFERENTIAL_PAIR": "USB_STLINK"
+    },
+    "USB_STLINK_N": {
+      "DIFFERENTIAL_PAIR": "USB_STLINK"
+    },
+    "USB_P": {
+      "DIFFERENTIAL_PAIR": "USB"
+    },
+    "USB_N": {
+      "DIFFERENTIAL_PAIR": "USB"
     }
   }
 }

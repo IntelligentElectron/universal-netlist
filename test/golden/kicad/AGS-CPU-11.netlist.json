@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T21:40:46.658Z",
-    "netlistHash": "sha256:fbf1659af4acbac8dae5a0b3e3a7910096bd7762be15961ab91d6f238b276f93",
+    "generatedAt": "2026-11-21T23:17:33.476Z",
+    "netlistHash": "sha256:86913daae6216052adeeb325586fd00399c1d57ab1adfed6d1bdcd5056dd99da",
     "origin": {
       "type": "vendor",
       "source": {
@@ -3715,12 +3715,14 @@
         "18": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "19": {
           "name": "VDD35",
           "net": "VDD35",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "20": {
           "name": "A17/D1",
@@ -3760,12 +3762,14 @@
         "27": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "28": {
           "name": "VDD35",
           "net": "VDD35",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "29": {
           "name": "AD10/A10",
@@ -3805,12 +3809,14 @@
         "36": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "37": {
           "name": "VDD35",
           "net": "VDD35",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "38": {
           "name": "AD3/A3",
@@ -3855,12 +3861,14 @@
         "46": {
           "name": "VDD35",
           "net": "VDD35",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "47": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "48": {
           "name": "SC",
@@ -3885,22 +3893,26 @@
         "52": {
           "name": "VDD35",
           "net": "VDD35",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "53": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "54": {
           "name": "VDD1",
           "net": "+1V8",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "55": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "56": {
           "name": "VDD2",
@@ -3960,12 +3972,14 @@
         "67": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "68": {
           "name": "VDD2",
           "net": "+2V5",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "69": {
           "name": "~{MWR}",
@@ -4015,12 +4029,14 @@
         "78": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "79": {
           "name": "VDD2",
           "net": "+2V5",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "80": {
           "name": "MD4",
@@ -4070,12 +4086,14 @@
         "89": {
           "name": "VDD2",
           "net": "+2V5",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "90": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "91": {
           "name": "MD11",
@@ -4125,12 +4143,14 @@
         "100": {
           "name": "VDD2",
           "net": "+2V5",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "101": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "102": {
           "name": "VDD1",
@@ -4215,12 +4235,14 @@
         "118": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "119": {
           "name": "VDD3",
           "net": "+3V3",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "120": {
           "name": "LDB5",
@@ -4250,12 +4272,14 @@
         "125": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "126": {
           "name": "VDD3",
           "net": "+3V3",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "127": {
           "name": "SPL",
@@ -4305,12 +4329,14 @@
         "136": {
           "name": "VDD1",
           "net": "+1V8",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "137": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "138": {
           "name": "CK1",
@@ -4325,22 +4351,26 @@
         "140": {
           "name": "VDD2",
           "net": "+2V5",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "141": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "142": {
           "name": "VDD3",
           "net": "+3V3",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "143": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "144": {
           "name": "VCNT5",
@@ -4385,7 +4415,8 @@
         "152": {
           "name": "???",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "153": {
           "name": "TP3",
@@ -4400,12 +4431,14 @@
         "155": {
           "name": "VDD3",
           "net": "+3V3",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "156": {
           "name": "GND",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         }
       },
       "value": "CPU AGB B",
@@ -4641,12 +4674,14 @@
         "46": {
           "name": "VSS",
           "net": "GND",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "47": {
           "name": "NC",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "48": {
           "name": "A16",
@@ -5744,7 +5779,8 @@
         "6": {
           "name": "NC",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "7": {
           "name": "LEDR",
@@ -5769,7 +5805,8 @@
         "11": {
           "name": "NC",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "12": {
           "name": "GND",
@@ -8538,7 +8575,8 @@
         "5": {
           "name": "NC",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "6": {
           "net": "Net-(R52-Pad2)",
@@ -8547,7 +8585,8 @@
         "7": {
           "name": "NC",
           "net": "",
-          "type": "no_connect"
+          "type": "no_connect",
+          "hidden": true
         },
         "8": {
           "net": "GND",

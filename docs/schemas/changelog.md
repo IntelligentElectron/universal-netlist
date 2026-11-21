@@ -27,7 +27,7 @@ Records each pin's electrical type, hidden power pins, and properties of nets.
 | Field | Change |
 |---|---|
 | pin entry `type` | Added. The electrical type the pin's library symbol declares: `input`, `output`, `bidirectional`, `tristate`, `open_collector`, `open_emitter`, `passive`, `power`, `power_in`, `power_out`, `unspecified`, `free` or `no_connect`. |
-| pin entry `hidden` | Added. `true` on a power pin the symbol does not draw, which joins its net by name. |
+| pin entry `hidden` | Added. `true` on a pin the symbol does not draw. |
 | pin entry `name` | Now optional in the object form, so a pin can carry a type without a name. An object must carry at least one of `name`, `type` and `hidden`. |
 | `netProperties` | Added. Properties the design attaches to a net, by net name, such as `DIFFERENTIAL_PAIR`. Omitted when no net has any; included in `netlistHash` when present. |
 

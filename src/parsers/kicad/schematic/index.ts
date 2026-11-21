@@ -16,7 +16,7 @@ import { readText, type FileReader } from "../../context.js";
 import type { ParsedNetlist } from "../../../types.js";
 import { parseKicadNetlist } from "../netlist-parser.js";
 import { resolveSchematic, type SchematicSource } from "./connectivity.js";
-import { writeKicadNetlist } from "./netlist-writer.js";
+import { writeKicadNetlist, type ResolvedSchematic } from "./netlist-writer.js";
 import { readKicadProjectSchematic } from "../discovery.js";
 
 /**
@@ -85,12 +85,12 @@ const readSources = async (
   return sources.map(({ name, content }) => ({ name, content }));
 };
 
-/** A KiCad design's netlist from its schematics, read through `files`. */
-export const readKicadSchematicNetlist = async (
+/** A KiCad design's resolved schematic: its parts, their pins, and its nets. */
+export const readKicadSchematic = async (
   rootSchematic: string,
   files: FileReader,
   projectPath: string
-): Promise<ParsedNetlist> => {
+): Promise<ResolvedSchematic> => {
   // The project file's bus aliases, where KiCad 10 keeps them, and its
   // top-level sheets when it lists several. None without a readable project
   // file. A design given as its root .kicad_sch reads the project beside it.
@@ -102,16 +102,42 @@ export const readKicadSchematicNetlist = async (
       }))
     : [{ name: path.basename(rootSchematic), path: rootSchematic }];
   const sources = await readSources(roots, files);
+  return resolveSchematic(sources, {
+    busAliases,
+    topLevelSheets: topLevelSheets.map((sheet) => ({
+      uuid: sheet.uuid,
+      name: sheet.name,
+      file: sheet.filename,
+    })),
+  });
+};
+
+/**
+ * Flag the pins the schematic's symbols do not draw `hidden`. KiCad's netlist
+ * export does not record the flag, so it comes from the schematic whichever
+ * source the netlist was read from, and the raw reader's netlist, like KiCad's,
+ * goes without it. A pin the netlist does not have is skipped.
+ */
+export const markHiddenPins = (netlist: ParsedNetlist, design: ResolvedSchematic): void => {
+  for (const { reference, hiddenPins = [] } of design.components) {
+    if (!Object.hasOwn(netlist.components, reference)) continue;
+    const pins = netlist.components[reference].pins;
+    for (const key of hiddenPins) {
+      if (!Object.hasOwn(pins, key)) continue;
+      const entry = pins[key];
+      pins[key] =
+        typeof entry === "string" ? { net: entry, hidden: true } : { ...entry, hidden: true };
+    }
+  }
+};
+
+/** A KiCad design's netlist from its schematics, read through `files`. */
+export const readKicadSchematicNetlist = async (
+  rootSchematic: string,
+  files: FileReader,
+  projectPath: string
+): Promise<ParsedNetlist> => {
   return parseKicadNetlist(
-    writeKicadNetlist(
-      resolveSchematic(sources, {
-        busAliases,
-        topLevelSheets: topLevelSheets.map((sheet) => ({
-          uuid: sheet.uuid,
-          name: sheet.name,
-          file: sheet.filename,
-        })),
-      })
-    )
+    writeKicadNetlist(await readKicadSchematic(rootSchematic, files, projectPath))
   );
 };

@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T21:40:45.658Z",
-    "netlistHash": "sha256:231c3099600d364c3d03fd8ba5cc21f351484175895c45a4b8c5daa29a682aec",
+    "generatedAt": "2026-11-21T23:30:37.761Z",
+    "netlistHash": "sha256:0f9750cd94f15f0644246871151002d7f50bd913d4289318ecd4da1fb9dd74a9",
     "origin": {
       "type": "vendor",
       "source": {
@@ -22173,11 +22173,13 @@
       "pins": {
         "1": {
           "net": "",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         },
         "2": {
           "net": "",
-          "type": "passive"
+          "type": "passive",
+          "hidden": true
         }
       },
       "manufacturer": "Harwin Inc.",
@@ -27744,6 +27746,170 @@
       "manufacturer": "FIX&FASTEN",
       "description": "STANDOFF M/F MET 5MM HEX 10MM L",
       "comment": "# pcs."
+    }
+  },
+  "netProperties": {
+    "TXRF1_1AB_P": {
+      "DIFFERENTIAL_PAIR": "TXRF1_1AB"
+    },
+    "TXRF1_1AB_N": {
+      "DIFFERENTIAL_PAIR": "TXRF1_1AB"
+    },
+    "TXRF1_1BB_P": {
+      "DIFFERENTIAL_PAIR": "TXRF1_1BB"
+    },
+    "TXRF1_1BB_N": {
+      "DIFFERENTIAL_PAIR": "TXRF1_1BB"
+    },
+    "TXRF1_2AB_P": {
+      "DIFFERENTIAL_PAIR": "TXRF1_2AB"
+    },
+    "TXRF1_2AB_N": {
+      "DIFFERENTIAL_PAIR": "TXRF1_2AB"
+    },
+    "TXRF1_2BB_P": {
+      "DIFFERENTIAL_PAIR": "TXRF1_2BB"
+    },
+    "TXRF1_2BB_N": {
+      "DIFFERENTIAL_PAIR": "TXRF1_2BB"
+    },
+    "RXRF1_LAB_P": {
+      "DIFFERENTIAL_PAIR": "RXRF1_LAB"
+    },
+    "RXRF1_LAB_N": {
+      "DIFFERENTIAL_PAIR": "RXRF1_LAB"
+    },
+    "RXRF1_LBB_P": {
+      "DIFFERENTIAL_PAIR": "RXRF1_LBB"
+    },
+    "RXRF1_LBB_N": {
+      "DIFFERENTIAL_PAIR": "RXRF1_LBB"
+    },
+    "RXRF1_HBB_P": {
+      "DIFFERENTIAL_PAIR": "RXRF1_HBB"
+    },
+    "RXRF1_HBB_N": {
+      "DIFFERENTIAL_PAIR": "RXRF1_HBB"
+    },
+    "RXRF1_WBB_P": {
+      "DIFFERENTIAL_PAIR": "RXRF1_WBB"
+    },
+    "RXRF1_WBB_N": {
+      "DIFFERENTIAL_PAIR": "RXRF1_WBB"
+    },
+    "RXRF1_WAB_P": {
+      "DIFFERENTIAL_PAIR": "RXRF1_WAB"
+    },
+    "RXRF1_WAB_N": {
+      "DIFFERENTIAL_PAIR": "RXRF1_WAB"
+    },
+    "TXRF2_1AB_P": {
+      "DIFFERENTIAL_PAIR": "TXRF2_1AB"
+    },
+    "TXRF2_1AB_N": {
+      "DIFFERENTIAL_PAIR": "TXRF2_1AB"
+    },
+    "TXRF2_1BB_P": {
+      "DIFFERENTIAL_PAIR": "TXRF2_1BB"
+    },
+    "TXRF2_1BB_N": {
+      "DIFFERENTIAL_PAIR": "TXRF2_1BB"
+    },
+    "TXRF2_2AB_P": {
+      "DIFFERENTIAL_PAIR": "TXRF2_2AB"
+    },
+    "TXRF2_2AB_N": {
+      "DIFFERENTIAL_PAIR": "TXRF2_2AB"
+    },
+    "TXRF2_2BB_P": {
+      "DIFFERENTIAL_PAIR": "TXRF2_2BB"
+    },
+    "TXRF2_2BB_N": {
+      "DIFFERENTIAL_PAIR": "TXRF2_2BB"
+    },
+    "RXRF2_LAB_P": {
+      "DIFFERENTIAL_PAIR": "RXRF2_LAB"
+    },
+    "RXRF2_LAB_N": {
+      "DIFFERENTIAL_PAIR": "RXRF2_LAB"
+    },
+    "RXRF2_LBB_P": {
+      "DIFFERENTIAL_PAIR": "RXRF2_LBB"
+    },
+    "RXRF2_LBB_N": {
+      "DIFFERENTIAL_PAIR": "RXRF2_LBB"
+    },
+    "RXRF2_HAB_P": {
+      "DIFFERENTIAL_PAIR": "RXRF2_HAB"
+    },
+    "RXRF2_HAB_N": {
+      "DIFFERENTIAL_PAIR": "RXRF2_HAB"
+    },
+    "RXRF2_HBB_P": {
+      "DIFFERENTIAL_PAIR": "RXRF2_HBB"
+    },
+    "RXRF2_HBB_N": {
+      "DIFFERENTIAL_PAIR": "RXRF2_HBB"
+    },
+    "RXRF2_WAB_P": {
+      "DIFFERENTIAL_PAIR": "RXRF2_WAB"
+    },
+    "RXRF2_WAB_N": {
+      "DIFFERENTIAL_PAIR": "RXRF2_WAB"
+    },
+    "RXRF2_WBB_P": {
+      "DIFFERENTIAL_PAIR": "RXRF2_WBB"
+    },
+    "RXRF2_WBB_N": {
+      "DIFFERENTIAL_PAIR": "RXRF2_WBB"
+    },
+    "DDR2_2_CLK_P": {
+      "DIFFERENTIAL_PAIR": "DDR2_2_CLK"
+    },
+    "DDR2_2_CLK_N": {
+      "DIFFERENTIAL_PAIR": "DDR2_2_CLK"
+    },
+    "DDR2_1_CLK_P": {
+      "DIFFERENTIAL_PAIR": "DDR2_1_CLK"
+    },
+    "DDR2_1_CLK_N": {
+      "DIFFERENTIAL_PAIR": "DDR2_1_CLK"
+    },
+    "FX3_USB_SSTX_IC_P": {
+      "DIFFERENTIAL_PAIR": "FX3_USB_SSTX_IC"
+    },
+    "FX3_USB_SSTX_IC_N": {
+      "DIFFERENTIAL_PAIR": "FX3_USB_SSTX_IC"
+    },
+    "FX3_XTAL_P": {
+      "DIFFERENTIAL_PAIR": "FX3_XTAL"
+    },
+    "FX3_XTAL_N": {
+      "DIFFERENTIAL_PAIR": "FX3_XTAL"
+    },
+    "FX3_USB_SSTX_P": {
+      "DIFFERENTIAL_PAIR": "FX3_USB_SSTX"
+    },
+    "FX3_USB_SSTX_N": {
+      "DIFFERENTIAL_PAIR": "FX3_USB_SSTX"
+    },
+    "FX3_USB_SSRX_P": {
+      "DIFFERENTIAL_PAIR": "FX3_USB_SSRX"
+    },
+    "FX3_USB_SSRX_N": {
+      "DIFFERENTIAL_PAIR": "FX3_USB_SSRX"
+    },
+    "FX3_USB_D_P": {
+      "DIFFERENTIAL_PAIR": "FX3_USB_D"
+    },
+    "FX3_USB_D_N": {
+      "DIFFERENTIAL_PAIR": "FX3_USB_D"
+    },
+    "SI5351_XTAL_P": {
+      "DIFFERENTIAL_PAIR": "SI5351_XTAL"
+    },
+    "SI5351_XTAL_N": {
+      "DIFFERENTIAL_PAIR": "SI5351_XTAL"
     }
   }
 }

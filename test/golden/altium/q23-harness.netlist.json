@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T21:40:46.401Z",
-    "netlistHash": "sha256:af5e20a508b51f7e97d5374ce855f5927a5751ea61f8da33ba381c3603d4417d",
+    "generatedAt": "2026-11-21T23:30:38.536Z",
+    "netlistHash": "sha256:6ff1261a050db0c420d11f6e244ef534c0e5a9ce18badb1e9e824fffb0c42a90",
     "origin": {
       "type": "vendor",
       "source": {
@@ -3831,6 +3831,26 @@
       },
       "description": "Header, 12-Pin",
       "comment": "Header 12"
+    }
+  },
+  "netProperties": {
+    "DL_CAN1_P": {
+      "DIFFERENTIAL_PAIR": "DL_CAN1"
+    },
+    "DL_CAN1_N": {
+      "DIFFERENTIAL_PAIR": "DL_CAN1"
+    },
+    "ECU_CAN2_P": {
+      "DIFFERENTIAL_PAIR": "ECU_CAN2"
+    },
+    "ECU_CAN2_N": {
+      "DIFFERENTIAL_PAIR": "ECU_CAN2"
+    },
+    "PDM_CAN_P": {
+      "DIFFERENTIAL_PAIR": "PDM_CAN"
+    },
+    "PDM_CAN_N": {
+      "DIFFERENTIAL_PAIR": "PDM_CAN"
     }
   }
 }

@@ -1,0 +1,35 @@
+{
+  "name": "pair",
+  "rules": [
+    {
+      "when": {
+        "directive": [
+          "both"
+        ]
+      },
+      "outcome": "pair",
+      "next": "",
+      "cells": 2
+    },
+    {
+      "when": {
+        "format": [
+          "kicad"
+        ],
+        "naming": [
+          "paired"
+        ],
+        "supply": [
+          "none"
+        ]
+      },
+      "outcome": "pair",
+      "next": "",
+      "cells": 1
+    }
+  ],
+  "default": {
+    "outcome": "no pair",
+    "next": ""
+  }
+}

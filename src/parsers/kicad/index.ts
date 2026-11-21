@@ -13,7 +13,8 @@
 
 import path from "node:path";
 import { contextOrDefault, readText } from "../context.js";
-import { readKicadSchematicNetlist } from "./schematic/index.js";
+import { markHiddenPins, readKicadSchematic } from "./schematic/index.js";
+import { writeKicadNetlist } from "./schematic/netlist-writer.js";
 import type { ParsedNetlist, EDAProjectFormatHandler, ParseDesignOptions } from "../../types.js";
 import { parseKicadNetlist } from "./netlist-parser.js";
 import { exportNetlist } from "./cli.js";
@@ -118,10 +119,32 @@ export const parseKicadDesign = async (
   const parsed = await resolveKicadNetlist({
     design: path.basename(designPath),
     ...(netlistExport
-      ? { savedNet: async () => parseKicadNetlist(await readText(files, netlistExport)) }
+      ? {
+          savedNet: async () => {
+            const netlist = parseKicadNetlist(await readText(files, netlistExport));
+            // The export does not record which pins are hidden; the schematic does.
+            // shortcut: this resolves the whole schematic for the flags alone; read only the
+            // symbols' pins and instance references if a saved .net parse becomes slow.
+            if (rootSchematic) {
+              try {
+                markHiddenPins(netlist, await readKicadSchematic(rootSchematic, files, designPath));
+              } catch {
+                // An unreadable schematic leaves the saved netlist as it is.
+              }
+            }
+            return netlist;
+          },
+        }
       : {}),
     ...(rootSchematic
-      ? { raw: () => readKicadSchematicNetlist(rootSchematic, files, designPath) }
+      ? {
+          raw: async () => {
+            const design = await readKicadSchematic(rootSchematic, files, designPath);
+            const netlist = parseKicadNetlist(writeKicadNetlist(design));
+            markHiddenPins(netlist, design);
+            return netlist;
+          },
+        }
       : {}),
     ...(rootSchematic && kicadCli
       ? {
