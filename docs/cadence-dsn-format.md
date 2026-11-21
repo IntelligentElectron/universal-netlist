@@ -2071,7 +2071,7 @@ The partial claims behind the "known values" columns above also overstate their 
 
 
 
-Parser coverage: the parser reads the frame, page name and size name, the PageSettings width, height and IsMetric (to give the sheet size in inches), and lists 1 to 11 (title blocks with their fields, net headers, NetBus member ids, net-name rows, wires, instances, ports, Globals and off-page connectors with their 5-byte tails, ERC objects skipped by structure, bus entries); it does not read list 12 (page graphics) or the other PageSettings fields.
+Parser coverage: the parser reads the frame, page name and size name, the PageSettings width, height and IsMetric (to give the sheet size in inches), and lists 1 to 11 (title blocks with their fields, net headers, NetBus member ids, net-name rows, wires, instances, ports, Globals and off-page connectors with their 5-byte tails, ERC objects with their three strings, bus entries); it does not read list 12 (page graphics) or the other PageSettings fields.
 
 ---
 
@@ -2326,6 +2326,8 @@ A Port is a hierarchical port. Its body is the graphic-instance base (name index
 | +4 | u8 | flag | 0 ×1773, 1 ×362 | **O** |
 | +5 | u32 | port type | 0 ×567, 1 ×642, 2 ×668, 4 ×196, 7 ×62; R1 ends here | **S** |
 
+The port type uses the pin-type codes of §5.2.5 (0 input, 1 bidirectional, 2 output, 4 passive, 7 power): power ports are named like supplies (`VIN`), output ports like outputs (`PGOOD`, `OUT_P[8:1]`, `UL_CCLK_P`), input ports like inputs (`EEPROM_SEL`, `REFA`, `CLKPD_B`) and bidirectional ports like buses (`SDA` on every `SDA` port with a type). **O** (port names against types over the corpus).
+
 The port flag is 1 on all 276 ports whose trailer wire is a bus wire and on 86 of the 293 ports with `wire_id` 0, and 0 on all 1566 ports whose trailer wire is scalar. **O**.
 
 ### 7.11 Global (37) and OffPageConnector (38)
@@ -2378,6 +2380,7 @@ The parser skips title blocks by their prefix chain; a full decode of all 443 co
 An ErcObject body is the graphic-instance base followed by three `lstr`. **S** (2066).
 
 - Base: symbol name = cached ErcSymbol, never empty; symbol kind 75; no displays; rotation 0, mirror 0, colour 48; bbox all zero on 1; library index names a non-empty string; R2 ends after the kind byte. All on 2066/2066. **S**. All ERC objects use three full prefixes (2066). **S**.
+- ErcObject (77) is a marker left by Capture's design rules check, and its three strings are the message, the detail and the location. The message is Capture's own ERC text with its level and code, such as `WARNING(ORCAP-1600): Net has fewer than two connections` (2,542 of the markers the page tools read), `ERROR(ORCAP-1628): Possible pin type conflict`, `WARNING(ORCAP-1600): Unconnected pin` or `WARNING(ORCAP-36050): No pins are present in …`; the detail names the net or pin (`SO_DATA_OUT_N13`, `U252,OUT Output Connected to Output`); the location, when not empty, is `<schematic>, <page>  (x, y)` with x and y in inches, equal to the record's location divided by 100 (`TOP, 02-META-CONNECTORS  (6.60, 3.90)` at location (660, 390)). 71 markers, 70 of them in `MAIN_CONTROL_BOARD.DSN`, have all three strings empty. **O**.
 - Then: `lstr` error message (empty on 30), `lstr` detail text (empty on 30), `lstr` location text (empty on 107); R1 ends after the location on 2066/2066. **S**.
 
 ### 7.15 Net headers as records
@@ -2425,7 +2428,6 @@ Resolved: `parseGraphicInstBase` (`structures.ts`) now reads the box corners y1,
 - *Unverified.* If a Global or off-page connector had symbol kind 2, one inline record would follow. No connector has kind 2 (14833).
 - *Unverified* (reader guidance). If a title block's first trailer word is not 0 or 1, treat all three words as unknown. No such trailer occurs (443).
 - *Unverified.* The title-block corner flag means 0 = no, 1 = yes. Only 0 (20) and 1 (423) occur; the meaning needs Capture.
-- *Unverified.* ErcObject (77) is an ERC marker. The records decode as error, detail and location strings; the meaning needs Capture.
 - *Unverified.* Primitive word bit 15 means power pins visible (0 hidden, 1 visible). It is set on 81 placed instances; the meaning needs Capture.
 - *Unverified.* A drawn instance's pins carry the block's connection points on the parent page, and their net field is the parent net's id as on a part pin. Drawn pins decode like part pins; parent-net equality is a hierarchy check.
 - *Unverified.* A bus port's symbol pin carries the bus name with its range (such as `DATA[7:0]`), and its members bind by name. This is a hierarchy and bus check.
@@ -2450,7 +2452,7 @@ Resolved: `parseGraphicInstBase` (`structures.ts`) now reads the box corners y1,
 
 
 
-Parser coverage: the parser reads placed and drawn instances (name and symbol strings, `db_id`, location, displays, reference, value index, pins with ordinal, point and +0x06, source package, device index, property pairs), wires (scalar or bus, ids and end points; colour, junction byte, displays, width and style read and discarded) with their aliases, the base of ports, Globals and off-page connectors with their trailers, the bbox and transform (rotation and mirror) of placed instances and connectors, title blocks (property pairs and the page count and number of the trailer) and bus entries; it skips pin +0x0A, the primitive word and ERC objects, and does not read page graphics.
+Parser coverage: the parser reads placed and drawn instances (name and symbol strings, `db_id`, location, displays, reference, value index, pins with ordinal, point and +0x06, source package, device index, property pairs), wires (scalar or bus, ids and end points; colour, junction byte, displays, width and style read and discarded) with their aliases, the base of ports, Globals and off-page connectors with their trailers (the port type, given to `get_page` as each port's `type`), the bbox and transform (rotation and mirror) of placed instances and connectors, title blocks (property pairs and the page count and number of the trailer) and bus entries; ERC objects (the base and the three strings, given to `get_page` as `erc_markers`, leaving out markers whose three strings are empty, and to `run_erc` as `capture.erc_error` and `capture.erc_warning`); it skips pin +0x0A and the primitive word, and does not read page graphics.
 
 ---
 
@@ -5191,12 +5193,12 @@ Areas our earlier spec listed as unknown, with what our data now shows and what 
 | Area | Data now | Parser |
 | --- | --- | --- |
 | PlacedInstance: 10 unknown bytes per part | **S** contents library index (`u32`, 0 on 14,984/14,988), contents view index (`u32`, 0 on 14,930), primitive word (`u16`, IsPrimitive 2 on 14,984) | skips them (`structures.ts:276`) |
-| Port: 9 trailing bytes | **O** wire id `u32`, one byte, port type `u32` on every port | reads the wire id and attaches the port to that wire (`structures.ts` `parsePort`, `page-groups.ts`) |
+| Port: 9 trailing bytes | **O** wire id `u32`, one byte, port type `u32` on every port | reads the wire id and attaches the port to that wire, and reads the port type (`structures.ts` `parsePort`, `page-groups.ts`) |
 | Global and off-page connector: 5 trailing bytes | **O** wire id `u32` and one byte; the connector sits on that wire's endpoint on 16,238, misses on 196 | reads the wire id and attaches the connector to that wire (`page-parser.ts`, `page-groups.ts`) |
 | Occurrence records: 12 unknown bytes | **S** an independent reader walks every occurrence (18,375) to the exact end of 108/109 Hierarchy streams | skips 8- and 4-byte blocks (`hierarchy-parser.ts:170-235`) |
 | Pin `unknown_int` (pin +0x0A) | **S** the pin's net id: 0 on all 55,363 wired pins, and every non-zero value names a SchematicNet | reads it as `netId` and joins an unwired pin to that net (§7.4) |
-| Page tail after the off-page connectors | **S** lists 10 to 14 (ERC objects, bus entries, graphics, two empty lists) walk to the exact page end on 450/451 pages | skips everything after the off-page connectors (`page-parser.ts:184`) |
-| ERC objects | **S** ErcObject (type 77) records, three strings each, end at their stop | not parsed (`page-parser.ts:184`) |
+| Page tail after the off-page connectors | **S** lists 10 to 14 (ERC objects, bus entries, graphics, two empty lists) walk to the exact page end on 450/451 pages | reads the ERC objects, bus entries and page graphics (lists 10 to 12, `page-parser.ts`); does not read the two empty lists |
+| ERC objects | **S** ErcObject (type 77) records, three strings each, end at their stop | reads the base and the three strings as an ERC marker (`structures.ts` `parseErcObject`) |
 
 None of these areas affects nets, pin numbers, pin names or values (15.3).
 

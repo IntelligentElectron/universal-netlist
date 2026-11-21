@@ -90,6 +90,8 @@ describe("a Universal Netlist file as a design", () => {
         "pin.input_undriven",
         "pin.power_unconnected",
         "pin.power_undirected_unconnected",
+        "capture.erc_error",
+        "capture.erc_warning",
         "net.unnamed",
       ],
       skipped: { dns: 1 },

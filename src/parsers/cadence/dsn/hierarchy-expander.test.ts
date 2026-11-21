@@ -55,6 +55,7 @@ const page = (
   widthInches: 11,
   heightInches: 8.5,
   busEntries: [],
+  ercMarkers: [],
   graphics: [],
   wires: [],
   placedInstances,

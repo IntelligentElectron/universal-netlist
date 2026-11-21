@@ -176,6 +176,65 @@ describe("text notes", () => {
   });
 });
 
+describe("ERC markers and port types", () => {
+  const SDR = join(FIXTURES, "opencellular-sdr/OC_CONNECT1_SDR_REV_C_V1P1.DSN");
+
+  it("gives get_page Capture's saved ERC markers and each port's direction", async () => {
+    const page = (await callTool("get_page", {
+      design: SDR,
+      page: "PAGE 29 : POWER_SWITCH",
+    })) as PageView;
+    expect(page.erc_markers).toHaveLength(5);
+    expect(page.erc_markers[0]).toEqual({
+      message: "ERROR(ORCAP-1628): Possible pin type conflict",
+      detail: "U252,OUT Output Connected to Output",
+      location: "",
+      x: 1025,
+      y: 820,
+    });
+    const clock = (await callTool("get_page", {
+      design: HB1A,
+      page: "Clock Generator (block CLOCK)",
+    })) as PageView;
+    expect(clock.ports).toContainEqual({
+      name: "UL_CCLK_P",
+      type: "output",
+      x: 1390,
+      y: 100,
+      net: "UL_CCLK_P",
+    });
+  }, 60_000);
+
+  it("reports the markers in run_erc by level, keyed by page", async () => {
+    const erc = (await callTool("run_erc", {
+      design: SDR,
+      include_rules: ["capture.erc_error", "capture.erc_warning"],
+    })) as { errors?: Record<string, Record<string, unknown[]>>; warnings?: unknown };
+    expect(Object.keys(erc.errors?.["capture.erc_error"] ?? {})).toEqual([
+      "PAGE 29 : POWER_SWITCH",
+    ]);
+    expect(erc.errors?.["capture.erc_error"]["PAGE 29 : POWER_SWITCH"]).toHaveLength(5);
+    expect(erc.warnings).toBeUndefined();
+  }, 60_000);
+
+  it("pages run_erc's markers one by one, trimmed", async () => {
+    const erc = (await callTool("run_erc", {
+      design: META_CARRIER,
+      include_rules: ["capture.erc_warning"],
+      max_results: 2,
+    })) as {
+      warnings: Record<string, Record<string, { detail: string }[]>>;
+      totals: Record<string, number>;
+      next_offset?: number;
+    };
+    const pages = Object.values(erc.warnings["capture.erc_warning"]);
+    expect(pages.flat()).toHaveLength(2);
+    expect(pages.flat()[0].detail).toBe("SO_DATA_OUT_N13");
+    expect(erc.next_offset).toBe(2);
+    expect(erc.totals["capture.erc_warning"]).toBeGreaterThan(2);
+  }, 60_000);
+});
+
 describe("findPage", () => {
   const view = (page: string, name: string, schematic = "S") =>
     ({ page, name, schematic }) as PageView;

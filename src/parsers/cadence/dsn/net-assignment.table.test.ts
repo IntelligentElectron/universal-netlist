@@ -53,6 +53,7 @@ const page = (name: string, drawnInstances: DrawnInstance[] = []): PageData => (
   widthInches: 11,
   heightInches: 8.5,
   busEntries: [],
+  ercMarkers: [],
   graphics: [],
   wires: [],
   placedInstances: [instance(1, name)],

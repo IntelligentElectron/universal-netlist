@@ -22,6 +22,8 @@ Test points are identified by the `TP` reference-designator prefix. "Functional 
 | `pin.input_undriven` | error | a net has input or supply-input pins and no pin that can drive it | the input pins' `REFDES.PIN` endpoints |
 | `pin.power_unconnected` | error | a supply input (`power_in`) is the only functional pin on its net, or is unconnected | the supply pins' `REFDES.PIN` endpoints; unconnected ones under `NC` |
 | `pin.power_undirected_unconnected` | warning | an undirected `power` pin is the only functional pin on its net, or is unconnected: an unpowered supply input, or an unused supply output | the power pins' `REFDES.PIN` endpoints; unconnected ones under `NC` |
+| `capture.erc_error` | error | Capture's own design rules check left an `ERROR(...)` marker on a page, still there when the file was saved (Cadence designs only) | keyed by the page, as `list_pages` names it: `[{ "message": "ERROR(ORCAP-1628): Possible pin type conflict", "detail": "U252,OUT Output Connected to Output", "location": "", "x": 1025, "y": 820 }]` |
+| `capture.erc_warning` | warning | the same for any other marker, such as `WARNING(ORCAP-1600): Net has fewer than two connections` | keyed by the page, as for `capture.erc_error` |
 | `refdes.section_repeated` | error | one part draws the same section more than once, with no pin wired to two different nets | keyed by the refdes: `[{ "section": "F", "placements": 2, "pages": ["15_POWER", "18_DISPLAY"] }]`; `section` is omitted for a part with one section |
 
 The five `pin.*` rules read each pin's electrical `type` (see [query_component](query_component.md)) and are the same for every format; the golden tables in [docs/decision-tables/pin-erc](../decision-tables/pin-erc/net.rules.md) define them cell by cell. Pins are grouped by what they can do to a net:
@@ -34,6 +36,8 @@ The five `pin.*` rules read each pin's electrical `type` (see [query_component](
 - **neither:** `no_connect`.
 
 A pin whose direction is unknown never makes an error: an undirected `power` pin makes at most a warning, and a pin with no type never makes a conflict, and since it may drive, it keeps a net from being reported as undriven. A design whose pins carry no type gets no `pin.*` findings. Test points neither drive nor load a net for these rules, and DNS parts are absent unless `include_dns` is set, so an input whose only pull-up is DNS is undriven. A conflict or contention names the driving pins, leaving out `power` pins (the net is a rail). A `power_in` pin alone on its net is reported by `net.single_pin`, `pin.input_undriven` and `pin.power_unconnected`: one pin, no driver, and an unpowered part.
+
+The two `capture.*` rules relay what Capture's own design rules check found and left on the pages; they read nothing of the netlist, find nothing in a KiCad, Altium or Universal Netlist design, and do not depend on `include_dns` or the design variant. A schematic that several blocks place stores its markers once, and they are reported once, under the first placement's page name. Each marker counts as one finding for paging and `totals`.
 
 `net.unnamed` only flags real multi-pin nets, so a single-pin auto-named net is reported once (as `net.single_pin`), not twice. The three degenerate rules are mutually exclusive by construction.
 
@@ -96,7 +100,7 @@ Response:
 {
   "design": "PowerBoard/PowerBoard.kicad_pro",
   "design_variant": "<Default>",
-  "checked": ["net.single_pin", "net.testpoint_orphan", "net.testpoint_stub", "net.whitespace_in_name", "net.whitespace_name_collision", "refdes.duplicate", "refdes.section_repeated", "pin.output_conflict", "pin.output_contention", "pin.input_undriven", "pin.power_unconnected", "pin.power_undirected_unconnected", "net.unnamed"],
+  "checked": ["net.single_pin", "net.testpoint_orphan", "net.testpoint_stub", "net.whitespace_in_name", "net.whitespace_name_collision", "refdes.duplicate", "refdes.section_repeated", "pin.output_conflict", "pin.output_contention", "pin.input_undriven", "pin.power_unconnected", "pin.power_undirected_unconnected", "capture.erc_error", "capture.erc_warning", "net.unnamed"],
   "skipped": { "dns": 7 },
   "errors": {
     "net.single_pin": { "GND_ISLAND": ["U7.3"] },
@@ -114,7 +118,7 @@ Clean design (every checked rule passed, nothing skipped):
 {
   "design": "PowerBoard/PowerBoard.kicad_pro",
   "design_variant": "<Default>",
-  "checked": ["net.single_pin", "net.testpoint_orphan", "net.testpoint_stub", "net.whitespace_in_name", "net.whitespace_name_collision", "refdes.duplicate", "refdes.section_repeated", "pin.output_conflict", "pin.output_contention", "pin.input_undriven", "pin.power_unconnected", "pin.power_undirected_unconnected", "net.unnamed"],
+  "checked": ["net.single_pin", "net.testpoint_orphan", "net.testpoint_stub", "net.whitespace_in_name", "net.whitespace_name_collision", "refdes.duplicate", "refdes.section_repeated", "pin.output_conflict", "pin.output_contention", "pin.input_undriven", "pin.power_unconnected", "pin.power_undirected_unconnected", "capture.erc_error", "capture.erc_warning", "net.unnamed"],
   "skipped": { "dns": 0 }
 }
 ```

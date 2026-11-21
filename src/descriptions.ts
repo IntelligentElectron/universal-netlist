@@ -96,9 +96,10 @@ named \`<page> (block <path>)\`. Use get_page for one page's contents.`;
 export const GET_PAGE_DESCRIPTION = `\
 One schematic page of a Cadence .DSN design as drawn: its parts (refdes, value, symbol, \
 location, rotation, mirror, box, and pins with their electrical types and nets), wires with their nets, \
-net labels, hierarchical ports, globals (power and ground symbols), off-page connectors, \
-bus entries, hierarchical blocks, the title-block fields, and text_notes (free text the \
-designer placed on the page, such as jumper defaults and current ratings). Net names match list_nets. \
+net labels, hierarchical ports with their direction, globals (power and ground symbols), \
+off-page connectors, bus entries, hierarchical blocks, the title-block fields, text_notes (free \
+text the designer placed on the page, such as jumper defaults and current ratings), and \
+erc_markers (messages Capture's own design rules check left on the page). Net names match list_nets. \
 Coordinates are in 1/100 inch, x to the right and y down. \
 Name the page as list_pages reports it.`;
 
@@ -231,7 +232,8 @@ electrical types (an untyped pin never conflicts and may drive): \
 \`pin.output_contention\` (warning: a possible fight, such as a three-state pin on a driven net), \
 \`pin.input_undriven\` (error: inputs nothing can drive), \
 \`pin.power_unconnected\` (error: a power_in pin alone on its net, or under NC), \
-\`pin.power_undirected_unconnected\` (warning: the same for an undirected power pin). \
+\`pin.power_undirected_unconnected\` (warning: the same for an undirected power pin), and \
+\`capture.erc_error\` / \`capture.erc_warning\` (Capture's saved ERC markers by level, keyed by page). \
 Test points have the \`TP\` refdes prefix. Findings key each net to its \
 \`REFDES.PIN\` endpoints (always arrays); \`net.unnamed\` lists bare net names. \
 \`checked\` lists the rules that ran; \`skipped\` counts parts left out, such as \
