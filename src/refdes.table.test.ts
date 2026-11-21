@@ -29,6 +29,11 @@ describe("golden table: reference-designators", () => {
       const page: PageData = {
         name: "Synthetic",
         netTable: new Map(),
+        sizeName: "A",
+        widthInches: 11,
+        heightInches: 8.5,
+        busEntries: [],
+        graphics: [],
         wires: [],
         drawnInstances: [],
         ports: [],
@@ -45,8 +50,13 @@ describe("golden table: reference-designators", () => {
             locX: 0,
             locY: 0,
             sectionIndex: 0,
+            box: { x1: 0, y1: 0, x2: 0, y2: 0 },
+            rotation: 0,
+            mirrored: false,
             symbolDisplayProps: [],
-            t0x10s: [{ pinIndex: 1, pointX: 10, pointY: 20, netId: 0, symbolDisplayProps: [] }],
+            t0x10s: [
+              { pinIndex: 1, pointX: 10, pointY: 20, wireId: 0, netId: 0, symbolDisplayProps: [] },
+            ],
           },
         ],
       };
