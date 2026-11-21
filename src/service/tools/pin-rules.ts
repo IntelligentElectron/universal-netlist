@@ -45,11 +45,15 @@ export const classifyNet = (types: readonly (PinType | undefined)[]): NetCell =>
 export const netOutcome = ({ push_pull, rail, other, sinks }: NetCell): NetOutcome => {
   const driven = push_pull !== "none" || rail !== "none";
   if (push_pull === "many") return "conflict error";
-  if (push_pull === "one" && (rail !== "none" || other === "open")) return "conflict error";
+  if (push_pull === "one" && other === "open") return "conflict error";
+  if (push_pull === "one" && (rail === "power_out" || rail === "many_power_out")) {
+    return "conflict error";
+  }
   if (rail === "many_power_out") return "conflict error";
   if (rail === "power_out" && other === "open") return "conflict error";
-  // An undirected power pin may be either rail, so an open collector on it may be harmless.
-  if (rail === "power" && other === "open") return "contention warning";
+  // An undirected power pin may be a supply input or output of either polarity,
+  // so what it meets is only a possible fight.
+  if (rail === "power" && (push_pull === "one" || other === "open")) return "contention warning";
   if (driven && other === "bus") return "contention warning";
   if (sinks === "some" && !driven && other === "none") return "undriven error";
   return "clean";
@@ -69,6 +73,19 @@ export const SINK_TYPES: ReadonlySet<PinType | undefined> = new Set<PinType>(["i
 
 export type PinPlacement = "nc" | "alone" | "shared";
 
-/** A supply input on the NC net, or alone on its net, leaves its part unpowered. */
-export const isUnconnectedSupply = (type: PinType | undefined, placement: PinPlacement): boolean =>
-  (type === "power" || type === "power_in") && placement !== "shared";
+/**
+ * A supply input on the NC net, or alone on its net, leaves its part unpowered:
+ * an error for `power_in`, a warning for an undirected `power` pin, which may
+ * instead be an unused supply output.
+ */
+export const unconnectedSupply = (
+  type: PinType | undefined,
+  placement: PinPlacement
+): "error" | "warning" | undefined =>
+  placement === "shared"
+    ? undefined
+    : type === "power_in"
+      ? "error"
+      : type === "power"
+        ? "warning"
+        : undefined;

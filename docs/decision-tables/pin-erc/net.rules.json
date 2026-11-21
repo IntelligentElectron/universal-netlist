@@ -22,6 +22,25 @@
     {
       "when": {
         "push_pull": [
+          "none",
+          "one"
+        ],
+        "rail": [
+          "power"
+        ],
+        "other": [
+          "none",
+          "bus",
+          "other"
+        ]
+      },
+      "outcome": "contention warning",
+      "next": "",
+      "cells": 8
+    },
+    {
+      "when": {
+        "push_pull": [
           "none"
         ],
         "rail": [
@@ -36,23 +55,6 @@
       "outcome": "clean",
       "next": "",
       "cells": 6
-    },
-    {
-      "when": {
-        "push_pull": [
-          "none"
-        ],
-        "rail": [
-          "power",
-          "power_out"
-        ],
-        "other": [
-          "bus"
-        ]
-      },
-      "outcome": "contention warning",
-      "next": "",
-      "cells": 4
     },
     {
       "when": {
@@ -81,6 +83,22 @@
         ],
         "other": [
           "open"
+        ]
+      },
+      "outcome": "contention warning",
+      "next": "",
+      "cells": 2
+    },
+    {
+      "when": {
+        "push_pull": [
+          "none"
+        ],
+        "rail": [
+          "power_out"
+        ],
+        "other": [
+          "bus"
         ]
       },
       "outcome": "contention warning",

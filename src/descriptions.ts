@@ -219,10 +219,11 @@ Rules: \`net.single_pin\` (error: one functional pin, no test point), \
 [{section, placements, pages}]), \
 \`net.unnamed\` (warning: an auto-generated name on a 2+-pin net), and from pin \
 electrical types (an untyped pin never conflicts and may drive): \
-\`pin.output_conflict\` (error: drivers that short, such as two outputs or an output on a supply), \
-\`pin.output_contention\` (warning: a bidirectional or three-state pin on a driven net), \
+\`pin.output_conflict\` (error: drivers that short, such as two outputs), \
+\`pin.output_contention\` (warning: a possible fight, such as a three-state pin on a driven net), \
 \`pin.input_undriven\` (error: inputs nothing can drive), \
-\`pin.power_unconnected\` (error: a supply input alone on its net, or under NC). \
+\`pin.power_unconnected\` (error: a power_in pin alone on its net, or under NC), \
+\`pin.power_undirected_unconnected\` (warning: the same for an undirected power pin). \
 Test points have the \`TP\` refdes prefix. Findings key each net to its \
 \`REFDES.PIN\` endpoints (always arrays); \`net.unnamed\` lists bare net names. \
 \`checked\` lists the rules that ran; \`skipped\` counts parts left out, such as \

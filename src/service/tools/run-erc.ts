@@ -12,7 +12,7 @@ import { pageGroups } from "../pagination.js";
 import {
   classifyNet,
   DRIVING_TYPES,
-  isUnconnectedSupply,
+  unconnectedSupply,
   netOutcome,
   SINK_TYPES,
   type NetOutcome,
@@ -108,6 +108,21 @@ const byOutcome = (
       net,
       endpoints: s.functional.filter((_, i) => named.has(s.types[i])).sort(naturalSort),
     }));
+
+/** Supply pins alone on their net, or on NC, that the pin table gives `level`. */
+const unconnectedSupplies = (
+  scan: Map<string, NetScan>,
+  nc: NetScan,
+  level: "error" | "warning"
+): RuleFinding[] => {
+  const supplies = (s: NetScan, placement: "nc" | "alone") =>
+    s.functional.filter((_, i) => unconnectedSupply(s.types[i], placement) === level);
+  const findings = [...scan.entries()]
+    .filter(([, s]) => s.functional.length === 1)
+    .map(([net, s]) => ({ net, endpoints: supplies(s, "alone") }));
+  findings.push({ net: "NC", endpoints: supplies(nc, "nc").sort(naturalSort) });
+  return findings.filter((f) => f.endpoints.length > 0);
+};
 
 const collect = (
   scan: Map<string, NetScan>,
@@ -250,15 +265,13 @@ const RULES: Rule[] = [
     id: "pin.power_unconnected",
     severity: "error",
     shape: "map",
-    run: (scan, _names, _netlist, nc) => {
-      const supplies = (s: NetScan, placement: "nc" | "alone") =>
-        s.functional.filter((_, i) => isUnconnectedSupply(s.types[i], placement));
-      const findings = [...scan.entries()]
-        .filter(([, s]) => s.functional.length === 1)
-        .map(([net, s]) => ({ net, endpoints: supplies(s, "alone") }));
-      findings.push({ net: "NC", endpoints: supplies(nc, "nc").sort(naturalSort) });
-      return findings.filter((f) => f.endpoints.length > 0);
-    },
+    run: (scan, _names, _netlist, nc) => unconnectedSupplies(scan, nc, "error"),
+  },
+  {
+    id: "pin.power_undirected_unconnected",
+    severity: "warning",
+    shape: "map",
+    run: (scan, _names, _netlist, nc) => unconnectedSupplies(scan, nc, "warning"),
   },
   {
     id: "net.unnamed",

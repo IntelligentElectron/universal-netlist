@@ -8,7 +8,7 @@ import { cellName, readTable } from "../../../test/helpers/decision-table.js";
 import type { PinType } from "../../types.js";
 import {
   classifyNet,
-  isUnconnectedSupply,
+  unconnectedSupply,
   netOutcome,
   type NetCell,
   type PinPlacement,
@@ -63,8 +63,8 @@ describe("golden table: pin-erc pin", () => {
   };
   for (const row of readTable(TABLES, "pin")) {
     it(cellName(row, ["type", "placement"]), () => {
-      const flagged = isUnconnectedSupply(TYPE[row.type], row.placement as PinPlacement);
-      expect(flagged ? "unconnected error" : "clean").toBe(row.outcome);
+      const level = unconnectedSupply(TYPE[row.type], row.placement as PinPlacement);
+      expect(level ? `unconnected ${level}` : "clean").toBe(row.outcome);
     });
   }
 });

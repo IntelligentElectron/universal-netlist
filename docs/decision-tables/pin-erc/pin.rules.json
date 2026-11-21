@@ -4,7 +4,20 @@
     {
       "when": {
         "type": [
-          "power",
+          "power"
+        ],
+        "placement": [
+          "nc",
+          "alone"
+        ]
+      },
+      "outcome": "unconnected warning",
+      "next": "",
+      "cells": 2
+    },
+    {
+      "when": {
+        "type": [
           "power_in"
         ],
         "placement": [
@@ -14,7 +27,7 @@
       },
       "outcome": "unconnected error",
       "next": "",
-      "cells": 4
+      "cells": 2
     }
   ],
   "default": {

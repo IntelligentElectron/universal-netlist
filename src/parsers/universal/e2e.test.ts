@@ -89,6 +89,7 @@ describe("a Universal Netlist file as a design", () => {
         "pin.output_contention",
         "pin.input_undriven",
         "pin.power_unconnected",
+        "pin.power_undirected_unconnected",
         "net.unnamed",
       ],
       skipped: { dns: 1 },

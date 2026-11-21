@@ -245,6 +245,7 @@ describe("runErc rule selection", () => {
       "pin.output_contention",
       "pin.input_undriven",
       "pin.power_unconnected",
+      "pin.power_undirected_unconnected",
       "net.unnamed",
     ]);
     expect(r.errors).toBeUndefined();
@@ -273,7 +274,7 @@ describe.skipIf(!hasRdimm)("runErc integration (rdimm-ddr4-tester)", () => {
     expect(isErrorResult(result)).toBe(false);
     const r = result as ErcResult;
 
-    expect(r.checked).toHaveLength(12);
+    expect(r.checked).toHaveLength(13);
     nonEmptyMap(r.errors?.["net.single_pin"]); // R=1 nets
     nonEmptyMap(r.warnings?.["net.testpoint_stub"]); // real TP-on-single-pin nets
     const unnamed = r.warnings?.["net.unnamed"] as string[];
@@ -341,6 +342,19 @@ describe("runErc pin-type rules", () => {
     expect(r.errors?.["pin.output_conflict"]).toBeUndefined();
   });
 
+  it("warns about an output on an undirected power pin and errs on a supply output", async () => {
+    const r = await erc({
+      nets: { SENS_VDD: { U1: ["1"], U2: ["1"] }, VOUT: { U1: ["2"], U3: ["1"] } },
+      components: {
+        U1: { pins: { "1": pin("SENS_VDD", "output"), "2": pin("VOUT", "output") } },
+        U2: { pins: { "1": pin("SENS_VDD", "power") } },
+        U3: { pins: { "1": pin("VOUT", "power_out") } },
+      },
+    });
+    expect(r.warnings?.["pin.output_contention"]).toEqual({ SENS_VDD: ["U1.1"] });
+    expect(r.errors?.["pin.output_conflict"]).toEqual({ VOUT: ["U1.2", "U3.1"] });
+  });
+
   it("reports inputs with no driver, and not when an untyped pin or a fitted pull-up may drive", async () => {
     const r = await erc({
       nets: {
@@ -383,7 +397,9 @@ describe("runErc pin-type rules", () => {
         TP1: { pins: { "1": "VDDA" } },
       },
     });
-    expect(r.errors?.["pin.power_unconnected"]).toEqual({ NC: ["U1.3"], VDDA: ["U1.1"] });
+    expect(r.errors?.["pin.power_unconnected"]).toEqual({ VDDA: ["U1.1"] });
+    // An undirected power pin may be an unused supply output: a warning.
+    expect(r.warnings?.["pin.power_undirected_unconnected"]).toEqual({ NC: ["U1.3"] });
   });
 
   it("finds nothing on a design whose pins carry no type", async () => {
