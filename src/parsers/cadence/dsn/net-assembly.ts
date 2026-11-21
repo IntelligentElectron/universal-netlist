@@ -138,19 +138,17 @@ function resolveNetIdName(netId: number, pins: PinInfo[], canonicalNetNames: Set
  *
  * Returns:
  * - noConnect: pins with netId=0 and no wire connection (unconnected)
- * - sentinelWired: sentinel pins (0xFFFFFFFF) touching a wire (have coordNet)
- * - sentinelWireless: sentinel pins grouped by page:coord (pin-to-pin overlaps)
+ * - sentinelWired: sentinel pins (0xFFFFFFFF) with a net name (a wire, a
+ *   connector or a pin-to-pin node); a sentinel pin with none touches nothing
  * - netIdGroups: normal pins grouped by netId
  */
 function classifyPins(allPins: PinInfo[]): {
   noConnect: PinInfo[];
   sentinelWired: PinInfo[];
-  sentinelWireless: Map<string, PinInfo[]>;
   netIdGroups: Map<number, PinInfo[]>;
 } {
   const noConnect: PinInfo[] = [];
   const sentinelWired: PinInfo[] = [];
-  const sentinelWireless = new Map<string, PinInfo[]>();
   const netIdGroups = new Map<number, PinInfo[]>();
 
   for (const pin of allPins) {
@@ -161,64 +159,24 @@ function classifyPins(allPins: PinInfo[]): {
         noConnect.push(pin);
       }
     } else if (pin.netId === 0xffffffff) {
-      if (pin.coordNet) {
-        sentinelWired.push(pin);
-      } else {
-        const key = `${pin.pageIdx}:${pin.coord}`;
-        if (!sentinelWireless.has(key)) sentinelWireless.set(key, []);
-        sentinelWireless.get(key)!.push(pin);
-      }
+      if (pin.coordNet) sentinelWired.push(pin);
     } else {
       if (!netIdGroups.has(pin.netId)) netIdGroups.set(pin.netId, []);
       netIdGroups.get(pin.netId)!.push(pin);
     }
   }
 
-  return { noConnect, sentinelWired, sentinelWireless, netIdGroups };
-}
-
-/**
- * Match pin-to-pin sentinel groups to unmatched hierarchy net names.
- *
- * Pin-to-pin connections (overlapping pins, no wire) have no net name in
- * the DSN page data. The hierarchy stream contains their canonical names
- * as N{dbObjectId} entries. After all wire-based nets are resolved, the
- * remaining unmatched N{number} hierarchy names correspond to these groups.
- *
- * Matching relies on Cadence allocating object IDs sequentially: sorting
- * hierarchy names by numeric value and groups by coordinate produces the
- * same relative order.
- */
-function resolveWirelessSentinelNets(
-  groups: Map<string, PinInfo[]>,
-  canonicalNetNames: Set<string>,
-  usedNetNames: Set<string>
-): { netName: string; pins: PinInfo[] }[] {
-  const multiPinGroups = [...groups.entries()]
-    .filter(([, pins]) => pins.length >= 2)
-    .sort(([a], [b]) => (a < b ? -1 : 1));
-
-  if (multiPinGroups.length === 0) return [];
-
-  const unmatchedHierNames = [...canonicalNetNames]
-    .filter((n) => /^N\d+$/.test(n) && !usedNetNames.has(n))
-    .sort((a, b) => parseInt(a.substring(1)) - parseInt(b.substring(1)));
-
-  return multiPinGroups.map(([key, pins], i) => ({
-    netName: i < unmatchedHierNames.length ? unmatchedHierNames[i] : `N${key.replace(":", "_")}`,
-    pins,
-  }));
+  return { noConnect, sentinelWired, netIdGroups };
 }
 
 /**
  * Assemble nets from collected pins.
  *
- * Pins are classified into four categories (see classifyPins), then each
+ * Pins are classified into three categories (see classifyPins), then each
  * category is resolved independently:
  * 1. No-connect pins (netId=0, no wire) -> "NC"
- * 2. Sentinel pins on wires (netId=0xFFFFFFFF, has coordNet) -> use wire name
+ * 2. Sentinel pins with a net name (netId=0xFFFFFFFF, has coordNet) -> that name
  * 3. Normal pins (netId>0) -> group by netId, resolve name, disambiguate
- * 4. Sentinel pin-to-pin overlaps (no wire) -> match to hierarchy names
  */
 export function assembleNets(
   allPins: PinInfo[],
@@ -229,7 +187,7 @@ export function assembleNets(
 } {
   const nets: NetConnections = {};
   const componentPins = new Map<string, Map<string, string>>();
-  const { noConnect, sentinelWired, sentinelWireless, netIdGroups } = classifyPins(allPins);
+  const { noConnect, sentinelWired, netIdGroups } = classifyPins(allPins);
 
   // 1. No-connect pins
   for (const pin of noConnect) {
@@ -250,18 +208,6 @@ export function assembleNets(
 
   for (const [netId, pins] of netIdGroups) {
     const netName = netIdToName.get(netId)!;
-    for (const pin of pins) {
-      addPinToNet(nets, componentPins, netName, pin.refdes, pin.pinNumber);
-    }
-  }
-
-  // 4. Pin-to-pin sentinel connections (wireless overlaps)
-  const wirelessNets = resolveWirelessSentinelNets(
-    sentinelWireless,
-    canonicalNetNames,
-    new Set(Object.keys(nets))
-  );
-  for (const { netName, pins } of wirelessNets) {
     for (const pin of pins) {
       addPinToNet(nets, componentPins, netName, pin.refdes, pin.pinNumber);
     }

@@ -30,6 +30,7 @@ export interface PinInfo {
 
 /** A pin with this net id touches no net of its own. */
 const NO_CONNECT = 0;
+const SENTINEL = 0xffffffff;
 
 /**
  * Net ids handed to bus members that no wire carries on the page whose bus
@@ -129,8 +130,40 @@ export function bindThroughPorts(
   return { ...pin, netId, pageIdx, coord, coordNet: name };
 }
 
+/**
+ * The names of a page's pin-to-pin nodes, by point: points where two or more
+ * sentinel pins meet and no wire does. Capture names such a node `N`, the
+ * part `db_id` padded to five digits, then the pin index minus one, of its
+ * pin with the smallest part `db_id` and, within that part, pin index (§11.7).
+ */
+export function pinToPinNames(page: PageData): Map<string, string> {
+  const first = new Map<string, { dbId: number; pinIndex: number; count: number }>();
+  for (const inst of page.placedInstances) {
+    for (const pin of inst.t0x10s) {
+      if (pin.wireId !== SENTINEL) continue;
+      const coord = `${pin.pointX},${pin.pointY}`;
+      const seen = first.get(coord);
+      const count = (seen?.count ?? 0) + 1;
+      if (
+        !seen ||
+        inst.dbId < seen.dbId ||
+        (inst.dbId === seen.dbId && pin.pinIndex < seen.pinIndex)
+      ) {
+        first.set(coord, { dbId: inst.dbId, pinIndex: pin.pinIndex, count });
+      } else {
+        seen.count = count;
+      }
+    }
+  }
+  const names = new Map<string, string>();
+  for (const [coord, { dbId, pinIndex, count }] of first) {
+    if (count > 1) names.set(coord, `N${String(dbId).padStart(5, "0")}${pinIndex - 1}`);
+  }
+  return names;
+}
+
 /** Where a pin's net comes from; see the golden table pin-net in docs/decision-tables/dsn-net-assignment. */
-export type PinNetSource = "point" | "wire-net" | "net-id" | "hierarchy" | "no-connect";
+export type PinNetSource = "point" | "wire-net" | "net-id" | "pin-to-pin" | "no-connect";
 
 /**
  * The rules of the pin-net table, in order: a net found at the pin's point
@@ -145,7 +178,7 @@ export function pinNetSource(
 ): PinNetSource {
   if (netAtPoint) return "point";
   if (netOnWire) return "wire-net";
-  if (wireId === 0xffffffff) return "hierarchy";
+  if (wireId === SENTINEL) return "pin-to-pin";
   if (wireId === 0) return netId === 0 ? "no-connect" : "net-id";
   return "point";
 }
@@ -168,6 +201,7 @@ export function collectPins(
     // A coordinate on a wire of each SchematicNet, for pins that name a net but no wire.
     const wireOfNet = new Map<number, string>();
     for (const w of pages[i].wires) wireOfNet.set(w.id, `${w.startX},${w.startY}`);
+    const pinToPin = pinToPinNames(pages[i]);
     for (const inst of pages[i].placedInstances) {
       const refdes = inst.reference;
       if (!refdes || !isValidRefdes(refdes)) continue;
@@ -249,6 +283,9 @@ export function collectPins(
           // ids; the name keeps the file's id and takes the placement's suffix.
           netId = pin.netId + (placement?.netIdOffset ?? 0);
           coordNet = `N${pin.netId}${placement?.suffix ?? ""}`;
+        } else if (source === "pin-to-pin") {
+          const name = pinToPin.get(coord);
+          if (name) coordNet = name + (placement?.suffix ?? "");
         }
 
         const pinNumber = resolvePinNumber(pin, inst, pmd, deviceIndex);

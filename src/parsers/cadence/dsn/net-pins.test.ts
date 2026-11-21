@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { bindThroughPorts, type PinInfo } from "./net-pins.js";
+import { bindThroughPorts, pinToPinNames, type PinInfo } from "./net-pins.js";
 import type { PageCoordMap, WireGroup } from "./page-groups.js";
 import type { PageData } from "./page-parser.js";
 import type { Placement } from "./hierarchy-expander.js";
@@ -49,10 +49,48 @@ describe("bindThroughPorts", () => {
       coordMap([["150,50", bus]], [["X_D1", member]]),
       coordMap([["10,40", child]], []),
     ];
-    const pin: PinInfo = { refdes: "C1", pinNumber: "1", netId: 691 + 2 * SPAN, pageIdx: 1, coord: "10,40" };
+    const pin: PinInfo = {
+      refdes: "C1",
+      pinNumber: "1",
+      netId: 691 + 2 * SPAN,
+      pageIdx: 1,
+      coord: "10,40",
+    };
 
     const bound = bindThroughPorts(pin, pages, maps, new Map());
 
     expect(bound).toMatchObject({ pageIdx: 0, coordNet: "X_D1", netId: 590 + SPAN });
+  });
+});
+
+describe("pinToPinNames", () => {
+  const SENTINEL = 0xffffffff;
+  const pin = (pinIndex: number, x: number, wireId = SENTINEL) => ({
+    pinIndex,
+    pointX: x,
+    pointY: 0,
+    wireId,
+    netId: 7,
+    symbolDisplayProps: [],
+  });
+  const part = (dbId: number, pins: ReturnType<typeof pin>[]) => ({ dbId, t0x10s: pins });
+  const names = (parts: ReturnType<typeof part>[]) =>
+    pinToPinNames({ placedInstances: parts } as unknown as PageData);
+
+  it("names a node after the pin with the smallest part db_id: N, the id, then pin index − 1", () => {
+    // ROHM D8/R14: R14 (db_id 355290) pin 1 meets D8 (355472) pin 2; the export says N3552900.
+    expect(names([part(355472, [pin(2, 10)]), part(355290, [pin(1, 10)])]).get("10,0")).toBe(
+      "N3552900"
+    );
+  });
+
+  it("pads the db_id to five digits and breaks a tie on one part by pin index", () => {
+    // HEARINGDEVICE R1 (db_id 1503) pin 2 meets J1: the export says N015031.
+    expect(names([part(4263, [pin(1, 10)]), part(1503, [pin(2, 10)])]).get("10,0")).toBe("N015031");
+    expect(names([part(9, [pin(5, 10), pin(3, 10)])]).get("10,0")).toBe("N000092");
+  });
+
+  it("names no point where fewer than two sentinel pins meet", () => {
+    expect(names([part(1, [pin(1, 10), pin(2, 20, 0)]), part(2, [pin(1, 20, 55)])]).size).toBe(0);
   });
 });
