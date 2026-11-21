@@ -74,6 +74,22 @@ describe("parseVariantGroup", () => {
     expect(parseVariantGroup(groupStream("0\xb020922~7\xb0"))).toEqual([]);
   });
 
+  it("reads an entry with no status as a member carrying its group's status", () => {
+    // Every group writes one status throughout (§14.10), so a bare id joins it.
+    expect(parseVariantGroup(groupStream("0\xb020922~0\xb020919\xb0"))).toEqual([
+      { occurrenceId: 20922, stuffed: false },
+      { occurrenceId: 20919, stuffed: false },
+    ]);
+    expect(parseVariantGroup(groupStream("1\xb020919\xb019231~1\xb0"))).toEqual([
+      { occurrenceId: 19231, stuffed: true },
+      { occurrenceId: 20919, stuffed: true },
+    ]);
+  });
+
+  it("leaves out bare entries when the group carries no status to give them", () => {
+    expect(parseVariantGroup(groupStream("0\xb020919\xb0"))).toEqual([]);
+  });
+
   it("returns nothing for a stream too short to carry a length", () => {
     expect(parseVariantGroup(Buffer.from([0x00, 0x01]))).toEqual([]);
   });

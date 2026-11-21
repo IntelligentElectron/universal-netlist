@@ -180,7 +180,8 @@ const decodeTransform = (word: number) => ({
 
 export interface Device {
   unitRef: string;
-  refDes: string;
+  /** The part cell this device belongs to (§5.4). */
+  cellName: string;
   pinMap: (string | null)[];
   /**
    * Per-pin "Pin Ignore" flag, bit 7 of the byte following each pin name
@@ -563,7 +564,7 @@ export function parseDevice(reader: BinaryReader): Device {
   futureData.checkpoint();
 
   const unitRef = reader.readStringLenZeroTerm();
-  const refDes = reader.readStringLenZeroTerm();
+  const cellName = reader.readStringLenZeroTerm();
 
   const pinCount = reader.readUint16();
   const pinMap: (string | null)[] = [];
@@ -587,7 +588,7 @@ export function parseDevice(reader: BinaryReader): Device {
 
   futureData.checkpoint();
 
-  return { unitRef, refDes, pinMap, pinIgnore };
+  return { unitRef, cellName, pinMap, pinIgnore };
 }
 
 export function parsePackage(reader: BinaryReader): Package {
