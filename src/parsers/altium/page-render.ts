@@ -99,11 +99,18 @@ export function renderAltiumSheet(
   const fill = (r: AltiumRecord) =>
     field(r, "IsSolid") === "T" ? `fill="${colour(r, "AreaColor", "#ffffb0")}"` : `fill="none"`;
 
-  const shown = (text: string): string => {
+  /** `=<name>` resolved against the owning component's parameters, then the sheet's. */
+  const shown = (text: string, owner?: AltiumRecord): string => {
     const name = /^=(.+)$/.exec(text.trim())?.[1]?.toLowerCase();
     if (!name) return text;
+    const own = (owner?.children ?? []).find(
+      (c) => c.RECORD === RECORD_TYPES.PARAMETER && fieldText(c, "Name")?.toLowerCase() === name
+    );
+    const value = own
+      ? fieldText(own, "Text")
+      : Object.entries(parameters).find(([k]) => k.toLowerCase() === name)?.[1];
     // An unresolved reference (a project parameter or a special string) is not drawn.
-    return Object.entries(parameters).find(([k]) => k.toLowerCase() === name)?.[1] ?? "";
+    return value === undefined || /^=/.test(value) ? "" : value;
   };
 
   /** A text at `at`, anchored by `Justification` (a 3 x 3 grid), turned by `Orientation`. */
@@ -229,7 +236,7 @@ export function renderAltiumSheet(
         break;
       }
       case "4":
-        text(r, shown(fieldText(r, "Text") ?? ""), scaledPoint(r));
+        text(r, shown(fieldText(r, "Text") ?? "", owner), scaledPoint(r));
         break;
       case RECORD_TYPES.DESIGNATOR:
         if (field(r, "IsHidden") !== "T") {
@@ -242,7 +249,7 @@ export function renderAltiumSheet(
         break;
       case RECORD_TYPES.PARAMETER:
         if (field(r, "IsHidden") !== "T" && field(r, "Location.X") !== undefined) {
-          text(r, shown(fieldText(r, "Text") ?? ""), scaledPoint(r));
+          text(r, shown(fieldText(r, "Text") ?? "", owner), scaledPoint(r));
         }
         break;
       case RECORD_TYPES.PIN: {
@@ -324,23 +331,24 @@ export function renderAltiumSheet(
           style === 4 || style === 5 || style === 6
             ? `M0 0L0 -10M-10 -10L10 -10M-6 -13L6 -13M-2 -16L2 -16`
             : style === 1
-              ? `M0 0L0 -10M-4 -6L0 -10L4 -6`
+              ? `M0 0L-4 -4L-4 -14L4 -14L4 -4Z`
               : style === 0
                 ? `M0 0L0 -6M0 -8m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0`
                 : `M0 0L0 -10M-10 -10L10 -10`;
-        const ground = style === 4 || style === 5 || style === 6;
-        // Ground symbols point down from their point; the others point up.
-        const angle = (ground ? 180 : 0) + [-90, 0, 90, 180][turn]!;
+        // `Orientation` points from the port's point to its body: right, up, left, down.
+        // The glyphs above are drawn with their body upward.
+        const angle = [90, 0, -90, 180][turn]!;
         out.push(
           `<path d="${glyph}" transform="translate(${n(x)} ${n(y)}) rotate(${angle})" fill="none" stroke="${c}" stroke-width="1"/>`
         );
         if (field(r, "ShowNetName") !== "F") {
+          const reach = style === 1 ? 18 : 14;
           const dir = [
-            [14, 0],
-            [0, -14],
-            [-14, 0],
-            [0, 14],
-          ][ground ? (turn + 2) % 4 : turn]!;
+            [reach, 0],
+            [0, -reach],
+            [-reach, 0],
+            [0, reach],
+          ][turn]!;
           const anchor = dir[0]! > 0 ? "start" : dir[0]! < 0 ? "end" : "middle";
           const em = 10 * TEXT_UNITS_PER_POINT;
           out.push(
