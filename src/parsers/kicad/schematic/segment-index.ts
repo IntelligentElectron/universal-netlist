@@ -57,9 +57,11 @@ export class SegmentIndex {
       const x1 = cellOf(Math.max(a.x, b.x) + EPS);
       const y0 = cellOf(Math.min(a.y, b.y) - EPS);
       const y1 = cellOf(Math.max(a.y, b.y) + EPS);
-      if (
-        !(x1 - x0 < MAX_CELLS && y1 - y0 < MAX_CELLS && (x1 - x0 + 1) * (y1 - y0 + 1) <= MAX_CELLS)
-      ) {
+      if (!(
+        x1 - x0 < MAX_CELLS &&
+        y1 - y0 < MAX_CELLS &&
+        (x1 - x0 + 1) * (y1 - y0 + 1) <= MAX_CELLS
+      )) {
         this.wide.push(i);
         return;
       }

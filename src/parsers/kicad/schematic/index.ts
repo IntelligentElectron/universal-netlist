@@ -21,8 +21,9 @@ import {
   type SchematicOptions,
   type SchematicSource,
 } from "./connectivity.js";
-import { buildKicadPageViews } from "./page-views.js";
-import type { PageView } from "../../../pages/page-view.js";
+import { buildKicadPageViews, orderedPages } from "./page-views.js";
+import { renderKicadSheet } from "./page-render.js";
+import type { DesignPages } from "../../../pages/page-view.js";
 import { writeKicadNetlist, type ResolvedSchematic } from "./netlist-writer.js";
 import { readKicadProjectSchematic } from "../discovery.js";
 
@@ -129,15 +130,33 @@ export const readKicadSchematic = async (
 ): Promise<ResolvedSchematic> =>
   resolveSchematic(...(await readDesignSources(rootSchematic, files, projectPath)));
 
-/** A KiCad design's sheet instances as drawn, for the page tools. */
+/**
+ * A KiCad design's sheet instances as drawn, for the page tools, and, when
+ * `draw` is set, one SVG per page in the same order ("" for one that fails).
+ */
 export const readKicadPages = async (
   rootSchematic: string,
   files: FileReader,
-  projectPath: string
-): Promise<PageView[]> =>
-  buildKicadPageViews(
-    analyzeSchematic(...(await readDesignSources(rootSchematic, files, projectPath)))
-  );
+  projectPath: string,
+  draw = false
+): Promise<DesignPages> => {
+  const [sources, options] = await readDesignSources(rootSchematic, files, projectPath);
+  const design = analyzeSchematic(sources, options);
+  const content = new Map(sources.map((s) => [s.name, s.content]));
+  return {
+    pages: buildKicadPageViews(design),
+    svgs: draw
+      ? orderedPages(design).map((page) => {
+          try {
+            return renderKicadSheet(content.get(page.file) ?? "", page.uuidPath, page.paper);
+          } catch {
+            // Drawing is best-effort: a failure costs that drawing, never the page views.
+            return "";
+          }
+        })
+      : [],
+  };
+};
 
 /**
  * Flag the pins the schematic's symbols do not draw `hidden`. KiCad's netlist

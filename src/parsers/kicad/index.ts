@@ -14,7 +14,7 @@
 import path from "node:path";
 import { contextOrDefault, readText } from "../context.js";
 import { markHiddenPins, readKicadPages, readKicadSchematic } from "./schematic/index.js";
-import type { PageView } from "../../pages/page-view.js";
+import type { DesignPages } from "../../pages/page-view.js";
 import { writeKicadNetlist } from "./schematic/netlist-writer.js";
 import type { ParsedNetlist, EDAProjectFormatHandler, ParseDesignOptions } from "../../types.js";
 import { parseKicadNetlist } from "./netlist-parser.js";
@@ -184,12 +184,13 @@ export const parseKicadDesign = async (
 /** A KiCad design's pages, read from its schematics. Pages do not depend on a variant. */
 export const parseKicadPages = async (
   designPath: string,
-  options?: ParseDesignOptions
-): Promise<PageView[]> => {
+  options?: ParseDesignOptions,
+  draw = false
+): Promise<DesignPages> => {
   const { files } = contextOrDefault(options?.context);
   const { rootSchematic } = await resolveKicadArtifacts(designPath, files);
   if (!rootSchematic) throw new Error(`No schematic found for ${path.basename(designPath)}.`);
-  const pages = await readKicadPages(rootSchematic, files, designPath);
+  const { pages, svgs } = await readKicadPages(rootSchematic, files, designPath, draw);
   // The netlist may come from a saved export rather than the schematics, so
   // every net a page names is one of its nets: each pin takes the netlist's
   // net for it. An unannotated part (`D?`) is the exception: the netlist folds
@@ -219,7 +220,7 @@ export const parseKicadPages = async (
     page.ports.forEach(known);
     page.globals.forEach(known);
   }
-  return pages;
+  return { pages, svgs };
 };
 
 /**

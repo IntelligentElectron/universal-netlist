@@ -39,11 +39,15 @@ const optional = <K extends string, V>(key: K, value: V | undefined) =>
 export const kicadPageName = (page: KicadPage): string =>
   page.path !== "/" ? page.path.slice(1, -1) : page.name.includes("${") ? page.file : page.name;
 
+/** KiCad's page order: by page number, sheets without one after, in hierarchy order. */
+export const orderedPages = (design: SchematicDesign): KicadPage[] => {
+  const order = (page: KicadPage) => Number(page.page) || Infinity;
+  return [...design.pages].sort((a, b) => order(a) - order(b));
+};
+
 export function buildKicadPageViews(design: SchematicDesign): PageView[] {
   const values = new Map(design.components.map((c) => [c.reference, c.value]));
-  // KiCad's page order: by page number, sheets without one after, in hierarchy order.
-  const order = (page: KicadPage) => Number(page.page) || Infinity;
-  const pages = [...design.pages].sort((a, b) => order(a) - order(b));
+  const pages = orderedPages(design);
   return pages.map((page, i): PageView => {
     const connector = (name: string, p: Point, net?: string, type?: PageConnector["type"]) => ({
       name,

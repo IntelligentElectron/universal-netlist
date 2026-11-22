@@ -39,12 +39,6 @@ export const loadPages = async (
       error: "Pages are read from Cadence .DSN and KiCad designs only. Use list_designs() first.",
     };
   }
-  // shortcut: KiCad pages are not drawn yet; render_page comes with the KiCad renderer.
-  if (draw && kicad) {
-    return {
-      error: "render_page draws Cadence .DSN pages only for now. get_page() reads this page.",
-    };
-  }
   const parser = { ...context.parser, files: readOnce(context.parser.files) };
   try {
     const design = await cached(
@@ -53,7 +47,7 @@ export const loadPages = async (
       parser,
       async (p): Promise<DesignPages> =>
         kicad
-          ? { pages: await parseKicadPages(designPath, { context: p }), svgs: [] }
+          ? await parseKicadPages(designPath, { context: p }, draw)
           : parseDsnPages(await p.files.readFile(designPath), p.dsnPasswords, draw)
     );
     return { designPath, ...design };

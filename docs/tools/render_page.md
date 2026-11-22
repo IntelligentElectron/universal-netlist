@@ -1,20 +1,22 @@
 # render_page
 
-Render one schematic page of a Cadence `.DSN` design as a PNG image.
+Render one schematic page of a Cadence `.DSN` or KiCad design as a PNG image.
 
 ## Description
 
 Draws the page from the design file itself: symbols placed with their rotation and mirror, pins with their numbers and (on parts with four or more pins) their names, property text such as reference designators and values, wires and buses, junction dots, net labels, hierarchical ports and blocks, power and ground symbols, off-page connectors, free text and shapes, and the title block. No Capture installation is needed.
 
+A KiCad page is drawn from its `.kicad_sch` file and the symbols embedded in it: shapes, pins with their names and numbers as the symbol shows them, visible fields such as reference (with the unit letter on multi-unit parts) and value, wires, buses, bus entries, junctions, no-connect flags, local, global and hierarchical labels, sheet symbols with their pins, and text and text boxes. The sheet border is drawn; KiCad's drawing-sheet frame and title block are not. No KiCad installation is needed.
+
 Pass `focus` to crop to one part (a refdes) or to everything on one net, with a margin. Over MCP the image comes back as image content, followed by a short JSON result; on the command line the PNG is written to a file.
 
-Pages are read from Cadence OrCAD `.DSN` schematics only.
+Pages are read from Cadence OrCAD `.DSN` schematics and KiCad designs.
 
 ## Input Parameters
 
 | Parameter | Type | Required | Default | Description |
 |-----------|------|----------|---------|-------------|
-| `design` | string | Yes | - | Path to a `.DSN` design, as returned by `list_designs` |
+| `design` | string | Yes | - | Path to a `.DSN` design or a KiCad `.kicad_pro` project, as returned by `list_designs` |
 | `page` | string | Yes | - | The page as `list_pages` names it |
 | `focus` | string | No | - | A refdes or net name on the page: crop to that part, or to everything on that net. Omit for the whole page |
 | `output` | string | No | `<page>.png` | Command line only: the PNG path to write |
