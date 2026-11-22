@@ -13,7 +13,8 @@
 
 import path from "node:path";
 import { contextOrDefault, readText } from "../context.js";
-import { markHiddenPins, readKicadSchematic } from "./schematic/index.js";
+import { markHiddenPins, readKicadPages, readKicadSchematic } from "./schematic/index.js";
+import type { PageView } from "../../pages/page-view.js";
 import { writeKicadNetlist } from "./schematic/netlist-writer.js";
 import type { ParsedNetlist, EDAProjectFormatHandler, ParseDesignOptions } from "../../types.js";
 import { parseKicadNetlist } from "./netlist-parser.js";
@@ -178,6 +179,43 @@ export const parseKicadDesign = async (
     );
   }
   return parsed;
+};
+
+/** A KiCad design's pages, read from its schematics. Pages do not depend on a variant. */
+export const parseKicadPages = async (
+  designPath: string,
+  options?: ParseDesignOptions
+): Promise<PageView[]> => {
+  const { files } = contextOrDefault(options?.context);
+  const { rootSchematic } = await resolveKicadArtifacts(designPath, files);
+  if (!rootSchematic) throw new Error(`No schematic found for ${path.basename(designPath)}.`);
+  const pages = await readKicadPages(rootSchematic, files, designPath);
+  // The netlist may come from a saved export rather than the schematics: each
+  // pin takes its net from it, and other items keep only its nets' names.
+  const { components, nets } = await parseKicadDesign(designPath, options);
+  const pinNet = (refdes: string, number: string): string | undefined => {
+    const entry = Object.hasOwn(components, refdes) ? components[refdes].pins[number] : undefined;
+    const net = entry === undefined ? undefined : typeof entry === "string" ? entry : entry.net;
+    return net === "" ? "NC" : net;
+  };
+  const names = new Set(Object.keys(nets));
+  const known = <T extends { net?: string }>(item: T): T => {
+    if (item.net !== undefined && !names.has(item.net)) delete item.net;
+    return item;
+  };
+  for (const page of pages) {
+    for (const part of page.parts) {
+      for (const pin of part.pins) {
+        const net = pinNet(part.refdes, pin.number || pin.name || "");
+        if (net === undefined) delete pin.net;
+        else pin.net = net;
+      }
+    }
+    page.wires.forEach(known);
+    page.ports.forEach(known);
+    page.globals.forEach(known);
+  }
+  return pages;
 };
 
 /**

@@ -15,7 +15,14 @@ import path from "node:path";
 import { readText, type FileReader } from "../../context.js";
 import type { ParsedNetlist } from "../../../types.js";
 import { parseKicadNetlist } from "../netlist-parser.js";
-import { resolveSchematic, type SchematicSource } from "./connectivity.js";
+import {
+  analyzeSchematic,
+  resolveSchematic,
+  type SchematicOptions,
+  type SchematicSource,
+} from "./connectivity.js";
+import { buildKicadPageViews } from "./page-views.js";
+import type { PageView } from "../../../pages/page-view.js";
 import { writeKicadNetlist, type ResolvedSchematic } from "./netlist-writer.js";
 import { readKicadProjectSchematic } from "../discovery.js";
 
@@ -85,12 +92,12 @@ const readSources = async (
   return sources.map(({ name, content }) => ({ name, content }));
 };
 
-/** A KiCad design's resolved schematic: its parts, their pins, and its nets. */
-export const readKicadSchematic = async (
+/** The sheets a KiCad design's connectivity is read from, with the project's options. */
+const readDesignSources = async (
   rootSchematic: string,
   files: FileReader,
   projectPath: string
-): Promise<ResolvedSchematic> => {
+): Promise<[SchematicSource[], SchematicOptions]> => {
   // The project file's bus aliases, where KiCad 10 keeps them, and its
   // top-level sheets when it lists several. None without a readable project
   // file. A design given as its root .kicad_sch reads the project beside it.
@@ -101,16 +108,36 @@ export const readKicadSchematic = async (
         path: path.resolve(path.dirname(rootSchematic), sheet.filename),
       }))
     : [{ name: path.basename(rootSchematic), path: rootSchematic }];
-  const sources = await readSources(roots, files);
-  return resolveSchematic(sources, {
-    busAliases,
-    topLevelSheets: topLevelSheets.map((sheet) => ({
-      uuid: sheet.uuid,
-      name: sheet.name,
-      file: sheet.filename,
-    })),
-  });
+  return [
+    await readSources(roots, files),
+    {
+      busAliases,
+      topLevelSheets: topLevelSheets.map((sheet) => ({
+        uuid: sheet.uuid,
+        name: sheet.name,
+        file: sheet.filename,
+      })),
+    },
+  ];
 };
+
+/** A KiCad design's resolved schematic: its parts, their pins, and its nets. */
+export const readKicadSchematic = async (
+  rootSchematic: string,
+  files: FileReader,
+  projectPath: string
+): Promise<ResolvedSchematic> =>
+  resolveSchematic(...(await readDesignSources(rootSchematic, files, projectPath)));
+
+/** A KiCad design's sheet instances as drawn, for the page tools. */
+export const readKicadPages = async (
+  rootSchematic: string,
+  files: FileReader,
+  projectPath: string
+): Promise<PageView[]> =>
+  buildKicadPageViews(
+    analyzeSchematic(...(await readDesignSources(rootSchematic, files, projectPath)))
+  );
 
 /**
  * Flag the pins the schematic's symbols do not draw `hidden`. KiCad's netlist

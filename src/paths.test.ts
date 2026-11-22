@@ -18,7 +18,8 @@ vi.mock("path", async () => {
   };
 });
 
-vi.mock("child_process", async () => {
+vi.mock("child_process", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("child_process")>();
   const { promisify } = await import("util");
   const execFn = (
     _command: string,
@@ -35,7 +36,7 @@ vi.mock("child_process", async () => {
     stdout: "",
     stderr: "",
   });
-  return { exec: execFn };
+  return { ...actual, exec: execFn };
 });
 
 vi.mock("fs", async () => {
