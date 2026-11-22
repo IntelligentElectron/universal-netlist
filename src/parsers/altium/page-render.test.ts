@@ -78,4 +78,40 @@ describe("renderAltiumSheet", () => {
     expect(svg).toContain(">B<");
     expect(svg).not.toContain("ModifiedDate");
   });
+
+  it("turns a power port toward its body: a ground at orientation 3 hangs down", () => {
+    const svg = draw([
+      {
+        index: 0,
+        RECORD: "17",
+        Text: "GND",
+        Style: "4",
+        Orientation: "3",
+        "Location.X": "100",
+        "Location.Y": "100",
+      },
+    ]);
+    expect(svg).toContain("rotate(180)");
+  });
+
+  it("shows a component's =Value comment from its own parameters", () => {
+    const svg = draw([
+      {
+        index: 0,
+        RECORD: "1",
+        children: [
+          { index: 1, RECORD: "41", Name: "Value", Text: "10K", IsHidden: "T" },
+          {
+            index: 2,
+            RECORD: "41",
+            Name: "Comment",
+            Text: "=Value",
+            "Location.X": "10",
+            "Location.Y": "10",
+          },
+        ] as AltiumRecord[],
+      },
+    ]);
+    expect(svg).toContain(">10K<");
+  });
 });
