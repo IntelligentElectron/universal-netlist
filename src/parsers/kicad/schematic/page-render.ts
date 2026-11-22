@@ -70,8 +70,15 @@ const style = (
 /** One text, possibly several lines, drawn at `p` turned `angle` degrees counterclockwise. */
 function textSvg(text: string, p: Point, angle: number, s: TextStyle, colour: string): string {
   if (!text) return "";
-  // KiCad markup (_{sub}, ^{super}, ~{overbar}) is drawn as its plain text.
-  const lines = text.replace(/[_^~]\{([^}]*)\}/g, "$1").split("\n");
+  // KiCad markup: _{sub} and ^{super} are drawn as plain text, ~{name} with an overbar.
+  const lines = text.replace(/[_^]\{([^}]*)\}/g, "$1").split("\n");
+  const marked = (line: string) =>
+    line
+      .split(/~\{([^}]*)\}/)
+      .map((part, i) =>
+        i % 2 ? `<tspan text-decoration="overline">${esc(part)}</tspan>` : esc(part)
+      )
+      .join("");
   // Liberation Sans' cap height is about 0.72 em; KiCad's size is the cap height.
   const em = s.size / 0.72;
   const lineHeight = em * 1.15;
@@ -86,7 +93,7 @@ function textSvg(text: string, p: Point, angle: number, s: TextStyle, colour: st
   const spans = lines
     .map(
       (line, i) =>
-        `<tspan x="${n(p.x)}" y="${n(p.y + first + i * lineHeight)}">${esc(line)}</tspan>`
+        `<tspan x="${n(p.x)}" y="${n(p.y + first + i * lineHeight)}">${marked(line)}</tspan>`
     )
     .join("");
   return `<text font-size="${n(em)}" fill="${colour}" text-anchor="${s.h}"${rotate}>${spans}</text>`;
@@ -397,7 +404,7 @@ export function renderKicadSheet(
             text,
             p,
             angle % 180,
-            { ...s, h: angle === 180 || angle === 90 ? "end" : "start" },
+            { ...s, h: angle === 180 || angle === 270 ? "end" : "start" },
             colour
           )
         );
@@ -408,7 +415,8 @@ export function renderKicadSheet(
       const rad = (angle * Math.PI) / 180;
       const off = s.size * (kind === "global_label" ? 1.3 : 1);
       const q = { x: p.x + Math.cos(rad) * off, y: p.y - Math.sin(rad) * off };
-      const flip = angle === 180 || angle === 90;
+      // Turned 90 the text runs up from its anchor, turned 180 or 270 it runs back.
+      const flip = angle === 180 || angle === 270;
       out.push(
         textSvg(text, q, angle % 180, { ...s, h: flip ? "end" : "start", v: "middle" }, colour)
       );
