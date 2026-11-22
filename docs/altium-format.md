@@ -471,6 +471,129 @@ wherever their graphic would put them, possibly on another net's wire.
 duplicate designator, which Altium's compiler reports as an error: one physical part cannot put one
 pin on two nets. Unannotated parts (designator `X?`) repeated across sheets are duplicates too.
 
+## Drawing
+
+What a sheet draws, beyond what connects. This chapter is the page tools' source for Altium: a
+claim is backed by one of these evidence levels, or marked *unverified* with where it comes from.
+
+| Level | Meaning |
+|---|---|
+| **O** | Observed: a census over every readable `.SchDoc` in the test fixtures and the Altium corpus (1,276 sheets) finds it in the stated number of records or sheets, with no exception |
+| **S** | Structural: a check of the stated relation over the same sheets holds in the stated number of cases |
+| **E** | Export: matches Altium's own output (a PDF print of the sheet) |
+| *unverified* | Stated by the community readers of the format; not yet checked here |
+
+### Files the reader cannot open
+
+Of the 1,338 `.SchDoc` files in fixtures and corpus, 1,276 are OLE compound documents. Thirty are
+Altium's ASCII schematic format: the same pipe-delimited records as plain text lines, starting
+`|HEADER=`, with no OLE wrapper. Thirty-two are empty ZIP archives (download failures). The reader
+reads OLE files only. **O**
+
+### Sheet settings (record `31`)
+
+One per sheet (1,276 of 1,276). **O**
+
+| Field | Holds | Evidence |
+|---|---|---|
+| `SheetStyle` | the standard sheet size: unwritten (817 sheets) is `0`; values 1 to 10 and 14 occur | **O** |
+| `UseCustomSheet=T`, `CustomX`, `CustomY` | a custom size, in units, on 134 sheets | **O** |
+| `WorkspaceOrientation=1` | portrait (11 sheets); unwritten is landscape | **O** values; meaning *unverified* |
+| `BorderOn`, `TitleBlockOn` | whether the sheet border (1,237 sheets) and the standard title block (157) are drawn | **O** values; meaning *unverified* |
+| `FontIdCount`, then per font `n`: `Size<n>` (points), `FontName<n>`, `Rotation<n>`, `Bold<n>`, `Italic<n>`, `Underline<n>` | the sheet's font table, which every text's `FontId` indexes from 1 | **O** |
+| `AreaColor` | the sheet colour | **O** |
+
+The sizes of the standard styles, width by height in units: 0 A4 1150 x 760, 1 A3 1550 x 1110, 2 A2
+2230 x 1570, 3 A1 3150 x 2230, 4 A0 4460 x 3150, 5 A 950 x 750, 6 B 1500 x 950, 7 C 2000 x 1500,
+8 D 3200 x 2000, 9 E 4200 x 3200, 10 Letter 1100 x 850, 11 Legal 1400 x 850, 12 Tabloid 1700 x
+1100, 13 to 17 OrCAD A to E. For the styles that occur on more than one sheet (0 to 4, 6, 7),
+the objects on a sheet reach a median 97 to 99% of the stated width or height and lie within it on
+1,028 of 1,074 sheets; styles 8 to 17 are too rare to check, and the sizes come from the community
+readers. **S** (styles 0 to 7)
+
+### Axes and colours
+
+Coordinates grow rightward and upward from the sheet's bottom-left corner, in units of 10 mil:
+the objects of 1,217 of 1,276 sheets lie within zero and the sheet's width and height. The rest
+place a few objects off the sheet, at negative coordinates or past its far edge. **S**. Which edge
+is the bottom (y up rather than down) is *unverified* until a drawing is compared with a print. A colour (`Color`, `AreaColor`, `TextColor`) is a decimal 24-bit integer with red in
+the low byte, `0xBBGGRR`. *unverified*. `LineWidth` takes `1` (135,147 polylines), `2` (13,675) and
+`3` (327), unwritten being `0`: smallest, small, medium and large. **O** values; the widths
+*unverified*.
+
+### Component graphics are stored placed
+
+A component's graphics (its pins, lines, rectangles, arcs, text) are child records already placed
+on the sheet: they carry sheet coordinates with the component's rotation and mirror applied, so a
+reader draws them where they are. The nearest drawn child lies within 200 units of the component's
+`Location` for 40,870 of 40,875 components with children. **S**
+
+A component writes every part's and every display mode's graphics. A child is drawn when its
+`OwnerPartId` is the component's `CurrentPartId`, or `0` (shared by all parts; 500 children), and
+its `OwnerPartDisplayMode` (unwritten `0`) is the component's `DisplayMode` (unwritten `0`).
+Across the corpus 319,131 children are drawn, 234,252 belong to another part and 28,793 to another
+display mode. **S**. `Orientation` (quarter turns, `1` to `3`) and `IsMirrored=T` on the component
+record describe the placement; the children already have it. **O** values
+
+### Shapes
+
+All shapes below carry `OwnerIndex` when a component owns them and `OwnerPartId`. Each coordinate
+may carry a `_Frac` part (see Coordinates). Field presence is **O** over the stated record counts.
+
+| Record | Shape | Fields |
+|---|---|---|
+| `3` | IEEE symbol (133) | `Symbol` (a code), `Location`, `ScaleFactor`, `Orientation`, `LineWidth`, `Color` |
+| `4` | text label (45,683) | `Text`, `Location`, `FontId`, `Color`, `Justification`, `Orientation`, `IsMirrored` |
+| `5` | bezier (125) | `LocationCount`, `X1`,`Y1` to `Xn`,`Yn` in groups of four control points, `LineWidth`, `Color` |
+| `6` | polyline (164,925) | `LocationCount`, vertices `X1`,`Y1` to `Xn`,`Yn`, `LineWidth`, `LineStyle`, `Color` |
+| `7` | polygon (6,850) | vertices as a polyline, closed; `IsSolid`, `AreaColor`, `Transparent`, `LineWidth`, `Color` |
+| `8` | ellipse (5,025) | centre `Location`, `Radius` (x) and `SecondaryRadius` (y), `IsSolid`, `AreaColor`, `Color` |
+| `9` | pie (16) | centre `Location`, `Radius`, `StartAngle`, `EndAngle`, `IsSolid`, `AreaColor` |
+| `10` | rounded rectangle (1,340) | corners `Location` and `Corner`, `CornerXRadius`, `CornerYRadius`, `IsSolid`, `AreaColor` |
+| `11` | elliptical arc (5,057) | centre `Location`, `Radius`, `SecondaryRadius`, `StartAngle`, `EndAngle` |
+| `12` | arc (10,505) | centre `Location`, `Radius`, `StartAngle`, `EndAngle`, `LineWidth`, `Color` |
+| `13` | line (45,258) | ends `Location` and `Corner`, `LineWidth`, `LineStyle`, `Color` |
+| `14` | rectangle (35,254) | corners `Location` and `Corner`, `IsSolid`, `AreaColor`, `Transparent`, `Color` |
+| `22` | no-ERC marker (5,793) | `Location`, `Symbol` (`Thin Cross`, `Small Cross`, `Checkbox`), `Orientation` |
+| `28` | text frame (9,172) | corners `Location` and `Corner`, `Text`, `FontId`, `TextColor`, `WordWrap`, `Alignment`, `AreaColor` |
+| `29` | junction (39,621) | `Location`, `Color` |
+| `30` | image (1,602) | corners `Location` and `Corner`, `FileName`, `EmbedImage`, `KeepAspect` |
+| `37` | bus entry (1,070) | ends `Location` and `Corner`, `LineWidth`, `Color` |
+| `39` | template (997) | `FileName`: the sheet template whose graphics follow as its children |
+| `209` | note (1,650) | a text frame with `Author`, `ShowBorder`, `Collapsed` |
+
+An angle (`StartAngle`, `EndAngle`) is in degrees, counterclockwise from the positive x axis, and
+an unwritten angle is 0. *unverified*. A `Text` of `=<parameter>` shows that parameter's value (see
+Components); text frames and notes write line breaks as `~1`. *unverified*
+
+### Text placement
+
+`Justification` places a text's anchor on a three-by-three grid: `0` bottom-left, `1` bottom
+centre, `2` bottom right, `3` middle left, `4` middle centre, `5` middle right, `6` top left, `7`
+top centre, `8` top right, unwritten being `0`. Values `1` to `8` occur. **O** values; the grid
+*unverified*. `Orientation` turns the text counterclockwise in quarter turns, and `IsMirrored=T`
+swaps the justification left for right. *unverified*
+
+A parameter (`41`) is drawn unless `IsHidden=T` (1,099,871 of 1,167,650 parameters are hidden).
+**O**. A component designator (`34`) is drawn unless `IsHidden=T` (234 hidden). **O**
+
+### Pins
+
+`PinConglomerate` takes the values 24, 26, 32 to 35, 39 to 43 and 48 most often. Its low two
+bits turn the pin (see Pins under Geometry). The higher bits are flags for whether the name and the
+designator are shown and whether the pin is hidden. *unverified*. `Symbol_InnerEdge`,
+`Symbol_OuterEdge`, `Symbol_Inner` and `Symbol_Outer` name the pin's decorations (clock, dot,
+arrows). **O** values
+
+### Power ports, ports and net labels
+
+| Record | Fields | Values seen |
+|---|---|---|
+| `17` power port | `Text`, `Style`, `Orientation`, `ShowNetName`, `FontId` | `Style` 1, 2, 4, 5, 6 (unwritten 0); meaning: 0 circle, 1 arrow, 2 bar, 3 wave, 4 power ground, 5 signal ground, 6 earth *unverified* |
+| `18` port | `Name`, `Width`, `Height`, `Style`, `IOType`, `Alignment`, `TextColor`, `AreaColor` | `IOType` 1, 2, 3 (unwritten 0): unspecified, output, input, bidirectional *unverified* |
+| `25` net label | `Text`, `Orientation`, `Justification`, `FontId` | `Orientation` 1 to 3 |
+| `16` sheet entry | `Name`, `Side`, `DistanceFromTop`, `IOType`, `Style`, `ArrowKind` | see Sheet entries |
+
 ## Design variants
 
 A variant is an overlay on the core project. The fitted state, alternate parts and per-part
