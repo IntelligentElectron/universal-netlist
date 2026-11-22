@@ -23,4 +23,9 @@ describe("renderKicadSheet", () => {
   it("states its size in mils and draws in millimetres", () => {
     expect(sheet("")).toMatch(/viewBox="0 0 11693 8268".*scale\(39\.37/);
   });
+
+  it("leaves out text sized to hide it, as KiCad does", () => {
+    const svg = sheet(`(text "TINY" (at 10 10 0) (effects (font (size 0.0254 0.0254))))`);
+    expect(svg).not.toContain("TINY");
+  });
 });
