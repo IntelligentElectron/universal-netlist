@@ -347,6 +347,12 @@ describe("Altium pages", () => {
     expect(names).toContain("adc_mcp3913.SchDoc");
     expect(names).toContain("analog_sensor_input.SchDoc (sensor0)");
     expect(names).toContain("analog_sensor_input.SchDoc (sensor1)");
+    // Each channel page carries that channel's designators and nets.
+    const sensor1 = (await callTool("get_page", {
+      design: BMS,
+      page: "analog_sensor_input.SchDoc (sensor1)",
+    })) as PageView;
+    expect(sensor1.parts.find((p) => p.refdes === "C149B")?.pins[0]?.net).toBe("AIN1_1");
   }, 60_000);
 
   it("places parts and pins in mils with y down, on the nets query_component gives", async () => {
