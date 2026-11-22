@@ -23,6 +23,7 @@ import {
   type Point,
 } from "./coordinates.js";
 import { extractNets } from "./net-extractor.js";
+import { renderAltiumSheet } from "./page-render.js";
 import { loadAltiumProject, parseAltiumProject } from "./project.js";
 import { field, fieldText, toNumber } from "./records.js";
 import { RECORD_TYPES, type AltiumRecord } from "./types.js";
@@ -96,10 +97,11 @@ const pinTip = (pin: AltiumRecord): Point => {
   return [x + [length, 0, -length, 0][turn]!, y + [0, length, 0, -length][turn]!];
 };
 
-/** An Altium project's pages, and (when drawn) one SVG per page; drawings come with the renderer. */
+/** An Altium project's pages, and, when `draw` is set, one SVG per page in the same order. */
 export const parseAltiumPages = async (
   projectPath: string,
-  options?: ParseDesignOptions
+  options?: ParseDesignOptions,
+  draw = false
 ): Promise<DesignPages> => {
   const project = await loadAltiumProject(projectPath, options);
   const netlist = await parseAltiumProject(projectPath, options, project);
@@ -113,6 +115,7 @@ export const parseAltiumPages = async (
   };
 
   const pages: PageView[] = [];
+  const svgs: string[] = [];
   for (const read of project.documents) {
     const schematic = read.hierarchical;
     const nets = extractNets(schematic, project.naming);
@@ -293,9 +296,17 @@ export const parseAltiumPages = async (
         // Altium keeps its compiler's messages out of the sheet.
         erc_markers: [],
       });
+      if (draw) {
+        try {
+          svgs.push(renderAltiumSheet(schematic.records, size, refdes, parameters));
+        } catch {
+          // Drawing is best-effort: a failure costs that drawing, never the page view.
+          svgs.push("");
+        }
+      }
     }
   }
   const count = pages.length;
   for (const page of pages) page.title_block!.page_count ||= count;
-  return { pages, svgs: [] };
+  return { pages, svgs };
 };
