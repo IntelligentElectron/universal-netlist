@@ -105,13 +105,46 @@ export interface SchematicDesign {
   sheets: SchematicSheet[];
   components: SchematicComponent[];
   nets: SchematicNet[];
+  /** Each sheet instance as drawn, in `sheets` order, nets named as `nets` names them. */
+  pages: KicadPage[];
+}
+
+/**
+ * One sheet instance as drawn, in the file's millimetres, y down. `net` is the
+ * name of a net in `SchematicDesign.nets`, omitted for an item on none of them.
+ */
+export interface KicadPage {
+  /** Sheet instance path as KiCad prints it (`/`, `/Power/`). */
+  path: string;
+  name: string;
+  file: string;
+  page: string | null;
+  paper: { name: string; width: number; height: number };
+  titleBlock: { name: string; value: string }[];
+  parts: {
+    reference: string;
+    libId: string;
+    at: Point;
+    /** Counterclockwise quarter turns, applied after `mirrored` (a left-right flip). */
+    turns: number;
+    mirrored: boolean;
+    /** The drawn unit's outline and pins, placed: `[x1, y1, x2, y2]`. */
+    box: [number, number, number, number] | null;
+    pins: { number: string; name: string; type: string; at: Point; net?: string }[];
+  }[];
+  powers: { name: string; at: Point; net?: string }[];
+  wires: { a: Point; b: Point; bus: boolean; net?: string }[];
+  labels: { name: string; kind: Label["kind"]; shape: string; at: Point; net?: string }[];
+  sheets: { name: string; at: Point }[];
+  busEntries: { at: Point; size: Point }[];
+  texts: { text: string; at: Point }[];
 }
 
 // ---------------------------------------------------------------------------
 // File model
 // ---------------------------------------------------------------------------
 
-interface Point {
+export interface Point {
   x: number;
   y: number;
 }
@@ -134,6 +167,8 @@ interface LibSymbol {
   units: number;
   /** `global` or `local` for power symbols. */
   power: "global" | "local" | null;
+  /** The points each unit's drawing reaches (shapes, pin ends), in library coordinates (y up). */
+  outline: { unit: number; style: number; points: Point[] }[];
 }
 
 interface PlacedSymbol {
@@ -153,6 +188,7 @@ interface PlacedSymbol {
 
 interface SheetSymbol {
   uuid: string;
+  at: Point;
   name: string;
   file: string;
   pins: { name: string; at: Point }[];
@@ -163,6 +199,8 @@ interface Label {
   name: string;
   at: Point;
   kind: "local" | "global" | "hier";
+  /** A global or hierarchical label's direction: input, output, bidirectional, tri_state, passive. */
+  shape: string;
 }
 
 /** One symbol instance as a KiCad 6 root sheet records it, in `symbol_instances`. */
@@ -190,6 +228,11 @@ interface SheetFile {
   /** Bus aliases (`bus_alias`) defined in this file. */
   aliases: Map<string, string[]>;
   title: string;
+  /** Sheet size in millimetres, landscape unless the file says portrait. */
+  paper: { name: string; width: number; height: number };
+  titleBlock: { name: string; value: string }[];
+  texts: { text: string; at: Point }[];
+  busEntries: { at: Point; size: Point }[];
   libs: Map<string, LibSymbol>;
   wires: [Point, Point][];
   buses: [Point, Point][];
@@ -245,10 +288,41 @@ function parseLibSymbol(node: SExprNode[]): LibSymbol {
       });
     }
   };
+  const outline: LibSymbol["outline"] = [];
+  const shapes = (owner: SExprNode[], unit: number, style: number) => {
+    const points: Point[] = [];
+    for (const tag of ["rectangle", "polyline", "arc", "bezier"]) {
+      for (const shape of findAll(owner, tag)) {
+        for (const at of ["start", "mid", "end"]) {
+          const p = findNode(shape, at);
+          if (p) points.push(pointOf(p));
+        }
+        for (const xy of findAll(findNode(shape, "pts") ?? [], "xy")) points.push(pointOf(xy));
+      }
+    }
+    for (const circle of findAll(owner, "circle")) {
+      const c = pointOf(findNode(circle, "center"));
+      const r = num(findNode(circle, "radius")?.[1]);
+      points.push({ x: c.x - r, y: c.y - r }, { x: c.x + r, y: c.y + r });
+    }
+    for (const pin of findAll(owner, "pin")) {
+      const at = findNode(pin, "at");
+      const p = pointOf(at);
+      const length = num(findNode(pin, "length")?.[1]);
+      const angle = (num(at?.[3]) * Math.PI) / 180;
+      points.push(p, {
+        x: p.x + Math.round(Math.cos(angle)) * length,
+        y: p.y + Math.round(Math.sin(angle)) * length,
+      });
+    }
+    if (points.length) outline.push({ unit, style, points });
+  };
   collect(node, 0, 0);
+  shapes(node, 0, 0);
   for (const sub of findAll(node, "symbol")) {
     const match = /_(\d+)_(\d+)$/.exec(str(sub[1]));
     collect(sub, match ? Number(match[1]) : 0, match ? Number(match[2]) : 0);
+    shapes(sub, match ? Number(match[1]) : 0, match ? Number(match[2]) : 0);
   }
   const power = findNode(node, "power");
   // KiCad 8 and later name it Description; earlier files keep ki_description.
@@ -259,6 +333,7 @@ function parseLibSymbol(node: SExprNode[]): LibSymbol {
     pins,
     units: Math.max(1, ...pins.map((p) => p.unit)),
     power: power ? (power[1] === "local" ? "local" : "global") : null,
+    outline,
   };
 }
 
@@ -302,6 +377,35 @@ export function symbolTransform(angle: number, mirror: string | null): Transform
 
 function apply(t: Transform, p: Point): Point {
   return { x: t.x1 * p.x + t.y1 * p.y, y: t.x2 * p.x + t.y2 * p.y };
+}
+
+/**
+ * A transform as quarter turns counterclockwise applied after an optional
+ * left-right mirror, on the page (y down): the one of the eight that maps the
+ * library's axes as `t` does.
+ */
+export function orientation(t: Transform): { turns: number; mirrored: boolean } {
+  for (const mirrored of [false, true]) {
+    for (let turns = 0; turns < 4; turns++) {
+      // Library y is up; on the page it is down. Mirror negates x, each turn maps (x, y) to (y, -x).
+      const page = ({ x, y }: Point): Point => {
+        let q = { x: mirrored ? -x : x, y: -y };
+        for (let i = 0; i < turns; i++) q = { x: q.y, y: -q.x };
+        return q;
+      };
+      const same = [
+        { x: 1, y: 0 },
+        { x: 0, y: 1 },
+      ].every((p) => {
+        const a = apply(t, p);
+        const b = page(p);
+        return a.x === b.x && a.y === b.y;
+      });
+      if (same) return { turns, mirrored };
+    }
+  }
+  // KiCad places symbols in quarter turns only, so one of the eight always matches.
+  return { turns: 0, mirrored: false };
 }
 
 /** The two ends of each `wire` or `bus` in a sheet. */
@@ -365,6 +469,33 @@ function connectGeometry(
   }
 }
 
+/** KiCad's sheet sizes in millimetres, landscape (`PAGE_INFO`). */
+const PAPER: Record<string, [number, number]> = {
+  A5: [210, 148],
+  A4: [297, 210],
+  A3: [420, 297],
+  A2: [594, 420],
+  A1: [841, 594],
+  A0: [1189, 841],
+  A: [279.4, 215.9],
+  B: [431.8, 279.4],
+  C: [558.8, 431.8],
+  D: [863.6, 558.8],
+  E: [1117.6, 863.6],
+  USLetter: [279.4, 215.9],
+  USLegal: [355.6, 215.9],
+  USLedger: [431.8, 279.4],
+  GERBER: [812.8, 812.8],
+};
+
+/** `(paper "A4")`, `(paper "A4" portrait)` or `(paper "User" <width> <height>)`; A4 when absent, as KiCad defaults. */
+function paperOf(node: SExprNode[] | null): SheetFile["paper"] {
+  const name = node ? str(node[1]) : "A4";
+  if (name === "User") return { name, width: num(node?.[2]), height: num(node?.[3]) };
+  const [w, h] = PAPER[name] ?? PAPER.A4!;
+  return node?.includes("portrait") ? { name, width: h, height: w } : { name, width: w, height: h };
+}
+
 function parseSheetFile(content: string): SheetFile {
   const root = parseSExpr(content)[0];
   if (!Array.isArray(root) || root[0] !== "kicad_sch") throw new Error("Not a KiCad schematic");
@@ -413,6 +544,7 @@ function parseSheetFile(content: string): SheetFile {
     }
     return {
       uuid: str(getAttr(node, "uuid") ?? ""),
+      at: pointOf(findNode(node, "at")),
       name: prop("Sheetname", "Sheet name"),
       file: prop("Sheetfile", "Sheet file"),
       pins: findAll(node, "pin").map((pin) => ({
@@ -430,7 +562,12 @@ function parseSheetFile(content: string): SheetFile {
     ["hierarchical_label", "hier"],
   ] as const) {
     for (const node of findAll(root, tag)) {
-      labels.push({ name: str(node[1]), at: pointOf(findNode(node, "at")), kind });
+      labels.push({
+        name: str(node[1]),
+        at: pointOf(findNode(node, "at")),
+        kind,
+        shape: str(getAttr(node, "shape") ?? ""),
+      });
     }
   }
 
@@ -455,6 +592,26 @@ function parseSheetFile(content: string): SheetFile {
     legacyInstances,
     aliases,
     title: str(getAttr(findNode(root, "title_block") ?? [], "title") ?? ""),
+    paper: paperOf(findNode(root, "paper")),
+    titleBlock: (findNode(root, "title_block") ?? [])
+      .slice(1)
+      .flatMap((field) =>
+        Array.isArray(field)
+          ? [
+              field[0] === "comment"
+                ? { name: `Comment${str(field[1])}`, value: str(field[2]) }
+                : { name: str(field[0]), value: str(field[1]) },
+            ]
+          : []
+      ),
+    texts: [...findAll(root, "text"), ...findAll(root, "text_box")].map((node) => ({
+      text: str(node[1]),
+      at: pointOf(findNode(node, "at")),
+    })),
+    busEntries: findAll(root, "bus_entry").map((node) => ({
+      at: pointOf(findNode(node, "at")),
+      size: pointOf(findNode(node, "size")),
+    })),
     libs,
     wires: segments(root, "wire"),
     buses: segments(root, "bus"),
@@ -724,6 +881,13 @@ export function analyzeSchematic(
   const sheets: SchematicSheet[] = [];
   const globalNames = new Map<string, number>();
   const noConnectNodes: number[] = [];
+  const pages: KicadPage[] = [];
+  // Page items whose net is the one their node ends up on, named once the nets are.
+  const netted: { item: { net?: string }; node: number }[] = [];
+  const onNet = <T extends object>(item: T, node: number): T & { net?: string } => {
+    netted.push({ item, node });
+    return item;
+  };
   const addDriver = (node: number, driver: Driver) => {
     drivers.set(node, [...(drivers.get(node) ?? []), driver]);
   };
@@ -753,6 +917,24 @@ export function analyzeSchematic(
     const hierNodes = new Map<string, number>();
     const points: GeometryPoint[] = [];
     const wireNodes = file.wires.map(() => uf.add());
+    const page: KicadPage = {
+      path: humanPath,
+      name: "",
+      file: fileName,
+      page: null,
+      paper: file.paper,
+      titleBlock: file.titleBlock,
+      parts: [],
+      powers: [],
+      wires: [
+        ...file.wires.map(([a, b], i) => onNet({ a, b, bus: false }, wireNodes[i]!)),
+        ...file.buses.map(([a, b]) => ({ a, b, bus: true })),
+      ],
+      labels: [],
+      sheets: file.sheets.map((sheet) => ({ name: sheet.name, at: sheet.at })),
+      busEntries: file.busEntries,
+      texts: file.texts,
+    };
     // Where a pin tip or a no-connect flag sits (see connectGeometry).
     const blockers = new Set<string>();
 
@@ -774,6 +956,9 @@ export function analyzeSchematic(
     for (const label of file.labels) {
       const node = uf.add();
       attach(label.at, node, "label");
+      page.labels.push(
+        onNet({ name: label.name, kind: label.kind, shape: label.shape, at: label.at }, node)
+      );
       if (label.kind === "global") {
         addDriver(node, { name: label.name, priority: PRIORITY.global, depth: 0 });
         joinByName(globalNames, label.name, node);
@@ -832,6 +1017,7 @@ export function analyzeSchematic(
           // file, after the power pin, as KiCad still reads one.
           const value = field("Value");
           const name = powerNetName(file.version, value, pin.name);
+          page.powers.push(onNet({ name, at }, node));
           if (lib.power === "local") {
             addDriver(node, {
               name: `${humanPath}${name}`,
@@ -875,10 +1061,37 @@ export function analyzeSchematic(
       }
       component.uuids.push(symbol.uuid);
 
+      const placed = (p: Point): Point => {
+        const offset = apply(symbol.transform, p);
+        return { x: symbol.at.x + offset.x, y: symbol.at.y + offset.y };
+      };
+      const outline = (lib?.outline ?? [])
+        .filter(
+          (o) => (o.unit === 0 || o.unit === unit) && (o.style === 0 || o.style === symbol.style)
+        )
+        .flatMap((o) => o.points.map(placed));
+      const part: KicadPage["parts"][number] = {
+        reference,
+        libId: symbol.libId,
+        at: symbol.at,
+        ...orientation(symbol.transform),
+        box: outline.length
+          ? [
+              Math.min(...outline.map((p) => p.x)),
+              Math.min(...outline.map((p) => p.y)),
+              Math.max(...outline.map((p) => p.x)),
+              Math.max(...outline.map((p) => p.y)),
+            ]
+          : null,
+        pins: [],
+      };
+      if (!reference.startsWith("#")) page.parts.push(part);
+
       for (const pin of unitPins) {
         const node = uf.add();
-        const offset = apply(symbol.transform, pin.at);
-        const at = { x: symbol.at.x + offset.x, y: symbol.at.y + offset.y };
+        const at = placed(pin.at);
+        const drawn = { number: pin.number, name: pin.name, type: pin.type, at };
+        part.pins.push(pin.type === "no_connect" ? drawn : onNet(drawn, node));
         blockers.add(key(at));
         // A no-connect pin touches nothing: KiCad never joins it to a wire, a flag, or a pin.
         if (pin.type !== "no_connect") attach(at, node);
@@ -952,13 +1165,11 @@ export function analyzeSchematic(
           { at: b, node: busWireNodes[i]!, kind: "wire-end" },
         ]),
         ...file.junctions.map((at): GeometryPoint => ({ at, node: busUf.add(), kind: "junction" })),
-        ...busItems.map(
-          (item, i): GeometryPoint => ({
-            at: item.at,
-            node: busItemNodes[i]!,
-            kind: item.sheetPin ? "sheet-pin" : "label",
-          })
-        ),
+        ...busItems.map((item, i): GeometryPoint => ({
+          at: item.at,
+          node: busItemNodes[i]!,
+          kind: item.sheetPin ? "sheet-pin" : "label",
+        })),
       ],
       file.buses,
       busWireNodes,
@@ -1038,6 +1249,7 @@ export function analyzeSchematic(
       file: fileName,
       page: null,
     });
+    pages.push(page);
     const self = sheets.at(-1)!;
 
     for (const { sheet, pinNodes } of children) {
@@ -1101,6 +1313,7 @@ export function analyzeSchematic(
   }
 
   const nets: SchematicNet[] = [];
+  const netByRoot = new Map<number, string>();
   for (const [rootNode, list] of members) {
     list.sort((a, b) => natural(a.reference, b.reference) || natural(a.pin, b.pin));
     const seen = new Set<string>();
@@ -1114,6 +1327,7 @@ export function analyzeSchematic(
       best.get(rootNode)?.name ??
       defaultNetName(onBoard.length ? onBoard : unique, flagged.has(rootNode));
     if (onBoard.length) {
+      netByRoot.set(rootNode, name);
       nets.push({
         name,
         pins: onBoard.map((p) => ({
@@ -1139,7 +1353,16 @@ export function analyzeSchematic(
   components.sort((a, b) => natural(a.reference, b.reference));
   for (const component of components) component.pins.sort((a, b) => natural(a.number, b.number));
 
-  return { title: root.title, sheets, components, nets };
+  for (const { item, node } of netted) {
+    const net = netByRoot.get(uf.find(node));
+    if (net !== undefined) item.net = net;
+  }
+  pages.forEach((page, i) => {
+    page.name = sheets[i]!.name;
+    page.page = sheets[i]!.page;
+  });
+
+  return { title: root.title, sheets, components, nets, pages };
 }
 
 /**

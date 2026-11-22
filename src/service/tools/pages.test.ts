@@ -117,11 +117,93 @@ describe("list_pages and get_page", () => {
     expect(pinNet("M1")).not.toBe(pinNet("N1"));
   }, 60_000);
 
-  it("refuses a design that is not a .DSN schematic", async () => {
+  it("refuses a design that is neither a .DSN nor a KiCad design", async () => {
     const result = (await callTool("list_pages", { design: "board.netlist.json" })) as {
       error?: string;
     };
-    expect(result.error).toMatch(/\.DSN schematics only/);
+    expect(result.error).toMatch(/Cadence \.DSN and KiCad designs only/);
+  }, 60_000);
+});
+
+describe("KiCad pages", () => {
+  const MIXER = join(FIXTURES, "../kicad/multichannel-mixer/multichannel_mixer.kicad_pro");
+  const CYNTHION = join(FIXTURES, "../kicad/cynthion-usb-fpga/cynthion.kicad_pro");
+
+  it("lists one page per sheet instance, in page-number order", async () => {
+    const { pages } = (await callTool("list_pages", { design: MIXER })) as Pages;
+    expect(pages.map((p) => p.page)).toEqual([
+      "multichannel_mixer.kicad_sch",
+      "CH1",
+      "CH2",
+      "CH3",
+      "CH4",
+    ]);
+  }, 60_000);
+
+  it("places parts, pins, ports and globals in mils, on the netlist's nets", async () => {
+    const view = (await callTool("get_page", { design: MIXER, page: "CH1" })) as PageView;
+    expect(view.size).toEqual({ name: "A4", width_mil: 11693, height_mil: 8268 });
+    expect(view.parts.find((p) => p.refdes === "R8")).toMatchObject({
+      x: 6350,
+      y: 4150,
+      rotation: 180,
+      mirrored: false,
+      box: [6050, 4120, 6350, 4180],
+      pins: [
+        { number: "1", type: "passive", x: 6350, y: 4150, net: "Net-(R8-Pad1)" },
+        { number: "2", type: "passive", x: 6050, y: 4150, net: "Net-(IC2A-OUT)" },
+      ],
+    });
+    expect(view.ports).toEqual([
+      { name: "OUT", type: "output", x: 10650, y: 3100, net: "/CH1/OUT" },
+    ]);
+    expect(view.globals).toContainEqual({ name: "GND", x: 5200, y: 4050, net: "GND" });
+    // Every connected pin meets a wire end or another item at its point.
+    const points = new Set(view.wires.flatMap((w) => [`${w.x1},${w.y1}`, `${w.x2},${w.y2}`]));
+    for (const c of [...view.globals, ...view.ports]) points.add(`${c.x},${c.y}`);
+    const pins = view.parts.flatMap((p) => p.pins).filter((pin) => pin.net && pin.net !== "NC");
+    expect(pins.length).toBeGreaterThan(50);
+    for (const pin of pins) expect(points.has(`${pin.x},${pin.y}`), pin.number).toBe(true);
+  }, 60_000);
+
+  it("names every pin's net as query_component does when the netlist is a saved export", async () => {
+    // yddraig ships yddraig.net, whose names differ from the schematic reader's on this page.
+    const YDDRAIG = join(FIXTURES, "../kicad/yddraig-68k/yddraig.kicad_pro");
+    const view = (await callTool("get_page", {
+      design: YDDRAIG,
+      page: "Decode and Logic",
+    })) as PageView;
+    const u404 = view.parts.find((p) => p.refdes === "U404");
+    expect(u404?.pins.find((pin) => pin.number === "23")?.net).toBe(
+      "/Decode and Logic/~{CS_EXTDATA1}"
+    );
+    let checked = 0;
+    for (const part of view.parts) {
+      const component = (await callTool("query_component", {
+        design: YDDRAIG,
+        refdes: part.refdes,
+      })) as {
+        pins: Record<string, { net: string }>;
+      };
+      for (const pin of part.pins) {
+        const want = component.pins[pin.number]?.net;
+        if (want === undefined) continue;
+        expect(pin.net, `${part.refdes}.${pin.number}`).toBe(want);
+        checked++;
+      }
+    }
+    expect(checked).toBeGreaterThan(100);
+  }, 120_000);
+
+  it("names a root titled with an unresolved variable by its file, and searches its notes", async () => {
+    const { pages } = (await callTool("list_pages", { design: CYNTHION })) as Pages;
+    expect(pages[0]?.page).toBe("cynthion.kicad_sch");
+    const found = (await callTool("search_notes", { design: MIXER, pattern: "demo board" })) as {
+      text_notes: { page: string; x: number; y: number }[];
+    };
+    expect(found.text_notes).toEqual([
+      expect.objectContaining({ page: "multichannel_mixer.kicad_sch", x: 5020, y: 780 }),
+    ]);
   }, 60_000);
 });
 
@@ -164,14 +246,12 @@ describe("text notes", () => {
     expect(all.next_offset).toBe(10);
   }, 60_000);
 
-  it("refuses a bad pattern and a design that is not a .DSN", async () => {
+  it("refuses a bad pattern and a design that is neither a .DSN nor KiCad", async () => {
     expect(await callTool("search_notes", { design: HB1A, pattern: "(" })).toEqual({
       error: "Invalid regex pattern '('",
     });
-    expect(
-      await callTool("search_notes", { design: "board.kicad_pro", pattern: "x" })
-    ).toMatchObject({
-      error: expect.stringContaining(".DSN schematics only"),
+    expect(await callTool("search_notes", { design: "board.PrjPcb", pattern: "x" })).toMatchObject({
+      error: expect.stringContaining("Cadence .DSN and KiCad designs only"),
     });
   });
 });
