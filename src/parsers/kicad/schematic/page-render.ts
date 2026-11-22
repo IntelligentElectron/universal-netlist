@@ -25,6 +25,9 @@ const GLOBAL = "#840000";
 const SHEET = "#840084";
 const BORDER = "#840000";
 
+/** Text smaller than this (0.1 mm, 4 mil) is not drawn. */
+const MIN_TEXT_MM = 0.1;
+
 /** Millimetres per mil. */
 const MM_PER_MIL = 0.0254;
 
@@ -69,7 +72,8 @@ const style = (
 
 /** One text, possibly several lines, drawn at `p` turned `angle` degrees counterclockwise. */
 function textSvg(text: string, p: Point, angle: number, s: TextStyle, colour: string): string {
-  if (!text) return "";
+  // Libraries hide pin names and numbers by sizing them to a mil or so; KiCad shows nothing.
+  if (!text || s.size < MIN_TEXT_MM) return "";
   // KiCad markup: _{sub} and ^{super} are drawn as plain text, ~{name} with an overbar.
   const lines = text.replace(/[_^]\{([^}]*)\}/g, "$1").split("\n");
   const marked = (line: string) =>
@@ -303,7 +307,8 @@ function symbolSvg(node: Node, lib: Node, uuidPath: string): string[] {
 
 /** A global or hierarchical label's outline, drawn around its text. */
 function labelShape(p: Point, angle: number, text: string, size: number, global: boolean): string {
-  const width = text.length * size * 0.75 + size * (global ? 1.6 : 1.2);
+  // Liberation Sans runs about 0.9 of the cap height per character.
+  const width = text.length * size * 0.9 + size * (global ? 2.2 : 1.8);
   const h = size * 0.9;
   // Drawn pointing right from its anchor, then turned.
   const pts = [
