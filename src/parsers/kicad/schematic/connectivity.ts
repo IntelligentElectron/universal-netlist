@@ -404,6 +404,7 @@ export function orientation(t: Transform): { turns: number; mirrored: boolean } 
       if (same) return { turns, mirrored };
     }
   }
+  // KiCad places symbols in quarter turns only, so one of the eight always matches.
   return { turns: 0, mirrored: false };
 }
 

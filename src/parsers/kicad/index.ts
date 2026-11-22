@@ -190,8 +190,11 @@ export const parseKicadPages = async (
   const { rootSchematic } = await resolveKicadArtifacts(designPath, files);
   if (!rootSchematic) throw new Error(`No schematic found for ${path.basename(designPath)}.`);
   const pages = await readKicadPages(rootSchematic, files, designPath);
-  // The netlist may come from a saved export rather than the schematics: each
-  // pin takes its net from it, and other items keep only its nets' names.
+  // The netlist may come from a saved export rather than the schematics, so
+  // every net a page names is one of its nets: each pin takes the netlist's
+  // net for it. An unannotated part (`D?`) is the exception: the netlist folds
+  // every part of that refdes into one entry, so its pins keep the schematic's
+  // net while the netlist has that net.
   const { components, nets } = await parseKicadDesign(designPath, options);
   const pinNet = (refdes: string, number: string): string | undefined => {
     const entry = Object.hasOwn(components, refdes) ? components[refdes].pins[number] : undefined;
@@ -206,6 +209,7 @@ export const parseKicadPages = async (
   for (const page of pages) {
     for (const part of page.parts) {
       for (const pin of part.pins) {
+        if (part.refdes.endsWith("?") && pin.net !== undefined && names.has(pin.net)) continue;
         const net = pinNet(part.refdes, pin.number || pin.name || "");
         if (net === undefined) delete pin.net;
         else pin.net = net;
