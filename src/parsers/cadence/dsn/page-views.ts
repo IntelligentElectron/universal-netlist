@@ -174,7 +174,11 @@ export function buildPageViews(
             }),
         };
       }),
-      blocks: page.drawnInstances.map((b) => ({ refdes: b.reference, x: mil(b.locX), y: mil(b.locY) })),
+      blocks: page.drawnInstances.map((b) => ({
+        refdes: b.reference,
+        x: mil(b.locX),
+        y: mil(b.locY),
+      })),
       wires: page.wires.map((w) => ({
         x1: mil(w.startX),
         y1: mil(w.startY),
@@ -219,7 +223,7 @@ export function buildPageViews(
 }
 
 /** A page coordinate (1/100 inch) in mils. */
-export const mil = (v: number): number => v * 10;
+const mil = (v: number): number => v * 10;
 
 const optional = <K extends string, V>(key: K, value: V | undefined) =>
   (value === undefined || value === "" ? {} : { [key]: value }) as { [P in K]?: V };

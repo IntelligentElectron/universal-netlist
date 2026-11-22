@@ -86,7 +86,7 @@ export const renderPage = async (
       };
     }
     svg = cropSvg(svg, box);
-    width = Math.min(2400, Math.max(1000, ((box[2] - box[0] + 2 * MARGIN) * 4) / 10));
+    width = Math.min(2400, Math.max(1000, Math.round(((box[2] - box[0] + 2 * MARGIN) * 4) / 10)));
   }
   const png = await rasterizeSvg(svg, width);
   return {
