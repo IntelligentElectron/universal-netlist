@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 import { DsnReader } from "../../parsers/cadence/dsn/dsn-reader.js";
 import { parsePage } from "../../parsers/cadence/dsn/page-parser.js";
 import { placement } from "../../parsers/cadence/dsn/symbol-graphics.js";
-import type { PageView } from "../../parsers/cadence/dsn/page-views.js";
+import type { PageView } from "../../pages/page-view.js";
 import { readCacheSymbols } from "../../parsers/cadence/dsn/symbol-graphics.js";
 import { callTool } from "../../tools/index.js";
 import { cropSvg, focusBox } from "./render-page.js";
@@ -65,9 +65,9 @@ describe("focus", () => {
   });
 
   it("narrows the drawing's view to the box with a margin", () => {
-    const svg = '<svg viewBox="0 0 1100 850" width="1100" height="850"></svg>';
-    expect(cropSvg(svg, [100, 90, 120, 160])).toBe(
-      '<svg viewBox="60 50 100 150" width="100" height="150"></svg>'
+    const svg = '<svg viewBox="0 0 11000 8500" width="11000" height="8500"></svg>';
+    expect(cropSvg(svg, [1000, 900, 1200, 1600])).toBe(
+      '<svg viewBox="600 500 1000 1500" width="1000" height="1500"></svg>'
     );
   });
 });

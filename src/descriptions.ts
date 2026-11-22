@@ -100,7 +100,7 @@ net labels, hierarchical ports with their direction, globals (power and ground s
 off-page connectors, bus entries, hierarchical blocks, the title-block fields, text_notes (free \
 text the designer placed on the page, such as jumper defaults and current ratings), and \
 erc_markers (messages Capture's own design rules check left on the page). Net names match list_nets. \
-Coordinates are in 1/100 inch, x to the right and y down. \
+Coordinates are in mils (1/1000 inch), x to the right and y down from the sheet's top-left corner. \
 Name the page as list_pages reports it.`;
 
 export const SEARCH_NOTES_DESCRIPTION = `\
@@ -108,7 +108,7 @@ Search the notes on every schematic page of a Cadence .DSN design: free text the
 placed on a page, such as default jumper settings, current ratings, assembly options and \
 references to other sheets, which no netlist carries. Returns each note matching a regex \
 pattern (case-insensitive) with its page, as list_pages names it, and its position in \
-1/100 inch. Search a net or part name to find the notes that mention it. ${paged("text_notes")}`;
+mils. Search a net or part name to find the notes that mention it. ${paged("text_notes")}`;
 
 export const RENDER_PAGE_DESCRIPTION = `\
 Render one schematic page of a Cadence .DSN design as a PNG image, drawn from the design \

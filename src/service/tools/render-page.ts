@@ -1,4 +1,4 @@
-import type { PageView } from "../../parsers/cadence/dsn/page-views.js";
+import type { PageView } from "../../pages/page-view.js";
 import { rasterizeSvg } from "../../render/rasterize.js";
 import type { ErrorResult } from "../../types.js";
 import type { ServiceContext } from "../context.js";
@@ -7,8 +7,8 @@ import { findPage, loadPages } from "./pages.js";
 /** A box in page coordinates: `[x1, y1, x2, y2]`. */
 type Box = [number, number, number, number];
 
-/** Space kept around a focused part or net, in page units (1/100 inch). */
-const MARGIN = 40;
+/** Space kept around a focused part or net, in mils. */
+const MARGIN = 400;
 
 /** The PNG and what it shows. */
 export interface RenderPageResult {
@@ -77,7 +77,7 @@ export const renderPage = async (
   let svg = loaded.svgs[loaded.pages.indexOf(view)];
   if (!svg) return { error: `Page '${view.page}' could not be drawn. get_page() still reads it.` };
   // A whole sheet at about 180 pixels per inch; a crop at least 1000 pixels wide.
-  let width = Math.round(view.size.width_in * 180);
+  let width = Math.round((view.size.width_mil / 1000) * 180);
   if (focus !== undefined) {
     const box = focusBox(view, focus);
     if (!box) {
@@ -86,7 +86,7 @@ export const renderPage = async (
       };
     }
     svg = cropSvg(svg, box);
-    width = Math.min(2400, Math.max(1000, (box[2] - box[0] + 2 * MARGIN) * 4));
+    width = Math.min(2400, Math.max(1000, ((box[2] - box[0] + 2 * MARGIN) * 4) / 10));
   }
   const png = await rasterizeSvg(svg, width);
   return {

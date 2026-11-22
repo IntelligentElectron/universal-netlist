@@ -3,12 +3,12 @@
  *
  * Symbols are placed by the rule in docs/cadence-dsn-format.md §7.7: mirror,
  * then rotate, then shift the transformed placement box to the stored location.
- * Coordinates stay page units (1/100 inch, y down), which SVG shares.
+ * The drawing works in page units (1/100 inch, y down), scaled once to the SVG's mils.
  */
 
 import type { LibraryFonts } from "./library-parser.js";
 import type { PageData } from "./page-parser.js";
-import type { PageView } from "./page-views.js";
+import type { PageView } from "../../../pages/page-view.js";
 import type { GraphicInst, SymbolDisplayProp } from "./structures.js";
 import {
   placement,
@@ -153,7 +153,10 @@ export function renderPageSvg(page: PageData, view: PageView, ctx: RenderContext
       : undefined;
     if (sym && t) {
       drawSymbol(sym, t, PART);
-      const numberAt = new Map((part?.pins ?? []).map((pin) => [`${pin.x},${pin.y}`, pin]));
+      // View pins are in mils; the drawing works in the file's 1/100 inch.
+      const numberAt = new Map(
+        (part?.pins ?? []).map((pin) => [`${pin.x / 10},${pin.y / 10}`, pin])
+      );
       for (const pin of sym.pins) {
         if (!pin || (pin.shape & 0x20) === 0) continue; // hidden power pins are not drawn
         const s = t([pin.startX, pin.startY]);
@@ -261,8 +264,9 @@ export function renderPageSvg(page: PageData, view: PageView, ctx: RenderContext
   }
 
   return (
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" ` +
+    // The drawing is in 1/100 inch; the SVG's own units are mils, as page views are.
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width * 10} ${height * 10}" width="${width * 10}" height="${height * 10}" ` +
     `font-family="Liberation Sans, Arial, sans-serif" stroke-width="1" stroke-linecap="round">` +
-    `<rect x="0" y="0" width="${width}" height="${height}" fill="#ffffff"/>${out.join("")}</svg>`
+    `<g transform="scale(10)"><rect x="0" y="0" width="${width}" height="${height}" fill="#ffffff"/>${out.join("")}</g></svg>`
   );
 }

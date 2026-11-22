@@ -36,7 +36,8 @@ import { buildDeviceIndexMap, isMultiSection, packShortGroups } from "./pin-reso
 import { buildNetConnectivity } from "./net-builder.js";
 import type { PageCoordMap } from "./page-groups.js";
 import type { PinInfo } from "./net-pins.js";
-import { buildPageViews, type PageView } from "./page-views.js";
+import type { DesignPages } from "../../../pages/page-view.js";
+import { buildPageViews } from "./page-views.js";
 import { renderPageSvg } from "./page-render.js";
 import { CONNECTOR_SYMBOL_TYPES, connectionPoint, readCacheSymbols } from "./symbol-graphics.js";
 import { buildComponents, findCachedPart } from "./component-builder.js";
@@ -82,13 +83,6 @@ export function parseDsnFile(
   } catch (error) {
     throw describeParseFailure(version, error);
   }
-}
-
-/** A design's pages: one view per page and, when drawn, one SVG per page in the same order. */
-export interface DesignPages {
-  pages: PageView[];
-  /** Empty unless the pages were drawn; "" for a page that could not be. */
-  svgs: string[];
 }
 
 /**

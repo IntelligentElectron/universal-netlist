@@ -1,5 +1,5 @@
-import { parseDsnPages, type DesignPages } from "../../parsers/cadence/dsn/dsn-parser.js";
-import type { PageNote, PageView } from "../../parsers/cadence/dsn/page-views.js";
+import { parseDsnPages } from "../../parsers/cadence/dsn/dsn-parser.js";
+import type { DesignPages, PageNote, PageView } from "../../pages/page-view.js";
 import { readOnce } from "../../parsers/context.js";
 import { resolvePath } from "../../paths.js";
 import type { ErrorResult } from "../../types.js";
@@ -8,8 +8,8 @@ import type { ServiceContext } from "../context.js";
 import { parseRegexPattern } from "../regex-helpers.js";
 import type { Paged } from "../pagination.js";
 
-/** Coordinates in page results: 1/100 inch, x to the right, y down. */
-export const PAGE_UNITS = "0.01 in, x right, y down";
+/** Coordinates in page results: mils, x to the right, y down from the top-left corner. */
+export const PAGE_UNITS = "mil (0.001 in), x right, y down";
 
 export interface PageSummary {
   page: string;
