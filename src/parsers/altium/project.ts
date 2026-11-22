@@ -204,7 +204,8 @@ export const loadAltiumProject = async (
 /** Parse an Altium project into one netlist. */
 export const parseAltiumProject = async (
   projectPath: string,
-  parseOptions?: ParseDesignOptions
+  parseOptions?: ParseDesignOptions,
+  loaded?: LoadedAltiumProject
 ): Promise<ParsedNetlist> => {
   const {
     files,
@@ -218,7 +219,7 @@ export const parseAltiumProject = async (
     supplies,
     placements,
     instances,
-  } = await loadAltiumProject(projectPath, parseOptions);
+  } = loaded ?? (await loadAltiumProject(projectPath, parseOptions));
   const pending = await parseInstances(
     files,
     documents,

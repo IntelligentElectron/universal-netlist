@@ -102,8 +102,7 @@ export const parseAltiumPages = async (
   options?: ParseDesignOptions
 ): Promise<DesignPages> => {
   const project = await loadAltiumProject(projectPath, options);
-  // shortcut: the netlist reads the documents again; share the read if page loads get slow.
-  const netlist = await parseAltiumProject(projectPath, options);
+  const netlist = await parseAltiumProject(projectPath, options, project);
   const names = new Set(Object.keys(netlist.nets));
   const pinNet = (refdes: string, number: string): string | undefined => {
     const entry = Object.hasOwn(netlist.components, refdes)
@@ -190,7 +189,11 @@ export const parseAltiumPages = async (
         const designator = componentDesignator(part) ?? "";
         const ref = refdes(designator);
         const drawn = (part.children ?? []).filter(
-          (child) => child.RECORD !== RECORD_TYPES.PARAMETER && pinBelongsToInstance(child, part)
+          // The part's own graphics and pins; its designator and parameters are text beside it.
+          (child) =>
+            child.RECORD !== RECORD_TYPES.PARAMETER &&
+            child.RECORD !== RECORD_TYPES.DESIGNATOR &&
+            pinBelongsToInstance(child, part)
         );
         const points = drawn.flatMap(reach);
         const corners = points.length
@@ -228,8 +231,18 @@ export const parseAltiumPages = async (
         };
       });
 
+      // A label written `=<parameter>` shows that parameter's value.
+      const shown = (text: string): string => {
+        const name = /^=(.+)$/.exec(text.trim())?.[1]?.toLowerCase();
+        const value =
+          name && Object.entries(parameters).find(([k]) => k.toLowerCase() === name)?.[1];
+        return value ?? text;
+      };
       const notes = [
-        ...top("4").map((r) => ({ text: fieldText(r, "Text") ?? "", point: scaledPoint(r) })),
+        ...top("4").map((r) => ({
+          text: shown(fieldText(r, "Text") ?? ""),
+          point: scaledPoint(r),
+        })),
         // A text frame's or note's anchor is its top-left corner.
         ...[...top("28"), ...top("209")].map((r) => ({
           text: (fieldText(r, "Text") ?? "").replace(/~1/g, "\n"),
