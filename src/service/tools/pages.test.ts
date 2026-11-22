@@ -166,6 +166,35 @@ describe("KiCad pages", () => {
     for (const pin of pins) expect(points.has(`${pin.x},${pin.y}`), pin.number).toBe(true);
   }, 60_000);
 
+  it("names every pin's net as query_component does when the netlist is a saved export", async () => {
+    // yddraig ships yddraig.net, whose names differ from the schematic reader's on this page.
+    const YDDRAIG = join(FIXTURES, "../kicad/yddraig-68k/yddraig.kicad_pro");
+    const view = (await callTool("get_page", {
+      design: YDDRAIG,
+      page: "Decode and Logic",
+    })) as PageView;
+    const u404 = view.parts.find((p) => p.refdes === "U404");
+    expect(u404?.pins.find((pin) => pin.number === "23")?.net).toBe(
+      "/Decode and Logic/~{CS_EXTDATA1}"
+    );
+    let checked = 0;
+    for (const part of view.parts) {
+      const component = (await callTool("query_component", {
+        design: YDDRAIG,
+        refdes: part.refdes,
+      })) as {
+        pins: Record<string, { net: string }>;
+      };
+      for (const pin of part.pins) {
+        const want = component.pins[pin.number]?.net;
+        if (want === undefined) continue;
+        expect(pin.net, `${part.refdes}.${pin.number}`).toBe(want);
+        checked++;
+      }
+    }
+    expect(checked).toBeGreaterThan(100);
+  }, 120_000);
+
   it("names a root titled with an unresolved variable by its file, and searches its notes", async () => {
     const { pages } = (await callTool("list_pages", { design: CYNTHION })) as Pages;
     expect(pages[0]?.page).toBe("cynthion.kicad_sch");
