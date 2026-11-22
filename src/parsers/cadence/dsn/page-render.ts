@@ -36,7 +36,7 @@ const esc = (text: string): string =>
 
 const n = (v: number): string => String(Math.round(v * 10) / 10);
 
-/** Fill 0 is solid and 1 hollow (EXT §9.5 names; confirmed by rendering, see §9.6); 2 is drawn hollow. */
+/** Fill 0 is solid and 1 hollow (confirmed by rendering, spec §9.6); 2 is drawn hollow. */
 const fillOf = (fill: number, colour: string): string => (fill === 0 ? colour : "none");
 
 /** SVG for one primitive, through `t`; text is drawn upright at its transformed anchor. */
