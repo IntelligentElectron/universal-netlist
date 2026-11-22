@@ -531,8 +531,10 @@ reader draws them where they are. The nearest drawn child lies within 200 units 
 `Location` for 40,870 of 40,875 components with children. **S**
 
 A component writes every part's and every display mode's graphics. A child is drawn when its
-`OwnerPartId` is the component's `CurrentPartId`, or `0` (shared by all parts; 500 children), and
-its `OwnerPartDisplayMode` (unwritten `0`) is the component's `DisplayMode` (unwritten `0`).
+`OwnerPartId` is the component's `CurrentPartId` and its `OwnerPartDisplayMode` (unwritten `0`) is
+the component's `DisplayMode` (unwritten `0`), the rule its pins follow. Five hundred children carry
+`OwnerPartId=0`; whether part 0 means "every part" is *unverified*, and the reader draws them only
+on an instance of part 0.
 Across the corpus 319,131 children are drawn, 234,252 belong to another part and 28,793 to another
 display mode. **S**. `Orientation` (quarter turns, `1` to `3`) and `IsMirrored=T` on the component
 record describe the placement; the children already have it. **O** values

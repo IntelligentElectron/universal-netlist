@@ -121,7 +121,7 @@ describe("list_pages and get_page", () => {
     const result = (await callTool("list_pages", { design: "board.netlist.json" })) as {
       error?: string;
     };
-    expect(result.error).toMatch(/Cadence \.DSN and KiCad designs only/);
+    expect(result.error).toMatch(/Cadence \.DSN, KiCad and Altium \.PrjPcb designs only/);
   }, 60_000);
 });
 
@@ -250,8 +250,8 @@ describe("text notes", () => {
     expect(await callTool("search_notes", { design: HB1A, pattern: "(" })).toEqual({
       error: "Invalid regex pattern '('",
     });
-    expect(await callTool("search_notes", { design: "board.PrjPcb", pattern: "x" })).toMatchObject({
-      error: expect.stringContaining("Cadence .DSN and KiCad designs only"),
+    expect(await callTool("search_notes", { design: "board.SchLib", pattern: "x" })).toMatchObject({
+      error: expect.stringContaining("Cadence .DSN, KiCad and Altium .PrjPcb designs only"),
     });
   });
 });
@@ -336,4 +336,62 @@ describe("findPage", () => {
   it("reports a page that does not exist", () => {
     expect(findPage(pages, "NOPE")).toEqual({ error: expect.stringContaining("list_pages") });
   });
+});
+
+describe("Altium pages", () => {
+  const BMS = join(FIXTURES, "../altium/solarcar-bms/bms_mainboard-1_1.PrjPcb");
+
+  it("lists one page per sheet, and one per channel of a repeated sheet", async () => {
+    const { pages } = (await callTool("list_pages", { design: BMS })) as Pages;
+    const names = pages.map((p) => p.page);
+    expect(names).toContain("adc_mcp3913.SchDoc");
+    expect(names).toContain("analog_sensor_input.SchDoc (sensor0)");
+    expect(names).toContain("analog_sensor_input.SchDoc (sensor1)");
+    // Each channel page carries that channel's designators and nets.
+    const sensor1 = (await callTool("get_page", {
+      design: BMS,
+      page: "analog_sensor_input.SchDoc (sensor1)",
+    })) as PageView;
+    expect(sensor1.parts.find((p) => p.refdes === "C149B")?.pins[0]?.net).toBe("AIN1_1");
+  }, 60_000);
+
+  it("places parts and pins in mils with y down, on the nets query_component gives", async () => {
+    const view = (await callTool("get_page", {
+      design: BMS,
+      page: "adc_mcp3913.SchDoc",
+    })) as PageView;
+    expect(view.size).toEqual({ name: "A", width_mil: 9500, height_mil: 7500 });
+    const u3 = view.parts.find((p) => p.refdes === "U3");
+    expect(u3).toMatchObject({ x: 3300, y: 3500, mirrored: true, box: [2300, 3500, 3300, 5100] });
+    let checked = 0;
+    for (const part of view.parts) {
+      const component = (await callTool("query_component", {
+        design: BMS,
+        refdes: part.refdes,
+        design_variant: "0",
+      })) as {
+        pins?: Record<string, { net: string }>;
+      };
+      for (const pin of part.pins) {
+        const want = component.pins?.[pin.number]?.net;
+        if (want === undefined) continue;
+        expect(pin.net, `${part.refdes}.${pin.number}`).toBe(want);
+        expect(pin.x >= 0 && pin.x <= 9500 && pin.y >= 0 && pin.y <= 7500).toBe(true);
+        checked++;
+      }
+    }
+    expect(checked).toBeGreaterThan(50);
+    expect(view.text_notes[0]).toEqual({
+      text: "6-input differential 24-bit ADC",
+      x: 200,
+      y: 6100,
+    });
+  }, 120_000);
+
+  it("says render_page does not draw Altium pages yet", async () => {
+    const result = (await callTool("render_page", { design: BMS, page: "adc_mcp3913.SchDoc" })) as {
+      error?: string;
+    };
+    expect(result.error).toMatch(/draws Cadence and KiCad pages only/);
+  }, 60_000);
 });

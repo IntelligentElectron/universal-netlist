@@ -1,5 +1,6 @@
 import { parseDsnPages } from "../../parsers/cadence/dsn/dsn-parser.js";
 import { parseKicadPages } from "../../parsers/kicad/index.js";
+import { parseAltiumPages } from "../../parsers/altium/pages.js";
 import type { DesignPages, PageNote, PageView } from "../../pages/page-view.js";
 import { readOnce } from "../../parsers/context.js";
 import { resolvePath } from "../../paths.js";
@@ -34,9 +35,17 @@ export const loadPages = async (
   // A suffix test, not path.extname, which reads a file named `.DSN` as having no extension.
   const lower = designPath.toLowerCase();
   const kicad = lower.endsWith(".kicad_pro") || lower.endsWith(".kicad_sch");
-  if (!lower.endsWith(".dsn") && !kicad) {
+  const altium = lower.endsWith(".prjpcb");
+  if (!lower.endsWith(".dsn") && !kicad && !altium) {
     return {
-      error: "Pages are read from Cadence .DSN and KiCad designs only. Use list_designs() first.",
+      error:
+        "Pages are read from Cadence .DSN, KiCad and Altium .PrjPcb designs only. Use list_designs() first.",
+    };
+  }
+  // shortcut: Altium pages are not drawn yet; render_page comes with the Altium renderer.
+  if (draw && altium) {
+    return {
+      error: "render_page draws Cadence and KiCad pages only for now. get_page() reads this page.",
     };
   }
   const parser = { ...context.parser, files: readOnce(context.parser.files) };
@@ -48,7 +57,9 @@ export const loadPages = async (
       async (p): Promise<DesignPages> =>
         kicad
           ? await parseKicadPages(designPath, { context: p }, draw)
-          : parseDsnPages(await p.files.readFile(designPath), p.dsnPasswords, draw)
+          : altium
+            ? await parseAltiumPages(designPath, { context: p })
+            : parseDsnPages(await p.files.readFile(designPath), p.dsnPasswords, draw)
     );
     return { designPath, ...design };
   } catch (error) {
