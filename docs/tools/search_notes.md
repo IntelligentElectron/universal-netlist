@@ -1,6 +1,6 @@
 # search_notes
 
-Search the text notes on every schematic page of a Cadence `.DSN` design.
+Search the text notes on every schematic page of a Cadence `.DSN` or KiCad design.
 
 ## Description
 
@@ -12,7 +12,7 @@ Pages are read from Cadence OrCAD `.DSN` schematics only. Notes do not depend on
 
 | Parameter | Type | Required | Default | Description |
 |-----------|------|----------|---------|-------------|
-| `design` | string | Yes | - | Path to a `.DSN` design, as returned by `list_designs` |
+| `design` | string | Yes | - | Path to a `.DSN` design or a KiCad `.kicad_pro` project, as returned by `list_designs` |
 | `pattern` | string | Yes | - | Regex pattern, matched case-insensitively against each note's text |
 | `max_results` | integer | No | 50 | Max `text_notes` entries to return |
 | `offset` | integer | No | 0 | Index of the first `text_notes` entry to return, from `next_offset` |
@@ -42,9 +42,9 @@ Pages are read from Cadence OrCAD `.DSN` schematics only. Notes do not depend on
 
 `text_notes` is paged. When a page does not hold every entry, `notes` says which entries it holds, and `next_offset` is the offset of the next page while more remain. A pattern that matches nothing returns an empty `text_notes`.
 
-**Error (not a `.DSN`):**
+**Error (not a Cadence or KiCad design):**
 ```json
-{ "error": "Pages are read from Cadence .DSN schematics only. Use list_designs() first." }
+{ "error": "Pages are read from Cadence .DSN and KiCad designs only. Use list_designs() first." }
 ```
 
 **Error (bad pattern):**

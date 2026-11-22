@@ -217,7 +217,7 @@ const isNoConnectPinType = (pintype: string | undefined): boolean =>
  * for a no-connect flag on the net, with `tri_state` spelled `tristate`. A value
  * outside the known types reads as no type.
  */
-const kicadPinType = (pintype: string | undefined): PinType | undefined => {
+export const kicadPinType = (pintype: string | undefined): PinType | undefined => {
   const base = pintype?.replace(/\+no_connect$/, "");
   const type = base === "tri_state" ? "tristate" : base;
   return (PIN_TYPES as readonly string[]).includes(type ?? "") ? (type as PinType) : undefined;

@@ -24,7 +24,7 @@ Supported formats:
 2. \`search_nets\` and \`search_components_by_*\` to find things by pattern
 3. \`query_component\` and \`query_xnet_*\` for detail and connectivity
 4. \`run_erc\` for electrical rule checks
-5. \`list_pages\` and \`get_page\` to read a Cadence .DSN page as drawn: what sits where, and its nets; \`render_page\` to see it as an image
+5. \`list_pages\` and \`get_page\` to read a Cadence .DSN or KiCad page as drawn: what sits where, and its nets; \`render_page\` to see a Cadence page as an image
 
 ## Conventions
 
@@ -87,24 +87,28 @@ List all net names in a design, sorted alphabetically. \
 Prefer search_nets for targeted queries. ${paged("nets")}`;
 
 export const LIST_PAGES_DESCRIPTION = `\
-List the schematic pages of a Cadence .DSN design, in the order the netlist reads them. \
+List the schematic pages of a Cadence .DSN or KiCad design: a .DSN in the order the netlist \
+reads it, a KiCad design in page-number order, one page per sheet instance. \
 Each page has its name, schematic, sheet size, title and page number from its title block, \
 and counts of parts, nets, ports and off-page connectors. \
-A schematic placed by several hierarchical blocks appears once per placement, \
-named \`<page> (block <path>)\`. Use get_page for one page's contents.`;
+A Cadence schematic placed by several hierarchical blocks appears once per placement, \
+named \`<page> (block <path>)\`; a KiCad sheet is named by its sheet path, such as \`Power/LDO\`, \
+and the root sheet by its name. Use get_page for one page's contents.`;
 
 export const GET_PAGE_DESCRIPTION = `\
-One schematic page of a Cadence .DSN design as drawn: its parts (refdes, value, symbol, \
+One schematic page of a Cadence .DSN or KiCad design as drawn: its parts (refdes, value, symbol, \
 location, rotation, mirror, box, and pins with their electrical types and nets), wires with their nets, \
-net labels, hierarchical ports with their direction, globals (power and ground symbols), \
+net labels, hierarchical ports with their direction, globals (power and ground symbols, and KiCad \
+global labels), \
 off-page connectors, bus entries, hierarchical blocks, the title-block fields, text_notes (free \
 text the designer placed on the page, such as jumper defaults and current ratings), and \
-erc_markers (messages Capture's own design rules check left on the page). Net names match list_nets. \
+erc_markers (messages Capture's own design rules check left on the page; KiCad saves none). \
+Net names match list_nets. \
 Coordinates are in mils (1/1000 inch), x to the right and y down from the sheet's top-left corner. \
 Name the page as list_pages reports it.`;
 
 export const SEARCH_NOTES_DESCRIPTION = `\
-Search the notes on every schematic page of a Cadence .DSN design: free text the designer \
+Search the notes on every schematic page of a Cadence .DSN or KiCad design: free text the designer \
 placed on a page, such as default jumper settings, current ratings, assembly options and \
 references to other sheets, which no netlist carries. Returns each note matching a regex \
 pattern (case-insensitive) with its page, as list_pages names it, and its position in \

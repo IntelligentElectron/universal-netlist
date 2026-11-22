@@ -1,4 +1,5 @@
 import { parseDsnPages } from "../../parsers/cadence/dsn/dsn-parser.js";
+import { parseKicadPages } from "../../parsers/kicad/index.js";
 import type { DesignPages, PageNote, PageView } from "../../pages/page-view.js";
 import { readOnce } from "../../parsers/context.js";
 import { resolvePath } from "../../paths.js";
@@ -31,8 +32,18 @@ export const loadPages = async (
 ): Promise<({ designPath: string } & DesignPages) | ErrorResult> => {
   const designPath = resolvePath(design, context.root);
   // A suffix test, not path.extname, which reads a file named `.DSN` as having no extension.
-  if (!designPath.toLowerCase().endsWith(".dsn")) {
-    return { error: "Pages are read from Cadence .DSN schematics only. Use list_designs() first." };
+  const lower = designPath.toLowerCase();
+  const kicad = lower.endsWith(".kicad_pro") || lower.endsWith(".kicad_sch");
+  if (!lower.endsWith(".dsn") && !kicad) {
+    return {
+      error: "Pages are read from Cadence .DSN and KiCad designs only. Use list_designs() first.",
+    };
+  }
+  // shortcut: KiCad pages are not drawn yet; render_page comes with the KiCad renderer.
+  if (draw && kicad) {
+    return {
+      error: "render_page draws Cadence .DSN pages only for now. get_page() reads this page.",
+    };
   }
   const parser = { ...context.parser, files: readOnce(context.parser.files) };
   try {
@@ -40,7 +51,10 @@ export const loadPages = async (
       context.cache,
       { kind: draw ? "drawings" : "pages", path: designPath },
       parser,
-      async (p) => parseDsnPages(await p.files.readFile(designPath), p.dsnPasswords, draw)
+      async (p): Promise<DesignPages> =>
+        kicad
+          ? { pages: await parseKicadPages(designPath, { context: p }), svgs: [] }
+          : parseDsnPages(await p.files.readFile(designPath), p.dsnPasswords, draw)
     );
     return { designPath, ...design };
   } catch (error) {
