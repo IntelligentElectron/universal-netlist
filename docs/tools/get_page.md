@@ -6,7 +6,7 @@ Read one schematic page of a Cadence `.DSN` design as drawn.
 
 Returns the page's parts, wires, net labels, hierarchical ports, globals (power and ground symbols), off-page connectors, bus entries, hierarchical blocks and title-block fields, each with its position. Every net is named exactly as `list_nets` names it, so a result can be followed up with `query_xnet_by_net_name` or `query_component`.
 
-Coordinates are page coordinates in 1/100 inch, x to the right and y down, on every page whether its sheet is imperial or metric.
+Coordinates are page coordinates in mils (1/1000 inch), x to the right and y down from the sheet's top-left corner, on every page whether its sheet is imperial or metric.
 
 ## Input Parameters
 
@@ -20,11 +20,11 @@ Coordinates are page coordinates in 1/100 inch, x to the right and y down, on ev
 ```json
 {
   "design": "/designs/board/BOARD.DSN",
-  "units": "0.01 in, x right, y down",
+  "units": "mil (0.001 in), x right, y down",
   "page": "P1: PI",
   "schematic": "SCHEMATIC1",
   "name": "P1: PI",
-  "size": { "name": "A4", "width_in": 11.693, "height_in": 8.268 },
+  "size": { "name": "A4", "width_mil": 11693, "height_mil": 8268 },
   "title_block": {
     "fields": { "Title": "MULTIO-PI", "Doc": "Fen Logic Ltd.", "RevCode": "E" },
     "page_number": 1,
@@ -35,23 +35,23 @@ Coordinates are page coordinates in 1/100 inch, x to the right and y down, on ev
       "refdes": "Q2",
       "value": "2N7000_TO92",
       "symbol": "2N7000_TO92.Normal",
-      "x": 900,
-      "y": 340,
+      "x": 9000,
+      "y": 3400,
       "rotation": 270,
       "mirrored": false,
-      "box": [885, 325, 970, 403],
-      "pins": [{ "number": "3", "name": "DRAIN", "type": "passive", "x": 950, "y": 370, "net": "SCL" }]
+      "box": [8850, 3250, 9700, 4030],
+      "pins": [{ "number": "3", "name": "DRAIN", "type": "passive", "x": 9500, "y": 3700, "net": "SCL" }]
     }
   ],
   "blocks": [],
-  "wires": [{ "x1": 880, "y1": 180, "x2": 880, "y2": 170, "bus": false, "net": "3V3_RASP" }],
-  "net_labels": [{ "name": "GPIO0/2", "x": 820, "y": 240 }],
-  "ports": [{ "name": "SDA", "type": "bidirectional", "x": 1010, "y": 230, "net": "SDA" }],
-  "globals": [{ "name": "3V3_RASP", "x": 870, "y": 160, "net": "3V3_RASP" }],
+  "wires": [{ "x1": 8800, "y1": 1800, "x2": 8800, "y2": 1700, "bus": false, "net": "3V3_RASP" }],
+  "net_labels": [{ "name": "GPIO0/2", "x": 8200, "y": 2400 }],
+  "ports": [{ "name": "SDA", "type": "bidirectional", "x": 10100, "y": 2300, "net": "SDA" }],
+  "globals": [{ "name": "3V3_RASP", "x": 8700, "y": 1600, "net": "3V3_RASP" }],
   "off_page_connectors": [],
   "bus_entries": [],
   "erc_markers": [],
-  "text_notes": [{ "text": "Pull-ups fitted on\nthe main board", "x": 640, "y": 410 }]
+  "text_notes": [{ "text": "Pull-ups fitted on\nthe main board", "x": 6400, "y": 4100 }]
 }
 ```
 
