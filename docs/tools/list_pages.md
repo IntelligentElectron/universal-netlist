@@ -26,7 +26,7 @@ Pages do not depend on a design variant, so the tool takes none.
       "page": "P1: PI",
       "schematic": "SCHEMATIC1",
       "name": "P1: PI",
-      "size": { "name": "A4", "width_in": 11.693, "height_in": 8.268 },
+      "size": { "name": "A4", "width_mil": 11693, "height_mil": 8268 },
       "title": "MULTIO-PI",
       "page_number": 1,
       "parts": 33,
@@ -42,7 +42,7 @@ Pages do not depend on a design variant, so the tool takes none.
 |-------|-------------|
 | `page` | The name to pass to `get_page`: the page name, with `(block <path>)` for one placement of a reused schematic |
 | `schematic` | The schematic folder the page belongs to |
-| `size` | The sheet size name and its width and height in inches |
+| `size` | The sheet size name and its width and height in mils |
 | `title`, `page_number` | From the page's title block; omitted when it has none |
 | `nets` | Distinct nets on the page's wires and pins, not counting `NC` |
 

@@ -22,13 +22,13 @@ Pages are read from Cadence OrCAD `.DSN` schematics only. Notes do not depend on
 ```json
 {
   "design": "/designs/fmc/HB1A-AAFM.DSN",
-  "units": "0.01 in, x right, y down",
+  "units": "mil (0.001 in), x right, y down",
   "text_notes": [
     {
       "page": "AAFM Top",
       "text": "FMC_CPLD_[3:0] used as\n4-bit bidir bus",
-      "x": 350,
-      "y": 490
+      "x": 3500,
+      "y": 4900
     }
   ]
 }
@@ -38,7 +38,7 @@ Pages are read from Cadence OrCAD `.DSN` schematics only. Notes do not depend on
 |-------|-------------|
 | `text_notes[].page` | The page the note is on, as `list_pages` names it; a reused schematic's notes appear once per placement |
 | `text_notes[].text` | The note's text; lines are separated by `\n` |
-| `text_notes[].x`, `text_notes[].y` | The note's baseline-left position in page coordinates |
+| `text_notes[].x`, `text_notes[].y` | The note's baseline-left position in page coordinates (mils) |
 
 `text_notes` is paged. When a page does not hold every entry, `notes` says which entries it holds, and `next_offset` is the offset of the next page while more remain. A pattern that matches nothing returns an empty `text_notes`.
 

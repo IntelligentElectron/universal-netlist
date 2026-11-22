@@ -1,7 +1,7 @@
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { callTool } from "../../tools/index.js";
-import type { PageView } from "../../parsers/cadence/dsn/page-views.js";
+import type { PageView } from "../../pages/page-view.js";
 import { findPage } from "./pages.js";
 
 const FIXTURES = join(import.meta.dirname, "../../../test/fixtures/cadence");
@@ -99,7 +99,7 @@ describe("list_pages and get_page", () => {
 
   it("gives a Global that touches only pins the net of those pins", async () => {
     const view = (await callTool("get_page", { design: LAUNCHXL, page: "4_XDS110" })) as PageView;
-    const gnd = view.globals.find((g) => g.x === 710 && g.y === 290);
+    const gnd = view.globals.find((g) => g.x === 7100 && g.y === 2900);
     expect(gnd).toMatchObject({ name: "GND", net: "GND" });
   }, 60_000);
 
@@ -135,8 +135,8 @@ describe("text notes", () => {
     const view = (await callTool("get_page", { design: HB1A, page: "AAFM Top" })) as PageView;
     expect(view.text_notes).toContainEqual({
       text: "FMC_CPLD_[3:0] used as\n4-bit bidir bus",
-      x: 350,
-      y: 490,
+      x: 3500,
+      y: 4900,
     });
     expect(view.text_notes.every((note) => note.text.trim() && !note.text.includes("\r"))).toBe(
       true
@@ -152,8 +152,8 @@ describe("text notes", () => {
     expect(found.text_notes[0]).toEqual({
       page: "AAFM Top",
       text: "FMC_CPLD_[3:0] used as\n4-bit bidir bus",
-      x: 350,
-      y: 490,
+      x: 3500,
+      y: 4900,
     });
     const all = (await callTool("search_notes", {
       design: HB1A,
@@ -189,8 +189,8 @@ describe("ERC markers and port types", () => {
       message: "ERROR(ORCAP-1628): Possible pin type conflict",
       detail: "U252,OUT Output Connected to Output",
       location: "",
-      x: 1025,
-      y: 820,
+      x: 10250,
+      y: 8200,
     });
     const clock = (await callTool("get_page", {
       design: HB1A,
@@ -199,8 +199,8 @@ describe("ERC markers and port types", () => {
     expect(clock.ports).toContainEqual({
       name: "UL_CCLK_P",
       type: "output",
-      x: 1390,
-      y: 100,
+      x: 13900,
+      y: 1000,
       net: "UL_CCLK_P",
     });
   }, 60_000);

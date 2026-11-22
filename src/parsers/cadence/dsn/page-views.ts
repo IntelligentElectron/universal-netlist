@@ -2,8 +2,9 @@
  * Schematic pages as drawn, for the page tools.
  *
  * Built from the same parse the netlist comes from, so every net a page shows is
- * named exactly as `list_nets` names it. Coordinates are page coordinates in
- * 1/100 inch, x to the right and y down (docs/cadence-dsn-format.md §6.4.1).
+ * named exactly as `list_nets` names it. The file stores page coordinates in
+ * 1/100 inch, x to the right and y down (docs/cadence-dsn-format.md §6.4.1);
+ * views carry them in mils, as every vendor's pages do.
  */
 
 import {
@@ -11,76 +12,13 @@ import {
   displayRefdes,
   isDuplicateKey,
 } from "../../../duplicate-refdes.js";
-import { PIN_TYPE_BY_CODE, type ComponentDetails, type PinType } from "../../../types.js";
+import { PIN_TYPE_BY_CODE, type ComponentDetails } from "../../../types.js";
+import type { PageConnector, PageView } from "../../../pages/page-view.js";
 import type { PageCoordMap } from "./page-groups.js";
 import type { PageData } from "./page-parser.js";
 import type { PinInfo } from "./net-pins.js";
 import { symbolKey } from "./symbol-attachment.js";
-import type { ErcMarker, GraphicInst } from "./structures.js";
-
-export interface PagePin {
-  number: string;
-  name?: string;
-  /** The electrical type the part's library symbol declares, as query_component reports it. */
-  type?: PinType;
-  x: number;
-  y: number;
-  net?: string;
-}
-
-export interface PagePart {
-  refdes: string;
-  /** Set, as query_component sets it, when several different parts share this refdes. */
-  error?: string;
-  value?: string;
-  /** The library symbol drawn, such as `RES.Normal`. */
-  symbol: string;
-  x: number;
-  y: number;
-  /** Counterclockwise, in degrees: 0, 90, 180 or 270, applied after the mirror. */
-  rotation: number;
-  mirrored: boolean;
-  /** The stored bounding box, `[x1, y1, x2, y2]`; all zero on a few parts. */
-  box: [number, number, number, number];
-  pins: PagePin[];
-}
-
-export interface PageConnector {
-  name: string;
-  /** Ports: the direction, in the pin types' terms (input, output, bidirectional, passive, power...). */
-  type?: PinType;
-  x: number;
-  y: number;
-  net?: string;
-}
-
-export interface PageView {
-  /** The page's name, with the block placement when the page is one copy of a reused schematic. */
-  page: string;
-  schematic: string;
-  name: string;
-  size: { name: string; width_in: number; height_in: number };
-  title_block?: { fields: Record<string, string>; page_number: number; page_count: number };
-  parts: PagePart[];
-  /** Hierarchical blocks, each placing a child schematic. */
-  blocks: { refdes: string; x: number; y: number }[];
-  wires: { x1: number; y1: number; x2: number; y2: number; bus: boolean; net?: string }[];
-  net_labels: { name: string; x: number; y: number }[];
-  ports: PageConnector[];
-  globals: PageConnector[];
-  off_page_connectors: PageConnector[];
-  bus_entries: { x1: number; y1: number; x2: number; y2: number }[];
-  /** Free text the designer placed on the page, at its baseline-left anchor. */
-  text_notes: PageNote[];
-  /** Markers Capture's design rules check left on the page, open when the file was saved. */
-  erc_markers: ErcMarker[];
-}
-
-export interface PageNote {
-  text: string;
-  x: number;
-  y: number;
-}
+import type { GraphicInst } from "./structures.js";
 
 /** The page a view describes: its name, and the block placement for a reused schematic. */
 export const pageLabel = (page: PageData): string => {
@@ -177,8 +115,8 @@ export function buildPageViews(
     const connector = (sym: GraphicInst, key: string): PageConnector => ({
       name: strLst[sym.pairingId] ?? sym.name,
       ...optional("type", sym.portType === undefined ? undefined : PIN_TYPE_BY_CODE[sym.portType]),
-      x: sym.locX,
-      y: sym.locY,
+      x: mil(sym.locX),
+      y: mil(sym.locY),
       ...optional("net", connectorNet(key)),
     });
 
@@ -189,8 +127,8 @@ export function buildPageViews(
       name: page.name,
       size: {
         name: page.sizeName,
-        width_in: Math.round(page.widthInches * 1000) / 1000,
-        height_in: Math.round(page.heightInches * 1000) / 1000,
+        width_mil: Math.round(page.widthInches * 1000),
+        height_mil: Math.round(page.heightInches * 1000),
       },
       ...(titleBlock
         ? {
@@ -215,16 +153,16 @@ export function buildPageViews(
           ...optional("error", isDuplicateKey(refdes) ? DUPLICATE_REFDES_ERROR : undefined),
           ...optional("value", component?.value),
           symbol: inst.pkgName,
-          x: inst.locX,
-          y: inst.locY,
+          x: mil(inst.locX),
+          y: mil(inst.locY),
           rotation: inst.rotation * 90,
           mirrored: inst.mirrored,
-          box: [inst.box.x1, inst.box.y1, inst.box.x2, inst.box.y2],
+          box: [mil(inst.box.x1), mil(inst.box.y1), mil(inst.box.x2), mil(inst.box.y2)],
           pins: (pinsByRefdes.get(inst.reference) ?? [])
             .filter((pin) => points.has(pin.coord))
             .map((pin) => {
               const entry = component?.pins[pin.pinNumber];
-              const [x, y] = pin.coord.split(",").map(Number);
+              const [x, y] = pin.coord.split(",").map((v) => mil(Number(v)));
               return {
                 number: pin.pinNumber,
                 ...optional("name", typeof entry === "object" ? entry.name : undefined),
@@ -236,28 +174,37 @@ export function buildPageViews(
             }),
         };
       }),
-      blocks: page.drawnInstances.map((b) => ({ refdes: b.reference, x: b.locX, y: b.locY })),
+      blocks: page.drawnInstances.map((b) => ({
+        refdes: b.reference,
+        x: mil(b.locX),
+        y: mil(b.locY),
+      })),
       wires: page.wires.map((w) => ({
-        x1: w.startX,
-        y1: w.startY,
-        x2: w.endX,
-        y2: w.endY,
+        x1: mil(w.startX),
+        y1: mil(w.startY),
+        x2: mil(w.endX),
+        y2: mil(w.endY),
         bus: w.bus,
         ...optional("net", netAt(i, `${w.startX},${w.startY}`)),
       })),
       net_labels: page.wires.flatMap((w) =>
-        w.aliases.map((a) => ({ name: a.name, x: a.locX, y: a.locY }))
+        w.aliases.map((a) => ({ name: a.name, x: mil(a.locX), y: mil(a.locY) }))
       ),
       ports: page.ports.map((sym) => connector(sym, symbolKey(sym))),
       globals: page.globals.map((sym) => connector(sym, symbolKey(sym))),
       off_page_connectors: page.offPageConnectors.map((opc) =>
         connector(opc, `opc:${opc.pairingId}:${opc.dbId}`)
       ),
-      bus_entries: page.busEntries.map(({ x1, y1, x2, y2 }) => ({ x1, y1, x2, y2 })),
+      bus_entries: page.busEntries.map(({ x1, y1, x2, y2 }) => ({
+        x1: mil(x1),
+        y1: mil(y1),
+        x2: mil(x2),
+        y2: mil(y2),
+      })),
       text_notes: page.graphics.flatMap((g) =>
         // Capture ends a line with CR LF or a bare CR.
         g.kind === "text" && g.text.trim()
-          ? [{ text: g.text.replace(/\r\n?/g, "\n"), x: g.x, y: g.y }]
+          ? [{ text: g.text.replace(/\r\n?/g, "\n"), x: mil(g.x), y: mil(g.y) }]
           : []
       ),
       // A marker with no text at all says nothing.
@@ -267,11 +214,16 @@ export function buildPageViews(
           message: m.message.trim(),
           detail: m.detail.trim(),
           location: m.location.trim(),
+          x: mil(m.x),
+          y: mil(m.y),
         }))
         .filter((m) => m.message || m.detail || m.location),
     };
   });
 }
+
+/** A page coordinate (1/100 inch) in mils. */
+const mil = (v: number): number => v * 10;
 
 const optional = <K extends string, V>(key: K, value: V | undefined) =>
   (value === undefined || value === "" ? {} : { [key]: value }) as { [P in K]?: V };
