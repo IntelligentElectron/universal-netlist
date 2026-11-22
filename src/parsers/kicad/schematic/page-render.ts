@@ -70,7 +70,8 @@ const style = (
 /** One text, possibly several lines, drawn at `p` turned `angle` degrees counterclockwise. */
 function textSvg(text: string, p: Point, angle: number, s: TextStyle, colour: string): string {
   if (!text) return "";
-  const lines = text.split("\n");
+  // KiCad markup (_{sub}, ^{super}, ~{overbar}) is drawn as its plain text.
+  const lines = text.replace(/[_^~]\{([^}]*)\}/g, "$1").split("\n");
   // Liberation Sans' cap height is about 0.72 em; KiCad's size is the cap height.
   const em = s.size / 0.72;
   const lineHeight = em * 1.15;
@@ -109,14 +110,30 @@ function arcPath(a: Point, m: Point, b: Point): string {
 
 /** A shape's stroke and fill attributes, from its `stroke` and `fill` nodes. */
 function paint(node: Node, colour: string): string {
-  const width = num(childByTag(childByTag(node, "stroke"), "width")?.[1]) || 0.1524;
+  const stroke = childByTag(node, "stroke");
+  const width = num(childByTag(stroke, "width")?.[1]) || 0.1524;
+  const type = str(childByTag(stroke, "type")?.[1]);
+  const dash =
+    type === "dash"
+      ? ` stroke-dasharray="${n(width * 11)} ${n(width * 4)}"`
+      : type === "dot"
+        ? ` stroke-dasharray="${n(width)} ${n(width * 4)}"`
+        : type === "dash_dot"
+          ? ` stroke-dasharray="${n(width * 11)} ${n(width * 4)} ${n(width)} ${n(width * 4)}"`
+          : "";
   const fillType = str(childByTag(childByTag(node, "fill"), "type")?.[1]);
   const fill = fillType === "outline" ? colour : fillType === "background" ? FILL : "none";
-  return `stroke="${colour}" stroke-width="${n(width)}" fill="${fill}"`;
+  return `stroke="${colour}" stroke-width="${n(width)}" fill="${fill}"${dash}`;
 }
 
 /** The library shapes of one drawn unit, through `place`, which maps library to sheet points. */
-function shapesSvg(owner: Node, place: (p: Point) => Point, scale: number): string[] {
+function shapesSvg(
+  owner: Node,
+  place: (p: Point) => Point,
+  scale: number,
+  colour = BODY,
+  texts = true
+): string[] {
   const out: string[] = [];
   for (const shape of owner) {
     if (!Array.isArray(shape)) continue;
@@ -125,7 +142,7 @@ function shapesSvg(owner: Node, place: (p: Point) => Point, scale: number): stri
       const a = place(at(childByTag(shape, "start")));
       const b = place(at(childByTag(shape, "end")));
       out.push(
-        `<rect x="${n(Math.min(a.x, b.x))}" y="${n(Math.min(a.y, b.y))}" width="${n(Math.abs(b.x - a.x))}" height="${n(Math.abs(b.y - a.y))}" ${paint(shape, BODY)}/>`
+        `<rect x="${n(Math.min(a.x, b.x))}" y="${n(Math.min(a.y, b.y))}" width="${n(Math.abs(b.x - a.x))}" height="${n(Math.abs(b.y - a.y))}" ${paint(shape, colour)}/>`
       );
     } else if (kind === "polyline" || kind === "bezier") {
       const pts = childrenByTag(childByTag(shape, "pts"), "xy").map((xy) => place(at(xy)));
@@ -137,18 +154,18 @@ function shapesSvg(owner: Node, place: (p: Point) => Point, scale: number): stri
               .map((p) => `${n(p.x)} ${n(p.y)}`)
               .join(" ")}`
           : `M${pts.map((p) => `${n(p.x)} ${n(p.y)}`).join("L")}`;
-      out.push(`<path d="${d}" ${paint(shape, BODY)}/>`);
+      out.push(`<path d="${d}" ${paint(shape, colour)}/>`);
     } else if (kind === "circle") {
       const c = place(at(childByTag(shape, "center")));
       const r = num(childByTag(shape, "radius")?.[1]) * scale;
-      out.push(`<circle cx="${n(c.x)}" cy="${n(c.y)}" r="${n(r)}" ${paint(shape, BODY)}/>`);
+      out.push(`<circle cx="${n(c.x)}" cy="${n(c.y)}" r="${n(r)}" ${paint(shape, colour)}/>`);
     } else if (kind === "arc") {
       const mid = childByTag(shape, "mid");
       if (!mid) continue;
       out.push(
-        `<path d="${arcPath(place(at(childByTag(shape, "start"))), place(at(mid)), place(at(childByTag(shape, "end"))))}" ${paint(shape, BODY)}/>`
+        `<path d="${arcPath(place(at(childByTag(shape, "start"))), place(at(mid)), place(at(childByTag(shape, "end"))))}" ${paint(shape, colour)}/>`
       );
-    } else if (kind === "text" && !hidden(shape)) {
+    } else if (texts && kind === "text" && !hidden(shape)) {
       const p = place(at(childByTag(shape, "at")));
       out.push(textSvg(str(shape[1]), p, 0, style(shape), BODY));
     }
@@ -321,6 +338,9 @@ export function renderKicadSheet(
     `<rect x="5" y="5" width="${n(paper.width - 10)}" height="${n(paper.height - 10)}" fill="none" stroke="${BORDER}" stroke-width="0.1524"/>`,
   ];
 
+  // Graphic lines and shapes drawn on the sheet itself; its text items come below.
+  out.push(...shapesSvg(root, (p) => p, 1, "#0000c2", false));
+
   for (const [kind, colour, width] of [
     ["wire", WIRE, 0.1524],
     ["bus", BUS, 0.3048],
@@ -445,7 +465,8 @@ export function renderKicadSheet(
         textSvg(str(t[1]), { x: p.x + 0.5, y: p.y + 0.5 }, 0, { ...style(t, "start", "top") }, TEXT)
       );
     } else {
-      out.push(textSvg(str(t[1]), p, num(atNode?.[3]), style(t, "start", "bottom"), TEXT));
+      // KiCad centres a text item that states no justification.
+      out.push(textSvg(str(t[1]), p, num(atNode?.[3]), style(t), TEXT));
     }
   }
 
