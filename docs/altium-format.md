@@ -515,8 +515,10 @@ readers. **S** (styles 0 to 7)
 
 Coordinates grow rightward and upward from the sheet's bottom-left corner, in units of 10 mil:
 the objects of 1,217 of 1,276 sheets lie within zero and the sheet's width and height. The rest
-place a few objects off the sheet, at negative coordinates or past its far edge. **S**. Which edge
-is the bottom (y up rather than down) is *unverified* until a drawing is compared with a print. A colour (`Color`, `AreaColor`, `TextColor`) is a decimal 24-bit integer with red in
+place a few objects off the sheet, at negative coordinates or past its far edge. **S**. The
+standard title block sits at a sheet's bottom right, and its labels (`Title`, `Revision`, `Size`,
+`Date`, `Sheet of`, `Drawn By`) have y in the lower half of the sheet in 1,152 of 1,152 cases, so y
+grows upward. **S** A colour (`Color`, `AreaColor`, `TextColor`) is a decimal 24-bit integer with red in
 the low byte, `0xBBGGRR`. *unverified*. `LineWidth` takes `1` (135,147 polylines), `2` (13,675) and
 `3` (327), unwritten being `0`: smallest, small, medium and large. **O** values; the widths
 *unverified*.
