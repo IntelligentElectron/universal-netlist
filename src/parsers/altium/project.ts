@@ -128,11 +128,26 @@ const unifySpellings = (
   for (const document of documents) renameDocumentNets(document, respell, ranks);
 };
 
-/** Parse an Altium project into one netlist. */
-export const parseAltiumProject = async (
+/** An Altium project's documents read once, with its options and where each document is placed. */
+export interface LoadedAltiumProject {
+  files: FileReader;
+  projectText: string;
+  options: ReturnType<typeof parseProjectOptions>;
+  naming: NetNamingOptions;
+  ranks: Ranks;
+  unranked: number;
+  documents: ReadDocument[];
+  scope: NetIdentifierScope;
+  supplies: Set<string>;
+  placements: ReturnType<typeof findSheetPlacements>;
+  instances: ReturnType<typeof documentInstances>;
+}
+
+/** Read an Altium project's documents and work out their placements and instances. */
+export const loadAltiumProject = async (
   projectPath: string,
   parseOptions?: ParseDesignOptions
-): Promise<ParsedNetlist> => {
+): Promise<LoadedAltiumProject> => {
   const files = parseOptions?.context?.files ?? nodeFileReader;
   const schdocPaths = await findAltiumSchDocs(projectPath, files);
   if (schdocPaths.length === 0) {
@@ -171,6 +186,40 @@ export const parseAltiumProject = async (
   const supplies = powerPortsAreGlobal(scope) ? powerNames : new Set<string>();
   const placements = findSheetPlacements(documents);
   const instances = documentInstances(documents, placements, options.roomNamingStyle);
+  return {
+    files,
+    projectText,
+    options,
+    naming,
+    ranks,
+    unranked,
+    documents,
+    scope,
+    supplies,
+    placements,
+    instances,
+  };
+};
+
+/** Parse an Altium project into one netlist. */
+export const parseAltiumProject = async (
+  projectPath: string,
+  parseOptions?: ParseDesignOptions,
+  loaded?: LoadedAltiumProject
+): Promise<ParsedNetlist> => {
+  const {
+    files,
+    projectText,
+    options,
+    naming,
+    ranks,
+    unranked,
+    documents,
+    scope,
+    supplies,
+    placements,
+    instances,
+  } = loaded ?? (await loadAltiumProject(projectPath, parseOptions));
   const pending = await parseInstances(
     files,
     documents,
