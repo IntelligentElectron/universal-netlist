@@ -134,13 +134,7 @@ function paint(node: Node, colour: string): string {
 }
 
 /** The library shapes of one drawn unit, through `place`, which maps library to sheet points. */
-function shapesSvg(
-  owner: Node,
-  place: (p: Point) => Point,
-  scale: number,
-  colour = BODY,
-  texts = true
-): string[] {
+function shapesSvg(owner: Node, place: (p: Point) => Point, colour = BODY, texts = true): string[] {
   const out: string[] = [];
   for (const shape of owner) {
     if (!Array.isArray(shape)) continue;
@@ -164,7 +158,7 @@ function shapesSvg(
       out.push(`<path d="${d}" ${paint(shape, colour)}/>`);
     } else if (kind === "circle") {
       const c = place(at(childByTag(shape, "center")));
-      const r = num(childByTag(shape, "radius")?.[1]) * scale;
+      const r = num(childByTag(shape, "radius")?.[1]);
       out.push(`<circle cx="${n(c.x)}" cy="${n(c.y)}" r="${n(r)}" ${paint(shape, colour)}/>`);
     } else if (kind === "arc") {
       const mid = childByTag(shape, "mid");
@@ -220,7 +214,7 @@ function symbolSvg(node: Node, lib: Node, uuidPath: string): string[] {
     return (u === 0 || u === unit) && (s === 0 || s === bodyStyle);
   });
   for (const owner of owners) {
-    out.push(...shapesSvg(owner, place, 1));
+    out.push(...shapesSvg(owner, place));
     for (const pin of childrenByTag(owner, "pin")) {
       if (hidden(pin)) continue;
       const pinAt = childByTag(pin, "at");
@@ -346,7 +340,7 @@ export function renderKicadSheet(
   ];
 
   // Graphic lines and shapes drawn on the sheet itself; its text items come below.
-  out.push(...shapesSvg(root, (p) => p, 1, "#0000c2", false));
+  out.push(...shapesSvg(root, (p) => p, "#0000c2", false));
 
   for (const [kind, colour, width] of [
     ["wire", WIRE, 0.1524],
