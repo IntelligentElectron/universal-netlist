@@ -519,7 +519,8 @@ place a few objects off the sheet, at negative coordinates or past its far edge.
 standard title block sits at a sheet's bottom right, and its labels (`Title`, `Revision`, `Size`,
 `Date`, `Sheet of`, `Drawn By`) have y in the lower half of the sheet in 1,152 of 1,152 cases, so y
 grows upward. **S** A colour (`Color`, `AreaColor`, `TextColor`) is a decimal 24-bit integer with red in
-the low byte, `0xBBGGRR`. *unverified*. `LineWidth` takes `1` (135,147 polylines), `2` (13,675) and
+the low byte, `0xBBGGRR`: BeaglePlay's designators write `8388608` (`0x800000`) and print navy.
+**E** (BeaglePlay schematic print, 22 sheets). `LineWidth` takes `1` (135,147 polylines), `2` (13,675) and
 `3` (327), unwritten being `0`: smallest, small, medium and large. **O** values; the widths
 *unverified*.
 
@@ -532,7 +533,10 @@ reader draws them where they are. The nearest drawn child lies within 200 units 
 
 A component writes every part's and every display mode's graphics. A child is drawn when its
 `OwnerPartId` is the component's `CurrentPartId` and its `OwnerPartDisplayMode` (unwritten `0`) is
-the component's `DisplayMode` (unwritten `0`), the rule its pins follow. Five hundred children carry
+the component's `DisplayMode` (unwritten `0`), the rule its pins follow. The rule covers shapes,
+pins and text frames (`28`): BeaglePlay's U1 owns other parts' text frames, which its print leaves
+out. A designator (`34`) and parameters (`41`) belong to the whole component, whatever
+`OwnerPartId` they write (U1's designator writes `19` on an instance of part 3, and prints). **E** Five hundred children carry
 `OwnerPartId=0`; whether part 0 means "every part" is *unverified*, and the reader draws them only
 on an instance of part 0.
 Across the corpus 319,131 children are drawn, 234,252 belong to another part and 28,793 to another
@@ -568,7 +572,14 @@ may carry a `_Frac` part (see Coordinates). Field presence is **O** over the sta
 
 An angle (`StartAngle`, `EndAngle`) is in degrees, counterclockwise from the positive x axis, and
 an unwritten angle is 0. *unverified*. A `Text` of `=<parameter>` shows that parameter's value (see
-Components); text frames and notes write line breaks as `~1`. *unverified*
+Components); a reference to a project parameter or a special string (`=ModifiedDate`) needs the
+project and is *unverified*. Text frames and notes write line breaks as `~1` (BeaglePlay's
+`PwrGrp:VDDA_1P8_USB, ~1 VDDA_3P3_USB`). **O**
+
+Filled shapes print beneath everything else on the sheet, whatever their record order: a part's
+filled body does not hide the free labels placed over it. **E**. A font of size `s` points draws text
+about `0.75 s` units tall; the face is the font table's `FontName` (Arial, Times New Roman, Courier
+New). **E**, approximate
 
 ### Text placement
 
@@ -584,8 +595,9 @@ A parameter (`41`) is drawn unless `IsHidden=T` (1,099,871 of 1,167,650 paramete
 ### Pins
 
 `PinConglomerate` takes the values 24, 26, 32 to 35, 39 to 43 and 48 most often. Its low two
-bits turn the pin (see Pins under Geometry). The higher bits are flags for whether the name and the
-designator are shown and whether the pin is hidden. *unverified*. `Symbol_InnerEdge`,
+bits turn the pin (see Pins under Geometry); bit 2 (`0x04`) hides it. Bit 3 (`0x08`) shows the pin's
+name and bit 4 (`0x10`) its designator: BeaglePlay's U1 pins write `56` (`0x38`) and print both, its
+capacitor pins write `33` and `35` and print neither. **E**. `Symbol_InnerEdge`,
 `Symbol_OuterEdge`, `Symbol_Inner` and `Symbol_Outer` name the pin's decorations (clock, dot,
 arrows). **O** values
 

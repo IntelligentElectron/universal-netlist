@@ -42,12 +42,6 @@ export const loadPages = async (
         "Pages are read from Cadence .DSN, KiCad and Altium .PrjPcb designs only. Use list_designs() first.",
     };
   }
-  // shortcut: Altium pages are not drawn yet; render_page comes with the Altium renderer.
-  if (draw && altium) {
-    return {
-      error: "render_page draws Cadence and KiCad pages only for now. get_page() reads this page.",
-    };
-  }
   const parser = { ...context.parser, files: readOnce(context.parser.files) };
   try {
     const design = await cached(
@@ -58,7 +52,7 @@ export const loadPages = async (
         kicad
           ? await parseKicadPages(designPath, { context: p }, draw)
           : altium
-            ? await parseAltiumPages(designPath, { context: p })
+            ? await parseAltiumPages(designPath, { context: p }, draw)
             : parseDsnPages(await p.files.readFile(designPath), p.dsnPasswords, draw)
     );
     return { designPath, ...design };
