@@ -116,6 +116,8 @@ export interface SchematicDesign {
 export interface KicadPage {
   /** Sheet instance path as KiCad prints it (`/`, `/Power/`). */
   path: string;
+  /** The same instance by uuids (`/<root>/<sheet>`), which keys each symbol's reference and unit. */
+  uuidPath: string;
   name: string;
   file: string;
   page: string | null;
@@ -919,6 +921,7 @@ export function analyzeSchematic(
     const wireNodes = file.wires.map(() => uf.add());
     const page: KicadPage = {
       path: humanPath,
+      uuidPath,
       name: "",
       file: fileName,
       page: null,

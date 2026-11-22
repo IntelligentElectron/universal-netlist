@@ -212,7 +212,7 @@ Search the notes on every schematic page of a Cadence .DSN or KiCad design: free
 
 ### render_page
 
-Render one schematic page of a Cadence .DSN design as a PNG image, drawn from the design file: symbols, pins with their numbers and names, wires, junctions, net labels, ports, power and ground symbols, off-page connectors, text and the title block. Pass focus to crop to one part (a refdes) or everything on one net, with a margin. Name the page as list_pages reports it. On the command line the PNG is written to --output.
+Render one schematic page of a Cadence .DSN or KiCad design as a PNG image, drawn from the design files: symbols, pins with their numbers and names, wires, junctions, net labels, ports, power and ground symbols, off-page connectors, text and the title block (Cadence). Pass focus to crop to one part (a refdes) or everything on one net, with a margin. Name the page as list_pages reports it. On the command line the PNG is written to --output.
 
 - `--page` (required; string). Page as list_pages names it.
 - `--focus` (string). A refdes or net name on the page: crop to that part, or to everything on that net. Omit for the whole page.
