@@ -506,10 +506,10 @@ One per sheet (1,276 of 1,276). **O**
 The sizes of the standard styles, width by height in units: 0 A4 1150 x 760, 1 A3 1550 x 1110, 2 A2
 2230 x 1570, 3 A1 3150 x 2230, 4 A0 4460 x 3150, 5 A 950 x 750, 6 B 1500 x 950, 7 C 2000 x 1500,
 8 D 3200 x 2000, 9 E 4200 x 3200, 10 Letter 1100 x 850, 11 Legal 1400 x 850, 12 Tabloid 1700 x
-1100, 13 to 17 OrCAD A to E. For the styles that occur on more than one sheet (0 to 4, 6, 7),
-the objects on a sheet reach a median 97 to 99% of the stated width or height and lie within it on
-1,028 of 1,074 sheets; styles 8 to 17 are too rare to check, and the sizes come from the community
-readers. **S** (styles 0 to 7)
+1100, 13 to 17 OrCAD A to E. For styles 0 to 4, 6 and 7, the objects on a sheet
+reach a median 97 to 99% of the stated width or height and lie within it on 1,028 of 1,074 sheets.
+**S** (styles 0 to 4, 6, 7). Style 5 (A, 65 sheets) fills a median 87%, so its size is only an
+upper bound; styles 8 to 17 are too rare to check. Those sizes are *unverified*.
 
 ### Axes and colours
 
