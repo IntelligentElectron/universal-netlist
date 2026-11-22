@@ -1,6 +1,6 @@
 # render_page
 
-Render one schematic page of a Cadence `.DSN` or KiCad design as a PNG image.
+Render one schematic page of a Cadence `.DSN`, KiCad or Altium design as a PNG image.
 
 ## Description
 
@@ -8,15 +8,17 @@ Draws the page from the design file itself: symbols placed with their rotation a
 
 A KiCad page is drawn from its `.kicad_sch` file and the symbols embedded in it: shapes, pins with their names and numbers as the symbol shows them, visible fields such as reference (with the unit letter on multi-unit parts) and value, wires, buses, bus entries, junctions, no-connect flags, local, global and hierarchical labels, sheet symbols with their pins, and text and text boxes. The sheet border is drawn; KiCad's drawing-sheet frame and title block are not. No KiCad installation is needed.
 
+An Altium page is drawn from its `.SchDoc` records: the drawn part of each component (shapes, pins with their names and designators as the pin shows them, visible designator with its part letter and parameters), wires, buses, bus entries, junctions, no-ERC markers, net labels, power ports, ports, sheet symbols with their entries, free text, text frames and notes, and the sheet template's graphics. Colours come from the file. Text is drawn in one sans face, so Courier and Times text runs wider or narrower than Altium prints it. Images are not drawn. No Altium installation is needed.
+
 Pass `focus` to crop to one part (a refdes) or to everything on one net, with a margin. Over MCP the image comes back as image content, followed by a short JSON result; on the command line the PNG is written to a file.
 
-Pages are read from Cadence OrCAD `.DSN` schematics and KiCad designs.
+Pages are read from Cadence OrCAD `.DSN` schematics, KiCad designs and Altium projects.
 
 ## Input Parameters
 
 | Parameter | Type | Required | Default | Description |
 |-----------|------|----------|---------|-------------|
-| `design` | string | Yes | - | Path to a `.DSN` design or a KiCad `.kicad_pro` project, as returned by `list_designs` |
+| `design` | string | Yes | - | Path to a `.DSN` design, a KiCad `.kicad_pro` project or an Altium `.PrjPcb` project, as returned by `list_designs` |
 | `page` | string | Yes | - | The page as `list_pages` names it |
 | `focus` | string | No | - | A refdes or net name on the page: crop to that part, or to everything on that net. Omit for the whole page |
 | `output` | string | No | `<page>.png` | Command line only: the PNG path to write |

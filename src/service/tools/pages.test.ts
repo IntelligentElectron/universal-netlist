@@ -388,10 +388,12 @@ describe("Altium pages", () => {
     });
   }, 120_000);
 
-  it("says render_page does not draw Altium pages yet", async () => {
+  it("renders an Altium page as a PNG", async () => {
     const result = (await callTool("render_page", { design: BMS, page: "adc_mcp3913.SchDoc" })) as {
-      error?: string;
+      width: number;
+      image: { mimeType: string; data: string };
     };
-    expect(result.error).toMatch(/draws Cadence and KiCad pages only/);
+    expect(result.image.mimeType).toBe("image/png");
+    expect(Buffer.from(result.image.data, "base64").readUInt32BE(16)).toBe(result.width);
   }, 60_000);
 });

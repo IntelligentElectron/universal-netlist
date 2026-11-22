@@ -24,7 +24,7 @@ Supported formats:
 2. \`search_nets\` and \`search_components_by_*\` to find things by pattern
 3. \`query_component\` and \`query_xnet_*\` for detail and connectivity
 4. \`run_erc\` for electrical rule checks
-5. \`list_pages\` and \`get_page\` to read a Cadence, KiCad or Altium page as drawn: what sits where, and its nets; \`render_page\` to see a Cadence or KiCad page as an image
+5. \`list_pages\` and \`get_page\` to read a Cadence, KiCad or Altium page as drawn: what sits where, and its nets; \`render_page\` to see it as an image
 
 ## Conventions
 
@@ -116,7 +116,7 @@ pattern (case-insensitive) with its page, as list_pages names it, and its positi
 mils. Search a net or part name to find the notes that mention it. ${paged("text_notes")}`;
 
 export const RENDER_PAGE_DESCRIPTION = `\
-Render one schematic page of a Cadence .DSN or KiCad design as a PNG image, drawn from the design \
+Render one schematic page of a Cadence .DSN, KiCad or Altium design as a PNG image, drawn from the design \
 files: symbols, pins with their numbers and names, wires, junctions, net labels, ports, \
 power and ground symbols, off-page connectors, text and the title block (Cadence). \
 Pass focus to crop to one part (a refdes) or everything on one net, with a margin. \
