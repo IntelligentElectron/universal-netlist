@@ -8,6 +8,8 @@ import type { PageView } from "../../pages/page-view.js";
 import { readCacheSymbols } from "../../parsers/cadence/dsn/symbol-graphics.js";
 import { callTool } from "../../tools/index.js";
 import { cropSvg, focusBox } from "./render-page.js";
+import { loadPages } from "./pages.js";
+import { parserContextFromEnvironment } from "../../parsers/context.js";
 
 const FIXTURES = join(import.meta.dirname, "../../../test/fixtures/cadence");
 const MULTIO = join(FIXTURES, "multio/MULTIO.DSN");
@@ -94,5 +96,39 @@ describe("render_page", () => {
       focus: "NOPE",
     })) as { error?: string };
     expect(result.error).toMatch(/neither a part nor a net/);
+  }, 60_000);
+});
+
+describe("render_page on KiCad", () => {
+  const MIXER = join(FIXTURES, "../kicad/multichannel-mixer/multichannel_mixer.kicad_pro");
+
+  it("draws every visible pin from the point get_page gives it", async () => {
+    const loaded = await loadPages(MIXER, { parser: parserContextFromEnvironment() }, true);
+    if ("error" in loaded) throw new Error(loaded.error);
+    const i = loaded.pages.findIndex((p) => p.page === "CH1");
+    const svg = loaded.svgs[i]!;
+    expect(svg).toMatch(/^<svg [^>]*viewBox="0 0 11693 8268"/);
+    // The drawing is in millimetres inside the mils viewBox; a pin's line starts at its tip.
+    const starts = new Set(
+      [...svg.matchAll(/<line x1="([-\d.]+)" y1="([-\d.]+)"/g)].map(
+        (m) => `${Math.round(Number(m[1]) / 0.0254)},${Math.round(Number(m[2]) / 0.0254)}`
+      )
+    );
+    const pins = loaded.pages[i]!.parts.flatMap((p) => p.pins);
+    expect(pins.length).toBeGreaterThan(50);
+    for (const pin of pins)
+      expect(starts.has(`${Math.round(pin.x)},${Math.round(pin.y)}`)).toBe(true);
+  }, 60_000);
+
+  it("returns a PNG of a KiCad page and of one part on it", async () => {
+    for (const focus of [undefined, "R8"]) {
+      const result = (await callTool("render_page", {
+        design: MIXER,
+        page: "CH1",
+        ...(focus ? { focus } : {}),
+      })) as { width: number; image: { mimeType: string; data: string } };
+      expect(result.image.mimeType).toBe("image/png");
+      expect(Buffer.from(result.image.data, "base64").readUInt32BE(16)).toBe(result.width);
+    }
   }, 60_000);
 });
