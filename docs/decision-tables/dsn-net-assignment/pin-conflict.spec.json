@@ -1,0 +1,1 @@
+{"assumes":"One physical pin (refdes + pin number) assembled twice: NET_A is the net of its first assignment, NET_B a different net, NC the unconnected net. A net name here is the resolved name of the record's net id.","dimensions":{"prior_net":["none","NET_A","NC"],"new_net":["NET_A","NET_B","NC"]},"name":"pin-conflict"}

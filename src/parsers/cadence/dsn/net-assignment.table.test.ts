@@ -8,8 +8,9 @@
 import path from "path";
 import { describe, expect, it } from "vitest";
 import { expandHierarchy } from "./hierarchy-expander.js";
+import { assembleNets } from "./net-assembly.js";
 import { buildNetConnectivity } from "./net-builder.js";
-import { pinNetSource } from "./net-pins.js";
+import { pinNetSource, type PinInfo } from "./net-pins.js";
 import { findPinMap } from "./pin-resolver.js";
 import type { BlockOccurrence, HierarchyScope, HierarchyStream } from "./hierarchy-parser.js";
 import type { PageData } from "./page-parser.js";
@@ -197,6 +198,46 @@ describe("pin-net: where a pin's net comes from", () => {
         row.net_on_a_wire === "yes"
       );
       expect(source).toBe(sourceOf[row.outcome]);
+    });
+  }
+});
+
+describe("pin-conflict: one physical pin, one net", () => {
+  const dims = ["prior_net", "new_net"];
+  // A pin record assigning U1.OUT4 to a net: a distinct netId per record, with
+  // coordNet naming the net, so each record resolves to the net it names. An
+  // NC record is unconnected (netId 0, no coordNet), as classifyPins reads it.
+  const pin = (net: string, netId: number): PinInfo => ({
+    refdes: "U1",
+    pinNumber: "OUT4",
+    // An NC record carries netId 0; a nonzero netId with no coordNet would
+    // resolve to a fallback N{netId} name instead of the NC net.
+    netId: net === "NC" ? 0 : netId,
+    pageIdx: 0,
+    coord: "0,0",
+    ...(net === "NC" ? {} : { coordNet: net }),
+  });
+
+  for (const row of readTable(TABLES, "pin-conflict").filter((r) => r.outcome !== "n/a")) {
+    it(cellName(row, dims), () => {
+      const pins: PinInfo[] = [];
+      if (row.prior_net !== "none") pins.push(pin(row.prior_net, 11));
+      pins.push(pin(row.new_net, 12));
+      if (row.outcome === "reject the conflicting assignment") {
+        // No-connect records are assembled before net-id groups, so NC is
+        // always the first assignment when it is one of the two.
+        const [first, second] =
+          row.new_net === "NC" ? ["NC", row.prior_net] : [row.prior_net, row.new_net];
+        expect(() => assembleNets(pins, new Set())).toThrowError(
+          `Pin U1.OUT4 is assigned to both '${first}' and '${second}'`
+        );
+        return;
+      }
+      const { nets, componentPins } = assembleNets(pins, new Set());
+      expect(componentPins.get("U1")?.get("OUT4")).toBe(row.new_net);
+      expect(nets[row.new_net]?.U1).toEqual(["OUT4"]);
+      // The pin is a member of exactly one net.
+      expect(Object.keys(nets)).toEqual([row.new_net]);
     });
   }
 });

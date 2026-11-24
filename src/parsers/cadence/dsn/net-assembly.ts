@@ -9,6 +9,14 @@
 import type { NetConnections } from "../../../types.js";
 import type { PinInfo } from "./net-pins.js";
 
+/**
+ * A physical pin (refdes + pin number) belongs to at most one net. A second
+ * assignment to a different net is a conflict, not a second membership: keeping
+ * both memberships while the component-side map records only the last
+ * assignment produces a graph the Universal Netlist reader rejects, so the
+ * conflict surfaces here instead of a successful export writing a file the
+ * same release cannot reload. Re-assigning the same net is idempotent.
+ */
 function addPinToNet(
   nets: NetConnections,
   componentPins: Map<string, Map<string, string>>,
@@ -16,6 +24,14 @@ function addPinToNet(
   refdes: string,
   pinNumber: string
 ): void {
+  const assigned = componentPins.get(refdes)?.get(pinNumber);
+  if (assigned !== undefined && assigned !== netName) {
+    throw new Error(
+      `Pin ${refdes}.${pinNumber} is assigned to both '${assigned}' and '${netName}'; ` +
+        `a physical pin belongs to one net, so the netlist cannot be built until the ` +
+        `conflicting assignments are resolved.`
+    );
+  }
   if (!nets[netName]) nets[netName] = {};
   const existing = nets[netName][refdes];
   if (!existing) {
