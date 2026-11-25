@@ -92,12 +92,26 @@ node --import tsx scripts/dsn-gap-analysis.ts <golden-name>
 Run without arguments to see available golden files.
 
 Report sections:
+
 - **Refdes accuracy**: Per-net refdes match rate on common nets, with mismatch details
 - **Missing nets**: Nets in golden but not in DSN, grouped by category
 - **Extra net mapping**: Each extra DSN net mapped to its likely golden counterpart
 - **Schematic vs PCB renames**: Extra named nets that are schematic-side aliases for golden PCB net names
 - **Stolen refs**: Golden nets missing a refdes, showing which extra DSN net captured it
 - **Summary**: Coverage percentage with missing/extra breakdowns by category
+
+## dsn-definition-check.ts
+
+Check every `.DSN` under a directory (default: the working directory) against its own part definitions. A placed part names its package, its library, its view and its section; the Cache holds the package and view it means. The check walks those links directly and compares each pin's number, Pin Ignore flag and name with what the parser resolves.
+
+```bash
+node --import tsx scripts/dsn-definition-check.ts test/fixtures/cadence
+node --import tsx scripts/dsn-definition-check.ts <path>
+```
+
+Prints each design that differs with its first five differences, the totals, and how many placed parts fall in each cell of the decision tables `section-pin-map` and `part-definition`. Exits 1 when any pin differs. It needs no export, so it runs on every design; `dsn-vs-dat-coverage.ts` is the check against Capture's exports.
+
+The cells it lists are the ones real files reach. A cell of those two tables is `decided` when every part in it resolves to the file's own records, and stays a `draft` while no real part reaches it. The check lives in `scripts/lib/dsn-definition-check.ts`, and `test/integration/cadence-definitions.test.ts` runs it on every fixture.
 
 ## verify-pin-numbers.ts
 

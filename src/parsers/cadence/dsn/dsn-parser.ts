@@ -131,6 +131,100 @@ export function parseDsnPages(
   }
 }
 
+/**
+ * Read the design's part definitions: each package's pin maps and each
+ * symbol's pin names, from the `Packages/` streams and the Cache (§5).
+ */
+export function readPartDefinitions(
+  ole: DsnReader,
+  entries: OleDirectoryPath[]
+): { pmd: PinMapData; cachedParts: Map<string, CachedLibraryPart> } {
+  // Parse Package streams for pin mapping data.
+  // Each Package stream contains Device entries with pinMap arrays that map
+  // T0x10 index -> physical pin number/name. We index by sourcePackage
+  // for lookup during pin resolution.
+  const pmd: PinMapData = {
+    pinMaps: new Map(),
+    cachePinMaps: new Map(),
+    deviceUnitRefs: new Map(),
+    pinIgnores: new Map(),
+    cachePinIgnores: new Map(),
+  };
+  const cachedParts = new Map<string, CachedLibraryPart>();
+  // Keys a part claimed under its own name, which an alias must not displace.
+  const exactPartNames = new Set<string>();
+  const pkgStreamEntries = entries.filter(
+    (e) =>
+      /^Packages\//.test(e.path) && e.entry.type === 2 && !e.path.includes("_pDboPackage_Copy_")
+  );
+
+  for (const pkgEntry of pkgStreamEntries) {
+    try {
+      const pkgBuffer = ole.readStreamByPath(pkgEntry.path);
+      const { pkg, libraryParts } = parsePackageStream(pkgBuffer);
+      const streamName = pkgEntry.path.replace("Packages/", "");
+
+      // Index pin maps by sourcePackage for pin number resolution.
+      // For single-device packages, the sourcePackage key is the stream
+      // name stripped of the trailing _N suffix. For multi-device (multi-unit)
+      // packages, each device gets its own entry keyed by streamName + unitRef.
+      const baseName = streamName.replace(/_\d+$/, "");
+      if (pkg.devices.length === 1) {
+        if (!pmd.pinMaps.has(baseName)) {
+          pmd.pinMaps.set(baseName, pkg.devices[0].pinMap);
+          pmd.pinIgnores.set(baseName, pkg.devices[0].pinIgnore);
+        }
+        // Also store by exact stream name for direct matches
+        pmd.pinMaps.set(streamName, pkg.devices[0].pinMap);
+        pmd.pinIgnores.set(streamName, pkg.devices[0].pinIgnore);
+      } else {
+        // Multi-unit: store per unit keyed by both baseName and streamName
+        // so findPinMap can match either sourcePackage form.
+        listDeviceUnits(pmd, [baseName, streamName], pkg.devices);
+        for (const device of pkg.devices) {
+          const baseKey = baseName + device.unitRef;
+          if (!pmd.pinMaps.has(baseKey)) {
+            pmd.pinMaps.set(baseKey, device.pinMap);
+            pmd.pinIgnores.set(baseKey, device.pinIgnore);
+          }
+          if (streamName !== baseName) {
+            const streamKey = streamName + device.unitRef;
+            if (!pmd.pinMaps.has(streamKey)) {
+              pmd.pinMaps.set(streamKey, device.pinMap);
+              pmd.pinIgnores.set(streamKey, device.pinIgnore);
+            }
+          }
+        }
+      }
+
+      // Index LibraryPart pin names and default values.
+      // Key by both the original LP name and the suffix-stripped form,
+      // since LP names include a Package stream suffix (e.g., "RES_0.Normal")
+      // but PlacedInstance.pkgName uses the base name (e.g., "RES.Normal").
+      for (const lp of libraryParts) {
+        indexLibraryPart(lp, cachedParts, exactPartNames);
+      }
+    } catch {
+      // Package parsing is best-effort; skip malformed streams
+    }
+  }
+
+  // Parse Cache stream as fallback for pin maps and library parts.
+  // The Cache contains Package/Device structures (for pin number mapping) and
+  // LibraryPart structures (for pin names) for all components in the design.
+  const cacheEntry = entries.find((e) => e.path === "Cache" && e.entry.type === 2);
+  if (cacheEntry) {
+    try {
+      const cacheBuf = ole.readStreamByPath(cacheEntry.path);
+      parseCacheStream(cacheBuf, pmd, cachedParts, exactPartNames);
+    } catch {
+      // Cache parsing is best-effort
+    }
+  }
+
+  return { pmd, cachedParts };
+}
+
 /** Parse a design's streams into a ParsedNetlist, with the pages it was built from. */
 function parseDsnStreams(
   ole: DsnReader,
@@ -221,88 +315,7 @@ function parseDsnStreams(
     rootSchematic
   );
 
-  // Parse Package streams for pin mapping data.
-  // Each Package stream contains Device entries with pinMap arrays that map
-  // T0x10 index -> physical pin number/name. We index by sourcePackage
-  // for lookup during pin resolution.
-  const pmd: PinMapData = {
-    pinMaps: new Map(),
-    cachePinMaps: new Map(),
-    deviceUnitRefs: new Map(),
-    pinIgnores: new Map(),
-    cachePinIgnores: new Map(),
-  };
-  const cachedParts = new Map<string, CachedLibraryPart>();
-  // Keys a part claimed under its own name, which an alias must not displace.
-  const exactPartNames = new Set<string>();
-  const pkgStreamEntries = entries.filter(
-    (e) =>
-      /^Packages\//.test(e.path) && e.entry.type === 2 && !e.path.includes("_pDboPackage_Copy_")
-  );
-
-  for (const pkgEntry of pkgStreamEntries) {
-    try {
-      const pkgBuffer = ole.readStreamByPath(pkgEntry.path);
-      const { pkg, libraryParts } = parsePackageStream(pkgBuffer);
-      const streamName = pkgEntry.path.replace("Packages/", "");
-
-      // Index pin maps by sourcePackage for pin number resolution.
-      // For single-device packages, the sourcePackage key is the stream
-      // name stripped of the trailing _N suffix. For multi-device (multi-unit)
-      // packages, each device gets its own entry keyed by streamName + unitRef.
-      const baseName = streamName.replace(/_\d+$/, "");
-      if (pkg.devices.length === 1) {
-        if (!pmd.pinMaps.has(baseName)) {
-          pmd.pinMaps.set(baseName, pkg.devices[0].pinMap);
-          pmd.pinIgnores.set(baseName, pkg.devices[0].pinIgnore);
-        }
-        // Also store by exact stream name for direct matches
-        pmd.pinMaps.set(streamName, pkg.devices[0].pinMap);
-        pmd.pinIgnores.set(streamName, pkg.devices[0].pinIgnore);
-      } else {
-        // Multi-unit: store per unit keyed by both baseName and streamName
-        // so findPinMap can match either sourcePackage form.
-        listDeviceUnits(pmd, [baseName, streamName], pkg.devices);
-        for (const device of pkg.devices) {
-          const baseKey = baseName + device.unitRef;
-          if (!pmd.pinMaps.has(baseKey)) {
-            pmd.pinMaps.set(baseKey, device.pinMap);
-            pmd.pinIgnores.set(baseKey, device.pinIgnore);
-          }
-          if (streamName !== baseName) {
-            const streamKey = streamName + device.unitRef;
-            if (!pmd.pinMaps.has(streamKey)) {
-              pmd.pinMaps.set(streamKey, device.pinMap);
-              pmd.pinIgnores.set(streamKey, device.pinIgnore);
-            }
-          }
-        }
-      }
-
-      // Index LibraryPart pin names and default values.
-      // Key by both the original LP name and the suffix-stripped form,
-      // since LP names include a Package stream suffix (e.g., "RES_0.Normal")
-      // but PlacedInstance.pkgName uses the base name (e.g., "RES.Normal").
-      for (const lp of libraryParts) {
-        indexLibraryPart(lp, cachedParts, exactPartNames);
-      }
-    } catch {
-      // Package parsing is best-effort; skip malformed streams
-    }
-  }
-
-  // Parse Cache stream as fallback for pin maps and library parts.
-  // The Cache contains Package/Device structures (for pin number mapping) and
-  // LibraryPart structures (for pin names) for all components in the design.
-  const cacheEntry = entries.find((e) => e.path === "Cache" && e.entry.type === 2);
-  if (cacheEntry) {
-    try {
-      const cacheBuf = ole.readStreamByPath(cacheEntry.path);
-      parseCacheStream(cacheBuf, pmd, cachedParts, exactPartNames);
-    } catch {
-      // Cache parsing is best-effort
-    }
-  }
+  const { pmd, cachedParts } = readPartDefinitions(ole, entries);
 
   // PACK_SHORT ties a single-section part's ignored pins to a placed pin (§5.8).
   for (const page of pages) {
