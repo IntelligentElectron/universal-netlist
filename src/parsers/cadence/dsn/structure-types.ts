@@ -69,7 +69,21 @@ export interface PinMapData {
    * Cache, so one array cannot index both.
    */
   cachePinIgnores: Map<string, boolean[]>;
+  /**
+   * Each source library's own Cache definitions, by the library string a
+   * placed instance names (§5.6, §7.4). The Cache keeps one definition per name
+   * and library, and the maps above hold only the first under each name: a
+   * part placed from another library has its pin map here. Each entry holds
+   * its definitions in `cachePinMaps`, `cachePinIgnores` and `deviceUnitRefs`.
+   */
+  libraries?: Map<string, PinMapData>;
 }
+
+/**
+ * The key a library's own view is indexed under beside the view's plain name,
+ * so a part finds the symbol of the library it was placed from (§5.6).
+ */
+export const libraryPartKey = (library: string, name: string): string => `${library}\0${name}`;
 
 export const structureTypeName: Partial<Record<StructureType, string>> = {
   [StructureType.Page]: "Page",

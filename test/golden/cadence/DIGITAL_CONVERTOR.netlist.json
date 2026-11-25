@@ -1,0 +1,435 @@
+{
+  "universalNetlistSchemaVersion": 4,
+  "metadata": {
+    "generatedAt": "2026-11-25T22:58:44.442Z",
+    "netlistHash": "sha256:c111332d91ca56c4eead4acd99c5fcf3d791cec0e478ee01965ed2114e67373a",
+    "origin": {
+      "type": "vendor",
+      "source": {
+        "vendor": "Cadence",
+        "fileType": ".dsn"
+      }
+    }
+  },
+  "nets": {
+    "N000811": {
+      "U2": [
+        "1"
+      ],
+      "U1": [
+        "4"
+      ]
+    },
+    "VCC": {
+      "U1": [
+        "14"
+      ],
+      "U2": [
+        "2",
+        "16"
+      ],
+      "U3": [
+        "4"
+      ],
+      "J2": [
+        "2"
+      ]
+    },
+    "GND": {
+      "U1": [
+        "7"
+      ],
+      "U2": [
+        "7",
+        "8"
+      ],
+      "R9": [
+        "1"
+      ],
+      "U3": [
+        "11"
+      ],
+      "C1": [
+        "2"
+      ],
+      "J1": [
+        "1"
+      ],
+      "J2": [
+        "1"
+      ]
+    },
+    "N00520": {
+      "R1": [
+        "2"
+      ],
+      "U1": [
+        "2",
+        "3"
+      ]
+    },
+    "N00513": {
+      "R1": [
+        "1"
+      ],
+      "U1": [
+        "1"
+      ],
+      "C1": [
+        "1"
+      ]
+    },
+    "N00643": {
+      "R4": [
+        "2"
+      ],
+      "R5": [
+        "2"
+      ],
+      "R3": [
+        "1"
+      ]
+    },
+    "N00603": {
+      "R4": [
+        "1"
+      ],
+      "U2": [
+        "5"
+      ]
+    },
+    "N00639": {
+      "R2": [
+        "2"
+      ],
+      "R3": [
+        "2"
+      ],
+      "U3": [
+        "3"
+      ]
+    },
+    "N00591": {
+      "R2": [
+        "1"
+      ],
+      "U2": [
+        "6"
+      ]
+    },
+    "N00627": {
+      "U2": [
+        "3"
+      ],
+      "R8": [
+        "1"
+      ]
+    },
+    "N00615": {
+      "U2": [
+        "4"
+      ],
+      "R6": [
+        "1"
+      ]
+    },
+    "N00651": {
+      "R9": [
+        "2"
+      ],
+      "R7": [
+        "1"
+      ],
+      "R8": [
+        "2"
+      ]
+    },
+    "N00665": {
+      "R7": [
+        "2"
+      ],
+      "R5": [
+        "1"
+      ],
+      "R6": [
+        "2"
+      ]
+    },
+    "N00720": {
+      "U3": [
+        "2",
+        "1"
+      ],
+      "J1": [
+        "2"
+      ]
+    }
+  },
+  "components": {
+    "R1": {
+      "value": "50K",
+      "pins": {
+        "1": {
+          "net": "N00513",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00520",
+          "type": "passive"
+        }
+      }
+    },
+    "R4": {
+      "value": "20K",
+      "pins": {
+        "1": {
+          "net": "N00603",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00643",
+          "type": "passive"
+        }
+      }
+    },
+    "R2": {
+      "value": "20K",
+      "pins": {
+        "1": {
+          "net": "N00591",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00639",
+          "type": "passive"
+        }
+      }
+    },
+    "U2": {
+      "value": "4520",
+      "pins": {
+        "1": {
+          "name": "CLK",
+          "net": "N000811",
+          "type": "input"
+        },
+        "2": {
+          "name": "CKE",
+          "net": "VCC",
+          "type": "input"
+        },
+        "3": {
+          "name": "Q0",
+          "net": "N00627",
+          "type": "output"
+        },
+        "4": {
+          "name": "Q1",
+          "net": "N00615",
+          "type": "output"
+        },
+        "5": {
+          "name": "Q2",
+          "net": "N00603",
+          "type": "output"
+        },
+        "6": {
+          "name": "Q3",
+          "net": "N00591",
+          "type": "output"
+        },
+        "7": {
+          "name": "RST",
+          "net": "GND",
+          "type": "input"
+        },
+        "8": {
+          "name": "GND",
+          "net": "GND",
+          "type": "power"
+        },
+        "16": {
+          "name": "VCC",
+          "net": "VCC",
+          "type": "power"
+        }
+      }
+    },
+    "R9": {
+      "value": "20K",
+      "pins": {
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00651",
+          "type": "passive"
+        }
+      }
+    },
+    "R7": {
+      "value": "10K",
+      "pins": {
+        "1": {
+          "net": "N00651",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00665",
+          "type": "passive"
+        }
+      }
+    },
+    "R5": {
+      "value": "10K",
+      "pins": {
+        "1": {
+          "net": "N00665",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00643",
+          "type": "passive"
+        }
+      }
+    },
+    "R3": {
+      "value": "10K",
+      "pins": {
+        "1": {
+          "net": "N00643",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00639",
+          "type": "passive"
+        }
+      }
+    },
+    "U3": {
+      "value": "MCP6024",
+      "pins": {
+        "1": {
+          "name": "OUT",
+          "net": "N00720",
+          "type": "output"
+        },
+        "2": {
+          "name": "IN-",
+          "net": "N00720",
+          "type": "input"
+        },
+        "3": {
+          "name": "IN+",
+          "net": "N00639",
+          "type": "input"
+        },
+        "4": {
+          "name": "V+",
+          "net": "VCC",
+          "type": "power"
+        },
+        "11": {
+          "name": "V-",
+          "net": "GND",
+          "type": "power"
+        }
+      }
+    },
+    "U1": {
+      "value": "7414",
+      "pins": {
+        "1": {
+          "name": "A",
+          "net": "N00513",
+          "type": "input"
+        },
+        "2": {
+          "name": "Y",
+          "net": "N00520",
+          "type": "output"
+        },
+        "3": "N00520",
+        "4": "N000811",
+        "7": {
+          "name": "GND",
+          "net": "GND",
+          "type": "power",
+          "hidden": true
+        },
+        "14": {
+          "name": "VCC",
+          "net": "VCC",
+          "type": "power",
+          "hidden": true
+        }
+      }
+    },
+    "C1": {
+      "value": "10uF",
+      "pins": {
+        "1": {
+          "net": "N00513",
+          "type": "passive"
+        },
+        "2": {
+          "net": "GND",
+          "type": "passive"
+        }
+      }
+    },
+    "J1": {
+      "value": "CON2",
+      "pins": {
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00720",
+          "type": "passive"
+        }
+      }
+    },
+    "R8": {
+      "value": "20K",
+      "pins": {
+        "1": {
+          "net": "N00627",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00651",
+          "type": "passive"
+        }
+      }
+    },
+    "R6": {
+      "value": "20K",
+      "pins": {
+        "1": {
+          "net": "N00615",
+          "type": "passive"
+        },
+        "2": {
+          "net": "N00665",
+          "type": "passive"
+        }
+      }
+    },
+    "J2": {
+      "value": "CON2",
+      "pins": {
+        "1": {
+          "net": "GND",
+          "type": "passive"
+        },
+        "2": {
+          "net": "VCC",
+          "type": "passive"
+        }
+      }
+    }
+  }
+}

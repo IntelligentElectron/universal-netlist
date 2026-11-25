@@ -202,6 +202,16 @@ function parseDsnStreams(
     }
   }
 
+  // Each placed part names the library it came from by string index (§7.4);
+  // the Cache keeps one definition per name and library (§5.6).
+  for (const schematicPages of pagesBySchematic.values()) {
+    for (const page of schematicPages) {
+      for (const inst of page.placedInstances) {
+        if (inst.libraryIdx !== undefined) inst.library = strLst[inst.libraryIdx];
+      }
+    }
+  }
+
   // One copy of a child schematic's pages per placement of the block that
   // draws it, carrying that placement's reference designators.
   const { pages, canonicalNetNames, occurrenceRefdes, netProperties } = expandHierarchy(

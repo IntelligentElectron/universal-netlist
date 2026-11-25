@@ -18,7 +18,7 @@ import {
   hasDnsValueMarker,
 } from "../../../circuit-traversal.js";
 import type { PrefixPropertyPair } from "./generic-parser.js";
-import type { CachedLibraryPart, PinMapData } from "./structure-types.js";
+import { libraryPartKey, type CachedLibraryPart, type PinMapData } from "./structure-types.js";
 import type { PlacedInstance } from "./structures.js";
 import type { PageData } from "./page-parser.js";
 import { resolvePinNumber, isPinIgnored, isPackShorted } from "./pin-resolver.js";
@@ -153,32 +153,38 @@ function cleanDnsFromValue(value: string): string {
  * 1. Exact pkgName match
  * 2. sourcePackage + ".Normal" (when pkgName has unit suffix like "FOO_0A.Normal")
  * 3. Suffix-stripped sourcePackage + ".Normal"
+ *
+ * Each is tried first among the parts of the library the instance was placed
+ * from: the Cache can hold another library's symbol under the same name, with
+ * other pin names, and the instance draws its own library's (§5.6).
  */
 export function findCachedPart(
   inst: PlacedInstance,
   cachedParts: Map<string, CachedLibraryPart>
 ): CachedLibraryPart | undefined {
-  const direct = cachedParts.get(inst.pkgName);
-  if (direct) return direct;
-
-  // Try sourcePackage.Normal (e.g., pkgName="IC_VQFN48A.Normal" but the
-  // cachedPart is keyed as "IC_VQFN48.Normal")
+  // pkgName="IC_VQFN48A.Normal" may be cached as "IC_VQFN48.Normal", or under
+  // the sourcePackage with its trailing _N removed.
   const dotIdx = inst.pkgName.indexOf(".");
   const variant = dotIdx >= 0 ? inst.pkgName.substring(dotIdx) : ".Normal";
-  const spKey = inst.sourcePackage + variant;
-  if (spKey !== inst.pkgName) {
-    const spMatch = cachedParts.get(spKey);
-    if (spMatch) return spMatch;
-  }
+  const names = [
+    ...new Set([
+      inst.pkgName,
+      inst.sourcePackage + variant,
+      inst.sourcePackage.replace(/_\d+$/, "") + variant,
+    ]),
+  ];
 
-  // Try stripped sourcePackage (remove trailing _N)
-  const stripped = inst.sourcePackage.replace(/_\d+$/, "");
-  if (stripped !== inst.sourcePackage) {
-    const strippedKey = stripped + variant;
-    const strippedMatch = cachedParts.get(strippedKey);
-    if (strippedMatch) return strippedMatch;
+  const { library } = inst;
+  if (library !== undefined) {
+    for (const name of names) {
+      const own = cachedParts.get(libraryPartKey(library, name));
+      if (own) return own;
+    }
   }
-
+  for (const name of names) {
+    const match = cachedParts.get(name);
+    if (match) return match;
+  }
   return undefined;
 }
 

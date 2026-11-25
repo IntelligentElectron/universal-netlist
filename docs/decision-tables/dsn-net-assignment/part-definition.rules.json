@@ -1,0 +1,57 @@
+{
+  "name": "part-definition",
+  "rules": [
+    {
+      "when": {
+        "own_library": [
+          "lacks the part",
+          "not named"
+        ],
+        "packages_stream": [
+          "holds the part"
+        ]
+      },
+      "outcome": "the Packages/ stream's definition",
+      "next": "",
+      "cells": 4
+    },
+    {
+      "when": {
+        "own_library": [
+          "lacks the part",
+          "not named"
+        ],
+        "packages_stream": [
+          "none"
+        ],
+        "other_library": [
+          "defines the part"
+        ]
+      },
+      "outcome": "the first definition under its name",
+      "next": "",
+      "cells": 2
+    },
+    {
+      "when": {
+        "own_library": [
+          "lacks the part",
+          "not named"
+        ],
+        "packages_stream": [
+          "none"
+        ],
+        "other_library": [
+          "none"
+        ]
+      },
+      "outcome": "no definition",
+      "next": "",
+      "cells": 2
+    }
+  ],
+  "default": {
+    "outcome": "its own library's definition",
+    "next": ""
+  }
+}

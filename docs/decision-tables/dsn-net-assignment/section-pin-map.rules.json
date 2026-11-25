@@ -9,10 +9,14 @@
       },
       "outcome": "the section its suffix names",
       "next": "",
-      "cells": 9
+      "cells": 27
     },
     {
       "when": {
+        "unit_suffix": [
+          "unmapped",
+          "no"
+        ],
         "section_index": [
           "in-range"
         ],
@@ -23,7 +27,7 @@
       },
       "outcome": "the section at its index",
       "next": "",
-      "cells": 6
+      "cells": 12
     },
     {
       "when": {
@@ -31,16 +35,17 @@
           "no"
         ],
         "a_map_under": [
-          "none"
+          "source",
+          "stripped"
         ]
       },
-      "outcome": "no map",
+      "outcome": "section A",
       "next": "",
-      "cells": 7
+      "cells": 14
     }
   ],
   "default": {
-    "outcome": "section A",
+    "outcome": "no map",
     "next": ""
   }
 }

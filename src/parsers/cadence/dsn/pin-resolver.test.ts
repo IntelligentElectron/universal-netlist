@@ -165,6 +165,38 @@ describe("findPinMap", () => {
     expect(findPinMap(inst, maps, unitRefs, 0)).toEqual(["3", "2", "1", "4", "11"]);
   });
 
+  // BeagleBone-AI.dsn: the AM5729's package numbers its 29 sections -1 to -29
+  // and still draws the first 25 as AM57XA to AM57XY. U4's section C was read
+  // with no map at all, so its 84 balls took the ordinals 1 to 84, and so did
+  // every other lettered section's.
+  it("selects a lettered section of a part numbered -1, -2, ... by its section index", () => {
+    const inst = instance("AM57X", 2, "AM57XC.Normal");
+    const maps = new Map<string, (string | null)[]>([
+      ["AM57X-1", ["AE15", "AD15"]],
+      ["AM57X-2", ["AE14", "AD14"]],
+      ["AM57X-3", ["AG21", "AG24"]],
+    ]);
+    const unitRefs = new Map<string, string[]>([["AM57X", ["-1", "-2", "-3"]]]);
+
+    expect(findPinMap(inst, maps, unitRefs, 2)).toEqual(["AG21", "AG24"]);
+    // Past the listed sections, or with no index, there is still no map.
+    expect(findPinMap(inst, maps, unitRefs, 3)).toBeUndefined();
+    expect(findPinMap(inst, maps, unitRefs)).toBeUndefined();
+  });
+
+  it("keeps the section a suffix names when the section index disagrees", () => {
+    // opencellular-sdr-reused-refdes: U9 draws section E's symbol on a record
+    // edited to carry section index 2. The suffix names a stored map, so it wins.
+    const inst = instance("XC7A", 2, "XC7AE.Normal");
+    const maps = new Map<string, (string | null)[]>([
+      ["XC7AC", ["C1", "C2"]],
+      ["XC7AE", ["E1", "E2"]],
+    ]);
+    const unitRefs = new Map<string, string[]>([["XC7A", ["A", "B", "C", "D", "E"]]]);
+
+    expect(findPinMap(inst, maps, unitRefs, 2)).toEqual(["E1", "E2"]);
+  });
+
   it("falls back to section A only when no name lists the section", () => {
     const inst = instance("LM324_0", 5);
     const maps = new Map<string, (string | null)[]>([
@@ -235,12 +267,14 @@ describe("buildDeviceIndexMap", () => {
     expect(map.get(301)).toBe(3);
   });
 
-  it("skips instances whose pkgName already carries a unit suffix", () => {
+  it("indexes an instance whose pkgName carries a unit suffix too", () => {
+    // The suffix resolves its section first; the index answers when the suffix
+    // names no stored map (a part numbered -1, -2, ...).
     const map = buildDeviceIndexMap([
       page([placed("U4", 400, 1, "RPAK_8RESB.Normal"), placed("U5", 401, 0)]),
     ]);
 
-    expect(map.has(400)).toBe(false);
+    expect(map.get(400)).toBe(1);
     expect(map.get(401)).toBe(0);
   });
 
@@ -259,6 +293,93 @@ describe("extractUnitRef", () => {
 
   it("returns undefined when the instance has no unit suffix", () => {
     expect(extractUnitRef(instance("RES", 2))).toBeUndefined();
+  });
+});
+
+describe("a part's definition comes from the library it was placed from", () => {
+  const index = (
+    maps: Record<string, (string | null)[]>,
+    units?: [string, string[]]
+  ): PinMapData => ({
+    ...pinMapData(maps, maps),
+    deviceUnitRefs: new Map(units ? [units] : []),
+  });
+  const SIM = "C:\\CAPTURE\\LIBRARY\\PSPICE\\OPAMP.OLB";
+  const PCB = "C:\\CAPTURE\\LIBRARY\\OPAMP.OLB";
+
+  // LAB10COMM.DSN: the Cache holds three parts named LM324, from three
+  // libraries, with the output at position 3 in one and 5 in another. The
+  // first one's map put U2's output on pin 11, the negative supply.
+  it("reads a section's pins from its own library, not the first part of that name", () => {
+    const units: [string, string[]] = ["LM324", ["A", "B"]];
+    const pcb = index(
+      { LM324A: ["3", "2", "1", "4", "11"], LM324B: ["5", "6", "7", "4", "11"] },
+      units
+    );
+    const sim = index(
+      { LM324A: ["3", "2", "4", "11", "1"], LM324B: ["5", "6", "4", "11", "7"] },
+      units
+    );
+    const pmd: PinMapData = {
+      ...pcb,
+      libraries: new Map([
+        [PCB, pcb],
+        [SIM, sim],
+      ]),
+    };
+    const inst = { ...instance("LM324", 5), library: SIM };
+
+    expect(resolvePinNumber(pin(5), inst, pmd, 1)).toBe("7");
+    expect(resolvePinNumber(pin(4), inst, pmd, 1)).toBe("11");
+    // The same symbol placed from the other library reads that library's map.
+    expect(resolvePinNumber(pin(5), { ...inst, library: PCB }, pmd, 1)).toBe("11");
+  });
+
+  // PROIECT-PCB.DSN: Q5's Packages/ stream lists 1,3,2 and its own library
+  // 1,2,3, both three pins long. Capture's export follows the library.
+  it("prefers its own library to a Packages/ map of the same length", () => {
+    const own = index({ "NPN BCE": ["1", "2", "3"] });
+    const pmd: PinMapData = {
+      ...pinMapData({ "NPN BCE": ["1", "3", "2"] }, { "NPN BCE": ["1", "2", "3"] }),
+      libraries: new Map([[PCB, own]]),
+    };
+    const inst = { ...instance("NPN BCE", 3), library: PCB };
+
+    expect(resolvePinNumber(pin(2), inst, pmd)).toBe("2");
+  });
+
+  it("falls back to the shared index when its library does not define the part", () => {
+    const pmd: PinMapData = {
+      ...pinMapData({ RES: ["1", "2"] }),
+      libraries: new Map([[PCB, index({ CAP: ["A", "B"] })]]),
+    };
+
+    expect(resolvePinNumber(pin(2), { ...instance("RES", 2), library: PCB }, pmd)).toBe("2");
+    expect(resolvePinNumber(pin(2), { ...instance("RES", 2), library: SIM }, pmd)).toBe("2");
+    expect(resolvePinNumber(pin(2), instance("RES", 2), pmd)).toBe("2");
+  });
+
+  it("reads Pin Ignore from the same definition as the number", () => {
+    const own: PinMapData = {
+      ...pinMapData({}, { CON: ["1", "2"] }, {}, { CON: [false, true] }),
+    };
+    const pmd: PinMapData = {
+      ...pinMapData({ CON: ["1", "2"] }, {}, { CON: [false, false] }),
+      libraries: new Map([[PCB, own]]),
+    };
+
+    expect(isPinIgnored(pin(2), { ...instance("CON", 2), library: PCB }, pmd)).toBe(true);
+    expect(isPinIgnored(pin(2), instance("CON", 2), pmd)).toBe(false);
+  });
+
+  it("counts a package as multi-section by its own library's definition", () => {
+    const pmd: PinMapData = {
+      ...index({ PACKA: ["1"], PACKB: ["2"] }, ["PACK", ["A", "B"]]),
+      libraries: new Map([[PCB, index({ PACK: ["1", "2"] })]]),
+    };
+
+    expect(isMultiSection(instance("PACK", 2), pmd)).toBe(true);
+    expect(isMultiSection({ ...instance("PACK", 2), library: PCB }, pmd)).toBe(false);
   });
 });
 
