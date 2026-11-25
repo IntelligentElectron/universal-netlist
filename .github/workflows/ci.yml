@@ -18,7 +18,44 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # A pull request that changes only Markdown has nothing to compile or test,
+  # so it skips `build`. GitHub counts a skipped job as passed, which keeps the
+  # required `build` check satisfied. Markdown under plugins/ and
+  # docs/decision-tables/ belongs to what the tests check, so it still builds.
+  # A release call is not a pull request and always builds.
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      code: ${{ steps.diff.outputs.code }}
+    steps:
+      # A pull request is checked out as its merge commit: the first parent is
+      # the base, so two commits are enough to list what the PR changes.
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 2
+
+      - name: Detect code changes
+        id: diff
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          code=true
+          if [ "$EVENT_NAME" = pull_request ]; then
+            files=$(git diff --name-only --no-renames HEAD^1 HEAD)
+            echo "$files"
+            if [ -n "$files" ] \
+              && ! grep -qvE '\.md$' <<<"$files" \
+              && ! grep -qE '^(plugins|docs/decision-tables)/' <<<"$files"; then
+              code=false
+            fi
+          fi
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+
   build:
+    needs: changes
+    # Only an explicit "no code changed" skips the build. If `changes` itself
+    # fails, the build still runs, so a broken detector cannot pass the check.
+    if: ${{ !cancelled() && needs.changes.outputs.code != 'false' }}
     runs-on: ubuntu-latest
 
     steps:
