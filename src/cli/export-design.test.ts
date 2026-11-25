@@ -28,6 +28,9 @@ const exportDesign = (...tokens: string[]) =>
 
 const readDocument = async (file: string) => JSON.parse(await readFile(file, "utf-8"));
 
+/** For a test that parses a large Cadence fixture. */
+const PARSE_TIMEOUT = 30_000;
+
 let dir: string;
 beforeEach(async () => {
   dir = await mkdtemp(path.join(os.tmpdir(), "export-design-"));
@@ -234,20 +237,26 @@ describe("export_design refuses a design the file cannot hold", () => {
     ).toBeUndefined();
   });
 
-  it.skipIf(!hasFixtures)("still refuses a reused reference designator first", async () => {
-    const source = fixturePath(
-      "cadence",
-      "opencellular-sdr-reused-refdes",
-      "OC_CONNECT1_SDR_REV_C_REUSED_REFDES.DSN"
-    );
-    const out = path.join(dir, "reused.netlist.json");
+  // The design is 2.8 MB and takes several seconds to parse, more on a loaded
+  // runner: the default 5 s is not enough.
+  it.skipIf(!hasFixtures)(
+    "still refuses a reused reference designator first",
+    async () => {
+      const source = fixturePath(
+        "cadence",
+        "opencellular-sdr-reused-refdes",
+        "OC_CONNECT1_SDR_REV_C_REUSED_REFDES.DSN"
+      );
+      const out = path.join(dir, "reused.netlist.json");
 
-    const outcome = await exportDesign(source, "--output", out);
+      const outcome = await exportDesign(source, "--output", out);
 
-    expect(outcome.exitCode).toBe(1);
-    expect(JSON.parse(outcome.stdout!).error).toMatch(/^R4003 is used by 2 different parts/);
-    expect(existsSync(out)).toBe(false);
-  });
+      expect(outcome.exitCode).toBe(1);
+      expect(JSON.parse(outcome.stdout!).error).toMatch(/^R4003 is used by 2 different parts/);
+      expect(existsSync(out)).toBe(false);
+    },
+    PARSE_TIMEOUT
+  );
 });
 
 describe.skipIf(!hasFixtures)("export_design on a design with named variants", () => {
